@@ -9666,6 +9666,14 @@
     coast_italy: { files: ["coast/italy.js"], after: hiresCoastIngest },
     coast_greece: { files: ["coast/greece.js"], after: hiresCoastIngest },
     coast_china: { files: ["coast/china.js"], after: hiresCoastIngest },
+    /* HI-RES RIVERS for the same two frames (Sep 2026, on request). Their own bundles rather than files
+       inside coast_italy / coast_greece: the coast is what a window is drawn ON and the rivers are a layer
+       over it, the coast files are warmed for China too where there is no river file, and a reader on a
+       thin connection who gets one and not the other still has a better map than before. Warmed at IDLE by
+       the locator windows of the collection that frames it, never awaited — the card paints on rivers.js
+       and the water sharpens when the file lands. ~89 KB and ~47 KB. */
+    river_italy: { files: ["rivers/italy.js"], after: hiresRiverIngest },
+    river_greece: { files: ["rivers/greece.js"], after: hiresRiverIngest },
     /* The glossary's citations + illustrations. Warmed at IDLE after boot (see the warm below) rather
        than fetched on the first popup, because popups are common and a reader should not wait: the
        point is only to keep 1.29 MB off the path that blocks first paint. openGlossWin awaits it for
@@ -28736,6 +28744,23 @@
      state of 0.44 km² — which on any card framing Rome is a square nobody asked about. Italy's polygon
      has no hole there, so leaving the shape out leaves the land whole. */
   const CMAP_SKIP = { Vatican: true };
+  /* THE COLLECTION'S HOME CITY, ON EVERY MAP IN IT (Sep 2026, on request: "Rome should always be visible
+     in the Roman collection, with a slightly larger red square as icon, and Athens should have the same in
+     the Ancient Greek collection"). Every other red mark on a locator's map is EARNED — a sibling appears
+     once its card has been studied — so a reader three cards into Ancient Rome sees the Mediterranean with
+     one gold mark on it and nothing to place it against. The city the whole collection is about is the one
+     fixed point worth giving them, and it is drawn whether or not any card has taught it.
+     ITS COORDINATE IS DECLARED HERE RATHER THAN LOOKED UP, and that is not laziness about generated data:
+     the two obvious sources both fail the word ALWAYS. cities.js is the `atlas` bundle, warmed at idle, so
+     a mark taken from it would be absent for the first second of every card; and the collection's own
+     locators would give Rome (39 cards stand `within` it) and NOT Athens, which no Greek card has yet.
+     Two cities, each named beside its own numbers, is a table a reader of this file can check.
+     A SQUARE, because that is the mark this window already gives a seat of government, and larger than a
+     sibling's dot because it is the one place on the map that is there by right. */
+  const CMAP_ANCHOR = {
+    "col-40": { n: "Rome", c: [12.4964, 41.9028] },
+    "col-13": { n: "Athens", c: [23.7275, 37.9838] },
+  };
   function hiresCoastIngest() {
     const q = window.HIRES_COAST_IN;
     if (!Array.isArray(q)) return;
@@ -28746,6 +28771,25 @@
       const m = new Map();
       e.shapes.forEach((sh) => { if (sh && sh.n && sh.r && typeof sh.r === "object") m.set(sh.n, sh.r); });
       window.HIRES_COAST[e.region] = m;
+    }
+  }
+  /* THE FRAME'S HI-RES RIVERS (Sep 2026, on request: "Rivers in Italy in the Roman deck and Greek rivers
+     in the Greek deck should have a much higher resolution on the atlas windows, and there should be more
+     of them"). The coast's sibling, and deliberately a REPLACEMENT rather than the coast's splice: a
+     coastline is spliced ring by ring because a land border is shared with a neighbour and a hi-res copy
+     over the low-res one doubles it, where a river shares nothing and can simply be drawn instead. So the
+     file names the rivers.js entries it takes over (`supersede`) and carries them, plus the ones rivers.js
+     never had — the European supplement's Arno, Volturno, Acheloos and Haliacmon among them. A river is
+     replaced WHOLE and never clipped to the frame: the two chains are up to 5 km apart, and a box edge
+     inside a card's opening view would show the jog. See .claude/build-hires-rivers.js. */
+  function hiresRiverIngest() {
+    const q = window.HIRES_RIVER_IN;
+    if (!Array.isArray(q)) return;
+    window.HIRES_RIVER = window.HIRES_RIVER || {};
+    while (q.length) {
+      const e = q.shift();
+      if (!e || !e.region || !Array.isArray(e.rivers)) continue;
+      window.HIRES_RIVER[e.region] = { sup: new Set(Array.isArray(e.supersede) ? e.supersede.map(String) : []), rivers: e.rivers };
     }
   }
   /* A LOCATOR has no shape to read a zoom off, so it takes one: about a 50° window, which puts Knossos in
@@ -28873,6 +28917,18 @@
        and thrown away when a different bundle object lands — a per-frame map over 117,000 vertices is not
        something a drag can afford. Before the bundle arrives it is world.js's own rings, untouched. */
     const hiRegion = sibCard ? (CMAP_HIRES[(cardCollectionRoot(sibCard) || {}).id] || "") : "";
+    /* The collection's home city (see CMAP_ANCHOR) — dropped on the card that IS that city, or on one
+       standing inside it, where the answer's own gold mark is already there and a red square beside it
+       would be a second name for one place. */
+    const anchor = (() => {
+      const a = sibCard ? CMAP_ANCHOR[(cardCollectionRoot(sibCard) || {}).id] : null;
+      if (!a) return null;
+      const k = a.n.toLowerCase();
+      if (locWithin === k) return null;
+      const me = sibCard ? cardLocator(CARD_BY_ID[sibCard]) : null;
+      if (me && String(me.name || "").trim().toLowerCase() === k) return null;
+      return a;
+    })();
     let hiFor = null, hiCache = null;
     function effRings(g) {
       const HI = hiRegion && window.HIRES_COAST ? window.HIRES_COAST[hiRegion] : null;
@@ -28885,6 +28941,21 @@
         hiCache.set(g, r);
       }
       return r;
+    }
+    /* THE RIVERS THIS WINDOW DRAWS: rivers.js with the frame's hi-res set swapped in — the superseded
+       entries dropped and the region's own appended, so a river is never drawn twice and the map gains the
+       ones the world file leaves out. Memoised on the pair of tables rather than rebuilt per frame: this
+       runs on a globe the reader is dragging. Before the bundle lands it is rivers.js, untouched. */
+    let rivHi = null, rivLow = null, rivList = null;
+    function effRivers() {
+      const LOW = window.RIVERS || [];
+      const HR = hiRegion && window.HIRES_RIVER ? window.HIRES_RIVER[hiRegion] : null;
+      if (!HR) return LOW;
+      if (rivHi !== HR || rivLow !== LOW) {
+        rivHi = HR; rivLow = LOW;
+        rivList = LOW.filter((r) => !HR.sup.has(String(r.n))).concat(HR.rivers);
+      }
+      return rivList;
     }
     let rotLon = 0, rotLat = 0, zoom = 1, homeLon = 0, homeLat = 0, homeZoom = 1;
     let W = 0, H = 0, cx = 0, cy = 0, R = 0, baseR = 0, dpr = 1;
@@ -29249,7 +29320,7 @@
           if (fits(left)) { placed.push(left); return { x: x - 8, align: "right" }; }
           return null;
         };
-        const RIV = window.RIVERS || [];
+        const RIV = effRivers();
         /* Only a card whose own answer is a river has anything to look up, and this loop runs 1,073 times
            a frame on a globe being dragged — so the lowercasing is skipped outright for every other card
            rather than done and thrown away. */
@@ -29332,6 +29403,8 @@
             if (!S.cards || !S.cards[d.id]) continue;
             const key = String(d.within || d.n || "").trim().toLowerCase();
             if (!key || (locWithin && key === locWithin)) continue;
+            // the home city has its own, larger mark below, drawn studied or not
+            if (anchor && key === anchor.n.toLowerCase()) continue;
             const isCity = !d.within || String(d.n || "").trim().toLowerCase() === key;
             let g = groups.get(key);
             if (!g) { g = { n: d.within || d.n, c: d.c, kind: d.kind, city: isCity }; groups.set(key, g); }
@@ -29344,8 +29417,14 @@
             sibAt.push([PX, PY, g.n, g.kind]);
           });
         }
-        const nearSib = (x, y) => { for (let j = 0; j < sibAt.length; j++) if (Math.abs(sibAt[j][0] - x) < 7 && Math.abs(sibAt[j][1] - y) < 7) return true; return false; };
-        const capAt = [];
+        /* Where the home city falls, if it is on this side of the globe. Taken before the capitals are
+           drawn, so the grey square underneath it can stand aside for it exactly as it does for a
+           sibling — two marks on one city say less than either. */
+        let anchorAt = null;
+        if (anchor) { proj(anchor.c[0], anchor.c[1]); if (PV >= 0 && PX > -20 && PY > -20 && PX < W + 20 && PY < H + 20) anchorAt = [PX, PY]; }
+        const nearSib = (x, y) => {
+          if (anchorAt && Math.abs(anchorAt[0] - x) < 7 && Math.abs(anchorAt[1] - y) < 7) return true;
+          for (let j = 0; j < sibAt.length; j++) if (Math.abs(sibAt[j][0] - x) < 7 && Math.abs(sibAt[j][1] - y) < 7) return true; return false; };
         const CTS = window.CITIES || [];
         if (CTS.length) {
           /* Capitals, million-plus cities and division capitals — `r` 0, 1 and 2, exactly the three the
@@ -29372,9 +29451,14 @@
              displayed with a prominent square icon instead of a dot"), the mark every atlas gives a seat
              of government; the million-plus cities keep their quiet dots. A capital that sits under one of
              the collection's own marks is not drawn — the red mark says more about it than the square
-             would, and two marks on one pixel read as neither. Its NAME is set after the collection's
-             names have taken their places, in a smaller, quieter face, so a capital is labelled wherever
-             there is room and never at a card's expense. */
+             would, and two marks on one pixel read as neither.
+             THE SQUARE IS ALL OF IT — A MODERN CAPITAL IS NOT NAMED HERE (Sep 2026, on request: "modern
+             capitals should not have their text labels shown, only their squares"). They were named once
+             the frame was a region rather than a continent, which on a card about the Roman Republic put
+             Tirana, Valletta and Podgorica in the same face and the same weight as the places the
+             collection teaches — a map of modern states with a history card's marks on it. The square
+             still gives the reader the seat of government to place a site against, which is what this
+             layer is for; the words on this map belong to the collection. */
           const tierZ = zoom >= CMAP_ZLOC * 1.75 ? 1 : 0;
           for (let i = 0; i < CTS.length; i++) {
             const ct = CTS[i], r = ct.r | 0;
@@ -29387,7 +29471,6 @@
               const q = 2.7;
               ctx.fillStyle = rgbaOf("#000000", 0.74); ctx.fillRect(PX - q, PY - q, q * 2, q * 2);
               ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.9); ctx.strokeRect(PX - q, PY - q, q * 2, q * 2);
-              capAt.push([PX, PY, ct.n]);
             } else {
               ctx.beginPath(); ctx.arc(PX, PY, 1.5, 0, Math.PI * 2);
               ctx.fillStyle = rgbaOf("#000000", 0.2); ctx.fill();
@@ -29421,6 +29504,21 @@
             ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.75); ctx.stroke();
           }
         }
+        /* …and the collection's home city over them, a red square rather than a dot and a little bigger
+           than one (see CMAP_ANCHOR). Its name is set BEFORE the siblings take their boxes, so the one
+           mark that is on every map in the collection is also the one that is always labelled. */
+        if (anchorAt) {
+          const q = 4.4;
+          ctx.fillStyle = "rgba(200,69,60,.92)"; ctx.fillRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2);
+          ctx.lineWidth = 1.2; ctx.strokeStyle = rgbaOf("#ffffff", 0.8); ctx.strokeRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2);
+          ctx.font = "600 11.5px " + font; ctx.textBaseline = "middle";
+          const at = placeLabel(anchorAt[0], anchorAt[1], anchor.n, 8);
+          if (at) {
+            ctx.textAlign = at.align;
+            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(anchor.n, at.x, anchorAt[1]);
+            ctx.fillStyle = ink; ctx.fillText(anchor.n, at.x, anchorAt[1]);
+          }
+        }
         ctx.font = "500 11px " + font; ctx.textBaseline = "middle";
         for (let i = 0; i < sibAt.length; i++) {
           /* EVERY NAME ON THIS MAP OPENS ON A CAPITAL (Aug 2026, on request: "All locations in the atlas
@@ -29437,23 +29535,6 @@
           ctx.textAlign = at.align;
           ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, at.x, sibAt[i][1]);
           ctx.fillStyle = ink; ctx.fillText(nm, at.x, sibAt[i][1]);
-        }
-        /* …and the capitals' names, where the collection's have left room — but only once the frame is a
-           region rather than a continent. At the Roman Republic's opening view, which is the whole
-           Mediterranean, every capital from Nassau to Colombo is in the window and naming them all made a
-           map about the Republic read as a map of modern states; the squares stay, the names wait for the
-           reader to come closer. ~3.5 is a window of about 55 degrees, the locator's own opening size. */
-        if (capAt.length && zoom >= 3.5) {
-          ctx.font = "500 10px " + font;
-          for (let i = 0; i < capAt.length; i++) {
-            const nm = gameCapFirst(capAt[i][2]);
-            if (!nm) continue;
-            const at = placeLabel(capAt[i][0], capAt[i][1], nm, 6);
-            if (!at) continue;
-            ctx.textAlign = at.align;
-            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, at.x, capAt[i][1]);
-            ctx.fillStyle = rgbaOf(ink, 0.72); ctx.fillText(nm, at.x, capAt[i][1]);
-          }
         }
       }
       /* ---------- A RANGE IS A ROW OF MOUNTAINS ALONG ITS SPINE (Aug 2026, on request: "it should not
@@ -29696,6 +29777,8 @@
       whenIdle(() => { if (!stopped) ensureData("atlas").then(() => { if (!stopped) schedule(); }); });
       // …and the frame's hi-res coast, on the same bargain (see CMAP_HIRES)
       if (hiRegion) whenIdle(() => { if (!stopped) ensureData("coast_" + hiRegion).then(() => { if (!stopped) { hiFor = null; schedule(); } }); });
+      // …and its hi-res rivers, where the frame has a set (Italy and Greece; China has none)
+      if (hiRegion && DATA_BUNDLES["river_" + hiRegion]) whenIdle(() => { if (!stopped) ensureData("river_" + hiRegion).then(() => { if (!stopped) schedule(); }); });
     }
     host.classList.add("mc-loading");
     /* The points table is a THIRD bundle, and only where this card asks for a dot — see `pointsBundle`

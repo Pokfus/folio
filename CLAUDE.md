@@ -120,6 +120,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
 | `usstates` | `us-states.js` `lakes.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing. **`lakes.js` rides here because `world.js` has NO LAKE HOLES** — the Great Lakes sit inside the USA polygon, so a card map drew five inland seas as grey fields with an outline round each; it is listed in `atlas` too, which is harmless because `lakes.js` ASSIGNS `window.LAKES` rather than pushing onto a queue. **The card map STROKES a lake shore where the Atlas does not**, in the world layer's own coast ink: on a world globe a lake is a small blue mark, on a card zoomed to one state a Great Lake is half the window, and an unstroked shore beside a stroked ocean coast reads as two kinds of edge on one map |
+| `river_italy` / `river_greece` | `rivers/<region>.js` | warmed at IDLE by a LOCATOR window in the Rome or Greece collection, never awaited (China has no river file) |
 | `worldcaps` | `world-capitals.js` | a map card asks for a DOT on the `world` layer (a capital card in the world collection). Its own bundle, and fetched only when a card carries `map.dot`: the shapes are `world`'s, which every map window already loads for the coastline under it, and a locator card reads those shapes and never this table |
 | `glossExtra` | `glossary-extra.js` | **warmed at IDLE after boot**, and awaited by `openGlossWin` for a reader who beats the warm. The glossary's CITATIONS and ILLUSTRATIONS — 54% of `glossary.js`, and nothing reads either until a popup opens |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
@@ -1390,6 +1391,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   reason the i18n files push). **Lazy** (`coast_<region>`), **generated — never hand-edited**, by
   `.claude/build-hires-coasts.js`. A sparse patch over world.js's own rings rather than a second world
   map, so nothing doubles; see the map-card bullet under "How the app is wired".
+- `rivers/italy.js`, `rivers/greece.js` — the **hi-res rivers** for the Rome and Greece collections' card
+  maps (`window.HIRES_RIVER_IN.push({ region, supersede, rivers })`, a QUEUE for the reason the coast
+  files push). **Lazy** (`river_<region>`), **generated — never hand-edited**, by
+  `.claude/build-hires-rivers.js`. Unlike the coast beside it this is a REPLACEMENT rather than a splice —
+  a river shares no vertices with anything, so `supersede` names the `rivers.js` entries it takes over and
+  the window draws these instead. **A river is replaced WHOLE and never clipped to the frame**: the two
+  chains are up to 5 km apart, and the box edge is inside a card's opening view, so a clip would put the
+  jog on screen. It also carries the rivers `rivers.js` never had, out of Natural Earth's European
+  supplement — 53 named rivers for Italy where the world file has 21, and 30 for Greece where it has 8.
 - `.claude/fetch-geo-images.js` + `.claude/contact-sheet.py` — the geography picture pass's two tools.
   The fetcher takes a batch naming, per card, either a `subject` (a landmark article, for a REGION) or a
   `city`, and returns `add-images.js`'s own batch shape with the licence, size and attribution read off
@@ -2900,6 +2910,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     that frames it, never awaited and never by a map card or the Atlas. **📖 read
     `.claude/build-hires-coasts.js`'s header before touching it** — it records why the coast is classified
     off the 10m data rather than off world.js, and why Russia is left out of the China frame.
+  · **HI-RES RIVERS, ON THE SAME TWO FRAMES** (`hiresRiverIngest`, `effRivers`, `rivers/<region>.js`, the
+    `river_italy` / `river_greece` bundles; Sep 2026, on request: "Rivers in Italy in the Roman deck and
+    Greek rivers in the Greek deck should have a much higher resolution … and there should be more of
+    them"). **DELIBERATELY NOT THE COAST'S SPLICE**: a coastline is spliced ring by ring because a land
+    border is shared with a neighbour and a hi-res copy over the low-res one doubles it, where a river
+    shares nothing and can simply be drawn INSTEAD — so the file names the `rivers.js` entries it takes
+    over and `effRivers` hands the draw loop that set minus those, plus the region's own. **The one way it
+    can go wrong is a name the region carries that `rivers.js` also has and `supersede` does not name**,
+    which draws the same river twice about five kilometres apart; `test-card-locator.js` section 4 checks
+    that on the DATA rather than on the ink, that being where it can actually happen. Warmed at idle beside
+    the coast and never awaited, so the card paints on `rivers.js` and the water sharpens when the file
+    lands. **📖 read `.claude/build-hires-rivers.js`'s header before touching it** — why a river is
+    replaced whole rather than clipped to the frame, and where the extra rivers come from.
+  · **A MODERN CAPITAL IS A SQUARE AND NOTHING ELSE** (Sep 2026, on request: "modern capitals should not
+    have their text labels shown, only their squares"). They were named once the frame was a region rather
+    than a continent, which on a Roman Republic card put Tirana, Valletta and Podgorica in the same face
+    and weight as the places the collection teaches — a map of modern states with a history card's marks on
+    it. The square still gives a reader a seat of government to place a site against, which is the whole
+    of what that layer is for; **the words on this map belong to the collection.** `capAt` is DELETED
+    rather than left unread, a register nothing draws from being the next session's bug.
+  · **THE COLLECTION'S HOME CITY IS ON EVERY MAP IN IT** (`CMAP_ANCHOR`; Sep 2026, on request: "Rome
+    should always be visible in the Roman collection, with a slightly larger red square as icon, and Athens
+    should have the same in the Ancient Greek collection"). Every other red mark is EARNED — a sibling
+    appears once its card has been studied — so a reader three cards into Ancient Rome met the
+    Mediterranean with one gold mark on it and nothing to place it against. **ITS COORDINATE IS DECLARED
+    RATHER THAN LOOKED UP, and both obvious sources fail the word ALWAYS**: `cities.js` is the `atlas`
+    bundle, warmed at idle, so a mark taken from it is absent for the first second of every card; and the
+    collection's own locators would give Rome (39 cards stand `within` it) and NOT Athens, which no Greek
+    card has yet. Two cities, each named beside its own numbers, is a table this file's reader can check.
+    It is dropped on the card that IS that city or stands inside it — the answer's gold mark is already
+    there — it suppresses the studied sibling group of the same name and the grey capital square under it,
+    and its label is placed BEFORE the siblings take their boxes, so the one mark on every map is also the
+    one always named.
   **📖 `docs/map-cards.md` — READ BEFORE CHANGING ANY OF IT.** Why the globe is drawn here rather than by
   reusing the Atlas, the fit's near-rings rule and the Alaska and District of Columbia exceptions, the three
   attempts it took to prove the fill is a tint, `h2r` learning `rgb()`, where the facts box sits and why,
