@@ -1775,7 +1775,8 @@ window.GLOSSARY = {
 "Persians_(play)": "Persians is a tragedy by Aeschylus, first produced at Athens in 472 BCE, and the only Greek tragedy to survive that takes a recent historical event rather than a story from myth as its subject.<sup class=\"fn\" data-fn=\"1\"></sup> It is set at Susa, where a chorus of Persian elders, the queen mother Atossa and the ghost of Darius hear by messenger of the defeat at Salamis, related at length and entirely from the losing side.<sup class=\"fn\" data-fn=\"2\"></sup> It closes with the king coming home in torn clothes to a sung lament, and the ancient life of the poet reports that the play was staged again in Sicily at the wish of Hiero.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Medism": "Medism was the Greek term for taking the side of the Persian king, named from the Medes, ranging from granting the earth and water his heralds demanded to serving in his army.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus names those who submitted without compulsion, among them the Thessalians and the Thebans with all Boeotia except Thespiae and Plataea, and records an oath to give a tenth of such a state's property to the god at Delphi.<sup class=\"fn\" data-fn=\"1\"></sup> It was also a charge levelled between Greek cities, and the Thebans answered it by pleading that a narrow cabal had held their city and brought the Persians in against the will of the rest.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Epigram": "An epigram in Greek is an inscription, the word meaning precisely that, and the earliest are short pieces of verse cut on a stone or an object to say what it is, whom it commemorates or who dedicated it.<sup class=\"fn\" data-fn=\"1\"></sup> Almost all are in elegiac couplets, the metre used for inscriptions from the earliest records, since before prose came into use anything an inscription said beyond a bare name had to be in verse.<sup class=\"fn\" data-fn=\"1\"></sup> Many survive on the stones themselves and many more in the anthologies compiled from them, where far more verse travels under a famous name than any early source assigns to it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Themistoclean_Wall": "The Themistoclean Wall is the fortification circuit built round Athens in 479 BCE, immediately after the Persian withdrawal had left the city burnt and most of the earlier wall pulled down.<sup class=\"fn\" data-fn=\"1\"></sup> Sparta sent an embassy asking that it not be built, and Thucydides reports that Themistocles went there to spin out the discussion while the whole population raised the wall behind him, sparing no building for its stone.<sup class=\"fn\" data-fn=\"2\"></sup> The haste is still legible in the masonry, whose foundations mix stones of every kind, some unworked and unfitted, with column drums from tombs and carved blocks set in among them.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Themistoclean_Wall": "The Themistoclean Wall is the fortification circuit built round Athens in 479 BCE, immediately after the Persian withdrawal had left the city burnt and most of the earlier wall pulled down.<sup class=\"fn\" data-fn=\"1\"></sup> Sparta sent an embassy asking that it not be built, and Thucydides reports that Themistocles went there to spin out the discussion while the whole population raised the wall behind him, sparing no building for its stone.<sup class=\"fn\" data-fn=\"2\"></sup> The haste is still legible in the masonry, whose foundations mix stones of every kind, some unworked and unfitted, with column drums from tombs and carved blocks set in among them.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Piraeus_wall": "The Piraeus wall is the fortification carried round the harbour peninsula south-west of Athens, which Themistocles urged the city to finish after the Persian invasion and which enclosed three natural harbours in place of the open bay at Phaleron.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Thucydides describes it as built to a thickness two wagons could meet on, of squared stones laid without rubble or mortar and clamped outside with iron and lead, and says only about half the intended height was reached.<sup class=\"fn\" data-fn=\"1\"></sup> Its bulk was meant to let a garrison of men unfit for service hold the circuit while everyone else served in the fleet, the harbour being reckoned worth more than the upper city.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3684,7 +3685,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Histories_(Herodotus)": ["Herodotus' Histories","Histories of Herodotus"],
 "Persians_(play)": ["Persae"],
 "Medism": ["medizing","medize"],
-"Themistoclean_Wall": ["Themistoclean walls"]
+"Themistoclean_Wall": ["Themistoclean walls"],
+"Piraeus_wall": ["walls of the Piraeus","Piraeus walls"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5489,7 +5491,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Persians_(play)": ["text","literature","history","greece","iran"],
 "Medism": ["concept","history","politics","greece","iran"],
 "Epigram": ["concept","literature","poetry","greece","history"],
-"Themistoclean_Wall": ["building","history","warfare","greece","politics"]
+"Themistoclean_Wall": ["building","history","warfare","greece","politics"],
+"Piraeus_wall": ["building","history","warfare","greece","politics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
