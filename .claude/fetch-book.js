@@ -13715,15 +13715,24 @@ const BOOKS = {
        real `dose`, papers `torn` down, the Syrian city `Homs`, archaic `doth`, and in Marco Polo's
        notes the Old French `corne` and `cornes` and the manuscript called the *Liber Horne*. What
        survives is only what is no word at all in any language the book quotes. */
-    /* E15'S `corning` ROW WAS HERE AND IS REMOVED (Sep 2026, batch E19). It could never fire: the
-       word `corning` does not occur in this translation at all, only the three `scorning`s the row
-       was anchored to spare, and the passage its note described — "by the dove coming upon the Lord
-       when He was baptized" — is not in this book either, which reads "the Holy Ghost descended upon
-       Him in the shape of a dove". E4's candidate was itself a substring match inside `scorning`, so
-       E15 wrote a careful boundary anchor around a fault that was not there and announced it as
-       repaired. What made that possible is the cache fault this batch fixes: on a cached run every
-       row reported DEAD, so a genuinely dead one said nothing a live one did not. The trap it
-       documents is real and is kept in the plan's E15 entry; a row that can never fire is not. */
+    /* E15'S `corning` ROW WAS REMOVED IN E19 AND IS RESTORED HERE, BECAUSE E19 WAS WRONG ABOUT IT
+       (Sep 2026, batch E30). E19 read the SHIPPED file, found no standalone `corning` and no such
+       passage, and concluded the row could never fire — "the word occurs only inside `scorning`,
+       which the row is anchored to spare". Both halves are false. Refetching this book from
+       Wikisource puts the fault straight back: chapter 461 reads *"the Holy Ghost was sent visibly
+       in two ways---namely, by the dove **corning** upon the Lord when He was baptized"*, one
+       standalone occurrence against three `scorning`s, exactly as E15 described it.
+
+       WHAT E19 WAS ACTUALLY LOOKING AT WAS ITS OWN REPAIR. The shipped file read `coming` because
+       the cache held prose an earlier run had corrected WITH THIS ROW — so the row was alive, had
+       done its work, and reported itself dead for the very reason E19's own batch was written to
+       document. E19 then took the dead report at face value and deleted it: the trap catching the
+       batch that named it. Nothing was lost to a reader, because the cached prose carried the
+       repair; the row was gone and the next refetch would have shipped `corning`, which is what
+       E30's refresh did before it was put back.
+
+       The lesson is E19's own, one turn further on: a dead-row report is evidence about the TEXT IN
+       HAND, never about the source. Check the source before removing a row. */
     /* ---------- THE BIGGEST BOOK ON THE SHELF, SWEPT (Sep 2026, batch E21) ----------
        2.5 million words, and its candidate list had never been read. All 245 were, and the great
        majority are this book's own LATIN — `accidens`, `agens`, `conditio`, `ambitione`, `De
@@ -13741,6 +13750,8 @@ const BOOKS = {
        wrong place, invisible to every sweep here, and was found only because `substnaces` four words
        later brought a reader to the sentence. */
     reFixes: [
+      [/(?<![A-Za-z])corning(?![A-Za-z])/g, "coming",
+       "an rn read for the m of `coming`, of the dove at the baptism — anchored to spare `scorning`"],
       /* ---------- WHAT THE FILTER HID (Sep 2026, batch E22) ----------
          E21 found `Wheather` sitting in the UNFILTERED candidate list, because an inserted `a` is not
          one of the confusion classes E20 and E21 read through. Widening that set by exactly the two
@@ -25202,6 +25213,7 @@ async function fetchEnglish() {
       // the cache holds the extracted prose only — the title and the part are re-derived on every
       // run, so re-titling or re-dividing a book costs no refetch
       const c = JSON.parse(fs.readFileSync(cf, "utf8"));
+      if (c.raw) CACHE_RAW++; else CACHE_LEGACY++;
       /* AND THE CORRECTIONS ARE RE-APPLIED HERE, WHICH THEY WERE NOT (Sep 2026, batch E19).
          `correctRaw` is called on the FETCH path a few lines below and nowhere else on this branch,
          so a row added to a book whose chapters were already cached did nothing at all until
@@ -25387,7 +25399,11 @@ async function fetchEnglish() {
        which is what `titlesCorrected` declares and why that flag still holds for the Three Kingdoms:
        `sanKuoHead` reads the title off the raw page now, so it is corrected once, here, exactly as
        it was when the whole page was corrected before it. */
-    fs.writeFileSync(cf, JSON.stringify(rec));
+    /* `raw: 1` says this record holds the EXTRACTOR's output and not a corrected copy of it — see
+       CACHE_RAW above. It is written onto a copy rather than onto `rec`, which is the record the
+       book file is serialized from and must carry nothing this script invented. */
+    fs.writeFileSync(cf, JSON.stringify(Object.assign({ raw: 1 }, rec)));
+    CACHE_RAW++;
     rec.html = correctRaw(rec.html);
     rec.notes = (rec.notes || []).map(correctRaw);
     chapters.push(rec);
@@ -25430,6 +25446,15 @@ async function fetchEnglish() {
    forms are letters only, so there is nothing to escape — and a key that matches nothing is reported
    at the end of the run, exactly as a dead `reFix` is: a repair that has stopped applying and says so
    is a finding, and one that stops applying in silence is a text quietly going back to being wrong. */
+/* WHICH KIND OF CACHE A RUN READ (Sep 2026, batch E30). E29 moved the correction chain to run on
+   the extracted prose rather than on the page, so a record written from that point on holds the
+   extractor's own output and every row must fire against it. Records written BEFORE it hold prose an
+   earlier run had already corrected, and against those a row doing its job perfectly fires nowhere —
+   which is E19's caveat, and the difference between a dead-row report that is a FACT and one that is
+   a maybe. A record now says which it is (`raw: 1`), these count what was read, and the run stops
+   guessing: the caveat prints when a legacy record was actually read and not otherwise. */
+let CACHE_RAW = 0, CACHE_LEGACY = 0;
+
 const ORIG_SPACE_HITS = {};
 function restoreLostSpaces(chapters, O) {
   const map = O && O.lostSpaces;
@@ -25707,9 +25732,17 @@ function writeEnglish(chapters, warnings) {
      `summa-theologica`'s `corning` as repaired on the strength of a row that had never applied and
      never could — the word occurs only inside `scorning`, which the row is anchored to spare.
      So the run says which kind of report this is rather than leaving it to be assumed. */
-  if ((BOOK.fixes || BOOK.reFixes) && !FORCE)
-    console.log("  (read from cache: a row reported DEAD here may simply have been applied on an" +
+  /* E30: printed when a LEGACY record was actually read, rather than on every cached run. A cache
+     written since E29 holds the extractor's own output, so a row that fires nowhere against it names
+     damage that is not there — which is what the second line says, and what makes the report below
+     worth acting on rather than worth re-checking. */
+  if ((BOOK.fixes || BOOK.reFixes) && CACHE_LEGACY)
+    console.log("  (" + CACHE_LEGACY + " chapter(s) read from a cache written before E29, which holds" +
+                " already-corrected prose: a row reported DEAD here may simply have been applied on an" +
                 " earlier run — re-run with --force to tell the two apart)");
+  else if ((BOOK.fixes || BOOK.reFixes) && !FORCE && CACHE_RAW)
+    console.log("  (read from cache, and the cache holds the source's own prose: a row reported DEAD" +
+                " below names damage that is not there)");
   if (BOOK.fixes) {
     for (const [from, , why] of BOOK.fixes) {
       const n = FIX_HITS[from] || 0;
@@ -25818,11 +25851,20 @@ async function fetchOriginal() {
       BOOK.chapters.length + " chapters");
     for (const n of BOOK.chapters) {
       const cf = path.join(CACHE, n + ".json");
-      let rec = !FORCE && fs.existsSync(cf) ? JSON.parse(fs.readFileSync(cf, "utf8")) : null;
+      /* THE RECORD ON DISK IS READ EVEN UNDER --force, and merged rather than replaced (Sep 2026,
+         batch E30). This pass runs AFTER the English one and writes to the same file, so building a
+         fresh record here threw away what that pass had just put in it: the title it read off the
+         text, and the `raw` marker that says whether the prose is the source's own or a corrected
+         copy of it. Nothing rendered differently — the two books on this path state their titles in
+         this file, so `titles[n]` won either way — but the marker went missing on exactly the books a
+         --force run had just made trustworthy, which is the reverse of what it is for. */
+      const disk = fs.existsSync(cf) ? JSON.parse(fs.readFileSync(cf, "utf8")) : null;
+      let rec = !FORCE && disk ? disk : null;
       if (!rec || !rec.orig) {
         const h = await api(BOOK.page(n));
         const got = bothColumns(h, BOOK, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
-        rec = rec || { n, t: chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes };
+        rec = rec || Object.assign({}, disk, {
+          n, t: (disk && disk.t) || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
         rec.orig = got.orig;
         fs.writeFileSync(cf, JSON.stringify(rec));
         await sleep(700);

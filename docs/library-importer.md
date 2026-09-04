@@ -1230,3 +1230,43 @@ the larger.
     page corrected the Chinese too. Nothing changes today; the guard is against tomorrow.
   · **The benefit begins at each book's next REFETCH.** The caches still hold corrected prose, so
     until a book is refetched a dead-row report is still E19's caveat rather than a fact.
+
+**A CACHE RECORD SAYS WHICH KIND OF PROSE IT HOLDS** (`raw: 1`, Sep 2026, batch E30). E29 moved the
+correction chain to run on the extracted prose, so a record written from that point on holds the
+extractor's own output and every row must fire against it; a record written before it holds prose an
+earlier run had already corrected, and against that a row doing its job perfectly fires nowhere. The
+run counts what it read and says which case it is in — E19's caveat prints only when a legacy record
+was actually read, and where the cache is the source's own prose the run says the opposite outright:
+*"a row reported DEAD below names damage that is not there."*
+
+  · **It is what made restoring `corning` a decision rather than a guess** — see below.
+  · **The twelve books on this branch that carry a correction table were refetched to make it true**
+    (~1,700 pages). The other 36 either declare no table or are on a branch that has always corrected
+    after reading its cache.
+
+**AND THE REFRESH FOUND TWO REGRESSIONS OF THIS PROGRAMME'S OWN MAKING** (E30):
+
+  · **THE THREE KINGDOMS HAD BEEN ROMANISED TWICE, in 111 of its 120 chapters and 974 names.** E19
+    made the cached path re-apply `correctRaw` to prose an earlier run had corrected — right for
+    `fixes`, `reFixes` and `glyphs`, which are idempotent, and **wrong for `roman`, which is not**:
+    a row's output can be another row's input, so `Ch'ang` → `Chang` → `Zhang`. `Chang'an` became
+    `Zhang'an` 66 times, `Ma Chao` became `Ma Zhao`, `Tao Qian` became `Dao Qian`, and `Zhang Chao`
+    (張超) became `Zhang Zhao` — who is a different man. The unaspirated names pass through both
+    applications unchanged (`Liu Bei`, 695 times), which is why it read as ordinary variation. **A
+    refetch corrects once and the book is right again**, and stays right because the cache now holds
+    the source's own prose.
+  · **`corning` IS REAL AND E19 DELETED A LIVE ROW.** E15 repaired *"by the dove **corning** upon the
+    Lord when He was baptized"* in the Summa; E19 found no standalone `corning` in the shipped file,
+    concluded the row could never fire, and removed it. Refetching chapter 461 puts the fault straight
+    back — one standalone occurrence against three `scorning`s. What E19 was reading was **E15's own
+    repair**, carried in the cached prose. **A dead-row report is evidence about the TEXT IN HAND,
+    never about the source: check the source before removing a row.**
+
+**AND `fetchOriginal` NO LONGER CLOBBERS THE ENGLISH PASS'S RECORD** (Sep 2026, batch E30). A
+facing-page book's two columns come off one page, so the original pass reads the record the English
+pass just wrote — and under `--force` it was building a fresh one instead, throwing away the title
+the extractor had read off the text and the `raw` marker that says whose prose the record holds.
+Nothing rendered differently, both books on that path stating their titles in this file, but **the
+marker went missing on exactly the books a `--force` run had just made trustworthy**, which is the
+reverse of what it is for. The record on disk is now read even under `--force` and merged rather than
+replaced.

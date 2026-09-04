@@ -305,7 +305,7 @@ re-run and diffed byte for byte.
 | **E27** ✅ | the Latin Seneca's run-on verse | **13 verse paragraphs lineated, 25 lines restored — and E26 was wrong to call it a judgement.** Measured, the eighteen paragraphs carrying an internal newline split into thirteen verse with a longest line of 25–51 characters and five prose with one of 1,428–2,179: **a gap 1,377 characters wide**, so the threshold sits in open ground rather than on a border. `versifyNewlines` runs before `joinBrokenParas`, which could then go back to asking a single question — does this paragraph carry a `<br>`? — and lose the book-specific flag E26 had given it |
 | **E28** ✅ | the Latin Seneca's lost spaces | **483 spaces restored, and the first sweep understated it by three and a half times.** The last four books — letters 101 to 124 — were typed into Wikisource with the space at each line end swallowed: `bonumesse`, `occupationibussum`, `claritasbonum`, `mortemhomo`. It is upstream (every form is glued in the wikitext) so no rule could undo it, and the repair is a declared map of 483 entries on the book's `original`. Sorting the damage from the real Latin that splits the same way took a **833,000-word lexicon** built out of the shelf's other Latin, and then a reading of every survivor |
 | **E29** ✅ | the correction chain moves after the cache | **The chain was running against MARKUP where it should have run against PROSE, and it was weaker for it.** Correcting on the way in poisoned the cache (so a live row reported DEAD one run later — E19's caveat) and, worse, made every row face a page still full of tags: the Book of Documents came back from a refetch with four `Tî` the romanisation had missed and a running head the Book of Rites' own remover could no longer see. Moved to run on the extracted prose. **The title is the one exception and it had to be**, `applyRoman` not being idempotent |
-| **E30** | the caches still hold corrected prose | the change bites at each book's next REFETCH, so until then a dead-row report is still E19's caveat rather than a fact. Refetching 48 books is thousands of requests; the cheap half is to do it per book when one is next touched, and to say in the run which kind of cache a book is reading |
+| **E30** ✅ | the caches refreshed, and what fell out | **974 double-romanised names repaired across 111 of the Three Kingdoms' 120 chapters, and a row E19 deleted put back.** Refetching the twelve books that carry a correction table turned E29's machinery on and turned up two regressions of this programme's own making: E19's cached-path correction was applying `roman` a SECOND time to prose already romanised (`Ma Chao` → `Ma Zhao`, `Chang'an` → `Zhang'an`, `Kan Ze` → `Gan Ze`), and E19 had removed E15's live `corning` row on a dead-row report that meant nothing. A record now says whether its prose is the source's or ours, and the run says which it read |
 | **E31–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
@@ -362,6 +362,64 @@ examples.
 
 ## 8. Batch log
 
+### E30 — the caches refreshed, and two regressions of our own, shipped 2026-09-04
+
+**E29 moved the correction chain to run on the extracted prose; every cache on the shelf had been
+written under the old order, so the benefit was still theoretical.** This batch makes it real —
+refetching the twelve books on that branch that carry a correction table, ~1,700 pages — and adds the
+one thing that lets a run tell the two kinds of cache apart. **What fell out is two regressions this
+programme introduced itself.**
+
+**1. THE THREE KINGDOMS HAD BEEN ROMANISED TWICE, IN 111 OF ITS 120 CHAPTERS.** 974 names, and the
+mechanism is the one `titlesCorrected` was written for — the collision this file has documented since
+B6b: **a row's output can be another row's input**, so `Ch'ang` → `Chang` → `Zhang`. E19 made the
+CACHED path re-apply `correctRaw` to prose an earlier run had already corrected, which is right for
+`fixes`, `reFixes` and `glyphs` — all idempotent — and wrong for `roman`, which is not. It went in
+as part of E19 and its byte-for-byte proof adopted the 111 changed chapters as the repair they looked
+like.
+
+| the source | corrected once | corrected twice | who |
+|---|---|---|---|
+| T'ao Ch'ien | **Tao Qian** | Dao Qian | 陶謙 |
+| Ch'ang-an | **Chang'an** | Zhang'an | 長安, the capital, 66 times |
+| Ma Ch'ao | **Ma Chao** | Ma Zhao | 馬超 |
+| K'an Tsê | **Kan Ze** | Gan Ze | 闞澤 |
+| Chang Ch'ao | **Zhang Chao** | Zhang Zhao | 張超 — and 張昭 is a DIFFERENT man |
+
+The unaspirated names are untouched by either pass (`Liu Pei` → `Liu Bei` and stays there, 695
+times), which is why the damage looked like ordinary variation. **A refetch corrects once and the
+book is right again**, and it stays right because the cache now holds the source's own prose.
+
+**2. `corning` IS REAL, AND E19 DELETED A LIVE ROW.** E15 added a row repairing *"by the dove
+**corning** upon the Lord when He was baptized"* in the Summa. E19 looked for it, found no standalone
+`corning` in the shipped file and no such passage, concluded the row "could never fire", and removed
+it. **Both halves were false.** Refetching chapter 461 puts the fault straight back — one standalone
+`corning` against three `scorning`s, exactly as E15 described. What E19 was reading was **E15's own
+repair**, carried in the cached prose: the row was alive, had done its work, and reported itself dead
+for precisely the reason E19's batch was written to document. **The trap caught the batch that named
+it.** Nothing ever reached a reader wrong, because the cache carried the repair — and the next refetch
+would have shipped `corning`, which is what this refresh did before the row was put back.
+
+> **A dead-row report is evidence about the TEXT IN HAND, never about the source. Check the source
+> before removing a row.**
+
+**3. Two smaller repairs the refresh brought with it.** The **Book of Rites** loses
+`<p class="bk-head">THE LÎ <i>K</i>Yi</p>` — its own running head, mangled by a correction into
+something the head-remover could not see, which E29 predicted and this confirms. The **Book of
+Documents** loses a duplicated `<p>The Canon of Yao.</p>` and gains `Shao Jiu` for `Shao Jiû`, the
+romanisation firing where the old order had it facing markup.
+
+**The machinery: a record now says which kind of prose it holds.** `raw: 1` marks a cache written
+since E29, and the run counts what it read. The caveat E19 added prints only when a legacy record was
+actually read; where the cache is the source's own prose the run says the opposite outright — *"a row
+reported DEAD below names damage that is not there"* — which is what made restoring `corning`
+a decision rather than a guess.
+
+**What is NOT refreshed, and why.** The other 36 books either carry no correction table (so the order
+cannot matter to them) or are on a branch that has always corrected after reading its cache — the TEI
+books and the plain-text ones, `journey-to-the-west` among them, whose `roman` table was therefore
+never applied twice. Only the twelve needed it, and all twelve have it.
+
 ### E29 — the correction chain was reading markup, shipped 2026-09-04
 
 **`let h = correctRaw(await api(pageNames[0]))`.** The chain ran on the page as Wikisource serves
@@ -382,6 +440,16 @@ orders and diffing:
 | sun-tzu, summa, seneca, morte-darthur, city-of-god | yes | — |
 | **book-of-rites** (ch 1–2) | **no** | old ✗ **new ✓** |
 | **book-of-documents** (ch 1–2) | **no** | old ✗ **new ✓** |
+
+> **E30 corrects the right-hand column: it was measured circularly and is wrong.** The A/B script
+> writes its result into `books/<id>.js` before copying it away, so "matches the shipped text" was
+> read off a file the NEW run had just overwritten — the comparison could not have come out any other
+> way. Checked properly against `git show HEAD:books/…`: for the Book of Rites the committed text
+> equals the OLD output (both keep the mangled head) and the new one removes it; for the Book of
+> Documents the committed text equals neither on chapter 1 and equals the NEW on chapter 2. **The
+> left-hand column, and the conclusion, are unaffected** — old and new really do differ on those two
+> books, and every difference is the old order losing. **A comparison against the working tree is a
+> comparison against whatever the last run wrote; compare against git.**
 
 **Both differences are the old order losing, and both would have arrived silently at the next
 refetch.** The Book of Rites came back carrying `<p class="bk-head">THE LÎ <i>K</i>Yi</p>` — its own
