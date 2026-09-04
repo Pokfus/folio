@@ -182,7 +182,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N19 | 12 | Umbria and its sanctuaries — **shipped**, 10 of 12 pictured |
 | N20 | 12 | Italian landscape and geology — **shipped**, 11 of 12 pictured |
 | N21 | 12 | Tanzania, the Serengeti and African mammal groups — **shipped**, all twelve pictured |
-| N22 | 12 | Olduvai beds, palaeoanthropology's institutions |
+| N22 | 12 | Olduvai beds, palaeoanthropology's institutions and dating methods — **shipped**, 11 of 12 pictured |
 | N23 | 12 | Amarna and Egypt |
 | N24–N32 | ~107 | **the Italian provinces**, by region |
 
@@ -331,6 +331,63 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N22's findings
+
+**N22 — Olduvai beds, palaeoanthropology's institutions and dating methods (shipped, 11 of 12 pictured).**
+The twelve are `Type_specimen`, `Laetoli`, `Nariokotome`, `Koobi_Fora`, `Sterkfontein`,
+`Cradle_of_Humankind`, `Turkana_Basin_Institute`, `Olduvai_Beds`, `Argon_dating`, `Taphonomy`,
+`Magnetostratigraphy` and `Little_Foot`. Nineteen works, every one open and every one verified by
+fetching the URL and grepping the body for a phrase the work must contain.
+
+**Its finding is that G8's rule — the literature pays for RESULTS, not for definitions or for living
+people — has an exception, and the exception is a DEFINING BODY'S OWN CODE.** `Type_specimen` looked
+like exactly the term G8 said would go uncited: it is a definition, and the definition is a convention
+rather than a measurement. But zoological nomenclature has a rule-book that states its own terms
+outright, and `code.iczn.org/glossary/` gives *name-bearing type*, *holotype*, *lectotype*, *neotype*,
+*paratype*, *syntype*, *type locality* and *type horizon* in the Commission's own words — "the objective
+standard of reference whereby the application of the name of a nominal taxon can be determined". **Where
+a term is a convention, ask which body MAINTAINS the convention before deciding it cannot be cited**;
+the ICZN, the ICS and the IAU each publish theirs, and a published code is not an encyclopedia.
+
+**Its second finding is the shape a batch of adjacent SITE terms takes, and it had to be settled before
+drafting.** Six of the twelve are places in two clusters — Laetoli and Nariokotome and Koobi Fora in East
+Africa, Sterkfontein and the Cradle of Humankind and Little Foot in South Africa — and the same three
+facts (a dating dispute, a list of eight radiometrically dated sites, an attribution to
+<i>Australopithecus prometheus</i>) would have served any of the six. Ownership was assigned first:
+**Sterkfontein takes the dating dispute, the Cradle takes the eight-site list, Little Foot takes the
+attribution**, and each of the three then needed a second source of its own, which is what sent the batch
+looking for Martin et al. 2025 ("The StW 573 Little Foot Fossil Should Not Be Attributed to
+<i>Australopithecus prometheus</i>"). The 8-word-run measure came back at **0 shared runs** across the
+twelve and against their nearest existing siblings — but only because the assignment was made in advance;
+the first draft of `Olduvai_Beds` shared eleven consecutive words with the shipped `Proboscidea`, which is
+L9's lever catching a duplication that had not been written yet.
+
+**A third finding is about the corpus rather than the sources: the batch found a term being made to carry
+a whole subject, of the kind N8 found in `Smilodon`.** `Turkana_Boy` had held the aliases and the
+narrative for the SKELETON and there was no term for the PLACE, so four card and glossary mentions of "from
+Nariokotome" — every one of them about the locality — resolved to the boy. `Nariokotome` is now the site
+and its tuffs, `Turkana_Boy` is untouched, and the alias "Nariokotome Boy" still beats the bare place name
+because `buildGlossIndex` sorts longest-first. **When a place is only ever named as the findspot of one
+fossil, check whether the place has a term at all.**
+
+Three smaller things worth keeping. **`Bed I` and `Bed II` are registered `caseSensitive`**, as
+`Little_Foot` is: "bed I" and "little foot" are both ordinary English word sequences, and the flag is the
+cheapest guard against a future abstract linking "the bed I slept in" to a Tanzanian stratigraphic unit.
+**A PMC page served at 20,454 bytes is a rate limit, not a citation fault** — three of the nineteen URLs
+came back that size on one pass and 233–438 KB after a wait, so a verifier must check the BODY SIZE before
+believing a keyword miss. And **strip tags to a SINGLE space before grepping a fetched page**: PMC wraps
+`18 Ma` and `3.6 Ma` in markup, so a naive tag-strip leaves `18   Ma` and the keyword check reports a good
+citation as bad.
+
+**`Turkana_Basin_Institute` ships without a picture, and the reason is worth recording.** Commons has no
+free photograph of the institute's facilities at Ileret, Turkwel or Nairobi; what it holds under the name
+is four conference portraits of Richard Leakey, which illustrate a person rather than an institution, and
+the best of them has a stranger's pointing hand across the frame. Three candidates were rejected elsewhere
+in the batch on the standing rules — Sibiloi National Park as **satellite imagery** (a diagram of a place,
+not a view of it), a 1973 Olduvai slide with a heavy magenta cast and a scanned film border, and the
+Nairobi and New York museum cases for `Nariokotome` and `Little_Foot`, both cluttered with interpretation
+panels and gallery reflections.
 
 ### N21's findings
 
