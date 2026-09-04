@@ -1029,4 +1029,25 @@ window.ARTEFACTS = [
     date: "c. 6th century BCE – 3rd century CE",
     origin: "China",
   },
+  {
+    id: "bronze-ding",
+    name: "Bronze ding",
+    rarity: "rare",
+    date: "c. 13th – 8th century BCE",
+    origin: "Shang and Zhou China",
+  },
+  {
+    id: "longquan-celadon-bowl",
+    name: "Longquan celadon bowl",
+    rarity: "common",
+    date: "c. 10th – 16th century CE",
+    origin: "Longquan, Zhejiang, China",
+  },
+  {
+    id: "wax-tablet",
+    name: "Wax tablet",
+    rarity: "common",
+    date: "c. 14th century BCE – 19th century CE",
+    origin: "The Mediterranean and Europe",
+  },
 ];

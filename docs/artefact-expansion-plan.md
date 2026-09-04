@@ -267,7 +267,8 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B1c | `chola-nataraja`, `gandhara-buddha-head` (both UN-DEFERRED) | — |
 | A2c | `book-of-kells`, `bayeux-tapestry`, `lewis-chessmen` (all three UN-DEFERRED — **A2's list is now empty**) | — |
 | A3a | `aztec-sun-stone`, `enigma-machine`, `dancing-girl-mohenjo-daro` | — |
-| B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | `longquan-celadon-bowl`, `inkstone`, `igbo-ukwu-bronze`, `pazyryk-carpet` |
+| B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | ~~`longquan-celadon-bowl`~~ (shipped in B2b), `inkstone`, `igbo-ukwu-bronze`, `pazyryk-carpet` |
+| B2b | `bronze-ding`, `longquan-celadon-bowl` (UN-DEFERRED), `wax-tablet` | `han-tomb-brick` |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -767,6 +768,37 @@ that is reliably open.
   is the Hubei Provincial Museum's own display of the real 201 slips, whose label is legible in the
   photograph and states the tomb, the year and the count. **Where a famous object has a famous replica,
   assume the first good picture is of the replica.**
+
+**B2b's finding is that a DEFERRAL ONE BATCH OLD IS THE CHEAPEST WORK ON THE LIST, and the reason is
+that the search that failed has already told you what shape the missing source is.** `longquan-celadon-bowl`
+was deferred in B2a at two open Heritage Science papers, both about shipwreck corrosion, with the third
+(Michigan's *Ars Orientalis*) behind the Anubis wall. One DOAJ query later — `"Longquan kiln" OR
+"Longquan ware" OR "Longquan celadons"` rather than `"Longquan celadon"` — turned up an *npj Materials
+Degradation* paper on the same Dalian Island wreck, which is Nature portfolio and open. **The deferral
+cost about four minutes to clear and the batch that deferred it had spent twenty minutes failing.** It is
+worth re-querying with the object's other names before writing a deferral down.
+
+· **All three of Longquan's sources being about shipwrecks is not a weakness of the plate, it is the
+  subject.** Longquan was an export ware; 603 pieces came out of one Yuan wreck off Pingtan alone, and
+  what the literature is about is what the sea did to the glaze. A plate whose three works agree on a
+  setting is describing the object honestly, not padding.
+· **`wax-tablet` came out of the batch's one deliberate constraint: it must not become the Vindolanda
+  tablets**, which are already in the pool. The best modern paper found for it — a 2026 multianalytical
+  study of the Vindolanda wooden tablets in the *Journal of Analytical Methods in Chemistry* — was
+  therefore set aside as well as being 403 at Wiley, and the plate is built instead on Thompson's 1912
+  *Palaeography* for the Roman triptych as a sealed legal instrument, an EXARC reconstruction for how a
+  tablet is actually cut and waxed, and a 2025 Lithuanian restoration case study for how few survive.
+  **When a new artefact overlaps one already written, the constraint is a content rule and it changes
+  which sources are usable, not just which sentences are.**
+· **Two more hosts join the Anubis list** — `journals.ub.uni-heidelberg.de` (*Pylon*), which cost the
+  wax tablet its best schoolbook paper, and `quod.lib.umich.edu`, recorded in B2a. Both return the same
+  4.7–5.3 KB proof-of-work page that `journals.openedition.org` does. **`mdpi.com` remains 403 and is
+  now the single most expensive closure in this pass**, having cost B2a and B2b about eight otherwise
+  usable candidates between them.
+· **Where a picture needs a museum's own object photograph, Cleveland and the Met are the two open
+  collections that answer here**, both CC0 and both with the object shot against grey and lit properly —
+  which for a bowl or a bronze is worth more than a gallery view. The Met's ding shows the vertical
+  mould seams down each face, which is the plate's own casting point visible in the picture.
 
 ## The per-artefact workflow
 
