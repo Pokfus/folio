@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-648` Bissau.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-649` Ljubljana.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -2285,7 +2285,7 @@ lapsed entirely and returned in a different town. Its figures are the batch's qu
 both sources**, a fourth exact agreement, over a country and a capital that have each moved about one per
 cent in ten years.
 
-**TWO PICTURELESS CARDS RUNNING, AND THE FAILURE HAS A SHAPE WORTH NAMING.** Kingston and Banjul both ship
+**THREE PICTURELESS CARDS IN THIS STRETCH, AND THE FAILURE HAS A SHAPE WORTH NAMING.** Kingston and Banjul both ship
 with a stated reason instead of an illustration, and between them they exhaust what Commons offers for a
 capital it has not been photographed widely: **spaceborne imagery** (Banjul has ISS, ASTER, SPOT and CAPELLA
 frames and nothing else wide — all refused, a satellite frame being a diagram of a place rather than a view
@@ -2296,6 +2296,12 @@ shows a landmark and a capital's shows the city), and **the wrong Kingston entir
 missing in either case: the figures, the definitions and the diplomatic record are all fully sourced. **When
 a capital has no free wide view, the card is complete without one and the absence is recorded here** —
 re-running these searches is the waste this paragraph exists to prevent.
+**Bissau (`gw-648`) joined them and added two kinds to the list**: a **broadcaster's watermark** burned into
+the corner of an otherwise usable street photograph, and — the one nobody would predict — **a photograph OF
+A SLIDE**, an old colour transparency shot on a phone with the cardboard mount still in frame. Its only wide
+views are a satellite image and a shot over tree canopy in which the city is a band of roofs behind two
+thirds of foliage. **The count is now three of eleven capitals in this run**, all in West Africa and the
+Caribbean, which is where to expect it next.
 
 **THE DEFINITION THAT MATTERS MOST SO FAR: "the local government areas of Banjul and Kanifing."** Every
 capital-city footnote in this run has told a reader what a figure covers; this is the first where the
@@ -2387,6 +2393,25 @@ in this deck: `gw-644` and `gw-647` are worth reading against each other. Their 
 their politics do not — Botswana at **4.5** people to the square kilometre against Lesotho's **77.8** — a
 seventeen-fold difference between neighbours, which is what a state a twentieth of the other's size looks
 like when both hold about the same number of people.
+
+**A POST THAT CLOSED AND NEVER REOPENED, AND DAKAR AS THE DECK'S STANDING PROXY CAPITAL.** Guinea-Bissau's
+guide page records an embassy at Bissau opened on **30 June 1976** and **suspended on 14 June 1998** at the
+start of the civil war — and then, rather than a reopening, the **American ambassador to Senegal accredited
+to Guinea-Bissau** from 13 February 2003. Every earlier interruption in this run ends with the post coming
+back (Mauritania 1970, Panama four times, Albania after fifty-two years, Kuwait after three months); this
+one ends with the relationship moving permanently to a neighbour's capital. **Dakar has now served three
+cards in this run** — Mauritania's ambassador lived there in 1960, The Gambia's in 1965, and Guinea-Bissau's
+does today — which makes it worth checking as a matter of course whenever a small West African state's post
+is missing from a date you expect it. Note also that relations here were begun **from the other side**, by
+Guinea-Bissau's ambassador presenting credentials in Washington, as Costa Rica's and Uruguay's were.
+
+**THE FASTEST-GROWING CAPITAL IN THIS RUN AFTER NOUAKCHOTT, AND IT IS OUTRUNNING ITS OWN COUNTRY.** Bissau
+goes 496,669 (2015) to **709,092** (2025), more than two fifths added in a decade, where Guinea-Bissau's
+national population rises about a quarter — so the capital's share climbs from roughly a quarter towards
+three in ten while you watch. Set beside Tirana two cards earlier, where the city gained a fifth as the
+country lost a seventh, the two are the same phenomenon at different intensities: **the capital-share figure
+moves for two quite different reasons, and only reading the city and the country series together tells you
+which.** Its UNdata capital row is the seventh bare footnote of the run — a year, and no definition.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
