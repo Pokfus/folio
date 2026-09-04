@@ -99,7 +99,7 @@ Suetonius Caesar Seneca Cicero Tacitus Virgil Horace Vitruvius Pliny Josephus At
 Mencius Laozi Zhuangzi Sima Ptolemy Euclid Archimedes Galen Aelian Hyginus Ovidius Quintilian
 Gellius Aulus Dionysius Halicarnassus Varro Festus Censorinus
 Nepos Justin Trogus Florus Sallust Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius
-Appian Velleius Paterculus Augustus Hirtius Gaius Justinian Ulpian Cassius Dio Lactantius Eusebius`.split(/\s+/));
+Appian Velleius Paterculus Augustus Hirtius Gaius Justinian Ulpian Cassius Dio Lactantius Eusebius Socrates Athanasius Tertullian`.split(/\s+/));
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
