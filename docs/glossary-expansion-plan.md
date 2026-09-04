@@ -180,7 +180,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N17 | 12 | Latium: the Latial culture and its sites — **shipped**, 7 of 12 pictured |
 | N18 | 12 | The Italic peoples — Samnites, Sabines, Umbrians — **shipped**, 6 of 12 pictured |
 | N19 | 12 | Umbria and its sanctuaries — **shipped**, 10 of 12 pictured |
-| N20 | 12 | Italian landscape and geology |
+| N20 | 12 | Italian landscape and geology — **shipped**, 11 of 12 pictured |
 | N21 | 12 | Tanzania, the Serengeti and African mammal groups |
 | N22 | 12 | Olduvai beds, palaeoanthropology's institutions |
 | N23 | 12 | Amarna and Egypt |
@@ -331,6 +331,65 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N20's findings
+
+**N20 — Italian landscape and geology (shipped, 11 of 12 pictured).** Tuff, the caldera, lava, karst,
+Vesuvius, the Campi Flegrei, Etna, the Gran Sasso, pozzolana, travertine, the Tyrrhenian Sea and the
+Aniene. `Apennines`, `Alban_Hills`, `Po_valley`, `Limestone`, `Marble`, `Obsidian`, `Pumice` and `Tiber`
+were terms already, so the batch is the rock, the volcanoes and the water between them.
+
+**TWO SPINES THE GLOSSARY ALREADY CITES ARE NOW SHUT HERE, WHICH IS N19'S FINDING TWICE OVER.** The
+Smithsonian's **Global Volcanism Program** — cited on `Alban_Hills` and `Minoan_eruption` — answers a
+Cloudflare **403** on every path and with every user agent tried, and **`usgs.gov`**, cited on
+`Limestone` and `Pumice`, answers a CloudFront **403**. Both were the obvious first reach for a batch
+like this. What replaced them: **INGV's own observatory pages**, which are open and per-volcano
+(`ov.ingv.it` for Vesuvius, the Campi Flegrei and Ischia, `ct.ingv.it` for Etna and the Aeolian
+islands), and **`nps.gov`**, whose *Karst Landscapes* and *Lava Flows* pages carry exactly the
+definitional prose USGS used to. **Re-probe a host before planning a batch around it**; the register
+records what answered on the day it was written.
+
+**AND A SOURCE REUSED FROM THE REGISTER MUST BE OPENED FOR THE NEW CLAIM.** G6's rule fired here in its
+cleanest form: Cowie et al. 2017 is cited on `Apennines` for the uplift that drives central Italian
+faulting, and reads like the natural second source for `Gran_Sasso` — but the paper **never mentions the
+Gran Sasso**, so it could carry nothing about it. De Luca, Di Carlo and Tallini 2018, on the massif's
+own groundwater before and after the 2016 Amatrice earthquake, is what the term needed.
+
+**THE CORPUS SPELLS ONE ROCK TWO WAYS AND USES ONE OF THOSE SPELLINGS FOR A DIFFERENT ROCK.** Measured
+before drafting: *tuff* appears three times and *tufa* ten, and the ten are **not one thing** — six are
+Italian volcanic rock (the cappellaccio of the Servian Wall, the plateaux of Veii and Caere), three are
+the poros limestone of Delphi, and one is the calcareous tufa at Taung. So `Tuff` ships with **`tufo` as
+its only alias and no claim on the surface `tufa`**, which would have auto-linked to the wrong rock in
+four terms and on two continents. **When one surface is used of two materials, claim neither by alias
+and say so in the prose.**
+
+**A BARE DEMONYM-SHAPED ALIAS CATCHES THE PEOPLE AS WELL AS THE PLACE.** *Tyrrhenian* alone has 18
+corpus hits against six for *Tyrrhenian Sea* — but one of the eighteen is Livy's "the Tyrrhenian
+general", meaning an Etruscan. The aliases are **`Tyrrhenian coast` and `Tyrrhenian side`**, which pick
+up seven of the good cases and can never reach the general. N7's `United_Kingdom` finding, one adjective
+further on.
+
+**A DEFINITIONAL TERM WANTS A DEFINITIONAL SOURCE, AND THE LITERATURE SEARCH WILL NOT SUPPLY ONE.**
+Europe PMC on *karst* returns nothing but case studies — an Algerian spring, a Shandong basin, a Chinese
+coalfield — none of which says what karst is. The agency page does, in one sentence, and the paper then
+carries the second half of the term. **Reach for a national agency or park service for the definition
+and for the literature for the instance**, which is the shape ten of these twelve took.
+
+**Two terms were written ahead of the cards that will use them.** `Pozzolana` and `Travertine` have
+**zero** corpus hits today — no shipped card or term mentions either — and both were kept because Rome
+is built of them and the sources are unusually good: two Dilaria papers tracing Neapolitan pozzolan to
+Aquileia and to a Roman structure in the Venice lagoon, and a *Scientific Reports* paper reading the
+travertine crusts inside the Anio Novus back as the speed and depth of its water. A batch weighted only
+by reach would have written neither.
+
+**`Tyrrhenian_Sea` ships unpictured, and the reason is a rule rather than a gap.** A sea can be
+photographed three ways and the picture pass refuses all three: a bathymetric chart is a **map**, an ISS
+or Sentinel frame is **spaceborne**, and a coastal view is a photograph of a coast. Four more candidates
+were refused on inspection: a night lava flow carrying a photographer's **signature watermark**, the
+best-lit Etna picture on Commons being a **Sentinel scene with a burnt-in caption bar** — which the skip
+patterns missed because the file says *Sentinel* with no digit after it — a Vesuvius crater rim that is
+a bare silhouette against an orange sky, and a Naples "Tyrrhenian Sea" shot whose subject is graffiti on
+breakwater blocks.
 
 ### N19's findings
 
