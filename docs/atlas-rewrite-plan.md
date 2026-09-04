@@ -202,7 +202,8 @@ is an open question and its batch size follows from the answer.
 | **A1** | The eight most-studied present-day countries | **shipped 2026-08-21** |
 | **A2** | Russia, Mexico, Ethiopia, Japan, Egypt, the Philippines, DR Congo, Vietnam | **shipped 2026-09-03** |
 | **A3** | Iran, Turkey, Germany, France, the United Kingdom, Thailand, South Africa, Italy | **shipped 2026-09-04** |
-| A4–A33 | The remaining 234 present-day countries and territories, in descending population | planned |
+| **A4** | Tanzania, Myanmar, Colombia, South Korea, Spain, Kenya, Argentina, Uganda | **shipped 2026-09-04** |
+| A5–A33 | The remaining 226 present-day countries and territories, in descending population | planned |
 | B1–… | Stage 2, the 424 historical states, grouped by era | planned |
 | C1–… | Stage 3, the 528 names of the 1600 era, at a bar to be decided | planned |
 
@@ -401,3 +402,48 @@ written. Six findings, and the first is the one that will bite every batch after
   Germany, France and Italy, each with the founding date of 1 January 1958. **Confirm a spine source is
   really broken before recording it as broken**, which cost two minutes here and would have retired a
   working source for every European batch after this one.
+
+### A4 — the next eight by population (2026-09-04)
+
+Tanzania, Myanmar, Colombia, South Korea, Spain, Kenya, Argentina and Uganda. All eight at the bar, and
+**South Korea carries six citations rather than five** for the reason given below. Every URL curled before
+the batch was written; every source open access. Six findings.
+
+- **AN "OFFICIALLY" CLAUSE MUST BE CLOSED BY A COMMA, AND NOTHING MAY BE ADDED INSIDE IT.** `officialName`
+  reads `\bofficially\s+(?:the\s+)?(.+?)\s*[,(.;:]` — non-greedy up to the first comma — so Myanmar's
+  draft, which opened "officially the Republic of the Union of Myanmar and long known abroad as Burma,",
+  put **the whole of that clause in the panel title**. It was caught in the browser and not by any check:
+  `add-place-info.js` cannot see it, the sentence reads perfectly, and the failure is a title six words too
+  long rather than an error. The fix is one comma. **A country with a second widely used name gets it in
+  its own clause**, after the official one is closed.
+- **THE RECOGNITION GUIDE HAS TWO KOREA PAGES AND THEY ARE DIFFERENT WORKS.** `/countries/south-korea` is a
+  404; what answers is **`/countries/korea`**, on the Kingdom of Choson — the treaty of amity and commerce
+  signed with the United States at Chemulpo on 22 May 1882, the first Korea signed with any western nation,
+  and Japan taking over Korean foreign relations on 17 November 1905 — and **`/countries/korea-south`**, on
+  the Republic of Korea, recognised on 1 January 1949. Neither page has a Summary section, which is why a
+  scrape written for the usual shape came back empty from both. South Korea therefore cites both, plus the
+  Korean War milestone for the division at the 38th parallel, and runs to six sources: **the bar is a floor,
+  and a country whose history needs a sixth work should have one.** (The Korea plan already records that the
+  guide has no page for North Korea at all.)
+- **MARK ONLY WHAT THE PAGE ACTUALLY SAYS, AND THE COMMONWEALTH PAGE IS SHORTER THAN IT LOOKS.** Tanzania's
+  draft carried a sentence about the union of the mainland with Zanzibar marked to the Commonwealth's own
+  country page; grepped, that page contains **one** mention of Zanzibar — "The country includes the island of
+  Zanzibar" — and **no** mention of 1964 or of the union at all. The sentence was rewritten to what the page
+  does carry, which also gave Kilimanjaro's "highest point in Africa" a citation it had been asserting
+  unmarked in the first block. **Grep the saved page for the year before marking a sentence to it** — the
+  same two-second check C11 recommends for the recognition guide's independence dates.
+- **THE COMMONWEALTH PAGE IS ALSO WHERE A SECOND SEAT OF GOVERNMENT TURNS UP.** UNdata gives Tanzania's
+  capital as "Dodoma" and nothing else; the Commonwealth's Key Facts give "Dar es Salaam (acting), Dodoma
+  (official)". That is A3's South Africa finding one source over — the fact is real, the field is not where
+  it lives — and between the two, **UNdata's footnote block and the Commonwealth's Key Facts are where the
+  Atlas learns which countries have more than one seat.**
+- **MY OWN WORD COUNT HAD TO BE MADE THE TOOL'S.** The draft checker replaced tags with a space where
+  `add-place-info.js` deletes them, so `<b>Spain</b>,` counted as two tokens against the tool's one, and
+  Spain was refused at 269 words after passing the draft check at 270. The scratch checker now uses the
+  tool's own expression. **A pre-flight check that is a paraphrase of the gate is a check that will
+  disagree with it at the boundary**, and the boundary is where a 270-word bar puts every short entry.
+- **SPAIN IS C2's POPULATION DIVERGENCE, STILL THERE AND NOW THREE-WAY.** UNdata gives 47,890 thousand, the
+  EU's own country page 49,077,984 and the World Bank 49.36 million — the EU and the World Bank agreeing
+  against Source A, exactly as C2 recorded. It costs this pass nothing, because `stripInfoNoise` means no
+  description states a population figure at all; the ratio claim rests on the World Bank series. **Where a
+  figure is contested, the rule that keeps figures out of the prose is also what keeps the prose right.**
