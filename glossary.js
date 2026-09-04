@@ -1752,7 +1752,8 @@ window.GLOSSARY = {
 "Delian_League": "The Delian League was an alliance of Greek states led by Athens and formed after the Persian invasion, its members contributing money or ships and its treasury kept on Delos, where the congresses met in the temple.<sup class=\"fn\" data-fn=\"1\"></sup> The tribute was first fixed at 460 talents and received by officers called the Treasurers for Hellas, and the allies were at first independent, acting on the resolutions of a common congress.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Most of them chose to pay money rather than serve, so the Athenian navy grew on their contributions while a revolt left them without ships, Naxos being the first member besieged and made to return.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Pericles": "Pericles was the Athenian statesman who led the city in the middle of the 5th century BCE and into the war with Sparta, and whom Thucydides calls the first man of his time, ablest in counsel and action.<sup class=\"fn\" data-fn=\"1\"></sup> The Constitution of the Athenians credits him with taking functions from the Areopagus, urging the state towards naval power, making jury service a paid office, and confining citizenship to those of citizen birth on both sides.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Thucydides writes that his rank, ability and known integrity let him lead the multitude rather than be led, so that what was nominally a democracy became in his hands government by the first citizen.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Parthenon": "The Parthenon is the temple of Athena on the acropolis of Athens, built after the Persian sack out of the tribute of Athens' allies, with Callicrates and Ictinus as its architects and Pheidias overseeing the work.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias found the front pediment given to the birth of Athena and the rear to her contest with Poseidon for the land, and inside a standing statue of ivory and gold with a Victory in one hand and a spear in the other.<sup class=\"fn\" data-fn=\"2\"></sup> Thucydides reckoned forty talents of pure gold on that statue, all of it removable, which the city might use to save itself and would afterwards have to restore in full.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Greek_theatre": "Greek theatre means the plays performed in competition at the Athenian festivals of Dionysus, for which the chief archon appointed the chorus-leaders of the tragedies from among the wealthiest men in the city.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle traces tragedy and comedy alike to improvisation, the one from the prelude to the dithyramb and the other from the prelude to the phallic songs, and credits Aeschylus with the second actor and Sophocles with the third and with scene-painting.<sup class=\"fn\" data-fn=\"2\"></sup> He defines tragedy as a representation of an action heroic and complete, acted rather than narrated, whose six parts are plot, character, diction, thought, spectacle and song.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Greek_theatre": "Greek theatre means the plays performed in competition at the Athenian festivals of Dionysus, for which the chief archon appointed the chorus-leaders of the tragedies from among the wealthiest men in the city.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle traces tragedy and comedy alike to improvisation, the one from the prelude to the dithyramb and the other from the prelude to the phallic songs, and credits Aeschylus with the second actor and Sophocles with the third and with scene-painting.<sup class=\"fn\" data-fn=\"2\"></sup> He defines tragedy as a representation of an action heroic and complete, acted rather than narrated, whose six parts are plot, character, diction, thought, spectacle and song.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Socrates": "Socrates was an Athenian philosopher who wrote nothing himself and is known from the writings of others, and whom Aristotle credits with disregarding the physical universe, confining his study to moral questions and concentrating first upon definition.<sup class=\"fn\" data-fn=\"3\"></sup> Plato has him tell the court that the oracle at Delphi denied anyone was wiser, and that on questioning men of reputation he found himself wiser only in this, that what he did not know he did not think he knew.<sup class=\"fn\" data-fn=\"1\"></sup> He was tried on a charge of rejecting the gods the state acknowledged, bringing in strange deities and corrupting the youth, and was put to death by hemlock.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2534,7 +2535,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Delian_League": "founded c. 478 BCE",
 "Pericles": "died 429 BCE",
 "Parthenon": "c. 447 – 432 BCE",
-"Greek_theatre": "c. 500 – 400 BCE"
+"Greek_theatre": "c. 500 – 400 BCE",
+"Socrates": "died 399 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5400,7 +5402,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Delian_League": ["institution","history","greece","warfare","politics","classical"],
 "Pericles": ["person","history","greece","politics","classical"],
 "Parthenon": ["building","history","greece","art","religion","classical"],
-"Greek_theatre": ["practice","art","history","greece","religion","classical"]
+"Greek_theatre": ["practice","art","history","greece","religion","classical"],
+"Socrates": ["person","philosophy","history","greece","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
