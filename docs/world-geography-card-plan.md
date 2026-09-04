@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-579` Sucre.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-580` Tunis.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -922,6 +922,25 @@ unambiguously counts the largest city, and cites UNdata for the capital, the reg
 membership date. The recognition guide's own contribution is the city's older name — *Embassy Usumbura
 (Bujumbura)* — and a rank that went backwards before it went forwards, to legation on 15 December 1962 and
 to embassy again on 16 September 1963.
+
+**`gw-579` SUCRE IS THE THIRD DIVIDED CAPITAL IN EIGHT CARDS, AND ALL THREE WERE SETTLED BY A UNdata
+FOOTNOTE.** *"La Paz is the seat of government and Sucre is the constitutional capital"* joins the
+Netherlands' and Benin's, and this one is properly anchored to the Capital city field where Burundi's was
+orphaned. **Read that footnote first on any capital card**: it settles the qualifier the question must
+carry, it predicts the relay break, and on three of these four it also told us which city the American
+mission would turn out to be in. Here the guide again names the OTHER city — the legation opened at
+**La Paz** on 3 January 1849 — so the pattern established at Amsterdam and Porto-Novo now holds three
+times: on a divided capital, the recognition guide is evidence for the division.
+
+**IT IS ALSO THE SEVENTH RELAY BREAK, AND THE FIRST WHERE THE THIRD CITY IS NEITHER CAPITAL.** UNdata
+gives 277.9 thousand for Sucre and `EN.URB.LCTY` gives 1,835,355, which is neither Sucre nor La Paz but
+whichever city is largest — so the card says only what the series IS and how far apart the two numbers
+are, rather than naming a city no cited source names. **Where the largest-city series measures a place the
+card cannot identify from its sources, describe the series rather than the city.** Two smaller things: the
+picture's Commons file name carries PARENTHESES, which `SRC_URL_RX` stops at, and percent-encoding them
+(`%28`/`%29`) keeps the credit line whole — the fix the plan's apostrophe-and-bracket rule implies but had
+not stated; and a draft sentence saying Bolivia was recognised "two years before it took a seat at the
+United Nations in 1945" was arithmetic nonsense for 1848 and was cut. **Read a sentence that computes.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
