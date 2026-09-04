@@ -30,11 +30,14 @@
    and is the reliable half. The bracket ALSO carries `I.` for `I,`, `A.` for `Art.` and sometimes no
    part letter at all, each of which cost a batch of phantom findings before the pattern was widened.
 
-   A DISAGREEMENT IS A HYPOTHESIS. Both transcriptions have faults, and the direction matters: where
-   the witness has an article Folio has not, the text may be lost OR merely unnumbered, and only
-   looking for the words settles it. `--verbose` prints, for each disagreement, whether the witness's
-   own wording is anywhere in Folio's chapter — which is the check that told E38's two real losses
-   from its fourteen numbering faults. */
+   A DISAGREEMENT IS A HYPOTHESIS, AND EVERY ONE IS NOW ADJUDICATED (Sep 2026, batch E46). Both
+   transcriptions have faults, and a count on its own says only that they disagree — not which is
+   wrong. So each disagreement is settled by the one question that settles it, DOES THE OTHER BOOK
+   HAVE THIS TEXT AT ALL, and the report is by KIND: an article missing from Folio entirely, one
+   present but unnumbered, or one where the OTHER book's heading or citation is at fault. Only the
+   first two are anybody's here to repair, and today there are none of either.
+   Run with `--selftest` to ask whether the adjudicator can still see and still hear; see the note
+   beside it, and read it before believing a clean run. */
 const fs = require("fs"), path = require("path"), https = require("https");
 const VERBOSE = process.argv.includes("--verbose");
 const CACHE = path.join(__dirname, "book-cache", "summa-witness");
@@ -121,8 +124,54 @@ const norm = (t) => t.replace(/<[^>]*>/g, " ").replace(/&[a-z]+;/g, " ")
   console.log("  " + odd + " chapter(s) whose prologue does not speak about their title" +
     (VERBOSE ? "" : " (those scoring 0 shown; --verbose for all)") + "\n");
 
-  /* 1 — the articles */
-  let cmp = 0, none = 0, agree = 0, fShort = 0, fLong = 0;
+  /* 1 — THE ARTICLES, AND EVERY DISAGREEMENT ADJUDICATED IN BOTH DIRECTIONS (Sep 2026, batch E46).
+     A count on its own says only that two books disagree; it does not say which is wrong, and for
+     sixteen questions this reported a disagreement that in every case was the WITNESS's. So each one
+     is now settled by the only question that settles it — DOES THE OTHER BOOK HAVE THIS TEXT AT ALL?
+     — and the report is by KIND rather than by direction, because the direction is not the finding.
+
+       · the witness has an article and Folio's chapter does not NUMBER it, but the words are there
+         → a numbering fault in Folio, which is what E39 repaired twenty-seven of;
+       · the words are somewhere ELSE in the other book
+         → that book's own heading or citation is at fault, and neither text has lost anything. All
+           sixteen standing when this was written are of this kind: Gutenberg heads an article
+           `[I, Q. 4, Art. 4]` where the article is q.42's (the Son equal to the Father in greatness)
+           and `[I, Q. 109, Art. 6]` where it is I-II q.109's (a man preparing himself for grace), so
+           ONE citation typo produces TWO findings — the article appears under a question it does not
+           belong to and is missing from the one it does. The other twelve are headings Gutenberg
+           simply does not print; the check below finds each of Folio's articles in the witness's own
+           volume, which is what turns E38's assertion that they are "Gutenberg's own missing
+           headings" into something measured article by article.
+       · the words are NOWHERE in the other book
+         → a real loss, and the only kind that is anybody's to repair. E40 put back two of these.
+
+     THE PROBE IS FIVE RUNS OF SIXTY CHARACTERS, NOT ONE, AND THAT IS NOT REDUNDANCY. Sixty characters
+     because a shorter run matches Aquinas's formulae ("I answer that", "on the contrary") in the wrong
+     article; spread across the article rather than taken from one point because THE TWO TRANSCRIPTIONS
+     DIFFER MOST IN THEIR CITATION APPARATUS, and a single probe can land in exactly that. III q.5 art
+     4 is the case that showed it: "Whether the Son of God Assumed a Human Mind or Intellect?" is in
+     both books, and a lone mid-article probe reported it MISSING FROM THE WITNESS ENTIRELY because it
+     fell on "…(Jn. 10:17: 'I lay down my soul' [Douay: 'life'])", where Folio carries a reference the
+     witness sets differently. Sampled at a fifth, a third, a half, three fifths and three quarters,
+     three of the five match and the answer is plain. The question being asked is "does this text exist
+     over there AT ALL", so a match anywhere is the answer and a miss anywhere means nothing. */
+  const ALL_FOLIO = norm(chs.map((x) => x.html).join(" "));
+  const ALL_WIT = {}; for (const id of Object.keys(text)) ALL_WIT[VOL[id]] = norm(text[id]);
+  const PROBE_AT = [0.2, 0.33, 0.45, 0.6, 0.75];
+  const probesOf = (t) => {
+    const b = norm(t);
+    if (b.length < 200) return [];
+    return PROBE_AT.map((f) => b.slice(Math.floor(b.length * f), Math.floor(b.length * f) + 60))
+      .filter((x) => x.length === 60);
+  };
+  const anyIn = (hay, ps) => ps.some((x) => hay.includes(x));
+  /* Folio's article, as text: from its own marker to the next one. */
+  const folioArt = (c, a) => {
+    const m = new RegExp('<span class="bk-n">' + a + '<\\/span>([\\s\\S]*?)(?=<span class="bk-n">|$)').exec(c.html);
+    return m ? m[1] : "";
+  };
+
+  let cmp = 0, none = 0, agree = 0, lost = 0, unnumbered = 0, theirs = 0, odd2 = 0;
   for (const c of chs) {
     const k = keyOf(c.t); if (!k) continue;
     const w = wit.get(k); if (!w) { none++; continue; }
@@ -131,22 +180,66 @@ const norm = (t) => t.replace(/<[^>]*>/g, " ").replace(/&[a-z]+;/g, " ")
     const miss = [...w.keys()].filter((a) => !mine.has(a)).sort((a, b) => a - b);
     const extra = [...mine].filter((a) => !w.has(a)).sort((a, b) => a - b);
     if (!miss.length && !extra.length) { agree++; continue; }
-    if (miss.length) fShort++;
-    if (extra.length) fLong++;
+    const lines = [];
+    for (const a of miss) {
+      const h = w.get(a), ps = probesOf(body(h));
+      const head = (body(h).split("\n").map((s) => s.trim()).filter(Boolean)[0] || "").slice(0, 66);
+      let verdict;
+      if (!ps.length) { verdict = "?  the witness's article is too short to probe"; odd2++; }
+      else if (anyIn(norm(c.html), ps)) { verdict = "FOLIO does not number it, but the words are here"; unnumbered++; }
+      else if (anyIn(ALL_FOLIO, ps)) { verdict = "the WITNESS's own citation is wrong — Folio has it elsewhere"; theirs++; }
+      else { verdict = "MISSING FROM FOLIO ENTIRELY"; lost++; }
+      lines.push("      witness art " + a + "  " + head + "\n         " + verdict);
+    }
+    for (const a of extra) {
+      const part = (k.match(/^(I-II|II-II|III|I|Suppl|App)/) || [])[1];
+      const ps = probesOf(folioArt(c, a));
+      const vol = ALL_WIT[part] || "";
+      let verdict;
+      if (!ps.length) { verdict = "?  Folio's article is too short to probe"; odd2++; }
+      else if (anyIn(vol, ps)) { verdict = "the WITNESS's own heading is missing or misnumbered — it has the text"; theirs++; }
+      else { verdict = "NOT IN THE WITNESS AT ALL"; odd2++; }
+      lines.push("      Folio art " + a + "  " + norm(folioArt(c, a)).slice(0, 66) + "\n         " + verdict);
+    }
     console.log("  ARTICLES  ch " + c.n + "  " + k +
       (miss.length ? "   witness has " + miss.join(",") + " and Folio does not" : "") +
       (extra.length ? "   Folio has " + extra.join(",") + " and the witness does not" : ""));
-    if (VERBOSE) for (const a of miss) {
-      const h = w.get(a), b = norm(body(h)), nc = norm(c.html), nb = norm(chs.map((x) => x.html).join(" "));
-      const probe = b.slice(Math.floor(b.length * 0.45), Math.floor(b.length * 0.45) + 60);
-      console.log("      art " + a + "  " + (body(h).split("\n").map((s) => s.trim()).filter(Boolean)[0] || "").slice(0, 74) +
-        "\n         wording is " + (nc.includes(probe) ? "in this chapter (unnumbered, not lost)"
-          : nb.includes(probe) ? "elsewhere in the book" : "NOWHERE IN THE BOOK"));
-    }
+    lines.forEach((l) => console.log(l));
   }
   console.log("\n  " + cmp + " question(s) compared, " + agree + " agreeing; " + none +
     " have no second witness (the Supplement and the Appendix)");
-  console.log("  " + fShort + " where the witness has an article Folio has not, " + fLong + " the other way");
+  console.log("  of the disagreements: " + lost + " article(s) missing from Folio entirely, " +
+    unnumbered + " present but unnumbered, " + theirs + " where the OTHER book's heading or citation " +
+    "is at fault" + (odd2 ? ", " + odd2 + " that this cannot adjudicate" : ""));
+  if (!lost && !unnumbered) console.log("  nothing here is Folio's to repair");
+
+  /* --selftest — IS THE ADJUDICATOR BLIND, OR DEAF? (Sep 2026, batch E46.) It now answers "the other
+     book's heading is at fault" for every disagreement on the shelf, which is the most comfortable
+     answer it could give and therefore the one most in need of testing: a probe that matched anything
+     would say exactly that, and a probe that matched nothing would too, in the other direction.
+     So take articles Folio HAS, in questions the two books agree about, and ask both halves —
+       · the witness must be FOUND to have them (or the check is blind and every finding is a phantom);
+       · and with Folio's own copy removed they must be reported MISSING (or it is deaf and a real loss
+         would be waved through as the other book's problem).
+     It is a flag rather than part of every run because the second half rewrites a 14 MB string once per
+     article. Measured when it was written: 33 of 33 and 33 of 33. */
+  if (process.argv.includes("--selftest")) {
+    const vol = ALL_WIT[VOL[Object.keys(text)[0]]] || "";
+    let n = 0, sees = 0, hears = 0;
+    for (const num of [2, 12, 25, 44, 75]) {
+      const c = chs.find((x) => x.n === num); if (!c) continue;
+      for (const m of c.html.matchAll(/<span class="bk-n">(\d+)<\/span>/g)) {
+        const t = folioArt(c, +m[1]), ps = probesOf(t);
+        if (!ps.length) continue;
+        n++;
+        if (anyIn(vol, ps)) sees++;
+        if (!anyIn(ALL_FOLIO.split(norm(t)).join(" "), ps)) hears++;
+      }
+    }
+    console.log("\n  self-test over " + n + " articles of five questions of Part I: " + sees +
+      " found in the witness (not blind), " + hears + " reported missing when removed (not deaf)");
+    if (sees !== n || hears !== n) console.log("  !! the adjudicator does not answer correctly on text it can see — do not believe the run above");
+  }
   /* IT EXITS 0 WHATEVER IT FINDS, deliberately. This is a MEASURE, like card-focus.js, not a gate
      like check-questions.js: its residue is the numbering family E38 measured and left standing, so
      a non-zero exit would be a permanent red that teaches everyone to ignore it. Read the figures. */

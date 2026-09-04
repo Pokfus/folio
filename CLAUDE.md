@@ -5624,9 +5624,17 @@ dead code (never rendered).
     and any two chapters with byte-identical text. The last two need no witness, which is why they
     reach the Supplement and the Appendix, where 102 of the 614 questions have none. **Read the
     heading's ORDINAL WORD, never its bracket** — Gutenberg's disagree seventeen times, and keyed on
-    the bracket the first run reported 33 phantom findings. **It exits 0 whatever it finds**, being a
-    measure like `card-focus.js` rather than a gate. **Re-run after any change to that book.** Not
-    part of the site.
+    the bracket the first run reported 33 phantom findings. **EVERY DISAGREEMENT IS ADJUDICATED and
+    the report is by KIND** (Sep 2026, batch E46): a count says two books disagree and not which is
+    wrong, so each is settled by asking whether the other book has the text AT ALL — missing from
+    Folio, present but unnumbered, or the other book's own heading at fault. **All sixteen standing
+    are Gutenberg's, three of them citation typos**, and nothing there is Folio's to repair. **The
+    probe is five runs of sixty characters, not one**: a lone one reported III q.5 art 4 missing from
+    a witness that has it, having landed on a scripture reference — the two transcriptions differ most
+    in their apparatus. **`--selftest` asks whether the adjudicator is blind or deaf**, since "the
+    other book's fault" is what a probe matching everything would say. **It exits 0 whatever it
+    finds**, being a measure like `card-focus.js` rather than a gate. **Re-run after any change to
+    that book.** Not part of the site.
   · `node .claude/check-cutoff.js` — **a chapter that STOPS rather than ends** (Sep 2026, batch
     E43). The tell is terminal punctuation and it is the only one there is: a truncated chapter is
     not short — the Summa's Supplement q.95 lost 1,123 words and still ran to 20 KB — and it is not

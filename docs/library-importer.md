@@ -1743,8 +1743,24 @@ questions have none.
     witness has not, and every one of the 33 was the checker's own. **A comparison between two
     witnesses reports the weaker one's faults as the stronger one's** until it is hardened, which is
     E37's lesson in a new subject.
-  · **IT EXITS 0 WHATEVER IT FINDS.** It is a measure, like `card-focus.js`, not a gate: its standing
-    residue is the numbering family E38 left for E39, and a permanent red teaches everyone to ignore it.
+  · **EVERY DISAGREEMENT IS ADJUDICATED, AND THE REPORT IS BY KIND** (Sep 2026, batch E46). A count
+    says two books disagree and not which is wrong. So each is settled by the one question that
+    settles it — does the other book have this text at all? — giving three kinds: an article missing
+    from Folio entirely, one present but unnumbered, or one where the OTHER book's heading or citation
+    is at fault. Only the first two are Folio's, and today there are **none of either**: all sixteen
+    standing disagreements are Gutenberg's, three of them citation typos (`[I, Q. 4]` for q.42,
+    `[I, Q. 109]` for I-II q.109, `[II-II, Q. 5]` for III q.5 — each of the first two producing TWO
+    findings, since the article is filed under a question it does not belong to and missing from the
+    one it does) and twelve headings it does not print.
+  · **THE PROBE IS FIVE RUNS OF SIXTY CHARACTERS, NOT ONE.** A lone mid-article probe reported III q.5
+    art 4 missing from a witness that plainly has it: it had landed on a scripture reference, and **the
+    two transcriptions differ most in their citation apparatus**. A match anywhere is the answer.
+  · **`--selftest` ASKS WHETHER THE ADJUDICATOR IS BLIND OR DEAF**, because "every disagreement is the
+    other book's fault" is exactly what a probe matching everything would say. Articles Folio has, in
+    questions the two agree about, must be FOUND in the witness and must be reported MISSING once
+    Folio's copy is removed. 33 of 33 and 33 of 33.
+  · **IT EXITS 0 WHATEVER IT FINDS.** It is a measure, like `card-focus.js`, not a gate: what remains
+    is the other book's, and a permanent red teaches everyone to ignore it.
 
 **TWO MORE SHAPES OF DUPLICATION, AND THE FOUR CASES THAT LOOK IDENTICAL AND ARE NOT** (Sep 2026,
 batch E36, `dedupeArticles`). E35 put back two articles the Summa's transcription had lost; fifteen

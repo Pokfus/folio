@@ -3613,3 +3613,61 @@ checks, so the question "does any escaped markup remain?" is asked of every ship
 It reports the shelf clean now, and run against the file as it shipped before this batch it reports the
 Song of Roland's two. The run says what it REMOVED; the audit says what REMAINS — which is the right
 division, because a run can only answer for the pages it read.
+
+---
+
+## E46 — the sixteen disagreements, and which book is wrong
+
+**A COUNT SAYS TWO BOOKS DISAGREE; IT DOES NOT SAY WHICH IS WRONG.** `summa-witness.js` had reported the
+same sixteen article disagreements since E41 — two where the witness has an article Folio has not,
+fourteen the other way — and E38 recorded them as "Gutenberg's own missing and misnumbered headings",
+which was an assertion rather than a measurement. Adjudicated article by article, it is exactly right:
+**0 articles missing from Folio, 0 present but unnumbered, 16 where the other book's heading or citation
+is at fault. Nothing there is Folio's to repair.**
+
+**THE ADJUDICATION IS ONE QUESTION, ASKED IN BOTH DIRECTIONS: does the other book have this text at
+all?** Where the witness has an article Folio does not number, the words may still be in Folio's chapter
+(a numbering fault here, which is what E39 repaired twenty-seven of), somewhere else in Folio (the
+witness's own citation is wrong), or nowhere (a real loss, which is what E40 put back two of). Where
+Folio has one the witness does not, the mirror: the witness's volume either has the text under another
+heading, or has not got it at all. The report is now by **kind** rather than by direction, because the
+direction is not the finding.
+
+**TWO OF THE SIXTEEN ARE ONE FAULT EACH, COUNTED TWICE, AND THAT IS THE PRETTIEST PART.** Gutenberg
+heads an article `FOURTH ARTICLE [I, Q. 4, Art. 4]` where the article is q.**42**'s — *Whether the Son
+Is Equal to the Father in Greatness?*, which is the Trinity and not the perfection of God — so the
+article appears under a question it does not belong to **and is missing from the one it does**. The same
+typo, one part-letter wide, does it again at `[I, Q. 109, Art. 6]` for **I-II** q.109's *Whether a Man,
+by Himself and Without the External Aid of Grace, Can Prepare Himself for Grace*. A third, `[II-II, Q.
+5, Art. 4]` for **III** q.5's *Whether the Son of God Assumed a Human Mind or Intellect*, produces only
+ONE finding rather than a pair, because II-II q.5 has a real fourth article for the phantom to collide
+with. The other twelve are headings Gutenberg simply does not print.
+
+**THE PROBE IS FIVE RUNS OF SIXTY CHARACTERS, NOT ONE, AND THE THIRD TYPO IS WHY.** A single mid-article
+probe reported III q.5 art 4 **missing from the witness entirely** — a book that plainly has it. The
+probe had landed on *"(Jn. 10:17: 'I lay down my soul' [Douay: 'life'])"*: **the two transcriptions
+differ most in their citation apparatus**, and a lone sample can fall in exactly the place they disagree.
+Sampled at a fifth, a third, a half, three fifths and three quarters, three of the five match. The
+question is whether the text exists over there AT ALL, so a match anywhere is the answer and a miss
+anywhere means nothing. **That is E38's lesson for the third time: harden the instrument before
+believing what it says.**
+
+**AND THE ANSWER IT NOW GIVES IS THE COMFORTABLE ONE, SO IT IS TESTED.** "Every disagreement is the
+other book's fault" is what a probe matching everything would say, and "every one is a loss" is what a
+probe matching nothing would say. `--selftest` takes articles Folio has, in questions the two books
+agree about, and asks both halves: the witness must be FOUND to have them, and with Folio's own copy
+removed they must be reported MISSING. **33 of 33 and 33 of 33.** It is a flag rather than part of every
+run because the second half rewrites a 14 MB string once per article.
+
+**WHERE THE PROGRAMME STANDS AFTER 46 BATCHES.** The word-level passes are finished: every book's
+candidate list has been generated and read, and every correction rests on a printed witness. The
+structural passes have left four committed scanners, and all four now report either clean or a residue
+that has been read and written down — no chapter carries another's text; no book pairs fewer than half
+its sections; 17 chapters end without terminal punctuation and all 17 were read; 107 of 25,379 bilingual
+rows draw with one side empty and every one is recorded in its book's entry; and the Summa's witness
+residue is now nil on Folio's side. What is left that is NAMED is small: about 45 marks in the Canterbury
+Tales and six Plato candidates that want page-image leaf reads, two words with no reachable printed
+witness at all, and the Journey scan's remaining punctuation runs. **What is not named is the larger
+half**: every new CLASS of question has found something real — a lost fable, five truncations, a book
+pairing on nothing, eight printed tags and eight lost words of Augustine — so the honest statement is
+that the backlog is nearly clear and the programme is not.
