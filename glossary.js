@@ -1798,7 +1798,8 @@ window.GLOSSARY = {
 "Vientiane": "Vientiane is the capital of Laos, standing in the west of that landlocked South-east Asian state, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 673,000 people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries to some 756,000 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American legation opened in the city on 22 August 1950 and became an embassy in 1955, but its head was downgraded to chargé d'affaires after the Lao People's Democratic Republic was founded in 1975, and no ambassador was posted again until 1992.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ashgabat": "Ashgabat is the capital of Turkmenistan, standing in the south of that Central Asian state, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 828,000 people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries past 940,000 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy there was established on 17 March 1992, and is recorded under a heading that names the city twice over, as “Ashkabad (now Ashgabat)”, the older transliteration standing beside the current one.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Tripoli": "Tripoli is the capital of Libya, standing on the Mediterranean coast of that North African state, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 1.16 million people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American consul took up his post in the city in 1799, and the American embassy there has closed and reopened repeatedly since: shut from 1980 until 2006 without relations being severed, suspended in 2011 and again in 2014, and working from Tunisia since March 2015.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Bishkek": "Bishkek is the capital of Kyrgyzstan, standing in the north of that landlocked Central Asian state below the mountains, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 1.02 million people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries past 1.15 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy there was established on 1 February 1992 with Edmund McWilliams as chargé d'affaires, six weeks before the same officer opened the embassy at Dushanbe.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Bishkek": "Bishkek is the capital of Kyrgyzstan, standing in the north of that landlocked Central Asian state below the mountains, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 1.02 million people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries past 1.15 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy there was established on 1 February 1992 with Edmund McWilliams as chargé d'affaires, six weeks before the same officer opened the embassy at Dushanbe.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Asunción": "Asunción is the capital of Paraguay, standing on the Paraguay river in the west of that landlocked South American state. The United Nations Statistics Division names it as the capital and gives about 3.28 million people for 2019, a figure its own footnote defines as the district of Asunción together with the 19 districts of Central Department — nearly half the country's population.<sup class=\"fn\" data-fn=\"1\"></sup> The United States recognised Paraguay in 1852 through its chargé d'affaires at Buenos Aires, and no American mission stood in the city until a legation was established there on 26 November 1861.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3653,7 +3654,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "N'Djamena": ["Fort Lamy","Fort-Lamy"],
 "Mogadishu": ["Mogadiscio"],
 "Bujumbura": ["Usumbura"],
-"Tripoli": ["Tarabulus"]
+"Tripoli": ["Tarabulus"],
+"Asunción": ["Asuncion"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5480,7 +5482,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Vientiane": ["place","city","geography","capital","laos"],
 "Ashgabat": ["place","city","geography","capital","turkmenistan"],
 "Tripoli": ["place","city","geography","capital","libya"],
-"Bishkek": ["place","city","geography","capital","kyrgyzstan"]
+"Bishkek": ["place","city","geography","capital","kyrgyzstan"],
+"Asunción": ["place","city","geography","capital","paraguay"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
