@@ -1162,4 +1162,25 @@ window.ARTEFACTS = [
     date: "c. 1500 – 1800 CE",
     origin: "Europe, above all Nuremberg and Paris",
   },
+  {
+    id: "transferware",
+    name: "Transferware plate",
+    rarity: "common",
+    date: "c. 1756 CE onwards",
+    origin: "Britain",
+  },
+  {
+    id: "socket-bayonet",
+    name: "Socket bayonet",
+    rarity: "common",
+    date: "c. 1640 – 19th century CE",
+    origin: "France, then all of Europe",
+  },
+  {
+    id: "flintlock-musket",
+    name: "Flintlock musket",
+    rarity: "common",
+    date: "c. 1630 – 1840 CE",
+    origin: "Europe and its colonies",
+  },
 ];

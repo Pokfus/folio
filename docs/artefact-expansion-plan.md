@@ -275,6 +275,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | C2a | `thule-harpoon-head`, `great-zimbabwe-bird` (**two, not three — see below**) | — |
 | D3a | `dotaku` (UN-DEFERRED), `mississippian-shell-gorget` | — (a deferral sweep that cleared one of eight) |
 | E2a | `type-sort`, `slide-rule`, `portable-sundial` | — |
+| E3a | `transferware`, `socket-bayonet`, `flintlock-musket` | `steel-pen-nib` (one work only) |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1025,6 +1026,39 @@ founders worked from differ from one another.
 · One honest note about `slide-rule`'s illustration: no photograph of a seventeenth- or
   eighteenth-century rule could be found on Commons, so the plate shows a modern one, which is the same
   instrument and is captioned as what it is rather than dressed as an antique.
+
+**E3a's finding is that THREE TRADE BOOKS DISAGREEING WITH EACH OTHER IS A BETTER PLATE THAN ONE
+AUTHORITY AGREEING WITH ITSELF.** Every artefact in this batch rests on a contradiction between its own
+three sources, and each is a real historical dispute rather than an error: transferware is given to Dr
+Wall at Worcester by an 1854 encyclopedia, called a claim made by several places by the standard ceramic
+history of 1878, and traced to Sadler and Green at Liverpool by the 1907 monograph on the process; the
+flintlock is Spanish and pre-1630 in Greener, Dutch and Charles II's reign in the Birmingham survey of
+1866; and Bayonne's bayonets are dated 1640 by one and 1641 by another. **A plate that says who thinks
+what is more honest and more interesting than one that picks a winner**, and it is only possible because
+these books are open in full and can be read against one another.
+
+· **THE E1–E3 ROUTE IS NOW PROVEN TWICE OVER: the trade literature, not the archaeology.** Six books
+  carried this batch — Grose 1786, Tomlinson 1854, Timmins 1866, Jewitt 1878, Turner 1907, Greener 1910 —
+  and three of them serve two artefacts each, which is not padding but the shape of the sources: Greener's
+  *The Gun and Its Development* has a chapter on the story of the bayonet as well as on the lock, and
+  Timmins's Birmingham survey covers the gun trade and the bayonet in the same paragraph.
+· **A USER UPLOAD OF AN IN-COPYRIGHT BOOK IS NOT A SOURCE, AND `steel-pen-nib` IS DEFERRED ON THAT.**
+  Timmins 1866 carries the whole early history of the Birmingham steel-pen trade — Gillott, Perry and
+  Josiah Mason, the collapse from twelve shillings a dozen to pence a gross, and the 1849 census of twelve
+  factories, 300 men and boys against 1,560 women and girls, 65,000 gross of pens a week — but the only
+  other openable item found is A. A. S. Charles's *The Steel Pen Trade 1930–1980*, published about 1983
+  and uploaded whole. B2a dropped Rudenko 1970 on that ground and this goes the same way. **One superb
+  source is still one source.**
+· **THE COMMONS `api.php` RATE-LIMITS AFTER A SESSION'S SEARCHES, AND ITS 429 IS PLAIN TEXT.** A JSON
+  parser reports that as a syntax error, which reads like a bug in the search script rather than a limit
+  on the account. `commons.wikimedia.org/w/index.php?search=…&ns6=1` keeps working and returns the file
+  titles in its HTML — **use the HTML search when the API starts throwing parse errors**, and note this is
+  a third Wikimedia limit alongside `upload.wikimedia.org`'s 429 on files and the earlier one on the
+  description pages.
+· One naming caution of the kind the katana's Commons page produced: Tomlinson's *Cyclopaedia* and
+  Jewitt's *Ceramic Art* were both published by Virtue, but the scans' own title pages do not state it
+  plainly enough to be sure which Virtue, so those two citations give the place and year alone rather
+  than a publisher guessed from memory.
 
 ## The per-artefact workflow
 
