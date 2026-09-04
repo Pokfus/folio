@@ -1988,7 +1988,8 @@ window.GLOSSARY = {
 "Lex_Hortensia": "The Lex Hortensia was a Roman law, carried by a dictator of that name, which gave the decrees of the plebs binding force over the whole citizen body and so placed them on an equal footing with laws passed in the assembly of centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Such a decree had until then been the act of the plebs as a corporation, put to it by its own magistrates, who could not summon the patricians or lay business before them.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient writers record two earlier enactments to the same effect, and none of them explains why the rule required passing more than once.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Lex_Ogulnia": "The Lex Ogulnia was a Roman law of 300 BCE, proposed by two tribunes of that family, which enlarged the colleges of pontiffs and augurs and reserved every new place in them for plebeians.<sup class=\"fn\" data-fn=\"1\"></sup> Four pontiffs were added to the four already serving and five augurs to four, bringing the colleges to eight and nine, so that the priesthoods ceased to be the last public positions held by patricians alone.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was aimed at the leading men of the plebs, who had already reached the consulship and the triumph, and it left the chief pontificate untouched, that office staying in patrician hands for two generations more.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Appius_Claudius_Caecus": "Appius Claudius Caecus was a Roman magistrate of the late 4th and early 3rd centuries BCE, censor in 312 BCE and twice consul, whose surname records the blindness of his later years.<sup class=\"fn\" data-fn=\"1\"></sup> His censorship began the road and the aqueduct that bear his name and was remembered for a disputed revision of the senate roll, for his refusal to lay the office down at the end of its legal term, and for the political following that grew out of it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> In old age he was carried into the senate to speak against a proposed peace with Pyrrhus of Epirus.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Appian_Way": "The Appian Way was a Roman road running south from Rome, begun in 312 BCE by the censor Appius Claudius, from whom it takes its name, and reckoned the first Roman highway to be paved.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A road of that kind was laid in courses, a footing of hand-sized stones under rubble and lime, then a bedding of pounded potsherds and lime, and on the surface polygonal blocks of lava crowned so as to shed water, with a raised footway along either side.<sup class=\"fn\" data-fn=\"2\"></sup> Procopius, describing it centuries afterwards, records stone brought from a distance, cut to fit without mortar, and joints that had not opened under long use.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Appian_Way": "The Appian Way was a Roman road running south from Rome, begun in 312 BCE by the censor Appius Claudius, from whom it takes its name, and reckoned the first Roman highway to be paved.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A road of that kind was laid in courses, a footing of hand-sized stones under rubble and lime, then a bedding of pounded potsherds and lime, and on the surface polygonal blocks of lava crowned so as to shed water, with a raised footway along either side.<sup class=\"fn\" data-fn=\"2\"></sup> Procopius, describing it centuries afterwards, records stone brought from a distance, cut to fit without mortar, and joints that had not opened under long use.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Aqua_Appia": "The Aqua Appia was the first aqueduct built to supply Rome, brought in during the censorship of 312 BCE by Appius Claudius, whose name it carries and who in the same office began the road that also bears it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Frontinus gives its channel as 11,190 paces from the intake to the salt works by the Porta Trigemina, of which 11,130 paces ran underground and only sixty were carried above ground on substructures and arches.<sup class=\"fn\" data-fn=\"1\"></sup> Before it the city had drawn on the Tiber, on wells and on springs; stretches of the buried channel have since been found beneath Rome.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2780,7 +2781,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lex_Hortensia": "287 BCE",
 "Lex_Ogulnia": "300 BCE",
 "Appius_Claudius_Caecus": "censor 312 BCE, consul 307 and 296 BCE",
-"Appian_Way": "begun 312 BCE"
+"Appian_Way": "begun 312 BCE",
+"Aqua_Appia": "312 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4001,7 +4003,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Lex_Hortensia": ["Hortensian law"],
 "Lex_Ogulnia": ["Ogulnian law","lex Ogulnia"],
 "Appius_Claudius_Caecus": ["Appius Claudius the Blind"],
-"Appian_Way": ["Via Appia","Appia Antica"]
+"Appian_Way": ["Via Appia","Appia Antica"],
+"Aqua_Appia": ["Appian aqueduct"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6022,7 +6025,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lex_Hortensia": ["event","law","history","politics","italy"],
 "Lex_Ogulnia": ["event","law","history","religion","italy"],
 "Appius_Claudius_Caecus": ["person","history","politics","law","italy"],
-"Appian_Way": ["building","technology","history","geography","italy"]
+"Appian_Way": ["building","technology","history","geography","italy"],
+"Aqua_Appia": ["building","technology","history","geography","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
