@@ -1966,7 +1966,8 @@ window.GLOSSARY = {
 "Verginia": "Verginia was a plebeian girl of Roman tradition, betrothed to the former tribune Lucius Icilius, whom the decemvir Appius Claudius set a client to claim in court as his slave.<sup class=\"fn\" data-fn=\"1\"></sup> Appius judged the case he had himself contrived and adjudged her a slave; her father Lucius Verginius took her aside to the booths by the shrine of Venus Cloacina and stabbed her, saying he vindicated her freedom in the only way left him.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The killing is placed in 449 BCE and made the cause of the secession that ended the decemvirate, though the accounts disagree about her family and Livy finds no stated ground for the judgment.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Valerio-Horatian_Laws": "The Valerio-Horatian laws are three laws carried at Rome in 449 BCE by the consuls Lucius Valerius Potitus and Marcus Horatius Barbatus, after the decemvirate fell.<sup class=\"fn\" data-fn=\"1\"></sup> One made what the plebs voted in their tribes binding on the whole people, one restored the right of appeal and forbade any magistrate from whom there was no appeal, and one made violence against a tribune, an aedile or a decemviral judge forfeit the offender to Jupiter.<sup class=\"fn\" data-fn=\"1\"></sup> The first is recorded as carried again in 339 BCE and a third time for the Lex Hortensia of 287 BCE, so how much was settled in 449 BCE cannot be fixed from the surviving notices.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Lex_Canuleia": "The Lex Canuleia is the Roman law of 445 BCE, carried by the tribune Gaius Canuleius, that allowed marriage between patricians and plebeians.<sup class=\"fn\" data-fn=\"1\"></sup> It granted <i>conubium</i>, the set of conditions making a marriage lawful in Roman law, whose chief effect is that the children follow their father’s condition and pass into his power, so the ban had left such unions with children of uncertain standing.<sup class=\"fn\" data-fn=\"3\"></sup> It was carried beside a separate bill for plebeian consuls that the patricians refused, and Livy says the ban itself was only a few years old, having been written by the decemvirs.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Consular_tribune": "A consular tribune, properly a military tribune with consular power, was one of a college of magistrates the Romans elected in place of consuls in most years between 444 and 367 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The office was open to plebeians as the consulship was not, though the first college was wholly patrician and no plebeian held it until 400 BCE, and their number ran from three to six, or eight where the censors are counted with them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> From year to year the senate proposed and the people chose whether to elect consuls or tribunes, until the office was abolished in 367 BCE by the Licinian law and the consulship restored.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Consular_tribune": "A consular tribune, properly a military tribune with consular power, was one of a college of magistrates the Romans elected in place of consuls in most years between 444 and 367 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The office was open to plebeians as the consulship was not, though the first college was wholly patrician and no plebeian held it until 400 BCE, and their number ran from three to six, or eight where the censors are counted with them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> From year to year the senate proposed and the people chose whether to elect consuls or tribunes, until the office was abolished in 367 BCE by the Licinian law and the consulship restored.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Roman_censor": "The Roman censorship was a magistracy created in 443 BCE, held by two men, taking over the register of citizens and their property the consuls had kept since the kings.<sup class=\"fn\" data-fn=\"2\"></sup> Beyond the census it came to control the roll of the senate and the equestrian order, the letting of the state’s revenues, and the <i>regimen morum</i>, an oversight of conduct answerable to nobody, exercised through the <i>nota censoria</i>, valid only if both censors agreed and liftable by their successors.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its holders originally served a <i>lustrum</i> of five years, cut to eighteen months in 433 BCE, and were drawn only from the patricians until 351 BCE.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2740,7 +2741,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Verginia": "449 BCE, by tradition",
 "Valerio-Horatian_Laws": "449 BCE",
 "Lex_Canuleia": "445 BCE",
-"Consular_tribune": "444 – 367 BCE"
+"Consular_tribune": "444 – 367 BCE",
+"Roman_censor": "443 BCE – 22 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3939,7 +3941,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Appius_Claudius_Crassus_Inregillensis_Sabinus": ["Appius Claudius Crassus","Appius Claudius the decemvir"],
 "Valerio-Horatian_Laws": ["Valerio-Horatian laws","leges Valeriae Horatiae"],
 "Lex_Canuleia": ["lex Canuleia","Canuleian law"],
-"Consular_tribune": ["consular tribunes","military tribune with consular power","military tribunes with consular power","tribuni militum consulari potestate"]
+"Consular_tribune": ["consular tribunes","military tribune with consular power","military tribunes with consular power","tribuni militum consulari potestate"],
+"Roman_censor": ["censorship","censors","Roman censorship","Roman censor"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5938,7 +5941,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Verginia": ["person","history","law","politics","italy"],
 "Valerio-Horatian_Laws": ["event","law","history","politics","italy"],
 "Lex_Canuleia": ["event","law","history","politics","italy"],
-"Consular_tribune": ["title","institution","history","politics","italy"]
+"Consular_tribune": ["title","institution","history","politics","italy"],
+"Roman_censor": ["title","institution","history","politics","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
