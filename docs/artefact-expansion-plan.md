@@ -270,6 +270,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | ~~`longquan-celadon-bowl`~~ (shipped in B2b), `inkstone`, `igbo-ukwu-bronze`, `pazyryk-carpet` |
 | B2b | `bronze-ding`, `longquan-celadon-bowl` (UN-DEFERRED), `wax-tablet` | `han-tomb-brick` |
 | B3a | `samurai-katana`, `ukiyo-e-print`, `goryeo-celadon` | — |
+| B3b | `daguerreotype`, `jomon-dogu`, `magatama` (**B3's list is now empty but for `dotaku`**) | `dotaku` (needs a third openable work) |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -832,6 +833,38 @@ articles where `Silla crown` returned an unrelated list.
 · One naming caution: the Commons description page for the Met's katana spells the smith **Muntesugu**,
   which is a typo for Munetsugu. A file page is not a catalogue, and its prose is worth reading with the
   same suspicion as any other uncredited caption.
+
+**B3b's finding is that A COMMONS LICENCE MUST BE READ OFF THE "LICENSING" SECTION, NEVER GREPPED OFF
+THE PAGE.** A file description page mentions several licence names in its footer, its upload log and its
+sister-project boxes, so grepping the HTML for `CC0` or `public domain` returns a hit on files that carry
+neither: `Magatamas.JPG` grepped as CC0 and is **CC BY-SA 3.0 (Kakidai)**, and `Dogu_Miyagi_1000_BCE_400_BCE.jpg`
+the same, by World Imaging. Both are perfectly usable — the pass's bar takes CC BY-SA — but the CREDIT
+would have shipped without the attribution the licence requires, which is the one failure a reader cannot
+see and the author cannot be told about. **Find the Licensing heading and read the box under it.** This is
+the third fault in this pass that comes of trusting a page's chrome rather than its content (the katana's
+misspelt smith and the two replicas were the others), and all three were caught by looking rather than by
+matching.
+
+· **Check PMC before writing a paper off.** `mdpi.com` and `pnas.org` are both 403 here, which two batches
+  ago would have cost this plate two of its three works; both papers have open PMC copies
+  (`PMC10181581`, `PMC6628667`) and are cited at those addresses. The mirror caution goes with it: a PMCID
+  guessed from a neighbouring number is a different paper, and `PMC10180958` — one off the daguerreotype
+  paper's real id — is about the ripening of raspberries.
+· **Crossref has no record of the `nihonkokogaku1994` or `gsjapan` DOIs**, which resolve perfectly and are
+  simply not deposited; those three citations are therefore UNCHECKED rather than passing, exactly as
+  `check-citations.js`'s own rule says. An older Japanese society journal digitised onto J-Stage is the
+  same case as a society digitising its back catalogue with no print date — the record is thin, and the
+  eye is what is left.
+· **The correction is inside the name again, for the fourth time in this pass.** Japanese jade was believed
+  to have been carried from China until jadeite was actually identified in Japanese rock in 1939, and
+  Itoigawa turns out to have supplied one of the oldest jadeitite-working traditions in the world. The
+  daguerreotype's is of the same shape and runs the other way: the plate is not a picture ON silver but a
+  scattering of plasmonic nanoparticles, so what looks like the most primitive photography is describable
+  only in the physics of the last thirty years.
+· **A batch of three commons is the cheapest kind left to write**, and the reason is worth stating for the
+  32 still to come: a common is a KIND of object, so its literature is materials science and there is
+  always some — the plate about daguerreotypes never has to identify a particular plate, and the one about
+  magatama never has to date a particular bead.
 
 ## The per-artefact workflow
 

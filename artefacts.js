@@ -1071,4 +1071,25 @@ window.ARTEFACTS = [
     date: "c. 918 – 1392 CE",
     origin: "Korea",
   },
+  {
+    id: "daguerreotype",
+    name: "Daguerreotype",
+    rarity: "common",
+    date: "1839 – c. 1860 CE",
+    origin: "France, then worldwide",
+  },
+  {
+    id: "jomon-dogu",
+    name: "Dogū figurine",
+    rarity: "common",
+    date: "c. 14,000 – 400 BCE",
+    origin: "Japan",
+  },
+  {
+    id: "magatama",
+    name: "Magatama bead",
+    rarity: "common",
+    date: "c. 5000 BCE – 8th century CE",
+    origin: "Japan",
+  },
 ];
