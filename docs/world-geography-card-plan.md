@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-562` Lilongwe.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-563` Lusaka.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -526,6 +526,33 @@ the sources — *"Both bodies write the name Sri Jayewardenepura Kotte, one lett
 spelling used here"* — and the glossary term carries the institutional form as an **alias**, so a reader
 arriving with either spelling lands on the same entry. **A divergence a card explains is content; one it
 hides is an error waiting to be reported.**
+
+**`gw-562` LILONGWE: THE EMBASSY'S NAME AND ITS ADDRESS DISAGREED FOR SIX YEARS, AND THE GUIDE SAYS SO IN
+A PARENTHESIS.** Malawi's Diplomatic Relations entry records that the consulate at Blantyre was elevated on
+independence, 6 July 1964, *"(designated as Zomba, Malawi until 1970, but physically at Blantyre)"*, and
+that the embassy was relocated to Lilongwe on **1 April 1976**. So the United States kept an embassy named
+for one town while it stood in another, and neither of the two was the city this card is about — which is
+the Damascus rule at its sharpest: **the Diplomatic Relations half is where a capital card's material is,
+and the parentheses in it are not decoration.**
+
+**AND THE CARD DOES NOT SAY WHEN LILONGWE BECAME THE CAPITAL, because nothing openable here says so.** The
+guide dates the EMBASSY's move and not the seat's; UNdata and the Commonwealth both name Lilongwe as the
+capital today and neither dates the change. A first draft opened "Lilongwe became Malawi's capital only in
+the 1970s", which is true, widely known, and **in none of the five sources** — it was rewritten to the
+embassy's own dates, which carry the same shape without asserting a year no citation supports. The glossary
+term was drafted with the same sentence and fixed the same way. **A date everyone knows is still a date
+that needs a source**, and this is the easiest kind of claim to let through, because nobody reading it
+would doubt it.
+
+**ITS PICTURES ARE THE THIN END OF COMMONS, AND ONE FILENAME LIES OUTRIGHT.** `Lilongwe, Capital city of
+Malawi.jpg` is a café terrace looking at an office block; the ISS frames in `Category:Lilongwe` are
+spaceborne and refused by the pass's own rules; and the best-lit candidate, `Bamako ACI 2000 view.jpg`'s
+Malawian equivalent, is a single building. The card takes a street in Bwaila South — a city rather than a
+building — and the term takes the City Centre block. **Worth recording for its own sake:
+`Lilongwe - Chancery Office Building - 1975 - DPLA` is a photograph of the American chancery on open
+scrubland the year before the embassy moved in.** It is the single most card-relevant image in the
+category and it goes UNUSED, because the deck's rule is that a city card shows the city; noted here so the
+next session does not spend the search finding it again.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
