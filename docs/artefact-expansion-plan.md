@@ -281,6 +281,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E3c/C1c/E2c | `bartmann-jug`, `byzantine-ivory-panel`, `gutenberg-bible-leaf` | — |
 | C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | `moche-portrait-vessel`, `bodkin-arrowhead` |
 | B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | `glass-bangle` again, `mariners-astrolabe`, `turnshoe` |
+| B4b | `shell-adze` | `sumatralith` (no openable work uses the term) |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1257,6 +1258,45 @@ recording, because every one of them was a plausible-looking route that does not
   the *Hamzanama*: twelve volumes of a hundred folios is 1,200 pictures, and the *A'in* counts
   illustrations to 1,400 passages. **Where a survey quotes a primary source, cite both and let them
   differ.**
+
+**B4b's finding is an ACCESS WIN large enough to change how the Pacific and Southeast Asian batches are
+planned: ANU PRESS PDFs EXTRACT CLEANLY, and Terra Australis is open.** The whole series — 58 volumes of
+Pacific, Australian and Island Southeast Asian archaeology — is free at `press-files.anu.edu.au`, one PDF
+per chapter, each with its own DOI under the **`10.22459`** prefix, and the text comes out of them with an
+ordinary zlib-and-`Tj` extractor. That matters because **the Journal of Pacific Archaeology's own PDFs do
+NOT**: its 2010 Szabó review of Lapita shell-working is a subset-font scan that yields byte codes, the
+same failure the plan records for older Copernicus articles. **Search the ANU prefix rather than the
+journal**: `api.crossref.org/prefixes/10.22459/works?query.bibliographic=…` returns chapter titles and
+DOIs, and `doi.org` redirects straight to the PDF.
+· Two extraction notes for that shelf. The text arrives with **`en-GB` language tags interleaved into
+  every run** and with ligatures as raw control bytes (`\035` for *fi*, `\037` for *Th*), so strip
+  `en-GB` and the C0 range before grepping or a plain `grep -c` reports the file as binary. And an
+  **abstract page carries the whole chapter's argument**, which is often enough to decide whether the
+  chapter is worth reading in full.
+· **`sumatralith` was the batch's target and it fails on the WORD, for the third time in three batches.**
+  Forestier's chapter in Terra Australis 56 (*Quaternary Palaeontology and Archaeology of Sumatra*, 2024)
+  is open, readable and describes the object in detail — van Stein Callenfels excavating the Saentis shell
+  midden near Medan, the Sukajadi midden at 7,340 ± 360 BP, unifacial limestone and andesite pebble tools
+  at Tögi Ndrawa on Nias and at Gua Pandan, the southernmost Hoabinhian site — but **it never uses the term
+  "Sumatralith" once**, and the two papers that do are shut: a 2024 *Prehistoric Archaeology* article
+  serves a 3 KB JavaScript shell at `sciengine.com`, and the Indonesian *Berkala Arkeologi Sangkhakala*
+  paper's DOI 302s to an `http` URL that returns nothing. With `bodkin-arrowhead` and `turnshoe` that is
+  three subjects lost the same way. **The rule is now standing: grep the candidate source for the
+  artefact's own NAME before planning a plate on it** — a source that describes the object without naming
+  it can support the prose but cannot establish that the object is called that.
+· **The plate itself is built the way this pass keeps finding works best: archaeology beside ethnography,
+  with the ethnography explaining WHY.** Te Rangi Hiroa's *Ethnology of Tongareva* (Bishop Museum Bulletin
+  92, 1932) says it in one sentence — "As suitable stone was not available adzes (toki) were made of
+  Tridacna shell" — and then measures one: 90 mm long, the nacreous inner face ground flat at butt and
+  edge to take the concavity out, the outer face ground only to strip its black layer, the shell 7–8 mm
+  thick where the blade is 11. Szabó supplies what a dig adds: at Golo Cave each giant clam adze is cut
+  from a single rib of one valve, and the polls are polished by a haft rubbing rather than by design.
+  **The Bishop Museum bulletins are a shelf worth remembering** — Hiroa, Handy and Emory on Tongareva,
+  Manihiki, Samoa and the Society Islands, all whole on archive.org with clean OCR.
+· **And a source that says "this does not fit" is worth more than one that tidies up.** Szabó reports a
+  direct AMS date of 9,580 ± 70 uncal. BP on a *Cassis cornuta* adze that is "clearly at odds with its
+  stratigraphic position", and Hiroa reports three STONE adzes from Rakahanga, where by his own argument
+  none should exist. Both went into the plate as they stand.
 
 ## The per-artefact workflow
 

@@ -1267,4 +1267,11 @@ window.ARTEFACTS = [
     date: "c. 1550 – 1750 CE",
     origin: "Mughal India",
   },
+  {
+    id: "shell-adze",
+    name: "Shell adze",
+    rarity: "common",
+    date: "c. 8000 BCE – 1900 CE",
+    origin: "Island Southeast Asia and the Pacific",
+  },
 ];
