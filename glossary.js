@@ -1984,7 +1984,8 @@ window.GLOSSARY = {
 "Cursus_honorum": "The cursus honorum was the ranked sequence of elected magistracies through which a man of the Roman Republic advanced, the offices being divided into greater ones that carried imperium and lesser ones that carried only potestas.<sup class=\"fn\" data-fn=\"2\"></sup> That division governed how each was filled, the greater magistrates being elected by the people voting in centuries and the lesser by the people voting in tribes, and it governed which magistrate could block another, since an act could be stopped only by an equal or greater power.<sup class=\"fn\" data-fn=\"2\"></sup> Polybius reports that ten years of military service were required before a man was eligible for any political office at all.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Praetor": "A praetor was a Roman magistrate whose chief work was judicial, ranking below the consuls and owing them obedience but holding imperium and sitting in a curule chair.<sup class=\"fn\" data-fn=\"1\"></sup> One praetor heard suits at Rome and another those involving foreigners, and the number was increased as territory was acquired, further praetors being created to govern provinces.<sup class=\"fn\" data-fn=\"1\"></sup> At the start of his year each posted an edict setting out the rules he intended to apply, which his successor could take over, alter or drop, and the body of law built that way was called the ius honorarium.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Lex_Ovinia": "The Lex Ovinia was a Roman law, carried by a tribune of the plebs, which transferred the choosing of senators from the consuls to the censors and directed them to enrol the best man of every order.<sup class=\"fn\" data-fn=\"1\"></sup> Under the arrangement it replaced the magistrate chose those closest to himself, so that being passed over brought no disgrace, whereas after it the roll was drawn up on a stated principle and revised at intervals rather than yearly.<sup class=\"fn\" data-fn=\"1\"></sup> Its text is known only from one sentence quoted by a Roman lexicographer, and its date is inferred from surrounding events rather than recorded.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Lex_Poetelia_Papiria": "The Lex Poetelia Papiria was a Roman law which ended nexum, the arrangement by which a free man bound his own labour and his own person as security for a debt.<sup class=\"fn\" data-fn=\"2\"></sup> Livy reports its terms as forbidding that anyone be held in irons or the stocks unless he had earned a punishment, and providing that a debt be answered by the debtor's goods rather than his body, so that those already bound were released and none might be bound in future.<sup class=\"fn\" data-fn=\"1\"></sup> It did not cancel the obligation itself, a debtor still being liable to work off what he owed.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Lex_Poetelia_Papiria": "The Lex Poetelia Papiria was a Roman law which ended nexum, the arrangement by which a free man bound his own labour and his own person as security for a debt.<sup class=\"fn\" data-fn=\"2\"></sup> Livy reports its terms as forbidding that anyone be held in irons or the stocks unless he had earned a punishment, and providing that a debt be answered by the debtor's goods rather than his body, so that those already bound were released and none might be bound in future.<sup class=\"fn\" data-fn=\"1\"></sup> It did not cancel the obligation itself, a debtor still being liable to work off what he owed.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Lex_Hortensia": "The Lex Hortensia was a Roman law, carried by a dictator of that name, which gave the decrees of the plebs binding force over the whole citizen body and so placed them on an equal footing with laws passed in the assembly of centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Such a decree had until then been the act of the plebs as a corporation, put to it by its own magistrates, who could not summon the patricians or lay business before them.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient writers record two earlier enactments to the same effect, and none of them explains why the rule required passing more than once.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2772,7 +2773,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Leges_Genuciae": "carried 342 BCE, by the usual dating",
 "Praetor": "office created 366 BCE, by the usual dating",
 "Lex_Ovinia": "carried between 339 and 312 BCE",
-"Lex_Poetelia_Papiria": "326 BCE, by Livy's dating"
+"Lex_Poetelia_Papiria": "326 BCE, by Livy's dating",
+"Lex_Hortensia": "287 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3989,7 +3991,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cursus_honorum": ["course of honours"],
 "Praetor": ["praetorship","praetors","praetor urbanus","praetor peregrinus"],
 "Lex_Ovinia": ["Ovinian law","lex Ovinia tribunicia"],
-"Lex_Poetelia_Papiria": ["Lex Poetelia","Poetelian law"]
+"Lex_Poetelia_Papiria": ["Lex Poetelia","Poetelian law"],
+"Lex_Hortensia": ["Hortensian law"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6006,7 +6009,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Cursus_honorum": ["institution","concept","history","politics","italy"],
 "Praetor": ["title","institution","history","politics","italy"],
 "Lex_Ovinia": ["event","law","history","politics","italy"],
-"Lex_Poetelia_Papiria": ["event","law","history","politics","italy"]
+"Lex_Poetelia_Papiria": ["event","law","history","politics","italy"],
+"Lex_Hortensia": ["event","law","history","politics","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
