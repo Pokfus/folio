@@ -2066,7 +2066,8 @@ window.GLOSSARY = {
 "Quintus_Fabius_Maximus": "Quintus Fabius Maximus was the Roman appointed dictator after the defeat at Lake Trasimene in 217 BCE, an office carrying absolute military authority and 24 lictors, which suspended every magistracy but the tribunate.<sup class=\"fn\" data-fn=\"1\"></sup> Judging that a pitched battle against Hannibal must be lost, he shadowed the invading army instead, held the better ground, forbade foraging and picked off stragglers, resting the war on Rome's superiority in supplies and manpower.<sup class=\"fn\" data-fn=\"2\"></sup> The policy was widely called cowardice, and his own second in command was voted equal powers and given half the army, only to be caught in an ambush and rescued by the dictator he had disparaged.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Fabian_strategy": "<b>Fabian strategy</b> is the conduct of a war by attrition rather than by decisive battle, in which a commander who judges himself the weaker in the field declines to engage and instead shadows his opponent, denies him supplies and ground, and wears down forces the enemy cannot replace.<sup class=\"fn\" data-fn=\"1\"></sup> It takes its name from the Roman dictator Quintus Fabius Maximus, who used it against Hannibal in Italy from 217 BCE, camping in high country beyond the reach of Carthaginian cavalry and cutting off men who strayed from their camp to forage.<sup class=\"fn\" data-fn=\"2\"></sup> The method surrenders territory and invites the charge of cowardice, and Fabius was reproached for both at the time.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_Cannae": "The <b>Battle of Cannae</b> was fought in 216 BCE on the plain of the Aufidus in Apulia, between a Carthaginian army under Hannibal and the largest force Rome had ever put in the field, eight legions with their allied contingents under the consuls Lucius Aemilius Paullus and Gaius Terentius Varro.<sup class=\"fn\" data-fn=\"1\"></sup> Superior Carthaginian cavalry drove the Roman horse from the field and then struck the legions in the rear, so that the infantry were enclosed and destroyed where they stood, Aemilius among them.<sup class=\"fn\" data-fn=\"2\"></sup> Polybius puts the Roman dead at about 70,000 and Livy at 40,000 foot with 2,700 horse; several southern Italian cities went over to Hannibal after it.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Double_envelopment": "<b>Double envelopment</b> is a manoeuvre in which an army attacks both flanks of its opponent at once and closes on him from either side, so that he is enclosed and most of his strength cannot be brought into action.<sup class=\"fn\" data-fn=\"1\"></sup> It is usually achieved by letting the centre give ground, so that the enemy presses forward into the middle and exposes his flanks to troops held on the wings for the purpose.<sup class=\"fn\" data-fn=\"2\"></sup> The best known execution is Hannibal's at Cannae in 216 BCE, where a Carthaginian crescent yielded in the centre and the reserves on either wing turned inward on the advancing legions, which were destroyed where they stood.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Double_envelopment": "<b>Double envelopment</b> is a manoeuvre in which an army attacks both flanks of its opponent at once and closes on him from either side, so that he is enclosed and most of his strength cannot be brought into action.<sup class=\"fn\" data-fn=\"1\"></sup> It is usually achieved by letting the centre give ground, so that the enemy presses forward into the middle and exposes his flanks to troops held on the wings for the purpose.<sup class=\"fn\" data-fn=\"2\"></sup> The best known execution is Hannibal's at Cannae in 216 BCE, where a Carthaginian crescent yielded in the centre and the reserves on either wing turned inward on the advancing legions, which were destroyed where they stood.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Rome_after_Cannae": "<b>Rome after Cannae</b> refers to the Roman response to the defeat of 216 BCE, in which the state lost its largest army, saw many southern Italian allies go over to the enemy, and nevertheless made no approach for peace.<sup class=\"fn\" data-fn=\"1\"></sup> A dictator was appointed and a levy raised from men of seventeen upwards, arms were taken from the temples, and eight thousand slaves were bought at public expense and enlisted, while the Senate refused to ransom the citizens taken prisoner.<sup class=\"fn\" data-fn=\"2\"></sup> Public mourning was capped at thirty days, and the Sibylline books were consulted, producing expiations that included the burial alive of two Gauls and two Greeks in the cattle market.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2908,7 +2909,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Lake_Trasimene": "217 BCE",
 "Quintus_Fabius_Maximus": "dictator 217 BCE",
 "Fabian_strategy": "adopted 217 BCE",
-"Battle_of_Cannae": "216 BCE"
+"Battle_of_Cannae": "216 BCE",
+"Rome_after_Cannae": "216 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4182,7 +4184,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Quintus_Fabius_Maximus": ["Fabius Maximus","Fabius Cunctator"],
 "Fabian_strategy": ["Fabian tactics"],
 "Battle_of_Cannae": ["Cannae"],
-"Double_envelopment": ["pincer movement"]
+"Double_envelopment": ["pincer movement"],
+"Rome_after_Cannae": ["aftermath of Cannae"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6281,7 +6284,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Quintus_Fabius_Maximus": ["person","history","warfare","politics","rome"],
 "Fabian_strategy": ["concept","warfare","history","rome"],
 "Battle_of_Cannae": ["battle","warfare","history","italy","rome"],
-"Double_envelopment": ["concept","warfare","history","rome"]
+"Double_envelopment": ["concept","warfare","history","rome"],
+"Rome_after_Cannae": ["event","history","politics","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
