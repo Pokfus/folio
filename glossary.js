@@ -1836,7 +1836,8 @@ window.GLOSSARY = {
 "End_of_the_Han_dynasty": "The <b>end of the Han dynasty</b> ran from the Yellow Turban rising of 184 CE to the abdication of the last emperor in 220, when the throne passed to the son of the warlord who had been holding him.<sup class=\"fn\" data-fn=\"1\"></sup> The court had already been paralysed by the sale of offices and by a struggle between the palace eunuchs and the officials that ended in 189 with a massacre inside the palace and the seizure of the capital by a general from the frontier.<sup class=\"fn\" data-fn=\"1\"></sup> The emperor reigned on for three decades as a prisoner and a prize fought over by rival commanders, and a long period of disunity followed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Three_Kingdoms": "The <b>Three Kingdoms</b> were the three states that divided China between 220 and 280 CE: Cao Wei in the north, Shu Han in the west and Sun Wu in the south-east, none of which ever mastered the others.<sup class=\"fn\" data-fn=\"1\"></sup> The period is known from a history in 65 scrolls compiled by Chen Shou, who had served Shu before entering Jin service, and whose account gives the Wei rulers imperial annals while the other two rulers get only biographies.<sup class=\"fn\" data-fn=\"1\"></sup> Most of what a reader is likely to know of it, however, comes from a novel written more than a thousand years later.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Chinese_Buddhism": "Chinese Buddhism is the body of doctrine, practice and writing that grew out of the transmission of the religion from India and Central Asia into China, where it took root through the translation of sutras from the 1st century CE onwards.<sup class=\"fn\" data-fn=\"3\"></sup> It flourished in the centuries of disunity after the Han, and Yang Xuanzhi's memoir of about 545 describes some forty great monasteries at Luoyang between 494 and 534.<sup class=\"fn\" data-fn=\"2\"></sup> China's official dynastic histories were slow to treat it as a subject in itself, so most of what is known comes instead from the Buddhist canon and from the manuscripts recovered at Dunhuang and Turfan.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Kingdom_of_Kush": "The Kingdom of Kush was the state of the middle Nile, in what is now northern Sudan, whose kings and queens ruled hundreds of kilometres of the upper Nile valley.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings descended from local Nubian chiefs who had built an independent state in the 9th century BCE, and between about 750 and 650 BCE they ruled Egypt too, as its 25th dynasty.<sup class=\"fn\" data-fn=\"1\"></sup> Historians divide its history into a Napatan phase, centred below the holy mountain of Gebel Barkal near the Fourth Cataract, and a Meroitic one, though the name Kush is far older than the kingdom and is first attested about 1925 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Kingdom_of_Kush": "The Kingdom of Kush was the state of the middle Nile, in what is now northern Sudan, whose kings and queens ruled hundreds of kilometres of the upper Nile valley.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings descended from local Nubian chiefs who had built an independent state in the 9th century BCE, and between about 750 and 650 BCE they ruled Egypt too, as its 25th dynasty.<sup class=\"fn\" data-fn=\"1\"></sup> Historians divide its history into a Napatan phase, centred below the holy mountain of Gebel Barkal near the Fourth Cataract, and a Meroitic one, though the name Kush is far older than the kingdom and is first attested about 1925 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Meroë": "Meroë was the royal city of the kingdom of Kush, on the middle Nile in what is now Sudan, and it gave its name both to the Meroitic period, the later and longer of the kingdom’s two phases, and to Meroitic, the chief tongue of the middle Nile in antiquity.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Kings and queens were buried in cemeteries beside the city, and the southern royal necropolis is where the change from the earlier Napatan phase can be followed.<sup class=\"fn\" data-fn=\"1\"></sup> It stood among temples of Amun, one of them at el-Hassa some 25 km (16 miles) to the south, which has a processional way and a ceremonial palace of its own.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3818,7 +3819,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "End_of_the_Han_dynasty": ["fall of the Han dynasty","fall of the Han","end of the Han"],
 "Three_Kingdoms": ["Three Kingdoms period","Sanguo"],
 "Chinese_Buddhism": ["Buddhism in China"],
-"Kingdom_of_Kush": ["Kushite","Kushites"]
+"Kingdom_of_Kush": ["Kushite","Kushites"],
+"Meroë": ["Meroe"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5685,7 +5687,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "End_of_the_Han_dynasty": ["event","history","politics","china","warfare","han dynasty"],
 "Three_Kingdoms": ["era","state","history","politics","china","warfare"],
 "Chinese_Buddhism": ["religion","concept","practice","china","history","literature"],
-"Kingdom_of_Kush": ["state","history","africa","sudan","egypt","iron age"]
+"Kingdom_of_Kush": ["state","history","africa","sudan","egypt","iron age"],
+"Meroë": ["city","place","history","africa","sudan","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
