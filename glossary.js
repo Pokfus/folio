@@ -1805,7 +1805,8 @@ window.GLOSSARY = {
 "Jainism": "Jainism is the religion of the Jina, the victor, whose followers count 24 <i>tirthankaras</i> teaching the same law in succession, the last of them Mahavira, a contemporary of the Buddha.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its central discipline is non-injury: its oldest text holds that no living creature should be slain, treated with violence, abused, tormented or driven away, and a monk's first great vow renounces all killing, whether caused or merely consented to.<sup class=\"fn\" data-fn=\"2\"></sup> The church later divided into the Svetambaras, whose monks wear white clothes, and the Digambaras, who are sky-clad, and the two disagree about the canon itself.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Maurya_Empire": "The Maurya Empire was the first state to hold most of the Indian subcontinent, founded by Chandragupta about 321 BCE on the kingdom of Magadha and ruled from Pataliputra on the Ganges.<sup class=\"fn\" data-fn=\"1\"></sup> Its inscriptions survey India from the Hindu Kush to Ceylon but distinguish the king's own dominions, governed from the capital and from viceroyalties at Takshasila, Ujjayini and Kalinga, from border peoples counted within his influence rather than his rule.<sup class=\"fn\" data-fn=\"2\"></sup> The Puranas disagree about the succession but agree that the dynasty lasted 137 years, ending about 184 BCE when the last Maurya was killed by his own commander.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Chandragupta_Maurya": "Chandragupta Maurya founded the Maurya Empire by overthrowing the Nanda king of Magadha and taking Pataliputra on the Ganges, and the Greeks knew him as Sandrocottus.<sup class=\"fn\" data-fn=\"1\"></sup> About 305 BCE Seleucus crossed the Indus, found him master of all Hindustan, and settled for a safe retirement, a marriage alliance and 500 elephants in exchange for the Greek dominions as far as the Kabul valley.<sup class=\"fn\" data-fn=\"2\"></sup> His reign is put at 24 years, but the Puranas and the Buddhist books are not independent witnesses, the traditions disagree about the year it began, and no likeness of him survives.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Arthashastra": "The <i>Arthashastra</i> is a Sanskrit manual of statecraft in fifteen books, ascribed to Kautilya, also called Chanakya and Vishnu Gupta, and it defines its own subject as artha, the subsistence of mankind.<sup class=\"fn\" data-fn=\"1\"></sup> It prescribes rather than narrates, covering ministers, forts, revenue, law and war, and gives whole chapters to espionage, with standing institutes of spies set to test the character of the king's own servants.<sup class=\"fn\" data-fn=\"2\"></sup> It also tells a king that in the happiness of his subjects lies his happiness; the text nowhere dates itself, and was recovered only in the 20th century.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Arthashastra": "The <i>Arthashastra</i> is a Sanskrit manual of statecraft in fifteen books, ascribed to Kautilya, also called Chanakya and Vishnu Gupta, and it defines its own subject as artha, the subsistence of mankind.<sup class=\"fn\" data-fn=\"1\"></sup> It prescribes rather than narrates, covering ministers, forts, revenue, law and war, and gives whole chapters to espionage, with standing institutes of spies set to test the character of the king's own servants.<sup class=\"fn\" data-fn=\"2\"></sup> It also tells a king that in the happiness of his subjects lies his happiness; the text nowhere dates itself, and was recovered only in the 20th century.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Ashoka": "Ashoka was the third emperor of the Maurya dynasty in India, reigning from about 274 to 236 BCE,<sup class=\"fn\" data-fn=\"1\"></sup> and is known chiefly from his own inscriptions, cut on rock faces and stone pillars from the north-west frontier to the south.<sup class=\"fn\" data-fn=\"2\"></sup> In them he calls himself Beloved-of-the-Gods, King Piyadasi, records his remorse at the killing and deportation caused by his conquest of Kalinga,<sup class=\"fn\" data-fn=\"3\"></sup> and urges dhamma, a public morality of restraint, care for living things and forbearance between religions.<sup class=\"fn\" data-fn=\"4\"></sup> He supported the Buddhist order and later tradition remembered him as its great patron, though the edicts appoint officers to work among people of every religion.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2627,7 +2628,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Upanishads": "older ones by 550 BCE",
 "Gautama_Buddha": "c. 563 – 483 BCE",
 "Maurya_Empire": "c. 321 – 184 BCE",
-"Chandragupta_Maurya": "c. 321 – 297 BCE"
+"Chandragupta_Maurya": "c. 321 – 297 BCE",
+"Ashoka": "c. 274 – 236 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3737,7 +3739,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Jainism": ["Jains","Jaina"],
 "Maurya_Empire": ["Mauryan","Mauryas"],
 "Chandragupta_Maurya": ["Sandrocottus"],
-"Arthashastra": ["Arthasastra"]
+"Arthashastra": ["Arthasastra"],
+"Ashoka": ["Asoka"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5572,7 +5575,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Jainism": ["concept","religion","practice","philosophy","india"],
 "Maurya_Empire": ["state","history","politics","india","iron age"],
 "Chandragupta_Maurya": ["ruler","person","history","politics","india"],
-"Arthashastra": ["text","concept","politics","history","india"]
+"Arthashastra": ["text","concept","politics","history","india"],
+"Ashoka": ["ruler","person","history","politics","india","buddhism"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
