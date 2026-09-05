@@ -2089,7 +2089,8 @@ window.GLOSSARY = {
 "Philip_V_of_Macedon": "<b>Philip V</b> was king of Macedon from 221 to 179 BCE, succeeding as a youth and reigning for more than forty years over Macedon and its dependencies in Greece. Polybius praises his intelligence, memory and generalship, and presents the reign as a decline from an early popularity in Greece into cruelty and faithlessness, a change he dates to the years around the opening of war with Rome.<sup class=\"fn\" data-fn=\"1\"></sup> He fought two wars against the Romans, and Polybius describes him spending his last years deporting the political classes of his own cities inland and imprisoning the children of the Macedonians he had put to death.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Second_Macedonian_War": "The <b>Second Macedonian War</b> was fought between Rome and Philip V of Macedon from 200 to 197 BCE, and ended Macedonian control of the Greek mainland. Rome declared it on the ground of injuries to its allies, after an assembly that first rejected the proposal and passed it only when recalled,<sup class=\"fn\" data-fn=\"1\"></sup> and fought it in alliance with Greek states hostile to Philip. The settlement freed the Greek cities from Macedonian garrisons and required Philip to give up his warships beyond a handful, restore prisoners and pay an indemnity of 1,000 talents.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Battle_of_Cynoscephalae": "The <b>Battle of Cynoscephalae</b> was fought in Thessaly in 197 BCE between a Roman army under Titus Quinctius Flamininus and the Macedonian army of Philip V, and settled the Second Macedonian War. It began by accident, when scouting parties met in mist on a ridge neither commander had chosen, and was decided when part of the Macedonian line was caught still in marching order and another part was attacked from behind by a detachment taken out of the winning Roman wing.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius, who describes it at length, treats the outcome as evidence that a close-order pike formation depends on level ground and cannot easily change front once engaged.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Titus_Quinctius_Flamininus": "<b>Titus Quinctius Flamininus</b> was a Roman general and diplomat of the early 2nd century BCE, remembered for defeating Philip V of Macedon and for the settlement of Greece that followed. Plutarch says he reached the consulship without holding the offices usually taken first, and before he was thirty, over the objection of two tribunes;<sup class=\"fn\" data-fn=\"1\"></sup> Polybius, writing nearer the events, credits the Roman position in Greece to his management rather than to chance.<sup class=\"fn\" data-fn=\"2\"></sup> He negotiated as much as he fought, and Plutarch treats his later pursuit of the exiled Hannibal at a foreign court as the act that damaged his reputation.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Titus_Quinctius_Flamininus": "<b>Titus Quinctius Flamininus</b> was a Roman general and diplomat of the early 2nd century BCE, remembered for defeating Philip V of Macedon and for the settlement of Greece that followed. Plutarch says he reached the consulship without holding the offices usually taken first, and before he was thirty, over the objection of two tribunes;<sup class=\"fn\" data-fn=\"1\"></sup> Polybius, writing nearer the events, credits the Roman position in Greece to his management rather than to chance.<sup class=\"fn\" data-fn=\"2\"></sup> He negotiated as much as he fought, and Plutarch treats his later pursuit of the exiled Hannibal at a foreign court as the act that damaged his reputation.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Freedom_of_the_Greeks": "The <b>freedom of the Greeks</b> was the settlement Rome announced at the Isthmian games of 196 BCE, by which the Greek communities were declared free of garrisons and tribute and left to their own laws. A herald read the decree to the crowd assembled for the games, naming eight peoples, and the announcement was repeated because the shouting had drowned it.<sup class=\"fn\" data-fn=\"1\"></sup> The declaration was contested at the time, since Rome retained control of several strategic cities and the states that had fought beside it were disappointed of territory, and the arrangement lasted only until further wars brought Roman garrisons back.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2949,7 +2950,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "First_Macedonian_War": "214 – 205 BCE",
 "Philip_V_of_Macedon": "221 – 179 BCE",
 "Second_Macedonian_War": "200 – 197 BCE",
-"Battle_of_Cynoscephalae": "197 BCE"
+"Battle_of_Cynoscephalae": "197 BCE",
+"Freedom_of_the_Greeks": "196 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6355,7 +6357,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Philip_V_of_Macedon": ["ruler","person","history","greece","rome"],
 "Second_Macedonian_War": ["event","warfare","history","rome","greece"],
 "Battle_of_Cynoscephalae": ["battle","warfare","history","greece","rome"],
-"Titus_Quinctius_Flamininus": ["person","history","politics","rome","greece"]
+"Titus_Quinctius_Flamininus": ["person","history","politics","rome","greece"],
+"Freedom_of_the_Greeks": ["event","history","politics","rome","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
