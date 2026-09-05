@@ -2061,7 +2061,8 @@ window.GLOSSARY = {
 "Microscope": "A microscope is an instrument for seeing what is too small for the eye, which for biology means almost everything: a typical animal cell is 10 to 20 micrometres across, about a fifth of the smallest particle an unaided eye can make out.<sup class=\"fn\" data-fn=\"1\"></sup> A compound light microscope magnifies up to about a thousand times, and specimens are usually fixed, sectioned and stained first, because untreated cells give too little contrast to show anything.<sup class=\"fn\" data-fn=\"2\"></sup> No radiation resolves detail much smaller than its own wavelength, so visible light stops at just under 0.2 micrometres, and electrons, having far shorter wavelengths, reach about 2 nanometres on biological material.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Optical_resolution": "Optical resolution, or resolving power, is an instrument’s ability to show two adjacent points as two rather than as one, and it is a different quantity from magnification, which merely enlarges an appearance.<sup class=\"fn\" data-fn=\"1\"></sup> The distinction matters because an image can be enlarged without limit while two points the optics has already merged stay merged, so extra magnification past that point adds size and no information.<sup class=\"fn\" data-fn=\"2\"></sup> The limit is set by the wavelength of the radiation used and by the numerical aperture of the lens, which for visible light puts the floor at just under 0.2 micrometres however good the glass.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Model_organism": "A model organism is a species studied intensively in the expectation that what is learned from it will apply, with adjustments, to others, and the few that fill the role were chosen for convenience rather than for being typical.<sup class=\"fn\" data-fn=\"1\"></sup> Yeast grows almost as fast as a bacterium in a simple medium, a fruit fly goes from egg to adult in nine days, and a nematode develops into an adult of exactly 959 body cells, which is what allows its whole lineage to be traced.<sup class=\"fn\" data-fn=\"1\"></sup> The inference across species rests on shared machinery, and it is not guaranteed: it holds where the mechanism is conserved and fails where it is not.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Molecular_biology": "Molecular biology is the study of living things at the level of the molecules that carry life out, chiefly nucleic acids and proteins, and of how information passes between them.<sup class=\"fn\" data-fn=\"1\"></sup> It is unusual among the divisions of biology in cutting across the others, since the older fields separate the living world by group, such as botany and zoology, or by process, such as physiology and genetics.<sup class=\"fn\" data-fn=\"2\"></sup> What lets it do so is that the machinery is shared: a gene or a protein from a yeast, a fly, a worm or a bacterium can be lined up against the human version by sequence similarity, and often works in its place.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Molecular_biology": "Molecular biology is the study of living things at the level of the molecules that carry life out, chiefly nucleic acids and proteins, and of how information passes between them.<sup class=\"fn\" data-fn=\"1\"></sup> It is unusual among the divisions of biology in cutting across the others, since the older fields separate the living world by group, such as botany and zoology, or by process, such as physiology and genetics.<sup class=\"fn\" data-fn=\"2\"></sup> What lets it do so is that the machinery is shared: a gene or a protein from a yeast, a fly, a worm or a bacterium can be lined up against the human version by sequence similarity, and often works in its place.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Biochemistry": "Biochemistry is the study of the chemical substances and reactions that make up living things, and it exists because the boundary between biology and chemistry is one of interest rather than of law.<sup class=\"fn\" data-fn=\"1\"></sup> Organisms are built from the same elements as everything else, four of which — oxygen, carbon, hydrogen and nitrogen — account for most of a human body, and the reactions between them follow the same rules inside a cell as outside one.<sup class=\"fn\" data-fn=\"1\"></sup> What is distinctive is not an exemption from chemistry but the use of catalysts, since enzymes let reactions that would otherwise need far higher temperatures run at the temperature of a cell.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4158,7 +4159,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Observational_error": ["measurement error"],
 "Microscope": ["microscopy","light microscope"],
 "Optical_resolution": ["resolving power"],
-"Model_organism": ["model organisms"]
+"Model_organism": ["model organisms"],
+"Biochemistry": ["biochemical"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6254,7 +6256,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Microscope": ["object","science","biology","technology"],
 "Optical_resolution": ["concept","science","technology"],
 "Model_organism": ["concept","science","biology","research methods"],
-"Molecular_biology": ["concept","science","biology"]
+"Molecular_biology": ["concept","science","biology"],
+"Biochemistry": ["concept","science","biology","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
