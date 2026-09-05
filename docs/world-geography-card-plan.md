@@ -33,7 +33,7 @@ Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau, `gw-703` Hamilton, `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town, `gw-709` Capitol Hill, `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino, `gw-717` Mariehamn, `gw-718` Marigot, `gw-719` The Valley, `gw-720` Ngerulmud, `gw-721` Avarua, `gw-722` Yaren, `gw-723` Mata-Utu, `gw-724` Gustavia, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown, `gw-728` Brades, `gw-729` Stanley, `gw-730` Kingston, `gw-731` Alofi, `gw-733` Adamstown,
-`gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-754` Putrajaya and `gw-755` Abidjan.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
+`gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-754` Putrajaya, `gw-755` Abidjan and `gw-756` Colombo.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
 
 **Seven capitals were DEFERRED, and between them they name every way a capital source can fail. ALL EIGHT HAVE NOW SHIPPED** — `gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow, `gw-511` Mexico City and `gw-512` Tokyo — **and not one of them was cleared by a source the original survey had tried and misjudged; every one was cleared by a HOST OR PATH nobody had looked at.** (The heading says seven and the list ran to eight; the count was always off by one.) The list below is kept as the record of what failed, because each failure is a real shape and the next capital pass will meet them again.
 New Delhi and Beijing were deferred because they seemed reachable here only through the foreign legations that sat in
@@ -5349,6 +5349,40 @@ needs `-L`, since it answers 302 without it.
 `gouv.ci` is 403, `afdb.org` is 403 as C7 recorded, and **`abidjanconvention.org` — the UNEP regional-seas
 convention named after the city — serves ONE character of text**, with `unep.org`'s own page for it 403. The
 convention is therefore not citable from here despite being the most obviously apt work there is.
+
+**`gw-756` COLOMBO MAKES THE NAME-ROW FOOTNOTE THREE OF TWELVE, AND REVERSES ITS ORIENTATION.** Malaysia
+and Côte d'Ivoire both put the OTHER city in the capital-city field and footnoted the administrative capital
+beside it; Sri Lanka does the opposite — the field says **Colombo**, and footnote `c` reads *"Colombo is the
+capital and Sri Jayewardenepura Kotte is the legislative capital."* So the field does not consistently hold
+the constitutional capital, and which of a divided pair UNdata names there is not predictable: it named the
+inland official capital for Côte d'Ivoire and the coastal commercial one for Sri Lanka. **Never infer a
+country's official capital from which name sits in that field.** (`gw-561` already recorded the spelling
+divergence — both the UN and the Commonwealth write *Jayewardenepura*, one letter from this deck's
+*Jayawardenepura* — and that stands.)
+
+**AND SRI LANKA IS WHERE A CONSTITUTION NAMES THE CITY EIGHT TIMES WITHOUT NAMING A CAPITAL.** Russia,
+Mexico and Malaysia each settle their capital in a single article; the Sri Lankan constitution contains no
+designation at all — the words *is the capital* appear nowhere in it — and yet **Colombo occurs eight
+times**. Three of those are the substance: article 132 orders that the several jurisdictions of the Supreme
+Court "shall be ordinarily exercised at Colombo unless the Chief Justice otherwise directs", article 146
+seats the Court of Appeal there on the same terms, and an action against a member sitting in Parliament
+unlawfully is laid in the District Court of Colombo. The rest are administrative — Colombo heads the First
+Schedule's list of administrative districts, appears twice in the Sixth Schedule's seat allocation, and is
+carved out (with "Sri Jayewardenepura, Kotte, and their environs") from the public-order powers a province
+may exercise, its limits to be fixed by the President by Gazette order. **A capital can be established by
+function rather than by designation**, and where that is so the constitution is still the right source — you
+are looking for where it puts the courts and the exceptions, not for a naming clause.
+
+**THE COLOMBO PLAN IS THE EXTRA SEAT'S OWN FACT, AND ITS OWN SITE WORKS.** `gw-755` needed a treaty named
+for Abidjan; Colombo has an intergovernmental organisation named for it that still keeps its secretariat in
+the city — established 1 July 1951 by Australia, Canada, India, New Zealand, Pakistan, Sri Lanka and the
+United Kingdom, now 26 members including states outside the Commonwealth. `colombo-plan.org` serves real
+prose (the root and `/the-secretariat/` both, though `/overview-and-history/` and `/about-the-colombo-plan/`
+are 404 with a **207 KB error document**, so check the length as well as the status). **When an extra seat
+lends its name to a body or an agreement, that body's own site is usually the cleanest source for it.**
+
+`statistics.gov.lk` and `cbsl.gov.lk` both serve real content and were not needed here; `parliament.lk`
+redirects. Sri Lanka's constitution on Constitute exists only as `Sri_Lanka_2015` (2020 and 2022 are 404).
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
