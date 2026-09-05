@@ -2085,7 +2085,8 @@ window.GLOSSARY = {
 "Destruction_of_Carthage": "The <b>destruction of Carthage</b> was the sack and levelling of the city by a Roman army under Scipio Aemilianus in 146 BCE, at the close of the third war between the two states. Appian describes six days of fighting through the streets below the citadel, the firing of the quarter, and the surrender of 50,000 people on the seventh day, while about 900 Roman deserters burnt themselves in a temple with the commander’s wife and children.<sup class=\"fn\" data-fn=\"1\"></sup> A senatorial commission afterwards ordered what remained obliterated and forbade settlement on the site, granted Carthaginian land to Utica, laid tribute on the rest and provided for a governor sent yearly from Rome.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Rome_and_the_Hellenistic_world": "<b>Rome and the Hellenistic world</b> is the entanglement of the Roman republic with the Greek-speaking kingdoms and leagues of the eastern Mediterranean, from the late 3rd century BCE until Rome ruled them all. Polybius, who lived through part of it, dates the first contact between the affairs of Greece, Italy and Africa to a conference at Naupactus in 217 BCE, after which Greek statesmen made war and peace with their eyes on Italy.<sup class=\"fn\" data-fn=\"1\"></sup> He takes as his subject the 53 years in which Rome brought almost the whole inhabited world under a single government, a thing he says no earlier empire had attempted.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Illyrian_Wars": "The <b>Illyrian Wars</b> were two campaigns fought by Rome on the eastern shore of the Adriatic, in 229 and in 219 BCE, against the Illyrian kingdom and then against a client ruler who had broken with it. The first followed the killing of a Roman envoy sent to complain of attacks on shipping, and ended with several coastal cities under Roman protection and a treaty limiting Illyrian vessels sailing south of Lissus.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius treats them as the first occasion on which a Roman army crossed into that part of Europe, and as the beginning of Roman diplomatic dealings with the Greek states.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"First_Macedonian_War": "The <b>First Macedonian War</b> was fought between Rome and Philip V of Macedon between 214 and 205 BCE, alongside Rome's war with Carthage and largely through allies. It began with a treaty of alliance between Philip and Hannibal, whose terms required that Rome give up the places on the Illyrian coast it had taken in earlier campaigns;<sup class=\"fn\" data-fn=\"1\"></sup> Rome answered by allying with the Aetolian League and other enemies of Macedon rather than by committing large forces of its own.<sup class=\"fn\" data-fn=\"2\"></sup> It ended in a negotiated peace at Phoenice in Epirus, which left the main Roman gains in Illyria intact and settled nothing between the two powers.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"First_Macedonian_War": "The <b>First Macedonian War</b> was fought between Rome and Philip V of Macedon between 214 and 205 BCE, alongside Rome's war with Carthage and largely through allies. It began with a treaty of alliance between Philip and Hannibal, whose terms required that Rome give up the places on the Illyrian coast it had taken in earlier campaigns;<sup class=\"fn\" data-fn=\"1\"></sup> Rome answered by allying with the Aetolian League and other enemies of Macedon rather than by committing large forces of its own.<sup class=\"fn\" data-fn=\"2\"></sup> It ended in a negotiated peace at Phoenice in Epirus, which left the main Roman gains in Illyria intact and settled nothing between the two powers.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Philip_V_of_Macedon": "<b>Philip V</b> was king of Macedon from 221 to 179 BCE, succeeding as a youth and reigning for more than forty years over Macedon and its dependencies in Greece. Polybius praises his intelligence, memory and generalship, and presents the reign as a decline from an early popularity in Greece into cruelty and faithlessness, a change he dates to the years around the opening of war with Rome.<sup class=\"fn\" data-fn=\"1\"></sup> He fought two wars against the Romans, and Polybius describes him spending his last years deporting the political classes of his own cities inland and imprisoning the children of the Macedonians he had put to death.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2942,7 +2943,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Third_Punic_War": "149 – 146 BCE",
 "Destruction_of_Carthage": "146 BCE",
 "Illyrian_Wars": "229 and 219 BCE",
-"First_Macedonian_War": "214 – 205 BCE"
+"First_Macedonian_War": "214 – 205 BCE",
+"Philip_V_of_Macedon": "221 – 179 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6344,7 +6346,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Destruction_of_Carthage": ["event","warfare","history","africa","rome"],
 "Rome_and_the_Hellenistic_world": ["concept","history","politics","rome","greece"],
 "Illyrian_Wars": ["event","warfare","history","rome","greece"],
-"First_Macedonian_War": ["event","warfare","history","rome","greece"]
+"First_Macedonian_War": ["event","warfare","history","rome","greece"],
+"Philip_V_of_Macedon": ["ruler","person","history","greece","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
