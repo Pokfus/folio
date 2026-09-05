@@ -1,0 +1,10 @@
+{
+  "slug": "Protein_tertiary_structure",
+  "aliases": ["tertiary structure", "tertiary protein structure"],
+  "description": "The tertiary structure of a protein is the folding of a single polypeptide chain into its full three-dimensional shape, brought about by interactions between side chains that lie in different regions of the sequence.<sup class=\"fn\" data-fn=\"1\"></sup> The dominant influence is the sorting of hydrophobic side chains into the interior and hydrophilic ones onto the surface, with hydrogen bonds, ionic bonds and covalent disulfide bridges between cysteines contributing as well.<sup class=\"fn\" data-fn=\"1\"></sup> Its basic units are domains, compact globular regions built from helices and sheets joined by loops, which evolution has repeatedly duplicated and recombined into new proteins.<sup class=\"fn\" data-fn=\"2\"></sup>",
+  "tags": ["concept", "science", "biology", "chemistry"],
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Bruce Alberts, Alexander Johnson, Julian Lewis, Martin Raff, Keith Roberts, and Peter Walter, “The Shape and Structure of Proteins,” in <i>Molecular Biology of the Cell</i>, 4th ed. (New York: Garland Science, 2002), https://www.ncbi.nlm.nih.gov/books/NBK26830/. [Open access]"
+  ]
+}
