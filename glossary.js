@@ -2044,7 +2044,8 @@ window.GLOSSARY = {
 "Battle_of_Cape_Ecnomus": "The battle of Cape Ecnomus was a sea fight of 256 BCE off the south coast of Sicily, fought over a Roman attempt to carry the war against Carthage into Africa.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius gives 330 Roman ships against 350 Carthaginian and reckons the crews at nearly 140,000 and over 150,000 men, figures that make it one of the largest naval actions recorded from antiquity.<sup class=\"fn\" data-fn=\"2\"></sup> The Romans advanced in a wedge, the Carthaginian centre withdrew by design to pull that formation apart, and the separate engagements which followed ended in a Roman victory that opened the sea route to Africa.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "African_expedition_of_256_BCE": "The African expedition of 256 BCE was the Roman invasion of Carthaginian territory during the First Punic War, launched after a victory at sea opened the crossing from Sicily.<sup class=\"fn\" data-fn=\"1\"></sup> The invaders seized a coastal town as a base, plundered the countryside and beat a Carthaginian army in the field, then offered peace terms so harsh that the enemy preferred to fight on.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A Spartan officer hired as a mercenary reorganised the defence, insisting on level ground where cavalry and elephants could be used, and in the following year the Roman army in Africa was destroyed and its commander taken prisoner.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
 "Marcus_Atilius_Regulus": "Marcus Atilius Regulus was a Roman consul of the First Punic War who commanded the invasion of Africa, won a battle at Adys, demanded terms Carthage refused, and was captured when its reorganised army destroyed his own.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Polybius, the earliest surviving account, uses him as a warning against confidence in success, noting that a man who had refused all pity to the fallen was soon begging for his life.<sup class=\"fn\" data-fn=\"3\"></sup> Later Roman writers made him an exemplar of honour, adding an embassy home on parole and a death by torture, in versions that differ from one another and appear in no source of his own century.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Siege_of_Lilybaeum": "The siege of Lilybaeum was a Roman investment of the fortified port on the western point of Sicily, begun in 250 BCE and maintained until the end of the First Punic War.<sup class=\"fn\" data-fn=\"1\"></sup> The defences were strong, the harbour approach ran through lagoons that were difficult to navigate, and the town was twice relieved by blockade-runners who used a favourable wind to sail in under the eyes of the besieging fleet.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A conspiracy among the mercenary garrison was betrayed from within, and a storm followed by an incendiary sortie destroyed the Roman siege-works, after which the besiegers gave up assaulting the place and settled for a blockade.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
+"Siege_of_Lilybaeum": "The siege of Lilybaeum was a Roman investment of the fortified port on the western point of Sicily, begun in 250 BCE and maintained until the end of the First Punic War.<sup class=\"fn\" data-fn=\"1\"></sup> The defences were strong, the harbour approach ran through lagoons that were difficult to navigate, and the town was twice relieved by blockade-runners who used a favourable wind to sail in under the eyes of the besieging fleet.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A conspiracy among the mercenary garrison was betrayed from within, and a storm followed by an incendiary sortie destroyed the Roman siege-works, after which the besiegers gave up assaulting the place and settled for a blockade.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Hamilcar_Barca": "Hamilcar Barca was the Carthaginian general who took over the Sicilian war against Rome in 247 BCE, its eighteenth year, and held out there until the fighting ended.<sup class=\"fn\" data-fn=\"1\"></sup> With no friendly city behind him, he entrenched his army on the mountain of Hercte above Panormus and later on Eryx, taking the town between a Roman garrison on the summit and another at its foot, and raiding the Italian coast by sea.<sup class=\"fn\" data-fn=\"2\"></sup> The war was decided at sea, and after the peace and the mercenary revolt that followed he crossed to Iberia, where he campaigned some nine years and was killed in battle, leaving his son Hannibal a command there.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2866,7 +2867,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Cape_Ecnomus": "256 BCE",
 "African_expedition_of_256_BCE": "256 – 255 BCE",
 "Marcus_Atilius_Regulus": "consul in 256 BCE",
-"Siege_of_Lilybaeum": "250 – 241 BCE"
+"Siege_of_Lilybaeum": "250 – 241 BCE",
+"Hamilcar_Barca": "general from 247 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4118,7 +4120,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_Mylae": ["battle of Mylae"],
 "Battle_of_Cape_Ecnomus": ["battle of Cape Ecnomus","Ecnomus"],
 "Marcus_Atilius_Regulus": ["Regulus"],
-"Siege_of_Lilybaeum": ["siege of Lilybaeum"]
+"Siege_of_Lilybaeum": ["siege of Lilybaeum"],
+"Hamilcar_Barca": ["Hamilcar","Barca"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6195,7 +6198,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Cape_Ecnomus": ["battle","warfare","history","politics","sicily"],
 "African_expedition_of_256_BCE": ["event","warfare","history","politics","africa"],
 "Marcus_Atilius_Regulus": ["person","history","warfare","politics","rome"],
-"Siege_of_Lilybaeum": ["battle","warfare","history","politics","sicily"]
+"Siege_of_Lilybaeum": ["battle","warfare","history","politics","sicily"],
+"Hamilcar_Barca": ["person","history","warfare","politics","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
