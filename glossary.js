@@ -2130,7 +2130,8 @@ window.GLOSSARY = {
 "Energy_coupling": "Energy coupling is the linking of a chemical reaction that requires energy to one that releases it, so that the two run together as a single process.<sup class=\"fn\" data-fn=\"1\"></sup> Because the free energy changes of the component reactions add together, the pair proceeds whenever that total is negative, even though one half of it could never run alone, and enzymes are what hold the two reactions together.<sup class=\"fn\" data-fn=\"1\"></sup> Cells use it to pay for almost everything they build, storing the energy freed by breaking fuel molecules down in a small set of activated carrier molecules, of which adenosine triphosphate is much the most widely used.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Enzyme": "An enzyme is a biological catalyst, a molecule that greatly increases the rate of a particular chemical reaction without being consumed or permanently changed by it.<sup class=\"fn\" data-fn=\"1\"></sup> Almost all enzymes are proteins whose folded shape presents a pocket, the active site, into which the reacting molecules fit closely, and that fit is what makes an enzyme specific to one reaction or a narrow family of them; a few, however, are made of RNA instead.<sup class=\"fn\" data-fn=\"2\"></sup> An enzyme changes only how fast a reaction runs and never whether it can happen, leaving the free energy of reactants and products untouched and the equilibrium between them exactly where it was.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Activation_energy": "Activation energy is the energy a molecule must take on before it can undergo a chemical reaction, because even a reaction that releases energy overall must pass through a higher-energy arrangement of atoms, the transition state, on the way.<sup class=\"fn\" data-fn=\"1\"></sup> The height of that barrier, and not the energy of the products, is what decides how quickly a reaction proceeds, which is why a reaction can be thoroughly favourable and still take years.<sup class=\"fn\" data-fn=\"2\"></sup> A catalyst works by lowering the barrier, equally in each direction since forward and reverse reactions pass through the same transition state, and so changes the rate without touching the equilibrium.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Active_site": "The active site is the small region of an enzyme where its substrate binds and the reaction it catalyses takes place, usually a cleft or groove in the folded surface.<sup class=\"fn\" data-fn=\"1\"></sup> It is a place rather than a stretch of sequence, because the amino acids that line it commonly lie far apart along the chain and are brought together only when the protein folds, and their particular sizes, charges and affinities for water build a chemical environment suited to one substrate or a narrow family.<sup class=\"fn\" data-fn=\"2\"></sup> Substrates are held there by weak noncovalent interactions, so the site is left unchanged when the product departs and can be used again at once.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Active_site": "The active site is the small region of an enzyme where its substrate binds and the reaction it catalyses takes place, usually a cleft or groove in the folded surface.<sup class=\"fn\" data-fn=\"1\"></sup> It is a place rather than a stretch of sequence, because the amino acids that line it commonly lie far apart along the chain and are brought together only when the protein folds, and their particular sizes, charges and affinities for water build a chemical environment suited to one substrate or a narrow family.<sup class=\"fn\" data-fn=\"2\"></sup> Substrates are held there by weak noncovalent interactions, so the site is left unchanged when the product departs and can be used again at once.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Induced_fit": "Induced fit is the account of enzyme and substrate binding in which the two change shape as they come together, each moulding the other, rather than the substrate slotting into a pocket already cut to receive it.<sup class=\"fn\" data-fn=\"1\"></sup> The distortion matters because it bends the substrate towards the shape it must take in the transition state, straining the bonds that have to break, and because the transition state is then held tightly by the protein, which lowers the activation energy.<sup class=\"fn\" data-fn=\"1\"></sup> Nothing lasting is done to the enzyme itself, which returns to its resting conformation once the product has left.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4273,7 +4274,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Structure-function_relationship": ["structure-function relationship","structure and function relationship"],
 "Chromatography": ["chromatography"],
 "Gibbs_free_energy": ["free energy","Gibbs energy","free-energy"],
-"Energy_coupling": ["coupled reaction","reaction coupling"]
+"Energy_coupling": ["coupled reaction","reaction coupling"],
+"Induced_fit": ["induced-fit"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6439,7 +6441,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Energy_coupling": ["concept","science","chemistry","biology"],
 "Enzyme": ["object","science","biology","chemistry"],
 "Activation_energy": ["concept","science","chemistry","biology"],
-"Active_site": ["object","science","biology","chemistry"]
+"Active_site": ["object","science","biology","chemistry"],
+"Induced_fit": ["theory","science","biology","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
