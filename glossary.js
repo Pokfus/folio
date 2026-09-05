@@ -1899,7 +1899,8 @@ window.GLOSSARY = {
 "Philipsburg": "Philipsburg is the capital of Sint Maarten, a country within the Kingdom of the Netherlands that the United Nations credits with about 44,000 people on 34 square kilometres (13 square miles).<sup class=\"fn\" data-fn=\"1\"></sup> It stands on the strip of land between the Great Salt Pond and Great Bay, and no separate count of it is published: the United Nations profile lists a capital population and then notes that the figure is the country's own total.<sup class=\"fn\" data-fn=\"1\"></sup> Sint Maarten became an autonomous country of the Kingdom on 10 October 2010, and the Netherlands keeps an office in the town as part of a single Representation for Aruba, Curaçao and Sint Maarten.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Vaduz": "Vaduz is the capital of Liechtenstein, on the east bank of the Rhine below the Drei Schwestern massif, and the seat of its authorities and parliament.<sup class=\"fn\" data-fn=\"1\"></sup> First recorded in 1150, it gave its name to a county created in 1342, which Prince Johann Adam of Liechtenstein bought in 1712; seven years later Emperor Charles VI joined it to the lordship of Schellenberg and raised the two to an imperial principality with Vaduz as its chief place.<sup class=\"fn\" data-fn=\"1\"></sup> The castle above it, built around 1300, has been the princes' permanent residence since 1939, and the United Nations lists it as the capital of a state of about 40,000 people.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Road_Town": "Road Town, on the island of Tortola, is the capital of the British Virgin Islands, a United Kingdom overseas territory in the Caribbean that the United Nations credits with about 40,000 people on 151 square kilometres.<sup class=\"fn\" data-fn=\"1\"></sup> It is the seat of a government in which a Governor represents the British government while an elected Premier and Cabinet run the territory's day-to-day affairs, under the Virgin Islands Constitution Order 2007.<sup class=\"fn\" data-fn=\"2\"></sup> Its harbour is the islands' commercial centre, and the town was among the places wrecked when Hurricane Irma crossed the territory on 6 September 2017, after which the Governor declared a state of emergency.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Majuro": "Majuro, on Majuro Atoll in the central Pacific, is the capital of the Marshall Islands, a republic of 29 coral atolls and five islands lying about midway between Hawaii and Australia.<sup class=\"fn\" data-fn=\"1\"></sup> The United Nations credits the country with about 36,000 people on 181 square kilometres (70 sq mi) and puts the capital's own population at 30,700 in 2018.<sup class=\"fn\" data-fn=\"2\"></sup> It is the seat of a government that adopted its constitution in 1979 and entered a Compact of Free Association with the United States in 1986, under which the United States defends the country and provides aid in return for strategic access.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Majuro": "Majuro, on Majuro Atoll in the central Pacific, is the capital of the Marshall Islands, a republic of 29 coral atolls and five islands lying about midway between Hawaii and Australia.<sup class=\"fn\" data-fn=\"1\"></sup> The United Nations credits the country with about 36,000 people on 181 square kilometres (70 sq mi) and puts the capital's own population at 30,700 in 2018.<sup class=\"fn\" data-fn=\"2\"></sup> It is the seat of a government that adopted its constitution in 1979 and entered a Compact of Free Association with the United States in 1986, under which the United States defends the country and provides aid in return for strategic access.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"San_Marino_(city)": "San Marino is the capital of the Republic of San Marino, an old town on the crest of Monte Titano in the hills enclosed by Italy near the Adriatic coast.<sup class=\"fn\" data-fn=\"1\"></sup> Its Palazzo Pubblico, on Piazza della Libertà, is the seat of the republic's principal institutions: the office of the Captains Regent, who are the heads of state, the Grand and General Council with its committees, and the Congress of State, which is the government.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations put the town's own population at 4,500 in 2018, a small fraction of the roughly 34,000 people of the republic, most of whom live elsewhere in the republic.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3777,7 +3778,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nuku'alofa": ["Nukualofa"],
 "Saint_John's": ["St John's, Antigua","St. John's, Antigua"],
 "Saint_Peter_Port": ["St Peter Port","St. Peter Port"],
-"Tórshavn": ["Torshavn"]
+"Tórshavn": ["Torshavn"],
+"San_Marino_(city)": ["City of San Marino"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5705,7 +5707,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Philipsburg": ["place","city","geography","capital","sint maarten","caribbean"],
 "Vaduz": ["place","city","geography","capital","liechtenstein","europe"],
 "Road_Town": ["place","city","geography","capital","british virgin islands","caribbean"],
-"Majuro": ["place","city","geography","capital","marshall islands","oceania"]
+"Majuro": ["place","city","geography","capital","marshall islands","oceania"],
+"San_Marino_(city)": ["place","city","geography","capital","san marino","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
