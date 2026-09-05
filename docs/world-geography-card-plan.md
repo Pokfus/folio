@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-233`, the WHOLE running order less the deferred `gw-195`, `gw-201`, `gw-218`, `gw-223`, `gw-224` and `gw-230`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-233`, the WHOLE running order less the deferred `gw-195`, `gw-201`, `gw-218`, `gw-224` and `gw-230`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -33,7 +33,7 @@ Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau, `gw-703` Hamilton, `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town, `gw-709` Capitol Hill, `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino, `gw-717` Mariehamn, `gw-718` Marigot, `gw-719` The Valley, `gw-720` Ngerulmud, `gw-721` Avarua, `gw-722` Yaren, `gw-723` Mata-Utu, `gw-724` Gustavia, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown, `gw-728` Brades, `gw-729` Stanley, `gw-730` Kingston, `gw-731` Alofi, `gw-733` Adamstown,
-`gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-754` Putrajaya, `gw-755` Abidjan, `gw-756` Colombo, `gw-757` Valparaíso, `gw-758` The Hague, `gw-759` Cotonou, `gw-760` La Paz and `gw-761` Lobamba — **the extra-seats band is COMPLETE at eleven of eleven**, `gw-762` Bujumbura being deferred with its pair `gw-578` Gitega. **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
+`gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-754` Putrajaya, `gw-755` Abidjan, `gw-756` Colombo, `gw-757` Valparaíso, `gw-758` The Hague, `gw-759` Cotonou, `gw-760` La Paz and `gw-761` Lobamba — **the extra-seats band is COMPLETE at eleven of eleven**, `gw-762` Bujumbura being deferred with its pair `gw-578` Gitega. **The countries and territories deck is COMPLETE at 228 of 233**, the five deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island (`gw-223` Wallis and Futuna was CLEARED once the capital pass had done its research) — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
 
 **Seven capitals were DEFERRED, and between them they name every way a capital source can fail. ALL EIGHT HAVE NOW SHIPPED** — `gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow, `gw-511` Mexico City and `gw-512` Tokyo — **and not one of them was cleared by a source the original survey had tried and misjudged; every one was cleared by a HOST OR PATH nobody had looked at.** (The heading says seven and the list ran to eight; the count was always off by one.) The list below is kept as the record of what failed, because each failure is a real shape and the next capital pass will meet them again.
 New Delhi and Beijing were deferred because they seemed reachable here only through the foreign legations that sat in
@@ -5530,6 +5530,39 @@ from the shape of a constitution rather than read — and is **section 229**, in
 institutions. Nothing in the pipeline checks a section number: the URL resolves, the quotation is real, the
 marker rules pass. **Read the number off the text, every time**; it is the SEP-edition fault of N-batch
 memory in another coat.
+
+**`gw-223` WALLIS AND FUTUNA IS CLEARED, AND IT IS THE PLAN'S OWN ADVICE COMING BACK.** Batch 79's note on
+`gw-723` Mata-Utu said it outright — *"when a country card was deferred on sources, check again when its
+capital comes up"* — and with every capital now written, the country card writes itself from the four
+**Administration supérieure des îles Wallis et Futuna** pages the capital card already established, plus the
+**Overseas Countries and Territories Association** profile. The deferral was over UNdata's spelling
+*"Matu-Utu"*, and the answer is simply not to cite UNdata for the name: the territory's own administration
+writes **Mata'Utu**, and the card states both spellings as a fact about the sources rather than choosing
+silently. **A deferral written against one source is not a deferral against all of them** — re-read the
+reason before assuming it still holds.
+
+**THE ADMINISTRATION DISAGREES WITH ITSELF ABOUT ITS OWN CENSUS, BY FOUR PEOPLE.** *Présentation générale*
+gives the 2018 census as **11,562**; *Présentation économique* gives it as **11,558**, beside the 2023 figure
+of **11,151** and OCTA's rounding of that to "approximately 11,500". Four people between two pages of one
+site is too small to matter and too clean to hide, so the card gives all of them. **Read every page of a
+small administration's site, not the first one that carries a number.**
+
+**AND THE UN DEMOGRAPHIC YEARBOOK IS REACHABLE, WHICH MAY UNBLOCK THE REST.** The remaining five deferrals
+(`gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-224` Saint Barthélemy, `gw-230` Norfolk
+Island) each want a figure no profile carries. **`unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2023/table03.pdf`
+answers 200** — *Population by sex, annual rate of population change, surface area and density* — and it
+covers entities UNdata's country profiles do not: Jersey, Guernsey and Norfolk Island are all in it. It is
+also published as **`table03.xls`**, a real OLE2 workbook, which is the cleaner read if a BIFF parser is ever
+written.
+
+**EXTRACTING IT TAUGHT A REUSABLE PDF LESSON: WHEN A PDF CARRIES SEVERAL ToUnicode CMAPS, DECODE WITH EACH
+SEPARATELY AND PICK THE ONE THAT YIELDS REAL WORDS.** `.claude/probe.py` merges every CMap into one
+dictionary, which is right for a single-font document and wrong here: this file has three, and the merged
+map returns *"S80f-9. -0.- S8p.0f393. (km²)"* where CMap 0 alone returns *"Population by sex, annual rate of
+population change, surface area and density"* and CMap 1 alone returns the table body. **A garbled extraction
+is not necessarily an unextractable PDF.** The numbers still break across text runs in the body font, so a
+figure read that way must be checked against a second source before it is cited — which is why this batch
+records the route and does not yet spend it.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
