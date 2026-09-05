@@ -1469,7 +1469,11 @@ body[data-theme="folio"] .collection-deco::after{
   flex:0 0 auto; height:calc(26px * var(--fs)); width:auto; max-width:calc(56px * var(--fs));
   object-fit:contain; border-radius:2px; border:1px solid var(--rule); box-shadow:var(--shadow-sm);
   background:var(--card);
+  /* it opens in the fullscreen viewer (see answerFlagHTML) — a flag two centimetres wide hides the very
+     charges that tell one from another, so the cursor says there is more of it to see */
+  cursor:zoom-in;
 }
+.av-flag:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
 .av-row{display:flex; align-items:center; gap:14px; margin-top:7px;}
 .av-row:empty{margin-top:0;}
 /* SUCCESSIVE RELEARNING — the pips under the answer term (see CRIT_DAYS in app.js). Three marks saying

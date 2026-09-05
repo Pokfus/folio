@@ -9992,7 +9992,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        fetched only by a reader who opens a map card — nothing like the ~4 MB the `atlas` bundle would
        cost to get the same file. It is listed in `atlas` too and that is fine: lakes.js ASSIGNS
        window.LAKES rather than pushing onto a queue, so arriving twice is idempotent. */
-    usstates: { files: ["us-states.js", "lakes.js"] },
+    /* …AND `rivers.js` RIDES HERE TOO (Sep 2026, on request: "do the same for the US states geography
+       collection, add the rivers"). It is 347 KB and it is in `atlas`, which is where a history card's
+       locator gets it — but `atlas` is ~600 KB of era maps, a timeline and a city index that a card
+       asking which state is shaded has no use for at all, and this bundle exists precisely so the two
+       decks do not pay each other's weight. Listing the one file twice costs nothing: rivers.js ASSIGNS
+       window.RIVERS rather than pushing onto a queue, exactly as lakes.js does above. */
+    usstates: { files: ["us-states.js", "lakes.js", "rivers.js"] },
     /* The 31 provincial-level divisions of mainland China and their 27 capitals, for the Geography
        section's China collection. Its own bundle rather than a file inside `usstates` for the reason
        `usstates` is not part of `atlas`: a reader studying the states must not fetch the provinces to be
@@ -10000,7 +10006,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the one recorded above — it is about world.js rather than about the province shapes, which are
        NOT clipped (measured; see .claude/build-china-provinces.js). Without it Qinghai Lake and Poyang
        are grey fields under a province. Arriving twice is free: lakes.js ASSIGNS window.LAKES. */
-    chinaprov: { files: ["china-provinces.js", "lakes.js"] },
+    chinaprov: { files: ["china-provinces.js", "lakes.js", "rivers.js"] },
     /* The capital of every country and territory as a POINTS TABLE, for the gold dot on a world capital
        card (see CARD_MAP_LAYERS). Its own bundle rather than a file inside `world`, and fetched only by a
        card that actually asks for a dot: `world` is what every map window loads for the coastline under
@@ -10017,6 +10023,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     coast_italy: { files: ["coast/italy.js"], after: hiresCoastIngest },
     coast_greece: { files: ["coast/greece.js"], after: hiresCoastIngest },
     coast_china: { files: ["coast/china.js"], after: hiresCoastIngest },
+    /* The United States, for the Geography section's map cards rather than for a locator (Sep 2026, on
+       request: "give the US a higher resolution"). It is the largest of the four by a distance — the
+       frame has to hold Hawaii and Maine, and the Canadian shore that shares it is half the file even
+       with Canada's own box cut to 52°N — so 220 KB gzipped against China's 63.
+       WHAT IT BUYS IS SMALL AND MEASURED, and the figure belongs beside the weight rather than in the
+       builder alone: A/B in a browser with the bundle dropped and the same view redrawn, it changes 117
+       pixels on the California card and 377 on Texas, out of 224,322. A map card is not a locator — the
+       state layer is drawn OVER world.js and IS the coast the reader sees, and us-states.js is already
+       0.002°/3dp, one device pixel at this window's zoom ceiling. All a hi-res world coast can sharpen
+       is where world.js overhangs that layer and the neighbours' own shores. It is warmed at idle and
+       never awaited, so nobody waits for it; a reader who never opens the states deck never fetches it. */
+    coast_usa: { files: ["coast/usa.js"], after: hiresCoastIngest },
     /* HI-RES RIVERS for the same two frames (Sep 2026, on request). Their own bundles rather than files
        inside coast_italy / coast_greece: the coast is what a window is drawn ON and the rivers are a layer
        over it, the coast files are warmed for China too where there is no river file, and a reader on a
@@ -18221,7 +18239,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the case that makes it plain: claimed at pointerdown, a picture could not be drawn on at all, which
        is exactly what the comment above says a marker is for. Here a tap opens it and a line across it is
        a line across it. */
-    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img";
+    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img, .av-flag";
     const hitUnder = (e, sel) => {
       const prev = canvas.style.pointerEvents;
       canvas.style.pointerEvents = "none";
@@ -24278,16 +24296,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* THE LEARN-AHEAD IS ONE TAIL STEP RATHER THAN SIX BRANCHES (see learnAheadIds). Every branch above
        selects on `isDueNow`, so a card whose learning step has not come round is in none of them — and a
        fix written into each would be five copies of one rule, with the sixth added later left out and
-       nothing on the page to say so. Here it can only ever fire on an EMPTY queue, which is exactly the
-       state the bug report describes: a row showing a red count that opens on a completion screen.
-       The review scope needs no help — `reviewQueue` has already done it, so `queue` is not empty there —
-       but going through the same step costs nothing and means there is one rule rather than two.
+       nothing on the page to say so. It runs on every session, appending whatever the branches could not reach — see the
+       note below for why that is not the same as the empty-queue form it started as.
+       The review scope needs its own copy in `reviewQueue` all the same, since the home banner reads that
+       function directly and has to offer a Start where the pile counts say there is work.
        `_sd` / `_ud` / `_unseen` are left alone: those are the "push on with extra cards" affordance, and
        a learning card is not an extra. */
-    if (!queue.length) {
-      const ahead = learnAheadIds(scopeAllIds(scope));
-      if (ahead.length) { queue = ahead; total = ahead.length; }
-    }
+    /* IT IS APPENDED, NEVER SUBSTITUTED (Sep 2026, on a bug report: "sometimes when i complete a
+       study session of cards, i go back to the home page and find the deck i was studying still has a red
+       number and cards left to study"). Firing it only on an EMPTY queue closed one half of the original
+       report — a row whose red count opened a completion screen — and left the other half standing: a card
+       already on a learning step when the session is BUILT is in none of the six branches, so a deck
+       offering four new cards and one learning card dealt the four, said "Session complete", and left the
+       red 1 exactly where it was. Measured on a five-card deck: the row read `4 1 0` before the session
+       and `0 1 0` after it.
+       THEY GO AT THE END, so every ordering promise the branches made is kept and the reader meets the
+       day's real work before a step that has not come round — which is what the in-session requeue already
+       does with a card failed a moment ago. And they are PUSHED rather than concatenated: the queue carries
+       `_sd` / `_ud` / `_unseen` as properties on the array, and a new array drops the "push on with extra
+       cards" affordance with them. */
+    { const have = new Set(queue);
+      const ahead = learnAheadIds(scopeAllIds(scope)).filter((id) => !have.has(id));
+      if (ahead.length) { ahead.forEach((id) => queue.push(id)); total = queue.length; } }
     warmUpFirst(queue);        // …open on something the reader has met (see WARMUP_N)
     spreadNoteSiblings(queue);
     return { queue, where, scope };
@@ -30114,6 +30144,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      and .claude/build-hires-coasts.js. A window substitutes the bundle's rings for world.js's, ring by
      ring, the moment it lands; a collection with no row here draws world.js and nothing else. */
   const CMAP_HIRES = { "col-40": "italy", "col-13": "greece", china: "china" };
+  /* AND THE SAME FOR A MAP CARD, KEYED BY ITS LAYER (Sep 2026, on request: "ensure that in the China
+     geography collection, rivers are visible in China, and China's borders are of a higher resolution,
+     like in the China history collection. Do the same for the US states geography collection").
+     A map card has no `data-map-card`, so it cannot be looked up by collection the way a locator is —
+     and it does not need to be: its LAYER already says which part of the world it frames, one layer per
+     geography collection, so the table is the honest key rather than a second list to keep in step.
+     THE WORLD LAYER IS DELIBERATELY ABSENT. `gw-` cards frame any country on earth, so there is no
+     frame to build a coast for and no country whose rivers could be the point; a world-wide hi-res coast
+     is a second world.js, which is exactly what the splice exists to avoid.
+     A ROW HERE ALSO TURNS THE RIVERS ON, and the two are one decision rather than two: both requests ask
+     for the same window a history card already draws, and every layer that wants the finer coast wants
+     the water on it. */
+  const CMAP_LAYER_HIRES = { "china-provinces": "china", "us-states": "usa" };
   /* NEVER DRAWN IN A CARD WINDOW (Sep 2026, on request: "the square of the Vatican City State borders
      should not be displayed"). world.js rounds the Vatican to a 0.06° box — six kilometres a side round a
      state of 0.44 km² — which on any card framing Rome is a square nobody asked about. Italy's polygon
@@ -30291,7 +30334,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        country's rings with the bundle's patched rings substituted index for index, memoised per country
        and thrown away when a different bundle object lands — a per-frame map over 117,000 vertices is not
        something a drag can afford. Before the bundle arrives it is world.js's own rings, untouched. */
-    const hiRegion = sibCard ? (CMAP_HIRES[(cardCollectionRoot(sibCard) || {}).id] || "") : "";
+    const hiRegion = sibCard ? (CMAP_HIRES[(cardCollectionRoot(sibCard) || {}).id] || "") : (CMAP_LAYER_HIRES[layerName] || "");
+    /* THE WATER. A locator has always drawn it; a map card on a framed layer draws it now, for the reason
+       CMAP_LAYER_HIRES gives. Everything else — the world layer's capitals and countries deck — draws
+       none, and pays for none: `rivers.js` rides in that layer's own bundle. */
+    const wantRivers = !!sibCard || !!hiRegion;
     /* The collection's home city (see CMAP_ANCHOR) — dropped on the card that IS that city, or on one
        standing inside it, where the answer's own gold mark is already there and a red square beside it
        would be a second name for one place. */
@@ -30614,7 +30661,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ctx.fill(gp, "evenodd");
         bord.addPath(gp);
       }
-      if (sibCard) drawThinRivers();
+      if (wantRivers) drawThinRivers();
       ctx.strokeStyle = border; ctx.lineWidth = 0.7; ctx.stroke(bord);
       /* The layer's own shapes are FILLED with the land colour before they are outlined, because the two
          files trace the same coastline at different tolerances: world.js at 0.02 for a world map, this
@@ -31148,11 +31195,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        `glossExtra`'s bargain, and the `saveData` guard is `startMiniGlobe`'s.
        It is fired from HERE rather than from the promise below because it depends on nothing that
        resolves there, and a reader who never scrolls to the foot of a card should not have had it. */
-    if (sibCard && !(navigator.connection && navigator.connection.saveData)) {
-      whenIdle(() => { if (!stopped) ensureData("atlas").then(() => { if (!stopped) schedule(); }); });
-      // …and the frame's hi-res coast, on the same bargain (see CMAP_HIRES)
+    if ((sibCard || hiRegion) && !(navigator.connection && navigator.connection.saveData)) {
+      /* A LOCATOR alone asks for `atlas`: its rivers and cities live there. A MAP CARD gets rivers.js
+         inside its own layer bundle instead (see DATA_BUNDLES), which is awaited below with the shapes,
+         so there is nothing here for it to warm. */
+      if (sibCard) whenIdle(() => { if (!stopped) ensureData("atlas").then(() => { if (!stopped) schedule(); }); });
+      // …and the frame's hi-res coast, on the same bargain (see CMAP_HIRES / CMAP_LAYER_HIRES)
       if (hiRegion) whenIdle(() => { if (!stopped) ensureData("coast_" + hiRegion).then(() => { if (!stopped) { hiFor = null; schedule(); } }); });
-      // …and its hi-res rivers, where the frame has a set (Italy and Greece; China has none)
+      // …and its hi-res rivers, where the frame has a set (Italy and Greece; China and the USA have none)
       if (hiRegion && DATA_BUNDLES["river_" + hiRegion]) whenIdle(() => { if (!stopped) ensureData("river_" + hiRegion).then(() => { if (!stopped) schedule(); }); });
     }
     host.classList.add("mc-loading");
@@ -31317,8 +31367,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      as `image` does.
 
      IT IS NOT THE CARD'S ONE FRAME. `image` and `video` are alternatives and the card shows one of them;
-     this is a small mark inside the answer box, never opened fullscreen and never a `.card-img`, so it does
-     not retire either of them. It is deliberately NOT a community-deck field: `CARD_FIELDS` does not carry
+     this is a small mark inside the answer box and never a `.card-img`, so it does not retire either of
+     them. It DOES enlarge — see answerFlagHTML, and the reason the class is not simply reused. It is deliberately NOT a community-deck field: `CARD_FIELDS` does not carry
      it, so a stranger's deck cannot ship one and nothing has to sanitize it. */
   function answerFlag(c) {
     const f = c && c.answerFlag;
@@ -31336,10 +31386,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* The `alt` is the flag's own description where the card carries one and the CREDIT otherwise, never an
      empty string: a reader who cannot see it is owed at least whose file it is. `title` carries the credit
      in both cases, since there is nowhere else on a card for a flag's provenance to be read. */
+  /* AND IT ENLARGES (Sep 2026, on request: "ensure with stylus mode on i can still click flags to enlarge
+     them"). The flag is drawn a couple of centimetres wide inside the answer box, which on a phone is a
+     device whose charge, quarterings and canton cannot be made out at all — so it opens in the site's own
+     fullscreen viewer, where the credit sits under it like every other picture's.
+     IT IS NOT GIVEN THE `.card-img` CLASS to earn the delegated listener, which is the shortcut the
+     picture round already refused: that class carries a fixed 16:9 frame and a `height:100%` on the
+     picture inside it, so adopting it would RESHAPE the very mark the reader is looking at. The listener
+     is widened to name `.av-flag` instead, and the flag keeps its own small inline box.
+     AND IT IS A TIP_SEL TARGET, which is the half the request asks about: with the marker down the ink
+     canvas is the pointer target for everything on the page, and a flag is neither a real control nor a
+     `.card-img`, so under stylus mode the tap reached nothing. There it behaves as a glossary term does —
+     a tap opens it, a line drawn across it is a line drawn across it. */
   function answerFlagHTML(c) {
     const f = answerFlag(c);
     if (!f) return "";
-    return '<img class="av-flag" src="' + esc(f.src) + '" alt="' + esc(f.alt || f.credit) + '" title="' + esc(f.credit) + '" loading="lazy">';
+    return '<img class="av-flag" role="button" tabindex="0" src="' + esc(f.src) + '" alt="' + esc(f.alt || f.credit) + '" title="' + esc(f.credit) + '" loading="lazy"' +
+      ' data-img-src="' + esc(f.src) + '" data-img-title="' + esc(f.alt || "") + '" data-img-desc="" data-img-credit="' + esc(f.credit) + '">';
   }
 
   /* ---------- the locator map (Aug 2026, on request) ----------
@@ -31912,12 +31975,48 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* "Source: …" for a picture or a clip, with a URL turned into a link and anything else left as words.
      ONE builder, because the fullscreen viewer and the Picture round both print it and a second copy is
      how the two come to disagree about whether a credit is a link. */
+  /* A URL ANYWHERE IN THE CREDIT IS A LINK, not only a credit that IS one (Sep 2026, on request: "when
+     clicked an image to enlarge it, the links in the source sections should be clickable"). The test was
+     `/^https?:/` against the WHOLE string, so a bare URL became a link and the house form — an author, a
+     licence, then the address after a full stop — was escaped end to end and its address was dead text.
+     Measured over the cards and the glossary: 1,817 credits are a bare URL and 1,309 are that second
+     shape, so nearly two in five of the site's credits offered an address the reader could not follow,
+     which reads as a broken link rather than as a rule.
+     IT IS NOT `SRC_URL_RX`, AND THAT IS THE WHOLE OF THE DIFFICULTY. The citation pattern stops at `(`
+     and `)` — deliberately, since a citation's address is percent-encoded — but a credit's address is a
+     Commons file name written as it stands, and 149 of them carry a bracket: matching with that pattern
+     truncates `…G.Gardner_(9255157507).jpg` to `…G.Gardner_(1` and hands the reader a link that 404s,
+     which is worse than the plain text it replaced. So the match runs to the next space and is then
+     trimmed from the right: sentence punctuation first, then a closing bracket ONLY where the address
+     carries no opening one to match it, which is the four credits that write the address inside brackets
+     mid-sentence and the only way to tell those from the 149.
+     The escaping is piecewise round the matches, never over a string that already carries markup. A
+     credit that is nothing but an address still prints without its scheme, which is what keeps a long
+     Commons URL from running past the picture; one with prose round it keeps the address as written,
+     since cutting the scheme out of the middle of a sentence reads as a typo. */
+  const MEDIA_URL_RX = /https?:\/\/[^\s<>"]+/g;
+  function trimCreditUrl(u) {
+    let s = u;
+    for (;;) {
+      if (/[.,;:]$/.test(s)) { s = s.slice(0, -1); continue; }
+      if (s.endsWith(")") && (s.split(")").length - 1) > (s.split("(").length - 1)) { s = s.slice(0, -1); continue; }
+      return s;
+    }
+  }
   function mediaCreditHTML(credit) {
     const c = String(credit == null ? "" : credit).trim();
     if (!c) return "";
-    return /^https?:\/\//i.test(c)
-      ? 'Source: <a href="' + esc(c) + '" target="_blank" rel="noopener">' + esc(c.replace(/^https?:\/\//i, "").replace(/\/$/, "")) + "</a>"
-      : "Source: " + esc(c);
+    const link = (href, text) => '<a href="' + esc(href) + '" target="_blank" rel="noopener">' + esc(text) + "</a>";
+    if (/^https?:\/\//i.test(c) && !/\s/.test(c)) return "Source: " + link(c, c.replace(/^https?:\/\//i, "").replace(/\/$/, ""));
+    let out = "", last = 0;
+    MEDIA_URL_RX.lastIndex = 0;
+    for (let m; (m = MEDIA_URL_RX.exec(c)); ) {
+      const url = trimCreditUrl(m[0]);
+      if (!url) continue;
+      out += esc(c.slice(last, m.index)) + link(url, url);
+      last = m.index + url.length;
+    }
+    return "Source: " + out + esc(c.slice(last));
   }
   function cardImageHTML(img) {
     return '<figure class="card-img" role="button" tabindex="0" title="Click to enlarge"' +
@@ -32128,7 +32227,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        begins in the caption — the stage owns pan and zoom, and a credit is a link to be clicked. */
     const metaHTML = (img.title || img.desc || credit)
       ? '<div class="iv-meta">' +
-        (img.title ? '<div class="iv-title">' + esc(img.title) + "</div>" : "") +
+        /* AND THE TITLE OPENS ON A CAPITAL (Sep 2026, on request: "image titles should always be
+           capitalised"). This is the one place a picture's title is set as a heading, and 111 of them
+           arrive lower-case — a Commons file name reads `inscribed ox scapula` and a card's caption is
+           written as a phrase — which above the description reads as a typo rather than as a style. Done
+           at DRAW time, as every other label on the site is, so it covers a community deck's picture and
+           anything added later without a pass over the data; `gameCapFirst` passes a numeral or a Han
+           character through untouched. */
+        (img.title ? '<div class="iv-title">' + esc(gameCapFirst(img.title)) + "</div>" : "") +
         (img.desc ? '<p class="iv-desc">' + esc(img.desc) + "</p>" : "") +
         (creditHTML ? '<div class="iv-credit">' + creditHTML + "</div>" : "") +
         "</div>"
@@ -43809,6 +43915,10 @@ let prev = null;
     });
   }
 
+  /* Everything the fullscreen viewer opens from. `.card-img` is the framed figure a card, a glossary
+     popup, an artefact plate and the editor previews all emit; `.av-flag` is the small flag inside a
+     geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML. */
+  const IMG_OPEN_SEL = ".card-img, .av-flag";
   // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor).
   // A .card-vid wears the same frame but plays in place, so only its corner expand control opens the viewer —
   // every other click inside it belongs to the player.
@@ -43850,7 +43960,7 @@ let prev = null;
     const slot = fig.closest(".gloss-imgslot, .card-imgslot"); if (slot) slot.hidden = true;
   }, true);
   document.addEventListener("click", (e) => {
-    const fig = e.target.closest(".card-img"); if (!fig) return;
+    const fig = e.target.closest(IMG_OPEN_SEL); if (!fig) return;
     if (fig.classList.contains("media-dead")) return;   // nothing to enlarge — the file never arrived
     if (fig.classList.contains("card-vid")) {
       if (!e.target.closest(".cv-expand")) return;
@@ -43890,7 +44000,7 @@ let prev = null;
   }, true);
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
-    const fig = e.target.closest && e.target.closest(".card-img"); if (!fig) return;
+    const fig = e.target.closest && e.target.closest(IMG_OPEN_SEL); if (!fig) return;
     if (fig.classList.contains("media-dead")) return;
     if (fig.classList.contains("card-vid")) return;   // the expand control is a real <button> — the browser fires its click itself
     e.preventDefault();
