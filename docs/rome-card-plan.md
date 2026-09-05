@@ -461,7 +461,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-197  Siege of Lilybaeum
     rm-198  Hamilcar Barca
     rm-199  Battle of the Aegates Islands
-    rm-200  The peace of 241 BCE
+    rm-200  The Treaty of Lutatius
     rm-201  The Roman annexation of Sicily
     rm-202  The first Roman province
     rm-203  Mercenary War
