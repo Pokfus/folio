@@ -1814,7 +1814,8 @@ window.GLOSSARY = {
 "Kushan_Empire": "The Kushan Empire was the state built by one of the five Yueh-chi tribes of Bactria, whose chief won the supremacy over the rest and gave the united kingdom his own tribe's name.<sup class=\"fn\" data-fn=\"1\"></sup> From about 25 CE its kings crossed the Hindu Kush at the expense of the Parthian rulers there and carried it from the Kabul valley into north-west India, styling themselves \"Great King, Supreme King of Kings, Son of the Gods\".<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its best remembered ruler is Kanishka, whose reign is placed near the end of the 1st century CE and who almost certainly founded the era beginning in 78 CE.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Greco-Buddhist_art": "Greco-Buddhist art is the Buddhist sculpture made in Gandhara and the north-west of the subcontinent, in which Hellenistic form was turned to Indian religious use.<sup class=\"fn\" data-fn=\"2\"></sup> It sprang up under Scythian and Parthian rule and produced most of its known work under the Kushans, by whose time the types of the Buddha peculiar to it were already fixed and standardised.<sup class=\"fn\" data-fn=\"1\"></sup> Not one of its many thousands of sculptures bears a date in any known era, so its chronology rests on the rough rule that the earlier a piece is the more nearly it approaches Hellenistic work.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Gupta_Empire": "The Gupta Empire was the north Indian power whose era begins on 26 February 320 CE, the day taken for the coronation of Chandragupta I, and which was reckoned in for centuries afterwards.<sup class=\"fn\" data-fn=\"1\"></sup> Founded in Magadha and the Gangetic valley, it was carried much further by his son Samudragupta, whose conquests were engraved on one of Ashoka's own pillars in a Sanskrit panegyric of about 360 CE.<sup class=\"fn\" data-fn=\"2\"></sup> A Chinese pilgrim who spent six years in it early in the 5th century described a government that fined criminals instead of maiming them, though he never named the king.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Hindu-Arabic_numerals": "The Hindu-Arabic numerals are the ten signs in use today together with the place-value system that goes with them, in which a digit's position fixes its value and a zero holds an empty place.<sup class=\"fn\" data-fn=\"1\"></sup> The earliest undisputed zero in India is in a Gwalior inscription of 876 CE, though the arithmetic is older evidence still: Brahmagupta treated the properties of zero early in the 7th century.<sup class=\"fn\" data-fn=\"2\"></sup> The system reached Baghdad with Indian astronomy in the 8th century and Europe through al-Khwarizmi's arithmetic, whose author's name in its Latin form gave such books the name algorism.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Hindu-Arabic_numerals": "The Hindu-Arabic numerals are the ten signs in use today together with the place-value system that goes with them, in which a digit's position fixes its value and a zero holds an empty place.<sup class=\"fn\" data-fn=\"1\"></sup> The earliest undisputed zero in India is in a Gwalior inscription of 876 CE, though the arithmetic is older evidence still: Brahmagupta treated the properties of zero early in the 7th century.<sup class=\"fn\" data-fn=\"2\"></sup> The system reached Baghdad with Indian astronomy in the 8th century and Europe through al-Khwarizmi's arithmetic, whose author's name in its Latin form gave such books the name algorism.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Sanskrit_literature": "Sanskrit literature is the body of writing in that language, divided between the Vedic texts and the classical literature that follows them — court epic, drama, lyric and fable — running from about 200 BCE to 1100 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Sanskrit was a learned language beside living vernaculars, and the plays show the arrangement: kings and men of rank speak it while women and men of the people answer in the popular dialects.<sup class=\"fn\" data-fn=\"2\"></sup> Its dates are unusually hard to fix — for the most famous classical poets there is no historical authority, and Kalidasa's own date was argued over within a range of a thousand years.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3758,7 +3759,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Indo-Greek_Kingdom": ["Indo-Greek kingdoms"],
 "Kushan_Empire": ["Kushans","Kushanas"],
 "Greco-Buddhist_art": ["Gandhara school"],
-"Gupta_Empire": ["Guptas"]
+"Gupta_Empire": ["Guptas"],
+"Sanskrit_literature": ["Classical Sanskrit literature"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5602,7 +5604,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Kushan_Empire": ["state","history","politics","india","iron age"],
 "Greco-Buddhist_art": ["art","object","history","religion","buddhism","india","greece"],
 "Gupta_Empire": ["state","history","politics","india"],
-"Hindu-Arabic_numerals": ["concept","history","science","technology","india"]
+"Hindu-Arabic_numerals": ["concept","history","science","technology","india"],
+"Sanskrit_literature": ["text","literature","history","india","language"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
