@@ -53,6 +53,30 @@ const DECK = JSON.parse(fs.readFileSync(path.join(ROOT, "decks", "Mandarin-HSK-3
 const wordsWith = (ch, self) => DECK.cards
   .map((c) => c.fields.Simplified)
   .filter((w) => w !== self && w.indexOf(ch) >= 0);
+/* THE ORDER IS DERIVED FROM THE DECK, NOT TYPED HERE (Sep 2026, when the list stopped being sorted
+   shortest-first). The panel now orders a character's words by how often the deck's own example
+   sentences use them — see `uDeckWordFreq` — so this recomputes that count the same way, longest match
+   first at each position, and asserts the RULE rather than a list a repaired sentence would invalidate. */
+function deckFreq() {
+  const words = new Set(), sents = [];
+  let maxLen = 1;
+  DECK.cards.forEach((c) => {
+    const w = String((c.fields || {}).Simplified || "");
+    if (w) { words.add(w); if (w.length > maxLen) maxLen = w.length; }
+    const m = String((c.fields || {}).Examples || "").match(/<div class="uc-exz">[\s\S]*?<\/div>/g);
+    if (m) m.forEach((x) => sents.push(x.replace(/<[^>]+>/g, "")));
+  });
+  const out = new Map();
+  sents.forEach((t) => {
+    for (let i = 0; i < t.length;) {
+      let w = null;
+      for (let L = Math.min(maxLen, t.length - i); L >= 1; L--) { const c = t.substr(i, L); if (words.has(c)) { w = c; break; } }
+      if (w) { out.set(w, (out.get(w) || 0) + 1); i += w.length; } else i++;
+    }
+  });
+  return out;
+}
+const FREQ = deckFreq();
 
 (async () => {
   const port = 8600 + Math.floor(Math.random() * 300);
@@ -98,6 +122,7 @@ const wordsWith = (ch, self) => DECK.cards
       if (!m) return null;
       return {
         ch: (m.querySelector(".cw-ch") || {}).textContent || "",
+        reading: (m.querySelector(".cw-r") || {}).textContent || "",
         note: (m.querySelector(".cw-n") || {}).textContent || "",
         rows: [...m.querySelectorAll(".cw-row")].map((r) => ({
           w: (r.querySelector(".cw-w") || {}).textContent || "",
@@ -121,9 +146,17 @@ const wordsWith = (ch, self) => DECK.cards
     !!got && got.rows.length === want.length, (got && got.rows.length) + " vs " + want.length);
   check("…the right ones", !!got && got.rows.map((r) => r.w).sort().join(" ") === want.slice().sort().join(" "),
     got && got.rows.map((r) => r.w).join(" "));
-  // shortest first: the two-character words a learner actually meets the character in
-  check("…shortest first", !!got && got.rows.every((r, i, a) => !i || a[i - 1].w.length <= r.w.length),
+  /* COMMONEST FIRST, then shortest within a tie — the two-character words a learner meets the character
+     in still lead, but which of eleven of them comes first is now decided by the deck's own prose rather
+     than by the alphabet. Both halves are asserted, because a broken frequency lookup would return 0 for
+     everything and leave a list that is still perfectly sorted by length. */
+  check("…commonest first", !!got && got.rows.every((r, i, a) => !i || (FREQ.get(a[i - 1].w) || 0) >= (FREQ.get(r.w) || 0)),
+    got && got.rows.map((r) => r.w + ":" + (FREQ.get(r.w) || 0)).join(" "));
+  check("…shortest first within a tie", !!got && got.rows.every((r, i, a) =>
+    !i || (FREQ.get(a[i - 1].w) || 0) !== (FREQ.get(r.w) || 0) || a[i - 1].w.length <= r.w.length),
     got && got.rows.map((r) => r.w).join(" "));
+  check("…and the frequency really was counted", FREQ.size > 0 && [...FREQ.values()].some((n) => n > 5),
+    "distinct words counted: " + FREQ.size);
   check("…each with its reading and its gloss",
     !!got && got.rows.every((r) => r.p && r.g), JSON.stringify(got && got.rows[0]));
   /* The `not <other word>` disambiguator belongs to the reverse card and reads as part of the gloss in
@@ -131,6 +164,11 @@ const wordsWith = (ch, self) => DECK.cards
   check("…and no reverse-card disambiguator leaking into the gloss",
     !!got && got.rows.every((r) => r.g.indexOf("not ") !== 0 && r.g.indexOf("就读") < 0),
     got && (got.rows.find((r) => /not /.test(r.g)) || {}).g);
+  /* THE CHARACTER'S OWN READING, beside it in the header (Sep 2026). Derived from the deck rather than
+     stored — see `charReading` — so what is asserted is that it appears and is the right one for a
+     character the whole deck agrees about; 学 is xué everywhere it occurs. */
+  check("…and the header names the character's own reading", !!got && /^xu[eé]/.test(String(got.reading || "")),
+    got && got.reading);
   check("…and it can be closed", !!got && got.closes);
 
   console.log("\n2) a character no other word in the deck uses\n");

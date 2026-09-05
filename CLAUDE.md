@@ -1529,7 +1529,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   asked for it. **IT LISTS AND DOES NOT LINK**: a row is a word, its reading and its gloss, and making
   it navigable would take the reader out of a card they are part way through answering. The `not
   <other word>` disambiguator is stripped from the gloss here, reading in a list of words as part of
-  the definition. Guarded by `.claude/test-char-network.js`.
+  the definition. **IT NAMES THE CHARACTER'S OWN READING AND ORDERS ITS WORDS COMMONEST FIRST** (Sep
+  2026, on request). Neither figure is stored: the reading is derived the way `check-say-reading.js`
+  derives one — a word whose character count equals its syllable count reads off one reading per
+  character, which gives every character a distribution — and where that distribution genuinely
+  disagrees the two commonest are shown with a slash, a polyphone being a fact about the character
+  rather than doubt about the data. The order was shortest-first, which is right about which words a
+  learner meets a character in and silent about which of eleven of them is worth having;
+  `uDeckWordFreq` answers that, with length as the tie-break, so a character whose words the deck never
+  uses in a sentence lists exactly as it did before. Guarded by `.claude/test-char-network.js`.
 - **AN IDIOM CARD CARRIES A `Literally` LINE** (the Idioms deck's card type; Sep 2026). An idiom's gloss
   says what it MEANS and throws away what it SAYS, and the image is most of what makes a
   four-character idiom stick — 谢天谢地 is "thank goodness" and it says "thank heaven, thank earth".

@@ -318,9 +318,16 @@
   }
   /* The rating as five stars in the corner of a study card (Aug 2026, on request). It is DECORATIVE to a
      screen reader — one `aria-label` on the row says the rating in words, and five identical glyphs read
-     out one at a time say nothing — and it renders as NOTHING where there is no rating at all, which is
-     every community-deck card and any curated card not yet rated: five empty stars would claim a rating of
-     zero, which is not on the scale. The colour is the QUESTION/ANSWER label's own `--indigo`, on request,
+     out one at a time say nothing — and it renders as NOTHING where there is no rating at all: five empty
+     stars would claim a rating of zero, which is not on the scale.
+     A COMMUNITY DECK'S CARD IS RATED TOO, and always was, which is worth stating because this note used
+     to say the opposite. `card.difficulty` is an editorial judgement that only curated cards carry, so a
+     language deck's card shows nothing at first — but `cardStatsBump` is called from `grade()` for every
+     card the reader answers, and a community card's id (`u_<deck>_<n>`) is derived from the deck FILE, so
+     it is the same id for every reader who downloaded it. Once such a card has `CARD_STATS_MIN` answers
+     across all readers, `cardStatsFor` finds it and the stars appear, measured rather than judged. The
+     one thing that has never worked for those decks is the "By difficulty" study ORDER, which reads the
+     editorial rating; "By frequency" is what answers that, and lives beside it. The colour is the QUESTION/ANSWER label's own `--indigo`, on request,
      so the corner reads as part of the card's own furniture rather than as a second kind of mark.
      THE WORD "Difficulty" IS PRINTED BESIDE THEM (Aug 2026, on request): five small stars in a corner say
      that something is being rated and not what. It is set small and thin so it labels the row rather than
@@ -587,7 +594,12 @@
      because a locator moved or a card retired changes what a sibling map draws, and an admin edit is
      exactly the thing that does either. */
   let _locSibCache = null;
-  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; }
+  /* HOW OFTEN A DECK USES ITS OWN WORDS (`_wordFreq`; Sep 2026, on request that a deck be ordered by
+     frequency rather than by the alphabet). See `uDeckWordFreq` for what it counts and what it cannot;
+     declared here for the reason every cache above it is, and busted with them because a deck remounted
+     or repaired is a deck whose sentences have moved. */
+  let _wordFreq = new Map();
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; _wordFreq = new Map(); }
   let _byteEnc = null;
   function cardBytes(id) {
     let n = _cardBytes.get(id);
@@ -6308,18 +6320,34 @@
      arriving here is already in deck order, so five cards all rated 3 stay in the order their deck puts
      them — which is the honest reading of "by difficulty" on a corpus where the rating is five buckets
      rather than a continuum. */
-  const DECK_ORDERS = ["ordered", "random", "difficulty"];
+  /* ---------- A FOURTH ORDER: BY FREQUENCY (Sep 2026, on request) ----------
+     For a LANGUAGE deck, "by difficulty" can say nothing — `cardDifficulty` is an editorial rating on
+     curated cards and a community card has none — and the order those decks actually ship in is the exam
+     list's, which is alphabetical by reading and so teaches nothing. This sorts a deck by how often its
+     own example sentences use each word, commonest first; `uDeckWordFreq` holds what that counts and,
+     more importantly, where it stops working.
+
+     IT IS OFFERED ONLY WHERE IT CAN ACT. `entryCanFreq` asks whether the deck behind the entry has any
+     sentences to count at all, and the cycler steps straight past this order where it has not — a curated
+     deck, or a community deck with no examples. An option that is drawn and does nothing is worse than an
+     option that is not drawn, because a reader who chooses it concludes the ordering is broken. */
+  const DECK_ORDERS = ["ordered", "random", "difficulty", "frequency"];
   /* …AND THE CONTROL IS A CYCLER, NOT A SWITCH (Aug 2026, on request). Two orders were a switch and three
      will not fit in one: what replaces it is a single row naming the order in force, which steps to the
      next on every press and wraps. Three rows with a tick would say the same thing in three times the
      height, on a sheet a phone already has to scroll — and the switch's own reasoning was that a setting
      with a name for each state reads as a sentence, which a cycler keeps. */
-  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty" };
+  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty", frequency: "By frequency" };
   const DECK_ORDER_NOTE = {
     ordered: "Cards come up in their deck order, oldest history first",
     random: "The session is shuffled each day",
     difficulty: "The best-known terms first, working outward",
+    frequency: "The words this deck uses most, first",
   };
+  // the orders this entry can actually be given, in cycle order — see DECK_ORDERS' own note
+  function deckOrdersFor(id) {
+    return DECK_ORDERS.filter((m) => m !== "frequency" || entryCanFreq(id));
+  }
   function deckOrderMode(id) {
     if (id === REVIEW_ENTRY) {
       if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
@@ -6351,6 +6379,21 @@
   function sortByDifficulty(list) {
     return list.slice().sort((a, b) => (cardDifficultyRank(a) - cardDifficultyRank(b)));
   }
+  /* Commonest first. TIES KEEP THE DECK'S OWN ORDER, which is the whole of why this degrades gracefully
+     at the top of a syllabus: `sort` is stable, so the 3,029 Levels 7–9 words counted exactly once stay
+     exactly where their deck put them and only the words the deck really does lean on move. */
+  function sortByFrequency(id, list) {
+    const deckId = uDeckIdOf(id);
+    if (!deckId) return list;
+    const f = uDeckWordFreq(deckId);
+    if (!f.size) return list;
+    const n = (cid) => {
+      const c = cardById(cid);
+      const w = c && c.fields ? String(c.fields.Simplified || "") : "";
+      return w ? (f.get(w) || 0) : 0;
+    };
+    return list.slice().sort((a, b) => n(b) - n(a));
+  }
   // a card with no rating at all sorts LAST rather than first: an unrated card is unknown, not easy
   function cardDifficultyRank(id) {
     const c = cardById(id);
@@ -6359,7 +6402,12 @@
   }
   // one pile, in whatever order this entry asks for. Ordered and Random both leave it as the deck put it —
   // Random shuffles the whole queue afterwards, so shuffling a pile here would be doing it twice.
-  function orderPile(id, list) { return deckByDifficulty(id) ? sortByDifficulty(list) : list; }
+  function orderPile(id, list) {
+    const mode = deckOrderMode(id);
+    if (mode === "difficulty") return sortByDifficulty(list);
+    if (mode === "frequency") return sortByFrequency(id, list);
+    return list;
+  }
   /* AUTOMATIC READ-ALOUD, per entry (Aug 2026, on request — Anki's "read the answer aloud"). A card type
      may mark a run of text as something to hear (`<span class="uc-tts">` — see the read-aloud block further
      down); this is the reader asking for that to happen BY ITSELF the moment the answer is revealed, rather
@@ -15321,7 +15369,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const cyEl = ov.querySelector('.dm-cycle[data-act="order"]');
       if (cyEl) {
         const step = () => {
-          const next = DECK_ORDERS[(DECK_ORDERS.indexOf(deckOrderMode(id)) + 1) % DECK_ORDERS.length];
+          /* `deckOrdersFor` and not `DECK_ORDERS`: "By frequency" is stepped past on an entry whose deck
+             has no example sentences to count, so the cycler never lands on an order that would do
+             nothing. A mode already stored but not offered here still steps forward correctly, since a
+             missing index is -1 and -1 + 1 is the first. */
+          const cyc = deckOrdersFor(id);
+          const next = cyc[(cyc.indexOf(deckOrderMode(id)) + 1) % cyc.length];
           setDeckOrderMode(id, next);
           cyEl.querySelector(".dm-cyval").textContent = DECK_ORDER_LABEL[next];
           cyEl.querySelector("small").textContent = DECK_ORDER_NOTE[next];
@@ -18474,6 +18527,73 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        The read is once per deck per session, and the reader asked for it by tapping.
      · IT LISTS AND DOES NOT LINK. A row is a word, its reading and its gloss; making it navigable would
        take the reader out of a card they are part way through answering. */
+  /* ---------- HOW OFTEN A DECK USES ITS OWN WORDS (Sep 2026, on request) ----------
+     The exam lists this shelf is built from are ordered ALPHABETICALLY BY READING, which is an ordering
+     with no teaching in it: a reader working through HSK Level 5 in order meets 报到 and 比例 on the first
+     day and 自觉 a year later. What a learner wants first is the words they will actually meet, and this
+     is the one measure of that which the collection can make about ITSELF rather than importing: every
+     note carries example sentences, so the deck's own prose says which of its words earn their keep.
+
+     WHAT IT COUNTS is occurrences of a deck's headwords across that deck's example sentences, taking the
+     LONGEST headword that matches at each position and then stepping past it — so 天 is not counted
+     inside 今天, which is the same guard the example harvest uses and the difference between a count and
+     a number. It is per deck because a deck is what a reader mounts; there is no pooled corpus in the
+     browser.
+
+     WHAT IT CANNOT DO IS THE TOP OF THE SYLLABUS, and that is measured rather than hoped: pooled over all
+     nine Mandarin decks, the median count is 57 at Level 1 and 7 at Level 5 — a strong signal — and 1 at
+     Levels 7–9, where 3,029 of 5,562 words occur exactly once, in their own sentence. That is not a fault
+     in the measure but a fact about advanced vocabulary: a word nothing else says is a word nothing else
+     says. The ordering is built to degrade into deck order exactly there — `sort` is stable, so a run of
+     words all counted once keeps the order the deck put them in, and only the genuinely common ones move
+     to the front. An order that improves the first five levels and changes almost nothing at the ninth is
+     the honest shape of what the data supports.
+
+     IT IS DERIVED, NEVER STORED. Counting 23,000 sentences in a shipped field would be a figure that goes
+     stale the day a sentence is repaired, and the deck files are 21 MB already; this is one pass over a
+     deck a reader has just asked to study, cached for the session and busted with the other deck caches. */
+  function uDeckWordFreq(deckId) {
+    const hit = _wordFreq.get(deckId);
+    if (hit) return hit;
+    const out = new Map();
+    _wordFreq.set(deckId, out);
+    const d = UDECKS[deckId];
+    if (!d) return out;
+    const words = new Set();
+    let maxLen = 1;
+    const sents = [];
+    (d.cardIds || []).forEach((id) => {
+      const c = UCARDS[id];
+      if (!c || uIsLazy(c) || !c.fields) return;
+      const w = String(c.fields.Simplified || "");
+      if (w) { words.add(w); if (w.length > maxLen) maxLen = w.length; }
+      const ex = String(c.fields.Examples || "");
+      const m = ex.match(/<div class="uc-exz">[\s\S]*?<\/div>/g);
+      if (m) for (let i = 0; i < m.length; i++) sents.push(m[i].replace(/<[^>]+>/g, ""));
+    });
+    if (!words.size) return out;
+    for (let s = 0; s < sents.length; s++) {
+      const t = sents[s];
+      for (let i = 0; i < t.length;) {
+        let w = null;
+        for (let L = Math.min(maxLen, t.length - i); L >= 1; L--) {
+          const cand = t.substr(i, L);
+          if (words.has(cand)) { w = cand; break; }
+        }
+        if (w) { out.set(w, (out.get(w) || 0) + 1); i += w.length; } else i++;
+      }
+    }
+    return out;
+  }
+  /* Whether this entry's deck can be ordered by frequency at all — a deck with no example sentences has
+     no corpus to count, and an order that silently does nothing is the one thing a cycler must not offer.
+     Asked of the DECK behind an entry, so a subdeck and a direction answer for their file. */
+  function entryCanFreq(id) {
+    const deckId = uDeckIdOf(id);
+    if (!deckId) return false;
+    const f = uDeckWordFreq(deckId);
+    return f.size > 0;
+  }
   const CHARWIN_MAX = 24;
   let charWinEl = null;
   function closeCharWin() { if (charWinEl) { charWinEl.remove(); charWinEl = null; } }
@@ -18493,14 +18613,50 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const g = String(c.fields.English || "").replace(/^<div class="uc-pos">not [^<]*<\/div>/, "");
       out.push({ w: w, p: String(c.fields.Pinyin || ""), g: sanitizePlain(g) });
     });
-    // shortest first: the two-character words that a learner meets a character in are the useful ones
-    out.sort((a, b) => a.w.length - b.w.length || a.w.localeCompare(b.w));
+    /* COMMONEST FIRST, THEN SHORTEST (Sep 2026, on request). The list was shortest-first, which puts the
+       two-character words a learner meets a character in at the top and is right as far as it goes — but
+       on a character like 学 it says nothing about which of eleven two-character words is worth having,
+       and the deck's own sentences do. `uDeckWordFreq` counts that; ties fall back to the old rule, so a
+       character whose words the deck never uses in a sentence lists exactly as it did before. */
+    const f = uDeckWordFreq(deckId);
+    out.forEach((o) => { o.f = f.get(o.w) || 0; });
+    out.sort((a, b) => b.f - a.f || a.w.length - b.w.length || a.w.localeCompare(b.w));
     return out;
   }
-  function charWinRender(ch, rows, note) {
+  /* WHAT THE CHARACTER IS READ AS ON ITS OWN (Sep 2026, on request). The panel named the character and
+     listed its words and never said how to say it, which on a network built out of one language's
+     characters is the first thing a learner wants. There is no per-character reading in the deck files —
+     a note carries the reading of a WORD — so it is derived the way `check-say-reading.js` derives it: a
+     word whose character count equals its syllable count reads off one reading per character, which gives
+     every character a distribution across the deck, and what is shown is the reading that distribution
+     agrees on. Where it does not agree, the two commonest are shown with a slash, because a polyphone is
+     a fact about the character rather than an uncertainty about the data. */
+  function charReading(deckId, ch) {
+    const d = UDECKS[deckId];
+    if (!d) return "";
+    const tally = new Map();
+    (d.cardIds || []).forEach((id) => {
+      const c = UCARDS[id];
+      if (!c || uIsLazy(c) || !c.fields) return;
+      const w = String(c.fields.Simplified || "");
+      const at = w.indexOf(ch);
+      if (at < 0) return;
+      const syl = String(c.fields.Pinyin || "").trim().split(/\s+/).filter(Boolean);
+      if (!syl.length || syl.length !== w.length) return;   // erhua and multi-word readings are not aligned
+      const r = syl[at].toLowerCase();
+      if (r) tally.set(r, (tally.get(r) || 0) + 1);
+    });
+    const all = [...tally.entries()].sort((a, b) => b[1] - a[1]);
+    if (!all.length) return "";
+    // a second reading is shown only where it is a real alternative rather than a stray alignment
+    if (all.length > 1 && all[1][1] >= Math.max(2, all[0][1] * 0.25)) return all[0][0] + " / " + all[1][0];
+    return all[0][0];
+  }
+  function charWinRender(ch, rows, note, reading) {
     const m = charWinEl;
     if (!m) return;
     m.innerHTML = '<div class="cw-head"><span class="cw-ch" lang="zh-CN">' + esc(ch) + "</span>" +
+      (reading ? '<span class="cw-r">' + esc(reading) + "</span>" : "") +
       '<span class="cw-n">' + esc(note) + "</span>" +
       '<button class="cw-x" type="button" aria-label="Close">×</button></div>' +
       (rows.length
@@ -18535,7 +18691,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     await uWarmDeck(deckId);
     if (charWinEl !== m || !m.isConnected) return;   // closed, or another character asked for, while reading
     const rows = charNeighbours(deckId, ch, self);
-    charWinRender(ch, rows, rows.length ? rows.length + (rows.length === 1 ? " word" : " words") : "");
+    charWinRender(ch, rows, rows.length ? rows.length + (rows.length === 1 ? " word" : " words") : "",
+      charReading(deckId, ch));
     place();
   }
   // one delegated listener for every character on every card of every Mandarin-shaped deck
@@ -26805,6 +26962,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<div class="node-meta">' +
           '<span class="node-count">' + (o.cards || 0).toLocaleString() + " cards</span>" +
           '<span class="node-size" title="' + esc(sizeTitle) + '">' + esc(fmtDeckSize(o.bytes)) + "</span>" +
+          langFactsHTML(o) +
         '</div>' +
         /* THE DECK'S OWN SUBTITLE (Sep 2026). Nine decks presented as nine levels said nothing about
            where a learner should start, how big each is against the others, or where a deck outside the
@@ -26837,14 +26995,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       "</div></div></div>" +
     "</div>";
   }
+  /* WHAT A DECK TEACHES, ON THE SHELF (`langFactsHTML`; Sep 2026, on request). A row said how many
+     cards a deck holds and how many megabytes it costs, and nothing about whether it carries EXAMPLE
+     SENTENCES or whether its words can be HEARD — which are the two things that most decide whether a
+     vocabulary deck is worth twenty megabytes, and the two that actually vary across this shelf.
+     THE FIGURES ARE THE CATALOGUE'S, measured off each deck file by `.claude/build-lang-decks.js`, so
+     nothing here can drift from the deck it describes.
+     ONLY WHAT VARIES IS DRAWN. Every deck on the shelf is asked both ways, so saying so on all of them
+     tells a reader choosing between two of them nothing; audio is the norm and its ABSENCE is the fact,
+     so "no audio" is drawn on the eight decks that lack it and nothing at all on the rest. Example
+     coverage runs from 16% to 100% and is always drawn — with `100% examples` said as `with examples`,
+     since a percentage a reader has to notice is 100 is a percentage that should have been a word. */
+  function langFactsHTML(o) {
+    let out = "";
+    if (typeof o.ex === "number") {
+      out += '<span class="node-fact" title="How many of this deck\u2019s words come with an example sentence.">' +
+        (o.ex >= 100 ? "with examples" : esc(o.ex + "% with examples")) + "</span>";
+    }
+    if (o.say === false) {
+      out += '<span class="node-fact node-fact-no" title="This deck has no read-aloud control on its cards.">no audio</span>';
+    }
+    return out;
+  }
   /* A catalogue tree node turned into a row spec, all the way down. The entry id is the same one app.js
      uses everywhere else for a subdeck of one of the reader's own decks, so a row added here is the row
      that appears in Daily study and, once the file lands, the row that studies. */
-  function langNodeSpecs(deckId, bytes, shared, prefix, nodes) {
+  function langNodeSpecs(deckId, bytes, shared, prefix, nodes, say) {
     return (nodes || []).map((n) => {
       const path = prefix ? prefix + SUB_SEP + n.n : n.n;
       return { entry: uSubEntry(deckId, path), title: n.n, cards: n.c || 0, bytes: bytes, shared: shared,
-               kids: langNodeSpecs(deckId, bytes, shared, path, n.k) };
+               /* A NODE'S OWN example coverage, never its file's — on an unwrapped deck these rows ARE
+                  the decks a reader chooses between, and one file's figure printed on all of them would
+                  say the same thing about decks that differ. `say` is the file's, being a property of
+                  the card TYPE and so the same for every row it serves. */
+               ex: (typeof n.x === "number" ? n.x : undefined), say: say,
+               kids: langNodeSpecs(deckId, bytes, shared, path, n.k, say) };
     });
   }
   /* THE ROWS A LANGUAGE DRAWS, which is not always one per deck file (Aug 2026, on request: "The Mandarin
@@ -26860,9 +27045,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const out = [];
     rows.forEach((r) => {
       const tree = Array.isArray(r.tree) ? r.tree : [];
-      if (r.flat && tree.length) { out.push(...langNodeSpecs(r.id, r.bytes, true, "", tree)); return; }
+      if (r.flat && tree.length) { out.push(...langNodeSpecs(r.id, r.bytes, true, "", tree, r.say !== false)); return; }
       out.push({ entry: uDeckEntry(r.id), title: langShortTitle(r.title, r.lang), cards: r.cards || 0,
-                 bytes: r.bytes, sub: r.sub || "", shared: false, kids: langNodeSpecs(r.id, r.bytes, false, "", tree) });
+                 bytes: r.bytes, sub: r.sub || "", shared: false, ex: r.ex, say: r.say !== false,
+                 kids: langNodeSpecs(r.id, r.bytes, false, "", tree, r.say !== false) });
     });
     return out;
   }

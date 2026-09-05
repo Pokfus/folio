@@ -1293,6 +1293,15 @@ body[data-theme="folio"] .collection-deco::after{
    the wrong half to lose. Wrapping costs a row nothing at any width the figures fit. */
 .node-size{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); opacity:.72; white-space:nowrap;}
 
+/* WHAT A DECK TEACHES, beside how big it is (Sep 2026, on request). Set as the count and the size are —
+   same face, same size, same quiet ink — because these are figures on the same line and a fourth
+   typographic treatment on one row is noise. They are drawn only where they VARY: every deck on the
+   shelf is asked both ways, so that fact says nothing; audio is the norm, so only its absence is
+   printed, and `.node-fact-no` gives that one the ochre the site already uses for a fact a reader
+   should notice without being warned by it. */
+.node-fact{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); opacity:.72; white-space:nowrap;}
+.node-fact-no{color:var(--ochre); opacity:.9;}
+
 /* ============================================================
    STUDY / FLASHCARD  (mirrors the source collection card CSS)
    ============================================================ */
@@ -6755,6 +6764,9 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
   border-bottom:1px solid var(--rule);
 }
 .cw-ch{font-family:var(--han); font-size:calc(21px * var(--fs)); line-height:1; color:var(--ink);}
+/* the character's own reading, beside it (Sep 2026). Set in the site's mono face rather than the Han one:
+   it is a romanisation, and setting it in the CJK face would file it with the character it describes. */
+.cw-r{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.02em; color:var(--zh);}
 .cw-n{flex:1; font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
 .cw-x{
   flex:none; width:24px; height:24px; border:0; background:transparent; cursor:pointer;

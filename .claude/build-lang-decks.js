@@ -142,6 +142,18 @@ for (const f of files) {
      a parent and its children cannot come to disagree about what a card is. A node is created for every
      PREFIX of a path a card names, so an intermediate level exists exactly when something sits under
      it — the tree app.js derives at study time, taken here at build time from the same paths. */
+  /* WHAT A DECK TEACHES, MEASURED OFF THE FILE (Sep 2026, on request). A reader deciding whether to
+     spend 20 MB could see a title, a card count and a size, and none of those says whether the deck
+     carries EXAMPLE SENTENCES or whether its words can be HEARD — the two things that most decide
+     whether a vocabulary deck is worth studying, and the two that vary most across this shelf (example
+     coverage runs from 16% to 100%, and eight of the fifty-three decks have no speech control at all).
+     Both are read off the deck, like every other figure here, so a rebuilt deck cannot come to disagree
+     with the row that offers it.
+     WHAT IS NOT CARRIED IS "asked both ways": every deck on the shelf has two templates, so the fact is
+     true of all of them and tells a reader choosing between two decks nothing. */
+  const hasEx = (c) => String((c.fields || {}).Examples || "").trim().length > 0;
+  const exPct = notes ? Math.round(((d.cards || []).filter(hasEx).length / notes) * 100) : 0;
+  const say = /\buc-tts\b/.test(JSON.stringify(types));
   const tree = [];
   const at = (path) => {
     const parts = path.split("::");
@@ -149,7 +161,7 @@ for (const f of files) {
     for (let i = 0; i < parts.length; i++) {
       const name = parts[i];
       node = list.find((x) => x.n === name);
-      if (!node) { node = { n: name, c: 0, k: [] }; list.push(node); }
+      if (!node) { node = { n: name, c: 0, e: 0, t: 0, k: [] }; list.push(node); }
       list = node.k;
     }
     return node;
@@ -159,9 +171,17 @@ for (const f of files) {
     if (!sub) continue;
     const mult = (c.type && tpl[c.type]) ? tpl[c.type] : 1;
     const parts = sub.split("::");
-    for (let i = 0; i < parts.length; i++) at(parts.slice(0, i + 1).join("::")).c += mult;
+    const ex = hasEx(c) ? 1 : 0;
+    for (let i = 0; i < parts.length; i++) {
+      const node = at(parts.slice(0, i + 1).join("::"));
+      node.c += mult; node.t += 1; node.e += ex;
+    }
   }
-  const prune = (list) => list.map((x) => (x.k.length ? { n: x.n, c: x.c, k: prune(x.k) } : { n: x.n, c: x.c }));
+  /* A NODE CARRIES ITS OWN EXAMPLE COVERAGE, not the file's, because on an UNWRAPPED deck the rows a
+     reader sees are these nodes — the nine Mandarin levels are one file, and a file-level figure would
+     print the same percentage on all nine while they in fact ran from 21% to 99%. */
+  const pct = (x) => (x.t ? Math.round((x.e / x.t) * 100) : 0);
+  const prune = (list) => list.map((x) => (x.k.length ? { n: x.n, c: x.c, x: pct(x), k: prune(x.k) } : { n: x.n, c: x.c, x: pct(x) }));
   /* UNWRAP: whether the Collections page draws this deck's own top-level subdecks as the LANGUAGE's decks
      rather than drawing the deck and folding them inside it (Aug 2026, on request: "The Mandarin Chinese
      collection should only contain its nine subdecks, not the combined folder … i.e. unwrap them", and
@@ -181,7 +201,8 @@ for (const f of files) {
   const flat = tree.length > 0 && !tree.some((n) => n.n.indexOf("\u2192") >= 0);
   rows.push({
     lang: hits[0].name, file: f, id: m.id, title: m.title, sub: m.subtitle || "",
-    notes: notes, cards: cards, subs: tree.length, tree: prune(tree), flat: flat, bytes: bytes, rev: rev, rank: levelRank(m.title),
+    notes: notes, cards: cards, subs: tree.length, tree: prune(tree), flat: flat, bytes: bytes, rev: rev,
+    ex: exPct, say: say, rank: levelRank(m.title),
   });
 }
 
@@ -202,6 +223,7 @@ for (const r of rows) {
     ", title: " + s(r.title) + ", sub: " + s(r.sub) +
     ", notes: " + r.notes + ", cards: " + r.cards + (r.subs ? ", subs: " + r.subs : "") +
     (r.tree.length ? ", tree: " + s(r.tree) : "") + (r.flat ? ", flat: true" : "") +
+    ", ex: " + r.ex + (r.say ? "" : ", say: false") +
     ", bytes: " + r.bytes + ", rev: " + s(r.rev) + " },\n";
 }
 out += "];\n";
