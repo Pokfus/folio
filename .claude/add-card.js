@@ -444,6 +444,31 @@ if (card.answerFlag && String(card.answerFlag.src || "").trim() && !String(card.
   console.error("ERROR: card.answerFlag has a src but no `alt` — the flag is drawn with no title and no caption, so `alt` is all a reader who cannot see it gets.");
   process.exit(1);
 }
+/* THE "WHY" PROMPT (`card.why`, Sep 2026) — elaborative interrogation. Optional; when present it must be
+   a QUESTION whose answer is genuinely in the card's own background, and it must name WHICH of the two
+   five-sentence blocks answers it, because "Show me" opens that block and marking the wrong one sends the
+   reader to prose that does not answer what they were just asked. Both halves are checked here rather
+   than trusted: neither failure is visible to an author, since a bad `at` still opens something. */
+if (card.why != null) {
+  const w = card.why;
+  if (typeof w !== "object" || Array.isArray(w) || typeof w.q !== "string" || !w.q.trim()) {
+    console.error("ERROR: card.why must be { q: \"<a question>\", at: 1|2 } — see CLAUDE.md."); process.exit(1);
+  }
+  if (w.at !== 1 && w.at !== 2) {
+    console.error("ERROR: card.why.at must be 1 or 2 — which block of the abstract answers the question."); process.exit(1);
+  }
+  if (!/\?\s*$/.test(w.q.trim())) {
+    console.error("ERROR: card.why.q must be a question and end in a question mark — it is read aloud to the reader as one."); process.exit(1);
+  }
+  const wq = qWords(w.q);
+  if (wq < 4 || wq > 24) {
+    console.error("ERROR: card.why.q is " + wq + " words — keep it between 4 and 24. It sits above three hundred words of prose and has to be readable at a glance."); process.exit(1);
+  }
+  const blocks = String(card.abstract || "").split(/\s*<br\s*\/?>\s*<br\s*\/?>\s*/);
+  if (blocks.length !== 2) {
+    console.error("ERROR: card.why names a block of the abstract, but this abstract does not split into two blocks of five."); process.exit(1);
+  }
+}
 if (REQUIRE_TRANSLATIONS && !card.skipTranslations) {   // a new card ships in all 9 site languages (i18n block)
   const missing = [];
   for (const l of I18N_LANGS) {
@@ -482,6 +507,63 @@ if (cards.some(c => c.id === card.id)) { console.error("ERROR: duplicate id:", c
 const leaves = []; for (const col of tree.collections) leafDecks(col, leaves);
 const deck = deckId ? leaves.find(d => d.id === deckId) : leaves[0];
 if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", leaves.map(d=>d.id).join(", ")); process.exit(1); }
+
+/* CAUSAL EDGES (`card.leadsTo`, Sep 2026) — see the CAUSAL CHAINS block in app.js. Four rules, and all
+   four fail SILENTLY on a reader's screen if they are not checked here: a dangling edge renders as
+   nothing, an edge to another collection draws a link out of the deck being studied, and an edge written
+   the wrong way round renders perfectly while asserting that the later thing caused the earlier one. */
+if (card.leadsTo != null) {
+  if (!Array.isArray(card.leadsTo) || !card.leadsTo.length) {
+    console.error("ERROR: card.leadsTo must be a non-empty array of { id, how } — omit it entirely if the card leads to nothing you can cite."); process.exit(1);
+  }
+  if (card.leadsTo.length > 3) {
+    console.error("ERROR: card.leadsTo has " + card.leadsTo.length + " edges — at most 3. A list of every consequence is a list nobody reads; name the ones that matter."); process.exit(1);
+  }
+  // the sort year, read with app.js's own parser rather than a second copy of the rules
+  const asrc = fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8");
+  const ya = asrc.indexOf("const DEEP_MAG = {"), yb = asrc.indexOf("// start year of a card's answer term");
+  if (ya < 0 || yb < 0) { console.error("ERROR: could not find cardYears in app.js to check leadsTo ordering."); process.exit(1); }
+  const { cardYears } = new Function(asrc.slice(ya, yb) + "\nreturn { cardYears };")();
+  const startY = (c) => { const y = cardYears(c); return y.length ? Math.min(...y) : null; };
+  const byId = {}; for (const c of cards) byId[c.id] = c;
+  const collOf = (cid) => {
+    for (const col of tree.collections) {
+      let hit = false;
+      (function w(n) { if ((n.cardIds || []).indexOf(cid) >= 0) hit = true; (n.children || []).forEach(w); })(col);
+      if (hit) return col.id;
+    }
+    return null;
+  };
+  const mine = deck ? collOf(card.id) || (function () { for (const col of tree.collections) { let hit = false; (function w(n) { if (n.id === deck.id) hit = true; (n.children || []).forEach(w); })(col); if (hit) return col.id; } return null; })() : null;
+  const seen = new Set();
+  for (const e of card.leadsTo) {
+    if (!e || typeof e !== "object" || typeof e.id !== "string" || !e.id) {
+      console.error("ERROR: every card.leadsTo entry must be { id, how }."); process.exit(1);
+    }
+    if (seen.has(e.id)) { console.error("ERROR: card.leadsTo names " + e.id + " twice."); process.exit(1); }
+    seen.add(e.id);
+    if (e.id === card.id) { console.error("ERROR: card.leadsTo points at the card itself."); process.exit(1); }
+    const t = byId[e.id];
+    if (!t) { console.error("ERROR: card.leadsTo names " + e.id + ", which is not a card. A dangling edge draws nothing at all, so nobody would ever see it."); process.exit(1); }
+    if (typeof e.how !== "string" || qWords(e.how) < 4) {
+      console.error("ERROR: card.leadsTo[" + e.id + "].how must be a sentence saying HOW one led to the other — a bare link asserts a causal claim and explains none of it."); process.exit(1);
+    }
+    if (qWords(e.how) > 28) {
+      console.error("ERROR: card.leadsTo[" + e.id + "].how is " + qWords(e.how) + " words — keep it under 28. It is a caption, not a paragraph."); process.exit(1);
+    }
+    const tc = collOf(e.id);
+    if (mine && tc && tc !== mine) {
+      console.error("ERROR: card.leadsTo names " + e.id + " in collection " + tc + ", but this card is in " + mine + ". A causal edge stays inside one collection."); process.exit(1);
+    }
+    const a1 = startY(card), b1 = startY(t);
+    if (a1 != null && b1 != null && b1 < a1) {
+      console.error("ERROR: card.leadsTo names " + e.id + ", which starts in " + b1 + " — EARLIER than this card's " + a1 + ". The edge is the wrong way round."); process.exit(1);
+    }
+  }
+  if (!Array.isArray(card.sources) || !card.sources.length) {
+    console.error("ERROR: card.leadsTo asserts that one thing led to another, which is a historical claim and needs citing like any other."); process.exit(1);
+  }
+}
 
 cards.push(card);
 deck.cardIds.push(card.id);

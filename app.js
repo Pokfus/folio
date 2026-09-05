@@ -569,6 +569,11 @@
      which is a ReferenceError before the first paint rather than anything subtle. */
   let _uStudyCache = new Map();
   let _availCache = null;
+  /* THE ANSWER INDEX (see noteConfusion) is declared HERE, with the other derived caches, and NOT beside
+     the function that fills it: `uCacheBust` runs at boot from `applyAdminEdits`, and a `let` declared a
+     few thousand lines further down would still be in its temporal dead zone when it did — which throws,
+     at boot, on a line that looks like tidying. The same reason `_locSibCache` sits here. */
+  let _answerIdx = null;
   /* HOW MANY BYTES A DECK'S CARDS WEIGH (Aug 2026, on request: "make it so that both Language decks and
      now also History decks mention the file size to download"). A language deck's figure is the size of
      the file that will be fetched, read off disk by `.claude/build-lang-decks.js`; a curated deck has no
@@ -587,7 +592,7 @@
      because a locator moved or a card retired changes what a sibling map draws, and an admin edit is
      exactly the thing that does either. */
   let _locSibCache = null;
-  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; }
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; _answerIdx = null; }
   let _byteEnc = null;
   function cardBytes(id) {
     let n = _cardBytes.get(id);
@@ -876,6 +881,8 @@
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
     CARD_BY_ID[id].quote = p.quote;           // and the passage it quotes out of the Library (see cardQuote)
+    CARD_BY_ID[id].why = p.why;               // and the question it asks the reader to answer (see cardWhy)
+    CARD_BY_ID[id].leadsTo = p.leadsTo;       // and what it led to (see cardLeadsTo)
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -22193,6 +22200,12 @@
               can fill and empty it in place, without rebuilding the page under a reader. */""}
         <div id="chestSlot">${chestBannerHTML()}</div>
         ${reviewGroup}
+        ${/* CARDS THIS READER KEEPS MIXING UP (Sep 2026) — see noteConfusion. It is the only row on this
+              page that is personal: everything else here would look the same for anybody with the same
+              decks. It appears only once a pair has actually happened CONFUSE_MIN times, and disappears
+              again when it stops, so it is never furniture. Under the review rather than above it: the
+              day's own work comes first. */""}
+        ${confusionRowHTML()}
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
@@ -22209,6 +22222,11 @@
        `wireHoldMenu` is the deck rows' own gesture: a tap opens the game, a hold flips the tile, and the
        document-level guard that swallows the click after a hold is the same one, so a hold cannot also
        start a game. */
+    const cfRow = root.querySelector("#confuseRow");
+    if (cfRow) cfRow.addEventListener("click", () => {
+      const ids = confusionDrillIds();
+      if (ids.length) route("study", { scope: { type: "ids", ids, where: "Cards you mix up" } });
+    });
     root.querySelectorAll(".game-tile[data-game]").forEach((el) => {
       const key = el.dataset.game;
       if (!key) return;
@@ -23754,6 +23772,18 @@
       const leaf = cardLeaves(scope.id)[0];
       where = leaf ? nodeWhere(leaf) : "Card of the day";
       total = 1;
+    } else if (scope.type === "ids") {
+      /* AN EXPLICIT LIST OF CARDS (Sep 2026) — the shape a targeted drill needs, and the one `buildSession`
+         did not have. Two callers: the confusion drill, which alternates two cards a reader keeps mixing
+         up, and the "seen once" list, which studies the cards that never got a second recall.
+         IT HONOURS NO ALLOWANCE AND NO ORDER, deliberately. The reader has named these cards, so a daily
+         cap would silently hand back fewer than the row they pressed said, and a deck order would re-sort
+         a list whose order is the whole point of it. Suspended and buried are still filtered: those are
+         standing decisions about a card, not about a session. */
+      const ids = (scope.ids || []).filter((id) => cardById(id) && !isSuspended(id) && !isBuried(id));
+      queue = ids.slice();
+      where = scope.where || "Selected cards";
+      total = queue.length;
     } else if (scope.type === "cotd") {
       const ids = cotdIds().filter((id) => !isSuspended(id) && !isBuried(id));
       const due = ids.filter((id) => isDueNow(id)).sort(byDue);
@@ -23898,6 +23928,7 @@
     if (scope.type === "review") return activeCardIds();
     if (scope.type === "card") return [scope.id];
     if (scope.type === "cotd") return cotdIds();
+    if (scope.type === "ids") return (scope.ids || []).slice();
     const avail = availableCardIdSet();
     return entryCardIds(scopeEntryId(scope)).filter((id) => avail.has(id));
   }
@@ -27727,6 +27758,11 @@
   };
 
   PAGES.study = function (root, params) {
+    /* AT MOST ONE ELABORATION PROMPT PER SESSION — see elabPromptHTML. The budget is shared between the
+       "why" and "connect" prompts and is scoped to this function's closure, so it resets when a session
+       does and never persists: a reader who studies twice in a day is asked twice, which is right, and a
+       reader who studies one long session is asked once, which is the point. */
+    let elabShown = false;
     if (!params.scope) { route("home"); return; }   // #study reached with nothing to study (a pasted address, a lost session)
     const sess = buildSession(params.scope);
     // a session picked back up after a reload — see the STUDY_KEY block for what the record holds and why
@@ -28290,10 +28326,41 @@
         revealed = true;
         studyRevealId = id;   // so a language switch re-render re-opens this card rather than resetting it
         persistStudy();       // …and so does a reload
-        gradeCloze(cardRoot.querySelector(".question"), c.answer);
+        const typedVals = gradeCloze(cardRoot.querySelector(".question"), c.answer);
+        /* WHAT THEY TYPED, READ TWICE (see the block above gradeCloze). Once to decide whether this card
+           was MISSED — which earns it the background's own defining sentence rather than the bare term —
+           and once to see whether the guess was some other card's answer, which is a confusion rather
+           than a slip. Saying "I don't know" counts as a miss: it is the reader telling us so. */
+        const attempted = saidDunno || typedVals.some((v) => String(v || "").trim());
+        const missed = attempted && !typedVals.some((v) => answerNear(v, c));
+        if (typedVals.length) noteConfusion(id, typedVals);
         cardMapReveal(cardRoot);   // the map may now name what it was shading — the shape and its name together
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
+        /* ELABORATED FEEDBACK ON A MISS. The term alone is knowledge-of-correct-response (d = 0.32); the
+           term with a sentence saying what it IS is the beginning of an explanation (d = 0.49), and the
+           reader gets it without having to open a fold they may have collapsed months ago. Drawn only
+           when the card was actually attempted and actually missed — a reader who got it right does not
+           need to be told what they just recalled. */
+        if (missed) {
+          const lead = cardFirstSentence(c);
+          const ansBox = inner.querySelector(".answer");
+          if (lead && ansBox) ansBox.insertAdjacentHTML("afterend",
+            '<div class="miss-lead"><span class="miss-kind">Not quite — what it is</span><p>' + lead + "</p></div>");
+        }
+        /* ONE ELABORATION PROMPT PER SESSION (see elabPromptHTML). Injected here rather than built into
+           `buildBack`, because the budget belongs to the session and `buildBack` is also what the editor's
+           preview and the card browser draw. It goes directly above the Background head — after the answer,
+           before the prose — which is the one place in the card where the reader knows the answer and has
+           not yet been given the explanation. */
+        // the causal strip's links (see cardLeadsToHTML) — a glance at the next card, not a jump to it
+        inner.querySelectorAll(".lt-go").forEach((b) =>
+          b.addEventListener("click", () => openCardPeek(b.dataset.lt)));
+        if (!elabShown) {
+          const eh = elabPromptHTML(c);
+          const head = inner.querySelector(".bg-head");
+          if (eh && head) { head.insertAdjacentHTML("beforebegin", eh); elabShown = true; wireElabPrompt(inner); }
+        }
         openLinks(inner);
         processAbstract(inner, c);
         setupTooltips(inner);
@@ -28618,7 +28685,12 @@
   }
   // On reveal, colour each typed character green/red by direct (case-insensitive) match to the answer.
   function gradeCloze(qEl, answer) {
-    if (!qEl) return;
+    if (!qEl) return [];
+    /* IT HANDS BACK WHAT THE READER TYPED (Sep 2026). It always read `input.value` — that is what it
+       marks character by character — and then threw it away, which meant the site knew, on every single
+       card, exactly what its reader had guessed and kept none of it. Two things read it now: the
+       elaborated feedback a missed card gets, and the confusion register (see noteConfusion). */
+    const typedOut = [];
     /* THE ANSWER IS SPELLED THE WAY THE READER HAS BEEN READING IT, and this is the one place the
        spelling transform has to reach past the DOM. Everywhere else it rewrites what is painted and the
        store is never involved; here the comparison string comes from `answerText`, which is authored in
@@ -28629,6 +28701,7 @@
     const ans = spellText(String(answer || ""), spellSystem() === "en-US"), ansL = ans.toLowerCase();
     qEl.querySelectorAll(".blank-input").forEach((input) => {
       const typed = input.value;
+      typedOut.push(typed);
       const out = document.createElement("span");
       out.className = "blank-graded";
       if (!typed) {
@@ -28646,6 +28719,113 @@
     });
     // the hidden measuring spans go with the fields they were sizing (see setupCloze)
     qEl.querySelectorAll(".blank-sizer").forEach((s) => s.remove());
+    return typedOut;
+  }
+  /* ==========================================================================================
+     WHAT THE READER TYPED — ELABORATED FEEDBACK, AND THE CONFUSION REGISTER (Sep 2026)
+     ==========================================================================================
+     ELABORATED FEEDBACK is the cleanest ranking in the learning literature: an explanation measures
+     d = 0.49, the correct answer alone 0.32, and a bare right-or-wrong 0.05. A reader who misses a card
+     and is shown the term and nothing else has been told almost nothing — and if their Background fold
+     is collapsed, that is exactly what happens. So a MISSED card shows the background's own first
+     sentence, which by house rule opens with the term in bold and defines it.
+
+     THE CONFUSION REGISTER is the same keystroke read a second way. If what they typed is not this
+     card's answer but IS another card's, that is not a typo, it is two things being mixed up — and
+     interleaving's best-supported use is telling confusable things apart. Nothing else on this site is
+     personal to the reader in this way; every other figure here would be the same for anybody.
+
+     MATCHING IS DELIBERATELY TOLERANT IN ONE DIRECTION ONLY. Case, accents, a leading article, a
+     bracketed aside and ONE typing slip are forgiven — so a reader is not told they were wrong for a
+     transposition — while anything further apart is a miss. The tolerance is the same `nearMiss` the
+     pretest uses, because "did they know it" is the same question in both places. */
+  const normAnswer = (s) => {
+    let v = String(s || "").replace(/<[^>]*>/g, " ").toLowerCase();
+    try { v = v.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); } catch (e) { /* no NFD here */ }
+    return v.replace(/\([^)]*\)/g, " ").replace(/^(the|a|an)\s+/, "")
+            .replace(/[^a-z0-9\u4e00-\u9fff ]+/g, " ").replace(/\s+/g, " ").trim();
+  };
+  const cardAnswerNorm = (c) => normAnswer(c && (c.answerText || c.answer || ""));
+  function answerNear(typedVal, c) {
+    const a = normAnswer(typedVal); if (!a) return false;
+    const b = cardAnswerNorm(c); if (!b) return false;
+    return a === b || (b.length >= 6 && nearMiss(a, b));
+  }
+  /* Every curated card's answer, normalised, as an index — so "is what they typed some OTHER card's
+     answer" is a lookup rather than a walk over fourteen hundred cards on every grade. Cached beside the
+     other derived caches and thrown away by `uCacheBust`, since an admin edit can change an answer. */
+  function answerIndex() {
+    if (_answerIdx) return _answerIdx;
+    _answerIdx = new Map();
+    (CARDS || []).forEach((c) => {
+      const k = cardAnswerNorm(c);
+      if (k && !_answerIdx.has(k)) _answerIdx.set(k, c.id);
+    });
+    return _answerIdx;
+  }
+  const CONFUSE_CAP = 60;
+  function noteConfusion(id, typedVals) {
+    const me = cardById(id);
+    if (!me || !Array.isArray(typedVals)) return;
+    const idx = answerIndex();
+    typedVals.forEach((v) => {
+      const k = normAnswer(v);
+      if (!k || k.length < 3) return;
+      if (answerNear(v, me)) return;                 // they were right: nothing to record
+      const other = idx.get(k);
+      if (!other || other === id) return;            // not another card's answer: an ordinary miss
+      if (cardCollectionRoot(id) !== cardCollectionRoot(other)) return;   // two subjects, not one confusion
+      if (!S.confused) S.confused = {};
+      const key = id < other ? id + "|" + other : other + "|" + id;
+      S.confused[key] = (S.confused[key] || 0) + 1;
+      // bounded: keep the pairs that have actually happened most, drop the long tail of one-offs
+      const keys = Object.keys(S.confused);
+      if (keys.length > CONFUSE_CAP) {
+        keys.sort((a, b) => S.confused[a] - S.confused[b]);
+        keys.slice(0, keys.length - CONFUSE_CAP).forEach((k2) => { delete S.confused[k2]; });
+      }
+    });
+  }
+  // the pairs worth drilling, most-confused first — used by the home page's row and the deck stats
+  const CONFUSE_MIN = 2;
+  /* The cards of the most-confused pairs, adjacent so the two arrive together — which is interleaving at
+     its narrowest and most useful: the whole finding about mixed practice is that it is how you learn to
+     tell confusable things apart. Deduped and capped, because a drill is a few minutes and not a session.
+     A card appears ONCE however many pairs it is in: a session that grades the same card twice is not a
+     drill, it is a bug. */
+  const CONFUSE_DRILL_MAX = 6;
+  function confusionDrillIds() {
+    const out = [];
+    confusionPairs().forEach((p) => {
+      [p.a, p.b].forEach((id) => { if (out.length < CONFUSE_DRILL_MAX && out.indexOf(id) < 0) out.push(id); });
+    });
+    return out;
+  }
+  /* The row itself. It names the two terms rather than a count, because "you have 3 confusions" is a
+     figure nobody can act on and "you have mixed up Gravettian and Solutrean" is a thing to go and fix. */
+  function confusionRowHTML() {
+    const pairs = confusionPairs();
+    if (!pairs.length) return "";
+    const p = pairs[0];
+    const nm = (c) => c.answerText || String(c.answer || "").replace(/<[^>]*>/g, "");
+    const n = confusionDrillIds().length;
+    return '<button type="button" class="confuse-row" id="confuseRow">' +
+      '<span class="cf-main"><b>' + esc(nm(p.ca)) + "</b> and <b>" + esc(nm(p.cb)) + "</b>" +
+      (pairs.length > 1 ? " and " + (pairs.length - 1) + (pairs.length === 2 ? " other pair" : " other pairs") : "") +
+      "</span>" +
+      '<span class="cf-note">You have typed one of these where the other belonged. ' + n + " cards, side by side.</span>" +
+      '<span class="cf-go">Drill them →</span></button>';
+  }
+  function confusionPairs() {
+    const out = [];
+    Object.keys(S.confused || {}).forEach((k) => {
+      const n = S.confused[k]; if (n < CONFUSE_MIN) return;
+      const [a, b] = k.split("|");
+      const ca = cardById(a), cb = cardById(b);
+      if (!ca || !cb) return;                        // a card retired since: drop the pair rather than draw it
+      out.push({ key: k, n, a, b, ca, cb });
+    });
+    return out.sort((x, y) => y.n - x.n);
   }
 
   /* ============================================================
@@ -30932,11 +31112,197 @@
     /* Where the place is, at the foot of the card and OUTSIDE the Background fold: it is not prose, so it
        does not belong under that heading, and a reader who has shut the fold to see only the answer has not
        asked to lose it. The citations still come last, being the one thing checked after everything else. */
+    /* WHAT CAME OF THIS — the causal strip (see cardLeadsTo). OUTSIDE the Background fold and above the
+       locator, for the reason the locator is outside it: this is not prose, it is a set of links, and a
+       reader who has shut the fold to see only the answer has not asked to lose it. */
+    html += cardLeadsToHTML(c);
     html += cardLocatorHTML(c);
     // the citations behind the background, at the very foot of the card — outside the Background fold, so
     // they can be checked without re-opening prose the reader has already read
     html += sourcesHTML(cardSources(c));
     return html;
+  }
+  /* ==========================================================================================
+     ELABORATION — "why?" AND "how does this connect?" (Sep 2026)
+     ==========================================================================================
+     Two techniques the literature rates MODERATE utility, and the two things nothing on this site had
+     ever asked a reader to do. ELABORATIVE INTERROGATION is answering why a stated fact is true;
+     SELF-EXPLANATION is relating a new fact to what you already knew. Both work by integrating the new
+     thing with the old, and both are cheap: a question, a box, and no marking.
+
+     FIVE DECISIONS.
+
+     THE "WHY" QUESTION IS AUTHORED AND NEVER GENERATED (`card.why`). Choosing which of a card's ten
+     sentences is worth interrogating is the same editorial act the citation apparatus exists for; a
+     machine picking one would be guessing, confidently, which is the failure mode this project refuses
+     everywhere else. A card without one simply gets the connect prompt instead.
+
+     WHAT THE READER TYPES GOES NOWHERE. Not to the schedule, not to the review log, not to the server —
+     it lives in the DOM and dies with the card. That is said on screen, because it is what makes people
+     answer honestly rather than performing an answer.
+
+     ONE PROMPT PER SESSION, SHARED BETWEEN THE TWO. Prompt fatigue is the real risk here and it is not
+     hypothetical: two prompts each firing on their own schedule is a study session that stops to ask
+     something every third card. The budget is the SESSION rather than the day, so a reader who studies
+     twice gets two.
+
+     "SHOW ME" OPENS THE BACKGROUND RATHER THAN PRINTING AN ANSWER. There is no model answer to print —
+     the answer is the card's own prose, which is already on the card. The block the author named is
+     opened and briefly marked.
+
+     THE CONNECT PROMPT ONLY EVER OFFERS CARDS THE READER HAS STUDIED (`S.cards`), because "how does this
+     connect to what you already know" is not a question you can ask about something they have never met.
+     Kinship is `cardKinship`, the same tag-distance the Multiple Choice distractors are picked with. */
+  /* ==========================================================================================
+     CAUSAL CHAINS — "what came of this" (Sep 2026)
+     ==========================================================================================
+     Chronology is the scaffold of historical understanding: without knowing when things happened and in
+     what order, a reader cannot examine the relationships between events at all. But the scaffold is not
+     the building — CAUSATION, change and significance are the second-order concepts that separate
+     understanding history from listing it, and a deck of independent cards has no way of expressing any
+     of them. Folio's Timeline game tests WHEN. Nothing here tested WHY.
+
+     `card.leadsTo` is an authored list of `{ id, how }` — the cards this one is a cause or a precondition
+     of, and one sentence saying how. It forms a shallow DAG WITHIN a collection.
+
+     FOUR RULES, ALL ENFORCED BY `add-card.js` RATHER THAN TRUSTED.
+       · The target must exist. A dangling edge renders as nothing, which is invisible to an author.
+       · The target must be in the SAME collection. A causal claim across collections is nearly always a
+         claim about historiography rather than about the past, and it would draw a strip that takes the
+         reader out of the deck they are studying.
+       · The target must be LATER by `cardStartYear`. This is the cheap check that catches the commonest
+         authoring error — an edge written the wrong way round — and it catches it at the moment it is
+         made rather than on a reader's screen.
+       · **`how` IS A HISTORICAL CLAIM AND NEEDS A CITATION LIKE ANY OTHER.** It is one sentence of
+         Folio's own prose asserting that one thing led to another, which is exactly the kind of sentence
+         the whole source apparatus exists for. It is not exempt for being short.
+
+     AND IT DRAWS NOTHING IT CANNOT RESOLVE: an id that has been retired, or a card the reader cannot
+     reach, is dropped rather than rendered as a dead link. */
+  function cardLeadsTo(c) {
+    const a = c && c.leadsTo;
+    if (!Array.isArray(a)) return [];
+    return a.filter((e) => e && typeof e === "object" && typeof e.id === "string" && e.id);
+  }
+  function cardLeadsToHTML(c) {
+    const edges = cardLeadsTo(c);
+    if (!edges.length) return "";
+    const rows = edges.map((e) => {
+      const t = cardById(e.id);
+      if (!t) return "";   // retired since this was written: draw nothing rather than a dead link
+      const tl = cardLocalized(t);
+      return '<li class="lt-row"><button type="button" class="lt-go" data-lt="' + esc(e.id) + '">' +
+        '<span class="lt-term">' + esc(tl.answerText || String(tl.answer || "").replace(/<[^>]*>/g, "")) + "</span>" +
+        (e.how ? '<span class="lt-how">' + esc(e.how) + "</span>" : "") + "</button></li>";
+    }).filter(Boolean);
+    if (!rows.length) return "";
+    return '<div class="leadsto"><span class="label">What came of this</span><ul class="lt-list">' +
+      rows.join("") + "</ul></div>";
+  }
+  /* THE ONE SENTENCE THAT DEFINES THE TERM. Every Folio background opens on it by house rule — the
+     answer term in bold, and what it is — so "the first sentence of block one" is a reliable definition
+     rather than a guess. Two callers: the causal strip's peek, and the elaborated feedback a failed card
+     gets, which is the difference between telling a reader they were wrong (d = 0.05) and telling them
+     what the thing was (d = 0.32).
+     THE FOOTNOTE MARKERS ARE STRIPPED. `sup.fn:empty::before` prints a marker's own digit, so a sentence
+     lifted out of the prose and shown away from its source list would carry stray numerals pointing at
+     nothing. The picture round met exactly this and answered it with `picNoteBare`; this is the same rule
+     for a single sentence. */
+  function cardFirstSentence(c) {
+    const ab = (c && c.abstract) || "";
+    if (!ab) return "";
+    const block = ab.split(/\s*<br\s*\/?>\s*<br\s*\/?>\s*/)[0] || "";
+    const bare = block.replace(/<sup class="fn"[^>]*>\s*<\/sup>/g, "");
+    // split on a full stop that ends a sentence — the same shape `split-abstract.js` uses, kept simple
+    // here because only the FIRST sentence is wanted and a mis-split later in the block cannot reach it
+    const m = bare.match(/^[\s\S]*?[.!?](?=\s|$)/);
+    return (m ? m[0] : bare).trim();
+  }
+  /* A LOOK AT ANOTHER CARD WITHOUT LEAVING THIS SESSION. The causal strip has to lead somewhere, and the
+     obvious somewhere — routing to a one-card study session — would END the session the reader is in and
+     spend that card's schedule on a click they meant as a glance. So it opens a sheet: the term, its
+     dates, its defining sentence, and a way to study it deliberately if that is what they wanted. */
+  function openCardPeek(id) {
+    const c0 = cardById(id);
+    if (!c0) return;
+    const c = cardLocalized(c0);
+    const term = c.answerText || String(c.answer || "").replace(/<[^>]*>/g, "");
+    deckSheet("Card", '<div class="dm-head"><span class="dm-title">' + esc(term) + "</span></div>" +
+      (c.answerDate ? '<div class="cp-dates">' + c.answerDate + "</div>" : "") +
+      '<p class="cp-lead">' + cardFirstSentence(c) + "</p>" +
+      '<div class="dm-actions"><button type="button" class="btn" data-act="study">Study this card</button>' +
+      '<button type="button" class="btn ghost" data-act="close">Close</button></div>',
+      (ov, close) => {
+        ov.querySelector('[data-act="study"]').addEventListener("click", () => { close(); route("study", { scope: { type: "card", id } }); });
+        ov.querySelector('[data-act="close"]').addEventListener("click", close);
+      });
+  }
+  function cardWhy(c) {
+    const w = c && c.why;
+    if (!w || typeof w !== "object" || !w.q || typeof w.q !== "string") return null;
+    const at = Number(w.at) === 2 ? 2 : 1;
+    return { q: w.q, at };
+  }
+  // up to three cards this reader HAS studied that are closest in subject to this one
+  function connectKin(c, n) {
+    if (!c || !c.id) return [];
+    const scored = [];
+    Object.keys(S.cards || {}).forEach((id) => {
+      if (id === c.id) return;
+      const o = cardById(id);
+      if (!o || !o.answerText) return;
+      const k = cardKinship(c, o);
+      if (k > 0) scored.push([k, id, o]);
+    });
+    scored.sort((a, b) => b[0] - a[0]);
+    return scored.slice(0, n || 3).map((s) => s[2]);
+  }
+  /* The block itself, or "" when this card has nothing to ask. It is injected by `showAnswer` rather than
+     built into `buildBack`, because the budget is a property of the SESSION and `buildBack` is also what
+     the editor's preview and the card browser draw — neither of which has a session or should have one. */
+  function elabPromptHTML(c) {
+    const w = cardWhy(c);
+    if (w) {
+      return '<div class="elab" data-elab="why"><span class="elab-kind">Think it through</span>' +
+        '<p class="elab-q">' + esc(w.q) + "</p>" +
+        '<textarea class="elab-box" rows="2" placeholder="In a sentence — no one sees this, and nothing is marked."></textarea>' +
+        '<div class="elab-acts"><button type="button" class="btn ghost elab-show" data-at="' + w.at + '">Show me what the card says</button></div></div>';
+    }
+    const kin = connectKin(c, 3);
+    if (kin.length < 2) return "";
+    return '<div class="elab" data-elab="connect"><span class="elab-kind">Think it through</span>' +
+      '<p class="elab-q">You have also studied ' +
+        kin.map((k) => "<b>" + esc(k.answerText) + "</b>").join(", ").replace(/, ([^,]*)$/, " and $1") +
+        ". How does this card connect to one of them?</p>" +
+      '<textarea class="elab-box" rows="2" placeholder="In a sentence — no one sees this, and nothing is marked."></textarea>' +
+      '<div class="elab-acts"><span class="elab-note">Nothing here is saved or scored. Putting the connection into words is the whole of the exercise.</span></div></div>';
+  }
+  /* Wire whichever block was drawn. "Show me" opens the Background fold — which may be collapsed, and
+     which the reader may then want left open — and marks the paragraph the author named. The abstract is
+     ONE paragraph unless the card carries a quotation, in which case it is two, so `at` is resolved
+     against what is actually on the page rather than assumed. */
+  function wireElabPrompt(scope) {
+    const box = scope && scope.querySelector(".elab");
+    if (!box) return;
+    const btn = box.querySelector(".elab-show");
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+      const col = scope.querySelector(".bg-collapse"), tog = scope.querySelector(".bg-toggle");
+      if (col && col.classList.contains("collapsed")) {
+        col.classList.remove("collapsed");
+        if (tog) tog.classList.remove("collapsed");
+        const head = scope.querySelector(".bg-head");
+        if (head) head.setAttribute("aria-expanded", "true");
+        // the reader asked for one look; their own preference is NOT overwritten by it
+      }
+      const ps = scope.querySelectorAll("p.abstract");
+      const target = ps.length > 1 ? ps[Math.min(ps.length - 1, Number(btn.dataset.at) - 1)] : ps[0];
+      if (!target) return;
+      target.classList.add("elab-mark");
+      setTimeout(() => target.classList.remove("elab-mark"), 2600);
+      try { target.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "center" }); }
+      catch (e) { target.scrollIntoView(); }
+    });
   }
   // the card's illustration: a frame floated to the top-right of the Background prose, sized to the
   // picture's own proportions (see `.card-imgslot`); clicking opens the fullscreen viewer (a single
@@ -31583,9 +31949,27 @@
          class, reused rather than copied: the two say the same kind of thing in the same place under the
          same verdict line, and a second class for it is how they come to look like different features. */
       const note = gameAnswerNote(item.correct);
+      /* ELABORATED FEEDBACK ON THE OPTION THEY ACTUALLY CHOSE (Sep 2026). Naming the right answer is
+         knowledge-of-correct-response and measures d = 0.32; explaining measures 0.49, and the thing most
+         worth explaining to somebody who picked Gravettian is what Gravettian IS. The distractors are
+         picked by tag distance (`cardKinship`), so a wrong option is always something genuinely near the
+         answer and always worth a line.
+         THE PROSE IS THE CARD'S OWN. Its background's first sentence defines the term by house rule, so
+         there is nothing to write and nothing to generate — the wrong option is looked up in the answer
+         index and its own editor-written definition is printed. Only the CHOSEN one: four definitions
+         under four options is a paragraph nobody reads, and three of them are about things the reader
+         did not say. */
+      let chose = "";
+      if (!right) {
+        const picked = item.options[i];
+        const otherId = picked ? answerIndex().get(normAnswer(picked)) : null;
+        const oc = otherId ? cardById(otherId) : null;
+        const lead = oc ? cardFirstSentence(cardLocalized(oc)) : "";
+        if (lead) chose = '<p class="tf-why mc-chose"><b>You said ' + esc(gameCapFirst(picked)) + ".</b> " + lead + "</p>";
+      }
       rev.innerHTML =
         '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(gameCapFirst(item.correct)) + "</b></div>" +
-        (note ? '<p class="tf-why">' + note + "</p>" : "") +
+        (note ? '<p class="tf-why">' + note + "</p>" : "") + chose +
         '<button class="btn" id="mc-next">' + (qi + 1 < Q.length ? "Next question" : "See results") + "</button>";
       rev.querySelector("#mc-next").addEventListener("click", next);
     }
@@ -39690,7 +40074,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardQuote(c)) o.quote = c.quote; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c)) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
