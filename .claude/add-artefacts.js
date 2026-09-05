@@ -27,7 +27,12 @@
    a courtesy to the reader and must not eat the prose budget. */
 const fs = require("fs"), path = require("path");
 const { pieces } = require("./split-abstract.js");
-const file = path.join(__dirname, "..", "artefacts.js");
+/* THE POOL IS TWO FILES — artefacts.js (the eager index) and artefacts-extra.js (the lazy desc,
+   sources and image). Requiring artefacts.js alone yields entries with EMPTY prose, and this script
+   re-serialises what it loads: it would append the batch correctly and silently delete 240 KB of
+   researched descriptions and citations from the 100 already there. Everything goes through
+   artefact-io.js. See .claude/split-artefacts.js. */
+const { loadArtefacts, writeArtefacts } = require("./artefact-io.js");
 const RARITIES = ["common", "rare", "epic", "legendary"];
 const SENTENCES = 5, WORD_MIN = 180, WORD_MAX = 220;
 /* add-card.js's own pattern — an imperial conversion is not charged against the prose budget.
@@ -65,11 +70,8 @@ const batch = JSON.parse(fs.readFileSync(arg, "utf8"));
 const list = Array.isArray(batch) ? batch : batch.artefacts;
 if (!Array.isArray(list) || !list.length) { console.error("ERROR: batch holds no artefacts."); process.exit(1); }
 
-/* Load what is already shipped. The file assigns a global, so a bare window stands in for the browser —
-   the same trick every checker in .claude/ uses on the data files. */
-global.window = {};
-require(file);
-const have = global.window.ARTEFACTS || [];
+// Load what is already shipped — BOTH files, merged, exactly as the browser sees them after the warm.
+const have = loadArtefacts();
 const seen = new Set(have.map((a) => a.id));
 
 const errs = [], warns = [];
@@ -106,35 +108,18 @@ list.forEach((a, i) => {
 if (errs.length) { errs.forEach((e) => console.error("ERROR: " + e)); process.exit(1); }
 warns.forEach((w) => console.warn("warn: " + w));
 
-/* Rewrite the file in serializeArtefacts()'s exact output format — head comment and all. That comment is
-   the only copy of the shape's documentation once the file has been round-tripped through the editor, so
-   it is written out here rather than preserved from disk, which is what the editor itself does. */
-const s = (v) => JSON.stringify(String(v == null ? "" : v));
-const HEAD = fs.readFileSync(file, "utf8").split("window.ARTEFACTS")[0];
+/* Write BOTH files, in .claude/artefact-io.js's own format — which is serializeArtefacts's and
+   serializeArtefactsExtra's, so a hand-run and the next save from Admin → Artefacts cannot disagree
+   about the shape. Never one alone: the two are joined on `id`, and an index entry with no row in the
+   extra is an artefact with no prose anywhere. */
 const all = have.concat(list);
-const body = all.map((a) => {
-  let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
-  if (a.date) out += "    date: " + s(a.date) + ",\n";
-  if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
-  /* `title` and `desc` caption the picture in the fullscreen viewer (added Aug 2026 — see
-     .claude/fix-image-text.js). They are emitted only where they exist, so an entry written without
-     them is byte-identical to what this always wrote; a re-run must not strip the ones on disk. */
-  if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) +
-    (a.image.title ? ", title: " + s(a.image.title) : "") +
-    (a.image.desc ? ", desc: " + s(a.image.desc) : "") +
-    ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
-  out += "    desc: " + s(a.desc) + ",\n";
-  const src = Array.isArray(a.sources) ? a.sources.map((x) => String(x).replace(/\s+/g, " ").trim()).filter(Boolean) : [];
-  if (src.length) out += "    sources: [\n" + src.map((x) => "      " + s(x) + ",").join("\n") + "\n    ],\n";
-  return out + "  },";
-}).join("\n");
-fs.writeFileSync(file, HEAD + "window.ARTEFACTS = [\n" + body + "\n];\n");
+writeArtefacts(all);
 
-// re-parse, so a malformed write is caught here rather than by a reader with a blank chest
-delete require.cache[require.resolve(file)];
-global.window = {};
-require(file);
-if ((global.window.ARTEFACTS || []).length !== all.length) { console.error("ERROR: re-parse returned the wrong count."); process.exit(1); }
+// re-load both, so a malformed write is caught here rather than by a reader with a blank chest
+const back = loadArtefacts();
+if (back.length !== all.length) { console.error("ERROR: re-parse returned the wrong count."); process.exit(1); }
+const lost = back.filter((a) => !a.desc || !a.desc.trim());
+if (lost.length) { console.error("ERROR: " + lost.length + " artefacts came back with no description (" + lost.slice(0, 3).map((a) => a.id).join(", ") + ")."); process.exit(1); }
 
 const byRar = {};
 all.forEach((a) => { byRar[a.rarity] = (byRar[a.rarity] || 0) + 1; });

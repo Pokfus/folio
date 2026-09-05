@@ -1,0 +1,37 @@
+{
+  "_": [
+    "ONE FABLE THAT THE WIKISOURCE TRANSCRIPTION SERVES AS ITS NEIGHBOUR (Sep 2026, batch E42).",
+    "",
+    "Scan page 90 of the Routledge printing carries THREE fables -- The Two Travellers and the Axe, The",
+    "Old Lion, and The Wolf and the Shepherds -- and Wikisource's mainspace page for `The Old Lion`",
+    "transcludes the FIRST of them. So Folio shipped chapters 121 and 122 byte-identical and The Old",
+    "Lion was in the book nowhere. The Wolf and the Shepherds, on the same scan page, is right, so the",
+    "fault is that one page's transclusion and not the extractor's reading of a shared page.",
+    "",
+    "THE WITNESS IS THE SCAN PAGE ITSELF -- `Page:Three hundred Aesop's fables (Townshend).djvu/96` --",
+    "which is not a second edition of the translation but THE VERY PAGE this book is transcribed from.",
+    "Every other witness this programme has used is a different transcription of the same edition and",
+    "validates at 99-point-something; this one validates EXACTLY. Run on The Wolf and the Shepherds,",
+    "which stands on the same scan page and which Folio already carries, the extractor produces a string",
+    "byte-for-byte identical to the shipped one.",
+    "",
+    "Project Gutenberg's Townsend (ebook 21) was looked at first and REFUSED: it is an American reprint,",
+    "printing `clamor` for `clamour`, opening each fable in small capitals and reordering a clause of the",
+    "very fable used to check it. Same translator, different printing -- and splicing its wording into a",
+    "book transcribed from the London Routledge text would put one paragraph of another edition inside",
+    "this one, which is the thing this whole programme exists to prevent.",
+    "",
+    "`broken` is what chapter 122 says WHILE THE FAULT STANDS. If that phrase goes, the wiki has been",
+    "corrected upstream and the importer reports this entry dead rather than overwriting the repair."
+  ],
+  "chapters": [
+    {
+      "ch": 122,
+      "question": "The Old Lion",
+      "title": "The Old Lion",
+      "source": "https://en.wikisource.org/wiki/Page:Three_hundred_Aesop%27s_fables_(Townshend).djvu/96",
+      "broken": "Two men were journeying together in each other's company",
+      "html": "<p>A Lion, worn out with years, and powerless from disease, lay on the ground at the point of death. A Boar rushed upon him, and avenged with a stroke of his tusks a long-remembered injury. Shortly afterwards the Bull with his horns gored him as if he were an enemy. When the Ass saw that the huge beast could be assailed with impunity, he let drive at his forehead with his heels. The expiring Lion said, \"I have reluctantly brooked the insults of the brave, but to be compelled to endure contumely from thee, a disgrace to Nature, is indeed to die a double death.\"</p>"
+    }
+  ]
+}

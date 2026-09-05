@@ -269,9 +269,61 @@ The five bullets below are as they stood in CLAUDE.md, verbatim.
     generator can be flawless on the day it is written and degenerate on a date nobody tried, which is what
     a one-day browser test cannot see.
 - **PICTURE ROUND — the eighth daily game** (`PAGES.picture` at `#picture`; 2026-08-09, on request). Five
-  pictures, four options each, drawn from **every** illustration Folio holds — a card's `image`, a glossary
-  term's `GLOSSARY_IMAGES` entry, an artefact's — so a picture added anywhere feeds the game and there is
-  no second registry to keep in step.
+  pictures, four options each, drawn **from the ARTEFACTS and from nothing else** since Sep 2026.
+  · **IT WAS EVERY ILLUSTRATION FOLIO HOLDS UNTIL THEN** — a card's `image`, a glossary term's
+    `GLOSSARY_IMAGES` entry, an artefact's — and the request that narrowed it ("The game 'Picture round'
+    should only use pictures from artefacts") settles an argument the game had been having with itself
+    since it shipped. A card's or a term's picture ILLUSTRATES its subject; it does not necessarily DEPICT
+    it. A hand-axe under `Acheulean`, a temple under `Classical antiquity`, a flag under a country: each
+    is a perfectly good illustration and none of them is a question. Two filters had grown up around that
+    — `PIC_ABSTRACT_KINDS`, a declared list of kinds whose pictures can only exemplify, and the difficulty
+    bar reaching past the cards into the glossary through `threadEasyKeys()` — and both are **deleted**
+    with the halves they were guarding. An artefact needs neither: it is a photograph of one object, the
+    object is the answer, and there is nothing to rate or to except. "Does this picture depict its
+    subject?" is now answered by which table it came out of.
+    **What it costs is the pool's size**, 157 subjects to 99 — an order above `PIC_MIN_POOL` (8) — and
+    what it buys is a game where every round is the same kind of question.
+    **The decoys had to be re-derived**, since an artefact is filed under no tags at all. Two are built
+    from what it does carry: an ERA bucket off `artefactYear` (prehistory / antiquity / medieval /
+    modern), which does the work — a Roman sword is answered against other objects of antiquity rather
+    than against a medieval crown — and its `origin`, which matches only where two objects really share
+    one, most origins being a find-spot and a museum and so unique. That costs nothing and is honest;
+    inventing a taxonomy for a hundred objects would not be.
+  · **THE REVEAL IS THE ARTEFACT'S OWN PLATE, MINUS THE PLATE** (Sep 2026, same request: "below it should
+    show that Artefacts background paragraph with citations"). The paragraph used to be the same prose
+    with every `<sup class="fn">` stripped out, because the reveal had nowhere to put the works they point
+    at. It carries its `sources` beside it now and the reveal renders `sourcesHTML` under the prose with
+    `wireFootnotes` over it — so the markers number themselves, the works link, the access chips show and
+    the jump works both ways, with no wiring of this game's own.
+    **The SUMMARY screen strips them** (`picNoteBare`). There is no source list there — five artefacts'
+    lists under a score would BE the page — and a marker with no entry behind it prints its own digit
+    through `sup.fn:empty::before`, so leaving them in would set stray numerals through five paragraphs
+    pointing at nothing. `wireFootnotes` removes such a marker where it runs; this is the same answer one
+    step earlier.
+  · **AND THE PICTURE ENLARGES, BUT NOT BEFORE THE ANSWER IS OUT** (same request). It calls
+    `openImageViewer` directly rather than earning the `.card-img` class the delegated listener watches
+    for, and that is not a shortcut: `.card-img` carries a fixed 16:9 frame and a `height:100%` on the
+    picture inside it, so adopting it at the reveal would RESHAPE the picture the reader is looking at — a
+    crop and a jump at the exact moment they are told what they were looking at. The frame keeps
+    `.pic-frame`'s own shape and gains only `.pic-open`: a cursor, the zoom mark and a tab stop.
+    It is held back for the same reason the caption is, rather than for tidiness — the viewer's meta bar
+    carries the title and the credit, and both name the subject, so a frame that opened before the guess
+    would hand the answer over in one tap.
+  · **A ROUND ANSWERED STAYS ANSWERED** (Sep 2026, on a bug report: "halfway through the minigame i could
+    go back to the home page, re enter the game, and start from the first question again and get it right
+    this time"). Every daily game is played once, and this one held its place in a CLOSURE — so leaving the
+    page threw it away, and the one-play lock, which is only set when a run FINISHES, had nothing to say
+    about a run abandoned half way. `setGameProgress` writes the answered rounds to `S.games.picture.prog`
+    — the row that already holds today's date, score and lock, is already a `PROGRESS_FIELD` and so
+    already syncs. Four decisions in it: it is written **before the reader can press Next**, since the
+    reader who never presses it is the whole case; it holds the **outcomes rather than an index**, so the
+    round to resume at and the score already earned cannot come apart; the row's **own `date`** scopes it,
+    so yesterday's can never be read as today's; and it is **cleared when the run ends**, where the lock
+    takes over — a `prog` left behind would be a resume point inside a finished run. A reader who answers
+    all five and never presses "See results" comes back to the results, which is `renderEnd` on a resume
+    index that has run past the last round.
+    The helpers are general (`gameProgress` / `setGameProgress`, beside `gameLockedToday`); only the
+    picture round uses them so far, and a second game adopts them in three lines.
   · **THE CORPUS GAP IT SHIPPED INTO IS CLOSED** (2026-08-09, later the same day). It went out with one
     picture in the whole of Folio — `data.js` had a single card image, `glossary.js` had no
     `GLOSSARY_IMAGES` table at all — so the game could only show its placard, which was recorded here as a
@@ -295,11 +347,11 @@ The five bullets below are as they stood in CLAUDE.md, verbatim.
     difficulty"). Multiple Choice has scored its distractors on shared tags since the card-tags pass, and
     that scorer is now `tagKinship(ta, tb)`, lifted out of `cardKinship` so both games read one
     implementation — the kind is worth four subject areas, and the score is capped when the kinds differ.
-    A picture therefore carries its subject's TAGS into the pool (`picturePool`'s `add(…, tags)`, from
-    `GLOSSARY_TAGS` for a term and `card.tags` for a card) and the three decoys are the closest three, so a
-    stone industry is answered against three stone industries rather than against a cave, an ice age and a
-    fossil. An artefact has no tags and simply scores 0 against everything, which is the honest fallback:
-    it is answered as it always was.
+    A picture therefore carries its subject's TAGS into the pool and the three decoys are the closest
+    three, so a stone industry was answered against three stone industries rather than against a cave, an
+    ice age and a fossil. (Written when the pool was cards and glossary terms, whose tags come from
+    `card.tags` and `GLOSSARY_TAGS`; since Sep 2026 the pool is the artefacts, whose tags are derived —
+    see the era bucket above. The scorer is unchanged.)
     **WHO SAID IT? TAKES THE SAME RULE ON ITS OWN AXIS** (`buildWhoSaidRounds`, same request), which is a
     `cat` field added to all 64 entries in `quotes.js` — five families (philosophy, statecraft, science,
     reform, letters). A speaker is not a card and has no tags, so kinship there is simply the category, and

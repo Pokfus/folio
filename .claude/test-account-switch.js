@@ -58,9 +58,16 @@ function handleSupa(db, url, method, body, headers) {
   /* ---- auth ---- */
   if (p === "/auth/v1/signup") {
     if (db.users.some((x) => x.email === body.email)) return [400, { msg: "User already registered" }];
+    const id = uuid(db.users.length + 1);
+    /* `handle_new_user` (section 4 of the schema) catches a unique_violation on the username and signs the
+       reader up anyway under `scholar_<8 hex>`. Modelled here because that fallback is SILENT on the wire —
+       the signup answers 200 with a session either way — so the only thing that can tell the reader their
+       handle was taken is the profile the app loads straight afterwards. */
+    let uname = (body.data || {}).username;
+    if (db.users.some((x) => x.username === uname)) uname = "scholar_" + id.slice(0, 8);
     const usr = {
-      id: uuid(db.users.length + 1), email: body.email,
-      password: body.password, username: (body.data || {}).username, name: (body.data || {}).name, role: "user",
+      id: id, email: body.email,
+      password: body.password, username: uname, name: (body.data || {}).name, role: "user",
     };
     db.users.push(usr);
     db.progress[usr.id] = { data: {}, updated_at: null };   // the signup trigger seeds an empty row
@@ -83,7 +90,17 @@ function handleSupa(db, url, method, body, headers) {
   /* ---- rest ---- */
   if (p.startsWith("/rest/v1/profiles")) {
     const id = eqOf("id"), usr = db.users.find((x) => x.id === id);
-    if (method === "PATCH") { if (usr) Object.assign(usr, body); return [200, usr ? [usr] : []]; }
+    if (method === "PATCH") {
+      /* `profiles.username` is `not null unique check (~ '^[a-z0-9_]{3,24}$')`, so the database is what
+         refuses a taken or malformed handle — modelled here because the app deliberately does not
+         pre-check one, and reading the refusal is the whole of what it does instead. */
+      if (body && body.username !== undefined) {
+        if (!/^[a-z0-9_]{3,24}$/.test(body.username)) return [400, { message: 'new row violates check constraint "profiles_username_check"' }];
+        if (db.users.some((x) => x.id !== id && x.username === body.username)) return [409, { message: 'duplicate key value violates unique constraint "profiles_username_key"' }];
+      }
+      if (usr) Object.assign(usr, body);
+      return [200, usr ? [usr] : []];
+    }
     return [200, usr ? [{ id: usr.id, username: usr.username, name: usr.name, role: usr.role, joined: "2026-01-01", avatar: null }] : []];
   }
   if (p.startsWith("/rest/v1/progress")) {
@@ -95,6 +112,13 @@ function handleSupa(db, url, method, body, headers) {
       db.progress[id] = { data: body.data, updated_at: stamp(db) };
       return [200, [{ updated_at: db.progress[id].updated_at }]];
     }
+  }
+  /* `login_email(uname, pw)` — section 12 of the schema. It verifies the password before answering, so it
+     tells a caller nothing they were not about to learn from the sign-in itself; the mock's whole job is
+     to answer at all, since a database without the function 404s and the app then says "use your email". */
+  if (p === "/rest/v1/rpc/login_email") {
+    const usr = db.users.find((x) => x.username === (body || {}).uname && x.password === (body || {}).pw);
+    return [200, usr ? usr.email : null];
   }
   if (p.startsWith("/rest/v1/content_overrides")) return [200, [{ data: {}, updated_at: "2026-01-01T00:00:00Z" }]];
   if (p.startsWith("/rest/v1/friends")) return [200, []];
@@ -411,7 +435,74 @@ const homeState = async (page, base) => {
   await D.page.waitForTimeout(2500);
   check("an IDLE device still adopts the other device's write", (await readLimit()) === "77");
 
-  const errs = A.errs.concat(C.errs).concat(D.errs);
+  /* ============ 7. CREATING AN ACCOUNT: what the form says when it does not simply work ============
+     Three reported-shaped failures, and every one of them is silent from the outside — the form looks the
+     same whether it worked, was refused, or half-worked. */
+  const E = await newPage(browser, db, {});
+  await openAccount(E.page, base);
+  const btnLabel = () => E.page.textContent('[data-form="register"] .auth-btn');
+  const formMsg = () => E.page.textContent('[data-form="register"] [data-msg]');
+
+  check("the Create account button starts with its own label", (await btnLabel()).trim() === "Create account");
+
+  // a refused signup: the address alice already used
+  await register(E.page, "alice@test", "dave", PW);
+  check("a refused sign-up says why", /already registered/i.test(await formMsg()), JSON.stringify(await formMsg()));
+  check("\u2026and the button goes back to its label rather than staying at \u2026",
+    (await btnLabel()).trim() === "Create account", JSON.stringify(await btnLabel()));
+  check("\u2026and is pressable again", !(await E.page.isDisabled('[data-form="register"] .auth-btn')));
+
+  // client-side refusals must not touch the button either
+  await E.page.fill('[data-form="register"] [name="u"]', "x");
+  await E.page.click('[data-form="register"] .auth-btn');
+  await E.page.waitForTimeout(200);
+  check("a username the form itself rejects leaves the button alone",
+    (await btnLabel()).trim() === "Create account", JSON.stringify(await btnLabel()));
+
+  // a username somebody already holds: the account is made under another handle and the reader is told
+  await register(E.page, "dave@test", "alice", PW);
+  await E.page.waitForTimeout(600);
+  const daveName = await E.page.evaluate(() => (document.querySelector(".since") || {}).textContent || "");
+  check("a taken username still creates the account", /@scholar_/.test(daveName), JSON.stringify(daveName));
+  check("\u2026and the reader is told the handle they asked for was taken",
+    /taken/i.test(await E.page.textContent("#toast")), JSON.stringify(await E.page.textContent("#toast")));
+
+  /* …and the way back from that fallback. Until Sep 2026 there was none: the account page's field edits
+     the DISPLAY NAME, and the handle a reader signs in with was written once by the signup trigger. */
+  const uname = () => E.page.textContent("#unShown");
+  await E.page.click("#unToggle");
+  await E.page.waitForTimeout(150);
+  check("the username panel opens", !(await E.page.isHidden("#unPanel")));
+
+  await E.page.fill("#unNew", "alice");
+  await E.page.click("#unSave");
+  await E.page.waitForTimeout(700);
+  check("renaming to a handle somebody holds is refused, in words",
+    /taken/i.test(await E.page.textContent("#unMsg")), JSON.stringify(await E.page.textContent("#unMsg")));
+  check("\u2026and the handle is unchanged", /^@scholar_/.test(await uname()), await uname());
+
+  await E.page.fill("#unNew", "no");
+  await E.page.click("#unSave");
+  await E.page.waitForTimeout(500);
+  check("a handle too short to be valid is refused", /3\u201324/.test(await E.page.textContent("#unMsg")), JSON.stringify(await E.page.textContent("#unMsg")));
+
+  await E.page.fill("#unNew", "Dave_99");
+  await E.page.click("#unSave");
+  await E.page.waitForTimeout(700);
+  check("a free handle is taken, lowercased", (await uname()) === "@dave_99", await uname());
+  const daveId = (await local(E.page)).owner;
+  check("\u2026and reaches the server", (db.users.find((x) => x.id === daveId) || {}).username === "dave_99");
+
+  await gotoFresh(E.page, base + "#account");
+  check("\u2026and survives a reload", (await uname()) === "@dave_99", await uname());
+
+  // the point of the handle: it is what you can sign in with
+  await signOut(E.page);
+  await openAccount(E.page, base);
+  await signIn(E.page, "dave_99", PW);
+  check("the new handle signs in", (await local(E.page)).signedIn);
+
+  const errs = A.errs.concat(C.errs).concat(D.errs).concat(E.errs);
   check("no console errors", errs.length === 0, errs.slice(0, 3).join(" | "));
 
   await browser.close();

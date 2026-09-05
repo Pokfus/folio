@@ -282,7 +282,7 @@ the whole reason the suites exist and the reason their narratives are worth keep
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
     community store's record shape, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 308 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 332 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -347,7 +347,7 @@ the whole reason the suites exist and the reason their narratives are worth keep
     that spawned it** — a real level-up is raised (three cards graded Easy) and dismissed by a HASH CHANGE,
     never a click, since a click would dismiss it anyway and prove nothing.
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
-    media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
+    media queries / `.settings` / `.auth-split` / the coming-soon rows
     / `.home-collections` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
     `gbWireResize` / `.gb-fold` / `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` /
     `makePageGhost` / `clipStageFor` / the `.page-next`/`.page-prev` keyframes /
@@ -356,7 +356,7 @@ the whole reason the suites exist and the reason their narratives are worth keep
     `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` /
     the ink layer's pass-through /
     `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on `.admin-list-items` /
-    `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an overlay to `document.body`.**
+    `cpWireResize` / `cpContentNeedH` / `cpColsContentH` / `.cp-titlemain` / `lockHeight`, or after adding an overlay to `document.body`.**
     **`studyEasy` PUTS A COLLECTION IN THE REVIEW FIRST** (Aug 2026), through the collections page's own +:
     the first-run hero routes there now rather than choosing a subject for the reader, so nothing studies
     until something has been added, and every section that wanted a card was reporting an empty page.
@@ -1054,7 +1054,7 @@ the whole reason the suites exist and the reason their narratives are worth keep
     house gotcha it is built around: a hash-only `goto` is a same-document navigation, so anything written
     into localStorage behind the app's back has to be read back through a real `reload()` or the next
     `save()` simply overwrites it — hence `seedHome` reloads and `home` does not.
-  · `node .claude/test-library.js` — the Library (333 assertions): the rename, the shelf, one book, and the
+  · `node .claude/test-library.js` — the Library (413 assertions): the rename, the shelf, one book, and the
     reader's place. Each half guards something that fails SILENTLY. **The rename**: `#decks` must still
     resolve (every link ever shared points at it) while calling itself Collections everywhere, and exactly
     one nav tab may read "Library". **The laziness**: it watches the request log and asserts no
@@ -1355,3 +1355,29 @@ the whole reason the suites exist and the reason their narratives are worth keep
     sees nothing and reads as a regression.
     **Re-run after touching `cardSpeak` / `ttsSilentNote` / `ttsCanSpeak` / `TTS_SILENT_MS` /
     `ttsSupported` / `speechVoiceFor` / `wireSpeakControls` / the `.uc-tts` listeners, or `body.no-tts`.**
+
+---
+
+## A BOOK OPENS ON ITS FRONT MATTER, AND THAT IS HOW AN ASSERTION PASSES VACUOUSLY (batch E55)
+
+`test-library.js`'s sections 6s and 6t were written to `page.goto("#book/<id>")`, wait, and read the
+page. **A book opens on chapter 0 — its own front matter — not on chapter 1**, so the first draft of
+6s toggled to the Latin column and then asserted that no marginal reference of Ihm's stood in it. Both
+assertions passed. Neither had any Latin in front of it.
+
+**A vacuous pass is indistinguishable from a real one in the output**, which is what makes this worse
+than a failure, and it was caught only because the third assertion in the same block — that the
+sentences those references sat in are still there — failed for the same reason and was obviously
+wrong. Two assertions had been reporting green on a page that could not have shown the defect.
+
+So: **click the chapter before asserting anything about a book's text**, and prefer an assertion that
+must find something present over one that checks something is absent — a positive assertion cannot
+pass on an empty page. 6s now selects Divus Julius, where all eleven references stand, and pairs each
+absence check with a presence check on the same sentence.
+
+The other half of the same lesson: **`.bk-tab` includes the front matter**, so a count of the tabs is
+one more than the book's chapters. 6t asserted 100 and measured 101; it filters on `+t.dataset.ch >= 1`
+now. That assertion exists to guard the widening made to `HEAD_NUM` in `extractJourney`, which reads a
+page number and could — without its digit proviso — match `CHAPTER I.` and delete the chapter markers.
+**A test written to guard a rule against eating structure has to count that structure correctly, or it
+is the one assertion in the file that cannot do its job.**

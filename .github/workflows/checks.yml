@@ -1,6 +1,6 @@
 name: checks
 
-# WHY THIS EXISTS. Folio has 42 regression suites and every one of them was written
+# WHY THIS EXISTS. Folio has 48 regression suites and every one of them was written
 # because the failure it guards is SILENT -- a wrong interval is still a number on a
 # button, a deck row hidden by an ad blocker still renders, a stripped rating still
 # parses. Suites like that are worth exactly as much as the discipline of running them,
@@ -8,7 +8,7 @@ name: checks
 #
 # Two jobs, deliberately split:
 #
-#   fast   -- the seven suites and four checkers that need no browser. Seconds, no
+#   fast   -- the eight suites and four checkers that need no browser. Seconds, no
 #             install, no network. This is the gate: it must stay green.
 #   browser-- the Playwright suites. Slower and heavier, so it is allowed to be the
 #             second opinion rather than the gate.
@@ -64,6 +64,14 @@ jobs:
         run: node .claude/test-scheduler.js
       - name: test-streak-chest
         run: node .claude/test-streak-chest.js
+      # test-learning is half no-browser: FOLIO_SKIP_BROWSER runs sections 1-5 here, in seconds,
+      # and the browser job below picks the same file up again for the rest. The cheap half is
+      # worth gating on -- it holds the relearning criterion's arithmetic, the answer matcher, and
+      # the static checks that the pretest never writes a card record.
+      - name: test-learning (no-browser half)
+        env:
+          FOLIO_SKIP_BROWSER: "1"
+        run: node .claude/test-learning.js
 
       # The content checkers. check-style and check-questions guard the house rules over
       # the shipped corpus; check-docs guards the CLAUDE.md/docs split in both directions.
@@ -74,6 +82,11 @@ jobs:
       # for every visitor -- and the only symptom is a slower site.
       - name: glossary split intact
         run: node .claude/split-glossary.js --check
+      # …and the artefacts' descriptions, citations and pictures live in the lazy artefacts-extra.js,
+      # which were 94% of artefacts.js. Same failure and same lack of a symptom; --check also asserts
+      # the join holds in both directions, since a row nothing indexes is content no reader can reach.
+      - name: artefact split intact
+        run: node .claude/split-artefacts.js --check
       - name: check-questions
         run: node .claude/check-questions.js
       - name: check-style
