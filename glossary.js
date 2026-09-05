@@ -2093,7 +2093,8 @@ window.GLOSSARY = {
 "Electrolyte": "An electrolyte is a substance that separates into charged particles in solution and so conducts electricity, the term being used in biology for the inorganic ions a body must hold within narrow limits — sodium, potassium, chloride, magnesium, calcium, phosphate and bicarbonate.<sup class=\"fn\" data-fn=\"1\"></sup> They are taken in with food and drink, and they maintain electrical neutrality in cells and generate and conduct the impulses of nerve and muscle.<sup class=\"fn\" data-fn=\"1\"></sup> Their usefulness depends on being unevenly distributed, since selective channels let particular ions move rapidly down electrochemical gradients that have been established across a membrane beforehand.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Trace_element": "A trace element is one present or required in very small quantity, the word trace describing the amount rather than the importance, and covering both what an organism needs in minute doses and what is measured at low concentration in a material.<sup class=\"fn\" data-fn=\"1\"></sup> Which count as essential is less settled than it looks, since a human body holds at least 60 detectable elements and only about 25 are thought to take part in its functioning.<sup class=\"fn\" data-fn=\"1\"></sup> Each has a window rather than a threshold, copper being needed for connective tissue and damaging in excess,<sup class=\"fn\" data-fn=\"1\"></sup> and shortages tell at large scales too, iron limiting phytoplankton across whole ocean regions.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Vitalism": "Vitalism is the doctrine that living systems are animated by something immaterial — a force, principle or impulse not reducible to the matter composing them — and so cannot be accounted for by the chemistry and physics of that matter alone.<sup class=\"fn\" data-fn=\"1\"></sup> It was a reasonable position while the substances characteristic of organisms appeared to arise only inside them, and it was set aside gradually rather than refuted at a stroke.<sup class=\"fn\" data-fn=\"1\"></sup> What displaced it was the finding that organisms are built from the ordinary elements and that their reactions obey the ordinary rules, though the question it reached for, what distinguishes a living arrangement from a dead one, remains open.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Biomolecule": "A biomolecule is a molecule produced and used by a living organism, and most belong to one of four classes: carbohydrates, lipids, proteins and nucleic acids.<sup class=\"fn\" data-fn=\"1\"></sup> Three of those are macromolecules assembled by joining small precursors — sugars, amino acids and nucleotides — and together they account for 80 to 90 per cent of the dry weight of most cells, while lipids, the remaining major constituent, are grouped by their behaviour rather than by any repeating subunit.<sup class=\"fn\" data-fn=\"1\"></sup> None of them outweighs water, which makes up about 70 per cent of a cell and is the medium their reactions occur in.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Biomolecule": "A biomolecule is a molecule produced and used by a living organism, and most belong to one of four classes: carbohydrates, lipids, proteins and nucleic acids.<sup class=\"fn\" data-fn=\"1\"></sup> Three of those are macromolecules assembled by joining small precursors — sugars, amino acids and nucleotides — and together they account for 80 to 90 per cent of the dry weight of most cells, while lipids, the remaining major constituent, are grouped by their behaviour rather than by any repeating subunit.<sup class=\"fn\" data-fn=\"1\"></sup> None of them outweighs water, which makes up about 70 per cent of a cell and is the medium their reactions occur in.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Carbohydrate": "A carbohydrate is a sugar or a chain of sugars, most having the basic formula (CH2O)n that gives the name, and ranging from one simple sugar to a polysaccharide of thousands.<sup class=\"fn\" data-fn=\"1\"></sup> Simple sugars are among the chief nutrients of cells and are joined into longer chains by dehydration reactions, each link a glycosidic bond between two carbons.<sup class=\"fn\" data-fn=\"1\"></sup> Few families can be arranged so variously from so little: glycogen, starch and cellulose are built entirely of glucose and differ only in their linkages, two storing sugar while the third is a structural material,<sup class=\"fn\" data-fn=\"1\"></sup> and sugars attached to proteins and lipids carry information besides, being assembled without a template.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4208,7 +4209,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Buffer_solution": ["buffers"],
 "Polymer": ["monomer"],
 "Redox": ["oxidation"],
-"Biomolecule": ["biological molecule","biomolecules"]
+"Biomolecule": ["biological molecule","biomolecules"],
+"Carbohydrate": ["carbohydrates"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6337,7 +6339,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Electrolyte": ["concept","science","biology"],
 "Trace_element": ["concept","science","chemistry"],
 "Vitalism": ["concept","science","biology"],
-"Biomolecule": ["concept","science","biology"]
+"Biomolecule": ["concept","science","biology"],
+"Carbohydrate": ["concept","science","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
