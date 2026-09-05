@@ -1825,7 +1825,8 @@ window.GLOSSARY = {
 "Legalism_(Chinese_philosophy)": "Legalism is the usual English rendering of <i>fajia</i>, the Chinese tradition of statecraft holding that a state should be governed by published standards and measured rewards and punishments rather than by its ruler's moral quality.<sup class=\"fn\" data-fn=\"1\"></sup> The historian Sima Tan coined the label and the librarian Liu Xiang applied it to ten works in the Han imperial catalogue, so it names a bibliographic category rather than a self-aware school.<sup class=\"fn\" data-fn=\"1\"></sup> Its core texts are associated with Shang Yang, Shen Buhai, Shen Dao and Han Fei, and argue for punishments knowing no degree or grade and for rewards granted only in exchange for military attainment.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Shang_Yang": "Shang Yang, also called Gongsun Yang and the Lord of Shang, was the statesman who held high office in Qin between 359 and 338 BCE and rewrote its laws.<sup class=\"fn\" data-fn=\"1\"></sup> The measures credited to him made emolument, office and rank follow military attainment, organised households into groups of five and ten held responsible for one another's crimes, and applied punishments without regard to degree or grade.<sup class=\"fn\" data-fn=\"1\"></sup> When his patron Duke Xiao died he was accused of rebellion, refused a bed by his own identity law as he fled, and killed, his body then torn apart by chariots;<sup class=\"fn\" data-fn=\"1\"></sup> Sima Qian wrote that he deserved his ill fame.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "The_Art_of_War": "The <i>Art of War</i> is a Chinese treatise on strategy in thirteen short chapters, ascribed to Sun Wu, a general said to have served King Helü of Wu in the late 6th century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It holds that war is a matter of life and death for a state, that all warfare is based on deception, and that supreme excellence lies in breaking an enemy's resistance without fighting.<sup class=\"fn\" data-fn=\"1\"></sup> Whether Sun Wu existed has been doubted since the Song, when it was noted that the Zuo Commentary never names him;<sup class=\"fn\" data-fn=\"1\"></sup> the book reached Europe in a French translation of 1772.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Qin_Shi_Huang": "Qin Shi Huang was the king of Qin who conquered the last of the warring states in 221 BCE, becoming the first ruler of a united China and taking the new title huangdi.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He divided the empire into 36 commanderies under appointed officials, unified the laws, weights, measures, cart axles and script, and in 213 BCE had the histories of the other states burned.<sup class=\"fn\" data-fn=\"1\"></sup> He died on tour in 210 BCE and was buried at Mount Li, east of modern Xi'an, and the dynasty he meant to last ten thousand generations fell within four years of his death.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Qin_Shi_Huang": "Qin Shi Huang was the king of Qin who conquered the last of the warring states in 221 BCE, becoming the first ruler of a united China and taking the new title huangdi.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He divided the empire into 36 commanderies under appointed officials, unified the laws, weights, measures, cart axles and script, and in 213 BCE had the histories of the other states burned.<sup class=\"fn\" data-fn=\"1\"></sup> He died on tour in 210 BCE and was buried at Mount Li, east of modern Xi'an, and the dynasty he meant to last ten thousand generations fell within four years of his death.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Qin_dynasty": "The Qin dynasty ruled a united China from 221 to 206 BCE, the shortest of the great dynasties, after the king of Qin conquered the last of the warring states.<sup class=\"fn\" data-fn=\"1\"></sup> It abolished the hereditary fiefs of the Zhou in favour of 36 commanderies under appointed officials, unified law, weights, measures and script, and built roads, frontier walls and the First Emperor's tomb with conscript and convict labour.<sup class=\"fn\" data-fn=\"1\"></sup> Revolts began in 209 BCE and the eunuch Zhao Gao killed the Second Emperor in 207, after which the empire passed to the Han, which kept the commanderies, the laws and the offices Qin had made.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2663,7 +2664,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Legalism_(Chinese_philosophy)": "4th – 3rd centuries BCE",
 "Shang_Yang": "d. 338 BCE",
 "The_Art_of_War": "traditionally 6th century BCE",
-"Qin_Shi_Huang": "259 – 210 BCE"
+"Qin_Shi_Huang": "259 – 210 BCE",
+"Qin_dynasty": "221 – 206 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3790,7 +3792,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Legalism_(Chinese_philosophy)": ["Legalism","Legalist","fajia","School of Law"],
 "Shang_Yang": ["Lord Shang","Lord of Shang","Gongsun Yang"],
 "The_Art_of_War": ["Art of War","Sunzi bingfa"],
-"Qin_Shi_Huang": ["First Emperor","Shi Huangdi","Qin Shihuang"]
+"Qin_Shi_Huang": ["First Emperor","Shi Huangdi","Qin Shihuang"],
+"Qin_dynasty": ["Qin empire"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5646,7 +5649,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Legalism_(Chinese_philosophy)": ["school of thought","philosophy","politics","history","china"],
 "Shang_Yang": ["person","politics","law","history","china"],
 "The_Art_of_War": ["text","warfare","philosophy","history","china"],
-"Qin_Shi_Huang": ["ruler","person","politics","history","china"]
+"Qin_Shi_Huang": ["ruler","person","politics","history","china"],
+"Qin_dynasty": ["dynasty","era","politics","history","china"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
