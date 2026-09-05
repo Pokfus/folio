@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.648", released: "2026-09-05T20:08Z" };
+window.FOLIO_VERSION = { v: "1.649", released: "2026-09-05T20:13Z" };
 
 window.CHANGELOG = [
   {
@@ -64,6 +64,7 @@ window.CHANGELOG = [
       "<b>The geography decks are now dealt largest to smallest by population</b>, and a capital card that shows its country's size now says so.",
       "<b>Every population in the geography collections is now written the same way</b> — three digits and a suffix, so 1.46B, 83.7M, 234k.",
       "<b>Seventeen more glossary terms</b>, for the words the geography collections lean on — trusteeship, archipelago, exclusive economic zone, canton, principality, protectorate, atoll and the rest.",
+      "<b>Three capital cards gained a picture and three gained a date line</b> — Banjul, Bissau, Dili, the Isle of Man, the Faroe Islands and Oranjestad.",
     ],
   },
   {
