@@ -1582,8 +1582,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   before the syllabus does — measured, relaxing the harvest's 36-character cap to 50 buys 111 notes of
   the 2,391 Levels 7–9 still needed, and only 5 of those had no example at all, so **the cap was never
   the constraint**. It also carries the TEN FURTHER improvements the review's twelve grew into, of
-  which the first is the residue this pass leaves: 5,103 notes now carry exactly one example where the
-  card type shows three.
+  which **the first is now DONE as well (Sep 2026): every one of the 11,532 notes carries the THREE
+  example sentences the card type shows**, 100% across all nine decks with none showing the same
+  sentence twice — roughly 10,200 further authored sentences, the banks having run dry several levels
+  down. Two rules from that grind, for any pass of its shape: **a second example must use a DIFFERENT
+  construction from the first**, or it teaches nothing the first did not; and **dedupe against the DECK
+  rather than against the fixes record**, since eight authored sentences matched an already-harvested
+  one and shipped twice before a duplicate sweep found them.
 - **TAPPING A CHARACTER LISTS THE OTHER WORDS BUILT ON IT** (`openCharWin` / `charNeighbours` /
   `CHARWIN_MAX` / `.charwin`; Sep 2026). A Mandarin card already breaks its word into characters and
   glosses each one, and that block was read-only furniture: it told a learner that 蛋 is "egg" and left

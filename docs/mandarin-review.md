@@ -328,10 +328,9 @@ of three interjection readings the card teaches.
 
 ## What is still open
 
-- **5,103 notes carry exactly one example and 1,018 carry two.** The card type shows up to three, so
-  the *no examples at all* problem is finished and a *thin* one is what remains. It is a much smaller
-  fault — a reader can see the word used — and it is now a question of a second and third sentence
-  rather than of a fold that never appears.
+- ~~**5,103 notes carry exactly one example and 1,018 carry two.**~~ **DONE (Sep 2026): every one of the
+  11,532 notes now carries the three example sentences the card type shows** — 100% across all nine decks,
+  with no note showing the same sentence twice. See *The three-example pass* below.
 - **3,610 glosses are several senses joined by semicolons.** Most are synonym lists and must stay
   joined — see **3** — but some fraction are genuine multi-sense notes above level 3 and would repay
   the same hand pass the 55 got.
@@ -346,13 +345,13 @@ of three interjection readings the card teaches.
 ## Ten more ways to improve the collection — and what happened to them
 
 These were the next ten, written after the first twelve shipped and after every note gained an example.
-**Seven have shipped, two turned out to be already true, and one — the largest — is a long grind that is
-open.** Three of them were partly wrong about the collection, and the measurements that showed it are the
+**Eight have shipped and two turned out to be already true.** The largest of them — item 1, the long
+grind — is now finished as well. Three of them were partly wrong about the collection, and the measurements that showed it are the
 most useful thing in this section.
 
 | # | what it asked for | what happened |
 |---|---|---|
-| 1 | one-example notes taken to three | **open** — 5,103 notes at one, 1,018 at two |
+| 1 | one-example notes taken to three | **shipped** — all 11,532 notes now carry three |
 | 2 | an origin line for the idioms | **shipped, 90 of 477** — and the deck turned out not to be a deck of classical chengyu |
 | 3 | community difficulty on language decks | **already true** — the pooled rating has always covered them |
 | 4 | order a deck by frequency, not the alphabet | **shipped** as a fourth study order |
@@ -456,13 +455,20 @@ These are the next ten, written after the first twelve shipped and after every n
 Each says what it would cost and what could go wrong, because three of them are cheap and three are
 the kind of change that damages a deck if it is done at scale without judgement.
 
-**1. Take the one-example notes to three, level by level, using the same guards.** 5,103 notes have
-one sentence and 1,018 have two; the card type shows three, and three is what makes a word's range
-visible — a noun in subject and object position, a verb with and without an object. This is the
-largest remaining piece of work in the collection and it is the same work just finished, at twice the
-size. Do it **level by level from the bottom up**, since a Level 3 word is met by more readers than a
-Level 8 one, and run `check-senses.js` after each level: a second sentence that merely restates the
-first is worse than no second sentence.
+**1. Take the one-example notes to three, level by level, using the same guards.** ~~5,103 notes have
+one sentence and 1,018 have two.~~ **DONE (Sep 2026): all 11,532 notes carry three**, which is 100% of
+all nine decks with no note showing the same sentence twice. It was done bottom-up as planned — Level 5,
+Everyday Phrases, Idioms, Level 6, then the 7,900 of Levels 7–9 — and the free banks were exhausted
+several levels down, so essentially every sentence is AUTHORED and the record says so on each entry.
+Three things are worth carrying to any pass of this shape. **A second example must use a DIFFERENT
+construction from the first** — a noun in subject and then in object position, a verb with and without
+an object — since a sentence that restates the first teaches nothing; that is the rule the whole grind
+was written to. **The dedupe has to compare against the DECK, not against the record**: the batch script
+checked only its own entries, so eight authored sentences that happened to match an already-harvested
+one shipped twice and had to be found afterwards with a duplicate sweep — run one at the end. And
+`check-example-fit.js` earns its keep on authored text: it caught 球场上空无一人 (segments as 上空, "the
+sky above"), 一路平安无事 (contains the separate idiom 一路平安) and 报纸有时事评论 (segments as 有时,
+"sometimes"), all three genuinely ambiguous to a reader and all three rewritten.
 
 **2. Give the Idioms deck its story, not just its gloss.** All 477 idioms now have a literal line and
 an example, which was the whole of the last pass — but an idiom is a compressed story, and the four
