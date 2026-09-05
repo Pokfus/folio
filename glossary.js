@@ -2082,7 +2082,8 @@ window.GLOSSARY = {
 "Racial_Equality_Proposal": "The <b>racial equality proposal</b> was an amendment Japan put to the commission drafting the League of Nations Covenant in 1919, binding members to give other members’ nationals equal and just treatment, making no distinction in law or in fact on account of race or nationality.<sup class=\"fn\" data-fn=\"1\"></sup> The commission rejected it in February; a weaker preamble version, endorsing the equality of nations and the just treatment of their nationals, won a majority on 11 April and was ruled not adopted for want of unanimity.<sup class=\"fn\" data-fn=\"1\"></sup> Japan recorded its regret at the plenary session of 28 April and said it would press the principle again; the Covenant was adopted with no such clause.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Gold_standard": "A <b>gold standard</b> is a monetary system in which a currency is fixed to a stated quantity of gold, and it long served as the basis for national currencies and the exchange rates between them.<sup class=\"fn\" data-fn=\"1\"></sup> It was suspended to meet the cost of the First World War, and through the 1920s the United States, the European states and Japan worked to restore it, a transition to gold being among the remedies governments discussed for the disorder it left.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The rebuilt system proved inflexible when further shocks came: Britain, which had led the return, left first in 1931, Japan had only rejoined that year, and the United States left in 1933.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Wall_Street_Crash_of_1929": "The <b>Wall Street crash of 1929</b>, or stock market crash of 1929, ended a bull market that had carried the Dow Jones Industrial Average six-fold, to 381.17 on 3 September that year.<sup class=\"fn\" data-fn=\"1\"></sup> Prices fell nearly 13 percent on 28 October and nearly 12 percent the next day, and by mid-November had lost almost half its value; it bottomed at 41.22 in July 1932, 89 percent down, and regained its 1929 level only in 1954.<sup class=\"fn\" data-fn=\"1\"></sup> Its effect faded within months, and it is counted as one of a series of crises, the banking panics of 1930 and 1931 doing more to turn the slump into a decade of depression.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Great_Depression": "The <b>Great Depression</b> was the longest and deepest downturn in the history of the modern industrial economy; it began in the United States in August 1929, spread around the globe, and ended during the Second World War.<sup class=\"fn\" data-fn=\"1\"></sup> It came as a series of crises rather than one collapse, a stock market crash in 1929, banking panics in 1930 and 1931 and international financial crises from 1931 to 1933, with the American money supply falling by nearly 30 percent and prices with it.<sup class=\"fn\" data-fn=\"1\"></sup> Governments left the gold standard, raised tariffs and turned inward, world trade fell by about two-thirds between 1929 and 1934, and the slump reached bottom in March 1933.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Great_Depression": "The <b>Great Depression</b> was the longest and deepest downturn in the history of the modern industrial economy; it began in the United States in August 1929, spread around the globe, and ended during the Second World War.<sup class=\"fn\" data-fn=\"1\"></sup> It came as a series of crises rather than one collapse, a stock market crash in 1929, banking panics in 1930 and 1931 and international financial crises from 1931 to 1933, with the American money supply falling by nearly 30 percent and prices with it.<sup class=\"fn\" data-fn=\"1\"></sup> Governments left the gold standard, raised tariffs and turned inward, world trade fell by about two-thirds between 1929 and 1934, and the slump reached bottom in March 1933.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Article_48_of_the_Weimar_Constitution": "<b>Article 48</b> of the Weimar constitution allowed the president of the German Reich to govern by emergency decree, and from 1930 it became the instrument by which Germany was actually ruled.<sup class=\"fn\" data-fn=\"1\"></sup> After the last majority coalition broke up in March 1930, Paul von Hindenburg appointed cabinets resting on his own confidence rather than on a Reichstag majority, and Heinrich Brüning used decrees to force through austerity against the will of the parliamentary majority.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Power shifted from parliament to the president, Brüning’s successors had still less support in the Reichstag, and Hindenburg regarded the appointment of Adolf Hitler as chancellor in 1933 as a continuation of the same policy.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2943,7 +2944,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Shandong_Problem": "1914–1922",
 "Racial_Equality_Proposal": "1919",
 "Wall_Street_Crash_of_1929": "October 1929",
-"Great_Depression": "1929–1939"
+"Great_Depression": "1929–1939",
+"Article_48_of_the_Weimar_Constitution": "1919–1933"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4219,7 +4221,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "World_Disarmament_Conference": ["General Disarmament Conference","Conference for the Reduction and Limitation of Armaments","Geneva Disarmament Conference"],
 "Shandong_Problem": ["Shandong question","Shantung question","Shantung Question"],
 "Racial_Equality_Proposal": ["racial equality clause","racial equality amendment"],
-"Wall_Street_Crash_of_1929": ["Wall Street crash","stock market crash of 1929","Great Crash"]
+"Wall_Street_Crash_of_1929": ["Wall Street crash","stock market crash of 1929","Great Crash"],
+"Article_48_of_the_Weimar_Constitution": ["Article 48"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6337,7 +6340,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Racial_Equality_Proposal": ["event","history","politics","diplomacy","asia","20th century"],
 "Gold_standard": ["concept","economics","history","politics","19th century","20th century"],
 "Wall_Street_Crash_of_1929": ["event","history","economics","politics","20th century","united states"],
-"Great_Depression": ["event","history","economics","politics","20th century"]
+"Great_Depression": ["event","history","economics","politics","20th century"],
+"Article_48_of_the_Weimar_Constitution": ["concept","history","politics","law","europe","20th century"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
