@@ -116,7 +116,7 @@ const deckMeta = fixes.decks || {};
 let metaHit = 0;
 const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
-let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [];
+let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [];
 
 const hints = Object.entries(fixes.hints || {});
 const hintsByDeck = new Map();
@@ -209,6 +209,13 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
         kept = kept.filter((b) => !fix.dropEx.some((z) => b.indexOf(z) >= 0));
       }
       const room = Math.max(0, 3 - kept.length);
+      /* AN EXAMPLE MUST CONTAIN THE HEADWORD. A sentence that does not is a typo — a wrong character,
+         or a batch row filed against the wrong note — and it renders perfectly: the card shows a
+         sentence with nothing bolded in it and no reader can tell it from a sentence Folio chose. */
+      (fix.ex || []).forEach(([zh, en]) => {
+        if (String(zh).indexOf(fl.Simplified) < 0) badEx.push(w.key + " → " + zh);
+        else if (!en || !String(en).trim()) badEx.push(w.key + " → no translation");
+      });
       const add = (fix.ex || []).slice(0, room).map(([zh, en]) => {
         const bold = zh.split(fl.Simplified).join("<b>" + fl.Simplified + "</b>");
         return '<div class="uc-exi uc-exadd"><div class="uc-exz">' +
@@ -285,6 +292,11 @@ if (badDrop.length && VERBOSE) {
   console.log("\n  note  " + badDrop.length + " `dropEx` sentence(s) already gone (expected after the first run;" +
     " on a NEW one, check for a typo):");
   badDrop.forEach((k) => console.log("        " + k));
+}
+if (badEx.length) {
+  console.log("\n  FAIL  " + badEx.length + " example(s) that do not contain their own headword:");
+  badEx.forEach((k) => console.log("        " + k));
+  process.exit(1);
 }
 /* A measure word the decks have never used is refused rather than rendered from a guess at its pinyin. */
 if (badMW.length) {

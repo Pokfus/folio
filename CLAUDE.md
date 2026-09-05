@@ -1508,9 +1508,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   on the reader's screen and what the update path does about it, the polyphones that taught one of
   their character's two readings, the reverse-card collisions and why a group of three could not take
   the same fix as a pair, the Idioms deck's literal line, what was authored rather than harvested and
-  why that distinction is stated on every entry, and — with its reasoning — **what was NOT done**: the
-  2,979 notes still without an example, and why 3,610 semicolon-crammed glosses must not be split in
-  bulk.
+  why that distinction is stated on every entry, and — with its reasoning — **what was NOT done**, and
+  why 3,610 semicolon-crammed glosses must not be split in bulk. **EVERY ONE OF THE 11,532 NOTES NOW
+  CARRIES AN EXAMPLE SENTENCE**, and the shape of that pass is its most reusable finding: it took
+  **3,222 AUTHORED sentences against 836 real ones**, because the free sentence banks run out long
+  before the syllabus does — measured, relaxing the harvest's 36-character cap to 50 buys 111 notes of
+  the 2,391 Levels 7–9 still needed, and only 5 of those had no example at all, so **the cap was never
+  the constraint**. It also carries the TEN FURTHER improvements the review's twelve grew into, of
+  which the first is the residue this pass leaves: 5,103 notes now carry exactly one example where the
+  card type shows three.
 - **TAPPING A CHARACTER LISTS THE OTHER WORDS BUILT ON IT** (`openCharWin` / `charNeighbours` /
   `CHARWIN_MAX` / `.charwin`; Sep 2026). A Mandarin card already breaks its word into characters and
   glosses each one, and that block was read-only furniture: it told a learner that 蛋 is "egg" and left

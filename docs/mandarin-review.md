@@ -302,10 +302,25 @@ mid-sentence and too vague to be a definition.
 | ambiguous English → Chinese cards | 857 notes | **0** |
 | idioms with no example sentence | 348 | **0** |
 | idioms with a literal gloss | 0 | **477** |
-| notes with no example sentence | 3,406 | **2,979** |
+| **notes with no example sentence** | **3,406** | **0** |
 | notes teaching more than one sense | 355 | 382 |
 | readings `check-pinyin.js` cannot cross-check | 10 | **1** |
 | pinyin written as one word | 7 | **0** |
+
+**Every one of the 11,532 Mandarin notes now carries at least one example sentence.** Getting there
+cost 3,222 authored sentences on top of 836 real ones — 488 recovered from the Tatoeba corpus and 348
+found in the decks' own bank, written for another card that happened to use the word. The split is
+the finding: **the corpus ran out long before the syllabus did.** The last honest measurement of that
+is worth keeping, because the obvious next move looks cheaper than it is — relaxing the harvest's
+36-character sentence cap to 50 buys **111 notes of the 2,391 that Levels 7–9 still needed, and only
+5 of them had no example at all**. The cap was never the constraint; free sentence banks simply do
+not contain 陨石, 汗马功劳 or 不正之风.
+
+Every authored sentence says so in `mandarin-fixes.json`'s own `why`, so a reader of the record can
+always tell one from a corpus sentence, and the applier refuses any example that does not contain its
+own headword — a guard that fired six times during this pass and was right every time (a 放水 sentence
+that had split the word across a verb and its object, a 立功 that had done the same, a 脱身 written as
+脱不了身, a 许愿 as 许了个愿, a 舍得 as 舍不得, and one 真相大白 that split the idiom).
 
 The one reading nothing can check is **嗯**, written `ǹg`, which is not a standard pinyin syllable —
 the forms are `ń` / `ň` / `ǹ`. It is left as found because the right answer is a judgement about which
@@ -313,14 +328,86 @@ of three interjection readings the card teaches.
 
 ## What is still open
 
-- **2,979 notes have no example sentence**, 2,776 of them in levels 6 and 7–9. This needs a second
-  sentence corpus; the existing one is exhausted, and hand-authoring at that scale is where quality
-  becomes the risk.
+- **5,103 notes carry exactly one example and 1,018 carry two.** The card type shows up to three, so
+  the *no examples at all* problem is finished and a *thin* one is what remains. It is a much smaller
+  fault — a reader can see the word used — and it is now a question of a second and third sentence
+  rather than of a fold that never appears.
 - **3,610 glosses are several senses joined by semicolons.** Most are synonym lists and must stay
   joined — see **3** — but some fraction are genuine multi-sense notes above level 3 and would repay
   the same hand pass the 55 got.
 - **1,510 notes name several parts of speech against a single gloss.** The same judgement, from the
   other side.
 - **嗯's reading**, above.
-- The **Everyday Phrases** deck is at 39% full example coverage, the weakest after 7–9 now that the
-  idioms are done, and is only 159 notes.
+- One gloss was found to be a **copy of the card next to it in the file** — 炒作 was defined as "Nest",
+  which is 巢穴's gloss — and is corrected. An adjacency sweep over all nine decks finds no second
+  instance, so it is a one-off rather than a class; it was found by eye while writing examples, and
+  nothing in the pipeline could have found it.
+
+## Ten more ways to improve the collection
+
+These are the next ten, written after the first twelve shipped and after every note gained an example.
+Each says what it would cost and what could go wrong, because three of them are cheap and three are
+the kind of change that damages a deck if it is done at scale without judgement.
+
+**1. Take the one-example notes to three, level by level, using the same guards.** 5,103 notes have
+one sentence and 1,018 have two; the card type shows three, and three is what makes a word's range
+visible — a noun in subject and object position, a verb with and without an object. This is the
+largest remaining piece of work in the collection and it is the same work just finished, at twice the
+size. Do it **level by level from the bottom up**, since a Level 3 word is met by more readers than a
+Level 8 one, and run `check-senses.js` after each level: a second sentence that merely restates the
+first is worse than no second sentence.
+
+**2. Give the Idioms deck its story, not just its gloss.** All 477 idioms now have a literal line and
+an example, which was the whole of the last pass — but an idiom is a compressed story, and the four
+characters of 守株待兔 mean nothing until someone tells you about the farmer and the stump. A one-line
+**origin** field, on the model of `Literally`, would be the single highest-value addition to that deck.
+It is 477 pieces of research and each one is checkable, which is exactly the shape of work the citation
+passes elsewhere on the site are built for.
+
+**3. Measure which cards a reader actually fails, and rate the decks against it.** Folio already keeps
+a per-review log (`S.revlog`) and already shows a community difficulty rating on curated cards once a
+card has 20 answers. A language deck's cards are outside that entirely. Wiring `bump_card_grades` to
+community cards would tell us — from readers rather than from a syllabus — which HSK 7–9 words are
+genuinely hard, and that is the honest input to every ordering decision below.
+
+**4. Order the decks by frequency inside a level, not by pinyin.** The HSK lists are alphabetical by
+reading, which is an ordering with no pedagogical content at all: a reader working through Level 5 in
+order meets 报到 and 比例 on day one and 自觉 in a year. A frequency ordering within each level would put
+the words a reader will actually meet first. **It cannot be done by re-sorting the deck file** — a card
+id is a permanent address and re-sorting would repoint every reader's schedule — so it wants a
+`Frequency` field the study order can read, which is the same shape as `card.difficulty` on the curated
+side.
+
+**5. Split the 1,510 part-of-speech-only multi-senses.** These are notes whose gloss is one phrase but
+whose part of speech names two or three categories — 忙 as "verb / adjective — busy", 年 as
+"noun / measure word — year". Where the two categories really are two uses, the note is teaching one
+and testing both. This is the same hand pass the 55 semicolon glosses got, and it must stay a hand
+pass: a rule that splits on the slash would split 半 "adverb / numeral" into two cards for one word.
+
+**6. Give the character network a frequency line.** Tapping a character on a card now lists the other
+words in the same deck built on it, which is the feature readers of Chinese ask for most. What it
+cannot yet say is which of those words is worth learning first, or how the character is pronounced
+when it stands alone. Both are already in the data — the deck's own readings give every character a
+reading distribution, which is what `check-say-reading.js` is built on.
+
+**7. Let a reader hear the example sentences, not just the word.** Every card's word has a speaker;
+the example sentences carry `data-say` too, and on a Mandarin card that is where the tones actually
+live — a word said in isolation is said in its citation tone, and 不 and 一 change in a sentence. This
+is a card-type change rather than an app change, so it ships per deck and can be tried on one.
+
+**8. Say which sense an example is showing.** A multi-sense note shows three sentences and does not say
+which sense each one illustrates, so a reader meeting 差 as both *to differ* and *to lack* has to work
+out the mapping themselves. A one-word tag on each example — the sense number it belongs to — costs
+nothing to render and makes a three-sentence card teach three things instead of one.
+
+**9. Audit the glosses against a second dictionary.** 炒作's gloss was a copy of its neighbour's, and
+it survived every check in the pipeline because a wrong gloss is a perfectly well-formed gloss. The
+only thing that can catch this class is a second source: cross-checking each headword's gloss against
+an independently compiled dictionary and reporting where the two share no content word at all. It would
+be report-only and mostly noise — but the fault it catches is invisible in every other way.
+
+**10. State on the shelf what each deck actually teaches.** The catalogue gives each deck its card
+count and its download size, and the subtitles now say who a deck is for. What no reader can see before
+downloading 20 MB is whether the deck teaches both directions, whether it carries example sentences,
+whether it has audio. Those are facts the build script already reads off each file — `build-lang-decks.js`
+counts cards by walking the templates — so it is a catalogue field rather than research.
