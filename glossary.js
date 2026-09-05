@@ -2036,7 +2036,8 @@ window.GLOSSARY = {
 "First_Punic_War": "The First Punic War was the conflict between Rome and Carthage over Sicily, fought from 264 to 241 BCE and called by Polybius the longest, most continuous and most severely contested war known to him.<sup class=\"fn\" data-fn=\"1\"></sup> It drove Rome to build a war fleet for the first time, carried a Roman army into Africa, where it was destroyed, and returned to Sicily for a long contest of sieges and naval battles.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It ended with a treaty by which Carthage evacuated Sicily, surrendered its prisoners without ransom and agreed to pay an indemnity, the terms being made harsher by the Roman people than the general who negotiated them had proposed.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Mamertines": "The Mamertines were Campanian mercenaries who had served Agathocles of Syracuse and who seized the Sicilian city of Messana by treachery, driving out or killing its citizens and dividing their wives, houses and land among themselves.<sup class=\"fn\" data-fn=\"1\"></sup> The name is one they gave themselves, from Mamers, an Oscan name of the war god, and it appears as MAMEPTINΩN on the bronze coinage they struck in the city.<sup class=\"fn\" data-fn=\"2\"></sup> For a generation they levied tribute across north-eastern Sicily, until Syracuse defeated them and confined them to Messana, whereupon they divided over whether to seek help from Carthage or from Rome, and the Roman decision to answer them opened the First Punic War.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Messana": "Messana was a Greek city on the Sicilian shore of the strait separating the island from Italy, on a harbour closed by a curving spit of sand, and survives as the modern Messina.<sup class=\"fn\" data-fn=\"1\"></sup> Its earlier name was Zancle, which Thucydides derives from a Sicel word for a sickle applied to the shape of the place, and it took the name Messene from Anaxilas of Rhegium, who expelled the Samian settlers and put a mixed population in their stead.<sup class=\"fn\" data-fn=\"2\"></sup> Its position opposite Rhegium made it the crossing point between Sicily and the mainland, which is why possession of it mattered to Syracuse, Carthage and Rome alike.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Hiero_II_of_Syracuse": "Hiero II was ruler of Syracuse from 269 to 215 BCE, raised to command by the Syracusan army and hailed as king by the allies after he defeated the Mamertines at the river Longanus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He first joined Carthage in besieging Messana, then judged Roman prospects the better, made peace and paid an indemnity of 100 talents, and supplied Rome with provisions for the rest of the First Punic War.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Polybius holds him up as an unusually mild ruler, saying he took power without killing, banishing or harassing a citizen, reigned 54 years and lived past 90 in full possession of his senses.<sup class=\"fn\" data-fn=\"5\"></sup>"
+"Hiero_II_of_Syracuse": "Hiero II was ruler of Syracuse from 269 to 215 BCE, raised to command by the Syracusan army and hailed as king by the allies after he defeated the Mamertines at the river Longanus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He first joined Carthage in besieging Messana, then judged Roman prospects the better, made peace and paid an indemnity of 100 talents, and supplied Rome with provisions for the rest of the First Punic War.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Polybius holds him up as an unusually mild ruler, saying he took power without killing, banishing or harassing a citizen, reigned 54 years and lived past 90 in full possession of his senses.<sup class=\"fn\" data-fn=\"5\"></sup>",
+"Siege_of_Agrigentum": "The siege of Agrigentum was the first great land operation of the First Punic War, in which two Roman consular armies blockaded the Sicilian city Carthage had made its headquarters.<sup class=\"fn\" data-fn=\"1\"></sup> It lasted more than seven months, the besiegers holding a double line of trenches while both sides suffered hunger and disease, until a Carthaginian relief force was beaten in a pitched battle where its mercenary vanguard fell back onto its own elephants.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The garrison commander then slipped away by night and the city was taken and plundered, its inhabitants sold into slavery, at a cost to the victors that ancient accounts put in the tens of thousands.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2850,7 +2851,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Siege_of_Tarentum_(272_BC)": "272 BCE",
 "Via_Aemilia": "built 187 BCE",
 "First_Punic_War": "264 – 241 BCE",
-"Hiero_II_of_Syracuse": "269 – 215 BCE"
+"Hiero_II_of_Syracuse": "269 – 215 BCE",
+"Siege_of_Agrigentum": "262 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4096,7 +4098,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Treaties_between_Rome_and_Carthage": ["Roman-Carthaginian treaties"],
 "Mamertines": ["Mamertini"],
 "Messana": ["Zancle"],
-"Hiero_II_of_Syracuse": ["Hiero II","Hieron II"]
+"Hiero_II_of_Syracuse": ["Hiero II","Hieron II"],
+"Siege_of_Agrigentum": ["siege of Agrigentum","Battle of Agrigentum"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6165,7 +6168,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "First_Punic_War": ["event","warfare","history","politics","rome"],
 "Mamertines": ["people","history","warfare","politics","sicily"],
 "Messana": ["city","place","history","geography","sicily"],
-"Hiero_II_of_Syracuse": ["ruler","person","history","politics","sicily"]
+"Hiero_II_of_Syracuse": ["ruler","person","history","politics","sicily"],
+"Siege_of_Agrigentum": ["battle","warfare","history","politics","sicily"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
