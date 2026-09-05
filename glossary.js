@@ -2087,7 +2087,8 @@ window.GLOSSARY = {
 "Illyrian_Wars": "The <b>Illyrian Wars</b> were two campaigns fought by Rome on the eastern shore of the Adriatic, in 229 and in 219 BCE, against the Illyrian kingdom and then against a client ruler who had broken with it. The first followed the killing of a Roman envoy sent to complain of attacks on shipping, and ended with several coastal cities under Roman protection and a treaty limiting Illyrian vessels sailing south of Lissus.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius treats them as the first occasion on which a Roman army crossed into that part of Europe, and as the beginning of Roman diplomatic dealings with the Greek states.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "First_Macedonian_War": "The <b>First Macedonian War</b> was fought between Rome and Philip V of Macedon between 214 and 205 BCE, alongside Rome's war with Carthage and largely through allies. It began with a treaty of alliance between Philip and Hannibal, whose terms required that Rome give up the places on the Illyrian coast it had taken in earlier campaigns;<sup class=\"fn\" data-fn=\"1\"></sup> Rome answered by allying with the Aetolian League and other enemies of Macedon rather than by committing large forces of its own.<sup class=\"fn\" data-fn=\"2\"></sup> It ended in a negotiated peace at Phoenice in Epirus, which left the main Roman gains in Illyria intact and settled nothing between the two powers.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Philip_V_of_Macedon": "<b>Philip V</b> was king of Macedon from 221 to 179 BCE, succeeding as a youth and reigning for more than forty years over Macedon and its dependencies in Greece. Polybius praises his intelligence, memory and generalship, and presents the reign as a decline from an early popularity in Greece into cruelty and faithlessness, a change he dates to the years around the opening of war with Rome.<sup class=\"fn\" data-fn=\"1\"></sup> He fought two wars against the Romans, and Polybius describes him spending his last years deporting the political classes of his own cities inland and imprisoning the children of the Macedonians he had put to death.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Second_Macedonian_War": "The <b>Second Macedonian War</b> was fought between Rome and Philip V of Macedon from 200 to 197 BCE, and ended Macedonian control of the Greek mainland. Rome declared it on the ground of injuries to its allies, after an assembly that first rejected the proposal and passed it only when recalled,<sup class=\"fn\" data-fn=\"1\"></sup> and fought it in alliance with Greek states hostile to Philip. The settlement freed the Greek cities from Macedonian garrisons and required Philip to give up his warships beyond a handful, restore prisoners and pay an indemnity of 1,000 talents.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Second_Macedonian_War": "The <b>Second Macedonian War</b> was fought between Rome and Philip V of Macedon from 200 to 197 BCE, and ended Macedonian control of the Greek mainland. Rome declared it on the ground of injuries to its allies, after an assembly that first rejected the proposal and passed it only when recalled,<sup class=\"fn\" data-fn=\"1\"></sup> and fought it in alliance with Greek states hostile to Philip. The settlement freed the Greek cities from Macedonian garrisons and required Philip to give up his warships beyond a handful, restore prisoners and pay an indemnity of 1,000 talents.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Battle_of_Cynoscephalae": "The <b>Battle of Cynoscephalae</b> was fought in Thessaly in 197 BCE between a Roman army under Titus Quinctius Flamininus and the Macedonian army of Philip V, and settled the Second Macedonian War. It began by accident, when scouting parties met in mist on a ridge neither commander had chosen, and was decided when part of the Macedonian line was caught still in marching order and another part was attacked from behind by a detachment taken out of the winning Roman wing.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius, who describes it at length, treats the outcome as evidence that a close-order pike formation depends on level ground and cannot easily change front once engaged.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2946,7 +2947,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Illyrian_Wars": "229 and 219 BCE",
 "First_Macedonian_War": "214 – 205 BCE",
 "Philip_V_of_Macedon": "221 – 179 BCE",
-"Second_Macedonian_War": "200 – 197 BCE"
+"Second_Macedonian_War": "200 – 197 BCE",
+"Battle_of_Cynoscephalae": "197 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6350,7 +6352,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Illyrian_Wars": ["event","warfare","history","rome","greece"],
 "First_Macedonian_War": ["event","warfare","history","rome","greece"],
 "Philip_V_of_Macedon": ["ruler","person","history","greece","rome"],
-"Second_Macedonian_War": ["event","warfare","history","rome","greece"]
+"Second_Macedonian_War": ["event","warfare","history","rome","greece"],
+"Battle_of_Cynoscephalae": ["battle","warfare","history","greece","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
