@@ -27522,9 +27522,19 @@
      deck's order to set. */
   function orderAskEntry(scope) {
     if (!scope || !S.orderPicked) return null;
-    const id = scope.type === "review" ? REVIEW_ENTRY
-             : (scope.type === "deck" || scope.type === "group") ? scope.id : null;
-    if (!id) return null;
+    /* A DECK OR A GROUP, AND NOT THE POOLED REVIEW. The request is about "a collection or deck studied for
+       the first time", and the pooled review is neither: it is the day's work across every added deck, its
+       order is a separate setting on the banner's own sheet, and asking there would put a page of prose
+       between a brand-new reader and the first card they ever see. A reader who studies only through the
+       review meets this the first time they tap a single deck's row, which is the moment the question is
+       actually about something. */
+    /* A DECK, A GROUP OR ONE OF THE READER'S OWN DECKS — `scopeEntryId` is what turns the last of those
+       into an entry id, and a community or language deck is exactly where the choice of order matters
+       most, being thousands of cards across many subdecks. */
+    const kind = scope.type;
+    if (kind !== "deck" && kind !== "group" && kind !== "udeck") return null;
+    const id = scopeEntryId(scope);
+    if (!id || id === REVIEW_ENTRY) return null;
     if (Object.prototype.hasOwnProperty.call(S.orderPicked, id)) return null;
     const ids = entryCardIds(id);
     if (!ids.length) return null;                       // an empty deck has no order worth asking about
@@ -27752,9 +27762,67 @@
         }).join("") +
       "</div>" +
       '<div class="op-foot"><p>' + ORDER_PICK_HOWTO + "</p>" +
-        '<button type="button" class="btn ghost" id="opSkip">Not now — use the default (' + esc(DECK_ORDER_LABEL[cur]) + ")</button></div>";
+        '<div class="op-footacts">' +
+        '<button type="button" class="btn ghost" id="opSkip">Not now — use the default (' + esc(DECK_ORDER_LABEL[cur]) + ")</button>" +
+        '<button type="button" class="btn ghost" id="opHow">Why does this matter?</button></div></div>';
     root.querySelectorAll(".op-card").forEach((b) => b.addEventListener("click", () => go(b.dataset.order)));
     root.querySelector("#opSkip").addEventListener("click", () => go(""));
+    root.querySelector("#opHow").addEventListener("click", () => route("how"));
+  };
+
+  /* ==========================================================================================
+     "HOW FOLIO STUDIES YOU" — SAYING WHY IT IS HARD ON PURPOSE (Sep 2026)
+     ==========================================================================================
+     Half of what this site does to help a reader learn makes studying FEEL worse: spacing a card until
+     they have nearly forgotten it, mixing decks so nothing can be answered from its neighbours, holding
+     back the Reveal button, and putting the background behind an attempt. Every one of those is a
+     DESIRABLE DIFFICULTY — it lowers today's score and raises next month's — and the measured finding
+     about them is that learners will not choose them, and will switch them off, unless somebody explains
+     why. Refutation plus a metacognitive prompt measurably raises adoption; silence lowers it.
+
+     So this page states four things plainly, each with the control it justifies linked beside it. It is
+     the cheapest thing on the site to build and it is the licence for everything else here: a desirable
+     difficulty nobody has explained is just a worse website.
+
+     IT REFUTES RATHER THAN ASSERTS. "Rereading feels the most effective and is close to the least" is a
+     different sentence from "retrieval practice is effective", and it is the one that changes behaviour:
+     the belief being corrected is named, so a reader can recognise it as their own. */
+  const HOW_CLAIMS = [
+    {
+      h: "Rereading feels the most effective. It is close to the least.",
+      p: "Reading a paragraph again makes it easier to read, and the ease is mistaken for knowing it — this is well enough established to have a name, the fluency illusion. Highlighting and rereading are rated LOW utility in the standard review of study techniques, below almost everything else on the list, and the reason they survive is that they feel wonderful while you do them.",
+      w: "So Folio puts the answer behind an attempt, and a card's background behind its question, rather than opening on the prose.",
+    },
+    {
+      h: "Being tested is not the exam. It is the studying.",
+      p: "Retrieving something from memory changes the memory; reading it again mostly does not. Across hundreds of experiments the effect is medium-to-large, it holds in real classrooms as well as laboratories, and it grows the longer you wait before the real test — which is exactly the case a study tool is built for. Trying and failing still helps, provided you are then told the answer.",
+      w: "So the blank on every card is typed into rather than looked at, and “Answer before revealing” exists.",
+    },
+    {
+      h: "The day a card feels hardest is the day the review is worth most.",
+      p: "Spaced practice beats the same total minutes crammed together, and the gap is what does the work: the harder the retrieval, the more it is worth. That is why Folio waits until you have nearly forgotten a card rather than showing it while you still comfortably know it — and why a session that feels like hard going is usually the one that paid.",
+      w: "So the scheduler chooses the interval, and a card recalled on three SEPARATE days counts as learned where three recalls in one evening do not.",
+    },
+    {
+      h: "Mixing decks up hurts today’s score and helps next month’s.",
+      p: "Practising one subject in a block feels fluent and reliably teaches less than mixing subjects together, because a card answered from its neighbours is not being answered at all. The one qualification worth knowing is that blocking helps at the very start, while a subject is new — which is what the “Eased in” order does: one new subdeck at a time, then mixed in.",
+      w: "So the daily review pools every deck, and the deck order can be set per deck.",
+    },
+  ];
+  PAGES.how = function (root) {
+    root.innerHTML =
+      '<div class="page-head"><h2>How Folio studies you</h2>' +
+        "<p class=\"sub\">Some of what this site does is designed to make studying feel harder. This page says which parts, and why — so you can tell the difficulty that is doing something from the difficulty that is just friction.</p></div>" +
+      '<div class="how-list">' +
+        HOW_CLAIMS.map((c) =>
+          '<section class="how-claim"><h3>' + esc(c.h) + "</h3>" +
+          "<p>" + esc(c.p) + "</p>" +
+          '<p class="how-so">' + esc(c.w) + "</p></section>").join("") +
+      "</div>" +
+      '<div class="how-foot"><p>None of this is a reason to force yourself through a session you are not enjoying: the best study schedule is the one you keep. It is a reason not to take “this feels easy” as evidence that it is working.</p>' +
+      '<button type="button" class="btn ghost" id="howSettings">Study settings</button></div>';
+    const b = root.querySelector("#howSettings");
+    if (b) b.addEventListener("click", () => route("settings"));
   };
 
   PAGES.study = function (root, params) {
@@ -37348,8 +37416,92 @@
           <div class="fc-bars">${bars}</div>
           <span class="rs-sub">${fcNote}</span>
         </div>
+        ${forgettingCurveHTML(prog)}
+        ${seenOnceHTML(prog)}
         ${answerButtonsHTML(prog)}
       </div>`;
+  }
+  /* ==========================================================================================
+     THE READER'S OWN FORGETTING CURVE, AND THE CARDS THAT NEVER GOT A SECOND DAY (Sep 2026)
+     ==========================================================================================
+     The per-review log has held one row per answer since Aug 2026 — the card, the grade, the interval it
+     was ON and the interval it went TO — and until now only two things read it: Card info, and the
+     answer-button breakdown. Neither asks the question a reader most wants answered, which is *how long
+     do I actually remember things for*.
+
+     THE CURVE IS THEIRS, NOT A TEXTBOOK'S. Every row carries `prevMin`, the interval the card had been
+     waiting when it was answered, so bucketing the rows by that and taking the proportion that were not
+     Again is a real forgetting curve measured on this reader's own history. A bucket with too few rows
+     prints nothing rather than a percentage drawn from four answers — a made-up figure here would be
+     worse than no figure, because it is exactly the sort of number people act on.
+
+     THE SEEN-ONCE LIST IS THE CRITERION READ FROM THE OTHER END (see CRIT_DAYS). A card recalled on one
+     day and never again is precisely what successive relearning says will not stick, and nothing on the
+     site could name one: the heatmap says the reader studied, the retention figure says they are fine.
+     It is the same information as the "Learned" tile, turned into something that can be acted on. */
+  const CURVE_BUCKETS = [
+    [1, 1, "1 day"], [2, 3, "2–3 days"], [4, 7, "4–7 days"], [8, 15, "1–2 weeks"],
+    [16, 30, "2–4 weeks"], [31, 90, "1–3 months"], [91, 100000, "3 months +"],
+  ];
+  const CURVE_MIN_ROWS = 8;   // below this a percentage is noise wearing a decimal point
+  function forgettingCurveHTML(prog) {
+    const log = (prog && prog.revlog) || [];
+    if (!log.length) return "";
+    const buckets = CURVE_BUCKETS.map((b) => ({ lo: b[0], hi: b[1], label: b[2], n: 0, ok: 0 }));
+    for (let i = 0; i < log.length; i++) {
+      const r = revRead(log[i]);
+      if (!r || !r.prevDays) continue;                 // a card in learning has no interval to plot against
+      const d = r.prevDays;
+      const b = buckets.find((x) => d >= x.lo && d <= x.hi);
+      if (!b) continue;
+      b.n++;
+      if (r.g !== 1) b.ok++;                            // 1 is Again — see REV_G
+    }
+    const shown = buckets.filter((b) => b.n >= CURVE_MIN_ROWS);
+    if (shown.length < 2) return "";                    // one point is not a curve
+    const bars = shown.map((b) => {
+      const pct = Math.round((b.ok / b.n) * 100);
+      return '<div class="fg-col" title="' + b.n + " reviews after " + esc(b.label) + '"><div class="fg-track">' +
+        '<i style="height:' + pct + '%"></i></div><span class="fg-pct">' + pct + "%</span>" +
+        '<span class="fg-lbl">' + esc(b.label) + "</span></div>";
+    }).join("");
+    return '<div class="rs-card rs-curve"><div class="rs-head"><h3>How long you remember</h3>' +
+      '<span class="rs-meta" title="Every review you have answered, grouped by how long the card had been waiting.">Your own history</span></div>' +
+      '<div class="fg-bars">' + bars + "</div>" +
+      '<span class="rs-sub">Recall against the gap the card waited. A gap with fewer than ' + CURVE_MIN_ROWS +
+      " reviews behind it is left out rather than guessed at.</span></div>";
+  }
+  /* Cards recalled on exactly ONE day and not since. It reads `crit` — the day list the criterion keeps —
+     rather than the review log, because that is the register that knows what a SEPARATE day is. */
+  function seenOnceIds(prog) {
+    const cards = (prog && prog.cards) || {}, susp = (prog && prog.suspended) || {};
+    const out = [];
+    Object.keys(cards).forEach((id) => {
+      if (susp[id]) return;
+      const c = cards[id];
+      if (!c || (Array.isArray(c.crit) ? c.crit.length : 0) !== 1) return;
+      if (!cardById(id)) return;                        // retired since it was studied
+      out.push(id);
+    });
+    // the ones waiting longest first: those are the ones the second recall is most overdue on
+    return out.sort((a, b) => (cards[a].last || 0) - (cards[b].last || 0));
+  }
+  const SEEN_ONCE_MAX = 40;
+  function seenOnceHTML(prog) {
+    const mine = prog === S;
+    const ids = seenOnceIds(prog);
+    if (ids.length < 3) return "";
+    const list = ids.slice(0, SEEN_ONCE_MAX);
+    const names = list.slice(0, 6).map((id) => {
+      const c = cardLocalized(cardById(id));
+      return esc(c.answerText || String(c.answer || "").replace(/<[^>]*>/g, ""));
+    });
+    return '<div class="rs-card rs-once"><div class="rs-head"><h3>Recalled once, never again</h3>' +
+      '<span class="rs-meta">' + ids.length + " card" + (ids.length === 1 ? "" : "s") + "</span></div>" +
+      '<p class="so-lead">You have got each of these right on exactly one day. The evidence is that the gains come from the second and third time, on separate days — so these are the cards most likely to slip away.</p>' +
+      '<p class="so-names">' + names.join(" · ") + (ids.length > names.length ? " · …" : "") + "</p>" +
+      (mine ? '<button type="button" class="btn ghost" id="soStudy">Study these ' + list.length + "</button>" : "") +
+      "</div>";
   }
 
   /* ---------- ANSWER BUTTONS (Aug 2026) ----------
@@ -38214,6 +38366,15 @@
       </div>`;
     root.querySelector("#statWrap").innerHTML = statGridHTML(S, dueCountNow());
     root.querySelector("#reviewStats").innerHTML = reviewStatsHTML(S, S.user && S.user.joined);   // the heatmap opens on the day the account was created
+    /* "Study these" on the recalled-once card. Drawn only on the reader's OWN page (see seenOnceHTML) —
+       a friend's list is a fact about them and not a session anybody else can start. */
+    {
+      const so = root.querySelector("#soStudy");
+      if (so) so.addEventListener("click", () => {
+        const ids = seenOnceIds(S).slice(0, SEEN_ONCE_MAX);
+        if (ids.length) route("study", { scope: { type: "ids", ids, where: "Recalled once" } });
+      });
+    }
     renderDeckStats(root.querySelector("#deckStats"), S, true);   // your own community decks belong in your picker
     root.querySelector("#exploreStats").innerHTML = exploreStatsHTML(S);
     // the glossary meter is a way IN to what it counts (a friend's copy carries no link — see exploreStatsHTML)
@@ -39351,6 +39512,13 @@
             <div class="info"><h3>Walkthrough</h3><p>The three-minute tour of how cards are scheduled, how to add a deck to your daily study, and how to study one.</p></div>
             <div class="ctl"><button class="btn ghost" id="replayTour">Take the tour</button></div>
           </div>
+          <div class="set-row">
+            ${/* THE PAGE THAT EXPLAINS THE DIFFICULTY (Sep 2026) — see PAGES.how. It is reached from here
+                  rather than from the home page because this is where a reader stands when they are about
+                  to switch one of these settings OFF, which is the moment the explanation is worth most. */""}
+            <div class="info"><h3>How Folio studies you</h3><p>Several of the settings on this page make studying feel harder on purpose. This says which, and what the evidence behind each of them actually is.</p></div>
+            <div class="ctl"><button class="btn ghost" id="howLink">Read it</button></div>
+          </div>
         </div>
         <div class="set-card">
           ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
@@ -39480,6 +39648,7 @@
        Settings page is not one of the three that mount it, so nothing would repaint it away by itself, and a
        panel still floating over the page a switch has just disabled reads as a switch that did nothing. */
     wireSwitch("#sw-attempt", () => !!S.settings.attemptFirst, (v) => { S.settings.attemptFirst = v; });
+    { const hb = root.querySelector("#howLink"); if (hb) hb.addEventListener("click", () => route("how")); }
     wireSwitch("#sw-marker", () => S.settings.marker !== false, (v) => {
       S.settings.marker = v;
       if (!v) hideWBTools();

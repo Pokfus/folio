@@ -8131,6 +8131,7 @@ body[data-theme="carnelian"].night .collection-deco{
 .op-foot{margin-top:20px; border-top:1px solid var(--rule); padding-top:16px;
   display:flex; flex-direction:column; gap:12px; align-items:flex-start;}
 .op-foot p{font-size:calc(13.5px * var(--fs)); color:var(--ink-soft); line-height:1.62; margin:0; max-width:70ch;}
+.op-footacts{display:flex; gap:10px; flex-wrap:wrap;}
 
 /* the pretest — one question at a time, and no feedback until the end */
 .pt-intro,.pt-q,.pt-res{background:var(--paper-2); border:1px solid var(--rule); border-radius:14px; padding:20px;}
@@ -8217,3 +8218,29 @@ body[data-theme="carnelian"].night .collection-deco{
 .cf-main{font-family:var(--display); font-size:calc(15.5px * var(--fs)); color:var(--ink);}
 .cf-note{font-size:calc(12.5px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
 .cf-go{font-size:calc(12.5px * var(--fs)); font-weight:600; color:var(--newterm); margin-top:2px;}
+
+/* THE READER'S OWN FORGETTING CURVE, AND THE RECALLED-ONCE LIST (see forgettingCurveHTML in app.js).
+   Both are `.rs-card`s, so they take the statistics grid's own frame and need no layout of their own. */
+.fg-bars{display:flex; align-items:flex-end; gap:8px; margin-top:6px;}
+.fg-col{flex:1 1 0; min-width:0; display:flex; flex-direction:column; align-items:center; gap:5px;}
+.fg-track{width:100%; height:74px; background:var(--paper-2); border-radius:5px;
+  display:flex; align-items:flex-end; overflow:hidden;}
+.fg-track i{display:block; width:100%; background:var(--good); border-radius:5px 5px 0 0;}
+.fg-pct{font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--ink);}
+.fg-lbl{font-size:calc(10px * var(--fs)); color:var(--ink-faint); text-align:center; line-height:1.25;}
+.so-lead{margin:4px 0 8px; font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft);}
+.so-names{margin:0 0 12px; font-size:calc(13px * var(--fs)); line-height:1.6; color:var(--ink);}
+
+/* "HOW FOLIO STUDIES YOU" (see PAGES.how in app.js) — a page read once, so it is set as prose at a
+   comfortable measure rather than as a grid of cards. The claim is the heading, because the claim is
+   the point: a reader skimming should come away with the four sentences even if they read nothing else. */
+.how-list{display:flex; flex-direction:column; gap:22px;}
+.how-claim{border-left:3px solid var(--indigo); padding:2px 0 2px 16px;}
+.how-claim h3{margin:0 0 8px; font-family:var(--display); font-size:calc(19px * var(--fs));
+  line-height:1.35; font-weight:600; color:var(--ink);}
+.how-claim p{margin:0 0 8px; font-size:calc(14.5px * var(--fs)); line-height:1.68;
+  color:var(--ink-soft); max-width:72ch;}
+.how-so{color:var(--ink) !important; font-style:italic;}
+.how-foot{margin-top:26px; border-top:1px solid var(--rule); padding-top:16px;
+  display:flex; flex-direction:column; gap:12px; align-items:flex-start;}
+.how-foot p{margin:0; max-width:72ch; font-size:calc(13.5px * var(--fs)); line-height:1.62; color:var(--ink-soft);}

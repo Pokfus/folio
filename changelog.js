@@ -35,13 +35,26 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.520", released: "2026-09-05T10:46Z" };
+window.FOLIO_VERSION = { v: "1.521", released: "2026-09-05T13:52Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-05",
-    t: "Corrections across Seneca, the Rigveda, Suetonius and the Journey",
+    t: "Studying rebuilt around what the evidence says works",
     items: [
+      "<b>The first time you study a deck, Folio now asks how you want it dealt</b> \u2014 four orders, each explained at length, and it says how to change your mind later.",
+      "<b>A new \u201cEased in\u201d deck order</b> introduces one subdeck at a time and mixes it with the rest once you know it.",
+      "<b>A card now counts as learned when you have recalled it on three separate days</b>, shown as three small marks under the answer, because recalling it three times in one evening is not the same thing.",
+      "<b>Every session now opens on a card you have met before</b>, which measurably improves how well the new ones stick.",
+      "<b>A new setting holds the Reveal button back until you have answered</b>, with an \u201cI don\u2019t know\u201d beside it \u2014 reading the answer feels like studying and is closer to rereading.",
+      "<b>Miss a card and Folio now tells you what the thing was</b>, not just its name, without your having to open the background.",
+      "<b>Multiple Choice now explains the wrong answer you picked</b> rather than only marking it wrong.",
+      "<b>Folio now notices the pairs of terms you mix up</b> and offers to drill them side by side.",
+      "<b>Some cards now ask you a question after the answer</b>, or ask how today\u2019s card connects to something you have already studied.",
+      "<b>A card can now show what came of it</b> \u2014 a short list of what it led to, each with a line saying how.",
+      "<b>Choosing to study a deck by difficulty now offers a twelve-question pretest</b> to find what you already know; it earns no experience and changes nothing but the running order.",
+      "<b>Your account page now draws your own forgetting curve</b>, and lists the cards you got right once and never again.",
+      "<b>A new page explains why parts of Folio are hard on purpose</b>, reached from Settings.",
       "<b>Forty-nine corrections to the Canterbury Tales and the Journey to the West</b> \u2014 read for the first time against two other scans of the same printing, which recovered a lost place-name and a lost word.",
       "<b>Fourteen page references and running heads taken out of Suetonius and the Journey to the West</b> \u2014 a printed page\u2019s own furniture, standing in the text where one of them split a hymn in half.",
       "<b>The project\u2019s own notes brought back up to date</b> \u2014 twenty figures and three names describing the site had fallen behind what it actually holds, some of them four times over.",

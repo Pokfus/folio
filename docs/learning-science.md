@@ -7,8 +7,11 @@ disagrees with what feels effective. This file holds the findings, what Folio al
 them, and twenty concrete proposals — what each would look like to a reader, and what it would
 actually touch.
 
-Researched September 2026. Nothing here has been built; this is a plan, not a record.
-
+Researched September 2026. **Thirteen of the twenty were built the same month** — 1, 2, 3, 4, 9, 10, 11,
+12, 17, 18, 19 and 20, plus a first-session order picker that was not in the original list. Each of those
+now carries a **SHIPPED** note saying what was actually built and where it differs from the proposal; the
+remaining seven are still proposals. `CLAUDE.md`'s "HOW A READER MEETS A CARD" bullet is the operational
+record — this file is the argument behind it.
 ---
 
 ## 1. What actually works
@@ -160,6 +163,8 @@ goes in `PROGRESS_FIELDS` and usually in `RESET_KEEPS`, and a change to the stud
 
 ### 1. Three correct recalls, on three different days
 
+> **SHIPPED (Sep 2026), as described, with one deliberate difference.** The deck's studied/total bar was NOT changed to count cards at criterion — that would make every existing reader's progress appear to collapse overnight, which is a true statement told in the most alarming possible way. "Learned" is a SECOND figure, a tile in the deck statistics panel beside "studied", plus the three pips under the answer and a Card info row. `CRIT_DAYS` is a constant rather than a per-deck option, since the evidence names three and a quantity does not cascade. The due-order preference is `byDue`, the one comparator every session builder's due sort now goes through.
+
 **Finding.** Successive relearning: the gains come from separated successes, and flatten after about
 three. Under two minutes per concept per session.
 
@@ -190,6 +195,8 @@ figure beside the existing one for a release, not as a replacement.
 
 ### 2. Two warm-up retrievals before the first new card
 
+> **SHIPPED (Sep 2026), exactly as described.** `warmUpFirst`, a tail pass in `buildSession` modelled on `spreadNoteSiblings`, running BEFORE it.
+
 **Finding.** The forward effect of testing: retrieving earlier material improves learning of new
 material studied afterwards. Free — it uses cards that were going to be dealt anyway.
 
@@ -208,6 +215,8 @@ no due cards at all (a first-ever session is all new, and manufacturing a warm-u
 fighting `mixPiles`'s interleave — it must only touch the head of the queue, never the body.
 
 ### 3. Blocked first, interleaved after — a fourth deck order
+
+> **SHIPPED (Sep 2026) as `hybrid`, labelled "Eased in".** `HYBRID_N` is 12. The round robin was lifted out of `studyOrder` into `robinOrder` so the hybrid can run it on a subset, and the pooled review needed a case of its own — its Ordered branch re-sorts the whole queue into the tree's global sequence and would have undone the per-deck order.
 
 **Finding.** Interleaving wins at long delay; hybrid may beat both, because a novice needs to see what
 a category has in common before discriminating between categories means anything.
@@ -232,6 +241,8 @@ the rest of the collection late — so it must not be the default; offer it, exp
 ## B. Making the retrieval act harder in the right way
 
 ### 4. Attempt before reveal
+
+> **SHIPPED (Sep 2026), as described.** `deckAttempt`, a policy in `DECK_OPT_INHERIT` with a global default in Settings → Study, off by default. One guard in `showAnswer` keyed on `fromReader`, so the button, Enter and Space are all covered and the reload-restore path is never refused. `syncAttempt` had to be declared above the phrasing cycler, which replaces every `.blank-input` on the card.
 
 **Finding.** Retrieval *effort* is the mechanism. Pressing Space and reading the answer is a rereading
 trial wearing a flashcard's clothes.
@@ -370,6 +381,8 @@ cap the strokes per card and prune oldest-first.
 
 ### 9. The "Why?" prompt
 
+> **SHIPPED (Sep 2026).** `card.why = { q, at }`, validated by `.claude/card-links.js` and written onto existing cards by `.claude/add-card-links.js`. It shares ONE per-session budget with #10, injected by `showAnswer` rather than built into `buildBack`. Five cards carry one so far; the rest is a content pass.
+
 **Finding.** Elaborative interrogation — answering *why a stated fact is true* — is rated moderate
 utility by Dunlosky and reported with large effects in the primary studies; the mechanism is
 integration with what the reader already knows. Chained "why → and why that" goes deeper than one turn.
@@ -398,6 +411,8 @@ for new cards, backfill a collection at a time, exactly as the citation passes r
 
 ### 10. "Connect it" — self-explanation against something already studied
 
+> **SHIPPED (Sep 2026), as the other half of #9's budget.** `connectKin` ranks by `cardKinship` over cards the reader has a record for, and needs at least two before it will draw.
+
 **Finding.** Self-explanation is separately rated moderate utility, and its distinguishing move is
 relating the new thing to prior knowledge rather than explaining the new thing on its own terms.
 
@@ -419,6 +434,8 @@ share one budget ("at most one elaboration prompt per session"), not have one ea
 ## D. Feedback that says something
 
 ### 11. Elaborated feedback — an explanation instead of a verdict
+
+> **SHIPPED (Sep 2026), on both surfaces.** A missed study card gets `cardFirstSentence` — the background's own opening definition, with its footnote markers stripped — inline under the answer. Multiple Choice explains the option the reader actually CHOSE, from that card's own defining sentence, rather than all three wrong options.
 
 **Finding.** The cleanest ranking in this file: explanation **d = 0.49**, correct answer **0.32**, bare
 right-or-wrong **0.05**. A cross is worth almost nothing.
@@ -450,6 +467,8 @@ enough to know *what it was*, without opening the fold and rereading three hundr
 `test-minigames.js` and `test-sources.js` (the marker strip).
 
 ### 12. Confusion pairs, mined from what the reader actually types
+
+> **SHIPPED (Sep 2026), as described.** `gradeCloze` now returns what was typed; `noteConfusion` records a guess that is another card's answer in the same collection. The drill needed a new `{type:"ids"}` session scope, which `buildSession` did not have.
 
 **Finding.** Interleaving's best-supported use is telling *confusable* things apart — and the site is
 currently throwing away the only evidence it has about which things a given reader confuses.
@@ -589,6 +608,8 @@ actually did anything.
 
 ### 17. A deck pretest that decides where to start
 
+> **SHIPPED (Sep 2026), gated on the difficulty order (on request).** The XP trap this entry names was avoided exactly as written — `S.pretest` rather than `S.cards` — and that is the assertion `test-learning.js` marks with three stars. The matcher forgives one slip INCLUDING a transposition, which plain edit distance counts as two.
+
 **Finding.** Pretesting works even on material not yet studied, and separately, overconfident readers
 waste time on what they already know. One screen does both.
 
@@ -612,6 +633,8 @@ knew back later than usual."* Skippable, and repeatable from the deck's menu.
 notices they levelled up for nothing.
 
 ### 18. "How Folio studies you" — say why it is hard on purpose
+
+> **SHIPPED (Sep 2026) as `PAGES.how`,** reached from Settings → Study and from the first-session order picker.
 
 **Finding.** Readers under-use spacing, interleaving and retrieval **because those feel worse**, and
 explaining the strategy — including explicitly *refuting* the intuition — measurably increases
@@ -644,6 +667,8 @@ website.
 
 ### 19. The cards that never got a second day
 
+> **SHIPPED (Sep 2026), both halves,** in the account page's statistics grid. A curve bucket with fewer than `CURVE_MIN_ROWS` reviews behind it prints nothing rather than a percentage drawn from four answers.
+
 **Finding.** The relearning gains come from the second and third separated success, and the reader
 cannot currently see which cards never got one: the heatmap says they studied, the retention figure
 says they are fine.
@@ -669,6 +694,8 @@ should ship together. The button is #7's `{type:"ids"}` scope again.
 ## G. The one that is specific to history
 
 ### 20. Causal chains — the second-order layer, and an eleventh game
+
+> **SHIPPED (Sep 2026) WITHOUT the minigame (on request).** `card.leadsTo` and the "What came of this" strip, validated by `.claude/card-links.js`. A link opens a peek sheet rather than routing: a click meant as a glance must not end the session and spend that card's schedule. One card carries edges so far.
 
 **Finding.** Chronology is the scaffold: without knowing when things happened and in what order, a
 reader cannot examine relationships between events or explain causation at all. But chronology is the
