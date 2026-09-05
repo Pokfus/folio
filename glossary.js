@@ -2074,7 +2074,8 @@ window.GLOSSARY = {
 "Scipio_Africanus": "<b>Scipio Africanus</b>, Publius Cornelius Scipio, was the Roman general who commanded in Spain and then in Africa during the war against Carthage, and who took his surname from that African campaign.<sup class=\"fn\" data-fn=\"1\"></sup> He was given the Spanish command by a vote of the people at about the age of 24, an appointment without precedent for a man who had held no senior magistracy, after his father and uncle were both killed there.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient accounts of him turn on whether his successes were luck or calculation: Polybius argues firmly for calculation and says he encouraged belief in divine inspiration as a means of leading men, while Livy leaves the question open.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Capture_of_New_Carthage": "The <b>capture of New Carthage</b> was the Roman storming of the principal Carthaginian base in Spain in 209 BCE, carried out by Publius Cornelius Scipio while the three Carthaginian field armies were far off.<sup class=\"fn\" data-fn=\"1\"></sup> The city held the enemy's treasury, war material and the hostages taken from Spanish communities, but was garrisoned by only about a thousand trained soldiers, and it was entered on the same day the siege opened, partly by way of a lagoon that ran shallow in the evening.<sup class=\"fn\" data-fn=\"2\"></sup> Its fall gave Rome a fleet base, the Carthaginian war chest and the means of detaching Spanish communities, whose hostages were returned on condition of alliance.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_Ilipa": "The <b>Battle of Ilipa</b> was fought in southern Spain in 206 BCE between a Roman army under Publius Cornelius Scipio and a larger Carthaginian one under Hasdrubal son of Gisgo, and ended Carthaginian power in the peninsula.<sup class=\"fn\" data-fn=\"1\"></sup> Scipio had drawn up in the same order for several days, matching his opponent, and on the day of battle reversed it, so that his legions faced the enemy's Spanish contingents on the wings while his own Spaniards held back the centre.<sup class=\"fn\" data-fn=\"2\"></sup> He also brought his men out fed and armed at sunrise, forcing the Carthaginians to form up hungry and in haste, and their line broke in the heat of the afternoon.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Hasdrubal's_march_into_Italy": "<b>Hasdrubal's march into Italy</b> was the movement of a Carthaginian army from Spain across the Pyrenees and the Alps in 207 BCE, undertaken to reinforce Hannibal, who had been campaigning in the peninsula for eleven years without support.<sup class=\"fn\" data-fn=\"1\"></sup> The crossing went far more quickly than the one his brother had made, the Alpine peoples receiving him and in places joining him, and he raised Gallic and Ligurian troops on arriving; he then spent time besieging the Roman colony of Placentia without taking it.<sup class=\"fn\" data-fn=\"2\"></sup> The march ended when a letter arranging a meeting with Hannibal in Umbria was intercepted, which allowed the Roman consuls to concentrate against him.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Hasdrubal's_march_into_Italy": "<b>Hasdrubal's march into Italy</b> was the movement of a Carthaginian army from Spain across the Pyrenees and the Alps in 207 BCE, undertaken to reinforce Hannibal, who had been campaigning in the peninsula for eleven years without support.<sup class=\"fn\" data-fn=\"1\"></sup> The crossing went far more quickly than the one his brother had made, the Alpine peoples receiving him and in places joining him, and he raised Gallic and Ligurian troops on arriving; he then spent time besieging the Roman colony of Placentia without taking it.<sup class=\"fn\" data-fn=\"2\"></sup> The march ended when a letter arranging a meeting with Hannibal in Umbria was intercepted, which allowed the Roman consuls to concentrate against him.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_the_Metaurus": "The <b>Battle of the Metaurus</b> was fought in 207 BCE in north-eastern Italy between a Carthaginian army under Hasdrubal Barca and two Roman consular armies, and ended the attempt to reinforce Hannibal from Spain.<sup class=\"fn\" data-fn=\"1\"></sup> One consul had marched north in secret with a picked force to join his colleague, so that the Carthaginians met more men than they expected, and were outflanked when the Roman right worked round behind its own line onto their exposed side.<sup class=\"fn\" data-fn=\"2\"></sup> Hasdrubal was killed in the fighting, his army destroyed, and his severed head afterwards thrown down before Hannibal's outposts in the south of the peninsula.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2923,7 +2924,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Spanish_campaigns_of_the_Scipios": "218–211 BCE",
 "Capture_of_New_Carthage": "209 BCE",
 "Battle_of_Ilipa": "206 BCE",
-"Hasdrubal's_march_into_Italy": "207 BCE"
+"Hasdrubal's_march_into_Italy": "207 BCE",
+"Battle_of_the_Metaurus": "207 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4204,7 +4206,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Scipio_Africanus": ["Publius Cornelius Scipio"],
 "Capture_of_New_Carthage": ["fall of New Carthage"],
 "Battle_of_Ilipa": ["Ilipa"],
-"Hasdrubal's_march_into_Italy": ["march of Hasdrubal"]
+"Hasdrubal's_march_into_Italy": ["march of Hasdrubal"],
+"Battle_of_the_Metaurus": ["Metaurus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6311,7 +6314,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Scipio_Africanus": ["person","history","warfare","politics","rome"],
 "Capture_of_New_Carthage": ["event","warfare","history","spain","rome"],
 "Battle_of_Ilipa": ["battle","warfare","history","spain","rome"],
-"Hasdrubal's_march_into_Italy": ["event","warfare","history","italy","rome"]
+"Hasdrubal's_march_into_Italy": ["event","warfare","history","italy","rome"],
+"Battle_of_the_Metaurus": ["battle","warfare","history","italy","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
