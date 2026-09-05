@@ -346,6 +346,95 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
     check("each says what Folio does about it", (await page.$$(".how-so")).length === 4);
     check("it is reachable from Settings", src.indexOf('id="howLink"') > 0 && /howLink[\s\S]{0,120}route\("how"\)/.test(src));
 
+    head("11) the criterion row in the header, and Think it through");
+    /* BOTH OF THESE ARE SILENT WHEN THEY BREAK. The pips moved out of `buildBack` and into the study
+       card's header row: left in both places they are drawn twice, left in neither they simply are not
+       there, and both read as a layout that was never touched. And the elaboration block is three
+       authored questions with their answers behind buttons — a button wired to nothing still looks like
+       a button, and an answer that starts revealed looks exactly like one the reader has just uncovered. */
+    await seed({ active: ["wh-evolution"], cards: { "wh-015": { due: Date.now() - 86400000, ivl: 5, ease: 2.5,
+                   status: "review", reps: 4, lapses: 0, first: "2026-01-01", crit: ["2026-01-01", "2026-01-02"],
+                   seen: 4, last: 3 } }, orderPicked: { "review:all": "" } });
+    await page.click("#b-review"); await page.waitForTimeout(800);
+    const hd = await page.evaluate(() => {
+      const qh = document.querySelector(".study-card .q-head");
+      if (!qh) return { none: true };
+      const mid = (e) => { const b = e.getBoundingClientRect(); return (b.left + b.right) / 2; };
+      const cr = qh.querySelector(".crit-row");
+      return { order: [...qh.children].map((e) => e.className.split(" ")[0]),
+               pips: qh.querySelectorAll(".crit-pip").length,
+               on: qh.querySelectorAll(".crit-pip.on").length,
+               words: cr ? cr.innerText.replace(/\s+/g, " ").trim() : "",
+               aria: cr ? cr.getAttribute("aria-label") : "",
+               off: cr ? Math.abs(mid(cr) - mid(qh)) : 999,
+               lines: Math.round(qh.getBoundingClientRect().height) };
+    });
+    check("the criterion row is in the study card's header", hd.pips === 3, JSON.stringify(hd));
+    check("…between the question label and the difficulty stars",
+      hd.order.join(",") === "q-lead,crit-row,card-stars", JSON.stringify(hd.order));
+    check("…reading the days this card has actually been recalled on", hd.on === 2, String(hd.on));
+    check("…and centred on the card rather than pushed off by the state dot", hd.off <= 1, String(hd.off));
+    check("the header stays one line, counter and all", hd.lines < 26, String(hd.lines));
+    check("the words are there on a desktop", /RECALLED ON 2 OF 3 DAYS/i.test(hd.words), hd.words);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForTimeout(200);
+    const ph = await page.evaluate(() => {
+      const cr = document.querySelector(".study-card .q-head .crit-row");
+      const l = cr && cr.querySelector(".crit-lbl");
+      return { pips: cr ? cr.querySelectorAll(".crit-pip").length : 0,
+               lbl: l ? getComputedStyle(l).display : "gone", aria: cr ? cr.getAttribute("aria-label") : "" };
+    });
+    check("on a phone the three dots stay", ph.pips === 3, JSON.stringify(ph));
+    check("…and the words go, since the line has no room for them", ph.lbl === "none", JSON.stringify(ph));
+    check("…with the whole sentence still on the row for a reader who cannot see dots",
+      /Recalled on 2 of 3 separate days/.test(ph.aria || ""), ph.aria);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.waitForTimeout(200);
+    check("the row is NOT also drawn under the answer — one place, not two",
+      (await page.$$(".reveal .crit-row")).length === 0);
+    // reveal, stepping on until the session spends its one elaboration prompt on an authored card
+    let why = null;
+    for (let i = 0; i < 8 && !why; i++) {
+      await clearOverlays();
+      await page.click("#reveal-btn").catch(() => {});
+      await page.waitForTimeout(320);
+      why = await page.evaluate(() => {
+        const e = document.querySelector('.elab[data-elab="why"]');
+        if (!e) return null;
+        return { kind: e.querySelector(".elab-kind").textContent,
+                 qs: [...e.querySelectorAll(".elab-item .elab-q")].map((x) => x.textContent),
+                 btns: [...e.querySelectorAll(".elab-show")].map((b) => b.textContent.trim()),
+                 hidden: [...e.querySelectorAll(".elab-a")].map((a) => a.hidden),
+                 answered: [...e.querySelectorAll(".elab-a")].map((a) => a.textContent.trim().length) };
+      });
+      if (why) break;
+      await page.click('.grade[data-g="good"]').catch(() => {});
+      await page.waitForTimeout(320);
+    }
+    check("a card with authored questions draws the Think it through block", !!why);
+    if (why) {
+      check("it reads THREE why-questions about the answer term", why.qs.length === 3, JSON.stringify(why.qs));
+      check("…each a real question, not a statement", why.qs.every((q) => /\?$/.test(q.trim())), JSON.stringify(why.qs));
+      check("…and no two of them are the same", new Set(why.qs).size === 3);
+      check("each has a Show answer button behind it",
+        why.btns.length === 3 && why.btns.every((b) => /show answer/i.test(b)), JSON.stringify(why.btns));
+      check("*** every answer starts HIDDEN — an uncovered one is not a self-check ***",
+        why.hidden.every(Boolean), JSON.stringify(why.hidden));
+      check("…and each really carries a paragraph rather than an empty box",
+        why.answered.every((n) => n > 40), JSON.stringify(why.answered));
+      await page.click(".elab .elab-item:nth-of-type(2) .elab-show");
+      await page.waitForTimeout(220);
+      const after = await page.evaluate(() => ({
+        hidden: [...document.querySelectorAll(".elab-a")].map((a) => a.hidden),
+        exp: [...document.querySelectorAll(".elab-show")].map((b) => b.getAttribute("aria-expanded")),
+        dis: [...document.querySelectorAll(".elab-show")].map((b) => b.disabled) }));
+      check("pressing one reveals ITS answer and nobody else's",
+        after.hidden.join(",") === "true,false,true", JSON.stringify(after.hidden));
+      check("…the button says so to a screen reader", after.exp.join(",") === "false,true,false", JSON.stringify(after.exp));
+      check("…and it cannot be pressed back — a read answer cannot be un-read",
+        after.dis.join(",") === "false,true,false", JSON.stringify(after.dis));
+    }
+
     check("no console or page errors throughout", errs.length === 0, errs.slice(0, 4).join(" | "));
     await browser.close();
     done();

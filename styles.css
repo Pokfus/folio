@@ -1373,7 +1373,15 @@ body[data-theme="folio"] .collection-deco::after{
    The stars therefore stop being absolute HERE and stay absolute nowhere else; `.card-stars` is emitted
    at exactly one site, so there is no other layout to keep in step. Where read-aloud is on, its mute
    button still holds the true corner, so the row keeps clear of it. */
-.study-card .q-head{display:flex; align-items:center; gap:12px; margin:0 0 7px;}
+/* IT IS A THREE-COLUMN GRID SINCE SEP 2026, and that is what centres the successive-relearning row the
+   request asked for: `1fr auto 1fr` gives the two OUTER columns an equal share of whatever is left, so
+   the middle one sits at the card's own centre — exactly, at every text size, with no offset written
+   down. A flex row cannot do it, because the state dot is a fourth item on the left whose width is
+   `calc(8px * var(--fs))`: flexing the label and the stars equally leaves the middle pushed right by half
+   the dot and its gap, which is a number that moves when the reader changes text size. Wrapping the dot
+   and the label in `.q-lead` makes the left column ONE item, which is what makes the grid possible. */
+.study-card .q-head{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px; margin:0 0 7px;}
+.study-card .q-head .q-lead{display:flex; align-items:center; gap:12px; min-width:0; overflow:hidden;}
 /* ...AND THE LABEL IS A FLEX ROW OF ITS OWN (Aug 2026, on a bug report that the dot, the word, the
    phrasing counter, the DIFFICULTY label and the stars sit at four different heights). The row above
    centres the two BOXES; inside the label the parts were still inline, so each aligned by its own rule —
@@ -1383,7 +1391,7 @@ body[data-theme="folio"] .collection-deco::after{
    centres on one line and that line centres against the stars, at every text size and with no offset
    anywhere. The per-part `vertical-align` rules below are inert in flex and are left as they are for
    any other context that ever renders them. */
-.study-card .q-head .label{margin:0; flex:1; min-width:0; display:flex; align-items:center;}
+.study-card .q-head .label{margin:0; flex:1 1 auto; min-width:0; display:flex; align-items:center;}
 .study-card:has(.tts-mute) .q-head{padding-right:38px;}
 .study-card .card-stars{position:static; flex:none; z-index:2; display:inline-flex; gap:2px; align-items:center; pointer-events:none;}
 /* WHERE THIS CARD STANDS, in the three colours the study bar's own counts use (Aug 2026, on request) —
@@ -1423,7 +1431,10 @@ body[data-theme="folio"] .collection-deco::after{
 .study-card .qc-btn svg{width:11px; height:11px;}
 .study-card .qc-btn:hover{opacity:1; background:color-mix(in srgb,var(--indigo) 14%, transparent);}
 .study-card .qc-btn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;}
-.study-card .qc-n{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; min-width:30px; text-align:center;}
+/* `nowrap` because the counter is a pair of numbers and a slash: with the header's middle column now
+   taken by the successive-relearning row, a narrow phone can squeeze this box to its 30px minimum,
+   and "2 / 3" then breaks across two lines — which makes the whole header two lines tall. */
+.study-card .qc-n{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; min-width:30px; text-align:center; white-space:nowrap;}
 .study-card .question{font-size:calc(18px * var(--fs)); line-height:1.62; margin:0 0 20px; color:var(--ink);}
 .study-card .blank{display:inline-block; box-sizing:border-box; width:2.7em; color:transparent; overflow:hidden; white-space:nowrap; vertical-align:baseline; border-bottom:2px solid var(--ochre); margin:0 3px; line-height:1;}
 /* the golden blank becomes a typing field; on reveal it is replaced by the typed letters, coloured
@@ -1467,17 +1478,30 @@ body[data-theme="folio"] .collection-deco::after{
    set at 25px, so it must not compete with it. It goes gold once the criterion is met, taking the same
    ink the collection icons and the finished-deck bars use, so "you are done with this" reads the same
    way everywhere on the site. */
+/* THE SUCCESSIVE-RELEARNING ROW LIVES IN THE STUDY CARD'S HEADER (Sep 2026, on request) — see
+   critPipsHTML in app.js, and the `.q-head` grid above for how it is centred. */
 .crit-row{display:flex; align-items:center; gap:7px; margin-top:9px;}
+.study-card .q-head .crit-row{margin-top:0; min-width:0; justify-self:center;}
+.study-card .q-head .card-stars{justify-self:end;}
 .crit-pips{display:inline-flex; gap:4px;}
 .crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--ink-faint); box-sizing:border-box;}
 .crit-pip.on{background:var(--ink-faint); border-color:var(--ink-faint);}
-.crit-lbl{font-size:calc(10.5px * var(--fs)); letter-spacing:.03em; text-transform:uppercase; color:var(--ink-faint);}
+.crit-lbl{font-size:calc(10.5px * var(--fs)); letter-spacing:.03em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap;}
 .crit-row.done .crit-pip{background:#C39A2E; border-color:#C39A2E;}
 body.night .crit-row.done .crit-pip{background:#D4AA3C; border-color:#D4AA3C;}
 /* the caption takes the DEEPER gold, for the reason `.prog-done .xp-lvl` does: #C39A2E at this size on
    the card is 3.6:1, and this is 10.5px uppercase text */
 .crit-row.done .crit-lbl{color:#8A6A1E;}
 body.night .crit-row.done .crit-lbl{color:#E0C069;}
+/* ...and in the header a PHONE gets the pips alone (Sep 2026, on request: "only display the text on
+   desktop and tablet format. on mobile, only show the three dots"). Four things share that line — the
+   state dot, the "Question" label with its phrasing counter, this row and the difficulty stars — and
+   measured on a 390px screen the sentence alone is wider than the stars beside it. The whole sentence is
+   still on the row as its `aria-label` and its tooltip, which is the only form a reader who cannot see
+   three dots has ever had, so nothing is said by the words alone. */
+@media (max-width:640px){
+  .study-card .q-head .crit-lbl{display:none;}
+}
 .answer .val{font-family:var(--display); font-weight:600; font-size:calc(25px * var(--fs)); color:var(--zh); line-height:1.18; min-width:0; display:block;}
 /* THE ANSWER TERM ALWAYS OPENS ON A CAPITAL (Aug 2026, on request), even where the question and the
    background write it lower-case — here it is a heading naming the thing, not a word in a sentence.
@@ -5163,15 +5187,9 @@ button.game-tile .gt-glyph{opacity:.14;}
   body.grading .study-shell .undobtn{display:none;}
   .study-shell .undobtn{margin-left:0;}
 
-  /* ---- NOTHING ON A PHONE NAMES A KEY IT HAS NOT GOT (Aug 2026, on request) ----
-     The digit under each grade and the shortcut line in the ? bubble both describe a keyboard. A phone has
-     none, so on a phone they are two pieces of furniture explaining a control that cannot be reached: the
-     digits cost the four buttons a line of height each, and the shortcut line costs the bubble a third of
-     its own. They are hidden here rather than dropped from the markup, because the same markup is what a
-     desktop reader gets — and there the keys are real and worth saying. (The ≤430px block used to carry
-     the .gk rule alone; the whole phone range takes it now, so the two can't disagree.) */
-  .grade .gk{display:none;}
-  .grade-help-bubble .ghb-keys{display:none;}
+  /* (The shortcut digits and the ? bubble's key line are hidden across the whole TOUCH range — phone and
+     tablet alike — in the ≤1024px block below this one. They used to be hidden here; a tablet has no
+     keyboard either, so the rule had to widen, and it lives in ONE place so the two cannot disagree.) */
 
   /* ---------- the grade bar's two heights (Aug 2026, on request) ----------
      Drag the grip down and the bar halves: the four grades go side by side as bare COLOURS, and the ?,
@@ -5321,6 +5339,24 @@ button.game-tile .gt-glyph{opacity:.14;}
   .acct-syncnote{margin:-10px 0 16px; text-align:center; padding-left:0;}
 }
 
+/* ---- NOTHING TOUCH-SIZED NAMES A KEY IT HAS NOT GOT (Aug 2026, on request; widened to tablets Sep 2026,
+   on request: "on tablet, ensure the grading buttons don't mention their keyboard shortcuts") ----
+   The digit under each grade and the shortcut line in the ? bubble both describe a keyboard. A phone has
+   none and a tablet has none either, so on both they are furniture explaining a control that cannot be
+   reached: the digits cost the four buttons a line of height each, and the shortcut line costs the bubble
+   a third of its own. They are hidden rather than dropped from the markup, because the same markup is what
+   a desktop reader gets — and there the keys are real and worth saying.
+
+   THE BREAKPOINT IS 1024px, WHICH IS THE SITE'S OWN TABLET LINE — the width `--cp-sheet` already uses to
+   decide that the Atlas place panel is a sheet rather than a desktop column, so a tablet is one thing here
+   and not two. And it is ONE rule at ONE width rather than a copy inside each narrower block: the ≤640px
+   and ≤430px blocks both used to carry a `.gk` line of their own, which is exactly how two rules about one
+   decision come to disagree. */
+@media (max-width:1024px){
+  .grade .gk{display:none;}
+  .grade-help-bubble .ghb-keys{display:none;}
+}
+
 /* ---- narrow phones: the grade bar in ONE row ----
    Two rows of two, plus a row for help and suspend, took about a quarter of a 390px screen — over a card
    whose background already runs several screens. Four columns fit once the shortcut digits go (they name
@@ -5337,7 +5373,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   .grade{padding:9px 3px 8px; border-radius:9px;}
   .grade .gl{font-size:calc(10px * var(--fs)); letter-spacing:.02em;}
   .grade .gi{font-size:calc(9px * var(--fs)); margin-top:4px;}
-  /* (.grade .gk is hidden across the whole phone range — see the ≤640px block above) */
+  /* (.grade .gk is hidden across the whole TOUCH range, phone and tablet — see the ≤1024px block above) */
   .grade-wrap{gap:8px;}
   body.grading .stage{padding-bottom:150px;}
   body.grading .wb-tools{bottom:120px;}
@@ -8222,7 +8258,37 @@ body[data-theme="carnelian"].night .collection-deco{
 .elab{border:1px dashed var(--rule); border-radius:12px; background:var(--paper-2);
   padding:14px 15px; margin:16px 0 4px; display:flex; flex-direction:column; gap:9px;}
 .elab-kind{font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
-.elab-q{margin:0; font-family:var(--display); font-size:calc(16px * var(--fs)); line-height:1.5; color:var(--ink);}
+.elab-q{margin:0; font-family:var(--serif); font-size:calc(16px * var(--fs)); line-height:1.6; color:var(--ink);}
+/* THREE QUESTIONS, EACH WITH ITS ANSWER BEHIND A BUTTON (Sep 2026, on request) — see elabPromptHTML.
+   A row is question + button on one line, with the answer uncovered underneath it. The button is
+   `flex:none` and the question `flex:1 1 auto` with `min-width:0`, so a long question wraps and the
+   button keeps its size rather than being squeezed to a word a line; below 520px the button drops to its
+   own line under the question, because at that width a right-hand column of "Show answer" leaves the
+   question about half the card. The rule between items is what stops three questions reading as one
+   paragraph with buttons in it.
+
+   IT IS SET IN THE CARD'S OWN TYPE (Sep 2026, on request: "change the fonts so it fits better with the
+   rest of the card"). The block was in the display face at the size of a heading, which read as a second
+   card sitting inside the first. Both halves take `--serif`, the face the question and the background are
+   already set in: the QUESTION at the abstract's own size in the full ink, the ANSWER at the abstract's
+   own size, leading and quieter ink exactly — so uncovering one reads as a paragraph of the card rather
+   than as a panel that has opened. NEITHER IS BOLD (Sep 2026, on request, having been for a few hours):
+   what tells a question from its answer is the ink and the rule the answer is indented under, and three
+   bold lines in a row read as three headings over a card whose own prose is not set that way. */
+.elab-item{display:flex; flex-direction:column; gap:7px; padding-top:10px; border-top:1px solid var(--rule);}
+.elab-item:first-of-type{padding-top:2px; border-top:0;}
+.elab-qrow{display:flex; align-items:flex-start; gap:12px;}
+.elab-qrow .elab-q{flex:1 1 auto; min-width:0;}
+.elab-qrow .elab-show{flex:none; white-space:nowrap; padding:6px 11px; font-size:calc(11.5px * var(--fs));}
+.elab-qrow .elab-show:disabled{opacity:.4; cursor:default;}
+/* the answer itself: the card's own prose, set off by a rule down its left edge so it reads as a reply to
+   the line above rather than as another paragraph of the background */
+.elab-a{margin:0; padding-left:12px; border-left:2px solid var(--rule);
+  font-family:var(--serif); font-size:calc(16px * var(--fs)); line-height:1.66; color:var(--ink-soft);}
+.elab-a[hidden]{display:none;}
+@media (max-width:520px){
+  .elab-qrow{flex-direction:column; align-items:flex-start; gap:8px;}
+}
 .elab-box{width:100%; box-sizing:border-box; resize:vertical; font:inherit;
   font-size:calc(14px * var(--fs)); line-height:1.5; color:var(--ink);
   background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:9px 11px;}
