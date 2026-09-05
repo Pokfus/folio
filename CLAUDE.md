@@ -4760,6 +4760,12 @@ the end of a successful add and print the candidates, their licences, their size
   into the card stays the normal `/thumb/…/1920px-…` URL, since the limit is this container's and not a
   reader's. The rule this protects is the one that matters: **look at the picture before using it**, and a
   host that will not serve it is a reason to keep trying or to ship without one, never to install unseen.
+· **AND THE `src` IS COPIED FROM THE API, NEVER BUILT BY HAND** (Sep 2026). An upload URL carries a
+  two-character shard — `…/commons/0/07/<FILE>` — which is the first characters of the file name's MD5
+  and CANNOT be guessed; a hand-typed one is a 404 on a card that otherwise looks finished. Ask
+  `api.php` for `imageinfo` with `iiprop=url` and take `url` (or `thumburl`, minus its tracking query).
+  It cost a broken picture once, caught only because the rate limit above forced a re-check — so when
+  a `src` cannot be fetched to confirm it, compare it against the API's own string instead.
 · It writes the same fields the pass writes: a card and a term take `{ src, title, desc, credit, alt }`, an
   artefact `{ src, credit, alt }`, and **`credit` is required in all three** — a picture on Folio is always
   somebody else's file, and `add-card.js`, `add-glossary.js`, `add-artefacts.js`, `add-images.js` and the
@@ -4871,7 +4877,7 @@ lookup.
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
-| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 10 cards — not a history collection |
+| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 11 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 100 cards — and it is NOT a 1000-card plan, see below |
