@@ -2055,7 +2055,8 @@ window.GLOSSARY = {
 "Barcid_conquest_of_Spain": "The Barcid conquest of Spain was the subjugation of much of the Iberian peninsula by Hamilcar Barca and his successors, begun immediately after Carthage lost Sicily and Sardinia and intended to replace what had been lost.<sup class=\"fn\" data-fn=\"1\"></sup> Hamilcar campaigned there for about nine years, reducing tribes by force or by negotiation until he was killed; his son-in-law Hasdrubal then married an Iberian prince's daughter, was acclaimed general by the Iberians themselves, and founded New Carthage on the coast.<sup class=\"fn\" data-fn=\"2\"></sup> The resulting dominion was larger than the one Carthage had held before, which brought Rome to negotiate a limit at the Ebro, and it passed on Hasdrubal's murder to Hamilcar's son Hannibal.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "New_Carthage": "New Carthage was the city Hasdrubal founded on the Spanish coast as the seat of Carthaginian power there, on a site chosen for action in Spain and Africa alike.<sup class=\"fn\" data-fn=\"1\"></sup> It stands on a hill in a land-locked gulf, sea on two sides and a lagoon on a third, joined to the mainland by a neck of two stades and ringed by five hills carrying a temple, a palace and the name of the man said to have found the silver.<sup class=\"fn\" data-fn=\"2\"></sup> Almost alone among Spanish cities it had harbours fit for a fleet, and it held Carthage's money, its war material and the hostages taken from the whole peninsula.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ebro_treaty": "The Ebro treaty was an agreement between Rome and the Carthaginian commander in Spain, whose whole content was that the Carthaginians should not cross the Ebro in arms.<sup class=\"fn\" data-fn=\"1\"></sup> Rome sought it because a large dominion was forming in the peninsula and a Celtic invasion at home left no room to act, so envoys were sent to conciliate rather than to give orders, and nothing was said about the rest of Spain.<sup class=\"fn\" data-fn=\"2\"></sup> Its standing was later disputed: Carthage held that a commander could not bind the state without its approval, while Rome answered that this agreement, unlike an earlier one, carried no clause requiring ratification.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Saguntum": "Saguntum was a city on the eastern coast of Iberia, standing on the seaward foot of a range of hills a short distance inland, in country its besieger's historian calls the most fertile in the peninsula.<sup class=\"fn\" data-fn=\"1\"></sup> It had placed itself under Roman protection well before the second war between Rome and Carthage, calling in Roman rather than Carthaginian mediation when a quarrel divided it, although Carthage was the nearer power.<sup class=\"fn\" data-fn=\"2\"></sup> Hannibal besieged it for eight months and took it by storm; its fall was the immediate occasion of that war, and Rome responded by demanding that Carthage surrender him or accept a declaration.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Saguntum": "Saguntum was a city on the eastern coast of Iberia, standing on the seaward foot of a range of hills a short distance inland, in country its besieger's historian calls the most fertile in the peninsula.<sup class=\"fn\" data-fn=\"1\"></sup> It had placed itself under Roman protection well before the second war between Rome and Carthage, calling in Roman rather than Carthaginian mediation when a quarrel divided it, although Carthage was the nearer power.<sup class=\"fn\" data-fn=\"2\"></sup> Hannibal besieged it for eight months and took it by storm; its fall was the immediate occasion of that war, and Rome responded by demanding that Carthage surrender him or accept a declaration.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Second_Punic_War": "The Second Punic War was the conflict between Rome and Carthage fought from 218 to 201 BCE, opened by Hannibal's storming of Saguntum and named by Polybius after him.<sup class=\"fn\" data-fn=\"1\"></sup> Its causes are given as Hamilcar Barca's resentment after the loss of Sicily, the Roman seizure of Sardinia with the tribute exacted for it, and the wealth Carthage drew from Spain; the fighting ran across Italy, Spain, Sicily and Africa.<sup class=\"fn\" data-fn=\"2\"></sup> The peace left Carthage its African territory and its own laws but took its fleet but for ten ships, its elephants and its freedom to make war abroad, with 10,000 talents to pay over fifty years.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2888,7 +2889,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Barcid_conquest_of_Spain": "from 237 BCE",
 "New_Carthage": "founded c. 228 – 221 BCE",
 "Ebro_treaty": "c. 226 BCE",
-"Saguntum": "besieged 219 BCE"
+"Saguntum": "besieged 219 BCE",
+"Second_Punic_War": "218 – 201 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4151,7 +4153,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Barcid_conquest_of_Spain": ["Barcid Spain","Barcids"],
 "New_Carthage": ["Carthago Nova","Cartagena"],
 "Ebro_treaty": ["treaty of the Ebro","Ebro agreement"],
-"Saguntum": ["Sagunto","Arse"]
+"Saguntum": ["Sagunto","Arse"],
+"Second_Punic_War": ["Hannibalic war","Hannibalic War"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6239,7 +6242,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Barcid_conquest_of_Spain": ["event","history","warfare","spain","africa"],
 "New_Carthage": ["city","place","history","spain","africa"],
 "Ebro_treaty": ["event","history","politics","spain","rome"],
-"Saguntum": ["city","place","history","warfare","spain"]
+"Saguntum": ["city","place","history","warfare","spain"],
+"Second_Punic_War": ["event","history","warfare","rome","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
