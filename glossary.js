@@ -2100,7 +2100,8 @@ window.GLOSSARY = {
 "Perseus_of_Macedon": "<b>Perseus</b> was king of Macedon from 179 to 168 BCE and the last to rule the kingdom, which Rome abolished after defeating him. He was the elder son of Philip V and reached the throne after his younger brother Demetrius was put to death on charges Perseus had brought, a killing Livy presents as engineered by him.<sup class=\"fn\" data-fn=\"1\"></sup> He was defeated at Pydna and surrendered in person, and Polybius, writing within living memory, attributes his failure less to Roman strength than to an unwillingness to spend money on allies who might have helped him.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Battle_of_Pydna": "The <b>Battle of Pydna</b> was fought in Macedonia in 168 BCE between a Roman army under Lucius Aemilius Paullus and the Macedonian army of King Perseus, and decided the Third Macedonian War. The Macedonian pike formation was irresistible while it held together, and the Roman troops who met it head on were destroyed; it was broken when uneven ground opened gaps in its front and the Roman commander sent his cohorts into them to fight in small detachments.<sup class=\"fn\" data-fn=\"1\"></sup> The defeat was overwhelming, and it ended the independent Macedonian kingdom, which Rome abolished in the settlement that followed.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Lucius_Aemilius_Paullus_Macedonicus": "Lucius Aemilius Paullus Macedonicus was a Roman commander, son of the consul who fell at Cannae,<sup class=\"fn\" data-fn=\"1\"></sup> and the general whose victory over Perseus at Pydna in 168 BCE was decided, Plutarch says, within an hour of the fighting beginning.<sup class=\"fn\" data-fn=\"3\"></sup> Plutarch presents him as an exacting man, elected aedile over twelve competitors who all later became consuls, and treating the augurship as a technical discipline rather than an honour to be worn.<sup class=\"fn\" data-fn=\"2\"></sup> Plutarch also records that the army he took into Epirus after the war sacked about seventy cities in a single hour and enslaved 150,000 people, each soldier receiving eleven drachmas.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Settlement_of_Macedonia": "Settlement of Macedonia is the name given to the arrangement Rome imposed on the Macedonian kingdom in 167 BCE, after the defeat of its last king, and proclaimed at Amphipolis.<sup class=\"fn\" data-fn=\"1\"></sup> The kingdom was declared free but divided into four districts, each with a council, a capital and its own elections,<sup class=\"fn\" data-fn=\"2\"></sup> and its people were forbidden to marry, or to buy land or houses, across the new boundaries.<sup class=\"fn\" data-fn=\"1\"></sup> The gold and silver mines were closed while iron and copper might still be worked, the cutting of ship timber was banned,<sup class=\"fn\" data-fn=\"1\"></sup> and the tribute owed to Rome was set at about half what the kings had taken.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Settlement_of_Macedonia": "Settlement of Macedonia is the name given to the arrangement Rome imposed on the Macedonian kingdom in 167 BCE, after the defeat of its last king, and proclaimed at Amphipolis.<sup class=\"fn\" data-fn=\"1\"></sup> The kingdom was declared free but divided into four districts, each with a council, a capital and its own elections,<sup class=\"fn\" data-fn=\"2\"></sup> and its people were forbidden to marry, or to buy land or houses, across the new boundaries.<sup class=\"fn\" data-fn=\"1\"></sup> The gold and silver mines were closed while iron and copper might still be worked, the cutting of ship timber was banned,<sup class=\"fn\" data-fn=\"1\"></sup> and the tribute owed to Rome was set at about half what the kings had taken.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Day_of_Eleusis": "Day of Eleusis is the name given to a meeting at Eleusis outside Alexandria in 168 BCE, at which the Roman envoy Gaius Popillius Laenas confronted the Seleucid king Antiochus IV, who had overrun Egypt.<sup class=\"fn\" data-fn=\"1\"></sup> Popillius refused the king's outstretched hand, gave him a tablet carrying the senate's decree instead, and, when he asked to consult his friends, drew a circle round him with a stick cut from a vine and required an answer before he left it.<sup class=\"fn\" data-fn=\"2\"></sup> Antiochus agreed to withdraw, and Polybius held that he did so only because the defeat of Perseus in Macedonia had already settled who would decide such questions.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2970,7 +2971,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Third_Macedonian_War": "171 – 168 BCE",
 "Perseus_of_Macedon": "179 – 168 BCE",
 "Battle_of_Pydna": "168 BCE",
-"Settlement_of_Macedonia": "167 BCE"
+"Settlement_of_Macedonia": "167 BCE",
+"Day_of_Eleusis": "168 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6389,7 +6391,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Perseus_of_Macedon": ["ruler","person","history","greece","rome"],
 "Battle_of_Pydna": ["battle","warfare","history","greece","rome"],
 "Lucius_Aemilius_Paullus_Macedonicus": ["person","history","warfare","rome","macedonia"],
-"Settlement_of_Macedonia": ["event","history","politics","rome","greece"]
+"Settlement_of_Macedonia": ["event","history","politics","rome","greece"],
+"Day_of_Eleusis": ["event","history","politics","rome","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
