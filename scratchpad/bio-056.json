@@ -1,0 +1,29 @@
+{
+  "id": "bio-056",
+  "num": 56,
+  "category": "Biology",
+  "question": "Three fatty acids esterified to one glycerol leave no polar group at all, so a <span class=\"blank\">_____</span> will not dissolve in water and collects instead as a droplet.",
+  "questions": [
+    "Adrenaline does not reach the fat itself but unlocks it, phosphorylating the protein that coats the droplet so the lipases can begin cutting a <span class=\"blank\">_____</span> apart.",
+    "Because it cannot dissolve in blood, a <span class=\"blank\">_____</span> travels in a lipoprotein particle, and the level of those particles is what a routine blood test reports."
+  ],
+  "answer": "triglyceride",
+  "answerText": "triglyceride",
+  "answerDate": "",
+  "traditional": "",
+  "hanzi": "",
+  "pinyin": "",
+  "translations": "",
+  "citation": "",
+  "difficulty": 2,
+  "undatable": true,
+  "tags": ["object", "science", "biology", "chemistry"],
+  "abstract": "A <b>triglyceride</b>, or triacylglycerol, is three fatty acids joined to a single glycerol molecule, and it is the form in which fatty acids are stored.<sup class=\"fn\" data-fn=\"1\"></sup> With all three of the glycerol's hydroxyls taken up in ester bonds the molecule keeps no polar group, so it is insoluble in water and gathers as fat droplets in the cytoplasm.<sup class=\"fn\" data-fn=\"1\"></sup> That is what makes it worth using as a fuel store, since fats yield more than twice as much energy per unit weight as carbohydrates and let an animal carry a given reserve in less than half the body weight.<sup class=\"fn\" data-fn=\"1\"></sup> Building one ends with diacylglycerol acyltransferase, which esterifies the third fatty acid onto a diacylglycerol and catalyses the committed, rate-limiting step of the pathway.<sup class=\"fn\" data-fn=\"2\"></sup> Plants run the same chemistry into their seeds, which is where seed oil comes from; oats hold more of it than any other cereal.<sup class=\"fn\" data-fn=\"2\"></sup> <br><br> Getting the energy back out is lipolysis, and three enzymes take the fatty acids off in turn: adipose triglyceride lipase, hormone-sensitive lipase and monoacylglycerol lipase, leaving free fatty acids and glycerol.<sup class=\"fn\" data-fn=\"3\"></sup> The store is locked rather than merely kept, because perilipin-1 coats the droplet and holds the first lipase's coactivator away from it until adrenaline, acting through protein kinase A, phosphorylates the perilipin and lets go.<sup class=\"fn\" data-fn=\"3\"></sup> That is not the only switch, and work on adipose tissue in the bone marrow, which resists the usual cues, describes a route driven by low glucose and low insulin that needs no adrenaline at all.<sup class=\"fn\" data-fn=\"4\"></sup> Because a triglyceride will not dissolve in blood either, it travels inside lipoprotein particles, chylomicrons from the gut after a fatty meal and very-low-density lipoprotein from the liver, whose cargo lipoprotein lipase cuts up at the tissue that needs it.<sup class=\"fn\" data-fn=\"5\"></sup> Those particles and the remnants they leave are what a blood triglyceride reading measures, and their disordered handling raises the risk of atherosclerotic cardiovascular disease.<sup class=\"fn\" data-fn=\"5\"></sup>",
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Yan Sun, Jinzhou Yang, Ruirui Hu, Chen Li, Xiping Sun, Zhiwei Zhang, Runzhi Li, and Jinai Xue, “Systematic Analysis of the Diacylglycerol Acyltransferase (DGAT) Genes in Oat and Functional Characterization of AsDGAT2-1 Involved in Oil Accumulation and Cold Stress Tolerance,” <i>BMC Plant Biology</i> 26, no. 1 (2026): 398, https://doi.org/10.1186/s12870-026-08254-x. [Open access]",
+    "Courtney L. Bordelon and Jacqueline M. Stephens, “Lipolysis in Health and Disease: Pathways, Regulation, and Metabolic Consequences,” <i>Current Diabetes Reports</i> 26, no. 1 (2026): 8, https://doi.org/10.1007/s11892-026-01624-7. [Open access]",
+    "Xiao Zhang, Sreejith S. Panicker, Jordan M. Bollinger, Anurag Majumdar, Rami Kheireddine, Lila F. Dabill, Clara Kim, et al., “A Catecholamine-Independent Pathway Controlling Adaptive Adipocyte Lipolysis,” <i>Nature Metabolism</i> 8, no. 1 (2026): 96–115, https://doi.org/10.1038/s42255-025-01424-5. [Open access]",
+    "Henry N. Ginsberg and Karin E. Bornfeldt, “Triglyceride-Rich Lipoprotein Metabolism and Cardiovascular Risk in Diabetes: Bedside to Bench to Bedside,” <i>Circulation Research</i> 138, no. 12 (2026): e327267, https://doi.org/10.1161/CIRCRESAHA.125.327267. [Open access]"
+  ]
+}

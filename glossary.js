@@ -2102,7 +2102,8 @@ window.GLOSSARY = {
 "Glycogen": "Glycogen is the storage carbohydrate of animals, composed entirely of glucose molecules in the α configuration and joined mainly between carbon 1 of one unit and carbon 4 of the next.<sup class=\"fn\" data-fn=\"1\"></sup> Occasional α(1→6) links attach a new chain to the side of an existing one, so the molecule branches repeatedly, a structure it shares with the amylopectin of plant starch.<sup class=\"fn\" data-fn=\"1\"></sup> Each particle is begun on a protein called glycogenin, which attaches the first glucose units to itself, and the store held in a vertebrate liver is drawn on to keep the concentration of glucose in the blood from falling.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Cellulose": "Cellulose is the principal structural material of the plant cell wall, built entirely of glucose as starch and glycogen are but with its units joined in the β rather than the α configuration.<sup class=\"fn\" data-fn=\"1\"></sup> That difference straightens the chains, letting many of them lie alongside one another and bind into fibres, and it places the linkage beyond the reach of the enzymes that open a store of starch, so most animals digest it only through microbial symbionts.<sup class=\"fn\" data-fn=\"1\"></sup> It is the most abundant renewable organic material on Earth, occurring in plant tissue together with hemicellulose and lignin.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Chitin": "Chitin is a polysaccharide made of N-acetylglucosamine units, each a glucose ring bearing an acetylamino group, joined by &beta;-1,4 glycosidic bonds so that the chains lie straight and pack side by side into tough sheets.<sup class=\"fn\" data-fn=\"1\"></sup> It is the structural material of fungal cell walls and of the cuticle of insects, crustaceans and other arthropods, and some algae build with it too, which makes it the second most abundant biopolymer on Earth after cellulose.<sup class=\"fn\" data-fn=\"1\"></sup> Animals that grow inside a chitinous cuticle must digest part of it to moult, using chitinases of their own,<sup class=\"fn\" data-fn=\"2\"></sup> and enzymes of the same kind let bacteria return its carbon and nitrogen to circulation.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Lipid": "A lipid is any of a diverse group of small biological molecules that are hydrophobic or amphipathic; their chemical structures vary widely, so the category is held together by how its members behave in water rather than by a shared backbone.<sup class=\"fn\" data-fn=\"1\"></sup> The simplest are fatty acids, long hydrocarbon chains whose nonpolar bonds cannot interact with water, and cells put lipids to three principal uses: storing energy as fats, building membranes from phospholipids, and carrying chemical signals.<sup class=\"fn\" data-fn=\"2\"></sup> Modern surveys of cellular lipid composition find hundreds to thousands of distinct species differing in head group, chain length and degree of unsaturation, and why so many are maintained remains unsettled.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Lipid": "A lipid is any of a diverse group of small biological molecules that are hydrophobic or amphipathic; their chemical structures vary widely, so the category is held together by how its members behave in water rather than by a shared backbone.<sup class=\"fn\" data-fn=\"1\"></sup> The simplest are fatty acids, long hydrocarbon chains whose nonpolar bonds cannot interact with water, and cells put lipids to three principal uses: storing energy as fats, building membranes from phospholipids, and carrying chemical signals.<sup class=\"fn\" data-fn=\"2\"></sup> Modern surveys of cellular lipid composition find hundreds to thousands of distinct species differing in head group, chain length and degree of unsaturation, and why so many are maintained remains unsettled.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Triglyceride": "A triglyceride, also called a triacylglycerol, is a molecule of three fatty acids joined by ester bonds to a single glycerol, and it is the form in which living things store fatty acids.<sup class=\"fn\" data-fn=\"1\"></sup> Because every one of the glycerol's hydroxyl groups is taken up in an ester, the molecule keeps no polar part, will not dissolve in water and accumulates instead as droplets; weight for weight it yields more than twice the energy that carbohydrates do.<sup class=\"fn\" data-fn=\"1\"></sup> Its synthesis ends with diacylglycerol acyltransferase, which adds the third fatty acid and catalyses the committed, rate-limiting step, while lipases release the fatty acids again when they are needed.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4222,7 +4223,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Monosaccharide": ["monosaccharides","simple sugar"],
 "Disaccharide": ["disaccharides"],
 "Polysaccharide": ["polysaccharides"],
-"Lipid": ["lipids"]
+"Lipid": ["lipids"],
+"Triglyceride": ["triglycerides","triacylglycerol","triacylglycerols"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6360,7 +6362,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Glycogen": ["object","science","chemistry"],
 "Cellulose": ["object","science","chemistry"],
 "Chitin": ["object","science","biology","chemistry"],
-"Lipid": ["object","science","biology","chemistry"]
+"Lipid": ["object","science","biology","chemistry"],
+"Triglyceride": ["object","science","biology","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
