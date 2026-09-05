@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.520", released: "2026-09-05T11:22Z" };
+window.FOLIO_VERSION = { v: "1.521", released: "2026-09-05T12:12Z" };
 
 window.CHANGELOG = [
   {
@@ -45,7 +45,11 @@ window.CHANGELOG = [
       "<b>Nearly a hundred Ancient Greece cards now carry the dates they were missing</b>, including the whole Athens deck, where Solon, Draco, Peisistratus and Cleisthenes had no year between them.",
       "<b>Picture captions across the collection no longer repeat the source</b>, which is on the line beneath them, and 33 that said nothing now describe what is in the frame.",
       "<b>Fourteen pictures showing something other than the card have been taken down</b>, among them a Viking grave standing in for a Greek one and a Viennese weight of 1756 for a Greek weight standard.",
-      "<b>Thirteen questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who wrote on it."
+      "<b>Thirteen questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who wrote on it.",
+      "<b>Nineteen new glossary terms the Ancient Greece cards were already using</b>, among them the Constitution of the Athenians, the parts of a temple and the Greek money.",
+      "<b>Sixteen Ancient Greece backgrounds no longer read as lists of who argued what</b>, keeping every claim and dropping the roll-call of modern scholars.",
+      "<b>Twelve Athens cards now give the year beside the archon they date by</b>, so \u201cin the archonship of Aristaechmus\u201d also says 621/620 BCE.",
+      "<b>Three Ancient Greece cards now quote the primary text from Folio\u2019s own Library</b>, opening Herodotus, Homer or Thucydides at the passage the card is about."
     ]
   },
   {

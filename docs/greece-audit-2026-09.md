@@ -173,6 +173,24 @@ a story about a beaten puppy, and its second phrasing says he was *not* the math
 `gr-163` Olympia is clued from the date of its earliest wells. `gr-467` Pericles from the shape of
 his head. All four are difficulty 1 or 2 — the terms a newcomer is likeliest to meet cold.
 
+## What was implemented on 2026-09-05, in the same pass
+
+| item | done |
+|---|---|
+| glossary terms | 19 of the ~40 measured added, at the 90-110 word and two-source bars — the Constitution of the Athenians first, then the temple vocabulary and the money |
+| scholars in backgrounds | all 16 cards rewritten; Snodgrass, Parry and Woolley keep the one mention the rule allows them |
+| archon-datings | all 12 Athens cards now give the year beside the archon |
+| coverage | 2 gaps filled by amending unwritten plan slots; the other 7 recorded as permanent, with the deck each belongs to |
+| pictures | gr-231 Sparta given a photograph in place of an 18th-century map |
+| Library quotes | 3 cards linked to the shelved primary text, against 1 before |
+| citation concentration | **not done** — every route measured and blocked; see the table above |
+
+**The terms still owed**, in usage order: panoply, cuirass, temenos, peplos, chiton, himation,
+triglyph's siblings abacus and volute are in, then othismos, autonomia, arete, nomos, metropolis,
+hypomeiones, ta-ra-si-ja, lapis primus, aniconic, crucible, relieving triangle, circuit wall,
+postern, bastion, and the two works cited by title with no entry, Aristotle's *Politics* (9 cards)
+and Tyrtaeus' *Eunomia* (2).
+
 ## Coverage: what is missing from the covered span
 
 Most apparent gaps are scheduled later — Delos (gr-867), Dodona (gr-982), the Panathenaia
