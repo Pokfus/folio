@@ -3744,7 +3744,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     than pushing onto a queue, exactly as `lakes.js` does. **A row in `CMAP_LAYER_HIRES` turns the water on
     as well as the coast**, and the two are one decision rather than two: both halves of the request ask
     for the window a history card already draws, and every layer that wants the finer coast wants the
-    water on it.
+    water on it. **Measured by TAKING IT AWAY** — read the pixels, empty `window.RIVERS`, redraw the same
+    view, read them again, which is `test-card-locator.js` section 3's method: the water paints 1,885
+    pixels on a China card and 612 on a United States one, and **0 on a world card, which never loads
+    `rivers.js` at all**.
   · **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** (Sep 2026, on request). The weight was the Atlas's own
     `0.4 + zoom * 0.16` floored at 0.5 and is `0.15 + zoom * 0.18` floored at 0.3, reaching the old figure
     again around zoom 6 and unchanged at the deep end, where the 1.8px cap has always decided it. The

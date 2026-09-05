@@ -24296,8 +24296,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* THE LEARN-AHEAD IS ONE TAIL STEP RATHER THAN SIX BRANCHES (see learnAheadIds). Every branch above
        selects on `isDueNow`, so a card whose learning step has not come round is in none of them — and a
        fix written into each would be five copies of one rule, with the sixth added later left out and
-       nothing on the page to say so. It runs on every session, appending whatever the branches could not reach — see the
-       note below for why that is not the same as the empty-queue form it started as.
+       nothing on the page to say so. It runs on EVERY session, appending whatever the branches could not
+       reach — see the note below for why that is not the empty-queue form it started as.
        The review scope needs its own copy in `reviewQueue` all the same, since the home banner reads that
        function directly and has to offer a Start where the pile counts say there is work.
        `_sd` / `_ud` / `_unseen` are left alone: those are the "push on with extra cards" affordance, and
