@@ -2079,7 +2079,8 @@ window.GLOSSARY = {
 "Cohesion_(chemistry)": "<b>Cohesion</b> is the tendency of a liquid to hold to itself, and in water it arises from the hydrogen bonds between neighbouring molecules, which give the liquid a high boiling point and a high surface tension.<sup class=\"fn\" data-fn=\"1\"></sup> Its outward-facing counterpart is adhesion, in which the same attraction binds water to other polar molecules and to ions, so that it clings to surfaces made of them instead of drawing away.<sup class=\"fn\" data-fn=\"2\"></sup> Between them the two produce capillarity, the rise of a liquid into a narrow space, and with it the surface film on which small animals stand and the tension under which sap is drawn up a plant.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Specific_heat_capacity": "The <b>specific heat capacity</b> of a substance is the energy required to raise the temperature of a given mass of it by one degree.<sup class=\"fn\" data-fn=\"1\"></sup> Water's is unusually high, so that large quantities of absorbed energy produce only small changes in temperature, because much of that energy goes into rearranging the hydrogen-bond network between the molecules before appearing as their motion.<sup class=\"fn\" data-fn=\"1\"></sup> The magnitude is fixed by an old definition still in use, the kilocalorie being the energy needed to raise one litre of water by one degree centigrade,<sup class=\"fn\" data-fn=\"2\"></sup> and the consequence is that water buffers temperature at every scale from a cell to an ocean.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Solvent": "A <b>solvent</b> is a liquid in which other substances dissolve, and water is the one life is built around, taking up ions and polar molecules readily while excluding nonpolar ones.<sup class=\"fn\" data-fn=\"1\"></sup> Salts dissolve in it because the ionic bonds of the lattice are greatly weakened in water, each ion leaving surrounded by its own group of water molecules.<sup class=\"fn\" data-fn=\"2\"></sup> The property rests on a measured figure, water's dielectric constant of roughly 80 at room temperature, which attenuates the attraction between opposite charges enough for electrolytes to dissociate and stay apart, and which likewise lowers the cost of holding like charges close together.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Ice": "<b>Ice</b> is the solid form of water, and water is one of the few substances that expands as it freezes, the molar volume of the liquid being about 8% less than that of the solid.<sup class=\"fn\" data-fn=\"1\"></sup> Its molecules hydrogen-bond to one another in a network that is continually broken and remade,<sup class=\"fn\" data-fn=\"2\"></sup> and as the temperature falls towards freezing the ideal tetrahedral arrangements grow more probable and hold the molecules further apart, so the liquid is densest at about 4°C (39°F).<sup class=\"fn\" data-fn=\"1\"></sup> The solid therefore forms at the surface rather than the bottom, and that layer insulates the water beneath and keeps it liquid when the air is below freezing.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Ice": "<b>Ice</b> is the solid form of water, and water is one of the few substances that expands as it freezes, the molar volume of the liquid being about 8% less than that of the solid.<sup class=\"fn\" data-fn=\"1\"></sup> Its molecules hydrogen-bond to one another in a network that is continually broken and remade,<sup class=\"fn\" data-fn=\"2\"></sup> and as the temperature falls towards freezing the ideal tetrahedral arrangements grow more probable and hold the molecules further apart, so the liquid is densest at about 4°C (39°F).<sup class=\"fn\" data-fn=\"1\"></sup> The solid therefore forms at the surface rather than the bottom, and that layer insulates the water beneath and keeps it liquid when the air is below freezing.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Acid": "An acid is a substance that releases protons when it dissolves in water, each proton attaching to a water molecule to form a hydronium ion.<sup class=\"fn\" data-fn=\"1\"></sup> A base does the opposite, raising the concentration of hydroxyl ions produced by removing a proton from a water molecule, and the balance between the two is set out on the logarithmic pH scale, whose midpoint of 7 is pure water.<sup class=\"fn\" data-fn=\"1\"></sup> Acids run from the mineral acids of industry to the weak carboxyl groups carried by living matter, which give a proton away in solution and leave the molecule that holds them negatively charged.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4188,7 +4189,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hydrogen_bond": ["hydrogen bonds","hydrogen bonding"],
 "Chemical_polarity": ["polar molecules","chemical polarity"],
 "Specific_heat_capacity": ["heat capacity"],
-"Solvent": ["solvents"]
+"Solvent": ["solvents"],
+"Acid": ["acidic"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6302,7 +6304,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Cohesion_(chemistry)": ["concept","science","chemistry","biology"],
 "Specific_heat_capacity": ["concept","science","chemistry","biology"],
 "Solvent": ["concept","science","chemistry","biology"],
-"Ice": ["object","science","chemistry","biology"]
+"Ice": ["object","science","chemistry","biology"],
+"Acid": ["concept","science","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
