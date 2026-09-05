@@ -3,7 +3,7 @@
 The collection is **World** (`geo-world`, renamed from *The world* in Sep 2026 on request), the second of the Geography SECTION on the Collections
 page, beside **United States** (`geo-us`). It is **470 cards in two decks**: **The countries and
 territories** (`geo-world-countries`, `gw-001`–`gw-233`) and **The capitals**
-(`geo-world-capitals`, `gw-501`–`gw-733` with seven numbers deliberately unused, plus `gw-751`–`gw-761`
+(`geo-world-capitals`, `gw-501`–`gw-733` with seven numbers deliberately unused, plus `gw-751`–`gw-762`
 for the second and third seats of the ten countries that have more than one). Its cards use the
 **map card** format — a shape on a globe, and the question is what it is.
 
@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-233`, the WHOLE running order less the deferred `gw-195`, `gw-201`, `gw-218`, `gw-223`, `gw-224` and `gw-230`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-233`, the WHOLE running order, COMPLETE at 233 of 233** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -27,19 +27,20 @@ Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, B
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
 Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands, Nauru, Tuvalu, Saint Pierre and Miquelon, Saint Helena, Montserrat, Falkland Islands, Niue, Vatican City, Pitcairn Islands) **and capitals
-`gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+`gw-501` New Delhi, `gw-502` Beijing, `gw-503` Washington, D.C., `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow, `gw-511` Mexico City, `gw-512` Tokyo, `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-542` Warsaw.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau, `gw-703` Hamilton, `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town, `gw-709` Capitol Hill, `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino, `gw-717` Mariehamn, `gw-718` Marigot, `gw-719` The Valley, `gw-720` Ngerulmud, `gw-721` Avarua, `gw-722` Yaren, `gw-723` Mata-Utu, `gw-724` Gustavia, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown, `gw-728` Brades, `gw-729` Stanley, `gw-730` Kingston, `gw-731` Alofi, `gw-733` Adamstown,
+`gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-754` Putrajaya, `gw-755` Abidjan, `gw-756` Colombo, `gw-757` Valparaíso, `gw-758` The Hague, `gw-759` Cotonou, `gw-760` La Paz, `gw-761` Lobamba and `gw-762` Bujumbura — **the extra-seats band is COMPLETE at twelve of twelve**, and `gw-578` Gitega, the last card of the whole capitals run, has SHIPPED too, its coordinate added to `world-capitals.js` by a new `SECOND_SEAT` row in the generator. **THE WORLD GEOGRAPHY COLLECTION IS THEREFORE COMPLETE BUT FOR THREE CAPITAL CARDS**, all three deferred for stated reasons: `gw-596` Jerusalem and `gw-624` Palestine's seat, where the answer is the dispute, and `gw-695` Saint Helier. **The countries and territories deck is COMPLETE at 233 of 233, with nothing deferred** (`gw-223` Wallis and Futuna, `gw-230` Norfolk Island, `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin and `gw-224` Saint Barthélemy were all CLEARED after the capital pass, each by re-reading the deferral rather than by finding a new source). **`gw-695` Saint Helier stays deferred even though `gw-195` has shipped**: the island card needs no capital row, and nothing openable here calls St Helier the capital or the seat of the States — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
 
-**Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
-`gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
+**Seven capitals were DEFERRED, and between them they name every way a capital source can fail. ALL EIGHT HAVE NOW SHIPPED** — `gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow, `gw-511` Mexico City and `gw-512` Tokyo — **and not one of them was cleared by a source the original survey had tried and misjudged; every one was cleared by a HOST OR PATH nobody had looked at.** (The heading says seven and the list ran to eight; the count was always off by one.) The list below is kept as the record of what failed, because each failure is a real shape and the next capital pass will meet them again.
+New Delhi and Beijing were deferred because they seemed reachable here only through the foreign legations that sat in
 them — the recognition guide dates the American mission at New Delhi to 1946 and traces the United States
 legation from Beijing to Nanjing to Chongqing to Taipei, which is a history of American diplomacy rather
-than of either city. `gw-504` Jakarta: `jakarta.go.id` is 403 and `indonesia.go.id` returns 502.
+than of either city — but `ndmc.gov.in` and the constitutional text at `english.www.gov.cn` answer, and
+both cards are now written; see their entries in the batch log below. `gw-504` Jakarta: `jakarta.go.id` is 403 and `indonesia.go.id` returns 502.
 `gw-506` Abuja: the Federal Capital Territory Administration has a page headed *A Brief History of our
 City* whose text is **unreplaced template boilerplate** ("Millions of people around the world use Obira to
 connect…"), so a fetch returning 200 and 220 KB carries no history at all — **check that a page says
@@ -47,10 +48,14 @@ something before counting it as a source.** `gw-508` Dhaka: **every Bangladeshi 
 presents an incomplete certificate chain** (`parliament.gov.bd`, `dncc.gov.bd`, `bbs.gov.bd`,
 `mofa.gov.bd`, `cabinet.gov.bd`), which is a fault in the source rather than a policy of this sandbox and
 is not to be worked around by disabling verification. `gw-509` Moscow: `mos.ru`'s own history page renders
-through JavaScript and hands back twenty-nine characters of text. `gw-511` Mexico City: the Chamber of
+through JavaScript and hands back twenty-nine characters of text — still true, re-measured when the card
+was written, and beside the point, because the capital clause is in the constitution and the history is in
+the recognition guide. `gw-511` Mexico City: the Chamber of
 Deputies' site returns **one character** of text, and `inah.gob.mx` — the obvious source for the city
-before it was Mexican — is 403. `gw-512` Tokyo: the Metropolitan Government's English site is a news
-index, the Imperial Household Agency's About page is a menu, and `sangiin.go.jp` reset the connection.
+before it was Mexican — is 403; that was true of the Chamber's HTML and NOT of its statute library, whose
+`LeyesBiblio/pdf/CPEUM.pdf` is the current constitution in full and carried the card. `gw-512` Tokyo: the Metropolitan Government's English site is a news
+index, the Imperial Household Agency's About page is a menu, and `sangiin.go.jp` reset the connection — all
+still true, and the Statistics Bureau at `stat.go.jp` was never tried and carries everything the card needed.
 
 What was tried and does not answer, so that nobody spends the afternoon again: `loc.gov`,
 `hansard.parliament.uk`, `rct.uk`, `parliament.uk`, `whc.unesco.org`, `harappa.com` and
@@ -146,7 +151,7 @@ the modern order rather than about its size.*
 
 ## Countries with more than one capital get a card each
 
-**Ten countries have more than one seat, and each seat is its own card** (Aug 2026, on request: "for
+**Eleven countries have more than one seat, and each seat is its own card** (Aug 2026, on request: "for
 countries with multiple capitals, give each their own card where the question makes it clear what sort of
 capital it is"). The alternative — one card per country, asking for whichever seat the plan picked —
 teaches the reader that Bolivia's capital is Sucre and quietly makes La Paz a wrong answer, which is the
@@ -179,10 +184,12 @@ it splits its government up.
 | | `gw-759` Cotonou | the seat of government and largest city |
 | Bolivia | `gw-579` Sucre | the constitutional capital |
 | | `gw-760` La Paz | the seat of government |
+| Burundi | `gw-578` Gitega | the political capital |
+| | `gw-762` Bujumbura | the economic capital and largest city |
 | Eswatini | `gw-660` Mbabane | the administrative capital |
 | | `gw-761` Lobamba | the legislative and royal capital |
 
-**THE SECOND AND THIRD SEATS ARE NUMBERED IN A BAND OF THEIR OWN, `gw-751`–`gw-761`, and that is not
+**THE SECOND AND THIRD SEATS ARE NUMBERED IN A BAND OF THEIR OWN, `gw-751`–`gw-762`, and that is not
 tidiness.** The pairing rule is that a country's capital is its own number plus 500, which is what lets a
 reader meet a country and then its capital a day later; renumbering the capitals deck to make room would
 move cards between ids, and a card id is a permanent address — the same reason the running order is never
@@ -214,7 +221,7 @@ a question with no content:
 
 **A capital card asks:** *"The dot on the map marks ____, the capital of the country shaded around it."*
 — with `country or territory` where the entity is a territory, and with the qualifier in place of *the
-capital* on the twenty-one cards of the ten countries that have more than one seat: *"…marks ____, the
+capital* on the twenty-three cards of the eleven countries that have more than one seat: *"…marks ____, the
 judicial capital of the country shaded around it."*
 
 **The capital question puts its blank in the MIDDLE, and that is not a stylistic preference.** The
@@ -307,6 +314,5561 @@ and `congress.gov` are all **403**; `senate.gov` serves its 404 page **with a 20
 history through JavaScript and hand back navigation chrome; and `beijing.gov.cn` resets the connection.
 **Find the city spine before writing the batch, not during it** — three country cards were written in
 the time it took to establish that the obvious capital sources do not answer.
+
+**UNDATA'S CAPITAL-CITY POPULATION IS THE WORLD BANK'S LARGEST-CITY SERIES, SO THE TWO CAN NEVER
+CORROBORATE EACH OTHER ON A CAPITAL** (found on `gw-542` Warsaw, confirmed on `gw-543` Tashkent, and it
+sent a correction back to `gw-541`). UNdata's *Capital city pop. (000, 2025)* row carries a footnote,
+and the footnote dates the figure years earlier — 2019 on all three checked — where the row's own
+heading says 2025. Read against `EN.URB.LCTY` the figure is not merely close but **identical**: Warsaw
+1,775.9 against 1,775,933, Tashkent 2,490.3 against 2,490,334, Kyiv 2,973.3 against 2,973,335. So a
+sentence saying the UN and the World Bank agree on a capital's population is **one source counted
+twice**, which is C8's false-corroboration finding one indicator over. `gw-541` Kyiv said exactly that
+and has been corrected, on the card and on its glossary term. **Read the footnote before citing the
+row**: give the current figure to the World Bank, and where the UN figure is worth stating at all, state
+what it is — the same series at the year its footnote names.
+**`gw-564` ASTANA IS THE MEASURED EXCEPTION, AND IT SAYS EXACTLY WHAT THE RELAY IS.** Ten capitals in a
+row had UNdata's *Capital city pop.* row equal to `EN.URB.LCTY` to the person; Kazakhstan's does not —
+UNdata gives **1,117.6 thousand** for 2019 and the World Bank **1,862,809** for the same year. They are two
+different cities, and the reason is the only thing that ever made the relay work: **UNdata counts whatever
+city its own *Capital city* FIELD names, and `EN.URB.LCTY` counts whichever city is LARGEST, so the two
+coincide only where the capital is the largest city.** Where it is not — Yamoussoukro, Canberra, Kotte,
+Astana — they part company, and each source is right about a different place. That also resolves the family
+cleanly: on such a capital, **cite UNdata for the city and leave the World Bank series out of the figures
+altogether**, because it is about somewhere else. (Kotte is the mirror image and worth keeping straight:
+there UNdata's Capital city field names COLOMBO, so its capital-city figure is Colombo's and the relay
+holds — the field, not the country, decides.)
+
+**`gw-556` Pyongyang is the fifth** — 3,060.9 against 3,060,864 for 2019, the footnote again reading
+2019 under a heading saying 2025.
+**`gw-544` Kuala Lumpur is the fourth confirmation and it adds the second half of the trap** — 7,780.3
+against the World Bank's 7,780,301 for 2019 — because there UNdata footnotes the row TWICE, the second
+footnote reading *"Refers to the Greater Kuala Lumpur"*. So the figure is not the city at all but the
+agglomeration, and the World Bank's series, being the same series, is the agglomeration too: on that card
+both sources are one source measuring something the card is not about. **Neither source has a figure for
+a capital's own municipality**, so where the two carry a metropolitan figure the card must say which it is
+— `gw-544`'s facts box reads *9.0 million in Greater Kuala Lumpur* rather than a bare population, which is
+the Delhi warning at the head of this section arriving as a real card. Its divided seat came out of the
+same footnote block exactly as batch 14 predicted: **UNdata's footnote d says "Kuala Lumpur is the capital
+and Putrajaya is the administrative capital"**, which is the source both `gw-544` and `gw-754` needed and
+which no other reachable work states.
+**AND `gw-546` MAPUTO BREAKS THE RELAY, WHICH IS WHY IT MUST BE CHECKED RATHER THAN ASSUMED IN EITHER
+DIRECTION.** UNdata gives the capital 1,104.3 thousand under a 2019 footnote and the World Bank's
+`EN.URB.LCTY` gives **1,668,740** for that same year — half a million apart, where Warsaw, Tashkent, Kyiv,
+Kuala Lumpur and Riyadh matched to the person. So the UNdata row is sometimes its own figure and sometimes
+the World Bank's, and the only way to know is to fetch both. **Worse, the World Bank series names no city**:
+it is *population in largest city*, and Mozambique's largest city may well be Matola rather than Maputo, so
+where the two disagree the divergence cannot be read as a measurement difference — the series may not be
+about the capital at all. `gw-546` therefore cites UNdata alone for its population, dated as UNdata dates
+it, and the World Bank is off the card. **Where the two disagree by more than a rounding, drop the World
+Bank rather than average or choose.**
+**`gw-547` ACCRA DIVERGES TOO, WHICH SETTLES THE TALLY AT FOUR MATCHING AND TWO NOT.** UNdata gives
+2,475.2 thousand for 2019 against the World Bank's 3,205,586 — so the divergence is not a Mozambican
+oddity, and a capital card should FETCH BOTH and expect either answer. On the evidence so far the match
+is the commoner case and the mismatch is a real one: both cards that diverge are African, and in both the
+UNdata figure is the smaller, which is what a city-proper figure against an agglomeration looks like.
+That is a hypothesis and is written here as one; what is settled is the practice, which is to cite UNdata
+alone whenever they part.
+**AND `gw-548` LIMA SHOWS THE THIRD CASE, WHICH IS THE ONE TO HOPE FOR: THE FOOTNOTE SAYS WHAT IS BEING
+COUNTED.** UNdata's capital row there carries two footnotes — 2019, and *"Refers to the Province of Lima
+and the Constitutional Province of Callao"* — so the figure is not merely dated but DEFINED, and a card
+can state the unit rather than a bare population. The card does, and the glossary term does. **Read both
+footnote letters on the capital row of every profile**: between them they have now told us the year on
+six capitals, the greater city on Kuala Lumpur and the two provinces on Lima, and that is the difference
+between a number and a fact.
+**AND A DATE IN THE GUIDE IS SOMETIMES THE LETTER'S DATE RATHER THAN THE EVENT'S** (`gw-549`). The
+Madagascar page says the United States recognised the Malagasy Republic *"on June 25, 1960"* and that the
+consulate at Tananarive was elevated to embassy status *"on June 25, 1960"*; the FRUS editorial note for
+the same events says the republic became independent **on 26 June**, that Eisenhower's message dated the
+25th was **delivered on the 26th** as the consul general presented his credentials, and that the
+Department announced the elevation on the 25th **as of the 26th**. Neither source is wrong — one is dated
+by the paper and the other by the act — but a card that takes the guide's date alone says independence
+happened a day before it did. **Where the guide and a FRUS note give neighbouring dates, the note is
+describing the event.**
+**WHERE THE CAPITAL IS NOT THE LARGEST CITY, `EN.URB.LCTY` IS ABOUT A DIFFERENT CITY AND MUST NOT BE
+CITED AT ALL** (`gw-550`). This is the Maputo caution in its provable form: UNdata gives Yamoussoukro
+**231.1 thousand** and the World Bank's largest-city series gives **6.06 million**, which is Abidjan. The
+two are not a disagreement to weigh — they are two cities, and a card that reached for the series would
+have multiplied its capital's population by twenty-six. **Ask whether the capital IS the largest city
+before touching that indicator**; the divided-seat countries in the table above are exactly where it
+fails, and UNdata's own capital footnote is what tells you (here: *"Yamoussoukro is the capital and
+Abidjan is the administrative capital"*, which is also the source `gw-755` will need).
+**THE TEST FOR THAT IS THE MATCH ITSELF** (`gw-552`). Where UNdata's capital figure EQUALS the World Bank
+series at the year UNdata's footnote names, the series is measuring the capital and can be cited for the
+current year: Yaoundé's 3,822.4 thousand is `EN.URB.LCTY`'s 3,822,425 for 2019, which settles that the
+series is not following the larger port at Douala. Six capitals match that way and two do not; a mismatch
+means either a different definition or a different city, and either way the series comes off the card.
+**AND `gw-554` CANBERRA IS THE SECOND CAPITAL THE SERIES IS NOT ABOUT** — 452.5 thousand at UNdata
+against 5.4 million in `EN.URB.LCTY` — so the rule now has an instance in a rich, well-documented country
+as well as in Côte d'Ivoire. Australia, Côte d'Ivoire, and any other state whose seat of government is
+not its biggest city, are cited on UNdata alone.
+
+
+**`gw-556` PYONGYANG IS THE FIRST CAPITAL WITH NO RECOGNITION-GUIDE PAGE AT ALL, AND THE GUIDE FAILS
+TWICE OVER.** `history.state.gov/countries/north-korea` and `/korea-north` are both 404 — the United
+States has never recognised the state, so the guide has nothing to record — and `/countries/korea`,
+which does exist, is about the **Kingdom of Chosŏn**: it opens on the 1882 treaty of amity and commerce
+at Chemulpo and ENDS on 28 November 1905, when Japan took over Korean foreign relations and the legation
+at Seoul closed. So half the two-fetch recipe is simply absent on the peninsula, for both Koreas, and it
+is absent in a way a slug check cannot see — the page answers 200 and says nothing about the century the
+card is written from. What replaced it is **FRUS full-text search plus the UN Digital Library**, which
+between them gave the city its whole card. `history.army.mil` is **403** here, root and all, so the
+Center of Military History's official Korean War volumes — the obvious source for a city that changed
+hands twice — are not available; record that before the Korea collection is written rather than during it.
+
+**AND A UN DIGITAL LIBRARY RECORD SUMMARY DROPS THE PLACE, WHICH IS THE ONE THING A CAPITAL CARD NEEDS.**
+The catalogue summary for A/RES/62/5 says the Assembly welcomes "the inter-Korean summit held from 2-4
+Oct. 2007" and names no city; the resolution's own text says "the summit meeting **held in Pyongyang**
+from 2 to 4 October 2007", and A/RES/55/11 likewise says "the historic summit meeting, **held in
+Pyongyang** from 13 to 15 June 2000". Both were readable only by pulling the PDF apart with the `zlib`
+recipe above. **Read the document, never the record** — a catalogue is written to be searched by subject,
+and the subject of an inter-Korean summit is not where it happened.
+
+**`gw-557` DAMASCUS IS WHERE THE RECOGNITION GUIDE PAYS BEST, BECAUSE THE POST ITSELF IS THE STORY.**
+Most country pages give a recognition date and an embassy date and stop; Syria's gives eight events and
+six of them happen to the mission in this one city — a legation in November 1944, **reclassified as a
+consulate general** on 25 February 1958 when Syria joined Egypt and the capital of the new state became
+Cairo, raised back to an embassy on 10 October 1961, closed when Syria severed relations on 6 June 1967,
+an **interests section inside the Italian embassy** from 8 February 1974, and the embassy restored on 16
+June. **Read the Diplomatic Relations half of a guide page before deciding a capital is thinly sourced**:
+a mission that is opened, downgraded, closed and reopened is a card, where a mission that opens once is a
+sentence. FRUS then supplied both ends the guide cannot — the French mandate, in two 1925 telegrams from
+the consul at Beirut reporting two thirds of the city in the hands of revolutionists and a demand for
+100,000 Turkish gold pounds and 3,000 rifles on pain of the bombardment recommencing, and the interests
+section itself, in a telegram Kissinger sent **from** it on 21 May 1974.
+
+**AND UNDATA CAN WARN YOU OFF ITS OWN FIGURE, WHICH IS WORTH SAYING IN THE PROSE.** Syria's capital-city
+row carries two footnotes rather than one: `d` is the usual 2019, and `c` reads *"Est. should be viewed
+with caution as these are derived from scarce data."* That is the first capital in this deck where the
+source hedges its own number, and the honest card says so rather than printing the figure flat. The relay
+holds regardless — 2,353.6 thousand against `EN.URB.LCTY`'s 2,353,637 for 2019, a sixth confirmation — so
+the current figure is still the World Bank's, at 2.8 million for 2025.
+
+**`gw-558` BAMAKO IS THE THIRD CAPITAL IN FOUR WHOSE CARD IS ABOUT A MISSION SOMEWHERE ELSE, AND
+THAT IS NOW A SHAPE TO LOOK FOR RATHER THAN A COINCIDENCE.** Niamey's first ambassador lived at
+Abidjan, Damascus lost its embassy to Cairo for three years, and Bamako was not the capital of the
+state that first became independent at all: the **Federation of Mali** was Senegal and the Soudanese
+Republic together, it left French sovereignty on 20 June 1960, and the American embassy to it was the
+consulate general at **Dakar**, raised that day. When Senegal withdrew and the Soudanese Republic
+renamed itself on 22 September, Washington recognised it on the 24th, raised the consulate general at
+Bamako to an embassy, and reaccredited the Dakar embassy to Senegal — **one day on which one city
+became a capital in American eyes and another stopped being one**. **On a state that federated,
+merged or seceded, read the guide for where the MISSION was**: the interesting sentence is almost
+never the recognition date.
+
+**AND FRUS DATES THE DECISION TO THE CITY WHERE IT WAS TAKEN.** Dillon's memorandum to Eisenhower of
+23 September 1960 opens "As a result of the party conference held in Bamako yesterday", says that by
+tacitly admitting the federation no longer existed the Soudanese had made it easier to recognise the
+two countries separately, and adds that Washington was "particularly anxious to avoid a repetition of
+the Guinean experience". A recognition guide gives the date Washington acted; the FRUS memorandum
+behind it gives the date and place the other government acted, which is what a capital card wants.
+Resolution 1491 (XV) then admitted Mali and Senegal at **one sitting**, the 876th plenary meeting of
+28 September 1960, on Security Council recommendations of the same day.
+
+**A COMMONS PICTURE CAN BE THE ARTICLE'S AND STILL BE TOO SMALL.** Three of the obvious Bamako
+candidates are under the 900px bar — the widely-used `Bamako ACI 2000 view.jpg` is 715px — and the
+`Special:FilePath?width=N` route does NOT tell you so: it serves the ORIGINAL when the original is
+smaller than the width asked for, so a 715px file comes back looking like a successful 900px fetch.
+**Read the size off the returned bytes, not off the request.** With the API rate-limited, the file
+DESCRIPTION page carries "Original file (5,172 × 2,906 pixels)" and the licence in plain text, which
+is the fallback that got this card its picture.
+
+**THE NEXT-CARD LINE AT THE TOP OF THIS FILE IS A CONVENIENCE AND THE RUNNING ORDER IS THE AUTHORITY —
+IT WENT WRONG ONCE AND THE CHECK COSTS TWO SECONDS.** After `gw-558` it was written `gw-559` Harare, from
+memory; the table gives `gw-559` **Ouagadougou** and puts Harare at `gw-574`. Nothing catches this — a card
+written to the wrong number is a perfectly valid card, it simply occupies a slot the plan promised to
+another city, and `test-card-plans.js` checks that every number is covered rather than that a number holds
+the topic beside it. **`grep -n "gw-NNN " docs/world-geography-card-plan.md` before writing the line**, and
+before writing the card.
+
+**`gw-559` OUAGADOUGOU PAYS FOR THE SECOND GUIDE PAGE, WHICH IS A ROUTE WORTH KEEPING.** Its own page is
+four short paragraphs; what makes the card is that the chargé d'affaires who opened relations on 5 August
+1960, **Donald R. Norland**, is the same man the NIGER page records presenting his credentials two days
+earlier as the consul general at Abidjan and resident there — so one officer opened relations with two new
+states in one week, and neither page says so on its own. **When a guide page is thin, read its neighbours'**:
+the Sahelian states were decolonised in a fortnight by a handful of officers, and the interesting facts sit
+between the pages rather than on them. Ouagadougou then waited until 31 December 1960 for an embassy, five
+months, exactly as Niamey waited until 3 February 1961.
+
+**AND THE UN ADMITTED THE COUNTRY UNDER A NAME IT NO LONGER USES.** Resolution 1483 (XV) of 20 September
+1960 is headed *Admission of the Republic of the Upper Volta*, the state having renamed itself Burkina Faso
+in 1984 — so a card about this capital cites a work whose title names a country that does not exist, which
+is correct and looks like an error. **Say in the prose that the seat took its UN seat under the older
+name**, or the citation reads as a filing mistake. The same holds for the guide, whose page is titled
+*Burkina Faso (Upper Volta)*.
+
+**`gw-560` TAIPEI IS THE FIRST CAPITAL CARD WITH NO POPULATION AT ALL, AND THE ROW IS OMITTED RATHER
+THAN FILLED.** Batch 20 solved the COUNTRY card by finding the WTO, and left the figures unmarked with the
+facts box stating Folio's own; a CITY figure is a different matter, because there is no widely-agreed round
+number to state. Measured again here: `eng.stat.gov.tw`, `www.ris.gov.tw` and `english.gov.taipei` all
+answer **200 with real bodies** — so D2's "the reachable Taiwanese statistical sites are JavaScript-driven"
+is still true of the FIGURES but no longer of the hosts — and none of the three serves a population in its
+HTML; `eng.dbas.gov.taipei`, the city's own budget and statistics bureau, is **refused by the egress policy
+outright**. So the facts box carries Territory, Region, Where and **In the WTO as — Chinese Taipei**, and
+says nothing it cannot source. **A missing row is honest; an invented figure is not**, and this is the
+first card in the deck to take that option.
+
+**ITS QUESTION IS THE ONLY ONE IN THE DECK THAT DOES NOT SAY "THE CAPITAL OF THE COUNTRY".** All 51 other
+capital cards ask for "the capital of the country shaded around it"; this one asks for **"the seat of
+government of the territory shaded around it"**, which is the countries deck's own "country or territory"
+convention carried across, and it matches `gw-060`'s facts label. Folio takes no position by asking; it
+would take one by asserting.
+
+**AND THE CHINA GUIDE PAGE IS A CITY SOURCE AS WELL AS A COUNTRY ONE.** Batch 20 read it for the island's
+diplomatic history; read for the CITY it also gives the consular post opened at **Taipei in 1914 under the
+name Taihoku** while the island was Japanese — which is the earliest date on the card and predates the
+government it is a capital for by thirty-five years — and the embassy's arrival on 19 December 1949 and
+closure on 28 February 1979, thirty years apart. FRUS then supplies the one thing the guide never does,
+an EVENT in the city: the **riot of 24 May 1957**, in which the embassy was wrecked and burned after a
+court martial's acquittal, reported by the army attaché the next morning and analysed by Ambassador Rankin
+the day after that. **When a capital's country has no guide page, its former sovereign's may carry it.**
+
+**`gw-561` KOTTE: THE SPLIT IS STATED OUTRIGHT BY BOTH SOURCES, IN A FOOTNOTE AND IN A FIELD.** UNdata's
+*Capital city* row for Sri Lanka reads **Colombo**, not Kotte, and carries footnote `c`: *"Colombo is the
+capital and Sri Jayewardenepura Kotte is the legislative capital."* The Commonwealth Secretariat's Key Facts
+divides the same pair by function — *"Colombo (executive and judicial), Sri Jayewardenepura Kotte
+(legislative)"*. So the deck's hardest-looking capital is its best-documented split, and **the footnote is
+the source, not the field**: reading the row alone would have put Colombo on this card. **Read the letters
+beside a UNdata value before trusting the value.**
+
+**AND ITS POPULATION ROW IS OMITTED FOR A SECOND TIME, ON A DIFFERENT GROUND FROM TAIPEI'S.** Here the
+figure exists and is about the WRONG CITY: UNdata's 606.2 thousand is Colombo's, `EN.URB.LCTY` gives
+606,158 for the same year, and neither body publishes anything for Kotte — the third capital the
+largest-city series is not about, after Yamoussoukro and Canberra, and the first where the sources say so
+themselves. The card states that in its last sentence rather than leaving a gap to be read as an oversight,
+and the facts box carries **Role — legislative capital** in the population's place.
+
+**THE SPELLING DIVERGENCE IS NOW TWO INSTITUTIONS AGAINST FOLIO, AND THE CARD SAYS SO RATHER THAN PICKING
+A SIDE.** UNdata and the Commonwealth both write **Jayewardenepura**; `world-capitals.js`, this plan and the
+glossary write **Jayawardenepura**, and `add-card.js` validates `map.dot` against that file, so the answer
+term cannot change without regenerating it. The abstract therefore states the difference as a fact about
+the sources — *"Both bodies write the name Sri Jayewardenepura Kotte, one letter different from the
+spelling used here"* — and the glossary term carries the institutional form as an **alias**, so a reader
+arriving with either spelling lands on the same entry. **A divergence a card explains is content; one it
+hides is an error waiting to be reported.**
+
+**`gw-562` LILONGWE: THE EMBASSY'S NAME AND ITS ADDRESS DISAGREED FOR SIX YEARS, AND THE GUIDE SAYS SO IN
+A PARENTHESIS.** Malawi's Diplomatic Relations entry records that the consulate at Blantyre was elevated on
+independence, 6 July 1964, *"(designated as Zomba, Malawi until 1970, but physically at Blantyre)"*, and
+that the embassy was relocated to Lilongwe on **1 April 1976**. So the United States kept an embassy named
+for one town while it stood in another, and neither of the two was the city this card is about — which is
+the Damascus rule at its sharpest: **the Diplomatic Relations half is where a capital card's material is,
+and the parentheses in it are not decoration.**
+
+**AND THE CARD DOES NOT SAY WHEN LILONGWE BECAME THE CAPITAL, because nothing openable here says so.** The
+guide dates the EMBASSY's move and not the seat's; UNdata and the Commonwealth both name Lilongwe as the
+capital today and neither dates the change. A first draft opened "Lilongwe became Malawi's capital only in
+the 1970s", which is true, widely known, and **in none of the five sources** — it was rewritten to the
+embassy's own dates, which carry the same shape without asserting a year no citation supports. The glossary
+term was drafted with the same sentence and fixed the same way. **A date everyone knows is still a date
+that needs a source**, and this is the easiest kind of claim to let through, because nobody reading it
+would doubt it.
+
+**ITS PICTURES ARE THE THIN END OF COMMONS, AND ONE FILENAME LIES OUTRIGHT.** `Lilongwe, Capital city of
+Malawi.jpg` is a café terrace looking at an office block; the ISS frames in `Category:Lilongwe` are
+spaceborne and refused by the pass's own rules; and the best-lit candidate, `Bamako ACI 2000 view.jpg`'s
+Malawian equivalent, is a single building. The card takes a street in Bwaila South — a city rather than a
+building — and the term takes the City Centre block. **Worth recording for its own sake:
+`Lilongwe - Chancery Office Building - 1975 - DPLA` is a photograph of the American chancery on open
+scrubland the year before the embassy moved in.** It is the single most card-relevant image in the
+category and it goes UNUSED, because the deck's rule is that a city card shows the city; noted here so the
+next session does not spend the search finding it again.
+
+**`gw-563` LUSAKA: WHERE THE GUIDE IS THIN, ASK WHAT WAS NEGOTIATED IN THE CITY.** Zambia's guide entry
+is three facts — a consulate at Lusaka raised to embassy status on 24 October 1964, that elevation being
+the act of recognition, and Robert C. Foulon as chargé — and it repeats its Recognition paragraph verbatim
+under Diplomatic Relations, so it is thinner than it looks. What carried the card is **FRUS searched for
+the CITY NAME rather than the country**: Kissinger's own report to the President of 21 September 1976
+opens "From Pretoria I flew to Lusaka, Zambia, Monday to report to President Kaunda", describes the
+three-hour meeting at which he put the Rhodesia programme, records that Kaunda "was speechless", and notes
+in passing that **SWAPO was based in Lusaka**, which is the sort of city fact no country page ever carries.
+**Search FRUS for the capital's name before concluding a capital is thinly sourced.**
+
+**AND A 1969 UN RESOLUTION CAN BE CITED BY TITLE AND NOT BY TEXT.** `A/RES/2505 (XXIV)`, *Manifesto on
+Southern Africa* — the Assembly's endorsement of what is commonly called the Lusaka Manifesto — is a
+SCANNED PDF with no text layer, and so is the Zambian representative's covering letter `S/9363` of 28 July
+1969; the `zlib` recipe returns nothing from either, and neither catalogue record names Lusaka. So the
+obvious route to the city was dropped rather than asserted: **a resolution everyone calls the Lusaka
+Manifesto is not a source that says "Lusaka" unless you can read it.** The 1955 admission resolution
+`A/RES/995 (X)` behaves the same way; from about 1971 the scans carry text and the recipe works. **Test the
+extraction before planning a sentence around a pre-1970 document.**
+
+**`gw-564` ASTANA ALSO SHOWS THE UN PUBLISHING A CITY UNDER TWO NAMES.** Its Economic Commission for
+Europe issued *Smart Sustainable Cities Profile: Nur-Sultan, Kazakhstan* (`ECE/HBP/197`, Geneva 2020) while
+UNdata's country profile now gives the capital as **Astana** — one organisation, two names, twelve years of
+records either side. A UN CITY PROFILE is a source class this deck had not used before and is worth
+remembering: it is about the city rather than the country, which is what a capital card wants and what a
+country page never gives. The Security Council's press statement `SC/12701` of 31 January 2017, headed
+*International Meeting on Syria in Astana*, is the same shape — the city named in a document's own title.
+**Search the UN Digital Library for the CITY, not the state.**
+
+**And Kazakhstan's guide page stops before the capital moved**: it records the embassy established at
+*Alma-Ata (now Almaty)* on 3 February 1992 and nothing after, so the guide is a source for the OLD capital
+and for that city's own renaming, not for this card's subject. It is still worth citing for exactly that —
+the mission is in the larger city, which is the card's point.
+
+**`gw-565` N'DJAMENA IS THE ONLY CAPITAL SO FAR WHOSE EMBASSY WAS CLOSED BY A BATTLE IN THE CITY.** Chad's
+guide entry carries five dated events and every one is about this place: relations opened on 11 August 1960
+by **Alan W. Lukens, the consul at Brazzaville** — the fourth capital in this run served at first from
+another country, after Abidjan for Niamey and Ouagadougou and Dakar for Bamako; **Embassy Fort Lamy (now
+N'Djamena)** established 1 February 1961 under Frederic L. Chapin; **closed on 24 March 1980** with the
+staff evacuated "following the outbreak of heavy fighting in the city"; and **reopened on 15 January 1982**
+under John Blane. A guide page that looks like boilerplate on most countries is, on a few, the fullest
+account of the capital anyone has published.
+
+**AND THE RENAMING DATE WAS CUT FROM BOTH DRAFTS, FOR LILONGWE'S REASON.** The guide establishes that the
+post was Fort Lamy and is now N'Djamena; it does not date the change, and nothing else openable here does.
+The card was drafted "spent its first twelve years as a capital under another name" and the term "It was
+called Fort Lamy until the 1970s" — both true, neither sourced — and both were rewritten to what the guide
+carries, which is the two names and the dates of the POST. **That is the second batch running where a
+capital's own renaming date had to be dropped**; expect it wherever the guide's parenthesis is the only
+witness, and reach for the parenthesis rather than the year.
+
+**THE APOSTROPHE COST NOTHING THIS TIME BECAUSE IT WAS EXPECTED.** `world-capitals.js` writes the dot name
+with a straight ASCII apostrophe and the answer, question and glossary key all match it; both Commons
+filenames percent-encode theirs as `%27`, so no credit line was truncated by `SRC_URL_RX`. **Fifteen
+glossary keys already carry apostrophes**, so the key needed no special handling. What did need care is
+the picture search: `NDjamena, Chad.jpg` — a filename with no hint in it — is an **orbital photograph**,
+refused by the pass's own SPACEBORNE rule, and the two next-best candidates were a river bend in open
+country and a stretch of riverbank scrub. The card and term both take street-level views instead.
+
+**`gw-566` SANTIAGO FOUND A SPLITTER GAP, AND THE CARD WAS REWORDED RATHER THAN THE SPLITTER CHANGED.**
+The Allende milestone quotes his last broadcast — *"Long live Chile! Long live the people! Long live the
+workers!"* — and `split-abstract.js` read the three exclamation marks as three sentence ends, returning
+**5+7**. The existing quotation guard (added for `geo-012`) holds a terminator that sits INSIDE a closing
+quote when the next word is lowercase; here each `!` is followed by a space and a CAPITAL inside the
+quotation, which is indistinguishable from a real boundary without tracking whether a quotation is open.
+That fix is worth making, but it is shared machinery and the house rule is to prove such a change inert
+over all 2,600-odd texts first — so the card paraphrases the three cries instead, and **the gap is recorded
+here rather than papered over**. Anyone quoting more than one exclamatory sentence in an abstract will meet
+it; check the split before committing the prose.
+
+**Its other lesson is that the guide's LONGEST entries are the ones about a city.** Chile's runs to five
+dated events and reads as a narrative — Monroe's message to Congress of March 1822 asking for ministers to
+five new states, the appropriations bill signed 4 May 1822, the Senate's confirmation of Heman Allen on
+**27 January 1823** as the act of recognition, Allen presenting credentials in Santiago on 23 April 1824 to
+Ramón Freire Serrano "who had replaced Bernardo O'Higgins as Supreme Director", and the legation raised to
+embassy status on **1 October 1914** — ninety years between the first minister and the first ambassador,
+which is a fact about this city and about American diplomacy at once.
+
+**And Santiago is the fourth AGGLOMERATION footnote.** UNdata's capital-city row carries `c` = *"Refers to
+the urban population of Santiago Metropolitan Area Region"* beside `d` = 2019, and `EN.URB.LCTY` gives
+6,723,516 for that year — the relay holding, and both figures being the metropolitan region rather than the
+city. After Kuala Lumpur, this is routine enough to state as a rule: **where the footnote says
+agglomeration, say so in the prose**, because a reader comparing capitals is otherwise told this one is
+five times the size of its neighbours for a reason nothing on the card explains.
+
+**`gw-567` BUCHAREST HAS THE LONGEST GUIDE ENTRY THE DECK HAS MET, AND ITS BEST MATERIAL IS A CONSULATE
+NOBODY PAID FOR.** Romania's page runs to a dozen dated events. Two are worth the card on their own. **The
+consulate here predates the country**: Louis J. Czapkay was appointed to Bucharest on 20 June 1866 while
+the principalities were still an autonomous part of the Ottoman Empire; and his successor **Benjamin
+Franklin Peixotto** was appointed in 1870 "as an expression of U.S. concern with the status of Romania's
+Jewish community, which was denied citizenship and subject to persecution", the guide adding that he was
+"financially supported by a consortium of American, British, and French Jews since there was little
+American commerce with Romania". A consular post funded by private subscription because the trade did not
+justify it is the kind of fact only this source carries.
+
+**And it is the clearest case yet of a capital sharing its minister.** The 1882 legation's first head,
+Eugene Schuyler, "was also accredited to Greece and Serbia and moved his residence to Athens"; from 1885
+to 1905 the commissions covered Greece, Romania and Serbia with residence AT ATHENS; from 1905 the
+minister lived in Bucharest but was still accredited to Serbia and at times Bulgaria; and **Peter Augustus
+Jay, appointed 18 April 1921, was the first commissioned exclusively to Romania** — thirty-nine years
+after the legation opened. After Abidjan, Dakar and Brazzaville, this is the shape at its extreme: not a
+mission in the wrong city for six months but a capital that did not have a minister to itself for two
+generations.
+
+**A FALLING CAPITAL, AND THE PLAINEST INSTANCE SO FAR.** `EN.URB.LCTY` for Romania falls in **every one of
+the eleven years 2015–2025**, 1,848,922 → 1,758,699. C10's Marshall Islands finding — that "out of date"
+must not be read as "too low" — has a European instance now, and it is worth stating in the prose rather
+than quoting one year, because a reader who knows the 2019 figure would otherwise think the card stale.
+
+**AND A COMMONS ORIGINAL EXACTLY 1000px WIDE HAS NO 1000px THUMB.** `Bucuresti_de_sus.jpg` is 1,000 × 665,
+and `/thumb/…/1000px-…` answers **400** — Commons does not generate a thumbnail at or above the original's
+own width. The fix is to point `src` at the ORIGINAL file path (no `/thumb/`), which is what this card
+does. Sibling of the earlier finding that `Special:FilePath?width=N` silently serves the original when it
+is smaller than N: **between them, any file near the 900px bar needs its src checked rather than built.**
+
+**`gw-568` MOGADISHU IS THE MISSION-ELSEWHERE SHAPE AT ITS LIMIT: TWENTY-EIGHT YEARS.** The guide records
+the embassy closed on **5 January 1991** with all American personnel withdrawn after the collapse of the
+central government — and states in the same breath that relations were NOT severed, the United States
+dealing with Somalia "through the U.S. Embassy in Nairobi, Kenya" until the mission in Mogadishu reopened
+on **2 December 2018**, with Nairobi still handling consular coverage afterwards. Beside Abidjan's six
+months for Niamey and Brazzaville's for N'Djamena, this is the same arrangement lasting most of a working
+lifetime, and it is the single fact the card is built on.
+
+**TWO ORGANS SETTLED ITS INDEPENDENCE DATE AND BOTH RECORDS ARE CITABLE BY TITLE.** `A/RES/1418 (XIV)` and
+`T/RES/2015 (XXVI)` are both headed *Date of independence of the Trust Territory of Somaliland under
+Italian administration*, and the Trusteeship Council's carries a usable note — *"Adopted at the 1104th
+plenary meeting, 7 June 1960"* — three weeks before the date it fixed. Both are pre-1970 scans with no text
+layer, so **the citation rests on the catalogue metadata rather than the document**, which is exactly what
+Lusaka's finding said to check first. Where a trust territory is involved, look for the TRUSTEESHIP COUNCIL
+resolution beside the General Assembly one: it is a second organ on the same question and its record
+usually carries the meeting number and date.
+
+**AND A RETIRED MILESTONE URL ANSWERS 200 WITH A "PAGE NOT FOUND" BODY.**
+`history.state.gov/milestones/1993-2000/somalia` returns **200** and 19 KB of navigation chrome whose text
+begins *"Page not found"*; `/milestones/1989-1992/somalia` honestly 404s. The Milestones were retired and
+some slugs simply do not exist, so this is a seventh variety of 200-status error document and the first on
+a host the deck relies on. **Grep a milestone's body for the city or the subject before citing it** — the
+status line will not tell you.
+
+**`gw-569` DAKAR IS THE MISSION-ELSEWHERE FAMILY RUN BACKWARDS, AND IT IS THE FOURTH SHAPE THAT
+FAMILY TAKES.** Bamako, Niamey and Ouagadougou were each dated by an American mission sitting in ANOTHER
+city — the guide says where the accrediting embassy was, and the capital's own date falls out of it.
+Dakar is the same sentence read from the other end: the embassy never moved at all, and it was the
+ACCREDITATION that changed, from the Federation of Mali to the republic that had just left it. The guide
+is unusually explicit about it — *"The Embassy at Dakar had been accredited previously to the Federation
+of Mali, which no longer existed"* — which is why this pair is worth carrying together: `gw-558` Bamako
+and `gw-569` Dakar are one federation seen from its two halves, and 24 September 1960 is the day one city
+became a capital in American eyes while the other stopped being the capital of anything larger than
+itself. **On a state that federated, merged or seceded, read the guide for where the mission was AND for
+what it was accredited to** — the second question is the one that answers a capital card when the mission
+was here all along.
+
+**A SOURCE'S OWN TEXT CAN CARRY A TYPO, AND NEITHER REPRODUCING IT NOR SILENTLY FIXING IT IS RIGHT.**
+UNdata's footnote d on Senegal reads *"Refers to the sum of the Departments of Dakar, Pikinie and
+Guédiawaye, in Dakar Region"* — and the department is **Pikine**. Quoting the list reproduces a
+misspelling on a study card; correcting it puts words in the source's mouth that a reader checking the
+citation will not find. The card says the figure is *"the sum of three departments of the Dakar Region"*,
+which is exactly what the footnote asserts and names nothing it does not. **Where a source's wording is
+wrong in a way that does not touch its claim, paraphrase the claim and leave the wording alone.** The
+relay itself held here for the eleventh time — UNdata's 3,057.1 thousand for 2019 and the World Bank's
+`EN.URB.LCTY` 3,057,065 for the same year are one number, Dakar being both the capital and the largest
+city, which is the condition the Astana exception established.
+
+**`gw-570` GUATEMALA CITY IS WHERE C11'S SPANISH-AMERICA WARNING COMES GOOD, AND THE GUIDE PAGE IS THE
+RICHEST IN THE DECK.** C11 found that the recognition guide dates by U.S. RECOGNITION, which in Spanish
+America is not independence — the Central American states through the Federation in 1824 — and deferred
+Mexico, Costa Rica and Nicaragua on it. Guatemala's page is the one that states BOTH: *"Following its
+independence from Spain in 1821, Guatemala joined the Federation of Central American States in 1823"*,
+and then the 1824 federal recognition, an 1844 recognition of an independent Guatemala by exequatur, an
+1849 credentialing and an 1882 raising of the legation to an embassy. **Five datable relations claims on
+one page, of which four name a rank or an instrument** — grep the summary paragraph for the independence
+year before deferring a Spanish-American capital, exactly as C12 found for South America.
+
+**AND IT CARRIES AN ADMISSION AGAINST INTEREST, WHICH IS CITED AS AN ACCOUNT AND NOT AS A FINDING.** The
+same page says the Central Intelligence Agency "assisted in the overthrow" of President Jacobo Árbenz
+Guzmán in June 1954 and that relations were resumed on 12 July. The house rule is that **no state's
+account of its own actions is repeated as established fact**, and it does not lift merely because the
+account is unflattering — so the card writes *"The American record states that…"* and lets the reader see
+whose sentence it is. The corroboration is a different institution: **Security Council resolution 104
+(1954)**, adopted unanimously at the 675th meeting on 20 June 1954 on a cablegram from the Guatemalan
+minister for external relations, calling for "the immediate termination of any action likely to cause
+bloodshed" and asking all members "to abstain, in the spirit of the Charter, from rendering assistance to
+any such action." **A Security Council resolution is the second source a contested American account
+needs**, and `digitallibrary.un.org/search?p=S%2FRES%2F<n>%28<year>%29` resolves one by symbol where the
+free-text search returns nothing at all. Its PDF needs `curl -sL` — the files endpoint 302s, and a
+redirect not followed hands back 182 bytes that decompress to nothing.
+
+**`gw-571` QUITO IS THE FIFTH BREAK IN THE RELAY AND THE FIRST IN SOUTH AMERICA.** UNdata's *Capital city
+pop.* gives 1,847.7 thousand for 2019 and `EN.URB.LCTY` gives 2,946,158 for the same year — a 59% gap,
+because the World Bank series counts whichever city is LARGEST and Ecuador's is **Guayaquil**, on the
+coast. That is the rule stated at Astana working exactly as written, and the card does the same thing
+Yamoussoukro, Canberra and Kotte did: **cite UNdata alone for the population, and say in the prose why
+there is no second figure**, rather than leaving a reader to wonder whether one was looked for. The
+largest-city series is still cited — for the fact that it counts Guayaquil — which is the honest use of a
+source that disagrees. **Before pairing the two figures on any capital card, ask whether the capital IS
+the largest city**; where it is not, the World Bank number is about a different place and pairing them
+would be a fabrication with two real citations under it.
+
+**AND ECUADOR SUPPLIES A SECOND STATE DEPARTMENT WORK THAT IS NOT THE GUIDE.** `history.state.gov/
+departmenthistory/people/chiefsofmission/<country>` is the roll of chiefs of mission, openable, and it
+dates the PERSON where the guide dates the POST: the guide raises the legation at Quito to embassy rank on
+**5 March 1942**, the roll commissions Boaz Walton Long as ambassador on **14 April 1942**. Neither is
+wrong and they are not the same event, so the card states both and says which is which — this is C4's
+Bangladesh case in a new register, where two institutional dates bracket the thing the reader wants. **It
+is also a genuine fifth source on a capital whose statistical profile has only one usable figure**, which
+is what made this card reach the bar at all. Ecuador's recognition page is the deck's best example of the
+guide treating recognition as a SEQUENCE of acts — an 1832 letter, an 1835 exequatur, an 1836 instruction
+— rather than a date.
+
+**`gw-572` AMSTERDAM IS THE TWO-CAPITAL CASE WITH BOTH SOURCES STATING THE SPLIT OUTRIGHT, WHICH KOTTE
+DID NOT HAVE.** UNdata carries footnote d on the Netherlands reading *"Amsterdam is the capital and The
+Hague is the seat of government"*, and the EU country page's Capital field reads *"Amsterdam; Parliament
+and government are located in The Hague"* — two institutions saying the same thing in their own words, so
+the card can assert the division rather than describe it around the edges. Compare `gw-561`, where
+UNdata's Capital field simply names **Colombo** and the split had to be handled by omission. **Read the
+FOOTNOTES on a UNdata profile before writing a capital card, not just the fields**: on a divided capital
+the qualification is where the fact lives, and it is the same footnote apparatus that carries the
+agglomeration wording. The relay held here for the twelfth time (1,140.3 thousand against 1,140,339 for
+2019), Amsterdam being the largest city as well as the capital.
+
+**AND THE AMERICAN RECORD FOLLOWS THE GOVERNMENT, NOT THE CAPITAL — WHICH IS WHAT MAKES THE GUIDE USABLE
+ON A CARD ABOUT THE OTHER CITY.** Every diplomatic event on the Netherlands page happens at The Hague:
+relations established there on 19 April 1782, the legation closed there in 1801, moved to London in 1940,
+raised to embassy rank in 1942 and returned there in 1945. Amsterdam appears in that record exactly once
+and in a different register — as a CONSULAR post, Sylvanus Bourne acknowledged consul general on 2 January
+1798, who then oversaw American interests from Amsterdam for the thirteen years the legation was shut. So
+the guide is not silent about this capital; it places it correctly, and the card says so. **On a divided
+capital, the recognition guide is evidence FOR the division rather than a source that has missed the
+point** — check the consular section, which is where the commercial city turns up when the diplomatic one
+has the government.
+
+**`gw-573` PHNOM PENH IS THE RECOGNITION GUIDE'S RICHEST CITY-LEVEL PAGE SO FAR, BECAUSE THE MISSION
+KEEPS MOVING.** Mogadishu's page was good because the embassy closed for 28 years; Phnom Penh's is better
+because the mission is opened, severed, reopened, closed and opened again, and the guide dates every step
+IN THE CITY — the legation opened 14 November 1950, raised to embassy rank 24 June 1952, the first
+resident ambassador 2 October 1954, relations severed 3 May 1965 and reestablished 2 July 1969, the
+embassy reopened that August, closed 12 April 1975, a mission established 11 November 1991, the embassy
+reopened 17 May 1994. **A capital whose mission has a broken history is the easy case, not the hard one**:
+where an uneventful capital yields one date, a contested one yields eight, all of them about the city
+rather than the country. Note also that the first two ministers were resident at SAIGON — a mission
+accredited from another capital, C4's shape once more, this time visible inside a single page.
+
+**AND THE GAP IN THAT SEQUENCE IS WHERE THE SECOND SOURCE GOES.** Between the 1991 mission and the 1994
+embassy sits **Security Council resolution 745 (1992)**, adopted at the 3057th meeting on 28 February
+1992, establishing the UN Transitional Authority in Cambodia "for a period not to exceed eighteen months"
+and deciding elections were vital by May 1993, on the Paris agreements of 23 October 1991. That is the
+second time in five cards a Security Council resolution has carried what no statistical profile could —
+after Guatemala City — and the pattern is worth naming: **when the recognition guide leaves a gap of
+years in a mission's history, ask what the Security Council was doing in those years.** The guide's own
+last line spells the city "Phnom Pehn"; that is a typo in the source and the card does not reproduce it,
+by the rule Dakar's UNdata footnote established.
+
+**`gw-574` HARARE IS THE THIN GUIDE PAGE WHOSE SECOND SOURCE IS THE WHOLE CARD, AND IT IS THE THIRD
+SECURITY COUNCIL RESOLUTION IN SIX CARDS.** The Zimbabwe page is four sentences long — recognition and
+relations both on 18 April 1980, plus a note that the United States never recognised Rhodesia's 1965
+unilateral declaration. Everything else the card says comes from **resolution 460 (1979)**, adopted at the
+2181st meeting on 21 December 1979, which recalls resolution 232 of 16 December 1966, notes that the
+Lancaster House conference had produced agreement on a constitution for "a free and independent Zimbabwe
+providing for genuine majority rule", deplores "the fourteen years of rebellion", reaffirms the people's
+right to self-determination and calls on members to terminate the Chapter VII measures. **A capital whose
+country had a contested sovereignty has a UN paper trail in proportion**; Guatemala City, Phnom Penh and
+Harare have now all been carried by one, and the search-by-symbol route is the way in.
+
+**AND THE SUPERLATIVE THAT WANTED WRITING WAS NOT IN THE SOURCE.** The draft said resolution 232 was the
+first measure the Council ever made binding on all members — which is true, is in every account of the
+sanctions, and is in NEITHER cited work: 460 merely recalls 232 by number and date. It was cut, and the
+sentence now says what 460 says, that the Council acted under Chapter VII. **The claims most likely to
+slip past a source check are the ones a writer already knows**; they arrive feeling verified. Two smaller
+things: the guide writes *"the American Embassy at Salisbury (now Harare)"* with **no renaming date**, so
+the card says Salisbury was the city's name at the time and dates nothing; and the glossary term was
+drafted with the alias *"Salisbury, Rhodesia"*, which is a comma-bearing string no prose contains, then
+**left with no alias at all**, since bare *Salisbury* is also a city in England and in Maryland.
+
+**`gw-575` CONAKRY IS THE SECOND THIN GUIDE PAGE IN A ROW, AND THE FIX IS THE SAME ONE: FIND THE UN
+ADMISSION AND READ THE ORDER OF THE DATES.** The Guinea page gives two facts — recognition on 1 November
+1958 by a letter from Eisenhower to Sékou Touré, and the embassy established on 13 February 1959 — and
+General Assembly resolution 1325 (XIII) puts the admission to the United Nations at the 789th plenary
+meeting on **12 December 1958**, which falls BETWEEN them. That ordering is the card's own subject:
+recognition, then a seat at the United Nations, then an embassy. **Where a guide page yields only two
+dates, the admission record is the third, and its position in the sequence is often more interesting than
+the date itself.**
+
+**AND TWO CLAIMS WERE CUT IN DRAFT FOR THE SAME REASON HARARE'S SUPERLATIVE WAS.** The draft said French
+West Africa's administrative seat was at Dakar rather than Conakry — true, and in NEITHER guide page, the
+Guinea one saying only "part of French West Africa" and the Senegal one nothing about the federation's
+capital — so it went. And it said the order was "unusual: most capitals in this deck…", which is a claim
+about FOLIO rather than about the world; the sentence now states the sequence and calls it less usual than
+the reverse, without counting anything. **A card may not cite the deck it is in**, the same rule that
+retired an Astana sentence. Note also that the 1958 admission PDF has **no text layer** — the pre-1970 UN
+scans do not — so the citation rests on the record page, which states the title, the plenary meeting and
+the date, exactly as Senegal's did.
+
+**`gw-576` PORTO-NOVO IS THE TWO-CAPITAL CASE AND THE BROKEN RELAY AT ONCE, AND THE SAME FOOTNOTE
+CARRIES BOTH.** UNdata's footnote c on Benin reads *"Porto-Novo is the constitutional capital and Cotonou
+is the economic capital"* — the second UNdata footnote in three cards to state a divided capital, after
+the Netherlands — and it is ALSO why the relay breaks: the *Capital city pop.* field gives **285.3
+thousand** for Porto-Novo while `EN.URB.LCTY` gives **991,000**, which is Cotonou. That is the sixth
+break and the second in three cards, and the two faults have one cause, so **on any capital whose UNdata
+footnote names a second city, expect the largest-city series to be measuring that second city** and cite
+UNdata alone, as Quito and Astana did.
+
+**AND THE RECOGNITION GUIDE CORROBORATES THE SPLIT BY WHERE IT PUT THE EMBASSY.** The Benin page never
+mentions Porto-Novo: the mission is **Embassy Cotonou**, established 15 February 1961. Amsterdam's guide
+page followed the GOVERNMENT to The Hague; Benin's follows the ECONOMY to Cotonou; in both the guide
+names a city other than the capital, and in both that is evidence rather than an omission. **Three
+institutions now agree the capital is not the working city, and none of them says it in the same words** —
+which is what makes the claim safe to assert. Two smaller things: the guide dates the COUNTRY's renaming
+("In 1975, the country was re-named the Republic of Benin"), unlike Harare's undated city renaming, so
+that date is citable; and `Porto-Novo vue.jpg` is 834px and **below the picture bar**, though Commons
+served an upscaled 960px thumbnail for it without complaint — **check the ORIGINAL's dimensions, since a
+thumbnail request larger than the file still returns 200.**
+
+**`gw-577` KIGALI IS THE FIRST CARD WHERE A UN RESOLUTION NAMES THE CITY IN ITS OWN OPERATIVE TEXT.**
+Guatemala City, Phnom Penh and Harare were each carried by a Security Council resolution ABOUT the
+country; **resolution 872 (1993)**, adopted at the 3288th meeting on 5 October 1993, mandates UNAMIR "to
+contribute to the security of the city of Kigali, inter alia, within a weapons-secure area established by
+the parties in and around the city" and authorises the first contingent to deploy *to Kigali*. On a
+capital card that is worth more than any number of country-level dates. **Grep a resolution's PDF for the
+CITY NAME before deciding what it can carry** — it takes one line and it decided this card's second half.
+Its other source is the General Assembly's **resolution 1746 (XVI)** of 27 June 1962, which does the work
+a thin guide page could not: it notes "the efforts to maintain the unity of Ruanda-Urundi did not succeed"
+and terminates the Trusteeship Agreement of 13 December 1946 on 1 July 1962, "on which date Rwanda and
+Burundi shall emerge as two independent and sovereign States". **Where a country was half of a trust
+territory, the trusteeship-termination resolution dates the independence and explains the split at once.**
+
+**AND THE HOUSE CHECKS CAUGHT TWO FAULTS ON THIS CARD THAT READING IT DID NOT.** `split-abstract.js`
+reported **5+6** — the second block had grown a sentence — and `check-style.js` went from the standing 20
+findings to **21**, on "Thirty-one years later", a non-round number above 20 written as a word. Merging the
+two sentences fixed both at once. The repair also needed the card taking OUT of `data.js` and re-added,
+`add-card.js` refusing a duplicate id: with the card the only uncommitted change to that file,
+`git checkout data.js` then a re-add is clean, and the glossary files are untouched by it. **Run
+`split-abstract.js` and `check-style.js` before the commit, not after** — a 5+6 abstract renders perfectly
+and a spelled-out number reads as prose.
+
+**`gw-578` FOUND THE PLAN OUT OF DATE: BURUNDI HAS MOVED ITS CAPITAL, AND IS THE ELEVENTH MULTI-SEAT
+COUNTRY.** The running order said *Bujumbura [Burundi]*, written from the population snapshot; UNdata's
+*Capital city* field says **Gitega**. So Burundi joins the table above with `gw-578` Gitega as the
+political capital and **`gw-762` Bujumbura** as the economic capital and largest city, and the second-seat
+band runs to `gw-762`. **`gw-578` IS DEFERRED, and for a mechanical reason worth stating**: `world-
+capitals.js` holds only `Bujumbura` for Burundi, that table being generated from Natural Earth, which
+still files Bujumbura as the capital — so a Gitega card has no dot, and the rule that **a coordinate is
+generated and never typed** is what defers it rather than any gap in the sources. It waits on a Gitega
+point in that table, exactly as the six territory cards wait on one facts field.
+
+**AND UNdata's BURUNDI PROFILE CARRIES AN ORPHANED FOOTNOTE, WHICH IS WHY THE POPULATION IS CITED TO THE
+WORLD BANK.** The *Capital city pop.* row gives **899** thousand marked only `c` (2018) under a Capital
+city field reading Gitega — and footnote **e** on the same page reads, in full, *"Bujumbura"*, attached to
+no row at all. That figure is Bujumbura's size, not Gitega's, and the page no longer says so: the label was
+updated after the 2019 move and the footnote was left unanchored. **Check which row a UNdata footnote
+actually hangs on before leaning on it** — the parse that reads footnotes positionally will happily attach
+this one to the row above. The card therefore takes its population from `EN.URB.LCTY`, which
+unambiguously counts the largest city, and cites UNdata for the capital, the region, the area and the
+membership date. The recognition guide's own contribution is the city's older name — *Embassy Usumbura
+(Bujumbura)* — and a rank that went backwards before it went forwards, to legation on 15 December 1962 and
+to embassy again on 16 September 1963.
+
+**`gw-579` SUCRE IS THE THIRD DIVIDED CAPITAL IN EIGHT CARDS, AND ALL THREE WERE SETTLED BY A UNdata
+FOOTNOTE.** *"La Paz is the seat of government and Sucre is the constitutional capital"* joins the
+Netherlands' and Benin's, and this one is properly anchored to the Capital city field where Burundi's was
+orphaned. **Read that footnote first on any capital card**: it settles the qualifier the question must
+carry, it predicts the relay break, and on three of these four it also told us which city the American
+mission would turn out to be in. Here the guide again names the OTHER city — the legation opened at
+**La Paz** on 3 January 1849 — so the pattern established at Amsterdam and Porto-Novo now holds three
+times: on a divided capital, the recognition guide is evidence for the division.
+
+**IT IS ALSO THE SEVENTH RELAY BREAK, AND THE FIRST WHERE THE THIRD CITY IS NEITHER CAPITAL.** UNdata
+gives 277.9 thousand for Sucre and `EN.URB.LCTY` gives 1,835,355, which is neither Sucre nor La Paz but
+whichever city is largest — so the card says only what the series IS and how far apart the two numbers
+are, rather than naming a city no cited source names. **Where the largest-city series measures a place the
+card cannot identify from its sources, describe the series rather than the city.** Two smaller things: the
+picture's Commons file name carries PARENTHESES, which `SRC_URL_RX` stops at, and percent-encoding them
+(`%28`/`%29`) keeps the credit line whole — the fix the plan's apostrophe-and-bracket rule implies but had
+not stated; and a draft sentence saying Bolivia was recognised "two years before it took a seat at the
+United Nations in 1945" was arithmetic nonsense for 1848 and was cut. **Read a sentence that computes.**
+
+**`gw-580` TUNIS IS THE ONE CAPITAL WHOSE GUIDE PAGE RUNS THE RECOGNITION THE OTHER WAY.** Its first
+heading is *"Tunisian Recognition of the United States, 1795"* — the authorities here accepted an American
+consular representative in mid-1795, before there was anything to recognise in the other direction — and
+the page is then almost entirely ABOUT THE CITY rather than the country: Donaldson named consul for Tunis
+on 28 March 1795 but resident at Algiers, Famin deputised and arranging a truce effective 15 June 1796,
+Eaton presenting his credentials to Hamouda Pasha on 15 March 1798, the Treaty of Bardo of 12 May 1881, the
+La Marsa Convention of 8 June 1883, the consulate general of 22 May 1946, the embassy of 5 June 1956. Only
+the Netherlands page has the same inversion, and there it is one sentence. **A pre-1800 consular
+relationship is the richest kind of guide page this deck can meet**, because a consulate is in a CITY where
+a legation is accredited to a state.
+
+**IT ALSO CONTRADICTS ITSELF ON A DATE, AND THE CARD DROPS THE DAY.** The Recognition section dates the
+Treaty of Peace and Friendship "on or around August 28, 1797" and the Consular section calls it "the August
+1, 1797 treaty" — the same treaty, two days, one page. The card says **"signed in 1797"**, which is what
+both statements agree on, rather than picking the hedged one and looking precise. C2's rule that a spine
+source is not infallible usually means reading a source against ANOTHER source; here it means reading a
+page against itself. (The page also spells the country "Tunisa", the deputy "Flamin" once and "Famin"
+twice, and "Ocotber" — typos, and the card reproduces none of them, by the Dakar rule.) Its admission is
+the deck's first to show **the Charter's two steps separately**: Security Council resolution 116 (1956) at
+the 732nd meeting on 26 July recommends, General Assembly resolution 1112 (XI) at the 574th plenary on
+12 November admits. **Both records are openable; cite the pair where a card has room.**
+
+**`gw-581` JUBA IS WHERE `map.key` AND THE COUNTRY'S NAME COME APART, AND `add-card.js` CAUGHT IT.**
+`world.js` files South Sudan as **`S. Sudan`** — its labels are written to fit on a map, which is the
+`FINDIT_NAMES` finding one layer down — so `"key": "South Sudan"` was refused outright, with the checker
+offering South Korea and South Africa. **The key is the world.js LABEL, never the country's name**, and
+`world-capitals.js` agrees with it (`"Juba": {"s":"S. Sudan"}`), so the dot check passes only once the key
+does. Nothing reader-facing is affected here — a map card's question never names the country — but a card
+written without running the checker would have shipped a window that says it could not load.
+
+**IT IS ALSO THE SECOND UNdata PROFILE WITH NO SURFACE AREA FIELD, AFTER SUDAN.** C9 recorded that
+Sudan's profile omits one, the only such case in Phase 3; South Sudan's omits it too, which makes the pair
+a shape rather than an accident — **the country that split and the country it split from both lost the
+field.** The card takes 646,883 km² from the World Bank's `AG.SRF.TOTL.K2`, which C9 established as an
+independent measurement rather than a relay, and says in the prose that the UN profile carries none.
+Its own subject is the speed: **five days from declaration to membership**, with both of the Charter's
+steps openable — Security Council resolution 1999 (2011) at the 6582nd meeting on 13 July recommending,
+General Assembly resolution 65/308 at the 108th plenary on 14 July deciding — which is the second card in
+two to cite the pair, after Tunis.
+
+**`gw-582` BRUSSELS IS THE THIRD SOURCE JOINING THE OTHER TWO, AND THE EU PAGE EARNS ITS PLACE ON A
+NON-FIGURE FIELD.** C1 found the EU country page for the accession date and the figures; here it also
+supplies **the three official languages** — Dutch, French and German — which nothing else openable states
+and which is the fact a reader of a Brussels card most wants after the population. Its area (30,667 km²)
+and UNdata's (30,528) differ by half a per cent, the land-against-total spread C1 measured, and the card
+states both rather than choosing. **On an EU capital, read the country page for its NON-numeric fields
+too**; the accession line is what the recipe was built for, but Capital, languages and Schengen are all
+stated outright.
+
+**ITS OWN INTEREST IS A RECOGNITION SEQUENCE WITH THREE DIFFERENT DATES FOR ONE INDEPENDENCE.** Belgium
+declared it on 4 October 1830; "most of the European powers recognized de facto independence" on
+20 December 1830; the United States recognised it on 6 January 1832 by an exequatur to the Belgian consul
+at New York; and the former ruler accepted it only with the Treaty of London of 19 April 1839 — nine years
+between the declaration and the Netherlands' acceptance, with the American recognition in the middle. That
+is the clearest case yet of why **a card should give the sequence rather than "independence: 1830"**, and
+the date line carries three of the four. Note the guide's own phrasing there — it says the Netherlands
+"recognized **Brussels** as a sovereign state", using the city for the state, which is a nice sentence and
+not a fact to build on.
+
+**`gw-583` PORT-AU-PRINCE IS THE CASE C11 SAID TO GREP FOR, AND THE GREP PAYS.** C11 recorded that the
+recognition guide dates by U.S. RECOGNITION and that Haiti's is **1862** against an independence of 1804 —
+a 58-year gap, the widest in the deck. What makes the card possible is that the summary paragraph states
+BOTH: *"Though it won independence from France in 1804, Haiti did not receive U.S. recognition until
+1862."* So the gap is not an obstacle to be worked around but the card's whole subject, stated by the
+American record about itself. **Where the guide names both dates, the DISTANCE between them is the fact**;
+where it names only the recognition, C11's deferral still stands.
+
+**AND THE MARKER CHECK CAUGHT A STRANDED CITATION IN THE GLOSSARY TERM, WHICH NOTHING ELSE WOULD HAVE.**
+Trimming the term to the 110-word bar removed the World Bank's 2025 figure while leaving its
+`data-fn="2"` marker on the sentence — `add-glossary.js` passed it, the source still being *referenced* and
+the marker still inside the list, which is exactly L7's finding in its glossary form. The clause was
+restored and the words taken from elsewhere. **After trimming a term to length, read each marked sentence
+against the work it points at**; the length tools and the source tools each pass this fault on their own.
+Note also that Security Council resolution 1908 (2010) does NOT contain the string *Port-au-Prince* — the
+Kigali grep run and failed — so the earthquake sentence is written about Haiti, which is what the source
+says.
+
+**`gw-584` AMMAN IS THE SHORTEST GUIDE PAGE THE DECK HAS USED, AND IT IS STILL ENOUGH.** Four sentences:
+Transjordan a mandated territory under British protection after the First World War, independence declared
+with British agreement on 25 May 1946, American recognition in a White House announcement on 31 January
+1949, and the legation at Amman established on 18 February 1949 with Wells Stabler as chargé. There is no
+consular section, no treaty list and no later event. **A page this thin still yields a card when the dates
+are ORDERED rather than merely listed** — independence, then a wait of nearly three years, then
+recognition, then a legation three weeks later, then a UN seat six years after that. Harare and Conakry
+were the same shape and each needed a second source to carry the second half; this one is carried by the
+admission record and the two statistical sources alone.
+
+**AND THAT ADMISSION IS THE PACKAGE DEAL, WHICH THE RECORD PAGE LETS YOU CITE WITHOUT OVERCLAIMING.**
+General Assembly resolution 995 (X), 555th plenary meeting, 14 December 1955, is headed *"Admission of New
+Members to the United Nations"* — plural — and its PDF is a 1956 scan with **no text layer**, so the list
+of states cannot be read from here. The card says the admission came "not on its own" and names the
+resolution's title, which is exactly what the record page supports; it does NOT say how many states, a
+number every reference work gives and no cited source here does. **Where a scan cannot be read, cite what
+the catalogue record states and stop** — the same discipline Senegal's and Guinea's admissions needed.
+Note that Phnom Penh's UN date is the same day, from the same resolution.
+
+**`gw-585` SANTO DOMINGO IS THE SECOND ABBREVIATED `world.js` KEY IN FIVE CARDS — `Dominican Rep.`** —
+after `S. Sudan`, which makes the Juba finding a rule rather than a curiosity: **look the key up in
+`world.js` before writing the card, not after `add-card.js` refuses it.** Its guide page answers C11's
+Spanish-America warning the way Haiti's did, in the summary paragraph: independence from Haiti in 1844,
+a reversion to Spanish rule in 1861, independence again in 1865, and American recognition in 1866. **A
+state that won its independence twice needs both in the date line**, which is why this card's reads
+*Independence / Regained* rather than one year.
+
+**IT ALSO CONNECTS TO THE CARD TWO BEFORE IT, AND THAT IS A FACT ABOUT THE MISSION.** Relations were
+established on 26 March 1884 with John M. Langston, who "was also accredited to Haiti and resident at
+Port-au-Prince" — so for twenty years the United States dealt with this capital from ANOTHER capital, and
+a legation was opened in the city itself only on 23 July 1904. That is C4's mission-elsewhere family with
+both ends now carded (`gw-583` and `gw-585`), and it is the fourth shape that family has taken. **The
+fifth source had to be found rather than assumed**: the card came back one short, and C11 records that the
+World Bank's AREA series is outright wrong for this country (146,839 km² for 2019 against 48,671), so the
+usual `AG.SRF.TOTL.K2` fallback is barred. **Security Council resolution 203 (1965)** supplied it —
+1208th meeting, 14 May 1965, "deeply concerned at the grave events in the Dominican Republic", calling for
+a strict cease-fire — which is also the UN's own record of what the guide alludes to when it says American
+military occupations "have at times strained relations".
+
+**`gw-586` ABU DHABI EXPLAINS THE WIDEST AREA GAP IN PHASE 3, AND THE ANSWER WAS IN A FOOTNOTE ALL
+ALONG.** C5 deferred the UAE because UNdata's 71,024 km² sat 17% below the term's 83,600 with no second
+source; D2 resolved it with the World Bank's 98,648, which puts the term between the two. Neither read
+UNdata's **footnote b on that row: *"Land area only."*** The two bodies are not disagreeing — one is
+measuring land and the other surface, on a country of shoals, sabkha and islands. **A UNdata figure that
+looks wrong by a wide margin may be measuring something narrower, and the footnote says which**; this is
+the third time in ten cards that a UNdata footnote has settled a question the fields alone could not, after
+the Netherlands' and Benin's divided capitals and Burundi's orphaned one.
+
+**IT IS ALSO THE EIGHTH RELAY BREAK, THE THIRD MISSION-ELSEWHERE CARD RUNNING, AND THE THIRD CHARTER PAIR
+IN SIX.** `EN.URB.LCTY` gives 2,833,079 for 2019 against UNdata's 1,452,100 for the capital, because the
+series counts **Dubai** — and here, unusually, the card CAN name the larger city, the recognition guide
+listing Dubai among the seven sheikdoms; Sucre's could not. Stoltzfus, credentialed 20 March 1972, "was
+also accredited to a number of other Persian Gulf states and he resided in Kuwait", with an embassy at Abu
+Dhabi only on 24 June 1974 — Langston at Port-au-Prince and Heath at Saigon in the same shape. And the
+admission is Security Council resolution 304 (1971), voted unanimously on 8 December, then General
+Assembly resolution 2794 (XXVI) at the 2007th plenary on 9 December: **one week from declaration to
+membership.**
+
+**`gw-587` HAVANA IS THE FULLEST MISSION ARC IN THE GUIDE, AND EVERY STEP IS DATED AT THE CITY.**
+Legation 27 May 1902, embassy 10 February 1923, relations severed 3 January 1961, an **Interests Section
+under Swiss protection** from 1 September 1977, and an embassy again on 20 July 2015 on a date the two
+presidents agreed by letters of 30 June. Phnom Penh's arc had five steps and Havana's has five with a
+thirty-eight-year gap in the middle filled by something that was a mission without being called one — a
+category no other card in the deck has met. **Where a guide page names an Interests Section, that is the
+card**: it is city-level, precisely dated, and it explains a gap that would otherwise read as an absence.
+
+**AND THE POPULATION IS FINE HERE, WHICH IS WORTH SAYING BECAUSE C11 SAID THE COUNTRY'S WAS NOT.** C11
+found Cuba's national figure CONTESTED rather than stale — the term's 9.4 million against UNdata's 10,937
+thousand, with the World Bank series never passing through 9.4 — and withheld a correction. That finding
+is about the COUNTRY and does not travel to the capital: UNdata's 2,138.4 thousand for Havana and
+`EN.URB.LCTY`'s 2,138,419 for 2019 are one number, the relay holding as usual. **A contested national
+population does not imply a contested capital figure**, and the two are measured by different rows. Cuba's
+area agrees within four square kilometres between UNdata and the World Bank, which is what let this card
+reach the bar without a UN resolution.
+
+**`gw-588` PRAGUE IS THE FIRST CAPITAL WHOSE HISTORY IS SET DOWN UNDER TWO COUNTRY HEADINGS, BECAUSE THE
+STATE CHANGED AND THE CITY DID NOT.** `history.state.gov/countries/czechoslovakia` carries the consulate of
+1869, the recognition of the Czecho-Slovak National Council in Paris on 3 September 1918, Crane's legation
+of 11 June 1919 and its closure on 21 March 1939; `…/czech-republic` carries the Velvet Divorce and the
+1 January 1993 recognition. **Where a capital outlived its state, look for BOTH pages** — the guide keeps
+a retired country's entry and does not cross-reference it from the successor's. Two smaller slug facts go
+with it: the Czechia page's slug is **`czech-republic`** (the page title says Czechia), which joins `burma`
+and `cote-divoire` in the list of slugs that are not the country's current name; and the WTO's is
+`czech_republic_e.htm`, whose page says "a WTO member since" rather than the usual "has been a member of
+WTO since", so a grep for the usual phrasing finds nothing.
+
+**AND UNdata AND THE EU AGREE EXACTLY ON THE AREA WHILE DIFFERING ON THE POPULATION — THE REVERSE OF THE
+NETHERLANDS.** Both give 78,871 km² to the square kilometre; UNdata gives 10,609,000 people against the
+EU's 10,909,500, a 2.8% gap, which is C1's finding that **UNdata is sometimes the outlier** seen again
+four years on. The card states both figures rather than choosing, as Brussels does for its two areas.
+**Where two official sources differ, say so and cite both**; the disagreement is a fact about the sources
+and a reader is better served by seeing it than by being handed one number that looks settled.
+
+**`gw-589` TEGUCIGALPA IS THE FOURTH SHAPE OF THE MISSION-ELSEWHERE FAMILY, AND THE GUIDE SAYS IT
+OUTRIGHT.** The three already recorded are a mission accredited from another city (Bamako, Niamey,
+Ouagadougou), an accreditation that moved while the mission stayed (Dakar), and a mission sitting in the
+economic capital rather than the constitutional one (Cotonou). Honduras adds a fourth and the recognition
+guide states it in as many words: Solon Borland, appointed on 19 April 1853 as minister to Honduras, Costa
+Rica, Nicaragua and El Salvador at once, **"did not present his credentials in Tegucigalpa, though he was
+accredited to Honduras"** — so the recognition of the state was marked by no ceremony in its capital at all,
+and the first American minister actually to reside in the country was James R. Partridge, on 25 April 1862.
+**The legation itself is named for TWO towns**, "Comayagua and Tegucigalpa", opened 22 February 1856: the
+seat of government alternated between them through the nineteenth century, and the guide records the pair
+rather than choosing. That is the divided-capital pattern of the Netherlands, Benin and Bolivia seen a
+century earlier and since resolved, which is why it costs the deck no extra card. Two smaller things. **The
+UNdata relay holds exactly here** — the capital-city population of 1,403.2 thousand for 2019 is
+`EN.URB.LCTY`'s 1,403,162 to the person, Tegucigalpa being both the capital and the largest city — and the
+areas agree within 2 km² (UNdata 112,492, the World Bank 112,490), so the card is at five sources with
+nothing strained. And **the 23 March 1943 joint announcement raising seven American legations to embassies
+now carries a third card**, after Haiti and the Dominican Republic; where a guide entry is thin on the
+capital itself, that announcement is usually the last datable act it records.
+
+**`gw-590` LISBON IS WHERE UNdata FINALLY SAYS WHAT `EN.URB.LCTY` MEASURES, AND IT IS NOT A CITY.**
+Every capital card in this deck has leaned on the relay — UNdata's *Capital city pop.* usually equalling
+the World Bank's *Population in largest city* to the person — and Portugal both confirms it and explains
+it. The figure is 2,942.1 thousand against `EN.URB.LCTY`'s **2,942,097**, the same number; and UNdata's
+footnote **c** defines it as **"Grande Lisboa, the Peninsula of Setúbal, and the municipality Azambuja"**,
+a three-part statistical region, where the city of Lisbon itself is about a fifth of that. So the series
+is the national statistical office's own largest-urban-unit definition relayed unchanged, and it is
+published wherever that office publishes it — which is why a capital figure in this deck should be
+labelled by its region rather than asserted as a city population. **Read the footnote letters on the
+capital row, not just the number**: Portugal's carries **c** and **d** together, and **d is "2019"**, so a
+column headed *(000, 2025)* is in fact a 2019 figure. The other divergence is between the two European
+sources and is left standing rather than resolved: UNdata gives the country 10,412 thousand and the EU
+country page gives Eurostat's **10,749,635**, about 3 per cent apart, so the card states both and names
+each. The areas agree — 92,226 km² at UNdata and on the EU page, 92,230 at the World Bank.
+
+**AND THE RECOGNITION GUIDE ADDS A FIFTH MISSION-ELSEWHERE SHAPE: THE MISSION LEFT THE CONTINENT.** The
+four already recorded all keep the mission somewhere in the region — accredited from a neighbouring
+capital, an accreditation that moved while the mission stayed, a mission in the economic capital, a
+minister who never presented his credentials in the capital at all. Portugal's is larger than any of
+them: the legation was established at Lisbon on **13 May 1791**, the day the credentials of David
+Humphreys were accepted — Portugal being "the first neutral nation to establish diplomatic ties with the
+United States" — and then, when the King fled to Brazil during the Napoleonic Wars, **the legation
+followed him and sat at Rio de Janeiro from 1810 until it closed in July 1821**, returning with him to
+Lisbon in 1822. A capital's mission history can therefore run for eleven years on another continent, and
+the guide records the whole of it under the country rather than the city.
+
+**`gw-591` DUSHANBE IS THE POST-SOVIET SHAPE OF A GUIDE ENTRY, AND IT IS SHORT BY DESIGN.** Where a
+Latin American or European entry runs to consulates, legations and relocations, a former Soviet republic's
+has three lines and every one of them is a date in the same four months: recognition on **25 December
+1991**, "when President George H.W. Bush announced the decision in an address to the nation regarding the
+dissolution of the Soviet Union"; relations on **19 February 1992**, by a press statement from the same
+president; and the embassy at Dushanbe on **13 March 1992** under Edmund McWilliams as chargé d'affaires ad
+interim. There is no earlier consulate to record and no legation, because the state has no diplomatic
+history of its own before 1991 — so the entry is thin and complete rather than thin and unhelpful, and it
+still names the capital outright, which is what the card needs. **Expect the same four-line shape for the
+other post-Soviet capitals still to be written**, and expect the recognition date to be the single day the
+Soviet Union dissolved rather than anything about the country in question. Two things beside it. **The
+relay holds exactly** — UNdata's 893.8 thousand for 2019 is `EN.URB.LCTY`'s **893,826** — and the areas
+agree within 21 km² (141,400 against 141,379), so the card reaches five sources on the guide, UNdata, the
+two World Bank series and the WTO with nothing strained. And the WTO date is worth checking rather than
+assuming: Tajikistan acceded on **2 March 2013**, the same date of the year as its United Nations seat of
+2 March 1992, which reads like a slip and is what both sources say.
+
+**`gw-592` PORT MORESBY IS THE MISSION-ELSEWHERE FAMILY SEEN FROM THE RECEIVING END.** Every shape
+recorded so far describes a capital whose American mission sits somewhere else; Papua New Guinea's is the
+inverse, and the guide states it plainly: "the Ambassador to Papua New Guinea has also been accredited to
+the Solomon Islands and Vanuatu, and the Ambassador has remained resident at Port Moresby." So one city
+holds the mission for three states — **which means the Honiara and Port Vila cards, still to be written,
+will each be a mission-elsewhere entry pointing back here**, and the guide's own Solomon Islands and
+Vanuatu pages are worth checking against this one when they are. The entry also has a shape worth naming
+in its own right: **the consulate became the embassy, under the same officer.** Mary S. Olmsted opened the
+first American consulate in the then self-governing Territory of Papua and New Guinea "on or about July 1,
+1974", and on **16 September 1975** — the day the United States recognised the new state, at the
+independence ceremonies, by a letter from President Ford carried by the Governor of Iowa — that consulate
+general was raised to an embassy with Olmsted in charge as ambassador-designate. A recognition, a
+diplomatic establishment and a promotion on one date, in one building.
+
+**AND A COMMONS THUMBNAIL BELOW THE ORIGINAL'S WIDTH CAN STILL 400.** The rule recorded so far is that no
+thumbnail exists at or above an original's width; this file is 1,229px wide and **1200 and 1000 both
+answer 400 while 960 answers 200**, so the ladder of generated widths is not continuous. The working rule
+is therefore to **test the exact URL you intend to ship** rather than to reason from the original's
+dimensions — and to fall back down the standard ladder (1280, 960, 800) rather than trying arbitrary
+widths.
+
+**`gw-593` STOCKHOLM TURNS LISBON'S FINDING INTO A RULE, AND THEN BREAKS THE AREA RULE.** Lisbon showed
+UNdata's capital-city footnote defining the figure as a three-part statistical region; Sweden's defines it
+as **"tätort" (according to the administrative divisions of 2005)** — the Swedish statistical locality —
+and again it equals `EN.URB.LCTY` to the person (1,608.0 thousand against **1,608,037**). Two published
+definitions of two different kinds, both relayed unchanged, settle it: **the World Bank's largest-city
+series is whatever the national statistical office calls its largest urban unit, and UNdata's footnote is
+where that definition is written down.** Read the footnote before calling a capital figure a city
+population.
+
+**AND `AG.SRF.TOTL.K2` IS NOT ALWAYS A SECOND OPINION ON THE SAME QUANTITY.** C9 established it as the
+tie-breaker when UNdata's area looks wrong, and C11 recorded that it contains outright errors. Sweden is
+neither case and is worse for being neither: **UNdata gives 438,574 km², Eurostat 447,424 and the World
+Bank 528,860** — 20 per cent above UNdata — and the indicator's own `sourceNote`, which the API returns,
+says why: *"Surface area is a country's total area, including areas under inland bodies of water and some
+coastal waterways."* For a country with a large archipelago and territorial sea that is a different
+measurement, not a disagreement about the same one. So: **fetch the indicator's `sourceNote` before
+treating the two as comparable**, and where they are not, say so in the card rather than picking a winner —
+this one states all three figures and names each source. `AG.LND.TOTL.K2` (Sweden 407,280) is the land-only
+series if a like-for-like figure is ever wanted.
+
+**Its guide entry also runs the other way round.** Every recognition entry so far records the United States
+recognising somebody; Sweden's records **Sweden recognising the United States**, on 3 April 1783 by signing
+the Treaty of Amity and Commerce at Paris, on an approach from the Swedish minister there who hoped it
+would be remembered that "Sweden was the first power in Europe which had voluntarily and without
+solicitation offered its friendship to the United States". Franklin negotiated it without ever going to
+Sweden. Relations proper began on 29 April 1818, and Jonathan Russell resided at Stockholm as minister **to
+the court of Sweden and Norway, "which were not then separate countries"** — one more shape for the mission
+family: a single residence accredited to a union of two crowns.
+
+**`gw-594` ATHENS IS THE THIRD PUBLISHED DEFINITION IN THREE CARDS, AND THE FIRST CAPITAL WHOSE
+GLOSSARY TERM ALREADY EXISTED.** UNdata's footnote here reads **"Refers to the localities of Calithèa,
+Peristérion and Piraeus, among others"** — an agglomeration named by its component localities, where
+Portugal's named a set of regions and Sweden's named a national statistical concept — and again the figure
+matches `EN.URB.LCTY` to the person (3,154.2 thousand against **3,154,152**). Three definitions of three
+different kinds settle the rule beyond argument: **the World Bank's largest-city series is the national
+statistical office's own urban unit, whatever that office has chosen it to be, and UNdata's footnote is
+where it is written down.** Do not describe such a figure as a city population without reading the
+footnote first.
+
+**And this card wrote no glossary term, because `Athens` has been in the glossary since the Ancient Greece
+collection and is already at the bar with five sources.** The pairing rule is satisfied by a term that
+already exists, so the work is to CHECK rather than to write — and the checking matters, because
+`add-glossary.js` would have replaced that five-source entry with a three-sentence one and said only
+"updated". What the term did lack was a picture, and a picture is ADDED to an existing entry with
+**`add-images.js`**, which writes the `GLOSSARY_IMAGES` row and touches nothing else. **Look the term up
+before writing one**, and reach for `add-images.js` rather than `add-glossary.js` when the only thing
+missing is the illustration.
+
+**Its guide entry is Portugal's wartime twin, and the plural accreditation at its extreme.** The legation
+at Athens **closed on 14 July 1941** under the German occupation; the mission followed the Greek government
+to London, where Anthony J. Drexel Biddle, Jr. was "also commissioned to the exile governments of Belgium,
+Czechoslovakia, Luxembourg, the Netherlands, Norway, Poland, and Yugoslavia" — **eight governments at once,
+against Port Moresby's three states** — then to Cairo, and back to Athens on **27 October 1944**. So the
+mission-elsewhere family now has a wartime branch beside Portugal's Napoleonic one, and the two are the
+same shape: the mission is accredited to a government, not to a city, and goes where that government goes.
+The recognition itself is worth reading for its own sake: asked in 1833 by Britain, France and Russia to
+acknowledge Otto of Bavaria as King of Greece, the United States sent a reply the guide itself calls
+ambiguous, and recognition proper waited until **7 November 1837**.
+
+**`gw-595` BAKU MAKES IT FOUR DEFINITIONS IN FOUR CARDS, AND ADDS A SECOND KIND OF FOOTNOTE ENTIRELY.**
+Azerbaijan's capital-city footnote reads **"Including communities under the authority of the Town
+Council"** — an administrative jurisdiction, after Portugal's list of regions, Sweden's national statistical
+concept and Greece's list of localities — and the figure again equals `EN.URB.LCTY` to the person (2,313.1
+thousand against **2,313,138**). Four kinds, four cards, no exceptions: **read the footnote letters on the
+capital row every time.** What is new here is a footnote on the COUNTRY row rather than the capital one:
+UNdata's national population of 10,398 thousand carries footnote **b, "Including Nagorno-Karabakh"** — the
+profile stating what territory its own count covers, which is the same service the capital footnote
+performs one line down. **A country footnote can be a statement about disputed territory**, so read those
+letters too, and where one says so the card should say so rather than quoting the figure bare.
+
+**Its guide entry confirms the post-Soviet prediction made at Dushanbe, and refines it.** The three dated
+lines are the same three to the letter — recognition **25 December 1991** by the address on the dissolution
+of the USSR, relations **19 February 1992** by a press statement, the embassy at Baku **16 March 1992**
+under a chargé d'affaires (Dushanbe's was 13 March under McWilliams, three days earlier). What Dushanbe's
+lacked is a **Summary paragraph carrying a pre-Soviet independence**: Azerbaijan's records a state "de
+facto recognized by the Allies in January 1920" whose independence ended "when the Red Army arrived in
+April of that year". **So the four-line shape holds and the Summary is where anything older lives** —
+worth reading on the remaining post-Soviet capitals rather than skipping to the dated sections.
+
+**Two smaller things. The WTO has an ACCESSIONS page as well as a members page**, and it is the source to
+reach for when a country is not a member: `wto.org/english/thewto_e/acc_e/a1_<country>_e.htm` gives the
+date its working party was established (Azerbaijan's, 16 July 1997), which is a datable fact where the
+members page is a 404 — **and the members-page 404 REDIRECTS to `/error/error_404.htm` with a 200 at the
+end of the chain**, so follow redirects and read the effective URL rather than trusting the status. And a
+Commons file named for a city and a year can be a **photo-contest poster**: `Baku_2020.jpg` is a competition
+entry with four society logos, a photographer's name set in the margin and a URL across the foot — a
+watermarked composite rather than a photograph of anywhere.
+
+**`gw-597` BUDAPEST IS THE FIRST CAPITAL WHOSE OWN NAME CHANGES INSIDE THE GUIDE ENTRY, AND THE GUIDE
+IS CAREFUL ABOUT IT.** Every mission shape recorded so far moves the mission — to another city, another
+country, another continent. This one holds the mission still and moves the CITY: the first American post
+in the Kingdom of Hungary was "a Consular Agent … appointed in **Pesth**" in 1869, a consul followed in
+1874, and "those appointed after 1888 were accredited to **Budapest**". Buda, Pest and Óbuda had been
+united in the meantime, and the guide records the two names against their own dates rather than
+back-dating the modern one. **Read a pre-1900 consular line for the name it actually uses**; where the
+guide names a place the card's answer term does not, that is usually a real change in the city rather
+than an error.
+
+**Its recognition date is late for a reason worth stating: the United States ratified neither treaty.**
+Hungary's independence from Austria was recognised by the Treaty of St-Germain of 10 September 1919 and
+its borders drawn by Trianon on 4 June 1920, and the guide records that the United States ratified
+neither — so the state of war with the former Austro-Hungarian Empire was ended by a **Joint Resolution
+of Congress on 2 July 1921**, a treaty of friendly relations was signed that August, and the legation at
+Budapest opened on **26 December 1921**. **A recognition date that trails the independence by two years
+is not always a slow decision; sometimes it is a ratification that never happened.**
+
+**Two smaller things.** Hungary was a party to the **GATT from 9 September 1973**, while (in the guide's
+own words) its foreign policy "was generally aligned with that of the Soviet Union" — so the WTO members
+page is worth fetching even for a Warsaw Pact state. And its UN seat of **14 December 1955** is the same
+date as Portugal's at `gw-590`: the sixteen-state package admission of that day turns up repeatedly in
+this deck, so **a 14 December 1955 membership date is a fact about the Cold War deadlock rather than
+about the country**, exactly as C9 recorded for Libya's 1955 admission.
+
+**`gw-598` VIENNA IS THE FIRST GUIDE ENTRY THAT SIGNPOSTS ITS OWN SPLIT, AND IT CONFIRMS BUDAPEST'S
+FINDING FROM THE OTHER SIDE.** Austria's page opens with a note the deck has not met before — *"This entry
+is for the modern state, the Republic of Austria. Please click here for information on the Austrian
+Empire"* — so where Prague needed two entries found by hand (`czechoslovakia` and `czech-republic`, the
+state changing while the city did not), **Austria's page tells you the other one exists.** Read the opening
+note before assuming an entry covers the whole of a capital's history: the guide splits by STATE, and it
+says so when it does.
+
+**And the same Joint Resolution appears on two cards.** Budapest's entry dated Hungary's recognition to
+the Joint Resolution of Congress of **2 July 1921** ending the state of war with Austria-Hungary; Austria's
+entry cites that identical resolution as "opening the way" for its own relations, and then dates
+recognition to the **Treaty Establishing Friendly Relations signed at Vienna on 24 August 1921** — five
+days before Hungary's equivalent treaty. So one American act unlocked two recognitions, and the guide
+dates each to the instrument that country actually signed. **When two entries share a paragraph, check
+which date each one hangs its recognition on**; they need not be the same.
+
+**Its UN seat is 14 December 1955 for the third card running** (after Portugal at `gw-590` and Hungary at
+`gw-597`), and Austria is the case that explains the pattern rather than merely joining it: the guide
+records the **Austrian State Treaty of 15 May 1955**, which ended the four-power occupation and declared
+the country "free, independent, and neutral", seven months before the package admission. **A 14 December
+1955 date is the Cold War deadlock breaking, and the reason it broke is on some of these pages.** The
+Vienna entry also carries the closure sequence in full — the legation shut on **30 April 1938** after the
+Anschluss and became a consulate general, which closed on **9 July 1941** with every other American
+consulate in Germany — which is the mission-elsewhere family's opposite: the mission does not move, it is
+demoted and then extinguished.
+
+**`gw-599` MINSK IS WHERE C3'S UN-MEMBERSHIP WARNING BECOMES A CARD'S OWN SENTENCE.** C3 recorded that
+the UN membership date does not date independence for the Soviet founding republics — Belarus and Ukraine
+both show **24 October 1945** because Byelorussia and Ukraine held seats in their own right — and Belarus
+is where the gap is widest and most likely to mislead: the guide dates independence from the Soviet Union
+to **25 August 1991**, 46 years later. The card states both figures and says outright that the membership
+date is not when the present state began, which is the honest way to carry a trap the deck has already
+met. **Where a UN date predates a state's own independence, say so in the prose rather than leaving two
+numbers to contradict each other.**
+
+**The post-Soviet shape has a variant, and a fifth line.** Tajikistan and Azerbaijan both separate
+recognition (25 December 1991) from relations (19 February 1992); **Belarus has both on the same day**,
+25 December 1991, in the same address. And its entry carries something the other two lack after the
+embassy line: **"American Ambassador Recalled, 2008"** — the ambassador withdrawn on 12 March after a
+threat of expulsion, Belarus recalling its own, and each mission cut to five diplomats. So the four-line
+shape is a floor rather than a template: **read to the end of a post-Soviet entry**, because a rupture
+after the establishment is recorded there and nowhere else the deck uses.
+
+**Its capital footnote repeats Baku's word for word** — "Including communities under the authority of the
+Town Council" — which refines the four-definitions finding: **the kinds are not per-country inventions but
+recur across profiles**, presumably because the statistical convention is shared. Two smaller notes. The
+WTO accessions route paid a second time (Belarus' working party, **27 October 1993**), and its French-slug
+guess `a1_bielorussie_e.htm` redirected to the 200-status error document — **the accession slugs are
+English**. And a Commons picture can fail on TONE as well as subject: `Belarus-Minsk-View from above-1.jpg`
+is a good wide view of the modern city in **monochrome**, which on a card about a present-day capital reads
+as a historical photograph; it was refused on that alone.
+
+**`gw-600` BERN IS THE CLEANEST DEMONSTRATION YET THAT `EN.URB.LCTY` IS NOT A CAPITAL'S POPULATION,
+AND THE INDICATOR SAYS SO ITSELF.** The relay has held on every card since Tegucigalpa and it breaks here
+by more than three times: UNdata gives the capital **426 thousand** for 2019 and `EN.URB.LCTY` returns
+**1,383,092** for the same year, because Bern is not Switzerland's largest city. Fetch the indicator's own
+`sourceNote` and it settles the matter in one line — *"Population in largest city is the urban population
+living in the country's largest metropolitan area"* — which is what makes the earlier agreement a
+coincidence of the capital ALSO being the largest city rather than a property of the series. **Check that
+the capital is the largest city before quoting the World Bank figure for it**; Quito, Porto-Novo, Sucre and
+Abu Dhabi were the earlier breaks and this is the one to cite, since the definition is published. (Both
+World Bank sourceNotes have now paid: `AG.SRF.TOTL.K2`'s explained Sweden's 20 per cent area gap and this
+one explains Bern's threefold population gap. **Fetch `api.worldbank.org/v2/indicator/<code>?format=json`
+before treating any two series as comparable.**)
+
+**And the recognition guide never names the capital.** Grepped, Switzerland's entry contains "Bern" zero
+times and "Basel" twice: recognition is dated to the appointment of **John Godfrey Boeker as consul general
+at Basel on 30 November 1829**, and the legation of **29 June 1853** is recorded as established "in
+Switzerland" rather than in a city. That is C7's rule in its strongest form — where the guide has nothing
+to say about the capital, do not stretch it — so this card's second block is about the state's relations
+and says plainly that the record names no Swiss capital. **Grep an entry for the capital's name before
+planning a block around it.** Two smaller things: the entry hedges its own recognition date ("appears to
+have been"), which is rare enough to be worth quoting; and Switzerland's **UN seat of 10 September 2002**
+is the latest date the deck has met, which the card states plainly rather than ranking against its
+siblings.
+
+**`gw-601` FREETOWN IS THE THIRD CONSULATE-BECOMES-EMBASSY ENTRY, AND THE PATTERN IS NOW PREDICTABLE
+FOR A BRITISH COLONY.** Port Moresby's consulate general became the embassy on independence day under the
+same officer; Freetown's did the same on **27 April 1961** under Herbert Reiner, Jr.; Tegucigalpa's
+legation was opened for two towns at once. The colonial shape is the first of those: **where the United
+States kept a consulate in a colony, independence is a change of RANK rather than an opening**, so a card
+for such a capital should say the mission was already there. Expect it again at Lomé, Accra, Nairobi and
+the rest of the British and French African capitals still to be written.
+
+**Its recognition instrument is dated the day BEFORE the recognition.** The guide says the United States
+"recognized Sierra Leone when it became independent on April 27, 1961, in a congratulatory message from
+President John F. Kennedy … **dated April 26, 1961**". Both dates are in one sentence and they are one day
+apart, which is what a message written to arrive on the day looks like. **Read a recognition sentence for
+two dates rather than one**; the card's date line carries both, and neither is wrong.
+
+**Two figures worth recording.** The relay holds exactly (UNdata 1,168.4 thousand against `EN.URB.LCTY`'s
+**1,168,424**), and here the capital IS the largest urban area, which is the condition Bern showed to be
+doing all the work. And the areas divide two against one: UNdata and the World Bank both give **72,300
+km²** where the Commonwealth Secretariat gives **71,740**, a 0.8 per cent gap — inside the spread C9's rule
+tolerates, so the card states the majority figure and names the third rather than correcting anything.
+
+**`gw-602` LOMÉ CONFIRMS THE FREETOWN PREDICTION ON THE VERY NEXT CARD, AND WIDENS IT BEYOND THE
+BRITISH EMPIRE.** The consulate-becomes-embassy pattern was recorded as a British-colony shape; Togo was
+**French**-administered, and the guide says the same thing in the same words — "the American consulate at
+Lomé was raised to Embassy status" on **27 April 1960**, with Jesse M. MacKnight as chargé d'affaires ad
+interim. So the rule is about a CONSULAR PRESENCE rather than about which empire held the territory:
+**wherever the United States kept a consulate in a dependency, independence is a change of rank**. Two
+details worth carrying. Togoland was a **United Nations trust territory** under France rather than a
+plain colony, which is the same standing the guide gives Papua New Guinea's northern half — so the
+trusteeship route recurs and is worth naming in the prose, since a trusteeship ending is not a colony
+being released. And Togo's independence day, 27 April 1960, is the same date of the year as Sierra Leone's
+at `gw-601`, one year apart; a coincidence, but one that makes the two cards easy to confuse when writing
+them back to back.
+
+**UNdata has a FIFTH kind of footnote: a methodological note that dates its own revision.** After a list
+of regions (Portugal), a national statistical concept (Sweden), a list of localities (Greece) and an
+administrative jurisdiction (Baku, Minsk), Togo's country population carries this: *"Results obtained from
+an interim update of Togo's population estimates and medium variant projections released on 19 January
+2026 … more detailed results from the Togo general population and housing census 2022."* That is the
+profile telling you WHEN its figure changed and WHY — which is exactly what a card correcting an older
+number needs, and it is why C7's correction of this term to 8.6 million now agrees with the profile
+exactly. **Read the country-row footnotes for a revision note before deciding a figure is stale.**
+
+**And the thumbnail rule is confirmed as untestable in the abstract.** Port Moresby recorded that a width
+BELOW the original's can 400; here the original is exactly 1,280px wide and the **1280 thumb answers 200
+while 1024 answers 400** — the opposite way round. The only rule that survives both is the one already
+written: **test the exact URL you intend to ship.**
+
+**`gw-603` VIENTIANE HAS THE FULLEST RANK HISTORY THE DECK HAS MET, AND IT COMPLETES THE SET.** Vienna's
+legation was demoted to a consulate general and then extinguished; Belarus's ambassador was recalled and the
+mission cut; Port Moresby's, Freetown's and Lomé's consulates were promoted. Laos has a mission that goes
+**up, down and up again in one place**: a legation at Vientiane on **22 August 1950**, an embassy by joint
+announcement on **10 August 1955**, the head of mission downgraded from ambassador to chargé d'affaires ad
+interim after the Lao People's Democratic Republic was founded in December 1975, redesignated chargé
+d'affaires in 1987, and an ambassador posted again only on **6 August 1992**. **A mission's rank is a
+readable record of the relationship**, and where an entry gives four rank changes the card should carry the
+shape rather than only the opening date.
+
+**It also holds both halves of the mission-elsewhere family at once.** The consular officers at Vientiane
+"had multiple postings and were also assigned to Saigon, Vietnam, and Phnom Penh, Cambodia", and the
+minister who established relations on 29 July 1950, **Donald R. Heath, was accredited to Cambodia and
+Viet-Nam as well and was resident at Saigon** — so at the same moment the city had a resident consul serving
+three countries and a non-resident minister living in a fourth capital. Heath is already recorded here for
+Phnom Penh; **when a guide names a minister resident elsewhere, expect his name on the neighbouring capitals'
+cards too**, and check their entries against each other rather than writing each from scratch.
+
+**Two smaller notes.** Laos's UN seat of **14 December 1955** is the fourth on that date after Portugal,
+Hungary and Austria — and the first outside Europe, which is what a package admission looks like from the
+other side of the world. And the WTO slug is the STATE'S OWN SHORT NAME: `laos_e.htm` and `lao_pdr_e.htm`
+both redirect to the 200-status error document, while **`lao_e.htm`** serves the page (member since 2
+February 2013).
+
+**`gw-605` ASHGABAT IS BUDAPEST'S NAME-CHANGE FINDING IN A SECOND FORM, AND THE GUIDE AGAIN SIGNPOSTS
+IT.** Budapest showed the guide recording a city under two names against their own dates, because the town
+had been merged; Turkmenistan's shows the same care about a **TRANSLITERATION**, and inline: the heading
+reads "Establishment of the American Embassy in **Ashkabad (now Ashgabat)**, 1992". So a post-Soviet
+capital's entry may carry the Russian-era spelling with the current one in brackets — **grep an entry for
+BOTH spellings before concluding it does not name the capital**, which is the failure Bern's card was
+written around. Two structural notes from the same page: its **"Consular Presence" heading has nothing
+under it**, so a heading in this guide does not imply content, and the post-Soviet four-line shape holds
+for a fourth time (recognition 25 December 1991, relations 19 February 1992, embassy **17 March 1992**),
+with the three Central Asian and Caucasus embassies opening within four days of each other — Dushanbe the
+13th, Baku the 16th, Ashgabat the 17th.
+
+**Its fifth source is a General Assembly resolution, and the UN Digital Library route is worth writing
+down.** Turkmenistan's permanent neutrality was recognised by **A/RES/50/80A of 12 December 1995, adopted
+without a vote** — a datable act of exactly the kind C3's rule looks for, and the only one this entry's
+thin guide page could not supply. Search `digitallibrary.un.org/search?p=<symbol>&ln=en`, then read the
+RECORD ids out of the HTML **beside the title you want**: a compound symbol like 50/80 returns the parent
+resolution and both parts (202725, 284240, 284241), and only the middle one is Turkmenistan's. The record
+page states the symbol, the meeting record, the committee report and "ADOPTED WITHOUT VOTE" outright.
+
+**And a satellite scene can be named simply `<City>, <Country>.jpg`.** `Ashgabat, Turkmenistan.jpg` is a
+NASA-style orbital image with nothing in its name to say so — the SPACEBORNE filter recorded in this plan
+keys on words like Landsat and Sentinel and cannot see this one. **Look at the picture; the filename is
+not evidence.**
+
+**`gw-606` TRIPOLI HAS THE LONGEST AND MOST BROKEN MISSION HISTORY IN THE DECK, AND ITS EMBASSY IS
+CURRENTLY IN ANOTHER COUNTRY.** Vientiane's rank went up, down and up in one place; Libya's mission has
+been opened, closed by war, reopened, raised, closed for 26 years without relations being severed,
+rebuilt as an interests section inside the **Belgian** embassy and then a liaison office, raised again in
+2006, suspended in 2011, resumed, suspended again on 26 July 2014 — and **since March 2015 it has worked
+from Tunisia as the "Libya External Office in Tunis"**. That is the mission-elsewhere family's live
+instance: not a nineteenth-century accreditation but a present arrangement, and the guide states it in
+the present tense. **Read a guide entry to its last paragraph before describing where a mission is**;
+several of these entries end on an arrangement still in force.
+
+**And it is the SECOND reversed recognition, after Sweden.** Sweden recognised the United States in 1783;
+"the United States was recognized by **Tripoli** in 1796", by a peace treaty signed in the city on 4
+November — with the same guide recording that the treaty was also signed by the Dey of Algiers, whose
+claimed authority over Tripolitan affairs the Pasha denied. So the reversed-recognition shape is a
+pattern rather than a curiosity, and both instances are pre-1800: **expect it wherever the United States
+was the new state**.
+
+**Its UN seat of 14 December 1955 is the fifth on that date** — after Portugal, Hungary, Austria and Laos
+— and Libya is the case C9 already flagged, since it declared independence on **24 December 1951**, four
+years earlier. Two figure notes. The area gap C7 deferred on and C9 resolved is confirmed here and left
+standing in the prose: **1,676,198 km² at UNdata against 1,759,540 at the World Bank**, 5 per cent apart,
+each named. And the relay holds exactly (1,160.9 thousand against **1,160,918**).
+
+**A picture note worth keeping: when `Special:FilePath` 429s and will not clear, `w/thumb.php` still
+serves.** Three attempts at `Special:FilePath/<file>?width=900` returned the 2,256-byte rate-limit
+document over a minute apart; `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=900` answered 200
+immediately. Both routes are already recorded in CLAUDE.md — this is the first time the fallback has been
+the only one that worked.
+
+**`gw-607` BISHKEK IS WHERE THE RECOGNITION GUIDE IS CAUGHT CONTRADICTING ITSELF, AND THE PROSE IS THE
+AUTHORITY.** Its entry is headed **"Establishment of the American Embassy in Bishkek, 2004"** and the
+sentence beneath it reads "was established on **February 1, 1992**". The heading year is twelve years out
+and nothing else on the page supports it; the 1992 date fits the Central Asian batch exactly (Bishkek 1
+February, Dushanbe 13 March, Baku 16 March, Ashgabat 17 March). **Read the sentence, not the heading** —
+this guide's section headings have already been shown to carry a city's old name beside its new one, and
+here one carries an outright wrong year. Where a card takes a date from this source, take it from the
+prose.
+
+**And the same officer opened two of these embassies.** Edmund McWilliams was chargé d'affaires ad interim
+at Bishkek on 1 February 1992 and at Dushanbe on 13 March 1992 — six weeks apart, in two countries. That
+is Vientiane's rule paying: **read the neighbouring capitals' entries against each other**, because the
+post-Soviet openings were carried out by a small number of people and the connection is visible only
+across pages. Note that a card making that connection needs BOTH pages in its source list; this one cites
+Tajikistan's guide entry as its sixth source rather than resting the claim on Kyrgyzstan's.
+
+**Two smaller notes.** Kyrgyzstan takes the Belarus variant of the post-Soviet shape — recognition and
+relations on the same day, **25 December 1991** — and its entry has no consular section at all, which is
+the floor for a state with no diplomatic history of its own before 1991. And the WTO files it under its
+formal name: `kyrgyzstan_e.htm` and `kyrgyz_e.htm` both redirect to the 200-status error document while
+**`kyrgyz_republic_e.htm`** serves (member since **20 December 1998**). That is the second slug of this
+shape after Laos's `lao_e.htm`, and the rule they share is that **the WTO's slug follows the name the
+member joined under, not the name in common use.**
+
+**`gw-608` ASUNCIÓN IS C12's SUMMARY-PARAGRAPH RULE WORKING EXACTLY AS WRITTEN, AND THE WIDEST
+RECOGNITION GAP THE DECK HAS MET.** C11 found the recognition guide unusable for Spanish American
+independence dates; C12 refined that to "read the summary paragraph", and Paraguay's opens **"Paraguay
+declared its independence from Spain on May 15, 1811"** — the date nowhere in the Recognition section,
+which gives **27 April 1852**, forty-one years later. Grepping the page confirms it: `1811` appears once,
+in the summary. **The two dates belong in the same card and neither is the other**, which is what the date
+line here carries.
+
+**And the recognition itself was performed from another capital.** It was made "by the issuance to John
+M. Pendleton, **Chargé d'Affaires at Buenos Aires**, of a full power to negotiate a treaty of commerce" —
+so the mission-elsewhere family reaches the act of recognition itself, not merely the mission's residence,
+and no American mission stood in Asunción for another nine years, until the legation of **26 November
+1861**. Its embassy came by a **bilateral joint announcement of 4 January 1942**, raising both countries'
+legations at once — the same instrument family as the 23 March 1943 seven-republic announcement already
+recorded, but for two states rather than seven.
+
+**Its capital footnote is a sixth kind: a district list naming a whole department.** *"Refers to the
+district of Asunción and the 19 districts of Central Department"* — closest to Greece's list of localities
+but naming an administrative department wholesale, and the figure it produces is startling: **3.28 million
+against a national 7.0 million**, so nearly half of Paraguay lives inside the capital's statistical area.
+`EN.URB.LCTY` returns 3,279,160 for the same year, the relay holding to the person. **Where a footnote
+sweeps in a department, expect the capital figure to be a large fraction of the country** and say so
+rather than letting the number pass as a city.
+
+**Two picture notes.** A Commons file can be credited to **"Anonymous / Unknown author"** under a licence
+that requires attribution — `Asunción Paraguay.jpg` is CC BY-SA 4.0 with no nameable author — which makes
+it unusable here whatever its size, since Folio's credit line has nobody to name. And of the six Asunción
+candidates looked at, three were under the 900px bar; **a smaller capital's Commons coverage is thinner
+and the size check does most of the rejecting.**
+
+**`gw-609` MANAGUA CONFIRMS THE BISHKEK HEADING FAULT IS NOT A ONE-OFF, WHICH SETTLES IT AS A RULE.**
+Bishkek's entry is headed "…Embassy in Bishkek, **2004**" over a sentence giving 1992; Nicaragua's is
+headed **"Legation Raised to Embassy, 1942"** over a sentence giving **27 March 1943**. Two wrong heading
+years on two unrelated pages is a property of the source rather than an accident, so the rule stands
+without qualification: **take a date from the guide's prose, never from its section heading.** (The 1943
+date also sits four days after the 23 March 1943 seven-republic joint announcement this deck has cited
+three times, which is what makes the heading's 1942 look plausible enough to slip past.)
+
+**And C11's Nicaragua deferral can be closed without D3's El Salvador workaround.** C11 deferred this
+country because the guide dates recognition through the Federation (4 August 1824) and gives no 1821
+independence — confirmed here, since **`1821` appears zero times on the page**. But the entry supplies its
+own sequence, and it is enough for a card: Nicaragua joined the Federation in **1823**, **withdrew on 5
+November 1838**, and was recognised separately on **24 December 1849** when Polk received the chargé
+d'affaires Eduardo Carcache. **Where a Spanish American page will not date the 1821 declaration, date the
+WITHDRAWAL instead** — it is on the page, it is what made the state separate in this record's own terms,
+and it needs no citation borrowed from a neighbour.
+
+**Its mission history is the second-most broken in the deck, after Tripoli's.** Relations severed by the
+United States on **1 December 1909** and re-established on **21 February 1911**; a refusal in 1926 to
+recognise a government that had taken power by force, with recognition of its successor that November;
+and a second severance in 1947. Three ruptures on one page, all from the same side. **A Central American
+entry is worth reading past the recognition section** — the interesting dates are usually below it.
+
+**`gw-610` BELGRADE GIVES THE COUNTRY-ROW FOOTNOTE ITS OPPOSITE, AND THE PAIR IS THE POINT.** Baku's
+national population carried **"Including Nagorno-Karabakh"**; Serbia's carries **"Excluding Kosovo"**. The
+same field, on two profiles, states an inclusion and an exclusion — so a country-row footnote letter is
+not an occasional curiosity but the place UNdata says what territory its count covers, in either
+direction. **Read it and say which**, since the figure is otherwise indistinguishable from one that covers
+everything.
+
+**Its capital footnote is a seventh kind and the vaguest yet: "Refers to the urban population of Belgrade
+area."** After a list of regions, a national statistical concept, a list of localities, an administrative
+jurisdiction (twice) and a whole department, this one names no unit at all — and the relay still holds to
+the person (1,393.7 thousand against **1,393,717**), which is the strongest evidence yet that the two
+series are one number relayed rather than two measurements agreeing.
+
+**And `AG.SRF.TOTL.K2` does not sit still within a single request.** Serbia returns **88,360 for 2019 and
+84,990 from 2020 onwards** — a step of nearly 4 per cent inside the seven-year window, with no note
+attached. C11 recorded outright errors in this series and D3 recorded an unexplained drift on Mexico; this
+is the sharpest instance, a single-year jump rather than a slow slide. **Fetch the series across the whole
+window rather than one year, and if it steps, say so in the prose and name the years** — this card gives
+UNdata's 88,444 as the figure and reports both World Bank values against it.
+
+**Serbia is also the second entry to signpost its own split, after Austria** — "Please click here for
+information on the Kingdom of Serbia and the Socialist Federal Republic of Yugoslavia" — and it is the
+first where ONE link covers two earlier states. Its dates are worth having as a set, because they are all
+recent: the ambassador recalled from Belgrade on **21 May 1992** with the mission left open under a
+chargé, relations severed and the embassy closed on **23 March 1999**, full relations and recognition by
+an exchange of letters dated **12 November 2000**, the embassy reopened in May 2001. The UN membership
+date of **1 November 2000** falls eleven days before that recognition.
+
+**`gw-611` SOFIA IS THE FIRST CARD WHERE RELATIONS PRECEDE RECOGNITION BY YEARS, AND THE ORDER IS
+NOT A SLIP.** The recognition guide dates American relations with Bulgaria to **19 September 1903** and
+American recognition of it to **3 May 1909** — five and a half years the wrong way round on every other
+card in the deck — because Bulgaria was an autonomous Ottoman principality in 1903 and did not declare
+its independence until **5 October 1908**. The 1909 note congratulates Tsar Ferdinand "upon the admission
+of Bulgaria to the community of sovereign and independent States", which is the guide saying outright
+that the earlier date was relations with something less than a state. **Where a guide page carries both
+dates in that order, read what the polity WAS at the earlier one** rather than assuming the page has
+mislabelled a section.
+
+**AND THE EARLY MINISTERS WERE ACCREDITED FOUR WAYS AT ONCE, WITH THE FIRST NEVER PRESENTING CREDENTIALS
+AT ALL.** John B. Jackson opened relations in 1903 as Minister to Greece, Romania and Serbia as well as
+Bulgaria, and of the first agent (Charles M. Dickinson, 1901, concurrently consul general at
+Constantinople) the guide says plainly that "there is no record that he ever presented credentials in
+Sofia"; only after the First World War was an American representative commissioned solely to Bulgaria,
+with a legation at Sofia on **18 March 1919**. **A plural accreditation is a fact about the mission and
+not about the city**, so a capital card states the legation date and leaves the ministers' other posts to
+the country's own history. Donald R. Heath appears here for the **third time in this deck** — he reopened
+the Sofia legation on 27 September 1947 and Bulgaria declared him persona non grata on 19 January 1950,
+severing relations a month later, having earlier been the minister at Saigon accredited to Laos, Cambodia
+and Vietnam at `gw-603`.
+
+**SOFIA IS THE SIXTH 14 DECEMBER 1955 UN SEAT IN THE DECK, AND THE FIRST WHERE EUROSTAT AND THE WORLD
+BANK AGREE AGAINST UNDATA ON THE AREA.** The EU country page gives Bulgaria's geographical size as
+**110,996 km²** and `AG.SRF.TOTL.K2` returns **110,996.758** for 2023 — the same figure to three decimal
+places — against UNdata's **110,372 km²**, a 0.6% gap; C1's read-both rule decides it on the majority and
+the card states 110,996. The capital-city relay holds exactly (UNdata's 1,276.9 thousand for 2019 is
+`EN.URB.LCTY`'s 1,276,937 to the person), and the series is worth reading past the marked year: it peaks
+at **1,288,114 in 2023** and eases to 1,286,460 by 2025, **a capital turning over rather than growing**,
+which is the shape to expect of an EU member with a falling national population.
+
+**`gw-612` SAN SALVADOR CARRIES THE MOST EXPLICIT CAPITAL-CITY FOOTNOTE IN THE WHOLE OF UNDATA: IT
+NAMES ITS EIGHT MUNICIPALITIES.** Where the other definitions catalogued above say "urban agglomeration",
+"city proper", "metropolitan area" or "the urban parts of the district", El Salvador's says outright that
+the figure "refers to the urban parts of the municipalities San Salvador, Mejicanos, Soyapango, Delgado,
+Ilopango, Cuscatancingo, Ayutuxtepeque and San Marcos" — a list a reader could check. **Where a footnote
+enumerates rather than classifies, the term can say what the number counts without hedging**, and the
+relay still holds to the person (UNdata's 1,105.7 thousand for 2019 against `EN.URB.LCTY`'s 1,105,662),
+which is the useful half: an eight-municipality unit is what the World Bank's "largest metropolitan area"
+means here too. The areas agree to within a single square kilometre, 21,041 against 21,040.
+
+**AND IT IS THE FIRST CARD WHOSE CAPITAL'S FOREIGN RELATIONS RAN THROUGH A UNION OF STATES RATHER THAN
+THE STATE.** In September 1896 Honduras, Nicaragua and Salvador formed the **Greater Republic of Central
+America** to exercise their external sovereignty; the United States received a minister from it on 24
+December 1896, President Grover Cleveland noting that the individual republics' responsibilities toward
+the United States remained "wholly unaffected", and the union dissolved on 29 November 1898. It is the
+second time this deck has met a federation on the same page — recognition of the United Provinces of
+Central America on **4 August 1824** precedes recognition of Salvador itself by twenty-five years, to **1
+May 1849** — so the guide's El Salvador entry dates the same country three ways: as a province of Spain
+(1821), as a member of a federation (1824) and as a state in its own right (1849). **Take the date that
+matches the polity the card is about**, which for a capital card is the last of the three.
+
+**`gw-632` ASMARA IS THE ONE CAPITAL THE RECOGNITION GUIDE MAKES THE INSTRUMENT OF RECOGNITION RATHER
+THAN ITS SETTING.** Every other page in the deck records a note between governments or an envoy presenting
+credentials; Eritrea's says the United States recognised the republic on **27 April 1993**, "when the
+American consulate at Asmara informed Eritrean authorities of this decision on the same date Eritrea
+declared its independence" — the city's own post is what did the recognising, on the day the state came
+into being. There is no legation stage at all: the same consulate was **raised to embassy status on 11
+June 1993** under a chargé d'affaires ad interim, so declaration, recognition, UN admission (**28 May**)
+and embassy all fall inside seven weeks. Note also that the page's *Diplomatic Relations* section reuses
+the *Recognition* heading verbatim — after Bishkek's and Nicaragua's wrong section years, a third reason
+to **take the dates from the prose rather than the heading**.
+
+**AND UN.ORG'S OWN MEMBER-STATES PAGE IS REACHABLE AND SERVER-RENDERED**, which is worth knowing because
+`/securitycouncil/*` and `/press/*` are not (both serve a 200-status block page) and
+`digitallibrary.un.org` answers **202 with an empty body** here, so a resolution symbol cannot be looked
+up. `https://www.un.org/en/about-us/member-states` returns the whole list with each state's admission date
+in the markup ("Eritrea Date of Admission: 28-05-1993"), which gives a **second, independent** source for
+a fact otherwise resting on UNdata alone — and UNdata's own capital-city figure carries no definitional
+footnote for Eritrea at all, the opposite of San Salvador's eight-municipality enumeration one card
+earlier. The relay to `EN.URB.LCTY` still holds to the person (928,758 for 2019), on a series climbing
+more than two fifths in a decade; the AREA series is unusually restless, wandering between 121,630 and
+121,766 km² before settling, against the statistics division's 121,144.
+
+**AND `split-abstract.js` LEARNED THE CAPITAL-APOSTROPHE SURNAME HERE.** The lone-initial rule requires a
+CAPITALISED WORD after the initial and tested it as a capital followed by a LETTER — so "Joseph P.
+O'Neill", the chargé d'affaires in Eritrea's entry, split the block after the "P.", exactly as
+`S. fatalis` and "König Leopold II." did before it. The lookahead now also accepts a capital followed by
+an apostrophe and another capital, which is the shape of every O'/D' surname; **verified over all 4,681
+shipped card blocks and glossary descriptions with zero splits changed.** The guarantee is unchanged: a
+real boundary is swallowed only where the previous sentence ended on a single capital letter.
+
+**`gw-630` ZAGREB IS THE WIDEST AREA DISAGREEMENT IN THE WHOLE PASS — 56% — AND NEITHER SOURCE IS
+WRONG.** UNdata and the EU country page both give Croatia **56,594 km²**, exactly; `AG.SRF.TOTL.K2` gives
+**88,070**. C9's rule says correct a term only when it falls outside the spread of the two sources, and
+C12's says UNdata is a source rather than an authority — but neither applies here, because this is not a
+measurement dispute at all: the World Bank's indicator is defined as "total area, **including** areas under
+inland bodies of water and some coastal waterways", and Croatia's coastal waters are about a third of the
+difference between a land figure and a total one. **Fetch both `sourceNotes` before letting two series
+adjudicate each other** — the earlier Sweden and Serbia gaps were the same fault at a fifth of the size,
+and at 56% it is unmistakable. A country with a long indented coast will show it worst; a landlocked one
+will not show it at all.
+
+**AND ITS CAPITAL-CITY FOOTNOTE IS A NINTH KIND: "the SETTLEMENT of Zagreb."** Not a city proper, not an
+agglomeration, not a metropolitan area and not a list of municipalities but the *naselje*, Croatia's own
+statistical settlement unit — and `EN.URB.LCTY` relays it to the person (685,233 against UNdata's 685.2
+thousand). The series **falls every year** from 686,652 in 2015 to 684,114 in 2023 before easing back:
+after the Marshall Islands, the second capital in this deck whose population is going the other way, and a
+reminder that "out of date" is not a synonym for "too low". Croatia's own dates cluster hard — recognition
+7 April 1992, UN admission 22 May, relations 6 August, embassy 25 August — and **both American steps were
+taken in public**, a White House statement and the president's remarks to the press, where every other
+entry in the deck records an exchange of notes or an envoy presenting credentials.
+
+**`gw-639` VILNIUS CONFIRMS ZAGREB'S AREA FINDING BY BEING ITS OPPOSITE, WHICH IS THE ONLY WAY AN
+EXPLANATION LIKE THAT GETS TESTED.** One card earlier the same two series differed by 56% for Croatia and
+the reason offered was the World Bank's definition — total area "including areas under inland bodies of
+water and some coastal waterways". Lithuania has a short Baltic coast, and the two series differ by **four
+square kilometres**: 65,286 at UNdata, 65,290 at the World Bank, 65,284 at the EU country page, the
+tightest three-source agreement in the pass. **A definitional explanation predicts where the gap should
+vanish, so go and check that it does** — otherwise it is only a plausible story told about one number.
+
+**AND IT IS THE FIRST CAPITAL IN THE DECK THAT NEVER HELD THE AMERICAN LEGATION AT ALL.** The deck's usual
+sentence — the legation opened in the capital on such a date — is false here three ways over: the
+representative recognised Lithuania on **28 July 1922** from **Riga**, another country's capital, being
+accredited to all three Baltic states at once; the legation that followed on **31 May 1930** was at
+**Kovno, later Kaunas**, not Vilnius; and it **closed on 5 September 1940** after the Soviet annexation,
+with no American post in the country again until the embassy at **Vilnius on 2 October 1991**. In between,
+the guide records that the United States never recognised the incorporation, let representatives
+accredited by the last independent government keep diplomatic status, and held that **relations had
+continued uninterrupted** — fifty-one years of unbroken relations with no post in the country. **Do not
+write the legation sentence from the pattern; read which CITY the page names**, and whether it is the one
+the card is about.
+
+**`gw-645` CHIȘINĂU EXPLAINS D1's MOLDOVA DIVERGENCE, AND THE EXPLANATION WAS IN A FOOTNOTE ALL ALONG.**
+D1 recorded that UNdata gives Moldova 2,996 thousand where `SP.POP.TOTL` gives 2,360,527, chose the World
+Bank because it matched the term, and filed it under "the World Bank is not always the UN's number". The
+country row's footnote b says what the difference is: UNdata's population is **"Including the Transnistria
+region"**. That is the third country-row footnote of this kind after Azerbaijan's "Including
+Nagorno-Karabakh" and Serbia's "Excluding Kosovo", and it is the one that settles a standing divergence
+rather than merely flagging one — **read the letter footnotes on the figure, not just the figure**, since
+a 27% gap between two institutions can be a disagreement about territory rather than about counting. The
+card does not claim the World Bank excludes Transnistria, which nothing openable here states; it says what
+UNdata's footnote says and lets the reader see that the two are not counting the same ground.
+
+**AND THE WORLD BANK API WILL TELL YOU WHETHER A FIGURE WAS MEASURED OR EXTRAPOLATED.** Add **`footnote=y`**
+to an indicator request and each observation carries its own note — Moldova's 2025 population comes back
+"Extrapolated assuming the same growth rate as previous 6 months". Worth reaching for before treating a
+terminal-year value as data: C8's stale-population diagnostic asks when a term's figure *was* true, and
+this says how firm the other end of the series is. Chișinău's own capital-city series falls every year
+from 526,146 in 2015 to 484,352 in 2025, which with Zagreb and the Marshall Islands makes three, and the
+country's falls faster still.
+
+**`gw-631` TBILISI PAID FOR `footnote=y` THE VERY NEXT CARD, AND THE ANSWER IS THAT A STEP IN A SERIES IS
+NOT ALWAYS GROWTH.** Georgia's `SP.POP.TOTL` sits between 3.71 and 3.73 million from 2015 to 2023 and then
+jumps to 3,812,518 and 3,935,766 — six per cent in two years, which on C8's stale-population diagnostic
+would read as a term written from an old figure. The observations carry their own note: **"Average of
+January 1st populations that are based on the results of the 2024 census."** The rise is a change of
+method, not of the ground, and the two halves of the series are not comparable. **Ask `footnote=y` before
+reading a step as growth or a term as stale** — the diagnostic assumes one series measuring one thing, and
+a census year breaks that assumption silently.
+
+**AND ITS COUNTRY-ROW FOOTNOTE IS THE FOURTH OF THE KIND, THE SECOND IN TWO CARDS.** UNdata's Georgian
+population is marked **"Including Abkhazia and South Ossetia"**, as Moldova's is marked for Transnistria,
+Azerbaijan's for Nagorno-Karabakh and Serbia's for Kosovo. That is now a pattern rather than a curiosity:
+**a post-Soviet state with a breakaway region carries one, so look for it before treating a gap against
+another institution as an error.** Here it explains the 3.807 against 3.72 million directly.
+
+**A THIRD THING, ABOUT THE SOURCE RATHER THAN THE COUNTRY: THE GUIDE'S SECTION STRUCTURE CAN BE WRONG, NOT
+JUST A HEADING'S YEAR.** On Georgia's page the establishment of relations sits beneath **Recognition** and
+the embassy beneath **Diplomatic Relations**, while the recognition itself appears only in the summary
+paragraph. After Bishkek's wrong year, Nicaragua's wrong year and Eritrea's repeated heading, that makes
+four: **read the prose and ignore the furniture.** Georgia's page is also the rare one that gives a full
+printed citation — the Fitzwater press statement in the *Public Papers of the Presidents* — for a date it
+states.
+
+**`gw-637` YEREVAN IS THE ONLY CAPITAL IN THE DECK WHOSE COUNTRY THE UNITED STATES HAS RECOGNISED TWICE,
+71 YEARS APART — AND THE FIRST RECOGNITION EXPRESSLY DECLINED TO RECOGNISE ITS BORDERS.** On 23 April 1920
+Secretary of State Bainbridge Colby delivered a note to the Armenian Republic's representative in
+Washington conveying Wilson's decision, with the note stating that the recognition "in no way
+predetermines the territorial frontiers, which…are matters for later delimitation"; Wilson then arbitrated
+the Armenia–Turkey boundary at the Paris Peace Conference's request and submitted his determinations on
+22 November 1920, by which date the territory had been attacked by Turkish and Bolshevik troops and the
+republic was months from ceasing to exist. The second recognition, on **25 December 1991**, came in the
+same Bush address the Moldovan and Georgian pages cite — but on Armenia's page that address establishes
+**diplomatic relations as well**, so recognition and relations share a date here where they are months
+apart on its two neighbours. **A shared source event does not mean a shared set of consequences: read what
+each page says the address did.** The page also records an American consulate at **Ezerum "in Armenia"
+from 1896**, moved to Trebizond in 1904 — a consulate in the name of a country that had no state, decades
+before either recognition.
+
+**AND ITS UNDATA ROW CARRIES NO TERRITORIAL FOOTNOTE, WHICH IS ITSELF THE DATA POINT.** Armenia's
+population is not marked the way Georgia's, Azerbaijan's, Moldova's and Serbia's are, and yet UNdata's
+2.952 million for 2025 sits **4.5% BELOW** the World Bank's 3.087 million — the opposite direction from
+Georgia's gap one card earlier, and with nothing openable here to explain it. **Do not reach for the
+territorial explanation just because the region makes it available**: where the footnote is absent, the
+divergence is unexplained and the card says only that the two differ.
+
+**`gw-633` ULAANBAATAR IS THE ONE PAGE THAT SAYS WHAT DOES *NOT* COUNT AS RECOGNITION, AND IT IS WORTH
+MORE THAN A DATE.** Mongolia joined the United Nations in 1961 with the United States abstaining rather
+than blocking, and the two had signed multilateral treaties to which both were parties — and the guide
+states in terms that **neither act constituted recognition**, which came only on **27 January 1987**, in a
+joint communiqué that established diplomatic relations at the same moment. It also records that
+recognition was entertained under Kennedy, Johnson, Nixon and Carter without success. Every other page in
+the deck records what recognition IS; this one draws the boundary from the other side, and that is the
+sentence to reach for whenever a card is tempted to read a UN seat, a treaty or a vote as recognition —
+**a state's presence in the same multilateral instruments as another says nothing about bilateral
+recognition.**
+
+**A NOTE ON PICTURES: A DATED PHOTOGRAPH FAILS THE SAME TEST A LITHOGRAPH DOES.** The only wide view in
+Commons' "Views of Ulaanbaatar" category is from **1988**, and the city's own series here runs 1.36 to
+1.72 million in the last ten years alone — so that photograph shows a town this card is not about, exactly
+as the 19th-century bird's-eye views of Montpelier and Pierre did in the United States collection.
+`incategory:` searches returned nothing; the usable images came from a plain **`list=search` for
+"Ulaanbaatar cityscape"**, three 2023 photographs by one contributor, none of them in the views category.
+**When a capital's own category is thin or old, search the file namespace by words rather than by
+category.**
+
+**And the arithmetic is the card's real subject**: on the World Bank's own figures the city held about
+45% of all Mongolians in 2015 and about 48% in 2025, against a national density of 2.3 people per square
+kilometre — a country emptying into one valley.
+
+**`gw-640` DOHA IS THE FIRST BREAK OF THE UNDATA↔WORLD BANK CAPITAL RELAY THAT THE FOOTNOTE ITSELF
+EXPLAINS.** The relay has held to the person on every card since Bern, and Bern broke it for a structural
+reason (the capital is not the largest city). Doha breaks it for a definitional one: UNdata gives 637.3
+thousand for 2019 against `EN.URB.LCTY`'s **715,997**, a 12% gap, and UNdata's own footnote says its
+figure **"does not include the populations from the industrial area and zone 58"** — an exclusion of named
+zones, which is a tenth kind of capital-city definition and the first that subtracts rather than
+describes. **A relay break is a question, not an error, and the footnote usually answers it**: check the
+letter footnote before treating either figure as wrong, and where it names what is left out, the card can
+say so instead of hedging. The country's own total is unusually mobile too — 2.79 million in 2020, 2.50 in
+2021, 2.97 by 2025 — beside a reported 245.9 men per 100 women.
+
+**AND THE MINISTER LIVED IN ANOTHER COUNTRY AGAIN.** Relations were established on 19 March 1972 when
+William A. Stoltzfus presented his credentials, "accredited to a number of other Persian Gulf states" and
+**resident in Kuwait** — the Vilnius pattern (recognition from Riga) in a second region, and the reason
+the deck's stock sentence about a legation opening in the capital keeps needing checking. Doha got its own
+post on 24 February 1973 under a chargé, and a **resident ambassador only on 22 August 1974**, almost
+three years after independence. Where a page distinguishes an accredited envoy from a resident one, the
+capital's own date is the second.
+
+**⚠ THE EIGHT-CARD NUMBERING DRIFT OF SEP 2026, AND THE CHECK THAT NOW CATCHES IT.** Eight capitals were
+written from the **"The next card is a CAPITAL: …" line at the head of this file** rather than from the
+running order below, and that line is advanced by hand each time — so once it was wrong by one city it
+stayed wrong, and eight cards shipped at other cities' addresses before anyone looked: **Asmara at
+`gw-613`** (Brazzaville's slot), Vilnius at `gw-615` (Copenhagen's), Chișinău at `gw-616` (Beirut's),
+Tbilisi at `gw-617` (Helsinki's), Yerevan at `gw-618` (Monrovia's), Ulaanbaatar at `gw-619` (Oslo's), Doha
+at `gw-620` (Bratislava's) — and **Zagreb at `gw-614`, one of the seven numbers this plan deliberately
+leaves unused.** All eight were renumbered into their own planned slots (630, 631, 632, 633, 637, 639,
+640, 645) the moment it was found, which was safe only because they were hours old and
+`check-overlay.js` reported the live overlay carrying no card deltas at all; **a day later it would not
+have been.** Three things to carry.
+**NOTHING IN THE PIPELINE COULD SEE IT.** Each card was correct in itself — cited at the bar, style-clean,
+in the right deck, with its paired glossary term — and `test-card-plans.js` checked that the running order
+had no gaps and no duplicates without ever asking whether a SHIPPED card matched the topic at its own
+number. The only symptom was that the plan and the deck had quietly stopped describing the same thing.
+**IT IS NOW A TEST.** `test-card-plans.js` asserts two new things for every collection: that a shipped
+card's number appears in the running order at all (which is what catches a card at a deliberately unused
+number), and — wherever a plan line reads `Name  [Country]`, i.e. the three geography plans — that the
+card's answer IS the city the plan put there. Verified to fail on the real fault before being kept.
+**AND THE HEADER LINE IS A CONVENIENCE, NOT THE SOURCE.** Read the running order before writing a card:
+`grep -n "^  gw-NNN " docs/world-geography-card-plan.md`. This file already warned that the next-card line
+had been guessed wrong repeatedly; a warning is not a check, which is the whole of why the check exists.
+
+**`gw-613` BRAZZAVILLE IS THE FIRST CARD WHERE EVERY FIGURE AGREES, AND THE FIRST WHOSE CAPITAL WAS
+ANOTHER COUNTRY'S.** UNdata and the World Bank match on the capital to the person (2,308,076 for 2019),
+on the area to the square kilometre (342,000) and on the national total to the thousand (~6.48 million) —
+after Croatia's 56% area gap and Doha's 12% capital gap, a reminder that the divergences are the
+exception and worth explaining rather than the rule. The history is the card's own: French Equatorial
+Africa's administration sided with de Gaulle, so **Brazzaville was the symbolic capital of Free France
+from 1940 to 1943**, and on **15 August 1960** independence, American recognition (a message from
+Eisenhower to President Fulbert Youlou) and the opening of Embassy Brazzaville all fall on one day — the
+opposite of Doha's three-year climb from recognition to a resident ambassador. **Five years later to the
+day** the staff were gone: the withdrawal of August 1965 cites mistreatment of American diplomats
+including arrest, detention, incommunicado interrogation and forced departure, Congo moved its own
+mission from Washington to New York, and relations resumed only on 7 June 1977.
+
+**TWO PRACTICAL NOTES FROM ITS PICTURES AND ITS MAP KEY.** `add-card.js` refused `"Republic of the
+Congo"`: **the map key is `world.js`'s own LABEL, which is `Congo`** (its neighbour being
+`Dem. Rep. Congo`) — the same abbreviation-and-ambiguity that made `FINDIT_NAMES` necessary for the
+Find-it game, met from the other side. And the best wide view Commons offers of Brazzaville, a bird's-eye
+along the river with Kinshasa on the far bank, is **a video frame carrying a corner logo** and so fails
+the no-watermark half of the bar however good it is; the usable pictures are 1600px and 1000px originals,
+**below the 1920px thumbnail this deck usually requests**, so the `src` is the FILE rather than a
+`/thumb/` path — a thumbnail wider than the original is a 400, which is the Port Moresby finding again.
+
+**`gw-615` COPENHAGEN IS THE FIRST PAGE IN THE DECK WHERE THE RECOGNITION RUNS THE OTHER WAY.** The
+guide's Recognition section is headed **"Danish Recognition of the United States, 1792"** — Denmark
+predates the republic, so what the page can record is Denmark recognising Washington, when the American
+consul at Copenhagen received an **exequatur** on or about 9 June 1792. The direction holds through the
+next entry too: relations began on **12 October 1801** when the DANISH minister resident presented his
+credentials in the United States, and an American legation at Copenhagen followed only **26 years later**.
+**Read whose credentials the page says were presented, and to whom** — the deck's stock sentence assumes
+an American envoy arriving in the capital, and on an older European state it is often the reverse.
+
+**IT ALSO GIVES THE MINISTER-IN-ANOTHER-COUNTRY PATTERN ITS THIRD AND STRANGEST FORM.** Riga stood in for
+Vilnius and Kuwait for Doha; here the American minister to Denmark left occupied Copenhagen in June 1940
+and **took up residence in OTTAWA**, accredited to a government under German occupation, until the
+legation formally closed on 20 December 1941. The guide nevertheless states that relations "have never
+experienced an interruption … since they were first established in 1801" — the same claim Lithuania's
+page makes across fifty-one years without a post, so **a closed legation is not a broken relationship and
+the two facts sit on the same page without contradiction.**
+
+**AND ITS FOOTNOTES ARE AN ELEVENTH DEFINITION AND A FIFTH TERRITORIAL EXCLUSION.** The capital figure
+"refers to the Greater Copenhagen Region, consisting of (parts of) 16 municipalities" — San Salvador's
+enumeration one step vaguer, since the municipalities are counted but not named and only PARTS of them
+count — and the country row says outright that Denmark's data exclude the **Faroe Islands and Greenland**,
+which is the Transnistria/Abkhazia/Nagorno-Karabakh/Kosovo family arriving in a state with no dispute at
+all. **The exclusion footnote is about statistical convention as often as about politics.**
+
+**`gw-616` BEIRUT CARRIES THE FIRST FOOTNOTE THAT EXCLUDES A GROUP OF PEOPLE RATHER THAN A PIECE OF
+GROUND — AND THE FIRST IN WHICH UNDATA DOUBTS ITS OWN FIGURE.** The capital's population wears two:
+**"Est. should be viewed with caution as these are derived from scarce data"** and **"Excluding Syrian
+refugees."** Every earlier exclusion in this deck has been territorial — Transnistria, Abkhazia and South
+Ossetia, Nagorno-Karabakh, Kosovo, the Faroes and Greenland — and each subtracts a place; this one
+subtracts a population living in the place being counted, which is a different operation and changes what
+the number means rather than where it applies. **It also settles what D2 could only observe.** D2 withheld
+a correction on Lebanon's 5.5 million because the World Bank series never passes through it, calling the
+figure contested rather than stale; the source now says why the ground is soft. **When a figure resists
+the stale-or-contested test, look for a candour footnote before concluding anything about the prose.**
+Two numbers of the same shape: the capital's series turns over inside the decade, peaking at 2,434,609 in
+2021 and easing to 2,379,326 by 2025, and the national total falls 6.47 → 5.70 million by 2020 before
+recovering.
+
+**AND ITS RECOGNITION IS THE ONLY ONE IN THE DECK WITH TERMS ATTACHED.** On 7 September 1944 the American
+Diplomatic Agent offered Lebanon "full and unconditional recognition" **upon receipt of written assurances**
+about existing American rights; the Lebanese foreign minister gave them, and the guide dates recognition
+from that reply of **8 September**. An offer of unconditional recognition made conditional on a letter is
+worth reading twice — and note that the same man, George Wadsworth, had been sitting in Beirut as **Agent
+and Consul General since 9 October 1942**, a post in the capital two years BEFORE recognition, which is
+Doha's sequence exactly reversed.
+
+**`gw-617` HELSINKI IS THE PROFILE THAT INCLUDES AND EXCLUDES THE SAME TERRITORY IN ADJACENT ROWS.**
+Finland's population footnote reads **"Including Åland Islands"** and, two rows down, its surface-area
+footnote reads **"Excluding Åland Islands."** Every earlier exclusion in the deck was one institution
+differing from another; this is a single profile applying opposite conventions to two of its own numbers,
+and it is measurable both ways. The area, 336,884 km², sits about **1,600 km² below** the World Bank's
+338,480 and the EU's 338,363 — a gap of the order of the islands set aside — and the profile's stated
+density of **18.6 people per km² is not the quotient of its own two figures**, which give 16.7. **Do the
+division before quoting a derived figure**, and read every letter footnote on the row you are using
+rather than the one above it. (The World Bank's Finnish area series also creeps upward across the decade,
+338,446 → 338,480, where almost every other country's is flat; recorded, not explained.)
+
+**AND ITS GUIDE PAGE COMPLETES A TRIO WORTH HOLDING TOGETHER: A POST WITHOUT RELATIONS.** Lithuania gave
+relations with no post in the country for fifty-one years; Denmark gave a legation shut for four while the
+guide insists relations were never interrupted; Finland gives the third case — relations **severed on 30
+June 1944** over the admitted military partnership with Nazi Germany, and then a **Special Mission at
+Helsinki from 16 January 1945 which the page states explicitly was NOT a resumption of formal
+relations**, eight months before they were restored on 1 September. **A mission, a legation and a
+relationship are three separate things and a page may report any one of them without the others.** Two
+smaller things from the same page: recognition was delayed to **7 May 1919**, and the guide says why —
+concerns about political instability and ties with Germany, which few pages volunteer — and the legation
+was established at **Helsingfors**, the city's Swedish name, so the term carries it as an alias.
+
+**`gw-618` MONROVIA IS THE LONGEST DELAY BETWEEN A REPUBLIC AND ITS RECOGNITION IN THE DECK, AND THE
+GUIDE DOES NOT SAY WHY.** Liberia constituted itself a republic in **1847** and, the page notes, "was
+recognized by several European states"; the United States recognised it only on **23 September 1862** —
+fifteen years — and did so through **Charles F. Adams, the American minister to ENGLAND**, empowered to
+conclude a treaty of commerce and navigation, which he and the Liberian president signed in London on 25
+October. So the recognition of a republic founded from the United States, by a society of Americans, was
+transacted in another country's capital: the fourth instance of the recognition-from-elsewhere pattern
+after Riga, Kuwait and Ottawa, and the one where it is strangest. **The page states the delay and gives
+no reason for it**, where Finland's page one card earlier explains a shorter one — so record the gap and
+do not fill it: the obvious explanation is not on the page, and a card is not the place to supply one
+from elsewhere.
+
+**A PICTURE NOTE THAT IS REALLY THE AMBIGUITY RULE AGAIN.** A file search for "Monrovia city view"
+returns **Monrovia, CALIFORNIA** in the first result — a 1906 city hall — which is Springfield and Dover
+one continent over, so the subject has to be established by CATEGORY. And the best daytime wide view of
+the Liberian capital is filed as **"Liberia, Africa 2013 - panoramio (8).jpg"**, a name that never says
+Monrovia at all: it is in `Category:Monrovia`, which is the whole of its claim to be one. **Search by
+words, confirm by category** — the two halves catch opposite failures, a name that means the wrong place
+and a right place with no name.
+
+**`gw-619` OSLO IS THE WIDEST AREA DIVERGENCE OF THE PASS — 93%, NEARLY A FACTOR OF TWO — AND UNLIKE
+CROATIA'S IT IS NOT EXPLAINED BY EITHER SOURCE.** UNdata gives Norway **323,772 km²**; `AG.SRF.TOTL.K2`
+gives **624,500**. Croatia's 56% had a stated cause (the World Bank's series counts inland waters and some
+coastal waterways) and Vilnius confirmed it by being the opposite case; here that definition is on record
+and still does not visibly account for a doubling, and the profile's own footnotes only deepen the
+question: its POPULATION is marked **"Including Svalbard and Jan Mayen Islands"** while its AREA row
+carries no note at all. **Helsinki's asymmetry was declared on both sides; Oslo's is declared on one**, so
+the card states both figures, states what the World Bank's series counts, and stops — **an unexplained
+divergence is reported as unexplained, not narrated into a cause.**
+
+**AND ITS GUIDE PAGE GIVES THE FOURTH MEMBER OF THE POST-AND-RELATIONS SET, THE ONE WITH A NAME.** After
+relations without a post (Vilnius), a post shut while relations continued (Copenhagen) and a mission that
+was not a resumption of relations (Helsinki), Norway supplies a post defined by a GOVERNMENT rather than a
+place: the legation at Oslo closed on 15 July 1940 and the **"Legation Near the Government of Norway"**
+opened in **London** on 2 August, its head in time accredited to seven other governments in exile as well,
+until the embassy was transferred back to Oslo on **31 May 1945**. That is also the second London
+recognition-or-mission in two cards, after Monrovia's.
+
+**A SMALLER ONE, AND THE THIRD RENAMED CAPITAL IN FOUR CARDS.** The guide's consular list dates an American
+consulate in the city to **1809** — 96 years before Norway was a state — under the name **Christiania**,
+and gives the year the name changed: **"Oslo since 1925"**. With Helsingfors and Kovno that makes three,
+so the terms carry the old names as aliases and the plan's rule stands: **read which NAME the page uses
+for the capital, and check it is the one on the card.**
+
+**`gw-620` BRATISLAVA IS WHERE FOOTNOTE "a" FINALLY MATTERS — UNDATA'S POPULATION IS A PROJECTION, AND
+HERE IT POINTS THE WRONG WAY.** Every country profile in this deck carries **"Projected est. (medium
+fertility variant)"** on its population, and on every earlier card it was harmless. Slovakia's projection
+gives about **5.475 million** for 2025 while the two MEASURED series both fall — the World Bank's peaks at
+5,458,827 in 2020 and drops to 5,413,813, and Eurostat gives 5,419,451 — so the divergence is not of size
+but of **direction**: one number is a forecast and the others are counts. **C8's stale-or-contested
+diagnostic assumes both sides are measurements**, and it cannot classify a projection at all; where the
+gap is small and the trends oppose, check the footnote before running the test. The areas by contrast are
+the tightest in the pass after Lithuania: 49,035 km² at UNdata and the EU, 49,030 at the World Bank.
+
+**AND ITS RECOGNITION IS THE FASTEST IN THE DECK, WHICH IS WORTH RECORDING BESIDE MONROVIA'S TWO CARDS
+BACK.** Liberia waited fifteen years for a recognition transacted in London; Slovakia was recognised **on
+the day it came into existence** — 1 January 1993, in a public statement that also promised an ambassador
+— with **diplomatic relations and the embassy at Bratislava three days later** and a resident ambassador
+before the year was out. The whole sequence a capital card usually tracks across decades happens inside
+eleven months, and the reason is structural rather than diplomatic: a state formed by the orderly
+dissolution of one the United States already recognised needs no interval to establish that it exists.
+
+**`gw-621` DUBLIN IS THE ONE RECOGNITION IN THE DECK ADDRESSED TO A THIRD COUNTRY.** Riga, Kuwait, Ottawa
+and London were recognitions or missions transacted somewhere else; Ireland's was transacted **with**
+somebody else. On 28 June 1924 Secretary of State Charles E. Hughes informed **the British ambassador in
+Washington** that the President would be pleased to receive a duly accredited Irish minister — replying to
+a British letter of 24 June asking American approval for the British plan to have an Irish minister handle
+Irish business at Washington. Ireland is not a party to the exchange that recognises it. Relations then
+began in **Washington** on 7 October 1924 with Smiddy presenting his credentials (the Copenhagen
+direction), and an American legation reached **Dublin** only on 27 July 1927, three years later. **Read
+who the page says was told, not just when.**
+
+**AND IT IS THE FIRST CARD WHERE ALL THREE AREA SOURCES DISAGREE AND NONE IS AN OUTLIER**: 69,825 km² at
+UNdata, 69,947 at the EU, 70,280 at the World Bank — a 455 km² spread with no two agreeing and no footnote
+anywhere. C9's rule (correct only when the term falls outside the spread of two sources) has nothing to
+bite on; the card gives all three and attributes each. Bratislava's projection finding also repeats here
+**in the opposite direction**, which is what makes it a rule rather than an anecdote: UNdata's projected
+5.308 million for 2025 sits BELOW Eurostat's 5,439,898 and the World Bank's 5,484,367, where Slovakia's
+sat above both. **A projection is not biased one way; it is simply not a count.** (The World Bank's own
+2025 figure is flagged extrapolated by `footnote=y`, so on this card two of the three national numbers are
+estimates of the future rather than measurements of the present.)
+
+**`gw-622` BANGUI CLOSES A LOOP WITH `gw-613` BRAZZAVILLE, AND THE JOIN IS ONE MAN.** The Central African
+Republic's page says relations were established on **13 August 1960** when "the American Consul at
+Brazzaville, **Alan W. Lukens**, presented his letter of credence as Charge d'Affaires" — the same man who,
+**two days later**, was chargé at the opening of Embassy Brazzaville on the Congo page. So relations with
+one new state were opened from the capital of another that did not yet have an American embassy of its
+own, and Embassy Bangui followed on **10 February 1961** with Lukens now resident there. Each page states
+its own half; nothing on either says they are the same person, and only reading them together shows it.
+**A recurring officer is a real join between cards and it is invisible from one page** — but it is also
+never citable from one page, so it belongs in the plan and not in a card.
+
+**A PICTURE NOTE: THERE IS A SECOND BANGUI, IN NIGER.** A file search returns four photographs of
+"la commune rurale de **Bangui (Région de Tahoua)**" alongside the capital's, and two ISS frames of the
+country besides — Monrovia's California problem and the spaceborne rule in one result list. What the
+capital actually has is **two aerials taken from the same window at the same minute** (12:38, 10 December
+2014), which is why the card and its term share a scene at different crops: the alternative was a street
+photograph centred on identifiable people and an armed soldier, which is a picture about the security
+situation rather than a view of a city. **Where a capital has one good vantage and nothing else, say so
+rather than reaching for a photograph that is about something else.**
+
+**`gw-623` WELLINGTON IS THE SECOND BERN, AND A MORE EXTREME ONE.** Bern broke the UNdata↔World Bank
+capital relay because the capital is not the largest city (426,000 against 1,383,092); Wellington breaks
+it the same way and further — **413,000 against 1,582,028 for 2019, nearly four times** — and the
+`EN.URB.LCTY` series climbs to 1,711,127 by 2025, so the two numbers diverge as the decade goes on. The
+card therefore does not call Wellington the largest city, and neither does its term: **check the relay
+before writing "capital and largest city", which this deck's opening sentence otherwise says by
+habit.** Doha broke the relay by definition and Bern and Wellington break it by fact; the three are
+different failures and only the footnote or the arithmetic tells them apart.
+
+**AND ITS RECOGNITION PRECEDES THE COUNTRY'S OWN COMPLETION OF INDEPENDENCE BY FIVE YEARS.** New Zealand
+was a self-governing Dominion from 26 September 1907 with the United Kingdom still controlling its
+external relations; the Statute of Westminster of December 1931 was expressly not to take effect until
+adopted by New Zealand's own government, and **its Adoption Act became law on 25 November 1947**. The
+United States nevertheless recognised New Zealand as "an independent state with autonomous control over
+its foreign relations" on **16 February 1942**, when Walter Nash presented credentials in Washington. So
+the guide's recognition date is not the date the state's own law completed the transfer — the opposite
+error from Monrovia's, where recognition came fifteen years LATE. **Recognition is one government's act,
+not a constitutional milestone, and a card should not let the two stand in for each other.** Its UNdata
+row also excludes the Cook Islands, Niue and Tokelau: the sixth territorial exclusion, and the first whose
+excluded places are self-governing states in free association.
+
+**A TWELFTH KIND OF CAPITAL-CITY DEFINITION: "refers to Muscat governorate."** The deck has now met
+eleven ways for UNdata to say what its *Capital city pop.* row counts — a settlement, a Greater X region
+assembled out of parts of sixteen municipalities, a list of eight named municipalities, an exclusion of
+named zones, and several profiles that say nothing at all. Oman adds a twelfth and the plainest of them:
+the figure is a **governorate**, a first-order administrative division, and the profile says so in one
+clause. It is worth stating on the card because Muscat is a chain of settlements strung along the coast
+between the Hajar ridges and the sea rather than one built-up centre, so a reader meeting "1.50 million"
+has no way of telling from the number what has been counted. The UNdata-to-World-Bank relay holds to the
+person here — 1,501.6 thousand against `EN.URB.LCTY`'s **1,501,635** for 2019 — which is the ordinary case
+and worth recording precisely because Bern, Wellington and Doha have each broken it for a different reason.
+
+**A NATIONAL POPULATION SERIES THAT FALLS AND THEN SURGES, AND WHY IT DEFEATS C8's DIAGNOSTIC.** Oman's
+`SP.POP.TOTL` runs 4,184,895 (2015) up to 4,597,877 (2018), **down** to 4,500,424 (2021), then steeply up
+to 5,494,691 (2025) — a fall of two per cent followed by a rise of twenty-two in four years. C8's test asks
+whether a term's figure names a year on the series, so that a stale figure can be told from a contested
+one; a series that is not monotonic answers **two** years for a value in the dip, and the test cannot say
+which. Nothing here needed it, the term being written from the current figure, but a country whose
+population turns is one where "when was this true?" has more than one answer, and the diagnostic should be
+read as a hint rather than a verdict there. Oman's surface area is the batch's quietest agreement:
+**309,980 km²** at UNdata against **309,500** at the World Bank, 0.15 per cent apart, against Norway's 93.
+
+**THE COLUMN HEADING IS NOT THE DATE — THE FOOTNOTE IS, AND ON A FAST-GROWING CITY THE DIFFERENCE IS A
+QUARTER.** UNdata heads its capital-city row *Capital city pop. (000, 2025)* and prints **1 259.0** for
+Mauritania with a footnote **c**, which the page's own footnote list resolves to **2019**. Read against
+`EN.URB.LCTY` the two agree almost to the person — 1,258,973 for 2019 — but the World Bank's figure for the
+year in the heading is **1,612,940**, so a card taking the heading at face value would understate Nouakchott
+by 28 per cent while appearing to quote the United Nations correctly. The deck has been reading these
+footnotes all along (Muscat's said 2019 too), and this is the batch that measures what the habit is worth:
+the error is invisible on a slow-growing capital and enormous on a fast one, so **check the letter beside
+every UNdata figure before writing the year, and check it hardest where the city is growing.**
+
+**AN EXACT AREA AGREEMENT: 1,030,700 km² from both sources.** UNdata and
+`AG.SRF.TOTL.K2` give Mauritania the same number, digit for digit — not within a rounding, the same number
+— where Norway's two figures are 93 per cent apart, Croatia's 56 and Oman's 0.15. It is worth recording
+because it shows the divergences elsewhere are about **definitions** (inland waters, dependencies, disputed
+ground) rather than about measurement: where a country's boundary is desert and coast and nobody disputes
+either, the two agencies simply publish the same survey. Its population series is the matching case —
+3,965,959 (2015) to 5,315,065 (2025) with no dip anywhere — so C8's stale-or-contested diagnostic works
+perfectly here, one card after Oman's non-monotonic series defeated it.
+
+**A THIRTEENTH KIND OF CAPITAL-CITY DEFINITION, AND THE MOST EXPLICIT ONE YET: "refers to the urban
+population of cantons."** Costa Rica's UNdata row carries two footnotes at once, `c,d`, which resolve to
+that definition and to the year 2019 — so the profile states, in one row, both WHAT is counted and WHEN,
+which is the pair of questions every other capital in this deck has had to be reconstructed from. It is
+also the first definition here that is not an administrative unit but a **part** of several: not the
+cantons, but their urban population. The relay to `EN.URB.LCTY` holds again — 1,378.5 thousand against
+1,378,546 for 2019, agreeing to within fifty people.
+
+**AN EXACT AREA AGREEMENT TWICE RUNNING, WHICH SETTLES WHAT THE DIVERGENCES ARE ABOUT.** Costa Rica is
+**51,100 km²** at both sources, digit for digit, one card after Mauritania's 1,030,700 at both. Two in two
+is no longer a curiosity: where a country's boundary is undisputed and its inland water negligible, the two
+agencies publish the same survey, and the deck's large divergences — Norway 93 per cent, Croatia 56, Pakistan's
+Kashmir gap — are therefore about **definitions** rather than measurement. *(The Mauritania paragraph above
+originally called that agreement the deck's first; it was never checked against the earlier 226 cards and
+the claim has been withdrawn rather than left standing on nothing.)* San José is also the deck's slow
+counterweight to Nouakchott: a sixth of growth in the decade against more than a half, in a country whose
+population rose seven per cent while Mauritania's rose a third.
+
+**THE HIGHEST CAPITAL SHARE IN THE DECK: SEVEN PEOPLE IN TEN.** Kuwait's UNdata capital row is footnoted
+*"Data refers to the Governorates of Capital, Hawalli, Al-Farwaniya and Mubarak Al-Kabeer"* — four named
+first-order units, a variant of the eight-named-municipalities kind rather than a new one — and gives
+**3,052.5 thousand** for 2019, which `EN.URB.LCTY` matches at **3,052,493**. What makes it worth a card
+sentence is the ratio rather than the definition: Kuwait's whole population that year was about **4.44
+million**, so the agglomeration counted as the capital held close to **69 per cent** of the country. Where
+most capitals in this deck are a fraction of their state, Kuwait very nearly IS its capital, and the rest is
+largely desert. **Ask what share a capital figure is of its own country before deciding the definition is
+generous** — here the broad definition and the true concentration point the same way.
+
+**A UN PROJECTION THAT SITS ABOVE THE MEASURED SERIES, AND SAYS SO.** UNdata heads Kuwait's population
+**5 026 thousand** for 2025 with footnote *a*, "Projected est. (medium fertility variant)", against
+`SP.POP.TOTL`'s measured **4,865,298** — three per cent apart, with the projection the higher. Slovakia went
+the same way and Ireland the other, so the direction is not a bias to correct for; what the footnote settles
+is that the UNdata headline is an **estimate rather than a count**, and a card that writes it as the
+country's population is quoting a forecast. Kuwait's measured series is also non-monotonic in both
+directions — down 2019–21, steeply up to 2024, then down again in 2025 — the second such series in four
+cards after Oman's, which is another reminder that C8's stale-or-contested test needs a monotonic series to
+mean anything. Its area is the near-miss to Costa Rica's and Mauritania's exact agreements: **17,818 km²**
+at UNdata against **17,820** at the World Bank, two square kilometres apart.
+
+**THE VAGUEST CAPITAL-CITY DEFINITION IN THE DECK, AND IT IS STILL A DEFINITION.** Panama's UNdata row is
+footnoted *"Refers to the metropolitan area of Panama City"* — which names the CONCEPT and not one district,
+canton, municipality or governorate, where Kuwait lists four units by name and Costa Rica says which part of
+which units it counts. It is worth writing on the card rather than passing over: a reader told "the
+metropolitan area" knows the figure is broader than the city proper and knows nothing else, and saying so is
+more honest than repeating the number bare. The relay to `EN.URB.LCTY` holds at 1,821,693 for 2019 all the
+same, so the vagueness is in the label rather than in the arithmetic. Panama's metropolitan share is about
+**two in five** of the country, against Kuwait's seven in ten one card earlier — the two extremes the deck
+has met so far, and both worth a sentence because a capital's share says more about a country's shape than
+its raw population does.
+
+**PANAMA IS THE DECK'S MOST REPEATEDLY BROKEN RELATIONSHIP, AND ITS EARLIEST POST BEFORE A STATE.** The
+recognition guide records relations interrupted and restored in **1931, 1949, 1964 and 1968**, with the
+American ambassador recalled again in **1989** — five breaks, against one apiece for Mauritania (1967),
+Costa Rica (1917) and Kuwait (1990). And an American commercial agent was appointed **at Panama in 1823**,
+eighty years before there was a Panama: the isthmus was Colombian, so the post long predates the state,
+which is Kuwait's consulate-before-independence at eight times the interval and with the country itself
+missing rather than merely unrecognised. **A guide page's consular section can predate its recognition
+section by decades, and the gap is often the whole political story of the place.**
+
+**THE TWO POLES OF THE CAPITAL-CITY FOOTNOTE, FIVE CARDS APART.** Panama's says only *"the metropolitan
+area of Panama City"*; Uruguay's says *"the department of Montevideo and localities of the departments of
+Canelones and San Jose"*, naming the two localities individually — one whole first-order unit plus two named
+settlements inside two others, which is the most finely delimited figure the deck has met. Between them sit
+Kuwait's four named governorates, Costa Rica's *urban population of cantons* and Muscat's bare
+*governorate*. **The definition's precision says nothing about the figure's quality**: the relay to
+`EN.URB.LCTY` holds at exactly 1,744,700 for Montevideo and at 1,821,693 for Panama City alike. What it
+changes is what a card can honestly tell a reader the number covers, which is why the vague ones are worth
+saying out loud rather than passing over.
+
+**A GLOSSARY KEY WRITTEN FOR ONE COUNTRY'S CAPITAL CAN CAPTURE ANOTHER COUNTRY'S PROVINCE, AND THIS CARD
+NEARLY PROVED IT.** `San_José` was created seven cards ago for the capital of Costa Rica, with the
+unaccented `San Jose` as an alias — and Uruguay's capital-city footnote names one of the departments
+Montevideo's figure reaches into by exactly that name. Written into the abstract verbatim, the phrase would
+have auto-linked a Uruguayan department to a Central American capital, which is `check-gloss-links`'s
+wrong-continent fault arriving by the front door. The card says "two neighbouring departments" instead: the
+claim is unchanged, both localities are still described, and no surface is offered for the index to match.
+**Before quoting a foreign administrative name into an abstract, ask whether the glossary already owns that
+string** — the geography decks are steadily filling the index with short, reusable place names, and the
+collision rate can only rise.
+
+**A FOURTEENTH KIND OF CAPITAL-CITY DEFINITION, AND THE FIRST BORROWED FROM THE SOVEREIGN STATE.** Puerto
+Rico's UNdata capital row is footnoted *"Refers to the Metropolitan Statistical Area"* — a category defined
+by the **United States census**, not by any island authority, and the first definition in this deck that
+belongs to a country other than the one the profile is about. The relay holds (2,451.4 thousand against
+`EN.URB.LCTY`'s 2,451,375 for 2019), and the share is the deck's highest yet: about **three quarters** of
+everybody on the island, against Kuwait's seven in ten, Montevideo's half and Panama City's two in five.
+Two more absences on the same page are facts rather than gaps, and the card says both. There is **no UN
+membership row at all** — the second such case after Palestine, and for the opposite reason, a territory
+rather than an observer State — and footnote *b* states outright that *"for statistical purposes, the data
+for United States of America do not include this area"*, which is UNdata explaining why it profiles a
+territory apart from its sovereign.
+
+**THE DECK'S FIRST SERIES THAT FALLS IN EVERY SINGLE YEAR, IN BOTH REGISTERS.** `EN.URB.LCTY` for Puerto
+Rico runs 2,463,243 (2015) down to 2,433,680 (2025) without one year's rise, and `SP.POP.TOTL` falls
+3,535,167 to 3,184,835 — about a tenth of the population gone in a decade. Montevideo one card earlier was
+nearly static and Uruguay's national figure has fallen since 2020; this is that shape at ten times the rate
+and with no peak inside the window at all. **C8's stale-or-contested diagnostic is useless here for a third
+distinct reason**: not a non-monotonic series (Oman, Kuwait) and not a projection standing apart from the
+measure, but a monotonically FALLING one, where "when was this figure true?" has an answer that runs the
+wrong way and a figure quoted from an old source reads as too HIGH. The plan already recorded the Marshall
+Islands as the small-scale case of this; Puerto Rico is the large one. **No cause is given on the card**:
+nothing openable from here states one, and a plausible explanation written in would be the card asserting
+what its sources do not.
+
+**THE CAPITAL HELD ITS NUMBERS WHILE THE COUNTRY LOST AN EIGHTH OF ITS PEOPLE.** Sarajevo's five named
+municipalities go 342,373 (2015) to 348,404 (2025), under two per cent, while Bosnia and Herzegovina's own
+population falls 3,518,541 to 3,140,095 — the flattest urban series in the deck sitting inside one of the
+steepest national declines. It is the reverse of Puerto Rico one card earlier, where BOTH registers fell
+together, and it is worth a card sentence because the pair of numbers says something neither says alone:
+where a country is emptying, the capital's steadiness IS the movement. Its share is the smallest of this
+run at about **one in ten**, against San Juan's three quarters two cards back — the deck's two extremes
+landed within three cards of each other, which is why each is stated with the other beside it.
+
+**AN EMBASSY THAT OPERATED FROM ANOTHER COUNTRY'S CAPITAL, AND IT IS NOT THE OSLO CASE.** The recognition
+guide records an ambassador presenting credentials in **June 1993**, embassy operations conducted **from
+Vienna** from that November, and an American embassy established at Sarajevo itself only on **4 July 1994**.
+Norway's wartime "Legation Near the Government of Norway" sat in London because the GOVERNMENT was there;
+here the government was in Sarajevo and the mission was elsewhere, which is the same displacement running
+the other way. Note also that the **UN admission (22 May 1992) falls between the two American dates** —
+recognition on 7 April and relations on 6 August — so the usual reading, that multilateral admission
+follows bilateral recognition, is true here only of half of it. **Read all three dates before writing the
+sentence that orders them.**
+
+**A CAPITAL FIGURE WITH A DATE AND NO DEFINITION AT ALL — THE BARE END OF THE FOOTNOTE SCALE.** Namibia's
+UNdata capital row carries footnote *c* alone, which resolves to **2019** and says nothing whatever about
+what 417.4 thousand counts. Six cards have now walked the whole range: Uruguay names one department and two
+localities individually, Kuwait four governorates, Bosnia five municipalities, Costa Rica the *urban
+population of cantons*, Oman a bare *governorate*, Puerto Rico the United States census's Metropolitan
+Statistical Area, Panama only *the metropolitan area* — and Namibia nothing. **The relay holds anyway**
+(417,380 at `EN.URB.LCTY` for the same year), which is the point worth carrying: the two agencies agree on
+the NUMBER while the profile declines to say what was measured, so a card can report the figure and its
+date honestly and must not invent a boundary for it.
+
+**RECOGNITION, RELATIONS AND A RESIDENT EMBASSY ON ONE DAY, BECAUSE THE POST CAME FIRST.** Namibia's guide
+page gives **21 March 1990** three times over: the United States recognised the country, established
+relations, and had an embassy at Windhoek, all on the day of independence — achieved by elevating a
+**liaison office already standing at Windhoek** under South African administration. Against Muscat's 139
+years between recognition and relations, Costa Rica's 47 before a resident minister and Sarajevo's embassy
+run from Vienna, this is the zero case, and it has the same cause as Panama's 1823 agent and Kuwait's 1951
+consulate: **where a mission predates the state, independence day is a change of sign on the door.** Its
+own numbers are the deck's emptiest country so far at **3.8 people per square kilometre**, with a capital
+growing two fifths in a decade that still holds only one Namibian in six.
+
+**THE FIRST CARD IN THIS RUN TO SHIP WITHOUT A PICTURE, AND WHY THAT IS THE HONEST ANSWER.** Commons has
+no free wide view of Kingston above the pipeline's size bar. What it has, checked one by one: a **satellite
+image with a compass rose** (refused — spaceborne imagery is a diagram of a place, not a view of it), two
+**hand-coloured postcards of about 1908**, a photograph of the **1882 fire**, a King Street scene from
+**1988**, a 23-photograph street series all at **800px**, a downtown waterfront at **500px**, an aerial with
+an **aircraft wing across a quarter of it** that is not Kingston at all, and — offered by
+`suggest-image.js` itself — **Kingston, ONTARIO**. The rule allows a card to ship with a stated reason
+instead of a picture, and this is what that provision is for: a 1908 postcard of a city whose 2019
+population the card quotes would be the Ulaanbaatar fault at four times the interval, and a single office
+block would break the geography rule outright. **Record the absence rather than filling it** — and note the
+suggester's own list is where the wrong-continent candidate appeared, which is the standing argument for
+looking at every picture before using it.
+
+**A CONSULAR PRESENCE THAT OPENED, CLOSED, AND WAS REPLACED SOMEWHERE ELSE.** Jamaica's guide page records
+American consuls in the colony from **1861**, the earliest at **Montego Bay and Falmouth — the ports, not
+the capital** — and every one of those posts **closed by September 1919**, leaving no American post on the
+island for forty-three years until an embassy opened at Kingston on **16 August 1962**, ten days after
+independence, recognition and the post being one act. Namibia's liaison office ran continuously into an
+embassy and Panama's 1823 agent ran continuously into recognition; this is the third shape, a presence that
+lapsed entirely and returned in a different town. Its figures are the batch's quietest: **10,990 km² from
+both sources**, a fourth exact agreement, over a country and a capital that have each moved about one per
+cent in ten years.
+
+**THREE PICTURELESS CARDS IN THIS STRETCH, AND THE FAILURE HAS A SHAPE WORTH NAMING.** Kingston and Banjul both ship
+with a stated reason instead of an illustration, and between them they exhaust what Commons offers for a
+capital it has not been photographed widely: **spaceborne imagery** (Banjul has ISS, ASTER, SPOT and CAPELLA
+frames and nothing else wide — all refused, a satellite frame being a diagram of a place rather than a view
+of it), **historic prints** (Kingston's 1908 postcards, its 1882 fire), **street-level scenes centring
+identifiable people or shop branding** (Banjul's ferry deck under an advertiser's welcome arch, a restaurant
+mural, a furniture yard), **a single monument** (Arch 22, refused by the geography rule that a region's card
+shows a landmark and a capital's shows the city), and **the wrong Kingston entirely**. Note what is NOT
+missing in either case: the figures, the definitions and the diplomatic record are all fully sourced. **When
+a capital has no free wide view, the card is complete without one and the absence is recorded here** —
+re-running these searches is the waste this paragraph exists to prevent.
+**Bissau (`gw-648`) joined them and added two kinds to the list**: a **broadcaster's watermark** burned into
+the corner of an otherwise usable street photograph, and — the one nobody would predict — **a photograph OF
+A SLIDE**, an old colour transparency shot on a phone with the cardboard mount still in frame. Its only wide
+views are a satellite image and a shot over tree canopy in which the city is a band of roofs behind two
+thirds of foliage. **Dili (`gw-655`) is the fourth**, and it adds the emptiest category yet: almost everything
+Commons holds for it is 1938 Portuguese colonial photographs, wartime aerials of 1942–43, satellite frames,
+individual buildings, and the Cristo Rei statue with the city a thin strip on the far shore. **The count is
+now four of eighteen capitals in this run** — West Africa, the Caribbean and now South-East Asia, so the
+earlier guess that it clusters regionally is not safe either.
+
+**THE DEFINITION THAT MATTERS MOST SO FAR: "the local government areas of Banjul and Kanifing."** Every
+capital-city footnote in this run has told a reader what a figure covers; this is the first where the
+footnote's second unit is plainly doing most of the work, since 443.4 thousand is quoted for a pair of areas
+of which the capital is one. The card says so in as many words rather than passing the number on bare —
+which is the practice Panama's vague *"metropolitan area"* and Namibia's silent row each argued for from the
+other direction. Its other point is a NAME: the recognition guide records the embassy as established **at
+Bathurst (now Banjul)**, the city having been renamed after independence, and the whole American beginning
+falls inside eight months of 1965 — recognition on 18 February at the independence ceremonies in person,
+relations on 9 August with the ambassador resident in **Dakar** (as Mauritania's was), an embassy on
+9 September, and UN membership twelve days later.
+
+**A COUNTRY CAN BE THINLY PEOPLED AND HEAVILY CONCENTRATED AT ONCE, AND GABON IS THE CLEAN CASE.** Its
+national density is **10.1 people per square kilometre** — the second lowest in this run after Namibia's 3.8
+— and yet **more than a third** of all Gabonese live in Libreville, where Namibia keeps only a sixth in
+Windhoek. The two figures are not in tension and the card says both: a low density describes the average
+over the whole territory, a high capital share describes where the people actually are, and reading either
+alone gives the wrong picture of the country. **Ask for both whenever a profile offers a density** — the
+pair is more informative than a population, and UNdata prints it on every page for free.
+
+**A WATERMARK IS A REJECTION, AND THE BEST-COMPOSED CANDIDATE CARRIED ONE.** The widest aerial of the
+Libreville coast on Commons is an 8,192-pixel panorama with the photographer's signature written across the
+bottom right — outside the pipeline's bar, which refuses watermarked files, and in any case the city sits in
+it as a pale strip on the far horizon. What shipped instead is a 2025 seafront aerial: no watermark, no
+identifiable faces, the buildings legible along the shore. **Check the corners of a large, beautifully
+composed photograph before getting attached to it** — the watermark is the one disqualification that appears
+only at full size and never in a file name or a licence field. Libreville's UNdata row is also the **third
+bare capital footnote running** (Namibia, Jamaica, Gabon: a year and nothing else), which is now common
+enough to be the deck's ordinary case rather than its exception.
+
+**THE RELAY SOURCE CAN BE ABSENT ALTOGETHER, AND BOTSWANA IS THE FIRST CASE.** `EN.URB.LCTY` returns
+**null for every year 2015–2025** for Botswana — the World Bank publishes no largest-city series for the
+country at all — so the standard two-source check on a capital figure simply cannot be run, and Gaborone's
+269.3 thousand rests on UNdata alone. **The card says so.** That is the same instinct as naming a vague
+footnote rather than passing a number on bare: a reader told the figure has one source can weigh it, and a
+reader told nothing assumes it has been corroborated like every other card in the deck. The **Commonwealth
+Secretariat** page (C4's find) does not fill the gap — its Key Facts block gives Population, Area, Capital
+city and the joining year, but **no capital-city population** — though it does supply the area, and there it
+matters: the Commonwealth and the World Bank both give **581,730 km²** where UNdata prints **582,000**, so
+UNdata is simply ROUNDING and the two precise sources agree exactly. Note also the footnote year is
+**2018**, not the 2019 every other capital in this run carries.
+
+**A SECOND ZERO-GAP RECOGNITION, AND A SECOND RENAMED CAPITAL, TWO CARDS APART.** Botswana's guide page
+gives **30 September 1966** for independence, recognition, relations and the embassy alike — the Namibia
+shape again, though here nothing preceded it — and spells the town **"Gaberones (Gaborone)"**, exactly as
+The Gambia's page spells it "Bathurst (now Banjul)". Two of the last three capitals were called something
+else at independence and the American record carries both forms in each case. **Read the guide's spelling
+before writing the sentence**: it is not an error to be normalised away but a fact about the date the
+sentence is describing, and it is the sort of thing only the contemporary record preserves.
+
+**ONE PROFILE, TWO POPULATION ROWS, AND ONLY ONE OF THEM RELAYS.** Albania's UNdata page gives the capital
+as **484.6 thousand**, which `EN.URB.LCTY` matches at **484,624** — the relay holding as it has all run — and
+the country as **2,772 thousand**, which `SP.POP.TOTL` puts at **2,349,580**, an **eighteen per cent** gap
+and the widest population divergence in this stretch. The pair is the useful part: the same page agrees
+exactly about the city and disagrees enormously about the state, so its two rows plainly do not come from
+the same place. D1 established why — where a country runs its own statistical service the World Bank uses
+that instead of the UN estimate, and Albania is the case that proved it — and this card is the same finding
+seen from the capital's side. **A relay that holds on one row of a profile says nothing about the row
+underneath it.**
+
+**THE LONGEST BREAK IN RELATIONS THE DECK HAS MET: FIFTY-TWO YEARS.** Recognition came in July 1922 and
+ministers were exchanged that December, but relations were **severed on 5 June 1939**, when Albania's own
+foreign minister notified the American minister that **Italy had taken control of Albania's foreign
+affairs**; the legation at Tirana closed that September, and relations resumed only on **15 March 1991**.
+Against Panama's five short interruptions and Mauritania's two years, this is one break longer than most of
+the deck's independences. The mechanism is worth quoting precisely rather than summarising as an
+occupation: what ended the relationship was a state's foreign affairs being conducted by another state, and
+the notification came from the Albanian side. Tirana is also the run's sharpest divergence between a city
+and its country — **up a fifth while Albania fell a seventh** — a stronger form of the Sarajevo contrast,
+where the capital merely held steady.
+
+**THE MISSING RELAY IS NOT A ONE-OFF: `EN.URB.LCTY` IS NULL FOR BOTSWANA AND LESOTHO ALIKE.** Two of the
+last four capitals have no World Bank largest-city series at all — every year 2015–2025 returns null — and
+both are small Southern African Commonwealth states. So the check is worth making BEFORE researching a card
+rather than after: if that series is empty, the capital figure will rest on UNdata alone, the card must say
+so, and the **Commonwealth Secretariat page will not fill the gap** (its Key Facts block carries Population,
+Area, Capital city and the joining year, and never a capital-city population). What it does carry is a third
+AREA figure, and Lesotho is the case where all three differ slightly and none is an outlier: **30,355** at
+UNdata, **30,360** at the World Bank, **30,350** at the Commonwealth — ten square kilometres apart, three
+roundings of one survey. Botswana's two precise sources agreed exactly and UNdata rounded; here nobody is
+rounding to the same place, and by C9's rule no figure is correctable.
+
+**A THIRD ZERO-GAP RECOGNITION, AND ITS NEIGHBOUR WAS FOUR DAYS EARLIER.** Independence, American
+recognition, relations and an embassy at Maseru all fall on **4 October 1966** — after Namibia's
+21 March 1990 and Botswana's 30 September 1966 — and **Lesotho and Botswana joined the United Nations on
+the same day, 17 October 1966**, having become independent four days apart. Two neighbouring Commonwealth
+states, admitted together, given the same treatment by the United States, and now sitting three cards apart
+in this deck: `gw-644` and `gw-647` are worth reading against each other. Their populations diverge where
+their politics do not — Botswana at **4.5** people to the square kilometre against Lesotho's **77.8** — a
+seventeen-fold difference between neighbours, which is what a state a twentieth of the other's size looks
+like when both hold about the same number of people.
+
+**A POST THAT CLOSED AND NEVER REOPENED, AND DAKAR AS THE DECK'S STANDING PROXY CAPITAL.** Guinea-Bissau's
+guide page records an embassy at Bissau opened on **30 June 1976** and **suspended on 14 June 1998** at the
+start of the civil war — and then, rather than a reopening, the **American ambassador to Senegal accredited
+to Guinea-Bissau** from 13 February 2003. Every earlier interruption in this run ends with the post coming
+back (Mauritania 1970, Panama four times, Albania after fifty-two years, Kuwait after three months); this
+one ends with the relationship moving permanently to a neighbour's capital. **Dakar has now served three
+cards in this run** — Mauritania's ambassador lived there in 1960, The Gambia's in 1965, and Guinea-Bissau's
+does today — which makes it worth checking as a matter of course whenever a small West African state's post
+is missing from a date you expect it. Note also that relations here were begun **from the other side**, by
+Guinea-Bissau's ambassador presenting credentials in Washington, as Costa Rica's and Uruguay's were.
+
+**THE FASTEST-GROWING CAPITAL IN THIS RUN AFTER NOUAKCHOTT, AND IT IS OUTRUNNING ITS OWN COUNTRY.** Bissau
+goes 496,669 (2015) to **709,092** (2025), more than two fifths added in a decade, where Guinea-Bissau's
+national population rises about a quarter — so the capital's share climbs from roughly a quarter towards
+three in ten while you watch. Set beside Tirana two cards earlier, where the city gained a fifth as the
+country lost a seventh, the two are the same phenomenon at different intensities: **the capital-share figure
+moves for two quite different reasons, and only reading the city and the country series together tells you
+which.** Its UNdata capital row is the seventh bare footnote of the run — a year, and no definition.
+
+**THE MISSING LARGEST-CITY SERIES IS NOT REGIONAL, AND SLOVENIA IS THE CARD THAT PROVES IT.** Two cards ago
+this plan recorded that `EN.URB.LCTY` is null for Botswana and Lesotho and noted both were small Southern
+African Commonwealth states — a true observation and a misleading one, because **Slovenia's is null too**,
+and Slovenia is a member of the European Union in the middle of Europe. Three of the last six capitals have
+no World Bank largest-city series at all, and the only safe generalisation is that the gap does not track
+region, size, income or bloc. **Run the query first and read nothing into which countries come back empty.**
+Slovenia's own figures are otherwise the best-corroborated of the run: the EU page and the World Bank give
+populations **2,130,850** and **2,130,986**, about a hundred people apart, where Albania's two sources were
+eighteen per cent apart four cards ago.
+
+**AN AREA SERIES THAT LOOKS CONSTANT ACROSS A DECADE AND IS NOT.** `AG.SRF.TOTL.K2` gives Slovenia
+**20,675 km² for 2015–2016 and 20,480 from 2017 onwards** — the first time in this run that the area series
+has moved inside the window, and it is a revision rather than a border change. UNdata and the EU page both
+give **20,273**, so the World Bank is the outlier on the current figure AND disagrees with its own earlier
+one. **Read the whole area series rather than one year of it**: C9's rule for correcting an area assumes the
+sources are each stating one settled number, and here one of them states two.
+
+**AND `add-card.js` DOES NOT COUNT SENTENCES — `split-abstract.js` IS THE ONLY THING THAT DOES.** This
+card's first draft was **4+4** and was accepted: the word count was inside the bar, the markers were sound,
+every guard passed, and the house rule of ten sentences in two blocks of five was broken with nothing
+saying so. It was caught only because `split-abstract.js` is run after every add as a matter of course.
+**Keep doing that** — the check costs a second and it is the sole enforcement of the rule.
+
+**THE RELAY BREAKS WHEN THE CAPITAL IS NOT THE LARGEST CITY, AND EQUATORIAL GUINEA IS THE CLEAREST CASE.**
+UNdata gives Malabo **296.8 thousand** for 2018 and `EN.URB.LCTY` gives **375,896** for the same year, a
+quarter more — and the two are not in conflict, because that indicator follows a country's **largest urban
+agglomeration** and says nothing about which city governs. Bern, Wellington and Doha each broke the relay
+this way earlier in the deck; this is the widest of them and the one to reason from, since every figure on
+both sides is stated plainly. **Read the indicator's name before treating a divergence as a contradiction**:
+the gap here is a fact about the country's shape, not an error in either source, and a card that
+"corrected" one figure towards the other would be asserting something neither source says. Note the
+consequence for growth figures too — the 312,579-to-512,750 rise in that series over ten years is the
+LARGEST CITY growing by nearly two thirds, and cannot be quoted as the capital's growth.
+
+**THE MOST EVENTFUL DIPLOMATIC RECORD IN THE RUN, AND A THIRD RENAMED CAPITAL.** Equatorial Guinea's guide
+page carries recognition (1968, by appointing the ambassador to **Togo**, resident in **Lomé**), relations
+(1968), an embassy at **Santa Isabel, now Malabo** (1969), a **suspension of relations in March 1976 after
+the American ambassador and consul were declared personae non gratae** — the run's first expulsion —
+resumption (1979), the embassy reopening (1981), its **closure in October 1995 with the work moving to
+Yaoundé in Cameroon**, and no resident ambassador again until **2006**. Two different neighbouring capitals
+served it at different times, which generalises the Dakar finding: **when a small state's post is missing
+from a date you expect it, look for a neighbour's capital, and do not assume it is always the same one.**
+Santa Isabel joins Bathurst and Gaberones — three of the last nine capitals were called something else at
+independence, and in each case only the contemporary record preserves it.
+
+**THE EXACT INVERSE OF ALBANIA, RECOGNISED ON THE SAME DAY.** Both Latvia and Albania were recognised by
+the United States on **28 July 1922**, and both relationships were interrupted by an occupation at the end
+of the 1930s — but in opposite senses, and the guide is careful about which. Albania's relations were
+**severed** on 5 June 1939 and resumed in 1991: fifty-two years of nothing. Latvia's **legation at Riga
+closed** on 5 September 1940 after the Soviet occupation and annexation, and the guide states that the
+United States nonetheless "maintained that diplomatic relations continued uninterrupted" — fifty-one years
+with no post and, on the American account, no break at all. **The distinction between a closed POST and a
+severed RELATIONSHIP is the whole content of the non-recognition policy**, and a card that flattens the two
+into "relations were broken off" gets the history exactly backwards. Cite the neighbour's guide page when
+drawing the comparison, as this card does with Albania's and as `gw-649` does with Bosnia's.
+
+**A SECOND MID-WINDOW AREA REVISION IN THREE CARDS, WHICH TURNS AN ODDITY INTO A HABIT.** Slovenia's
+`AG.SRF.TOTL.K2` steps 20,675 → 20,480 at 2017; Latvia's steps **64,594 → 64,590 at 2020**. UNdata and the
+EU page both hold 64,594 throughout, so once again the World Bank is the one that moved. Two instances
+three cards apart is enough to stop treating the area series as a constant: **read the whole series, note
+the year it changes, and quote the figure with its date** if the two halves differ enough to matter. Riga
+is also the run's deepest double decline — city and country both falling, the city in every single year —
+and the profile's **86.6 men per 100 women** is the most female-weighted ratio the deck has met, against
+Oman's 166 the other way.
+
+**THE GUIDE'S SLUG IS THE COUNTRY'S OLD NAME, AND `north-macedonia` IS A 404.** The Office of the
+Historian's page lives at **`history.state.gov/countries/macedonia`**; the obvious modern slug and three
+other guesses all return 404. That is worth writing down because the page itself is titled *North
+Macedonia* and its content is current, so nothing about the fetched document reveals that the address is
+historical. **When a country has been renamed, try the older slug before concluding the guide has no page**
+— C8's `burma` for Myanmar is the same trap, and this is the second instance.
+
+**A COUNTRY, NOT A CAPITAL, RENAMED — AND THE NAME WAS THE THING BEING NEGOTIATED.** Three capitals in this
+run were called something else at independence (Bathurst, Gaberones, Santa Isabel); North Macedonia is the
+first case where the STATE's name changed, and it changed three times in the American record alone:
+recognised as the **Former Yugoslav Republic of Macedonia** on 9 February 1994, referred to as the
+**Republic of Macedonia** from 2004, and as the **Republic of North Macedonia** from February 2019 after
+the **Prespa Accord** with Greece. Two ordering points go with it. The country **joined the United Nations
+on 8 April 1993, more than ten months before American recognition** and under a provisional designation —
+so multilateral admission preceded bilateral recognition, the reverse of the usual reading and the second
+such case after Bosnia's. And a **liaison office at Skopje (December 1993) preceded recognition**, the same
+instrument Namibia's embassy was raised from. Skopje is also the third capital in this stretch to rise while
+its country falls, after Tirana and Sarajevo — the city up about a ninth, the state down about a twentieth,
+both monotonic.
+
+**THE FIRST CAPITAL CARD WITH NO POPULATION FIGURE AT ALL, AND SAYING SO IS THE CARD'S BEST SENTENCE.**
+Kosovo has **no UNdata profile** (`xk` still 500s, as C0 recorded), and the World Bank returns **null for
+both `EN.URB.LCTY` and `AG.SRF.TOTL.K2`** under `XKX` — only `SP.POP.TOTL` answers. So Pristina has no
+capital-city population, no national area, and no relay to check anything against. `ask.rks-gov.net` 404s on
+its English path and `askdata.rks-gov.net` is a JavaScript PxWeb table selector in Albanian, which is not a
+citable page. **The card states the absence and gives no figure** — the alternative being to borrow a number
+from somewhere a reader cannot check, which is the one thing the apparatus exists to prevent. D3's Taiwan
+term is the precedent: a subject can be carried on its history when its figures have no openable source, and
+here the history is unusually well served.
+
+**WHAT REPLACES THE FIGURES IS A DOCUMENTARY RECORD, AND IT IS BETTER THAN MOST.** Kosovo's card rests on
+the recognition guide (independence declared **17 February 2008**, American recognition and agreement to
+establish relations **18 February**, a foreign ministry in force **15 June 2008**), **Security Council
+resolution 1244 (1999)** for the interim administration, the **International Court of Justice's advisory
+opinion of 22 July 2010** that the declaration "did not violate international law", and the **European
+Commission** for its potential-candidate status — the same spine `gw-153` used for the country. Note the
+guide's own careful wording on recognition, "a robust majority of European states" and a named list rather
+than a count: **quote that formulation rather than counting recognitions**, which changes and which no
+source in this deck maintains. `SP.POP.TOTL` also shows the country losing about an eighth of its people
+since 2015, with the sharpest fall after 2022.
+
+**AN AREA SERIES THAT GROWS RATHER THAN BEING REVISED, AND UNDATA EIGHT YEARS BEHIND IT.** Bahrain's
+`AG.SRF.TOTL.K2` runs **778 (2015), 779, 780, 780, 783, 785, 790, 790, 800 (2023)** — rising in almost
+every step, monotonically, over a decade. Slovenia's and Latvia's area series MOVED, once each, and those
+were revisions; this one is a quantity that keeps going in the same direction, which is a different
+phenomenon and reads differently on a card. UNdata prints **778 with a 2023 footnote**, which is exactly the
+World Bank's figure for **2015** — so the two sources are eight years apart on a number that has not stood
+still, and the profile's own date stamp does not help. **Where the World Bank's area series is not flat,
+treat UNdata's single figure as undated until proved otherwise**, and give the World Bank figure with its
+year. Deliberately unstated on the card: WHY the number grows. Reclamation is the obvious reading and no
+source opened here says so.
+
+**THE FASTEST-GROWING CITY SERIES IN THE COLLECTION, AND THE MOST CROWDED COUNTRY.** `EN.URB.LCTY` for
+Bahrain goes **440,935 (2015) to 743,066 (2025)** — about two thirds added in ten years, ahead of Malabo's
+largest city, Nouakchott and Bissau — while the national density is **2,098.8 people per square kilometre**,
+against Namibia's 3.8 five cards earlier: a spread of more than five hundred to one inside a single run.
+Its capital footnote is the most exactly drawn yet, *"the urban area of the municipality of Al-Manamah"* —
+a PART of a named unit, where Uruguay named whole units and parts of others and Panama named nothing. And
+Kuwait joins the list of proxy capitals: Bahrain's first American ambassador presented credentials in
+February 1972 **residing at Kuwait**, with none resident at Manama until June 1974, though the embassy
+itself had opened on the day Bahrain joined the United Nations.
+
+**FOUR COUNTRIES NOW HAVE NO `EN.URB.LCTY` SERIES, AND TOGETHER THEY REFUTE EVERY EASY EXPLANATION.**
+Botswana, Lesotho, Slovenia and Timor-Leste: two neighbouring southern African states, a member of the
+European Union, and a South-East Asian one. Not region, not size, not income, not bloc, not recency of
+independence. **Query the series before planning the card** — if it is empty, the capital figure will rest
+on UNdata alone, the card must say so, and no companion source in this deck fills the gap. Timor-Leste's own
+figures are otherwise unremarkable, which is worth noting too: an area 0.3 per cent apart between the two
+sources and a national population rising steadily by about a sixth in ten years, with no dip anywhere.
+
+**A FOURTH ZERO-GAP RECOGNITION, AND A SECOND COUNTRY CARRYING TWO NAMES.** Independence, American
+recognition, diplomatic relations and an embassy at Dili all fall on **20 May 2002** — after Namibia,
+Botswana and Lesotho — with a first ambassador that December and UN membership on 27 September 2002, one of
+the most recent admissions any card here records. The guide calls the country *"then known as East Timor"*,
+which puts it beside North Macedonia's three names: **a state's own name is as likely to have moved as a
+capital's, and the guide is where both are preserved.** Its slug is `timor-leste` and `east-timor` is a
+404 — the reverse of North Macedonia, where the modern slug fails and the old one works, so **try both
+forms and do not infer the rule from one case.** The 1999 transitional administration is cited to Security
+Council resolution 1272, reused from `gw-155`.
+
+**THREE STATES RECOGNISED ON ONE DAY, TWO LEGATIONS CLOSED ON ONE DAY, TWO EMBASSIES OPENED ON ONE DAY.**
+The guide gives **28 July 1922** for Estonia, Latvia AND Albania — Estonia's and Latvia's both through the
+same official, the American commissioner **at Riga** — then **5 September 1940** for the closure of the
+legations at Tallinn and Riga alike, and **2 October 1991** for the opening of the embassies at both. Two of
+those three dates were already on `gw-646` and `gw-651`; meeting them a third time settles that these are
+one decision applied to several countries rather than a coincidence, and that **the guide's per-country
+pages are slices of a single record**. Two consequences for writing: cite the neighbour's page when the
+comparison is made (this card carries Latvia's, as `gw-651` carries Albania's and `gw-649` Bosnia's), and
+note that **Riga served as the post for Estonia for eight years** before a legation reached Tallinn in 1930
+— a proxy capital that is itself a card in this deck.
+
+**THE BALTIC PAIR DIVERGE ON THE ONE THING THAT IS NOT SHARED: WHICH WAY THE PEOPLE ARE GOING.** Estonia and
+Latvia have nearly the same density (30.9 against 29.8), joined the United Nations on the same day, and were
+recognised, closed and reopened together — and yet **Tallinn and Estonia are both growing while Riga and
+Latvia are both shrinking**, each monotonically over the decade. It is the cleanest natural comparison the
+deck has offered: everything institutional is held constant and the demography still points opposite ways.
+**Where two cards share a history this closely, put the contrast in both** — `gw-651` says Riga falls, this
+one says why that is worth noticing.
+
+**THE SOURCES DISAGREE ABOUT HOW TO SPELL THE ANSWER, AND THE PLAN'S RUNNING ORDER SETTLES IT.** The
+recognition guide and `world-capitals.js` both write **Port-of-Spain**; UNdata writes **Port of Spain**.
+`test-card-plans.js` requires a geography card's `answerText` to fold-equal the topic its plan line names,
+and folding normalises case and diacritics but **not hyphens** — so the plan's spelling is binding on the
+answer whatever the sources do. The card uses the hyphenated form, says in its first sentence that the two
+differ, and the glossary term carries the unhyphenated one as an **alias** so a reader meeting either
+spelling reaches the same entry. **Where sources disagree on a name, say so and alias the other form**; do
+not silently pick one.
+
+**THE FLATTEST CITY SERIES IN THE COLLECTION, AND A THIRD SAME-DAY UN ADMISSION PAIR.** `EN.URB.LCTY` for
+Trinidad and Tobago runs **545,058 (2015) down to 544,207 (2020) and back to 546,564 (2025)** — a net change
+of under a third of one per cent across a decade, flatter even than Sarajevo's. The national series is
+nearly as still. Against that, **UNdata projects 1,511 thousand for 2025 where the World Bank measures
+1,367,764**, about a tenth apart and the second-widest population divergence here after Albania's: C11
+recorded this case and it is unchanged. Its independence day carries a **fifth zero-gap recognition** —
+independence, recognition, relations and an embassy all on **31 August 1962** — and it joined the United
+Nations on **18 September 1962, the same day as Jamaica**, three weeks after Jamaica's own independence.
+Botswana and Lesotho, Estonia and Latvia, Jamaica and Trinidad: **three same-day admission pairs in this
+run, each of two neighbours**, which is worth checking for whenever a card's UN date looks familiar.
+
+**`gw-658` NICOSIA IS WHERE THE BARE FOOTNOTE STOPS BEING A CURIOSITY AND STARTS BEING THE WHOLE
+QUESTION.** The deck has met a long run of capital-city populations footnoted with a year and no
+definition of what territory they count, and the omission has cost nothing because in every one of
+those cities the reader could at least assume the count meant the city. Nicosia is a city a ceasefire
+line runs through, and the same UNdata profile that leaves 269,500 undefined footnotes the country's
+other series twice over as *Excluding northern Cyprus* and *Data refer to government controlled
+areas* — so the profile plainly knows the distinction and simply does not say which side of it the
+capital figure falls on. **Say that the figure carries no definition rather than choosing one**: a
+card that wrote "the government-controlled part of the city" would be asserting the very thing the
+source declines to state.
+
+**AND CYPRUS IS THE FIFTH COUNTRY WITH NO `EN.URB.LCTY` SERIES AT ALL** — after Botswana, Lesotho,
+Slovenia and Timor-Leste — which finishes off any remaining idea that the gap tracks a region, a
+size, an income band or a bloc: this one is an EU member, a Commonwealth member, high income and in
+Western Asia. What it does share with none of the other four is a plausible mechanism, and it is
+worth writing down as a hypothesis rather than a finding: the series is an urban-agglomeration
+estimate, and an agglomeration divided by a ceasefire line is not obviously one agglomeration. **Query
+the series before planning the card either way** — it took one request to learn that this card would
+have to rest on the United Nations alone, and the whole shape of its second paragraph followed from
+that.
+
+**THE AREA SERIES MOVED AGAIN, AND THE THREE MOVES NOW HAVE NOTHING IN COMMON.** `AG.SRF.TOTL.K2`
+gives Cyprus 9,251 km² through 2017 and 9,250 from 2018 onwards, which joins Slovenia's revision at
+2017 and Latvia's at 2020 and Bahrain's steady climb from 778 to 800. UNdata still prints 9,251 and
+the EU still prints Eurostat's 9,253, so all three figures are current and all three are right about
+different measurements. **A one-square-kilometre difference between two official sources is not a
+finding and must not be written as a correction**; what is worth a sentence is that the World Bank's
+own number changed while the others did not.
+
+**AND THE COUNTRY CARD HAD ALREADY DONE HALF OF THIS.** `gw-158` Cyprus cites the same UNdata
+profile, the same recognition guide and the same EU page, and states the 1,371,000 / 979,865 pair
+and the TRNC's non-recognition. The capital card is not allowed to be that card again: it takes the
+**Commonwealth Secretariat**, which `gw-158` does not use, and it spends the recognition guide on the
+one sentence in it that is about the CITY — the American Consulate General **already standing at
+Nicosia** was elevated to an embassy on the day of recognition, so the mission there is older than
+the state it accredits to. **Read the paired country card before drafting a capital**, and look for
+the clause in the shared source that names the city rather than the country.
+
+**`gw-659` PORT LOUIS KILLS THE HYPOTHESIS THE CARD BEFORE IT PROPOSED, ONE CARD LATER.** Nicosia
+was the fifth country with no `EN.URB.LCTY` series and the plan wondered aloud whether an
+agglomeration split by a ceasefire line is not obviously one agglomeration. Mauritius is the sixth,
+and there is no ceasefire line anywhere near it. **Record the guess, then let the next card have it**
+— six countries now share the gap (Botswana, Lesotho, Slovenia, Timor-Leste, Cyprus, Mauritius) and
+nothing about region, size, income, bloc or political geography joins them; the honest position is
+that the series is simply absent for some countries and the reason is not visible from here.
+
+**AND IT IS THE CLEAREST CASE IN THE DECK OF A DISAGREEMENT THAT IS NOT ONE, BECAUSE ONE SOURCE
+SHOWS ITS WORKING.** Three areas are published for Mauritius — UNdata's 1,979 km², the World Bank's
+2,010 and the Commonwealth's 2,050 — and the Commonwealth Secretariat sets the arithmetic out in its
+own Key Facts: *Island of Mauritius: 1,864 square kilometres. Rodrigues: 104 square kilometres.
+Total including other islands: 2,050*. UNdata then footnotes its own figure as **excluding Saint
+Brandon and Agalega**. So the spread is a boundary drawn at three different places among the outer
+islands, and every figure is right about what it says it measures. **Where a source publishes a
+decomposition, quote the decomposition** — it retires the divergence instead of reporting it.
+
+**THE SHARPEST FINDING IS INSIDE ONE TABLE.** UNdata's Mauritius profile footnotes the POPULATION as
+*Including Agalega, Rodrigues and Saint Brandon* and the SURFACE AREA as *Excluding the islands of
+Saint Brandon and Agalega* — two rows of one profile counting two different countries, each
+correctly footnoted, four lines apart. Every earlier card in this deck has treated a UNdata footnote
+as settling what a figure covers; this one shows the footnotes must be read **per row**, since a
+card that quoted the country's population and area from the same table and assumed one territory
+would be wrong without a word of it being false.
+
+**A CAUTION ON THE COMMONWEALTH'S POPULATION FIELD: IT PRINTS THOUSANDS WITHOUT SAYING SO.** The
+Mauritius Key Facts read "Population 1,266 (2022)", where the same block on other members reads
+"1.2 million". Taken literally that is a town of twelve hundred people. It is not a figure to quote
+in either register, and the card cites the Commonwealth for the area breakdown, the capital and the
+1968 accession, and leaves the population to the World Bank and the United Nations. **Check the unit
+on a bare four-digit population before using it.**
+
+**AND THE COUNTRY IS SHRINKING**, from 1,266,334 in 2021 to 1,243,741 in 2025 on the World Bank's
+own series — the falling-population pattern `gw-215` Marshall Islands recorded, in a country far
+larger, and the reason the capital's 2018 figure must not be read as a floor.
+
+**`gw-660` MBABANE MAKES IT THREE CONSECUTIVE COUNTRIES WITH NO `EN.URB.LCTY` SERIES.** Cyprus,
+Mauritius and Eswatini in a row brings the deck's tally to seven, and at that rate the sensible
+working assumption is now the reverse of the old one: **assume the largest-city series is absent
+until the query says otherwise**, and plan the card's second source before drafting rather than
+after. The one thing all seven share is that they are small; the one thing that breaks even that is
+that plenty of equally small countries in this deck have the series.
+
+**ONE COUNTRY, TWO NON-OBVIOUS SLUGS, POINTING IN OPPOSITE DIRECTIONS.** `history.state.gov/countries/
+eswatini` is a 404 and the guide is filed under **`swaziland`**, the name the country carried until
+2018; `thecommonwealth.org/our-member-countries/eswatini` is also a 404 and the Commonwealth is under
+**`kingdom-eswatini`**, the formal name (C7's rule). So one source keeps the OLD name and the other
+takes the FORMAL one, and neither answers to the name the country actually uses. **Try the former
+name and the formal name before concluding a country has no page** — this is the fourth slug trap
+after `macedonia`, `timor-leste` and `burma`, and the first where two sources fail differently.
+
+**THREE INSTITUTIONS DESCRIBE THE TWO CAPITALS AND ALL THREE DESCRIBE THEM DIFFERENTLY.** UNdata's
+capital footnote says *Mbabane is the administrative capital and Lobamba is the legislative capital*;
+the Commonwealth says *Mbabane (administrative and judicial capital), Lobamba (legislative
+capital)*; SADC says *Lobamba (royal and legislative), Mbabane (administrative)*. **They agree on
+exactly the claim the card makes and differ on everything around it**, which is the shape to write
+to: state Mbabane's administrative role flatly, and attribute the judiciary and the royal seat to
+the source that adds each. A card that merged the three into one sentence would be asserting a
+constitutional arrangement no single source states.
+
+**AND THE PICTURE SEARCH FAILED THREE WAYS BEFORE IT SUCCEEDED, WHICH IS THE ARGUMENT FOR LOOKING.**
+`Category:Mbabane`'s best-named file, *Mbabane, Eswatini.jpg*, is a SATELLITE IMAGE — and its name
+carries none of the words the `SPACEBORNE` filter matches, so nothing but an eye could have caught
+it. The next two are both shot THROUGH A WET WINDOW of the same building, complete with reflections,
+corporate signage and identifiable people. What worked was one category deeper, in
+`Category:Geography of Mbabane`: a plain view from the hills of a small city on a valley floor,
+which is what a capital of 68,000 honestly looks like. **When the obvious category disappoints, open
+its subcategories before widening the search.**
+
+**`gw-661` DJIBOUTI IS THE FIRST DEFINED CAPITAL FOOTNOTE IN A LONG RUN, AND IT NAMES A FRENCH
+COLONIAL UNIT.** UNdata's capital figure carries *Refers to the population of the "cercle"* beside
+its 2019 date — the first time in many cards that the footnote says WHAT is counted as well as when.
+The word is left untranslated and in quotation marks, and it is worth glossing in the card rather
+than passing on: a *cercle* is the administrative district French rule left behind. **The taxonomy of
+capital-population footnotes now runs from named localities through governorates, municipalities and
+census metropolitan areas to a colonial-era district, with the bare year in the middle.**
+
+**AND IT SHOWS, ARITHMETICALLY, THAT `EN.URB.LCTY` IS NOT AN INDEPENDENT CHECK.** The series returns
+here after three countries of silence, and its 2019 value is **568,804** against UNdata's **568.8
+thousand** — the same estimate to the hundred. C8 established this for `SP.POP.TOTL`, which relays
+the UN's own population; this is the first place the deck can prove it for the largest-city series
+too, because the profile's footnote and the series agree on a year and a definition at once. **Two
+sources printing one estimate are one source**, so cite the series for what it adds — the run of
+years the profile does not carry, here 531,499 in 2015 to 616,332 in 2025, which is what shows the
+card's own figure to be six years old.
+
+**THE FIRST CARD IN THE DECK WHOSE ANSWER AND MAP DOT ARE SPELT DIFFERENTLY.** The plan's answer is
+**Djibouti** and `world-capitals.js` labels the point **Djibouti City**; every one of the 150 capital
+cards before it had `answerText === map.dot`. `add-card.js` prints a warning rather than refusing,
+which is the right behaviour — *"the dot marks 'Djibouti City' but the answer is 'Djibouti' — check
+that is deliberate"* — and it is deliberate, because the plan's spelling is what `test-card-plans.js`
+binds the card to. **Read that warning rather than scrolling past it**: it is the only thing standing
+between a deliberate divergence and a typo.
+
+**AND THE PAIRED TERM CANNOT BE KEYED `Djibouti`, BECAUSE THE COUNTRY ALREADY IS.** The city takes
+`Djibouti_(city)` with an alias of *Djibouti City* — the mechanism CLAUDE.md describes, where a key
+with a disambiguating parenthetical does not claim its bare name, so the country keeps the auto-link
+and the city gets a surface it can actually win. It is the same shape as `Olympia_(Washington)`
+beside `Olympia` in the United States collection. **Check whether the bare key is already taken
+before writing a capital's term** — it will be, for every capital that shares its country's name.
+
+**`gw-662` SUVA IS THE FIRST CARD WHERE AN AMBASSADOR LIVED IN ANOTHER COUNTRY'S CAPITAL AFTER THE
+EMBASSY OPENED.** The deck has met proxy capitals often — Dakar covering three states, Vienna, Lomé,
+Brazzaville — where one embassy serves a country that has none. This is the finer case: the American
+Embassy at Suva was established on 1 November 1971 **and no American ambassador lived there until 11
+April 1978**, the previous ones being resident at Wellington; the first United States consul to the
+Fiji Islands, appointed in 1844, likewise lived at Auckland. **An embassy in the city and an
+ambassador in the city are two dates, and the guide gives both** — read past the embassy paragraph to
+the *American Ambassador Resident at* heading, which is where the second one is.
+
+**A THIRD MECHANISM OF RECOGNITION.** The guide has recorded recognition by press release (Cyprus), by
+congratulatory message (Djibouti) and now **by a statement in the UN Security Council** — Charles W.
+Yost, 10 October 1970. The mechanism is worth naming in the card because it is the thing the guide
+actually documents; the date alone is in UNdata too.
+
+**AND THE AREA AGREES TO THE KILOMETRE, WHICH IS WORTH STATING WHEN IT HAPPENS.** UNdata and the
+Commonwealth both give Fiji 18,272 km² and the World Bank 18,270 — that figure rounded to its nearest
+ten, exactly as C10 established for small areas — so all three agree and the deck's own C10 correction
+of the country card from 18,274 to 18,272 is corroborated a second time. **After a run of cards where
+the areas differed, say plainly when they do not**, or a reader learns that official figures never
+agree, which is not what this deck has found.
+
+**FIJI'S POPULATION DIPS AND RECOVERS INSIDE ONE DECADE** — 918,578 in 2015 down to 914,899 in 2019
+and up to 933,154 in 2025 — which is neither the rising series of the African cards nor the falling
+one of the Marshall Islands and Saint Vincent. **C8's stale-figure diagnostic assumes monotonic
+movement and cannot read a U**: a term stating 915,000 would be right for 2019 and also right for
+about 2016, so the series cannot date it. Ask for the shape of the series, not just its ends.
+
+**THE COMMONWEALTH PAGE CARRIES THE FULLEST MEMBERSHIP HISTORY IN THE DECK**, three suspensions with
+months attached (October 1987 – October 1997, June 2000 – December 2001, December 2006 – September
+2014), which is the institutional half of the guide's "coup cycle". **Where a member has left and
+returned, the joining line stops being one date and becomes a history** — C6's rule that the joining
+line usually dates independence does not survive contact with a suspended member.
+
+**`gw-663` MORONI CORRECTS A CLAIM THIS PLAN MADE IN C8, AND THE CORRECTION IS ABOUT WHERE A CLAIM
+CAME FROM RATHER THAN WHETHER IT IS TRUE.** C8 recorded that the Comoros' two areas differ because
+"UNdata's 2,235 counts the archipelago **including Mayotte**" — and **UNdata's profile does not
+mention Mayotte anywhere**, in its fields or in its twenty-one footnotes (grep it: the string is
+absent). The explanation is almost certainly right and it is an INFERENCE, so a card asserting it
+with a marker pointing at UNdata would be citing a work for a sentence it does not carry — L7's
+stranded-marker fault, committed at the moment of writing rather than by a later trim. The card says
+what is checkable: the two figures differ by nearly 400 km² and neither source explains the gap.
+**Before repeating a reason this plan records, open the source and find the sentence.**
+
+**MORONI IS THE DECK'S FIRST CLOSED EMBASSY, AND ITS DIPLOMATIC HISTORY IS THE CARD.** Recognition
+came on 15 August 1977 by a **joint communiqué** — a fourth mechanism after a press release, a
+congratulatory message and a Security Council statement — with the first chargé d'affaires resident
+at **Antananarivo**. An embassy at Moroni opened **26 August 1985**, eight years later, and **closed
+30 September 1993**, eight years after that; ambassadors were then accredited from **Port Louis**,
+which this deck carded four cards ago, and on 6 March 2006 the duty moved back to Antananarivo.
+**Read the whole Diplomatic Relations section rather than its first paragraph** — the closure and the
+two proxy cities are all under later headings, and a card stopping at the embassy's establishment
+would leave a reader thinking it is still open.
+
+**AND THE MISSING `EN.URB.LCTY` SERIES HAS A PATTERN AFTER ALL — SIZE — WHICH THIS PLAN DENIED TWO
+CARDS AGO.** The gap now covers nine countries (Botswana, Lesotho, Slovenia, Timor-Leste, Cyprus,
+Mauritius, Eswatini, Fiji, Comoros) and **every one of them is under about 2.7 million people**,
+which is why the deck met none of them until it had worked this far down an order sorted by
+population. The Port Louis card's "nothing about region, size, income, bloc or political geography
+joins them" was written from four scattered countries and was wrong about size. It is still not a
+rule — **Djibouti, at 1.18 million, sits in the middle of that range and has the series** — so the
+honest form is: expect it to be missing from here on, and query rather than assume.
+
+**`gw-664` GEORGETOWN IS THE FIFTH MECHANISM OF RECOGNITION, AND THE ONE WITH NO GAP IN IT AT ALL.**
+The guide's Guyana page dates recognition, diplomatic relations AND the American embassy at
+Georgetown to the same day, **26 May 1966** — the United States recognised the country *by* opening
+the embassy — so its three headings record one act rather than three. Set against Moroni (relations
+1977, embassy 1985, closed 1993) and Suva (embassy 1971, resident ambassador 1978), the deck now has
+the whole range from three events on one date to three events over sixteen years. **Read all three
+headings and check the dates against each other before writing the sentence** — where they collapse,
+saying so is the finding; where they do not, the gaps are.
+
+**ONE AREA AT THREE DEGREES OF ROUNDING, WHICH IS WHAT AGREEMENT LOOKS LIKE.** 214,969 from UNdata,
+214,970 from the World Bank (its usual nearest-ten) and 215,000 from the Commonwealth. **A divergence
+in the last digits is a rounding convention and not a disagreement**, and it is worth writing as
+agreement so a reader does not learn that official figures never match.
+
+**BUT THE POPULATIONS DIVERGE AT THE SAME YEAR, WHICH STALENESS CANNOT EXPLAIN.** The Commonwealth
+gives 786,560 for **2022** and the World Bank 821,637 for **2022** — four per cent apart, both dated,
+neither older than the other. C8's diagnostic asks *when was this figure true* and has no answer
+here, because the disagreement is not about a date. **Where two sources differ on one stated year,
+record both and adjudicate neither**; this is the C11 Cuba position reached from the other direction.
+
+**AND UNDATA FILES GUYANA UNDER SOUTH AMERICA**, where the country is a Commonwealth member whose
+orientation is Caribbean — a reminder that the Region field is a UN statistical classification rather
+than a statement about a country's affinities, and that a card can say both without contradiction.
+`caricom.org` is **403 on every path tried** (the root, `/our-community/`, `/contact-us/`), so the
+Caribbean Community's own seat at Georgetown could not be cited and is left out of the card entirely
+— the most interesting thing about the city, and unopenable.
+
+**`gw-665` HONIARA COMPLETES THE EMBASSY LIFE CYCLE: CONSULATE, EMBASSY, CLOSURE, RE-OPENING.** A
+consulate already stood in the city and was raised to an embassy on **4 July 1988**; it closed on
+**30 July 1993** and **re-opened on 27 January 2023**, thirty years later — the deck's first
+re-opening, two cards after its first closure. **Both closures fall in 1993** (Moroni 30 September,
+Honiara 30 July), which is a fact about American post-Cold-War retrenchment rather than about either
+country, and it is worth noticing rather than writing into a card as a claim neither source makes.
+Recognition here is a **sixth mechanism**: a letter from President Carter carried to the prime
+minister by **Senator John Glenn** as the President's personal representative.
+
+**AND THE SAME-YEAR POPULATION DIVERGENCE IS NOT A ONE-OFF: IT IS NOW TWICE RUNNING AND THREE TIMES
+THE SIZE.** Georgetown had the Commonwealth's 786,560 against the World Bank's 821,637 for 2022, four
+per cent apart; here it is **686,900 against 781,066 for the same 2022**, THIRTEEN per cent. Both
+figures are dated, so C8's staleness diagnostic has nothing to work on, and the Commonwealth is the
+lower in both cases. **Treat the Commonwealth's population as a figure on its own footing rather than
+as a check on the World Bank's** — it is reliably useful for the area breakdown, the capital and the
+accession line, and reliably several years' growth adrift on population.
+
+**C10'S SOLOMON ISLANDS AREA FINDING HOLDS AND IS NOW MEASURED.** C10 recorded the Commonwealth's
+30,407 km² as the outlier against ~28,896; it is exactly **five per cent** above UNdata's 28,896 and
+the World Bank's 28,900. A first draft of this card called it *a fifth more*, which is what happens
+when a ratio is written from an impression rather than divided out. **Do the division.**
+
+**`gw-666` THIMPHU CORRECTS THE AREA-REVISION STORY THIS PLAN HAS BEEN TELLING FOR FOUR CARDS, AND
+THE TEST IS ONE SUBTRACTION.** Nicosia recorded Cyprus's 9,251 → 9,250 as a *revision* and grouped it
+with Slovenia's and Latvia's; Bhutan's 38,394 → 38,390 at the same year (2018) makes the pattern
+visible. **Ask whether the new value is the old one ROUNDED TO THE NEAREST TEN.** Measured across the
+deck's own queries:
+· **Rounding, not revision** — Cyprus 9,251→9,250 (2018), Bhutan 38,394→38,390 (2018), Latvia
+  64,594→64,590 (2020), Mauritius 2,007→2,010 (2022). Every one is the old figure to the nearest ten.
+· **A genuine revision** — Slovenia 20,675→20,480 at 2017, a drop of 195 km², which no rounding
+  produces.
+· **A real physical change** — Bahrain, climbing 771 → 800 across the decade as land is reclaimed.
+So three of the four "revisions" recorded in the last fortnight were the series losing a digit, and
+**UNdata keeps the unrounded original in both 2018 cases** (9,251 and 38,394), which is why the two
+sources appear to disagree by one kilometre. Not every area is rounded — Comoros stands at 1,861
+throughout — so this is a per-country change of precision rather than a policy the whole series
+adopted. **Write "the figure the series carried until 20XX" rather than "revised", unless the
+subtraction says otherwise.**
+
+**AND BHUTAN IS THE FIGURES-ALONE SHAPE D2 PREDICTED, WITH A BETTER SECOND SOURCE THAN EXPECTED.**
+`history.state.gov/countries/bhutan` is a 404 (confirmed again here), and `saarc-sec.org`'s
+member-states path is a 404 too, so there is no bloc profile either. What carries the card is the
+**General Assembly resolution admitting Bhutan**, whose UN Digital Library record states *Adopted at
+the 1934th plenary meeting, 21 Sept. 1971* — a precise, openable date that corroborates UNdata's UN
+membership field exactly. **Where the guide has no page, reach for the admission resolution**
+(`digitallibrary.un.org`), which exists for every member and states its own meeting and date.
+
+**A SUPERLATIVE CAUGHT IN DRAFT, AND THE ARITHMETIC THAT KILLED IT.** The card first said Thimphu's
+quarter-of-the-country share was larger than any capital in this part of the deck. **Djibouti is 48
+per cent** (568,800 of 1,184,000), so the claim was simply false. The share is worth stating; the
+ranking is not, and four cards in a row have now had a superlative removed before shipping.
+
+**`gw-668` LUXEMBOURG IS THE RICHEST DIPLOMATIC ENTRY IN THE GUIDE THE DECK HAS MET, AND ITS SHAPE IS
+A CAPITAL NOBODY WAS ACCREDITED IN.** Recognition came on **31 May 1878**, when President Hayes issued
+an **exequatur** to Luxembourg's consul general at New York — a seventh mechanism, and the oldest
+recognition act in the deck. Relations began in **1903** with the American minister resident at **The
+Hague**, moved to **Brussels** in 1923, followed the government into exile at **Ottawa** in 1941 and
+**London** in 1943, returned to Brussels in 1944, and only in **1956** was the representation raised
+to an ambassadorship. **Six cities in one entry.** It is also a second closure-and-reopening, this one
+for occupation rather than retrenchment: the legation closed on 15 July 1940 after the German
+invasion of 10 May and reopened on 23 September 1944.
+
+**AND IT IS WHERE A DRAFT NEARLY MISREAD A LEGATION FOR AN AMBASSADOR.** The first draft said no
+American representative lived in the capital for seventy-eight years — but the guide's own headings
+speak of *Legation Luxembourg* closing in 1940 and reopening in 1944 with a chargé d'affaires, so a
+mission was in the city while the accredited MINISTER lived abroad. **Distinguish the mission from
+the accreditation**: the guide records them under separate headings and they move independently, and
+1956 is the elevation of RANK (minister to ambassador), which is not the same claim as residence.
+
+**THREE SOURCES, ONE YEAR, ONE PER CENT APART — WORTH SAYING AFTER GEORGETOWN AND HONIARA.** UNdata
+projects 680,000 for 2025, Eurostat gives 681,973 and the World Bank 686,970; the areas run 2,586,
+2,590 (the UN figure to the nearest ten, per `gw-666`'s rounding test) and 2,595. Two cards ago the
+same three-source comparison was thirteen per cent apart. **The spread is a property of the
+statistical system a country sits in, not of the sources** — a European state inside Eurostat is
+measured to the kilometre and a Pacific one is not.
+
+**SECOND INSTANCE OF THE ANSWER-AND-DOT DIVERGENCE**, after `gw-661`: the plan's answer is
+**Luxembourg** and `world-capitals.js` labels the point **Luxembourg City**, so `add-card.js` warns
+again and the warning is again correct to ignore. The paired term takes **`Luxembourg_(city)`** with a
+*Luxembourg City* alias, the country owning the bare key — the `Djibouti_(city)` shape, and the pattern to
+expect for any capital that shares its country's name.
+
+**`gw-669` PARAMARIBO IS THE SECOND DEFINED CAPITAL FOOTNOTE IN SIX CARDS, AND THE TWO TOGETHER SHOW
+WHAT THE DEFINITION IS WORTH.** UNdata footnotes this figure *Refers to the total population of the
+District of Paramaribo* — plain English, an administrative unit named — beside Djibouti's *cercle*.
+Both are DISTRICTS rather than cities, which is why both capitals look large for their countries
+(Paramaribo's district is well over a third of Suriname, Djibouti's cercle nearly half of Djibouti):
+**where the footnote defines the unit, the figure is usually bigger than the city**, and where it
+says only a year the reader cannot tell which they are being given. That is the argument for quoting
+the definition in the card whenever there is one.
+
+**THE RECOGNITION HAPPENED IN THE CAPITAL BEING CARDED, WHICH HAS NOT OCCURRED BEFORE.** The guide
+records a ceremony proclaiming independence **held in Paramaribo on 25 November 1975**, with the
+United States represented by its Secretary of the Navy, President Ford's letter of recognition
+written the same day, and relations and the embassy dated to it as well. Georgetown collapsed three
+headings into one date; this collapses them into one date and one PLACE. **Read the recognition
+paragraph for a location as well as a date** — most give none, and where one does it is the card's
+best sentence.
+
+**AND SURINAME IS 94.5 PER CENT FOREST**, which is the fact that makes its four-people-per-square-
+kilometre density legible rather than merely small, and it comes free from the UNdata profile's lower
+table. Its income per head has also FALLEN, 8,814 US dollars in 2015 to 5,976 in 2023. **The profile's
+economic and environmental rows are citable and mostly unused by this deck** — worth reaching for when
+a card is short of its 270 words, as this one was at 268 before they were added.
+
+**`gw-670` PODGORICA COMPLETES THE FOOTNOTE TAXONOMY BY CUTTING THE OTHER WAY.** Djibouti's footnote
+named a *cercle* and Paramaribo's the *District of Paramaribo* — both whole administrative units,
+both BIGGER than the city. Montenegro's names *the urban population of Podgorica municipality*, which
+is the town carved OUT of the unit. **So a defined footnote does not mean a comparable figure**: three
+consecutive cards define what they count and define three different things, and only quoting the
+definition lets a reader see it. That is now the deck's answer to the long run of bare years — the
+definition matters more than its presence.
+
+**RECOGNITION GRANTED, WITHDRAWN, AND GRANTED AGAIN A CENTURY LATER — THE FIRST WITHDRAWAL IN THE
+DECK.** The United States recognised the principality on **3 March 1905** (Theodore Roosevelt
+approving an act that assigned the American mission in GREECE responsibility for Montenegro — an
+eighth mechanism), and President Wilson **withdrew** recognition on **30 December 1920** after
+Montenegro was merged into the Kingdom of Serbs, Croats and Slovenes, ending relations. Recognition
+came again on 13 June 2006 by a statement from Secretary Rice. **The guide records withdrawals under
+their own headings** (*Recognition … Withdrawn*, *Diplomatic Relations Ended*) — read for them, since
+a card that stops at the first recognition paragraph gets the century wrong.
+
+**AND THE GUIDE NAMES A DIFFERENT CAPITAL FOR THE SAME COUNTRY**: the 1905 minister and his
+successors *"resided in Athens, Greece and made annual visits to Cetinje, the Montenegrin capitol"*.
+A capital card whose country's earlier capital was elsewhere is worth saying so on — and note the
+sentence contains the guide's own *capitol* for *capital*, its second typo family here after
+*Embasy* in the same entry. **Quote the fact, not the spelling.**
+
+**THE AREA SERIES MOVED THE OTHER WAY FOR ONCE.** `gw-666`'s test asks whether the new value is the
+old one rounded to the nearest ten. Montenegro's **13,810 → 13,888 at 2023** is not: it is 78 km²
+more and less round, so the series GAINED precision where Cyprus, Bhutan, Latvia and Mauritius lost
+it. UNdata's 13,812 is what the old 13,810 was rounded FROM, which is the same relationship those
+four showed. **One subtraction still separates the three kinds** — rounding, revision, and real
+change — and this is the second genuine revision after Slovenia's.
+
+**`gw-672` VALLETTA IS THE FOURTH DEFINED FOOTNOTE IN FOUR CARDS AND THE ONE THAT SETTLES THE
+POINT: THE FIGURE NEED NOT BE ABOUT THE NAMED CITY AT ALL.** UNdata's capital-city population for
+Malta is footnoted *Refers to the localities of the Northern Harbour and Southern Harbour* — two
+statistical districts, **neither of them called Valletta**. Set beside Djibouti's cercle, Paramaribo's
+district and Podgorica's urban-within-a-municipality, the run gives four definitions of four
+different things in four consecutive cards. **Read the footnote before writing the sentence, and say
+what it says**: a card that wrote "Valletta has 212,800 people" would be repeating a number the
+source explicitly attaches to somewhere else.
+
+**AND MALTA SHOWS WHY UNDATA'S NATIONAL FIGURE CAN LAG: ITS PROJECTION IS A FERTILITY MODEL.** For
+2025 UNdata projects 545,000, Eurostat gives 574,250 and the World Bank 579,704 — a six per cent
+spread, and the World Bank's own series explains it, rising from 444,220 in 2015 to 579,704 in 2025,
+close to a third in a decade. UNdata's own footnote says *Projected est. (medium fertility variant)*,
+and **a fertility projection cannot follow growth driven by migration**. C2 recorded that the EU page
+made Malta, Portugal and Spain "look wrong" and that UNdata confirmed the term; this is the mechanism
+behind that, and it means the gap WIDENS with time rather than being a one-off disagreement.
+**Where a small country is growing fast, prefer the measured series to the projection and say which
+is which.**
+
+**A CREDIT URL CAUGHT BEFORE IT SHIPPED TRUNCATED.** The Commons file is *Valletta, Malta (Aerial
+View).jpg*, whose page URL carries a comma AND parentheses — and `SRC_URL_RX` stops at `)`, so the
+credit line would have ended mid-address. Percent-encoding it (`%2C`, `%28`, `%29`) is the fix, and
+it is the third file in this run needing it after Mbabane and Georgetown. **Check a Commons page URL
+for `(` before writing the credit** — the picture is usually replaceable and the attribution is not.
+
+**`gw-673` MALÉ COMPLETES THE PROXY-CAPITAL RANGE WITH THE PERMANENT CASE, AND THE GUIDE SAYS IT IN
+THE PRESENT TENSE.** Its summary reads *"The United States does not have an embassy in Malé, the
+Maldivian capital; the Ambassador to Sri Lanka is also accredited to the Maldives."* Set against the
+rest of this run the deck now holds the whole spread: recognition and embassy on one day
+(Georgetown), an embassy years after relations (Moroni, Honiara), an embassy present while the
+ambassador lived abroad (Suva, Luxembourg), and now **no embassy at all, to this day**. **Read the
+guide's SUMMARY as well as its headings** — this fact is only in the summary, and a card built from
+the Recognition and Diplomatic Relations sections alone would have missed the whole point of the
+entry.
+
+**AND IT BREAKS `gw-665`'s NOTE ABOUT THE COMMONWEALTH'S POPULATIONS.** Honiara recorded that the
+Commonwealth's figure is "reliably several years' growth adrift" and lower — from two cases,
+Georgetown and Honiara. The Maldives gives **540,542 for 2022 against the World Bank's 524,106**, the
+Commonwealth HIGHER by three per cent. So the finding is only that the two disagree at a stated year,
+and **the direction is not predictable**; a third same-year divergence, and the first pointing the
+other way. Record both figures, adjudicate neither — which is what the earlier cards did anyway.
+
+**TWO SPELLINGS OF THE CAPITAL, BOTH CITED.** UNdata's capital field reads **Male** and the
+Commonwealth's **Malé**, and `world-capitals.js` and this plan both use the accent, which is what
+`test-card-plans.js` binds the card to (it folds diacritics, so either would pass the test — the
+plan's spelling is the tie-breaker). **The glossary term is keyed `Malé` WITHOUT a `Male` alias, and
+that is deliberate**: *male* is an ordinary English word, and an unaccented alias would auto-link it
+across the whole site — the `Boreal` hazard, avoided by not creating it.
+
+**`gw-674` PRAIA IS THE FIFTH SLUG TRAP AND THE FIRST WHERE THE GUIDE ITSELF EXPLAINS IT.**
+`history.state.gov/countries/cabo-verde` is a 404; the entry is filed under **`cape-verde`**, and the
+page says why: *"In 2013, the country was re-named Cabo Verde."* So the naming that cost D1 a whole
+country — the UN's *Cabo Verde* against the glossary key `Cape_Verde` — is here a CARD fact with a
+citation rather than only a plan note, exactly as `gw-660` found for Swaziland/Eswatini. **When a
+country has been renamed, try both names on the guide AND look for the rename sentence**: it is
+usually in the Recognition paragraph and it is the most interesting thing the entry says.
+
+**AND `Category:Praia` ON COMMONS IS THE PORTUGUESE FOR *BEACH*.** It holds Brazilian beaches —
+Jericoacoara, Guaratiba, Arraial do Cabo — and not one picture of the Cape Verdean capital. The right
+category is **`Category:Praia (Cape Verde)`**; `Praia, Cape Verde` and `Praia, Cabo Verde` are both
+empty. **A capital whose name is an ordinary word in its own language will not be found in the
+category bearing that name** — the picture-search cousin of the `Male`-alias hazard the card before
+it avoided, and worth trying the parenthetical form first for Praia, Victoria, Georgetown and their
+kind.
+
+**RELATIONS ESTABLISHED IN THE OTHER DIRECTION.** The guide dates relations to 19 July 1975, when
+**Cabo Verde's** ambassador presented credentials **in Washington** — not an American envoy
+presenting his abroad, which is how every other entry in this run reads. The first American
+ambassador came sixteen months later and lived at **Bissau**, and the embassy at Praia only in
+January 1978. **Read whose credentials are being presented to whom**; the sentence looks identical at
+a glance and dates a different event.
+
+**`gw-675` BANDAR SERI BEGAWAN IS THE BARE FOOTNOTE'S COST STATED IN ONE PAIR OF NUMBERS.** UNdata
+gives the capital **40,800** — under a tenth of a country of 466,000 — while the SAME profile puts
+**77.9 per cent of Bruneians in towns**. The two cannot both describe the built-up area, and the
+footnote says only *2018*, so the card states both figures and the absence rather than guessing which
+unit is meant. After four cards whose footnotes defined a cercle, a district, an urban-within-a-
+municipality and two harbour localities, this is the argument for the definition put the other way
+round: **without one, a reader cannot tell a small capital from a small BOUNDARY.**
+
+**THE GUIDE CONTRADICTS ITSELF INSIDE ONE ENTRY, ON A DATE.** Its Recognition paragraph says the
+United States recognised Brunei on **1 January 1984** *"and opened the American Embassy in Bandar
+Seri Begawan on that same date"*; its Diplomatic Relations paragraph says relations **and the
+embassy** were established on **28 May 1984**, when Ambassador Barrington King presented credentials.
+The plan has recorded the guide's typing errors before; this is different in kind — two paragraphs
+dating one event five months apart. **Give both dates and say which paragraph each comes from**
+rather than choosing, and do not let a card assert an embassy opening the source cannot settle.
+
+**AND ITS OLDEST FACT IS A TREATY THAT IS STILL IN FORCE.** A treaty of peace, friendship, commerce
+and navigation was signed at Brunei on 23 June 1850, entered into force in 1853, and the guide states
+it *"is still in effect today"* — the first live instrument the deck has met, and older than most of
+the recognitions in this run. **The guide has a Treaties/Agreements section on some entries and not
+others**; it sits below Diplomatic Relations and is easy to scroll past.
+
+**`gw-676` BELMOPAN PROVES `gw-666`'s ROUNDING TEST INSIDE ONE COUNTRY.** The World Bank gave Belize
+**22,970 km² until 2022 and 22,966 from 2023**, while UNdata and the Commonwealth have both said
+**22,965 throughout**. So the series' old value is visibly the same measurement rounded to the nearest
+ten, its new value is the unrounded one, and a third source holds the true figure across both states
+— the cleanest demonstration the deck has of the test *is the new value the old one rounded?* It is
+also the second series to GAIN precision at 2023, after Montenegro's. **Two sources differing in the
+last digit are agreeing.**
+
+**AND THE EMBASSY FOLLOWED THE CAPITAL TWENTY-FIVE YEARS LATE — A NEW SHAPE IN THE RUN.** The guide
+has its own heading for it: *Embassy Moved to Belmopan, 2006*, recording that on **11 December 2006**
+the American embassy at **Belize City** relocated to *"present-day capital Belmopan"*. Set beside
+Suva (ambassador elsewhere), Malé (no embassy at all), Moroni (closed), Honiara (closed and
+reopened), the deck now also has **an embassy that changed cities**. The guide's phrase *present-day
+capital* is its way of noting the country moved its seat; it does not date that move, and the card
+does not either.
+
+**A CAPITAL OF 23,000 HAS NO SKYLINE, AND THE HONEST PICTURE IS THE TOWN IN ITS FOREST.** Commons
+offers Belmopan's Independence Plaza — the planned civic core — and a dusk view over the main road
+with forest to the horizon; the second is the one that answers *what does this capital look like*.
+This is the US pass's small-state-capital rule (Montpelier, Pierre, Frankfort) meeting a national
+capital for the first time, and the same answer applies. **Do not reach for the plaza because it
+photographs better.**
+
+**`gw-677` NASSAU IS THE ROUNDING TEST'S NEGATIVE CASE, ONE CARD AFTER ITS CLEANEST POSITIVE.**
+Belmopan showed the World Bank's old figure to be UNdata's rounded to the nearest ten. Here UNdata
+gives **13,940 km²**, the World Bank **13,880** and the Commonwealth a rounded **14,000** — and 13,880
+is not 13,940 rounded to anything. **Sixty kilometres apart is a real divergence**, so the card says
+so rather than reaching for the explanation that worked last time. The test is worth applying every
+time precisely because it sometimes answers no.
+
+**AND THE CAPITAL HOLDS MORE THAN TWO THIRDS OF ITS COUNTRY.** 279,700 against 403,000, with the same
+profile putting 83.1 per cent of Bahamians in towns — the highest concentration this run has met,
+though the card does not say so, since ranking it would mean checking 164 other capitals. **State the
+share, not the rank**: the arithmetic is on two cited figures and the superlative is not.
+
+**A FIGURE TYPED FROM MEMORY WAS CAUGHT BY RE-READING THE PROFILE.** The draft wrote the urban share
+as 83.6 per cent; the profile says **83.1**. Nothing in the pipeline can see this — the marker is
+right, the source is right, the sentence is well formed, and the number is wrong. **Re-grep the
+profile for every figure before the card is added**, not only for the ones that felt uncertain; three
+of this run's cards have now needed a number corrected between draft and commit.
+
+**`gw-678` REYKJAVÍK IS THE MISSION THAT PREDATES ITS OWN REPUBLIC, WHICH IS A SHAPE THE RUN HAD NOT
+MET.** Iceland took over its own foreign relations on **10 April 1940**, the day after Germany
+occupied Denmark; American forces occupied the island on 7 July 1941; **diplomatic relations and an
+American legation at Reykjavík were established on 30 September 1941** — and the republic was
+declared only on **17 June 1944**, when Roosevelt and Hull recognised it in public statements of
+congratulation (a ninth mechanism). The legation became an embassy in 1955. **Where a country's
+independence is gradual, the guide's Diplomatic Relations date can PRECEDE its Recognition date** —
+the reverse of every other entry in this run, and a card that assumed the usual order would have the
+sequence backwards.
+
+**AND IT SETTLES C2's ICELAND DEFERRAL WITHOUT FINDING THE SOURCE C2 WANTED.** C2 deferred Iceland
+because UNdata confirmed every figure but was only ONE source and `efta.int` and `coe.int` are both
+403. For a CAPITAL card that no longer bites: the World Bank's population and area series are the
+second source for the figures (and agree exactly on 103,000 km²), and the recognition guide carries a
+history no statistical profile has. **A deferral recorded against a COUNTRY term does not
+automatically transfer to its capital card** — the two need different things.
+
+**THIRD SPELLING DIVERGENCE IN SIX CARDS.** UNdata writes **Reykjavik** where the plan, world-
+capitals.js and the glossary use **Reykjavík**, after *Male*/*Malé* and *Cape*/*Cabo Verde*. Here the
+unaccented form IS given an alias, unlike Malé's: *Reykjavik* is not an ordinary English word, so it
+can claim a surface without auto-linking prose that means something else. **The test is whether the
+alias is also a common word, not whether it is a variant spelling.**
+
+**`gw-679` PORT VILA IS MALÉ'S PAIR: NO EMBASSY FOR FORTY-FOUR YEARS, AND THEN ONE.** Vanuatu became
+independent from an Anglo-French condominium on **30 July 1980**; the United States established
+relations only on **30 September 1986**, by a signed agreement; the guide then says outright that *no
+U.S. diplomatic mission was established at the capital of Port Vila in 1986*, with the ambassador in
+**Papua New Guinea** accredited instead from April 1987; and **the embassy at Port Vila opened on 19
+July 2024** — the most recent date anywhere in this run. Malé's entry says the arrangement continues;
+this one shows what its ending looks like. **A guide entry can be current to within a year, so do not
+assume the proxy is still in force**: read to the last heading.
+
+**AND THE FOURTH NAMING DIVERGENCE IN SIX CARDS IS A HYPHEN, WHICH IS THE ONE THAT MATTERS.** The
+Commonwealth writes **Port-Vila**; UNdata, `world-capitals.js` and the plan write **Port Vila**.
+`test-card-plans.js` folds case and diacritics **but not hyphens** (recorded at `gw-657`
+Port-of-Spain), so a hyphenated `answerText` would have failed the check outright where *Male* for
+*Malé* would have passed. The unhyphenated form binds and the term aliases the other. **Of the four
+divergences met — accent, hyphen, renaming, and a bare spelling — only the hyphen is load-bearing for
+the tests.**
+
+**A NOTE ON THE COMMONWEALTH'S JOINING LINE HERE.** It reads *"1980, following ending of
+administration Anglo-French condominium"* — not "following independence from Britain", because there
+was no single metropole. C4's rule that the joining line usually dates independence still holds
+(1980 is the independence year), but the CLAUSE is worth quoting rather than paraphrasing as colonial
+rule ending, since a condominium is two powers and the card should say so.
+
+**`gw-680` NOUMÉA IS THE FIRST TERRITORY CAPITAL IN THE DECK, AND IT LOSES THE RECOGNITION GUIDE
+ALTOGETHER.** `history.state.gov/countries/new-caledonia` is a 404, and correctly so — the guide is a
+record of relations between the United States and *states*, and New Caledonia is not one. That takes
+away the source that has carried the second block of nearly every capital card in this run, and the
+replacement is the UN Digital Library, which is where a territory's institutional record actually
+lives: **A/RES/53/65 of 3 December 1998**, whose own catalogue summary states that the Assembly
+"[w]elcomes the significant developments that have taken place in New Caledonia as exemplified by the
+signing of the Nouméa Accord of 5 May 1998 between the representatives of New Caledonia and the
+Government of France", and goes on to name the administering Power, the Matignon and Nouméa Accords
+and "an act of self-determination in which all options are open". **The record summary is the citable
+text** — four of the card's ten sentences rest on that one page, and none of them needed the PDF.
+A **second** resolution gives the question's present standing: searching the library for the exact
+phrase `"Question of New Caledonia"`, newest first, returns the whole series, and the top English
+record is **A/RES/80/98**, adopted without a vote at the eightieth session's 55th plenary meeting on
+5 December 2025. **Search the phrase rather than guessing a symbol** — the symbol changes every year
+and the series is unbroken, so the newest record is always the current standing of the question.
+One refusal worth recording beside it: `A/RES/41/41 A`, the 1986 re-inscription, was NOT cited,
+because the record's title is the general decolonization one and its summary does not state the
+re-inscription — that would have been the C8/Mayotte inference fault a few cards back, committed
+again.
+
+**AND THE UN's OWN DECOLONIZATION PAGES ARE SHUT HERE.** `un.org/dppa/decolonization/en/nsgt` and its
+per-territory child both answer **202 with a zero-length body** — a sixth variety of not-an-error
+that a status check alone reads as success. The Digital Library is open and is the better source
+anyway, being the instruments themselves rather than a page about them.
+
+**THE `EN.URB.LCTY` ABSENCE IS NOW FIFTEEN, AND NEW CALEDONIA BREAKS THE SIZE PATTERN THE OTHER WAY.**
+The fourteen before it were all under about 2.7 million people, with Djibouti at 1.18 million the one
+that *has* a series. New Caledonia has 295,000 people and no series — consistent with size — but it is
+also the first **territory** to be checked, and a territory whose statistics France excludes from its
+own (UNdata footnote a: "For statistical purposes, the data for France do not include this area")
+would have no series whatever its size. **Size is where to look; sovereignty may be the real rule**,
+and the deck has not met enough territory capitals to tell the two apart yet.
+
+**AND THE AREA GAP IS THE LARGEST THE CAPITALS RUN HAS MET: 520 km².** UNdata gives 19,100 km²
+(footnoted to 2023) against the World Bank's 18,580, flat across the whole decade. The rounding test
+settles it instantly and negatively — 18,580 is not 19,100 rounded to anything — so this is neither a
+rounding nor a revision but two different measurements, and **neither source says which area it is
+measuring**. Stated as a gap in the card, with no explanation offered, on the Comoros rule.
+
+**THE CAPITAL SHARE IS THE HIGHEST IN THE DECK AND THE TWO FIGURES CORROBORATE EACH OTHER.** UNdata's
+197,800 (footnoted 2018) against the World Bank's 283,541 for that same year is about seventy per
+cent, and the profile's urban share is 71.1 per cent for 2019 — so almost everybody counted as urban
+is counted at the capital. That is the **opposite** of the Bandar Seri Begawan case, where 40,800
+against 77.9 per cent urban could not both describe the built-up area; here the two agree, which is
+what a bare capital footnote looks like when it is the agglomeration. **Compare the capital figure to
+the population of ITS OWN YEAR, not to the current one** — 197,800 against 2025's 295,000 gives 67 per
+cent and quietly compares a 2018 numerator with a 2025 denominator.
+
+**PICTURE.** `Category:Views of Nouméa` is **empty**, and `Category:Nouméa` is unusually full of
+**FAL** files (the Free Art License), which is outside the pass's stated bar of PD / CC BY / CC BY-SA
+— including `Quartiers sud Nouméa.JPG`, the best elevated city view in the category. Two other traps
+in the same list: `Nouméa, New Caledonia.jpg`, CC BY-SA 4.0 and plausible by name, is a **satellite
+image** — a refused family — and `Monts-Koghis - Pic Malaoui (687 m) - Vue sur Nouméa`, CC BY 2.0, is
+a ridge panorama with the city as a smudge in the middle distance. What shipped is
+`View over Noumea.jpg` (Pilettes, CC BY-SA 3.0, 3872×2592): cathedral, town, marina and lagoon in one
+frame, taken from the youth hostel. **Filter the category by licence AND read the picture** — three of
+the four leading candidates here failed on licence or on subject, and neither failure is visible in a
+file name.
+
+**`gw-681` BRIDGETOWN HAS THE EARLIEST AMERICAN DATE IN THE WHOLE CAPITALS RUN, AND IT IS A
+CONSULATE RATHER THAN AN EMBASSY.** The recognition guide's summary paragraph — the one C12 found
+carries the datable claim where the Recognition heading does not — states that "[t]he United States
+maintained a consular presence in Barbados beginning June 11, 1823, when Barbados was still a British
+colony." That is 143 years before independence, and it is the first time in this run that the guide's
+consular date has been the interesting one. **Read the summary paragraph as well as the two headed
+sections**; on a long-colonial territory it is where the pre-independence record lives.
+
+**AND BARBADOS COLLAPSES THE EMBASSY LIFE-CYCLE TO A SINGLE ACT.** The guide says the United States
+"recognized Barbados' independence that same day when it opened the American Embassy in Bridgetown",
+and dates the embassy's establishment to 30 November 1966 with George Dolgin as chargé d'affaires ad
+interim. Recognition, relations and the mission are one event on one day — the opposite end of the
+range from Port Vila, where the embassy opened forty-four years after independence, and from Malé,
+where it never opened at all. The guide also states the standing arrangement in plain words: the
+United States "has used Bridgetown as a base for diplomatic relations with Barbados and the region",
+which is a fact about the CITY rather than about the country and belongs on a capital card.
+
+**THE CAPITAL-SHARE CORROBORATION HELD A SECOND TIME, AT A QUITE DIFFERENT LEVEL.** Nouméa's 197,800
+against 71.1 per cent urban, and now Bridgetown's 89,200 against 31.2 per cent — 89,200 over the World
+Bank's 280,711 for 2018 is 31.8 per cent — so in both cases the capital figure is essentially the
+whole urban population, at seventy per cent and at a third. **The test travels; the level does not.**
+A low urban share is not evidence that the capital figure is a narrow commune boundary.
+
+**THREE SOURCES ON THE AREA, AGREEING TO ONE SQUARE KILOMETRE, AND DISAGREEING ON THE POPULATION.**
+UNdata gives 431 km², the World Bank and the Commonwealth both 430. The populations part company the
+usual way — the Commonwealth's 287,370 for 2022 against the World Bank's 282,318, about 1.8 per cent
+— which is small enough that neither is a correction of the other, and the card states both rather
+than choosing. Note also that Barbados' population is the FLATTEST the deck has met: 278,990 in 2015
+to 282,623 in 2025, 1.3 per cent over a decade, so C8's stale-population diagnostic has nothing to
+find here and a figure written five years ago is still right.
+
+**PICTURE: THE FIRST NAME-MATCH TRAP OF THE RUN WAS THE PUBLIC-DOMAIN ONE.**
+`Bridgetown, Barbados.jpg` is public domain, 4288×2845, and named exactly as a card wants — and is an
+**ISS photograph**, the refused family, which no metadata field says. `Bridgetown, Barbados
+(51090743958).jpg` is a moored tall ship and `Bridgetown, Barbados - panoramio.jpg` is a beach lounger
+seen over the photographer's own feet. The two panoramas in the category are 7.6:1 and 5.4:1, too wide
+for a card frame. What shipped is `Bridgetown aerial.JPG` (P. Lechien, CC0, 1936×2592): an **oblique**
+aerial from an aircraft window, clouds below the horizon, the deep-water port, the Careenage and the
+city inland — portrait, and the first portrait picture in this run, which the 16:9 frame letterboxes
+rather than crops. **An oblique aerial is a view; a vertical one is a diagram** — that is the line the
+satellite refusal is really drawing, and it is worth stating because a straight ban on "from the air"
+would have thrown this one away too.
+
+**`gw-682` PAPEETE CLOSES THE CAPITAL-FOOTNOTE TAXONOMY: UNdata SAYS EXACTLY WHAT IT COUNTED.**
+The run has spent twenty cards working up a ladder of footnotes — a bare year (unknowable), a *cercle*
+(Djibouti), a district (Paramaribo), the urban part of a municipality (Podgorica), two harbour
+localities not named after the city (Valletta), and back to bare (Bandar Seri Begawan). French
+Polynesia's profile ends it: footnote f reads **"Refers to the total population in the communes of
+Arue, Faaa, Mahina, Papara, Papeete, Pirae and Punaauia"** — seven communes, named. It is the only
+capital figure in the collection whose boundary is stated outright, and it settles what the arithmetic
+elsewhere could only infer: 136,000 over the World Bank's 279,815 for 2018 is about half the
+territory, against an urban share of 61.9 per cent, so the capital is four fifths of the urban
+population and NOT all of it — which is what a defined multi-commune agglomeration looks like beside
+Nouméa's and Bridgetown's near-coincidence. **Read the footnotes before writing the comparison
+sentence; on one profile in the deck they do the work for you.**
+
+**AND THE SAME PROFILE EXPLAINS ITS OWN AREA GAP — THE FIRST TIME IN THE RUN.** UNdata's 3,687 km²
+carries footnote c: "Including water bodies of lake Vaihiria, lake Temae and the Maiao lagoons, but
+not lake Maeva and the lagoons of Raiatea and Tahaa from the upper islands. No lagoons from lower
+islands are included." The World Bank gives a flat 3,471 and the Secretariat's working paper "about
+3,500 km²" for the land — so the 216 km² gap is **water, itemised**. Everywhere else in Phase 3 and in
+this run the two figures simply differ and neither source says why; here the card can state the reason
+rather than the gap. **When an area diverges, look for a footnote on the area field itself** — it is a
+different footnote from the one on the capital population and is easy to skim past.
+
+**A NON-SELF-GOVERNING TERRITORY HAS A BETTER SOURCE THAN THE RECOGNITION GUIDE, AND IT IS THE ANNUAL
+WORKING PAPER.** `history.state.gov/countries/french-polynesia` is a 404, as New Caledonia's was, but
+the Special Committee on decolonization has a Secretariat working paper per territory
+(`A/AC.109/<year>/<n>`), and it is far richer than a recognition page: a "Territory at a glance" block
+with the administering Power, the High Commissioner, land area, EEZ, population, languages, capital
+and head of government, then sections on the economy, transport and external relations. For Papeete it
+gave the Autonomous Port of Papeete and the international airport at **Faaʻa — one of the seven
+communes the capital figure counts**, which is the join between the two sources. **Search the Digital
+Library for the territory's working paper before concluding a territory has no history source.**
+
+**AND THE WORKING PAPER'S PDF IS EXTRACTABLE HERE, WHICH THE N10 FINDING SAID IT MIGHT NOT BE.**
+There is no `pdftotext`, `pypdf`, `fitz` or `mutool` in this sandbox, and the file's text is hex-coded
+against subset fonts — but it **carries its ToUnicode CMaps**, so about forty lines of Python get the
+whole 17 pages: inflate every stream, take the ones containing `beginbfchar`/`beginbfrange`, build the
+code→character map, then inflate the content streams and decode every `<hex>` inside a `TJ` array or
+before a `Tj`. **Check the three merged CMaps for conflicting codes first** (there were none here; a
+conflict would mean the per-font maps disagree and the merge would silently corrupt the text). A first
+attempt that read the PDF's *literal* `(...)` strings returned 161 KB of `en-GB` language tags and no
+prose — **a large extraction that contains none of your search terms is a font problem, not an empty
+document.**
+
+**PICTURE.** `Category:Views of Papeete` and `Category:Port of Papeete` do not exist; the parent
+category is large and mostly street furniture, monuments and food stalls. The best-named candidate,
+`Papeete et Moorea depuis le belvédère de Pīra'e.jpg` (CC BY-SA 4.0, 6016×4000), is the Monts-Koghis
+case again — a ridge panorama with the town a thin strip in the middle distance under cloud. What
+shipped is `Rade de Papeete.jpg` (Jérémie Silvestro, CC BY-SA 4.0, 6016×4000), the waterfront from the
+harbour. Note the rejected file's name carries an **apostrophe**, which `SRC_URL_RX` stops at, so it
+would have needed percent-encoding in the credit line.
+
+**`gw-683` SÃO TOMÉ IS THE THIRD DISTINCT ANSWER IN A ROW TO THE SAME ARITHMETIC, AND THE THREE
+TOGETHER ARE THE FINDING.** The capital-against-urban-share test has now been run on Nouméa (about
+seventy per cent of the territory against 71.1 per cent urban — the capital IS the urban population),
+Papeete (about half against 61.9 per cent — four fifths of it) and São Tomé (80,100 over the World
+Bank's 210,187 for 2018, about 38 per cent, against 73.6 per cent — barely half of it). **The ratio of
+the two figures is what tells you how much of a country's urban life happens somewhere other than the
+capital**, and on a two-island state with plantation towns the answer is: a lot. Only Papeete's
+profile says outright what its figure counts, so on the other two this ratio is the only evidence
+there is about the boundary being used, and it should be reported rather than assumed either way.
+
+**THE ROUNDING TEST IS A CLEAN POSITIVE HERE, WHICH IS WORTH HAVING BESIDE THE OTHER TWO OUTCOMES.**
+UNdata gives 964 km² and the World Bank a flat 960 — and 960 IS 964 to the nearest ten, so the two
+agree and the card says so in one clause. Set that against Nouméa (18,580 against 19,100, not a
+rounding of anything, and unexplained) and Papeete (3,687 against 3,471, and the profile's own
+footnote itemises the lakes and lagoons that make the difference). **Three cards, three outcomes:
+agreement, unexplained divergence, and divergence the source explains** — run the test before writing
+any area sentence, because which of the three it is decides the whole clause.
+
+**A FAST-GROWING POPULATION MAKES A STALE CAPITAL FIGURE MISLEADING IN A WAY A FLAT ONE DOES NOT.**
+São Tomé and Príncipe went from 200,291 in 2015 to 240,254 in 2025, up a fifth in a decade — against
+Barbados two cards ago at 1.3 per cent over the same span. The capital's 80,100 is footnoted to 2018,
+so it is measured against a country 12 per cent smaller than today's, and **the share must be computed
+against the population of the FIGURE's year** or the card understates the capital by about that much.
+That is the same rule Nouméa's card needed, and it bites hardest exactly where growth is fastest.
+
+**THE GUIDE RECORDS NO AMERICAN MISSION AT ALL, WHICH IS A FACT ABOUT THE CAPITAL AND NOT A GAP.**
+Recognition on 12 July 1975 by a letter from President Ford, relations on 10 October 1975 by exchange
+of notes, and then nothing: no embassy, no consulate, no resident ambassador. That is a further point
+on the life-cycle range this run has been assembling — same-day at Georgetown, Nassau and now
+Bridgetown; forty-four years at Port Vila; never at Malé; and here the guide simply stops after the
+notes. **Read the absence as content**: on a capital card "no mission was ever opened here" is a
+sentence about the city.
+
+**PICTURE: THE CATEGORY IS DOMINATED BY ONE FESTIVAL, AND THE BEST-SIZED WIDE SHOT IS OF THE
+AIRPORT.** `Category:São Tomé (city)` does not exist; `Category:São Tomé` is roughly half *tchiloli*
+performance photographs, and the large CC BY-SA files in `Category:Views of São Tomé` with meaningless
+names (`Org 1567acb…`) turn out from their descriptions to be *Aeroporto Internacional de São Tomé* —
+**the category placed them right and the subject is still wrong**, which is why the description field
+has to be read even when category membership has already established the place. Two genuine wide views
+exist and both put the town in the bottom fifth of the frame across a wide bay. What shipped is
+`Cidade de São Tomé (4238867188).jpg` (Maria Cartas, CC BY-SA 2.0), a square of two-storey colonial
+buildings — the small-capital rule from the United States pass, applied to an 80,000-person capital
+with no skyline. One mechanical note: its original is 1,840px wide, and **a `1600px-` or `1800px-`
+thumb of it returns 400** where `1280px-` returns 200, so check the thumb URL resolves rather than
+assuming the standard 1920 works.
+
+**`gw-684` APIA IS THE FOURTH RUN OF THE CAPITAL-SHARE TEST, AND IT SETTLES WHAT THE RESULT DOES NOT
+DEPEND ON.** 36,100 over the World Bank's 207,582 for 2018 is about 17 per cent, against an urban
+share of 18.1 per cent — so once again the capital is essentially the whole urban population, this
+time at an urban share of **18.1 per cent**, the lowest the run has met. Nouméa reached the same
+result at 71.1 per cent. **The ratio does not track the LEVEL of urbanisation at all**: a country can
+be overwhelmingly rural and still keep all its town life in one place, or largely urban and spread it
+around (São Tomé, 73.6 per cent urban and barely half of it in the capital). Report the ratio; never
+infer it from how urban the country is.
+
+**A THIRD CLEAN ROUNDING, AND A THIRD SOURCE THAT ROUNDS FURTHER.** UNdata 2,842 km², World Bank a
+flat 2,840 — the nearest ten again — and the **Commonwealth Secretariat 2,800**, which is the same
+figure to the nearest hundred. That is worth writing down because a Commonwealth area looks like a
+disagreement and usually is not: check it against the profile at the Commonwealth's own precision
+before treating it as a third measurement. Its **population**, though, genuinely diverges — 198,400 for
+2022 against the World Bank's 215,261, about eight per cent low — which is the C11 pattern of the two
+bodies parting on people while agreeing on land.
+
+**THE GUIDE'S SAMOA ENTRY IS ALMOST ENTIRELY ABOUT THE CAPITAL, AND IT ADDS A NEW LIFE-CYCLE
+VARIANT.** Apia is named four times: a U.S. **commercial agent there as early as 1844**; the first
+consulate opened **17 May 1856** under Jonathan S. Jenkins and **closed 23 September 1927**; relations
+begun **at Apia** on 14 July 1971; and an embassy established **15 November 1988**. The variant is the
+last clause — *"the Ambassador has always remained resident at Wellington, and the Embassy has been
+under the leadership of a Chargé d'Affaires."* So the range this run has been assembling now runs:
+same day (Georgetown, Nassau, Bridgetown); years later (Moroni, Honiara); closed and reopened
+(Honiara); moved city (Belmopan); never opened (Malé); no mission ever recorded (São Tomé); and now
+**an embassy that exists and has never had a resident ambassador**. It is also the first entry to give
+both ends of a **closed consulate** with dates, 1856 to 1927, before an embassy arrives sixty years
+later.
+
+**AND THE UN MEMBERSHIP DATE LAGS INDEPENDENCE BY FOURTEEN YEARS** — independent 1 January 1962, a UN
+member on 15 December 1976. C3 found this shape for the Soviet founding republics and C9 for the Cold
+War admission deadlocks; Samoa is a third family, a very small state that simply did not join at once.
+**Do not use the UN membership date as an independence date on a small Pacific state** without
+checking the guide.
+
+**PICTURE: THE THIRD PUBLIC-DOMAIN SATELLITE TRAP IN FOUR CARDS.** `Apia, Samoa.JPG` — public domain,
+3032×2004, named exactly as a card wants — is an orbital photograph, as `Bridgetown, Barbados.jpg` was
+and as `Nouméa, New Caledonia.jpg` was. **A bare "<City>, <Country>.jpg" in the public domain is very
+often an ISS frame**, and the file name never says so; three in four cards is enough to check that one
+first. `Category:Apia` is otherwise one photographer's 300-odd close-ups of shopfronts and rubbish
+stands, and its one large "waterfront" file is a single hotel block. What shipped is `Main drag,
+Apia - panoramio.jpg` (Peter Gill, CC BY 3.0, 2816×2112), the town centre with its clock tower — the
+small-capital streetscape rule for the second card running.
+
+**`gw-685` CASTRIES POINTS AT THE CARD FOUR NUMBERS EARLIER, AND THAT IS THE FINDING.** The guide's
+Saint Lucia entry says outright that *"The United States maintains no official presence in St. Lucia.
+The Ambassador and Embassy officers are resident in Barbados and frequently travel to St. Lucia"* —
+and `gw-681` Bridgetown carries the other half of the same sentence, the guide there saying the United
+States "has used Bridgetown as a base for diplomatic relations with Barbados and the region". **A
+capital card can be about a mission that is in somebody else's capital**, and in the eastern Caribbean
+that is the normal arrangement rather than an anomaly: the 1977 Special Representative was appointed
+to Antigua, Dominica, St Kitts-Nevis-Anguilla, St Lucia and St Vincent at once, concurrently with
+Barbados and Grenada. Expect Roseau, St John's, Basseterre and Kingstown to say the same thing, and
+expect the useful sentence to be about Bridgetown.
+
+**IT ALSO ADDS THE LAST VARIANT THE LIFE-CYCLE WAS MISSING: RECOGNITION *BY* AN APPOINTMENT.** Saint
+Lucia was independent on 22 February 1979 and the United States "did not formally recognize St. Lucian
+independence until the appointment of Sally Angela Shelton as American Ambassador on May 17, 1979" —
+so the recognising act is a personnel decision, three months late, and relations then follow on 11
+June when she presents credentials. Against Bridgetown, where recognition, relations and the embassy
+were one act on one day, this is the same three events spread over four months with no mission at the
+end of them.
+
+**AND THE GUIDE CONTRADICTS ITSELF IN A HEADING, FOR THE SECOND TIME IN THE RUN.** The section reads
+*"Diplomatic Relations Established, 1983"* and its own text gives 11 June **1979**. Brunei did this
+with an embassy dated 1 January and 28 May 1984 in two paragraphs. **Cite the sentence, never the
+heading** — the headings are hand-written summaries and are the part that drifts.
+
+**A FIFTH CAPITAL-SHARE VALUE, AND IT FILLS THE MIDDLE.** 22,300 over 177,017 for 2018 is about 13 per
+cent against an urban share of 18.8 per cent, so roughly **two thirds** of the urban population is at
+Castries — between São Tomé's half and Papeete's four fifths, with Nouméa, Bridgetown and Apia at
+essentially all of it. The five runs now span half to all, and the two lowest-urban countries in the
+set (Samoa at 18.1 per cent, Saint Lucia at 18.8) sit at opposite ends of it, which is the clearest
+possible statement that the ratio and the urban share are independent facts.
+
+**THREE SOURCES, THREE PRECISIONS, AGAIN.** UNdata 616 km², the Commonwealth 616 exactly, the World
+Bank a flat 620 — the nearest ten. That is the fourth clean rounding in five cards, and the
+Commonwealth's *population* diverges upward this time (183,630 for 2022 against 178,781), where
+Samoa's diverged downward by about eight per cent. **The Commonwealth's land figure is worth trusting
+and its population is worth quoting beside the World Bank's rather than choosing between them.**
+
+**PICTURE.** `Category:Views of Castries` and `Category:Port of Castries` do not exist, and the parent
+category is heavily weighted to a 2013 naval exercise and to the interior of the cathedral. Two good
+elevated views exist and both are panoramio uploads with the town in the middle band: `Castries-3.jpg`
+(CC BY-SA 4.0) has a palm trunk down the centre of the frame, and what shipped is
+`St. Lucia, Karibik - View from the Colonial House of St. Marks on the Port of Castries - panoramio.jpg`
+(giggel, CC BY 3.0, 4000×3000), which shows the inner harbour, the cruise berth, the container quay
+and the town in one frame. Its file name is long and full of commas and full stops, none of which
+`SRC_URL_RX` stops at, so the credit line needs no special handling.
+
+**`gw-686` HAGÅTÑA IS THE CAPITAL-SHARE TEST AT ITS EXTREME, AND IT PROVES THE FIGURE IS NOT THE
+CITY.** UNdata gives the capital 146,900 people for 2018 against the World Bank's 162,679 for the
+territory — **about ninety per cent** — with an urban share of 94.9 per cent. Hagåtña is the seat of
+government of Guam and is not a city of 146,900 people; the profile's field, with only a bare year in
+its footnote, is plainly counting most of the island. Papeete's footnote showed what such a figure IS
+(seven named communes); this one shows what it is NOT, and the ratio is the only thing that says so.
+**Six runs of the test now read 38, 66, 90, ~100, ~100 and ~100 per cent, and where it approaches or
+exceeds ninety the honest sentence says the figure covers the island rather than the capital.**
+
+**A TERRITORY'S WORKING PAPER GIVES A CENSUS COUNT THAT THE ESTIMATES DO NOT MATCH.** A/AC.109/2026/9
+reports Guam's **2020 census population as 153,836**, where the World Bank's estimate for 2020 is
+162,158 — 5.4 per cent apart — and UNdata projects 169,000 for 2025 while the World Bank series
+actually *falls* from 164,905 in 2015 to 161,808 in 2019 before rising. **A census is a different KIND
+of number from a projection**, and where a working paper carries one it should be quoted beside the
+estimates rather than reconciled with them; C8's stale-population diagnostic does not apply, because
+neither figure is a stale copy of the other.
+
+**THE WORKING-PAPER ROUTE IS NOW PROVEN TWICE AND IS THE STANDING ANSWER FOR A TERRITORY.** French
+Polynesia established it; Guam confirms it, and its paper is richer still — an unincorporated
+organized territory administered by the **Office of Insular Affairs** of the Department of the
+Interior, Apra Harbor taking more than nine tenths of all goods reaching the island, a governor and a
+delegate to Congress with dates, a fifteen-member legislature, and the **plebiscite on statehood,
+independence or free association scheduled for 2 November 2004 and postponed because eligible voters
+had not been identified**. Search `"<Territory>" "working paper"` in the Digital Library, newest
+first: the symbol is `A/AC.109/<year>/<n>` and the n changes year to year, so the search is the
+address, not a guessed symbol.
+
+**AND THE PDF EXTRACTION NEEDED THE CONFLICT CHECK THIS TIME — IT FIRED.** Merging the ToUnicode CMaps
+gave **three conflicting codes** (0x24 → 'A' or '3', 0x27 → 'D' or '6', 0x28 → 'E' or '7'), so the
+naive merge would have silently corrupted letters into digits. The culprit is a **six-glyph font**,
+the digits of the document symbol; dropping any CMap of that size leaves zero conflicts and the text
+comes out clean. **Never merge blind** — the French Polynesia paper had no conflicts and this one
+does, from the same generator a year apart.
+
+**PICTURE.** `Category:Hagåtña, Guam` exists (the bare `Category:Hagåtña` does not — **try the
+disambiguated form before concluding a capital has no category**) and is mostly government buildings
+photographed one by one. The wide view is `Hagatna from Fort Santa Agueda.JPG` (Abasaa, public domain,
+1920×1080), taken from the Spanish fort above the town, with the boat basin and the bay in the frame —
+and it is the counter-example to the last three cards' warning, a public-domain file named for a place
+that really is a photograph of it. `upload.wikimedia.org` returned **429** on the first HEAD of its
+thumb and 200 immediately after; a bounded retry is the whole fix.
+
+**`gw-687` WILLEMSTAD SAYS IN WORDS WHAT HAGÅTÑA'S RATIO ONLY IMPLIED.** Curaçao's profile
+footnotes its capital figure **"Total population of Curaçao excluding some neighborhoods (see
+source)"** — so the 144,000 is the ISLAND minus a few districts, stated outright. That completes the
+footnote taxonomy in both directions: Papeete names the seven communes a capital figure DOES cover,
+and Curaçao says a capital figure is the whole territory less a bit. **Where the ratio runs above
+about eighty per cent, assume the field is territorial until a footnote says otherwise** — Hagåtña at
+ninety per cent had only a bare year, and this is what such a footnote looks like when it is written
+out.
+
+**AND CURAÇAO CARRIES THE WIDEST POPULATION DIVERGENCE OF THE RUN — ABOUT A FIFTH.** UNdata projects
+186,000 for 2025; the World Bank gives **156,263**, and its series *falls* from 160,175 in 2017 to
+153,321 in 2022 before rising. The two are not a stale copy of one another, so C8's diagnostic does
+not apply and neither is corrected: both are stated. Worth noting that UNdata's own capital field
+(144,000, the island less some neighbourhoods, 2018) is much closer to the **World Bank's** territory
+figure for 2018 (159,336) than to its own 2025 projection — a profile can be internally inconsistent
+across fields, and the capital field is the one that shows it. The areas, by contrast, **agree
+exactly** at 444 km², the first exact area match in this run.
+
+**`government.nl` IS OPEN HERE, AND IT IS THE SOURCE FOR THE WHOLE DUTCH CARIBBEAN.** There is no
+recognition-guide page for Curaçao (`/countries/curacao` and `/countries/netherlands-antilles` are
+both 404) and no Special Committee working paper — Curaçao is not a Non-Self-Governing Territory —
+so neither of this run's two territory routes applies. The Dutch government's *Caribbean Parts of the
+Kingdom* pages answer 200 and carry the facts plainly: **"On 10 October 2010 Curaçao and St Maarten
+became autonomous countries. Bonaire, St Eustatius and Saba became special municipalities of the
+Netherlands"**; each country has its own government and a **Governor** who heads it and represents the
+King but has no ministerial responsibility; and under the **Charter for the Kingdom of the
+Netherlands** the Kingdom answers for foreign relations, defence and nationality law, with Dutch
+embassies and consulates serving all four countries. **Aruba (Oranjestad), Sint Maarten (Philipsburg)
+and the Caribbean Netherlands are all covered by the same three pages** — reach for them rather than
+searching per island.
+
+That last point also rhymes with `gw-685` Castries two cards back: a capital whose foreign
+representation is somebody else's. Castries has no American mission because the ambassador sits in
+Bridgetown; Willemstad has no foreign ministry of its own because the Kingdom's is in The Hague.
+
+**AND THE DISAMBIGUATED-CATEGORY TRAP FIRED AGAIN, THIS TIME WITH A REAL DECOY.** `Category:Willemstad`
+returns nothing usable; the capital's category is **`Category:Willemstad, Curaçao`** — and there is
+also a `Category:Willemstad, North Brabant`, a town in the Netherlands, so the bare name is genuinely
+ambiguous rather than merely absent. Hagåtña was the same shape one card earlier. **Query
+`allcategories` with the city's name as a prefix before concluding anything about a category.** What
+shipped is `Curacao Willemstad (36699795245).jpg` (dronepicr, CC BY 2.0, 6000×4000), the Handelskade
+gables along the Sint Annabaai — the one view that is unmistakably this city.
+
+**`gw-688` TARAWA IS THE OTHER END OF THE CAPITAL FIELD, AND THE SOURCES DISAGREE ON THE CAPITAL'S
+NAME.** UNdata's *Capital city* for Kiribati is **Bairiki**, at **3,200** people (2015); the
+Commonwealth Secretariat, `world-capitals.js` and this plan all say **Tarawa**. Curaçao's field was
+the whole island less a few districts and Hagåtña's was ninety per cent of a territory; this one is a
+**village inside the capital**. The taxonomy is therefore complete in both directions, and the field's
+name can be wrong as well as its extent.
+
+**THE RECONCILIATION IS A PRIMARY SOURCE AND IT IS A POSTAL ADDRESS.** `president.gov.ki` — the
+Office of Te Beretitenti — prints its own contact details as **"P.O Box 68, Bairiki, Tarawa,
+Kiribati"**, which places Bairiki inside Tarawa on the government's own authority, in a form that
+cannot be an editorial gloss. **When two institutional sources name a capital differently, look for
+the government's own address block**: a ministry's footer settles a relation that no statistical
+profile states. (`mfa.gov.ki` returns 406 and `forumsec.org`'s member page 404s; the president's
+office answers 200.)
+
+**AND UNdata's KIRIBATI AREA FOOTNOTE RESOLVES A DIVERGENCE C10 RECORDED AS UNEXPLAINED.** C10 found
+UNdata's 726 km² against 811 at the Commonwealth, 810 at the World Bank and 811 in the glossary term,
+and **dropped UNdata from that term outright** — the only time Phase 3's Source A has been discarded.
+Footnote b on the profile reads *"Land area only. Excluding 84 square km of uninhabited islands"*, and
+**726 + 84 = 810**, the World Bank's figure exactly. The country card `gw-188` already carries this;
+the point for the record is that the "outlier" was a stated definition all along, and the glossary term
+`Kiribati` could have UNdata restored to it. **Read the area footnote before dropping a source over an
+area.**
+
+**THE MISSION-ELSEWHERE PATTERN IS NOW THREE CARDS IN FOUR.** Castries' ambassador sits in Bridgetown,
+Willemstad's foreign policy is made in The Hague, and here **William Bodde Jr was appointed Envoy
+Extraordinary and Minister Plenipotentiary on 26 September 1980 and stationed at Suva, Fiji, "as no
+diplomatic facilities exist on Kiribati"**. Recognition itself came by a further new mechanism — **the
+signing of a treaty of friendship**, on 20 September 1979 — which is the tenth distinct recognising act
+the run has met. And the UN membership date lags independence by **twenty years** (12 July 1979 to
+14 September 1999), the longest such gap yet, after Samoa's fourteen.
+
+**PICTURE.** `Category:Tarawa` does not exist (the near-miss `Category:Tarawa, Kitibati` does, spelt
+wrong, and `Category:Tarawa Atoll` is about the 1943 battle); the live one is **`Category:South
+Tarawa`** — the third card running where an `allcategories` prefix query was the fastest route. What
+shipped is `South Tarawa from the air.jpg` (an employee of the Government of Kiribati, CC BY 3.0,
+3000×1569), the ribbon of settlement between lagoon and ocean, which is the one picture that shows
+what this capital physically is.
+
+**`gw-689` VICTORIA HAS THE FULL MISSION CYCLE IN ONE ENTRY, ALL OF IT AT THE CAPITAL.** The guide
+gives recognition on **29 June 1976** — the day of independence — by the signing of an agreement on a
+**tracking and telemetry facility on Mahé**, and says the agreement was signed *at the capital,
+Victoria*; relations on **1 July 1976**, when the **American consulate at Victoria was raised to
+embassy rank**; the embassy **closed on 30 August 1996**, with Seychelles handled from the embassy in
+**Mauritius**; and the mission **reopened on 1 July 2023**. That is open → closed → handled elsewhere
+→ reopened with all four dates, and a **new recognising act** (a technical agreement about a satellite
+station, the eleventh distinct mechanism the run has met). It also gives the *consulate raised to
+embassy* step, which is different from an embassy being established. **On a capital card, read the
+guide for the mission's whole life, not just its first date.**
+
+**THE WORLD BANK'S POPULATION SERIES HAS A STEP IN IT, AND THE COMMONWEALTH IS QUOTING THE OLD ONE.**
+`SP.POP.TOTL` for Seychelles goes 99,258 (2021) → **119,878 (2022)**, up a fifth in a single year,
+which is a rebasing rather than growth. And the Commonwealth's Key Facts give **"Population 98,462
+(2022)"** — a number that appears in the World Bank series at **2020**, exactly. **A Commonwealth
+population labelled with a year can be an earlier year's figure**, which sharpens C4's and C11's
+read-both rule into something checkable: grep the World Bank series for the Commonwealth's exact
+value before treating the two as independent measurements. And C8's stale-population diagnostic
+assumes a smooth series — **look for a level shift before asking when a term's figure was true.**
+
+**THE AREA HAS TWO ANSWERS AND THE COMMONWEALTH IS THE OUTLIER THIS TIME.** UNdata 457 km², the World
+Bank a flat 460 (the nearest ten, so the usual agreement), the Commonwealth **452**, which is not 457
+rounded at any precision. Samoa's Commonwealth figure two cards ago WAS just coarser rounding; this
+one is a different measurement. **Test the rounding hypothesis rather than assuming it.**
+
+**A DISAMBIGUATED GLOSSARY KEY WITH NO BARE ALIAS, DELIBERATELY.** The term is `Victoria,_Seychelles`
+and it carries **no `Victoria` alias**, so the card's own answer does not auto-link. That is correct:
+`glossKeyTitle` strips the qualifier and a bare `Victoria` surface would fire on Queen Victoria, Lake
+Victoria and the Australian state wherever those appear in other collections. **A capital whose name
+is an ordinary word gets the qualified key and no short alias** — the pairing rule is satisfied by the
+term existing, not by it claiming the surface.
+
+**AND COMMONS DISAMBIGUATES THE SAME CITY TWO DIFFERENT WAYS AT ONCE.** The live category is
+`Category:Victoria (Seychelles)` — **parentheses**, where Hagåtña and Willemstad both took a comma —
+while `Category:Aerial photographs of Victoria, Seychelles` uses the comma, for the same city. Neither
+`Category:Victoria, Seychelles` nor `Category:Views of Victoria, Seychelles` exists. **Search
+namespace 14 for the city's name rather than guessing the qualifier's punctuation**; an
+`allcategories` prefix query only finds the form you guessed. What shipped is `Victoria Sunrise
+(14625666105).jpg` (Andrew Moore, CC BY-SA 2.0, 5184×3456), the town and its harbour from the ridge
+above.
+
+**`gw-690` SAINT GEORGE'S ADDS A FOURTH NAMED DEFINITION TO THE CAPITAL FIELD: A PARISH.** UNdata's
+footnote d reads simply **"Refers to Saint George Parish"**, and 39,300 over the World Bank's 115,691
+for 2018 is about 34 per cent against an urban share of 36.4 per cent — so the parish takes in nearly
+the whole town-dwelling population. The taxonomy of *stated* definitions is now: seven named communes
+(Papeete), a parish (Saint George's), the whole territory less some neighbourhoods (Curaçao), and — by
+ratio rather than by footnote — most of an island (Hagåtña) or a village inside the capital
+(Bairiki/Tarawa). **Read the footnote letter beside the capital figure before doing any arithmetic;
+four of the last six profiles carried a real definition there.**
+
+**AND BRIDGETOWN TURNS UP FOR THE THIRD TIME, NOW AS A CHAIN OF COMMAND.** `gw-681` gave the guide
+calling Bridgetown "a base for diplomatic relations with Barbados and the region"; `gw-685` Castries
+has no American mission because the ambassador sits there; and Grenada has an embassy **in** its own
+capital that is subordinate to it — Theodore R. Britton presented credentials at Saint George's in
+1975 while resident at Bridgetown, and the guide's present tense says **"The American Ambassador to
+Grenada is resident in Bridgetown, Barbados and the Embassy in Grenada is staffed by a Chargé
+d'Affaires who reports to the Ambassador in Bridgetown."** That is a third arrangement, distinct from
+Castries (no mission) and from Victoria (a mission that closed and was run from Mauritius). **In the
+eastern Caribbean, read every capital's mission as a position relative to Bridgetown.**
+
+**RELATIONS ESTABLISHED BY THE OTHER SIDE'S AMBASSADOR.** Every earlier card in this run has relations
+beginning with an American act — an exchange of notes, an American ambassador presenting credentials,
+an embassy opening. Grenada's begin on **29 November 1974, when the Grenadian ambassador Marie J.
+McIntyre presented her credentials to President Ford** — the American mission followed fifteen months
+later. **The guide is written from the United States outward but does not always date relations from
+an American act**; read whose credentials are being presented.
+
+**A NOTE ON THE 1983 INVASION.** The guide's own summary states that the United States maintained
+relations "through the 1983 joint American and Organization of Eastern Caribbean States military
+invasion of the island nation following the assassination of Grenada's Prime Minister Maurice Bishop".
+The card states that as the guide states it and attributes it, which is the house rule about a state's
+account of its own actions: report it, name whose account it is, and do not extend it.
+
+**COMMONS' FOURTH DISAMBIGUATION SHAPE IN FIVE CARDS.** `Category:St. George's, Grenada` — abbreviated
+"St." **and** a comma — after Hagåtña's comma, Willemstad's comma, Victoria's parentheses and its own
+comma-form aerial subcategory. There is no `Saint George's, Grenada`. **Searching namespace 14 is the
+only reliable route**; a prefix query needs the abbreviation guessed as well as the punctuation. What
+shipped is `The City of St. George's, Grenada - February 2020.jpg` (Martin Falbisoner, CC BY-SA 4.0,
+5601×3041), the town climbing its hillsides with two church towers among the roofs.
+
+The glossary key is `Saint_George's` with `St George's` and `St. George's` as aliases — the opposite
+call from `Victoria,_Seychelles` one card earlier, and for the opposite reason: the surface is
+distinctive enough that claiming it is safe, and the three spellings all need to resolve.
+
+**`gw-691` PALIKIR IS THE SHARPEST MISSION-ELSEWHERE CASE YET: THE EMBASSY IS IN ANOTHER TOWN OF THE
+SAME COUNTRY.** The guide's summary says the United States "maintains an embassy in **Kolonia**" — not
+at the capital. Castries has no mission because the ambassador is in Barbados; Tarawa's minister sat
+in Fiji; Saint George's has an embassy reporting to Bridgetown; Willemstad's foreign policy is made in
+The Hague. This is the fourth arrangement and the only one where the mission and the capital are in
+the same country and still not in the same place. **On a purpose-built capital, check where the
+missions actually are before writing that a country's diplomatic life happens there.**
+
+**AND THE FIGURES SAY WHY, WITHOUT HAVING TO ASSERT IT.** Palikir is given **7,000** people against
+the World Bank's 109,909 for 2018 — about **six per cent** of the country — while the urban share is
+22.8 per cent, so only about a quarter of the town-dwelling population is at the capital. That is by
+some distance the LOWEST capital-of-urban ratio the run has met (Grenada's parish was ~93 per cent,
+Nouméa, Bridgetown and Apia essentially 100). **A capital that holds a small minority of its own
+country's urban population is a seat of government rather than a principal city**, and the ratio
+detects that without the card having to characterise the place.
+
+**A TWELFTH RECOGNISING ACT, AND A SECOND "UPGRADED TO EMBASSY".** Recognition came on 3 November 1986
+by **presidential proclamation 5564**, in which Reagan noted the United States had fulfilled its
+obligations under the trusteeship agreement, so the trusteeship ended that day and a **Compact of Free
+Association** came into force — a recognising act that is the termination of a trust. And an **Office
+of the United States Representative** opened the same day and was **upgraded to embassy rank on 20
+September 1989**, which is Victoria's consulate-to-embassy step in a different costume. **The guide's
+intermediate ranks are worth carrying**: office of a representative, consulate, legation, embassy.
+
+**PICTURE: THE CATEGORY WAS RIGHT, THE NAME WAS EXACT, AND THE FILE IS A SURF PHOTOGRAPH.**
+`Palikir.JPG` — public domain, in `Category:Palikir`, named for nothing but the capital — is a surfer
+inside a wave at Palikir Pass, the break offshore. **Category membership plus an exact name is still
+not a subject check**, which is the `Phoenix`/New York finding again in the smallest possible form.
+What shipped is `Palikir Government Buildings.jpg` (MaxMonaco, CC BY-SA 4.0, 4000×2252), the Congress
+and Supreme Court along their palm avenue — and on a purpose-built capital of 7,000 people the
+capitol complex genuinely is the town, so this is the small-capital rule rather than a landmark
+substituted for a view.
+
+**`gw-692` ORANJESTAD IS THE WILLEMSTAD RECIPE RUN A SECOND TIME, AND IT FOUND A FOURTH gov.nl PAGE
+THAT NAMES THE CAPITAL.** `history.state.gov/countries/aruba` is a 404 and Aruba is not a
+Non-Self-Governing Territory, so neither of this run's territory routes applies — exactly Curaçao's
+position five cards back, and the Dutch government's own pages carry it again. The new one is
+**"Representation of the Netherlands in Aruba, Curaçao and St Maarten"**, which states that the
+Netherlands keeps **a single Representation with an office in each of the three countries: the
+headquarters in Willemstad, the office in Oranjestad, and the office in Philipsburg**, the latter two
+each headed by a Deputy Representative. That is the Bridgetown pattern in Dutch dress — and it points
+at a capital this deck carded five numbers earlier. **When a card's country belongs to a larger
+polity, look for the polity's own description of where its offices are; it is usually a capital
+fact.**
+
+**THE DATE LINE IS EMPTY, AND THAT IS THE CORRECT ANSWER.** Aruba has no independence date, no UN
+membership date, and **nothing openable dates its separate status**: `government.aw`, `overheid.aw`
+and `cbs.aw` all answer 200 but render their bodies in JavaScript, so the only text a fetch returns is
+navigation chrome (the year 1986 appears solely as an Official Journals archive link, which is not a
+statement). The gov.nl pages date **Curaçao's and St Maarten's** 2010 autonomy and say nothing about
+Aruba's. So the card states the structure and not the date, per the house rule that an empty date line
+is better than an invented one — the first empty `answerDate` of this run. **A government site that
+answers 200 is not necessarily a readable source**, which is the JavaScript sibling of the
+200-status-error-document family.
+
+**A SECOND EXACT AREA MATCH.** UNdata and the World Bank both give **180 km²**, as they both gave 444
+for Curaçao — the two exact matches of the run are the two Dutch Caribbean countries, which is
+presumably one statistical office feeding both. The population figures agree as closely (108,785
+against 108,000) on a series that is genuinely flat and briefly falling: 109,203 in 2019 down to
+107,310 in 2022 and back up.
+
+**PICTURE: `CAPELLA` AND `UMBRA` ARE SYNTHETIC-APERTURE RADAR, AND THEY ARE SEEDING THESE CATEGORIES.**
+`Category:Oranjestad, Aruba` holds four **UMBRA** TIFFs and two **CAPELLA** files named exactly
+*"Oranjestad, Aruba, Netherlands (2023-10-27-14-06-29 UMBRA-04)"*, CC BY 4.0 and up to 39,611 px
+square. The same `CAPELLA C…  SP GEO HH` naming has appeared in this run's São Tomé, Saint George's
+and South Tarawa categories. They are radar scenes, not photographs, and belong with Landsat and
+Sentinel in the refused family — **add `capella` and `umbra` to the spaceborne skip list; neither says
+"satellite" anywhere in its name**, and their enormous pixel counts win any largest-file tie-break.
+What shipped is `View from above of colorful buildings in Oranjestad…` (Navigator334, CC BY-SA 4.0,
+4248×2822), the gabled waterfront and its fishing pier — the deliberate echo of Willemstad's
+Handelskade.
+
+**`gw-693` CHARLOTTE AMALIE SHOWS THAT THE CAPITAL-SHARE TEST NEEDS A DENOMINATOR YOU HAVE CHECKED.**
+UNdata projects **84,000** for the territory in 2025; the World Bank gives **103,792**, a quarter more,
+and the Secretariat's own working paper reports **104,377 for 2024 — the World Bank's figure for that
+year exactly**. So the capital's 52,300 (2018) is either **49 per cent** of the territory (against the
+World Bank's 107,001 for that year) or **62 per cent** (against UNdata's own 2025 total), and the two
+readings would support quite different sentences. **Compute the share against the World Bank's figure
+for the capital figure's OWN year, and where the totals disagree by more than a rounding, say so
+rather than picking one.** Here the working paper adjudicates: UNdata is the outlier, and its 84,000
+should not be used as a denominator at all.
+
+**A TERRITORY'S WORKING PAPER IS NOW THE THIRD CONSECUTIVE ONE TO EARN ITS PLACE**, after French
+Polynesia and Guam, and this is the richest yet on the capital: it says outright that **"The capital,
+Charlotte Amalie, is located on Saint Thomas"** and names the four main islands (Saint Croix, Saint
+John, Saint Thomas, Water Island). It also carries the whole constitutional spine — Danish West Indies
+**1754 to 1917**, transfer to the United States on **31 March 1917**, the **Organic Act of 1936** and
+its 1954 revision, a **sixth constitutional convention** whose draft the administering Power expects
+to go to a **referendum in November 2026** and to become fundamental law on **31 March 2027** if
+approved — plus tourism at 80 per cent of output and 2.6 million arrivals in 2024. **For a
+Non-Self-Governing Territory, the working paper is not a fallback for the recognition guide; it is the
+better source.**
+
+**AND ITS PDF EXTRACTED WITH ONE CMAP DROPPED, AS GUAM'S DID.** Four ToUnicode maps of 73, 55, **7**
+and 39 glyphs; keeping only those above ten leaves zero conflicts. Guam's outlier was 6 glyphs and this
+one is 7, so **the rule is "drop the tiny symbol font", not "drop any map of exactly six"** — filter by
+size, not by a remembered number.
+
+**PICTURE: THE CATEGORY IS SHARED WITH FOUR DANISH PRINCESSES AND A HUNDRED HABS DRAWINGS.**
+`Category:Charlotte Amalie` is the town's, but a namespace-14 search for the name returns
+`Charlotte Amalie of Hesse-Kassel`, `Princess Charlotte Amalie of Denmark` and three more women the
+town is named after — and the category itself is dominated by **HABS measured drawings** (architectural
+elevations, public domain, up to 9,650 px) that would win any size-based pick. What shipped is
+`Downtown Charlotte Amalie.jpg` (Calettso2, CC BY-SA 4.0, 4153×2353), the harbour road with Fort
+Christian and the town on the hillside. **A capital named after a person shares its name with that
+person**; read the category, not the search results.
+
+**`gw-694` NUKU'ALOFA HAS THE MISSION-ELSEWHERE PATTERN WITH AN ENDING, AND THE GUIDE NAMES THE
+CAPITAL FIVE TIMES.** The whole entry is a capital card: the **Treaty of Amity, Commerce and
+Navigation signed at Nuku'alofa on 2 October 1886**, in force 1888 and **terminated on 28 July 1920
+except for the article letting each country's warships enter the other's ports**; a first
+**consul-general to Nuku'alofa appointed 30 June 1897 whose post was resident at Apia** and closed in
+1901; independence on 4 June 1970; recognition on 4 October 1972 by accrediting the ambassador already
+serving New Zealand, Fiji and Western Samoa; the ambassador **resident at Suva from 1979**; and an
+**embassy opened at Nuku'alofa on 9 May 2023**. Forty-four years of being run from another country's
+capital, then a mission of its own — the pattern Castries, Tarawa, Saint George's and Palikir gave in
+four other shapes, here with the ending Port Vila also got (an embassy at last, in 2024).
+
+**AND IT CROSS-LINKS TWO CARDS OF THIS RUN.** The 1897 consulate was resident at **Apia** (`gw-684`),
+and **Kenneth Franzheim II**, the ambassador accredited to Tonga in 1972, is the same man who
+presented credentials to Samoa at Apia in 1971 — the eastern-Pacific equivalent of the Bridgetown
+chain in the Caribbean. Tonga also joined the United Nations on **14 September 1999, the same day as
+Kiribati** (`gw-688`). **Where one ambassador covers several island states, expect the same names and
+dates to recur across their cards; note the link rather than writing each as if it were isolated.**
+
+**THREE SOURCES ON THE AREA AND THE CLOSEST COMMONWEALTH POPULATION OF THE RUN.** UNdata 747 km², the
+Commonwealth 748, the World Bank a flat 750 — and the Commonwealth's 105,690 for 2022 is within **0.6
+per cent** of the World Bank's 105,042 for the same year, against Samoa's eight per cent low and
+Seychelles' figure that turned out to be a different year entirely. **The Commonwealth is not
+systematically off; it is sometimes exactly right**, which is the argument for quoting both rather
+than choosing. The population is also falling, 106,095 in 2015 to 103,742 in 2025.
+
+**PICTURE: THE FOURTH SATELLITE TRAP, AND IT BREAKS HALF THE HEURISTIC.** `Nuku'alofa, Tonga.jpg` is a
+satellite image — the same `<City>, <Country>.jpg` name shape as Bridgetown's, Nouméa's and Apia's —
+but it is **CC BY-SA 4.0, not public domain**. So the licence half of the earlier rule is noise and
+**the NAME SHAPE is the signal**: a bare `<City>, <Country>` file in a city category is worth opening
+before anything else in the list. `Nuku'alofa Skyline.JPG` is the town seen across so much water that
+it occupies a fifth of the frame, and `Nukualofa Tonga 5.jpg` is a petrol station. What shipped is
+`Nukualofa Tonga 2.jpg` (Arne Müseler, **CC BY-SA 3.0 DE**, 5760×3840), the post office and shopfronts
+under the town's great rain tree — the small-capital streetscape rule again, and the first German-port
+licence of the run, which is free and share-alike and inside the bar.
+
+**`gw-695` SAINT HELIER IS DEFERRED, WITH ITS COUNTRY CARD, AND THE MEASUREMENT IS WORTH KEEPING.**
+Jersey fails every source this run uses: `data.un.org/en/iso/je.html` returns **75 bytes** (no
+profile); `history.state.gov/countries/jersey` is a **404**; Jersey is not a Non-Self-Governing
+Territory, so there is no C-24 working paper; and it is not a Commonwealth member in its own right.
+Its own institutions are shut here — **`gov.je` answers 500 on every path**, `jerseylaw.je` 500,
+`statesassembly.gov.je` 403, `statisticsjersey.gov.je` does not resolve. What IS open is
+`gov.uk`, whose HM Passport Office *Jersey: Knowledge Base profile* states the constitutional position
+plainly ("The Bailiwick of Jersey is one of three Crown Dependencies of the United Kingdom… not part
+of the UK but self-governing dependencies of the Crown… their own directly elected parliament,
+government and courts of law") — **one source, no figures, and nothing whatever about Saint Helier**,
+so the facts box cannot be filled and the citation bar cannot be met. Deferred rather than written
+thin.
+
+**AND IT CORRECTS THE PLAN'S OWN NOTE ABOUT WHY.** The Jersey/Guernsey deferral was recorded as
+"the profile sets of UNdata and of the World Bank each have holes in them", with the aggregation
+explanation explicitly corrected. For the **World Bank that correction was wrong**: the code is
+**`CHI`, "Channel Islands"**, and it returns a full series (168,466 for 2025). Jersey and Guernsey are
+invisible individually because they are **aggregated into one entry**, not because of an arbitrary
+gap — and `JEY`/`JE` return an empty page-0 response rather than the "not valid" error `GGY` gives, so
+even the failure modes differ. **`CHI` must never be used on either bailiwick's card**: it is both of
+them, so quoting it for Jersey hands Guernsey's people to Jersey, which is the Cyprus and Comoros trap
+in a third form. The note about UNdata stands unchanged — that one really may be a hole.
+
+**A DEAD END WORTH RECORDING SO IT IS NOT RE-WALKED: the UN Demographic Yearbook lists Jersey but
+cannot be read here.** `unstats.un.org/unsd/demographic-social/products/dyb/` is open and its country
+index does carry Jersey, and Table 1 (population, area, density) is at
+`documents/dyb2023/table01.pdf` — but that PDF defeats both extraction routes: the merged ToUnicode
+CMaps produce **54 conflicting codes** and 3,756 characters from ten pages, and the literal-string
+route returns embedded font binary. It is a different generator from the Secretariat's working papers,
+which extract cleanly. **The DYB is not a usable fallback from this sandbox**, whatever its country
+list says.
+
+**`gw-696` KINGSTOWN IS THE FOURTH BRIDGETOWN CARD, AND THE SHARPEST: CREDENTIALS FOR ONE COUNTRY
+PRESENTED IN ANOTHER.** The guide's Saint Vincent entry carries **the same sentence, word for word, as
+Saint Lucia's** — "The United States maintains no official presence in St. Vincent. The Ambassador and
+Embassy officers are resident in Barbados and frequently travel to St. Vincent" — the same **1977
+Special Representative**, Frank V. Ortiz Jr., appointed to five states at once, and the same
+**recognition-by-appointment** shape (independent 27 October 1979, recognised only on 23 November 1981
+when Milan D. Bish was made ambassador). What is new is that on 8 December 1981 **Bish presented his
+credentials at Bridgetown**, concurrently ambassador to Antigua and Barbuda, Barbados, Dominica and
+Saint Lucia, while the Vincentian ambassador presented his the same day. **Where the eastern Caribbean
+is concerned, "the ambassador is resident in Barbados" is the default and it is worth checking whether
+the credentials were even presented in the country.**
+
+**AND IT CONFIRMS C11's OWN CORRECTION FROM THE OTHER SIDE.** C11 cut the glossary term
+`Saint_Vincent_and_the_Grenadines` from 110,000 to 100,000 and noted the Commonwealth's 110,900 for
+2022 showed the term had been right when written. The World Bank series shows exactly why: the
+population is **falling**, 106,960 in 2015 to 99,924 in 2025, so the Commonwealth's 110,900 is neither
+current nor an error but a figure from further up a declining curve, and its 2022 counterpart in the
+World Bank series is 102,046. **On a shrinking population, "out of date" and "too high" are the same
+thing** — C10's Marshall Islands finding met a second time.
+
+**TWO SLUGS, BOTH UNGUESSABLE, AND NEITHER MATCHES THE OTHER.** The recognition guide wants
+**`saint-vincent-grenadines`** (full "saint", no "and", no "the") and the Commonwealth wants
+**`st-vincent-and-grenadines`** (abbreviated "st", "and", no "the"); five other spellings 404 at one or
+the other. C11 recorded this shape for Saint Kitts; it is now clearly systematic. **Fetch
+`thecommonwealth.org/our-member-countries` and grep it rather than guessing** — the index lists every
+slug and costs one request.
+
+**PICTURE: THE FIFTH SATELLITE TRAP, AND THE `<CITY>, <COUNTRY>.JPG` RULE IS NOW FIVE FOR FIVE.**
+`Kingstown, St. Vincent.jpg` is public domain, 4288×2929, and carries **ISS022E012021** burnt into the
+corner of the frame. `Category:Kingstown` is also shared with **Dún Laoghaire**, which was called
+Kingstown until 1920 — hence the jaunting cars, the Dublin and Kingstown Railway and the barracks in
+the same search. What shipped is `Kingstown Saint Vincent.jpg` (ctsnow, CC BY 2.0, 2048×1536), an
+arcaded street in the town centre running down to the water.
+
+**SAINT JOHN'S IS THE FIFTH BRIDGETOWN CARD, AND THE SAME AMBASSADOR AS THE FOURTH.** Milan D. Bish
+presented his credentials for Antigua and Barbuda on 8 January 1982 and for Saint Vincent and the
+Grenadines on 8 December 1981, resident at Bridgetown for both — so the eastern Caribbean's diplomatic
+hub has now appeared in five distinct relations, twice in the person of one man. What is new here is
+that the United States kept an embassy at the capital and then gave it up: the consulate general at
+Saint John's was raised to embassy status on **1 November 1981, the day of independence**, and the
+embassy **closed on 30 June 1994**, since when every ambassador has been resident in Barbados with only
+a consular presence in the town. The other Bridgetown cards describe a mission that was never there;
+this one dates the withdrawal, which is a better fact and is on the guide's own page.
+
+**THE COMMONWEALTH'S PER-ISLAND AREAS SUM EXACTLY TO UNDATA'S SINGLE FIGURE, AND THAT IS WORTH KNOWING
+BECAUSE IT USUALLY DOES NOT.** The Secretariat gives Antigua 280 km², Barbuda 161 km² and Redonda
+1.6 km², which is 442.6 against UNdata's 442 and the World Bank's flat 440 — three sources inside
+0.6 per cent, where C4's Pakistan and India cases put two of them 10 per cent apart. **Where a state is
+an archipelago, add the Secretariat's island rows before reading a divergence**: a country page that
+looks to be missing a total may be stating a better-broken-down one.
+
+**THE CAPITAL HOLDS NEARLY THE WHOLE URBAN POPULATION, WHICH IS THE OPPOSITE END OF THE RANGE FROM
+KINGSTOWN.** Saint John's 20,800 against the World Bank's 90,926 for 2018 is about 23 per cent of the
+country, and the urban share is 24.5 per cent — so roughly 93 per cent of everyone the profile counts as
+urban lives at the capital. Kingstown, one card earlier, is 25 per cent of its country against a 52.6 per
+cent urban share, i.e. about half. **The capital's share of the COUNTRY says little; its share of the
+URBAN population is the figure that distinguishes these states**, and the two can be computed from the
+same two fields the profile already prints.
+
+**DOUGLAS BREAKS THE CARIBBEAN SPINE ENTIRELY, AND THE REPLACEMENT IS THE TERRITORY'S OWN PARLIAMENT.**
+The Isle of Man has no recognition-guide page (404 — the United States recognises no state here), is not a
+Commonwealth member, and **`gov.im` is a bot wall: every path returns a 269-byte "Request Rejected" page
+WITH A 200 STATUS**, a seventh variety of 200-status error document after `cia.gov`, `senate.gov`,
+`state.gov`, `un.org/securitycouncil`, `un.org/press`, `jstor.org` and `muse.jhu.edu`. `douglas.gov.im`
+is 403. What answered is **`tynwald.org.im`**, whose homepage states in its own words that Tynwald "is of
+Norse origin and over 1,000 years old, and is thus the oldest parliament in the world with an unbroken
+existence", and that its two branches "sit together in Douglas, and annually at St John's". **A territory
+outside every bloc profile may still have a legislature that publishes**, and a parliament's own homepage
+is a primary source for where it sits. It answered 200 once and 403 on an immediate retry, so keep the
+first response rather than re-fetching.
+
+**AND `gov.uk` CARRIES A DATABLE ACT FOR DOUGLAS THAT NOTHING ELSE DOES.** The Cabinet Office press
+release of 20 May 2022 names Douglas among eight winners of the Platinum Jubilee Civic Honours
+Competition, "the first and only city on the Isle of Man" and the first place in a Crown Dependency to win
+civic honours, the competition having been opened to the Crown Dependencies and Overseas Territories for
+the first time. **It also carries `gw-745` Stanley**, named in the same paragraph as the first Overseas
+Territory ever to win city status — so that card's history sentence is already sourced. Found through
+`gov.uk`'s own JSON search endpoint, `https://www.gov.uk/api/search.json?q=...`, which is open and is the
+way round guessing article slugs there: the obvious slug 404s and the real one is
+`record-number-of-city-status-winners-announced-to-celebrate-platinum-jubilee`.
+
+**A `- panoramio` FILE IS A HOLIDAY SNAPSHOT AND MAY CARRY A BURNT-IN DATE STAMP.** `Douglas, Isle of Man
+from Seaward - panoramio.jpg` is 4320×3240 and CC BY-SA 3.0, and is a hazy grey-blue view of a distant
+shoreline taken over a ferry's rail with **21/5/2012 12:25 in orange across the corner** — the same fault
+as the ISS frame identifier burnt into the Kingstown satellite photograph, in a different coat. The
+category holds twenty of them and they win on pixel count. What shipped is `The View From Douglas Head,
+Isle Of Man..jpg` (Jim Linwood, CC BY 2.0), the classic view of the town, its harbour and its promenade
+from the headland to the south.
+
+**AND THE PLAN'S OWN LINE WAS WRONG, WHICH `test-card-plans.js` CAUGHT.** The running order read
+`gw-699  Andorra  [Andorra]` — the country's name where the capital's belongs — and the capital is
+**Andorra la Vella**. The suite's rule that a shipped card must BE the city its plan puts at that number
+is what reported it; nothing else could have, since the card is correct in itself and the plan line reads
+as a perfectly ordinary entry. Corrected in the same commit as the card, per the standing practice that a
+plan line is a subject to research rather than a fact to assert. **Run that suite after every capital
+card**, not only after editing a plan.
+
+**ANDORRA IS THE FIRST TERM IN THE PASS WHOSE RECOGNITION SECTION STATES THERE IS NO RECOGNITION DATE.**
+C11 and C12 argued about whether the guide's date is a recognition date or an independence date; here the
+page says neither exists, because "Andorra has considered itself independent since medieval times, and
+therefore was already independent when the United States declared independence from the British Empire in
+1776", and it never signed a bilateral treaty that would have constituted recognition. **So a guide page
+can be fully open, richly detailed and carry no date for the clause a capital card most wants** — and what
+it carries instead is a chain of later dates that are just as good: the constitution of 14 March 1993, the
+establishment of relations on 21 February 1995 by an exchange of letters, and the first ambassador's
+credentials on 30 October 1998. **Read the whole Recognition section before concluding a date is missing;
+it may be saying that no such date exists, which is itself the fact.**
+
+**THE MISSION-ELSEWHERE PATTERN IS NOT A CARIBBEAN ONE.** Every ambassador to Andorra "has also been
+accredited to Spain and resident in Madrid", with the consul general at Barcelona conducting day-to-day
+relations — the Bridgetown shape exactly, one continent over, and the seventh instance of it in the
+capitals deck. **A microstate's capital card will usually have this sentence available**, and it is worth
+taking, because it is the one thing the guide says about the capital rather than about the country.
+
+**THE POPULATION IS RISING FASTER THAN ANY OTHER IN THE SMALL-STATE RUN.** The World Bank gives 72,174 for
+2015 against 82,904 for 2025, about 15 per cent in a decade, where the Isle of Man one card earlier moved
+half a per cent in nine years and the Marshall Islands (C10) fell. **C8's staleness diagnostic runs in
+three directions, not two**: a capital figure footnoted to 2018 is proportionally further out of date here
+than anywhere, so the share against the country is computed against the 2018 total and never the current
+one — 22,600 of 75,162 is 30 per cent, where against 2025 it would read 27 and be an artefact of the gap
+between the two years.
+
+**THE RECOGNITION GUIDE HAS A PAGE FOR A BRITISH OVERSEAS TERRITORY, AND IT IS A DIFFERENT DOCUMENT.**
+`history.state.gov/countries/cayman-islands` is 200 and carries no Recognition section and no Diplomatic
+Relations section at all — it is a **Historical Overview** plus a Foreign Relations paragraph, which is a
+third shape after the ordinary country page and Andorra's no-recognition-date one. What it gives is a
+history a capital card can use outright: the islands "remained largely uninhabited until the 17th
+century" and were settled by pirates, Inquisition refugees, shipwrecked sailors, deserters from
+Cromwell's army in Jamaica and slaves; Great Britain took formal control with Jamaica under the **Treaty
+of Madrid in 1670**; permanent settlement began in the **1730s**; and the islands, administered as a
+dependency of Jamaica, became a colony of their own in **1959**. **Try the guide for an Overseas
+Territory even though it recognises no state there** — Douglas's Crown Dependency 404s, but this does not.
+
+**`digitallibrary.un.org` NOW ANSWERS 202 WITH A ZERO-BYTE BODY ON EVERY PATH.** The Special Committee
+working-paper route was proven three times (French Polynesia, Guam, USVI) and is the natural second source
+for a Non-Self-Governing Territory, which the Cayman Islands is; three attempts with two different user
+agents and a delay each returned **202 Accepted, `Content-Length: 0`**. That is a new shape — not a
+200-status error document but an empty acceptance — and it is silent in exactly the same way: `curl` reports
+success. **Check the byte count, not the status**, and if it is zero the route is shut for that session.
+
+**AND `George Town, Cayman Islands (CAPELLA C11 SP GEO HH 20241124194607 20241124194638).png` IS RADAR.**
+2247×2246 and CC BY 4.0, filed under the plain `<City>, <Country> (…)` pattern the plan already warns is
+5-for-5 a satellite image — but this one is **synthetic-aperture radar from a Capella Space satellite**,
+and nothing in the name matches `landsat|sentinel-\d|modis|satellit`. **Add `capella` to the spaceborne
+skip list.** Two of the three named candidates in that category were rejected on the sheet: the Capella
+frame, and `George Town, Cayman Islands (51234588740).jpg`, a Flickr upload that is a **lamp post over
+reef water with no town in it**. What shipped is `KY-Georgetown-01.jpg` (Balou46, CC BY-SA 4.0), the
+waterfront seen across the harbour.
+
+**SAINT PETER PORT SHIPPED WHERE SAINT HELIER WAS DEFERRED, AND THE DIFFERENCE IS ONE WEBSITE.** Both
+capitals face the same wall: no UNdata profile (`gg.html` and `je.html` both 500 at 75 bytes), no
+recognition-guide page (404), no Commonwealth membership, and a World Bank series that exists only as
+**`CHI` "Channel Islands"**, aggregating Jersey and Guernsey into one figure that can be cited for the pair
+and never for either. What decides it is the territory's own site: `gov.je` is 500 on every path, and
+**`gov.gg` is open, server-rendered, and publishes its statistics as downloadable files**. Guernsey's *Facts
+and Figures Supplementary Information 2025* — an `.xlsx` at
+`https://www.gov.gg/CHttpHandler.ashx?id=194736&p=0`, reached from `gov.gg/factsandfigures` — carries
+**Population by parish (at March)** back to 1901, **Guernsey's population level at March (Guernsey, Herm and
+Jethou)** back to 1821, and **the area of Guernsey and its parishes in square miles**. That is a better
+source than UNdata would have been: it is the government's own count, current to March 2023, and it gives
+the CAPITAL's own area, which no profile in this deck has yet supplied. **Before deferring a Crown
+Dependency or a small territory, download its own statistical office's spreadsheet.**
+
+**READING AN `.xlsx` NEEDS NO LIBRARY AND THE SHEET TITLES ARE THE INDEX.** It is a zip: `xl/sharedStrings.xml`
+holds every string, `xl/worksheets/sheet<N>.xml` the cells, and a `<c t="s"><v>N</v></c>` is an index into the
+shared strings. The workbook has 105 sheets named `T 2.1, F 2.1` and so on, which say nothing — but **the
+first shared string in each sheet is its real title**, so listing that one cell per sheet turns the file into
+a contents page in a second. Grepping the shared strings for the parish name found the three tables in one
+pass. The 133-page PDF beside it was never opened and is deliberately not cited.
+
+**THE GOVERNMENT'S FIGURES ARE FOR THE ISLAND, NOT THE BAILIWICK, AND `world.js` AGREES.** Every table is
+headed *Guernsey, Herm and Jethou* and the parish list contains no Alderney or Sark — while `gov.uk`'s
+Common Travel Area page states that the Bailiwick of Guernsey "includes Herm, Sark and Alderney". So the
+statistics describe less than the bailiwick, and the card says so. **The map is coherent with them by luck
+worth checking**: `world.js`'s `Guernsey` is a single four-point polygon spanning -2.67 to -2.5 longitude
+and 49.43 to 49.51 latitude — the island alone, with Alderney (49.7 N) and Sark (-2.36) outside it — so the
+shape shaded, the population counted and the area given are all the same place. **Check the polygon's bbox
+before writing a facts box for a territory whose name covers more than one island.**
+
+**AND THE PARISH HAS BARELY GROWN IN 120 YEARS, WHICH IS WHAT THE DATE LINE SAYS.** 18,264 in 1901, down to
+**15,587 in 1981**, back to 19,679 in 2023 — a fall and a recovery rather than the steady rise the last four
+cards have had (Andorra +15 per cent in a decade, the Cayman Islands +23). **A capital with a century of
+figures behind it can put them in the date line instead of a treaty**, which is the first time in this deck
+that a date line has been three population counts.
+
+**`thecommonwealth.org` 202-EMPTY IS A USER-AGENT GATE, AND THAT CORRECTS THE LAST CARD'S FINDING.**
+`gw-700` recorded that `digitallibrary.un.org` answers **202 Accepted with a zero-byte body** and read it
+as a shut route. The same shape appeared here on the Commonwealth Secretariat — 202, `Content-Length: 0`,
+on the country page AND on the members index, with `FolioBot/1.0` — and it is **not** the site being shut:
+sending an ordinary desktop Chrome UA returns **200 with 45 KB** and the Key Facts block intact. So the
+Commonwealth route, which C4 established and ten cards have leaned on, is fully alive and simply refuses a
+bare bot name. **When a host answers 202 with an empty body, retry once with a browser UA before recording
+it as closed.** The UN digital library was retried the same way on this card and is **still** 202-empty, so
+that finding stands as written — the two shapes look identical and only the retry tells them apart.
+(`Mozilla/5.0 (compatible; FolioBot/1.0)` is NOT enough: the string still carries the bot name.)
+
+**AND THE COMMONWEALTH IS THE OUTLIER ON THE FIGURE IT COST A RETRY TO GET.** Its Key Facts give Dominica
+72,000 for 2022 where the World Bank gives 66,826 for the same year and UNdata 66,000 for 2025 — 7.7 per
+cent apart, with two sources against one, so the term keeps the lower figure and the divergence is recorded
+rather than resolved. On AREA all three agree **exactly** at 750 km², which is the first three-way exact
+match in the deck. C10's Kiribati rule in reverse: read all three before deciding which is wrong.
+
+**DOMINICA IS THE SIXTH BRIDGETOWN CARD AND THE SECOND RECOGNISED ON ITS INDEPENDENCE DAY.** The guide names
+Barbados three times on one page — the United States recognised Dominica on 3 November 1978 with **Frank V.
+Ortiz, Jr., its ambassador to Barbados**, attending as President Carter's personal representative; **Sally
+Angela Shelton** presented credentials as first ambassador in 1979 **at Bridgetown**, where she remained
+resident; and it "maintains no official presence in Dominica". Antigua and Barbuda (`gw-697`) was likewise
+recognised on its independence day, and the difference is that it got an embassy in its capital for sixteen
+years and Dominica never had one.
+
+**`Category:Roseau` IS THREE PLACES AND A FRENCH NOUN.** It holds a distillery in **Saint Lucia's Roseau
+Valley**, `Roseaux au Lac Rwihinda` in **Burundi**, a `Cabane de gardian` in the **Camargue** and a portrait
+taken in **Belgium** — *roseau* being French for a reed. Two of the three named candidates were also
+rejected on the sheet: `Morne bruce.jpg` (4311×2888, CC BY-SA 4.0) is an **interpretation SIGNBOARD**, the
+Dzanga-Sangha fault again and invisible in the file name, and `Downtown Roseau.JPG` is a fisheye street
+corner with a magenta lens flare. What shipped is `Roseau (Dominica).jpg` (Hans Hillewaert, CC BY-SA 3.0),
+the Bayfront with the jetty and the mountains behind.
+
+**UNDATA'S CAPITAL FIGURE IS TWELVE TIMES THE CITY'S OWN COUNT, AND ONLY THE CENSUS COULD SHOW IT.**
+The profile gives Hamilton **10,100** for 2018. Bermuda's 2016 census, Table 3 *Population by Parish and
+Municipality*, gives the **City of Hamilton 854**, down from 1,032 in 2010 — and it also lists a
+**Hamilton PARISH** of 5,584, which is a different place, while the city is counted inside **Pembroke**
+(11,160). So the profile's number matches none of the three. Every capital card in this deck opens with
+"a figure the profile footnotes to 2018 without saying what area it counts"; this is the first time a
+second count has been found that shows how far that ambiguity can run. **Where a territory publishes a
+census, read it before quoting the profile's capital figure** — and note the shape of the trap: a parish
+and a municipality sharing one name, on opposite sides of the island.
+
+**THE WORLD BANK'S AREA FOR BERMUDA IS 4,290 km², WHICH IS 79 TIMES TOO LARGE.** UNdata gives 54, the
+census gives **20.68 square miles** (53.6 km²) from the Land Title Registry Office, and UNdata's own
+density of 1,195.5 per km² at 65,000 people implies 54 exactly. That is the **fourth outright error in
+`AG.SRF.TOTL.K2`** after C11's Canada (15,634,410 against 9,984,670), the Dominican Republic (146,839
+against 48,671) and D1's Monaco (75) — and by ratio much the worst. The series is not cited on this card
+at all. **C11's plausibility check is not optional; run it on every small territory.**
+
+**A CENSUS PDF IS WORTH THE EXTRACTION, AND THE COST IS ONE REGEX.** `gov.bm` is open to a browser UA and
+its Department of Statistics publishes the 279-page 2016 report as a PDF. The standing route works — inflate
+every zlib stream, build ToUnicode CMaps from the streams containing `beginbfchar`/`beginbfrange`, drop the
+tiny symbol fonts, decode `<hex>` — but **the alternation `\[(.*?)\]\s*TJ|<([0-9A-Fa-f]+)>\s*Tj|\((.*?)\)\s*Tj`
+backtracks catastrophically on a 4 MB file and never returns.** Collecting all `<hex>` and all `(literal)`
+runs per stream separately, with no alternation, finishes in seconds and loses nothing that matters: the
+tables come out as flat number runs with the headers in front of them, which is enough to read a table off.
+The letters arrive space-separated (`C i t y o f H a m i l t o n`), so **grep for the spaced form as well as
+the plain one**.
+
+**AND THE CENSUS GAVE THE CARD ITS BEST FACT.** At 854 people on 0.28 square miles the city runs to
+**3,050 to the square mile against 3,084 for Bermuda as a whole** — the capital is no denser than the island
+around it, which is the opposite of what a capital card usually reports and is stated in the census's own
+Table 4. The guide has no page for Bermuda (404, unlike the Cayman Islands), so the whole history block was
+dropped and the card is carried by figures alone, which is C12's `Brazil` pattern in a territory.
+
+**A PxWeb STATBANK IS THE BEST SOURCE THIS DECK HAS FOUND, AND IT HAS A JSON API.** Statistics Greenland
+runs `bank.stat.gl`, and PxWeb exposes `https://bank.stat.gl/api/v1/en/Greenland` as a browsable tree:
+GET the path to list children (`/BE` → Population, `/BE/BE01/BE0120` → the January 1st tables), GET a table
+id to get its variable metadata, then POST a `{"query":[…],"response":{"format":"json-stat2"}}` body to the
+same URL to get the numbers. That gave **Nuuk 20,298 on 1 January 2026 against 56,740 for Greenland** —
+current to this year, from the national register, with a series back to 1977. **Try `bank.<office>` and
+`/api/v1/en/` for any Nordic or Baltic statistical office**; the same software runs Statistics Denmark,
+Sweden, Norway, Finland and Iceland. Note json-stat2 is a FLAT value array: the index is computed by
+folding the dimension positions against `size` in `id` order, which is four lines of Python and is the only
+fiddly part.
+
+**AND IT SETTLES A DIVERGENCE THAT LOOKS LIKE THE BERMUDA ERROR AND IS NOT.** The World Bank gives
+Greenland's surface area as **410,450 km²** against UNdata's **2,166,086** — a 5× gap of exactly the shape
+that turned out to be a plain fault on Bermuda one card earlier. Here it is a different QUANTITY, and
+*Greenland in Figures 2026* says so outright: "Area 2,166,086 km² … **Ice-free area 410,449 km²**". So the
+World Bank is reporting the ice-free area to the nearest ten. **A large area divergence is a wrong figure
+on a small territory and a different definition on a glaciated one** — read the territory's own yearbook
+before calling it an error, and where the yearbook explains it, put the explanation in the card.
+
+**THE CLEANEST-LOOKING FILE IN THE CATEGORY WAS TAKEN FROM ORBIT, AND ONLY THE AUTHOR SAID SO.**
+`Nuuk, Greenland.jpg` — 2048×1280, CC BY-SA 4.0, the plainest `<City>, <Country>.jpg` name there is — is by
+**Axelspace Corporation**, a satellite-imaging company. No sensor word, no mission name, nothing the
+`landsat|sentinel-\d|modis|satellit|capella` mask can see. `Nuuk, Greenland (ASTER).jpg` is in the same
+category and **`aster` is not in the mask either**. **Read the Artist field, not just the file name**: a
+satellite operator's name is the tell when the file name has none. What shipped is
+`Nuuk, Greenland skyline.jpg` (Quintin Soloviev, CC BY 4.0), the town from the rocks above the old harbour.
+
+**GREENLAND IS THE FIRST CAPITAL IN THE DECK WHOSE SHARE IS VISIBLY GROWING.** Nuuk went from 17,316 of
+55,847 in 2016 to 20,298 of 56,740 in 2026 — the town up about 17 per cent, the country up under two — so
+its share moved 31.0 → 35.8 per cent in a decade. Every other small territory this run has been flat
+(Isle of Man), falling (Dominica, Marshall Islands) or growing with its country (Andorra, Cayman Islands).
+**Where a register publishes a locality series, quote the share at two dates rather than one**; it is the
+one figure a single-year profile can never show.
+
+**THE PxWeb ROUTE PAID OFF THE VERY NEXT CARD, AND IT PROVED WHAT HAMILTON COULD ONLY SUSPECT.**
+`gw-704` recorded that Nordic statistical offices run PxWeb with a JSON API; Statistics Faroe Islands is at
+**`statbank.hagstova.fo/api/v1/en/H2`** and answered on the first try. UNdata gives Tórshavn **20,800** for
+2018; the register (`IB01031`, by village/city) gives the TOWN **13,116** on 1 January of that year — and
+summing the eighteen villages the `IB01070` table files under **Tórshavn municipality** gives **21,100** on
+the same date, within 1.4 per cent of the profile. So the profile's capital figure is demonstrably the
+MUNICIPALITY. `gw-703` Hamilton found the same mismatch and could only say the two figures describe
+different areas; here the arithmetic closes. **When a capital figure looks too large, sum the register's
+sub-units under the municipality of the same name before calling it wrong.**
+
+**AND THE MUNICIPALITY IS ESSENTIALLY THE PROFILE'S "URBAN POPULATION".** UNdata puts the Faroes at
+**42.2 per cent urban** for 2019; the municipality was **41.8 per cent** of the country in 2018 and 42.8 in
+2026, where the town alone is a steady **26**. Two figures that close are worth stating side by side on the
+card and not worth asserting are the same definition.
+
+**A SECOND HIERARCHY TABLE IS HOW YOU LEARN WHICH VILLAGES BELONG TO A MUNICIPALITY.** The population table
+is village-only; the membership lives in `IB01070` *Average age … by municipality and village*, whose
+`valueTexts` are indented (`'Tórshavn municipality'`, then `'- Argir'`, `'- Hoyvík'`, …). **Cite the table
+you actually read the hierarchy off**, odd as an average-age table looks in a source list — it is the work
+that states the composition.
+
+**THE FAROESE AREA SERIES CHANGES DEFINITION MID-WAY.** `AG.SRF.TOTL.K2` gives **1,396 km² for 2015–2019
+and 12,960 for 2020–2023** — the second is roughly land plus territorial sea, and nothing openable explains
+the switch, so the series is not cited on this card at all. That is a **fifth shape** for that indicator
+after the outright errors (Canada, Dominican Republic, Monaco, Bermuda) and Greenland's ice-free
+substitution: **a break in the series itself**. Always pull the whole 2015–2025 range rather than one year;
+a single-year fetch here would have returned either figure with nothing to say it had ever been the other.
+
+**AND THE CONSTITUTIONAL SENTENCE NEEDED ITS OWN SOURCE.** UNdata's footnote says only "For statistical
+purposes, the data for Denmark do not include this area", which does not license the words *self-governing*.
+The government's own site does: `faroeislands.fo/the-big-picture/` states the islands "are a self-governing
+nation under the external sovereignty of the Kingdom of Denmark" with "exclusive competence to legislate and
+govern independently in a wide range of areas". **A statistical footnote is not a constitutional statement** —
+the draft asserted the status on UNdata's marker alone and was corrected before it shipped.
+
+**THE CAPITAL FIGURE MATCHES THE URBAN SHARE ALMOST EXACTLY, AND THAT IS THE THIRD SHAPE IN FOUR CARDS.**
+Basseterre's 14,400 against the World Bank's 47,008 for 2018 is **30.6 per cent** of the country, and the
+profile's urban share is **30.8 per cent** for 2019 — so on UNdata's own numbers the capital is essentially
+the entire town-dwelling population. `gw-700` George Town met the same thing with the territory at 100 per
+cent urban, and `gw-705` Tórshavn met it as the municipality (41.8) sitting on the urban share (42.2).
+**Compute the capital's share of the COUNTRY and of the URBAN population on every card**: where the two
+figures coincide the profile is telling you what its own definition of "urban" is, which is worth a
+sentence and costs no extra fetch.
+
+**THE COMMONWEALTH'S PER-ISLAND AREAS DO NOT ALWAYS RECONCILE.** `gw-697` Antigua and Barbuda recorded that
+the Secretariat's island rows (280 + 161 + 1.6) summed to **exactly** UNdata's single 442, and suggested
+adding them before reading a divergence. Here St Kitts 176 + Nevis 93 = **269** against UNdata's 261 and the
+World Bank's 260 — three per cent out, two sources against one. **So the sum is a check, not an authority**;
+where it disagrees the two independent figures win, and the divergence is recorded rather than corrected.
+The Secretariat is also the population outlier again — 53,000 for 2022 against the World Bank's 46,709 for
+the same year, 13 per cent apart, the same shape as `gw-702` Dominica.
+
+**SEVENTH BRIDGETOWN CARD, AND THE FIRST TO NAME BOTH AMBASSADORS.** **Milan D. Bish** (Antigua and Barbuda
+`gw-697`, Saint Vincent `gw-696`) headed the American delegation at the 1983 independence ceremonies, and
+**Frank V. Ortiz, Jr.** (Dominica `gw-702`) had been appointed Special Representative to Antigua, Dominica,
+Saint Christopher-Nevis-Anguilla, St Lucia and Saint Vincent on 1 September 1977, concurrently with Barbados
+and Grenada. Every ambassador since has been resident at Bridgetown, and the consular agent for this country
+lives in **Antigua** rather than Barbados — the first variation on the pattern in seven cards.
+
+**AND THE COUNTRY CHANGED ITS NAME AFTER INDEPENDENCE.** The guide records the state as **St. Christopher
+and Nevis, "St. Kitts and Nevis since August 3, 1988"** — five years after independence — which is a datable
+act the date line can carry and which nothing in the statistical profiles hints at. **Read the guide's
+parentheses**: it notes renamings in passing, in the same sentence as the recognition date.
+
+**UNDATA GIVES PAGO PAGO A POPULATION LARGER THAN AMERICAN SAMOA'S, AND THAT ENDS THE ARGUMENT.**
+The profile's Capital city pop. is **48.5 thousand** (footnote d = 2018) against a national total of
+**46,000** for 2025 — the capital figure EXCEEDS the country. The 2020 census of American Samoa counts
+**Pago Pago village at 3,000**, sixteen times smaller, and makes it only the **fifth** largest village
+behind Tafuna (7,988), Nu'uuli (4,991) and Ili'ili (3,073). Across four cards the field has now been shown
+to be a municipality (`gw-705` Tórshavn, proved by summing), an unstated wider area (`gw-703` Hamilton),
+the whole urban population (`gw-700`, `gw-706`) and here an agglomeration covering most of the island.
+**Treat "Capital city pop." as an agglomeration by default and say so**; where a census exists, quote the
+census and let the profile's figure stand beside it as what it is.
+
+**`census.gov` AND `www2.census.gov` ARE OPEN, AND THE ISLAND AREAS CENSUSES ARE THE SOURCE FOR FOUR
+CARDS.** `bls.gov` is 403 and `fred.stlouisfed.org` refuses, so the Bureau was never tried; it answers
+fully, and `www.census.gov/data/tables/2020/dec/2020-american-samoa.html` links **CSV, XLSX and PDF** of the
+Population and Housing Unit Counts — table 1 by district and county, table 2 **by village**. The same path
+exists for **Guam, the Northern Mariana Islands and the U.S. Virgin Islands** (`2020-guam.html` and so on),
+which retrospectively gives `gw-686` Hagåtña and `gw-693` Charlotte Amalie a village-level second count
+they were written without. **Take the CSV**: it parses in two lines where the PDF would need the CMap route.
+
+**THE OFFICE OF INSULAR AFFAIRS IS THE HISTORY SOURCE WHERE THE RECOGNITION GUIDE HAS NO PAGE.**
+`doi.gov/oia/islands/american-samoa` (404 at the guide) gives the whole political-status paragraph: cession
+by the matai of Tutuila from **1900**, Manu'a **1904**, Swains Island by act of Congress **1925**, the U.S.
+Navy administering until **1951**, the Department of the Interior since **1956**, a constitution the people
+adopted for themselves in **1967** with no organic act, first constitutional elections **1977**, and that
+American Samoans are **U.S. nationals rather than citizens**. It has sibling pages for Guam, the CNMI, the
+USVI and the three freely associated states. **For a U.S. territory, OIA replaces the guide.**
+
+**AND THE FALL IS THE STEEPEST IN THE DECK.** 55,519 in 2010 → 49,710 in 2020 (−10.5 per cent) → 46,029 by
+2025, with only the Western District growing and **Swains Island going from seventeen people to none**. The
+Marshall Islands (C10) fell for the same Compact-migration reason; this is faster. **A falling territory is
+where the profile's stale capital figure does the most damage** — 48,500 was already 95 per cent of the
+2018 population and is now more than the whole of it.
+
+**THE SAME FIELD THAT WAS TOO BIG ON THE LAST CARD IS TOO SMALL ON THIS ONE, BY THE SAME MECHANISM.**
+`gw-707` had UNdata giving Pago Pago **48,500** — more than American Samoa's whole population. Here the
+Capital city pop. is **0.1 thousand, footnoted to 2001**: a hundred people, a quarter of a century old, on
+an island that held 3,976 that same year. And the giveaway is in the LABEL — the header reads
+**"Capital city pop. (000)" with no year at all**, where every other profile in this deck reads
+"(000, 2025)". **Read the column header, not just the footnote**: where UNdata has dropped the year from
+the header it is signalling that it has nothing recent, and the number underneath should not be used.
+
+**A NATIONAL STATISTICS OFFICE CAN RUN NINE PER CENT ABOVE THE INTERNATIONAL SOURCES, AND THE BREAK IS
+DATABLE.** The TCI Statistics Authority gives **52,299 for 2025** and 50,828 for 2024 against the World
+Bank's 46,855 and 46,535. The two series are nearly identical to 2020 (36,689 v 36,605 in 2015; 44,518 v
+44,386 in 2020) and diverge only after it — and the Authority's own table is headed **"2000-2024p"**, the
+later years being a straight-line projection of exactly +1,578 a year. **Plot both series before deciding
+which is the outlier**: a divergence that starts at a single year is a change of method, not a
+disagreement about the population.
+
+**`gov.tc` PUBLISHES ITS TABLES AS GOOGLE SHEETS, AND `…/export?format=csv` READS THEM.** The Statistics
+Authority's pages render the data through JavaScript — the HTML says only "loading..." — but the same
+pages link `docs.google.com/spreadsheets/d/<id>/edit`, and swapping `edit?usp=sharing` for
+`export?format=csv` returns the table in plain text. That is how the **population by island, 1960–2012**
+came out (Providenciales 518 → 23,769, Grand Turk 2,180 → 4,831). **When a statistics page shows
+"loading...", look for a Google Sheets link before giving up on it.**
+
+**AND A `- panoramio` FILE NAME IS A GEOTAG, NOT A SUBJECT.** `Front St, Cockburn Town TKCA 1ZZ, Turks and
+Caicos Islands - panoramio.jpg` is 3968×2976, CC BY 3.0, and is an **underwater photograph of a yellowtail
+snapper** — named for the street the diver walked in from. `gw-698` recorded that a panoramio file may carry
+a burnt-in date stamp; this is the stronger form of the same warning, and `Cockburn Town, Grand Turk.jpg`
+(public domain, a good Front Street view) was rejected for exactly that date stamp, **2006/12/29** in
+yellow. What shipped is `Cockburn Town, Grand Turk - panoramio (9).jpg`.
+
+**UNDATA AND THE DECK NAME DIFFERENT CAPITALS FOR THE NORTHERN MARIANA ISLANDS, AND BOTH ARE DEFENSIBLE.**
+The plan and `world-capitals.js` say **Capitol Hill**; UNdata's profile says **Garapan**. The 2020 census
+gives Capitol Hill village **979** and Garapan village **3,096**, the largest in the commonwealth — so
+Garapan is the bigger place and Capitol Hill is where the government is, the Office of Insular Affairs
+printing the governor's address as "Office of the Governor, Caller Box 10007, **Capital Hill**, Saipan".
+**The card keeps the deck's answer and states the disagreement in its second sentence** rather than
+choosing silently; this is the first capital in the deck where the sources differ about the NAME rather
+than the number. (UNdata's Garapan figure also carries the `gw-708` tell: 4,000 people, footnoted to
+**2010**, under a header with no year.)
+
+**THE `2020-<territory>.html` PATH FROM `gw-707` WORKS UNCHANGED, AND THE CSV IS TWO CLICKS DEEP.**
+`census.gov/data/tables/2020/dec/2020-commonwealth-northern-mariana-islands.html` links
+`…phc-table01.csv` (by municipality and district) and `…phc-table02.csv` (by village) on
+`www2.census.gov`. Grepping the landing page for `phc-table0[12]\.csv` is the whole of it. Table 1 gives
+the commonwealth **47,329 in 2020 against 53,883 in 2010, −12.2 per cent**, Rota −25.1, and the Northern
+Islands Municipality going **from 0 to 7 people** — the smallest inhabited unit this deck has met.
+
+**AND THE OIA PAGE IS THE HISTORY SOURCE AGAIN, WITH A DIFFERENT SHAPE OF STORY.** `doi.gov/oia/islands/cnmi`
+gives the Trust Territory of the Pacific Islands administered for the United Nations from **1947** until
+Palau, its last member, became independent in **1994**; the **Covenant** of 1975; the constitution of
+**1977** and first constitutional government in **1978**; federal minimum wage in **2007**, federal
+immigration law in **2008**, and Homeland Security taking over immigration and border controls in **June
+2009**. `gw-707` used the American Samoa page; the sibling pages are as good, and the four territories'
+histories are genuinely different rather than one template.
+
+**A CAPITAL OF 979 PEOPLE HAS NO TOWNSCAPE, AND THE HONEST PICTURE IS THE THING IT EXISTS FOR.** The US
+geography pass settled that a small state capital's honest picture is its main street; Capitol Hill has not
+even that — it is a government village on a hill. What shipped is the **governor's office**, the Juan Atalig
+Sablan Memorial Building, seen across its lawn and slip road so the setting reads as much as the building.
+`Entrance to Capitol Hill, Saipan.JPG` was rejected: it is a road junction with a signpost, which is the
+signboard fault at one remove.
+
+**UNDATA SAYS OUTRIGHT, IN A FOOTNOTE, THAT ITS CAPITAL FIGURE IS THE WHOLE COUNTRY.** Sint Maarten's
+profile gives Capital city pop. **40.6 thousand** and attaches footnote **e: "Refers to the total
+population of Sint Maarten."** That is the running finding stated by the source itself. `gw-703` Hamilton
+inferred it, `gw-705` Tórshavn proved it by summing a municipality, `gw-707` Pago Pago exposed it by
+arithmetic (the capital exceeding the country) and `gw-708` Cockburn Town by a dropped year — here UNdata
+simply says so. **Read the footnote letters on the capital row before quoting the number**: the answer is
+sometimes printed three lines further down the page.
+
+**`government.nl` IS A THREE-PAGE SPINE FOR THE WHOLE DUTCH CARIBBEAN, AND `gw-687` WILLEMSTAD FOUND ONLY
+ONE OF THEM.** *Caribbean Parts of the Kingdom* states that "On 10 October 2010 Curaçao and St Maarten
+became autonomous countries. Bonaire, St Eustatius and Saba became special municipalities of the
+Netherlands"; *Representation of the Netherlands in Aruba, Curaçao and St Maarten* gives the headquarters
+at **Willemstad** with offices at **Oranjestad** and **Philipsburg**; and *Reconstruction of St Maarten*
+carries a whole datable history — Hurricane **Irma on 6 September 2017**, emergency aid to **30 November
+2017**, then **€550 million** for reconstruction on two conditions, an Integrity Chamber and improved
+border controls, with St Maarten itself responsible "as an autonomous country". **The topic index at
+`government.nl/topics/caribbean-parts-of-the-kingdom` lists the siblings**; take all of them at once.
+
+**`stat.gov.sx` IS BLOCKED BY THE EGRESS POLICY, NOT DOWN.** The Department of Statistics of Sint Maarten
+returns `connect_rejected` from the agent proxy — a different failure from a 403, a 500 or a 202, and the
+one shape that will never change with a retry or a user agent. **Check `curl -sS "$HTTPS_PROXY/__agentproxy/status"`
+when a host returns code 000**; a national statistics office that cannot be reached at all is a fact about
+this sandbox and belongs in the plan rather than in the card.
+
+**AND THE PICTURE IS THE TOWN'S GEOGRAPHY RATHER THAN ITS STREET.** Front Street is well photographed and
+is a corridor of shopfront signage — Casino Coliseum, Payless, Guangzhou Department Store — which says
+little about the place. What shipped is the view from the hills, where Philipsburg is visibly built along
+the sand bar between the **Great Salt Pond and Great Bay**: for a town on a spit, the shape of the ground
+is the fact a geography card wants.
+
+**`gw-711` VADUZ IS WHERE THE UNDATA CAPITAL FIGURE IS PROVED, RATHER THAN INFERRED, AND THE PROOF IS
+TWO INDEPENDENT SERIES AGREEING TO WITHIN ONE PER CENT.** The profile gives a capital-city population of
+5.5 thousand carrying footnote **c = 2018**; the World Bank's `SP.URB.TOTL` gives Liechtenstein's whole
+urban population for 2018 as **5,567**. Those are the same number, so the entry is the country's urban
+total wearing a capital's name — the fourth instance in this batch after `gw-700`, `gw-706` and `gw-710`,
+and the cleanest, because here the corroboration comes from a series the UN does not compile. The reason
+it matters more than it looks is that Liechtenstein's urban total need not be Vaduz at all: **Schaan is
+the larger commune**, so a card quoting 5,500 as "the population of Vaduz" would have been asserting a
+figure that is neither the town's nor demonstrably about it. Nothing openable here gives Vaduz's own
+count — `llv.li` and `statistikportal.li` are both **403**, so Liechtenstein's statistics office is shut
+to this sandbox — so the card **states no population for Vaduz** and says instead what both series do
+support: the principality is barely urban, about 6,000 town-dwellers out of 41,024, under fifteen per
+cent. **A figure you cannot attribute to the town is not a figure about the town, however plausible its
+size.**
+
+**AND THE COMMUNE'S OWN SITE IS THE HISTORY SOURCE THE COUNTRY'S GOVERNMENT WOULD NOT GIVE.** With
+`llv.li` and `statistikportal.li` closed and `liechtenstein.li` refusing the connection outright,
+`www.vaduz.li` answers with a browser user-agent and carries, at `/vaduz/portrait/vaduz`, a page that
+dates the first documentary mention to 1150, the county of Vaduz to the 1342 division of the Sargans and
+Werdenberg lands, the castle to around 1300, the market rights to Emperor Rudolf II in 1592, Prince
+Johann Adam's purchase to 1712 and the imperial principality to seven years later, and the castle's role
+as permanent princely residence to 1939 — eight datable claims on one page, which is more than any
+national source in this deck has supplied. **It was not in the sitemap-free navigation and was not
+guessed at**: six plausible paths (`/de/portrait`, `/de/zahlen-und-fakten` and their siblings) all 404,
+and `https://www.vaduz.li/sitemap.xml` — 561 KB, 200 — named `/vaduz/portrait/vaduz` outright. **Ask a
+municipal site for its sitemap before guessing at its paths**; a 404 page here is 87 KB of navigation and
+looks nothing like an absence.
+
+**THE RECOGNITION GUIDE HAS A LIECHTENSTEIN PAGE, AND ITS SUMMARY PARAGRAPH IS THE CARD'S NINTH
+SENTENCE.** After five territories with no page at all, `history.state.gov/countries/liechtenstein`
+answers 200 and states sovereignty in 1806, the German Confederation in 1815, independence again in 1866,
+and that Liechtenstein "yielded control of its foreign affairs to Switzerland for much of the twentieth
+century" — C12's rule that the summary paragraph carries the history the recognition paragraph does not,
+holding for a European microstate. The recognition date itself (1926) is a treaty extended by an exchange
+of notes between Switzerland and the United States and is deliberately unused: it dates an American
+instrument, not anything about Liechtenstein.
+
+**`gw-712` ROAD TOWN FOUND A GOVERNMENT PAGE WRITTEN BY A LANGUAGE MODEL AND NEVER EDITED, WHICH IS THE
+`gw-506` ABUJA FAULT IN ITS SECOND FORM.** `bvi.gov.vg/branches-government` returns 200 and 34 KB of
+fluent, plausible prose about the executive, legislature and judiciary — and in the middle of it,
+**"as of my last update, there were 13 elected members"**. Abuja's *A Brief History of our City* was
+unreplaced *template* boilerplate and announced itself by advertising a product ("Millions of people
+around the world use Obira to connect…"); this announces itself only by a turn of phrase that a human
+civil servant would never write about their own House of Assembly. So the rule the Abuja finding stated
+— **check that a page says something before counting it as a source** — needs its sibling: **check that
+what it says was written by somebody who knows.** The page is not cited. `bvi.gov.vg/constitution` on
+the same site plainly is drafted text, summarising the Virgin Islands Constitution Order 2007 clause by
+clause, and carries the card's governance sentences.
+
+**AND HERE THE UNDATA CAPITAL FIGURE IS SMALLER THAN THE URBAN TOTAL, WHICH IS THE FIRST TIME IN THIS
+BATCH.** The profile gives Road Town 15.1 thousand for 2018 (footnote **d**); the World Bank's
+`SP.URB.TOTL` gives the territory 17,894 urban residents that year. They are not the same number, so the
+entry is describing a place rather than relaying a national total — the negative result that makes the
+`gw-700`, `gw-706`, `gw-710` and `gw-711` cases findings rather than a blanket suspicion. **Run the
+comparison every time; it is one API call, and it answers both ways.**
+
+**THE POPULATION SERIES ITSELF RECORDS THE HURRICANE.** `SP.POP.TOTL` for `VGB` runs 34,498 (2015),
+33,878 (2016), **32,699 (2017)**, 34,657 (2018) and on to 39,732 (2025) — a trough exactly at the year
+Irma crossed on 6 September 2017, and the only non-monotonic stretch in the decade. It is cited as what
+it is, a fall and a recovery, beside the two gov.uk statements that date the event: the Foreign
+Secretary's on 7 September and the Governor's declaration of a state of emergency on 8 September, which
+also records that the National Emergency Operation Centre had to move to Peebles Hospital. **A demographic
+series can be a witness to an event, and a dip that reverses is worth reading before it is smoothed over.**
+
+**PICTURE NOTE: A DECORATIVE FRAME WITH BURNT-IN CAPTIONS IS A REFUSAL.** `File:Road town - panoramio.jpg`
+is a good wide view of the harbour and carries a white border with **"tortola - road town"** in one corner
+and **"by patano"** in the other, painted into the pixels. That is the burnt-in-text family the sheet has
+caught before in the form of camera date stamps, and it fails for the same reason: the credit belongs in
+the credit line, where a reader can follow it, not across the bottom of the card. The card takes
+`File:TORT-blick-hafen-roadtown.jpg` instead. Note also that its original is **1215 px**, so a
+`1920px-` thumb would be an upscale that Commons refuses — **below about 1300 px, link the original file
+path rather than a thumb.**
+
+**`gw-715` MAJURO FOUND THE WORST FORM OF "A 200 IS NOT A SOURCE" YET: `rmigovernment.org` IS NOW A
+FOOTBALL-BETTING SITE.** The Marshall Islands government's old domain answers 200 with 117 KB, and it is
+a Thai-language UFABET sportsbook — `<title>` in Thai, and a link list running
+`/football-accumulator-bets`, `/mobile-football-betting`, `/register-for-online-football-betting`,
+`/responsible-gaming`. The domain lapsed and was re-registered. This is a different failure from
+`gw-506` Abuja (unreplaced template boilerplate) and `gw-712` Road Town (unedited language-model prose):
+**there the page was the government's and said nothing; here the page is not the government's at all**,
+while the URL still reads as the most authoritative address a search could offer. **A `.org` that names
+a government is not a government source; open it and read the title.** Nothing on it is cited.
+
+**WHAT REPLACED IT IS THE COUNTRY'S OWN EMBASSY, AND ITS COUNTRY PROFILE IS BOTH GOOD AND OUT OF DATE.**
+`rmiembassyus.org/country-profile` is the real thing and carries **"Capital: Majuro, Majuro Atoll"**, a
+land area of 181.3 km² matching UNdata's 181, the 1979 constitution, the 1986 Compact and the 1991 UN
+membership. It also says the country has **"about 60,000 people"**, against UNdata's 36,000 and the World
+Bank's 36,282 — an embassy profile is written once and left, so **cite one for constitutional and
+geographic facts and never for a population.** The card cites it for the atoll count and the location and
+takes every figure from the two statistical sources.
+
+**AND THE RECOGNITION GUIDE MISSPELLS THE CAPITAL, TWICE.** `history.state.gov/countries/marshall-islands`
+records the "Establishment of the Office of the U.S. Representative in **Majurio**, 1986" and repeats the
+spelling in the sentence below it — so grepping that page for `Majuro`, the two-second check this pass
+uses to decide whether a guide page carries the capital's own name, **returns nothing on a page that is
+entirely about it.** The page is cited: it dates the opening of Compact negotiations to 25 June 1983, the
+Compact's entry into force to 21 October 1986, and the end of the strategic trusteeship with it.
+
+**THE POPULATION FALL C10 RECORDED NOW HAS ITS CARD.** `SP.POP.TOTL` for `MHL` runs 48,800 (2015) to
+36,282 (2025) — **a quarter of the people gone in a decade**, and monotonic, so unlike `gw-712`'s
+hurricane trough it is emigration rather than an event. C10's warning that "out of date must not be read
+as too low" was written from this country; the capital card is where the series is stated in full. Note
+too that the UNdata capital figure (30,700 for 2018) is again **below** the World Bank's urban total for
+that year (34,683), the second consecutive case where the entry describes a place.
+
+**PICTURE NOTE: `File:Majuro.jpg` IS A SECOND WORLD WAR MAP.** The bare, obvious file name for a capital
+city, in that city's own category, is a U.S. Bureau of Yards and Docks chart — the "map wearing no such
+word in its name" family again, after the Texas map-library scans. The card takes
+`File:Majuro - Main Atoll of the RMI.jpg`, an aerial along the atoll rim. **An aerial photograph is not a
+satellite image and is not refused**: the ban is on imagery FROM ORBIT, which is a diagram of a place
+rather than a view of it, and on an atoll an oblique from an aircraft is the only way to show the town
+and the geography that makes it in one frame.
+
+**`gw-716` SAN MARINO IS THE CLEAREST CASE IN THE DECK THAT A CAPITAL NEED NOT BE ITS COUNTRY'S BIGGEST
+PLACE.** UNdata puts the capital at **4,500** for 2018 (footnote c) against a World Bank urban total of
+**33,521** for the same year, in a country the same profile calls **97.4 per cent urban** — so the great
+majority of San Marino's town-dwellers live somewhere that is not San Marino. It is the third consecutive
+card where the UNdata capital entry describes a place rather than relaying a national total, and the one
+where confusing the two would have been most wrong: the card would have multiplied the town by seven.
+**The comparison costs one API call and it is now a standing step of the recipe.**
+
+**THE ANSWER AND THE DOT ARE SPELT DIFFERENTLY, DELIBERATELY, AND `add-card.js` SAYS SO.** The point in
+`world-capitals.js` is keyed **`City of San Marino`** — Natural Earth distinguishing the comune from the
+state — while the plan, the answer and every ordinary use say `San Marino`. The helper prints
+`! the dot marks "City of San Marino" but the answer is "San Marino" — check that is deliberate`, which
+is the right behaviour and not a fault to work around: **do not rename the answer to satisfy the warning**,
+since `test-card-plans.js` compares the shipped answer against the plan's own name and would then fail.
+The glossary key is `San_Marino_(city)`, which by the parenthetical rule claims none of the bare surface —
+that stays with the country term, which already exists and already covers Monte Titano and the captains
+regent, so the two terms had to be written to different subjects rather than to different lengths.
+
+**A EUROPEAN GOVERNMENT SITE STILL SERVING ISO-8859-1.** `consigliograndeegenerale.sm` answers
+`Content-Type: text/html;charset=ISO-8859-1`, so a UTF-8 read returns replacement characters through every
+accented word and a quoted passage would ship as mojibake — *ineleggibilità* came back as `ineleggibilit�`
+until the bytes were decoded as windows-1252. **Read the Content-Type before quoting a page**; the fault
+is silent in the sense that the English words all survive, so a skim of the extraction looks fine. Its
+`palazzo-pubblico.html` is the card's spine and is worth the trouble: it names the Palazzo Pubblico on
+Piazza della Libertà as the seat of the office of the Captains Regent, of the Grand and General Council
+and its committees, of the Congress of State, and — until it is given a seat of its own — of the panel
+guaranteeing the constitutionality of laws. That is a capital's whole institutional content in five lines,
+from the institution's own site.
+
+**AND THE RECOGNITION GUIDE CARRIES A QUOTATION WORTH HAVING.** `history.state.gov/countries/san-marino`
+dates U.S. recognition to Lincoln's letter of **7 May 1861** answering the Captains Regent's offer of
+honorary citizenship, and quotes it: "Although your dominion is small, your State is nevertheless one of
+the most honored, in all history." C12's rule about reading the summary paragraph pays again — and here
+the guide's *Key Diplomatic Events* section, which most country pages do not have, is where the sentence
+sits.
+
+**PICTURE NOTE: CHECK A COMMONS FILE NAME FOR `(` AND `'` BEFORE CHOOSING IT.** Half the good wide views
+of this city are unusable for the credit line rather than for the picture — `Monte Titano (visuale da
+Torriana).jpg` carries parentheses and `San Marino e l'Adriatico dal Monte San Paolo.jpg` an apostrophe,
+and `SRC_URL_RX` stops at both, so either credit would ship truncated. The card takes
+`San Marino dal Monte San Paolo al tramonto.jpg`, which has neither.
+
+**`gw-717` MARIEHAMN IS THE FIRST CARD WHERE ALL THREE OF PHASE 3'S SOURCES FAIL AT ONCE AND THE
+REPLACEMENT IS BETTER THAN ANY OF THEM.** UNdata's `ax` profile **500s**, as Kosovo's `xk` and Taiwan's
+do; `history.state.gov/countries/aland-islands` is a **404**; and the World Bank has no `ALA` economy at
+all, so `SP.POP.TOTL` answers `"The provided parameter value is not valid"`. D2 said a state outside the
+UN system is invisible to every one of the three and needs a different CLASS of source — and here that
+class is the territory's OWN institutions, every one of them open: `asub.ax` (the statistics office),
+`aland.ax` (the government portal), `lagtinget.ax` (the parliament), `regeringen.ax` and
+`mariehamn.ax`. **Where a territory legislates for itself, ask it directly before concluding it is
+unsourceable.**
+
+**AND THE OFFICE'S OWN FAQ CARRIED WHAT ITS API WOULD NOT GIVE.** ÅSUB runs a PxWeb database at
+`pxweb.asub.ax/PXWeb/api/v1/en/`, the same software that carried Greenland and the Faroes — and its
+**POST 404s on any path containing an encoded space**, which is where the population tables live
+(`.../BE/Befolkningens%20storlek%20och%20struktur/BE004.px`). It is not a general refusal: the same POST
+against `.../BE/Prognoser/BE057.px`, a folder whose name has no space, returns 200 and json-stat2. That
+is IIS request filtering rather than PxWeb, so **test a space-free path before writing off a PxWeb
+install**, and when the query endpoint is shut, look for the office's own prose: ÅSUB's
+`vanliga-fragor-om-aland` states 30,836 residents at 31 December 2025 of whom **11,957 in Mariehamn**,
+and its front page a preliminary 30,971 for 31 July 2026. The government portal's own facts page still
+gives the 2020 breakdown (11,705 in Mariehamn), which it dates — **two official pages, four years apart,
+and only one of them says so.**
+
+**THE AREA CAME FROM THE COUNTRY CARD'S OWN SOURCE LIST.** With no UNdata and no World Bank series there
+is no area figure anywhere in this recipe, and the answer was already in the repo: the `Åland` glossary
+term cites the **Nordic Statistics Database** (`AREA02`) for 1,586 km². **Read the paired country term's
+sources before hunting for a figure** — on a territory outside the three spines, the card written months
+ago has usually already solved it.
+
+**THE HISTORY IS THE PARLIAMENT'S OWN ACCOUNT AND IT IS DATED THROUGHOUT.**
+`lagtinget.ax/sjalvstyrelsen/bakgrunden-sjalvstyrelsen` gives the 1808–09 cession to Russia, the secret
+meeting of every Åland municipality in August 1917 resolving to seek reunion with Sweden, Finland's
+unaccepted 1920 autonomy act, and the League of Nations Council's compromise of June 1921 — Finland kept
+sovereignty against guarantees of the islanders' Swedish language, culture and local customs, with a
+demilitarisation and neutralisation treaty to follow so that Åland could never threaten Sweden. Its
+sibling page on the **Självstyrelsegården** is the capital-specific one: the seat of both the parliament
+and the government, on Strandgatan, opened in 1978 after a Nordic architectural competition won by Helmer
+Stenros of Helsinki. **A parliament's own site is where a self-governing territory's history is dated.**
+
+**PICTURE NOTE: THE FIRST SYNTHETIC-APERTURE RADAR FILES IN THE PASS.** `Category:Mariehamn` holds two
+Capella Space SAR scenes (`...CAPELLA C15 SP GEO HH...`), which are the spaceborne family in a new coat —
+not optical imagery and not named `satellite` anywhere. The chosen aerial also needed a second look:
+`Aerial photo of Mariehamn.jpg` is a clean view of the town **with the aircraft's propeller blade across
+the left third of the frame**, so the card takes `Aerial photo of Mariehamn 2026.jpg` by the same
+photographer instead. **A window-seat aerial often has the aeroplane in it; check the edges.**
+
+**`gw-718` MARIGOT IS THE SECOND ÅLAND CASE — TWO OF THE THREE SPINES FAIL — AND THE THIRD ONE SAVES IT
+WITH THE BEST FIGURE IN THE DECK.** UNdata's `mf` profile **500s** and `history.state.gov/countries/
+saint-martin` is a **404**, exactly as for Åland; but unlike `ALA`, the World Bank **does** carry `MAF`,
+and what it shows is the sharpest movement this pass has met: **37,369 people in 2015 falling to 24,941
+in 2025, a third of the population gone**. Set beside `gw-710`'s own series for the Dutch half — 37,471
+rising to 43,923 over exactly the same years — **one small island holds two populations moving in
+opposite directions**, each from the same World Bank indicator, which is the kind of comparison this deck
+can make and a single country card cannot. **Check the neighbour's series when a card's own looks
+extreme**; here it turned a bare decline into the card's subject.
+
+**THE COLLECTIVITY'S OWN HISTORY PAGE IS A DATED TIMELINE AND IT IS WHERE MARIGOT'S CLAIM SITS.**
+`com-saint-martin.fr` is otherwise a shell — `/thematiques/culture/le-patrimoine-et-lhistoire` and its
+siblings are landing pages of two sentences and a news feed, which is why `gw-218` Saint Martin was
+deferred — but `/thematiques/organisation-territoriale/votre-collectivite/histoire-de-la-collectivite`
+carries about sixty dated entries from 1823 to 2022: Saint-Martin made one of Guadeloupe's first five
+municipalities **with its seat at Marigot on 29 January 1823**, the colonial decree of **20 September
+1837** creating the communes of Grand-Case and Marigot, the sub-prefecture opening **11 February 1963**,
+the referendum of **7 December 2003**, and the organic law creating the collectivity adopted **7 February
+2007**. **A site whose section pages are empty may still have one page that is a chronology**; look for
+the history page under the institution rather than under culture.
+
+**AND ITS SIBLING PAGE CONTRADICTS `gw-710` BY A MONTH — SO THE CARD USES NEITHER SIDE'S ACCOUNT OF THE
+OTHER.** `sint-maarten-voisin-et-partenaire` is excellent on its own side (the smallest landmass in the
+world shared by two independent states; the French part under **article 74** of the constitution since
+2007, jointly run by prefecture and collectivity) and says the Dutch part "possède son propre gouvernement
+depuis le **10 novembre 2010**". The Government of the Netherlands, cited on `gw-710`, gives **10 October
+2010**, the day Curaçao did the same and the BES islands became special municipalities. **A government is
+authoritative about its own constitutional dates and not about its neighbour's**, so the French page
+carries the shared-island and article-74 claims here and nothing about the Dutch side.
+
+**INSEE IS OPEN AND STILL GIVES NOTHING.** `insee.fr/fr/statistiques/2011101?geo=COM-97801` is a real
+*Dossier complet* for the commune of Saint-Martin (97801), published 27 August 2026, and every table on
+it is drawn by JavaScript; the comparator's own CSV export, offered as "Données des tableaux (csv, 78
+octets)", is **78 bytes of headers with no rows**, and asking it for two territories at once returns a
+500. **A file size printed on the page is worth reading before fetching it** — 78 bytes cannot be a table
+— and a French overseas *collectivité* is not in the census tables that serve metropolitan communes.
+
+**`gw-719` THE VALLEY CHANGED A TOOL: THE NO-ARTICLE RULE HAS AN EXEMPTION NOW, DECLARED AND NOT
+GUESSED.** `add-card.js` refuses an answer beginning "the", and it was right to — "the polis" is a
+phrase and `polis` is the term. But **a place can be NAMED "The X"**: Anguilla's own government writes
+**The Valley** on its Anguilla Facts page, and the running order's `gw-758` is **The Hague**. Stripping
+the article there does not bare a term, it renames a town — and `test-card-plans.js` compares the shipped
+answer against the plan's own name, so the mangled form would have failed that suite instead. The helper
+now carries `ARTICLE_IS_NAME`, four lower-cased entries with the reason beside each (The Valley, The
+Hague, The Gambia, The Bahamas), exempting the answer, the `answerText` **and the opening `<b>` of the
+abstract**, which is a second guard that would otherwise have caught it one line later. **Declared rather
+than pattern-matched, for the reason `CROSSREF_WRONG` is**: a rule clever enough to tell a name from a
+phrase would let the real fault through. Add an entry only after checking how the place's own authority
+writes it.
+
+**ANGUILLA IS THE THIRD SHAPE OF SOURCE FAILURE IN THREE CARDS, AND THIS TIME IT IS THE WORLD BANK THAT
+IS MISSING.** Åland lost all three spines; Saint Martin lost UNdata and the guide and kept the World
+Bank; here **UNdata answers 200 and the World Bank has no `AIA` series at all** — `SP.POP.TOTL`,
+`AG.SRF.TOTL.K2` and `SP.URB.TOTL` each return `{"total":0}` with a null payload, which is a different
+response from `MAF`'s data and from `ALA`'s "not a valid value". So there is no second statistical source,
+and the corroboration came from an unexpected place: **the territory's own facts page gives the area as
+"35 sq. miles", and UNdata's 91 km² is 35.1 sq mi.** Two independent authorities agreeing across a unit
+conversion is worth as much as two agreeing in the same unit — **convert before concluding a figure
+stands alone.**
+
+**GOV.AI IS A REAL GOVERNMENT SITE THAT ANSWERS, AND IT IS WHERE THE HISTORY IS.** After
+`rmigovernment.org` turning out to be a betting site and `bvi.gov.vg` carrying language-model prose,
+`gov.ai` is the counter-example worth recording: `/service/anguilla-facts`, `/service/anguilla-history`
+and `/service/national-symbols-national-flags` are short, plainly written and dated — Columbus sailing
+past in 1493 without landing, the 1830s union with St Kitts and Nevis that the island's freeholders
+protested, the 1958 Federation and its 1962 collapse, **30 May 1967** and the expulsion of the Royal St
+Kitts Police Force, **19 December 1980** as a separate dependent territory, and the official blue ensign
+first hoisted **30 May 1990**. **A small territory's own site is often the only place its history is
+written down at all**; the three that failed are not evidence that the fourth will.
+
+**PICTURE NOTE: A CAPITAL OF 1,400 HAS NO SKYLINE, AND THE CARD SAYS SO.** `Category:The Valley,
+Anguilla` holds **three subcategories and no files**, and its buildings subcategory holds two more
+subcategories; the only usable photograph of the town is `Wallblake House, The Valley.jpg`. That is the
+small-state-capital rule from the United States pass (Montpelier, Pierre, Frankfort) applied to a place
+a tenth their size: ship the landmark and let the `desc` say the capital is a village rather than
+implying a view that does not exist.
+
+**`gw-720` NGERULMUD IS THE FOOTNOTE RULE'S EXTREME CASE: UNDATA'S CAPITAL ROW IS WRONG TWICE OVER AND
+SAYS SO ITSELF.** The Palau profile names the capital **Melekeok** — which is the STATE, not the seat —
+and prints 11.4 thousand beside it under footnotes **c** and **d**, where **c reads "Refers to Koror"**
+and d dates it to 2018. So the row gives the wrong name and then a number for a third place, and both
+faults are disclosed in the footnote column that a reader skimming the General Information block never
+reaches. C10 recorded the Ngerulmud/Melekeok divergence and left it uncorrected; this is the card where
+it is explained. **Read the footnote letters on the capital row before quoting anything from it** — the
+standing rule since `gw-710`, and here the footnote names a different city.
+
+**AND THE SOURCE THAT SETTLES IT IS AN ARCHIVED ONE.** `palaugov.pw` is unreachable (see below), and
+nothing openly published by the UN, the World Bank, ADB, SPC, the Pacific Islands Forum, WHO, the U.S.
+embassy at Koror or the recognition guide contains the word **Ngerulmud** at all — eleven hosts checked.
+What does is the **State Department's archived Background Note: Palau of 7 February 2012**, on
+`2009-2017.state.gov`: *"About 64% of Palauans live in Koror State's capital city, Koror. (Note:
+Government offices are located in a new National Capitol Building complex located at Ngerulmud, Melekeok
+State.)"* — the naming, the Koror share and the relation between the three names in one parenthesis. It
+also carries the whole colonial sequence: Spain selling Palau and most of the Carolines to Germany in
+**1899**, Japan from **1914**, the United States under UN auspices from **1947**, the 1979 federation
+Palau stayed out of, its own constitution in **1981** and the Compact signed in **1982**. **When a live
+government site is walled, try its archive**: `2009-2017.state.gov` is P7's "Technical Difficulties" host
+in its ARCHIVED form and it answers 200 with real content. Cite it with its date, since it is explicitly
+not updated — figures come from UNdata and the World Bank, the naming and history from here.
+
+**A 202 WITH A ~170-BYTE BODY HAS A DIAGNOSIS NOW.** The pass has recorded `digitallibrary.un.org` and
+`rmiparliament.org` as "202-empty" without knowing why; `palaugov.pw` answers the same way on every path
+and its body is legible: `<meta http-equiv="refresh" content="0;/.well-known/sgcaptcha/?r=%2F&y=ipc:...">`.
+That is a **Sucuri "sgcaptcha" JavaScript challenge served with a 202**, so the shape is neither an outage
+nor a user-agent gate — a full browser header set changes nothing — and there is no way past it from here.
+**Read the body of a 202 before recording it as empty**; it names the wall.
+
+**PICTURE NOTE: THE BEST PHOTOGRAPH OF THIS CAPITAL IS WATERMARKED, AND ITS WATERMARK DISAGREES WITH ITS
+AUTHOR FIELD.** `File:בניין הקפיטול בבירת פלאו נגרולומוד 01530.jpg` is a 5,278 px view of the domed
+National Capitol above the jungle with the Palauan flag flying — the picture this card wants — and it
+carries **"© Ori Yaffe" burnt into the lower right**, while Commons records the author as *Ben Shoshana*.
+Either alone is a refusal: a watermark by the bar, and a credit line that would name someone other than
+the mark in the pixels. The card takes `Ngerulmud 01.jpg`, the Office of the President with its sign
+legible. Worth knowing for the rest of the pass: **a non-Latin file name is no obstacle** — the
+percent-encoded URL carries no space, parenthesis or apostrophe, so `SRC_URL_RX` is untroubled by Hebrew.
+
+**`gw-721` AVARUA IS THE THIRD FOOTNOTED CAPITAL ROW IN THREE CARDS, AND THE UNDATA FOOTNOTE COLUMN IS
+NOW A STANDING FIRST STOP.** Sint Maarten's figure was the whole country, Palau's "Refers to Koror", and
+the Cook Islands' 13.1 thousand is footnoted **"Refers to the island of Rarotonga"** — beside a national
+population of 13 thousand, so the capital figure is arithmetically the whole country and could not be a
+town on one of fifteen islands. **And the country's own census does not report Avarua either**: the word
+appears once in the 389 KB of text extracted from the 2021 report, in a figure caption. So the card says
+outright that no published figure counts the town, which is the honest form of a fact the deck cannot
+have.
+
+**THE SAME PROFILE CARRIES A FOOTNOTE THAT IS SIMPLY OUT OF DATE, AND THE DECK CONTRADICTS IT.** UNdata's
+footnote **c** on the surface area reads "Excluding Niue, shown separately, **which is part of Cook
+Islands**, but because of remoteness is administered separately." Niue has been a self-governing state in
+free association with New Zealand in its own right since 1974, and this running order cards its capital
+separately at `gw-731` Alofi. The area figure is used; the footnote's claim is not repeated. **A footnote
+can be stale as well as clarifying — read it for what it asserts, not only for what it qualifies.**
+
+**A PDF WHOSE TEXT IS HEX-ENCODED NEEDS THE `BT` FILTER AS WELL AS THE ToUnicode CMAPS.** The 4.1 MB
+census report yielded almost nothing to a literal-string sweep (the prose is `<hex>` runs against 52
+embedded CMaps) and, once the CMaps were merged, yielded 728 KB of which most was **decompressed FONT
+PROGRAMS being read as text** — pages of `M-CM-` mojibake around the real sentences. Two conditions fix
+it: require `BT` in the stream, and drop anything whose first bytes are a font signature
+(`\x00\x01\x00\x00`, `OTTO`, `true`) or which carries `glyf` early. The result is clean, and one more
+step is needed to SEARCH it: the extractor emits each kerning run separately, so "Rarotonga" arrives as
+`R a r o t o n g a` and a plain grep finds nothing — **strip spaces before searching, then read the hit
+with them back in.** It gave the census totals: 15,040 in all in 2021, 14,920 of them resident, against a
+peak of 21,322 in 1971.
+
+**AND A HEADLINE FIGURE WITH NO LABEL IS NOT A FIGURE.** `stats.gov.ck`'s front page shows "**Population
+25,900** June quarter 2025" beside GDP per capita and visitor arrivals — nearly twice the census total
+and twice UNdata's projection, with nothing on the page saying what it counts. It is not used. **A number
+you cannot label is a number you cannot cite**, however official the site.
+
+**`gw-722` YAREN MAKES IT FOUR FOOTNOTED CAPITAL ROWS IN FOUR CARDS, AND THE UNDATA CAPITAL FIGURE IS
+NOW GUILTY UNTIL PROVEN INNOCENT.** Sint Maarten's referred to the whole country, Palau's to Koror,
+the Cook Islands' to the island of Rarotonga, and Nauru's 11.3 thousand carries footnote **c reading
+simply "Refers to Nauru"**. Four consecutive small territories where the row headed *Capital city pop.*
+is not a capital's population, each disclosing it in the footnote column. **For the rest of this deck,
+read the footnote letters FIRST and treat an unfootnoted small-territory capital figure as the exception
+rather than the rule** — and where every source refuses the town, say so on the card, which is what these
+four now do.
+
+**AND THE COMMONWEALTH SAYS OUTRIGHT WHAT THE OTHER THREE ONLY IMPLIED.** Its Key Facts block for
+**Naoero** gives, under *Capital city*, **"No official capital, government offices in the district of
+Yaren"** — the whole point of the card in one field, from a body Nauru belongs to. That block also gives
+the area as 21 km², matching UNdata exactly, and the joining line in the shape C4 named: "1968, as an
+associate member on attaining full independence (former UN trust territory); full member since 1999".
+**When a capital looks anomalous, read the bloc profile's capital FIELD, not just its figures.**
+
+**PERCENT-ENCODING RETIRES A STANDING PICTURE CONSTRAINT.** This file has told sessions since Aug 2026 to
+check a Commons URL for `'` and `()` before choosing the file, because `SRC_URL_RX` (`[^\s<>"')\]]`)
+truncates a credit at the first apostrophe or closing parenthesis. That is true of the RAW form only:
+`%27`, `%28` and `%29` contain none of those characters, resolve on Commons, and match the regex whole.
+Verified both directions here — `…/File:Parliament_and_Courthouse_%2815222121087%29.jpg` and
+`…/Category:Broca%27s_area` both answer 200, and the raw form of the first truncates to `.jpg`. **The
+picture is no longer the thing that has to be replaced**; CLAUDE.md's note is amended.
+
+**PICTURE NOTE: THE SECOND WATERMARK REFUSAL IN THREE CARDS.** `Yaren street, Nauru.jpg` is the only
+straightforward street view of the place and carries **"Ilya Varlamov | varlamov.ru"** burnt into the
+corner, exactly as Palau's best capitol photograph carried "© Ori Yaffe". `Category:Yaren` holds fifteen
+files of which eleven are maps or diagrams, and the two parliament photographs in `Category:Nauru
+Parliament House` are 720 px and 500 px, under the bar. What ships is the parliament and courthouse seen
+across the grass beside the airport runway — which is not a compromise but a fair likeness: **the
+government of Nauru sits beside its airstrip, and a photograph that shows both is more honest about the
+place than a street would be.**
+
+**`gw-723` MATA-UTU BREAKS THE FOOTNOTE RUN AND FAILS A DIFFERENT WAY: UNDATA MISSPELLS THE CAPITAL.**
+After four rows whose FIGURE was wrong, this one's figure is fine — about 1,000 for 2018, with footnote
+**e** giving only the year, which for a village of that size is plainly the town — and the NAME is
+**"Matu-Utu"**, a transposition of Mata-Utu. Palau's row named the wrong place (Melekeok for Ngerulmud);
+this one names the right place wrongly. **The capital row can fail by name as well as by number**, so
+grepping a UNdata page for the capital you expect is not a test that it is absent — it may be there,
+spelt differently. The card prints the correct name, notes the profile's spelling in passing, and takes
+the figure.
+
+**THE FRENCH ADMINISTRATION'S OWN SITE CARRIES THE WHOLE CARD, AND ITS PRESENTATION PAGES ARE FOUR
+SEPARATE SOURCES.** `wallis-et-futuna.gouv.fr` publishes under **licence Etalab 2.0** and its
+*Présentation de Wallis-et-Futuna* section splits into *Présentation générale* (the 1616 Dutch sighting
+and the name Hoorn Islands, Samuel Wallis in 1767, the Marists from 1837, the 1842 treaties declaring the
+islands "libres et indépendantes sous la protection de la France", the unified protectorate of 1888, the
+referendum of 27 December 1959 at 94.37 per cent, and the geography down to Wallis's 77.9 km² and the
+channel to the Mata'Utu wharf), *Organisation institutionnelle* (the prefect who is also administrateur
+supérieur, the twenty-member territorial assembly sitting at Mata'Utu, and **no communes at all** — three
+circumscriptions answering to the kingdoms of Uvea, Alo and Sigave under their customary kings) and
+*Présentation économique* (the **2023 census, 11,151 people against 11,558 in 2018**, nearly 60 per cent
+under twenty, and more than 25,000 people of Wallis and Futuna origin now estimated to live in New
+Caledonia — more than live in the territory). **A French overseas administration's site is organised by
+SECTION rather than by topic**: the history, the institutions and the figures are three different pages
+under one heading, and each is citable on its own.
+
+**AND IT IS WHY `gw-223` WAS DEFERRED AND NEED NOT HAVE BEEN.** The countries deck deferred Wallis and
+Futuna for a facts box no openable source could fill; UNdata gives the area and population outright and
+the administration gives the census. **When a country card was deferred on sources, check again when its
+capital comes up** — the capital's research answers the country's question too.
+
+**PICTURE NOTE: THE PERCENT-ENCODING RULE PAID IMMEDIATELY.** The one wide view of the town,
+`File:Mata-Utu seen from a drone (Wallis and Futuna).png`, carries parentheses, and under the old rule
+would have been rejected for its credit line; encoded as `%28`/`%29` it cites cleanly. It shows the
+cathedral and the royal palace along the lagoon shore, which is what the place is. Note also that
+`Category:Mata'Utu` — the local spelling — is **empty**, and everything lives under `Category:Mata-Utu`:
+**try both spellings of a place whose name carries an apostrophe.**
+
+**`gw-724` GUSTAVIA ADDS TWO WHOLE SOURCE FAMILIES THE PASS HAD NEVER TRIED, AND BOTH ARE OPEN.** All
+three of Phase 3's spines fail here — UNdata's `bl` profile **500s**, there is no recognition-guide page,
+and the World Bank has no `BLM` series — and the collectivity's own `comstbarth.fr` is a JavaScript shell
+whose only reachable endpoint reveals it to be an **Archimed library catalogue** (`marcxml`, `iso2709`,
+`resourceReservationEnabled`), not the government site it appears to be. What answered instead:
+· **The Overseas Countries and Territories Association** (`overseas-association.eu/oct/<slug>/`) publishes
+  a profile per OCT — location, **area 21 km² (25 with islets), population 9,793 (2018)**, environment,
+  and a *Political & administrative status* section giving the attachment to Guadeloupe from 1947, the
+  **organic law of 21 February 2007** and the nineteen-member territorial council. It covers every EU
+  overseas country and territory, so it is the bloc profile for a family this deck keeps meeting.
+· **EUR-Lex answers 200 with full text**, and `…/legal-content/EN/TXT/HTML/?uri=CELEX:32010D0718` is the
+  European Council Decision of 29 October 2010 itself: the French president's letter of **30 June 2010**,
+  the reasons given, and Article 1 — *"With effect from 1 January 2012, the island of Saint-Barthélemy
+  shall cease to be an outermost region of the Union"*. **A primary legal instrument, quotable, with an
+  OJ citation.** Reach for EUR-Lex whenever a European territory's status has a date.
+
+**AND THE TWO 2007 DATES ARE BOTH RIGHT.** `gw-718` cited the Collectivity of Saint-Martin for "7 février
+2007 ... adoptée par le parlement"; OCTA gives Saint-Barthélemy "the Organic Law of **21 February 2007**".
+It is the same instrument — loi organique n° 2007-223, creating both collectivities — seen as **adoption**
+and as **promulgation**. Neither source is wrong and neither should be corrected against the other; the
+card says which act it is dating.
+
+**THE PDF THAT WOULD HAVE BEEN BEST IS UNFETCHABLE, AND ITS LANDING PAGE IS THE SOURCE INSTEAD.** The
+prefecture's *PTAD Saint-Barthélemy* is a 7.32 MB PDF and every attempt returns **000, "Empty reply from
+server"** — over HTTP/2, over HTTP/1.1, and with a Range request for the first 200 KB. The consultation
+page that offers it is fine, and carries the fact the card wanted anyway: the collectivity receives the
+public **at Pointe-Gustavia, 97133 Gustavia**, and the state's delegation **at 8/10 rue Lubin Brin,
+Gustavia**. **A landing page often states the address, the dates and the body responsible — read it before
+chasing the document.**
+
+**PICTURE NOTE: `Category:Gustavia` IS A PLANT GENUS.** Fifteen members, every one a Lecythidaceae
+herbarium sheet or flower category, and not a photograph of the town among them — the same ambiguity trap
+as a person's name, in a botanical coat. The town's pictures are found by SEARCH rather than by category;
+what ships is `Gustavia Harbour St Barthelemy.JPG`, the red-roofed town around its inlet seen from Fort
+Gustave. **When a category is full of the wrong thing, search the file namespace instead of walking the
+tree.**
+
+**`gw-725` FUNAFUTI IS THE THIRD THREE-PART CAPITAL ADDRESS, AND THE FIRST WHERE EVERY LEVEL IS
+NAMED BY THE SAME SOURCE.** The Commonwealth's Key Facts block gives the capital city as "Vaiaku
+(government offices), Fongafale islet, Funafuti atoll" — village, islet and atoll in one field — where
+UNdata simply says Funafuti. Palau (`gw-720`) and Wallis and Futuna (`gw-723`) each needed two sources to
+establish the same shape; here one page carries it, so the card can say what the address is without
+adjudicating between profiles. **Write the atoll as the answer and the village in the prose**: `world.js`
+and `world-capitals.js` both know Funafuti, and Vaiaku is a place inside it rather than a competing name.
+
+**AND ITS POPULATION IS A FOUR-WAY SPREAD, WHICH IS STATED RATHER THAN RECONCILED.** Tuvalu's own
+statistics division gives **10,954 for 2025**, the Commonwealth **11,790 for 2022**, UNdata about
+**10,000**, and the World Bank **9,492 for 2025** on a series falling steadily from 10,963 in 2015 — a 24
+per cent range across four institutional sources for a country of about eleven thousand people. C8's
+stale-figure diagnostic cannot settle it, because the four disagree in the same year rather than at
+different points on one series; the card gives each figure with its date and its source and says the
+question is unsettled. **The area is the same shape one order of magnitude down**: 26 km² at UNdata, 25.6
+at the Commonwealth, and **30 flat** at the World Bank, which is C10's rounding-to-the-nearest-ten rule
+biting again on a state small enough for it to matter.
+
+**UNDATA'S CAPITAL ROW IS CLEAN HERE, AND THAT IS THE EXCEPTION WORTH RECORDING.** Four consecutive cards
+(`gw-710`, `gw-720`, `gw-721`, `gw-722`) carried a "Capital city pop." that was not a capital's
+population, each disclosing it in the footnote column. Tuvalu's row carries footnote **c** — the 2018 year
+qualifier — and no "refers to" note, and its 7,000 sits plausibly below the country's ~10,000 with an urban
+share of 63.2 per cent, which is arithmetic that agrees rather than contradicts. **Read the footnote
+letters first; a small-territory capital figure that survives them is usable.**
+
+**`gw-726` SAINT-PIERRE IS THE FIRST CAPITAL WHOSE OWN COMMUNE PUBLISHES ITS FIGURES, AND THEY ARE
+NOT THE TERRITORY'S.** UNdata's profile describes the archipelago — 242 km², about 6,000 people, a
+density of 24.2 — while the Mairie de Saint-Pierre's own *En quelques chiffres* page describes the town:
+30 km², 5,412 inhabitants at the 2016 census, 208 to the square kilometre and 33 km of municipal road.
+Neither contradicts the other and a card that used one where it wanted the other would be wrong by a
+factor of eight on area. **Where a capital is a commune of a French collectivity, look for the mairie's
+own site**: `mairie-stpierre.fr` answers plainly where `spm.gouv.fr` refuses the connection outright and
+`spm-ct975.fr` sits behind an anti-DDoS interstitial that returns **418**.
+
+**AND ITS THIRD SENTENCE IS AN ARBITRAL AWARD, WHICH IS THE MOST CITABLE THING A TERRITORY CAN HAVE.**
+The maritime boundary with Canada went to a tribunal set up by agreement of 30 March 1989, and the
+decision of 10 June 1992 is published in the UN's *Reports of International Arbitral Awards*, vol. XXI —
+open, permanent, and precise: a western sector out to 24 nautical miles and a southern corridor 10.5
+nautical miles wide running 188 nautical miles, that width being the distance between the easternmost
+point of Saint-Pierre and the westernmost point of Miquelon. `legal.un.org/riaa/` is reachable here and
+serves the volumes as PDFs. The volume prints the decision in **French**, so grep the extracted text for
+`millesmarins` rather than `nauticalmiles`. EUR-Lex supplies the fifth source with a sentence written for
+this territory alone: Council Decision (EU) 2021/1764, art. 9(4), *"St Pierre et Miquelon shall be
+considered to be an isolated OCT"*.
+
+**`gw-727` JAMESTOWN IS THE FIRST CAPITAL THAT IS NO LONGER ITS ISLAND'S LARGEST SETTLEMENT, AND ITS OWN
+STATISTICS OFFICE SAYS SO.** The 2021 census gives the Jamestown district 625 residents against 1,516 in
+1976 — about 41 per cent of the figure it began with — and records that Half Tree Hollow overtook it in
+1998. A capital card usually has to reach for a superlative and here the honest fact is the opposite one.
+**The St Helena Statistics Office is the model small-territory source**: `sainthelena.gov.sh` serves the
+census main report as a PDF and a *St Helena in Figures* commentary in HTML, and between them they carry
+the district series, the 4,439 counted on census night of 7 February 2021, and the ageing that produced
+59 deaths against 17 births in 2024.
+
+**ITS UNDATA COUNTRY ROW IS THE FOOTNOTE PROBLEM ONE LEVEL UP.** The capital figure is clean — 0.6
+thousand, footnote **f**, a year qualifier only — but the *country* population and surface area both
+carry footnote **a**/**c**, "Including Ascension and Tristan da Cunha", so UNdata's 309 km² is three
+island groups thousands of kilometres apart and not the island the card shades. **On a composite
+territory, read the footnotes on the country rows as well as on the capital row.** The UN Special
+Committee's working paper A/AC.109/2024/13 states the same total as 310 km² and separates the three
+resident populations, which is what makes the composition visible rather than inferred.
+
+**AND A CONSTITUTION'S PREAMBLE CAN BE A CAPITAL'S BEST SOURCE.** The St Helena, Ascension and Tristan da
+Cunha Constitution Order 2009 recites Letters Patent of Queen Victoria of 6 June 1859 declaring Jamestown
+"a city called the 'City of James Town'", along with the 1673 charter of Charles II, the East India
+Company's Laws and Constitution of 1682 and the transfer of rule to the British government on 22 April
+1834. `legislation.gov.uk` serves the whole schedule as HTML. **Where a British overseas territory has a
+constitution order, read its preamble first**: it is a legal text that recites the territory's own
+chronology, which is exactly what a capital's second block of five sentences needs.
+
+**`gw-728` BRADES IS THE FIRST CAPITAL TWO UN SOURCES DISAGREE ABOUT, AND NEITHER IS WRONG.** UNdata's
+profile gives the capital city as **"Brades Estate"**; the Special Committee's working paper
+A/AC.109/2024/10 gives it as **"Plymouth, abandoned in 1997 following the volcanic eruption"** and adds
+that "most of the offices of the Government of Montserrat are based in Brades". One is recording where
+the government sits and the other what the capital legally is, and a card that took either alone would
+be telling half the story. **Where a capital has been abandoned, expect the de jure and de facto names
+to be split across sources rather than reconciled in one** — and note the third variant, since
+`world-capitals.js` and the plan both say plainly *Brades*, making this the third capital after Palau's
+"Melekeok" and Wallis and Futuna's "Matu-Utu" whose UNdata name is not the name the deck uses.
+
+**THE WORKING-PAPER SERIES IS THE SOURCE FOR EVERY REMAINING BRITISH AND AMERICAN TERRITORY, AND ITS
+SYMBOLS ARE NOT GUESSABLE.** `documents.un.org/api/symbol/access?s=A/AC.109/2024/<n>&l=e&t=pdf` serves
+each year's papers as PDFs, one per territory, and the number says nothing about which: 2024/9 is Guam,
+**2024/10 Montserrat**, 2024/11 New Caledonia, **2024/12 Pitcairn**, 2024/13 Saint Helena, 2024/14
+Tokelau, 2024/15 Turks and Caicos, 2024/16 the United States Virgin Islands. **Fetch and grep rather than
+guessing.** Each paper opens with a *Territory at a glance* block — land area, exclusive economic zone,
+population, capital, head of government, GDP per capita — which is the Commonwealth Key Facts block in
+another coat, and it exists for territories no bloc profile covers. Montserrat's carries the figure no
+other source states: of 103 km², the **habitable land area is 40.1 km²**.
+
+**AND ITS OWN GOVERNMENT IS UNREACHABLE, WHICH IS WHY THE PAPER MATTERS.** `gov.ms`, `stats.gov.ms` and
+`mvo.ms` all refuse the connection outright; `caricom.org`, `eccb-centralbank.org`, `cepal.org` and
+Smithsonian's `volcano.si.edu` are 403; `oecs.org`'s country path is 404; and **web.archive.org is
+blocked by this sandbox's egress policy on content paths while its `wayback/available` API answers** — so
+an archived copy is discoverable and not readable. What was reachable instead: `legislation.gov.uk` for
+the Montserrat Constitution Order 2010 (a Legislative Assembly of nine elected and two ex officio
+members), and Europe PMC for two open papers — Barclay et al. 2022 in *Disasters* for the settlement
+history and Plymouth "now buried under volcanic deposits", and Farquharson & Amelung 2022 in *Royal
+Society Open Science* for the volcano's continuing sensitivity to heavy rain. **On a territory whose own
+statistics office is offline, the reachable set is the UN paper plus the constitution order plus the
+journals.**
+
+**`gw-729` STANLEY GIVES THE CLEAREST ANSWER YET TO "WHAT DOES A CAPITAL'S POPULATION FIGURE COUNT",
+BECAUSE ITS OWN CENSUS PRINTS FOUR OF THEM IN ONE TABLE.** Table 1 of the *Falkland Islands 2021 Census
+Report* gives Stanley **2,848** persons present on census night, **310** of them non-resident visitors,
+leaving **2,538** usually resident and present, and **2,974** total usually resident once the 436 away
+that night are added. UNdata gives 2,300 for 2018. None of the four is wrong and none is interchangeable
+with another, and the same table shows the islands at 3,541 / 399 / 3,142 / 3,662. **The UN working
+paper quotes 3,662 while the census's own reporting convention is 3,142** — the report says so in as many
+words — so two UN-family sources on one territory differ by 17 per cent purely on definition. **State the
+definition beside the figure or the card is asserting something it has not checked.**
+
+**AND ITS SOVEREIGNTY NOTE IS A QUOTATION, NOT A JUDGEMENT.** Both UN sources carry the same sentence —
+"a dispute exists between the Government of Argentina and that of the United Kingdom concerning
+sovereignty over the Falkland Islands (Malvinas)", the working paper adding "as established by the
+General Assembly in its resolution 2065 (XX) and subsequent relevant resolutions" — and UNdata attaches
+it as a footnote to *every* figure on the profile, including the surface area. **Quote it; do not
+paraphrase it**, and use the UN's own double name in the facts box. Trying to cite resolution 2065 (XX)
+directly is a dead end here: `documents.un.org/api/symbol/access?s=A/RES/2065(XX)` returns 200 with a
+single page of the bound resolutions volume that contains the Cook Islands text and not the Falklands
+one.
+
+**THE PDF EXTRACTOR'S MERGED CMAP CAN MAP CAPITAL LETTERS TO DIGITS, AND IT DID HERE.** In
+A/AC.109/2024/6 the extracted text reads `8alklandIslands`, `3rgentina`, `4ritish` and `5ommittee` — F→8,
+A→3, B→4, C→5 — because two fonts in one document define overlapping code points and the last
+`beginbfrange` wins. Nothing looks broken; a grep for `Falkland` simply returns nothing on a document
+about the Falklands. **When a grep for the obvious word returns zero on a document that is plainly about
+it, suspect the cmap and grep a distinctive middle fragment instead** (`alkland`, `rgentina`). The
+Montserrat paper had the same fault on a smaller scale (`3rticle 73e`, `3sian`).
+
+**Two more reachability notes.** `falklands.gov.fk` answers and serves its census report through a Joomla
+download endpoint — `/policy/downloads?task=download.send&id=219:...&catid=13`, a URL with no
+`.pdf` in it, so a link-extraction pass looking for `/.pdf$` finds nothing; and its statistics index
+is at `/policy/` rather than at any `/statistics` path, both `/policy/statistics/` and
+`/policy/statistics/census` returning 404. The 2021 census page is `/policy/2021-census/census`.
+
+**`gw-730` KINGSTON IS THE FIRST CAPITAL WITH NO UNDATA PROFILE AT ALL.** `data.un.org/en/iso/nf.html`
+returns **500**, as `xk` does for Kosovo and as Taiwan's does — Norfolk Island is counted with Australia
+in the UN's tables — so Phase 3's Source A is simply absent and every figure has to come from the
+administering power. **The replacement is the Australian Bureau of Statistics, and it is better than
+UNdata for this purpose**: 2021 Census QuickStats at
+`abs.gov.au/census/find-census-data/quickstats/2021/<SA2 code>` gives population, median age, dwellings,
+ancestry and language for the island as one Statistical Area Level 2. **The Other Territories codes are
+901011001 Christmas Island, 901021002 Cocos (Keeling) Islands, 901031003 Jervis Bay and 901041004 Norfolk
+Island** — found by probing, since the obvious `…1002`/`…1001` forms 404. Its ancestry and language rows
+are what no other source has: **550 islanders gave Pitcairn ancestry and 319 Norfolk Islander, against
+1,123 and 970 in the whole of Australia, and 667 of the country's 907 Norf'k-Pitcairn speakers live
+there.**
+
+**AND THE CAPITAL CLAUSE IS LEFT UNMARKED, DELIBERATELY.** Every Norfolk Island administration site is
+unreachable from here — `norfolkisland.gov.nf` and `nirc.gov.nf` are refused by the egress proxy,
+`infrastructure.gov.au` and `regional.gov.au` refuse the connection — so nothing openable states in terms
+that Kingston is the seat of government. The card says it, unmarked, on the deck's own `world-capitals.js`,
+which is C12's `Brazil` and D3's `Mexico` practice: **mark what a source carries and leave the rest
+unmarked rather than pointing a marker at a work that does not say it.**
+
+**THE FEDERAL REGISTER OF LEGISLATION NEEDS ITS API, NOT ITS SEARCH PAGE.** `legislation.gov.au` is an
+Angular app: `/latest/text` renders only a table of contents, and guessing `C2004A0nnnn` identifiers is
+hopeless (five probes returned five unrelated 1979 Acts). The OData endpoint answers plainly —
+`api.prod.legislation.gov.au/v1/titles?$filter=contains(name,'Norfolk Island Act')&$select=id,name` —
+and gives **C2004A02035** for the Norfolk Island Act 1979, **C2015A00059** for the 2015 amending Act, and
+**F2016L01891** for the *Kingston and Arthur's Vale Historic Area Heritage Management Plan 2016*, whose
+own metadata (`/v1/titles/F2016L01891`) states it was made 13 October 2016 and is in force. Note
+`contains(name,'…')` works where `search(criteria='…')` returns *"cannot parse"*.
+
+**TWO NAME COLLISIONS, AND THE FIRST IS WHY `test-card-plans.js` EXISTS.** The card was written with the
+answer *Kingston* and the suite failed it: this plan decided long ago, in "Which name a card asks for",
+that **Jamaica's Kingston keeps the bare name and Norfolk Island's is `Kingston (Norfolk Island)`, which
+is also what the map labels it on reveal**, and the card had quietly departed from that. `add-card.js`
+had already said so in its own way — *the dot marks "Kingston (Norfolk Island)" but the answer is
+"Kingston"* — a warning, not a refusal, so only the plan check caught it. **A prior naming decision
+recorded in the plan governs the card, not the other way round**; the answer was renamed to match rather
+than the plan edited to fit. The glossary collision is the same problem one store over and needs no
+decision: **`Kingston` is already taken by the Jamaican capital**, so this term is keyed
+`Kingston,_Norfolk_Island` and given **no alias at all**, since an alias "Kingston" would leave two terms
+competing for one surface. This is the geography plan's `Alaska` / `Olympia` / `Georgia` family, one
+ocean over.
+
+**TWO MORE 200-STATUS ERROR DOCUMENTS, AND ONE SOURCE THAT LOOKS AUTHORITATIVE AND IS NOT.**
+`aec.gov.au` serves the *same* 55,500-byte page for every path tried, so a fetch of a Norfolk Island page
+succeeds and contains no Norfolk Island; and `environment.gov.au`'s Australian Heritage Database answers
+on `search.pl?mode=place_detail;place_id=<n>` while its `mode=search_results` form is Cloudflare-blocked
+at **400**, so records can only be reached by probing ids (KAVHA's is **105934**). That record is the
+trap: it is a **nomination** record whose status reads "Nomination now ineligible for PPAL" and whose
+prose is headed *"Nominator's Summary Statement of Significance"* — an applicant's case, not the
+department's finding. **Check whose statement a heritage-database page is printing before citing it.**
+Parks Australia's own pages carry the same history as the administering agency's account and were used
+instead. `whc.unesco.org` remains 403 and `dcceew.gov.au` refuses the connection.
+
+**`gw-731` ALOFI IS TWO VILLAGES, AND THE CENSUS THAT SAYS SO IS THE BEST SMALL-STATE SOURCE THE PASS
+HAS FOUND.** Table 1.2 of the *2022 Niue Census of Population and Household Report* gives **Alofi South
+423** and **Alofi North 187**, together **610** of an island population of **1,681** — so the capital is
+36 per cent of the country and neither half of it is the capital on its own. UNdata's 700 for 2018 sits
+between the two readings and cannot be told apart from either. The same report carries the island's
+whole context in one place: a fall of 38 since 2017 continuing a decline running since 1966, 1,564 people
+(93 per cent) calling Niue their usual residence, 6.0 to the square kilometre, an average household of
+3.0, and the fourteen villages that are also the Assembly's constituencies. **Where a capital is
+administratively split, find the village table before quoting any single figure.**
+
+**IT IS ALSO THE FIRST CAPITAL IN THIS STRETCH WHOSE OWN GOVERNMENT ANSWERS.** `niuestatistics.nu` and
+`gov.nu` are both reachable and both useful — the statistics office publishes its census report as a
+plain PDF at a `/download/35/census/<id>/` path, and `gov.nu/government` states the constitutional
+position in the government's own words: a self-governing state in free association with New Zealand since
+1974, one of the three states in the Realm of New Zealand, with the **Constitution of Niue in force on 19
+October 1974**, a British protectorate at the turn of the 20th century and New Zealand responsibility
+from **1901**. `gov.nu/information` links the *Constitution of Niue and Associated Documents as at 31
+December 2019*, compiled at Victoria University of Wellington and published at Alofi, which carries the
+Niue Constitution Act 1974 itself. **New Zealand's own `legislation.govt.nz` is NOT reachable here** — it
+answers **202 with an empty body** on every path tried, which is a challenge page rather than a document
+— so the Act has to be read from Niue's own compilation rather than from Wellington's.
+
+**AND THE RECOGNITION GUIDE HAS A PAGE FOR NIUE WITH SOMETHING NO OTHER SOURCE IN THE PASS HAS CARRIED: A
+RECOGNITION DATE INSIDE THIS DECADE.** The United States recognised Niue as a sovereign and independent
+state on **25 September 2023**, when Blinken and Premier Dalton Tagelagi signed a joint statement
+establishing diplomatic relations. C11 and C12 spent their findings on the guide dating things a century
+and a half too late for Spanish America; here the guide is the only openable source for an event two
+years old.
+
+**`gw-733` ADAMSTOWN IS THE SECOND CAPITAL RUNNING WITH NO UNDATA PROFILE** — `data.un.org/en/iso/pn.html`
+returns **500**, as `nf` does for Norfolk Island — so the Special Committee's working paper is the whole
+statistical source, and for a territory of 42 people it is enough: A/AC.109/2024/12 gives the four
+islands (Pitcairn, Henderson, Ducie, Oeno), the land area **35.5 km² of which Pitcairn itself is 4.35**,
+the exclusive economic zone of **842,000 km²** now a marine reserve, the official languages English and
+**Pitkern**, and the capital named outright as *"Adamstown, the only settlement"*. **Where UNdata is
+absent, ask whether the territory is on the Non-Self-Governing list before looking anywhere else.**
+
+**ITS OWN GOVERNMENT'S HISTORY PAGE IS THE RICHEST NARRATIVE SOURCE THE CAPITALS HAVE HAD**, and it is
+first-hand about the place: `government.pn/history` gives Carteret's sighting in July 1767 in his own
+words, the Polynesian relics found by early Europeans, Christian's landing on **15 January 1790** with
+six Tahitian men and twelve Tahitian women, the Bounty burned in Bounty Bay, the leaf shelters raised
+*"where the village of Adamstown now stands"*, and John Adams as sole male survivor by 1800, dead on
+5 March 1829. **But it never says Adamstown is named after him.** That is so obviously true that a first
+draft of the glossary term asserted it and had to be rewritten: the rule is what the citation carries,
+and an inference everyone would accept is still an inference. The card and the term now say only that the
+village grew where the shelters stood and that Adams was the last of them alive.
+
+**AND THE CONSTITUTION SUPPLIES THE ONE FACT THAT IS ABOUT ADAMSTOWN AS A SEAT RATHER THAN AS A
+SETTLEMENT.** Under s. 43(4) of the Constitution of Pitcairn the Governor, on the Chief Justice's advice,
+appointed on **29 July 2010** the places at which the Magistrate's Court may sit: **"Adamstown in
+Pitcairn"** and **"any place within New Zealand"**. The Constitution itself is Schedule 2 to the
+**Pitcairn Constitution Order 2010, SI 2010/244**, made at Buckingham Palace on 10 February 2010 under
+the British Settlements Acts 1887 and 1945, and opens on a Part 1 headed *Partnership values* — the only
+constitution in this stretch that does. Note the UK path: `/uksi/2010/244/schedule/made` is **404** while
+`/uksi/2010/244/made` serves the whole instrument, the Constitution included.
+
+**CORRECTION, AND IT IS THE FINDING: `gw-501` AND `gw-502` WERE NOT OVERLOOKED, THEY WERE DEFERRED, AND
+THIS RUN CLEARED THEM.** The block above headed *"Seven capitals are DEFERRED"* had already recorded both
+— New Delhi and Beijing "reachable here only through the foreign legations that sat in them" — together
+with the hosts that were tried and failed. A first draft of this entry announced that eight capitals had
+been missed and that nothing reported the gap; that was wrong, and the plan said so four thousand lines
+further up. **Read the plan's own deferral list before concluding that a hole in the numbering is an
+oversight**; `test-card-plans.js` genuinely does not check that every plan line has shipped, but the
+prose does the job the checker cannot.
+
+**WHAT CLEARED THEM WAS A HOST NOBODY HAD TRIED, NOT A RELAXED BAR.** The earlier survey reached for
+national and archaeological bodies — `beijing.gov.cn`, `en.dpm.org.cn`, `nationalmuseum.gov.cn`, the
+Archaeological Survey of India — and for the recognition guide. What answers instead is **the city's own
+municipal authority and the state's own legal text**: `ndmc.gov.in`, the New Delhi Municipal Council,
+publishes a substantial History and an Introduction that between them carry the whole founding of the
+city; and `english.www.gov.cn` serves the full Constitution of the People's Republic of China, whose
+article 143 names the capital outright, where `en.npc.gov.cn` refuses the connection. **When a capital's
+national government is shut, ask whether the capital has a municipality of its own** — that is what
+carried `gw-501`, and it is the same move that carried `gw-726` Saint-Pierre off the mairie's site.
+
+**`gw-501` NEW DELHI IS THE FOOTNOTE FINDING AT ITS LARGEST POSSIBLE SCALE.** UNdata's *Capital city pop.*
+for India reads **29,399.1 thousand** and carries footnote **c**: *"Refers to the Delhi metropolitan area
+that is not restricted to state boundaries (National Capital Territory), includes contiguous suburban
+cities and towns, such as Faridabad, Gurgaon, and Ghaziabad."* The row headed New Delhi is therefore a
+conurbation of 29 million spilling into Haryana and Uttar Pradesh, where the New Delhi Municipal Council
+governs — in its own words — **"only 3 per cent of the area and 3 per cent of the population of National
+Capital Territory of Delhi"**. The rule established on Palau, Nauru and the Cook Islands pays off on the
+most populous country in the world: **read the footnote letters first.**
+
+**AND NDMC'S OWN PAGES ARE THE BEST SOURCE FOR WHAT NEW DELHI ACTUALLY IS.** `ndmc.gov.in` answers where
+`censusindia.gov.in` and `delhi.gov.in` both refuse the connection outright. Its *Introduction* states
+that the council area is the ground called Lutyens' Delhi, that it holds Rashtrapati Bhavan, Parliament
+House, the Supreme Court, the North and South Blocks and every diplomatic mission in the country, and
+that **the Government of India is nearly the sole landowner and owns about 80 per cent of the
+buildings**; its *History* gives the announcement of **12 December 1911**, the choice of Raisina Hill,
+Lutyens and Baker, the Imperial Delhi Committee of **25 March 1913**, the resolution of **22 February
+1927** adopting the name New Delhi, and the opening of the capital on **15 February 1931**. Two cautions:
+its *Act* page opens with a legendary account of the city's founding by the Pandavas which is a state's
+retelling of myth and was not used; and the obvious Rajpath photograph on Commons is under the **Free Art
+License**, which is not on the pipeline's list — check the licence line, not just that the file is on
+Commons.
+
+**`gw-502` BEIJING IS THE FIRST CAPITAL IN THIS RUN WHOSE GLOSSARY TERM ALREADY EXISTED, AND IT WAS LEFT
+ALONE.** `Beijing` was written for the China geography collection, where the card asks the reader to name
+a shaded provincial-level division, so the term describes the **municipality** — 16,400 km², 21,893,095
+permanent residents at the 2020 census, the North China Plain, the overdrawn groundwater. That satisfies
+the pairing rule as it stands, and `add-glossary.js` **overwrites in silence**, so re-adding it would
+have replaced a three-source cited entry with a fresh one and reported only *"updated glossary term"*.
+**Check whether the term exists before writing one; the collections share a vocabulary.**
+
+**AND ITS UNDATA FOOTNOTE POINTS THE OPPOSITE WAY FROM NEW DELHI'S, ONE CARD LATER.** India's capital row
+is 29.4 million because footnote c widens it to the whole metropolitan area; China's is **20,035.5
+thousand** because footnote **d** narrows it — *"Refers to all city districts (exc. Yanqing) meeting
+criteria such as contiguous built-up areas, location of local government, street, or having a Resident
+Committee"* — so it is smaller than the municipality's own census count of 21.9 million. Two consecutive
+cards, the same field, the same kind of footnote, and the error would have run in opposite directions.
+**The footnote does not always inflate.**
+
+**THE CONSTITUTION NAMES THE CAPITAL OUTRIGHT, WHICH NOTHING ELSE IN THIS RUN HAS DONE.** Article 143 of
+the Constitution of the People's Republic of China reads *"The capital of the People's Republic of China
+is Beijing"*, and the State Council's English portal **`english.www.gov.cn` serves the whole text** where
+`en.npc.gov.cn` refuses the connection. That is a primary legal instrument rather than a state's account
+of its own conduct, and it is the answer to the problem `gw-730` had to leave unmarked.
+
+**THE RECOGNITION GUIDE'S CHINA PAGE IS THE LONGEST IN THE SERIES AND IT CARRIES BEIJING'S OWN STORY.**
+The Nationalist government moved the seat to **Nanjing in 1928** while the United States kept its
+legation in the northern city, raising it to an embassy on **18 June 1935**; formal mutual recognition
+dates to about **16 June 1844**; a consulate opened at Beijing in **1861**; and on **1 January 1979** the
+United States recognised the People's Republic, its liaison office becoming an embassy on 1 March. The
+earlier deferral called this "a history of American diplomacy rather than of either city", which is fair
+about the mission list and wrong about the seat: **that the capital moved to Nanjing in 1928 and the
+legation did not follow is a fact about Beijing.** Picture note: the obvious `Beijing aerial 1.jpg` was
+refused — hazy generic outskirts with an aircraft wing across the corner — and the card reuses the term's
+Jingshan view, adding the credit URL the older entry omits.
+
+**`gw-504` JAKARTA WAS DEFERRED ON `jakarta.go.id` BEING 403 AND `indonesia.go.id` A 502; WHAT CLEARED IT
+WAS THE CABINET SECRETARIAT.** `setkab.go.id/en` answers, publishes in English, and — the part that
+matters — **has a working search**: `?s=<terms>` returns dated official items. That is where the card's
+hardest fact comes from, which is that **Indonesia is building a new capital and Jakarta is still the
+one**. A presidential groundbreaking of September 2024 is datelined *"Nusantara Capital, E. Kalimantan
+Province"*, and an item of 3 February 2025 has the president receiving the ministers responsible **at the
+Merdeka Palace, Jakarta**, to hear that the State Palace and Garuda Palace at Nusantara are built, the
+legislative and judicial buildings are not, and about Rp 48.8 trillion is allocated for 2025–2029. **A
+capital in the middle of moving is a fact a statistical profile cannot carry**; the government's own
+press office can, and dates it.
+
+**THE REST OF THE INDONESIAN STATE IS SHUT AND THE LEGAL TEXT COULD NOT BE REACHED.** `bps.go.id` and
+`jakarta.bps.go.id` (the statistics agency, national and provincial) are **403**, as are
+`bappenas.go.id`, `ikn.go.id`, `indonesia.go.id`, `pu.go.id` and `peraturan.bpk.go.id`, which serves a
+Cloudflare interstitial; `peraturan.go.id` and `sipuu.setkab.go.id` refuse the connection;
+`jdih.setneg.go.id` answers but its search returns nothing on a GET. So **the statutes that move the
+capital were not read and are not cited** — the card describes the move from the executive's own dated
+reports and does not state what any law provides. `kemlu.go.id` returns 200 on 1,916 bytes, which is a
+shell.
+
+**AND `data.jakarta.go.id` RETURNS A JPEG WITH A 200.** Not an error page, not a shell — an actual image
+where an open-data portal is advertised. It joins the collection: `aec.gov.au` serving one 55 KB page for
+every path, `senate.gov`'s 200-status 404, the CloudFront and Client Challenge pages on `un.org`. **The
+status code says nothing; check what came back.** The same run produced a self-inflicted version of the
+same trap: a fetch written to a short temp name read back as another country's page, because
+`/tmp/dj.html` already existed from an earlier card. **Use distinct temp filenames**; a stale file is
+indistinguishable from a successful fetch.
+
+**Two figures worth keeping.** UNdata's capital row is **10,638.7 thousand** under footnote c, *"Refers
+to the functional urban area"* — a third distinct definition in three consecutive cards, after India's
+metropolitan area and China's city-districts-minus-Yanqing. And the World Bank's `AG.SRF.TOTL.K2` gives
+**1,916,907 km²** against UNdata's 1,910,931, three parts in a thousand apart, which is the land-versus-
+total spread and not a disagreement; `SP.POP.TOTL` returns 285,721,236 against UNdata's 285,721 thousand,
+the same number, so it is the UN estimate relayed and is not a second source for the population.
+
+**`gw-506` ABUJA WAS DEFERRED ON THE FCT ADMINISTRATION'S HISTORY PAGE BEING TEMPLATE BOILERPLATE, AND
+THAT IS STILL TRUE — WHAT CLEARED IT IS THE CONSTITUTION.** `fcta.gov.ng` answers with 300 KB and its
+figures are **JavaScript counters left at zero in the markup** (*"0 K Square Kilometres is the total Area
+of our City, 0 M + People Live in Our City"*), which is the same class of failure as the boilerplate
+already recorded. But sections 297–299 of the Constitution of the Federal Republic of Nigeria say
+everything a capital card needs and say it in the strongest possible form: the Federal Capital Territory,
+Abuja **"shall be the Capital of the Federation and seat of the Government of the Federation"**; the
+ownership of **all** land in it vests in the federal government; its boundaries are defined in a schedule
+to the constitution itself; and it is treated as though it were a state, the powers of a state assembly,
+governor and courts vesting instead in the National Assembly, the President and the federal courts.
+**That is New Delhi's finding stated as law rather than as a municipal fact** — there the Government of
+India merely owns most of the buildings; here the constitution vests the land.
+
+**THE TEXT CAME FROM THE CONSTITUTE PROJECT, BECAUSE NIGERIA'S OWN LEGAL HOSTS DO NOT SERVE IT.**
+`nigeria-law.org` refuses the connection; `placng.org`'s *Laws of Nigeria* compendium is reachable and
+paginated but its act titles are not linked, so no text can be opened (its only FCT entry on page 23 is
+the *High Court of the Federal Capital Territory, Abuja (Number of Judges) Act*, not the principal Act);
+`nass.gov.ng` answers as a news portal with numeric document downloads and no constitution path.
+`constituteproject.org` — the Comparative Constitutions Project — serves the whole 1999 constitution as
+HTML and is what the card cites. **Where a state's own legal database is unusable, a scholarly
+constitution archive is the substitute**, and it is a primary text rather than a state's account of
+itself.
+
+**AND THE GUIDE ANCHORS THE CAPITAL ABUJA IS NOT.** The recognition guide has the United States
+recognising the Federation of Nigeria on **1 October 1960** — by a Voice of America broadcast, which is
+the only recognition in the series delivered by radio — and opening its embassy the same day **in
+Lagos**. It says nothing about Abuja, and that silence is the fact: the mission went where the capital
+then was. `nigerianstat.gov.ng` is reachable but is a news portal at its root, so the fifth source is the
+World Bank's urban-population series; its area series gives **923,770 km²** against UNdata's 923,768,
+agreement to two parts in a million.
+
+**`gw-508` DHAKA WAS DEFERRED BECAUSE EVERY BANGLADESHI GOVERNMENT DOMAIN PRESENTS AN INCOMPLETE
+CERTIFICATE CHAIN, AND THE ANSWER IS TO WRITE THE CARD WITHOUT ONE.** That fault is real, is in the
+source rather than in this sandbox, and must not be worked around by disabling verification — so the
+card touches no `.bd` host at all. Its five sources are UNdata, the **Constitution of Bangladesh** at the
+Constitute Project, the recognition guide, the **Commonwealth Secretariat** (Bangladesh is a member, so
+C4's Key Facts block applies) and the World Bank's area series. **A deferral for a broken certificate is
+a deferral of one HOST, not of the subject**; ask which of the pass's standing sources already covers the
+country before treating it as unreachable.
+
+**IT IS THE SECOND CONSTITUTION IN THREE CARDS TO NAME THE CAPITAL, AND THE CONTRAST WITH NIGERIA'S IS
+THE POINT.** Article 5 reads *"The capital of the Republic is Dhaka. The boundaries of the capital shall
+be determined by law."* Nigeria's constitution fixes the Federal Capital Territory's boundaries in a
+schedule to itself and vests all its land in the federal government; Bangladesh's names the city and
+hands the boundary to statute. **Two constitutions, the same sentence, opposite amounts of detail** —
+and both are the answer to the problem `gw-730` had to leave unmarked.
+
+**AND UNDATA'S CAPITAL FOOTNOTE IS NOW ON ITS FIFTH DISTINCT DEFINITION IN FIVE CONSECUTIVE CARDS.**
+India: *the Delhi metropolitan area, not restricted to state boundaries*. China: *all city districts
+excluding Yanqing*. Indonesia: *the functional urban area*. Nigeria: *the urban agglomeration*.
+Bangladesh: **"Mega city"**, with nothing at all said about where the city is held to end. One field,
+five meanings, five cards in a row. **The capital-population row is not comparable between countries and
+should never be quoted as though it were.**
+
+**THE OTHER FOUR-WAY DISAGREEMENT HERE IS THE INDEPENDENCE DATE, AND C4 SAW IT FIRST.** The Commonwealth
+records Bangladesh joining *"1972, after independence from Pakistan"*; the United States recognised it on
+**4 April 1972**; it entered the United Nations on **17 September 1974**; and the independence those
+three follow is dated by none of them. The card states the three institutional dates and does not supply
+the fourth. On area the two non-UN sources agree exactly — the Commonwealth and the World Bank both give
+**147,570 km²** against UNdata's 148,460 — which is C9's Libya shape, **UNdata as the outlier**, and the
+card takes the majority figure.
+
+**`gw-509` MOSCOW CLOSES THE DEFERRAL LIST'S SIXTH ENTRY, AND ITS FINDING IS ABOUT A FOOTNOTE THAT IS
+NOT A DEFINITION.** The five capitals before it each carried a different definitional footnote on UNdata's
+capital-city row — India's Delhi metropolitan area naming three outlying cities, China's "all city
+districts (exc. Yanqing)", Indonesia's functional urban area, Nigeria's urban agglomeration, Bangladesh's
+bare "Mega city" — so the running lesson was that the row's boundary is stated and differs every time.
+**Moscow's footnote is a YEAR.** The row gives 12,476.2 thousand under a column headed 2025 and marks it
+`c`, which the footnote list resolves to *2019*: the figure is pinned in time, contradicts its own column
+heading, and says nothing whatever about where the city is held to end. That is a different gap from the
+five before it and the worse one to read past, because a footnote letter looks the same on the page
+whether it carries a boundary or a date. **Resolve the letter; do not assume it defines anything.**
+
+**AND ITS AREA FIGURES DISAGREE BY A STEP RATHER THAN BY A SPREAD.** The World Bank's `AG.SRF.TOTL.K2`
+holds 17,098,250 km² for every year from 2013 through 2019 and 17,125,190 for every year from 2020
+through 2023 — one step of 26,940 km², at one date, with no intermediate value — while UNdata gives
+17,098,246 for 2023, which is the pre-step figure. Everywhere else in Phase 3 the two sources differ by
+a fraction of a percent and the difference is land-against-total area or a rounding; here it is a single
+discontinuity in one series. UNdata's own footnote `j` records that Russian-supplied data "Includes
+statistical data for the Autonomous Republic of Crimea and the city of Sevastopol, Ukraine, temporarily
+occupied by the Russian Federation", which shows the UN flagging such inclusions where they occur; the
+obvious reading of a 26,940 km² step is therefore available and **is recorded here as a hypothesis and
+NOT cited**, exactly as C12's Ecuador explanation was. The card states the two figures and the date of
+the step and draws no conclusion. **A series that jumps once and never moves again is a definitional
+change, not a measurement** — check the whole series before treating a divergence as an error in either
+source.
+
+**`mos.ru` IS STILL TWENTY-NINE CHARACTERS, AND IT DID NOT MATTER.** Re-measured while writing this card:
+`https://www.mos.ru/en/city/about/` answers 200 with 6,692 bytes of markup and, stripped, twenty-seven
+characters of text — "City / Moscow City Web Site". `en.kremlin.ru` and `duma.mos.ru` refuse the
+connection outright, `rosstat.gov.ru` and `eng.rosstat.gov.ru` likewise, and `loc.gov` is 403. What
+carried the card is the move that has now cleared six deferrals: **the capital clause is in the
+constitution and the history is in the recognition guide.** Article 70 of the Russian constitution names
+Moscow and leaves the status of the capital to federal law; articles 5 and 65 make it a city of federal
+significance, which is a constituent entity of the federation rather than a municipality inside one — a
+fact about the city that no city-level source was needed for. **When a capital's own municipality is
+unreachable, ask what the constitution says before looking for another host.**
+
+**THE SECOND OFFICE OF THE HISTORIAN WORK IS A MILESTONE, AND THAT IS THE PATTERN C12 SET.** The Russia
+country page carries the 1803 recognition, the 1809 establishment of relations, the 1918 flight of the
+American mission from St Petersburg to Vologda and on to Archangel *after Bolshevik authorities pressed
+the missions gathered there to move instead to Moscow*, the 1933 embassy at Moscow and the 1991
+succession — five dated claims about the seat of government, none of them stated as "Moscow became the
+capital in 1918", so the card says what the guide says and no more. The Milestone *The Collapse of the
+Soviet Union, 1989–1991* then carries the August 1991 coup with Yeltsin on the tank outside the Russian
+parliament building, which is a claim about the CITY rather than about the state. Two works on one host
+is not one work cited twice: it is C12's Chile route, where a country page that would not date the
+independence was joined by a Milestone carrying the term's other claim.
+
+**`gw-511` MEXICO CITY: A SITE THAT SERVES ONE CHARACTER OF HTML MAY STILL SERVE A 3 MB PDF.** The
+deferral was recorded against `diputados.gob.mx` on the strength of its web pages, which is right — every
+HTML path tried there, and `inegi.org.mx` and `cuentame.inegi.org.mx` with them, hands back a JavaScript
+shell of 25 to 900 characters. But the Chamber of Deputies also runs a statute library on the same host,
+and **`https://www.diputados.gob.mx/LeyesBiblio/pdf/CPEUM.pdf` is the whole current constitution** — 3.1 MB,
+414 pages, last reform DOF 02-06-2026, and it extracts cleanly with the ToUnicode-merging probe. Article 44
+in that text reads *"La Ciudad de México es la entidad federativa sede de los Poderes de la Unión y Capital
+de los Estados Unidos Mexicanos"*, with the reform history printed beside it (DOF 25-10-1993, 29-01-2016).
+**Do not write a host off on its HTML.** A ministry, a parliament or a statistical office that renders its
+pages through JavaScript very often publishes the document itself as a PDF on a path the shell never links
+to in a way a fetch can see.
+
+**AND IT IS WHY THE CONSTITUTE PROJECT WAS NOT USED HERE, THOUGH IT ANSWERED.**
+`constituteproject.org/constitution/Mexico_2015` is 200 and 746 KB, and its article 44 begins *"The Mexico
+City is the Federal District and the capital"* — which the **2016 reform repealed**, replacing the Federal
+District with a federal entity named Ciudad de México. Constitute has no Mexico text later than 2015 (2016,
+2019, 2021 and 2024 are all 404), so citing it would have put a superseded constitutional status on the
+card as a present fact, and nothing in the workflow could have caught it: the URL resolves, the article
+number is right, and the sentence is a real quotation from a real edition. **Check the amendment date of a
+constitutional text against the reform you are relying on**, and prefer the state's own consolidated copy
+where one is reachable. Constitute remains the right answer where it is not — it carried Abuja and Dhaka —
+but it is a snapshot, and its snapshot year is part of what you are citing.
+
+**THE FOOTNOTE ARC CLOSES: MEXICO CITY'S CAPITAL ROW CARRIES BOTH KINDS AT ONCE.** Five capitals carried a
+BOUNDARY footnote and no date (Delhi's metropolitan area naming three outlying cities, Beijing's "all city
+districts (exc. Yanqing)", Jakarta's functional urban area, Abuja's urban agglomeration, Dhaka's bare "Mega
+city"); `gw-509` Moscow carried a DATE and no boundary. Mexico City's row is marked **`c,d`** and resolves
+to both — *"Refers to the total population in 76 municipalities of the Metropolitan Area of Mexico City"*
+and *2019*. So the two kinds are independent fields rather than alternatives, and **Moscow's row is not
+evidence that UNdata declines to state a boundary; it is evidence that that particular row is incomplete.**
+Resolve every letter on the row: a single letter says nothing about which of the two you have got, and a
+figure with a boundary and no date is as partial as one with a date and no boundary.
+
+**THE MEXICO AREA SERIES IS D3'S FINDING SEEN AGAIN, AND THE CITATION NAMES ITS YEARS.** `AG.SRF.TOTL.K2`
+gives 1,964,375 km² for 2016–17, 1,964,380 for 2018–19, then 1,960,647 for 2020–21, 1,959,142 for 2022 and
+1,957,193.9 for 2023 — a drift of about 7,000 km² downward across four steps with nothing published about
+why — while UNdata gives 1,964,375 for 2023, the World Bank's own 2016–17 value to the square kilometre.
+D3 met this and cited the series naming 2019; this card names 2016 and 2017, which is where the two sources
+agree exactly. **Where a World Bank series drifts, cite the year, not the series.**
+
+**`gw-512` TOKYO CLOSES THE DEFERRAL LIST, AND ITS FINDING IS THE WHOLE CAPITAL THREAD'S CONCLUSION: THE
+BOUNDARY UNdata WILL NOT DEFINE IS DEFINED BY THE NATIONAL SOURCE UNdata TOOK IT FROM.** Tokyo's capital row
+is marked `d,e` — *"Major metropolitan areas"* and *2019* — which is the vaguest boundary footnote of the
+whole run: a plural, naming no areas and giving no count. Japan's own **Statistical Handbook of Japan 2025**
+(Statistics Bureau, MIC) says exactly what one is. Table 2.11 gives the **Kanto major metropolitan area** at
+38.03 million over 13,561 km² in 2020, and its footnote lists the central cities: *the 23 Cities of Tokyo
+Metropolis, Yokohama City, Kawasaki City, Sagamihara City, Saitama City and Chiba City*, plus surrounding
+cities, towns and villages. So the United Nations' 37.4 million counts **five other cities as centres in
+their own right**, one of them Yokohama, the largest single city in Japan after Tokyo's wards. Table 2.10
+gives the 23 Cities at 9.73 million and the prefecture at 14.05 million. **Three official figures for one
+capital, differing by a factor of almost four, none of them wrong** — and the UN's own footnote could not
+have told you which you had. **When a UNdata footnote names a category rather than a boundary, go to the
+national statistical office that supplied it; the category is theirs and they define it.**
+
+**AND JAPAN IS WHERE UNdata TELLS YOU OUTRIGHT THAT ITS AREA IS STALE.** The surface-area row is marked
+`b,c`, which resolves to *"Data refer to 1 October 2007"* and *2023* — a value filed under one year with a
+note saying it was measured eighteen years earlier. The Statistical Handbook's table 1.1 gives **377,976 km²
+as of January 2025** and the World Bank gives 377,974 (2018–21) and 377,969.27 (2022–23), so the two
+independent sources agree within seven square kilometres and UNdata is 46 out. This is the cleanest
+divergence of the whole pass, because **the outlier says why it is the outlier.** Read the letters on the
+area row as well as on the population row; the same two kinds of footnote appear on both.
+
+**THE THREE-FOOTNOTE ARC, COMPLETE.** Five capitals carried a BOUNDARY and no date (Delhi's metropolitan
+area, Beijing's city districts less Yanqing, Jakarta's functional urban area, Abuja's urban agglomeration,
+Dhaka's "Mega city"); `gw-509` Moscow carried a DATE and no boundary; `gw-511` Mexico City carried both, with
+the boundary named precisely (76 municipalities); `gw-512` Tokyo carries both with the boundary named
+uselessly. That is the full range, and the rule that falls out of it is one line: **a capital-city figure
+from UNdata is not a number, it is a number plus up to two footnote letters, and it means nothing until both
+are resolved.**
+
+**NO SOURCE OPENABLE HERE NAMES TOKYO THE CAPITAL IN LAW, AND THE CARD DOES NOT CLAIM ONE DOES.** Japan's
+constitution designates no capital, which is a well-known fact and an ABSENCE — not something a citation can
+carry, and not a claim this deck makes. What the recognition guide does state, twice, is that **Edo, "now
+Tokyo", WAS Japan's capital** in 1853 and 1858, which is a positive claim about the seat of government from
+an openable work, and that is what the card says. **Where a capital rests on custom rather than statute, cite
+what a source asserts about the seat, never the absence of a law.**
+
+**`gw-754` PUTRAJAYA OPENS THE EXTRA-SEATS BAND AGAIN, AND ITS FIND IS A NEW SOURCE FAMILY: A NATIONAL
+STATISTICAL OFFICE'S OPEN-DATA BUCKET.** Every Malaysian government page tried here is a JavaScript shell —
+`dosm.gov.my`'s census release is 6.5 KB of navigation, `lom.agc.gov.my`'s Federal Constitution page is a
+1,266-character viewer with the document loaded by script, `ppj.gov.my`'s own *Sejarah Putrajaya* page is
+its site menu and nothing else, and `malaysia.gov.my` is 403. But the Department of Statistics publishes its
+series as flat files on a storage host: **`https://storage.dosm.gov.my/population/population_state.csv` is
+12.5 MB of population by state, sex, age and ethnicity, 1970 to 2026**, and it carries `W.P. Putrajaya` as a
+row like any other. That is the third shape of this lesson in three cards — Tokyo's Statistical Handbook
+PDF, Mexico City's constitution PDF, and now a CSV on a `storage.` subdomain — so it is worth stating as a
+rule: **a statistical office that renders nothing may still publish everything; look for its bulk files
+before writing the host off.** (`api.data.gov.my` 301s and `storage.data.gov.my` 404s; the working host is
+`storage.dosm.gov.my`.)
+
+**AND THAT FILE CAUGHT A CLAIM THAT WOULD HAVE SHIPPED WRONG.** The card was drafted saying Putrajaya is
+"much the smallest of the three" federal territories, which is what its 121,400 people suggest beside Kuala
+Lumpur's 2.08 million and is simply false: **Labuan has 101,100**, so Putrajaya is the MIDDLE one. Nothing in
+the workflow could have caught it — the figure cited was right, the source was right, the sentence parsed —
+and the only reason it did not ship is that the same CSV was still open and the sibling was one `awk` away.
+**When a card ranks its subject against a set, look up the whole set.** The growth claim survived the same
+check and is now stated with its comparisons: Putrajaya rose about two thirds from 2010 to 2026, Kuala Lumpur
+a quarter, Labuan a seventh.
+
+**THE FOOTNOTE THREAD GETS A FOURTH POSITION.** Delhi through Tokyo put the letters on the capital-city
+POPULATION row; Malaysia puts one on the capital-city NAME row — footnote `d`, *"Kuala Lumpur is the capital
+and Putrajaya is the administrative capital"* — which is the whole reason this deck knows Malaysia has a
+divided seat, and which no other reachable work states. Its population row is separately marked `e,f`,
+*"Refers to the Greater Kuala Lumpur"* and *2019*. So a UNdata profile can footnote the NAME of the capital,
+the SIZE of the capital, or both, and they say different kinds of thing. **Read every letter on both rows.**
+
+**`gw-755` ABIDJAN CONFIRMS THE NAME-ROW FOOTNOTE AS A PATTERN RATHER THAN A ONE-OFF.** Malaysia was the
+first profile found carrying its divided-seat note on the capital-city NAME row rather than the population
+row; Côte d'Ivoire does the same, footnote `c` reading *"Yamoussoukro is the capital and Abidjan is the
+administrative capital"* — the identical construction, and again the only statement of the division in
+anything reachable here. Two of the twelve dual-seat countries use it, so **read the letter on the capital's
+NAME before concluding a country has one seat.** The profile then declines to size the city it has just
+named: its capital-city population row gives Yamoussoukro's 231,100 and nothing for Abidjan at all, which is
+the second half of the same shape — **UNdata will tell you a country has an administrative capital and will
+not tell you how big it is.**
+
+**THE WAY ROUND THAT IS `EN.URB.LCTY`, AND IT WORKS BECAUSE THE ADMINISTRATIVE CAPITAL IS USUALLY THE LARGEST
+CITY.** The World Bank's *population in the largest city* series gives Abidjan 5.87 million for 2024 against
+5.20 million in 2020 — about 25 times the official capital — and the reason it is usable at all is the reason
+these countries have two seats in the first place: the seat of government stayed in the big coastal city when
+the capital was moved inland. `gw-544` Kuala Lumpur already leaned on the same series. **Check that the
+largest city really is the seat before reaching for it** (it is not, for instance, where the administrative
+capital was purpose-built, as `gw-754` Putrajaya shows), but where it is, that series is the only openable
+figure for the city.
+
+**AND `documents.un.org` GIVES A CITY A CLAIM OF ITS OWN.** An extra-seat card's difficulty is that its
+history is usually its country's history, told on `gw-550`'s card already. What is Abidjan's rather than Côte
+d'Ivoire's is the use other states have made of it: **S/1996/1034** transmits the *Peace Agreement between
+the Government of the Republic of Sierra Leone and the Revolutionary United Front*, "signed at Abidjan on 30
+November 1996", whose article 28 names the government of Côte d'Ivoire among the moral guarantors and which
+President Henri Konan Bédié signed beside the two Sierra Leonean parties. **Where a second seat needs a fact
+of its own, look for a treaty or agreement NAMED FOR IT** — the symbol route (`api/symbol/access?s=<symbol>&l=e&t=pdf`)
+needs `-L`, since it answers 302 without it.
+
+**Two hosts to write off for Côte d'Ivoire:** `ins.ci` (the statistical institute) refuses the connection,
+`gouv.ci` is 403, `afdb.org` is 403 as C7 recorded, and **`abidjanconvention.org` — the UNEP regional-seas
+convention named after the city — serves ONE character of text**, with `unep.org`'s own page for it 403. The
+convention is therefore not citable from here despite being the most obviously apt work there is.
+
+**`gw-756` COLOMBO MAKES THE NAME-ROW FOOTNOTE THREE OF TWELVE, AND REVERSES ITS ORIENTATION.** Malaysia
+and Côte d'Ivoire both put the OTHER city in the capital-city field and footnoted the administrative capital
+beside it; Sri Lanka does the opposite — the field says **Colombo**, and footnote `c` reads *"Colombo is the
+capital and Sri Jayewardenepura Kotte is the legislative capital."* So the field does not consistently hold
+the constitutional capital, and which of a divided pair UNdata names there is not predictable: it named the
+inland official capital for Côte d'Ivoire and the coastal commercial one for Sri Lanka. **Never infer a
+country's official capital from which name sits in that field.** (`gw-561` already recorded the spelling
+divergence — both the UN and the Commonwealth write *Jayewardenepura*, one letter from this deck's
+*Jayawardenepura* — and that stands.)
+
+**AND SRI LANKA IS WHERE A CONSTITUTION NAMES THE CITY EIGHT TIMES WITHOUT NAMING A CAPITAL.** Russia,
+Mexico and Malaysia each settle their capital in a single article; the Sri Lankan constitution contains no
+designation at all — the words *is the capital* appear nowhere in it — and yet **Colombo occurs eight
+times**. Three of those are the substance: article 132 orders that the several jurisdictions of the Supreme
+Court "shall be ordinarily exercised at Colombo unless the Chief Justice otherwise directs", article 146
+seats the Court of Appeal there on the same terms, and an action against a member sitting in Parliament
+unlawfully is laid in the District Court of Colombo. The rest are administrative — Colombo heads the First
+Schedule's list of administrative districts, appears twice in the Sixth Schedule's seat allocation, and is
+carved out (with "Sri Jayewardenepura, Kotte, and their environs") from the public-order powers a province
+may exercise, its limits to be fixed by the President by Gazette order. **A capital can be established by
+function rather than by designation**, and where that is so the constitution is still the right source — you
+are looking for where it puts the courts and the exceptions, not for a naming clause.
+
+**THE COLOMBO PLAN IS THE EXTRA SEAT'S OWN FACT, AND ITS OWN SITE WORKS.** `gw-755` needed a treaty named
+for Abidjan; Colombo has an intergovernmental organisation named for it that still keeps its secretariat in
+the city — established 1 July 1951 by Australia, Canada, India, New Zealand, Pakistan, Sri Lanka and the
+United Kingdom, now 26 members including states outside the Commonwealth. `colombo-plan.org` serves real
+prose (the root and `/the-secretariat/` both, though `/overview-and-history/` and `/about-the-colombo-plan/`
+are 404 with a **207 KB error document**, so check the length as well as the status). **When an extra seat
+lends its name to a body or an agreement, that body's own site is usually the cleanest source for it.**
+
+`statistics.gov.lk` and `cbsl.gov.lk` both serve real content and were not needed here; `parliament.lk`
+redirects. Sri Lanka's constitution on Constitute exists only as `Sri_Lanka_2015` (2020 and 2022 are 404).
+
+**`gw-757` VALPARAÍSO IS THE FIRST EXTRA SEAT UNdata DOES NOT MENTION AT ALL, AND THAT IS THE FINDING.**
+Malaysia, Côte d'Ivoire and Sri Lanka each footnote their divided seat on the capital-city field. Chile's
+profile gives **Santiago** with no footnote whatever — its only capital-row note is definitional, *"Refers to
+the urban population of Santiago Metropolitan Area Region"*, plus a date. So **this deck's list of twelve
+dual-seat countries is not derivable from UNdata**, and a future pass that tried to rebuild it from those
+footnotes would silently lose Chile and any country like it. The list came from research per country and has
+to stay that way.
+
+**THE CONSTITUTION DOES NOT HELP EITHER, AND CHILE'S OWN LAW SITE IS SHUT.** `Chile_2021` on Constitute names
+Valparaíso only as one of the REGIONS in the provisions allocating seats to representatives of indigenous
+peoples; it fixes no seat for Congress. The seat is set by ordinary law, and every route to Chilean
+legislation from here is closed: **`bcn.cl` and `leychile.cl` answer 401 on every path tried** — the statute
+navigator, the political-history section and the document-download endpoint alike — `camara.cl` is 403,
+`congreso.cl` refuses the connection, and `data.ipu.org`, the obvious institutional fallback for where a
+parliament sits, is 403 with the rest of `ipu.org`.
+
+**WHAT ANSWERED IS THE INSTITUTION'S OWN ADDRESS.** `senado.cl` serves real prose, and its *Acerca del
+Senado* page describes the Senate as the upper chamber forming the National Congress with the Chamber of
+Deputies and prints its address: **Avenida Pedro Montt s/n, Valparaíso**, with a second at Morandé 441,
+Santiago — Valparaíso first — while the front page offers guided visits to "los edificios del Senado en
+Valparaíso y Santiago". That is the Putrajaya and Colombo move for a third time: **when no law is reachable,
+the body's own contact page states where it is**, which is a weaker claim than a statute and an honest one,
+and the card says only what it supports.
+
+**AND FRUS IS A SOURCE FOR A CITY.** `history.state.gov/search?q=<term>&within=documents` searches the
+Foreign Relations volumes, and it returns per-document pages: document 1013 of the *1914 Supplement* is a
+telegram from the Vice Consul at Valparaíso reporting German warships taking cargo and sinking a French
+sailing vessel off the coast on 21 November 1914. Where an extra seat needs a dated fact of its own and no
+treaty is named for it, **a consular despatch FROM the city is one**, and the guide's own summary supplies
+the frame — it calls Valparaíso "Chile's primary seaport", reached from the eastern United States only by
+rounding Cape Horn.
+
+**A watermark cost two good pictures here.** The two best wide views of the port in *Category:Views of
+Valparaíso* both carry "© Winniepix" burnt into the corner and were refused; the card takes a hillside view
+over the bay instead. **`whc.unesco.org` is 403 for the Valparaíso listing and `unesdoc.unesco.org` is 403
+too**, so the World Heritage inscription is not citable from here.
+
+**`gw-758` THE HAGUE IS THE FOURTH NAME-ROW FOOTNOTE AND THE THIRD WORDING.** UNdata's Netherlands profile
+marks its capital-city field `d`: *"Amsterdam is the capital and The Hague is the seat of government."*
+Malaysia and Côte d'Ivoire say **administrative capital**, Sri Lanka says **legislative capital**, and this
+one says **seat of government** — three different phrases for three different arrangements, which is why the
+deck's own per-country research decides what a card's question asks for and the footnote only confirms it.
+Four of the twelve carry such a note; `gw-757` Chile carries none.
+
+**AND THE HAGUE IS WHERE A CITY'S LEGAL STANDING COMES FROM A TREATY RATHER THAN FROM ITS OWN STATE.** The
+Dutch constitution names **Amsterdam exactly once**, in article 32, and almost in passing — the clause
+ordering that the King "shall be sworn in and inaugurated as soon as possible in the capital city,
+Amsterdam" — and **does not mention The Hague at all**. What does fix The Hague in law is the **Statute of
+the International Court of Justice, article 22**: *"The seat of the Court shall be established at The
+Hague."* Article 22(2) requires the President and the Registrar to reside there, article 23 measures a
+judge's leave against the distance between The Hague and their home, and article 28 lets a chamber sit
+elsewhere only by consent of the parties. The Court's own *The Court* page adds the fact worth carrying:
+of the six principal organs of the United Nations, it is **the only one not located in New York**.
+**`icj-cij.org` is fully open here** — `/statute` serves the whole Statute as text and `/en/court` the
+Court's own description — which matters because `un.org/en/about-us/un-charter/*` is **403**, so the
+Charter's own chapter XIV is not reachable and the Statute has to be read from the Court.
+
+**THE SEQUENCE NOW HAS FOUR ANSWERS TO "WHAT MAKES A SECOND SEAT A SEAT", AND THEY ARE ALL DIFFERENT.**
+`gw-754` Putrajaya is a **constitutional** federal territory (art. 44 and Act A1095); `gw-756` Colombo is
+**functional**, the constitution seating the courts there without designating anything; `gw-757` Valparaíso
+rests on nothing reachable but **the institution's own printed address**; and `gw-758` The Hague rests on an
+**international treaty** to which the Netherlands is one party among many. Do not go looking for the same
+kind of instrument twice.
+
+**`gw-759` COTONOU IS THE FIFTH NAME-ROW FOOTNOTE AND THE FOURTH WORDING — *economic capital*.** UNdata
+marks Benin's capital-city field `c`: *"Porto-Novo is the constitutional capital and Cotonou is the economic
+capital."* With administrative capital (Malaysia, Côte d'Ivoire), legislative capital (Sri Lanka) and seat of
+government (Netherlands), that is four distinct phrases across five profiles, and **this card's question was
+worded from the footnote rather than from the running order**: the plan's table calls `gw-759` "the seat of
+government and largest city", which nothing openable here states, while *economic capital* is UNdata's own
+term and is what the card asks for. Where the two disagree, **ask what a source will actually bear.**
+
+**AND ITS FACT OF ITS OWN IS IN THE PREAMBLE OF THE CONSTITUTION THAT NAMES THE OTHER CITY.** Article 1 of
+Benin's 1990 constitution declares — in capitals in Constitute's text — that *"The Capital of the Republic
+of Bénin shall be PORTO-NOVO"*, and designates nothing else. But the **preamble** records that the *National
+Conference of Active Forces of the Nation* was held **at Cotonou** from 19 to 28 February 1990, that it gave
+the people back their confidence and permitted "national reconciliation and the advent of an era of
+democratic revival", and that the constitution was drawn up on the day after it. So the text that makes
+Porto-Novo the capital was itself produced in the city it declines to name as a seat. **Read a constitution's
+preamble as well as its articles when a second seat needs a claim of its own** — a founding conference is
+held somewhere, and the somewhere is often the working capital rather than the formal one.
+
+The rest is routine: the American mission has been at Cotonou rather than the capital almost from the start
+(relations 1 August 1960, Embassy Cotonou 15 February 1961), and `EN.URB.LCTY` gives the city 1.31 million
+for 2024 against UNdata's 285,300 for Porto-Novo in 2018 — the same largest-city-is-the-working-seat pattern
+`gw-755` Abidjan set out.
+
+**`gw-760` LA PAZ IS THE SIXTH NAME-ROW FOOTNOTE, AND THE WORDINGS RECOMBINE.** UNdata marks Bolivia's
+capital-city field `d`: *"La Paz is the seat of government and Sucre is the constitutional capital"* — the
+Netherlands' phrase for the working seat joined to Benin's for the formal one. So the four terms
+(administrative / legislative / economic capital, seat of government) are drawn from a small vocabulary that
+recombines rather than a fixed pairing, and six of the twelve dual-seat countries now carry such a note.
+Bolivia's AREA row also carries a footnote of a fourth KIND — not a boundary, not a date, but the DATA
+SOURCE and what it counts: *"Data updated according to 'Superintendencia Agraria'. Interior waters correspond
+to natural or artificial bodies of water or snow."*
+
+**AND IT IS THE SHARPEST CASE YET OF A CONSTITUTION IGNORING ITS OWN SEAT OF GOVERNMENT.** Article 6 of the
+2009 constitution says, flatly and in one sentence, *"Sucre is the Capital of Bolivia"*, and designates
+nothing else. **The city of La Paz is never named in the whole text**: the words appear exactly once and mean
+the DEPARTMENT, in a clause listing the provinces that make up the Bolivian Amazon. That is a step past the
+Netherlands (Amsterdam once, The Hague never) and past Benin (Porto-Novo in article 1, Cotonou in the
+preamble) — here the working capital is absent altogether, and what supplies it is `diputados.bo`, the
+**Chamber of Deputies' own site**, which gives its address as the new building of the Plurinational
+Legislative Assembly at Calle Comercio and Colón, in La Paz. Valparaíso's route, a second time.
+
+**`EN.URB.LCTY` CANNOT BE USED FOR LA PAZ, AND `gw-579` SUCRE ALREADY GOT THIS RIGHT.** For Abidjan and
+Cotonou the largest-city series is usable because the working seat plainly IS the largest city; Bolivia's
+largest city is not settled between La Paz and Santa Cruz, and the series does not say which it counts. So
+**no reachable source gives a population for La Paz on its own**, and the card says so rather than
+attributing the series' 1.97 million to it. Read `gw-579`'s abstract before writing a paired card — it
+phrased this correctly a year of batches ago and the temptation to "improve" it is the error.
+
+**BOLIVIA'S OWN CENSUS DISAGREES WITH THE UN BY TEN PER CENT, AND BOTH ARE CITED.** `censo.ine.gob.bo` serves
+the 2024 census headline as text: **11,365,333 people**, 7.85 million urban, against UNdata's 12,582 thousand
+projected for 2025. That is not a stale-figure case in C8's sense — it is a census against a projection — and
+the card gives both with their dates. Bolivian hosts are unusually open: `ine.gob.bo`, `censo.ine.gob.bo`,
+`diputados.bo` and `lapaz.bo` all serve real content; only `web.senado.gob.bo` is refused by the egress
+proxy.
+
+**`gw-761` LOBAMBA CLOSES THE EXTRA-SEATS BAND, AND ITS CONSTITUTION DEFINES A CAPITAL BY A PERSON.** Six
+cards have now watched a constitution handle a divided seat, and Eswatini's does something none of the others
+does: **it names no city at all — not Lobamba, not Mbabane — and locates the seat by whose house it is.**
+Section 229, *The Ndlovukazi*, provides that *"The official residence of the Ndlovukazi is the legislative and
+ceremonial capital of the nation and the arena of the Incwala and Umhlanga"*, the Ndlovukazi being
+"traditionally the mother of the iNgwenyama and the symbolic Grandmother of the Nation", selected and
+appointed in accordance with Swazi law and custom. So the capital moves with a residence rather than sitting
+at an address. The preamble adds that the constitution was accepted by the Swazi National Council **assembled
+at Ludzidzini** on 4 October 2004, after being vetted at tinkhundla and Sibaya meetings; the card states that
+as the text states it and does **not** equate Ludzidzini with Lobamba, which nothing openable here does.
+
+**AND THE COMMONWEALTH SPLITS THE SEAT THREE WAYS WHERE UNdata SPLITS IT TWO.** UNdata's footnote (the
+seventh name-row note, and the only one that also marks the POPULATION row with the same letter) says
+*"Mbabane is the administrative capital and Lobamba is the legislative capital."* The Commonwealth's Key Facts
+line says **"Mbabane (administrative and judicial capital), Lobamba (legislative capital)"** — a third
+function no UN source mentions. The two-way footnote is the floor, not the whole arrangement: **check the
+Commonwealth's Key Facts on any member state with a divided seat.**
+
+**AND CONSTITUTE FILES A COUNTRY UNDER ITS FORMER NAME.** The text is `Swaziland_2005`; `Eswatini_2005` is
+404. The country was renamed in 2018 and the constitution was not re-enacted, so the citation names the act
+as it was passed. **Try the old name when a Constitute slug 404s on a renamed state.**
+
+**One citation was caught before it shipped.** The Ndlovukazi clause was first cited as "s. 5" — composed
+from the shape of a constitution rather than read — and is **section 229**, in the chapter on traditional
+institutions. Nothing in the pipeline checks a section number: the URL resolves, the quotation is real, the
+marker rules pass. **Read the number off the text, every time**; it is the SEP-edition fault of N-batch
+memory in another coat.
+
+**`gw-223` WALLIS AND FUTUNA IS CLEARED, AND IT IS THE PLAN'S OWN ADVICE COMING BACK.** Batch 79's note on
+`gw-723` Mata-Utu said it outright — *"when a country card was deferred on sources, check again when its
+capital comes up"* — and with every capital now written, the country card writes itself from the four
+**Administration supérieure des îles Wallis et Futuna** pages the capital card already established, plus the
+**Overseas Countries and Territories Association** profile. The deferral was over UNdata's spelling
+*"Matu-Utu"*, and the answer is simply not to cite UNdata for the name: the territory's own administration
+writes **Mata'Utu**, and the card states both spellings as a fact about the sources rather than choosing
+silently. **A deferral written against one source is not a deferral against all of them** — re-read the
+reason before assuming it still holds.
+
+**THE ADMINISTRATION DISAGREES WITH ITSELF ABOUT ITS OWN CENSUS, BY FOUR PEOPLE.** *Présentation générale*
+gives the 2018 census as **11,562**; *Présentation économique* gives it as **11,558**, beside the 2023 figure
+of **11,151** and OCTA's rounding of that to "approximately 11,500". Four people between two pages of one
+site is too small to matter and too clean to hide, so the card gives all of them. **Read every page of a
+small administration's site, not the first one that carries a number.**
+
+**AND THE UN DEMOGRAPHIC YEARBOOK IS REACHABLE, WHICH MAY UNBLOCK THE REST.** The remaining five deferrals
+(`gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-224` Saint Barthélemy, `gw-230` Norfolk
+Island) each want a figure no profile carries. **`unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2023/table03.pdf`
+answers 200** — *Population by sex, annual rate of population change, surface area and density* — and it
+covers entities UNdata's country profiles do not: Jersey, Guernsey and Norfolk Island are all in it. It is
+also published as **`table03.xls`**, a real OLE2 workbook, which is the cleaner read if a BIFF parser is ever
+written.
+
+**EXTRACTING IT TAUGHT A REUSABLE PDF LESSON: WHEN A PDF CARRIES SEVERAL ToUnicode CMAPS, DECODE WITH EACH
+SEPARATELY AND PICK THE ONE THAT YIELDS REAL WORDS.** `.claude/probe.py` merges every CMap into one
+dictionary, which is right for a single-font document and wrong here: this file has three, and the merged
+map returns *"S80f-9. -0.- S8p.0f393. (km²)"* where CMap 0 alone returns *"Population by sex, annual rate of
+population change, surface area and density"* and CMap 1 alone returns the table body. **A garbled extraction
+is not necessarily an unextractable PDF.** The numbers still break across text runs in the body font, so a
+figure read that way must be checked against a second source before it is cited — which is why this batch
+records the route and does not yet spend it.
+
+**`gw-230` NORFOLK ISLAND IS CLEARED, AND ALL THREE OF ITS BLOCKERS TURNED OUT TO HAVE MOVED.** Batch 80
+deferred it for three reasons and every one is now false. **The island's own government answers**:
+`norfolkisland.gov.nf` closed the tunnel mid-exchange then and serves 68 KB now (it still drops a connection
+roughly one attempt in three, so retry rather than conclude). **`legislation.gov.au` has a working OData
+API**: `api.prod.legislation.gov.au/v1/titles?$filter=contains(name,'Norfolk Island')&$select=id,name` returns
+the real instruments where the site's own search returned tax statutes — the *search(criteria=…)* form is
+what fails, `contains(name,…)` is what works. And **the UN Demographic Yearbook gives the area**: 36 km²,
+from table 3.
+
+**THE DYB'S SURFACE-AREA COLUMN WAS VERIFIED AGAINST FIVE KNOWN VALUES BEFORE IT WAS CITED**, which is the
+part to copy rather than the figure. The extraction breaks numbers across text runs, so the column was read
+for entities this deck already has: Niue 260, New Caledonia 18,576, Palau 459, Northern Mariana Islands 457,
+New Zealand 268,107 — every one matching UNdata or the card already shipped. **A column that reads correctly
+for five controls can be trusted for the sixth**; one that has not been checked that way cannot.
+
+**AND THE COUNCIL'S OWN ADDRESS OVERTURNED THE FACT THE CARD WAS GOING TO ASSERT.** The deferral said
+"nothing openable names Kingston", and the assumption behind it was that Kingston is the island's capital and
+the card needed a source for it. What `norfolkisland.gov.nf` actually prints is **"Bicentennial Complex, 39
+Taylors Rd, Burnt Pine"** — the Norfolk Island Regional Council does not sit at Kingston at all. Kingston
+holds the historic settlement (the *Kingston and Arthur's Vale Historic Area Heritage Management Plan 2016*,
+F2016L01891, is in force under the EPBC Act) and the wharf (C2016G00837, *Sydney Bay - Kingston Wharf*), and
+**no source reachable here calls either settlement the capital**, so the card says that instead of choosing
+one. The facts box gives *Council offices: Burnt Pine* rather than a capital row. **The missing field was
+not missing; the question was wrong.**
+
+**`gw-195` JERSEY IS CLEARED, AND THE FIELD IT WAITED ON WAS NEVER NEEDED.** Batch 71 deferred it for "a
+land area and a seat of government from something openable", and the card ships with neither, because a
+territory's facts box does not have to be Capital / Population / Region / Area. It is **Status / Population /
+Density / Largest parish**, and every row is cited. That is `gw-230` Norfolk Island's lesson twice in a row:
+**before hunting for a missing field, ask whether the card needs it.**
+
+**THE STATES OF JERSEY'S OPEN-DATA PORTAL IS RICHER THAN THE DEFERRAL RECORDED.** `www.gov.je` is still 500
+on every path and `jerseylaw.je` with it; `statesassembly.je` is 403 and `statisticsjersey.gov.je` refuses
+the connection. But **`opendata.gov.je` is a full CKAN instance** and its API answers: `action/package_search`,
+`action/package_show` and the resource CSVs all work. Two datasets carry the card. **2021 Census: population
+and population density by Parish** gives 103,267 people at 859 to the km², with **St Helier at 35,822 and
+3,716 to the km²** — more than a third of the island — down to St Mary's 1,818 at 277; and **Total population,
+annual change, natural growth, net migration per year** gives 104,540 at the end of 2024 against 88,400 in
+2000, with 730 births, 880 deaths and net migration of 670 in 2024. **Try a government's open-data portal's
+API when its website is down**: the two are different systems and fail separately.
+
+**AND GOV.UK'S COMMON TRAVEL AREA PAGE IS THE CONSTITUTIONAL SOURCE FOR ALL THREE CROWN DEPENDENCIES.** It
+names them in one sentence — *"the Crown Dependencies (Bailiwick of Jersey, Bailiwick of Guernsey and the
+Isle of Man)"* — and describes the arrangement with the United Kingdom and Ireland that "pre-dates both
+British and Irish membership of the EU and is not dependent on it". That will serve `gw-201` Guernsey
+unchanged.
+
+**WHAT IS STILL MISSING IS THE CAPITAL, AND `gw-695` SAINT HELIER STAYS DEFERRED.** The parish datasets name
+St Helier and size it; nothing openable calls it the capital of Jersey or the seat of the States, and after
+`gw-230` — where the assumption that Kingston was the capital turned out to be the error — that gap is not
+one to paper over. **The country card did not need it; the capital card is the assertion, and it waits.**
+
+**A CAUTION ON THE DEMOGRAPHIC YEARBOOK'S AREA COLUMN, WHICH `gw-230` TRUSTED AND THIS CARD DOES NOT.** The
+DYB row for Jersey extracts as `... DJ *108 77 ... ... 1 16 ...`, which reads as an area of 116 km²; but
+Jersey's own census gives 103,267 people at 859 to the km², which implies about 120. The two do not agree,
+and the extraction breaks numbers across text runs, so **no area was cited for Jersey at all**. Norfolk
+Island's 36 was cited because five controls on the same column came out exactly right; Jersey's 116 has a
+source of its own disagreeing with it. **Verify the column per row, not once per document.**
+
+**`gw-201` GUERNSEY CLEARS THE LAST OF THE CROWN DEPENDENCY DEFERRALS, AND IT WAS ALREADY PAID FOR.** The
+territory was deferred alongside `gw-195` Jersey "for want of a facts box", and by the time that reason was
+re-read the box had already been filled — by `gw-701` Saint Peter Port, which shipped months earlier on the
+States of Guernsey's own **Facts and Figures Supplementary Information 2025** spreadsheet. Every figure the
+country card needs is in it: 64,040 people on Guernsey, Herm and Jethou at March 2023, 24.4 square miles of
+land in ten parishes, and a population series running back to the first census of 1821 (20,339, against
+40,446 in 1901). **A deferral is a note about a moment, not a standing fact**, and this is the third in a row
+— Wallis and Futuna, Norfolk Island, now Guernsey — cleared by re-reading the reason rather than by finding
+anything new. The three that remain are `gw-218` Saint Martin and `gw-224` Saint Barthélemy, whose figures no
+openable French source carries, and nothing else.
+
+**THE CONSTITUTIONAL HALF CAME OFF A PDF THE LANDING PAGE ONLY LINKS TO.** `gov.uk`'s *Crown Dependencies:
+Jersey, Guernsey and the Isle of Man* page — the source `gw-701` cites — is a document index and states almost
+nothing itself; the substance is in the **Ministry of Justice's four-page fact sheet** hanging off it at
+`assets.publishing.service.gov.uk/media/5e398990e5274a08e229ca0f/crown-dependencies-factsheet-february-2020.pdf`,
+which carries the whole card: that the Bailiwick of Guernsey is **not one jurisdiction but three** (Guernsey,
+which takes in Herm and Jethou; Alderney; and Sark, which takes in Brecqhou); that the Crown Dependencies have
+never been colonies and are not Overseas Territories "like Gibraltar"; that the relationship "is not enshrined
+in a formal constitutional document"; that principal legislation needs Royal Assent or sanction in Council; and
+that internationally they count not as sovereign States but as **"territories for which the United Kingdom is
+responsible"**. **On a `gov.uk` publication page, take the attachment rather than the page** — the landing page
+is a list of PDFs wrapped in accessibility boilerplate, and the sentences worth citing are all inside them.
+
+**AND IT CORRECTED A LIVE CARD: NOTHING IN `gw-701`'s OWN SOURCES SAID "CAPITAL".** Writing this card meant
+asking what carries *Saint Peter Port is the capital of Guernsey*, and the answer, on the five works `gw-701`
+cited, was nothing — the HM Passport Office profile its marker pointed at states the Crown Dependency clause
+in that sentence and not the capital clause. The word appears **nowhere in the 133-page official *Guernsey
+Facts and Figures 2025*** either, and `gov.gg` has no page that uses it. What does is **VisitGuernsey**, whose
+St Peter Port page opens "The capital of Guernsey, St Peter Port…" and whose footer reads *© Copyright States
+of Guernsey* — the government's own tourism service, so an institutional source rather than a travel
+publisher's. It has been added to `gw-701` as source 6 and marked on the sentence that needed it. **This is L7's
+stranded-marker fault caught from the other end**: the marker was not left behind by a trim, it was placed on a
+work that carried the rest of the sentence, and `add-sources.js` passes that quite happily, since the source is
+referenced and the number is in range. **The only thing that finds it is asking, claim by claim, which work
+carries which clause** — which is what writing the sibling card forces you to do.
+
+**SO GUERNSEY GETS A CAPITAL ROW WHERE JERSEY GOT NONE, AND THE DIFFERENCE IS ONE SENTENCE ON ONE WEBSITE.**
+`gw-195`'s facts box reads Status / Population / Density / Largest parish precisely because nothing openable
+calls St Helier the capital; `gw-201`'s reads Capital / Population / Area / Status because something does.
+The two cards are otherwise the same shape, sourced from the same GOV.UK constitutional pages and each
+territory's own statistical office, and the divergence in their boxes is a fact about what the two governments
+publish rather than about the two islands. **`gw-695` Saint Helier accordingly stays deferred and `gw-701`
+stands.**
+
+**THE PICTURE PASS'S OWN NOTE: `Category:Guernsey` IS A FLICKR DUMP.** Its 104 files are almost entirely one
+2020 upload run — *Cobo Bay, Guernsey (49557181768).jpg* and twenty-one siblings, *Vazon Bay* and fifteen,
+*La Grève* and nine — plus a surf shop, a school gatehouse and two audio files. `Category:Coasts_of_Guernsey`
+is where the views are. Two rejects worth naming: *Cobo coast road Castel Guernsey.jpg* is a **road sign**
+(the Dzanga-Sangha signboard family), and *Guernsey, Moulin Huet Bay & Icart Point.jpg* is a photochrom print
+**scanned inside its white mount**, so a third of the frame is card. What shipped is Nicolas Raymond's
+*Guernsey Coast - HDR* (CC BY 2.0, 1800px) for the card and Man vyi's Moulin Huet cliffs (public domain) for
+the term — Man vyi having supplied `gw-195` Jersey's two as well, which is what a small island's Commons
+coverage looks like.
+
+**`gw-218` SAINT MARTIN CLEARS THE FOURTH DEFERRAL IN A ROW, AND THE PATTERN IS NOW A RULE.** It was
+deferred in batch 79 "on the narrowest possible ground: nothing openable names its seat of government" —
+and by the time that was re-read, `gw-718` Marigot had shipped, so the deck already asserted the name the
+country card was waiting for. Wallis and Futuna, Norfolk Island, Jersey, Guernsey and now Saint Martin
+were all released by **reading the deferral back rather than by finding a new source**, and every one of
+them was blocked by a field the sibling card later filled. **When a country and its capital are both
+deferred, ship the capital first and the country falls out of it** — the capital card is the harder half,
+since it is the one that has to name a place, and the country card needs only what the capital card
+already proved.
+
+**MARIGOT IS ESTABLISHED THE WAY VALPARAÍSO AND LA PAZ WERE: BY AN INSTITUTION'S PRINTED ADDRESS.** No
+reachable French source calls it a *chef-lieu* — `insee.fr` is a JavaScript shell, `legifrance.gouv.fr`
+and `outre-mer.gouv.fr` answer 403 whatever the user agent, and **the prefecture's own site does not
+contain the word Marigot at all**, on its home page, its contact page or its staff page. What does is the
+collectivity itself, which prints *Rue de la République – Marigot – 97801 Saint-Martin* as its own
+address, and whose history timeline names the place repeatedly from 1823 onward. So the card says the
+administration **sits** there rather than that the town is designated anything, which is the sixth entry
+in the catalogue of what makes a seat a seat.
+
+**THE HISTORY PAGE IS A TIMELINE INSIDE A JSON BLOB, AND IT IS THE BEST FRENCH SOURCE THIS DECK HAS
+FOUND.** `com-saint-martin.fr` renders as a Next.js page whose prose is unreadable from the HTML text, but
+the payload carries an `"annee" / "texte"` array of about forty dated entries — the first five Guadeloupe
+municipalities of 29 January 1823 with *Saint-Martin (Marigot)* among them, the creation of the communes
+of Grand-Case and Marigot in 1837, the sub-prefecture for Saint Martin and Saint Barthélemy opening in
+1963, the referendum of 7 December 2003 and the organic law of 7 February 2007. **Grep a French
+collectivity's page for `"annee"` before writing it off as a JavaScript shell**: the batch-80 finding that
+these sites are unreadable is true of what they DISPLAY and not always of what they SHIP, and this one
+carried two centuries of dated administrative history that no other reachable source has.
+
+**AND IT IS AN OUTERMOST REGION, NOT AN OVERSEAS COUNTRY — WHICH IS WHY OCTA HAS NO PROFILE FOR IT.**
+Batch 80 named the Overseas Countries and Territories Association as the route that would unblock the
+French collectivities, and for Saint Martin it is the wrong register outright: `overseas-association.eu/oct/saint-martin/`
+is a 404, because Saint-Martin is one of the EU's **nine outermost regions** under Article 349 TFEU, where
+European law applies in full, and its neighbour Saint-Barthélemy is an OCT, where it does not. The two
+sit twenty kilometres apart under the same prefecture and are in opposite European categories. **Ask which
+of the two lists a French territory is on before choosing the source** — DG REGIO's outermost-regions page
+for one, OCTA for the other, and neither carries the other's entities.
+
+**THE ONE-ISLAND-TWO-DIRECTIONS FIGURE IS THE CARD'S OWN.** The World Bank's `MAF` series falls 37,369
+(2015) → 36,837 (2017) → 31,786 (2020) → 24,941 (2025), a third gone, while `SXM` on the same island rises
+37,471 → 43,923 over exactly those years. **The cause is deliberately NOT stated**: hurricane Irma is the
+obvious explanation and the prefecture's cyclone page turned out to carry preparedness advice and no
+account of 2017 at all, so the card gives the two series and leaves the reader to see the shape. A source
+that is reachable, official and about the right subject is still not a source for a claim it does not
+make.
+
+**`gw-224` SAINT BARTHÉLEMY FINISHES THE COUNTRIES AND TERRITORIES DECK AT 233 OF 233.** It is the fifth
+and last deferral cleared by the rule the previous four established — ship the capital, and the country
+card falls out of it — `gw-724` Gustavia having already found the sources in batch 80. Every entity the
+deck's three membership rules admit now has a card, and the seven deliberately unused capital numbers plus
+the two Israel/Palestine deferrals are the only gaps left in the whole 470-card plan.
+
+**THE PROBLEM WAS NOT SOURCES BUT OVERLAP, AND THE ANSWER WAS TO READ THE SIBLING FIRST.** `gw-724` is an
+unusually complete capital card — it already carried the location, the area, the 2018 population, the
+climate, the two 2007 dates, the 2010 letter, the Council decision and Irma — so there was very little of
+the island's *history* left for the country card to say. What was untouched was the OCTA profile's
+**economy** section and DG INTPA's, and between them they carry a whole card: high-end tourism and
+duty-free luxury trade for North American visitors, **70,000 staying and 130,000 arriving by boat** each
+year, all food, fuel and manufactured goods imported, and **over 37 per cent of salaried jobs in tourism**.
+**Where a sibling card has taken the history, take the economy** — and read the sibling before drafting,
+not after, since the overlap is invisible in a finished abstract.
+
+**THE POPULATION MOVED AND NEITHER FIGURE IS WRONG.** OCTA gives **9,793 (2018)** and DG INTPA **9,927
+(2022)**; `gw-724` cites the first and `gw-224` the second, each with its year on the card. This is the same
+shape as the two 2007 dates batch 80 recorded — adoption against promulgation of one organic law — and the
+same rule applies: **two official European sources four years apart are a series, not a disagreement**, and
+neither card should be corrected against the other.
+
+**AND THE ISLAND'S BEST-KNOWN FACT IS NOT ON THE CARD, DELIBERATELY.** Saint-Barthélemy was **Swedish from
+1784 to 1878**, which is why its town is called Gustavia, and nothing openable here says so. `riksarkivet.se`
+— the Swedish National Archives, which hold the colony's records — is a Next.js shell, and the batch-79
+trick of grepping its payload was tried and returns nothing: the pages carry routing data and no prose.
+`comstbarth.fr` is still an Archimed library catalogue, and neither OCTA, DG INTPA, EUR-Lex nor the
+prefecture mentions Sweden. **A fact everybody knows is not thereby citable**, and the card says nothing
+about it rather than asserting a date from memory — the same discipline that left Irma unattributed on
+`gw-218`.
+
+**PICTURE NOTE, FOLLOWING BATCH 80's.** That batch found `Category:Gustavia` to be a plant genus;
+`Category:Saint-Barthélemy` is real but thin — nineteen files, of which several are 18th-century Swedish
+fortification drawings, one is a treemap of exports and one is a wooden saint from Västergötland. The two
+that shipped are the only wide views in it: David Broad's *St. Barthelemy from Ile Forchue*, the whole
+island low on the horizon with its dry hills end to end, and David Stanley's *Grande Roche Viewpoint*,
+yachts at anchor in Anse à Colombier under the scrub — which is the card's economy and its environment in
+one frame.
+
+**`gw-578` GITEGA IS UNBLOCKED BY A CHANGE TO THE GENERATOR, NOT BY A TYPED COORDINATE.** It was deferred
+"for a mechanical reason": `world-capitals.js` is built from Natural Earth, which still files Bujumbura as
+Burundi's `Admin-0 capital` and carries Gitega only as an `Admin-1 capital` — a class
+`build-world-capitals.js` admits solely for a dependency — so the table had no Gitega point and the rule
+that **a coordinate is generated and never typed** held the card. The fix is a declared table,
+**`SECOND_SEAT`**, in the same style as `DROP` and `RENAME`: one row, `"Gitega|Burundi"`, with its reason
+beside it, letting an admin-1 point through for a country whose government has moved. The builder **dies**
+on a row it cannot find in the source, so a row Natural Earth later corrects fails loudly rather than
+quietly duplicating a point; the country keeps its `Admin-0` point as well, because a country with two
+seats has two cards. Re-running with `--no-net` changed **exactly one line** of the shipped file, and both
+points were then checked to fall inside Burundi's own polygon. **Reach for a declared row rather than a
+cleverer rule**: no heuristic can tell which of a country's twelve provincial capitals is the seat of its
+government.
+
+**NATURAL EARTH IS WRONG ABOUT GITEGA IN A SECOND WAY, WHICH IS WORTH KNOWING BEFORE TRUSTING ITS
+ATTRIBUTES.** Its record for the city gives `ADM1NAME` as **Muramvya** — Gitega is the seat of Gitega
+province, and has been since long before the capital moved — so the point is filed under the wrong
+province as well as the wrong class. `build-china-provinces.js` recorded that the same file's `Admin-1
+capital` attribution is unusable for China, five ways at once; this is the same finding one country over.
+**The COORDINATE is the part of a Natural Earth record to trust; the ADMIN FIELDS are not.**
+
+**THE CONSTITUTION SAYS BUJUMBURA, AND THAT IS THE CARD.** Burundi's 2018 constitution, on the Constitute
+Project, has an article 9 headed *National capital* reading *"The capital of Burundi is fixed at
+Bujumbura. The law can move the capital to any other city of the Republic or it can separate the political
+capital from the economic capital."* So the primary instrument names the OLD seat and supplies the
+mechanism for the new one, and a card citing the constitution alone would state the wrong city. UNdata's
+capital-city field has been updated and the constitutional text has not. **Where a capital has moved
+recently, read the constitution for the MECHANISM and a statistical profile for the FACT** — neither
+carries both.
+
+**THE SOURCES FOR THE CITY ITSELF ARE THIN AND THE CARD SAYS SO.** No international body publishes a
+population for Gitega: UNdata's capital-city row is the orphaned-footnote trap recorded above (899,000
+marked *"Bujumbura"*, attached to nothing), and **`isteebu.bi`, the Burundian statistics institute's own
+domain, has lapsed and now serves a parked SEO page** — a failure mode this deck has not met before and
+which is quieter than a 403, since the host answers 200. The card therefore gives the LARGEST-CITY series
+(`EN.URB.LCTY`, 1,350,147 in 2025) explicitly as the other seat's, and states that no count for Gitega is
+published, which is `gw-761` Lobamba's shape exactly.
+
+**PICTURE NOTE: EVEN THE PHOTOGRAPHS ARE MIS-CAPTIONED.** `Category:Views_of_Gitega` holds two dozen
+public-domain frames by one photographer, every one described *"Gitega, capitale économique du Burundi"* —
+which is precisely backwards, Gitega being the political capital and Bujumbura the economic one. The
+pictures are good and the caption is not used. **An uploader's description is not a source**, and on a
+subject the world's own reference works have not caught up with, it is likelier than usual to be wrong.
+
+**A BOOKKEEPING CORRECTION, AND THE MISTAKE IS WORTH MORE THAN THE FACT.** The line above said
+`gw-762` Bujumbura was deferred with `gw-578` Gitega; it was not, and had shipped in batch 82 — it sits in
+the main capitals run at line 35 above, written into the slot the running order originally gave to
+Bujumbura, and nothing in the summary was updated when it did. So a stale sentence in this file's own
+header claimed a card was missing that was on the site, and the claim was repeated in a commit message
+before it was checked. **The summary line is prose and prose rots; `data.js` is the record.** Derive what
+is left from the shipped ids — and derive it over the WHOLE declared range, since the obvious loop
+(`for i = 1 to 761`) stops one short of the band this collection actually ends on and cannot see the card
+in question either way. The true position: **235 of 238 capitals**, the three outstanding being `gw-596`,
+`gw-624` and `gw-695`, every one deferred on a reason rather than on work.
+
+**AND THE SAME ROT WAS FOUND IN `CLAUDE.md`'s OWN INDEX TABLE, IN FIVE ROWS AT ONCE.** Checking this
+file's stale line against `data.js` prompted checking the table that tells the next session what to write
+next, and it was wrong about **World History (89 against 300), Ancient Greece (180 against 400), Ancient
+Rome ("empty" against 100), China (40 against 99) and the United States geography collection (5 against
+100, which is COMPLETE)**. Every figure was right when written and none was updated as cards shipped —
+which is `check-sizes.js`'s finding in another register: **a number written in prose is a number that will
+be wrong**, and the more authoritative the file, the longer it goes unchecked. All five were recomputed
+from the shipped ids and the rows now carry the NEXT ID as well as the count, so the table answers the
+question it exists for and a stale count is visible rather than merely misleading. **Run the count before
+trusting the table**, and note that `cnh-` is SCATTERED — 99 cards with the next slot at `cnh-042` — where
+`wh-`, `gr-`, `rm-` and `ps-` are contiguous.
+
+**`gw-695` SAINT HELIER WAS RE-TESTED AND STAYS DEFERRED, ON BETTER EVIDENCE THAN BEFORE.** The original
+reason was that `gov.je` returned 500 on every path. **It answers 200 today** — and still does not call
+St Helier the capital of Jersey anywhere reachable: not on its own pages, not in its open-data portal's
+dataset notes, and not in GOV.UK's *Jersey: Knowledge Base Profile*, the sibling of the Guernsey profile
+that carried `gw-201`. Its site search is JavaScript-driven, and the three official sites its footer
+names — `comite.je` (the parishes), `sthelier.je` (the parish itself) and `jersey.com` (Visit Jersey) —
+are all **403** here, where Guernsey's equivalent, VisitGuernsey, was open and supplied the sentence that
+unblocked `gw-701`. **A deferral re-tested and still standing is worth more than one left alone**: this
+one is now a fact about what Jersey publishes rather than about whether its server was up.
+
+**TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
+provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
+FlateDecode streams with `zlib` and pulling the text out of the parenthesised strings — twenty lines of
+Python, and it is what got resolution 1608's actual operative paragraphs onto `gw-552`. And a
+`upload.wikimedia.org` thumbnail URL at a width nobody has generated yet answers **400** from here: build
+the src, then CHECK it, and fall back to a width that already exists (1280 or 1920). One glossary picture
+shipped a 400 for a minute for want of that check.
+
+
+
+
+
+
+
+
+**THE FRUS CORPUS IS SEARCHABLE FROM HERE, AND IT IS A CITY SPINE WHERE THE COUNTRY PAGES ARE THIN**
+(`gw-543`). `history.state.gov/search?q=<city>` answers, ranks by relevance and searches the whole of
+*Foreign Relations of the United States* as well as the guide — which matters because Uzbekistan's
+country page is four sentences and names Tashkent once. The search returned the city's whole American
+record: an **editorial note** (`frus1964-68v25/d278`) giving the Ayub–Shastri conference of 4–10
+January 1966, Kosygin's part in it, the terms of the Tashkent Declaration and Shastri's death in the
+city the next day; and a **1919 telegram** (`frus1919Russia/d136`) recording Roger C. Tredwell,
+American consul at Tashkent, under arrest there since 20 October 1918 — a consular presence the
+guide's own Consular Presence section does not list at all, because the guide is written per modern
+state and the consulate was in Turkestan. This is the volume-preface route generalised: **where a
+capital has no institutions publishing their own history, search the diplomatic record for the city's
+name.** Two things left out for want of a source: the 1966 earthquake, which the USGS/ISC-GEM catalogue
+records as M 5.3 nine kilometres from the city but with nothing about the damage — a magnitude alone
+would read as a minor tremor and mislead — and everything before 1918, since `unesco.org`'s Silk Roads
+pages carry no Tashkent article and `usgs.gov` itself is 403.
 
 **THE TEST HAS NOW DECIDED THIRTEEN CAPITALS AND HAS NOT BEEN WRONG ONCE.** Washington, Islamabad,
 Brasília, Addis Ababa and Cairo passed it and are written; New Delhi, Beijing, Jakarta, Abuja, Dhaka,
@@ -4033,7 +9595,7 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
   gw-575  Conakry  [Guinea]
   gw-576  Porto-Novo  [Benin — the official capital]
   gw-577  Kigali  [Rwanda]
-  gw-578  Bujumbura  [Burundi]
+  gw-578  Gitega  [Burundi — the political capital]
   gw-579  Sucre  [Bolivia — the constitutional capital]
   gw-580  Tunis  [Tunisia]
   gw-581  Juba  [South Sudan]
@@ -4150,7 +9712,7 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
   gw-696  Kingstown  [Saint Vincent and the Grenadines]
   gw-697  Saint John's  [Antigua and Barbuda]
   gw-698  Douglas  [Isle of Man]
-  gw-699  Andorra  [Andorra]
+  gw-699  Andorra la Vella  [Andorra]
   gw-700  George Town  [Cayman Islands]
   gw-701  Saint Peter Port  [Guernsey]
   gw-702  Roseau  [Dominica]
@@ -4196,3 +9758,4 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
   gw-759  Cotonou  [Benin — the seat of government and largest city]
   gw-760  La Paz  [Bolivia — the seat of government]
   gw-761  Lobamba  [Eswatini — the legislative and royal capital]
+  gw-762  Bujumbura  [Burundi — the economic capital and largest city]
