@@ -2106,7 +2106,8 @@ window.GLOSSARY = {
 "Sack_of_Corinth": "Sack of Corinth refers to the destruction of the Greek city by the Roman consul Lucius Mummius in 146 BCE, at the close of the Achaean War.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias reports that the men found in the city were killed, the women and children sold, and its finest votive offerings and works of art taken away,<sup class=\"fn\" data-fn=\"1\"></sup> while Polybius, who was present, saw soldiers playing dice on paintings thrown to the ground.<sup class=\"fn\" data-fn=\"2\"></sup> Strabo says the city was razed and its territory largely given to Sicyon, and that after lying deserted for a long while the site was refounded as a Roman colony by Caesar.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Province_of_Macedonia": "Province of Macedonia was the Roman administrative command formed out of the former Macedonian kingdom, which Rome had first tried to govern as four separate republics.<sup class=\"fn\" data-fn=\"1\"></sup> It followed the revolt of a pretender who claimed to be a son of King Perseus, took the country, destroyed a Roman praetor and his army, and was then defeated and captured by Quintus Caecilius Metellus.<sup class=\"fn\" data-fn=\"2\"></sup> The province was crossed by the Egnatian Road, which ran east from the Adriatic coast measured in Roman miles and marked with pillars,<sup class=\"fn\" data-fn=\"3\"></sup> and Strabo counts Macedonia among the ten praetorian provinces held by the senate.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Province_of_Asia": "Province of Asia was the Roman province formed from the Attalid kingdom of Pergamum in western Anatolia, whose last king left the Roman people his heirs.<sup class=\"fn\" data-fn=\"1\"></sup> Strabo says the Romans proclaimed the country a province and named it Asia after the continent,<sup class=\"fn\" data-fn=\"1\"></sup> and later lists it as one of only two consular provinces held by the senate.<sup class=\"fn\" data-fn=\"2\"></sup> It was the wealthiest of Rome's provinces and its taxes were farmed by contractors: Cicero told an assembly that Asia surpassed every other country in soil, produce, pasture and exports,<sup class=\"fn\" data-fn=\"3\"></sup> and that fortunes lost there could break credit at Rome itself.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Bequest_of_Attalus_III": "Bequest of Attalus III is the will by which the last Attalid king of Pergamum, who died in 133 BCE,<sup class=\"fn\" data-fn=\"1\"></sup> left his kingdom to the Roman people.<sup class=\"fn\" data-fn=\"2\"></sup> Justin describes a king who had withdrawn from government to his garden and his bronze-casting after killing friends and relatives, and who died of a fever caught while building a monument to his mother.<sup class=\"fn\" data-fn=\"3\"></sup> At Rome the inheritance became a political question at once: Tiberius Gracchus proposed spending the money on equipment for the settlers of his land law, and claimed that the kingdom's cities were for the people rather than the senate to dispose of.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Bequest_of_Attalus_III": "Bequest of Attalus III is the will by which the last Attalid king of Pergamum, who died in 133 BCE,<sup class=\"fn\" data-fn=\"1\"></sup> left his kingdom to the Roman people.<sup class=\"fn\" data-fn=\"2\"></sup> Justin describes a king who had withdrawn from government to his garden and his bronze-casting after killing friends and relatives, and who died of a fever caught while building a monument to his mother.<sup class=\"fn\" data-fn=\"3\"></sup> At Rome the inheritance became a political question at once: Tiberius Gracchus proposed spending the money on equipment for the settlers of his land law, and claimed that the kingdom's cities were for the people rather than the senate to dispose of.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Revolt_of_Aristonicus": "Revolt of Aristonicus was the rising in western Anatolia against Rome's inheritance of the Attalid kingdom of Pergamum, led by a man said to belong to the royal house.<sup class=\"fn\" data-fn=\"1\"></sup> Driven inland after a naval defeat, he raised an army of the destitute and of slaves promised their freedom, whom Strabo says he called Heliopolitae, and took several inland towns before the Greek cities and neighbouring kings turned on him.<sup class=\"fn\" data-fn=\"1\"></sup> A Roman consul, Publius Licinius Crassus, was defeated and killed<sup class=\"fn\" data-fn=\"2\"></sup> before Marcus Perperna ended the war and sent Aristonicus to Rome, where he died in prison.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2980,7 +2981,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Day_of_Eleusis": "168 BCE",
 "Achaean_War": "146 BCE",
 "Sack_of_Corinth": "146 BCE",
-"Bequest_of_Attalus_III": "133 BCE"
+"Bequest_of_Attalus_III": "133 BCE",
+"Revolt_of_Aristonicus": "133–130 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6407,7 +6409,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sack_of_Corinth": ["event","warfare","history","rome","greece"],
 "Province_of_Macedonia": ["place","history","politics","rome","greece"],
 "Province_of_Asia": ["place","history","politics","rome","anatolia"],
-"Bequest_of_Attalus_III": ["event","history","politics","rome","anatolia"]
+"Bequest_of_Attalus_III": ["event","history","politics","rome","anatolia"],
+"Revolt_of_Aristonicus": ["event","warfare","history","rome","anatolia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
