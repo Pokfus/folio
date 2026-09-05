@@ -32,7 +32,7 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau, `gw-703` Hamilton, `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town, `gw-709` Capitol Hill, `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino,
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau, `gw-703` Hamilton, `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town, `gw-709` Capitol Hill, `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino, `gw-717` Mariehamn,
 `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -4443,6 +4443,51 @@ of this city are unusable for the credit line rather than for the picture — `M
 Torriana).jpg` carries parentheses and `San Marino e l'Adriatico dal Monte San Paolo.jpg` an apostrophe,
 and `SRC_URL_RX` stops at both, so either credit would ship truncated. The card takes
 `San Marino dal Monte San Paolo al tramonto.jpg`, which has neither.
+
+**`gw-717` MARIEHAMN IS THE FIRST CARD WHERE ALL THREE OF PHASE 3'S SOURCES FAIL AT ONCE AND THE
+REPLACEMENT IS BETTER THAN ANY OF THEM.** UNdata's `ax` profile **500s**, as Kosovo's `xk` and Taiwan's
+do; `history.state.gov/countries/aland-islands` is a **404**; and the World Bank has no `ALA` economy at
+all, so `SP.POP.TOTL` answers `"The provided parameter value is not valid"`. D2 said a state outside the
+UN system is invisible to every one of the three and needs a different CLASS of source — and here that
+class is the territory's OWN institutions, every one of them open: `asub.ax` (the statistics office),
+`aland.ax` (the government portal), `lagtinget.ax` (the parliament), `regeringen.ax` and
+`mariehamn.ax`. **Where a territory legislates for itself, ask it directly before concluding it is
+unsourceable.**
+
+**AND THE OFFICE'S OWN FAQ CARRIED WHAT ITS API WOULD NOT GIVE.** ÅSUB runs a PxWeb database at
+`pxweb.asub.ax/PXWeb/api/v1/en/`, the same software that carried Greenland and the Faroes — and its
+**POST 404s on any path containing an encoded space**, which is where the population tables live
+(`.../BE/Befolkningens%20storlek%20och%20struktur/BE004.px`). It is not a general refusal: the same POST
+against `.../BE/Prognoser/BE057.px`, a folder whose name has no space, returns 200 and json-stat2. That
+is IIS request filtering rather than PxWeb, so **test a space-free path before writing off a PxWeb
+install**, and when the query endpoint is shut, look for the office's own prose: ÅSUB's
+`vanliga-fragor-om-aland` states 30,836 residents at 31 December 2025 of whom **11,957 in Mariehamn**,
+and its front page a preliminary 30,971 for 31 July 2026. The government portal's own facts page still
+gives the 2020 breakdown (11,705 in Mariehamn), which it dates — **two official pages, four years apart,
+and only one of them says so.**
+
+**THE AREA CAME FROM THE COUNTRY CARD'S OWN SOURCE LIST.** With no UNdata and no World Bank series there
+is no area figure anywhere in this recipe, and the answer was already in the repo: the `Åland` glossary
+term cites the **Nordic Statistics Database** (`AREA02`) for 1,586 km². **Read the paired country term's
+sources before hunting for a figure** — on a territory outside the three spines, the card written months
+ago has usually already solved it.
+
+**THE HISTORY IS THE PARLIAMENT'S OWN ACCOUNT AND IT IS DATED THROUGHOUT.**
+`lagtinget.ax/sjalvstyrelsen/bakgrunden-sjalvstyrelsen` gives the 1808–09 cession to Russia, the secret
+meeting of every Åland municipality in August 1917 resolving to seek reunion with Sweden, Finland's
+unaccepted 1920 autonomy act, and the League of Nations Council's compromise of June 1921 — Finland kept
+sovereignty against guarantees of the islanders' Swedish language, culture and local customs, with a
+demilitarisation and neutralisation treaty to follow so that Åland could never threaten Sweden. Its
+sibling page on the **Självstyrelsegården** is the capital-specific one: the seat of both the parliament
+and the government, on Strandgatan, opened in 1978 after a Nordic architectural competition won by Helmer
+Stenros of Helsinki. **A parliament's own site is where a self-governing territory's history is dated.**
+
+**PICTURE NOTE: THE FIRST SYNTHETIC-APERTURE RADAR FILES IN THE PASS.** `Category:Mariehamn` holds two
+Capella Space SAR scenes (`...CAPELLA C15 SP GEO HH...`), which are the spaceborne family in a new coat —
+not optical imagery and not named `satellite` anywhere. The chosen aerial also needed a second look:
+`Aerial photo of Mariehamn.jpg` is a clean view of the town **with the aircraft's propeller blade across
+the left third of the frame**, so the card takes `Aerial photo of Mariehamn 2026.jpg` by the same
+photographer instead. **A window-seat aerial often has the aeroplane in it; check the edges.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
