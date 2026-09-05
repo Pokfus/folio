@@ -2041,7 +2041,8 @@ window.GLOSSARY = {
 "First_Roman_fleet": "The first Roman fleet was the war navy built by Rome during the First Punic War, when the senate voted 100 quinqueremes and 20 triremes although the state possessed no warship and its shipwrights had never made a vessel of that class.<sup class=\"fn\" data-fn=\"1\"></sup> A grounded enemy quinquereme served as the pattern for the hulls, and the oarsmen were trained on benches set out on dry land, learning to pull together at a timekeeper’s word before the ships were launched.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The vessels proved clumsy and one squadron was lost at once through its commander’s carelessness, but the fleet went on to win at sea by grappling and boarding rather than by seamanship.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Corvus_(boarding_device)": "The corvus was a hinged boarding bridge carried in the bows of Roman warships during the First Punic War, a pole with a pulley, a railed gangway swinging round it, and a heavy iron spike slung from the far end.<sup class=\"fn\" data-fn=\"1\"></sup> Hauled up by a rope and let fall on an enemy deck, the spike bit into the planking and locked the hulls together, so soldiers could cross two abreast and fight as though on land.<sup class=\"fn\" data-fn=\"1\"></sup> It gave a fleet with poor seamanship a way of turning a sea fight into an infantry action, and Polybius records its use at two battles before it vanishes from his narrative without explanation.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_Mylae": "The battle of Mylae was a sea fight of 260 BCE off the north coast of Sicily, in which a Roman fleet under the consul Gaius Duilius beat a Carthaginian squadron that had come out expecting an easy prize.<sup class=\"fn\" data-fn=\"1\"></sup> The Romans grappled and boarded rather than manoeuvring, turning the engagement into something close to a land battle, and the Carthaginians lost 80 ships in two stages while their admiral escaped in a small boat.<sup class=\"fn\" data-fn=\"1\"></sup> It was the first naval victory Rome had won, and it was marked by a triumph and by a column in the forum decked with the beaks of the captured ships, still standing two centuries later.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Battle_of_Cape_Ecnomus": "The battle of Cape Ecnomus was a sea fight of 256 BCE off the south coast of Sicily, fought over a Roman attempt to carry the war against Carthage into Africa.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius gives 330 Roman ships against 350 Carthaginian and reckons the crews at nearly 140,000 and over 150,000 men, figures that make it one of the largest naval actions recorded from antiquity.<sup class=\"fn\" data-fn=\"2\"></sup> The Romans advanced in a wedge, the Carthaginian centre withdrew by design to pull that formation apart, and the separate engagements which followed ended in a Roman victory that opened the sea route to Africa.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Battle_of_Cape_Ecnomus": "The battle of Cape Ecnomus was a sea fight of 256 BCE off the south coast of Sicily, fought over a Roman attempt to carry the war against Carthage into Africa.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius gives 330 Roman ships against 350 Carthaginian and reckons the crews at nearly 140,000 and over 150,000 men, figures that make it one of the largest naval actions recorded from antiquity.<sup class=\"fn\" data-fn=\"2\"></sup> The Romans advanced in a wedge, the Carthaginian centre withdrew by design to pull that formation apart, and the separate engagements which followed ended in a Roman victory that opened the sea route to Africa.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"African_expedition_of_256_BCE": "The African expedition of 256 BCE was the Roman invasion of Carthaginian territory during the First Punic War, launched after a victory at sea opened the crossing from Sicily.<sup class=\"fn\" data-fn=\"1\"></sup> The invaders seized a coastal town as a base, plundered the countryside and beat a Carthaginian army in the field, then offered peace terms so harsh that the enemy preferred to fight on.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A Spartan officer hired as a mercenary reorganised the defence, insisting on level ground where cavalry and elephants could be used, and in the following year the Roman army in Africa was destroyed and its commander taken prisoner.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2860,7 +2861,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "First_Roman_fleet": "261 – 260 BCE",
 "Corvus_(boarding_device)": "260 – 256 BCE",
 "Battle_of_Mylae": "260 BCE",
-"Battle_of_Cape_Ecnomus": "256 BCE"
+"Battle_of_Cape_Ecnomus": "256 BCE",
+"African_expedition_of_256_BCE": "256 – 255 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6184,7 +6186,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "First_Roman_fleet": ["institution","warfare","history","technology","rome"],
 "Corvus_(boarding_device)": ["object","warfare","technology","history","rome"],
 "Battle_of_Mylae": ["battle","warfare","history","politics","sicily"],
-"Battle_of_Cape_Ecnomus": ["battle","warfare","history","politics","sicily"]
+"Battle_of_Cape_Ecnomus": ["battle","warfare","history","politics","sicily"],
+"African_expedition_of_256_BCE": ["event","warfare","history","politics","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
