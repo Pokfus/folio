@@ -2072,7 +2072,8 @@ window.GLOSSARY = {
 "Molecule": "A <b>molecule</b> is a cluster of atoms held together by covalent bonds, and it is the level at which the materials an organism is built from acquire their properties, which depend on how the atoms are joined rather than on which elements are present.<sup class=\"fn\" data-fn=\"1\"></sup> Its mass is quoted in daltons and its quantity in moles, one mole containing a number of units now fixed by definition at 6.02214076 × 10<sup>23</sup>.<sup class=\"fn\" data-fn=\"2\"></sup> The small organic molecules of a cell have molecular weights between 100 and 1000 and carry up to about 30 carbon atoms, serving as subunits of larger molecules, as fuel, or as both.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Chemical_bond": "A <b>chemical bond</b> is an attraction that holds atoms together, and its strength is given by the energy needed to break it, conventionally in kilocalories per mole.<sup class=\"fn\" data-fn=\"1\"></sup> A typical covalent bond, in which atoms share electrons, is roughly a hundred times stronger than the thermal energy of surrounding collisions, so it is broken not by heat but by specific chemical reactions; noncovalent bonds are far weaker, which is what allows molecules to associate and separate readily.<sup class=\"fn\" data-fn=\"1\"></sup> Strength also depends on surroundings, since water forms hydrogen bonds with polar molecules and surrounds ions, so ionic and polar compounds dissolve in it while covalent bonds are unaffected.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Covalent_bond": "A <b>covalent bond</b> joins two atoms that complete their outer electron shells by sharing a pair of electrons rather than transferring them; where the sharing is unequal the bond is polar, with a partial charge at each end.<sup class=\"fn\" data-fn=\"1\"></sup> Atoms may share more than one pair: a double bond is shorter and stronger and, unlike a single bond, prevents rotation about it, while carbon's four bonds point towards the corners of a tetrahedron.<sup class=\"fn\" data-fn=\"1\"></sup> Among them are the peptide bonds linking the amino acids of a protein, each formed as a molecule of water is lost, and the sulfur-sulfur cross-links that staple some folded chains in place.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Ionic_bonding": "An <b>ionic bond</b> is the attraction between two ions of opposite charge, formed when one atom transfers electrons to another instead of sharing them.<sup class=\"fn\" data-fn=\"1\"></sup> A solid held together only in this way is a lattice rather than a molecule and is called a salt, and water pulls such a solid apart, since these bonds are greatly weakened in it and each ion departs surrounded by its own water molecules, while covalent bonds are unaffected.<sup class=\"fn\" data-fn=\"1\"></sup> The same attraction operates inside large biological molecules as one of the weak bonds that fold a protein chain, each of them 30 to 300 times weaker than a covalent bond and useful only in numbers.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Ionic_bonding": "An <b>ionic bond</b> is the attraction between two ions of opposite charge, formed when one atom transfers electrons to another instead of sharing them.<sup class=\"fn\" data-fn=\"1\"></sup> A solid held together only in this way is a lattice rather than a molecule and is called a salt, and water pulls such a solid apart, since these bonds are greatly weakened in it and each ion departs surrounded by its own water molecules, while covalent bonds are unaffected.<sup class=\"fn\" data-fn=\"1\"></sup> The same attraction operates inside large biological molecules as one of the weak bonds that fold a protein chain, each of them 30 to 300 times weaker than a covalent bond and useful only in numbers.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Hydrogen_bond": "A <b>hydrogen bond</b> is the weak attraction between a hydrogen atom already bound to an electron-hungry atom and a second such atom nearby, as when a hydrogen of one water molecule is drawn towards the oxygen of another.<sup class=\"fn\" data-fn=\"1\"></sup> Each is easily broken by thermal motion, yet in aggregate they are why water is a liquid at room temperature; they are strongest when the three atoms lie on a straight line, and water weakens those made between dissolved molecules by competing for them.<sup class=\"fn\" data-fn=\"1\"></sup> In proteins they hold the two commonest folding patterns, the alpha helix and the beta sheet, which form between backbone groups without involving the side chains.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4177,7 +4178,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "CHNOPS": ["CHNOPS elements"],
 "Chemical_bond": ["chemical bonds"],
 "Covalent_bond": ["covalent bonds"],
-"Ionic_bonding": ["ionic bond","ionic bonds"]
+"Ionic_bonding": ["ionic bond","ionic bonds"],
+"Hydrogen_bond": ["hydrogen bonds","hydrogen bonding"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6284,7 +6286,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Molecule": ["concept","science","biology","chemistry"],
 "Chemical_bond": ["concept","science","chemistry","biology"],
 "Covalent_bond": ["concept","science","chemistry","biology"],
-"Ionic_bonding": ["concept","science","chemistry","biology"]
+"Ionic_bonding": ["concept","science","chemistry","biology"],
+"Hydrogen_bond": ["concept","science","chemistry","biology"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
