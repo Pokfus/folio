@@ -927,9 +927,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the pair deliberately, write the shared glossary term ONCE (whichever collection reaches it first),
   and know that **`bio-897` and `ps-432` are both called "Extinction" and are unrelated senses of the
   word**, so they cannot share a glossary key. Four terms it needs already exist (`Domestication`,
-  `Boreal`, `Human_evolution`, `Genus`) and must be reused rather than re-keyed. The next card to write
+  `Boreal`, `Human_evolution`, `Genus`) and must be reused rather than re-keyed. **`Life` is keyed
+  `Life_(biology)` for the same machinery and a different reason**: the bare word is ordinary English —
+  measured over the shipped corpus, 157 card backgrounds contain "life" and every first occurrence
+  sampled is "way of life", "life-sized" or "life expectancy" — so a key claiming that surface would
+  auto-link the wrong sense on all of them, and `caseSensitive` does not help, all 15 capitalised
+  occurrences being "Life of Lycurgus", "Life Insurance" and the like. A parenthetical key claims no
+  bare name (`bareTaken` in `buildGlossIndex`), so it is reached by its two narrower aliases and by a
+  hand-written `data-k` instead. **Ask what a one-word answer term is in ordinary English before
+  keying it.** The next card to write
   is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED
-  COLLECTIONS" is the lookup. **Its first card has shipped**, so the collection is live — `isComingSoon`
+  COLLECTIONS" is the lookup. **Its first cards have shipped**, so the collection is live — `isComingSoon`
   is false for a node holding a card — and its 45 empty decks are coming-soon automatically, on the same
   rule. Not part of the site.
 - `docs/dinosaurs-card-plan.md` — the **1000-card running order for the Dinosaurs collection**
@@ -4859,7 +4867,7 @@ lookup.
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
-| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 1 card — not a history collection |
+| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 2 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 100 cards — and it is NOT a 1000-card plan, see below |
