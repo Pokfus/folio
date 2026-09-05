@@ -160,6 +160,51 @@ head("5) the wiring that cannot be seen from the page");
   check("no new class is one an ad blocker hides", newClasses.every((c) => !/^ads?[-_]/.test(c)));
 }
 
+head("5b) the two readings of the review log");
+{
+  /* THE STATISTICS LIVE ON THE SIGNED-IN ACCOUNT PAGE, which needs a session token to reach — so the two
+     builders are exercised HERE, as functions, and only their PLACEMENT is checked statically. That split
+     is deliberate: what can go wrong in them is arithmetic and a threshold, and neither needs a browser. */
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const S = { marker: "the reader's own progress object" };
+  const M = new Function("esc", "revRead", "cardById", "cardLocalized", "CRIT_DAYS", "S",
+    konst("const CURVE_MIN_ROWS = ") +
+    src.slice(src.indexOf("const CURVE_BUCKETS = ["), src.indexOf("];", src.indexOf("const CURVE_BUCKETS = [")) + 3) +
+    fn("forgettingCurveHTML") + fn("seenOnceIds") + konst("const SEEN_ONCE_MAX = ") + fn("seenOnceHTML") +
+    "\nreturn { forgettingCurveHTML, seenOnceIds, seenOnceHTML };")(
+      esc,
+      (row) => ({ id: row[0], t: row[1], g: row[2], prevDays: row[4] / 1440 }),
+      (id) => ({ id, answerText: "Term " + id }),
+      (c) => c, 3, S);
+  const DAY = 1440;
+  const rows = [];
+  // 12 reviews in each of two buckets, one bucket with a miss; and 3 reviews in a third, which is too few
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].forEach((d, i) => rows.push(["a", 0, i === 0 ? 1 : 3, 3, d * DAY, 0, 250, 30]));
+  for (let i = 0; i < 12; i++) rows.push(["b", 0, 3, 3, 20 * DAY, 0, 250, 30]);
+  for (let i = 0; i < 3; i++) rows.push(["c", 0, 1, 3, 60 * DAY, 0, 250, 30]);
+  const curve = M.forgettingCurveHTML({ revlog: rows });
+  check("the curve is drawn from the reader's own rows", /rs-curve/.test(curve));
+  check("a bucket with enough rows behind it is plotted", (curve.match(/fg-col/g) || []).length === 2, String((curve.match(/fg-col/g) || []).length));
+  check("…and one with too few is left out rather than guessed at", curve.indexOf("1\u20133 months") < 0);
+  check("the arithmetic is right — 11 of 12 correct reads 92%", /92%/.test(curve), curve.slice(0, 200));
+  check("one plotted point is not a curve", M.forgettingCurveHTML({ revlog: rows.slice(0, 12) }) === "");
+  check("an empty log draws nothing at all", M.forgettingCurveHTML({ revlog: [] }) === "");
+  const prog = { cards: { a: { crit: ["d1"], last: 3 }, b: { crit: ["d1"], last: 1 }, c: { crit: ["d1", "d2"], last: 2 },
+                          d: { crit: ["d1"], last: 2 }, e: { crit: [], last: 9 } }, suspended: {} };
+  const once = M.seenOnceIds(prog);
+  check("recalled-once counts exactly one separate day", once.join(",") === "b,d,a", once.join(","));
+  check("…so a card at two days is not in it", once.indexOf("c") < 0);
+  check("…nor one never recalled at all", once.indexOf("e") < 0);
+  check("a suspended card is left out", M.seenOnceIds({ cards: prog.cards, suspended: { b: 1 } }).indexOf("b") < 0);
+  const mineProg = Object.assign(S, prog);
+  check("the card offers to study them, on your OWN page", /soStudy/.test(M.seenOnceHTML(mineProg)));
+  check("…and a FRIEND's copy offers no button — it is a fact about them, not a session anybody else can start",
+    !/soStudy/.test(M.seenOnceHTML(prog)));
+  check("under three cards it says nothing rather than nagging",
+    M.seenOnceHTML({ cards: { a: { crit: ["d1"], last: 1 } }, suspended: {} }) === "");
+  check("both are placed in the statistics grid", /forgettingCurveHTML\(prog\)[\s\S]{0,80}seenOnceHTML\(prog\)/.test(src));
+}
+
 if (!process.env.FOLIO_SKIP_BROWSER) {
   (async () => {
     let chromium;
