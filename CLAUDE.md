@@ -2545,7 +2545,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **📖 `docs/learning-science.md` — READ BEFORE CHANGING THE SCHEDULER'S GRADUATION RULE, THE STUDY
   PAGE'S REVEAL PATH, A MINIGAME'S FEEDBACK, OR ANYTHING THAT DECIDES HOW A READER MEETS A CARD.** The
   findings with their effect sizes and sources, an honest audit of what Folio already gets right, and
-  twelve costed proposals — nothing in it has been built.
+  twenty costed proposals, each with what the reader would SEE and what it would actually touch —
+  nothing in it has been built.
 - **Undoing a grade (Aug 2026, on request)** — `undoStack` / `undoSnapshot` / `undoGrade` inside `PAGES.study`,
   reached by the `#undoGrade` button in the study bar (rendered only when there is something to undo), by
   **Ctrl/Cmd+Z**, and by "Undo the last card" on the completion screen (where the queue is empty and there is no
