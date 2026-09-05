@@ -2133,7 +2133,8 @@ window.GLOSSARY = {
 "Active_site": "The active site is the small region of an enzyme where its substrate binds and the reaction it catalyses takes place, usually a cleft or groove in the folded surface.<sup class=\"fn\" data-fn=\"1\"></sup> It is a place rather than a stretch of sequence, because the amino acids that line it commonly lie far apart along the chain and are brought together only when the protein folds, and their particular sizes, charges and affinities for water build a chemical environment suited to one substrate or a narrow family.<sup class=\"fn\" data-fn=\"2\"></sup> Substrates are held there by weak noncovalent interactions, so the site is left unchanged when the product departs and can be used again at once.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Induced_fit": "Induced fit is the account of enzyme and substrate binding in which the two change shape as they come together, each moulding the other, rather than the substrate slotting into a pocket already cut to receive it.<sup class=\"fn\" data-fn=\"1\"></sup> The distortion matters because it bends the substrate towards the shape it must take in the transition state, straining the bonds that have to break, and because the transition state is then held tightly by the protein, which lowers the activation energy.<sup class=\"fn\" data-fn=\"1\"></sup> Nothing lasting is done to the enzyme itself, which returns to its resting conformation once the product has left.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Enzyme_kinetics": "Enzyme kinetics is the study of the rates of enzyme-catalysed reactions and of what those rates depend on, and it rests on a mechanism in which an enzyme binds its substrate reversibly and the resulting complex either yields product or breaks up again unchanged.<sup class=\"fn\" data-fn=\"1\"></sup> Measuring the rate across a range of substrate concentrations yields two constants: the maximal rate the reaction can reach, and the substrate concentration at which it runs at half that maximum, known as the Michaelis constant.<sup class=\"fn\" data-fn=\"1\"></sup> The relation between them is the Michaelis-Menten equation, derived on the assumption that the enzyme-substrate complex holds a steady concentration.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Optimum_temperature": "An enzyme's optimum temperature is the temperature at which it catalyses its reaction fastest, the peak of a curve that rises as warming makes molecules collide harder and more often, then falls away above it.<sup class=\"fn\" data-fn=\"1\"></sup> Moving away from that peak in either direction alters the bonds within the active site so that substrates are held less well, and enough heat unfolds the protein altogether, after which it cannot work at all.<sup class=\"fn\" data-fn=\"1\"></sup> The peak is not simply the point of unfolding, since many enzymes reach their fastest rate well below the temperature at which they come apart.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Optimum_temperature": "An enzyme's optimum temperature is the temperature at which it catalyses its reaction fastest, the peak of a curve that rises as warming makes molecules collide harder and more often, then falls away above it.<sup class=\"fn\" data-fn=\"1\"></sup> Moving away from that peak in either direction alters the bonds within the active site so that substrates are held less well, and enough heat unfolds the protein altogether, after which it cannot work at all.<sup class=\"fn\" data-fn=\"1\"></sup> The peak is not simply the point of unfolding, since many enzymes reach their fastest rate well below the temperature at which they come apart.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Optimum_pH": "An enzyme's optimum pH is the acidity at which it catalyses its reaction fastest, the peak of a curve that falls away on either side, so that each enzyme suits a certain range of acidity rather than any at all.<sup class=\"fn\" data-fn=\"1\"></sup> The peak exists because the amino acid residues lining the active site carry acidic and basic groups that must be in the right state for catalysis, and altering the acidity adds protons to them or removes them, weakening how the substrate is held.<sup class=\"fn\" data-fn=\"1\"></sup> Measured across a wide range, activity generally traces a bell-shaped curve, and a large enough change unfolds the protein entirely.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4278,7 +4279,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Gibbs_free_energy": ["free energy","Gibbs energy","free-energy"],
 "Energy_coupling": ["coupled reaction","reaction coupling"],
 "Induced_fit": ["induced-fit"],
-"Optimum_temperature": ["temperature optimum"]
+"Optimum_temperature": ["temperature optimum"],
+"Optimum_pH": ["pH optimum"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6447,7 +6449,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Active_site": ["object","science","biology","chemistry"],
 "Induced_fit": ["theory","science","biology","chemistry"],
 "Enzyme_kinetics": ["concept","science","biology","chemistry"],
-"Optimum_temperature": ["concept","science","biology","chemistry"]
+"Optimum_temperature": ["concept","science","biology","chemistry"],
+"Optimum_pH": ["concept","science","biology","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
