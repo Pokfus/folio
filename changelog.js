@@ -35,9 +35,19 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.519", released: "2026-09-04T22:07Z" };
+window.FOLIO_VERSION = { v: "1.520", released: "2026-09-05T11:22Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-09-05",
+    t: "The first 500 Ancient Greece cards audited",
+    items: [
+      "<b>Nearly a hundred Ancient Greece cards now carry the dates they were missing</b>, including the whole Athens deck, where Solon, Draco, Peisistratus and Cleisthenes had no year between them.",
+      "<b>Picture captions across the collection no longer repeat the source</b>, which is on the line beneath them, and 33 that said nothing now describe what is in the frame.",
+      "<b>Fourteen pictures showing something other than the card have been taken down</b>, among them a Viking grave standing in for a Greek one and a Viennese weight of 1756 for a Greek weight standard.",
+      "<b>Thirteen questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who wrote on it."
+    ]
+  },
   {
     d: "2026-09-04",
     t: "Seventy-seven new Ancient Greece cards, and finer rivers",

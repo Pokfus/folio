@@ -676,6 +676,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   can be grown one card at a time over many sessions. See the "ANCIENT GREECE" bullet under "Generating
   cards & glossary entries" for the workflow — the short version is that the next card to write is the
   lowest `gr-NNN` not yet in `data.js`. Not part of the site.
+  · **📖 `docs/greece-audit-2026-09.md` — READ BEFORE WRITING A `gr-` CARD, and before opening
+    any repair batch on the first 500.** The audit of `gr-001`–`gr-500`: the eight dimensions that
+    passed, measured rather than assumed; the five that were fixed (276 picture captions carrying
+    their own source, 99 missing date lines, 14 pictures of the wrong thing, 13 questions naming a
+    scholar); and the seven still open, with their card ids — above all that **237 citations, 8.7%
+    of the collection's whole apparatus, come from one Dartmouth course website**, and that the
+    Athens deck paraphrases Aristotle rather than explaining him, so 42 of its 45 cards state no
+    year in their prose. It also holds the coverage gaps inside the covered span (the Pythian,
+    Isthmian and Nemean games, the Delphic amphictyony, Chania, the chamber tomb) and the measured
+    list of terms to add to the glossary.
 - `docs/world-history-card-plan.md` — the **1000-card running order for the World History collection**
   (`col-8`): every card's number, topic and deck, fixed in advance across 8 decks and 39 leaf subdecks,
   so the collection can be grown one card at a time over many sessions. The sibling of the Greece plan
