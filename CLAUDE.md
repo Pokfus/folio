@@ -4426,7 +4426,7 @@ lookup.
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
-| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 431 cards (227 countries, 204 capitals) — 470 rather than 1000, and sorted by POPULATION, see below |
+| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 432 cards (227 countries, 205 capitals) — 470 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
@@ -4692,6 +4692,15 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   plural subject can be left with a singular complement ("17 of the 34 tombs are a cist grave"), which the
   article was hiding. Read every phrasing back after the change; the length rule bites too, since inserting
   the article costs a word.
+  **THE ONE EXEMPTION IS A PLACE ACTUALLY NAMED "The X"** (`ARTICLE_IS_NAME` in `add-card.js`, Sep 2026,
+  on `gw-719`): Anguilla's capital is **The Valley** on its own government's facts page and the Dutch seat
+  of government is **The Hague**, so stripping the article there renames a town rather than baring a term
+  — and `test-card-plans.js` compares a shipped answer against its plan's own name, so the mangled form
+  fails there instead. It is a **DECLARED four-entry table with the reason beside each**, exempting
+  `answer`, `answerText` and the abstract's opening `<b>` together, for the reason `CROSSREF_WRONG` is
+  declared: a rule clever enough to tell a name from a phrase would let the real fault through. **Add an
+  entry only after checking how the place's own authority writes it**, and never to get a card past the
+  check.
 - `answerText` — the answer as plain text, no HTML.
 - `image` / `video` (optional, one or the other) — `{ src, title, desc, credit }`. **`credit` is required**:
   `add-card.js` refuses a `src` with no source line, matching the editors' media gate.
