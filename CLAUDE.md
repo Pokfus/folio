@@ -634,7 +634,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `[^\s<>"')\]]`, which bit twice in Aug 2026 while illustrating psychology cards: the obvious Commons
   page for Kant carries parentheses and the obvious one for Broca's area carries an apostrophe, so both
   credit lines would have shipped truncated. **Check a Commons page URL for `'` and `()` before choosing
-  the file**, since a picture is usually replaceable and the credit line is not optional), **`senate.gov` serves its 404 page with a 200 status**, and
+  the file** — though that is now a reason to PERCENT-ENCODE rather than to reject one (Sep 2026, on
+  `gw-722`): `%27`, `%28` and `%29` carry none of the stopped characters, resolve on Commons, and match
+  the regex whole, where the raw forms truncate a credit at the first `'` or `)`. Verified both ways —
+  `…/File:Parliament_and_Courthouse_%2815222121087%29.jpg` and `…/Category:Broca%27s_area` each answer
+  200, and the raw form of the first matches only `.jpg`. **The picture is no longer the thing that has
+  to be replaced**), **`senate.gov` serves its 404 page with a 200 status**, and
   **`monticello.org` and `founders.archives.gov` are closed here** — so Founders Online, named as a
   second-source spine in the plan, is not usable and the NARA milestone documents replace it. G9's finding held into G10 and G11 and is now a law of the pass:
   the register pays for taxa and periods and **not** for peoples, places or objects, so 24 of G9's 26 and
@@ -4426,7 +4431,7 @@ lookup.
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
-| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 434 cards (227 countries, 207 capitals) — 470 rather than 1000, and sorted by POPULATION, see below |
+| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 435 cards (227 countries, 208 capitals) — 470 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
