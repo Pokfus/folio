@@ -2092,7 +2092,8 @@ window.GLOSSARY = {
 "Chemical_energy": "Chemical energy is the energy a substance holds in the arrangement of its atoms and the bonds between them, and it is released or taken up when a reaction rearranges them.<sup class=\"fn\" data-fn=\"1\"></sup> A reaction gives energy out when the bonds formed in its products are stronger overall than those broken in its reactants, so the common shorthand about energy being stored inside a bond misleads: breaking a bond costs energy rather than yielding it.<sup class=\"fn\" data-fn=\"1\"></sup> Living things obtain it from food by oxidising the molecules gradually in enzyme-catalysed steps instead of burning them, coupling the release to the reactions that require energy.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Electrolyte": "An electrolyte is a substance that separates into charged particles in solution and so conducts electricity, the term being used in biology for the inorganic ions a body must hold within narrow limits — sodium, potassium, chloride, magnesium, calcium, phosphate and bicarbonate.<sup class=\"fn\" data-fn=\"1\"></sup> They are taken in with food and drink, and they maintain electrical neutrality in cells and generate and conduct the impulses of nerve and muscle.<sup class=\"fn\" data-fn=\"1\"></sup> Their usefulness depends on being unevenly distributed, since selective channels let particular ions move rapidly down electrochemical gradients that have been established across a membrane beforehand.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Trace_element": "A trace element is one present or required in very small quantity, the word trace describing the amount rather than the importance, and covering both what an organism needs in minute doses and what is measured at low concentration in a material.<sup class=\"fn\" data-fn=\"1\"></sup> Which count as essential is less settled than it looks, since a human body holds at least 60 detectable elements and only about 25 are thought to take part in its functioning.<sup class=\"fn\" data-fn=\"1\"></sup> Each has a window rather than a threshold, copper being needed for connective tissue and damaging in excess,<sup class=\"fn\" data-fn=\"1\"></sup> and shortages tell at large scales too, iron limiting phytoplankton across whole ocean regions.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Vitalism": "Vitalism is the doctrine that living systems are animated by something immaterial — a force, principle or impulse not reducible to the matter composing them — and so cannot be accounted for by the chemistry and physics of that matter alone.<sup class=\"fn\" data-fn=\"1\"></sup> It was a reasonable position while the substances characteristic of organisms appeared to arise only inside them, and it was set aside gradually rather than refuted at a stroke.<sup class=\"fn\" data-fn=\"1\"></sup> What displaced it was the finding that organisms are built from the ordinary elements and that their reactions obey the ordinary rules, though the question it reached for, what distinguishes a living arrangement from a dead one, remains open.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Vitalism": "Vitalism is the doctrine that living systems are animated by something immaterial — a force, principle or impulse not reducible to the matter composing them — and so cannot be accounted for by the chemistry and physics of that matter alone.<sup class=\"fn\" data-fn=\"1\"></sup> It was a reasonable position while the substances characteristic of organisms appeared to arise only inside them, and it was set aside gradually rather than refuted at a stroke.<sup class=\"fn\" data-fn=\"1\"></sup> What displaced it was the finding that organisms are built from the ordinary elements and that their reactions obey the ordinary rules, though the question it reached for, what distinguishes a living arrangement from a dead one, remains open.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Biomolecule": "A biomolecule is a molecule produced and used by a living organism, and most belong to one of four classes: carbohydrates, lipids, proteins and nucleic acids.<sup class=\"fn\" data-fn=\"1\"></sup> Three of those are macromolecules assembled by joining small precursors — sugars, amino acids and nucleotides — and together they account for 80 to 90 per cent of the dry weight of most cells, while lipids, the remaining major constituent, are grouped by their behaviour rather than by any repeating subunit.<sup class=\"fn\" data-fn=\"1\"></sup> None of them outweighs water, which makes up about 70 per cent of a cell and is the medium their reactions occur in.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4206,7 +4207,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "pH": ["pH scale"],
 "Buffer_solution": ["buffers"],
 "Polymer": ["monomer"],
-"Redox": ["oxidation"]
+"Redox": ["oxidation"],
+"Biomolecule": ["biological molecule","biomolecules"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6334,7 +6336,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chemical_energy": ["concept","science","chemistry"],
 "Electrolyte": ["concept","science","biology"],
 "Trace_element": ["concept","science","chemistry"],
-"Vitalism": ["concept","science","biology"]
+"Vitalism": ["concept","science","biology"],
+"Biomolecule": ["concept","science","biology"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
