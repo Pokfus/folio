@@ -1815,7 +1815,8 @@ window.GLOSSARY = {
 "Greco-Buddhist_art": "Greco-Buddhist art is the Buddhist sculpture made in Gandhara and the north-west of the subcontinent, in which Hellenistic form was turned to Indian religious use.<sup class=\"fn\" data-fn=\"2\"></sup> It sprang up under Scythian and Parthian rule and produced most of its known work under the Kushans, by whose time the types of the Buddha peculiar to it were already fixed and standardised.<sup class=\"fn\" data-fn=\"1\"></sup> Not one of its many thousands of sculptures bears a date in any known era, so its chronology rests on the rough rule that the earlier a piece is the more nearly it approaches Hellenistic work.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Gupta_Empire": "The Gupta Empire was the north Indian power whose era begins on 26 February 320 CE, the day taken for the coronation of Chandragupta I, and which was reckoned in for centuries afterwards.<sup class=\"fn\" data-fn=\"1\"></sup> Founded in Magadha and the Gangetic valley, it was carried much further by his son Samudragupta, whose conquests were engraved on one of Ashoka's own pillars in a Sanskrit panegyric of about 360 CE.<sup class=\"fn\" data-fn=\"2\"></sup> A Chinese pilgrim who spent six years in it early in the 5th century described a government that fined criminals instead of maiming them, though he never named the king.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Hindu-Arabic_numerals": "The Hindu-Arabic numerals are the ten signs in use today together with the place-value system that goes with them, in which a digit's position fixes its value and a zero holds an empty place.<sup class=\"fn\" data-fn=\"1\"></sup> The earliest undisputed zero in India is in a Gwalior inscription of 876 CE, though the arithmetic is older evidence still: Brahmagupta treated the properties of zero early in the 7th century.<sup class=\"fn\" data-fn=\"2\"></sup> The system reached Baghdad with Indian astronomy in the 8th century and Europe through al-Khwarizmi's arithmetic, whose author's name in its Latin form gave such books the name algorism.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Sanskrit_literature": "Sanskrit literature is the body of writing in that language, divided between the Vedic texts and the classical literature that follows them — court epic, drama, lyric and fable — running from about 200 BCE to 1100 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Sanskrit was a learned language beside living vernaculars, and the plays show the arrangement: kings and men of rank speak it while women and men of the people answer in the popular dialects.<sup class=\"fn\" data-fn=\"2\"></sup> Its dates are unusually hard to fix — for the most famous classical poets there is no historical authority, and Kalidasa's own date was argued over within a range of a thousand years.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Sanskrit_literature": "Sanskrit literature is the body of writing in that language, divided between the Vedic texts and the classical literature that follows them — court epic, drama, lyric and fable — running from about 200 BCE to 1100 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Sanskrit was a learned language beside living vernaculars, and the plays show the arrangement: kings and men of rank speak it while women and men of the people answer in the popular dialects.<sup class=\"fn\" data-fn=\"2\"></sup> Its dates are unusually hard to fix — for the most famous classical poets there is no historical authority, and Kalidasa's own date was argued over within a range of a thousand years.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Eastern_Zhou": "Eastern Zhou is the second phase of the Zhou dynasty in China, usually dated from 770 to 256 BCE and named for the court's move east to Luoyang after the western capital was lost in 771 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Royal authority became ceremonial: the king kept the dynastic sacrifices while the regional states kept the armies, and the graded scheme of rites, music and ritual bronzes that ranked king, lord, minister and gentleman ceased to be observed in tombs.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The period divides into the Spring and Autumn and Warring States phases, and ended when the last king died in 256 BCE and Qin annexed the royal land three years later.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2643,7 +2644,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Third_Buddhist_Council": "3rd century BCE",
 "Indo-Greek_Kingdom": "2nd – 1st century BCE",
 "Kushan_Empire": "1st – 3rd century CE",
-"Gupta_Empire": "from 320 CE"
+"Gupta_Empire": "from 320 CE",
+"Eastern_Zhou": "770 – 256 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3760,7 +3762,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Kushan_Empire": ["Kushans","Kushanas"],
 "Greco-Buddhist_art": ["Gandhara school"],
 "Gupta_Empire": ["Guptas"],
-"Sanskrit_literature": ["Classical Sanskrit literature"]
+"Sanskrit_literature": ["Classical Sanskrit literature"],
+"Eastern_Zhou": ["Eastern Zhou dynasty","Eastern Zhou period"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5605,7 +5608,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Greco-Buddhist_art": ["art","object","history","religion","buddhism","india","greece"],
 "Gupta_Empire": ["state","history","politics","india"],
 "Hindu-Arabic_numerals": ["concept","history","science","technology","india"],
-"Sanskrit_literature": ["text","literature","history","india","language"]
+"Sanskrit_literature": ["text","literature","history","india","language"],
+"Eastern_Zhou": ["era","dynasty","history","archaeology","china","politics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
