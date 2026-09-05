@@ -282,6 +282,18 @@ the whole reason the suites exist and the reason their narratives are worth keep
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
     community store's record shape, or the
     `fn` / `data-fn` sanitizer allowlists.**
+  · **`test-layout.js` CANNOT COMPLETE IN THE CLOUD SANDBOX, AND THAT IS NOT A FAILURE OF THE BRANCH
+    UNDER TEST** (Sep 2026, measured). It stops after `a swipe on the Atlas turns the globe rather than
+    leaving it` — 299 assertions in, **0 failures** — and the NEXT `browser.newPage()` then throws
+    `Target page, context or browser has been closed`, after which the process hangs until the outer
+    timeout kills it (exit 124). The block before that stop is the only one that mounts the Atlas twice
+    in succession, which is ~9.9 MB of geometry and a canvas globe per page, so Chromium is being
+    reaped rather than any assertion going red. **Check it against `origin/main` in a `git worktree`
+    before believing it is yours**: the same run on `origin/main` stops at the same assertion with the
+    same 299/0. An earlier run stopped 151 assertions earlier, in block 5c, so where it dies varies and
+    only the ZERO FAILURES is stable. Do not read the crash as a regression, and do not read a mid-run
+    `tail` as a pass — the exit code is the only honest signal, and chaining `; tail -3` onto the
+    command hands back the tail's status instead of the suite's.
   · `node .claude/test-layout.js` — 332 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
