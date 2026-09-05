@@ -444,7 +444,7 @@ sites than by scholarship and the cited source has to be chosen with care.
 
     rm-181  Carthage
     rm-182  The Carthaginian empire
-    rm-183  Carthaginian government
+    rm-183  The Carthaginian constitution
     rm-184  The Carthaginian navy
     rm-185  The Roman–Carthaginian treaties
     rm-186  First Punic War
