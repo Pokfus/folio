@@ -27,7 +27,7 @@ Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, B
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
 Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands, Nauru, Tuvalu, Saint Pierre and Miquelon, Saint Helena, Montserrat, Falkland Islands, Niue, Vatican City, Pitcairn Islands) **and capitals
-`gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+`gw-501` New Delhi, `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
@@ -4987,6 +4987,39 @@ Pitcairn"** and **"any place within New Zealand"**. The Constitution itself is S
 the British Settlements Acts 1887 and 1945, and opens on a Part 1 headed *Partnership values* — the only
 constitution in this stretch that does. Note the UK path: `/uksi/2010/244/schedule/made` is **404** while
 `/uksi/2010/244/made` serves the whole instrument, the Constitution included.
+
+**EIGHT OF THE FIRST TWELVE CAPITALS WERE NEVER WRITTEN, AND NOBODY NOTICED FOR MONTHS.** The shipped
+list opens at `gw-503` Washington, D.C., and the run has been working down the tail ever since; the gaps
+at **`gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509`
+Moscow, `gw-511` Mexico City and `gw-512` Tokyo** are the capitals of eight of the twelve most populous
+countries on earth. Nothing reports it: `test-card-plans.js` checks that every SHIPPED card matches its
+plan line, not that every plan line has shipped, and a running total counted off the end of the list
+misses a hole at the front. **Derive what is left from `data.js` — `for (i=501; i<=761; i++)` against the
+shipped ids — never from where the tail has got to.** After those eight the remainder is `gw-695` Saint
+Helier (deferred with its country card), the eight extra seats `gw-754`–`gw-761`, and the three standing
+deferrals `gw-578` Gitega, `gw-596` Israel and `gw-624` Palestine.
+
+**`gw-501` NEW DELHI IS THE FOOTNOTE FINDING AT ITS LARGEST POSSIBLE SCALE.** UNdata's *Capital city pop.*
+for India reads **29,399.1 thousand** and carries footnote **c**: *"Refers to the Delhi metropolitan area
+that is not restricted to state boundaries (National Capital Territory), includes contiguous suburban
+cities and towns, such as Faridabad, Gurgaon, and Ghaziabad."* The row headed New Delhi is therefore a
+conurbation of 29 million spilling into Haryana and Uttar Pradesh, where the New Delhi Municipal Council
+governs — in its own words — **"only 3 per cent of the area and 3 per cent of the population of National
+Capital Territory of Delhi"**. The rule established on Palau, Nauru and the Cook Islands pays off on the
+most populous country in the world: **read the footnote letters first.**
+
+**AND NDMC'S OWN PAGES ARE THE BEST SOURCE FOR WHAT NEW DELHI ACTUALLY IS.** `ndmc.gov.in` answers where
+`censusindia.gov.in` and `delhi.gov.in` both refuse the connection outright. Its *Introduction* states
+that the council area is the ground called Lutyens' Delhi, that it holds Rashtrapati Bhavan, Parliament
+House, the Supreme Court, the North and South Blocks and every diplomatic mission in the country, and
+that **the Government of India is nearly the sole landowner and owns about 80 per cent of the
+buildings**; its *History* gives the announcement of **12 December 1911**, the choice of Raisina Hill,
+Lutyens and Baker, the Imperial Delhi Committee of **25 March 1913**, the resolution of **22 February
+1927** adopting the name New Delhi, and the opening of the capital on **15 February 1931**. Two cautions:
+its *Act* page opens with a legendary account of the city's founding by the Pandavas which is a state's
+retelling of myth and was not used; and the obvious Rajpath photograph on Commons is under the **Free Art
+License**, which is not on the pipeline's list — check the licence line, not just that the file is on
+Commons.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
