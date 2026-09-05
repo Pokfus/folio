@@ -991,6 +991,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     citations of one book were filed under a scholar named for a letter and the concentration was
     missed. A citation OPENING on its title has no author at all — reading the title as one gave
     gr-333 an author called "Athens".
+  · **AND IT CHECKS A `card.quote` AGAINST THE BOOK IT NAMES, WORD FOR WORD.** `test-card-quote.js`
+    asserts the placement and the address and neither of them the WORDS, so a quotation can be
+    re-punctuated, re-worded or elided across a gap and still render perfectly under a link to the
+    real text — `gr-467` joined two passages 200 words apart with no ellipsis, opened on an
+    editorial "He" where Thucydides names Pericles, and set the translator's `--` as an em dash. An
+    explicit ` … ` is the author saying a gap was cut and each side of it is checked on its own;
+    **a bare number is the edition's apparatus and is dropped from both sides**, since several
+    shelved editions run their section and verse numbers inline and a quotation rightly leaves them
+    out.
   · **IT IS A REPORT TOOL RUN BY HAND AND IS DELIBERATELY NOT IN THE CI FAST GATE.** Over the whole
     corpus it finds a large standing backlog on the first and last checks — the Greece collection's
     early decks rest on one Dartmouth course site and on the French excavation reports, whose

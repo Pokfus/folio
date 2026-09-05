@@ -47,6 +47,16 @@
      most readers cannot check.  Detected from the journal and publisher names, so it is
      a proxy: read the card before acting on it.
 
+  7. A QUOTATION THAT IS NOT IN THE BOOK IT NAMES.  `card.quote` puts a passage of a shelved
+     Library book on the card and a button through to it, and `test-card-quote.js` asserts the
+     placement and the address — neither of them the WORDS.  So a quotation can be silently
+     re-punctuated, re-worded or elided across a gap and still render perfectly under a link to
+     the real text: gr-467 joined two passages 200 words apart with no ellipsis, opened on an
+     editorial "He" where Thucydides names Pericles, and set the translator's `--` as an em dash.
+     Every passage is checked against the generated `books/<id>.js` it names, an explicit ` … `
+     marking a gap and each side of it checked on its own.  A book that is not on disk is skipped
+     rather than failed.
+
   WHAT IT REPORTS TODAY, so a run is not read as a regression.  Over the whole corpus it
   finds a large standing backlog of 1 and 6 — the Ancient Greece collection's early decks
   rest heavily on one Dartmouth course site and on the French excavation reports, because
@@ -233,6 +243,38 @@ for (const c of cards) {
 
 for (const [file, ids] of imgByFile)
   if (ids.length > 1) fails.push(["duplicate-image", `${ids.join(", ")} share one picture`, file]);
+
+/* ---------- 7. a quotation against the book it names ---------- */
+
+const BOOKS = {};
+function shelved(id) {
+  if (id in BOOKS) return BOOKS[id];
+  const f = path.join(ROOT, "books", id + ".js");
+  if (!fs.existsSync(f)) return (BOOKS[id] = null);
+  const win = { FOLIO_BOOKS_IN: [] };
+  new Function("window", fs.readFileSync(f, "utf8"))(win);
+  return (BOOKS[id] = win.FOLIO_BOOKS_IN.find(b => b.id === id) || null);
+}
+for (const c of cards) {
+  const q = c.quote;
+  if (!q || !q.book) continue;
+  const b = shelved(q.book);
+  if (!b) { fails.push(["quote-book-missing", `${c.id}: no books/${q.book}.js on disk`, q.book]); continue; }
+  const ch = (b.chapters || []).find(x => String(x.n) === String(q.n));
+  if (!ch) { fails.push(["quote-section-missing", `${c.id}: ${q.book} has no section ${q.n}`, q.cite || ""]); continue; }
+  /* A BARE NUMBER IS THE EDITION'S APPARATUS, NOT THE TEXT.  Several shelved editions run their
+     section and verse numbers inline — Herodotus' chapter numbers, the Rigveda's verse numbers —
+     and a quotation rightly leaves them out, so comparing the raw strings fails on every
+     verse-numbered book.  Both sides drop tokens that are purely digits before matching. */
+  const norm = t => " " + String(t).replace(/<[^>]*>/g, " ").split(/\s+/)
+    .filter(w => w && !/^\d+$/.test(w)).join(" ") + " ";
+  const flat = norm(ch.html);
+  const said = norm(q.text).trim();
+  /* ` … ` is the author saying a gap was cut.  Anything else must be there word for word. */
+  for (const part of said.split(" … "))
+    if (part && flat.indexOf(part) < 0)
+      fails.push(["quote-not-verbatim", `${c.id} (${q.cite || q.book + " " + q.n}): a passage is not in the book`, part.slice(0, 90)]);
+}
 
 /* ---------- print ---------- */
 
