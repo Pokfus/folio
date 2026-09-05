@@ -2052,7 +2052,8 @@ window.GLOSSARY = {
 "Provincia": "A provincia was a territory held by Rome outside Italy and administered by a magistrate sent from the city, the arrangement by which the republic governed what it conquered.<sup class=\"fn\" data-fn=\"2\"></sup> Cicero, pleading a case about the misgovernment of Sicily, calls that island the first foreign nation to be given the name and the first to teach Romans how glorious a thing it was to rule other peoples.<sup class=\"fn\" data-fn=\"1\"></sup> He describes such territories as farms belonging to the Roman people, valued for their corn and revenue, and the jurist Pomponius records that praetors were created to match the number of provinces as they were acquired.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Mercenary_War": "The Mercenary War was the revolt of Carthage's hired soldiers, joined by Libyan subjects and Numidians, just after the first war with Rome.<sup class=\"fn\" data-fn=\"1\"></sup> It began over arrears of pay: the troops brought home from Sicily were held in the capital in the hope they would remit part of it, then moved inland, where idleness and inflated reckonings turned a wage dispute into a mutiny that spread through the countryside.<sup class=\"fn\" data-fn=\"2\"></sup> Carthage came near to losing its territory and its independence before the rising was crushed after three years and four months, in fighting Polybius calls a truceless war and says surpassed all others he knew of in cruelty.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Seizure_of_Sardinia_and_Corsica": "The seizure of Sardinia and Corsica was Rome’s taking of the two islands from Carthage after the Mercenary War, when the city could not resist; Dio says the larger was secured without a battle.<sup class=\"fn\" data-fn=\"3\"></sup> Invited in by mutineers whom the islanders had expelled from Sardinia, Rome sent an expedition; when Carthage protested that the island was its own and prepared to punish the rebels, Rome declared war on the pretext that the armament was aimed at itself.<sup class=\"fn\" data-fn=\"1\"></sup> Carthage gave up the island and 1,200 talents more, and Polybius, treating this as done contrary to justice because the occasion allowed it, counts it the principal cause of the next war.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Barcid_conquest_of_Spain": "The Barcid conquest of Spain was the subjugation of much of the Iberian peninsula by Hamilcar Barca and his successors, begun immediately after Carthage lost Sicily and Sardinia and intended to replace what had been lost.<sup class=\"fn\" data-fn=\"1\"></sup> Hamilcar campaigned there for about nine years, reducing tribes by force or by negotiation until he was killed; his son-in-law Hasdrubal then married an Iberian prince's daughter, was acclaimed general by the Iberians themselves, and founded New Carthage on the coast.<sup class=\"fn\" data-fn=\"2\"></sup> The resulting dominion was larger than the one Carthage had held before, which brought Rome to negotiate a limit at the Ebro, and it passed on Hasdrubal's murder to Hamilcar's son Hannibal.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Barcid_conquest_of_Spain": "The Barcid conquest of Spain was the subjugation of much of the Iberian peninsula by Hamilcar Barca and his successors, begun immediately after Carthage lost Sicily and Sardinia and intended to replace what had been lost.<sup class=\"fn\" data-fn=\"1\"></sup> Hamilcar campaigned there for about nine years, reducing tribes by force or by negotiation until he was killed; his son-in-law Hasdrubal then married an Iberian prince's daughter, was acclaimed general by the Iberians themselves, and founded New Carthage on the coast.<sup class=\"fn\" data-fn=\"2\"></sup> The resulting dominion was larger than the one Carthage had held before, which brought Rome to negotiate a limit at the Ebro, and it passed on Hasdrubal's murder to Hamilcar's son Hannibal.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"New_Carthage": "New Carthage was the city Hasdrubal founded on the Spanish coast as the seat of Carthaginian power there, on a site chosen for action in Spain and Africa alike.<sup class=\"fn\" data-fn=\"1\"></sup> It stands on a hill in a land-locked gulf, sea on two sides and a lagoon on a third, joined to the mainland by a neck of two stades and ringed by five hills carrying a temple, a palace and the name of the man said to have found the silver.<sup class=\"fn\" data-fn=\"2\"></sup> Almost alone among Spanish cities it had harbours fit for a fleet, and it held Carthage's money, its war material and the hostages taken from the whole peninsula.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2882,7 +2883,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Provincia": "from 241 BCE",
 "Mercenary_War": "241 – 238 BCE",
 "Seizure_of_Sardinia_and_Corsica": "from 238 BCE",
-"Barcid_conquest_of_Spain": "from 237 BCE"
+"Barcid_conquest_of_Spain": "from 237 BCE",
+"New_Carthage": "founded c. 228 – 221 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4142,7 +4144,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Provincia": ["Roman province"],
 "Mercenary_War": ["Truceless War","Libyan War"],
 "Seizure_of_Sardinia_and_Corsica": ["seizure of Sardinia"],
-"Barcid_conquest_of_Spain": ["Barcid Spain","Barcids"]
+"Barcid_conquest_of_Spain": ["Barcid Spain","Barcids"],
+"New_Carthage": ["Carthago Nova","Cartagena"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6227,7 +6230,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Provincia": ["institution","history","politics","rome"],
 "Mercenary_War": ["event","history","warfare","africa","libya"],
 "Seizure_of_Sardinia_and_Corsica": ["event","history","politics","warfare","rome"],
-"Barcid_conquest_of_Spain": ["event","history","warfare","spain","africa"]
+"Barcid_conquest_of_Spain": ["event","history","warfare","spain","africa"],
+"New_Carthage": ["city","place","history","spain","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
