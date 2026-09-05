@@ -1,0 +1,29 @@
+{
+  "id": "bio-075",
+  "num": 75,
+  "category": "Biology",
+  "question": "Passing a mixture through a column of porous beads so its components are held back by different amounts is <span class=\"blank\">_____</span>, and what the beads are made of decides what it sorts by.",
+  "questions": [
+    "In the gel filtration form of <span class=\"blank\">_____</span> the small molecules linger inside the beads while the large ones flow past, so the biggest leave the column first.",
+    "Measuring a mixture measures an average, so <span class=\"blank\">_____</span> is now the front half of nearly every method that reports on individual molecules."
+  ],
+  "answer": "chromatography",
+  "answerText": "chromatography",
+  "answerDate": "",
+  "traditional": "",
+  "hanzi": "",
+  "pinyin": "",
+  "translations": "",
+  "citation": "",
+  "difficulty": 2,
+  "undatable": true,
+  "tags": ["practice", "science", "biology", "chemistry"],
+  "abstract": "<b>Chromatography</b> separates a mixture by passing it through a column packed with a porous solid matrix, in which the different components are retarded to different extents and can be collected separately as they flow out of the bottom.<sup class=\"fn\" data-fn=\"1\"></sup> What the matrix is made of decides what the column sorts by: charge in ion-exchange chromatography, exposed hydrophobic regions in hydrophobic chromatography, size in gel filtration, and the ability to bind a particular molecule in affinity chromatography.<sup class=\"fn\" data-fn=\"1\"></sup> Gel filtration is the one worth thinking through, since its beads are porous and small molecules linger inside them while larger ones stay in the flowing solvent between, so the biggest leave the column first.<sup class=\"fn\" data-fn=\"1\"></sup> Charge can also be used without a column at all, and in electrophoresis an electric field moves a protein at a rate set by its net charge, its size and its shape, which SDS polyacrylamide-gel electrophoresis turned into routine analysis in the mid-1960s.<sup class=\"fn\" data-fn=\"1\"></sup> Before any of that, whole organelles are sorted by differential centrifugation, a method developed by Albert Claude, Christian de Duve and their colleagues in the 1940s and 1950s that separates components by size and density.<sup class=\"fn\" data-fn=\"2\"></sup> <br><br> Separation is now almost always the front half of a measurement rather than an end in itself.<sup class=\"fn\" data-fn=\"3\"></sup> Lipidomics is the clear case, resting on advances in mass spectrometry, chromatography and computational analysis together, which is what has allowed lipid networks to be mapped at high resolution across molecular, cellular and organismal scales.<sup class=\"fn\" data-fn=\"3\"></sup> A working study now combines several such methods at once, one recent example pairing liquid chromatography and mass spectrometry for metabolites with non-reducing tandem mass tag proteomics in the same cells.<sup class=\"fn\" data-fn=\"4\"></sup> What that buys is not only sensitivity, since electrospray mass spectrometry captures the states actually present in a sample rather than an average over them.<sup class=\"fn\" data-fn=\"5\"></sup> Optical methods that report an ensemble average can struggle to resolve those states at all, which is the whole argument for separating a mixture before asking anything of it.<sup class=\"fn\" data-fn=\"5\"></sup>",
+  "sources": [
+    "Bruce Alberts, Alexander Johnson, Julian Lewis, Martin Raff, Keith Roberts, and Peter Walter, “Fractionation of Cells,” in <i>Molecular Biology of the Cell</i>, 4th ed. (New York: Garland Science, 2002), https://www.ncbi.nlm.nih.gov/books/NBK26936/. [Open access]",
+    "Geoffrey M. Cooper, “Tools of Cell Biology,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9941/. [Open access]",
+    "Maria Fedorova, Anne K. Bendt, Justine Bertrand-Michel, Oliver Fiehn, Joanna Godzien, Laura Goracci, Florian Gruber, et al., “A Lipidomics Roadmap: From Basic Research to Societal Challenges,” <i>Nature Communications</i> 17, no. 1 (2026): 4778, https://doi.org/10.1038/s41467-026-73797-4. [Open access]",
+    "Yeonjoo Lee, Tae-Kyung Kim, Seungjin Na, Kong-Joo Lee, Jaeho Jeong, and Eun Joo Song, “Non-Reducing Proteomics Reveals Disulfide-Dependent Proteoform Remodeling under Oxidative Stress,” <i>Molecular and Cellular Proteomics</i> 25, no. 4 (2026): 101548, https://doi.org/10.1016/j.mcpro.2026.101548. [Open access]",
+    "Nicklas Österlund, Jacob S. Jordan, Eleonora Renzi, Gergo Peter Szekeres, and Kevin Pagel, “Mass Spectrometry Detects Folding Intermediates Populated during Urea-Induced Protein Denaturation,” <i>Chemical Science</i> 16, no. 47 (2025): 22407–16, https://doi.org/10.1039/d5sc05773f. [Open access]"
+  ]
+}

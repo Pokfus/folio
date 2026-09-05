@@ -2122,7 +2122,8 @@ window.GLOSSARY = {
 "Nucleotide": "A nucleotide is a nitrogen-containing base joined to a sugar and carrying one or more phosphate groups on that sugar's 5' carbon; a base bound to a sugar alone, without any phosphate, is a nucleoside rather than a nucleotide.<sup class=\"fn\" data-fn=\"1\"></sup> The bases fall into two chemical families, purines and pyrimidines, and the sugar is ribose or, with one oxygen fewer, 2'-deoxyribose, which is what separates the two kinds of nucleic acid built from them.<sup class=\"fn\" data-fn=\"1\"></sup> Being polymerised into a nucleic acid is only one of their uses, since nucleotides also serve as carriers of chemical energy and as signalling molecules.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Adenosine_triphosphate": "Adenosine triphosphate, or ATP, is a nucleotide made of an adenine base on a ribose sugar carrying three phosphate groups bonded one after another, and it is the principal form of chemical energy inside cells.<sup class=\"fn\" data-fn=\"1\"></sup> Removing the outermost phosphate to leave ADP is energetically favourable, so the reaction can be coupled to processes that would not otherwise proceed; the molecule is spent and remade continuously rather than stored, a human body hydrolysing 100 to 150 moles of it a day.<sup class=\"fn\" data-fn=\"2\"></sup> It also acts outside that role, being released with neurotransmitters as a signalling molecule and influencing how proteins interact.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Biuret_test": "The biuret test is a colour reaction used to show that protein is present in a sample: at alkaline pH copper forms chelates with the peptide linkages of a protein and the solution turns violet.<sup class=\"fn\" data-fn=\"1\"></sup> Because it responds to the peptide bond rather than to any particular molecule, anything carrying enough peptide linkages will give a positive result, so the test identifies a class of compound rather than a specific one.<sup class=\"fn\" data-fn=\"2\"></sup> It is used routinely in laboratories to measure serum total protein, although a refractometer correlates with it closely enough to serve as a quicker and cheaper substitute in some settings.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Structure-function_relationship": "The structure-function relationship is the organising assumption of molecular biology, that what a molecule is able to do follows from its three-dimensional shape and that the shape in turn follows from the way the molecule is built.<sup class=\"fn\" data-fn=\"1\"></sup> A protein is the standard illustration, its conformation being determined by the order of its amino acids, so that changing a single residue can change what the molecule does.<sup class=\"fn\" data-fn=\"2\"></sup> The relationship is a powerful rule rather than a law, since long segments of many proteins function without ever adopting a stable fold at all.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Structure-function_relationship": "The structure-function relationship is the organising assumption of molecular biology, that what a molecule is able to do follows from its three-dimensional shape and that the shape in turn follows from the way the molecule is built.<sup class=\"fn\" data-fn=\"1\"></sup> A protein is the standard illustration, its conformation being determined by the order of its amino acids, so that changing a single residue can change what the molecule does.<sup class=\"fn\" data-fn=\"2\"></sup> The relationship is a powerful rule rather than a law, since long segments of many proteins function without ever adopting a stable fold at all.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Chromatography": "Chromatography is a family of methods for separating the components of a mixture by passing it through a column packed with a porous solid matrix, in which the components are held back to different extents and emerge one after another.<sup class=\"fn\" data-fn=\"1\"></sup> What the matrix is made of determines the property sorted on: charge in ion-exchange chromatography, exposed hydrophobic regions in hydrophobic chromatography, molecular size in gel filtration, and the ability to bind a chosen molecule in affinity chromatography.<sup class=\"fn\" data-fn=\"1\"></sup> Coupled to mass spectrometry it underpins modern analyses of complex biological mixtures, where measuring an unseparated sample would report only an average.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4262,7 +4263,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nucleotide": ["nucleotides"],
 "Adenosine_triphosphate": ["ATP","adenosine triphosphate"],
 "Biuret_test": ["biuret test","biuret method","biuret reagent"],
-"Structure-function_relationship": ["structure-function relationship","structure and function relationship"]
+"Structure-function_relationship": ["structure-function relationship","structure and function relationship"],
+"Chromatography": ["chromatography"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6420,7 +6422,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Nucleotide": ["object","science","biology","chemistry","genetics"],
 "Adenosine_triphosphate": ["object","science","biology","chemistry"],
 "Biuret_test": ["practice","science","biology","chemistry"],
-"Structure-function_relationship": ["concept","science","biology","chemistry"]
+"Structure-function_relationship": ["concept","science","biology","chemistry"],
+"Chromatography": ["practice","science","biology","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

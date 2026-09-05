@@ -1,0 +1,10 @@
+{
+  "slug": "Chromatography",
+  "aliases": ["chromatography"],
+  "description": "Chromatography is a family of methods for separating the components of a mixture by passing it through a column packed with a porous solid matrix, in which the components are held back to different extents and emerge one after another.<sup class=\"fn\" data-fn=\"1\"></sup> What the matrix is made of determines the property sorted on: charge in ion-exchange chromatography, exposed hydrophobic regions in hydrophobic chromatography, molecular size in gel filtration, and the ability to bind a chosen molecule in affinity chromatography.<sup class=\"fn\" data-fn=\"1\"></sup> Coupled to mass spectrometry it underpins modern analyses of complex biological mixtures, where measuring an unseparated sample would report only an average.<sup class=\"fn\" data-fn=\"2\"></sup>",
+  "tags": ["practice", "science", "biology", "chemistry"],
+  "sources": [
+    "Bruce Alberts, Alexander Johnson, Julian Lewis, Martin Raff, Keith Roberts, and Peter Walter, “Fractionation of Cells,” in <i>Molecular Biology of the Cell</i>, 4th ed. (New York: Garland Science, 2002), https://www.ncbi.nlm.nih.gov/books/NBK26936/. [Open access]",
+    "Maria Fedorova, Anne K. Bendt, Justine Bertrand-Michel, Oliver Fiehn, Joanna Godzien, Laura Goracci, Florian Gruber, et al., “A Lipidomics Roadmap: From Basic Research to Societal Challenges,” <i>Nature Communications</i> 17, no. 1 (2026): 4778, https://doi.org/10.1038/s41467-026-73797-4. [Open access]"
+  ]
+}
