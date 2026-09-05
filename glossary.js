@@ -2104,7 +2104,8 @@ window.GLOSSARY = {
 "Day_of_Eleusis": "Day of Eleusis is the name given to a meeting at Eleusis outside Alexandria in 168 BCE, at which the Roman envoy Gaius Popillius Laenas confronted the Seleucid king Antiochus IV, who had overrun Egypt.<sup class=\"fn\" data-fn=\"1\"></sup> Popillius refused the king's outstretched hand, gave him a tablet carrying the senate's decree instead, and, when he asked to consult his friends, drew a circle round him with a stick cut from a vine and required an answer before he left it.<sup class=\"fn\" data-fn=\"2\"></sup> Antiochus agreed to withdraw, and Polybius held that he did so only because the defeat of Perseus in Macedonia had already settled who would decide such questions.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Achaean_War": "Achaean War is the name of the short war of 146 BCE between Rome and the Achaean League, the federation of Greek cities whose general was then Critolaus.<sup class=\"fn\" data-fn=\"1\"></sup> It grew out of a dispute over whether Sparta might leave the League: Roman embassies pressed for a settlement, one was jeered out of an assembly at Corinth,<sup class=\"fn\" data-fn=\"2\"></sup> and the Achaeans voted for a war Polybius says was aimed at Sparta in name and at Rome in fact.<sup class=\"fn\" data-fn=\"3\"></sup> Critolaus was routed near Scarpheia and never seen again,<sup class=\"fn\" data-fn=\"1\"></sup> his successor Diaeus was beaten at the Isthmus by Lucius Mummius and took poison, and Rome dissolved the confederacies of the Achaeans and their neighbours.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Sack_of_Corinth": "Sack of Corinth refers to the destruction of the Greek city by the Roman consul Lucius Mummius in 146 BCE, at the close of the Achaean War.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias reports that the men found in the city were killed, the women and children sold, and its finest votive offerings and works of art taken away,<sup class=\"fn\" data-fn=\"1\"></sup> while Polybius, who was present, saw soldiers playing dice on paintings thrown to the ground.<sup class=\"fn\" data-fn=\"2\"></sup> Strabo says the city was razed and its territory largely given to Sicyon, and that after lying deserted for a long while the site was refounded as a Roman colony by Caesar.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Province_of_Macedonia": "Province of Macedonia was the Roman administrative command formed out of the former Macedonian kingdom, which Rome had first tried to govern as four separate republics.<sup class=\"fn\" data-fn=\"1\"></sup> It followed the revolt of a pretender who claimed to be a son of King Perseus, took the country, destroyed a Roman praetor and his army, and was then defeated and captured by Quintus Caecilius Metellus.<sup class=\"fn\" data-fn=\"2\"></sup> The province was crossed by the Egnatian Road, which ran east from the Adriatic coast measured in Roman miles and marked with pillars,<sup class=\"fn\" data-fn=\"3\"></sup> and Strabo counts Macedonia among the ten praetorian provinces held by the senate.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Province_of_Macedonia": "Province of Macedonia was the Roman administrative command formed out of the former Macedonian kingdom, which Rome had first tried to govern as four separate republics.<sup class=\"fn\" data-fn=\"1\"></sup> It followed the revolt of a pretender who claimed to be a son of King Perseus, took the country, destroyed a Roman praetor and his army, and was then defeated and captured by Quintus Caecilius Metellus.<sup class=\"fn\" data-fn=\"2\"></sup> The province was crossed by the Egnatian Road, which ran east from the Adriatic coast measured in Roman miles and marked with pillars,<sup class=\"fn\" data-fn=\"3\"></sup> and Strabo counts Macedonia among the ten praetorian provinces held by the senate.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Province_of_Asia": "Province of Asia was the Roman province formed from the Attalid kingdom of Pergamum in western Anatolia, whose last king left the Roman people his heirs.<sup class=\"fn\" data-fn=\"1\"></sup> Strabo says the Romans proclaimed the country a province and named it Asia after the continent,<sup class=\"fn\" data-fn=\"1\"></sup> and later lists it as one of only two consular provinces held by the senate.<sup class=\"fn\" data-fn=\"2\"></sup> It was the wealthiest of Rome's provinces and its taxes were farmed by contractors: Cicero told an assembly that Asia surpassed every other country in soil, produce, pasture and exports,<sup class=\"fn\" data-fn=\"3\"></sup> and that fortunes lost there could break credit at Rome itself.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4264,7 +4265,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Masinissa": ["Massinissa"],
 "Roman-Seleucid_War": ["Roman–Seleucid War","Syrian War"],
 "Lucius_Aemilius_Paullus_Macedonicus": ["Aemilius Paullus","Lucius Aemilius Paullus"],
-"Province_of_Macedonia": ["Roman province of Macedonia"]
+"Province_of_Macedonia": ["Roman province of Macedonia"],
+"Province_of_Asia": ["Roman province of Asia"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6401,7 +6403,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Day_of_Eleusis": ["event","history","politics","rome","greece"],
 "Achaean_War": ["event","warfare","history","rome","greece"],
 "Sack_of_Corinth": ["event","warfare","history","rome","greece"],
-"Province_of_Macedonia": ["place","history","politics","rome","greece"]
+"Province_of_Macedonia": ["place","history","politics","rome","greece"],
+"Province_of_Asia": ["place","history","politics","rome","anatolia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
