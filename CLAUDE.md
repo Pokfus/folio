@@ -935,7 +935,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   occurrences being "Life of Lycurgus", "Life Insurance" and the like. A parenthetical key claims no
   bare name (`bareTaken` in `buildGlossIndex`), so it is reached by its two narrower aliases and by a
   hand-written `data-k` instead. **Ask what a one-word answer term is in ordinary English before
-  keying it.** The next card to write
+  keying it.** **`Cell_(biology)` is the same shape and is the REAL Wikipedia slug**, and it
+  deliberately carries no bare `cell` alias yet: only 7 shipped abstracts contain the word and two of
+  them mean an architectural bay and a prison cell, so claiming it today ships two wrong links to buy
+  nothing. **Revisit that when `bio-celltheory` lands**, by which time the biological sense will
+  dominate the corpus. The next card to write
   is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED
   COLLECTIONS" is the lookup. **Its first cards have shipped**, so the collection is live — `isComingSoon`
   is false for a node holding a card — and its 45 empty decks are coming-soon automatically, on the same
@@ -4867,7 +4871,7 @@ lookup.
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
-| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 3 cards — not a history collection |
+| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 4 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 100 cards — and it is NOT a 1000-card plan, see below |
