@@ -2084,7 +2084,8 @@ window.GLOSSARY = {
 "Wall_Street_Crash_of_1929": "The <b>Wall Street crash of 1929</b>, or stock market crash of 1929, ended a bull market that had carried the Dow Jones Industrial Average six-fold, to 381.17 on 3 September that year.<sup class=\"fn\" data-fn=\"1\"></sup> Prices fell nearly 13 percent on 28 October and nearly 12 percent the next day, and by mid-November had lost almost half its value; it bottomed at 41.22 in July 1932, 89 percent down, and regained its 1929 level only in 1954.<sup class=\"fn\" data-fn=\"1\"></sup> Its effect faded within months, and it is counted as one of a series of crises, the banking panics of 1930 and 1931 doing more to turn the slump into a decade of depression.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Great_Depression": "The <b>Great Depression</b> was the longest and deepest downturn in the history of the modern industrial economy; it began in the United States in August 1929, spread around the globe, and ended during the Second World War.<sup class=\"fn\" data-fn=\"1\"></sup> It came as a series of crises rather than one collapse, a stock market crash in 1929, banking panics in 1930 and 1931 and international financial crises from 1931 to 1933, with the American money supply falling by nearly 30 percent and prices with it.<sup class=\"fn\" data-fn=\"1\"></sup> Governments left the gold standard, raised tariffs and turned inward, world trade fell by about two-thirds between 1929 and 1934, and the slump reached bottom in March 1933.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Article_48_of_the_Weimar_Constitution": "<b>Article 48</b> of the Weimar constitution allowed the president of the German Reich to govern by emergency decree, and from 1930 it became the instrument by which Germany was actually ruled.<sup class=\"fn\" data-fn=\"1\"></sup> After the last majority coalition broke up in March 1930, Paul von Hindenburg appointed cabinets resting on his own confidence rather than on a Reichstag majority, and Heinrich Brüning used decrees to force through austerity against the will of the parliamentary majority.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Power shifted from parliament to the president, Brüning’s successors had still less support in the Reichstag, and Hindenburg regarded the appointment of Adolf Hitler as chancellor in 1933 as a continuation of the same policy.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Fascism": "Fascism is a form of authoritarian nationalism that arose in Europe after the First World War, taking its name from the Italian movement that came to power in 1922 and lending it to comparable movements elsewhere.<sup class=\"fn\" data-fn=\"3\"></sup> Its characteristic features included a mass party organised as a militia, an outright rejection of parliamentary democracy and of the left as anti-national, and submission to a charismatic leader.<sup class=\"fn\" data-fn=\"1\"></sup> In its own published account it held the state to be an absolute beside which individuals and groups are relative, dismissed pacifism as cowardice, and proclaimed the twentieth century \"a century of authority\" against the individualism it identified with liberalism.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Fascism": "Fascism is a form of authoritarian nationalism that arose in Europe after the First World War, taking its name from the Italian movement that came to power in 1922 and lending it to comparable movements elsewhere.<sup class=\"fn\" data-fn=\"3\"></sup> Its characteristic features included a mass party organised as a militia, an outright rejection of parliamentary democracy and of the left as anti-national, and submission to a charismatic leader.<sup class=\"fn\" data-fn=\"1\"></sup> In its own published account it held the state to be an absolute beside which individuals and groups are relative, dismissed pacifism as cowardice, and proclaimed the twentieth century \"a century of authority\" against the individualism it identified with liberalism.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Benito_Mussolini": "Benito Mussolini was an Italian journalist and politician who founded the Fascist movement and governed Italy from 1922 until 1943.<sup class=\"fn\" data-fn=\"1\"></sup> A socialist editor before the First World War, he was expelled from his party for demanding Italian intervention, served at the front, and afterwards turned his newspaper into the organ of a movement of veterans and armed squads.<sup class=\"fn\" data-fn=\"2\"></sup> Appointed prime minister in 1922, he made himself head of a government answerable to the king alone and allied Italy to Germany, before being dismissed and arrested in 1943, installed by the Germans over a puppet state in the north, and shot by partisans in April 1945.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2946,7 +2947,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Racial_Equality_Proposal": "1919",
 "Wall_Street_Crash_of_1929": "October 1929",
 "Great_Depression": "1929–1939",
-"Article_48_of_the_Weimar_Constitution": "1919–1933"
+"Article_48_of_the_Weimar_Constitution": "1919–1933",
+"Benito_Mussolini": "1883–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4223,7 +4225,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Shandong_Problem": ["Shandong question","Shantung question","Shantung Question"],
 "Racial_Equality_Proposal": ["racial equality clause","racial equality amendment"],
 "Wall_Street_Crash_of_1929": ["Wall Street crash","stock market crash of 1929","Great Crash"],
-"Article_48_of_the_Weimar_Constitution": ["Article 48"]
+"Article_48_of_the_Weimar_Constitution": ["Article 48"],
+"Benito_Mussolini": ["Mussolini"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6343,7 +6346,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Wall_Street_Crash_of_1929": ["event","history","economics","politics","20th century","united states"],
 "Great_Depression": ["event","history","economics","politics","20th century"],
 "Article_48_of_the_Weimar_Constitution": ["concept","history","politics","law","europe","20th century"],
-"Fascism": ["concept","politics","ideology","history","europe","20th century"]
+"Fascism": ["concept","politics","ideology","history","europe","20th century"],
+"Benito_Mussolini": ["person","politics","history","ideology","italy","20th century"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
