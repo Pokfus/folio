@@ -1,0 +1,34 @@
+{
+  "id": "bio-064",
+  "num": 64,
+  "category": "Biology",
+  "question": "The order of the amino acids in a chain, written from the amino end to the carboxyl end, is a protein's <span class=\"blank\">_____</span>, and the gene's nucleotide order fixes it.",
+  "questions": [
+    "Swapping one glutamate for a valine at the sixth position of the beta-globin chain is a change to <span class=\"blank\">_____</span> that produces haemoglobin S and, inherited twice, sickle cell anaemia.",
+    "Deep mutational scanning measures thousands of variants of one protein at once, which is a way of asking which changes to <span class=\"blank\">_____</span> actually matter."
+  ],
+  "answer": "primary structure",
+  "answerText": "primary structure",
+  "answerDate": "",
+  "traditional": "",
+  "hanzi": "",
+  "pinyin": "",
+  "translations": "",
+  "citation": "",
+  "difficulty": 2,
+  "undatable": true,
+  "tags": [
+    "concept",
+    "science",
+    "biology",
+    "genetics"
+  ],
+  "abstract": "The <b>primary structure</b> of a protein is the order of the amino acids along its chain, and that order is the defining characteristic of a protein: not a class of similar molecules but one particular sequence.<sup class=\"fn\" data-fn=\"1\"></sup> It is written from the amino terminus to the carboxyl terminus, which is the order the chain is built in.<sup class=\"fn\" data-fn=\"1\"></sup> Nor is it the protein's own choice, since the sequence is determined by the order of nucleotides in the gene that encodes it.<sup class=\"fn\" data-fn=\"1\"></sup> A single position in that order can matter enormously, and in the sickle cell mutation a negatively charged glutamate is replaced by a neutral valine at the sixth position of the beta-globin chain, a substitution Vernon Ingram identified in 1956 by a fingerprinting technique.<sup class=\"fn\" data-fn=\"2\"></sup> The result is haemoglobin S, and inheriting the variant from both parents gives sickle cell anaemia, the commonest and most severe form of the disease.<sup class=\"fn\" data-fn=\"3\"></sup> <br><br> It does not follow that every substitution behaves that way, and the globin genes, HBB above all, carry a wide spread of variants whose relations to the clinical picture are complicated enough to make diagnosis genuinely difficult.<sup class=\"fn\" data-fn=\"3\"></sup> Which changes matter is now measured rather than argued about, since deep mutational scanning assays many thousands of variants of a single protein in one pooled experiment.<sup class=\"fn\" data-fn=\"4\"></sup> Those results are used to classify clinical variants and to test how well the predictive models actually do.<sup class=\"fn\" data-fn=\"4\"></sup> Reading a sequence has changed as much, and single-molecule instruments now probe individual peptides in real time, at single amino acid resolution, rather than working on bulk samples.<sup class=\"fn\" data-fn=\"5\"></sup> They do not replace mass spectrometry, because neither approach on its own achieves full coverage of a sequence.<sup class=\"fn\" data-fn=\"5\"></sup>",
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Ankit Mangla, Nikki Agarwal, and Smita Maruvada, “Sickle Cell Anemia,” in <i>StatPearls</i> (Treasure Island, FL: StatPearls Publishing, 2023), https://www.ncbi.nlm.nih.gov/books/NBK482164/. [Open access]",
+    "Emelie Foord, Darius Sairafi, Monika Berg, Sofia Westerling, Toheeb Adigun, Mehmet Uzunel, Thessalia Papasavva, and Michael Uhlin, “Decoding Thalassemia and Sickle Cell Disease: Advances in Molecular Technologies for Comprehensive Variant Detection,” <i>Frontiers in Genetics</i> 17 (2026): 1810737, https://doi.org/10.3389/fgene.2026.1810737. [Open access]",
+    "Hasan Çubuk, Xinyi Jin, Belinda Phipson, Joseph A. Marsh, and Alan F. Rubin, “Variant Scoring Tools for Deep Mutational Scanning,” <i>Molecular Systems Biology</i> 21, no. 10 (2025): 1293–305, https://doi.org/10.1038/s44320-025-00137-x. [Open access]",
+    "Tomasz A. Leski, Sean M. Brown, Zachary T. Johnson, Scott N. Dean, Ellen R. Goldman, and David A. Stenger, “Optimization of the Quantum-Si Platinum Single-Molecule Protein Sequencing Platform toward Improved Complex-Matrix Protein Identification,” <i>ACS Omega</i> (2026), https://doi.org/10.1021/acsomega.6c01140. [Open access]"
+  ]
+}
