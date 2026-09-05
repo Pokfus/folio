@@ -410,6 +410,32 @@ for the whole exercise: tagging **道** turned up a sense the card had not got a
 example is 自言自语道, where 道 is the verb that ends a line of reported speech, and the card listed only
 the noun and the measure word.
 
+### The fault none of the ten predicted: an example that does not contain its own word
+
+Topping the Everyday Phrases deck up to three examples turned up a card for **久病** illustrated by
+医生虽然已经竭尽全力，但**不久病人**还是死了 — where the two characters straddle 不久 and 病人 and mean
+nothing together. The sentence is real, its translation is right, the card bolds the characters, and the
+word the card teaches is not in it. That is a whole class of fault, and `check-example-fit.js` measures it:
+the nine decks list 11,532 words, which is a serviceable lexicon, so a sentence can be re-segmented and
+asked whether the headword straddles a boundary between two other words.
+
+**350 findings out of 23,618 sentences, of which about 200 were real and are repaired.** Some cards were
+wrong three times over: **生动** was illustrated only ever inside 野生动物, **后期** only inside 最后期限,
+**上火** only inside 赶上火车, **试卷** only inside 考试卷. Seventy-five notes had no correct example at
+all, so a reader studying those cards never once saw the word used.
+
+Two things about the measure are worth keeping. **The ranking is what makes it readable**: greedy
+segmentation cannot tell 如何|在 (a real fault) from 十分|钟 (not one), because the two have exactly the
+same shape — so a finding is ranked by how much more the competing word is used across all nine decks'
+sentences than the headword is, and the real faults come to the top. And **the precision is about 57%**,
+which is stated rather than rounded up: the remaining 103 findings are the segmenter losing to a negator
+or a modifier (不|安全 read as 不安|全, 有|时间 as 有时|间), and they are left alone.
+
+Repairing it also found a fault in the repair tool. **`dropEx` did not filter the record's own examples** —
+it was written to remove a sentence the GENERATOR had shipped, so it only filtered what was read off the
+deck, and the moment a HARVESTED sentence turned out to be wrong the drop silently did nothing: the
+applier strips the added blocks and then puts them straight back from the record.
+
 ### 3 and 7 were already true
 
 **The pooled community difficulty rating has always covered language decks.** `card.difficulty` is an

@@ -228,6 +228,14 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
         fix.dropEx.forEach((z) => { if (!kept.some((b) => b.indexOf(z) >= 0)) badDrop.push(w.key + " → " + z); });
         kept = kept.filter((b) => !fix.dropEx.some((z) => b.indexOf(z) >= 0));
       }
+      /* `dropEx` FILTERS THE RECORD'S OWN EXAMPLES TOO, not just the deck's. It began as a way to remove
+         a sentence the generator had shipped, so it only ever filtered `kept` — and the moment a
+         HARVESTED sentence turned out to be wrong (check-example-fit.js found dozens: 上火 illustrated
+         inside 赶上火车, 人情 inside 一个人情) the drop appeared to do nothing, because the strip above
+         removes the block and this list puts it straight back. Silent, and it reads as a `dropEx` that
+         matched nothing. */
+      const dropped = (fix.ex || []).filter(([zh]) => (fix.dropEx || []).some((z) => String(zh).indexOf(z) >= 0));
+      if (dropped.length) fix.ex = (fix.ex || []).filter(([zh]) => !(fix.dropEx || []).some((z) => String(zh).indexOf(z) >= 0));
       const room = Math.max(0, 3 - kept.length);
       /* AN EXAMPLE MUST CONTAIN THE HEADWORD. A sentence that does not is a typo — a wrong character,
          or a batch row filed against the wrong note — and it renders perfectly: the card shows a

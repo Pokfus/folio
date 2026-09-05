@@ -1385,6 +1385,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     own reason: `meta` is what an export copies, so a deck FILE could otherwise claim to be current.
     **ONE button per DECK**, on the first of its rows the reader has — its levels and its directions
     are the same file seen from further in. Guarded by `.claude/test-deck-update.js`.
+  · **…AND WHAT THE DECK TEACHES, BESIDE WHAT IT COSTS** (`ex` / `say` in the catalogue, `.node-fact`,
+    `langFactsHTML`; Sep 2026, on request). A row said how many cards and how many megabytes and nothing
+    about whether the deck carries EXAMPLE SENTENCES or whether its words can be HEARD — the two things
+    that most decide whether a vocabulary deck is worth the download, and the two that actually vary
+    (example coverage runs 16%–100%; eight of the fifty-three decks have no speech control at all).
+    **ONLY WHAT VARIES IS DRAWN**: every deck on the shelf is asked both ways, so saying so on all of them
+    tells a reader choosing between two of them nothing, and audio is the norm so only its ABSENCE is
+    printed. **A tree node carries its OWN example coverage rather than its file's**, because on an
+    unwrapped deck those nodes are the rows a reader chooses between.
+  · **A LANGUAGE DECK CAN BE STUDIED BY FREQUENCY** (`DECK_ORDERS`'s fourth entry, `uDeckWordFreq` /
+    `sortByFrequency` / `deckOrdersFor` / `entryCanFreq`; Sep 2026, on request). The exam lists these
+    decks are built from are alphabetical by reading, an ordering with no teaching in it — a reader
+    working through HSK Level 5 in order meets 报到 on the first day and 自觉 in a year — and "By
+    difficulty" can say nothing here, `card.difficulty` being an editorial rating only curated cards
+    carry. This counts how often a deck's own example sentences use each of its headwords (longest match
+    at each position, so 天 is not counted inside 今天) and deals the commonest first. **IT IS DERIVED,
+    NEVER STORED**, one pass over a deck the reader has just asked to study. **WHERE IT STOPS WORKING IS
+    MEASURED**: the median count is 57 at Level 1 and 7 at Level 5, and **1 at Levels 7–9, where 3,029 of
+    5,562 words occur exactly once — in their own sentence**. The sort is stable, so that run keeps deck
+    order and only genuinely common words move. **Offered ONLY where it can act** — `deckOrdersFor` steps
+    the cycler past it on a deck with no examples, an option that is drawn and does nothing being worse
+    than one that is not drawn.
   · **A DECK'S OWN SUBTITLE IS PRINTED UNDER ITS TITLE** on the Collections page (`.node-sub`, top-level
     rows only; Sep 2026). Nine Mandarin decks presented as nine levels gave a learner no route — where
     to start, how big each is against the others, where the two decks outside the ladder fit — and the
@@ -1495,6 +1517,51 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   speech; pinyin written as one word, with **erhua exempt** (哪儿 `nǎr` IS one syllable); and measure
   words on nouns, the loosest of the five, most noun-tagged notes not being countable. **RUN IT rather
   than quoting a figure from here** — this bullet stated five and every one of them moved within a day.
+- **📖 `.claude/decks/check-example-fit.js` — AN EXAMPLE THAT DOES NOT ACTUALLY CONTAIN ITS OWN WORD**,
+  and **the largest single fault this collection has turned up**: `node .claude/decks/check-example-fit.js
+  [--deck=] [--top=N] [--all]`. An example is chosen by FINDING the headword in a sentence, and a
+  substring match is not a word match — 生动 was illustrated three times over inside 野生动物, 后期 three
+  times inside 最后期限, 上火 three times inside 赶上火车, 久病 inside 不久病人. The sentence is real, the
+  translation is right, the card BOLDS the characters, and the word the card teaches is not in it.
+  **Nothing else in the pipeline could see this**, and no reader could either.
+  · **IT SEGMENTS AND ASKS WHETHER THE HEADWORD STRADDLES A BOUNDARY.** The nine decks list 11,532 words,
+    which is a serviceable lexicon; the sentence is re-segmented longest-match-first and a finding is an
+    occurrence whose characters are split BETWEEN two words. Asking the looser question — "did the
+    segmenter land on the headword?" — reports 514 sentences of which almost all are Chinese working
+    normally (国 lives inside 国家, 点 inside 几点), which is reporting the language rather than a fault.
+    A single-character headword is skipped, since one character cannot straddle anything.
+  · **THE RANKING IS WHAT MAKES IT READABLE, and it is a frequency ranking.** Greedy segmentation cannot
+    tell 如何|在 (a real fault) from 十分|钟 (not one) — they have the same SHAPE — so a finding is ranked
+    by how much more the competing word is used, across every example sentence in all nine decks, than
+    the headword. The real faults come to the top and stay there.
+  · **MEASURED: 350 findings, of which about 200 were real and repaired, leaving 103.** The rest are the
+    greedy segmenter losing to a negator or a modifier (不|安全 read as 不安|全, 有|时间 as 有时|间) —
+    ~57% precision, stated rather than rounded up. A ranked review list, never a gate; it exits 0.
+  · **A REPAIR IS `dropEx` PLUS AN AUTHORED `ex`**, that being the only way these decks may be edited.
+    **`dropEx` HAD TO LEARN TO FILTER THE RECORD'S OWN EXAMPLES**: it began as a way to remove a sentence
+    the GENERATOR shipped, so it only filtered what was read off the deck — and the moment a HARVESTED
+    sentence turned out to be wrong the drop silently did nothing, because the applier strips the added
+    blocks and then puts them straight back from the record.
+- `.claude/decks/check-gloss-source.js` — **the Mandarin glosses and readings against a SECOND
+  dictionary**: `node .claude/decks/check-gloss-source.js [--deck=] [--top=N] [--all] [--cedict=<path>]`.
+  Every other checker here asks whether a card is INTERNALLY consistent — pinyin against bopomofo, gloss
+  against the card's own examples, reading against the corpus's own distribution — and **a wrong gloss
+  survives all of them, being a perfectly well-formed gloss**; `炒作` was defined as "Nest", which is its
+  neighbour `巢穴`'s gloss. It fetches **CC-CEDICT** (CC BY-SA) at run time into `.claude/.cedict.txt`,
+  gitignored and never vendored. **Report-only, exit 0.**
+  · **THE NEIGHBOUR CHECK IS THE POINT AND THE OVERLAP CHECK IS THE SLUDGE.** 9% of glosses share no
+    content word with the dictionary's own entry, which is what a three-word card gloss meeting a
+    fifteen-word dictionary entry produces. A gloss that instead matches the entry for the card **two
+    either way in the file** is not a paraphrase but a copy: 24 findings over all nine decks, every one a
+    **near-synonym pair the exam list's alphabetical order happens to sit side by side** (感情/感觉,
+    视力/视觉, 简练/简洁). The rule was verified to catch `炒作` on its pre-fix gloss, so that fault was a
+    one-off.
+  · **THE READING HALF IS THE STRONGER ONE and found two real errors on its first run**: `掠夺` and `战略`
+    wrote **`luè` where pinyin orthography requires `lüè`** — their own bopomofo said ㄌㄩㄝˋ all along, and
+    `check-pinyin.js` cannot see it because it compares syllable BOUNDARIES rather than vowel spellings.
+    It also settled `嗯`, whose `ǹg` is not a pinyin syllable and which carries no bopomofo. **Fold erhua
+    and split a two-reading card on the slash before comparing**, or every polyphone is a finding — 97
+    before those two rules, 2 after.
 - **A SHARED GLOSS IS DISAMBIGUATED BY THE DECK'S OWN `not <other word>` BLOCK.** The English → Chinese
   card's front is the gloss and nothing else, so two notes sharing one are a single question with
   several right answers — the reader types 再 for "again", is shown 又, and cannot tell a wrong answer
