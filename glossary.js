@@ -1827,7 +1827,8 @@ window.GLOSSARY = {
 "The_Art_of_War": "The <i>Art of War</i> is a Chinese treatise on strategy in thirteen short chapters, ascribed to Sun Wu, a general said to have served King Helü of Wu in the late 6th century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It holds that war is a matter of life and death for a state, that all warfare is based on deception, and that supreme excellence lies in breaking an enemy's resistance without fighting.<sup class=\"fn\" data-fn=\"1\"></sup> Whether Sun Wu existed has been doubted since the Song, when it was noted that the Zuo Commentary never names him;<sup class=\"fn\" data-fn=\"1\"></sup> the book reached Europe in a French translation of 1772.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Qin_Shi_Huang": "Qin Shi Huang was the king of Qin who conquered the last of the warring states in 221 BCE, becoming the first ruler of a united China and taking the new title huangdi.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He divided the empire into 36 commanderies under appointed officials, unified the laws, weights, measures, cart axles and script, and in 213 BCE had the histories of the other states burned.<sup class=\"fn\" data-fn=\"1\"></sup> He died on tour in 210 BCE and was buried at Mount Li, east of modern Xi'an, and the dynasty he meant to last ten thousand generations fell within four years of his death.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Qin_dynasty": "The Qin dynasty ruled a united China from 221 to 206 BCE, the shortest of the great dynasties, after the king of Qin conquered the last of the warring states.<sup class=\"fn\" data-fn=\"1\"></sup> It abolished the hereditary fiefs of the Zhou in favour of 36 commanderies under appointed officials, unified law, weights, measures and script, and built roads, frontier walls and the First Emperor's tomb with conscript and convict labour.<sup class=\"fn\" data-fn=\"1\"></sup> Revolts began in 209 BCE and the eunuch Zhao Gao killed the Second Emperor in 207, after which the empire passed to the Han, which kept the commanderies, the laws and the offices Qin had made.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Terracotta_Army": "The Terracotta Army is an array of about 7,000 life-sized ceramic warriors, officers and horses buried in three pits beside the mausoleum of the First Emperor of China, near modern Xi'an.<sup class=\"fn\" data-fn=\"2\"></sup> The figures stand in battle formation and carried working bronze weapons, among them as many as 40,000 arrowheads and more than 260 crossbow triggers from Pit 1 alone.<sup class=\"fn\" data-fn=\"1\"></sup> Their clay was processed centrally and then distributed to local workshops,<sup class=\"fn\" data-fn=\"2\"></sup> and the weapons were made in batches and marked, some of them with the name of the Qin central workshop.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Terracotta_Army": "The Terracotta Army is an array of about 7,000 life-sized ceramic warriors, officers and horses buried in three pits beside the mausoleum of the First Emperor of China, near modern Xi'an.<sup class=\"fn\" data-fn=\"2\"></sup> The figures stand in battle formation and carried working bronze weapons, among them as many as 40,000 arrowheads and more than 260 crossbow triggers from Pit 1 alone.<sup class=\"fn\" data-fn=\"1\"></sup> Their clay was processed centrally and then distributed to local workshops,<sup class=\"fn\" data-fn=\"2\"></sup> and the weapons were made in batches and marked, some of them with the name of the Qin central workshop.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Great_Wall_of_China": "The <b>Great Wall of China</b> is a discontinuous system of frontier fortifications in northern China, made up of walls, watchtowers, beacon towers, passes and forts raised by successive states and dynasties rather than by any single builder.<sup class=\"fn\" data-fn=\"1\"></sup> The oldest surviving stretches are Warring States work in rammed earth, one Qin section in Shaanxi running 426 kilometres (265 miles) with 347 watchtowers, whose solid earthen platforms differ sharply from the hollow brick towers of the Ming.<sup class=\"fn\" data-fn=\"1\"></sup> Much of the earthen fabric endures because cyanobacterial and moss crusts sheath roughly two-thirds of it, cutting its erodibility and raising its mechanical strength considerably.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3796,7 +3797,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "The_Art_of_War": ["Art of War","Sunzi bingfa"],
 "Qin_Shi_Huang": ["First Emperor","Shi Huangdi","Qin Shihuang"],
 "Qin_dynasty": ["Qin empire"],
-"Terracotta_Army": ["terracotta warriors","Bingmayong"]
+"Terracotta_Army": ["terracotta warriors","Bingmayong"],
+"Great_Wall_of_China": ["Great Wall","Changcheng"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5654,7 +5656,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "The_Art_of_War": ["text","warfare","philosophy","history","china"],
 "Qin_Shi_Huang": ["ruler","person","politics","history","china"],
 "Qin_dynasty": ["dynasty","era","politics","history","china"],
-"Terracotta_Army": ["object","art","archaeology","history","china"]
+"Terracotta_Army": ["object","art","archaeology","history","china"],
+"Great_Wall_of_China": ["building","place","warfare","history","china","archaeology"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
