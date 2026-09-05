@@ -1851,7 +1851,8 @@ window.GLOSSARY = {
 "Maya_civilisation": "The Maya civilisation is the tradition of city-building and its associated culture in the lowlands of the Yucatán peninsula and the country around it, where cities first appeared between 700 BCE and 250 CE.<sup class=\"fn\" data-fn=\"1\"></sup> It was never a single state, and many more cities were founded through the Classic period from 250 to 1000 CE, their settlement far denser than ground survey could establish and revealed instead by airborne laser scanning.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The decline of those cities took almost two centuries and was neither sudden nor uniform, and maternal lineages run unbroken for about 1,300 years between ancient Maya individuals and Maya people living in Yucatán today.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Maya_script": "The Maya script is a logosyllabic writing system, in which some signs stand for whole words and others for syllables, and the two kinds are combined.<sup class=\"fn\" data-fn=\"2\"></sup> Its earliest securely dated example is a painted mural fragment from San Bartolo in Guatemala, assigned to between 300 and 200 BCE and recovered with ten others that show an established tradition in several hands.<sup class=\"fn\" data-fn=\"1\"></sup> Surviving monumental texts record chiefly the births, accessions, marriages and wars of ruling families, and the decipherment of the script is still far from complete, with many logograms and syllabic signs unread.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Mesoamerican_Long_Count_calendar": "The Mesoamerican Long Count calendar is a running tally of days from a fixed starting point, written in five units: the bak’tun of 144,000 days, the k’atun of 7,200, the tun of 360, the winal of 20 and the k’in of one.<sup class=\"fn\" data-fn=\"1\"></sup> Its digits 0 to 19 are set down as bars and dots with a sign for zero, and its multipliers run 1, 20 and 18 × 20 rather than by twenties.<sup class=\"fn\" data-fn=\"2\"></sup> Converting its dates to a European calendar needs a correlation constant, the count having lapsed before the Spanish arrived, and the accepted figure of 584,283 days places day zero on 11 August 3114 BCE.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Teotihuacan": "Teotihuacan was a city in the Valley of Mexico, the largest in Mesoamerica during the 1st millennium, covering roughly 20 km² (8 square miles) and holding perhaps 80,000 to 100,000 people by 150 CE.<sup class=\"fn\" data-fn=\"1\"></sup> It was laid out to one plan, quartered by a north–south axis called the Street of the Dead, set 15.5° east of astronomical north and lined by the Moon, Sun and Feathered Serpent Pyramids, with more than 2,000 apartment compounds housing most of its people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> No ruler’s tomb, royal portrait or dynastic inscription has been found there, which has led many archaeologists to argue for a collective government; the city collapsed around 550 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Teotihuacan": "Teotihuacan was a city in the Valley of Mexico, the largest in Mesoamerica during the 1st millennium, covering roughly 20 km² (8 square miles) and holding perhaps 80,000 to 100,000 people by 150 CE.<sup class=\"fn\" data-fn=\"1\"></sup> It was laid out to one plan, quartered by a north–south axis called the Street of the Dead, set 15.5° east of astronomical north and lined by the Moon, Sun and Feathered Serpent Pyramids, with more than 2,000 apartment compounds housing most of its people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> No ruler’s tomb, royal portrait or dynastic inscription has been found there, which has led many archaeologists to argue for a collective government; the city collapsed around 550 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Chavín_culture": "The Chavín culture is the Andean tradition of the Middle to Late Formative Period, about 1200 to 400 BCE, named after Chavín de Huántar, a ceremonial and population centre at 3,150 m (10,300 feet) in the north-central highlands of Peru.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its temple is built of open plazas, stone-faced platforms and religious sculpture, with dark, tightly restricted galleries running inside the platforms, one of them leading to the Lanzón, a granite monolith over 4 m (13 feet) high carved as a monstrous deity.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Bone tubes excavated from a sealed gallery carry vilca and wild tobacco, direct evidence of the snuff rituals that its tenon heads with streaming noses had long implied.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2705,7 +2706,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Maya_civilisation": "c. 700 BCE – 1500 CE",
 "Maya_script": "attested from c. 300 BCE",
 "Mesoamerican_Long_Count_calendar": "day zero 11 August 3114 BCE",
-"Teotihuacan": "c. 100 – 550 CE"
+"Teotihuacan": "c. 100 – 550 CE",
+"Chavín_culture": "c. 1200 – 400 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3858,7 +3860,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Maya_civilisation": ["Maya civilization","Maya"],
 "Maya_script": ["Maya hieroglyphs","Maya writing"],
 "Mesoamerican_Long_Count_calendar": ["Long Count"],
-"Teotihuacan": ["Teotihuacán"]
+"Teotihuacan": ["Teotihuacán"],
+"Chavín_culture": ["Chavín"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5740,7 +5743,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Maya_civilisation": ["culture","history","archaeology","americas","city"],
 "Maya_script": ["concept","text","history","archaeology","americas"],
 "Mesoamerican_Long_Count_calendar": ["concept","history","archaeology","americas","astronomy"],
-"Teotihuacan": ["place","city","history","archaeology","americas","mexico"]
+"Teotihuacan": ["place","city","history","archaeology","americas","mexico"],
+"Chavín_culture": ["culture","history","archaeology","americas","religion","peru"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
