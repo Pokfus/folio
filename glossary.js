@@ -2080,7 +2080,8 @@ window.GLOSSARY = {
 "Mutilated_victory": "The <b>mutilated victory</b> was the charge, current in Italy after 1918, that a country which had helped win the First World War at great cost was cheated of its reward at the Paris Peace Conference.<sup class=\"fn\" data-fn=\"1\"></sup> Italy had entered the war in 1915 on a promise of the Alpine frontier, Trieste, Pola and much of the Dalmatian coast, a bargain that left Fiume to Croatia and that the United States, not a party to it, refused to be bound by.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The phrase became a rallying cry of the nationalist right, feeding the seizure of Fiume by Gabriele d’Annunzio in September 1919 and the wider agitation that helped carry fascism to power.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Shandong_Problem": "The <b>Shandong question</b>, written Shantung at the time, was the dispute over what should become of the rights Germany held in the Chinese province of Shandong, which Japan seized in 1914 and kept after the war.<sup class=\"fn\" data-fn=\"1\"></sup> Article 156 of the Treaty of Versailles made Germany renounce in Japan’s favour its rights in the Kiaochow territory and the Tsingtao-Tsinanfu railway, honouring secret wartime promises from Britain, France, Italy and Russia rather than Chinese claims.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> News of the decision set off the May Fourth Movement in China in 1919, and Japan returned sovereignty over Jiaozhou only in 1922, under a bilateral treaty made at the Washington Conference.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Racial_Equality_Proposal": "The <b>racial equality proposal</b> was an amendment Japan put to the commission drafting the League of Nations Covenant in 1919, binding members to give other members’ nationals equal and just treatment, making no distinction in law or in fact on account of race or nationality.<sup class=\"fn\" data-fn=\"1\"></sup> The commission rejected it in February; a weaker preamble version, endorsing the equality of nations and the just treatment of their nationals, won a majority on 11 April and was ruled not adopted for want of unanimity.<sup class=\"fn\" data-fn=\"1\"></sup> Japan recorded its regret at the plenary session of 28 April and said it would press the principle again; the Covenant was adopted with no such clause.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Gold_standard": "A <b>gold standard</b> is a monetary system in which a currency is fixed to a stated quantity of gold, and it long served as the basis for national currencies and the exchange rates between them.<sup class=\"fn\" data-fn=\"1\"></sup> It was suspended to meet the cost of the First World War, and through the 1920s the United States, the European states and Japan worked to restore it, a transition to gold being among the remedies governments discussed for the disorder it left.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The rebuilt system proved inflexible when further shocks came: Britain, which had led the return, left first in 1931, Japan had only rejoined that year, and the United States left in 1933.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Gold_standard": "A <b>gold standard</b> is a monetary system in which a currency is fixed to a stated quantity of gold, and it long served as the basis for national currencies and the exchange rates between them.<sup class=\"fn\" data-fn=\"1\"></sup> It was suspended to meet the cost of the First World War, and through the 1920s the United States, the European states and Japan worked to restore it, a transition to gold being among the remedies governments discussed for the disorder it left.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The rebuilt system proved inflexible when further shocks came: Britain, which had led the return, left first in 1931, Japan had only rejoined that year, and the United States left in 1933.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Wall_Street_Crash_of_1929": "The <b>Wall Street crash of 1929</b>, or stock market crash of 1929, ended a bull market that had carried the Dow Jones Industrial Average six-fold, to 381.17 on 3 September that year.<sup class=\"fn\" data-fn=\"1\"></sup> Prices fell nearly 13 percent on 28 October and nearly 12 percent the next day, and by mid-November had lost almost half its value; it bottomed at 41.22 in July 1932, 89 percent down, and regained its 1929 level only in 1954.<sup class=\"fn\" data-fn=\"1\"></sup> Its effect faded within months, and it is counted as one of a series of crises, the banking panics of 1930 and 1931 doing more to turn the slump into a decade of depression.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2939,7 +2940,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Biennio_Rosso": "1919–1920",
 "Mutilated_victory": "1918–1922",
 "Shandong_Problem": "1914–1922",
-"Racial_Equality_Proposal": "1919"
+"Racial_Equality_Proposal": "1919",
+"Wall_Street_Crash_of_1929": "October 1929"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4214,7 +4216,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Washington_Naval_Conference": ["Washington Conference","Conference on the Limitation of Armament"],
 "World_Disarmament_Conference": ["General Disarmament Conference","Conference for the Reduction and Limitation of Armaments","Geneva Disarmament Conference"],
 "Shandong_Problem": ["Shandong question","Shantung question","Shantung Question"],
-"Racial_Equality_Proposal": ["racial equality clause","racial equality amendment"]
+"Racial_Equality_Proposal": ["racial equality clause","racial equality amendment"],
+"Wall_Street_Crash_of_1929": ["Wall Street crash","stock market crash of 1929","Great Crash"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6330,7 +6333,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mutilated_victory": ["concept","history","politics","diplomacy","europe","20th century"],
 "Shandong_Problem": ["event","history","politics","diplomacy","asia","20th century"],
 "Racial_Equality_Proposal": ["event","history","politics","diplomacy","asia","20th century"],
-"Gold_standard": ["concept","economics","history","politics","19th century","20th century"]
+"Gold_standard": ["concept","economics","history","politics","19th century","20th century"],
+"Wall_Street_Crash_of_1929": ["event","history","economics","politics","20th century","united states"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
