@@ -2107,7 +2107,8 @@ window.GLOSSARY = {
 "Fatty_acid": "A fatty acid is the simplest kind of lipid: a long hydrocarbon chain carrying a carboxyl group at one end, most often sixteen or eighteen carbons long, whose nonpolar chain cannot interact with water and so accounts for much of the behaviour of the larger lipids assembled from it.<sup class=\"fn\" data-fn=\"1\"></sup> Chains are named by a pair of numbers giving the length and the number of double bonds, as in palmitate at 16:0 or oleate at 18:1, and mitochondria dismantle them by removing two carbons at a time as acetyl-CoA.<sup class=\"fn\" data-fn=\"2\"></sup> A few, among them linoleic acid, cannot be built by human enzymes at all and have to be supplied by the diet.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Saturated_fat": "A saturated fat is a fat whose fatty acid chains contain no carbon-carbon double bonds, every carbon in the chain being bonded to as many hydrogen atoms as it can hold.<sup class=\"fn\" data-fn=\"1\"></sup> Chains of this kind pack closely against one another, so lipids built from them promote more ordered, less fluid membrane states, and a cell adjusts how many of them a membrane carries as the temperature changes.<sup class=\"fn\" data-fn=\"2\"></sup> Dietary guidance widely advises limiting them, although a meta-analysis of nine randomised trials found no significant reduction in cardiovascular or all-cause mortality from doing so.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Unsaturated_fat": "An unsaturated fat is a fat whose fatty acid chains carry one or more carbon-carbon double bonds, so the chains hold fewer hydrogen atoms than they otherwise could.<sup class=\"fn\" data-fn=\"1\"></sup> Those double bonds disrupt the way chains pack together, which raises membrane fluidity, and organisms raise the proportion of such chains when cold would otherwise press a membrane too tightly closed.<sup class=\"fn\" data-fn=\"2\"></sup> Partially hydrogenating oils of this kind, a process used from the early 1900s to make cheap substitutes for animal fats, also yields industrially produced trans fat, now the target of a global elimination programme.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Phospholipid": "A phospholipid is a lipid made of two fatty acid chains joined to a polar head group; in the glycerol phospholipids the chains sit on a glycerol whose third carbon carries a phosphate, itself usually bearing a small polar molecule such as choline, ethanolamine, serine or inositol.<sup class=\"fn\" data-fn=\"1\"></sup> Two hydrophobic tails on a hydrophilic head make the molecule amphipathic, part water-soluble and part not, and that is the property on which biological membranes form.<sup class=\"fn\" data-fn=\"1\"></sup> The head group also gives the molecule work beyond structure, since phosphatidylinositol 4,5-bisphosphate is cleaved to release second messengers that raise calcium inside the cell.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Phospholipid": "A phospholipid is a lipid made of two fatty acid chains joined to a polar head group; in the glycerol phospholipids the chains sit on a glycerol whose third carbon carries a phosphate, itself usually bearing a small polar molecule such as choline, ethanolamine, serine or inositol.<sup class=\"fn\" data-fn=\"1\"></sup> Two hydrophobic tails on a hydrophilic head make the molecule amphipathic, part water-soluble and part not, and that is the property on which biological membranes form.<sup class=\"fn\" data-fn=\"1\"></sup> The head group also gives the molecule work beyond structure, since phosphatidylinositol 4,5-bisphosphate is cleaved to release second messengers that raise calcium inside the cell.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Steroid": "A steroid is a lipid built on a core of four fused hydrocarbon rings rather than on the long straight chains of a fat, with different functional groups attached to that core distinguishing one from another.<sup class=\"fn\" data-fn=\"1\"></sup> Cholesterol is the best known, amphipathic because its rings are strongly hydrophobic while a single hydroxyl group is weakly hydrophilic, and it is the precursor from which animals build their steroid hormones.<sup class=\"fn\" data-fn=\"1\"></sup> Being lipids, steroids pass through membranes instead of stopping at them, so their receptors sit inside the cell and act as ligand-activated transcription factors that reach the genes directly.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4232,7 +4233,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Fatty_acid": ["fatty acids"],
 "Saturated_fat": ["saturated fats","saturated fatty acid","saturated fatty acids"],
 "Unsaturated_fat": ["unsaturated fats","unsaturated fatty acid","unsaturated fatty acids"],
-"Phospholipid": ["phospholipids"]
+"Phospholipid": ["phospholipids"],
+"Steroid": ["steroids"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6375,7 +6377,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Fatty_acid": ["object","science","biology","chemistry"],
 "Saturated_fat": ["object","science","biology","chemistry","nutrition"],
 "Unsaturated_fat": ["object","science","biology","chemistry","nutrition"],
-"Phospholipid": ["object","science","biology","chemistry"]
+"Phospholipid": ["object","science","biology","chemistry"],
+"Steroid": ["object","science","biology","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
