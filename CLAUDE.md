@@ -1433,6 +1433,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     character carrying its own risk of being read wrong. The reader hears one syllable of context and then
     the card's own, which is what a dictionary's audio does with a particle. **Adding the field to a deck
     is a change to that deck's TYPE as well as to the card**, so it is two edits in one file.
+- **📖 `docs/spanish-deck-review.md` — READ BEFORE TOUCHING A SPANISH DECK, `.claude/dele/` OR ANY
+  GENERATOR'S GLOSS OR EXAMPLE STAGE.** The Sep 2026 audit of all seven Spanish decks, with the
+  numbers behind each finding. Four of its faults are in code SHARED with the other languages and so
+  are worth reading whichever deck is in hand. **The phrase matcher has no word boundary** —
+  `examples.py` tests `if p in low`, so `cerca de` matches *a**cerca de*** and `una vez` matches
+  *alg**una vez***, which put 129 sentences on 74 cards that do not contain their own phrase (17
+  phrase cards where EVERY example is a different word); the MARKING stage does respect boundaries,
+  so an example with no `<b>` in it is the exact signal. **A card shows one part of speech and at
+  most two senses** (`glosses_for(limit=2)` under a 96-character budget, and a `break` after the
+  first record), so 39% of cards show a single meaning line and `apagar` is glossed without *to turn
+  off* while all three of its own examples mean exactly that. **`comma_parts` splits a gloss on a
+  comma without looking at brackets**, so `final (last, ultimate)` prints as "final (last" and
+  "ultimate)" — 138 cards. And **1,029 cards (12.3%) carry no example at all**, 593 of them in C2,
+  under a `desc` that promises three for every word. Its ten suggestions are costed and ordered.
 - **📖 `docs/lang-decks.md` — READ BEFORE TOUCHING ANY DECK OR GENERATOR.** Every pipeline's findings:
   which exam boards publish a word list and which do not, the CJK and PDF extraction traps, the
   variety filters, the clitic and conjugation rules, the sense-ranking faults, and the catalogue's

@@ -108,6 +108,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `refinements-plan.md` | ~60 items from one request, batched. |
 | `refinements-2026-08-27.md` | Thirty-five items from one request: what shipped, the four faults the fixes uncovered at scale, the four answers to "suggest a way", and a plan for the nine not built. |
 | `artefact-expansion-plan.md` | A second hundred artefacts, planned but not yet written: the rarity budget, the eager-path split to do first, and the fifteen batches. |
+| `spanish-deck-review.md` | The seven Spanish decks audited: the one-sense cap, the 1,029 cards with no example, the phrase matcher's missing word boundary, and ten improvements. |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |
 
 ---
