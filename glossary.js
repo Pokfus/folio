@@ -1921,7 +1921,8 @@ window.GLOSSARY = {
 "Jakarta": "Jakarta is the capital of Indonesia, on the north-west coast of Java, and the seat from which the country is governed while a new capital called Nusantara is built in East Kalimantan.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The United Nations statistics division gives the city 10.6 million people for 2019, a figure its own footnote describes as the functional urban area rather than the city proper.<sup class=\"fn\" data-fn=\"1\"></sup> It is far older than the republic: the United States opened a consulate there on 24 November 1801, when the place was a Dutch colony and the city was called Batavia.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Abuja": "Abuja is the capital of Nigeria, lying in the Federal Capital Territory in the middle of the country, which the constitution declares “shall be the Capital of the Federation and seat of the Government of the Federation”.<sup class=\"fn\" data-fn=\"1\"></sup> That territory is treated as though it were a state, with the powers of a state assembly, governor and courts vested instead in the National Assembly, the President and the federal courts, and all its land owned by the federal government.<sup class=\"fn\" data-fn=\"1\"></sup> The United Nations statistics division gives the capital some 3.1 million people for 2019, a figure its own footnote describes as the urban agglomeration rather than the city.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Dhaka": "Dhaka is the capital of Bangladesh, named as such by article 5 of the constitution, which leaves the boundaries of the capital to be determined by law rather than fixing them itself.<sup class=\"fn\" data-fn=\"1\"></sup> The United Nations statistics division gives the city some 20.3 million people for 2019 under a footnote that labels it simply a mega city, on a country of about 176 million at 1,350 people to the square kilometre.<sup class=\"fn\" data-fn=\"2\"></sup> The United States opened a consulate there in 1949, when the place was written Dacca and what is now Bangladesh was the eastern part of Pakistan.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Moscow": "Moscow is the capital and largest city of the Russian Federation, standing on the Moskva river in the western part of the country.<sup class=\"fn\" data-fn=\"1\"></sup> The Russian constitution names it the capital in article 70, leaving the status of the capital to be settled by federal law, and counts it among the cities of federal significance, which are constituent entities of the federation in the same way that its republics and oblasts are.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations statistics division puts the city at about 12.5 million people, a figure its own footnote dates to 2019 without saying where the city is held to end.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Moscow": "Moscow is the capital and largest city of the Russian Federation, standing on the Moskva river in the western part of the country.<sup class=\"fn\" data-fn=\"1\"></sup> The Russian constitution names it the capital in article 70, leaving the status of the capital to be settled by federal law, and counts it among the cities of federal significance, which are constituent entities of the federation in the same way that its republics and oblasts are.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations statistics division puts the city at about 12.5 million people, a figure its own footnote dates to 2019 without saying where the city is held to end.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Mexico_City": "Mexico City is the capital of Mexico and the seat of the Powers of the Union, standing in the Valley of Mexico in the centre of the country.<sup class=\"fn\" data-fn=\"2\"></sup> Article 44 of the Mexican constitution makes it a federal entity in its own right rather than a city within a state, and provides that were the federal powers ever moved elsewhere it would be erected into a state of the union under the name Ciudad de México.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations statistics division gives its metropolitan population as about 21.7 million for 2019, a figure its footnote defines as the total across 76 municipalities of the metropolitan area.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3807,7 +3808,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Saint-Pierre,_Saint_Pierre_and_Miquelon": ["Saint-Pierre"],
 "Jamestown,_Saint_Helena": ["Jamestown"],
 "Stanley,_Falkland_Islands": ["Stanley"],
-"Adamstown,_Pitcairn_Islands": ["Adamstown"]
+"Adamstown,_Pitcairn_Islands": ["Adamstown"],
+"Mexico_City": ["Ciudad de México"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5757,7 +5759,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Jakarta": ["city","geography","indonesia","south-eastern asia"],
 "Abuja": ["city","geography","nigeria","western africa"],
 "Dhaka": ["city","geography","bangladesh","southern asia"],
-"Moscow": ["city","capital","geography","russia","europe"]
+"Moscow": ["city","capital","geography","russia","europe"],
+"Mexico_City": ["city","capital","geography","mexico","north america"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

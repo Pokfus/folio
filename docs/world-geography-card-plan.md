@@ -27,7 +27,7 @@ Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, B
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
 Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands, Nauru, Tuvalu, Saint Pierre and Miquelon, Saint Helena, Montserrat, Falkland Islands, Niue, Vatican City, Pitcairn Islands) **and capitals
-`gw-501` New Delhi, `gw-502` Beijing, `gw-503` Washington, D.C., `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow, `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+`gw-501` New Delhi, `gw-502` Beijing, `gw-503` Washington, D.C., `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow, `gw-511` Mexico City, `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
@@ -35,7 +35,7 @@ Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau, `gw-703` Hamilton, `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town, `gw-709` Capitol Hill, `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino, `gw-717` Mariehamn, `gw-718` Marigot, `gw-719` The Valley, `gw-720` Ngerulmud, `gw-721` Avarua, `gw-722` Yaren, `gw-723` Mata-Utu, `gw-724` Gustavia, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown, `gw-728` Brades, `gw-729` Stanley, `gw-730` Kingston, `gw-731` Alofi, `gw-733` Adamstown,
 `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
 
-**Seven capitals were DEFERRED, and between them they name every way a capital source can fail; `gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka and `gw-509` Moscow have since SHIPPED; two remain: `gw-511` Mexico City and `gw-512` Tokyo. (The heading says seven and the list runs to eight; the count was always off by one.)**
+**Seven capitals were DEFERRED, and between them they name every way a capital source can fail; `gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow and `gw-511` Mexico City have since SHIPPED; ONE remains, `gw-512` Tokyo. (The heading says seven and the list runs to eight; the count was always off by one.)**
 New Delhi and Beijing were deferred because they seemed reachable here only through the foreign legations that sat in
 them — the recognition guide dates the American mission at New Delhi to 1946 and traces the United States
 legation from Beijing to Nanjing to Chongqing to Taipei, which is a history of American diplomacy rather
@@ -52,7 +52,8 @@ through JavaScript and hands back twenty-nine characters of text — still true,
 was written, and beside the point, because the capital clause is in the constitution and the history is in
 the recognition guide. `gw-511` Mexico City: the Chamber of
 Deputies' site returns **one character** of text, and `inah.gob.mx` — the obvious source for the city
-before it was Mexican — is 403. `gw-512` Tokyo: the Metropolitan Government's English site is a news
+before it was Mexican — is 403; that was true of the Chamber's HTML and NOT of its statute library, whose
+`LeyesBiblio/pdf/CPEUM.pdf` is the current constitution in full and carried the card. `gw-512` Tokyo: the Metropolitan Government's English site is a news
 index, the Imperial Household Agency's About page is a menu, and `sangiin.go.jp` reset the connection.
 
 What was tried and does not answer, so that nobody spends the afternoon again: `loc.gov`,
@@ -5208,6 +5209,46 @@ Soviet Union, 1989–1991* then carries the August 1991 coup with Yeltsin on the
 parliament building, which is a claim about the CITY rather than about the state. Two works on one host
 is not one work cited twice: it is C12's Chile route, where a country page that would not date the
 independence was joined by a Milestone carrying the term's other claim.
+
+**`gw-511` MEXICO CITY: A SITE THAT SERVES ONE CHARACTER OF HTML MAY STILL SERVE A 3 MB PDF.** The
+deferral was recorded against `diputados.gob.mx` on the strength of its web pages, which is right — every
+HTML path tried there, and `inegi.org.mx` and `cuentame.inegi.org.mx` with them, hands back a JavaScript
+shell of 25 to 900 characters. But the Chamber of Deputies also runs a statute library on the same host,
+and **`https://www.diputados.gob.mx/LeyesBiblio/pdf/CPEUM.pdf` is the whole current constitution** — 3.1 MB,
+414 pages, last reform DOF 02-06-2026, and it extracts cleanly with the ToUnicode-merging probe. Article 44
+in that text reads *"La Ciudad de México es la entidad federativa sede de los Poderes de la Unión y Capital
+de los Estados Unidos Mexicanos"*, with the reform history printed beside it (DOF 25-10-1993, 29-01-2016).
+**Do not write a host off on its HTML.** A ministry, a parliament or a statistical office that renders its
+pages through JavaScript very often publishes the document itself as a PDF on a path the shell never links
+to in a way a fetch can see.
+
+**AND IT IS WHY THE CONSTITUTE PROJECT WAS NOT USED HERE, THOUGH IT ANSWERED.**
+`constituteproject.org/constitution/Mexico_2015` is 200 and 746 KB, and its article 44 begins *"The Mexico
+City is the Federal District and the capital"* — which the **2016 reform repealed**, replacing the Federal
+District with a federal entity named Ciudad de México. Constitute has no Mexico text later than 2015 (2016,
+2019, 2021 and 2024 are all 404), so citing it would have put a superseded constitutional status on the
+card as a present fact, and nothing in the workflow could have caught it: the URL resolves, the article
+number is right, and the sentence is a real quotation from a real edition. **Check the amendment date of a
+constitutional text against the reform you are relying on**, and prefer the state's own consolidated copy
+where one is reachable. Constitute remains the right answer where it is not — it carried Abuja and Dhaka —
+but it is a snapshot, and its snapshot year is part of what you are citing.
+
+**THE FOOTNOTE ARC CLOSES: MEXICO CITY'S CAPITAL ROW CARRIES BOTH KINDS AT ONCE.** Five capitals carried a
+BOUNDARY footnote and no date (Delhi's metropolitan area naming three outlying cities, Beijing's "all city
+districts (exc. Yanqing)", Jakarta's functional urban area, Abuja's urban agglomeration, Dhaka's bare "Mega
+city"); `gw-509` Moscow carried a DATE and no boundary. Mexico City's row is marked **`c,d`** and resolves
+to both — *"Refers to the total population in 76 municipalities of the Metropolitan Area of Mexico City"*
+and *2019*. So the two kinds are independent fields rather than alternatives, and **Moscow's row is not
+evidence that UNdata declines to state a boundary; it is evidence that that particular row is incomplete.**
+Resolve every letter on the row: a single letter says nothing about which of the two you have got, and a
+figure with a boundary and no date is as partial as one with a date and no boundary.
+
+**THE MEXICO AREA SERIES IS D3'S FINDING SEEN AGAIN, AND THE CITATION NAMES ITS YEARS.** `AG.SRF.TOTL.K2`
+gives 1,964,375 km² for 2016–17, 1,964,380 for 2018–19, then 1,960,647 for 2020–21, 1,959,142 for 2022 and
+1,957,193.9 for 2023 — a drift of about 7,000 km² downward across four steps with nothing published about
+why — while UNdata gives 1,964,375 for 2023, the World Bank's own 2016–17 value to the square kilometre.
+D3 met this and cited the series naming 2019; this card names 2016 and 2017, which is where the two sources
+agree exactly. **Where a World Bank series drifts, cite the year, not the series.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
