@@ -2068,7 +2068,8 @@ window.GLOSSARY = {
 "Battle_of_Cannae": "The <b>Battle of Cannae</b> was fought in 216 BCE on the plain of the Aufidus in Apulia, between a Carthaginian army under Hannibal and the largest force Rome had ever put in the field, eight legions with their allied contingents under the consuls Lucius Aemilius Paullus and Gaius Terentius Varro.<sup class=\"fn\" data-fn=\"1\"></sup> Superior Carthaginian cavalry drove the Roman horse from the field and then struck the legions in the rear, so that the infantry were enclosed and destroyed where they stood, Aemilius among them.<sup class=\"fn\" data-fn=\"2\"></sup> Polybius puts the Roman dead at about 70,000 and Livy at 40,000 foot with 2,700 horse; several southern Italian cities went over to Hannibal after it.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Double_envelopment": "<b>Double envelopment</b> is a manoeuvre in which an army attacks both flanks of its opponent at once and closes on him from either side, so that he is enclosed and most of his strength cannot be brought into action.<sup class=\"fn\" data-fn=\"1\"></sup> It is usually achieved by letting the centre give ground, so that the enemy presses forward into the middle and exposes his flanks to troops held on the wings for the purpose.<sup class=\"fn\" data-fn=\"2\"></sup> The best known execution is Hannibal's at Cannae in 216 BCE, where a Carthaginian crescent yielded in the centre and the reserves on either wing turned inward on the advancing legions, which were destroyed where they stood.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Rome_after_Cannae": "<b>Rome after Cannae</b> refers to the Roman response to the defeat of 216 BCE, in which the state lost its largest army, saw many southern Italian allies go over to the enemy, and nevertheless made no approach for peace.<sup class=\"fn\" data-fn=\"1\"></sup> A dictator was appointed and a levy raised from men of seventeen upwards, arms were taken from the temples, and eight thousand slaves were bought at public expense and enlisted, while the Senate refused to ransom the citizens taken prisoner.<sup class=\"fn\" data-fn=\"2\"></sup> Public mourning was capped at thirty days, and the Sibylline books were consulted, producing expiations that included the burial alive of two Gauls and two Greeks in the cattle market.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Defection_of_Capua": "The <b>defection of Capua</b> was the revolt of the chief city of Campania from Rome to Hannibal in 216 BCE, in the months after the Roman defeat at Cannae.<sup class=\"fn\" data-fn=\"1\"></sup> By the treaty the city kept its own laws and magistrates, no Campanian could be commanded by a Carthaginian officer or made to serve against his will, and three hundred captives were promised in exchange for the Campanian horsemen then garrisoning Sicily for Rome.<sup class=\"fn\" data-fn=\"2\"></sup> Livy reports that leading citizens resisted the change, that Roman residents were shut in the baths and suffocated as it was carried through, and that Hannibal afterwards wintered his army there.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Defection_of_Capua": "The <b>defection of Capua</b> was the revolt of the chief city of Campania from Rome to Hannibal in 216 BCE, in the months after the Roman defeat at Cannae.<sup class=\"fn\" data-fn=\"1\"></sup> By the treaty the city kept its own laws and magistrates, no Campanian could be commanded by a Carthaginian officer or made to serve against his will, and three hundred captives were promised in exchange for the Campanian horsemen then garrisoning Sicily for Rome.<sup class=\"fn\" data-fn=\"2\"></sup> Livy reports that leading citizens resisted the change, that Roman residents were shut in the baths and suffocated as it was carried through, and that Hannibal afterwards wintered his army there.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Siege_of_Syracuse": "The <b>siege of Syracuse</b> was the Roman investment and capture of the largest Greek city in Sicily, which ended in 212 BCE with its storming by Marcus Claudius Marcellus.<sup class=\"fn\" data-fn=\"1\"></sup> The first assaults, by land against the walls and by sea with ladders raised from lashed pairs of warships, were beaten off by engines designed by Archimedes, after which the Romans gave up assaulting the place and set about starving it out.<sup class=\"fn\" data-fn=\"2\"></sup> The city was eventually entered at a weakly guarded tower during a festival, was plundered on a scale later compared to the sack of Carthage, and lost Archimedes, killed by a soldier.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2912,7 +2913,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Fabian_strategy": "adopted 217 BCE",
 "Battle_of_Cannae": "216 BCE",
 "Rome_after_Cannae": "216 BCE",
-"Defection_of_Capua": "216 BCE"
+"Defection_of_Capua": "216 BCE",
+"Siege_of_Syracuse": "to 212 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6289,7 +6291,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Cannae": ["battle","warfare","history","italy","rome"],
 "Double_envelopment": ["concept","warfare","history","rome"],
 "Rome_after_Cannae": ["event","history","politics","rome"],
-"Defection_of_Capua": ["event","history","politics","italy","rome"]
+"Defection_of_Capua": ["event","history","politics","italy","rome"],
+"Siege_of_Syracuse": ["event","warfare","history","sicily","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
