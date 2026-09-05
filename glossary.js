@@ -1886,7 +1886,8 @@ window.GLOSSARY = {
 "Saint_John's": "Saint John's is the capital and largest town of Antigua and Barbuda, standing on the north-western coast of the island of Antigua.<sup class=\"fn\" data-fn=\"1\"></sup> The United Nations credits it with 20,800 people for 2018 against a national total of 94,000, so it holds roughly a quarter of the country and nearly all of the quarter that lives in urban areas, no second official count of the town being published.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A United States consulate general there was raised to embassy status on 1 November 1981, the day of independence, and closed on 30 June 1994.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Douglas,_Isle_of_Man": "Douglas is the capital and largest town of the Isle of Man, standing at the head of a bay on the island's east coast.<sup class=\"fn\" data-fn=\"1\"></sup> The United Nations credits it with 27,200 people for 2018 against an island total of 84,000, so it holds about a third of the population and roughly three fifths of those the same profile counts as living in towns.<sup class=\"fn\" data-fn=\"1\"></sup> It is the seat of Tynwald, whose two branches sit together there and annually at St John's, and it was granted city status on 20 May 2022, becoming the first place in a Crown Dependency to be given the honour.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Andorra_la_Vella": "Andorra la Vella is the capital and largest town of Andorra, lying on the floor of a Pyrenean valley between France and Spain.<sup class=\"fn\" data-fn=\"1\"></sup> The United Nations credits it with 22,600 people for 2018 against a national total of 83,000, so it holds about 30 per cent of the country but only about a third of those the same profile counts as living in towns, the population being 88 per cent urban.<sup class=\"fn\" data-fn=\"1\"></sup> It is the seat of the government of a co-principality whose two co-princes are the Bishop of Urgell in Spain and the president of France, an arrangement that dates back centuries.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"George_Town,_Cayman_Islands": "George Town is the capital and largest settlement of the Cayman Islands, standing on the west coast of Grand Cayman.<sup class=\"fn\" data-fn=\"1\"></sup> The United Nations credits it with 34,900 people for 2018 against a territorial total of 76,000, so it holds a little over half the population, and since the same profile puts the territory at 100 per cent urban, that is also its share of the town-dwelling population.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It is the seat of government of a British Overseas Territory that was administered as a dependency of Jamaica until it became a colony in its own right in 1959.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"George_Town,_Cayman_Islands": "George Town is the capital and largest settlement of the Cayman Islands, standing on the west coast of Grand Cayman.<sup class=\"fn\" data-fn=\"1\"></sup> The United Nations credits it with 34,900 people for 2018 against a territorial total of 76,000, so it holds a little over half the population, and since the same profile puts the territory at 100 per cent urban, that is also its share of the town-dwelling population.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It is the seat of government of a British Overseas Territory that was administered as a dependency of Jamaica until it became a colony in its own right in 1959.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Saint_Peter_Port": "Saint Peter Port is the capital and largest parish of Guernsey, on the island's east coast facing the French mainland.<sup class=\"fn\" data-fn=\"1\"></sup> Guernsey's own government counted 19,679 people there in March 2023 against 64,040 for the island together with Herm and Jethou, so it holds about 31 per cent of the population on about a tenth of the land, 6.5 square kilometres (2.5 square miles) of 63 (24.4 square miles).<sup class=\"fn\" data-fn=\"1\"></sup> It is the seat of government of a Crown Dependency, which is not part of the United Kingdom but is self-governing under the Crown with its own parliament, government and courts.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3762,7 +3763,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hagåtña": ["Hagatna","Agana"],
 "Saint_George's": ["St George's","St. George's"],
 "Nuku'alofa": ["Nukualofa"],
-"Saint_John's": ["St John's, Antigua","St. John's, Antigua"]
+"Saint_John's": ["St John's, Antigua","St. John's, Antigua"],
+"Saint_Peter_Port": ["St Peter Port","St. Peter Port"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5677,7 +5679,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Saint_John's": ["place","city","geography","capital","antigua and barbuda","caribbean"],
 "Douglas,_Isle_of_Man": ["place","city","geography","capital","isle of man","europe"],
 "Andorra_la_Vella": ["place","city","geography","capital","andorra","europe"],
-"George_Town,_Cayman_Islands": ["place","city","geography","capital","cayman islands","caribbean"]
+"George_Town,_Cayman_Islands": ["place","city","geography","capital","cayman islands","caribbean"],
+"Saint_Peter_Port": ["place","city","geography","capital","guernsey","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
