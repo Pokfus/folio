@@ -62,7 +62,10 @@ const NUM_RE = new RegExp("\\b(" + Object.keys(TENS).join("|") + ")-(" + Object.
 const HUNDRED_RE = new RegExp("\\b(" + Object.keys(UNITS).join("|") + ")\\s+hundred\\s+and\\s+(?:(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")|(" + Object.keys(TENS).join("|") + ")|(eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|ten)|(" + Object.keys(UNITS).join("|") + "))\\b", "gi");
 const TEENS = { ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19 };
 // PROPER NAMES that contain number words — never converted
-const NUM_EXCLUDE = [/Twenty-Four Histories/gi, /Twenty-four Filial Exemplars/gi];
+const NUM_EXCLUDE = [/Twenty-Four Histories/gi, /Twenty-four Filial Exemplars/gi,
+  // The standard English name of the 四十二章經, the first sutra rendered into Chinese. Without the mask
+  // `--fix` renames it "Sutra of 42 Sections", which is the title of nothing.
+  /Sutra of Forty-two Sections/gi];
 // PROPER NAMES that contain an ordinal + "century" — never converted. Rule 2 is the one rule with a
 // `--fix`, so without this it does to a period's NAME what the citation mask exists to stop it doing to a
 // published title: the Crisis of the Third Century is what the period is called, and "Crisis of the 3rd

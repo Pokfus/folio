@@ -1834,7 +1834,8 @@ window.GLOSSARY = {
 "Scholar-official": "A <b>scholar-official</b> was one of the ranked and salaried men, schooled in the classics, through whom the Chinese empire was administered.<sup class=\"fn\" data-fn=\"1\"></sup> Han emperors founded central schools and began bringing scholars into government by examination, on a far smaller scale than later dynasties would, and by the Song these <i>shi dafu</i> stood at the centre of political life, with entry turning on a doctoral concours in which prose style alone could disqualify a candidate.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The post carried a duty as well as a career, since under every dynasty an official could send up a memorial criticising the emperor’s own decisions, a practice called remonstrance and distinct from the censure of subordinates.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Papermaking": "<b>Papermaking</b> macerates plant fibre into a pulp and mats a thin layer of it into a sheet, giving a writing surface that is cheap to make and light to carry.<sup class=\"fn\" data-fn=\"1\"></sup> Its raw materials have included tree bark, hemp, ramie, rags and worn-out fishing nets, and the oldest sheets that survive are of hemp fibre with a little ramie mixed in.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> What a sheet was made of, and how, stays legible in it long afterwards, so that the fibres and the make of the paper a manuscript is written on can be used to date the manuscript itself.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "End_of_the_Han_dynasty": "The <b>end of the Han dynasty</b> ran from the Yellow Turban rising of 184 CE to the abdication of the last emperor in 220, when the throne passed to the son of the warlord who had been holding him.<sup class=\"fn\" data-fn=\"1\"></sup> The court had already been paralysed by the sale of offices and by a struggle between the palace eunuchs and the officials that ended in 189 with a massacre inside the palace and the seizure of the capital by a general from the frontier.<sup class=\"fn\" data-fn=\"1\"></sup> The emperor reigned on for three decades as a prisoner and a prize fought over by rival commanders, and a long period of disunity followed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Three_Kingdoms": "The <b>Three Kingdoms</b> were the three states that divided China between 220 and 280 CE: Cao Wei in the north, Shu Han in the west and Sun Wu in the south-east, none of which ever mastered the others.<sup class=\"fn\" data-fn=\"1\"></sup> The period is known from a history in 65 scrolls compiled by Chen Shou, who had served Shu before entering Jin service, and whose account gives the Wei rulers imperial annals while the other two rulers get only biographies.<sup class=\"fn\" data-fn=\"1\"></sup> Most of what a reader is likely to know of it, however, comes from a novel written more than a thousand years later.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Three_Kingdoms": "The <b>Three Kingdoms</b> were the three states that divided China between 220 and 280 CE: Cao Wei in the north, Shu Han in the west and Sun Wu in the south-east, none of which ever mastered the others.<sup class=\"fn\" data-fn=\"1\"></sup> The period is known from a history in 65 scrolls compiled by Chen Shou, who had served Shu before entering Jin service, and whose account gives the Wei rulers imperial annals while the other two rulers get only biographies.<sup class=\"fn\" data-fn=\"1\"></sup> Most of what a reader is likely to know of it, however, comes from a novel written more than a thousand years later.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Chinese_Buddhism": "Chinese Buddhism is the body of doctrine, practice and writing that grew out of the transmission of the religion from India and Central Asia into China, where it took root through the translation of sutras from the 1st century CE onwards.<sup class=\"fn\" data-fn=\"3\"></sup> It flourished in the centuries of disunity after the Han, and Yang Xuanzhi's memoir of about 545 describes some forty great monasteries at Luoyang between 494 and 534.<sup class=\"fn\" data-fn=\"2\"></sup> China's official dynastic histories were slow to treat it as a subject in itself, so most of what is known comes instead from the Buddhist canon and from the manuscripts recovered at Dunhuang and Turfan.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3813,7 +3814,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Scholar-official": ["shi dafu","scholar official"],
 "Papermaking": ["paper making","papermaker"],
 "End_of_the_Han_dynasty": ["fall of the Han dynasty","fall of the Han","end of the Han"],
-"Three_Kingdoms": ["Three Kingdoms period","Sanguo"]
+"Three_Kingdoms": ["Three Kingdoms period","Sanguo"],
+"Chinese_Buddhism": ["Buddhism in China"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5678,7 +5680,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Scholar-official": ["title","institution","politics","history","china","practice"],
 "Papermaking": ["practice","technology","object","science","history"],
 "End_of_the_Han_dynasty": ["event","history","politics","china","warfare","han dynasty"],
-"Three_Kingdoms": ["era","state","history","politics","china","warfare"]
+"Three_Kingdoms": ["era","state","history","politics","china","warfare"],
+"Chinese_Buddhism": ["religion","concept","practice","china","history","literature"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
