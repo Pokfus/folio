@@ -32,7 +32,7 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas,
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas, `gw-699` Andorra la Vella,
 `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -3904,6 +3904,39 @@ as the ISS frame identifier burnt into the Kingstown satellite photograph, in a 
 category holds twenty of them and they win on pixel count. What shipped is `The View From Douglas Head,
 Isle Of Man..jpg` (Jim Linwood, CC BY 2.0), the classic view of the town, its harbour and its promenade
 from the headland to the south.
+
+**AND THE PLAN'S OWN LINE WAS WRONG, WHICH `test-card-plans.js` CAUGHT.** The running order read
+`gw-699  Andorra  [Andorra]` — the country's name where the capital's belongs — and the capital is
+**Andorra la Vella**. The suite's rule that a shipped card must BE the city its plan puts at that number
+is what reported it; nothing else could have, since the card is correct in itself and the plan line reads
+as a perfectly ordinary entry. Corrected in the same commit as the card, per the standing practice that a
+plan line is a subject to research rather than a fact to assert. **Run that suite after every capital
+card**, not only after editing a plan.
+
+**ANDORRA IS THE FIRST TERM IN THE PASS WHOSE RECOGNITION SECTION STATES THERE IS NO RECOGNITION DATE.**
+C11 and C12 argued about whether the guide's date is a recognition date or an independence date; here the
+page says neither exists, because "Andorra has considered itself independent since medieval times, and
+therefore was already independent when the United States declared independence from the British Empire in
+1776", and it never signed a bilateral treaty that would have constituted recognition. **So a guide page
+can be fully open, richly detailed and carry no date for the clause a capital card most wants** — and what
+it carries instead is a chain of later dates that are just as good: the constitution of 14 March 1993, the
+establishment of relations on 21 February 1995 by an exchange of letters, and the first ambassador's
+credentials on 30 October 1998. **Read the whole Recognition section before concluding a date is missing;
+it may be saying that no such date exists, which is itself the fact.**
+
+**THE MISSION-ELSEWHERE PATTERN IS NOT A CARIBBEAN ONE.** Every ambassador to Andorra "has also been
+accredited to Spain and resident in Madrid", with the consul general at Barcelona conducting day-to-day
+relations — the Bridgetown shape exactly, one continent over, and the seventh instance of it in the
+capitals deck. **A microstate's capital card will usually have this sentence available**, and it is worth
+taking, because it is the one thing the guide says about the capital rather than about the country.
+
+**THE POPULATION IS RISING FASTER THAN ANY OTHER IN THE SMALL-STATE RUN.** The World Bank gives 72,174 for
+2015 against 82,904 for 2025, about 15 per cent in a decade, where the Isle of Man one card earlier moved
+half a per cent in nine years and the Marshall Islands (C10) fell. **C8's staleness diagnostic runs in
+three directions, not two**: a capital figure footnoted to 2018 is proportionally further out of date here
+than anywhere, so the share against the country is computed against the 2018 total and never the current
+one — 22,600 of 75,162 is 30 per cent, where against 2025 it would read 27 and be an artefact of the gap
+between the two years.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
@@ -7778,7 +7811,7 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
   gw-696  Kingstown  [Saint Vincent and the Grenadines]
   gw-697  Saint John's  [Antigua and Barbuda]
   gw-698  Douglas  [Isle of Man]
-  gw-699  Andorra  [Andorra]
+  gw-699  Andorra la Vella  [Andorra]
   gw-700  George Town  [Cayman Islands]
   gw-701  Saint Peter Port  [Guernsey]
   gw-702  Roseau  [Dominica]
