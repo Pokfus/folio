@@ -2051,7 +2051,8 @@ window.GLOSSARY = {
 "Roman_annexation_of_Sicily": "The Roman annexation of Sicily was Rome’s taking over of the island after the peace of 241 BCE, by which Carthage agreed to leave Sicily and the islands between it and Italy.<sup class=\"fn\" data-fn=\"1\"></sup> It was not the whole island: Syracuse, whose ruler the treaty expressly protected, remained an allied kingdom outside the annexed territory.<sup class=\"fn\" data-fn=\"2\"></sup> Cicero, writing two centuries later, describes an arrangement in which two cities held treaties and five more were free and immune without one, while all other land paid a tenth of its produce under rules the Sicilians had made themselves, which Rome left untouched down to the times and places of the auctions.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Provincia": "A provincia was a territory held by Rome outside Italy and administered by a magistrate sent from the city, the arrangement by which the republic governed what it conquered.<sup class=\"fn\" data-fn=\"2\"></sup> Cicero, pleading a case about the misgovernment of Sicily, calls that island the first foreign nation to be given the name and the first to teach Romans how glorious a thing it was to rule other peoples.<sup class=\"fn\" data-fn=\"1\"></sup> He describes such territories as farms belonging to the Roman people, valued for their corn and revenue, and the jurist Pomponius records that praetors were created to match the number of provinces as they were acquired.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Mercenary_War": "The Mercenary War was the revolt of Carthage's hired soldiers, joined by Libyan subjects and Numidians, just after the first war with Rome.<sup class=\"fn\" data-fn=\"1\"></sup> It began over arrears of pay: the troops brought home from Sicily were held in the capital in the hope they would remit part of it, then moved inland, where idleness and inflated reckonings turned a wage dispute into a mutiny that spread through the countryside.<sup class=\"fn\" data-fn=\"2\"></sup> Carthage came near to losing its territory and its independence before the rising was crushed after three years and four months, in fighting Polybius calls a truceless war and says surpassed all others he knew of in cruelty.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Seizure_of_Sardinia_and_Corsica": "The seizure of Sardinia and Corsica was Rome’s taking of the two islands from Carthage after the Mercenary War, when the city could not resist; Dio says the larger was secured without a battle.<sup class=\"fn\" data-fn=\"3\"></sup> Invited in by mutineers whom the islanders had expelled from Sardinia, Rome sent an expedition; when Carthage protested that the island was its own and prepared to punish the rebels, Rome declared war on the pretext that the armament was aimed at itself.<sup class=\"fn\" data-fn=\"1\"></sup> Carthage gave up the island and 1,200 talents more, and Polybius, treating this as done contrary to justice because the occasion allowed it, counts it the principal cause of the next war.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Seizure_of_Sardinia_and_Corsica": "The seizure of Sardinia and Corsica was Rome’s taking of the two islands from Carthage after the Mercenary War, when the city could not resist; Dio says the larger was secured without a battle.<sup class=\"fn\" data-fn=\"3\"></sup> Invited in by mutineers whom the islanders had expelled from Sardinia, Rome sent an expedition; when Carthage protested that the island was its own and prepared to punish the rebels, Rome declared war on the pretext that the armament was aimed at itself.<sup class=\"fn\" data-fn=\"1\"></sup> Carthage gave up the island and 1,200 talents more, and Polybius, treating this as done contrary to justice because the occasion allowed it, counts it the principal cause of the next war.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Barcid_conquest_of_Spain": "The Barcid conquest of Spain was the subjugation of much of the Iberian peninsula by Hamilcar Barca and his successors, begun immediately after Carthage lost Sicily and Sardinia and intended to replace what had been lost.<sup class=\"fn\" data-fn=\"1\"></sup> Hamilcar campaigned there for about nine years, reducing tribes by force or by negotiation until he was killed; his son-in-law Hasdrubal then married an Iberian prince's daughter, was acclaimed general by the Iberians themselves, and founded New Carthage on the coast.<sup class=\"fn\" data-fn=\"2\"></sup> The resulting dominion was larger than the one Carthage had held before, which brought Rome to negotiate a limit at the Ebro, and it passed on Hasdrubal's murder to Hamilcar's son Hannibal.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2880,7 +2881,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Roman_annexation_of_Sicily": "from 241 BCE",
 "Provincia": "from 241 BCE",
 "Mercenary_War": "241 – 238 BCE",
-"Seizure_of_Sardinia_and_Corsica": "from 238 BCE"
+"Seizure_of_Sardinia_and_Corsica": "from 238 BCE",
+"Barcid_conquest_of_Spain": "from 237 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4139,7 +4141,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Roman_annexation_of_Sicily": ["annexation of Sicily"],
 "Provincia": ["Roman province"],
 "Mercenary_War": ["Truceless War","Libyan War"],
-"Seizure_of_Sardinia_and_Corsica": ["seizure of Sardinia"]
+"Seizure_of_Sardinia_and_Corsica": ["seizure of Sardinia"],
+"Barcid_conquest_of_Spain": ["Barcid Spain","Barcids"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6223,7 +6226,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Roman_annexation_of_Sicily": ["event","history","politics","sicily","rome"],
 "Provincia": ["institution","history","politics","rome"],
 "Mercenary_War": ["event","history","warfare","africa","libya"],
-"Seizure_of_Sardinia_and_Corsica": ["event","history","politics","warfare","rome"]
+"Seizure_of_Sardinia_and_Corsica": ["event","history","politics","warfare","rome"],
+"Barcid_conquest_of_Spain": ["event","history","warfare","spain","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
