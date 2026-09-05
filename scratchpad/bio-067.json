@@ -1,0 +1,34 @@
+{
+  "id": "bio-067",
+  "num": 67,
+  "category": "Biology",
+  "question": "When a folded chain's surface binds the surface of another folded chain, the two become subunits of one molecule with a <span class=\"blank\">_____</span> and a defined geometry.",
+  "questions": [
+    "Structure prediction stalls until you know how many copies of each subunit are present, so a <span class=\"blank\">_____</span> needs that count established first.",
+    "Ferritin shells and virus-like particles are being used as vaccine scaffolds because their <span class=\"blank\">_____</span> displays many copies of an antigen at once."
+  ],
+  "answer": "quaternary structure",
+  "answerText": "quaternary structure",
+  "answerDate": "",
+  "traditional": "",
+  "hanzi": "",
+  "pinyin": "",
+  "translations": "",
+  "citation": "",
+  "difficulty": 2,
+  "undatable": true,
+  "tags": [
+    "concept",
+    "science",
+    "biology",
+    "chemistry"
+  ],
+  "abstract": "The <b>quaternary structure</b> of a protein is the set of interactions between the separate polypeptide chains of a molecule built from more than one, and they are the same interactions that hold a single chain in its fold.<sup class=\"fn\" data-fn=\"1\"></sup> Each chain in such a molecule is called a subunit, and the assembly happens because a binding site on one folded chain recognises the surface of another, which gives the pair a precisely defined geometry.<sup class=\"fn\" data-fn=\"2\"></sup> Where two identical chains bind head to head through two identical sites the result is a symmetric dimer, as in the Cro repressor that switches off genes in a bacterium.<sup class=\"fn\" data-fn=\"2\"></sup> Repeating one binding interaction can close a ring instead, and the enzyme neuraminidase is four identical chains joined head to tail.<sup class=\"fn\" data-fn=\"2\"></sup> Many assemblies mix chain types, haemoglobin being two identical alpha-globin subunits and two identical beta-globin subunits arranged symmetrically, and such multisubunit proteins are both common and often very large.<sup class=\"fn\" data-fn=\"2\"></sup> <br><br> Knowing that a complex exists is not the same as knowing its composition, and predicting a structure requires the stoichiometry first, meaning how many copies of each subunit it contains.<sup class=\"fn\" data-fn=\"3\"></sup> That information is often simply unavailable, and few computational methods address it, so recent work generates plausible subunit combinations, models each and ranks them.<sup class=\"fn\" data-fn=\"3\"></sup> Predicting the interface between two chains is not settled either, and current models have been assessed against experimental structures rather than assumed to replace them.<sup class=\"fn\" data-fn=\"4\"></sup> Assembly can also be put to work, since ferritin shells, encapsulins and virus-like particles display many copies of an antigen at once and are being developed as vaccine scaffolds.<sup class=\"fn\" data-fn=\"5\"></sup> Designed particles go further, allowing the geometry itself to be optimised for how an antigen is shown to the immune system.<sup class=\"fn\" data-fn=\"5\"></sup>",
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Bruce Alberts, Alexander Johnson, Julian Lewis, Martin Raff, Keith Roberts, and Peter Walter, “The Shape and Structure of Proteins,” in <i>Molecular Biology of the Cell</i>, 4th ed. (New York: Garland Science, 2002), https://www.ncbi.nlm.nih.gov/books/NBK26830/. [Open access]",
+    "Jian Liu, Pawan Neupane, and Jianlin Cheng, “PreStoi Allows Accurate Prediction of Protein Complex Stoichiometry by Integrating AlphaFold3 and Template Information,” <i>Communications Biology</i> 9, no. 1 (2026): 891, https://doi.org/10.1038/s42003-026-10126-x. [Open access]",
+    "Xiao Liu, Kaiwen Pang, Hangfei Wu, Bin Chong, Zhixiang Yin, Zhaoxi Sun, and Xiaohui Wang, “AlphaFold3 Prediction of Protein-Protein Complex: Is It Ready for Thermodynamic Analysis?,” <i>Computational and Structural Biotechnology Journal</i> 27 (2025): 4373–83, https://doi.org/10.1016/j.csbj.2025.10.015. [Open access]",
+    "Yue Zhang, Yi Ru, Xiuping Li, Guanghua Wang, Yong Hu, Yingna Jian, and Liqing Ma, “Application and Research Progress of Self-Assembling Protein Nanoparticles in Vaccine Development,” <i>International Journal of Molecular Sciences</i> 27, no. 10 (2026): 4503, https://doi.org/10.3390/ijms27104503. [Open access]"
+  ]
+}

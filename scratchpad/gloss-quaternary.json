@@ -1,0 +1,10 @@
+{
+  "slug": "Protein_quaternary_structure",
+  "aliases": ["quaternary structure", "quaternary protein structure"],
+  "description": "The quaternary structure of a protein is the arrangement of the separate polypeptide chains in a molecule built from more than one of them, held together by the same kinds of interaction that hold a single chain in its fold.<sup class=\"fn\" data-fn=\"1\"></sup> Each chain is called a subunit, and an assembly forms because a binding site on one folded chain recognises the surface of another, which gives the whole a precisely defined geometry and often a symmetry.<sup class=\"fn\" data-fn=\"2\"></sup> Some assemblies repeat one kind of chain, as in a closed ring of four identical subunits, while others mix them, haemoglobin having two alpha-globin and two beta-globin chains.<sup class=\"fn\" data-fn=\"2\"></sup>",
+  "tags": ["concept", "science", "biology", "chemistry"],
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Bruce Alberts, Alexander Johnson, Julian Lewis, Martin Raff, Keith Roberts, and Peter Walter, “The Shape and Structure of Proteins,” in <i>Molecular Biology of the Cell</i>, 4th ed. (New York: Garland Science, 2002), https://www.ncbi.nlm.nih.gov/books/NBK26830/. [Open access]"
+  ]
+}
