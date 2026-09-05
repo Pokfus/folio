@@ -1915,7 +1915,8 @@ window.GLOSSARY = {
 "Brades": "Brades is the settlement in the north of Montserrat, a British territory in the Leeward Islands of the eastern Caribbean, where most of the offices of the territorial government are based.<sup class=\"fn\" data-fn=\"2\"></sup> It took on that role after the Soufrière Hills volcano erupted in July 1995 and destroyed the capital, Plymouth, which was abandoned in 1997 and left about 70 per cent of the population evacuated from the south of the island.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations statistics division names the capital city “Brades Estate” and gives it some 500 inhabitants for 2018, on an island whose habitable land is 40.1 of its 103 square kilometres (15 of 40 square miles).<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Stanley,_Falkland_Islands": "Stanley is the capital of the Falkland Islands, a South Atlantic territory of two large islands and hundreds of smaller ones lying about 480 kilometres (300 miles) east of the South American mainland, over which Argentina and the United Kingdom dispute sovereignty.<sup class=\"fn\" data-fn=\"2\"></sup> Almost the whole population lives there: the census of 10 October 2021 gave the town a total usually resident population of 2,974 against 3,662 for the islands as a whole.<sup class=\"fn\" data-fn=\"3\"></sup> It is one of the territory’s two constituencies, the other being the rural Camp, and returns five of the eight elected members of the Legislative Assembly.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Kingston,_Norfolk_Island": "Kingston is the capital of Norfolk Island, an external territory of Australia lying in the Pacific Ocean between the Australian mainland and New Zealand.<sup class=\"fn\" data-fn=\"1\"></sup> It grew from the two convict settlements the British established on the island, the first from March 1788 and the second from 1825, which became infamous for the harsh treatment of its prisoners, and its surviving convict buildings housed the 196 Pitcairn Islanders who arrived on 8 June 1856, descendants of the Bounty mutineers and their Tahitian wives.<sup class=\"fn\" data-fn=\"2\"></sup> The historic area at Kingston and Arthur’s Vale is managed under a Commonwealth heritage plan made on 13 October 2016.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Alofi": "Alofi is the capital of Niue, a self-governing state in free association with New Zealand lying in the Polynesian Pacific and covering 260 square kilometres (100 square miles).<sup class=\"fn\" data-fn=\"1\"></sup> It is two villages rather than one, and the census of 2022 counted 423 people in Alofi South and 187 in Alofi North, together 610 of an island population of 1,681 that has been falling since 1966.<sup class=\"fn\" data-fn=\"2\"></sup> Each of the two villages returns a member to the 20-seat Niue Assembly, fourteen of whose seats go to village constituencies and six to a common roll, and whose members choose the premier from among themselves.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Alofi": "Alofi is the capital of Niue, a self-governing state in free association with New Zealand lying in the Polynesian Pacific and covering 260 square kilometres (100 square miles).<sup class=\"fn\" data-fn=\"1\"></sup> It is two villages rather than one, and the census of 2022 counted 423 people in Alofi South and 187 in Alofi North, together 610 of an island population of 1,681 that has been falling since 1966.<sup class=\"fn\" data-fn=\"2\"></sup> Each of the two villages returns a member to the 20-seat Niue Assembly, fourteen of whose seats go to village constituencies and six to a common roll, and whose members choose the premier from among themselves.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Adamstown,_Pitcairn_Islands": "Adamstown is the capital of the Pitcairn Islands and their only settlement, standing on the single inhabited island of a British territory that lies midway between New Zealand and South America.<sup class=\"fn\" data-fn=\"1\"></sup> It stands where the Bounty mutineers built rough leaf shelters after Fletcher Christian brought them to the island on 15 January 1790, and it grew into a village laid out in English style under John Adams, the last of them alive, who died there on 5 March 1829.<sup class=\"fn\" data-fn=\"2\"></sup> The territory's population was 42 in 2022, and its official languages are English and Pitkern, a mixture of 18th-century English and Tahitian.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3800,7 +3801,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mata-Utu": ["Mata'Utu"],
 "Saint-Pierre,_Saint_Pierre_and_Miquelon": ["Saint-Pierre"],
 "Jamestown,_Saint_Helena": ["Jamestown"],
-"Stanley,_Falkland_Islands": ["Stanley"]
+"Stanley,_Falkland_Islands": ["Stanley"],
+"Adamstown,_Pitcairn_Islands": ["Adamstown"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5744,7 +5746,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Brades": ["city","geography","caribbean","united kingdom"],
 "Stanley,_Falkland_Islands": ["city","geography","south atlantic","united kingdom"],
 "Kingston,_Norfolk_Island": ["city","geography","pacific","australia"],
-"Alofi": ["city","geography","pacific","polynesia"]
+"Alofi": ["city","geography","pacific","polynesia"],
+"Adamstown,_Pitcairn_Islands": ["city","geography","pacific","polynesia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
