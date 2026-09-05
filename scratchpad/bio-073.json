@@ -1,0 +1,34 @@
+{
+  "id": "bio-073",
+  "num": 73,
+  "category": "Biology",
+  "question": "Copper forming chelates with peptide linkages under alkaline conditions turns a solution violet, which is the <span class=\"blank\">_____</span> and the standard way to show protein is present.",
+  "questions": [
+    "Because it reports the peptide bond rather than any particular molecule, the <span class=\"blank\">_____</span> answers to anything carrying enough of them, which is a limit as well as a convenience.",
+    "Clinical laboratories measure serum total protein with the <span class=\"blank\">_____</span>, though a refractometer is quicker and cheaper and agrees with it closely enough to substitute."
+  ],
+  "answer": "biuret test",
+  "answerText": "biuret test",
+  "answerDate": "",
+  "traditional": "",
+  "hanzi": "",
+  "pinyin": "",
+  "translations": "",
+  "citation": "",
+  "difficulty": 3,
+  "undatable": true,
+  "tags": [
+    "practice",
+    "science",
+    "biology",
+    "chemistry"
+  ],
+  "abstract": "Cells are built from four classes of molecule, carbohydrates, lipids, nucleic acids and proteins, and the oldest way of asking which of them is in a sample is a reagent that changes colour when it is.<sup class=\"fn\" data-fn=\"1\"></sup> The <b>biuret test</b> is the one for protein: at alkaline pH copper forms chelates with the peptide linkages of a protein, and the solution turns violet.<sup class=\"fn\" data-fn=\"2\"></sup> What it reports is therefore the peptide bond rather than any particular protein, so anything carrying enough of them will answer.<sup class=\"fn\" data-fn=\"1\"></sup> It is no classroom relic, and the biuret method is used routinely in reference and in-clinic laboratories to measure serum total protein.<sup class=\"fn\" data-fn=\"2\"></sup> Nor is it irreplaceable, and a refractometer, quicker and cheaper, correlates strongly enough with it to be used instead in cattle and goats.<sup class=\"fn\" data-fn=\"2\"></sup> <br><br> Sugars have their own colour reactions, and reducing sugars have been determined by the Somogyi-Nelson, phenol-sulfuric, anthrone, Fehling and dinitrosalicylic acid methods.<sup class=\"fn\" data-fn=\"3\"></sup> Some of the older ones are laborious, Fehling's involving precipitation and titration, and newer routes are designed to report not only that the sugar is there but how much of it is.<sup class=\"fn\" data-fn=\"3\"></sup> That is the direction of travel: a colour change answers whether, and a calibrated assay answers how much.<sup class=\"fn\" data-fn=\"3\"></sup> The descendant of these tests that a reader is most likely to meet is the urine dipstick, whose reagent pads report protein, glucose, blood and several other things by colour, each read against a printed chart.<sup class=\"fn\" data-fn=\"4\"></sup> Every pad has its documented false positives and negatives, the protein pad reading positive in alkaline or concentrated urine and negative when the protein present is not albumin, and reference ranges themselves shift with the substrates and reagents an assay uses.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Sileshi Mesele Mesa and Yoseph Cherinet Megerssa, “Comparison of Biuret and Refractometery Method for Serum Total Protein Measurements in Cattle and Goat,” <i>BMC Research Notes</i> 17, no. 1 (2024): 234, https://doi.org/10.1186/s13104-024-06906-5. [Open access]",
+    "Reda M. El-Shishtawy, Yasser M. Al Angari, Maha M. Alotaibi, and Yaaser Q. Almulaiky, “Novel and Facile Colorimetric Detection of Reducing Sugars in Foods via In Situ Formed Gelatin-Capped Silver Nanoparticles,” <i>Polymers</i> 15, no. 5 (2023): 1086, https://doi.org/10.3390/polym15051086. [Open access]",
+    "Daniel A. Queremel Milani and Ishwarlal Jialal, “Urinalysis,” in <i>StatPearls</i> (Treasure Island, FL: StatPearls Publishing, 2023), https://www.ncbi.nlm.nih.gov/books/NBK557685/. [Open access]",
+    "Muhammad Zubair and Thiruvengadam Muniraj, “Analytical and Clinical Perspectives on Amylase,” in <i>StatPearls</i> (Treasure Island, FL: StatPearls Publishing, 2026), https://www.ncbi.nlm.nih.gov/books/NBK557738/. [Open access]"
+  ]
+}

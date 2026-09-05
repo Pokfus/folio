@@ -2120,7 +2120,8 @@ window.GLOSSARY = {
 "Denaturation_(biochemistry)": "Denaturation is the disruption of a protein's three-dimensional structure by treatments that break the noncovalent bonds holding it together, leaving a flexible chain that has lost its working shape while remaining one continuous polymer.<sup class=\"fn\" data-fn=\"1\"></sup> Heating, hydrostatic pressure and molar concentrations of a chaotrope such as urea will all bring it about, and when compared on a single thermodynamic footing they prove not to act in the same way.<sup class=\"fn\" data-fn=\"2\"></sup> Removing the agent often allows the protein to refold, or renature, spontaneously into its original conformation, which is the classic demonstration that the shape is specified by the sequence.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Nucleic_acid": "A nucleic acid is a polymer of nucleotides, each consisting of a purine or pyrimidine base linked to a phosphorylated sugar, and the two kinds, DNA and RNA, are the principal informational molecules of a cell.<sup class=\"fn\" data-fn=\"1\"></sup> The units are joined by phosphodiester bonds between the 5' phosphate of one and the 3' hydroxyl of the next, so a chain has a direction as well as a sequence and is always built from the 5' end towards the 3'.<sup class=\"fn\" data-fn=\"1\"></sup> Short synthetic chains are now used as medicines, binding a target transcript to redirect how it is spliced or how much of it survives.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Nucleotide": "A nucleotide is a nitrogen-containing base joined to a sugar and carrying one or more phosphate groups on that sugar's 5' carbon; a base bound to a sugar alone, without any phosphate, is a nucleoside rather than a nucleotide.<sup class=\"fn\" data-fn=\"1\"></sup> The bases fall into two chemical families, purines and pyrimidines, and the sugar is ribose or, with one oxygen fewer, 2'-deoxyribose, which is what separates the two kinds of nucleic acid built from them.<sup class=\"fn\" data-fn=\"1\"></sup> Being polymerised into a nucleic acid is only one of their uses, since nucleotides also serve as carriers of chemical energy and as signalling molecules.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Adenosine_triphosphate": "Adenosine triphosphate, or ATP, is a nucleotide made of an adenine base on a ribose sugar carrying three phosphate groups bonded one after another, and it is the principal form of chemical energy inside cells.<sup class=\"fn\" data-fn=\"1\"></sup> Removing the outermost phosphate to leave ADP is energetically favourable, so the reaction can be coupled to processes that would not otherwise proceed; the molecule is spent and remade continuously rather than stored, a human body hydrolysing 100 to 150 moles of it a day.<sup class=\"fn\" data-fn=\"2\"></sup> It also acts outside that role, being released with neurotransmitters as a signalling molecule and influencing how proteins interact.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Adenosine_triphosphate": "Adenosine triphosphate, or ATP, is a nucleotide made of an adenine base on a ribose sugar carrying three phosphate groups bonded one after another, and it is the principal form of chemical energy inside cells.<sup class=\"fn\" data-fn=\"1\"></sup> Removing the outermost phosphate to leave ADP is energetically favourable, so the reaction can be coupled to processes that would not otherwise proceed; the molecule is spent and remade continuously rather than stored, a human body hydrolysing 100 to 150 moles of it a day.<sup class=\"fn\" data-fn=\"2\"></sup> It also acts outside that role, being released with neurotransmitters as a signalling molecule and influencing how proteins interact.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Biuret_test": "The biuret test is a colour reaction used to show that protein is present in a sample: at alkaline pH copper forms chelates with the peptide linkages of a protein and the solution turns violet.<sup class=\"fn\" data-fn=\"1\"></sup> Because it responds to the peptide bond rather than to any particular molecule, anything carrying enough peptide linkages will give a positive result, so the test identifies a class of compound rather than a specific one.<sup class=\"fn\" data-fn=\"2\"></sup> It is used routinely in laboratories to measure serum total protein, although a refractometer correlates with it closely enough to serve as a quicker and cheaper substitute in some settings.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4258,7 +4259,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Denaturation_(biochemistry)": ["denaturation","denatured","renaturation"],
 "Nucleic_acid": ["nucleic acids"],
 "Nucleotide": ["nucleotides"],
-"Adenosine_triphosphate": ["ATP","adenosine triphosphate"]
+"Adenosine_triphosphate": ["ATP","adenosine triphosphate"],
+"Biuret_test": ["biuret test","biuret method","biuret reagent"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6414,7 +6416,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Denaturation_(biochemistry)": ["concept","science","biology","chemistry"],
 "Nucleic_acid": ["object","science","biology","chemistry","genetics"],
 "Nucleotide": ["object","science","biology","chemistry","genetics"],
-"Adenosine_triphosphate": ["object","science","biology","chemistry"]
+"Adenosine_triphosphate": ["object","science","biology","chemistry"],
+"Biuret_test": ["practice","science","biology","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
