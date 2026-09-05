@@ -27,7 +27,7 @@ Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, B
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
 Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands, Nauru, Tuvalu, Saint Pierre and Miquelon, Saint Helena, Montserrat, Falkland Islands, Niue, Vatican City, Pitcairn Islands) **and capitals
-`gw-501` New Delhi, `gw-502` Beijing, `gw-503` Washington, D.C., `gw-504` Jakarta, `gw-506` Abuja, `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+`gw-501` New Delhi, `gw-502` Beijing, `gw-503` Washington, D.C., `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
@@ -35,7 +35,7 @@ Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau, `gw-703` Hamilton, `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town, `gw-709` Capitol Hill, `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino, `gw-717` Mariehamn, `gw-718` Marigot, `gw-719` The Valley, `gw-720` Ngerulmud, `gw-721` Avarua, `gw-722` Yaren, `gw-723` Mata-Utu, `gw-724` Gustavia, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown, `gw-728` Brades, `gw-729` Stanley, `gw-730` Kingston, `gw-731` Alofi, `gw-733` Adamstown,
 `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
 
-**Seven capitals were DEFERRED, and between them they name every way a capital source can fail; `gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta and `gw-506` Abuja have since SHIPPED and four remain: `gw-508` Dhaka, `gw-509` Moscow, `gw-511` Mexico City and `gw-512` Tokyo. (The heading says seven and the list runs to eight; the count was always off by one.)**
+**Seven capitals were DEFERRED, and between them they name every way a capital source can fail; `gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta and `gw-506` Abuja have since SHIPPED and `gw-508` Dhaka have since SHIPPED; three remain: `gw-509` Moscow, `gw-511` Mexico City and `gw-512` Tokyo. (The heading says seven and the list runs to eight; the count was always off by one.)**
 New Delhi and Beijing were deferred because they seemed reachable here only through the foreign legations that sat in
 them — the recognition guide dates the American mission at New Delhi to 1946 and traces the United States
 legation from Beijing to Nanjing to Chongqing to Taipei, which is a history of American diplomacy rather
@@ -5128,6 +5128,37 @@ Lagos**. It says nothing about Abuja, and that silence is the fact: the mission 
 then was. `nigerianstat.gov.ng` is reachable but is a news portal at its root, so the fifth source is the
 World Bank's urban-population series; its area series gives **923,770 km²** against UNdata's 923,768,
 agreement to two parts in a million.
+
+**`gw-508` DHAKA WAS DEFERRED BECAUSE EVERY BANGLADESHI GOVERNMENT DOMAIN PRESENTS AN INCOMPLETE
+CERTIFICATE CHAIN, AND THE ANSWER IS TO WRITE THE CARD WITHOUT ONE.** That fault is real, is in the
+source rather than in this sandbox, and must not be worked around by disabling verification — so the
+card touches no `.bd` host at all. Its five sources are UNdata, the **Constitution of Bangladesh** at the
+Constitute Project, the recognition guide, the **Commonwealth Secretariat** (Bangladesh is a member, so
+C4's Key Facts block applies) and the World Bank's area series. **A deferral for a broken certificate is
+a deferral of one HOST, not of the subject**; ask which of the pass's standing sources already covers the
+country before treating it as unreachable.
+
+**IT IS THE SECOND CONSTITUTION IN THREE CARDS TO NAME THE CAPITAL, AND THE CONTRAST WITH NIGERIA'S IS
+THE POINT.** Article 5 reads *"The capital of the Republic is Dhaka. The boundaries of the capital shall
+be determined by law."* Nigeria's constitution fixes the Federal Capital Territory's boundaries in a
+schedule to itself and vests all its land in the federal government; Bangladesh's names the city and
+hands the boundary to statute. **Two constitutions, the same sentence, opposite amounts of detail** —
+and both are the answer to the problem `gw-730` had to leave unmarked.
+
+**AND UNDATA'S CAPITAL FOOTNOTE IS NOW ON ITS FIFTH DISTINCT DEFINITION IN FIVE CONSECUTIVE CARDS.**
+India: *the Delhi metropolitan area, not restricted to state boundaries*. China: *all city districts
+excluding Yanqing*. Indonesia: *the functional urban area*. Nigeria: *the urban agglomeration*.
+Bangladesh: **"Mega city"**, with nothing at all said about where the city is held to end. One field,
+five meanings, five cards in a row. **The capital-population row is not comparable between countries and
+should never be quoted as though it were.**
+
+**THE OTHER FOUR-WAY DISAGREEMENT HERE IS THE INDEPENDENCE DATE, AND C4 SAW IT FIRST.** The Commonwealth
+records Bangladesh joining *"1972, after independence from Pakistan"*; the United States recognised it on
+**4 April 1972**; it entered the United Nations on **17 September 1974**; and the independence those
+three follow is dated by none of them. The card states the three institutional dates and does not supply
+the fourth. On area the two non-UN sources agree exactly — the Commonwealth and the World Bank both give
+**147,570 km²** against UNdata's 148,460 — which is C9's Libya shape, **UNdata as the outlier**, and the
+card takes the majority figure.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
