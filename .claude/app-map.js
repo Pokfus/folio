@@ -44,8 +44,9 @@ const val = (f, d) => { const i = argv.indexOf(f); return i >= 0 && argv[i + 1] 
  * comment inside a function, because the house style opens an explanation with its conclusion
  * in capitals. The map then listed "THE POOL IS `whatyear.js`, NOT THE CARDS" as a 266 KB
  * section, which is a sentence about a minigame's draw, not a division of the file. A map that
- * invents sections is worse than no map: it is read as structure. There are 128 dashed banners
- * and they are the real ones. */
+ * invents sections is worse than no map: it is read as structure. The dashed banners are the real
+ * ones, and how many there are is PRINTED rather than stated here -- this line said 128 and the file
+ * has grown past it, which is the whole argument of check-claims.js one file down. */
 const BANNER = /^ {2}\/\* *-{3,} *([^\n*]+?) *-{3,}/;
 const secs = [];
 lines.forEach((l, i) => {
@@ -93,8 +94,13 @@ if (has("--big")) {
 
 console.log(`\n\x1b[1mapp.js\x1b[0m — ${(text.length / 1048576).toFixed(2)} MB, ${lines.length.toLocaleString()} lines, ` +
             `${fns.length.toLocaleString()} top-level functions, ${secs.length} sections\n`);
+/* MEASURED, NOT STATED. This line read "only 14 things" for months against a real 27, which is the
+   one figure on the page a reader might act on -- the argument for keeping app.js whole is that
+   splitting it would leak the closure onto `window`, and how much is already there is the premise. */
+const onWindow = new Set((text.match(/window\.[A-Za-z_$][\w$]*\s*=(?!=)/g) || [])
+  .map((s) => s.slice(7).replace(/\s*=$/, "")));
 console.log("  \x1b[2mIt is ONE IIFE under \"use strict\": every one of those functions shares a single\x1b[0m");
-console.log("  \x1b[2mclosure, and only 14 things are put on `window`. That is why it is one file — see\x1b[0m");
+console.log(`  \x1b[2mclosure, and ${onWindow.size} things are put on \`window\`. That is why it is one file — see\x1b[0m`);
 console.log("  \x1b[2mthis script's own header before proposing to split it.\x1b[0m\n");
 console.log("  \x1b[2mA section runs from its banner to the NEXT banner, so its name is the name of the\x1b[0m");
 console.log("  \x1b[2mblock it OPENS, not a summary of everything under it. Read a large one as \"starts\x1b[0m");

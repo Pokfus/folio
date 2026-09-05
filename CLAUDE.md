@@ -189,7 +189,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     colour row it falls through to the generic indigo.
   · **The entry says HOW THE EDITION IS SET, not just where it is** — `sections`, `layout`, `body`,
     `dropHeads`, `glyphs` and the rest are declared PER BOOK precisely so a rule written for one
-    cannot re-set another. **Twenty-two layouts** exist; reach for a **hook** before a layout.
+    cannot re-set another. **Twenty-six layouts** exist; reach for a **hook** before a layout.
   · **`--force` re-runs the EXTRACTOR** (the cache holds extracted prose, not the fetched page). The
     chapter titles and volume divisions are re-derived on every run, so re-titling costs no refetch.
   · **MARKUP THE SOURCE ESCAPED IS DROPPED AT THE WRITE, AND THE EDITOR'S ANGLE BRACKET IS NOT**
@@ -290,8 +290,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
   NGO/IGO — **plus, since 2026-08-03 and on request, an encyclopedia that cites its own sources**, tested
   per article rather than per publisher (see N9's finding below: most do not).
-  **THE GLOSSARY CITATION PASS IS COMPLETE: all 401 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N10), all with
-  in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
+  **THE GLOSSARY CITATION PASS IS COMPLETE: EVERY term is cited and at the bar**, with in-text markers
+  (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N10). **Run `node .claude/gloss-source-audit.js` for the
+  count rather than quoting one here** — it was 401 when the pass closed and the glossary is now more
+  than four times that, and the claim still holds because a NEW term ships cited rather than joining a
+  backlog. That is the rule doing the work, not the pass.
+  **G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
   to McKinley, P5 to Hoover, P6 to Nixon and P7 to Biden, which finishes all 45**. **P1–P7 are the batches
@@ -1124,12 +1128,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 2.57 MB and 38,000 lines is hard to find your way around, so this
-  lists its 142 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 2.84 MB and 41,915 lines is hard to find your way around, so this
+  lists its 159 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
-  file is ONE IIFE under `"use strict"` whose ~1,250 top-level functions share a single closure —
+  file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
-  exactly **14** things are put on `window`. Splitting it across `<script>` tags means either making
+  **27** things are put on `window`. Splitting it across `<script>` tags means either making
   every shared name a property of a namespace object (thousands of call sites, and no test can prove
   closure-equivalence) or making them true globals — which leaks the whole application surface onto
   `window`, where a community deck's sanitized HTML and any browser extension can reach it. The
@@ -1140,6 +1144,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   conclusion of a long explanation — it reported a sentence about one minigame's draw as a 266 KB
   "section". **A map that invents sections is worse than none, because it is read as structure.**)
   Not part of the site.
+- `.claude/check-claims.js` — **CLAUDE.md's own figures, measured**: `node .claude/check-claims.js
+  [--all]`. This file is the ONLY operational memory a cloud session has, it is written in the present
+  tense as the state of the repository, and it is full of hand-written counts. **Its first run found
+  TWENTY of forty-one wrong** (Sep 2026, batch E51), several by a factor of four — the collection index
+  table had Ancient Rome as "empty" against 100 shipped cards and Ancient Greece at 180 against 400,
+  app.js was described as 2.57 MB and 38,000 lines against 2.84 MB and 41,915, and one suite's
+  assertion count was pinned at **two different numbers in the same file**, neither of them right.
+  **The file already knew**: it warns against quoting a figure in nine places, and every one of those
+  warnings is a scar (the theme count said 8 and then 6; the eager path's size drifted four times out
+  of date with "re-measure it rather than quoting it" written beside it, which is why `check-sizes.js`
+  exists). A warning cannot measure. **It defers to `app-map.js` for app.js's shape rather than
+  measuring it again** — two scripts disagreeing about one number is worse than either being wrong —
+  and its own header states the three things it does not ask: a BROWSER suite's assertion count (too
+  slow for a pre-commit check; re-pin one from the run you did when you changed it), a figure that is a
+  judgement rather than a count, and anything in `docs/`, whose numbers are a record of what a batch
+  measured ON THE DAY and are right about that day. Report-only, exits 0. **Run it after any batch that
+  changes a count this file states.** Not part of the site.
 - `.claude/check-sizes.js` — what Folio actually weighs: `node .claude/check-sizes.js [--json]`. It
   reads the eager path **out of `index.html`** rather than from a list, prints each file's raw and
   gzipped size with the totals, lists the biggest files off that path, and breaks `glossary.js` and
@@ -1175,14 +1196,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
   bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling)
-  L1–L10 and the L-audit have ALL SHIPPED — **THE PASS IS COMPLETE: 477 of 477 terms are inside the bar
-  (100%), mean 106.7 words, range 90 (`James_A._Garfield`) – 110 (`Y-chromosomal_Adam`), and every one of the
-  eighteen kinds is 0 outside**: the 197 countries (A–E, F–L, M–R, S–Z), L5's 55 caves, type sites, continents,
-  oceans and regions, L6's 54 people (45 US presidents plus nine antiquarians, archaeologists and a poet),
-  L7's 44 periods and stone industries, L8's 40 taxa, fossils and animals, L9's 45 tools, artworks, cultures
-  and peoples, and L10's 24 concepts with the four singleton kinds.
-  `node .claude/gloss-length.js` is
-  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. **What keeps it true is the rule, not the
+  L1–L10 and the L-audit have ALL SHIPPED — **THE PASS IS COMPLETE: EVERY term is inside the bar, and
+  every kind of term is 0 outside it.** It closed at 477 of 477, over the 197 countries, L5's caves,
+  type sites, continents, oceans and regions, L6's people (the 45 US presidents plus nine antiquarians,
+  archaeologists and a poet), L7's periods and stone industries, L8's taxa, fossils and animals, L9's
+  tools, artworks, cultures and peoples, and L10's concepts with the four singleton kinds.
+  **`node .claude/gloss-length.js` is the measure and the place to read the figures** — the count, the
+  mean and the range — rather than quoting any of them here, with `--over` / `--under` / `--tag=<kind>`
+  / `--list`. **What keeps it true is the rule, not the
   measure**: a new term ships at 90–110 words, three sentences, cited at the bar, exactly as it ships with its
   citations — so **re-run `gloss-length.js` after `add-sources.js` and after `add-glossary.js`**, since both
   write prose and neither measures it. Three things the bar does not
@@ -1341,8 +1362,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   part of the site and never loaded by it: a deck file is somebody else's content that happens to have
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
   **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO** — no changelog line, no version bump.
-  Currently **44 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
-  Portuguese, Spanish — **136,222 cards over 76,502 notes, 181 MB**. **Count them rather than quoting
+  Currently **52 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
+  Portuguese, Spanish — **136,222 cards over 68,111 notes, 149 MB**. **Count them rather than quoting
   that**: `node .claude/build-lang-decks.js` prints the tally on every run.
   · **A COMBINED FILE IS GITIGNORED**: it is an artefact of the levels it combines, every byte already
     in the repo, and its own `combine.py` regenerates it byte for byte. **Anything else in `decks/` is
@@ -4467,13 +4488,13 @@ lookup.
 
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
-| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 89 cards, scattered — next id is an early GAP |
-| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 180 cards, contiguous |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | empty |
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, scattered — next id is an early GAP |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 400 cards, contiguous |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 100 cards |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 40 cards — `cn-myth` complete, and the collection is now open to study |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 99 cards — `cn-myth` complete, and the collection is now open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -4482,8 +4503,8 @@ lookup.
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
-| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
-| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 136 cards — 470 rather than 1000, and sorted by POPULATION, see below |
+| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 100 cards — and it is NOT a 1000-card plan, see below |
+| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 263 cards — 470 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
@@ -4497,7 +4518,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (142 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (229 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, and CLAUDE.md names each plan, carries a working next-id command and states each prefix in the
@@ -5479,7 +5500,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 202 assertions on **the join between the sixteen card plans and
+  · `node .claude/test-card-plans.js` — 229 assertions on **the join between the sixteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -5488,7 +5509,7 @@ dead code (never rendered).
     **Re-run after adding or removing quotes** (a fifth Confucius line tightens the pool) as well as
     after touching `quoteRunningOrder` — the rule is a property of the ARRANGEMENT, so it breaks
     silently.
-  · `node .claude/test-streak-chest.js` — 18 assertions on the weekly streak chest (Aug 2026). **Re-run
+  · `node .claude/test-streak-chest.js` — 24 assertions on the weekly streak chest (Aug 2026). **Re-run
     after touching `bumpStreak` / `maybeStreakChest` / `streakChestProgress` / `STREAK_CHEST_EVERY` /
     `S.streak`.**
   · `node .claude/test-scheduler.js` — 136 assertions on **the schedule itself**, which is the thing a
@@ -5593,7 +5614,7 @@ dead code (never rendered).
     gone, so a refactor cannot leave it testing nothing. **Re-run after touching `openAvatarCropper` /
     `openAvatarViewer` / `AVATAR_PX` / `supaSetAvatar` / `monogramHTML` / the `img.viewClass` hook in
     `openMediaViewer`, or the `.av-crop` / `.avc-*` / `.iv-avatar` / `.mono-view` styles.**
-  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (69
+  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (71
     assertions, Aug 2026). **Re-run after touching `cardDifficulty` / `difficultyOK` / `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY` / `cardUndatable` / `chronoPool` / `cardStartYear` / `serializeCardData` /
     `revertCard`, any game's pool function, `add-card.js`'s difficulty or undatable guard,

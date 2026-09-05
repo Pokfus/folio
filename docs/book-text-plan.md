@@ -4044,3 +4044,97 @@ matched, so it reported success while changing no byte, and the pinned figure wo
 low. It is 404, measured. **A find-and-replace that cannot fail is a find-and-replace that cannot be
 trusted**; every other edit in these batches asserts its match count first, and this one did not
 because it was a one-line afterthought rather than part of the repair.
+
+---
+
+## E51 — CLAUDE.md's own figures, measured
+
+**E50's postscript recorded that the assertion count pinned in `CLAUDE.md` had drifted twice in three
+batches and that this programme's own edit to it silently did nothing.** That is the same fault E49
+found in a book's front matter, one level up — and one level up it is worse, because **`CLAUDE.md` is
+the only operational memory a cloud session has.** The file says so itself.
+
+**THE FILE ALREADY KNEW.** It warns against quoting a figure in **nine** separate places — *"read
+`THEMES` rather than quoting it"*, *"DO NOT QUOTE A FIGURE HERE"*, *"Count them rather than quoting
+that"*, *"run `node .claude/check-sizes.js` for its size rather than quoting one here"* — and every one
+of those warnings is a scar. The theme count said 8 for months and then 6. The eager path's size
+drifted to being four times understated **with "re-measure it rather than quoting it" written beside
+it**, which is why `check-sizes.js` exists at all. **A warning cannot measure**; this batch applies that
+argument to the rest of the file.
+
+### Twenty figures wrong, of forty-one that can be measured
+
+| what CLAUDE.md said | what the repository says |
+|---|---|
+| index table — World History, 89 cards | **300** |
+| index table — Ancient Greece, 180 cards | **400** |
+| index table — Ancient Rome, **empty** | **100** |
+| index table — China, 40 cards | **99** |
+| index table — Geography (`geo-us`), 5 cards | **100** |
+| index table — World (`geo-world`), 136 cards | **263** |
+| app.js, 2.57 MB | **2.84 MB** |
+| app.js, 38,000 lines | **41,915** |
+| app.js, 142 dashed section banners | **159** |
+| app.js, ~1,250 top-level functions | **~1,300** |
+| "exactly **14** things are put on `window`" | **27** |
+| importer, "Twenty-two layouts" | **twenty-six** |
+| language decks, 44 files | **52** |
+| language decks, 76,502 notes | **68,111** |
+| language decks, 181 MB | **149 MB** |
+| glossary citation pass, "all 401 terms" | **1,735** |
+| glossary length pass, "477 of 477" | **1,735** |
+| `test-card-plans`, **142 *and* 202** | **229** — pinned twice, at two different numbers, neither right |
+| `test-difficulty`, 69 assertions | **71** |
+| `test-streak-chest`, 18 assertions | **24** |
+
+**THE INDEX TABLE IS THE WORST OF THEM, because of what it is for.** It is the lookup a session reads
+to decide what to write next, and it said Ancient Rome was *empty* against a hundred shipped cards and
+the United States geography deck held five against a hundred. Nothing broke — the next id is computed
+by a command rather than read off the table — but a session reading it forms a wrong picture of the
+whole project before it does anything.
+
+**AND TWENTY-ONE FIGURES WERE RIGHT**, which is worth saying: the themes (16), the shelf (48 books, 32
+originals), the artefacts (100), the crossword bank (334), the suite count (47) and the no-browser split
+(7), the three citation bars, the language decks' 136,222 cards and seven languages, and the card counts
+for Psychology and China's geography deck.
+
+### The two completeness claims were TRUE, and only their totals were stale
+
+This is the finding that matters most, and a bare count would have missed it. CLAUDE.md says the
+glossary citation pass and the length pass are **complete**. The totals it quoted were 401 and 477
+against a glossary that now holds **1,735 terms** — and measured today, **1,735 of 1,735 are cited and
+at the bar, and 1,735 of 1,735 are inside the length bar.** The claims survived the glossary more than
+tripling, because the rule they rest on — *a new term ships cited and at length* — held for every term
+added since.
+
+**So the repair is not a bigger number.** Both sentences now state the completeness, name the command
+that reports the figures, and say what the old number was and why the claim outlived it. That is the
+file's own settled answer to this problem, borrowed from `check-sizes.js`.
+
+### `.claude/check-claims.js`, and the two scripts it made honest
+
+Report-only, exits 0, in the manner of `check-counts.js` and `card-focus.js`. It parses the figures out
+of `CLAUDE.md` and measures each against the repository — the index table row by row, the shelf, the
+glossary, the artefacts, the crossword, the themes, the layouts, the language decks, the suite files,
+and **the assertion count of every suite that needs no browser, by running it**.
+
+**IT DEFERS TO `app-map.js` FOR app.js's SHAPE RATHER THAN MEASURING IT AGAIN**, and that was a repair
+to this file's own first cut: it counted every dashed comment and reported **207** section banners where
+app-map reports 159, because app-map requires the banner to sit at the IIFE's own indent and carry
+dashes on both sides — a rule its header argues for at length. **Two scripts disagreeing about a number
+in one repository is worse than either being wrong**, so app-map's header line is parsed and app-map is
+the authority.
+
+**AND `app-map.js` ITSELF CARRIED TWO STALE FIGURES IN ITS OWN PROSE.** Its header said *"There are 128
+dashed banners"* against 159, and its printed summary said *"only **14** things are put on `window`"*
+against 27 — **hardcoded, in the output of a script whose entire job is to measure app.js.** The second
+is the one that mattered: the argument for keeping app.js whole is that splitting it would leak the
+closure onto `window`, and how much is there already is the premise of that argument. It is measured
+now and printed from the measurement; the header states no count and says why.
+
+**WHAT IT DOES NOT ASK, in its own header rather than left to be found:** a browser suite's assertion
+count (twenty-six suites at up to fifteen minutes each is not a pre-commit check — re-pin one from the
+run you did when you changed it); any figure that is a judgement rather than a count, where a tilde is
+doing honest work; and **the figures in `docs/`**, because those are a record of what a batch measured
+ON THE DAY and are right about that day. `CLAUDE.md` is different: it is written in the present tense,
+as the state of the repository.

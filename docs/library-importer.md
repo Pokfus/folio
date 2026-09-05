@@ -1657,6 +1657,18 @@ Herodotus, against zero notes on either side.**
     test counted WORDS and reported twenty-eight Chinese chapters of 5,765 characters as near-empty:
     **a length is not a word count in every script.**
 
+**AND THE SAME FAULT ONE LEVEL UP: CLAUDE.md'S OWN FIGURES** (Sep 2026, batch E51). E49 checked a
+book's account of itself; `CLAUDE.md` is the repository's, it is the only operational memory a cloud
+session has, and **twenty of the forty-one figures in it that can be measured were wrong** — the
+collection index table four times out of date in places, app.js's size and shape, the importer's own
+layout count ("twenty-two" against twenty-six), the language decks' files and weight, and one suite's
+assertion count pinned at two different numbers. `node .claude/check-claims.js` is the measure.
+**`app-map.js` was carrying two stale figures in its own prose too** — "128 dashed banners" against
+159, and "only 14 things are put on `window`" against 27, hardcoded in the output of a script whose
+whole job is to measure app.js. Both are measured now. **Run check-claims after any batch that changes
+a count CLAUDE.md states**, which for this file's work means the book and original totals and the
+layout count.
+
 **AND THE OTHER KIND OF CLAIM A FRONT MATTER MAKES: WHAT IS WRONG WITH THE BOOK** (Sep 2026, batch
 E50). A count can be checked; a sentence saying a chapter stops, a column is untranslated or an edition
 leaves lines out cannot, because no count disagrees with it. Swept by their vocabulary — *missing,
