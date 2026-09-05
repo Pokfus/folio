@@ -33,7 +33,7 @@ Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau, `gw-703` Hamilton, `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town, `gw-709` Capitol Hill, `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino, `gw-717` Mariehamn, `gw-718` Marigot, `gw-719` The Valley, `gw-720` Ngerulmud, `gw-721` Avarua, `gw-722` Yaren, `gw-723` Mata-Utu, `gw-724` Gustavia, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown, `gw-728` Brades, `gw-729` Stanley, `gw-730` Kingston, `gw-731` Alofi, `gw-733` Adamstown,
-`gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-754` Putrajaya, `gw-755` Abidjan and `gw-756` Colombo.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
+`gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-754` Putrajaya, `gw-755` Abidjan, `gw-756` Colombo and `gw-757` Valparaíso.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
 
 **Seven capitals were DEFERRED, and between them they name every way a capital source can fail. ALL EIGHT HAVE NOW SHIPPED** — `gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow, `gw-511` Mexico City and `gw-512` Tokyo — **and not one of them was cleared by a source the original survey had tried and misjudged; every one was cleared by a HOST OR PATH nobody had looked at.** (The heading says seven and the list ran to eight; the count was always off by one.) The list below is kept as the record of what failed, because each failure is a real shape and the next capital pass will meet them again.
 New Delhi and Beijing were deferred because they seemed reachable here only through the foreign legations that sat in
@@ -5383,6 +5383,43 @@ lends its name to a body or an agreement, that body's own site is usually the cl
 
 `statistics.gov.lk` and `cbsl.gov.lk` both serve real content and were not needed here; `parliament.lk`
 redirects. Sri Lanka's constitution on Constitute exists only as `Sri_Lanka_2015` (2020 and 2022 are 404).
+
+**`gw-757` VALPARAÍSO IS THE FIRST EXTRA SEAT UNdata DOES NOT MENTION AT ALL, AND THAT IS THE FINDING.**
+Malaysia, Côte d'Ivoire and Sri Lanka each footnote their divided seat on the capital-city field. Chile's
+profile gives **Santiago** with no footnote whatever — its only capital-row note is definitional, *"Refers to
+the urban population of Santiago Metropolitan Area Region"*, plus a date. So **this deck's list of twelve
+dual-seat countries is not derivable from UNdata**, and a future pass that tried to rebuild it from those
+footnotes would silently lose Chile and any country like it. The list came from research per country and has
+to stay that way.
+
+**THE CONSTITUTION DOES NOT HELP EITHER, AND CHILE'S OWN LAW SITE IS SHUT.** `Chile_2021` on Constitute names
+Valparaíso only as one of the REGIONS in the provisions allocating seats to representatives of indigenous
+peoples; it fixes no seat for Congress. The seat is set by ordinary law, and every route to Chilean
+legislation from here is closed: **`bcn.cl` and `leychile.cl` answer 401 on every path tried** — the statute
+navigator, the political-history section and the document-download endpoint alike — `camara.cl` is 403,
+`congreso.cl` refuses the connection, and `data.ipu.org`, the obvious institutional fallback for where a
+parliament sits, is 403 with the rest of `ipu.org`.
+
+**WHAT ANSWERED IS THE INSTITUTION'S OWN ADDRESS.** `senado.cl` serves real prose, and its *Acerca del
+Senado* page describes the Senate as the upper chamber forming the National Congress with the Chamber of
+Deputies and prints its address: **Avenida Pedro Montt s/n, Valparaíso**, with a second at Morandé 441,
+Santiago — Valparaíso first — while the front page offers guided visits to "los edificios del Senado en
+Valparaíso y Santiago". That is the Putrajaya and Colombo move for a third time: **when no law is reachable,
+the body's own contact page states where it is**, which is a weaker claim than a statute and an honest one,
+and the card says only what it supports.
+
+**AND FRUS IS A SOURCE FOR A CITY.** `history.state.gov/search?q=<term>&within=documents` searches the
+Foreign Relations volumes, and it returns per-document pages: document 1013 of the *1914 Supplement* is a
+telegram from the Vice Consul at Valparaíso reporting German warships taking cargo and sinking a French
+sailing vessel off the coast on 21 November 1914. Where an extra seat needs a dated fact of its own and no
+treaty is named for it, **a consular despatch FROM the city is one**, and the guide's own summary supplies
+the frame — it calls Valparaíso "Chile's primary seaport", reached from the eastern United States only by
+rounding Cape Horn.
+
+**A watermark cost two good pictures here.** The two best wide views of the port in *Category:Views of
+Valparaíso* both carry "© Winniepix" burnt into the corner and were refused; the card takes a hillside view
+over the bay instead. **`whc.unesco.org` is 403 for the Valparaíso listing and `unesdoc.unesco.org` is 403
+too**, so the World Heritage inscription is not citable from here.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
