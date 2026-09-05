@@ -2094,7 +2094,8 @@ window.GLOSSARY = {
 "Antiochus_III_the_Great": "<b>Antiochus III</b>, known as Antiochus the Great, ruled the Seleucid empire from 223 to 187 BCE, at its height holding territory from the Aegean coast of Asia Minor to the borders of India. He recovered provinces that had broken away, campaigning as far as Bactria, where he came to terms with the local king and returned with elephants and an alliance in India.<sup class=\"fn\" data-fn=\"1\"></sup> His claim to cities in Asia Minor and Thrace brought him into dispute with Rome, which he answered by saying that he did not concern himself with Italy and that Asian cities should have their liberty from him rather than by Roman order.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Roman-Seleucid_War": "The <b>Roman-Seleucid War</b> was fought between Rome and Antiochus III of Syria from 192 to 188 BCE, in Greece and then in Asia Minor, and was the first war Rome fought against a power based in Asia. It began when the Aetolian League, dissatisfied with the Roman settlement of Greece, invited the king across the Aegean, and he came with a force Livy judged far too small, some ten thousand foot and six elephants.<sup class=\"fn\" data-fn=\"1\"></sup> It ended with his defeat in Asia and a settlement requiring him to withdraw beyond the Taurus mountains, pay 15,000 talents in instalments, give hostages and hand over the exiles at his court.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Battle_of_Thermopylae_(191_BCE)": "The <b>Battle of Thermopylae</b> of 191 BCE was fought in the coastal pass of that name between a Roman consular army and the forces of Antiochus III of Syria, and ended the king's attempt to establish himself in Greece. Antiochus fortified the narrows with rampart, ditch and wall, and asked his Aetolian allies to hold the mountain paths above, which they garrisoned only in part after disagreeing among themselves.<sup class=\"fn\" data-fn=\"1\"></sup> A Roman detachment cleared one of the summits and appeared behind the position, at which the defenders abandoned the works and fled, the king escaping with a small escort.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Battle_of_Magnesia": "The <b>Battle of Magnesia</b> was fought in 190 BCE near Magnesia by Sipylus in western Asia Minor, between a Roman army with Pergamene allies and the much larger and more varied army of Antiochus III of Syria. Livy describes a Seleucid line built around a phalanx of sixteen thousand with elephants standing in its gaps, flanked by mailed cavalry, horse-archers, camel-riders and scythed chariots.<sup class=\"fn\" data-fn=\"1\"></sup> The chariots were driven back on their own side, the phalanx was broken up by fugitives running through its ranks, and the defeat cost Antiochus his position in Asia Minor west of the Taurus.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Battle_of_Magnesia": "The <b>Battle of Magnesia</b> was fought in 190 BCE near Magnesia by Sipylus in western Asia Minor, between a Roman army with Pergamene allies and the much larger and more varied army of Antiochus III of Syria. Livy describes a Seleucid line built around a phalanx of sixteen thousand with elephants standing in its gaps, flanked by mailed cavalry, horse-archers, camel-riders and scythed chariots.<sup class=\"fn\" data-fn=\"1\"></sup> The chariots were driven back on their own side, the phalanx was broken up by fugitives running through its ranks, and the defeat cost Antiochus his position in Asia Minor west of the Taurus.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Treaty_of_Apamea": "The <b>Treaty of Apamea</b> was the peace concluded in 188 BCE between Rome and Antiochus III of Syria, ending the war the two had fought in Greece and Asia Minor. It required the king to withdraw from all territory west and north of the Taurus mountains, to surrender his elephants and all but ten warships, to keep his remaining ships east of a stated line, to pay a large indemnity in instalments and to give hostages.<sup class=\"fn\" data-fn=\"1\"></sup> The territory he gave up was distributed by a Roman commission, chiefly to the kingdom of Pergamon and to Rhodes, without Rome annexing any of it.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2959,7 +2960,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Antiochus_III_the_Great": "223 – 187 BCE",
 "Roman-Seleucid_War": "192 – 188 BCE",
 "Battle_of_Thermopylae_(191_BCE)": "191 BCE",
-"Battle_of_Magnesia": "190 BCE"
+"Battle_of_Magnesia": "190 BCE",
+"Treaty_of_Apamea": "188 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6371,7 +6373,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Antiochus_III_the_Great": ["ruler","person","history","greece","rome"],
 "Roman-Seleucid_War": ["event","warfare","history","rome","greece"],
 "Battle_of_Thermopylae_(191_BCE)": ["battle","warfare","history","greece","rome"],
-"Battle_of_Magnesia": ["battle","warfare","history","rome","greece"]
+"Battle_of_Magnesia": ["battle","warfare","history","rome","greece"],
+"Treaty_of_Apamea": ["event","history","politics","rome","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
