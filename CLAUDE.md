@@ -1433,6 +1433,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     character carrying its own risk of being read wrong. The reader hears one syllable of context and then
     the card's own, which is what a dictionary's audio does with a particle. **Adding the field to a deck
     is a change to that deck's TYPE as well as to the card**, so it is two edits in one file.
+- `.claude/decks/check-mandarin-coverage.js` — **what a Mandarin card does NOT say**:
+  `node .claude/decks/check-mandarin-coverage.js [--top=N] [--deck=] [--only=]`. The three checkers
+  above all ask whether what a card SAYS is right and all report the Mandarin decks clean or nearly
+  so; a reader can still meet a card teaching one sense of a four-sense word, or one with no example
+  sentence at all. **Faults of OMISSION are the one shape a correctness checker cannot see** — nothing
+  on the card is wrong, there is simply less of it than the card type promises. Five counts, never a
+  verdict, so it is **report-only** like `check-senses.js`: examples per note broken down by deck
+  (44% of 11,532 carry the full three, 3,406 carry none, and the shortfall tracks the LEVEL, which
+  says it is a supply problem rather than a bug); **glosses shared by two or more notes**, which on an
+  English → Chinese card whose front is `{{English}}` and nothing else is one question with several
+  right answers (404 glosses, 863 notes, and the only finding here a reader experiences as being
+  MARKED WRONG FOR BEING RIGHT); senses against part of speech; pinyin written as one word, with
+  **erhua exempt** (哪儿 `nǎr` IS one syllable); and measure words on nouns, which is the loosest of
+  the five and says so, most noun-tagged notes not being countable. Not part of the site.
+- **📖 `docs/mandarin-review.md` — READ BEFORE WORKING ON THE MANDARIN DECKS.** The Sep 2026 review in
+  full: why the repaired `蛋糕` still reads `dàng āo` on the reader's screen (**a downloaded deck is
+  never re-fetched** — `langDeckDownload` returns early on `UDECKS[deckId]`, `meta.version` is 1 in
+  all nine files and nothing reads it, so **every content repair ever made to a language deck has
+  reached only readers who had not yet downloaded it**), the 25 single-character cards a speech engine
+  will misread against the 2 that carry a `Say`, the five polyphones whose second reading is missing
+  outright while 过/花/空/重 carry both, the 3,660 glosses that are several senses joined by
+  semicolons, the Idioms deck at 2% example coverage, and twelve costed suggestions.
 - **📖 `docs/lang-decks.md` — READ BEFORE TOUCHING ANY DECK OR GENERATOR.** Every pipeline's findings:
   which exam boards publish a word list and which do not, the CJK and PDF extraction traps, the
   variety filters, the clitic and conjugation rules, the sense-ranking faults, and the catalogue's
