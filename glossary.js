@@ -2050,7 +2050,8 @@ window.GLOSSARY = {
 "Aristocracy": "An aristocracy is rule by a small privileged class, usually one that claims the right by birth or by superior worth, and in which the offices of state are closed to everybody else. Aristotle counts it a right constitution rather than a deviation, government by more than one yet only a few, so named either because the best men rule or because they rule with a view to what is best for the state and its members.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius treats it as one of the three kinds most writers recognised, and argued that none of the three is stable on its own.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Oligarchy": "An oligarchy is a state in which power is held by a small group, most often the wealthy, and in which the rest of the citizen body is shut out of office whatever its numbers. Aristotle makes it the deviation corresponding to aristocracy, government conducted in the interest of the rich rather than of the community as a whole.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus has its advocate rest the case on the incompetence of the alternatives, granting the objections to rule by one man while holding that nothing is more foolish or violent than an unguided crowd, and that men fleeing a tyrant's insolence should not fall victim to the mob's.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Biology": "Biology is the scientific study of living things and of the processes that make them alive, at scales from a single molecule inside one cell to the whole biosphere.<sup class=\"fn\" data-fn=\"1\"></sup> Because no one method covers that range it is divided into fields, among them cell biology, physiology, botany, zoology, microbiology and ecology, and its subject matter is marked out less by a definition than by a list of shared properties: order, responsiveness, reproduction, growth, regulation, energy processing, adaptation and evolution.<sup class=\"fn\" data-fn=\"2\"></sup> Behind that diversity lies common descent, since every cell yet examined stores its hereditary information as double-stranded DNA and expresses it by the same machinery.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Life_(biology)": "Life is the condition that distinguishes organisms from inanimate matter, and it has no agreed definition: it is picked out instead by a list of shared properties, among them order, responsiveness, reproduction, growth, regulation, energy processing, adaptation and evolution.<sup class=\"fn\" data-fn=\"1\"></sup> No property on the list settles the matter alone, since fire and growing crystals meet several of them, and a definition demanding all of them at once excludes a single animal.<sup class=\"fn\" data-fn=\"2\"></sup> The working definition most used calls it a self-sustaining chemical system capable of Darwinian evolution, though borderline cases such as viruses show that where the boundary falls is a decision about the definition rather than a discovery.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Life_(biology)": "Life is the condition that distinguishes organisms from inanimate matter, and it has no agreed definition: it is picked out instead by a list of shared properties, among them order, responsiveness, reproduction, growth, regulation, energy processing, adaptation and evolution.<sup class=\"fn\" data-fn=\"1\"></sup> No property on the list settles the matter alone, since fire and growing crystals meet several of them, and a definition demanding all of them at once excludes a single animal.<sup class=\"fn\" data-fn=\"2\"></sup> The working definition most used calls it a self-sustaining chemical system capable of Darwinian evolution, though borderline cases such as viruses show that where the boundary falls is a decision about the definition rather than a discovery.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Biological_organisation": "Biological organisation is the arrangement of living matter into nested levels, each composed of the one below, running from atoms and molecules through organelles, cells, tissues, organs and organ systems to organisms, populations, communities, ecosystems and the biosphere.<sup class=\"fn\" data-fn=\"1\"></sup> Below the cell the levels are chemical and above it functional, a tissue being similar cells with one job and an organ a structure of two or more tissues, while the ecological levels group organisms with each other and with their surroundings.<sup class=\"fn\" data-fn=\"2\"></sup> The scheme orders how the subject is taught, though the uniform composition a single hierarchy assumes does not hold everywhere, and recent work demarcates levels case by case instead.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4137,7 +4138,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Consulate": ["consulates"],
 "Consul_general": ["consul-general","consuls general"],
 "Tyranny": ["tyrant"],
-"Life_(biology)": ["characteristics of life","definition of life"]
+"Life_(biology)": ["characteristics of life","definition of life"],
+"Biological_organisation": ["levels of biological organisation","levels of organisation"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6222,7 +6224,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Aristocracy": ["concept","politics","history"],
 "Oligarchy": ["concept","politics","history"],
 "Biology": ["concept","science","biology","institution"],
-"Life_(biology)": ["concept","science","biology","evolution"]
+"Life_(biology)": ["concept","science","biology","evolution"],
+"Biological_organisation": ["concept","science","biology","nature"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
