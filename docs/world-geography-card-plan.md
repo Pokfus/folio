@@ -27,7 +27,7 @@ Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, B
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
 Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands, Nauru, Tuvalu, Saint Pierre and Miquelon, Saint Helena, Montserrat, Falkland Islands, Niue, Vatican City, Pitcairn Islands) **and capitals
-`gw-501` New Delhi, `gw-502` Beijing, `gw-503` Washington, D.C., `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow, `gw-511` Mexico City, `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+`gw-501` New Delhi, `gw-502` Beijing, `gw-503` Washington, D.C., `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow, `gw-511` Mexico City, `gw-512` Tokyo, `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
@@ -35,7 +35,7 @@ Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau, `gw-703` Hamilton, `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town, `gw-709` Capitol Hill, `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino, `gw-717` Mariehamn, `gw-718` Marigot, `gw-719` The Valley, `gw-720` Ngerulmud, `gw-721` Avarua, `gw-722` Yaren, `gw-723` Mata-Utu, `gw-724` Gustavia, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown, `gw-728` Brades, `gw-729` Stanley, `gw-730` Kingston, `gw-731` Alofi, `gw-733` Adamstown,
 `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
 
-**Seven capitals were DEFERRED, and between them they name every way a capital source can fail; `gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow and `gw-511` Mexico City have since SHIPPED; ONE remains, `gw-512` Tokyo. (The heading says seven and the list runs to eight; the count was always off by one.)**
+**Seven capitals were DEFERRED, and between them they name every way a capital source can fail. ALL EIGHT HAVE NOW SHIPPED** — `gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow, `gw-511` Mexico City and `gw-512` Tokyo — **and not one of them was cleared by a source the original survey had tried and misjudged; every one was cleared by a HOST OR PATH nobody had looked at.** (The heading says seven and the list ran to eight; the count was always off by one.) The list below is kept as the record of what failed, because each failure is a real shape and the next capital pass will meet them again.
 New Delhi and Beijing were deferred because they seemed reachable here only through the foreign legations that sat in
 them — the recognition guide dates the American mission at New Delhi to 1946 and traces the United States
 legation from Beijing to Nanjing to Chongqing to Taipei, which is a history of American diplomacy rather
@@ -54,7 +54,8 @@ the recognition guide. `gw-511` Mexico City: the Chamber of
 Deputies' site returns **one character** of text, and `inah.gob.mx` — the obvious source for the city
 before it was Mexican — is 403; that was true of the Chamber's HTML and NOT of its statute library, whose
 `LeyesBiblio/pdf/CPEUM.pdf` is the current constitution in full and carried the card. `gw-512` Tokyo: the Metropolitan Government's English site is a news
-index, the Imperial Household Agency's About page is a menu, and `sangiin.go.jp` reset the connection.
+index, the Imperial Household Agency's About page is a menu, and `sangiin.go.jp` reset the connection — all
+still true, and the Statistics Bureau at `stat.go.jp` was never tried and carries everything the card needed.
 
 What was tried and does not answer, so that nobody spends the afternoon again: `loc.gov`,
 `hansard.parliament.uk`, `rct.uk`, `parliament.uk`, `whc.unesco.org`, `harappa.com` and
@@ -5249,6 +5250,43 @@ gives 1,964,375 km² for 2016–17, 1,964,380 for 2018–19, then 1,960,647 for 
 why — while UNdata gives 1,964,375 for 2023, the World Bank's own 2016–17 value to the square kilometre.
 D3 met this and cited the series naming 2019; this card names 2016 and 2017, which is where the two sources
 agree exactly. **Where a World Bank series drifts, cite the year, not the series.**
+
+**`gw-512` TOKYO CLOSES THE DEFERRAL LIST, AND ITS FINDING IS THE WHOLE CAPITAL THREAD'S CONCLUSION: THE
+BOUNDARY UNdata WILL NOT DEFINE IS DEFINED BY THE NATIONAL SOURCE UNdata TOOK IT FROM.** Tokyo's capital row
+is marked `d,e` — *"Major metropolitan areas"* and *2019* — which is the vaguest boundary footnote of the
+whole run: a plural, naming no areas and giving no count. Japan's own **Statistical Handbook of Japan 2025**
+(Statistics Bureau, MIC) says exactly what one is. Table 2.11 gives the **Kanto major metropolitan area** at
+38.03 million over 13,561 km² in 2020, and its footnote lists the central cities: *the 23 Cities of Tokyo
+Metropolis, Yokohama City, Kawasaki City, Sagamihara City, Saitama City and Chiba City*, plus surrounding
+cities, towns and villages. So the United Nations' 37.4 million counts **five other cities as centres in
+their own right**, one of them Yokohama, the largest single city in Japan after Tokyo's wards. Table 2.10
+gives the 23 Cities at 9.73 million and the prefecture at 14.05 million. **Three official figures for one
+capital, differing by a factor of almost four, none of them wrong** — and the UN's own footnote could not
+have told you which you had. **When a UNdata footnote names a category rather than a boundary, go to the
+national statistical office that supplied it; the category is theirs and they define it.**
+
+**AND JAPAN IS WHERE UNdata TELLS YOU OUTRIGHT THAT ITS AREA IS STALE.** The surface-area row is marked
+`b,c`, which resolves to *"Data refer to 1 October 2007"* and *2023* — a value filed under one year with a
+note saying it was measured eighteen years earlier. The Statistical Handbook's table 1.1 gives **377,976 km²
+as of January 2025** and the World Bank gives 377,974 (2018–21) and 377,969.27 (2022–23), so the two
+independent sources agree within seven square kilometres and UNdata is 46 out. This is the cleanest
+divergence of the whole pass, because **the outlier says why it is the outlier.** Read the letters on the
+area row as well as on the population row; the same two kinds of footnote appear on both.
+
+**THE THREE-FOOTNOTE ARC, COMPLETE.** Five capitals carried a BOUNDARY and no date (Delhi's metropolitan
+area, Beijing's city districts less Yanqing, Jakarta's functional urban area, Abuja's urban agglomeration,
+Dhaka's "Mega city"); `gw-509` Moscow carried a DATE and no boundary; `gw-511` Mexico City carried both, with
+the boundary named precisely (76 municipalities); `gw-512` Tokyo carries both with the boundary named
+uselessly. That is the full range, and the rule that falls out of it is one line: **a capital-city figure
+from UNdata is not a number, it is a number plus up to two footnote letters, and it means nothing until both
+are resolved.**
+
+**NO SOURCE OPENABLE HERE NAMES TOKYO THE CAPITAL IN LAW, AND THE CARD DOES NOT CLAIM ONE DOES.** Japan's
+constitution designates no capital, which is a well-known fact and an ABSENCE — not something a citation can
+carry, and not a claim this deck makes. What the recognition guide does state, twice, is that **Edo, "now
+Tokyo", WAS Japan's capital** in 1853 and 1858, which is a positive claim about the seat of government from
+an openable work, and that is what the card says. **Where a capital rests on custom rather than statute, cite
+what a source asserts about the seat, never the absence of a law.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
