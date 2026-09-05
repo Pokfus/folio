@@ -2080,7 +2080,8 @@ window.GLOSSARY = {
 "Specific_heat_capacity": "The <b>specific heat capacity</b> of a substance is the energy required to raise the temperature of a given mass of it by one degree.<sup class=\"fn\" data-fn=\"1\"></sup> Water's is unusually high, so that large quantities of absorbed energy produce only small changes in temperature, because much of that energy goes into rearranging the hydrogen-bond network between the molecules before appearing as their motion.<sup class=\"fn\" data-fn=\"1\"></sup> The magnitude is fixed by an old definition still in use, the kilocalorie being the energy needed to raise one litre of water by one degree centigrade,<sup class=\"fn\" data-fn=\"2\"></sup> and the consequence is that water buffers temperature at every scale from a cell to an ocean.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Solvent": "A <b>solvent</b> is a liquid in which other substances dissolve, and water is the one life is built around, taking up ions and polar molecules readily while excluding nonpolar ones.<sup class=\"fn\" data-fn=\"1\"></sup> Salts dissolve in it because the ionic bonds of the lattice are greatly weakened in water, each ion leaving surrounded by its own group of water molecules.<sup class=\"fn\" data-fn=\"2\"></sup> The property rests on a measured figure, water's dielectric constant of roughly 80 at room temperature, which attenuates the attraction between opposite charges enough for electrolytes to dissociate and stay apart, and which likewise lowers the cost of holding like charges close together.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ice": "<b>Ice</b> is the solid form of water, and water is one of the few substances that expands as it freezes, the molar volume of the liquid being about 8% less than that of the solid.<sup class=\"fn\" data-fn=\"1\"></sup> Its molecules hydrogen-bond to one another in a network that is continually broken and remade,<sup class=\"fn\" data-fn=\"2\"></sup> and as the temperature falls towards freezing the ideal tetrahedral arrangements grow more probable and hold the molecules further apart, so the liquid is densest at about 4°C (39°F).<sup class=\"fn\" data-fn=\"1\"></sup> The solid therefore forms at the surface rather than the bottom, and that layer insulates the water beneath and keeps it liquid when the air is below freezing.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Acid": "An acid is a substance that releases protons when it dissolves in water, each proton attaching to a water molecule to form a hydronium ion.<sup class=\"fn\" data-fn=\"1\"></sup> A base does the opposite, raising the concentration of hydroxyl ions produced by removing a proton from a water molecule, and the balance between the two is set out on the logarithmic pH scale, whose midpoint of 7 is pure water.<sup class=\"fn\" data-fn=\"1\"></sup> Acids run from the mineral acids of industry to the weak carboxyl groups carried by living matter, which give a proton away in solution and leave the molecule that holds them negatively charged.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Acid": "An acid is a substance that releases protons when it dissolves in water, each proton attaching to a water molecule to form a hydronium ion.<sup class=\"fn\" data-fn=\"1\"></sup> A base does the opposite, raising the concentration of hydroxyl ions produced by removing a proton from a water molecule, and the balance between the two is set out on the logarithmic pH scale, whose midpoint of 7 is pure water.<sup class=\"fn\" data-fn=\"1\"></sup> Acids run from the mineral acids of industry to the weak carboxyl groups carried by living matter, which give a proton away in solution and leave the molecule that holds them negatively charged.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"pH": "pH is a measure of how acidic or basic a solution is, written as a logarithm of its proton concentration so that an enormous range of values fits into a handful of numbers.<sup class=\"fn\" data-fn=\"1\"></sup> Pure water sits at 7, where hydronium and hydroxyl ions are equally common, and a solution below that figure is acidic while one above it is basic; because the scale is logarithmic, each unit stands for a tenfold difference in proton concentration.<sup class=\"fn\" data-fn=\"1\"></sup> Living things hold particular values against it, and the enzymes a compartment carries commonly work across only a narrow band.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4190,7 +4191,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chemical_polarity": ["polar molecules","chemical polarity"],
 "Specific_heat_capacity": ["heat capacity"],
 "Solvent": ["solvents"],
-"Acid": ["acidic"]
+"Acid": ["acidic"],
+"pH": ["pH scale"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4221,7 +4223,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Tyre": true,
 "Olduvai_Beds": true,
 "Little_Foot": true,
-"Commonwealth_of_Nations": true
+"Commonwealth_of_Nations": true,
+"pH": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -6305,7 +6308,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Specific_heat_capacity": ["concept","science","chemistry","biology"],
 "Solvent": ["concept","science","chemistry","biology"],
 "Ice": ["object","science","chemistry","biology"],
-"Acid": ["concept","science","chemistry"]
+"Acid": ["concept","science","chemistry"],
+"pH": ["concept","science","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

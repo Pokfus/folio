@@ -1254,7 +1254,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 2.87 MB and 42,261 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 2.87 MB and 42,267 lines is hard to find your way around, so this
   lists its 160 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -2901,6 +2901,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   against in the cloze box and matched by the glossary, none of which must see a capital the data has not
   got. `::first-letter` changes what is painted and nothing else; it reaches the letter through inline
   descendants, and on a hanzi answer it is simply inert.
+  **…EXCEPT WHERE THE LOWER-CASE INITIAL IS THE TERM** (`.answer .val.nocap`, the `noCap` test in
+  `buildBack`; Sep 2026, with the pH card). Rendered `PH`, the answer to a card whose whole subject is the
+  scale is not a capitalised term but a different string — the `p` is what the name means. **The test is
+  the SHAPE rather than a new card field**: a lower-case letter followed immediately by a capital is `pH`,
+  `mRNA`, `tRNA`, `iPSC`, and no ordinary English word, so it says the whole of what this class has to say
+  and needs nothing written down per card. Note also that `buildGlossIndex` **skips any surface under three
+  characters**, so the paired glossary term `pH` can never auto-link on its bare name and carries the alias
+  `pH scale` to be reachable at all — ask that of any two-letter answer term.
 - **Source footnotes** — the `SOURCE FOOTNOTES` block in app.js, just above `buildBack`. Four surfaces say
   things about the past — a card's background, a glossary description, an artefact's plate and an Atlas place
   panel — and each names the scholarship behind them: a **`sources` list of Chicago note-form citations**
@@ -4877,7 +4885,7 @@ lookup.
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
-| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 33 cards — not a history collection |
+| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 34 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 100 cards — and it is NOT a 1000-card plan, see below |
