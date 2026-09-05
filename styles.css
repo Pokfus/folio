@@ -8258,7 +8258,7 @@ body[data-theme="carnelian"].night .collection-deco{
 .elab{border:1px dashed var(--rule); border-radius:12px; background:var(--paper-2);
   padding:14px 15px; margin:16px 0 4px; display:flex; flex-direction:column; gap:9px;}
 .elab-kind{font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
-.elab-q{margin:0; font-family:var(--serif); font-weight:600; font-size:calc(16px * var(--fs)); line-height:1.6; color:var(--ink);}
+.elab-q{margin:0; font-family:var(--serif); font-size:calc(16px * var(--fs)); line-height:1.6; color:var(--ink);}
 /* THREE QUESTIONS, EACH WITH ITS ANSWER BEHIND A BUTTON (Sep 2026, on request) — see elabPromptHTML.
    A row is question + button on one line, with the answer uncovered underneath it. The button is
    `flex:none` and the question `flex:1 1 auto` with `min-width:0`, so a long question wraps and the
@@ -8272,8 +8272,9 @@ body[data-theme="carnelian"].night .collection-deco{
    card sitting inside the first. Both halves take `--serif`, the face the question and the background are
    already set in: the QUESTION at the abstract's own size in the full ink, the ANSWER at the abstract's
    own size, leading and quieter ink exactly — so uncovering one reads as a paragraph of the card rather
-   than as a panel that has opened. Only the weight tells the two apart, which is all that is needed once
-   the answer is indented under its own rule. */
+   than as a panel that has opened. NEITHER IS BOLD (Sep 2026, on request, having been for a few hours):
+   what tells a question from its answer is the ink and the rule the answer is indented under, and three
+   bold lines in a row read as three headings over a card whose own prose is not set that way. */
 .elab-item{display:flex; flex-direction:column; gap:7px; padding-top:10px; border-top:1px solid var(--rule);}
 .elab-item:first-of-type{padding-top:2px; border-top:0;}
 .elab-qrow{display:flex; align-items:flex-start; gap:12px;}
