@@ -1811,7 +1811,8 @@ window.GLOSSARY = {
 "Third_Buddhist_Council": "The Third Buddhist Council is a gathering that the Pali chronicles place at Pataliputra in the nineteenth year from Ashoka's coronation, held under his patronage and presided over by the monk Moggaliputta Tissa.<sup class=\"fn\" data-fn=\"1\"></sup> It was called by sectarian differences, among which as many as eighteen divisions are named, deliberated for nine months and decided for the school of the Sthaviras, which afterwards prevailed in Ceylon.<sup class=\"fn\" data-fn=\"1\"></sup> The canon is said to have been closed on the occasion and the Kathavatthu composed at it; the northern Buddhist texts ignore the council, so it is known from one tradition only.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Stupa": "A stupa is a solid domed monument built over relics, set on a plinth with a narrow ledge between the two that serves as a processional path; it is walked round rather than entered.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The earliest account has the Buddha's relics divided among princes and nobles at his death, each of whom raised one and instituted a festival, a cult left to the laity rather than to the order.<sup class=\"fn\" data-fn=\"1\"></sup> At the Great Stupa at Sanchi the dome is almost hemispherical and stands about 16 metres (54 feet) high without its crowning umbrella, which sits inside a square stone rail, while a massive rail rings the base.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Indo-Greek_Kingdom": "The Indo-Greek Kingdom is the modern name for the states that Greek rulers of Bactria established south of the Hindu Kush from the early 2nd century BCE, in the Kabul valley, the north-west frontier and the Punjab.<sup class=\"fn\" data-fn=\"1\"></sup> They are known almost entirely from coins: the legends of about thirty kings and two queens, many of them bilingual, with Greek on one face and an Indian language and alphabet on the other.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The best remembered of their rulers is Menander, identified with the Milinda of the Pali <i>Milindapanha</i>, in which he questions the elder Nagasena and is converted.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Kushan_Empire": "The Kushan Empire was the state built by one of the five Yueh-chi tribes of Bactria, whose chief won the supremacy over the rest and gave the united kingdom his own tribe's name.<sup class=\"fn\" data-fn=\"1\"></sup> From about 25 CE its kings crossed the Hindu Kush at the expense of the Parthian rulers there and carried it from the Kabul valley into north-west India, styling themselves \"Great King, Supreme King of Kings, Son of the Gods\".<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its best remembered ruler is Kanishka, whose reign is placed near the end of the 1st century CE and who almost certainly founded the era beginning in 78 CE.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Kushan_Empire": "The Kushan Empire was the state built by one of the five Yueh-chi tribes of Bactria, whose chief won the supremacy over the rest and gave the united kingdom his own tribe's name.<sup class=\"fn\" data-fn=\"1\"></sup> From about 25 CE its kings crossed the Hindu Kush at the expense of the Parthian rulers there and carried it from the Kabul valley into north-west India, styling themselves \"Great King, Supreme King of Kings, Son of the Gods\".<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its best remembered ruler is Kanishka, whose reign is placed near the end of the 1st century CE and who almost certainly founded the era beginning in 78 CE.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Greco-Buddhist_art": "Greco-Buddhist art is the Buddhist sculpture made in Gandhara and the north-west of the subcontinent, in which Hellenistic form was turned to Indian religious use.<sup class=\"fn\" data-fn=\"2\"></sup> It sprang up under Scythian and Parthian rule and produced most of its known work under the Kushans, by whose time the types of the Buddha peculiar to it were already fixed and standardised.<sup class=\"fn\" data-fn=\"1\"></sup> Not one of its many thousands of sculptures bears a date in any known era, so its chronology rests on the rough rule that the earlier a piece is the more nearly it approaches Hellenistic work.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3752,7 +3753,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ashoka": ["Asoka"],
 "Edicts_of_Ashoka": ["Ashokan edicts"],
 "Indo-Greek_Kingdom": ["Indo-Greek kingdoms"],
-"Kushan_Empire": ["Kushans","Kushanas"]
+"Kushan_Empire": ["Kushans","Kushanas"],
+"Greco-Buddhist_art": ["Gandhara school"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5593,7 +5595,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Third_Buddhist_Council": ["event","religion","history","buddhism","india"],
 "Stupa": ["building","object","religion","buddhism","india","art"],
 "Indo-Greek_Kingdom": ["state","history","politics","greece","india","iron age"],
-"Kushan_Empire": ["state","history","politics","india","iron age"]
+"Kushan_Empire": ["state","history","politics","india","iron age"],
+"Greco-Buddhist_art": ["art","object","history","religion","buddhism","india","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
