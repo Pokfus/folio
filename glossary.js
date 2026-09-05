@@ -2117,7 +2117,8 @@ window.GLOSSARY = {
 "Protein_tertiary_structure": "The tertiary structure of a protein is the folding of a single polypeptide chain into its full three-dimensional shape, brought about by interactions between side chains that lie in different regions of the sequence.<sup class=\"fn\" data-fn=\"1\"></sup> The dominant influence is the sorting of hydrophobic side chains into the interior and hydrophilic ones onto the surface, with hydrogen bonds, ionic bonds and covalent disulfide bridges between cysteines contributing as well.<sup class=\"fn\" data-fn=\"1\"></sup> Its basic units are domains, compact globular regions built from helices and sheets joined by loops, which evolution has repeatedly duplicated and recombined into new proteins.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Protein_quaternary_structure": "The quaternary structure of a protein is the arrangement of the separate polypeptide chains in a molecule built from more than one of them, held together by the same kinds of interaction that hold a single chain in its fold.<sup class=\"fn\" data-fn=\"1\"></sup> Each chain is called a subunit, and an assembly forms because a binding site on one folded chain recognises the surface of another, which gives the whole a precisely defined geometry and often a symmetry.<sup class=\"fn\" data-fn=\"2\"></sup> Some assemblies repeat one kind of chain, as in a closed ring of four identical subunits, while others mix them, haemoglobin having two alpha-globin and two beta-globin chains.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Protein_folding": "Protein folding is the process by which a newly made polypeptide chain reaches the single compact conformation in which it functions, a conformation specified by the order of its amino acids rather than by anything outside the chain.<sup class=\"fn\" data-fn=\"1\"></sup> Because sampling every possible conformation at random would take implausibly long, the process is understood as a funnel-shaped energy landscape in which a native-like nucleus forms first and guides the rest into place.<sup class=\"fn\" data-fn=\"2\"></sup> In a crowded cell it is assisted by molecular chaperones, which prevent partly folded chains from aggregating without altering the shape eventually reached.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Denaturation_(biochemistry)": "Denaturation is the disruption of a protein's three-dimensional structure by treatments that break the noncovalent bonds holding it together, leaving a flexible chain that has lost its working shape while remaining one continuous polymer.<sup class=\"fn\" data-fn=\"1\"></sup> Heating, hydrostatic pressure and molar concentrations of a chaotrope such as urea will all bring it about, and when compared on a single thermodynamic footing they prove not to act in the same way.<sup class=\"fn\" data-fn=\"2\"></sup> Removing the agent often allows the protein to refold, or renature, spontaneously into its original conformation, which is the classic demonstration that the shape is specified by the sequence.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Denaturation_(biochemistry)": "Denaturation is the disruption of a protein's three-dimensional structure by treatments that break the noncovalent bonds holding it together, leaving a flexible chain that has lost its working shape while remaining one continuous polymer.<sup class=\"fn\" data-fn=\"1\"></sup> Heating, hydrostatic pressure and molar concentrations of a chaotrope such as urea will all bring it about, and when compared on a single thermodynamic footing they prove not to act in the same way.<sup class=\"fn\" data-fn=\"2\"></sup> Removing the agent often allows the protein to refold, or renature, spontaneously into its original conformation, which is the classic demonstration that the shape is specified by the sequence.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Nucleic_acid": "A nucleic acid is a polymer of nucleotides, each consisting of a purine or pyrimidine base linked to a phosphorylated sugar, and the two kinds, DNA and RNA, are the principal informational molecules of a cell.<sup class=\"fn\" data-fn=\"1\"></sup> The units are joined by phosphodiester bonds between the 5' phosphate of one and the 3' hydroxyl of the next, so a chain has a direction as well as a sequence and is always built from the 5' end towards the 3'.<sup class=\"fn\" data-fn=\"1\"></sup> Short synthetic chains are now used as medicines, binding a target transcript to redirect how it is spliced or how much of it survives.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4252,7 +4253,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Protein_tertiary_structure": ["tertiary structure","tertiary protein structure"],
 "Protein_quaternary_structure": ["quaternary structure","quaternary protein structure"],
 "Protein_folding": ["protein folding"],
-"Denaturation_(biochemistry)": ["denaturation","denatured","renaturation"]
+"Denaturation_(biochemistry)": ["denaturation","denatured","renaturation"],
+"Nucleic_acid": ["nucleic acids"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6405,7 +6407,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Protein_tertiary_structure": ["concept","science","biology","chemistry"],
 "Protein_quaternary_structure": ["concept","science","biology","chemistry"],
 "Protein_folding": ["concept","science","biology","chemistry"],
-"Denaturation_(biochemistry)": ["concept","science","biology","chemistry"]
+"Denaturation_(biochemistry)": ["concept","science","biology","chemistry"],
+"Nucleic_acid": ["object","science","biology","chemistry","genetics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

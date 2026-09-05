@@ -1,0 +1,29 @@
+{
+  "id": "bio-070",
+  "num": 70,
+  "category": "Biology",
+  "question": "Built by joining the 5' phosphate of one nucleotide to the 3' hydroxyl of the next, a <span class=\"blank\">_____</span> is a chain with a direction as well as a sequence.",
+  "questions": [
+    "Four drugs approved for Duchenne muscular dystrophy work by making the splicing machinery skip an exon, which is a <span class=\"blank\">_____</span> used as a medicine rather than as information.",
+    "At up to 455 exabytes per gram and stable for millennia, a <span class=\"blank\">_____</span> is being developed as a storage medium for ordinary computer files."
+  ],
+  "answer": "nucleic acid",
+  "answerText": "nucleic acid",
+  "answerDate": "",
+  "traditional": "",
+  "hanzi": "",
+  "pinyin": "",
+  "translations": "",
+  "citation": "",
+  "difficulty": 2,
+  "undatable": true,
+  "tags": ["object", "science", "biology", "chemistry", "genetics"],
+  "abstract": "The <b>nucleic acids</b>, DNA and RNA, are the principal informational molecules of the cell, deoxyribonucleic acid having the unique role of genetic material and the several kinds of ribonucleic acid taking part in a range of cellular activities.<sup class=\"fn\" data-fn=\"1\"></sup> RNA is not only informational, since in present-day cells it also catalyses reactions, among them steps of protein synthesis and of RNA processing.<sup class=\"fn\" data-fn=\"1\"></sup> Both are polymers of nucleotides, each a purine or pyrimidine base linked to a phosphorylated sugar, ribose in RNA and deoxyribose in DNA.<sup class=\"fn\" data-fn=\"1\"></sup> The chain is built by phosphodiester bonds between the 5' phosphate of one nucleotide and the 3' hydroxyl of another, so it has a direction as well as a sequence, and it is always synthesised and written from the 5' end towards the 3'.<sup class=\"fn\" data-fn=\"1\"></sup> A short chain is an oligonucleotide; the polynucleotides making up cellular RNA and DNA run to thousands and to millions of units respectively.<sup class=\"fn\" data-fn=\"1\"></sup> <br><br> Short chains made deliberately are now medicines, and antisense oligonucleotides work by binding a target transcript and redirecting how it is spliced or how much of it survives.<sup class=\"fn\" data-fn=\"2\"></sup> Four such drugs are approved in the United States for Duchenne muscular dystrophy, eteplirsen, golodirsen, viltolarsen and casimersen, each making the splicing machinery skip an exon so that some dystrophin is made.<sup class=\"fn\" data-fn=\"3\"></sup> Small interfering RNAs work differently again, intercepting genetic information in transit rather than altering the genome, which has taken them from a niche technique to the routine management of chronic conditions.<sup class=\"fn\" data-fn=\"4\"></sup> The molecule is also being taken out of biology altogether, since DNA offers an information density of up to 455 exabytes per gram and stability over thousands of years.<sup class=\"fn\" data-fn=\"5\"></sup> What has held that back is not writing the data but reading a chosen part of it back, and electric fields are one way now being used to address stored strands individually.<sup class=\"fn\" data-fn=\"5\"></sup>",
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Liping Xu, Huaqun Zhang, Bingchen Jiang, Yuanying Jiang, and Hui Lu, “Antisense Oligonucleotides: Technological Advances, Clinical Progress, and Expanding Therapeutic Frontiers,” <i>Pharmaceutics</i> 18, no. 4 (2026): 446, https://doi.org/10.3390/pharmaceutics18040446. [Open access]",
+    "Hidenori Moriyama, Shiori Moriyama, and Toshifumi Yokota, “FDA-Approved Antisense Oligonucleotide Therapies for Duchenne Muscular Dystrophy: Current Status and Future Outlook,” <i>RNA Biology</i> 23, no. 1 (2026): 1–17, https://doi.org/10.1080/15476286.2026.2689117. [Open access]",
+    "Quoc-Viet Le and Gayong Shim, “Evolution of siRNA Therapeutics: From Mechanistic Foundations to Clinical Expansion,” <i>Pharmaceutics</i> 18, no. 5 (2026): 593, https://doi.org/10.3390/pharmaceutics18050593. [Open access]",
+    "Doyeon Lim, Taeseok Kang, Wonjin Lee, Zeeshan Haider, Seunghwan Noh, Minsang Yu, Xiaohua Huang, Hyuk Soo Eun, and Youngjun Song, “Electric Field-Guided Random-Access DNA Data Storage,” <i>Science Advances</i> 12, no. 23 (2026): eaee4328, https://doi.org/10.1126/sciadv.aee4328. [Open access]"
+  ]
+}
