@@ -1842,7 +1842,8 @@ window.GLOSSARY = {
 "Nok_culture": "The Nok culture is an archaeological culture of central Nigeria whose sites are dated from about 1500 to about 1 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It is known above all for terracotta figures of people and animals, the earliest large figurative sculpture made in Africa outside Egypt, the first of them appearing about 900 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its sites also carry early evidence of iron working in West Africa and plant remains dominated by pearl millet, which arrived already threshed and has been read as feasting rather than everyday settlement, while acid soils have destroyed all bone and left it unknown whether its people kept animals.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Bantu_expansion": "The Bantu expansion is the spread of the Bantu languages and of their speakers across most of sub-Saharan Africa, beginning in western Africa between about 6,000 and 4,000 years ago.<sup class=\"fn\" data-fn=\"1\"></sup> It is the largest demographic event of the late Holocene on the continent, and more than 500 Bantu languages are spoken today by some 240 million people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The first spread is generally taken to have been demic rather than a spread of words alone, running through the Congo rainforest before the savannas east and south, and genome-wide work shows the speakers taking in substantial gene flow from the groups already living where they went.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Garamantes": "The Garamantes were the people of the Fezzan, in what is now south-western Libya, whose kingdom had its capital at Garama, still visible at Germa, and whose reach ran well beyond the modern borders.<sup class=\"fn\" data-fn=\"1\"></sup> They watered their oases with foggaras, underground channels dug between pairs of vertical shafts to tap an aquifer and carry it out to daylight, a technique older than they were.<sup class=\"fn\" data-fn=\"2\"></sup> Greek and Roman writers knew them as raiders and were unreliable about them, and what political form they had, whether tribe, chiefdom or a Saharan state on its own terms, is still argued over.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Land_of_Punt": "The Land of Punt was a country the ancient Egyptians traded with for well over a thousand years, calling it the land of the god and prizing it above all for incense.<sup class=\"fn\" data-fn=\"1\"></sup> Its position has been argued over for as long as it has been studied, and was long placed in Somalia or on the southern coast of Arabia.<sup class=\"fn\" data-fn=\"1\"></sup> Chemical and genetic work on the baboons the Egyptians brought home and mummified has since pointed to the African shore of the Red Sea, in a region taking in Eritrea, Ethiopia and their neighbours.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Land_of_Punt": "The Land of Punt was a country the ancient Egyptians traded with for well over a thousand years, calling it the land of the god and prizing it above all for incense.<sup class=\"fn\" data-fn=\"1\"></sup> Its position has been argued over for as long as it has been studied, and was long placed in Somalia or on the southern coast of Arabia.<sup class=\"fn\" data-fn=\"1\"></sup> Chemical and genetic work on the baboons the Egyptians brought home and mummified has since pointed to the African shore of the Red Sea, in a region taking in Eritrea, Ethiopia and their neighbours.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Trans-Saharan_trade": "Trans-Saharan trade is the exchange of goods, people and ideas across the Sahara, linking the Mediterranean and Atlantic coasts of North Africa with the Sahel and savanna to the south.<sup class=\"fn\" data-fn=\"1\"></sup> Its best-recorded phase belongs to the Islamic Middle Ages, when caravans carried gold, salt, cloth, copper and enslaved people between the two margins, and beads of Egyptian, Levantine and Middle Eastern glass reached sites in Mali and Senegal between the 7th and 13th centuries CE.<sup class=\"fn\" data-fn=\"2\"></sup> Whether regular exchange crossed the desert before the Arab conquest of North Africa is disputed, since classical writers report almost nothing of the lands beyond its southern fringe and the archaeology remains sparse.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3833,7 +3834,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nok_culture": ["Nok"],
 "Bantu_expansion": ["Bantu migration","Bantu migrations"],
 "Garamantes": ["Garamantian"],
-"Land_of_Punt": ["Punt"]
+"Land_of_Punt": ["Punt"],
+"Trans-Saharan_trade": ["trans-Saharan trade route","trans-Saharan commerce"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5706,7 +5708,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Nok_culture": ["culture","history","africa","nigeria","art","iron age"],
 "Bantu_expansion": ["event","history","africa","migration","language","prehistory"],
 "Garamantes": ["people","history","africa","libya","technology","iron age"],
-"Land_of_Punt": ["place","history","egypt","africa","geography","bronze age"]
+"Land_of_Punt": ["place","history","egypt","africa","geography","bronze age"],
+"Trans-Saharan_trade": ["practice","history","archaeology","geography","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
