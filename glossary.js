@@ -2112,7 +2112,8 @@ window.GLOSSARY = {
 "Protein": "A protein is a polymer of amino acids, drawn from the twenty kinds that cells use, whose order along the chain determines the shape the chain folds into and therefore what the molecule does.<sup class=\"fn\" data-fn=\"1\"></sup> Proteins are the most diverse of the macromolecules, a single cell holding several thousand different ones, and they act as structural material, as carriers of small molecules and of information, as antibodies, and above all as the enzymes catalysing nearly every reaction in a living system.<sup class=\"fn\" data-fn=\"1\"></sup> Predicting that shape from a sequence, long a problem solved only by measurement, is now done to near-experimental accuracy by deep learning, with disordered regions and large assemblies still resistant.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Amino_acid": "An amino acid is a molecule built around a carbon atom bonded to a carboxyl group, an amino group, a hydrogen atom and a distinctive side chain, the side chain being what distinguishes one from another.<sup class=\"fn\" data-fn=\"1\"></sup> Twenty kinds are used to build proteins, sorted by their side chains into ten nonpolar, five polar but uncharged, three basic and two acidic; the nonpolar ones avoid water and tend to end up inside a folded protein while the polar ones sit on its surface.<sup class=\"fn\" data-fn=\"1\"></sup> Nine of the twenty cannot be made by human cells and must be supplied by the diet, which is what the word essential denotes in this context.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Peptide_bond": "A peptide bond is the covalent link joining the amino group of one amino acid to the carboxyl group of another, and a chain of many of them is a polypeptide, with an amino terminus at one end and a carboxyl terminus at the other.<sup class=\"fn\" data-fn=\"1\"></sup> The bond itself is planar and allows no rotation about it, while the other backbone bonds each residue contributes do rotate, so the chain behaves as rigid plates hinged between them and its possible shapes are sharply restricted.<sup class=\"fn\" data-fn=\"2\"></sup> In living cells the bond is made at the peptidyl transferase centre of the ribosome's large subunit, a site built of RNA rather than protein.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Protein_primary_structure": "The primary structure of a protein is the order in which its amino acids are joined along the chain, conventionally written from the amino terminus to the carboxyl terminus, which is also the order in which the chain is built.<sup class=\"fn\" data-fn=\"1\"></sup> It is the defining characteristic of a protein, since each one is a particular sequence rather than a member of a class of similar molecules, and the sequence is set by the order of nucleotides in the gene that encodes it.<sup class=\"fn\" data-fn=\"1\"></sup> A change at a single position can be consequential: replacing a glutamate with a valine at the sixth position of the beta-globin chain yields haemoglobin S.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Protein_primary_structure": "The primary structure of a protein is the order in which its amino acids are joined along the chain, conventionally written from the amino terminus to the carboxyl terminus, which is also the order in which the chain is built.<sup class=\"fn\" data-fn=\"1\"></sup> It is the defining characteristic of a protein, since each one is a particular sequence rather than a member of a class of similar molecules, and the sequence is set by the order of nucleotides in the gene that encodes it.<sup class=\"fn\" data-fn=\"1\"></sup> A change at a single position can be consequential: replacing a glutamate with a valine at the sixth position of the beta-globin chain yields haemoglobin S.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Protein_secondary_structure": "The secondary structure of a protein is the regular arrangement its chain takes up over short stretches, of which the alpha helix and the beta sheet are the two common forms, both held together by hydrogen bonds between the CO and NH groups of peptide bonds.<sup class=\"fn\" data-fn=\"1\"></sup> Because those bonds involve the backbone rather than the side chains, the same patterns can be formed by many unrelated sequences; a helix turns once every 3.6 residues, and sheets form from strands lying parallel or antiparallel.<sup class=\"fn\" data-fn=\"2\"></sup> Long stretches of many proteins take up no regular arrangement at all and work as shifting ensembles instead.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4242,7 +4243,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Protein": ["proteins"],
 "Amino_acid": ["amino acids"],
 "Peptide_bond": ["peptide bonds"],
-"Protein_primary_structure": ["primary structure","primary protein structure"]
+"Protein_primary_structure": ["primary structure","primary protein structure"],
+"Protein_secondary_structure": ["secondary structure","secondary protein structure"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6390,7 +6392,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Protein": ["object","science","biology","chemistry"],
 "Amino_acid": ["object","science","biology","chemistry"],
 "Peptide_bond": ["concept","science","biology","chemistry"],
-"Protein_primary_structure": ["concept","science","biology","genetics"]
+"Protein_primary_structure": ["concept","science","biology","genetics"],
+"Protein_secondary_structure": ["concept","science","biology","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

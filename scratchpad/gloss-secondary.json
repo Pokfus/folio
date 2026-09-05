@@ -1,0 +1,11 @@
+{
+  "slug": "Protein_secondary_structure",
+  "aliases": ["secondary structure", "secondary protein structure"],
+  "description": "The secondary structure of a protein is the regular arrangement its chain takes up over short stretches, of which the alpha helix and the beta sheet are the two common forms, both held together by hydrogen bonds between the CO and NH groups of peptide bonds.<sup class=\"fn\" data-fn=\"1\"></sup> Because those bonds involve the backbone rather than the side chains, the same patterns can be formed by many unrelated sequences; a helix turns once every 3.6 residues, and sheets form from strands lying parallel or antiparallel.<sup class=\"fn\" data-fn=\"2\"></sup> Long stretches of many proteins take up no regular arrangement at all and work as shifting ensembles instead.<sup class=\"fn\" data-fn=\"3\"></sup>",
+  "tags": ["concept", "science", "biology", "chemistry"],
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Bruce Alberts, Alexander Johnson, Julian Lewis, Martin Raff, Keith Roberts, and Peter Walter, “The Shape and Structure of Proteins,” in <i>Molecular Biology of the Cell</i>, 4th ed. (New York: Garland Science, 2002), https://www.ncbi.nlm.nih.gov/books/NBK26830/. [Open access]",
+    "Sami N. Al Harake, Said Btadini, Abrar H. Qadri, Frederic Harb, and Iqball Faheem, “Beyond the Structure-Function Paradigm: A Comprehensive Review of Intrinsically Disordered Proteins,” <i>Biochemistry and Biophysics Reports</i> 47 (2026): 102706, https://doi.org/10.1016/j.bbrep.2026.102706. [Open access]"
+  ]
+}

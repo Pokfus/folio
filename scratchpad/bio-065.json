@@ -1,0 +1,34 @@
+{
+  "id": "bio-065",
+  "num": 65,
+  "category": "Biology",
+  "question": "Because the alpha helix and beta sheet are held by backbone hydrogen bonds rather than side chains, <span class=\"blank\">_____</span> can be formed by many unrelated amino acid sequences.",
+  "questions": [
+    "Nearly half of human protein-coding genes contain long segments that never settle into any <span class=\"blank\">_____</span> at all, and those segments do real work.",
+    "In amyloid the sheets stack and pack against one another through their side chains, so a change of <span class=\"blank\">_____</span> is what turns a soluble protein into a fibril."
+  ],
+  "answer": "secondary structure",
+  "answerText": "secondary structure",
+  "answerDate": "",
+  "traditional": "",
+  "hanzi": "",
+  "pinyin": "",
+  "translations": "",
+  "citation": "",
+  "difficulty": 2,
+  "undatable": true,
+  "tags": [
+    "concept",
+    "science",
+    "biology",
+    "chemistry"
+  ],
+  "abstract": "The <b>secondary structure</b> of a protein is the regular arrangement its chain takes up over short stretches, and two forms are common: the alpha helix and the beta sheet, first proposed by Linus Pauling and Robert Corey in 1951.<sup class=\"fn\" data-fn=\"1\"></sup> Both are held together by hydrogen bonds between the CO and NH groups of peptide bonds, in a helix between groups four residues apart, and in a sheet between two stretches of chain lying side by side, either parallel or running in opposite directions.<sup class=\"fn\" data-fn=\"1\"></sup> The decisive point is that those bonds involve the backbone and not the side chains, so the same pattern can be formed by many unrelated sequences.<sup class=\"fn\" data-fn=\"2\"></sup> A helix makes a complete turn every 3.6 amino acids, and both patterns were first found in ordinary material, the helix in the keratin of hair and the sheet in the fibroin of silk.<sup class=\"fn\" data-fn=\"2\"></sup> Helices also wrap around one another into coiled-coils, which frame elongated proteins such as keratin and myosin, and a membrane protein usually crosses the lipid bilayer as a helix.<sup class=\"fn\" data-fn=\"2\"></sup> <br><br> Not every part of a protein has any regular structure, and nearly half of human protein-coding genes contain long disordered segments that exist as shifting ensembles rather than fixed shapes.<sup class=\"fn\" data-fn=\"3\"></sup> Those regions are not failures of folding, since they carry out signalling, transcriptional regulation, chromatin organisation and the assembly of organelles that have no membrane.<sup class=\"fn\" data-fn=\"3\"></sup> Regular structure can also be built in the wrong way, and in an amyloid fibril beta sheets pack against one another through the side chains projecting from them, an arrangement called cross-beta packing.<sup class=\"fn\" data-fn=\"4\"></sup> A single protein can take up several different amyloid folds, and those adopted by prion protein, tau, alpha-synuclein and TDP-43 differ from one neurodegenerative disease to another.<sup class=\"fn\" data-fn=\"4\"></sup> Disordered regions remain among the hardest cases for structure prediction, whose methods principally return a single static conformation.<sup class=\"fn\" data-fn=\"5\"></sup>",
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Bruce Alberts, Alexander Johnson, Julian Lewis, Martin Raff, Keith Roberts, and Peter Walter, “The Shape and Structure of Proteins,” in <i>Molecular Biology of the Cell</i>, 4th ed. (New York: Garland Science, 2002), https://www.ncbi.nlm.nih.gov/books/NBK26830/. [Open access]",
+    "Sami N. Al Harake, Said Btadini, Abrar H. Qadri, Frederic Harb, and Iqball Faheem, “Beyond the Structure-Function Paradigm: A Comprehensive Review of Intrinsically Disordered Proteins,” <i>Biochemistry and Biophysics Reports</i> 47 (2026): 102706, https://doi.org/10.1016/j.bbrep.2026.102706. [Open access]",
+    "Sjors H. W. Scheres, “The Amyloid Packing Difference: A Pairwise Comparison Metric for Amyloid Structures,” <i>Structure</i> 34, no. 7 (2026): 1061–71, https://doi.org/10.1016/j.str.2026.04.014. [Open access]",
+    "Mandarina Qing Cheng Li, Sihan Wang, Shi-Ruei Lin, Li Eric Ngok Ting, Zhi-Hong Wan, Guodong Xie, and Jane Zhang, “Advantages and Limitations of AlphaFold in Structural Biology: Insights from Recent Studies,” <i>The Protein Journal</i> 45, no. 1 (2026): 22–38, https://doi.org/10.1007/s10930-025-10310-8. [Open access]"
+  ]
+}
