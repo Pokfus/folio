@@ -1935,7 +1935,8 @@ window.GLOSSARY = {
 "Wallis_and_Futuna": "Wallis and Futuna is a French overseas collectivity in the South Pacific made up of three main islands, Wallis on one side and Futuna with Alofi on the other, covering 142 square kilometres (55 square miles) in all.<sup class=\"fn\" data-fn=\"1\"></sup> It joined the French Republic as an overseas territory after a referendum on 27 December 1959 and is governed under a statutory law of 29 July 1961, which provides for a prefect holding the territorial executive and a 20-member Territorial Assembly.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> There are no communes: three administrative circonscriptions correspond to the customary kingdoms of Uvea, Alo and Sigave, each with a council presided over by its own king, and the 2023 census counted 11,151 people.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Norfolk_Island": "Norfolk Island is an Australian external territory in the South Pacific with a surface area of 36 square kilometres (14 square miles) by the United Nations Demographic Yearbook’s reckoning.<sup class=\"fn\" data-fn=\"1\"></sup> The Australian Bureau of Statistics counted 2,188 people there at the census of 2021, against 2,302 at the census of 2011, with a median age of 50 against 38 for Australia as a whole.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Local government is the Norfolk Island Regional Council, whose offices are at Burnt Pine, while the island’s older institutions and its wharf are at Kingston, a settlement Commonwealth law treats as a place of its own.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Jersey": "Jersey is a Crown Dependency in the Channel Islands, one of three the United Kingdom names in that class alongside the Bailiwick of Guernsey and the Isle of Man, and a participant with them, the United Kingdom and Ireland in the Common Travel Area.<sup class=\"fn\" data-fn=\"1\"></sup> The island is divided into twelve parishes, of which St Helier is much the largest, holding 35,822 of the 103,267 people the census of 2021 counted.<sup class=\"fn\" data-fn=\"2\"></sup> Statistics Jersey put the population at 104,540 at the end of 2024, growth that comes from migration rather than birth, since 2024 brought 730 births against 880 deaths.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Guernsey": "Guernsey is an island of the Channel Islands and the largest of the three jurisdictions of the Bailiwick of Guernsey, which with the Bailiwick of Jersey and the Isle of Man makes up the Crown Dependencies of the United Kingdom.<sup class=\"fn\" data-fn=\"1\"></sup> It covers 63 square kilometres (24.4 square miles) in ten parishes, and its government counted 64,040 people on Guernsey, Herm and Jethou in March 2023, the harbour town of Saint Peter Port being both the largest parish and the capital.<sup class=\"fn\" data-fn=\"2\"></sup> The Crown Dependencies are not part of the United Kingdom and govern themselves, with their own elected assemblies and courts, while Britain answers for their defence and foreign relations.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Guernsey": "Guernsey is an island of the Channel Islands and the largest of the three jurisdictions of the Bailiwick of Guernsey, which with the Bailiwick of Jersey and the Isle of Man makes up the Crown Dependencies of the United Kingdom.<sup class=\"fn\" data-fn=\"1\"></sup> It covers 63 square kilometres (24.4 square miles) in ten parishes, and its government counted 64,040 people on Guernsey, Herm and Jethou in March 2023, the harbour town of Saint Peter Port being both the largest parish and the capital.<sup class=\"fn\" data-fn=\"2\"></sup> The Crown Dependencies are not part of the United Kingdom and govern themselves, with their own elected assemblies and courts, while Britain answers for their defence and foreign relations.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Saint_Martin": "Saint Martin is the northern, French part of a Caribbean island whose southern part, Sint Maarten, belongs to the Kingdom of the Netherlands, an arrangement its own government describes as the smallest landmass in the world divided between two independent states.<sup class=\"fn\" data-fn=\"1\"></sup> It covers 50 square kilometres (19 square miles), with about 24,900 people in 2025, a third fewer than a decade earlier, and its administration sits at Marigot.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> A commune of Guadeloupe until 2007, it is now an overseas collectivity under article 74 of the French constitution and one of the European Union's nine outermost regions.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3824,7 +3825,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Adamstown,_Pitcairn_Islands": ["Adamstown"],
 "Mexico_City": ["Ciudad de México"],
 "The_Hague": ["Den Haag"],
-"Guernsey": ["Bailiwick of Guernsey"]
+"Guernsey": ["Bailiwick of Guernsey"],
+"Saint_Martin": ["Saint-Martin","Collectivity of Saint Martin"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5788,7 +5790,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Wallis_and_Futuna": ["state","territory","geography","france","oceania","polynesia"],
 "Norfolk_Island": ["territory","island","geography","australia","oceania"],
 "Jersey": ["territory","island","geography","channel islands","europe"],
-"Guernsey": ["place","island","geography","united kingdom"]
+"Guernsey": ["place","island","geography","united kingdom"],
+"Saint_Martin": ["place","island","geography","france","caribbean"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
