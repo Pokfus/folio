@@ -1821,7 +1821,9 @@ window.GLOSSARY = {
 "Warring_States_period": "Warring States period is the later half of the Eastern Zhou in China, usually dated from 475 to 221 BCE, and takes its name from the <i>Zhanguo Ce</i>, a collection of the era's speeches and stratagems.<sup class=\"fn\" data-fn=\"1\"></sup> After three families divided the state of Jin and were recognised by the Zhou king in 403 BCE, fourteen states remained, seven of them dominant, and their rulers took in turn the royal title that had belonged to the Zhou alone.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Frontier walls, mounted troops and itinerant diplomats belong to these centuries, which ended when Qin defeated the last of its rivals and united China in 221 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Confucius": "Confucius is the Latinized form of Kong Fuzi, the Philosopher Kong, a teacher of the state of Lu in China whose personal name was Qiu and who was styled Zhongni.<sup class=\"fn\" data-fn=\"2\"></sup> He held minor offices and rose to be minister of Crime in Lu, taught that a ruler should govern by example and ritual propriety rather than by force, and gave reciprocity as the one word to guide a life: do not do to others what you would not want done to yourself.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He wrote no book, the <i>Analects</i> being a record of his conversations compiled after his death.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Confucianism": "Confucianism is the tradition that grew from the teaching of Confucius in China, and it dominated Chinese thought and government for more than two thousand years.<sup class=\"fn\" data-fn=\"1\"></sup> Its central terms are ren, the inner moral sentiment usually rendered benevolence, and li, the outward rule of conduct usually rendered ritual propriety, and its programme runs from a rectified heart through the cultivated person and family to the ordered state.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It became the official system of thought under the Han, its canon settling as the Five Classics and later the Four Books, while its followers divided over whether human nature is good, as Mencius held, or bad, as Xunzi held.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Taoism": "Taoism is the Chinese tradition built on the Tao, the Way, whose founding book opens by declaring that the Tao which can be trodden is not the enduring and unchanging Tao.<sup class=\"fn\" data-fn=\"1\"></sup> Its central term is wu wei, rendered as doing nothing or inaction, and its two founding books are the <i>Tao Te Ching</i>, ascribed to Laozi, and the <i>Zhuangzi</i>, which prize gentleness, economy and shrinking from taking precedence of others.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A religion with scriptures and a priesthood of its own grew out of the philosophy, and Taoism is today counted one of China's five major religions.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Taoism": "Taoism is the Chinese tradition built on the Tao, the Way, whose founding book opens by declaring that the Tao which can be trodden is not the enduring and unchanging Tao.<sup class=\"fn\" data-fn=\"1\"></sup> Its central term is wu wei, rendered as doing nothing or inaction, and its two founding books are the <i>Tao Te Ching</i>, ascribed to Laozi, and the <i>Zhuangzi</i>, which prize gentleness, economy and shrinking from taking precedence of others.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A religion with scriptures and a priesthood of its own grew out of the philosophy, and Taoism is today counted one of China's five major religions.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Legalism_(Chinese_philosophy)": "Legalism is the usual English rendering of <i>fajia</i>, the Chinese tradition of statecraft holding that a state should be governed by published standards and measured rewards and punishments rather than by its ruler's moral quality.<sup class=\"fn\" data-fn=\"1\"></sup> The historian Sima Tan coined the label and the librarian Liu Xiang applied it to ten works in the Han imperial catalogue, so it names a bibliographic category rather than a self-aware school.<sup class=\"fn\" data-fn=\"1\"></sup> Its core texts are associated with Shang Yang, Shen Buhai, Shen Dao and Han Fei, and argue for punishments knowing no degree or grade and for rewards granted only in exchange for military attainment.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Shang_Yang": "Shang Yang, also called Gongsun Yang and the Lord of Shang, was the statesman who held high office in Qin between 359 and 338 BCE and rewrote its laws.<sup class=\"fn\" data-fn=\"1\"></sup> The measures credited to him made emolument, office and rank follow military attainment, organised households into groups of five and ten held responsible for one another's crimes, and applied punishments without regard to degree or grade.<sup class=\"fn\" data-fn=\"1\"></sup> When his patron Duke Xiao died he was accused of rebellion, refused a bed by his own identity law as he fled, and killed, his body then torn apart by chariots;<sup class=\"fn\" data-fn=\"1\"></sup> Sima Qian wrote that he deserved his ill fame.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2655,7 +2657,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Warring_States_period": "475 – 221 BCE",
 "Confucius": "c. 551 – 479 BCE",
 "Confucianism": "from the 5th century BCE",
-"Taoism": "from the 6th century BCE"
+"Taoism": "from the 6th century BCE",
+"Legalism_(Chinese_philosophy)": "4th – 3rd centuries BCE",
+"Shang_Yang": "d. 338 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3778,7 +3782,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Warring_States_period": ["Warring States"],
 "Confucius": ["Kong Fuzi","Kong Qiu","Kongzi"],
 "Confucianism": ["Confucian","Rujia"],
-"Taoism": ["Daoism","Taoist","Daoist"]
+"Taoism": ["Daoism","Taoist","Daoist"],
+"Legalism_(Chinese_philosophy)": ["Legalism","Legalist","fajia","School of Law"],
+"Shang_Yang": ["Lord Shang","Lord of Shang","Gongsun Yang"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5629,7 +5635,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Warring_States_period": ["era","history","politics","warfare","china"],
 "Confucius": ["person","philosophy","history","literature","china"],
 "Confucianism": ["school of thought","philosophy","religion","history","china"],
-"Taoism": ["school of thought","philosophy","religion","history","china"]
+"Taoism": ["school of thought","philosophy","religion","history","china"],
+"Legalism_(Chinese_philosophy)": ["school of thought","philosophy","politics","history","china"],
+"Shang_Yang": ["person","politics","law","history","china"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
