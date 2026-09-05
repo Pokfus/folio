@@ -1936,7 +1936,8 @@ window.GLOSSARY = {
 "Norfolk_Island": "Norfolk Island is an Australian external territory in the South Pacific with a surface area of 36 square kilometres (14 square miles) by the United Nations Demographic Yearbook’s reckoning.<sup class=\"fn\" data-fn=\"1\"></sup> The Australian Bureau of Statistics counted 2,188 people there at the census of 2021, against 2,302 at the census of 2011, with a median age of 50 against 38 for Australia as a whole.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Local government is the Norfolk Island Regional Council, whose offices are at Burnt Pine, while the island’s older institutions and its wharf are at Kingston, a settlement Commonwealth law treats as a place of its own.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Jersey": "Jersey is a Crown Dependency in the Channel Islands, one of three the United Kingdom names in that class alongside the Bailiwick of Guernsey and the Isle of Man, and a participant with them, the United Kingdom and Ireland in the Common Travel Area.<sup class=\"fn\" data-fn=\"1\"></sup> The island is divided into twelve parishes, of which St Helier is much the largest, holding 35,822 of the 103,267 people the census of 2021 counted.<sup class=\"fn\" data-fn=\"2\"></sup> Statistics Jersey put the population at 104,540 at the end of 2024, growth that comes from migration rather than birth, since 2024 brought 730 births against 880 deaths.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Guernsey": "Guernsey is an island of the Channel Islands and the largest of the three jurisdictions of the Bailiwick of Guernsey, which with the Bailiwick of Jersey and the Isle of Man makes up the Crown Dependencies of the United Kingdom.<sup class=\"fn\" data-fn=\"1\"></sup> It covers 63 square kilometres (24.4 square miles) in ten parishes, and its government counted 64,040 people on Guernsey, Herm and Jethou in March 2023, the harbour town of Saint Peter Port being both the largest parish and the capital.<sup class=\"fn\" data-fn=\"2\"></sup> The Crown Dependencies are not part of the United Kingdom and govern themselves, with their own elected assemblies and courts, while Britain answers for their defence and foreign relations.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Saint_Martin": "Saint Martin is the northern, French part of a Caribbean island whose southern part, Sint Maarten, belongs to the Kingdom of the Netherlands, an arrangement its own government describes as the smallest landmass in the world divided between two independent states.<sup class=\"fn\" data-fn=\"1\"></sup> It covers 50 square kilometres (19 square miles), with about 24,900 people in 2025, a third fewer than a decade earlier, and its administration sits at Marigot.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> A commune of Guadeloupe until 2007, it is now an overseas collectivity under article 74 of the French constitution and one of the European Union's nine outermost regions.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Saint_Martin": "Saint Martin is the northern, French part of a Caribbean island whose southern part, Sint Maarten, belongs to the Kingdom of the Netherlands, an arrangement its own government describes as the smallest landmass in the world divided between two independent states.<sup class=\"fn\" data-fn=\"1\"></sup> It covers 50 square kilometres (19 square miles), with about 24,900 people in 2025, a third fewer than a decade earlier, and its administration sits at Marigot.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> A commune of Guadeloupe until 2007, it is now an overseas collectivity under article 74 of the French constitution and one of the European Union's nine outermost regions.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Saint_Barthélemy": "Saint Barthélemy is a French overseas collectivity in the Caribbean, a dry island of 21 square kilometres (8 square miles) at the junction of the Greater and Lesser Antilles, with about 9,900 inhabitants and its administration at Gustavia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its rocky volcanic hills will not take agriculture, so nearly everything is imported and the economy rests on high-end tourism and duty-free luxury trade, which supplies more than a third of salaried jobs.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A commune of Guadeloupe from 1947 until an organic law of 21 February 2007, it left the European Union's outermost regions on 1 January 2012 for the looser status of an overseas country or territory.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3826,7 +3827,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mexico_City": ["Ciudad de México"],
 "The_Hague": ["Den Haag"],
 "Guernsey": ["Bailiwick of Guernsey"],
-"Saint_Martin": ["Saint-Martin","Collectivity of Saint Martin"]
+"Saint_Martin": ["Saint-Martin","Collectivity of Saint Martin"],
+"Saint_Barthélemy": ["Saint-Barthélemy","Collectivity of Saint Barthélemy"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5791,7 +5793,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Norfolk_Island": ["territory","island","geography","australia","oceania"],
 "Jersey": ["territory","island","geography","channel islands","europe"],
 "Guernsey": ["place","island","geography","united kingdom"],
-"Saint_Martin": ["place","island","geography","france","caribbean"]
+"Saint_Martin": ["place","island","geography","france","caribbean"],
+"Saint_Barthélemy": ["place","island","geography","france","caribbean"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
