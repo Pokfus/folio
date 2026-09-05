@@ -1890,7 +1890,8 @@ window.GLOSSARY = {
 "Saint_Peter_Port": "Saint Peter Port is the capital and largest parish of Guernsey, on the island's east coast facing the French mainland.<sup class=\"fn\" data-fn=\"1\"></sup> Guernsey's own government counted 19,679 people there in March 2023 against 64,040 for the island together with Herm and Jethou, so it holds about 31 per cent of the population on about a tenth of the land, 6.5 square kilometres (2.5 square miles) of 63 (24.4 square miles).<sup class=\"fn\" data-fn=\"1\"></sup> It is the seat of government of a Crown Dependency, which is not part of the United Kingdom but is self-governing under the Crown with its own parliament, government and courts.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Roseau": "Roseau is the capital of Dominica, a Caribbean island state the United Nations credits with about 66,000 people on 750 square kilometres (290 square miles).<sup class=\"fn\" data-fn=\"1\"></sup> The same profile gives the town itself 14,900 people for 2018, a little over a fifth of that total and under a third of the 70.8 per cent of the country it counts as living in towns.<sup class=\"fn\" data-fn=\"1\"></sup> It has been the seat of government since Great Britain granted the Commonwealth of Dominica independence on 3 November 1978, though the United States keeps no mission there, its ambassador being resident in Barbados.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Hamilton,_Bermuda": "Hamilton is the capital of Bermuda, a British Overseas Territory the United Nations credits with about 65,000 people on 54 square kilometres (20.7 square miles).<sup class=\"fn\" data-fn=\"1\"></sup> The city itself is very small: Bermuda's 2016 census counted 854 residents on 0.28 square miles (0.73 square kilometres), down from 1,032 in 2010, so it holds about 1.3 per cent of the territory's 63,779 people, at 3,050 to the square mile against 3,084 for Bermuda as a whole.<sup class=\"fn\" data-fn=\"2\"></sup> It is one of two municipalities, the other being the Town of St. George's, and it is counted within Pembroke parish rather than the separately named parish of Hamilton.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Nuuk": "Nuuk is the capital and largest town of Greenland, on the island's south-west coast where most of the population lives.<sup class=\"fn\" data-fn=\"1\"></sup> Statistics Greenland counted 20,298 people there on 1 January 2026 against 56,740 for the whole country, so more than a third of Greenlanders live in it, a share that has risen from 31 per cent in 2016 as the town grew and the country did not.<sup class=\"fn\" data-fn=\"2\"></sup> It is the seat of a self-governing region within the Kingdom of Denmark, which was a Danish colony from 1721, a Danish county from 1953, and gained home rule in 1979 and self-government on 21 June 2009.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Nuuk": "Nuuk is the capital and largest town of Greenland, on the island's south-west coast where most of the population lives.<sup class=\"fn\" data-fn=\"1\"></sup> Statistics Greenland counted 20,298 people there on 1 January 2026 against 56,740 for the whole country, so more than a third of Greenlanders live in it, a share that has risen from 31 per cent in 2016 as the town grew and the country did not.<sup class=\"fn\" data-fn=\"2\"></sup> It is the seat of a self-governing region within the Kingdom of Denmark, which was a Danish colony from 1721, a Danish county from 1953, and gained home rule in 1979 and self-government on 21 June 2009.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Tórshavn": "Tórshavn is the capital and largest town of the Faroe Islands, on the east coast of Streymoy facing the island of Nólsoy.<sup class=\"fn\" data-fn=\"2\"></sup> Statistics Faroe Islands counted 14,200 people in the town on 1 January 2026 against 54,902 for the whole country, about 26 per cent, while the municipality of the same name, which takes in seventeen other settlements, held nearly 43 per cent.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The islands are a self-governing nation under the external sovereignty of the Kingdom of Denmark, with exclusive competence to legislate in a wide range of areas, and the United Nations counts them separately from Denmark.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3767,7 +3768,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Saint_George's": ["St George's","St. George's"],
 "Nuku'alofa": ["Nukualofa"],
 "Saint_John's": ["St John's, Antigua","St. John's, Antigua"],
-"Saint_Peter_Port": ["St Peter Port","St. Peter Port"]
+"Saint_Peter_Port": ["St Peter Port","St. Peter Port"],
+"Tórshavn": ["Torshavn"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5686,7 +5688,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Saint_Peter_Port": ["place","city","geography","capital","guernsey","europe"],
 "Roseau": ["place","city","geography","capital","dominica","caribbean"],
 "Hamilton,_Bermuda": ["place","city","geography","capital","bermuda","north america"],
-"Nuuk": ["place","city","geography","capital","greenland","north america"]
+"Nuuk": ["place","city","geography","capital","greenland","north america"],
+"Tórshavn": ["place","city","geography","capital","faroe islands","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
