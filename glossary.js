@@ -2089,7 +2089,8 @@ window.GLOSSARY = {
 "March_on_Rome": "The March on Rome was the insurrection of late October 1922 that brought the Italian Fascist movement to power.<sup class=\"fn\" data-fn=\"2\"></sup> Blackshirt columns converged on the capital after a party congress at Naples had settled the plan, and when the prime minister ordered martial law the king refused to sign the decree and invited Mussolini to form a government instead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It combined the threat of force with a handover made inside the constitution, and the regime afterwards treated it as a founding act, counting its own era from 28 October 1922 and requiring that year in public documents.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Leggi_fascistissime": "The leggi fascistissime were the Italian laws of 1925 to 1927 by which the Fascist party turned a government it led into a single-party state.<sup class=\"fn\" data-fn=\"1\"></sup> Contemporaries understood them as ending one regime and beginning another: a consolidated public security law of 1926 gave prefects wide discretion over associations held to act against the national interest, extended police confinement to political offences, and punished those who left the country secretly, while a Special Tribunal for the Defence of the State tried political cases.<sup class=\"fn\" data-fn=\"1\"></sup> Their aim was a new constitutional order rather than the removal of opponents alone.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Corporatism": "Corporatism organises an economy through bodies representing whole branches of production, enrolling the employers and workers of a trade together rather than leaving them to bargain freely.<sup class=\"fn\" data-fn=\"1\"></sup> Twentieth-century versions claimed descent from the medieval guilds and were offered as a third way between liberal capitalism and communism, most fully in fascist Italy, where free unions were dissolved, syndicates were licensed and controlled by the state, strikes and lockouts were forbidden, and a hierarchy of corporations answered to the government.<sup class=\"fn\" data-fn=\"1\"></sup> That experiment drew attention abroad, where observers of the 1930s compared it with American recovery agencies, though later work reads both as national forms of a wider turn towards planning.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Duce": "Duce, an Italian word for leader, was the title borne by Benito Mussolini and the centre of the personal cult that fascist Italy built around him.<sup class=\"fn\" data-fn=\"1\"></sup> That cult was made rather than grown: cinema was treated from the start as a fundamental instrument for winning consent, and the images of the leader were produced, preserved and re-worked by the regime’s own propaganda apparatus as its needs changed.<sup class=\"fn\" data-fn=\"1\"></sup> The movement it served demanded submission to the party hierarchy and above all to the charismatic figure at its head, and Italian services abroad worked to spread the same image among foreign admirers.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Duce": "Duce, an Italian word for leader, was the title borne by Benito Mussolini and the centre of the personal cult that fascist Italy built around him.<sup class=\"fn\" data-fn=\"1\"></sup> That cult was made rather than grown: cinema was treated from the start as a fundamental instrument for winning consent, and the images of the leader were produced, preserved and re-worked by the regime’s own propaganda apparatus as its needs changed.<sup class=\"fn\" data-fn=\"1\"></sup> The movement it served demanded submission to the party hierarchy and above all to the charismatic figure at its head, and Italian services abroad worked to spread the same image among foreign admirers.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Second_Italo-Ethiopian_War": "The Second Italo-Ethiopian War was the colonial war of October 1935 to May 1936 in which fascist Italy invaded and occupied the Ethiopian Empire.<sup class=\"fn\" data-fn=\"3\"></sup> Ethiopia belonged to the League of Nations and appealed to it, but Britain and France valued their relations with Italy more and looked for a settlement at Ethiopian expense, most openly in the plan their two ministers put forward in December 1935.<sup class=\"fn\" data-fn=\"1\"></sup> Defeat at Maychew and the loss of the capital ended organised resistance; sanctions against Italy were wound up in the summer of 1936, the League’s authority never recovered from its helplessness, and Italy turned away from Britain and France towards Germany.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2954,7 +2955,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Article_48_of_the_Weimar_Constitution": "1919–1933",
 "Benito_Mussolini": "1883–1945",
 "March_on_Rome": "October 1922",
-"Leggi_fascistissime": "1925–1927"
+"Leggi_fascistissime": "1925–1927",
+"Second_Italo-Ethiopian_War": "1935–1936"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4234,7 +4236,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Article_48_of_the_Weimar_Constitution": ["Article 48"],
 "Benito_Mussolini": ["Mussolini"],
 "Corporatism": ["corporate state","corporative state"],
-"Duce": ["il Duce"]
+"Duce": ["il Duce"],
+"Second_Italo-Ethiopian_War": ["Second Italo-Abyssinian War"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6359,7 +6362,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "March_on_Rome": ["event","politics","history","ideology","italy","20th century"],
 "Leggi_fascistissime": ["concept","law","politics","history","italy","20th century"],
 "Corporatism": ["concept","economics","politics","history","ideology","20th century"],
-"Duce": ["title","politics","history","propaganda","italy","20th century"]
+"Duce": ["title","politics","history","propaganda","italy","20th century"],
+"Second_Italo-Ethiopian_War": ["event","war","history","diplomacy","africa","20th century"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
