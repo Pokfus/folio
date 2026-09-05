@@ -4,9 +4,13 @@
  *     node .claude/add-card-links.js <batch.json> [--dry]
  *
  *     { "cards": {
- *         "wh-014": { "why": { "q": "Why does an assemblage this old matter?", "at": 2 } },
+ *         "wh-014": { "why": [ { "q": "Why does an assemblage this old matter?", "a": "Because …" },
+ *                              { "q": "…?", "a": "…" }, { "q": "…?", "a": "…" } ] },
  *         "wh-001": { "leadsTo": [ { "id": "wh-003", "how": "one led to the other because …" } ] }
  *     } }
+ *
+ * `why` is THREE questions with their own brief answers (Sep 2026, on request) — the retired single
+ * `{ q, at }` shape is refused, with the migration named; see card-links.js.
  *
  * WHY THIS EXISTS. `add-card.js` only ever adds a WHOLE new card, and `add-sources.js` touches only
  * `sources` and the abstract. Without this the two fields could be set on nothing but a card written

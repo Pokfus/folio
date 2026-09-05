@@ -17,27 +17,58 @@ const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " 
 const words = (s) => (plain(s) ? plain(s).split(" ").length : 0);
 
 const WHY_MIN_WORDS = 4, WHY_MAX_WORDS = 24;
+const WHY_COUNT = 3, WHY_ANS_MIN_WORDS = 12, WHY_ANS_MAX_WORDS = 60;
 const LEADS_MAX = 3, HOW_MIN_WORDS = 4, HOW_MAX_WORDS = 28;
 
-/* `card.why` — elaborative interrogation. A QUESTION, and which of the abstract's two five-sentence
- * blocks answers it. Both halves matter and neither is visible to an author when it is wrong: a
- * statement still renders, and a wrong block still opens something. */
+/* `card.why` — elaborative interrogation, as THREE why-questions about the answer term, each with its
+ * own brief answer revealed by a "Show answer" button (Sep 2026, on request). It was one question and an
+ * `at` naming which block of the abstract answered it; the site still RENDERS that older shape, because a
+ * live cloud overlay may carry one, but nothing may be written that way again — so the shape is checked
+ * here rather than merely normalised, and a legacy object is refused with the migration named.
+ *
+ * NEITHER HALF IS VISIBLE TO AN AUTHOR WHEN IT IS WRONG. A statement still renders as a question, and an
+ * answer that does not answer its own question renders exactly like one that does. The word counts are
+ * what can be checked: a question that has to be readable at a glance above three hundred words of prose,
+ * and an answer that is a paragraph the reader can take in without leaving the block. What cannot be
+ * checked, and is the whole editorial act, is that the answer says what the CARD'S OWN CITED PROSE says —
+ * an answer written from anywhere else is an uncited claim wearing a card's apparatus.
+ */
 function checkWhy(card) {
   const w = card && card.why;
   if (w == null) return null;
-  if (typeof w !== "object" || Array.isArray(w) || typeof w.q !== "string" || !w.q.trim())
-    return 'card.why must be { q: "<a question>", at: 1|2 }';
-  if (w.at !== 1 && w.at !== 2)
-    return "card.why.at must be 1 or 2 — which block of the abstract answers the question";
-  if (!/\?\s*$/.test(w.q.trim()))
-    return "card.why.q must be a question and end in a question mark — the reader is asked it as one";
-  const n = words(w.q);
-  if (n < WHY_MIN_WORDS || n > WHY_MAX_WORDS)
-    return "card.why.q is " + n + " words — keep it between " + WHY_MIN_WORDS + " and " + WHY_MAX_WORDS +
-           "; it sits above three hundred words of prose and has to be readable at a glance";
-  const blocks = String(card.abstract || "").split(/\s*<br\s*\/?>\s*<br\s*\/?>\s*/);
-  if (blocks.length !== 2)
-    return "card.why names a block of the abstract, but this abstract does not split into two blocks of five";
+  if (!Array.isArray(w)) {
+    return w && typeof w === "object" && typeof w.q === "string"
+      ? 'card.why is the retired single-question shape { q, at }. It is now a list of ' + WHY_COUNT +
+        ' { q, a } items — the question, and the brief paragraph its "Show answer" button reveals'
+      : "card.why must be an array of " + WHY_COUNT + ' { q: "<a why-question>", a: "<its brief answer>" }';
+  }
+  if (w.length !== WHY_COUNT)
+    return "card.why has " + w.length + " questions — it must have exactly " + WHY_COUNT +
+           ", which is what the block on the card is built to read";
+  const seen = new Set();
+  for (let i = 0; i < w.length; i++) {
+    const e = w[i], at = "card.why[" + i + "]";
+    if (!e || typeof e !== "object" || Array.isArray(e)) return at + " must be { q, a }";
+    if (typeof e.q !== "string" || !e.q.trim()) return at + ".q must be the question, as a string";
+    if (typeof e.a !== "string" || !e.a.trim()) return at + ".a must be the brief paragraph that answers it";
+    if (e.at != null) return at + ".at is the retired shape's field — the answer now travels with the question, in .a";
+    const q = e.q.trim();
+    if (!/\?\s*$/.test(q))
+      return at + ".q must be a question and end in a question mark — the reader is asked it as one";
+    const key = q.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    if (seen.has(key)) return at + ".q repeats an earlier question";
+    seen.add(key);
+    const n = words(q);
+    if (n < WHY_MIN_WORDS || n > WHY_MAX_WORDS)
+      return at + ".q is " + n + " words — keep it between " + WHY_MIN_WORDS + " and " + WHY_MAX_WORDS +
+             "; three of them sit above three hundred words of prose and have to be readable at a glance";
+    const m = words(e.a);
+    if (m < WHY_ANS_MIN_WORDS || m > WHY_ANS_MAX_WORDS)
+      return at + ".a is " + m + " words — keep it between " + WHY_ANS_MIN_WORDS + " and " +
+             WHY_ANS_MAX_WORDS + "; it is the brief answer behind a button, not a second abstract";
+    if (/\?\s*$/.test(e.a.trim()))
+      return at + ".a ends in a question mark — it is the answer, not another question";
+  }
   return null;
 }
 
@@ -108,4 +139,5 @@ function collectionIndex(tree) {
 }
 
 module.exports = { checkWhy, checkLeadsTo, loadCardYears, collectionIndex,
-                   WHY_MIN_WORDS, WHY_MAX_WORDS, LEADS_MAX, HOW_MIN_WORDS, HOW_MAX_WORDS };
+                   WHY_COUNT, WHY_MIN_WORDS, WHY_MAX_WORDS, WHY_ANS_MIN_WORDS, WHY_ANS_MAX_WORDS,
+                   LEADS_MAX, HOW_MIN_WORDS, HOW_MAX_WORDS };

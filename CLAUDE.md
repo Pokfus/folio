@@ -1294,8 +1294,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 2.95 MB and 43,411 lines is hard to find your way around, so this
-  lists its 160 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 2.98 MB and 43,942 lines is hard to find your way around, so this
+  lists its 164 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -1564,7 +1564,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
   **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO** — no changelog line, no version bump.
   Currently **52 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
-  Portuguese, Spanish — **136,222 cards over 68,111 notes, 149 MB**. **Count them rather than quoting
+  Portuguese, Spanish — **136,222 cards over 68,111 notes, 152 MB**. **Count them rather than quoting
   that**: `node .claude/build-lang-decks.js` prints the tally on every run.
   · **A COMBINED FILE IS GITIGNORED**: it is an artefact of the levels it combines, every byte already
     in the repo, and its own `combine.py` regenerates it byte for byte. **Anything else in `decks/` is
@@ -1896,7 +1896,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   one run). The batch tool **splices LINES rather than rewriting `data.js`**: the file is one JSON object
   per line, and re-serialising the array normalises every card's key order, which turns a five-card change
   into a 1,400-line diff nobody can review — the run that added the first five touched exactly five lines.
-  It validates the WHOLE batch before writing anything. Not part of the site.
+  It validates the WHOLE batch before writing anything. **`why` is THREE `{ q, a }` items since Sep 2026**
+  — the question and the brief paragraph its "Show answer" button reveals — and the retired single
+  `{ q, at }` shape is REFUSED here with the migration named, while app.js goes on rendering one for the
+  overlay's sake. Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
   ANSWER TERM is, in batches: `node .claude/add-card-difficulty.js <batch.json>` over
   `{ "cards": { "wh-001": 1, … } }`. It validates the WHOLE batch before writing anything (a half-applied
@@ -2827,9 +2830,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the scheduler may see. **The DAYS are stored, not a count**, because a count cannot tell a second
     recall today from one next week, which is the whole distinction. **It is a CONSTANT and not a deck
     option**, since the evidence names three and a quantity does not cascade (`DECK_OPT_INHERIT`) anyway.
-    Shown as three pips under the answer, a Card info row, and a **Learned** tile beside "studied" — a
-    SECOND figure rather than a replacement, since swapping the bar would make every existing reader's
-    progress appear to collapse overnight. `byDue` is the one comparator every due sort goes through: a
+    Shown as three pips **in the study card's HEADER ROW**, a Card info row, and a **Learned** tile beside
+    "studied" — a SECOND figure rather than a replacement, since swapping the bar would make every existing
+    reader's progress appear to collapse overnight. The pips hung under the answer term until Sep 2026 and
+    were moved on request ("to the top center of the card, between the question number and difficulty
+    rating"): under the answer they were below the fold on a long card and only after the reveal, where in
+    the header they are on screen from the moment the card opens, which is when a reader is deciding how
+    hard to try. Three things about that row. **`.q-head` is a `1fr auto 1fr` GRID rather than a flex row,
+    and the state dot and the label are wrapped in `.q-lead` to make it one** — flexing the label and the
+    stars equally leaves the middle pushed right by half the dot and its gap, and the dot is
+    `calc(8px * var(--fs))`, so the error is a number that moves when the reader changes text size.
+    **A PHONE GETS THE PIPS ALONE** (≤640px, Sep 2026, on request: "only display the text on desktop and
+    tablet format") — the sentence is wider than the stars beside it at 390px, and the row carries the
+    whole of it as its `aria-label` and its tooltip in every state, which is the only form a reader who
+    cannot see three dots has ever had. And **`.qc-n` needed `white-space:nowrap`**: with the middle column
+    taken, a narrow phone squeezes the phrasing counter to its 30px minimum and "2 / 3" breaks in two,
+    which makes the whole header two lines tall. `byDue` is the one comparator every due sort goes through: a
     review card's due date lands at the start of its day, so among cards due at the same moment the one
     with fewer separated recalls goes first.
   · **`warmUpFirst` — THE SESSION OPENS ON A CARD THE READER HAS MET.** The forward effect of testing:
@@ -2867,13 +2883,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     without submitting it. It never focuses the blank — `setupCloze` deliberately leaves a touch reader's
     keyboard down. `syncAttempt` is declared ABOVE the phrasing cycler and assigned below it, because the
     cycler replaces the question element and every `.blank-input` in it.
-  · **`elabPromptHTML` — ONE ELABORATION PROMPT PER SESSION.** Elaborative interrogation (`card.why`) where
-    the card carries one, self-explanation ("you have also studied X and Y — how does this connect?")
-    otherwise. **Injected by `showAnswer`, not built into `buildBack`**, because the budget belongs to the
-    session and `buildBack` also draws the editor preview and the browser. **The `why` question is AUTHORED
-    and never generated** — choosing which of ten sentences is worth interrogating is the editorial act the
-    apparatus exists for. **What the reader types goes nowhere** — not the schedule, not the log, not the
-    server — and the page says so, which is what makes people answer honestly.
+  · **`elabPromptHTML` — ONE ELABORATION PROMPT PER SESSION, AND IT IS NOW THREE QUESTIONS WITH THEIR
+    ANSWERS BEHIND BUTTONS** (Sep 2026, on request: the Think it through section "should read three
+    common/important why-questions about the answer term, with behind each question a 'show answer' button
+    which reveals a very brief paragraph below the question to answer it"). Elaborative interrogation
+    (`card.why`) where the card carries one, self-explanation ("you have also studied X and Y — how does
+    this connect?") otherwise. **Injected by `showAnswer`, not built into `buildBack`**, because the budget
+    belongs to the session and `buildBack` also draws the editor preview and the browser. **The questions
+    AND their answers are AUTHORED and never generated** — choosing which three questions a card is worth
+    being asked, and what the card's own cited prose answers them with, is the editorial act the apparatus
+    exists for; an answer written from anywhere but the card's own sources is an uncited claim wearing a
+    card's apparatus. Four things.
+    **`card.why` IS A LIST OF THREE `{ q, a }`**, checked by `.claude/card-links.js` — the question 4–24
+    words and ending in a question mark, the answer 12–60 words and not another question. It was one
+    `{ q, at }` naming which block of the abstract answered it, which asked the reader to think and then
+    sent them off to read three hundred words to find out whether they were right.
+    **THE SITE STILL RENDERS THE RETIRED SHAPE and the TOOLS refuse it**: `card.why` is one of the fields a
+    cloud content overlay can carry as a delta (see the overlay bullet under "Environment"), so a live
+    overlay written before this change would otherwise have its question silently vanish — a legacy item's
+    button opens and marks the named block exactly as it used to. Nothing new can be written that way.
+    **A "Show answer" DOES NOT CLOSE AGAIN**: this is a self-check, a reader who has read the answer cannot
+    un-read it, and a second press that took it away would only lose their place — so the button disables
+    itself and the paragraph stays.
+    **THE FALLBACK PROMPT IS UNCHANGED** — a card with no authored `why` still gets the self-explanation
+    question and its textarea, and **what the reader types goes nowhere**: not the schedule, not the log,
+    not the server, and the page says so, which is what makes people answer honestly.
   · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
     background's own opening definition — inline under the answer, so a reader whose fold is collapsed
     still gets an explanation. **The footnote markers are stripped**: `sup.fn:empty::before` prints a
@@ -5512,15 +5546,19 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   only to a card the games can reach (rated at or below the bar); the deck's own chronological order, the
   other games and studying are all unaffected. See the "SOME TERMS DO NOT HAPPEN AT A TIME" bullet under
   "How the app is wired", and flag an older card with `.claude/mark-undatable.js`.
-- `why` — **OPTIONAL: one question the card's own background answers**, as `{ "q": "Why …?", "at": 1|2 }`
-  — elaborative interrogation (see the learning-science bullet under "How the app is wired"). It is shown
-  after the reveal, above the Background, with a box to answer in and a **Show me** button that opens the
-  block named by `at` and marks it. **`at` IS WHICH OF THE ABSTRACT'S TWO FIVE-SENTENCE BLOCKS ANSWERS IT**,
-  and getting it wrong is invisible to an author — a wrong block still opens something. **Never generate
-  one**: choosing which of ten sentences is worth interrogating is the editorial act the whole apparatus
-  exists for, and a guess here is a guess presented to a reader as a question worth thinking about. It must
-  END IN A QUESTION MARK and run 4–24 words. Written onto an existing card with
-  `node .claude/add-card-links.js <batch.json>`.
+- `why` — **OPTIONAL: three why-questions about the answer term, each with its own brief answer**, as
+  `[{ "q": "Why …?", "a": "Because …" }, …]` — elaborative interrogation (see the learning-science bullet
+  under "How the app is wired"). It is shown after the reveal, above the Background, under the heading
+  **Think it through**, each question with a **Show answer** button that uncovers its paragraph. Each `q`
+  must END IN A QUESTION MARK and run 4–24 words; each `a` runs 12–60 words and is not itself a question;
+  all three questions must differ. **Never generate any of it**: choosing which three questions a card is
+  worth being asked is the editorial act the whole apparatus exists for, and a guess is a guess presented
+  to a reader as a question worth thinking about. **AND THE ANSWER SAYS WHAT THE CARD'S OWN CITED PROSE
+  SAYS** — write it out of the abstract, whose claims already carry their sources; an answer researched
+  from anywhere else is an uncited claim wearing a card's apparatus, and nothing in the pipeline can see
+  it. Written onto an existing card with `node .claude/add-card-links.js <batch.json>`. (The retired
+  single-question shape, `{ "q": …, "at": 1|2 }`, is refused by both tools; app.js still renders one, for
+  a live cloud overlay's sake.)
 - `leadsTo` — **OPTIONAL: at most three `{ id, how }` edges to cards this one led to** — the causal strip
   at the foot of the answer (see the same bullet). **Four rules, all enforced by `.claude/card-links.js`
   and none of them visible to an author when broken**: the target must exist (a dangling edge draws

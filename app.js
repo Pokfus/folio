@@ -5150,22 +5150,36 @@
      read the record it was passed rather than `S.cards` — a helper reaching for the global would answer
      for the wrong person, silently, on the one screen where that is hardest to notice. */
   const atCriterion = (id) => critCount(id) >= CRIT_DAYS;
-  /* The pips under the answer term. Filled for each separate day this card has been recalled on, hollow
+  /* The pips in the study card's header. Filled for each separate day this card has been recalled on, hollow
      for the days still owed — three characters that say what a sentence would take a paragraph to. It is
      drawn on every card that has been answered at least once and NOT on a card being met for the first
      time, where three hollow pips would be a demand rather than a record. */
+  /* IT SITS IN THE STUDY CARD'S HEADER ROW, between the "Question" label and the difficulty stars
+     (Sep 2026, on request: "move the 'recalled on X of 3 days' to the top center of the card, between the
+     question number and difficulty rating"). It used to hang under the answer term, which put it below
+     the fold on a long card and only after the reveal; in the header it is on screen from the moment the
+     card opens, which is when a reader is deciding how hard to try.
+
+     THE WORDS ARE FOR DESKTOP AND TABLET; A PHONE GETS THE THREE PIPS (Sep 2026, on request). The header
+     is the one row on the card where four things compete for one line, and on a phone "Recalled on 1 of 3
+     days" alone is wider than the stars beside it — so the stylesheet hides `.crit-lbl` below 640px, which
+     is the site's own phone breakpoint. Nothing is lost by it: the row carries the whole sentence as its
+     `aria-label` and its tooltip, which is also the only form a reader who cannot see three dots has ever
+     had. */
   function critPipsHTML(id) {
     const n = critCount(id);
     if (!S.cards[id]) return "";
     let pips = "";
     for (let i = 0; i < CRIT_DAYS; i++) pips += '<span class="crit-pip' + (i < n ? " on" : "") + '"></span>';
     const done = n >= CRIT_DAYS;
-    return '<div class="crit-row' + (done ? " done" : "") + '" title="' +
-      esc(done
-        ? "Recalled on " + CRIT_DAYS + " separate days — the point at which the evidence says the gains flatten."
-        : "Recalled on " + n + " of " + CRIT_DAYS + " separate days. Recalling a card on separate days is what makes it stick; recalling it twice in one session is not.") +
-      '"><span class="crit-pips">' + pips + "</span><span class=\"crit-lbl\">" +
-      (done ? "Learned" : "Recalled on " + n + " of " + CRIT_DAYS + " days") + "</span></div>";
+    const words = done
+      ? "Recalled on " + CRIT_DAYS + " separate days — the point at which the evidence says the gains flatten."
+      : "Recalled on " + n + " of " + CRIT_DAYS + " separate days. Recalling a card on separate days is what makes it stick; recalling it twice in one session is not.";
+    const lbl = done ? "Learned" : "Recalled on " + n + " of " + CRIT_DAYS + " days";
+    return '<div class="crit-row' + (done ? " done" : "") + '" role="img" title="' + esc(words) +
+      '" aria-label="' + esc(words) + '">' +
+      '<span class="crit-pips" aria-hidden="true">' + pips + "</span>" +
+      '<span class="crit-lbl" aria-hidden="true">' + lbl + "</span></div>";
   }
 
   /* ---------- review history ----------
@@ -28695,9 +28709,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${/* The header row. The stars used to be absolutely positioned in the corner and the label
                     began at the card's own padding, so the two sat at different heights; in one flex row
                     they are level at every text size, which is what was asked for, and neither has to
-                    know the other's offset. */""}
+                    know the other's offset. The successive-relearning row sits BETWEEN them (Sep 2026,
+                    on request) — see critPipsHTML for why it moved and how it shortens on a phone. */""}
               <div class="q-head">
-              ${cardStateDotHTML(id)}<span class="label">Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span>
+              <div class="q-lead">${cardStateDotHTML(id)}<span class="label">Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span></div>
+              ${critPipsHTML(id)}
               ${cardStarsHTML(c)}
               </div>
               <div class="question">${cardFrontHTML(c)}</div>
@@ -31574,11 +31590,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // a custom type owns the whole of the back — but keeps the site's own source apparatus below it, since
     // a community card can carry citations and the fold is not the template's to reinvent
     const typed = cardTypeSideHTML(c, "back");
-    /* …and the site's own successive-relearning row goes in beside the fold, for the same reason: a
-       language deck is the most-studied kind of deck on the site, and the criterion is a fact about the
-       READER'S history with the card rather than about the card, so a custom template owning the back is
-       not a reason to withhold it. */
-    if (typed != null) return typed + critPipsHTML(c.id) + sourcesHTML(cardSources(c));
+    /* …and the site's own source apparatus goes in beside the fold, since a community card can carry
+       citations and the fold is not the template's to reinvent. The successive-relearning row used to be
+       appended here too; it now lives in the study card's HEADER (see critPipsHTML), which serves a typed
+       card and a curated one alike and needs no branch of its own. */
+    if (typed != null) return typed + sourcesHTML(cardSources(c));
     let html = "";
     if (c.answer) {
       html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true) + "</span>";
@@ -31589,9 +31605,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         (flagHTML ? '<div class="av-term"><span class="val">' + c.answer + "</span>" + flagHTML + "</div>"
                   : '<span class="val">' + c.answer + "</span>");
       html += '<div class="av-row">' + (c.answerDate || "") + "</div></div>";
-      // how many separate days this card has been recalled on — see CRIT_DAYS. Inside `.answer-main`, under
-      // the term and its dates, because it is a fact about this term rather than one of the card's figures.
-      html += critPipsHTML(c.id) + "</div>";
+      // (how many separate days this card has been recalled on used to close `.answer-main` here; it is in
+      // the study card's header row now — see critPipsHTML)
+      html += "</div>";
       // the Chinese name, between the term and the figures — see answerNameHTML
       html += answerNameHTML(c);
       /* The figures sit BESIDE the answer, not under it (Aug 2026, on request) — a sibling of .answer-main
@@ -31771,11 +31787,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ov.querySelector('[data-act="close"]').addEventListener("click", close);
       });
   }
+  /* `card.why` — THREE authored why-questions about the answer term, each with its own brief answer
+     (Sep 2026, on request). It was ONE question pointing at a block of the abstract, which asked the
+     reader to think and then sent them off to read three hundred words to find out whether they were
+     right; three questions with a short answer apiece is the same exercise with the checking made cheap.
+
+     Normalised to a LIST here, and the legacy shape is still read rather than dropped. An item carries
+     either its own `a` (the paragraph a "Show answer" button reveals) or the old `at` (which block of the
+     abstract answers it, opened and marked as before) — because `card.why` is one of the fields the cloud
+     content overlay can carry as a delta, and a live overlay written before this change would otherwise
+     have its question silently vanish. The CONTENT TOOLS refuse the old shape (see .claude/card-links.js),
+     so nothing new can be written that way; only what is already out there is honoured. */
+  const WHY_MAX = 3;
   function cardWhy(c) {
-    const w = c && c.why;
-    if (!w || typeof w !== "object" || !w.q || typeof w.q !== "string") return null;
-    const at = Number(w.at) === 2 ? 2 : 1;
-    return { q: w.q, at };
+    const raw = c && c.why;
+    if (!raw) return [];
+    const list = Array.isArray(raw) ? raw : [raw];
+    const out = [];
+    for (const w of list) {
+      if (!w || typeof w !== "object" || typeof w.q !== "string" || !w.q.trim()) continue;
+      const a = typeof w.a === "string" && w.a.trim() ? w.a.trim() : "";
+      if (a) out.push({ q: w.q, a });
+      else out.push({ q: w.q, at: Number(w.at) === 2 ? 2 : 1 });
+      if (out.length >= WHY_MAX) break;
+    }
+    return out;
   }
   // up to three cards this reader HAS studied that are closest in subject to this one
   function connectKin(c, n) {
@@ -31795,12 +31831,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      built into `buildBack`, because the budget is a property of the SESSION and `buildBack` is also what
      the editor's preview and the card browser draw — neither of which has a session or should have one. */
   function elabPromptHTML(c) {
-    const w = cardWhy(c);
-    if (w) {
+    const ws = cardWhy(c);
+    if (ws.length) {
+      /* One row per question: the question, a button, and the answer it uncovers. The answer is `hidden`
+         rather than absent, so the button is a real disclosure — `aria-expanded` on the button and
+         `aria-controls` at the paragraph say so — and nothing has to be built at the moment it is pressed.
+         The ids are scoped by the card's own id, because two of these blocks are never on one page but the
+         browser and the editor preview both draw a back beside other markup. */
+      const base = "elabA-" + String(c && c.id || "x").replace(/[^A-Za-z0-9_-]/g, "");
       return '<div class="elab" data-elab="why"><span class="elab-kind">Think it through</span>' +
-        '<p class="elab-q">' + esc(w.q) + "</p>" +
-        '<textarea class="elab-box" rows="2" placeholder="In a sentence — no one sees this, and nothing is marked."></textarea>' +
-        '<div class="elab-acts"><button type="button" class="btn ghost elab-show" data-at="' + w.at + '">Show me what the card says</button></div></div>';
+        ws.map((w, i) => {
+          const aid = base + "-" + i;
+          return '<div class="elab-item">' +
+            '<div class="elab-qrow"><p class="elab-q">' + esc(w.q) + "</p>" +
+            /* A LEGACY ITEM'S BUTTON IS A DIFFERENT CONTROL AND SAYS SO. It opens the card's background
+               rather than a paragraph of its own, so it carries neither `aria-controls` nor
+               `aria-expanded` — announcing an expanded region to a screen reader and then uncovering
+               nothing is worse than the old label, which was true. */
+            (w.a
+              ? '<button type="button" class="btn ghost elab-show" aria-expanded="false" aria-controls="' +
+                aid + '">Show answer</button></div><p class="elab-a" id="' + aid + '" hidden>' +
+                sanitizeHTML(w.a) + "</p>"
+              : '<button type="button" class="btn ghost elab-show" data-at="' + w.at +
+                '">Show me what the card says</button></div>') +
+            "</div>";
+        }).join("") + "</div>";
     }
     const kin = connectKin(c, 3);
     if (kin.length < 2) return "";
@@ -31811,31 +31866,44 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<textarea class="elab-box" rows="2" placeholder="In a sentence — no one sees this, and nothing is marked."></textarea>' +
       '<div class="elab-acts"><span class="elab-note">Nothing here is saved or scored. Putting the connection into words is the whole of the exercise.</span></div></div>';
   }
-  /* Wire whichever block was drawn. "Show me" opens the Background fold — which may be collapsed, and
-     which the reader may then want left open — and marks the paragraph the author named. The abstract is
-     ONE paragraph unless the card carries a quotation, in which case it is two, so `at` is resolved
-     against what is actually on the page rather than assumed. */
+  /* Wire whichever block was drawn. Every "Show answer" button uncovers the paragraph under its own
+     question — a plain disclosure, and it does NOT close again: this is a self-check, and a reader who has
+     read the answer cannot un-read it, so a second press that took it away would only lose their place.
+
+     A button on a LEGACY item (one carrying `at` rather than an answer of its own) keeps doing what the
+     single question used to do: it opens the Background fold — which may be collapsed, and which the
+     reader may then want left open — and marks the paragraph the author named. The abstract is ONE
+     paragraph unless the card carries a quotation, in which case it is two, so `at` is resolved against
+     what is actually on the page rather than assumed. */
   function wireElabPrompt(scope) {
     const box = scope && scope.querySelector(".elab");
     if (!box) return;
-    const btn = box.querySelector(".elab-show");
-    if (!btn) return;
-    btn.addEventListener("click", () => {
-      const col = scope.querySelector(".bg-collapse"), tog = scope.querySelector(".bg-toggle");
-      if (col && col.classList.contains("collapsed")) {
-        col.classList.remove("collapsed");
-        if (tog) tog.classList.remove("collapsed");
-        const head = scope.querySelector(".bg-head");
-        if (head) head.setAttribute("aria-expanded", "true");
-        // the reader asked for one look; their own preference is NOT overwritten by it
-      }
-      const ps = scope.querySelectorAll("p.abstract");
-      const target = ps.length > 1 ? ps[Math.min(ps.length - 1, Number(btn.dataset.at) - 1)] : ps[0];
-      if (!target) return;
-      target.classList.add("elab-mark");
-      setTimeout(() => target.classList.remove("elab-mark"), 2600);
-      try { target.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "center" }); }
-      catch (e) { target.scrollIntoView(); }
+    box.querySelectorAll(".elab-show").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        btn.disabled = true;
+        if (btn.dataset.at == null) {
+          btn.setAttribute("aria-expanded", "true");
+          const ans = box.querySelector("#" + CSS.escape(btn.getAttribute("aria-controls") || ""));
+          if (ans) ans.hidden = false;
+          return;
+        }
+        // legacy: the answer lives in the card's own background rather than beside the question
+        const col = scope.querySelector(".bg-collapse"), tog = scope.querySelector(".bg-toggle");
+        if (col && col.classList.contains("collapsed")) {
+          col.classList.remove("collapsed");
+          if (tog) tog.classList.remove("collapsed");
+          const head = scope.querySelector(".bg-head");
+          if (head) head.setAttribute("aria-expanded", "true");
+          // the reader asked for one look; their own preference is NOT overwritten by it
+        }
+        const ps = scope.querySelectorAll("p.abstract");
+        const target = ps.length > 1 ? ps[Math.min(ps.length - 1, Number(btn.dataset.at) - 1)] : ps[0];
+        if (!target) return;
+        target.classList.add("elab-mark");
+        setTimeout(() => target.classList.remove("elab-mark"), 2600);
+        try { target.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "center" }); }
+        catch (e) { target.scrollIntoView(); }
+      });
     });
   }
   // the card's illustration: a frame floated to the top-right of the Background prose, sized to the
@@ -40710,7 +40778,7 @@ let prev = null;
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c)) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
