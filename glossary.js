@@ -2039,7 +2039,8 @@ window.GLOSSARY = {
 "Hiero_II_of_Syracuse": "Hiero II was ruler of Syracuse from 269 to 215 BCE, raised to command by the Syracusan army and hailed as king by the allies after he defeated the Mamertines at the river Longanus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He first joined Carthage in besieging Messana, then judged Roman prospects the better, made peace and paid an indemnity of 100 talents, and supplied Rome with provisions for the rest of the First Punic War.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Polybius holds him up as an unusually mild ruler, saying he took power without killing, banishing or harassing a citizen, reigned 54 years and lived past 90 in full possession of his senses.<sup class=\"fn\" data-fn=\"5\"></sup>",
 "Siege_of_Agrigentum": "The siege of Agrigentum was the first great land operation of the First Punic War, in which two Roman consular armies blockaded the Sicilian city Carthage had made its headquarters.<sup class=\"fn\" data-fn=\"1\"></sup> It lasted more than seven months, the besiegers holding a double line of trenches while both sides suffered hunger and disease, until a Carthaginian relief force was beaten in a pitched battle where its mercenary vanguard fell back onto its own elephants.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The garrison commander then slipped away by night and the city was taken and plundered, its inhabitants sold into slavery, at a cost to the victors that ancient accounts put in the tens of thousands.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "First_Roman_fleet": "The first Roman fleet was the war navy built by Rome during the First Punic War, when the senate voted 100 quinqueremes and 20 triremes although the state possessed no warship and its shipwrights had never made a vessel of that class.<sup class=\"fn\" data-fn=\"1\"></sup> A grounded enemy quinquereme served as the pattern for the hulls, and the oarsmen were trained on benches set out on dry land, learning to pull together at a timekeeper’s word before the ships were launched.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The vessels proved clumsy and one squadron was lost at once through its commander’s carelessness, but the fleet went on to win at sea by grappling and boarding rather than by seamanship.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Corvus_(boarding_device)": "The corvus was a hinged boarding bridge carried in the bows of Roman warships during the First Punic War, a pole with a pulley, a railed gangway swinging round it, and a heavy iron spike slung from the far end.<sup class=\"fn\" data-fn=\"1\"></sup> Hauled up by a rope and let fall on an enemy deck, the spike bit into the planking and locked the hulls together, so soldiers could cross two abreast and fight as though on land.<sup class=\"fn\" data-fn=\"1\"></sup> It gave a fleet with poor seamanship a way of turning a sea fight into an infantry action, and Polybius records its use at two battles before it vanishes from his narrative without explanation.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Corvus_(boarding_device)": "The corvus was a hinged boarding bridge carried in the bows of Roman warships during the First Punic War, a pole with a pulley, a railed gangway swinging round it, and a heavy iron spike slung from the far end.<sup class=\"fn\" data-fn=\"1\"></sup> Hauled up by a rope and let fall on an enemy deck, the spike bit into the planking and locked the hulls together, so soldiers could cross two abreast and fight as though on land.<sup class=\"fn\" data-fn=\"1\"></sup> It gave a fleet with poor seamanship a way of turning a sea fight into an infantry action, and Polybius records its use at two battles before it vanishes from his narrative without explanation.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Mylae": "The battle of Mylae was a sea fight of 260 BCE off the north coast of Sicily, in which a Roman fleet under the consul Gaius Duilius beat a Carthaginian squadron that had come out expecting an easy prize.<sup class=\"fn\" data-fn=\"1\"></sup> The Romans grappled and boarded rather than manoeuvring, turning the engagement into something close to a land battle, and the Carthaginians lost 80 ships in two stages while their admiral escaped in a small boat.<sup class=\"fn\" data-fn=\"1\"></sup> It was the first naval victory Rome had won, and it was marked by a triumph and by a column in the forum decked with the beaks of the captured ships, still standing two centuries later.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2856,7 +2857,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hiero_II_of_Syracuse": "269 – 215 BCE",
 "Siege_of_Agrigentum": "262 BCE",
 "First_Roman_fleet": "261 – 260 BCE",
-"Corvus_(boarding_device)": "260 – 256 BCE"
+"Corvus_(boarding_device)": "260 – 256 BCE",
+"Battle_of_Mylae": "260 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4104,7 +4106,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Messana": ["Zancle"],
 "Hiero_II_of_Syracuse": ["Hiero II","Hieron II"],
 "Siege_of_Agrigentum": ["siege of Agrigentum","Battle of Agrigentum"],
-"Corvus_(boarding_device)": ["corvus"]
+"Corvus_(boarding_device)": ["corvus"],
+"Battle_of_Mylae": ["battle of Mylae"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6176,7 +6179,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hiero_II_of_Syracuse": ["ruler","person","history","politics","sicily"],
 "Siege_of_Agrigentum": ["battle","warfare","history","politics","sicily"],
 "First_Roman_fleet": ["institution","warfare","history","technology","rome"],
-"Corvus_(boarding_device)": ["object","warfare","technology","history","rome"]
+"Corvus_(boarding_device)": ["object","warfare","technology","history","rome"],
+"Battle_of_Mylae": ["battle","warfare","history","politics","sicily"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
