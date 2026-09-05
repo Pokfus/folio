@@ -1807,7 +1807,8 @@ window.GLOSSARY = {
 "Chandragupta_Maurya": "Chandragupta Maurya founded the Maurya Empire by overthrowing the Nanda king of Magadha and taking Pataliputra on the Ganges, and the Greeks knew him as Sandrocottus.<sup class=\"fn\" data-fn=\"1\"></sup> About 305 BCE Seleucus crossed the Indus, found him master of all Hindustan, and settled for a safe retirement, a marriage alliance and 500 elephants in exchange for the Greek dominions as far as the Kabul valley.<sup class=\"fn\" data-fn=\"2\"></sup> His reign is put at 24 years, but the Puranas and the Buddhist books are not independent witnesses, the traditions disagree about the year it began, and no likeness of him survives.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Arthashastra": "The <i>Arthashastra</i> is a Sanskrit manual of statecraft in fifteen books, ascribed to Kautilya, also called Chanakya and Vishnu Gupta, and it defines its own subject as artha, the subsistence of mankind.<sup class=\"fn\" data-fn=\"1\"></sup> It prescribes rather than narrates, covering ministers, forts, revenue, law and war, and gives whole chapters to espionage, with standing institutes of spies set to test the character of the king's own servants.<sup class=\"fn\" data-fn=\"2\"></sup> It also tells a king that in the happiness of his subjects lies his happiness; the text nowhere dates itself, and was recovered only in the 20th century.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Ashoka": "Ashoka was the third emperor of the Maurya dynasty in India, reigning from about 274 to 236 BCE,<sup class=\"fn\" data-fn=\"1\"></sup> and is known chiefly from his own inscriptions, cut on rock faces and stone pillars from the north-west frontier to the south.<sup class=\"fn\" data-fn=\"2\"></sup> In them he calls himself Beloved-of-the-Gods, King Piyadasi, records his remorse at the killing and deportation caused by his conquest of Kalinga,<sup class=\"fn\" data-fn=\"3\"></sup> and urges dhamma, a public morality of restraint, care for living things and forbearance between religions.<sup class=\"fn\" data-fn=\"4\"></sup> He supported the Buddhist order and later tradition remembered him as its great patron, though the edicts appoint officers to work among people of every religion.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Edicts_of_Ashoka": "The Edicts of Ashoka are a group of inscriptions cut into rock faces and free-standing stone pillars in the 3rd century BCE, found at more than thirty places across India, Nepal, Pakistan and Afghanistan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> They are the earliest corpus of written documents from India that can be read: nearly all in Prakrit and mostly in Brahmi script, with one bilingual edict in Afghanistan written in Aramaic and Greek.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Issued in the first person by a king who calls himself \"Beloved-of-the-Gods, King Piyadasi\", they proclaim dhamma, record particular acts of the reign, and are dated by his regnal years.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Edicts_of_Ashoka": "The Edicts of Ashoka are a group of inscriptions cut into rock faces and free-standing stone pillars in the 3rd century BCE, found at more than thirty places across India, Nepal, Pakistan and Afghanistan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> They are the earliest corpus of written documents from India that can be read: nearly all in Prakrit and mostly in Brahmi script, with one bilingual edict in Afghanistan written in Aramaic and Greek.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Issued in the first person by a king who calls himself \"Beloved-of-the-Gods, King Piyadasi\", they proclaim dhamma, record particular acts of the reign, and are dated by his regnal years.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Third_Buddhist_Council": "The Third Buddhist Council is a gathering that the Pali chronicles place at Pataliputra in the nineteenth year from Ashoka's coronation, held under his patronage and presided over by the monk Moggaliputta Tissa.<sup class=\"fn\" data-fn=\"1\"></sup> It was called by sectarian differences, among which as many as eighteen divisions are named, deliberated for nine months and decided for the school of the Sthaviras, which afterwards prevailed in Ceylon.<sup class=\"fn\" data-fn=\"1\"></sup> The canon is said to have been closed on the occasion and the Kathavatthu composed at it; the northern Buddhist texts ignore the council, so it is known from one tradition only.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2631,7 +2632,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Maurya_Empire": "c. 321 – 184 BCE",
 "Chandragupta_Maurya": "c. 321 – 297 BCE",
 "Ashoka": "c. 274 – 236 BCE",
-"Edicts_of_Ashoka": "c. 259 – 243 BCE"
+"Edicts_of_Ashoka": "c. 259 – 243 BCE",
+"Third_Buddhist_Council": "3rd century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3737,7 +3739,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hinduism": ["Hindus"],
 "Varna_(Hinduism)": ["varna","jati"],
 "Gautama_Buddha": ["Buddha","Siddhartha Gautama","Gotama"],
-"Buddhism": ["Buddhists"],
+"Buddhism": ["Buddhists","spread of Buddhism"],
 "Jainism": ["Jains","Jaina"],
 "Maurya_Empire": ["Mauryan","Mauryas"],
 "Chandragupta_Maurya": ["Sandrocottus"],
@@ -5580,7 +5582,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chandragupta_Maurya": ["ruler","person","history","politics","india"],
 "Arthashastra": ["text","concept","politics","history","india"],
 "Ashoka": ["ruler","person","history","politics","india","buddhism"],
-"Edicts_of_Ashoka": ["text","object","history","politics","writing","india"]
+"Edicts_of_Ashoka": ["text","object","history","politics","writing","india"],
+"Third_Buddhist_Council": ["event","religion","history","buddhism","india"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
