@@ -308,6 +308,25 @@ English word — `Soviet`, `Duma`, `Thaw`, `Terror` — needs `GLOSSARY_CASESENS
 word, or it will auto-link inside sentences that do not mean it. And a term with a well-known variant
 spelling needs its alias written the day the term ships, not the day someone notices the link failing.
 
+## Changes made while writing
+
+Recorded here because the file is only useful while it is true.
+
+**2026-09-05, `ru-001`–`ru-010` written.** Two lines were renamed when the research settled what the
+answer term actually is. **`ru-006` "Scythian gold" is now "Scythian gold and the animal style"** —
+"Scythian gold" is a subject rather than a term a reader could be asked for, and the thing the gold
+*is* has a name of its own that the scholarship uses and the glossary can head. **`ru-009` "Greek
+colonies on the northern Black Sea" is now "Olbia and the Greek colonies of the northern Black Sea"**,
+for the same reason: a card blanks one word, and the collective subject is carried by the background
+around the one city that Herodotus and Strabo both describe. The other eight lines stand as written.
+
+That batch also confirmed the file's warning about Rus' from the other end: the first ten cards are
+about the western steppe, the Cimmerians, the Scythians, the Sarmatians and the Greek cities of the
+Crimean coast, and not one of them is about anybody who would have recognised the word Russia. The
+glossary entries were written to match — `Cimmerians`, `Scythians`, `Sarmatians`, `Kurgan`,
+`Animal_style`, `Eurasian_Steppe`, `Pontic-Caspian_steppe`, `Pastoral_nomadism` and
+`Bosporan_Kingdom` are all new; `Olbia` already existed, cited, from the glossary pass.
+
 ---
 
 # The list
@@ -321,10 +340,10 @@ spelling needs its alias written the day the term ships, not the day someone not
     ru-003  Steppe nomadism
     ru-004  The Cimmerians
     ru-005  The Scythians
-    ru-006  Scythian gold
+    ru-006  Scythian gold and the animal style
     ru-007  Scythian kurgans
     ru-008  The Sarmatians
-    ru-009  Greek colonies on the northern Black Sea
+    ru-009  Olbia and the Greek colonies of the northern Black Sea
     ru-010  The Bosporan Kingdom
     ru-011  The Goths in the Black Sea steppe
     ru-012  The Huns
