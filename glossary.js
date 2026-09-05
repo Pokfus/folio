@@ -1844,7 +1844,8 @@ window.GLOSSARY = {
 "Garamantes": "The Garamantes were the people of the Fezzan, in what is now south-western Libya, whose kingdom had its capital at Garama, still visible at Germa, and whose reach ran well beyond the modern borders.<sup class=\"fn\" data-fn=\"1\"></sup> They watered their oases with foggaras, underground channels dug between pairs of vertical shafts to tap an aquifer and carry it out to daylight, a technique older than they were.<sup class=\"fn\" data-fn=\"2\"></sup> Greek and Roman writers knew them as raiders and were unreliable about them, and what political form they had, whether tribe, chiefdom or a Saharan state on its own terms, is still argued over.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Land_of_Punt": "The Land of Punt was a country the ancient Egyptians traded with for well over a thousand years, calling it the land of the god and prizing it above all for incense.<sup class=\"fn\" data-fn=\"1\"></sup> Its position has been argued over for as long as it has been studied, and was long placed in Somalia or on the southern coast of Arabia.<sup class=\"fn\" data-fn=\"1\"></sup> Chemical and genetic work on the baboons the Egyptians brought home and mummified has since pointed to the African shore of the Red Sea, in a region taking in Eritrea, Ethiopia and their neighbours.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Trans-Saharan_trade": "Trans-Saharan trade is the exchange of goods, people and ideas across the Sahara, linking the Mediterranean and Atlantic coasts of North Africa with the Sahel and savanna to the south.<sup class=\"fn\" data-fn=\"1\"></sup> Its best-recorded phase belongs to the Islamic Middle Ages, when caravans carried gold, salt, cloth, copper and enslaved people between the two margins, and beads of Egyptian, Levantine and Middle Eastern glass reached sites in Mali and Senegal between the 7th and 13th centuries CE.<sup class=\"fn\" data-fn=\"2\"></sup> Whether regular exchange crossed the desert before the Arab conquest of North Africa is disputed, since classical writers report almost nothing of the lands beyond its southern fringe and the archaeology remains sparse.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Olmecs": "The Olmecs were the earliest monument-building society of Mesoamerica, occupying the humid Gulf lowlands of southern Veracruz and Tabasco in Mexico between about 1500 and 400 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Their three principal centres, San Lorenzo, La Venta and Tres Zapotes, raised earthen platforms and basalt sculpture, above all the colossal human heads, seventeen of which are known and which most specialists read as portraits of rulers.<sup class=\"fn\" data-fn=\"2\"></sup> How far Olmec art and organisation shaped the rest of Mesoamerica is disputed, since objects in their style are found across the region while several institutions once credited to them appear as early or earlier elsewhere.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Olmecs": "The Olmecs were the earliest monument-building society of Mesoamerica, occupying the humid Gulf lowlands of southern Veracruz and Tabasco in Mexico between about 1500 and 400 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Their three principal centres, San Lorenzo, La Venta and Tres Zapotes, raised earthen platforms and basalt sculpture, above all the colossal human heads, seventeen of which are known and which most specialists read as portraits of rulers.<sup class=\"fn\" data-fn=\"2\"></sup> How far Olmec art and organisation shaped the rest of Mesoamerica is disputed, since objects in their style are found across the region while several institutions once credited to them appear as early or earlier elsewhere.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Mesoamerica": "Mesoamerica is a historically and culturally defined region of the Americas covering central and southern Mexico, Belize, Guatemala and El Salvador together with the border country of Honduras, western Nicaragua and north-western Costa Rica.<sup class=\"fn\" data-fn=\"1\"></sup> It is a culture area rather than a political unit, its many peoples and languages connected by farming and commerce and sharing such traits as a 260-day ritual count kept beside a 365-day year<sup class=\"fn\" data-fn=\"3\"></sup> and a rubber ballgame, of which more than 2,300 probable courts are known.<sup class=\"fn\" data-fn=\"2\"></sup> Its conventional periods run from the Archaic through the Preclassic, Classic and Postclassic, the last of which ended with the Spanish conquest between 1519 and 1521.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3838,7 +3839,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Garamantes": ["Garamantian"],
 "Land_of_Punt": ["Punt"],
 "Trans-Saharan_trade": ["trans-Saharan trade route","trans-Saharan commerce"],
-"Olmecs": ["Olmec","Olmec civilisation"]
+"Olmecs": ["Olmec","Olmec civilisation"],
+"Mesoamerica": ["Mesoamerican"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5713,7 +5715,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Garamantes": ["people","history","africa","libya","technology","iron age"],
 "Land_of_Punt": ["place","history","egypt","africa","geography","bronze age"],
 "Trans-Saharan_trade": ["practice","history","archaeology","geography","africa"],
-"Olmecs": ["culture","history","archaeology","americas","mexico","art"]
+"Olmecs": ["culture","history","archaeology","americas","mexico","art"],
+"Mesoamerica": ["place","geography","history","archaeology","americas"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
