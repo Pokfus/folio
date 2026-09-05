@@ -2092,7 +2092,8 @@ window.GLOSSARY = {
 "Titus_Quinctius_Flamininus": "<b>Titus Quinctius Flamininus</b> was a Roman general and diplomat of the early 2nd century BCE, remembered for defeating Philip V of Macedon and for the settlement of Greece that followed. Plutarch says he reached the consulship without holding the offices usually taken first, and before he was thirty, over the objection of two tribunes;<sup class=\"fn\" data-fn=\"1\"></sup> Polybius, writing nearer the events, credits the Roman position in Greece to his management rather than to chance.<sup class=\"fn\" data-fn=\"2\"></sup> He negotiated as much as he fought, and Plutarch treats his later pursuit of the exiled Hannibal at a foreign court as the act that damaged his reputation.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Freedom_of_the_Greeks": "The <b>freedom of the Greeks</b> was the settlement Rome announced at the Isthmian games of 196 BCE, by which the Greek communities were declared free of garrisons and tribute and left to their own laws. A herald read the decree to the crowd assembled for the games, naming eight peoples, and the announcement was repeated because the shouting had drowned it.<sup class=\"fn\" data-fn=\"1\"></sup> The declaration was contested at the time, since Rome retained control of several strategic cities and the states that had fought beside it were disappointed of territory, and the arrangement lasted only until further wars brought Roman garrisons back.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Antiochus_III_the_Great": "<b>Antiochus III</b>, known as Antiochus the Great, ruled the Seleucid empire from 223 to 187 BCE, at its height holding territory from the Aegean coast of Asia Minor to the borders of India. He recovered provinces that had broken away, campaigning as far as Bactria, where he came to terms with the local king and returned with elephants and an alliance in India.<sup class=\"fn\" data-fn=\"1\"></sup> His claim to cities in Asia Minor and Thrace brought him into dispute with Rome, which he answered by saying that he did not concern himself with Italy and that Asian cities should have their liberty from him rather than by Roman order.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Roman-Seleucid_War": "The <b>Roman-Seleucid War</b> was fought between Rome and Antiochus III of Syria from 192 to 188 BCE, in Greece and then in Asia Minor, and was the first war Rome fought against a power based in Asia. It began when the Aetolian League, dissatisfied with the Roman settlement of Greece, invited the king across the Aegean, and he came with a force Livy judged far too small, some ten thousand foot and six elephants.<sup class=\"fn\" data-fn=\"1\"></sup> It ended with his defeat in Asia and a settlement requiring him to withdraw beyond the Taurus mountains, pay 15,000 talents in instalments, give hostages and hand over the exiles at his court.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Roman-Seleucid_War": "The <b>Roman-Seleucid War</b> was fought between Rome and Antiochus III of Syria from 192 to 188 BCE, in Greece and then in Asia Minor, and was the first war Rome fought against a power based in Asia. It began when the Aetolian League, dissatisfied with the Roman settlement of Greece, invited the king across the Aegean, and he came with a force Livy judged far too small, some ten thousand foot and six elephants.<sup class=\"fn\" data-fn=\"1\"></sup> It ended with his defeat in Asia and a settlement requiring him to withdraw beyond the Taurus mountains, pay 15,000 talents in instalments, give hostages and hand over the exiles at his court.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Battle_of_Thermopylae_(191_BCE)": "The <b>Battle of Thermopylae</b> of 191 BCE was fought in the coastal pass of that name between a Roman consular army and the forces of Antiochus III of Syria, and ended the king's attempt to establish himself in Greece. Antiochus fortified the narrows with rampart, ditch and wall, and asked his Aetolian allies to hold the mountain paths above, which they garrisoned only in part after disagreeing among themselves.<sup class=\"fn\" data-fn=\"1\"></sup> A Roman detachment cleared one of the summits and appeared behind the position, at which the defenders abandoned the works and fled, the king escaping with a small escort.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2955,7 +2956,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Cynoscephalae": "197 BCE",
 "Freedom_of_the_Greeks": "196 BCE",
 "Antiochus_III_the_Great": "223 – 187 BCE",
-"Roman-Seleucid_War": "192 – 188 BCE"
+"Roman-Seleucid_War": "192 – 188 BCE",
+"Battle_of_Thermopylae_(191_BCE)": "191 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6365,7 +6367,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Titus_Quinctius_Flamininus": ["person","history","politics","rome","greece"],
 "Freedom_of_the_Greeks": ["event","history","politics","rome","greece"],
 "Antiochus_III_the_Great": ["ruler","person","history","greece","rome"],
-"Roman-Seleucid_War": ["event","warfare","history","rome","greece"]
+"Roman-Seleucid_War": ["event","warfare","history","rome","greece"],
+"Battle_of_Thermopylae_(191_BCE)": ["battle","warfare","history","greece","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
