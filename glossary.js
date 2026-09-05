@@ -2110,7 +2110,8 @@ window.GLOSSARY = {
 "Revolt_of_Aristonicus": "Revolt of Aristonicus was the rising in western Anatolia against Rome's inheritance of the Attalid kingdom of Pergamum, led by a man said to belong to the royal house.<sup class=\"fn\" data-fn=\"1\"></sup> Driven inland after a naval defeat, he raised an army of the destitute and of slaves promised their freedom, whom Strabo says he called Heliopolitae, and took several inland towns before the Greek cities and neighbouring kings turned on him.<sup class=\"fn\" data-fn=\"1\"></sup> A Roman consul, Publius Licinius Crassus, was defeated and killed<sup class=\"fn\" data-fn=\"2\"></sup> before Marcus Perperna ended the war and sent Aristonicus to Rome, where he died in prison.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Roman_conquest_of_Spain": "Roman conquest of Spain refers to the long series of campaigns by which Rome took the Iberian peninsula, beginning in the war against Hannibal and ending under Augustus.<sup class=\"fn\" data-fn=\"1\"></sup> Livy calls it the first province on the continent the Romans entered and the last to be reduced,<sup class=\"fn\" data-fn=\"1\"></sup> and Strabo says they took about two hundred years or more because they fought piecemeal, subduing one territory at a time.<sup class=\"fn\" data-fn=\"2\"></sup> Two provinces, the Hither and the Farther, were being allotted to praetors within a few years of Hannibal's defeat,<sup class=\"fn\" data-fn=\"3\"></sup> but much of the interior was still being fought over generations later.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Celtiberian_Wars": "Celtiberian Wars were the campaigns fought between Rome and the Celtiberian peoples of central Spain in the 2nd century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> An early phase closed with treaties made by Tiberius Sempronius Gracchus, who settled landless men on divided land and bound the tribes to Rome by oath; Appian says those terms were often longed for in the later fighting.<sup class=\"fn\" data-fn=\"1\"></sup> War resumed when the senate forbade the town of Segeda to complete a new wall and demanded tribute and troops,<sup class=\"fn\" data-fn=\"2\"></sup> and Polybius records that the Romans called the fighting that followed the fiery war, since its engagements broke off only at nightfall.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Lusitanian_War": "Lusitanian War was the conflict fought in the west of the Iberian peninsula between Rome and the Lusitanians in the middle of the 2nd century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It opened with raids on Roman subjects under a leader called Punicus, cost Rome two beaten praetors and thousands of men,<sup class=\"fn\" data-fn=\"1\"></sup> and is remembered chiefly for its ending. The praetor Servius Sulpicius Galba offered the Lusitanians land, gathered them in three groups, disarmed each in turn and had them killed, an act Appian calls treachery unworthy of a Roman; among the few who escaped was Viriathus.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Lusitanian_War": "Lusitanian War was the conflict fought in the west of the Iberian peninsula between Rome and the Lusitanians in the middle of the 2nd century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It opened with raids on Roman subjects under a leader called Punicus, cost Rome two beaten praetors and thousands of men,<sup class=\"fn\" data-fn=\"1\"></sup> and is remembered chiefly for its ending. The praetor Servius Sulpicius Galba offered the Lusitanians land, gathered them in three groups, disarmed each in turn and had them killed, an act Appian calls treachery unworthy of a Roman; among the few who escaped was Viriathus.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Viriathus": "Viriathus was the Lusitanian commander who led the resistance to Rome in western Iberia for eight years, from about 147 BCE until his death.<sup class=\"fn\" data-fn=\"1\"></sup> He first emerges among survivors of a Roman massacre, whom he persuaded not to trust Roman terms and then extricated from an encirclement, after which they made him their leader.<sup class=\"fn\" data-fn=\"1\"></sup> He defeated several Roman armies and won a treaty that recognised him as a friend of the Roman people,<sup class=\"fn\" data-fn=\"2\"></sup> but the next commander had it annulled and bribed three of Viriathus' own envoys to kill him in his sleep.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2987,7 +2988,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Bequest_of_Attalus_III": "133 BCE",
 "Revolt_of_Aristonicus": "133–130 BCE",
 "Celtiberian_Wars": "181–133 BCE",
-"Lusitanian_War": "155–150 BCE"
+"Lusitanian_War": "155–150 BCE",
+"Viriathus": "died c. 140 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4276,7 +4278,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Lucius_Aemilius_Paullus_Macedonicus": ["Aemilius Paullus","Lucius Aemilius Paullus"],
 "Province_of_Macedonia": ["Roman province of Macedonia"],
 "Province_of_Asia": ["Roman province of Asia"],
-"Roman_conquest_of_Spain": ["Roman conquest of Hispania"]
+"Roman_conquest_of_Spain": ["Roman conquest of Hispania"],
+"Viriathus": ["Viriato"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6419,7 +6422,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Revolt_of_Aristonicus": ["event","warfare","history","rome","anatolia"],
 "Roman_conquest_of_Spain": ["event","warfare","history","rome","spain"],
 "Celtiberian_Wars": ["event","warfare","history","rome","spain"],
-"Lusitanian_War": ["event","warfare","history","rome","spain"]
+"Lusitanian_War": ["event","warfare","history","rome","spain"],
+"Viriathus": ["person","warfare","history","rome","spain"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
