@@ -1809,7 +1809,8 @@ window.GLOSSARY = {
 "Ashoka": "Ashoka was the third emperor of the Maurya dynasty in India, reigning from about 274 to 236 BCE,<sup class=\"fn\" data-fn=\"1\"></sup> and is known chiefly from his own inscriptions, cut on rock faces and stone pillars from the north-west frontier to the south.<sup class=\"fn\" data-fn=\"2\"></sup> In them he calls himself Beloved-of-the-Gods, King Piyadasi, records his remorse at the killing and deportation caused by his conquest of Kalinga,<sup class=\"fn\" data-fn=\"3\"></sup> and urges dhamma, a public morality of restraint, care for living things and forbearance between religions.<sup class=\"fn\" data-fn=\"4\"></sup> He supported the Buddhist order and later tradition remembered him as its great patron, though the edicts appoint officers to work among people of every religion.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Edicts_of_Ashoka": "The Edicts of Ashoka are a group of inscriptions cut into rock faces and free-standing stone pillars in the 3rd century BCE, found at more than thirty places across India, Nepal, Pakistan and Afghanistan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> They are the earliest corpus of written documents from India that can be read: nearly all in Prakrit and mostly in Brahmi script, with one bilingual edict in Afghanistan written in Aramaic and Greek.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Issued in the first person by a king who calls himself \"Beloved-of-the-Gods, King Piyadasi\", they proclaim dhamma, record particular acts of the reign, and are dated by his regnal years.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Third_Buddhist_Council": "The Third Buddhist Council is a gathering that the Pali chronicles place at Pataliputra in the nineteenth year from Ashoka's coronation, held under his patronage and presided over by the monk Moggaliputta Tissa.<sup class=\"fn\" data-fn=\"1\"></sup> It was called by sectarian differences, among which as many as eighteen divisions are named, deliberated for nine months and decided for the school of the Sthaviras, which afterwards prevailed in Ceylon.<sup class=\"fn\" data-fn=\"1\"></sup> The canon is said to have been closed on the occasion and the Kathavatthu composed at it; the northern Buddhist texts ignore the council, so it is known from one tradition only.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Stupa": "A stupa is a solid domed monument built over relics, set on a plinth with a narrow ledge between the two that serves as a processional path; it is walked round rather than entered.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The earliest account has the Buddha's relics divided among princes and nobles at his death, each of whom raised one and instituted a festival, a cult left to the laity rather than to the order.<sup class=\"fn\" data-fn=\"1\"></sup> At the Great Stupa at Sanchi the dome is almost hemispherical and stands about 16 metres (54 feet) high without its crowning umbrella, which sits inside a square stone rail, while a massive rail rings the base.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Stupa": "A stupa is a solid domed monument built over relics, set on a plinth with a narrow ledge between the two that serves as a processional path; it is walked round rather than entered.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The earliest account has the Buddha's relics divided among princes and nobles at his death, each of whom raised one and instituted a festival, a cult left to the laity rather than to the order.<sup class=\"fn\" data-fn=\"1\"></sup> At the Great Stupa at Sanchi the dome is almost hemispherical and stands about 16 metres (54 feet) high without its crowning umbrella, which sits inside a square stone rail, while a massive rail rings the base.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Indo-Greek_Kingdom": "The Indo-Greek Kingdom is the modern name for the states that Greek rulers of Bactria established south of the Hindu Kush from the early 2nd century BCE, in the Kabul valley, the north-west frontier and the Punjab.<sup class=\"fn\" data-fn=\"1\"></sup> They are known almost entirely from coins: the legends of about thirty kings and two queens, many of them bilingual, with Greek on one face and an Indian language and alphabet on the other.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The best remembered of their rulers is Menander, identified with the Milinda of the Pali <i>Milindapanha</i>, in which he questions the elder Nagasena and is converted.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2634,7 +2635,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Chandragupta_Maurya": "c. 321 – 297 BCE",
 "Ashoka": "c. 274 – 236 BCE",
 "Edicts_of_Ashoka": "c. 259 – 243 BCE",
-"Third_Buddhist_Council": "3rd century BCE"
+"Third_Buddhist_Council": "3rd century BCE",
+"Indo-Greek_Kingdom": "2nd – 1st century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3746,7 +3748,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chandragupta_Maurya": ["Sandrocottus"],
 "Arthashastra": ["Arthasastra"],
 "Ashoka": ["Asoka"],
-"Edicts_of_Ashoka": ["Ashokan edicts"]
+"Edicts_of_Ashoka": ["Ashokan edicts"],
+"Indo-Greek_Kingdom": ["Indo-Greek kingdoms"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5585,7 +5588,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ashoka": ["ruler","person","history","politics","india","buddhism"],
 "Edicts_of_Ashoka": ["text","object","history","politics","writing","india"],
 "Third_Buddhist_Council": ["event","religion","history","buddhism","india"],
-"Stupa": ["building","object","religion","buddhism","india","art"]
+"Stupa": ["building","object","religion","buddhism","india","art"],
+"Indo-Greek_Kingdom": ["state","history","politics","greece","india","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
