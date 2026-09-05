@@ -2064,7 +2064,10 @@ window.GLOSSARY = {
 "Mina_(unit)": "A <b>mina</b> was a unit of weight and of money in the ancient Mediterranean and Near East, standing between the small everyday coin and the very large sums reckoned in talents.<sup class=\"fn\" data-fn=\"1\"></sup> Sixty minae made a talent, and in Greek reckoning a mina of silver came to a hundred drachmae, so it was a substantial but not extraordinary amount, the sort of figure used for a fine, a ransom, a dowry or the property qualification that admitted a man to an office.<sup class=\"fn\" data-fn=\"1\"></sup> Like the talent above it, its real weight varied with the standard a given state used.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Drachma": "The <b>drachma</b> was the principal silver coin of the Greek world and the unit most ordinary prices and wages were counted in.<sup class=\"fn\" data-fn=\"1\"></sup> The word first meant a weight, and it stayed one: a drachma was the six-thousandth part of a talent, was itself divided into six obols, and the name is said to come from a handful, of the iron spits that money was reckoned in before coins.<sup class=\"fn\" data-fn=\"1\"></sup> Cities struck it to different weight standards, the Attic and the Aeginetan being the two that mattered most, and the four-drachma piece is the denomination that survives in the greatest numbers.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Obol": "An <b>obol</b> was the smallest ordinary silver coin of the Greek world, six of them making one drachma.<sup class=\"fn\" data-fn=\"1\"></sup> Because it was small it is the unit that everyday payments are quoted in, from a day's public pay to the price of a cheap seat, and cities struck fractions of it down to a quarter, coins so tiny they were carried in the mouth.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The name means a spit or skewer, a reminder that iron spits were handled as money before coinage, and bundles of them have been found dedicated in sanctuaries.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Stater": "A <b>stater</b> was the chief coin of an early Greek currency system, and the name means simply a standard, of weight as much as of money.<sup class=\"fn\" data-fn=\"1\"></sup> In silver it was normally the two-drachma piece, and when gold began to be struck the word was carried over to the principal gold coin, which in most places was cut to the Attic standard.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus names the Lydians as the first people known to have coined and used gold and silver money, and because cities went on using different weight standards, staters of the same name could differ from place to place.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Stater": "A <b>stater</b> was the chief coin of an early Greek currency system, and the name means simply a standard, of weight as much as of money.<sup class=\"fn\" data-fn=\"1\"></sup> In silver it was normally the two-drachma piece, and when gold began to be struck the word was carried over to the principal gold coin, which in most places was cut to the Attic standard.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus names the Lydians as the first people known to have coined and used gold and silver money, and because cities went on using different weight standards, staters of the same name could differ from place to place.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Terracotta": "<b>Terracotta</b> is fired clay used unglazed, the material of most ancient pottery, of moulded figurines, and of a great deal of building work besides.<sup class=\"fn\" data-fn=\"1\"></sup> Because clay is cheap, plentiful and takes a mould, it could be turned out in quantity, and the Greeks used it for roof tiles of many shapes and sizes, for water pipes and drains, for paving, and for the moulded facings that protected and decorated the timber parts of a roof.<sup class=\"fn\" data-fn=\"1\"></sup> Fired clay survives burial far better than wood, cloth or metal, so terracotta objects make up much of what excavation recovers.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Stoa": "A <b>stoa</b> is a long covered walk with a roof carried on a row of columns down its open side and a solid wall down the other.<sup class=\"fn\" data-fn=\"1\"></sup> It is the simplest way of giving shelter to a public space, and stoas were built around marketplaces and sanctuaries to house shops, offices, dedications and paintings, and to give people somewhere out of the sun and rain to stand and talk.<sup class=\"fn\" data-fn=\"2\"></sup> Larger examples were built two storeys high and with a second interior row of columns, and the type went on being built long after the classical period.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Libation": "A <b>libation</b> is a liquid poured out as an offering to a god, a spirit or the dead, and it is among the commonest religious acts of the ancient world.<sup class=\"fn\" data-fn=\"1\"></sup> Wine was usual, sometimes mixed with water, and honey, milk and oil were used as well, poured from a cup or a shallow bowl onto an altar, a hearth, a grave or the ground.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Because it needed no priest and no animal it could be made by anyone, at a departure, at the start of a meal or before a battle, which is why poured offerings appear so often in poetry and on painted pottery.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4167,7 +4170,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mina_(unit)": ["mina","minae","minas"],
 "Drachma": ["drachma","drachmae","drachmas"],
 "Obol": ["obol","obols","obolus","oboli"],
-"Stater": ["stater","staters"]
+"Stater": ["stater","staters"],
+"Terracotta": ["terracotta","terra-cotta","terracottas"],
+"Stoa": ["stoa","stoas","stoai"],
+"Libation": ["libation","libations"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6266,7 +6272,10 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mina_(unit)": ["unit","economy","history","greece"],
 "Drachma": ["unit","economy","object","history","greece"],
 "Obol": ["unit","economy","object","history","greece"],
-"Stater": ["unit","economy","object","history","greece"]
+"Stater": ["unit","economy","object","history","greece"],
+"Terracotta": ["object","technology","art","archaeology","architecture"],
+"Stoa": ["building","architecture","greece","history"],
+"Libation": ["practice","religion","history","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
