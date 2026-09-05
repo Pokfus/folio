@@ -1901,7 +1901,8 @@ window.GLOSSARY = {
 "Road_Town": "Road Town, on the island of Tortola, is the capital of the British Virgin Islands, a United Kingdom overseas territory in the Caribbean that the United Nations credits with about 40,000 people on 151 square kilometres.<sup class=\"fn\" data-fn=\"1\"></sup> It is the seat of a government in which a Governor represents the British government while an elected Premier and Cabinet run the territory's day-to-day affairs, under the Virgin Islands Constitution Order 2007.<sup class=\"fn\" data-fn=\"2\"></sup> Its harbour is the islands' commercial centre, and the town was among the places wrecked when Hurricane Irma crossed the territory on 6 September 2017, after which the Governor declared a state of emergency.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Majuro": "Majuro, on Majuro Atoll in the central Pacific, is the capital of the Marshall Islands, a republic of 29 coral atolls and five islands lying about midway between Hawaii and Australia.<sup class=\"fn\" data-fn=\"1\"></sup> The United Nations credits the country with about 36,000 people on 181 square kilometres (70 sq mi) and puts the capital's own population at 30,700 in 2018.<sup class=\"fn\" data-fn=\"2\"></sup> It is the seat of a government that adopted its constitution in 1979 and entered a Compact of Free Association with the United States in 1986, under which the United States defends the country and provides aid in return for strategic access.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "San_Marino_(city)": "San Marino is the capital of the Republic of San Marino, an old town on the crest of Monte Titano in the hills enclosed by Italy near the Adriatic coast.<sup class=\"fn\" data-fn=\"1\"></sup> Its Palazzo Pubblico, on Piazza della Libertà, is the seat of the republic's principal institutions: the office of the Captains Regent, who are the heads of state, the Grand and General Council with its committees, and the Congress of State, which is the government.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations put the town's own population at 4,500 in 2018, a small fraction of the roughly 34,000 people of the republic, most of whom live elsewhere in the republic.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Mariehamn": "Mariehamn, founded in 1861, is the capital and the only town of Åland, an autonomous, demilitarised and Swedish-speaking region of Finland.<sup class=\"fn\" data-fn=\"1\"></sup> Åland's statistics office counted 11,957 of the region's 30,836 residents there at the end of 2025, so more than a third of the islanders live in the town while the rest are spread across the countryside and the archipelago.<sup class=\"fn\" data-fn=\"2\"></sup> It is the seat of Åland's parliament and government, which share the Självstyrelsegården on Strandgatan, a building opened in 1978 after a Nordic architectural competition won by Helmer Stenros of Helsinki.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Mariehamn": "Mariehamn, founded in 1861, is the capital and the only town of Åland, an autonomous, demilitarised and Swedish-speaking region of Finland.<sup class=\"fn\" data-fn=\"1\"></sup> Åland's statistics office counted 11,957 of the region's 30,836 residents there at the end of 2025, so more than a third of the islanders live in the town while the rest are spread across the countryside and the archipelago.<sup class=\"fn\" data-fn=\"2\"></sup> It is the seat of Åland's parliament and government, which share the Självstyrelsegården on Strandgatan, a building opened in 1978 after a Nordic architectural competition won by Helmer Stenros of Helsinki.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Marigot,_Saint_Martin": "Marigot is the capital of Saint Martin, the French northern part of a small Caribbean island shared with the Dutch territory of Sint Maarten, which the French collectivity calls the smallest landmass in the world divided between two independent states.<sup class=\"fn\" data-fn=\"1\"></sup> The town has been the island's administrative seat since the colonial period: Saint-Martin, with its seat at Marigot, was made one of Guadeloupe's first five municipalities on 29 January 1823, and a colonial decree of 20 September 1837 created a commune of Marigot.<sup class=\"fn\" data-fn=\"2\"></sup> It is now the seat of the Collectivity of Saint-Martin, which islanders voted for in 2003 and parliament created by organic law in 2007.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3780,7 +3781,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Saint_John's": ["St John's, Antigua","St. John's, Antigua"],
 "Saint_Peter_Port": ["St Peter Port","St. Peter Port"],
 "Tórshavn": ["Torshavn"],
-"San_Marino_(city)": ["City of San Marino"]
+"San_Marino_(city)": ["City of San Marino"],
+"Marigot,_Saint_Martin": ["Marigot"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5710,7 +5712,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Road_Town": ["place","city","geography","capital","british virgin islands","caribbean"],
 "Majuro": ["place","city","geography","capital","marshall islands","oceania"],
 "San_Marino_(city)": ["place","city","geography","capital","san marino","europe"],
-"Mariehamn": ["place","city","geography","capital","aland","europe"]
+"Mariehamn": ["place","city","geography","capital","aland","europe"],
+"Marigot,_Saint_Martin": ["place","city","geography","capital","saint martin","caribbean"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
