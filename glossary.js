@@ -1832,7 +1832,8 @@ window.GLOSSARY = {
 "Han_dynasty": "The <b>Han dynasty</b> ruled China for roughly four centuries, from 206 BCE to 220 CE, interrupted only by Wang Mang’s Xin dynasty of 9 to 23 CE, which divides it into the Western or Former Han and the Eastern or Later Han.<sup class=\"fn\" data-fn=\"1\"></sup> It was the first dynasty of a unified China to outlive its founder, and most of the lasting characteristics of the imperial Chinese state and of Chinese society were settled during it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its mark went deep enough that the Chinese still take their ethnic name from it, and its scholars fixed both the classical texts and the categories in which earlier thought has been discussed ever since.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Silk_Road": "The <b>Silk Road</b> is the modern name for the network of overland and maritime routes along which goods, people, ideas and diseases moved between China, Central Asia, India, Iran and the Mediterranean.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was never one road: the geographer who coined <i>die Seidenstrasse</i> in 1877 used the plural as readily as the singular, warning that no route was the only one or even the most important.<sup class=\"fn\" data-fn=\"1\"></sup> Its mountain sections follow paths worn by centuries of seasonal herding rather than laid out by any state, and a latrine at a Han relay station has yielded the eggs of a parasite carried there from at least 1,500 kilometres (930 miles) away.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Scholar-official": "A <b>scholar-official</b> was one of the ranked and salaried men, schooled in the classics, through whom the Chinese empire was administered.<sup class=\"fn\" data-fn=\"1\"></sup> Han emperors founded central schools and began bringing scholars into government by examination, on a far smaller scale than later dynasties would, and by the Song these <i>shi dafu</i> stood at the centre of political life, with entry turning on a doctoral concours in which prose style alone could disqualify a candidate.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The post carried a duty as well as a career, since under every dynasty an official could send up a memorial criticising the emperor’s own decisions, a practice called remonstrance and distinct from the censure of subordinates.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Papermaking": "<b>Papermaking</b> macerates plant fibre into a pulp and mats a thin layer of it into a sheet, giving a writing surface that is cheap to make and light to carry.<sup class=\"fn\" data-fn=\"1\"></sup> Its raw materials have included tree bark, hemp, ramie, rags and worn-out fishing nets, and the oldest sheets that survive are of hemp fibre with a little ramie mixed in.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> What a sheet was made of, and how, stays legible in it long afterwards, so that the fibres and the make of the paper a manuscript is written on can be used to date the manuscript itself.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Papermaking": "<b>Papermaking</b> macerates plant fibre into a pulp and mats a thin layer of it into a sheet, giving a writing surface that is cheap to make and light to carry.<sup class=\"fn\" data-fn=\"1\"></sup> Its raw materials have included tree bark, hemp, ramie, rags and worn-out fishing nets, and the oldest sheets that survive are of hemp fibre with a little ramie mixed in.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> What a sheet was made of, and how, stays legible in it long afterwards, so that the fibres and the make of the paper a manuscript is written on can be used to date the manuscript itself.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"End_of_the_Han_dynasty": "The <b>end of the Han dynasty</b> ran from the Yellow Turban rising of 184 CE to the abdication of the last emperor in 220, when the throne passed to the son of the warlord who had been holding him.<sup class=\"fn\" data-fn=\"1\"></sup> The court had already been paralysed by the sale of offices and by a struggle between the palace eunuchs and the officials that ended in 189 with a massacre inside the palace and the seizure of the capital by a general from the frontier.<sup class=\"fn\" data-fn=\"1\"></sup> The emperor reigned on for three decades as a prisoner and a prize fought over by rival commanders, and a long period of disunity followed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2673,7 +2674,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Qin_Shi_Huang": "259 – 210 BCE",
 "Qin_dynasty": "221 – 206 BCE",
 "Terracotta_Army": "buried by 210 BCE",
-"Han_dynasty": "206 BCE – 220 CE"
+"Han_dynasty": "206 BCE – 220 CE",
+"End_of_the_Han_dynasty": "184 – 220 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3807,7 +3809,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Han_dynasty": ["Han empire","Western Han","Eastern Han","Former Han","Later Han"],
 "Silk_Road": ["Silk Routes"],
 "Scholar-official": ["shi dafu","scholar official"],
-"Papermaking": ["paper making","papermaker"]
+"Papermaking": ["paper making","papermaker"],
+"End_of_the_Han_dynasty": ["fall of the Han dynasty","fall of the Han","end of the Han"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5670,7 +5673,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Han_dynasty": ["dynasty","state","history","china","politics","iron age"],
 "Silk_Road": ["concept","history","geography","china","asia","migration"],
 "Scholar-official": ["title","institution","politics","history","china","practice"],
-"Papermaking": ["practice","technology","object","science","history"]
+"Papermaking": ["practice","technology","object","science","history"],
+"End_of_the_Han_dynasty": ["event","history","politics","china","warfare","han dynasty"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
