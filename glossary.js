@@ -1838,7 +1838,8 @@ window.GLOSSARY = {
 "Chinese_Buddhism": "Chinese Buddhism is the body of doctrine, practice and writing that grew out of the transmission of the religion from India and Central Asia into China, where it took root through the translation of sutras from the 1st century CE onwards.<sup class=\"fn\" data-fn=\"3\"></sup> It flourished in the centuries of disunity after the Han, and Yang Xuanzhi's memoir of about 545 describes some forty great monasteries at Luoyang between 494 and 534.<sup class=\"fn\" data-fn=\"2\"></sup> China's official dynastic histories were slow to treat it as a subject in itself, so most of what is known comes instead from the Buddhist canon and from the manuscripts recovered at Dunhuang and Turfan.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Kingdom_of_Kush": "The Kingdom of Kush was the state of the middle Nile, in what is now northern Sudan, whose kings and queens ruled hundreds of kilometres of the upper Nile valley.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings descended from local Nubian chiefs who had built an independent state in the 9th century BCE, and between about 750 and 650 BCE they ruled Egypt too, as its 25th dynasty.<sup class=\"fn\" data-fn=\"1\"></sup> Historians divide its history into a Napatan phase, centred below the holy mountain of Gebel Barkal near the Fourth Cataract, and a Meroitic one, though the name Kush is far older than the kingdom and is first attested about 1925 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Meroë": "Meroë was the royal city of the kingdom of Kush, on the middle Nile in what is now Sudan, and it gave its name both to the Meroitic period, the later and longer of the kingdom’s two phases, and to Meroitic, the chief tongue of the middle Nile in antiquity.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Kings and queens were buried in cemeteries beside the city, and the southern royal necropolis is where the change from the earlier Napatan phase can be followed.<sup class=\"fn\" data-fn=\"1\"></sup> It stood among temples of Amun, one of them at el-Hassa some 25 km (16 miles) to the south, which has a processional way and a ceremonial palace of its own.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Kingdom_of_Aksum": "The Kingdom of Aksum was a highland state centred on the town of Aksum, in what is now the Tigray region of northern Ethiopia, where a civilisation flourished for some 850 years between 150 BCE and 700 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Its builders carved and raised the largest stelae on earth, the greatest of them 33 m (108 feet) tall and weighing 520 tons, hauled 5 km (3 miles) from the hills of Gobo Dura.<sup class=\"fn\" data-fn=\"1\"></sup> It struck its own gold and silver coinage, and the conversion of its king Ezana in the middle of the 4th century marks the beginning of the Christian era in Ethiopia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Kingdom_of_Aksum": "The Kingdom of Aksum was a highland state centred on the town of Aksum, in what is now the Tigray region of northern Ethiopia, where a civilisation flourished for some 850 years between 150 BCE and 700 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Its builders carved and raised the largest stelae on earth, the greatest of them 33 m (108 feet) tall and weighing 520 tons, hauled 5 km (3 miles) from the hills of Gobo Dura.<sup class=\"fn\" data-fn=\"1\"></sup> It struck its own gold and silver coinage, and the conversion of its king Ezana in the middle of the 4th century marks the beginning of the Christian era in Ethiopia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Nok_culture": "The Nok culture is an archaeological culture of central Nigeria whose sites are dated from about 1500 to about 1 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It is known above all for terracotta figures of people and animals, the earliest large figurative sculpture made in Africa outside Egypt, the first of them appearing about 900 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its sites also carry early evidence of iron working in West Africa and plant remains dominated by pearl millet, which arrived already threshed and has been read as feasting rather than everyday settlement, while acid soils have destroyed all bone and left it unknown whether its people kept animals.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2683,7 +2684,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "End_of_the_Han_dynasty": "184 – 220 CE",
 "Three_Kingdoms": "220 – 280 CE",
 "Kingdom_of_Kush": "c. 900 BCE – c. 350 CE",
-"Kingdom_of_Aksum": "c. 150 BCE – c. 700 CE"
+"Kingdom_of_Aksum": "c. 150 BCE – c. 700 CE",
+"Nok_culture": "c. 1500 – 1 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3823,7 +3825,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chinese_Buddhism": ["Buddhism in China"],
 "Kingdom_of_Kush": ["Kushite","Kushites"],
 "Meroë": ["Meroe"],
-"Kingdom_of_Aksum": ["Aksum","Axum","Aksumite"]
+"Kingdom_of_Aksum": ["Aksum","Axum","Aksumite"],
+"Nok_culture": ["Nok"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5692,7 +5695,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chinese_Buddhism": ["religion","concept","practice","china","history","literature"],
 "Kingdom_of_Kush": ["state","history","africa","sudan","egypt","iron age"],
 "Meroë": ["city","place","history","africa","sudan","iron age"],
-"Kingdom_of_Aksum": ["state","history","africa","ethiopia","religion","iron age"]
+"Kingdom_of_Aksum": ["state","history","africa","ethiopia","religion","iron age"],
+"Nok_culture": ["culture","history","africa","nigeria","art","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
