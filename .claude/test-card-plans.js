@@ -104,6 +104,29 @@ const ok = (m, extra) => { pass++; console.log("ok    " + m + (extra ? "  " + ex
 const no = (m, extra) => { fail++; console.log("FAIL  " + m + (extra ? "  " + extra : "")); };
 const is = (cond, m, extra) => (cond ? ok(m, extra) : no(m, extra));
 
+/* ---- data.js's own card array ---- */
+/* A HOLE IN `CARD_DATA` IS INVISIBLE TO EVERY OTHER CHECK AND BREAKS THE WHOLE SITE (Sep 2026).
+ * A stray second comma in the array literal — `…}, ,{…}` — is VALID JavaScript: it makes a sparse
+ * array, so `node --check` passes, and `map`/`forEach`/`filter` all SKIP holes, so the card count,
+ * the citation audits and every suite here went on reporting healthy figures. app.js builds
+ * `CARD_BY_ID` with an iterator, which does NOT skip a hole: it yields `undefined`, `new Map` throws
+ * "Iterator value undefined is not an entry object" at boot, and the reader gets a page with nothing
+ * on it but the nav bar. Found when add-images.js threw the same error; it had shipped in a commit
+ * whose browser check had been run BEFORE the diff was tidied. Iterate with a plain index — a `for
+ * … of` here would skip nothing but a `.map` would, which is the whole point. */
+{
+  const n = CARDS.length;
+  const holes = [];
+  for (let i = 0; i < n; i++) if (!(i in CARDS)) holes.push(i);
+  is(holes.length === 0, "CARD_DATA has no holes  (a stray comma makes a sparse array and breaks boot)",
+     holes.length ? holes.length + " at index " + holes.slice(0, 5).join(", ") : n + " entries");
+  const ids = [];
+  for (let i = 0; i < n; i++) if (i in CARDS) ids.push(CARDS[i].id);
+  const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
+  is(dupes.length === 0, "every card id in data.js is unique",
+     dupes.length ? [...new Set(dupes)].slice(0, 5).join(", ") : ids.length + " ids");
+}
+
 /* ---- the tree ---- */
 const leafOf = new Map();   // leaf id → collection id
 const nodeOf = new Map();   // any node id → collection id
