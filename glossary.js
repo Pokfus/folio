@@ -2061,7 +2061,8 @@ window.GLOSSARY = {
 "Hannibal's_crossing_of_the_Alps": "Hannibal's crossing of the Alps was the passage of a Carthaginian army from the Rhone valley into the plain of the Po in 218 BCE, by which the second war with Rome was carried into Italy.<sup class=\"fn\" data-fn=\"1\"></sup> It took fifteen days: nine climbing under attack from tribes who rolled rocks from the slopes above, two resting on the snowbound summit, and the rest descending a path so narrow that a stumble was fatal and so blocked by a landslip that the elephants took three days to pass it.<sup class=\"fn\" data-fn=\"2\"></sup> The losses in men and animals were heavy, and the army that reached flat country numbered 20,000 foot and 6,000 horse.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "War_elephant": "A war elephant was a trained animal used in battle as a shock weapon, driven by a mahout on its neck and often carrying a platform of men armed with pikes.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient writers distinguished the African from the Indian kind, reporting that the smaller African animals would not close with Indian ones, unable to bear their smell and trumpeting, and that a panicked line broke the army behind it as readily as the enemy in front.<sup class=\"fn\" data-fn=\"1\"></sup> Against unprepared infantry they could decide a battle by trampling the front ranks, but troops who learned to open lanes and to frighten them with noise took little harm from them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_the_Ticinus": "The Battle of the Ticinus was a cavalry engagement fought near the Po in 218 BCE, the first meeting between Hannibal's army and a Roman one in Italy.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a reconnaissance by both commanders in person and was decided when Numidian horse, held back on the wings, came round into the Roman rear, breaking the cavalry and riding down the light infantry; the Roman commander was wounded and carried off.<sup class=\"fn\" data-fn=\"1\"></sup> The consequences outweighed the losses: the Romans withdrew behind the Po and then to the Trebia, while the Celts of the region, including troops serving in the Roman camp, went over to the Carthaginians.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Battle_of_the_Trebia": "The Battle of the Trebia was fought in northern Italy near the winter solstice of 218 BCE and was Hannibal's first full victory over a Roman army.<sup class=\"fn\" data-fn=\"1\"></sup> It was brought on deliberately: light horse drew the Romans out at daybreak unfed, so that they crossed a river swollen to breast height in snow against an enemy that had eaten and armed beside its fires.<sup class=\"fn\" data-fn=\"2\"></sup> A picked force of a thousand horse and a thousand foot, hidden overnight in a brambled watercourse on open ground, came out into the Roman rear once the lines engaged; about 10,000 men broke through the centre and reached Placentia, and most of the rest died.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Battle_of_the_Trebia": "The Battle of the Trebia was fought in northern Italy near the winter solstice of 218 BCE and was Hannibal's first full victory over a Roman army.<sup class=\"fn\" data-fn=\"1\"></sup> It was brought on deliberately: light horse drew the Romans out at daybreak unfed, so that they crossed a river swollen to breast height in snow against an enemy that had eaten and armed beside its fires.<sup class=\"fn\" data-fn=\"2\"></sup> A picked force of a thousand horse and a thousand foot, hidden overnight in a brambled watercourse on open ground, came out into the Roman rear once the lines engaged; about 10,000 men broke through the centre and reached Placentia, and most of the rest died.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Lake_Trasimene": "The Battle of Lake Trasimene was an ambush in Etruria in 217 BCE in which Hannibal destroyed a Roman consular army on the march.<sup class=\"fn\" data-fn=\"1\"></sup> He had judged the consul rash and vain, and provoked him by burning the country beyond his camp so that he would pursue without waiting for the other consular army; the road he took ran between high hills and the lake, closed at the far end by a steep hill.<sup class=\"fn\" data-fn=\"2\"></sup> Attacked from every side in morning mist, the column was cut to pieces in marching order, the consul killed and about 15,000 men dead, some drowned or dispatched in the shallows.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2899,7 +2900,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hannibal": "born c. 247 BCE",
 "Hannibal's_crossing_of_the_Alps": "218 BCE",
 "Battle_of_the_Ticinus": "218 BCE",
-"Battle_of_the_Trebia": "218 BCE"
+"Battle_of_the_Trebia": "218 BCE",
+"Battle_of_Lake_Trasimene": "217 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4168,7 +4170,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hannibal's_crossing_of_the_Alps": ["crossing of the Alps"],
 "War_elephant": ["war elephants"],
 "Battle_of_the_Ticinus": ["Ticinus"],
-"Battle_of_the_Trebia": ["Trebia"]
+"Battle_of_the_Trebia": ["Trebia"],
+"Battle_of_Lake_Trasimene": ["Trasimene","Lake Trasimene"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6262,7 +6265,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hannibal's_crossing_of_the_Alps": ["event","history","warfare","africa","rome"],
 "War_elephant": ["animal","warfare","history","technology","africa"],
 "Battle_of_the_Ticinus": ["battle","history","warfare","rome","africa"],
-"Battle_of_the_Trebia": ["battle","history","warfare","rome","africa"]
+"Battle_of_the_Trebia": ["battle","history","warfare","rome","africa"],
+"Battle_of_Lake_Trasimene": ["battle","history","warfare","rome","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
