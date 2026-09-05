@@ -42,11 +42,11 @@ const want = (n) => !ruleOnly || String(n) === ruleOnly;
 const BY_NAME = {};
 CARDS.forEach((c) => { if (/^(gw|geo|gc)-/.test(c.id) && c.answerText) BY_NAME[c.answerText] = c; });
 const popNum = (v) => {
-  const m = String(v).replace(/,/g, "").match(/([\d.]+)\s*(million|billion|M|k)?/i);
+  const m = String(v).replace(/,/g, "").match(/([\d.]+)\s*(million|billion|B|M|k)?/i);
   if (!m) return null;
   let x = parseFloat(m[1]); const u = (m[2] || "").toLowerCase();
   if (u === "million" || u === "m") x *= 1e6;
-  if (u === "billion") x *= 1e9;
+  if (u === "billion" || u === "b") x *= 1e9;
   if (u === "k") x *= 1e3;
   return x;
 };
@@ -145,17 +145,52 @@ if (want(4)) {
   }
 }
 
-/* 5. THE DATE LINE AND THE BACKGROUND MUST AGREE. A proxy: every four-digit year the date line states
-   should appear in the background, or the card is telling a reader two different stories. Reported, not
-   enforced — a date line may legitimately carry a figure the prose has no room for. */
+/* 5. THE DATE LINE AND THE BACKGROUND MUST NOT CONTRADICT EACH OTHER. The rule is agreement, not
+   repetition: a date line is a summary and a 300-word background cannot restate every year in it, so an
+   ABSENT year is no finding at all — the first cut of this rule reported 92 of them and every one was a
+   card whose prose simply had no room. What IS a finding is the same EVENT dated twice, differently. So
+   each date-line row is matched to the background sentence that talks about the same thing, by the row's
+   own label, and the two are compared. */
+const EVENT = [
+  [/independen/i, /independen/i],
+  [/recognition|recognised|recognized/i, /recogni[sz]/i],
+  [/membership|UN member/i, /joined the United Nations|United Nations on|admitted to the United Nations/i],
+  [/statehood/i, /statehood|became a state|admitted to the Union/i],
+  [/founded|founding/i, /founded|foundation/i],
+  [/settled|settlement/i, /settled|settlement/i],
+  [/capital since|became capital|capital moved|move/i, /capital/i],
+  [/constitution/i, /constitution/i],
+  [/census/i, /census/i],
+];
 if (want(5)) {
-  head(5, "Date line ↔ background agreement (proxy)");
+  head(5, "Date line \u2194 background \u2014 the same event dated twice, differently");
   for (const d of GEO) for (const id of d.cardIds) {
     const c = BY[id];
-    const dl = strip(c.answerDate), ab = strip(c.abstract);
-    const years = [...new Set((dl.match(/\b(1[0-9]{3}|20[0-9]{2})\b/g) || []))];
-    const absent = years.filter((y) => !ab.includes(y));
-    if (absent.length) say(5, false, id, "date line year(s) " + absent.join(", ") + " appear nowhere in the background");
+    const ab = strip(c.abstract);
+    const sentences = ab.split(/(?<=\.)\s+/);
+    const rows = [...String(c.answerDate || "").matchAll(/dt-k">([^<]*)<\/span><span class="dt-v">([^<]*)</g)];
+    for (const [, label, value] of rows) {
+      const ys = (value.match(/\b(1[0-9]{3}|20[0-9]{2})\b/g) || []);
+      if (!ys.length) continue;
+      const pair = EVENT.find((e) => e[0].test(label));
+      if (!pair) continue;
+      /* THE YEAR MUST DATE THE EVENT, not merely share a sentence with it. Requiring a dating
+         preposition and a short gap is what separates "independent on 12 December 1963" from "joined the
+         Commonwealth in 1972 after independence" — the loose form reported 56 findings of which every one
+         sampled was the second shape. */
+      const near = new RegExp("(?:" + pair[1].source + ")[^.]{0,60}?\\b(?:in|on|of|since|until|from)\\s+(?:\\d{1,2}\\s+[A-Z][a-z]+\\s+)?(?<yr>1[0-9]{3}|20[0-9]{2})\\b", "gi");
+      const prose = [];
+      for (const t of sentences) { let m; near.lastIndex = 0; while ((m = near.exec(t))) prose.push(m.groups.yr); }
+      if (!prose.length) continue;
+      /* REPORTED, NEVER ENFORCED, and the measurement is why. Sampled across the whole corpus this rule
+         is dominated by false positives — the sentence that mentions the event also mentions a NEIGHBOUR
+         event with its own date ("Capital since 1963" against a Capital Development Authority founded in
+         1960; "Constitution 1 January 2009" against a constitution approved in 2008 and in force on that
+         very day). Every card sampled agreed with its own date line. So this is a list to read, and a
+         checker that cries wolf is one nobody runs. */
+      if (!ys.some((y) => prose.includes(y)))
+        say(5, false, id, "\u201c" + label.trim() + " " + value.trim() + "\u201d, but the background dates that event " + prose.join("/"));
+    }
   }
 }
 
