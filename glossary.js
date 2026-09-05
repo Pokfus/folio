@@ -2072,7 +2072,8 @@ window.GLOSSARY = {
 "Locarno_Treaties": "The <b>Locarno Treaties</b> were the agreements concluded at Locarno in Switzerland on 16 October 1925, in which Germany, France and Belgium guaranteed the frontiers between them as fixed at Versailles together with the demilitarised Rhineland, with Britain and Italy signing as guarantors.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Arbitration treaties bound Germany to settle disputes with France, Belgium, Poland and Czechoslovakia before an international commission, but Germany gave no such guarantee of its eastern frontier and kept the revision of the Polish border open.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The settlement ended German diplomatic isolation and brought the country into the League of Nations in 1926, and it held until German troops entered the demilitarised Rhineland in March 1936.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Kellogg–Briand_Pact": "The <b>Kellogg-Briand Pact</b>, signed in Paris on 27 August 1928 and also called the Pact of Paris, was a treaty in which the signatories condemned recourse to war, renounced it as an instrument of national policy, and agreed to settle their disputes by peaceful means alone.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Fifteen states signed it and sixty-three had joined by 1929, but it covered only wars of aggression rather than acts of self-defence, which it never defined, and it created no machinery to enforce itself.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> It was tested when Japan invaded Manchuria in 1931, appeals under it proved ineffective, and it did little to prevent the war it had been written against.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Golden_Twenties": "The <b>Golden Twenties</b> is the name given to the years of recovery in Germany between the end of the hyperinflation in 1923 and the crash of 1929, when a stable currency and foreign loans lifted output by half and rebuilt industry on American lines.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Cinema and spectator sport became mass entertainments, appliances and ready-made clothes were sold as ways of saving time, and a national unemployment insurance of 1927 gave workers a legal right to support.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> The name is one its users qualify, since society stayed deeply divided and want was widespread among working families throughout, and the recovery rested on foreign borrowing that the crash took away.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
-"Genoa_Conference_(1922)": "The <b>Genoa Conference</b> was an international economic conference of some thirty countries held in Genoa in April 1922, convened by the British prime minister chiefly to bring Soviet Russia back into the European economic and political order.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The United States declined to attend, partly because it would not deal with a Russian government it had not recognised since 1917, and the German delegation arrived fearing exclusion from the main business.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> While it sat, Germany and Soviet Russia negotiated separately at Rapallo nearby, restoring relations and waiving their war claims, which angered the Allied powers and left the wider settlement unmade.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Genoa_Conference_(1922)": "The <b>Genoa Conference</b> was an international economic conference of some thirty countries held in Genoa in April 1922, convened by the British prime minister chiefly to bring Soviet Russia back into the European economic and political order.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The United States declined to attend, partly because it would not deal with a Russian government it had not recognised since 1917, and the German delegation arrived fearing exclusion from the main business.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> While it sat, Germany and Soviet Russia negotiated separately at Rapallo nearby, restoring relations and waiving their war claims, which angered the Allied powers and left the wider settlement unmade.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Treaty_of_Rapallo_(1922)": "The <b>Treaty of Rapallo</b> was signed on 16 April 1922 between Germany and Soviet Russia, two states then isolated in Europe, restoring diplomatic relations, easing trade and having each renounce the costs and damages of the war.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Germany also gave up its claim to German property the Soviet state had nationalised, and the mutual renunciation disposed of the article of the Treaty of Versailles under which Russia could have claimed German reparations.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Western powers feared it called the postwar settlement into question and pointed towards another partition of Poland, and the Berlin Treaty of 1926 carried the rapprochement further, promising neutrality if either were attacked.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2924,7 +2925,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Locarno_Treaties": "1925",
 "Kellogg–Briand_Pact": "1928",
 "Golden_Twenties": "1924–1929",
-"Genoa_Conference_(1922)": "1922"
+"Genoa_Conference_(1922)": "1922",
+"Treaty_of_Rapallo_(1922)": "1922"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4194,7 +4196,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Locarno_Treaties": ["Locarno Pact","Locarno treaties","Treaty of Locarno"],
 "Kellogg–Briand_Pact": ["Kellogg-Briand Pact","Pact of Paris","Briand-Kellogg Pact"],
 "Golden_Twenties": ["Goldene Zwanziger"],
-"Genoa_Conference_(1922)": ["Genoa Conference"]
+"Genoa_Conference_(1922)": ["Genoa Conference"],
+"Treaty_of_Rapallo_(1922)": ["Treaty of Rapallo","Rapallo Treaty"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6302,7 +6305,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Locarno_Treaties": ["event","history","politics","diplomacy","20th century","europe","germany"],
 "Kellogg–Briand_Pact": ["event","history","politics","diplomacy","law","20th century"],
 "Golden_Twenties": ["era","history","economics","culture","20th century","europe","germany"],
-"Genoa_Conference_(1922)": ["event","history","politics","diplomacy","economics","20th century","europe"]
+"Genoa_Conference_(1922)": ["event","history","politics","diplomacy","economics","20th century","europe"],
+"Treaty_of_Rapallo_(1922)": ["event","history","politics","diplomacy","20th century","europe","germany","russia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
