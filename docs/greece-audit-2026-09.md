@@ -185,6 +185,18 @@ his head. All four are difficulty 1 or 2 — the terms a newcomer is likeliest t
 | Library quotes | 3 cards linked to the shelved primary text, against 1 before |
 | citation concentration | **not done** — every route measured and blocked; see the table above |
 
+**A second batch shipped the same day**, from the ten suggestions asked for beside the audit:
+
+| item | done |
+|---|---|
+| a checker for what no tool sees | **`.claude/check-cards.js`**, seven checks — an author over-cited, a modern scholar named in a question, one picture on two cards, a caption carrying its own credit, a card with no picture (reported, never failed), two sources in one non-English language, and a `card.quote` against the book it names. Report-only by hand; deliberately not in the CI fast gate, since checks 1 and 6 carry the blocked backlog above |
+| undatable flags | 18 more cards flagged — acropolis, agora and Attica are inside the games' bar, the other fifteen belt-and-braces against a later re-rating |
+| orphan topics | 2 folded into neighbouring prose on sources those cards already cite (Daedalus into `gr-332`, Chania into `gr-051`); the chamber tomb deliberately not, and the plan now says why |
+| questions that bury the lead | 12 rewritten so the FIRST phrasing is the plain defining one, Multiple Choice always asking that one; the anecdote moves down the pool on nine of them |
+| duplicate pictures | all 5 pairs retired — `gr-200` re-pictured, the other four borrowers left with an empty frame and the reason recorded |
+| locators | 16 added, 10 of them battles that draw crossed swords; 59 → 76 of the 500 |
+| Library quotes | 7 more, so 11 of the 500 quote the shelved text — and the check above caught `gr-467`'s already-shipped quotation joining two passages 200 words apart with no ellipsis |
+
 **The terms still owed**, in usage order: panoply, cuirass, temenos, peplos, chiton, himation,
 triglyph's siblings abacus and volute are in, then othismos, autonomia, arete, nomos, metropolis,
 hypomeiones, ta-ra-si-ja, lapis primus, aniconic, crucible, relieving triangle, circuit wall,

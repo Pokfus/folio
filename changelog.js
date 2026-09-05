@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.521", released: "2026-09-05T12:12Z" };
+window.FOLIO_VERSION = { v: "1.522", released: "2026-09-05T12:52Z" };
 
 window.CHANGELOG = [
   {
@@ -49,7 +49,11 @@ window.CHANGELOG = [
       "<b>Nineteen new glossary terms the Ancient Greece cards were already using</b>, among them the Constitution of the Athenians, the parts of a temple and the Greek money.",
       "<b>Sixteen Ancient Greece backgrounds no longer read as lists of who argued what</b>, keeping every claim and dropping the roll-call of modern scholars.",
       "<b>Twelve Athens cards now give the year beside the archon they date by</b>, so \u201cin the archonship of Aristaechmus\u201d also says 621/620 BCE.",
-      "<b>Three Ancient Greece cards now quote the primary text from Folio\u2019s own Library</b>, opening Herodotus, Homer or Thucydides at the passage the card is about."
+      "<b>Eleven Ancient Greece cards now quote the primary text from Folio\u2019s own Library</b>, opening Herodotus, Homer or Thucydides at the passage the card is about.",
+      "<b>Twelve Ancient Greece questions now lead with what the term is</b>, so the Parthenon, Pericles, Homer and Salamis are named by the plain fact rather than by an anecdote.",
+      "<b>Five pictures that were doing duty on two cards each have been sorted out</b>, so every card\u2019s illustration is of that card\u2019s own subject.",
+      "<b>Sixteen more Ancient Greece cards show their place on the globe</b>, with the ten battles among them marked by crossed swords.",
+      "<b>Eighteen Ancient Greece cards are no longer dealt by the Timeline game</b>, terms like agora and phyle having no date to place them at."
     ]
   },
   {
