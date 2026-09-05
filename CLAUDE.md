@@ -1294,7 +1294,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 2.87 MB and 42,261 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 2.95 MB and 43,411 lines is hard to find your way around, so this
   lists its 160 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -1674,6 +1674,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   differently and nothing is lost; it is review noise, and the cure is the same — restore those lines from
   `git show HEAD:data.js` before committing.
   Not part of the site.
+- `.claude/card-links.js` + `.claude/add-card-links.js` — the rules for **`card.why` and `card.leadsTo`**,
+  and the batch tool that writes them onto cards already shipped
+  (`node .claude/add-card-links.js <batch.json> [--dry]`). **The rules are a MODULE because two tools
+  enforce them** — `add-card.js` for a new card and this for the other 1,400 — and a copy of a validation
+  goes stale on a change made in the other file by somebody with no reason to look here; this repo has the
+  scar (`add-card-tags.js` kept its own copy of a field list and stripped two fields from all 500 cards in
+  one run). The batch tool **splices LINES rather than rewriting `data.js`**: the file is one JSON object
+  per line, and re-serialising the array normalises every card's key order, which turns a five-card change
+  into a 1,400-line diff nobody can review — the run that added the first five touched exactly five lines.
+  It validates the WHOLE batch before writing anything. Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
   ANSWER TERM is, in batches: `node .claude/add-card-difficulty.js <batch.json>` over
   `{ "cards": { "wh-001": 1, … } }`. It validates the WHOLE batch before writing anything (a half-applied
@@ -2582,6 +2592,131 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   on the page — the ordering floor walking Easy past the maximum interval, a preview reading a different
   clock from the grade, elapsed days read as a fraction where every fitted parameter set assumes whole ones,
   and a one-day interval that meant twenty-four hours from whenever you happened to grade it.
+- **HOW A READER MEETS A CARD — THE LEARNING-SCIENCE BATCH (Sep 2026, on request).** Folio was built out
+  of the two techniques a literature review rates HIGH utility — practice testing and distributed practice
+  — and did both well. Thirteen changes shipped together to act on the rest of that literature. Three
+  RULES come first, because they decide what may be built here at all:
+  **RETRIEVAL EFFORT IS THE MECHANISM** — a reader who presses Space and reads the answer has run a
+  rereading trial, so the typed blank is not decoration and nothing may quietly make revealing the cheaper
+  path. **FEEDBACK TYPE IS WHERE THE EFFECT IS, AND TIMING IS NOT**: an explanation measures d = 0.49, a
+  correct answer 0.32, a bare right-or-wrong **0.05**, while immediate-against-delayed is genuinely
+  contested — so a game that answers with a cross is buying almost nothing, and timing is not somewhere to
+  spend effort. And **THE LOW-UTILITY TECHNIQUES ARE THE ONES A READER WILL ASK FOR** — rereading,
+  highlighting and summarising all raise confidence without raising learning, so a request for a
+  notes-and-highlights study mode is a request to build the fluency illusion.
+  · **`CRIT_DAYS` — "LEARNED" MEANS THREE CORRECT RECALLS ON THREE DIFFERENT DAYS.** Anki graduates a card
+    inside one session (`learnSteps` is `1m 10m`), so a card met at nine was "learned" by ten past, and a
+    card could be studied for a month without once being recalled on a second day. Successive relearning
+    is the strongest flashcard-shaped finding there is and it says the gains come from SEPARATED successes
+    and flatten after about three. **It is a counter and a label, NOT a second scheduler** — not one
+    interval, ease or due date changes. `critMark` is called from **`grade()`, never from `schedAnswer`**,
+    which stays pure; it needs the reader's day boundary and the pre-grade `firstToday`, neither of which
+    the scheduler may see. **The DAYS are stored, not a count**, because a count cannot tell a second
+    recall today from one next week, which is the whole distinction. **It is a CONSTANT and not a deck
+    option**, since the evidence names three and a quantity does not cascade (`DECK_OPT_INHERIT`) anyway.
+    Shown as three pips under the answer, a Card info row, and a **Learned** tile beside "studied" — a
+    SECOND figure rather than a replacement, since swapping the bar would make every existing reader's
+    progress appear to collapse overnight. `byDue` is the one comparator every due sort goes through: a
+    review card's due date lands at the start of its day, so among cards due at the same moment the one
+    with fewer separated recalls goes first.
+  · **`warmUpFirst` — THE SESSION OPENS ON A CARD THE READER HAS MET.** The forward effect of testing:
+    retrieving earlier material improves the learning of new material studied afterwards. A tail pass in
+    `buildSession` on `spreadNoteSiblings`'s model, **deferring rather than shuffling** so every ordering
+    promise survives except at the head, and **running BEFORE the sibling pass**, which is the one that can
+    fix a note's two sides being pushed together. A first-ever session has nothing to warm up with and is
+    left alone.
+  · **`hybrid` — A FOURTH DECK ORDER, "Eased in".** Interleaving wins at long delay; a hybrid may beat
+    both, because a novice needs to see what a category has in common before discriminating means anything.
+    A subdeck is GREEN once `HYBRID_N` (12) of its cards have a record — measured off `S.cards`, so it needs
+    no field. **Fresh subdecks come first and come whole**: the new-card allowance is sliced off the front
+    of the unseen cards, so a fresh subdeck at the front is the one being learned and drops into the robin
+    the moment it greens. The round robin is `robinOrder`, lifted out of `studyOrder` so the hybrid can run
+    it on a subset. **The review branch needs its own case** — the Ordered branch re-sorts the pooled queue
+    into the tree's global sequence and would undo it.
+  · **`PAGES.order` — THE FIRST SESSION ON A DECK ASKS HOW IT SHOULD BE DEALT.** Intercepted in `route()`,
+    one choke point, so the home rows, the banner, the Collections page and a pasted `#study` link are all
+    covered; **`params.resume` is exempt**, a reader returning to a session not being one starting it.
+    `S.orderPicked[entryId]` records that the QUESTION was put (`""` for "asked and left at the default"),
+    which `deckOpts` could not say. **A reader who has already studied the deck is never asked** — if any
+    card in it has a record the question is silently marked answered, or shipping this would interrupt
+    every existing reader about a deck they have used for months. Skippable in one press.
+    **TWO STATED EXCLUSIONS, both measured.** The POOLED REVIEW is not asked: it is not a deck, its order
+    lives on the banner's own sheet, and asking there puts a page of prose between a new reader and the
+    first card they ever see. A COMMUNITY OR LANGUAGE DECK is not asked either, and that one is a GAP
+    rather than a decision — it is where an order pays most. Extending it through `scopeEntryId` works
+    and fires inside the fixtures of `test-card-types`, `test-community` and `test-deck-ux`, each of
+    which imports a deck and studies it at once; each needs an `orderPicked` seed, which is a contained
+    change that wants its own pass with those three green.
+  · **`deckAttempt` — ANSWER BEFORE REVEALING.** A policy (in `DECK_OPT_INHERIT`) with a global default in
+    Settings, **off by default**. **ONE guard, in `showAnswer`, keyed on `fromReader`** — the button, Enter
+    and Space all go through it, and the restore path that re-opens an already-revealed card after a reload
+    must never be refused. **The escape hatch is not optional**: "I don't know" reveals and rings Again
+    without submitting it. It never focuses the blank — `setupCloze` deliberately leaves a touch reader's
+    keyboard down. `syncAttempt` is declared ABOVE the phrasing cycler and assigned below it, because the
+    cycler replaces the question element and every `.blank-input` in it.
+  · **`elabPromptHTML` — ONE ELABORATION PROMPT PER SESSION.** Elaborative interrogation (`card.why`) where
+    the card carries one, self-explanation ("you have also studied X and Y — how does this connect?")
+    otherwise. **Injected by `showAnswer`, not built into `buildBack`**, because the budget belongs to the
+    session and `buildBack` also draws the editor preview and the browser. **The `why` question is AUTHORED
+    and never generated** — choosing which of ten sentences is worth interrogating is the editorial act the
+    apparatus exists for. **What the reader types goes nowhere** — not the schedule, not the log, not the
+    server — and the page says so, which is what makes people answer honestly.
+  · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
+    background's own opening definition — inline under the answer, so a reader whose fold is collapsed
+    still gets an explanation. **The footnote markers are stripped**: `sup.fn:empty::before` prints a
+    marker's own digit, so a lifted sentence would carry numerals pointing at a list that is not there.
+    In **Multiple Choice** the option the reader ACTUALLY CHOSE is explained from that card's own defining
+    sentence — only the chosen one, since four definitions under four options is a paragraph nobody reads.
+  · **`noteConfusion` — THE PAIRS THIS READER MIXES UP.** `gradeCloze` always read the typed guess to mark
+    it character by character and then **threw it away**; it hands it back now. A guess that is not this
+    card's answer but IS another card's, in the same collection, is a confusion rather than a slip.
+    `S.confused["<idA>|<idB>"]` (ids sorted), pruned at `CONFUSE_CAP`, surfaced on the home page at
+    `CONFUSE_MIN` (2) and drilled through the new `{type:"ids"}` scope. **It is the only personal thing on
+    that page** — every other figure would be the same for anybody with the same decks.
+  · **`PAGES.pretest` — TWELVE QUESTIONS BEFORE A DECK BEGINS.** The pretesting effect: being tested on
+    material not yet studied improves learning of it even though nearly every answer is wrong, provided the
+    answers follow — so **no feedback until the end**. **Offered only where the deck is dealt BY DIFFICULTY**
+    (on request), which is not arbitrary: that is the only order that sorts the new pile by a property of
+    the card, so it is the only one a result can be spliced into. **⚠ IT MUST NEVER WRITE `S.cards`.**
+    Folio's XP is `Object.keys(S.cards).length` and a level buys an artefact chest, so a pretest that
+    seeded twelve records the obvious way would hand a brand-new reader several levels and their chests for
+    answering twelve questions, silently. It writes `S.pretest[entryId]` and `sortByDifficulty` reads it as
+    a deal-order preference; a known card is still taught, later. Matching is `pretestMatch` → `nearMiss`,
+    which forgives case, accents, an article, a bracketed aside and ONE slip **including a transposition**
+    — plain edit distance counts a swap as two, so without it `Mousterain` reads as a different word.
+  · **`card.leadsTo` — CAUSAL CHAINS, AND WHAT CAME OF THIS.** Chronology is the scaffold; causation is the
+    building, and Timeline tested WHEN while nothing tested WHY. An authored `[{ id, how }]` forming a
+    shallow DAG **within one collection**, drawn as a strip outside the Background fold, each edge opening
+    a `openCardPeek` sheet rather than routing — a click meant as a glance must not end the session and
+    spend that card's schedule. **Four rules, enforced in `.claude/card-links.js` rather than trusted**: the
+    target exists, is in the same collection, is LATER by `cardStartYear` (which catches an edge written the
+    wrong way round), and **`how` is a historical claim and needs the card cited like any other**.
+  · **`forgettingCurveHTML` / `seenOnceHTML` — THE LOG READ A THIRD WAY.** `S.revlog` has held one row per
+    answer since Aug 2026 and only Card info and the answer-button card read it. The curve buckets rows by
+    `prevMin` — the interval the card was actually on — and **prints nothing for a bucket under
+    `CURVE_MIN_ROWS`**, a percentage drawn from four answers being exactly the sort of number people act on.
+    The seen-once list is `crit` read from the other end: cards recalled on one day and never again.
+  · **`PAGES.how` — SAYING WHY IT IS HARD ON PURPOSE.** Half of this batch makes studying feel worse, and
+    the measured finding about desirable difficulties is that learners will switch them off unless somebody
+    explains why; refutation plus a metacognitive prompt raises adoption. Four claims, each **refuting a
+    belief by name** rather than asserting a fact, each with what Folio does about it. Reached from
+    Settings → Study and from the order picker. **It is the licence for the rest of this batch**: an
+    unexplained desirable difficulty is just a worse website.
+  · **Guarded by `.claude/test-learning.js`** (sections 1–5 need no browser). **Re-run after touching
+    `CRIT_DAYS` / `critMark` / `critDays` / `critPipsHTML` / `critLearnedCount` / `byDue` / `warmUpFirst` /
+    `WARMUP_N` / `robinOrder` / `studyOrder` / `HYBRID_N` / `DECK_ORDERS` / `deckAttempt` / `PAGES.order` /
+    `orderAskEntry` / `setOrderPicked` / `PAGES.pretest` / `pretestOffer` / `pretestPick` / `pretestMatch` /
+    `nearMiss` / `editDistanceLE1` / `pretestKnownSet` / `sortByDifficulty` / `elabPromptHTML` /
+    `wireElabPrompt` / `cardWhy` / `connectKin` / `cardFirstSentence` / `openCardPeek` / `cardLeadsTo` /
+    `cardLeadsToHTML` / `gradeCloze` / `normAnswer` / `answerNear` / `answerIndex` / `noteConfusion` /
+    `confusionPairs` / `confusionDrillIds` / `confusionRowHTML` / `forgettingCurveHTML` / `seenOnceIds` /
+    `seenOnceHTML` / `PAGES.how` / `HOW_CLAIMS`, the `{type:"ids"}` branch in `buildSession`, or
+    `.claude/card-links.js`.**
+  **📖 `docs/learning-science.md` — READ BEFORE CHANGING THE SCHEDULER'S GRADUATION RULE, THE STUDY PAGE'S
+  REVEAL PATH, A MINIGAME'S FEEDBACK, OR ANYTHING THAT DECIDES HOW A READER MEETS A CARD.** The findings
+  with their effect sizes and sources, an honest audit of what Folio already got right, and the twenty
+  proposals with what each would look like to a reader — thirteen of which are now built, and the file
+  says which.
 - **Undoing a grade (Aug 2026, on request)** — `undoStack` / `undoSnapshot` / `undoGrade` inside `PAGES.study`,
   reached by the `#undoGrade` button in the study bar (rendered only when there is something to undo), by
   **Ctrl/Cmd+Z**, and by "Undo the last card" on the completion screen (where the queue is empty and there is no
@@ -5164,6 +5299,22 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   only to a card the games can reach (rated at or below the bar); the deck's own chronological order, the
   other games and studying are all unaffected. See the "SOME TERMS DO NOT HAPPEN AT A TIME" bullet under
   "How the app is wired", and flag an older card with `.claude/mark-undatable.js`.
+- `why` — **OPTIONAL: one question the card's own background answers**, as `{ "q": "Why …?", "at": 1|2 }`
+  — elaborative interrogation (see the learning-science bullet under "How the app is wired"). It is shown
+  after the reveal, above the Background, with a box to answer in and a **Show me** button that opens the
+  block named by `at` and marks it. **`at` IS WHICH OF THE ABSTRACT'S TWO FIVE-SENTENCE BLOCKS ANSWERS IT**,
+  and getting it wrong is invisible to an author — a wrong block still opens something. **Never generate
+  one**: choosing which of ten sentences is worth interrogating is the editorial act the whole apparatus
+  exists for, and a guess here is a guess presented to a reader as a question worth thinking about. It must
+  END IN A QUESTION MARK and run 4–24 words. Written onto an existing card with
+  `node .claude/add-card-links.js <batch.json>`.
+- `leadsTo` — **OPTIONAL: at most three `{ id, how }` edges to cards this one led to** — the causal strip
+  at the foot of the answer (see the same bullet). **Four rules, all enforced by `.claude/card-links.js`
+  and none of them visible to an author when broken**: the target must exist (a dangling edge draws
+  nothing at all), must be in the SAME collection, must be LATER by `cardStartYear` (which catches an edge
+  written the wrong way round — it renders perfectly while asserting that the later thing caused the
+  earlier), and **`how` is a historical claim and needs the card cited like any other**, in 4–28 words.
+  Write it deliberately and sparingly: a list of every consequence is a list nobody reads.
 - `answer` / `answerText` — **the answer term NEVER carries an article** (Aug 2026, on request): it is
   `polis`, `Iliad`, `rhapsode`, `cist grave`, not "the polis" or "a cist grave". What the reader is being
   asked to recall is the term; "the" is a fact about the sentence around it, so it belongs to the QUESTION
@@ -5800,7 +5951,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty-seven committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **Forty-eight committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
@@ -5996,6 +6147,15 @@ dead code (never rendered).
     touching `locatorSiblings` / `cardCollectionRoot` / `locOwnTerms` / `LOC_KINDS` / `locPts` /
     `drawSwords` / the extras block in `startCardGlobe`'s `draw()` / `fitTarget`'s extent branch / the idle
     `ensureData("atlas")` beside it / `uCacheBust`, and after giving a card a locator `kind`.**
+  · `node .claude/test-learning.js` — **the learning-science batch** (Sep 2026), and every one of its
+    subjects fails SILENTLY: a criterion that stops recording reads as a reader who never gets anything
+    right; an order picker asked twice is a wall and asked never is a feature nobody meets; a reveal guard
+    that misses one of its three doors is a policy that does nothing on a keyboard; and a confusion
+    register whose capture breaks stays empty for ever, which looks exactly like a reader who never
+    confuses anything. **Its starred assertion is that the deck pretest writes NO card records** — XP is
+    the count of those, and a level buys a chest, so the obvious implementation hands a new reader several
+    levels for answering twelve questions. Sections 1–5 need no browser. **Re-run after touching anything
+    in the "HOW A READER MEETS A CARD" bullet's own list.**
   · `node .claude/test-card-quote.js` — **a card quoting the book it cites** (13 assertions, Aug 2026),
     and every part of it fails silently: a quotation appended after the prose instead of standing between
     the two blocks looks deliberate, one that wraps around the floated illustration looks deliberate, and

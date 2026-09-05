@@ -37,6 +37,7 @@
 //                          "alt": "The flag of Texas: a blue band at the hoist bearing a white star, …" }
 const fs = require("fs"), path = require("path");
 const { isDateList } = require("./date-line.js");
+const { checkWhy, checkLeadsTo, loadCardYears, collectionIndex } = require("./card-links.js");
 const dataPath = path.join(__dirname, "..", "data.js");
 const FIELDS = ["id","num","category","question","answer","answerDate","traditional","hanzi","pinyin","translations","abstract","citation","answerText"];
 const I18N_LANGS = ["es","fr","de","it","nl","ru","ar","zh","ja"];
@@ -444,6 +445,11 @@ if (card.answerFlag && String(card.answerFlag.src || "").trim() && !String(card.
   console.error("ERROR: card.answerFlag has a src but no `alt` — the flag is drawn with no title and no caption, so `alt` is all a reader who cannot see it gets.");
   process.exit(1);
 }
+/* THE "WHY" PROMPT AND THE CAUSAL EDGES both live in `.claude/card-links.js`, because `add-card-links.js`
+   writes the same two fields onto cards already shipped and a second copy of a rule is a rule with no
+   home. The `why` check needs nothing but the card; `leadsTo` needs the whole corpus and is run further
+   down, once data.js has been loaded. */
+{ const e = checkWhy(card); if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); } }
 if (REQUIRE_TRANSLATIONS && !card.skipTranslations) {   // a new card ships in all 9 site languages (i18n block)
   const missing = [];
   for (const l of I18N_LANGS) {
@@ -482,6 +488,19 @@ if (cards.some(c => c.id === card.id)) { console.error("ERROR: duplicate id:", c
 const leaves = []; for (const col of tree.collections) leafDecks(col, leaves);
 const deck = deckId ? leaves.find(d => d.id === deckId) : leaves[0];
 if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", leaves.map(d=>d.id).join(", ")); process.exit(1); }
+
+{
+  const appSrc = fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8");
+  const collIdx = collectionIndex(tree);
+  const byId = {}; for (const c of cards) byId[c.id] = c;
+  // the card being added is not in the tree yet, so its collection is the one its DECK belongs to
+  const deckColl = (() => { for (const col of tree.collections) { let hit = false; (function w(n) { if (n.id === deck.id) hit = true; (n.children || []).forEach(w); })(col); if (hit) return col.id; } return null; })();
+  const e = checkLeadsTo(card, {
+    byId, cardYears: loadCardYears(appSrc),
+    collectionOf: (cid) => (cid === card.id ? deckColl : collIdx[cid] || null),
+  });
+  if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); }
+}
 
 cards.push(card);
 deck.cardIds.push(card.id);
