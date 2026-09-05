@@ -197,6 +197,31 @@ figure beside the existing one for a release, not as a replacement.
 
 > **SHIPPED (Sep 2026), exactly as described.** `warmUpFirst`, a tail pass in `buildSession` modelled on `spreadNoteSiblings`, running BEFORE it.
 
+### The first-session order picker (not in the original twenty)
+
+**SHIPPED (Sep 2026), on request:** *"when a collection/deck is studied for the first time, they should be
+taken to a page that asks which order type they want to study the deck in, with each option extensively
+explained and also how they can change it later."*
+
+**What the reader sees.** The first time they press Study on a deck — not the pooled review — they get a
+page headed *"How would you like to study this?"* with four cards: **Ordered**, **Random**, **By
+difficulty** and **Eased in**. Each has a one-line summary, two paragraphs of real explanation including
+what the evidence says, and a line naming who it suits. The current default is tagged. Under them, in
+prose: *"press and hold the deck's row in Daily study — or the Daily study banner, for your pooled review
+— and the sheet that opens has a Review order row that steps through these four."* Beside it, **Not now —
+use the default (Ordered)** and **Why does this matter?**, which opens #18.
+
+**How it is built.** Intercepted in `route()` rather than in `PAGES.study`, so the home rows, the banner,
+the Collections page and a pasted `#study` link are one line; `params.resume` is exempt.
+`S.orderPicked[entryId]` records that the question was PUT — `""` for "asked and left at the default" —
+because choosing the default writes no option and `deckOpts` therefore cannot say it was asked. A reader
+with any card record in the deck is never asked, which is what stops it interrupting every existing reader
+on their next session.
+
+**Two exclusions.** The pooled review (not a deck; asking there walls a new reader off from their first
+card) and community/language decks — the second is a stated gap, not a decision: it works, and it fires
+inside three suites' fixtures, so it wants its own pass.
+
 **Finding.** The forward effect of testing: retrieving earlier material improves learning of new
 material studied afterwards. Free — it uses cards that were going to be dealt anyway.
 

@@ -2586,6 +2586,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     which `deckOpts` could not say. **A reader who has already studied the deck is never asked** — if any
     card in it has a record the question is silently marked answered, or shipping this would interrupt
     every existing reader about a deck they have used for months. Skippable in one press.
+    **TWO STATED EXCLUSIONS, both measured.** The POOLED REVIEW is not asked: it is not a deck, its order
+    lives on the banner's own sheet, and asking there puts a page of prose between a new reader and the
+    first card they ever see. A COMMUNITY OR LANGUAGE DECK is not asked either, and that one is a GAP
+    rather than a decision — it is where an order pays most. Extending it through `scopeEntryId` works
+    and fires inside the fixtures of `test-card-types`, `test-community` and `test-deck-ux`, each of
+    which imports a deck and studies it at once; each needs an `orderPicked` seed, which is a contained
+    change that wants its own pass with those three green.
   · **`deckAttempt` — ANSWER BEFORE REVEALING.** A policy (in `DECK_OPT_INHERIT`) with a global default in
     Settings, **off by default**. **ONE guard, in `showAnswer`, keyed on `fromReader`** — the button, Enter
     and Space all go through it, and the restore path that re-opens an already-revealed card after a reload

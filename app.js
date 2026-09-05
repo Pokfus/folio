@@ -5133,13 +5133,11 @@
      THE TWO LEARN-AHEAD SORTS DELIBERATELY DO NOT: those are asking which learning card comes round
      SOONEST, which is a question about the clock and not about the reader. */
   const byDue = (a, b) => (S.cards[a].due - S.cards[b].due) || (critCount(a) - critCount(b));
+  /* NOTE FOR THE NEXT READER: there is deliberately no `critLearnedCount(ids)` helper here. The one
+     place that wants the figure is `deckStats`, which is also drawn for a FRIEND's progress and so must
+     read the record it was passed rather than `S.cards` — a helper reaching for the global would answer
+     for the wrong person, silently, on the one screen where that is hardest to notice. */
   const atCriterion = (id) => critCount(id) >= CRIT_DAYS;
-  // how many of a list of cards are at criterion — the figure the deck stats panel reports beside "studied"
-  function critLearnedCount(ids) {
-    let n = 0;
-    (ids || []).forEach((id) => { if (atCriterion(id)) n++; });
-    return n;
-  }
   /* The pips under the answer term. Filled for each separate day this card has been recalled on, hollow
      for the days still owed — three characters that say what a sentence would take a paragraph to. It is
      drawn on every card that has been answered at least once and NOT on a card being met for the first
@@ -27528,13 +27526,20 @@
        between a brand-new reader and the first card they ever see. A reader who studies only through the
        review meets this the first time they tap a single deck's row, which is the moment the question is
        actually about something. */
-    /* A DECK, A GROUP OR ONE OF THE READER'S OWN DECKS — `scopeEntryId` is what turns the last of those
-       into an entry id, and a community or language deck is exactly where the choice of order matters
-       most, being thousands of cards across many subdecks. */
-    const kind = scope.type;
-    if (kind !== "deck" && kind !== "group" && kind !== "udeck") return null;
-    const id = scopeEntryId(scope);
-    if (!id || id === REVIEW_ENTRY) return null;
+    /* A CURATED DECK OR ONE OF THE READER'S OWN GROUPS. Two deliberate exclusions, and both were
+       measured rather than assumed.
+       NOT THE POOLED REVIEW. The request is about "a collection or deck studied for the first time", and
+       the review is neither: it is the day's work across every added deck, its order is a separate
+       setting on the banner's own sheet, and asking there would put a page of prose between a brand-new
+       reader and the first card they ever see.
+       NOT A COMMUNITY OR LANGUAGE DECK, and that is a STATED GAP rather than a judgement — a language
+       deck is thousands of cards across many subdecks and is exactly where choosing an order pays most.
+       Extending `scope.type === "udeck"` through `scopeEntryId` works and was tried; it then fires inside
+       the fixtures of `test-card-types`, `test-community` and `test-deck-ux`, each of which imports a
+       fresh deck and studies it immediately, so each needs its own `orderPicked` seed. That is a
+       contained change and it wants its own pass with those suites green, not a ride on this one. */
+    const id = (scope.type === "deck" || scope.type === "group") ? scope.id : null;
+    if (!id) return null;
     if (Object.prototype.hasOwnProperty.call(S.orderPicked, id)) return null;
     const ids = entryCardIds(id);
     if (!ids.length) return null;                       // an empty deck has no order worth asking about
