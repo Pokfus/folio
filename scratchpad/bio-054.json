@@ -1,0 +1,29 @@
+{
+  "id": "bio-054",
+  "num": 54,
+  "category": "Biology",
+  "question": "Built from a nitrogen-bearing sugar rather than plain glucose but linked the same &beta; way, <span class=\"blank\">_____</span> stiffens the cuticle of every insect and the wall of every fungus.",
+  "questions": [
+    "An insect can only grow by shedding its old cuticle, so it must carry enzymes that digest its own <span class=\"blank\">_____</span>, and silencing one of them is lethal.",
+    "Second only to cellulose in abundance, <span class=\"blank\">_____</span> barely accumulates in marine sediments, because bacteria in the sea carry the enzymes to break it apart again."
+  ],
+  "answer": "chitin",
+  "answerText": "chitin",
+  "answerDate": "",
+  "traditional": "",
+  "hanzi": "",
+  "pinyin": "",
+  "translations": "",
+  "citation": "",
+  "difficulty": 2,
+  "undatable": true,
+  "tags": ["object", "science", "biology", "chemistry", "nature"],
+  "abstract": "<b>Chitin</b> is a polysaccharide built from N-acetylglucosamine, a glucose ring carrying an acetylamino group, with the sugars joined end to end by &beta;-1,4 glycosidic bonds.<sup class=\"fn\" data-fn=\"1\"></sup> That &beta; linkage is what makes cellulose a fibre rather than a store, and it does the same work here, holding the chains straight so they pack side by side instead of coiling.<sup class=\"fn\" data-fn=\"2\"></sup> It is the structural material of fungal cell walls and of the cuticle of crustaceans and insects, and some algae build with it as well.<sup class=\"fn\" data-fn=\"1\"></sup> Only cellulose is more abundant: the living world is estimated to make something on the order of a hundred billion tons of chitin a year.<sup class=\"fn\" data-fn=\"1\"></sup> Almost none of it accumulates in marine sediments, because heterotrophic bacteria in the sea carry the enzymes to take it apart and return the carbon and nitrogen locked in it.<sup class=\"fn\" data-fn=\"1\"></sup> <br><br> Because the material is rigid it cannot stretch, so an arthropod grows only by shedding it, which means digesting part of its own cuticle with chitinases it makes itself.<sup class=\"fn\" data-fn=\"3\"></sup> In the pine sawyer beetle <i>Monochamus alternatus</i>, silencing one such enzyme, MaCht-2, caused molting failure, disordered cuticle ultrastructure, impaired movement and heavy mortality in larvae, pupae and adults alike.<sup class=\"fn\" data-fn=\"3\"></sup> Animals that eat arthropods meet the same polymer from the other side, and mammals break it down with an enzyme called acidic mammalian chitinase.<sup class=\"fn\" data-fn=\"4\"></sup> Across 37 rodent species the gene for it, CHIA, is often deleted or turned into a pseudogene in obligate herbivores whose food holds almost no chitin, and the strength of selection on it tracks how much of the diet is invertebrate.<sup class=\"fn\" data-fn=\"4\"></sup> Chitin is also a signal the immune system watches for, and fungi such as <i>Cryptococcus neoformans</i> carry deacetylases that convert wall chitin into chitosan, which blunts the response that exposed chitin would provoke.<sup class=\"fn\" data-fn=\"5\"></sup>",
+  "sources": [
+    "Xuebing Ren, Xin Song, Hang Zhang, Guangqiang Wang, Fan Xie, Haerlihashi Muhetaerhan, Lianzhong Ai, and Yanjun Tian, “Genomic and Transcriptomic Analysis Reveals Chitin Metabolic Pathways in the Marine Bacterium <i>Microbulbifer harenosus</i> CGMCC 1.13584T,” <i>BMC Microbiology</i> 26, no. 1 (2026): 562, https://doi.org/10.1186/s12866-026-05115-3. [Open access]",
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Siming Fang, Xiaoxiao Chang, Han Chen, and Juan Shi, “RNA Interference Targeting MaCht-2 Induces Severe Molting Defects and Lethality in <i>Monochamus alternatus</i>,” <i>Insects</i> 17, no. 5 (2026): 530, https://doi.org/10.3390/insects17050530. [Open access]",
+    "Yuntao Tian, Zhenyu Xiong, Chengyao Yang, Chaoyang Luo, Xionghui Xu, Yangsong Wu, Qiurong Li, et al., “Evolution of Acidic Mammalian Chitinase Gene (<i>CHIA</i>) Is Related to Insectivory Feeding in Rodents,” <i>Ecology and Evolution</i> 16, no. 7 (2026): e74062, https://doi.org/10.1002/ece3.74062. [Open access]",
+    "Margareta J. Hellmann, Rajendra Upadhya, Evelyn Tchoub, Bruno M. Moerschbacher, Jennifer K. Lodge, and Stefan Cord-Landwehr, “Acetylation and Accessibility of <i>Cryptococcus neoformans</i> Cell Wall Chitosans Influence the Strength of Host Immune Responses,” <i>The Cell Surface</i> 15 (2026): 100175, https://doi.org/10.1016/j.tcsw.2026.100175. [Open access]"
+  ]
+}
