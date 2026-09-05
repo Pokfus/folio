@@ -2063,7 +2063,8 @@ window.GLOSSARY = {
 "League_of_Nations": "The <b>League of Nations</b> was an intergovernmental organisation founded after the First World War to promote international cooperation and keep the peace, established by a Covenant of twenty-six articles that came into force on 10 January 1920.<sup class=\"fn\" data-fn=\"1\"></sup> It worked through an Assembly in which every member had one vote, a Council of permanent and elected members, and a permanent Secretariat at Geneva, and decisions in both bodies required unanimity.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Sixty-three states belonged to it at one time or another and never more than sixty at once; it was wound up in 1946 and its functions passed to the United Nations.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Henry_Cabot_Lodge": "<b>Henry Cabot Lodge</b> was an American politician who served as majority leader of the United States Senate and chairman of its Committee on Foreign Relations after the First World War.<sup class=\"fn\" data-fn=\"1\"></sup> He led the opposition to the Treaty of Versailles, objecting above all to article 10 of the League of Nations Covenant, which bound members to preserve one another’s territorial integrity and political independence, and pressing reservations to protect the power of Congress to declare war.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Because ratification needed two-thirds the opposition did not have to be a majority, and when the Senate rejected the treaty in March 1920 the United States never joined the League its own president had proposed.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Stab-in-the-back_myth": "The <b>stab-in-the-back myth</b>, in German the <i>Dolchstoßlegende</i>, was the false claim that the German army of 1918 had not been beaten in the field but had been betrayed from behind by revolutionaries, socialists and Jews at home.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was untrue: the army command itself sought the armistice, and German Jews had served in the armed forces out of proportion to their numbers.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Field Marshal Paul von Hindenburg gave it his authority before a parliamentary committee of inquiry in November 1919, and parties of the nationalist right used it against the Weimar Republic throughout its existence.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Weimar_Republic": "The <b>Weimar Republic</b> was the German state that existed between the fall of the empire in November 1918 and the Nazi seizure of power in January 1933, named after the town where its constituent assembly met.<sup class=\"fn\" data-fn=\"1\"></sup> Its constitution, signed on 11 August 1919, was the first democratic one in German history: it drew political authority from the people, gave the vote to men and women over twenty by proportional representation, and had the president elected directly for a seven-year term.<sup class=\"fn\" data-fn=\"2\"></sup> Article 48 allowed that president to suspend basic rights and take whatever measures he judged necessary when public order was seriously disturbed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Weimar_Republic": "The <b>Weimar Republic</b> was the German state that existed between the fall of the empire in November 1918 and the Nazi seizure of power in January 1933, named after the town where its constituent assembly met.<sup class=\"fn\" data-fn=\"1\"></sup> Its constitution, signed on 11 August 1919, was the first democratic one in German history: it drew political authority from the people, gave the vote to men and women over twenty by proportional representation, and had the president elected directly for a seven-year term.<sup class=\"fn\" data-fn=\"2\"></sup> Article 48 allowed that president to suspend basic rights and take whatever measures he judged necessary when public order was seriously disturbed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"German_revolution_of_1918–1919": "The <b>German Revolution</b> of 1918 and 1919 was the upheaval that ended the German monarchy and produced a parliamentary republic, beginning with mutinies in the fleet at Wilhelmshaven and Kiel at the end of October 1918.<sup class=\"fn\" data-fn=\"1\"></sup> Within days workers’ and soldiers’ councils had taken over the government of most large German cities, the princes abdicated, and a republic was proclaimed in Berlin on 9 November.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its outcome was decided against the far left: a congress of the councils voted for elections to a national assembly, a rising in Berlin in January 1919 was crushed, and Karl Liebknecht and Rosa Luxemburg were murdered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2906,7 +2907,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Treaty_of_Trianon": "signed 4 June 1920",
 "Treaty_of_Lausanne": "signed 24 July 1923",
 "League_of_Nations": "1920–1946",
-"Weimar_Republic": "1918–1933"
+"Weimar_Republic": "1918–1933",
+"German_revolution_of_1918–1919": "1918–1919"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4167,7 +4169,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Article_231_of_the_Treaty_of_Versailles": ["Article 231","war guilt clause","War Guilt Clause"],
 "Successor_state": ["successor states"],
 "League_of_Nations_mandate": ["mandate system"],
-"Stab-in-the-back_myth": ["Dolchstoßlegende","stab-in-the-back legend"]
+"Stab-in-the-back_myth": ["Dolchstoßlegende","stab-in-the-back legend"],
+"German_revolution_of_1918–1919": ["German Revolution","November Revolution"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6265,7 +6268,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "League_of_Nations": ["institution","history","politics","law","20th century"],
 "Henry_Cabot_Lodge": ["person","history","politics","20th century","united states"],
 "Stab-in-the-back_myth": ["concept","history","politics","20th century","europe","germany"],
-"Weimar_Republic": ["state","history","politics","20th century","europe","germany"]
+"Weimar_Republic": ["state","history","politics","20th century","europe","germany"],
+"German_revolution_of_1918–1919": ["event","history","politics","20th century","europe","germany"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
