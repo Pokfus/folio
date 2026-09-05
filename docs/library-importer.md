@@ -1060,3 +1060,1013 @@ every rule here was paid for by a silent failure.
   · It also carries each book's **`about`** — the front matter prose, authored by hand here and emitted as
     `intro`. It lives in the generator rather than in app.js's eager `BOOKS` registry (a page of prose every
     visitor would pay for) or in the generated file (the next run would destroy it).
+
+**`joinBrokenParas` — A PARAGRAPH NEVER BEGINS ON A LOWERCASE LETTER** (Sep 2026, batch E25). The
+shelf's second shared repair after `teiInline`'s citation spacing, and it sits one level further out
+still: in `writeEnglish`, at serialization, beside the `applyRoman` title pass. It has to, because
+the fault reaches the shelf through **both** readers — Ovid and Herodotus are TEI books and the City
+of God and the Summa are wiki books — so there is no reader it could live in.
+
+  · **The fault is a printed PAGE-TURN become a paragraph break.** Wikisource serves the City of God
+    one page at a time, and the break arrives in the markup mid-sentence, 43 times of 364 mid-WORD:
+    the fetched HTML for Book I chapter 20 carries `no sensa` `</p><p>` `tion, nor of the irrational`
+    literally. It is **Wikisource's own rendering rather than anything this script does**, which is
+    the thing to establish before writing the pass — E17's rule — and the page has **no `pagenum`
+    span and no anchor** at the break, so the lowercase letter is the only signal there is.
+  · **It is rare and clean, which is what makes a signal that thin safe to use.** 387 boundaries in
+    four books out of 48; 364 City of God, 9 Ovid, 9 Summa, 5 Herodotus. Every one outside the City
+    of God was read by eye and is the same fault.
+  · **THE JOIN IS EASY AND THE SEPARATOR IS THE WHOLE PROBLEM.** Nothing, `<br>` or a space.
+  · **The mid-word test needs BOTH halves and the bigram must be counted WITHIN a paragraph.** The
+    two fragments concatenated must be a word the book uses elsewhere, AND the pair must never be
+    written as two words inside a paragraph anywhere in the book. Without the first, `murmur`+`ings`
+    is welded on a guess; without the second, `in`+`the` becomes *inthe*, `may`+`be` *maybe* and
+    `a`+`man` the name *Aman*, all three of which the shelf contains. And counted ACROSS a break the
+    test returns nothing at all, because every one of the 387 boundaries then attests itself as two
+    words. It is deliberately conservative where the two readings are both real — the City of God
+    writes "can not" four times, so `can`+`not` takes a space. **A wrong space is a reading a reader
+    can see through; a wrong weld invents a word.**
+  · **THE VERSE TEST IS ASKED OF THE TWO PARAGRAPHS, NEVER OF THE CHAPTER.** The first cut tested the
+    whole html and was wrong in two books at once: Herodotus quotes his oracles in verse and the
+    Summa its marriage mnemonic, so a single `<br>` anywhere in the chapter put a line break into
+    five and eight lines of ordinary prose — "Zeus contrived`<br>`to show himself". **The count could
+    not see it** (the run reported the right number of joins throughout); only reading the joined
+    text did.
+  · **A `<p>` carrying ATTRIBUTES is never joined.** The join discards the opening tag, and a tag
+    that says something about its paragraph must not be thrown away to close a gap. None of the 387
+    has one, so the guard is free.
+  · **It does NOT run in `writeOriginal`, and that is a limit rather than an omission.** The
+    original-language columns carry 38 such boundaries, and **Seneca's three are not this fault at
+    all** — they are Virgil quoted in verse, set as paragraphs of their own, where a lowercase
+    opening is correct. So "a paragraph never begins on a lowercase letter" fails on a block
+    quotation of verse, and the rule needs a guard for that before it can be pointed at the other
+    column. The English column happens to contain no such quotation, which is why the census had to
+    be read rather than trusted.
+
+**`wrapLooseText` — TEXT BETWEEN TWO PARAGRAPHS AND INSIDE NEITHER** (Sep 2026, batch E26). The
+third shared repair, beside `joinBrokenParas` and at the same point in `writeEnglish` — and, unlike
+the other two, in `writeOriginal` as well, because the column it was written for is an original.
+
+  · **The fault is that such text is INVISIBLE.** `bookSections` in app.js splits a chapter at its
+    section markers by walking `box.children` — the ELEMENT children — so a bare text node between
+    two blocks belongs to no section and never reaches the page. Measured when it was found: 67 such
+    blocks in the books that have an original column, **63 of them in the Latin Seneca**, and every
+    one a quotation of Virgil, Ovid or Ennius set off from the prose. About six thousand characters
+    of poetry, in the data and not on the screen.
+  · **IT ONLY SHOWS IN THE TWO-COLUMN VIEW**, which is why nobody met it: the single-column reader
+    renders the chapter's html directly, so the same passage is visible with the original column off
+    and gone with it on. Probed both ways in a browser before anything was written.
+  · **The internal newlines become `<br>`.** Every other original column writes a verse line break
+    that way — the Iliad 15,258 times, the Aeneid 9,452, the Ramayana 39,061 — and the Latin Seneca
+    is the only one with none at all. Rescued without them, four hexameters arrive as one line.
+  · **A wrapped paragraph is MARKED (`class="bk-loose"`) and `joinBrokenParas` will not join across
+    it.** A block this pass lifted out of nowhere is by definition set off from the prose around it,
+    so the seam below it is a real boundary; the seam above needs no rule, a `<p>` with attributes
+    being one the join already refuses.
+  · **It is repaired at the other end too, and that half is the more important one.** `bookSections`
+    now carries a text node instead of discarding it — so the next one is rendered rather than lost
+    in silence — and `test-library.js` asserts the TEXT: three lines of Virgil that are in
+    `books/seneca-letters.la.js` must be on the screen.
+
+**A TABLE HOLDING A POEM IS NOT FURNITURE** (Sep 2026, batch E26, in `originalChapters`). Latin
+Wikisource sets a verse quotation as `{{block center|<poem>…</poem>}}`, which MediaWiki renders as a
+one-cell **table** used for centring — and the rule that removes this wiki's prev/next navigation
+bar, its export bar and its table-of-contents placeholder removed those too. **Seven quotations of
+Virgil, in letters 56, 58, 59, 64 and 67, were not in the file at all**, and nothing said so: the
+letters are long, the section numbers still pair, every count reads healthy, and the only symptom is
+Seneca introducing a line the reader is never shown. The `div.poem` is lifted out before the table
+round it is dropped — **and a table carrying prose is now REPORTED**, which is the half that would
+have caught this when the rule was written. `dropTables`, added later for the Three Kingdoms, has
+said so from its first line; this older rule did not, and that is the difference between a fault
+found in an hour and one found in a year.
+
+**And two things `joinBrokenParas` learned when it was pointed at the original columns** (E26):
+
+  · **PROSE ON ONE SIDE AND VERSE ON THE OTHER IS A BLOCK QUOTATION, AND ITS BREAK IS REAL.** Seneca
+    introduces a line with *Deinde cum subinde recitasset* and the verse follows as a block of its
+    own, legitimately opening on a lowercase letter — so E25's "a paragraph never begins on a
+    lowercase letter" is not universal, and this is the counter-example. Two verse paragraphs in a
+    row are one poem split mid-line; two prose paragraphs are the page-turn; one of each is the
+    boundary between them and is left alone.
+  · **A BOOK MUST BE TOLD WHERE A BARE NEWLINE IS A LINE BREAK** (`verseNewlines`, declared on the
+    Latin Seneca's `original` and nowhere else). Read as a general rule the same test fires on prose
+    wrapped at the source's own line length: one ungated run put a `<br>` into **317 lines of the
+    City of God**, whose paragraphs carry 134 internal newlines of exactly that kind. Gated, it can
+    only ever refuse a join — a mismatch keeps the break — so the flag makes the pass cautious rather
+    than confident.
+
+**`versifyNewlines` — A VERSE LINE BREAK WRITTEN AS A BARE NEWLINE** (Sep 2026, batch E27). The
+fourth shared repair, running before `wrapLooseText` and `joinBrokenParas`, and gated on the same
+per-book `verseNewlines` flag E26 introduced.
+
+  · **Only one column on the shelf needs it.** The Latin Seneca has no `<br>` in it at all — the
+    Iliad has 15,258, the Aeneid 9,452, the Ramayana 39,061 — so the lines of the verse it quotes on
+    nearly every other page are separated by newlines, which HTML collapses to spaces.
+  · **WHICH PARAGRAPHS ARE VERSE IS A MEASUREMENT, NOT A JUDGEMENT, and E26 called it the wrong
+    one.** Of the eighteen paragraphs in the book carrying an internal newline, the thirteen that are
+    verse have a longest line of 25–51 characters and the five that are prose have one of
+    1,428–2,179. **A threshold of 100 sits in the middle of a gap 1,377 characters wide.** Count the
+    families before calling them a judgement: E26 had read all eighteen and classified them correctly
+    by eye, and reading is what made them feel like eighteen separate decisions.
+  · **The gate is doing real work.** Read as a general rule the same length test would lineate
+    **10,198 paragraphs of the Summa, 2,013 of the City of God and 733 of the Confessions**, all of
+    them ordinary prose wrapped at the source's own line length. The length test tells verse from
+    prose WITHIN a book whose newlines mean something; it cannot tell whether they mean anything.
+  · **It simplified the pass after it.** With the `<br>` written in before `joinBrokenParas` looks,
+    that function went back to asking a single question — does this paragraph carry a `<br>`? — and
+    E26's `VERSE_NL` parameter went with it. The joins came out unchanged, which is the proof that
+    the two readings were the same reading. **A pass that normalises is worth more than a test that
+    special-cases.**
+
+**`restoreLostSpaces` — A TABLE ON THE ORIGINAL, WHICH THIS FILE HAD ALREADY SAID IT WANTED** (Sep
+2026, batch E28). `correctRaw`'s own comment ends "An original that needs a slip corrected wants a
+table of its own on `O`; none does today, and that is a gap rather than a decision." One does now.
+
+  · **The fault it was written for is a space lost at a line end, in the SOURCE.** The last four
+    books of the Latin Seneca — letters 101 to 124 — were typed into Wikisource with the space at
+    each line end swallowed: `bonumesse`, `occupationibussum`, `claritasbonum`, `mortemhomo`. Every
+    one of the 483 forms is glued in the wikitext `?action=raw` returns, so **no rule here could have
+    produced it and none can undo it** — a lost space leaves nothing behind to key on. Hence a map.
+  · **The first hundred letters are clean**, which is what makes it a finding rather than a guess:
+    three isolated slips in letters 1–100 against about twenty a letter from 101 on.
+  · **SORTING THE DAMAGE FROM THE REAL LATIN IS THE WHOLE DIFFICULTY.** The measure — a
+    single-occurrence token that splits into two words the book uses several times — returns
+    perfectly good words: `officiosum`, `adprobari`, `inmortales`, `satisfaciam`, `aberrat`,
+    `curatam`, `quate`, `maledixit`, and every verb carrying the enclitic `-que` or a first-person
+    `-mus`. So a **lexicon of 833,000 words of Latin from the other originals on this shelf** was
+    built and TESTED before it was trusted (it knew 33 of 35 real words and none of the errors), and
+    every survivor was then read in its own sentence, which is what caught the last two.
+  · **Two sweeps, and the second is the larger.** Requiring the second half to be a FUNCTION word is
+    what makes such a list readable, and it is blind to two content words run together: 318 repairs
+    from the first family, 164 from the second.
+  · **Every key is anchored on both sides, keys are letters only (so there is nothing to escape), and
+    a key that fires nowhere is REPORTED.** A repair that has stopped applying and says so is a
+    finding; one that stops in silence is a text quietly going back to being wrong.
+
+**THE CORRECTION CHAIN RUNS ON THE EXTRACTED PROSE, NOT ON THE PAGE** (Sep 2026, batch E29). On the
+per-chapter wiki branch — most of the shelf — it used to be `let h = correctRaw(await api(...))`, so
+every `glyphs`, `fixes`, `reFixes` and `roman` row faced the page as Wikisource serves it, tags and
+furniture and all, and the extractor was then run over the result. Two consequences and the second is
+the larger.
+
+  · **The cache was poisoned.** The prose cached from a corrected page is corrected, so on the next
+    run every row meets a page it has already repaired and **reports itself DEAD** — E19's caveat, and
+    the only thing standing between it and another `corning`.
+  · **A ROW FACING MARKUP IS A WEAKER ROW THAN THE SAME ROW FACING PROSE.** Refetching chapters under
+    both orders: seven books identical, and two where the old order LOSES and the new one matches the
+    shipped text. The Book of Rites came back carrying `<p class="bk-head">THE LÎ <i>K</i>Yi</p>` — its
+    own running head, mangled by a correction into something the head-remover no longer recognised and
+    so left standing in the prose. The Book of Documents came back with **four `Tî` the romanisation
+    had missed** — E19's own example book and its own word: that batch fixed the CACHED path and
+    proved it over cached rebuilds, and the fetch path went on being the weaker of the two.
+  · **THE TITLE IS THE ONE EXCEPTION AND IT HAD TO BE.** `applyRoman` is not idempotent — a row's
+    output can be another row's input, Wade-Giles `Pi` being pinyin `Bi` — so a title corrected into
+    the cache and corrected again on reading it gives Cao **Bi**, Xu **Zhu**, Ma **Zhao**, **Dao** and
+    **Gan** Ze. It is corrected **where it is read** (`sanKuoHead`, `bothColumns`), so the cache holds
+    a corrected title beside an uncorrected body: an asymmetry, and the only shape right for both. It
+    is also what keeps `titlesCorrected` true for the Three Kingdoms.
+  · **It takes the original column out of the English chain**, which `correctRaw`'s own comment says
+    is where it belongs — a facing-page book extracts both columns from one page, so correcting the
+    page corrected the Chinese too. Nothing changes today; the guard is against tomorrow.
+  · **The benefit begins at each book's next REFETCH.** The caches still hold corrected prose, so
+    until a book is refetched a dead-row report is still E19's caveat rather than a fact.
+
+**A CACHE RECORD SAYS WHICH KIND OF PROSE IT HOLDS** (`raw: 1`, Sep 2026, batch E30). E29 moved the
+correction chain to run on the extracted prose, so a record written from that point on holds the
+extractor's own output and every row must fire against it; a record written before it holds prose an
+earlier run had already corrected, and against that a row doing its job perfectly fires nowhere. The
+run counts what it read and says which case it is in — E19's caveat prints only when a legacy record
+was actually read, and where the cache is the source's own prose the run says the opposite outright:
+*"a row reported DEAD below names damage that is not there."*
+
+  · **It is what made restoring `corning` a decision rather than a guess** — see below.
+  · **The twelve books on this branch that carry a correction table were refetched to make it true**
+    (~1,700 pages). The other 36 either declare no table or are on a branch that has always corrected
+    after reading its cache.
+
+**AND THE REFRESH FOUND TWO REGRESSIONS OF THIS PROGRAMME'S OWN MAKING** (E30):
+
+  · **THE THREE KINGDOMS HAD BEEN ROMANISED TWICE, in 111 of its 120 chapters and 974 names.** E19
+    made the cached path re-apply `correctRaw` to prose an earlier run had corrected — right for
+    `fixes`, `reFixes` and `glyphs`, which are idempotent, and **wrong for `roman`, which is not**:
+    a row's output can be another row's input, so `Ch'ang` → `Chang` → `Zhang`. `Chang'an` became
+    `Zhang'an` 66 times, `Ma Chao` became `Ma Zhao`, `Tao Qian` became `Dao Qian`, and `Zhang Chao`
+    (張超) became `Zhang Zhao` — who is a different man. The unaspirated names pass through both
+    applications unchanged (`Liu Bei`, 695 times), which is why it read as ordinary variation. **A
+    refetch corrects once and the book is right again**, and stays right because the cache now holds
+    the source's own prose.
+  · **`corning` IS REAL AND E19 DELETED A LIVE ROW.** E15 repaired *"by the dove **corning** upon the
+    Lord when He was baptized"* in the Summa; E19 found no standalone `corning` in the shipped file,
+    concluded the row could never fire, and removed it. Refetching chapter 461 puts the fault straight
+    back — one standalone occurrence against three `scorning`s. What E19 was reading was **E15's own
+    repair**, carried in the cached prose. **A dead-row report is evidence about the TEXT IN HAND,
+    never about the source: check the source before removing a row.**
+
+**AND `fetchOriginal` NO LONGER CLOBBERS THE ENGLISH PASS'S RECORD** (Sep 2026, batch E30). A
+facing-page book's two columns come off one page, so the original pass reads the record the English
+pass just wrote — and under `--force` it was building a fresh one instead, throwing away the title
+the extractor had read off the text and the `raw` marker that says whose prose the record holds.
+Nothing rendered differently, both books on that path stating their titles in this file, but **the
+marker went missing on exactly the books a `--force` run had just made trustworthy**, which is the
+reverse of what it is for. The record on disk is now read even under `--force` and merged rather than
+replaced.
+
+**…AND FIVE ENGLISH BRANCHES WERE NEVER IN THE CHAIN AT ALL** (`correctGot`, Sep 2026, batch E31).
+E29 said there is now one spelling of the correction chain and every branch that has raw English in
+hand calls it. That was untrue for five: `play`, `fitts`, `terzine`, `eddapoem` and `laisses` each
+read a cached page, handed it straight to a reader of their own, and pushed the result onto
+`chapters` without ever calling `correctRaw`. A book on one of those branches simply never got its
+own corrections.
+
+  · **THE SYMPTOM IS A DEAD ROW BESIDE A WORD THAT IS PLAINLY IN THE TEXT.** Four rows written for
+    the Poetic Edda and the Song of Roland reported `DID NOT FIRE` — `Balled` for `Ballad`, `Carlum`
+    for `Carlun`, `Marsilium` for `Marsiliun`, `Sarrazens` for `Sarrazins` — with the misspellings
+    sitting in the shipped files where anyone could grep them. Nothing threw and the books built
+    perfectly; the rows were simply never consulted. **A `DID NOT FIRE` line is a claim about the
+    chain as much as about the text** — E30 made that point one way round (the cache held prose the
+    chain had already corrected) and this makes it the other (the chain was never run).
+  · **IT CORRECTS THE EXTRACTED PROSE, NOT THE PAGE**, which is E29's rule and buys E29's property:
+    the caches stay raw, so a row added later fires on the next ordinary run with no `--force`.
+  · **AND IT TAKES THE TITLE WITH IT.** `extractPlay` reads a scene's head off the page, so a chapter
+    title is English text like any other and goes through the chain. It is `c.t` that is corrected,
+    never the `titles` table in this file, which is Folio's own declaration and not a transcription.
+  · **ONE HELPER RATHER THAN FIVE COPIES OF THREE LINES.** `correctGot` takes both shapes an extractor
+    returns — an ARRAY of parts (`play`, `laisses`) and a single object (the other three) — and
+    touches `html`, `t` and `notes` where each is a string.
+  · **PROVED BYTE-FOR-BYTE ON EVERY BOOK ON THOSE BRANCHES**, which is five and not fifty: Lysistrata
+    (`play`), Beowulf (`fitts`) and the Divine Comedy (`terzine`) declare no correction tables and
+    came back identical to the byte, the Song of Roland changed on three lines and the Poetic Edda on
+    one, and those four lines are the four rows. `applyGlyphs` and `unwrapNameMarkup` both return
+    their input untouched when the book declares no table, so the three were inert by construction as
+    well as by measurement.
+
+**A FORM THE EDITION USES TO THE EXCLUSION OF THE RIGHT ONE IS THE EDITION'S OWN SPELLING** (Sep
+2026, batch E31, and the discriminator every sweep since B6 should have been stating out loud). The
+single-occurrence sweep asks for a token one confusion-class substitution away from a form the book
+uses ten times or more — so the arithmetic is already in the candidate list, and reading it is what
+tells damage from vocabulary. Each of E31's twelve repairs stands alone against 5 to 230 of the
+correct spelling: the edition plainly knows the word.
+
+The Bhagavad-Gita's eighth discourse does not. It is *"THE YOGA OF THE INDESCTRUCTIBLE SUPREME
+ETERNAL"* on the page, twice in the text, with the correct spelling **nowhere in the book** — the
+misspelling is the 1922 Natesan printing's own, this file's entry had already recorded the decision
+to keep it as printed, and a row for it was written, applied, and then withdrawn. Transcribing a
+title means transcribing it. **The count was in front of me the whole time and said 0 correct** —
+the check costs one grep, and it is the one that separates a slip from an edition's own error.
+
+**WHICH SIDE OF EXTRACTION A BOOK'S CHAIN RUNS ON IS DECIDED BY WHAT ITS ROWS NAME** (Sep 2026, batch
+E32). E29 moved one branch from correcting the page to correcting the extracted prose and gave the
+reason: a row facing a page full of tags is weaker than one facing prose. E31's scan found eight more
+branches still on the older shape. Pointed at all eight, the reason turns out to hold for **five of
+them and to be exactly backwards for three**.
+
+  · **MEASURED FIRST, and the weakness was not being suffered.** Six of the eight books carry a
+    correction table. Applying each book's own rows to its raw cached page and asking whether any hit
+    lands inside a tag: **zero, on all six**. So the move is a hardening against a row written LATER,
+    not a repair — which is worth saying plainly, because it decides how much risk is worth taking
+    for it.
+  · **THE FIVE THAT READ MARKUP WERE MOVED** — `kanda` and `satyricon` (TEI), `sukta`, `tablets` and
+    `ptahhotep` (HTML). Rebuilt: **all five byte-identical, every row still firing, no dead rows.**
+  · **THE THREE THAT READ PLAIN TEXT WERE NOT, and the measurement is the argument.** Moved,
+    the Canterbury Tales loses **180 of its 198 rows** and Journey to the West **13 of its 327** —
+    193 repairs — while Don Quixote's single row is inert either way. The mechanism is not subtle
+    once seen: those rows name **the scan's own damage**, and the extractor's job is to clean exactly
+    that up before it builds a paragraph. `his_^pmiishment`, `fiie"clouds~and`, `Ping(preftctHre.)Chap.`,
+    a page number sitting inside a word, five lines the scanner scrambled — none of those strings
+    exists any more once `extractChaucer` or `extractJourney` has run, so the row matches nothing and
+    the damage ships.
+  · **So the rule is not a preference.** A row that names a form the SOURCE published — an OCR
+    ligature, a run-together line, a stray mark — must run on the page, because that form is what the
+    page has and what the extractor removes. A row that names a WORD can run on either, and runs on
+    the prose, because that is where a tag can no longer come between its letters. **Read the book's
+    own rows before deciding, and if they are full of punctuation the reader will never see, the
+    answer is already given.**
+
+**AND `correctGot` DID NOTHING AT ALL ON A SHAPE IT DID NOT RECOGNISE** (Sep 2026, batch E32, and it
+is E31's own fault wearing the coat of the helper written to close it). Shipped in E31 it ended
+`return one(got)`, so an object that was neither an array nor a part — a reader's `{ chapters: […],
+counts }` — fell through and came back **untouched, with nothing reported**. Its own comment claimed
+that a reader added later with a name not in the list would "fail loudly here"; it did not, and the
+comment was the only thing saying otherwise.
+
+It was found by pointing the helper at the three plain-text readers, whose parts hang off `chapters`:
+**198 Canterbury Tales rows went dead in one run, and the only thing on screen that said so was the
+dead-row report** — the build printed its counts, said `Wrote books/canterbury-tales.js`, and was
+believed for a good ten minutes. It throws now, naming the keys it found. **A comment claiming a
+helper fails loudly is not a helper that fails loudly**, and the difference is one line and a test.
+
+**THE TRANSCRIPTION'S ITALIC, WHICH ONE READER WAS NEVER GIVEN** (Sep 2026, batch E33). Project
+Gutenberg marks italic with a pair of underscores. `extractChaucer` has converted them since the day
+it was written; `extractQuixote` did not — so **86 italic passages of Don Quixote shipped with their
+marks showing**: *terra firma* reached the reader as `_terra firma_`, `_mine_` and `_thine_` in the
+Golden Age speech carried four underscores between them, and the romance parody the novel opens on
+had one at each end of 271 characters.
+
+  · **MEASURED BEFORE IT WAS WRITTEN**, because a pairing rule that guesses is worse than the marks it
+    replaces. Every chapter's underscore count is EVEN, all 86 spans pair, and **not one crosses a
+    paragraph, a blockquote or even a `<br>`** — so the conversion runs per BLOCK, where `[^_]` cannot
+    reach past the end of the block it is in, and it needs no lookahead and no state.
+  · **WHAT IS LEFT OVER IS REPORTED RATHER THAN KEPT QUIETLY.** An odd underscore is either damage the
+    reader should be told about or a pairing this rule cannot see; the run prints both figures, for the
+    same reason the verse blocks and the all-capital blocks are counted beside them.
+  · **AND AN UNDERSCORE IS NOT ALWAYS AN ITALIC MARKER.** The Canterbury Tales' source is a SCAN, not a
+    Gutenberg text, so its 22 underscores are specks and rules the OCR read as characters — which is
+    why `extractChaucer`'s own `_..._` rule has never once fired on it: all 106 of that book's italics
+    are rubrics. **Ask what the source IS before reading its punctuation as markup.**
+
+**TWO CONFUSION SHAPES THE SCANNER'S SET DID NOT CARRY** (Sep 2026, batch E33). `book-scan.js` holds
+u/n, c/e, l/i, l/t, h/b, f/t, o/c, g/q, y/v, m/n, rn/m, in/m, cl/d, li/h and ii/n. Two more turned up
+by accident, in a word noticed while reading round something else:
+
+  · **`h` READ AS `n`** — the arch of the h breaking so the letter closes into an n. `somewnat` for
+    *somewhat*, `cniefest` for *chiefest*, `bethougnt` for *bethought*, `Tney` for *They*.
+  · **`na` READ AS `m`, AND `m` SET AS `na`** — the same accident as the `rn/m` and `in/m` already in
+    the set, one letter pair further on. `Damans` for *Danaans*, `naortal` for *mortal*, `naagic` for
+    *magic*.
+
+**THE SHELF IS THE DICTIONARY, and that is what makes the h/n class usable at all.** Swept over the
+whole corpus it returns 57 candidates, nearly all of them ordinary words — `snow`/`show`,
+`heed`/`need`, `nigh`/`high` — because n and h swap into common English. Filtering to forms **no
+other book on the shelf knows** cuts it to nine, of which four are damage and five are real archaic
+words the filter cannot know (`nere` in Malory, `nighest` in the Summa, `snaring` in Plato, and the
+Chinese place names `Jianghan` and `Nanzhong`, both correct as printed). The plan's own rule about
+the confusion set — *a list nobody can read through is not evidence* — survives, and the shelf-wide
+filter is how a noisy class is made readable rather than abandoned.
+
+**AND A NAME MISREAD IS MISREAD WHEREVER IT IS SET THE SAME WAY.** `Damans` stands **three** times in
+the Iliad, so the single-occurrence sweep is blind to it: the `na`/`m` sweep allows up to four
+occurrences for exactly this reason, and the shelf filter carries the weight the count no longer can.
+
+**A PLATE IS NOT NOTHING TO AN OCR, AND ITS CAPTION LANDS IN THE PROSE** (Sep 2026, batch E34, in
+`extractJourney`). Journey to the West is a 1913 volume with thirty engravings, each captioned under
+the plate. The scanner reads the picture as a run of blank lines, so the caption arrives as an
+ordinary line of text in the middle of whatever paragraph the plate was bound into — and three of
+them broke a sentence in half: *"But the women Bajie tempted at the Bathing Fool. would not let him
+go."*
+
+  · **THE TABLE OF WHAT TO REMOVE IS THE BOOK'S OWN LIST OF ILLUSTRATIONS**, read out of the front
+    matter the reader is about to throw away. That is the whole reason it is safe. The alternative is
+    a rule about the SHAPE of a caption — a short line inside a run of blank lines — and this scan has
+    **523 runs of four blank lines**, most of them ordinary page breaks. Matching against the
+    printing's own list asks a question the book has already answered, and it travels with the
+    transcription instead of being a guess about it.
+  · **IT IS A FUZZY MATCH BECAUSE BOTH SIDES ARE OCR** — the list prints "A Dragon transformed into a
+    Horse" and the plate itself comes back "A Dragon tbanspormed into a r:cRSE." At a threshold of
+    **0.40**, with the line required to sit behind **three or more blank lines**, twenty-two blocks
+    match and every one is a plate caption; the nearest thing that is not is at 0.43. Both halves are
+    needed: the ratio alone catches "chapter." against "The Master", and the blank run alone catches
+    every page break in the book.
+  · **THE THRESHOLD IS 0.40 RATHER THAN 0.35 BECAUSE THE CORRECTION CHAIN MOVES ONE SIDE AND NOT THE
+    OTHER**, and that is the thing to know before tuning it again. The chain runs before this reader,
+    so the LIST is romanised — *Kwanyin the Holy Spirit* becomes *Guanyin the Holy Spirit* — while the
+    caption on the plate is too mangled for the same row to fire on it (`KWANYIM TIIE IFOLY SpiKIT`).
+    The two drift apart by the width of the correction: that one caption sits at 0.30 against the raw
+    list and 0.40 against the corrected one. **A row that fires on one side of a comparison and not on
+    the other widens it.**
+  · **A CAPTION MAY RUN TO MORE THAN ONE LINE**, so what is removed is the whole non-blank BLOCK the
+    matching line belongs to — nineteen are one line, two are two, and one is four, the plate of the
+    Incarnate One carrying the translator's note on the dove under its caption.
+  · **AND THE ENGRAVING COMES OFF WITH IT.** The hatching is read as short blocks of punctuation
+    (`-^A^^K^^^i^`, `\&r,4??:`) and the plate's corner marks as two- to six-character blocks that
+    happen to be letters (`Vx-j`, `Mihi`), all sitting in the same white space. The removal walks OUT
+    from the caption over any adjacent block that is short and mostly not letters, and stops at the
+    first that is not — **eighteen blocks absorbed, every one engraving noise**. The six-character
+    bound sounds reckless and is measured: the book has 24 such blocks, four of them real prose left
+    stranded by a page break (`Truly.`, `done,`, `next.`, `Thus,`), and **not one of the four sits
+    beside a plate**. The rule only ever walks out from a matched caption, which is what keeps it so.
+    The chapter title `A DRAGON EXECUTED`, which sits directly after one of the plates, has eighteen
+    letters and is untouched.
+  · **THREE LINES ARE LEFT TO PER-INSTANCE ROWS** rather than to a wider rule, and each says why: the
+    sub-caption under the Kwanyin plate (the list names a plate once, so there is nothing to match it
+    with), and the last plate's hatching and the tail of its caption, which are too long for the noise
+    rule and too letter-dense for its ratio. Widening either bound to reach them would mean taking any
+    short capitalised sentence next to a caption, which is a rule that eats prose.
+
+**A 107th RUNNING HEAD, AND WHY THE CAPS TEST IS LOAD-BEARING** (same batch). `HEAD_NUM`'s comment
+recorded that the trailing page number "read cleanly in all 106 cases", so only the LEADING form took
+the widened glyph class. The 107th is `BUDDHA PEOVIDES SCRIPTURES lOT` — 107 read as l-O-T — standing
+between "He" and "agreed". The trailing class now takes `T` as well, and **the widening removes
+exactly one more line in the whole book**: what makes that safe is the caps test the head rule already
+applies (over three-quarters capitals, six letters or more), which no line of this translation's prose
+or verse passes. Widen the glyph class if you must; never drop the caps test.
+
+**AN ARTICLE THE TRANSCRIPTION LOST, AND THE ONLY THING THAT CAN TELL ITS ERROR FROM THE PRINTING'S**
+(Sep 2026, batch E35). A new check — *does the book carry a paragraph twice in one chapter?* — found
+the Summa serving duplicated text. Read out, the duplication is a whole ARTICLE: Wikisource's page for
+I-II q.52 sets article 2 twice, the second time under article 3's number, and its page for II-II q.43
+sets article 4 twice under article 5's. So Folio was not merely repeating a passage; it was making a
+FALSE CLAIM — that article 3 asks what article 2 asks — and an article of Aquinas was missing.
+
+  · **THE BOOK ITSELF NAMES WHAT IS MISSING.** Every question in the Summa opens by listing its own
+    points of inquiry, so the witness is inside the text: q.52's list ends "(3) Whether each act
+    increases the habit?" where the transcription sets "Whether habits increases by addition?" twice.
+    **When a work states its own contents, check the contents against them** — it costs one pass and
+    it is the strongest witness there is, being the same page.
+  · **THE REPLACEMENT IS THE SAME TRANSLATION, AND THAT IS MEASURED, NOT ASSUMED.** Project Gutenberg
+    carries the Fathers of the English Dominican Province (Benziger 1920) in three volumes. Run on an
+    article BOTH transcriptions carry, the converter produces text **99.83% word-identical** to the one
+    this book already ships — so the two are one edition transcribed twice, and what is spliced in is
+    not a different Summa. **Validate a converter on the overlap before using it on the gap.**
+  · **THE WORDS LIVE IN `.claude/summa-supplied.json`, NOT IN THIS FILE.** `fetch-book.js` holds rules;
+    prose Folio asserts belongs in a book belongs where it can be read and reviewed. Three typographic
+    normalisations are declared in that file's own header, each because this book's 614 questions are
+    set that way — `Obj. N:` written out (the wiki spells it out 20,448 times and abbreviates it never),
+    `Reply Obj. N:` likewise, and Gutenberg's underscore italics dropped (this book carries no `<i>`).
+  · **IT REPAIRS ONLY WHAT IT FINDS BROKEN.** The splice happens only where the named article's body
+    really is its predecessor's word for word, so an upstream fix makes the entry stop firing and SAY
+    SO rather than overwrite a corrected article with our copy. Reported like a dead correction row.
+
+**AND THE THIRD CASE, WHICH IS THE FINDING.** II-II q.47 sets article 10 under article 9's title, and
+its own inquiry list disagrees with it. It looks exactly like the other two — and **the Gutenberg
+transcription carries the same wrong heading.** Two independent transcriptions agreeing is the evidence
+that the fault is the PRINTING's rather than the wiki's, so it is transcribed as printed and gets no
+repair. That is E31's Bhagavad-Gita rule one batch on, and it names the instrument: **a second
+transcription of the same edition is what tells a transcriber's error from the printer's, and nothing
+else can.** Where only one transcription exists, the question cannot be settled and the text stands.
+
+**AND A WHOLE QUESTION, WHICH THE SAME TRANSCRIPTION HAS NOT GOT AT ALL** (Sep 2026, batch E38,
+`supplyQuestion` + `pageShift` + `.claude/summa-witness.js`). E35's duplication check finds a loss
+that leaves a DUPLICATE behind. **A loss that leaves nothing behind is invisible to it, to every
+spelling sweep and to `book-audit` alike** — and the Summa had one. Wikisource's Third Part serves
+question 33's text under `Question 34` and question 34's under `Question 35`; `Question 36` is right
+again, so **question 35 — Of Christ's Nativity, eight articles — is on no page of it**, and Folio
+shipped chapters 455 and 456 byte-identical with 3,678 words of Aquinas absent.
+
+  · **THE FAULT IS IN TWO HALVES AND SO IS THE REPAIR.** Chapter 456 wants question 34, which exists
+    and is on the page named `Question 35`: that is a redirection, declared in this book's own
+    `pageShift`. Question 35 exists nowhere in the source: that is a supply, from the same Gutenberg
+    transcription E35 used. **Redirect what is merely misfiled; supply only what is genuinely gone.**
+  · **BOTH HALVES NAME THE FAULT THEY EXPECT TO FIND.** `pageShift` carries the opening the SHIFTED
+    page has while it is still wrong, and the supplied question carries the opening the BROKEN chapter
+    has; if either phrase goes, the wiki has been corrected upstream and the run says so rather than
+    quietly serving the wrong question under the right title. Reported like a dead correction row —
+    which is E35's rule, and the two guards were negative-tested by breaking each phrase in turn.
+  · **THE VALIDATION AT SCALE NEEDED A DIFFERENT MEASURE.** E35's sequential word walk reports
+    **12.96%** for question 36 in the two transcriptions; a bag-of-words comparison of the same pair
+    reports **99.41%**, and 99.1–99.7% article by article. The walk desynchronises past the first long
+    insertion, so it is right for one article of 800 words and wrong for a question of 7,500.
+    **Validate on the overlap, but check that the yardstick survives the length.**
+  · **THE ARTICLE TITLES ARE SET BY HAND, checked word-for-word against the witness.** The wiki writes
+    every article head in sentence case and Gutenberg in title case, and a rule that lower-cases after
+    the first word also lower-cases Christ, the Blessed Virgin and Bethlehem.
+  · **THE SUPPLEMENT HAS THE SAME FAULT AND NO WITNESS.** Its `Question 12` page carries question 11's
+    text, chapters 523 and 524 are byte-identical, and *Of Satisfaction, As To Its Nature* is gone.
+    Gutenberg's four volumes stop at Part III, so it is **measured and not repaired**; find the 1920
+    Supplement volume before treating it as unreachable.
+
+**AND TWENTY-SEVEN ARTICLE HEADS THAT NEVER BECAME HEADINGS** (Sep 2026, batch E39, the two
+normalisation passes at the head of `markArticuli`). E38 measured fourteen questions carrying articles
+Folio does not number, and in twelve the text was present and only the heading unread. It is ONE fault
+in five spellings, and each was found only by reading the survivors of the last:
+
+  · **`==== Art. 2 - … ====` sitting in the prose**, because the transcriber let the TITLE WRAP and a
+    MediaWiki heading must be on one line, so the closing marks stood on a line of their own (5).
+  · **The same with no closing run at all** — the opening marks typed and then nothing (3).
+  · **The same inside a `<pre>`**, the line having begun with a SPACE, which is a preformatted block (2).
+  · **A bare paragraph with no markup whatever** (10), and **a `<pre>` with no equals signs** (6).
+
+  · **THE COUNT IS CHECKED AGAINST THE SOURCE, NEVER AGAINST THE OUTPUT.** In the finished book all
+    ten escaped heads look identical, so after the first pattern the run reported 6 of 10 and the
+    four survivors were indistinguishable from the six. **A repair rate measured on the thing you
+    have just repaired says "finished" every time** — it said so three times here.
+  · **THE UNMARKED HEAD IS FOUND BY THE WORK'S OWN SHAPE, AND THE ARGUMENT IS A MEASUREMENT.** Every
+    article opens with its question and then "Objection 1:", so a short paragraph ending in a question
+    mark whose next paragraph opens on that phrase is a head. Over the whole book it agrees with the
+    existing numbering **3,071 times** and finds **16** that are not numbered, all in the six
+    questions the book's own points of inquiry say are short. It only ever ADDS: 38 numbered heads do
+    not open on an objection, and reading that as evidence would make a finder into a remover.
+  · **WHERE NO HEADING STATES THE COUNT, THE PROSE DOES.** Three questions carry no question heading,
+    so the `(FOUR ARTICLES)` parenthetical is not on the page — but the question opens by saying how
+    many points of inquiry it has, in words. Same statement, same edition, read from the body. It also
+    **corrects** II-II q.29, whose three headings are numbered 1, 2 and 3 where the third is the
+    question's fourth article.
+  · **ITS OWN FIRST FIX ATE AN ARTICLE.** The role test claims the first heading carrying no article
+    number as the TREATISE line; on a page whose only headings this pass had just made, that was
+    article 1, leaving five against a stated six and nothing numbered at all. Synthesised headings
+    carry `folio-barehead` and the fallback skips them. **A normalisation feeding an existing pass
+    must be read against every rule that pass already applies.**
+  · **THE COUNT SENTENCE IS THE LAST ONE, NOT THE FIRST.** Several questions open with a two-level plan
+    — the treatise's topics, then "Under the first head there are three points of inquiry" — so taking
+    the first match reads the plan as the article list: 35 questions look short of an article against
+    16 taken the other way. One survives even that (II-II q.48 says four points and has one article,
+    the other three being questions 49–51), and it is recorded rather than "fixed".
+
+**AND TWO MORE THAT WERE SIMPLY GONE** (Sep 2026, batch E40, `insertArticle`). E39 repaired heads that
+were UNREAD; these had nothing behind them, and between them they needed the THIRD supply mode and a
+second witness.
+
+  · **SUPPLEMENT QUESTION 12 IS E38's FAULT AGAIN** — its page carries question 11's text, so chapters
+    523 and 524 shipped byte-identical. **Gutenberg's four volumes stop at Part III**, which is what
+    made E38 leave it; the witness is **CCEL**, validated at **99.02% and 99.12%** on Supplement
+    questions 11 and 13 that Folio already carries, and it needs no reply-marker normalisation because
+    it writes "Objection 1:" exactly as this book does. **It is cross-checked against New Advent's
+    independently derived copy (97.4%)**, and that matters more here than anywhere: CCEL and Wikisource
+    may share a transcription lineage, and **agreement between relatives proves nothing**.
+  · **ASK WHO ELSE PUBLISHES THE TRANSLATION BEFORE CONCLUDING A WITNESS IS UNREACHABLE.** The
+    archive.org search that E38 ran found printed volumes for Supplement questions 34–68, 69–86 and
+    87–99 and **none for 1–33**; two web editions of the same translation carry all of it.
+  · **CCEL's OWN TEXT IS ONE `<div class="book-content">`.** A slice from the top of the page drags 40%
+    site chrome in and scores 0.83 — which reads as a different transcription and is a different
+    SELECTION of the same one.
+  · **II-II q.180's ARTICLE 5 IS A LOST ARTICLE AND NEEDED AN INSERT.** Its heading labelled `Art. 5`
+    carries article SIX's title and text (**99.83% against 45%**, measured), so the question ran
+    1,2,3,4,5,7,8 with the fifth gone. `insertArticle` puts it before the block standing in its place
+    and renumbers the chapter 1..N — the count-agreement rule one layer later — with `beforeTitle` as
+    the guard, naming the title that block carries WHILE THE FAULT STANDS.
+  · **THE TWO REPLY NORMALISATIONS ARE ORDER-DEPENDENT AND WERE THE WRONG WAY ROUND.** `Obj. N:` →
+    `Objection N:` applied first eats the `Obj.` inside `Reply Obj. N:`, so **28 replies shipped as
+    "Reply Objection 3:"** — 3 in the article E35 supplied, 25 in the question E38 supplied — against
+    7,590 correct ones written by the transcription itself. **Nothing in the pipeline could see it**:
+    the words are right and the marker is a form the book never otherwise uses, so no non-word sweep
+    and no citation check touches it. It surfaced only on running the converter again and reading its
+    output. **Read what a converter PRODUCES, not only what it was given.**
+  · **KNOWN AND UNREPAIRED: II-II q.153, a page fault of a fifth kind.** Its question heading carries
+    **article 1's title** and its prologue is missing, so that heading is dropped as furniture and
+    article 1 with it, leaving four headings for a stated five and the printing's articles 2–5
+    numbered 1–4. The likely rule — *a question's own title is a noun phrase in capitals and never an
+    interrogative, so a "Question…" heading ending in a question mark is an article head* — touches the
+    weak role test that four other questions depend on, so it wants a whole-book remeasure.
+
+**AND THE COUNT WAS ON EVERY PAGE ALL ALONG** (Sep 2026, batch E41). Each of the 614 carries a
+`ws-title` header block — *"Summa Theologiae — Question 153 - OF LUST (FIVE ARTICLES)"* — put there by
+the transcription's own header template, and **it is right even where the body's question heading is
+missing, misnumbered, or carries an article's title instead**. `markArticuli` now reads the count from
+there first, with the body heading and E39's prose sentence as backstops.
+
+  · **IT IS READ FROM THE WHOLE PAGE, NOT FROM `b`.** That block is furniture to a reader, so the
+    `ws-noexport` pass strips it well before this hook runs; `cleanBody` passes `h` down for it.
+  · **CHANGING WHERE A COUNT COMES FROM TOUCHES EVERY QUESTION, SO ALL 614 WERE REFETCHED AND DIFFED
+    — AND EXACTLY ONE CHAPTER MOVED.** That is the strongest statement available here: on 613 pages
+    the header block and the body heading agree, and on the one where they do not the header is right.
+    **608 of 614 questions are now numbered by their own stated count**, against 4 before E39.
+  · **A QUESTION'S OWN TITLE IS A NOUN PHRASE AND NEVER AN INTERROGATIVE.** II-II q.153 heads itself
+    *"Question. 153 - Whether the matter of lust is only venereal desires and pleasures?"* — article
+    1's title — with no prologue at all, so the weak "Question…" role test claimed it, the pass
+    dropped it as furniture, and article 1 went with it. That test now stands down on a heading ending
+    in a question mark. Read as an article the head was then titled after the question it is in, so a
+    `Question. N -` prefix is stripped, in ONE place, or the duplicate test and the emitted heading
+    compare different strings.
+  · **A COUNT READ FROM THE PAGE IS A COUNT READ FROM THE PAGE THE REDIRECTION FETCHED.** Chapters 456
+    and 457 report "the heading says 8 articles and 4 were found", because E38's `pageShift` sends 456
+    to the page named `Question 35`, whose header states question 35's count while its body carries
+    question 34. The printed numbers are kept, which is right for 456, and 457 is replaced by the
+    supplied question anyway — but the guard firing there is correct and should stay.
+
+**📖 `.claude/check-cutoff.js` — RUN IT AFTER ADDING A BOOK.** A chapter that STOPS rather than ends
+(Sep 2026, batch E43), and **the tell is terminal punctuation, the only one there is**: a truncated
+chapter is not short — the Summa's Supplement q.95 lost 1,123 words and still ran to 20 KB — and it is
+not ungrammatical, because every sentence but the last is whole. What it cannot be is properly ended.
+
+  · **NEITHER OTHER STRUCTURAL SCANNER CAN SEE IT.** `check-twins.js` asks whether a chapter is the
+    WRONG chapter; `summa-witness.js` whether an article is missing. A chapter that is the right
+    chapter, correctly placed, and simply stops two thirds of the way through passes both — and
+    passes every spelling sweep, the words it does have being correct.
+  · **22 of 4,403 on its first run, five of them the Summa's, and all five the SOURCE's truncation**:
+    each wiki page itself stops where Folio stopped, mid-sentence, with the MediaWiki parser report
+    immediately after. Three were missing only a full stop, one six words, and Supplement q.95 the
+    rest of its last article's answer and all nine paragraphs after it.
+  · **THE OTHER SEVENTEEN ARE SETTLED BY ONE QUESTION: what does the NEXT chapter open with?** A
+    lowercase word means the division simply falls mid-sentence and nothing is missing, which is the
+    Satyricon's chapter 16 exactly. Eleven are VERSE (nine Rigveda hymns, two Ramayana cantos) where
+    Griffith's last line often carries no stop; three are the Satyricon's sections; and Aesop's
+    moral, Machiavelli's chapter 25 and a Canterbury colophon each want a page-image read to settle
+    one mark. Read and recorded, not guessed at.
+  · **AND E36's WITHIN-CHAPTER DUPLICATION CHECK, RUN OVER THE SHELF, COMES BACK CLEAN** — 13
+    findings in 91,149 paragraphs and every one legitimate: the Poetic Edda's asterisk divider, the
+    Summa's own short formulae sitting exactly in the band E36's length bar excludes, and the Prose
+    Edda quoting one skaldic stanza twice under two kennings with a fresh attribution each time.
+    Recorded here so nobody runs it again expecting a yield.
+
+**A FOOTNOTE MARKER IN A COLUMN THAT HAS NO FOOTNOTES** (Sep 2026, batch E47). Folio's reader folds
+notes under the TRANSLATION alone, so `writeOriginal` throws an original's editorial notes away — and
+for months it kept the marks they left behind: **483 in the Old English Beowulf and 84 in the Greek
+Herodotus, against zero notes on either side.**
+
+  · **app.js DOES NOT IGNORE THEM.** `wireFootnotes` takes its list from the first `.src-note` on the
+    page — the TRANSLATION's — then walks every `sup.fn` in document order, the original column's
+    included; any whose number is at or under that count becomes a CONTROL pointing at that note. **369
+    of the 567 were clickable**, offering a note about the English on a word of the Old English. Fitt 28
+    of Beowulf drew twenty against the translation's ten, the first on `heal-reced`.
+  · **THE RULE IS UNIVERSAL BECAUSE THE REASON IS**: measured over the shelf, no original-language file
+    carries a single note, and none can while the reader has one fold and gives it to the translation.
+    The strip runs in `writeOriginal`, beside E45's escaped-tag sweep and for the same reason.
+  · **`book-audit.js` CHECKS IT ON THE ORIGINAL SIDE ONLY** — on the translation side a marker pointing
+    at the book's own note is the apparatus working.
+  · **It was found by asking five cheap questions of the whole shelf at once**, of which only two were
+    then READ — see the entry below, which reads the other three. The probe's "nearly empty chapter"
+    test counted WORDS and reported twenty-eight Chinese chapters of 5,765 characters as near-empty:
+    **a length is not a word count in every script.**
+
+**AND E28's LOST SPACES, FINISHED** (Sep 2026, batch E54). **153 more**, all in the Latin Seneca and all
+in the source. E28's 483 rows are nearly all SHORT pairs, because the sweep that found them looked for a
+short word swallowed into its neighbour; the ones it left are long, and a twenty-letter Latin token reads
+as a plausible word until you try to translate it.
+
+  · **THE FILTER IS THE REUSABLE PART.** A bare split test returns **525 candidates and is useless**,
+    because Latin's own morphology splits perfectly: the `-que` enclitic makes `voluptatemque` look like
+    two words, and the prefixes make `transmittuntur`, `interemptorem` and `supervenerunt` look like two
+    each. Excluding a split whose LEFT half is a prefix or whose RIGHT half is a bound ending takes it to
+    **145**, and at that size every one can be read. **Every survivor before letter 84 is a real Latin
+    word**, which is the confirmation that the fault is the transcription's last quarter, not the language.
+  · **THREE BLIND SPOTS, EACH DIFFERENT.** `modiceaegrotandum` is in letter 85, so **E28's stated 101–124
+    range was not the boundary**. `inreparabilisuita` has a half (*inreparabilis*) that occurs NOWHERE
+    else in the column, so a corpus-internal attestation test cannot see it. And two more have a CRUX
+    between the words (`~Eo~mortem`), which `lostSpaces` cannot express at all — its keys are letters only
+    and `restoreLostSpaces` throws on anything else — so they went to `O.reFixes`.
+  · **637 rows fired and none was reported dead**, which is that mechanism's own check and the argument
+    for a declared row over a sweep. The English column is byte-identical; only the Latin moved.
+
+**A CRUX IS NOT OCR DAMAGE, AND A BOOK MUST SAY WHAT ITS MARKS MEAN** (Sep 2026, batch E53). The Latin
+Seneca prints **19 passages between tildes** — how its transcription renders the daggers a critical
+edition puts round text the manuscripts hand down corrupt (`~servitus~`, `~aitarens malitia et ea
+agitata~`, where *aitarens* is not a Latin word) — and **76 square brackets**, the opposite judgement,
+text the editors think was added later. **The front matter explained neither**, so a reader met both
+with nothing to say what they were; it does now.
+
+  · **`book-audit.js` HAD BEEN REPORTING ALL 19 AS SCAN DAMAGE SINCE E33** — 21 of the 37 hits its
+    sentinel check produces shelf-wide, which is why the other 16 had never been read. **A scanner whose
+    findings nobody reads has stopped working.** The mask is BY SHAPE, not by book: a crux wraps whole
+    words between a tilde pair, where the damage the check exists for sits INSIDE a word (`jatave~as`),
+    so it leaves every real finding standing.
+  · **THE TWO REAL ONES WERE IN THE RIGVEDA, IN ONE SENTENCE**: `jatave~as` for *Jatavedas*, which the
+    book spells correctly 112 times, and `Trce-fed` for *Tree-fed* in the next clause — E15's c/e family.
+  · **AND E28's LOST SPACES ARE NOT FINISHED.** The four hits the mask leaves are all in letter 123 and
+    all are a crux run hard against the next word (`~Eo~mortem`), with `uoluptatesrecepturae` beside
+    them. Measured conservatively — a 15-letter token occurring once whose halves each occur three times
+    or more — there are 13 across seven letters, **all inside 101–124, the range E28 covered**.
+  · **`.claude/book-cache/canterbury-tales/en-text.txt` DOES NOT MATCH THE SHIPPED ENGLISH**, so the
+    Canterbury Tales' eight sentinel hits could not be verified and were not repaired. Where the cache
+    was found at all it reads differently from the book. **Check a cache is the book's own witness before
+    correcting against it.**
+
+**AND THE SAME FAULT ONE LEVEL UP: CLAUDE.md'S OWN FIGURES** (Sep 2026, batch E51). E49 checked a
+book's account of itself; `CLAUDE.md` is the repository's, it is the only operational memory a cloud
+session has, and **twenty of the forty-one figures in it that can be measured were wrong** — the
+collection index table four times out of date in places, app.js's size and shape, the importer's own
+layout count ("twenty-two" against twenty-six), the language decks' files and weight, and one suite's
+assertion count pinned at two different numbers. `node .claude/check-claims.js` is the measure.
+**`app-map.js` was carrying two stale figures in its own prose too** — "128 dashed banners" against
+159, and "only 14 things are put on `window`" against 27, hardcoded in the output of a script whose
+whole job is to measure app.js. Both are measured now. **Run check-claims after any batch that changes
+a count CLAUDE.md states**, which for this file's work means the book and original totals and the
+layout count.
+
+**AND THE OTHER KIND OF CLAIM A FRONT MATTER MAKES: WHAT IS WRONG WITH THE BOOK** (Sep 2026, batch
+E50). A count can be checked; a sentence saying a chapter stops, a column is untranslated or an edition
+leaves lines out cannot, because no count disagrees with it. Swept by their vocabulary — *missing,
+absent, omitted, empty, breaks off, unnumbered, no original, gap* — there are **106 such sentences in
+48 books**, and every one was read. **105 are right**, several of them verifiable outright against
+`check-pairing.js` (Medea's two empty cells, the Oedipus's three, the Confessions' Book I 19–20,
+Thucydides 8.61, the Ramayana's three Sanskrit-less cantos, the Rigveda's three suppressed passages).
+
+  · **THE ILIAD'S WAS WRONG, AND IN TWO WAYS.** It said the Greek loses "four lines of book 9
+    altogether and four more in book 8", which is **ten lines across four books**: 8.548 and 550–552
+    are in Perseus's file wrapped in `<del>` and dropped with the mark that disowns them, while
+    9.458–461, **11.543 and 14.269** are absent from the numbering outright — the last two unmentioned.
+    The two mechanisms are different and had been merged, which is why the count came out wrong: one
+    leaves the `<l n>` sequence complete and the other puts gaps in it.
+  · **AND NOTHING "STANDS EMPTY" IN EITHER HOMER**, which is what both front matters said. That is the
+    wording the genuinely one-sided books use (the Confessions, Thucydides, Medea, the Oedipus); here
+    the Iliad's columns carry 425 numbered places each and the Odyssey's 288 each, and both rebuilds
+    report *0 English and 0 Greek left unpaired*. What a reader meets is a Greek block shorter than its
+    own numbering spans, never an empty cell.
+  · **THE MEASURE THAT FOUND IT IS NOT A SHELF-WIDE INSTRUMENT, and that is recorded rather than
+    shipped.** *Does this column print every line its numbering claims?* is answerable only where the
+    numbering counts that column's own lines — Homer alone here. Elsewhere the marks number a different
+    text and the noise is total: Ovid's Latin reports 658 short and its English 4,315 over, the Poetic
+    Edda 4,691, the Rigveda 9,458, and a lyric line set across two printed lines counts twice, which is
+    most of Antigone's 98. A checker reporting thousands of legitimate rows to find two real ones is one
+    nobody runs.
+
+**A BOOK'S FRONT MATTER COUNTING WHAT THE BOOK NO LONGER HOLDS** (Sep 2026, batch E49). Every book
+opens by counting things — "124 letters", "614 questions", "404 chapters on each side" — and nothing
+had ever compared one of those hand-written figures to the file. Measured over 154 counted claims in
+48 books, one book was wrong, three times over.
+
+  · **A REPAIR DOES NOT TRAVEL TO THE PROSE THAT DESCRIBES IT.** E38, E39, E40 and E41 put 31 articles
+    of the Summa back — 3,094 to 3,125 — and none of them touched the sentence in its front matter
+    that counts them. **When a batch changes what a book HOLDS, grep that book's `about` for the
+    figure**, exactly as a card correction is grepped through to its date line.
+  · **AND THE WORSE HALF IS NOT A COUNT AT ALL.** The same front matter went on telling the reader that
+    fourteen of its questions were missing an article heading and could not be cited from the page,
+    which those same batches had made untrue — every one of the 614 now carries a clean run from 1 to
+    its own stated number. A book apologising for a defect it no longer has is worse than a wrong
+    total, and no check can see it, because no count disagrees with it.
+  · **TWO TOTALS FOR ONE BOOK NEED RECONCILING IN THE PROSE**: the Summa's front matter says "614
+    questions" and "the 611 questions" in the same file, and both are true — 611 in the five Parts,
+    plus the Appendix's three.
+  · **`.claude/check-counts.js` IS THE PROXY**, report-only. The signal is the NEAR MISS, since a
+    figure far from any count is nearly always about something else; a count under 40 is not tested at
+    all (measured: 22 rows without that floor, 4 with it), a hedged figure is passed over, and the
+    legitimate near misses are declared with their reasons under `check-citations.js`'s
+    `CROSSREF_WRONG` rule. **Its blind spots are in its own header**: it found one of the four things
+    E49 repaired, and cannot see a sentence that counts with a pronoun ("forty-three of them", in
+    Beowulf) or a claim about a book's condition rather than its divisions.
+
+**AND ITS MIRROR: A NOTE IN THE FOLD THAT NO MARKER POINTS AT** (Sep 2026, batch E48). One on the whole
+shelf, and it is not a footnote at all: Perseus tags the Loeb's one-line ARGUMENT of the *Lysis*
+`type="Com"` — *"Socrates relates a conversation he had in a wrestling-school"* — and prints it ahead of
+section 203's first paragraph, so the dialogue shipped with fourteen entries in its fold and thirteen
+markers numbered 2 to 14.
+
+  · **THE MECHANISM IS POSITION, NOT SHAPE.** `teiSectionProse` lifts every note out where it stands and
+    then keeps **only what is inside a `<p>`**. A note standing outside one keeps its text and loses its
+    marker. So the check that matters is not "is this note of an odd type" but "did this note's marker
+    survive its own extraction", and `teiSections` asks exactly that, per chapter, every run.
+  · **NOTHING LOOKED BROKEN, WHICH IS WHY IT LASTED.** app.js is deliberately graceful here —
+    `wireFootnotes` gives an entry nothing cites a plain number rather than a jump to nowhere — so the
+    page renders correctly and the loss is one of MEANING: a summary of a whole dialogue presented as a
+    footnote on nothing.
+  · **THE REPAIR SAYS WHAT THE MARKUP SAYS.** `type="Com"` joins `place="inline"` as a note that is not
+    a footnote, set as **its own italic paragraph** rather than in the flow, because a headnote outside
+    a paragraph cannot survive that sweep at all. **Deliberately not dropped**: dropping satisfies every
+    check in one line and loses editorial text the reader has, so the browser test asserts the fold
+    clean AND the argument present.
+  · **`book-audit.js` ASKS IT OF THE WHOLE SHELF**, the mirror of the original-side check above. A
+    chapter carrying a BARE marker is reported as such rather than counted — all 16,006 markers on the
+    shelf are explicit, so reading order does not enter into it.
+  · **PROVED INERT ON THE ONLY SIBLING.** `teiSectionProse` is shared by Plato and Suetonius alone; both
+    the twelve lives' columns and the Greek Plato rebuilt byte-identical, and the English Plato changed
+    by 11 bytes in one chapter of thirty-five. The guard was proved to FIRE by disabling the rule and
+    rebuilding.
+
+**MARKUP THE SOURCE ESCAPED, WHICH THE READER SEES AS CHARACTERS** (Sep 2026, batch E45,
+`dropEscapedTags` / `dropEscapedTagsIn` / `reportEscapedTags`). Eight tags shipped for months —
+`<poem>` opening two laisses of the Song of Roland, `<poem>` and a mangled `<§/poem>` round a quotation
+of Horace in the City of God's Latin, a raw `<A HREF="errata.htm#0">…</A>` in two Rigveda hymns. The
+escaping is MediaWiki's own in every case, so the fault is the transcription's and the repair is Folio's.
+
+  · **THE DISCRIMINATION IS THE WHOLE RULE.** A critical text supplies words the manuscripts lack
+    inside angle brackets — Godley's `<Pisidians>`, Ross's `<are not wicked>`, and the Latin Seneca's
+    ninety-odd including **`<a>`, which is a preposition AND a tag name**. 166 such passages stand on
+    the shelf and every one is the edition. So the rule has three tests, each safe alone: a CLOSING
+    tag, a tag carrying an ATTRIBUTE, and a MediaWiki extension tag from a DECLARED list. Measured
+    before anything was rebuilt: 166 survive, 8 go.
+  · **IT RUNS AT THE WRITE, NOT IN `stripTags`, and that was the second attempt.** `stripTags` looks
+    like the one place every branch passes through — 21 call sites — and the Rigveda's `suktaBody`
+    flattens its page with a blunt regex of its own, so the first version did nothing at all for the
+    book with half the occurrences and said nothing about it. **A "single choke point" is a claim to
+    measure, not to assume.**
+  · **THE COUNT IS PER OUTPUT FILE and took three tries.** Counted inside `stripTags`, the Song of
+    Roland's two were counted twice and printed under its Old French, because that branch re-extracts
+    the English page to compare line counts; counted once per run as a maximum, the Rigveda's anchor,
+    which stands in two hymns, counted one.
+  · **`book-audit.js` CARRIES THE SAME THREE TESTS**, so what REMAINS on the shelf is measured on every
+    run where what was REMOVED is only reported by the run that removed it.
+
+**`O.reFixes` — AN ORIGINAL-LANGUAGE COLUMN'S OWN CORRECTION TABLE** (Sep 2026, batch E45). `BOOK.reFixes`
+is English and runs through `correctRaw`, which also applies `applyRoman` and `applyGlyphs`; neither
+belongs anywhere near a Latin, Greek or Sanskrit column, which is why the original branches have always
+been right not to call it — and what they had instead was **nothing**, so a defect in an original could
+only be recorded. `O.reFixes` is a declared `[regex, replacement, why]` list and nothing else, applied in
+`writeOriginal` where all three gathering branches meet, on the extractor's own output rather than on the
+page, counted and reported with DID NOT FIRE like the English's. Its first use puts back **eight words of
+Augustine** that the City of God's Latin transcription lost between Horace's ode and the sentence that
+answers it — see `docs/book-text-plan.md` for the four witnesses and for the two things deliberately not
+restored.
+
+**📖 `.claude/check-pairing.js` — RUN IT AFTER ADDING AN ORIGINAL-LANGUAGE COLUMN.** The two columns
+paired the way the reader's page pairs them (Sep 2026, batch E44), and it is the first thing on this
+shelf to ask the question in **app.js's own terms** rather than in the importer's.
+
+  · **THE FAULT IT WAS WRITTEN FOR IS INVISIBLE TO EVERY OTHER CHECK.** Thucydides shipped for
+    three weeks pairing **7 of its 1,826 sections**: it is the only book here whose columns come from
+    different extractors, and each wrote a locally correct sort key — the Wikisource rule a bare
+    `<span class="bk-n">34</span>`, `teiBookChapters` a `data-n` on every marker of every book it
+    reads. app.js pairs on `parseInt(data-n ?? text)`, so the English offered 1..146 against the
+    Greek's 100..14600. Both columns complete, both correctly numbered, both printing the same figure
+    in the same place, and the page rendering every English chapter beside an empty cell and then
+    every Greek one.
+  · **THE IMPORTER'S OWN RECONCILIATION SAID THEY PAIRED PERFECTLY, BECAUSE IT COMPARED THE LABEL.**
+    That check exists so a pairing is verified against the files that shipped rather than asserted
+    from the entry, and it read the figure the marker PRINTS. Both print "34". It compares the KEY now
+    and reports the label — "121A", not 12101, being what a human reading the run needs. **A check
+    that reads a different field from the one the reader's page reads is not a check**, which is the
+    third time in seven batches an instrument has agreed with a fault.
+  · **THE RULE IS SLICED OUT OF app.js BY TEXT and the script stops if it is not there**, as every
+    other checker here slices what it tests. A scanner quietly measuring a rule the page has stopped
+    using is precisely the fault it exists to catch, and its own first cut did it — reading the
+    marker's visible text only, which found Thucydides for the wrong reason and would have found
+    nothing had the missing key been on the Greek side.
+  · **IT SEPARATES A GAP FROM A FAULT.** 107 sections across the shelf draw with one side empty, which
+    is 0.4% of 25,379 rows and is two editors dividing a text differently; a book pairing fewer than
+    half its sections is called out on its own line. All 107 were already recorded in their books'
+    entries before this was written — Herodotus's athetised 6.122, Suetonius's 58/59/60 run together,
+    the Confessions' two untranscribed chapters, the Aeneid's five cards, Boethius's deliberate
+    `data-n="0"` summaries — so **an instrument that reproduces a known residue exactly is one worth
+    believing about the one thing it adds.**
+  · **CHAPTER-LEVEL PAIRING IS A DIFFERENT AND MUCH HEALTHIER QUESTION, counted apart and in both
+    directions.** 31 of the 32 books pair every chapter; the Ramayana has three English chapters with
+    no original and every section of the rest pairs, so folding the two counts together would make
+    each sentence untrue of the other. The reader reads a level down.
+
+**📖 `.claude/check-twins.js` — RUN IT AFTER ADDING A BOOK.** The Summa's duplicated-chapter check,
+generalised to the whole shelf (Sep 2026, batch E42), and it is the one fault no other checker here
+can see: **the wrong chapter is perfectly good prose**, and what gives it away is a fact about the
+BOOK rather than about any sentence in it. It found Aesop's fable 122, *The Old Lion*, carrying fable
+121's text — scan page 90 holds three fables and Wikisource's page for that one transcludes the first.
+Over the shelf: 4,397 chapters compared pairwise, one pair.
+
+  · **IT COMPARES RUNS OF EIGHT WORDS, NEVER VOCABULARY.** Two chapters of one work share their
+    author's entire vocabulary, so a bag-of-words test scores every pair high and finds nothing.
+    Aquinas closes 54 articles with one identical sentence and no pair comes near the bar.
+  · **THE WITNESS FOR THE REPAIR IS THE SCAN PAGE THE BOOK IS TRANSCRIBED FROM**, which is why it
+    validates EXACTLY where every other supplied text on this shelf validates at 99-point-something:
+    run on the fable printed beside it, the extractor produces a byte-identical string. Gutenberg's
+    Townsend (ebook 21) was refused as an American reprint — `clamor` for `clamour`, small capitals,
+    a clause reordered in the very fable used to check it.
+  · **THE SIBLING TITLE-CHECK DOES NOT TRANSFER, and it is recorded here so nobody builds it twice.**
+    `summa-witness.js` also reads each chapter's title against its own opening; over the shelf that
+    flags 123 of 1,979 chapters and essentially all are legitimate — Seneca's letter titles are the
+    translator's, Sophocles is divided into "Episode, lines 883–943", the Ramayana transliterates a
+    name one way in a title and another in the verse. **A title check only works where the title is a
+    claim about the text**, which the Summa's are and most books' are not.
+
+**📖 `.claude/summa-witness.js` — RUN IT AFTER ANY CHANGE TO THIS BOOK.** The fourth scanner, and the
+only one that can see text that is simply gone. Three checks: articles against the witness, each
+chapter's TITLE against its own PROLOGUE (two independent statements of one fact — this is what finds
+a question standing in another's place), and any two chapters carrying byte-identical text. The last
+two need no witness, which is why they reach the Supplement and the Appendix, where 102 of the 614
+questions have none.
+
+  · **READ THE HEADING'S ORDINAL WORD, NEVER ITS BRACKET.** Gutenberg heads an article
+    `NINTH ARTICLE [I, Q. 19, Art. 8]`, and the two disagree **seventeen times** across the four
+    volumes; the bracket also writes `I.` for `I,`, `A.` for `Art.` and sometimes omits the part
+    letter. Keyed on the bracket the first run reported 33 questions where Folio has an article the
+    witness has not, and every one of the 33 was the checker's own. **A comparison between two
+    witnesses reports the weaker one's faults as the stronger one's** until it is hardened, which is
+    E37's lesson in a new subject.
+  · **EVERY DISAGREEMENT IS ADJUDICATED, AND THE REPORT IS BY KIND** (Sep 2026, batch E46). A count
+    says two books disagree and not which is wrong. So each is settled by the one question that
+    settles it — does the other book have this text at all? — giving three kinds: an article missing
+    from Folio entirely, one present but unnumbered, or one where the OTHER book's heading or citation
+    is at fault. Only the first two are Folio's, and today there are **none of either**: all sixteen
+    standing disagreements are Gutenberg's, three of them citation typos (`[I, Q. 4]` for q.42,
+    `[I, Q. 109]` for I-II q.109, `[II-II, Q. 5]` for III q.5 — each of the first two producing TWO
+    findings, since the article is filed under a question it does not belong to and missing from the
+    one it does) and twelve headings it does not print.
+  · **THE PROBE IS FIVE RUNS OF SIXTY CHARACTERS, NOT ONE.** A lone mid-article probe reported III q.5
+    art 4 missing from a witness that plainly has it: it had landed on a scripture reference, and **the
+    two transcriptions differ most in their citation apparatus**. A match anywhere is the answer.
+  · **`--selftest` ASKS WHETHER THE ADJUDICATOR IS BLIND OR DEAF**, because "every disagreement is the
+    other book's fault" is exactly what a probe matching everything would say. Articles Folio has, in
+    questions the two agree about, must be FOUND in the witness and must be reported MISSING once
+    Folio's copy is removed. 33 of 33 and 33 of 33.
+  · **IT EXITS 0 WHATEVER IT FINDS.** It is a measure, like `card-focus.js`, not a gate: what remains
+    is the other book's, and a permanent red teaches everyone to ignore it.
+
+**TWO MORE SHAPES OF DUPLICATION, AND THE FOUR CASES THAT LOOK IDENTICAL AND ARE NOT** (Sep 2026,
+batch E36, `dedupeArticles`). E35 put back two articles the Summa's transcription had lost; fifteen
+paragraphs still stood twice. Read out they are two faults, both a transcriber's paste gone astray:
+
+  · **THE TAIL OF THE NEXT ARTICLE, PASTED AT THE END OF THIS ONE.** In I q.108 and I q.109 the last
+    two paragraphs of one article are the last two of the NEXT one, the first of the pair truncated —
+    so article 1 of q.109 ends by answering objections it never raised. **Four paragraphs in the whole
+    book, in two questions, both read against the wikitext.** The truncated half is caught as a SUFFIX
+    of a paragraph in the next article, which is what a half-pasted block is.
+  · **A RUN OF PARAGRAPHS SET TWICE IN A ROW.** I-II q.20's page carries **seven article headings for
+    a six-article question** — article 5 set twice, the second under article 6's number, the real
+    sixth pushed to a seventh — so eleven paragraphs stand twice; and two questions have one paragraph
+    typed twice. **Three runs in the whole book, all three checked in the wikitext.**
+
+**THE LENGTH BAR IS THE WHOLE OF WHAT MAKES THE FIRST RULE SAFE, AND IT IS MEASURED.** Six article
+boundaries in the Summa end with a paragraph that also stands in the next article, and **four of them
+are not damage at all**: they are the work's own closing formula — *"This suffices for the Replies to
+the Objections"*, which the book prints **55 times** — so two adjacent articles ending the same way is
+Aquinas's convention rather than a paste. The four run **48 to 66 characters** and the two real faults
+**213 and 416**, so the bar sits in 147 characters of open ground. **A rule that fires six times where
+two are wrong is not a rule; the measurement is what turns it into one.**
+
+**AND IT SPLICES RATHER THAN REASSEMBLES.** The first cut rebuilt each chapter from its paragraphs and
+the book **grew by 45 KB** — the whitespace between every paragraph in 614 questions, changed for
+nothing, and a diff saying nothing on every line. Dropping character ranges out of the original html
+leaves the file byte-identical everywhere the rule did not fire: **four lines of `books/` changed, and
+they are the four questions that were read.** A rule that touches a file it had no finding in cannot be
+proved inert, whatever it did to the text.
+
+> **THE AUDIT'S REPEATED-PARAGRAPH CHECK NOW HAS TWO KNOWN FALSE FAMILIES, and both are the same
+> lesson.** The Summa's closing formula is one. The other is in the Latin Bede: book 1 quotes several
+> of Gregory the Great's letters, and two of them carry the identical dating clause — *"Data die X.
+> Kalendarum Iuliarum, imperante domino nostro Mauricio Tiberio…"* — because they were sent on the
+> same day, one closing *reverentissime frater* to a bishop and one *domine fili* to a king. **A work
+> that repeats itself by convention looks exactly like a transcription that repeats itself by
+> accident, and only reading the two occurrences apart tells them apart.**
+
+**THE CACHE MARKER WAS TELLING A HALF-TRUTH, AND THE DEAD-ROW REPORT LIED ABOUT FIVE LIVE ROWS**
+(Sep 2026, batch E37). A sweep of the whole shelf — every one of the 32 books that carries a
+correction table, rebuilt and its report read — returned **24 dead romanisation rows in the Three
+Kingdoms** and nothing anywhere else. Every one of the 24 names is CORRECT in the shipped book: Guan
+Yu 589 times, Zhao Yun 357, Lü Bu 403. So the rows were not broken, and the report was.
+
+  · **THE CAUSE IS E29 HALF-APPLIED.** That batch moved the correction chain to run on the extracted
+    prose so a row would fire on every run — and corrected the TITLE where `sanKuoHead` reads it,
+    which is *before* the record is cached. So a cache record marked **`raw: 1`** — E30's marker,
+    meaning *this holds the extractor's own output and not a corrected copy* — had a raw `html` and a
+    corrected `t`. Five of this book's romanisation rows fire **only on chapter heads**, because the
+    printing drops the umlaut there and nowhere else (`Lu Pu` for *Lü Pu*, `Kuan Yu` for *Kuan Yü*);
+    on a cached run they met a head already converted and reported themselves dead.
+  · **THE DANGER IS THE HOUSE RULE ITSELF.** *Every declared row must fire; a dead row is a defect.*
+    A session following it would have deleted five live rows, and **eight chapter titles would have
+    gone back to Wade-Giles at the next `--force`, with the build saying nothing**. E30 taught that a
+    dead-row report is evidence about the text in hand rather than about the source; this is the same
+    lesson one level down — **it is evidence about the CACHE, and a marker that overstates what the
+    cache holds makes it evidence about nothing.**
+  · **THE FIX IS A VERSIONED MARKER, and it had to be.** The title is now cached raw and corrected on
+    the way out, beside the html and the notes. But a record written before that says `raw: 1` and its
+    title is ALREADY corrected, so correcting it again applies `applyRoman` twice — which is not
+    idempotent, and which E30 caught doing exactly this to 974 names in the body. Measured before the
+    marker was bumped: **seven titles moved, `Tao` → `Dao`, `Pi` → `Bi`, `Chao` → `Zhao`**, every one
+    of them a name that was already right. A `raw: 2` record gets its title corrected here; a `raw: 1`
+    record does not, and a refetch is what makes it honest.
+  · **PROVED BY REFRESHING THE FIVE BOOKS IT CAN REACH** — the wiki-walk books that carry a `roman`
+    table, since `fixes` and `glyphs` are idempotent and cannot double-apply. All five rebuild
+    **byte-identical**; the Three Kingdoms goes from 2,076 of 2,100 declared names firing to **2,100 of
+    2,100**, and from 24 dead rows to none. The cache for chapter 3 now holds the head as the printing
+    sets it — *"Tung Cho Silences Ting Yuan: Li Su Bribes Lu Pu."* — which is the plain-u form those
+    five rows were written for, and the evidence that they were never redundant.
+
+Recorded and not repaired: the Book of Documents and the Book of Rites both warn that **the
+blackletter pre-pass matched nothing**. Every romanisation row in both books fires, so no name is
+going unconverted today; what is unknown is whether Wikisource has dropped the `en-Latf` spans the
+pre-pass looks for, or whether the flag has simply outlived them. It wants a page fetched and read.
+
+---
+
+## E55 — a mark used for two things, and a sweep keyed on the worst-read part of a head
+
+**`<add>` in a Perseus TEI file is not always a supplement.** The vocabulary note above says it is the
+editor's own words, kept because the constituted text needs them. Ihm's Suetonius uses the same element
+for the **marginal reference** printed beside a quotation, and unwrapped it lands inside the sentence:
+`de Officiis tertio libro 82 semper Caesarem` — book 82 of a work with three — and `omitto Calui Licini
+FPR p.322 notissimos uersus`, which makes Suetonius cite a nineteenth-century collection of fragments.
+
+`teiInline` now drops an `<add>` shaped like a reference. **The discriminator is a digit**, and it was
+measured before it was written: **355 `<add>` elements across the eight books that carry any, both
+columns**; nine contain a digit and every one is a reference, and **not one supplement anywhere contains
+a digit**, a supplement being words. A second rule takes the two that spell their number in Roman,
+anchored on an abbreviation stop before the numeral. Eleven match, all in Divus Julius.
+
+**The rejected first attempt is the part to remember.** Treating an internal full stop as the mark of a
+reference selects eleven of Plato's Greek supplements too — whole speeches of the *Alcibiades* that
+Burnet supplies — so it would have deleted lines of Plato to tidy Suetonius's margin. `teiInline` is
+shared by every TEI book on the shelf; **measure across all of them before touching it.** The change was
+proved by rebuilding all 17, 34 generated files, of which one changed.
+
+The reference takes the space **before** it and leaves the one after — the only arrangement that closes
+the gap both mid-phrase and before a colon.
+
+**`HEAD_NUM` in `extractJourney` is keyed on the page number, which is the part of a running head a
+scanner reads worst**: small, isolated type at the outer edge of the leaf, so it takes both the dirt and
+the bad guesses while the title beside it comes through readable. Three heads survived — `113` read as
+`US`, and two numbers carrying a mark off the page edge. Two narrow widenings, each measured over the
+whole book: `S` joins the trailing class, and a number may carry up to two characters of dirt **only
+where it really contains a digit**. Without that proviso the rule reads `CHAPTER I.` as a head and
+deletes the chapter markers the reader is built on — three of them.
+
+**`runningHead` now takes a list**, for a head whose page number the scan set as a block of its own.
+
+**What does NOT work, and it is the obvious idea**: identifying a running head by matching the line
+against the book's own chapter titles, which is E34's plate rule one table over. Loosely matched it
+proposes deleting 33 lines, most of them chapter headings, because this book's titles are short and share
+their vocabulary; exactly matched it finds 15 occurrences of a title inside its own chapter of which
+**one** is furniture. **A plate caption is a distinctive phrase; a chapter title is made of the words its
+chapter is about.**
+
+**And removing a head does not remove the page break it sat in.** The blank lines still split the
+sentence, and the block-rejoining pass closes that only where the second half opens lowercase. The
+general fix — join when the first half leaves a parenthesis unclosed — finds two breaks in the book and
+one is real, the other being a list of hells where `(5.` is a 6: **in an OCR a parenthesis is as likely
+to be dirt as punctuation.**
+
+---
+
+## E56 — search for another scan before deciding a book cannot be checked
+
+**The Canterbury Tales was corrected by inference for ten batches because its entry assumed one
+transcription existed. Archive.org holds eight scans of the same 1912 volume.** Reading ours against
+two of them settled in an afternoon what inference had left standing, including two passages inference
+could never reach — a lost place-name (`* ^en^s` is **At St. Denis**) and a lost word (`s^sput` is
+**soul**). `node .claude/witness-check.js` is that comparison, with the reasoning in its header.
+
+**BEFORE writing "only one copy of this book has ever been transcribed" in an entry, search.** The
+Journey to the West really does have one (checked again in this batch, over archive.org's whole
+1900–1935 range) and its front matter now says so; that is a measured fact rather than an assumption.
+
+**WHERE IN THE CHAIN A ROW RUNS DECIDES HOW TO WRITE IT.** Thirty-five of E56's forty-four Chaucer
+rows failed silently on the first build, drafted against the SHIPPED text. This book's corrections run
+on the RAW, whose words carry double spaces and break across lines, so every multi-word row missed;
+two more needed anchoring past a line-break hyphen, and one had to be written against the form an
+EARLIER row in the same chain leaves behind — `correctRaw` is
+`applyRoman(applyReFixes(applyFixes(applyGlyphs(…))))`, so a `fixes` row has already run by the time a
+`reFixes` row sees the text. **Draft against the text the row will actually see; the dead-row report
+is what tells you when you have not.**
+
+**A WITNESS IS A QUESTION, NOT A VERDICT** — E46's lesson about the Summa's, and it held here. Two
+independent OCRs of one printing agree on the same error often enough to matter (`heginneth` for
+`beginneth`, `LaWy` for `Law`), so six of the thirty-eight reader-visible findings were not repairs.
+And a majority is not a proof: `Prioress's` against two scans' `Prioresses` was left alone, because an
+OCR dropping an apostrophe is as likely as one inventing it and the heading reads correctly either way.
+
+**FILTER TO WHAT THE BOOK SHIPS.** A source volume usually holds more than Folio takes from it — that
+one is Chaucer's complete poetical works — so 161 of the 199 findings were in matter no reader can
+reach. Without that filter the list is not readable one row at a time.

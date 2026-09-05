@@ -35,9 +35,20 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.519", released: "2026-09-04T22:07Z" };
+window.FOLIO_VERSION = { v: "1.520", released: "2026-09-05T10:46Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-09-05",
+    t: "Corrections across Seneca, the Rigveda, Suetonius and the Journey",
+    items: [
+      "<b>Forty-nine corrections to the Canterbury Tales and the Journey to the West</b> \u2014 read for the first time against two other scans of the same printing, which recovered a lost place-name and a lost word.",
+      "<b>Fourteen page references and running heads taken out of Suetonius and the Journey to the West</b> \u2014 a printed page\u2019s own furniture, standing in the text where one of them split a hymn in half.",
+      "<b>The project\u2019s own notes brought back up to date</b> \u2014 twenty figures and three names describing the site had fallen behind what it actually holds, some of them four times over.",
+      "<b>Seneca\u2019s Latin now explains its own editorial marks</b>, and two scanning errors were corrected in the Rigveda.",
+      "<b>153 more missing spaces restored to Seneca\u2019s Latin</b>, where the transcription had run two words together and left them looking like one long Latin word.",
+    ],
+  },
   {
     d: "2026-09-04",
     t: "Seventy-seven new Ancient Greece cards, and finer rivers",
@@ -74,6 +85,25 @@ window.CHANGELOG = [
       "One Ancient Greece card that repeated an older one has been rewritten on a subject the deck was missing.",
       "Tapping <b>Ephialtes</b> in a card now opens the Athenian reformer rather than the guide at Thermopylae.",
       "Fixed twelve pictures added today whose links were broken, so they show again.",
+      "<b>231 corrections across twenty-eight books</b> — among them 31 to the Summa Theologica, 26 to Romance of the Three Kingdoms and 27 to the Iliad, none of which had been checked word by word before.",
+      "<b>Another 142 corrections to the Canterbury Tales</b>, including words the scan had broken open and marks it invented out of a pencil note in the margin.",
+      "<b>206 references repaired in Plato, Herodotus, Thucydides and the Satyricon</b>, welded to the words beside them or spelled in Greek letters, plus 56 corrections to the Greek Odyssey.",
+      "<b>423 broken paragraphs joined in Augustine, Ovid, Herodotus, Aquinas, Caesar and Chaucer</b> — a printed page-turn had become a paragraph break, 43 of them splitting a word in two.",
+      "<b>Seventy quotations of Virgil restored to Seneca’s Latin</b> — seven were missing outright, sixty-three were never shown on the page, and thirteen more now read as verse instead of running together.",
+      "<b>483 lost spaces restored to Seneca’s Latin</b> — the last quarter of the book had been typed with the space at every line end swallowed, so its words ran together.",
+      "<b>Fourteen missing articles of the Summa Theologica put back</b>, among them the eight on Christ's Nativity, with 28 unnumbered ones and seventeen printed twice put right.",
+      "<b>Aesop's fable of the Old Lion restored</b>, its page having carried the fable before it, and every other book on the shelf checked for the same fault.",
+      "<b>Five chapters of the Summa Theologica that broke off mid-sentence completed</b>, one of them missing the last thousand words of its argument.",
+      "<b>Forty-three lines of printing lifted out of Journey to the West</b> — the scanner read the book’s engravings as text, so their captions had landed in the middle of the paragraphs they interrupted.",
+      "<b>Eighty-six italic passages restored to Don Quixote</b> — the transcription marks italic with underscores, and they had been showing on the page instead: <i>terra firma</i> read as _terra firma_.",
+      "<b>974 names put right in Romance of the Three Kingdoms</b> — a fault of ours had spelled them a second time, so Chang’an had become Zhang’an and Ma Chao had become Ma Zhao.",
+      "<b>Thucydides now reads with its Greek beside it</b> — the two columns had been pairing on nothing, so every English chapter stood opposite an empty column and then every Greek one.",
+      "<b>Eight stray pieces of markup removed from three books</b> — the Song of Roland, the Rigveda and the Latin City of God had been printing tags like <i>&lt;poem&gt;</i> in the middle of the text.",
+      "<b>Eight lost words of Augustine restored to the Latin City of God</b>, checked against a scan of the 1841 edition the book is taken from.",
+      "<b>567 footnote marks removed from the Old English Beowulf and the Greek Herodotus</b>, which had been offering notes written about the English translation.",
+      "<b>Plato\u2019s Lysis opens on its own summary again</b> \u2014 the line describing the dialogue had been filed at the foot of the page as a footnote on nothing.",
+      "<b>The Summa Theologica\u2019s opening page corrected</b> \u2014 it undercounted the work\u2019s articles and still warned of fourteen questions whose headings have since been put back.",
+      "<b>The Iliad\u2019s opening page corrected</b> \u2014 it named eight lines its Greek text leaves out where there are ten, and said places stand empty on the page where none do.",
     ],
   },
   {
@@ -105,6 +135,10 @@ window.CHANGELOG = [
       "<b>A new badge for collecting 100 artefacts</b>, since the ladder used to stop at 50.",
       "<b>The site now loads a little faster</b>, because an artefact's description and picture are only fetched when you open a chest.",
       "<b>23 new cards in the Ancient Greece deck</b>.",
+      "<b>The Canterbury Tales has been corrected in 689 places</b> against photographs of the 1912 edition — quotation marks, commas, possessives, and whole lines the scan had lost.",
+      "<b>Romance of the Three Kingdoms prints another 1,400 Chinese names in modern pinyin</b>, and sixteen of its chapter titles are corrected.",
+      "<b>An editor's note had been pasted into the Chinese of two books</b> \u2014 Journey to the West and Three Kingdoms \u2014 and both are cleaned.",
+      "<b>Ten scanning errors are corrected in the Ramayana and Don Quixote</b>, each read against a scan of the printed page first.",
     ],
   },
   {
