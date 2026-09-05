@@ -135,6 +135,34 @@ const ADJUDICATED = [
   /* Gregory's dating formula at the foot of two of his letters, both written on 22 June 601 — so
      the Latin repeats it because the letters do, and the English column repeats it too. */
   ["bede-history", "a paragraph the chapter carries twice", /Kalendarum Iuliarum/],
+  /* THE GREEK BOETHIUS QUOTES, ROMANISED BY HIS TRANSCRIBER (Sep 2026, batch E56). Twelve of them —
+     Homer four times, Euripides, Parmenides, the Pythagorean `hepou theoi` — and this book's own
+     front matter has explained them since the day it was imported: the transcription romanises every
+     one, and turning a romanisation back into Greek "would be composing a text rather than reading
+     one". MEASURED while adjudicating it, which is what settles it: Project Gutenberg's edition 13316
+     carries 152 of these markers and ZERO Greek characters, in the plain text, the UTF-8 text and the
+     HTML alike. There is nothing in the source to restore, so the choice is between the transcriber's
+     brackets and another edition's Greek, and the second is not this book. */
+  ["boethius-consolation", "an unresolved beta-code Greek marker", /^\[Greek:$/],
+  /* THE CHINESE RICHARD SETS THAT HIS SCANNER CANNOT READ (Sep 2026, batch E56). Six runs of marks,
+     and every one is a place the printing sets Chinese characters: the eighteen-line table of the
+     Mind-formulae in chapter 58, the catalogue of scriptures in chapter 98, and two names in chapter
+     11. Only one transcription of this book has ever been made — checked against archive.org while
+     adjudicating this, where the Canterbury Tales turned out to have eight — so there is no witness
+     to recover them from, and the book's front matter now says so.
+
+     THE LIMIT IS STATED RATHER THAN HIDDEN: what this check matches is two or three characters, so
+     declaring the six by their own text also masks a future run that happens to read `^e` or `^f`
+     somewhere else in this book. That is a real hole and it is accepted here for one reason — the
+     book's front matter declares its letter-level OCR uncorrected and there is no second copy to
+     correct it from, so on THIS book and THIS check there is no finding that could be acted on. It
+     would not be acceptable anywhere else. */
+  ["journey-to-the-west", "an OCR sentinel run of punctuation", /^f\^T$/],
+  ["journey-to-the-west", "an OCR sentinel run of punctuation", /^\^e$/],
+  ["journey-to-the-west", "an OCR sentinel run of punctuation", /^\^\^i$/],
+  ["journey-to-the-west", "an OCR sentinel run of punctuation", /^\^f$/],
+  ["journey-to-the-west", "an OCR sentinel run of punctuation", /^i\^C$/],
+  ["journey-to-the-west", "an OCR sentinel run of punctuation", /^\^a$/],
 ];
 function adjudicated(id, name, text) {
   return ADJUDICATED.some((r) => r[0] === id && r[1] === name && r[2].test(text));

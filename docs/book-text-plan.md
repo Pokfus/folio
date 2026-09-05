@@ -4507,3 +4507,121 @@ two strings. Verified in both directions over eight cases.
 - `check-pairing`, `check-counts`, `check-twins`, `check-cutoff`, `check-docs`, `check-questions` and
   `check-style` all report what they reported before; the seven no-browser suites and `test-library.js`
   pass.
+
+---
+
+## E56 — the book was never checked against another copy of itself
+
+E55 left three families of real scan damage standing. Two of them are unrepairable and the book's own
+front matter says so; the third turned out to rest on a claim nobody had tested.
+
+### The Canterbury Tales has eight other scans, and nobody had looked
+
+Ten batches — E8 through E14 — corrected this book by INFERENCE: the shelf as a dictionary, the rhyme,
+the Middle English facing it. That was the only method available because the entry assumed what the
+Journey's still says, that one transcription exists. **It was never checked.** Archive.org holds
+**eight scans of the same 1912 Macmillan volume**, and two of them read cleanly enough to serve:
+the New York Public Library's copy and Google's.
+
+| | tokens |
+|---|---|
+| ours | 263,871 |
+| witness A — `completepoetical00chau` (NYPL) | 263,529 |
+| witness B — `completepoetica01mackgoog` (Google) | 266,026 |
+
+**A global diff is both slow and useless** — three OCRs of one printing disagree in thousands of
+places, nearly all punctuation. What is decisive is narrower: a position where BOTH witnesses resolve
+the same context, AGREE with each other, and DIFFER from us. Each of our tokens was looked up by the
+three words either side. That resolves **229,562 of 263,871** and reports **199**.
+
+**161 of the 199 are in matter Folio does not ship.** The volume is Chaucer's *complete poetical
+works* — Troilus, the House of Fame, the Legend of Good Women, the editor's notes — and this book is
+the Prologue and the twenty-four tales. That filter is what made the rest readable one at a time.
+
+### What the witnesses recovered that inference could not
+
+Two of `book-audit.js`'s caret runs were beyond any inference, because what was lost was not a letter:
+
+| our scan | the printed page |
+|---|---|
+| `* ^en^s whilom there dwelt a merchant` | **At St. Denis** whilom there dwelt a merchant |
+| `for thy father' s^sput!` | for thy father's **soul!** |
+
+A whole place-name and a whole word, recovered rather than guessed. A third, `‘ j ^ui la?’`, is
+damaged in all three scans and was settled by the FACING COLUMN instead — Skeat's Middle English
+prints `Qui la ?` outright.
+
+### The three that look like judgement calls and are not
+
+- **`governable` → `governaille`.** The Wife of Bath's envoy is rhymed, and the stanza runs
+  *dale / governaille / avail*. Ours breaks the rhyme; the witnesses keep it.
+- **`Jove` → `love`**, in "what women chiefly love" — the question the whole tale turns on.
+- **`oi` → `or`.** Our scan folded the running head into the sentence; the page reads
+  "woe or rancor **or** ire" across a leaf.
+
+### And the six that were not repairs
+
+`Law` → `LaWy` and `Bath` → `Bathy`: both witnesses damaged, ours right. Three differences of
+punctuation, which are the comparison's own noise. And one left alone deliberately:
+
+**`Prioress's` against two scans' `Prioresses` was NOT changed.** Two against one is the strongest
+evidence available here and it is still not enough — an OCR dropping an apostrophe is as likely as one
+inventing it, ours emits a TYPOGRAPHIC apostrophe rather than a straight one, and the heading reads
+correctly either way. **A majority is not a proof, and a reading that changes nothing for a reader is
+not worth a guess.**
+
+### One king's name, five more ways
+
+The table already renders this edition's Æ ligature as `Ae` and carried rows for `iElla` and `/Ella`.
+The scan breaks it three further ways and twice takes the preceding space with it — `iTlla`, `Ailla`
+twice, `.ZElla`, `.Ella` — all in the Man of Law's Tale, where thirteen other mentions already read
+`Aella`. **44 rows in all, and every one fires.**
+
+### A trap worth recording: where in the chain a row runs
+
+The rows were drafted against the SHIPPED text and 35 of 44 then failed silently. This book's
+corrections run on the RAW, whose words are separated by DOUBLE spaces and broken across lines, so
+every multi-word row missed. Two more needed anchoring past a line-break hyphen (`some¬ time be a
+tool`), and one had to be written against the form a row EARLIER in the same chain leaves behind —
+`applyFixes` runs before `applyReFixes`, so `:^artli` is already `:^arth` by the time a reFix sees it.
+**Draft a row against the text the row will actually see, and let the importer's dead-row report tell
+you when you have not.**
+
+### The Journey: a false sentence in its own front matter
+
+Six of its seven runs are places the printing sets **Chinese characters** the scan cannot read — the
+eighteen-line table of the Mind-formulae in chapter 58, the catalogue of scriptures in chapter 98, and
+two names in chapter 11. Its front matter said "Richard prints no Chinese characters anywhere — not
+beside a name, not in a note, not in his index", which is **false**, and it was the justification for
+the 83 name conversions. Corrected to what is true: no Chinese beside a NAME, and two places where he
+sets characters. **Archive.org was searched while adjudicating this** and E55's record holds — the
+1913 Richard translation has exactly one transcription, so there is no witness and nothing to recover.
+
+The seventh was repairable, and it is the same fault the extractor already knows: the scan of chapter
+11 catches a ruled brace down the left margin, which the OCR reads as punctuation at the head of each
+line. The extractor strips it from the two HEADING lines and never from the four ARGUMENT lines under
+them, so the chapter opened `,,:> The Emperor is sent to Hell, but returns to :^arth again.` Measured
+over all 100 chapters, three argument lines open on such a run and all three are here.
+
+### Boethius: the book had already answered it
+
+Twelve `[Greek:` markers — Homer four times, Euripides, Parmenides, the Pythagorean *hepou theoi* —
+and **this book's front matter has explained them since the day it was imported**: the transcription
+romanises every one, and turning a romanisation back into Greek "would be composing a text rather than
+reading one". Measured while adjudicating: Project Gutenberg's edition 13316 carries 152 of these
+markers and **zero Greek characters, in the plain text, the UTF-8 text and the HTML alike**. There is
+nothing in the source to restore. The audit had been reporting a thing the book explains.
+
+### What proves it
+
+- **`book-audit.js` reports 0 findings on 80 files**, from 3 when this batch opened. Everything left
+  is declared in `ADJUDICATED` with its reason, keyed on book + check + matched text.
+- The Journey row is the one place that keying is weak — the check matches two or three characters —
+  and **the hole is stated in the file rather than hidden**: it is accepted only because that book
+  declares its OCR uncorrected and has no second copy, so no finding there could be acted on.
+- **All 44 Chaucer rows and all 5 Journey rows fire**, and every string this batch set out to remove
+  is gone from the shipped text.
+- `node .claude/witness-check.js` now reports **0 unjudged** on the Canterbury Tales, with the four it
+  still prints listed under "already read and judged".
+- Only the two intended books changed; the checks, the seven no-browser suites and `test-library.js`
+  all pass.

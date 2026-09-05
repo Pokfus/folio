@@ -2037,3 +2037,36 @@ sentence, and the block-rejoining pass closes that only where the second half op
 general fix — join when the first half leaves a parenthesis unclosed — finds two breaks in the book and
 one is real, the other being a list of hells where `(5.` is a 6: **in an OCR a parenthesis is as likely
 to be dirt as punctuation.**
+
+---
+
+## E56 — search for another scan before deciding a book cannot be checked
+
+**The Canterbury Tales was corrected by inference for ten batches because its entry assumed one
+transcription existed. Archive.org holds eight scans of the same 1912 volume.** Reading ours against
+two of them settled in an afternoon what inference had left standing, including two passages inference
+could never reach — a lost place-name (`* ^en^s` is **At St. Denis**) and a lost word (`s^sput` is
+**soul**). `node .claude/witness-check.js` is that comparison, with the reasoning in its header.
+
+**BEFORE writing "only one copy of this book has ever been transcribed" in an entry, search.** The
+Journey to the West really does have one (checked again in this batch, over archive.org's whole
+1900–1935 range) and its front matter now says so; that is a measured fact rather than an assumption.
+
+**WHERE IN THE CHAIN A ROW RUNS DECIDES HOW TO WRITE IT.** Thirty-five of E56's forty-four Chaucer
+rows failed silently on the first build, drafted against the SHIPPED text. This book's corrections run
+on the RAW, whose words carry double spaces and break across lines, so every multi-word row missed;
+two more needed anchoring past a line-break hyphen, and one had to be written against the form an
+EARLIER row in the same chain leaves behind — `correctRaw` is
+`applyRoman(applyReFixes(applyFixes(applyGlyphs(…))))`, so a `fixes` row has already run by the time a
+`reFixes` row sees the text. **Draft against the text the row will actually see; the dead-row report
+is what tells you when you have not.**
+
+**A WITNESS IS A QUESTION, NOT A VERDICT** — E46's lesson about the Summa's, and it held here. Two
+independent OCRs of one printing agree on the same error often enough to matter (`heginneth` for
+`beginneth`, `LaWy` for `Law`), so six of the thirty-eight reader-visible findings were not repairs.
+And a majority is not a proof: `Prioress's` against two scans' `Prioresses` was left alone, because an
+OCR dropping an apostrophe is as likely as one inventing it and the heading reads correctly either way.
+
+**FILTER TO WHAT THE BOOK SHIPS.** A source volume usually holds more than Folio takes from it — that
+one is Chaucer's complete poetical works — so 161 of the 199 findings were in matter no reader can
+reach. Without that filter the list is not readable one row at a time.

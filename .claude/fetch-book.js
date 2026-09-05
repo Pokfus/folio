@@ -9515,9 +9515,14 @@ const BOOKS = {
         "longer shown. Only one copy of this book has ever been transcribed, and this is it.",
       "Chinese names are printed here in modern pinyin rather than in the romanisation Richard used " +
         "in 1913, so that Kwanyin is Guanyin, Pa Kiel is Bajie and Huen Chwang is Xuanzang. Richard " +
-        "prints no Chinese characters anywhere \u2014 not beside a name, not in a note, not in his " +
-        "index \u2014 so each of the 83 names converted was checked against the Chinese text of the " +
-        "novel on the facing page: the characters have to appear in the same chapters as the name. " +
+        "prints no Chinese characters beside a NAME \u2014 not in the text, not in a note, not in " +
+        "his index \u2014 so each of the 83 names converted was checked against the Chinese text of " +
+        "the novel itself: the characters have to appear in the same chapters as the name. " +
+        "He does set characters in two places, and the scan can read neither: the eighteen-line " +
+        "table of the Mind-formulae in chapter 58 prints the Chinese after each English line, and " +
+        "chapter 98 lists the scriptures the pilgrims carry home with their titles in characters. " +
+        "Both reach this page as runs of marks, and they stand as they are; there is no second " +
+        "transcription of this book to recover them from. " +
         "That test is decisive for a name of two or more syllables and worthless for a single one, " +
         "which any common character would pass, so single syllables are left exactly as he set them, " +
         "and so are the Sanskrit names, which are not Chinese.",
@@ -9531,6 +9536,27 @@ const BOOKS = {
        "united", "deviL" for "devil"), never in whole lines, and it is recorded rather than repaired,
        since a repair pass over ninety thousand words would be rewriting somebody's book by guess. */
     reFixes: [
+      /* ---------- E56: THE MARGINAL RULE BESIDE CHAPTER 11'S ARGUMENT (Sep 2026) ----------
+         The scan of this one page catches a ruled brace down the left margin, and the OCR reads it as
+         a run of punctuation at the head of each line it stands beside. The extractor already knows
+         about it on the two HEADING lines — see the note beside `title` in extractJourney, which
+         strips the `'-' . ` before `CHAPTER XI.` and the `',' - ` before the tale's title — and the
+         four ARGUMENT lines under them were never covered, so they reach the reader as `,,:>`,
+         `/ /,:` and `^. [` standing where the sentence begins.
+
+         It is chapter 11 and nowhere else: measured over all 100 chapters, three argument lines open
+         on such a run and all three are here. So four declared rows rather than a rule about leading
+         punctuation, which on a book of Chinese verse would be a rule with a great deal to eat.
+         `:^artli` goes with them — the same brace welded to `earth`, with the `th` read as `tli`. */
+      [/\n,,:> The Emperor is sent/g, "\nThe Emperor is sent",
+       "the margin's rule read as punctuation at the head of the first argument line"],
+      [/:\^arth again/g, "earth again",
+       "the same rule welded to `earth` — the scan read its th as `tli`, which an earlier row in " +
+       "this chain has already repaired by the time this one runs"],
+      [/\n\/ \/,: A man presents/g, "\nA man presents", "the second argument line"],
+      [/\n\^\. \[ A hundred years/g, "\nA hundred years", "the third, which opens the chapter's verse"],
+      [/\n\^ \. , And all our affairs/g, "\nAnd all our affairs", "and its second line"],
+
       /* ---------- E55: AN INSCRIPTION A PAGE BREAK CUT IN HALF (Sep 2026) ----------
          Over the gate of Hades the Emperor reads a legend "written in large golden letters", and the
          leaf turns in the middle of it — so the transcription sets THE GATE OF GHOSTS WHO ENTER THE
@@ -13642,6 +13668,109 @@ const BOOKS = {
        mark standing where an OPENING quotation mark belongs, so none belongs in this table; the
        possessive and the closing quote read as a slash are batch E7, in `reFixes` below. */
     reFixes: [
+      /* ---------- E56: READ AGAINST TWO OTHER SCANS OF THE SAME EDITION (Sep 2026) ----------
+         Ten batches have corrected this book by INFERENCE — the shelf as a dictionary, the rhyme, the
+         Middle English facing it — because the entry said what the Journey's still says: only one
+         transcription exists. That was never checked. **Archive.org holds EIGHT scans of the 1912
+         Macmillan volume**, and two of them read cleanly enough to serve as witnesses: the New York
+         Public Library's copy (`completepoetical00chau`) and Google's (`completepoetica01mackgoog`).
+         Three independent OCRs of one printing settle by majority what one alone can only guess at.
+
+         HOW THE 44 ROWS BELOW WERE FOUND. Each token of our scan was looked up by its own context —
+         the three words either side — in both witnesses; where both resolve it, agree with each
+         other, and differ from ours, that is a finding. 229,562 of our 263,871 tokens could be
+         resolved that way and 199 differ. **161 of those 199 are in matter Folio does not ship** —
+         the volume is Chaucer's complete poetical works and this book is the Prologue and the
+         twenty-four tales — which is the filter that made the rest readable one at a time.
+
+         EVERY ONE OF THE 38 WAS THEN READ, and six were not repairs:
+           · `Law` → `LaWy` and `Bath` → `Bathy` — both witnesses damaged, ours right.
+           · `Prioress's` → `Prioresses` — LEFT ALONE and worth saying why. Two scans against one is
+             the strongest evidence here, and it is still not enough: an OCR dropping an apostrophe
+             is as likely as one inventing it, ours emits a TYPOGRAPHIC apostrophe rather than a
+             straight one, and the heading reads correctly either way. A majority is not a proof, and
+             a reading that changes nothing for a reader is not worth a guess.
+           · Three differences of punctuation only, which are this comparison's own noise.
+
+         AND THREE THAT LOOK LIKE JUDGEMENT CALLS AND ARE NOT:
+           · `governable` → `governaille` — the Wife of Bath's envoy is RHYMED, and the stanza runs
+             dale / governaille / avail. Ours breaks the rhyme; the witnesses keep it.
+           · `Jove` → `love` in "what women chiefly love", which is the question the whole tale turns on.
+           · `oi` → `or`: our scan folded the running head into the sentence, so the page reads
+             "woe or rancor or ire" across a leaf.
+
+         THE SEVEN CARET RUNS AT THE HEAD OF THE LIST are what `book-audit.js` had been reporting, and
+         two of them were beyond inference until now: `* ^en^s whilom` is **At St. Denis**, the first
+         words of the Shipman's Tale, and `for thy father' s^sput!` is **for thy father's soul!** —
+         a whole phrase and a whole place-name, recovered rather than guessed.
+
+         `Qui la?` is the one settled by the FACING COLUMN instead: both witnesses are damaged there
+         too, and Skeat's Middle English prints the French outright. */
+
+      /* the caret runs, all seven confirmed against both witnesses (or, for Qui la, the Middle English) */
+      [/for\s+thy\s+father’\s+s\^sput!/g, "for thy father’s soul!",
+       "the Reeve's Tale — both witnesses read 'for thy father's soul !'"],
+      [/\*\s+\^en\^s\s+whilom/g, "At St. Denis whilom",
+       "the Shipman's Tale opens 'At St. Denis whilom there dwelt a merchant'; the place-name was lost outright"],
+      [/‘\s+j\s+\^ui\s+la\?’/g, "‘Qui la?’",
+       "the merchant's wife at the counting-house door; Skeat's column prints 'Qui la ?'"],
+      [/\^Vith\s+that\s+he\s+shut/g, "With that he shut", "a broken W, the Shipman's Tale"],
+      [/I\s+spake\s+to\s+\^him/g, "I spake to him", "a caret inside the line, the Wife of Bath's Prologue"],
+      [/ever\s+been\^j\s+given/g, "ever been given", "a caret and a j on the leaf edge, the same prologue"],
+      [/thereof\s+to\.\s+a\.ny\s+ot\^er\s+creature/g, "thereof to any other creature",
+       "the Franklin's Tale — two stray points and a broken h in one clause"],
+
+      /* the 32 the two witnesses agree on, in the order they stand in the book */
+      [/ever\s+since\s+his\s+iord/g, "ever since his lord", "an l read as i, the Squire in the Prologue"],
+      [/But\s+as\s+for\s+Lis\s+trade/g, "But as for his trade", "an h read as L, the Pardoner in the Prologue"],
+      [/Julius\s+Cassar/g, "Julius Caesar", "the AE ligature read as ss, the Knight's Tale"],
+      [/time\s+be\s+a\s+tool/g, "time be a fool", "an f read as t, the Reeve's Prologue"],
+      [/cWehee/g, "Wehee", "the opening quote read as a c, before the horse's neigh in the Reeve's Tale"],
+      [/I\s+must\s+be\s+ot\s+your\s+class/g, "I must be of your class", "an f read as t, the Cook's Prologue"],
+      [/soidaness/g, "soldaness", "an l read as i, twice, of the Sultaness in the Man of Law's Tale"],
+      [/set\s+h'er\s+on\s+a\s+ship/g, "set her on a ship", "a stray point inside the word, the same tale"],
+      [/meal\s+sht\s+fed/g, "meal she fed", "an e read as t, the same tale"],
+      [/and\s+Jet\s+your\s+bags/g, "and let your bags", "an l read as J, the Shipman's Tale"],
+      [/what\s+women\s+chiefly\s+Jove/g, "what women chiefly love",
+       "an l read as J — and it is the question the Wife of Bath's Tale turns on"],
+      [/you\s+shall\s+rnyme\s+no\s+longer/g, "you shall rhyme no longer",
+       "the rn/m confusion running the other way, the Host to Chaucer"],
+      [/the\s+sin\s+of\s+avarijce/g, "the sin of avarice", "a stray j, the Pardoner's Tale"],
+      [/per-\s*jdition/g, "perdition", "a stray j across a line break, the Wife of Bath's Prologue"],
+      [/shape\s+as\s+well\s+as\s+L\s+Have\s+you/g, "shape as well as I. Have you",
+       "an I read as L, the Friar's Tale"],
+      [/you\s+above\s+your\s+poweq/g, "you above your power", "an r read as q, the Friar's Tale"],
+      [/like\s+ac\s+aspen\s+leaf/g, "like an aspen leaf", "an n read as c, the Summoner's Prologue"],
+      [/the\s+Kmilia/g, "the Emilia", "an E read as K, of the Italian region in the Clerk's Tale"],
+      [/the\s+governable\./g, "the governaille.",
+       "the Wife of Bath's envoy is rhymed dale / governaille / avail, and ours broke the rhyme"],
+      [/this\s+fresh\s+Aday/g, "this fresh May", "an M read as Ad, of January's wife in the Merchant's Tale"],
+      [/for\s+by\s+die\s+Queen/g, "for by the Queen", "a th read as di, the Squire's Tale"],
+      [/and\s+set\s+im\s+down/g, "and set him down", "a lost h, the Squire's Tale"],
+      [/cunnincr/g, "cunning", "a g read as cr, the Franklin's Tale"],
+      [/I\s+release\s+vou\s+your/g, "I release you your", "a y read as v, the Franklin's Tale"],
+      [/their\s+felloes\s+in\s+pains/g, "their fellows in pains", "a w read as e, the Second Nun's Tale"],
+      [/woe\s+or\s+rancor\s+oi/g, "woe or rancor or",
+       "an r read as i where the page turns — the printed line is 'woe or rancor or ire'"],
+      [/lest\s+you\s+ose\s+all/g, "lest you lose all", "a lost l, the Canon's Yeoman's Tale"],
+      [/to\s+tell\s+if\s+all,\s+the\s+Cook/g, "to tell it all, the Cook", "a t read as f, the Manciple's Prologue"],
+      [/twenty\s+thoucand\s+times/g, "twenty thousand times", "an s read as c, the Manciple's Tale"],
+      [/these\s+chief\s+sms/g, "these chief sins", "an i read as nothing, the Parson's Tale"],
+      [/ber\s+or\s+the\s+twigs/g, "ber of the twigs", "an f read as r, the Parson's Tale"],
+      [/hostJers/g, "hostlers", "an l read as J, the Parson's Tale"],
+
+      /* THE LAST FIVE SPELLINGS OF ONE KING'S NAME. The table above already renders this edition's AE
+         ligature as `Ae` and carries rows for `iElla` and `/Ella`; the scan breaks it three further
+         ways, and twice takes the preceding space with it. All five are the Northumbrian king of the
+         Man of Law's Tale, and thirteen other mentions in the same tale already read `Aella`. */
+      [/iTlla/g, "Aella", "the ligature read as iT"],
+      [/Ailla/g, "Aella", "the ligature read as Ai, twice"],
+      [/\.ZElla/g, "Aella", "the ligature read as ZE, with the space before it read as a point"],
+      [/\.Ella/g, "Aella", "the ligature's A lost altogether, the space again read as a point"],
+
+      /* And one the witnesses caught three words from the caret run at the head of this list. */
+      [/theTmUer/g, "the miller", "the Reeve's Tale — 'quoth the miller', four letters of it mis-read"],
+
       /* ---------- E33: TWO CONFUSION SHAPES THE SCANNER'S SET DID NOT CARRY (Sep 2026) ----------
          `h` read as `n` — the arch of the h breaking so the letter closes into an n — and `na` read
          as `m`, which is the same accident as the `rn/m` and `in/m` the set already holds, one

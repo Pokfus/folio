@@ -297,6 +297,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     furniture. **A plate caption is a distinctive phrase; a chapter title is made of the words its
     chapter is about.** Removing a head also leaves the PAGE BREAK it sat in, which still splits the
     sentence in two.
+  · **SEARCH FOR ANOTHER SCAN BEFORE DECIDING A BOOK CANNOT BE CHECKED** (Sep 2026, batch E56). The
+    Canterbury Tales was corrected by INFERENCE for ten batches — the shelf as a dictionary, the
+    rhyme, the Middle English facing it — because its entry assumed one transcription existed.
+    **Archive.org holds EIGHT scans of the same 1912 volume**, and reading ours against two of them
+    recovered what no inference could reach: `* ^en^s` is **At St. Denis** and `s^sput` is **soul**, a
+    whole place-name and a whole word. `node .claude/witness-check.js` is that comparison — each token
+    looked up by the three words either side, and only a position both witnesses resolve, agree on and
+    differ from us at is reported. **A GLOBAL DIFF IS USELESS HERE**, three OCRs of one printing
+    disagreeing in thousands of places; and **FILTER TO WHAT THE BOOK SHIPS**, since 161 of its 199
+    findings were in the rest of Chaucer's complete works. **A WITNESS IS A QUESTION, NOT A VERDICT**
+    (E46's lesson): two OCRs agree on `heginneth` for `beginneth`, and a 2-to-1 majority was still not
+    enough to change `Prioress's`, a heading that reads correctly either way. The Journey really does
+    have one transcription — re-checked in E56 — and its front matter now says so.
+  · **AND WHERE IN THE CHAIN A ROW RUNS DECIDES HOW TO WRITE IT** (same batch): 35 of E56's 44 rows
+    failed silently, drafted against the SHIPPED text where that book's corrections run on the RAW,
+    whose words carry double spaces and break across lines. `correctRaw` is
+    `applyRoman(applyReFixes(applyFixes(applyGlyphs(…))))`, so a `fixes` row has already fired by the
+    time a `reFixes` row sees the text. **Draft against the text the row will actually see**; the
+    importer's dead-row report is what tells you when you have not.
   · **A CHANGE TO A SHARED EXTRACTOR MUST BE PROVED INERT ON ITS SIBLINGS, BYTE-FOR-BYTE** — re-run
     every other book on that path and diff the generated files. That check has twice found a live
     fault in a book nobody was editing. **`teiInline` is the widest of those paths — 17 books, 34
