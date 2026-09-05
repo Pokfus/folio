@@ -1,0 +1,11 @@
+{
+  "slug": "Peptide_bond",
+  "aliases": ["peptide bonds"],
+  "description": "A peptide bond is the covalent link joining the amino group of one amino acid to the carboxyl group of another, and a chain of many of them is a polypeptide, with an amino terminus at one end and a carboxyl terminus at the other.<sup class=\"fn\" data-fn=\"1\"></sup> The bond itself is planar and allows no rotation about it, while the other backbone bonds each residue contributes do rotate, so the chain behaves as rigid plates hinged between them and its possible shapes are sharply restricted.<sup class=\"fn\" data-fn=\"2\"></sup> In living cells the bond is made at the peptidyl transferase centre of the ribosome's large subunit, a site built of RNA rather than protein.<sup class=\"fn\" data-fn=\"3\"></sup>",
+  "tags": ["concept", "science", "biology", "chemistry"],
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Bruce Alberts, Alexander Johnson, Julian Lewis, Martin Raff, Keith Roberts, and Peter Walter, “The Shape and Structure of Proteins,” in <i>Molecular Biology of the Cell</i>, 4th ed. (New York: Garland Science, 2002), https://www.ncbi.nlm.nih.gov/books/NBK26830/. [Open access]",
+    "Letian Bao and Anthony C. Forster, “Fast Peptide Bond Formation and Release by the Ribosomal Large Subunit,” <i>Journal of Biological Chemistry</i> 301, no. 7 (2025): 110336, https://doi.org/10.1016/j.jbc.2025.110336. [Open access]"
+  ]
+}
