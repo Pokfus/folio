@@ -2087,7 +2087,8 @@ window.GLOSSARY = {
 "Functional_group": "A functional group is one of the small clusters of atoms — hydroxyl, carboxyl, carbonyl, amino, phosphate, methyl and others — that recur attached to the carbon skeletons of organic molecules, each carrying chemical and physical properties of its own.<sup class=\"fn\" data-fn=\"1\"></sup> Because those properties largely settle how the molecule behaves, the same skeleton bearing a different group is a different substance, and a short list of groups generates great variety from a limited stock of frames.<sup class=\"fn\" data-fn=\"1\"></sup> Groups are also attached and removed after a molecule is built, which is one way a cell alters what a protein does without changing the sequence it was made from.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Isomer": "Isomers are molecules that share a chemical formula but differ in how their atoms are arranged, and the pairs among them that are mirror images of each other are called optical isomers.<sup class=\"fn\" data-fn=\"1\"></sup> The distinction matters because arrangement decides behaviour: each simple sugar and every amino acid but glycine exists in mirror-image d- and l-forms, and only the l-forms are found in proteins.<sup class=\"fn\" data-fn=\"1\"></sup> Isomerism also covers differences other than handedness, such as whether a double bond in a fatty acid is cis or trans, and where along its chain that bond sits.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Hydrolysis": "Hydrolysis is the breaking of a chemical bond by a molecule of water, which is consumed in the process, and it is the reverse of the condensation or dehydration reaction that forms such a bond by expelling water instead.<sup class=\"fn\" data-fn=\"1\"></sup> The pair governs how large biological molecules are made and unmade, since sugars, nucleic acids and proteins are each built by losing one water molecule for every subunit added and taken apart by consuming one.<sup class=\"fn\" data-fn=\"1\"></sup> It is not only destructive, because the energy released when the terminal phosphate of ATP is split off this way is what drives reactions that would not otherwise proceed.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Polymer": "A polymer is a large molecule built by joining many small subunits, called monomers, end to end into a chain, so that repeating one simple reaction produces a molecule of great size and complexity.<sup class=\"fn\" data-fn=\"1\"></sup> The stock of subunits is usually small, and what distinguishes one chain from another is the order they are placed in and the way they are bonded rather than the ingredients themselves.<sup class=\"fn\" data-fn=\"1\"></sup> Glycogen, starch and cellulose illustrate the point, being composed entirely of glucose and differing in their linkages and branching, which leaves one a store of sugar and another a structural material.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Polymer": "A polymer is a large molecule built by joining many small subunits, called monomers, end to end into a chain, so that repeating one simple reaction produces a molecule of great size and complexity.<sup class=\"fn\" data-fn=\"1\"></sup> The stock of subunits is usually small, and what distinguishes one chain from another is the order they are placed in and the way they are bonded rather than the ingredients themselves.<sup class=\"fn\" data-fn=\"1\"></sup> Glycogen, starch and cellulose illustrate the point, being composed entirely of glucose and differing in their linkages and branching, which leaves one a store of sugar and another a structural material.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Redox": "A redox reaction is one in which electrons pass from one atom to another, and it has two halves with separate names: oxidation is the removal of electrons and reduction their addition.<sup class=\"fn\" data-fn=\"1\"></sup> Oxidation in this sense does not require oxygen, an iron atom being oxidised when it loses an electron and a chlorine atom reduced when it gains one, and because electrons are conserved the two halves always occur together.<sup class=\"fn\" data-fn=\"1\"></sup> Living things extract energy from food by oxidising it in gradual enzyme-catalysed steps rather than in one, passing the electrons between carriers along the way.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4200,7 +4201,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Acid": ["acidic"],
 "pH": ["pH scale"],
 "Buffer_solution": ["buffers"],
-"Polymer": ["monomer"]
+"Polymer": ["monomer"],
+"Redox": ["oxidation"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6323,7 +6325,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Functional_group": ["concept","science","chemistry"],
 "Isomer": ["concept","science","chemistry"],
 "Hydrolysis": ["concept","science","chemistry"],
-"Polymer": ["concept","science","chemistry"]
+"Polymer": ["concept","science","chemistry"],
+"Redox": ["concept","science","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
