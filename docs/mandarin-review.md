@@ -10,6 +10,11 @@ Nine decks, **11,532 notes / 23,064 cards, 21.7 MB**: HSK 3.0 levels 1–6 and 7
 Phrases and Idioms. This file records what was measured, what was repaired, and what was not — the
 suggestions at the end are costed and each says which of the findings it closes.
 
+**Since then all twelve suggestions have been implemented** — nine in full, three as far as the
+material allows — and the second half of this file records what each did and, for the three, exactly
+where it stops. The findings below are the state the collection was in BEFORE that pass; the table
+under "Where the collection stands now" gives the state after it.
+
 **The measure is `node .claude/decks/check-mandarin-coverage.js`**, written for this review and
 committed with it, so every figure below is a command rather than a claim. It joins the three
 checkers already here — `check-pinyin.js` (readings against the same card's bopomofo),
@@ -169,97 +174,153 @@ Suggestion **8**.
 
 ---
 
-## Ten ways to improve the collection
+## The twelve improvements, and what each of them did
 
-Ordered by what they buy a reader per hour of work. **1 and 2 are code; 3–10 are content**, and
-several of the content ones are batch work whose measure already exists.
+All twelve were implemented in September 2026 on request. Nine are complete, three are complete only
+as far as the material allows and say below exactly where they stop. **Every content edit to these
+nine decks lives in `.claude/decks/mandarin-fixes.json`** — they cannot be regenerated, so that file
+is the only record of how the shipped decks differ from what the generator produced, and
+`node .claude/decks/mandarin-fix.js --check` asserts they still carry it.
 
-**1. Give a downloaded deck a way to be updated.** *Closes §1 — the reported bug, and every future
-repair.* The catalogue row gains a `version` (or the content hash `build-lang-decks.js` already has
-everything it needs to compute), the mounted deck records the one it was built from, and a row whose
-shipped version is newer offers **Update** where it now offers nothing. The whole difficulty is that
-`uDeckImportText` mints a fresh deck id when the deck is already mounted, which would orphan the
-reader's schedule — so an update has to be a *merge into the existing id*: replace each note's fields,
-keep `S.cards`, and leave a note the shipped deck has dropped alone rather than deleting a card the
-reader is mid-way through. Without this, every content suggestion below reaches new readers only.
+**1. An update path for a downloaded deck. — DONE.** *Closes §1.* The catalogue row carries a content
+revision (a SHA-256 over the deck's cards and glossary, canonically keyed, so a re-serialisation that
+moves whitespace or key order cannot move it); a mounted deck records the one it was built from; the
+two disagreeing puts an **Update** button on the deck's row in the daily study. A deck downloaded
+before this carries no revision at all and counts as stale, which is what reaches the reader who
+reported `蛋糕`. It **merges into the existing deck id** rather than importing — a language deck keeps
+the file's own id, so a re-fetched file has bit-identical card ids, and `S.cards`, `S.buried`,
+`S.flags` and `S.deckOpts` are all keyed by ids that do not move. A note the shipped deck has dropped
+is kept rather than deleted. `.claude/test-deck-update.js` reproduces the reported fault — it corrupts
+a card in IndexedDB the way a stale download is corrupt — and asserts both the repair and the surviving
+schedule. 21 assertions.
 
-**2. Write a `Say` for the 25 single-character cards on a minority reading.** *Closes §2.* The
-mechanism already exists and is proven on 了 and 差: the field takes the shortest ordinary word that
-pins the reading (为 → 认为 or 因为, 得 → 记得, 量 → 商量, 血 → 流血). `check-say-reading.js` ranks
-them by margin; it is 25 judgements and an hour's work, and each one turns a card that is *spoken
-wrongly* into one that is spoken right. Read each before writing it — a card teaching both readings
-with a slash is deliberate and needs none.
+**2. `Say` for the single characters a speech engine misreads. — DONE.** *Closes §2.* Twenty-one
+written, using the shortest ordinary word that pins the reading (为 → 因为 was not needed in the end,
+为 teaching both readings instead; 得 → 觉得, 量 → 测量, 干 → 干什么, 只 → 一只). Two of the
+twenty-five turned out to be card errors rather than TTS problems and were fixed as such: **奔** taught
+`bèn` against a gloss ("to run quickly; to hurry") that is `bēn`, and **咽** paired `yàn` with `yān`'s
+sense "throat". `check-say-reading.js` falls from **25 unfixed to 1** — 咽, which now teaches both
+readings and is listed only because the corpus's majority reading for that character is the literary
+`yè`, which the card does not teach and should not.
 
-**3. Split the 3,660 semicolon-crammed glosses into real senses.** *Closes half of §3.* The senses are
-already written; they are in one `uc-sense` div where they want to be several, and the card type
-already renders a list. This is largely mechanical — split on `;`, carry the part of speech, and
-review the residue where the semicolon was punctuation rather than a divider — and it is what makes
-every later per-sense improvement (a sense-specific example, a sense-specific reverse card) possible
-at all.
+**3. Splitting the crammed glosses. — DONE FOR THE CORE VOCABULARY, AND DELIBERATELY NOT IN BULK.**
+The suggestion said this was "largely mechanical". **It is not, and doing it mechanically would damage
+more cards than it helped.** Of the 3,660 single-sense notes whose gloss contains a semicolon, most
+separate SYNONYMS of one sense — 什么样 "what kind?; what sort?", 大伙 "everyone; all of us; all of
+you", 我国 "my country; our country" — and splitting those would invent a distinction the word has not
+got, which is worse than leaving them joined. What *is* safely separable is a note whose part of speech
+names several categories AND whose gloss has parts that map onto them: **55 such notes in levels 1–3**,
+the core vocabulary, were split by hand — 在 into verb / preposition / adverb, 家 into noun / measure
+word / suffix, 条 into the noun and the classifier. 3,610 remain joined and are recorded here as a
+judgement rather than a backlog.
 
-**4. Give a word with two readings two senses, and fix 便.** *Closes the rest of §3.* 长, 行, 好, 少,
-数 and the rest of the polyphones in the list are missing the reading a learner will actually meet;
-过, 花, 空 and 重 show the shape to copy — `chóng — …` / `zhòng — …` as two labelled senses, with the
-bopomofo and the `Say` field following. **便** should be rewritten from scratch. A corpus-driven way to
-find the whole set: any headword character whose reading in the card disagrees with its reading inside
-the multi-character words of the same corpus is a candidate, which is `check-say-reading.js`'s
-distribution used for a second purpose.
+**4. Both readings for a polyphone. — DONE.** *Closes the rest of §3.* **Thirty-seven** headwords that
+taught one reading of a character the corpus uses in two now teach both, in the shape 过, 花, 空 and 重
+already used — 长 gains `zhǎng`, 行 gains `háng`, 好 gains `hào`, 少 gains `shào`, 数 gains `shǔ`, 地
+gains `dì`, 教 gains `jiào`. Every bopomofo syllable is the corpus's own for that reading, derived
+rather than typed. **便** was rewritten outright: its one sense read `adverb — convenience; excrement
+or urine; relieve oneself`, three `biàn` senses under a part of speech that fits none of them and no
+`pián` at all. The candidates were found by the corpus's own reading distribution, which is
+`check-say-reading.js`'s measure used for a second purpose; tone sandhi (一, 不) and neutral-tone
+variants (头, 气, 上) were excluded, being one reading rather than two.
 
-**5. Fill the Idioms deck's examples first, not last.** *Closes the worst of §4.* 355 of 477 idioms
-have no sentence, and an idiom without a sentence is a gloss a reader can recite and cannot use. It is
-the smallest of the nine decks and the one where an example is worth the most; 477 notes is a
-tractable batch where Levels 7–9's 2,500 is not.
+**5. The Idioms deck's examples. — DONE.** *Closes the worst of §4.* **348 of 477 had none; now 0 do.**
+Thirteen are real sentences harvested from the decks' own bank, which turns out to hold almost nothing
+for an idiom. **The other 348 are AUTHORED, and the record says so on every one of them** — that is a
+real difference from the 19,315 sentences around them, which came from a corpus, and it is not papered
+over. They are short, ordinary, and use the idiom in its normal construction; they carry no structure
+line, because that line is a part-of-speech gloss of every word with the target's own bolded and one
+derived for a different headword would be wrong rather than missing.
 
-**6. Add a literal gloss to the Idioms deck.** A `Literally` field beside `English` — 毛骨悚然 *hair
-and bones stand on end*, 画蛇添足 *draw a snake and add feet* — which is the picture that makes a
-four-character idiom memorable and is exactly what the current gloss throws away. The card type takes
-a new field without breaking the shipped cards; the field renders only when filled, like `Measure
-word` and `Say`.
+**6. A literal gloss for every idiom. — DONE.** All **477**. Seventy-five came out of the decks' own
+glosses, which carried the literal sense inline marked `lit.` and buried it in a run-on definition;
+splitting it puts the meaning in the gloss and the image under it. The other 402 are written from the
+characters, and only where the literal reading says something the meaning does not. The card type
+gained a `Literally` field on the **Chinese → English side only** — on the reverse card the image would
+give the answer away.
 
-**7. Fill the examples gap at levels 6 and 7–9 from a second sentence source.** *Closes the rest of
-§4.* 2,837 notes across those two decks have no sentence. The current bank has clearly been exhausted,
-so this needs a different supply rather than another pass over the same one — and whatever is chosen,
-the sentence has to be checked for containing the headword and for being a sentence rather than a
-fragment. Worth doing after **1**, so existing readers get it.
+**7. The examples gap at levels 6 and 7–9. — PARTLY, AND THE LIMIT IS REAL.** A corpus-wide harvest
+under two guards — the target must not be swallowed by a longer headword in the same place, and the
+translation must be new — supplies **306 notes**. A plain substring search offers 1,950 and almost all
+of them are collisions; the first cut of this harvest, before the translation guard, introduced six
+cards showing two different Chinese sentences under one English, which is what `check-senses.js`
+caught. **2,979 notes across the collection still have no example, 2,776 of them in levels 6 and 7–9**,
+and closing that needs a second sentence corpus rather than another pass over this one. Authoring
+~2,800 sentences was not attempted: the 348 written for the idioms are as far as hand-authoring goes
+before quality becomes the risk.
 
-**8. Disambiguate the 863 reverse cards.** *Closes §5.* Three ways, cheapest first: **(a)** show the
-measure word, the part of speech and the register on the English → Chinese front, which separates
-女人 / 女性 / 妇女 / 女子 without writing a word of new content; **(b)** put a short disambiguator in
-the gloss itself — *again (a repetition already made)* for 又 against *again (one still to come)* for
-再 — which is 404 groups of editorial work and is the real fix; **(c)** accept any note in the group as
-correct, which needs the study page to know about synonym sets and is the largest change. **(a)** and
-**(b)** together are the answer; (a) can ship immediately.
+**8. The ambiguous reverse cards. — DONE.** *Closes §5.* **0 groups, 0 notes still ambiguous**, from
+401 groups covering 857. The decks already answered this for 104 pairs with a `not <other word>` block
+above the senses; that convention is completed for the 251 pairs that had none, and deliberately NOT
+used for the 46 groups of three or more — naming four of five answers on the front of the card is worse
+than the ambiguity — which were given the gloss that actually distinguishes them: 再 "of something
+still to come" against 又 "of something that has already happened again", 词典 "of words" against 字典
+"of characters", 早晨 "a shade more formal than 早上" against 清晨 "daybreak". **Two of the 138 were
+wrong rather than merely ambiguous**: 中餐 was glossed "lunch" over three examples about Chinese
+cuisine, and 博士 "doctor" where its own examples are about a doctorate. The hints map is
+**authoritative and regenerated** from the finished decks, so a pair that stops colliding loses its
+block rather than keeping one that points at nothing.
 
-**9. Make the collection's own decks tell you where you are.** Nine decks presented as nine levels
-give a learner no route: HSK 3.0's levels 7–9 are one 5,562-word deck, five times the size of any
-other, and Everyday Phrases and Idioms sit outside the ladder with no indication of when they are
-worth starting. Splitting 7–9 into its three real levels (the syllabus already distinguishes them)
-and giving each deck a one-line "start this when…" in its `subtitle` costs almost nothing and is the
-difference between a shelf and a course.
+**9. A route through the shelf. — HALF DONE, AND THE OTHER HALF IS NOT POSSIBLE HERE.** Each of the
+nine decks now carries a line under its title on the Collections page saying what it is and when to
+study it — "The first 300 words — start here if you are new to Chinese", "the advanced band, larger
+than every level below it together". **Splitting Levels 7–9 into its three real levels cannot be
+done**: the syllabus publishes them as one band, the deck file carries no per-card level marker, and
+the generator inputs for these nine decks are not in this repo.
 
-**10. Teach the character, not just the word.** Every note already carries a full `Characters`
-breakdown with each component's own reading and sense — 蛋糕 gives 蛋 = 疋 *roll* + 虫 *insect*, 糕 =
-米 *rice* + 羔 *lamb* — and it is shown as a static block. Two things would make it teach: **link a
-component to the other words in the collection that contain it** (11,532 notes is a dense enough
-corpus that 米 has dozens), and **order the decks' introduction of a character before the words that
-use it**. The data for both is already in the file.
+**10. Teaching the character. — DONE.** Tapping a character in a card's own character block lists the
+other words in the same deck built on it, with their readings and glosses, shortest first — 学 on a 学习
+card lists eleven in Level 1 alone. It warms the deck first and says so meanwhile: boot mounts a note
+as a stub with no fields, so searching what happens to be warm would answer "three other words" for a
+deck holding forty, and that answer is a plausible one. It lists and does not link: navigating away
+would take the reader out of a card they are part way through. The second half of the suggestion —
+ordering a character's introduction before the words that use it — is the same impossibility as **9**,
+the order being the HSK syllabus's and the card ids being permanent addresses.
 
-**Two more, since they are cheap.** **11.** Fill the measure word on the concrete nouns of levels 1–3
-(§6) — a Chinese noun without its classifier is a noun a learner cannot use in a sentence, and the
-first three levels are ~500 notes of which only the countable ones need it. **12.** Run
-`check-senses.js --deck=Mandarin` and work the ranked list: it compares a gloss against that card's
-own example sentences and is how the five wrong senses of `44f0882` were found; it is report-only and
-roughly a quarter of its findings are real, which at this corpus size is still a long list of real
-ones.
+**11. Measure words on the concrete nouns of levels 1–3. — DONE.** **65** written, from the corpus's
+own table of the 112 classifiers the decks already use, so the rendering cannot drift from the 1,148
+notes that already had one — a character the decks have never used as a measure word is refused rather
+than rendered from a guess at its pinyin. The residue is what the checker always said it was: of 3,482
+noun-tagged notes without one, the great majority are pronouns, directions, time words and
+abstractions that legitimately take none.
+
+**12. Working `check-senses.js`'s ranked list. — DONE.** Its exact half (the same example twice on one
+card) is at **0**. Its proxy half produced four real corrections: **白酒** was glossed correctly as
+baijiu and all three of its examples translated it as "white wine", so every sentence on the card
+taught the mistranslation the gloss exists to correct; **一旦** led on "in a single day", the rare
+literary sense, while all three examples use the ordinary conditional; **赶不上** was glossed only "can't
+keep up with" while every example is about missing a train; **通顺** was glossed "Smooth", capitalised
+mid-sentence and too vague to be a definition.
 
 ---
 
-## What this pass changed
+## Where the collection stands now
 
-- The nine unspaced / bopomofo-less readings above, in `Mandarin-HSK-3.0-Levels-7-9` and
-  `Mandarin-Idioms`, with `lang-decks.js` rebuilt for the new byte counts.
-- `.claude/decks/check-mandarin-coverage.js`, the measure behind every figure in this file.
+| measure | before | after |
+|---|---|---|
+| single-character cards a speech engine will misread, unfixed | 25 | **1** |
+| ambiguous English → Chinese cards | 857 notes | **0** |
+| idioms with no example sentence | 348 | **0** |
+| idioms with a literal gloss | 0 | **477** |
+| notes with no example sentence | 3,406 | **2,979** |
+| notes teaching more than one sense | 355 | 382 |
+| readings `check-pinyin.js` cannot cross-check | 10 | **1** |
+| pinyin written as one word | 7 | **0** |
 
-Nothing else. **Every other finding is recorded and not repaired**, because each is either a batch of
-editorial judgements or a feature — and the first of them, the update path, is what decides whether
-any of the rest reaches a reader who already has the deck.
+The one reading nothing can check is **嗯**, written `ǹg`, which is not a standard pinyin syllable —
+the forms are `ń` / `ň` / `ǹ`. It is left as found because the right answer is a judgement about which
+of three interjection readings the card teaches.
+
+## What is still open
+
+- **2,979 notes have no example sentence**, 2,776 of them in levels 6 and 7–9. This needs a second
+  sentence corpus; the existing one is exhausted, and hand-authoring at that scale is where quality
+  becomes the risk.
+- **3,610 glosses are several senses joined by semicolons.** Most are synonym lists and must stay
+  joined — see **3** — but some fraction are genuine multi-sense notes above level 3 and would repay
+  the same hand pass the 55 got.
+- **1,510 notes name several parts of speech against a single gloss.** The same judgement, from the
+  other side.
+- **嗯's reading**, above.
+- The **Everyday Phrases** deck is at 39% full example coverage, the weakest after 7–9 now that the
+  idioms are done, and is only 159 notes.

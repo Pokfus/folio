@@ -116,7 +116,7 @@ const deckMeta = fixes.decks || {};
 let metaHit = 0;
 const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
-let changed = 0, files = 0, missing = [], badGloss = [], badMW = [];
+let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [];
 
 const hints = Object.entries(fixes.hints || {});
 const hintsByDeck = new Map();
@@ -164,6 +164,16 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
   let hits = 0;
   for (const c of d.cards || []) {
     const fl = c.fields || {};
+    /* THIS FILE IS AUTHORITATIVE FOR ADDED EXAMPLES, so every block it has ever added is stripped from
+       every note FIRST and only what the record still names is put back. Without that, removing an `ex`
+       from the record leaves the sentence in the deck and `--check` goes on passing: the decks and their
+       own record drift apart silently, which is the one failure this file exists to prevent. It also
+       makes the pass idempotent for a note whose fix has been deleted outright. */
+    if (String(fl.Examples || "").indexOf("uc-exadd") >= 0) {
+      fl.Examples = String(fl.Examples).split('<div class="uc-exi').filter(Boolean)
+        .map((x) => '<div class="uc-exi' + x).filter((x) => x.indexOf("uc-exadd") < 0).join("");
+      hits++;
+    }
     /* THE HINT IS APPLIED FIRST AND INDEPENDENTLY, so a note may take a hint and a sense rewrite in one
        pass. It is written as the card type's own `not X` block above the senses — the shape the 104
        pairs the decks already carry use — and is REPLACED rather than appended, so re-running cannot
@@ -182,11 +192,24 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
     for (const k of ["Pinyin", "Bopomofo", "Say", "Measure word", "Literally", "Examples"]) {
       if (fix[k] !== undefined) fl[k] = fix[k];
     }
-    if (fix.ex) {
-      const kept = String(fl.Examples || "").split('<div class="uc-exi').filter(Boolean)
-        .map((x) => '<div class="uc-exi' + x).filter((x) => x.indexOf("uc-exadd") < 0);
+    if (fix.ex || fix.dropEx) {
+      let kept = String(fl.Examples || "").split('<div class="uc-exi').filter(Boolean)
+        .map((x) => '<div class="uc-exi' + x);
+      /* `dropEx` names Chinese sentences to REMOVE. It exists for the six cards that showed two
+         near-identical sentences under one English translation — the reader sees the same example
+         twice, which check-senses.js catches and a comparison of the CHINESE cannot. */
+      if (fix.dropEx) {
+        /* A `dropEx` THAT MATCHES NOTHING IS REPORTED BUT NOT AN ERROR, and the distinction is the
+           whole of why: on the FIRST run a sentence it names should be there, and a mistyped one is a
+           removal the record claims and never made — 白酒's three were transcribed by hand and matched
+           nothing. On every run AFTER that the sentence is legitimately gone, because a dropped
+           original cannot be restored without the generator. So it is a line to read when adding one,
+           not a gate; `--check` deliberately ignores it. */
+        fix.dropEx.forEach((z) => { if (!kept.some((b) => b.indexOf(z) >= 0)) badDrop.push(w.key + " → " + z); });
+        kept = kept.filter((b) => !fix.dropEx.some((z) => b.indexOf(z) >= 0));
+      }
       const room = Math.max(0, 3 - kept.length);
-      const add = fix.ex.slice(0, room).map(([zh, en]) => {
+      const add = (fix.ex || []).slice(0, room).map(([zh, en]) => {
         const bold = zh.split(fl.Simplified).join("<b>" + fl.Simplified + "</b>");
         return '<div class="uc-exi uc-exadd"><div class="uc-exz">' +
           '<span class="uc-tts uc-exsay" data-say="' + esc(zh) + '"></span>' + bold + "</div>" +
@@ -258,6 +281,11 @@ console.log("\n" + entries.length + " fixes, " + hints.length + " reverse-card h
 /* A FIX THAT MATCHES NOTHING IS AN ERROR, NOT A NO-OP. It means the headword was mistyped or the deck id
    is wrong, and the correction the record claims to have made has simply not been made — which reads,
    from the file, exactly like one that has. */
+if (badDrop.length && VERBOSE) {
+  console.log("\n  note  " + badDrop.length + " `dropEx` sentence(s) already gone (expected after the first run;" +
+    " on a NEW one, check for a typo):");
+  badDrop.forEach((k) => console.log("        " + k));
+}
 /* A measure word the decks have never used is refused rather than rendered from a guess at its pinyin. */
 if (badMW.length) {
   console.log("\n  FAIL  " + badMW.length + " `mw` fix(es) naming a character the corpus has no measure word for:");

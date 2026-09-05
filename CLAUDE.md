@@ -1364,6 +1364,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Add and Download are two presses.** Add writes the entry into `S.active` and fetches nothing;
     Download fetches the file. That split is the whole reason a deck added on a phone reaches a laptop
     — `S.active` syncs and IndexedDB does not.
+  · **…AND A THIRD, UPDATE, FOR A DECK ALREADY HERE** (`rev` in the catalogue, `langDeckStale` /
+    `langDecksStale` / `langDeckUpdate` in app.js; Sep 2026, on a bug report that a card repaired weeks
+    earlier still showed the old pinyin). `langDeckDownload` returns early for a deck already in
+    `UDECKS` and nothing compared the copy on the device against the shipped one — `meta.version` is 1
+    in every file and no code reads it — so **every content repair ever made to a language deck reached
+    only readers who had not yet downloaded it.** The catalogue row now carries a CONTENT REVISION (a
+    hash over the deck's cards and glossary, canonically keyed, so a re-serialisation that moves
+    whitespace or key order cannot move it), a mounted deck records the one it was built from, and the
+    two disagreeing puts an Update button on the deck's row in the daily study. **A deck downloaded
+    before this carries no revision at all and counts as stale**, which is deliberate: those are
+    exactly the readers holding an unrepaired copy.
+    **IT MERGES INTO THE EXISTING DECK ID RATHER THAN IMPORTING.** `uDeckImportText` mints a fresh id
+    for a deck already mounted, which would orphan the reader's whole schedule while producing a deck
+    that looks perfect. A language deck keeps the file's own id, so a re-fetched file has bit-identical
+    card ids and the merge is by id — `S.cards`, `S.buried`, `S.flags` and `S.deckOpts` are all keyed
+    by ids that do not move, so the correct action on them is NONE. A note the shipped deck has dropped
+    is KEPT rather than deleted, and the reader's own colour and the date they got the deck survive it.
+    **`langRev` rides at the TOP LEVEL of the store record beside `srev`, not in `meta`**, for `srev`'s
+    own reason: `meta` is what an export copies, so a deck FILE could otherwise claim to be current.
+    **ONE button per DECK**, on the first of its rows the reader has — its levels and its directions
+    are the same file seen from further in. Guarded by `.claude/test-deck-update.js`.
+  · **A DECK'S OWN SUBTITLE IS PRINTED UNDER ITS TITLE** on the Collections page (`.node-sub`, top-level
+    rows only; Sep 2026). Nine Mandarin decks presented as nine levels gave a learner no route — where
+    to start, how big each is against the others, where the two decks outside the ladder fit — and the
+    line is where a deck says so.
 - `.claude/build-lang-decks.js` — the generator above. Zero deps, reads `decks/*.folio-deck.json`.
   Every figure is read off the deck it describes, and `cards` is CARDS rather than notes, which is what
   makes a one-note-two-templates deck comparable with a two-notes deck.
@@ -1433,28 +1458,79 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     character carrying its own risk of being read wrong. The reader hears one syllable of context and then
     the card's own, which is what a dictionary's audio does with a particle. **Adding the field to a deck
     is a change to that deck's TYPE as well as to the card**, so it is two edits in one file.
+- **📖 `.claude/decks/mandarin-fixes.json` + `mandarin-fix.js` — THE ONE WAY A MANDARIN DECK IS
+  HAND-EDITED, AND THE ONLY PLACE AN EDIT MAY BE MADE.** The Mandarin generator inputs (`w26-*.json`)
+  are NOT in this repo, so unlike the DELE, DELF, CAPLE, Goethe and UKBI decks these nine cannot be
+  regenerated: every correction is a hand edit on top of an artefact nobody can rebuild, and done
+  directly it leaves no record of WHICH of 11,532 notes were touched or why. The JSON is that record —
+  one entry per note, keyed by `<deck id>/<headword>`, each carrying the fields it overrides and a
+  `why` — and `node .claude/decks/mandarin-fix.js [--check] [--verbose]` applies it **idempotently**,
+  with `--check` asserting the decks still carry it. **A fix that matches no note is an ERROR**, since
+  a correction the record claims and never made reads from the file exactly like one that did.
+  · **THE LEGACY MIRRORS ARE REBUILT, NEVER PATCHED.** A note carries its reading three times over
+    (`fields.Pinyin`, the top-level `pinyin`, the head of `answer`) and its senses twice, `answer`
+    carrying them abbreviated (`(v.)` for `verb`). An edit that moved one and not the others is the
+    shape the reported `蛋糕` fault's siblings had, so `answer` is derived from the fields.
+  · **THE COMPACT FORMS ARE EXPANDED HERE, FROM THE CORPUS'S OWN TABLES.** `mw: ["个","位"]` becomes
+    the character, its traditional form and its pinyin, read off the 1,148 notes that already carry a
+    measure word — a character the decks have never used as one is REFUSED rather than guessed at.
+    `senses` takes `[reading, part of speech, gloss]`, `[part of speech, gloss]` or `[gloss]` alone,
+    the last being what an idiom has; `gloss` insists on a note with exactly one sense and `glossAll`
+    replaces however many there are. `ex: [[chinese, english]]` builds an example block and marks it
+    `uc-exadd`.
+  · **THE FILE IS AUTHORITATIVE FOR TWO THINGS, AND BOTH ARE REGENERATED RATHER THAN ACCUMULATED.**
+    `hints` is the complete list of `not <other word>` blocks (see the reverse-card note below), and
+    every `uc-exadd` example block is STRIPPED from every note before the fixes are applied — without
+    that, deleting an `ex` from the record leaves the sentence in the deck and `--check` goes on
+    passing, which is the decks and their own record drifting apart in silence.
 - `.claude/decks/check-mandarin-coverage.js` — **what a Mandarin card does NOT say**:
   `node .claude/decks/check-mandarin-coverage.js [--top=N] [--deck=] [--only=]`. The three checkers
   above all ask whether what a card SAYS is right and all report the Mandarin decks clean or nearly
   so; a reader can still meet a card teaching one sense of a four-sense word, or one with no example
   sentence at all. **Faults of OMISSION are the one shape a correctness checker cannot see** — nothing
   on the card is wrong, there is simply less of it than the card type promises. Five counts, never a
-  verdict, so it is **report-only** like `check-senses.js`: examples per note broken down by deck
-  (44% of 11,532 carry the full three, 3,406 carry none, and the shortfall tracks the LEVEL, which
-  says it is a supply problem rather than a bug); **glosses shared by two or more notes**, which on an
-  English → Chinese card whose front is `{{English}}` and nothing else is one question with several
-  right answers (404 glosses, 863 notes, and the only finding here a reader experiences as being
-  MARKED WRONG FOR BEING RIGHT); senses against part of speech; pinyin written as one word, with
-  **erhua exempt** (哪儿 `nǎr` IS one syllable); and measure words on nouns, which is the loosest of
-  the five and says so, most noun-tagged notes not being countable. Not part of the site.
-- **📖 `docs/mandarin-review.md` — READ BEFORE WORKING ON THE MANDARIN DECKS.** The Sep 2026 review in
-  full: why the repaired `蛋糕` still reads `dàng āo` on the reader's screen (**a downloaded deck is
-  never re-fetched** — `langDeckDownload` returns early on `UDECKS[deckId]`, `meta.version` is 1 in
-  all nine files and nothing reads it, so **every content repair ever made to a language deck has
-  reached only readers who had not yet downloaded it**), the 25 single-character cards a speech engine
-  will misread against the 2 that carry a `Say`, the five polyphones whose second reading is missing
-  outright while 过/花/空/重 carry both, the 3,660 glosses that are several senses joined by
-  semicolons, the Idioms deck at 2% example coverage, and twelve costed suggestions.
+  verdict, so it is **report-only** like `check-senses.js`: examples per note broken down by deck;
+  **glosses shared by two or more notes**, which on an English → Chinese card whose front is
+  `{{English}}` and nothing else is one question with several right answers; senses against part of
+  speech; pinyin written as one word, with **erhua exempt** (哪儿 `nǎr` IS one syllable); and measure
+  words on nouns, the loosest of the five, most noun-tagged notes not being countable. **RUN IT rather
+  than quoting a figure from here** — this bullet stated five and every one of them moved within a day.
+- **A SHARED GLOSS IS DISAMBIGUATED BY THE DECK'S OWN `not <other word>` BLOCK.** The English → Chinese
+  card's front is the gloss and nothing else, so two notes sharing one are a single question with
+  several right answers — the reader types 再 for "again", is shown 又, and cannot tell a wrong answer
+  from a collision. The decks answer it with a `<div class="uc-pos">not X</div>` above the senses.
+  **It is used for a PAIR and never for a group of three or more**: naming four of five answers on the
+  front of the card is worse than the ambiguity, so such a group is given distinguishing GLOSSES
+  instead — and a note that gets one drops its hint, a disambiguator disambiguating nothing being worse
+  than none, since a reader takes it for a real distinction.
+- **📖 `docs/mandarin-review.md` — READ BEFORE WORKING ON THE MANDARIN DECKS.** The Sep 2026 review
+  and the twelve-item pass that came out of it, in full: why the repaired `蛋糕` still read `dàng āo`
+  on the reader's screen and what the update path does about it, the polyphones that taught one of
+  their character's two readings, the reverse-card collisions and why a group of three could not take
+  the same fix as a pair, the Idioms deck's literal line, what was authored rather than harvested and
+  why that distinction is stated on every entry, and — with its reasoning — **what was NOT done**: the
+  2,979 notes still without an example, and why 3,610 semicolon-crammed glosses must not be split in
+  bulk.
+- **TAPPING A CHARACTER LISTS THE OTHER WORDS BUILT ON IT** (`openCharWin` / `charNeighbours` /
+  `CHARWIN_MAX` / `.charwin`; Sep 2026). A Mandarin card already breaks its word into characters and
+  glosses each one, and that block was read-only furniture: it told a learner that 蛋 is "egg" and left
+  them no way to find the other words in the deck built on it. Three things decide the shape.
+  **IT IS DELEGATED AND READS `data-ucdeck` OFF THE CARD WRAPPER**, which `cardTypeSideHTML` writes for
+  it — a card type's HTML is sanitized and can carry no handler of its own, so anything interactive
+  inside one is app.js's. **IT WARMS THE DECK FIRST AND SAYS SO MEANWHILE**: boot mounts a note as a
+  STUB WITH NO FIELDS, so searching what happens to be warm answers "three other words" for a deck
+  holding forty — a plausible answer, and wrong. The read is once per deck per session and the reader
+  asked for it. **IT LISTS AND DOES NOT LINK**: a row is a word, its reading and its gloss, and making
+  it navigable would take the reader out of a card they are part way through answering. The `not
+  <other word>` disambiguator is stripped from the gloss here, reading in a list of words as part of
+  the definition. Guarded by `.claude/test-char-network.js`.
+- **AN IDIOM CARD CARRIES A `Literally` LINE** (the Idioms deck's card type; Sep 2026). An idiom's gloss
+  says what it MEANS and throws away what it SAYS, and the image is most of what makes a
+  four-character idiom stick — 谢天谢地 is "thank goodness" and it says "thank heaven, thank earth".
+  It is on the **Chinese → English side only**: on the reverse card the image would give the answer
+  away. **A FIELD IS ADDED IN TWO PLACES OR IN NEITHER** — the type's `fields` list and the template
+  that renders it — which is why `mandarin-fixes.json`'s `decks.addFields` does both plus the type's
+  own scoped CSS; adding one and not the others stores the field and shows it nowhere.
 - **📖 `docs/lang-decks.md` — READ BEFORE TOUCHING ANY DECK OR GENERATOR.** Every pipeline's findings:
   which exam boards publish a word list and which do not, the CJK and PDF extraction traps, the
   variety filters, the clitic and conjugation rules, the sense-ranking faults, and the catalogue's
@@ -5805,6 +5881,18 @@ dead code (never rendered).
     touching `cardQuote` / `cardQuoteHTML` / `buildBack`'s abstract split / the `.cq-go` listener /
     `PAGES.book`'s `params.n` / the `#book` branches in boot and hashchange / `serializeCardData` /
     `revertCard`, or `add-card.js`'s quote guard.**
+  · `node .claude/test-deck-update.js` — **updating a language deck this device already holds** (21
+    assertions, Sep 2026), and the reported fault reproduced: it corrupts a card in IndexedDB the way a
+    stale download is corrupt, reloads, and asserts the repair arrives AND the reader's schedule
+    survives it. **Re-run after touching `langDeckFetch` / `langDeckDownload` / `langDeckStale` /
+    `langDeckUpdate` / `uDeckNormalize`'s `langRev` / `uDeckIndexRecord` / `UDECK_META_KEYS`, the
+    `data-langup` row or button, or `build-lang-decks.js`'s `rev`.**
+  · `node .claude/test-char-network.js` — **tapping a character on a Mandarin card** (12 assertions,
+    Sep 2026). Every way it can break is quiet: a missing `data-ucdeck` never opens the panel, an
+    unwarmed deck answers "no other words", and an empty result is a REAL answer for some characters —
+    so it asserts a count only a warmed deck can reach, and that an empty one says so in words rather
+    than showing nothing. **Re-run after touching `openCharWin` / `charNeighbours` / the `.uc-chc`
+    listener / `cardTypeSideHTML`'s `data-ucdeck` / the `.charwin` styles.**
   · `node .claude/decks/check-say.js` — **a language card's speaker says what the card shows**: where the
     headword displays ONE article, the spoken field must carry it. It found 3,674 cards that dropped it —
     3,640 French and 34 Italian — and `--fix` repairs them. **A common-gender noun (`il/la complice`,

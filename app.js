@@ -13940,6 +13940,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        nothing was visibly wrong and nothing was reported. A page that wants keys re-attaches below. */
     detachKeys();
     closeCtxMenu();   // …and dismisses the selection context menu
+    closeCharWin();   // …and the character-network panel, which lives on document.body like the rest
     closeAllGloss();
     closeImageViewer();   // the fullscreen image viewer never outlives its page
     closeCongrats();      // …nor the level-up overlay, which a hash change can otherwise strand over the next one
@@ -18457,6 +18458,99 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Highlight offers. A colour row is drawn in place rather than as a nested submenu: five swatches are
      smaller than the words naming them, a submenu needs a second decision about which way it opens, and
      on a phone a menu inside a menu is a target inside a target. `it.act` then takes the colour. */
+  /* ---------- THE CHARACTER NETWORK (Sep 2026) ----------
+     A Mandarin card already breaks its word into characters and glosses each one, and that block was
+     read-only furniture: it told a learner that 蛋 is "egg" and left them no way to find the other
+     words in the deck built on it. Tapping a character now lists them, which is the one thing 11,532
+     notes of one language are uniquely able to answer — a character IS a network, and a deck this size
+     holds most of it.
+
+     THREE THINGS DECIDE THE SHAPE.
+     · IT IS DELEGATED, because a card type's HTML is sanitized and can carry no handler of its own. The
+       deck is read off `data-ucdeck` on the card wrapper, which cardTypeSideHTML writes for this.
+     · IT WARMS THE DECK FIRST, and says so meanwhile. Boot mounts a note as a STUB with no fields, so
+       the words are simply not in memory until they are read back — searching what happens to be warm
+       would answer "three other words" for a deck holding forty, which is worse than not answering.
+       The read is once per deck per session, and the reader asked for it by tapping.
+     · IT LISTS AND DOES NOT LINK. A row is a word, its reading and its gloss; making it navigable would
+       take the reader out of a card they are part way through answering. */
+  const CHARWIN_MAX = 24;
+  let charWinEl = null;
+  function closeCharWin() { if (charWinEl) { charWinEl.remove(); charWinEl = null; } }
+  function charNeighbours(deckId, ch, self) {
+    const d = UDECKS[deckId];
+    if (!d) return [];
+    const out = [];
+    (d.cardIds || []).forEach((id) => {
+      const c = UCARDS[id];
+      if (!c || uIsLazy(c) || !c.fields) return;
+      const w = String(c.fields.Simplified || ""), tr = String(c.fields.Traditional || "");
+      if (w === self || (w.indexOf(ch) < 0 && tr.indexOf(ch) < 0)) return;
+      if (out.some((o) => o.w === w)) return;   // a note per direction would otherwise list the word twice
+      /* the `not <other word>` disambiguator is dropped: it exists to tell one English prompt's
+         several right answers apart on the reverse card, and in a list of words it reads as part
+         of the gloss — "to go to school not 就读" */
+      const g = String(c.fields.English || "").replace(/^<div class="uc-pos">not [^<]*<\/div>/, "");
+      out.push({ w: w, p: String(c.fields.Pinyin || ""), g: sanitizePlain(g) });
+    });
+    // shortest first: the two-character words that a learner meets a character in are the useful ones
+    out.sort((a, b) => a.w.length - b.w.length || a.w.localeCompare(b.w));
+    return out;
+  }
+  function charWinRender(ch, rows, note) {
+    const m = charWinEl;
+    if (!m) return;
+    m.innerHTML = '<div class="cw-head"><span class="cw-ch" lang="zh-CN">' + esc(ch) + "</span>" +
+      '<span class="cw-n">' + esc(note) + "</span>" +
+      '<button class="cw-x" type="button" aria-label="Close">×</button></div>' +
+      (rows.length
+        ? '<div class="cw-list">' + rows.slice(0, CHARWIN_MAX).map((r) =>
+            '<div class="cw-row"><span class="cw-w" lang="zh-CN">' + esc(r.w) + "</span>" +
+            '<span class="cw-p">' + esc(r.p) + "</span>" +
+            '<span class="cw-g">' + esc(r.g.slice(0, 64)) + "</span></div>").join("") +
+          (rows.length > CHARWIN_MAX ? '<div class="cw-more">… and ' + (rows.length - CHARWIN_MAX) + " more</div>" : "") +
+          "</div>"
+        : '<div class="cw-more">No other word in this deck uses it.</div>');
+    m.querySelector(".cw-x").addEventListener("click", closeCharWin);
+  }
+  async function openCharWin(ch, deckId, self, x, y) {
+    closeCharWin();
+    closeCtxMenu();
+    const m = document.createElement("div");
+    m.className = "ctx-menu charwin";
+    document.body.appendChild(m);
+    charWinEl = m;
+    charWinRender(ch, [], "looking…");
+    const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+    const place = () => {
+      m.style.left = Math.max(6, Math.min(x - m.offsetWidth / 2, vw - m.offsetWidth - 8)) + "px";
+      m.style.top = Math.max(6, Math.min(y + 12, vh - m.offsetHeight - 8)) + "px";
+    };
+    place();
+    setTimeout(() => {
+      const off = (ev) => { if (charWinEl && !charWinEl.contains(ev.target)) closeCharWin(); };
+      document.addEventListener("pointerdown", off, { capture: true, once: true });
+      document.addEventListener("keydown", (ev) => { if (ev.key === "Escape") closeCharWin(); }, { once: true });
+    }, 0);
+    await uWarmDeck(deckId);
+    if (charWinEl !== m || !m.isConnected) return;   // closed, or another character asked for, while reading
+    const rows = charNeighbours(deckId, ch, self);
+    charWinRender(ch, rows, rows.length ? rows.length + (rows.length === 1 ? " word" : " words") : "");
+    place();
+  }
+  // one delegated listener for every character on every card of every Mandarin-shaped deck
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest && e.target.closest(".uc-chc");
+    if (!el) return;
+    const card = el.closest(".uc-card[data-ucdeck]");
+    if (!card) return;
+    const ch = (el.textContent || "").trim();
+    if (ch.length !== 1) return;
+    e.stopPropagation();
+    const self = (card.querySelector(".uc-simp") || {}).textContent || "";
+    const r = el.getBoundingClientRect();
+    openCharWin(ch, card.dataset.ucdeck, String(self).trim(), r.left + r.width / 2, r.bottom);
+  });
   function showCtxMenu(x, y, items) {
     closeCtxMenu();
     const m = document.createElement("div");
@@ -28865,7 +28959,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        scoped to. So a type whose two directions want to look different says `.card[data-uctpl="2"] { … }`,
        which is Anki's `.card2` in the shape this scoper can already rewrite. */
     const tplN = ' data-uctpl="' + (((c && c._tpl) || 0) + 1) + '"';
-    return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + tplN + lang + ">" +
+    /* WHICH DECK the card is from, so a delegated listener can search its siblings — see openCharWin.
+       A card type's own HTML is sanitized and cannot carry a handler, so anything interactive inside one
+       is app.js's, delegated, and needs the deck named on an element it can walk up to. */
+    const dk = c && c.deckId ? ' data-ucdeck="' + esc(c.deckId) + '"' : "";
+    return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + tplN + lang + dk + ">" +
       ucRestoreDetails(sanitizeHTML(html), scopeId) + "</div>";
   }
   /* ============================================================
