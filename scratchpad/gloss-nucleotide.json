@@ -1,0 +1,10 @@
+{
+  "slug": "Nucleotide",
+  "aliases": ["nucleotides"],
+  "description": "A nucleotide is a nitrogen-containing base joined to a sugar and carrying one or more phosphate groups on that sugar's 5' carbon; a base bound to a sugar alone, without any phosphate, is a nucleoside rather than a nucleotide.<sup class=\"fn\" data-fn=\"1\"></sup> The bases fall into two chemical families, purines and pyrimidines, and the sugar is ribose or, with one oxygen fewer, 2'-deoxyribose, which is what separates the two kinds of nucleic acid built from them.<sup class=\"fn\" data-fn=\"1\"></sup> Being polymerised into a nucleic acid is only one of their uses, since nucleotides also serve as carriers of chemical energy and as signalling molecules.<sup class=\"fn\" data-fn=\"2\"></sup>",
+  "tags": ["object", "science", "biology", "chemistry", "genetics"],
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Huihuang Chen, Linlin Qi, Minxia Zou, Mengting Lu, Mateusz Kwiatkowski, Yuanrong Pei, Krzysztof Jaworski, and Jiří Friml, “TIR1-Produced cAMP as a Second Messenger in Transcriptional Auxin Signalling,” <i>Nature</i> 640, no. 8060 (2025): 1011–16, https://doi.org/10.1038/s41586-025-08669-w. [Open access]"
+  ]
+}
