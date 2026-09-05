@@ -1268,6 +1268,13 @@ body[data-theme="folio"] .collection-deco::after{
    under its name or beside it was a function of the window and of how long that deck happened to be
    called — which is what made "the same way history decks do" impossible to point at. */
 .node-meta{display:flex; align-items:center; gap:9px; flex-wrap:wrap; row-gap:4px; margin-top:5px;}
+/* A LANGUAGE DECK'S OWN LINE — what it is and when to study it (Sep 2026). Quiet ink and a measure that
+   stops well short of the row's width: it is guidance under a title, not a paragraph, and a line that
+   ran the full width of a wide row would read as the deck's description rather than as a caption. */
+.node-sub{
+  margin-top:4px; font-family:var(--sans); font-size:calc(11.5px * var(--fs));
+  line-height:1.45; color:var(--ink-faint); max-width:52ch;
+}
 .node-meta:empty{display:none;}
 .node-title{font-family:var(--serif); font-weight:600; font-size:calc(17px * var(--fs)); line-height:1;}
 .node-span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
@@ -1285,6 +1292,15 @@ body[data-theme="folio"] .collection-deco::after{
    and a size hidden on a phone is a size hidden from most readers, which on a 21 MB download is exactly
    the wrong half to lose. Wrapping costs a row nothing at any width the figures fit. */
 .node-size{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); opacity:.72; white-space:nowrap;}
+
+/* WHAT A DECK TEACHES, beside how big it is (Sep 2026, on request). Set as the count and the size are —
+   same face, same size, same quiet ink — because these are figures on the same line and a fourth
+   typographic treatment on one row is noise. They are drawn only where they VARY: every deck on the
+   shelf is asked both ways, so that fact says nothing; audio is the norm, so only its absence is
+   printed, and `.node-fact-no` gives that one the ochre the site already uses for a fact a reader
+   should notice without being warned by it. */
+.node-fact{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); opacity:.72; white-space:nowrap;}
+.node-fact-no{color:var(--ochre); opacity:.9;}
 
 /* ============================================================
    STUDY / FLASHCARD  (mirrors the source collection card CSS)
@@ -6744,6 +6760,48 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
   background:color-mix(in srgb, var(--indigo) 26%, transparent);
   transition:width .2s var(--ease);
 }
+/* AN UPDATE IS AVAILABLE FOR A DECK ALREADY HERE (Sep 2026, on the 蛋糕 report). It shares Download's
+   markup and its bar because it is the same fetch, and differs in ink because it is a different offer:
+   Download is the only thing a pending row can do, where this sits on a row that is already perfectly
+   studiable and must not shout over the deck's own counts. Ochre rather than indigo — the site's
+   "worth knowing" colour, and never the red that would read as a fault in the reader's deck. */
+.btn.tiny.dk-up{
+  border-color:color-mix(in srgb, var(--ochre) 55%, var(--rule));
+  color:color-mix(in srgb, var(--ochre) 82%, var(--ink));
+  background:color-mix(in srgb, var(--ochre) 10%, transparent);
+}
+.btn.tiny.dk-up:hover{background:color-mix(in srgb, var(--ochre) 20%, transparent);}
+/* THE CHARACTER NETWORK (Sep 2026) — the other words in this deck built on the character just tapped.
+   It borrows `.ctx-menu`'s box, shadow and positioning rather than inventing a second floating panel;
+   what it adds is a scrolling list and a three-column row. Capped in height so a character used by
+   forty words cannot fill the screen, and the list scrolls inside it. */
+.charwin{padding:0; min-width:230px; max-width:min(360px, 92vw);}
+.cw-head{
+  display:flex; align-items:center; gap:9px; padding:9px 10px 8px;
+  border-bottom:1px solid var(--rule);
+}
+.cw-ch{font-family:var(--han); font-size:calc(21px * var(--fs)); line-height:1; color:var(--ink);}
+/* the character's own reading, beside it (Sep 2026). Set in the site's mono face rather than the Han one:
+   it is a romanisation, and setting it in the CJK face would file it with the character it describes. */
+.cw-r{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.02em; color:var(--zh);}
+.cw-n{flex:1; font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
+.cw-x{
+  flex:none; width:24px; height:24px; border:0; background:transparent; cursor:pointer;
+  font-size:calc(17px * var(--fs)); line-height:1; color:var(--ink-soft); border-radius:6px;
+}
+.cw-x:hover{background:var(--paper-2); color:var(--ink);}
+.cw-list{max-height:min(46vh, 320px); overflow-y:auto; padding:4px 0;}
+.cw-row{display:flex; align-items:baseline; gap:8px; padding:4px 10px;}
+.cw-row + .cw-row{border-top:1px solid color-mix(in srgb, var(--rule) 45%, transparent);}
+.cw-w{flex:none; font-family:var(--han); font-size:calc(15px * var(--fs)); color:var(--ink);}
+.cw-p{flex:none; font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--zh);}
+.cw-g{
+  flex:1; min-width:0; font-family:var(--sans); font-size:calc(11px * var(--fs));
+  color:var(--ink-soft); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.cw-more{padding:8px 10px; font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
+/* the character block's own characters are the handle, so they say so */
+.uc-chc{cursor:pointer;}
 .btn.danger{background:transparent; color:var(--zh); border-color:color-mix(in srgb,var(--zh) 45%, var(--rule));}
 .btn.danger:hover{background:var(--zh); color:#fff; border-color:var(--zh);}
 

@@ -1150,8 +1150,19 @@ const SETTINGS = {
       !!kept && kept.parent === geo.gid && !!kept.hue, JSON.stringify(kept));
     await carried.close();
 
-    // tapping it studies everything inside
+    /* Tapping it studies everything inside — THROUGH THE ORDER PICKER, since Sep 2026. A group is one of
+       the two things `orderAskEntry` asks about on their first session (see its own note), so the first
+       tap lands on `#order` rather than on a card, and it is the SKIP that deals the cards. Both halves
+       are asserted: a picker that stopped appearing and a picker a reader could not get past look the
+       same from here, and the assertion this replaces — which knew nothing about the picker — reported
+       the feature working as a broken group. */
     await page.evaluate((gid) => document.querySelector(`.active-deck[data-drag="${gid}"]`).click(), geo && geo.gid);
+    await page.waitForTimeout(900);
+    const asked = await page.evaluate(() => ({ hash: location.hash, cards: document.querySelectorAll(".op-card").length,
+                                               skip: !!document.querySelector("#opSkip") }));
+    check("...tapping a group asks how it should be dealt, the first time",
+      asked.hash.indexOf("order") >= 0 && asked.cards >= 3 && asked.skip, JSON.stringify(asked));
+    await page.evaluate(() => document.querySelector("#opSkip").click());
     await page.waitForTimeout(900);
     const studying = await page.evaluate(() => ({ hash: location.hash, card: !!document.querySelector(".question, .cardwrap") }));
     check("tapping a group studies the cards inside it",

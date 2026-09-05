@@ -35,13 +35,20 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.524", released: "2026-09-05T14:31Z" };
+window.FOLIO_VERSION = { v: "1.525", released: "2026-09-05T16:05Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-05",
     t: "Studying rebuilt around what the evidence says works",
     items: [
+      "A language deck's row on the Collections page now says how many of its words come with an <b>example sentence</b>, and warns you where a deck has <b>no audio</b>.",
+      "A language deck can be studied <b>in order of how often it uses each word</b>, rather than in the exam list's alphabetical order.",
+      "Tapping a character on a Mandarin card now shows <b>how it is read on its own</b>, and lists its words commonest first.",
+      "<b>A language deck you have already downloaded can now be updated</b> when a newer copy is published, and your progress in it is kept.",
+      "<b>Tapping a character on a Mandarin card lists the other words in that deck built on it</b>, with their readings and meanings.",
+      "<b>Each language deck now says what it is and when to study it</b> on the Collections page, so nine levels read as a course rather than a shelf.",
+      "<b>Chinese idiom cards now show what the idiom literally says</b> under what it means.",
       "<b>The first time you study a deck, Folio now asks how you want it dealt</b> \u2014 four orders, each explained at length, and it says how to change your mind later.",
       "<b>A new \u201cEased in\u201d deck order</b> introduces one subdeck at a time and mixes it with the rest once you know it.",
       "<b>A card now counts as learned when you have recalled it on three separate days</b>, shown as three small marks under the answer, because recalling it three times in one evening is not the same thing.",
