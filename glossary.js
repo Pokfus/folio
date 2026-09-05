@@ -1909,7 +1909,9 @@ window.GLOSSARY = {
 "Yaren": "Yaren is the district of Nauru in which the country's government offices stand, and it is treated as the capital although the Commonwealth Secretariat records that Nauru has no official capital at all.<sup class=\"fn\" data-fn=\"1\"></sup> It lies on the south coast of a coral island of 21 square kilometres (8 sq mi) whose interior has been left almost entirely barren by phosphate mining, so that most of the country's people live on the fertile strip around the shore.<sup class=\"fn\" data-fn=\"1\"></sup> No figure counts the district alone: the United Nations names Yaren as the capital city but footnotes the population beside that name as referring to Nauru as a whole.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Mata-Utu": "Mata-Utu, written Mata'Utu locally, is the chef-lieu of Wallis and Futuna, a French overseas collectivity of 142 square kilometres (55 sq mi) scattered across three main islands in the South Pacific.<sup class=\"fn\" data-fn=\"1\"></sup> It stands on the island of Wallis, at the end of a marked channel that leads through the lagoon from its southern pass to the town wharf, and is the seat of the prefect who represents France and of the twenty-member territorial assembly that votes the collectivity's budget.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The territory has no communes at all: three administrative circumscriptions answer to the customary kingdoms of Uvea, Alo and Sigave, each under a council presided over by its king, and Mata'Utu lies in Uvea.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Gustavia": "Gustavia is the chef-lieu and harbour town of Saint Barthélemy, a French overseas collectivity of 21 square kilometres (8 sq mi) lying at the junction of the Greater and Lesser Antilles, some 230 kilometres (140 miles) north-west of Guadeloupe.<sup class=\"fn\" data-fn=\"1\"></sup> The collectivity's own offices stand at Pointe-Gustavia in the town, and the French state, which shares a single prefect between this island and Saint Martin, keeps a delegation there as well.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The island had 9,793 inhabitants in 2018, and had been a commune of Guadeloupe from 1947 until an organic law of 2007 made it a collectivity in its own right, governed by a territorial council.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Funafuti": "Funafuti is the atoll that holds the capital of Tuvalu, a Polynesian state in the central Pacific whose land amounts to about 26 square kilometres (10 square miles).<sup class=\"fn\" data-fn=\"1\"></sup> The seat of government stands at Vaiaku on Fongafale, the largest islet of the atoll, so that the address of the capital is usually given in three parts rather than as a single town name.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations records Funafuti as the capital city with some 7,000 inhabitants in 2018, which is close to the whole of the country's urban population, since roughly 63 per cent of Tuvaluans live in a town.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Funafuti": "Funafuti is the atoll that holds the capital of Tuvalu, a Polynesian state in the central Pacific whose land amounts to about 26 square kilometres (10 square miles).<sup class=\"fn\" data-fn=\"1\"></sup> The seat of government stands at Vaiaku on Fongafale, the largest islet of the atoll, so that the address of the capital is usually given in three parts rather than as a single town name.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations records Funafuti as the capital city with some 7,000 inhabitants in 2018, which is close to the whole of the country's urban population, since roughly 63 per cent of Tuvaluans live in a town.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Saint-Pierre,_Saint_Pierre_and_Miquelon": "Saint-Pierre is the capital and larger of the two communes of Saint Pierre and Miquelon, a French overseas collectivity in the North Atlantic lying east of the Canadian coast.<sup class=\"fn\" data-fn=\"2\"></sup> The town sits on the island of the same name and its own council gives it 30 square kilometres (12 square miles) and 5,412 inhabitants at the census of 2016, with 33 kilometres (21 miles) of municipal road.<sup class=\"fn\" data-fn=\"3\"></sup> The United Nations records it as the capital city with some 5,700 people in 2018, close to the whole population of an archipelago that is about 90 per cent urban.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Jamestown,_Saint_Helena": "Jamestown is the capital of Saint Helena, a small island of volcanic origin in the South Atlantic and part of the British overseas territory of Saint Helena, Ascension and Tristan da Cunha.<sup class=\"fn\" data-fn=\"3\"></sup> The town lies in a narrow valley running down to the sea, and Letters Patent of Queen Victoria dated 6 June 1859 declared it to be a city called the “City of James Town”.<sup class=\"fn\" data-fn=\"2\"></sup> Its population has fallen steadily, from 1,516 at the census of 1976 to 625 in 2021, and Half Tree Hollow overtook it as the island’s largest district in 1998.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3791,7 +3793,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "San_Marino_(city)": ["City of San Marino"],
 "Marigot,_Saint_Martin": ["Marigot"],
 "The_Valley,_Anguilla": ["The Valley"],
-"Mata-Utu": ["Mata'Utu"]
+"Mata-Utu": ["Mata'Utu"],
+"Saint-Pierre,_Saint_Pierre_and_Miquelon": ["Saint-Pierre"],
+"Jamestown,_Saint_Helena": ["Jamestown"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5729,7 +5733,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Yaren": ["place","city","geography","capital","nauru","oceania"],
 "Mata-Utu": ["place","city","geography","capital","wallis and futuna","oceania"],
 "Gustavia": ["place","city","geography","capital","saint barthelemy","caribbean"],
-"Funafuti": ["city","geography","oceania","polynesia"]
+"Funafuti": ["city","geography","oceania","polynesia"],
+"Saint-Pierre,_Saint_Pierre_and_Miquelon": ["city","geography","northern america","france"],
+"Jamestown,_Saint_Helena": ["city","geography","atlantic","united kingdom"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
