@@ -2077,7 +2077,8 @@ window.GLOSSARY = {
 "Hasdrubal's_march_into_Italy": "<b>Hasdrubal's march into Italy</b> was the movement of a Carthaginian army from Spain across the Pyrenees and the Alps in 207 BCE, undertaken to reinforce Hannibal, who had been campaigning in the peninsula for eleven years without support.<sup class=\"fn\" data-fn=\"1\"></sup> The crossing went far more quickly than the one his brother had made, the Alpine peoples receiving him and in places joining him, and he raised Gallic and Ligurian troops on arriving; he then spent time besieging the Roman colony of Placentia without taking it.<sup class=\"fn\" data-fn=\"2\"></sup> The march ended when a letter arranging a meeting with Hannibal in Umbria was intercepted, which allowed the Roman consuls to concentrate against him.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_the_Metaurus": "The <b>Battle of the Metaurus</b> was fought in 207 BCE in north-eastern Italy between a Carthaginian army under Hasdrubal Barca and two Roman consular armies, and ended the attempt to reinforce Hannibal from Spain.<sup class=\"fn\" data-fn=\"1\"></sup> One consul had marched north in secret with a picked force to join his colleague, so that the Carthaginians met more men than they expected, and were outflanked when the Roman right worked round behind its own line onto their exposed side.<sup class=\"fn\" data-fn=\"2\"></sup> Hasdrubal was killed in the fighting, his army destroyed, and his severed head afterwards thrown down before Hannibal's outposts in the south of the peninsula.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Scipio's_African_campaign": "<b>Scipio's African campaign</b> was the Roman invasion of Carthaginian territory begun in 204 BCE, intended to force Carthage to fight in her own country and to recall Hannibal from Italy.<sup class=\"fn\" data-fn=\"1\"></sup> Its decisive stroke was a night attack in which the camps of the Carthaginian army and of its Numidian ally Syphax were set on fire and destroyed, an operation prepared while peace negotiations were still being conducted with Syphax.<sup class=\"fn\" data-fn=\"2\"></sup> A second victory followed on the Great Plain, after which Carthage debated terms, recalled Hannibal from Italy, and the war returned to Africa for its last campaign.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Masinissa": "<b>Masinissa</b> was a Numidian king of the 3rd and 2nd centuries BCE who fought for Carthage in Spain, changed to the Roman side during the war in Africa, and afterwards ruled a united Numidia for more than sixty years.<sup class=\"fn\" data-fn=\"1\"></sup> His cavalry served under Roman command in the campaign that destroyed the armies of Carthage and of his rival Syphax, whose kingdom and capital he took over.<sup class=\"fn\" data-fn=\"2\"></sup> Polybius, who says he lived to ninety, judged his greatest achievement to be agricultural rather than military: he showed that country thought naturally barren could be made to bear crops of every kind.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Masinissa": "<b>Masinissa</b> was a Numidian king of the 3rd and 2nd centuries BCE who fought for Carthage in Spain, changed to the Roman side during the war in Africa, and afterwards ruled a united Numidia for more than sixty years.<sup class=\"fn\" data-fn=\"1\"></sup> His cavalry served under Roman command in the campaign that destroyed the armies of Carthage and of his rival Syphax, whose kingdom and capital he took over.<sup class=\"fn\" data-fn=\"2\"></sup> Polybius, who says he lived to ninety, judged his greatest achievement to be agricultural rather than military: he showed that country thought naturally barren could be made to bear crops of every kind.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Zama": "The <b>Battle of Zama</b> was fought in 202 BCE inland from Carthage between a Roman army under Publius Cornelius Scipio, with Numidian horse under Masinissa, and a Carthaginian army under Hannibal, and it brought the second war between the two states to an end.<sup class=\"fn\" data-fn=\"1\"></sup> Hannibal opened with more than 80 elephants and drew his infantry up in three separate lines, the last of them the army he had brought home from Italy.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius says the elephants were funnelled harmlessly down lanes left through the Roman ranks, that the cavalry of both wings was driven off and pursued, and that its return against Hannibal's rear decided the day.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2928,7 +2929,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Ilipa": "206 BCE",
 "Hasdrubal's_march_into_Italy": "207 BCE",
 "Battle_of_the_Metaurus": "207 BCE",
-"Scipio's_African_campaign": "204–203 BCE"
+"Scipio's_African_campaign": "204–203 BCE",
+"Battle_of_Zama": "202 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6322,7 +6324,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hasdrubal's_march_into_Italy": ["event","warfare","history","italy","rome"],
 "Battle_of_the_Metaurus": ["battle","warfare","history","italy","rome"],
 "Scipio's_African_campaign": ["event","warfare","history","africa","rome"],
-"Masinissa": ["ruler","person","history","africa","warfare"]
+"Masinissa": ["ruler","person","history","africa","warfare"],
+"Battle_of_Zama": ["battle","warfare","history","africa","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
