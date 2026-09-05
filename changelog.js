@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.488", released: "2026-09-05T09:14Z" };
+window.FOLIO_VERSION = { v: "1.489", released: "2026-09-05T09:52Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-05",
-    t: "The project's own notes measured against the site",
+    t: "Corrections across Seneca, the Rigveda, Suetonius and the Journey",
     items: [
+      "<b>Fourteen page references and running heads taken out of Suetonius and the Journey to the West</b> \u2014 a printed page\u2019s own furniture, standing in the text where one of them split a hymn in half.",
       "<b>The project\u2019s own notes brought back up to date</b> \u2014 twenty figures and three names describing the site had fallen behind what it actually holds, some of them four times over.",
       "<b>Seneca\u2019s Latin now explains its own editorial marks</b>, and two scanning errors were corrected in the Rigveda.",
       "<b>153 more missing spaces restored to Seneca\u2019s Latin</b>, where the transcription had run two words together and left them looking like one long Latin word.",

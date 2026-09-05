@@ -36,7 +36,21 @@ const CHECKS = [
   ["a Gutenberg illustration sentinel", /\[Illustration/gi],
   ["a Gutenberg transcriber sentinel", /\[Transcriber/gi],
   ["a control character", /[\x00-\x08\x0B\x0C\x0E-\x1F]/g],
-  ["a doubled space inside prose", /(?<=[a-z,;.])  +(?=[A-Za-z])/g],
+  /* THE DOUBLED SPACE IS GONE FROM THIS TABLE (Sep 2026, batch E55), and the reason is not that its
+     nineteen findings were benign — it is that IT CANNOT HAVE A REAL ONE. A book's prose is rendered
+     as HTML inside `.bk-page`, nothing on that path sets `white-space`, and HTML collapses a run of
+     spaces to one: a doubled space in a chapter is invisible to every reader of the site, so a check
+     that names it is reporting a fault the medium has already fixed. What WOULD show is a run of
+     `&nbsp;`, which does not collapse — measured over all 80 files, there are none.
+
+     ITS NINETEEN FINDINGS WERE ALSO ALL LEGITIMATE, which is the second reason and the sharper one.
+     Every one is a wider space after a sentence, which is how both those transcriptions set their
+     text: the Latin Boethius has nine ("blanditias.  Postremo"), the Middle English Chaucer ten, and
+     all ten of Chaucer's are the rubric between a tale's parts — "Explicit prima Pars.  Sequitur
+     pars secunda." So the row cost two books a permanent finding apiece for something no reader can
+     see, and E53 is what that leads to: nineteen entries nobody had a reason to read hid the Latin
+     Seneca's cruces in the same report for twenty batches. A SCANNER WHOSE FINDINGS NOBODY READS HAS
+     STOPPED WORKING, so a check that can only ever cry wolf is worse than no check at all. */
   ["an empty paragraph", /<p[^>]*>\s*<\/p>/g],
   ["an empty emphasis", /<(i|b|em|strong)>\s*<\/\1>/g],
   ["a stray closing tag with no text", /<\/(p|i|b)>\s*<\/\1>/g],
@@ -93,6 +107,39 @@ function tagsBalanced(html) {
   return stack.length ? "leaves <" + stack.join("><") + "> open" : null;
 }
 
+/* WHAT HAS BEEN READ AND IS THE BOOK (Sep 2026, batch E55). Every standing finding on the shelf was
+   read through in this batch, and eleven of them are not faults at all — they are the printing doing
+   its job. Left in the report they are permanent noise, and E53 is the standing proof of what that
+   costs: nineteen doubled spaces and nineteen Latin cruces between them hid the sixteen findings
+   nobody had a reason to look past, for twenty batches. So an adjudicated finding is DECLARED here,
+   with the reason, and the report becomes a list of what nobody has judged yet — which is the only
+   kind of list worth reading.
+
+   A ROW MATCHES ONLY WHEN THE BOOK, THE CHECK AND THE MATCHED TEXT ALL AGREE, which is
+   `check-citations.js`'s `CROSSREF_WRONG` rule and is what keeps this from becoming an off switch: a
+   NEW page-number artefact in the Journey still reports, because it will not be one of these two
+   strings. Add a row only after reading the passage and satisfying yourself it is the edition. */
+const ADJUDICATED = [
+  /* Richard's own cross-references, in his own translation — the first to the plates of the
+     Ox-headed Demon earlier in the volume, the second to a work he cites in a note on the
+     Resurrection. Both are references a reader can follow, not scan furniture. */
+  ["journey-to-the-west", "a page-number artefact inside prose", /^\s*pp\. 199\s*$/],
+  ["journey-to-the-west", "a page-number artefact inside prose", /^\s*p\. 190\s*$/],
+  /* The translators' own citation of the Phaedo and the Timaeus, inside their note. */
+  ["summa-theologica", "a page-number artefact inside prose", /^\s*p\. 218\]\s*$/],
+  /* `&c.` is Yule's abbreviation for et cetera and he sets it throughout — "The people are
+     Idolaters, &c." — so all seven of these are the printing. It is a bare ampersand in the markup
+     and that is worth knowing, but `&c` is not an entity name and browsers render it as written;
+     the check stays for the case that matters, which is a run that IS an entity name. */
+  ["marco-polo", "a raw ampersand that is not an entity", /^&$/],
+  /* Gregory's dating formula at the foot of two of his letters, both written on 22 June 601 — so
+     the Latin repeats it because the letters do, and the English column repeats it too. */
+  ["bede-history", "a paragraph the chapter carries twice", /Kalendarum Iuliarum/],
+];
+function adjudicated(id, name, text) {
+  return ADJUDICATED.some((r) => r[0] === id && r[1] === name && r[2].test(text));
+}
+
 const rows = [];
 for (const [side, list] of [["en", en], ["or", or]]) {
   for (const b of list) {
@@ -113,8 +160,9 @@ for (const [side, list] of [["en", en], ["or", or]]) {
       const masked = html.replace(/(^|[\s>(\[])~[^~<>]{1,120}~(?=[\s<).,;:!?\]]|$)/g, "$1 ");
       for (const [name, rx] of CHECKS) {
         const r = new RegExp(rx.source, rx.flags);
-        const found = (name === "an OCR sentinel run of punctuation" ? masked : html).match(r);
-        if (found) { hits[name] = (hits[name] || 0) + found.length; if (!hits["_ex" + name]) hits["_ex" + name] = found[0]; }
+        let found = (name === "an OCR sentinel run of punctuation" ? masked : html).match(r);
+        if (found) found = found.filter((t) => !adjudicated(b.id, name, t));
+        if (found && found.length) { hits[name] = (hits[name] || 0) + found.length; if (!hits["_ex" + name]) hits["_ex" + name] = found[0]; }
       }
       const bal = tagsBalanced(html);
       if (bal) badTags.push(c.n + ": " + bal);
@@ -122,7 +170,11 @@ for (const [side, list] of [["en", en], ["or", or]]) {
     if (b.intro && b.intro.html) { const bal = tagsBalanced(b.intro.html); if (bal) badTags.push("intro: " + bal); }
     const named = Object.keys(hits).filter((k) => !k.startsWith("_ex"));
       const rep = repeatedParas(b, (h) => h.replace(/<[^>]*>/g, " ").replace(/&[a-z]+;|&#\d+;/g, " ").replace(/\s+/g, " ").trim());
-    if (rep.n) { hits["a paragraph the chapter carries twice"] = rep.n; hits["_exa paragraph the chapter carries twice"] = rep.first; named.push("a paragraph the chapter carries twice"); }
+    if (rep.n && !adjudicated(b.id, "a paragraph the chapter carries twice", rep.first)) {
+      hits["a paragraph the chapter carries twice"] = rep.n;
+      hits["_exa paragraph the chapter carries twice"] = rep.first;
+      named.push("a paragraph the chapter carries twice");
+    }
     /* A FOOTNOTE MARKER IN A COLUMN THAT HAS NO FOOTNOTES (Sep 2026, batch E47). Folio's reader folds
        notes under the TRANSLATION alone, so an original's notes are dropped by the importer — and for
        months their MARKERS were not dropped with them: 483 in the Old English Beowulf and 84 in the

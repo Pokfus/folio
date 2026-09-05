@@ -3221,6 +3221,79 @@ function aeneidChecks() {
     await page.close();
   }
 
+  /* ================= 6s. the apparatus is not the author's words (E55) =================
+     Ihm's marginal references, unwrapped from `<add>`, stood inside Suetonius's own sentences — and
+     two of them said something FALSE in Latin: "de Officiis tertio libro 82" is book 82 of a work
+     with three, and "ad Brutum 261 oratores enumerans" reads as a count of orators. Nothing else can
+     see this. The prose is whole, the tags balance, the chapter is the right length, and a reader who
+     does not know the Brutus has 261 sections has no way to tell the reference from the text.
+
+     ASSERTED ON THE RENDERED PAGE rather than on the file, because the claim is about what a reader
+     meets; and the second assertion is the one that would catch an over-broad fix, since the sentences
+     those references sat in must still be there. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/suetonius-twelve-caesars", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    /* CHAPTER 0 IS THE FRONT MATTER, AND A BOOK OPENS ON IT. Written without this click the first two
+       assertions below passed on a page with NO LATIN ON IT AT ALL — the strongest form of the trap
+       this file keeps meeting, since a vacuous pass is indistinguishable from a real one in the
+       output. Divus Julius is where all eleven references stand, so it is the chapter to ask. */
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "1"); if (t) t.click(); });
+    await page.waitForTimeout(800);
+    await page.evaluate(() => document.querySelector("#bkLang").click());
+    await page.waitForTimeout(3000);
+    const la = await page.evaluate(() => (document.querySelector(".bk-page") || document.body).innerText);
+    check("[suetonius] no marginal reference stands in the Latin",
+      !/FPR\s*p\.|frg\.XV|bell\. Gall\. VIII pr\./.test(la), "none of Ihm's page references is printed");
+    check("[suetonius] ...and no bare apparatus number sits inside a sentence",
+      !/libro 82 semper|ad Brutum 261|eodem Bruto 262/.test(la), "the three numeric ones are gone too");
+    check("[suetonius] ...while the sentences that carried them are untouched",
+      /de Officiis tertio libro semper/.test(la) && /omitto Calui Licini notissimos uersus/.test(la),
+      "both read as Latin again");
+    check("[suetonius] ...and the space went with the reference, not the punctuation",
+      !/canebantur\s+:/.test(la) && /uulgo canebantur:/.test(la), "no colon left adrift, and the lost space closed");
+    await page.close();
+  }
+
+  /* ================= 6t. no page furniture standing in the Journey (E55) =================
+     Four pieces of the scan's own furniture stood in the prose: two running heads between paragraphs,
+     one welded into a sentence, and one that split Richard's note to the reader in half. The worst
+     broke the numbered hymn the pilgrims sing between its fifth and sixth verses, which a reader meets
+     as a shouted line in the middle of an anthem.
+
+     The last assertion is the one that guards the WIDENING rather than the repair: the rule that
+     removes these reads a page number, and admitting dirt after the number also matches "CHAPTER I."
+     — so the chapters have to still be there. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/journey-to-the-west", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    /* Counted over the NUMBERED tabs: tab 0 is the front matter, so a bare length is 101. */
+    const got = await page.evaluate(() => ({
+      chapters: [...document.querySelectorAll(".bk-tab")].filter((t) => +t.dataset.ch >= 1).length,
+    }));
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "100"); if (t) t.click(); });
+    await page.waitForTimeout(900);
+    const ch100 = await page.evaluate(() => (document.querySelector(".bk-page") || document.body).innerText);
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "11"); if (t) t.click(); });
+    await page.waitForTimeout(900);
+    const ch11 = await page.evaluate(() => (document.querySelector(".bk-page") || document.body).innerText);
+    check("[journey] no running head stands in the anthem",
+      !/THE PILGRIMS FINISHED WORK/.test(ch100), "chapter 100's own running title is gone");
+    check("[journey] ...and the hymn runs from verse 5 to verse 6 unbroken",
+      /Shakyamuni/.test(ch100) && /Vairochana/.test(ch100), "both verses are on the page");
+    check("[journey] the translator's note is one sentence again",
+      /given in Chap\. III\. p\. 38/.test(ch11), "the page break no longer splits it");
+    check("[journey] ...and the inscription over the gate is whole",
+      /GHOSTS WHO ENTER THE UNDERWORLD/.test(ch11), "its two halves are joined");
+    check("[journey] ...while all 100 chapters survive the widened head rule",
+      got.chapters === 100, got.chapters + " chapters");
+    await page.close();
+  }
+
   /* ================= 7. the switch is a crossfade, not a cut =================
      A regression here is silent in the worst way: the languages still swap, the reader still lands on
      the right passage, and every assertion above still passes — the switch just goes back to being the

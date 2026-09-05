@@ -1989,3 +1989,51 @@ Recorded and not repaired: the Book of Documents and the Book of Rites both warn
 blackletter pre-pass matched nothing**. Every romanisation row in both books fires, so no name is
 going unconverted today; what is unknown is whether Wikisource has dropped the `en-Latf` spans the
 pre-pass looks for, or whether the flag has simply outlived them. It wants a page fetched and read.
+
+---
+
+## E55 — a mark used for two things, and a sweep keyed on the worst-read part of a head
+
+**`<add>` in a Perseus TEI file is not always a supplement.** The vocabulary note above says it is the
+editor's own words, kept because the constituted text needs them. Ihm's Suetonius uses the same element
+for the **marginal reference** printed beside a quotation, and unwrapped it lands inside the sentence:
+`de Officiis tertio libro 82 semper Caesarem` — book 82 of a work with three — and `omitto Calui Licini
+FPR p.322 notissimos uersus`, which makes Suetonius cite a nineteenth-century collection of fragments.
+
+`teiInline` now drops an `<add>` shaped like a reference. **The discriminator is a digit**, and it was
+measured before it was written: **355 `<add>` elements across the eight books that carry any, both
+columns**; nine contain a digit and every one is a reference, and **not one supplement anywhere contains
+a digit**, a supplement being words. A second rule takes the two that spell their number in Roman,
+anchored on an abbreviation stop before the numeral. Eleven match, all in Divus Julius.
+
+**The rejected first attempt is the part to remember.** Treating an internal full stop as the mark of a
+reference selects eleven of Plato's Greek supplements too — whole speeches of the *Alcibiades* that
+Burnet supplies — so it would have deleted lines of Plato to tidy Suetonius's margin. `teiInline` is
+shared by every TEI book on the shelf; **measure across all of them before touching it.** The change was
+proved by rebuilding all 17, 34 generated files, of which one changed.
+
+The reference takes the space **before** it and leaves the one after — the only arrangement that closes
+the gap both mid-phrase and before a colon.
+
+**`HEAD_NUM` in `extractJourney` is keyed on the page number, which is the part of a running head a
+scanner reads worst**: small, isolated type at the outer edge of the leaf, so it takes both the dirt and
+the bad guesses while the title beside it comes through readable. Three heads survived — `113` read as
+`US`, and two numbers carrying a mark off the page edge. Two narrow widenings, each measured over the
+whole book: `S` joins the trailing class, and a number may carry up to two characters of dirt **only
+where it really contains a digit**. Without that proviso the rule reads `CHAPTER I.` as a head and
+deletes the chapter markers the reader is built on — three of them.
+
+**`runningHead` now takes a list**, for a head whose page number the scan set as a block of its own.
+
+**What does NOT work, and it is the obvious idea**: identifying a running head by matching the line
+against the book's own chapter titles, which is E34's plate rule one table over. Loosely matched it
+proposes deleting 33 lines, most of them chapter headings, because this book's titles are short and share
+their vocabulary; exactly matched it finds 15 occurrences of a title inside its own chapter of which
+**one** is furniture. **A plate caption is a distinctive phrase; a chapter title is made of the words its
+chapter is about.**
+
+**And removing a head does not remove the page break it sat in.** The blank lines still split the
+sentence, and the block-rejoining pass closes that only where the second half opens lowercase. The
+general fix — join when the first half leaves a parenthesis unclosed — finds two breaks in the book and
+one is real, the other being a list of hells where `(5.` is a 6: **in an OCR a parenthesis is as likely
+to be dirt as punctuation.**

@@ -251,6 +251,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     produces, which is why the other 16 had never been read. **A scanner whose findings nobody reads has
     stopped working.** The mask is BY SHAPE — a crux wraps whole words between a tilde pair, where real
     damage sits INSIDE a word (`jatave~as` for *Jatavedas*, which the Rigveda spells right 112 times).
+  · **…AND `book-audit.js` REPORTS ONLY WHAT NOBODY HAS JUDGED YET** (Sep 2026, batch E55, applying
+    that lesson properly). Every standing finding on the shelf was read through and given a verdict;
+    eleven turned out to be the printing doing its job — Richard's own cross-references, the Summa
+    translators' citation of the *Phaedo*, Yule's `&c.` for *et cetera*, and Gregory's dating formula
+    at the foot of two letters both written on 22 June 601. Those are DECLARED in `ADJUDICATED` with
+    the reason beside each, and **a row matches only when the book, the check AND the matched text all
+    agree** (`check-citations.js`'s `CROSSREF_WRONG` rule), so a new artefact in the same book still
+    reports. The report went from 8 files to 3, and all three are unrepaired scan damage in books whose
+    front matter says so. **THE DOUBLED-SPACE CHECK WAS RETIRED OUTRIGHT**, and not because its
+    nineteen findings were benign but because IT CANNOT HAVE A REAL ONE: book prose is HTML, nothing
+    on that path sets `white-space`, and HTML collapses a run of spaces, so the thing it names is
+    invisible to every reader. **Before adding a check, ask whether its subject can reach a reader at
+    all**; `&nbsp;` runs can and there are none on the shelf.
   · **AND THE OTHER KIND OF CLAIM IT MAKES — WHAT IS WRONG WITH THE BOOK — HAS NO CHECK AT ALL**
     (Sep 2026, batch E50). A count can be compared to the file; a sentence saying an edition leaves
     lines out cannot. All **106 such sentences across the 48 books** were read and 105 hold; the
@@ -260,9 +273,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cell**, though both front matters said "stand empty in the Greek column": the columns carry 425
     and 288 numbered places each and pair on every one. **Write what a reader would SEE**, and reserve
     that phrase for the books that really do draw one side blank.
+  · **ONE TEI MARK MAY BE DOING TWO JOBS, AND A RULE THAT KEEPS BOTH PRINTS THE APPARATUS AS THE
+    AUTHOR'S WORDS** (Sep 2026, batch E55) — E53's finding in another vocabulary. `<add>` is the
+    editor's supplement and is KEPT; Ihm's Suetonius also uses it for the MARGINAL REFERENCE beside a
+    quotation, so ten of them stood inside the Latin, two of them saying something false — `de
+    Officiis tertio libro 82` is book 82 of a work with three, and `ad Brutum 261 oratores enumerans`
+    reads as a count of orators. **THE DISCRIMINATOR IS A DIGIT AND IT IS MEASURED**: all 355 `<add>`
+    on the shelf were read, nine carry a digit and every one is a reference, and NO SUPPLEMENT
+    ANYWHERE CARRIES ONE, a supplement being words. **The looser test written first would have
+    deleted lines of Plato** — an internal full stop also selects whole speeches of the *Alcibiades*
+    that Burnet supplies. They are DROPPED rather than set apart, unlike E48's argument, because a
+    margin is not a place Folio's reader has: every in-flow position is a claim the edition does not
+    make, and Thomson's English carries none of them.
+  · **A SWEEP KEYED ON A PAGE NUMBER IS KEYED ON THE WORST-READ PART OF THE PAGE** (Sep 2026, batch
+    E55, the Journey). Three running heads survived `HEAD_NUM` — `113` read as `US`, and two numbers
+    carrying a mark off the leaf edge — because the number is small isolated type at the outer margin
+    while the title beside it comes through readable every time. Widened on the NUMBER's shape, twice,
+    each measured over the whole book; the second widening needs its proviso that the number really
+    contain a digit, **or `CHAPTER I.` is read as a head and the chapter markers are deleted**.
+    **AND THE OBVIOUS GENERALISATION DOES NOT WORK**: matching the line against the book's own chapter
+    titles — E34's plate rule one table over — proposes deleting 33 lines loosely matched, mostly
+    chapter headings, and exactly matched finds 15 titles inside their own chapters of which ONE is
+    furniture. **A plate caption is a distinctive phrase; a chapter title is made of the words its
+    chapter is about.** Removing a head also leaves the PAGE BREAK it sat in, which still splits the
+    sentence in two.
   · **A CHANGE TO A SHARED EXTRACTOR MUST BE PROVED INERT ON ITS SIBLINGS, BYTE-FOR-BYTE** — re-run
     every other book on that path and diff the generated files. That check has twice found a live
-    fault in a book nobody was editing.
+    fault in a book nobody was editing. **`teiInline` is the widest of those paths — 17 books, 34
+    generated files** — and E55's `<add>` change was proved by rebuilding every one of them.
   · **📖 `docs/library-importer.md` — READ BEFORE ADDING A BOOK OR TOUCHING ANY EXTRACTOR.** The 22
     layouts, the five Wikisource extraction faults, the per-book options and every finding behind
     them.

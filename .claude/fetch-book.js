@@ -2561,6 +2561,15 @@ const BOOKS = {
         "Attribution-ShareAlike 4.0 International licence.",
       sourceName: "Perseus Digital Library",
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1348/",
+      /* A LOST SPACE IN PERSEUS'S OWN FILE (Sep 2026, batch E55), found while reading the eleven
+         apparatus references beside it in Divus Julius — the same chapter, three sentences away.
+         `et illa uulgo cane bantur` is `canebantur`, "and these were commonly sung", split at a
+         syllable boundary by a line break the transcription kept. It is E28's fault class, which
+         cost the Latin Seneca 637 rows; this column has exactly one, counted over the whole text. */
+      reFixes: [
+        [/uulgo cane bantur/g, "uulgo canebantur",
+         "a line break kept as a space, Divus Julius 80 — `et illa uulgo cane bantur`"],
+      ],
     },
   },
 
@@ -9522,6 +9531,41 @@ const BOOKS = {
        "united", "deviL" for "devil"), never in whole lines, and it is recorded rather than repaired,
        since a repair pass over ninety thousand words would be rewriting somebody's book by guess. */
     reFixes: [
+      /* ---------- E55: AN INSCRIPTION A PAGE BREAK CUT IN HALF (Sep 2026) ----------
+         Over the gate of Hades the Emperor reads a legend "written in large golden letters", and the
+         leaf turns in the middle of it — so the transcription sets THE GATE OF GHOSTS WHO ENTER THE
+         as one block, UNDERWORLD' as the first word of the next, and then runs the narrative on from
+         it without a break. The reader gets the inscription broken across two paragraphs and its
+         last word welded to the sentence that follows: "UNDERWORLD' The black robed pages moved on".
+         Nothing else in the book is set this way — it is the only inscription the translation prints
+         — so it is one declared row rather than a rule, and the row moves the PARAGRAPH BREAK rather
+         than any word: the two halves are joined and the narrative starts a paragraph of its own,
+         which is what the printed page does on either side of the turn. */
+      [/THE GATE OF GHOSTS WHO ENTER THE\s*\n\s*\n\s*UNDERWORLD'\s*\n/g,
+       "THE GATE OF GHOSTS WHO ENTER THE UNDERWORLD'\n\n",
+       "the inscription over the gate of Hades, cut in two by a page break in chapter 11"],
+
+      /* THE HOLE A REMOVED HEAD LEAVES BEHIND (Sep 2026, batch E55, and the other half of the widening
+         made to HEAD_NUM above). Taking a running head out of the middle of a sentence removes the
+         head; it does not remove the PAGE BREAK the head was sitting in, and the blank lines either
+         side of it still divide the sentence into two paragraphs. The block-rejoining pass a few lines
+         below closes exactly this gap, but only where the second half opens LOWERCASE, and here it
+         opens on an abbreviation — so Richard's own note to the reader is left split across two
+         paragraphs: "(The names of the Judges are given in" … "Chap. III. p. 38.— Tr.)".
+
+         IT IS A DECLARED ROW RATHER THAN A WIDENING OF THAT PASS, and the measurement is the reason.
+         The obvious general test — join when the first half leaves a parenthesis unclosed — finds two
+         breaks in the whole book and only ONE is real: the other is chapter 11's list of the eighteen
+         hells, where "(5." is a 6 and ")iel!" is "hell", so the brackets are scan damage rather than
+         punctuation. In an OCR a parenthesis is as likely to be dirt as it is to be a parenthesis,
+         which is what makes this ungeneralisable here.
+
+         The row spans the running head, so it is this row rather than the sweep that takes that one
+         out; the sweep's own widening accounts for the other two. */
+      [/\(The names of the Judges are given in\s*\n[\s\S]{0,60}?\n\s*Chap\. III\./g,
+       "(The names of the Judges are given in Chap. III.",
+       "Richard's note to the reader, split by a page break and its running head, chapter 11"],
+
       /* ---------- E33: TWO CONFUSION SHAPES THE SCANNER'S SET DID NOT CARRY (Sep 2026) ----------
          `h` read as `n` — the arch of the h breaking so the letter closes into an n — and `na` read
          as `m`, which is the same accident as the `rn/m` and `in/m` the set already holds, one
@@ -9567,7 +9611,15 @@ const BOOKS = {
        sits either side of it is allowed to be any short token. That cannot reach prose: it matches
        only a block whose WHOLE text is those three words with at most one short token at each end,
        and no paragraph of a novel is that. */
-    runningHead: /^(?:\S{1,4}\s+)?MISSION TO HEA\S{0,4}(?:\s+\S{1,4})?$/i,
+    runningHead: [
+      /^(?:\S{1,4}\s+)?MISSION TO HEA\S{0,4}(?:\s+\S{1,4})?$/i,
+      /* The second of them, found in Sep 2026 (batch E55): chapter 100's own running title, whose
+         page number 361 the scan set as a block of its own, so neither the head nor the number
+         carries a shape the line sweep can see. It stood between verses 5 and 6 of the New Anthem
+         in Heaven and broke the numbered hymn in half. Anchored on the block's WHOLE text with the
+         page number optional, so it can match nothing but that head. */
+      /^THE PILGRIMS FINISHED WORK(?:\s+\S{1,4})?$/i,
+    ],
     /* THE SCAN HAS A FRONT BOUNDARY AND NO BACK ONE, so the last chapter was carrying the rest of the
        volume: a plate of the Tai Ching monastery, the index, a life of the translator, a bibliography
        and the publisher's 1913 catalogue — some 19 KB of matter Richard did not write, which put
@@ -21452,8 +21504,42 @@ function extractJourney(text, book, warn) {
      now takes the same class plus T, which is what a 7 breaks into. THE CAPS TEST IS WHAT MAKES THAT
      SAFE and it has to stay: a head must be over three-quarters capitals with six letters or more,
      which no line of this translation's prose or verse is — measured, the widening removes EXACTLY
-     ONE more line in the whole book, and it is that head. */
-  const HEAD_NUM = /^(?:[\dOoIlUu|]{1,3}\s+(.{6,45})|(.{6,45}?)\s+[\dOoIlUu|T]{1,3})$/;
+     ONE more line in the whole book, and it is that head.
+
+     THREE MORE IN SEP 2026 (batch E55), and together they say what this rule's weak point is: THE
+     RULE IS KEYED ON THE PAGE NUMBER, AND THE NUMBER IS THE PART OF A HEAD A SCANNER READS WORST.
+     It is small, isolated type at the outer edge of the leaf, so it takes the dirt and it takes the
+     bad guesses — where the title beside it, being a phrase, comes through readable every time:
+
+       A DRAGON EXECUTED US                        113, both digits read as letters
+       THE EMPEROR IN HADES 11&                    a mark off the page edge, attached
+       SUN CHARGES PKINCE LI WITH TREASON 299<     the same, and the title misread too
+
+     The last two are the worse pair, because both landed INSIDE a sentence: one splits Richard's own
+     parenthesis — "(The names of the Judges are given in" … "Chap. III. p. 38.— Tr.)" — and the
+     other stands between two paragraphs of chapter 83.
+
+     SO TWO NARROW WIDENINGS, EACH MEASURED OVER THE WHOLE BOOK. `S` joins the trailing class, which
+     is what a 3 breaks into here; and a number may carry up to two characters of dirt — BUT ONLY
+     WHERE IT REALLY CONTAINS A DIGIT. That proviso is not tidiness: without it the dirt clause reads
+     "CHAPTER I." as the word CHAPTER followed by the numeral I and a full stop, and DELETES THE
+     CHAPTER MARKERS THIS READER IS BUILT ON — three of them, in a run that would have taken the
+     book's structure with it. The measurement is what caught that, before anything was written.
+     Together they remove exactly three more lines in the whole book and lose none of the 250 the
+     rule already took, and all three are heads.
+
+     WHAT WAS TRIED AND REJECTED, because it is the obvious next idea and it does not work. A running
+     head IS the chapter's own title, so matching the line against the titles the book already
+     declares ought to identify one without looking at the number at all — E34's plate rule, whose
+     table is the book's own list of illustrations. It fails here on both halves. Matched loosely,
+     the titles of this book are short and share their whole vocabulary ("THE MASTER…", "SUN…",
+     "A DRAGON…"), so stripping a leading article as though it were a page number makes one chapter's
+     heading a near-match for another's and the rule proposes deleting 33 lines, most of them the
+     chapters' own headings. Matched exactly, it finds 15 occurrences of a title inside its own
+     chapter and only ONE is furniture — the other fourteen are ordinary sentences, because a
+     chapter's title is made of the words its prose is about. A plate caption is a distinctive
+     phrase; a chapter title is not. */
+  const HEAD_NUM = /^(?:[\dOoIlUu|]{1,3}\s+(.{6,45})|(.{6,45}?)\s+(?:[\dOoIlUu|TS]{1,3}|[\dOoIlUu|T]*\d[\dOoIlUu|T]*[^\w\s]{1,2}))$/;
   const VERSE_MAX = book.verseMax || 44;
 
   let src = String(text).replace(/\r\n?/g, "\n");
@@ -21681,11 +21767,19 @@ function extractJourney(text, book, warn) {
        edition is prose in another. It can match only a block that is WHOLLY the running title, which
        no chapter of a novel is, and every hit is counted so a rule that starts eating text cannot do
        it quietly. */
-    if (book.runningHead)
+    if (book.runningHead) {
+      /* ONE PATTERN OR A LIST OF THEM (Sep 2026, batch E55). It was a single regex, because when E34
+         wrote it exactly one head in the book was broken this way; a second turned up in chapter 100,
+         where "THE PILGRIMS FINISHED WORK" and its page number 361 are set as two blocks with a blank
+         line between them, so the head stands as a quotation between verses 5 and 6 of the anthem the
+         pilgrims sing and splits it in two. A list keeps each edition's heads declared and readable
+         one per line rather than welded into one alternation. */
+      const heads_ = [].concat(book.runningHead);
       for (let i = blocks.length - 1; i >= 0; i--) {
         const txt = blocks[i].join(" ").replace(/\s+/g, " ").trim();
-        if (book.runningHead.test(txt)) { blocks.splice(i, 1); heads++; lateHeads++; }
+        if (heads_.some((rx) => rx.test(txt))) { blocks.splice(i, 1); heads++; lateHeads++; }
       }
+    }
 
     const shortB = (b) => b.length <= 2 && medianLen(b) <= 46;
     for (let i = blocks.length - 1; i > 0; i--)
@@ -23121,7 +23215,55 @@ function teiInline(s) {
   b = b.replace(/(?<=[\p{L}\p{N}.,;’])(?=<(?:title|bibl|foreign)[ >])/gu, " ");
 
   b = b.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");
-  b = b.replace(/<\/?add\b[^>]*>/g, "");
+
+  /* ONE MARK USED FOR TWO THINGS, AND THE RULE THAT KEPT BOTH — Sep 2026 (batch E55), on the Latin
+     Suetonius, and it is E53's shape one book over. `<add>` is documented above as the editor's
+     supplement, kept because "without it the sentence is not the sentence he constituted". Ihm also
+     uses it for the MARGINAL REFERENCE his page prints beside a quotation, and unwrapped that lands
+     inside Suetonius's own sentence:
+
+       Cicero scribens de Officiis tertio libro <add>82</add> semper Caesarem in ore habuisse
+       omitto Calui Licini <add>FPR p.322</add> notissimos uersus:
+       certe Cicero ad Brutum <add>261</add> oratores enumerans negat se uidere
+
+     THE FIRST TWO ARE NOT MERELY ODD, THEY ARE FALSE IN LATIN. `libro 82` is book 82 of a work that
+     has three, and `ad Brutum 261 oratores enumerans` reads as a count of orators. The others make
+     Suetonius cite a nineteenth-century German collection of fragments by page.
+
+     THE DISCRIMINATOR IS A DIGIT, AND IT IS MEASURED RATHER THAN REASONED. Every `<add>` on the
+     shelf was read first: 355 of them across the eight books that carry any, in both columns. Nine
+     contain a digit and every one is a reference; NOT ONE SUPPLEMENT ANYWHERE CONTAINS A DIGIT,
+     because a supplement is words — `ne`, `et`, `rata`, `id`, `in`, `neque suae`, `atque`, `nouum`,
+     `quae`, and one restored clause of Hirtius. The second rule is the two references that spell
+     their number in Roman — `bell. Gall. VIII pr.` and `frg.XV` — and is anchored on an abbreviation
+     stop before the numeral, so it cannot reach a supplement either. Eleven match in total, all
+     eleven in Divus Julius, which is the chapter dense with quoted verse.
+
+     A LOOSER TEST WAS WRITTEN FIRST AND WOULD HAVE BEEN A DISASTER. Treating an internal full stop
+     as the mark of a reference also selects eleven of Plato's Greek supplements — among them whole
+     speeches of the Alcibiades that Burnet supplies — so it would have deleted lines of Plato to
+     tidy Suetonius's margin. Measuring before writing is what caught it.
+
+     THEY ARE DROPPED RATHER THAN SET APART, and the reason is that there is nowhere to put them.
+     E48 kept the Lysis's argument because the printed page puts it at the head of the section and
+     the sweep could keep it there; these are printed in a MARGIN, which Folio's reader has not got,
+     so every in-flow position is a claim the edition does not make. The Latin column carries no
+     apparatus for them to join — E47's rule, that an original carries no notes because the reader
+     has one fold and gives it to the translation — and Thomson's English, from a different edition
+     altogether, carries none of them, so dropping brings the two columns into agreement rather than
+     out of it. What is lost is a pointer into an edition that is not on the shelf, and the book's
+     own front matter says so. */
+  b = b.replace(/(\s*)<add\b[^>]*>([\s\S]*?)<\/add>/g, (whole, sp, inner) => {
+    const t = inner.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+    const ref = /\d/.test(t) || /(?:^|[\s.])[A-Za-z]{1,6}\.\s?[IVXLC]+\b/.test(t);
+    /* The reference takes the space BEFORE it and leaves the one after, which is what closes the gap
+       in both positions it stands in: mid-phrase it leaves one space between the words it parted
+       ("omitto Calui Licini notissimos uersus"), and before a colon it leaves none, where taking the
+       following space instead would print "item ipsius Caesaris :" — the colon adrift from its word
+       in three places. A supplement keeps whatever spacing the source gave it. */
+    return ref ? "" : sp + inner;
+  });
+  b = b.replace(/<\/?add\b[^>]*>/g, "");                     // any unpaired tag, as before
 
   /* PERSEUS'S NAME AUTHORITY, dropped WITH its words — and it is the quiet fault of the Herodotus
      files, which are the first here to carry it. Their English tags every person, place and people

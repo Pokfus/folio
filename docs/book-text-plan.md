@@ -4350,3 +4350,160 @@ Non amicam habes"* where it read as three run-together words and a crux glued to
   already read in this batch (`uniuscuiusque`, `iurisconsultorum`, `medicamentis`, `tergiversantem`…).
 - The Latin Seneca **drops off `book-audit.js`'s findings entirely**; the shelf goes from 9 files with a
   finding to 8. `check-pairing`, `check-counts` and `check-twins` all report what they reported before.
+
+---
+
+## E55 — apparatus printed as the author's words, and the last unread findings
+
+`book-audit.js` was down to eight files with a finding, and **four of the families in it had never been
+read** — the page-number artefacts, the doubled spaces, the sentinel runs and the beta-code markers. This
+batch read every standing finding on the shelf and gave each one a verdict, which is what turned up the
+worst of them.
+
+### The finding: Ihm's marginal references, welded into Suetonius's sentences
+
+`<add>` is documented in this importer as the editor's supplement, kept "because without it the sentence
+is not the sentence he constituted". Ihm's Teubner text uses the same element for the **marginal
+reference** his page prints beside a quotation — and unwrapped, that lands inside the Latin:
+
+| what the reader saw | what it is |
+|---|---|
+| `de Officiis tertio libro 82 semper Caesarem…` | Cicero, *De Officiis* III **82** |
+| `certe Cicero ad Brutum 261 oratores enumerans` | Cicero, *Brutus* **261** |
+| `de commentariis Caesaris Cicero in eodem Bruto 262` | *Brutus* **262** |
+| `omitto Calui Licini FPR p.322 notissimos uersus` | *Fragmenta Poetarum Romanorum* p. 322 |
+| four more `FPR p. 330` | the same collection, four times |
+| `de isdem commentariis Hirtius bell. Gall. VIII pr.` | Hirtius, *Bellum Gallicum* VIII pref. |
+| `ex Pacuui Armorum iudicio frg.XV` | Pacuvius, *Armorum iudicium* frg. XV |
+
+**The first two are not merely odd, they are false in Latin.** `libro 82` is book 82 of a work that has
+three; `ad Brutum 261 oratores enumerans` reads as a count of orators. The rest make Suetonius cite a
+nineteenth-century German collection of fragments by page. Ten reached readers; an eleventh sits inside a
+`<del>` and never shipped.
+
+### The discriminator is a digit, and it was measured before it was written
+
+Every `<add>` on the shelf was read first — **355 across the eight books that carry any, in both
+columns**. Nine contain a digit and every one is a reference; **not one supplement anywhere contains a
+digit**, because a supplement is words: `ne`, `et`, `rata`, `id`, `in`, `neque suae`, `atque`, `nouum`,
+`quae`, and one restored clause of Hirtius. A second rule takes the two references that spell their
+number in Roman (`bell. Gall. VIII pr.`, `frg.XV`), anchored on an abbreviation stop before the numeral.
+Eleven match in total, all eleven in Divus Julius — the chapter dense with quoted verse.
+
+**A looser test was written first and would have been a disaster.** Treating an internal full stop as
+the mark of a reference also selects eleven of Plato's Greek supplements, among them whole speeches of
+the *Alcibiades* that Burnet supplies. It would have deleted lines of Plato to tidy Suetonius's margin.
+
+### Why they are dropped rather than set apart
+
+E48 kept the Lysis's argument because the printed page puts it at the head of the section and the sweep
+could keep it there. These are printed in a **margin**, which Folio's reader has not got, so every
+in-flow position is a claim the edition does not make. The Latin column carries no apparatus for them to
+join (E47's rule), and Thomson's English — a different edition — carries none of them, so dropping brings
+the two columns into agreement rather than out of it. What is lost is a pointer into an edition not on
+the shelf. The reference takes the space **before** it and leaves the one after, which is what closes the
+gap in both positions it stands in; taking the following space instead prints `item ipsius Caesaris :`.
+
+**Inertness proved over the whole TEI shelf**: all 17 books that read Perseus TEI were rebuilt, 34
+generated files in all, and only `suetonius-twelve-caesars.la.js` changed. Plato's seventy source files
+came back byte-identical.
+
+### One lost space beside them
+
+`et illa uulgo cane bantur` is `canebantur`, split at a syllable boundary by a line break Perseus's
+transcription kept — E28's fault class, three sentences from the references. One row on `original.reFixes`;
+the column has exactly one, counted over the whole text.
+
+### The Journey: four pieces of page furniture standing in the prose
+
+The running-head sweep is keyed on the **page number**, and the number is the part of a head a scanner
+reads worst — small, isolated type at the outer edge of the leaf. Three survived, each a different way:
+
+| survivor | what happened |
+|---|---|
+| `A DRAGON EXECUTED US` | page **113**, both digits read as letters |
+| `THE EMPEROR IN HADES 11&` | a mark off the page edge, attached |
+| `SUN CHARGES PKINCE LI WITH TREASON 299<` | the same, and the title misread too |
+
+The middle one is the worst: it split Richard's own note to the reader in half — *"(The names of the
+Judges are given in"* … *"Chap. III. p. 38.— Tr.)"*. A fourth, `THE PILGRIMS FINISHED WORK` with its page
+number **361** set as a block of its own, stood between verses 5 and 6 of the New Anthem in Heaven and
+broke the numbered hymn in two.
+
+Two narrow widenings of the number's shape, each measured over the whole book: `S` joins the trailing
+class, and a number may carry up to two characters of dirt **but only where it really contains a digit**.
+That proviso is not tidiness — without it the dirt clause reads `CHAPTER I.` as the word CHAPTER followed
+by the numeral I and a full stop, and **deletes the chapter markers this reader is built on**. The
+measurement caught it before anything was written. Together they remove exactly three more lines in the
+whole book and lose none of the 250 the rule already took. The fourth head goes through `runningHead`,
+which now takes a list.
+
+### What was tried and rejected, because it is the obvious next idea
+
+A running head **is** the chapter's own title, so matching the line against the titles the book already
+declares ought to identify one without looking at the number — E34's plate rule, whose table is the book's
+own list of illustrations. It fails here on both halves:
+
+- **Matched loosely**, this book's titles are short and share their whole vocabulary (`THE MASTER…`,
+  `SUN…`, `A DRAGON…`), so stripping a leading article as though it were a page number makes one
+  chapter's heading a near-match for another's: the rule proposes deleting **33 lines, most of them the
+  chapters' own headings**.
+- **Matched exactly**, it finds **15 occurrences of a title inside its own chapter and only ONE is
+  furniture** — the other fourteen are ordinary sentences, because a chapter's title is made of the words
+  its prose is about.
+
+**A plate caption is a distinctive phrase; a chapter title is not.**
+
+### And the hole a removed head leaves behind
+
+Taking a head out of the middle of a sentence removes the head, not the page break it sat in — the blank
+lines still divide the sentence into two paragraphs, and the block-rejoining pass only closes that where
+the second half opens lowercase. Here it opens on an abbreviation. The general test (join when the first
+half leaves a parenthesis unclosed) finds two breaks in the whole book and **only one is real**: the other
+is chapter 11's list of the eighteen hells, where `(5.` is a 6 and `)iel!` is "hell", so the brackets are
+scan damage rather than punctuation. **In an OCR a parenthesis is as likely to be dirt as punctuation.**
+One declared row. The same batch found the gate of Hades' inscription cut in half by a leaf turn, its last
+word welded to the narrative — `UNDERWORLD' The black robed pages moved on` — and joined it.
+
+### A check that names something invisible
+
+The doubled-space row is **gone from `book-audit.js`**, and not because its nineteen findings were benign:
+**it cannot have a real one.** Book prose is HTML inside `.bk-page`, nothing on that path sets
+`white-space`, and HTML collapses a run of spaces — so a doubled space is invisible to every reader. What
+*would* show is a run of `&nbsp;`; measured over all 80 files, there are none. All nineteen were also
+legitimate: a wider space after a sentence, nine in the Latin Boethius and ten in the Middle English
+Chaucer, where every one is the rubric between a tale's parts.
+
+### Every standing finding, read and given a verdict
+
+| finding | count | verdict |
+|---|---|---|
+| Suetonius Latin, page numbers | 3 | **repaired** — Ihm's marginal references |
+| doubled spaces | 19 | benign *and* invisible → **check retired** |
+| Journey, page numbers | 2 | Richard's own cross-reference and citation |
+| Summa, page number | 1 | the translators' citation of the *Phaedo* |
+| Marco Polo, raw ampersand | 7 | `&c.`, Yule's abbreviation for *et cetera* |
+| Bede Latin, repeated paragraph | 1 | Gregory's dating formula, at the foot of two letters of 22 June 601 |
+| Chaucer, sentinel runs | 8 | real scan damage, **still open** |
+| Journey, sentinel runs | 7 | real scan damage, four of them Chinese characters the OCR cannot read, **still open** |
+| Boethius Latin, `[Greek:` | 12 | Gutenberg's sentinel for Greek the transcriber could not set, **still open** |
+
+The eleven adjudicated as the printing are now **declared** in `ADJUDICATED`, with the reason beside each,
+so the report becomes a list of what nobody has judged yet — which is the only kind of list worth reading,
+and is E53's lesson applied properly. **A row matches only when the book, the check and the matched text
+all agree**, which is `check-citations.js`'s `CROSSREF_WRONG` rule and is what keeps it from becoming an
+off switch: a new page-number artefact in the Journey still reports, because it will not be one of those
+two strings. Verified in both directions over eight cases.
+
+### What proves it
+
+- **The whole TEI shelf rebuilt — 17 books, 34 files — and only the intended one changed.**
+- All ten references gone; `de Officiis tertio libro semper Caesarem`, `ad Brutum oratores enumerans`,
+  `omitto Calui Licini notissimos uersus` read as Latin again, with no space stranded before a colon
+  (3 before, 3 after — the source's own).
+- The Journey's four heads gone, the anthem whole, Richard's note one sentence again.
+- `book-audit.js` goes from **8 files with a finding to 3**, and all three are unrepaired scan damage in
+  books whose front matter says so.
+- `check-pairing`, `check-counts`, `check-twins`, `check-cutoff`, `check-docs`, `check-questions` and
+  `check-style` all report what they reported before; the seven no-browser suites and `test-library.js`
+  pass.
