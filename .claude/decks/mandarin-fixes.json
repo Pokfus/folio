@@ -19754,8 +19754,18 @@
    ]
   },
   "hsk30l7/一早": {
-   "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-   "gloss": "first thing in the morning, early on"
+   "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "gloss": "first thing in the morning, early on",
+   "ex": [
+    [
+     "他一早就出门了。",
+     "He went out early in the morning."
+    ],
+    [
+     "一早就下起了雨。",
+     "It rained from early morning."
+    ]
+   ]
   },
   "hsk30l7/一线": {
    "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -60683,389 +60693,713 @@
    ]
   },
   "hsk30l7/易拉罐": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "请把易拉罐放进回收箱。",
      "Please put the cans in the recycling bin."
+    ],
+    [
+     "易拉罐可以回收。",
+     "Cans can be recycled."
+    ],
+    [
+     "他打开了一个易拉罐。",
+     "He opened a can."
     ]
    ]
   },
   "hsk30l7/一揽子": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "政府出台了一揽子措施。",
      "The government introduced a package of measures."
+    ],
+    [
+     "政府推出了一揽子措施。",
+     "The government introduced a package of measures."
+    ],
+    [
+     "一揽子方案更有效。",
+     "A package plan is more effective."
     ]
    ]
   },
   "hsk30l7/屹立": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这座塔屹立了千年。",
      "This pagoda has stood for a thousand years."
+    ],
+    [
+     "古塔屹立在山顶。",
+     "The old pagoda stands on the summit."
+    ],
+    [
+     "他屹立在风雨中。",
+     "He stood firm through wind and rain."
     ]
    ]
   },
   "hsk30l7/一毛不拔": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这个人一毛不拔。",
      "This man will not part with a penny."
+    ],
+    [
+     "一毛不拔的人没有朋友。",
+     "A miser has no friends."
     ]
    ]
   },
   "hsk30l7/一齐": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "大家一齐鼓起掌来。",
      "Everyone applauded together."
+    ],
+    [
+     "大家一齐动手。",
+     "Everyone set to work together."
+    ],
+    [
+     "他们一齐鼓掌。",
+     "They applauded together."
     ]
    ]
   },
   "hsk30l7/毅然": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "他毅然辞去了工作。",
      "He resolutely gave up his job."
+    ],
+    [
+     "她毅然回到了家乡。",
+     "She returned home without hesitation."
     ]
    ]
   },
   "hsk30l7/一如既往": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "他一如既往地支持我们。",
      "He supports us as he always has."
+    ],
+    [
+     "他一如既往地努力。",
+     "He works as hard as ever."
+    ],
+    [
+     "服务一如既往地周到。",
+     "The service is as attentive as always."
     ]
    ]
   },
   "hsk30l7/一声不吭": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "他一声不吭地走了。",
      "He left without saying a word."
+    ],
+    [
+     "被批评时她一声不吭。",
+     "She said nothing when criticized."
     ]
    ]
   },
   "hsk30l7/一丝不苟": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "他工作一丝不苟。",
      "He works with meticulous care."
+    ],
+    [
+     "他做事一丝不苟。",
+     "He is meticulous in his work."
+    ],
+    [
+     "一丝不苟才不出错。",
+     "Only meticulousness avoids error."
     ]
    ]
   },
   "hsk30l7/议题": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这是今天的主要议题。",
      "This is the main item on today's agenda."
+    ],
+    [
+     "今天的议题是预算。",
+     "Today's topic is the budget."
+    ],
+    [
+     "议题已经列入日程。",
+     "The item is on the agenda."
     ]
    ]
   },
   "hsk30l7/亿万": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这项工程惠及亿万人。",
      "This project benefits hundreds of millions of people."
+    ],
+    [
+     "亿万人民共同努力。",
+     "Hundreds of millions work together."
+    ],
+    [
+     "这是亿万年前的化石。",
+     "This is a fossil from hundreds of millions of years ago."
     ]
    ]
   },
   "hsk30l7/意向": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "双方已有合作意向。",
      "The two sides already have an intention to cooperate."
+    ],
+    [
+     "双方有合作意向。",
+     "The two sides have an intention to cooperate."
+    ],
+    [
+     "请说明你的意向。",
+     "Please state your intention."
     ]
    ]
   },
   "hsk30l7/异想天开": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "他的想法有点儿异想天开。",
      "His idea is rather fanciful."
+    ],
+    [
+     "这个想法有点异想天开。",
+     "This idea is rather fanciful."
+    ],
+    [
+     "异想天开也需要根据。",
+     "Even wild ideas need some ground."
     ]
    ]
   },
   "hsk30l7/抑扬顿挫": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "他朗读得抑扬顿挫。",
      "He read with a fine rise and fall of the voice."
+    ],
+    [
+     "抑扬顿挫的语调很好听。",
+     "The modulated tone is pleasant."
     ]
    ]
   },
   "hsk30l7/一言一行": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "老师的一言一行影响着学生。",
      "A teacher's every word and deed affects the pupils."
+    ],
+    [
+     "他的一言一行都很谨慎。",
+     "His every word and deed is careful."
+    ],
+    [
+     "一言一行影响孩子。",
+     "Every word and deed influences a child."
     ]
    ]
   },
   "hsk30l7/一应俱全": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这里的设备一应俱全。",
      "Everything needed is here."
+    ],
+    [
+     "这里设施一应俱全。",
+     "The facilities here are complete."
+    ],
+    [
+     "工具一应俱全。",
+     "Every tool is there."
     ]
    ]
   },
   "hsk30l7/抑郁症": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "他被诊断出抑郁症。",
+     "He was diagnosed with depression."
+    ],
+    [
+     "抑郁症需要专业治疗。",
+     "Depression needs professional treatment."
+    ],
+    [
+     "他被诊断为抑郁症。",
      "He was diagnosed with depression."
     ]
    ]
   },
   "hsk30l7/一针见血": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "他的话一针见血。",
      "His remark hit the nail on the head."
+    ],
+    [
+     "他的评论一针见血。",
+     "His comment hits the nail on the head."
+    ],
+    [
+     "一针见血地指出了问题。",
+     "He pinpointed the problem exactly."
     ]
    ]
   },
   "hsk30l7/因地制宜": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "发展农业要因地制宜。",
      "Agriculture must be developed according to local conditions."
+    ],
+    [
+     "政策要因地制宜。",
+     "Policy must suit local conditions."
+    ],
+    [
+     "因地制宜才有效。",
+     "Only measures suited to local conditions work."
     ]
    ]
   },
   "hsk30l7/殷勤": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "服务员十分殷勤。",
      "The waiter was most attentive."
+    ],
+    [
+     "主人十分殷勤。",
+     "The host was most attentive."
+    ],
+    [
+     "殷勤过头反而不好。",
+     "Excessive attentiveness is not good."
     ]
    ]
   },
   "hsk30l7/阴性": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "检查结果是阴性。",
      "The test result is negative."
+    ],
+    [
+     "检测结果为阴性。",
+     "The test result is negative."
+    ],
+    [
+     "阴性说明没有感染。",
+     "A negative result means no infection."
     ]
    ]
   },
   "hsk30l7/隐蔽": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这个地方很隐蔽。",
      "This place is well hidden."
+    ],
+    [
+     "位置很隐蔽。",
+     "The position is well concealed."
+    ],
+    [
+     "他隐蔽在树后。",
+     "He hid behind the tree."
     ]
    ]
   },
   "hsk30l7/隐含": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这句话隐含着别的意思。",
      "This sentence implies something else."
+    ],
+    [
+     "这句话隐含着批评。",
+     "This sentence implies criticism."
+    ],
+    [
+     "条款里隐含着风险。",
+     "Risk is implicit in the terms."
     ]
    ]
   },
   "hsk30l7/隐患": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这里存在安全隐患。",
      "There is a hidden safety risk here."
+    ],
+    [
+     "要及时排除隐患。",
+     "Hidden dangers must be removed promptly."
+    ],
+    [
+     "线路老化是隐患。",
+     "Ageing wiring is a hidden danger."
     ]
    ]
   },
   "hsk30l7/引荐": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "是朋友引荐他来的。",
      "A friend recommended him."
+    ],
+    [
+     "朋友引荐他去应聘。",
+     "A friend recommended him for the job."
+    ],
+    [
+     "经人引荐他们认识了。",
+     "They met through an introduction."
     ]
    ]
   },
   "hsk30l7/引经据典": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "他说话喜欢引经据典。",
      "He likes to quote the classics when he speaks."
+    ],
+    [
+     "他讲话喜欢引经据典。",
+     "He likes to quote the classics in his speech."
+    ],
+    [
+     "引经据典要准确。",
+     "Quoting classics must be accurate."
     ]
    ]
   },
   "hsk30l7/引领": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这家公司引领着行业潮流。",
      "This company leads the trend of the industry."
+    ],
+    [
+     "他引领着行业发展。",
+     "He leads the industry's development."
+    ],
+    [
+     "服务员引领我们入座。",
+     "The waiter showed us to our seats."
     ]
    ]
   },
   "hsk30l7/引人入胜": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这本小说引人入胜。",
      "This novel is engrossing."
+    ],
+    [
+     "故事引人入胜。",
+     "The story is fascinating."
+    ],
+    [
+     "风景引人入胜。",
+     "The scenery is enchanting."
     ]
    ]
   },
   "hsk30l7/引诱": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "不要被眼前的利益引诱。",
      "Do not be tempted by immediate gain."
+    ],
+    [
+     "不要被利益引诱。",
+     "Do not be lured by gain."
+    ],
+    [
+     "他引诱别人违规。",
+     "He tempted others to break the rules."
     ]
    ]
   },
   "hsk30l7/印章": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "文件上盖着印章。",
      "A seal is stamped on the document."
+    ],
+    [
+     "他刻了一枚印章。",
+     "He carved a seal."
     ]
    ]
   },
   "hsk30l7/印证": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这个发现印证了他的说法。",
      "This discovery corroborated his claim."
+    ],
+    [
+     "事实印证了他的判断。",
+     "The facts bore out his judgement."
+    ],
+    [
+     "新证据印证了结论。",
+     "New evidence confirmed the conclusion."
     ]
    ]
   },
   "hsk30l7/荧光": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这块表在黑暗中发出荧光。",
      "This watch glows in the dark."
+    ],
+    [
+     "这些标记会发荧光。",
+     "These markers fluoresce."
+    ],
+    [
+     "荧光笔标出了重点。",
+     "The highlighter marked the key points."
     ]
    ]
   },
   "hsk30l7/迎合": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "他从不迎合别人。",
      "He never panders to others."
+    ],
+    [
+     "不必一味迎合别人。",
+     "There is no need to always pander to others."
+    ],
+    [
+     "产品迎合了年轻人的口味。",
+     "The product caters to young people's taste."
     ]
    ]
   },
   "hsk30l7/营利": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这是一家不以营利为目的的机构。",
      "This is a not-for-profit institution."
+    ],
+    [
+     "这是非营利组织。",
+     "This is a non-profit organization."
+    ],
+    [
+     "营利不是唯一目的。",
+     "Profit is not the only aim."
     ]
    ]
   },
   "hsk30l7/迎面": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "迎面走来一位老人。",
      "An old man came walking towards us."
+    ],
+    [
+     "迎面走来一个人。",
+     "A man came walking towards us."
+    ],
+    [
+     "迎面吹来一阵风。",
+     "A gust of wind blew in our faces."
     ]
    ]
   },
   "hsk30l7/影像": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这段影像很清晰。",
      "This footage is very clear."
+    ],
+    [
+     "屏幕上的影像很清晰。",
+     "The image on the screen is clear."
+    ],
+    [
+     "影像资料保存完好。",
+     "The visual records are well preserved."
     ]
    ]
   },
   "hsk30l7/应酬": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "他晚上有个应酬。",
      "He has a social engagement this evening."
+    ],
+    [
+     "他晚上有应酬。",
+     "He has a social engagement this evening."
+    ],
+    [
+     "应酬太多让人疲惫。",
+     "Too many social engagements are tiring."
     ]
    ]
   },
   "hsk30l7/应急": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这笔钱是用来应急的。",
      "This money is for emergencies."
+    ],
+    [
+     "请准备应急物资。",
+     "Please prepare emergency supplies."
+    ],
+    [
+     "这是应急方案。",
+     "This is the contingency plan."
     ]
    ]
   },
   "hsk30l7/硬朗": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "老人的身体很硬朗。",
      "The old man is hale and hearty."
+    ],
+    [
+     "老人身体很硬朗。",
+     "The old man is hale and hearty."
+    ],
+    [
+     "八十岁还这么硬朗真难得。",
+     "To be so robust at eighty is remarkable."
     ]
    ]
   },
   "hsk30l7/拥护": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "大家都拥护这个决定。",
      "Everyone supports this decision."
+    ],
+    [
+     "群众拥护这项政策。",
+     "The public supports this policy."
+    ],
+    [
+     "他得到了大家的拥护。",
+     "He won everyone's support."
     ]
    ]
   },
   "hsk30l7/庸俗": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "这种趣味有些庸俗。",
      "This taste is somewhat vulgar."
+    ],
+    [
+     "这种笑话很庸俗。",
+     "This kind of joke is vulgar."
+    ],
+    [
+     "不要迎合庸俗趣味。",
+     "Do not pander to vulgar taste."
     ]
    ]
   },
   "hsk30l7/勇往直前": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "我们要勇往直前。",
      "We must press bravely forward."
+    ],
+    [
+     "他勇往直前，从不退缩。",
+     "He presses bravely on and never flinches."
+    ],
+    [
+     "勇往直前才能到达。",
+     "Only by pressing on can one arrive."
     ]
    ]
   },
   "hsk30l7/踊跃": {
-   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it.",
+   "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "大家踊跃发言。",
      "Everyone spoke up eagerly."
+    ],
+    [
+     "大家踊跃报名。",
+     "Everyone signed up eagerly."
+    ],
+    [
+     "讨论很踊跃。",
+     "The discussion was lively."
     ]
    ]
   },
@@ -88736,6 +89070,214 @@
     [
      "一举一动要得体。",
      "Every action should be proper."
+    ]
+   ]
+  },
+  "hsk30l7/一塌糊涂": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "房间乱得一塌糊涂。",
+     "The room is in a complete mess."
+    ],
+    [
+     "考试考得一塌糊涂。",
+     "He did dreadfully in the exam."
+    ]
+   ]
+  },
+  "hsk30l7/一体": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "两者已经融为一体。",
+     "The two have merged into one."
+    ],
+    [
+     "城乡发展一体推进。",
+     "Urban and rural development advance as one."
+    ]
+   ]
+  },
+  "hsk30l7/异性": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "异性之间也可以是朋友。",
+     "Members of the opposite sex can also be friends."
+    ],
+    [
+     "异性相吸是常见现象。",
+     "Attraction between opposites is common."
+    ]
+   ]
+  },
+  "hsk30l7/一心一意": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他一心一意地工作。",
+     "He works with undivided attention."
+    ],
+    [
+     "一心一意才能做好。",
+     "Only single-minded effort does it well."
+    ]
+   ]
+  },
+  "hsk30l7/一言不发": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他一言不发地坐着。",
+     "He sat without saying a word."
+    ],
+    [
+     "从头到尾她一言不发。",
+     "She said nothing from beginning to end."
+    ]
+   ]
+  },
+  "hsk30l7/异议": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "有人提出了异议。",
+     "Someone raised an objection."
+    ],
+    [
+     "没有异议就通过。",
+     "With no objection it passes."
+    ]
+   ]
+  },
+  "hsk30l7/阴历": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "春节按阴历算。",
+     "Spring Festival goes by the lunar calendar."
+    ],
+    [
+     "阴历和阳历不同。",
+     "The lunar and solar calendars differ."
+    ]
+   ]
+  },
+  "hsk30l7/阴谋": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他们识破了阴谋。",
+     "They saw through the plot."
+    ],
+    [
+     "这是一场阴谋。",
+     "This is a conspiracy."
+    ]
+   ]
+  },
+  "hsk30l7/银幕": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他第一次出现在银幕上。",
+     "He appeared on the screen for the first time."
+    ],
+    [
+     "银幕上放映着老电影。",
+     "An old film is showing on the screen."
+    ]
+   ]
+  },
+  "hsk30l7/隐情": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "这里面另有隐情。",
+     "There is more behind this."
+    ],
+    [
+     "他说出了隐情。",
+     "He revealed the hidden facts."
+    ]
+   ]
+  },
+  "hsk30l7/隐性": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "这是隐性的成本。",
+     "This is a hidden cost."
+    ],
+    [
+     "隐性基因不容易表现。",
+     "Recessive genes are not easily expressed."
+    ]
+   ]
+  },
+  "hsk30l7/英明": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "这是一个英明的决定。",
+     "This is a wise decision."
+    ],
+    [
+     "英明的领导受人拥戴。",
+     "A wise leader is supported."
+    ]
+   ]
+  },
+  "hsk30l7/应有尽有": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "店里的东西应有尽有。",
+     "The shop has everything one could want."
+    ],
+    [
+     "设施应有尽有。",
+     "Every facility is available."
+    ]
+   ]
+  },
+  "hsk30l7/营救": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "队员成功营救了游客。",
+     "The team successfully rescued the tourists."
+    ],
+    [
+     "营救工作持续了一夜。",
+     "The rescue lasted all night."
+    ]
+   ]
+  },
+  "hsk30l7/营造": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "要营造良好的氛围。",
+     "A good atmosphere must be created."
+    ],
+    [
+     "他们营造了一片林子。",
+     "They planted a wood."
+    ]
+   ]
+  },
+  "hsk30l7/应邀": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他应邀出席了会议。",
+     "He attended the meeting by invitation."
+    ],
+    [
+     "应邀前来的客人不少。",
+     "Many guests came by invitation."
     ]
    ]
   }
