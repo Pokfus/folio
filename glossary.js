@@ -2057,7 +2057,8 @@ window.GLOSSARY = {
 "Ebro_treaty": "The Ebro treaty was an agreement between Rome and the Carthaginian commander in Spain, whose whole content was that the Carthaginians should not cross the Ebro in arms.<sup class=\"fn\" data-fn=\"1\"></sup> Rome sought it because a large dominion was forming in the peninsula and a Celtic invasion at home left no room to act, so envoys were sent to conciliate rather than to give orders, and nothing was said about the rest of Spain.<sup class=\"fn\" data-fn=\"2\"></sup> Its standing was later disputed: Carthage held that a commander could not bind the state without its approval, while Rome answered that this agreement, unlike an earlier one, carried no clause requiring ratification.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Saguntum": "Saguntum was a city on the eastern coast of Iberia, standing on the seaward foot of a range of hills a short distance inland, in country its besieger's historian calls the most fertile in the peninsula.<sup class=\"fn\" data-fn=\"1\"></sup> It had placed itself under Roman protection well before the second war between Rome and Carthage, calling in Roman rather than Carthaginian mediation when a quarrel divided it, although Carthage was the nearer power.<sup class=\"fn\" data-fn=\"2\"></sup> Hannibal besieged it for eight months and took it by storm; its fall was the immediate occasion of that war, and Rome responded by demanding that Carthage surrender him or accept a declaration.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Second_Punic_War": "The Second Punic War was the conflict between Rome and Carthage fought from 218 to 201 BCE, opened by Hannibal's storming of Saguntum and named by Polybius after him.<sup class=\"fn\" data-fn=\"1\"></sup> Its causes are given as Hamilcar Barca's resentment after the loss of Sicily, the Roman seizure of Sardinia with the tribute exacted for it, and the wealth Carthage drew from Spain; the fighting ran across Italy, Spain, Sicily and Africa.<sup class=\"fn\" data-fn=\"2\"></sup> The peace left Carthage its African territory and its own laws but took its fleet but for ten ships, its elephants and its freedom to make war abroad, with 10,000 talents to pay over fifty years.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Hannibal": "Hannibal was the Carthaginian general who commanded against Rome in the second war between the two powers, and whom Polybius calls the single cause of all that befell both sides.<sup class=\"fn\" data-fn=\"1\"></sup> Taken to Spain at nine by his father, who made him swear at an altar never to be a friend of Rome, he succeeded to the command there, invaded Italy and fought for sixteen years without once breaking up an army drawn from peoples sharing neither laws nor language.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient opinion was divided about him, charging cruelty and avarice, and Polybius treats both as questions his circumstances make impossible to settle.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Hannibal": "Hannibal was the Carthaginian general who commanded against Rome in the second war between the two powers, and whom Polybius calls the single cause of all that befell both sides.<sup class=\"fn\" data-fn=\"1\"></sup> Taken to Spain at nine by his father, who made him swear at an altar never to be a friend of Rome, he succeeded to the command there, invaded Italy and fought for sixteen years without once breaking up an army drawn from peoples sharing neither laws nor language.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient opinion was divided about him, charging cruelty and avarice, and Polybius treats both as questions his circumstances make impossible to settle.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Hannibal's_crossing_of_the_Alps": "Hannibal's crossing of the Alps was the passage of a Carthaginian army from the Rhone valley into the plain of the Po in 218 BCE, by which the second war with Rome was carried into Italy.<sup class=\"fn\" data-fn=\"1\"></sup> It took fifteen days: nine climbing under attack from tribes who rolled rocks from the slopes above, two resting on the snowbound summit, and the rest descending a path so narrow that a stumble was fatal and so blocked by a landslip that the elephants took three days to pass it.<sup class=\"fn\" data-fn=\"2\"></sup> The losses in men and animals were heavy, and the army that reached flat country numbered 20,000 foot and 6,000 horse.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2892,7 +2893,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ebro_treaty": "c. 226 BCE",
 "Saguntum": "besieged 219 BCE",
 "Second_Punic_War": "218 – 201 BCE",
-"Hannibal": "born c. 247 BCE"
+"Hannibal": "born c. 247 BCE",
+"Hannibal's_crossing_of_the_Alps": "218 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4157,7 +4159,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ebro_treaty": ["treaty of the Ebro","Ebro agreement"],
 "Saguntum": ["Sagunto","Arse"],
 "Second_Punic_War": ["Hannibalic war","Hannibalic War"],
-"Hannibal": ["Hannibal Barca"]
+"Hannibal": ["Hannibal Barca"],
+"Hannibal's_crossing_of_the_Alps": ["crossing of the Alps"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6247,7 +6250,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ebro_treaty": ["event","history","politics","spain","rome"],
 "Saguntum": ["city","place","history","warfare","spain"],
 "Second_Punic_War": ["event","history","warfare","rome","africa"],
-"Hannibal": ["person","history","warfare","africa","rome"]
+"Hannibal": ["person","history","warfare","africa","rome"],
+"Hannibal's_crossing_of_the_Alps": ["event","history","warfare","africa","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
