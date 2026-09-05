@@ -422,7 +422,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-161  Battle of Telamon
     rm-162  Roman conquest of Cisalpine Gaul
     rm-163  Tarentum
-    rm-164  Pyrrhus in Italy
+    rm-164  Pyrrhus of Epirus
     rm-165  Battle of Heraclea
     rm-166  Battle of Asculum
     rm-167  Pyrrhic victory
