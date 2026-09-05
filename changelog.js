@@ -35,13 +35,21 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.651", released: "2026-09-05T20:59Z" };
+window.FOLIO_VERSION = { v: "1.652", released: "2026-09-05T22:52Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-05",
     t: "Studying rebuilt around what the evidence says works",
     items: [
+      "<b>Finishing a session now finishes the deck</b>: a card sitting out a short learning step is dealt with the rest rather than left behind as a red number.",
+      "<b>A picture's source is a link again</b> wherever the address sits in its credit line, and a picture's title now opens on a capital.",
+      "<b>A geography card's flag can be tapped to see it full size</b>, with the marker down or up.",
+      "Places named in a card's atlas window no longer open on the word <b>The</b>.",
+      "<b>Rivers now run across the China and United States geography maps</b>, on a sharper coastline.",
+      "Sixteen cards in the China and World History decks now show where their subject was, with a culture drawn as an <b>area</b> rather than a dot.",
+      "One card retired from the China deck, its subject folded into the broader card beside it.",
+      "A new picture on one card in the China deck.",
       "<b>Think it through</b> now asks three why-questions about the answer, each with a <b>Show answer</b> button that uncovers a brief reply.",
       "<b>How many separate days you have recalled a card</b> has moved to the top of the card, between the question and its difficulty.",
       "The grade buttons no longer name keyboard shortcuts on a <b>tablet</b>, where there is no keyboard to press them on.",
