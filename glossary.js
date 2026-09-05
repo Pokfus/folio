@@ -1906,7 +1906,8 @@ window.GLOSSARY = {
 "The_Valley,_Anguilla": "The Valley is the capital of Anguilla, a British territory in the eastern Caribbean that its own government describes as the most northerly of the Leeward Islands.<sup class=\"fn\" data-fn=\"1\"></sup> The United Nations credits the territory with about 15,000 people on 91 square kilometres (35 sq mi) and puts the town's own population at 1,400 in 2018, so fewer than a tenth of Anguillians live in their capital.<sup class=\"fn\" data-fn=\"2\"></sup> It is the seat of a government in which a Governor represents the United Kingdom, and of the House of Assembly, Anguilla having become a separate dependent territory on 19 December 1980.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ngerulmud": "Ngerulmud, in Melekeok State on the island of Babeldaob, is the seat of the government of Palau, a republic of eight principal islands and more than 250 smaller ones in the western Pacific.<sup class=\"fn\" data-fn=\"1\"></sup> The United States Department of State records that Palau's government offices stand in a National Capitol complex there, while about 64 per cent of Palauans live in Koror, the country's largest town and its former seat of government.<sup class=\"fn\" data-fn=\"1\"></sup> International profiles differ over what to call the place: the United Nations names Melekeok as Palau's capital, and the population it prints beside that name is footnoted as referring to Koror.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Avarua": "Avarua, on the northern coast of Rarotonga, is the capital of the Cook Islands and the seat of a government that conducts the country's own affairs in free association with New Zealand.<sup class=\"fn\" data-fn=\"3\"></sup> No published figure counts the town on its own: the United Nations names Avarua as the capital but footnotes the population it prints beside the name as referring to the whole island of Rarotonga, and the Cook Islands census does not report the town as a unit.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> That census counted 15,040 people in the country altogether in 2021, against a peak of 21,322 in 1971.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Yaren": "Yaren is the district of Nauru in which the country's government offices stand, and it is treated as the capital although the Commonwealth Secretariat records that Nauru has no official capital at all.<sup class=\"fn\" data-fn=\"1\"></sup> It lies on the south coast of a coral island of 21 square kilometres (8 sq mi) whose interior has been left almost entirely barren by phosphate mining, so that most of the country's people live on the fertile strip around the shore.<sup class=\"fn\" data-fn=\"1\"></sup> No figure counts the district alone: the United Nations names Yaren as the capital city but footnotes the population beside that name as referring to Nauru as a whole.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Yaren": "Yaren is the district of Nauru in which the country's government offices stand, and it is treated as the capital although the Commonwealth Secretariat records that Nauru has no official capital at all.<sup class=\"fn\" data-fn=\"1\"></sup> It lies on the south coast of a coral island of 21 square kilometres (8 sq mi) whose interior has been left almost entirely barren by phosphate mining, so that most of the country's people live on the fertile strip around the shore.<sup class=\"fn\" data-fn=\"1\"></sup> No figure counts the district alone: the United Nations names Yaren as the capital city but footnotes the population beside that name as referring to Nauru as a whole.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Mata-Utu": "Mata-Utu, written Mata'Utu locally, is the chef-lieu of Wallis and Futuna, a French overseas collectivity of 142 square kilometres (55 sq mi) scattered across three main islands in the South Pacific.<sup class=\"fn\" data-fn=\"1\"></sup> It stands on the island of Wallis, at the end of a marked channel that leads through the lagoon from its southern pass to the town wharf, and is the seat of the prefect who represents France and of the twenty-member territorial assembly that votes the collectivity's budget.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The territory has no communes at all: three administrative circumscriptions answer to the customary kingdoms of Uvea, Alo and Sigave, each under a council presided over by its king, and Mata'Utu lies in Uvea.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3787,7 +3788,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tórshavn": ["Torshavn"],
 "San_Marino_(city)": ["City of San Marino"],
 "Marigot,_Saint_Martin": ["Marigot"],
-"The_Valley,_Anguilla": ["The Valley"]
+"The_Valley,_Anguilla": ["The Valley"],
+"Mata-Utu": ["Mata'Utu"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5722,7 +5724,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "The_Valley,_Anguilla": ["place","city","geography","capital","anguilla","caribbean"],
 "Ngerulmud": ["place","city","geography","capital","palau","oceania"],
 "Avarua": ["place","city","geography","capital","cook islands","oceania"],
-"Yaren": ["place","city","geography","capital","nauru","oceania"]
+"Yaren": ["place","city","geography","capital","nauru","oceania"],
+"Mata-Utu": ["place","city","geography","capital","wallis and futuna","oceania"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
