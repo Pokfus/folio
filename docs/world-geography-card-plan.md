@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-233`, the WHOLE running order less the deferred `gw-201`, `gw-218` and `gw-224`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-233`, the WHOLE running order less the deferred `gw-218` and `gw-224`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -33,7 +33,7 @@ Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown, `gw-697` Saint John's, `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau, `gw-703` Hamilton, `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town, `gw-709` Capitol Hill, `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino, `gw-717` Mariehamn, `gw-718` Marigot, `gw-719` The Valley, `gw-720` Ngerulmud, `gw-721` Avarua, `gw-722` Yaren, `gw-723` Mata-Utu, `gw-724` Gustavia, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown, `gw-728` Brades, `gw-729` Stanley, `gw-730` Kingston, `gw-731` Alofi, `gw-733` Adamstown,
-`gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-754` Putrajaya, `gw-755` Abidjan, `gw-756` Colombo, `gw-757` Valparaíso, `gw-758` The Hague, `gw-759` Cotonou, `gw-760` La Paz and `gw-761` Lobamba — **the extra-seats band is COMPLETE at eleven of eleven**, `gw-762` Bujumbura being deferred with its pair `gw-578` Gitega. **The countries and territories deck is COMPLETE at 230 of 233**, the three deferred being `gw-201` Guernsey, `gw-218` Saint Martin and `gw-224` Saint Barthélemy (`gw-223` Wallis and Futuna, `gw-230` Norfolk Island and `gw-195` Jersey were all CLEARED after the capital pass). **`gw-695` Saint Helier stays deferred even though `gw-195` has shipped**: the island card needs no capital row, and nothing openable here calls St Helier the capital or the seat of the States — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
+`gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-754` Putrajaya, `gw-755` Abidjan, `gw-756` Colombo, `gw-757` Valparaíso, `gw-758` The Hague, `gw-759` Cotonou, `gw-760` La Paz and `gw-761` Lobamba — **the extra-seats band is COMPLETE at eleven of eleven**, `gw-762` Bujumbura being deferred with its pair `gw-578` Gitega. **The countries and territories deck is COMPLETE at 231 of 233**, the two deferred being `gw-218` Saint Martin and `gw-224` Saint Barthélemy (`gw-223` Wallis and Futuna, `gw-230` Norfolk Island, `gw-195` Jersey and `gw-201` Guernsey were all CLEARED after the capital pass). **`gw-695` Saint Helier stays deferred even though `gw-195` has shipped**: the island card needs no capital row, and nothing openable here calls St Helier the capital or the seat of the States — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
 
 **Seven capitals were DEFERRED, and between them they name every way a capital source can fail. ALL EIGHT HAVE NOW SHIPPED** — `gw-501` New Delhi, `gw-502` Beijing, `gw-504` Jakarta, `gw-506` Abuja, `gw-508` Dhaka, `gw-509` Moscow, `gw-511` Mexico City and `gw-512` Tokyo — **and not one of them was cleared by a source the original survey had tried and misjudged; every one was cleared by a HOST OR PATH nobody had looked at.** (The heading says seven and the list ran to eight; the count was always off by one.) The list below is kept as the record of what failed, because each failure is a real shape and the next capital pass will meet them again.
 New Delhi and Beijing were deferred because they seemed reachable here only through the foreign legations that sat in
@@ -5622,6 +5622,60 @@ Jersey's own census gives 103,267 people at 859 to the km², which implies about
 and the extraction breaks numbers across text runs, so **no area was cited for Jersey at all**. Norfolk
 Island's 36 was cited because five controls on the same column came out exactly right; Jersey's 116 has a
 source of its own disagreeing with it. **Verify the column per row, not once per document.**
+
+**`gw-201` GUERNSEY CLEARS THE LAST OF THE CROWN DEPENDENCY DEFERRALS, AND IT WAS ALREADY PAID FOR.** The
+territory was deferred alongside `gw-195` Jersey "for want of a facts box", and by the time that reason was
+re-read the box had already been filled — by `gw-701` Saint Peter Port, which shipped months earlier on the
+States of Guernsey's own **Facts and Figures Supplementary Information 2025** spreadsheet. Every figure the
+country card needs is in it: 64,040 people on Guernsey, Herm and Jethou at March 2023, 24.4 square miles of
+land in ten parishes, and a population series running back to the first census of 1821 (20,339, against
+40,446 in 1901). **A deferral is a note about a moment, not a standing fact**, and this is the third in a row
+— Wallis and Futuna, Norfolk Island, now Guernsey — cleared by re-reading the reason rather than by finding
+anything new. The three that remain are `gw-218` Saint Martin and `gw-224` Saint Barthélemy, whose figures no
+openable French source carries, and nothing else.
+
+**THE CONSTITUTIONAL HALF CAME OFF A PDF THE LANDING PAGE ONLY LINKS TO.** `gov.uk`'s *Crown Dependencies:
+Jersey, Guernsey and the Isle of Man* page — the source `gw-701` cites — is a document index and states almost
+nothing itself; the substance is in the **Ministry of Justice's four-page fact sheet** hanging off it at
+`assets.publishing.service.gov.uk/media/5e398990e5274a08e229ca0f/crown-dependencies-factsheet-february-2020.pdf`,
+which carries the whole card: that the Bailiwick of Guernsey is **not one jurisdiction but three** (Guernsey,
+which takes in Herm and Jethou; Alderney; and Sark, which takes in Brecqhou); that the Crown Dependencies have
+never been colonies and are not Overseas Territories "like Gibraltar"; that the relationship "is not enshrined
+in a formal constitutional document"; that principal legislation needs Royal Assent or sanction in Council; and
+that internationally they count not as sovereign States but as **"territories for which the United Kingdom is
+responsible"**. **On a `gov.uk` publication page, take the attachment rather than the page** — the landing page
+is a list of PDFs wrapped in accessibility boilerplate, and the sentences worth citing are all inside them.
+
+**AND IT CORRECTED A LIVE CARD: NOTHING IN `gw-701`'s OWN SOURCES SAID "CAPITAL".** Writing this card meant
+asking what carries *Saint Peter Port is the capital of Guernsey*, and the answer, on the five works `gw-701`
+cited, was nothing — the HM Passport Office profile its marker pointed at states the Crown Dependency clause
+in that sentence and not the capital clause. The word appears **nowhere in the 133-page official *Guernsey
+Facts and Figures 2025*** either, and `gov.gg` has no page that uses it. What does is **VisitGuernsey**, whose
+St Peter Port page opens "The capital of Guernsey, St Peter Port…" and whose footer reads *© Copyright States
+of Guernsey* — the government's own tourism service, so an institutional source rather than a travel
+publisher's. It has been added to `gw-701` as source 6 and marked on the sentence that needed it. **This is L7's
+stranded-marker fault caught from the other end**: the marker was not left behind by a trim, it was placed on a
+work that carried the rest of the sentence, and `add-sources.js` passes that quite happily, since the source is
+referenced and the number is in range. **The only thing that finds it is asking, claim by claim, which work
+carries which clause** — which is what writing the sibling card forces you to do.
+
+**SO GUERNSEY GETS A CAPITAL ROW WHERE JERSEY GOT NONE, AND THE DIFFERENCE IS ONE SENTENCE ON ONE WEBSITE.**
+`gw-195`'s facts box reads Status / Population / Density / Largest parish precisely because nothing openable
+calls St Helier the capital; `gw-201`'s reads Capital / Population / Area / Status because something does.
+The two cards are otherwise the same shape, sourced from the same GOV.UK constitutional pages and each
+territory's own statistical office, and the divergence in their boxes is a fact about what the two governments
+publish rather than about the two islands. **`gw-695` Saint Helier accordingly stays deferred and `gw-701`
+stands.**
+
+**THE PICTURE PASS'S OWN NOTE: `Category:Guernsey` IS A FLICKR DUMP.** Its 104 files are almost entirely one
+2020 upload run — *Cobo Bay, Guernsey (49557181768).jpg* and twenty-one siblings, *Vazon Bay* and fifteen,
+*La Grève* and nine — plus a surf shop, a school gatehouse and two audio files. `Category:Coasts_of_Guernsey`
+is where the views are. Two rejects worth naming: *Cobo coast road Castel Guernsey.jpg* is a **road sign**
+(the Dzanga-Sangha signboard family), and *Guernsey, Moulin Huet Bay & Icart Point.jpg* is a photochrom print
+**scanned inside its white mount**, so a third of the frame is card. What shipped is Nicolas Raymond's
+*Guernsey Coast - HDR* (CC BY 2.0, 1800px) for the card and Man vyi's Moulin Huet cliffs (public domain) for
+the term — Man vyi having supplied `gw-195` Jersey's two as well, which is what a small island's Commons
+coverage looks like.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
