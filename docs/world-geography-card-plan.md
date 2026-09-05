@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-695` Saint Helier.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria, `gw-690` Saint George's, `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-697` Saint John's; **`gw-695` Saint Helier is DEFERRED with its country card `gw-195` Jersey.**
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -3783,6 +3783,72 @@ it occupies a fifth of the frame, and `Nukualofa Tonga 5.jpg` is a petrol statio
 `Nukualofa Tonga 2.jpg` (Arne Müseler, **CC BY-SA 3.0 DE**, 5760×3840), the post office and shopfronts
 under the town's great rain tree — the small-capital streetscape rule again, and the first German-port
 licence of the run, which is free and share-alike and inside the bar.
+
+**`gw-695` SAINT HELIER IS DEFERRED, WITH ITS COUNTRY CARD, AND THE MEASUREMENT IS WORTH KEEPING.**
+Jersey fails every source this run uses: `data.un.org/en/iso/je.html` returns **75 bytes** (no
+profile); `history.state.gov/countries/jersey` is a **404**; Jersey is not a Non-Self-Governing
+Territory, so there is no C-24 working paper; and it is not a Commonwealth member in its own right.
+Its own institutions are shut here — **`gov.je` answers 500 on every path**, `jerseylaw.je` 500,
+`statesassembly.gov.je` 403, `statisticsjersey.gov.je` does not resolve. What IS open is
+`gov.uk`, whose HM Passport Office *Jersey: Knowledge Base profile* states the constitutional position
+plainly ("The Bailiwick of Jersey is one of three Crown Dependencies of the United Kingdom… not part
+of the UK but self-governing dependencies of the Crown… their own directly elected parliament,
+government and courts of law") — **one source, no figures, and nothing whatever about Saint Helier**,
+so the facts box cannot be filled and the citation bar cannot be met. Deferred rather than written
+thin.
+
+**AND IT CORRECTS THE PLAN'S OWN NOTE ABOUT WHY.** The Jersey/Guernsey deferral was recorded as
+"the profile sets of UNdata and of the World Bank each have holes in them", with the aggregation
+explanation explicitly corrected. For the **World Bank that correction was wrong**: the code is
+**`CHI`, "Channel Islands"**, and it returns a full series (168,466 for 2025). Jersey and Guernsey are
+invisible individually because they are **aggregated into one entry**, not because of an arbitrary
+gap — and `JEY`/`JE` return an empty page-0 response rather than the "not valid" error `GGY` gives, so
+even the failure modes differ. **`CHI` must never be used on either bailiwick's card**: it is both of
+them, so quoting it for Jersey hands Guernsey's people to Jersey, which is the Cyprus and Comoros trap
+in a third form. The note about UNdata stands unchanged — that one really may be a hole.
+
+**A DEAD END WORTH RECORDING SO IT IS NOT RE-WALKED: the UN Demographic Yearbook lists Jersey but
+cannot be read here.** `unstats.un.org/unsd/demographic-social/products/dyb/` is open and its country
+index does carry Jersey, and Table 1 (population, area, density) is at
+`documents/dyb2023/table01.pdf` — but that PDF defeats both extraction routes: the merged ToUnicode
+CMaps produce **54 conflicting codes** and 3,756 characters from ten pages, and the literal-string
+route returns embedded font binary. It is a different generator from the Secretariat's working papers,
+which extract cleanly. **The DYB is not a usable fallback from this sandbox**, whatever its country
+list says.
+
+**`gw-696` KINGSTOWN IS THE FOURTH BRIDGETOWN CARD, AND THE SHARPEST: CREDENTIALS FOR ONE COUNTRY
+PRESENTED IN ANOTHER.** The guide's Saint Vincent entry carries **the same sentence, word for word, as
+Saint Lucia's** — "The United States maintains no official presence in St. Vincent. The Ambassador and
+Embassy officers are resident in Barbados and frequently travel to St. Vincent" — the same **1977
+Special Representative**, Frank V. Ortiz Jr., appointed to five states at once, and the same
+**recognition-by-appointment** shape (independent 27 October 1979, recognised only on 23 November 1981
+when Milan D. Bish was made ambassador). What is new is that on 8 December 1981 **Bish presented his
+credentials at Bridgetown**, concurrently ambassador to Antigua and Barbuda, Barbados, Dominica and
+Saint Lucia, while the Vincentian ambassador presented his the same day. **Where the eastern Caribbean
+is concerned, "the ambassador is resident in Barbados" is the default and it is worth checking whether
+the credentials were even presented in the country.**
+
+**AND IT CONFIRMS C11's OWN CORRECTION FROM THE OTHER SIDE.** C11 cut the glossary term
+`Saint_Vincent_and_the_Grenadines` from 110,000 to 100,000 and noted the Commonwealth's 110,900 for
+2022 showed the term had been right when written. The World Bank series shows exactly why: the
+population is **falling**, 106,960 in 2015 to 99,924 in 2025, so the Commonwealth's 110,900 is neither
+current nor an error but a figure from further up a declining curve, and its 2022 counterpart in the
+World Bank series is 102,046. **On a shrinking population, "out of date" and "too high" are the same
+thing** — C10's Marshall Islands finding met a second time.
+
+**TWO SLUGS, BOTH UNGUESSABLE, AND NEITHER MATCHES THE OTHER.** The recognition guide wants
+**`saint-vincent-grenadines`** (full "saint", no "and", no "the") and the Commonwealth wants
+**`st-vincent-and-grenadines`** (abbreviated "st", "and", no "the"); five other spellings 404 at one or
+the other. C11 recorded this shape for Saint Kitts; it is now clearly systematic. **Fetch
+`thecommonwealth.org/our-member-countries` and grep it rather than guessing** — the index lists every
+slug and costs one request.
+
+**PICTURE: THE FIFTH SATELLITE TRAP, AND THE `<CITY>, <COUNTRY>.JPG` RULE IS NOW FIVE FOR FIVE.**
+`Kingstown, St. Vincent.jpg` is public domain, 4288×2929, and carries **ISS022E012021** burnt into the
+corner of the frame. `Category:Kingstown` is also shared with **Dún Laoghaire**, which was called
+Kingstown until 1920 — hence the jaunting cars, the Dublin and Kingstown Railway and the barracks in
+the same search. What shipped is `Kingstown Saint Vincent.jpg` (ctsnow, CC BY 2.0, 2048×1536), an
+arcaded street in the town centre running down to the water.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
