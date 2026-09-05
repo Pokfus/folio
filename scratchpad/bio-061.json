@@ -1,0 +1,29 @@
+{
+  "id": "bio-061",
+  "num": 61,
+  "category": "Biology",
+  "question": "Named from the Greek for 'of the first rank', a <span class=\"blank\">_____</span> is a polymer of twenty kinds of amino acid and, as an enzyme, catalyses nearly every reaction in a cell.",
+  "questions": [
+    "Deep learning now predicts the folded shape of a <span class=\"blank\">_____</span> straight from its sequence, though it still does poorly on disordered regions and large assemblies.",
+    "Enamel and collagen sequences read from fossils a million years old show that a <span class=\"blank\">_____</span> outlasts the DNA that specified it, which is why palaeontologists now look for them."
+  ],
+  "answer": "protein",
+  "answerText": "protein",
+  "answerDate": "",
+  "traditional": "",
+  "hanzi": "",
+  "pinyin": "",
+  "translations": "",
+  "citation": "",
+  "difficulty": 1,
+  "undatable": true,
+  "tags": ["object", "science", "biology", "chemistry", "genetics"],
+  "abstract": "A <b>protein</b> is a polymer of amino acids, of which twenty kinds are used, and proteins are the most diverse of all the macromolecules, a single cell holding several thousand different ones.<sup class=\"fn\" data-fn=\"1\"></sup> They serve as structural components of cells and tissues, they transport and store small molecules as haemoglobin carries oxygen, they carry information between cells as protein hormones, and they defend against infection as antibodies.<sup class=\"fn\" data-fn=\"1\"></sup> The most fundamental role is catalysis, since as enzymes they speed nearly every chemical reaction in a living system, so that proteins direct virtually all of a cell's activities.<sup class=\"fn\" data-fn=\"1\"></sup> The name records that judgement, coming from the Greek <i>proteios</i>, meaning 'of the first rank'.<sup class=\"fn\" data-fn=\"1\"></sup> Which protein a chain becomes depends on the order of its amino acids, each of which carries a distinctive side chain whose chemistry decides the part it plays.<sup class=\"fn\" data-fn=\"1\"></sup> <br><br> Working out what shape a given sequence folds into was for decades a problem solved one protein at a time, by measurement rather than calculation.<sup class=\"fn\" data-fn=\"2\"></sup> Deep learning changed that, and millions of structure models have been generated in a very short space of time, led by AlphaFold, which predicts to near-experimental accuracy directly from a sequence.<sup class=\"fn\" data-fn=\"2\"></sup> It has not closed the problem, because prediction remains weakest for intrinsically disordered regions, for ligand-bound states, for post-translational modifications and for large multi-component assemblies.<sup class=\"fn\" data-fn=\"3\"></sup> Counting proteins is harder than counting genes, since one gene no longer means one protein: alternative translation start sites alone yield several proteoforms from a single transcript, differing in activity, location and behaviour.<sup class=\"fn\" data-fn=\"4\"></sup> Proteins also outlast the DNA that specified them, and enamel and collagen sequences have been recovered from fossil material at least a million years old and used to test how extinct hominids are related.<sup class=\"fn\" data-fn=\"5\"></sup>",
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Martin Luke Rennie and Michael R. Oliver, “Emerging Frontiers in Protein Structure Prediction Following the AlphaFold Revolution,” <i>Journal of the Royal Society Interface</i> 22, no. 225 (2025): 20240886, https://doi.org/10.1098/rsif.2024.0886. [Open access]",
+    "Mandarina Qing Cheng Li, Sihan Wang, Shi-Ruei Lin, Li Eric Ngok Ting, Zhi-Hong Wan, Guodong Xie, and Jane Zhang, “Advantages and Limitations of AlphaFold in Structural Biology: Insights from Recent Studies,” <i>The Protein Journal</i> 45, no. 1 (2026): 22–38, https://doi.org/10.1007/s10930-025-10310-8. [Open access]",
+    "Evan J. Morrison and Olivia S. Rissland, “The Generation and Consequences of N-terminal Proteoform Diversity,” <i>Cell Reports</i> 44, no. 9 (2025): 116275, https://doi.org/10.1016/j.celrep.2025.116275. [Open access]",
+    "Ioannis Patramanis, Laurits Skov, Enrico Cappellini, and Fernando Racimo, “Assessing the Potential of Ancient Protein Sequences in the Study of Hominid Evolution,” <i>Genome Biology and Evolution</i> 18, no. 3 (2026): evag035, https://doi.org/10.1093/gbe/evag035. [Open access]"
+  ]
+}
