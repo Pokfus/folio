@@ -35,19 +35,31 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.520", released: "2026-09-05T10:46Z" };
+window.FOLIO_VERSION = { v: "1.523", released: "2026-09-05T13:03Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-05",
-    t: "Corrections across Seneca, the Rigveda, Suetonius and the Journey",
+    t: "The first 500 Ancient Greece cards audited",
     items: [
+      "<b>Nearly a hundred Ancient Greece cards now carry the dates they were missing</b>, including the whole Athens deck, where Solon, Draco, Peisistratus and Cleisthenes had no year between them.",
+      "<b>Picture captions across the collection no longer repeat the source</b>, which is on the line beneath them, and 33 that said nothing now describe what is in the frame.",
+      "<b>Fourteen pictures showing something other than the card have been taken down</b>, among them a Viking grave standing in for a Greek one and a Viennese weight of 1756 for a Greek weight standard.",
+      "<b>Thirteen questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who wrote on it.",
+      "<b>Nineteen new glossary terms the Ancient Greece cards were already using</b>, among them the Constitution of the Athenians, the parts of a temple and the Greek money.",
+      "<b>Sixteen Ancient Greece backgrounds no longer read as lists of who argued what</b>, keeping every claim and dropping the roll-call of modern scholars.",
+      "<b>Twelve Athens cards now give the year beside the archon they date by</b>, so \u201cin the archonship of Aristaechmus\u201d also says 621/620 BCE.",
+      "<b>Eleven Ancient Greece cards now quote the primary text from Folio\u2019s own Library</b>, opening Herodotus, Homer or Thucydides at the passage the card is about.",
+      "<b>Twelve Ancient Greece questions now lead with what the term is</b>, so the Parthenon, Pericles, Homer and Salamis are named by the plain fact rather than by an anecdote.",
+      "<b>Five pictures that were doing duty on two cards each have been sorted out</b>, so every card\u2019s illustration is of that card\u2019s own subject.",
+      "<b>Sixteen more Ancient Greece cards show their place on the globe</b>, with the ten battles among them marked by crossed swords.",
+      "<b>Eighteen Ancient Greece cards are no longer dealt by the Timeline game</b>, terms like agora and phyle having no date to place them at.",
       "<b>Forty-nine corrections to the Canterbury Tales and the Journey to the West</b> \u2014 read for the first time against two other scans of the same printing, which recovered a lost place-name and a lost word.",
       "<b>Fourteen page references and running heads taken out of Suetonius and the Journey to the West</b> \u2014 a printed page\u2019s own furniture, standing in the text where one of them split a hymn in half.",
       "<b>The project\u2019s own notes brought back up to date</b> \u2014 twenty figures and three names describing the site had fallen behind what it actually holds, some of them four times over.",
       "<b>Seneca\u2019s Latin now explains its own editorial marks</b>, and two scanning errors were corrected in the Rigveda.",
-      "<b>153 more missing spaces restored to Seneca\u2019s Latin</b>, where the transcription had run two words together and left them looking like one long Latin word.",
-    ],
+      "<b>153 more missing spaces restored to Seneca\u2019s Latin</b>, where the transcription had run two words together and left them looking like one long Latin word."
+    ]
   },
   {
     d: "2026-09-04",

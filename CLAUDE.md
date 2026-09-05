@@ -813,6 +813,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   can be grown one card at a time over many sessions. See the "ANCIENT GREECE" bullet under "Generating
   cards & glossary entries" for the workflow — the short version is that the next card to write is the
   lowest `gr-NNN` not yet in `data.js`. Not part of the site.
+  · **📖 `docs/greece-audit-2026-09.md` — READ BEFORE WRITING A `gr-` CARD, and before opening
+    any repair batch on the first 500.** The audit of `gr-001`–`gr-500`: the eight dimensions that
+    passed, measured rather than assumed; the five that were fixed (276 picture captions carrying
+    their own source, 99 missing date lines, 14 pictures of the wrong thing, 13 questions naming a
+    scholar); and the seven still open, with their card ids — above all that **237 citations, 8.7%
+    of the collection's whole apparatus, come from one Dartmouth course website**, and that the
+    Athens deck paraphrases Aristotle rather than explaining him, so 42 of its 45 cards state no
+    year in their prose. It also holds the coverage gaps inside the covered span (the Pythian,
+    Isthmian and Nemean games, the Delphic amphictyony, Chania, the chamber tomb) and the measured
+    list of terms to add to the glossary.
 - `docs/world-history-card-plan.md` — the **1000-card running order for the World History collection**
   (`col-8`): every card's number, topic and deck, fixed in advance across 8 decks and 39 leaf subdecks,
   so the collection can be grown one card at a time over many sessions. The sibling of the Greece plan
@@ -1089,6 +1099,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   are not counted as needing revision, because the alternative is a measure that reports a permanent, growing
   false finding on two collections — and `EXEMPT` is deliberately the wrong instrument, being per card. Rule 2
   still binds on them. Not part of the site.
+- `.claude/check-cards.js` — **the card-level faults nothing else in the pipeline can see**:
+  `node .claude/check-cards.js [--prefix=gr-] [--verbose] [--report]`, exit 1 on a violation and never
+  on `--report`. Six checks, each written after a real fault shipped unreported — **an author cited in
+  more than two of one card's sources** (`add-card.js` checks a citation ends in a URL,
+  `source-audit.js` counts them and `check-citations.js` checks the names against Crossref, and all
+  three pass a card whose whole apparatus is one website; ancient authors are counted separately,
+  six passages of one witness being a different fault from six pages of one scholar), **a modern
+  scholar named in a question**, **one picture on two cards**, **a picture description that names its
+  own source**, **a card with no picture** (reported, never failed) and **two sources in the same
+  non-English language**. Two of them are the reason it exists at all. `card-focus.js` takes the names
+  it looks for from the AUTHOR POSITIONS of a card's own citations, so **a scholar named in a question
+  but not cited on that card is invisible to it** — it reported ONE Greece card where an independent
+  sweep found thirteen; this reads the question for the SHAPE of an attribution and asks afterwards
+  whether the name is an ancient witness. And the duplicate-picture check compares on the file name
+  **with the `\d+px-` prefix stripped**, because the same file at two widths is two different `src`
+  strings and gr-267 and gr-379 carried one map for weeks at 1920 and 1280.
+  · **THE GLOSSARY IS THE DISCRIMINATOR FOR THE QUESTION RULE, AND A MODERN PERSON IS WITHHELD FROM
+    IT.** "Athenian Constitution" and "White Castle" wear the shape of an attribution and are a work
+    and a place; both are glossary surfaces. But the pairing rule gives every card's answer its own
+    entry, so an excavator who is herself a card's subject has one — `Harriet_Boyd_Hawes`, with
+    "Harriet Boyd" as an alias — and a flat exemption **suppressed the one real finding it was meant
+    to leave standing**. A term is withheld when it is tagged `person` and its date line begins after
+    1500, which is the site's own record of a modern figure rather than a guess from the name.
+  · **THE COMMA ENDS AN AUTHOR FIELD, NOT THE FULL STOP.** A book's title is italicised rather than
+    quoted, so a quoted-title pattern cannot see it and a full-stop fallback reads an INITIAL as the
+    whole name: "H. B. Walters, History of Ancient Pottery…" gave an author called **"H"**, so three
+    citations of one book were filed under a scholar named for a letter and the concentration was
+    missed. A citation OPENING on its title has no author at all — reading the title as one gave
+    gr-333 an author called "Athens".
+  · **AND IT CHECKS A `card.quote` AGAINST THE BOOK IT NAMES, WORD FOR WORD.** `test-card-quote.js`
+    asserts the placement and the address and neither of them the WORDS, so a quotation can be
+    re-punctuated, re-worded or elided across a gap and still render perfectly under a link to the
+    real text — `gr-467` joined two passages 200 words apart with no ellipsis, opened on an
+    editorial "He" where Thucydides names Pericles, and set the translator's `--` as an em dash. An
+    explicit ` … ` is the author saying a gap was cut and each side of it is checked on its own;
+    **a bare number is the edition's apparatus and is dropped from both sides**, since several
+    shelved editions run their section and verse numbers inline and a quotation rightly leaves them
+    out.
+  · **IT IS A REPORT TOOL RUN BY HAND AND IS DELIBERATELY NOT IN THE CI FAST GATE.** Over the whole
+    corpus it finds a large standing backlog on the first and last checks — the Greece collection's
+    early decks rest on one Dartmouth course site and on the French excavation reports, whose
+    substitutes are not reachable from this sandbox (the seven measured routes are in
+    `docs/greece-audit-2026-09.md`). Run it with `--prefix=` over the cards a batch touches. Not part
+    of the site.
 - `.claude/check-questions.js` — the card QUESTION house rules, measured over the shipped `data.js`:
   `node .claude/check-questions.js [--verbose]`, exit 1 on any violation, so it guards a batch the way
   `check-style.js` does. Four rules — **one sentence**; **understandable on its own** (a question may not
