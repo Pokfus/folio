@@ -33,6 +33,23 @@
   A group of THREE OR MORE is deliberately NOT hinted: naming four of five answers on the front of the
   card is worse than the ambiguity, so those are given distinguishing glosses in `notes` instead.
 
+  `types` EDITS THE DECK'S CARD TYPE, which is how a new FIELD reaches the cards at all — a field the
+  type does not declare is a field the template engine will not render, so `literally` below would be
+  written into every note and shown on none. It is applied before the notes for that reason.
+
+  `ex` ADDS EXAMPLE SENTENCES AS `[chinese, english]` PAIRS and builds the block here. Three things
+  about them. They are APPENDED to whatever the note already has, up to the three the card type shows,
+  and they carry `uc-exadd` so re-running strips its own additions first rather than stacking them —
+  that class is the only thing that makes this idempotent. The headword is BOLDED wherever it appears,
+  which is what the generator's own examples do. And they carry NO STRUCTURE LINE: that line is a
+  part-of-speech gloss of every word of the sentence with the target's own bolded, and it cannot be
+  derived for a sentence written for a different card — a wrong one would be worse than none.
+
+  `mw` IS WRITTEN AS BARE CHARACTERS AND EXPANDED FROM THE CORPUS. A measure word renders as the
+  character, its traditional form where that differs, and its pinyin — three facts the decks already
+  state 1,148 times over, so `["个","位"]` is expanded from their own table rather than retyped. A
+  character the corpus has never used as a measure word is refused rather than guessed at.
+
   SENSES ARE WRITTEN COMPACTLY AND EXPANDED HERE. `[["yàn","verb","to swallow"],["yān","noun","throat"]]`
   becomes the two `uc-sense` divs the card type renders, with the reading prefix only where a note
   teaches more than one — which is the shape 过, 花, 空 and 重 already use and the shape this pass gave
@@ -57,21 +74,49 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 function renderSenses(senses) {
   const multi = senses.length > 1 && senses.every((s) => s.length === 3);
   const html = senses.map((s) => {
-    const [rd, pos, gloss] = s.length === 3 ? s : [null, s[0], s[1]];
+    // 3 = [reading, part of speech, gloss]; 2 = [part of speech, gloss]; 1 = the gloss alone, which is
+    // what an idiom has — the decks give none of the 477 a part of speech
+    const [rd, pos, gloss] = s.length === 3 ? s : s.length === 2 ? [null, s[0], s[1]] : [null, null, s[0]];
     return '<div class="uc-sense">' + (multi && rd ? esc(rd) + " — " : "") +
-      '<i class="uc-pos">' + esc(pos) + "</i>" + esc(gloss) + "</div>";
+      (pos ? '<i class="uc-pos">' + esc(pos) + "</i>" : "") + esc(gloss) + "</div>";
   }).join("");
   const ans = senses.map((s) => {
-    const [rd, pos, gloss] = s.length === 3 ? s : [null, s[0], s[1]];
-    return (multi && rd ? rd + " — " : "") + "(" + abbr(pos) + ") " + gloss;
+    const [rd, pos, gloss] = s.length === 3 ? s : s.length === 2 ? [null, s[0], s[1]] : [null, null, s[0]];
+    return (multi && rd ? rd + " — " : "") + (pos ? "(" + abbr(pos) + ") " : "") + gloss;
   }).join("; ");
   return { html, ans };
 }
 
+/* character → [traditional form (empty where it is the same), pinyin], read off every measure word the
+   decks already carry. Derived rather than declared: the rendering has to match the 1,148 notes that
+   already have one exactly, and a second copy of that table is a second thing to keep in step. */
+const MW = (() => {
+  const t = {};
+  for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.json$/.test(x))) {
+    const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
+    for (const c of d.cards || []) {
+      const raw = ((c.fields || {})["Measure word"] || "");
+      for (const it of raw.split('<span class="uc-mwi">').slice(1)) {
+        const ch = (/<span class="uc-mwc">([^<]*)<\/span>/.exec(it) || [])[1];
+        const tr = (/<span class="uc-mwc uc-mwt">([^<]*)<\/span>/.exec(it) || [])[1] || "";
+        const pi = (/<span class="uc-mwp">([^<]*)<\/span>/.exec(it) || [])[1];
+        if (ch && pi && !t[ch]) t[ch] = [tr, pi];
+      }
+    }
+  }
+  return t;
+})();
+
 const fixes = JSON.parse(fs.readFileSync(FIXES, "utf8"));
+/* `decks` edits a deck's own METADATA rather than a note — currently only the subtitle, which is what
+   the Collections page prints under a deck's title. It is here rather than hand-edited into the files
+   for the reason everything else is: these decks cannot be regenerated, so an edit with no record is an
+   edit the next session cannot tell from a bug. */
+const deckMeta = fixes.decks || {};
+let metaHit = 0;
 const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
-let changed = 0, files = 0, missing = [], badGloss = [];
+let changed = 0, files = 0, missing = [], badGloss = [], badMW = [];
 
 const hints = Object.entries(fixes.hints || {});
 const hintsByDeck = new Map();
@@ -95,9 +140,27 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
   const p = path.join(DIR, f);
   const before = fs.readFileSync(p, "utf8");
   const d = JSON.parse(before);
+  const dm = deckMeta[d.meta && d.meta.id];
+  if (dm) {
+    Object.keys(dm).forEach((k) => { if (k !== "why" && k !== "addFields" && k !== "tpl") d.meta[k] = dm[k]; });
+    /* A FIELD IS ADDED IN TWO PLACES OR IN NEITHER: the type's `fields` list, and the template that
+       renders it. Adding one and not the other is silent — the field is stored and never shown. */
+    (dm.addFields || []).forEach((f) => {
+      for (const t of Object.values(d.meta.types || {})) {
+        if ((t.fields || []).indexOf(f.name) < 0) t.fields.push(f.name);
+        (t.cards || []).forEach((card) => {
+          if (String(card.back || "").indexOf("{{" + f.name + "}}") >= 0) return;
+          card.back = String(card.back).replace(f.after, f.after + f.html);
+        });
+        // …and the type's own scoped CSS, or the new line renders as an unstyled paragraph
+        if (f.css && String(t.css || "").indexOf(f.css.trim().split("\n")[0]) < 0) t.css = String(t.css || "") + f.css;
+      }
+    });
+    metaHit++;
+  }
   const want = byDeck.get(d.meta && d.meta.id);
   const wantHint = hintsByDeck.get(d.meta && d.meta.id);
-  if (!want && !wantHint) continue;
+  if (!want && !wantHint && !dm) continue;
   let hits = 0;
   for (const c of d.cards || []) {
     const fl = c.fields || {};
@@ -119,16 +182,44 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
     for (const k of ["Pinyin", "Bopomofo", "Say", "Measure word", "Literally", "Examples"]) {
       if (fix[k] !== undefined) fl[k] = fix[k];
     }
+    if (fix.ex) {
+      const kept = String(fl.Examples || "").split('<div class="uc-exi').filter(Boolean)
+        .map((x) => '<div class="uc-exi' + x).filter((x) => x.indexOf("uc-exadd") < 0);
+      const room = Math.max(0, 3 - kept.length);
+      const add = fix.ex.slice(0, room).map(([zh, en]) => {
+        const bold = zh.split(fl.Simplified).join("<b>" + fl.Simplified + "</b>");
+        return '<div class="uc-exi uc-exadd"><div class="uc-exz">' +
+          '<span class="uc-tts uc-exsay" data-say="' + esc(zh) + '"></span>' + bold + "</div>" +
+          '<div class="uc-exe">' + esc(en) + "</div></div>";
+      });
+      fl.Examples = kept.join("") + add.join("");
+    }
+    if (fix.mw) {
+      const bad = fix.mw.filter((ch) => !MW[ch]);
+      if (bad.length) { badMW.push(w.key + " → " + bad.join(" ")); continue; }
+      fl["Measure word"] = '<span class="uc-mwlab">measure word</span>' + fix.mw.map((ch) => {
+        const [trad, pin] = MW[ch];
+        return '<span class="uc-mwi"><span class="uc-mwc">' + ch + "</span>" +
+          (trad ? '<span class="uc-mwc uc-mwt">' + trad + "</span>" : "") +
+          '<span class="uc-mwp">' + pin + "</span></span>";
+      }).join("");
+    }
     /* `gloss` is `senses` for the common case: ONE sense whose wording changes and whose part of speech
        does not. It exists because the disambiguation pass rewrites 857 glosses and nothing else about
        those cards, and restating each one's part of speech in the record would be 857 chances to get it
        wrong — the card already knows it. A note with several senses must use `senses`, and asking for
        `gloss` on one is refused rather than silently flattening it. */
-    if (fix.gloss !== undefined) {
+    if (fix.gloss !== undefined || fix.glossAll !== undefined) {
       const ss = String(fl.English || "").match(/<div class="uc-sense">[\s\S]*?<\/div>/g) || [];
       const m = /<i class="uc-pos">([^<]*)<\/i>/.exec(ss[0] || "");
-      if (ss.length !== 1 || !m) { badGloss.push(w.key + " (" + ss.length + " senses)"); continue; }
-      fix = Object.assign({}, fix, { senses: [[m[1], fix.gloss]] });
+      /* `gloss` insists on ONE sense: rewording a note that has several would have to guess which one
+         it replaces. `glossAll` says outright "replace all of them with this", which is what the idiom
+         pass needs — the decks split a run-on definition into four `uc-sense` divs, so "tight-lipped /
+         reticent / not breathing a word" is three senses of one meaning rather than three meanings. */
+      if (fix.gloss !== undefined && ss.length !== 1) { badGloss.push(w.key + " (" + ss.length + " senses)"); continue; }
+      const text = fix.gloss !== undefined ? fix.gloss : fix.glossAll;
+      // an idiom carries no part of speech at all, and a sense of one element renders without one
+      fix = Object.assign({}, fix, { senses: [m ? [m[1], text] : [text]] });
     }
     if (fix.senses) {
       const r = renderSenses(fix.senses);
@@ -161,11 +252,18 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
 for (const [key] of entries) if (!seen.has(key)) missing.push(key);
 for (const [key] of hints) if (!seenHint.has(key)) missing.push(key + " (hint)");
 
-console.log("\n" + entries.length + " fixes and " + hints.length + " reverse-card hints in mandarin-fixes.json, "
-  + (seen.size + seenHint.size) + " matched a note");
+console.log("\n" + entries.length + " fixes, " + hints.length + " reverse-card hints and " +
+  (Object.keys(deckMeta).length - (deckMeta.why ? 1 : 0)) + " deck-metadata edits in mandarin-fixes.json, " +
+  (seen.size + seenHint.size) + " matched a note, " + metaHit + " matched a deck");
 /* A FIX THAT MATCHES NOTHING IS AN ERROR, NOT A NO-OP. It means the headword was mistyped or the deck id
    is wrong, and the correction the record claims to have made has simply not been made — which reads,
    from the file, exactly like one that has. */
+/* A measure word the decks have never used is refused rather than rendered from a guess at its pinyin. */
+if (badMW.length) {
+  console.log("\n  FAIL  " + badMW.length + " `mw` fix(es) naming a character the corpus has no measure word for:");
+  badMW.forEach((k) => console.log("        " + k));
+  process.exit(1);
+}
 /* A `gloss` on a multi-sense note would have to guess which sense it replaces, so it is refused. */
 if (badGloss.length) {
   console.log("\n  FAIL  " + badGloss.length + " `gloss` fix(es) on a note that has not exactly one sense — use `senses`:");

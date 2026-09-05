@@ -1268,6 +1268,13 @@ body[data-theme="folio"] .collection-deco::after{
    under its name or beside it was a function of the window and of how long that deck happened to be
    called — which is what made "the same way history decks do" impossible to point at. */
 .node-meta{display:flex; align-items:center; gap:9px; flex-wrap:wrap; row-gap:4px; margin-top:5px;}
+/* A LANGUAGE DECK'S OWN LINE — what it is and when to study it (Sep 2026). Quiet ink and a measure that
+   stops well short of the row's width: it is guidance under a title, not a paragraph, and a line that
+   ran the full width of a wide row would read as the deck's description rather than as a caption. */
+.node-sub{
+  margin-top:4px; font-family:var(--sans); font-size:calc(11.5px * var(--fs));
+  line-height:1.45; color:var(--ink-faint); max-width:52ch;
+}
 .node-meta:empty{display:none;}
 .node-title{font-family:var(--serif); font-weight:600; font-size:calc(17px * var(--fs)); line-height:1;}
 .node-span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}

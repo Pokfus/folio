@@ -26712,6 +26712,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<span class="node-count">' + (o.cards || 0).toLocaleString() + " cards</span>" +
           '<span class="node-size" title="' + esc(sizeTitle) + '">' + esc(fmtDeckSize(o.bytes)) + "</span>" +
         '</div>' +
+        /* THE DECK'S OWN SUBTITLE (Sep 2026). Nine decks presented as nine levels said nothing about
+           where a learner should start, how big each is against the others, or where a deck outside the
+           ladder fits — a shelf rather than a course. It is drawn only on a TOP-LEVEL row and only where
+           the deck has one: a subdeck's line would repeat its deck's, and a deck with no subtitle must
+           not leave an empty line under its title. */
+        (!depth && o.sub ? '<div class="node-sub">' + esc(o.sub) + "</div>" : "") +
       '</div>';
     /* THE ADD BUTTON IS THE CURATED ONE, `data-id` and all, so `wireAddButton` and `refreshAddButtons`
        cover it with no selector to widen: `data-id` on that button has always been an ENTRY id and an
@@ -26762,7 +26768,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const tree = Array.isArray(r.tree) ? r.tree : [];
       if (r.flat && tree.length) { out.push(...langNodeSpecs(r.id, r.bytes, true, "", tree)); return; }
       out.push({ entry: uDeckEntry(r.id), title: langShortTitle(r.title, r.lang), cards: r.cards || 0,
-                 bytes: r.bytes, shared: false, kids: langNodeSpecs(r.id, r.bytes, false, "", tree) });
+                 bytes: r.bytes, sub: r.sub || "", shared: false, kids: langNodeSpecs(r.id, r.bytes, false, "", tree) });
     });
     return out;
   }
