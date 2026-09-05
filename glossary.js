@@ -2047,7 +2047,8 @@ window.GLOSSARY = {
 "Siege_of_Lilybaeum": "The siege of Lilybaeum was a Roman investment of the fortified port on the western point of Sicily, begun in 250 BCE and maintained until the end of the First Punic War.<sup class=\"fn\" data-fn=\"1\"></sup> The defences were strong, the harbour approach ran through lagoons that were difficult to navigate, and the town was twice relieved by blockade-runners who used a favourable wind to sail in under the eyes of the besieging fleet.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A conspiracy among the mercenary garrison was betrayed from within, and a storm followed by an incendiary sortie destroyed the Roman siege-works, after which the besiegers gave up assaulting the place and settled for a blockade.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
 "Hamilcar_Barca": "Hamilcar Barca was the Carthaginian general who took over the Sicilian war against Rome in 247 BCE, its eighteenth year, and held out there until the fighting ended.<sup class=\"fn\" data-fn=\"1\"></sup> With no friendly city behind him, he entrenched his army on the mountain of Hercte above Panormus and later on Eryx, taking the town between a Roman garrison on the summit and another at its foot, and raiding the Italian coast by sea.<sup class=\"fn\" data-fn=\"2\"></sup> The war was decided at sea, and after the peace and the mercenary revolt that followed he crossed to Iberia, where he campaigned some nine years and was killed in battle, leaving his son Hannibal a command there.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_the_Aegates_Islands": "The Battle of the Aegates Islands was a naval engagement fought in 241 BCE off the western end of Sicily, between a Roman fleet under Gaius Lutatius and a Carthaginian relief squadron under Hanno.<sup class=\"fn\" data-fn=\"1\"></sup> The Carthaginian ships were carrying corn and supplies to an army in the west of the island and carried untrained crews and newly levied marines, while the Roman crews had been drilled for the encounter, and the result was decisive: Polybius gives 50 ships sunk, 70 captured and nearly 10,000 prisoners.<sup class=\"fn\" data-fn=\"2\"></sup> Diodorus records a larger action with heavy losses on both sides, and the defeat closed the sea to Carthage and led to terms.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Treaty_of_Lutatius": "The Treaty of Lutatius was the agreement of 241 BCE that ended the 24-year war between Rome and Carthage over Sicily, named for the Roman commander who negotiated it.<sup class=\"fn\" data-fn=\"1\"></sup> The draft was made conditional on the approval of the Roman people, who refused it and sent ten commissioners; these left the substance alone but halved the term of payment, added a thousand talents and required the islands between Sicily and Italy to be given up as well.<sup class=\"fn\" data-fn=\"2\"></sup> As ratified it obliged Carthage to leave those territories, return all prisoners without ransom and pay 3,200 talents, and bound each side not to attack the other's allies or recruit in its dominions.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Treaty_of_Lutatius": "The Treaty of Lutatius was the agreement of 241 BCE that ended the 24-year war between Rome and Carthage over Sicily, named for the Roman commander who negotiated it.<sup class=\"fn\" data-fn=\"1\"></sup> The draft was made conditional on the approval of the Roman people, who refused it and sent ten commissioners; these left the substance alone but halved the term of payment, added a thousand talents and required the islands between Sicily and Italy to be given up as well.<sup class=\"fn\" data-fn=\"2\"></sup> As ratified it obliged Carthage to leave those territories, return all prisoners without ransom and pay 3,200 talents, and bound each side not to attack the other's allies or recruit in its dominions.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Roman_annexation_of_Sicily": "The Roman annexation of Sicily was Rome’s taking over of the island after the peace of 241 BCE, by which Carthage agreed to leave Sicily and the islands between it and Italy.<sup class=\"fn\" data-fn=\"1\"></sup> It was not the whole island: Syracuse, whose ruler the treaty expressly protected, remained an allied kingdom outside the annexed territory.<sup class=\"fn\" data-fn=\"2\"></sup> Cicero, writing two centuries later, describes an arrangement in which two cities held treaties and five more were free and immune without one, while all other land paid a tenth of its produce under rules the Sicilians had made themselves, which Rome left untouched down to the times and places of the auctions.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2872,7 +2873,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Siege_of_Lilybaeum": "250 – 241 BCE",
 "Hamilcar_Barca": "general from 247 BCE",
 "Battle_of_the_Aegates_Islands": "241 BCE",
-"Treaty_of_Lutatius": "241 BCE"
+"Treaty_of_Lutatius": "241 BCE",
+"Roman_annexation_of_Sicily": "from 241 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4127,7 +4129,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Siege_of_Lilybaeum": ["siege of Lilybaeum"],
 "Hamilcar_Barca": ["Hamilcar","Barca"],
 "Battle_of_the_Aegates_Islands": ["Aegates Islands","Aegates","Egadi Islands"],
-"Treaty_of_Lutatius": ["peace of 241 BCE"]
+"Treaty_of_Lutatius": ["peace of 241 BCE"],
+"Roman_annexation_of_Sicily": ["annexation of Sicily"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6207,7 +6210,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Siege_of_Lilybaeum": ["battle","warfare","history","politics","sicily"],
 "Hamilcar_Barca": ["person","history","warfare","politics","africa"],
 "Battle_of_the_Aegates_Islands": ["battle","history","warfare","sicily","africa"],
-"Treaty_of_Lutatius": ["event","history","politics","warfare","sicily"]
+"Treaty_of_Lutatius": ["event","history","politics","warfare","sicily"],
+"Roman_annexation_of_Sicily": ["event","history","politics","sicily","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
