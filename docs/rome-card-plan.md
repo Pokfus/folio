@@ -438,7 +438,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-177  Evocatio
     rm-178  The Romanisation of Italy
     rm-179  The spread of Latin in Italy
-    rm-180  Rome in 264 BCE
+    rm-180  Roman Italy
 
 ### The Punic Wars — `rm-punic-wars`
 
