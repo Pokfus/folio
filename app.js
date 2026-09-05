@@ -1387,7 +1387,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -1451,6 +1451,27 @@
       // cards picked up one at a time from the home page's Card of the day (studied from the tile and then
       // graded). They join the daily review under the COTD_ENTRY pseudo-entry, so a card can be added
       // without its whole deck coming with it — see the COTD block below.
+      /* CONFUSION PAIRS — "<idA>|<idB>" (ids sorted, so one key per pair) -> how many times this reader
+         has typed one of the two terms into the other's blank. It is the only PERSONAL thing the study
+         side records: everything else here is a schedule, and this is a fact about which two things THIS
+         reader mixes up. Bounded by pairs actually confused rather than by reviews, which is why it is
+         safe in the synced blob where the per-review log is not — but pruned all the same (CONFUSE_CAP).
+         The evidence for it was already being collected and thrown away: `gradeCloze` reads the reader's
+         typed guess to mark it character by character and then discards it. */
+      confused: {},
+      /* THE DECK PRETEST'S RESULT — entryId -> { day, known: [cardIds] } (see PAGES.pretest). It is a
+         DEAL-ORDER PREFERENCE and nothing else: a card the reader answered correctly before studying the
+         deck sorts to the back of the new pile rather than being marked studied.
+         IT MUST NEVER WRITE `S.cards`, and that is the whole reason it has a field of its own. Folio's XP
+         is `Object.keys(S.cards).length` — the number of distinct cards with a record — so a pretest that
+         seeded twelve card records would hand a new reader several levels and several artefact chests for
+         answering twelve questions, silently, before they had studied anything at all. */
+      pretest: {},
+      /* WHICH ENTRIES HAVE BEEN ASKED HOW THEY WANT TO STUDY — entryId -> the order chosen, or "" for
+         "asked and left at the default" (see PAGES.order). It records that the QUESTION was put, not what
+         the answer was, which is why it is separate from `deckOpts` where the order itself lives: a reader
+         who picks the default must not be asked again, and there is nothing in `deckOpts` to say so. */
+      orderPicked: {},
       cotd: [],
       active: ["cn-qing"], // deck/subdeck ids added to the daily review
       /* THE ORDER THE READER HAS PUT THE REVIEW LIST IN (Aug 2026, on request): parent id — "" for the
@@ -1868,7 +1889,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -5015,6 +5036,12 @@
     // deck on FSRS is scheduled by FSRS wherever it was studied from (see cardEntryId).
     c = schedAnswer(c, g, t, id, schedCfgFor(id));
     S.cards[id] = c;
+    /* SUCCESSIVE RELEARNING — the day this card was recalled, if it was recalled at all (see CRIT_DAYS).
+       It is written HERE rather than inside the scheduler because `schedAnswer` is pure and must stay so:
+       it reads no global and no clock beyond its `t`, which is what lets `test-scheduler.js` walk every
+       path as arithmetic. This needs the reader's own day boundary and the pre-grade `firstToday`, both
+       of which are already in hand at this point and neither of which the scheduler is allowed to see. */
+    if (g !== "again" && firstToday) critMark(c);
     bumpLoadMap();   // a due date has moved: the day-load histogram the balancer reads is now one card out
     logReview(preStatus === "review", g !== "again");
     logReviewDay(firstToday, g !== "again");
@@ -5059,6 +5086,71 @@
       buried: buried,
     };
   }
+  /* SUCCESSIVE RELEARNING — WHAT "LEARNED" MEANS (Sep 2026).
+     Folio's schedule has always been Anki's, and Anki graduates a card INSIDE ONE SESSION: the learning
+     steps are `1m 10m`, so a card met at nine o'clock is "learned" by ten past. That is the strongest
+     thing the learning-science literature disagrees with about flashcards. Rawson and Dunlosky's work on
+     successive relearning finds the durable gains come from correct recall on SEPARATE DAYS — about
+     three of them — and that they flatten after that: four and five relearning sessions retained no
+     better than three. A card can therefore be studied for a month, every interval correct, and never
+     once have been recalled on a second day; nothing on the site could say so.
+
+     WHAT THIS IS AND IS NOT. It is a COUNTER AND A LABEL, not a second scheduler. Not one interval, step,
+     ease or due date changes: `schedAnswer` is untouched and stays pure. What is added is a record of
+     WHICH DAYS the card was recalled on, and the reader is shown it.
+
+     THE DAYS ARE STORED, NOT A COUNT. A count cannot tell a second recall today from a second recall next
+     week, which is the entire distinction being drawn — and the array is capped at the criterion, so it
+     is three short strings per card at worst and never grows.
+
+     IT IS A CONSTANT, DELIBERATELY, where nearly everything else about a deck's study is an option. The
+     evidence names three and says the fourth buys nothing; a control here would be a dial with one right
+     setting, and the house rule is that a quantity does not cascade anyway (see DECK_OPT_INHERIT), so a
+     per-deck criterion would have to be re-set on every subdeck to mean anything. */
+  const CRIT_DAYS = 3;
+  const critDays = (c) => (c && Array.isArray(c.crit)) ? c.crit : [];
+  // …and the record's own day list, added to at most once a day and never past the criterion
+  function critMark(c) {
+    if (!c) return;
+    const d = todayStr(), a = critDays(c);
+    if (a.indexOf(d) >= 0 || a.length >= CRIT_DAYS) { if (!c.crit) c.crit = a; return; }
+    c.crit = a.concat([d]);
+  }
+  const critCount = (id) => critDays(S.cards[id]).length;
+  /* THE DUE ORDER'S TIEBREAK. A review card's due date lands at the START of its day (SCHED.dayAnchor),
+     so a day's due pile is very largely ONE timestamp and "most overdue first" decides almost nothing
+     within it. Among cards genuinely due at the same moment, the one with FEWER separated recalls is
+     dealt first — which is the criterion above spending itself on the only choice it can make without
+     touching a single interval, ease or due date. Every "which due card first" sort in the session
+     builders goes through this one comparator rather than each carrying a copy of the rule.
+     THE TWO LEARN-AHEAD SORTS DELIBERATELY DO NOT: those are asking which learning card comes round
+     SOONEST, which is a question about the clock and not about the reader. */
+  const byDue = (a, b) => (S.cards[a].due - S.cards[b].due) || (critCount(a) - critCount(b));
+  const atCriterion = (id) => critCount(id) >= CRIT_DAYS;
+  // how many of a list of cards are at criterion — the figure the deck stats panel reports beside "studied"
+  function critLearnedCount(ids) {
+    let n = 0;
+    (ids || []).forEach((id) => { if (atCriterion(id)) n++; });
+    return n;
+  }
+  /* The pips under the answer term. Filled for each separate day this card has been recalled on, hollow
+     for the days still owed — three characters that say what a sentence would take a paragraph to. It is
+     drawn on every card that has been answered at least once and NOT on a card being met for the first
+     time, where three hollow pips would be a demand rather than a record. */
+  function critPipsHTML(id) {
+    const n = critCount(id);
+    if (!S.cards[id]) return "";
+    let pips = "";
+    for (let i = 0; i < CRIT_DAYS; i++) pips += '<span class="crit-pip' + (i < n ? " on" : "") + '"></span>';
+    const done = n >= CRIT_DAYS;
+    return '<div class="crit-row' + (done ? " done" : "") + '" title="' +
+      esc(done
+        ? "Recalled on " + CRIT_DAYS + " separate days — the point at which the evidence says the gains flatten."
+        : "Recalled on " + n + " of " + CRIT_DAYS + " separate days. Recalling a card on separate days is what makes it stick; recalling it twice in one session is not.") +
+      '"><span class="crit-pips">' + pips + "</span><span class=\"crit-lbl\">" +
+      (done ? "Learned" : "Recalled on " + n + " of " + CRIT_DAYS + " days") + "</span></div>";
+  }
+
   /* ---------- review history ----------
      S.reviewLog is the only record of what happened on a PAST day: a card keeps just its latest
      review, so a card reviewed on ten days is indistinguishable from one reviewed once. Each day
@@ -5539,6 +5631,36 @@
       a.push(id);
     });
     if (groups.size < 2) return pair ? pairOrder(ids) : ids;   // one group: the round robin is the identity
+    /* "EASED IN" — the hybrid order (see HYBRID_N). The subdecks the reader has not started come FIRST and
+       come WHOLE, in the deck's own order; the ones they know are round-robined behind them exactly as
+       they always were. Fresh-first rather than fresh-last is what makes it work: the new-card allowance
+       is sliced off the front of the unseen cards, so a fresh subdeck at the front is the one being
+       learned, and the moment it goes green it drops back into the robin and the next one takes its
+       place. Nothing here is stored — "fresh" and "green" are read off the card records every time. */
+    if (deckOrderMode(entryId) === "hybrid") {
+      const fresh = [], green = new Map();
+      groups.forEach((arr, g) => {
+        let seen = 0;
+        for (let i = 0; i < arr.length && seen < HYBRID_N; i++) if (isSeen(arr[i])) seen++;
+        if (seen >= HYBRID_N) green.set(g, arr); else fresh.push(arr);
+      });
+      let out = [];
+      fresh.forEach((arr) => { out = out.concat(arr); });
+      if (green.size) out = out.concat(robinOrder(green, entryId));
+      return pair ? pairOrder(out) : out;
+    }
+    return robinOrder(groups, entryId, pair);
+  }
+  /* The round robin itself, lifted out of `studyOrder` so the hybrid above can use it on a SUBSET of the
+     groups. Each group's cards are keyed by their index within it plus a per-group offset of one day's
+     new-card allowance, so group 2 starts a day behind group 1 — which is what makes a two-way deck ask
+     the reverse the NEXT day rather than a second later. */
+  function robinOrder(groups, entryId, pair) {
+    if (groups.size < 2) {
+      const only = [];
+      groups.forEach((arr) => { arr.forEach((id) => only.push(id)); });
+      return pair ? pairOrder(only) : only;
+    }
     const lag = Math.max(1, deckLimits(entryId).newPerDay | 0);
     const keyed = [];
     let gi = 0;
@@ -5550,6 +5672,28 @@
     keyed.sort((a, b) => (a[0] - b[0]) || (a[1] - b[1]) || (a[2] - b[2]));
     const ordered = keyed.map((k) => k[3]);
     return pair ? pairOrder(ordered) : ordered;
+  }
+  /* THE SESSION OPENS ON SOMETHING THE READER CAN ANSWER (Sep 2026) — the forward effect of testing:
+     retrieving earlier material measurably improves the learning of NEW material studied afterwards. It
+     is the cheapest finding in the whole literature to act on, because it deals no extra cards and adds
+     no state: the warm-up cards were going to be dealt anyway, a few places later.
+     IT DEFERS RATHER THAN SHUFFLES, exactly as `spreadNoteSiblings` does and for the same reason — every
+     ordering promise the branches made survives except at the head, where an unseen card in one of the
+     first WARMUP_N places swaps with the nearest card the reader has met.
+     AND IT RUNS BEFORE THE SIBLING PASS, not after: moving a card to the front can put two sides of one
+     note together, and the pass that knows how to fix that is the one that runs next.
+     A FIRST-EVER SESSION HAS NOTHING TO WARM UP WITH and is left exactly as it was. */
+  const WARMUP_N = 2;
+  function warmUpFirst(queue) {
+    if (!Array.isArray(queue) || queue.length < WARMUP_N + 1) return queue;
+    for (let i = 0; i < WARMUP_N && i < queue.length; i++) {
+      if (isSeen(queue[i])) continue;
+      let j = -1;
+      for (let k = i + 1; k < queue.length; k++) if (isSeen(queue[k])) { j = k; break; }
+      if (j < 0) return queue;                    // nothing met anywhere: a first-ever session
+      queue.splice(i, 0, queue.splice(j, 1)[0]);
+    }
+    return queue;
   }
   function entryCardIds(id, _guard) {
     // the daily review answers for every added deck at once — see REVIEW_ENTRY
@@ -6204,7 +6348,7 @@
      marks a row it INHERITS with the name of the deck above it, and throwing the switch there writes an
      override on this row and says so. */
   const DECK_OPT_INHERIT = ["order", "random", "variety", "autoSpeak", "burySiblings", "pairNew",
-                            "sched", "retention", "fsrsParams"];
+                            "attempt", "sched", "retention", "fsrsParams"];
   function entryChain(id) {
     const out = [], seen = new Set();
     const push = (e) => { if (e && typeof e === "string" && !seen.has(e)) { seen.add(e); out.push(e); } };
@@ -6290,6 +6434,22 @@
      `S.settings.reviewRandom` survives as the REVIEW's own stored value — it is what an older build reads,
      and `setDeckOrderMode` keeps it in step. */
   function deckRandom(id) { return deckOrderMode(id) === "random"; }
+  /* ANSWER BEFORE REVEALING (Sep 2026) — a POLICY, so it cascades from a collection to its subdecks and
+     directions, with a global default in Settings behind it.
+     THE FINDING IT ACTS ON is that retrieval EFFORT is the whole mechanism of the testing effect: a
+     reader who presses Space and reads the answer has performed a rereading trial in a flashcard's
+     clothes, and gets very little of what makes flashcards work. Folio has had a typed blank since it
+     shipped and has never required anything to be put in it.
+     IT IS OFF BY DEFAULT AND IT HAS AN ESCAPE HATCH, both deliberately. An unskippable prompt is how
+     studying becomes a chore, and a reader who genuinely cannot remember must be able to say so — see
+     the "I don't know" button, which reveals and pre-selects Again. What the switch removes is the
+     ACCIDENTAL reveal, not the deliberate one. */
+  function deckAttempt(id) {
+    const o = deckOpt(id, "attempt");
+    if (o && typeof o.value === "boolean") return o.value;
+    return !!(S.settings && S.settings.attemptFirst);
+  }
+  function setDeckAttempt(id, on) { setDeckLimits(id, { attempt: !!on }); }
   /* ---------- A THIRD ORDER: BY DIFFICULTY (Aug 2026, on request) ----------
      Ordered and Random were a BOOLEAN, and a third answer will not fit in one — so `order` is a string
      beside it and the boolean stays the fallback, which is what keeps every existing save working
@@ -6308,18 +6468,33 @@
      arriving here is already in deck order, so five cards all rated 3 stay in the order their deck puts
      them — which is the honest reading of "by difficulty" on a corpus where the rating is five buckets
      rather than a continuum. */
-  const DECK_ORDERS = ["ordered", "random", "difficulty"];
+  const DECK_ORDERS = ["ordered", "random", "difficulty", "hybrid"];
   /* …AND THE CONTROL IS A CYCLER, NOT A SWITCH (Aug 2026, on request). Two orders were a switch and three
      will not fit in one: what replaces it is a single row naming the order in force, which steps to the
      next on every press and wraps. Three rows with a tick would say the same thing in three times the
      height, on a sheet a phone already has to scroll — and the switch's own reasoning was that a setting
      with a name for each state reads as a sentence, which a cycler keeps. */
-  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty" };
+  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty", hybrid: "Eased in" };
   const DECK_ORDER_NOTE = {
     ordered: "Cards come up in their deck order, oldest history first",
     random: "The session is shuffled each day",
     difficulty: "The best-known terms first, working outward",
+    hybrid: "A new subdeck at a time; once you know one, it mixes in with the rest",
   };
+  /* THE FOURTH ORDER — BLOCKED FIRST, INTERLEAVED AFTER (Sep 2026).
+     Interleaving beats blocking at long delay and is the best-supported way to tell CONFUSABLE things
+     apart, which is most of what a history collection asks of a reader. But the recent work is careful
+     about a second finding: a HYBRID beats either on its own, because a novice needs to see what a
+     category has in common before discriminating between categories means anything — so blocked practice
+     while a subdeck is new, interleaved once there is something to discriminate. Folio's round robin
+     (`studyOrder`) has always interleaved from the very first card, so a reader ten cards into Ancient
+     Greece met ten cards from six different subdecks.
+     GREEN IS MEASURED, NOT DECLARED. A subdeck is "known well enough to mix in" once HYBRID_N of its
+     cards have a record in `S.cards` — the reader's own history, so it needs no field and no bookkeeping,
+     and it answers correctly for a deck they worked through months ago.
+     TWELVE, because the default new-card allowance is five: it is about two or three days on a subdeck
+     before it joins the rest, which is the interval the blocked half of the finding is about. */
+  const HYBRID_N = 12;
   function deckOrderMode(id) {
     if (id === REVIEW_ENTRY) {
       if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
@@ -6348,8 +6523,16 @@
     setDeckLimits(id, { order: mode, random: mode === "random" });
   }
   function deckByDifficulty(id) { return deckOrderMode(id) === "difficulty"; }
+  /* …and a card the reader ALREADY KNEW when they took this deck's pretest sorts behind every card they
+     did not, whatever its rating (see PAGES.pretest). It is the one place a pretest result is read, and
+     it is why the pretest is offered on this order and no other: "ordered" is the deck's own sequence and
+     "random" is a shuffle, so neither has a sort key a result could be spliced into without contradicting
+     what the reader asked for. Nothing is skipped — a known card is still taught, later. */
   function sortByDifficulty(list) {
-    return list.slice().sort((a, b) => (cardDifficultyRank(a) - cardDifficultyRank(b)));
+    const known = pretestKnownSet();
+    if (!known.size) return list.slice().sort((a, b) => (cardDifficultyRank(a) - cardDifficultyRank(b)));
+    const kn = (id) => (known.has(id) ? 1 : 0);
+    return list.slice().sort((a, b) => (kn(a) - kn(b)) || (cardDifficultyRank(a) - cardDifficultyRank(b)));
   }
   // a card with no rating at all sorts LAST rather than first: an unrated card is unknown, not easy
   function cardDifficultyRank(id) {
@@ -6637,7 +6820,7 @@
       const ids = studyOrder(e, entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id) && !isBuried(id)));
       let rv = deckReviewRemaining(e);
       ids.filter((id) => isDueNow(id))
-        .sort((a, b2) => S.cards[a].due - S.cards[b2].due)
+        .sort(byDue)
         .forEach((id) => { if (rv <= 0 || seen.has(id)) return; seen.add(id); b.due.push(id); rv--; });
       let nw = deckNewRemaining(e);
       // Anki's third switch: off, a deck that has used up its review allowance introduces nothing new either
@@ -6649,7 +6832,7 @@
       if (k) {
         // the most overdue first, so a language's cap keeps the cards that have waited longest rather than
         // whichever of its decks the list happens to draw first
-        b.due.sort((a, b2) => S.cards[a].due - S.cards[b2].due);
+        b.due.sort(byDue);
         b.due = b.due.slice(0, deckReviewRemaining(k));
         let n = deckNewRemaining(k);
         if (!deckLimits(k).newIgnoresReview) n = Math.min(n, Math.max(0, deckReviewRemaining(k) - b.due.length));
@@ -6658,7 +6841,7 @@
       b.due.forEach((id) => due.push(id));
       b.fresh.forEach((id) => pool.push(id));
     });
-    due.sort((a, b) => S.cards[a].due - S.cards[b].due);
+    due.sort(byDue);
     // …and then the review's own two caps, which are the parent deck's in Anki
     const RL = reviewLimits();
     const rvLeft = deckReviewRemaining(REVIEW_ENTRY);
@@ -13657,6 +13840,10 @@
       : name === "book" ? "library"
       // the Studio is where one of your own decks is edited, and those live on the Collections page
       : name === "studio" || name === "deck" ? "decks"
+      // the two pages that stand between pressing Study and studying belong to the session they open
+      : name === "order" || name === "pretest" ? "study"
+      // …and the page explaining how Folio studies you is reached from Settings, and belongs there
+      : name === "how" ? "settings"
       : name;
     document.querySelectorAll(".tab").forEach((t) => {
       t.classList.toggle("active", t.dataset.route === lit);
@@ -13679,6 +13866,9 @@
     library:   ["Library — Folio", "Read whole works of history and philosophy in public-domain English translations."],
     book:      ["Library — Folio", "Read a public-domain English translation, with the glossary linked through it."],
     study:     ["Study — Folio", "Review the cards that are due, one at a time."],
+    order:     ["How would you like to study? — Folio", "Choose the order a deck's cards are dealt in, with what the evidence says about each."],
+    pretest:   ["Where should we start? — Folio", "A dozen quick questions to find what you already know before a deck begins."],
+    how:       ["How Folio studies you — Folio", "Why Folio is built the way it is: what the evidence says about spacing, testing and rereading."],
     map:       ["Atlas — Folio", "An interactive globe: present-day borders, physical geography and world maps back to 1500."],
     mission:   ["About — Folio", "What Folio is, how to use it, and what has changed lately."],
     account:   ["Account — Folio", "Your study progress, statistics and badges."],
@@ -13731,6 +13921,14 @@
        `route()` are all covered by one line. `warofages` joins `admin`: the tab is hidden for everybody
        else (applyMode), but a hidden tab is not a guard — the address is typeable. */
     if (ADMIN_ROUTES.indexOf(name) >= 0 && !isAdmin()) name = "home";
+    /* THE FIRST SESSION ON A DECK ASKS HOW IT SHOULD BE DEALT (see PAGES.order). One choke point rather
+       than a guard in `PAGES.study`, so the home page's rows, the review banner, the Collections page and
+       a pasted `#study` link are all covered by the same line — and RESUME is exempt, since a reader
+       coming back to a session already in progress is not starting one. */
+    if (name === "study" && params && params.scope && !params.resume) {
+      const ask = orderAskEntry(params.scope);
+      if (ask) { name = "order"; params = { entry: ask, scope: params.scope }; }
+    }
     current = { name, params: params || {} };
     // #deck/<slug> is a shareable address, so the slug rides in the hash (the same shape as #map/<year>/<slug>)
     location.hash =
@@ -15070,7 +15268,7 @@
         '<span class="dm-cyval">' + esc(value) + "</span>" +
       "</button>";
     const order = deckOrderMode(id);
-    const variety = deckVariety(id);
+    const variety = deckVariety(id), attemptFirst = deckAttempt(id);
     // shown only where something in this entry can actually speak — see entryHasSpeech
     const canSpeak = entryHasSpeech(id), autoSpeak = deckAutoSpeak(id);
     /* How far through the deck the reader is, on the title's own line (Aug 2026, on request). It used to
@@ -15113,6 +15311,9 @@
       swRow("variety", "Question variety",
         "Each card asks one of its phrasings at random",
         "Every card always asks its first phrasing", variety, false, fromMark(["variety"])) +
+      swRow("attempt", "Answer before revealing",
+        "You have to type something, or say you don’t know",
+        "Reveal is always available", attemptFirst, false, fromMark(["attempt"])) +
       (canSpeak ? swRow("speak", "Read aloud automatically",
         "The answer is spoken as soon as it is revealed",
         "Press the speaker on a card to hear it", autoSpeak, false, fromMark(["autoSpeak"])) : "") +
@@ -15257,6 +15458,10 @@
             setDeckBurySiblings(id, on);
             note.textContent = on ? "A note's other cards wait until tomorrow" : "Every card of a note can come up the same day";
             toast(on ? "Burying siblings" : "Siblings can come up together");
+          } else if (rowEl.dataset.act === "attempt") {
+            setDeckAttempt(id, on);
+            note.textContent = on ? "You have to type something, or say you don’t know" : "Reveal is always available";
+            toast(on ? "Answer before revealing" : "Reveal is always available");
           } else if (rowEl.dataset.act === "speak") {
             setDeckAutoSpeak(id, on);
             note.textContent = on ? "The answer is spoken as soon as it is revealed" : "Press the speaker on a card to hear it";
@@ -15401,6 +15606,16 @@
         if (Number(c.difficulty) > 0) add("Difficulty", c.difficulty.toFixed(1) + ' <span class="ci-of">of 10</span>');
       } else if (c.ease) add("Ease", (c.ease * 100).toFixed(0) + "%");
       add("Reviews", String(c.reps || 0));
+      /* …and how many of those reviews were on SEPARATE DAYS and correct, which is the figure the
+         literature says decides whether a card sticks (see CRIT_DAYS). It reads from the record passed in
+         rather than from `S`, because this panel is also drawn for a friend's card record. */
+      {
+        const cd = critDays(c).length;
+        add("Recalled on", cd >= CRIT_DAYS
+          ? String(cd) + " separate days <span class=\"ci-of\">at criterion</span>"
+          : String(cd) + " of " + CRIT_DAYS + ' separate days <span class="ci-of">' +
+            (cd ? "the gains come from the next one" : "recalling it on a second day is what makes it stick") + "</span>");
+      }
       // a lapse count is worth naming as a leech at Anki's threshold, which the scheduler already records
       if (c.lapses) add("Lapses", String(c.lapses) + (c.leech ? ' · <b class="ci-leech">leech</b>' : ""));
       if (c.first) add("First studied", esc(c.first));
@@ -23514,6 +23729,11 @@
       const q = reviewQueue();
       queue = q.all.slice();
       if (deckRandom(REVIEW_ENTRY)) shuffle(queue);                                            // daily-review order toggle (hold the banner)
+      /* "Eased in" keeps the order each DECK's own `studyOrder` chose, which is where the hybrid actually
+         happens — the Ordered branch below re-sorts the whole pooled queue into the tree's global
+         sequence and would undo it. Both piles are already in that order; all that is left is the
+         due/new interleave every branch does. */
+      else if (deckOrderMode(REVIEW_ENTRY) === "hybrid") queue = mixPiles(q.due, q.fresh);
       else if (deckByDifficulty(REVIEW_ENTRY)) queue = mixPiles(sortByDifficulty(q.due), sortByDifficulty(q.fresh));
       else {                                                                                   // "Ordered" = the cards' order of appearance within their decks (set by drag-reordering in the editor)
         const seq = TREE.collections.flatMap(subtreeCardIds), oi = {};
@@ -23536,7 +23756,7 @@
       total = 1;
     } else if (scope.type === "cotd") {
       const ids = cotdIds().filter((id) => !isSuspended(id) && !isBuried(id));
-      const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due);
+      const due = ids.filter((id) => isDueNow(id)).sort(byDue);
       queue = mixPiles(due, ids.filter((id) => !isSeen(id)));   // every card here was added BY being studied, so unseen is rare
       // this list's own Random-order switch. It has a row on the home page, so its sheet can be held open,
       // and a switch that is reachable and inert is the one thing the per-entry design must not produce.
@@ -23557,7 +23777,7 @@
       // …and not a card buried by a sibling answered elsewhere: a group is another route to the same
       // cards, so leaving it out here would let a buried card come back through one
       const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
-      const gDue = gIds.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(scope.id));
+      const gDue = gIds.filter((id) => isDueNow(id)).sort(byDue).slice(0, deckReviewRemaining(scope.id));
       const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = mixPiles(orderPile(scope.id, gDue), orderPile(scope.id, gNew));
       if (deckRandom(scope.id)) shuffle(queue);
@@ -23572,7 +23792,7 @@
       // the deck's notes expanded into their cards (a reverse card is its own card here), template-major —
       // or one card per note where the row studied is a DIRECTION rather than a level; entryCardIds narrows
       const ids = studyOrder(ue, entryCardIds(ue).filter((id) => !isSuspended(id) && !isBuried(id)));
-      const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(ue));
+      const due = ids.filter((id) => isDueNow(id)).sort(byDue).slice(0, deckReviewRemaining(ue));
       const unseen = ids.filter((id) => !isSeen(id));
       /* The new run is sliced FIRST and shuffled after, so pairing decides which words arrive and the
          shuffle only the order they arrive in — shuffling first would make the day's cards a random
@@ -23602,7 +23822,7 @@
       // due cards in this deck first, then new, then any unseen if you want to push on — both piles bounded
       // by THIS deck's own daily limits (long-press its row in the review to change them), so a deck the
       // pooled review only took a couple of new cards from still has the rest of its share here
-      const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(sd.id));
+      const due = ids.filter((id) => isDueNow(id)).sort(byDue).slice(0, deckReviewRemaining(sd.id));
       const unseen = ids.filter((id) => !isSeen(id));
       const fresh = unseen.slice(0, Math.max(deckNewRemaining(sd.id), 0));   // new cards in deck (card) order — set via the editor's drag-reorder
       queue = mixPiles(orderPile(sd.id, due), orderPile(sd.id, fresh));
@@ -23626,6 +23846,7 @@
       const ahead = learnAheadIds(scopeAllIds(scope));
       if (ahead.length) { queue = ahead; total = ahead.length; }
     }
+    warmUpFirst(queue);        // …open on something the reader has met (see WARMUP_N)
     spreadNoteSiblings(queue);
     return { queue, where, scope };
   }
@@ -27202,6 +27423,309 @@
     const leaf = cardLeaves(id)[0];
     return leaf ? nodeWhere(leaf) : "";
   }
+  /* ==========================================================================================
+     "HOW DO YOU WANT TO STUDY THIS?" — THE FIRST-SESSION ORDER PICKER (Sep 2026, on request)
+     ==========================================================================================
+     The order a deck is dealt in is one of the few study settings that genuinely changes what a reader
+     learns rather than how it looks — and it was buried behind a long-press on a row on the home page,
+     where nobody who had not been told about it would ever meet it. So the FIRST time a collection, a
+     deck or the daily review is studied, the reader is taken here instead and asked, with each option
+     explained at the length it deserves and with the way back to the setting written on the same page.
+
+     FOUR DECISIONS.
+
+     IT IS ASKED ONCE PER ENTRY, AND "ASKED" IS WHAT IS RECORDED. `S.orderPicked[entryId]` holds the
+     order chosen, or "" for "asked, and left at the default" — because a reader who chooses the default
+     must not be asked again and there is nothing in `S.deckOpts` that could say so (choosing the default
+     writes no option at all).
+
+     A READER WHO HAS ALREADY STUDIED THE DECK IS NOT ASKED. "The first time" is taken literally: if any
+     card in the entry already has a record, the question is silently marked as answered. Without that,
+     shipping this would interrupt every existing reader on their next session about a deck they have
+     been working through for months.
+
+     THE DEFAULT IS RECOMMENDED IN WORDS RATHER THAN PRESELECTED. Every option is a real answer and the
+     page says which suits whom; what it does not do is put a tick in a box and make the other three look
+     like deviations.
+
+     AND IT IS SKIPPABLE IN ONE PRESS. A wall between a reader and their first session is a good way to
+     lose the reader — "Not now" is as prominent as the four cards and does exactly what it says. */
+  const ORDER_PICK_COPY = {
+    ordered: {
+      lead: "Cards come in the order the deck was written — for a history collection, that is broadly oldest first.",
+      body: [
+        "You meet the Bronze Age before the Iron Age, and a subject's cards arrive near each other, so each one lands with the last few still fresh. On a collection that tells a story in sequence this is the order the story is in.",
+        "The cost is that the order is predictable, and a card can be answered from where it sits rather than from what it says — you know the next one is about the same century, so the century stops being part of the question.",
+      ],
+      who: "Best if you are working through a collection as a narrative and want the chronology to do some of the teaching.",
+    },
+    random: {
+      lead: "The whole session is shuffled, once a day.",
+      body: [
+        "Nothing can be answered from its neighbours: a card about Sparta may follow one about the Neolithic, so every card has to be recognised on its own. This is the strongest form of the mixing that the evidence supports — interleaving beats blocking for long-term retention, and it is the best way there is of learning to tell confusable things apart.",
+        "It will feel harder, and that is the point rather than a side effect. Practice that feels fluent and practice that works are not the same thing, and shuffled practice reliably scores worse today and better next month.",
+      ],
+      who: "Best once you know a collection reasonably well and want to be sure you actually know it.",
+    },
+    difficulty: {
+      lead: "The best-known terms first, working outward to the obscure ones.",
+      body: [
+        "Every Folio card carries a rating of how widely known its answer is — 1 for a household name like the Stone Age, 5 for something named in the scholarship and almost nowhere else. This order deals the 1s and 2s before the 4s and 5s, so a session opens on ground you are likely to hold.",
+        "It is the gentlest way into a collection you know nothing about, and it is the only order that can use a short pretest: pick it and Folio can offer you twelve quick questions to find what you already know, so the deck starts where you actually are.",
+      ],
+      who: "Best for a subject you are new to, or for coming back to one after a long time away.",
+    },
+    hybrid: {
+      lead: "A new subdeck at a time; once you know one, it mixes in with the rest.",
+      body: [
+        "Blocked practice and mixed practice are each better than the other at different moments. While a subdeck is new, its cards come together, so you can see what they have in common — which is what has to happen before telling them apart means anything. Once about a dozen of its cards have been met, that subdeck joins the shuffle and the next new one takes its place.",
+        "This is the hybrid the recent research points at, and it is the closest thing here to what a good teacher does: introduce one thing properly, then start mixing it with everything that came before.",
+      ],
+      who: "Best for a large collection you intend to work all the way through.",
+    },
+  };
+  const ORDER_PICK_HOWTO =
+    "You can change this whenever you like, and nothing you have studied is affected: <b>press and hold the deck's row</b> in Daily study on the home page — or the Daily study banner itself, for your pooled review — and the sheet that opens has a <b>Review order</b> row that steps through these four.";
+  /* Which entry, if any, this session should be asked about — null for "don't ask". A one-card session
+     and the Card-of-the-day list are deliberately never asked: they are not decks, and neither has a
+     deck's order to set. */
+  function orderAskEntry(scope) {
+    if (!scope || !S.orderPicked) return null;
+    const id = scope.type === "review" ? REVIEW_ENTRY
+             : (scope.type === "deck" || scope.type === "group") ? scope.id : null;
+    if (!id) return null;
+    if (Object.prototype.hasOwnProperty.call(S.orderPicked, id)) return null;
+    const ids = entryCardIds(id);
+    if (!ids.length) return null;                       // an empty deck has no order worth asking about
+    // already worked through, on this device or another: mark the question answered rather than asking it
+    if (ids.some(isSeen)) { S.orderPicked[id] = ""; save(); return null; }
+    return id;
+  }
+  function setOrderPicked(id, mode) {
+    if (!S.orderPicked) S.orderPicked = {};
+    S.orderPicked[id] = mode || "";
+    if (mode) setDeckOrderMode(id, mode);
+    save();
+  }
+  /* ==========================================================================================
+     THE DECK PRETEST — "where should we start?" (Sep 2026, on request)
+     ==========================================================================================
+     Being tested on material BEFORE studying it improves the learning of it, even though nearly every
+     answer is wrong, provided the right answer follows — the pretesting effect, which is one of the
+     better-replicated findings in the literature and the only one that turns "I already knew that" into
+     something useful. Twelve questions before a deck begins does two jobs at once: the reader meets the
+     terms once under retrieval conditions, and Folio finds out where they actually are.
+
+     IT IS OFFERED ONLY WHERE THE DECK IS DEALT BY DIFFICULTY, on request — and that is not an arbitrary
+     gate, it is the only order whose ordering the result can change. "Ordered" is the deck's own
+     sequence, "Random" is a shuffle and "Eased in" is decided by subdeck; only the difficulty order sorts
+     the new pile by a property of the card, which is where "and put the ones they already knew last"
+     can be spliced in without contradicting what the reader chose.
+
+     ***IT MUST NEVER WRITE `S.cards`, AND THAT IS THE WHOLE REASON IT HAS A FIELD OF ITS OWN.*** Folio's
+     XP is `Object.keys(S.cards).length` — the number of distinct cards with a record — and a level buys
+     an artefact chest. A pretest that seeded twelve card records the obvious way would hand a brand-new
+     reader two or three levels and the chests that go with them for answering twelve questions before
+     they had studied anything at all; nothing would throw, and the only symptom would be a reader
+     wondering why they were being congratulated. So the result is a DEAL-ORDER PREFERENCE in
+     `S.pretest`, and the schedule is not touched at all.
+
+     NO FEEDBACK UNTIL THE END. The literature's own condition is that the correct answers are supplied
+     afterwards; supplying them one at a time would turn a pretest into a study session, and the reader
+     would be "already knowing" answers they had just been shown two questions earlier. */
+  const PRETEST_N = 12;
+  // enough unseen cards to be worth asking about, the deck dealt by difficulty, and not already taken
+  function pretestOffer(entry) {
+    if (!entry || !S.pretest || S.pretest[entry]) return null;
+    if (deckOrderMode(entry) !== "difficulty") return null;
+    const ids = pretestPick(entry);
+    return ids.length >= PRETEST_N ? ids : null;
+  }
+  /* The twelve. Spread across the entry's SUBDECKS rather than taken off the front, so the result says
+     something about the whole deck; biased toward the well-known end, since a pretest is asking what the
+     reader already knows and nobody walks in knowing the difficulty-5 terms. Seeded on the entry id, so
+     the same deck offers the same twelve however many times the page is opened. */
+  function pretestPick(entry) {
+    const all = entryCardIds(entry).filter((id) => !isSeen(id) && !isSuspended(id) && cardById(id));
+    if (!all.length) return [];
+    const easy = all.filter((id) => cardDifficultyRank(id) <= 3);
+    const pool = easy.length >= PRETEST_N ? easy : all;
+    const groups = new Map();
+    pool.forEach((id) => {
+      const g = studyGroupOf(id);
+      let a = groups.get(g); if (!a) groups.set(g, a = []);
+      a.push(id);
+    });
+    const rnd = mulberry32(hashStr("pretest-" + entry));
+    const lists = [...groups.values()].map((a) => seededShuffle(a, rnd));
+    const out = [];
+    for (let round = 0; out.length < PRETEST_N; round++) {
+      let added = false;
+      for (let i = 0; i < lists.length && out.length < PRETEST_N; i++) {
+        if (lists[i][round] != null) { out.push(lists[i][round]); added = true; }
+      }
+      if (!added) break;
+    }
+    return out;
+  }
+  /* The cards this reader answered correctly in ANY pretest — the deal-order preference, and nothing
+     else. It is a fact about the CARD rather than about the entry it was asked under: a term known cold
+     is known cold whether it was met in a collection's pretest or the pooled review's, and keying it per
+     entry would put the same card first in one deck and last in another. Rebuilt on each call, which is
+     a dozen ids per pretest taken and a handful of pretests. */
+  function pretestKnownSet() {
+    const out = new Set(), P = S.pretest || {};
+    Object.keys(P).forEach((k) => { ((P[k] && P[k].known) || []).forEach((id) => out.add(id)); });
+    return out;
+  }
+  PAGES.pretest = function (root, params) {
+    const entry = params && params.entry, scope = params && params.scope;
+    if (!entry || !scope) { route("home"); return; }
+    const ids = pretestOffer(entry);
+    if (!ids) { route("study", { scope }); return; }
+    const info = entryInfo(entry) || { title: "this deck" };
+    const typed = new Array(ids.length).fill("");
+    let i = -1;   // -1 is the intro screen
+    const skip = () => { if (!S.pretest) S.pretest = {}; S.pretest[entry] = { day: todayStr(), known: [] }; save(); route("study", { scope }); };
+    function paint() {
+      if (i < 0) {
+        root.innerHTML =
+          '<div class="page-head"><h2>Where should we start?</h2><p class="sub">' + esc(info.title) + "</p></div>" +
+          '<div class="pt-intro"><p>Twelve questions, before you have studied anything. <b>You are expected to get most of them wrong</b> — that is not a figure of speech, it is how this works: being asked a question you cannot answer, and then being told the answer, teaches you more than being told it cold.</p>' +
+          "<p>Nothing here is graded, nothing is scheduled, and none of it counts towards your level. All it does is find the cards you already know, so this deck can put them later rather than starting you on things you learned years ago.</p>" +
+          '<div class="pt-acts"><button type="button" class="btn" id="ptGo">Start — 12 questions</button>' +
+          '<button type="button" class="btn ghost" id="ptSkip">Skip this</button></div></div>';
+        root.querySelector("#ptGo").addEventListener("click", () => { i = 0; paint(); });
+        root.querySelector("#ptSkip").addEventListener("click", skip);
+        return;
+      }
+      if (i >= ids.length) { finish(); return; }
+      const c = cardLocalized(cardById(ids[i]));
+      root.innerHTML =
+        '<div class="page-head"><h2>Where should we start?</h2><p class="sub">Question ' + (i + 1) + " of " + ids.length + "</p></div>" +
+        '<div class="pt-q"><div class="pt-bar"><i style="width:' + Math.round((i / ids.length) * 100) + '%"></i></div>' +
+          '<div class="question pt-qtext">' + (c.question || "") + "</div>" +
+          '<div class="pt-acts"><button type="button" class="btn" id="ptNext">' + (i === ids.length - 1 ? "See the result" : "Next") + "</button>" +
+          '<button type="button" class="btn ghost" id="ptDunno">I don’t know</button></div>' +
+          '<p class="pt-note">No feedback until the end — otherwise the questions after this one would be testing what you were just told.</p></div>';
+      setupCloze(root.querySelector(".pt-qtext"));
+      const next = (val) => { typed[i] = val; i++; paint(); };
+      root.querySelector("#ptNext").addEventListener("click", () => {
+        const f = root.querySelector(".pt-qtext .blank-input");
+        next(f ? f.value : "");
+      });
+      root.querySelector("#ptDunno").addEventListener("click", () => next(""));
+    }
+    function finish() {
+      const known = [];
+      ids.forEach((id, n) => { if (pretestMatch(typed[n], cardById(id))) known.push(id); });
+      if (!S.pretest) S.pretest = {};
+      S.pretest[entry] = { day: todayStr(), known };
+      save();
+      root.innerHTML =
+        '<div class="page-head"><h2>' + (known.length ? "You already knew " + known.length + " of " + ids.length : "Nothing to move — we’ll start at the beginning") + "</h2>" +
+          '<p class="sub">' + esc(info.title) + "</p></div>" +
+        '<div class="pt-res">' +
+          (known.length
+            ? "<p>Those " + known.length + " will still be taught, but they go later in the queue rather than first — so this deck starts where you actually are.</p>"
+            : "<p>That is the ordinary result on a subject you are new to, and it is worth more than it looks: you have now been asked twelve questions and told twelve answers, which is a better first contact with a deck than reading the same twelve.</p>") +
+          '<div class="pt-list">' + ids.map((id, n) => {
+            const c = cardLocalized(cardById(id));
+            const ok = known.indexOf(id) >= 0;
+            return '<div class="pt-row' + (ok ? " ok" : "") + '"><span class="pt-mark">' + (ok ? "✓" : "·") + "</span>" +
+              '<span class="pt-ans">' + esc(c.answerText || String(c.answer || "").replace(/<[^>]*>/g, "")) + "</span>" +
+              '<span class="pt-you">' + (typed[n] ? esc(typed[n]) : "—") + "</span></div>";
+          }).join("") + "</div>" +
+          '<div class="pt-acts"><button type="button" class="btn" id="ptStudy">Start studying</button></div></div>';
+      root.querySelector("#ptStudy").addEventListener("click", () => route("study", { scope }));
+    }
+    paint();
+  };
+  /* A pretest answer is matched LOOSELY, and deliberately more loosely than the study page's cloze: this
+     is asking "did you know this already", not "can you spell it". Case, accents, articles and any
+     bracketed aside are stripped from both sides, and a single typing slip is forgiven on a word long
+     enough for one to be unambiguous. It errs toward NOT crediting: a false positive here pushes a card
+     the reader does not know to the back of the queue, which is the failure that costs them something. */
+  function pretestMatch(typedVal, card) {
+    const norm = (s) => {
+      let v = String(s || "").replace(/<[^>]*>/g, " ").toLowerCase();
+      try { v = v.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); } catch (e) { /* no NFD here */ }
+      return v.replace(/\([^)]*\)/g, " ").replace(/^(the|a|an)\s+/, "")
+              .replace(/[^a-z0-9\u4e00-\u9fff ]+/g, " ").replace(/\s+/g, " ").trim();
+    };
+    const a = norm(typedVal);
+    if (!a) return false;
+    const b = norm(card && (card.answerText || card.answer || ""));   // norm strips tags, so the HTML answer is a safe fallback
+    if (!b) return false;
+    if (a === b) return true;
+    return b.length >= 6 && nearMiss(a, b);
+  }
+  /* "THE SAME BUT FOR ONE SLIP" — one insertion, deletion or substitution, OR one adjacent transposition.
+     The transposition is not a nicety: swapping two neighbouring letters is the commonest typing error
+     there is, and plain edit distance counts it as two, so without it `Mousterain` for `Mousterian` reads
+     as a different word. Bounded and allocation free, because a full Damerau–Levenshtein matrix is more
+     machinery than a one-slip test needs. */
+  function nearMiss(a, b) {
+    if (a.length === b.length) {
+      let d = -1, n = 0;
+      for (let k = 0; k < a.length; k++) if (a[k] !== b[k]) { if (d < 0) d = k; if (++n > 2) return false; }
+      if (n === 2 && a[d] === b[d + 1] && a[d + 1] === b[d] && a.indexOf(a[d + 1], d + 1) === d + 1) {
+        // the two differing places are adjacent and swapped
+        let m = 0; for (let k = 0; k < a.length; k++) if (a[k] !== b[k]) m = k;
+        if (m === d + 1) return true;
+      }
+    }
+    return editDistanceLE1(a, b);
+  }
+  // one insertion, deletion or substitution and no more
+  function editDistanceLE1(a, b) {
+    if (Math.abs(a.length - b.length) > 1) return false;
+    let i = 0, j = 0, seen = 0;
+    while (i < a.length && j < b.length) {
+      if (a[i] === b[j]) { i++; j++; continue; }
+      if (++seen > 1) return false;
+      if (a.length === b.length) { i++; j++; }
+      else if (a.length > b.length) i++;
+      else j++;
+    }
+    return seen + (a.length - i) + (b.length - j) <= 1;
+  }
+
+  PAGES.order = function (root, params) {
+    const entry = params && params.entry;
+    const scope = params && params.scope;
+    // a reload lands here with no params (the hash carries no entry) — there is nothing to ask about
+    if (!entry || !scope) { route("home"); return; }
+    const info = entryInfo(entry) || { title: "this deck" };
+    const cur = deckOrderMode(entry);
+    const go = (mode) => {
+      setOrderPicked(entry, mode);
+      /* Only the difficulty order can use the pretest, so only it is offered one — see PAGES.pretest.
+         The offer is a page of its own rather than a line on this one, because it is a second question
+         and stacking two decisions on one screen is how a reader ends up answering neither. */
+      if (mode === "difficulty" && pretestOffer(entry)) route("pretest", { entry, scope });
+      else route("study", { scope });
+    };
+    root.innerHTML =
+      '<div class="page-head"><h2>How would you like to study this?</h2>' +
+        '<p class="sub">' + esc(info.title) + " — first session. Pick the order the cards come in; it is the one setting that changes what you get out of a deck rather than how it looks.</p></div>" +
+      '<div class="op-grid">' +
+        DECK_ORDERS.map((m) => {
+          const c = ORDER_PICK_COPY[m];
+          return '<button type="button" class="op-card' + (m === cur ? " op-cur" : "") + '" data-order="' + esc(m) + '">' +
+            '<span class="op-name">' + esc(DECK_ORDER_LABEL[m]) + (m === cur ? '<span class="op-tag">current default</span>' : "") + "</span>" +
+            '<span class="op-lead">' + esc(c.lead) + "</span>" +
+            c.body.map((p) => '<span class="op-p">' + esc(p) + "</span>").join("") +
+            '<span class="op-who">' + esc(c.who) + "</span>" +
+            '<span class="op-go">Study this way</span></button>';
+        }).join("") +
+      "</div>" +
+      '<div class="op-foot"><p>' + ORDER_PICK_HOWTO + "</p>" +
+        '<button type="button" class="btn ghost" id="opSkip">Not now — use the default (' + esc(DECK_ORDER_LABEL[cur]) + ")</button></div>";
+    root.querySelectorAll(".op-card").forEach((b) => b.addEventListener("click", () => go(b.dataset.order)));
+    root.querySelector("#opSkip").addEventListener("click", () => go(""));
+  };
+
   PAGES.study = function (root, params) {
     if (!params.scope) { route("home"); return; }   // #study reached with nothing to study (a pasted address, a lost session)
     const sess = buildSession(params.scope);
@@ -27618,6 +28142,12 @@
         </div>`;
 
       const cardRoot = root.querySelector(".study-card");
+      /* Re-checks whether the reader has attempted the blank, under the "Answer before revealing" policy.
+         It is declared HERE, above the phrasing cycler, and assigned further down where the policy is
+         read: the cycler replaces the question element and with it every `.blank-input`, so a card whose
+         phrasing is stepped needs the state re-derived rather than a listener that no longer has an
+         element under it. `null` while the policy is off, which is most cards. */
+      let syncAttempt = null;
       shownAt = Date.now();   // the question is on screen — the per-review log times from here (see the declaration)
       openLinks(cardRoot);
       setupCloze(cardRoot.querySelector(".question"));
@@ -27638,6 +28168,7 @@
         setupCloze(qEl);
         mountCardMaps(qEl);
         if (revealed) gradeCloze(qEl, c.answer);   // the blank stays filled in — reveal is not undone by this
+        if (syncAttempt) syncAttempt();               // a fresh blank is an unattempted one (see deckAttempt)
         const n = cardRoot.querySelector("#qcN"); if (n) n.textContent = (qIdx + 1) + " / " + pool.length;
         persistStudy();
       }));
@@ -27710,9 +28241,35 @@
         renderCard();
       }
 
+      /* ANSWER BEFORE REVEALING (see deckAttempt). With the policy on, Reveal is held back until the
+         reader has put something in the blank or said they don't know — the point being to stop the
+         ACCIDENTAL reveal, which is a rereading trial, without ever making the deliberate one hard.
+         The field is NOT focused by this: `setupCloze` deliberately leaves a touch reader's keyboard
+         down until they tap the blank, and a policy about effort has no business overriding that. */
+      const attemptOn = deckAttempt(cardEntryId(id)) && !!cardRoot.querySelector(".question .blank-input");
+      let saidDunno = false;
       const actions = root.querySelector("#actions");
-      actions.innerHTML = '<div class="reveal-cta"><button class="btn" id="reveal-btn">Reveal answer</button></div>';
-      root.querySelector("#reveal-btn").addEventListener("click", () => showAnswer(true));
+      actions.innerHTML = '<div class="reveal-cta">' +
+        '<button class="btn" id="reveal-btn"' + (attemptOn ? " disabled" : "") + ">Reveal answer</button>" +
+        (attemptOn ? '<button class="btn ghost" id="dunno-btn" type="button">I don’t know</button>' +
+                     '<span class="reveal-hint" id="revealHint">Type your answer, or say you don’t know</span>' : "") +
+        "</div>";
+      const revealBtn = root.querySelector("#reveal-btn");
+      revealBtn.addEventListener("click", () => showAnswer(true));
+      if (attemptOn) {
+        const hint = root.querySelector("#revealHint");
+        // any typed character is enough: this asks for an ATTEMPT, not for the right answer
+        const sync = () => {
+          const any = [...cardRoot.querySelectorAll(".question .blank-input")].some((f) => f.value.trim());
+          revealBtn.disabled = !any;
+          if (hint) hint.hidden = any;
+        };
+        syncAttempt = sync;
+        // DELEGATED, so a blank replaced by the phrasing cycler is still watched — `input` bubbles, and a
+        // per-field listener would be lost the moment `setupCloze` ran again on a new element
+        cardRoot.addEventListener("input", sync);
+        root.querySelector("#dunno-btn").addEventListener("click", () => { saidDunno = true; showAnswer(true); });
+      }
 
       /* `fromReader` is true only when a person asked for the answer — the button, Enter, Space. It is what
          the automatic read-aloud below keys on, because showAnswer also runs from the restore line at the
@@ -27720,6 +28277,16 @@
          undo. A card that spoke again on every repaint would be a card nobody could leave open. */
       function showAnswer(fromReader) {
         if (revealed) return;
+        /* THE ONE GUARD, and it is here rather than on the button because Space and Enter reveal too and
+           three copies of a rule is two too many. `fromReader` is exactly the right test: the restore
+           line at the foot of `renderCard` re-opens an already-revealed card after a reload, a language
+           switch or an undo, and that call must never be refused. */
+        if (attemptOn && fromReader && !saidDunno &&
+            ![...cardRoot.querySelectorAll(".question .blank-input")].some((f) => f.value.trim())) {
+          const f = cardRoot.querySelector(".question .blank-input");
+          if (f) { try { f.focus({ preventScroll: true }); } catch (e2) { f.focus(); } }
+          return;
+        }
         revealed = true;
         studyRevealId = id;   // so a language switch re-render re-opens this card rather than resetting it
         persistStudy();       // …and so does a reload
@@ -27784,6 +28351,13 @@
           </div>`,
           (g) => doGrade(g)
         );
+        /* …and a reader who SAID they didn't know is shown which button that is. It is a suggestion and
+           not a submission: they may well recognise the answer the moment they see it, and grading for
+           them would be answering a question they were about to answer themselves. */
+        if (saidDunno) {
+          const ag = document.querySelector("#gradebar .grade.again");
+          if (ag) ag.classList.add("grade-suggest");
+        }
         const susBtn = document.getElementById("suspendBtn");
         if (susBtn) susBtn.addEventListener("click", suspendCurrent);
         const undoBarBtn = document.getElementById("undoGradeBar");
@@ -30286,7 +30860,11 @@
     // a custom type owns the whole of the back — but keeps the site's own source apparatus below it, since
     // a community card can carry citations and the fold is not the template's to reinvent
     const typed = cardTypeSideHTML(c, "back");
-    if (typed != null) return typed + sourcesHTML(cardSources(c));
+    /* …and the site's own successive-relearning row goes in beside the fold, for the same reason: a
+       language deck is the most-studied kind of deck on the site, and the criterion is a fact about the
+       READER'S history with the card rather than about the card, so a custom template owning the back is
+       not a reason to withhold it. */
+    if (typed != null) return typed + critPipsHTML(c.id) + sourcesHTML(cardSources(c));
     let html = "";
     if (c.answer) {
       html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true) + "</span>";
@@ -30296,7 +30874,10 @@
       html += '<div class="answer-av">' +
         (flagHTML ? '<div class="av-term"><span class="val">' + c.answer + "</span>" + flagHTML + "</div>"
                   : '<span class="val">' + c.answer + "</span>");
-      html += '<div class="av-row">' + (c.answerDate || "") + "</div></div></div>";
+      html += '<div class="av-row">' + (c.answerDate || "") + "</div></div>";
+      // how many separate days this card has been recalled on — see CRIT_DAYS. Inside `.answer-main`, under
+      // the term and its dates, because it is a fact about this term rather than one of the card's figures.
+      html += critPipsHTML(c.id) + "</div>";
       // the Chinese name, between the term and the figures — see answerNameHTML
       html += answerNameHTML(c);
       /* The figures sit BESIDE the answer, not under it (Aug 2026, on request) — a sibling of .answer-main
@@ -36449,12 +37030,15 @@
   function deckStats(prog, ids) {
     const cards = prog.cards || {}, susp = prog.suspended || {};
     const t = Date.now();
-    const s = { total: ids.length, studied: 0, mature: 0, young: 0, learning: 0, unseen: 0, suspended: 0, due: 0, lapses: 0, ivSum: 0, ivN: 0, last: 0 };
+    const s = { total: ids.length, studied: 0, learned: 0, mature: 0, young: 0, learning: 0, unseen: 0, suspended: 0, due: 0, lapses: 0, ivSum: 0, ivN: 0, last: 0 };
     ids.forEach((id) => {
       const c = cards[id];
       if (susp[id]) s.suspended++;
       if (!c) { s.unseen++; return; }
       s.studied++;
+      // …and how many are at the relearning criterion: recalled on CRIT_DAYS separate days. It is read off
+      // the record passed in rather than through `atCriterion`, since this panel is also drawn for a friend.
+      if ((Array.isArray(c.crit) ? c.crit.length : 0) >= CRIT_DAYS) s.learned++;
       s.lapses += c.lapses || 0;
       if (c.last && c.last > s.last) s.last = c.last;
       if (c.status === "review") {
@@ -36513,6 +37097,12 @@
         tile(s.lapses, "Lapses", "Times a card in this deck was forgotten after graduating") +
         tile(fmtIntervalDays(s.avgInterval), "Avg. gap", "The average interval its review cards now wait between showings") +
         tile(s.suspended, "Set aside", "Cards from this deck you have suspended") +
+        /* THE ONE FIGURE HERE THAT IS NOT ANKI'S. "Studied" counts a card met once; this counts a card
+           RECALLED on CRIT_DAYS separate days, which is what the successive-relearning evidence says
+           makes it stick. It is a SECOND figure beside the bar rather than a replacement for it,
+           deliberately: swapping the bar would make every existing reader's progress appear to fall
+           overnight, which is a true statement told in the most alarming possible way. */
+        tile(s.learned, "Learned", "Recalled on " + CRIT_DAYS + " separate days — not just met " + CRIT_DAYS + " times. The gains come from the separation, and flatten after about " + CRIT_DAYS + " days.") +
       "</div>" +
       '<div class="ds-foot">Last studied: <b>' + esc(fmtDaysAgo(s.last)) + "</b>" + (s.studied ? "" : " — nothing from this deck has been reviewed yet") + "</div>";
   }
@@ -38351,6 +38941,17 @@
             }</div></div>
           </div>
           <div class="set-row">
+            ${/* ANSWER BEFORE REVEALING (Sep 2026) — the GLOBAL DEFAULT behind the per-deck policy, in the
+                  same relationship as the daily new-card allowance and its per-deck figure: any deck that
+                  has been given an answer of its own keeps it, and this decides every deck that has not.
+                  It is off by default because it makes studying harder on purpose, which is a thing to be
+                  opted into rather than done to somebody — the same line the site-wide read-aloud switch
+                  draws. The copy states the finding rather than the mechanism, since the mechanism ("the
+                  Reveal button is disabled") is visible on the card and the reason is not. */""}
+            <div class="info"><h3>Answer before revealing</h3><p>Hold back the Reveal button until you have typed something into the blank, or pressed “I don’t know”. Trying to remember and failing teaches you more than reading the answer does — reading it feels like studying and is closer to rereading. Any deck you have set this on individually keeps its own answer.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.attemptFirst ? "on" : ""}" id="sw-attempt" role="switch" aria-label="Answer before revealing" tabindex="0" aria-checked="${!!S.settings.attemptFirst}"></div></div>
+          </div>
+          <div class="set-row">
             ${/* THE WHITEBOARD MARKER (Aug 2026, on request). It floats over every study card, every page of
                   a book and the Atlas globe, and a reader who never draws has been carrying it round the
                   corner of the screen on all three. OFF removes the panel and the ink canvas with it — see
@@ -38494,6 +39095,7 @@
     /* The marker. Turning it OFF while the panel is on screen has to take it away there and then — the
        Settings page is not one of the three that mount it, so nothing would repaint it away by itself, and a
        panel still floating over the page a switch has just disabled reads as a switch that did nothing. */
+    wireSwitch("#sw-attempt", () => !!S.settings.attemptFirst, (v) => { S.settings.attemptFirst = v; });
     wireSwitch("#sw-marker", () => S.settings.marker !== false, (v) => {
       S.settings.marker = v;
       if (!v) hideWBTools();
@@ -42024,7 +42626,7 @@
   /* `community` is deliberately NOT here any more (Aug 2026): the shared-deck list is a section of the
      Collections page, so that address is retired — and a retired address is REDIRECTED rather than dropped,
      since links to it have been shared. Both readers of the hash map it to `decks` below. */
-  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary"];
+  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = hParts[0] === "community" ? "decks" : valid.includes(hParts[0]) ? hParts[0] : "home";

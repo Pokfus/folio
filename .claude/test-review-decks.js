@@ -217,7 +217,7 @@ const SETTINGS = {
        their own on a collection, and it is stored beside the colour in the same S.deckGroups record — so
        it sits directly after it, and before Remove, which stays last. */
     check("holding the banner offers the deck sheet's options, minus Remove",
-      rm && rm.items.join(",") === "Review order,Question variety,Browse your cards,Custom study,Daily limits,Skip today,Colour,Icon", JSON.stringify(rm));
+      rm && rm.items.join(",") === "Review order,Question variety,Answer before revealing,Browse your cards,Custom study,Daily limits,Skip today,Colour,Icon", JSON.stringify(rm));
     check("...the order is a CYCLER and the phrasing pool a switch, with no pair of rows for either",
       rm && rm.cycles.join(",") === "Review order" && rm.switches.join(",") === "Question variety" && rm.choices === 0,
       JSON.stringify(rm));
@@ -496,7 +496,7 @@ const SETTINGS = {
        their own on a collection, and it is stored beside the colour in the same S.deckGroups record — so
        it sits directly after it, and before Remove, which stays last. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Icon", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Answer before revealing", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Icon", "Remove"]),
       JSON.stringify(menu.items));
 
     /* THE ORDER IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they are
