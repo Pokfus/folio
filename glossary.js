@@ -2026,7 +2026,8 @@ window.GLOSSARY = {
 "Via_Aemilia": "The Via Aemilia was the Roman road across the plain of Cisalpine Gaul from Ariminum on the Adriatic to Placentia on the Po, the first great highway the Romans built in northern Italy.<sup class=\"fn\" data-fn=\"1\"></sup> Livy records that the consul Marcus Aemilius Lepidus made it in 187 BCE, after subduing the Ligurians, to join the Via Flaminia at Ariminum; it runs almost straight for about 290 km (180 Roman miles) through level country.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Nearly every town of the district stood on it, and the country between the Apennines and the Po came to be called Aemilia after the road, a name it still carries.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Roman_roads": "Roman roads were the paved public highways of the Roman state, begun in Italy during the Samnite wars, when a quick and safe link between the city and its armies was first wanted.<sup class=\"fn\" data-fn=\"1\"></sup> Roman law divided them into viae publicae, whose soil and upkeep belonged to the state, viae privatae over private ground, and the country cross-roads called vicinales; a great line ran about 4 to 4.6 m (13 to 15 feet) wide and was built up in four courses over a firm footing, ending in polygonal blocks of hard stone.<sup class=\"fn\" data-fn=\"1\"></sup> They were measured by miles and marked with stone pillars, and cut through hills and banked across valleys to keep their line.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Roman_triumph": "A Roman triumph was the procession granted to a victorious general, who rode through the city in a four-horse chariot behind his captives and the spoils and ahead of his army, and sacrificed to Jupiter on the Capitol.<sup class=\"fn\" data-fn=\"1\"></sup> The senate decided who received one, requiring that the claimant had held high office, fought under his own auspices with his own troops, killed at least 5,000 of the enemy in a lawful foreign war, and left the province at peace.<sup class=\"fn\" data-fn=\"1\"></sup> A lesser honour, the ovation, was made on foot in a magistrate’s toga under a myrtle wreath and ended with the sacrifice of a sheep rather than a bull.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Evocatio": "Evocatio was the Roman ritual of summoning a besieged city’s tutelary god out of it, promising the same worship or better at Rome; Pliny cites Verrius Flaccus that priests did this first of all at a siege, and that Rome hid the name of its own guardian deity lest the same be done to it.<sup class=\"fn\" data-fn=\"2\"></sup> The best-known instance is Livy’s account of Veii, where Camillus asked Queen Juno to leave the city and follow the victors to a temple worthy of her.<sup class=\"fn\" data-fn=\"1\"></sup> After the city fell, picked men washed and robed in white carried her image away, and it was set up on the Aventine hill at Rome.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Evocatio": "Evocatio was the Roman ritual of summoning a besieged city’s tutelary god out of it, promising the same worship or better at Rome; Pliny cites Verrius Flaccus that priests did this first of all at a siege, and that Rome hid the name of its own guardian deity lest the same be done to it.<sup class=\"fn\" data-fn=\"2\"></sup> The best-known instance is Livy’s account of Veii, where Camillus asked Queen Juno to leave the city and follow the victors to a temple worthy of her.<sup class=\"fn\" data-fn=\"1\"></sup> After the city fell, picked men washed and robed in white carried her image away, and it was set up on the Aventine hill at Rome.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Romanisation": "Romanisation is the name given to the process by which the peoples of Italy, and later of the provinces, took on Roman citizenship, institutions and habits after conquest.<sup class=\"fn\" data-fn=\"1\"></sup> In Italy it worked through colonies planted on conquered land, which Velleius catalogued with the grants of citizenship beside them as the growth of the Roman name, and through the terms given to defeated towns, some of which kept their own communities while joining the Roman one.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Strabo describes the result in northern Italy under Augustus, where the inhabitants were by then all Romans and were still called Umbrians, Etruscans, Ligurians and Insubrians.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4077,7 +4078,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_Asculum": ["Asculum"],
 "Battle_of_Beneventum_(275_BC)": ["Battle of Beneventum"],
 "Siege_of_Tarentum_(272_BC)": ["Siege of Tarentum"],
-"Socii": ["socius"]
+"Socii": ["socius"],
+"Romanisation": ["Romanization"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6136,7 +6138,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Via_Aemilia": ["building","technology","history","geography","italy"],
 "Roman_roads": ["building","technology","history","geography","italy"],
 "Roman_triumph": ["practice","history","politics","warfare","italy"],
-"Evocatio": ["practice","religion","history","warfare","italy"]
+"Evocatio": ["practice","religion","history","warfare","italy"],
+"Romanisation": ["concept","history","politics","culture","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
