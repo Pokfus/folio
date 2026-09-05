@@ -195,6 +195,11 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Persee deposited the PUBLISHER in the author field for this CRAI communication:
+  // "E. J Brill" appears in its bibliography, and the article's own first page reads
+  // "par m. claude rilly". Crossref relays the deposit, so the record is wrong and the
+  // citation is right.
+  ["10.3406/crai.2019.96830", "Claude Rilly", "E. J Brill"],
   // Crossref has parsed three Chinese bylines given surname-first, so the family
   // names land in the given-name field: the article's own byline is Yuxin Feng,
   // Yunxia Tian and Xiaoyu Lv.
