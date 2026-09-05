@@ -2108,7 +2108,8 @@ window.GLOSSARY = {
 "Province_of_Asia": "Province of Asia was the Roman province formed from the Attalid kingdom of Pergamum in western Anatolia, whose last king left the Roman people his heirs.<sup class=\"fn\" data-fn=\"1\"></sup> Strabo says the Romans proclaimed the country a province and named it Asia after the continent,<sup class=\"fn\" data-fn=\"1\"></sup> and later lists it as one of only two consular provinces held by the senate.<sup class=\"fn\" data-fn=\"2\"></sup> It was the wealthiest of Rome's provinces and its taxes were farmed by contractors: Cicero told an assembly that Asia surpassed every other country in soil, produce, pasture and exports,<sup class=\"fn\" data-fn=\"3\"></sup> and that fortunes lost there could break credit at Rome itself.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Bequest_of_Attalus_III": "Bequest of Attalus III is the will by which the last Attalid king of Pergamum, who died in 133 BCE,<sup class=\"fn\" data-fn=\"1\"></sup> left his kingdom to the Roman people.<sup class=\"fn\" data-fn=\"2\"></sup> Justin describes a king who had withdrawn from government to his garden and his bronze-casting after killing friends and relatives, and who died of a fever caught while building a monument to his mother.<sup class=\"fn\" data-fn=\"3\"></sup> At Rome the inheritance became a political question at once: Tiberius Gracchus proposed spending the money on equipment for the settlers of his land law, and claimed that the kingdom's cities were for the people rather than the senate to dispose of.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Revolt_of_Aristonicus": "Revolt of Aristonicus was the rising in western Anatolia against Rome's inheritance of the Attalid kingdom of Pergamum, led by a man said to belong to the royal house.<sup class=\"fn\" data-fn=\"1\"></sup> Driven inland after a naval defeat, he raised an army of the destitute and of slaves promised their freedom, whom Strabo says he called Heliopolitae, and took several inland towns before the Greek cities and neighbouring kings turned on him.<sup class=\"fn\" data-fn=\"1\"></sup> A Roman consul, Publius Licinius Crassus, was defeated and killed<sup class=\"fn\" data-fn=\"2\"></sup> before Marcus Perperna ended the war and sent Aristonicus to Rome, where he died in prison.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Roman_conquest_of_Spain": "Roman conquest of Spain refers to the long series of campaigns by which Rome took the Iberian peninsula, beginning in the war against Hannibal and ending under Augustus.<sup class=\"fn\" data-fn=\"1\"></sup> Livy calls it the first province on the continent the Romans entered and the last to be reduced,<sup class=\"fn\" data-fn=\"1\"></sup> and Strabo says they took about two hundred years or more because they fought piecemeal, subduing one territory at a time.<sup class=\"fn\" data-fn=\"2\"></sup> Two provinces, the Hither and the Farther, were being allotted to praetors within a few years of Hannibal's defeat,<sup class=\"fn\" data-fn=\"3\"></sup> but much of the interior was still being fought over generations later.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Roman_conquest_of_Spain": "Roman conquest of Spain refers to the long series of campaigns by which Rome took the Iberian peninsula, beginning in the war against Hannibal and ending under Augustus.<sup class=\"fn\" data-fn=\"1\"></sup> Livy calls it the first province on the continent the Romans entered and the last to be reduced,<sup class=\"fn\" data-fn=\"1\"></sup> and Strabo says they took about two hundred years or more because they fought piecemeal, subduing one territory at a time.<sup class=\"fn\" data-fn=\"2\"></sup> Two provinces, the Hither and the Farther, were being allotted to praetors within a few years of Hannibal's defeat,<sup class=\"fn\" data-fn=\"3\"></sup> but much of the interior was still being fought over generations later.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Celtiberian_Wars": "Celtiberian Wars were the campaigns fought between Rome and the Celtiberian peoples of central Spain in the 2nd century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> An early phase closed with treaties made by Tiberius Sempronius Gracchus, who settled landless men on divided land and bound the tribes to Rome by oath; Appian says those terms were often longed for in the later fighting.<sup class=\"fn\" data-fn=\"1\"></sup> War resumed when the senate forbade the town of Segeda to complete a new wall and demanded tribute and troops,<sup class=\"fn\" data-fn=\"2\"></sup> and Polybius records that the Romans called the fighting that followed the fiery war, since its engagements broke off only at nightfall.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2983,7 +2984,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Achaean_War": "146 BCE",
 "Sack_of_Corinth": "146 BCE",
 "Bequest_of_Attalus_III": "133 BCE",
-"Revolt_of_Aristonicus": "133–130 BCE"
+"Revolt_of_Aristonicus": "133–130 BCE",
+"Celtiberian_Wars": "181–133 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6413,7 +6415,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Province_of_Asia": ["place","history","politics","rome","anatolia"],
 "Bequest_of_Attalus_III": ["event","history","politics","rome","anatolia"],
 "Revolt_of_Aristonicus": ["event","warfare","history","rome","anatolia"],
-"Roman_conquest_of_Spain": ["event","warfare","history","rome","spain"]
+"Roman_conquest_of_Spain": ["event","warfare","history","rome","spain"],
+"Celtiberian_Wars": ["event","warfare","history","rome","spain"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
