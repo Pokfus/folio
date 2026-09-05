@@ -27909,11 +27909,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      been working through for months.
 
      THE DEFAULT IS RECOMMENDED IN WORDS RATHER THAN PRESELECTED. Every option is a real answer and the
-     page says which suits whom; what it does not do is put a tick in a box and make the other three look
+     page says which suits whom; what it does not do is put a tick in a box and make the others look
      like deviations.
 
      AND IT IS SKIPPABLE IN ONE PRESS. A wall between a reader and their first session is a good way to
-     lose the reader — "Not now" is as prominent as the four cards and does exactly what it says. */
+     lose the reader — "Not now" is as prominent as the cards and does exactly what it says. */
   const ORDER_PICK_COPY = {
     ordered: {
       lead: "Cards come in the order the deck was written — for a history collection, that is broadly oldest first.",
@@ -27947,9 +27947,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ],
       who: "Best for a large collection you intend to work all the way through.",
     },
+    /* A LANGUAGE DECK'S ORDER, AND SO ONE THIS PAGE CANNOT CURRENTLY REACH — `orderAskEntry` excludes
+       community and language decks, which is its own stated gap. The copy is written all the same,
+       because the alternative is a page that throws the day that gap closes: it maps over the orders the
+       entry can take and reads each one's copy without checking, so an order in the list and not in this
+       table is a blank screen rather than a missing card. */
+    frequency: {
+      lead: "The words this deck uses most in its own example sentences, first.",
+      body: [
+        "A vocabulary deck built from an exam list is in the order of that list, which is alphabetical by reading and has no teaching in it at all — you meet a word you will use every day and a word you may never see again on the same morning, in whatever order their spellings happen to fall.",
+        "This counts how often each of the deck's own headwords turns up in its example sentences and deals the commonest first. It says less the further up the levels you go, where most words appear once and only in their own sentence; there the deck's own order is kept.",
+      ],
+      who: "Best for a language deck you are starting, when you want the useful words first.",
+    },
   };
   const ORDER_PICK_HOWTO =
-    "You can change this whenever you like, and nothing you have studied is affected: <b>press and hold the deck's row</b> in Daily study on the home page — or the Daily study banner itself, for your pooled review — and the sheet that opens has a <b>Review order</b> row that steps through these four.";
+    "You can change this whenever you like, and nothing you have studied is affected: <b>press and hold the deck's row</b> in Daily study on the home page — or the Daily study banner itself, for your pooled review — and the sheet that opens has a <b>Review order</b> row that steps through these.";
   /* Which entry, if any, this session should be asked about — null for "don't ask". A one-card session
      and the Card-of-the-day list are deliberately never asked: they are not decks, and neither has a
      deck's order to set. */
@@ -27975,6 +27988,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        contained change and it wants its own pass with those suites green, not a ride on this one. */
     const id = (scope.type === "deck" || scope.type === "group") ? scope.id : null;
     if (!id) return null;
+    /* …AND A LANGUAGE HEADER IS A LANGUAGE DECK, WHATEVER ITS SCOPE SAYS. The exclusion above is written
+       against `scope.type === "udeck"`, and a language container studies as a GROUP (see `entryScope`) —
+       so a reader tapping the Spanish header met the picker the exclusion says they should not, and the
+       page it offers is about a history collection's chronology. Excluded by ID rather than by scope,
+       which is the only thing that tells the two kinds of container apart. */
+    if (isLangCtxId(id)) return null;
     if (Object.prototype.hasOwnProperty.call(S.orderPicked, id)) return null;
     const ids = entryCardIds(id);
     if (!ids.length) return null;                       // an empty deck has no order worth asking about
@@ -28191,7 +28210,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="page-head"><h2>How would you like to study this?</h2>' +
         '<p class="sub">' + esc(info.title) + " — first session. Pick the order the cards come in; it is the one setting that changes what you get out of a deck rather than how it looks.</p></div>" +
       '<div class="op-grid">' +
-        DECK_ORDERS.map((m) => {
+        /* `deckOrdersFor` and not `DECK_ORDERS`: an order this entry cannot act on must not be offered
+           here any more than on the sheet's cycler — a reader who picks one and sees nothing change
+           concludes the ordering is broken. */
+        deckOrdersFor(entry).map((m) => {
           const c = ORDER_PICK_COPY[m];
           return '<button type="button" class="op-card' + (m === cur ? " op-cur" : "") + '" data-order="' + esc(m) + '">' +
             '<span class="op-name">' + esc(DECK_ORDER_LABEL[m]) + (m === cur ? '<span class="op-tag">current default</span>' : "") + "</span>" +

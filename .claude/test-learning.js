@@ -136,7 +136,13 @@ head("4) the defining sentence, lifted safely");
 
 head("5) the wiring that cannot be seen from the page");
 {
-  check("the four deck orders include the hybrid", /DECK_ORDERS = \["ordered", "random", "difficulty", "hybrid"\]/.test(src));
+  /* The list is asserted by MEMBERSHIP and by the hybrid's PLACE in it, not as a literal: this branch's
+     merge added a fifth order ("frequency", a language deck's), and a check pinned to the whole array
+     fails on any addition — which is a test reporting that the list changed rather than that the hybrid
+     went missing. What matters here is that the hybrid is there and that it still follows the other
+     three, since the cycler's own suite counts presses to reach it. */
+  check("the deck orders include the hybrid, after the original three",
+    /DECK_ORDERS = \["ordered", "random", "difficulty", "hybrid"[,\]]/.test(src));
   check("every order has a label", ["ordered", "random", "difficulty", "hybrid"].every((k) => new RegExp(k + ':\\s*"').test(src.slice(src.indexOf("DECK_ORDER_LABEL"), src.indexOf("DECK_ORDER_LABEL") + 300))));
   check("every order has a note", ["ordered", "random", "difficulty", "hybrid"].every((k) => new RegExp("^\\s+" + k + ":", "m").test(src.slice(src.indexOf("const DECK_ORDER_NOTE"), src.indexOf("const HYBRID_N")))));
   check("`attempt` is a POLICY, so it cascades", /DECK_OPT_INHERIT = \[[^\]]*"attempt"/.test(src));
