@@ -181,6 +181,69 @@ function load(rel) {
   }
 }
 
+/* ---------- the names CLAUDE.md tells you to grep for ----------
+   Every suite bullet ends "**Re-run after touching `a` / `b` / `c` …**", and those lists are how a
+   session decides which suite a change belongs to. A name in one that no longer exists in the code is
+   a dead pointer: the session greps, finds nothing, and either concludes the suite is stale or goes
+   looking for something that was renamed years ago. There are 379 of them across 31 lists.
+
+   THE CODE IS THE HAYSTACK, AND CLAUDE.md AND docs/ ARE NOT IN IT. A name that survives only in this
+   file's own prose is exactly the case being looked for, so including the prose would make the check
+   answer its own question. */
+{
+  const dirs = [".git", "node_modules", "books", "decks", "book-cache", "docs"];
+  const files = [];
+  (function walk(d) {
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      if (e.isDirectory()) { if (!dirs.includes(e.name)) walk(path.join(d, e.name)); }
+      else if (/\.(js|css|html|json|sql)$/.test(e.name)) files.push(path.join(d, e.name));
+    }
+  })(ROOT);
+  const seen = new Set();
+  const tok = /[A-Za-z_$][A-Za-z0-9_$-]{2,}/g;
+  for (const f of files) {
+    let src = "";
+    try { src = fs.readFileSync(f, "utf8"); } catch (e) { continue; }
+    let m; tok.lastIndex = 0;
+    while ((m = tok.exec(src))) seen.add(m[0]);
+  }
+  const named = new Set();
+  const blocks = MD.match(/\*\*Re-run after (?:touching|any)[\s\S]{20,3000}?\*\*/g) || [];
+  for (const b of blocks) for (const m of b.matchAll(/`([A-Za-z_$][A-Za-z0-9_$]{2,})`/g)) named.add(m[1]);
+  const dead = [...named].filter((n) => !seen.has(n)).sort();
+  claim("names in a Re-run list that exist", 0, dead.length,
+    dead.length ? dead.join(", ") : named.size + " checked across " + blocks.length + " lists");
+}
+
+/* ---------- and the names it says are GONE ----------
+   The mirror, and it is a DECLARED list rather than a sweep. A free-text sweep for "`x` is deleted"
+   was tried and is not usable: the claims are written in a dozen prose shapes, and the identifiers
+   caught are as often `cards`, `glossary` and `find` — ordinary words in backticks — as they are real
+   symbols. Nine of eleven hits were noise. So the symbols are named here, each verified once against
+   comment-stripped source, and the check is that they have not come BACK.
+
+   COMMENTS ARE STRIPPED FIRST, for the reason adBaitCheck strips them: app.js records most of these
+   removals in a comment that names the thing removed, and a check that could not tell a gravestone
+   from a body would fail on every one. */
+{
+  const GONE = ["cardWithQuestion", "COLLECTION_NUMERALS", "numeralIn", "cnNumeral", "romanNumeral",
+    "greekNumeral", "devanagariNumeral", "cyrillicNumeral", "levelBadgeMarkup", "fromHome", "GB_SLOP",
+    "dailyPick", "startMiniGlobe", "langDeckMB", "setMode"];
+  /* …and the one the file says SURVIVES, unused. Checking that direction too is what stops the list
+     above from being a list of names that were never there. */
+  const KEPT = ["traceMapToGeo"];
+  let code = "";
+  for (const f of ["app.js", "styles.css", "index.html", "sw.js"]) {
+    let src = "";
+    try { src = fs.readFileSync(path.join(ROOT, f), "utf8"); } catch (e) { continue; }
+    code += src.replace(/\/\*[\s\S]*?\*\//g, " ").replace(/\/\/.*$/gm, " ");
+  }
+  const here = (n) => new RegExp("(?<![\\w$])" + n + "(?![\\w$])").test(code);
+  const back = GONE.filter(here), lost = KEPT.filter((n) => !here(n));
+  claim("symbols CLAUDE.md says are gone", 0, back.length, back.length ? back.join(", ") : GONE.length + " checked");
+  claim("symbols it says survive unused", 0, lost.length, lost.length ? lost.join(", ") : KEPT.join(", "));
+}
+
 /* ---------- report ---------- */
 let bad = 0, ok = 0, skipped = 0;
 const out = [];

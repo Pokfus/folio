@@ -1159,8 +1159,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and its own header states the three things it does not ask: a BROWSER suite's assertion count (too
   slow for a pre-commit check; re-pin one from the run you did when you changed it), a figure that is a
   judgement rather than a count, and anything in `docs/`, whose numbers are a record of what a batch
-  measured ON THE DAY and are right about that day. Report-only, exits 0. **Run it after any batch that
-  changes a count this file states.** Not part of the site.
+  measured ON THE DAY and are right about that day.
+  **IT ALSO CHECKS THE NAMES, NOT ONLY THE NUMBERS** (Sep 2026, batch E52): every identifier named in a
+  **"Re-run after touching …"** list exists in the code — 379 of them across 31 lists, and two were dead
+  pointers (`cpWireResize` for `cpResize`, `nodeSpanHTML` for `nodeSpanText`) — and a DECLARED list of
+  fifteen symbols this file says are GONE has not come back, with `traceMapToGeo`, the one it says
+  survives unused, checked in the other direction. **The haystack excludes CLAUDE.md and `docs/`**, or a
+  name surviving only in this file's own prose would answer its own question; **comments are stripped
+  first**, for the reason `adBaitCheck` strips them — app.js records most removals in a comment naming
+  the thing removed. A free-text sweep for deletion claims was tried and abandoned: nine of eleven hits
+  were ordinary words in backticks, so the list is declared. Report-only, exits 0. **Run it after any
+  batch that changes a count, or renames anything this file names.** Not part of the site.
 - `.claude/check-sizes.js` — what Folio actually weighs: `node .claude/check-sizes.js [--json]`. It
   reads the eager path **out of `index.html`** rather than from a list, prints each file's raw and
   gzipped size with the totals, lists the biggest files off that path, and breaks `glossary.js` and
@@ -1709,8 +1718,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`PAGES.map`** holds a `.data-loading` placard until `world` + `atlas` land, then re-renders (`render()`
     re-invokes the *current* page, so this covers `PAGES.findit` too). **It is the one placard with a
     PROGRESS BAR** — see the next paragraph.
-  · **`startMiniGlobe`** (home) fetches `world` at **idle** so a 170px ornament never delays first paint,
-    and skips entirely under `navigator.connection.saveData`.
+  · ~~**`startMiniGlobe`** (home)~~ — **deleted with the home page's discovery row** (see `PAGES.home`),
+    so nothing on the home page fetches `world` any more. Its shape is still the one to copy for an
+    ornament that must not delay first paint: fetch at IDLE, skip entirely under
+    `navigator.connection.saveData`, and stop on `root.isConnected`.
   · **Settings' home-location picker** holds just the current home until `world` arrives, then fills.
   · **`loadLangData`** pulls `uiI18n` + `glossI18n` whenever the language isn't English.
   **THE LOAD BAR COUNTS FILES, NOT BYTES** (`dlBarHTML(names)` / `wireDlBar(host, names)` / `_bundleWatch`
@@ -5489,7 +5500,7 @@ dead code (never rendered).
     `#fsRange` / `MULTILANG` / `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
     `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` / the ink layer's
     pass-through / `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on
-    `.admin-list-items` / `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an
+    `.admin-list-items` / `cpResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an
     overlay to `document.body`.**
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js` —
@@ -5659,7 +5670,7 @@ dead code (never rendered).
     `langCollectionHTML` / `langRowHTML` / `langRowSpecs` / `langNodeSpecs` / `langCollId` /
     `wireLangDecks` / `entryPending` / `langDeckDownload` / `langCatalogById` / `langCatalogNode` / the
     `.dk-pending` row in `PAGES.home` / `cardBytes` / `nodeBytes` / `fmtDeckSize` / `.node-size` /
-    `buildNode`'s `nodeSpanHTML` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`, and
+    `buildNode`'s `nodeSpanText` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`, and
     after adding, rebuilding or removing a deck in `decks/`. Section 4 covers the LANGUAGE HEADER's own
     options sheet, so re-run it after touching `langCtxId` / `langCtxName` / `langCtxEntries` / the
     `.dk-langhead` row and its `data-langhead` wiring / `entryExists` / `entryInfo` / `entryChain` /

@@ -4138,3 +4138,75 @@ run you did when you changed it); any figure that is a judgement rather than a c
 doing honest work; and **the figures in `docs/`**, because those are a record of what a batch measured
 ON THE DAY and are right about that day. `CLAUDE.md` is different: it is written in the present tense,
 as the state of the repository.
+
+---
+
+## E52 — the claims CLAUDE.md makes about the code, checked
+
+**E51 measured the file's FIGURES. It makes another kind of falsifiable claim about the same
+repository** — *this symbol is deleted*, *that file is never loaded*, *re-run this suite after touching
+these thirty functions* — and none of them had ever been checked either. They rot the same way, and one
+of them rots worse: a figure that is wrong misleads, where a dead identifier sends a session grepping
+for something that is not there.
+
+### The Re-run lists: 379 names, two of them dead
+
+Every suite bullet ends **"Re-run after touching `a` / `b` / `c` …"**, and those lists are how a session
+decides which suite a change belongs to. There are **379 distinct identifiers across 31 lists**, and
+**377 exist**. The two that do not:
+
+| named in CLAUDE.md | what the code calls it |
+|---|---|
+| `cpWireResize` — in `test-layout`'s list | **`cpResize`** (`app.js:33143`, wired at 35476, unwired in `cleanupGlobe`) |
+| `nodeSpanHTML` — in `test-lang-decks`'s list | **`nodeSpanText`**, which is the name CLAUDE.md itself uses two thousand lines earlier |
+
+Neither is a code fault; both are dead pointers in the index a session navigates by, and the second is
+the file disagreeing with itself about a name it gets right elsewhere.
+
+**THE HAYSTACK EXCLUDES CLAUDE.md AND `docs/`**, which is the whole of what makes the check work: a name
+that survives only in this file's own prose is exactly the case being looked for, so including the prose
+would let the question answer itself. The first cut did include `.md` files and reported **0 of 379**.
+
+### And the file contradicting itself about a deleted function
+
+**`startMiniGlobe` was named in two places and the two disagreed.** The home-page bullet says it and
+`dailyPick` were *"deleted, not left lying about, which is also why the home page no longer fetches the
+~1.6 MB `world` bundle at idle"* — true; all four remaining mentions in `app.js` are comments citing it
+as a past pattern. But the **lazy-bundle consumer list** still carried it as a live consumer:
+
+> · **`startMiniGlobe`** (home) fetches `world` at **idle** so a 170px ornament never delays first
+> paint, and skips entirely under `navigator.connection.saveData`.
+
+That list is what a session reads to know who pulls the biggest lazy bundle on the site, and it named a
+function that does not exist. The row is struck through now, says what happened, and keeps the *shape* —
+fetch at idle, skip under `saveData`, stop on `root.isConnected` — because that is what the entry was
+worth and it is still the pattern to copy.
+
+### The check, and the sweep that had to be abandoned
+
+`check-claims.js` gains two:
+
+- **every name in a Re-run list exists in the code** — precise extraction, 379 names, zero noise;
+- **a DECLARED list of fifteen symbols the file says are gone has not come back**, plus the one it says
+  *survives unused* (`traceMapToGeo`), checked in the other direction so the list cannot silently become
+  a list of names that were never there.
+
+**COMMENTS ARE STRIPPED FIRST**, for the reason `adBaitCheck` strips them: `app.js` records most of these
+removals in a comment naming the thing removed, and a check that cannot tell a gravestone from a body
+fails on every one. The same trap caught this batch by hand — `.level-badge`, `.ad-body` and `.ad-title`
+all still appear in `styles.css` and all three are inside the comment blocks explaining their own
+removal, which is why `adBaitCheck` passes and is right to.
+
+**THE FREE-TEXT SWEEP FOR DELETION CLAIMS WAS TRIED AND IS NOT USABLE, which is why the list is
+declared.** The claims are written in a dozen prose shapes, and what a pattern catches is as often
+`cards`, `glossary` and `find` — ordinary words in backticks — as a real symbol: nine of eleven hits
+were noise. E50 recorded the same kind of negative about its line-count measure, and the precedent is
+to say so rather than ship a checker nobody runs.
+
+### What proves it
+
+- **Both checks were proved to FIRE**: putting `cpWireResize` back reports it by name, and appending
+  `var GB_SLOP = 6;` to `app.js` as live code reports that — along with app.js's own line count, which
+  the E51 check caught changing by one.
+- All 379 Re-run names, the fifteen deletions and the one survivor verified against comment-stripped
+  source before any of them was declared.
