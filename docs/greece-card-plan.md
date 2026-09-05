@@ -1266,9 +1266,20 @@ recorded here rather than quietly forgotten:
 | archaic Megara | `gr-polis` (full) | present only through its colony, `gr-209` Megara Hyblaea |
 
 **Where one of these can be folded into a neighbouring card's prose, do that instead of adding a
-card**: the Daedalic style belongs in `gr-332` kouros, the chamber tomb in `gr-064` tholos tomb or
-`gr-063` shaft grave, and Chania in `gr-051` Mycenaean Knossos, which already discusses Linear B on
-Crete.
+card — and the fold is only worth making where a source ALREADY ON THAT CARD carries it.** Two were
+made in the Sep 2026 audit: `gr-332` kouros now names Daedalus and the ancient tradition that he
+first opened his statues' eyes and freed their arms from their sides, on the Gardner handbook the
+card already cites; and `gr-051` Mycenaean Knossos now puts Chania among the Warrior Grave
+cemeteries, on the Rutter lesson it already cites.
+
+**The chamber tomb was NOT folded, and the reason is worth keeping.** The obvious hosts are `gr-063`
+and `gr-064`, and none of the works either card cites describes the form at all: Rutter's Lesson 19
+carries chamber tombs only in its bibliography, the Greek ministry's Mycenae page never uses the
+word, and Schuchhardt's Schliemann volume does not either. The standard work is Wace's *Chamber
+Tombs at Mycenae* (1932), which is not openable from this sandbox. **A fold that needs a citation
+the card has not got is a new card's worth of research wearing a clause's clothes** — leave it here
+until the source is reachable. Orchomenos, Anemospilia, archaic Thessaly and archaic Megara have no
+neighbouring card whose prose they belong in at all, and stay omitted outright.
 
 ### Cult, oracles and festivals — `gr-cult`
 
