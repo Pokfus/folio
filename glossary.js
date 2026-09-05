@@ -2081,7 +2081,8 @@ window.GLOSSARY = {
 "Solvent": "A <b>solvent</b> is a liquid in which other substances dissolve, and water is the one life is built around, taking up ions and polar molecules readily while excluding nonpolar ones.<sup class=\"fn\" data-fn=\"1\"></sup> Salts dissolve in it because the ionic bonds of the lattice are greatly weakened in water, each ion leaving surrounded by its own group of water molecules.<sup class=\"fn\" data-fn=\"2\"></sup> The property rests on a measured figure, water's dielectric constant of roughly 80 at room temperature, which attenuates the attraction between opposite charges enough for electrolytes to dissociate and stay apart, and which likewise lowers the cost of holding like charges close together.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ice": "<b>Ice</b> is the solid form of water, and water is one of the few substances that expands as it freezes, the molar volume of the liquid being about 8% less than that of the solid.<sup class=\"fn\" data-fn=\"1\"></sup> Its molecules hydrogen-bond to one another in a network that is continually broken and remade,<sup class=\"fn\" data-fn=\"2\"></sup> and as the temperature falls towards freezing the ideal tetrahedral arrangements grow more probable and hold the molecules further apart, so the liquid is densest at about 4°C (39°F).<sup class=\"fn\" data-fn=\"1\"></sup> The solid therefore forms at the surface rather than the bottom, and that layer insulates the water beneath and keeps it liquid when the air is below freezing.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Acid": "An acid is a substance that releases protons when it dissolves in water, each proton attaching to a water molecule to form a hydronium ion.<sup class=\"fn\" data-fn=\"1\"></sup> A base does the opposite, raising the concentration of hydroxyl ions produced by removing a proton from a water molecule, and the balance between the two is set out on the logarithmic pH scale, whose midpoint of 7 is pure water.<sup class=\"fn\" data-fn=\"1\"></sup> Acids run from the mineral acids of industry to the weak carboxyl groups carried by living matter, which give a proton away in solution and leave the molecule that holds them negatively charged.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"pH": "pH is a measure of how acidic or basic a solution is, written as a logarithm of its proton concentration so that an enormous range of values fits into a handful of numbers.<sup class=\"fn\" data-fn=\"1\"></sup> Pure water sits at 7, where hydronium and hydroxyl ions are equally common, and a solution below that figure is acidic while one above it is basic; because the scale is logarithmic, each unit stands for a tenfold difference in proton concentration.<sup class=\"fn\" data-fn=\"1\"></sup> Living things hold particular values against it, and the enzymes a compartment carries commonly work across only a narrow band.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"pH": "pH is a measure of how acidic or basic a solution is, written as a logarithm of its proton concentration so that an enormous range of values fits into a handful of numbers.<sup class=\"fn\" data-fn=\"1\"></sup> Pure water sits at 7, where hydronium and hydroxyl ions are equally common, and a solution below that figure is acidic while one above it is basic; because the scale is logarithmic, each unit stands for a tenfold difference in proton concentration.<sup class=\"fn\" data-fn=\"1\"></sup> Living things hold particular values against it, and the enzymes a compartment carries commonly work across only a narrow band.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Buffer_solution": "A buffer solution is a mixture that resists changes in pH, holding a weak acid together with the base it becomes, so that protons added to it are taken up and protons removed from it are replaced.<sup class=\"fn\" data-fn=\"1\"></sup> Its capacity is finite, since it holds a value steady only while enough of both partners remains, and the pH moves freely once one of them is exhausted.<sup class=\"fn\" data-fn=\"1\"></sup> Buffers are mixed deliberately for laboratory work and occur throughout the living world, in the carbon dioxide and bicarbonate of vertebrate blood and the phosphate and proteins within cells,<sup class=\"fn\" data-fn=\"1\"></sup> and in the carbonate system of seawater.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4192,7 +4193,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Specific_heat_capacity": ["heat capacity"],
 "Solvent": ["solvents"],
 "Acid": ["acidic"],
-"pH": ["pH scale"]
+"pH": ["pH scale"],
+"Buffer_solution": ["buffers"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6309,7 +6311,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Solvent": ["concept","science","chemistry","biology"],
 "Ice": ["object","science","chemistry","biology"],
 "Acid": ["concept","science","chemistry"],
-"pH": ["concept","science","chemistry"]
+"pH": ["concept","science","chemistry"],
+"Buffer_solution": ["concept","science","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
