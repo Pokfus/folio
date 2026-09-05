@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.651", released: "2026-09-05T20:59Z" };
+window.FOLIO_VERSION = { v: "1.652", released: "2026-09-05T23:06Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-05",
     t: "Studying rebuilt around what the evidence says works",
     items: [
+      "<b>The Russia collection has opened</b> with its first ten cards, in its Before Rus' deck.",
       "<b>Think it through</b> now asks three why-questions about the answer, each with a <b>Show answer</b> button that uncovers a brief reply.",
       "<b>How many separate days you have recalled a card</b> has moved to the top of the card, between the question and its difficulty.",
       "The grade buttons no longer name keyboard shortcuts on a <b>tablet</b>, where there is no keyboard to press them on.",
@@ -69,7 +70,7 @@ window.CHANGELOG = [
       "<b>Picture captions across the collection no longer repeat the source</b>, which is on the line beneath them, and 33 that said nothing now describe what is in the frame.",
       "<b>Fourteen pictures showing something other than the card have been taken down</b>, among them a Viking grave standing in for a Greek one and a Viennese weight of 1756 for a Greek weight standard.",
       "<b>Thirteen questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who wrote on it.",
-      "<b>Nineteen new glossary terms the Ancient Greece cards were already using</b>, among them the Constitution of the Athenians, the parts of a temple and the Greek money.",
+      "<b>Twenty-eight new glossary terms</b> \u2014 nineteen the Ancient Greece cards were already using, and nine written for the first Russia cards.",
       "<b>Sixteen Ancient Greece backgrounds no longer read as lists of who argued what</b>, keeping every claim and dropping the roll-call of modern scholars.",
       "<b>Twelve Athens cards now give the year beside the archon they date by</b>, so \u201cin the archonship of Aristaechmus\u201d also says 621/620 BCE.",
       "<b>Eleven Ancient Greece cards now quote the primary text from Folio\u2019s own Library</b>, opening Herodotus, Homer or Thucydides at the passage the card is about.",
