@@ -1839,7 +1839,8 @@ window.GLOSSARY = {
 "Kingdom_of_Kush": "The Kingdom of Kush was the state of the middle Nile, in what is now northern Sudan, whose kings and queens ruled hundreds of kilometres of the upper Nile valley.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings descended from local Nubian chiefs who had built an independent state in the 9th century BCE, and between about 750 and 650 BCE they ruled Egypt too, as its 25th dynasty.<sup class=\"fn\" data-fn=\"1\"></sup> Historians divide its history into a Napatan phase, centred below the holy mountain of Gebel Barkal near the Fourth Cataract, and a Meroitic one, though the name Kush is far older than the kingdom and is first attested about 1925 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Meroë": "Meroë was the royal city of the kingdom of Kush, on the middle Nile in what is now Sudan, and it gave its name both to the Meroitic period, the later and longer of the kingdom’s two phases, and to Meroitic, the chief tongue of the middle Nile in antiquity.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Kings and queens were buried in cemeteries beside the city, and the southern royal necropolis is where the change from the earlier Napatan phase can be followed.<sup class=\"fn\" data-fn=\"1\"></sup> It stood among temples of Amun, one of them at el-Hassa some 25 km (16 miles) to the south, which has a processional way and a ceremonial palace of its own.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Kingdom_of_Aksum": "The Kingdom of Aksum was a highland state centred on the town of Aksum, in what is now the Tigray region of northern Ethiopia, where a civilisation flourished for some 850 years between 150 BCE and 700 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Its builders carved and raised the largest stelae on earth, the greatest of them 33 m (108 feet) tall and weighing 520 tons, hauled 5 km (3 miles) from the hills of Gobo Dura.<sup class=\"fn\" data-fn=\"1\"></sup> It struck its own gold and silver coinage, and the conversion of its king Ezana in the middle of the 4th century marks the beginning of the Christian era in Ethiopia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Nok_culture": "The Nok culture is an archaeological culture of central Nigeria whose sites are dated from about 1500 to about 1 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It is known above all for terracotta figures of people and animals, the earliest large figurative sculpture made in Africa outside Egypt, the first of them appearing about 900 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its sites also carry early evidence of iron working in West Africa and plant remains dominated by pearl millet, which arrived already threshed and has been read as feasting rather than everyday settlement, while acid soils have destroyed all bone and left it unknown whether its people kept animals.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Nok_culture": "The Nok culture is an archaeological culture of central Nigeria whose sites are dated from about 1500 to about 1 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It is known above all for terracotta figures of people and animals, the earliest large figurative sculpture made in Africa outside Egypt, the first of them appearing about 900 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its sites also carry early evidence of iron working in West Africa and plant remains dominated by pearl millet, which arrived already threshed and has been read as feasting rather than everyday settlement, while acid soils have destroyed all bone and left it unknown whether its people kept animals.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Bantu_expansion": "The Bantu expansion is the spread of the Bantu languages and of their speakers across most of sub-Saharan Africa, beginning in western Africa between about 6,000 and 4,000 years ago.<sup class=\"fn\" data-fn=\"1\"></sup> It is the largest demographic event of the late Holocene on the continent, and more than 500 Bantu languages are spoken today by some 240 million people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The first spread is generally taken to have been demic rather than a spread of words alone, running through the Congo rainforest before the savannas east and south, and genome-wide work shows the speakers taking in substantial gene flow from the groups already living where they went.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2685,7 +2686,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Three_Kingdoms": "220 – 280 CE",
 "Kingdom_of_Kush": "c. 900 BCE – c. 350 CE",
 "Kingdom_of_Aksum": "c. 150 BCE – c. 700 CE",
-"Nok_culture": "c. 1500 – 1 BCE"
+"Nok_culture": "c. 1500 – 1 BCE",
+"Bantu_expansion": "c. 4000 – 2000 BCE onwards"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3826,7 +3828,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Kingdom_of_Kush": ["Kushite","Kushites"],
 "Meroë": ["Meroe"],
 "Kingdom_of_Aksum": ["Aksum","Axum","Aksumite"],
-"Nok_culture": ["Nok"]
+"Nok_culture": ["Nok"],
+"Bantu_expansion": ["Bantu migration","Bantu migrations"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5696,7 +5699,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Kingdom_of_Kush": ["state","history","africa","sudan","egypt","iron age"],
 "Meroë": ["city","place","history","africa","sudan","iron age"],
 "Kingdom_of_Aksum": ["state","history","africa","ethiopia","religion","iron age"],
-"Nok_culture": ["culture","history","africa","nigeria","art","iron age"]
+"Nok_culture": ["culture","history","africa","nigeria","art","iron age"],
+"Bantu_expansion": ["event","history","africa","migration","language","prehistory"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
