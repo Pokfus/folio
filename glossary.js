@@ -1855,7 +1855,8 @@ window.GLOSSARY = {
 "Chavín_culture": "The Chavín culture is the Andean tradition of the Middle to Late Formative Period, about 1200 to 400 BCE, named after Chavín de Huántar, a ceremonial and population centre at 3,150 m (10,300 feet) in the north-central highlands of Peru.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its temple is built of open plazas, stone-faced platforms and religious sculpture, with dark, tightly restricted galleries running inside the platforms, one of them leading to the Lanzón, a granite monolith over 4 m (13 feet) high carved as a monstrous deity.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Bone tubes excavated from a sealed gallery carry vilca and wild tobacco, direct evidence of the snuff rituals that its tenon heads with streaming noses had long implied.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Nazca_Lines": "The Nazca Lines are geoglyphs cut into the Nazca Pampa, a desert tableland 50 km (30 miles) inland from the south coast of Peru, made by clearing the stone pavement to expose the pale sediment beneath.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> They are spread over 629 km² (243 square miles) and include lines several kilometres long, giant trapezoids, and figures of people, animals, plants and tools, the largest of which average 90 m (300 feet).<sup class=\"fn\" data-fn=\"1\"></sup> They were in use on the pampa by the 1st century BCE and remained so into the 15th century CE, and a survey guided by machine learning has added 303 new figures, nearly doubling the number known.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Moche_culture": "The Moche culture occupied nine river valleys on the north coast of Peru, flourishing between about 100 and 800 CE and leaving no writing, so that everything known of it is archaeological.<sup class=\"fn\" data-fn=\"1\"></sup> Its people raised pyramid-like adobe temples called huacas and the irrigation networks that made an arid coast farmable, and were led by an elite who waged war, impersonated deities in ritual and were buried inside the temples themselves.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They are best known for their metalwork, including the gold-surfaced alloy tumbaga, and for pottery finely modelled and painted with deities, animals, combat and strikingly lifelike human faces.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Norte_Chico_civilisation": "The Norte Chico civilisation is the earliest complex society of the Andes, named after the stretch of north-central Peruvian coast where its sites cluster in the Supe, Pativilca and Fortaleza valleys.<sup class=\"fn\" data-fn=\"1\"></sup> It belongs to the Late Archaic of 3000 to 1800 BCE, the period in which large permanent communities settled and monumental architecture first appeared in the region.<sup class=\"fn\" data-fn=\"2\"></sup> Its centres, Caral among them, are built of stepped pyramids and sunken circular plazas, and rested on an economy in which cotton was grown for fishing nets and coastal fish and shellfish were traded inland for crops.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Norte_Chico_civilisation": "The Norte Chico civilisation is the earliest complex society of the Andes, named after the stretch of north-central Peruvian coast where its sites cluster in the Supe, Pativilca and Fortaleza valleys.<sup class=\"fn\" data-fn=\"1\"></sup> It belongs to the Late Archaic of 3000 to 1800 BCE, the period in which large permanent communities settled and monumental architecture first appeared in the region.<sup class=\"fn\" data-fn=\"2\"></sup> Its centres, Caral among them, are built of stepped pyramids and sunken circular plazas, and rested on an economy in which cotton was grown for fishing nets and coastal fish and shellfish were traded inland for crops.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Byzantine_Empire": "The Byzantine Empire is the name modern historians give the Roman state that carried on in the east, its history usually cut into an Early Byzantine period of 324 to 842 CE, a Middle one to 1204 and a Late one to 1430.<sup class=\"fn\" data-fn=\"1\"></sup> Its cities were transformed in the 6th and 7th centuries, when many in Anatolia lost their urban functions, and evidence thins so far afterwards that those centuries are called the Dark Ages, until prosperity returns in the late 9th.<sup class=\"fn\" data-fn=\"2\"></sup> Constantinople fell to the crusaders in 1204 and the empire fragmented, and its second city, Thessaloniki, was taken by the Ottomans in 1430.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2713,7 +2714,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Chavín_culture": "c. 1200 – 400 BCE",
 "Nazca_Lines": "c. 100 BCE – 15th century CE",
 "Moche_culture": "c. 100 – 800 CE",
-"Norte_Chico_civilisation": "c. 3000 – 1800 BCE"
+"Norte_Chico_civilisation": "c. 3000 – 1800 BCE",
+"Byzantine_Empire": "324 – 1453 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3870,7 +3872,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chavín_culture": ["Chavín"],
 "Nazca_Lines": ["Nasca Lines"],
 "Moche_culture": ["Moche","Mochica"],
-"Norte_Chico_civilisation": ["Norte Chico","Norte Chico civilization","Caral-Supe"]
+"Norte_Chico_civilisation": ["Norte Chico","Norte Chico civilization","Caral-Supe"],
+"Byzantine_Empire": ["Byzantine","Byzantines","Eastern Roman Empire"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5756,7 +5759,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chavín_culture": ["culture","history","archaeology","americas","religion","peru"],
 "Nazca_Lines": ["object","art","history","archaeology","americas","peru"],
 "Moche_culture": ["culture","history","archaeology","americas","peru","art"],
-"Norte_Chico_civilisation": ["culture","history","archaeology","americas","peru"]
+"Norte_Chico_civilisation": ["culture","history","archaeology","americas","peru"],
+"Byzantine_Empire": ["state","history","archaeology","europe","religion"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
