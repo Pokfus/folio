@@ -2063,7 +2063,8 @@ window.GLOSSARY = {
 "Battle_of_the_Ticinus": "The Battle of the Ticinus was a cavalry engagement fought near the Po in 218 BCE, the first meeting between Hannibal's army and a Roman one in Italy.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a reconnaissance by both commanders in person and was decided when Numidian horse, held back on the wings, came round into the Roman rear, breaking the cavalry and riding down the light infantry; the Roman commander was wounded and carried off.<sup class=\"fn\" data-fn=\"1\"></sup> The consequences outweighed the losses: the Romans withdrew behind the Po and then to the Trebia, while the Celts of the region, including troops serving in the Roman camp, went over to the Carthaginians.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Battle_of_the_Trebia": "The Battle of the Trebia was fought in northern Italy near the winter solstice of 218 BCE and was Hannibal's first full victory over a Roman army.<sup class=\"fn\" data-fn=\"1\"></sup> It was brought on deliberately: light horse drew the Romans out at daybreak unfed, so that they crossed a river swollen to breast height in snow against an enemy that had eaten and armed beside its fires.<sup class=\"fn\" data-fn=\"2\"></sup> A picked force of a thousand horse and a thousand foot, hidden overnight in a brambled watercourse on open ground, came out into the Roman rear once the lines engaged; about 10,000 men broke through the centre and reached Placentia, and most of the rest died.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_Lake_Trasimene": "The Battle of Lake Trasimene was an ambush in Etruria in 217 BCE in which Hannibal destroyed a Roman consular army on the march.<sup class=\"fn\" data-fn=\"1\"></sup> He had judged the consul rash and vain, and provoked him by burning the country beyond his camp so that he would pursue without waiting for the other consular army; the road he took ran between high hills and the lake, closed at the far end by a steep hill.<sup class=\"fn\" data-fn=\"2\"></sup> Attacked from every side in morning mist, the column was cut to pieces in marching order, the consul killed and about 15,000 men dead, some drowned or dispatched in the shallows.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Quintus_Fabius_Maximus": "Quintus Fabius Maximus was the Roman appointed dictator after the defeat at Lake Trasimene in 217 BCE, an office carrying absolute military authority and 24 lictors, which suspended every magistracy but the tribunate.<sup class=\"fn\" data-fn=\"1\"></sup> Judging that a pitched battle against Hannibal must be lost, he shadowed the invading army instead, held the better ground, forbade foraging and picked off stragglers, resting the war on Rome's superiority in supplies and manpower.<sup class=\"fn\" data-fn=\"2\"></sup> The policy was widely called cowardice, and his own second in command was voted equal powers and given half the army, only to be caught in an ambush and rescued by the dictator he had disparaged.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Quintus_Fabius_Maximus": "Quintus Fabius Maximus was the Roman appointed dictator after the defeat at Lake Trasimene in 217 BCE, an office carrying absolute military authority and 24 lictors, which suspended every magistracy but the tribunate.<sup class=\"fn\" data-fn=\"1\"></sup> Judging that a pitched battle against Hannibal must be lost, he shadowed the invading army instead, held the better ground, forbade foraging and picked off stragglers, resting the war on Rome's superiority in supplies and manpower.<sup class=\"fn\" data-fn=\"2\"></sup> The policy was widely called cowardice, and his own second in command was voted equal powers and given half the army, only to be caught in an ambush and rescued by the dictator he had disparaged.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Fabian_strategy": "<b>Fabian strategy</b> is the conduct of a war by attrition rather than by decisive battle, in which a commander who judges himself the weaker in the field declines to engage and instead shadows his opponent, denies him supplies and ground, and wears down forces the enemy cannot replace.<sup class=\"fn\" data-fn=\"1\"></sup> It takes its name from the Roman dictator Quintus Fabius Maximus, who used it against Hannibal in Italy from 217 BCE, camping in high country beyond the reach of Carthaginian cavalry and cutting off men who strayed from their camp to forage.<sup class=\"fn\" data-fn=\"2\"></sup> The method surrenders territory and invites the charge of cowardice, and Fabius was reproached for both at the time.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2903,7 +2904,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_the_Ticinus": "218 BCE",
 "Battle_of_the_Trebia": "218 BCE",
 "Battle_of_Lake_Trasimene": "217 BCE",
-"Quintus_Fabius_Maximus": "dictator 217 BCE"
+"Quintus_Fabius_Maximus": "dictator 217 BCE",
+"Fabian_strategy": "adopted 217 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4174,7 +4176,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_the_Ticinus": ["Ticinus"],
 "Battle_of_the_Trebia": ["Trebia"],
 "Battle_of_Lake_Trasimene": ["Trasimene","Lake Trasimene"],
-"Quintus_Fabius_Maximus": ["Fabius Maximus","Fabius Cunctator"]
+"Quintus_Fabius_Maximus": ["Fabius Maximus","Fabius Cunctator"],
+"Fabian_strategy": ["Fabian tactics"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6270,7 +6273,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_the_Ticinus": ["battle","history","warfare","rome","africa"],
 "Battle_of_the_Trebia": ["battle","history","warfare","rome","africa"],
 "Battle_of_Lake_Trasimene": ["battle","history","warfare","rome","africa"],
-"Quintus_Fabius_Maximus": ["person","history","warfare","politics","rome"]
+"Quintus_Fabius_Maximus": ["person","history","warfare","politics","rome"],
+"Fabian_strategy": ["concept","warfare","history","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
