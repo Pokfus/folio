@@ -2058,7 +2058,8 @@ window.GLOSSARY = {
 "Saguntum": "Saguntum was a city on the eastern coast of Iberia, standing on the seaward foot of a range of hills a short distance inland, in country its besieger's historian calls the most fertile in the peninsula.<sup class=\"fn\" data-fn=\"1\"></sup> It had placed itself under Roman protection well before the second war between Rome and Carthage, calling in Roman rather than Carthaginian mediation when a quarrel divided it, although Carthage was the nearer power.<sup class=\"fn\" data-fn=\"2\"></sup> Hannibal besieged it for eight months and took it by storm; its fall was the immediate occasion of that war, and Rome responded by demanding that Carthage surrender him or accept a declaration.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Second_Punic_War": "The Second Punic War was the conflict between Rome and Carthage fought from 218 to 201 BCE, opened by Hannibal's storming of Saguntum and named by Polybius after him.<sup class=\"fn\" data-fn=\"1\"></sup> Its causes are given as Hamilcar Barca's resentment after the loss of Sicily, the Roman seizure of Sardinia with the tribute exacted for it, and the wealth Carthage drew from Spain; the fighting ran across Italy, Spain, Sicily and Africa.<sup class=\"fn\" data-fn=\"2\"></sup> The peace left Carthage its African territory and its own laws but took its fleet but for ten ships, its elephants and its freedom to make war abroad, with 10,000 talents to pay over fifty years.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Hannibal": "Hannibal was the Carthaginian general who commanded against Rome in the second war between the two powers, and whom Polybius calls the single cause of all that befell both sides.<sup class=\"fn\" data-fn=\"1\"></sup> Taken to Spain at nine by his father, who made him swear at an altar never to be a friend of Rome, he succeeded to the command there, invaded Italy and fought for sixteen years without once breaking up an army drawn from peoples sharing neither laws nor language.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient opinion was divided about him, charging cruelty and avarice, and Polybius treats both as questions his circumstances make impossible to settle.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Hannibal's_crossing_of_the_Alps": "Hannibal's crossing of the Alps was the passage of a Carthaginian army from the Rhone valley into the plain of the Po in 218 BCE, by which the second war with Rome was carried into Italy.<sup class=\"fn\" data-fn=\"1\"></sup> It took fifteen days: nine climbing under attack from tribes who rolled rocks from the slopes above, two resting on the snowbound summit, and the rest descending a path so narrow that a stumble was fatal and so blocked by a landslip that the elephants took three days to pass it.<sup class=\"fn\" data-fn=\"2\"></sup> The losses in men and animals were heavy, and the army that reached flat country numbered 20,000 foot and 6,000 horse.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Hannibal's_crossing_of_the_Alps": "Hannibal's crossing of the Alps was the passage of a Carthaginian army from the Rhone valley into the plain of the Po in 218 BCE, by which the second war with Rome was carried into Italy.<sup class=\"fn\" data-fn=\"1\"></sup> It took fifteen days: nine climbing under attack from tribes who rolled rocks from the slopes above, two resting on the snowbound summit, and the rest descending a path so narrow that a stumble was fatal and so blocked by a landslip that the elephants took three days to pass it.<sup class=\"fn\" data-fn=\"2\"></sup> The losses in men and animals were heavy, and the army that reached flat country numbered 20,000 foot and 6,000 horse.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"War_elephant": "A war elephant was a trained animal used in battle as a shock weapon, driven by a mahout on its neck and often carrying a platform of men armed with pikes.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient writers distinguished the African from the Indian kind, reporting that the smaller African animals would not close with Indian ones, unable to bear their smell and trumpeting, and that a panicked line broke the army behind it as readily as the enemy in front.<sup class=\"fn\" data-fn=\"1\"></sup> Against unprepared infantry they could decide a battle by trampling the front ranks, but troops who learned to open lanes and to frighten them with noise took little harm from them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4160,7 +4161,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Saguntum": ["Sagunto","Arse"],
 "Second_Punic_War": ["Hannibalic war","Hannibalic War"],
 "Hannibal": ["Hannibal Barca"],
-"Hannibal's_crossing_of_the_Alps": ["crossing of the Alps"]
+"Hannibal's_crossing_of_the_Alps": ["crossing of the Alps"],
+"War_elephant": ["war elephants"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6251,7 +6253,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Saguntum": ["city","place","history","warfare","spain"],
 "Second_Punic_War": ["event","history","warfare","rome","africa"],
 "Hannibal": ["person","history","warfare","africa","rome"],
-"Hannibal's_crossing_of_the_Alps": ["event","history","warfare","africa","rome"]
+"Hannibal's_crossing_of_the_Alps": ["event","history","warfare","africa","rome"],
+"War_elephant": ["animal","warfare","history","technology","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
