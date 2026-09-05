@@ -2095,7 +2095,8 @@ window.GLOSSARY = {
 "Vitalism": "Vitalism is the doctrine that living systems are animated by something immaterial — a force, principle or impulse not reducible to the matter composing them — and so cannot be accounted for by the chemistry and physics of that matter alone.<sup class=\"fn\" data-fn=\"1\"></sup> It was a reasonable position while the substances characteristic of organisms appeared to arise only inside them, and it was set aside gradually rather than refuted at a stroke.<sup class=\"fn\" data-fn=\"1\"></sup> What displaced it was the finding that organisms are built from the ordinary elements and that their reactions obey the ordinary rules, though the question it reached for, what distinguishes a living arrangement from a dead one, remains open.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Biomolecule": "A biomolecule is a molecule produced and used by a living organism, and most belong to one of four classes: carbohydrates, lipids, proteins and nucleic acids.<sup class=\"fn\" data-fn=\"1\"></sup> Three of those are macromolecules assembled by joining small precursors — sugars, amino acids and nucleotides — and together they account for 80 to 90 per cent of the dry weight of most cells, while lipids, the remaining major constituent, are grouped by their behaviour rather than by any repeating subunit.<sup class=\"fn\" data-fn=\"1\"></sup> None of them outweighs water, which makes up about 70 per cent of a cell and is the medium their reactions occur in.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Carbohydrate": "A carbohydrate is a sugar or a chain of sugars, most having the basic formula (CH2O)n that gives the name, and ranging from one simple sugar to a polysaccharide of thousands.<sup class=\"fn\" data-fn=\"1\"></sup> Simple sugars are among the chief nutrients of cells and are joined into longer chains by dehydration reactions, each link a glycosidic bond between two carbons.<sup class=\"fn\" data-fn=\"1\"></sup> Few families can be arranged so variously from so little: glycogen, starch and cellulose are built entirely of glucose and differ only in their linkages, two storing sugar while the third is a structural material,<sup class=\"fn\" data-fn=\"1\"></sup> and sugars attached to proteins and lipids carry information besides, being assembled without a template.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Monosaccharide": "A monosaccharide is a single sugar unit, the smallest carbohydrate and the subunit from which longer chains of sugars are assembled.<sup class=\"fn\" data-fn=\"1\"></sup> Most follow the basic formula (CH2O)n and are sorted by the number of carbons they carry, five in ribose and deoxyribose and six in glucose, fructose and galactose; those with five or more can close into a ring, adopting either of two forms according to the arrangement at one carbon.<sup class=\"fn\" data-fn=\"1\"></sup> Each exists in mirror-image d- and l-forms as well, and isomers of these kinds account for much of the variety found among sugars.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Monosaccharide": "A monosaccharide is a single sugar unit, the smallest carbohydrate and the subunit from which longer chains of sugars are assembled.<sup class=\"fn\" data-fn=\"1\"></sup> Most follow the basic formula (CH2O)n and are sorted by the number of carbons they carry, five in ribose and deoxyribose and six in glucose, fructose and galactose; those with five or more can close into a ring, adopting either of two forms according to the arrangement at one carbon.<sup class=\"fn\" data-fn=\"1\"></sup> Each exists in mirror-image d- and l-forms as well, and isomers of these kinds account for much of the variety found among sugars.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Disaccharide": "A disaccharide is two simple sugars joined together, linked by a glycosidic bond formed in a dehydration reaction that expels a molecule of water, and split apart again by the reverse reaction.<sup class=\"fn\" data-fn=\"1\"></sup> Since each sugar carries several free hydroxyl groups capable of forming that link, the same pair can be joined at different positions to yield different substances.<sup class=\"fn\" data-fn=\"2\"></sup> The most familiar are maltose, two units of glucose; sucrose, glucose with fructose; and lactose, glucose with galactose, none of which can be absorbed by an animal until an enzyme has broken it back into its parts.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4212,7 +4213,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Redox": ["oxidation"],
 "Biomolecule": ["biological molecule","biomolecules"],
 "Carbohydrate": ["carbohydrates"],
-"Monosaccharide": ["monosaccharides","simple sugar"]
+"Monosaccharide": ["monosaccharides","simple sugar"],
+"Disaccharide": ["disaccharides"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6343,7 +6345,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Vitalism": ["concept","science","biology"],
 "Biomolecule": ["concept","science","biology"],
 "Carbohydrate": ["concept","science","chemistry"],
-"Monosaccharide": ["concept","science","chemistry"]
+"Monosaccharide": ["concept","science","chemistry"],
+"Disaccharide": ["concept","science","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
