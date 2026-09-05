@@ -165,6 +165,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     exist?" but **"does that text say which section each passage is?"** — app.js pairs the two columns
     on the section NUMBER, never on paragraph or list order. The number need not be the unit the
     edition is DIVIDED into, nor an integer (a Bekker page is `1094a`).
+  · **AND THE TWO COLUMNS MUST BE ON ONE SCALE, which is a second question and cost Thucydides three
+    weeks** (Sep 2026, batch E44). Where a number is not one to sort on, the importer writes an
+    explicit `data-n` sort key beside the figure it prints, and app.js pairs on
+    `parseInt(data-n ?? text)` — so a book whose two columns are written by DIFFERENT extractors can
+    have each side locally correct and share no key at all: the English offered 1..146 against the
+    Greek's 100..14600 and 1,819 sections drew beside an empty cell. **A CHECK THAT COMPARES THE
+    PRINTED LABEL CANNOT SEE THIS**, both columns printing "34", which is what the importer's own
+    reconciliation did. `node .claude/check-pairing.js` asks it of the whole shelf in app.js's terms.
   · **And ask what the TRANSLATION is a translation OF** before assuming an original can be found: a
     composite of three traditions faces nothing. **And what a medieval original's EDITOR died** — a
     constituted text is a modern work with a modern copyright.
@@ -183,12 +191,137 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     colour row it falls through to the generic indigo.
   · **The entry says HOW THE EDITION IS SET, not just where it is** — `sections`, `layout`, `body`,
     `dropHeads`, `glyphs` and the rest are declared PER BOOK precisely so a rule written for one
-    cannot re-set another. **Twenty-two layouts** exist; reach for a **hook** before a layout.
+    cannot re-set another. **Twenty-six layouts** exist; reach for a **hook** before a layout.
   · **`--force` re-runs the EXTRACTOR** (the cache holds extracted prose, not the fetched page). The
     chapter titles and volume divisions are re-derived on every run, so re-titling costs no refetch.
+  · **MARKUP THE SOURCE ESCAPED IS DROPPED AT THE WRITE, AND THE EDITOR'S ANGLE BRACKET IS NOT**
+    (`dropEscapedTags`). Eight tags reached readers as characters — `<poem>`, a raw `<A HREF=…>` —
+    while a critical text supplies words the manuscripts lack INSIDE angle brackets: Godley's
+    `<Pisidians>`, Ross's `<are not wicked>`, the Latin Seneca's ninety-odd including **`<a>`, a
+    preposition and a tag name at once**. 166 of those stand on the shelf, so the rule is three narrow
+    tests — a CLOSING tag, an ATTRIBUTE, a DECLARED extension-tag name — and nothing else. It runs in
+    `writeEnglish`/`writeOriginal` and NOT in `stripTags`, which 21 call sites make look like the one
+    choke point and which the Rigveda's own flattener bypasses; `book-audit.js` carries the same three
+    tests over the shipped shelf.
+  · **AN ORIGINAL-LANGUAGE COLUMN HAS ITS OWN CORRECTION TABLE, `O.reFixes`** — declared rows and
+    nothing else, applied in `writeOriginal`. `BOOK.reFixes` is English and drags a romanisation pass
+    and a glyph table with it through `correctRaw`, which is why the original branches never called it
+    and why, until Sep 2026, a defect in an original could only be recorded.
+  · **AN ORIGINAL-LANGUAGE COLUMN CARRIES NO FOOTNOTE MARKER, BECAUSE IT CARRIES NO NOTES.** The
+    reader has one fold and gives it to the translation, so `writeOriginal` drops an original's notes —
+    and until Sep 2026 kept their markers: 483 in the Old English Beowulf, 84 in the Greek Herodotus.
+    `wireFootnotes` reads its list from the page's FIRST `.src-note`, which is the translation's, so
+    369 of them became clickable links offering a note about the English on a word of the Old English.
+    Stripped in `writeOriginal`; `book-audit.js` checks it, on the original side only.
+  · **AND THE MIRROR OF THAT: A NOTE THE FOLD CARRIES THAT NO MARKER POINTS AT** (Sep 2026, batch
+    E48). `teiSectionProse` lifts a note out where it stands and then keeps only what is inside a
+    `<p>`, so a note standing OUTSIDE one keeps its text and loses its marker. It happened once on the
+    whole shelf and it was not a footnote at all — Perseus tags the Loeb's one-line ARGUMENT of the
+    *Lysis* `type="Com"` and prints it ahead of section 203, so the dialogue shipped with fourteen
+    entries and thirteen markers numbered 2 to 14. **Nothing looked broken**: `wireFootnotes` gives an
+    uncited entry a plain number rather than a jump to nowhere, so the loss is one of meaning. The
+    rule now reads `type` as it already reads `place` — the argument is set as its own italic
+    paragraph at the head of its section, which is where the printed page puts it and the only place
+    that sweep can keep it — and it is deliberately NOT dropped, since dropping loses editorial text
+    the reader has. `teiSections` warns on any note whose marker did not survive, and `book-audit.js`
+    asks it of the whole shelf.
+  · **A BOOK'S FRONT MATTER COUNTS THINGS, AND A REPAIR DOES NOT TRAVEL TO IT** (Sep 2026, batch
+    E49). Four batches put 31 articles of the Summa back — 3,094 to 3,125 — and none touched the
+    sentence in its `about` that counts them; worse, the same front matter went on telling readers
+    that fourteen of its questions were missing an article heading, which those batches had made
+    untrue, and **no count anywhere disagrees with a sentence like that**. **When a batch changes what
+    a book HOLDS, grep that book's `about` for the figure**, as a card correction is grepped through
+    to its date line. `node .claude/check-counts.js` is the proxy — report-only, the NEAR MISS being
+    the signal, a count under 40 untested and the legitimate misses declared with reasons — and its
+    own header states the three things it cannot see.
+  · **A CORPUS-INTERNAL SPLIT TEST CANNOT FIND A RUN-TOGETHER WHOSE HALVES ARE RARE, AND LATIN'S OWN
+    MORPHOLOGY DROWNS IT** (Sep 2026, batch E54, finishing E28). 153 more lost spaces in the Latin
+    Seneca. A bare test — a token occurring once that splits into two words the column uses elsewhere —
+    returns **525 candidates and is useless**: the `-que` enclitic makes `voluptatemque` look like two
+    words and the prefixes make `transmittuntur` and `supervenerunt` look like two each. **Excluding a
+    split whose LEFT half is a prefix or whose RIGHT half is a bound ending takes it to 145**, at which
+    size every one can be read — and every survivor before letter 84 is a real Latin word, which is the
+    confirmation that the fault is the transcription's last quarter rather than the language. Three
+    escaped even that: one outside E28's stated range, one whose half occurs NOWHERE else, and two with
+    a CRUX between the words, which `lostSpaces` cannot express (letters-only keys) and which went to
+    `O.reFixes`. **637 rows fired and none was reported dead.**
+  · **A CRUX IS NOT OCR DAMAGE, AND A BOOK MUST SAY WHAT ITS MARKS MEAN** (Sep 2026, batch E53). The
+    Latin Seneca prints 19 passages between TILDES — its transcription's daggers, round text the
+    manuscripts hand down corrupt (`~aitarens malitia et ea agitata~`, where *aitarens* is not a Latin
+    word) — and 76 SQUARE BRACKETS, the opposite judgement. **Its front matter explained neither**, and
+    `book-audit.js` had been calling all 19 scan damage since E33: 21 of the 37 hits its sentinel check
+    produces, which is why the other 16 had never been read. **A scanner whose findings nobody reads has
+    stopped working.** The mask is BY SHAPE — a crux wraps whole words between a tilde pair, where real
+    damage sits INSIDE a word (`jatave~as` for *Jatavedas*, which the Rigveda spells right 112 times).
+  · **…AND `book-audit.js` REPORTS ONLY WHAT NOBODY HAS JUDGED YET** (Sep 2026, batch E55, applying
+    that lesson properly). Every standing finding on the shelf was read through and given a verdict;
+    eleven turned out to be the printing doing its job — Richard's own cross-references, the Summa
+    translators' citation of the *Phaedo*, Yule's `&c.` for *et cetera*, and Gregory's dating formula
+    at the foot of two letters both written on 22 June 601. Those are DECLARED in `ADJUDICATED` with
+    the reason beside each, and **a row matches only when the book, the check AND the matched text all
+    agree** (`check-citations.js`'s `CROSSREF_WRONG` rule), so a new artefact in the same book still
+    reports. The report went from 8 files to 3, and all three are unrepaired scan damage in books whose
+    front matter says so. **THE DOUBLED-SPACE CHECK WAS RETIRED OUTRIGHT**, and not because its
+    nineteen findings were benign but because IT CANNOT HAVE A REAL ONE: book prose is HTML, nothing
+    on that path sets `white-space`, and HTML collapses a run of spaces, so the thing it names is
+    invisible to every reader. **Before adding a check, ask whether its subject can reach a reader at
+    all**; `&nbsp;` runs can and there are none on the shelf.
+  · **AND THE OTHER KIND OF CLAIM IT MAKES — WHAT IS WRONG WITH THE BOOK — HAS NO CHECK AT ALL**
+    (Sep 2026, batch E50). A count can be compared to the file; a sentence saying an edition leaves
+    lines out cannot. All **106 such sentences across the 48 books** were read and 105 hold; the
+    Iliad's did not, saying its Greek loses eight lines where it loses **ten across four books**, two
+    of them unnamed — because it had merged two different mechanisms, a line Perseus wraps in `<del>`
+    (numbering intact) with one absent from the numbering outright. **And neither Homer has an empty
+    cell**, though both front matters said "stand empty in the Greek column": the columns carry 425
+    and 288 numbered places each and pair on every one. **Write what a reader would SEE**, and reserve
+    that phrase for the books that really do draw one side blank.
+  · **ONE TEI MARK MAY BE DOING TWO JOBS, AND A RULE THAT KEEPS BOTH PRINTS THE APPARATUS AS THE
+    AUTHOR'S WORDS** (Sep 2026, batch E55) — E53's finding in another vocabulary. `<add>` is the
+    editor's supplement and is KEPT; Ihm's Suetonius also uses it for the MARGINAL REFERENCE beside a
+    quotation, so ten of them stood inside the Latin, two of them saying something false — `de
+    Officiis tertio libro 82` is book 82 of a work with three, and `ad Brutum 261 oratores enumerans`
+    reads as a count of orators. **THE DISCRIMINATOR IS A DIGIT AND IT IS MEASURED**: all 355 `<add>`
+    on the shelf were read, nine carry a digit and every one is a reference, and NO SUPPLEMENT
+    ANYWHERE CARRIES ONE, a supplement being words. **The looser test written first would have
+    deleted lines of Plato** — an internal full stop also selects whole speeches of the *Alcibiades*
+    that Burnet supplies. They are DROPPED rather than set apart, unlike E48's argument, because a
+    margin is not a place Folio's reader has: every in-flow position is a claim the edition does not
+    make, and Thomson's English carries none of them.
+  · **A SWEEP KEYED ON A PAGE NUMBER IS KEYED ON THE WORST-READ PART OF THE PAGE** (Sep 2026, batch
+    E55, the Journey). Three running heads survived `HEAD_NUM` — `113` read as `US`, and two numbers
+    carrying a mark off the leaf edge — because the number is small isolated type at the outer margin
+    while the title beside it comes through readable every time. Widened on the NUMBER's shape, twice,
+    each measured over the whole book; the second widening needs its proviso that the number really
+    contain a digit, **or `CHAPTER I.` is read as a head and the chapter markers are deleted**.
+    **AND THE OBVIOUS GENERALISATION DOES NOT WORK**: matching the line against the book's own chapter
+    titles — E34's plate rule one table over — proposes deleting 33 lines loosely matched, mostly
+    chapter headings, and exactly matched finds 15 titles inside their own chapters of which ONE is
+    furniture. **A plate caption is a distinctive phrase; a chapter title is made of the words its
+    chapter is about.** Removing a head also leaves the PAGE BREAK it sat in, which still splits the
+    sentence in two.
+  · **SEARCH FOR ANOTHER SCAN BEFORE DECIDING A BOOK CANNOT BE CHECKED** (Sep 2026, batch E56). The
+    Canterbury Tales was corrected by INFERENCE for ten batches — the shelf as a dictionary, the
+    rhyme, the Middle English facing it — because its entry assumed one transcription existed.
+    **Archive.org holds EIGHT scans of the same 1912 volume**, and reading ours against two of them
+    recovered what no inference could reach: `* ^en^s` is **At St. Denis** and `s^sput` is **soul**, a
+    whole place-name and a whole word. `node .claude/witness-check.js` is that comparison — each token
+    looked up by the three words either side, and only a position both witnesses resolve, agree on and
+    differ from us at is reported. **A GLOBAL DIFF IS USELESS HERE**, three OCRs of one printing
+    disagreeing in thousands of places; and **FILTER TO WHAT THE BOOK SHIPS**, since 161 of its 199
+    findings were in the rest of Chaucer's complete works. **A WITNESS IS A QUESTION, NOT A VERDICT**
+    (E46's lesson): two OCRs agree on `heginneth` for `beginneth`, and a 2-to-1 majority was still not
+    enough to change `Prioress's`, a heading that reads correctly either way. The Journey really does
+    have one transcription — re-checked in E56 — and its front matter now says so.
+  · **AND WHERE IN THE CHAIN A ROW RUNS DECIDES HOW TO WRITE IT** (same batch): 35 of E56's 44 rows
+    failed silently, drafted against the SHIPPED text where that book's corrections run on the RAW,
+    whose words carry double spaces and break across lines. `correctRaw` is
+    `applyRoman(applyReFixes(applyFixes(applyGlyphs(…))))`, so a `fixes` row has already fired by the
+    time a `reFixes` row sees the text. **Draft against the text the row will actually see**; the
+    importer's dead-row report is what tells you when you have not.
   · **A CHANGE TO A SHARED EXTRACTOR MUST BE PROVED INERT ON ITS SIBLINGS, BYTE-FOR-BYTE** — re-run
     every other book on that path and diff the generated files. That check has twice found a live
-    fault in a book nobody was editing.
+    fault in a book nobody was editing. **`teiInline` is the widest of those paths — 17 books, 34
+    generated files** — and E55's `<add>` change was proved by rebuilding every one of them.
   · **📖 `docs/library-importer.md` — READ BEFORE ADDING A BOOK OR TOUCHING ANY EXTRACTOR.** The 22
     layouts, the five Wikisource extraction faults, the per-book options and every finding behind
     them.
@@ -235,8 +368,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
   NGO/IGO — **plus, since 2026-08-03 and on request, an encyclopedia that cites its own sources**, tested
   per article rather than per publisher (see N9's finding below: most do not).
-  **THE GLOSSARY CITATION PASS IS COMPLETE: all 401 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N10), all with
-  in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
+  **THE GLOSSARY CITATION PASS IS COMPLETE: EVERY term is cited and at the bar**, with in-text markers
+  (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N10). **Run `node .claude/gloss-source-audit.js` for the
+  count rather than quoting one here** — it was 401 when the pass closed and the glossary is now more
+  than four times that, and the claim still holds because a NEW term ships cited rather than joining a
+  backlog. That is the rule doing the work, not the pass.
+  **G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
   to McKinley, P5 to Hoover, P6 to Nixon and P7 to Biden, which finishes all 45**. **P1–P7 are the batches
@@ -1157,12 +1294,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 2.57 MB and 38,000 lines is hard to find your way around, so this
-  lists its 142 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 2.87 MB and 42,261 lines is hard to find your way around, so this
+  lists its 160 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
-  file is ONE IIFE under `"use strict"` whose ~1,250 top-level functions share a single closure —
+  file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
-  exactly **14** things are put on `window`. Splitting it across `<script>` tags means either making
+  **29** things are put on `window`. Splitting it across `<script>` tags means either making
   every shared name a property of a namespace object (thousands of call sites, and no test can prove
   closure-equivalence) or making them true globals — which leaks the whole application surface onto
   `window`, where a community deck's sanitized HTML and any browser extension can reach it. The
@@ -1173,6 +1310,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   conclusion of a long explanation — it reported a sentence about one minigame's draw as a 266 KB
   "section". **A map that invents sections is worse than none, because it is read as structure.**)
   Not part of the site.
+- `.claude/check-claims.js` — **CLAUDE.md's own figures, measured**: `node .claude/check-claims.js
+  [--all]`. This file is the ONLY operational memory a cloud session has, it is written in the present
+  tense as the state of the repository, and it is full of hand-written counts. **Its first run found
+  TWENTY of forty-one wrong** (Sep 2026, batch E51), several by a factor of four — the collection index
+  table had Ancient Rome as "empty" against 100 shipped cards and Ancient Greece at 180 against 400,
+  app.js was described as 2.57 MB and 38,000 lines against a real 2.87 MB and 42,261, and one suite's
+  assertion count was pinned at **two different numbers in the same file**, neither of them right.
+  **The file already knew**: it warns against quoting a figure in nine places, and every one of those
+  warnings is a scar (the theme count said 8 and then 6; the eager path's size drifted four times out
+  of date with "re-measure it rather than quoting it" written beside it, which is why `check-sizes.js`
+  exists). A warning cannot measure. **It defers to `app-map.js` for app.js's shape rather than
+  measuring it again** — two scripts disagreeing about one number is worse than either being wrong —
+  and its own header states the three things it does not ask: a BROWSER suite's assertion count (too
+  slow for a pre-commit check; re-pin one from the run you did when you changed it), a figure that is a
+  judgement rather than a count, and anything in `docs/`, whose numbers are a record of what a batch
+  measured ON THE DAY and are right about that day.
+  **IT ALSO CHECKS THE NAMES, NOT ONLY THE NUMBERS** (Sep 2026, batch E52): every identifier named in a
+  **"Re-run after touching …"** list exists in the code — 379 of them across 31 lists, and two were dead
+  pointers (`cpWireResize` for `cpResize`, `nodeSpanHTML` for `nodeSpanText`) — and a DECLARED list of
+  fifteen symbols this file says are GONE has not come back, with `traceMapToGeo`, the one it says
+  survives unused, checked in the other direction. **The haystack excludes CLAUDE.md and `docs/`**, or a
+  name surviving only in this file's own prose would answer its own question; **comments are stripped
+  first**, for the reason `adBaitCheck` strips them — app.js records most removals in a comment naming
+  the thing removed. A free-text sweep for deletion claims was tried and abandoned: nine of eleven hits
+  were ordinary words in backticks, so the list is declared. Report-only, exits 0. **Run it after any
+  batch that changes a count, or renames anything this file names.** Not part of the site.
 - `.claude/check-sizes.js` — what Folio actually weighs: `node .claude/check-sizes.js [--json]`. It
   reads the eager path **out of `index.html`** rather than from a list, prints each file's raw and
   gzipped size with the totals, lists the biggest files off that path, and breaks `glossary.js` and
@@ -1208,14 +1371,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
   bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling)
-  L1–L10 and the L-audit have ALL SHIPPED — **THE PASS IS COMPLETE: 477 of 477 terms are inside the bar
-  (100%), mean 106.7 words, range 90 (`James_A._Garfield`) – 110 (`Y-chromosomal_Adam`), and every one of the
-  eighteen kinds is 0 outside**: the 197 countries (A–E, F–L, M–R, S–Z), L5's 55 caves, type sites, continents,
-  oceans and regions, L6's 54 people (45 US presidents plus nine antiquarians, archaeologists and a poet),
-  L7's 44 periods and stone industries, L8's 40 taxa, fossils and animals, L9's 45 tools, artworks, cultures
-  and peoples, and L10's 24 concepts with the four singleton kinds.
-  `node .claude/gloss-length.js` is
-  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. **What keeps it true is the rule, not the
+  L1–L10 and the L-audit have ALL SHIPPED — **THE PASS IS COMPLETE: EVERY term is inside the bar, and
+  every kind of term is 0 outside it.** It closed at 477 of 477, over the 197 countries, L5's caves,
+  type sites, continents, oceans and regions, L6's people (the 45 US presidents plus nine antiquarians,
+  archaeologists and a poet), L7's periods and stone industries, L8's taxa, fossils and animals, L9's
+  tools, artworks, cultures and peoples, and L10's concepts with the four singleton kinds.
+  **`node .claude/gloss-length.js` is the measure and the place to read the figures** — the count, the
+  mean and the range — rather than quoting any of them here, with `--over` / `--under` / `--tag=<kind>`
+  / `--list`. **What keeps it true is the rule, not the
   measure**: a new term ships at 90–110 words, three sentences, cited at the bar, exactly as it ships with its
   citations — so **re-run `gloss-length.js` after `add-sources.js` and after `add-glossary.js`**, since both
   write prose and neither measures it. Three things the bar does not
@@ -1400,8 +1563,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   part of the site and never loaded by it: a deck file is somebody else's content that happens to have
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
   **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO** — no changelog line, no version bump.
-  Currently **44 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
-  Portuguese, Spanish — **136,222 cards over 76,502 notes, 181 MB**. **Count them rather than quoting
+  Currently **52 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
+  Portuguese, Spanish — **136,222 cards over 68,111 notes, 149 MB**. **Count them rather than quoting
   that**: `node .claude/build-lang-decks.js` prints the tally on every run.
   · **A COMBINED FILE IS GITIGNORED**: it is an artefact of the levels it combines, every byte already
     in the repo, and its own `combine.py` regenerates it byte for byte. **Anything else in `decks/` is
@@ -1780,8 +1943,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`PAGES.map`** holds a `.data-loading` placard until `world` + `atlas` land, then re-renders (`render()`
     re-invokes the *current* page, so this covers `PAGES.findit` too). **It is the one placard with a
     PROGRESS BAR** — see the next paragraph.
-  · **`startMiniGlobe`** (home) fetches `world` at **idle** so a 170px ornament never delays first paint,
-    and skips entirely under `navigator.connection.saveData`.
+  · ~~**`startMiniGlobe`** (home)~~ — **deleted with the home page's discovery row** (see `PAGES.home`),
+    so nothing on the home page fetches `world` any more. Its shape is still the one to copy for an
+    ornament that must not delay first paint: fetch at IDLE, skip entirely under
+    `navigator.connection.saveData`, and stop on `root.isConnected`.
   · **Settings' home-location picker** holds just the current home until `world` arrives, then fills.
   · **`loadLangData`** pulls `uiI18n` + `glossI18n` whenever the language isn't English.
   **THE LOAD BAR COUNTS FILES, NOT BYTES** (`dlBarHTML(names)` / `wireDlBar(host, names)` / `_bundleWatch`
@@ -4734,13 +4899,13 @@ lookup.
 
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
-| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 89 cards, scattered — next id is an early GAP |
-| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 180 cards, contiguous |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | empty |
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, scattered — next id is an early GAP |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 500 cards, contiguous |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 100 cards |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 40 cards — `cn-myth` complete, and the collection is now open to study |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 99 cards — `cn-myth` complete, and the collection is now open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -4749,8 +4914,8 @@ lookup.
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
-| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
-| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 136 cards — 470 rather than 1000, and sorted by POPULATION, see below |
+| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 100 cards — and it is NOT a 1000-card plan, see below |
+| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 263 cards — 470 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
@@ -4764,7 +4929,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (142 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (229 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, and CLAUDE.md names each plan, carries a working next-id command and states each prefix in the
@@ -5738,7 +5903,7 @@ dead code (never rendered).
     after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
     community store's record shape, or the `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 308 assertions on **the shell**: the rules that break silently
+  · `node .claude/test-layout.js` — 332 assertions on **the shell**: the rules that break silently
     because nothing throws when a layout is wrong. **Re-run after touching `.tabbar` / `--tabbar-h` /
     `--timebar-h` / `layoutTicks` / the Atlas chrome's media queries / `.settings` / `.auth-split` / the
     coming-soon rows / `.home-collections` / `.games-sec` / `.home-about` /
@@ -5748,7 +5913,8 @@ dead code (never rendered).
     `#fsRange` / `MULTILANG` / `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
     `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` / the ink layer's
     pass-through / `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on
-    `.admin-list-items` / `cpWireResize` / `cpContentNeedH` / `cpColsContentH` / `cpRoomH` / `cpMaxH` / `.cp-titlemain` / `lockHeight`, or after adding an
+    `.admin-list-items` / `cpResize` / `cpContentNeedH` / `cpColsContentH` / `cpRoomH` / `cpMaxH` /
+    `.cp-titlemain` / `lockHeight`, or after adding an
     overlay to `document.body`.**
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js` —
@@ -5759,7 +5925,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 202 assertions on **the join between the sixteen card plans and
+  · `node .claude/test-card-plans.js` — 229 assertions on **the join between the sixteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -5768,7 +5934,7 @@ dead code (never rendered).
     **Re-run after adding or removing quotes** (a fifth Confucius line tightens the pool) as well as
     after touching `quoteRunningOrder` — the rule is a property of the ARRANGEMENT, so it breaks
     silently.
-  · `node .claude/test-streak-chest.js` — 18 assertions on the weekly streak chest (Aug 2026). **Re-run
+  · `node .claude/test-streak-chest.js` — 24 assertions on the weekly streak chest (Aug 2026). **Re-run
     after touching `bumpStreak` / `maybeStreakChest` / `streakChestProgress` / `STREAK_CHEST_EVERY` /
     `S.streak`.**
   · `node .claude/test-scheduler.js` — 136 assertions on **the schedule itself**, which is the thing a
@@ -5873,7 +6039,7 @@ dead code (never rendered).
     gone, so a refactor cannot leave it testing nothing. **Re-run after touching `openAvatarCropper` /
     `openAvatarViewer` / `AVATAR_PX` / `supaSetAvatar` / `monogramHTML` / the `img.viewClass` hook in
     `openMediaViewer`, or the `.av-crop` / `.avc-*` / `.iv-avatar` / `.mono-view` styles.**
-  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (69
+  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (70
     assertions, Aug 2026). **Re-run after touching `cardDifficulty` / `difficultyOK` / `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY` / `cardUndatable` / `chronoPool` / `cardStartYear` / `serializeCardData` /
     `revertCard`, any game's pool function, `add-card.js`'s difficulty or undatable guard,
@@ -5919,7 +6085,7 @@ dead code (never rendered).
     `wireLangDecks` / `entryPending` / `langDeckDownload` / `langCatalogById` / `langCatalogNode` /
     `entryScope`'s language branch / `buildSession`'s group branch / the deck list's `.dk-del` walk / the
     `.dk-pending` row in `PAGES.home` / `cardBytes` / `nodeBytes` / `fmtDeckSize` / `.node-size` /
-    `buildNode`'s `nodeSpanHTML` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`, and
+    `buildNode`'s `nodeSpanText` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`, and
     after adding, rebuilding or removing a deck in `decks/`. Section 4 covers the LANGUAGE HEADER's own
     options sheet, so re-run it after touching `langCtxId` / `langCtxName` / `langCtxEntries` / the
     `.dk-langhead` row and its `data-langhead` wiring / `entryExists` / `entryInfo` / `entryChain` /
@@ -5930,7 +6096,79 @@ dead code (never rendered).
   · `node .claude/test-reset.js` — **Settings → Danger zone → Reset progress, and who the home page
     thinks you are** (21 assertions, Aug 2026). **Re-run after touching `resetProgress` / `RESET_KEEPS` /
     `PROGRESS_FIELDS` / `emptyProgress`, the home page's `fresh`, or the Settings reset row.**
-  · `node .claude/test-library.js` — the Library (333 assertions): the rename, the shelf, one book, and
+  · `node .claude/summa-witness.js` — **the Summa against a second transcription of the same
+    translation** (Sep 2026, batch E38). The fourth scanner, and the only one that can see text that
+    is simply GONE: a spelling sweep reads what is there, `book-audit.js` asks whether what is there
+    belongs, and the duplication check finds a loss only where it left a duplicate behind. It found a
+    whole question of Aquinas — Third Part q.35, Of Christ's Nativity, eight articles — absent from
+    the book, because Wikisource serves q.33 under `Question 34` and q.34 under `Question 35`. Three
+    checks: articles against the witness; each chapter's TITLE against its own PROLOGUE (two
+    independent statements of one fact, which is what finds a question standing in another's place);
+    and any two chapters with byte-identical text. The last two need no witness, which is why they
+    reach the Supplement and the Appendix, where 102 of the 614 questions have none. **Read the
+    heading's ORDINAL WORD, never its bracket** — Gutenberg's disagree seventeen times, and keyed on
+    the bracket the first run reported 33 phantom findings. **EVERY DISAGREEMENT IS ADJUDICATED and
+    the report is by KIND** (Sep 2026, batch E46): a count says two books disagree and not which is
+    wrong, so each is settled by asking whether the other book has the text AT ALL — missing from
+    Folio, present but unnumbered, or the other book's own heading at fault. **All sixteen standing
+    are Gutenberg's, three of them citation typos**, and nothing there is Folio's to repair. **The
+    probe is five runs of sixty characters, not one**: a lone one reported III q.5 art 4 missing from
+    a witness that has it, having landed on a scripture reference — the two transcriptions differ most
+    in their apparatus. **`--selftest` asks whether the adjudicator is blind or deaf**, since "the
+    other book's fault" is what a probe matching everything would say. **It exits 0 whatever it
+    finds**, being a measure like `card-focus.js` rather than a gate. **Re-run after any change to
+    that book.** Not part of the site.
+  · `node .claude/check-counts.js` — **a book's own account of itself, checked against itself**
+    (Sep 2026, batch E49). Every book opens by counting things — "124 letters", "614 questions",
+    "404 chapters on each side" — and nothing had ever compared one of those hand-written figures
+    to the file. **A repair does not travel to the prose that describes it**: four batches put 31
+    articles of the Summa back and none touched the sentence counting them, so it read 3,094 against
+    a real 3,125. **The signal is the NEAR MISS** — a figure far from any count is nearly always
+    about something else (Chambry's 359 fables, the Franco-Italian Polo's 232 chapters) — with two
+    measured floors: a count under 40 is not tested at all (22 rows of noise without it, 4 with),
+    and a figure the prose hedges is passed over rather than reported for rounding. The legitimate
+    misses are DECLARED with reasons, and a row excuses a claim only while the book, the claimed
+    number AND the actual count all still agree, which is `check-citations.js`'s `CROSSREF_WRONG`
+    rule. **Its header states the three things it cannot see**, the first being a sentence that
+    counts with a pronoun. Report-only, exits 0. **Re-run after changing what a book holds.** Not
+    part of the site.
+  · `node .claude/check-cutoff.js` — **a chapter that STOPS rather than ends** (Sep 2026, batch
+    E43). The tell is terminal punctuation and it is the only one there is: a truncated chapter is
+    not short — the Summa's Supplement q.95 lost 1,123 words and still ran to 20 KB — and it is not
+    ungrammatical, every sentence but the last being whole. **Neither other structural scanner can
+    see it**, since a chapter that is the right chapter, correctly placed, and simply stops two
+    thirds of the way through passes both. It found 22 of 4,403, five of them the Summa's and all
+    five the SOURCE's truncation. **The rest are settled by asking what the NEXT chapter opens
+    with** — a lowercase word means the division falls mid-sentence and nothing is missing. Exits 0
+    whatever it finds. **Re-run after adding a book.** Not part of the site.
+  · `node .claude/check-twins.js` — **a chapter carrying another chapter's text, over the whole
+    shelf** (Sep 2026, batch E42). The Summa's cheapest check — the one in `summa-witness.js` that
+    needs no second transcription — pointed at all 48 books. It found Aesop's fable 122, *The Old
+    Lion*, carrying fable 121's text, because Wikisource's page for it transcludes the wrong part of
+    a scan page holding three fables. **This is the one fault no other checker here can see**: the
+    wrong chapter is perfectly good prose, and what gives it away is a fact about the BOOK rather
+    than about any sentence in it. **It compares runs of eight words, never vocabulary** — two
+    chapters of one work share their author's whole vocabulary, so a bag-of-words test scores every
+    pair high and finds nothing. The bar is half the shorter chapter's runs, low enough that a
+    partial paste shows and measured to cost nothing. It **exits 0 whatever it finds**, being a
+    measure rather than a gate. **Re-run after adding a book.** Not part of the site.
+  · `node .claude/check-pairing.js` — **the two columns paired the way the READER's page pairs them**
+    (Sep 2026, batch E44). A bilingual book is drawn as rows and `bookSections` pairs on
+    `parseInt(data-n ?? textContent)`; nothing had ever asked the shelf whether the two columns' keys
+    meet. **Thucydides paired 7 of its 1,826 sections, and seven is worse than none** — it is the only
+    book whose columns come from different extractors, and each wrote a locally correct key (the wiki
+    rule a bare marker, `teiBookChapters` a `data-n` on every marker of every book it reads), so the
+    English offered 1..146 against the Greek's 100..14600 and the seven were accidental collisions
+    that READ as pairings. Both columns were complete, correctly numbered and printing the same
+    figure. **The importer's own reconciliation called them perfect, because it compared the LABEL** —
+    both print "34" — which is the finding to carry: **a check that reads a different field from the
+    one the reader's page reads is not a check.** So this one **slices the rule out of app.js by text
+    and stops if it is not there**, names each chapter by the shipped record's own title, and calls
+    out separately any book pairing under half its sections: 107 of 25,379 rows draw with one side
+    empty, which is two editors dividing a text differently, and every one of the 107 was already
+    recorded in its book's entry. Exits 0 whatever it finds. **Re-run after adding an
+    original-language column.** Not part of the site.
+  · `node .claude/test-library.js` — the Library (404 assertions): the rename, the shelf, one book, and
     the reader's place. **Re-run after touching `PAGES.library` / `PAGES.book` / `BOOKS` / `bookIngest` /
     `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` / `setReadingPos` /
     `bookSections` / `bookRows` / `applyLangMode` / `anchorNow` / `slideChapter` / `BOOK_SORTS` /
@@ -5947,8 +6185,11 @@ dead code (never rendered).
     `body: "plain"` slice / `extractCaput` / `extractTerzina` / `terzinaLines` / `terzinaHtml` /
     `teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the mid-line
     card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` / `stripTags`'s `data-n`
-    carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after renaming anything on the
-    Collections page.**
+    carry and its `VOID_TAGS` guard / `teiBookChapters`' `data-n` scale / cleanBody's
+    `sections: "bookchapter"` marker rule / `dropEscapedTagsIn` and `writeOriginal`'s footnote-marker
+    strip / `teiSectionProse`'s `type="Com"` rule and `teiSections`' lost-marker warning, after running
+    `fetch-book.js`, after changing a book's `about`, or after renaming anything on the Collections
+    page.**
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
     figures (Aug 2026). **Re-run after touching `acctSelfView` / `showcaseHTML` / `openCollectionWin` /
     `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**

@@ -23791,7 +23791,28 @@
       if (!cur || cur.n !== n) { cur = { n: n, html: "" }; out.push(cur); }
       cur.html += frag;
     };
-    Array.from(box.children).forEach((el) => {
+    Array.from(box.childNodes).forEach((el) => {
+      /* A TEXT NODE BETWEEN TWO BLOCKS IS CONTENT, AND WALKING `children` THREW IT AWAY IN SILENCE
+         (Sep 2026, batch E26). This walk splits a chapter at its section markers, and it read the
+         ELEMENT children only — so prose or verse sitting between two paragraphs and inside neither
+         belonged to no section and never reached the page. Measured over the shelf when it was found:
+         67 such blocks in the books that have an original column, 63 of them in the Latin Seneca and
+         every one a quotation of Virgil, Ovid or Ennius — six thousand characters of poetry present
+         in the data file and absent from the reader's screen. Nothing anywhere said so: the chapter
+         renders, its section numbers pair, the counts are all right, and the only way to see it is to
+         search the rendered text for a line that is in the file.
+         The importer now wraps such text in a paragraph, so the shelf carries none of it; this is the
+         other end of the same repair, and it is the half that makes the failure impossible to have
+         again in silence. Whitespace between blocks is still whitespace and is still dropped. */
+      if (el.nodeType === 3) {
+        const txt = (el.nodeValue || "").trim();
+        if (!txt) return;
+        const p = document.createElement("p");
+        p.textContent = txt;
+        add(cur ? cur.n : null, p.outerHTML);
+        return;
+      }
+      if (el.nodeType !== 1) return;
       const marks = el.querySelectorAll(".bk-n");
       if (!marks.length) { add(cur ? cur.n : null, el.outerHTML); return; }
       /* Split this block at each marker. The pieces are CLONES of the block — a section that begins
