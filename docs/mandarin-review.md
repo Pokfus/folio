@@ -343,7 +343,88 @@ of three interjection readings the card teaches.
   instance, so it is a one-off rather than a class; it was found by eye while writing examples, and
   nothing in the pipeline could have found it.
 
-## Ten more ways to improve the collection
+## Ten more ways to improve the collection — and what happened to them
+
+These were the next ten, written after the first twelve shipped and after every note gained an example.
+**Seven have shipped, two turned out to be already true, and one — the largest — is a long grind that is
+open.** Three of them were partly wrong about the collection, and the measurements that showed it are the
+most useful thing in this section.
+
+| # | what it asked for | what happened |
+|---|---|---|
+| 1 | one-example notes taken to three | **open** — 5,103 notes at one, 1,018 at two |
+| 2 | an origin line for the idioms | **shipped, 90 of 477** — and the deck turned out not to be a deck of classical chengyu |
+| 3 | community difficulty on language decks | **already true** — the pooled rating has always covered them |
+| 4 | order a deck by frequency, not the alphabet | **shipped** as a fourth study order |
+| 5 | split the 1,510 part-of-speech multi-senses | **shipped, 23 of 1,510** — the other 1,487 are not multi-sense at all |
+| 6 | a frequency line in the character network | **shipped**, with the character's own reading |
+| 7 | speak the example sentences | **already true** — every example has carried a speaker all along |
+| 8 | say which sense an example shows | **shipped**, 14 notes — the machinery is general, the judgement is not |
+| 9 | audit the glosses against a second dictionary | **shipped** — and it found two real pinyin errors |
+| 10 | say on the shelf what a deck teaches | **shipped** |
+
+### 2. The Idioms deck is not a deck of classical idioms
+
+The suggestion assumed that a 成语 has a story behind it and that 477 of them would be 477 pieces of
+research. Measured against a list of the well-known 成语典故, **13 of the 477 matched**; read by eye, about
+ninety have a source worth stating. The reason is the deck's own selection rule, which is printed in its
+description: expressions the dictionary marks as idioms, appearing at least sixty times in a corpus of
+film subtitles, and in no HSK list. That is a rule for finding **colloquial four-character expressions**
+— 谢天谢地, 原来如此, 说来话长 — and most of them have no story because they never had one; their literal
+line already says everything there is.
+
+So an `Origin` line ships on the ninety that have a source, and the field is simply absent on the rest.
+The line names the work — the <i>Zhuangzi</i>, the <i>Zuo zhuan</i>, Du Mu's poem on Xiang Yu — and says
+what happened there in one sentence. Two of the ninety are worth singling out because they are honest
+about not being classical at all: **一石二鸟 is a translation of the English proverb** about two birds, and
+**连锁反应 is a modern term taken from physics**.
+
+### 5. Naming two parts of speech is almost never a missing sense
+
+1,510 notes give one gloss under two or more parts of speech, and the suggestion read that as 1,510 notes
+teaching one use and testing two. Broken down, it is mostly Chinese doing what Chinese does:
+
+| family | notes | is it two senses? |
+|---|---|---|
+| `verb / idiom`, `adjective / idiom`, `noun / idiom`, `adverb / idiom` | 371 | no — one meaning wearing two labels |
+| `verb / adjective` and `adjective / verb` | 209 | no — a Chinese adjective **is** a stative verb |
+| `noun / verb` and `verb / noun` | 400 | almost never — zero-derivation, one meaning |
+| `adjective / adverb`, `noun / adverb`, … | ~200 | rarely |
+| measure-word, preposition and conjunction families | ~130 | **sometimes, and this is where the fault lives** |
+
+Twenty-three were split by hand, and six of them are Level 1 and 2 words a reader meets in their first
+week: **天** was "sky, heaven" and never "day"; **回** was "to return" and never "a time"; **给** was "to
+give" and never the preposition "for"; **比** was "to compare" and never "than"; **还是** gave the "or" of
+a question and never "still"; **名** gave the noun and never the measure word for people. The rest are
+measure words the gloss simply left out — 封 for letters, 台 for machines, 座 for bridges and hills, 部
+for films and books, 堂 for lessons, 桩 for matters.
+
+### 8. Tagging an example with its sense only pays where the senses differ
+
+204 notes carry two or more senses **and** two or more examples, which looked like the size of the job.
+It is not: most of those "senses" are a dictionary's near-synonym list — 没错 has five, and all five are
+"that's right" — and numbering a sentence as sense 3 of 5 synonyms is noise dressed as information. The
+machinery is general (`exSense` in the record, applied after any sense split, refusing a tag that points
+at a sense the note has not got); the judgement is per note, and fourteen notes have it. One of them paid
+for the whole exercise: tagging **道** turned up a sense the card had not got at all — its own second
+example is 自言自语道, where 道 is the verb that ends a line of reported speech, and the card listed only
+the noun and the measure word.
+
+### 3 and 7 were already true
+
+**The pooled community difficulty rating has always covered language decks.** `card.difficulty` is an
+editorial judgement that only curated cards carry, so a language card shows nothing at first — but
+`cardStatsBump` is called from `grade()` for every card answered, and a community card's id is derived
+from the deck FILE, so it is the same id for every reader who downloaded it. Once such a card has twenty
+answers across all readers the stars appear, measured rather than judged. A comment in app.js said the
+opposite and has been corrected. What genuinely did not work for these decks is the "By difficulty" study
+order, which reads the editorial rating — and that is what suggestion 4 answers.
+
+**Every example sentence has carried a speaker since the decks shipped**: the `uc-exsay` control sits in
+each example block with the sentence in its `data-say`, which is the contract `cardSpeak` honours. The
+sentences authored in this pass carry it too.
+
+### The ten in full
 
 These are the next ten, written after the first twelve shipped and after every note gained an example.
 Each says what it would cost and what could go wrong, because three of them are cheap and three are

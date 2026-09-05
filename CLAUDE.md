@@ -1538,6 +1538,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   learner meets a character in and silent about which of eleven of them is worth having;
   `uDeckWordFreq` answers that, with length as the tie-break, so a character whose words the deck never
   uses in a sentence lists exactly as it did before. Guarded by `.claude/test-char-network.js`.
+- **…AND AN `Origin` LINE WHERE THERE IS ONE** (the Idioms deck's card type; Sep 2026, on request).
+  **THE MEASUREMENT IS THE POINT: this is not a deck of classical 成语典故.** Against a list of the
+  well-known ones, **13 of 477 matched**; read by eye, about ninety have a source worth naming. The
+  reason is the deck's own selection rule — expressions the dictionary marks as idioms, appearing 60+
+  times in a corpus of film subtitles, and in no HSK list — which finds COLLOQUIAL four-character
+  expressions (谢天谢地, 原来如此, 说来话长), most of which never had a story and whose `Literally` line
+  already says everything there is. So ninety carry an `Origin` naming the work and what happened there,
+  and the field is simply absent on the rest. Two of the ninety are honest about not being classical:
+  **一石二鸟 is a translation of the English proverb** and **连锁反应 a modern term out of physics**.
+  Chinese→English side only, like `Literally`.
+- **AN EXAMPLE CAN SAY WHICH SENSE IT SHOWS** (`exSense` in `mandarin-fixes.json`, `.uc-exsn`; Sep 2026,
+  on request). **204 notes carry 2+ senses AND 2+ examples, and that is NOT the size of the job**: most
+  of those senses are a dictionary's near-synonym list (没错 has five, all "that's right"), and numbering
+  a sentence as sense 3 of 5 synonyms is noise dressed as information — so the record names the notes
+  and the applier never sweeps them. Fourteen have it. **IT RUNS AFTER `senses`**, which is load-bearing:
+  the note worth tagging is often the one this same record SPLITS, and read before the split it counts
+  the senses the deck shipped with — which is how `道`'s third sense tripped its own guard on the first
+  run. A tag naming a sense the note has not got is a FAIL, that being the shape a later merge produces.
+  **A `decks[<id>].css` block appends a rule to every type's own scoped sheet**, which is what a rule
+  belonging to no single field needs.
+- **NAMING TWO PARTS OF SPEECH IS ALMOST NEVER A MISSING SENSE** (Sep 2026, measured). 1,510 notes give
+  one gloss under two or more parts of speech and it reads like 1,510 notes teaching one use and testing
+  two; broken down it is **371 `X / idiom`** (one meaning, two labels), **209 verb/adjective** (a Chinese
+  adjective IS a stative verb), **400 noun/verb** (zero-derivation, one meaning) and only ~130 in the
+  measure-word, preposition and conjunction families where the fault actually lives. **23 were split by
+  hand and six are Level 1–2 words**: `天` was "sky" and never "day", `回` "to return" and never "a time",
+  `给` "to give" and never the preposition, `比` "to compare" and never "than", `还是` the "or" of a
+  question and never "still", `名` the noun and never the measure word for people. **Do not sweep this
+  flag** — a rule that split on the slash would make two cards out of 半 "adverb / numeral".
 - **AN IDIOM CARD CARRIES A `Literally` LINE** (the Idioms deck's card type; Sep 2026). An idiom's gloss
   says what it MEANS and throws away what it SAYS, and the image is most of what makes a
   four-character idiom stick — 谢天谢地 is "thank goodness" and it says "thank heaven, thank earth".

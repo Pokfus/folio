@@ -116,7 +116,7 @@ const deckMeta = fixes.decks || {};
 let metaHit = 0;
 const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
-let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [];
+let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [];
 
 const hints = Object.entries(fixes.hints || {});
 const hintsByDeck = new Map();
@@ -142,7 +142,15 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
   const d = JSON.parse(before);
   const dm = deckMeta[d.meta && d.meta.id];
   if (dm) {
-    Object.keys(dm).forEach((k) => { if (k !== "why" && k !== "addFields" && k !== "tpl") d.meta[k] = dm[k]; });
+    Object.keys(dm).forEach((k) => { if (k !== "why" && k !== "addFields" && k !== "tpl" && k !== "css") d.meta[k] = dm[k]; });
+    /* `css` APPENDS TO EVERY TYPE'S OWN SCOPED SHEET rather than setting a deck field, which is what a
+       rule needs that belongs to no one field — the sense tag on an example is written into a block the
+       Examples field already owns. Idempotent on the rule's first selector, like `addFields`'s. */
+    if (dm.css) {
+      for (const t of Object.values(d.meta.types || {})) {
+        if (String(t.css || "").indexOf(dm.css.trim().split("\n")[0]) < 0) t.css = String(t.css || "") + dm.css;
+      }
+    }
     /* A FIELD IS ADDED IN TWO PLACES OR IN NEITHER: the type's `fields` list, and the template that
        renders it. Adding one and not the other is silent — the field is stored and never shown. */
     (dm.addFields || []).forEach((f) => {
@@ -169,6 +177,14 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
        from the record leaves the sentence in the deck and `--check` goes on passing: the decks and their
        own record drift apart silently, which is the one failure this file exists to prevent. It also
        makes the pass idempotent for a note whose fix has been deleted outright. */
+    /* AND SO IS EVERY SENSE TAG. `exSense` writes a small label into an example block — including into
+       blocks this file did not create — so it has to be stripped from every note first, or a re-run
+       stacks a second label and a tag removed from the record stays on the card. Same rule as the added
+       examples above and for the same reason: this file is authoritative or it is drift. */
+    if (String(fl.Examples || "").indexOf("uc-exsn") >= 0) {
+      fl.Examples = String(fl.Examples).replace(/<span class="uc-exsn">[^<]*<\/span>/g, "");
+      hits++;
+    }
     if (String(fl.Examples || "").indexOf("uc-exadd") >= 0) {
       fl.Examples = String(fl.Examples).split('<div class="uc-exi').filter(Boolean)
         .map((x) => '<div class="uc-exi' + x).filter((x) => x.indexOf("uc-exadd") < 0).join("");
@@ -189,7 +205,11 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
     if (!w) continue;
     seen.add(w.key);
     let fix = w.fix;
-    for (const k of ["Pinyin", "Bopomofo", "Say", "Measure word", "Literally", "Examples"]) {
+    /* THE FIELDS THIS RECORD MAY SET, BY NAME. A whitelist rather than "copy every key", because the
+       record also carries `why`, `senses`, `mw`, `ex` and the rest, which are compact forms this file
+       EXPANDS rather than values to be written through. A field added to the deck's type (see
+       `decks.addFields`) has to be named here too, or the column is created and never filled. */
+    for (const k of ["Pinyin", "Bopomofo", "Say", "Measure word", "Literally", "Origin", "Examples"]) {
       if (fix[k] !== undefined) fl[k] = fix[k];
     }
     if (fix.ex || fix.dropEx) {
@@ -261,6 +281,35 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
       fl.English = r.html;
       c.answerText = r.ans;
     }
+    /* ---------- WHICH SENSE AN EXAMPLE IS SHOWING (Sep 2026, on request) ----------
+       A note with two real senses shows up to three sentences and never says which sense each one is
+       for, so a reader meeting 天 as both "sky" and "day" has to work the mapping out themselves.
+       `exSense` is a list of sense NUMBERS, one per example block in the order they are rendered, and a
+       0 leaves a block untagged — which is what a sentence that shows both, or neither, gets.
+
+       IT IS APPLIED ONLY WHERE THE SENSES ARE REALLY DIFFERENT, and that is a judgement rather than a
+       rule: measured over the nine decks, 204 notes carry two or more senses AND two or more examples,
+       and most of those "senses" are a dictionary's near-synonym list (没错 has five, all of them "that's
+       right"). Tagging a sentence as sense 3 of 5 synonyms is noise dressed as information, so the
+       record names the notes rather than the applier sweeping them.
+
+       IT RUNS AFTER `senses`, and that ordering is load-bearing: a note whose senses this same record
+       SPLITS is exactly the note worth tagging, and read before the split it counts the senses the
+       deck shipped with — which is how 道's third sense tripped its own guard on the first run. */
+    if (fix.exSense) {
+      const blocks = String(fl.Examples || "").split('<div class="uc-exi').filter(Boolean)
+        .map((x) => '<div class="uc-exi' + x);
+      const senses = (String(fl.English || "").match(/<div class="uc-sense">/g) || []).length;
+      fix.exSense.forEach((nsense, i) => {
+        if (!nsense || !blocks[i]) return;
+        if (nsense > senses) { badSense.push(w.key + " → example " + (i + 1) + " names sense " + nsense + " of " + senses); return; }
+        blocks[i] = blocks[i].replace('<div class="uc-exz">',
+          '<div class="uc-exz"><span class="uc-exsn">' + nsense + "</span>");
+      });
+      if (fix.exSense.length > blocks.length) badSense.push(w.key + " → " + fix.exSense.length + " sense tags for " + blocks.length + " examples");
+      fl.Examples = blocks.join("");
+      hits++;
+    }
     /* THE MIRRORS ARE REBUILT, NEVER PATCHED — see the header. `answer` is "<pinyin> — <senses>" and
        `answerText` the senses alone, which is what the 11,532 untouched notes already are. */
     const gl = c.answerText || "";
@@ -292,6 +341,13 @@ if (badDrop.length && VERBOSE) {
   console.log("\n  note  " + badDrop.length + " `dropEx` sentence(s) already gone (expected after the first run;" +
     " on a NEW one, check for a typo):");
   badDrop.forEach((k) => console.log("        " + k));
+}
+/* A tag naming a sense the note has not got is the shape a hand pass produces when a note's senses are
+   later merged or split under it — the label renders perfectly and points at nothing. */
+if (badSense.length) {
+  console.log("\n  FAIL  " + badSense.length + " sense tag(s) that point at a sense the note has not got:");
+  badSense.forEach((k) => console.log("        " + k));
+  process.exit(1);
 }
 if (badEx.length) {
   console.log("\n  FAIL  " + badEx.length + " example(s) that do not contain their own headword:");
