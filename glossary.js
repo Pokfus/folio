@@ -1848,7 +1848,8 @@ window.GLOSSARY = {
 "Mesoamerica": "Mesoamerica is a historically and culturally defined region of the Americas covering central and southern Mexico, Belize, Guatemala and El Salvador together with the border country of Honduras, western Nicaragua and north-western Costa Rica.<sup class=\"fn\" data-fn=\"1\"></sup> It is a culture area rather than a political unit, its many peoples and languages connected by farming and commerce and sharing such traits as a 260-day ritual count kept beside a 365-day year<sup class=\"fn\" data-fn=\"3\"></sup> and a rubber ballgame, of which more than 2,300 probable courts are known.<sup class=\"fn\" data-fn=\"2\"></sup> Its conventional periods run from the Archaic through the Preclassic, Classic and Postclassic, the last of which ended with the Spanish conquest between 1519 and 1521.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Mesoamerican_ballgame": "The Mesoamerican ballgame was a contest played with a solid rubber ball on a purpose-built court, known from at least 1650 BCE and played across the culture area until the Spanish conquest.<sup class=\"fn\" data-fn=\"1\"></sup> More than 2,300 probable courts have been identified, and players appear on figurines and carved panels wearing thick padded belts or yokes, with the game associated from early on with captives, sacrifice and the underworld.<sup class=\"fn\" data-fn=\"1\"></sup> Much of the familiar account is hypothesis rather than demonstration, since the number of players a side is put anywhere between one and seven, and three distinct forms of the game survive in western Mexico as ulama.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Monte_Albán": "Monte Albán is a hilltop city in the Valley of Oaxaca in southern Mexico, founded about 500 BCE where the valley’s three arms meet and serving as the capital of the Zapotec state.<sup class=\"fn\" data-fn=\"1\"></sup> It was among the earliest state-level societies in the Americas, densely built across its ridge rather than on a grid, and measures as relatively collective rather than autocratic in the distribution of power, remaining so for more than a thousand years.<sup class=\"fn\" data-fn=\"2\"></sup> Its best-known monuments are the Danzantes, human figures cut in stone during the city’s first period, read as shamans or as war captives but whose meaning to their makers is still unsettled.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Maya_civilisation": "The Maya civilisation is the tradition of city-building and its associated culture in the lowlands of the Yucatán peninsula and the country around it, where cities first appeared between 700 BCE and 250 CE.<sup class=\"fn\" data-fn=\"1\"></sup> It was never a single state, and many more cities were founded through the Classic period from 250 to 1000 CE, their settlement far denser than ground survey could establish and revealed instead by airborne laser scanning.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The decline of those cities took almost two centuries and was neither sudden nor uniform, and maternal lineages run unbroken for about 1,300 years between ancient Maya individuals and Maya people living in Yucatán today.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Maya_civilisation": "The Maya civilisation is the tradition of city-building and its associated culture in the lowlands of the Yucatán peninsula and the country around it, where cities first appeared between 700 BCE and 250 CE.<sup class=\"fn\" data-fn=\"1\"></sup> It was never a single state, and many more cities were founded through the Classic period from 250 to 1000 CE, their settlement far denser than ground survey could establish and revealed instead by airborne laser scanning.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The decline of those cities took almost two centuries and was neither sudden nor uniform, and maternal lineages run unbroken for about 1,300 years between ancient Maya individuals and Maya people living in Yucatán today.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Maya_script": "The Maya script is a logosyllabic writing system, in which some signs stand for whole words and others for syllables, and the two kinds are combined.<sup class=\"fn\" data-fn=\"2\"></sup> Its earliest securely dated example is a painted mural fragment from San Bartolo in Guatemala, assigned to between 300 and 200 BCE and recovered with ten others that show an established tradition in several hands.<sup class=\"fn\" data-fn=\"1\"></sup> Surviving monumental texts record chiefly the births, accessions, marriages and wars of ruling families, and the decipherment of the script is still far from complete, with many logograms and syllabic signs unread.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2699,7 +2700,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Olmecs": "c. 1500 – 400 BCE",
 "Mesoamerican_ballgame": "from c. 1650 BCE",
 "Monte_Albán": "founded c. 500 BCE",
-"Maya_civilisation": "c. 700 BCE – 1500 CE"
+"Maya_civilisation": "c. 700 BCE – 1500 CE",
+"Maya_script": "attested from c. 300 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3849,7 +3851,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mesoamerica": ["Mesoamerican"],
 "Mesoamerican_ballgame": ["ballgame","tlachtli"],
 "Monte_Albán": ["Monte Alban"],
-"Maya_civilisation": ["Maya civilization","Maya"]
+"Maya_civilisation": ["Maya civilization","Maya"],
+"Maya_script": ["Maya hieroglyphs","Maya writing"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5728,7 +5731,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mesoamerica": ["place","geography","history","archaeology","americas"],
 "Mesoamerican_ballgame": ["practice","history","archaeology","americas","mexico"],
 "Monte_Albán": ["place","city","history","archaeology","americas","mexico"],
-"Maya_civilisation": ["culture","history","archaeology","americas","city"]
+"Maya_civilisation": ["culture","history","archaeology","americas","city"],
+"Maya_script": ["concept","text","history","archaeology","americas"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
