@@ -1912,7 +1912,8 @@ window.GLOSSARY = {
 "Funafuti": "Funafuti is the atoll that holds the capital of Tuvalu, a Polynesian state in the central Pacific whose land amounts to about 26 square kilometres (10 square miles).<sup class=\"fn\" data-fn=\"1\"></sup> The seat of government stands at Vaiaku on Fongafale, the largest islet of the atoll, so that the address of the capital is usually given in three parts rather than as a single town name.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations records Funafuti as the capital city with some 7,000 inhabitants in 2018, which is close to the whole of the country's urban population, since roughly 63 per cent of Tuvaluans live in a town.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Saint-Pierre,_Saint_Pierre_and_Miquelon": "Saint-Pierre is the capital and larger of the two communes of Saint Pierre and Miquelon, a French overseas collectivity in the North Atlantic lying east of the Canadian coast.<sup class=\"fn\" data-fn=\"2\"></sup> The town sits on the island of the same name and its own council gives it 30 square kilometres (12 square miles) and 5,412 inhabitants at the census of 2016, with 33 kilometres (21 miles) of municipal road.<sup class=\"fn\" data-fn=\"3\"></sup> The United Nations records it as the capital city with some 5,700 people in 2018, close to the whole population of an archipelago that is about 90 per cent urban.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Jamestown,_Saint_Helena": "Jamestown is the capital of Saint Helena, a small island of volcanic origin in the South Atlantic and part of the British overseas territory of Saint Helena, Ascension and Tristan da Cunha.<sup class=\"fn\" data-fn=\"3\"></sup> The town lies in a narrow valley running down to the sea, and Letters Patent of Queen Victoria dated 6 June 1859 declared it to be a city called the “City of James Town”.<sup class=\"fn\" data-fn=\"2\"></sup> Its population has fallen steadily, from 1,516 at the census of 1976 to 625 in 2021, and Half Tree Hollow overtook it as the island’s largest district in 1998.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Brades": "Brades is the settlement in the north of Montserrat, a British territory in the Leeward Islands of the eastern Caribbean, where most of the offices of the territorial government are based.<sup class=\"fn\" data-fn=\"2\"></sup> It took on that role after the Soufrière Hills volcano erupted in July 1995 and destroyed the capital, Plymouth, which was abandoned in 1997 and left about 70 per cent of the population evacuated from the south of the island.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations statistics division names the capital city “Brades Estate” and gives it some 500 inhabitants for 2018, on an island whose habitable land is 40.1 of its 103 square kilometres (15 of 40 square miles).<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Brades": "Brades is the settlement in the north of Montserrat, a British territory in the Leeward Islands of the eastern Caribbean, where most of the offices of the territorial government are based.<sup class=\"fn\" data-fn=\"2\"></sup> It took on that role after the Soufrière Hills volcano erupted in July 1995 and destroyed the capital, Plymouth, which was abandoned in 1997 and left about 70 per cent of the population evacuated from the south of the island.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations statistics division names the capital city “Brades Estate” and gives it some 500 inhabitants for 2018, on an island whose habitable land is 40.1 of its 103 square kilometres (15 of 40 square miles).<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Stanley,_Falkland_Islands": "Stanley is the capital of the Falkland Islands, a South Atlantic territory of two large islands and hundreds of smaller ones lying about 480 kilometres (300 miles) east of the South American mainland, over which Argentina and the United Kingdom dispute sovereignty.<sup class=\"fn\" data-fn=\"2\"></sup> Almost the whole population lives there: the census of 10 October 2021 gave the town a total usually resident population of 2,974 against 3,662 for the islands as a whole.<sup class=\"fn\" data-fn=\"3\"></sup> It is one of the territory’s two constituencies, the other being the rural Camp, and returns five of the eight elected members of the Legislative Assembly.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3796,7 +3797,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "The_Valley,_Anguilla": ["The Valley"],
 "Mata-Utu": ["Mata'Utu"],
 "Saint-Pierre,_Saint_Pierre_and_Miquelon": ["Saint-Pierre"],
-"Jamestown,_Saint_Helena": ["Jamestown"]
+"Jamestown,_Saint_Helena": ["Jamestown"],
+"Stanley,_Falkland_Islands": ["Stanley"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5737,7 +5739,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Funafuti": ["city","geography","oceania","polynesia"],
 "Saint-Pierre,_Saint_Pierre_and_Miquelon": ["city","geography","northern america","france"],
 "Jamestown,_Saint_Helena": ["city","geography","atlantic","united kingdom"],
-"Brades": ["city","geography","caribbean","united kingdom"]
+"Brades": ["city","geography","caribbean","united kingdom"],
+"Stanley,_Falkland_Islands": ["city","geography","south atlantic","united kingdom"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
