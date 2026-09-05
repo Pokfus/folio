@@ -1,0 +1,787 @@
+{
+  "_": "mandarin-fixes.json — every hand edit made to the nine Mandarin decks, and the ONLY place one may be made. Applied by .claude/decks/mandarin-fix.js, which is idempotent and whose --check asserts the decks still carry these. The decks' generator inputs (w26-*.json) are not in this repo, so they cannot be rebuilt: this file is the whole record of how the shipped decks differ from what the generator produced. Keyed by <deck id>/<headword>. Every entry carries a `why`.",
+  "notes": {
+    "hsk30idm/略知一二": {
+      "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
+      "Pinyin": "lüè zhī yī èr",
+      "Bopomofo": "ㄌㄩㄝˋ ㄓ ㄧ ㄦˋ"
+    },
+    "hsk30l1/分": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "fēn / fèn",
+      "Bopomofo": "ㄈㄣ / ㄈㄣˋ",
+      "senses": [
+        [
+          "fēn",
+          "noun / verb / measure word",
+          "minute; point; part; to divide"
+        ],
+        [
+          "fèn",
+          "noun",
+          "share, portion; duty; component"
+        ]
+      ]
+    },
+    "hsk30l1/只": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "一只",
+      "Pinyin": "zhī / zhǐ",
+      "Bopomofo": "ㄓ / ㄓˇ",
+      "senses": [
+        [
+          "zhī",
+          "measure word",
+          "individual [measure word for small animals]"
+        ],
+        [
+          "zhǐ",
+          "adverb",
+          "only, merely"
+        ]
+      ]
+    },
+    "hsk30l1/好": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "hǎo / hào",
+      "Bopomofo": "ㄏㄠˇ / ㄏㄠˋ",
+      "senses": [
+        [
+          "hǎo",
+          "verb / adjective / adverb",
+          "good"
+        ],
+        [
+          "hào",
+          "verb",
+          "to be fond of, to like"
+        ]
+      ]
+    },
+    "hsk30l1/少": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "shǎo / shào",
+      "Bopomofo": "ㄕㄠˇ / ㄕㄠˋ",
+      "senses": [
+        [
+          "shǎo",
+          "verb / adjective",
+          "few"
+        ],
+        [
+          "shào",
+          "adjective",
+          "young"
+        ]
+      ]
+    },
+    "hsk30l1/还": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "还是",
+      "Pinyin": "hái / huán",
+      "Bopomofo": "ㄏㄞˊ / ㄏㄨㄢˊ",
+      "senses": [
+        [
+          "hái",
+          "adverb",
+          "still"
+        ],
+        [
+          "huán",
+          "verb",
+          "to return, to give back; to repay"
+        ]
+      ]
+    },
+    "hsk30l1/都": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "全都",
+      "Pinyin": "dōu / dū",
+      "Bopomofo": "ㄉㄡ / ㄉㄨ",
+      "senses": [
+        [
+          "dōu",
+          "adverb",
+          "both; all"
+        ],
+        [
+          "dū",
+          "noun",
+          "capital city; metropolis"
+        ]
+      ]
+    },
+    "hsk30l2/地": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "de / dì",
+      "Bopomofo": "ㄉㄜ˙ / ㄉㄧˋ",
+      "senses": [
+        [
+          "de",
+          "particle",
+          "...ly [particle to connect adverb to verb]"
+        ],
+        [
+          "dì",
+          "noun",
+          "earth, ground; land; place"
+        ]
+      ]
+    },
+    "hsk30l2/得": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "觉得",
+      "Pinyin": "de / dé / děi",
+      "Bopomofo": "ㄉㄜ˙ / ㄉㄜˊ / ㄉㄟˇ",
+      "senses": [
+        [
+          "de",
+          "particle",
+          "[particle to connect verb to adverb]"
+        ],
+        [
+          "dé",
+          "verb",
+          "to get, to obtain"
+        ],
+        [
+          "děi",
+          "verb",
+          "to have to, must"
+        ]
+      ]
+    },
+    "hsk30l2/教": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "jiāo / jiào",
+      "Bopomofo": "ㄐㄧㄠ / ㄐㄧㄠˋ",
+      "senses": [
+        [
+          "jiāo",
+          "verb",
+          "to teach"
+        ],
+        [
+          "jiào",
+          "noun",
+          "teaching, doctrine; religion"
+        ]
+      ]
+    },
+    "hsk30l2/着": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "接着",
+      "Pinyin": "zhe / zhuó / zháo",
+      "Bopomofo": "ㄓㄜ˙ / ㄓㄨㄛˊ / ㄓㄠˊ",
+      "senses": [
+        [
+          "zhe",
+          "particle",
+          "-ing"
+        ],
+        [
+          "zhuó",
+          "verb",
+          "to wear; to apply; to touch"
+        ],
+        [
+          "zháo",
+          "verb",
+          "to be affected by; to catch (fire, cold)"
+        ]
+      ]
+    },
+    "hsk30l2/累": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "劳累",
+      "Pinyin": "lèi / lěi",
+      "Bopomofo": "ㄌㄟˋ / ㄌㄟˇ",
+      "senses": [
+        [
+          "lèi",
+          "verb / adjective",
+          "tired"
+        ],
+        [
+          "lěi",
+          "verb",
+          "to accumulate, to pile up; repeatedly"
+        ]
+      ]
+    },
+    "hsk30l2/长": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "cháng / zhǎng",
+      "Bopomofo": "ㄔㄤˊ / ㄓㄤˇ",
+      "senses": [
+        [
+          "cháng",
+          "adjective",
+          "long"
+        ],
+        [
+          "zhǎng",
+          "verb / noun",
+          "to grow; elder, chief, head of"
+        ]
+      ]
+    },
+    "hsk30l2/间": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "jiān / jiàn",
+      "Bopomofo": "ㄐㄧㄢ / ㄐㄧㄢˋ",
+      "senses": [
+        [
+          "jiān",
+          "noun / measure word",
+          "between; space; interval"
+        ],
+        [
+          "jiàn",
+          "verb / noun",
+          "to separate; gap, interstice; to sow discord"
+        ]
+      ]
+    },
+    "hsk30l3/中": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "zhōng / zhòng",
+      "Bopomofo": "ㄓㄨㄥ / ㄓㄨㄥˋ",
+      "senses": [
+        [
+          "zhōng",
+          "noun",
+          "center, middle, among; China"
+        ],
+        [
+          "zhòng",
+          "verb",
+          "to hit (a target); to be hit by, to fall into"
+        ]
+      ]
+    },
+    "hsk30l3/为": {
+      "why": "One sense crammed both readings: 'for (someone; something)' is wèi and 'to do; to be' is wéi, which is also the majority reading of the character in this corpus by 44 to 5.",
+      "Pinyin": "wèi / wéi",
+      "Bopomofo": "ㄨㄟˋ / ㄨㄟˊ",
+      "senses": [
+        [
+          "wèi",
+          "preposition",
+          "for (someone, something); because of"
+        ],
+        [
+          "wéi",
+          "verb",
+          "to be; to act as; to do"
+        ]
+      ]
+    },
+    "hsk30l3/干": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "干什么",
+      "Pinyin": "gàn / gān",
+      "Bopomofo": "ㄍㄢˋ / ㄍㄢ",
+      "senses": [
+        [
+          "gàn",
+          "verb",
+          "trunk; main part; do; work"
+        ],
+        [
+          "gān",
+          "adjective",
+          "dry"
+        ]
+      ]
+    },
+    "hsk30l3/更": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "更加",
+      "Pinyin": "gèng / gēng",
+      "Bopomofo": "ㄍㄥˋ / ㄍㄥ",
+      "senses": [
+        [
+          "gèng",
+          "adverb",
+          "even more"
+        ],
+        [
+          "gēng",
+          "verb",
+          "to change, to replace; night watch"
+        ]
+      ]
+    },
+    "hsk30l3/行": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "xíng / háng",
+      "Bopomofo": "ㄒㄧㄥˊ / ㄏㄤˊ",
+      "senses": [
+        [
+          "xíng",
+          "verb / adjective",
+          "OK"
+        ],
+        [
+          "háng",
+          "noun / measure word",
+          "row, line; trade, profession; firm"
+        ]
+      ]
+    },
+    "hsk30l3/角": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "jiǎo / jué",
+      "Bopomofo": "ㄐㄧㄠˇ / ㄐㄩㄝˊ",
+      "senses": [
+        [
+          "jiǎo",
+          "measure word",
+          "horn; corner; jiao (written) [unit of currency = 0.1 yuan]"
+        ],
+        [
+          "jué",
+          "noun",
+          "role, part (in a play); contest"
+        ]
+      ]
+    },
+    "hsk30l3/难": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "nán / nàn",
+      "Bopomofo": "ㄋㄢˊ / ㄋㄢˋ",
+      "senses": [
+        [
+          "nán",
+          "verb / adjective",
+          "hard; difficult"
+        ],
+        [
+          "nàn",
+          "noun",
+          "disaster, calamity; to blame"
+        ]
+      ]
+    },
+    "hsk30l4/倒": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "倒是",
+      "Pinyin": "dào / dǎo",
+      "Bopomofo": "ㄉㄠˋ / ㄉㄠˇ",
+      "senses": [
+        [
+          "dào",
+          "verb / adverb",
+          "to pour; to reverse; on the contrary"
+        ],
+        [
+          "dǎo",
+          "verb",
+          "to fall over, to collapse; to fail; to change over"
+        ]
+      ]
+    },
+    "hsk30l4/假": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "jiǎ / jià",
+      "Bopomofo": "ㄐㄧㄚˇ / ㄐㄧㄚˋ",
+      "senses": [
+        [
+          "jiǎ",
+          "adjective",
+          "false"
+        ],
+        [
+          "jià",
+          "noun",
+          "holiday, leave of absence"
+        ]
+      ]
+    },
+    "hsk30l4/当": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "dāng / dàng",
+      "Bopomofo": "ㄉㄤ / ㄉㄤˋ",
+      "senses": [
+        [
+          "dāng",
+          "verb / preposition",
+          "to act as; to serve as; when"
+        ],
+        [
+          "dàng",
+          "verb / adjective",
+          "to treat as, to regard as; appropriate; to pawn"
+        ]
+      ]
+    },
+    "hsk30l4/待": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "dāi / dài",
+      "Bopomofo": "ㄉㄞ / ㄉㄞˋ",
+      "senses": [
+        [
+          "dāi",
+          "verb",
+          "to stay, to remain"
+        ],
+        [
+          "dài",
+          "verb",
+          "to treat, to deal with; to wait for"
+        ]
+      ]
+    },
+    "hsk30l4/数": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "shù / shǔ",
+      "Bopomofo": "ㄕㄨˋ / ㄕㄨˇ",
+      "senses": [
+        [
+          "shù",
+          "noun / numeral",
+          "number; figure; mathematics"
+        ],
+        [
+          "shǔ",
+          "verb",
+          "to count; to enumerate; to be reckoned as"
+        ]
+      ]
+    },
+    "hsk30l4/血": {
+      "why": "xuè is the citation reading and the one the corpus uses 13 times to 1; xiě is the colloquial standalone reading. Teaching one alone made a speech engine and the card disagree whichever was chosen, so both are named.",
+      "Pinyin": "xuè / xiě",
+      "Bopomofo": "ㄒㄩㄝˋ / ㄒㄧㄝˇ",
+      "senses": [
+        [
+          "xuè",
+          "noun",
+          "blood"
+        ],
+        [
+          "xiě",
+          "noun",
+          "blood (colloquial reading)"
+        ]
+      ]
+    },
+    "hsk30l4/量": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "测量",
+      "Pinyin": "liáng / liàng",
+      "Bopomofo": "ㄌㄧㄤˊ / ㄌㄧㄤˋ",
+      "senses": [
+        [
+          "liáng",
+          "verb",
+          "to measure, to weigh"
+        ],
+        [
+          "liàng",
+          "noun",
+          "quantity, amount, capacity"
+        ]
+      ]
+    },
+    "hsk30l5/便": {
+      "why": "Its one sense read 'adverb — convenience; excrement or urine; relieve oneself': three biàn senses jumbled under a part of speech that fits none of them, and no pián at all, which is the reading a learner meets first in 便宜. Rewritten outright.",
+      "Pinyin": "biàn / pián",
+      "Bopomofo": "ㄅㄧㄢˋ / ㄆㄧㄢˊ",
+      "senses": [
+        [
+          "biàn",
+          "adjective / adverb",
+          "convenient, handy; then, in that case"
+        ],
+        [
+          "pián",
+          "adjective",
+          "cheap (in 便宜)"
+        ]
+      ]
+    },
+    "hsk30l5/切": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "切割",
+      "Pinyin": "qiē / qiè",
+      "Bopomofo": "ㄑㄧㄝ / ㄑㄧㄝˋ",
+      "senses": [
+        [
+          "qiē",
+          "verb",
+          "cut; slice"
+        ],
+        [
+          "qiè",
+          "adjective",
+          "close, intimate; eager, urgent"
+        ]
+      ]
+    },
+    "hsk30l5/划": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "划算",
+      "Pinyin": "huá / huà",
+      "Bopomofo": "ㄏㄨㄚˊ / ㄏㄨㄚˋ",
+      "senses": [
+        [
+          "huá",
+          "verb",
+          "to row; to scratch; worthwhile"
+        ],
+        [
+          "huà",
+          "verb",
+          "to mark off, to delimit; to plan; to transfer"
+        ]
+      ]
+    },
+    "hsk30l5/呀": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
+      "Say": "哎呀"
+    },
+    "hsk30l5/挑": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "挑选",
+      "Pinyin": "tiāo / tiǎo",
+      "Bopomofo": "ㄊㄧㄠ / ㄊㄧㄠˇ",
+      "senses": [
+        [
+          "tiāo",
+          "verb",
+          "to carry on a shoulder pole; to pick, to choose"
+        ],
+        [
+          "tiǎo",
+          "verb",
+          "to raise, to poke up; to stir up, to provoke"
+        ]
+      ]
+    },
+    "hsk30l5/朝": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Say": "朝代",
+      "Pinyin": "cháo / zhāo",
+      "Bopomofo": "ㄔㄠˊ / ㄓㄠ",
+      "senses": [
+        [
+          "cháo",
+          "verb / preposition",
+          "towards; facing; dynasty"
+        ],
+        [
+          "zhāo",
+          "noun",
+          "morning; day"
+        ]
+      ]
+    },
+    "hsk30l5/朵": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
+      "Say": "花朵"
+    },
+    "hsk30l5/炸": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "zhá / zhà",
+      "Bopomofo": "ㄓㄚˊ / ㄓㄚˋ",
+      "senses": [
+        [
+          "zhá",
+          "verb",
+          "to deep-fry"
+        ],
+        [
+          "zhà",
+          "verb",
+          "to explode, to blow up; to bomb"
+        ]
+      ]
+    },
+    "hsk30l5/臭": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
+      "Say": "臭气"
+    },
+    "hsk30l6/尽": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "jìn / jǐn",
+      "Bopomofo": "ㄐㄧㄣˋ / ㄐㄧㄣˇ",
+      "senses": [
+        [
+          "jìn",
+          "verb / adverb",
+          "to exhaust, to use up; to the greatest extent"
+        ],
+        [
+          "jǐn",
+          "adverb",
+          "to the greatest extent; as far as possible"
+        ]
+      ]
+    },
+    "hsk30l6/晕": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
+      "Say": "头晕"
+    },
+    "hsk30l6/曲": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "qǔ / qū",
+      "Bopomofo": "ㄑㄩˇ / ㄑㄩ",
+      "senses": [
+        [
+          "qǔ",
+          "noun",
+          "bent, curved; or a song, tune"
+        ],
+        [
+          "qū",
+          "adjective / noun",
+          "bent, crooked; wrong; leaven"
+        ]
+      ]
+    },
+    "hsk30l6/率": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "lǜ / shuài",
+      "Bopomofo": "ㄌㄩˋ / ㄕㄨㄞˋ",
+      "senses": [
+        [
+          "lǜ",
+          "suffix",
+          "rate, ratio, proportion"
+        ],
+        [
+          "shuài",
+          "verb",
+          "to lead, to command; rash, hasty"
+        ]
+      ]
+    },
+    "hsk30l6/盛": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "chéng / shèng",
+      "Bopomofo": "ㄔㄥˊ / ㄕㄥˋ",
+      "senses": [
+        [
+          "chéng",
+          "verb",
+          "fill; hold; contain"
+        ],
+        [
+          "shèng",
+          "adjective",
+          "flourishing, abundant; grand"
+        ]
+      ]
+    },
+    "hsk30l6/铺": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
+      "Say": "铺路"
+    },
+    "hsk30l7/作料": {
+      "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
+      "Pinyin": "zuò liao",
+      "Bopomofo": "ㄗㄨㄛˋ ㄌㄧㄠ˙"
+    },
+    "hsk30l7/咽": {
+      "why": "Tagged verb against the noun gloss 'throat' — yàn is 'to swallow' and yān is 'throat', so the card paired one reading with the other's sense. Both are taught now, which is also what takes it off check-say-reading.js's list.",
+      "Pinyin": "yàn / yān",
+      "Bopomofo": "ㄧㄢˋ / ㄧㄢ",
+      "senses": [
+        [
+          "yàn",
+          "verb",
+          "to swallow"
+        ],
+        [
+          "yān",
+          "noun",
+          "throat"
+        ]
+      ]
+    },
+    "hsk30l7/哄": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
+      "Say": "哄骗"
+    },
+    "hsk30l7/奔": {
+      "why": "The gloss 'to run quickly; to hurry' is bēn; bèn is 'to head for, to be close to'. The card taught a reading its own gloss does not have.",
+      "Pinyin": "bēn",
+      "Bopomofo": "ㄅㄣ"
+    },
+    "hsk30l7/应": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "yìng / yīng",
+      "Bopomofo": "ㄧㄥˋ / ㄧㄥ",
+      "senses": [
+        [
+          "yìng",
+          "verb",
+          "should, ought to; respond, answer"
+        ],
+        [
+          "yīng",
+          "verb",
+          "ought to, should"
+        ]
+      ]
+    },
+    "hsk30l7/综艺": {
+      "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
+      "Pinyin": "zōng yì",
+      "Bopomofo": "ㄗㄨㄥ ㄧˋ"
+    },
+    "hsk30l7/自治区": {
+      "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
+      "Pinyin": "zì zhì qū",
+      "Bopomofo": "ㄗˋ ㄓˋ ㄑㄩ"
+    },
+    "hsk30l7/自首": {
+      "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
+      "Pinyin": "zì shǒu",
+      "Bopomofo": "ㄗˋ ㄕㄡˇ"
+    },
+    "hsk30l7/走势": {
+      "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
+      "Pinyin": "zǒu shì",
+      "Bopomofo": "ㄗㄡˇ ㄕˋ"
+    },
+    "hsk30l7/走向": {
+      "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
+      "Pinyin": "zǒu xiàng",
+      "Bopomofo": "ㄗㄡˇ ㄒㄧㄤˋ"
+    },
+    "hsk30l7/足不出户": {
+      "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
+      "Pinyin": "zú bù chū hù",
+      "Bopomofo": "ㄗㄨˊ ㄅㄨˋ ㄔㄨ ㄏㄨˋ"
+    },
+    "hsk30l7/踏": {
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
+      "Say": "践踏"
+    },
+    "hsk30l7/钉": {
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "Pinyin": "dìng / dīng",
+      "Bopomofo": "ㄉㄧㄥˋ / ㄉㄧㄥ",
+      "senses": [
+        [
+          "dìng",
+          "verb",
+          "nail; to follow closely; to urge"
+        ],
+        [
+          "dīng",
+          "noun",
+          "nail, spike; tack"
+        ]
+      ]
+    },
+    "hsk30l7/露面": {
+      "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
+      "Pinyin": "lòu miàn",
+      "Bopomofo": "ㄌㄡˋ ㄇㄧㄢˋ"
+    }
+  }
+}

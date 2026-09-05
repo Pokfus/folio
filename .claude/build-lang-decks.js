@@ -28,6 +28,15 @@
   as a curated collection draws its subdecks.  A node's count is CARDS rather than notes, for the reason
   the deck's own count is.
 
+  IT CARRIES A CONTENT REVISION, `rev`, AND THAT IS WHAT LETS A DOWNLOADED DECK BE UPDATED (Sep 2026,
+  on a bug report that a card repaired weeks earlier still read the old pinyin).  A deck file is fetched
+  once and written to IndexedDB, and `langDeckDownload` returns early for a deck already mounted — so
+  before this every content repair reached only readers who had not yet downloaded the deck.  `rev` is
+  the first 12 hex of a SHA-256 over the deck's CARDS and GLOSSARY, canonically keyed, and deliberately
+  NOT over the file's bytes: `exportedAt`, key order and whitespace all move without a word changing,
+  and a row that says "update available" when nothing has changed is one a reader learns to ignore.
+  The site compares it against the copy it holds; see `langDeckStale` in app.js.
+
   THE ORDER IS THE ORDER THE ROWS ARE DRAWN IN, and it is by NATIVE SPEAKERS and then by the level the
   exam itself names, because a learner reads a ladder from the bottom.  A deck that is not a level
   (phrases, a core vocabulary) sorts last within its language, that being where a learner reaches it.
@@ -35,6 +44,7 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const ROOT = path.join(__dirname, "..");
 const DIR = path.join(ROOT, "decks");
 const OUT = path.join(ROOT, "lang-decks.js");
@@ -104,6 +114,12 @@ for (const f of files) {
   }
   const bytes = fs.statSync(path.join(DIR, f)).size;
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
+  // the content revision — see the header. Keys are sorted at every level so that a re-serialisation
+  // that moves them cannot move the hash, and nothing outside `cards` and `gloss` is in it.
+  const canon = (v) => Array.isArray(v) ? v.map(canon)
+    : (v && typeof v === "object") ? Object.keys(v).sort().reduce((o, k) => (o[k] = canon(v[k]), o), {}) : v;
+  const rev = crypto.createHash("sha256")
+    .update(JSON.stringify(canon({ cards: d.cards || [], gloss: d.gloss || {} }))).digest("hex").slice(0, 12);
   const m = d.meta || {};
   if (!m.id || !m.title) { console.error("! " + f + " has no meta.id or meta.title"); process.exit(1); }
   const notes = (d.cards || []).length;
@@ -165,7 +181,7 @@ for (const f of files) {
   const flat = tree.length > 0 && !tree.some((n) => n.n.indexOf("\u2192") >= 0);
   rows.push({
     lang: hits[0].name, file: f, id: m.id, title: m.title, sub: m.subtitle || "",
-    notes: notes, cards: cards, subs: tree.length, tree: prune(tree), flat: flat, bytes: bytes, rank: levelRank(m.title),
+    notes: notes, cards: cards, subs: tree.length, tree: prune(tree), flat: flat, bytes: bytes, rev: rev, rank: levelRank(m.title),
   });
 }
 
@@ -186,7 +202,7 @@ for (const r of rows) {
     ", title: " + s(r.title) + ", sub: " + s(r.sub) +
     ", notes: " + r.notes + ", cards: " + r.cards + (r.subs ? ", subs: " + r.subs : "") +
     (r.tree.length ? ", tree: " + s(r.tree) : "") + (r.flat ? ", flat: true" : "") +
-    ", bytes: " + r.bytes + " },\n";
+    ", bytes: " + r.bytes + ", rev: " + s(r.rev) + " },\n";
 }
 out += "];\n";
 fs.writeFileSync(OUT, out);

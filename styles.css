@@ -6727,6 +6727,17 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
   background:color-mix(in srgb, var(--indigo) 26%, transparent);
   transition:width .2s var(--ease);
 }
+/* AN UPDATE IS AVAILABLE FOR A DECK ALREADY HERE (Sep 2026, on the 蛋糕 report). It shares Download's
+   markup and its bar because it is the same fetch, and differs in ink because it is a different offer:
+   Download is the only thing a pending row can do, where this sits on a row that is already perfectly
+   studiable and must not shout over the deck's own counts. Ochre rather than indigo — the site's
+   "worth knowing" colour, and never the red that would read as a fault in the reader's deck. */
+.btn.tiny.dk-up{
+  border-color:color-mix(in srgb, var(--ochre) 55%, var(--rule));
+  color:color-mix(in srgb, var(--ochre) 82%, var(--ink));
+  background:color-mix(in srgb, var(--ochre) 10%, transparent);
+}
+.btn.tiny.dk-up:hover{background:color-mix(in srgb, var(--ochre) 20%, transparent);}
 .btn.danger{background:transparent; color:var(--zh); border-color:color-mix(in srgb,var(--zh) 45%, var(--rule));}
 .btn.danger:hover{background:var(--zh); color:#fff; border-color:var(--zh);}
 
