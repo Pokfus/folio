@@ -1657,6 +1657,29 @@ Herodotus, against zero notes on either side.**
     test counted WORDS and reported twenty-eight Chinese chapters of 5,765 characters as near-empty:
     **a length is not a word count in every script.**
 
+**A CRUX IS NOT OCR DAMAGE, AND A BOOK MUST SAY WHAT ITS MARKS MEAN** (Sep 2026, batch E53). The Latin
+Seneca prints **19 passages between tildes** — how its transcription renders the daggers a critical
+edition puts round text the manuscripts hand down corrupt (`~servitus~`, `~aitarens malitia et ea
+agitata~`, where *aitarens* is not a Latin word) — and **76 square brackets**, the opposite judgement,
+text the editors think was added later. **The front matter explained neither**, so a reader met both
+with nothing to say what they were; it does now.
+
+  · **`book-audit.js` HAD BEEN REPORTING ALL 19 AS SCAN DAMAGE SINCE E33** — 21 of the 37 hits its
+    sentinel check produces shelf-wide, which is why the other 16 had never been read. **A scanner whose
+    findings nobody reads has stopped working.** The mask is BY SHAPE, not by book: a crux wraps whole
+    words between a tilde pair, where the damage the check exists for sits INSIDE a word (`jatave~as`),
+    so it leaves every real finding standing.
+  · **THE TWO REAL ONES WERE IN THE RIGVEDA, IN ONE SENTENCE**: `jatave~as` for *Jatavedas*, which the
+    book spells correctly 112 times, and `Trce-fed` for *Tree-fed* in the next clause — E15's c/e family.
+  · **AND E28's LOST SPACES ARE NOT FINISHED.** The four hits the mask leaves are all in letter 123 and
+    all are a crux run hard against the next word (`~Eo~mortem`), with `uoluptatesrecepturae` beside
+    them. Measured conservatively — a 15-letter token occurring once whose halves each occur three times
+    or more — there are 13 across seven letters, **all inside 101–124, the range E28 covered**.
+  · **`.claude/book-cache/canterbury-tales/en-text.txt` DOES NOT MATCH THE SHIPPED ENGLISH**, so the
+    Canterbury Tales' eight sentinel hits could not be verified and were not repaired. Where the cache
+    was found at all it reads differently from the book. **Check a cache is the book's own witness before
+    correcting against it.**
+
 **AND THE SAME FAULT ONE LEVEL UP: CLAUDE.md'S OWN FIGURES** (Sep 2026, batch E51). E49 checked a
 book's account of itself; `CLAUDE.md` is the repository's, it is the only operational memory a cloud
 session has, and **twenty of the forty-one figures in it that can be measured were wrong** — the

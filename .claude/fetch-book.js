@@ -1072,6 +1072,15 @@ const BOOKS = {
       "The letters are numbered here as they have always been numbered, and the small raised figures " +
         "running through each one are its section numbers, by which any passage is cited. The numbered " +
         "notes folded under each letter are the translator's own.",
+      "<b>The Latin column carries two editorial marks, and they are the edition's rather than this " +
+        "page's.</b> Words between <b>tildes</b> are a passage the editors judge <i>corrupt</i> — the " +
+        "manuscripts hand down something that will not construe, and rather than mend it by guesswork " +
+        "the text prints what they say and marks it as doubtful. There are 19 such passages, across " +
+        "ten letters, and some of them contain words that are not Latin at all. Words between " +
+        "<b>square brackets</b> are the opposite judgement: text the editors think was added later " +
+        "and is not Seneca's, kept on the page rather than deleted from it so that a reader can see " +
+        "what was cut. There are 76 of those, across 46 letters. Neither mark is damage, and neither " +
+        "is repaired here.",
     ],
     // Gummere's three Loeb volumes, as Wikisource's own transclusions divide them
     parts: [
@@ -14836,6 +14845,15 @@ const BOOKS = {
        "a transposition in `enmity`, against 13 correct"],
       [/(?<![A-Za-z])battels(?![A-Za-z])/g, "battles",
        "a transposition in `battles`, against 62 correct"],
+      /* A TILDE READ FOR A LETTER, AND A c FOR AN e, IN ONE SENTENCE OF 6.12.4 (Sep 2026, batch E53).
+         Both were reported by `book-audit.js`'s sentinel-run check, which had been firing on them
+         unread since E33. `jatave~as` is the vocative of Jatavedas, which this book spells correctly
+         112 times and thus once; and `Trce` is not a word, where tree-fed is what Agni is — E15's
+         c/e family, in the very next clause. */
+      [/(?<![A-Za-z0-9])jatave~as(?![A-Za-z0-9])/g, "Jatavedas",
+       "a tilde read for the d of `Jatavedas`, and the capital lost with it — against 112 correct"],
+      [/(?<![A-Za-z])Trce-fed(?![A-Za-z])/g, "Tree-fed",
+       "a c read for the second e of `Tree-fed`, in the same sentence as the Jatavedas repair"],
       [/(?<![A-Za-z0-9])1ndra(?![A-Za-z0-9])/g, "Indra",
        "a 1 read for the I of `Indra`"],
       [/(?<![A-Za-z0-9])3trength(?![A-Za-z0-9])/g, "strength",

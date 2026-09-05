@@ -232,6 +232,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     to its date line. `node .claude/check-counts.js` is the proxy — report-only, the NEAR MISS being
     the signal, a count under 40 untested and the legitimate misses declared with reasons — and its
     own header states the three things it cannot see.
+  · **A CRUX IS NOT OCR DAMAGE, AND A BOOK MUST SAY WHAT ITS MARKS MEAN** (Sep 2026, batch E53). The
+    Latin Seneca prints 19 passages between TILDES — its transcription's daggers, round text the
+    manuscripts hand down corrupt (`~aitarens malitia et ea agitata~`, where *aitarens* is not a Latin
+    word) — and 76 SQUARE BRACKETS, the opposite judgement. **Its front matter explained neither**, and
+    `book-audit.js` had been calling all 19 scan damage since E33: 21 of the 37 hits its sentinel check
+    produces, which is why the other 16 had never been read. **A scanner whose findings nobody reads has
+    stopped working.** The mask is BY SHAPE — a crux wraps whole words between a tilde pair, where real
+    damage sits INSIDE a word (`jatave~as` for *Jatavedas*, which the Rigveda spells right 112 times).
   · **AND THE OTHER KIND OF CLAIM IT MAKES — WHAT IS WRONG WITH THE BOOK — HAS NO CHECK AT ALL**
     (Sep 2026, batch E50). A count can be compared to the file; a sentence saying an edition leaves
     lines out cannot. All **106 such sentences across the 48 books** were read and 105 hold; the

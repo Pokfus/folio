@@ -101,9 +101,19 @@ for (const [side, list] of [["en", en], ["or", or]]) {
     for (const c of b.chapters || []) {
       const html = c.html || "";
       chars += html.length;
+      /* A CRUX IS NOT OCR DAMAGE (Sep 2026, batch E53). The Latin Seneca prints 19 passages between
+         TILDES, which is how its transcription renders the daggers a critical edition puts round text
+         the manuscripts hand down corrupt — `~servitus~`, `~aitarens malitia et ea agitata~`. The
+         sentinel check below had been reporting all 19 as scan damage since E33, which is 21 of the
+         37 hits it produces shelf-wide and the reason nobody had read the other 16.
+         MASKED BY SHAPE, NOT BY BOOK: a crux wraps WHOLE WORDS between a pair of tildes, where the
+         damage this check is for sits INSIDE a word — `jatave~as` for Jatavedas, `Trce-fed`. So the
+         mask is a tilde pair whose ends are both at a word boundary, and it leaves every real finding
+         standing. */
+      const masked = html.replace(/(^|[\s>(\[])~[^~<>]{1,120}~(?=[\s<).,;:!?\]]|$)/g, "$1 ");
       for (const [name, rx] of CHECKS) {
         const r = new RegExp(rx.source, rx.flags);
-        const found = html.match(r);
+        const found = (name === "an OCR sentinel run of punctuation" ? masked : html).match(r);
         if (found) { hits[name] = (hits[name] || 0) + found.length; if (!hits["_ex" + name]) hits["_ex" + name] = found[0]; }
       }
       const bal = tagsBalanced(html);

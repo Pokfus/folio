@@ -4210,3 +4210,83 @@ to say so rather than ship a checker nobody runs.
   the E51 check caught changing by one.
 - All 379 Re-run names, the fifteen deletions and the one survivor verified against comment-stripped
   source before any of them was declared.
+
+---
+
+## E53 — the audit's own findings, read at last
+
+**`book-audit.js` has been reporting the same ten files since E33, and most of its findings had never
+been read.** E33 read two of them and wrote down why they were not faults — Marco Polo's seven bare
+ampersands are `&c.` for *et cetera*, and the Latin Boethius's twelve `[Greek: …]` markers are a
+transcription that represents ALL Greek as bracketed transliteration. The rest sat in the output of
+every run for twenty batches. **A scanner whose findings nobody reads is a scanner that has stopped
+working**, and this batch reads them.
+
+### The Latin Seneca's 21 "OCR sentinel runs" are the edition's apparatus
+
+They are the largest single family the audit reports — **21 of its 37 sentinel hits**, and the reason
+the other 16 had never been looked at. They are not damage. The Latin column prints **19 passages
+between tildes**, which is how its transcription renders the daggers a critical edition puts round text
+the manuscripts hand down *corrupt*:
+
+> …in quolibet rerum habitu **~servitus~** servat…
+> …illa **~aitarens malitia et ea agitata~** abest [de bono]…
+
+*aitarens* is not a Latin word, and `~Sicut aut~` is not a clause. That is what a crux is for. All 19
+are in the source, and beside them the same passage carries `[de bono]` — square brackets, the opposite
+judgement, text the editors think was added later and is not Seneca's.
+
+**AND THE BOOK'S FRONT MATTER EXPLAINED NEITHER MARK.** A reader met `~servitus~` and `[de bono]` with
+nothing anywhere to say what they were. Measured: **19 crux passages across ten letters, and 76 square
+brackets across 46.** The front matter now says what both are, that they are the edition's and not this
+page's, and that neither is repaired here.
+
+**`book-audit.js` NO LONGER CALLS THEM DAMAGE, MASKED BY SHAPE RATHER THAN BY BOOK**: a crux wraps
+WHOLE WORDS between a pair of tildes, where the damage this check exists for sits INSIDE a word. The
+mask is a tilde pair whose ends are both at a word boundary, and it leaves every real finding standing —
+the audit goes from 21 hits in that file to 4.
+
+### The Rigveda's two, in one sentence of 6.12.4
+
+Both repaired, and both had been sitting in the audit's output since E33:
+
+| shipped | should be | why it is certain |
+|---|---|---|
+| `jatave~as` | **Jatavedas** | the book spells it correctly **112 times** and thus once; the context is a vocative |
+| `Trce-fed` | **Tree-fed** | *Trce* is not a word, Agni is fed on wood, and c-for-e is E15's declared family — in the very next clause |
+
+One chapter of 1,028 changed; the Sanskrit column byte-identical. The Rigveda drops off the audit's list
+entirely.
+
+### Bede's repeated paragraph is Gregory's chancery, twice
+
+`check-twins`'s fault class in the Latin Bede: Book I carries *"Data die X. Kalendarum Iuliarum,
+imperante domino nostro Mauricio Tiberio piissimo Augusto anno XVIIII…"* at two places. **Read, and it is
+the edition.** Both are the dating subscription at the foot of a letter of Gregory the Great, and both
+letters were issued on the same day — the English column carries it twice too, as *"Given the 22nd of
+June, in the nineteenth year of the reign of our most religious lord, Mauritius Tiberius Augustus."*
+Two letters given on one day carry one formula. Not a finding, and now recorded so nobody reads it again.
+
+### What this opened, and is left for the next batch
+
+**E28's lost spaces in the Latin Seneca are NOT finished.** The four sentinel hits the crux mask leaves
+standing are all in letter 123, and all four are the closing tilde of a crux run hard against the next
+word — `~Eo~mortem`, `…prohibent et~occurrent` — with `uoluptatesrecepturae` and `Nonamicam` in the same
+two sentences. All are in the source.
+
+Measured conservatively — a token of 15 letters or more that occurs **once** in the whole column and
+splits into two parts each used **three or more times** elsewhere in it — there are **13 such tokens
+across seven letters, every one of them between 101 and 124**, which is exactly the range E28 covered.
+A looser sweep of long tokens returns far more and needs reading one at a time to separate a run-together
+from a legitimately long Latin word. **It wants a batch of its own**, and it is E28's own family rather
+than a new one.
+
+**And a second thing to know before that batch: `.claude/book-cache/canterbury-tales/en-text.txt` does
+not match the shipped English.** The eight sentinel hits in the Canterbury Tales were to be verified
+against it and five were found while three were not — and where the cache *was* found it reads
+differently from the book (*"therefore he shut fast the counting-house door"* against the shipped
+*"^Vith that he shut his counting-house door"*). Whatever that file is, it is not the witness those
+eight repairs need, so none of them was made: **inventing a reading is what this programme refuses to
+do**, and E13's method was to read the printed leaf. Journey to the West's seven are scan garbage inside
+the plate and glossary tables — E34's family — and are recorded here rather than repaired for the same
+reason.
