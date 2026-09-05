@@ -84,6 +84,7 @@ window.WORLD_CAPITALS = {
   "George Town": {"s":"Cayman Is.","c":[-81.33,19.2804]},
   "Georgetown": {"s":"Guyana","c":[-58.167,6.802]},
   "Gibraltar": {"s":"Gibraltar","c":[-5.3781,36.1324]},
+  "Gitega": {"s":"Burundi","c":[29.8436,-3.426]},
   "Guatemala City": {"s":"Guatemala","c":[-90.5289,14.6231]},
   "Gustavia": {"s":"St-Barthélemy","c":[-62.8506,17.8979]},
   "Hagåtña": {"s":"Guam","c":[144.75,13.47]},

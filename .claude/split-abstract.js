@@ -42,7 +42,12 @@ function pieces(block) {
   // English and in five translations. Narrow on purpose: the following word must be a capitalised word of
   // at least two letters, so a real sentence boundary is only ever swallowed when the previous sentence
   // ended on a single capital letter — which no prose in this project does.
-  hold(/(?<=^|[\s(«"'([])\p{Lu}\.\s(?=\p{Lu}\p{L})/gu);
+  // ...and the capitalised word may itself OPEN on a capital-apostrophe prefix — "Joseph P. O'Neill",
+  // "Marie C. D'Arcy" — where the letter after the capital is an apostrophe rather than a letter, so the
+  // test above fails and the name splits after the initial. Found on the Asmara card, whose chargé
+  // d'affaires is Joseph P. O'Neill. The guarantee is unchanged: a real boundary is only swallowed when
+  // the previous sentence ended on a single capital letter, which no prose in this project does.
+  hold(/(?<=^|[\s(«"'([])\p{Lu}\.\s(?=\p{Lu}(?:\p{L}|['\u2019]\p{Lu}))/gu);
   // The Arabic of the same thing. Arabic has no case, so the "followed by a capital" test above cannot
   // carry over; a lone Arabic letter standing between whitespace and a full stop is an initial for the
   // same reason — no Arabic sentence ends on one. "عالم الآثار ف. غوردون تشايلد" and "جيسون إ. لويس".

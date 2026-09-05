@@ -84,6 +84,19 @@ const DROP = {
   "Baguio|Philippines": "not a capital: designated the SUMMER capital in 1903, which is a place the government goes in April, not the seat",
 };
 
+/* A SECOND SEAT NATURAL EARTH HAS NOT CAUGHT UP WITH. Where a country's government has moved, the
+   `Admin-0 capital` class goes on saying what it said, and the new seat — if the file has it at all —
+   sits in the `Admin-1 capital` class, which rule 2 above admits only for a dependency. So the row is
+   DECLARED, with the reason beside it, exactly as DROP and RENAME are: the alternative is a rule clever
+   enough to guess which of a country's provincial capitals is really the seat of its government, which
+   is not a judgement a heuristic can make. The builder refuses a row it cannot find in the source, so a
+   row Natural Earth later fixes fails loudly here rather than quietly duplicating a point.
+   The country keeps its Admin-0 point as well: a country with two seats has two cards. */
+const SECOND_SEAT = {
+  "Gitega|Burundi": "Burundi moved its political capital from Bujumbura to Gitega in 2019 — Natural Earth still files Bujumbura as the Admin-0 capital, and carries Gitega only as an Admin-1 capital, under the wrong province at that (ADM1NAME reads Muramvya, where Gitega is the seat of Gitega province)",
+};
+const SECOND_SEAT_NAMES = new Set(Object.keys(SECOND_SEAT).map((k) => k.split("|")[0]));
+
 /* Seventeen seats Natural Earth carries no point for. The VALUE is an article title, not a coordinate:
    the number is fetched from that article's own published primary coordinate, so a wrong row is a wrong
    NAME, which is visible, rather than a wrong number, which is not. */
@@ -229,18 +242,25 @@ function shippedTable() {
     else if (ADM0_FIX[p.ADM0NAME]) hasOwnCapital.add(ADM0_FIX[p.ADM0NAME]);
   }
   const dropped = [];
+  const seenSecondSeat = new Set();
   for (const f of gj.features) {
     const p = f.properties, cls = p.FEATURECLA || "";
     if (!(cls in RANK)) continue;
     const admin1 = cls === "Admin-1 capital";
     let country = null;
     const iso = (p.ISO_A2 || "").toLowerCase();
-    if (!admin1 && iso && iso !== "-99" && byIso2[iso]) country = byIso2[iso][0].n;
+    /* An admin-1 capital normally has no country here at all (rule 2 resolves one only through
+       ADM0_FIX). A SECOND_SEAT row names a city that IS one, so the ISO join has to be allowed for it
+       before the class gate below can ask whether the row exists. */
+    if ((!admin1 || SECOND_SEAT_NAMES.has(p.NAME)) && iso && iso !== "-99" && byIso2[iso]) country = byIso2[iso][0].n;
     if (!country && ADM0_FIX[p.ADM0NAME]) country = ADM0_FIX[p.ADM0NAME];
     if (!country) continue;
     if (!byName[country]) die("ADM0_FIX maps to " + JSON.stringify(country) + ", which world.js has not got.");
-    // an admin-1 capital counts only for a territory named in ADM0_FIX, and only the seat asked for by name
-    if (admin1 && !ADM0_FIX[p.ADM0NAME]) continue;
+    // an admin-1 capital counts only for a territory named in ADM0_FIX, for the seat asked for by name,
+    // or for a SECOND_SEAT row declaring that this is a capital Natural Earth has not caught up with
+    const secondSeat = SECOND_SEAT[p.NAME + "|" + country];
+    if (secondSeat) seenSecondSeat.add(p.NAME + "|" + country);
+    if (admin1 && !ADM0_FIX[p.ADM0NAME] && !secondSeat) continue;
     if (ADM1_PICK[country] && (admin1 || cls === "Admin-0 region capital") && ADM1_PICK[country] !== p.NAME) continue;
     const capin = p.CAPIN || "";
     if (/^Former/i.test(capin)) { dropped.push(p.NAME + " (" + country + ") — former capital"); continue; }
@@ -249,6 +269,7 @@ function shippedTable() {
     if (DROP[p.NAME + "|" + country]) { dropped.push(p.NAME + " (" + country + ") — " + DROP[p.NAME + "|" + country]); continue; }
     add(p.NAME, country, p.LONGITUDE, p.LATITUDE, RANK[cls]);
   }
+  for (const k of Object.keys(SECOND_SEAT)) if (!seenSecondSeat.has(k)) die("SECOND_SEAT row " + JSON.stringify(k) + " matched nothing in the source — has Natural Earth changed how it files it?");
   for (const k of Object.keys(RENAME)) if (!seenSrcName.has(k)) console.warn("  ! RENAME row " + JSON.stringify(k) + " matched nothing in the source — has Natural Earth corrected it?");
 
   // 3 — the supplement

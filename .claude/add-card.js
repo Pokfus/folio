@@ -218,7 +218,21 @@ for (const [qi, q] of [card.question, ...card.questions].entries()) {
    what the reader is being asked to recall is `polis`. The article belongs to the question and to the
    background, where the grammar needs it, and never to the term itself — which is also what keeps the
    answer matching its glossary key, its `answerText` and the way a reader would say it aloud. */
+/* ...EXCEPT WHERE THE ARTICLE IS PART OF THE PROPER NOUN (Sep 2026, on `gw-719`). A place can be
+   NAMED "The X": Anguilla's capital is The Valley on its own government's facts page, and the Dutch
+   seat of government is The Hague in English. Stripping the article there does not bare a term, it
+   renames a town — and `test-card-plans.js` compares the shipped answer against the plan's own name,
+   so the mangled form would fail there instead. Declared rather than pattern-matched, for the reason
+   `CROSSREF_WRONG` is: a rule that guesses which "The" is a name would let the real fault through.
+   Add an entry only after checking how the place's own authority writes it. */
+const ARTICLE_IS_NAME = new Set([
+  "the valley",   // Anguilla's capital; "The Valley" on gov.ai's own Anguilla Facts page
+  "the hague",    // the Dutch seat of government, the English name of 's-Gravenhage / Den Haag
+  "the gambia",   // the country's own constitutional name
+  "the bahamas",  // ditto
+]);
 for (const f of ["answer", "answerText"]) {
+  if (ARTICLE_IS_NAME.has(String(card[f] || "").trim().toLowerCase())) continue;
   if (/^(the|a|an)\s/i.test(card[f] || "")) {
     console.error("ERROR: card." + f + " begins with an article: " + JSON.stringify(card[f]) + "\n" +
       "       Drop it — the answer term is the bare term. Put the article in front of the blank in each\n" +
@@ -227,7 +241,8 @@ for (const f of ["answer", "answerText"]) {
     process.exit(1);
   }
 }
-if (/^<b>(the|a|an)\s/i.test(card.abstract || "")) {
+const boldTerm = (String(card.abstract || "").match(/^<b>([^<]*)<\/b>/) || [])[1] || "";
+if (!ARTICLE_IS_NAME.has(boldTerm.trim().toLowerCase()) && /^<b>(the|a|an)\s/i.test(card.abstract || "")) {
   console.error("ERROR: the background bolds the article. The bold is the answer term alone:\n" +
     "       write \"The <b>polis</b> is ...\", not \"<b>The polis</b> is ...\".");
   process.exit(1);

@@ -773,7 +773,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `[^\s<>"')\]]`, which bit twice in Aug 2026 while illustrating psychology cards: the obvious Commons
   page for Kant carries parentheses and the obvious one for Broca's area carries an apostrophe, so both
   credit lines would have shipped truncated. **Check a Commons page URL for `'` and `()` before choosing
-  the file**, since a picture is usually replaceable and the credit line is not optional), **`senate.gov` serves its 404 page with a 200 status**, and
+  the file** — though that is now a reason to PERCENT-ENCODE rather than to reject one (Sep 2026, on
+  `gw-722`): `%27`, `%28` and `%29` carry none of the stopped characters, resolve on Commons, and match
+  the regex whole, where the raw forms truncate a credit at the first `'` or `)`. Verified both ways —
+  `…/File:Parliament_and_Courthouse_%2815222121087%29.jpg` and `…/Category:Broca%27s_area` each answer
+  200, and the raw form of the first matches only `.jpg`. **The picture is no longer the thing that has
+  to be replaced**), **`senate.gov` serves its 404 page with a 200 status**, and
   **`monticello.org` and `founders.archives.gov` are closed here** — so Founders Online, named as a
   second-source spine in the plan, is not usable and the NARA milestone documents replace it. G9's finding held into G10 and G11 and is now a law of the pass:
   the register pays for taxa and periods and **not** for peoples, places or objects, so 24 of G9's 26 and
@@ -1294,7 +1299,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 2.98 MB and 43,942 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 2.98 MB and 43,951 lines is hard to find your way around, so this
   lists its 164 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -5281,13 +5286,13 @@ lookup.
 
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
-| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, scattered — next id is an early GAP |
-| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 500 cards, contiguous |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 100 cards |
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, contiguous — next is `wh-301` |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 500 cards, contiguous — next is `gr-501` |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 100 cards, contiguous — next is `rm-101` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 99 cards — `cn-myth` complete, and the collection is now open to study |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 99 cards, SCATTERED — next is `cnh-042`, an early gap; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -5296,8 +5301,8 @@ lookup.
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
-| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 100 cards — and it is NOT a 1000-card plan, see below |
-| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 263 cards — 470 rather than 1000, and sorted by POPULATION, see below |
+| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
+| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
@@ -5311,10 +5316,14 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (229 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (245 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
-topics, and CLAUDE.md names each plan, carries a working next-id command and states each prefix in the
+topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
+names the ANSWER rather than a subject to research, i.e. the three geography plans — the card sitting at
+that number IS the city the plan put there** (both added Sep 2026, after eight capitals shipped at other
+cities' ids, one of them at a number its plan deliberately leaves unused, with nothing complaining
+because every card was correct in itself), and CLAUDE.md names each plan, carries a working next-id command and states each prefix in the
 index table (the command is asserted ONCE as a template and the prefix per collection — the rule is
 shape plus prefix, and eleven copies of the shape guarded nothing the pair does not). **Re-run it after editing a plan, after changing a tree in
 `data.js`, and after adding a collection** — every fault it catches is silent, and the worst of them
@@ -5579,6 +5588,15 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   plural subject can be left with a singular complement ("17 of the 34 tombs are a cist grave"), which the
   article was hiding. Read every phrasing back after the change; the length rule bites too, since inserting
   the article costs a word.
+  **THE ONE EXEMPTION IS A PLACE ACTUALLY NAMED "The X"** (`ARTICLE_IS_NAME` in `add-card.js`, Sep 2026,
+  on `gw-719`): Anguilla's capital is **The Valley** on its own government's facts page and the Dutch seat
+  of government is **The Hague**, so stripping the article there renames a town rather than baring a term
+  — and `test-card-plans.js` compares a shipped answer against its plan's own name, so the mangled form
+  fails there instead. It is a **DECLARED four-entry table with the reason beside each**, exempting
+  `answer`, `answerText` and the abstract's opening `<b>` together, for the reason `CROSSREF_WRONG` is
+  declared: a rule clever enough to tell a name from a phrase would let the real fault through. **Add an
+  entry only after checking how the place's own authority writes it**, and never to get a card past the
+  check.
 - `answerText` — the answer as plain text, no HTML.
 - `image` / `video` (optional, one or the other) — `{ src, title, desc, credit }`. **`credit` is required**:
   `add-card.js` refuses a `src` with no source line, matching the editors' media gate.
@@ -6327,7 +6345,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 229 assertions on **the join between the sixteen card plans and
+  · `node .claude/test-card-plans.js` — 245 assertions on **the join between the sixteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
