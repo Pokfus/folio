@@ -74,6 +74,11 @@ jobs:
       # for every visitor -- and the only symptom is a slower site.
       - name: glossary split intact
         run: node .claude/split-glossary.js --check
+      # …and the artefacts' descriptions, citations and pictures live in the lazy artefacts-extra.js,
+      # which were 94% of artefacts.js. Same failure and same lack of a symptom; --check also asserts
+      # the join holds in both directions, since a row nothing indexes is content no reader can reach.
+      - name: artefact split intact
+        run: node .claude/split-artefacts.js --check
       - name: check-questions
         run: node .claude/check-questions.js
       - name: check-style

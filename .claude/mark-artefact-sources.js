@@ -27,7 +27,9 @@ if (!planFile || !outFile) { console.error("usage: node .claude/mark-artefact-so
 const plan = JSON.parse(fs.readFileSync(planFile, "utf8"));
 
 global.window = {};
-require(path.join(__dirname, "..", "artefacts.js"));
+// the pool is TWO files — artefacts.js is the eager index and carries no `desc` at all, which is
+// exactly what this script places markers into. See .claude/split-artefacts.js.
+global.window.ARTEFACTS = require("./artefact-io.js").loadArtefacts();
 const byId = {};
 (global.window.ARTEFACTS || []).forEach((a) => { byId[a.id] = a; });
 

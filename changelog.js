@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.490", released: "2026-09-05T10:41Z" };
+window.FOLIO_VERSION = { v: "1.520", released: "2026-09-05T10:46Z" };
 
 window.CHANGELOG = [
   {
@@ -51,8 +51,40 @@ window.CHANGELOG = [
   },
   {
     d: "2026-09-04",
-    t: "Books corrected across the Library, from Virgil to Chaucer",
+    t: "Seventy-seven new Ancient Greece cards, and finer rivers",
     items: [
+      "<b>An Atlas place on a phone or tablet is now one page, with its figures above the description</b>, so the population, area and GDP no longer take a swipe to reach.",
+      "<b>An expanded Atlas place on a phone no longer grows off the top of the screen</b>, so its name and its close button stay in view however long the description.",
+      "<b>The close button of an Atlas place stays in its top right</b>, however long the name, instead of being pushed onto a line below it.",
+      "<b>The chip marking a place you have not opened before now reads \u201cNew discovery!\u201d</b> and no longer carries a running count.",
+      "<b>The Picture round now uses the artefacts alone</b>, and the reveal shows the object\u2019s full description with the works it rests on.",
+      "<b>An answered Picture round question stays answered</b>, so leaving the game and coming back resumes where you left off.",
+      "<b>A Picture round image can be enlarged once the answer is out</b>, with its title, description and source.",
+      "<b>Seven Ancient Rome cards now show the country they are about as an area</b> \u2014 Latium, Sabina, Samnium, Umbria, Liguria, Venetia and Messapia \u2014 rather than a single dot.",
+      "<b>The rivers of Italy and Greece are drawn in far finer detail</b> on the maps of their own collections’ cards, with many more of them shown.",
+      "<b>Rome is now always marked on the map in the Ancient Rome collection</b>, and Athens in Ancient Greece, as a red square.",
+      "<b>Modern capital cities on a card’s map no longer show their names</b>, only their squares.",
+      "<b>Modern cities are no longer marked at all on a history card’s map</b>, unless the place is a card’s own answer, like Rome or Athens.",
+      "<b>Rivers no longer paint over borders on a card’s map</b>, which had left China’s north-eastern frontier with Russia invisible.",
+      "<b>Five more cards now show where they are on a map</b> — Jiahu, Banpo and, as shaded regions, the Liangzhu culture, the Howiesons Poort and the Mal’ta-Buret’ culture.",
+      "<b>A language collection can now be studied by tapping its row</b>, as a history collection can.",
+      "<b>A language collection now has a cross to remove it</b> when you edit your daily study list.",
+      "<b>Two Mandarin cards are now read aloud with the right pronunciation</b> — 了 as <i>le</i> and 差 as <i>chà</i>, each spoken in a short word that fixes the reading.",
+      "<b>A card\u2019s traditional Chinese characters now sit on the line above the simplified ones</b> rather than beside them.",
+      "<b>A card\u2019s Chinese name is set flush right</b> rather than left.",
+      "<b>The Attica, Hongshan culture and Yangshao culture cards now show their region shaded on a map</b>, as the other place cards do.",
+      "<b>Turkey is on the map again in the Ancient Greece collection</b>, where a fault in the finer coastline had left Anatolia drawn as open sea.",
+      "<b>Rivers are drawn thinner on a card\u2019s map when it is zoomed out</b>, so a wide view is not a continent of blue thread.",
+      "<b>The squares marking modern capitals on a card\u2019s map are smaller and outlined in grey</b> rather than white.",
+      "<b>On a phone, the line between a card\u2019s answer and its Chinese name is grey</b> rather than red.",
+      "<b>The map on the Zagora card now names the place simply Zagora.</b>",
+      "<b>On a phone, a played minigame tile is now coloured above its title</b> — green, or a shining gold for a perfect score — carrying a large white tick and nothing else.",
+      "<b>Forty more countries on the Atlas have a full information box with sources</b> — from Iran, Turkey and Germany down to Australia, Nepal and both Koreas.",
+      "<b>208 more glossary terms</b> — central Italy and its provinces, East Africa’s fossil sites, Egypt from the Nile to Amarna, the vocabulary of states and government, and Ancient Greece’s own, all sourced.",
+      "<b>77 new cards in the Ancient Greece deck</b>, five of them the Parthenon, its sculpture and its architects.",
+      "One Ancient Greece card that repeated an older one has been rewritten on a subject the deck was missing.",
+      "Tapping <b>Ephialtes</b> in a card now opens the Athenian reformer rather than the guide at Thermopylae.",
+      "Fixed twelve pictures added today whose links were broken, so they show again.",
       "<b>231 corrections across twenty-eight books</b> — among them 31 to the Summa Theologica, 26 to Romance of the Three Kingdoms and 27 to the Iliad, none of which had been checked word by word before.",
       "<b>Another 142 corrections to the Canterbury Tales</b>, including words the scan had broken open and marks it invented out of a pencil note in the margin.",
       "<b>206 references repaired in Plato, Herodotus, Thucydides and the Satyricon</b>, welded to the words beside them or spelled in Greek letters, plus 56 corrections to the Greek Odyssey.",
@@ -78,7 +110,6 @@ window.CHANGELOG = [
     d: "2026-09-03",
     t: "Ten gemstone themes, and the crossword gets clues of its own",
     items: [
-      "<b>The Canterbury Tales has been corrected in 689 places</b> against photographs of the 1912 edition — quotation marks, commas, possessives, and whole lines the scan had lost.",
       "<b>Ten new themes</b> — Diamond, Ruby, Opalite, Jade, Emerald, Amber, Amethyst, Aquamarine, Bloodstone and Carnelian — each with its own colours, type and shapes.",
       "<b>The crossword is now clued with its own simple history questions</b> rather than with card questions, so it deals a fresh grid every day.",
       "<b>The Collections page has a menu bar</b> — History, Geography, Language, Other, Community and All — and Collections is a tab in the top bar again, between Home and Library.",
@@ -94,11 +125,20 @@ window.CHANGELOG = [
       "<b>On a phone, a played minigame's check or seal is much larger</b>, and the Atlas timeline runs the full width with the year centred.",
       "<b>An artefact's picture now shows a spinner while it loads</b>.",
       "<b>Eight Mandarin cards had their pinyin corrected</b> where an -r ending was written as a separate syllable.",
+      "<b>The geography collection <i>The world</i> is now called <i>World</i></b>.",
+      "<b>Every card in every geography collection now carries a picture</b> — a landmark for a state, province or country, a wide view of the city for a capital.",
+      "<b>Creating an account now tells you when the username you asked for was already taken</b>, and gives you the handle your account was made under instead.",
+      "<b>Your username can now be changed</b> from the account page — it is the handle you sign in with and the one friends add you by.",
+      "<b>The Sign in and Create account buttons no longer stay stuck reading \u201c\u2026\u201d</b> after an attempt that was refused.",
+      "<b>105 more glossary terms</b> — Greek pottery and regions, the sites of Crete and Cyprus, ancient materials, Rome’s institutions and hills, and Ancient Greece’s own — each with sources and most with a picture.",
+      "<b>One hundred new artefacts to find in a chest</b> — among them a Terracotta Army warrior, the Antikythera Mechanism, the Book of Kells, the Bayeux Tapestry, the Aztec Sun Stone, an Enigma machine and a Hokusai print.",
+      "<b>A new badge for collecting 100 artefacts</b>, since the ladder used to stop at 50.",
+      "<b>The site now loads a little faster</b>, because an artefact's description and picture are only fetched when you open a chest.",
+      "<b>23 new cards in the Ancient Greece deck</b>.",
+      "<b>The Canterbury Tales has been corrected in 689 places</b> against photographs of the 1912 edition — quotation marks, commas, possessives, and whole lines the scan had lost.",
       "<b>Romance of the Three Kingdoms prints another 1,400 Chinese names in modern pinyin</b>, and sixteen of its chapter titles are corrected.",
       "<b>An editor's note had been pasted into the Chinese of two books</b> \u2014 Journey to the West and Three Kingdoms \u2014 and both are cleaned.",
       "<b>Ten scanning errors are corrected in the Ramayana and Don Quixote</b>, each read against a scan of the printed page first.",
-      "<b>The geography collection <i>The world</i> is now called <i>World</i></b>.",
-      "<b>Every card in every geography collection now carries a picture</b> — a landmark for a state, province or country, a wide view of the city for a capital.",
     ],
   },
   {

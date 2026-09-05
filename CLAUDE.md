@@ -120,8 +120,10 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
 | `usstates` | `us-states.js` `lakes.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing. **`lakes.js` rides here because `world.js` has NO LAKE HOLES** — the Great Lakes sit inside the USA polygon, so a card map drew five inland seas as grey fields with an outline round each; it is listed in `atlas` too, which is harmless because `lakes.js` ASSIGNS `window.LAKES` rather than pushing onto a queue. **The card map STROKES a lake shore where the Atlas does not**, in the world layer's own coast ink: on a world globe a lake is a small blue mark, on a card zoomed to one state a Great Lake is half the window, and an unstroked shore beside a stroked ocean coast reads as two kinds of edge on one map |
+| `river_italy` / `river_greece` | `rivers/<region>.js` | warmed at IDLE by a LOCATOR window in the Rome or Greece collection, never awaited (China has no river file) |
 | `worldcaps` | `world-capitals.js` | a map card asks for a DOT on the `world` layer (a capital card in the world collection). Its own bundle, and fetched only when a card carries `map.dot`: the shapes are `world`'s, which every map window already loads for the coastline under it, and a locator card reads those shapes and never this table |
 | `glossExtra` | `glossary-extra.js` | **warmed at IDLE after boot**, and awaited by `openGlossWin` for a reader who beats the warm. The glossary's CITATIONS and ILLUSTRATIONS — 54% of `glossary.js`, and nothing reads either until a popup opens |
+| `artefactExtra` | `artefacts-extra.js` | **warmed at IDLE after boot**, and awaited by the chest reveal, the Reliquary, a friend's collection and Admin → Artefacts. An artefact's DESCRIPTION, CITATIONS and PICTURE — **94% of `artefacts.js`** (237 KB of 251), and nothing reads any of them until a chest opens |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
 | ~~`glossI18n:<lang>`~~ | *(removed 2026-08-08)* | the glossary translations were deleted on request; `loadLangData` no longer asks for this bundle, and the registration in `langBundle` is inert |
 | `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
@@ -1155,6 +1157,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
   because a file nobody is told to read is a file nobody reads. Eight docs were in exactly that state
   when it was written — unreferenced from here, several of them holding OPEN work.
+- `artefacts-extra.js` + `.claude/split-artefacts.js` + `.claude/artefact-io.js` — **the artefact pool
+  is TWO files**, and it is the glossary split below in miniature. `desc`, `sources` and `image` were
+  **237.5 KB of `artefacts.js`'s 251 — 94%** — on the EAGER path, and **not one of them is read until a
+  chest opens or the Reliquary is visited**; the only boot-adjacent reader of the pool is `progStats`,
+  which counts legendaries and so needs `rarity` alone. The eager file went **262.8 KB → 19.2 KB**.
+  · **IT MERGES BACK INTO `window.ARTEFACTS` AND THEN REBUILDS** (`artefactExtraIngest`), where the
+    glossary's hook re-seeds a separate PRISTINE snapshot. The reason is that the artefact pool has no
+    such snapshot: `window.ARTEFACTS` **IS** the revert baseline — `artefactIsShipped` and
+    `revertArtefact` read it directly and `artefactsMerged` re-applies `ADMIN_EDITS` over it on every
+    call — so merging into it and calling `refreshArtefacts()` is what puts the overlay back on top of
+    what just landed. Without it, Admin → Artefacts' **Revert would compare a real description against
+    nothing and DELETE it**. Guarded by a browser check in the split's own commit.
+  · **IT STAGES ONTO A QUEUE** (`window.ARTEFACTS_EXTRA_IN`), for the reason `glossary-extra.js` does,
+    and **an id the INDEX does not carry is not resurrected**: the index decides the pool, so a row left
+    behind by a retired artefact must not walk back in carrying only prose.
+  · **EVERY HELPER GOES THROUGH `.claude/artefact-io.js`** (`loadArtefacts` / `writeArtefacts`).
+    Requiring `artefacts.js` alone now yields entries with EMPTY prose: a READER then reports a fully
+    cited pool as uncited — **`test-artefacts.js` did exactly that on its first run after the split,
+    printing `0 of 100 cited` while 80 assertions passed over an empty list** — and a WRITER
+    re-serialises what it loaded and **deletes 240 KB without erroring**. Eleven scripts were repointed.
+    `writeArtefacts` writes **BOTH files or neither**: they are joined on `id`, and an index entry with
+    no row in the extra is an artefact with no prose anywhere.
+  · **THE SHARED SERIALIZER ALSO CLOSED A LIVE BUG.** `add-artefact-sources.js` carried a private copy
+    that emitted an image as `{ src, credit, alt }` — written before the fullscreen viewer's `title` and
+    `desc` were added — so **one run of the citation tool would have stripped the caption off all 100
+    pictures** while doing its own job perfectly. A copy of a serializer goes stale on a change made in
+    another file by someone with no reason to look here; `add-images.js` had the same trap recorded
+    against it and now shares the module too.
+  · **`check-style.js` reads `artefacts-extra.js`**, and that is not housekeeping: rule 4 (BCE/CE) sweeps
+    the text a PICTURE carries as well as the prose, and the split moved BOTH out of its reach.
+  · **`node .claude/split-artefacts.js --check` asserts the split is still intact, and CI runs it** —
+    both directions of the join, no heavy field back in the index, and a byte-for-byte round trip. The
+    split itself REFUSED to write until it had re-loaded its own output and compared it field by field
+    against what it started with, so the bytes that ship are the bytes that were checked.
 - `glossary-extra.js` + `.claude/split-glossary.js` + `.claude/gloss-io.js` — **the glossary is TWO
   files.** `GLOSSARY_SOURCES` (786 KB) and `GLOSSARY_IMAGES` (523 KB) were 54% of `glossary.js`, which is
   on the EAGER path, and **nothing reads either until a popup opens** — so they moved to
@@ -1204,12 +1240,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 2.84 MB and 41,915 lines is hard to find your way around, so this
-  lists its 159 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 2.87 MB and 42,261 lines is hard to find your way around, so this
+  lists its 160 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
-  **27** things are put on `window`. Splitting it across `<script>` tags means either making
+  **29** things are put on `window`. Splitting it across `<script>` tags means either making
   every shared name a property of a namespace object (thousands of call sites, and no test can prove
   closure-equivalence) or making them true globals — which leaks the whole application surface onto
   `window`, where a community deck's sanitized HTML and any browser extension can reach it. The
@@ -1225,7 +1261,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   tense as the state of the repository, and it is full of hand-written counts. **Its first run found
   TWENTY of forty-one wrong** (Sep 2026, batch E51), several by a factor of four — the collection index
   table had Ancient Rome as "empty" against 100 shipped cards and Ancient Greece at 180 against 400,
-  app.js was described as 2.57 MB and 38,000 lines against 2.84 MB and 41,915, and one suite's
+  app.js was described as 2.57 MB and 38,000 lines against a real 2.87 MB and 42,261, and one suite's
   assertion count was pinned at **two different numbers in the same file**, neither of them right.
   **The file already knew**: it warns against quoting a figure in nine places, and every one of those
   warnings is a scar (the theme count said 8 and then 6; the eager path's size drifted four times out
@@ -1427,10 +1463,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Würm`'s "generally"). One blind spot remains, worth knowing before a batch of calibrated dates: the year
   regex needs the number immediately before "years ago", so an intervening word defeats it and `Boreal`'s
   "8,000 **calendar** years ago" reads as lost when it survived. Not part of the site.
-- `docs/artefact-citation-plan.md` — the batch plan for **citing the 100 artefacts**, the third citation pass
+- `docs/artefact-citation-plan.md` — the batch plan for **citing the artefacts**, the third citation pass
   after the cards' and the glossary's. The bar is **3 works per artefact** (`ARTEFACT_SRC_TARGET`), each with
   an openable URL and a marker pointing at it, and unlike the other two it is a REFUSAL rather than a target
-  reported against. **THE PASS IS COMPLETE: all 100 are cited and at the bar** (batches 1–15), so a new
+  reported against. **THE PASS IS COMPLETE: all 100 were cited and at the bar** (batches 1–15), and the second
+  hundred was written cited, so the pool stands at **200 of 200** — a new
   artefact joins at the bar instead of reopening a backlog, exactly as the glossary now works; the file holds
   the batch table and the per-artefact workflow. Its most reusable half is the **reachable-host survey** —
   which scholarly and museum hosts answer from this sandbox and which serve a bot wall, measured rather than
@@ -1443,6 +1480,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
+- **📖 `docs/artefact-expansion-plan.md` — READ BEFORE ADDING AN ARTEFACT, OR BEFORE LOOKING FOR AN OPEN
+  SOURCE FOR ANYTHING.** **THE EXPANSION IS COMPLETE: the pool is 200, at 116 common / 52 rare / 25 epic /
+  7 legendary, which is the budget's target shape exactly** — so the file is now a record of what was
+  decided rather than a queue, and its value is its findings: forty-odd batches of measured host
+  reachability, the search order that emerged (**DOAJ finds the articles, OpenAIRE finds the repository
+  copies, OAPEN finds the books**), the seven varieties of 200-status wall, and the two PDF ciphers
+  (a fixed CID offset, and a full substitution solvable on words with the digits pinned by arithmetic).
+  It planned the pool from 100 to 200 in fifteen batches, each with its source spine, weighted the OPPOSITE
+  way from the first hundred — Rome has 19 artefacts and South Asia, Southeast Asia, Korea, Oceania, North
+  America and the Arctic have **none**, and none of the India, Korea, Russia, United States or Second World
+  War collections is served at all. Three things in it are decisions rather than lists. **The rarity budget
+  is 60 / 25 / 12 / 3 and is not free choice**: `rollArtefact` renormalises the drop odds over whatever
+  rarities still hold something unowned, so a tier whose share of the POOL does not match its share of the
+  ODDS empties early and drops out of the roll — a failure a reader experiences and never reports. **A
+  common is a KIND of object and is where a missing region is cheapest to fill**, since every culture has
+  its everyday things and everyday things are what the pool lacks outside Rome; a named singular object is
+  naturally epic or legendary. And **`artefacts.js` is on the EAGER path, where 94% of it is `desc` +
+  `sources` + `image` that nothing reads until a chest opens** — measured: 237.5 KB of 251, against a 14 KB
+  index that is all `progStats` needs — so the file wants `glossary-extra.js`'s split BEFORE the prose is
+  written, which makes doubling the pool cost every visitor about 14 KB rather than 260 — the split shipped first, and it did. It also records the
+  reachability measured for the new regions on 2026-09-03, of which the load-bearing finding is that **the
+  East Asian and Israeli national museum sites answer 200 and serve their object pages through JavaScript**
+  (e-Museum, the National Museum of Korea and the Dead Sea Scrolls digital library all return zero hits when
+  their own object's name is grepped out of the HTML), so Japan, Korea and Qumran rest on **J-Stage** and
+  archive.org rather than on the obvious institutional page. Not part of the site.
 - `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not
   part of the site and never loaded by it: a deck file is somebody else's content that happens to have
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
@@ -1510,6 +1572,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   "hello (answering the telephone)" over three sentences reading "I am". **Report-only and a proxy** —
   23% of the corpus trips it, because a correct gloss is often a synonym of what the sentence says — so
   it is a ranked review list, never a gate.
+- `.claude/decks/check-say-reading.js` — **which Mandarin cards a speech engine will read with the WRONG
+  READING** (Sep 2026, on a bug report: "the card '了' tts pronounces it as liao instead of le. '差' reads
+  chà but pronounces chā"). A Mandarin card's speaker is handed the card's own CHARACTERS, which is right —
+  a Mandarin voice given "bēizi" reads the romanisation — and is the whole of the problem where the word is
+  ONE POLYPHONIC CHARACTER: a lone 了 or 差 carries no context, so the engine falls back to the character's
+  commonest reading, and for these two that is not the reading the card teaches.
+  · **THERE IS NO POLYPHONE DICTIONARY HERE, SO THE MEASURE IS THE CORPUS'S OWN.** The decks carry 11,000-odd
+    multi-character words with their pinyin written syllable by syllable, so where a word's character count
+    and syllable count agree, each character's reading is readable straight off — which gives every
+    character a reading DISTRIBUTION, and "what an engine will guess" is very well approximated by "what
+    this corpus uses most". A single-character card on a MINORITY reading is a card the engine is likely to
+    get wrong: **27 of 1,503**, of which the two reported are the 3rd and 11th widest margins.
+  · **REPORT-ONLY AND A PROXY, like `check-senses.js`.** A card whose Pinyin teaches BOTH readings
+    ("重 chóng / zhòng") is listed and is not a fault, and a character split a few cards either way in a
+    corpus this size is noise. **Read the list; do not sweep it.**
+  · **THE REPAIR IS A `Say` FIELD, and it is what makes any of this fixable.** The Mandarin card type's
+    templates read `{{#Say}}{{Say}}{{/Say}}{{^Say}}{{Simplified}}{{/Say}}`, so a card carrying one has its
+    own value spoken and every other card is untouched — the same `data-say` contract `cardSpeak` has
+    always honoured. What goes in it is the shortest ORDINARY word that pins the reading (了 is spoken as
+    好了, 差 as 还差), and **that is a two-syllable answer to a one-syllable question, knowingly**: a lone
+    polyphone gives an engine no reading to pick, and a substituted homophone would be a different
+    character carrying its own risk of being read wrong. The reader hears one syllable of context and then
+    the card's own, which is what a dictionary's audio does with a particle. **Adding the field to a deck
+    is a change to that deck's TYPE as well as to the card**, so it is two edits in one file.
 - **📖 `docs/lang-decks.md` — READ BEFORE TOUCHING ANY DECK OR GENERATOR.** Every pipeline's findings:
   which exam boards publish a word list and which do not, the CJK and PDF extraction traps, the
   variety filters, the clitic and conjugation rules, the sense-ranking faults, and the catalogue's
@@ -1553,6 +1639,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   reason the i18n files push). **Lazy** (`coast_<region>`), **generated — never hand-edited**, by
   `.claude/build-hires-coasts.js`. A sparse patch over world.js's own rings rather than a second world
   map, so nothing doubles; see the map-card bullet under "How the app is wired".
+- `rivers/italy.js`, `rivers/greece.js` — the **hi-res rivers** for the Rome and Greece collections' card
+  maps (`window.HIRES_RIVER_IN.push({ region, supersede, rivers })`, a QUEUE for the reason the coast
+  files push). **Lazy** (`river_<region>`), **generated — never hand-edited**, by
+  `.claude/build-hires-rivers.js`. Unlike the coast beside it this is a REPLACEMENT rather than a splice —
+  a river shares no vertices with anything, so `supersede` names the `rivers.js` entries it takes over and
+  the window draws these instead. **A river is replaced WHOLE and never clipped to the frame**: the two
+  chains are up to 5 km apart, and the box edge is inside a card's opening view, so a clip would put the
+  jog on screen. It also carries the rivers `rivers.js` never had, out of Natural Earth's European
+  supplement — 53 named rivers for Italy where the world file has 21, and 30 for Greece where it has 8.
 - `.claude/fetch-geo-images.js` + `.claude/contact-sheet.py` — the geography picture pass's two tools.
   The fetcher takes a batch naming, per card, either a `subject` (a landmark article, for a REGION) or a
   `city`, and returns `add-images.js`'s own batch shape with the licence, size and attribution read off
@@ -2157,7 +2252,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **THE LESSON IS THE SHARED ONE: A BADGE THAT CANNOT FIRE LOOKS EXACTLY LIKE A BADGE NOT YET EARNED.**
     Nothing throws, nothing is logged, and the reader assumes they have not done enough. When a badge's
     `test` reads a counter, check that something still WRITES that counter.
-  · **FIFTEEN COLLECTOR'S BADGES** read `progStats`, and are tested **at the moment they are earned**
+  · **THE ARTEFACT LADDER GOES TO 100** (`art10` / `art25` / `art50` / **`art100` "Antiquary Royal"**,
+    Sep 2026, on request). It stopped at 50 while the pool was 100, so its top rung was half the
+    Reliquary; the pool is being taken to 200, which would have made `art50` a quarter — an early
+    milestone wearing the name of a final one. **Adding a rung changes nothing already earned**, a badge
+    being only ever ADDED to `S.achievements`, which is why this is cheap where RENAMING one is not (see
+    the Victor/Champion note above: renaming an id takes the badge off everybody holding it).
+  · **SIXTEEN COLLECTOR'S BADGES** read `progStats`, and are tested **at the moment they are earned**
     rather than at the next card. A badge grants a chest, so the chest balance is not a plain subtraction —
     `spendChest()` increments `S.chestsOpened`, which is what the tests assert against.
   · `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` / `S.chestsOpened` / `S.themes` /
@@ -2303,13 +2404,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     language through `entryChain`. **A GROUP still gets none of the four**, deliberately: it is an
     arrangement holding decks from anywhere, so a figure on it would cap several collections at once from
     a row that names none of them.
-  · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND ITS ONE ACTION IS ITS OPTIONS** (`langCtxId`,
-    `.dk-langhead`, `data-langhead`; Aug 2026, on a bug report that holding one opened nothing). It carries
-    no `data-review` — it deals no cards — so neither of the home page's two hold-menu walks reached it, and
-    a row that answers a hold with nothing looks exactly like a row that was never meant to. It is a real
-    `role="button"` with a tab stop now and the TAP opens the sheet as well as the hold, this being the one
-    row with no session to open instead; that is also its keyboard route, a hold not being something that
-    can be typed. **It takes the GROUP's shape of the sheet** — the cascading session settings, a name, a
+  · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND IT IS STUDIED AND REMOVED LIKE ANY OTHER**
+    (`langCtxId`, `.dk-langhead`, `data-langhead`; Aug 2026, on a bug report that holding one opened
+    nothing, and Sep 2026, on one that it could be neither studied nor removed). It carried no
+    `data-review` — the reasoning being that it deals no cards — so neither of the home page's two
+    hold-menu walks reached it, and a row that answers a hold with nothing looks exactly like a row that
+    was never meant to. The first fix made it a real `role="button"` with a tab stop whose ONE action, tap
+    and hold alike, was the sheet. **That reasoning was wrong twice and the second report is what showed
+    it**: `entryCardIds` unions its members, which is what draws its three coloured pile counts and its
+    progress bar, so the row DOES claim cards — and a row that claims cards and refuses to deal them is
+    the only one on the list that does. It carries `data-review` now, so the generic walk gives it the
+    TAP-studies / HOLD-opens-the-options pair every other container row has, and its own walk is retired
+    (two walks on one row would open the sheet twice). **It studies as a GROUP, not as a deck**
+    (`entryScope`): both are containers with no cards of their own and their own allowances, order and
+    skip, which is exactly `buildSession`'s group branch, where the deck branch would look a synthesised
+    id up in `NODE_BY_ID` and find nothing. **AND THE EDIT MODE'S CROSS REACHES IT**: it was skipped there
+    because it is not itself in `S.active`, but `removeActive` has always known what removing one means —
+    take out the decks gathered under it and free anything dragged in — and its own sheet has carried
+    Remove all along, so the mode simply had a hole in it. **It takes the GROUP's shape of the sheet** — the cascading session settings, a name, a
     colour and an icon, never the daily allowances, which belong to something the review iterates — and its
     last row is Remove, a language not being something that can be taken apart. **Four helpers know about
     it and each was silent in its own way**: `entryChain` (or a switch is stored where nothing reads it),
@@ -2751,6 +2863,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Mandarin voice handed "Guǎngdōng" reads the letters. It is deliberately NOT gated on `ttsEnabled()`,
   which has been off since read-aloud was set aside: like the deck control it is something the reader
   presses, and `body.no-tts` hides it where there is no speech engine at all.
+  **THE TRADITIONAL FORM SITS ON THE LINE ABOVE THE SIMPLIFIED** (Sep 2026, on request; it stood beside
+  it). `.ac-chars` is a column and the traditional span is written FIRST, so the order in the markup is the
+  order on screen; it stays the quieter of the two, smaller and at half strength, and is still emitted only
+  where it DIFFERS, so a term written the same way in both scripts is one line and looks untouched.
+  **On a phone the rule above the block is `--rule` grey, not the Chinese ink** (same request): there it
+  runs the full width of the card, where a red hairline reads as part of the answer rather than as the line
+  dividing it from the name below.
+  **AND THE WHOLE BLOCK IS SET FLUSH RIGHT** (Sep 2026, on request): its three lines are of very different
+  widths — a two-character name over a four-character one over a romanisation twice as long as either — so
+  ranged left they read as a ragged column drifting away from the rule beside them, and ranged right they
+  line up against the figures grid, which is the edge the eye is already following down the card.
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
@@ -2929,21 +3052,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     continent.
   · **A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT** (`cardCollectionRoot` /
     `locatorSiblings` / `_locSibCache`; Aug 2026, on request). Four layers under the card's own gold dot:
-    the collection's other card places as smaller RED dots, the Atlas's capitals and million-plus cities
-    as grey ones, and its rivers. **The two halves are paid for differently and that is the whole design.**
+    the collection's other card places as smaller RED dots and its rivers. **The two halves are paid for
+    differently and that is the whole design.**
     The siblings are FREE — every locator is in `data.js`, which every visitor downloads before flipping a
-    card — so they ship unconditionally; the cities and rivers are the `atlas` bundle (~600 KB), so they
+    card — so they ship unconditionally; the rivers are the `atlas` bundle (~600 KB), so they
     are **warmed at IDLE and never awaited**, which is `glossExtra`'s bargain, and skipped outright under
     `saveData`, which is `startMiniGlobe`'s. A card with a locator therefore paints at once with its own
-    places and fills in a moment later. **THE CITIES THIN WITH ZOOM, and that was found by LOOKING**: all
-    2,665 drawn at once cover Europe and North Africa in a grey rash at the opening 50° view and bury the
-    red marks that are the point — so the 216 capitals show always and the 392 million-plus cities once
-    the frame is a region. **THE 2,057 DIVISION CAPITALS ARE GONE ALTOGETHER, and the rest are quieter**
-    (Aug 2026, on request: "make all the black dots smaller and less conspicuous, and only put them for
-    foreign capitals and cities with over 1M population") — that tier was five sixths of the layer and
-    every one of them a place no card is about, and what is left is drawn at about two thirds of its old
-    radius and two thirds of its old ink. They are there to give the card's own mark a world to sit in,
-    and the moment they compete with it they have stopped doing their job. **EVERY RIVER THE ATLAS
+    places and fills in a moment later. **THE MODERN CITIES ARE GONE ALTOGETHER** (Sep 2026, on request:
+    "in all atlas windows in all history decks, modern capitals/cities should no longer be marked with
+    small black squares, but should not appear at all — unless they’re a card answer term e.g. Athens,
+    which should always appear"). The layer was `cities.js` filtered to national capitals and million-plus
+    cities, and its whole history is one long retreat: 2,665 dots covered Europe in a grey rash, so it was
+    thinned by zoom; the 2,057 division capitals went; the rest were made smaller and greyer twice; and a
+    capital falling under one of the collection's own marks stood aside for it. Every one of them was a
+    place no card in the collection is about, which is what the request settles — **a history card's map
+    carries the collection's places, and the coastline, the rivers and the borders are the world it sits
+    in.** The exception the request names needed nothing added: **a city that IS a card's answer is drawn
+    already**, as a studied sibling, or as the collection's home city through `CMAP_ANCHOR`. `nearSib`
+    went with the layer, having existed only so a grey square could stand aside for a red one.
+    **EVERY RIVER THE ATLAS
     DRAWS IS DRAWN HERE TOO, AND NOT ONE OF THEIR NAMES** (Aug 2026, on request: "the same Rivers
     displayed on the Atlas should also be displayed in Atlas windows in cards (only without their
     labels)"). For a fortnight a river was drawn only where the collection taught one, and that narrowing
@@ -2998,7 +3125,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     here* where a crisp gold line would assert a frontier Folio had surveyed. They are the one part of a
     locator that is AUTHORED rather than fetched, which is exactly why `add-card.js` validates them: a
     coordinate can be looked up and an extent cannot, so a transposed pair draws a region in the wrong
-    ocean and nothing throws.
+    ocean and nothing throws. **A card ALREADY SHIPPED gets one through `.claude/add-locators.js`**, which
+    takes the same `kind` / `area` / `spine` and applies the same validation, and still FETCHES the `at`
+    from a named article — the shape is the only part of a locator that may be typed.
     **NONE OF THE FOUR DRAWS A DOT AS WELL** — "not just as dots" was the request, and a gold dot inside a
     shaded region says "and specifically HERE", which is the false precision the shape exists to be rid of.
     The one exception is a river the `atlas` bundle has not landed yet: the dot stands until the river is
@@ -3065,6 +3194,71 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     that frames it, never awaited and never by a map card or the Atlas. **📖 read
     `.claude/build-hires-coasts.js`'s header before touching it** — it records why the coast is classified
     off the 10m data rather than off world.js, and why Russia is left out of the China frame.
+    **A SPLICED RING CAN BE THE COUNTRY TRACED TWICE, AND IT RENDERS PERFECTLY** (Sep 2026, on a bug
+    report: "in the Ancient Greece collection I can no longer see the landmass of Turkey"). The splice
+    walks the 10m chain between a low-res edge's two ends in the RING's own direction, decided once by
+    majority — and for a few edges the index mapping runs the other way, so the walk went the long way
+    round and brought back nearly the whole ring. The result has every vertex in the right place and twice
+    the signed area: stroked it is flawless, and under a NONZERO fill it is flawless, but **this window
+    fills EVEN-ODD, where two windings cancel** — so Turkey's mainland was drawn and then unfilled by its
+    own second copy, leaving Anatolia as open sea. China's was traced THREE times and so still filled, at
+    three times the points (20,610 for one ring). `edgeChain` now takes the shorter arc, which is the only
+    one a low-res edge can stand for. **The check that finds it is the SIGNED AREA of a spliced ring
+    against world.js's own** — a near-integer ratio is a ring traced that many times — and it is worth
+    running after any change here, since nothing else in the pipeline can see it.
+  · **HI-RES RIVERS, ON THE SAME TWO FRAMES** (`hiresRiverIngest`, `effRivers`, `rivers/<region>.js`, the
+    `river_italy` / `river_greece` bundles; Sep 2026, on request: "Rivers in Italy in the Roman deck and
+    Greek rivers in the Greek deck should have a much higher resolution … and there should be more of
+    them"). **DELIBERATELY NOT THE COAST'S SPLICE**: a coastline is spliced ring by ring because a land
+    border is shared with a neighbour and a hi-res copy over the low-res one doubles it, where a river
+    shares nothing and can simply be drawn INSTEAD — so the file names the `rivers.js` entries it takes
+    over and `effRivers` hands the draw loop that set minus those, plus the region's own. **The one way it
+    can go wrong is a name the region carries that `rivers.js` also has and `supersede` does not name**,
+    which draws the same river twice about five kilometres apart; `test-card-locator.js` section 4 checks
+    that on the DATA rather than on the ink, that being where it can actually happen. Warmed at idle beside
+    the coast and never awaited, so the card paints on `rivers.js` and the water sharpens when the file
+    lands. **📖 read `.claude/build-hires-rivers.js`'s header before touching it** — why a river is
+    replaced whole rather than clipped to the frame, and where the extra rivers come from.
+  · **A MODERN CAPITAL WAS A SQUARE, THEN A SMALLER ONE, AND IS NOW NOTHING** — three requests in one
+    month, each taking more off the same layer, and the third took the layer. The reasoning is in the
+    locator bullet above; what is worth keeping here is the shape of the retreat, because it is the
+    argument against ever adding a layer of places the collection is not about: every step of it was
+    "make this quieter" and the end of that road is "take it away". `capAt` and `nearSib` are DELETED
+    rather than left unread, a register nothing draws from being the next session's bug.
+  · **THE LAND IS FILLED, THEN THE RIVERS, THEN THE BORDERS** (Sep 2026, on two bug reports: "in the
+    atlas windows of the world history collection, rivers appear on top of borders, making the borders
+    invisible", and "in the China collection atlas windows, the northeast border with Russia is
+    invisible"). **Those are one fault seen twice, and the second is the one that shows why it matters**:
+    the Amur and the Ussuri ARE China's north-eastern frontier, so the river drawn over the border did not
+    merely obscure a line, it deleted a country's edge — and nothing about it looks like a fault, since
+    what is left is a perfectly good map with one border missing. The rivers were painted after the
+    countries, in the ocean colour and at up to 1.8px against a border stroked at 0.7, so anywhere a
+    border FOLLOWS a river it was painted out. A river is water on the land and a border is a line drawn
+    over it; the fix is the ORDER, not the weight. **It costs one geometry pass and not two**: the obvious
+    split walks all 117,000 vertices twice a frame on a globe the reader is dragging, so each country's
+    projected outline is built ONCE into a `Path2D`, filled from it, and added to a single border path
+    stroked after the water — `addRing` writes through `tc`, so pointing that at a path rather than at the
+    context is the whole of it. The thin-river pass moved out of the sibling block into `drawThinRivers()`
+    for the same reason; the card's own river, which is the ANSWER, still goes on last and over everything.
+  · **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** (Sep 2026, on request). The weight was the Atlas's own
+    `0.4 + zoom * 0.16` floored at 0.5 and is `0.15 + zoom * 0.18` floored at 0.3, reaching the old figure
+    again around zoom 6 and unchanged at the deep end, where the 1.8px cap has always decided it. The
+    Atlas draws its rivers only past a zoom; this window draws all 1,073 of them at every zoom, so at a
+    card's opening ~50° view the same weight is a continent of blue thread over a map whose coast is
+    stroked at 0.7.
+  · **THE COLLECTION'S HOME CITY IS ON EVERY MAP IN IT** (`CMAP_ANCHOR`; Sep 2026, on request: "Rome
+    should always be visible in the Roman collection, with a slightly larger red square as icon, and Athens
+    should have the same in the Ancient Greek collection"). Every other red mark is EARNED — a sibling
+    appears once its card has been studied — so a reader three cards into Ancient Rome met the
+    Mediterranean with one gold mark on it and nothing to place it against. **ITS COORDINATE IS DECLARED
+    RATHER THAN LOOKED UP, and both obvious sources fail the word ALWAYS**: `cities.js` is the `atlas`
+    bundle, warmed at idle, so a mark taken from it is absent for the first second of every card; and the
+    collection's own locators would give Rome (39 cards stand `within` it) and NOT Athens, which no Greek
+    card has yet. Two cities, each named beside its own numbers, is a table this file's reader can check.
+    It is dropped on the card that IS that city or stands inside it — the answer's gold mark is already
+    there — it suppresses the studied sibling group of the same name and the grey capital square under it,
+    and its label is placed BEFORE the siblings take their boxes, so the one mark on every map is also the
+    one always named.
   **📖 `docs/map-cards.md` — READ BEFORE CHANGING ANY OF IT.** Why the globe is drawn here rather than by
   reusing the Atlas, the fit's near-rings rule and the Alaska and District of Columbia exceptions, the three
   attempts it took to prove the fill is a tint, `h2r` learning `rgb()`, where the facts box sits and why,
@@ -3482,12 +3676,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Multiple Choice** (`challenge`), **Timeline** (`chrono`), **True or False** (`truefalse`), **Who said
   it?** (`whosaid`, from `quotes.js`), **Find it** (`findit`, on the real Atlas globe), **Common Thread**
   (`thread`, the only one built on the GLOSSARY), **Crossword** (`crossword`, clued from the cards' own
-  questions), **Picture round** (`picture`, from every illustration Folio holds) and **What year?**
+  questions), **Picture round** (`picture`, from the ARTEFACTS alone since Sep 2026) and **What year?**
   (`whatyear`, from `whatyear.js`). The operational half:
   · **EVERY CARD-FED GAME DRAWS THROUGH `gameCardIdSet()`, NEVER `availableCardIdSet()`** — the well-known
     terms only, at or below `GAME_MAX_DIFFICULTY`, since a game deals a term COLD. A tenth game reaches for
     that function; `test-difficulty.js` asserts there is no other path. **Timeline has a second filter**
-    (`card.undatable`) and nothing else may borrow it.
+    (`card.undatable`) and nothing else may borrow it. **Three games are not card-fed at all** and each
+    left that rule by being asked to: the crossword (`crossword.js`), What year? (`whatyear.js`) and the
+    picture round (the artefacts).
+  · **THE PICTURE ROUND IS THE ARTEFACTS AND NOTHING ELSE** (Sep 2026, on request: "The game 'Picture
+    round' should only use pictures from artefacts"). A card's or a term's picture ILLUSTRATES its subject,
+    which is a different thing from depicting it — a hand-axe under `Acheulean`, a flag under a country —
+    and the two filters that had grown up around that (`PIC_ABSTRACT_KINDS`, and the difficulty bar
+    reaching into the glossary through `threadEasyKeys()`) are **DELETED** with the halves they guarded:
+    an artefact is a photograph of ONE object, so there is nothing to rate and nothing to except. The pool
+    falls from 157 subjects to 99, still an order above `PIC_MIN_POOL`. Its decoys are ranked on tags
+    DERIVED from what an artefact carries — an era bucket off `artefactYear` and its `origin` — since it is
+    filed under none of its own.
+  · **…AND ITS REVEAL IS THE ARTEFACT'S OWN PLATE, MINUS THE PLATE** (same request): the five sentences
+    with their footnote markers intact and `sourcesHTML` under them, wired by `wireFootnotes`, so the
+    apparatus behaves exactly as it does on the plate itself. **The SUMMARY screen strips the markers**
+    (`picNoteBare`) — there is no list under it, and `sup.fn:empty::before` prints a marker's own digit,
+    so leaving them in sets stray numerals through five paragraphs pointing at nothing.
+  · **A ROUND ANSWERED STAYS ANSWERED** (`gameProgress` / `setGameProgress`; Sep 2026, on a bug report
+    that leaving the picture round half way and re-entering dealt the same questions again with the
+    answers known). The one-play lock is only set when a run FINISHES, so an abandoned run was free; the
+    outcomes are written to `S.games[key].prog` as each round is answered — before the reader can press
+    Next, since the reader who never presses it is the case — and re-entering resumes there. It holds the
+    OUTCOMES rather than an index, so the round to resume at and the score cannot disagree; the row's own
+    `date` scopes it; and it is cleared when the run ends, where the lock takes over. **Only the picture
+    round uses it so far** — the helpers are general, and a second game adopts them in three lines.
+  · **A PICTURE IS ENLARGEABLE ONLY AFTER THE REVEAL** (same request), and it calls `openImageViewer`
+    directly rather than earning the `.card-img` class the delegated listener watches for: that class
+    carries a fixed 16:9 frame and a `height:100%` on the picture inside it, so adopting it at the reveal
+    would RESHAPE the picture the reader is looking at. It is held back for the same reason the caption is
+    — the viewer's meta bar carries the title and the credit, both of which name the subject.
   · **A NEW GAME IS WIRED IN SIX PLACES AND FIVE OF THEM FAIL SILENTLY**: `PAGES.<key>`, the `valid` route
     list, `PAGE_META`, `DAILY_GAMES`, `GAME_NAMES` + `GAME_SET_WORD`, and the tile plus its click handler in
     `PAGES.home`. `test-minigames.js` asserts all six, against the tiles the home page actually paints.
@@ -4009,12 +4232,59 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the row's last flex item, matching the chevron's 30px box rather than keeping its own 24px one — two
   controls of different sizes side by side read as two different kinds of thing. The row's 20px right
   margin goes with the absolute positioning, that margin having existed only to clear the corner button.
+- **THE ATLAS SHEET IS ONE PAGE, WITH THE FIGURES AT THE TOP OF IT** (Sep 2026, on request: "users
+  currently need to swipe right to see the country data boxes — instead, move them to above the country
+  background paragraphs so it is all in one page"). The four sections lay SIDE BY SIDE and were swiped
+  between, with dots under them saying how many there were. That answered a real fault — a bottom sheet is
+  short, and four sections stacked in it buried the figures three scrolls down — but it answered it by
+  putting the figures behind a GESTURE, which is worse than putting them low: a page reached only by
+  swiping is one a reader who does not swipe never learns is there. Reading the figures first retires the
+  fault the pager was built for, so the pager goes with it and the sheet scrolls as the desktop panel
+  always has. Four things. **`.cp-statsec` is lifted by `order:-1` in the ≤1024px block rather than by
+  moving the node**, so the desktop column — which has room for both, and where the paragraph is what the
+  reader came for — keeps the order it has always had; the cost is a sheet whose visual order and DOM order
+  differ by one section. **The section heads FOLD again** (they were inert while they were pages) and a
+  fold re-applies the sheet's height. **`#cpDots`, `cpSyncDots`, `cpActiveDot`, `cpPanes`, `cpFitH`,
+  `scroll-snap-stop:always` and `wireOnePageSwipe` are DELETED** — the last had no other caller. And
+  **both halves of the height measurement had to stop reading BOXES**: the head is measured by its own
+  `scrollHeight`, since it is `flex:0 1 auto` inside the box being resized and is measured while that box
+  is still at the height it is opening FROM, so it read squeezed and the sheet opened ~26px shy of its
+  content; and the sections are added up by `cpColsContentH` rather than read off `.cp-cols`'s
+  `scrollHeight`, which can never be less than the padding box we have just given a height — so folding a
+  section away measured as a no-op and left the sheet as tall as the paragraph that was no longer in it.
+- **…AND ITS ROOM IS THE STAGE'S, NOT THE SCREEN'S** (`cpRoomH`; Sep 2026, on a bug report: on mobile the
+  popup expanded "too tall … i can't see the top of the popup or the button to close it"). `cpMaxH` is the
+  smaller of what the content needs and what there is room for, and the second half asked
+  `documentElement.clientHeight` — the whole viewport. The sheet is `position:absolute` inside
+  **`.globe-stage`**, which is a FIXED box running from the top bar down to the top of the timeline
+  (`bottom:calc(var(--timebar-h) + var(--tabbar-h) + …)`) and which **CLIPS its overflow** — so on a phone
+  the ceiling overshot by about **154px**, and a long country's sheet grew straight past the top of the
+  stage: measured at 390×844, the sheet's top sat at **−168px** and the × at **−152**, cut away entirely,
+  leaving no way to shut it but the chevron that had gone with them. Asking the box the sheet is actually
+  positioned in is also what makes `CP_BOTTOM_GAP` agree with the `bottom:14px` it stands for, both being
+  offsets from one edge. **`closest(".globe-stage")` rather than `offsetParent`**, which is null while the
+  popup is hidden, with the viewport as a fallback that is never the answer. **A short place cannot see
+  this at all** — France and Spain fit inside either ceiling — so the guard in `test-layout.js` opens the
+  United States, and checks the × as a RECT inside the stage rather than by its size, a control clipped by
+  an ancestor's overflow still measuring its full height and reporting itself perfectly visible.
+- **…AND THE TITLE ROW NO LONGER WRAPS, so the × keeps the corner** (`.cp-titlemain`; Sep 2026, on a bug
+  report: a country name long enough "pushes the X button for closing the popup to the next line,
+  especially when the new place chip is there, so it appears in the bottom left"). Four items on one
+  `flex-wrap:wrap` line means the last two — the chevron and the × — are the ones pushed over, and the
+  close button of a panel then sits as far from where a reader looks for it as the box allows. The name
+  and its chip go in `.cp-titlemain`, the only item allowed to shrink or to wrap; the row is `nowrap`, and
+  the two controls are `align-self:flex-start`, so a two-line name keeps them at the TOP right rather than
+  centring them against it. **The discovery chip reads "New discovery!" and carries no counter** (same
+  request): a running "7 / 258" beside a place's name is a second number competing with the one thing that
+  line is for, and the reader's tally is on the account page, read on purpose rather than glanced at over a
+  map. The Atlas's own `geoNameSet` / `countriesSeenCount` went with it — `placesSeen` is still written and
+  `countrySeenCount` still reports it.
 - **THE ATLAS PLACE PANEL'S BREAKPOINT IS DECLARED ONCE, IN CSS** (`--cp-sheet` on `.country-pop`, read
   back by `cpSheetMode()`; Aug 2026, on request that tablets get the phone's sheet). It was a
   `matchMedia("(max-width:720px)")` in app.js beside a `@media (max-width:720px)` in the stylesheet — one
   decision in two files, so widening it meant finding both, and getting one meant a window laid out as a
-  sheet by CSS while JS went on treating it as the desktop panel (pager unwired, fold inert, height
-  unfitted). **It is 1024px now** — the iPad's landscape width, so both orientations land on the sheet.
+  sheet by CSS while JS went on treating it as the desktop panel (fold inert, height unfitted, the sheet's
+  own controls unreachable). **It is 1024px now** — the iPad's landscape width, so both orientations land on the sheet.
   A custom property rather than a geometric read-back: `getComputedStyle().top` on a positioned element
   hands back the USED value, so `top:auto` cannot be told from `top:16px` that way. **The panel also never
   scrolls sideways and draws no scrollbar** — `overflow-x:clip` (never the shorthand, never `hidden`)
@@ -4576,7 +4846,7 @@ lookup.
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, scattered — next id is an early GAP |
-| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 400 cards, contiguous |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 500 cards, contiguous |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 100 cards |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
@@ -5080,6 +5350,14 @@ latter on `/document/<id>` as well as its property pages — are all **403** her
 `nature.com` and `link.springer.com`, the last two **303ing to an identity-provider cookie endpoint**, for
 which **Europe PMC is the way in** (resolve the PMCID with `search?query=DOI:"…"&resultType=core` — a
 guessed one in N1 returned a paper on stress in mice).
+**THAT LAST PART IS A FACT ABOUT THE TOOL, NOT THE HOST, and it was measured wrong** (Sep 2026,
+artefact batch C1b): **WebFetch** will not follow a cross-host redirect, so it stops at the identity
+provider and reports the article unreachable — but **`curl -L` with a browser user-agent completes the
+cookie handshake and serves the whole article**, 86,000 characters of it, on a paper Europe PMC has no
+record of at all. So **Springer Open journals — `Heritage Science` above all — ARE open to this
+sandbox**, which is a large body of exactly the archaeometry the citation passes need. **Retest a host
+with curl before trusting a WebFetch refusal**; the two disagree, and only one of them is measuring the
+host.
 **N8's finding is that a wrong TERM is not always a wrong FACT, and only a reader caught it.**
 `Smilodon` opened "*Smilodon fatalis* is the saber-toothed cat" and held every sabre-tooth alias, so the
 whole vocabulary of the group resolved to one American genus. Nothing in it was false about *Smilodon* —
@@ -5525,13 +5803,18 @@ dead code (never rendered).
   · `node .claude/test-i18n-lang.js` — **21 assertions**, in two halves. First the **English-only gate**,
     on the real app.js: **Re-run after touching `MULTILANG` / `langBundle` / `loadLangData` /
     `DATA_BUNDLES`, after adding a language, or after anything that writes card or glossary content.**
-  · `node .claude/test-account-switch.js` — 22 assertions on switching accounts on one device, against an
+  · `node .claude/test-account-switch.js` — assertions on switching accounts on one device, and on
+    CREATING one, against an
     in-memory mock of the Supabase **auth + progress** endpoints (a test that really signed up would
     create users in the live project). **Re-run after touching `supaAfterSignIn` / `supaSignOut` /
     `supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`, **or any of `supaSignIn` / `supaEmailForUsername` /
-    `supaSwitchTo` / `supaRemember` / `supaForget` / `supaSetEmail` / `SUPA_ACCTS_KEY`** — a switch that
+    `supaSwitchTo` / `supaRemember` / `supaForget` / `supaSetEmail` / `supaSetUsername` / `authThrewMsg` /
+    `SUPA_ACCTS_KEY`, or the auth forms' `busy` / `msg` helpers** — a switch that
     carries the outgoing account's progress across is exactly what its `_supaOwner` assertions exist to
     catch, and nothing on screen would say so.**
+    Its **sections 7 and 8 are ACCOUNT CREATION** (Sep 2026) — that a refused sign-up says why and gives
+    the button its label back, that a taken username is reported rather than silently substituted, and
+    that the handle can be changed afterwards and then signed in with.
     Its **section 6 is the RECONCILE** (Aug 2026) — that an edit made while the progress pull is still in
     flight is not overwritten, that an IDLE device still adopts another device's write, and that a boot
     which is genuinely in sync sends **no push at all**. **Re-run it after touching `supaBoot`'s reconcile,
@@ -5566,17 +5849,18 @@ dead code (never rendered).
     after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
     community store's record shape, or the `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 308 assertions on **the shell**: the rules that break silently
+  · `node .claude/test-layout.js` — 332 assertions on **the shell**: the rules that break silently
     because nothing throws when a layout is wrong. **Re-run after touching `.tabbar` / `--tabbar-h` /
     `--timebar-h` / `layoutTicks` / the Atlas chrome's media queries / `.settings` / `.auth-split` / the
-    coming-soon rows / `wireOnePageSwipe` / `.home-collections` / `.games-sec` / `.home-about` /
+    coming-soon rows / `.home-collections` / `.games-sec` / `.home-about` /
     `gameSub` / `pileCounts` / `adProg` / `.active-deck` / `gbWireResize` / `.gb-fold` /
     `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` / `makePageGhost` / `clipStageFor` / the
     `.page-next`/`.page-prev` keyframes / `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` /
     `#fsRange` / `MULTILANG` / `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
     `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` / the ink layer's
     pass-through / `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on
-    `.admin-list-items` / `cpResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an
+    `.admin-list-items` / `cpResize` / `cpContentNeedH` / `cpColsContentH` / `cpRoomH` / `cpMaxH` /
+    `.cp-titlemain` / `lockHeight`, or after adding an
     overlay to `document.body`.**
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js` —
@@ -5701,7 +5985,7 @@ dead code (never rendered).
     gone, so a refactor cannot leave it testing nothing. **Re-run after touching `openAvatarCropper` /
     `openAvatarViewer` / `AVATAR_PX` / `supaSetAvatar` / `monogramHTML` / the `img.viewClass` hook in
     `openMediaViewer`, or the `.av-crop` / `.avc-*` / `.iv-avatar` / `.mono-view` styles.**
-  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (71
+  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (70
     assertions, Aug 2026). **Re-run after touching `cardDifficulty` / `difficultyOK` / `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY` / `cardUndatable` / `chronoPool` / `cardStartYear` / `serializeCardData` /
     `revertCard`, any game's pool function, `add-card.js`'s difficulty or undatable guard,
@@ -5744,7 +6028,8 @@ dead code (never rendered).
   · `node .claude/test-lang-decks.js` — **the Collections page's Languages section** (Aug 2026), in two
     halves and both for silent failures. **Re-run after touching `langCollectionsHTML` /
     `langCollectionHTML` / `langRowHTML` / `langRowSpecs` / `langNodeSpecs` / `langCollId` /
-    `wireLangDecks` / `entryPending` / `langDeckDownload` / `langCatalogById` / `langCatalogNode` / the
+    `wireLangDecks` / `entryPending` / `langDeckDownload` / `langCatalogById` / `langCatalogNode` /
+    `entryScope`'s language branch / `buildSession`'s group branch / the deck list's `.dk-del` walk / the
     `.dk-pending` row in `PAGES.home` / `cardBytes` / `nodeBytes` / `fmtDeckSize` / `.node-size` /
     `buildNode`'s `nodeSpanText` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`, and
     after adding, rebuilding or removing a deck in `decks/`. Section 4 covers the LANGUAGE HEADER's own
@@ -5990,6 +6275,36 @@ dead code (never rendered).
     link is followed, so the panel says so rather than reporting a change that has not happened yet.
     `openPanel(want)` keeps the email, password and switch panels mutually exclusive — three folds open at
     once on a phone is the whole account page.
+- **CREATING AN ACCOUNT — three faults, all silent (Sep 2026, on a bug report).** They are one bullet
+  because the report was one sentence and they compound: the form could refuse a sign-up, say nothing
+  about it, and leave a button that still looked as though it were working.
+  · **THE AUTH BUTTONS' LABEL WAS EATEN BY THE FIRST PRESS.** `busy(f, on)` wrote `"…"` into the button
+    and only THEN asked whether it had a stored label — so the first press stored `"…"` AS the label, and
+    every restore afterwards put `"…"` back. All three forms (sign in, create, forgot) read `"…"` for the
+    rest of the visit. **Stash the label BEFORE overwriting it**; `.auth-btn:disabled` now dims too, since
+    a busy button that looks exactly like an idle one was the other half of the illusion.
+  · **A TAKEN USERNAME RENAMES THE ACCOUNT AND NOBODY WAS TOLD.** `handle_new_user` catches the
+    `unique_violation` and signs the reader up under `scholar_<8 hex>` — the right call, since refusing a
+    whole sign-up over a handle would be worse — but the form said "Account created — welcome!", signing
+    in by the chosen username then failed, and no friend could find them by it. `supaSignUp` hands back
+    the handle the profile ACTUALLY got (it has just loaded it) and the form says so, on a long toast.
+    **A pre-flight availability check is impossible anyway**: `profiles` is readable `to authenticated`,
+    and the reader creating the account is nobody yet.
+  · **…AND THERE WAS NO WAY BACK FROM IT** (`supaSetUsername`, `#unPanel` / `#unToggle` / `#unShown`).
+    The account page's field edits the DISPLAY NAME; `username` was written once by the signup trigger and
+    never again, so a reader could be permanently landed with a handle they never chose. The schema has
+    granted `update (username, name, avatar)` since the first block and nothing had ever used the first
+    column. **The uniqueness stays the DATABASE's answer** — a look-up first would be a race AND a second,
+    weaker copy of the rule in the client, so this reads the 409 and says it in words.
+  · **AND A THROW ON THE AUTH PATH NOW REPORTS ITSELF** (`authThrewMsg`, plus a `finally` round every
+    `busy`). `supaSignUp` awaits `supaAfterSignIn`, which loads a profile, pulls progress, applies it and
+    remounts the community decks — any of which can raise on odd stored state, and every one of those
+    threw straight out of the submit handler as an unhandled rejection. The account had been CREATED, so
+    the reader's next attempt met "User already registered" over a form that had told them nothing.
+  · Guarded by **`.claude/test-account-switch.js` sections 7 and 8**, whose mock had to learn three things
+    the real backend does and the old mock did not: the trigger's `scholar_<hex>` fallback, the unique and
+    check constraints on a `profiles` PATCH, and `login_email` — **a mock that always grants the handle
+    asked for cannot see any of this.**
 - **Live content editing (cloud overrides)** — the `/* cloud content overrides */` module in app.js + the `content_overrides`
   table (single row `id=1`, in `.claude/supabase-schema.sql`; **the user must run the SQL once** — until then every fetch 404s and
   the module degrades silently). The row's `data` holds an admin-edit overlay in the exact `folio_admin_v1` delta format. Every
