@@ -427,7 +427,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-166  Battle of Asculum
     rm-167  Pyrrhic victory
     rm-168  Battle of Beneventum
-    rm-169  The surrender of Tarentum
+    rm-169  Siege of Tarentum
     rm-170  The Roman confederation
     rm-171  Socii
     rm-172  Formula togatorum

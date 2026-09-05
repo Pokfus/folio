@@ -2018,7 +2018,8 @@ window.GLOSSARY = {
 "Battle_of_Heraclea": "The Battle of Heraclea was fought in 280 BCE on the river Siris in Lucania, in southern Italy, between a Roman army under the consul Laevinus and the forces Pyrrhus of Epirus had brought over at the invitation of Tarentum.<sup class=\"fn\" data-fn=\"2\"></sup> It was the first time Rome faced a Hellenistic army with a phalanx and war elephants, and the elephants panicked the Roman cavalry before it could close.<sup class=\"fn\" data-fn=\"1\"></sup> Pyrrhus held the field, but the ancient accounts differ widely on the losses, and those he suffered fell on his best troops and on the commanders he most relied on.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Battle_of_Asculum": "The Battle of Asculum was fought in 279 BCE in Apulia, in southern Italy, between the Romans and Pyrrhus of Epirus, and was the second of his two victories over them.<sup class=\"fn\" data-fn=\"2\"></sup> The ancient accounts of it differ: one has the fighting spread over two days, with Pyrrhus forcing an engagement on level ground where his elephants could be used, while another describes a single action lasting until sunset.<sup class=\"fn\" data-fn=\"1\"></sup> They differ on the losses as well, but agree that they were heavy, and Pyrrhus is said to have remarked that another such victory would ruin him.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Pyrrhic_victory": "A Pyrrhic victory is a success bought at so ruinous a cost that the winner is left worse placed than the loser. The phrase comes from Plutarch's account of Pyrrhus of Epirus, who beat a Roman army at Asculum in 279 BCE and answered a man congratulating him that one more such victory over the Romans would ruin him utterly.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch gives the arithmetic behind it, that Pyrrhus had lost a great part of the force he brought to Italy and could summon no more, while the Roman ranks filled up again as from a spring,<sup class=\"fn\" data-fn=\"1\"></sup> and judges that he left Italy after six years holding nothing.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Battle_of_Beneventum_(275_BC)": "The Battle of Beneventum was fought in 275 BCE on the Arusian plains beside Maleventum, a town in Samnium, between Pyrrhus of Epirus and the Roman consul Manius Curius Dentatus.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Plutarch describes a night approach through wooded country that went astray and left Pyrrhus in view at daybreak, after which the consul routed his leading troops and, in the plain below, had the camp guards turn the elephants back through their own ranks with javelins.<sup class=\"fn\" data-fn=\"1\"></sup> The Romans took the royal camp, Pyrrhus left Italy soon afterwards, and in 268 BCE a Latin colony on the site replaced the ill-omened name Maleventum with Beneventum.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Battle_of_Beneventum_(275_BC)": "The Battle of Beneventum was fought in 275 BCE on the Arusian plains beside Maleventum, a town in Samnium, between Pyrrhus of Epirus and the Roman consul Manius Curius Dentatus.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Plutarch describes a night approach through wooded country that went astray and left Pyrrhus in view at daybreak, after which the consul routed his leading troops and, in the plain below, had the camp guards turn the elephants back through their own ranks with javelins.<sup class=\"fn\" data-fn=\"1\"></sup> The Romans took the royal camp, Pyrrhus left Italy soon afterwards, and in 268 BCE a Latin colony on the site replaced the ill-omened name Maleventum with Beneventum.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Siege_of_Tarentum_(272_BC)": "The Siege of Tarentum was the reduction of the Greek city of Tarentum in southern Italy by Rome in 272 BCE, ending the war the city had begun by calling in Pyrrhus of Epirus.<sup class=\"fn\" data-fn=\"2\"></sup> With Pyrrhus dead and one party in the city appealing to Carthage, the consul Lucius Papirius pressed it by land, and Milo, the Epirote officer holding the citadel, gave it up on terms that let him leave with his men and his money.<sup class=\"fn\" data-fn=\"1\"></sup> The city then surrendered, handing over its arms and its ships, pulling down its walls and agreeing to pay tribute, while keeping its own laws under Roman watch.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2828,7 +2829,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Pyrrhus_of_Epirus": "died 272 BCE",
 "Battle_of_Heraclea": "280 BCE",
 "Battle_of_Asculum": "279 BCE",
-"Battle_of_Beneventum_(275_BC)": "275 BCE"
+"Battle_of_Beneventum_(275_BC)": "275 BCE",
+"Siege_of_Tarentum_(272_BC)": "272 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4065,7 +4067,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Pyrrhus_of_Epirus": ["Pyrrhus","Pyrrhos"],
 "Battle_of_Heraclea": ["Heraclea"],
 "Battle_of_Asculum": ["Asculum"],
-"Battle_of_Beneventum_(275_BC)": ["Battle of Beneventum"]
+"Battle_of_Beneventum_(275_BC)": ["Battle of Beneventum"],
+"Siege_of_Tarentum_(272_BC)": ["Siege of Tarentum"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6116,7 +6119,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Heraclea": ["battle","history","warfare","italy"],
 "Battle_of_Asculum": ["battle","history","warfare","italy"],
 "Pyrrhic_victory": ["concept","history","warfare","greece","italy"],
-"Battle_of_Beneventum_(275_BC)": ["battle","history","warfare","italy","greece"]
+"Battle_of_Beneventum_(275_BC)": ["battle","history","warfare","italy","greece"],
+"Siege_of_Tarentum_(272_BC)": ["battle","history","warfare","italy","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
