@@ -4415,13 +4415,13 @@ lookup.
 
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
-| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 89 cards, scattered — next id is an early GAP |
-| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 180 cards, contiguous |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | empty |
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, contiguous — next is `wh-301` |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 400 cards, contiguous — next is `gr-401` |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 100 cards, contiguous — next is `rm-101` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 40 cards — `cn-myth` complete, and the collection is now open to study |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 99 cards, SCATTERED — next is `cnh-042`, an early gap; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -4430,8 +4430,8 @@ lookup.
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
-| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
-| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 468 cards (233 countries, 235 capitals) — 470 rather than 1000, and sorted by POPULATION, see below |
+| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
+| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
