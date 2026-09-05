@@ -1927,7 +1927,8 @@ window.GLOSSARY = {
 "Putrajaya": "Putrajaya is the administrative capital of Malaysia and a federal territory of its own, established under the Constitution (Amendment) Act 2001 on land excluded from the state of Selangor.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations profile of the country footnotes its capital field to say that Kuala Lumpur is the capital and Putrajaya the administrative capital, so the seat of government and the capital are two different cities.<sup class=\"fn\" data-fn=\"1\"></sup> The Department of Statistics Malaysia gives the territory 121,400 people for 2026, up from 73,400 in 2010, a rise of about two thirds in sixteen years.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Abidjan": "Abidjan is the administrative capital of Côte d’Ivoire and the largest city of a country the United Nations files under Western Africa, and the American embassy has stood there since independence in 1960.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The United Nations profile of the country footnotes its capital-city field to say that Yamoussoukro is the capital and Abidjan the administrative capital, and gives no separate population figure for Abidjan itself.<sup class=\"fn\" data-fn=\"1\"></sup> The World Bank’s series for a country’s largest city puts it at 5.87 million people in 2024, up from 5.20 million in 2020, about 25 times the figure the profile gives for the official capital.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Colombo": "Colombo is the largest city of Sri Lanka, and the United Nations statistics division places it in the capital-city field of the country profile, footnoting that Sri Jayewardenepura Kotte is the legislative capital.<sup class=\"fn\" data-fn=\"1\"></sup> The Sri Lankan constitution designates no capital anywhere in its text, but article 132 directs that the Supreme Court shall ordinarily exercise its jurisdictions at Colombo and article 146 seats the Court of Appeal there on the same terms.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations gives the city 606,200 people for 2019, and it lends its name to the Colombo Plan, an intergovernmental body founded in 1951 whose secretariat is still in the city.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Valparaíso": "Valparaíso is the Chilean city where the National Congress sits, the Senate giving its address there as Avenida Pedro Montt and keeping a second building in Santiago.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations profile of Chile names Santiago in its capital-city field and carries no footnote about the arrangement, so the division is not visible in that source at all.<sup class=\"fn\" data-fn=\"1\"></sup> The city was the country’s principal port long before it held the legislature, the United States Department of State calling it Chile’s primary seaport, reached from the eastern United States only by rounding Cape Horn.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Valparaíso": "Valparaíso is the Chilean city where the National Congress sits, the Senate giving its address there as Avenida Pedro Montt and keeping a second building in Santiago.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations profile of Chile names Santiago in its capital-city field and carries no footnote about the arrangement, so the division is not visible in that source at all.<sup class=\"fn\" data-fn=\"1\"></sup> The city was the country’s principal port long before it held the legislature, the United States Department of State calling it Chile’s primary seaport, reached from the eastern United States only by rounding Cape Horn.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"The_Hague": "The Hague is the seat of government of the Netherlands, an arrangement the United Nations records in a footnote on its country profile, saying that Amsterdam is the capital and The Hague the seat of government.<sup class=\"fn\" data-fn=\"1\"></sup> The Dutch constitution names Amsterdam as the capital city in article 32, in the clause requiring the monarch to be inaugurated there, and does not mention The Hague at all.<sup class=\"fn\" data-fn=\"2\"></sup> Its standing in law comes instead from a treaty: article 22 of the Statute of the International Court of Justice provides that the seat of the Court shall be established at The Hague, and requires the President and the Registrar to reside there.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3814,7 +3815,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Jamestown,_Saint_Helena": ["Jamestown"],
 "Stanley,_Falkland_Islands": ["Stanley"],
 "Adamstown,_Pitcairn_Islands": ["Adamstown"],
-"Mexico_City": ["Ciudad de México"]
+"Mexico_City": ["Ciudad de México"],
+"The_Hague": ["Den Haag"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5770,7 +5772,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Putrajaya": ["city","capital","geography","malaysia","asia"],
 "Abidjan": ["city","capital","geography","ivory coast","africa"],
 "Colombo": ["city","capital","geography","sri lanka","asia"],
-"Valparaíso": ["city","port","geography","chile","south america"]
+"Valparaíso": ["city","port","geography","chile","south america"],
+"The_Hague": ["city","capital","geography","netherlands","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
