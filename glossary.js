@@ -2014,7 +2014,8 @@ window.GLOSSARY = {
 "Battle_of_Telamon": "The Battle of Telamon was fought in 225 BCE on the coast of Etruria between Rome and an army of Cisalpine Gauls, chiefly Insubres and Boii with hired Gaesatae from beyond the Alps.<sup class=\"fn\" data-fn=\"2\"></sup> Returning from a raid into Etruria, the Gauls were caught between the consul Gaius Atilius, who had landed at Pisae, and Lucius Aemilius coming up behind them, and drew up facing in both directions.<sup class=\"fn\" data-fn=\"1\"></sup> Atilius was killed in the fighting, but the Gallic army was destroyed, with some 40,000 reported killed and 10,000 taken prisoner including one of their kings.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Roman_conquest_of_Cisalpine_Gaul": "The Roman conquest of Cisalpine Gaul was the subjection of the Celtic peoples of the Po valley in northern Italy, chiefly the Insubres and Boii, in the years after the Roman victory at Telamon in 225 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Roman armies invaded Insubrian territory in 223 and again in 222, when offers of submission were refused and the campaign ended with the storming of Mediolanum, the chief town of the Insubres, who then gave in without terms.<sup class=\"fn\" data-fn=\"2\"></sup> Rome secured the ground with two Latin colonies at Placentia and Cremona in 218 BCE, the year Hannibal entered Italy hoping to raise the same peoples against her.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Tarentum": "Tarentum, called Taras by the Greeks and Taranto today, was a Greek city on the north shore of the gulf named after it in southern Italy, built on a peninsula that all but closes a long shallow harbour.<sup class=\"fn\" data-fn=\"1\"></sup> It was the only colony Sparta founded in Italy, traditionally settled by the Partheniae under Phalanthus, and it became the wealthiest and most powerful of the Greek cities there, with a market containing a bronze colossus of Zeus said to be the largest anywhere but Rhodes.<sup class=\"fn\" data-fn=\"2\"></sup> Its quarrel with Rome led it to invite Pyrrhus of Epirus into Italy in 280 BCE.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Pyrrhus_of_Epirus": "Pyrrhus was a king of Epirus in north-western Greece and one of the leading commanders of the generation after Alexander, courted by the Aetolians, by Philip of Macedon and by the chieftains of Illyricum.<sup class=\"fn\" data-fn=\"2\"></sup> Invited by Tarentum, he crossed into Italy with elephants and some 25,000 men and fought Rome for several years, winning his battles at a cost his own forces could not bear.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His adviser Cineas is said to have asked him what he meant to do once Rome, Sicily and Africa were taken, and to have urged him to be content with what he already held.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Pyrrhus_of_Epirus": "Pyrrhus was a king of Epirus in north-western Greece and one of the leading commanders of the generation after Alexander, courted by the Aetolians, by Philip of Macedon and by the chieftains of Illyricum.<sup class=\"fn\" data-fn=\"2\"></sup> Invited by Tarentum, he crossed into Italy with elephants and some 25,000 men and fought Rome for several years, winning his battles at a cost his own forces could not bear.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His adviser Cineas is said to have asked him what he meant to do once Rome, Sicily and Africa were taken, and to have urged him to be content with what he already held.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Battle_of_Heraclea": "The Battle of Heraclea was fought in 280 BCE on the river Siris in Lucania, in southern Italy, between a Roman army under the consul Laevinus and the forces Pyrrhus of Epirus had brought over at the invitation of Tarentum.<sup class=\"fn\" data-fn=\"2\"></sup> It was the first time Rome faced a Hellenistic army with a phalanx and war elephants, and the elephants panicked the Roman cavalry before it could close.<sup class=\"fn\" data-fn=\"1\"></sup> Pyrrhus held the field, but the ancient accounts differ widely on the losses, and those he suffered fell on his best troops and on the commanders he most relied on.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2821,7 +2822,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Senones": "c. 4th – 3rd century BCE",
 "Battle_of_Telamon": "225 BCE",
 "Roman_conquest_of_Cisalpine_Gaul": "225 – 218 BCE",
-"Pyrrhus_of_Epirus": "died 272 BCE"
+"Pyrrhus_of_Epirus": "died 272 BCE",
+"Battle_of_Heraclea": "280 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4055,7 +4057,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Senones": ["Senonian Gauls","Senonian"],
 "Battle_of_Telamon": ["Telamon"],
 "Tarentum": ["Taras","Tarentines","Tarentine"],
-"Pyrrhus_of_Epirus": ["Pyrrhus","Pyrrhos"]
+"Pyrrhus_of_Epirus": ["Pyrrhus","Pyrrhos"],
+"Battle_of_Heraclea": ["Heraclea"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6102,7 +6105,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Telamon": ["battle","history","warfare","italy"],
 "Roman_conquest_of_Cisalpine_Gaul": ["event","history","warfare","italy"],
 "Tarentum": ["city","history","politics","italy"],
-"Pyrrhus_of_Epirus": ["ruler","person","history","warfare","greece"]
+"Pyrrhus_of_Epirus": ["ruler","person","history","warfare","greece"],
+"Battle_of_Heraclea": ["battle","history","warfare","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
