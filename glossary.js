@@ -2078,7 +2078,8 @@ window.GLOSSARY = {
 "World_Disarmament_Conference": "The <b>World Disarmament Conference</b>, formally the Conference for the Reduction and Limitation of Armaments, opened at Geneva on 2 February 1932 to give effect to article 8 of the League of Nations Covenant, which bound members to cut armaments to the lowest point consistent with national safety.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It deadlocked between France, which wanted security guarantees before disarming, and Germany, which demanded equality with the powers that had disarmed it at Versailles, though a five-power declaration of December 1932 conceded the principle.<sup class=\"fn\" data-fn=\"1\"></sup> Germany left the conference and the League on 14 October 1933, and the 1934 sessions turned to parallel bargaining and an American-sponsored treaty on the arms trade.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Biennio_Rosso": "The <b>Biennio Rosso</b>, or red two years, was the wave of strikes, land occupations and factory seizures that ran through Italy in 1919 and 1920, a country left by the First World War with heavy debt, sharp inflation and falling real wages.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Rural strikes and land seizures spread in late 1919, cities saw protests against the cost of living, industrial strikes followed in spring 1920, and that September steelworkers occupied the factories.<sup class=\"fn\" data-fn=\"1\"></sup> The government declined to break that occupation by force, opening a lasting breach with moderate opinion, and the liberal order’s failure to absorb the new mass parties is held to have cleared the way for fascism.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Mutilated_victory": "The <b>mutilated victory</b> was the charge, current in Italy after 1918, that a country which had helped win the First World War at great cost was cheated of its reward at the Paris Peace Conference.<sup class=\"fn\" data-fn=\"1\"></sup> Italy had entered the war in 1915 on a promise of the Alpine frontier, Trieste, Pola and much of the Dalmatian coast, a bargain that left Fiume to Croatia and that the United States, not a party to it, refused to be bound by.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The phrase became a rallying cry of the nationalist right, feeding the seizure of Fiume by Gabriele d’Annunzio in September 1919 and the wider agitation that helped carry fascism to power.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Shandong_Problem": "The <b>Shandong question</b>, written Shantung at the time, was the dispute over what should become of the rights Germany held in the Chinese province of Shandong, which Japan seized in 1914 and kept after the war.<sup class=\"fn\" data-fn=\"1\"></sup> Article 156 of the Treaty of Versailles made Germany renounce in Japan’s favour its rights in the Kiaochow territory and the Tsingtao-Tsinanfu railway, honouring secret wartime promises from Britain, France, Italy and Russia rather than Chinese claims.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> News of the decision set off the May Fourth Movement in China in 1919, and Japan returned sovereignty over Jiaozhou only in 1922, under a bilateral treaty made at the Washington Conference.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Shandong_Problem": "The <b>Shandong question</b>, written Shantung at the time, was the dispute over what should become of the rights Germany held in the Chinese province of Shandong, which Japan seized in 1914 and kept after the war.<sup class=\"fn\" data-fn=\"1\"></sup> Article 156 of the Treaty of Versailles made Germany renounce in Japan’s favour its rights in the Kiaochow territory and the Tsingtao-Tsinanfu railway, honouring secret wartime promises from Britain, France, Italy and Russia rather than Chinese claims.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> News of the decision set off the May Fourth Movement in China in 1919, and Japan returned sovereignty over Jiaozhou only in 1922, under a bilateral treaty made at the Washington Conference.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Racial_Equality_Proposal": "The <b>racial equality proposal</b> was an amendment Japan put to the commission drafting the League of Nations Covenant in 1919, binding members to give other members’ nationals equal and just treatment, making no distinction in law or in fact on account of race or nationality.<sup class=\"fn\" data-fn=\"1\"></sup> The commission rejected it in February; a weaker preamble version, endorsing the equality of nations and the just treatment of their nationals, won a majority on 11 April and was ruled not adopted for want of unanimity.<sup class=\"fn\" data-fn=\"1\"></sup> Japan recorded its regret at the plenary session of 28 April and said it would press the principle again; the Covenant was adopted with no such clause.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2936,7 +2937,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "World_Disarmament_Conference": "1932–1934",
 "Biennio_Rosso": "1919–1920",
 "Mutilated_victory": "1918–1922",
-"Shandong_Problem": "1914–1922"
+"Shandong_Problem": "1914–1922",
+"Racial_Equality_Proposal": "1919"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4210,7 +4212,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Treaty_of_Rapallo_(1922)": ["Treaty of Rapallo","Rapallo Treaty"],
 "Washington_Naval_Conference": ["Washington Conference","Conference on the Limitation of Armament"],
 "World_Disarmament_Conference": ["General Disarmament Conference","Conference for the Reduction and Limitation of Armaments","Geneva Disarmament Conference"],
-"Shandong_Problem": ["Shandong question","Shantung question","Shantung Question"]
+"Shandong_Problem": ["Shandong question","Shantung question","Shantung Question"],
+"Racial_Equality_Proposal": ["racial equality clause","racial equality amendment"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6324,7 +6327,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "World_Disarmament_Conference": ["event","history","politics","diplomacy","military","20th century"],
 "Biennio_Rosso": ["event","history","politics","society","europe","20th century"],
 "Mutilated_victory": ["concept","history","politics","diplomacy","europe","20th century"],
-"Shandong_Problem": ["event","history","politics","diplomacy","asia","20th century"]
+"Shandong_Problem": ["event","history","politics","diplomacy","asia","20th century"],
+"Racial_Equality_Proposal": ["event","history","politics","diplomacy","asia","20th century"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
