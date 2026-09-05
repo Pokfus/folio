@@ -19978,16 +19978,20 @@
    ]
   },
   "hsk30l7/不平": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "生活真正的艺术是在平凡中看到不平凡。",
      "True art of life is to see the extraordinary amongst the ordinary."
+    ],
+    [
+     "他为此感到不平。",
+     "He feels aggrieved about it."
     ]
    ]
   },
   "hsk30l7/不服": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "如果汤姆不服用处方药，他的健康状况可能会恶化。",
@@ -19996,15 +20000,23 @@
     [
      "他不服老。",
      "He refuses to accept his old age."
+    ],
+    [
+     "他对结果不服。",
+     "He does not accept the result."
     ]
    ]
   },
   "hsk30l7/不知不觉": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "我们照例寒暄了一阵，闲扯扯队里的新闻以后，他在不知不觉中就把谈话引入了正题。",
      "We exchanged pleasantries, and chatted cordially about news in the team, and he moved the conversation naturally on to the main topic."
+    ],
+    [
+     "不知不觉天就黑了。",
+     "Before we knew it, night had fallen."
     ]
    ]
   },
@@ -20712,7 +20724,7 @@
    ]
   },
   "hsk30l7/出任": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "我看不出任何理由。",
@@ -20725,6 +20737,10 @@
     [
      "对现有代码做出任何修改前，你需要考虑后果。",
      "You need to consider the consequences before making any modifications to existing code."
+    ],
+    [
+     "他出任了新职务。",
+     "He took up a new post."
     ]
    ],
    "dropEx": [
@@ -22059,11 +22075,15 @@
    ]
   },
   "hsk30l7/得体": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "我们得体谅她年轻。",
      "We should take into account she is still young."
+    ],
+    [
+     "他的话说得很得体。",
+     "His words were fitting."
     ]
    ]
   },
@@ -23363,11 +23383,15 @@
    ]
   },
   "hsk30l7/波浪": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "獾行进时步伐稳定，身体压得很低、贴近地面；旱獭则尤其在兴奋时会疾奔，身体呈波浪状起伏摆动。",
      "The badger travels steadily, with its body very low and close to the ground; the marmot, especially when excited, gallops along, with undulatory movements of the body."
+    ],
+    [
+     "湖面泛起波浪。",
+     "Waves rose on the lake."
     ]
    ]
   },
@@ -23808,11 +23832,15 @@
    ]
   },
   "hsk30l7/登陆": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
    "ex": [
     [
      "俄罗斯正向叙利亚派遣战舰、海军陆战队和登陆艇坦克，并向伊朗派遣潜舰装备。",
      "Russia is sending battleships, marines, and landing craft tanks against Syria, and submarine equiment against Iran."
+    ],
+    [
+     "台风即将登陆。",
+     "The typhoon is about to make landfall."
     ]
    ]
   },
@@ -29052,6 +29080,10 @@
     [
      "这匹马十分标致。",
      "This horse is a fine-looking animal."
+    ],
+    [
+     "这个姑娘很标致。",
+     "This girl is pretty."
     ]
    ]
   },
@@ -29456,6 +29488,10 @@
     [
      "船在波涛中前行。",
      "The boat pushed on through the billows."
+    ],
+    [
+     "海上波涛翻滚。",
+     "The billows roll on the sea."
     ]
    ]
   },
@@ -29656,6 +29692,10 @@
     [
      "不肖之徒败坏了名声。",
      "Unworthy people ruined the reputation."
+    ],
+    [
+     "他自称不肖子孙。",
+     "He called himself an unworthy descendant."
     ]
    ]
   },
@@ -29771,6 +29811,10 @@
     [
      "警方捕获了嫌疑人。",
      "The police captured the suspect."
+    ],
+    [
+     "渔民捕获了不少鱼。",
+     "The fishermen caught many fish."
     ]
    ]
   },
@@ -29928,6 +29972,10 @@
     [
      "不能让问题不了了之。",
      "The problem must not be allowed to fizzle out."
+    ],
+    [
+     "事情最后不了了之。",
+     "The matter ended without a conclusion."
     ]
    ]
   },
@@ -30217,6 +30265,10 @@
     [
      "他有过惨痛的经历。",
      "He has had a painful experience."
+    ],
+    [
+     "这是惨痛的代价。",
+     "This is a bitter price."
     ]
    ]
   },
@@ -30962,6 +31014,10 @@
     [
      "这个问题值得沉思。",
      "This question deserves reflection."
+    ],
+    [
+     "他陷入了沉思。",
+     "He fell into deep thought."
     ]
    ]
   },
@@ -31090,6 +31146,10 @@
     [
      "她诚恳地道了歉。",
      "She apologized earnestly."
+    ],
+    [
+     "他的道歉很诚恳。",
+     "His apology is sincere."
     ]
    ]
   },
@@ -31333,6 +31393,10 @@
     [
      "不要迟疑，快决定。",
      "Don't hesitate; decide quickly."
+    ],
+    [
+     "他迟疑了片刻。",
+     "He hesitated a moment."
     ]
    ]
   },
@@ -31363,6 +31427,10 @@
     [
      "网上充斥着各种说法。",
      "All sorts of claims fill the internet."
+    ],
+    [
+     "市场上充斥着仿品。",
+     "The market is flooded with imitations."
     ]
    ]
   },
@@ -31478,6 +31546,10 @@
     [
      "他崇尚简朴的生活。",
      "He values a simple life."
+    ],
+    [
+     "他崇尚简单的生活。",
+     "He admires a simple life."
     ]
    ]
   },
@@ -31491,6 +31563,10 @@
     [
      "会议重申了这项规定。",
      "The meeting restated this rule."
+    ],
+    [
+     "他重申了立场。",
+     "He restated his position."
     ]
    ]
   },
@@ -31572,6 +31648,10 @@
     [
      "展览由学校筹办。",
      "The exhibition is organized by the school."
+    ],
+    [
+     "他们在筹办展览。",
+     "They are organizing an exhibition."
     ]
    ]
   },
@@ -31768,6 +31848,10 @@
     [
      "他的选择出人意料。",
      "His choice surprised everyone."
+    ],
+    [
+     "结局出人意料。",
+     "The ending was unexpected."
     ]
    ]
   },
@@ -31883,6 +31967,10 @@
     [
      "橱窗里摆着新款。",
      "New styles are displayed in the window."
+    ],
+    [
+     "橱窗里陈列着新品。",
+     "New goods are displayed in the window."
     ]
    ]
   },
@@ -32032,6 +32120,10 @@
     [
      "船舶要按时检修。",
      "Ships must be serviced on time."
+    ],
+    [
+     "港口停满了船舶。",
+     "The harbour is full of vessels."
     ]
    ]
   },
@@ -32283,6 +32375,10 @@
     [
      "虫鸣此起彼伏。",
      "Insect calls sounded here and there."
+    ],
+    [
+     "蛙声此起彼伏。",
+     "Frogs croaked here and there."
     ]
    ]
   },
@@ -32296,6 +32392,10 @@
     [
      "信末写着此致。",
      "The letter ends with a formal salutation."
+    ],
+    [
+     "信末写着此致敬礼。",
+     "The letter ends with respectful greetings."
     ]
    ]
   },
@@ -32462,6 +32562,10 @@
     [
      "风雨摧残了花朵。",
      "Wind and rain ravaged the flowers."
+    ],
+    [
+     "风雨摧残了花园。",
+     "Wind and rain ravaged the garden."
     ]
    ]
   },
@@ -32526,6 +32630,10 @@
     [
      "存折上余额不多。",
      "There is little left in the passbook."
+    ],
+    [
+     "他把存折收好了。",
+     "He put the passbook away."
     ]
    ]
   },
@@ -32777,6 +32885,10 @@
     [
      "天上飞过一群大雁。",
      "A flock of wild geese flew overhead."
+    ],
+    [
+     "天上飞过一行大雁。",
+     "A line of wild geese flew overhead."
     ]
    ]
   },
@@ -32790,6 +32902,10 @@
     [
      "年轻人在这里大有可为。",
      "Young people have much scope here."
+    ],
+    [
+     "这个领域大有可为。",
+     "This field has great promise."
     ]
    ]
   },
@@ -33075,6 +33191,10 @@
     [
      "领导当机立断停止了工程。",
      "The leader promptly halted the project."
+    ],
+    [
+     "他当机立断做了决定。",
+     "He decided on the spot."
     ]
    ]
   },
@@ -33122,6 +33242,10 @@
     [
      "称他为大师当之无愧。",
      "To call him a master is no exaggeration."
+    ],
+    [
+     "这个称号他当之无愧。",
+     "He fully deserves this title."
     ]
    ]
   },
@@ -33169,6 +33293,10 @@
     [
      "歌声在山谷里荡漾。",
      "The song echoed through the valley."
+    ],
+    [
+     "湖水轻轻荡漾。",
+     "The lake ripples gently."
     ]
    ]
   },
@@ -33233,6 +33361,10 @@
     [
      "有人故意捣乱。",
      "Someone deliberately caused a disturbance."
+    ],
+    [
+     "请不要捣乱。",
+     "Please do not make trouble."
     ]
    ]
   },
@@ -33280,6 +33412,10 @@
     [
      "悼念仪式很简单。",
      "The memorial ceremony was simple."
+    ],
+    [
+     "人们前来悼念。",
+     "People came to mourn."
     ]
    ]
   },
@@ -33353,6 +33489,10 @@
     [
      "他有得天独厚的条件。",
      "He enjoys uniquely favourable conditions."
+    ],
+    [
+     "这里条件得天独厚。",
+     "Conditions here are exceptionally favoured."
     ]
    ]
   },
@@ -33417,6 +33557,10 @@
     [
      "婚礼办得很低调。",
      "The wedding was low-key."
+    ],
+    [
+     "他一向低调。",
+     "He always keeps a low profile."
     ]
    ]
   },
@@ -33430,6 +33574,10 @@
     [
      "他一直提防着对方。",
      "He has been on his guard against the other man."
+    ],
+    [
+     "路上要提防扒手。",
+     "Beware of pickpockets on the way."
     ]
    ]
   },
@@ -33596,6 +33744,10 @@
     [
      "作品的底蕴很足。",
      "The work has real depth."
+    ],
+    [
+     "这座城市底蕴深厚。",
+     "This city has deep cultural roots."
     ]
    ]
   },
@@ -33694,6 +33846,10 @@
     [
      "费用按比例递增。",
      "The fee increases proportionally."
+    ],
+    [
+     "数量逐年递增。",
+     "The number increases year by year."
     ]
    ]
   },
@@ -33707,6 +33863,10 @@
     [
      "师父收了新弟子。",
      "The master took on a new pupil."
+    ],
+    [
+     "师父有很多弟子。",
+     "The master has many disciples."
     ]
    ]
   },
@@ -33903,6 +34063,10 @@
     [
      "他学的是雕塑。",
      "He studied sculpture."
+    ],
+    [
+     "公园里有一座雕塑。",
+     "There is a sculpture in the park."
     ]
    ]
   },
@@ -93572,6 +93736,366 @@
     [
      "奶奶在编织毛衣。",
      "Grandma is knitting a jumper."
+    ]
+   ]
+  },
+  "hsk30l7/变形": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "盒子被压变形了。",
+     "The box was crushed out of shape."
+    ]
+   ]
+  },
+  "hsk30l7/标签": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "瓶子上贴着标签。",
+     "A label is stuck on the bottle."
+    ]
+   ]
+  },
+  "hsk30l7/别墅": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "山下有几栋别墅。",
+     "There are several villas at the foot of the hill."
+    ]
+   ]
+  },
+  "hsk30l7/波动": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "价格出现了波动。",
+     "Prices fluctuated."
+    ]
+   ]
+  },
+  "hsk30l7/剥夺": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "任何人不得剥夺他人权利。",
+     "Nobody may deprive another of their rights."
+    ]
+   ]
+  },
+  "hsk30l7/博弈": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "双方进行了长期博弈。",
+     "The two sides played a long game."
+    ]
+   ]
+  },
+  "hsk30l7/不得而知": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "原因不得而知。",
+     "The reason is unknown."
+    ]
+   ]
+  },
+  "hsk30l7/布局": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "房间的布局很合理。",
+     "The room's layout is sensible."
+    ]
+   ]
+  },
+  "hsk30l7/残酷": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "战争十分残酷。",
+     "War is cruel."
+    ]
+   ]
+  },
+  "hsk30l7/操控": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他熟练地操控着机器。",
+     "He operates the machine skilfully."
+    ]
+   ]
+  },
+  "hsk30l7/操心": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "父母为孩子操心。",
+     "Parents worry about their children."
+    ]
+   ]
+  },
+  "hsk30l7/草丛": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "草丛里藏着一只兔子。",
+     "A rabbit hides in the grass."
+    ]
+   ]
+  },
+  "hsk30l7/插嘴": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "请不要插嘴。",
+     "Please do not interrupt."
+    ]
+   ]
+  },
+  "hsk30l7/敞开": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "大门敞开着。",
+     "The gate stands wide open."
+    ]
+   ]
+  },
+  "hsk30l7/彻夜": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他彻夜未眠。",
+     "He did not sleep all night."
+    ]
+   ]
+  },
+  "hsk30l7/陈述": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "请陈述你的理由。",
+     "Please state your reasons."
+    ]
+   ]
+  },
+  "hsk30l7/诚挚": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "请接受我诚挚的祝福。",
+     "Please accept my sincere wishes."
+    ]
+   ]
+  },
+  "hsk30l7/尺度": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "把握好尺度很重要。",
+     "Getting the measure right matters."
+    ]
+   ]
+  },
+  "hsk30l7/充沛": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他精力充沛。",
+     "He is full of energy."
+    ]
+   ]
+  },
+  "hsk30l7/仇恨": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "仇恨解决不了问题。",
+     "Hatred solves nothing."
+    ]
+   ]
+  },
+  "hsk30l7/出身": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他出身农家。",
+     "He comes of a farming family."
+    ]
+   ]
+  },
+  "hsk30l7/处置": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "请妥善处置废料。",
+     "Please dispose of the waste properly."
+    ]
+   ]
+  },
+  "hsk30l7/触动": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "这件事触动了他。",
+     "This affair touched him."
+    ]
+   ]
+  },
+  "hsk30l7/穿梭": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "车辆在街上穿梭。",
+     "Vehicles shuttle through the streets."
+    ]
+   ]
+  },
+  "hsk30l7/传奇": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他的一生是个传奇。",
+     "His life is a legend."
+    ]
+   ]
+  },
+  "hsk30l7/创伤": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "战争留下了创伤。",
+     "The war left wounds."
+    ]
+   ]
+  },
+  "hsk30l7/创始人": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他是公司的创始人。",
+     "He is the company's founder."
+    ]
+   ]
+  },
+  "hsk30l7/纯洁": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "孩子的心灵很纯洁。",
+     "A child's heart is pure."
+    ]
+   ]
+  },
+  "hsk30l7/粗略": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "这只是粗略的估计。",
+     "This is only a rough estimate."
+    ]
+   ]
+  },
+  "hsk30l7/错别字": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "作文里有几个错别字。",
+     "There are a few wrong characters in the essay."
+    ]
+   ]
+  },
+  "hsk30l7/错觉": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "这只是一种错觉。",
+     "This is merely an illusion."
+    ]
+   ]
+  },
+  "hsk30l7/答辩": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他明天要参加答辩。",
+     "He defends his thesis tomorrow."
+    ]
+   ]
+  },
+  "hsk30l7/打猎": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他年轻时爱打猎。",
+     "He liked hunting when young."
+    ]
+   ]
+  },
+  "hsk30l7/打消": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "他打消了这个念头。",
+     "He gave up the idea."
+    ]
+   ]
+  },
+  "hsk30l7/大惊小怪": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "不必大惊小怪。",
+     "There is no need to make a fuss."
+    ]
+   ]
+  },
+  "hsk30l7/大局": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "要顾全大局。",
+     "One must consider the overall situation."
+    ]
+   ]
+  },
+  "hsk30l7/大片": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "这部大片很卖座。",
+     "This blockbuster did well at the box office."
+    ]
+   ]
+  },
+  "hsk30l7/耽搁": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "路上耽搁了半小时。",
+     "We were held up half an hour on the way."
+    ]
+   ]
+  },
+  "hsk30l7/凳子": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "请搬一张凳子来。",
+     "Please bring a stool."
+    ]
+   ]
+  },
+  "hsk30l7/顶级": {
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "ex": [
+    [
+     "这是顶级的设备。",
+     "This is top-grade equipment."
     ]
    ]
   }
