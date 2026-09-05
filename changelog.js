@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.617", released: "2026-09-05T23:38Z" };
+window.FOLIO_VERSION = { v: "1.618", released: "2026-09-05T23:51Z" };
 
 window.CHANGELOG = [
   {
@@ -43,8 +43,8 @@ window.CHANGELOG = [
     t: "More of the conquest of Italy",
     items: [
       "<b>135 citations of Polybius now give the right year</b> \u2014 the translation is published in six volumes and several were credited to the wrong one.",
-   "<b>A hundred and four new cards in Ancient Rome, on the conquest of Italy, the settlement after it, the Punic wars and the Greek east.</b>",
-      "<b>A hundred and one more glossary terms</b>, on the Greek south of Italy, Pyrrhus and his battles, the alliance system that followed, the roads north, and Carthage’s empire, navy, generals and wars with Rome, sourced.",
+   "<b>A hundred and five new cards in Ancient Rome, on the conquest of Italy, the settlement after it, the Punic wars and the Greek east.</b>",
+      "<b>A hundred and two more glossary terms</b>, on the Greek south of Italy, Pyrrhus and his battles, the alliance system that followed, the roads north, and Carthage’s empire, navy, generals and wars with Rome, sourced.",
       "<b>Seventeen pictures that had failed to load now show</b> \u2014 sixteen on Ancient Rome cards and one on a glossary term.",
     ],
   },
