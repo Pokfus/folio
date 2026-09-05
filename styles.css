@@ -1461,6 +1461,23 @@ body[data-theme="folio"] .collection-deco::after{
 }
 .av-row{display:flex; align-items:center; gap:14px; margin-top:7px;}
 .av-row:empty{margin-top:0;}
+/* SUCCESSIVE RELEARNING — the pips under the answer term (see CRIT_DAYS in app.js). Three marks saying
+   which separate DAYS this card has been recalled on, which is the distinction the whole thing draws and
+   which a count could not make. Quiet by design: it is a record, not a demand, and it sits under a term
+   set at 25px, so it must not compete with it. It goes gold once the criterion is met, taking the same
+   ink the collection icons and the finished-deck bars use, so "you are done with this" reads the same
+   way everywhere on the site. */
+.crit-row{display:flex; align-items:center; gap:7px; margin-top:9px;}
+.crit-pips{display:inline-flex; gap:4px;}
+.crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--ink-faint); box-sizing:border-box;}
+.crit-pip.on{background:var(--ink-faint); border-color:var(--ink-faint);}
+.crit-lbl{font-size:calc(10.5px * var(--fs)); letter-spacing:.03em; text-transform:uppercase; color:var(--ink-faint);}
+.crit-row.done .crit-pip{background:#C39A2E; border-color:#C39A2E;}
+body.night .crit-row.done .crit-pip{background:#D4AA3C; border-color:#D4AA3C;}
+/* the caption takes the DEEPER gold, for the reason `.prog-done .xp-lvl` does: #C39A2E at this size on
+   the card is 3.6:1, and this is 10.5px uppercase text */
+.crit-row.done .crit-lbl{color:#8A6A1E;}
+body.night .crit-row.done .crit-lbl{color:#E0C069;}
 .answer .val{font-family:var(--display); font-weight:600; font-size:calc(25px * var(--fs)); color:var(--zh); line-height:1.18; min-width:0; display:block;}
 /* THE ANSWER TERM ALWAYS OPENS ON A CAPITAL (Aug 2026, on request), even where the question and the
    background write it lower-case — here it is a heading naming the thing, not a word in a sentence.
@@ -8140,3 +8157,148 @@ body[data-theme="carnelian"].night .collection-deco{
     color-mix(in srgb,var(--coll-bg) 36%, var(--card)) 0 14px,
     color-mix(in srgb,var(--coll-bg) 18%, var(--card)) 14px 30px);
 }
+
+/* ==========================================================================================
+   THE FIRST-SESSION ORDER PICKER, AND THE DECK PRETEST (Sep 2026, on request)
+   ==========================================================================================
+   Two pages that stand between pressing Study and studying. Both are read ONCE per deck and then
+   never again, which decides how they are set: long lines, generous leading, nothing clever. A page
+   somebody reads once has to be legible on the first pass or it is not read at all.
+
+   The option cards are BUTTONS, so everything in them is a <span> — a <p> inside a <button> is invalid
+   and gets hoisted out by the parser, exactly as a <button> inside the review banner is. */
+.op-grid{display:grid; gap:14px; grid-template-columns:1fr;}
+@media (min-width:900px){ .op-grid{grid-template-columns:1fr 1fr;} }
+.op-card{display:flex; flex-direction:column; gap:9px; text-align:left; width:100%;
+  background:var(--paper-2); border:1px solid var(--rule); border-radius:14px;
+  padding:18px 18px 16px; cursor:pointer; color:inherit; font:inherit;
+  transition:border-color .22s var(--ease), transform .22s var(--ease);}
+.op-card:hover{border-color:var(--indigo); transform:translateY(-2px);}
+.op-card:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+.op-name{font-family:var(--display); font-size:calc(19px * var(--fs)); font-weight:600; color:var(--ink);
+  display:flex; align-items:baseline; gap:9px; flex-wrap:wrap;}
+.op-tag{font-family:var(--sans); font-size:calc(10px * var(--fs)); letter-spacing:.05em; text-transform:uppercase;
+  color:var(--ink-faint); border:1px solid var(--rule); border-radius:999px; padding:1px 7px;}
+.op-lead{font-size:calc(14.5px * var(--fs)); color:var(--ink); line-height:1.5;}
+.op-p{font-size:calc(13.5px * var(--fs)); color:var(--ink-soft); line-height:1.62;}
+.op-who{font-size:calc(13px * var(--fs)); color:var(--ink); line-height:1.5; font-style:italic;
+  border-top:1px solid var(--rule); padding-top:9px; margin-top:2px;}
+.op-go{align-self:flex-start; font-size:calc(12.5px * var(--fs)); font-weight:600; letter-spacing:.02em;
+  color:var(--indigo);}
+.op-card:hover .op-go{text-decoration:underline;}
+.op-foot{margin-top:20px; border-top:1px solid var(--rule); padding-top:16px;
+  display:flex; flex-direction:column; gap:12px; align-items:flex-start;}
+.op-foot p{font-size:calc(13.5px * var(--fs)); color:var(--ink-soft); line-height:1.62; margin:0; max-width:70ch;}
+.op-footacts{display:flex; gap:10px; flex-wrap:wrap;}
+
+/* the pretest — one question at a time, and no feedback until the end */
+.pt-intro,.pt-q,.pt-res{background:var(--paper-2); border:1px solid var(--rule); border-radius:14px; padding:20px;}
+.pt-intro p,.pt-res p{font-size:calc(14.5px * var(--fs)); line-height:1.66; color:var(--ink-soft); margin:0 0 12px; max-width:68ch;}
+.pt-acts{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+.pt-bar{height:4px; border-radius:999px; background:var(--rule); overflow:hidden; margin-bottom:18px;}
+.pt-bar i{display:block; height:100%; background:var(--indigo); transition:width .22s var(--ease);}
+.pt-qtext{font-family:var(--display); font-size:calc(19px * var(--fs)); line-height:1.62; color:var(--ink);}
+.pt-note{font-size:calc(12px * var(--fs)); color:var(--ink-faint); line-height:1.5; margin:14px 0 0;}
+.pt-list{display:flex; flex-direction:column; margin:16px 0 0; border-top:1px solid var(--rule);}
+.pt-row{display:grid; grid-template-columns:20px 1fr auto; gap:10px; align-items:baseline;
+  padding:8px 0; border-bottom:1px solid var(--rule); font-size:calc(13.5px * var(--fs));}
+.pt-mark{color:var(--ink-faint); text-align:center;}
+.pt-row.ok .pt-mark{color:var(--good);}
+.pt-ans{color:var(--ink); font-weight:600;}
+.pt-you{color:var(--ink-faint); font-style:italic;}
+
+/* ANSWER BEFORE REVEALING (see deckAttempt in app.js) — the held-back Reveal, its escape hatch and the
+   hint that says why. The hint is `hidden` rather than removed, so nothing reflows when it goes. */
+.reveal-cta{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:center;}
+.reveal-cta .btn:disabled{opacity:.45; cursor:not-allowed;}
+.reveal-hint{font-size:calc(12.5px * var(--fs)); color:var(--ink-faint); flex-basis:100%; text-align:center;}
+.reveal-hint[hidden]{display:none;}
+/* the grade the "I don't know" button suggests — a ring, never a fill: the reader still chooses */
+.grade.grade-suggest{box-shadow:inset 0 0 0 2px currentColor;}
+
+/* ELABORATION PROMPTS (see elabPromptHTML in app.js) — one per session, between the answer and the
+   background. Quiet and clearly not part of the card's own content: a dashed rule and the paper-2 ground,
+   so it reads as Folio asking a question rather than as another field of the card. */
+.elab{border:1px dashed var(--rule); border-radius:12px; background:var(--paper-2);
+  padding:14px 15px; margin:16px 0 4px; display:flex; flex-direction:column; gap:9px;}
+.elab-kind{font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
+.elab-q{margin:0; font-family:var(--display); font-size:calc(16px * var(--fs)); line-height:1.5; color:var(--ink);}
+.elab-box{width:100%; box-sizing:border-box; resize:vertical; font:inherit;
+  font-size:calc(14px * var(--fs)); line-height:1.5; color:var(--ink);
+  background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:9px 11px;}
+.elab-box:focus-visible{outline:2px solid var(--indigo); outline-offset:1px;}
+.elab-acts{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+.elab-note{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
+/* the paragraph "Show me" opens onto, marked for a moment. A background wash rather than a border, so
+   nothing moves — a border would relayout the prose the reader has just been sent to read. */
+.abstract.elab-mark{background:var(--indigo-wash); border-radius:8px;
+  box-shadow:0 0 0 6px var(--indigo-wash); transition:background .3s var(--ease), box-shadow .3s var(--ease);}
+
+/* CAUSAL CHAINS — "what came of this" (see cardLeadsToHTML in app.js). A list of links at the foot of
+   the answer, outside the Background fold. Set as rows rather than as a sentence: each edge is a
+   separate claim about the past and reads as one. */
+.leadsto{margin-top:18px;}
+.lt-list{list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; gap:2px;}
+.lt-row{margin:0;}
+.lt-go{display:flex; flex-direction:column; gap:2px; width:100%; text-align:left;
+  background:none; border:0; border-left:2px solid var(--rule); padding:7px 0 7px 12px;
+  cursor:pointer; color:inherit; font:inherit; transition:border-color .22s var(--ease);}
+.lt-go:hover{border-left-color:var(--zh);}
+.lt-go:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+.lt-term{font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); color:var(--zh);}
+.lt-how{font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+/* the peek sheet a causal link opens */
+.cp-dates{margin:2px 0 10px;}
+.cp-lead{margin:0 0 4px; font-size:calc(14.5px * var(--fs)); line-height:1.62; color:var(--ink-soft);}
+
+/* ELABORATED FEEDBACK ON A MISSED CARD (see the gradeCloze block in app.js). The defining sentence,
+   directly under the answer and outside the Background fold, so a reader whose fold is collapsed still
+   gets an explanation rather than a bare term. Set in the answer's own red so it reads as part of the
+   correction rather than as the start of the prose below it. */
+.miss-lead{margin:12px 0 0; padding:11px 13px; border-radius:10px;
+  background:var(--zh-wash); border:1px solid var(--rule);}
+.miss-kind{display:block; font-size:calc(10px * var(--fs)); letter-spacing:.06em;
+  text-transform:uppercase; color:var(--zh); margin-bottom:5px;}
+.miss-lead p{margin:0; font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink);}
+/* the wrong option a reader actually chose, explained (see PAGES.challenge). Set apart from the answer's
+   own note above it by a rule rather than a colour, so it reads as a second paragraph and not a warning. */
+.mc-chose{border-top:1px solid var(--rule); padding-top:10px; margin-top:10px;}
+
+/* THE CONFUSION ROW (see noteConfusion in app.js) — the one thing on the home page that is personal to
+   this reader. Deliberately quieter than the review banner above it: it is a suggestion, not the day's
+   work, and it must never look like a warning about something being wrong with their study. */
+.confuse-row{display:flex; flex-direction:column; gap:4px; width:100%; text-align:left;
+  background:var(--paper-2); border:1px solid var(--rule); border-left:3px solid var(--newterm);
+  border-radius:12px; padding:13px 15px; cursor:pointer; color:inherit; font:inherit;
+  transition:border-color .22s var(--ease), transform .22s var(--ease);}
+.confuse-row:hover{transform:translateY(-1px); border-color:var(--newterm);}
+.confuse-row:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+.cf-main{font-family:var(--display); font-size:calc(15.5px * var(--fs)); color:var(--ink);}
+.cf-note{font-size:calc(12.5px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
+.cf-go{font-size:calc(12.5px * var(--fs)); font-weight:600; color:var(--newterm); margin-top:2px;}
+
+/* THE READER'S OWN FORGETTING CURVE, AND THE RECALLED-ONCE LIST (see forgettingCurveHTML in app.js).
+   Both are `.rs-card`s, so they take the statistics grid's own frame and need no layout of their own. */
+.fg-bars{display:flex; align-items:flex-end; gap:8px; margin-top:6px;}
+.fg-col{flex:1 1 0; min-width:0; display:flex; flex-direction:column; align-items:center; gap:5px;}
+.fg-track{width:100%; height:74px; background:var(--paper-2); border-radius:5px;
+  display:flex; align-items:flex-end; overflow:hidden;}
+.fg-track i{display:block; width:100%; background:var(--good); border-radius:5px 5px 0 0;}
+.fg-pct{font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--ink);}
+.fg-lbl{font-size:calc(10px * var(--fs)); color:var(--ink-faint); text-align:center; line-height:1.25;}
+.so-lead{margin:4px 0 8px; font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft);}
+.so-names{margin:0 0 12px; font-size:calc(13px * var(--fs)); line-height:1.6; color:var(--ink);}
+
+/* "HOW FOLIO STUDIES YOU" (see PAGES.how in app.js) — a page read once, so it is set as prose at a
+   comfortable measure rather than as a grid of cards. The claim is the heading, because the claim is
+   the point: a reader skimming should come away with the four sentences even if they read nothing else. */
+.how-list{display:flex; flex-direction:column; gap:22px;}
+.how-claim{border-left:3px solid var(--indigo); padding:2px 0 2px 16px;}
+.how-claim h3{margin:0 0 8px; font-family:var(--display); font-size:calc(19px * var(--fs));
+  line-height:1.35; font-weight:600; color:var(--ink);}
+.how-claim p{margin:0 0 8px; font-size:calc(14.5px * var(--fs)); line-height:1.68;
+  color:var(--ink-soft); max-width:72ch;}
+.how-so{color:var(--ink) !important; font-style:italic;}
+.how-foot{margin-top:26px; border-top:1px solid var(--rule); padding-top:16px;
+  display:flex; flex-direction:column; gap:12px; align-items:flex-start;}
+.how-foot p{margin:0; max-width:72ch; font-size:calc(13.5px * var(--fs)); line-height:1.62; color:var(--ink-soft);}

@@ -1013,6 +1013,17 @@ const BOOKS = {
       "Public domain in the United States: Gummere's translation was published in 1917, 1920 and 1925, " +
       "all before 1929, so its copyright has expired. (The widely-read Penguin translation by Robin " +
       "Campbell, 1969, is still in copyright and is not used here.)",
+    /* ---------- THE VOCABULARY SWEEP (Sep 2026, batch E24) ----------
+       140 candidates and two repairs: this book quotes Seneca's Latin on nearly every page, and the
+       list is almost entirely that — `collectio`, `comprehensio`, `consolatio`, `elementa`, `naturae`
+       — plus the modern scholars Gummere cites in his notes (Leage, Holmes). The second repair is the
+       one that matters: **the man the letters are addressed to**. */
+    reFixes: [
+      [/(?<![A-Za-z])Govenor(?![A-Za-z])/g, "Governor",
+       "a dropped r in `Governor`, in a note on Lucilius's post in Sicily"],
+      [/(?<![A-Za-z])Lucillius(?![A-Za-z])/g, "Lucilius",
+       "a doubled l in `Lucilius` — the correspondent these 124 letters are written TO, and spelled correctly 112 times"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Moral_letters_to_Lucilius",
     /* THE FRONT MATTER — the book's own opening chapter, written by hand and emitted as `intro` into
@@ -1061,6 +1072,15 @@ const BOOKS = {
       "The letters are numbered here as they have always been numbered, and the small raised figures " +
         "running through each one are its section numbers, by which any passage is cited. The numbered " +
         "notes folded under each letter are the translator's own.",
+      "<b>The Latin column carries two editorial marks, and they are the edition's rather than this " +
+        "page's.</b> Words between <b>tildes</b> are a passage the editors judge <i>corrupt</i> — the " +
+        "manuscripts hand down something that will not construe, and rather than mend it by guesswork " +
+        "the text prints what they say and marks it as doubtful. There are 19 such passages, across " +
+        "ten letters, and some of them contain words that are not Latin at all. Words between " +
+        "<b>square brackets</b> are the opposite judgement: text the editors think was added later " +
+        "and is not Seneca's, kept on the page rather than deleted from it so that a reader can see " +
+        "what was cut. There are 76 of those, across 46 letters. Neither mark is damage, and neither " +
+        "is repaired here.",
     ],
     // Gummere's three Loeb volumes, as Wikisource's own transclusions divide them
     parts: [
@@ -1107,6 +1127,222 @@ const BOOKS = {
         "edition text carried by Latin Wikisource, without a modern editor's apparatus.",
       sourceName: "Latin Wikisource",
       sourceUrl: "https://la.wikisource.org/wiki/Epistulae_morales_ad_Lucilium",
+      /* THE ONE COLUMN ON THE SHELF THAT SETS A VERSE LINE WITHOUT A <br> (Sep 2026, batch E26).
+         Seneca quotes Virgil, Ovid and Ennius on nearly every other page, and this transcription
+         separates the lines of a quotation with a bare newline where the Iliad uses <br> 15,258 times
+         and the Aeneid 9,452. `versifyNewlines` turns those newlines into the <br> the rest of
+         the shelf uses, and it is told here rather than guessing because the same rule read generally
+         would lineate 10,198 paragraphs of the Summa, 2,013 of the City of God and 733 of the
+         Confessions, all of them prose wrapped at the source's own line length. WITHIN this book verse
+         and prose are 1,377 characters apart on their longest line, so which paragraphs the pass
+         reaches is a measurement; whether to look at all is what this flag decides. */
+      verseNewlines: true,
+      /* TWO LOST SPACES `lostSpaces` CANNOT EXPRESS (Sep 2026, batch E54). Its keys are letters only —
+         `restoreLostSpaces` throws on anything else, which is right, since a key carrying punctuation
+         would match across a word boundary and could not be reasoned about. But two of this column's
+         run-togethers have a CRUX between them: the closing tilde of a corrupt passage set hard against
+         the next word, in letter 123. They are the same fault as the 636 rows below and need the other
+         mechanism, `O.reFixes`, which E45 added for exactly this kind of case. */
+      reFixes: [
+        [/~Eo~mortem/g, "~Eo~ mortem",
+         "a lost space after a crux, letter 123 — `~Eo~mortem praecurre`"],
+        [/prohibent et~occurrent/g, "prohibent et~ occurrent",
+         "a lost space after a crux, letter 123 — `~aduobus optantem prohibent et~occurrent`"],
+      ],
+      /* THE SPACES WIKISOURCE'S TYPING SWALLOWED — see restoreLostSpaces for how they were found
+         and how the real Latin words that split the same way were sorted out of them. Sorted by
+         letter, then alphabetically; every one must fire, and the run says so if one does not.
+
+         E28 DECLARED 483 AND DID NOT FINISH, WHICH IS WHY THE SECOND BLOCK BELOW EXISTS (Sep 2026,
+         batch E54). Its 483 are nearly all SHORT pairs — `inmalis`, `sedper`, `nequitiaest` — because
+         the sweep that found them looked for a short word swallowed into its neighbour; the ones it
+         left are longer, and a 20-letter token reads as a plausible Latin word until you try to
+         translate it. 153 more, found by asking for a token that occurs ONCE in the whole column and
+         splits into two words the column uses elsewhere, then READING every one in context.
+
+         THE FILTER THAT MADE THAT READABLE IS THE PART TO KEEP. A bare split test returns 525
+         candidates and is useless, because Latin's own morphology splits perfectly: the `-que`
+         enclitic makes `voluptatemque` look like `voluptatem que`, and the prefixes make
+         `transmittuntur`, `interemptorem` and `supervenerunt` look like two words each. Excluding a
+         split whose left half is a PREFIX or whose right half is a BOUND ENDING takes 525 to 145, and
+         at that size every one can be read. **Everything before letter 84 that survived the filter is
+         a real Latin word** — which is itself the confirmation that the fault is the transcription's
+         last quarter and not the language. */
+      lostSpaces: {
+        "advocatumidoneum": "advocatum idoneum", "Aliquabenigna": "Aliqua benigna", "aliquidaccedat": "aliquid accedat", "amabisamittere": "amabis amittere",
+        "amicosbenignum": "amicos benignum", "angustiastractum": "angustias tractum", "animostudere": "animo studere", "animumperite": "animum perite",
+        "aptatuslingua": "aptatus lingua", "areamspectat": "aream spectat", "armatusmiles": "armatus miles", "audemusdifficilia": "audemus difficilia",
+        "audiascenseo": "audias censeo", "audientiumversa": "audientium versa", "caeliconsurgit": "caeli consurgit", "civilibusaut": "civilibus aut",
+        "coepimustamquam": "coepimus tamquam", "concupiscuntrosam": "concupiscunt rosam", "contemnimusillos": "contemnimus illos", "contuberniofoedi": "contubernio foedi",
+        "conviciumgaudet": "convicium gaudet", "crederetetiam": "crederet etiam", "creditumest": "creditum est", "cuiusgubernaculo": "cuius gubernaculo",
+        "curastransmittere": "curas transmittere", "dedimusofficium": "dedimus officium", "detraheilli": "detrahe illi", "deversoriumotii": "deversorium otii",
+        "dicentiumalacres": "dicentium alacres", "dicuntpersequar": "dicunt persequar", "diuitiaeeius": "diuitiae eius", "editaprotinus": "edita protinus",
+        "elegantiacenarum": "elegantia cenarum", "excitetfamam": "excitet famam", "exercitationeiacentibus": "exercitatione iacentibus", "falsisconstantia": "falsis constantia",
+        "finitionemintellegi": "finitionem intellegi", "gestationecuretur": "gestatione curetur", "graviorasunt": "graviora sunt", "gravioremilli": "graviorem illi",
+        "haecrespondeo": "haec respondeo", "hominemuenire": "hominem uenire", "hominisexistimatio": "hominis existimatio", "honestisadfectibus": "honestis adfectibus",
+        "humanorumdivinorumque": "humanorum divinorumque", "ieiunibibunt": "ieiuni bibunt", "illadiffertur": "illa differtur", "illamsequentibus": "illam sequentibus",
+        "illeprofitetur": "ille profitetur", "illorevertor": "illo revertor", "industriegerat": "industrie gerat", "infantibusquoque": "infantibus quoque",
+        "inhonestumsit": "inhonestum sit", "inreparabilisuita": "inreparabilis uita", "inquilinosvoco": "inquilinos voco", "inrationaleanimal": "inrationale animal", "institueruntomnia": "instituerunt omnia",
+        "intendereanimum": "intendere animum", "interuallorecurrit": "interuallo recurrit", "intrepidumfore": "intrepidum fore", "intrepidushoram": "intrepidus horam",
+        "istediscursus": "iste discursus", "Iuliuscarmen": "Iulius carmen", "laudedignum": "laude dignum", "Maecenatisturpissimum": "Maecenatis turpissimum",
+        "maioraetate": "maior aetate", "mihidefunctorum": "mihi defunctorum", "modiceaegrotandum": "modice aegrotandum", "mododicendum": "modo dicendum",
+        "moralibusrationalia": "moralibus rationalia", "moralisphilosophiae": "moralis philosophiae", "mortalitatisexempla": "mortalitatis exempla", "motaequidquid": "motae quidquid",
+        "multiformessumus": "multiformes sumus", "naturamexcedit": "naturam excedit", "naturapraecepit": "natura praecepit", "naturapraecipuum": "natura praecipuum",
+        "nihiliuuat": "nihil iuuat", "nocendumsatis": "nocendum satis", "nocituriscientiam": "nocituri scientiam", "Nonamicam": "Non amicam",
+        "nonprofert": "non profert", "novissimeacutam": "novissime acutam", "numquamsaevitiam": "numquam saevitiam", "Numquidinstructus": "Numquid instructus",
+        "obscureintueris": "obscure intueris", "occasionemfugae": "occasionem fugae", "occupataciuitate": "occupata ciuitate", "oculisdet": "oculis det",
+        "offendirebus": "offendi rebus", "officiiconstat": "officii constat", "omnibuslatum": "omnibus latum", "ordinemcaperet": "ordinem caperet",
+        "pararivehiculum": "parari vehiculum", "patriamreditus": "patriam reditus", "pectoreexcipere": "pectore excipere", "pecuniadiuitem": "pecunia diuitem",
+        "pedesconstitit": "pedes constitit", "pedesduxit": "pedes duxit", "pedibusnostris": "pedibus nostris", "peioraadhuc": "peiora adhuc",
+        "peregrinationeshabere": "peregrinationes habere", "perfectamesse": "perfecta messe", "peritosquod": "peritos quod", "permittiturCiceronis": "permittitur Ciceronis",
+        "perniciosaintellegere": "perniciosa intellegere", "perseverabitmori": "perseverabit mori", "petitursupplici": "petitur supplici", "pictorcolores": "pictor colores",
+        "posuitcelerrime": "posuit celerrime", "praeteritirara": "praeteriti rara", "prioribusepistulis": "prioribus epistulis", "prodessevarium": "prodesse varium",
+        "profectumredigis": "profectum redigis", "publicusrelinquatur": "publicus relinquatur", "pulcherrimicursum": "pulcherrimi cursum", "Quaeretitaque": "Quaeret itaque",
+        "quandopatiaris": "quando patiaris", "querenticuidam": "querenti cuidam", "quidquidsperat": "quidquid sperat", "quoddicturum": "quod dicturum",
+        "quomodomedico": "quomodo medico", "quoquehas": "quoque has", "quoqueuix": "quoque uix", "quosqueoblectamenta": "quosque oblectamenta",
+        "recedendumest": "recedendum est", "regioneseligit": "regiones eligit", "salutarisaut": "salutaris aut", "salutisaeger": "salutis aeger",
+        "scholapauperi": "schola pauperi", "singuliconferant": "singuli conferant", "sollicitudinumcausas": "sollicitudinum causas", "Statimexpediam": "Statim expediam",
+        "summumhabenti": "summum habenti", "sustinericupit": "sustineri cupit", "tacitisquoque": "tacitis quoque", "Tantuserit": "Tantus erit",
+        "terminusnobis": "terminus nobis", "terreturtuba": "terretur tuba", "terribilisesse": "terribilis esse", "theatrumvoluptatis": "theatrum voluptatis",
+        "totiensmutata": "totiens mutata", "transeundumest": "transeundum est", "tutelacertissima": "tutela certissima", "tutelamsalutis": "tutelam salutis",
+        "uirtutibusuitia": "uirtutibus uitia", "uirumpati": "uirum pati", "uitaecommunis": "uitae communis", "uitiorumadsidua": "uitiorum adsidua",
+        "uoluptatemcapiam": "uoluptatem capiam", "uoluptatesrecepturae": "uoluptates recepturae", "utriusquerei": "utriusque rei", "venturumest": "venturum est",
+        "virtutuminterpretes": "virtutum interpretes",
+
+        /* --- E28's own 483, below --- */
+        "nequitiaest": "nequitia est", "commodumet": "commodum et", "fiduciaest": "fiducia est", "causaeetiam": "causae etiam",
+        "enimvarietas": "enim varietas", "etliberos": "et liberos", "incertumest": "incertum est", "inmalis": "in malis",
+        "inspem": "in spem", "ipsamquam": "ipsam quam", "Neganunc": "Nega nunc", "nihilinteresse": "nihil interesse",
+        "nostrumquam": "nostrum quam", "quaequoniam": "quae quoniam", "quammirari": "quam mirari", "Quidhuic": "Quid huic",
+        "quisquamde": "quisquam de", "sedper": "sed per", "sitillud": "sit illud", "advocem": "ad vocem",
+        "animosubsidere": "animo subsidere", "atquihoc": "atqui hoc", "autemista": "autem ista", "bonumesse": "bonum esse",
+        "bonumex": "bonum ex", "claritassit": "claritas sit", "condicioest": "condicio est", "cumsubito": "cum subito",
+        "dieset": "dies et", "enimgeritur": "enim geritur", "enimquicquam": "enim quicquam", "epistulatua": "epistula tua",
+        "ergonon": "ergo non", "ergoutriusque": "ergo utriusque", "esseiudicat": "esse iudicat", "idempotest": "idem potest",
+        "inaperto": "in aperto", "lausetiam": "laus etiam", "mixtumhoc": "mixtum hoc", "naturaetibi": "naturae tibi",
+        "nobisesse": "nobis esse", "nonpotuisset": "non potuisset", "nullusest": "nullus est", "omniainvenies": "omnia invenies",
+        "perquos": "per quos", "ponendaest": "ponenda est", "senectutemin": "senectutem in", "sibiipsum": "sibi ipsum",
+        "sibised": "sibi sed", "sitet": "sit et", "sumquo": "sum quo", "tamquamnon": "tamquam non", "tantumsed": "tantum sed",
+        "abhomine": "ab homine", "multisfuit": "multis fuit", "nisiquod": "nisi quod", "possuntet": "possunt et",
+        "quidquidnon": "quidquid non", "quioccurrunt": "qui occurrunt", "tamenita": "tamen ita", "argentumet": "argentum et",
+        "bellofuit": "bello fuit", "benecum": "bene cum", "Caesaremet": "Caesarem et", "cumquo": "cum quo",
+        "cumsciam": "cum sciam", "eripiturex": "eripitur ex", "essetdecem": "esset decem", "estvideri": "est videri",
+        "etmortem": "et mortem", "exaperto": "ex aperto", "facerenon": "facere non", "gaudiumet": "gaudium et",
+        "habebatquod": "habebat quod", "hoctibi": "hoc tibi", "honoremet": "honorem et", "horate": "hora te",
+        "inmorte": "in morte", "inore": "in ore", "Itaquequae": "Itaque quae", "laudemet": "laudem et",
+        "loquiet": "loqui et", "minusquam": "minus quam", "nonregio": "non regio", "nonvehiculum": "non vehiculum",
+        "periculased": "pericula sed", "petendumest": "petendum est", "Quamdiuquidem": "Quamdiu quidem",
+        "quamfama": "quam fama", "quidsupervacuum": "quid supervacuum", "quodmagni": "quod magni", "rerumaliqua": "rerum aliqua",
+        "sitmali": "sit mali", "siveut": "sive ut", "suorumvel": "suorum vel", "tecumsunt": "tecum sunt",
+        "tefuerit": "te fuerit", "venissete": "venisse te", "voluptatesilla": "voluptates illa", "alienamet": "alienam et",
+        "autest": "aut est", "habetqui": "habet qui", "mediocritaset": "mediocritas et", "tesensus": "te sensus",
+        "valetudinemin": "valetudinem in", "vitamet": "vitam et", "corporasunt": "corpora sunt", "corpusest": "corpus est",
+        "ergoet": "ergo et", "facimusaut": "facimus aut", "illumet": "illum et", "necesseest": "necesse est",
+        "Neminemres": "Neminem res", "occupationibussum": "occupationibus sum", "sednos": "sed nos", "sicuthoc": "sicut hoc",
+        "tibiextra": "tibi extra", "animuscontra": "animus contra", "deincepsquae": "deinceps quae", "deosquam": "deos quam",
+        "mariacum": "maria cum", "molestumesse": "molestum esse", "patiquod": "pati quod", "quiaparia": "quia paria",
+        "adhanc": "ad hanc", "animoet": "animo et", "deindead": "deinde ad", "estnullus": "est nullus",
+        "estquantum": "est quantum", "Facileest": "Facile est", "Indein": "Inde in", "Indemihi": "Inde mihi",
+        "nectantum": "nec tantum", "nonvivere": "non vivere", "oblectamentasunt": "oblectamenta sunt",
+        "perstudia": "per studia", "plusquam": "plus quam", "quoscum": "quos cum", "suntista": "sunt ista",
+        "suosnon": "suos non", "ultraquam": "ultra quam", "utverba": "ut verba", "videriset": "videris et",
+        "voluptatibussed": "voluptatibus sed", "amorsui": "amor sui", "autemsuadet": "autem suadet", "conplectiet": "conplecti et",
+        "Ergonec": "Ergo nec", "essein": "esse in", "nevirtus": "ne virtus", "Praetereaillud": "Praeterea illud",
+        "Proderitautem": "Proderit autem", "Proderitergo": "Proderit ergo", "quaedamsunt": "quaedam sunt",
+        "quemadmodumipse": "quemadmodum ipse", "quidemille": "quidem ille", "quiparia": "qui paria", "sapiensnon": "sapiens non",
+        "supervacuumest": "supervacuum est", "tibidicere": "tibi dicere", "virtuteset": "virtutes et",
+        "inparia": "in paria", "bonumest": "bonum est", "dabonec": "dabo nec", "quidsi": "quid si", "semouet": "se mouet",
+        "actumest": "actum est", "Adsummam": "Ad summam", "Anhas": "An has", "delicisomnia": "delicis omnia",
+        "denobis": "de nobis", "estnec": "est nec", "illanos": "illa nos", "Inanime": "Inani me", "ipsamihi": "ipsa mihi",
+        "ipsemihi": "ipse mihi", "multumest": "multum est", "necinmerito": "nec inmerito", "nihilpraeter": "nihil praeter",
+        "Paratumtibi": "Paratum tibi", "PlusIuppiter": "Plus Iuppiter", "populumet": "populum et", "potestesse": "potest esse",
+        "Quaerisquae": "Quaeris quae", "quamex": "quam ex", "Quantulumcumqueest": "Quantulumcumque est",
+        "Quimultum": "Qui multum", "satisest": "satis est", "simultum": "si multum", "sitres": "si tres",
+        "utomnia": "ut omnia", "atquealius": "atque alius", "corporisanimo": "corporis animo", "datquidem": "dat quidem",
+        "decoretam": "decore tam", "efficeut": "effice ut", "exirenon": "exire non", "exquo": "ex quo",
+        "feceratnon": "fecerat non", "iamfacta": "iam facta", "imaginemnobis": "imaginem nobis", "indiciumest": "indicium est",
+        "innotitiam": "in notitiam", "nequis": "ne quis", "nosilla": "nos illa", "numquamde": "numquam de",
+        "ordoeius": "ordo eius", "periculumesse": "periculum esse", "placiduset": "placidus et", "quamin": "quam in",
+        "sciatan": "sciat an", "sicmentitur": "sic mentitur", "sithoc": "sit hoc", "speciesnon": "species non",
+        "tantumtamquam": "tantum tamquam", "utuita": "ut uita", "aliterquam": "aliter quam", "animalad": "animal ad",
+        "apparetnon": "apparet non", "autunde": "aut unde", "constitutioest": "constitutio est", "Esseautem": "Esse autem",
+        "etuiuere": "et uiuere", "illudignorat": "illud ignorat", "instrumentasua": "instrumenta sua",
+        "manuset": "manus et", "membrorumtam": "membrorum tam", "necumquam": "nec umquam", "nisiquid": "nisi quid",
+        "nonex": "non ex", "Nosquoque": "Nos quoque", "nullumest": "nullum est", "omnesei": "omnes ei",
+        "omnibusest": "omnibus est", "quaenecessitate": "quae necessitate", "quasatis": "qua satis", "quodtranseat": "quod transeat",
+        "rationalipotest": "rationali potest", "seper": "se per", "suiet": "sui et", "tamendesiderio": "tamen desiderio",
+        "aliauita": "alia uita", "aliquidex": "aliquid ex", "facerequod": "facere quod", "faciuntet": "faciunt et",
+        "ineadem": "in eadem", "interse": "inter se", "multishoc": "multis hoc", "namsi": "nam si", "naturamqui": "naturam qui",
+        "neaetas": "ne aetas", "noctisquid": "noctis quid", "nonuidentur": "non uidentur", "omniadebitum": "omnia debitum",
+        "petuntomnes": "petunt omnes", "sesupra": "se supra", "totamuitam": "totam uitam", "utdixi": "ut dixi",
+        "argumentaquae": "argumenta quae", "asperaet": "aspera et", "estneminem": "est neminem", "fecerisnec": "feceris nec",
+        "hocest": "hoc est", "malumnon": "malum non", "multanocte": "multa nocte", "namcum": "nam cum",
+        "nametiam": "nam etiam", "necante": "nec ante", "Necfacile": "Nec facile", "nonhabet": "non habet",
+        "nosaut": "nos aut", "nosetiam": "nos etiam", "Quemadmodumqui": "Quemadmodum qui", "quiddamest": "quiddam est",
+        "turpeest": "turpe est", "uiueresed": "uiuere sed", "utillos": "ut illos", "Animalibustantum": "Animalibus tantum",
+        "bonumin": "bonum in", "bonumtuum": "bonum tuum", "daturde": "datur de", "essesecurum": "esse securum",
+        "hebeset": "hebes et", "innullo": "in nullo", "inperfectumet": "inperfectum et", "Itadico": "Ita dico",
+        "maximesolum": "maxime solum", "naturaeest": "naturae est", "naturaesunt": "naturae sunt", "naturamest": "naturam est",
+        "necid": "nec id", "necin": "nec in", "nondico": "non dico", "noneris": "non eris", "nonessent": "non essent",
+        "Nonpotest": "Non potest", "perfectaest": "perfecta est", "possuntin": "possunt in", "potesteorum": "potest eorum",
+        "quaerettuli": "quae rettuli", "quamoculorum": "quam oculorum", "quemde": "quem de", "quidemcadere": "quidem cadere",
+        "Quidninon": "Quidni non", "quiillud": "qui illud", "quodesse": "quod esse", "Quodne": "Quod ne",
+        "quodnondum": "quod nondum", "rationaleest": "rationale est", "sednec": "sed nec", "sitpalam": "sit palam",
+        "Tempusenim": "Tempus enim", "Tertiumuero": "Tertium uero", "tuaetantum": "tuae tantum", "tuoprofutura": "tuo profutura",
+        "uiaest": "uia est", "uitafundamentum": "uita fundamentum", "uoluptatemin": "uoluptatem in",
+        "diumori": "diu mori", "extremaventum": "extrema ventum", "Huicputes": "Huic putes", "Maximumvitae": "Maximum vitae",
+        "quantadementia": "quanta dementia", "vulnussuum": "vulnus suum", "adhucmembra": "adhuc membra",
+        "aliquemiudicet": "aliquem iudicet", "bonumputamus": "bonum putamus", "claritasbonum": "claritas bonum",
+        "claritasdesiderat": "claritas desiderat", "contingerecontenta": "contingere contenta", "cuiusante": "cuius ante",
+        "distantibusbonum": "distantibus bonum", "divinalux": "divina lux", "eorumquibus": "eorum quibus",
+        "iudicisconstat": "iudicis constat", "locoposita": "loco posita", "magnorumvirorum": "magnorum virorum",
+        "potessub": "potes sub", "Quidquidcirca": "Quidquid circa", "secundumquem": "secundum quem", "tamquamextremum": "tamquam extremum",
+        "totamlucem": "totam lucem", "unafacies": "una facies", "uniussermo": "unius sermo", "Quantumpotes": "Quantum potes",
+        "adversusminas": "adversus minas", "antequamnecesse": "antequam necesse", "constarelibertas": "constare libertas",
+        "desideriaintra": "desideria intra", "extrametus": "extra metus", "fortunavivere": "fortuna vivere",
+        "habereanimi": "habere animi", "locodiscitur": "loco discitur", "mortemhomo": "mortem homo", "pertinetquos": "pertinet quos",
+        "quamdiumalorum": "quamdiu malorum", "quorumnemo": "quorum nemo", "sineullis": "sine ullis", "suorumexigit": "suorum exigit",
+        "virovivendum": "viro vivendum", "visista": "vis ista", "vitaeusus": "vitae usus", "aliisloqui": "aliis loqui",
+        "aliudagere": "aliud agere", "apudaliquem": "apud aliquem", "domimolestum": "domi molestum", "malaconscientia": "mala conscientia",
+        "omnibusistis": "omnibus istis", "periculopossint": "periculo possint", "populumfaciet": "populum faciet",
+        "quisquisexpectat": "quisquis expectat", "ullotempore": "ullo tempore", "anid": "an id", "bonumhominis": "bonum hominis",
+        "philosophiamvelle": "philosophiam velle", "Quemadmodumomnium": "Quemadmodum omnium", "rettulivirtutes": "rettuli virtutes",
+        "Alioloco": "Alio loco", "aliquispati": "aliquis pati", "fortiterfortuita": "fortiter fortuita",
+        "hanclegem": "hanc legem", "illisnoster": "illis noster", "quaecumquefiunt": "quaecumque fiunt",
+        "ubimagnitudo": "ubi magnitudo", "videsregnum": "vides regnum", "aliquasdisputationes": "aliquas disputationes",
+        "divitemfecit": "divitem fecit", "egregiumsensum": "egregium sensum", "fundamentadedit": "fundamenta dedit",
+        "legemvitae": "legem vitae", "philosophiaevis": "philosophiae vis", "philosophumfuerunt": "philosophum fuerunt",
+        "prodessevelit": "prodesse velit", "quoniamquaedam": "quoniam quaedam", "secumboni": "secum boni",
+        "spiritusnoster": "spiritus noster", "veloxdies": "velox dies", "Aiunthomines": "Aiunt homines",
+        "bonusbono": "bonus bono", "nihilominusprodesse": "nihilominus prodesse", "omnibono": "omni bono",
+        "omnibusinter": "omnibus inter", "plurimumvitia": "plurimum vitia", "Primummultum": "Primum multum",
+        "Prodessedicuntur": "Prodesse dicuntur", "prodessesapienti": "prodesse sapienti", "quisqueconciliatur": "quisque conciliatur",
+        "sapienssapienti": "sapiens sapienti", "sapientiproderit": "sapienti proderit", "ubihonesta": "ubi honesta",
+        "utrumquevalere": "utrumque valere", "beneficiointer": "beneficio inter", "egregiedictum": "egregie dictum",
+        "extrasensum": "extra sensum", "Horatiusnegat": "Horatius negat", "nimiscurat": "nimis curat",
+        "occupatapaupertas": "occupata paupertas", "suaebeneficio": "suae beneficio", "utroqueeadem": "utroque eadem",
+        "aliquandosuperest": "aliquando superest", "bellofortem": "bello fortem", "bonumiudicant": "bonum iudicant",
+        "distinguerespecie": "distinguere specie", "facereposset": "facere posset", "interista": "inter ista",
+        "istaduo": "ista duo", "magnitudosuper": "magnitudo super", "mensnostra": "mens nostra", "meritodici": "merito dici",
+        "numquameundem": "numquam eundem", "perfectumanimum": "perfectum animum", "primaboni": "prima boni",
+        "unumhominem": "unum hominem", "constitutionemhabet": "constitutionem habet", "constitutionemsuam": "constitutionem suam",
+        "constitutionissuae": "constitutionis suae", "demumintelleges": "demum intelleges", "felicitasdicitur": "felicitas dicitur",
+        "hisnatura": "his natura", "hominemnatura": "hominem natura", "hominemsibi": "hominem sibi", "huicconstitutioni": "huic constitutioni",
+        "iudicasmores": "iudicas mores", "nascioportet": "nasci oportet", "naturacommendat": "natura commendat",
+        "naturaetuae": "naturae tuae", "nullimortalium": "nulli mortalium", "Praetereaipsam": "Praeterea ipsam",
+        "quaedamnaturam": "quaedam naturam", "quamuisnaturam": "quamuis naturam", "quemadmodumintellegat": "quemadmodum intellegat",
+        "simultemptare": "simul temptare", "diciturrationes": "dicitur rationes", "huiusdiem": "huius diem",
+        "malorumdixerim": "malorum dixerim", "nesciuntquando": "nesciunt quando", "nisinoctem": "nisi noctem",
+        "sudoremquem": "sudorem quem", "totodie": "toto die", "aequeapparet": "aeque apparet", "alioaliunde": "alio aliunde",
+        "auribusnostris": "auribus nostris", "famesreddet": "fames reddet", "interestutrum": "interest utrum",
+        "ipsoloquor": "ipso loquor", "lassitudinempono": "lassitudinem pono", "multaetemporum": "multae temporum",
+        "rectumsequi": "rectum sequi", "aliquodbonum": "aliquod bonum", "alteriuscura": "alterius cura",
+        "alterummortale": "alterum mortale", "animalibusdecore": "animalibus decore", "animalibustalis": "animalibus talis",
+        "diceretillum": "diceret illum", "Dicimusbeata": "Dicimus beata", "haberemanifestum": "habere manifestum",
+        "initioperfectum": "initio perfectum", "longostudio": "longo studio", "naturatalis": "natura talis",
+        "plurimumcrescere": "plurimum crescere", "quantuluminterest": "quantulum interest", "soliscontingunt": "solis contingunt",
+        "uidentursecundum": "uidentur secundum",
+      },
       // one page per book of the collection; the letters are the h2 headings inside each
       pages: [
         "Epistulae morales ad Lucilium/Liber I",
@@ -1569,6 +1805,15 @@ const BOOKS = {
       "twenty-four centuries old. (The modern translations by Desmond Lee, 1955, Allan Bloom, 1968, " +
       "and G. M. A. Grube revised by C. D. C. Reeve, 1992, are still in copyright and are not used " +
       "here.)",
+    /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19's sweep, batch E20) ----------
+       Found by asking the shelf's own vocabulary which words are rare everywhere and sit one edit from
+       a word it uses constantly, and then READING every candidate this book returned. Most were right
+       as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
+       are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
+    reFixes: [
+      [/(?<![A-Za-z])continuallly(?![A-Za-z])/g, "continually",
+       "a trebled l in `continually`"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Republic_of_Plato",
 
@@ -1729,6 +1974,85 @@ const BOOKS = {
       "International licence. (The modern translations — the Hackett Complete Works edited by John " +
       "Cooper, 1997, and the Penguin and Oxford versions by Walter Hamilton, Robin Waterfield and " +
       "Christopher Rowe — are still in copyright and are not used here.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    reFixes: [
+      [/(?<![A-Za-z0-9])0ceanus(?![A-Za-z0-9])/g, "Oceanus",
+       "a zero read for the O of `Oceanus`, in the line 'Oceanus the origin of the gods'"],
+      [/(?<![A-Za-z])househoIds(?![A-Za-z])/g, "households",
+       "a capital I read for the lowercase l of `households`"],
+      [/(?<![A-Za-z])illiberaI(?![A-Za-z])/g, "illiberal",
+       "a capital I read for the lowercase l of `illiberal`"],
+      [/(?<![A-Za-z])vaIueless(?![A-Za-z])/g, "valueless",
+       "a capital I read for the lowercase l of `valueless`"],
+      [/(?<![A-Za-z])equivaIent(?![A-Za-z])/g, "equivalent",
+       "a capital I read for the lowercase l of `equivalent`"],
+      [/(?<![A-Za-z])Iawgiver(?![A-Za-z])/g, "lawgiver",
+       "a capital I read for the lowercase l of `lawgiver`"],
+      [/(?<![A-Za-z])benevolentIy(?![A-Za-z])/g, "benevolently",
+       "a capital I read for the lowercase l of `benevolently`"],
+      [/(?<![A-Za-z])ignobIy(?![A-Za-z])/g, "ignobly",
+       "a capital I read for the lowercase l of `ignobly`"],
+      [/(?<![A-Za-z])equaIizing(?![A-Za-z])/g, "equalizing",
+       "a capital I read for the lowercase l of `equalizing`"],
+
+      /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19) ----------
+         The fourth sweep, and it generalises E14, E15 and E16 rather than adding a fourth family:
+         instead of naming a confusion and looking for it, it asks the SHELF's own vocabulary which
+         words are rare everywhere and sit one edit from a word the shelf uses constantly. Eleven of
+         the twelve below are NON-WORDS, which is E15's rule and needs no witness; the two that are
+         not are settled by this book's own usage and are marked as such.
+
+         EACH OCCURS EXACTLY ONCE ACROSS ALL SIXTY-NINE PLATO FILES, both columns, which is what
+         makes the damaged token safe to anchor on alone — and they are anchored anyway, for E15's
+         `scorning` reason: `lonians` is a substring of `Babylonians`, which this book happens not
+         to use and the next edition might. */
+      [/(?<![A-Za-z])Cortinthian(?![A-Za-z])/g, "Corinthian",
+       "a stray t in `Corinthian`, of the colony in Chalcidice"],
+      [/(?<![A-Za-z])Bocotia(?![A-Za-z])/g, "Boeotia",
+       "a c read for the e of `Boeotia`"],
+      [/(?<![A-Za-z])Poseiden(?![A-Za-z])/g, "Poseidon",
+       "an e read for the o of `Poseidon`"],
+      [/(?<![A-Za-z])lonians(?![A-Za-z])/g, "Ionians",
+       "a lowercase l read for the capital I of `Ionians` — E14's family, the other way up"],
+      [/(?<![A-Za-z])possibillty(?![A-Za-z])/g, "possibility",
+       "an l read for the i of `possibility`"],
+      [/(?<![A-Za-z])wlth(?![A-Za-z])/g, "with",
+       "an l read for the i of `with`"],
+      [/(?<![A-Za-z])weree(?![A-Za-z])/g, "were",
+       "a doubled e in `were`"],
+      [/(?<![A-Za-z])sayng(?![A-Za-z])/g, "saying",
+       "a dropped i in `saying`"],
+      [/(?<![A-Za-z])sarting(?![A-Za-z])/g, "starting",
+       "a dropped t in `starting-point`"],
+      [/(?<![A-Za-z])moster(?![A-Za-z])/g, "monster",
+       "a dropped n in `monster`, of the beast Theseus killed between Corinth and Megara"],
+      [/(?<![A-Za-z])grap(?![A-Za-z])/g, "grasp",
+       "a dropped s in `grasp`"],
+      [/(?<![A-Za-z])Hipponieus(?![A-Za-z])/g, "Hipponicus",
+       "an e read for the c of `Hipponicus` — NOT a non-word but a non-name, and the book spells " +
+       "him correctly seven times in the same dialogue"],
+      [/cry outc\.(?=<)/g, "cry out.",
+       "a stray c at the end of a note reading `the tendency to cry out`"],
+      [/(?<![A-Za-z])fake opinion(?![A-Za-z])/g, "false opinion",
+       "`fake` for `false` — THE ONE ROW HERE THAT IS NOT A NON-WORD, and it is not a guess: this " +
+       "is the Theaetetus at the centre of its argument about false opinion, and the same source " +
+       "file writes `false opinion` thirty-seven times and this once"],
+    ],
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it is NOT safe against is the BIBLIOGRAPHIC forms, which name
+       themselves and are left alone — `1ff` and `78ff` for 'and following', `8vo` and `4to` for
+       octavo and quarto, `1274bb` for a Bekker page. 108 candidates across twelve books; these are
+       the ones that are damage. */
+    fixes: [
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059/",
 
@@ -1881,6 +2205,18 @@ const BOOKS = {
       "released under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
       "translations by Rolfe Humphries, 1955, Allen Mandelbaum, 1993, Charles Martin, 2004, and " +
       "Stephanie McCarter, 2022, are still in copyright and are not used here.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    reFixes: [
+      [/(?<![A-Za-z])Iamb(?![A-Za-z])/g, "lamb",
+       "a capital I read for the lowercase l of `lamb`"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0959.phi006/",
 
@@ -2050,6 +2386,30 @@ const BOOKS = {
       "Library at Tufts University and are released under a Creative Commons Attribution-ShareAlike " +
       "4.0 International licence. (The modern translations by Robert Graves, 1957, Catharine Edwards, " +
       "2000, and Tom Holland, 2021, are still in copyright and are not used here.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    reFixes: [
+      [/(?<![A-Za-z0-9])i6th(?![A-Za-z0-9])/g, "16th",
+       "an i read for the 1 of `16th` — this family running the other way, a letter for a digit — in '[16th March]'"],
+      [/(?<![A-Za-z0-9])I8th(?![A-Za-z0-9])/g, "18th",
+       "the same, a capital I for the 1 of `18th`, in '[18th May]'"],
+      [/(?<![A-Za-z])Iviii(?![A-Za-z])/g, "lviii",
+       "a capital I read for the lowercase l of `lviii`"],
+    ],
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it is NOT safe against is the BIBLIOGRAPHIC forms, which name
+       themselves and are left alone — `1ff` and `78ff` for 'and following', `8vo` and `4to` for
+       octavo and quarto, `1274bb` for a Bekker page. 108 candidates across twelve books; these are
+       the ones that are damage. */
+    fixes: [
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1348/",
 
@@ -2201,6 +2561,15 @@ const BOOKS = {
         "Attribution-ShareAlike 4.0 International licence.",
       sourceName: "Perseus Digital Library",
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1348/",
+      /* A LOST SPACE IN PERSEUS'S OWN FILE (Sep 2026, batch E55), found while reading the eleven
+         apparatus references beside it in Divus Julius — the same chapter, three sentences away.
+         `et illa uulgo cane bantur` is `canebantur`, "and these were commonly sung", split at a
+         syllable boundary by a line break the transcription kept. It is E28's fault class, which
+         cost the Latin Seneca 637 rows; this column has exactly one, counted over the whole text. */
+      reFixes: [
+        [/uulgo cane bantur/g, "uulgo canebantur",
+         "a line break kept as a space, Divus Julius 80 — `et illa uulgo cane bantur`"],
+      ],
     },
   },
 
@@ -2253,6 +2622,18 @@ const BOOKS = {
       "an editor nor a date for the text it prints, so none is claimed here. (The modern " +
       "translations by Rolfe Humphries, 1968, Ronald Melville, 1997, and A. E. Stallings, 2007, are " +
       "still in copyright and are not used here.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    reFixes: [
+      [/(?<![A-Za-z])aIl(?![A-Za-z])/g, "all",
+       "a capital I read for the lowercase l of `all`"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0550.phi001/",
 
@@ -2425,6 +2806,17 @@ const BOOKS = {
       "centuries old. (The modern translations by Terence Irwin, 1985, Roger Crisp, 2000, and " +
       "Christopher Rowe, 2002, are still in copyright and are not used here — as is the 2009 Oxford " +
       "World's Classics revision of this very translation by Lesley Brown, which is a separate work.)",
+    /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19's sweep, batch E20) ----------
+       Found by asking the shelf's own vocabulary which words are rare everywhere and sit one edit from
+       a word it uses constantly, and then READING every candidate this book returned. Most were right
+       as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
+       are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
+    reFixes: [
+      [/(?<![A-Za-z])andvice(?![A-Za-z])/g, "and vice",
+       "a lost space in `and vice`, in 'for virtue and vice respectively preserve and destroy'"],
+      [/(?<![A-Za-z])haye(?![A-Za-z])/g, "have",
+       "a y read for the v of `have`, in 'now goods have been divided into three classes'"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Nicomachean_Ethics_(Ross)",
 
@@ -2762,6 +3154,19 @@ const BOOKS = {
       "Attribution-ShareAlike 4.0 International licence. (The modern translations by Aubrey de " +
       "Sélincourt, 1954, Robin Waterfield, 1998, Andrea Purvis, 2007, and Tom Holland, 2013, are " +
       "still in copyright and are not used here.)",
+    /* ---------- THE NEXT TIER, SWEPT (Sep 2026, batch E23) ----------
+       Fifty-nine candidates and three repairs: this translation's list is almost entirely Greek and
+       Egyptian names the shelf has never met (Coresus, Lydias, Hoples, Binded, Matten, Patah,
+       Aegira), and one entry that is neither a name nor a slip — `farted` is Amasis at 2.162, rising
+       on his horse to answer an embassy, and it is what Herodotus wrote. */
+    reFixes: [
+      [/(?<![A-Za-z])Lacedamonians(?![A-Za-z])/g, "Lacedaemonians",
+       "`Lacedamonians` for `Lacedaemonians` — a dropped e, against 213 correct"],
+      [/(?<![A-Za-z])Samnians(?![A-Za-z])/g, "Samians",
+       "`Samnians` for `Samians` — a stray n, in 'it was the Samians who were most brave' — 71 correct"],
+      [/(?<![A-Za-z])Plataeae(?![A-Za-z])/g, "Plataea",
+       "`Plataeae` for `Plataea` — a stray e, in 'whose tombs are to be seen at Plataea' — 35 correct"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0016.tlg001/",
 
@@ -3007,6 +3412,10 @@ const BOOKS = {
        names Tsze-hsia where the Chinese names 子游, which is a fault in the translation's own text
        rather than in its spelling and is left exactly as printed. */
     roman: [
+      /* Found by batch E19's vocabulary sweep rather than by the romanisation pass: the mountain
+         where Boyi and Shuqi starved is the only name in this book still carrying Legge's own
+         spelling, and it stands beside `Boyi`, `Shuqi` and `Zilu` in the same sentence. */
+      ["Shau-yang", "Shouyang", "首陽"],
       ["Tsze-kung", "Zigong", "子貢"],
       ["Tsze-lu", "Zilu", "子路"],
       ["Tsze-hsia", "Zixia", "子夏"],
@@ -3287,6 +3696,21 @@ const BOOKS = {
       "text printed beside it is five centuries old and is in the public domain everywhere. (The " +
       "modern translations by George Bull, 1961, Harvey Mansfield, 1985, Peter Bondanella, 2005, and " +
       "Tim Parks, 2009, are still in copyright and are not used here.)",
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      [/(?<![A-Za-z])soliders(?![A-Za-z])/g, "soldiers",
+       "a transposed e in `soldiers`, of the Swiss and the Spanish"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Prince_(Marriott)",
 
@@ -3485,6 +3909,36 @@ const BOOKS = {
       "Attribution-ShareAlike 4.0 International licence, which both files state in their own headers. " +
       "(The modern translations by S. A. Handford, 1951, Carolyn Hammond, 1996, and James O'Donnell, " +
       "2019, are still in copyright and are not used here.)",
+    /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19's sweep, batch E20) ----------
+       Found by asking the shelf's own vocabulary which words are rare everywhere and sit one edit from
+       a word it uses constantly, and then READING every candidate this book returned. Most were right
+       as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
+       are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
+    reFixes: [
+      /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+         Every single-occurrence token one confusion-class substitution or one transposition away from a
+         form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+         twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+         THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not
+         a nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so
+         the edition plainly knows the word and this one instance is damage. A form the edition uses
+         to the EXCLUSION of the right one is the edition's own spelling and must be left — the
+         Bhagavad-Gita's eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the
+         page and twice in the text, with the correct spelling nowhere in the book, and a row for it
+         was written and then withdrawn on exactly that count. */
+      [/(?<![A-Za-z])Triviri(?![A-Za-z])/g, "Treviri",
+       "an i read for the e of `Treviri`, the Gallic tribe — 1 against the form used everywhere else"],
+
+      [/(?<![A-Za-z])inflecting(?![A-Za-z])/g, "inflicting",
+       "an e read for the i of `inflicting`; this translation writes it correctly three times elsewhere"],
+      [/(?<![A-Za-z])inflected(?![A-Za-z])/g, "inflicted",
+       "the same word again in the same clause, and correct five times elsewhere in the book"],
+      [/(?<![A-Za-z])Isay(?![A-Za-z])/g, "I say",
+       "a lost space in the translator's own bracketed interjection `[I say]`. IT IS ANCHORED ON " +
+       "THE TOKEN ALONE and not on the brackets, which is E16's rule and is load-bearing here: the " +
+       "source reads `[<name>Isay</name>]`, Perseus's tagger having read the run-together words as " +
+       "a proper name, so a row written round the brackets matches nothing"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0448.phi001/",
 
@@ -3669,6 +4123,27 @@ const BOOKS = {
       "Attribution-ShareAlike 4.0 International licence. (The modern translations by Rex Warner, " +
       "1954, Steven Lattimore, 1998, and Jeremy Mynott, 2013, are still in copyright and are not " +
       "used here, and neither is the revised Crawley printed in the Landmark Thucydides of 1996.)",
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it is NOT safe against is the BIBLIOGRAPHIC forms, which name
+       themselves and are left alone — `1ff` and `78ff` for 'and following', `8vo` and `4to` for
+       octavo and quarto, `1274bb` for a Bekker page. 108 candidates across twelve books; these are
+       the ones that are damage. */
+    fixes: [
+    ],
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it must NOT touch is the BIBLIOGRAPHIC forms, which name themselves —
+       `1ff` and `78ff` for 'and following', `8vo` and `4to` for octavo and quarto, `1274bb` for a
+       Bekker page — so every row is anchored on the damaged token alone. THEY ARE reFixes AND NOT
+       fixes FOR A REASON WORTH KEEPING: written first as substring rows with the words either side
+       for context, twenty-two of twenty-three were DEAD, because the context was copied from the
+       Canterbury Tales, whose djvu source sets TWO spaces between words where every TEI and wiki
+       book on this shelf sets one. A row carrying context carries that source's spacing with it. */
+    reFixes: [
+      [/(?<![A-Za-z0-9])Earl61y(?![A-Za-z0-9])/g, "Early",
+       "two digits read into the middle of `Early`, in 'Early in the spring of the summer'"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/History_of_the_Peloponnesian_War",
 
@@ -3764,10 +4239,20 @@ const BOOKS = {
          citation, "2:34". None of the four older marker rules can read them.
 
        MEASURED over both editions before any of it was believed: 8 books on each side; the Greek's
-       917 chapters run 1..N in every book with no gaps, no duplicates and no lettered numbers, so
-       none of Herodotus's or the Ethics' data-n trouble arises; the English carries 916 of them, in
-       order, with the single omission at 8.61 recorded rather than repaired. Notes: four reference
-       marks in the whole work. */
+       917 chapters run 1..N in every book with no gaps, no duplicates and no lettered numbers; the
+       English carries 916 of them, in order, with the single omission at 8.61 recorded rather than
+       repaired. Notes: four reference marks in the whole work.
+
+       AND THAT MEASUREMENT ONCE ENDED "…so none of Herodotus's or the Ethics' data-n trouble arises",
+       which was true of the NUMBERS and false of the KEYS, and cost this book three weeks in which its
+       two columns paired 7 of their 1,826 sections (Sep 2026, batch E44). This is the only work on the
+       shelf whose columns are read by different code — this wiki entry against a Perseus TEI original
+       — so it is the only one where the two rules' independent decisions about `data-n` could
+       disagree, and they did: the marker rule wrote none and teiBookChapters writes one on every
+       marker of every book it reads. See `sections: "bookchapter"` in cleanBody for the repair and the
+       scale, and `.claude/check-pairing.js` for the check that now asks this of the whole shelf in
+       app.js's own terms. Both columns were complete, correctly numbered and printing the same figure
+       at the same place throughout; there was nothing wrong with either of them separately. */
     source: "wiki",
     body: "plain",
     dropHeadings: true,
@@ -3876,6 +4361,21 @@ const BOOKS = {
       "is a Routledge reprint its own index page dates to 1887; the translation is the 1867 one " +
       "either way. (The modern translations by S. A. Handford, 1954, Olivia and Robert Temple, 1998, " +
       "and Laura Gibbs, 2002, are still in copyright and are not used here.)",
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      [/(?<![A-Za-z])beagn(?![A-Za-z])/g, "began",
+       "a transposed a in `began`, of the boys pelting the frogs"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Three_Hundred_%C3%86sop%27s_Fables",
 
@@ -3992,6 +4492,18 @@ const BOOKS = {
        thousands. 120 sits below the shortest real fable and far above anything a failed extraction
        produces, which is a handful of characters or none. */
     minChars: 120,
+    /* ONE FABLE THE TRANSCRIPTION SERVES AS ITS NEIGHBOUR (Sep 2026, batch E42). Scan page 90 carries
+       three fables and Wikisource's mainspace page for `The Old Lion` transcludes the FIRST of them,
+       so chapters 121 and 122 shipped byte-identical and The Old Lion was in the book nowhere. The
+       Wolf and the Shepherds, on the same scan page, is right, so the fault is that one page's
+       transclusion rather than this file's reading of a shared page.
+
+       ITS WITNESS IS THE SCAN PAGE ITSELF, not a second edition — so unlike every other supplied
+       text on this shelf it validates EXACTLY: run on the neighbouring fable, which Folio already
+       carries, the extractor produces a byte-identical string. Gutenberg's Townsend was refused as
+       an American reprint (`clamor` for `clamour`, and a clause reordered in the very fable used to
+       check it). See the file's own header. */
+    supplied: "aesop-supplied.json",
     page: (n) => "Three Hundred Æsop's Fables/" + AESOP_FABLES[n - 1],
     titleOf: (n) => AESOP_TITLE(AESOP_FABLES[n - 1]),
     chapters: Array.from({ length: AESOP_FABLES.length }, (_, i) => i + 1),
@@ -4084,6 +4596,28 @@ const BOOKS = {
       "are later works by other hands and are not reproduced here; what is taken is the poem. (The " +
       "modern translations by Dorothy L. Sayers, 1957, Robert Harrison, 1970, Frederick Goldin, " +
       "1978, Gerard Brault, 1978, and Glyn Burgess, 1990, are still in copyright and are not used.)",
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      /* Three names, each ONE occurrence against ten to nineteen of the form this translation uses
+         everywhere else — E23's counting rule, which is what tells a scan's damage from a translator's
+         variation when the word is a proper name nobody outside the poem meets. */
+      [/(?<![A-Za-z])Carlum(?![A-Za-z])/g, "Carlun",
+       "an m read for the n of `Carlun`, Charlemagne's name in the oblique case — 1 against 19"],
+      [/(?<![A-Za-z])Marsilium(?![A-Za-z])/g, "Marsiliun",
+       "an m read for the n of `Marsiliun`, the Saracen king — 1 against 10"],
+      [/(?<![A-Za-z])Sarrazens(?![A-Za-z])/g, "Sarrazins",
+       "an e read for the i of `Sarrazins` — 1 against 17"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Song_of_Roland",
 
@@ -4664,6 +5198,21 @@ const BOOKS = {
        third of it. The transcriber is named because a transcription is work, and because a reader
        who wants to check this text against the printed page should be told which copy they are
        reading. */
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      [/(?<![A-Za-z])goner(?![A-Za-z])/g, "gone",
+       "a stray r in `gone`, in the editors' summary of the eighth tablet"],
+    ],
     sourceName: "Global Grey",
     sourceUrl: "https://www.globalgreyebooks.com/epic-of-gilgamesh-ebook.html",
     source: "html",
@@ -5500,13 +6049,17 @@ const BOOKS = {
         "everything written about Beowulf since begins from that lecture, whether it agrees with it " +
         "or not.",
       "The poem's divisions are the scribes' own, and they are odd in a way this edition preserves. " +
-        "The manuscript breaks the text into numbered sections — <i>fitts</i> — a prologue and then " +
-        "forty-three of them, and those are the chapters here. There is <b>no fitt numbered XXX</b>: " +
+        "The manuscript breaks the text into numbered sections — <i>fitts</i> — running from I to " +
+        "<b>XLIII</b> after a prologue, but there are fewer of them than that, and the tabs here say " +
+        "so: a prologue and <b>forty-one</b> numbered fitts. There is <b>no fitt numbered XXX</b>: " +
         "the numbering runs to XXVIII, then to an unnumbered section that editors supply as [XXIX], " +
         "and then straight on to XXXI. Nothing is missing, and the line numbers prove it — Wyatt's " +
-        "XXVIII ends at 2038, the bracketed section runs 2039–2143, and XXXI takes up at 2144. So the " +
-        "chapter numbers on these tabs carry the same gap the manuscript carries, rather than being " +
-        "renumbered tidily into a sequence the poem does not have.",
+        "XXVIII ends at 2038, the bracketed section runs 2039–2143, and XXXI takes up at 2144. The " +
+        "bracketed section carries no number of its own, so it is printed here at the end of fitt 28 " +
+        "rather than given a tab the manuscript does not give it, which is why that one runs to " +
+        "twice the length of its neighbours. So the chapter numbers on these tabs carry the same gap " +
+        "the manuscript carries, rather than being renumbered tidily into a sequence the poem does " +
+        "not have.",
       "This edition is Francis Barton Gummere's, published by Macmillan in 1909 in a volume called " +
         "<i>The Oldest English Epic</i>. He translates line for line and keeps the alliteration and " +
         "the four-stress measure, which almost nobody attempts, and the result is deliberately " +
@@ -5741,6 +6294,15 @@ const BOOKS = {
       "themselves are ancient and are in the public domain everywhere. (Bernhard Karlgren's " +
       "translation of 1950 and Clae Waltham's modernisation of Legge of 1971 are still in copyright " +
       "and are not used here.)",
+    /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19's sweep, batch E20) ----------
+       Found by asking the shelf's own vocabulary which words are rare everywhere and sit one edit from
+       a word it uses constantly, and then READING every candidate this book returned. Most were right
+       as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
+       are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
+    reFixes: [
+      [/(?<![A-Za-z])goverment(?![A-Za-z])/g, "government",
+       "a dropped n in `government`, in 'display these qualities in the exercise of government'"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_3/The_Shu",
 
@@ -6377,6 +6939,31 @@ const BOOKS = {
       "themselves are ancient and are in the public domain everywhere. (Wing-tsit Chan's translations " +
       "of 1963 and the Library of Chinese Classics edition of 2001 are still in copyright and are not " +
       "used here.)",
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it is NOT safe against is the BIBLIOGRAPHIC forms, which name
+       themselves and are left alone — `1ff` and `78ff` for 'and following', `8vo` and `4to` for
+       octavo and quarto, `1274bb` for a Bekker page. 108 candidates across twelve books; these are
+       the ones that are damage. */
+    fixes: [
+    ],
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it must NOT touch is the BIBLIOGRAPHIC forms, which name themselves —
+       `1ff` and `78ff` for 'and following', `8vo` and `4to` for octavo and quarto, `1274bb` for a
+       Bekker page — so every row is anchored on the damaged token alone. THEY ARE reFixes AND NOT
+       fixes FOR A REASON WORTH KEEPING: written first as substring rows with the words either side
+       for context, twenty-two of twenty-three were DEAD, because the context was copied from the
+       Canterbury Tales, whose djvu source sets TWO spaces between words where every TEI and wiki
+       book on this shelf sets one. A row carrying context carries that source's spacing with it. */
+    reFixes: [
+      [/(?<![A-Za-z0-9])m6me(?![A-Za-z0-9])/g, "même",
+       "a 6 read for the ê of the French `même`, in the note 'lors même que ce n'était pas pour soi'"],
+      [/(?<![A-Za-z0-9])highe3t(?![A-Za-z0-9])/g, "highest",
+       "a 3 read for the s of `highest`, in 'the rules of ceremony are the highest expression'"],
+      [/(?<![A-Za-z0-9])large4eaved(?![A-Za-z0-9])/g, "large-leaved",
+       "a 4 read for the hyphen and l of `large-leaved`, in 'the ordinary or the large-leaved violets'"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_27",
 
@@ -7312,6 +7899,21 @@ const BOOKS = {
       "edition is transcribed anywhere reachable rather than that any of them is shut — see the " +
       "front matter. (The translations by Lee M. Hollander, 1928, Carolyne Larrington, 1996, and " +
       "Jackson Crawford, 2015, are still in copyright and are not used here.)",
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      [/(?<![A-Za-z])Balled(?![A-Za-z])/g, "Ballad",
+       "a transposed a in `Ballad`, in Bellows's note on the Ballad of Regin — 1 against 16"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Poetic_Edda_(tr._Bellows)",
 
@@ -7453,6 +8055,37 @@ const BOOKS = {
       "author's life plus seventy or even a hundred years. (Henry Bettenson's translation of 1972, " +
       "R. W. Dyson's of 1998 and William Babcock's of 2012–2013 are still in copyright and are not " +
       "used here.)",
+    /* ---------- THE VOCABULARY SWEEP (Sep 2026, batch E24) ----------
+       112 candidates, and the list is mostly Augustine's own Latin — `corruptione`, `divinatione`,
+       `generatio`, `naturali`, `remissione`, dozens more — which no rarity test can tell from a typo.
+       Eight are damage, each a single occurrence against the same book's own usage.
+
+       TWO WERE REFUSED AND BOTH ARE WORTH RECORDING. **`Heberews` is DELIBERATE**: the sentence is
+       Augustine's etymology — "they were called after Heber, Heberews, and then, dropping a letter,
+       Hebrews" — so repairing it would delete the argument it is making. And **`Phenicians` is this
+       translation's own spelling**, not a slip: Dods writes `Phenician` and `Phenicia` elsewhere and
+       the Æ/œ ligature forms occur nowhere. A house spelling is not an error; check the neighbours
+       before assuming a familiar word has been damaged. */
+    reFixes: [
+      [/(?<![A-Za-z])coveteousness(?![A-Za-z])/g, "covetousness",
+       "`coveteousness` for `covetousness` — a stray e, twice, against 4 correct"],
+      [/(?<![A-Za-z])disgracful(?![A-Za-z])/g, "disgraceful",
+       "`disgracful` for `disgraceful` — a dropped e, against 14 correct"],
+      [/(?<![A-Za-z])Emperior(?![A-Za-z])/g, "Emperor",
+       "`Emperior` for `Emperor` — a stray i, against 5 correct"],
+      [/(?<![A-Za-z])opinon(?![A-Za-z])/g, "opinion",
+       "`opinon` for `opinion` — a dropped i, against 162 correct"],
+      [/(?<![A-Za-z])santification(?![A-Za-z])/g, "sanctification",
+       "`santification` for `sanctification` — a dropped c, against 2 correct"],
+      [/(?<![A-Za-z])superflous(?![A-Za-z])/g, "superfluous",
+       "`superflous` for `superfluous` — a dropped u, against 9 correct"],
+      [/(?<![A-Za-z])truely(?![A-Za-z])/g, "truly",
+       "`truely` for `truly` — a stray e, against 84 correct"],
+      [/(?<![A-Za-z])Eneas(?![A-Za-z])/g, "&#198;neas",
+       "a dropped A in `\u00c6neas`, which this translation writes with the ligature 39 times. THE " +
+       "REPLACEMENT IS THE ENTITY because that is what the text carries, and a bare \u00c6 here would " +
+       "be the only one in the book"],
+    ],
     sourceName: "Wikisource",
     sourceUrl:
       "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_II/City_of_God",
@@ -7506,6 +8139,16 @@ const BOOKS = {
         "41.0347 arriving in the middle of a sentence is a reference to a page rather than anything " +
         "Augustine wrote. His numbered subdivisions inside the longer chapters are left as he printed " +
         "them.",
+      "One passage of the Latin has been repaired against Migne's own printed volume, and it is worth " +
+        "saying which. In <b>book V, chapter 13</b>, where Augustine quotes an ode of Horace, this " +
+        "transcription lost eight words between the end of the quotation and the sentence that answers " +
+        "it \u2014 leaving Latin with no subject and no main verb. They are restored: <i>Verumtamen qui " +
+        "libidines turpiores, fide pietatis impetrato</i>, read off the scan of Patrologia Latina 41 " +
+        "and confirmed by two transcriptions of the critical text and by what Dods translates in the " +
+        "column beside it. Two things there are NOT restored, because the evidence will not carry them: " +
+        "Migne prints a citation of the ode which this transcription drops, and only its wording is " +
+        "legible in the scan and not its verse numbers; and the ode itself reads on as prose, the " +
+        "transcription having given it no line breaks to keep.",
     ],
 
     /* ---------- ONE BOOK OF THE WORK, ONE CHAPTER HERE ----------
@@ -7611,6 +8254,47 @@ const BOOKS = {
          reach nothing else. */
       dropLeadParas: [/^LIBER(?:\s+[A-Z]+){1,2}\s*\.?$/],
       minChars: 20000,
+
+      /* ---------- EIGHT WORDS THE TRANSCRIPTION LOST, PUT BACK (Sep 2026, batch E45) ----------
+         Book V, chapter 13, at Augustine's quotation of Horace. This transcription set the ode inside
+         a `<poem>` the wiki did not parse, printed the tag, put the ode's last word OUTSIDE it, and
+         between that word and the prose that follows dropped a clause — leaving Latin with no subject
+         and no main verb: "…et uterque Poenus Serviat uni spiritu sancto, et amore intelligibilis
+         pulchritudinis non refrenant, melius saltem…". It is the transcription's loss and not Folio's:
+         the cached page carries "Verumtamen" nowhere, and neither "libidines turpiores" nor "impetrat".
+
+         FOUR WITNESSES, AND THE FIRST IS THE EDITION ITSELF. Migne's own volume — PL 41, on
+         archive.org as `bim_early-english-books-1641-1700_patrologiae-cursus-completus-_1846_41` —
+         reads, under an OCR of the period ("Verunitamen qu! lipidines turpiores, Atle pletitis /
+         ImpetF416 Splriti vantto , et amure intelligibints pul- / thritaginis non reſrenant"):
+         **Verumtamen qui libidines turpiores, fide pietatis impetrato Spiritu sancto, et amore
+         intelligibilis pulchritudinis non refrenant**. Dombart and Kalb's constituted text says the
+         same, in two independent transcriptions (thelatinlibrary.com/augustine/civ5.shtml and
+         la.wikisource.org/wiki/De_civitate_Dei/Liber_V); and so, in English, does Marcus Dods on
+         Folio's own shelf, facing this very Latin: "Nevertheless, they who restrain baser lusts, not
+         by the power of the Holy Spirit obtained by the faith of piety, or by the love of intelligible
+         beauty".
+
+         THE ORTHOGRAPHY IS TAKEN FROM FOLIO'S OWN COPY OF MIGNE rather than from the witnesses, which
+         is the only way to be sure it is this edition's: `Verumtamen` stands 36 times across the 22
+         books here and `Verum tamen` never, so the one word where the critical text differs is settled
+         from within. `impetrato` agrees with `Spiritu`, ablative, as all four witnesses have it.
+
+         WHAT IS NOT RESTORED, and why. Migne prints a citation of the ode after it — the OCR gives
+         "( Carinin. (ib. 2, eurm. 2, vers. 942A)", which is plainly "(Carmin. lib. 2, carm. 2, vers.
+         9-12.)" — and this transcription drops it. The words are certain and the DIGITS are not: they
+         rest on one bad OCR of a figure, and a citation with a wrong verse range is worse than none.
+         Nor is the ode set as verse: the source's `<poem>` carried no line breaks the extractor could
+         read, so it reads on as prose, as it did before. Both are recorded in the front matter. */
+      reFixes: [
+        /* The whitespace is matched loosely because the escaped `<poem>` stood between these two
+           words and its removal leaves whatever it leaves — a blank line today, and something else
+           the day that sweep moves again. The WORDS either side are what pins the site. */
+        [/Poenus Serviat\s*\n\s*uni spiritu sancto,/,
+         "Poenus\nServiat uni.\nVerumtamen qui libidines turpiores, fide pietatis impetrato Spiritu sancto,",
+         "V.13: eight words lost between Horace's ode and the prose that answers it, restored from " +
+         "Migne's own volume (PL 41) and corroborated by Dombart-Kalb and by Dods's English"],
+      ],
     },
   },
 
@@ -7679,6 +8363,111 @@ const BOOKS = {
       "Attribution-ShareAlike 4.0 International licence. (The modern translations by Richmond " +
       "Lattimore, 1951, Robert Fagles, 1990, Caroline Alexander, 2015, and Emily Wilson, 2023, are " +
       "still in copyright and are not used here, nor is William F. Wyatt's 1999 revision of Murray.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    /* ---------- THE NEXT TIER, SWEPT (Sep 2026, batch E23) ----------
+       Twenty-four slips, which with Three Kingdoms' twenty-six makes the two long narrative
+       translations much the most damaged texts on the shelf. Every one is a single occurrence
+       against dozens, hundreds or thousands of the correct form in the same book, so each is
+       settled by Murray's own usage and no scan was opened.
+
+       THE CANDIDATE LIST IS MOSTLY HOMERIC NAMES and they are left alone: Azeus, Croesmus, Dresus,
+       Mases, Ilean, Messe, Orthe, Troes, Selli, Borus, Harma, Molion, Menon, Mestor, Linos, Glauce,
+       Otreus, Cynus are all real, and the two that are NOT — `Achaeams` and `Agamemon` — announce
+       themselves against 598 and 174 correct spellings. A name is only a false positive until you
+       count it. */
+    reFixes: [
+      /* ---------- E33: TWO CONFUSION SHAPES THE SCANNER'S SET DID NOT CARRY (Sep 2026) ----------
+         `h` read as `n` — the arch of the h breaking so the letter closes into an n — and `na` read
+         as `m`, which is the same accident as the `rn/m` and `in/m` the set already holds, one
+         letter pair further on. Swept over the whole shelf with the SHELF as the dictionary: a form
+         no other book on it knows is not English or archaic, which is what tells `cniefest` from
+         `nigh` and `nere`. Fifty-seven h/n candidates came back and nine survived that filter, of
+         which four were damage; the `na`/`m` sweep returned three and all three were. */
+      [/(?<![A-Za-z])Damans(?![A-Za-z])/g, "Danaans",
+       "the `na` of `Danaans` closed up into an m — three times, in books 16 and 24, against 136 correct; " +
+       "the single-occurrence sweep cannot see a name misread wherever it is set the same way"],
+      [/(?<![A-Za-z])bethougnt(?![A-Za-z])/g, "bethought",
+       "an h read as n in `bethought`, in the same sentence as one of the three — 1 against 13"],
+      [/(?<![A-Za-z])Achaeams(?![A-Za-z])/g, "Achaeans",
+       "`Achaeams` for `Achaeans` — against 598 correct"],
+      [/(?<![A-Za-z])Agamemon(?![A-Za-z])/g, "Agamemnon",
+       "`Agamemon` for `Agamemnon` — a dropped n, against 174 correct"],
+      [/(?<![A-Za-z])chieftans(?![A-Za-z])/g, "chieftains",
+       "`chieftans` for `chieftains` — a dropped i, against 24 correct"],
+      [/(?<![A-Za-z])fulfilll(?![A-Za-z])/g, "fulfill",
+       "`fulfilll` for `fulfill` — a trebled l, against 22 correct"],
+      [/(?<![A-Za-z])methiinks(?![A-Za-z])/g, "methinks",
+       "`methiinks` for `methinks` — a doubled i, against 47 correct"],
+      [/(?<![A-Za-z])monnment(?![A-Za-z])/g, "monument",
+       "`monnment` for `monument` — an n read for the u"],
+      [/(?<![A-Za-z])neeks(?![A-Za-z])/g, "necks",
+       "`neeks` for `necks` — an e read for the c"],
+      [/(?<![A-Za-z])niight(?![A-Za-z])/g, "might",
+       "`niight` for `might` — an n read for the m and a doubled i, in 'if so be they might have sight of Nestor's son'"],
+      [/(?<![A-Za-z])offiering(?![A-Za-z])/g, "offering",
+       "`offiering` for `offering` — a stray i, in 'the drink-offering and the savour of burnt-offering'"],
+      [/(?<![A-Za-z])shepheard(?![A-Za-z])/g, "shepherd",
+       "`shepheard` for `shepherd` — a stray a, against 51 correct"],
+      [/(?<![A-Za-z])sovreignty(?![A-Za-z])/g, "sovereignty",
+       "`sovreignty` for `sovereignty` — a dropped e"],
+      [/(?<![A-Za-z])spaclous(?![A-Za-z])/g, "spacious",
+       "`spaclous` for `spacious` — an l read for the i, against 2 correct"],
+      [/(?<![A-Za-z])switft(?![A-Za-z])/g, "swift",
+       "`switft` for `swift` — a stray t, in 'swift-footed goodly Achilles' — 320 correct"],
+      [/(?<![A-Za-z])thelr(?![A-Za-z])/g, "their",
+       "`thelr` for `their` — an l read for the i, against 813 correct"],
+      [/(?<![A-Za-z])themuselves(?![A-Za-z])/g, "themselves",
+       "`themuselves` for `themselves` — a stray u, against 76 correct"],
+      [/(?<![A-Za-z])thiat(?![A-Za-z])/g, "that",
+       "`thiat` for `that` — a stray i, against 2,421 correct"],
+      [/(?<![A-Za-z])thiem(?![A-Za-z])/g, "them",
+       "`thiem` for `them` — a stray i, against 966 correct"],
+      [/(?<![A-Za-z])honses(?![A-Za-z])/g, "horses",
+       "`honses` for `horses` — an n read for the r, in 'his chariot and his swift horses' — 350 correct"],
+      [/(?<![A-Za-z])heside(?![A-Za-z])/g, "beside",
+       "`heside` for `beside` — an h read for the b, against 134 correct"],
+      [/(?<![A-Za-z])beart(?![A-Za-z])/g, "heart",
+       "`beart` for `heart` — a b read for the h, in 'his heart full of savage wrath' — 486 correct"],
+      [/(?<![A-Za-z])ful(?![A-Za-z])/g, "full",
+       "`ful` for `full` — a dropped l, in the same clause as `beart` and found beside it — 165 correct"],
+      [/(?<![A-Za-z])finst(?![A-Za-z])/g, "first",
+       "`finst` for `first` — an n read for the r, against 195 correct"],
+      [/(?<![A-Za-z])froma(?![A-Za-z])/g, "from",
+       "`froma` for `from` — a stray a, in 'drag the corpse from beneath Aias' — 1,401 correct"],
+      [/(?<![A-Za-z])annointed(?![A-Za-z])/g, "anointed",
+       "`annointed` for `anointed` — a doubled n; this translation writes it correctly 6 times"],
+      [/(?<![A-Za-z0-9])equa1(?![A-Za-z0-9])/g, "equal",
+       "a 1 read for the l of `equal`, in 'take then equal prizes and go your ways'"],
+      [/(?<![A-Za-z0-9])a1oud(?![A-Za-z0-9])/g, "aloud",
+       "the digit 1 read for the l of `aloud`, in 'and Athene cried aloud'"],
+      [/(?<![A-Za-z])walI(?![A-Za-z])/g, "wall",
+       "a capital I read for the lowercase l of `wall`"],
+      [/(?<![A-Za-z])pIaited(?![A-Za-z])/g, "plaited",
+       "a capital I read for the lowercase l of `plaited`"],
+      [/(?<![A-Za-z])exuIting(?![A-Za-z])/g, "exulting",
+       "a capital I read for the lowercase l of `exulting`"],
+      [/(?<![A-Za-z])trembIing(?![A-Za-z])/g, "trembling",
+       "a capital I read for the lowercase l of `trembling`"],
+      [/(?<![A-Za-z])feIl(?![A-Za-z])/g, "fell",
+       "a capital I read for the lowercase l of `fell`"],
+      [/(?<![A-Za-z])muIe(?![A-Za-z])/g, "mule",
+       "a capital I read for the lowercase l of `mule`"],
+    ],
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it is NOT safe against is the BIBLIOGRAPHIC forms, which name
+       themselves and are left alone — `1ff` and `78ff` for 'and following', `8vo` and `4to` for
+       octavo and quarto, `1274bb` for a Bekker page. 108 candidates across twelve books; these are
+       the ones that are damage. */
+    fixes: [
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg001/",
 
@@ -7723,9 +8512,15 @@ const BOOKS = {
         "this edition does not give you. Murray's printed page carries 144 footnotes, and the " +
         "transcription used here preserves only the numbers that pointed at them and not a word of " +
         "their text, so they are dropped and there is no fold of notes under the chapters. And the " +
-        "Greek is a constituted text like any other: Monro and Allen omit four lines of book 9 " +
-        "altogether and bracket four more in book 8 as later insertions, so those eight places stand " +
-        "empty in the Greek column where the English still translates them.",
+        "Greek is a constituted text like any other, and it is <b>ten lines shorter</b> than the " +
+        "vulgate Murray translated, in two different ways. Four lines of book 8 — 548, and 550 to " +
+        "552 — Monro and Allen print as later insertions rather than as Homer's, and a line their " +
+        "edition disowns is dropped here along with the mark that disowns it. Six more are simply " +
+        "not in their text, its numbering stepping straight over them: <b>9.458 to 461, 11.543 and " +
+        "14.269</b>. Nothing stands empty on the page — the two columns pair on the line number and " +
+        "all 425 numbered places carry both — but where the Greek runs short the English beside it " +
+        "may still have the passage, as it does at 9.458, which is Phoenix saying he thought of " +
+        "killing his father.",
     ],
 
     /* ---------- A TEI EDITION ON BOTH SIDES, and the English one had to be chosen ----------
@@ -7893,6 +8688,24 @@ const BOOKS = {
       "Attribution-ShareAlike 4.0 International licence. (The modern translations by Robert " +
       "Fitzgerald, 1961, Richmond Lattimore, 1965, Robert Fagles, 1996, and Emily Wilson, 2017, are " +
       "still in copyright and are not used here, nor is George E. Dimock's 1995 revision of Murray.)",
+    /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19's sweep, batch E20) ----------
+       Found by asking the shelf's own vocabulary which words are rare everywhere and sit one edit from
+       a word it uses constantly, and then READING every candidate this book returned. Most were right
+       as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
+       are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
+    /* ---------- WHAT THE FILTER HID (Sep 2026, batch E22) ----------
+       The same widened sweep as the Summa's, and it finds the SAME WORD damaged a second way: E20
+       repaired `Archaeans` and this is `Achaens`, one line of Murray's text apart in kind if not in
+       place. It also proposed `throughly` for `thoroughly`, which is LEFT: this translation is
+       deliberately archaic and never uses `thoroughly` at all. */
+    reFixes: [
+      [/(?<![A-Za-z])Achaens(?![A-Za-z])/g, "Achaeans",
+       "a dropped a in `Achaeans`, against 115 correct — the second slip on this one word, after E20's `Archaeans`"],
+      [/(?<![A-Za-z])Archaeans(?![A-Za-z])/g, "Achaeans",
+       "a stray r in `Achaeans`, which this translation spells correctly 114 times"],
+      [/(?<![A-Za-z])faired-haired(?![A-Za-z])/g, "fair-haired",
+       "a stray d in `fair-haired`, which this translation spells correctly 19 times"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg002/",
 
@@ -7944,9 +8757,10 @@ const BOOKS = {
         "this edition does not give you. Murray's printed page carries 192 footnotes, and the " +
         "transcription used here preserves only the numbers that pointed at them and not a word of " +
         "their text, so they are dropped and there is no fold of notes under the chapters. And the " +
-        "Greek column is three lines short of the poem's traditional 12,110: this text omits 10.456, " +
-        "16.101 and 23.49, numbering straight past each of them, so those three places stand empty in " +
-        "the Greek where the English still translates them.",
+        "Greek column is three lines short of the poem's traditional 12,110: this text omits <b>10.456, " +
+        "16.101 and 23.49</b>, numbering straight past each of them. Nothing stands empty on the " +
+        "page — both columns carry the same 288 numbered places and pair on every one — but three " +
+        "of the Greek blocks hold one line fewer than their own numbering spans.",
     ],
 
     /* ---------- A TEI EDITION ON BOTH SIDES, and the English one had to be chosen ----------
@@ -8351,6 +9165,49 @@ const BOOKS = {
       "Commons Attribution-ShareAlike 4.0 International licence. (The modern translations by Allen " +
       "Mandelbaum, 1971, Robert Fitzgerald, 1983, Robert Fagles, 2006, Sarah Ruden, 2008, and Shadi " +
       "Bartsch, 2021, are still in copyright and are not used here.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    /* ---------- A TRANSPOSITION (Sep 2026, batch E21) ----------
+       Two adjacent letters swapped, which is TWO edits and so invisible to the one-edit sweep of
+       E19 and E20 — the gap the Summa's `creatuers` exposed. It is a HIGH-PRECISION test: a swap
+       that lands on a word the book uses constantly is very rarely a coincidence, and each row
+       below is a single occurrence against dozens or hundreds of the correct form. */
+    reFixes: [
+      [/(?<![A-Za-z])kindgom(?![A-Za-z])/g, "kingdom",
+       "a transposition in `kingdom`, against 27 correct"],
+      [/(?<![A-Za-z])Iooked(?![A-Za-z])/g, "looked",
+       "a capital I read for the lowercase l of `looked`"],
+      [/(?<![A-Za-z])Iot(?![A-Za-z])/g, "lot",
+       "a capital I read for the lowercase l of `lot`"],
+      [/(?<![A-Za-z])Iords(?![A-Za-z])/g, "lords",
+       "a capital I read for the lowercase l of `lords`"],
+      [/(?<![A-Za-z])Ionger(?![A-Za-z])/g, "longer",
+       "a capital I read for the lowercase l of `longer`"],
+      [/(?<![A-Za-z])Iow(?![A-Za-z])/g, "low",
+       "a capital I read for the lowercase l of `low`"],
+      [/(?<![A-Za-z])Iooming(?![A-Za-z])/g, "looming",
+       "a capital I read for the lowercase l of `looming`"],
+      [/(?<![A-Za-z])Ioudly(?![A-Za-z])/g, "loudly",
+       "a capital I read for the lowercase l of `loudly`"],
+      [/(?<![A-Za-z])Iose(?![A-Za-z])/g, "lose",
+       "a capital I read for the lowercase l of `lose`"],
+      [/(?<![A-Za-z])Ioomed(?![A-Za-z])/g, "loomed",
+       "a capital I read for the lowercase l of `loomed`"],
+      [/(?<![A-Za-z])Ioathed(?![A-Za-z])/g, "loathed",
+       "a capital I read for the lowercase l of `loathed`"],
+      [/(?<![A-Za-z])Ioosened(?![A-Za-z])/g, "loosened",
+       "a capital I read for the lowercase l of `loosened`"],
+      [/(?<![A-Za-z])Ioose(?![A-Za-z])/g, "loose",
+       "a capital I read for the lowercase l of `loose`"],
+      [/(?<![A-Za-z])Iet(?![A-Za-z])/g, "let",
+       "a capital I read for the lowercase l of `let`"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0690.phi003/",
 
@@ -8658,9 +9515,14 @@ const BOOKS = {
         "longer shown. Only one copy of this book has ever been transcribed, and this is it.",
       "Chinese names are printed here in modern pinyin rather than in the romanisation Richard used " +
         "in 1913, so that Kwanyin is Guanyin, Pa Kiel is Bajie and Huen Chwang is Xuanzang. Richard " +
-        "prints no Chinese characters anywhere \u2014 not beside a name, not in a note, not in his " +
-        "index \u2014 so each of the 83 names converted was checked against the Chinese text of the " +
-        "novel on the facing page: the characters have to appear in the same chapters as the name. " +
+        "prints no Chinese characters beside a NAME \u2014 not in the text, not in a note, not in " +
+        "his index \u2014 so each of the 83 names converted was checked against the Chinese text of " +
+        "the novel itself: the characters have to appear in the same chapters as the name. " +
+        "He does set characters in two places, and the scan can read neither: the eighteen-line " +
+        "table of the Mind-formulae in chapter 58 prints the Chinese after each English line, and " +
+        "chapter 98 lists the scriptures the pilgrims carry home with their titles in characters. " +
+        "Both reach this page as runs of marks, and they stand as they are; there is no second " +
+        "transcription of this book to recover them from. " +
         "That test is decisive for a name of two or more syllables and worthless for a single one, " +
         "which any common character would pass, so single syllables are left exactly as he set them, " +
         "and so are the Sanskrit names, which are not Chinese.",
@@ -8673,6 +9535,93 @@ const BOOKS = {
        is why the book is here at all — the damage is in the letters ("Avas" for "was", "vmitcd" for
        "united", "deviL" for "devil"), never in whole lines, and it is recorded rather than repaired,
        since a repair pass over ninety thousand words would be rewriting somebody's book by guess. */
+    reFixes: [
+      /* ---------- E56: THE MARGINAL RULE BESIDE CHAPTER 11'S ARGUMENT (Sep 2026) ----------
+         The scan of this one page catches a ruled brace down the left margin, and the OCR reads it as
+         a run of punctuation at the head of each line it stands beside. The extractor already knows
+         about it on the two HEADING lines — see the note beside `title` in extractJourney, which
+         strips the `'-' . ` before `CHAPTER XI.` and the `',' - ` before the tale's title — and the
+         four ARGUMENT lines under them were never covered, so they reach the reader as `,,:>`,
+         `/ /,:` and `^. [` standing where the sentence begins.
+
+         It is chapter 11 and nowhere else: measured over all 100 chapters, three argument lines open
+         on such a run and all three are here. So four declared rows rather than a rule about leading
+         punctuation, which on a book of Chinese verse would be a rule with a great deal to eat.
+         `:^artli` goes with them — the same brace welded to `earth`, with the `th` read as `tli`. */
+      [/\n,,:> The Emperor is sent/g, "\nThe Emperor is sent",
+       "the margin's rule read as punctuation at the head of the first argument line"],
+      [/:\^arth again/g, "earth again",
+       "the same rule welded to `earth` — the scan read its th as `tli`, which an earlier row in " +
+       "this chain has already repaired by the time this one runs"],
+      [/\n\/ \/,: A man presents/g, "\nA man presents", "the second argument line"],
+      [/\n\^\. \[ A hundred years/g, "\nA hundred years", "the third, which opens the chapter's verse"],
+      [/\n\^ \. , And all our affairs/g, "\nAnd all our affairs", "and its second line"],
+
+      /* ---------- E55: AN INSCRIPTION A PAGE BREAK CUT IN HALF (Sep 2026) ----------
+         Over the gate of Hades the Emperor reads a legend "written in large golden letters", and the
+         leaf turns in the middle of it — so the transcription sets THE GATE OF GHOSTS WHO ENTER THE
+         as one block, UNDERWORLD' as the first word of the next, and then runs the narrative on from
+         it without a break. The reader gets the inscription broken across two paragraphs and its
+         last word welded to the sentence that follows: "UNDERWORLD' The black robed pages moved on".
+         Nothing else in the book is set this way — it is the only inscription the translation prints
+         — so it is one declared row rather than a rule, and the row moves the PARAGRAPH BREAK rather
+         than any word: the two halves are joined and the narrative starts a paragraph of its own,
+         which is what the printed page does on either side of the turn. */
+      [/THE GATE OF GHOSTS WHO ENTER THE\s*\n\s*\n\s*UNDERWORLD'\s*\n/g,
+       "THE GATE OF GHOSTS WHO ENTER THE UNDERWORLD'\n\n",
+       "the inscription over the gate of Hades, cut in two by a page break in chapter 11"],
+
+      /* THE HOLE A REMOVED HEAD LEAVES BEHIND (Sep 2026, batch E55, and the other half of the widening
+         made to HEAD_NUM above). Taking a running head out of the middle of a sentence removes the
+         head; it does not remove the PAGE BREAK the head was sitting in, and the blank lines either
+         side of it still divide the sentence into two paragraphs. The block-rejoining pass a few lines
+         below closes exactly this gap, but only where the second half opens LOWERCASE, and here it
+         opens on an abbreviation — so Richard's own note to the reader is left split across two
+         paragraphs: "(The names of the Judges are given in" … "Chap. III. p. 38.— Tr.)".
+
+         IT IS A DECLARED ROW RATHER THAN A WIDENING OF THAT PASS, and the measurement is the reason.
+         The obvious general test — join when the first half leaves a parenthesis unclosed — finds two
+         breaks in the whole book and only ONE is real: the other is chapter 11's list of the eighteen
+         hells, where "(5." is a 6 and ")iel!" is "hell", so the brackets are scan damage rather than
+         punctuation. In an OCR a parenthesis is as likely to be dirt as it is to be a parenthesis,
+         which is what makes this ungeneralisable here.
+
+         The row spans the running head, so it is this row rather than the sweep that takes that one
+         out; the sweep's own widening accounts for the other two. */
+      [/\(The names of the Judges are given in\s*\n[\s\S]{0,60}?\n\s*Chap\. III\./g,
+       "(The names of the Judges are given in Chap. III.",
+       "Richard's note to the reader, split by a page break and its running head, chapter 11"],
+
+      /* ---------- E33: TWO CONFUSION SHAPES THE SCANNER'S SET DID NOT CARRY (Sep 2026) ----------
+         `h` read as `n` — the arch of the h breaking so the letter closes into an n — and `na` read
+         as `m`, which is the same accident as the `rn/m` and `in/m` the set already holds, one
+         letter pair further on. Swept over the whole shelf with the SHELF as the dictionary: a form
+         no other book on it knows is not English or archaic, which is what tells `cniefest` from
+         `nigh` and `nere`. Fifty-seven h/n candidates came back and nine survived that filter, of
+         which four were damage; the `na`/`m` sweep returned three and all three were. */
+      [/(?<![A-Za-z])Tney(?![A-Za-z])/g, "They",
+       "an h read as n in `They`, of the women who bound Bajie — 1 against 180"],
+      [/(?<![A-Za-z])naortal(?![A-Za-z])/g, "mortal",
+       "the m of `mortal` set as na — one day in heaven is one year in the reckoning of mortal men — 1 against 11"],
+      [/(?<![A-Za-z])naagic(?![A-Za-z])/g, "magic",
+       "the m of `magic` set the same way, of the divine Kinsman changing shape — 1 against 121"],
+      [/(?<![A-Za-z])l-eckoning(?![A-Za-z])/g, "reckoning",
+       "an r broken into `l-`, in the same sentence as `naortal` — 1 against 4"],
+      [/3"0ung/g, "young",
+       "a digit, a quote and a zero read into `young`, in 'there were 3,600 women, young and old, in the palace'"],
+      [/(?<![A-Za-z0-9])monke3-s(?![A-Za-z0-9])/g, "monkeys",
+       "a 3 and a hyphen read into `monkeys`, in 'All the monkeys fell on their faces'"],
+      [/(?<![A-Za-z0-9])com6(?![A-Za-z0-9])/g, "come",
+       "a 6 read for the e of `come`, in 'daring to come to my cave'"],
+      [/(?<![A-Za-z0-9])angr3(?![A-Za-z0-9])/g, "angry",
+       "a 3 read for the y of `angry`, in 'The Great Holy One was very angry'"],
+      [/(?<![A-Za-z0-9])1ioff(?![A-Za-z0-9])/g, "li off",
+       "the Chinese distance unit `li` and the word `off` run together and mis-read, in 'only 20 li off'"],
+      [/(?<![A-Za-z0-9])baggag6(?![A-Za-z0-9])/g, "baggage",
+       "a 6 read for the e of `baggage`, in 'their horse and baggage were taken into the mansion'"],
+      [/(?<![A-Za-z])rnen(?![A-Za-z])/g, "men",
+       "an rn read for the m of `men`, in 'you are one of the superior men, full of filial piety'"],
+    ],
     sourceName: "Internet Archive",
     sourceUrl: "https://archive.org/details/cu31924074502034",
     source: "html",
@@ -8688,7 +9637,15 @@ const BOOKS = {
        sits either side of it is allowed to be any short token. That cannot reach prose: it matches
        only a block whose WHOLE text is those three words with at most one short token at each end,
        and no paragraph of a novel is that. */
-    runningHead: /^(?:\S{1,4}\s+)?MISSION TO HEA\S{0,4}(?:\s+\S{1,4})?$/i,
+    runningHead: [
+      /^(?:\S{1,4}\s+)?MISSION TO HEA\S{0,4}(?:\s+\S{1,4})?$/i,
+      /* The second of them, found in Sep 2026 (batch E55): chapter 100's own running title, whose
+         page number 361 the scan set as a block of its own, so neither the head nor the number
+         carries a shape the line sweep can see. It stood between verses 5 and 6 of the New Anthem
+         in Heaven and broke the numbered hymn in half. Anchored on the block's WHOLE text with the
+         page number optional, so it can match nothing but that head. */
+      /^THE PILGRIMS FINISHED WORK(?:\s+\S{1,4})?$/i,
+    ],
     /* THE SCAN HAS A FRONT BOUNDARY AND NO BACK ONE, so the last chapter was carrying the rest of the
        volume: a plate of the Tai Ching monastery, the index, a life of the translator, a bibliography
        and the publisher's 1913 catalogue — some 19 KB of matter Richard did not write, which put
@@ -8731,6 +9688,23 @@ const BOOKS = {
        THE SAME REASONING GIVES OPPOSITE ANSWERS FOR THE TWO CONFUSIONS, and only enumerating every
        occurrence says which: enumerate before writing a blanket row, not after. */
     fixes: [
+      /* ---------- E34: the one line of a plate that the caption rule cannot reach ----------
+         The plate of Kwanyin carries a SECOND line under its caption — the translator's note on
+         what the picture shows — and the list of illustrations names a plate once, so there is
+         nothing for the fuzzy match to catch it with. Removing it by shape would mean taking any
+         short capitalised sentence next to a caption, which is a rule that would eat prose. One
+         line, one row, with the reason written down: it is the only one in the book. */
+      ["The Dove and Rosary as symbols. \n", "", "the note under the plate of Kwanyin, which the caption rule leaves behind"],
+      ["t-^rf.-tan'j'saaaiiiatf-ga. i i nnfiJiaijt ifti*-. r- i^itx \n", "",
+       "the last plate's own hatching, too long for the noise rule and too letter-dense for its ratio"],
+      ["ASTtC IjIFE in LaOSHAN. \n", "",
+       "and the tail of that plate's caption, the word MONASTIC broken across the blank space under it"],
+      /* ---------- BATCH E14: A CAPITAL I FOR A LOWERCASE l ----------
+         The shelf-wide fault of batch E14 in its one form here, and the only one anywhere that needed
+         more than the letter: the scan reads `boundIe.?s` where the list reads `boundless`, so the
+         capital stands in the middle of a word the machine also broke. */
+      ["boundIe.?s", "boundless",
+       "the litany reads 'In the saints who follow the boundless and universal law'"],
       ["j'^", "y", "y read as j with an apostrophe and a caret after it (thej'^ → they)"],
       ["j\"^", "y", "y read as j with a quotation mark and a caret after it (manj\"^ → many)"],
       ["j;^", "y", "y read as j with a semicolon and a caret after it (anj;^ → any)"],
@@ -9414,12 +10388,13 @@ const BOOKS = {
         "normalised so that a name is spelt one way throughout. A handful of names are spelt in " +
         "this printing against the Chinese it is printed beside — Nanch‘êng for a place the " +
         "Chinese writes Nanzheng, Ch‘uan for a man the transcriber himself marks as a slip for " +
-        "Ch‘üan — and there the Chinese column decides. About forty spellings are left exactly as he " +
-        "set them: a place he names once in a note and the Chinese never names at all, a " +
-        "word the scan has garbled past reading, and one style borne by two different men " +
-        "in different chapters, which a single spelling cannot tell apart. A name with " +
-        "nothing to check it against is a name that would be guessed at. Nothing else about " +
-        "his prose is altered.",
+        "Ch‘üan — and there the Chinese column decides. Every Wade-Giles mark has now gone from " +
+        "the text: the accents left in it are the pinyin Lü of 吕 and a few French words he " +
+        "is fond of. A few spellings are still his, because nothing here can settle them — a " +
+        "word the scan has garbled past reading, a name whose umlaut the printing drops in " +
+        "one place out of thirty-seven, and a surname this printing reads one way and the " +
+        "Chinese beside it another. A name with nothing to check it against is a name that " +
+        "would be guessed at. Nothing else about his prose is altered.",
       "Each chapter is headed by the couplet its Chinese original is headed by, in the translator's " +
         "own English and in the case his printer set it in. Those chapter titles are taken from the " +
         "chapters themselves rather than from the volumes' contents pages, which print them in " +
@@ -9432,6 +10407,74 @@ const BOOKS = {
     ],
 
     wiki: "en.wikisource.org",
+    /* ---------- A TRANSPOSITION (Sep 2026, batch E21) ----------
+       Two adjacent letters swapped, which is TWO edits and so invisible to the one-edit sweep of
+       E19 and E20 — the gap the Summa's `creatuers` exposed. It is a HIGH-PRECISION test: a swap
+       that lands on a word the book uses constantly is very rarely a coincidence, and each row
+       below is a single occurrence against dozens or hundreds of the correct form. */
+    /* ---------- THE NEXT TIER, SWEPT (Sep 2026, batch E22) ----------
+       E19's noise table put this book at 14.7 candidates per 100,000 words — the fourth cleanest on
+       the shelf — and it turns out to be the most damaged text yet swept: 26 slips, every one a
+       single occurrence against dozens or hundreds of the correct form in the same book. A LOW NOISE
+       RATE IS NOT A LOW ERROR RATE; it only means the list is worth reading. */
+    reFixes: [
+      [/(?<![A-Za-z])afaid(?![A-Za-z])/g, "afraid",
+       "`afaid` for `afraid`, which this translation spells correctly 73 times"],
+      [/(?<![A-Za-z])alredy(?![A-Za-z])/g, "already",
+       "`alredy` for `already`, which this translation spells correctly 122 times"],
+      [/(?<![A-Za-z])appintment(?![A-Za-z])/g, "appointment",
+       "`appintment` for `appointment`, which this translation spells correctly 26 times"],
+      [/(?<![A-Za-z])attck(?![A-Za-z])/g, "attack",
+       "`attck` for `attack`, which this translation spells correctly 827 times"],
+      [/(?<![A-Za-z])broher(?![A-Za-z])/g, "brother",
+       "`broher` for `brother`, which this translation spells correctly 640 times"],
+      [/(?<![A-Za-z])callected(?![A-Za-z])/g, "collected",
+       "`callected` for `collected`, which this translation spells correctly 27 times"],
+      [/(?<![A-Za-z])creft(?![A-Za-z])/g, "cleft",
+       "`creft` for `cleft`, which this translation spells correctly 3 times"],
+      [/(?<![A-Za-z])destoy(?![A-Za-z])/g, "destroy",
+       "`destoy` for `destroy`, which this translation spells correctly 146 times"],
+      [/(?<![A-Za-z])flooor(?![A-Za-z])/g, "floor",
+       "`flooor` for `floor`, which this translation spells correctly 10 times"],
+      [/(?<![A-Za-z])forgotton(?![A-Za-z])/g, "forgotten",
+       "`forgotton` for `forgotten`, which this translation spells correctly 27 times"],
+      [/(?<![A-Za-z])inhabiants(?![A-Za-z])/g, "inhabitants",
+       "`inhabiants` for `inhabitants`, which this translation spells correctly 21 times"],
+      [/(?<![A-Za-z])neccessary(?![A-Za-z])/g, "necessary",
+       "`neccessary` for `necessary`, which this translation spells correctly 61 times"],
+      [/(?<![A-Za-z])preprations(?![A-Za-z])/g, "preparations",
+       "`preprations` for `preparations`, which this translation spells correctly 65 times"],
+      [/(?<![A-Za-z])prepard(?![A-Za-z])/g, "prepared",
+       "`prepard` for `prepared`, which this translation spells correctly 233 times"],
+      [/(?<![A-Za-z])puled(?![A-Za-z])/g, "pulled",
+       "`puled` for `pulled`, which this translation spells correctly 40 times"],
+      [/(?<![A-Za-z])readly(?![A-Za-z])/g, "ready",
+       "`readly` for `ready`, which this translation spells correctly 271 times"],
+      [/(?<![A-Za-z])repart(?![A-Za-z])/g, "report",
+       "`repart` for `report`, which this translation spells correctly 100 times"],
+      [/(?<![A-Za-z])reponse(?![A-Za-z])/g, "response",
+       "`reponse` for `response`, which this translation spells correctly 12 times"],
+      [/(?<![A-Za-z])speeech(?![A-Za-z])/g, "speech",
+       "`speeech` for `speech`, which this translation spells correctly 67 times"],
+      [/(?<![A-Za-z])sticken(?![A-Za-z])/g, "stricken",
+       "`sticken` for `stricken`, which this translation spells correctly 29 times"],
+      [/(?<![A-Za-z])spead(?![A-Za-z])/g, "speed",
+       "`spead` for `speed`, which this translation spells correctly 49 times"],
+      [/(?<![A-Za-z])teror(?![A-Za-z])/g, "terror",
+       "`teror` for `terror`, which this translation spells correctly 39 times"],
+      [/(?<![A-Za-z])togther(?![A-Za-z])/g, "together",
+       "`togther` for `together`, which this translation spells correctly 193 times"],
+      [/(?<![A-Za-z])twefth(?![A-Za-z])/g, "twelfth",
+       "`twefth` for `twelfth`, which this translation spells correctly 7 times"],
+      [/(?<![A-Za-z])rcentre(?![A-Za-z])/g, "centre",
+       "a stray r on the front of `centre`, in 'beneath the standard, in the centre of the array'"],
+      [/He send a report of his misfortune/g, "He sent a report of his misfortune",
+       "`send` for `sent` — A REAL WORD IN THE WRONG PLACE, which no vocabulary sweep can name, and " +
+       "found only by reading round `repart` two words later. It is written AFTER that row on purpose, " +
+       "since it anchors on the corrected spelling"],
+      [/(?<![A-Za-z])strenghten(?![A-Za-z])/g, "strengthen",
+       "a transposition in `strengthen`, against 14 correct"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/San_Kuo",
     /* Two volumes of sixty chapters each, which is the edition's own division and the only one it
@@ -9460,6 +10503,9 @@ const BOOKS = {
        `ALLOWED`, so `stripTags` was already dropping them and keeping their text. */
     nameMarkup: true,
     head: "sankuo",
+    /* The titles come off the chapters' own heads, out of text `correctRaw` has already been over, so
+       `writeEnglish` must not run the romanisation over them a second time — see the note there. */
+    titlesCorrected: true,
     /* The printer's colophon at the foot of the last chapter, which is set on the one leaf in the
        book the edition never numbered — the Republic's structural rule, and it needs to know nothing
        about what is printed on it. Measured over the sample before it was declared: chapter 120 is
@@ -9499,6 +10545,42 @@ const BOOKS = {
       ["We‘ve", "We’ve", "the same"],
       ["E‘en", "E’en", "the same"],
       ["E‘er", "E’er", "the same, twice"],
+      /* …AND THE SLIPS A ROMANISATION SWEEP TURNS UP, which are a different claim from the
+         eight above: each is a Chinese name the printing sets one way once and another way
+         many times, so the outlier is a transcription slip rather than a variant reading, and
+         the count that decides it is given beside each. They run BEFORE the romanisation for
+         the reason that order exists — an unfixed variant does not merely stay unconverted, it
+         converts wrongly into a plausible different name (batch B6b). */
+      ["Changan", "Ch‘angan", "the turned comma is dropped: 1 against 65 Ch‘angan"],
+      ["Chichou", "Ch‘ichou", "the turned comma is dropped: 1 against 35 Ch‘ichou"],
+      ["Pingyüan", "P‘ingyüan", "the turned comma is dropped: 1 against 19 P‘ingyüan"],
+      ["Tai-yü", "T‘ai-yü", "the turned comma is dropped: 3 against 7 T‘ai-yü"],
+      ["Ch‘ûan", "Ch‘üan", "a circumflex for the umlaut: 1 against 440 Ch‘üan"],
+      ["K‘ôu", "K‘ou", "a circumflex Wade-Giles has not got; the final is spelt k‘ou 78 times, and every other ô in the book is in a French word"],
+      ["Ch‘ènts‘ang", "Ch‘ênts‘ang", "a grave accent for the circumflex: 1 against 18 Ch‘ênts‘ang"],
+      ["Anlô", "Anlo", "a circumflex Wade-Giles has not got, on the pattern K‘ôu sets"],
+      ["Szŭch‘uan", "Ssŭch‘uan", "the initial is spelt Ss elsewhere: 1 against 16 Ssŭch‘uan"],
+      ["Szech‘uan", "Ssŭch‘uan", "as above, with the medial dropped too"],
+      ["Paitch‘êng", "Paitich‘êng", "a syllable is dropped: 1 against 8 Paitich‘êng"],
+      ["Ssü", "Ssŭ", "an umlaut for the breve: 1 against 682 Ssŭ"],
+      ["ssü", "ssŭ", "as above: 1 against 16 ssŭ"],
+      ["Mêngtê’s", "Mêng-tê’s", "the hyphen is dropped: 1 against 9 Mêng-tê"],
+      ["Hanshuik‘ow", "Hanshuik‘ou", "ow is not a Wade-Giles final; the name ends k‘ou, as shuik‘ou does twice"],
+      ["Sha‘kou", "Shak‘ou", "the turned comma is set before the k rather than after it: 4 against 1 for Shak‘ou"],
+      ["Yuchow", "Yuchou", "chow for chou: 2 against 10 for Yuchou"],
+      ["Taichow", "Taichou", "chow for chou: 1 against 1 for Taichou"],
+      ["Chinchow", "Chinchou", "chow for chou: 1 against 1 for Chinchou"],
+      ["Ichow", "Ichou", "chow for chou: 2 against 45 for Ichou"],
+      ["Yüchow", "Yüchou", "chow for chou: 2 against 8 for Yüchou"],
+      ["Yenchow", "Yenchou", "chow for chou: 7 against 26 for Yenchou"],
+      ["Hsüchow", "Hsüchou", "chow for chou: 1 against 63 for Hsüchou"],
+      ["Chingchow", "Chingchou", "chow for chou: 2 against 286 for Chingchou"],
+      ["Yingchow", "Yingchou", "chow for chou: 1 against 4 for Yingchou"],
+      ["Ch‘ingchow", "Ch‘ingchou", "chow for chou: 2 against 13 for Ch‘ingchou"],
+      ["Yangchow", "Yangchou", "chow for chou: 2 against 12 for Yangchou"],
+      ["Hangchow", "Hangchou", "chow for chou: 1 against 1 for Hangchou"],
+      ["Ch‘ichow", "Ch‘ichou", "chow for chou: 1 against 35 for Ch‘ichou"],
+      ["mêlee", "mêlée", "the acute is dropped on a French word: 1 against 9 mêlée"],
     ],
 
     /* MODERN PINYIN, AND THE MAPPING IS MECHANICAL RATHER THAN REMEMBERED.
@@ -9775,7 +10857,6 @@ const BOOKS = {
       ["Liu Yu", "Liu Yao", "Liu Yao, the governor of Yang province; the mechanical reading of Yu would give You"],
       ["Ma Yen", "Ma Yan"],
       ["Mi Chu", "Mi Zhu"],
-      ["Ssŭ-ma", "Sima"],
       ["Tan Fu", "Shan Fu", "Shan Fu; the surname is read Shan, not Dan, and this is Xu Shu's alias in chapters 35-36"],
       ["Tzŭ-fu", "Zifu"],
       ["Yen Yü", "Yan Yu"],
@@ -9794,15 +10875,10 @@ const BOOKS = {
          spelt two ways in one book. These twelve are the whole of it, found by stripping the marks
          off every title and matching what was left against the table; each is read in its own
          chapter before it is written down, since a stripped spelling can belong to somebody else. */
-      ["Ting Yuan", "Ding Yuan"],
       ["Lu Pu", "Lü Bu"],
       ["Chia Hsu", "Jia Xu"],
-      ["Kuan Yu", "Guan Yu"],
       ["Ch‘e Chou", "Che Zhou"],
       ["Yu Chi", "Yu Ji"],
-      ["Chao Yun", "Zhao Yun"],
-      ["Chou Yu", "Zhou Yu"],
-      ["Kuan Yun-ch‘ang", "Guan Yunchang"],
       ["Sun Ch‘uan", "Sun Quan"],
       ["Hsu Ch‘u", "Xu Chu"],
       /* THE 52 BELOW ARE NOT NEW NAMES: each is a WORD of a name already declared above,
@@ -9846,7 +10922,6 @@ const BOOKS = {
       ["Ch‘üan", "Quan"],
       ["Jên", "Ren"],
       ["Ch‘êng", "Cheng"],
-      ["K‘ai", "Kai"],
       ["Shêng", "Sheng"],
       ["Ts‘ai", "Cai"],
       ["Shên", "Shen"],
@@ -9875,7 +10950,6 @@ const BOOKS = {
       ["P‘u", "Pu"],
       ["Ch‘ou", "Chou"],
       ["Ch‘ê", "Che"],
-      ["Ts‘ang", "Cang"],
       ["T‘u", "Tu"],
 
       /* THE REST OF THE BOOK’S NAMES ARE DERIVED RATHER THAN WRITTEN DOWN, and the
@@ -10315,7 +11389,7 @@ const BOOKS = {
       ["Chai Jung", "Zhai Rong"],
       ["Ch‘iao Sui", "Qiao Sui"],
       ["Lu Ch‘ien", "Lü Qian"],
-      ["Yu Chin", "You Jin"],
+      ["Yu Chin", "Yu Jin", "于禁, 90 times in the edition's own Chinese, and the man this printing sets Yü Chin elsewhere; B6 read the bare Yu as the Wade-Giles syllable and gave You"],
       ["Hsia Yu", "Xia You"],
       ["Liu Ching-hsing", "Liu Jingsheng"],
       ["Shên Yung", "Shen Yong"],
@@ -10491,14 +11565,11 @@ const BOOKS = {
       ["P‘anho", "Panhe"],
       ["shên", "shen"],
       ["Tê", "De"],
-      ["Tzŭ", "Zi"],
       ["Tu-yü", "Duyu"],
       ["Tingt‘ao", "Dingtao"],
-      ["Tai-yü", "Daiyu"],
       ["Tsê", "Ze"],
       ["Hsiap‘ei", "Xiaopei"],
       ["Hsüt‘ien", "Xutian"],
-      ["P‘o", "Po"],
       ["Wuchün", "Wujun"],
       ["Liuch‘êng", "Liucheng"],
       ["Ts‘an", "Can"],
@@ -10529,12 +11600,9 @@ const BOOKS = {
       ["Ch‘iaochün", "Qiaojun"],
       ["Ch‘êngkao", "Chenggao"],
       ["Po-shê", "Boshe"],
-      ["Yüchow", "Yuzhou"],
       ["Peip‘ing", "Beiping"],
       ["Shê", "She"],
       ["Ch‘eng", "Cheng"],
-      ["Ch‘ih-êrh", "Chier"],
-      ["Ch‘ingchow", "Qingzhou"],
       ["Chüanch‘êng", "Juancheng"],
       ["Ta-ssŭ-ma", "Dasima"],
       ["Hsüi", "Xuyi"],
@@ -10558,7 +11626,7 @@ const BOOKS = {
       ["Miao-tsê", "Miaoze"],
       ["Chinp‘ing", "Jinping"],
       ["Wêng", "Weng"],
-      ["Ch‘aoyao", "Chaoyao"],
+      ["Ch‘aoyao", "Xiaoyao", "as above: the printing spells the same ford two ways and neither is the name"],
       ["Juhsük‘ou", "Ruxukou"],
       ["Yench‘ü", "Yanqu"],
       ["Linchü", "Linju"],
@@ -10570,7 +11638,6 @@ const BOOKS = {
       ["Ts‘inling", "Qinling"],
       ["Ch‘iung", "Qiong"],
       ["Nananchün", "Nan'anjun"],
-      ["Chüan", "Juan"],
       ["T‘ai-Ho", "Taihe"],
       ["Shênshang", "Shenshang"],
       ["Mienk‘ou", "Miankou"],
@@ -10582,10 +11649,8 @@ const BOOKS = {
       ["Tzŭ-fang", "Zifang"],
       ["Yünshan", "Yunshan"],
       ["Tingchünshan", "Dingjunshan"],
-      ["Mot‘ien", "Motian"],
       ["Fufêng", "Fufeng"],
       ["Mêng-te", "Mengde"],
-      ["K‘ang-ch‘êng", "Kangcheng"],
       ["Wên-tê", "Wende"],
       ["Chülu", "Julu"],
       ["Shou-ch‘ang", "Shouchang"],
@@ -10597,7 +11662,6 @@ const BOOKS = {
       ["Chochün", "Zhuojun"],
       ["Ssŭ-tu", "Sidu"],
       ["Mich‘êng", "Micheng"],
-      ["Pingyüan", "Bingyuan"],
       ["Wênming", "Wenming"],
       ["Fênhsien", "Fenxian"],
       ["t‘ang-ni", "tangni"],
@@ -10605,8 +11669,6 @@ const BOOKS = {
       ["Ch‘en-liu", "Chenliu"],
       ["Wên-ch‘ien", "Wenqian"],
       ["Man-ch‘êng", "Mancheng"],
-      ["Hsüchow", "Xuzhou"],
-      ["Wên-t‘ai", "Wentai"],
       ["Tzŭ-ying", "Ziying"],
       ["Mêngching", "Mengjing"],
       ["Ch‘êng-kao", "Chenggao"],
@@ -10617,11 +11679,8 @@ const BOOKS = {
       ["Chüa", "Qu'e"],
       ["Hêngmên", "Hengmen"],
       ["Tiaoch‘an", "Diaochan"],
-      ["Hsüanp‘ing", "Xuanping"],
-      ["Mên", "Men"],
       ["Ssŭnung", "Sinong"],
       ["Ch‘üfou", "Qufou"],
-      ["Wên-chü", "Wenju"],
       ["Chuangch‘êng", "Zhuangcheng"],
       ["Ch‘ênch‘êng", "Chencheng"],
       ["Chungk‘ang", "Zhongkang"],
@@ -10630,7 +11689,6 @@ const BOOKS = {
       ["Hsiao-p‘ei", "Xiaopei"],
       ["Yuch‘ing", "Youqing"],
       ["Yangchün", "Yangjun"],
-      ["Ta-ssü-ma", "Dasima"],
       ["Hsing-P‘ing", "Xingping"],
       ["Wup‘ing", "Wuping"],
       ["Hsüchun", "Xuzhun"],
@@ -10646,7 +11704,6 @@ const BOOKS = {
       ["Hsianch‘êng", "Xiancheng"],
       ["Sün", "Xun"],
       ["Liangch‘êng", "Liangcheng"],
-      ["Chang-chün", "Zhangjun"],
       ["Tach‘êng", "Dacheng"],
       ["Kungt‘ai", "Gongtai"],
       ["Kung-t‘ai", "Gongtai"],
@@ -10658,7 +11715,6 @@ const BOOKS = {
       ["Fêngling", "Fengling"],
       ["Chich‘uan", "Jichuan"],
       ["Ich‘êng", "Yicheng"],
-      ["Ssü", "Si"],
       ["Ssŭshang", "Sishang"],
       ["Ts‘uan", "Cuan"],
       ["Hungmên", "Hongmen"],
@@ -10674,11 +11730,7 @@ const BOOKS = {
       ["Fei-t‘u", "Feitu"],
       ["Tsên", "Zen"],
       ["Yü-yang", "Yuyang"],
-      ["Tê-tsu", "Dezu"],
       ["T‘ushan", "Tushan"],
-      ["Po-t‘ao", "Botao"],
-      ["Yüan-chien", "Yuanjian"],
-      ["Ch‘ichow", "Qizhou"],
       ["Kuch‘eng", "Gucheng"],
       ["Tant‘u", "Dantu"],
       ["Yü-jang", "Yurang"],
@@ -10686,7 +11738,6 @@ const BOOKS = {
       ["Ch‘ao-ch‘ang", "Chaochang"],
       ["Yüan-t‘an", "Yuantan"],
       ["Tzŭ-yuan", "Ziyuan"],
-      ["Yüan-chin", "Yuanjin"],
       ["Ts‘ang-t‘ing", "Cangting"],
       ["Ts‘angt‘ing", "Cangting"],
       ["Maoch‘êng", "Maocheng"],
@@ -10699,27 +11750,20 @@ const BOOKS = {
       ["Lulungk‘ou", "Lulongkou"],
       ["Pait‘an", "Baitan"],
       ["Liut‘ing", "Liuting"],
-      ["Ch‘ûan", "Chuan"],
-      ["T‘ung-p‘o", "Tongpo"],
       ["Tê-ts‘ao", "Decao"],
       ["Fanchêng", "Fancheng"],
-      ["K‘ôu", "Kou"],
       ["P‘eichün", "Peijun"],
       ["Fanch‘eng", "Fancheng"],
       ["Ichêngt‘ing", "Yizhengting"],
-      ["Kuang-yüan", "Guangyuan"],
       ["P‘eihsien", "Peixian"],
       ["Tungchün", "Dongjun"],
       ["Lungchiushuik‘ou", "Longjiushuikou"],
-      ["Szech‘uan", "Sichuan"],
       ["Ts‘ao-ch‘uan", "Caochuan"],
       ["Yüshan", "Yushan"],
-      ["T‘ing", "Ting"],
       ["Tsŭ-shun", "Zishun"],
       ["Ch‘ang-pan", "Changban"],
       ["Ts‘angwu", "Cangwu"],
       ["Hanchingk‘ou", "Hanjingkou"],
-      ["Tê-shu", "Deshu"],
       ["Ts‘ien", "Qian"],
       ["Ch‘aisengchün", "Chaisengjun"],
       ["Sanchiangk‘ou", "Sanjiangkou"],
@@ -10729,19 +11773,14 @@ const BOOKS = {
       ["P‘o-lo", "Poluo"],
       ["Tzŭ-cho", "Zizhuo"],
       ["Jê", "Re"],
-      ["Yu-ch‘ang", "Youchang"],
       ["Chi-ch‘ang", "Jichang"],
       ["Chênting", "Zhending"],
       ["ya-mên", "yamen"],
       ["Lingchün", "Lingjun"],
-      ["Pên", "Ben"],
       ["Ch‘ient‘ang", "Qiantang"],
       ["Tzŭching", "Zijing"],
       ["Ch‘iaotung", "Qiaodong"],
-      ["Shou-ch‘êng", "Shoucheng"],
       ["Ch‘iangs", "Qiangs"],
-      ["Ch‘ün", "Qun"],
-      ["Tzŭ-po", "Zibo"],
       ["Mêng-mei", "Mengmei"],
       ["Chün-p‘ing", "Junping"],
       ["Wangch‘êng", "Wangcheng"],
@@ -10751,10 +11790,6 @@ const BOOKS = {
       ["Wên-jo", "Wenruo"],
       ["Ch‘êngyang", "Chengyang"],
       ["Wên-chang", "Wenzhang"],
-      ["K‘uan", "Kuan"],
-      ["Chi-yü", "Jiyu"],
-      ["Chên-wei", "Zhenwei"],
-      ["Tangk‘ou", "Dangkou"],
       ["Yüantê", "Xuande"],
       ["Shêngch‘ih", "Shengchi"],
       ["Yühang", "Yuhang"],
@@ -10763,7 +11798,6 @@ const BOOKS = {
       ["Tzŭ-chien", "Zijian"],
       ["Wênchow", "Wenzhou"],
       ["Yüan-fang", "Yuanfang"],
-      ["Mêngtê", "Mengde"],
       ["Tz‘u", "Ci"],
       ["Tzŭ-ch‘un", "Zichun"],
       ["Kuant‘ao", "Guantao"],
@@ -10773,11 +11807,9 @@ const BOOKS = {
       ["Mits‘ang", "Micang"],
       ["Lant‘ien", "Lantian"],
       ["Shangyü", "Shangyu"],
-      ["Ch‘u-ping", "Chubing"],
       ["Taichün", "Daijun"],
       ["Yuan-tê", "Xuande"],
       ["Tsêngk‘ouch‘üan", "Zengkouquan"],
-      ["Hanshuik‘ow", "Hanshuikou"],
       ["Ch‘iaochun", "Qiaojun"],
       ["Yanglingp‘o", "Yanglingpo"],
       ["Hsünyang-chiang", "Xunyangjiang"],
@@ -10802,8 +11834,6 @@ const BOOKS = {
       ["Yün-chang", "Yunzhang"],
       ["Yüan-chang", "Yuanzhang"],
       ["Ch‘ingch‘êng", "Qingcheng"],
-      ["Hsiao-ch‘i", "Xiaoqi"],
-      ["P‘iao-chi", "Piaoji"],
       ["Wuk‘ou", "Wukou"],
       ["Shuch‘uan", "Shuchuan"],
       ["Chien-p‘ing", "Jianping"],
@@ -10812,12 +11842,8 @@ const BOOKS = {
       ["Fênglou", "Fenglou"],
       ["Tungk‘ou", "Dongkou"],
       ["Yüfupu", "Yufubu"],
-      ["Szŭch‘uan", "Sichuan"],
       ["Yüehchien", "Yuejian"],
-      ["Shê-ch‘i", "Sheqi"],
       ["Tung-T‘una", "Dongtuna"],
-      ["Sha‘kou", "Shakou"],
-      ["Yink‘êng", "Yinkeng"],
       ["yünhsiang", "yunxiang"],
       ["yün-hsiang", "yunxiang"],
       ["Mêngchieh", "Mengjie"],
@@ -10825,14 +11851,12 @@ const BOOKS = {
       ["Mêngs", "Mengs"],
       ["hsüeh-i", "xueyi"],
       ["T‘uan", "Tuan"],
-      ["T‘aohua", "Taohua"],
       ["Yungch‘ang", "Yongchang"],
       ["Yüan-chung", "Yuanzhong"],
       ["Wênchao", "Wenzhao"],
       ["Ts‘an-chün", "Canjun"],
       ["T‘ai-shih", "Taishi"],
       ["Hêngmen", "Hengmen"],
-      ["Tzŭlung", "Zilong"],
       ["Fêngming", "Fengming"],
       ["Shihch‘êng", "Shicheng"],
       ["T‘ienshuichün", "Tianshuijun"],
@@ -10840,20 +11864,16 @@ const BOOKS = {
       ["Shêt‘ing", "Sheting"],
       ["Ch‘êlichi", "Cheliji"],
       ["Shêns", "Shens"],
-      ["Paitch‘êng", "Baicheng"],
       ["Kueich‘e", "Guiche"],
       ["Hsŭn", "Xun"],
       ["Shun-p‘ing", "Shunping"],
-      ["Ya-mên", "Yamen"],
       ["Ch‘ilien", "Qilian"],
       ["Ch‘angkuan", "Changguan"],
       ["T‘aipailing", "Taibailing"],
-      ["Ch‘ènts‘ang", "Chencang"],
       ["K‘o", "Ke"],
       ["Yungch‘êng", "Yongcheng"],
       ["Ch‘ên-ts‘ang", "Chencang"],
       ["Yüehshan", "Yueshan"],
-      ["Tzŭ-tan", "Zidan"],
       ["Ts‘inchüan", "Qinjuan"],
       ["Hung-yüan-i-ch‘i", "Hongyuanyiqi"],
       ["Shangk‘uei", "Shanggui", "上邽"],
@@ -10863,10 +11883,7 @@ const BOOKS = {
       ["Ch‘aomên", "Chaomen"],
       ["Ch‘aohuk‘ou", "Chaohukou"],
       ["San-t‘ai", "Santai"],
-      ["Chü-i", "Juyi"],
       ["Ch‘ashan", "Chashan"],
-      ["Ch‘ao-yang", "Chaoyang"],
-      ["T‘ai-chi", "Taiji"],
       ["Much‘iu", "Muqiu"],
       ["Yüehlang", "Yuelang"],
       ["Liaohok‘ou", "Liaohekou"],
@@ -10915,10 +11932,8 @@ const BOOKS = {
       ["T‘ai-Shih", "Taishi"],
       ["Yüan-Hsing", "Yuanxing"],
       ["kêng-tzu", "gengzu"],
-      ["Ch‘iu-ming", "Qiuming"],
       ["Ch‘uchung", "Chuzhong"],
       ["Hêngchiang", "Hengjiang"],
-      ["Fên", "Fen"],
       ["Ts‘en", "Cen"],
       ["Chienp‘ing", "Jianping"],
       ["Han Kao-Tsu", "Han Gaozu"],
@@ -10986,7 +12001,6 @@ const BOOKS = {
       ["Pahsi","Baxi"],
       ["Yatan","Yadan"],
       ["Mitang","Midang"],
-      ["Yenchow","Yanzhou"],
       ["Tsung","Zong"],
       ["Jung","Rong"],
       ["Hsin","Xin"],
@@ -11058,7 +12072,6 @@ const BOOKS = {
       ["chia","jia"],
       ["Hsien-ying","Xianying"],
       ["Chungti","Zhongdi"],
-      ["Yuchow","Youzhou"],
       ["Chingling","Jingling"],
       ["Kuangtsung","Guangzong"],
       ["Anhsi","Anxi"],
@@ -11068,12 +12081,10 @@ const BOOKS = {
       ["Kung-lu","Gonglu"],
       ["Suantsao","Suanzao"],
       ["Wukuan","Wuguan"],
-      ["Chingchow","Jingzhou"],
       ["Tunghai","Donghai"],
       ["Kuanchung","Guanzhong"],
       ["Kopei","Gebei"],
       ["Taliang","Daliang"],
-      ["Yangchow","Yangzhou"],
       ["Tiko","Dige"],
       ["Chinghsien","Jingxian"],
       ["Mangtang","Mangdang"],
@@ -11088,7 +12099,6 @@ const BOOKS = {
       ["Kuei","Gui"],
       ["Leiyanghsien","Leiyangxian"],
       ["Paishui","Baishui"],
-      ["Tsu","Zu"],
       ["Pachung","Bazhong"],
       ["Hsiapan","Xiaban"],
       ["Chiahsia","Jiaxia"],
@@ -11111,8 +12121,6 @@ const BOOKS = {
       ["Chung-ying","Zhongying"],
       ["Chuyang","Zhuyang"],
       ["Taichou","Daizhou"],
-      ["Taichow","Daizhou"],
-      ["Pieh-pu","Biebu"],
       ["Hochien","Hejian"],
       ["Meng-te","Mengde"],
       ["Chungmou","Zhongmou"],
@@ -11130,7 +12138,6 @@ const BOOKS = {
       ["Hanchiang","Hanjiang"],
       ["Fengi","Fengyi"],
       ["Chouchih","Zhouzhi"],
-      ["Chung-lang","Zhonglang"],
       ["Kuang-wu","Guangwu"],
       ["Haipin","Haibin"],
       ["Hsichou","Xizhou"],
@@ -11145,10 +12152,8 @@ const BOOKS = {
       ["Yehwang","Yewang"],
       ["Po-ning","Boning"],
       ["Yuan-lung","Yuanlong"],
-      ["Pai-hu","Baihu"],
       ["Chiahsing","Jiaxing"],
       ["Huichi","Huiji"],
-      ["Chung-hsiang","Zhongxiang"],
       ["Yuchi","Youji"],
       ["Tawan","Dawan"],
       ["Chiehshih","Jieshi"],
@@ -11158,11 +12163,8 @@ const BOOKS = {
       ["Tsuyi","Zuyi"],
       ["I-ching","Yijing"],
       ["Wangi","Wangyi"],
-      ["Wen-jo","Wenruo"],
-      ["Chin-wu","Jinwu"],
       ["Tsui","Zui"],
       ["Chung-ni","Zhongni"],
-      ["Tsang","Zang"],
       ["Yingwuchou","Yingwuzhou"],
       ["Chiang-han","Jianghan"],
       ["Hsiho","Xihe"],
@@ -11188,7 +12190,6 @@ const BOOKS = {
       ["I-tu","Yidu"],
       ["Chingshan","Jingshan"],
       ["Chinghsia","Jingxia"],
-      ["Hsing-pa","Xingba"],
       ["Huayungtao","Huayongdao"],
       ["Tao-jung","Daorong"],
       ["Yuhsien","Youxian"],
@@ -11202,19 +12203,15 @@ const BOOKS = {
       ["Chihchiang","Zhijiang"],
       ["Linghsiang","Lingxiang"],
       ["Wu-yen","Wuyan"],
-      ["Hsiangju","Xiangru"],
       ["Hochou","Hezhou"],
       ["Hsintu","Xindu"],
       ["Hsiapien","Xiabian"],
       ["Tung-hua","Donghua"],
-      ["Jih-ti","Ridi"],
       ["Kuan-nei","Guannei"],
       ["Tangshih","Dangshi"],
       ["Kueichin","Guijin"],
       ["Paochang","Baozhang"],
-      ["Taochieh","Daojie"],
       ["Tsohsien","Zuoxian"],
-      ["Ê","E"],
       ["Sangkan","Sanggan"],
       ["Saipei","Saibei"],
       ["Chingchao","Jingzhao"],
@@ -11225,7 +12222,6 @@ const BOOKS = {
       ["chien-shih","jianshi"],
       ["Ching-chou","Jingzhou"],
       ["Anhsiang","Anxiang"],
-      ["Chiu","Jiu"],
       ["Shihihsien","Shiyixian"],
       ["keng-wu","gengwu"],
       ["Langchou","Langzhou"],
@@ -11239,19 +12235,16 @@ const BOOKS = {
       ["Po-yen","Boyan"],
       ["Paiti","Baidi"],
       ["Chang-Wu","Zhangwu"],
-      ["Huang-ti","Huangdi"],
       ["Puchou","Buzhou"],
       ["Paochia","Baojia"],
       ["Chintai","Jindai"],
       ["Erhho","Erhe"],
       ["Hsierh","Xier"],
       ["hsiehyeh","xieye"],
-      ["Kannan","Gannan"],
       ["Liangtu","Liangdu"],
       ["Chia-kuei","Jiagui"],
       ["Hsini","Xinyi"],
       ["Wuku","Wugu"],
-      ["Piao-chi","Biaoji"],
       ["Po-shih","Boshi"],
       ["Wu-hsiang","Wuxiang"],
       ["ping-yen","bingyan"],
@@ -11268,7 +12261,6 @@ const BOOKS = {
       ["tun-chia","dunjia"],
       ["Changhsia","Zhangxia"],
       ["Wukung","Wugong"],
-      ["Wei-chih","Weizhi"],
       ["Nanku","Nangu"],
       ["Chung-wu","Zhongwu"],
       ["Yungan","Yongan"],
@@ -11279,9 +12271,7 @@ const BOOKS = {
       ["hsien","xian"],
       ["Yang-lieh","Yanglie"],
       ["Liaochui","Liaozhui"],
-      ["Jou","Rou"],
       ["Lu-chih","Luzhi"],
-      ["Lüeh","Lüe"],
       ["Shihying","Shiying"],
       ["Kaokueihsiang","Gaoguixiang"],
       ["Hsiangling","Xiangling"],
@@ -11342,7 +12332,6 @@ const BOOKS = {
       ["Kiangnan", "Jiangnan", "江南"],
       ["Kiukiang", "Jiujiang", "九江"],
       ["Soochow", "Suzhou"],
-      ["Hangchow", "Hangzhou"],
       ["Anking", "Anqing"],
       ["Tsinghai", "Qinghai"],
       ["Nanking", "Nanjing"],
@@ -11359,7 +12348,497 @@ const BOOKS = {
       ["Samoko", "Shamoke", "沙摩柯"],
       ["Kiangsu", "Jiangsu"],
       ["Kiangsi", "Jiangxi"],
-      ["Yen-Hsi", "Yanshi", "彥士"],
+      // 彥士 was declared against Yen-Hsi, which is not how the printing spells it — that is the Shu
+      // reign period 延熙, declared 240 rows above as Yanxi. `to` is built in declaration order, so the
+      // later row silently won and the shipped book dated two chapters to the "sixteenth year of
+      // Yanshi". Nothing could report it: ROMAN_HITS is keyed by the `from` string, so the two rows
+      // shared one counter and neither read as dead. Ts‘ao Mao's other name is set Yen-shih, once.
+      ["Yen-shih", "Yanshi", "彥士"],
+      // ---- batch B6b ----------------------------------------------------------------
+      // A second pass over this book, made from the same commit and without sight of the
+      // table above, turned out not to be nested with it: each covered names the other
+      // missed. These are its rows, after every one was checked against the printing
+      // rather than taken on trust — twenty-one were struck out, and what they were is in
+      // docs/book-text-plan.md's B6b entry. The bare unaspirated single syllables are the
+      // substance of it and are the class B6 excluded: a bare Chang, Kuan or Kuo is safe
+      // here because this printing distinguishes them from Ch‘ang, K‘uan and K‘uo, which
+      // it sets 14, 2 and 0 times against 1,467, 1,006 and 465 for the bare form. Where
+      // that ratio runs the other way the row was dropped: Yu against Yü is 107 to 1,224,
+      // and two of its occurrences are chapter titles about 關羽, Guan Yu.
+      ["Anlo", "Anle"],
+      ["Kashing", "Jiaxing"],
+      ["Ho ho", "Ho ho"],
+      ["Lo!", "Lo!"],
+      ["Ch‘ang Ch‘i", "Chang Qi"],
+      ["Ch‘ao-yang Tien", "Chaoyang Dian"],
+      ["Ch‘ên Ch‘ün", "Chen Qun"],
+      ["Ch‘ên Fan", "Chen Fan"],
+      ["Ch‘ên Hsiang", "Chen Xiang"],
+      ["Ch‘ên Hsiao-ch‘i", "Chen Xiaoqi"],
+      ["Ch‘ên Lu", "Chen Lu"],
+      ["Ch‘ên Ssŭ", "Chen Si"],
+      ["Ch‘ên Sun", "Chen Sun"],
+      ["Ch‘ên Yüan-lung", "Chen Yuanlong"],
+      ["Ch‘êng Tê-shu", "Cheng Deshu"],
+      ["Ch‘êng Wu", "Cheng Wu"],
+      ["Ch‘ing Chi", "Qing Ji"],
+      ["Ch‘ishan K‘ung-ming", "Qishan Kongming"],
+      ["Ch‘iu Chien", "Qiu Jian"],
+      ["Ch‘üan Chi", "Quan Ji"],
+      ["Ch‘üan Tuan", "Quan Duan"],
+      ["Ch‘ung Erh", "Chong Er"],
+      ["Chan", "Zhan"],
+      ["Chang", "Zhang"],
+      ["Chang Ch‘ao", "Zhang Chao"],
+      ["Chang Ch‘i", "Zhang Qi"],
+      ["Chang Ch‘iu", "Zhang Qiu"],
+      ["Chang Chieh", "Zhang Jie"],
+      ["Chang Chien", "Zhang Jian"],
+      ["Chang Ching", "Zhang Jing"],
+      ["Chang Chün", "Zhang Jun"],
+      ["Chang Hêng", "Zhang Heng"],
+      ["Chang Hsiang", "Zhang Xiang"],
+      ["Chang Ling", "Zhang Ling"],
+      ["Chang Miao", "Zhang Miao"],
+      ["Chang Ni", "Zhang Ni"],
+      ["Chang Su", "Zhang Su"],
+      ["Chang T‘ao", "Zhang Tao"],
+      ["Chang Tang", "Zhang Dang"],
+      ["Chang Yüeh", "Zhang Yue"],
+      ["Changs", "Zhangs"],
+      ["Changshan", "Zhangshan"],
+      ["Chao", "Zhao"],
+      ["Chao Jui", "Zhao Rui"],
+      ["Chao Ts‘ên", "Zhao Cen"],
+      ["Chao Tzŭlung", "Zhao Zilong"],
+      ["Chao Yung", "Zhao Yong"],
+      ["Chao-Lieh Huang-ti", "Zhaolie Huangdi"],
+      ["Chaoyao", "Xiaoyao", "逍遙津; the transcription's own [sic] tooltip on this word reads 'Hsiao-yao'"],
+      ["Chên Ch‘ên", "Zhen Chen"],
+      ["Chên-wei Chiang-chün", "Zhenwei Jiangjun"],
+      ["Chêng K‘ang-ch‘êng", "Zheng Kangcheng"],
+      ["Chêng Lun", "Zheng Lun"],
+      ["Chêng Tu", "Zheng Du"],
+      ["Chi", "Ji"],
+      ["Chi Miao", "Ji Miao"],
+      ["Chi Mu", "Ji Mu"],
+      ["Chi T‘ai", "Ji Tai"],
+      ["Chiang Huai", "Jiang Huai"],
+      ["Chiang Shang", "Jiang Shang"],
+      ["Chiang Yen", "Jiang Yan"],
+      ["Chiangchou", "Jiangzhou"],
+      ["Chiangling Wu Yen", "Jiangling Wu Yan"],
+      ["Chiangs", "Jiangs"],
+      ["Chiantung", "Jiandong"],
+      ["Chiao Ch‘u", "Jiao Chu"],
+      ["Chieh Yu", "Jie Yu", "接輿, the madman of Chu, whom the same sentence quotes out of the Lun-yü"],
+      ["Chih Chin-wu", "Zhi Jinwu"],
+      ["Chin", "Jin"],
+      ["Chin Jih-ti", "Jin Ridi"],
+      ["Chin Shang", "Jin Shang"],
+      ["Chin Wei", "Jin Wei"],
+      ["Chinchingchung", "Jinjingzhong"],
+      ["Chinchou", "Jinzhou"],
+      ["Chingchin", "Jingjin"],
+      ["Chins", "Jins"],
+      ["Chiu Fan", "Jiu Fan"],
+      ["Chou", "Zhou"],
+      ["Chou A-fu", "Zhou Afu"],
+      ["Chou Kung", "Zhou Gong"],
+      ["Chou Kung-chin", "Zhou Gongjin"],
+      ["Chou P‘o", "Zhou Po"],
+      ["Chous", "Zhous"],
+      ["Chu", "Zhu"],
+      ["Chuang", "Zhuang"],
+      ["Chuko Shang", "Zhuge Shang"],
+      ["Chuko Yüan", "Zhuge Yuan"],
+      ["Chukuan", "Zhuguan"],
+      ["Chung Chün", "Zhong Jun"],
+      ["Chung Huang", "Zhong Huang"],
+      ["Chung Yao", "Zhong Yao"],
+      ["Chung-lang Chiang", "Zhonglang Jiang"],
+      ["Chuo", "Zhuo"],
+      ["Fan Ch‘ung", "Fan Chong"],
+      ["Fan K‘ang", "Fan Kang"],
+      ["Fan P‘ang", "Fan Pang"],
+      ["Foukuan", "Fouguan"],
+      ["Fu Huang-hou", "Fu Huanghou"],
+      ["Fu T‘ung", "Fu Tong"],
+      ["Fu-ma", "Fuma"],
+      ["Fu-po Chang-chün", "Fubo Zhangjun"],
+      ["Fushih Jên", "Fushi Ren"],
+      ["Haihsia", "Haixia"],
+      ["Han Ch‘i", "Han Qi"],
+      ["Han Chên", "Han Zhen"],
+      ["Hanching", "Hanjing"],
+      ["Hangchou", "Hangzhou"],
+      ["Hanshuik‘ou", "Hanshuikou"],
+      ["Ho", "He"],
+      ["Ho Ch‘u-ping", "He Chubing"],
+      ["Ho Chih", "He Zhi"],
+      ["Ho Miao", "He Miao"],
+      ["Hochi", "Heji"],
+      ["Hou Chi", "Hou Ji"],
+      ["Hou Hsüan", "Hou Xuan"],
+      ["Hsi Shih", "Xi Shi"],
+      ["Hsi-tzu", "Xizu"],
+      ["Hsia Hsün", "Xia Xun"],
+      ["Hsiahou En", "Xiahou En"],
+      ["Hsiahou Ying", "Xiahou Ying"],
+      ["Hsian-pi", "Xianbi"],
+      ["Hsiang Chi", "Xiang Ji"],
+      ["Hsiangchou", "Xiangzhou"],
+      ["Hsiangjang", "Xiangrang"],
+      ["Hsiao Kuan", "Xiao Guan"],
+      ["Hsiaohuai", "Xiaohuai"],
+      ["Hsich‘êng Shui", "Xicheng Shui"],
+      ["Hsieh Hsiung", "Xie Xiong"],
+      ["Hsienyeh", "Xianye"],
+      ["Hsin Ming", "Xin Ming"],
+      ["Hsinfung", "Xinfong"],
+      ["Hsiwei P‘o", "Xiwei Po"],
+      ["Hsü Ch‘ang", "Xu Chang"],
+      ["Hsü Ch‘iu", "Xu Qiu"],
+      ["Hsü Kung-ming", "Xu Gongming"],
+      ["Hsü Ssŭ", "Xu Si"],
+      ["Hsü Yün", "Xu Yun"],
+      ["Hsüanp‘ing Mên", "Xuanping Men"],
+      ["Hsucheng", "Xuzheng"],
+      ["Hsüchou Ts‘ao Ts‘ao", "Xuzhou Cao Cao"],
+      ["Hsüeh Ch‘iao", "Xue Qiao"],
+      ["Hsüeh Lan", "Xue Lan"],
+      ["Hsün Chêng", "Xun Zheng"],
+      ["Hsün Chuan", "Xun Zhuan"],
+      ["Hsün Hsü", "Xun Xu"],
+      ["Hsün Wen-jo", "Xun Wenruo"],
+      ["Hu Ch‘ih-êrh", "Hu Chier"],
+      ["Hu Fên", "Hu Fen"],
+      ["Hu-wei Chiang-chün", "Huwei Jiangjun"],
+      ["Hua Ho", "Hua He"],
+      ["Hua Yung", "Hua Yong"],
+      ["Huan Kung", "Huan Gong"],
+      ["Huanchou", "Huanzhou"],
+      ["Huang Ch‘êng-yen", "Huang Chengyan"],
+      ["Huang Chang", "Huang Zhang"],
+      ["Huang-hou", "Huanghou"],
+      ["Huang-Wu", "Huangwu"],
+      ["Hung", "Hong"],
+      ["Jang Chu", "Rang Zhu"],
+      ["Jên Kung", "Ren Gong"],
+      ["Jên Tso", "Ren Zuo"],
+      ["Jungan", "Rongan"],
+      ["Jungpang", "Rongbang"],
+      ["Jungyang", "Rongyang"],
+      ["Juying", "Ruying"],
+      ["K‘ou Fêng", "Kou Feng"],
+      ["K‘uai T‘ung", "Kuai Tong"],
+      ["K‘ung Pohai", "Kong Bohai"],
+      ["K‘ung Wên-chü", "Kong Wenju"],
+      ["Kai", "Gai"],
+      ["Kan", "Gan"],
+      ["Kan Hsing-pa", "Gan Xingba"],
+      ["Kannan Shui", "Gannan Shui"],
+      ["Kao", "Gao"],
+      ["Kao Jou", "Gao Rou"],
+      ["Kao P‘ei", "Gao Pei"],
+      ["Kao Tsu", "Gao Zu"],
+      ["Kêng Shih", "Geng Shi"],
+      ["Kêng Yen", "Geng Yan"],
+      ["Ko Yung", "Ge Yong"],
+      ["Kou", "Gou"],
+      ["Ku", "Gu"],
+      ["Kuan", "Guan"],
+      ["Kuan-hsi", "Guanxi"],
+      ["Kuan-wai", "Guanwai"],
+      ["Kuang Ya-mên", "Guang Yamen"],
+      ["Kuang Yüan", "Guang Yuan"],
+      ["Kuanghan", "Guanghan"],
+      ["Kuangling", "Guangling"],
+      ["Kuanglu", "Guanglu"],
+      ["Kuans", "Guans"],
+      ["Kueichi", "Guiji"],
+      ["Kung Ch‘i", "Gong Qi"],
+      ["Kung-ming", "Gongming"],
+      ["Kungsun Kung", "Gongsun Gong"],
+      ["Kungsun Tu", "Gongsun Du"],
+      ["Kungsuns", "Gongsuns"],
+      ["Kuo", "Guo"],
+      ["Kuo Fêng-hsiao", "Guo Fengxiao"],
+      ["Lan-ching", "Lanjing"],
+      ["Langyeh", "Langye"],
+      ["Lanyeh", "Lanye"],
+      ["Lao Tzŭ", "Lao Zi"],
+      ["Lei Hsü", "Lei Xu"],
+      ["Li Chuan", "Li Zhuan"],
+      ["Li Erh", "Li Er"],
+      ["Li Hsien", "Li Xian"],
+      ["Li Kuei", "Li Gui"],
+      ["Li P‘êng", "Li Peng"],
+      ["Li Shê-ch‘i", "Li Sheqi"],
+      ["Li Ssŭ", "Li Si"],
+      ["Liang Fu-yin", "Liang Fuyin"],
+      ["Liang Hsiao", "Liang Xiao"],
+      ["Liao Yüan-chien", "Liao Yuanjian"],
+      ["Lin Hsiangju", "Lin Xiangru"],
+      ["Liu Ch‘êng", "Liu Cheng"],
+      ["Liu Chi-yü", "Liu Jiyu"],
+      ["Liu Chinchou", "Liu Jinzhou"],
+      ["Liu Ho", "Liu He"],
+      ["Liu Hsia Hui", "Liu Xia Hui"],
+      ["Liu Hsieh", "Liu Xie"],
+      ["Liu Hsiung", "Liu Xiong"],
+      ["Liu Lüeh", "Liu Lüe"],
+      ["Liu P‘an", "Liu Pan"],
+      ["Liu Pang", "Liu Bang"],
+      ["Liu Shêng", "Liu Sheng"],
+      ["Liu Shih", "Liu Shi"],
+      ["Liu Yeh", "Liu Ye"],
+      ["Liu Yüan", "Liu Yuan"],
+      ["Liulangpu", "Liulangbu"],
+      ["Lo", "Luo"],
+      ["Lou Tzŭ-po", "Lou Zibo"],
+      ["Lü Chan", "Lü Zhan"],
+      ["Lu Chia", "Lu Jia"],
+      ["Lu Ching", "Lu Jing"],
+      ["Lu Chün", "Lu Jun"],
+      ["Lü Po-shê", "Lü Boshe"],
+      ["Lü Tai", "Lü Dai"],
+      ["Lu Yü", "Lu Yu"],
+      ["Ma Chao", "Ma Zhao"],
+      ["Ma Shou-ch‘êng", "Ma Shoucheng"],
+      ["Ma Yu-ch‘ang", "Ma Youchang"],
+      ["Ma-an", "Maan"],
+      ["Mangyachang", "Mangyazhang"],
+      ["Mankuo", "Manguo"],
+      ["Mantang", "Mandang"],
+      ["Mao Chih", "Mao Zhi"],
+      ["Mêng Kuang", "Meng Guang"],
+      ["Mêng Ming", "Meng Ming"],
+      ["Mêng Pên", "Meng Ben"],
+      ["Mêng T‘ien", "Meng Tian"],
+      ["Mêng Tsung", "Meng Zong"],
+      ["Miaochung", "Miaozhong"],
+      ["Mien", "Mian"],
+      ["Mingkung", "Minggong"],
+      ["Mot‘ien Ling", "Motian Ling"],
+      ["Mu Yüan-chin", "Mu Yuanjin"],
+      ["Mu-fu", "Mufu"],
+      ["Nanchêng Wei", "Nanzheng Wei"],
+      ["Nankuan", "Nanguan"],
+      ["Nanping", "Nanbing"],
+      ["Nanyeh", "Nanye"],
+      ["O-tou", "Adou", "the milk-name 阿斗, 28 times in the edition's own Chinese"],
+      ["Omei", "Emei"],
+      ["Omi", "Emei", "the printing writes Mount 峨嵋 both Omei and Omi"],
+      ["Ou Hsing", "Ou Xing"],
+      ["P‘an Chü", "Pan Ju"],
+      ["P‘an Fêng", "Pan Feng"],
+      ["P‘ang Chüan", "Pang Juan"],
+      ["P‘ang Hsi", "Pang Xi"],
+      ["P‘êng Ho", "Peng He"],
+      ["P‘êng Jung-yen", "Peng Rongyan"],
+      ["P‘êng Po", "Peng Bo"],
+      ["P‘iao-chi Chiang-chün", "Piaoji Jiangjun"],
+      ["Pa", "Ba"],
+      ["Pachiu", "Bajiu"],
+      ["Pai Lo", "Bai Luo"],
+      ["Pana", "Bana"],
+      ["Pao", "Bao"],
+      ["Pao Chung", "Bao Zhong"],
+      ["Paokan", "Baogan"],
+      ["Pei", "Bei"],
+      ["Peitou", "Beidou"],
+      ["Pi", "Bi"],
+      ["Piao", "Biao"],
+      ["Piao Hsiu", "Biao Xiu"],
+      ["Piao-chi Ta Chiang-chün", "Biaoji Da Jiangjun"],
+      ["Pieh-pu Ssŭ-ma", "Biebu Sima"],
+      ["Pien Ch‘iao", "Bian Qiao"],
+      ["Pien Jang", "Bian Rang"],
+      ["Po Ch‘i", "Bo Qi"],
+      ["Po Chü-i", "Bo Juyi"],
+      ["Po Lo", "Bo Luo"],
+      ["Pohai", "Bohai"],
+      ["Pohai Yüan Shao", "Bohai Yuan Shao"],
+      ["Poyang", "Boyang"],
+      ["Pu", "Bu"],
+      ["Putung", "Budong"],
+      ["Puyeh", "Buye"],
+      ["Shan T‘ao", "Shan Tao"],
+      ["Shang Kuang", "Shang Guang"],
+      ["Shangtang", "Shangdang"],
+      ["Shanpichung", "Shanbizhong"],
+      ["Shanyu", "Chanyu", "單于, the Xiongnu title, 5 times in the edition's own Chinese"],
+      ["Shih Kuang-yüan", "Shi Guangyuan"],
+      ["Shih Pao", "Shi Bao"],
+      ["Shih Yü", "Shi Yu"],
+      ["Shu-ming", "Shuming"],
+      ["Shunyu Tao", "Chunyu Dao", "淳于導; the compound surname is Chunyu, as the row for it two above already says"],
+      ["Ssŭ-ma Ch‘ien", "Sima Qian"],
+      ["Ssŭma Chien", "Sima Jian"],
+      ["Ssŭma Chih", "Sima Zhi"],
+      ["Ssŭma Liang", "Sima Liang"],
+      ["Ssŭma Shui-ching", "Sima Shuijing"],
+      ["Ssŭma Sui", "Sima Sui"],
+      ["Su T‘ung-p‘o", "Su Tongpo"],
+      ["Su Yu", "Su You"],
+      ["Su Yüeh", "Su Yue"],
+      ["Sun Chi", "Sun Ji"],
+      ["Sun Jui", "Sun Rui"],
+      ["Sun K‘ai", "Sun Kai"],
+      ["Sun K‘uang", "Sun Kuang"],
+      ["Sun Têng", "Sun Deng"],
+      ["Sun Wên-t‘ai", "Sun Wentai"],
+      ["Sung", "Song"],
+      ["T‘ai Miao", "Tai Miao"],
+      ["T‘ai-chi Tien", "Taiji Dian"],
+      ["T‘aishih Ch‘êng", "Taishi Cheng"],
+      ["T‘aishih Hsiang", "Taishi Xiang"],
+      ["T‘an Fu", "Tan Fu"],
+      ["T‘an Hsiung", "Tan Xiong"],
+      ["T‘aohua Shui", "Taohua Shui"],
+      ["T‘ien Kung", "Tian Gong"],
+      ["T‘ing Wei", "Ting Wei"],
+      ["T‘u Lo", "Tu Luo"],
+      ["T‘ung Kuan", "Tong Guan"],
+      ["Ta", "Da"],
+      ["Ta Chin", "Da Jin"],
+      ["Ta Ssŭ-ma", "Da Sima"],
+      ["Tai", "Dai"],
+      ["Tai Chia", "Dai Jia"],
+      ["Tangk‘ou Chiang-chün", "Dangkou Jiangjun"],
+      ["Tanshi", "Danshi"],
+      ["Tao", "Dao"],
+      ["Têng T‘ung", "Deng Tong"],
+      ["Têng Yü", "Deng Yu"],
+      ["Ti Kung", "Di Gong"],
+      ["Tiensui", "Diansui"],
+      ["Ting", "Ding"],
+      ["Ting Li", "Ding Li"],
+      ["Tingchun", "Dingjun", "定軍山, 34 times in the edition's own Chinese; the printing drops the umlaut of Tingchün and the mechanical reading gives a place that does not exist"],
+      ["Ts‘ai Hsün", "Cai Xun"],
+      ["Ts‘ai Lin", "Cai Lin"],
+      ["Ts‘ai Yen", "Cai Yan"],
+      ["Ts‘ang Kung", "Cang Gong"],
+      ["Ts‘ao An-ming", "Cao Anming"],
+      ["Ts‘ao Ang", "Cao Ang"],
+      ["Ts‘ao Ch‘ên", "Cao Chen"],
+      ["Ts‘ao Chü", "Cao Ju"],
+      ["Ts‘ao Ê", "Cao E"],
+      ["Ts‘ao Hsiung", "Cao Xiong"],
+      ["Ts‘ao Hsü", "Cao Xu"],
+      ["Ts‘ao Huang", "Cao Huang"],
+      ["Ts‘ao Lin", "Cao Lin"],
+      ["Ts‘ao T‘êng", "Cao Teng"],
+      ["Ts‘ao Tê", "Cao De"],
+      ["Ts‘ao Ts‘an", "Cao Can"],
+      ["Ts‘ao Tzŭ-tan", "Cao Zidan"],
+      ["Ts‘ao Yü", "Cao Yu"],
+      ["Ts‘in Ch‘ing-t‘ung", "Cin Qingtong"],
+      ["Tsang Ts‘ang", "Zang Cang"],
+      ["Tsangko", "Zangge"],
+      ["Tsanko", "Zange"],
+      ["Tso Ch‘iu-ming", "Zuo Qiuming"],
+      ["Tso Kuan", "Zuo Guan"],
+      ["Tso Po-t‘ao", "Zuo Botao"],
+      ["Tsu Pi", "Zu Bi"],
+      ["Tsung Pao", "Zong Bao"],
+      ["Tu", "Du"],
+      ["Tu K‘ang", "Du Kang"],
+      ["Tu Mu", "Du Mu"],
+      ["Tu Wei", "Du Wei"],
+      ["Tu-ting", "Duding"],
+      ["Tu-yu", "Duyou"],
+      ["Tuan", "Duan"],
+      ["Tui", "Dui"],
+      ["Tulu", "Dulu"],
+      ["Tun", "Dun"],
+      ["Tung Ch‘ao", "Dong Chao"],
+      ["Tung Chün", "Dong Jun"],
+      ["Tung Ho", "Dong He"],
+      ["Tung Hsün", "Dong Xun"],
+      ["Tung Kuan", "Dong Guan"],
+      ["Tungchun", "Dongjun", "東郡, whose prefect the same sentence names; as above"],
+      ["Tungs", "Dongs"],
+      ["Wan Yü", "Wan Yu"],
+      ["Wan-sui", "Wansui"],
+      ["Wang Chên", "Wang Zhen"],
+      ["Wang Jung", "Wang Rong"],
+      ["Wang Lien", "Wang Lian"],
+      ["Wang T‘ao", "Wang Tao"],
+      ["Wang Tsê", "Wang Ze"],
+      ["Wang Yeh", "Wang Ye"],
+      ["Wang Yen", "Wang Yan"],
+      ["Wang Yu", "Wang You"],
+      ["Wanyeh", "Wanye"],
+      ["Wei Ch‘an", "Wei Chan"],
+      ["Wei Ching", "Wei Jing"],
+      ["Wei P‘ing", "Wei Ping"],
+      ["Wei Taochieh", "Wei Daojie"],
+      ["Wei Tzŭ", "Wei Zi"],
+      ["Wên Kung", "Wen Gong"],
+      ["Wu Ch‘ên", "Wu Chen"],
+      ["Wu Hsi", "Wu Xi"],
+      ["Wu K‘uang", "Wu Kuang"],
+      ["Wu Ts‘an", "Wu Can"],
+      ["Wu-yang", "Wuyang"],
+      ["Wuch‘iu Chien", "Wuqiu Jian"],
+      ["Wuchang", "Wuzhang"],
+      ["Wuhuan Ch‘u", "Wuhuan Chu"],
+      ["Wuping", "Wubing"],
+      ["Wutan", "Wudan"],
+      ["Yang Chio-ai", "Yang Jueai", "羊角哀, and 角 here is jue as it is in 張角"],
+      ["Yang Hsiung", "Yang Xiong"],
+      ["Yang Hung", "Yang Hong"],
+      ["Yang Tê-tsu", "Yang Dezu"],
+      ["Yang Tsung", "Yang Zong"],
+      ["Yang Yung", "Yang Yong"],
+      ["Yang-o", "Yange"],
+      ["Yang-wu", "Yangwu"],
+      ["Yangchu", "Yangzhu"],
+      ["Yangping", "Yangbing"],
+      ["Yao-miao", "Yaomiao"],
+      ["Yen Chih", "Yan Zhi"],
+      ["Yen Hui", "Yan Hui"],
+      ["Yen Ming", "Yan Ming"],
+      ["Yen Pai-hu", "Yan Baihu"],
+      ["Yen-Hsing", "Yanxing"],
+      ["Yenching", "Yanjing"],
+      ["Yenchou Ts‘ao Ts‘ao", "Yanzhou Cao Cao"],
+      ["Yens", "Yans"],
+      ["Yichou", "Yizhou"],
+      ["Yin Hsiang", "Yin Xiang"],
+      ["Yingchou", "Yingzhou"],
+      ["Yink‘êng Shan", "Yinkeng Shan"],
+      ["Yo", "Yue"],
+      ["Yo Fei", "Yue Fei"],
+      ["Yu Ch‘uan", "Yu Quan", "于詮; the printing drops both umlauts and B6 converted the surname as though it had not"],
+      ["Yü Chung-hsiang", "Yu Zhongxiang"],
+      ["Yü Mi", "Yu Mi"],
+      ["Yü Shê", "Yu She"],
+      ["Yü Sung", "Yu Song"],
+      ["Yu-kung", "Yugong", "庾公之斯, the archer of the story the same sentence tells"],
+      ["Yüan K‘ai", "Yuan Kai"],
+      ["Yüan Kung-lu", "Yuan Gonglu"],
+      ["Yüan Wei-chih", "Yuan Weizhi"],
+      ["Yuchang", "Yuzhang", "豫章, whose prefect Hua Xin was; the printing drops the umlaut of Yüchang"],
+      ["Yuchou", "Youzhou"],
+      ["Yutan", "Yadan", "雅丹, the Qiang minister, 12 times in the edition's own Chinese"],
+      // 張角's given name, which the shipped Chang Chio row above already reads as Jue. The second
+      // pass offered it as Jie, a different reading of 角; both bare occurrences are the same man,
+      // and one of them names his two brothers beside him, whom the table converts.
+      ["Chio", "Jue"],
+      // The five rows below read as dead until the style block above stopped hiding a chapter head
+      // from them: each is a name this printing sets WITHOUT its umlaut, and it does so only in the
+      // heads, which is the one place the correction chain could not reach.
+      ["Ting Yuan", "Ding Yuan"],
+      ["Kuan Yu", "Guan Yu"],
+      ["Chao Yun", "Zhao Yun"],
+      ["Chou Yu", "Zhou Yu"],
+      ["Kuan Yun-ch‘ang", "Guan Yunchang"],
+      // The other half a printed page turn splits. Its sibling, Chang Ch‘ao, was already declared
+      // above and already firing; only this one was missing.
+      ["Ch‘ang I", "Chang Yi"],
     ],
 
     /* ---------- THE ORIGINAL ----------
@@ -11502,6 +12981,30 @@ const BOOKS = {
         "Tale of Gamelyn, a poem found in some manuscripts of the Cook's unfinished tale, which he " +
         "prints as an appendix and says is not Chaucer's. The translators do not render it, and it is " +
         "not here.",
+      "One last thing about the prose column, because it is the sort of thing a reader deserves to be " +
+        "told rather than to discover. It is not a typed transcription but a machine reading of the " +
+        "1912 pages, and machines misread. Where the scan went wrong it has been corrected against " +
+        "photographs of the same edition, and against a second scan of it — 831 places, from single " +
+        "letters up to whole " +
+        "lines that the reader had dropped or run together, on eight pages that were printed straight " +
+        "and scanned askew. The commonest fault by far was the quotation mark. The opening one the " +
+        "machine set as a lowercase c, an asterisk, a figure 4, an f, a brace or a less-than sign on " +
+        "357 lines of speech; the closing one it set as a slash, swallowing the comma or full stop " +
+        "beside it, on 43 more; and a possessive apostrophe it dropped or mangled on 73. All of those " +
+        "are now punctuation again, and a comma driven a space off its own word was put back on it " +
+        "59 times more. The oddest of them was the figure 1, which stood for three different marks " +
+        "in 66 places and gave no sign which: before a small letter it is the word I, after a word " +
+        "it is an exclamation mark, and after a full stop it is the quotation mark opening the speech " +
+        "that follows. Some of what looked like stray marks turned out to be nothing at all — the wide " +
+        "space this edition sets after a full stop, which the scanner boxed as though it were a letter " +
+        "— and some to be a short rule the translators print where they have cut a passage, which is " +
+        "kept and set as a dash. Words the scan had broken open have been closed up — 'H ow' is How, " +
+        "'k nowest' is knowest — and a letter standing in for another word put right, an m that was " +
+        "in and a y that was by. Nothing was mended by guess: every correction is a passage read off " +
+        "the page. " +
+        "Some misreadings remain — about forty-five stray marks, nearly all of them inside passages " +
+        "the scanner made such a mess of that no rule reaches them, and they are recorded rather than " +
+        "guessed at.",
     ],
 
     /* THE TRANSLATION IS A PLAIN-TEXT OCR and the only copy of this edition that can be opened at all.
@@ -11513,8 +13016,850 @@ const BOOKS = {
 
        The scan itself is unusually clean for a machine reading — the whole run of the Canterbury Tales
        yields about forty blocks of scanner dirt and they are reported by name on every run — but it is
-       a machine reading all the same, and the odd letter is wrong. Left as it is rather than repaired
-       by guess. */
+       a machine reading all the same, and the odd letter is wrong. It said here for a year that this
+       was left as it stood rather than repaired by guess, which was the right rule and the wrong
+       conclusion: a guess is forbidden, and the page images are published beside the text. The table
+       below repairs 151 places against them. */
+    /* ---------- WHAT THE SCAN LOST, AND WHAT IT NEVER SET (Sep 2026, batch E5) ----------
+       The witness is this edition's own page images, at the Internet Archive item the text above
+       comes from, read leaf by leaf; where the scan and the page were both ambiguous a SECOND copy
+       of the same 1912 printing was consulted (`completepoetical00chau`, the New York Public
+       Library's), and that second copy is the reason several of these rows exist at all.
+
+       THE TWO SCANS SHARE AN OCR ENGINE, SO THEIR AGREEMENT PROVES NOTHING AND THEIR DISAGREEMENT
+       PROVES A GREAT DEAL. Both read `undei` and `othei`, which looked at first like a defective
+       sort in the forme — until the glyphs were measured: the final letter is solid, dotless and
+       eight to twelve pixels wide against a control `r` of twenty, so it is an `r` whose arm failed
+       to ink and not the `i` two engines guessed. The same measurement settled `fuli` (a four-row
+       break in an `l`, not a dotted `i`), `wili`, `loid` and `scoth`, whose second letter is an `o`
+       with a three-row gap in the right of its bowl, closed above and below it. READ THE LETTER
+       RATHER THAN THE OCR; it decided every one of the six, and twice against the first guess.
+
+       THREE FAMILIES, and the largest of them is punctuation rather than spelling.
+       · EIGHT PAGES ARE PRINTED STRAIGHT AND SCANNED SKEWED — 142, 198, 230, 240, 258, 260, 262 and
+         292 — and on those the OCR did not merely misread words, it DROPPED and TRANSPOSED whole
+         lines. A reader met `*° °Ve Him bCSt °f any creature` where the page says `I warrant him to
+         love him best of any creature, had he no more than his kirtle`, and met one line made of
+         halves of two where January's brawn and his `Noel!` had been folded together. The fifteen
+         rows at the head of this table are those passages, each transcribed off the page.
+       · THE EDITION'S OPENING SINGLE QUOTE IS READ AS A POUND SIGN on fifty-nine lines. Every one
+         was looked at and every one opens a speech, so it is one row; the sixtieth has no space
+         after it and is a row of its own.
+       · AND THE `AE` LIGATURE IS READ TWO DIFFERENT WRONG WAYS, `iE` and `/E`, which between them
+         made King Aella's name unreadable thirteen times.
+       · AND A MARK ON THE LEAF IS READ AS PROSE. Two of the eighteen rows at the foot of this table
+         delete a full-page plate that landed inside a sentence: the artist's signature on the plate
+         facing page 18 was set down between `Some evil` and `aspect or disposition of Saturn`, and a
+         speck on the plate facing page 272 between `Brother mine Valerian,` and `will you lead me
+         thither?`. The rest of that group are single characters — a degree sign, a guillemet, a
+         double low quote — standing where the page has a letter or an opening quote.
+
+       WHAT IS DELIBERATELY NOT HERE, and it is larger than what is: the SAME opening quote is read
+       as a lowercase `c` on 157 further lines, and the closing quote as a slash on about eleven.
+       `applyFixes` is split/join with no word boundary of its own, so `c` cannot be a row — one
+       written `"c  "` would match inside every word ending in c — and 157 rows each carrying their
+       own context is not a table, it is a transcript. That class wants a word-boundary-aware
+       correction pass, which is a change to machinery nine other books share and so wants a batch
+       of its own rather than the tail of this one. Eleven further spots carry a stray caret, each
+       needing a page of its own read, and they wait with it. Both are in docs/book-text-plan.md.
+
+       THE SWEEP THAT FOUND ALL OF THIS IS WORTH KEEPING: count the characters this transcription
+       uses that are neither ASCII nor its own curly quotes and dashes. Before the batch that was
+       `£ ™ ° § « » ■ „`, and every one of them but the section marks of the Parson's Tale was a
+       letter, a quotation mark or a mark on the leaf. It is two lines of script, it needs no
+       judgement, and it points straight at the passages a reader cannot read.
+
+       Every row was checked against the raw before it was written here: none is dead, none is a
+       duplicate, and no row's `from` occurs inside another row's `from` or `to`, so the single pass
+       cannot shadow or cascade. 151 substitutions in all when this table shipped; batch E6 added three
+       more rows below it, each an exception the sweep in `reFixes` must not see. */
+    fixes: [
+      /* ---------- E33: three stray marks the OCR left at a paragraph boundary ----------
+         The same family as E8-E13's: a speck or a rule on the printed page read as a character. All
+         three sit where a paragraph ends or begins, in prose that reads straight through without
+         them, and no printed edition puts an underscore there. This scan is NOT a Gutenberg text,
+         so an underscore here is never the italic marker it is in Don Quixote — which is why the
+         `_..._` rule twenty lines below extractChaucer has never once fired on this book: all 106
+         of its italics are rubrics. */
+      ["early  ? _ \n", "early  ? \n", "a stray mark after Absalom's question at the window"],
+      ["with.  ___ \n", "with. \n", "three of them, after the hot coulter smote Nicholas"],
+      ["_ c  Nay,", "c  Nay,", "one at the head of the Shipman's interruption of the Lollard"],
+      ["else5>", "else,",
+       "a digit and a bracket read for the comma of 'Learn to endure, or else, on my life, ye shall learn it'"],
+      ["•  ^Pon  a  ^  ma^  went  toward  a  temple  in  the  town \n",
+       "Upon  a  day  this  maid  went  toward  a  temple  in  the  town, \n",
+       "page 142 reads 'Upon a day this maid went toward a temple in the town,'; the scan lost 'a day this maid'"],
+      ["Wherefore  after  great \n\nbfboeth  f nt  f°-  aCh^r‘  l\".  that  whom  he  knel  to \n\nbe  both  bold  and  cunning.  To  him  this  judge  told  his  tale  in \n\nW,f  a|'<l  took  hij  assurance  to  tell  no  creature;  and  if  he \nfo  ’the  r  Se,  h‘S  he^d-  when  this  cursed  plan  was  agreed \nrich  aniUprgeciLasS  fife’.  \"d  ^  Wm  cheer  and  ga™ \n",
+       "Wherefore  after  great \ndeliberation  he  sent  for  a  churl  in  that  city  whom  he  knew  to \nbe  both  bold  and  cunning.  To  him  this  judge  told  his  tale  in \nsecret  wise  and  took  his  assurance  to  tell  no  creature;  and  if  he \ndid,  he  should  lose  his  head.  When  this  cursed  plan  was  agreed \nto,  the  judge  was  glad,  and  made  him  great  cheer  and  gave  him \nrich  and  precious  gifts. \n",
+       "page 142, the last paragraph of the Physician's Tale's opening; the scan scrambled five lines and dropped 'deliberation', 'for a churl in', 'city', 'secret wise', 'did, he should lose his', and 'to, the judge was glad'"],
+      ["then  our  _  loyal  meaning,  who  never  yet  refused  your  behest! \nai?*T’  r01^’  if  you  will  assent",
+       "then,  our  loyal  meaning,  who  never  yet  refused  your  behest, \nand,  lord,  if  you  will  assent",
+       "page 198 reads 'Accept, then, our loyal meaning, who never yet refused your behest, and, lord, if you will assent'"],
+      [".  ut  .  trutll ls.  that  tllls.  fresh  May  received  that  day  such  an \nimpression  of  pity  for  this  sick  Damian  that  she  could  not  drive \nrom  her  heart  the  thought  of  bringing  him  ease.  ‘  In  truth  ’ \n",
+       "But  the  truth  is  that  this  fresh  May  received  that  day  such  an \nimpression  of  pity  for  this  sick  Damian  that  she  could  not  drive \nfrom  her  heart  the  thought  of  bringing  him  ease.  ‘  In  truth,’ \n",
+       "page 230 reads 'But the truth is that this fresh May' and 'could not drive from her heart'"],
+      ["*°  °Ve  Him  bCSt  °f  any  creature’  had  he  no  more \n\nLo,  pity",
+       "I  warrant  him  to  love  him  best  of  any  creature,  had  he  no  more \nthan  his  kirtle.’ \n\nLo,  pity",
+       "page 230 reads 'I warrant him to love him best of any creature, had he no more than his kirtle.'; the scan lost the last four words"],
+      ["™any>  with  hearts  as  hard  as  any  stone,  who  would  have \nkt  him  die  m  the  place",
+       "be  many,  with  hearts  as  hard  as  any  stone,  who  would  have \nlet  him  die  in  the  place",
+       "page 230 reads 'indeed there be many, with hearts as hard as any stone, who would have let him die in the place'"],
+      ["SX  m  the'r  Pride>  “d  care  not  though’ they \n\n,  T1?'8  gu-nti!e,  MayI  ful1  pity,  made  a  letter  with  her  own \n",
+       "would  rejoice  in  their  cruel  pride,  and  care  not  though  they \ndid  murder. \n\nThis  gentle  May,  full  of  pity,  made  a  letter  with  her  own \n",
+       "page 230 reads 'would rejoice in their cruel pride, and care not though they did murder. This gentle May, full of pity, made a letter with her own hand'"],
+      ["nought  lacked \n\nbe  eve^afL3  ^  she  might  ™et  him,  foAt  should \n\nbe  even  as  he  would  have  it.",
+       "nought  lacked \nbut  only  day  and  place  where  she  might  meet  him,  for  it  should \nbe  even  as  he  would  have  it.",
+       "page 230 reads 'nought lacked but only day and place where she might meet him, for it should be even as he would have it.'"],
+      ["•  ‘™S  m^rror  e^e>  which  I  have  in  my  hand,  hath  such  a \n",
+       "‘  This  mirror  eke,  which  I  have  in  my  hand,  hath  such  a \n",
+       "page 240 reads 'This mirror eke, which I have in my hand, hath such a might'"],
+      ["‘  NJ°W  1  cond^de  *us,  that  if  I  could  find  some  old \n\ncomrade  at  Orleans",
+       "‘  Now  then,  I  conclude  thus,  that  if  I  could  find  some  old \ncomrade  at  Orleans",
+       "page 258 reads 'Now then, I conclude thus, that if I could find some old comrade at Orleans'"],
+      ["where  he  shone  full’pale \n\\  dare,wed  saT  The  bitter  frosts",
+       "where  he  shone  full  pale, \nI  dare  well  say.  The  bitter  frosts",
+       "page 260 reads 'where he shone full pale, I dare well say. The bitter frosts'"],
+      ["sits  by  the  fire  and  drinks  the  wine  out  of  his  ox-horn;  before \n\ncriTs,  ‘  Notl  C raWn  °f  tHe  tUSked  ^  and  6VeiT  lusfy  man \n\nAurelius  did",
+       "sits  by  the  fire  and  drinks  the  wine  out  of  his  ox-horn;  before \nhim  stands  brawn  of  the  tusked  boar,  and  every  lusty  man \ncries,  ‘  Noel ! ’ \n\nAurelius  did",
+       "page 260 reads 'before him stands brawn of the tusked boar, and every lusty man cries, Noel!'; the scan read two lines as one and lost 'him stands' and 'boar'"],
+      ["day  and  mght,,0  watch  after  a  fitting  time  to  work  his  problem  • \n\ncrafty  sllhT’  h^  appearafnce>  bY  ^h  an  ilhision  or \ncratty  sleight",
+       "day  and  night,  to  watch  after  a  fitting  time  to  work  his  problem ; \nthat  is  to  say,  to  create  an  appearance,  by  such  an  illusion  or \ncrafty  sleight",
+       "page 260 reads 'day and night, to watch after a fitting time to work his problem; that is to say, to create an appearance, by such an illusion or crafty sleight'"],
+      ["and  with  good  will  chose  not \n\nWhvrsh°  fdVti!”  TSent  m  be  r°bbed  o§f  her  maidenhood. \n\nWhy  should  I,",
+       "and  with  good  will  chose  not \nrather  to  die  than  consent  to  be  robbed  of  her  maidenhood. \nWhy  should  I,",
+       "page 262 reads 'and with good will chose not rather to die than consent to be robbed of her maidenhood. Why should I, then, fear to die?'"],
+      ["by  the  dragon  he \n\nsUtonerSJh°td  dse’  and  h5s  brotherfbnm- \n\n°Ut  °f  Sd  and  l»na.  ‘And  therefore,’ \nsaid  he,  take  heed",
+       "by  the  dragon  he \nunderstood  mercury  and  naught  else,  and  by  his  brother,  brimstone, \nthat  were  drawn  out  of  sol  and  luna.  ‘  And  therefore,’ \nsaid  he,  ‘  take  heed",
+       "page 292 reads 'by the dragon he understood mercury and naught else, and by his brother, brimstone, that were drawn out of sol and luna'"],
+      ["£  ",
+       "‘  ",
+       "the edition's opening single quote, read as a pound sign on 59 lines; every one checked, and each opens a speech"],
+      ["£Nay,  old  cob",
+       "‘  Nay,  old  cob",
+       "the same misreading with no space after it, page 185"],
+      ["iElla",
+       "Aella",
+       "the edition sets 'King Aella' with an AE ligature (page 88); read as 'iE' on ten lines"],
+      ["/Ella",
+       "Aella",
+       "the same name, the same ligature read as a slash and an E (page 100)"],
+      ["iEgeus",
+       "Aegeus",
+       "the edition sets the AE ligature; 'Aegeus' is Theseus's father in the Knight's Tale"],
+      ["iEsculapius",
+       "Aesculapius",
+       "the edition sets the AE ligature, in the roll of physicians in the Prologue"],
+      ["/Eneas",
+       "Aeneas",
+       "the edition sets the AE ligature, in the Legend the Man of Law recites"],
+      ["opinion  fhat  perfect",
+       "opinion  that  perfect",
+       "page 12 reads 'the opinion that perfect felicity'"],
+      ["Therefore  I  wili",
+       "Therefore  I  will",
+       "page 61 reads 'Therefore I will go sleep an hour or two'; the final l is broken in the forme"],
+      ["bushel  of  vour",
+       "bushel  of  your",
+       "page 71 reads 'a loaf that was made of half a bushel of your own meal'"],
+      ["child,  fuli  gracious",
+       "child,  full  gracious",
+       "page 208 reads 'a manchild, full gracious and fair to see'"],
+      ["Second  Nun's  Lale,",
+       "Second  Nun's  Tale,",
+       "page 331 reads 'Here beginneth the Second Nun's Tale'"],
+      ["I  hear  it  everv",
+       "I  hear  it  every",
+       "page 100 reads 'I hear it every bit'"],
+      ["ruler  of  everv  plant",
+       "ruler  of  every  plant",
+       "page 297 reads 'lord and ruler of every plant, herb, tree, and flower'"],
+      ["his  loid  he",
+       "his  lord  he",
+       "page 25 reads 'Better than his lord he knew how to pick up wealth'; the r has lost its arm"],
+      ["helped  the  othei",
+       "helped  the  other",
+       "page 48 reads 'each helped the other to arm'; the r has lost its arm"],
+      ["incites  othei",
+       "incites  other",
+       "page 279 reads 'then he incites other folk to it'; the same"],
+      ["penny  ofher.goods.",
+       "penny  of  her  goods.",
+       "page 179 reads 'as give a penny of her goods' — three words, not two"],
+      ["stood  tied  undei",
+       "stood  tied  under",
+       "page 78 reads 'where he stood tied under an arbor'; the r has lost its arm"],
+      ["And  ceites,",
+       "And  certes,",
+       "page 356 reads 'And certes, unless they amend them'"],
+      ["And  in  scoth",
+       "And  in  sooth",
+       "page 220 reads 'And in sooth it is fitting that bachelors have pain and woe oft'"],
+      ["Phcebus",
+       "Phoebus",
+       "the edition sets the OE ligature and this transcription expands it to 'oe' everywhere else, 25 times"],
+      ["Here  begmneth",
+       "Here  beginneth",
+       "page 45 reads 'Here beginneth the Miller his Tale'"],
+      ["day’s  journev.",
+       "day’s  journey.",
+       "page 45 reads 'a full day's journey'"],
+      ["Here  endelh",
+       "Here  endeth",
+       "page 45 reads 'Here endeth the Prologue'"],
+      ["ciying  and  pains",
+       "crying  and  pains",
+       "page 251 reads 'is cause of all my crying and pains'"],
+      ["corpus  Madnan",
+       "corpus  Madrian",
+       "page 268 reads 'by the precious corpus Madrian'"],
+      ["I  wotf  loJd",
+       "I  wot,  lord",
+       "page 254 reads 'For well I wot, lord Phoebus'"],
+      ["Here  followelh",
+       "Here  followeth",
+       "page 269 reads 'Here followeth the Prologue of the Pardoner's Tale'"],
+      ["visage.  Farthei",
+       "visage.  Farther",
+       "page 59 reads 'with dejection and sorry visage. Farther yet I saw madness'"],
+      ["so  secretiy  that",
+       "so  secretly  that",
+       "page 230 reads 'wrung it hard, but so secretly that'"],
+      ["had  slam  Phidon",
+       "had  slain  Phidon",
+       "page 262 reads 'had slain Phidon at a feast in Athens'"],
+      ["Crcesus",
+       "Croesus",
+       "page 137, the rubric over the Monk's last tragedy; the OE ligature again, and the very next line spells it out"],
+      ["of  Messema  had",
+       "of  Messenia  had",
+       "page 262 reads 'They of Messenia had fifty maidens'"],
+      ["of  Lacediemonia  sought",
+       "of  Lacedaemonia  sought",
+       "page 262 sets the AE ligature; this transcription writes 'Lacedaemon' elsewhere"],
+      ["named \nStymphahs,",
+       "named \nStymphalis,",
+       "page 262 reads 'a maiden named Stymphalis'"],
+      ["in  Athens,  of  the* \nmalice",
+       "in  Athens,  of  their \nmalice",
+       "page 262 reads 'at a feast in Athens, of their malice they commanded men'"],
+      ["read  it  if  hi  will'  She",
+       "read  it  if  he  will !  She",
+       "page 230 reads 'let him read it if he will!'"],
+      ["all  this  land,  at  the' least \n",
+       "all  this  land,  at  the  least, \n",
+       "page 198 reads 'of all this land, at the least, such that it ought to seem'"],
+      ["say  that  the^ocks  of  Brittany",
+       "say  that  the  rocks  of  Brittany",
+       "page 260 reads 'should think and say that the rocks of Brittany were gone'"],
+      ["was  Hermes,  father  of \np  ilosophers",
+       "was  Hermes,  father  of \nphilosophers",
+       "page 292 reads 'was Hermes, father of philosophers'"],
+      ["they  caused  it \nail  to  pass  out",
+       "they  caused  it \nall  to  pass  out",
+       "page 258 reads 'straightway they caused it all to pass out'"],
+      ["‘  y°ur  horse  is  g°ing",
+       "‘  your  horse  is  going",
+       "page 79 reads 'your horse is going to the fen with wild mares'"],
+      ["and \n\nj°y. \n\nThis  January",
+       "and \njoy. \n\nThis  January",
+       "page 227 reads 'filled to the full with all beauty and joy'"],
+      ["°-na  laLy-’  unto  fresh  lady.",
+       "or  a  lay,  unto  his  fair  fresh  lady.",
+       "page 228 reads 'in the style of a complaint or a lay, unto his fair fresh lady'"],
+      ["the  exaltation \n°!  JuPIter-  And",
+       "the  exaltation \nof  Jupiter.  And",
+       "page 234 reads 'which is the exaltation of Jupiter. And so befell'"],
+      ["f  N°>  quoth  she,",
+       "‘  No,’  quoth  she,",
+       "page 254 reads 'No, quoth she, by that Lord that made me!'"],
+      [".  J°u  bed  went  Aurelius",
+       "To  bed  went  Aurelius",
+       "page 260 reads 'To bed went Aurelius when he would'"],
+      ["repose  well- \nmgh  all  that  night",
+       "repose  well- \nnigh  all  that  night",
+       "page 260 reads 'had repose wellnigh all that night'"],
+      ["go  for  that \nsum.  ° \n",
+       "go  for  that \nsum. \n",
+       "page 260 ends the paragraph at 'to go for that sum.'; the degree sign is a mark on the leaf"],
+      ["« May,  with  thy  flowers",
+       "‘  May,  with  thy  flowers",
+       "page 39, the opening quote of Absalom's song, read as a guillemet"],
+      ["«  Avaunt !",
+       "‘  Avaunt !",
+       "page 138, the same misreading"],
+      ["«  Go  we  to  supper,",
+       "‘  Go  we  to  supper,",
+       "page 259, the same misreading"],
+      ["no  b„eard  nor  ever",
+       "no  beard  nor  ever",
+       "page 21 reads 'He had no beard nor ever would have'"],
+      ["why  he  lo.ved  gold",
+       "why  he  loved  gold",
+       "page 14 reads 'that was why he loved gold above all else'"],
+      ["fair  wimple \n^nd  on  her  head",
+       "fair  wimple \nand  on  her  head",
+       "page 14 reads 'wearing a fair wimple and on her head a hat as broad as a buckler'"],
+      ["and  pigs’^jbones  in  a \nglass",
+       "and  pigs’  bones  in  a \nglass",
+       "page 18 reads 'set full of false gems, and pigs' bones in a glass'"],
+      ["barren  of  alLgrace  and  hope",
+       "barren  of  all  grace  and  hope",
+       "page 31 reads 'so barren of all grace and hope'"],
+      ["Some  evil \n\n\n\\VakWick \n\n\nj \n\n\\ ' \n\n!H6 \n\n\nEMILY  IN  THE  GARDEN \n",
+       "Some  evil \n\n\nEMILY  IN  THE  GARDEN \n",
+       "the plate facing page 18 is signed 'Warwick Goble' and the signature was read as prose, mid-sentence, between 'Some evil' and 'aspect or disposition of Saturn'"],
+      ["\n\n\nTHE  ANGEL  PRESENTING  THE  CROWNS  TO  CECILY  AND  VALERIAN \n\n\n■ \n\n\nTHE  SECOND  NUN’S  TALE \n",
+       "\n\n\nTHE  SECOND  NUN’S  TALE \n",
+       "the plate facing page 272 and a mark on it, both read as prose between 'Brother mine Valerian,' and 'will you lead me thither?'; the running-head sweep takes the other sixty captions and misses this one"],
+
+      /* THREE EXCEPTIONS THE SWEEP BELOW MUST NOT SEE, and the reason `fixes` runs before `reFixes`.
+         The first is a stray mark the `f`-as-quote rule would otherwise read as a quotation mark; the
+         other two are quotation marks the ASTERISK rule deliberately cannot reach, because that rule
+         is anchored on the punctuation before it and these two follow a plain word. */
+      ["and  every- \nf  where,", "and  every- \nwhere,",
+       "page 209 reads 'in word and deed here and everywhere, as if she were an emperor's daughter'; the f is a mark on the leaf, at the head of a line"],
+      ["household  *  farewell,", "household  ‘  farewell,",
+       "page 106 reads 'bidding the household \u2018farewell, adieu!\u2019'"],
+      ["he  says  *  yea.’", "he  says  ‘  yea.’",
+       "page 220 reads 'She says not once \u2018nay\u2019 when he says \u2018yea.\u2019'"],
+
+      /* ---------- BATCH E7: EIGHT MORE THE SWEEPS BELOW CANNOT REACH ----------
+         The first two are possessives whose apostrophe was read as a MARK rather than dropped, so the
+         regex row below — which looks for a bare space — passes straight over them. The last six are
+         the closing quotation mark read as a slash where what it closes is the END OF A SENTENCE
+         rather than a clause: the sweep restores a comma before the quote, which is right on the
+         thirty-seven lines a speech tag follows and wrong on these, where a full stop is what the
+         page prints. Which of the two it is cannot be decided by a pattern, so each of these was
+         read on the leaf. */
+      ["Oxford? s  Tale.", "Oxford’s  Tale.",
+       "page 148 heads the tale 'Here beginneth the Prologue of the Clerk of Oxford’s Tale'"],
+      ["Manciple* s  Tale", "Manciple’s  Tale",
+       "the tale heading reads 'Here beginneth the Manciple’s Tale of the Crow'"],
+      ["‘Away  with  your  boldness/  Almachius  said  then,",
+       "‘Away  with  your  boldness,’  Almachius  said  then,",
+       "the page reads '‘Away with your boldness,’ Almachius said then'; the sentence runs on, so this one really is a comma, and it is here only because a capitalised name follows rather than a speech tag"],
+      ["is  prepared/ \n\n\n24 \n\n\nTHE  CANTERBURY  TALES",
+       "is  prepared.’ \n\n\n24 \n\n\nTHE  CANTERBURY  TALES",
+       "the page ends the speech 'there an end of thy woe is prepared.’'"],
+      ["done  your  duty/ \n\n‘Host/  quoth  he,",
+       "done  your  duty.’ \n\n‘Host/  quoth  he,",
+       "the page ends the speech 'you will have done your duty.’'; the second slash on the next line IS a comma and is deliberately left for the sweep"],
+      ["master  of  divinity/  And  with  that  this  foul  fiend",
+       "master  of  divinity.’  And  with  that  this  foul  fiend",
+       "the page reads 'than a master of divinity.’ And with that this foul fiend'"],
+      ["should  hide/ \n\n‘Yea,  tell  on,",
+       "should  hide.’ \n\n‘Yea,  tell  on,",
+       "the page ends the speech 'and eke reveal what you should hide.’'"],
+      ["I  will  tell/ \n\nHere  endeth  the  Prologue",
+       "I  will  tell.’ \n\nHere  endeth  the  Prologue",
+       "the page ends the prologue 'such things as I know I will tell.’'"],
+      ["nor  renov/n  in  this  combat", "nor  renown  in  this  combat",
+       "the page reads 'nor renown in this combat nor vain praise for mine exploits'; the w is broken into a v and a stroke. It is the LAST slash left in the book, and it is here rather than in the sweep above because it stands for a letter and not for a quotation mark"],
+      ["noster /’", "noster!’",
+       "the page reads '‘Now mum, and say a pater noster!’ said Nick'; the exclamation mark is read as a stroke, and the closing quote beside it survived"],
+      ["Sam- \n\n\n/ \n\n\n150 \n\n\nTHE  CANTERBURY  TALES \n\n\nsoun,",
+       "Sam-soun, \n\n\n150 \n\n\nTHE  CANTERBURY  TALES \n\n\n",
+       "a mark at the head of the leaf, standing alone between a word broken across the page turn and the running head; the running-head sweep takes the folio and the title and cannot see a line of one character. The word is carried over the page turn WHOLE rather than left to the page-turn join, because the hyphen in Sam-soun is one the edition prints — it sets the name so again four words later — and the join is written for a word broken by the line and would eat it"],
+      ["a  IVeaver,  a  Oyer", "a  Weaver,  a  Dyer",
+       "the Prologue's five guildsmen read 'A Haberdasher, a Carpenter, a Weaver, a Dyer and an Upholsterer'; the W is broken into an I and a V, and the D read as an O"],
+      ["son  ot  Philip", "son  of  Philip",
+       "the page reads 'and was son of Philip of Macedon'"],
+
+      /* ---------- BATCH E9: THE SEVEN THE `1`-AS-`I` SWEEP BELOW MUST NOT SEE ----------
+         Thirty-five times a lone figure 1 stands before a lowercase word, and thirty of them are the
+         pronoun. These are the other five, plus two where the quotation mark before the pronoun was
+         itself read as a 4 and is set a single space away, which puts it outside the E6 rule. */
+      ["them. \n\n1  here  was  a  Shipman", "them. \n\nThere  was  a  Shipman",
+       "the General Prologue reads 'There was a Shipman, from far in the West'; the T and h of There are read as a 1 and the word broken"],
+      ["said  our  Host,  1  blessings", "said  our  Host,  ‘blessings",
+       "the page reads '‘Sir Nun's Priest,’ said our Host, ‘blessings on your breech’ — an opening quote, not a pronoun"],
+      ["quoth  he,  1  now  fair  befall", "quoth  he,  ‘now  fair  befall",
+       "the page reads '‘Sir priest,’ quoth he, ‘now fair befall you !’ — the same"],
+      ["Alas  1  that  ever  that", "Alas  !  that  ever  that",
+       "the page reads 'Thus I am slain, since Pity has died. Alas ! that ever that day should be'; the mark is an exclamation, set with the space this edition gives one"],
+      ["thy  humble \n1  bearing,", "thy  humble \nbearing,",
+       "the page reads 'and thine obsequiousness and thy humble bearing, and thy counterfeited woe and pain'; the mark is a tick in the MARGIN, outside the text block"],
+      ["and  said,  4 1  forbid  you", "and  said,  ‘I  forbid  you",
+       "an opening quote read as a 4 and set one space from the pronoun, which is what puts it outside the E6 sweep"],
+      ["4 1  grant  it  you,’", "‘I  grant  it  you,’",
+       "the same"],
+
+      /* ---------- BATCH E9: THE SEVEN THE TWO `1`-BEFORE-A-CAPITAL SWEEPS MUST NOT SEE ----------
+         Twenty-one times the figure stands before a CAPITAL, and there it is a quotation mark or an
+         exclamation mark rather than the pronoun — which of the two the sweeps below decide by what
+         comes before it. These seven decide nothing: three are a mark at the end of a line where the
+         sentence is already closed and nothing belongs, and four sit inside a run the scan has
+         mangled past any rule. */
+      ["bit.’  1 \n\nThus", "bit.’ \n\nThus",
+       "the page closes the speech at 'I hear it every bit !’ and begins a new paragraph; the mark is dirt at the end of the line"],
+      ["safe  place.  1 \n\nWho", "safe  place. \n\nWho",
+       "the same shape — 'cast them away in a safe place.' ends the paragraph"],
+      ["many  a  thing.’  1 \n\nThen", "many  a  thing.’ \n\nThen",
+       "the same shape — 'where you shall hear many a thing.’' ends the speech"],
+      ["ment.’  r  1 \n\nWhen", "ment.’ \n\n‘When",
+       "the page reads '‘When they came out of the town’; the opening quote is read as an r and a 1 either side of the line end"],
+      ["escape.  J  1 \n\n,  ‘  AUs,", "escape. \n\n‘  Alas,",
+       "the page reads '‘Alas, has not many a noble wife and many a maiden slain herself before this'; three marks and a mis-set word for one opening quote"],
+      ["Richard \n\n1 V°u  A?nC  °,f  ,Bo.hemia \'>  the  noble  terceI",
+       "Richard \n\nII  to  Anne  of  Bohemia  ;  the  noble  tercel",
+       "the note reads 'celebrates the betrothal of Richard II to Anne of Bohemia ; the noble tercel eagle represents the former'"],
+      ["suitors \nor  the  princess", "suitors \nof  the  princess",
+       "the same note reads 'two other suitors of the princess'"],
+
+      /* ---------- BATCH E9: THE SINGLE ASTERISK, WHICH IS NOT A ROW OF THEM ----------
+         The translators DO print a row of seven spaced asterisks where they have cut a passage —
+         verified on the leaf, and the reason the E6 sweep is anchored so as to leave them alone. But
+         the second scan of this edition prints none of them, its OCR discarding the ornament this one
+         keeps, WHICH IS THE LIMIT ON THAT WITNESS: the other copy is evidence for what a character
+         IS and never for what is absent. These four are single asterisks standing inside a sentence,
+         where the row is not. */
+      ["or  two  * \nthen", "or  two  ; \nthen",
+       "the leaf reads 'John lay still whilst a man might walk a furlong or two ; then he arose'"],
+      ["burnished  gold  *  but", "burnished  gold  ;  but",
+       "the page reads 'with his bright beams like burnished gold ; but now he was descended'"],
+      ["into  the  crucible  * \nand", "into  the  crucible  ; \nand",
+       "the page reads 'out of the hollow and down into the crucible ; and so it must needs'"],
+      ["son-in-law  ?  * \n\nThese", "son-in-law  ?  ’ \n\nThese",
+       "the page reads 'take me as your son-in-law ?’ These sudden words so astonied the'; a closing quote, where E6's rule reads an asterisk after punctuation as an OPENING one"],
+
+      /* ---------- BATCH E10: THE STRAY MARKS, SORTED BY MEASURING THEM ----------
+         E9 established that the second scan cannot witness an ABSENCE, its OCR discarding ornament
+         this one keeps. So these were decided on THIS scan's own geometry instead, out of the word
+         coordinates in the page XML, and the marks fall into three populations that do not overlap:
+
+           · about 121 by 6, or 61 by 7 — long and flat. That is a RULE, and the edition prints it at
+             a paragraph break in the same spirit as its rows of asterisks: 'he would fain die.——'.
+             Confirmed on the leaf. It is kept, set as a dash, because it is type and the reader
+             should see it.
+           · about 20 to 47 wide by 57 to 67 tall — narrow and full-height. Nothing is printed there
+             at all: it is the WIDE SPACE this edition sets after a full stop, which the scan has
+             boxed as though it were a glyph. Confirmed on the leaf, where 'have my love.  Thy honor'
+             runs on with a gap and no mark. Deleted.
+           · under 20 by 14 — a speck. Dirt on the leaf. Deleted.
+
+         A mark of the apostrophe family is deliberately NOT in this batch whatever it measures: three
+         earlier batches were spent putting quotation marks BACK, and deleting one by arithmetic is
+         the one mistake this pass must not make. */
+      ["have  my  love.  _",
+       "have  my  love.  ",
+       "the page prints nothing here: the mark measures 41 by 67, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["is  so  jealous  -",
+       "is  so  jealous  ",
+       "a speck on the leaf, 6 by 3 — far below the height of any letter on the page"],
+      ["he  can \ngallop.  _",
+       "he  can \ngallop.  ",
+       "the page prints nothing here: the mark measures 28 by 65, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["talked  and  disported  _",
+       "talked  and  disported  ",
+       "the page prints nothing here: the mark measures 23 by 57, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["thus  in  sloth. _",
+       "thus  in  sloth. —",
+       "a rule the edition prints at the break, 61 by 6 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["shall  now  tell.  ~",
+       "shall  now  tell.  ",
+       "a speck on the leaf, 9 by 4 — far below the height of any letter on the page"],
+      ["never  a  dispute \n\\",
+       "never  a  dispute \n",
+       "the page prints nothing here: the mark measures 45 by 46, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["fables  and \nmockeries. \n\n-",
+       "fables  and \nmockeries. \n\n—",
+       "a rule the edition prints at the break, 117 by 6 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["so  I  shall.’ -",
+       "so  I  shall.’ —",
+       "a rule the edition prints at the break, 122 by 7 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["he \nrecked  not.  _",
+       "he \nrecked  not.  ",
+       "the page prints nothing here: the mark measures 47 by 65, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["ever  before \nthee. -",
+       "ever  before \nthee. —",
+       "a rule the edition prints at the break, 121 by 6 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["say  no  better.’ _",
+       "say  no  better.’ —",
+       "a rule the edition prints at the break, 121 by 7 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["would  fain \ndie. -",
+       "would  fain \ndie. —",
+       "a rule the edition prints at the break, 121 by 5 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["say  no  more. -",
+       "say  no  more. —",
+       "a rule the edition prints at the break, 121 by 6 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["such  a  trick. -",
+       "such  a  trick. —",
+       "a rule the edition prints at the break, 121 by 5 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["shall  now  hear. \n\n_",
+       "shall  now  hear. \n\n",
+       "the page prints nothing here: the mark measures 20 by 63, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["and  else  not.’ \n\n-",
+       "and  else  not.’ \n\n—",
+       "a rule the edition prints at the break, 122 by 5 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["devotion  to  chastity. -",
+       "devotion  to  chastity. —",
+       "a rule the edition prints at the break, 121 by 6 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["the  canon  replied  •",
+       "the  canon  replied  ",
+       "a speck on the leaf, 11 by 9 — far below the height of any letter on the page"],
+      ["men  cure  folk,’ _",
+       "men  cure  folk,’ —",
+       "a rule the edition prints at the break, 62 by 8 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["say  this,  that, _",
+       "say  this,  that, —",
+       "a rule the edition prints at the break, 61 by 7 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["all  they  would, _",
+       "all  they  would, —",
+       "a rule the edition prints at the break, 61 by 6 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["beware  of \nthis ^",
+       "beware  of \nthis ",
+       "the page prints nothing here: the mark measures 41 by 67, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["not  tell  you  •",
+       "not  tell  you  ",
+       "a speck on the leaf, 9 by 8 — far below the height of any letter on the page"],
+      ["must  needs  be. _",
+       "must  needs  be. —",
+       "a rule the edition prints at the break, 61 by 8 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["he  felt  that \n\\",
+       "he  felt  that \n",
+       "the page prints nothing here: the mark measures 41 by 56, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["his  father  sent.  _",
+       "his  father  sent.  ",
+       "a speck on the leaf, 8 by 8 — far below the height of any letter on the page"],
+
+      /* ---------- BATCH E11: THE WORD BROKEN OPEN, AND THE LETTER STANDING FOR ANOTHER ----------
+         Two classes, and the first was found by asking THE BOOK'S OWN VOCABULARY rather than a
+         dictionary: where a lone letter stands before a fragment, join the two and ask how often the
+         result appears elsewhere in this text against how often the fragment appears alone. `H`+`ow`
+         scores 619 to 6, `k`+`nowest` 19 to 1, `j`+`oy` 196 to 1. It proposes thirteen, and it is a
+         PROXY rather than a verdict — it also proposed `a`+`bout`, in 'many a man who cannot stand a
+         bout is nevertheless pleased', where the second scan shows the two words ARE the printing and
+         joining them would have destroyed a correct reading. Every one was read before it was written.
+
+         The second class is a letter standing for a different word, which no frequency test can see
+         because both readings are ordinary English. All eight were read on the second scan. */
+      ["rain.  A  las,", "rain.  Alas,",
+       "the page reads 'let your holy tears fall as rain. Alas, your empress and your queen'"],
+      ["victuallers. \nH  e  was", "victuallers. \nHe  was",
+       "the page reads 'of a guild of victuallers. He was as blithe as a goldfinch'"],
+      ["rise.  H  er  duenna", "rise.  Her  duenna",
+       "the page reads 'and said she list to rise. Her duenna, one of these old women'"],
+      ["fools.”  H  ow  often", "fools.”  How  often",
+       "the page reads 'lord of all fools.” How often have you'"],
+      ["all.  H  ow  shall", "all.  How  shall",
+       "the page reads 'and profit themselves not at all. How shall I conclude'"],
+      ["eyes  ! \nH  ow  fairer", "eyes  ! \nHow  fairer",
+       "the page reads 'with thy dovelike eyes ! How fairer be thy breasts than wine'"],
+      ["you  !  N ow  that", "you  !  Now  that",
+       "the page reads 'A very pestilence fall on you ! Now that I am come to this'"],
+      ["Parson  s  T ale.", "Parson  s  Tale.",
+       "the heading reads 'Here followeth the Prologue of the Parson's Tale'; the same heading four lines on has the word whole"],
+      ["Yeoman  s  T ale.", "Yeoman  s  Tale.",
+       "the same, in 'Here endeth the Prologue of the Canon's Yeoman's Tale'"],
+      ["heart.  T rue  it", "heart.  True  it",
+       "the page reads 'dear heart. True it is, well I know'"],
+      ["full  of  j  oy", "full  of  joy",
+       "the page reads 'All full of joy and happiness was the palace'"],
+      ["and  k  nowest", "and  knowest",
+       "the page reads 'thou, his son, art proud also, and knowest all these things'"],
+      ["prophet  J eremy", "prophet  Jeremy",
+       "the page reads 'admonishes us by the prophet Jeremy, who says in this wise'"],
+      ["if  you \ni  will  hearken", "if  you \nwill  hearken",
+       "the page reads 'Now I will relate my story, if you will hearken' — there is no word between"],
+      ["my \nsoul  i  For,  brother", "my \nsoul  !  For,  brother",
+       "the page reads 'so God save my soul ! For, brother mine, take this from me'"],
+      ["his  wit \nl  am  never", "his  wit \nI  am  never",
+       "the page reads 'and of all his wit I am never the better'; the other copy misreads the same letter as an f, which is what a faint capital I looks like to two machines"],
+      ["This  was \ni  fair  bit", "This  was \na  fair  bit",
+       "the page reads 'This was a fair bit of horsemanship for a cook !'; the other copy misreads the same letter too, so something is printed there and only the article fits"],
+      ["neither \ny  force", "neither \nby  force",
+       "the page reads 'neither by force nor bribe, he thought, could he speed'"],
+      ["dance  m  their", "dance  in  their",
+       "the page reads 'they made them dance in their father's blood upon the pavement'"],
+      ["maidens \nm  fear", "maidens \nin  fear",
+       "the page reads 'Wherefore these woful maidens in fear of this, privily leaped'"],
+      ["green  m  every", "green  in  every",
+       "the page reads 'The bitter frosts, with sleet and rain, have destroyed the green in every yard'"],
+
+      /* ---------- BATCH E12: THE SPACED FULL STOP, AND THE LAST OF THE MANGLED RUNS ----------
+         E8 put the comma back on its own word and left the full stop, because in the raw the spaced
+         full stop is mostly the plate list's leader dots and the back matter's tale abbreviations —
+         `( Sh . T.)` — neither of which the extractor puts in a chapter. Six DO reach the reader, and
+         all six are a heading's own terminal stop driven a space off it. The rest below are runs the
+         scan mangled, each read against the second copy: a comma standing after a sentence is already
+         closed, a semicolon read as a comma, and in two places a small heap of marks where the page
+         prints one closing quotation mark. */
+      ["Shipman’s  Tale .", "Shipman’s  Tale.", "the heading is 'Here endeth the Shipman's Tale.'"],
+      ["Prioress’s  Tale .", "Prioress’s  Tale.", "the heading is 'The Prologue of the Prioress's Tale.'"],
+      ["Host  to  Chaucer .", "Host  to  Chaucer.", "the heading is 'Behold the merry words of the Host to Chaucer.'"],
+      ["Explicit  prima  pars .", "Explicit  prima  pars.", "the rubric is 'Explicit prima pars.'"],
+      ["Franklin  s  Tale .", "Franklin  s  Tale.", "the heading is 'Here is ended the Franklin's Tale.'"],
+      ["the  Manciple .", "the  Manciple.", "the heading is 'Thus endeth the Prologue of the Manciple.'"],
+      ["loud.  , \n\nNow  I  have", "loud. \n\nNow  I  have",
+       "the page reads 'Therefore he sang merrily and loud.' and begins a new paragraph; the sentence is closed and no comma follows it"],
+      ["Palamon.  ,  They  were", "Palamon.  They  were",
+       "the same shape — 'Arcite and the other knight Palamon.' ends the sentence"],
+      ["to  spend  !  ’  , \n\nThis  miller  despatched", "to  spend  !  ’ \n\nThis  miller  despatched",
+       "the same shape, after a closing quotation mark this time"],
+      ["quoth  she  ,  well  may  I  sing", "quoth  she  ;  ‘well  may  I  sing",
+       "the page reads '‘Yea, God wot all,’ quoth she ; ‘well may I sing Alack ! and Alas that I was born !’ — a semicolon read as a comma, and the quotation mark opening the second half of the speech lost with it"],
+      ["as  you.  .  .  ,  , \n\nThis  miller  smiled", "as  you.’ \n\nThis  miller  smiled",
+       "the page reads 'I is as ill a miller as you.’' and begins a new paragraph at 'This miller smiled at their simplicity'; four marks stand where the closing quotation mark is"],
+      ["in  hand  ?  ,  ,  _  i \n\n‘By  God", "in  hand  ?  ’ \n\n‘By  God",
+       "the page reads 'what will you do whilst it is in hand ?’' and opens the reply at '‘By God, I will be here'; four marks again for one closing quotation mark"],
+      ["amend  it.  .  Now  let  me", "amend  it.  Now  let  me",
+       "the sentence is closed at 'but I shall soon amend it.'; a full stop is not printed twice"],
+      ["her  troops.  .  ^ \n\nHer  two  sons", "her  troops. \n\nHer  two  sons",
+       "the same, with a second mark beside it — 'or put them to flight with her troops.' ends the paragraph"],
+      ["gladly  hear.  . \n\n‘  I  agree", "gladly  hear. \n\n‘  I  agree",
+       "the same — 'and then will we gladly hear.' ends the speech"],
+      ["with  thee.’ \n\n.  ‘Who  knocks", "with  thee.’ \n\n‘Who  knocks",
+       "the same, after a closing quotation mark"],
+      ["forevermore  ! .  Whatever  manner", "forevermore  !  Whatever  manner",
+       "the same, after an exclamation mark — 'take warning by me forevermore !'"],
+
+      /* ---------- BATCH E13: THE SIX THAT NEEDED THE LEAF ----------
+         E12 left nine marks in the shipped prose. Three are correct — the page really does print `—,`
+         and BOTH copies read it — and these are the other six. The second scan could not settle any
+         of them, in four cases because it cannot be aligned to the run at all, so each was cropped
+         out of the page image and read. Two turn out to be punctuation the scan flattened (a colon
+         and a question mark, both of which change the sentence), one is a closing quotation mark that
+         was simply lost, and three are nothing: a line break, a show-through from the facing page,
+         and a reader's pencil in the margin. */
+      ["as  fast  as  you  may.’  .  TTT,  ... \n\n‘  In  faith", "as  fast  as  you  may.’ \n\n‘  In  faith",
+       "the page reads 'I pray you as fast as you may.’' and opens the next paragraph at '‘In faith it shall be done,’ quoth Simkin'; the marks between are show-through from the facing leaf"],
+      ["Save  only \nthis  .  she  prayed  the  man", "Save  only \nthis  :  she  prayed  the  man",
+       "the page reads 'Save only this : she prayed the man that, if he could, he should bury her little son in the earth' — a colon, set with the space this edition gives one"],
+      ["tain  .  Methinks", "tain?  Methinks",
+       "the page reads 'Now, will you joust at the quintain? Methinks you are in a noble state for that, sweet sir !' — a question mark, and set tight against the word, which this edition does not always do"],
+      ["cried  c  Ah  ! ,  as  though", "cried  c  Ah  !,’  as  though",
+       "the page reads 'therewith he started and cried ‘Ah !,’ as though he were stricken through the heart'; the exclamation mark and the comma both survived and the closing quotation mark beside them did not"],
+      ["to  the  tower \n.  <,and  guarded  amongst", "to  the  tower \nand  guarded  amongst",
+       "the page reads 'The bridle was carried to the tower and guarded amongst his most precious jewels'; the marks are a reader's pencil in the margin, which this leaf carries down its whole outer edge"],
+      ["I  thought \nhim  .  so  faithful", "I  thought \nhim  so  faithful",
+       "the page reads 'But nevertheless I thought him so faithful, and eke, sooth to say, that he should return' — nothing stands between the two words but the line break"],
+    ],
+
+    /* ---------- THE OPENING QUOTATION MARK, MISREAD SIX WAYS (Sep 2026, batch E6) ----------
+       E5 repaired what the scan LOST. This is what it never set: the edition's opening single quote,
+       which the machine reads as a letter or a bracket on 355 lines of speech — `c` 227 times, `*` 61,
+       `4` 40, `f` 15, `{` 6 and `<` 6. A reader met `c Alas ! \u2019 quoth he, c my cousin Arcite`.
+
+       EVERY ONE WAS ENUMERATED AND READ BEFORE A ROW WAS WRITTEN, which is affordable because the
+       count is in the hundreds rather than the thousands and because the shape is so regular. Two
+       checks did the work of reading three hundred lines: what FOLLOWS (a quotation mark is followed
+       by two spaces and a word, where the page furniture it might be confused with is followed by a
+       run of capitals or a digit), and what PRECEDES (a quotation mark opens after a full stop, a
+       comma, a colon, a dash or a paragraph break). The second is only needed for the asterisk.
+
+       WHY THE ASTERISK IS ANCHORED AND THE OTHERS ARE NOT. The translators mark each passage they cut
+       with a row of asterisks, and an asterisk is also used for a mark on the leaf, so five of the
+       seventy loose matches are not quotes at all — one of them the semicolon in `burnished gold ;
+       but now he was descended`. Requiring punctuation before it removes all five and costs two real
+       quotes, which are restored by hand in the two `fixes` rows above. No other character here is
+       ever used in a run of itself, so for the rest the loose rule is exact and the same anchor would
+       only cost quotes — eight of them on the `c` row alone, each following a running head, a page
+       number or a stray mark.
+
+       AND `4` NEEDS A GUARD THE OTHERS DO NOT, because it is also a page number: `4  THE CANTERBURY
+       TALES` is the top of a leaf and `4  Thou shalt to Athens` is Mercury speaking. A capital
+       followed by a capital is a running head; a capital followed by anything else is a word. Two
+       further `4`s open a speech whose first word is a misread `I` set as `1`, and they are left for
+       the batch that takes on that class rather than half-repaired here.
+
+       WHAT IS STILL LEFT, measured the same way and recorded in docs/book-text-plan.md: the closing
+       quote is read as an asterisk on 2 lines, a word's first letter is broken off it on about
+       fifteen, and some thirty stray marks stand in the run of the prose. None of those is a single
+       mark standing where an OPENING quotation mark belongs, so none belongs in this table; the
+       possessive and the closing quote read as a slash are batch E7, in `reFixes` below. */
+    reFixes: [
+      /* ---------- E56: READ AGAINST TWO OTHER SCANS OF THE SAME EDITION (Sep 2026) ----------
+         Ten batches have corrected this book by INFERENCE — the shelf as a dictionary, the rhyme, the
+         Middle English facing it — because the entry said what the Journey's still says: only one
+         transcription exists. That was never checked. **Archive.org holds EIGHT scans of the 1912
+         Macmillan volume**, and two of them read cleanly enough to serve as witnesses: the New York
+         Public Library's copy (`completepoetical00chau`) and Google's (`completepoetica01mackgoog`).
+         Three independent OCRs of one printing settle by majority what one alone can only guess at.
+
+         HOW THE 44 ROWS BELOW WERE FOUND. Each token of our scan was looked up by its own context —
+         the three words either side — in both witnesses; where both resolve it, agree with each
+         other, and differ from ours, that is a finding. 229,562 of our 263,871 tokens could be
+         resolved that way and 199 differ. **161 of those 199 are in matter Folio does not ship** —
+         the volume is Chaucer's complete poetical works and this book is the Prologue and the
+         twenty-four tales — which is the filter that made the rest readable one at a time.
+
+         EVERY ONE OF THE 38 WAS THEN READ, and six were not repairs:
+           · `Law` → `LaWy` and `Bath` → `Bathy` — both witnesses damaged, ours right.
+           · `Prioress's` → `Prioresses` — LEFT ALONE and worth saying why. Two scans against one is
+             the strongest evidence here, and it is still not enough: an OCR dropping an apostrophe
+             is as likely as one inventing it, ours emits a TYPOGRAPHIC apostrophe rather than a
+             straight one, and the heading reads correctly either way. A majority is not a proof, and
+             a reading that changes nothing for a reader is not worth a guess.
+           · Three differences of punctuation only, which are this comparison's own noise.
+
+         AND THREE THAT LOOK LIKE JUDGEMENT CALLS AND ARE NOT:
+           · `governable` → `governaille` — the Wife of Bath's envoy is RHYMED, and the stanza runs
+             dale / governaille / avail. Ours breaks the rhyme; the witnesses keep it.
+           · `Jove` → `love` in "what women chiefly love", which is the question the whole tale turns on.
+           · `oi` → `or`: our scan folded the running head into the sentence, so the page reads
+             "woe or rancor or ire" across a leaf.
+
+         THE SEVEN CARET RUNS AT THE HEAD OF THE LIST are what `book-audit.js` had been reporting, and
+         two of them were beyond inference until now: `* ^en^s whilom` is **At St. Denis**, the first
+         words of the Shipman's Tale, and `for thy father' s^sput!` is **for thy father's soul!** —
+         a whole phrase and a whole place-name, recovered rather than guessed.
+
+         `Qui la?` is the one settled by the FACING COLUMN instead: both witnesses are damaged there
+         too, and Skeat's Middle English prints the French outright. */
+
+      /* the caret runs, all seven confirmed against both witnesses (or, for Qui la, the Middle English) */
+      [/for\s+thy\s+father’\s+s\^sput!/g, "for thy father’s soul!",
+       "the Reeve's Tale — both witnesses read 'for thy father's soul !'"],
+      [/\*\s+\^en\^s\s+whilom/g, "At St. Denis whilom",
+       "the Shipman's Tale opens 'At St. Denis whilom there dwelt a merchant'; the place-name was lost outright"],
+      [/‘\s+j\s+\^ui\s+la\?’/g, "‘Qui la?’",
+       "the merchant's wife at the counting-house door; Skeat's column prints 'Qui la ?'"],
+      [/\^Vith\s+that\s+he\s+shut/g, "With that he shut", "a broken W, the Shipman's Tale"],
+      [/I\s+spake\s+to\s+\^him/g, "I spake to him", "a caret inside the line, the Wife of Bath's Prologue"],
+      [/ever\s+been\^j\s+given/g, "ever been given", "a caret and a j on the leaf edge, the same prologue"],
+      [/thereof\s+to\.\s+a\.ny\s+ot\^er\s+creature/g, "thereof to any other creature",
+       "the Franklin's Tale — two stray points and a broken h in one clause"],
+
+      /* the 32 the two witnesses agree on, in the order they stand in the book */
+      [/ever\s+since\s+his\s+iord/g, "ever since his lord", "an l read as i, the Squire in the Prologue"],
+      [/But\s+as\s+for\s+Lis\s+trade/g, "But as for his trade", "an h read as L, the Pardoner in the Prologue"],
+      [/Julius\s+Cassar/g, "Julius Caesar", "the AE ligature read as ss, the Knight's Tale"],
+      [/time\s+be\s+a\s+tool/g, "time be a fool", "an f read as t, the Reeve's Prologue"],
+      [/cWehee/g, "Wehee", "the opening quote read as a c, before the horse's neigh in the Reeve's Tale"],
+      [/I\s+must\s+be\s+ot\s+your\s+class/g, "I must be of your class", "an f read as t, the Cook's Prologue"],
+      [/soidaness/g, "soldaness", "an l read as i, twice, of the Sultaness in the Man of Law's Tale"],
+      [/set\s+h'er\s+on\s+a\s+ship/g, "set her on a ship", "a stray point inside the word, the same tale"],
+      [/meal\s+sht\s+fed/g, "meal she fed", "an e read as t, the same tale"],
+      [/and\s+Jet\s+your\s+bags/g, "and let your bags", "an l read as J, the Shipman's Tale"],
+      [/what\s+women\s+chiefly\s+Jove/g, "what women chiefly love",
+       "an l read as J — and it is the question the Wife of Bath's Tale turns on"],
+      [/you\s+shall\s+rnyme\s+no\s+longer/g, "you shall rhyme no longer",
+       "the rn/m confusion running the other way, the Host to Chaucer"],
+      [/the\s+sin\s+of\s+avarijce/g, "the sin of avarice", "a stray j, the Pardoner's Tale"],
+      [/per-\s*jdition/g, "perdition", "a stray j across a line break, the Wife of Bath's Prologue"],
+      [/shape\s+as\s+well\s+as\s+L\s+Have\s+you/g, "shape as well as I. Have you",
+       "an I read as L, the Friar's Tale"],
+      [/you\s+above\s+your\s+poweq/g, "you above your power", "an r read as q, the Friar's Tale"],
+      [/like\s+ac\s+aspen\s+leaf/g, "like an aspen leaf", "an n read as c, the Summoner's Prologue"],
+      [/the\s+Kmilia/g, "the Emilia", "an E read as K, of the Italian region in the Clerk's Tale"],
+      [/the\s+governable\./g, "the governaille.",
+       "the Wife of Bath's envoy is rhymed dale / governaille / avail, and ours broke the rhyme"],
+      [/this\s+fresh\s+Aday/g, "this fresh May", "an M read as Ad, of January's wife in the Merchant's Tale"],
+      [/for\s+by\s+die\s+Queen/g, "for by the Queen", "a th read as di, the Squire's Tale"],
+      [/and\s+set\s+im\s+down/g, "and set him down", "a lost h, the Squire's Tale"],
+      [/cunnincr/g, "cunning", "a g read as cr, the Franklin's Tale"],
+      [/I\s+release\s+vou\s+your/g, "I release you your", "a y read as v, the Franklin's Tale"],
+      [/their\s+felloes\s+in\s+pains/g, "their fellows in pains", "a w read as e, the Second Nun's Tale"],
+      [/woe\s+or\s+rancor\s+oi/g, "woe or rancor or",
+       "an r read as i where the page turns — the printed line is 'woe or rancor or ire'"],
+      [/lest\s+you\s+ose\s+all/g, "lest you lose all", "a lost l, the Canon's Yeoman's Tale"],
+      [/to\s+tell\s+if\s+all,\s+the\s+Cook/g, "to tell it all, the Cook", "a t read as f, the Manciple's Prologue"],
+      [/twenty\s+thoucand\s+times/g, "twenty thousand times", "an s read as c, the Manciple's Tale"],
+      [/these\s+chief\s+sms/g, "these chief sins", "an i read as nothing, the Parson's Tale"],
+      [/ber\s+or\s+the\s+twigs/g, "ber of the twigs", "an f read as r, the Parson's Tale"],
+      [/hostJers/g, "hostlers", "an l read as J, the Parson's Tale"],
+
+      /* THE LAST FIVE SPELLINGS OF ONE KING'S NAME. The table above already renders this edition's AE
+         ligature as `Ae` and carries rows for `iElla` and `/Ella`; the scan breaks it three further
+         ways, and twice takes the preceding space with it. All five are the Northumbrian king of the
+         Man of Law's Tale, and thirteen other mentions in the same tale already read `Aella`. */
+      [/iTlla/g, "Aella", "the ligature read as iT"],
+      [/Ailla/g, "Aella", "the ligature read as Ai, twice"],
+      [/\.ZElla/g, "Aella", "the ligature read as ZE, with the space before it read as a point"],
+      [/\.Ella/g, "Aella", "the ligature's A lost altogether, the space again read as a point"],
+
+      /* And one the witnesses caught three words from the caret run at the head of this list. */
+      [/theTmUer/g, "the miller", "the Reeve's Tale — 'quoth the miller', four letters of it mis-read"],
+
+      /* ---------- E33: TWO CONFUSION SHAPES THE SCANNER'S SET DID NOT CARRY (Sep 2026) ----------
+         `h` read as `n` — the arch of the h breaking so the letter closes into an n — and `na` read
+         as `m`, which is the same accident as the `rn/m` and `in/m` the set already holds, one
+         letter pair further on. Swept over the whole shelf with the SHELF as the dictionary: a form
+         no other book on it knows is not English or archaic, which is what tells `cniefest` from
+         `nigh` and `nere`. Fifty-seven h/n candidates came back and nine survived that filter, of
+         which four were damage; the `na`/`m` sweep returned three and all three were. */
+      [/(?<![A-Za-z])cniefest(?![A-Za-z])/g, "chiefest",
+       "an h read as n in `chiefest`, of the parish clerk's eye on the carpenter's wife — 1 against 12"],
+      [/(?<![A-Za-z])somewnat(?![A-Za-z])/g, "somewhat",
+       "an h read as n in `somewhat`, of the Lollard who will preach us somewhat — 1 against 67"],
+      [/(?<![A-Za-z0-9])4orth(?![A-Za-z0-9])/g, "worth",
+       "a 4 read for the w of `worth`, in 'that tale is not worth a rake-handle'"],
+      [/(?<![A-Za-z0-9])k9ew(?![A-Za-z0-9])/g, "knew",
+       "a 9 read for the n of `knew`, in 'And Damian who knew all her plan'"],
+      [/(?<![A-Za-z0-9])4so(?![A-Za-z0-9])/g, "‘so",
+       "the opening quotation mark read as a 4 and run onto the word — E6's family with no space to separate them, in '‘Nay, nay,’ quoth she, ‘so may God help me’'"],
+      [/(?<=\s)c(?= {1,2}[A-Za-z“])/g, "‘",
+       "the opening single quote read as a lowercase c; all 227 were listed and read, and every one opens a speech. It is the ONE row that allows a single space: the printing sets two between words, so a lone space is itself a scanning fault, and widening the others by a space would take a stray brace and two currency figures out of the back matter"],
+      [/(?<=[.,;:!?’”—‘\]]\s{1,3}|\n\n)\*(?=  [A-Za-z“])/g, "‘",
+       "the same, read as an asterisk; anchored on the punctuation before it so the translators' rows of asterisks and four marks on the leaf are left alone"],
+      [/(?<=\s)4(?=  [A-Z](?![A-Z])|  [a-z])/g, "‘",
+       "the same, read as a figure 4; the lookahead refuses a run of capitals, which is a running head after a page number"],
+      [/(?<=\s)f(?=  [A-Za-z“])/g, "‘",
+       "the same, read as a lowercase f"],
+      [/(?<=\s)\{(?=  [A-Za-z“])/g, "‘",
+       "the same, read as a left brace"],
+      [/(?<=\s)<(?=  [A-Za-z“])/g, "‘",
+       "the same, read as a less-than sign"],
+
+      /* ---------- BATCH E7: THE POSSESSIVE, AND THE CLOSING QUOTE READ AS A SLASH ----------
+         Both classes were enumerated in full before a rule was written, and neither has an exception
+         inside its own shape. The possessive appears in three: the apostrophe simply gone, and the
+         apostrophe present but with a space driven in after it. All 71 were listed and read, and
+         every one is a broken possessive — there is no line in the book where a word is followed by
+         a standing lowercase s.
+
+         The slash is the more interesting of the two, because it stands for TWO characters and not
+         one: the printing sets a comma or a full stop and THEN the closing quote, and the scan reads
+         the pair as a single stroke. Which of the two it is is a judgement about the sentence, so
+         the sweep here claims only the thirty-seven where a speech tag follows on the same line —
+         'quoth he', 'said she', 'answered Criseyde' — where a comma is what the page prints without
+         exception. The five that close a sentence outright are in `fixes` above, read on the leaf. */
+      [/(?<=[A-Za-z])  s(?= )/g, "’s",
+       "a possessive apostrophe read as a space"],
+      [/(?<=[A-Za-z])' s(?= )/g, "’s",
+       "the same, with the apostrophe read as a straight one and a space driven in after it"],
+      [/(?<=[A-Za-z])’ s(?= )/g, "’s",
+       "the same, with the apostrophe read correctly and a space driven in after it"],
+      [/(?<=[A-Za-z])\/(?=  [a-z])/g, ",’",
+       "the closing quotation mark and the comma before it read together as a slash; claimed only where a lowercase word follows, which on every one of the thirty-seven is a speech tag or the narrative resuming"],
+
+      /* ---------- BATCH E8: THE COMMA DRIVEN OFF ITS OWN WORD ----------
+         This edition really does set a SPACE before a semicolon, an exclamation mark, a question mark
+         and a colon — that is a 1912 house style and it is left exactly as it stands. It does not do
+         so before a comma, and the corpus says so outright: 10,944 commas sit against the word before
+         them and 40 stand a space away, which is 0.4% and is noise rather than a convention. The
+         second scan of this edition attaches every one of them, in its own misreadings included — it
+         reads `Squire^` and `Haberdasher^` where this one reads `Squire ,` and `Haberdasher ,`. The
+         one place a spaced comma is left alone is `{Frankl. T ,)`, where the mark is a misread full
+         stop inside a back-matter reference and closing it up would only make a wrong stop tidier. */
+      [/(?<=[A-Za-z]) ,(?=\s)/g, ",",
+       "a comma set a space away from the word it belongs to"],
+
+      /* ---------- BATCH E9: THE PRONOUN READ AS A FIGURE ----------
+         All 45 were listed and read against the second scan and, where that was not enough, against
+         the leaf. Five are not the pronoun and two more carry a quotation mark the E6 sweep cannot
+         reach; all seven are handled in `fixes` above, so what arrives here is a capital I whose
+         serifs the scan lost. It is anchored on a LOWERCASE word following, which is what keeps it
+         off a page number and off the start of a sentence — the two places a real figure 1 could
+         stand. The lookahead allows a NEWLINE as well as the two spaces this text sets between
+         words: written with the spaces alone it missed ten, every one of them the pronoun at the end
+         of a line, and the count looked healthy while a quarter of the class stood untouched. */
+      [/(?<=\s)1(?=\s{1,3}[a-z])/g, "I",
+       "the pronoun I read as a figure 1"],
+
+      /* ---------- BATCH E9: THE SAME FIGURE BEFORE A CAPITAL, WHICH IS NOT THE PRONOUN ----------
+         The figure 1 stands for three different marks in this scan and WHERE IT STANDS decides which.
+         Before a lowercase word it is the pronoun, above. Before a CAPITAL it is never the pronoun,
+         and the seventeen occurrences partition exactly: after a bare word it is an exclamation mark,
+         which this edition sets with a space before it; after a full stop, a colon, a dash or a
+         closing quote it is the opening quotation mark of the speech that follows. All twenty-one
+         were read, sixteen of them against the second scan and the rest on the leaf, and the two rows
+         below account for every one that the seven `fixes` above do not. */
+      [/(?<=[A-Za-z]\s{1,3})1(?=\s{1,3}[A-Z])/g, "!",
+       "an exclamation mark read as a figure 1, after a word"],
+      [/(?<=[.:’—]\s{1,3})1(?=\s{1,3}[A-Z])/g, "‘",
+       "an opening quotation mark read as a figure 1, after the punctuation closing the sentence before it"],
+    ],
     sourceName: "Internet Archive",
     sourceUrl: "https://archive.org/details/completepoetical0000chau_q3l3",
     source: "html",
@@ -11724,6 +14069,12 @@ const BOOKS = {
         "that survives in many printings is somebody's constituted text whether or not it says so. " +
         "That is the same question that keeps the Italian out of the Divine Comedy here, and it is " +
         "answered the same way: better to ship the English alone and say why.",
+      "One last thing about the text itself. The transcription this is taken from is a very clean " +
+        "one, and a sweep of it turned up a single machine slip \u2014 <i>neigbbour's</i> where the page " +
+        "reads neighbour's \u2014 <b>corrected here against a scan of the 1885 printing</b> and listed " +
+        "in the importer. Two other words that looked like slips were read against the same scan and " +
+        "are Ormsby's own: the village really is called <i>Baratario</i>, and the ass really is " +
+        "<i>like a little sard</i>.",
     ],
 
     /* ---------- ONE PLAIN-TEXT FILE, CHOSEN OVER A CLEAN WIKI TRANSCRIPTION ----------
@@ -11752,6 +14103,15 @@ const BOOKS = {
        Gutenberg prints the same titles in capitals over each chapter, which is Aesop's
        unrecoverable case; taking them from the wiki keeps their capitalisation without composing
        anything. No `indexPage`, therefore, and no per-page title read. */
+    /* ONE SCANNING SLIP, read against the printed page before it became a row (batch E4). The
+       transcription is Project Gutenberg's of Ormsby; the witness is the Internet Archive's scan of
+       the 1885 third volume (`ingeniousgentlem18853cerv`, corroborated by `ingeniousgentle03cerv`),
+       which reads "wipe the nose of your neighbour's son". Two further candidates were read against
+       the same scans and are NOT slips — the printing really does set "the name of the village was
+       Baratario" and "an ass like a little sard" — which is what the witness rule is for. */
+    fixes: [
+      ["neigbbour", "neighbour", "h read as b: 1 against 55 neighbour, and the page reads neighbour"],
+    ],
     layout: "quixote",
     url: "https://www.gutenberg.org/cache/epub/996/pg996.txt",
     chapterWord: "Chapter",
@@ -11843,6 +14203,146 @@ const BOOKS = {
       "of 1964–1981, Timothy McDermott's abridgement of 1989 and Alfred Freddoso's translation are " +
       "still in copyright and are not used here.) There is no Latin beside it, and the book's own " +
       "first page says why.",
+    /* ---------- THE SECOND OCR FAMILY, AND WHICH FAMILIES PAY (Sep 2026, batch E15) ----------
+       E14 swept the shelf for a capital I standing where a lowercase l belongs and repaired 42. The
+       obvious next move is the other families a scanner confuses — the digit 1 for an l, `rn` for `m`
+       and back, `cl` for `d` — and the measured answer is that ONLY the first pays, for a reason that
+       can be stated in advance. **A substitution family is safe exactly where the wrong spelling is a
+       NON-WORD.** A capital in the middle of a word never is one, so E14's yield was ~100%. `rn` and
+       `m` are both ordinary English, so of thirteen candidates SEVEN were correct as they stood — a
+       real `dose`, papers `torn` down, the Syrian city `Homs`, archaic `doth`, and in Marco Polo's
+       notes the Old French `corne` and `cornes` and the manuscript called the *Liber Horne*. What
+       survives is only what is no word at all in any language the book quotes. */
+    /* E15'S `corning` ROW WAS REMOVED IN E19 AND IS RESTORED HERE, BECAUSE E19 WAS WRONG ABOUT IT
+       (Sep 2026, batch E30). E19 read the SHIPPED file, found no standalone `corning` and no such
+       passage, and concluded the row could never fire — "the word occurs only inside `scorning`,
+       which the row is anchored to spare". Both halves are false. Refetching this book from
+       Wikisource puts the fault straight back: chapter 461 reads *"the Holy Ghost was sent visibly
+       in two ways---namely, by the dove **corning** upon the Lord when He was baptized"*, one
+       standalone occurrence against three `scorning`s, exactly as E15 described it.
+
+       WHAT E19 WAS ACTUALLY LOOKING AT WAS ITS OWN REPAIR. The shipped file read `coming` because
+       the cache held prose an earlier run had corrected WITH THIS ROW — so the row was alive, had
+       done its work, and reported itself dead for the very reason E19's own batch was written to
+       document. E19 then took the dead report at face value and deleted it: the trap catching the
+       batch that named it. Nothing was lost to a reader, because the cached prose carried the
+       repair; the row was gone and the next refetch would have shipped `corning`, which is what
+       E30's refresh did before it was put back.
+
+       The lesson is E19's own, one turn further on: a dead-row report is evidence about the TEXT IN
+       HAND, never about the source. Check the source before removing a row. */
+    /* ---------- THE BIGGEST BOOK ON THE SHELF, SWEPT (Sep 2026, batch E21) ----------
+       2.5 million words, and its candidate list had never been read. All 245 were, and the great
+       majority are this book's own LATIN — `accidens`, `agens`, `conditio`, `ambitione`, `De
+       Celebratione missae`, a hundred more — which no rarity test can tell from a typo. These are
+       what was left, and every one is a single occurrence against hundreds or thousands of the
+       correct form in the same book, so each is settled by the book's own usage and not by a scan.
+
+       THREE OF THEM ARE TRANSPOSITIONS AND EXPOSED A GAP IN THE MEASURE. `creatuers` for
+       `creatures` is a swap of two adjacent letters, which is TWO edits, so the one-edit sweep that
+       found the other twenty-two was blind to it; it turned up by eye, in the same clause as
+       `primaily`. A transposition sweep was then written and run over the whole shelf — see the plan.
+
+       AND ONE ERROR FOUND ANOTHER. `We are no, however, accustomed to say Three substnaces` carries
+       two faults, and only one of them is a non-word: `no` for `not` is a perfectly good word in the
+       wrong place, invisible to every sweep here, and was found only because `substnaces` four words
+       later brought a reader to the sentence. */
+    reFixes: [
+      /* A TYPO IN THE CONTENTS PAGE RATHER THAN IN THE PROSE (Sep 2026, batch E38). The Supplement's
+         contents page heads question 25 "OF UNDLUGENCES", which is nowhere in the printing and which
+         the question's own prologue contradicts three words in — it speaks of indulgence
+         throughout. It is the only correction row in this file that fires on a chapter TITLE and
+         nothing else, which is why E38 also had to make a freshly fetched title go through the
+         chain: E37's cache guard was refusing to correct the one string that always needs it. */
+      [/(?<![A-Za-z])UNDLUGENCES(?![A-Za-z])/g, "INDULGENCES",
+       "`UNDLUGENCES` for `INDULGENCES`, in the Supplement's contents heading for question 25"],
+      [/(?<![A-Za-z])corning(?![A-Za-z])/g, "coming",
+       "an rn read for the m of `coming`, of the dove at the baptism — anchored to spare `scorning`"],
+      /* ---------- WHAT THE FILTER HID (Sep 2026, batch E22) ----------
+         E21 found `Wheather` sitting in the UNFILTERED candidate list, because an inserted `a` is not
+         one of the confusion classes E20 and E21 read through. Widening that set by exactly the two
+         missing vowels returns 42 candidates across the nine books already swept, and these are the
+         three in this book that are damage. The other twenty-two here are the book's own Latin. */
+      [/(?<![A-Za-z])realations(?![A-Za-z])/g, "relations",
+       "`realations` for `relations`, and the very next clause spells it correctly — 351 in all"],
+      [/(?<![A-Za-z])monaster(?![A-Za-z])/g, "monastery",
+       "`monaster` for `monastery`, in 'from the property of his monastery' — 45 correct"],
+      [/(?<![A-Za-z])Whosever(?![A-Za-z])/g, "Whosoever",
+       "`Whosever` for `Whosoever`, quoting John 4:13 — 58 correct"],
+      [/(?<![A-Za-z])accordingm(?![A-Za-z])/g, "according",
+       "a stray m on `according`, in 'everything has being only according as it resembles Him'"],
+      [/(?<![A-Za-z])aforsaid(?![A-Za-z])/g, "aforesaid",
+       "a dropped e in `aforesaid`, which this translation spells correctly 367 times"],
+      [/(?<![A-Za-z])Buit(?![A-Za-z])/g, "But",
+       "a stray i in `But`, opening a sentence"],
+      [/(?<![A-Za-z])concupscible(?![A-Za-z])/g, "concupiscible",
+       "a dropped i in `concupiscible`, one of this book's constant terms — 357 correct"],
+      [/(?<![A-Za-z])countrary(?![A-Za-z])/g, "contrary",
+       "a stray u in `contrary`, against 4,881 correct"],
+      [/(?<![A-Za-z])futher(?![A-Za-z])/g, "further",
+       "a dropped r in `further`, against 475 correct"],
+      [/(?<![A-Za-z])Hillary(?![A-Za-z])/g, "Hilary",
+       "a doubled l in `Hilary` of Poitiers, whom this book names correctly 90 times"],
+      [/(?<![A-Za-z])mann(?![A-Za-z])/g, "man",
+       "a doubled n in `man`, in the title 'Whether a man is bound to correct his prelate?'"],
+      [/(?<![A-Za-z])meas(?![A-Za-z])/g, "means",
+       "a dropped n in `means`, in 'persuades men by means of rewards or punishments'"],
+      [/(?<![A-Za-z])Obejection(?![A-Za-z])/g, "Objection",
+       "a stray e in `Objection`, the commonest word in the book — 20,617 correct"],
+      [/(?<![A-Za-z])payers(?![A-Za-z])/g, "prayers",
+       "an r out of place in `prayers`, in 'offering up prayers' (Heb. 5:7)"],
+      [/(?<![A-Za-z])primaily(?![A-Za-z])/g, "primarily",
+       "a dropped r in `primarily`, against 92 correct"],
+      [/(?<![A-Za-z])creatuers(?![A-Za-z])/g, "creatures",
+       "a TRANSPOSITION in `creatures` — the sweep that found the rest could not see it, since a swap of two letters is two edits and not one"],
+      [/(?<![A-Za-z])sats(?![A-Za-z])/g, "says",
+       "a t read for the y of `says`, against 7,194 correct"],
+      [/(?<![A-Za-z])senstive(?![A-Za-z])/g, "sensitive",
+       "a dropped i in `sensitive`, against 861 correct"],
+      [/(?<![A-Za-z])separarted(?![A-Za-z])/g, "separated",
+       "a stray r in `separated`, against 378 correct"],
+      [/(?<![A-Za-z])thut(?![A-Za-z])/g, "that",
+       "a u read for the a of `that`, the second commonest word in the book"],
+      [/(?<![A-Za-z])tsuffrages(?![A-Za-z])/g, "suffrages",
+       "a stray t on the front of `suffrages`, opening a treatise on them"],
+      [/(?<![A-Za-z])substnaces(?![A-Za-z])/g, "substances",
+       "a transposition in `substances`, against 342 correct"],
+      [/(?<![A-Za-z])subsistnet(?![A-Za-z])/g, "subsistent",
+       "a transposition in `subsistent`, against 82 correct"],
+      [/(?<![A-Za-z])mall(?![A-Za-z])/g, "man",
+       "an l read for the n of `man`, in 'as when a man curbs his lust and perseveres in covetousness'. " +
+       "`mall` IS a word, which is why the context and not the spelling is what settles it"],
+      [/(?<![A-Za-z])ther(?![A-Za-z])/g, "there",
+       "a dropped e in `there`, in 'Whether there are several persons in God?'"],
+      [/(?<![A-Za-z])thre(?![A-Za-z])/g, "there",
+       "a transposition in `there`, one sentence away from the last — 'hence it follows that there are " +
+       "also several realities subsistent'. The sweep proposed `three`, which the context refuses"],
+      [/duty to cor\. rect the/g, "duty to correct the",
+       "a full stop and a space driven into the middle of `correct`"],
+      [/(?<![A-Za-z])Wheather(?![A-Za-z])/g, "Whether",
+       "a stray a in `Whether`, against 6,358 correct. IT WAS HIDDEN BY THE SWEEP'S OWN FILTER: the " +
+       "confusion classes that made the candidate list readable admit an inserted i, l, n, m, r, e, " +
+       "t, u or c, and this is an inserted A — so it was in the unfiltered list of 295 and not in the " +
+       "one that was read. It turned up by eye, on the same line as `primaily`"],
+      [/(?<![A-Za-z])cretures(?![A-Za-z])/g, "creatures",
+       "a dropped a in `creatures`, on that same line again — three faults in one heading"],
+      [/(?<![A-Za-z])no as meaning the essence/g, "not as meaning the essence",
+       "a second dropped t in `not`, found the same way as the first: by reading round a neighbour"],
+      [/there are no only three persons/g, "there are not only three persons",
+       "a third dropped t in `not`"],
+      [/We are no, however, accustomed/g, "We are not, however, accustomed",
+       "a dropped t in `not`, which no vocabulary sweep can see — `no` is a word. It was found by " +
+       "reading round `substnaces`, four words later in the same sentence"],
+
+      /* E4's LAST DEFERRAL, closed the same way and with no volume opened either (Sep 2026, batch
+         E19). It is not a non-word to a modern eye — `inproportionate` reads as a plausible if
+         unusual formation — and that is why E15 left it standing. What settles it is the BOOK'S OWN
+         USAGE: this translation renders the Latin `improportionatus` as `improportionate` ten times
+         and writes `inproportionate` exactly once, in a sentence saying the same thing as the other
+         ten. An n for an m, and the house form decides which. */
+      [/(?<![A-Za-z])inproportionate(?![A-Za-z])/g, "improportionate",
+       "an n read for the m of `improportionate`, which this translation uses ten times against this one"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Summa_Theologiae",
 
@@ -11890,7 +14390,7 @@ const BOOKS = {
         "argument turns on distinctions that a graceful paraphrase would lose. The edition credits no " +
         "individual translator, and the book's licence note says what follows from that.",
       "A word on how it is laid out here. Each of the <b>614 questions</b> is a chapter, because the " +
-        "question is what any citation of the Summa names, and each of its <b>3,094 articles</b> is a " +
+        "question is what any citation of the Summa names, and each of its <b>3,125 articles</b> is a " +
         "numbered section. The tabs number the questions <b>straight through from 1 to 614</b>, while " +
         "the citation restarts at 1 in each Part — so the number on a tab and the <i>q.</i> in its " +
         "title are two different things, and the title carries the citation. The line in bold at the " +
@@ -11898,22 +14398,35 @@ const BOOKS = {
         "grouping and the finest division of the work it prints. The translators added almost no " +
         "notes: seven in the whole work, all in the Third Part, so four chapters carry a note fold and " +
         "the other 610 have none.",
-      "Fourteen questions of the 614 are missing an article heading, and it is worth knowing the " +
-        "shape of it. Every question states how many articles it has, so the gaps are countable: " +
-        "twelve questions carry one heading fewer than they should and two carry none at all, which " +
-        "means those articles run on into the one before them and cannot be cited from the page. " +
-        "<b>No prose is missing</b> — the words are all there, and the numbering shows where a gap " +
-        "falls rather than closing over it, so a question that jumps from article 1 to article 4 is " +
-        "telling you the truth about the transcription. It is the transcription's gap and not the " +
-        "edition's, and it is 14 questions in 614.",
+      "<b>Twenty-seven article headings were lost by the transcription and have been put back</b>, " +
+        "across fourteen questions. They were never missing prose — the words ran on into the article " +
+        "before them — but an article that carries no number cannot be cited from the page, which for " +
+        "a work read by citation is most of what an article is. The heads had failed to become " +
+        "headings in five different ways at the source, all of which look identical in a finished " +
+        "book, and each was found only by reading what survived the last. Every question states how " +
+        "many articles it has, so the repair is countable: all 614 now carry a clean run from 1 to " +
+        "their own stated number, with a single exception that is not a gap — II-II q. 48, whose " +
+        "<i>four points of inquiry</i> are the plan for questions 48 to 51 rather than a list of its " +
+        "own articles.",
+      "<b>Two articles were missing outright</b>, and they have been put back. The transcription sets " +
+        "article 2 of I-II q. 52 twice — the second time under article 3's number — and article 4 of " +
+        "II-II q. 43 twice under article 5's, so what stood in each place was its neighbour rather " +
+        "than the article the question's own list of points of inquiry names. Both have been supplied " +
+        "from Project Gutenberg's transcription of this same translation, which on an article both " +
+        "transcriptions carry agrees with this one word for word to better than 99.8 per cent. " +
+        "A third question, II-II q. 47, sets article 10 under article 9's title and is left exactly " +
+        "as it stands: the Gutenberg transcription prints the same heading, so that one is the 1920 " +
+        "edition's own slip rather than a transcriber's, and correcting it would mean inventing a " +
+        "heading no printing of the Summa has.",
       "There is <b>no Latin facing it</b>, and that is worth explaining because the Latin is not hard " +
         "to find. The complete text of Leo XIII's Leonine edition is online, but the digital editions " +
         "that carry it reserve rights in their own work, which is not a footing this library serves " +
         "books on. What is freely transcribed — the Latin Wikisource — has the First Part complete and " +
-        "then stops: <b>207 of the 611 questions</b>, with the whole of the Second Part of the Second " +
-        "Part and the whole Third Part not begun. A facing page that ran out after a third of the book " +
-        "would be worse than none, so the book ships in English alone until a complete free " +
-        "transcription exists.",
+        "then stops: <b>207 of the 611 questions of the five Parts</b> — the Appendix's three, which " +
+        "make the 614 tabs here, are a later hand and are not transcribed either — with the whole of " +
+        "the Second Part of the Second Part and the whole Third Part not begun. A facing page that " +
+        "ran out after a third of the book would be worse than none, so the book ships in English " +
+        "alone until a complete free transcription exists.",
     ],
 
     /* ---------- ONE WIKI PAGE PER QUESTION, 614 OF THEM ----------
@@ -11925,9 +14438,22 @@ const BOOKS = {
     source: "wiki",
     chapterWord: "Question",
     chapters: Array.from({ length: 614 }, (_, i) => i + 1),
+    /* WIKISOURCE'S THIRD PART IS SHIFTED BY ONE QUESTION OVER TWO PAGES (Sep 2026, batch E38).
+       Its `Question 34` page carries question 33's text and its `Question 35` page carries question
+       34's; `Question 36` is right again, so question 35 — Of Christ's Nativity — appears on no page
+       of it at all. Folio therefore shipped chapters 455 and 456 byte-identical and the Nativity
+       missing, which is what a second witness found and no spelling sweep ever could.
+
+       The half a redirection can fix is here: chapter 456 wants question 34, which is on the page
+       named `Question 35`. The half it cannot is the Nativity, supplied from the Gutenberg
+       transcription by `supplyChapter` and declared in `summa-supplied.json`. Both carry the
+       phrase they expect the fault to show, so if the wiki is corrected upstream the run says so
+       rather than quietly serving the wrong question a second time. */
+    pageShift: { 456: { q: 35, was: "the perfection of the child conceived" } },
     page: (n) => {
       const a = summaAt(n);
-      return "Summa Theologiae/" + a.part.key + "/Question " + a.q;
+      const sh = BOOKS["summa-theologica"].pageShift[n];
+      return "Summa Theologiae/" + a.part.key + "/Question " + (sh ? sh.q : a.q);
     },
     parts: (() => {
       let at = 0;
@@ -11984,6 +14510,14 @@ const BOOKS = {
        Thucydides' gate, in its fourth book. */
     body: "plain",
     sections: "articuli",
+    /* TWO ARTICLES AND ONE WHOLE QUESTION THE WIKISOURCE TRANSCRIPTION LOST, put back from Project
+       Gutenberg's transcription of the same translation. See supplyArticles and supplyChapter,
+       and the header of the file itself for what was measured before a word of it was used. */
+    supplied: "summa-supplied.json",
+    /* AND TWO SHAPES OF DUPLICATION THE SAME TRANSCRIPTION LEAVES BEHIND — see dedupeArticles for
+       what each is, what was measured before the rule was written, and why the length bar is what
+       keeps this book's own closing formula out of it. */
+    dedupe: true,
     /* The shortest question in the sample is 6.0 KB of prose and the shortest article-less page would
        be a fraction of that; 2,500 sits well below the one and far above what a failed extraction
        returns. */
@@ -12064,6 +14598,19 @@ const BOOKS = {
       "column is the age of the text alone. (The modern translations by Robert Goldman and others, " +
       "1984–2017, Hari Prasad Shastri, 1952–59, and Arshia Sattar, 1996, are still in copyright and " +
       "are not used.) Griffith's appendix, his additional notes and his index are not reproduced.",
+    /* ---------- A TRANSPOSITION (Sep 2026, batch E21) ----------
+       Two adjacent letters swapped, which is TWO edits and so invisible to the one-edit sweep of
+       E19 and E20 — the gap the Summa's `creatuers` exposed. It is a HIGH-PRECISION test: a swap
+       that lands on a word the book uses constantly is very rarely a coincidence, and each row
+       below is a single occurrence against dozens or hundreds of the correct form. */
+    reFixes: [
+      [/(?<![A-Za-z])gaint(?![A-Za-z])/g, "giant",
+       "a transposition in `giant`, against 471 correct"],
+      [/(?<![A-Za-z])sieze(?![A-Za-z])/g, "seize",
+       "a transposition in `seize`, against 32 correct"],
+      [/(?<![A-Za-z])cheiftain(?![A-Za-z])/g, "chieftain",
+       "a transposition in `chieftain`, against 94 correct"],
+    ],
     sourceName: "Project Gutenberg",
     sourceUrl: "https://www.gutenberg.org/ebooks/24869",
     url: "https://www.gutenberg.org/files/24869/24869-tei/24869-tei.tei",
@@ -12144,8 +14691,33 @@ const BOOKS = {
         "divides. And <b>Griffith's own footnotes are here</b> — a thousand of them, folded under each " +
         "canto — explaining a name, a custom, or a line he found obscure; they are as Victorian as the " +
         "verse, and as informative.",
+      "The transcription this text was taken from is a machine reading of the printed book, so it " +
+        "carries a few of that machine's slips rather than Griffith's \u2014 <i>jovful</i> where the page " +
+        "reads joyful, <i>Ayodby\u00e1</i> for Ayodhy\u00e1, <i>arras</i> for arms. <b>Nine of them have been " +
+        "corrected here against the printed page</b>, each read in a scan of the same translation " +
+        "before it was touched, and each listed in the importer with the words the page carries. " +
+        "Anything a witness does not settle is left exactly as found.",
     ],
 
+    /* NINE SCANNING SLIPS, EACH READ AGAINST THE PRINTED PAGE BEFORE IT BECAME A ROW (batch E4). The
+       transcription is Project Gutenberg's of Griffith; the witness is the Internet Archive's scan of
+       the same translation (`ramayanvlmkitra00grifgoog`), and where that scan's OWN text layer repeats
+       the error — an OCR of the same typeface makes the same mistake — the page IMAGE was read instead.
+       Four of the nine needed that: Ayodhyá's, Namuchi, Videha and horns. See docs/book-text-plan.md.
+
+       Every one of the nine strings occurs EXACTLY ONCE in the raw source, which is what makes a bare
+       substring replace safe here; `applyFixes` matches no word boundary of its own. */
+    fixes: [
+      ["Ayodby\u00e1", "Ayodhy\u00e1", "h read as b; the page reads \"King R\u00e1ma reached Ayodhy\u00e1's gate\""],
+      ["Vindhva", "Vindhya", "y read as v; the scan's own text layer reads Vindhya here"],
+      ["K\u00e1rtikeva", "K\u00e1rtikeya", "y read as v, in a note; the page reads K\u00e1rtikeya"],
+      ["jovful", "joyful", "y read as v; the page reads \"The loud huzza and joyful shout\""],
+      ["Vidcha", "Videha", "e read as c, in a note; the page reads \"Called also Videha, later T\u00edrabhukti\""],
+      ["Mamda", "Mainda", "in read as m; the page reads Mainda, as it does ten times elsewhere"],
+      ["Namuehi", "Namuchi", "c read as e; the page reads \"As Namuchi and Indra met\""],
+      ["hons", "horns", "a dropped r, in a note; the page reads \"bows out of the horns of antelopes\""],
+      ["arras", "arms", "m read as rn; the page reads \"In cruel arms his struggling prey\""],
+    ],
     layout: "kanda",
     chapterWord: "Canto",
     chapters: RAM_CANTOS.map((_, i) => i + 1),
@@ -12501,6 +15073,58 @@ const BOOKS = {
       "alone. (The modern translations by Jamison and Brereton, 2014, Wendy Doniger, 1981, and " +
       "Walter Maurer, 1986, are still in copyright and are not used.) Griffith's preface and " +
       "appendices, and the Sanskrit pages' commentary of Sayana, are not reproduced.",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    /* ---------- A TRANSPOSITION (Sep 2026, batch E21) ----------
+       Two adjacent letters swapped, which is TWO edits and so invisible to the one-edit sweep of
+       E19 and E20 — the gap the Summa's `creatuers` exposed. It is a HIGH-PRECISION test: a swap
+       that lands on a word the book uses constantly is very rarely a coincidence, and each row
+       below is a single occurrence against dozens or hundreds of the correct form. */
+    reFixes: [
+      [/(?<![A-Za-z])solenm(?![A-Za-z])/g, "solemn",
+       "a transposition in `solemn`, against 60 correct"],
+      [/(?<![A-Za-z])siezed(?![A-Za-z])/g, "seized",
+       "a transposition in `seized`, against 19 correct"],
+      [/(?<![A-Za-z])emnity(?![A-Za-z])/g, "enmity",
+       "a transposition in `enmity`, against 13 correct"],
+      [/(?<![A-Za-z])battels(?![A-Za-z])/g, "battles",
+       "a transposition in `battles`, against 62 correct"],
+      /* A TILDE READ FOR A LETTER, AND A c FOR AN e, IN ONE SENTENCE OF 6.12.4 (Sep 2026, batch E53).
+         Both were reported by `book-audit.js`'s sentinel-run check, which had been firing on them
+         unread since E33. `jatave~as` is the vocative of Jatavedas, which this book spells correctly
+         112 times and thus once; and `Trce` is not a word, where tree-fed is what Agni is — E15's
+         c/e family, in the very next clause. */
+      [/(?<![A-Za-z0-9])jatave~as(?![A-Za-z0-9])/g, "Jatavedas",
+       "a tilde read for the d of `Jatavedas`, and the capital lost with it — against 112 correct"],
+      [/(?<![A-Za-z])Trce-fed(?![A-Za-z])/g, "Tree-fed",
+       "a c read for the second e of `Tree-fed`, in the same sentence as the Jatavedas repair"],
+      [/(?<![A-Za-z0-9])1ndra(?![A-Za-z0-9])/g, "Indra",
+       "a 1 read for the I of `Indra`"],
+      [/(?<![A-Za-z0-9])3trength(?![A-Za-z0-9])/g, "strength",
+       "a 3 read for the s of `strength`, in 'within your arms is laid your energy and strength'"],
+      [/(?<![A-Za-z0-9])we\.1grown(?![A-Za-z0-9])/g, "well-grown",
+       "digits and a stop read into `well-grown`, in 'The Heroes have waxed strong like well-grown manly youths'"],
+      [/(?<![A-Za-z0-9])f1ed(?![A-Za-z0-9])/g, "fled",
+       "a 1 read for the l of `fled`, in 'the Panis fled, neath a hundred blows'"],
+      [/(?<![A-Za-z0-9])Marut3(?![A-Za-z0-9])/g, "Maruts",
+       "a 3 read for the s of `Maruts`, in 'In thee the Maruts’ company have great delight'"],
+      [/(?<![A-Za-z0-9])Se1f(?![A-Za-z0-9])/g, "Self",
+       "the digit 1 read for the l of `Self`, in 'Invincible! Self-luminous!'"],
+      [/(?<![A-Za-z])Pavarnana(?![A-Za-z])/g, "Pavamana",
+       "an rn read for the m of `Pavamana`, the epithet of Soma — 'O Soma Pavamana' and 'O Pavamana, place me'"],
+      [/(?<![A-Za-z])bome(?![A-Za-z])/g, "borne",
+       "an m read for the rn of `borne`, in 'The Consort-Queen hath borne him'"],
+      [/(?<![A-Za-z])Iong(?![A-Za-z])/g, "long",
+       "a capital I read for the lowercase l of `long`"],
+      [/(?<![A-Za-z])wiId(?![A-Za-z])/g, "wild",
+       "a capital I read for the lowercase l of `wild`"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Hymns_of_the_Rigveda",
 
@@ -12802,6 +15426,21 @@ const BOOKS = {
       "1997, Garry Wills, 2006, and Sarah Ruden, 2017, are still in copyright and are not used.) " +
       "Two chapters of Book I have never been transcribed at the source and are absent from the " +
       "English column; the Latin carries them, and the book's own first page says so.",
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      [/(?<![A-Za-z])carth(?![A-Za-z])/g, "earth",
+       "a c read for the e of `earth`, quoting Genesis: \"the carth was invisible and without form\""],
+    ],
     sourceName: "Wikisource",
     sourceUrl:
       "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_I/Confessions",
@@ -13217,6 +15856,36 @@ const BOOKS = {
       "and softened passages he thought unsuitable for boys. The modern editions by Eugène Vinaver, " +
       "1947, Helen Cooper, 1998, and Dorsey Armstrong, 2009, are still in copyright and are not " +
       "used.)",
+    /* ---------- A TRANSPOSITION (Sep 2026, batch E21) ----------
+       Two adjacent letters swapped, which is TWO edits and so invisible to the one-edit sweep of
+       E19 and E20 — the gap the Summa's `creatuers` exposed. It is a HIGH-PRECISION test: a swap
+       that lands on a word the book uses constantly is very rarely a coincidence, and each row
+       below is a single occurrence against dozens or hundreds of the correct form. */
+    reFixes: [
+      /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+         Every single-occurrence token one confusion-class substitution or one transposition away from a
+         form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+         twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+         THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not
+         a nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so
+         the edition plainly knows the word and this one instance is damage. A form the edition uses
+         to the EXCLUSION of the right one is the edition's own spelling and must be left — the
+         Bhagavad-Gita's eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the
+         page and twice in the text, with the correct spelling nowhere in the book, and a row for it
+         was written and then withdrawn on exactly that count. */
+      /* Three spellings, each ONE occurrence against thirty-three, eighty-one and forty-one of the
+         form this edition uses everywhere else. Malory's own spelling varies, which is exactly why
+         the count has to do the deciding and not the eye. */
+      [/(?<![A-Za-z])Tintagel(?![A-Za-z])/g, "Tintagil",
+       "an e read for the i of `Tintagil` — 1 against 33"],
+      [/(?<![A-Za-z])Eleine(?![A-Za-z])/g, "Elaine",
+       "an e read for the a of `Elaine` — 1 against 81"],
+      [/(?<![A-Za-z])sithin(?![A-Za-z])/g, "sithen",
+       "an i read for the e of the archaic `sithen` — 1 against 41"],
+
+      [/(?<![A-Za-z])afroe(?![A-Za-z])/g, "afore",
+       "a transposition in `afore`, which Malory uses 247 times"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Le_Morte_d%27Arthur",
 
@@ -13699,6 +16368,89 @@ const ALLOWED = new Set(["p", "i", "b", "em", "strong", "br", "blockquote", "sup
    because it is the one void element this extractor KEEPS. */
 const VOID_TAGS = new Set(["area", "base", "col", "embed", "hr", "img", "input",
                            "link", "meta", "param", "source", "track", "wbr"]);
+
+/* ---------- A TAG THE SOURCE ESCAPED, WHICH REACHES THE READER AS CHARACTERS ----------
+   (Sep 2026, batch E45.) Everything above reduces REAL markup. This is the other case: markup the
+   wiki itself escaped, so it survives every pass as ordinary text and is PRINTED. The reader of the
+   Song of Roland met two laisses opening `<poem>`; the Rigveda's hymns 121 and 131 carried a raw
+   `<A HREF="errata.htm#0">children</A>` around a word of Griffith's; the City of God's Latin had
+   `<poem>` and a mangled `<§/poem>` round a quotation of Horace. Eight in all, over three books.
+   In every case the escaping is MediaWiki's own — the caches hold it — so the fault is the
+   transcription's and the repair is Folio's.
+
+   THE DISCRIMINATION IS THE WHOLE OF THIS RULE, AND WITHOUT IT THE RULE DOES REAL DAMAGE. A critical
+   text supplies words the manuscripts lack INSIDE ANGLE BRACKETS: Godley's Herodotus writes "the
+   <Pisidians> had little shields", Ross's Aristotle "<are not wicked>", and the Latin Seneca does it
+   about ninety times — "erras si in navigatione tantum existimas minimum esse quo <a> morte vita
+   diducitur", where `<a>` is the preposition AND an HTML tag name. Those are the EDITION. A rule that
+   stripped angle brackets, or that keyed on the tag name, would delete an editor's supplements from
+   four books, silently, and leave prose that still reads.
+
+   So there are three tests, each sufficient on its own and each safe on its own terms:
+     · a CLOSING tag — an editor supplies a word, never `</word>`. This is also what catches the City
+       of God's `<§/poem>`, whose section sign is the transcriber's own slip.
+     · an ATTRIBUTE — an editor supplies words, never `name="value"`. This is the Rigveda's anchor.
+     · a MediaWiki EXTENSION TAG BY NAME, from a list DECLARED here rather than derived. None of these
+       is a word in English, Latin, Greek, Old French, Old English or Sanskrit, and being a list it
+       can never grow by accident into `a`, `i`, `b` or `q`, which are all words somewhere on this
+       shelf.
+   Anything else is left exactly as it stands, which is what keeps the ninety supplements safe.
+
+   IT RUNS AT THE WRITE, NOT IN `stripTags`, AND THAT WAS THE SECOND ATTEMPT. `stripTags` looks like
+   the one place every branch passes through — 21 call sites, 48 books — and it is not: the Rigveda's
+   `suktaBody` flattens its page with a blunt regex of its own, because three of its four page shapes
+   carry no markup at all, so the rule fired for the Song of Roland and the City of God and silently
+   did nothing for the book with half the occurrences. `writeEnglish` and `writeOriginal` are the
+   places every branch really must reach, since they are what serialise the file; running here also
+   means each output file is swept exactly once, which is what makes the count honest.
+
+   WHAT IS DROPPED IS COUNTED AND REPORTED, per file: a rule that silently removed text from every
+   book on the shelf is the last thing this file needs. */
+const ESC_EXT_TAGS = ["poem", "nowiki", "pre", "ref", "references", "gallery", "math", "score",
+                      "syntaxhighlight", "timeline", "includeonly", "noinclude", "onlyinclude"];
+const ESC_CLOSING = /&lt;[^a-zA-Z&<>]{0,3}\/\s*[a-zA-Z][a-zA-Z0-9]{0,14}\s*&gt;/g;
+const ESC_ATTR = /&lt;\/?[a-zA-Z][a-zA-Z0-9]{0,14}\s+[a-zA-Z][a-zA-Z0-9-]{0,20}\s*=\s*"[^"&]{0,200}"[^&<>]{0,40}&gt;/g;
+const ESC_EXT = new RegExp("&lt;\\s*(?:" + ESC_EXT_TAGS.join("|") + ")\\s*/?\\s*&gt;", "gi");
+const ESC_HITS = Object.create(null);
+/* Each test twice: once for a tag STANDING ALONE ON ITS LINE, which takes the line with it, and then
+   for one sitting inside a line, which takes only itself. Without the first the removal leaves the
+   blank line the tag occupied — invisible to a reader, since these newlines collapse, and debris in
+   a generated file that a person does read. The line form is tried first because the inline form
+   would otherwise match and leave the newline behind for it. */
+const ESC_RULES = [ESC_CLOSING, ESC_ATTR, ESC_EXT].map((rx) => [
+  new RegExp("^[ \\t]*(?:" + rx.source + ")[ \\t]*\\n", rx.flags.replace("g", "") + "gm"),
+  rx,
+]);
+function dropEscapedTags(b) {
+  if (typeof b !== "string" || b.indexOf("&lt;") < 0) return b;
+  for (const [line, inline] of ESC_RULES) {
+    b = b.replace(line, (m) => { const t = m.trim(); ESC_HITS[t] = (ESC_HITS[t] || 0) + 1; return ""; });
+    b = b.replace(inline, (m) => { ESC_HITS[m] = (ESC_HITS[m] || 0) + 1; return ""; });
+  }
+  return b;
+}
+/* Every string a chapter record carries, since a tag printed in a translator's NOTE reads exactly as
+   badly as one printed in the prose, and a chapter TITLE is text like any other. */
+function dropEscapedTagsIn(chapters) {
+  chapters.forEach((c) => {
+    if (typeof c.html === "string") c.html = dropEscapedTags(c.html);
+    if (typeof c.t === "string") c.t = dropEscapedTags(c.t);
+    if (Array.isArray(c.notes)) c.notes = c.notes.map(dropEscapedTags);
+  });
+}
+/* Reported AND CLEARED at each write, which is honest now that the sweep runs once per output file:
+   the first shape of this ran inside `stripTags`, where a page read twice — the Song of Roland's
+   English is read once for the translation and again to reconcile the Old French against it — was
+   counted twice and then printed under the wrong column. Swept per file, each is counted where it
+   belongs and the tally starts again for the next. */
+function reportEscapedTags() {
+  const ks = Object.keys(ESC_HITS);
+  if (!ks.length) return;
+  console.log("  " + ks.reduce((n, k) => n + ESC_HITS[k], 0) + " escaped markup tag(s) dropped: " +
+    ks.map((k) => k + (ESC_HITS[k] > 1 ? " ×" + ESC_HITS[k] : "")).join(", "));
+  ks.forEach((k) => delete ESC_HITS[k]);
+}
+
 function stripTags(b) {
   const out = [];
   const stack = [];
@@ -14019,7 +16771,120 @@ const ART_WORDS = {
      page says, and the number it stands for is not in doubt. */
   ELVEN: 11,
 };
-function markArticuli(b, warn) {
+function markArticuli(b, warn, page) {
+  /* A HEADING THAT NEVER BECAME ONE, BECAUSE ITS TITLE WRAPPED (Sep 2026, batch E39). Ten article
+     heads across nine of the 614 questions stand in the prose as literal text —
+
+         <p><br />
+         ==== Art. 2 - Whether the annunciation should have been made by an angel to the Blessed
+         Virgin?====
+         </p>
+
+     — and the cause is visible in the second line: **a MediaWiki heading must be on one line**, and
+     the transcriber let the title wrap, so the closing `====` was on a line of its own and the
+     markup rendered as characters. The page therefore carries fewer headings than the question says
+     it has, the numbering falls back to the printed numbers, and the article after the gap goes
+     unnumbered — which is how III q.30 came to show articles 1 and 4 with nothing between them.
+
+     IT IS NORMALISED HERE RATHER THAN RECOGNISED DOWNSTREAM. Rewritten into the same heading div
+     the transcription's own headings carry, everything after this point — the role test, the
+     duplicate rule, the count agreement, the numbering, the marker carrying — works unchanged and
+     unaware. That is the whole reason to put it first: a second code path for a second spelling of
+     one thing is how the two come to disagree.
+
+     AND THE CLOSING RUN IS OPTIONAL, BECAUSE THE FAULT HAS TWO SPELLINGS. Five of the ten wrapped
+     as above; the other five carry no closing `====` at all — the transcriber typed the opening
+     marks and stopped — so a rule anchored on a closing run finds half of them and reports the
+     other half as prose. Written with the closing run required it repaired 6 numbers of the 10;
+     the pattern was widened only after the five survivors were read in the source and found to be
+     the same fault with the second half of its punctuation missing.
+
+     THE ANCHOR IS THE EQUALS SIGNS **AND** `Art.`, and both halves are load-bearing. The prose of
+     this book quotes plenty of things and none of them opens a paragraph with a run of `=`; but a
+     rule on the equals signs alone would also catch a stray one, and the three headings that open
+     on a spurious `=` are already handled by `plain()` below. Requiring the article marker as well
+     means this can only ever fire on something that is unmistakably an article head.
+
+     THE FAULT HAS THREE SPELLINGS AND EACH WAS FOUND ONLY BY READING THE SURVIVORS. Written for the
+     wrapped case it repaired 6 of the 10; widening the closing run to optional took it to 9; the
+     last is `<pre>==== Art. 6 - … ====</pre>`, the transcriber having begun the line with a SPACE,
+     which in wiki markup is a preformatted block. So the container is a `<p>` OR a `<pre>`, matched
+     by a backreference so an opening tag cannot be closed by the other. **Each survivor was read in
+     the SOURCE**: in the finished book all ten look identical, so a count taken from the output
+     would have said the rule was complete three separate times.
+
+     Measured over all 614 questions before it was written: ten paragraphs match, in nine questions,
+     and every one is an `Art. N -` head. The count is PRINTED on every run, for the reason the
+     dash-less headings are — a shape found by a number moving rather than by reading a page. */
+  let wrapped = 0;
+  b = b.replace(/<(p|pre)(?:\s[^>]*)?>\s*(?:<br\s*\/?>\s*)?(=+)\s*(Art\.[\s\S]{4,300}?)(?:=+\s*)?<\/\1>/g,
+    (whole, tag, eq, inner) => {
+    const t = inner.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+    if (!/^Art\.?\s*\d+/.test(t)) return whole;
+    wrapped++;
+    const lvl = Math.min(6, Math.max(2, eq.length));
+    return '<div class="mw-heading mw-heading' + lvl + '"><h' + lvl + ">" + t + "</h" + lvl + "></div>";
+  });
+  if (wrapped) warn && warn(wrapped + " article heading(s) stood in the prose as literal wiki markup " +
+    "rather than as headings, and have been read as headings");
+
+  /* AND A HEAD THAT WAS NEVER MARKED UP AT ALL (Sep 2026, batch E39). Two questions of the 614 —
+     I-II q.28 and Supplement q.39 — carry NO headings whatever: not a wrong one, not an escaped one,
+     nothing, so the pass above finds a page with a question, a prologue and six articles and no way
+     to tell where one article ends and the next begins. Four more carry a page of proper headings
+     with one or two heads left as plain paragraphs among them.
+
+     THE RULE COMES OUT OF THE WORK'S OWN INVARIABLE SHAPE rather than out of the markup: every
+     article of the Summa opens with its question and then, immediately, "Objection 1:". So a SHORT
+     paragraph ENDING IN A QUESTION MARK whose very next paragraph opens on that phrase is an article
+     head, whatever the transcription did or did not do to it.
+
+     MEASURED OVER THE WHOLE BOOK BEFORE IT WAS WRITTEN, AND THAT MEASUREMENT IS THE ARGUMENT: the
+     test matches 3,071 heads that are already numbered and exactly 16 that are not — and all 16 sit
+     in the six questions the book's own list of points of inquiry says are short of an article. A
+     rule with a 3,071-to-16 agreement rate with the existing numbering is not guessing.
+
+     IT IS DELIBERATELY NOT USED TO CHECK A HEAD THAT IS ALREADY MARKED UP. 38 numbered heads do not
+     open their next paragraph with an objection — the article answers a contrary first, or the
+     transcription runs the two together — and reading that as evidence of anything would turn a
+     finder of missing heads into a remover of real ones. It only ever ADDS.
+
+     A candidate standing immediately after a heading is skipped: there the heading is the head and
+     the paragraph would be a restatement of it. */
+  let bareHeads = 0;
+  {
+    /* A `<pre>` COUNTS AS A PARAGRAPH HERE, and Supplement q.39 is why: all six of its article heads
+       are preformatted blocks, the transcriber having begun each line with a space. Same fault as
+       the third spelling above, without the equals signs. The tag is matched by a backreference so
+       one kind cannot be closed by the other. */
+    const P = /<(p|pre)(?:\s[^>]*)?>([\s\S]*?)<\/\1>/g;
+    const flat = (x) => x.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+    const ps = [];
+    let m;
+    while ((m = P.exec(b))) ps.push({ at: m.index, end: P.lastIndex, whole: m[0], t: flat(m[2]) });
+    const cut = [];
+    for (let i = 0; i < ps.length - 1; i++) {
+      const p = ps[i];
+      if (!/\?$/.test(p.t) || p.t.length < 12 || p.t.length > 230) continue;
+      if (!/^Objection 1\s*:/.test(ps[i + 1].t)) continue;
+      /* only where nothing but whitespace stands between the two, so this cannot leap a heading */
+      if (b.slice(p.end, ps[i + 1].at).trim()) continue;
+      if (/<\/div>\s*$/.test(b.slice(Math.max(0, p.at - 400), p.at))) continue;
+      cut.push(p);
+    }
+    for (let i = cut.length - 1; i >= 0; i--) {
+      bareHeads++;
+      /* MARKED AS OURS, because the treatise fallback below claims the FIRST heading on a page that
+         carries no article number — and on a page whose only headings are the ones this pass just
+         made, that silently ate article 1 and left the question one short of its own stated count,
+         so nothing was numbered at all. I-II q.28 shipped that way for the length of one run. */
+      b = b.slice(0, cut[i].at) + '<div class="mw-heading mw-heading4 folio-barehead"><h4>' +
+        cut[i].t + "</h4></div>" + b.slice(cut[i].end);
+    }
+  }
+  if (bareHeads) warn && warn(bareHeads + " article head(s) stood as an ordinary paragraph with no " +
+    "heading markup at all, and have been read as headings");
+
   const HEAD = /<div class="[^"]*\bmw-heading\b[^"]*"[^>]*>\s*<h[2-6][^>]*>(?:<span[^>]*><\/span>)?\s*([\s\S]*?)<\/h[2-6]>[\s\S]*?<\/div>/g;
   const plain = (x) =>
     x.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;/g, " ")
@@ -14048,7 +16913,8 @@ function markArticuli(b, warn) {
      and it is the City of God's rule about looking for a marker where it actually is rather than
      where the regular cases happen to put it. */
   const heads = [];
-  b.replace(HEAD, (whole, inner) => {
+  b.replace(HEAD, (whole, inner, ...rest) => {
+    const mine = /folio-barehead/.test(whole);
     const t = plain(inner);
     const am = ARTICLES_RX.exec(t);
     /* A KEPT HEADING MAY CARRY A MARKER TOO, and stripping the heading to its words throws it away.
@@ -14061,19 +16927,72 @@ function markArticuli(b, warn) {
     /* Four of the 614 questions head themselves without stating an article count, so the test above
        cannot see them; they do all open on the word, in one of its spellings. It is the WEAKER test
        and runs second, because "Question" is also how an article's own text can begin. */
-    else if (/^Ques[a-z]{0,3}on\b/i.test(t)) h.role = "question";
+    /* AND IT MUST NOT CLAIM AN INTERROGATIVE (Sep 2026, batch E41). A question's own title is a noun
+       phrase set in capitals — OF LUST, OF THE CONTEMPLATIVE LIFE — and never a question; an
+       ARTICLE's title is always one. II-II q.153's page heads itself "Question. 153 - Whether the
+       matter of lust is only venereal desires and pleasures?", which is article 1's title, and its
+       prologue is missing altogether — so this test claimed that heading, the pass dropped it as
+       furniture, and article 1 went with it, leaving the printing's articles 2 to 5 numbered 1 to 4. */
+    else if (/^Ques[a-z]{0,3}on\b/i.test(t) && !/\?\s*$/.test(t)) h.role = "question";
     else if (/^(?:Footnotes?|References?|Notes)$/i.test(t)) h.role = "foot";
-    else if (!heads.length && !h.art) h.role = "treatise";
+    else if (!heads.length && !h.art && !mine) h.role = "treatise";
     heads.push(h);
     return whole;
   });
   let expect = null;
   for (const h of heads) if (h.role === "question" && h.count != null) { expect = h.count; break; }
+  /* AND WHERE NO HEADING STATES THE COUNT, THE QUESTION'S OWN PROSE DOES (Sep 2026, batch E39).
+     Three questions of the 614 carry no question heading at all — I-II q.28, II-II q.29 and
+     Supplement q.39 — so the parenthetical "(FOUR ARTICLES)" this pass reads the count from is not
+     on the page. It is in the prose all the same: every question opens by saying how many points of
+     inquiry it has, in words, and then listing them. That is the SAME statement by the same edition,
+     read from the body instead of from a heading, so it earns the same numbering.
+
+     It is taken from the LAST such sentence before the first article, and that is not fussiness:
+     several questions open with a two-level plan — the treatise's topics first ("(4) of its
+     blessings; (5) of the impediments thereto"), and only then "Under the first head there are
+     three points of inquiry" — so a rule taking the first match reads the plan as the article list
+     and reports a question of three articles as one of seven. Measured: taking the first match
+     flags 35 questions as short of an article and taking the last flags 16, and the 19 in between
+     are all this shape.
+
+     IT ALSO CORRECTS A MISNUMBERED HEADING, which is the point of the count-agreement rule and is
+     what II-II q.29 needed: its three headings are numbered 1, 2 and 3 where the third is the
+     question's FOURTH article, the third having lost its heading altogether. */
+  /* AND THE PAGE'S OWN HEADER BLOCK OUTRANKS BOTH (Sep 2026, batch E41), because it is the only
+     statement of the count that is on EVERY page and is independent of what the body's headings did.
+     Read first, and the heading and the prose stay as backstops for a page whose header block a
+     future markup change takes away. */
+  if (page) {
+    const t = /<span id="ws-title">([\s\S]*?)<\/span>/.exec(page);
+    const am = t && ARTICLES_RX.exec(t[1].replace(/<[^>]*>/g, " "));
+    if (am && ART_WORDS[am[1]] != null) expect = ART_WORDS[am[1]];
+  }
+  if (expect == null) {
+    const firstArt = heads.findIndex((h) => h.role === "article");
+    const upto = b.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").slice(0, 4000);
+    const W = { one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9, ten:10,
+      eleven:11, twelve:12, thirteen:13, fourteen:14, fifteen:15, sixteen:16, seventeen:17,
+      eighteen:18, nineteen:19, twenty:20 };
+    for (const m of upto.matchAll(/there (?:are|is)\s+(?:only\s+)?([a-z]+|\d+)\s+points?\s+of\s+inquiry/gi)) {
+      const v = /^\d+$/.test(m[1]) ? +m[1] : W[m[1].toLowerCase()];
+      if (v) expect = v;
+    }
+    if (expect != null && firstArt >= 0)
+      warn && warn("no heading states this question's article count; read " + expect +
+        " from its own prose, where it says how many points of inquiry it has");
+  }
 
   /* A heading repeating the one before it WORD FOR WORD is a duplicate rather than a second article
      — one question in the book carries its fifth article's title twice — and dropping it is what
      brings the count back to what the edition states. */
-  const titleOf = (h) => (h.art ? h.art[3] : h.t).trim();
+  /* AN ARTICLE HEADING MAY CARRY THE QUESTION'S OWN PREFIX, and stripping it is the other half of
+     E41's fix: II-II q.153's first article is headed "Question. 153 - Whether the matter of lust is
+     only venereal desires and pleasures?", so reading it as an article without this leaves the
+     article titled after the question it is in. One place, so the duplicate test below and the
+     emitted heading compare and print the same string. */
+  const artTitle = (x) => x.replace(/^Ques[a-z]{0,3}on\.?\s*\d+\s*[-–—]\s*/i, "").trim();
+  const titleOf = (h) => artTitle(h.art ? h.art[3] : h.t);
   let arts = heads.filter((h) => h.role === "article");
   /* A HEADING REPEATING THE ONE BEFORE IT WORD FOR WORD IS DROPPED ONLY WHERE THE PAGE HAS MORE
      HEADINGS THAN THE QUESTION HAS ARTICLES, and that condition is the whole of the rule rather than
@@ -14149,7 +17068,7 @@ function markArticuli(b, warn) {
       return plant("<p><b>" + h.t + "</b>" + h.fn + "</p>");
     }
     found++;
-    const title = (h.art ? h.art[3] : h.t).trim();
+    const title = artTitle(h.art ? h.art[3] : h.t);
     return plant('<p><span class="bk-n">' + h.n + "</span>" +
       (title ? " <b>" + title + "</b>" : "") + h.fn + "</p>");
   });
@@ -14888,11 +17807,32 @@ function cleanBody(h, noteIds, book, warn) {
      silently filing 146 chapters under Book 2. Hence `expect`, passed by the caller as the Folio
      chapter being fetched and compared against the id's first half.
 
-     The chapter number is a plain integer here, so no data-n sort key is written: app.js reads the
-     marker's own text where the attribute is absent, which is exactly the pre-Aristotle behaviour and
-     is right for a book whose numbers are integers. Accepted only where it moves the sequence FORWARD,
-     the guard every rule above uses, and zero is admitted (`>= 0`) because the Gallic War established
-     that a chapter may be numbered 0 — this work has none, and the guard costs nothing either way. */
+     THE SORT KEY IS WRITTEN ON teiBookChapters' OWN SCALE, AND UNTIL SEPTEMBER 2026 IT WAS NOT
+     WRITTEN AT ALL (batch E44). It was reasoned here, and in the book's own entry, that "the Greek's
+     917 chapters run 1..N in every book with no gaps, no duplicates and no lettered numbers, so none
+     of Herodotus's or the Ethics' data-n trouble arises" — true of the NUMBERS and false of the KEYS.
+     Thucydides is the only book on this shelf whose two columns are read by different code: the
+     English by this rule, which wrote a bare `<span class="bk-n">34</span>`, and the Greek by
+     teiBookChapters, which writes `data-n` on every marker of every book it reads, lettered chapters
+     or none. app.js pairs on `parseInt(data-n ?? text)`, so the English column offered the keys
+     1..146 and the Greek 100..14600, and the two share almost nothing: every one of the work's 916
+     English chapters drew beside an empty cell, then every one of the Greek's 917 did, with SEVEN
+     accidental rows where an English chapter number happened to equal a Greek key — book 1's chapter
+     100 beside the Greek's chapter 1, which is worse than an empty cell because it reads as a pairing.
+     1,819 sections in all, in the shipped book, and this file's usual silence around it: nothing threw,
+     both columns were complete and correctly numbered, and the importer's own reconciliation of the
+     two reported them perfectly paired — because it compares the LABEL each prints, and both print
+     "34". See the note there, which now compares the key as well, and `.claude/check-pairing.js`,
+     which asks the question of the whole shelf in app.js's own terms.
+
+     THE SCALE IS `n * 100`, WHICH IS teiBookChapters', rather than the Greek being brought down to a
+     bare integer: one work, one scale, and if this transcription ever gains a lettered chapter the two
+     rules already agree about what to do with it. It is a SORT KEY and not a label — the reader still
+     sees the plain figure, and within a chapter the ordering is identical either way, which is what
+     makes the change provably nothing but the pairing. Accepted only where it moves the sequence
+     FORWARD, the guard every rule above uses, and zero is admitted (`>= 0`) because the Gallic War
+     established that a chapter may be numbered 0 — this work has none, and the guard costs nothing
+     either way. */
   if (book && book.sections === "bookchapter") {
     let seq = -1, chapters = 0;
     b = b.replace(/<span class="wst-verse[^"]*"[^>]*>[\s\S]*?<\/span>/g, (whole) => {
@@ -14912,7 +17852,7 @@ function cleanBody(h, noteIds, book, warn) {
       const n = +m[2];
       if (n <= seq) { warn && warn("chapter " + id + " repeats or goes backwards — dropped"); return ""; }
       seq = n; chapters++;
-      return '<span class="bk-n">' + n + "</span>";
+      return '<span class="bk-n" data-n="' + n * 100 + '">' + n + "</span>";
     });
     if (!chapters && warn) warn("no chapter numbers found — the book will pair as one whole block");
   }
@@ -14963,7 +17903,15 @@ function cleanBody(h, noteIds, book, warn) {
   /* Before the generic div pass turns the heading blocks into blockquotes and stripTags unwraps the
      h2/h3/h4 inside them — see markArticuli, which is the whole reason this hook has two occupants.
      Gated per book, so it is provably inert on the thirty-six already shipped. */
-  if (book && book.sections === "articuli") b = markArticuli(b, warn || (() => {}));
+  if (book && book.sections === "articuli")
+    /* THE PAGE STATES ITS OWN ARTICLE COUNT AND WE HAD ALREADY THROWN IT AWAY (Sep 2026, batch E41).
+       Every one of the 614 carries a `ws-title` header block — "Summa Theologiae — Question 153 - OF
+       LUST (FIVE ARTICLES)" — put there by the transcription's own header template, and it is right
+       even where the body's question heading is missing, misnumbered or carries an article's title
+       instead. It is read from `h`, the WHOLE page, because the `ws-noexport` pass above has already
+       removed that block from `b` by the time this hook runs: it is furniture to a reader and the
+       edition's own statement to this pass. */
+    b = markArticuli(b, warn || (() => {}), h);
   /* Before the three heading divs become blockquotes and the class this keys on is gone — see
      markMaloryHeads, which reads the chapter number off one of them and Caxton's rubric off another.
      Gated per book, so it is provably inert on the forty-five already shipped. */
@@ -15274,6 +18222,18 @@ function unwrapNameMarkup(h) {
     BLACK_HITS.anchor++;
     return inner;
   });
+  /* A TemplateStyles BLOCK SPLITS A NAME AS SURELY AS A PAGE MARKER DOES (Aug 2026, batch B6b).
+     MediaWiki emits the tooltip template's CSS as an inline <style> element immediately before the
+     first tooltip on the page — and this book puts a tooltip inside a CHAPTER HEAD, round the very
+     word a row is written for. Unwrapping the tooltip leaves the style block standing between the
+     two halves, `Kuan <style…>…</style>Yun-ch‘ang`, and every pass below treats markup as opaque, so
+     the row for the whole name cannot fire and the half that can is rewritten on its own: the bar
+     read "Guan Yun-ch‘ang" over a chapter whose text says Guan Yunchang, and chapter 86's head gave
+     Cao Bei for 曹丕, whom the same page's own [sic] marks as a slip for P‘ei.
+
+     The block is REMOVED WHOLE rather than unwrapped — its content is CSS, not prose, and every
+     later pass drops it anyway — so not one character of prose changes, only what a row can see. */
+  h = h.replace(/<style\b[^>]*>[\s\S]*?<\/style>/g, () => { BLACK_HITS.style = (BLACK_HITS.style || 0) + 1; return ""; });
   BLACK_HITS.left += (h.match(/<span class="wst-tooltip/g) || []).length;
   return h;
 }
@@ -15323,6 +18283,49 @@ function applyFixes(h) {
   return h;
 }
 
+/* THE SAME REPAIR, WHERE THE THING TO MATCH IS A SINGLE CHARACTER (Sep 2026, batch E6, after the
+   Canterbury Tales turned out to have its opening quotation mark misread six different ways on 228
+   lines).
+
+   IT ASSERTS EXACTLY WHAT `fixes` ASSERTS — the printed page reads X and this transcription reads Y,
+   a claim about a book, made only with a witness in hand — so it is not a fourth kind of act beside
+   `glyphs` and `roman`. It is `fixes` with a boundary, and it exists because `applyFixes` is
+   split/join and CANNOT EXPRESS ONE. Two shapes defeat a substring rule outright:
+
+   · A SINGLE LETTER. `c` set for an opening quote wants a row matching a standalone `c` and nothing
+     else. Written `"c  "` it matches inside every word ending in c. Written `"  c  "` — with the
+     spaces on BOTH sides — it is in fact safe, and E5's note that a letter could not be a row at all
+     was wrong; what a two-sided row cannot do is the second shape.
+   · A CHARACTER THAT ALSO APPEARS LEGITIMATELY IN A RUN OF ITSELF. The translators mark each passage
+     they omit with a row of asterisks, so `  *  ` matches inside `*  *  *  *  *` and a two-sided row
+     would eat the marks the extractor counts. Only "an asterisk followed by a LETTER" separates the
+     quote from the mark, and a lookahead is the one way to say it.
+
+   The regex is written by the author rather than composed here, so a row can say exactly what it
+   means; it must carry the `g` flag (without it `.replace` changes the first match and silently
+   leaves the rest) and that is checked rather than assumed. Every row MUST FIRE, counted and printed
+   exactly as a fix is, for the same reason: a repair that quietly lapses is worse than none.
+
+   IT RUNS AFTER `fixes`, WHICH IS LOAD-BEARING. A hand-written passage row is specific and a regex
+   row is general, so the specific one gets first refusal — that is how the stray `f` inside the
+   hyphen-wrapped `every-where` is deleted before the `f`-as-quote sweep can see it and read it as a
+   quotation mark. Order the exceptions above, and the sweep below. */
+const REFIX_HITS = Object.create(null);
+/* The same tally for `O.reFixes`, kept apart from the English one so a row of each cannot be
+   reported under the other's heading — see writeOriginal, where the original's table is applied. */
+const ORIG_REFIX_HITS = Object.create(null);
+function applyReFixes(h) {
+  if (!BOOK || !BOOK.reFixes) return h;
+  for (const [rx, to] of BOOK.reFixes) {
+    if (!(rx instanceof RegExp) || !rx.global)
+      throw new Error("a reFixes row needs a global RegExp: " + rx);
+    const key = String(rx);
+    if (!(key in REFIX_HITS)) REFIX_HITS[key] = 0;
+    h = h.replace(rx, (...a) => { REFIX_HITS[key]++; return to; });
+  }
+  return h;
+}
+
 /* MODERN PINYIN OVER THE TRANSLATOR'S OWN ROMANISATION (Aug 2026, on request: "for the Chinese texts,
    enforce the use of modern pinyin for all Chinese transliterations, overriding the antiquated
    transliteration systems used in these old English translations").
@@ -15356,7 +18359,14 @@ function applyFixes(h) {
    · AND EVERY ENTRY MUST FIRE, counted and reported exactly as a fix is. A name the transcription has
      since reworded around leaves the book claiming a conversion it no longer makes. */
 const ROMAN_HITS = Object.create(null);
-const ROMAN_JOIN = { moved: 0, dropcap: 0 };
+const ROMAN_JOIN = { moved: 0, dropcap: 0, split: 0 };
+/* A SPACE INSIDE A ROW IS ANY RUN OF WHITESPACE **OR OF THE ENTITIES THAT ENCODE ONE** (Aug 2026,
+   batch B6b). Wikisource sets the space after a page turn as `&#32;` rather than as a space
+   character, so a row written `Lü Pu` cannot see it however the marker is moved out of the way; both
+   the pattern a row compiles to and the key its hit is looked up by go through this one class, or a
+   row would match text it could not then find a target for. */
+const ROMAN_SP = "(?:\\s|&#0*32;|&#[xX]0*20;|&nbsp;)+";
+const ROMAN_SP_RX = /(?:\s|&#0*32;|&#[xX]0*20;|&nbsp;)+/g;
 let _romanRx = null, _romanFor = null;
 function applyRoman(h) {
   if (!BOOK || !BOOK.roman || !BOOK.roman.length) return h;
@@ -15373,6 +18383,32 @@ function applyRoman(h) {
      was written: three markers fall inside a word and exactly one of them splits a name. */
   h = h.replace(/([A-Za-z\u00C0-\u024F\u0417\u0437])(<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>)([A-Za-z\u00C0-\u024F\u0417\u0437]+)/g,
     (m, before, mark, after) => { ROMAN_JOIN.moved++; return before + after + mark; });
+  /* …AND THE PAGE TURN MAY FALL BETWEEN THE TWO HALVES OF A NAME RATHER THAN INSIDE A WORD, where
+     what separates them is an ENTITY and not a space (Aug 2026, batch B6b, the Three Kingdoms).
+     Chapter 9 reads `Lü&#32;<span…pagenum…></span></span></span>Pu` and chapter 48 `Chou&#32;…Yü`,
+     so the shipped book said *Lü Pu* and *Chou Yu* where it should say Lü Bu and Zhou Yu. The rule
+     above cannot reach either: it asks for a LETTER immediately before the span, and what stands
+     there is `&#32;` — the entity, not a space character.
+
+     THE JOIN IS BUILT FROM THE ROWS RATHER THAN FROM THE MARKER, and that is what keeps it minimal.
+     The marker is moved only where moving it makes a DECLARED two-word row match, so a page turn
+     falling at an ordinary word break is left exactly where the transcription put it, and it fires in
+     six places in the whole novel — the two above, whose halves convert to something visibly wrong,
+     and Huang Chung, Liang K‘uan, Ssŭma Wang and Têng Ai, whose halves each convert correctly on
+     their own and therefore looked like nothing at all. Written the other way round — any
+     letter, any entity, any marker — it would relocate a leaf boundary at 1,700 ordinary word breaks
+     to convert two names, which is a great deal of movement for a pass that is supposed to change
+     nothing but what a row can see. */
+  if (BOOK.roman.some(([f]) => / /.test(f))) {
+    const joinable = new Set(BOOK.roman.map(([f]) => f).filter((f) => / /.test(f)));
+    h = h.replace(
+      /([A-Za-z\u00C0-\u024F][A-Za-z\u00C0-\u024F\u2018'\u2019]*)((?:&#\d+;|&#[xX][0-9a-fA-F]+;|&[a-z]+;)+)(<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>)([A-Za-z\u00C0-\u024F][A-Za-z\u00C0-\u024F\u2018'\u2019]*)/g,
+      (m, head, ent, mark, tail) => {
+        if (!joinable.has(head + " " + tail)) return m;
+        ROMAN_JOIN.split++;
+        return head + ent + tail + mark;
+      });
+  }
   /* A DROP CAPITAL SPLITS A WORD'S FIRST LETTER FROM THE REST OF IT, AND NOTHING REPORTS THE MISS
      (Aug 2026, the Three Kingdoms). Where the printing opens a chapter on a drop capital, this
      transcription sets that one letter in a span of its own — `<span class="wst-largeinitial">T</span>s'ao`
@@ -15414,7 +18450,7 @@ function applyRoman(h) {
     const lead = BOOK.romanApos ? "(?<![" + edge + "])"
       : "(?<![A-Za-z\u00C0-\u024F-])(?<![A-Za-z\u00C0-\u024F][\u2018'\u2019])";
     _romanRx = new RegExp(
-      lead + "(" + from.map((f) => esc(f).replace(/ /g, "\\s+")).join("|") +
+      lead + "(" + from.map((f) => esc(f).replace(/ /g, ROMAN_SP)).join("|") +
       ")(?![" + (BOOK.romanApos ? edge : "A-Za-z\u00C0-\u024F\u2018-") + "])", "g");
     _romanFor = BOOK;
     for (const [f] of BOOK.roman) if (!(f in ROMAN_HITS)) ROMAN_HITS[f] = 0;
@@ -15451,7 +18487,7 @@ function applyRoman(h) {
   return h.replace(split, (m, tag, text) => {
     if (tag) return tag;
     return text.replace(_romanRx, (hit) => {
-      const key = hit.replace(/\s+/g, " ");
+      const key = hit.replace(ROMAN_SP_RX, " ");
       ROMAN_HITS[key] = (ROMAN_HITS[key] || 0) + 1;
       return to[key];
     });
@@ -15483,7 +18519,378 @@ function applyRoman(h) {
    or Greek it faces. An original that needs a slip corrected wants a table of its own on `O`; none
    does today, and that is a gap rather than a decision. */
 function correctRaw(t) {
-  return applyRoman(applyFixes(applyGlyphs(unwrapNameMarkup(t))));
+  return applyRoman(applyReFixes(applyFixes(applyGlyphs(unwrapNameMarkup(t)))));
+}
+
+
+/* THE CHAIN, OVER AN EXTRACTOR'S OWN OUTPUT — five English branches (`play`, `fitts`, `terzine`,
+   `eddapoem`, `laisses`) read a cached page, hand it straight to a reader of their own, and pushed
+   the result onto `chapters` without ever calling `correctRaw`. That is B4's "one spelling of the
+   chain, called on every branch that has raw English in hand" being untrue for five of them, and it
+   is SILENT: a book on one of those branches simply never gets its own corrections, and the only
+   symptom is a DID NOT FIRE line beside a row whose word is plainly in the printed text. Found in
+   Sep 2026 (batch E31), when four rows written for the Poetic Edda and the Song of Roland reported
+   exactly that.
+   It corrects the EXTRACTED PROSE rather than the page (E29's rule): the caches stay raw, so a row
+   added later fires on the next run without `--force`, and a title read off the page goes through
+   with it, a chapter head being English text like any other. Both shapes an extractor returns are
+   taken — an ARRAY of parts (`play`, `laisses`) and a single object (the other three) — since the
+   alternative is five copies of the same three lines. */
+/* TWO SHAPES OF DUPLICATION IN A TRANSCRIPTION, BOTH MEASURED OVER THE WHOLE BOOK BEFORE THE RULE
+   WAS WRITTEN (Sep 2026, batch E36). E35 put back two articles the Summa's transcription had lost;
+   fifteen paragraphs still stood twice, and read out they are two faults with nothing else in common
+   than that a transcriber's paste went astray.
+
+   TRAILING PARAGRAPHS THAT BELONG TO THE NEXT ARTICLE. In I q.108 and I q.109 the last two paragraphs
+   of one article are the last two of the NEXT one, the first of the pair truncated — article 1 of
+   q.109 ends by answering objections it never raised. Four paragraphs in the whole book, in two
+   questions, both read against the wikitext.
+
+   THE LENGTH BAR IS THE WHOLE OF WHAT MAKES THAT RULE SAFE, and it is measured rather than chosen.
+   Six article boundaries in the Summa end with a paragraph that also stands in the next article, and
+   FOUR OF THEM ARE NOT DAMAGE: they are the work's own closing formula — "This suffices for the
+   Replies to the Objections", which the book prints 55 times — so two adjacent articles ending the
+   same way is Aquinas's convention and not a paste. The four run 48 to 66 characters and the two real
+   faults 213 and 416, so the bar sits in 147 characters of open ground. A truncated paste is caught
+   as a SUFFIX of a paragraph in the next article, which is what the shorter of each pair is.
+
+   AN IMMEDIATELY REPEATED RUN OF PARAGRAPHS. In I-II q.20 the wiki page carries seven article
+   headings for a six-article question — article 5 set twice, the second time under article 6's
+   number, with the real sixth pushed to a seventh — so eleven paragraphs stand twice in a row; and
+   two questions have a single paragraph typed twice. Three runs in the whole book, all three checked
+   in the wikitext.
+
+   BOTH RULES ARE GATED PER BOOK and both are counted and reported, so a run in which either stops
+   firing is a run to look at: the transcription may have been corrected upstream, or this file may
+   have lost its grip on the page, and a silent build cannot tell you which. */
+let DEDUPE_TRAIL = 0, DEDUPE_RUN = 0;
+function dedupeArticles(rec, book, warn) {
+  const HEAD = /<p><span class="bk-n">(\d+)<\/span>\s*<b>([\s\S]*?)<\/b><\/p>/g;
+  const cuts = [];
+  let m;
+  while ((m = HEAD.exec(rec.html))) cuts.push({ at: m.index, after: m.index + m[0].length });
+  if (cuts.length < 2) return rec.html;
+  const text = (h) => h.replace(/<[^>]*>/g, " ").replace(/&[a-z]+;|&#\d+;/g, " ").replace(/\s+/g, " ").trim();
+  /* Each article's paragraphs WITH THEIR POSITIONS, because what is written back is the original
+     html minus a few spans rather than a re-joined copy of it: reassembling from the pieces changes
+     the whitespace between every paragraph in the book, which is 45 KB of diff saying nothing. */
+  const arts = cuts.map((c, i) => {
+    const end = i + 1 < cuts.length ? cuts[i + 1].at : rec.html.length;
+    const ps = [];
+    const RX = /<p[^>]*>[\s\S]*?<\/p>/g;
+    RX.lastIndex = 0;
+    let q;
+    const body = rec.html.slice(c.after, end);
+    while ((q = RX.exec(body))) ps.push({ at: c.after + q.index, to: c.after + q.index + q[0].length, t: text(q[0]) });
+    return ps;
+  });
+  const drop = [];
+
+  /* 1 — the tail of the next article, pasted at the end of this one. The empty spacer paragraph a
+     chapter's articles end on is stepped over rather than counted, or the walk stops on the first
+     one and the rule never fires at all — which is exactly what it did on its first run. */
+  for (let i = 0; i + 1 < arts.length; i++) {
+    const next = arts[i + 1].map((x) => x.t);
+    let k = arts[i].length - 1;
+    for (;;) {
+      while (k >= 0 && !arts[i][k].t) k--;
+      if (k < 0) break;
+      const t = arts[i][k].t;
+      const exact = t.length >= 120 && next.includes(t);
+      const suffix = t.length >= 40 && next.some((q) => q !== t && q.endsWith(t));
+      if (!exact && !suffix) break;
+      drop.push(arts[i][k]);
+      DEDUPE_TRAIL++;
+      k--;
+    }
+  }
+
+  /* 2 — a run of paragraphs immediately repeated inside one article */
+  for (const a of arts) {
+    const ps = a.filter((x) => x.t);
+    for (let i = 0; i < ps.length; i++) {
+      for (let k = Math.floor((ps.length - i) / 2); k >= 1; k--) {
+        let same = true;
+        for (let j = 0; j < k; j++) if (ps[i + j].t !== ps[i + k + j].t || ps[i + j].t.length < 40) { same = false; break; }
+        if (!same) continue;
+        for (let j = 0; j < k; j++) { drop.push(ps[i + k + j]); DEDUPE_RUN++; }
+        ps.splice(i + k, k);
+        i += k - 1;
+        break;
+      }
+    }
+  }
+
+  if (!drop.length) return rec.html;
+  drop.sort((a, b) => b.at - a.at);
+  let html = rec.html;
+  for (const d of drop) html = html.slice(0, d.at) + html.slice(d.to);
+  return html;
+}
+
+
+/* AN ARTICLE THE TRANSCRIPTION LOST, PUT BACK FROM ANOTHER TRANSCRIPTION OF THE SAME EDITION
+   (Sep 2026, batch E35). Wikisource's Summa sets article 2 of I-II q.52 twice — the second time under
+   article 3's number — and article 4 of II-II q.43 twice under article 5's. Each question opens by
+   listing its own points of inquiry, so THE BOOK ITSELF NAMES THE ARTICLE THAT IS MISSING, and what
+   shipped in its place was a false claim: it said article 3 asks what article 2 asks.
+
+   THE REPLACEMENT IS THE SAME TRANSLATION — the Fathers of the English Dominican Province, Benziger
+   1920 — from Project Gutenberg's transcription of it, and that is MEASURED rather than assumed: run
+   on an article BOTH transcriptions carry, the converter produces text 99.83% word-identical to the
+   one this book already ships. The words live in `.claude/summa-supplied.json` rather than here,
+   because this file holds RULES and that one holds somebody's prose; its header carries the three
+   typographic normalisations and the reason for each.
+
+   IT REPAIRS ONLY WHAT IT FINDS BROKEN. An entry names the chapter and the article, and the splice
+   happens only where that article's body really is its predecessor's word for word — so if the
+   transcription is fixed upstream, the entry stops firing and SAYS SO rather than overwriting a
+   corrected article with our copy. A dead entry is reported exactly as a dead correction row is.
+
+   AND THE THIRD CASE IT DELIBERATELY DOES NOT TOUCH: II-II q.47 sets article 10 under article 9's
+   title, and the Gutenberg transcription does the same. Two independent transcriptions agreeing is
+   the evidence that the fault is the PRINTING's, not the wiki's, so it is transcribed as printed —
+   the Bhagavad-Gita rule of batch E31, one batch on. A second transcription of the same edition is
+   what tells one kind of error from the other, and it is the only thing that can. */
+let SUPPLIED = 0;
+const SUPPLY_DEAD = [];
+let _supplyTable = null;
+function supplyArticles(rec, book, warn) {
+  if (!_supplyTable) {
+    const p = path.join(__dirname, book.supplied);
+    /* `|| []` AND THE WARNING ON THE FILE RATHER THAN THE ARRAY (Sep 2026, batch E42). A supplied
+       file may legitimately carry only whole chapters and no articles at all — Aesop's does — and
+       written without the fallback this threw "Cannot read properties of undefined" on the first
+       chapter of a book whose file was perfectly good. The thing worth warning about is a NAMED file
+       that is not there. */
+    if (!fs.existsSync(p)) warn("the supplied table is missing: " + book.supplied);
+    _supplyTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).articles || [] : [];
+  }
+  const want = _supplyTable.filter((a) => a.ch === rec.n);
+  if (!want.length) return rec.html;
+  let html = rec.html;
+  for (const a of want) {
+    const HEAD = /<p><span class="bk-n">(\d+)<\/span>\s*<b>([\s\S]*?)<\/b><\/p>/g;
+    const cuts = [];
+    let m;
+    while ((m = HEAD.exec(html))) cuts.push({ n: +m[1], at: m.index, after: m.index + m[0].length });
+    const i = cuts.findIndex((c) => c.n === a.article);
+    if (i < 1) { SUPPLY_DEAD.push(a.question + " art " + a.article + ": no such article in the chapter"); continue; }
+    const bodyOf = (k) => html.slice(cuts[k].after, k + 1 < cuts.length ? cuts[k + 1].at : html.length)
+      .replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+    if (bodyOf(i) !== bodyOf(i - 1)) {
+      SUPPLY_DEAD.push(a.question + " art " + a.article + ": no longer repeats article " + cuts[i - 1].n +
+        " — the transcription may have been corrected upstream, so read it before trusting this entry");
+      continue;
+    }
+    const end = i + 1 < cuts.length ? cuts[i + 1].at : html.length;
+    const built = '<p><span class="bk-n">' + a.article + '</span> <b>' + a.title + "</b></p>\n" +
+      a.paragraphs.map((q) => "<p>" + q + "</p>").join("\n") + "\n";
+    html = html.slice(0, cuts[i].at) + built + html.slice(end);
+    SUPPLIED++;
+  }
+  return html;
+}
+
+
+/* ---------- A WHOLE QUESTION THE TRANSCRIPTION HAS NOT GOT (Sep 2026, batch E38) ----------
+   `supplyArticles` above puts back an ARTICLE the wiki set twice under its neighbour's number. This
+   puts back a QUESTION it has not got at all, and the two faults are the same fault at two scales.
+
+   Wikisource's Third Part serves question 33's text under Question 34 and question 34's under
+   Question 35, so the Summa's own question 35 — Of Christ's Nativity, eight articles — appears
+   nowhere in it, and Folio shipped chapters 455 and 456 byte-identical with the Nativity absent.
+   The page shift is handled where it belongs, in this book's own `page(n)`; what no redirection can
+   supply is the question the source does not carry, and that comes from the Gutenberg transcription
+   of the same translation, VALIDATED at 99.41% word-identical on question 36, which both carry.
+
+   IT REFUSES TO WRITE OVER A CHAPTER THAT NO LONGER SHOWS THE FAULT. The entry names a phrase the
+   BROKEN chapter contains — the opening of the question that is standing in the missing one's place
+   — and if that phrase has gone, the wiki has been corrected upstream and this entry must be read
+   again rather than trusted. A dead entry is reported exactly as a dead correction row is. */
+let SUPPLIED_C = 0;
+const SUPPLY_C_DEAD = [];
+let _supplyCTable = null;
+function supplyChapter(rec, book, warn) {
+  if (!_supplyCTable) {
+    const p = path.join(__dirname, book.supplied);
+    _supplyCTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).chapters || [] : [];
+  }
+  const a = _supplyCTable.find((x) => x.ch === rec.n);
+  if (!a) return rec.html;
+  const flat = rec.html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
+  if (flat.indexOf(a.broken) < 0) {
+    SUPPLY_C_DEAD.push("chapter " + rec.n + ": no longer opens on \u201c" + a.broken.slice(0, 60) +
+      "\u2026\u201d \u2014 the transcription may have been corrected upstream, so read it before trusting this entry");
+    return rec.html;
+  }
+  SUPPLIED_C++;
+  return a.html;
+}
+
+
+/* A CHAPTER THAT STOPS RATHER THAN ENDS (Sep 2026, batch E43). The three modes above put back text
+   the transcription set in the wrong place or lost between one chapter and the next. This puts back
+   text that is missing from the END of a chapter, which is a different fault and has a different
+   tell: **the last paragraph has no terminal punctuation.**
+
+   Swept over the shelf, 22 chapters of 4,403 end that way, and five of them are the Summa's. All
+   five are the SOURCE's truncation and not this file's — each wiki page itself stops where Folio
+   stops, mid-sentence, with the MediaWiki parser report following immediately. Three are missing
+   only a full stop; one is missing six words; and Supplement q.95 loses the rest of its last
+   article's answer and all nine paragraphs after it, 1,123 words.
+
+   ONE MODE FOR BOTH SHAPES. `completion` finishes the paragraph the chapter breaks off in the
+   middle of; `paragraphs` are whole ones lost after it. Either may be absent, so a bare missing full
+   stop and a lost half-article are the same entry with different fields filled in.
+
+   THE GUARD IS WHAT THE CHAPTER CURRENTLY ENDS WITH. `endsWith` names the last words as they stand
+   WHILE THE FAULT DOES; if the transcription is completed upstream the chapter no longer ends that
+   way and the entry reports itself dead rather than appending a second copy of the tail. A dead
+   entry is reported exactly as a dead correction row is. */
+let TAILED = 0;
+const TAIL_DEAD = [];
+let _tailTable = null;
+function completeTail(rec, book, warn) {
+  if (!_tailTable) {
+    const p = path.join(__dirname, book.supplied);
+    _tailTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).tails || [] : [];
+  }
+  const a = _tailTable.find((x) => x.ch === rec.n);
+  if (!a) return rec.html;
+  const flat = rec.html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  if (!flat.endsWith(a.endsWith)) {
+    TAIL_DEAD.push("chapter " + rec.n + ": no longer ends on \u201c\u2026" + a.endsWith.slice(-48) +
+      "\u201d \u2014 the transcription may have been completed upstream, so read it before trusting " +
+      "this entry");
+    return rec.html;
+  }
+  let html = rec.html;
+  /* the completion goes inside the last paragraph, which is the one that breaks off */
+  if (a.completion) {
+    const at = html.lastIndexOf("</p>");
+    if (at < 0) { TAIL_DEAD.push("chapter " + rec.n + ": no closing paragraph to complete"); return rec.html; }
+    /* NO SPACE BEFORE PUNCTUATION THAT ATTACHES TO THE WORD IT FOLLOWS. Three of the five entries
+       are a bare full stop, and joined with a space they read "and this is done by moral virtue ." */
+    const join = /^[,.;:!?)\]'"’”]/.test(a.completion) ? "" : " ";
+    html = html.slice(0, at) + join + a.completion + html.slice(at);
+  }
+  if (a.paragraphs && a.paragraphs.length)
+    html += "\n" + a.paragraphs.map((q) => "<p>" + q + "</p>").join("\n");
+  TAILED++;
+  return html;
+}
+
+
+/* A LOST ARTICLE, WHICH IS NEITHER OF THE OTHER TWO (Sep 2026, batch E40). `supplyArticles` REPLACES
+   an article the wiki set twice under its neighbour's number; `supplyChapter` REPLACES a whole
+   question whose page carries the one before it. This INSERTS an article that is simply absent, and
+   renumbers what follows.
+
+   II-II q.180 forced it. Its page carries seven headings for a question that states eight articles,
+   and the heading labelled `Art. 5` carries article SIX's title and text — measured, Folio's block
+   numbered 5 is **99.83%** the witness's article six and 45% its article five. So article 5 is gone,
+   the count-agreement rule cannot renumber (seven headings against a stated eight), and every article
+   from there on is filed one number early.
+
+   THE GUARD IS THE BLOCK THAT STANDS IN THE MISSING ONE'S PLACE. `beforeTitle` names the title that
+   block carries WHILE THE FAULT STANDS; the insert goes immediately before it, and if that title has
+   gone the wiki has been corrected upstream and the entry reports itself dead rather than inserting
+   an article into a page that already has one. A dead entry is reported exactly as a dead correction
+   row is.
+
+   IT RENUMBERS THE WHOLE CHAPTER 1..N AFTERWARDS, which is `markArticuli`'s own count-agreement rule
+   applied one layer later: with the insert in place the article blocks are all there and in order, so
+   their numbers are their positions. That is what turns the printing's `Art. 7` and `Art. 8` — which
+   were correct all along and which the missing head had left looking like a gap — back into 7 and 8
+   with a real 6 between them. */
+let INSERTED = 0;
+const INSERT_DEAD = [];
+let _insertTable = null;
+function insertArticle(rec, book, warn) {
+  if (!_insertTable) {
+    const p = path.join(__dirname, book.supplied);
+    _insertTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).inserts || [] : [];
+  }
+  const want = _insertTable.filter((a) => a.ch === rec.n);
+  if (!want.length) return rec.html;
+  let html = rec.html;
+  for (const a of want) {
+    const HEAD = /<p><span class="bk-n">(\d+)<\/span>\s*<b>([\s\S]*?)<\/b><\/p>/g;
+    const cuts = [];
+    let m;
+    while ((m = HEAD.exec(html))) cuts.push({ n: +m[1], at: m.index, title: m[2].replace(/<[^>]*>/g, "") });
+    const i = cuts.findIndex((c) => c.title.indexOf(a.beforeTitle) === 0);
+    if (i < 0) {
+      INSERT_DEAD.push(a.question + " art " + a.article + ": nothing in the chapter opens on \u201c" +
+        a.beforeTitle.slice(0, 60) + "\u2026\u201d \u2014 the transcription may have been corrected " +
+        "upstream, so read it before trusting this entry");
+      continue;
+    }
+    const built = '<p><span class="bk-n">' + a.article + "</span> <b>" + a.title + "</b></p>\n" +
+      a.paragraphs.map((q) => "<p>" + q + "</p>").join("\n") + "\n<p><br></p>\n";
+    html = html.slice(0, cuts[i].at) + built + html.slice(cuts[i].at);
+    /* and renumber every article block in the chapter, in the order they stand */
+    let k = 0;
+    html = html.replace(/<p><span class="bk-n">\d+<\/span>/g, () =>
+      '<p><span class="bk-n">' + ++k + "</span>");
+    INSERTED++;
+  }
+  return html;
+}
+
+
+/* THE OTHER HALF OF THAT SHIFT, GUARDED (Sep 2026, batch E38). `pageShift` sends a chapter to a
+   differently-named page, which is right exactly while the source is wrong. Each entry names the
+   opening the SHIFTED page carries, so a run can tell "the fault is still there and the redirection
+   is doing its job" from "the wiki has been corrected and this redirection is now the fault" — the
+   two are indistinguishable in a silent run, and the second serves the reader the wrong question
+   under the right title, which is the state this batch was written to end. */
+const SHIFT_DEAD = [];
+function checkPageShift(rec, book) {
+  const a = book.pageShift && book.pageShift[rec.n];
+  if (!a) return;
+  const flat = rec.html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
+  if (flat.indexOf(a.was) < 0)
+    SHIFT_DEAD.push("chapter " + rec.n + " is read from question " + a.q + "'s page, which no longer " +
+      "opens on \u201c" + a.was + "\u2026\u201d \u2014 the transcription may have been corrected " +
+      "upstream, in which case this redirection now serves the wrong question");
+}
+
+
+function correctGot(got) {
+  const one = (c) => {
+    if (!c || typeof c !== "object") return c;
+    if (typeof c.html === "string") c.html = correctRaw(c.html);
+    if (typeof c.t === "string") c.t = correctRaw(c.t);
+    if (typeof c.name === "string") c.name = correctRaw(c.name);
+    if (Array.isArray(c.notes)) c.notes = c.notes.map((x) => (typeof x === "string" ? correctRaw(x) : x));
+    return c;
+  };
+  if (Array.isArray(got)) return got.map(one);
+  /* THE READERS THAT HAND BACK A NAMED COLLECTION rather than the parts themselves: the two TEI
+     readers key their parts by citation (`cantos`, `sections`), Ptahhotep's returns an array under
+     `secs`, and the three plain-text readers one under `chapters`. Named explicitly rather than
+     walked generically — but naming them is only half of it. */
+  for (const k of ["cantos", "sections", "secs", "chapters"]) {
+    const v = got && got[k];
+    if (!v || typeof v !== "object") continue;
+    for (const id of Object.keys(v)) one(v[id]);
+    return got;
+  }
+  if (got && typeof got === "object" && typeof got.html !== "string" && typeof got.t !== "string")
+    /* AND IT THROWS ON A SHAPE IT DOES NOT KNOW, which is the whole point of naming them (Sep 2026,
+       batch E32). Written to fall through to `one(got)`, it returned an unrecognised object
+       UNTOUCHED and reported nothing: pointed at a reader whose parts hang off a name not in the
+       list, it silently corrected NOTHING while every count still read healthy and the build still
+       said "Wrote books/…". That is E31's fault — a branch outside the chain — wearing the coat of
+       the helper written to close it, and it was found by pointing this at the three plain-text
+       readers, whose parts hang off `chapters`: 198 Canterbury Tales rows went dead in one run and
+       the only thing on screen that said so was the dead-row report. A comment claiming a helper
+       fails loudly is not a helper that fails loudly. */
+    throw new Error("correctGot: nothing to correct in a " + Object.keys(got).join("/") +
+      " — name the reader's own key in the list above rather than leaving its book uncorrected");
+  return one(got);
 }
 
 
@@ -18096,7 +21503,8 @@ function extractQuixote(text, book, warn) {
   const VOLUME_II = /\n[^\S\n]*Volume II[^\S\n]*\n/;
 
   const end = t.indexOf("*** END OF THE PROJECT GUTENBERG");
-  const out = { chapters: [], titles: 0, verse: 0, paras: 0, plates: 0, heads: 0, caps: [] };
+  const out = { chapters: [], titles: 0, verse: 0, paras: 0, plates: 0, heads: 0, caps: [],
+    italics: 0, underscored: [] };
 
   heads.forEach((h, i) => {
     const from = h.index + h[0].length;
@@ -18149,6 +21557,28 @@ function extractQuixote(text, book, warn) {
         html.push("<p>" + escHtml(ls.map((l) => l.trim()).join(" ")) + "</p>");
       }
     }
+    /* THE TRANSCRIPTION'S ITALIC, WHICH THIS READER WAS NEVER GIVEN (Sep 2026, batch E33). Project
+       Gutenberg marks italic with a pair of underscores, and `extractChaucer` — the other plain-text
+       reader on this shelf — has converted them since the day it was written. This one did not, so
+       86 italic passages shipped with their marks showing: <i>terra firma</i> reached the reader as
+       _terra firma_, `_mine_` and `_thine_` in the Golden Age speech carried four, and the romance
+       parody Cervantes opens on — "the reason of the unreason with which my reason is afflicted" —
+       had an underscore at each end of 271 characters.
+
+       MEASURED BEFORE IT WAS WRITTEN, because a pairing rule that guesses is worse than the marks it
+       replaces: every chapter's underscore count is EVEN, all 86 spans pair, and not one crosses a
+       paragraph, a blockquote or even a <br>. So the conversion runs per BLOCK, where `[^_]` cannot
+       reach past the end of the block it is in, and needs no lookahead and no state.
+
+       WHAT IS LEFT OVER IS REPORTED RATHER THAN KEPT QUIETLY. An odd underscore is either damage
+       this reader should be told about or a pairing this rule cannot see, and both are things to
+       look at rather than to ship — the same reason the verse blocks and the all-capital blocks are
+       counted a dozen lines above. */
+    for (let k = 0; k < html.length; k++)
+      html[k] = html[k].replace(/_([^_]*?)_/g, (whole, inner) => { out.italics++; return "<i>" + inner + "</i>"; });
+    const left = html.join("").match(/_/g);
+    if (left) out.underscored.push((i + 1) + " (" + left.length + ")");
+
     out.chapters.push({ n: i + 1, html: html.join("\n") });
   });
   return out;
@@ -18196,13 +21626,106 @@ function extractJourney(text, book, warn) {
      SHAPE of a head rather than becoming a rule about its words. It is widened on the LEADING form
      alone: a verso head opens on its page number, where the recto's trailing number read cleanly in
      all 106 cases, and a line ending in a lone "I" or "U" is something a page of verse can plausibly
-     contain. */
-  const HEAD_NUM = /^(?:[\dOoIlUu|]{1,3}\s+(.{6,45})|(.{6,45}?)\s+\d{1,3})$/;
+     contain.
+
+     A 107th CASE TURNED UP IN SEP 2026 (batch E34): "BUDDHA PEOVIDES SCRIPTURES lOT", where 107 is
+     read as l-O-T, standing in the middle of a sentence between "He" and "agreed". The trailing form
+     now takes the same class plus T, which is what a 7 breaks into. THE CAPS TEST IS WHAT MAKES THAT
+     SAFE and it has to stay: a head must be over three-quarters capitals with six letters or more,
+     which no line of this translation's prose or verse is — measured, the widening removes EXACTLY
+     ONE more line in the whole book, and it is that head.
+
+     THREE MORE IN SEP 2026 (batch E55), and together they say what this rule's weak point is: THE
+     RULE IS KEYED ON THE PAGE NUMBER, AND THE NUMBER IS THE PART OF A HEAD A SCANNER READS WORST.
+     It is small, isolated type at the outer edge of the leaf, so it takes the dirt and it takes the
+     bad guesses — where the title beside it, being a phrase, comes through readable every time:
+
+       A DRAGON EXECUTED US                        113, both digits read as letters
+       THE EMPEROR IN HADES 11&                    a mark off the page edge, attached
+       SUN CHARGES PKINCE LI WITH TREASON 299<     the same, and the title misread too
+
+     The last two are the worse pair, because both landed INSIDE a sentence: one splits Richard's own
+     parenthesis — "(The names of the Judges are given in" … "Chap. III. p. 38.— Tr.)" — and the
+     other stands between two paragraphs of chapter 83.
+
+     SO TWO NARROW WIDENINGS, EACH MEASURED OVER THE WHOLE BOOK. `S` joins the trailing class, which
+     is what a 3 breaks into here; and a number may carry up to two characters of dirt — BUT ONLY
+     WHERE IT REALLY CONTAINS A DIGIT. That proviso is not tidiness: without it the dirt clause reads
+     "CHAPTER I." as the word CHAPTER followed by the numeral I and a full stop, and DELETES THE
+     CHAPTER MARKERS THIS READER IS BUILT ON — three of them, in a run that would have taken the
+     book's structure with it. The measurement is what caught that, before anything was written.
+     Together they remove exactly three more lines in the whole book and lose none of the 250 the
+     rule already took, and all three are heads.
+
+     WHAT WAS TRIED AND REJECTED, because it is the obvious next idea and it does not work. A running
+     head IS the chapter's own title, so matching the line against the titles the book already
+     declares ought to identify one without looking at the number at all — E34's plate rule, whose
+     table is the book's own list of illustrations. It fails here on both halves. Matched loosely,
+     the titles of this book are short and share their whole vocabulary ("THE MASTER…", "SUN…",
+     "A DRAGON…"), so stripping a leading article as though it were a page number makes one chapter's
+     heading a near-match for another's and the rule proposes deleting 33 lines, most of them the
+     chapters' own headings. Matched exactly, it finds 15 occurrences of a title inside its own
+     chapter and only ONE is furniture — the other fourteen are ordinary sentences, because a
+     chapter's title is made of the words its prose is about. A plate caption is a distinctive
+     phrase; a chapter title is not. */
+  const HEAD_NUM = /^(?:[\dOoIlUu|]{1,3}\s+(.{6,45})|(.{6,45}?)\s+(?:[\dOoIlUu|TS]{1,3}|[\dOoIlUu|T]*\d[\dOoIlUu|T]*[^\w\s]{1,2}))$/;
   const VERSE_MAX = book.verseMax || 44;
 
   let src = String(text).replace(/\r\n?/g, "\n");
   const first = src.search(/\n[^A-Za-z0-9]{0,6}C[HKB][AEPR][PFR]?T?E?R?\.?\s+I\.?[ \t]*\n/);
   if (first < 0) throw new Error("no chapter heading — the transcription has changed shape");
+
+  /* THE PLATE CAPTIONS, AND THE BOOK'S OWN LIST OF THEM (Sep 2026, batch E34). This volume carries
+     thirty engravings, each with its caption printed under it — and the OCR reads a plate as a run
+     of blank lines, so the caption arrives as an ordinary line of text in the middle of whatever
+     paragraph the plate was bound into. Eighteen of them reached the reader, three inside a
+     sentence: "But the women Bajie tempted at the Bathing Fool. would not let him go." is a caption
+     folded into the prose it interrupts.
+
+     THE TABLE OF WHAT TO REMOVE IS THE BOOK'S OWN LIST OF ILLUSTRATIONS, read out of the front
+     matter this reader is about to throw away. That is the whole reason this is safe: the
+     alternative is a rule about the SHAPE of a caption — a short line inside a run of blank lines —
+     and the scan has 523 runs of four blank lines, most of them ordinary page breaks. Matching
+     against the printing's own list of its plates asks a question the book has already answered,
+     and it travels with the transcription instead of being a guess about it.
+
+     IT IS A FUZZY MATCH BECAUSE BOTH SIDES ARE OCR. The list prints "A Dragon transformed into a
+     Horse" and the plate itself comes back "A Dragon tbanspormed into a r:cRSE." Measured over the
+     whole book: at a threshold of 0.40, with the line required to sit behind THREE OR MORE blank
+     lines, twenty-two blocks match and EVERY ONE IS A PLATE CAPTION; the nearest thing that is not
+     is at 0.43. Both halves are needed — the ratio alone catches "chapter." against "The Master",
+     and the blank run alone catches every one of this scan's 523 page breaks.
+
+     THE THRESHOLD IS 0.40 RATHER THAN 0.35 BECAUSE THE CORRECTION CHAIN MOVES ONE SIDE AND NOT THE
+     OTHER, which is the thing to know before tuning it again. The chain runs before this reader, so
+     the LIST is romanised — "Kwanyin the Holy Spirit" becomes "Guanyin the Holy Spirit" — while the
+     caption on the plate is too mangled for the same row to fire on it ("KWANYIM TIIE IFOLY SpiKIT").
+     The two drift apart by the width of the correction, and that one caption went from 0.30 against
+     the raw list to 0.40 against the corrected one. A ROW THAT FIRES ON ONE SIDE OF A COMPARISON AND
+     NOT ON THE OTHER WIDENS IT, and the same will be true of any book whose furniture is matched
+     against its own front matter.
+
+     A CAPTION MAY RUN TO MORE THAN ONE LINE, so what is removed is the whole non-blank BLOCK the
+     matching line belongs to — nineteen are one line, two are two, and one is four, the plate of the
+     Incarnate One carrying the translator's note about the dove under its caption. A caption sits
+     alone between blank runs, so the block is bounded by the page's own typography. */
+  const frontMatter = src.slice(0, first);
+  const plateCaptions = [];
+  {
+    const a = frontMatter.search(/LIST OF ILLUSTRATIONS/i);
+    if (a >= 0) {
+      const rest = frontMatter.slice(a);
+      const b = rest.search(/\n\s*INTRODUCTION\b/);
+      for (const line of rest.slice(0, b > 0 ? b : rest.length).split("\n")) {
+        const t = line.trim();
+        if (!t || /ILLUSTRATION/i.test(t)) continue;
+        /* the page number is OCR too, so it is the handful of glyphs a digit is read as */
+        const m = /^(.*?)[\s.·•]*[0-9OolIi]{1,3}$/.exec(t);
+        if (m && m[1].replace(/[^A-Za-z]/g, "").length >= 6) plateCaptions.push(m[1].trim());
+      }
+    } else warn("no list of illustrations — the plate captions are still in the text");
+  }
+
   src = src.slice(first);
 
   /* THE OCR HAS NO END BOUNDARY OF ITS OWN, and the front one is only half the job. This reader
@@ -18234,6 +21757,69 @@ function extractJourney(text, book, warn) {
       return true;
     })
     .join("\n");
+
+  /* …and now the plates, against the list read above. See the block beside `frontMatter` for why the
+     book's own list is the table and why both the ratio and the blank run are needed. */
+  let plates = 0;
+  if (plateCaptions.length) {
+    const norm = (t) => t.toLowerCase().replace(/[^a-z]/g, "");
+    /* WHAT AN ENGRAVING LOOKS LIKE TO AN OCR. Not nothing: the hatching comes back as short blocks
+       of punctuation with a letter or two in them — "-^A^^K^^^i^", "\\&r,4??:", "^f:=-<:" — and the
+       plate's own corner marks as blocks of two to six characters that happen to be letters, "Vx-j"
+       and "Mihi". Both are absorbed, and the six-character bound is what reaches the second kind.
+       MEASURED, because that bound sounds reckless and is not: the book has 24 blocks of six
+       characters or fewer, of which four are real prose ("Truly.", "done,", "next.", "Thus,") left
+       stranded by a page break — and not one of the four sits beside a plate, so none is touched.
+       The rule only ever walks OUT FROM A MATCHED CAPTION, which is what keeps it honest. */
+    const plateNoise = (t) => {
+      const x = t.trim();
+      if (!x || x.length > 40) return false;
+      const letters = x.replace(/[^A-Za-z]/g, "").length;
+      return x.length <= 6 || letters < 4 || letters / x.length < 0.5;
+    };
+    const capNorm = plateCaptions.map(norm).filter((n) => n.length >= 6);
+    const ls = src.split("\n");
+    const drop = new Set();
+    for (let i = 0; i < ls.length; i++) {
+      const n = norm(ls[i]);
+      if (n.length < 6 || n.length > 70) continue;
+      let blank = 0;
+      for (let j = i - 1; j >= 0 && !ls[j].trim(); j--) blank++;
+      if (blank < 3) continue;
+      let best = 1;
+      for (const c of capNorm) { const r = editDist(n, c) / c.length; if (r < best) best = r; }
+      if (best > 0.40) continue;
+      let a = i; while (a > 0 && ls[a - 1].trim()) a--;
+      let z = i; while (z + 1 < ls.length && ls[z + 1].trim()) z++;
+      /* AND THE ENGRAVING ITSELF COMES OFF WITH ITS CAPTION. The OCR does not read a picture as
+         nothing: it reads the hatching as short blocks of punctuation — "-^A^^K^^^i^", "\\&r,4??:",
+         "uH^^^^-^^^" — which sit beside the caption in the same white space and reach the reader as
+         a line of gibberish in the middle of a paragraph. So the removal walks OUT from the caption
+         over any adjacent block that is short and mostly not letters, and stops at the first block
+         that is not. Measured over the whole book: ten blocks are absorbed and every one is
+         engraving noise; the chapter title "A DRAGON EXECUTED", which sits directly after one of the
+         plates, has eighteen letters and is not touched. */
+      for (;;) {
+        let j = a - 1; while (j >= 0 && !ls[j].trim()) j--;
+        if (j < 0) break;
+        let y = j; while (y > 0 && ls[y - 1].trim()) y--;
+        if (!plateNoise(ls.slice(y, j + 1).join(" "))) break;
+        a = y;
+      }
+      for (;;) {
+        let p = z + 1; while (p < ls.length && !ls[p].trim()) p++;
+        if (p >= ls.length) break;
+        let y = p; while (y + 1 < ls.length && ls[y + 1].trim()) y++;
+        if (!plateNoise(ls.slice(p, y + 1).join(" "))) break;
+        z = y;
+      }
+      for (let k = a; k <= z; k++) drop.add(k);
+      plates++;
+      i = z;
+    }
+    src = ls.filter((_, i) => !drop.has(i)).join("\n");
+  }
+
   /* The scan's own line wrap, which breaks a word with a hyphen. Only where a lower-case letter
      follows, so a real hyphenated compound broken across the wrap keeps its hyphen. */
   src = src.replace(/([A-Za-z])-[ \t]*\n[ \t]*([a-z])/g, "$1$2");
@@ -18310,11 +21896,19 @@ function extractJourney(text, book, warn) {
        edition is prose in another. It can match only a block that is WHOLLY the running title, which
        no chapter of a novel is, and every hit is counted so a rule that starts eating text cannot do
        it quietly. */
-    if (book.runningHead)
+    if (book.runningHead) {
+      /* ONE PATTERN OR A LIST OF THEM (Sep 2026, batch E55). It was a single regex, because when E34
+         wrote it exactly one head in the book was broken this way; a second turned up in chapter 100,
+         where "THE PILGRIMS FINISHED WORK" and its page number 361 are set as two blocks with a blank
+         line between them, so the head stands as a quotation between verses 5 and 6 of the anthem the
+         pilgrims sing and splits it in two. A list keeps each edition's heads declared and readable
+         one per line rather than welded into one alternation. */
+      const heads_ = [].concat(book.runningHead);
       for (let i = blocks.length - 1; i >= 0; i--) {
         const txt = blocks[i].join(" ").replace(/\s+/g, " ").trim();
-        if (book.runningHead.test(txt)) { blocks.splice(i, 1); heads++; lateHeads++; }
+        if (heads_.some((rx) => rx.test(txt))) { blocks.splice(i, 1); heads++; lateHeads++; }
       }
+    }
 
     const shortB = (b) => b.length <= 2 && medianLen(b) <= 46;
     for (let i = blocks.length - 1; i > 0; i--)
@@ -18367,7 +21961,8 @@ function extractJourney(text, book, warn) {
   const missing = [];
   for (let i = 1; i <= out.length; i++) if (!out.some((c) => c.n === i)) missing.push(i);
   if (missing.length) warn("chapter(s) with no heading found: " + missing.join(", "));
-  return { chapters: out, repairs: repairs, heads: heads, outlines: outlines, marks: marks,
+  return { chapters: out, plates: plates, plateCaptions: plateCaptions.length,
+    repairs: repairs, heads: heads, outlines: outlines, marks: marks,
     verseBlocks: verseBlocks, joins: joins, lateHeads: lateHeads, dropped: dropped };
 }
 
@@ -18889,8 +22484,28 @@ function originalChapters(h, warn) {
     // the [recensere] edit link that follows every heading, and the </div> closing the heading block
     b = b.replace(/^\s*<span class="mw-editsection">[\s\S]*?<\/div>/, "");
     b = b.split(/<div class="mw-heading/)[0];
-    // the site's own furniture: the prev/next navigation table, the export bar, the ToC placeholder
-    b = b.replace(/<table[\s\S]*?<\/table>/g, "");
+    /* The site's own furniture: the prev/next navigation table, the export bar, the ToC placeholder.
+
+       A TABLE HOLDING A POEM IS NOT FURNITURE, AND SEVEN QUOTATIONS OF VIRGIL WENT OUT WITH THE
+       NAVIGATION (Sep 2026, batch E26). This wiki sets a verse quotation as
+       `{{block center|<poem>…</poem>}}`, which MediaWiki renders as a one-cell TABLE used for
+       centring — so "every table on this page is furniture" ate the verse in letters 56, 58, 59, 64
+       and 67 along with it. Nothing said so: the letters are long, the section numbers still pair,
+       and the only symptom is that Seneca introduces a line of Virgil and then discusses a line the
+       reader has never been shown. The `div.poem` is lifted out and the table dropped round it.
+
+       AND A TABLE THAT CARRIES PROSE IS NOW REPORTED, which is the half that would have caught this
+       when it was written — `dropTables` has said so since the Three Kingdoms, and this rule, older,
+       did not. A rule that begins eating text must not be able to do it quietly. */
+    b = b.replace(/<table\b[\s\S]*?<\/table>/g, (t) => {
+      const poems = t.match(/<div class="poem"[^>]*>[\s\S]*?<\/div>/g);
+      if (poems) return "\n" + poems.join("\n") + "\n";
+      const prose = t.replace(/<a\b[^>]*>[\s\S]*?<\/a>/g, "").replace(/<[^>]*>/g, "")
+        .replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+      if (prose.length > 40) warn("a table carrying " + prose.length + " characters of text was removed: " +
+        JSON.stringify(prose.slice(0, 60)));
+      return "";
+    });
     b = b.replace(/<div class="ws-noexport"[\s\S]*?<\/div>/g, "");
     b = b.replace(/<meta[^>]*\/?>/g, "").replace(/<link[^>]*\/?>/g, "");
 
@@ -18963,6 +22578,7 @@ function originalChapters(h, warn) {
    No section pass. A book reaching this function pairs on its CHAPTER — see the note on `original` in
    The Prince's entry — so the chapter is returned as one block, which is what bookRows then sets
    beside the whole of the English chapter. */
+let ORIG_TIPS = 0;
 function originalChapter(h, O, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   /* A PAGE TYPED ONTO THE WIKI RATHER THAN TRANSCLUDED FROM A SCAN has no `prp-pages-output` wrapper
@@ -19063,6 +22679,25 @@ function originalChapter(h, O, warn) {
     if (!m) break;
     const end = blockEnd(b, m.index, "span");
     if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  /* A TEXTUAL VARIANT SET AS A TOOLTIP IS AN EDITOR'S NOTE, NOT THE NOVEL (Aug 2026, batch B6b).
+     Chinese Wikisource marks a variant reading the way the English side marks a printer's slip —
+     `<span class="variant-text">璟<span class="variant-tooltip">一作「景」</span></span>` — and the tag
+     strip flattens the tooltip into the running prose, so the sentence reads 吳璟一作「景」不和 with an
+     editorial gloss glued into the middle of it. The character the page PRINTS is kept and the note
+     goes, which is exactly what `unwrapNameMarkup` does with `wst-tooltip` on the translation side.
+
+     It arrived between the August import and this one, on a page nobody was editing, and it is the
+     reason a re-import is diffed rather than trusted: nothing threw, the chapter was four characters
+     LONGER, and every count read as healthy. The Book of Documents' entry records the same shape on
+     the same wiki as a trap for a facing original it never got; this is the first book to meet it. */
+  for (let k = 0; k < 400; k++) {
+    const m = /<span class="variant-tooltip\b[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "span");
+    if (end < 0) break;
+    ORIG_TIPS++;
     b = b.slice(0, m.index) + b.slice(end);
   }
   b = b.replace(/<link[^>]*\/?>/g, "").replace(/<meta[^>]*\/?>/g, "");
@@ -19546,6 +23181,17 @@ function teiSections(xml, opts, warn) {
     // the marker goes INSIDE the first paragraph, which is where bookSections looks for it
     html += (html ? "\n" : "") + text.replace(/^<p>/, '<p><span class="bk-n">' + n + "</span> ");
   });
+  /* A NOTE NOTHING CAN POINT AT (Sep 2026, batch E48). teiSectionProse lifts a note out where it
+     stands and then keeps only what is inside a `<p>`, so a note standing OUTSIDE one loses its
+     marker and keeps its entry — and app.js draws that as a plain unnumbered line at the head of the
+     fold: an entry no sentence opens, which is the mirror of the dead marker the apparatus already
+     refuses to draw. The rule above answers the one instance the shelf has; this is what says
+     whether another arrives, and it asks about the MECHANISM rather than about any note's shape. */
+  const pointed = new Set([...html.matchAll(/<sup class="fn"[^>]*data-fn="(\d+)"/g)].map((x) => +x[1]));
+  notes.forEach((t, i) => {
+    if (!pointed.has(i + 1))
+      warn("note " + (i + 1) + " lost its marker in the prose — " + JSON.stringify(t).slice(0, 70));
+  });
   return { html: html, notes: notes, count: kept, skipped: skipped };
 }
 
@@ -19573,6 +23219,17 @@ function teiSectionProse(raw, notes) {
        of Nero's 57 chapters with one line of warning to say so. Set in italic, as an editorial
        interpolation in someone else's text should be. */
     if (/place="inline"/.test(attrs)) return " <i>" + t + "</i> ";
+    /* NEITHER IS A NOTE MARKED type="Com", WHICH IS THE EDITION'S ARGUMENT OF THE WORK (Sep 2026,
+       batch E48). There is exactly one on the shelf — Perseus's Lysis opens section 203 with
+       "Socrates relates a conversation he had in a wrestling-school", the one-line summary the Loeb
+       prints at the head of the dialogue — and it is not a note on a word: it stands BEFORE the
+       first paragraph, so its marker went into text the `<p>` sweep below then threw away, and the
+       line reached the reader as entry 1 of a fold nothing points at. TEI's `type` says what it is
+       as plainly as `place` says where the note above belongs.
+       It is returned as its OWN paragraph rather than in the flow, because a headnote standing
+       outside a paragraph cannot survive that sweep at all; italic, as the editor's voice in
+       someone else's text, which is the rule the line above already keeps. */
+    if (/type="Com"/i.test(attrs)) return "<p><i>" + t + "</i></p>";
     notes.push(t);
     return '<sup class="fn" data-fn="' + notes.length + '"></sup>';
   });
@@ -19599,8 +23256,143 @@ function teiSectionProse(raw, notes) {
    becomes italic, which is how the printed page sets the Latin and Greek it glosses. */
 function teiInline(s) {
   let b = s;
+
+  /* A CITATION RUN THROUGH A BETA-CODE CONVERTER THAT SHOULD NEVER HAVE SEEN IT — Sep 2026 (batch
+     E18), found while reading E17's insertions in the Greek column and confirmed in the source
+     before anything was written, which is the step E17 had to learn.
+
+       <bibl n="Hom. Il. 14.291">ηομ. ιλ. 14.291</bibl>
+
+     `h o m . i l .` is beta code for `η ο μ . ι λ .`, so a reader of Plato's Greek meets a citation
+     of the Iliad spelled in Greek letters that spell nothing: the converter was pointed at a
+     reference already in Latin script and did what it was asked. **It is Perseus's file and not
+     ours** — `betaGreek` runs here only where a book declares `greek: "beta"`, which is the
+     Satyricon alone — and the same `<bibl>` carries the correct form on its own `n=` attribute,
+     which is what makes the repair checkable rather than a guess.
+
+     THE TEST IS A ROUND TRIP, AND THAT IS THE WHOLE SAFETY OF IT. The element's text is decoded back
+     through the table above and must then MATCH the `n=` attribute; only then is the attribute
+     written in. A citation legitimately given in Greek cannot pass that test, because decoding real
+     Greek yields a string of consonants that is not its own reference — 42 `<title>` elements on the
+     shelf carry genuine Greek and not one of them matches. So the rule cannot reach them.
+
+     A PREFIX MATCH IS KEPT AND IS NOT A ROUNDING ERROR. One of the thirteen reads
+     `ηομ. ιλ. 14.201, 302.` against `n="Hom. Il. 14.201"` — the text cites a SECOND line that the
+     attribute does not — so taking the attribute whole would silently drop a reference. Where the
+     decoded text merely BEGINS with the attribute, the attribute supplies the capitals and the
+     decoded remainder is kept.
+
+     MEASURED OVER EVERY PERSEUS FILE THE SHELF READS, both columns: 1,301 `<bibl>` elements carrying
+     text, of which 13 are this fault and every one is in Plato's Greek. Twelve match outright and
+     one is the prefix case. **KNOWN LIMIT, stated rather than papered over**: a future instance that
+     fails the round trip is left standing rather than reported, `teiInline` being a pure function
+     with nowhere to warn to — it would show as Greek gibberish in the book, and the census that
+     found these is what would find it. */
+  b = b.replace(/<bibl\b([^>]*)>([^<]*)<\/bibl>/g, (whole, attrs, txt) => {
+    if (!/[\u0370-\u03FF\u1F00-\u1FFF]/.test(txt)) return whole;
+    const n = (attrs.match(/\bn="([^"]*)"/) || [])[1];
+    if (!n) return whole;
+    const dec = txt.replace(/[\u0370-\u03FF\u1F00-\u1FFF]/g, (c) => BETA_BACK[c] || c);
+    const a = dec.toLowerCase(), z = n.toLowerCase();
+    if (a === z) return "<bibl" + attrs + ">" + n + "</bibl>";
+    if (a.startsWith(z)) return "<bibl" + attrs + ">" + n + dec.slice(n.length) + "</bibl>";
+    return whole;
+  });
+
+  /* A CITATION'S ELEMENT BOUNDARY IS A WORD BOUNDARY, AND THE SOURCE DOES NOT ALWAYS SET ONE —
+     Sep 2026 (batch E17), on the Loeb Plato, whose apparatus is denser in references than anything
+     else on the shelf. Perseus encodes a cited work as an element and leaves no whitespace at its
+     edge, so unwrapping welds the citation to the words on either side of it:
+
+       Cf. <title>Laws</title>638 B.            →  Cf. Laws638 B.
+       <bibl>Hom. Il. 14.201, 302</bibl>has     →  Hom. Il. 14.201, 302has
+       Cf. 86 E;<title>Phaedo</title>81 C       →  Cf. 86 E;Phaedo81 C
+       between<foreign>ἔρως</foreign>and        →  betweenἔρωςand
+
+     THE FIRST DIAGNOSIS WAS WRONG AND IS WORTH RECORDING, because it is the same shape of error as
+     E9's. The pattern that gives it away is that an ABBREVIATED work keeps its space and a spelled-
+     out one loses it — `Rep. 392 D` against `Laws638 B` — which was read here as a tag-strip eating
+     whitespace, i.e. as OUR fault. It is not: the source itself reads `<title>Laws</title>638`, and
+     an abbreviation keeps its space only because its own full stop sits OUTSIDE the element and
+     carries the space after it. The observation was right and the actor was wrong; the source was
+     read before the rule was written, and that is the step that was missing the first time.
+
+     SO IT IS A FLATTENING RULE RATHER THAN A CORRECTION, which is why it lives here instead of in a
+     book's `fixes` table. Folio's reader has no `<title>` and no `<bibl>`; this importer's job is to
+     decide what those boundaries become in plain prose, and two words welded together is not one of
+     the answers. Sixteen books read Perseus TEI, so a table would be the same three rows sixteen
+     times over — the duplication a shared extractor exists to prevent.
+
+     MEASURED OVER EVERY PERSEUS FILE THE SHELF READS, both columns, before it was written: 176
+     boundaries, and every one of them wants a space. 45 of the 60 in the first rule are Plato's
+     `Laws638` family, 14 are a Greek gloss welded to the English around it, and one is Thucydides'
+     Greek running into a citation of the Iliad. The third rule's 109 are the mirror image, of which
+     83 are a comma, semicolon or abbreviation-stop set flush against the reference that follows it.
+     The rules are anchored on the element's own tag, so they can reach nothing else.
+
+     THE SECOND RULE IS THE ABBREVIATION'S OWN STOP: `<title>Rep</title>.401 D` is the stop set
+     correctly, tight to `Rep`, and the number then set tight to the stop. Seven of those, all in
+     Plato, and they are why the first rule cannot simply be widened to any non-space character —
+     `</title>.` is right far more often than it is wrong (115 times against seven), so the digit
+     after the stop is what distinguishes them.
+
+     PROVED BYTE-FOR-BYTE INERT ON EVERY BOOK WITH NO SUCH BOUNDARY, which the standing rule for a
+     shared extractor requires and which matters more here than usual: `teiInline` is read by every
+     TEI book on the shelf and by both columns of each. */
+  b = b.replace(/<\/(title|bibl|foreign)>(?=[\p{L}\p{N}])/gu, "</$1> ");
+  b = b.replace(/<\/(title|bibl)>\.(?=\p{N})/gu, "</$1>. ");
+  b = b.replace(/(?<=[\p{L}\p{N}.,;’])(?=<(?:title|bibl|foreign)[ >])/gu, " ");
+
   b = b.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");
-  b = b.replace(/<\/?add\b[^>]*>/g, "");
+
+  /* ONE MARK USED FOR TWO THINGS, AND THE RULE THAT KEPT BOTH — Sep 2026 (batch E55), on the Latin
+     Suetonius, and it is E53's shape one book over. `<add>` is documented above as the editor's
+     supplement, kept because "without it the sentence is not the sentence he constituted". Ihm also
+     uses it for the MARGINAL REFERENCE his page prints beside a quotation, and unwrapped that lands
+     inside Suetonius's own sentence:
+
+       Cicero scribens de Officiis tertio libro <add>82</add> semper Caesarem in ore habuisse
+       omitto Calui Licini <add>FPR p.322</add> notissimos uersus:
+       certe Cicero ad Brutum <add>261</add> oratores enumerans negat se uidere
+
+     THE FIRST TWO ARE NOT MERELY ODD, THEY ARE FALSE IN LATIN. `libro 82` is book 82 of a work that
+     has three, and `ad Brutum 261 oratores enumerans` reads as a count of orators. The others make
+     Suetonius cite a nineteenth-century German collection of fragments by page.
+
+     THE DISCRIMINATOR IS A DIGIT, AND IT IS MEASURED RATHER THAN REASONED. Every `<add>` on the
+     shelf was read first: 355 of them across the eight books that carry any, in both columns. Nine
+     contain a digit and every one is a reference; NOT ONE SUPPLEMENT ANYWHERE CONTAINS A DIGIT,
+     because a supplement is words — `ne`, `et`, `rata`, `id`, `in`, `neque suae`, `atque`, `nouum`,
+     `quae`, and one restored clause of Hirtius. The second rule is the two references that spell
+     their number in Roman — `bell. Gall. VIII pr.` and `frg.XV` — and is anchored on an abbreviation
+     stop before the numeral, so it cannot reach a supplement either. Eleven match in total, all
+     eleven in Divus Julius, which is the chapter dense with quoted verse.
+
+     A LOOSER TEST WAS WRITTEN FIRST AND WOULD HAVE BEEN A DISASTER. Treating an internal full stop
+     as the mark of a reference also selects eleven of Plato's Greek supplements — among them whole
+     speeches of the Alcibiades that Burnet supplies — so it would have deleted lines of Plato to
+     tidy Suetonius's margin. Measuring before writing is what caught it.
+
+     THEY ARE DROPPED RATHER THAN SET APART, and the reason is that there is nowhere to put them.
+     E48 kept the Lysis's argument because the printed page puts it at the head of the section and
+     the sweep could keep it there; these are printed in a MARGIN, which Folio's reader has not got,
+     so every in-flow position is a claim the edition does not make. The Latin column carries no
+     apparatus for them to join — E47's rule, that an original carries no notes because the reader
+     has one fold and gives it to the translation — and Thomson's English, from a different edition
+     altogether, carries none of them, so dropping brings the two columns into agreement rather than
+     out of it. What is lost is a pointer into an edition that is not on the shelf, and the book's
+     own front matter says so. */
+  b = b.replace(/(\s*)<add\b[^>]*>([\s\S]*?)<\/add>/g, (whole, sp, inner) => {
+    const t = inner.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+    const ref = /\d/.test(t) || /(?:^|[\s.])[A-Za-z]{1,6}\.\s?[IVXLC]+\b/.test(t);
+    /* The reference takes the space BEFORE it and leaves the one after, which is what closes the gap
+       in both positions it stands in: mid-phrase it leaves one space between the words it parted
+       ("omitto Calui Licini notissimos uersus"), and before a colon it leaves none, where taking the
+       following space instead would print "item ipsius Caesaris :" — the colon adrift from its word
+       in three places. A supplement keeps whatever spacing the source gave it. */
+    return ref ? "" : sp + inner;
+  });
+  b = b.replace(/<\/?add\b[^>]*>/g, "");                     // any unpaired tag, as before
 
   /* PERSEUS'S NAME AUTHORITY, dropped WITH its words — and it is the quiet fault of the Herodotus
      files, which are the first here to carry it. Their English tags every person, place and people
@@ -20348,6 +24140,11 @@ function dramaHtml(sections) {
 const BETA_LET = { a: "α", b: "β", g: "γ", d: "δ", e: "ε", z: "ζ", h: "η", q: "θ", i: "ι", k: "κ",
   l: "λ", m: "μ", n: "ν", c: "ξ", o: "ο", p: "π", r: "ρ", s: "σ", t: "τ", u: "υ",
   f: "φ", x: "χ", y: "ψ", w: "ω" };
+/* THE SAME TABLE READ BACKWARDS, and it is DERIVED rather than typed out — a second copy of a
+   mapping is a copy that comes to disagree with the first. Used by teiInline to undo a beta-code
+   conversion that ran over a citation which was never beta code; see the note there. */
+const BETA_BACK = (() => { const r = {}; for (const k in BETA_LET) r[BETA_LET[k]] = k; r["ς"] = "s"; return r; })();
+
 const BETA_BREATH = { ")": "̓", "(": "̔", "+": "̈" };
 const BETA_ACCENT = { "/": "́", "\\": "̀", "=": "͂" };
 const BETA_SUB = { "|": "ͅ" };
@@ -22281,8 +26078,7 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, xml); }
-    xml = correctRaw(xml);
-    const got = extractRamayan(xml, warn);
+    const got = correctGot(extractRamayan(xml, warn));
     const c = got.counts;
     console.log("  " + Object.keys(got.cantos).length + " cantos, " + c.lines + " lines of verse in " +
       c.stanzas + " stanzas, " + c.paras + " prose paragraph(s), " + c.notes + " notes");
@@ -22323,8 +26119,7 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
-    xml = correctRaw(xml);
-    const got = extractSatyricon(xml, { greek: BOOK.greek }, warn);
+    const got = correctGot(extractSatyricon(xml, { greek: BOOK.greek }, warn));
     const c = got.counts;
     console.log("  " + Object.keys(got.sections).length + " sections, " + c.notes + " notes, " +
       c.quotes + " display quotations (" + c.verse + " of them verse, " + c.lines + " lines), " +
@@ -22411,7 +26206,7 @@ async function fetchEnglish() {
     let h;
     if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
     else { h = await api(BOOK.onePage); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); }
-    const got = extractPlay(h, BOOK, warn);
+    const got = correctGot(extractPlay(h, BOOK, warn));
     if (got.length !== BOOK.chapters.length)
       warn("the cut yields " + got.length + " parts; the entry expects " + BOOK.chapters.length);
     got.forEach((c) => {
@@ -22442,7 +26237,7 @@ async function fetchEnglish() {
       let h;
       if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
       else { h = await api(BOOK.page(n)); fs.writeFileSync(cf, h); await sleep(900); }
-      const got = extractFitt(h, warn, where);
+      const got = correctGot(extractFitt(h, warn, where));
       if (got.html.length < (BOOK.minChars || 200))
         throw new Error(where + " came back short (" + got.html.length + " chars)");
       chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
@@ -22478,8 +26273,7 @@ async function fetchEnglish() {
          Wikisource serves it, so a `fixes` row can be re-verified against the cache instead of
          needing a full refetch to prove it still fires. Every other book on this path — there is
          none; `layout: "sukta"` is the Rigveda's alone — would be unaffected either way. */
-      h = correctRaw(h);
-      const got = extractSukta(h, where, warn);
+      const got = correctGot(extractSukta(h, where, warn));
       /* A hymn may honestly be three verses long, so the short-chapter guard is a floor on the
          WHOLE book rather than a throw on one page: what it is for is catching an extraction that
          has returned the wiki's furniture instead of the text, and one three-verse hymn is not
@@ -22518,7 +26312,7 @@ async function fetchEnglish() {
         fs.writeFileSync(cf, h);
         await sleep(900);
       }
-      const got = extractTerzina(h, where, warn);
+      const got = correctGot(extractTerzina(h, where, warn));
       if (got.html.length < (BOOK.minChars || 200))
         throw new Error(where + " came back short (" + got.html.length + " chars)");
       lines += got.lines; printed += got.printed; bad += got.bad;
@@ -22560,7 +26354,7 @@ async function fetchEnglish() {
       let h;
       if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
       else { h = await api(BOOK.page(n)); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); await sleep(1200); }
-      const got = extractEdda(h, t, warn, where, (BOOK.prose || []).includes(n));
+      const got = correctGot(extractEdda(h, t, warn, where, (BOOK.prose || []).includes(n)));
       if (got.html.length < (BOOK.minChars || 200))
         throw new Error(where + " came back short (" + got.html.length + " chars)");
       chapters.push({ n: n, t: t, p: partOf(n), html: got.html, notes: got.notes });
@@ -22579,7 +26373,7 @@ async function fetchEnglish() {
     let h;
     if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
     else { h = await api(BOOK.onePage); fs.writeFileSync(cf, h); }
-    const got = extractLaisses(h, BOOK, warn);
+    const got = correctGot(extractLaisses(h, BOOK, warn));
     if (got.length !== BOOK.chapters.length)
       warn("the edition carries " + got.length + " laisses; the entry expects " + BOOK.chapters.length);
     got.forEach((c) => {
@@ -22638,6 +26432,14 @@ async function fetchEnglish() {
       got.joins + " paragraphs rejoined across a page break, " + got.verseBlocks + " verse blocks" +
       (got.lateHeads ? " (" + got.lateHeads + " of the heads the OCR split in two, caught as blocks)" : ""));
     console.log("  " + got.dropped + " characters of back matter dropped at the end boundary");
+    /* THE PLATES, COUNTED BOTH WAYS — how many of the printing's own list of illustrations were found
+       in the text and how many the list holds. They will never be equal: several plates are bound
+       into the front matter this reader starts after, and one or two captions are OCR'd past the
+       threshold. What matters is that the first figure does not fall to zero, which is what a list
+       that has stopped parsing looks like from here, and that it does not run away, which is what a
+       threshold set too loose looks like. */
+    console.log("  " + got.plates + " plate caption(s) removed, of the " + got.plateCaptions +
+      " the printing's own list of illustrations names");
     /* THE ONE FIGURE THIS BOOK IS ABOUT. Richard condenses most of the novel and marks the chapters
        he condensed himself, so this count is the single most important thing a reader can be told
        about the text — and a change in it means the mark has stopped being recognised, which is how
@@ -22761,8 +26563,7 @@ async function fetchEnglish() {
     let raw;
     if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
     else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
-    raw = correctRaw(raw);
-    const got = extractPtahhotep(raw, BOOK, warn);
+    const got = correctGot(extractPtahhotep(raw, BOOK, warn));
     const c = got.counts;
     console.log("  " + got.secs.length + " sections, " + c.notes + " notes, " + c.marks +
       " marker(s), " + c.pages + " printed page number(s) removed" +
@@ -22821,6 +26622,13 @@ async function fetchEnglish() {
     console.log("  " + got.verse + " verse blocks, and " + got.caps.length +
       " short all-capital blocks kept as headings: " +
       [...new Set(got.caps)].slice(0, 6).join(" · "));
+    /* AND THE ITALIC IS COUNTED BOTH WAYS, for the reason the verse count is: the transcription marks
+       it with a pair of underscores and nothing else on the page says whether they were read. A run
+       in which the first figure moves is a run to look at; a run in which the second is not empty is
+       a chapter left carrying an odd underscore. */
+    console.log("  " + got.italics + " italic passage(s) read off the transcription's underscores" +
+      (got.underscored.length ? ", and " + got.underscored.length +
+        " chapter(s) left carrying one: " + got.underscored.join(", ") : ""));
     return writeEnglish(chapters, warnings);
   }
   /* THE CANTERBURY TALES — a plain-text OCR of one volume, of which this book is the first sixth. One
@@ -22869,8 +26677,7 @@ async function fetchEnglish() {
     let h;
     if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
     else { h = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); }
-    h = correctRaw(h);
-    const got = extractTablets(h, BOOK, warn);
+    const got = correctGot(extractTablets(h, BOOK, warn));
     let notes = 0, cols = 0, marks = 0;
     got.forEach((c) => {
       if (c.n < FROM || c.n > TO) return;
@@ -22912,7 +26719,50 @@ async function fetchEnglish() {
       // the cache holds the extracted prose only — the title and the part are re-derived on every
       // run, so re-titling or re-dividing a book costs no refetch
       const c = JSON.parse(fs.readFileSync(cf, "utf8"));
-      chapters.push({ n, t: titles[n] || c.t || chapterTitle(n), p: partOf(n), html: c.html, notes: c.notes || [] });
+      if (c.raw) CACHE_RAW++; else CACHE_LEGACY++;
+      /* AND THE CORRECTIONS ARE RE-APPLIED HERE, WHICH THEY WERE NOT (Sep 2026, batch E19).
+         `correctRaw` is called on the FETCH path a few lines below and nowhere else on this branch,
+         so a row added to a book whose chapters were already cached did nothing at all until
+         somebody thought to pass `--force` — and `correctRaw`'s own comment promises the opposite,
+         that "a row added or corrected in this file is picked up on the very next run". True on the
+         TEI branches, which correct after reading their cache; false here, on every per-chapter wiki
+         book, which is most of the shelf.
+
+         IT FAILS IN THE WORST WAY THIS FILE KEEPS MEETING: the row is written, the build says
+         nothing, the book is rewritten, and the only symptom is that the word is still wrong. It
+         is worse than a dead row, because the build DOES report a dead row — and it reported these,
+         to a run that had no reason to believe them, since a row can also read as dead when the
+         damage it names is genuinely absent. Batch E15's `corning` was announced as shipped on
+         exactly that reading and had never applied.
+
+         The chain is idempotent — see the note above applyRoman — which is what makes re-running it
+         over prose that has already been through it safe rather than merely tolerable. Proved
+         byte-for-byte over every book on the shelf before it was kept. */
+      const html = correctRaw(c.html);
+      const notes = (c.notes || []).map(correctRaw);
+      /* THE TITLE IS CORRECTED HERE ONLY IF THE RECORD IS raw: 2 (Sep 2026, batch E37). A record
+         written before that says `raw: 1`, and its title had ALREADY been corrected on the way in —
+         so correcting it again would apply `applyRoman` twice, which is not idempotent and which
+         E30 caught doing exactly this to 974 names in the body. Measured on the Three Kingdoms
+         before the marker was bumped: seven titles moved, `Tao` to `Dao` and `Pi` to `Bi` and
+         `Chao` to `Zhao`, every one of them a name that was already right. */
+      /* AND A TITLE READ FROM THE CONTENTS PAGE IN THIS RUN IS ALWAYS CORRECTED (Sep 2026, batch
+         E38). E37's guard is about the CACHE, whose title a `raw: 1` record already carries
+         corrected — but `titles[n]` does not come from the cache at all: `titlesOf` fetches the
+         edition's contents pages on every run, so that string has been through nothing, and the
+         guard was refusing to correct the one title that always needs it. The Summa's contents page
+         reads "OF UNDLUGENCES" for Supplement question 25, and no correction row could reach it. */
+      const fresh = titles[n];
+      const cached = { n, t: fresh != null ? correctRaw(fresh)
+        : (c.raw >= 2 ? correctRaw(c.t || chapterTitle(n)) : (c.t || chapterTitle(n))),
+        p: partOf(n), html: html, notes: notes };
+      if (BOOK.pageShift) checkPageShift(cached, BOOK);
+      if (BOOK.supplied) cached.html = supplyChapter(cached, BOOK, (m) => warnings.push(m));
+      if (BOOK.supplied) cached.html = supplyArticles(cached, BOOK, (m) => warnings.push(m));
+      if (BOOK.supplied) cached.html = insertArticle(cached, BOOK, (m) => warnings.push(m));
+      if (BOOK.supplied) cached.html = completeTail(cached, BOOK, (m) => warnings.push(m));
+      if (BOOK.dedupe) cached.html = dedupeArticles(cached, BOOK, (m) => warnings.push(m));
+      chapters.push(cached);
       continue;
     }
     /* A CHAPTER MAY BE PRINTED ACROSS MORE THAN ONE WIKI PAGE (Aug 2026, adding the Book of
@@ -22928,7 +26778,7 @@ async function fetchEnglish() {
        string still means exactly what it always did, so no shipped book's config is touched. */
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
-    let h = correctRaw(await api(pageNames[0]));
+    let h = await api(pageNames[0]);
     let html, notes, orig = "", tFromText = "";
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
@@ -22939,6 +26789,16 @@ async function fetchEnglish() {
     if (BOOK.head === "sankuo") {
       const got = sanKuoHead(h, n, warn);
       h = got.h;
+      /* THE TITLE IS CORRECTED HERE, WHERE IT IS READ, and not with the body below (Sep 2026, batch
+         E29). The body is cached uncorrected and corrected on the way out, which is what makes a dead
+         row mean something; a TITLE cannot follow it, because `applyRoman` is NOT idempotent — a row's
+         output can be another row's input, Wade-Giles `Pi` being pinyin `Bi` — so a title corrected
+         into the cache and corrected again on reading it renames five men in the chapter bar. Measured
+         when this was got wrong for an hour: Cao Pi became Cao Bi, Xu Chu became Xu Zhu, Ma Chao
+         became Ma Zhao, Tao became Dao and Kan Ze became Gan Ze. So the cache holds a corrected title
+         beside an uncorrected body — an asymmetry, and the only shape that is right for both. It is
+         also what keeps `titlesCorrected` true for this book: the title has still been through the
+         chain exactly once by the time `writeEnglish` sees it. */
       tFromText = got.t;
       if (got.t) SANKUO.titled++;
     }
@@ -22998,7 +26858,7 @@ async function fetchEnglish() {
       for (const extra of pageNames.slice(1)) {
         await sleep(700);
         if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(extra);
-        const eh = correctRaw(await api(extra));
+        const eh = await api(extra);
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
@@ -23048,7 +26908,46 @@ async function fetchEnglish() {
     if (html.length < floor) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
     const rec = { n, t: titles[n] || tFromText || chapterTitle(n), p: partOf(n), html, notes };
     if (orig) rec.orig = orig;
-    fs.writeFileSync(cf, JSON.stringify(rec));
+    /* THE CACHE HOLDS WHAT THE EXTRACTOR PRODUCED, NOT WHAT THE CORRECTION TABLE MADE OF IT (Sep
+       2026, batch E29). The chain used to run on the way IN — `correctRaw(await api(...))` — so the
+       prose written here was already corrected, and on the next run every row met a page it had
+       already repaired and reported itself DEAD. That is E19's caveat, and the caveat is all that
+       stood between it and another `corning`: E15 announced a repair as shipped on a dead-row
+       report that meant nothing. Correcting on the way OUT makes the report mean something — a row
+       fires on every run, and a row that does not is a row whose damage is gone.
+
+       AND IT TAKES THE ORIGINAL COLUMN OUT OF THE CHAIN, which `correctRaw`'s own comment says is
+       where it belongs: "a table written against a translator's romanisation has no business
+       rewriting the Chinese, Latin or Greek it faces." A facing-page book extracts both columns from
+       this one page, so correcting the page corrected both; correcting the record corrects the
+       translation and leaves `rec.orig` alone. Measured over the shelf when it was moved: the only
+       book it changes is the one whose table really was reaching across.
+
+       THE TITLE GOES THROUGH THE CHAIN ON THE WAY OUT TOO, AND FOR A FORTNIGHT IT DID NOT (Sep 2026,
+       batch E37). E29 corrected it where `sanKuoHead` reads it — before this record is written — so
+       the cache held a record marked `raw: 1` whose html was the extractor's own and whose TITLE was
+       already corrected. The marker was telling a half-truth, and the cost was not the title, which
+       was right, but the DEAD-ROW REPORT: five romanisation rows fire only on chapter heads, and on
+       a cached run they met a head that was already converted and reported themselves dead. The
+       house rule says a dead row is a defect and should be pruned; a session following it would have
+       deleted five live rows and sent eight chapter titles back to Wade-Giles on the next --force,
+       with the build saying nothing. So the title is cached RAW and corrected here, beside the html
+       and the notes, on both the fetch path and the cached one. `titlesCorrected` still declares that
+       this book's heads are corrected in this file rather than by `writeEnglish`'s own pass. */
+    /* `raw: 1` says this record holds the EXTRACTOR's output and not a corrected copy of it — see
+       CACHE_RAW above. It is written onto a copy rather than onto `rec`, which is the record the
+       book file is serialized from and must carry nothing this script invented. */
+    fs.writeFileSync(cf, JSON.stringify(Object.assign({ raw: 2 }, rec)));
+    CACHE_RAW++;
+    rec.html = correctRaw(rec.html);
+    rec.notes = (rec.notes || []).map(correctRaw);
+    rec.t = correctRaw(rec.t);
+    if (BOOK.pageShift) checkPageShift(rec, BOOK);
+    if (BOOK.supplied) rec.html = supplyChapter(rec, BOOK, (m) => warnings.push(m));
+    if (BOOK.supplied) rec.html = supplyArticles(rec, BOOK, (m) => warnings.push(m));
+    if (BOOK.supplied) rec.html = insertArticle(rec, BOOK, (m) => warnings.push(m));
+    if (BOOK.supplied) rec.html = completeTail(rec, BOOK, (m) => warnings.push(m));
+    if (BOOK.dedupe) rec.html = dedupeArticles(rec, BOOK, (m) => warnings.push(m));
     chapters.push(rec);
     console.log("  " + BOOK.chapterWord + " " + n + " — " + rec.t + " (" + html.length + " chars, " + notes.length + " notes)");
     await sleep(700);
@@ -23060,16 +26959,265 @@ async function fetchEnglish() {
    Wikisource pages and a single TEI edition — share one way of writing it out and one report at the
    end, and so cannot drift apart in what they emit. The same split, and the same reason, as
    writeOriginal below. */
+/* A SPACE LOST AT A LINE END, IN THE SOURCE (Sep 2026, batch E28). The last four books of the Latin
+   Seneca — letters 101 to 124, which Wikisource carries as Liber XVII–XVIII, XIX and XX — were typed
+   with the space at each line end swallowed, so the text reads "bonumesse", "nullusest",
+   "occupationibussum", "Neminemres". It is upstream and not ours: every one of the 483 forms declared
+   below appears glued in the wikitext that `?action=raw` returns, so no rule in this file could have
+   produced it and none can be written to undo it — a lost space leaves nothing behind to key on.
+
+   THE FIRST HUNDRED LETTERS ARE CLEAN and that is what makes the finding trustworthy: three isolated
+   slips in letters 1–100 against about fourteen a letter from 101 on, which is a page-level fault in
+   somebody's transcription rather than a scatter. Read as a rate it is the same shape as the
+   Canterbury Tales' scan damage, one wiki over.
+
+   IT IS A DECLARED MAP RATHER THAN A RULE, and the reason is that no rule can be right here. The
+   candidates were found by asking for a single-occurrence token that splits into two words the book
+   uses at least three times, one of them a function word — and that measure returns real Latin as
+   well: `officiosum`, `adprobari`, `inmortales`, `satisfaciam`, `incesserit`, `aberrat`, `curatam`,
+   `quate` and eighteen more are perfectly good words that happen to split. They were sorted from the
+   damage in two passes: a LEXICON of 833,000 words of Latin from the other originals on this shelf —
+   the City of God, Boethius, Caesar, Ovid, Lucretius, Suetonius, the Aeneid, the Satyricon, Bede —
+   which knew 33 of 35 real words tested and none of the errors; and then a reading of every survivor
+   in its own sentence, which is what caught the last of them. Four went the other way and are
+   repaired because the sentence says so: `advocem` is "non ad vocem referunt sed ad sententiam",
+   `semouet` is "impetum animi tendentis ad se mouet", `Inanime` is Horace's "'Inani me' inquis",
+   and `nequis` is "id agit ne quis sit officiosior seruus".
+
+   EVERY ENTRY IS ANCHORED ON BOTH SIDES and every entry must FIRE. A key here is a whole word — the
+   forms are letters only, so there is nothing to escape — and a key that matches nothing is reported
+   at the end of the run, exactly as a dead `reFix` is: a repair that has stopped applying and says so
+   is a finding, and one that stops applying in silence is a text quietly going back to being wrong. */
+/* WHICH KIND OF CACHE A RUN READ (Sep 2026, batch E30). E29 moved the correction chain to run on
+   the extracted prose rather than on the page, so a record written from that point on holds the
+   extractor's own output and every row must fire against it. Records written BEFORE it hold prose an
+   earlier run had already corrected, and against those a row doing its job perfectly fires nowhere —
+   which is E19's caveat, and the difference between a dead-row report that is a FACT and one that is
+   a maybe. A record now says which it is (`raw: 1`), these count what was read, and the run stops
+   guessing: the caveat prints when a legacy record was actually read and not otherwise. */
+let CACHE_RAW = 0, CACHE_LEGACY = 0;
+
+const ORIG_SPACE_HITS = {};
+function restoreLostSpaces(chapters, O) {
+  const map = O && O.lostSpaces;
+  if (!map) return;
+  const keys = Object.keys(map);
+  const bad = keys.filter((k) => !/^[A-Za-z]+$/.test(k));
+  if (bad.length) throw new Error("lostSpaces keys must be letters only: " + bad.slice(0, 3).join(", "));
+  keys.sort((a, b) => b.length - a.length);
+  const rx = new RegExp("(?<![A-Za-z])(" + keys.join("|") + ")(?![A-Za-z])", "g");
+  let n = 0;
+  const fix = (html) => String(html || "").replace(rx, (w) => {
+    ORIG_SPACE_HITS[w] = (ORIG_SPACE_HITS[w] || 0) + 1; n++;
+    return map[w];
+  });
+  chapters.forEach((c) => { c.html = fix(c.html); });
+  const dead = keys.filter((k) => !ORIG_SPACE_HITS[k]);
+  console.log("  restored " + n + " space" + (n === 1 ? "" : "s") + " the source had swallowed" +
+    (dead.length ? " — " + dead.length + " declared row(s) DID NOT FIRE: " + dead.slice(0, 6).join(", ") : ""));
+  return dead.length;
+}
+
+/* A VERSE LINE BREAK WRITTEN AS A BARE NEWLINE (Sep 2026, batch E27, finishing E26). The Latin
+   Seneca is the only column on the shelf with no <br> in it at all — the Iliad has 15,258, the Aeneid
+   9,452, the Ramayana 39,061 — so the lines of the verse it quotes on nearly every other page are
+   separated by newlines, which HTML collapses to spaces. E26 restored 70 of those quotations and left
+   the ones already inside a paragraph reading as run-on prose; this is the other half.
+
+   E26's log called it "a judgement per paragraph rather than a rule". THE MEASUREMENT SAYS
+   OTHERWISE, and by a margin nobody has to argue about: of the eighteen paragraphs in the book
+   carrying an internal newline, the thirteen that are verse have a longest line of 25–51 characters
+   and the five that are prose have one of 1,428–2,179. The gap between the two families is 1,377
+   characters wide, so a threshold of 100 sits in the middle of open ground rather than on a border.
+
+   IT IS STILL GATED PER BOOK (`verseNewlines`), and the gate is not ceremony — measured over the
+   whole shelf the same length rule would fire on 10,198 paragraphs of the Summa, 2,013 of the City of
+   God and 733 of the Confessions, all of them ordinary prose wrapped at the source's own line length.
+   The length test tells verse from prose WITHIN a book whose newlines mean something; it cannot tell
+   whether they mean anything, and only the book can say that.
+
+   Running before joinBrokenParas is what lets that pass go back to asking a single question — does
+   this paragraph carry a <br>? — since by then this one has written them in. */
+function versifyNewlines(chapters) {
+  let n = 0, lines = 0;
+  const fix = (html) => String(html || "").replace(/<p\b[^>]*>[\s\S]*?<\/p>/g, (para) => {
+    if (!/[^>\s]\n[^<\s]/.test(para)) return para;
+    const segs = para.replace(/<[^>]*>/g, "").replace(/&#?\w+;/g, " ")
+      .split("\n").map((x) => x.trim()).filter(Boolean);
+    if (segs.length < 2 || segs.some((x) => x.length > VERSE_LINE_MAX)) return para;
+    n++; lines += segs.length - 1;
+    return para.replace(/([^>\s])\n(?=[^<\s])/g, "$1<br>\n");
+  });
+  chapters.forEach((c) => {
+    c.html = fix(c.html);
+    if (c.notes) c.notes = c.notes.map(fix);
+  });
+  if (n) console.log("  lineated " + n + " verse paragraph" + (n === 1 ? "" : "s") +
+    " whose line breaks were bare newlines (" + lines + " lines restored)");
+}
+const VERSE_LINE_MAX = 100;
+
+/* TEXT BETWEEN TWO PARAGRAPHS AND INSIDE NEITHER IS INVISIBLE TO THE READER (Sep 2026, batch E26).
+   `bookSections` in app.js walks `box.children` — ELEMENTS — to split a chapter at its section
+   markers, so a bare text node between two blocks belongs to no section and is silently dropped from
+   the page. Measured over the shelf: 67 such blocks in the books that HAVE an original column, 63 of
+   them in the Latin Seneca, and every one of them a quotation of Virgil, Ovid or Ennius set off from
+   the prose. Six thousand characters of poetry present in the file and absent from the page, with
+   nothing anywhere to say so — the chapter renders, the counts are right, and only searching the
+   rendered text for a line that is in the data finds it.
+
+   It is repaired at BOTH ends and the two are different failures. Here, the loose text is wrapped in
+   a paragraph, because a text node between blocks is not what `cleanBody` is supposed to emit; in
+   app.js, `bookSections` now carries a text node instead of discarding it, so the next one can never
+   again be lost in silence.
+
+   THE INTERNAL NEWLINES BECOME <br>, which is what makes this a repair rather than a rescue. Every
+   other original column on the shelf writes a verse line break as <br> — the Iliad 15,258 times, the
+   Aeneid 9,452, the Ramayana 39,061 — and the Latin Seneca is the ONLY one with none at all: its
+   verse is separated by bare newlines, which HTML collapses to spaces, so a rescued block would
+   arrive as four hexameters run into one line. Wrapped this way it reads as the verse it is. */
+function wrapLooseText(chapters) {
+  let n = 0, lines = 0;
+  const fix = (html) => String(html || "").replace(
+    /(<\/(?:p|div|blockquote|h[1-6]|li|ul|ol|table)>)([^<]*[^\s<][^<]*)(?=<)/gi,
+    (whole, close, text) => {
+      if (!/[\p{L}\p{N}]/u.test(text)) return whole;
+      const body = text.trim().replace(/\n+/g, "<br>");
+      n++; lines += (body.match(/<br>/g) || []).length;
+      return close + '\n<p class="bk-loose">' + body + "</p>\n";
+    });
+  chapters.forEach((c) => {
+    c.html = fix(c.html);
+    if (c.notes) c.notes = c.notes.map(fix);
+  });
+  if (n) console.log("  wrapped " + n + " block" + (n === 1 ? "" : "s") +
+    " of text that sat outside every paragraph" + (lines ? " (" + lines + " verse line breaks restored)" : ""));
+}
+
+/* A PARAGRAPH NEVER BEGINS WITH A LOWERCASE LETTER, and where one does the paragraph break is not
+   the author's (Sep 2026, batch E25). The City of God is served by Wikisource one printed PAGE at a
+   time, and the page-turn arrives in the markup as a paragraph break — mid-sentence, and 43 times of
+   364 mid-WORD, so Book I chapter 20 read "...they have no sensa" and then, as a new paragraph,
+   "tion, nor of the irrational animals...". It is Wikisource's own rendering rather than anything
+   this script does: the fetched HTML carries the break literally, with no pagenum span or anchor to
+   join on, so the only signal available is the lowercase letter itself.
+
+   Measured over the whole shelf the signal is rare and clean — 387 boundaries in four books, and
+   every one of them read by eye is the same fault: 364 in the City of God, 9 in Ovid, 9 in the
+   Summa, 5 in Herodotus. Two of those four are TEI books and two are wiki books, which is why the
+   pass sits HERE, at serialization, rather than in either reader.
+
+   THE JOIN IS EASY AND THE SEPARATOR IS THE WHOLE PROBLEM. Three cases, decided per boundary:
+
+   · NOTHING, where the break fell inside a word. The test is the book's own vocabulary — the two
+     fragments concatenated must be a word the book uses elsewhere ("sensa"+"tion" is sensation, 42
+     times) AND the pair must NOT be attested as two words within a paragraph anywhere in the book.
+     Both halves are needed. Without the first, "murmur"+"ings" would be joined on a guess; without
+     the second, "in"+"the" would be welded into "inthe", "may"+"be" into "maybe" and "a"+"man" into
+     the name Aman, all three of which the shelf does contain. The bigram count is taken WITHIN a
+     paragraph precisely so that these boundaries cannot vote for themselves.
+   · <br>, where the surrounding paragraph is verse — Ovid's lines are separated by <br>, so the
+     spurious break stands exactly where a line break belongs and a space would run two hexameters
+     into one.
+   · a SPACE otherwise.
+
+   It is deliberately conservative at the one genuinely ambiguous pair: the City of God writes "can
+   not" as two words four times, so "can"+"not" is left as a space rather than welded into "cannot".
+   A wrong space is a reading a reader can see through; a wrong weld invents a word.
+
+   A <p> carrying ATTRIBUTES is never joined — the opening tag is discarded by the join, and a tag
+   that says something about its paragraph must not be thrown away to close a gap. None of the 387
+   has one. */
+function joinBrokenParas(chapters) {
+  const word = new Map(), bigram = new Map();
+  const count = (html) => {
+    /* Within a paragraph only. A bigram counted ACROSS a break would be manufactured by the very
+       fault this pass repairs, and every boundary would then attest itself as two words. */
+    for (const para of String(html || "").split(/<\/p>/)) {
+      const toks = (para.replace(/<[^>]*>/g, " ").toLowerCase().match(/[a-z]+/g) || []);
+      for (let i = 0; i < toks.length; i++) {
+        word.set(toks[i], (word.get(toks[i]) || 0) + 1);
+        if (i) { const k = toks[i - 1] + " " + toks[i]; bigram.set(k, (bigram.get(k) || 0) + 1); }
+      }
+    }
+  };
+  chapters.forEach((c) => { count(c.html); (c.notes || []).forEach(count); });
+
+  let joined = 0, welded = 0, versed = 0, kept = 0;
+  const fix = (html) => String(html || "").replace(
+    /([a-z]+)<\/p>\s*<p>([a-z]+)/g,   // a <p> with ATTRIBUTES is never joined — see the note above
+    (whole, a, z, at, all) => {
+      const lc = a.toLowerCase(), rc = z.toLowerCase();
+      const mid = (word.get(lc + rc) || 0) > 0 && (bigram.get(lc + " " + rc) || 0) === 0;
+      /* VERSE IS ASKED OF THE TWO PARAGRAPHS, NEVER OF THE CHAPTER. The first cut tested the whole
+         html and got it wrong in two books at once: Herodotus quotes his oracles in verse and the
+         Summa its marriage mnemonic, so one <br> anywhere in the chapter put a line break into five
+         and eight lines of ordinary PROSE — "Zeus contrived<br>to show himself". A boundary is verse
+         only if the line it stands in is. */
+      const before = all.slice(Math.max(0, all.lastIndexOf("<p", at)), at);
+      const after = all.slice(at + whole.length, (all.indexOf("</p>", at + whole.length) + 1) || undefined);
+      /* ONE QUESTION: does this paragraph carry a <br>? It was two for a day — E26 had to ask about a
+         bare newline as well, the Latin Seneca writing its verse line breaks that way — and
+         `versifyNewlines` now runs first and turns those into <br>, so the second reading is gone
+         with the book-specific flag that gated it. A pass that normalises is worth more than a test
+         that special-cases. */
+      const vb = /<br\s*\/?>/i.test(before), va = /<br\s*\/?>/i.test(after);
+      /* PROSE ON ONE SIDE AND VERSE ON THE OTHER IS A BLOCK QUOTATION, AND ITS BREAK IS REAL (Sep
+         2026, batch E26, extending this pass to the original-language columns). Seneca introduces a
+         line of Virgil with "Deinde cum subinde recitasset" and the verse follows as a block of its
+         own, which legitimately opens on a lowercase letter — so "a paragraph never begins on a
+         lowercase letter" is not universal, and the counter-example is exactly this shape. Two verse
+         paragraphs in a row are one poem split mid-line (Ovid); two prose paragraphs are the
+         page-turn this pass was written for; one of each is the boundary between them, and joining
+         it would run a quotation into the sentence that introduces it. */
+      /* AND A BLOCK THIS RUN ITSELF LIFTED OUT OF NOWHERE IS NEVER JOINED FORWARD. `wrapLooseText`
+         runs first and marks what it wrapped; such a paragraph is by definition a passage set off
+         from the prose around it, so the seam below it is a real boundary and not a page-turn. The
+         seam ABOVE it needs no rule — the wrapped <p> carries an attribute, and a <p> with attributes
+         is never joined. */
+      if (/class="bk-loose"/.test(before)) { kept++; return whole; }
+      if (!mid && vb !== va) { kept++; return whole; }
+      const verse = vb && va;
+      joined++; if (mid) welded++; else if (verse) versed++;
+      return a + (mid ? "" : (verse ? "<br>" : " ")) + z;
+    });
+  chapters.forEach((c) => {
+    c.html = fix(c.html);
+    if (c.notes) c.notes = c.notes.map(fix);
+  });
+  if (joined || kept) console.log("  joined " + joined + " false paragraph break" + (joined === 1 ? "" : "s") +
+    " (" + welded + " inside a word, " + versed + " between verse lines)" +
+    (kept ? ", kept " + kept + " prose/verse boundar" + (kept === 1 ? "y" : "ies") : ""));
+}
+
 function writeEnglish(chapters, warnings) {
   chapters.sort((a, b) => a.n - b.n);
+  /* A tag the source escaped, which would otherwise be PRINTED — see dropEscapedTags for the three
+     tests and for why this is here rather than in `stripTags`. */
+  dropEscapedTagsIn(chapters);
   /* A CHAPTER TITLE IS ON THE ROMANISATION'S OTHER SIDE, and it was not for the first run of B2. The
      Analects names its twenty books after their opening words — 子路, 顏淵, 子張 — so the chapter bar
      read "Tsze-lu" over a chapter whose every sentence had been given as Zilu. A title comes from the
      contents page or from the chapter's own head rather than through `cleanBody`, so the apply chain
      never reaches it, and it is set at eighteen different pushes; this is the one place they all pass
      through. Gated on the book DECLARING a `roman` table, so it cannot reach a book without one, and
-     inert on the Art of War, whose chapter titles are English ("Laying Plans"). */
-  if (BOOK.roman) chapters.forEach((c) => { c.t = applyRoman(c.t); });
+     inert on the Art of War, whose chapter titles are English ("Laying Plans").
+
+     …BUT NOT WHERE THE TITLE WAS READ OFF TEXT THE CHAIN HAS ALREADY CORRECTED, which is what
+     `titlesCorrected` declares (Aug 2026, batch B6b, the Three Kingdoms). That book has no contents
+     page in its config: `sanKuoHead` takes each title off the chapter's own printed head, out of the
+     `h` that `correctRaw` has already been over — so running the pass here is a SECOND application of
+     a table designed to be applied once, and the collision rule then bites. A row's correct output
+     can be another row's input (Wade-Giles `P‘i` is pinyin `Pi` and Wade-Giles `Pi` is pinyin `Bi`),
+     so chapter 33's "Cao Pi" became "Cao Bi" and chapter 59's "Xu Chu" and "Ma Chao" became "Xu Zhu"
+     and "Ma Zhao" — four men renamed in the chapter bar, where the body of the same chapter reads
+     them correctly. It was harmless until B6b: the
+     single-syllable unaspirated rows are what turn a second pass from a no-op into a rename. */
+  if (BOOK.roman && !BOOK.titlesCorrected) chapters.forEach((c) => { c.t = applyRoman(c.t); });
+
+  if (BOOK.verseNewlines) versifyNewlines(chapters);
+  wrapLooseText(chapters);
+  joinBrokenParas(chapters);
 
   const outDir = path.join(ROOT, "books");
   fs.mkdirSync(outDir, { recursive: true });
@@ -23121,6 +27269,25 @@ function writeEnglish(chapters, warnings) {
   /* Say what the extractor was unsure of. A chapter that comes through with no section numbers is the
      quietest failure this script has: it does not throw, it does not shorten the text and it does not
      look wrong on the page — it simply leaves that chapter with nothing to cite and nothing to pair. */
+  /* A DEAD ROW MEANS TWO DIFFERENT THINGS, AND ONLY ONE OF THEM IS A FAULT (Sep 2026, batch E19).
+     On a `--force` run the corrections meet the page as the source served it, so a row that fires
+     nowhere names damage that is not there and wants removing. On a CACHED run they meet prose an
+     earlier run has already corrected, so a row doing its job perfectly also fires nowhere. The two
+     read identically in the lines below, and batch E15 read one as the other: it announced
+     `summa-theologica`'s `corning` as repaired on the strength of a row that had never applied and
+     never could — the word occurs only inside `scorning`, which the row is anchored to spare.
+     So the run says which kind of report this is rather than leaving it to be assumed. */
+  /* E30: printed when a LEGACY record was actually read, rather than on every cached run. A cache
+     written since E29 holds the extractor's own output, so a row that fires nowhere against it names
+     damage that is not there — which is what the second line says, and what makes the report below
+     worth acting on rather than worth re-checking. */
+  if ((BOOK.fixes || BOOK.reFixes) && CACHE_LEGACY)
+    console.log("  (" + CACHE_LEGACY + " chapter(s) read from a cache written before E29, which holds" +
+                " already-corrected prose: a row reported DEAD here may simply have been applied on an" +
+                " earlier run — re-run with --force to tell the two apart)");
+  else if ((BOOK.fixes || BOOK.reFixes) && !FORCE && CACHE_RAW)
+    console.log("  (read from cache, and the cache holds the source's own prose: a row reported DEAD" +
+                " below names damage that is not there)");
   if (BOOK.fixes) {
     for (const [from, , why] of BOOK.fixes) {
       const n = FIX_HITS[from] || 0;
@@ -23128,6 +27295,40 @@ function writeEnglish(chapters, warnings) {
       if (!n) warnings.push("a declared fix matched nothing: " + JSON.stringify(from.slice(0, 60)));
     }
   }
+  if (BOOK.reFixes) {
+    for (const [rx, , why] of BOOK.reFixes) {
+      const n = REFIX_HITS[String(rx)] || 0;
+      console.log("  refix " + (n ? "applied " + n + "x" : "DID NOT FIRE") + " — " + why);
+      if (!n) warnings.push("a declared reFix matched nothing: " + String(rx));
+    }
+  }
+  /* WHAT THE ESCAPED-TAG RULE TOOK OUT, named rather than counted (Sep 2026, batch E45). It is the
+     one pass in this file that removes text from every book on the shelf without a row in any entry
+     declaring it, so a run that removes something must say what: eight tags in three books when it
+     was written, and a NINTH appearing on some other book is either a new transcription fault worth
+     knowing about or this rule having grown a false positive, and both want reading. */
+  reportEscapedTags();
+
+  /* THE ARTICLES PUT BACK, counted both ways for the reason every table here is: a splice that has
+     stopped firing is either an upstream fix (good, and the entry must go) or this file having lost
+     its grip on the page (bad), and the two look identical from a silent run. */
+  if (BOOK.supplied)
+    console.log("  " + SUPPLIED + " article(s) and " + SUPPLIED_C +
+      " whole chapter(s) and " + INSERTED +
+      " inserted article(s) and " + TAILED +
+      " completed tail(s) supplied from a second transcription of the same edition" +
+      (SUPPLY_DEAD.length + SUPPLY_C_DEAD.length + INSERT_DEAD.length + TAIL_DEAD.length
+        ? ", and " + (SUPPLY_DEAD.length + SUPPLY_C_DEAD.length + INSERT_DEAD.length + TAIL_DEAD.length) +
+          " entr(y/ies) that no longer apply" : ""));
+  if (BOOK.dedupe)
+    console.log("  " + DEDUPE_TRAIL + " paragraph(s) removed from the end of an article they do not belong to, and " +
+      DEDUPE_RUN + " from a run the transcription set twice");
+  for (const d of SUPPLY_DEAD) warnings.push("a supplied article did not apply — " + d);
+  for (const d of SUPPLY_C_DEAD) warnings.push("a supplied chapter did not apply — " + d);
+  for (const d of INSERT_DEAD) warnings.push("a supplied article was not inserted — " + d);
+  for (const d of TAIL_DEAD) warnings.push("a completed tail did not apply — " + d);
+  for (const d of SHIFT_DEAD) warnings.push("a page redirection may no longer be needed — " + d);
+
   if (BOOK.glyphs) {
     let hit = 0, dead = [];
     for (const [from] of BOOK.glyphs) {
@@ -23142,7 +27343,8 @@ function writeEnglish(chapters, warnings) {
     console.log("  unwrapped " + (BLACK_HITS.wrapped + BLACK_HITS.bare) +
       " blackletter letter(s) (" + BLACK_HITS.wrapped + " wrapped, " + BLACK_HITS.bare +
       " bare), " + BLACK_HITS.tip + " tooltip span(s), " + BLACK_HITS.anchor +
-      " link(s) and " + BLACK_HITS.dedupe + " style-dedupe link(s)");
+      " link(s), " + BLACK_HITS.dedupe + " style-dedupe link(s) and " +
+      (BLACK_HITS.style || 0) + " TemplateStyles block(s)");
     // Only a book that DECLARES blackletter can be warned about not finding any.
     // `nameMarkup` is the general “peel markup that splits a name in two” flag and has
     // three jobs; Legge’s Sacred Books volumes are the only books here with an en-Latf
@@ -23167,6 +27369,8 @@ function writeEnglish(chapters, warnings) {
       console.log("  moved " + ROMAN_JOIN.moved + " page marker(s) out of the middle of a word so the rows could see it");
     if (ROMAN_JOIN.dropcap)
       console.log("  unwrapped " + ROMAN_JOIN.dropcap + " drop capital(s) so the rows could see the word they open");
+    if (ROMAN_JOIN.split)
+      console.log("  rejoined " + ROMAN_JOIN.split + " name(s) a printed page turn splits in two");
   }
   if (warnings.length) {
     console.log("\n  " + warnings.length + " warning(s):");
@@ -23219,11 +27423,20 @@ async function fetchOriginal() {
       BOOK.chapters.length + " chapters");
     for (const n of BOOK.chapters) {
       const cf = path.join(CACHE, n + ".json");
-      let rec = !FORCE && fs.existsSync(cf) ? JSON.parse(fs.readFileSync(cf, "utf8")) : null;
+      /* THE RECORD ON DISK IS READ EVEN UNDER --force, and merged rather than replaced (Sep 2026,
+         batch E30). This pass runs AFTER the English one and writes to the same file, so building a
+         fresh record here threw away what that pass had just put in it: the title it read off the
+         text, and the `raw` marker that says whether the prose is the source's own or a corrected
+         copy of it. Nothing rendered differently — the two books on this path state their titles in
+         this file, so `titles[n]` won either way — but the marker went missing on exactly the books a
+         --force run had just made trustworthy, which is the reverse of what it is for. */
+      const disk = fs.existsSync(cf) ? JSON.parse(fs.readFileSync(cf, "utf8")) : null;
+      let rec = !FORCE && disk ? disk : null;
       if (!rec || !rec.orig) {
         const h = await api(BOOK.page(n));
         const got = bothColumns(h, BOOK, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
-        rec = rec || { n, t: chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes };
+        rec = rec || Object.assign({}, disk, {
+          n, t: (disk && disk.t) || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
         rec.orig = got.orig;
         fs.writeFileSync(cf, JSON.stringify(rec));
         await sleep(700);
@@ -23484,17 +27697,33 @@ async function fetchOriginal() {
         en = teiBookChapters(enXml, {}, warn);
       }
       const or = teiBookChapters(xml, {}, warn);
-      /* The chapter as the reader sees it — "121A", not the sort key behind it — because both columns
-         print the same label and a human reading this report needs the citation, not the scale. */
-      const nums = (o) => (o ? [...o.html.matchAll(/class="bk-n"[^>]*>([^<]+)</g)].map((m) => m[1]) : []);
+      /* PAIRED ON THE KEY, REPORTED BY THE LABEL — and until September 2026 this was paired on the
+         label, which is the whole reason batch E44 had a book to repair. A marker carries two numbers:
+         the figure it PRINTS and the `data-n` sort key app.js actually pairs on, and the two are the
+         same only where the importer has not written a key. Thucydides' Greek carried `data-n` on
+         every marker and its English carried none, so the shipped book paired 7 of its 1,826 sections
+         — and this check reported all 916 of them paired, because both columns print "34". A check
+         that reads a different field from the one the reader's page reads is not a check.
+         So the pairing runs on the key and the REPORT still names the citation, which is what a human
+         reading it needs: "121A", not 12101. A key that is not a number cannot arise on this branch —
+         every rule feeding it writes digits — and is reported rather than compared, since NaN pairs
+         with NaN under Set membership and would read as a row that agrees. */
+      const marks = (o) =>
+        (o ? [...o.html.matchAll(/class="bk-n"([^>]*)>([^<]+)</g)] : []).map((m) => {
+          const dn = /data-n="([^"]*)"/.exec(m[1]);
+          const k = parseInt(dn && dn[1] !== "" ? dn[1] : m[2], 10);
+          if (!(k >= 0)) warn("chapter mark " + JSON.stringify(m[2]) + " has no number to pair on");
+          return { k: k, t: m[2] };
+        });
       console.log("  reconciling the two columns' chapter numbers:");
       let paired = 0, blankOrig = 0, blankEng = 0, notes = 0;
       Object.keys(en).map(Number).sort((a, b) => a - b).forEach((n) => {
         if (!or[n]) { warn(BOOK.chapterWord + " " + n + " is missing from the original"); return; }
-        const e = nums(en[n]), o = nums(or[n]);
-        const es = new Set(e), os = new Set(o);
-        const miss = e.filter((c) => !os.has(c)), extra = o.filter((c) => !es.has(c));
-        paired += e.filter((c) => os.has(c)).length;
+        const e = marks(en[n]), o = marks(or[n]);
+        const es = new Set(e.map((c) => c.k)), os = new Set(o.map((c) => c.k));
+        const miss = e.filter((c) => !os.has(c.k)).map((c) => c.t);
+        const extra = o.filter((c) => !es.has(c.k)).map((c) => c.t);
+        paired += e.filter((c) => os.has(c.k)).length;
         blankOrig += miss.length; blankEng += extra.length;
         notes += or[n].notes.length;
         console.log("    " + BOOK.chapterWord + " " + n + " — " + e.length + " chapters in the " +
@@ -23505,6 +27734,8 @@ async function fetchOriginal() {
       console.log("  paired " + paired + " of " + (paired + blankOrig) + " chapters; " + blankOrig +
         " draw an empty " + O.langName + " cell and " + blankEng + " an empty English one");
       console.log("  " + notes + " editorial notes dropped from the original column (it has no fold)");
+      /* …and their markers with them — see the note in writeOriginal. This line is where the drop was
+         reported without saying that the marks it leaves behind were being kept. */
       Object.keys(or).forEach((n) => { byNum[n] = or[n].html; });
       return writeOriginal(byNum, warnings);
     }
@@ -23908,6 +28139,71 @@ async function fetchOriginal() {
 function writeOriginal(byNum, warnings) {
   const O = BOOK.original;
   const nums = Object.keys(byNum).map(Number).sort((a, b) => a - b);
+  /* THE SAME TWO PASSES THE TRANSLATION GETS, over a shape this half stores differently. `byNum` is
+     a number-to-html map where `writeEnglish` holds an array of records, so it is adapted here
+     rather than the passes being written twice: a repair that runs on one column and not the other
+     is a book whose two halves disagree about what a paragraph is. */
+  const asChapters = nums.map((n) => ({ n: n, html: byNum[n] }));
+  /* The same sweep the translation gets, and the City of God is why it must be on both halves: its
+     two escaped tags are on the LATIN side, so a rule written only for the English would have missed
+     the book that motivated it. */
+  dropEscapedTagsIn(asChapters);
+
+  /* ---------- A MARKER IN A COLUMN THAT HAS NO NOTES (Sep 2026, batch E47) ----------
+     THE NOTES ARE DROPPED FROM AN ORIGINAL AND THEIR MARKERS WERE NOT DROPPED WITH THEM. Folio's
+     reader folds notes under the TRANSLATION alone — the original column has nowhere to put one — so
+     `teiSectionProse` and its siblings lift an original's editorial notes out and this file throws the
+     list away, which is right and is reported a few lines below. What survived was the `<sup class="fn"
+     data-fn="N">` left behind in the prose: 483 of them in the Old English Beowulf and 84 in the Greek
+     Herodotus, against zero notes on either side.
+
+     AND app.js DOES NOT SIMPLY IGNORE THEM. `wireFootnotes` takes its list from the FIRST `.src-note`
+     on the page — which on a book page is the TRANSLATION's — and then walks every `sup.fn` in document
+     order, the original column's included. A marker whose number is at or under the translation's note
+     count is kept, numbered, and made a CONTROL pointing at that note; only the excess is removed. So
+     369 of the 567 became clickable, and what they offered was a note about the English attached to a
+     word of the Old English or the Greek. Read in a browser rather than inferred: fitt 28 of Beowulf
+     drew twenty of them against the translation's ten notes, the first sitting on `heal-reced` and
+     opening Gummere's note "By the hands of one of his retainers, who, as Tacitus pointed out…".
+
+     THE RULE IS UNIVERSAL AND NOT PER BOOK, because the reason is: measured over the shelf, NO
+     original-language file carries a single note, and none can while the reader has one fold and gives
+     it to the translation. A column with no notes may not carry a marker. */
+  let fnGone = 0;
+  asChapters.forEach((c) => {
+    c.html = c.html.replace(/<sup class="fn"[^>]*><\/sup>/g, () => { fnGone++; return ""; });
+  });
+
+  asChapters.forEach((c) => { byNum[c.n] = c.html; });
+  /* ---------- THE ORIGINAL'S OWN CORRECTION TABLE (Sep 2026, batch E45) ----------
+     `BOOK.reFixes` is English. It runs through `correctRaw`, which also applies `applyRoman` and
+     `applyGlyphs` — a Wade-Giles romanisation pass and a scan's broken-letter table — and neither has
+     any business anywhere near a Latin, Greek or Sanskrit column, which is why the original branches
+     have always been right not to call it. What they had instead was NOTHING: three ways of gathering
+     an original and no way at all of repairing a defect in one, so a fault in an original column could
+     only be recorded, never fixed.
+     `O.reFixes` is the sibling that was missing, and it is deliberately the NARROWEST of the two: a
+     declared list of `[regex, replacement, why]` and no romanisation, no glyph table, no name
+     unwrapping. It runs HERE — one place, where all three gathering branches meet — and on the
+     extractor's own output rather than on the page, which is E29's rule. Counted and reported exactly
+     as the English's are, DID NOT FIRE included, since a row that has stopped matching is either an
+     upstream repair or this file having lost its grip, and a silent run cannot tell you which. */
+  if (O.reFixes) {
+    for (const [rx, to] of O.reFixes) {
+      const key = String(rx);
+      if (!(key in ORIG_REFIX_HITS)) ORIG_REFIX_HITS[key] = 0;
+      asChapters.forEach((c) => {
+        c.html = c.html.replace(rx, () => { ORIG_REFIX_HITS[key]++; return to; });
+      });
+    }
+    asChapters.forEach((c) => { byNum[c.n] = c.html; });
+  }
+  restoreLostSpaces(asChapters, O);
+  if (O.verseNewlines) versifyNewlines(asChapters);
+  wrapLooseText(asChapters);
+  joinBrokenParas(asChapters);
+  asChapters.forEach((c) => { byNum[c.n] = c.html; });
+
   const outDir = path.join(ROOT, "books");
   const out = path.join(outDir, id + "." + O.lang + ".js");
   const lines = [];
@@ -23949,6 +28245,19 @@ function writeOriginal(byNum, warnings) {
      original, which is the right behaviour and also a completely silent one — so the gap is reported
      here rather than left to be discovered by a reader turning the column on and finding nothing. */
   if (missing.length) console.log("  no original for " + missing.length + " chapter(s): " + missing.join(", "));
+  if (ORIG_TIPS)
+    console.log("  dropped " + ORIG_TIPS + " editorial variant tooltip(s) from the original's prose");
+  if (fnGone)
+    console.log("  dropped " + fnGone + " footnote marker(s) from the original's prose — its notes are " +
+      "not carried, so a marker there points at the TRANSLATION's list (see the note in writeOriginal)");
+  reportEscapedTags();
+  if (O.reFixes) {
+    for (const [rx, , why] of O.reFixes) {
+      const n = ORIG_REFIX_HITS[String(rx)] || 0;
+      console.log("  " + O.langName.toLowerCase() + " refix " + (n ? "applied " + n + "x" : "DID NOT FIRE") + " — " + why);
+      if (!n) warnings.push("a declared original-language reFix matched nothing: " + String(rx));
+    }
+  }
   if (warnings.length) {
     console.log("\n  " + warnings.length + " warning(s):");
     warnings.forEach((w) => console.log("    " + w));

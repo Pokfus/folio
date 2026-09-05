@@ -286,7 +286,18 @@ book added later will meet the same traps.
   line numbers are dropped**, one every fifth line of every metre: James translates the verse into
   English verse rather than line for line, so a number there would point at a place the facing page
   cannot find — the Canterbury Tales' finding on a second book. Said on the book's own first page),
-  `three-kingdoms` (~3.15 MB, all 120 chapters, **562,900 words**, 369 verse blocks, 16 notes — C. H.
+  `three-kingdoms` (~3.03 MB, all 120 chapters, **562,900 words**, 369 verse blocks, 16 notes.
+  **Batch E22 repaired 26 slips here, the most in any book yet swept** — `afaid`, `attck`, `broher`,
+  `callected`, `flooor`, `forgotton`, `inhabiants`, `neccessary`, `preprations`, `rcentre`, `speeech`,
+  `twefth` and the rest, each a single occurrence against dozens or hundreds of the correct form.
+  **It is the counter-example to reading E19's noise table as a damage ranking**: this book sits
+  FOURTH CLEANEST on that table at 14.7 candidates per 100,000 words, and Thucydides at 9.8 returned
+  nineteen candidates and no repairs at all. The rate says how much of a list will be foreign words
+  and proper names; it says nothing about how much of the rest is damage. Two things from it are
+  worth carrying: *"He **send** a **repart** of his misfortune"* carries two faults in four words and
+  only one is a non-word, so the second was found only by reading round the first; and the book uses
+  **`repartee` three times**, so a bare substring row for `repart` would have written `reportee` in
+  all three — every row is boundary-anchored. C. H.
   Brewitt-Taylor's English of 1925, and **the book whose chapter titles are on the chapter pages and
   nowhere else worth taking them from.** Both volumes print a full table of contents and both are
   transcribed complete, so `indexPage` is the obvious move; compared against the body chapter by
@@ -674,7 +685,53 @@ book added later will meet the same traps.
   dropped as too coarse for 1912 and marked with a row of asterisks that ships where they printed it
   (the mark is read five different ways by the scan and is normalised, the Journey rule). Take those
   two tales out and the columns run 130,000 words against 135,000, which is prose against verse rather
-  than anything missing. The front matter says all of it, and the Middle English beside it is complete),
+  than anything missing. The front matter says all of it, and the Middle English beside it is complete.
+  **AND IT IS THE WORST-DAMAGED TEXT ON THE SHELF, repaired in 151 places in Sep 2026 (batch E5)**: it
+  is not the odd wrong letter but **eight pages printed straight and scanned askew**, where the reader
+  dropped and transposed whole lines and 40 words went missing, plus the opening quotation mark read as
+  a pound sign on 59 lines and the AE ligature read two wrong ways, which made King Aella unreadable
+  thirteen times. The sweep that found it is worth stealing for any OCR'd book: **count the characters
+  the transcription uses that are neither ASCII nor its own curly quotes and dashes** — here `£ ™ ° § «
+  » ■ „`, of which only the Parson's Tale's section marks were meant. **Batch E6 then put back 355
+  QUOTATION MARKS**, the opening single quote having been misread six different ways — as `c` 227
+  times, and as `*`, `4`, `f`, `{` and `<` — which a census of every one-character token found and
+  which took a boundary-aware `reFixes` table to express, an asterisk being also the mark the
+  translators use for a passage they cut. **Batch E7 then cleared the two remaining classes that
+  have a shape** — a possessive apostrophe dropped or mangled on 73 lines in three shapes, and the
+  closing quote on 43, where the finding is that **the slash stands for TWO characters and not one**,
+  the comma or full stop AND the quote beside it, so which of the two it is is a judgement about the
+  sentence: the sweep claims only the 37 a speech tag follows and the other six were read on the leaf.
+  It also established that **the SECOND Internet Archive scan of an edition is a witness for a single
+  damaged word** — cheap, being a `grep` rather than a page image — and that where both copies fail
+  differently at one point the fault is the type rather than the scan. **Batch E8 then queried that
+  second scan in BULK** — anchoring on the words around each suspicious token and printing what the
+  other copy has between the same two — which located 191 of 221 candidates at once, and established
+  that **this edition SPACES its `;` `!` `?` `:` as a house style and does not space its comma**
+  (10,944 attached against 40), so 59 commas were put back on their own words and the spaced
+  semicolons were left alone. **Batch E9 then resolved the oddest class in the book**: a lone figure
+  `1`, which stands for THREE different marks in 66 places and gives no sign which — the pronoun
+  before a small letter, an exclamation mark after a word, and the OPENING QUOTE of the next speech
+  after a full stop, colon, dash or closing quote. It also fixed the limit on the second-scan
+  witness: that copy's OCR discards the rows of asterisks this one keeps, so it answers *what is
+  this mark* and never *is there a mark here*, for which only the leaf will do. **Batch E10 answered
+  that by MEASURING the marks** in this scan's own page XML rather than reading them anywhere: they
+  fall into three populations that do not overlap — 121×6 is a RULE the edition prints at a paragraph
+  break (kept, set as a dash), 20–47 wide by 57–67 tall is the wide SPACE after a full stop boxed as
+  though it were a glyph (nothing is printed there at all), and under 20×14 is a speck of dirt.
+  **Batch E11 closed the words the scan had broken open**, found by joining the lone letter to the
+  fragment and scoring the result against THIS text's own vocabulary rather than a dictionary
+  (`H`+`ow` scores 619 to 6) — a proxy that also proposed joining `a bout` in 'cannot stand a bout',
+  which the second scan shows is the printing and where the join would have been grammatical and
+  wrong. **Batch E12 then took the tail E8 had left** — the spaced full stop, which is 31 occurrences
+  in the raw and six units of work, the rest being the plate list's leader dots and the back matter's
+  `( Sh . T.)` keys, neither of which the extractor puts in a chapter. **Batch E13 then read the last
+  six off the page images**, the second copy being unable to align to a run it garbles differently —
+  two are punctuation the scan flattened and both change the sentence (a colon, a question mark), one
+  is a closing quote lost while its neighbours survived, and three are nothing, each a different kind
+  of nothing: a line break, SHOW-THROUGH from the facing page, and a reader's PENCIL down the margin.
+  **831 repairs in all; no standalone full stop is left in the shipped prose and the three standalone
+  commas are all correct**, and what remains is 45 marks nearly all inside runs mangled past any
+  rule — see `docs/book-text-plan.md`),
   `journey-to-the-west` (~524 KB, all 100 chapters, **100 chapter sections**, **0 notes** — Timothy
   Richard's *A Mission to Heaven* of 1913, the first English translation there ever was, and **the
   first book here whose SOURCE IS PLAIN OCR TEXT rather than markup.** Every other reader on the
@@ -710,7 +767,12 @@ book added later will meet the same traps.
   first thing a reader needs to know. See the `journey-to-the-west.zh.js` entry for why it is worth
   shelving anyway),
   `virgil-aeneid` (~621 KB, all 12 books, **396 card sections**, **0 notes** — Theodore C. Williams's
-  blank verse of 1910, and **the first book here whose TRANSLATION MARKS ITS CARDS TWO WAYS AT ONCE.**
+  blank verse of 1910. **Its 22 candidates were recorded as unrepairable and were repaired in Sep 2026
+  (batch E14) with no scan at all**: the 1910 Houghton Mifflin printing is genuinely not on the
+  Internet Archive, but every one of the 22 was a capital I standing where a lowercase l belongs
+  (`Iooked`, `Ioudly`, `Iords`), which is settled by a rule about type and by the book's own
+  vocabulary rather than by a witness. It is also **the first book here whose TRANSLATION MARKS ITS
+  CARDS TWO WAYS AT ONCE.**
   Every earlier file on the TEI card path picks one mechanism and keeps to it — Ovid's English divides
   into `<div subtype="card">` and its Latin marks `<milestone unit="card"/>` — and Williams uses BOTH,
   327 divisions and 69 milestones, because the choice follows where the boundary falls: a card opening
@@ -738,7 +800,12 @@ book added later will meet the same traps.
   the Library bullet — and its ~120 l→I OCR slips are the SOURCE's and are recorded rather than
   repaired, because the same pattern spells Iulus, Ilium, Italy, Ida and Ithaca in the same text and
   "Iove" is undecidable between love and Jove),
-  `homer-odyssey` (~701 KB, all 24 books, **288 card sections**, **0 notes** — A. T. Murray's Loeb
+  `homer-odyssey` (~701 KB, all 24 books, **288 card sections**, **0 notes**. **Batch E20 repaired two
+  slips** — `Archaeans` against 114 correct `Achaeans`, and `faired-haired` against 19 `fair-haired` —
+  and **DEFERRED one that wants a printed witness**: the text reads "And I saw **Lede**, the wife of
+  Tyndareus" where every English version writes Leda. That spelling is in Perseus's file, the Greek is
+  Λήδην, and `Lede` is a defensible transliteration of Λήδη, so the book's own usage cannot settle it —
+  Leda occurs nowhere else — and only Murray's printed page can. A. T. Murray's Loeb
   prose of 1919, the SECOND book on the prose-translation-against-verse-original path and the first
   to confirm the rule that path was written for rather than to discover it: of its 2,434 line
   milestones **2,097 would weld two words together** if the tag were simply dropped, and 2 of its 192
@@ -759,7 +826,16 @@ book added later will meet the same traps.
   columns and there is no harder half to state. **AND `<del>` IS INERT HERE, MEASURED RATHER THAN
   ASSUMED**: zero in either file, and zero `<gap>` — worth the measurement every time, since
   Lucretius's 116 marks cost that poem thirty whole lines and the Iliad's cost it four),
-  `homer-iliad` (~955 KB, all 24 books, **425 card sections**, **0 notes** — A. T. Murray's Loeb
+  `homer-iliad` (~955 KB, all 24 books, **425 card sections**, **0 notes**. **Batch E23 repaired 24
+  slips here** — `thiat` against 2,421 correct `that`, `thiem` against 966 `them`, `thelr` against 813
+  `their`, `froma`, `switft-footed`, `honses` for horses, `beart ful` for "heart full" — which with
+  Three Kingdoms' 26 makes **the two long narrative translations much the most damaged texts on the
+  shelf**. **Half its candidate list is Homeric names and all eighteen were left alone**; the two that
+  were not, `Achaeams` and `Agamemon`, stand against 598 and 174 correct spellings, so the count is
+  what tells them apart and the same count is what spares the rest. Twice the sweep proposed the wrong
+  repair for a real fault — `night` for `niight` where the sentence wants **might**, `beat` for `beart`
+  where it wants **heart** — which is the standing rule in miniature: the sweep names the damage, the
+  sentence names the repair. A. T. Murray's Loeb
   prose of 1924, and **the first book here whose TRANSLATION IS PROSE while its ORIGINAL IS VERSE.**
   Every earlier book on the TEI card path has verse facing verse, so `teiVerseBooks` read `<l>` and
   nothing else and returned twenty-four empty books when pointed at Murray; it grew a gated `prose`
@@ -782,7 +858,16 @@ book added later will meet the same traps.
   printed on every run, and the book's front matter tells the reader why it has no note fold. **AND
   THE EASIER COPYRIGHT WAS ATTACHED TO THE UNUSABLE TEXT** — see the Library bullet for the choice
   between Perseus's two English Iliads),
-  `summa-theologica` (**~15.1 MB, by a factor of six the largest thing on the shelf** — all 614
+  `summa-theologica` (**~15.1 MB, by a factor of six the largest thing on the shelf**. **Batch E21
+  read its candidate list for the first time and repaired 30 slips** — `Obejection` against 20,617
+  correct `Objection`, `thut` against 42,487 `that`, `countrary`, `sats`, `Hillary` for Hilary of
+  Poitiers, `cor. rect` with a full stop driven into the middle of it, and three `no` for `not`.
+  **Most of its 245 candidates are the book's own LATIN** (`accidens`, `agens`, `conditio`, `Ex opere
+  operato`), which no rarity test can tell from a typo: the Summa sits near the CLEAN end of the
+  noise table and still returns a long list simply because it is enormous — the rate normalises for
+  size, the list still has to be read. **One thing is deferred**: "it was also established that
+  **there several** real relations in God" is missing a word rather than carrying a wrong one, and
+  inserting a word is a stronger claim than repairing a non-word, so it wants a printed witness. All 614
   questions as **614 chapters**, **3,094 article numbers**, 7 notes — the Fathers of the English
   Dominican Province's translation of 1920, and **the first book here whose SIZE was the first
   question rather than the last.** Every earlier import decides the pairing and then finds out how
@@ -855,7 +940,22 @@ book added later will meet the same traps.
   translations a reader is likeliest to own** — Chadwick 1991, Boulding 1997, Ruden 2017 — are named
   as the ones not to reach for, and with them **Outler's of 1955, which Wikisource carries beside
   this one** and which is in copyright until 2060),
-  `city-of-god` (**~2.4 MB, the largest English text on the shelf** — Augustine's twenty-two books as
+  `city-of-god` (**~2.4 MB, the largest English text on the shelf**. **IT HAD A STRUCTURAL FAULT,
+  MEASURED IN E24 AND FIXED IN E25**: **364 of its paragraphs began on a lowercase letter and 43 of
+  those breaks fell INSIDE A WORD** — a reader met a paragraph ending `…they have no sensa` and the
+  next beginning `tion, nor of the irrational animals…`, and the same for `com`/`pelled`,
+  `him`/`self`, `be`/`cause`. It is a printed page-turn become a paragraph break, and it is
+  **Wikisource's own rendering**: the fetched HTML for Book I chapter 20 carries the break literally,
+  with no `pagenum` span and no anchor at it, so the lowercase letter is the only signal available.
+  Repaired by `joinBrokenParas`, a shared pass at serialization (the shelf carries 387 such
+  boundaries in four books, two of them TEI and two wiki, so it can live in neither reader). **The
+  separator is the hard half** and is decided per boundary — nothing where the two fragments make a
+  word the book uses and are never written as two, `<br>` where the LINE is verse, a space otherwise.
+  `can`/`not` is deliberately left as a space, this translation writing "can not" four times. Batch E24 did repair nine word-level slips here
+  (`coveteousness` twice, `disgracful`, `Emperior`, `opinon`, `santification`, `superflous`, `truely`,
+  `Eneas` for the ligature `Æneas` this translation uses 39 times) and **refused two that look like
+  slips and are not**: `Heberews` is Augustine's own etymology, and `Phenicians` is Dods's house
+  spelling, matching his `Phenician` and `Phenicia`. Augustine's twenty-two books as
   **22 chapters**, **661 chapter numbers**, 1,675 notes — and the first book here whose CHAPTER IS
   ASSEMBLED FROM HUNDREDS OF WIKI PAGES. The Book of Documents established that `page(n)` may return an
   array; this is that at scale, 687 pages for 22 chapters, because Wikisource gives every one of
@@ -1024,7 +1124,39 @@ book added later will meet the same traps.
   `plato-republic` (~666 KB, all 10 books, **no section numbers at all**, 117 translator notes — the
   first book here with none, which is why it has no original; see the `<id>.<lang>.js` bullet below),
   `plato-dialogues` (**~3.9 MB, much the largest book on the shelf** — **thirty-five whole WORKS as
-  thirty-five chapters**, 1,484 Stephanus sections, 1,627 notes. The first book here whose chapter is a
+  thirty-five chapters**, 1,484 Stephanus sections, 1,627 notes. **Batch E19 repaired fourteen more
+  slips** — `Cortinthian`, `Bocotia`, `Poseiden`, `possibillty`, `wlth`, `weree`, `sayng`, `sarting`,
+  `moster`, `grap`, `lonians` for `Ionians`, `Hipponieus` for a man the same dialogue names correctly
+  seven times, `fake opinion` in the Theaetetus against thirty-seven `false opinion`s in its own
+  source file, and a stray `c` on `cry out` — and **closed two of E4's six candidates as never having
+  been errors at all**: `patent` ("in patent ignorance") and `sling` ("stones flung either by hand or
+  by sling") are both right. The sweep that found them asks the shelf's own vocabulary for words that
+  are rare everywhere and one edit from a common one; **it works on this book because its foreign
+  matter is GREEK**, invisible to a Latin-letter word scan, where a book quoting Latin or Old French
+  buries the signal. **Eight of its fourteen slip
+  candidates were repaired in Sep 2026 (batch E14)** as the capital-I-for-l class, which needs no
+  witness and so is unaffected by the Loeb scan's OCR being unusable; the other six are real English
+  words in the wrong place (`sling` for `sting`, `patent` for `potent`) and still want a leaf read.
+  **Batch E15 then established which OCR families are worth sweeping at all**: one is safe exactly
+  where the wrong spelling is a NON-WORD, so the capital-I family paid and the `rn`/`m` family did
+  not — seven of its thirteen candidates were correct as they stood. **Batch E16 then took the third
+  family, a word mixing letters and digits** (23 repairs across eight books, running BOTH ways: a
+  digit for a letter in `0ceanus` and `k9ew`, a letter for a digit in Suetonius's `[i6th March]`),
+  and its own lesson is that **a correction row carrying context carries its source's SPACING** —
+  written first with the Canterbury Tales' double spaces, 22 of 23 were dead against the TEI and
+  wiki books, which set one. **Batch E17 then took 186 of its spaces back** — this edition's
+  apparatus is denser in references than anything else on the shelf, and Perseus leaves no whitespace
+  at a `<title>` or `<bibl>` boundary, so `Cf. <title>Laws</title>638 B` flattened to `Cf. Laws638 B`.
+  It is a fault of the SOURCE and not of the tag-strip, which is what E16 had assumed; the repair is a
+  flattening rule in `teiInline` shared by all sixteen TEI books. **The finding it left behind became E18**: this
+  book's GREEK column carried 13 citations put through a beta-code converter that should never have
+  seen them — `ηομ. ιλ. 14.291`, Greek letters spelling nothing, against the English's `Hom. Il.
+  14.291` — in Perseus's own file, with the correct Latin-script form sitting on the same `<bibl>`'s
+  `n=` attribute. They are repaired by a round trip: the text is decoded back through the importer's
+  own beta table and the attribute written in only where the two match, which no genuinely Greek
+  citation can satisfy. **This is the only book on the shelf with the fault**, and one of its
+  thirteen cites a second line the attribute omits, so the attribute supplies the capitals there
+  rather than replacing the reference. The first book here whose chapter is a
   separate work rather than a division of one, so both columns are addressed through a table
   (`DIALOGUES` in the importer) instead of by arithmetic. It **absorbed the standalone
   `plato-symposium`** on 2026-08-06 — a `S.reading` / `S.bookFavs` migration in app.js carries the
@@ -1278,7 +1410,7 @@ book added later will meet the same traps.
   Monk's Tale whose margin carries one, which is why the margin is stripped per line before the blocks
   are judged. Skeat's apparatus, his marginal summaries and the Tale of Gamelyn — which he prints as an
   appendix and says is not Chaucer's — are not reproduced),
-  `three-kingdoms.zh.js` (~1.78 MB, all 120 chapters, **483,000 hanzi** — the novel in the recension of
+  `three-kingdoms.zh.js` (~1.74 MB, all 120 chapters, **483,000 hanzi** — the novel in the recension of
   Mao Lun and Mao Zonggang as transcribed at Chinese Wikisource, and **the original here whose
   RECENSION IS STATED BY THE TRANSCRIPTION ITSELF, which is what made the pairing a check rather than
   a search.** This novel exists in two forms that divide the story differently — the 1522 printing in
@@ -1342,8 +1474,16 @@ book added later will meet the same traps.
   `<q>` was measured and rejected, since they nest three deep and `rend="merge"` repeats the tag on every
   line of a continuing speech, which would put quotation marks on every line of every one of Virgil's
   long speeches. Said in the front matter instead),
-  `homer-odyssey.grc.js` (~574 KB, all 24 books, **all 288 of the translation's card sections** — the
-  Greek printed facing Murray's English in the same 1919 Loeb volumes, which is why it is the ONLY
+  `homer-odyssey.grc.js` (~574 KB, all 24 books, **all 288 of the translation's card sections**.
+  **PERSEUS EDITS THIS FILE, and a rebuild picks the edits up** — 56 lines of Murray's Greek changed
+  between the last two builds (Sep 2026, noticed in batch E17 and separated from that batch's own
+  work by rebuilding with the change reverted): accents and breathings (`μὰλα`→`μάλα`, `ὥς`→`ὣς`,
+  `οἷ`→`οἱ`, `γὰρ σφιν`→`γάρ σφιν`, which is right before an enclitic) and a few real words
+  (`προσέθη`→`προσέφη`, `Πηλεΐδαο`→`Πηλεΐωνα`, `ἔσιδε`→`εἴσιδε`, `κατὰ ἔσχεθε`→`κατὰ δʼ ἔσχεθε`).
+  They are adopted rather than reverted, being the edition's own maintainers correcting their
+  transcription — but **a diff of this book after any rebuild is not automatically this repo's doing**,
+  and Jebb's Oedipus Rex drifted in the same window by one word ("for a **lone** time" → "a long
+  time"). The Greek is printed facing Murray's English in the same 1919 Loeb volumes, which is why it is the ONLY
   original here that costs its book no second licence to reason about: one publication, one editor,
   one death year, both columns. **23 of the 24 books carry byte-identical card lists and 286 of the
   288 numbers appear on both sides**, with no duplicate and nothing out of order either way. The two
@@ -1413,7 +1553,24 @@ book added later will meet the same traps.
   is worse than a long chapter. Measured after folding: 36 markers on each side of that chapter.
   **Its licence is the shelf's first where the thing that cannot be established is a DATE rather than a
   name** — see the Library bullet),
-  `seneca-letters.la.js` (~862 KB, all 124 letters), `marcus-aurelius-meditations.grc.js` (~366 KB, all 12
+  `seneca-letters.la.js` (**~864 KB, all 124 letters, and the column where SEVENTY QUOTATIONS OF VIRGIL
+  were unreadable until batch E26.** Seven of them — letters 56, 58 twice, 59, 64, 67 — were not in the
+  file at all: this wiki sets a verse quotation as `{{block center|<poem>}}`, which MediaWiki renders as
+  a one-cell TABLE used for centring, and `originalChapters` removes every table on the page, a rule
+  written for its prev/next navigation bar and right about that for as long as the book has been on the
+  shelf. Sixty-three more were in the file and INVISIBLE, sitting between two paragraphs and inside
+  neither, where `bookSections` — which splits a chapter by its ELEMENT children — could not see them;
+  that half showed only in the TWO-COLUMN view, the single-column reader rendering the chapter's html
+  directly. **It is also the only column on the shelf with no `<br>` in it at all**, the Iliad having
+  15,258 and the Aeneid 9,452, so its verse lines are separated by bare newlines — which is why it
+  carries `verseNewlines: true` — the flag that lets `versifyNewlines` lineate them, which batch E27 did
+  for 13 paragraphs and 25 lines. **Its other fault was upstream and is now repaired**: the last four
+  books — letters 101 to 124 — were typed with the space at each line end swallowed, and batch E28
+  restored **483** of them (`bonumesse`, `occupationibussum`, `claritasbonum`, `mortemhomo`) from a
+  declared `lostSpaces` map, the first `original` on the shelf to carry a correction table at all.
+  Sorting that damage from the real Latin which splits the same way — `officiosum`, `adprobari`,
+  `maledixit`, every verb carrying `-que` — took a 833,000-word lexicon built out of this shelf's own
+  Latin), `marcus-aurelius-meditations.grc.js` (~366 KB, all 12
   books, 486 sections), `sun-tzu-art-of-war.zh.js` (~34 KB, all 13 chapters — classical Chinese is terse,
   and this is the whole work), `ovid-metamorphoses.la.js` (~575 KB, all 15 books, 156 cards, 11,927
   lines of hexameter), `suetonius-twelve-caesars.la.js` (~530 KB, all 12 lives, 541 chapters) and
