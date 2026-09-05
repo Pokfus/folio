@@ -6,6 +6,10 @@
       "Pinyin": "lüè zhī yī èr",
       "Bopomofo": "ㄌㄩㄝˋ ㄓ ㄧ ㄦˋ"
     },
+    "hsk30l1/再": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "again, once more (of something still to come)"
+    },
     "hsk30l1/分": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Pinyin": "fēn / fèn",
@@ -22,6 +26,14 @@
           "share, portion; duty; component"
         ]
       ]
+    },
+    "hsk30l1/医生": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "doctor, physician"
+    },
+    "hsk30l1/午饭": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "lunch, the midday meal (everyday word)"
     },
     "hsk30l1/只": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -75,6 +87,30 @@
         ]
       ]
     },
+    "hsk30l1/房间": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "room (in a house or a hotel)"
+    },
+    "hsk30l1/早上": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "morning, the early part of the day (everyday word)"
+    },
+    "hsk30l1/有": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to have; there is, there are"
+    },
+    "hsk30l1/漂亮": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "pretty, good-looking (of people and things)"
+    },
+    "hsk30l1/说": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to say, to speak (the general verb)"
+    },
+    "hsk30l1/说话": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to talk, to speak (as an activity)"
+    },
     "hsk30l1/还": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Say": "还是",
@@ -110,6 +146,26 @@
           "capital city; metropolis"
         ]
       ]
+    },
+    "hsk30l1/非常": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "very, extremely (everyday word)"
+    },
+    "hsk30l2/一起": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "together, in company (everyday word)"
+    },
+    "hsk30l2/出": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to go out, to come out; to issue, to produce"
+    },
+    "hsk30l2/出去": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to go out (away from where the speaker is)"
+    },
+    "hsk30l2/出门": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to leave the house; to go away on a trip"
     },
     "hsk30l2/地": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -209,6 +265,10 @@
         ]
       ]
     },
+    "hsk30l2/里面": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "inside, the interior"
+    },
     "hsk30l2/长": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Pinyin": "cháng / zhǎng",
@@ -242,6 +302,10 @@
           "to separate; gap, interstice; to sow discord"
         ]
       ]
+    },
+    "hsk30l3/丢": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to lose, to mislay; to throw away"
     },
     "hsk30l3/中": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -277,6 +341,30 @@
         ]
       ]
     },
+    "hsk30l3/又": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "again (of something that has already happened again)"
+    },
+    "hsk30l3/女人": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "woman (everyday word, and sometimes blunt)"
+    },
+    "hsk30l3/如果": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "if, in the event that (everyday word)"
+    },
+    "hsk30l3/字典": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "dictionary of characters"
+    },
+    "hsk30l3/季节": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "season of the year"
+    },
+    "hsk30l3/屋子": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "room (colloquial, chiefly northern)"
+    },
     "hsk30l3/干": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Say": "干什么",
@@ -294,6 +382,18 @@
           "dry"
         ]
       ]
+    },
+    "hsk30l3/总是": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "always, invariably"
+    },
+    "hsk30l3/收": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to receive; to collect; to put away"
+    },
+    "hsk30l3/收到": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to receive, to get (something that was sent)"
     },
     "hsk30l3/更": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -313,6 +413,10 @@
         ]
       ]
     },
+    "hsk30l3/河": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "river (the general word)"
+    },
     "hsk30l3/行": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Pinyin": "xíng / háng",
@@ -329,6 +433,10 @@
           "row, line; trade, profession; firm"
         ]
       ]
+    },
+    "hsk30l3/见面": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to meet, to see one another (by arrangement)"
     },
     "hsk30l3/角": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -347,6 +455,26 @@
         ]
       ]
     },
+    "hsk30l3/讲": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to speak, to tell, to explain"
+    },
+    "hsk30l3/词典": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "dictionary of words"
+    },
+    "hsk30l3/遇到": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to run into, to encounter (by chance; also of problems)"
+    },
+    "hsk30l3/遇见": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to meet by chance, to come across"
+    },
+    "hsk30l3/重要": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "important, significant"
+    },
     "hsk30l3/难": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Pinyin": "nán / nàn",
@@ -363,6 +491,22 @@
           "disaster, calamity; to blame"
         ]
       ]
+    },
+    "hsk30l4/中餐": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "Chinese food, Chinese cuisine"
+    },
+    "hsk30l4/主意": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "idea, plan, what to do about something"
+    },
+    "hsk30l4/之中": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "among, in the midst of (written)"
+    },
+    "hsk30l4/从来": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "always, all along (usually with a negative: never)"
     },
     "hsk30l4/倒": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -399,6 +543,42 @@
         ]
       ]
     },
+    "hsk30l4/前后": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "around, thereabouts (of time); front and back"
+    },
+    "hsk30l4/力气": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "muscle power, the strength to lift or push"
+    },
+    "hsk30l4/午餐": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "lunch (more formal; the word used on menus)"
+    },
+    "hsk30l4/博士": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "doctor, the holder of a doctorate"
+    },
+    "hsk30l4/周围": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "surroundings, the area round about"
+    },
+    "hsk30l4/外出": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to go out, to be away from home or the office (formal)"
+    },
+    "hsk30l4/大夫": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "doctor, physician (colloquial)"
+    },
+    "hsk30l4/失去": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to lose (a chance, a friend, something abstract)"
+    },
+    "hsk30l4/女性": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "the female sex, women as a category"
+    },
     "hsk30l4/当": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Pinyin": "dāng / dàng",
@@ -433,6 +613,14 @@
         ]
       ]
     },
+    "hsk30l4/意见": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "opinion, view; an objection"
+    },
+    "hsk30l4/改变": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to change, to alter (deliberately)"
+    },
     "hsk30l4/数": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Pinyin": "shù / shǔ",
@@ -449,6 +637,58 @@
           "to count; to enumerate; to be reckoned as"
         ]
       ]
+    },
+    "hsk30l4/日子": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "days, life as it is lived; a date"
+    },
+    "hsk30l4/早晨": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "morning, early morning (a shade more formal than 早上)"
+    },
+    "hsk30l4/是否": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "whether or not (it is so)"
+    },
+    "hsk30l4/暖和": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "nice and warm (of the weather or a room)"
+    },
+    "hsk30l4/有着": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to have, to possess (of qualities or experience)"
+    },
+    "hsk30l4/江": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "large river (and the word in the names of the great rivers)"
+    },
+    "hsk30l4/法律": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "law, the body of law"
+    },
+    "hsk30l4/生命": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "life, the state of being alive"
+    },
+    "hsk30l4/窗": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "window"
+    },
+    "hsk30l4/窗户": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "window (of a building; the everyday word)"
+    },
+    "hsk30l4/美好": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "fine, happy (of times, life and hopes; not of looks)"
+    },
+    "hsk30l4/老是": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "always, keeps on (of something that irritates)"
+    },
+    "hsk30l4/能否": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "whether or not one can"
     },
     "hsk30l4/血": {
       "why": "xuè is the citation reading and the one the corpus uses 13 times to 1; xiě is the colloquial standalone reading. Teaching one alone made a speech engine and the card disagree whichever was chosen, so both are named.",
@@ -467,6 +707,14 @@
         ]
       ]
     },
+    "hsk30l4/费用": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "expenses, the cost of something"
+    },
+    "hsk30l4/重新": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "anew, all over again (starting from the beginning)"
+    },
     "hsk30l4/量": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Say": "测量",
@@ -484,6 +732,18 @@
           "quantity, amount, capacity"
         ]
       ]
+    },
+    "hsk30l5/上升": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to rise, to ascend, to go up"
+    },
+    "hsk30l5/上涨": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to rise (of prices and water levels)"
+    },
+    "hsk30l5/享受": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to enjoy, to take pleasure in"
     },
     "hsk30l5/便": {
       "why": "Its one sense read 'adverb — convenience; excrement or urine; relieve oneself': three biàn senses jumbled under a part of speech that fits none of them, and no pián at all, which is the reading a learner meets first in 便宜. Rewritten outright.",
@@ -538,9 +798,29 @@
         ]
       ]
     },
+    "hsk30l5/变动": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to change, to fluctuate (of arrangements or figures)"
+    },
     "hsk30l5/呀": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
       "Say": "哎呀"
+    },
+    "hsk30l5/女子": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "woman, female (formal; used in the names of sporting events)"
+    },
+    "hsk30l5/妇女": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "women (adult women collectively; official usage)"
+    },
+    "hsk30l5/强度": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "intensity, strength (of a material or a force)"
+    },
+    "hsk30l5/成本": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "cost of production, outlay"
     },
     "hsk30l5/挑": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -559,6 +839,10 @@
           "to raise, to poke up; to stir up, to provoke"
         ]
       ]
+    },
+    "hsk30l5/收集": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to collect, to gather up (things)"
     },
     "hsk30l5/朝": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -582,6 +866,18 @@
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
       "Say": "花朵"
     },
+    "hsk30l5/极其": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "extremely, exceedingly (written)"
+    },
+    "hsk30l5/河流": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "rivers, river systems (collective)"
+    },
+    "hsk30l5/温暖": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "warm (of temperature, and of feelings and welcome)"
+    },
     "hsk30l5/炸": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Pinyin": "zhá / zhà",
@@ -603,6 +899,46 @@
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
       "Say": "臭气"
     },
+    "hsk30l5/行程": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "itinerary, the route and schedule of a trip"
+    },
+    "hsk30l5/里头": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "inside (colloquial)"
+    },
+    "hsk30l5/重大": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "major, momentous (of events and decisions)"
+    },
+    "hsk30l5/集合": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to assemble, to gather (of people)"
+    },
+    "hsk30l6/一同": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "together, at the same time and place (formal)"
+    },
+    "hsk30l6/一道": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "together, along with, side by side"
+    },
+    "hsk30l6/住宅": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "dwelling house, residential building"
+    },
+    "hsk30l6/兴起": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to rise, to spring up (of a movement or a trend)"
+    },
+    "hsk30l6/力度": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "force, vigour (of an effort or a measure)"
+    },
+    "hsk30l6/占有": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to occupy, to hold, to have (a share or a position)"
+    },
     "hsk30l6/尽": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Pinyin": "jìn / jǐn",
@@ -620,9 +956,33 @@
         ]
       ]
     },
+    "hsk30l6/承办": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to undertake, to host (an event or a contract)"
+    },
+    "hsk30l6/搜集": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to collect, to hunt out (by searching for it)"
+    },
+    "hsk30l6/收取": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to collect, to charge (a fee or a payment)"
+    },
+    "hsk30l6/旅程": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "journey, the course of a trip"
+    },
+    "hsk30l6/旅途": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "the journey itself, the time spent travelling"
+    },
     "hsk30l6/晕": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
       "Say": "头晕"
+    },
+    "hsk30l6/暖": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "warm; to warm something up"
     },
     "hsk30l6/曲": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -641,6 +1001,18 @@
         ]
       ]
     },
+    "hsk30l6/极为": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "extremely, highly (formal, before an adjective)"
+    },
+    "hsk30l6/沉重": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "heavy (of a load, a heart, a blow)"
+    },
+    "hsk30l6/清晨": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "daybreak, the small hours of the morning"
+    },
     "hsk30l6/率": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
       "Pinyin": "lǜ / shuài",
@@ -657,6 +1029,10 @@
           "to lead, to command; rash, hasty"
         ]
       ]
+    },
+    "hsk30l6/理念": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "guiding principle, philosophy, concept"
     },
     "hsk30l6/盛": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -675,14 +1051,98 @@
         ]
       ]
     },
+    "hsk30l6/窗口": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "window opening; a service counter or wicket"
+    },
+    "hsk30l6/转换": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to convert, to switch from one thing to another"
+    },
+    "hsk30l6/远程": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "long-range, remote (of distance, and of working)"
+    },
     "hsk30l6/铺": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
       "Say": "铺路"
+    },
+    "hsk30l7/一并": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "together, all at once (of matters dealt with in one go)"
+    },
+    "hsk30l7/一早": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "first thing in the morning, early on"
+    },
+    "hsk30l7/下滑": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to slide downward, to decline (of figures or performance)"
+    },
+    "hsk30l7/与否": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "or not (placed after the word it qualifies)"
+    },
+    "hsk30l7/享有": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to enjoy (a right, a reputation)"
+    },
+    "hsk30l7/享用": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to enjoy the use of, to partake of"
+    },
+    "hsk30l7/亮丽": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "bright and beautiful, radiant"
+    },
+    "hsk30l7/住处": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "the place one lives, lodgings"
+    },
+    "hsk30l7/余地": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "room, leeway, margin (figurative)"
     },
     "hsk30l7/作料": {
       "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
       "Pinyin": "zuò liao",
       "Bopomofo": "ㄗㄨㄛˋ ㄌㄧㄠ˙"
+    },
+    "hsk30l7/供养": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to provide for, to keep (a family); to make offerings to"
+    },
+    "hsk30l7/信誉": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "reputation and credit, good name"
+    },
+    "hsk30l7/假使": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "if, supposing (formal, of a hypothesis)"
+    },
+    "hsk30l7/偏远": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "remote and out of the way"
+    },
+    "hsk30l7/养活": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to feed and clothe, to keep alive"
+    },
+    "hsk30l7/再度": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "once again, for a second time (formal)"
+    },
+    "hsk30l7/减退": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to decline, to weaken (of strength, memory, appetite)"
+    },
+    "hsk30l7/凝固": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to congeal, to set (of a liquid becoming solid)"
+    },
+    "hsk30l7/参见": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to call on a superior; (in a text) see, compare"
     },
     "hsk30l7/咽": {
       "why": "Tagged verb against the noun gloss 'throat' — yàn is 'to swallow' and yān is 'throat', so the card paired one reading with the other's sense. Both are taught now, which is also what takes it off check-say-reading.js's list.",
@@ -705,10 +1165,30 @@
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
       "Say": "哄骗"
     },
+    "hsk30l7/固化": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to solidify, to cure, to set (of a material or a practice)"
+    },
+    "hsk30l7/夯实": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to tamp down, to make firm (of ground or a foundation)"
+    },
     "hsk30l7/奔": {
       "why": "The gloss 'to run quickly; to hurry' is bēn; bèn is 'to head for, to be close to'. The card taught a reading its own gloss does not have.",
       "Pinyin": "bēn",
       "Bopomofo": "ㄅㄣ"
+    },
+    "hsk30l7/威信": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "prestige and public trust, authority"
+    },
+    "hsk30l7/威望": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "prestige, high standing"
+    },
+    "hsk30l7/定律": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "scientific law"
     },
     "hsk30l7/应": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -727,10 +1207,70 @@
         ]
       ]
     },
+    "hsk30l7/性命": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "life (as something that can be lost)"
+    },
+    "hsk30l7/惭愧": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "ashamed, conscience-stricken (at falling short)"
+    },
+    "hsk30l7/承接": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to take on (work); to follow on from"
+    },
+    "hsk30l7/拜会": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to pay an official call on"
+    },
+    "hsk30l7/拜见": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to call on a senior, to pay one's respects"
+    },
+    "hsk30l7/推辞": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to decline, to turn down (an invitation or a post)"
+    },
+    "hsk30l7/方圆": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "within a radius of; the area round about"
+    },
+    "hsk30l7/时节": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "season, time of year (chiefly in set phrases)"
+    },
+    "hsk30l7/民居": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "folk dwellings, ordinary people's houses"
+    },
+    "hsk30l7/沉甸甸": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "heavy, weighed down (vivid; of something in the hand)"
+    },
+    "hsk30l7/法则": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "rule, principle, law (of nature or of method)"
+    },
+    "hsk30l7/点子": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "bright idea, tip (informal)"
+    },
     "hsk30l7/综艺": {
       "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
       "Pinyin": "zōng yì",
       "Bopomofo": "ㄗㄨㄥ ㄧˋ"
+    },
+    "hsk30l7/羞愧": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "ashamed and abashed"
+    },
+    "hsk30l7/羞耻": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "shame, disgrace (the feeling and the thing)"
+    },
+    "hsk30l7/肩负": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to shoulder, to bear (a responsibility)"
     },
     "hsk30l7/自治区": {
       "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
@@ -741,6 +1281,30 @@
       "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
       "Pinyin": "zì shǒu",
       "Bopomofo": "ㄗˋ ㄕㄡˇ"
+    },
+    "hsk30l7/若是": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "if, in case (written)"
+    },
+    "hsk30l7/衰减": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to attenuate, to decay (of a signal, wave or force)"
+    },
+    "hsk30l7/衰落": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to decline, to fall into decay (of a nation, family or trade)"
+    },
+    "hsk30l7/要紧": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "urgent, of consequence (often in the negative, 不要紧)"
+    },
+    "hsk30l7/赛季": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "sporting season"
+    },
+    "hsk30l7/赡养": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to support one's elderly parents (a legal duty)"
     },
     "hsk30l7/走势": {
       "why": "Written as one word where the corpus writes one space per syllable, and with no bopomofo — the one shape check-pinyin.js skips, so these were the residue its own repair could not reach. Every bopomofo syllable is the one the other 11,500 notes already use for that character in that reading; the two the corpus had no evidence for are 露 lòu and neutral 料.",
@@ -757,9 +1321,33 @@
       "Pinyin": "zú bù chū hù",
       "Bopomofo": "ㄗㄨˊ ㄅㄨˋ ㄔㄨ ㄏㄨˋ"
     },
+    "hsk30l7/路途": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "the road travelled, the distance of a journey"
+    },
     "hsk30l7/踏": {
       "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
       "Say": "践踏"
+    },
+    "hsk30l7/辞典": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "dictionary of words and phrases (variant of 词典)"
+    },
+    "hsk30l7/边远": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "remote and near the border"
+    },
+    "hsk30l7/造价": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "construction cost, the cost of building something"
+    },
+    "hsk30l7/遗失": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "to lose, to mislay (formal; of property or documents)"
+    },
+    "hsk30l7/重重": {
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
+      "gloss": "layer upon layer, manifold"
     },
     "hsk30l7/钉": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -783,5 +1371,718 @@
       "Pinyin": "lòu miàn",
       "Bopomofo": "ㄌㄡˋ ㄇㄧㄢˋ"
     }
+  },
+  "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
+  "hints": {
+    "hsk30idm/伤心欲绝": "悲痛欲绝",
+    "hsk30idm/夜深人静": "深更半夜",
+    "hsk30idm/悲痛欲绝": "伤心欲绝",
+    "hsk30idm/深更半夜": "夜深人静",
+    "hsk30idm/非同寻常": "非比寻常",
+    "hsk30idm/非比寻常": "非同寻常",
+    "hsk30l1/上学": "就读",
+    "hsk30l1/上班": "动手",
+    "hsk30l1/书": "本子",
+    "hsk30l1/今天": "今日",
+    "hsk30l1/他们": "她们",
+    "hsk30l1/再见": "道别",
+    "hsk30l1/写": "书写",
+    "hsk30l1/卖": "出售",
+    "hsk30l1/哪儿": "哪里",
+    "hsk30l1/哪里": "哪儿",
+    "hsk30l1/喜欢": "喜爱",
+    "hsk30l1/外": "外边",
+    "hsk30l1/外边": "外",
+    "hsk30l1/大家": "各位",
+    "hsk30l1/太": "很",
+    "hsk30l1/女儿": "闺女",
+    "hsk30l1/她们": "他们",
+    "hsk30l1/妈妈": "母亲",
+    "hsk30l1/学生": "学员",
+    "hsk30l1/孩子": "儿童",
+    "hsk30l1/小时": "钟头",
+    "hsk30l1/小朋友": "少儿",
+    "hsk30l1/很": "太",
+    "hsk30l1/早饭": "早餐",
+    "hsk30l1/时间": "时光",
+    "hsk30l1/明年": "来年",
+    "hsk30l1/星期天": "星期日",
+    "hsk30l1/星期日": "星期天",
+    "hsk30l1/晚饭": "晚餐",
+    "hsk30l1/朋友": "友人",
+    "hsk30l1/歌": "歌曲",
+    "hsk30l1/火车": "列车",
+    "hsk30l1/爸爸": "父亲",
+    "hsk30l1/现在": "此时",
+    "hsk30l1/电脑": "计算机",
+    "hsk30l1/老师": "教师",
+    "hsk30l1/茶": "茶叶",
+    "hsk30l1/这儿": "这里",
+    "hsk30l1/这里": "这儿",
+    "hsk30l1/钱": "金钱",
+    "hsk30l1/饭店": "饭馆",
+    "hsk30l1/高兴": "开心",
+    "hsk30l2/不错": "正确",
+    "hsk30l2/介绍": "出台",
+    "hsk30l2/坏": "不良",
+    "hsk30l2/女孩儿": "姑娘",
+    "hsk30l2/往": "向",
+    "hsk30l2/意思": "意味",
+    "hsk30l2/慢": "缓慢",
+    "hsk30l2/打开": "开启",
+    "hsk30l2/教室": "课堂",
+    "hsk30l2/本子": "书",
+    "hsk30l2/洗": "清洗",
+    "hsk30l2/爷爷": "祖父",
+    "hsk30l2/生日": "诞辰",
+    "hsk30l2/舒服": "惬意",
+    "hsk30l2/药": "医学",
+    "hsk30l2/走路": "行走",
+    "hsk30l2/进": "进入",
+    "hsk30l2/饭馆": "饭店",
+    "hsk30l3/不用": "不必",
+    "hsk30l3/东方": "东部",
+    "hsk30l3/以前": "之前",
+    "hsk30l3/作业": "功课",
+    "hsk30l3/公园": "园区",
+    "hsk30l3/公斤": "千克",
+    "hsk30l3/其实": "实际上",
+    "hsk30l3/凉快": "凉爽",
+    "hsk30l3/分开": "分离",
+    "hsk30l3/刚": "只管",
+    "hsk30l3/到处": "处处",
+    "hsk30l3/办公室": "办事处",
+    "hsk30l3/南": "南方",
+    "hsk30l3/南方": "南",
+    "hsk30l3/卫生间": "马桶",
+    "hsk30l3/同事": "同仁",
+    "hsk30l3/向": "往",
+    "hsk30l3/喜爱": "喜欢",
+    "hsk30l3/嘴": "嘴巴",
+    "hsk30l3/地点": "所在",
+    "hsk30l3/奇怪": "蹊跷",
+    "hsk30l3/好多": "许多",
+    "hsk30l3/干净": "清洁",
+    "hsk30l3/开心": "高兴",
+    "hsk30l3/忘记": "遗忘",
+    "hsk30l3/怎样": "如何",
+    "hsk30l3/房子": "房屋",
+    "hsk30l3/接": "连贯",
+    "hsk30l3/提高": "养育",
+    "hsk30l3/新闻": "消息",
+    "hsk30l3/方向": "走向",
+    "hsk30l3/方法": "手段",
+    "hsk30l3/有名": "著名",
+    "hsk30l3/有用": "有益",
+    "hsk30l3/树": "树木",
+    "hsk30l3/比如": "譬如",
+    "hsk30l3/牙": "牙齿",
+    "hsk30l3/直到": "为止",
+    "hsk30l3/着急": "焦虑",
+    "hsk30l3/简单": "浅显",
+    "hsk30l3/网站": "网址",
+    "hsk30l3/脸": "面孔",
+    "hsk30l3/节日": "佳节",
+    "hsk30l3/草": "草丛",
+    "hsk30l3/草地": "草坪",
+    "hsk30l3/表演": "演出",
+    "hsk30l3/课本": "教科书",
+    "hsk30l3/马上": "即时",
+    "hsk30l3/马路": "街头",
+    "hsk30l4/不必": "不用",
+    "hsk30l4/东部": "东方",
+    "hsk30l4/之前": "以前",
+    "hsk30l4/互相": "相互",
+    "hsk30l4/仔细": "细心",
+    "hsk30l4/以内": "内",
+    "hsk30l4/价格": "价钱",
+    "hsk30l4/价钱": "价格",
+    "hsk30l4/优秀": "出众",
+    "hsk30l4/会员": "成员",
+    "hsk30l4/例子": "个案",
+    "hsk30l4/健身": "养生",
+    "hsk30l4/儿童": "孩子",
+    "hsk30l4/全部": "全体",
+    "hsk30l4/全都": "通通",
+    "hsk30l4/内": "以内",
+    "hsk30l4/内容": "含量",
+    "hsk30l4/出现": "出头",
+    "hsk30l4/出租": "租",
+    "hsk30l4/剧院": "剧场",
+    "hsk30l4/功课": "作业",
+    "hsk30l4/千克": "公斤",
+    "hsk30l4/印象": "观感",
+    "hsk30l4/参赛": "竞争",
+    "hsk30l4/发送": "传输",
+    "hsk30l4/叫作": "拨打",
+    "hsk30l4/各位": "大家",
+    "hsk30l4/同样": "相同",
+    "hsk30l4/听众": "观众",
+    "hsk30l4/国籍": "民族",
+    "hsk30l4/地址": "住址",
+    "hsk30l4/地球": "大地",
+    "hsk30l4/基础": "基地",
+    "hsk30l4/增长": "生长",
+    "hsk30l4/复杂": "繁杂",
+    "hsk30l4/多样": "缤纷",
+    "hsk30l4/大大": "大为",
+    "hsk30l4/姑娘": "女孩儿",
+    "hsk30l4/实际上": "其实",
+    "hsk30l4/害羞": "腼腆",
+    "hsk30l4/市场": "集市",
+    "hsk30l4/年龄": "年纪",
+    "hsk30l4/感情": "情感",
+    "hsk30l4/提到": "提起",
+    "hsk30l4/播放": "转播",
+    "hsk30l4/擦": "揉",
+    "hsk30l4/教师": "老师",
+    "hsk30l4/数量": "数目",
+    "hsk30l4/敲": "撞",
+    "hsk30l4/方面": "层面",
+    "hsk30l4/早餐": "早饭",
+    "hsk30l4/晚餐": "晚饭",
+    "hsk30l4/样子": "相貌",
+    "hsk30l4/正确": "不错",
+    "hsk30l4/母亲": "妈妈",
+    "hsk30l4/民族": "国籍",
+    "hsk30l4/汗": "汗水",
+    "hsk30l4/消息": "新闻",
+    "hsk30l4/演出": "表演",
+    "hsk30l4/父亲": "爸爸",
+    "hsk30l4/牌子": "苗头",
+    "hsk30l4/皮肤": "肌肤",
+    "hsk30l4/相互": "互相",
+    "hsk30l4/相同": "同样",
+    "hsk30l4/省": "省份",
+    "hsk30l4/知识": "学识",
+    "hsk30l4/租": "出租",
+    "hsk30l4/竞争": "参赛",
+    "hsk30l4/粗心": "马虎",
+    "hsk30l4/精彩": "璀璨",
+    "hsk30l4/细心": "仔细",
+    "hsk30l4/网址": "网站",
+    "hsk30l4/胳膊": "手臂",
+    "hsk30l4/艺术": "美术",
+    "hsk30l4/苦": "辛酸",
+    "hsk30l4/茶叶": "茶",
+    "hsk30l4/著名": "有名",
+    "hsk30l4/街道": "道路",
+    "hsk30l4/表扬": "夸奖",
+    "hsk30l4/西红柿": "番茄",
+    "hsk30l4/观众": "听众",
+    "hsk30l4/许多": "好多",
+    "hsk30l4/详细": "详尽",
+    "hsk30l4/课堂": "教室",
+    "hsk30l4/质量": "素质",
+    "hsk30l4/赢": "胜出",
+    "hsk30l4/进入": "进",
+    "hsk30l4/适应": "改编",
+    "hsk30l4/道路": "街道",
+    "hsk30l4/钥匙": "要害",
+    "hsk30l4/降低": "缩小",
+    "hsk30l4/青年": "青春",
+    "hsk30l4/顺利": "通顺",
+    "hsk30l4/顺序": "序列",
+    "hsk30l4/食物": "伙食",
+    "hsk30l4/鼓励": "勉励",
+    "hsk30l5/一代": "世代",
+    "hsk30l5/不良": "坏",
+    "hsk30l5/主任": "董事",
+    "hsk30l5/产业": "工业",
+    "hsk30l5/产品": "产物",
+    "hsk30l5/人力": "人手",
+    "hsk30l5/今日": "今天",
+    "hsk30l5/从不": "从未",
+    "hsk30l5/众多": "繁多",
+    "hsk30l5/住址": "地址",
+    "hsk30l5/儿女": "子女",
+    "hsk30l5/全体": "全部",
+    "hsk30l5/关闭": "闭",
+    "hsk30l5/出售": "卖",
+    "hsk30l5/分离": "分开",
+    "hsk30l5/列车": "火车",
+    "hsk30l5/创造": "营造",
+    "hsk30l5/剧场": "剧院",
+    "hsk30l5/功能": "职能",
+    "hsk30l5/动手": "上班",
+    "hsk30l5/医学": "药",
+    "hsk30l5/含量": "内容",
+    "hsk30l5/响声": "噪声",
+    "hsk30l5/哎": "嘿",
+    "hsk30l5/哪怕": "即便",
+    "hsk30l5/哲学": "哲理",
+    "hsk30l5/嘴巴": "嘴",
+    "hsk30l5/地面": "地板",
+    "hsk30l5/墙": "墙壁",
+    "hsk30l5/处理": "处置",
+    "hsk30l5/好转": "改善",
+    "hsk30l5/如何": "怎样",
+    "hsk30l5/如同": "好似",
+    "hsk30l5/媒体": "传媒",
+    "hsk30l5/子女": "儿女",
+    "hsk30l5/屏幕": "银幕",
+    "hsk30l5/工业": "产业",
+    "hsk30l5/年纪": "年龄",
+    "hsk30l5/彻底": "透彻",
+    "hsk30l5/志愿者": "义工",
+    "hsk30l5/情感": "感情",
+    "hsk30l5/成员": "会员",
+    "hsk30l5/房屋": "房子",
+    "hsk30l5/手段": "方法",
+    "hsk30l5/拨打": "叫作",
+    "hsk30l5/推荐": "引荐",
+    "hsk30l5/提起": "提到",
+    "hsk30l5/撞": "敲",
+    "hsk30l5/改善": "好转",
+    "hsk30l5/昆虫": "虫子",
+    "hsk30l5/暗": "黑暗",
+    "hsk30l5/曾经": "一经",
+    "hsk30l5/有益": "有用",
+    "hsk30l5/树木": "树",
+    "hsk30l5/歌曲": "歌",
+    "hsk30l5/此时": "现在",
+    "hsk30l5/汗水": "汗",
+    "hsk30l5/深刻": "深厚",
+    "hsk30l5/深厚": "深刻",
+    "hsk30l5/渐渐": "逐渐",
+    "hsk30l5/湖": "湖泊",
+    "hsk30l5/牙齿": "牙",
+    "hsk30l5/生长": "增长",
+    "hsk30l5/由此": "特此",
+    "hsk30l5/画面": "景象",
+    "hsk30l5/番茄": "西红柿",
+    "hsk30l5/省份": "省",
+    "hsk30l5/穷": "贫穷",
+    "hsk30l5/紧急": "迫切",
+    "hsk30l5/纪录": "唱片",
+    "hsk30l5/缓慢": "慢",
+    "hsk30l5/缩小": "降低",
+    "hsk30l5/美术": "艺术",
+    "hsk30l5/范围": "区间",
+    "hsk30l5/药品": "药物",
+    "hsk30l5/药物": "药品",
+    "hsk30l5/虫子": "昆虫",
+    "hsk30l5/行走": "走路",
+    "hsk30l5/计算机": "电脑",
+    "hsk30l5/调皮": "淘气",
+    "hsk30l5/软": "柔软",
+    "hsk30l5/连续": "连绵",
+    "hsk30l5/追": "追赶",
+    "hsk30l5/逐渐": "渐渐",
+    "hsk30l5/长度": "长短",
+    "hsk30l5/陪伴": "陪同",
+    "hsk30l5/靠": "拄",
+    "hsk30l5/面积": "地域",
+    "hsk30l5/预测": "预计",
+    "hsk30l5/预计": "预测",
+    "hsk30l5/黄金": "金子",
+    "hsk30l6/一一": "逐一",
+    "hsk30l6/一辈子": "毕生",
+    "hsk30l6/为止": "直到",
+    "hsk30l6/书写": "写",
+    "hsk30l6/争论": "辩论",
+    "hsk30l6/事后": "过后",
+    "hsk30l6/从未": "从不",
+    "hsk30l6/传输": "发送",
+    "hsk30l6/公民": "国民",
+    "hsk30l6/利息": "利率",
+    "hsk30l6/即便": "哪怕",
+    "hsk30l6/后代": "后世",
+    "hsk30l6/听话": "乖巧",
+    "hsk30l6/嘿": "哎",
+    "hsk30l6/噪声": "响声",
+    "hsk30l6/地域": "面积",
+    "hsk30l6/基地": "基础",
+    "hsk30l6/墙壁": "墙",
+    "hsk30l6/处处": "到处",
+    "hsk30l6/外来": "外在",
+    "hsk30l6/大地": "地球",
+    "hsk30l6/天然气": "燃气",
+    "hsk30l6/头脑": "脑子",
+    "hsk30l6/夸奖": "表扬",
+    "hsk30l6/孤独": "寂寞",
+    "hsk30l6/学员": "学生",
+    "hsk30l6/实话": "真理",
+    "hsk30l6/寂寞": "孤独",
+    "hsk30l6/少儿": "小朋友",
+    "hsk30l6/就读": "上学",
+    "hsk30l6/层面": "方面",
+    "hsk30l6/开启": "打开",
+    "hsk30l6/心目": "脑海",
+    "hsk30l6/手法": "技巧",
+    "hsk30l6/手臂": "胳膊",
+    "hsk30l6/才华": "才能",
+    "hsk30l6/才能": "才华",
+    "hsk30l6/技巧": "手法",
+    "hsk30l6/捕": "逮",
+    "hsk30l6/改编": "适应",
+    "hsk30l6/数目": "数量",
+    "hsk30l6/时光": "时间",
+    "hsk30l6/景象": "画面",
+    "hsk30l6/朝代": "王朝",
+    "hsk30l6/朴素": "朴实",
+    "hsk30l6/柔软": "软",
+    "hsk30l6/棉": "棉花",
+    "hsk30l6/楼道": "走廊",
+    "hsk30l6/模拟": "仿制",
+    "hsk30l6/淘气": "调皮",
+    "hsk30l6/清洁": "干净",
+    "hsk30l6/清洗": "洗",
+    "hsk30l6/焦虑": "着急",
+    "hsk30l6/煤": "煤炭",
+    "hsk30l6/特性": "财物",
+    "hsk30l6/皇帝": "皇上",
+    "hsk30l6/穿过": "透过",
+    "hsk30l6/素质": "质量",
+    "hsk30l6/绘画": "绘制",
+    "hsk30l6/脑子": "头脑",
+    "hsk30l6/脚印": "足迹",
+    "hsk30l6/自来水": "流水",
+    "hsk30l6/血管": "脉络",
+    "hsk30l6/街头": "马路",
+    "hsk30l6/言语": "话语",
+    "hsk30l6/认同": "赞同",
+    "hsk30l6/财物": "特性",
+    "hsk30l6/赞同": "认同",
+    "hsk30l6/走廊": "楼道",
+    "hsk30l6/躲避": "隐藏",
+    "hsk30l6/输送": "运送",
+    "hsk30l6/过后": "事后",
+    "hsk30l6/过渡": "过境",
+    "hsk30l6/运送": "输送",
+    "hsk30l6/进而": "继而",
+    "hsk30l6/迫切": "紧急",
+    "hsk30l6/透过": "穿过",
+    "hsk30l6/部队": "陆军",
+    "hsk30l6/野外": "田园",
+    "hsk30l6/金子": "黄金",
+    "hsk30l6/金钱": "钱",
+    "hsk30l6/钟头": "小时",
+    "hsk30l6/长短": "长度",
+    "hsk30l6/闭": "关闭",
+    "hsk30l6/陪同": "陪伴",
+    "hsk30l6/隐藏": "躲避",
+    "hsk30l6/青春": "青年",
+    "hsk30l6/预期": "意料",
+    "hsk30l6/马虎": "粗心",
+    "hsk30l6/骨头": "骨骼",
+    "hsk30l6/高手": "行家",
+    "hsk30l6/黑暗": "暗",
+    "hsk30l7/一经": "曾经",
+    "hsk30l7/上火": "发怒",
+    "hsk30l7/上诉": "申诉",
+    "hsk30l7/下达": "出具",
+    "hsk30l7/不动产": "房地产",
+    "hsk30l7/丑闻": "绯闻",
+    "hsk30l7/世代": "一代",
+    "hsk30l7/业绩": "绩效",
+    "hsk30l7/丝": "丝绸",
+    "hsk30l7/丝绸": "丝",
+    "hsk30l7/丢人": "丢脸",
+    "hsk30l7/丢脸": "丢人",
+    "hsk30l7/个案": "例子",
+    "hsk30l7/义工": "志愿者",
+    "hsk30l7/乖巧": "听话",
+    "hsk30l7/乞求": "乞讨",
+    "hsk30l7/乞讨": "乞求",
+    "hsk30l7/了结": "订立",
+    "hsk30l7/交涉": "商议",
+    "hsk30l7/产物": "产品",
+    "hsk30l7/人手": "人力",
+    "hsk30l7/人选": "候选人",
+    "hsk30l7/仿制": "模拟",
+    "hsk30l7/休养": "疗养",
+    "hsk30l7/伙食": "食物",
+    "hsk30l7/传媒": "媒体",
+    "hsk30l7/伤痕": "疤",
+    "hsk30l7/伯伯": "伯父",
+    "hsk30l7/伯父": "伯伯",
+    "hsk30l7/低落": "郁闷",
+    "hsk30l7/佳节": "节日",
+    "hsk30l7/供求": "供需",
+    "hsk30l7/供需": "供求",
+    "hsk30l7/侦查": "排查",
+    "hsk30l7/俘获": "捕获",
+    "hsk30l7/俯视": "眺望",
+    "hsk30l7/俯首": "鞠躬",
+    "hsk30l7/倒数": "倒计时",
+    "hsk30l7/倒计时": "倒数",
+    "hsk30l7/候选人": "人选",
+    "hsk30l7/偏旁": "部首",
+    "hsk30l7/偿还": "报答",
+    "hsk30l7/傲慢": "嚣张",
+    "hsk30l7/僧人": "和尚",
+    "hsk30l7/公办": "公立",
+    "hsk30l7/公立": "公办",
+    "hsk30l7/养殖": "滋生",
+    "hsk30l7/养生": "健身",
+    "hsk30l7/养育": "提高",
+    "hsk30l7/凉爽": "凉快",
+    "hsk30l7/出众": "优秀",
+    "hsk30l7/出具": "下达",
+    "hsk30l7/出台": "介绍",
+    "hsk30l7/出头": "出现",
+    "hsk30l7/分割": "分成",
+    "hsk30l7/分成": "分割",
+    "hsk30l7/切割": "削",
+    "hsk30l7/利率": "利息",
+    "hsk30l7/刺眼": "耀眼",
+    "hsk30l7/削": "切割",
+    "hsk30l7/削减": "缩减",
+    "hsk30l7/剔除": "去除",
+    "hsk30l7/办事处": "办公室",
+    "hsk30l7/勉励": "鼓励",
+    "hsk30l7/区间": "范围",
+    "hsk30l7/协作": "协同",
+    "hsk30l7/协同": "协作",
+    "hsk30l7/即时": "马上",
+    "hsk30l7/去除": "剔除",
+    "hsk30l7/友人": "朋友",
+    "hsk30l7/发怒": "上火",
+    "hsk30l7/发泄": "宣泄",
+    "hsk30l7/发芽": "萌发",
+    "hsk30l7/变换": "转型",
+    "hsk30l7/口水": "唾液",
+    "hsk30l7/口音": "嗓音",
+    "hsk30l7/只管": "刚",
+    "hsk30l7/可贵": "名贵",
+    "hsk30l7/同仁": "同事",
+    "hsk30l7/名贵": "可贵",
+    "hsk30l7/后世": "后代",
+    "hsk30l7/后勤": "物流",
+    "hsk30l7/和尚": "僧人",
+    "hsk30l7/哲理": "哲学",
+    "hsk30l7/唱片": "纪录",
+    "hsk30l7/唾液": "口水",
+    "hsk30l7/商议": "交涉",
+    "hsk30l7/嗓音": "口音",
+    "hsk30l7/嚣张": "傲慢",
+    "hsk30l7/园区": "公园",
+    "hsk30l7/国民": "公民",
+    "hsk30l7/地板": "地面",
+    "hsk30l7/坎坷": "崎岖",
+    "hsk30l7/处置": "处理",
+    "hsk30l7/外在": "外来",
+    "hsk30l7/大为": "大大",
+    "hsk30l7/奚落": "耻笑",
+    "hsk30l7/好似": "如同",
+    "hsk30l7/好在": "幸好",
+    "hsk30l7/学识": "知识",
+    "hsk30l7/宁可": "宁愿",
+    "hsk30l7/宁愿": "宁可",
+    "hsk30l7/安稳": "稳妥",
+    "hsk30l7/审视": "察看",
+    "hsk30l7/宣泄": "发泄",
+    "hsk30l7/宫殿": "皇宫",
+    "hsk30l7/容颜": "长相",
+    "hsk30l7/宽松": "松弛",
+    "hsk30l7/密布": "遮盖",
+    "hsk30l7/察看": "审视",
+    "hsk30l7/寺": "寺庙",
+    "hsk30l7/寺庙": "寺",
+    "hsk30l7/导航": "航海",
+    "hsk30l7/局势": "态势",
+    "hsk30l7/屡屡": "连连",
+    "hsk30l7/崎岖": "坎坷",
+    "hsk30l7/巴掌": "耳光",
+    "hsk30l7/平和": "祥和",
+    "hsk30l7/幸好": "好在",
+    "hsk30l7/序列": "顺序",
+    "hsk30l7/底子": "根基",
+    "hsk30l7/廉正": "正直",
+    "hsk30l7/延缓": "延误",
+    "hsk30l7/延误": "延缓",
+    "hsk30l7/引荐": "推荐",
+    "hsk30l7/引领": "指引",
+    "hsk30l7/强制": "逼迫",
+    "hsk30l7/得益": "造福",
+    "hsk30l7/心思": "念头",
+    "hsk30l7/念头": "心思",
+    "hsk30l7/态势": "局势",
+    "hsk30l7/恐慌": "惊慌",
+    "hsk30l7/惊慌": "恐慌",
+    "hsk30l7/惬意": "舒服",
+    "hsk30l7/意味": "意思",
+    "hsk30l7/意志": "遗嘱",
+    "hsk30l7/意料": "预期",
+    "hsk30l7/战术": "计策",
+    "hsk30l7/房地产": "不动产",
+    "hsk30l7/所在": "地点",
+    "hsk30l7/打消": "罢休",
+    "hsk30l7/报答": "偿还",
+    "hsk30l7/拄": "靠",
+    "hsk30l7/指引": "引领",
+    "hsk30l7/捕获": "俘获",
+    "hsk30l7/排查": "侦查",
+    "hsk30l7/推算": "测算",
+    "hsk30l7/揉": "擦",
+    "hsk30l7/揣摩": "揣测",
+    "hsk30l7/揣测": "揣摩",
+    "hsk30l7/教科书": "课本",
+    "hsk30l7/星球": "行星",
+    "hsk30l7/朴实": "朴素",
+    "hsk30l7/来年": "明年",
+    "hsk30l7/松弛": "宽松",
+    "hsk30l7/根基": "底子",
+    "hsk30l7/棉花": "棉",
+    "hsk30l7/正直": "廉正",
+    "hsk30l7/毕生": "一辈子",
+    "hsk30l7/民意": "舆论",
+    "hsk30l7/流水": "自来水",
+    "hsk30l7/流逝": "过关",
+    "hsk30l7/浅显": "简单",
+    "hsk30l7/测算": "推算",
+    "hsk30l7/浮动": "飘浮",
+    "hsk30l7/湖泊": "湖",
+    "hsk30l7/滋生": "养殖",
+    "hsk30l7/烦躁": "焦躁",
+    "hsk30l7/焦躁": "烦躁",
+    "hsk30l7/煤炭": "煤",
+    "hsk30l7/燃气": "天然气",
+    "hsk30l7/牢记": "铭记",
+    "hsk30l7/物流": "后勤",
+    "hsk30l7/特此": "由此",
+    "hsk30l7/猛然": "骤然",
+    "hsk30l7/王朝": "朝代",
+    "hsk30l7/璀璨": "精彩",
+    "hsk30l7/田园": "野外",
+    "hsk30l7/申诉": "上诉",
+    "hsk30l7/疗养": "休养",
+    "hsk30l7/疤": "伤痕",
+    "hsk30l7/癌": "癌症",
+    "hsk30l7/癌症": "癌",
+    "hsk30l7/皇上": "皇帝",
+    "hsk30l7/皇宫": "宫殿",
+    "hsk30l7/相貌": "样子",
+    "hsk30l7/真理": "实话",
+    "hsk30l7/眺望": "俯视",
+    "hsk30l7/碧绿": "翠绿",
+    "hsk30l7/祖父": "爷爷",
+    "hsk30l7/祥和": "平和",
+    "hsk30l7/稳妥": "安稳",
+    "hsk30l7/繁多": "众多",
+    "hsk30l7/繁杂": "复杂",
+    "hsk30l7/绘制": "绘画",
+    "hsk30l7/继而": "进而",
+    "hsk30l7/绩效": "业绩",
+    "hsk30l7/绯闻": "丑闻",
+    "hsk30l7/编造": "虚构",
+    "hsk30l7/缤纷": "多样",
+    "hsk30l7/缩减": "削减",
+    "hsk30l7/罢休": "打消",
+    "hsk30l7/美化": "美容",
+    "hsk30l7/美容": "美化",
+    "hsk30l7/翠绿": "碧绿",
+    "hsk30l7/耀眼": "刺眼",
+    "hsk30l7/耳光": "巴掌",
+    "hsk30l7/耻笑": "奚落",
+    "hsk30l7/职能": "功能",
+    "hsk30l7/肌肤": "皮肤",
+    "hsk30l7/胜出": "赢",
+    "hsk30l7/脉络": "血管",
+    "hsk30l7/脑海": "心目",
+    "hsk30l7/腼腆": "害羞",
+    "hsk30l7/至此": "迄今",
+    "hsk30l7/舆论": "民意",
+    "hsk30l7/航海": "导航",
+    "hsk30l7/苗头": "牌子",
+    "hsk30l7/茁壮": "蓬勃",
+    "hsk30l7/草丛": "草",
+    "hsk30l7/草坪": "草地",
+    "hsk30l7/萌发": "发芽",
+    "hsk30l7/营救": "解救",
+    "hsk30l7/营造": "创造",
+    "hsk30l7/董事": "主任",
+    "hsk30l7/蓬勃": "茁壮",
+    "hsk30l7/藏身": "避难",
+    "hsk30l7/虚弱": "软弱",
+    "hsk30l7/虚构": "编造",
+    "hsk30l7/行家": "高手",
+    "hsk30l7/行星": "星球",
+    "hsk30l7/衬托": "起程",
+    "hsk30l7/要害": "钥匙",
+    "hsk30l7/观感": "印象",
+    "hsk30l7/观摩": "观测",
+    "hsk30l7/观测": "观摩",
+    "hsk30l7/角逐": "较劲",
+    "hsk30l7/解救": "营救",
+    "hsk30l7/解散": "辞退",
+    "hsk30l7/触动": "触摸",
+    "hsk30l7/触摸": "触动",
+    "hsk30l7/警戒": "警示",
+    "hsk30l7/警示": "警戒",
+    "hsk30l7/譬如": "比如",
+    "hsk30l7/计策": "战术",
+    "hsk30l7/订立": "了结",
+    "hsk30l7/诀窍": "诡计",
+    "hsk30l7/话语": "言语",
+    "hsk30l7/诞辰": "生日",
+    "hsk30l7/诡计": "诀窍",
+    "hsk30l7/详尽": "详细",
+    "hsk30l7/谎言": "谎话",
+    "hsk30l7/谎话": "谎言",
+    "hsk30l7/谷物": "颗粒",
+    "hsk30l7/贫穷": "穷",
+    "hsk30l7/费力": "费劲",
+    "hsk30l7/费劲": "费力",
+    "hsk30l7/走向": "方向",
+    "hsk30l7/起程": "衬托",
+    "hsk30l7/足迹": "脚印",
+    "hsk30l7/蹊跷": "奇怪",
+    "hsk30l7/身子": "身躯",
+    "hsk30l7/身躯": "身子",
+    "hsk30l7/转型": "变换",
+    "hsk30l7/转播": "播放",
+    "hsk30l7/软弱": "虚弱",
+    "hsk30l7/较劲": "角逐",
+    "hsk30l7/辛酸": "苦",
+    "hsk30l7/辞退": "解散",
+    "hsk30l7/辩论": "争论",
+    "hsk30l7/迄今": "至此",
+    "hsk30l7/过关": "流逝",
+    "hsk30l7/过境": "过渡",
+    "hsk30l7/运作": "运转",
+    "hsk30l7/运转": "运作",
+    "hsk30l7/返还": "退回",
+    "hsk30l7/连绵": "连续",
+    "hsk30l7/连贯": "接",
+    "hsk30l7/连连": "屡屡",
+    "hsk30l7/追赶": "追",
+    "hsk30l7/追随": "遵照",
+    "hsk30l7/退回": "返还",
+    "hsk30l7/透彻": "彻底",
+    "hsk30l7/逐一": "一一",
+    "hsk30l7/通通": "全都",
+    "hsk30l7/通顺": "顺利",
+    "hsk30l7/造福": "得益",
+    "hsk30l7/逮": "捕",
+    "hsk30l7/逼迫": "强制",
+    "hsk30l7/道别": "再见",
+    "hsk30l7/遗嘱": "意志",
+    "hsk30l7/遗忘": "忘记",
+    "hsk30l7/遮盖": "密布",
+    "hsk30l7/遵照": "追随",
+    "hsk30l7/避难": "藏身",
+    "hsk30l7/郁闷": "低落",
+    "hsk30l7/部首": "偏旁",
+    "hsk30l7/铭记": "牢记",
+    "hsk30l7/银幕": "屏幕",
+    "hsk30l7/长相": "容颜",
+    "hsk30l7/闺女": "女儿",
+    "hsk30l7/陆军": "部队",
+    "hsk30l7/集市": "市场",
+    "hsk30l7/面孔": "脸",
+    "hsk30l7/鞠躬": "俯首",
+    "hsk30l7/颗粒": "谷物",
+    "hsk30l7/飘浮": "浮动",
+    "hsk30l7/马桶": "卫生间",
+    "hsk30l7/骤然": "猛然",
+    "hsk30l7/骨骼": "骨头",
+    "hsk30l7/魔术": "魔法",
+    "hsk30l7/魔法": "魔术",
+    "hsk30phr/依我看": "在我看来",
+    "hsk30phr/在我看来": "依我看",
+    "hsk30phr/早上好": "早安",
+    "hsk30phr/早安": "早上好"
   }
 }

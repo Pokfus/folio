@@ -61,6 +61,10 @@ for (const f of files) {
       deck, id: c.id, w: fl.Simplified || "", pinyin: fl.Pinyin || "", bopo: fl.Bopomofo || "",
       mw: (fl["Measure word"] || "").trim(),
       senses: [...String(fl.English || "").matchAll(/<div class="uc-sense">([\s\S]*?)<\/div>/g)].map((m) => m[1]),
+      /* THE DECK'S OWN DISAMBIGUATOR: a `not <other word>` block above the senses, which is what makes a
+         shared gloss answerable. A collision that carries one is not a finding, and counting it as one
+         would report 502 repaired notes as broken for ever. */
+      hint: (/<div class="uc-pos">not ([^<]*)<\/div>/.exec(String(fl.English || "")) || [])[1] || "",
       exs: [...String(fl.Examples || "").matchAll(/<div class="uc-exz">([\s\S]*?)<\/div>/g)].map((m) => txt(m[1])),
     });
   }
@@ -108,15 +112,22 @@ if (want("reverse")) {
   }
   const groups = [...by.values()].filter((a) => a.length > 1).sort((a, b) => b.length - a.length);
   const n2 = groups.reduce((a, g) => a + g.length, 0);
+  /* A group is SETTLED when every member carries the hint. Partly hinted is still a finding: a pair
+     where one side says "not X" and the other says nothing leaves half the collision live. */
+  const open = groups.filter((g) => !g.every((x) => x.hint));
+  const nOpen = open.reduce((a, g) => a + g.length, 0);
   console.log("2. AMBIGUOUS REVERSE CARDS — one English prompt, several right answers");
   console.log("   " + groups.length + " glosses shared by 2+ notes, covering " + n2 + " notes (" +
     ((100 * n2) / notes.length).toFixed(1) + "% of the deck)");
-  for (const g of groups.slice(0, TOP)) {
+  console.log("   of those, " + (groups.length - open.length) + " groups (" + (n2 - nOpen) +
+    " notes) carry the deck's own `not <other word>` disambiguator and are answerable");
+  console.log("   STILL AMBIGUOUS: " + open.length + " groups, " + nOpen + " notes");
+  for (const g of open.slice(0, TOP)) {
     console.log("   " + JSON.stringify(txt(g[0].senses.join(" ")).slice(0, 46)) + "  →  " +
       g.map((x) => x.w).join("  ") + "   [" + g.map((x) => x.deck.replace(/HSK-3\.0-/, "")).join(", ") + "]");
   }
-  if (groups.length > TOP) console.log("   … " + (groups.length - TOP) + " more (--top=N)");
-  findings += n2;
+  if (open.length > TOP) console.log("   … " + (open.length - TOP) + " more (--top=N)");
+  findings += nOpen;
   console.log();
 }
 
