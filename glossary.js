@@ -1828,7 +1828,8 @@ window.GLOSSARY = {
 "Qin_Shi_Huang": "Qin Shi Huang was the king of Qin who conquered the last of the warring states in 221 BCE, becoming the first ruler of a united China and taking the new title huangdi.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He divided the empire into 36 commanderies under appointed officials, unified the laws, weights, measures, cart axles and script, and in 213 BCE had the histories of the other states burned.<sup class=\"fn\" data-fn=\"1\"></sup> He died on tour in 210 BCE and was buried at Mount Li, east of modern Xi'an, and the dynasty he meant to last ten thousand generations fell within four years of his death.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Qin_dynasty": "The Qin dynasty ruled a united China from 221 to 206 BCE, the shortest of the great dynasties, after the king of Qin conquered the last of the warring states.<sup class=\"fn\" data-fn=\"1\"></sup> It abolished the hereditary fiefs of the Zhou in favour of 36 commanderies under appointed officials, unified law, weights, measures and script, and built roads, frontier walls and the First Emperor's tomb with conscript and convict labour.<sup class=\"fn\" data-fn=\"1\"></sup> Revolts began in 209 BCE and the eunuch Zhao Gao killed the Second Emperor in 207, after which the empire passed to the Han, which kept the commanderies, the laws and the offices Qin had made.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Terracotta_Army": "The Terracotta Army is an array of about 7,000 life-sized ceramic warriors, officers and horses buried in three pits beside the mausoleum of the First Emperor of China, near modern Xi'an.<sup class=\"fn\" data-fn=\"2\"></sup> The figures stand in battle formation and carried working bronze weapons, among them as many as 40,000 arrowheads and more than 260 crossbow triggers from Pit 1 alone.<sup class=\"fn\" data-fn=\"1\"></sup> Their clay was processed centrally and then distributed to local workshops,<sup class=\"fn\" data-fn=\"2\"></sup> and the weapons were made in batches and marked, some of them with the name of the Qin central workshop.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Great_Wall_of_China": "The <b>Great Wall of China</b> is a discontinuous system of frontier fortifications in northern China, made up of walls, watchtowers, beacon towers, passes and forts raised by successive states and dynasties rather than by any single builder.<sup class=\"fn\" data-fn=\"1\"></sup> The oldest surviving stretches are Warring States work in rammed earth, one Qin section in Shaanxi running 426 kilometres (265 miles) with 347 watchtowers, whose solid earthen platforms differ sharply from the hollow brick towers of the Ming.<sup class=\"fn\" data-fn=\"1\"></sup> Much of the earthen fabric endures because cyanobacterial and moss crusts sheath roughly two-thirds of it, cutting its erodibility and raising its mechanical strength considerably.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Great_Wall_of_China": "The <b>Great Wall of China</b> is a discontinuous system of frontier fortifications in northern China, made up of walls, watchtowers, beacon towers, passes and forts raised by successive states and dynasties rather than by any single builder.<sup class=\"fn\" data-fn=\"1\"></sup> The oldest surviving stretches are Warring States work in rammed earth, one Qin section in Shaanxi running 426 kilometres (265 miles) with 347 watchtowers, whose solid earthen platforms differ sharply from the hollow brick towers of the Ming.<sup class=\"fn\" data-fn=\"1\"></sup> Much of the earthen fabric endures because cyanobacterial and moss crusts sheath roughly two-thirds of it, cutting its erodibility and raising its mechanical strength considerably.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Han_dynasty": "The <b>Han dynasty</b> ruled China for roughly four centuries, from 206 BCE to 220 CE, interrupted only by Wang Mang’s Xin dynasty of 9 to 23 CE, which divides it into the Western or Former Han and the Eastern or Later Han.<sup class=\"fn\" data-fn=\"1\"></sup> It was the first dynasty of a unified China to outlive its founder, and most of the lasting characteristics of the imperial Chinese state and of Chinese society were settled during it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its mark went deep enough that the Chinese still take their ethnic name from it, and its scholars fixed both the classical texts and the categories in which earlier thought has been discussed ever since.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2668,7 +2669,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "The_Art_of_War": "traditionally 6th century BCE",
 "Qin_Shi_Huang": "259 – 210 BCE",
 "Qin_dynasty": "221 – 206 BCE",
-"Terracotta_Army": "buried by 210 BCE"
+"Terracotta_Army": "buried by 210 BCE",
+"Han_dynasty": "206 BCE – 220 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3798,7 +3800,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Qin_Shi_Huang": ["First Emperor","Shi Huangdi","Qin Shihuang"],
 "Qin_dynasty": ["Qin empire"],
 "Terracotta_Army": ["terracotta warriors","Bingmayong"],
-"Great_Wall_of_China": ["Great Wall","Changcheng"]
+"Great_Wall_of_China": ["Great Wall","Changcheng"],
+"Han_dynasty": ["Han empire","Western Han","Eastern Han","Former Han","Later Han"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5657,7 +5660,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Qin_Shi_Huang": ["ruler","person","politics","history","china"],
 "Qin_dynasty": ["dynasty","era","politics","history","china"],
 "Terracotta_Army": ["object","art","archaeology","history","china"],
-"Great_Wall_of_China": ["building","place","warfare","history","china","archaeology"]
+"Great_Wall_of_China": ["building","place","warfare","history","china","archaeology"],
+"Han_dynasty": ["dynasty","state","history","china","politics","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
