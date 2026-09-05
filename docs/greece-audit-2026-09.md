@@ -99,6 +99,24 @@ two sources per card.
 Three others of the same shape: `gr-334` (Ernest Gardner 5/9), `gr-189` (ASCSA 4/5), `gr-159`
 (Pestarino 4/6), `gr-323` (H. B. Walters 1905, 3/5), `gr-350`/`gr-359` (Smyth 4/9, 3/6).
 
+**ATTEMPTED 2026-09-05 AND BLOCKED BY THIS ENVIRONMENT, measured rather than assumed.** Replacing a
+citation means finding another openable work that carries the same claim, and every route was tried:
+
+| route | result |
+|---|---|
+| OpenAlex API | rate-limited to zero budget: "Insufficient budget… $0 remaining" |
+| DOAJ API | answers, but thin for Aegean archaeology — a query for Mycenaean tholoi returns one hit, in a geo-informatics journal |
+| Bryn Mawr Classical Review | 502 on every one of its 353 URLs from here, in parallel and singly alike |
+| `ascsa.edu.gr` (Hesperia) | connection refused at the root |
+| Perseus building records | classical only; Mycenae, Tiryns and Pylos return no Bronze Age record |
+| Crossref search | works, but returns mostly paywalled DOIs, which would trade an open apparatus for a closed one |
+| archive.org (Hall 1915, Tsountas 1897) | reachable and greppable, but their OCR carries too few page numbers to cite honestly — and a 1915 survey is a century out of date against a maintained specialist teaching site |
+
+The last row is the reason not to force it. Rutter's is a current scholarly resource; swapping it for
+Edwardian handbooks would satisfy the rule and make the cards worse. **The fix is real and still owed,
+but it needs an environment that can reach modern open-access Aegean scholarship** — then roughly 60
+surplus citations across the 39 cards, each verified against the claim its marker carries.
+
 ### 2. Seventy-six cards rest mostly on one ancient witness
 
 An ancient author is a witness rather than a researcher, so this is a softer finding — but a card
