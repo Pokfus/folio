@@ -4290,3 +4290,63 @@ eight repairs need, so none of them was made: **inventing a reading is what this
 do**, and E13's method was to read the printed leaf. Journey to the West's seven are scan garbage inside
 the plate and glossary tables — E34's family — and are recorded here rather than repaired for the same
 reason.
+
+---
+
+## E54 — E28's lost spaces in the Latin Seneca, finished
+
+**E53 handed this over as a measured residue and it was larger than the measurement said.** E28
+declared 483 rows in `O.lostSpaces` and its header says "every one must fire"; what it did not say is
+whether every one that should have been declared *was*. **153 more, all in the same column, all in the
+source.**
+
+### Why E28 stopped where it did
+
+Its 483 are nearly all SHORT pairs — `inmalis`, `sedper`, `nequitiaest`, `Quidhuic` — because the sweep
+that found them looked for a short word swallowed into its neighbour. The ones it left are longer, and
+**a twenty-letter Latin token reads as a plausible word until you try to translate it**:
+`peregrinationeshabere`, `exercitationeiacentibus`, `Maecenatisturpissimum`.
+
+### The filter that made 525 candidates readable
+
+A bare split test — a token that occurs ONCE and divides into two words the column uses elsewhere —
+returns **525**, and is useless, because **Latin's own morphology splits perfectly**:
+
+| looks like two words | is one word |
+|---|---|
+| `voluptatem que` | `voluptatemque` — the `-que` enclitic |
+| `trans mittuntur` | `transmittuntur` |
+| `inter emptorem`, `super venerunt` | prefixed verbs |
+| `imperitis simus` | `imperitissimus`, a superlative |
+
+Excluding a split whose LEFT half is a prefix or whose RIGHT half is a bound ending takes 525 → **145**,
+and at that size every one can be read. **Every survivor before letter 84 is a real Latin word** — which
+is the confirmation that the fault belongs to the transcription's last quarter and not to the language.
+All 153 were then read in context, one at a time, and the sense of the Latin confirms each split.
+
+### Three the mechanisms could not see, and each is a different blind spot
+
+- **`modiceaegrotandum` (letter 85)** — outside E28's stated 101–124 range, so **the range itself was
+  not the boundary**. Its own twin two words earlier, *"modice insaniendum"*, is correctly spaced.
+- **`inreparabilisuita` (letter 123)** — the attestation test requires both halves to occur elsewhere,
+  and *inreparabilis* occurs **nowhere else in the column**. A run-together whose halves are hapax is
+  invisible to a corpus-internal test; this one was caught by eye, reading the passage the crux mask had
+  pointed at.
+- **`~Eo~mortem` and `…prohibent et~occurrent` (letter 123)** — `lostSpaces` keys are LETTERS ONLY, and
+  `restoreLostSpaces` throws on anything else, which is right: a key carrying punctuation could match
+  across a word boundary. These two have a **crux** between the words, so they went to `O.reFixes`,
+  E45's mechanism, which exists for exactly this.
+
+That last passage now reads *"Fluunt dies et inreparabilis uita decurrit… ~Eo~ mortem praecurre…
+Non amicam habes"* where it read as three run-together words and a crux glued to a verb.
+
+### What proves it
+
+- **637 rows fired and NONE was reported dead**, which is `restoreLostSpaces`'s own check and the reason
+  a declared row is better than a sweep.
+- **The English column is byte-identical to HEAD** — 0 of 124 chapters differ, and the front matter too;
+  only the Latin moved, in 18 chapters.
+- **The sweep re-run on the repaired file returns 12 candidates and every one is a real Latin word**
+  already read in this batch (`uniuscuiusque`, `iurisconsultorum`, `medicamentis`, `tergiversantem`…).
+- The Latin Seneca **drops off `book-audit.js`'s findings entirely**; the shelf goes from 9 files with a
+  finding to 8. `check-pairing`, `check-counts` and `check-twins` all report what they reported before.

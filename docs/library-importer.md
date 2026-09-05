@@ -1657,6 +1657,25 @@ Herodotus, against zero notes on either side.**
     test counted WORDS and reported twenty-eight Chinese chapters of 5,765 characters as near-empty:
     **a length is not a word count in every script.**
 
+**AND E28's LOST SPACES, FINISHED** (Sep 2026, batch E54). **153 more**, all in the Latin Seneca and all
+in the source. E28's 483 rows are nearly all SHORT pairs, because the sweep that found them looked for a
+short word swallowed into its neighbour; the ones it left are long, and a twenty-letter Latin token reads
+as a plausible word until you try to translate it.
+
+  · **THE FILTER IS THE REUSABLE PART.** A bare split test returns **525 candidates and is useless**,
+    because Latin's own morphology splits perfectly: the `-que` enclitic makes `voluptatemque` look like
+    two words, and the prefixes make `transmittuntur`, `interemptorem` and `supervenerunt` look like two
+    each. Excluding a split whose LEFT half is a prefix or whose RIGHT half is a bound ending takes it to
+    **145**, and at that size every one can be read. **Every survivor before letter 84 is a real Latin
+    word**, which is the confirmation that the fault is the transcription's last quarter, not the language.
+  · **THREE BLIND SPOTS, EACH DIFFERENT.** `modiceaegrotandum` is in letter 85, so **E28's stated 101–124
+    range was not the boundary**. `inreparabilisuita` has a half (*inreparabilis*) that occurs NOWHERE
+    else in the column, so a corpus-internal attestation test cannot see it. And two more have a CRUX
+    between the words (`~Eo~mortem`), which `lostSpaces` cannot express at all — its keys are letters only
+    and `restoreLostSpaces` throws on anything else — so they went to `O.reFixes`.
+  · **637 rows fired and none was reported dead**, which is that mechanism's own check and the argument
+    for a declared row over a sweep. The English column is byte-identical; only the Latin moved.
+
 **A CRUX IS NOT OCR DAMAGE, AND A BOOK MUST SAY WHAT ITS MARKS MEAN** (Sep 2026, batch E53). The Latin
 Seneca prints **19 passages between tildes** — how its transcription renders the daggers a critical
 edition puts round text the manuscripts hand down corrupt (`~servitus~`, `~aitarens malitia et ea

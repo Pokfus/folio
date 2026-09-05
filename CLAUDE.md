@@ -232,6 +232,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     to its date line. `node .claude/check-counts.js` is the proxy — report-only, the NEAR MISS being
     the signal, a count under 40 untested and the legitimate misses declared with reasons — and its
     own header states the three things it cannot see.
+  · **A CORPUS-INTERNAL SPLIT TEST CANNOT FIND A RUN-TOGETHER WHOSE HALVES ARE RARE, AND LATIN'S OWN
+    MORPHOLOGY DROWNS IT** (Sep 2026, batch E54, finishing E28). 153 more lost spaces in the Latin
+    Seneca. A bare test — a token occurring once that splits into two words the column uses elsewhere —
+    returns **525 candidates and is useless**: the `-que` enclitic makes `voluptatemque` look like two
+    words and the prefixes make `transmittuntur` and `supervenerunt` look like two each. **Excluding a
+    split whose LEFT half is a prefix or whose RIGHT half is a bound ending takes it to 145**, at which
+    size every one can be read — and every survivor before letter 84 is a real Latin word, which is the
+    confirmation that the fault is the transcription's last quarter rather than the language. Three
+    escaped even that: one outside E28's stated range, one whose half occurs NOWHERE else, and two with
+    a CRUX between the words, which `lostSpaces` cannot express (letters-only keys) and which went to
+    `O.reFixes`. **637 rows fired and none was reported dead.**
   · **A CRUX IS NOT OCR DAMAGE, AND A BOOK MUST SAY WHAT ITS MARKS MEAN** (Sep 2026, batch E53). The
     Latin Seneca prints 19 passages between TILDES — its transcription's daggers, round text the
     manuscripts hand down corrupt (`~aitarens malitia et ea agitata~`, where *aitarens* is not a Latin

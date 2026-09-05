@@ -1137,10 +1137,79 @@ const BOOKS = {
          and prose are 1,377 characters apart on their longest line, so which paragraphs the pass
          reaches is a measurement; whether to look at all is what this flag decides. */
       verseNewlines: true,
-      /* THE 483 SPACES WIKISOURCE'S TYPING SWALLOWED — see restoreLostSpaces for how they were found
+      /* TWO LOST SPACES `lostSpaces` CANNOT EXPRESS (Sep 2026, batch E54). Its keys are letters only —
+         `restoreLostSpaces` throws on anything else, which is right, since a key carrying punctuation
+         would match across a word boundary and could not be reasoned about. But two of this column's
+         run-togethers have a CRUX between them: the closing tilde of a corrupt passage set hard against
+         the next word, in letter 123. They are the same fault as the 636 rows below and need the other
+         mechanism, `O.reFixes`, which E45 added for exactly this kind of case. */
+      reFixes: [
+        [/~Eo~mortem/g, "~Eo~ mortem",
+         "a lost space after a crux, letter 123 — `~Eo~mortem praecurre`"],
+        [/prohibent et~occurrent/g, "prohibent et~ occurrent",
+         "a lost space after a crux, letter 123 — `~aduobus optantem prohibent et~occurrent`"],
+      ],
+      /* THE SPACES WIKISOURCE'S TYPING SWALLOWED — see restoreLostSpaces for how they were found
          and how the real Latin words that split the same way were sorted out of them. Sorted by
-         letter, then alphabetically; every one must fire, and the run says so if one does not. */
+         letter, then alphabetically; every one must fire, and the run says so if one does not.
+
+         E28 DECLARED 483 AND DID NOT FINISH, WHICH IS WHY THE SECOND BLOCK BELOW EXISTS (Sep 2026,
+         batch E54). Its 483 are nearly all SHORT pairs — `inmalis`, `sedper`, `nequitiaest` — because
+         the sweep that found them looked for a short word swallowed into its neighbour; the ones it
+         left are longer, and a 20-letter token reads as a plausible Latin word until you try to
+         translate it. 153 more, found by asking for a token that occurs ONCE in the whole column and
+         splits into two words the column uses elsewhere, then READING every one in context.
+
+         THE FILTER THAT MADE THAT READABLE IS THE PART TO KEEP. A bare split test returns 525
+         candidates and is useless, because Latin's own morphology splits perfectly: the `-que`
+         enclitic makes `voluptatemque` look like `voluptatem que`, and the prefixes make
+         `transmittuntur`, `interemptorem` and `supervenerunt` look like two words each. Excluding a
+         split whose left half is a PREFIX or whose right half is a BOUND ENDING takes 525 to 145, and
+         at that size every one can be read. **Everything before letter 84 that survived the filter is
+         a real Latin word** — which is itself the confirmation that the fault is the transcription's
+         last quarter and not the language. */
       lostSpaces: {
+        "advocatumidoneum": "advocatum idoneum", "Aliquabenigna": "Aliqua benigna", "aliquidaccedat": "aliquid accedat", "amabisamittere": "amabis amittere",
+        "amicosbenignum": "amicos benignum", "angustiastractum": "angustias tractum", "animostudere": "animo studere", "animumperite": "animum perite",
+        "aptatuslingua": "aptatus lingua", "areamspectat": "aream spectat", "armatusmiles": "armatus miles", "audemusdifficilia": "audemus difficilia",
+        "audiascenseo": "audias censeo", "audientiumversa": "audientium versa", "caeliconsurgit": "caeli consurgit", "civilibusaut": "civilibus aut",
+        "coepimustamquam": "coepimus tamquam", "concupiscuntrosam": "concupiscunt rosam", "contemnimusillos": "contemnimus illos", "contuberniofoedi": "contubernio foedi",
+        "conviciumgaudet": "convicium gaudet", "crederetetiam": "crederet etiam", "creditumest": "creditum est", "cuiusgubernaculo": "cuius gubernaculo",
+        "curastransmittere": "curas transmittere", "dedimusofficium": "dedimus officium", "detraheilli": "detrahe illi", "deversoriumotii": "deversorium otii",
+        "dicentiumalacres": "dicentium alacres", "dicuntpersequar": "dicunt persequar", "diuitiaeeius": "diuitiae eius", "editaprotinus": "edita protinus",
+        "elegantiacenarum": "elegantia cenarum", "excitetfamam": "excitet famam", "exercitationeiacentibus": "exercitatione iacentibus", "falsisconstantia": "falsis constantia",
+        "finitionemintellegi": "finitionem intellegi", "gestationecuretur": "gestatione curetur", "graviorasunt": "graviora sunt", "gravioremilli": "graviorem illi",
+        "haecrespondeo": "haec respondeo", "hominemuenire": "hominem uenire", "hominisexistimatio": "hominis existimatio", "honestisadfectibus": "honestis adfectibus",
+        "humanorumdivinorumque": "humanorum divinorumque", "ieiunibibunt": "ieiuni bibunt", "illadiffertur": "illa differtur", "illamsequentibus": "illam sequentibus",
+        "illeprofitetur": "ille profitetur", "illorevertor": "illo revertor", "industriegerat": "industrie gerat", "infantibusquoque": "infantibus quoque",
+        "inhonestumsit": "inhonestum sit", "inreparabilisuita": "inreparabilis uita", "inquilinosvoco": "inquilinos voco", "inrationaleanimal": "inrationale animal", "institueruntomnia": "instituerunt omnia",
+        "intendereanimum": "intendere animum", "interuallorecurrit": "interuallo recurrit", "intrepidumfore": "intrepidum fore", "intrepidushoram": "intrepidus horam",
+        "istediscursus": "iste discursus", "Iuliuscarmen": "Iulius carmen", "laudedignum": "laude dignum", "Maecenatisturpissimum": "Maecenatis turpissimum",
+        "maioraetate": "maior aetate", "mihidefunctorum": "mihi defunctorum", "modiceaegrotandum": "modice aegrotandum", "mododicendum": "modo dicendum",
+        "moralibusrationalia": "moralibus rationalia", "moralisphilosophiae": "moralis philosophiae", "mortalitatisexempla": "mortalitatis exempla", "motaequidquid": "motae quidquid",
+        "multiformessumus": "multiformes sumus", "naturamexcedit": "naturam excedit", "naturapraecepit": "natura praecepit", "naturapraecipuum": "natura praecipuum",
+        "nihiliuuat": "nihil iuuat", "nocendumsatis": "nocendum satis", "nocituriscientiam": "nocituri scientiam", "Nonamicam": "Non amicam",
+        "nonprofert": "non profert", "novissimeacutam": "novissime acutam", "numquamsaevitiam": "numquam saevitiam", "Numquidinstructus": "Numquid instructus",
+        "obscureintueris": "obscure intueris", "occasionemfugae": "occasionem fugae", "occupataciuitate": "occupata ciuitate", "oculisdet": "oculis det",
+        "offendirebus": "offendi rebus", "officiiconstat": "officii constat", "omnibuslatum": "omnibus latum", "ordinemcaperet": "ordinem caperet",
+        "pararivehiculum": "parari vehiculum", "patriamreditus": "patriam reditus", "pectoreexcipere": "pectore excipere", "pecuniadiuitem": "pecunia diuitem",
+        "pedesconstitit": "pedes constitit", "pedesduxit": "pedes duxit", "pedibusnostris": "pedibus nostris", "peioraadhuc": "peiora adhuc",
+        "peregrinationeshabere": "peregrinationes habere", "perfectamesse": "perfecta messe", "peritosquod": "peritos quod", "permittiturCiceronis": "permittitur Ciceronis",
+        "perniciosaintellegere": "perniciosa intellegere", "perseverabitmori": "perseverabit mori", "petitursupplici": "petitur supplici", "pictorcolores": "pictor colores",
+        "posuitcelerrime": "posuit celerrime", "praeteritirara": "praeteriti rara", "prioribusepistulis": "prioribus epistulis", "prodessevarium": "prodesse varium",
+        "profectumredigis": "profectum redigis", "publicusrelinquatur": "publicus relinquatur", "pulcherrimicursum": "pulcherrimi cursum", "Quaeretitaque": "Quaeret itaque",
+        "quandopatiaris": "quando patiaris", "querenticuidam": "querenti cuidam", "quidquidsperat": "quidquid sperat", "quoddicturum": "quod dicturum",
+        "quomodomedico": "quomodo medico", "quoquehas": "quoque has", "quoqueuix": "quoque uix", "quosqueoblectamenta": "quosque oblectamenta",
+        "recedendumest": "recedendum est", "regioneseligit": "regiones eligit", "salutarisaut": "salutaris aut", "salutisaeger": "salutis aeger",
+        "scholapauperi": "schola pauperi", "singuliconferant": "singuli conferant", "sollicitudinumcausas": "sollicitudinum causas", "Statimexpediam": "Statim expediam",
+        "summumhabenti": "summum habenti", "sustinericupit": "sustineri cupit", "tacitisquoque": "tacitis quoque", "Tantuserit": "Tantus erit",
+        "terminusnobis": "terminus nobis", "terreturtuba": "terretur tuba", "terribilisesse": "terribilis esse", "theatrumvoluptatis": "theatrum voluptatis",
+        "totiensmutata": "totiens mutata", "transeundumest": "transeundum est", "tutelacertissima": "tutela certissima", "tutelamsalutis": "tutelam salutis",
+        "uirtutibusuitia": "uirtutibus uitia", "uirumpati": "uirum pati", "uitaecommunis": "uitae communis", "uitiorumadsidua": "uitiorum adsidua",
+        "uoluptatemcapiam": "uoluptatem capiam", "uoluptatesrecepturae": "uoluptates recepturae", "utriusquerei": "utriusque rei", "venturumest": "venturum est",
+        "virtutuminterpretes": "virtutum interpretes",
+
+        /* --- E28's own 483, below --- */
         "nequitiaest": "nequitia est", "commodumet": "commodum et", "fiduciaest": "fiducia est", "causaeetiam": "causae etiam",
         "enimvarietas": "enim varietas", "etliberos": "et liberos", "incertumest": "incertum est", "inmalis": "in malis",
         "inspem": "in spem", "ipsamquam": "ipsam quam", "Neganunc": "Nega nunc", "nihilinteresse": "nihil interesse",
