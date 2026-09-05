@@ -2125,7 +2125,8 @@ window.GLOSSARY = {
 "Structure-function_relationship": "The structure-function relationship is the organising assumption of molecular biology, that what a molecule is able to do follows from its three-dimensional shape and that the shape in turn follows from the way the molecule is built.<sup class=\"fn\" data-fn=\"1\"></sup> A protein is the standard illustration, its conformation being determined by the order of its amino acids, so that changing a single residue can change what the molecule does.<sup class=\"fn\" data-fn=\"2\"></sup> The relationship is a powerful rule rather than a law, since long segments of many proteins function without ever adopting a stable fold at all.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Chromatography": "Chromatography is a family of methods for separating the components of a mixture by passing it through a column packed with a porous solid matrix, in which the components are held back to different extents and emerge one after another.<sup class=\"fn\" data-fn=\"1\"></sup> What the matrix is made of determines the property sorted on: charge in ion-exchange chromatography, exposed hydrophobic regions in hydrophobic chromatography, molecular size in gel filtration, and the ability to bind a chosen molecule in affinity chromatography.<sup class=\"fn\" data-fn=\"1\"></sup> Coupled to mass spectrometry it underpins modern analyses of complex biological mixtures, where measuring an unseparated sample would report only an average.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Bioenergetics": "Bioenergetics is the study of how energy is captured, converted, stored and expended by living organisms, from the whole body down to the individual chemical reaction inside a single cell.<sup class=\"fn\" data-fn=\"1\"></sup> It rests on the principle that energy is never created or destroyed but only changed in form, and it keeps the accounts in free energy, a quantity combining the heat content of a system with its degree of disorder.<sup class=\"fn\" data-fn=\"1\"></sup> Because building and holding biological order runs against the general tendency of matter towards disorder, the field treats a continuous supply of energy as a condition of remaining alive rather than as one activity among many.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Thermodynamics": "Thermodynamics is the study of energy, the forms it takes and its transfer between a system and the surroundings outside it.<sup class=\"fn\" data-fn=\"1\"></sup> Its first law holds that the total quantity of energy is constant, so energy may be moved about or changed from one form into another but never created or destroyed; its second law holds that the degree of disorder in the universe, measured as entropy, can only increase.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The two apply without exception to a chemical reaction, an engine and a whole organism alike, and one consequence is that no transfer of energy is completely efficient, some always being lost in a form that cannot be used.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Thermodynamics": "Thermodynamics is the study of energy, the forms it takes and its transfer between a system and the surroundings outside it.<sup class=\"fn\" data-fn=\"1\"></sup> Its first law holds that the total quantity of energy is constant, so energy may be moved about or changed from one form into another but never created or destroyed; its second law holds that the degree of disorder in the universe, measured as entropy, can only increase.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The two apply without exception to a chemical reaction, an engine and a whole organism alike, and one consequence is that no transfer of energy is completely efficient, some always being lost in a form that cannot be used.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Gibbs_free_energy": "Gibbs free energy, written G and named for the physicist Josiah Willard Gibbs, is the part of a system's energy that stays available to do work once the energy lost to disorder has been accounted for.<sup class=\"fn\" data-fn=\"1\"></sup> The change in it during a reaction is that reaction's enthalpy change less its entropy change multiplied by the absolute temperature, and the sign of the result says which way the reaction will go: a fall means free energy is released and the reaction proceeds unaided, a rise that energy must be supplied from elsewhere.<sup class=\"fn\" data-fn=\"1\"></sup> At equilibrium the change is zero and the reaction runs no further either way.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4266,7 +4267,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Adenosine_triphosphate": ["ATP","adenosine triphosphate"],
 "Biuret_test": ["biuret test","biuret method","biuret reagent"],
 "Structure-function_relationship": ["structure-function relationship","structure and function relationship"],
-"Chromatography": ["chromatography"]
+"Chromatography": ["chromatography"],
+"Gibbs_free_energy": ["free energy","Gibbs energy","free-energy"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6427,7 +6429,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Structure-function_relationship": ["concept","science","biology","chemistry"],
 "Chromatography": ["practice","science","biology","chemistry"],
 "Bioenergetics": ["concept","science","biology","chemistry"],
-"Thermodynamics": ["concept","science","chemistry","biology"]
+"Thermodynamics": ["concept","science","chemistry","biology"],
+"Gibbs_free_energy": ["concept","science","chemistry","biology"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
