@@ -2096,7 +2096,8 @@ window.GLOSSARY = {
 "Battle_of_Thermopylae_(191_BCE)": "The <b>Battle of Thermopylae</b> of 191 BCE was fought in the coastal pass of that name between a Roman consular army and the forces of Antiochus III of Syria, and ended the king's attempt to establish himself in Greece. Antiochus fortified the narrows with rampart, ditch and wall, and asked his Aetolian allies to hold the mountain paths above, which they garrisoned only in part after disagreeing among themselves.<sup class=\"fn\" data-fn=\"1\"></sup> A Roman detachment cleared one of the summits and appeared behind the position, at which the defenders abandoned the works and fled, the king escaping with a small escort.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Battle_of_Magnesia": "The <b>Battle of Magnesia</b> was fought in 190 BCE near Magnesia by Sipylus in western Asia Minor, between a Roman army with Pergamene allies and the much larger and more varied army of Antiochus III of Syria. Livy describes a Seleucid line built around a phalanx of sixteen thousand with elephants standing in its gaps, flanked by mailed cavalry, horse-archers, camel-riders and scythed chariots.<sup class=\"fn\" data-fn=\"1\"></sup> The chariots were driven back on their own side, the phalanx was broken up by fugitives running through its ranks, and the defeat cost Antiochus his position in Asia Minor west of the Taurus.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Treaty_of_Apamea": "The <b>Treaty of Apamea</b> was the peace concluded in 188 BCE between Rome and Antiochus III of Syria, ending the war the two had fought in Greece and Asia Minor. It required the king to withdraw from all territory west and north of the Taurus mountains, to surrender his elephants and all but ten warships, to keep his remaining ships east of a stated line, to pay a large indemnity in instalments and to give hostages.<sup class=\"fn\" data-fn=\"1\"></sup> The territory he gave up was distributed by a Roman commission, chiefly to the kingdom of Pergamon and to Rhodes, without Rome annexing any of it.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Third_Macedonian_War": "The <b>Third Macedonian War</b> was fought between Rome and Perseus, the last king of Macedon, from 171 to 168 BCE, and ended with the abolition of the Macedonian monarchy. Rome went to war on charges brought chiefly by Eumenes of Pergamum, who came to the senate to argue that Perseus had inherited his father's design of a war against Rome and was strengthening himself for it.<sup class=\"fn\" data-fn=\"1\"></sup> Livy records that the embassy which preceded the fighting gained time by offering the king a truce, and that older senators objected that winning by such means was foreign to Roman practice.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Third_Macedonian_War": "The <b>Third Macedonian War</b> was fought between Rome and Perseus, the last king of Macedon, from 171 to 168 BCE, and ended with the abolition of the Macedonian monarchy. Rome went to war on charges brought chiefly by Eumenes of Pergamum, who came to the senate to argue that Perseus had inherited his father's design of a war against Rome and was strengthening himself for it.<sup class=\"fn\" data-fn=\"1\"></sup> Livy records that the embassy which preceded the fighting gained time by offering the king a truce, and that older senators objected that winning by such means was foreign to Roman practice.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Perseus_of_Macedon": "<b>Perseus</b> was king of Macedon from 179 to 168 BCE and the last to rule the kingdom, which Rome abolished after defeating him. He was the elder son of Philip V and reached the throne after his younger brother Demetrius was put to death on charges Perseus had brought, a killing Livy presents as engineered by him.<sup class=\"fn\" data-fn=\"1\"></sup> He was defeated at Pydna and surrendered in person, and Polybius, writing within living memory, attributes his failure less to Roman strength than to an unwillingness to spend money on allies who might have helped him.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2963,7 +2964,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Thermopylae_(191_BCE)": "191 BCE",
 "Battle_of_Magnesia": "190 BCE",
 "Treaty_of_Apamea": "188 BCE",
-"Third_Macedonian_War": "171 – 168 BCE"
+"Third_Macedonian_War": "171 – 168 BCE",
+"Perseus_of_Macedon": "179 – 168 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6377,7 +6379,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Thermopylae_(191_BCE)": ["battle","warfare","history","greece","rome"],
 "Battle_of_Magnesia": ["battle","warfare","history","rome","greece"],
 "Treaty_of_Apamea": ["event","history","politics","rome","greece"],
-"Third_Macedonian_War": ["event","warfare","history","rome","greece"]
+"Third_Macedonian_War": ["event","warfare","history","rome","greece"],
+"Perseus_of_Macedon": ["ruler","person","history","greece","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

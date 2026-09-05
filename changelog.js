@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.600", released: "2026-09-05T20:44Z" };
+window.FOLIO_VERSION = { v: "1.601", released: "2026-09-05T20:48Z" };
 
 window.CHANGELOG = [
   {
@@ -43,8 +43,8 @@ window.CHANGELOG = [
     t: "More of the conquest of Italy",
     items: [
       "<b>135 citations of Polybius now give the right year</b> \u2014 the translation is published in six volumes and several were credited to the wrong one.",
-   "<b>Eighty-seven new cards in Ancient Rome, on the conquest of Italy, the settlement after it, the Punic wars and the Greek east.</b>",
-      "<b>Eighty-four more glossary terms</b>, on the Greek south of Italy, Pyrrhus and his battles, the alliance system that followed, the roads north, and Carthage’s empire, navy, generals and wars with Rome, sourced.",
+   "<b>Eighty-eight new cards in Ancient Rome, on the conquest of Italy, the settlement after it, the Punic wars and the Greek east.</b>",
+      "<b>Eighty-five more glossary terms</b>, on the Greek south of Italy, Pyrrhus and his battles, the alliance system that followed, the roads north, and Carthage’s empire, navy, generals and wars with Rome, sourced.",
       "<b>Seventeen pictures that had failed to load now show</b> \u2014 sixteen on Ancient Rome cards and one on a glossary term.",
     ],
   },
@@ -101,7 +101,7 @@ window.CHANGELOG = [
       "<b>Creating an account now tells you when the username you asked for was already taken</b>, and gives you the handle your account was made under instead.",
       "<b>Your username can now be changed</b> from the account page — it is the handle you sign in with and the one friends add you by.",
       "<b>The Sign in and Create account buttons no longer stay stuck reading \u201c\u2026\u201d</b> after an attempt that was refused.",
-      "<b>Eighty-four more glossary terms</b> — Greek pottery and regions, the sites of Crete and Cyprus, ancient materials, and Rome’s institutions and hills — each with sources and most with a picture.",
+      "<b>Eighty-five more glossary terms</b> — Greek pottery and regions, the sites of Crete and Cyprus, ancient materials, and Rome’s institutions and hills — each with sources and most with a picture.",
     ],
   },
   {
