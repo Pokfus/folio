@@ -2049,7 +2049,8 @@ window.GLOSSARY = {
 "Magistrate": "A magistrate is a person holding a public office of the state, with defined powers and usually a fixed term. Aristotle treats the number of such offices, their powers and how long they are held as the questions a constitution has to settle, and separates political magistracies from priesthoods, heralds and choral officers, which he counts as a different kind of appointment.<sup class=\"fn\" data-fn=\"1\"></sup> At Rome the pattern is visible in what one office could not do without another: the censors, who let the contracts for repairing and building public works every fifth year, could get the money for them only by a grant of the senate.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Aristocracy": "An aristocracy is rule by a small privileged class, usually one that claims the right by birth or by superior worth, and in which the offices of state are closed to everybody else. Aristotle counts it a right constitution rather than a deviation, government by more than one yet only a few, so named either because the best men rule or because they rule with a view to what is best for the state and its members.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius treats it as one of the three kinds most writers recognised, and argued that none of the three is stable on its own.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Oligarchy": "An oligarchy is a state in which power is held by a small group, most often the wealthy, and in which the rest of the citizen body is shut out of office whatever its numbers. Aristotle makes it the deviation corresponding to aristocracy, government conducted in the interest of the rich rather than of the community as a whole.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus has its advocate rest the case on the incompetence of the alternatives, granting the objections to rule by one man while holding that nothing is more foolish or violent than an unguided crowd, and that men fleeing a tyrant's insolence should not fall victim to the mob's.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Second_World_War": "The Second World War was a global conflict between the Axis powers, led by Germany, Italy and Japan, and an Allied coalition including Britain, China, the Soviet Union and the United States.<sup class=\"fn\" data-fn=\"1\"></sup> It began at different moments in different places: Japan invaded China proper on 7 July 1937, opening the war in Asia, and Germany invaded Poland on 1 September 1939, opening it in Europe.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Germany surrendered unconditionally in May 1945 and Japan on 2 September that year, by which time some 60 million people had been killed, most of them civilians and the national totals still disputed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Second_World_War": "The Second World War was a global conflict between the Axis powers, led by Germany, Italy and Japan, and an Allied coalition including Britain, China, the Soviet Union and the United States.<sup class=\"fn\" data-fn=\"1\"></sup> It began at different moments in different places: Japan invaded China proper on 7 July 1937, opening the war in Asia, and Germany invaded Poland on 1 September 1939, opening it in Europe.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Germany surrendered unconditionally in May 1945 and Japan on 2 September that year, by which time some 60 million people had been killed, most of them civilians and the national totals still disputed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Armistice_of_11_November_1918": "The Armistice of 11 November 1918 ended the fighting of the First World War, signed at Compiègne at five o'clock French time by Foch for the Allies and by a German delegation led by Matthias Erzberger.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its terms disarmed Germany where it stood: 5,000 guns, 25,000 machine guns and 1,700 aircraft surrendered, the left bank of the Rhine evacuated, the treaties of Brest-Litovsk and Bucharest renounced, and the Allied blockade left in force.<sup class=\"fn\" data-fn=\"1\"></sup> It suspended hostilities rather than concluding a war, running for thirty days with an option to extend, and the guns of the Western Front fell silent at eleven that morning.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2882,7 +2883,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hippodamus_of_Miletus": "5th century BCE",
 "Parthenon": "447 – 432 BCE",
 "Athena_Parthenos": "438 BCE",
-"Second_World_War": "1937 – 1945 in Asia<br>1939 – 1945 in Europe"
+"Second_World_War": "1937 – 1945 in Asia<br>1939 – 1945 in Europe",
+"Armistice_of_11_November_1918": "11 November 1918"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4137,7 +4139,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Consulate": ["consulates"],
 "Consul_general": ["consul-general","consuls general"],
 "Tyranny": ["tyrant"],
-"Second_World_War": ["World War II"]
+"Second_World_War": ["World War II"],
+"Armistice_of_11_November_1918": ["Armistice of Compiègne"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6221,7 +6224,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Magistrate": ["concept","politics","history"],
 "Aristocracy": ["concept","politics","history"],
 "Oligarchy": ["concept","politics","history"],
-"Second_World_War": ["event","history","warfare","20th century"]
+"Second_World_War": ["event","history","warfare","20th century"],
+"Armistice_of_11_November_1918": ["event","history","warfare","20th century","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
