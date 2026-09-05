@@ -1,0 +1,11 @@
+{
+  "slug": "Fatty_acid",
+  "aliases": ["fatty acids"],
+  "description": "A fatty acid is the simplest kind of lipid: a long hydrocarbon chain carrying a carboxyl group at one end, most often sixteen or eighteen carbons long, whose nonpolar chain cannot interact with water and so accounts for much of the behaviour of the larger lipids assembled from it.<sup class=\"fn\" data-fn=\"1\"></sup> Chains are named by a pair of numbers giving the length and the number of double bonds, as in palmitate at 16:0 or oleate at 18:1, and mitochondria dismantle them by removing two carbons at a time as acetyl-CoA.<sup class=\"fn\" data-fn=\"2\"></sup> A few, among them linoleic acid, cannot be built by human enzymes at all and have to be supplied by the diet.<sup class=\"fn\" data-fn=\"3\"></sup>",
+  "tags": ["object", "science", "biology", "chemistry"],
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Jacob T. Talley and Shamim S. Mohiuddin, “Biochemistry, Fatty Acid Oxidation,” in <i>StatPearls</i> (Treasure Island, FL: StatPearls Publishing, 2023), https://www.ncbi.nlm.nih.gov/books/NBK556002/. [Open access]",
+    "Jodi Wolff, Mary Petrea Cober, and Katie A. Huff, “Essential Fatty Acid Deficiency in Parenteral Nutrition: Historical Perspective and Modern Solutions, a Narrative Review,” <i>Nutrition in Clinical Practice</i> 40, no. 2 (2025): 350–67, https://doi.org/10.1002/ncp.11278. [Open access]"
+  ]
+}

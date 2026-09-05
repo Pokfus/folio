@@ -1,0 +1,29 @@
+{
+  "id": "bio-057",
+  "num": 57,
+  "category": "Biology",
+  "question": "A long hydrocarbon tail with a carboxyl group at one end, a <span class=\"blank\">_____</span> is the simplest of the lipids and the piece the rest of them are assembled from.",
+  "questions": [
+    "Mitochondria dismantle one by clipping two carbons off the end at a time, and the chain has to be carried in on a carnitine shuttle before any <span class=\"blank\">_____</span> can be burnt.",
+    "Two of them, linoleic and alpha-linolenic, are called essential because no human enzyme can make either, so this kind of <span class=\"blank\">_____</span> has to come from food."
+  ],
+  "answer": "fatty acid",
+  "answerText": "fatty acid",
+  "answerDate": "",
+  "traditional": "",
+  "hanzi": "",
+  "pinyin": "",
+  "translations": "",
+  "citation": "",
+  "difficulty": 2,
+  "undatable": true,
+  "tags": ["object", "science", "biology", "chemistry"],
+  "abstract": "A <b>fatty acid</b> is the simplest kind of lipid: a long hydrocarbon chain with a carboxyl group at one end, most often sixteen or eighteen carbons long.<sup class=\"fn\" data-fn=\"1\"></sup> The chain carries only nonpolar carbon-hydrogen bonds and cannot interact with water, and that hydrophobicity accounts for much of how the larger lipids built from fatty acids behave.<sup class=\"fn\" data-fn=\"1\"></sup> Chains are written as a pair of numbers giving length and the count of double bonds, so palmitate is 16:0, stearate 18:0 and oleate 18:1.<sup class=\"fn\" data-fn=\"2\"></sup> Making one is the work of fatty acid synthase, which assembles saturated long chains, predominantly palmitate, from acetyl-CoA and malonyl-CoA using NADPH.<sup class=\"fn\" data-fn=\"3\"></sup> Taking one apart runs the other way, and mitochondrial beta-oxidation clips off acetyl-CoA to leave a chain two carbons shorter, over and over.<sup class=\"fn\" data-fn=\"2\"></sup> <br><br> A long chain cannot simply drift into a mitochondrion, so it is attached to carnitine and carried across, a transfer that is the rate-limiting step of the whole oxidation.<sup class=\"fn\" data-fn=\"2\"></sup> Each round yields one acetyl-CoA along with a reduced flavin adenine dinucleotide and a reduced nicotinamide adenine dinucleotide, which is why fat is such a productive fuel during fasting and hard exercise.<sup class=\"fn\" data-fn=\"2\"></sup> Two fatty acids are exceptions to all this, because humans lack the enzymes to build linoleic acid or alpha-linolenic acid and must eat them instead.<sup class=\"fn\" data-fn=\"4\"></sup> George Burr showed as much in 1929, when rats on a fat-free diet fell ill and a little linoleic acid put them right again.<sup class=\"fn\" data-fn=\"4\"></sup> Those chains have to be made by something, and much of the world's supply begins in marine diatoms and other microalgae at the base of the ocean food web, whose fatty acid profiles shift measurably under warming and acidification.<sup class=\"fn\" data-fn=\"5\"></sup>",
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Jacob T. Talley and Shamim S. Mohiuddin, “Biochemistry, Fatty Acid Oxidation,” in <i>StatPearls</i> (Treasure Island, FL: StatPearls Publishing, 2023), https://www.ncbi.nlm.nih.gov/books/NBK556002/. [Open access]",
+    "Tongchun Lan, Xinru Zhang, Jiarui Xie, Xu Xing, Chunyan Wang, and Xiaofeng Ma, “Inhibitory Effects and the Potential Mechanism of Phloretin on Animal Fatty Acid Synthase,” <i>ACS Omega</i> 10, no. 35 (2025): 40392–401, https://doi.org/10.1021/acsomega.5c05729. [Open access]",
+    "Jodi Wolff, Mary Petrea Cober, and Katie A. Huff, “Essential Fatty Acid Deficiency in Parenteral Nutrition: Historical Perspective and Modern Solutions, a Narrative Review,” <i>Nutrition in Clinical Practice</i> 40, no. 2 (2025): 350–67, https://doi.org/10.1002/ncp.11278. [Open access]",
+    "Maria Nicoară, Charlotte L. Briddon, Alexandra Mortu, Adriana Hegedűs, Emese Gal, Horia Leonard Banciu, and Bogdan Drugă, “Warming and Acidification Alter Essential Fatty Acid Profiles in Marine Diatom <i>Skeletonema marinoi</i>,” <i>Journal of Plankton Research</i> 48, no. 4 (2026): fbag057, https://doi.org/10.1093/plankt/fbag057. [Open access]"
+  ]
+}
