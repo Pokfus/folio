@@ -35,15 +35,15 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.577", released: "2026-09-05T20:15Z" };
+window.FOLIO_VERSION = { v: "1.578", released: "2026-09-05T20:20Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-05",
     t: "Corrections across Seneca, the Rigveda, Suetonius and the Journey",
     items: [
-      "<b>Fifty-seven new cards in the Biology collection</b>, which open it: Biology now sits under Collections rather than Planned.",
-      "<b>Fifty-six more glossary terms</b>, written for those cards\u2019 answers.",
+      "<b>Fifty-eight new cards in the Biology collection</b>, which open it: Biology now sits under Collections rather than Planned.",
+      "<b>Fifty-eight more glossary terms</b>, written for those cards\u2019 answers.",
       "<b>An answer like <i>pH</i> keeps its own lower-case first letter</b>, where the answer line used to capitalise every term.",
       "<b>Forty-nine corrections to the Canterbury Tales and the Journey to the West</b> \u2014 read for the first time against two other scans of the same printing, which recovered a lost place-name and a lost word.",
       "<b>Fourteen page references and running heads taken out of Suetonius and the Journey to the West</b> \u2014 a printed page\u2019s own furniture, standing in the text where one of them split a hymn in half.",

@@ -1,0 +1,11 @@
+{
+  "slug": "Unsaturated_fat",
+  "aliases": ["unsaturated fats", "unsaturated fatty acid", "unsaturated fatty acids"],
+  "description": "An unsaturated fat is a fat whose fatty acid chains carry one or more carbon-carbon double bonds, so the chains hold fewer hydrogen atoms than they otherwise could.<sup class=\"fn\" data-fn=\"1\"></sup> Those double bonds disrupt the way chains pack together, which raises membrane fluidity, and organisms raise the proportion of such chains when cold would otherwise press a membrane too tightly closed.<sup class=\"fn\" data-fn=\"2\"></sup> Partially hydrogenating oils of this kind, a process used from the early 1900s to make cheap substitutes for animal fats, also yields industrially produced trans fat, now the target of a global elimination programme.<sup class=\"fn\" data-fn=\"3\"></sup>",
+  "tags": ["object", "science", "biology", "chemistry", "nutrition"],
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Loles Hoogerland, Stefan Pieter Hendrik van den Berg, Yixing Suo, Yuta W. Moriuchi, Adja Zoumaro-Djayoon, Esther Geurken, Flora Yang, et al., “A Temperature-Sensitive Metabolic Valve and a Transcriptional Feedback Loop Drive Rapid Homeoviscous Adaptation in <i>Escherichia coli</i>,” <i>Nature Communications</i> 15, no. 1 (2024): 9386, https://doi.org/10.1038/s41467-024-53677-5. [Open access]",
+    "Lindsay Steele, Elizabeth Drummond, Chizuru Nishida, Rain Yamamoto, Francesco Branca, Cristina Parsons Perez, Lorena Allemandi, et al., “Ending Trans Fat: The First-Ever Global Elimination Program for a Noncommunicable Disease Risk Factor,” <i>Journal of the American College of Cardiology</i> 84, no. 7 (2024): 663–74, https://doi.org/10.1016/j.jacc.2024.04.067. [Open access]"
+  ]
+}
