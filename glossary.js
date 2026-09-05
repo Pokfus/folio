@@ -2056,7 +2056,8 @@ window.GLOSSARY = {
 "Homeostasis": "Homeostasis is an organism's maintenance of a relatively stable internal environment despite a changing outside world and its own varying activity, worked by negative feedback that reduces the gap between a regulated variable and its normal range.<sup class=\"fn\" data-fn=\"1\"></sup> A loop needs a sensor, a mechanism setting that range, a detector, a controller and effectors, and the response opposes the change that triggered it, as sweating and shivering do for temperature and insulin for blood glucose.<sup class=\"fn\" data-fn=\"2\"></sup> The name is misleading in one respect: a set point is a range rather than a fixed value and can itself be shifted, so what is described is continuous regulation rather than constancy.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Metabolism": "Metabolism is the whole set of chemical reactions taking place inside a living thing, both those that release energy and those that use it.<sup class=\"fn\" data-fn=\"1\"></sup> It falls into two dependent halves: catabolic pathways break food molecules down into smaller ones, yielding usable energy and building blocks, while anabolic pathways spend that energy making the molecules an organism is built from, with ATP carrying the energy between them.<sup class=\"fn\" data-fn=\"2\"></sup> Almost none of these reactions would run unaided at the temperature of a cell, so each is catalysed by an enzyme, and the pathways are linked into a network rather than a line.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Null_hypothesis": "The null hypothesis is the proposition, in a statistical test, that there is no difference between the groups being compared or no association between the variables measured; the researcher’s own proposal is the alternative.<sup class=\"fn\" data-fn=\"1\"></sup> A test asks how likely the observed data would be if the null were true, and the result is reported either as rejecting the null or as failing to reject it, the second of which does not demonstrate that no effect exists.<sup class=\"fn\" data-fn=\"1\"></sup> The p-value it yields is the probability of an effect at least this large arising when there is none, and not the probability that the null is true, which is the commonest misreading.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Scientific_control": "A scientific control is what makes an experiment interpretable: a control group carries every feature of the treated group except the manipulation being tested, so a difference between them can be attributed to the manipulation and not to something else.<sup class=\"fn\" data-fn=\"1\"></sup> The inference holds only as far as the groups really are alike, which is why individuals are allocated randomly, the sample size is fixed in advance, and whoever records the data is kept unaware of which group is which.<sup class=\"fn\" data-fn=\"2\"></sup> Where another difference tracks the groups, such as the day samples were processed, it is a confound, and no later analysis can separate it from the effect being looked for.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Scientific_control": "A scientific control is what makes an experiment interpretable: a control group carries every feature of the treated group except the manipulation being tested, so a difference between them can be attributed to the manipulation and not to something else.<sup class=\"fn\" data-fn=\"1\"></sup> The inference holds only as far as the groups really are alike, which is why individuals are allocated randomly, the sample size is fixed in advance, and whoever records the data is kept unaware of which group is which.<sup class=\"fn\" data-fn=\"2\"></sup> Where another difference tracks the groups, such as the day samples were processed, it is a confound, and no later analysis can separate it from the effect being looked for.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Observational_error": "Observational error, or measurement error, is the difference between a measured value and the true value of the thing measured, and it is present in every measurement rather than only in careless ones.<sup class=\"fn\" data-fn=\"1\"></sup> It divides into bias, the gap between the average of repeated measurements and the truth, which more data will not remove and which calibration against a reference is meant to catch, and variability, the tendency of a process to return slightly different answers each time, which is quantified as a standard deviation.<sup class=\"fn\" data-fn=\"1\"></sup> Variability has its own time scales, short-term scatter reflecting the precision of the instrument while day-to-day differences in conditions and handling often exceed it.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4149,7 +4150,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Homeostasis": ["homeostatic"],
 "Metabolism": ["metabolic pathway","anabolism","catabolism"],
 "Null_hypothesis": ["alternative hypothesis"],
-"Scientific_control": ["control group","controlled experiment"]
+"Scientific_control": ["control group","controlled experiment"],
+"Observational_error": ["measurement error"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6240,7 +6242,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Homeostasis": ["concept","science","biology","nature"],
 "Metabolism": ["concept","science","biology","nature"],
 "Null_hypothesis": ["concept","science","research methods"],
-"Scientific_control": ["concept","science","research methods"]
+"Scientific_control": ["concept","science","research methods"],
+"Observational_error": ["concept","science","research methods"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
