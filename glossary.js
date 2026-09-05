@@ -1823,7 +1823,8 @@ window.GLOSSARY = {
 "Confucianism": "Confucianism is the tradition that grew from the teaching of Confucius in China, and it dominated Chinese thought and government for more than two thousand years.<sup class=\"fn\" data-fn=\"1\"></sup> Its central terms are ren, the inner moral sentiment usually rendered benevolence, and li, the outward rule of conduct usually rendered ritual propriety, and its programme runs from a rectified heart through the cultivated person and family to the ordered state.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It became the official system of thought under the Han, its canon settling as the Five Classics and later the Four Books, while its followers divided over whether human nature is good, as Mencius held, or bad, as Xunzi held.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Taoism": "Taoism is the Chinese tradition built on the Tao, the Way, whose founding book opens by declaring that the Tao which can be trodden is not the enduring and unchanging Tao.<sup class=\"fn\" data-fn=\"1\"></sup> Its central term is wu wei, rendered as doing nothing or inaction, and its two founding books are the <i>Tao Te Ching</i>, ascribed to Laozi, and the <i>Zhuangzi</i>, which prize gentleness, economy and shrinking from taking precedence of others.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A religion with scriptures and a priesthood of its own grew out of the philosophy, and Taoism is today counted one of China's five major religions.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Legalism_(Chinese_philosophy)": "Legalism is the usual English rendering of <i>fajia</i>, the Chinese tradition of statecraft holding that a state should be governed by published standards and measured rewards and punishments rather than by its ruler's moral quality.<sup class=\"fn\" data-fn=\"1\"></sup> The historian Sima Tan coined the label and the librarian Liu Xiang applied it to ten works in the Han imperial catalogue, so it names a bibliographic category rather than a self-aware school.<sup class=\"fn\" data-fn=\"1\"></sup> Its core texts are associated with Shang Yang, Shen Buhai, Shen Dao and Han Fei, and argue for punishments knowing no degree or grade and for rewards granted only in exchange for military attainment.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Shang_Yang": "Shang Yang, also called Gongsun Yang and the Lord of Shang, was the statesman who held high office in Qin between 359 and 338 BCE and rewrote its laws.<sup class=\"fn\" data-fn=\"1\"></sup> The measures credited to him made emolument, office and rank follow military attainment, organised households into groups of five and ten held responsible for one another's crimes, and applied punishments without regard to degree or grade.<sup class=\"fn\" data-fn=\"1\"></sup> When his patron Duke Xiao died he was accused of rebellion, refused a bed by his own identity law as he fled, and killed, his body then torn apart by chariots;<sup class=\"fn\" data-fn=\"1\"></sup> Sima Qian wrote that he deserved his ill fame.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Shang_Yang": "Shang Yang, also called Gongsun Yang and the Lord of Shang, was the statesman who held high office in Qin between 359 and 338 BCE and rewrote its laws.<sup class=\"fn\" data-fn=\"1\"></sup> The measures credited to him made emolument, office and rank follow military attainment, organised households into groups of five and ten held responsible for one another's crimes, and applied punishments without regard to degree or grade.<sup class=\"fn\" data-fn=\"1\"></sup> When his patron Duke Xiao died he was accused of rebellion, refused a bed by his own identity law as he fled, and killed, his body then torn apart by chariots;<sup class=\"fn\" data-fn=\"1\"></sup> Sima Qian wrote that he deserved his ill fame.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"The_Art_of_War": "The <i>Art of War</i> is a Chinese treatise on strategy in thirteen short chapters, ascribed to Sun Wu, a general said to have served King Helü of Wu in the late 6th century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It holds that war is a matter of life and death for a state, that all warfare is based on deception, and that supreme excellence lies in breaking an enemy's resistance without fighting.<sup class=\"fn\" data-fn=\"1\"></sup> Whether Sun Wu existed has been doubted since the Song, when it was noted that the Zuo Commentary never names him;<sup class=\"fn\" data-fn=\"1\"></sup> the book reached Europe in a French translation of 1772.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2659,7 +2660,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Confucianism": "from the 5th century BCE",
 "Taoism": "from the 6th century BCE",
 "Legalism_(Chinese_philosophy)": "4th – 3rd centuries BCE",
-"Shang_Yang": "d. 338 BCE"
+"Shang_Yang": "d. 338 BCE",
+"The_Art_of_War": "traditionally 6th century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3784,7 +3786,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Confucianism": ["Confucian","Rujia"],
 "Taoism": ["Daoism","Taoist","Daoist"],
 "Legalism_(Chinese_philosophy)": ["Legalism","Legalist","fajia","School of Law"],
-"Shang_Yang": ["Lord Shang","Lord of Shang","Gongsun Yang"]
+"Shang_Yang": ["Lord Shang","Lord of Shang","Gongsun Yang"],
+"The_Art_of_War": ["Art of War","Sunzi bingfa"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5637,7 +5640,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Confucianism": ["school of thought","philosophy","religion","history","china"],
 "Taoism": ["school of thought","philosophy","religion","history","china"],
 "Legalism_(Chinese_philosophy)": ["school of thought","philosophy","politics","history","china"],
-"Shang_Yang": ["person","politics","law","history","china"]
+"Shang_Yang": ["person","politics","law","history","china"],
+"The_Art_of_War": ["text","warfare","philosophy","history","china"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
