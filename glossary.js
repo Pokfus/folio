@@ -2012,7 +2012,8 @@ window.GLOSSARY = {
 "Roman_conquest_of_Umbria_and_Picenum": "The Roman conquest of Umbria and Picenum was the absorption of the two regions between the Apennines and the Adriatic into the Roman system, completed by 268 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Umbria was not a single state but a set of tribes without common government, and after a defeat near Mevania in 308 BCE they submitted on terms that differed from place to place; they took part in the coalition beaten at Sentinum in 295 and were not in arms as a people afterwards.<sup class=\"fn\" data-fn=\"1\"></sup> Picenum entered a treaty with Rome in 299 BCE and kept it for a generation, until two consuls reduced the region in a single campaign.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Senones": "The Senones were a Gallic people who settled south of the Po on the Adriatic side of Italy, the southernmost of the tribes that took the northern plain from the Etruscans.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius describes them living in open villages without permanent buildings and occupied with war and farming, and records their part in the long quarrel with Rome, including a treaty kept for thirty years and broken in 299 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> After Roman envoys were killed during the fighting of 283 BCE a consul destroyed the tribe and expelled the survivors, and Rome planted the colony of Sena Gallica on their coast.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Battle_of_Telamon": "The Battle of Telamon was fought in 225 BCE on the coast of Etruria between Rome and an army of Cisalpine Gauls, chiefly Insubres and Boii with hired Gaesatae from beyond the Alps.<sup class=\"fn\" data-fn=\"2\"></sup> Returning from a raid into Etruria, the Gauls were caught between the consul Gaius Atilius, who had landed at Pisae, and Lucius Aemilius coming up behind them, and drew up facing in both directions.<sup class=\"fn\" data-fn=\"1\"></sup> Atilius was killed in the fighting, but the Gallic army was destroyed, with some 40,000 reported killed and 10,000 taken prisoner including one of their kings.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Roman_conquest_of_Cisalpine_Gaul": "The Roman conquest of Cisalpine Gaul was the subjection of the Celtic peoples of the Po valley in northern Italy, chiefly the Insubres and Boii, in the years after the Roman victory at Telamon in 225 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Roman armies invaded Insubrian territory in 223 and again in 222, when offers of submission were refused and the campaign ended with the storming of Mediolanum, the chief town of the Insubres, who then gave in without terms.<sup class=\"fn\" data-fn=\"2\"></sup> Rome secured the ground with two Latin colonies at Placentia and Cremona in 218 BCE, the year Hannibal entered Italy hoping to raise the same peoples against her.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Roman_conquest_of_Cisalpine_Gaul": "The Roman conquest of Cisalpine Gaul was the subjection of the Celtic peoples of the Po valley in northern Italy, chiefly the Insubres and Boii, in the years after the Roman victory at Telamon in 225 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Roman armies invaded Insubrian territory in 223 and again in 222, when offers of submission were refused and the campaign ended with the storming of Mediolanum, the chief town of the Insubres, who then gave in without terms.<sup class=\"fn\" data-fn=\"2\"></sup> Rome secured the ground with two Latin colonies at Placentia and Cremona in 218 BCE, the year Hannibal entered Italy hoping to raise the same peoples against her.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Tarentum": "Tarentum, called Taras by the Greeks and Taranto today, was a Greek city on the north shore of the gulf named after it in southern Italy, built on a peninsula that all but closes a long shallow harbour.<sup class=\"fn\" data-fn=\"1\"></sup> It was the only colony Sparta founded in Italy, traditionally settled by the Partheniae under Phalanthus, and it became the wealthiest and most powerful of the Greek cities there, with a market containing a bronze colossus of Zeus said to be the largest anywhere but Rhodes.<sup class=\"fn\" data-fn=\"2\"></sup> Its quarrel with Rome led it to invite Pyrrhus of Epirus into Italy in 280 BCE.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4050,7 +4051,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Maniple_(military_unit)": ["maniple","maniples","manipulus","manipuli"],
 "Battle_of_Sentinum": ["Sentinum"],
 "Senones": ["Senonian Gauls","Senonian"],
-"Battle_of_Telamon": ["Telamon"]
+"Battle_of_Telamon": ["Telamon"],
+"Tarentum": ["Taras","Tarentines","Tarentine"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6095,7 +6097,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Roman_conquest_of_Umbria_and_Picenum": ["event","history","warfare","italy"],
 "Senones": ["people","history","warfare","italy"],
 "Battle_of_Telamon": ["battle","history","warfare","italy"],
-"Roman_conquest_of_Cisalpine_Gaul": ["event","history","warfare","italy"]
+"Roman_conquest_of_Cisalpine_Gaul": ["event","history","warfare","italy"],
+"Tarentum": ["city","history","politics","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
