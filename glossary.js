@@ -2071,7 +2071,8 @@ window.GLOSSARY = {
 "Defection_of_Capua": "The <b>defection of Capua</b> was the revolt of the chief city of Campania from Rome to Hannibal in 216 BCE, in the months after the Roman defeat at Cannae.<sup class=\"fn\" data-fn=\"1\"></sup> By the treaty the city kept its own laws and magistrates, no Campanian could be commanded by a Carthaginian officer or made to serve against his will, and three hundred captives were promised in exchange for the Campanian horsemen then garrisoning Sicily for Rome.<sup class=\"fn\" data-fn=\"2\"></sup> Livy reports that leading citizens resisted the change, that Roman residents were shut in the baths and suffocated as it was carried through, and that Hannibal afterwards wintered his army there.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Siege_of_Syracuse": "The <b>siege of Syracuse</b> was the Roman investment and capture of the largest Greek city in Sicily, which ended in 212 BCE with its storming by Marcus Claudius Marcellus.<sup class=\"fn\" data-fn=\"1\"></sup> The first assaults, by land against the walls and by sea with ladders raised from lashed pairs of warships, were beaten off by engines designed by Archimedes, after which the Romans gave up assaulting the place and set about starving it out.<sup class=\"fn\" data-fn=\"2\"></sup> The city was eventually entered at a weakly guarded tower during a festival, was plundered on a scale later compared to the sack of Carthage, and lost Archimedes, killed by a soldier.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Spanish_campaigns_of_the_Scipios": "The <b>Spanish campaigns of the Scipios</b> were the operations conducted in the Iberian peninsula by the Roman commanders Gnaeus and Publius Cornelius Scipio between 218 and 211 BCE, in the war against Carthage.<sup class=\"fn\" data-fn=\"1\"></sup> Their purpose was to hold down the province that supplied Carthage with silver, soldiers and money, and so to keep reinforcements from reaching the Carthaginian army in Italy; they took the coast as far as the Ebro, then crossed it and campaigned beyond.<sup class=\"fn\" data-fn=\"2\"></sup> Both brothers were killed within a month of each other in 211 BCE, after the Celtiberian troops in their service were paid to withdraw and their divided armies were destroyed separately.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Scipio_Africanus": "<b>Scipio Africanus</b>, Publius Cornelius Scipio, was the Roman general who commanded in Spain and then in Africa during the war against Carthage, and who took his surname from that African campaign.<sup class=\"fn\" data-fn=\"1\"></sup> He was given the Spanish command by a vote of the people at about the age of 24, an appointment without precedent for a man who had held no senior magistracy, after his father and uncle were both killed there.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient accounts of him turn on whether his successes were luck or calculation: Polybius argues firmly for calculation and says he encouraged belief in divine inspiration as a means of leading men, while Livy leaves the question open.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Scipio_Africanus": "<b>Scipio Africanus</b>, Publius Cornelius Scipio, was the Roman general who commanded in Spain and then in Africa during the war against Carthage, and who took his surname from that African campaign.<sup class=\"fn\" data-fn=\"1\"></sup> He was given the Spanish command by a vote of the people at about the age of 24, an appointment without precedent for a man who had held no senior magistracy, after his father and uncle were both killed there.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient accounts of him turn on whether his successes were luck or calculation: Polybius argues firmly for calculation and says he encouraged belief in divine inspiration as a means of leading men, while Livy leaves the question open.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Capture_of_New_Carthage": "The <b>capture of New Carthage</b> was the Roman storming of the principal Carthaginian base in Spain in 209 BCE, carried out by Publius Cornelius Scipio while the three Carthaginian field armies were far off.<sup class=\"fn\" data-fn=\"1\"></sup> The city held the enemy's treasury, war material and the hostages taken from Spanish communities, but was garrisoned by only about a thousand trained soldiers, and it was entered on the same day the siege opened, partly by way of a lagoon that ran shallow in the evening.<sup class=\"fn\" data-fn=\"2\"></sup> Its fall gave Rome a fleet base, the Carthaginian war chest and the means of detaching Spanish communities, whose hostages were returned on condition of alliance.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2917,7 +2918,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Rome_after_Cannae": "216 BCE",
 "Defection_of_Capua": "216 BCE",
 "Siege_of_Syracuse": "to 212 BCE",
-"Spanish_campaigns_of_the_Scipios": "218–211 BCE"
+"Spanish_campaigns_of_the_Scipios": "218–211 BCE",
+"Capture_of_New_Carthage": "209 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4195,7 +4197,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Rome_after_Cannae": ["aftermath of Cannae"],
 "Defection_of_Capua": ["revolt of Capua"],
 "Spanish_campaigns_of_the_Scipios": ["Scipio brothers in Spain"],
-"Scipio_Africanus": ["Publius Cornelius Scipio"]
+"Scipio_Africanus": ["Publius Cornelius Scipio"],
+"Capture_of_New_Carthage": ["fall of New Carthage"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6299,7 +6302,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Defection_of_Capua": ["event","history","politics","italy","rome"],
 "Siege_of_Syracuse": ["event","warfare","history","sicily","rome"],
 "Spanish_campaigns_of_the_Scipios": ["event","warfare","history","spain","rome"],
-"Scipio_Africanus": ["person","history","warfare","politics","rome"]
+"Scipio_Africanus": ["person","history","warfare","politics","rome"],
+"Capture_of_New_Carthage": ["event","warfare","history","spain","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
