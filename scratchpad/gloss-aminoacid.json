@@ -1,0 +1,10 @@
+{
+  "slug": "Amino_acid",
+  "aliases": ["amino acids"],
+  "description": "An amino acid is a molecule built around a carbon atom bonded to a carboxyl group, an amino group, a hydrogen atom and a distinctive side chain, the side chain being what distinguishes one from another.<sup class=\"fn\" data-fn=\"1\"></sup> Twenty kinds are used to build proteins, sorted by their side chains into ten nonpolar, five polar but uncharged, three basic and two acidic; the nonpolar ones avoid water and tend to end up inside a folded protein while the polar ones sit on its surface.<sup class=\"fn\" data-fn=\"1\"></sup> Nine of the twenty cannot be made by human cells and must be supplied by the diet, which is what the word essential denotes in this context.<sup class=\"fn\" data-fn=\"2\"></sup>",
+  "tags": ["object", "science", "biology", "chemistry"],
+  "sources": [
+    "Geoffrey M. Cooper, “The Molecular Composition of Cells,” in <i>The Cell: A Molecular Approach</i>, 2nd ed. (Sunderland, MA: Sinauer Associates, 2000), https://www.ncbi.nlm.nih.gov/books/NBK9879/. [Open access]",
+    "Michael J. Lopez and Shamim S. Mohiuddin, “Biochemistry, Essential Amino Acids,” in <i>StatPearls</i> (Treasure Island, FL: StatPearls Publishing, 2024), https://www.ncbi.nlm.nih.gov/books/NBK557845/. [Open access]"
+  ]
+}

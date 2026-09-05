@@ -2109,7 +2109,8 @@ window.GLOSSARY = {
 "Unsaturated_fat": "An unsaturated fat is a fat whose fatty acid chains carry one or more carbon-carbon double bonds, so the chains hold fewer hydrogen atoms than they otherwise could.<sup class=\"fn\" data-fn=\"1\"></sup> Those double bonds disrupt the way chains pack together, which raises membrane fluidity, and organisms raise the proportion of such chains when cold would otherwise press a membrane too tightly closed.<sup class=\"fn\" data-fn=\"2\"></sup> Partially hydrogenating oils of this kind, a process used from the early 1900s to make cheap substitutes for animal fats, also yields industrially produced trans fat, now the target of a global elimination programme.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Phospholipid": "A phospholipid is a lipid made of two fatty acid chains joined to a polar head group; in the glycerol phospholipids the chains sit on a glycerol whose third carbon carries a phosphate, itself usually bearing a small polar molecule such as choline, ethanolamine, serine or inositol.<sup class=\"fn\" data-fn=\"1\"></sup> Two hydrophobic tails on a hydrophilic head make the molecule amphipathic, part water-soluble and part not, and that is the property on which biological membranes form.<sup class=\"fn\" data-fn=\"1\"></sup> The head group also gives the molecule work beyond structure, since phosphatidylinositol 4,5-bisphosphate is cleaved to release second messengers that raise calcium inside the cell.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Steroid": "A steroid is a lipid built on a core of four fused hydrocarbon rings rather than on the long straight chains of a fat, with different functional groups attached to that core distinguishing one from another.<sup class=\"fn\" data-fn=\"1\"></sup> Cholesterol is the best known, amphipathic because its rings are strongly hydrophobic while a single hydroxyl group is weakly hydrophilic, and it is the precursor from which animals build their steroid hormones.<sup class=\"fn\" data-fn=\"1\"></sup> Being lipids, steroids pass through membranes instead of stopping at them, so their receptors sit inside the cell and act as ligand-activated transcription factors that reach the genes directly.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Protein": "A protein is a polymer of amino acids, drawn from the twenty kinds that cells use, whose order along the chain determines the shape the chain folds into and therefore what the molecule does.<sup class=\"fn\" data-fn=\"1\"></sup> Proteins are the most diverse of the macromolecules, a single cell holding several thousand different ones, and they act as structural material, as carriers of small molecules and of information, as antibodies, and above all as the enzymes catalysing nearly every reaction in a living system.<sup class=\"fn\" data-fn=\"1\"></sup> Predicting that shape from a sequence, long a problem solved only by measurement, is now done to near-experimental accuracy by deep learning, with disordered regions and large assemblies still resistant.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Protein": "A protein is a polymer of amino acids, drawn from the twenty kinds that cells use, whose order along the chain determines the shape the chain folds into and therefore what the molecule does.<sup class=\"fn\" data-fn=\"1\"></sup> Proteins are the most diverse of the macromolecules, a single cell holding several thousand different ones, and they act as structural material, as carriers of small molecules and of information, as antibodies, and above all as the enzymes catalysing nearly every reaction in a living system.<sup class=\"fn\" data-fn=\"1\"></sup> Predicting that shape from a sequence, long a problem solved only by measurement, is now done to near-experimental accuracy by deep learning, with disordered regions and large assemblies still resistant.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Amino_acid": "An amino acid is a molecule built around a carbon atom bonded to a carboxyl group, an amino group, a hydrogen atom and a distinctive side chain, the side chain being what distinguishes one from another.<sup class=\"fn\" data-fn=\"1\"></sup> Twenty kinds are used to build proteins, sorted by their side chains into ten nonpolar, five polar but uncharged, three basic and two acidic; the nonpolar ones avoid water and tend to end up inside a folded protein while the polar ones sit on its surface.<sup class=\"fn\" data-fn=\"1\"></sup> Nine of the twenty cannot be made by human cells and must be supplied by the diet, which is what the word essential denotes in this context.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4236,7 +4237,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Unsaturated_fat": ["unsaturated fats","unsaturated fatty acid","unsaturated fatty acids"],
 "Phospholipid": ["phospholipids"],
 "Steroid": ["steroids"],
-"Protein": ["proteins"]
+"Protein": ["proteins"],
+"Amino_acid": ["amino acids"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6381,7 +6383,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Unsaturated_fat": ["object","science","biology","chemistry","nutrition"],
 "Phospholipid": ["object","science","biology","chemistry"],
 "Steroid": ["object","science","biology","chemistry"],
-"Protein": ["object","science","biology","chemistry"]
+"Protein": ["object","science","biology","chemistry"],
+"Amino_acid": ["object","science","biology","chemistry"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
