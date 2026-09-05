@@ -2065,7 +2065,8 @@ window.GLOSSARY = {
 "Stab-in-the-back_myth": "The <b>stab-in-the-back myth</b>, in German the <i>Dolchstoßlegende</i>, was the false claim that the German army of 1918 had not been beaten in the field but had been betrayed from behind by revolutionaries, socialists and Jews at home.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was untrue: the army command itself sought the armistice, and German Jews had served in the armed forces out of proportion to their numbers.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Field Marshal Paul von Hindenburg gave it his authority before a parliamentary committee of inquiry in November 1919, and parties of the nationalist right used it against the Weimar Republic throughout its existence.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Weimar_Republic": "The <b>Weimar Republic</b> was the German state that existed between the fall of the empire in November 1918 and the Nazi seizure of power in January 1933, named after the town where its constituent assembly met.<sup class=\"fn\" data-fn=\"1\"></sup> Its constitution, signed on 11 August 1919, was the first democratic one in German history: it drew political authority from the people, gave the vote to men and women over twenty by proportional representation, and had the president elected directly for a seven-year term.<sup class=\"fn\" data-fn=\"2\"></sup> Article 48 allowed that president to suspend basic rights and take whatever measures he judged necessary when public order was seriously disturbed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "German_revolution_of_1918–1919": "The <b>German Revolution</b> of 1918 and 1919 was the upheaval that ended the German monarchy and produced a parliamentary republic, beginning with mutinies in the fleet at Wilhelmshaven and Kiel at the end of October 1918.<sup class=\"fn\" data-fn=\"1\"></sup> Within days workers’ and soldiers’ councils had taken over the government of most large German cities, the princes abdicated, and a republic was proclaimed in Berlin on 9 November.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its outcome was decided against the far left: a congress of the councils voted for elections to a national assembly, a rising in Berlin in January 1919 was crushed, and Karl Liebknecht and Rosa Luxemburg were murdered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Kapp_Putsch": "The <b>Kapp Putsch</b> was an attempted coup against the Weimar Republic in Germany, mounted on 13 March 1920 when a marine brigade ordered to disband under the Treaty of Versailles occupied the government quarter of Berlin and Wolfgang Kapp appointed himself chancellor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The army would not move against the putschists and the cabinet left the city, but from 15 March about twelve million workers stopped work in the largest strike movement in German history, shutting the capital down.<sup class=\"fn\" data-fn=\"2\"></sup> Unable to restart the utilities or to get its orders carried out by the ministerial bureaucracy, the makeshift government gave up on 17 March, four days after it had begun.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Kapp_Putsch": "The <b>Kapp Putsch</b> was an attempted coup against the Weimar Republic in Germany, mounted on 13 March 1920 when a marine brigade ordered to disband under the Treaty of Versailles occupied the government quarter of Berlin and Wolfgang Kapp appointed himself chancellor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The army would not move against the putschists and the cabinet left the city, but from 15 March about twelve million workers stopped work in the largest strike movement in German history, shutting the capital down.<sup class=\"fn\" data-fn=\"2\"></sup> Unable to restart the utilities or to get its orders carried out by the ministerial bureaucracy, the makeshift government gave up on 17 March, four days after it had begun.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Occupation_of_the_Ruhr": "The <b>Occupation of the Ruhr</b> was the entry of French and Belgian troops into Germany’s main coal and steel district in January 1923, to take reparations in kind after the Allied Reparations Commission found German deliveries in arrears.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The German government answered with passive resistance, forbidding officials to obey the occupiers and paying the strikers with printed money, which drove the collapse of the mark into hyperinflation.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Passive resistance was called off in September 1923 to save the currency, but the troops remained until 1925 and left only under the Dawes Plan, which rescheduled reparations and provided for their evacuation.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2910,7 +2911,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "League_of_Nations": "1920–1946",
 "Weimar_Republic": "1918–1933",
 "German_revolution_of_1918–1919": "1918–1919",
-"Kapp_Putsch": "13–17 March 1920"
+"Kapp_Putsch": "13–17 March 1920",
+"Occupation_of_the_Ruhr": "1923–1925"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4173,7 +4175,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "League_of_Nations_mandate": ["mandate system"],
 "Stab-in-the-back_myth": ["Dolchstoßlegende","stab-in-the-back legend"],
 "German_revolution_of_1918–1919": ["German Revolution","November Revolution"],
-"Kapp_Putsch": ["Lüttwitz-Kapp Putsch","Kapp-Lüttwitz Putsch"]
+"Kapp_Putsch": ["Lüttwitz-Kapp Putsch","Kapp-Lüttwitz Putsch"],
+"Occupation_of_the_Ruhr": ["Ruhr occupation","Ruhrbesetzung"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6273,7 +6276,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Stab-in-the-back_myth": ["concept","history","politics","20th century","europe","germany"],
 "Weimar_Republic": ["state","history","politics","20th century","europe","germany"],
 "German_revolution_of_1918–1919": ["event","history","politics","20th century","europe","germany"],
-"Kapp_Putsch": ["event","history","politics","20th century","europe","germany"]
+"Kapp_Putsch": ["event","history","politics","20th century","europe","germany"],
+"Occupation_of_the_Ruhr": ["event","history","politics","20th century","europe","germany","france"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
