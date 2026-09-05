@@ -2076,7 +2076,8 @@ window.GLOSSARY = {
 "Hydrogen_bond": "A <b>hydrogen bond</b> is the weak attraction between a hydrogen atom already bound to an electron-hungry atom and a second such atom nearby, as when a hydrogen of one water molecule is drawn towards the oxygen of another.<sup class=\"fn\" data-fn=\"1\"></sup> Each is easily broken by thermal motion, yet in aggregate they are why water is a liquid at room temperature; they are strongest when the three atoms lie on a straight line, and water weakens those made between dissolved molecules by competing for them.<sup class=\"fn\" data-fn=\"1\"></sup> In proteins they hold the two commonest folding patterns, the alpha helix and the beta sheet, which form between backbone groups without involving the side chains.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Water": "<b>Water</b> is a compound of two hydrogen atoms joined to one oxygen atom, and its molecule is polar, the hydrogens carrying a slight positive charge and the oxygen a slight negative one.<sup class=\"fn\" data-fn=\"1\"></sup> That polarity lets it form hydrogen bonds with itself, which is why it is a liquid at ordinary temperatures, and lets it surround ions and other polar substances, which is why those dissolve in it.<sup class=\"fn\" data-fn=\"2\"></sup> Nonpolar substances disturb that network and are pushed together instead; water is also the most abundant substance in living cells, at about 70% of their weight, and the medium in which most of their reactions take place.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Chemical_polarity": "A <b>polar molecule</b> is one in which charge is spread unevenly, gathered positive towards one end and negative towards the other, because the atoms in its bonds attract the shared electrons to different degrees.<sup class=\"fn\" data-fn=\"1\"></sup> An O-H or N-H bond is polar on this account while a C-H bond is not, and a large molecule carrying many polar groups therefore has a pattern of partial charges spread across its surface, by which it can attract another molecule whose pattern is complementary.<sup class=\"fn\" data-fn=\"1\"></sup> The property divides substances in two, since polar ones interact with water and dissolve readily while nonpolar ones are excluded from it.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Cohesion_(chemistry)": "<b>Cohesion</b> is the tendency of a liquid to hold to itself, and in water it arises from the hydrogen bonds between neighbouring molecules, which give the liquid a high boiling point and a high surface tension.<sup class=\"fn\" data-fn=\"1\"></sup> Its outward-facing counterpart is adhesion, in which the same attraction binds water to other polar molecules and to ions, so that it clings to surfaces made of them instead of drawing away.<sup class=\"fn\" data-fn=\"2\"></sup> Between them the two produce capillarity, the rise of a liquid into a narrow space, and with it the surface film on which small animals stand and the tension under which sap is drawn up a plant.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Cohesion_(chemistry)": "<b>Cohesion</b> is the tendency of a liquid to hold to itself, and in water it arises from the hydrogen bonds between neighbouring molecules, which give the liquid a high boiling point and a high surface tension.<sup class=\"fn\" data-fn=\"1\"></sup> Its outward-facing counterpart is adhesion, in which the same attraction binds water to other polar molecules and to ions, so that it clings to surfaces made of them instead of drawing away.<sup class=\"fn\" data-fn=\"2\"></sup> Between them the two produce capillarity, the rise of a liquid into a narrow space, and with it the surface film on which small animals stand and the tension under which sap is drawn up a plant.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Specific_heat_capacity": "The <b>specific heat capacity</b> of a substance is the energy required to raise the temperature of a given mass of it by one degree.<sup class=\"fn\" data-fn=\"1\"></sup> Water's is unusually high, so that large quantities of absorbed energy produce only small changes in temperature, because much of that energy goes into rearranging the hydrogen-bond network between the molecules before appearing as their motion.<sup class=\"fn\" data-fn=\"1\"></sup> The magnitude is fixed by an old definition still in use, the kilocalorie being the energy needed to raise one litre of water by one degree centigrade,<sup class=\"fn\" data-fn=\"2\"></sup> and the consequence is that water buffers temperature at every scale from a cell to an ocean.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4183,7 +4184,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Covalent_bond": ["covalent bonds"],
 "Ionic_bonding": ["ionic bond","ionic bonds"],
 "Hydrogen_bond": ["hydrogen bonds","hydrogen bonding"],
-"Chemical_polarity": ["polar molecules","chemical polarity"]
+"Chemical_polarity": ["polar molecules","chemical polarity"],
+"Specific_heat_capacity": ["heat capacity"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6294,7 +6296,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hydrogen_bond": ["concept","science","chemistry","biology"],
 "Water": ["object","science","chemistry","biology"],
 "Chemical_polarity": ["concept","science","chemistry","biology"],
-"Cohesion_(chemistry)": ["concept","science","chemistry","biology"]
+"Cohesion_(chemistry)": ["concept","science","chemistry","biology"],
+"Specific_heat_capacity": ["concept","science","chemistry","biology"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
