@@ -108,6 +108,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `refinements-plan.md` | ~60 items from one request, batched. |
 | `refinements-2026-08-27.md` | Thirty-five items from one request: what shipped, the four faults the fixes uncovered at scale, the four answers to "suggest a way", and a plan for the nine not built. |
 | `artefact-expansion-plan.md` | A second hundred artefacts, planned but not yet written: the rarity budget, the eager-path split to do first, and the fifteen batches. |
+| `learning-science.md` | What the learning-science literature says works and does not, and twelve costed proposals for Folio. **Nothing built.** |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |
 
 ---

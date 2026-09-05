@@ -2528,6 +2528,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   on the page — the ordering floor walking Easy past the maximum interval, a preview reading a different
   clock from the grade, elapsed days read as a fraction where every fitted parameter set assumes whole ones,
   and a one-day interval that meant twenty-four hours from whenever you happened to grade it.
+- **THE EVIDENCE BEHIND HOW A READER MEETS A CARD.** Folio is built out of the two techniques a
+  literature review rates HIGH utility — practice testing and distributed practice — and it does both
+  well. What it does not yet do is ask the reader to EXPLAIN anything, and its criterion for "learned"
+  is one good session rather than several separated ones, which is the single strongest flashcard-shaped
+  finding in that literature (successive relearning: correct recall on about three DIFFERENT days, after
+  which the gains flatten). Three rules follow and are worth stating here rather than in a plan.
+  **RETRIEVAL EFFORT IS THE MECHANISM** — a reader who presses Space and reads the answer has run a
+  rereading trial, so the typed blank is not decoration and nothing may quietly make revealing the
+  cheaper path. **FEEDBACK TYPE IS WHERE THE EFFECT IS, AND TIMING IS NOT**: an explanation measures
+  d = 0.49, a correct answer 0.32, a bare right-or-wrong **0.05**, so a minigame that answers with a
+  cross is buying almost nothing — while immediate-against-delayed is genuinely contested and is not
+  somewhere to spend effort. And **THE LOW-UTILITY TECHNIQUES ARE THE ONES A READER WILL ASK FOR** —
+  rereading, highlighting and summarising all raise confidence without raising learning, so a request
+  for a notes-and-highlights study mode is a request to build the fluency illusion.
+  **📖 `docs/learning-science.md` — READ BEFORE CHANGING THE SCHEDULER'S GRADUATION RULE, THE STUDY
+  PAGE'S REVEAL PATH, A MINIGAME'S FEEDBACK, OR ANYTHING THAT DECIDES HOW A READER MEETS A CARD.** The
+  findings with their effect sizes and sources, an honest audit of what Folio already gets right, and
+  twelve costed proposals — nothing in it has been built.
 - **Undoing a grade (Aug 2026, on request)** — `undoStack` / `undoSnapshot` / `undoGrade` inside `PAGES.study`,
   reached by the `#undoGrade` button in the study bar (rendered only when there is something to undo), by
   **Ctrl/Cmd+Z**, and by "Undo the last card" on the completion screen (where the queue is empty and there is no
