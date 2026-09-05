@@ -2054,7 +2054,8 @@ window.GLOSSARY = {
 "Biological_organisation": "Biological organisation is the arrangement of living matter into nested levels, each composed of the one below, running from atoms and molecules through organelles, cells, tissues, organs and organ systems to organisms, populations, communities, ecosystems and the biosphere.<sup class=\"fn\" data-fn=\"1\"></sup> Below the cell the levels are chemical and above it functional, a tissue being similar cells with one job and an organ a structure of two or more tissues, while the ecological levels group organisms with each other and with their surroundings.<sup class=\"fn\" data-fn=\"2\"></sup> The scheme orders how the subject is taught, though the uniform composition a single hierarchy assumes does not hold everywhere, and recent work demarcates levels case by case instead.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Cell_(biology)": "A cell is the smallest unit of living matter, enclosed by a plasma membrane that separates its chemistry from the surroundings and holding everything it needs to keep itself going and to copy itself.<sup class=\"fn\" data-fn=\"1\"></sup> Every organism is either a single cell or an assembly of them, and new cells arise only from existing ones, which makes the cell the minimal self-reproducing unit and the vehicle by which genetic information passes to the next generation.<sup class=\"fn\" data-fn=\"2\"></sup> Cells are small, an <i>Escherichia coli</i> measuring about one micrometre across, and they are not simple: the bacterium with the smallest known genome carries 477 genes.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Homeostasis": "Homeostasis is an organism's maintenance of a relatively stable internal environment despite a changing outside world and its own varying activity, worked by negative feedback that reduces the gap between a regulated variable and its normal range.<sup class=\"fn\" data-fn=\"1\"></sup> A loop needs a sensor, a mechanism setting that range, a detector, a controller and effectors, and the response opposes the change that triggered it, as sweating and shivering do for temperature and insulin for blood glucose.<sup class=\"fn\" data-fn=\"2\"></sup> The name is misleading in one respect: a set point is a range rather than a fixed value and can itself be shifted, so what is described is continuous regulation rather than constancy.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Metabolism": "Metabolism is the whole set of chemical reactions taking place inside a living thing, both those that release energy and those that use it.<sup class=\"fn\" data-fn=\"1\"></sup> It falls into two dependent halves: catabolic pathways break food molecules down into smaller ones, yielding usable energy and building blocks, while anabolic pathways spend that energy making the molecules an organism is built from, with ATP carrying the energy between them.<sup class=\"fn\" data-fn=\"2\"></sup> Almost none of these reactions would run unaided at the temperature of a cell, so each is catalysed by an enzyme, and the pathways are linked into a network rather than a line.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Metabolism": "Metabolism is the whole set of chemical reactions taking place inside a living thing, both those that release energy and those that use it.<sup class=\"fn\" data-fn=\"1\"></sup> It falls into two dependent halves: catabolic pathways break food molecules down into smaller ones, yielding usable energy and building blocks, while anabolic pathways spend that energy making the molecules an organism is built from, with ATP carrying the energy between them.<sup class=\"fn\" data-fn=\"2\"></sup> Almost none of these reactions would run unaided at the temperature of a cell, so each is catalysed by an enzyme, and the pathways are linked into a network rather than a line.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Null_hypothesis": "The null hypothesis is the proposition, in a statistical test, that there is no difference between the groups being compared or no association between the variables measured; the researcher’s own proposal is the alternative.<sup class=\"fn\" data-fn=\"1\"></sup> A test asks how likely the observed data would be if the null were true, and the result is reported either as rejecting the null or as failing to reject it, the second of which does not demonstrate that no effect exists.<sup class=\"fn\" data-fn=\"1\"></sup> The p-value it yields is the probability of an effect at least this large arising when there is none, and not the probability that the null is true, which is the commonest misreading.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4145,7 +4146,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Biological_organisation": ["levels of biological organisation","levels of organisation"],
 "Cell_(biology)": ["living cell","biological cell"],
 "Homeostasis": ["homeostatic"],
-"Metabolism": ["metabolic pathway","anabolism","catabolism"]
+"Metabolism": ["metabolic pathway","anabolism","catabolism"],
+"Null_hypothesis": ["alternative hypothesis"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6234,7 +6236,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Biological_organisation": ["concept","science","biology","nature"],
 "Cell_(biology)": ["concept","science","biology","nature"],
 "Homeostasis": ["concept","science","biology","nature"],
-"Metabolism": ["concept","science","biology","nature"]
+"Metabolism": ["concept","science","biology","nature"],
+"Null_hypothesis": ["concept","science","research methods"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
