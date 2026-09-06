@@ -160,6 +160,44 @@
     if (c && c.id != null && ADMIN_EDITS && ADMIN_EDITS.chrono && c.id in ADMIN_EDITS.chrono) { const ov = ADMIN_EDITS.chrono[c.id]; return ov === "none" ? 0 : ov; }   // "none" = admin set it to no year → timeless
     const y = cardYears(c); return y.length ? Math.min(...y) : 0;
   }
+  /* WHICH ROW OF THE DATE LINE THE SORT YEAR CAME FROM (Sep 2026, on request: in Timeline, "when the
+     answers are revealed, each year should also say what that starting date is based on"). A card's
+     chronological position is `min(cardYears)` over the whole `answerDate` field, which is a number with
+     nothing beside it to say what it is a date OF — and on a card whose date line reads
+     `Born 100 BCE / Died 44 BCE` the ordering fact is the birth, while on `Built c. 447 BCE /
+     Destroyed 1687 CE` it is the building. The date line already names both, in its `dt-k` labels, so the
+     basis is read back out of it rather than stored a second time.
+
+     IT IS DERIVED AND MAY HONESTLY COME BACK EMPTY. A row is the basis only when that row's OWN earliest
+     year equals the card's sort year, so a label is never guessed at: a card with no date line, one whose
+     sort year comes from a continuation line, and one an admin has given a manual chronology override all
+     return "" and the game prints the year alone, exactly as it did before. Saying "Era" over a year that
+     did not come from the Era row would be worse than saying nothing. */
+  const _DT_ROW_RX = /<span class="dt-k">([^<]*)<\/span>\s*<span class="dt-v">([^<]*)<\/span>|<span class="dt-v dt-sub">([^<]*)<\/span>/g;
+  function dateLineRows(c) {
+    const html = c && c.answerDate ? String(c.answerDate) : "";
+    const rows = [];
+    let m, cur = null;
+    _DT_ROW_RX.lastIndex = 0;
+    while ((m = _DT_ROW_RX.exec(html))) {
+      if (m[3] != null) { if (cur) cur.value += " " + m[3]; }        // a continuation line belongs to the row above it
+      else rows.push((cur = { label: (m[1] || "").trim(), value: m[2] || "" }));
+    }
+    return rows;
+  }
+  function cardYearBasis(c) {
+    if (!c) return "";
+    if (c.id != null && ADMIN_EDITS && ADMIN_EDITS.chrono && c.id in ADMIN_EDITS.chrono) return "";   // the override is nobody's row
+    const y = cardStartYear(c);
+    if (!y) return "";
+    const rows = dateLineRows(c);
+    for (let i = 0; i < rows.length; i++) {
+      if (!rows[i].label) continue;
+      const ys = cardYears({ answerDate: rows[i].value });
+      if (ys.length && Math.min.apply(null, ys) === y) return rows[i].label.replace(/&lt;/gi, "<").replace(/&gt;/gi, ">").replace(/&amp;/gi, "&");
+    }
+    return "";
+  }
   // years bounding a card's historical era; etymology / coinage date lines (e.g. "Silk Road —
   // coined 1877") describe a term's origin rather than the subject's period, so they're skipped
   function cardSpanYears(c) {
@@ -893,6 +931,7 @@
     CARD_BY_ID[id].difficulty = p.difficulty; // and how obscure its answer term was rated (see cardDifficulty)
     CARD_BY_ID[id].undatable = p.undatable;   // and whether that term happens at a time at all (see cardUndatable)
     CARD_BY_ID[id].map = p.map;               // and the place its question shades on the globe (see cardMapSpec)
+    CARD_BY_ID[id].artwork = p.artwork;       // and whether its picture IS its subject (see cardArtSpec)
     CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
@@ -5889,7 +5928,11 @@
      a lie: Texas is a household name. See the MAP CARDS block. */
   function gameCardIdSet() {
     const s = new Set();
-    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c)) s.add(id); });
+    /* A MAP CARD AND AN ARTWORK CARD ARE BOTH OUT BY CONSTRUCTION, and for one reason: these games deal a
+       question COLD, with no globe and no picture beside it, and both of those cards ask about something
+       the game cannot show. Neither needs an editorial judgement per card, so neither needs a field.
+       The picture ROUND is the exception and asks for the artworks by name — see picturePool. */
+    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c)) s.add(id); });
     return s;
   }
   function activeCardIds() {
@@ -14900,6 +14943,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["centralis", "centraliz", "e|es|ed|ing|ation|ations"],
     ["decentralis", "decentraliz", "e|es|ed|ing|ation|ations"],
     ["modernis", "moderniz", "e|es|ed|ing|ation|ations"],
+    // added Sep 2026 with the masthead's tagline, which is authored British ("Memorise anything") and
+    // has to reach an American reader as their own spelling like every other string on the site.
+    ["memoris", "memoriz", "e|es|ed|ing|ation"],
     ["industrialis", "industrializ", "e|es|ed|ing|ation"],
     ["militaris", "militariz", "e|es|ed|ing|ation"],
     ["demilitaris", "demilitariz", "e|es|ed|ing|ation"],
@@ -19563,6 +19609,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     bio: "helix",
     dino: "sauropod",
     korea: "taegeuk",
+    /* Visual Art takes the EXISTING `brush`, which is the one collection mark on this shelf that was
+       reused rather than drawn. Every other was checked by eye at the 24-28px a deck row draws it at,
+       which is the one thing a session with no browser cannot do — and the cost is stated rather than
+       hidden: a brush is a PAINTING mark on a collection that also carries sculpture. A palette (a blob
+       with three holes, which is the owl's own failure) and a picture frame were both considered and
+       neither is worth shipping unlooked at. If it is to change, draw it and look at it. */
+    art: "brush",
     "geo-us": "compass",
     "geo-world": "map",
     "geo-china": "wall",
@@ -21158,6 +21211,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const v = esc(V.v), w = esc(when);
     return `<div class="site-ver notranslate"${when ? ` title="Folio v${v}, released ${w}"` : ""}>` +
            `v${v}${when ? " · " + w : ""}</div>`;
+  }
+
+  /* THE MASTHEAD, AT THE TOP OF THE HOME PAGE (Sep 2026, on request: "on tablet and desktop in the top
+     menu bar, and on mobile at the top of the home page, there should be a folio logo with the tagline
+     'Memorize anything'"). The same `.brand` markup the top bar carries — one set of styles, so the two
+     can never come to disagree about what the logo is.
+
+     IT IS DRAWN AT EVERY WIDTH AND HIDDEN BY THE STYLESHEET WHERE THE TOP BAR HAS IT, which is what
+     closes the hole the obvious phone-only rule leaves. Measured in a browser, the brand costs the top bar
+     171px at Medium text and 292px at Very large, and the bar has that much to spare only from 1280px up —
+     so hiding this one below 640px would leave every width from 641 to 1279 with no logo anywhere at all.
+     `.home-brand` is therefore hidden from 1280px rather than from 641px, so exactly one of the two is on
+     screen at any width. It is a static heading rather than a button: the reader is already on the home
+     page, so a control that routes here would do nothing. */
+  function homeBrandHTML() {
+    return '<div class="brand home-brand" role="img" aria-label="Folio — memorise anything">' +
+      '<span class="mark">Folio<span class="dot">.</span></span>' +
+      '<span class="tag">Memorise anything</span></div>';
   }
 
   /* ---------- the review list's SUBDECK FOLD (Aug 2026, on request) ----------
@@ -22759,6 +22830,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        from its top bar. */
     root.innerHTML = `
       ${versionLineHTML()}
+      ${homeBrandHTML()}
       <div class="page-head">
         <span class="eyebrow">${greeting}, ${esc(S.user.name)}</span>
         <h1>Today</h1>
@@ -23505,8 +23577,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        unnamed under History and a Philosophy collection under a History heading is a claim about the
        subject rather than a gap. The echo resolves itself the day a second collection joins it. */
     { label: "Philosophy", slot: "collection-list-phil" },
+    /* The Arts — inert until Visual Art has a card, on the same rule Science and Philosophy shipped
+       under. It is a HEADING rather than a collection for the reason Geography is: the request that
+       made Visual Art says music, architecture, theatre and literature "may get their own collections
+       later", and each of those is an art. The second one costs a row in COLLECTION_SECTION and
+       nothing else. The collection under it is called Visual Art rather than Art so that it does not
+       read as the parent of the siblings that may join it. */
+    { label: "The Arts", slot: "collection-list-arts" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ---------- THE COLLECTIONS PAGE'S OWN TAB BAR (Sep 2026, on request) ----------
@@ -23541,7 +23620,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { id: "history", label: "History", sections: ["History"] },
     { id: "geography", label: "Geography", sections: ["Geography"] },
     { id: "language", label: "Language", sections: [] },       // the Languages shelf is its own builder
-    { id: "other", label: "Other", sections: ["Science", "Philosophy"] },
+    { id: "other", label: "Other", sections: ["Science", "Philosophy", "The Arts"] },
     { id: "community", label: "Community", sections: [] },     // your own decks, then everyone else's
     { id: "all", label: "All", sections: null },               // null = every section; the default
   ];
@@ -24213,6 +24292,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        colour they are named after. The whole-wheel optimum is the magenta again at 32.4, rejected for the
        fifth time on the standing note above. */
     korea:    { bg: "#A2726C" },
+    /* deep oxblood (Visual Art) — MEASURED, like every hue above it, and the one on this shelf where the
+       measurement and the aptness needed no trade at all: it is the red a picture gallery hangs old
+       masters on. Against all twenty-five hues (the eighteen curated collections and the seven language
+       decks) it stands 21.8 from its nearest neighbour, the Second World War's dark iron, with the
+       Indonesian deck's red at the same distance and Japan's kuwazome at 22.3 — against a TIGHTEST
+       EXISTING PAIR of 12.9 (China's vermilion against Russia's lacquer) and a median nearest-neighbour
+       distance of 20.0 over all twenty-five, 23.3 over the curated eighteen. L 28 and chroma 24, the dark
+       muted corner of the shelf's own band, and 10.0:1 against white, the highest contrast here beside
+       Biology's. THE MAGENTA WAS SWEPT AND REJECTED FOR THE SEVENTH TIME (#C65AB4, 31.5) and the
+       olive-brass for the fourth (22.0); the standing note on `dino` above is right and this run adds
+       nothing to it. */
+    art:      { bg: "#66333F" },
     /* deep olive (Geography) — MEASURED rather than picked, like every hue above it. The obvious choice is
        a teal, and the whole teal band is unusable: swept in CIELAB, every candidate lands 5–11 of Egypt's
        malachite or Greece's Aegean blue, against a tightest EXISTING pair of 12.9. The green band is
@@ -29111,8 +29202,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const missed = attempted && !typedVals.some((v) => answerNear(v, c));
         if (typedVals.length) noteConfusion(id, typedVals);
         cardMapReveal(cardRoot);   // the map may now name what it was shading — the shape and its name together
+        cardArtReveal(cardRoot, c);   // …and an artwork may now be titled, credited and enlarged
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
+        /* ONE PICTURE ON THE STUDY PAGE. `buildBack` emits the background slot for every surface that
+           draws a back with no front (see cardArtSpec's block); here the front is still on screen and
+           carrying the same file, so the BACK's copy goes rather than the front's — dropping the front's
+           would move a picture the reader is looking at by its own height. */
+        if (cardArtSpec(c)) { const dup = inner.querySelector(".card-imgslot"); if (dup) dup.remove(); }
         /* ELABORATED FEEDBACK ON A MISS. The term alone is knowledge-of-correct-response (d = 0.32); the
            term with a sentence saying what it IS is the beginning of an explanation (d = 0.49), and the
            reader gets it without having to open a fold they may have collapsed months ago. Drawn only
@@ -29730,14 +29827,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      glance at a word met mid-sentence — a reader who expands one term's sources has said something about
      that term, not about every term they open afterwards, and the fold is a third of the popup's height.
      So the compact variant ignores the setting rather than sharing it: every popup starts collapsed, one
-     opened by hand included, and the next one opens collapsed again. A marker jump still force-opens it. */
+     opened by hand included, and the next one opens collapsed again. A marker jump still force-opens it.
+     opts.shut = the same TWO exceptions without the compact typography (Sep 2026, on request, for the
+     Picture round: "ensure that in this minigame, the sources section is always collapsed by default").
+     A game round is a glance like a popup — the citations are there to be checkable, not to be read
+     between rounds — but the list is set at the card's own size here rather than a gloss window's, so the
+     two halves of `compact` had to come apart: `src-nopref` is what says "do not write the preference",
+     and `src-compact` now carries it as well as its own styling. Without that split, opening the fold in
+     one round would open it on every card the reader studies afterwards. */
   function sourcesHTML(list, opts) {
     const src = normSources(list);
     if (!src.length) return "";
     const o = opts || {};
-    const shut = o.compact ? true : !!(S.settings && S.settings.srcCollapsed);
+    const shut = (o.compact || o.shut) ? true : !!(S.settings && S.settings.srcCollapsed);
     const c = shut ? " collapsed" : "";
-    return '<section class="src-note' + (o.compact ? " src-compact" : "") + '">' +
+    return '<section class="src-note' + (o.compact ? " src-compact src-nopref" : (o.shut ? " src-nopref" : "")) + '">' +
       '<button class="src-head" type="button" aria-expanded="' + (shut ? "false" : "true") + '" aria-label="Show or hide the sources" title="Show or hide the sources">' +
         '<span class="src-label">Sources</span>' +
         '<span class="src-count notranslate">' + src.length + "</span>" +
@@ -29946,10 +30050,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const head = t.closest(".src-head");
     if (head) {
       // shutting the list is a lasting choice; jumping to a marker is not, so only this path remembers it —
-      // and a gloss popup's fold (.src-compact) is never remembered at all, so the next term opens shut
+      // and a fold marked `.src-nopref` is never remembered at all (a gloss popup's, a Picture round's), so
+      // the next one opens shut. `.src-compact` carries that class rather than being tested for it here:
+      // the two are different questions, and the Picture round wants the second without the first.
       const note = head.closest(".src-note");
       const open = toggleSourceNote(note);
-      if (S.settings && note && !note.classList.contains("src-compact")) { S.settings.srcCollapsed = !open; save(); }
+      if (S.settings && note && !note.classList.contains("src-nopref")) { S.settings.srcCollapsed = !open; save(); }
       return;
     }
     const num = t.closest(".src-n.src-back");
@@ -31542,7 +31648,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (custom != null) return custom;
     const q = (c && c.question) || "";
     const spec = cardMapSpec(c);
-    return spec ? cardMapHTML(spec) + q : q;
+    if (spec) return cardMapHTML(spec) + q;
+    // an artwork card: the picture IS the question, and the words only say what to do with it
+    const art = cardArtSpec(c);
+    return art ? cardArtHTML(art) + q : q;
   }
 
   /* ---------- the figures box (Aug 2026, with map cards) ----------
@@ -31569,6 +31678,77 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!rows.length) return "";
     return '<div class="card-facts">' + rows.map((r) =>
       '<div class="cf-tile"><span class="cf-k">' + esc(r[0]) + '</span><span class="cf-v">' + esc(r[1]) + "</span></div>").join("") + "</div>";
+  }
+
+  /* ---------- ARTWORK CARDS: the picture is the question (Sep 2026, on request) ----------
+     "The user is shown a famous historical artwork ... and must guess the name of the work and the artist."
+     A built-in format, like the map card and for the map card's own reason: a community card type is
+     templates plus scoped CSS and cannot run code, and this needs a picture promoted to the front of the
+     card with its own metadata held back. See docs/art-card-plan.md, which specifies it in full.
+
+     `artwork: true` says THE PICTURE IS THIS CARD'S OWN SUBJECT, which is the whole of what the flag
+     means and is why it is a flag rather than an inference from `image`: an ordinary card's picture
+     ILLUSTRATES its subject (a hand-axe under `Acheulean`, a flag under a country) and must never be
+     dealt as "what is this?". A STYLE card in the same collection carries a representative work and no
+     flag, so it stays an ordinary card everywhere.
+
+     THREE THINGS ARE HELD BACK UNTIL THE REVEAL, and the first is the whole difficulty: a Commons credit
+     line routinely reads "Rembrandt, The Night Watch, Rijksmuseum", so the front draws the picture and
+     NOTHING else — no title, no description, no credit, and no way to enlarge it, since the viewer's own
+     caption bar carries all three. It is the same trade the picture round already makes: the attribution
+     the licence asks for is given on the same card, one press away, rather than before the picture has
+     done its job. **Anything that leaks `title` or `credit` onto the front has broken the collection, and
+     it will look perfectly fine doing it** — which is why `test-artwork-cards.js` asserts that first.
+
+     THE ALT TEXT DESCRIBES AND NEVER NAMES, which makes this format MORE accessible than the map card
+     rather than less: a shape on a globe cannot be described without answering the question, but a
+     painting can, so a reader who cannot see it gets a real question rather than none.
+
+     ONE PICTURE PER CARD, AND IT IS THE FRONT'S. `buildBack` still emits the background slot, because
+     every other surface that draws a card back — the browser, `openCardPeek`, Multiple Choice's
+     `mountCardBack`, the editor preview — draws it WITHOUT a front and would otherwise show no picture at
+     all. The study page drops that copy at the reveal instead (see showAnswer), which is the one place
+     the two would be on screen together, and drops it from the BACK so that nothing the reader is already
+     looking at moves. */
+  function cardArtSpec(c) {
+    if (!c || c.artwork !== true) return null;
+    const img = c.image;
+    if (!img || !img.src || !sanitizeUrl(String(img.src), ["http", "https", "data"])) return null;
+    return { src: String(img.src), alt: String(img.alt || ""), title: String(img.title || ""),
+             desc: String(img.desc || ""), credit: String(img.credit || "") };
+  }
+  function cardArtHTML(spec) {
+    /* The alt is the author's description of what is depicted. Where a card has none the label says what
+       the picture is FOR and nothing about what is in it — a generic "Card illustration" would be a
+       fallback that quietly answers nothing, and naming the work would answer everything. */
+    const alt = spec.alt || "The artwork to be identified.";
+    return '<figure class="art-shot"><img src="' + esc(spec.src) + '" alt="' + esc(alt) +
+      '" loading="lazy" draggable="false"></figure>';
+  }
+  /* The answer is out, so the picture may say what it is: it gains its caption, its credit and the
+     fullscreen viewer's own attributes. Written as an UPGRADE of the element already on screen rather
+     than as a re-render, so the picture the reader is looking at does not reload or move. */
+  function cardArtReveal(root, c) {
+    const spec = cardArtSpec(c);
+    if (!root || !spec) return;
+    const fig = root.querySelector(".art-shot");
+    if (!fig || fig.classList.contains("revealed")) return;
+    fig.classList.add("revealed");
+    fig.setAttribute("role", "button");
+    fig.setAttribute("tabindex", "0");
+    fig.setAttribute("title", "Click to enlarge");
+    fig.setAttribute("data-img-src", spec.src);
+    fig.setAttribute("data-img-title", spec.title);
+    fig.setAttribute("data-img-desc", spec.desc);
+    fig.setAttribute("data-img-credit", spec.credit);
+    const cap = document.createElement("figcaption");
+    cap.className = "art-cap";
+    let h = "";
+    if (spec.title) h += '<span class="art-cap-t">' + esc(spec.title) + "</span>";
+    if (spec.desc) h += '<span class="art-cap-d">' + esc(spec.desc) + "</span>";
+    if (spec.credit) h += '<span class="art-cap-c">' + mediaCreditHTML(spec.credit) + "</span>";
+    cap.innerHTML = h;
+    fig.appendChild(cap);
   }
 
   /* ---------- the name in Chinese, under a map card's answer term (Aug 2026, on request) ----------
@@ -32265,23 +32445,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     return out;
   }
-  // up to three cards this reader HAS studied that are closest in subject to this one
-  function connectKin(c, n) {
-    if (!c || !c.id) return [];
-    const scored = [];
-    Object.keys(S.cards || {}).forEach((id) => {
-      if (id === c.id) return;
-      const o = cardById(id);
-      if (!o || !o.answerText) return;
-      const k = cardKinship(c, o);
-      if (k > 0) scored.push([k, id, o]);
-    });
-    scored.sort((a, b) => b[0] - a[0]);
-    return scored.slice(0, n || 3).map((s) => s[2]);
-  }
   /* The block itself, or "" when this card has nothing to ask. It is injected by `showAnswer` rather than
      built into `buildBack`, because the budget is a property of the SESSION and `buildBack` is also what
      the editor's preview and the card browser draw — neither of which has a session or should have one. */
+  /* THERE IS ONE KIND OF PROMPT AND IT IS THE AUTHORED ONE (Sep 2026, on request: a Think-it-through
+     section "should never have the 'You have also studied ...' fill in the blank type. It should always
+     say three common 'Why ...?' questions about the answer term with a very brief explanation that can be
+     revealed with a show answer button"). The self-explanation fallback — three kin cards named from
+     `S.cards` over an empty textarea — was written for the cards that carry no `card.why`, and it asked a
+     reader to connect a card to whatever else they happened to have studied, which is a different and much
+     weaker exercise: it has no right answer, nothing to check against, and no relation to the term. A card
+     with nothing authored now shows NO section at all, which is the honest state — `card.why` is authored
+     out of the card's own cited prose and is never generated (see the `why` bullet under "Add a card"), so
+     the alternative to an authored question is silence rather than a manufactured one. `connectKin` went
+     with it; `cardKinship`, which it used, is still Multiple Choice's distractor ranking. */
   function elabPromptHTML(c) {
     const ws = cardWhy(c);
     if (ws.length) {
@@ -32309,14 +32486,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             "</div>";
         }).join("") + "</div>";
     }
-    const kin = connectKin(c, 3);
-    if (kin.length < 2) return "";
-    return '<div class="elab" data-elab="connect"><span class="elab-kind">Think it through</span>' +
-      '<p class="elab-q">You have also studied ' +
-        kin.map((k) => "<b>" + esc(k.answerText) + "</b>").join(", ").replace(/, ([^,]*)$/, " and $1") +
-        ". How does this card connect to one of them?</p>" +
-      '<textarea class="elab-box" rows="2" placeholder="In a sentence — no one sees this, and nothing is marked."></textarea>' +
-      '<div class="elab-acts"><span class="elab-note">Nothing here is saved or scored. Putting the connection into words is the whole of the exercise.</span></div></div>';
+    return "";
   }
   /* Wire whichever block was drawn. Every "Show answer" button uncovers the paragraph under its own
      question — a plain disclosure, and it does NOT close again: this is a self-check, and a reader who has
@@ -32744,9 +32914,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     /* …and `opts.shutSources` closes the citation fold, which `sourcesHTML` opened on the reader's own
        setting. It is the Atlas panel's rule (see `cpSection` on `cpSrcSecEl`) reaching the card back that
-       panel draws, so the two halves of one popup cannot disagree about whether sources start open. */
+       panel draws, so the two halves of one popup cannot disagree about whether sources start open.
+       IT MARKS THE FOLD `src-nopref` TOO, which is the Picture round's own guard (`opts.shut`): shutting
+       a fold and NOT REMEMBERING that it was shut are two different things, and without the class a
+       reader who opened the citations on a place panel would have changed how every CARD opens for them.
+       The class is added here rather than passed down through `buildBack`, which would have to thread an
+       option through every surface that renders a back. */
     if (opts.shutSources) {
       inner.querySelectorAll(".src-collapse, .src-toggle").forEach((el) => el.classList.add("collapsed"));
+      inner.querySelectorAll(".src-note").forEach((el) => el.classList.add("src-nopref"));
       const sh = inner.querySelector(".src-head"); if (sh) sh.setAttribute("aria-expanded", "false");
     }
     if (bgHead && bgCollapse) bgHead.addEventListener("click", () => {
@@ -33405,7 +33581,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      read off the card rather than derived from its date line, which cannot tell an onset from a span. */
   function chronoPool() {
     const avail = gameCardIdSet();
-    return CARDS.filter((c) => avail.has(c.id) && !cardUndatable(c)).map((c) => ({ id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c) })).filter(
+    /* `basis` is the date line's own label for the row the sort year came from — "Founded", "Reigned",
+       "In use" — carried through so the reveal can say what each date IS (Sep 2026, on request). It is
+       read once here rather than at reveal time because the pool is built once and the reveal is a loop
+       over five rows; a card whose basis cannot be established honestly carries "" (see cardYearBasis). */
+    return CARDS.filter((c) => avail.has(c.id) && !cardUndatable(c)).map((c) => ({ id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c), basis: cardYearBasis(c) })).filter(
       (x) => x.year != null && x.name
     );
   }
@@ -33631,7 +33811,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (ok) score++;
         el.classList.toggle("correct", ok);
         el.classList.toggle("wrong", !ok);
-        el.querySelector(".ci-year").textContent = chronoLabel(byId[id].year);
+        /* THE YEAR, AND UNDER IT WHAT THE YEAR IS (Sep 2026, on request). A bare "753 BCE" beside a term
+           says where it sorted and not why, which on a card dated by a reign, a building or a death is
+           the whole of what a reader wanted to know once the order is given away. The label is the date
+           line's own; a card that cannot say honestly which row it sorted on prints the year alone. */
+        const x = byId[id];
+        el.querySelector(".ci-year").innerHTML = '<span class="ciy-n">' + esc(chronoLabel(x.year)) + "</span>" +
+          (x.basis ? '<span class="ciy-b">' + esc(x.basis) + "</span>" : "");
       });
       checked = true;
       const solved = score === N;
@@ -34506,8 +34692,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* ============================================================
      PAGE: PICTURE ROUND (name what is in the picture)
      ============================================================
-     Five pictures, four options each, drawn from the ARTEFACTS and from nothing else (Sep 2026, on
-     request) — see picturePool below for what left the pool and why.
+     Five pictures, four options each, drawn from the ARTEFACTS (Sep 2026, on request) and from the
+     ARTWORK CARDS beside them (Sep 2026, on request) — see picturePool below for what is in the pool,
+     what left it, and why the two are the same rule rather than a reversal of it.
 
      THREE THINGS ARE DELIBERATE ABOUT WHAT IS SHOWN. The picture's own TITLE, DESCRIPTION AND CREDIT are
      held back until the guess is in — every one of them names the subject, so showing the credit up front
@@ -34567,6 +34754,44 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          artefact's own plate. */
       out.push({ src: img.src, label: label, title: img.title || "", desc: img.desc || "", credit: img.credit || "",
                  alt: img.alt || "", note: sanitizeHTML(String(a.desc || "")), sources: normSources(a.sources), tags: tags });
+    });
+    /* ---------- …AND THE ARTWORKS (Sep 2026, on request: "the artworks should also show up in the
+       Picture It minigame") ----------
+       This is not the pool the Sep 2026 narrowing above took away, and the distinction is the whole
+       reason it can come back. What left was every card's and every term's ILLUSTRATION — a picture OF
+       something the card is about — and an artwork card is the one card on the site whose picture IS its
+       answer: `artwork: true` says exactly that (see cardArtSpec), it is what makes the study card a
+       picture question in the first place, and a STYLE card in the same collection carries a
+       representative work, no flag, and so is not here. The rule the narrowing established therefore
+       still holds — "does this picture depict its subject?" is answered by which table the picture came
+       out of — and this is a second table that answers yes.
+
+       IT IS `availableCardIdSet`, NOT `gameCardIdSet`. That door filters on `difficultyOK` because the
+       games it guards deal a term COLD, with nothing on screen but words; here the picture is on screen
+       and the answer is one of four, so an obscure work is a fair question in exactly the way it is not
+       in Multiple Choice — and the artefact half above has no rating to filter on either, so filtering
+       one half and not the other would deal two kinds of round. (`gameCardIdSet` excludes artwork cards
+       for its own games, which is the same fact seen from the other side.)
+
+       THE FIRST TAG IS `artwork` FOR ALL OF THEM, and that is what keeps the two halves apart in the
+       draw: `tagKinship` weights tags[0] fourfold and CAPS the score at 2 where the two kinds differ, so
+       an artwork is answered against three other artworks wherever there are three, and against
+       artefacts only when there are not. The era bucket is the artefacts' own, so the two can still meet
+       across it rather than scoring zero. */
+    const artIds = availableCardIdSet();
+    artIds.forEach((id) => {
+      const c = cardById(id), spec = cardArtSpec(c);
+      if (!spec) return;
+      const label = String(c.answerText || "").trim();
+      if (!label || seen.has(label.toLowerCase())) return;
+      seen.add(label.toLowerCase());
+      const y = cardStartYear(c);
+      const era = !y ? "" : y < -3000 ? "prehistory" : y < 500 ? "antiquity" : y < 1500 ? "medieval" : "modern";
+      const tags = ["artwork"];
+      if (era) tags.push(era);
+      (Array.isArray(c.tags) ? c.tags : []).forEach((t) => { const v = String(t || "").toLowerCase(); if (v && tags.indexOf(v) < 0) tags.push(v); });
+      out.push({ src: spec.src, label: label, title: spec.title, desc: spec.desc, credit: spec.credit,
+                 alt: spec.alt, note: sanitizeHTML(String(c.abstract || "")), sources: normSources(cardSources(c)), tags: tags });
     });
     return out;
   }
@@ -34684,9 +34909,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            with no wiring of this game's own. */
         (it.title ? '<p class="pic-cap">' + esc(it.title) + "</p>" : "") +
         (it.note ? '<div class="tf-why pic-note">' + it.note + "</div>" : "") +
-        (it.sources && it.sources.length ? sourcesHTML(it.sources) : "") +
-        (it.desc ? '<p class="pic-shows">' + esc(it.desc) + "</p>" : "") +
-        (it.credit ? '<p class="pic-credit">' + mediaCreditHTML(it.credit) + "</p>" : "") +
+        (it.sources && it.sources.length ? sourcesHTML(it.sources, { shut: true }) : "") +
+        (picCaption(it) ? '<p class="pic-shows">' + esc(picCaption(it)) + "</p>" : "") +
         '<button class="btn" id="pic-next">' + (r + 1 < ROUNDS ? "Next round" : "See results") + "</button>";
       wireFootnotes(rev);
       /* The answered round is written before the reader can leave it — the point of the record is the
@@ -34700,6 +34924,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        paragraphs pointing at nothing. `wireFootnotes` removes such a marker where it runs, and it does
        not run here; taking them out is the same answer one step earlier. */
     function picNoteBare(note) { return String(note || "").replace(/<sup class="fn"[^>]*><\/sup>/g, ""); }
+    /* THE CAPTION WITHOUT THE CREDIT SENTENCE ON THE END OF IT (Sep 2026, on request: the reveal "still
+       shows the credits of the image … they're already available when the user clicks on the image").
+       Taking `.pic-credit` away was only half of it: HALF THE POOL carries the attribution a second time
+       INSIDE the caption — 96 of the 192 artefact pictures end `image.desc` with the opening clause of
+       their own `image.credit`, so "Ardon Bar-Hama, public domain, via Wikimedia Commons." was still the
+       last line of the reveal with the credit element gone.
+
+       IT IS AN EXACT MATCH AGAINST THIS ITEM'S OWN CREDIT, never a pattern that looks like an attribution:
+       the credit's text up to its URL is compared with the end of the caption, and only a byte-for-byte
+       tail (bar whitespace and the closing full stop) is cut. So it cannot eat a caption that merely
+       mentions a photographer, and an artefact whose caption does not repeat its credit is untouched.
+       The DATA is left as it is deliberately — what remains on those 96 is usually the Commons file's own
+       name ("CairoEgMuseumTaaMaskMostlyPhotographed"), so cleaning it is a rewrite of 96 captions rather
+       than a deletion, and that is a content pass rather than this change. */
+    const picNorm = (x) => String(x || "").replace(/\s+/g, " ").trim();
+    function picCaption(it) {
+      const d = picNorm(it && it.desc);
+      const cred = picNorm(String((it && it.credit) || "").split(/\s[—–-]\s|https?:\/\//)[0]).replace(/[.\s]+$/, "");
+      if (!d || !cred) return d;
+      const dt = d.replace(/[.\s]+$/, "");
+      if (!dt.endsWith(cred)) return d;
+      return picNorm(dt.slice(0, dt.length - cred.length)).replace(/[.,;:\s]+$/, "");
+    }
     function renderEnd() {
       markGamePlayed("picture", score === ROUNDS, score, ROUNDS);
       setGameProgress("picture", null);   // the run is over; the lock answers for it now
@@ -39672,10 +39919,14 @@ let prev = null;
        waiting-chest notice draw, so the reader has met it before and meets one shape everywhere; it is
        DECORATIVE, the pips carrying the label a screen reader needs. It goes gold on the day the chest is
        earned, which is the one state the pips alone cannot distinguish from six-of-seven at a glance. */
+    /* THE "3 / 7" IS GONE (Sep 2026, on request: "remove the numerical counter so it is only the grid and
+       the chest"). The pips ARE the count — seven of them, three filled — so the figure beside them was
+       the same fact in a second notation, and the sentence under them already says how many days are
+       left. Nothing is lost to a reader who cannot see the pips: the row's own `aria-label` has always
+       carried "3 of 7 days towards the next streak chest" in words, and still does. */
     return '<div class="streak-chest">' +
       '<div class="sc-main">' +
-        '<div class="sc-head"><span class="sc-title">Next streak chest</span>' +
-          '<span class="sc-count">' + p.into + " / " + p.need + "</span></div>" +
+        '<div class="sc-head"><span class="sc-title">Next streak chest</span></div>' +
         '<div class="sc-pips" role="img" aria-label="' + esc(p.into + " of " + p.need + " days towards the next streak chest") + '">' + pips + "</div>" +
         '<div class="sc-note">' + esc(note) + "</div>" +
       "</div>" +
@@ -41913,7 +42164,7 @@ let prev = null;
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -44942,7 +45193,7 @@ let prev = null;
   /* Everything the fullscreen viewer opens from. `.card-img` is the framed figure a card, a glossary
      popup, an artefact plate and the editor previews all emit; `.av-flag` is the small flag inside a
      geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML. */
-  const IMG_OPEN_SEL = ".card-img, .av-flag";
+  const IMG_OPEN_SEL = ".card-img, .av-flag, .art-shot.revealed";
   // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor).
   // A .card-vid wears the same frame but plays in place, so only its corner expand control opens the viewer —
   // every other click inside it belongs to the player.

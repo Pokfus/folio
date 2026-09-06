@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Card plans ↔ data.js — the check that keeps "generate the next <collection> card" working.
  *
- * Eighteen collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
+ * Nineteen collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
  * lowest id not yet in data.js, and its deck comes from the plan. That workflow rests on agreements
  * nothing else verifies, and every one of them fails SILENTLY:
  *
@@ -71,6 +71,7 @@ const PLANS = {
   bio: ["biology", "bio-", 1000],
   dino: ["dinosaurs", "dino-", 1000],
   korea: ["korea", "ko-", 1000],
+  art: ["art", "art-", 1000],
   /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */
@@ -258,7 +259,7 @@ for (const [colId, [slug, prefix, numbering]] of Object.entries(PLANS)) {
        symptom was that the plan and the deck had quietly stopped describing the same thing. A card
        id is a permanent address, so the drift is unrecoverable once a reader holds the card.
 
-       The number check is general to all eighteen collections. The name check applies only where a
+       The number check is general to all nineteen collections. The name check applies only where a
        plan line reads `Name  [Country]`, which is the three GEOGRAPHY plans: elsewhere a topic is a
        subject to research and deliberately is not the answer term. A DEFERRED slot holds no card. */
     const byNum = new Map(plan.cards.map((c) => [c.n, c.topic]));

@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.660", released: "2026-09-06T12:26Z" };
+window.FOLIO_VERSION = { v: "1.665", released: "2026-09-06T14:03Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-06",
-    t: "An atlas of your own, and thirty-three more Rome cards",
+    t: "An atlas of your own, and a reason behind every card",
     items: [
       "<b>Playing all nine minigames in a day now earns a chest</b>, counted by a nine-bar meter under the Minigames heading.",
       "<b>Multiple Choice now shows the whole answer side of the card</b> below the round, once you have answered.",
@@ -62,11 +62,25 @@ window.CHANGELOG = [
       "<b>Rivers are drawn thinner the further out you zoom</b> on the Atlas, where at world scale they had washed the continents blue.",
       "<b>The Atlas now zooms twelve times closer than it did</b>, on both its tabs.",
       "<b>Thirty-three new cards in Ancient Rome</b>, on provincial revenue, Greek influence and Cato, the Gracchi, and the Jugurthine and Cimbric wars that made Marius.",
+      "<b>The Folio logo and its tagline</b> are now in the menu bar, and at the top of the home page on a phone, the tagline set under the name.",
+      "<b>The Picture round no longer repeats the picture’s credit</b> under the answer — it is on the picture itself.",
+      "<b>The Picture round’s sources start folded away</b>, so the answer is what you meet first.",
+      "<b>The streak-chest meter drops its “3 / 7”</b>, leaving the row of days and the chest they earn.",
+      "<b>Every geography card shows the same four figures</b>: a country, state or province gives its capital, population, largest city and area.",
+      "<b>Every capital city gives its state, population, rank in the country and recent population growth</b>, with a question mark where the figure could not be found.",
+      "<b>Timeline now says what each revealed date is</b> — a birth, a reign, a founding — rather than the year alone.",
+      "<b>“Recalled on X of 3 days” is set like the labels beside it</b> at the top of a study card.",
+      "<b>“Think it through” now only ever asks why-questions about the card’s own answer</b>, and every one of the 1,458 History and Science cards now carries a set.",
+      "<b>Etruscan Campania is drawn as a region on the map</b> rather than as a single dot.",
       "<b>Ten new cards in the Biology collection</b>, opening its chapter on the cell.",
       "<b>The word <i>cell</i> now opens its own glossary entry wherever it appears</b>, which it did not before.",
-      "<b>Forty-two more glossary terms</b>, written for the new cards’ answers.",
+      "<b>A hundred and forty more glossary terms</b>, written for the new cards’ answers.",
+      "<b>A hundred new cards open the Korea collection</b>, which now sits under Collections rather than Planned.",
       "<b>Fifty-seven new cards in the World War II collection</b>, with a glossary term for each and a picture for nearly all of them.",
       "<b>Organisation Consul now has a glossary entry</b>, so the Weimar Republic’s assassins no longer open the entry for a Roman magistrate.",
+      "<b>A Visual Art collection is planned</b> — a thousand famous artworks and styles, dealt in the order they were made.",
+      "<b>The first ten Visual Art cards are here</b> — the picture is the question, and the answer names the work, dates it and credits the photograph.",
+      "<b>Artworks now turn up in the Picture round</b> beside the artefacts.",
     ],
   },
   {
