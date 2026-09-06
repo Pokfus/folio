@@ -101,7 +101,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | file | what is left |
 |---|---|
 | `history-focus-plan.md` | 45 cards flagged on the question and historiography rules; batches F1–F5. |
-| `why-questions-plan.md` | The Think-it-through pass: three authored why-questions for every history and science card. 125 of 1,159 written. |
+| `why-questions-plan.md` | The Think-it-through pass: three authored why-questions for every history and science card. 300 of 1,159 written — World History complete. |
 | `book-text-plan.md` | Correcting errors baked into the Library's source texts. |
 | `atlas-rewrite-plan.md` | Rewriting every place popup to a card's standard, with citations. |
 | `glossary-expansion-plan.md` | Three jobs asked for together — audit, expansion, and the terms still to write. |
