@@ -1254,16 +1254,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1–G9 have shipped — one hundred and nine backgrounds rewritten** (`gw-001`–`gw-143`, less the
-    deferrals below), each five sentences of landform, water and climate over five of the country's own
-    history, with ninety-five date lines rewritten out of the same research. Three sources make the
+    **G1–G10 have shipped — one hundred and twenty-one backgrounds rewritten** (`gw-001`–`gw-159`, less
+    the deferrals below), each five sentences of landform, water and climate over five of the country's
+    own history, with one hundred and seven date lines rewritten out of the same research. Three sources make the
     pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
     citation on page 1. **The Constitute Project** carries an English text of nearly every constitution
     on earth, whose opening articles state the form of the state, its territory and its founding claim.
     **The CBD's country profiles** carry a country's own ecosystems in prose, which no statistical
-    profile does. **AND AN AQUASTAT URL MUST BE READ, NEVER COMPOSED**: eight of G2's twelve guesses
+    profile does — but **`cbd.int` answers 200 for a country it has no profile FOR**, so check for a
+    Biodiversity Facts section rather than for a status code; Lesotho and Bahrain have none, and took the
+    Commonwealth Secretariat's member page and the International Court of Justice's own case record as
+    their fifth source instead. **AND AN AQUASTAT URL MUST BE READ, NEVER COMPOSED**: eight of G2's twelve guesses
     were wrong and one pointed at another country's profile — and **a 200 on a `.pdf` address is not a
     PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **THIRTY-SIX
     COUNTRIES AND TERRITORIES HAVE NO AQUASTAT PROFILE AT ALL** — `gw-003`, `gw-019`, `gw-021`,
@@ -1281,7 +1284,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     WRITTEN**: it has none for North Korea, and `gw-056` rests instead on a MILESTONE, which is about
     an event rather than a state; it has none for Palestine either, and `gw-124` rests on two UN
     instruments and the International Court of Justice's own case record instead, the CBD profile being
-    empty there as well. Rules 1 and 3 remain open on about 320 cards.
+    empty there as well. **AND RULE 1 ITSELF WAS WRONG ABOUT THE AMERICAS UNTIL SEP 2026**: its pattern
+    deliberately left "America" out and left the ADJECTIVE in, so a bare `\bAmerican\b` matched "South
+    American" and "Latin American" — measured, 8 of its 307 findings were that and nothing else, and every
+    one of the eight was a card this pass had already rewritten, which is a measure quietly training its
+    reader to ignore it. Rules 1 and 3 remain open on about 310 cards.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |

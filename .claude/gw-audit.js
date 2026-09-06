@@ -23,8 +23,15 @@ const LIST = arg("list", "");
 
 /* The United States by any of the names a background actually uses. "America" alone is NOT
    in it: "South America" is the continent Brazil is on, and matching it reports every South
-   American card as a violation. */
-const US = /\bUnited States\b|\bU\.S\.|\bU\.S\b|\bAmerican\b|\bAmericans\b|\bWashington\b/;
+   American card as a violation.
+   The ADJECTIVE has the same trap one word further in, and it was missed until Sep 2026: a bare
+   \bAmerican\b matches "South American", "North American", "Latin American" and "Central
+   American", none of which is the United States. Measured over the shipped gw- cards at the time,
+   8 of the 307 rule-1 findings were that and nothing else — every one of them a background this
+   pass had already rewritten, so the rule was reporting a permanent false finding on exactly the
+   cards it had finished with. The lookbehind excludes the compounds and leaves "American" and
+   "Americans" alone. */
+const US = /\bUnited States\b|\bU\.S\.|\bU\.S\b|(?<!(?:South|North|Latin|Central|Meso)[- ])\bAmericans?\b|\bWashington\b/;
 
 /* Landform, water, weather. A card that names none of these is telling a reader nothing about
    the place whose shape it has just asked them to recognise. */

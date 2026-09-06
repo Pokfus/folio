@@ -125,6 +125,11 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G10 — twelve more**: `gw-144` Botswana, `gw-145` Moldova, `gw-147` Lesotho,
+  `gw-148` Guinea-Bissau, `gw-150` Equatorial Guinea, `gw-151` Latvia, `gw-154` Bahrain, `gw-155`
+  Timor-Leste, `gw-156` Estonia, `gw-157` Trinidad and Tobago, `gw-158` Cyprus and `gw-159` Mauritius,
+  with all twelve date lines rewritten off the same research. **No country joined the deferral list**,
+  which stands where G9 left it at thirty-six.
 - **2026-09-06, batch G9 — twelve more**: `gw-129` Panama, `gw-131` Georgia, `gw-132` Eritrea, `gw-133`
   Mongolia, `gw-134` Uruguay, `gw-137` Armenia, `gw-138` Namibia, `gw-139` Lithuania, `gw-140` Qatar,
   `gw-141` Jamaica, `gw-142` Gambia and `gw-143` Gabon, with all twelve date lines rewritten off the same
@@ -239,6 +244,47 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G10 found
+
+- **RULE 1 HAS BEEN REPORTING A FALSE FINDING ON EVERY REWRITTEN CARD IN THE AMERICAS, AND THE FIX IS ONE
+  LOOKBEHIND.** `gw-audit.js`'s own header records that "America" was deliberately left out of the rule-1
+  pattern, because "South America" is the continent Brazil is on — and the ADJECTIVE was left in, so a bare
+  `\bAmerican\b` went on matching "South American", "North American", "Latin American" and "Central
+  American". Measured before changing anything: **8 of the 307 rule-1 findings were that and nothing
+  else**, and every one of the eight was a background this pass had already rewritten (`gw-070`, `gw-089`,
+  `gw-109`, `gw-112`, `gw-129`, `gw-157`, `gw-719`, `gw-729`) — so the rule was reporting a permanent,
+  growing false finding on exactly the cards it had finished with, which is how a measure stops being read.
+  The lookbehind excludes the compounds and leaves "American" and "Americans" alone; the count went 307 to
+  299 with no card's prose touched.
+- **TWO COUNTRIES HAVE NO CBD BIODIVERSITY PROFILE AND EACH NEEDED A DIFFERENT FIFTH SOURCE.** `cbd.int`
+  answers 200 for Lesotho and Bahrain and carries no Biodiversity Facts section for either — the shape C0
+  warned about, one recipe source down. **Lesotho took the Commonwealth Secretariat's member page**, whose
+  Key Facts line reads "1966, following independence from Britain" and so carries the Commonwealth clause
+  the term's third sentence wanted. **Bahrain took the International Court of Justice**, whose summary of
+  the judgment of 16 March 2001 in *Qatar v. Bahrain* states that a British decision of 1939 bound both
+  parties from the outset and that sovereignty over the Hawar Islands lies with Bahrain — an act of state
+  about a place AQUASTAT itself names as the country's second largest island group. `icj-cij.org/case/87`
+  answers 200, as C7 recorded.
+- **THE AUTO-LINKER TOOK TWO PHRASES BY THEIR TAILS, AND ONLY A RENDERED CARD COULD SHOW IT.** "Gulf of
+  Guinea" linked its last word to **Guinea the country**, which is not the gulf and is a thousand
+  kilometres away from the part of it Equatorial Guinea sits on; and "South-East Asia" linked to
+  **`East_Asia`**, the boundary before "East" being a hyphen. The first was reworded ("on the Atlantic coast
+  of western Africa, on the gulf that bears its name"), the second respelled — **"Southeast Asia" is the
+  corpus's own majority form, 33 occurrences against 11 hyphenated** — and the eleven hyphenated ones
+  elsewhere carry the same wrong link and are recorded rather than swept, being another pass's cards.
+- **THE OLDEST AQUASTAT PROFILE ON THE SHELF IS CYPRUS'S, OF 1997**, and it states its own scope: the
+  figures refer to the roughly 5,807 km² under government control. Read the citation year off the profile
+  rather than assuming a survey round — G10's twelve run from 1997 to 2016 and no two consecutive card
+  numbers share a year.
+- **TWO CONSTITUTE SLUGS ARE NOT THE COUNTRY'S NAME**: Guinea-Bissau is **`Guinea_Bissau_1996`** with an
+  underscore where the name has a hyphen, and Timor-Leste is **`East_Timor_2002`**. The country index at
+  `constituteproject.org/constitutions` resolves either in one fetch; composing the slug from the card's
+  own title fails silently with a 200 on a search page.
+- **THE `released` STAMP AND THE AQUASTAT URL ARE THE SAME LESSON TWICE.** Both were read rather than
+  composed, and both would have been wrong if composed: the FAO's document numbers bear no relation to the
+  ISO code (`i9727en` for Botswana, `ca0329en` for Moldova, `CA3386EN` for Trinidad and Tobago, in three
+  different cases).
 
 ## What G9 found
 
@@ -579,6 +625,6 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
   and put a fifth in its place.
 
-**Rules 1 and 3 remain open on about 320 cards.** Run `node .claude/gw-audit.js` for the live figures.
+**Rules 1 and 3 remain open on about 310 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*
