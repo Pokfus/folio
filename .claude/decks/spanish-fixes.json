@@ -12081,6 +12081,306 @@
     "Cuando"
    ],
    "rebold": true
+  },
+  "delea1/costar": {
+   "why": "Its third example is not this word at all: costado is the NOUN, a pain in his SIDE, matched on the letters. The card also missed ¿cuánto cuesta?, which is the phrase a reader uses in every shop, and it gave the second sense as a bare to be difficult without the construction that carries it, costar + infinitive.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to cost"
+     ]
+    ],
+    [
+     "verb, phrase",
+     [
+      "¿cuánto cuesta? — how much is it?",
+      "costar + infinitive — to find something hard: me cuesta levantarme temprano",
+      "cueste lo que cueste — whatever it costs"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "stem-changing",
+     "o → ue: cuesta, cuestan"
+    ],
+    [
+     "the price",
+     "el precio"
+    ]
+   ],
+   "dropEx": [
+    "Tom despertó con un dolor en su costado."
+   ],
+   "ex": [
+    [
+     "¿Cuánto cuesta este libro?",
+     "How much does this book cost?"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/séptimo, séptima": {
+   "why": "Its first and third examples CONTRADICT EACH OTHER: the seventh day of the week is Saturday, and the seventh day of the week is Sunday. In Spain the week starts on Monday, so the Sunday sentence is the right one and the Saturday sentence had to go - and a card that states both leaves a reader no way to tell which the deck means.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "seventh"
+     ]
+    ],
+    [
+     "note",
+     [
+      "primero, segundo, tercero, cuarto, quinto, sexto, séptimo, octavo, noveno, décimo",
+      "above tenth Spanish uses the plain number: el piso once"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "séptimos, séptimas"
+    ]
+   ],
+   "bold": [
+    "séptimo",
+    "séptima",
+    "séptimos",
+    "séptimas"
+   ],
+   "dropEx": [
+    "El séptimo día de la semana es el sábado."
+   ],
+   "ex": [
+    [
+     "Vivimos en el séptimo piso.",
+     "We live on the seventh floor."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/octavo, octava": {
+   "why": "The same fault as séptimo, two cards away: its second example says August is the eighth month, which is true, and its third says the eighth month is July, which is not - and the third is put as a question the card never answers, so the deck states a wrong fact and leaves it standing.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "eighth"
+     ]
+    ],
+    [
+     "note",
+     [
+      "primero, segundo, tercero, cuarto, quinto, sexto, séptimo, octavo, noveno, décimo",
+      "above tenth Spanish uses the plain number: el piso once"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "octavos, octavas"
+    ]
+   ],
+   "bold": [
+    "octavo",
+    "octava",
+    "octavos",
+    "octavas"
+   ],
+   "dropEx": [
+    "El octavo mes del año es julio, ¿no es así?"
+   ],
+   "ex": [
+    [
+     "Llegó en octavo lugar.",
+     "He came eighth."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/catorce": {
+   "why": "Its first example - su coche no tendría más de catorce millas - is a mistranslation of an English sentence about fuel consumption, and in Spanish it means nothing at all.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "fourteen"
+     ]
+    ],
+    [
+     "note",
+     [
+      "11 to 15 have their own words: once, doce, trece, catorce, quince",
+      "16 to 19 are one word: dieciséis, diecisiete, dieciocho, diecinueve",
+      "dieciséis and veintidós, veintitrés, veintiséis carry an accent; the others do not"
+     ]
+    ]
+   ],
+   "bold": [
+    "catorce"
+   ],
+   "dropEx": [
+    "Su coche no tendría más de catorce millas."
+   ],
+   "ex": [
+    [
+     "El catorce de febrero es San Valentín.",
+     "The fourteenth of February is Valentine s Day."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/dieciséis": {
+   "why": "Sixteen on its own, and the accent it carries is the fact worth teaching: dieciséis is written with one and diecisiete is not.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "sixteen"
+     ]
+    ],
+    [
+     "note",
+     [
+      "16 to 19 are one word: dieciséis, diecisiete, dieciocho, diecinueve",
+      "dieciséis and veintidós, veintitrés, veintiséis carry an accent; the others do not"
+     ]
+    ]
+   ],
+   "bold": [
+    "dieciséis"
+   ],
+   "rebold": true
+  },
+  "delea1/dieciocho": {
+   "why": "Eighteen, standing alone, where the rule that makes it one word rather than three is what the card is for.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "eighteen"
+     ]
+    ],
+    [
+     "note",
+     [
+      "16 to 19 are one word: dieciséis, diecisiete, dieciocho, diecinueve",
+      "dieciséis and veintidós, veintitrés, veintiséis carry an accent; the others do not",
+      "los dieciocho años is the age of majority in Spain"
+     ]
+    ]
+   ],
+   "bold": [
+    "dieciocho"
+   ],
+   "rebold": true
+  },
+  "delea1/setenta": {
+   "why": "Seventy on its own, where the set of tens is what makes any one of them useful - and its own first example, los años setenta, is a use the card never listed.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "seventy"
+     ]
+    ],
+    [
+     "note",
+     [
+      "the tens: veinte, treinta, cuarenta, cincuenta, sesenta, setenta, ochenta, noventa",
+      "above veinte they are three words: setenta y cinco, noventa y nueve",
+      "los años setenta — the seventies"
+     ]
+    ]
+   ],
+   "bold": [
+    "setenta"
+   ],
+   "rebold": true
+  },
+  "delea1/ochenta": {
+   "why": "Eighty on its own, for the same reason as its neighbours: one ten teaches nothing about the eight.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "eighty"
+     ]
+    ],
+    [
+     "note",
+     [
+      "the tens: veinte, treinta, cuarenta, cincuenta, sesenta, setenta, ochenta, noventa",
+      "above veinte they are three words: setenta y cinco, noventa y nueve"
+     ]
+    ]
+   ],
+   "bold": [
+    "ochenta"
+   ],
+   "rebold": true
+  },
+  "delea1/noventa": {
+   "why": "Ninety on its own, and its own third example - los noventa, the nineties - is a use the card did not list.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "ninety"
+     ]
+    ],
+    [
+     "note",
+     [
+      "the tens: veinte, treinta, cuarenta, cincuenta, sesenta, setenta, ochenta, noventa",
+      "above veinte they are three words: setenta y cinco, noventa y nueve",
+      "los años noventa, or just los noventa — the nineties"
+     ]
+    ]
+   ],
+   "bold": [
+    "noventa"
+   ],
+   "rebold": true
+  },
+  "delea1/le": {
+   "why": "Read again in the batch review. The card is right and needed the two things that make an indirect object work in Spanish: the a-phrase is repeated even when the pronoun is there, and in much of Spain le is also used of a male direct object.",
+   "senses": [
+    [
+     "pronoun",
+     [
+      "to him, to her, to you (formal) — indirect object"
+     ]
+    ],
+    [
+     "note",
+     [
+      "the person is usually named as well, with a: le di el libro A MARÍA",
+      "le becomes se before lo, la, los, las: se lo di, never le lo di",
+      "in much of Spain le is also used for a male direct object: le vi, for lo vi"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "les"
+    ],
+    [
+     "before lo, la, los, las",
+     "se"
+    ]
+   ],
+   "bold": [
+    "le",
+    "Le",
+    "les",
+    "Les"
+   ],
+   "rebold": true
   }
  },
  "insert": {
