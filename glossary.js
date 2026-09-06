@@ -2364,7 +2364,18 @@ window.GLOSSARY = {
 "Seven_warring_states": "The seven warring states were the powers into which the Chinese world had consolidated by the 4th century BCE: Qin in the west, Chu in the south, Qi in the east, Yan in the north, and Zhao, Wei and Han between them.<sup class=\"fn\" data-fn=\"1\"></sup> Five of them were counted among the Middle Kingdoms, while Qin and Chu were reckoned outside that circle.<sup class=\"fn\" data-fn=\"1\"></sup> Diplomats sold rival schemes to them, one binding six of the seven into a league against Qin in 333 BCE and another persuading all six to acknowledge Qin as supreme.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Shang_Yang": "Shang Yang was the minister who reorganised the Chinese state of Qin in the 4th century BCE, an illegitimate son of the ruling house of a rival state who entered Qin's service about 350 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He rewrote the law on the principle that it must apply to the highly placed, punishing the crown prince's tutor and branding his teacher when the heir offended.<sup class=\"fn\" data-fn=\"2\"></sup> Ennobled with fifteen cities in 340 BCE, he was accused of rebellion after his patron died, was killed and was torn apart by chariots, and his family was exterminated.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Spring_and_Autumn_warfare": "Spring and Autumn warfare was fought from chariots by an aristocracy, and a state's strength was reckoned in the number of cars it could put in the field.<sup class=\"fn\" data-fn=\"1\"></sup> The vehicle was a light two-wheeled car drawn by a yoked team and carrying a driver, an archer and a man with a dagger-axe; because it could not work in a defile or a marsh, both sides had to agree on ground before a battle.<sup class=\"fn\" data-fn=\"2\"></sup> How far the conventions of such fighting actually bound anybody was argued about at the time, and the deceptions of later war were already in use.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Warring_States_period": "The Warring States period is the closing age of the Zhou dynasty in China, ending in 221 BCE when the state of Qin conquered the last of its rivals.<sup class=\"fn\" data-fn=\"1\"></sup> Its opening is dated variously, most often to 403 BCE, when the Zhou king recognised the three families that had carved up Jin, and the change it marks is that royal authority became nominal while the lords behaved as independent princes and annexed their smaller neighbours.<sup class=\"fn\" data-fn=\"2\"></sup> Much of the surviving record consists of the speeches of travelling diplomats, the state chronicles having been destroyed in 213 BCE.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Warring_States_period": "The Warring States period is the closing age of the Zhou dynasty in China, ending in 221 BCE when the state of Qin conquered the last of its rivals.<sup class=\"fn\" data-fn=\"1\"></sup> Its opening is dated variously, most often to 403 BCE, when the Zhou king recognised the three families that had carved up Jin, and the change it marks is that royal authority became nominal while the lords behaved as independent princes and annexed their smaller neighbours.<sup class=\"fn\" data-fn=\"2\"></sup> Much of the surviving record consists of the speeches of travelling diplomats, the state chronicles having been destroyed in 213 BCE.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Chinese_crossbow": "The Chinese crossbow is a bow mounted crosswise on a stock and held at full draw by a bronze trigger, so that the effort of drawing is separated from the moment of shooting.<sup class=\"fn\" data-fn=\"2\"></sup> It appears in the Chinese record by the 6th century BCE and became the standard missile weapon of the Warring States, remaining so under the Han, whose soldiers are shown on reliefs shooting crossbows rather than bows.<sup class=\"fn\" data-fn=\"1\"></sup> A trigger was assembled from several separately cast parts, marked by their makers so that matching pieces stayed together, the marks being hidden under the wooden stock once the weapon was built.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Iron_in_the_Warring_States": "Iron in the Warring States is the spread of the metal through Chinese farming, law and war between the 6th and 3rd centuries BCE.<sup class=\"fn\" data-fn=\"1\"></sup> The clearest dated episode is 513 BCE, when two ministers of Jin levied a measure of iron reckoned at 480 catties on the districts of their state in order to cast tripods and inscribe the penal laws upon them, which Confucius said would ruin the state.<sup class=\"fn\" data-fn=\"1\"></sup> By the following century an iron ploughshare was an ordinary thing for a farmer to buy in exchange for grain, though armour of iron plates is dated later still.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"King_Wuling_of_Zhao": "King Wuling ruled the Chinese state of Zhao from 325 to 299 BCE and is remembered for ordering his army to adopt the dress of its northern neighbours and to learn mounted archery.<sup class=\"fn\" data-fn=\"1\"></sup> He argued that the small state of Zhongshan lay on his own state's belly and heart, with hostile peoples east and west, and that a man whose renown rises above his age is buried under objections made in the name of custom; his assembled ministers opposed him.<sup class=\"fn\" data-fn=\"1\"></sup> He adopted the foreign coat, which fastened on the left, enrolled mounted archers and took Zhongshan in 305 BCE.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Mass_infantry_armies": "Mass infantry armies are the forces the Chinese Warring States put in the field once households were registered and grouped in fives and tens answerable for one another, so that a levy could be raised from a list.<sup class=\"fn\" data-fn=\"2\"></sup> The administrative changes behind them combined villages and small towns into districts under appointed prefects and equalised taxes and measures.<sup class=\"fn\" data-fn=\"2\"></sup> The figures the record gives are very large, including an army of 240,000 destroyed in 293 BCE and more than 400,000 soldiers killed in 259, though these are the historian's totals rather than counts that can be checked.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Qin_after_Shang_Yang": "Qin after Shang Yang is the western Chinese state as its reforming minister left it when he was executed in 338 BCE, a system that outlasted him by more than a century.<sup class=\"fn\" data-fn=\"1\"></sup> Rank was earned by military merit on a ladder of eighteen honorary degrees, one enemy head taken buying a degree and an office worth 50 piculs of grain, and a member of the ruling house without merit did not count as one of the clan.<sup class=\"fn\" data-fn=\"1\"></sup> Immigrants were given farms and three generations free of service so that men born in Qin could go to war, and the state annexed its neighbours until the last fell in 221 BCE.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Su_Qin": "Su Qin was a Chinese political adventurer of the Warring States who died in 318 BCE, remembered for assembling a league of six states against the growing power of Qin in 333 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He had studied the doctrines of combination and opposition, and for a time directed the confederation from the court of one allied prince after another, until faction destroyed it and he was assassinated.<sup class=\"fn\" data-fn=\"1\"></sup> Later scholarship has found the account of his life full of contradictions and impossibilities, so that much of what is told of him reads as romance rather than as record.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Vertical_and_horizontal_alliances": "Vertical and horizontal alliances are the two rival doctrines of Chinese diplomacy in the Warring States, named for the directions they ran on the map.<sup class=\"fn\" data-fn=\"1\"></sup> The vertical league joined states from north to south against the western power of Qin, while the horizontal was Qin's own method of extending its influence continuously from west to east, described as devouring territory like a silkworm gnawing a mulberry leaf.<sup class=\"fn\" data-fn=\"1\"></sup> The states between followed neither consistently, and travelling persuaders moved from court to court arguing for whichever combination suited the moment; a six-state league formed in 333 BCE fell apart through faction.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Warring_States_cities": "Warring States cities are the walled capitals and market towns of the Chinese states before the first empire, fought over as objects of policy: Zhao made Handan its seat in 386 BCE, and Wei took the city in 353 and returned it in 351.<sup class=\"fn\" data-fn=\"1\"></sup> Their markets were closely regulated in the accounts that survive, with shops grouped by goods, trading divided into morning, noon and evening periods, an inspector over every twenty shops and prices set by government.<sup class=\"fn\" data-fn=\"2\"></sup> Politically they had been small domains with much independence, which Qin ended by combining them into districts under appointed prefects.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Warring_States_coinage": "Warring States coinage is the bronze money of the Chinese states before the first empire, falling into four families: weight money, spade money imitating a farm tool, knife money imitating a blade, and round coins pierced with a square hole.<sup class=\"fn\" data-fn=\"1\"></sup> Pieces commonly carry the name of the town that issued them, and knife coins were still being struck in the north down to 228 BCE.<sup class=\"fn\" data-fn=\"2\"></sup> Cowrie shells had earlier served as currency and grew scarce, and the variety ended in 221 BCE when Qin forbade gems, pearls, shells and tin as money and issued a single round coin.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Warring_States_warfare": "Warring States warfare is the fighting of the Chinese states between roughly 480 and 221 BCE, after the chariot aristocracy had given way to standing armies raised by conscription.<sup class=\"fn\" data-fn=\"1\"></sup> The military role of the chariot declined sharply as mounted troops came in, commanders were set over separate wings with a distinct officer over the horse, and weapons were produced in quantity and marked so that their parts stayed matched.<sup class=\"fn\" data-fn=\"2\"></sup> Advancement was bought with enemy heads, one head giving a soldier a degree of rank, and sieges and long campaigns replaced the single arranged battle of the age before.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Zhang_Yi": "Zhang Yi was a Chinese political adventurer of the Warring States who died in 310 BCE, a native of Wei who entered the service of the rival state of Qin and worked to break the leagues formed against it.<sup class=\"fn\" data-fn=\"1\"></sup> Appointed foreign minister in 328 BCE, he led a campaign against his own native state and at length persuaded all six eastern states to acknowledge Qin as supreme, for which he was ennobled.<sup class=\"fn\" data-fn=\"1\"></sup> He is the subject of a much repeated anecdote in which, beaten on a false accusation of theft, he asked his wife only whether he still had his tongue.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3267,7 +3278,18 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Seven_warring_states": "c. 403 – 221 BCE",
 "Shang_Yang": "d. 338 BCE",
 "Spring_and_Autumn_warfare": "722 – 481 BCE",
-"Warring_States_period": "c. 480 – 221 BCE"
+"Warring_States_period": "c. 480 – 221 BCE",
+"Chinese_crossbow": "from the 6th century BCE",
+"Iron_in_the_Warring_States": "c. 513 – 221 BCE",
+"King_Wuling_of_Zhao": "r. 325 – 299 BCE",
+"Mass_infantry_armies": "c. 400 – 221 BCE",
+"Qin_after_Shang_Yang": "338 – 221 BCE",
+"Su_Qin": "d. 318 BCE",
+"Vertical_and_horizontal_alliances": "c. 400 – 221 BCE",
+"Warring_States_cities": "c. 480 – 221 BCE",
+"Warring_States_coinage": "c. 600 – 221 BCE",
+"Warring_States_warfare": "c. 480 – 221 BCE",
+"Zhang_Yi": "d. 310 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4671,7 +4693,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Rise_of_Wei": ["rise of Wei"],
 "Seven_warring_states": ["seven warring states"],
 "Shang_Yang": ["Wei Yang","Gongsun Yang","Lord Shang"],
-"Warring_States_period": ["Warring States"]
+"Warring_States_period": ["Warring States"],
+"Chinese_crossbow": ["Chinese crossbows"],
+"King_Wuling_of_Zhao": ["King Wuling"],
+"Mass_infantry_armies": ["mass infantry army"],
+"Qin_after_Shang_Yang": ["Qin state after Shang Yang"],
+"Vertical_and_horizontal_alliances": ["vertical and horizontal alliance"],
+"Warring_States_cities": ["Warring States city"],
+"Warring_States_coinage": ["Warring States coins"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -7071,7 +7100,18 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Seven_warring_states": ["state","history","politics","zhou dynasty"],
 "Shang_Yang": ["person","history","politics","law"],
 "Spring_and_Autumn_warfare": ["practice","warfare","history","zhou dynasty"],
-"Warring_States_period": ["era","history","politics","zhou dynasty"]
+"Warring_States_period": ["era","history","politics","zhou dynasty"],
+"Chinese_crossbow": ["object","warfare","technology","history"],
+"Iron_in_the_Warring_States": ["object","technology","history","agriculture"],
+"King_Wuling_of_Zhao": ["ruler","person","history","warfare"],
+"Mass_infantry_armies": ["practice","warfare","history","politics"],
+"Qin_after_Shang_Yang": ["state","history","politics","law"],
+"Su_Qin": ["person","politics","history"],
+"Vertical_and_horizontal_alliances": ["concept","politics","history","warfare"],
+"Warring_States_cities": ["place","history","politics","economics"],
+"Warring_States_coinage": ["object","economics","history","technology"],
+"Warring_States_warfare": ["practice","warfare","history","politics"],
+"Zhang_Yi": ["person","politics","history"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
