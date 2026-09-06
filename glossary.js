@@ -2454,7 +2454,17 @@ window.GLOSSARY = {
 "Euthymides": "Euthymides was an Athenian red-figure vase painter active about 510 to 490 BCE, and the most conspicuous name of his generation apart from the specialists in drinking cups.<sup class=\"fn\" data-fn=\"1\"></sup> Five vases carry his signature, on which he names himself as the son of Polias, and he preferred the amphora to the cup, favouring mythological subjects balanced against scenes of the gymnasium or the symposium.<sup class=\"fn\" data-fn=\"2\"></sup> He is best remembered for an inscription on one of his Munich amphorae boasting that Euphronios never made the like, which is the clearest surviving evidence that Athenian painters competed with each other by name.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Spartan_hegemony": "The Spartan hegemony is the period of roughly thirty years after the fall of Athens in 404 BCE during which Sparta held the leadership of Greece, and it rested on garrisons rather than on any shared purpose.<sup class=\"fn\" data-fn=\"1\"></sup> Lysander suppressed the democracies, left a Spartan governor called a harmost in each city and set over it ten rulers drawn from political clubs of his own organising, appointing his partisans without regard to birth or wealth.<sup class=\"fn\" data-fn=\"2\"></sup> The empire was arranged to yield about a thousand talents a year, which obliged a state that had banned coined wealth to run a treasury, and it collapsed in the wars of 395 to 371 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Symmetria": "Symmetria is the Greek term for the commensurability of the parts of a work with one another and with the whole, and it means a shared measure rather than the mirroring of left and right the English word now suggests.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient criticism treats it as the quality that most distinguishes Polykleitos, who wrote a treatise called the Canon on the proportions of the body and made a statue of the same name to embody them.<sup class=\"fn\" data-fn=\"2\"></sup> Vitruvius passes it to Roman architects, defining symmetry as arising from proportion, which the Greeks call analogia, and giving the face as a tenth of a body’s height and the foot a sixth.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"White-ground_lekythos": "A white-ground lekythos is an Athenian oil flask covered with a pale slip and painted in outline, made for the grave rather than for use, and decorated as a rule with funerary subjects.<sup class=\"fn\" data-fn=\"1\"></sup> The white technique was applied to several shapes but only this one kept its popularity, and after the middle of the 5th century BCE it was the only shape still made that way, a fashion lasting about a hundred and fifty years.<sup class=\"fn\" data-fn=\"2\"></sup> Its subjects fall into four classes, the laying out of the body, its burial, the journey to Hades with Charon, and visits to the tomb, of which the last is much the commonest.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"White-ground_lekythos": "A white-ground lekythos is an Athenian oil flask covered with a pale slip and painted in outline, made for the grave rather than for use, and decorated as a rule with funerary subjects.<sup class=\"fn\" data-fn=\"1\"></sup> The white technique was applied to several shapes but only this one kept its popularity, and after the middle of the 5th century BCE it was the only shape still made that way, a fashion lasting about a hundred and fifty years.<sup class=\"fn\" data-fn=\"2\"></sup> Its subjects fall into four classes, the laying out of the body, its burial, the journey to Hades with Charon, and visits to the tomb, of which the last is much the commonest.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Agesilaus_II": "Agesilaus II was king of Sparta from about 400 to 360 BCE and the dominant figure in Greek politics for most of that time, a younger son who had not been raised as an heir.<sup class=\"fn\" data-fn=\"1\"></sup> He gained the throne when Lysander pressed the claim that his rival Leotychides was illegitimate, turning aside an oracle against a lame kingship by arguing that it meant a defect of descent rather than of gait.<sup class=\"fn\" data-fn=\"2\"></sup> Plutarch says he courted the ephors instead of quarrelling with them, and by appearing to honour their office quietly enlarged his own; he campaigned in Asia, fought at Coronea and outlived the supremacy he defended.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Sardis": "The battle of Sardis was fought in 395 BCE in the Hermus valley between Agesilaus, campaigning in Asia Minor, and the forces of the satrap Tissaphernes.<sup class=\"fn\" data-fn=\"1\"></sup> Xenophon describes a straight charge in which the Persian cavalry gave way and were cut down crossing the river, the Greeks taking a camp whose plunder fetched more than seventy talents; Diodorus instead describes an ambush laid overnight.<sup class=\"fn\" data-fn=\"2\"></sup> Tissaphernes was at Sardis and was blamed for the defeat, and Artaxerxes sent Tithraustes down to execute him and to offer Agesilaus terms if he would sail home.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Conon": "Conon was an Athenian general of the late 5th and early 4th centuries BCE who, after the defeat of Athens, took service with the Persian satrap Pharnabazus rather than return to a beaten city.<sup class=\"fn\" data-fn=\"1\"></sup> In 394 BCE he and Pharnabazus destroyed the Spartan fleet off Cnidus, which freed the Greek cities of Asia from their Spartan garrisons and ended Sparta’s power at sea.<sup class=\"fn\" data-fn=\"2\"></sup> He then persuaded Pharnabazus to let him take the fleet to Athens and rebuild the long walls and the wall round the Piraeus with Persian money, undoing what Sparta had worked hardest to achieve.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Epaminondas": "Epaminondas was the Theban general and statesman who ended Spartan supremacy, and the leading man in Greece from 371 BCE until his death at Mantinea in 362.<sup class=\"fn\" data-fn=\"1\"></sup> Nepos says he was of an honourable family left poor, taught the lyre, the flute and dancing, and given philosophy by Lysis of Tarentum, a Pythagorean living in exile at Thebes.<sup class=\"fn\" data-fn=\"2\"></sup> He broke the Spartan army at Leuctra in 371 BCE and in the invasions that followed founded Messene and Megalopolis, taking from Sparta the territory her whole system rested on.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"King's_Peace": "The King’s Peace, also called the Peace of Antalcidas, ended the Corinthian War in 387 BCE on terms dictated by Artaxerxes II of Persia and enforced by Sparta.<sup class=\"fn\" data-fn=\"1\"></sup> Its text gives the Greek cities of Asia to the King, along with Clazomenae and Cyprus, leaves Lemnos, Imbros and Scyros to Athens, declares every other Greek city independent, and threatens war on whichever side refuses.<sup class=\"fn\" data-fn=\"2\"></sup> Because an independent city cannot belong to a federation, the clause broke up the Boeotian league and the union of Corinth and Argos, leaving Sparta’s own alliance as the only combination standing.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Liberation_of_Thebes": "The liberation of Thebes was the overthrow in the winter of 379 BCE of the government Sparta had installed after seizing the citadel three years before.<sup class=\"fn\" data-fn=\"1\"></sup> A handful of exiles walked in from Athens carrying hunting nets so as to pass for a shooting party, and the polemarchs were killed at a drinking party by men brought in veiled as women, with breastplates under the dresses.<sup class=\"fn\" data-fn=\"2\"></sup> The Spartan garrison agreed to march out under truce once Athenian troops arrived from the border, and Xenophon records that the Thebans then killed their political enemies and the children of the dead.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pelopidas": "Pelopidas was a Theban general of the 4th century BCE, leader of the conspiracy that freed Thebes in 379 and commander of the Sacred Band.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch pairs him with Epaminondas as colleagues rather than rivals, dating their friendship to a battle at Mantinea where Pelopidas fell with seven wounds in front and Epaminondas stood over him.<sup class=\"fn\" data-fn=\"2\"></sup> He kept the Sacred Band together as a single unit instead of spreading it along the line, and led its charge at Leuctra; he was killed campaigning in Thessaly in 364 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Sacred_Band_of_Thebes": "The Sacred Band of Thebes was a corps of three hundred picked hoplites kept at public expense on the citadel, raised by Gorgidas after the city was freed in 379 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch reports the tradition that it was made up of pairs of lovers, on the reasoning that a band held together by love cannot be broken because neither man will be shamed before the other.<sup class=\"fn\" data-fn=\"2\"></sup> Pelopidas kept it whole rather than spread along the phalanx, and Plutarch says it was never beaten until Chaeronea in 338 BCE, where Philip of Macedon wept over its dead.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Second_Athenian_League": "The Second Athenian League was an alliance founded at Athens in 378 BCE against Sparta, whose charter survives on stone as the decree moved by Aristoteles.<sup class=\"fn\" data-fn=\"1\"></sup> The decree invites any Greek or islander not subject to the King to join, free and autonomous under whatever constitution he chooses, with no garrison, no imposed governor and no tribute, and forbids Athenians to own land in allied territory.<sup class=\"fn\" data-fn=\"2\"></sup> The allies had a council of their own at Athens in which every city had one vote and Athens none, and Diodorus says Chios and Byzantium seceded from Sparta first.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Seizure_of_the_Cadmea": "The seizure of the Cadmea was the occupation of the citadel of Thebes by a Spartan force under Phoebidas in 382 BCE, in peacetime and without orders.<sup class=\"fn\" data-fn=\"1\"></sup> The Theban polemarch Leontiades proposed it for the day of the Thesmophoria, when the women held the citadel and the streets were empty at midday, and it was taken without a blow struck.<sup class=\"fn\" data-fn=\"2\"></sup> Sparta fined Phoebidas and kept the citadel, executed the opposing polemarch Ismenias for Medism, and installed a friendly government; the exiles it drove to Athens returned in 379 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3424,7 +3434,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Euthymides": "active c. 510 BCE – 490 BCE",
 "Spartan_hegemony": "404 BCE – 371 BCE",
 "Symmetria": "argued c. 440 BCE",
-"White-ground_lekythos": "c. 500 BCE – 400 BCE"
+"White-ground_lekythos": "c. 500 BCE – 400 BCE",
+"Agesilaus_II": "c. 445 BCE – 360 BCE",
+"Battle_of_Sardis": "395 BCE",
+"Conon": "active c. 413 BCE – 392 BCE",
+"Epaminondas": "c. 418 BCE – 362 BCE",
+"King's_Peace": "387 BCE",
+"Liberation_of_Thebes": "379 BCE",
+"Pelopidas": "c. 410 BCE – 364 BCE",
+"Sacred_Band_of_Thebes": "379 BCE – 338 BCE",
+"Second_Athenian_League": "378 BCE – 355 BCE",
+"Seizure_of_the_Cadmea": "382 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4804,7 +4824,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_Nemea": ["battle of the Nemea"],
 "Contrapposto": ["contrapposto"],
 "Symmetria": ["symmetria"],
-"White-ground_lekythos": ["white-ground lekythoi","white ground lekythos"]
+"White-ground_lekythos": ["white-ground lekythoi","white ground lekythos"],
+"Agesilaus_II": ["Agesilaus"],
+"King's_Peace": ["Peace of Antalcidas"],
+"Sacred_Band_of_Thebes": ["Sacred Band"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -7295,7 +7318,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Euthymides": ["person","artist","art","pottery","greece"],
 "Spartan_hegemony": ["era","event","history","politics","greece","sparta"],
 "Symmetria": ["concept","art","sculpture","architecture","greece"],
-"White-ground_lekythos": ["object","pottery","art","death","greece"]
+"White-ground_lekythos": ["object","pottery","art","death","greece"],
+"Agesilaus_II": ["person","ruler","history","politics","greece","sparta"],
+"Battle_of_Sardis": ["event","battle","war","history","greece","persia"],
+"Conon": ["person","general","military","history","greece"],
+"Epaminondas": ["person","general","military","history","politics","greece"],
+"King's_Peace": ["event","treaty","history","politics","greece","persia"],
+"Liberation_of_Thebes": ["event","history","politics","warfare","greece"],
+"Pelopidas": ["person","general","military","history","greece"],
+"Sacred_Band_of_Thebes": ["institution","military","history","greece"],
+"Second_Athenian_League": ["institution","event","history","politics","greece"],
+"Seizure_of_the_Cadmea": ["event","history","politics","warfare","greece","sparta"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

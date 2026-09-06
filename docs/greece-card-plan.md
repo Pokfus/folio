@@ -920,7 +920,7 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-661  Conon
     gr-662  The King's Peace
     gr-663  Agesilaus II
-    gr-664  Agesilaus in Asia Minor
+    gr-664  Agesilaus in Asia Minor  — carded on the `battle of Sardis`, the campaign's decisive action; the man himself is at gr-663
     gr-665  The seizure of the Cadmea
     gr-666  The liberation of Thebes
     gr-667  The Second Athenian League
