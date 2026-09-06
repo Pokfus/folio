@@ -11804,6 +11804,283 @@
     "sextas"
    ],
    "rebold": true
+  },
+  "delea1/regular": {
+   "why": "Filed as a VERB - to regulate, to control - and ALL THREE of its examples are the ADJECTIVE: talla regular, la economía menos regulada, esos caballos son regulares, so-so. Not one sentence shows the part of speech the card claims, and the sense a DELE A1 candidate actually needs is missing entirely: regular is what you answer to ¿qué tal?, and it means all right, not great. The verb is not an A1 word at all.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "all right, so-so, not great — the usual answer to ¿qué tal?",
+      "regular, standard, ordinary: talla regular, un verbo regular"
+     ]
+    ],
+    [
+     "adverb",
+     [
+      "por lo regular — as a rule, usually"
+     ]
+    ],
+    [
+     "verb",
+     [
+      "regular — to regulate (formal, and not what the word usually means)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "regulares"
+    ],
+    [
+     "the opposite of a regular verb",
+     "irregular"
+    ]
+   ],
+   "bold": [
+    "regular",
+    "regulares",
+    "regulada",
+    "reguladas",
+    "regulado"
+   ],
+   "rebold": true
+  },
+  "delea1/llover": {
+   "why": "One gloss and neither of the two things that make this verb unlike the rest: it exists only in the third person - there is no yo lluevo - and it is stem-changing, llueve rather than llove. La lluvia, the noun, was not on the card either.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to rain — used only in the third person singular: llueve, llovía, llovió"
+     ]
+    ],
+    [
+     "note",
+     [
+      "stem-changing o → ue: llueve",
+      "the same shape as nevar, hacer frío and the other weather verbs"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "la lluvia"
+    ],
+    [
+     "to snow",
+     "nevar"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/alquilar": {
+   "why": "to rent, to rent out something to someone - the second is the same verb from the landlord's end, which Spanish does not distinguish - and el alquiler, the rent a reader pays every month, was not on the card. Nor was se alquila, which is on the sign in the window.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to rent, to hire — from either end: the tenant rents and the landlord rents out"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el alquiler — the rent; the renting",
+      "se alquila — to let (on a sign)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "el alquiler"
+    ],
+    [
+     "to buy",
+     "comprar"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/sesenta": {
+   "why": "Sixty on its own, and two of its three examples say the same thing - he must be over sixty, he is around sixty years old - so one of three slots was spent repeating the other.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "sixty"
+     ]
+    ],
+    [
+     "note",
+     [
+      "the tens: veinte, treinta, cuarenta, cincuenta, sesenta, setenta, ochenta, noventa",
+      "los años sesenta — the sixties"
+     ]
+    ]
+   ],
+   "bold": [
+    "sesenta"
+   ],
+   "dropEx": [
+    "Él es un hombre de unos sesenta años."
+   ],
+   "ex": [
+    [
+     "El billete cuesta sesenta euros.",
+     "The ticket costs sixty euros."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/trece": {
+   "why": "Thirteen, and no mention of the one thing a Spanish speaker associates with it: martes y trece is the unlucky day, not Friday the thirteenth, which the deck now says on el martes and should say from this end too.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "thirteen"
+     ]
+    ],
+    [
+     "note",
+     [
+      "martes y trece is the Spanish unlucky day, not Friday the thirteenth",
+      "11 to 15 have their own words: once, doce, trece, catorce, quince; 16 upward are compounds"
+     ]
+    ]
+   ],
+   "bold": [
+    "trece"
+   ],
+   "rebold": true
+  },
+  "delea1/lo": {
+   "why": "Read again in the batch review. An INSERT only fires when the card is absent, so it cannot update one that is already in the deck: the addition has to be a note, keyed by the same headword, which the applier runs over every card after the insert block. What it was missing is lo que, the commonest thing the neuter lo does.",
+   "senses": [
+    [
+     "pronoun",
+     [
+      "it, him, you (formal) — direct object"
+     ]
+    ],
+    [
+     "article",
+     [
+      "the … thing, what is … (neuter, before an adjective: lo importante)",
+      "lo que — what, the thing that: no entiendo lo que dices"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "feminine",
+     "la"
+    ],
+    [
+     "plural",
+     "los, las"
+    ]
+   ],
+   "bold": [
+    "lo",
+    "Lo"
+   ],
+   "rebold": true
+  },
+  "delea1/como": {
+   "why": "Read again in the batch review. An INSERT only fires when the card is absent, so it cannot update one that is already in the deck: the addition has to be a note, keyed by the same headword, which the applier runs over every card after the insert block. It needed como si, which is the one construction of this word that changes the mood of the verb after it.",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "as, like",
+      "tan … como — as … as",
+      "since, as (giving a reason)"
+     ]
+    ],
+    [
+     "note",
+     [
+      "como si takes the imperfect subjunctive: como si fuera fácil"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "with an accent, the question word",
+     "cómo"
+    ],
+    [
+     "also a verb form",
+     "como — I eat, from comer"
+    ]
+   ],
+   "bold": [
+    "como",
+    "Como"
+   ],
+   "rebold": true
+  },
+  "delea1/donde": {
+   "why": "Read again in the batch review. An INSERT only fires when the card is absent, so it cannot update one that is already in the deck: the addition has to be a note, keyed by the same headword, which the applier runs over every card after the insert block. It needed adonde, which is the form used when there is movement, and which its own examples do not show.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "where (as a relative: la casa donde vivo — the house where I live)"
+     ]
+    ],
+    [
+     "note",
+     [
+      "movement takes adonde or a donde: el pueblo adonde vamos"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "with an accent, the question word",
+     "dónde"
+    ]
+   ],
+   "bold": [
+    "donde",
+    "Donde"
+   ],
+   "rebold": true
+  },
+  "delea1/cuando": {
+   "why": "Read again in the batch review. An INSERT only fires when the card is absent, so it cannot update one that is already in the deck: the addition has to be a note, keyed by the same headword, which the applier runs over every card after the insert block. It needed the rule its own first example follows and never states: a future event takes the subjunctive after cuando.",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "when",
+      "whenever"
+     ]
+    ],
+    [
+     "note",
+     [
+      "a future event takes the subjunctive after cuando: te llamo cuando llegue, not cuando llego"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "with an accent, the question word",
+     "cuándo"
+    ]
+   ],
+   "bold": [
+    "cuando",
+    "Cuando"
+   ],
+   "rebold": true
   }
  },
  "insert": {
