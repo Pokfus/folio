@@ -108,6 +108,13 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G3 — twelve more**: `gw-031` Uganda, `gw-033` Algeria, `gw-034` Iraq, `gw-035`
+  Argentina, `gw-038` Yemen, `gw-039` Morocco, `gw-040` Angola, `gw-041` Ukraine, `gw-043` Uzbekistan,
+  `gw-044` Malaysia, `gw-045` Saudi Arabia and `gw-046` Mozambique, with all twelve date lines rewritten
+  off the same research. **`gw-036` Afghanistan is DEFERRED for a reason of its own** — its AQUASTAT PDF
+  is served as an HTML page (see below) — and `gw-032` Spain, `gw-037` Canada and `gw-042` Poland join
+  the OECD deferral list, which now stands at eight: `gw-003`, `gw-019`, `gw-021`, `gw-023`, `gw-025`,
+  `gw-032`, `gw-037`, `gw-042`.
 - **2026-09-06, batch G2 — twelve more**: `gw-015` DR Congo, `gw-016` Vietnam, `gw-017` Iran, `gw-018`
   Turkey, `gw-020` Thailand, `gw-022` Tanzania, `gw-024` South Africa, `gw-026` Kenya, `gw-027` Myanmar,
   `gw-028` Colombia, `gw-029` South Korea and `gw-030` Sudan, on the same recipe, with eight date lines
@@ -172,6 +179,35 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G3 found
+
+- **⚠ AN AQUASTAT PDF CAN BE SERVED AS AN HTML PAGE, AND THAT IS WHY `gw-036` IS DEFERRED.**
+  `https://www.fao.org/3/ca0357en/CA0357EN.pdf` — Afghanistan's, read out of the country page rather than
+  composed — 301-redirects and hands back 1.6 MB of `<!DOCTYPE html>`, so a PDF reader fails on it with
+  "Invalid PDF structure". The AQUASTAT factsheets on `storage.googleapis.com` are data tables with no
+  prose at all, so there is no second route to the same material. **Test the file, not the status code**:
+  a 200 on a `.pdf` address is not a PDF, and the extractor's own error is what says so.
+- **THE CBD COUNTRY PROFILES ARE THE THIRD SOURCE**, `cbd.int/countries/profile?country=<cc>`, open and
+  per country. Their "Biodiversity Facts" section is prose about a country's own ecosystems — Morocco's
+  24,000 animal and 7,000 plant species with a fifth of the vascular plants endemic, Mozambique's five
+  phytogeographical regions and three hotspots, Angola's escarpment — which is landscape a statistical
+  profile does not carry. **Several are marked "still draft… subject to final approval"**; cite one for
+  what it is.
+- **A MILESTONE CAN BE THE COUNTRY'S OWN SUBJECT RATHER THAN AMERICA'S.** The Barbary Wars page describes
+  what the Barbary states were and how they were governed; the Gulf War page gives Iraq's war with Iran,
+  its 37 billion dollars of Gulf debt and why that turned into the invasion of Kuwait; the oil embargo
+  page describes OPEC's 1973 action and the pricing system it broke. Three of G3's cards rest on one of
+  those for a sentence that names no American at all.
+- **A CAPITAL THAT IS ALSO THE LARGEST CITY TRIPS RULE 2 TWICE, AND SOMETIMES THE HISTORY NEEDS IT.**
+  `gw-033` had Algiers in two sentences — the Barbary state and the 1848 departments — and both were
+  reworded to the coast and the northern territory. The country's own name for its capital is often the
+  natural subject of its colonial history, so this is the rule's commonest live collision.
+- **THE WORLD BANK'S CLIMATE API IS OPEN AND IS THE ROUTE THE OECD DEFERRALS WILL TAKE.**
+  `cckpapi.worldbank.org` answers where `cia.gov` is still an empty JavaScript shell and
+  `climate-adapt.eea.europa.eu` carries policy tables rather than description. The national met services
+  answer too (Met Office, DWD, Météo-France, AEMET, ISPRA). What none of them supplies is LANDFORM, which
+  is what AQUASTAT was carrying, so those eight are deferred rather than half-solved.
 
 ## What G2 found
 

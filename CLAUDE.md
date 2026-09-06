@@ -1245,18 +1245,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1 and G2 have shipped — twenty-five backgrounds rewritten** (`gw-001`–`gw-030`, less `gw-003`
-    and the four European countries), each five sentences of landform, water and climate over five of
-    the country's own history, with eleven date lines rewritten out of the same research. Two sources
-    make the pass possible and both are per country. **The FAO's AQUASTAT country profile** carries the
+    **G1, G2 and G3 have shipped — thirty-seven backgrounds rewritten** (`gw-001`–`gw-046`, less the
+    deferrals below), each five sentences of landform, water and climate over five of the country's own
+    history, with twenty-three date lines rewritten out of the same research. Three sources make the
+    pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
-    citation on page 1; **it has no profile for the United States, Germany, the United Kingdom, France
-    or Italy**, which is why those cards are deferred. **The Constitute Project** carries an English
-    text of nearly every constitution on earth, whose opening articles state the form of the state, its
-    territory and its founding claim. **AND AN AQUASTAT URL MUST BE READ, NEVER COMPOSED**: eight of
-    G2's twelve guesses were wrong and one pointed at another country's profile. Rules 1 and 3 remain
-    open on about 390 cards.
+    citation on page 1. **The Constitute Project** carries an English text of nearly every constitution
+    on earth, whose opening articles state the form of the state, its territory and its founding claim.
+    **The CBD's country profiles** carry a country's own ecosystems in prose, which no statistical
+    profile does. **AND AN AQUASTAT URL MUST BE READ, NEVER COMPOSED**: eight of G2's twelve guesses
+    were wrong and one pointed at another country's profile — and **a 200 on a `.pdf` address is not a
+    PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **EIGHT
+    HIGH-INCOME COUNTRIES HAVE NO AQUASTAT PROFILE AT ALL** (`gw-003`, `gw-019`, `gw-021`, `gw-023`,
+    `gw-025`, `gw-032`, `gw-037`, `gw-042`) and are deferred rather than half-solved: the World Bank's
+    open climate API and the national met services answer for the weather, and nothing reachable
+    carries the LANDFORM. Rules 1 and 3 remain open on about 380 cards.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |
