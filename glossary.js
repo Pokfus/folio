@@ -4229,7 +4229,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tyranny": ["tyrant"],
 "Life_(biology)": ["characteristics of life","definition of life"],
 "Biological_organisation": ["levels of biological organisation","levels of organisation"],
-"Cell_(biology)": ["living cell","biological cell"],
+"Cell_(biology)": ["cell","living cell","biological cell"],
 "Homeostasis": ["homeostatic"],
 "Metabolism": ["metabolic pathway","anabolism","catabolism"],
 "Null_hypothesis": ["alternative hypothesis"],
