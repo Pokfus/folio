@@ -456,6 +456,53 @@ one costume, one city or one moment. A population pyramid exists for each state 
 neither together. **Ship without one and say so**, rather than installing a picture that makes a claim
 the card does not.
 
+## What the third ten found (Sep 2026)
+
+`ko-021`–`ko-030` open `ko-prehistory`, and the batch was decided by one discovery.
+
+**THE WHOLE BACK RUN OF *ASIAN PERSPECTIVES* IS OPEN, AND IT IS THE SPINE OF EVERY PREHISTORY CARD THIS
+COLLECTION WILL WRITE.** The University of Hawai'i Press journal — the leading English-language journal
+on East Asian archaeology — deposits its articles in **ScholarSpace**, the university's repository, and
+they are free PDFs. `muse.jhu.edu`, which its DOIs resolve to, is shut here; the repository is not.
+Search it through its DSpace API rather than its web UI, which is a JavaScript app:
+`scholarspace.manoa.hawaii.edu/server/api/discover/search/objects?query=<terms>` returns items with
+their UUIDs, `…/server/api/core/items/<uuid>` gives the durable **handle**, and
+`…/server/api/core/items/<uuid>/bundles` leads to the PDF. **Cite the handle**
+(`https://hdl.handle.net/10125/<n>`), which is permanent and resolves to a real item page, rather than
+the bitstream UUID, which is not. *Asian Perspectives* 54, no. 1 (2015) is a whole special issue on
+Korean prehistory and carried five of this batch's sources on its own.
+
+**Two card answers were renamed to keep an adjacent pair from being one word apart.** The plan's
+ko-023/ko-024 and ko-029/ko-030 each pair a period with the pottery it is named after, so the obvious
+answers would have been *Jeulmun period* beside *Jeulmun pottery* and *Mumun period* beside *Mumun
+pottery* — two cards in a row whose blanks differ by a single word. They ship as **Jeulmun period** and
+**comb-pattern pottery**, **Korean Bronze Age** and **Mumun pottery**, which is also how the literature
+in fact talks: *jeulmun* means comb-pattern, and both cards say so.
+
+**A DIG DATE IN A DATE LINE IS THE FAULT `CLAUDE.md` WARNS ABOUT AND IT FIRED HERE.** `ko-022`'s date
+line opened with `Found | 1978`, which is right about the discovery and made the card sort at **1978
+CE**, at the wrong end of a deck running from 350,000 BP — `cardYears` reads the largest plain year it
+can find. It now reads `Deposits | up to c. 350,000 BP`, and `ko-026` lost its `Excavated | from the
+1960s` for the same reason, both discovery facts living in the abstract where the history-focus rule
+puts them. **Read a new card's sort year back through `cardYears` before committing it**; nothing in the
+pipeline reports this.
+
+**The genuine disagreement in this deck is whether Bronze Age farming grew out of Neolithic farming, and
+it is carded rather than settled.** Counting pit houses against radiocarbon dates shows sedentary
+millet-growing settlements rising through the late fourth millennium BCE and almost vanishing from
+central and southern Korea after the late third, which is evidence for a break; a comparable decline in
+Japan at the same time has been linked to a wider northern Eurasian downturn. `ko-023`, `ko-025`,
+`ko-027` and `ko-028` all state the two models and say which way the counts point.
+
+**Ten more glossary terms shipped with the cards** — `Paleolithic_Korea`, `Jeongok-ri`,
+`Jeulmun_pottery_period`, `Comb-pattern_pottery`, `Pit-house`, `Amsa-dong`, `Foxtail_millet`,
+`Paddy_field`, `Bronze_Age_Korea` and `Mumun_pottery`. Three of them are **general terms that arrived
+through a Korean card** and are written generally, as `Periodization` was in the batch before:
+`Pit-house`, `Paddy_field` and `Foxtail_millet` belong to nobody. `Paleolithic_Korea` follows the
+existing `Neolithic_China` and `Bronze_Age_Italy` pattern rather than a Wikipedia slug, and is spelled
+the American way to match `Paleolithic`, with `Palaeolithic Korea` as an alias — the spelling switch
+carries `palaeo`/`paleo` both ways, so a reader sees whichever they have chosen.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -528,12 +575,12 @@ where its findings go.
 
     ko-021  The Palaeolithic in Korea
     ko-022  Jeongok-ri and the Korean hand axe
-    ko-023  The Korean Neolithic
-    ko-024  Jeulmun pottery
-    ko-025  Neolithic settlement in Korea
+    ko-023  The Korean Neolithic, the Jeulmun period
+    ko-024  Jeulmun, or comb-pattern, pottery
+    ko-025  Neolithic settlement in Korea, and the pit house
     ko-026  Amsa-dong
-    ko-027  Early agriculture in Korea
-    ko-028  The arrival of rice in Korea
+    ko-027  Early agriculture in Korea, and foxtail millet
+    ko-028  The arrival of rice in Korea, and the paddy field
     ko-029  The Korean Bronze Age
     ko-030  Mumun pottery
     ko-031  Bronze Age society in Korea

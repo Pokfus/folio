@@ -996,12 +996,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   has **no page for North Korea** because the United States has never recognised it, and the loss that
   matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Almost none of its
   thousand topics matched an existing glossary key**, so expect the glossary to grow faster here than
-  anywhere since Greece — `ko-001`–`ko-020` alone added eighteen terms. **The plan's claim that NOT ONE
+  anywhere since Greece — `ko-001`–`ko-030` alone added twenty-eight terms. **The plan's claim that NOT ONE
   matched was wrong by one, and the exception is the useful half**: `Seoul` was already a cited term, so
   `ko-010` reuses it — **the pairing rule is satisfied by a term that already exists, and
   `add-glossary.js` overwrites in silence, so CHECK before running it.** The next card to write is the
   lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the
-  lookup. **`ko-001` to `ko-020` have shipped** (Sep 2026) — the whole of `ko-land` — so the
+  lookup. **`ko-001` to `ko-030` have shipped** (Sep 2026) — the whole of `ko-land`, and the opening of
+  `ko-prehistory` — so the
   collection is live and its 42 empty decks are coming-soon automatically, `isComingSoon` being true for
   a node holding no card. **Its first ten are geography rather than events, and that shaped the
   sourcing**: what carried them was UNdata and the World Bank for figures, the Office of the Historian
@@ -1024,7 +1025,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   question's three answer terms are taken by later cards and the *Hanguk*/*Chosŏn* split is in nothing
   openable), and **a disputed island is keyed under the neutral name** — `Liancourt_Rocks`, reached by
   `Dokdo` and `Takeshima` — because the glossary is shared with the Japan collection, while the rivers
-  keep Folio's own `Amnok_River` with `Yalu` an alias. Not part of the site.
+  keep Folio's own `Amnok_River` with `Yalu` an alias.
+  **`ko-021`–`ko-030` opened the prehistory deck on one find that changes the rest of it: the WHOLE BACK
+  RUN OF *ASIAN PERSPECTIVES* IS OPEN**, deposited by the University of Hawai'i Press in its own
+  repository, where the Project MUSE copies its DOIs resolve to are shut. Search it through the DSpace
+  API rather than the JavaScript web UI —
+  `scholarspace.manoa.hawaii.edu/server/api/discover/search/objects?query=…`, then `…/core/items/<uuid>`
+  for the durable handle — and **cite the handle** (`hdl.handle.net/10125/<n>`), never the bitstream
+  UUID. Volume 54, no. 1 (2015) is a special issue on Korean prehistory and carried five sources by
+  itself. That batch also relearned a fault this file already warns about: **`ko-022`'s date line opened
+  `Found | 1978` and the card sorted at 1978 CE**, at the wrong end of a deck running from 350,000 BP, so
+  **read a new card's sort year back through `cardYears` before committing it** — and it renamed two
+  answer terms so that no two adjacent cards differ by one word (`Jeulmun period` beside `comb-pattern
+  pottery`, `Korean Bronze Age` beside `Mumun pottery`). Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -5355,7 +5368,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
-| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 20 cards, contiguous — next is `ko-021` |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 30 cards, contiguous — next is `ko-031` |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
