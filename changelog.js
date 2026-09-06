@@ -35,17 +35,17 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.662", released: "2026-09-06T14:58Z" };
+window.FOLIO_VERSION = { v: "1.663", released: "2026-09-06T16:30Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-06",
     t: "The United States collection opens",
     items: [
-      "<b>The United States collection has opened</b> with its first ninety cards, on Native America from before contact to the reservations and the boarding schools.",
+      "<b>The United States collection has opened</b> with its first hundred cards, on Native America from before contact to tribal sovereignty today.",
       "<b>Ten new cards in the Biology collection</b>, opening its chapter on the cell.",
       "<b>The word <i>cell</i> now opens its own glossary entry wherever it appears</b>, which it did not before.",
-      "<b>88 more glossary terms</b>, written for the new cards’ answers.",
+      "<b>98 more glossary terms</b>, written for the new cards’ answers.",
     ],
   },
   {
@@ -512,7 +512,7 @@ window.CHANGELOG = [
       "A line printed twice in Thucydides' account of the battle of Mantinea has been removed, restoring what the translator wrote.",
       "Four cards and two glossary terms now carry a picture of their own.",
       "Corrections to three of the World History cards and two of those terms, where a date or a detail had run ahead of the source behind it.",
-      "<b>88 more glossary terms</b> — the writers, gods and monsters of epic, the lands they name, the ages of the past, the materials worked and animals kept, and archaeology’s own words.",
+      "<b>98 more glossary terms</b> — the writers, gods and monsters of epic, the lands they name, the ages of the past, the materials worked and animals kept, and archaeology’s own words.",
       "<b>Thirty-seven terms already here now open from more of the cards’ own words</b> — adjectives, surnames, regional names, the continents, and phrases the cards write in ordinary sentence case.",
       "<b>Your shared decks are now the same on every device you are signed in on</b> — one you add arrives, one you remove goes, and both keep the settings you gave them.",
       "A shared deck deleted by its author still stays on your device, as it always has.",

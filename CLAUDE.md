@@ -1007,7 +1007,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   sovereignty in the present, and it covers **the territory that became the United States**, so Spanish
   Florida, French Louisiana and New Netherland are in it. The next card to write is the lowest `us-NNN` not
   yet in `data.js`; see the "THE UNITED STATES" bullet under "Generating cards & glossary entries". **Its
-  first ninety cards have shipped**, so the collection is live and its 32 empty decks are coming-soon
+  first hundred cards have shipped**, so the collection is live and its 32 empty decks are coming-soon
   automatically, `isComingSoon` being true for a node holding no card. Not part of the site.
 - `docs/ww2-card-plan.md` — the **1000-card running order for the Second World War collection** (`ww2`):
   every card's number, topic and deck, fixed in advance across 8 decks and 30 leaf decks. The eighth of the
@@ -5319,7 +5319,7 @@ lookup.
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, contiguous — next is `wh-301` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 500 cards, contiguous — next is `gr-501` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 100 cards, contiguous — next is `rm-101` |
-| United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 90 cards, contiguous — next is `us-091` |
+| United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 99 cards, SCATTERED — next is `cnh-042`, an early gap; the collection is open to study |

@@ -432,7 +432,7 @@ matters.
     us-039  Estimating the pre-contact population of North America
     us-040  How pre-contact America is known
 
-**Twenty-four decisions made while writing `us-001`–`us-090` (Sep 2026), recorded here because the
+**Twenty-nine decisions made while writing `us-001`–`us-100` (Sep 2026), recorded here because the
 lines above no longer describe them exactly.**
 
 **`us-010` was renamed** from *The domestication of maize* to *Maize and its spread into North
@@ -700,16 +700,56 @@ pursuit of a policy of cultural assimilation that coincided with Indian territor
     us-088  Allotment
     us-089  The Indian boarding school
     us-090  Carlisle Indian Industrial School
-    us-091  What the boarding schools did
+    us-091  The Meriam Report
     us-092  The Ghost Dance
     us-093  Wounded Knee Massacre
-    us-094  Native Americans and the First World War
+    us-094  The Choctaw code talkers
     us-095  Indian Citizenship Act
     us-096  Indian Reorganization Act
-    us-097  Indian termination policy
+    us-097  Termination
     us-098  American Indian Movement
     us-099  Wounded Knee Occupation
-    us-100  Tribal sovereignty in modern America
+    us-100  Tribal sovereignty
+
+
+**`us-091` was renamed** from *What the boarding schools did* to *The Meriam Report*. The old line
+names a subject and not an answer term, and the citable, dated thing that says what the boarding
+schools did is the 1928 survey *The Problem of Indian Administration*, whose chapter 1 is open in full
+at the National Indian Law Library. It is also the card that carries the eleven-cents-a-day food
+allowance and the half-day of child labour in the survey's own words, which no summary states as
+plainly.
+
+**`us-094` was renamed** from *Native Americans and the First World War* to *The Choctaw code talkers*.
+The broad line has no answer term a reader could be asked for; the code talkers are specific, are the
+distinctive thing Native soldiers did in that war, and are documented twice over — by William C.
+Meadows in the Oklahoma encyclopedia and by Congress's own findings in the Code Talkers Recognition
+bill. The enlistment of men who were not citizens is carded inside it, and leads into `us-095`.
+
+**HOW MANY CHOCTAW CODE TALKERS THERE WERE IS A RANGE, AND THE CARD GIVES IT AS ONE.** Congress's
+findings say a commander "recruited 18 Choctaw Indians"; the Oklahoma Military Hall of Fame lists
+nineteen; the Oklahoma encyclopedia names eight originals joined later by eleven more. All three are
+open, none is obviously wrong, and the sources are counting slightly different things — who was
+recruited, who served, who has since been honoured. The card says so with whose each figure is, which
+is the plan's rule about contested numbers applied to a number nobody would think to check.
+
+**THREE CITATIONS IN THIS BATCH WERE DRAFTED WITH FABRICATED AUTHORS AND CAUGHT BEFORE SHIPPING.** The
+Oklahoma encyclopedia's *Oklahombi, Joseph* was drafted as Larry O'Dell's and is Corie Delashaw's; the
+*South Dakota History* article on the historiography of Wounded Knee was drafted as Rex Alan Smith's
+and is Michael A. Sievers's; the one on the 1973 occupation was drafted as Elizabeth S. Grobsmith's and
+is Rolland Dewing's. Every one of the three URLs resolved perfectly throughout, and every name reads
+like the name of somebody who would have written that piece — which is exactly the N4 finding in the
+glossary plan, and the reason to open the work and read the byline rather than composing one. The
+Oklahoma encyclopedia prints its own preferred Chicago citation at the foot of every entry, and a
+*South Dakota History* PDF carries the author's name in capitals under the title.
+
+**`nlm.nih.gov/nativevoices` IS THE BEST-COVERED OPEN SOURCE THIS COLLECTION HAS FOUND FOR THE MODERN
+DECK.** The National Library of Medicine's *Native Voices* timeline is a federal exhibition of several
+hundred dated entries, each a short sourced paragraph on its own page at `/timeline/<n>.html`, and it
+covers the Ghost Dance, Wounded Knee, the boarding schools, the Citizenship Act, the Reorganization
+Act, termination, the American Indian Movement, the 1973 occupation and self-determination — nine of
+this batch's ten cards. The page numbers are not in any index that could be searched for, so they were
+found by fetching a range and reading the headings; the relevant ones are 374, 377, 378, 385, 398, 418,
+431, 452, 453, 488, 532, 535 and 539.
 
 ## Colonies and Empire, 1565–1763
 

@@ -225,7 +225,17 @@ for (const c of cards) {
 
   // 3 + 4 + 5
   if (c.image && c.image.src) {
-    const file = decodeURIComponent(String(c.image.src).split("/").pop()).replace(/^\d+px-/, "").toLowerCase();
+    /* THE KEY IS THE SOURCE FILE, NOT THE THUMBNAIL'S NAME. A thumb URL is
+       …/thumb/<a>/<ab>/<FILE>/<width>px-<FILE>, so the last segment normally carries the file name with a
+       width prefix — but Commons TRUNCATES a long one to the literal "1920px-thumbnail.jpg", and stripping
+       the prefix then leaves every such picture keyed "thumbnail.jpg". Two entirely different pictures
+       compare equal, which reported the Hopewell mica face and a 1930s Senate hearing as one photograph.
+       The segment BEFORE the width is the real file name and is never truncated; fall back to the last
+       segment for a URL that is not a thumb. */
+    const parts = String(c.image.src).split("/");
+    const wIdx = parts.findIndex((p) => /^\d+px-/.test(p));
+    const file = decodeURIComponent(wIdx > 0 ? parts[wIdx - 1] : parts[parts.length - 1])
+      .replace(/^\d+px-/, "").toLowerCase();
     if (!imgByFile.has(file)) imgByFile.set(file, []);
     imgByFile.get(file).push(id);
     if (/via wikimedia commons|public domain,|\bCC[ -]?BY\b|\bCC0\b/i.test(String(c.image.desc || "")))

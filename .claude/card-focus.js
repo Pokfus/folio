@@ -84,7 +84,12 @@ const NOT_A_SURNAME = new Set(["Bryn", "Mawr", "Classical", "Review", "Press", "
   "The", "And", "France", "Fels", "Hohle", "Agora", "Athenian", "Anzick", "Sands", "Grotte", "Sahul", "Dartmouth", "Hanover", "Tufts",
   // A CORPORATE AUTHOR ends on a place, and the place is what the last-token rule takes for a surname:
   // "Archaeological Survey of India" left every question naming India reading as one naming a scholar.
-  "Archaeological", "Survey", "India"]);
+  "Archaeological", "Survey", "India",
+  // …AND IT NEED NOT END ON A PLACE. "U.S. Congress" is the author of a statute, so every question in the
+  // United States collection that says what Congress did read as one naming a scholar. Congress is not a
+  // person and never a surname, so the token is safe to drop outright; the rule it guards is about the
+  // MODERN ARGUER, and a legislature is neither an arguer nor modern in the sense the rule means.
+  "Congress"]);
 
 /* ANCIENT AUTHORS ARE NOT SCHOLARS, and the distinction is the whole point of the rule. Herodotus and
    Pausanias are cited here as SOURCES FOR THE PAST — a question that names one is teaching history, and
