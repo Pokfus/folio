@@ -2141,7 +2141,8 @@ window.GLOSSARY = {
 "Cofactor_(biochemistry)": "A cofactor is a non-protein component that an enzyme requires in order to work, held either loosely by weak interactions or permanently by covalent bonds.<sup class=\"fn\" data-fn=\"1\"></sup> Metal ions are the commonest kind, and the enzyme that assembles DNA will build nothing without a zinc ion bound to it, while a permanently attached organic group such as the haem carried by haemoglobin is called a prosthetic group.<sup class=\"fn\" data-fn=\"2\"></sup> The word is used at two widths: some writers reserve it for the inorganic ions alone, and others let it cover every non-protein helper an enzyme needs, so that a single reaction may call on half a dozen of them at once.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Coenzyme": "A coenzyme is a small organic molecule that works alongside an enzyme and is required for the reaction it catalyses, most often by carrying a chemical group or a pair of electrons from one reaction to another.<sup class=\"fn\" data-fn=\"1\"></sup> Unlike a substrate it is not permanently altered by the reaction it takes part in, but is recycled and used again, so that nicotinamide adenine dinucleotide picks up electrons from one molecule and hands them to a second before returning to its original state.<sup class=\"fn\" data-fn=\"1\"></sup> Most are made from vitamins, which is why animals that have lost the ability to synthesise those compounds must obtain them from the diet.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Biocatalysis": "Biocatalysis is the deliberate use of enzymes, or of the cells containing them, to carry out chemical transformations for practical ends rather than only within living tissue.<sup class=\"fn\" data-fn=\"1\"></sup> Its advantages over conventional chemistry are that reactions run under mild conditions of temperature and acidity, proceed with high catalytic efficiency and yield products that degrade in the environment; its central difficulty is that industrial conditions destabilise proteins and shorten how long a batch of enzyme lasts.<sup class=\"fn\" data-fn=\"1\"></sup> Fixing the enzyme to a solid support so that it can be recovered and reused is the usual remedy, and the method chosen alters the enzyme's behaviour as well as the cost.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Cell_theory": "Cell theory is the statement that all living things are composed of one or more cells, that the cell is the basic unit of structure and function in life, and that new cells arise only from cells that already exist.<sup class=\"fn\" data-fn=\"1\"></sup> It was assembled in the late 1830s from work on plant and animal tissue by investigators who found they were describing the same unit in both kingdoms, and was refined by others afterwards.<sup class=\"fn\" data-fn=\"1\"></sup> Its third clause is the most consequential, since it makes every organism now living the end of an unbroken sequence of divisions reaching back to the earliest cells.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Cell_theory": "Cell theory is the statement that all living things are composed of one or more cells, that the cell is the basic unit of structure and function in life, and that new cells arise only from cells that already exist.<sup class=\"fn\" data-fn=\"1\"></sup> It was assembled in the late 1830s from work on plant and animal tissue by investigators who found they were describing the same unit in both kingdoms, and was refined by others afterwards.<sup class=\"fn\" data-fn=\"1\"></sup> Its third clause is the most consequential, since it makes every organism now living the end of an unbroken sequence of divisions reaching back to the earliest cells.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Micrographia": "<i>Micrographia</i> is a folio published in London in 1665 presenting engraved observations made through a compound microscope, and it is where the word cell entered biology.<sup class=\"fn\" data-fn=\"1\"></sup> Its author, then Curator of Experiments to the Royal Society, cut sections of cork and of the pith of eight further named plants under indirect light, reading the rows of cavities as narrow pipes divided by valves that regulated fluid flow; a segment of pipe between two valves is what he called a cell.<sup class=\"fn\" data-fn=\"2\"></sup> The story that the name came from a monastery's rooms has no basis in the book, which mentions neither monks nor monasteries.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2974,7 +2975,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hippodamus_of_Miletus": "5th century BCE",
 "Parthenon": "447 – 432 BCE",
 "Athena_Parthenos": "438 BCE",
-"Cell_theory": "stated by 1840"
+"Cell_theory": "stated by 1840",
+"Micrographia": "1665"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6467,7 +6469,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Cofactor_(biochemistry)": ["object","science","biology","chemistry"],
 "Coenzyme": ["object","science","biology","chemistry"],
 "Biocatalysis": ["concept","science","biology","chemistry"],
-"Cell_theory": ["theory","science","biology"]
+"Cell_theory": ["theory","science","biology"],
+"Micrographia": ["text","science","biology","history"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
