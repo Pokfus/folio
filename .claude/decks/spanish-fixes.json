@@ -7491,6 +7491,235 @@
     ]
    ],
    "rebold": true
+  },
+  "delea1/abrir": {
+   "why": "Its participle is irregular - abierto, not abrido - and the card never said so, the same gap escribir had. Its three glosses were to open, open up and to unlock, of which the second is the first again and the third is not what abrir means on its own. Two of its three examples also opened the same window.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to open"
+     ]
+    ],
+    [
+     "verb, reflexive",
+     [
+      "abrirse — to open (of a door, a shop, a flower)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "irregular participle",
+     "abierto"
+    ],
+    [
+     "the opposite",
+     "cerrar"
+    ]
+   ],
+   "dropEx": [
+    "Hacía calor, así es que abrí la ventana."
+   ],
+   "ex": [
+    [
+     "¿A qué hora abren las tiendas?",
+     "What time do the shops open?"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/interior": {
+   "why": "Filed as an adjective and glossed inner, interior - and TWO of its own three examples are the noun: espacio en su interior, decoración de interiores. The third is la ropa interior, underwear, which is the compound a reader is likeliest to meet and which the card did not carry either.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "inner, inside"
+     ]
+    ],
+    [
+     "noun, masculine",
+     [
+      "el interior — the inside, the interior"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la ropa interior — underwear"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "interiores"
+    ],
+    [
+     "the outside",
+     "el exterior"
+    ]
+   ],
+   "bold": [
+    "interior",
+    "interiores"
+   ],
+   "rebold": true
+  },
+  "delea1/el apartamento": {
+   "why": "flat, apartment - and no word about the one thing that decides which of them a reader will hear: in Spain an ordinary flat is el piso, and apartamento is the smaller or the holiday sort.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "flat, apartment (in Spain usually a small one or a holiday let)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los apartamentos"
+    ],
+    [
+     "an ordinary flat in Spain",
+     "el piso"
+    ]
+   ],
+   "bold": [
+    "apartamento",
+    "apartamentos"
+   ],
+   "rebold": true
+  },
+  "delea1/nueve": {
+   "why": "Right as far as it went, and every number card in the deck is worth its ordinal, which is the form a reader meets on a floor button and in a date.",
+   "forms": [
+    [
+     "ordinal",
+     "noveno, novena"
+    ]
+   ],
+   "bold": [
+    "nueve"
+   ],
+   "rebold": true
+  },
+  "delea1/traer": {
+   "why": "to bring, to bring about, cause, occasion - the last three are one marginal sense written out three ways - while the thing that actually makes this verb hard was missing: traer is bringing something HERE, and llevar is taking it away from here, a distinction English does not make with one pair of words.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to bring — bringing something towards where the speaker is"
+     ]
+    ],
+    [
+     "verb, phrase",
+     [
+      "llevar is its opposite: taking something away from here"
+     ]
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/suyo": {
+   "why": "his, hers, its, theirs - and not yours, which is what it means whenever the person is addressed as usted, and is the reason this word exists in a beginner deck at all. Nothing said it agrees with the thing owned rather than the owner, nor that it takes the article: el suyo, la suya.",
+   "senses": [
+    [
+     "pronoun",
+     [
+      "his, hers, its, theirs",
+      "yours (of usted, ustedes)"
+     ]
+    ],
+    [
+     "note",
+     [
+      "it agrees with the thing owned, not the owner: la suya, los suyos",
+      "with the article when it stands alone: el suyo es más grande",
+      "de él, de ella, de usted where suyo would be ambiguous"
+     ]
+    ]
+   ],
+   "bold": [
+    "suyo",
+    "suya",
+    "suyos",
+    "suyas"
+   ],
+   "rebold": true
+  },
+  "delea1/rojo, roja": {
+   "why": "Correct, and missing the two things a reader needs before the colour is any use: that going red is ponerse rojo, which its own second example does, and that red wine is not vino rojo but vino tinto.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "red"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ponerse rojo — to blush, to go red",
+      "el vino tinto — red wine, never vino rojo"
+     ]
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la entrada": {
+   "why": "entrance, entry, entering, admission, entryway - five near-synonyms for one sense - while the sense its own second example uses, the TICKET, was not listed at all: las entradas salen a la venta el lunes.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "entrance, way in",
+      "ticket (for a cinema, a concert, a match)",
+      "starter, first course (on a menu)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las entradas"
+    ],
+    [
+     "the verb",
+     "entrar"
+    ],
+    [
+     "the opposite",
+     "la salida"
+    ]
+   ],
+   "bold": [
+    "entrada",
+    "entradas"
+   ],
+   "rebold": true
+  },
+  "delea1/la pareja": {
+   "why": "couple, pair, partner - and silent on the fact that trips up every learner: la pareja is feminine whoever it names, so a man is still mi pareja, and it is the ordinary word for the person you live with whether you are married or not.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "couple; the two of a pair",
+      "partner, the person you are with — feminine whoever it names: mi pareja es alto"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en parejas — in pairs"
+     ]
+    ]
+   ],
+   "rebold": true
   }
  },
  "insert": {
@@ -7741,7 +7970,8 @@
    "interesante",
    "el edificio",
    "el banco",
-   "la radio"
+   "la radio",
+   "aquello"
   ]
  }
 }
