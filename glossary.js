@@ -2324,7 +2324,17 @@ window.GLOSSARY = {
 "Zhou_reckoning_of_the_year": "The Zhou reckoning of the year is the lunisolar calendar the Zhou dynasty of China dated its documents by, in which the months follow the moon and an extra month is inserted at the year's end to keep them with the seasons.<sup class=\"fn\" data-fn=\"1\"></sup> Days were named by a cycle of 60 formed from ten signs paired with twelve, inherited from earlier practice and not applied to numbering years until the Han.<sup class=\"fn\" data-fn=\"2\"></sup> Between day and month stand four terms for phases of the moon, and whether these named stretches of the lunation or fixed days is argued, which is one reason dates in the period are reconstructed rather than read off.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Zhou_ritual_reform": "The Zhou ritual reform is the reorganisation of bronze ritual assemblages that scholars identify in the later Western Zhou period of China, when what a man might own became a matter of declared rank.<sup class=\"fn\" data-fn=\"1\"></sup> Its clearest mark is a sumptuary scale built on the ding tripod, nine allowed to the king, seven to the rank below, five to the next and three or one to the next, with other vessel types specified the same way.<sup class=\"fn\" data-fn=\"1\"></sup> Reading the change as a consolidation has been qualified from within the evidence, since vessels made at the centre in those years take unorthodox shapes and belong to aristocratic lineages rather than the royal house.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Zhou_royal_ritual": "Zhou royal ritual is what the kings of the Zhou dynasty of China performed in the ancestral temple, and it is the setting of nearly all the writing the period left.<sup class=\"fn\" data-fn=\"1\"></sup> Its core was an offering of food and drink to the royal dead in bronze vessels cast for the purpose, whose number and type were fixed by the rank of the man entitled to use them.<sup class=\"fn\" data-fn=\"1\"></sup> The temple was also where a king gave an officer a charge and a gift before the ancestors, which made a grant a matter of standing rather than a transaction, and the recipient answered by casting a vessel to record it.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Zongfa": "Zongfa is the ordering of a noble house by descent under the Zhou dynasty of China, where one senior line carries the name and the ancestral offerings while sons who do not inherit found junior lines below it.<sup class=\"fn\" data-fn=\"1\"></sup> The odes supply the image the arrangement is read through, calling the eldest sons by the recognised queen the root and the others the branches of one tree, those branches being the chief nobles of the kingdom.<sup class=\"fn\" data-fn=\"1\"></sup> Marriage worked outward from it, since a man could not take a wife of his own surname, so the royal house drew its queens from allied lineages and states its armies never reached.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Zongfa": "Zongfa is the ordering of a noble house by descent under the Zhou dynasty of China, where one senior line carries the name and the ancestral offerings while sons who do not inherit found junior lines below it.<sup class=\"fn\" data-fn=\"1\"></sup> The odes supply the image the arrangement is read through, calling the eldest sons by the recognised queen the root and the others the branches of one tree, those branches being the chief nobles of the kingdom.<sup class=\"fn\" data-fn=\"1\"></sup> Marriage worked outward from it, since a man could not take a wife of his own surname, so the royal house drew its queens from allied lineages and states its armies never reached.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Baosi": "Baosi is the consort of King You whom Chinese tradition blames for the fall of the Western Zhou, and the account of her given by the Grand Historian is legendary throughout.<sup class=\"fn\" data-fn=\"1\"></sup> He traces her to the foam of two divine dragons kept in a casket through three dynasties, which turned into a black lizard and made a palace girl pregnant, the abandoned child being raised in the land of Bao and later handed to the king.<sup class=\"fn\" data-fn=\"1\"></sup> The story that she would not laugh until the king lit the beacons and the lords came running for nothing is told to explain why nobody came when the attack was real.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Gonghe_regency": "The Gonghe regency is the fourteen years of Chinese history between King Li’s flight from his capital in 841 BCE and the accession of his son, and its first year is where Chinese chronology becomes firm.<sup class=\"fn\" data-fn=\"1\"></sup> The Grand Historian writes that the Duke of Shao and the Duke of Zhou held the government between them and that Gonghe was the name of their regency, which read that way means something like common harmony.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Bamboo Annals</i> instead make Gonghe a fief and a man’s name, recording that He, Baron of Gong, administered the royal duties while the king stayed in exile.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"King_Li": "King Li is the Zhou king of China whose own subjects drove him out of his capital, an expulsion followed by the first stretch of Chinese history whose years can be counted without dispute.<sup class=\"fn\" data-fn=\"1\"></sup> The Grand Historian describes him growing greedy for wealth and employing an informer to find who was criticising him, putting the denounced to death until nobody dared speak and men passing in the road exchanged only a look.<sup class=\"fn\" data-fn=\"1\"></sup> He fled to Zhi in what is now Shanxi, where he died fourteen years later while others governed in his name.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"King_Mu": "King Mu is the fifth king of the Zhou dynasty of China, remembered less for his government than for a legendary journey to the west that later ages attached to him.<sup class=\"fn\" data-fn=\"1\"></sup> The Grand Historian has him come to the throne at fifty and march against the Quan Rong despite a minister’s remonstrance, bringing back only four white wolves and four white deer, after which the outlying vassals ceased to attend court.<sup class=\"fn\" data-fn=\"1\"></sup> The tradition also credits him with the code of punishments set out by the Marquis of Lü, on which the five mutilating penalties could be redeemed by a fine.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"King_Xuan": "King Xuan is the Zhou king of China whom the tradition credits with restoring the dynasty after his father’s expulsion, having grown up hidden in the house of the Duke of Shao.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Bamboo Annals</i> put the practical work in his first year, when he restored the field levies that had lapsed during the exile and made chariots of war, and an ode celebrates a campaign driving the Xianyun back to Taiyuan.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The same annals give the end of the reign as a run of defeats, followed by a census of the people that his own minister had advised against.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"King_You": "King You is the last king of the Western Zhou in China, killed in 771 BCE when his capital in the Wei valley was stormed.<sup class=\"fn\" data-fn=\"1\"></sup> The Grand Historian has his reign open with an earthquake that dried three rivers and brought down part of Mount Qi, which the court’s grand astrologer read as a sign the dynasty would fall within ten years.<sup class=\"fn\" data-fn=\"1\"></sup> He degraded his queen in favour of the concubine Baosi, and his sixth year carries a solar eclipse that calculation places on 29 August 776 BCE, the earliest date in Chinese history beyond dispute.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Sack_of_Haojing": "The sack of Haojing is the storming of the Western Zhou capital in the Wei valley of China in 771 BCE by the Marquis of Shen and his allies, in which King You was killed.<sup class=\"fn\" data-fn=\"1\"></sup> The quarrel was over the succession, the king having degraded Queen Shen and set aside her son in favour of the concubine Baosi and her child, and the <i>Bamboo Annals</i> record that the king had marched against Shen the year before.<sup class=\"fn\" data-fn=\"2\"></sup> The attackers killed the heir, carried off Baosi and the treasure of the Zhou, and left two claimants disputing the throne.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Xianyun": "Xianyun is the name the Western Zhou gave a people on their northern and western frontier in China, known almost wholly from Zhou poetry rather than from any record of their own.<sup class=\"fn\" data-fn=\"1\"></sup> The Chinese tradition placed the word in a sequence of names for successive northern neighbours running from the Xunyu through Guifang to the Xiongnu of the Han, which is a genealogy of names rather than of peoples.<sup class=\"fn\" data-fn=\"2\"></sup> An ode of the <i>Classic of Poetry</i> celebrates a campaign against them in which the commander Yin Jifu is said to have driven them back as far as Taiyuan.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Zhou_move_east": "The Zhou move east is King Ping’s transfer of the royal seat in China from the Wei valley to the Luo river after the sack of the western capital in 771 BCE, and it divides the dynasty into its Western and Eastern halves.<sup class=\"fn\" data-fn=\"1\"></sup> The city he moved to was not new, the Duke of Zhou having built Chengzhou there as a second seat nearly three centuries earlier, and the <i>Bamboo Annals</i> have four states escort the king with their troops.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The kings kept their sacrifices, their title and their calendar, and lost the power to compel anybody.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Zhou_warfare": "Zhou warfare is the campaigning of the Western Zhou kings and their lords in China between about 1046 and 771 BCE, organised around the war chariot rather than the man on foot.<sup class=\"fn\" data-fn=\"1\"></sup> Each carriage carried three armoured men standing, the driver between a spearman on his right and an archer on his left, with a body of foot marching alongside to protect it, so that the word for chariot came to name the whole party.<sup class=\"fn\" data-fn=\"1\"></sup> The infantry were husbandmen taken from their fields, which is why campaigning belonged to the months after harvest, and a team of four horses abreast became usual only under the Zhou.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3187,7 +3197,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Zhou_reckoning_of_the_year": "c. 1046 – 256 BCE",
 "Zhou_ritual_reform": "late 10th – 9th century BCE",
 "Zhou_royal_ritual": "c. 1046 – 771 BCE",
-"Zongfa": "from c. 1046 BCE"
+"Zongfa": "from c. 1046 BCE",
+"Baosi": "8th century BCE",
+"Gonghe_regency": "841 – 828 BCE",
+"King_Li": "c. 877 – 841 BCE",
+"King_Mu": "10th century BCE",
+"King_Xuan": "c. 827 – 782 BCE",
+"King_You": "781 – 771 BCE",
+"Sack_of_Haojing": "771 BCE",
+"Xianyun": "c. 1046 – 771 BCE",
+"Zhou_move_east": "770 BCE",
+"Zhou_warfare": "c. 1046 – 771 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4559,7 +4579,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Zhou_reckoning_of_the_year": ["Zhou calendar","Zhou year"],
 "Zhou_ritual_reform": ["late Western Zhou ritual reform","ritual reform"],
 "Zhou_royal_ritual": ["royal ritual of the Zhou","Zhou court ritual"],
-"Zongfa": ["zong fa","Zhou descent-line system","lineage law"]
+"Zongfa": ["zong fa","Zhou descent-line system","lineage law"],
+"Baosi": ["Pao Sze","Bao Si"],
+"Gonghe_regency": ["Gonghe","Kung-ho","Gonghe period"],
+"King_Li": ["Li Wang","King Li of Zhou","Ji Hu"],
+"King_Mu": ["Mu Wang","King Mu of Zhou","Ji Man"],
+"King_Xuan": ["Xuan Wang","King Xuan of Zhou","Ji Jing"],
+"King_You": ["You Wang","King You of Zhou","Ji Gongsheng"],
+"Sack_of_Haojing": ["sack of Haojing","fall of Haojing","sack of Hao"],
+"Xianyun": ["Hsien-yun","Xian-yun"],
+"Zhou_move_east": ["eastward move of the Zhou","King Ping's move east"],
+"Zhou_warfare": ["Western Zhou warfare"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6919,7 +6949,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Zhou_reckoning_of_the_year": ["concept","science","history","china","bronze age","zhou dynasty"],
 "Zhou_ritual_reform": ["event","practice","history","china","bronze age","zhou dynasty"],
 "Zhou_royal_ritual": ["practice","religion","history","china","bronze age","zhou dynasty"],
-"Zongfa": ["concept","institution","history","china","bronze age","zhou dynasty"]
+"Zongfa": ["concept","institution","history","china","bronze age","zhou dynasty"],
+"Baosi": ["person","history","china","bronze age","zhou dynasty","mythology"],
+"Gonghe_regency": ["event","institution","history","china","bronze age","zhou dynasty"],
+"King_Li": ["person","ruler","history","china","bronze age","zhou dynasty"],
+"King_Mu": ["person","ruler","history","china","bronze age","zhou dynasty"],
+"King_Xuan": ["person","ruler","history","china","bronze age","zhou dynasty"],
+"King_You": ["person","ruler","history","china","bronze age","zhou dynasty"],
+"Sack_of_Haojing": ["event","battle","history","china","bronze age","zhou dynasty"],
+"Xianyun": ["people","warfare","history","china","bronze age","zhou dynasty"],
+"Zhou_move_east": ["event","history","china","bronze age","zhou dynasty","geography"],
+"Zhou_warfare": ["practice","warfare","history","china","bronze age","zhou dynasty"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
