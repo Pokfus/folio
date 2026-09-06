@@ -167,21 +167,33 @@ function simulate(days) {
 }
 /* The page's grid, generated here so the test knows its answers. The site's day runs on the reader's own
    clock with a settable boundary, which need not be Node's UTC date, so the neighbouring days are tried
-   too and the one whose entries MATCH the rendered clue list is the one the page is showing — which also
+   too and the one whose grid MATCHES the rendered one is the one the page is showing — which also
    re-proves the seeding the two-context run used to prove: a browser and a bare Node process, given only
-   the date, deal the identical grid. */
-function crosswordForPage(clueIds) {
+   the date, deal the identical grid.
+
+   IT IS MATCHED ON THE SQUARES, NOT ON THE CLUE NUMBERS, and that is the whole of a fault this file
+   carried for weeks. The fingerprint used to be the set of `n + dir` — "1d,2d,3a,4d,5d,6a,7a,8a,9a" —
+   which is not an identity at all: the layout search fills a nine-entry grid the same shape most days, so
+   consecutive days routinely share it. When they did, the FIRST candidate won and everything below was
+   computed against another day's geometry; the first thing it did was ask the page for a square that grid
+   does not have, and the suite died there — taking every check after it with it, which is how a stale
+   matcher reads as a broken game.
+   The squares are the right key because they are exactly what the checks below go on to address, and
+   because they survive what the clue TEXT does not: the page rewrites its own prose as it renders
+   (British or American spelling, metric or imperial), so a text fingerprint would fail on a reader
+   setting rather than on a real mismatch. */
+function crosswordForPage(cells) {
   const build = builder();
-  const want = clueIds.slice().sort().join("|");
+  const want = cells.slice().sort().join("|");
   for (let off = -1; off <= 1; off++) {
     const day = new Date(Date.now() + off * 86400000).toISOString().slice(0, 10);
     const p = build(day).dailyCrossword();
     if (!p) continue;
-    if (p.entries.map((e) => e.n + e.dir).sort().join("|") !== want) continue;
     const letters = {};
     p.entries.forEach((e) => {
       for (let i = 0; i < e.w.length; i++) letters[(e.dir === "a" ? e.x + i : e.x) + "," + (e.dir === "a" ? e.y : e.y + i)] = e.w[i];
     });
+    if (Object.keys(letters).sort().join("|") !== want) continue;
     return { puz: p, letters: letters, day: day };
   }
   return null;
@@ -303,6 +315,56 @@ function crosswordForPage(clueIds) {
     // one colour per tile: two games washing the same hue read as one game the reader has already played
     const cols = home.tiles.map((t) => t.colour.toLowerCase());
     check("[home] …and no two tiles share a colour", new Set(cols).size === cols.length, cols.join(","));
+    /* ---- A PLAYED TILE WEARS ITS STATE (Sep 2026, on request: design 8 of eight) ----
+       Every part of this fails SILENTLY. A tile whose accent has stopped switching is a perfectly good
+       tile in the game's own colour; a watermark that has stopped being drawn leaves a tile that looks
+       merely unplayed; and the mark that CARRIES THE STATE IN WORDS is now clipped to 1px, so losing it
+       altogether would take the fact off the page for a screen reader while changing nothing anyone can
+       see. All three are asserted on the computed style of the real tiles. */
+    {
+      const [c2, p2] = await fresh();
+      watch(p2, "[home]");
+      await p2.addInitScript(() => {
+        const d = new Date();
+        const t = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+        localStorage.setItem("folio_v1", JSON.stringify({ games: { chrono: { date: t, played: true, won: false }, truefalse: { date: t, played: true, won: true } } }));
+      });
+      await p2.goto(base, { waitUntil: "load" });
+      await p2.waitForTimeout(1400);
+      const st = await p2.evaluate(() => {
+        const read = (id) => {
+          const el = document.getElementById(id); if (!el) return null;
+          const cs = getComputedStyle(el), af = getComputedStyle(el.querySelector(".gt-face"), "::after");
+          const mark = el.querySelector(".gt-check, .gt-seal");
+          return {
+            accent: cs.getPropertyValue("--gt-accent").trim(),
+            tile: cs.getPropertyValue("--tile").trim(),
+            bar: cs.borderLeftColor,
+            tick: parseFloat(af.width) || 0,
+            named: mark ? (mark.getAttribute("aria-label") || "") : "",
+            markW: mark ? mark.getBoundingClientRect().width : -1,
+            glyph: getComputedStyle(el.querySelector(".gt-glyph")).display,
+          };
+        };
+        return { played: read("g-chrono"), perfect: read("g-truefalse"), idle: read("g-findit") };
+      });
+      const same = (a, b) => a && b && a.toLowerCase() === b.toLowerCase();
+      check("[home] an untouched tile keeps the game's own hue", same(st.idle.accent, st.idle.tile), JSON.stringify(st.idle));
+      check("[home] …a played one takes the state's instead", !!st.played.accent && !same(st.played.accent, st.played.tile), JSON.stringify({ a: st.played.accent, t: st.played.tile }));
+      check("[home] …a perfect one a different colour again", !same(st.perfect.accent, st.played.accent), st.played.accent + " / " + st.perfect.accent);
+      // the left bar is painted FROM that property — the half of the request that is not the wash
+      check("[home] …and the left bar is painted from it", st.played.bar !== st.idle.bar && st.perfect.bar !== st.played.bar,
+        [st.idle.bar, st.played.bar, st.perfect.bar].join(" / "));
+      check("[home] the watermark tick is drawn on both", st.played.tick > 30 && st.perfect.tick > 30, st.played.tick + " / " + st.perfect.tick);
+      check("[home] …and not on an untouched tile", st.idle.tick === 0, String(st.idle.tick));
+      check("[home] the corner ornament stands down for it", st.played.glyph === "none" && st.idle.glyph !== "none", st.played.glyph + " / " + st.idle.glyph);
+      /* CLIPPED, NOT REMOVED: the tick is decoration and says nothing to a screen reader, so the state
+         has to keep the one element that names it. */
+      check("[home] the state is still stated in words", /played/i.test(st.played.named) && /perfect/i.test(st.perfect.named),
+        st.played.named + " / " + st.perfect.named);
+      check("[home] …while taking no room on the tile", st.played.markW <= 2 && st.perfect.markW <= 2, st.played.markW + " / " + st.perfect.markW);
+      await c2.close();
+    }
     for (const g of NEW_GAMES) {
       await page.click("#" + g.id);
       await page.waitForTimeout(700);
@@ -385,7 +447,7 @@ function crosswordForPage(clueIds) {
          same grid from the date alone). Everything below fails silently: an entry that never turns colour
          is a game with no feedback, red squares that lock are a game that cannot be retried, and a grid
          that forgets itself between visits is one a reader cannot finish. */
-      const today = crosswordForPage(built.clues.map((c) => c.e));
+      const today = crosswordForPage(built.cells);
       check("[xw] the page's grid is the one the date deals", !!today, today ? today.day : "no matching day");
       if (today) {
         const first = today.puz.entries[0];

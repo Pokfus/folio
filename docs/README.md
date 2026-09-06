@@ -73,11 +73,12 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `biology-card-plan.md` | Biology (`bio`) | `bio-` |
 | `dinosaurs-card-plan.md` | Dinosaurs (`dino`) | `dino-` |
 | `korea-card-plan.md` | Korea (`korea`) | `ko-` |
+| `art-card-plan.md` | Visual Art (`art`) — a TIMELINE tree; its card format is not built yet | `art-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
 | `world-geography-card-plan.md` | World (`geo-world`) — 459 cards, sorted by population | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
 
-`china-card-findings.md` is China's per-card research log; the other seventeen keep theirs in their own plan
+`china-card-findings.md` is China's per-card research log; the other eighteen keep theirs in their own plan
 or in the citation plans. `node .claude/test-card-plans.js` checks every plan against `data.js`.
 
 ## Content passes — the finished ones
@@ -93,6 +94,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `glossary-length-plan.md` | **Complete** — every description at 100 words ±10%. |
 | `units-plan.md` | **Complete** — metric first with the imperial in brackets, across cards and glossary. |
 | `card-glossary-pairing.md` | **Complete** — every shipped card's answer term has a glossary entry. The rule stays in force. |
+| `why-questions-plan.md` | **Complete** — all 1,458 History and Science cards carry three authored why-questions, measured 2026-09-06. The rule stays in force: a new card ships with its own set. Its batch log records which seam each collection offers; `node .claude/why-count.js` is the measure. |
 | `audit-2026-08-08.md` | **Closed** — a whole-project sweep; all four batches shipped. |
 | `user-decks-plan.md` | **Phases 0–4 shipped.** Only Phase 5 (the paid tier) is still a proposal. Superseded as a reference by `community-decks.md`. |
 
@@ -112,6 +114,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `greece-audit-2026-09.md` | The 500-card Ancient Greece audit: what passed, what was fixed, and the seven things still open — the Rutter concentration, the Athens deck's register, and the coverage gaps. |
 | `learning-science.md` | What the learning-science literature says works and does not, and twenty proposals for Folio. **Thirteen shipped Sep 2026; seven still proposals.** |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |
+| `geography-background-plan.md` | The World geography backgrounds, written out of the US recognition guide and therefore about American diplomacy rather than about the country: **419 of 468 mention the United States**, 205 repeat a figure from their own facts grid, and 119 mention any landscape word at all. The three rules, why it cannot be a find-and-replace, and fifteen batches. |
 
 ---
 

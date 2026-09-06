@@ -618,7 +618,7 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-352  Third Servile War
     wh-353  Julius Caesar
     wh-354  Gallic Wars
-    wh-355  Roman civil wars
+    wh-355  Caesar's civil war
     wh-356  Assassination of Julius Caesar
     wh-357  Augustus
     wh-358  Roman Empire
@@ -679,9 +679,9 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-407  Great Wall of China
     wh-408  Han dynasty
     wh-409  Silk Road
-    wh-410  Chinese bureaucracy
+    wh-410  Scholar-officials
     wh-411  Sima Qian
-    wh-412  Invention of paper
+    wh-412  Papermaking
     wh-413  Fall of the Han dynasty
     wh-414  Three Kingdoms
     wh-415  Buddhism in China

@@ -414,3 +414,176 @@ The bullet below is as it stood in CLAUDE.md, verbatim.
     That limit is a **per-era cached midpoint test** (`sovietSegsForEra`, keyed on `_htId` + `mapEditRev`), not a canvas
     clip: it used to build a complex clip mask from the USSR polygon on **every frame** of 1920/1938 for a layer whose
     geometry can't change within an era.
+
+## Your own atlas — the second tab (Sep 2026, on request)
+
+> "On the Atlas page, add a second tab, which will feature the user's own explored Atlas. Opening the
+> Atlas page should default to this tab. On this personal atlas, the whole globe should have no borders
+> or dots shown at first and be empty (except for landmasses+oceans+rivers etc.) in every year since
+> 4000 BCE. By studying cards from the curated collections, users unlock these countries and places on
+> the atlas in the appropriate years. … The information of the popups that appear when clicking a city
+> or country can be directly the answer side of the card. … The page doesn't need a legend."
+
+`CLAUDE.md`'s Atlas bullet carries the rules. This is the reasoning behind the three decisions that were
+not obvious, and the one measurement that settled the hardest of them.
+
+### "In the appropriate years" without a table of dates
+
+The obvious reading — a modern state appears from its independence year — needs an independence year for
+233 countries, which Folio does not have and which is not a thing to invent. `country-spans.js` was the
+first candidate and was measured: **13 of `world.js`'s 258 countries have an entry**, so it answers for
+5% of the deck.
+
+The answer that works is a level down. `map.key` names a place in `world.js`; every one of the Atlas's
+thirteen eras *also* files its own territories by name; so the unlock is the NAME, and the personal globe
+draws whatever territory of that name the era for the current year happens to carry. Measured over the
+shipped timeline, **every one of the 258 present-day countries is named in at least one era**, the
+earliest ranging from 1500 (France, Cyprus, Ethiopia) to 1960 (Indonesia, China, Israel, Vietnam).
+
+Three things follow, and all three are improvements rather than compromises:
+
+- What is on screen is exactly what Folio's own maps say, in the shape those maps give it — so an
+  unlocked France is its 1600 self in 1600 and its own self today, and the reader can watch it change.
+- A state simply does not appear in a year whose map has no such state, which is the requested behaviour
+  falling out of the model rather than being enforced by a rule.
+- Before 1500 there is no era map at all, so the globe there is landscape plus the reader's own locator
+  marks — which is precisely the "empty in every year since 4000 BCE" the request describes, and is why
+  the tab can offer 4000 BCE where the world atlas stops at 1000 BCE.
+
+A `us-states` / `china-provinces` shape belongs to no era and is today's boundary, so it is drawn only
+where the era's geometry IS `world.js`'s (`eraIsModern` — a property of the era, not a year somebody
+picked). Wyoming over a 1600 map would be a claim Folio does not make.
+
+### Why the register is derived and not stored
+
+`atlasUnlocks()` reads `S.cards`. That is the same test `locatorSiblings` already uses to decide which of
+a collection's places a card map draws, so the two cannot disagree about what "studied" means — and it
+means the feature shipped with no new `PROGRESS_FIELD`, no migration, and nothing to keep in step. The
+one visible consequence is the right one: **Reset progress on a deck takes that deck's places off the
+globe**, which is what a reader who has just forgotten a deck would expect.
+
+It is cached on the number of studied cards and the sizes of the three shape globals, and cleared by
+`uCacheBust` — declared beside it rather than beside `atlasUnlocks` for the temporal-dead-zone reason
+`_locSibCache` is (`uCacheBust` runs at boot out of `applyAdminEdits`).
+
+### Two rails, and why only one of them bends
+
+The world atlas's rail is piecewise because it has thirteen STOPS, twelve of them after 1500, and a
+linear scale crowds them into the right edge. The personal atlas has no stops: every year has a map,
+because the earth is always there. A bent scale there would buy nothing and would lie about how far apart
+two years are, so `year2frac`/`frac2year` are linear on that tab and `snapYear` returns the year it was
+given. The era years are still marked on the rail — that is where the political shapes change — but the
+pin slides freely between them, and the chevrons step by a century in the deep past and a decade after
+1500, because one fixed step of 25 years is 240 presses from 4000 BCE to today.
+
+### What the tab does NOT get, and why each absence is deliberate
+
+- **No legend.** Its layers are the earth's; there is no political toggle to offer. Which makes
+  `riversOn` the one toggle that tab actually reads, and it is forced on — the request names rivers, and
+  a layer promised with no control to reach it is worse than one not offered.
+- **No search.** The search index is the WORLD atlas's, so a hit would open a panel about a place the
+  reader has not unlocked — on the tab that exists to show only what they have.
+- **No hover chip from `hoverIdx`.** That index is the world atlas's territory index and is not
+  maintained here, so the chip went on naming whatever country had last been under the cursor. It reads
+  `mineAt` now, and names the reader's own place or nothing.
+- **No empire drill.** One click, one level: a place is either the reader's or it is not there, so the
+  single/double/triple ladder has nothing to count.
+
+### The popup
+
+It reuses the country panel rather than building a second one — the panel is a sheet on a phone and a
+column on the desktop, it resizes itself, it closes on Escape, and it is what the reader already knows
+how to dismiss. Its year paragraph, its Wikidata figures and the Atlas's own citation fold are hidden:
+all three describe a country as the world atlas knows it, and what is being shown is a card, whose own
+facts and sources arrive inside `buildBack`.
+
+It goes through `mountCardBack` rather than raw markup, for the reason the Multiple Choice card back
+does: the footnotes have to be numbered, the glossary terms wired and the picture made to open, and a
+surface that renders `buildBack` without that wiring is a card with dead links.
+
+One CSS rule is load-bearing and was found by looking at the page: **`.cp-tools[hidden]{display:none}`**.
+`showMinePopup` hides that row, and an author `display:flex` beats the `hidden` attribute — the same trap
+`.ces-imgpanel` and `.af-src` already carry — so the Atlas's "Through the ages" button stayed on a panel
+that is showing a card rather than a country.
+
+### The empty state
+
+A reader who has studied nothing meets a world with no marks on it, which is exactly right and says
+nothing about itself. `.atlas-empty` names what the globe is waiting for and offers a way to the
+collections; it is drawn only while the register really is empty.
+
+### Twelve further suggestions (Sep 2026, on request)
+
+Asked for, not built. Each is written with what it would actually cost, because a suggestion without one
+is a wish. Roughly in order of what each buys against what it costs.
+
+1. **An unstudied place, drawn as a ghost.** The globe cannot currently tell "there is nothing here" from
+   "there is something here you have not reached", so a reader half way through Ancient Greece sees a
+   scattering of red and no sense of what is left. A faint hollow ring at every place in a collection the
+   reader has BEGUN — never in one they have not, or the map stops being empty — turns the globe into a
+   map of the work remaining, which is the deck progress bar laid on the geography. `atlasUnlocks` already
+   walks every card in `S.cards`; this walks the collection's other cards beside it and pushes a second
+   list. **Small, and the biggest single change to what the tab is for.**
+
+2. **A search over your OWN places.** The world tab has one and this deliberately has none, on the
+   reasoning that a hit would open a panel about a place the reader has not unlocked. That reasoning does
+   not apply to a search restricted to the register: past three or four hundred marks, turning the globe
+   is the only way to find one. Reuse `gsIndex`'s box and feed it `atlasUnlocks().names` and `.marks`.
+   **Small; the index is already built.**
+
+3. **Fly to what you unlocked last.** A reader who has just studied ten Korean cards opens the atlas over
+   the Netherlands. One control — using the existing `flyTo` and the newest `S.cards[id].first` — puts the
+   map where the reader has just been. **Very small.**
+
+4. **Open on the reader's own century rather than on the present.** The tab opens at the present, which
+   shows every modern country and none of the ancient ones; a reader whose register is Rome and Greece
+   meets a map with almost nothing on it. Opening on the MEDIAN year of what they hold would put a Rome
+   reader in the Republic and a Japan reader in the Nara period. **Small, and it changes the first
+   impression of the feature more than anything else here.**
+
+5. **"Study this" on the popup.** The panel already draws the card's whole answer side; the one thing it
+   does not offer is a way into the card. A single button routing to the `{type:"ids"}` scope would make
+   the globe a way INTO the deck rather than only a record of it. **Small.**
+
+6. **Say what the tab holds, on the tab.** "Your atlas · 412" tells a reader the register is growing
+   without their having to hunt the map for a new dot — which is the whole reward the feature is built on,
+   and at the moment only the map itself states it. **Trivial;** `atlasUnlocks().count` is already
+   computed for the render cache key.
+
+7. **The empty state should say what fills it.** `.atlas-empty` says the globe is empty and offers the
+   collections; it does not say that studying a GEOGRAPHY card is what puts a country on it and a card
+   with a locator what puts a place. One sentence. **Trivial.**
+
+8. **A ruin should not look like a capital.** A mark appears in its earliest year and never leaves, which
+   is right about a place — Yinxu is still there — and means that at 2026 a reader sees Bronze Age
+   capitals mixed with modern ones and nothing telling them apart. Drawing a mark whose card's span has
+   ENDED as a hollow ring rather than a filled shape keeps the request ("no end date") and still says
+   "this is a ruin". **Small;** `cardSpanYears` already gives the end, and `mineMarks` currently throws it
+   away for a dot.
+
+9. **One small layer control.** The tab has no legend by request, and three things are nevertheless drawn
+   unconditionally: the rivers, the civilisation washes and the modern province borders. A reader working
+   on ancient history has no use for the third. Not the world atlas's legend — one compact row of three.
+   **Small, and it needs the request's "no legend" read carefully:** what was refused was a panel of
+   fourteen layers, not the ability to turn off a line.
+
+10. **A trail through the register.** Ordering the marks by `S.cards[id].first` and drawing the most
+    recent few in a warmer red would show a reader the shape of their own progress through a collection —
+    Athens, then Sparta, then Miletus. **Small,** and it is the one idea here that says something the
+    deck list cannot.
+
+11. **A share link for a year.** `#map/<year>/<slug>` already deep-links the world tab; `#mine/<year>`
+    would let a reader link the year they are looking at. **Medium** — it needs the route, and it wants
+    the reconcile question answered first: a link is only worth sharing if the other reader's globe shows
+    something, and their register is their own.
+
+12. **A friend's atlas.** `profiles` is readable by any signed-in user and a friend's `progress` already
+    is too (RLS scopes it to accepted friends), so "see what they have explored" is reachable without a
+    schema change. **The largest of the twelve** — it needs a second register keyed on somebody else's
+    cards, and every helper here reads `S.cards` directly. Worth stating precisely because it looks
+    cheap and is not.
+
+**Two that were considered and are NOT recommended.** A heatmap of how many cards each country carries —
+the globe would then be about the corpus rather than about the reader. And a globe animation that plays
+the register forward through the years: `stepYear` and the play button already do exactly that, and a
+second control for it would be two answers to one question.
