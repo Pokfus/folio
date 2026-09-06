@@ -1389,11 +1389,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   notes cannot be done to a shipped deck).
 - **📖 `docs/why-questions-plan.md` — READ BEFORE WRITING A `card.why`, OR BEFORE OPENING A BATCH OF THEM.**
   The Think-it-through pass, opened Sep 2026 on request: three authored why-questions for every card in
-  the HISTORY and SCIENCE sections. **It ran to the end of its own list — all 1,159 cards as the sections
-  stood — and did NOT finish the sections**, because 300 more shipped on main while it ran; run
-  `node .claude/why-count.js` for the figure rather than quoting one here. **What closes it is
-  the rule rather than the pass**: a new card in either section ships with its own set, exactly as it ships
-  with its citations and its glossary term. Geography is out
+  the HISTORY and SCIENCE sections. **COMPLETE as measured on 2026-09-06 — all 1,458 cards in both
+  sections carry a set.** It closed twice: it first ran to the end of a list of 1,159 and did not finish
+  the sections, because 300 more had shipped on main while it ran. Run `node .claude/why-count.js` for
+  the figure rather than quoting one here. **What keeps it closed is the rule rather than the pass**: a
+  new card in either section ships with its own set, exactly as it ships with its citations and its
+  glossary term. Geography is out
   (a map card's back is a figures grid, so there is no prose to draw an answer from) and so are the
   language decks. It holds the three things the checker cannot see — that the answer says what the CARD'S
   OWN CITED PROSE says, that the question is a why rather than a what wearing one, and that the three ask
@@ -3042,10 +3043,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     never generated** (see the `why` bullet under "Add a card"), so the choice is between an authored
     question and a manufactured one. **`connectKin` and the `.elab-box` / `.elab-acts` / `.elab-note`
     styles went with it**; `cardKinship`, which `connectKin` used, is still Multiple Choice's distractor
-    ranking. **THE PASS THAT FILLED THAT GAP RAN THE LENGTH OF ITS OWN LIST** (Sep 2026): the 1,159 HISTORY and
-    SCIENCE cards it was planned against all carry a set, and 300 that landed on main while it ran do
-    not — so the section is absent on those, on the Geography cards and on the language decks, the last
-    two deliberately out of scope. **Run `node .claude/why-count.js` for the figure rather
+    ranking. **THE PASS THAT FILLED THAT GAP IS COMPLETE** (Sep 2026): all 1,458 HISTORY and SCIENCE
+    cards carry a set, so the section is absent only on the Geography cards and on the language decks,
+    both deliberately out of scope. **Run `node .claude/why-count.js` for the figure rather
     than quoting one here.**
   · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
     background's own opening definition — inline under the answer, so a reader whose fold is collapsed
