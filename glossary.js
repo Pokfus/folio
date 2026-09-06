@@ -2354,7 +2354,17 @@ window.GLOSSARY = {
 "Qi_(state)": "Qi was the eastern state of the Zhou world, holding northern Shandong from the sea on the east to the Yellow River on the west.<sup class=\"fn\" data-fn=\"1\"></sup> Its house bore the surname Jiang and traced itself to King Wu’s own preceptor, who received Yingqiu as the first fief the king handed out; the state remembered its charter as a commission to punish the guilty among the princes in support of the House of Zhou.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Jiang line ended not by conquest but by displacement, a resident family called Chen having taken the surname Tian, removed the duke to a coastal town in 390 BCE and been acknowledged marquis from 385.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Qin_(state)": "Qin was the westernmost of the great states of the Zhou world, its house bearing the surname Ying and claiming descent from the forester of Shun.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a herdsman’s holding: King Xiao of Zhou, pleased with a man called Feizi for his skill with cattle, set him over the royal horse herds and gave him the small territory of Qin, first in its list of princes at 908 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Duke Xiang’s help in the removal of the court east won it an earldom, a place among the fiefs and the old Zhou home domain from Mount Qi westwards, which later writers read as an omen of evil.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Song_(state)": "Song was the state the Zhou set aside for the family they had overthrown, and its house bore the Shang surname Zi.<sup class=\"fn\" data-fn=\"1\"></sup> After the last Shang king’s son was put to death for rebellion, the Duke of Zhou summoned the count of Wei and invested him with Song in King Cheng’s name, charging him to continue his ancestors’ line, observe their ceremonies and come as a guest<sup class=\"fn\" data-fn=\"2\"></sup> Its duke Xiang appears on the usual list of presiding chiefs, though his bid ended at the river Hong in 638 BCE, where he refused to attack Chu while it crossed or before it had formed up, and was beaten.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Yue_(state)": "Yue was the southernmost of the great states of the Zhou world, lying on the coast below the Yangtze delta in what is now Zhejiang, with its capital at Kuaiji.<sup class=\"fn\" data-fn=\"1\"></sup> It was held by viscounts of the surname Si who claimed descent from Shaokang, a king of the Xia, and it enters the northern chronicle only in 537 BCE, already formed and from outside.<sup class=\"fn\" data-fn=\"1\"></sup> Chu found it useful at first as a counterweight to its neighbour Wu, which Yue destroyed in 473 or 472 BCE depending on the authority followed; it then became a dangerous antagonist of Chu itself before being absorbed by it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Yue_(state)": "Yue was the southernmost of the great states of the Zhou world, lying on the coast below the Yangtze delta in what is now Zhejiang, with its capital at Kuaiji.<sup class=\"fn\" data-fn=\"1\"></sup> It was held by viscounts of the surname Si who claimed descent from Shaokang, a king of the Xia, and it enters the northern chronicle only in 537 BCE, already formed and from outside.<sup class=\"fn\" data-fn=\"1\"></sup> Chu found it useful at first as a counterweight to its neighbour Wu, which Yue destroyed in 473 or 472 BCE depending on the authority followed; it then became a dangerous antagonist of Chu itself before being absorbed by it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Covenant_meeting": "A covenant meeting was an assembly at which the rulers of the Chinese states of the Spring and Autumn period swore a written agreement over a sacrificed animal.<sup class=\"fn\" data-fn=\"1\"></sup> The ceremony was prescribed: a square pit was dug and the victim killed above it, its left ear was cut off and its blood caught in an ornamented vessel, the articles were read aloud facing north, and the blood was smeared on the mouths of everyone present.<sup class=\"fn\" data-fn=\"1\"></sup> The victim was then buried in the pit with the writing laid upon it, and attendance was itself an acknowledgement of whichever ruler had called the meeting.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Li_Kui": "Li Kui was a councillor to the ruler of the Chinese state of Wei in the early 4th century BCE, credited with a legal code that is lost and with a book the Han imperial catalogue filed under the school of law.<sup class=\"fn\" data-fn=\"1\"></sup> What survives of his thought is agricultural arithmetic: he reckoned a peasant household of five, working a hundred mu, to end the year in deficit once tax, clothing and ritual obligations were paid.<sup class=\"fn\" data-fn=\"1\"></sup> He argued that grain too dear injures the consumer and grain too cheap the farmer, and proposed that the state buy in good years and sell in bad.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Marquis_Wen_of_Wei": "Marquis Wen of Wei ruled one of the three states carved out of Jin from 424 to 387 BCE and was raised to the rank of lord by the Zhou king in 403 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He campaigned against Qin in the west and annexed Zhongshan in 408 BCE, but he is remembered chiefly for the scholars and administrators he gathered, among them a disciple of Confucius whom he treated as his master.<sup class=\"fn\" data-fn=\"2\"></sup> A neighbouring state is said to have abandoned a plan to attack him on the ground that ruler and subjects were of one mind.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Partition_of_Jin": "The partition of Jin was the division of the largest northern Chinese state among three of its own ministerial families, and it is conventionally taken as the break between the Spring and Autumn age and the one that followed.<sup class=\"fn\" data-fn=\"1\"></sup> The head of the Zhi clan demanded land of Han and Wei and got it, demanded land of Zhao and was refused, and besieged Zhao in Jinyang until his two allies changed sides and destroyed him in 453 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> The Zhou king recognised Han, Wei and Zhao as lords in 403 BCE, and in 376 BCE they divided what was left and deposed the last duke.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Reforms_of_Shang_Yang": "The reforms of Shang Yang were the remaking of the Chinese state of Qin from about 356 BCE, and the clearest ancient instance of a state reorganised in order to make war.<sup class=\"fn\" data-fn=\"1\"></sup> Households were grouped in fives and tens answerable for one another's offences, rank was made to follow military merit alone, farming and weaving were privileged over other trades, and the towns were combined into districts under appointed officials with standard weights and measures.<sup class=\"fn\" data-fn=\"1\"></sup> The old field grid was abolished in favour of individual ownership, which brought the state an immediate advantage and cost the population the equality that had rested on landholding.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Rise_of_Wei": "The rise of Wei was the ascendancy of the first great power of the Chinese Warring States, built from one of the three shares of the partitioned state of Jin.<sup class=\"fn\" data-fn=\"1\"></sup> The ruling house took its name from a fief granted in 661 BCE, moved its seat to Anyi, and was raised to the rank of lord by the Zhou king in 403 BCE, after which it warred with Qin in the west and annexed Zhongshan.<sup class=\"fn\" data-fn=\"2\"></sup> Qin's advance forced the capital east to Daliang in 340 BCE, and the state was destroyed by Qin in 225 BCE.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Seven_warring_states": "The seven warring states were the powers into which the Chinese world had consolidated by the 4th century BCE: Qin in the west, Chu in the south, Qi in the east, Yan in the north, and Zhao, Wei and Han between them.<sup class=\"fn\" data-fn=\"1\"></sup> Five of them were counted among the Middle Kingdoms, while Qin and Chu were reckoned outside that circle.<sup class=\"fn\" data-fn=\"1\"></sup> Diplomats sold rival schemes to them, one binding six of the seven into a league against Qin in 333 BCE and another persuading all six to acknowledge Qin as supreme.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Shang_Yang": "Shang Yang was the minister who reorganised the Chinese state of Qin in the 4th century BCE, an illegitimate son of the ruling house of a rival state who entered Qin's service about 350 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He rewrote the law on the principle that it must apply to the highly placed, punishing the crown prince's tutor and branding his teacher when the heir offended.<sup class=\"fn\" data-fn=\"2\"></sup> Ennobled with fifteen cities in 340 BCE, he was accused of rebellion after his patron died, was killed and was torn apart by chariots, and his family was exterminated.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Spring_and_Autumn_warfare": "Spring and Autumn warfare was fought from chariots by an aristocracy, and a state's strength was reckoned in the number of cars it could put in the field.<sup class=\"fn\" data-fn=\"1\"></sup> The vehicle was a light two-wheeled car drawn by a yoked team and carrying a driver, an archer and a man with a dagger-axe; because it could not work in a defile or a marsh, both sides had to agree on ground before a battle.<sup class=\"fn\" data-fn=\"2\"></sup> How far the conventions of such fighting actually bound anybody was argued about at the time, and the deceptions of later war were already in use.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Warring_States_period": "The Warring States period is the closing age of the Zhou dynasty in China, ending in 221 BCE when the state of Qin conquered the last of its rivals.<sup class=\"fn\" data-fn=\"1\"></sup> Its opening is dated variously, most often to 403 BCE, when the Zhou king recognised the three families that had carved up Jin, and the change it marks is that royal authority became nominal while the lords behaved as independent princes and annexed their smaller neighbours.<sup class=\"fn\" data-fn=\"2\"></sup> Much of the surviving record consists of the speeches of travelling diplomats, the state chronicles having been destroyed in 213 BCE.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3247,7 +3257,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Qi_(state)": "c. 1046 – 220 BCE",
 "Qin_(state)": "908 – 221 BCE",
 "Song_(state)": "c. 1040 – 286 BCE",
-"Yue_(state)": "to c. 306 BCE"
+"Yue_(state)": "to c. 306 BCE",
+"Covenant_meeting": "722 – 481 BCE",
+"Li_Kui": "fl. c. 400 BCE",
+"Marquis_Wen_of_Wei": "r. 424 – 387 BCE",
+"Partition_of_Jin": "453 – 376 BCE",
+"Reforms_of_Shang_Yang": "from c. 356 BCE",
+"Rise_of_Wei": "c. 424 – 340 BCE",
+"Seven_warring_states": "c. 403 – 221 BCE",
+"Shang_Yang": "d. 338 BCE",
+"Spring_and_Autumn_warfare": "722 – 481 BCE",
+"Warring_States_period": "c. 480 – 221 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4642,7 +4662,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Zuo_Zhuan": ["Zuo Commentary","commentary of Zuo","Tso Chuen","Zuozhuan"],
 "Battle_of_Chengpu": ["Chengpu"],
 "Goujian": ["Kou Chien","Gou Jian"],
-"King_Zhuang_of_Chu": ["Zhuang of Chu"]
+"King_Zhuang_of_Chu": ["Zhuang of Chu"],
+"Covenant_meeting": ["covenant meetings"],
+"Li_Kui": ["Li Ke"],
+"Marquis_Wen_of_Wei": ["Marquis Wen"],
+"Partition_of_Jin": ["partition of Jin"],
+"Reforms_of_Shang_Yang": ["Shang Yang's reforms"],
+"Rise_of_Wei": ["rise of Wei"],
+"Seven_warring_states": ["seven warring states"],
+"Shang_Yang": ["Wei Yang","Gongsun Yang","Lord Shang"],
+"Warring_States_period": ["Warring States"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -7032,7 +7061,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Qi_(state)": ["state","place","history","china","zhou dynasty"],
 "Qin_(state)": ["state","place","history","china","zhou dynasty"],
 "Song_(state)": ["state","place","history","china","zhou dynasty"],
-"Yue_(state)": ["state","place","history","china","zhou dynasty"]
+"Yue_(state)": ["state","place","history","china","zhou dynasty"],
+"Covenant_meeting": ["practice","history","politics","zhou dynasty"],
+"Li_Kui": ["person","history","politics","law"],
+"Marquis_Wen_of_Wei": ["ruler","person","history","politics"],
+"Partition_of_Jin": ["event","history","politics","zhou dynasty"],
+"Reforms_of_Shang_Yang": ["event","history","politics","law","agriculture"],
+"Rise_of_Wei": ["event","state","history","politics"],
+"Seven_warring_states": ["state","history","politics","zhou dynasty"],
+"Shang_Yang": ["person","history","politics","law"],
+"Spring_and_Autumn_warfare": ["practice","warfare","history","zhou dynasty"],
+"Warring_States_period": ["era","history","politics","zhou dynasty"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
