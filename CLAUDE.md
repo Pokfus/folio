@@ -2009,6 +2009,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     unmarked. The pronoun is stripped, which is what the generator's own bolding does. And a form the
     table has no row for is named by `boldAlso`: `hay` on `haber`, `póngase` on `poner`. **A conjugation
     grid is not a complete list of a verb's forms.**
+  · **AND IT REPORTS AN EXAMPLE WHOSE ONLY BOLDED WORD IS ANOTHER CARD'S HEADWORD** — the measurement
+    that was being run by hand after every batch, now in the tool. It is scoped to cards the record has
+    REBOLDED (an untouched card carries the generator's own bolding, a different and already-measured
+    problem; the higher DELE levels are full of participles that are headwords in their own right), and
+    it is a NOTE rather than a failure: a legitimate form can also be another card — `usted`'s plural is
+    `ustedes`, `comer`'s first person is `como` — and only a reader tells those from the accidents. It
+    caught `la canción` marking `cantar`, from a "verb: cantar" cross-reference in its Forms.
   · **`reviewed` NAMES THE CARDS READ AND LEFT ALONE.** Some cards are simply right, and the review's own
     record of where it has got to is the note list — so without this a card that needed nothing looks
     exactly like a card nobody has opened, and the next session reads it again. Each entry is checked to

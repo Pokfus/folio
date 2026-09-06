@@ -6368,6 +6368,233 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/acá": {
+      "why": "A COMPLETE MISS, like la cuenta's: the card was glossed 'as of' and 'up to', and acá means neither. It means HERE - the Latin American everyday word where Spain says aquí - which is exactly what all three of its own examples say (estoy acá, no estará acá, lo que pasó acá). Two glosses, neither of them the word, and three sentences all showing the sense it did not carry.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "here (chiefly Latin America; Spain says aquí)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "Spain says",
+          "aquí"
+        ],
+        [
+          "further off",
+          "allá"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el profesor, la profesora": {
+      "why": "'professor (a faculty member)' first, which at A1 is the wrong way round - profesor is the schoolteacher a reader will meet, and the card's own second example is 'nuestra profesora de inglés'.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "teacher",
+            "lecturer, professor (at a university)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la canción": {
+      "why": "Its first example is clumsy Spanish - '¿Cuál es tu letra de una canción favorita?' for 'what's your favourite song lyric' - and its third asks the same question again about Bob Dylan. The verb it goes with has a card and neither pointed at the other. The verb cross-reference in Forms then made cantar a bold target and the first example marked it, which is why the tool now reports an example whose only bolded word is another card's headword.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "song"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las canciones"
+        ],
+        [
+          "verb",
+          "cantar"
+        ]
+      ],
+      "dropEx": [
+        "¿Cuál es tu letra de una canción favorita?"
+      ],
+      "ex": [
+        [
+          "Esta canción me encanta.",
+          "I love this song."
+        ]
+      ],
+      "rebold": true,
+      "bold": [
+        "canción",
+        "canciones"
+      ]
+    },
+    "delea1/la universidad": {
+      "why": "Its third example is MISTRANSLATED: 'Ese hombre es definitivamente un estudiante de universidad' is rendered 'That man is definitely a bachelor', which is the other sense of the English word bachelor and not what the Spanish says at all. A reader learning from the pair would take estudiante de universidad to mean an unmarried man.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "university"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "ir a la universidad — to go to university"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Ese hombre es definitivamente un estudiante de universidad."
+      ],
+      "ex": [
+        [
+          "Estudio en la universidad.",
+          "I study at university."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la sala": {
+      "why": "'room (a separate part of a building)' is a definition and is also what la habitación and el cuarto are glossed with, so three cards said the same thing and none said what tells them apart: sala is the large or public room, and the living room. Its own second example is a sala de cine.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "room, hall (a large or public one)",
+            "living room (la sala de estar)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "la sala de espera — waiting room",
+            "la sala de cine — cinema"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/escuchar": {
+      "why": "'to listen to, to hear out, to hear' - and oír, which has a card of its own glossed 'to hear', is the verb for hearing without trying. The deck taught both and said nothing about the difference, which is the same shape as ser and estar or saber and conocer.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to listen, to listen to"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "to hear, without trying, is",
+          "oír"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/oír": {
+      "why": "The other half of the escuchar entry: 'to hear' and then 'to hear (passively perceive a sound)', the same gloss twice with a definition on the second.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to hear"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "oír hablar de — to hear about"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "to listen on purpose is",
+          "escuchar"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/terminar": {
+      "why": "Four glosses on one line, and not terminar DE before an infinitive, which is how you say you have finished doing something.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to finish, to end"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "terminar de + infinitive — to finish doing something"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ocho": {
+      "why": "'eight (8)' repeats itself in brackets. Its first and third examples are the same sentence with escuela swapped for colegio, and its second is 'Sus ochos parecían ges minúsculas' - the plural of the written digit, which is the cincos fault again.",
+      "senses": [
+        [
+          "numeral",
+          [
+            "eight"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "las ocho — eight o'clock"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Sus ochos parecían ges minúsculas.",
+        "El colegio empieza a las ocho y media."
+      ],
+      "ex": [
+        [
+          "Tengo ocho euros.",
+          "I have eight euros."
+        ],
+        [
+          "Nos vemos a las ocho.",
+          "See you at eight."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el avión": {
+      "why": "'aeroplane, airplane, plane' is one word written three ways, two of them the same word in two spellings. en avión was missing.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "plane, aeroplane"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "en avión — by plane"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
@@ -6614,7 +6841,8 @@
   "reviewed": {
     "delea1": [
       "el libro",
-      "el hotel"
+      "el hotel",
+      "interesante"
     ]
   }
 }

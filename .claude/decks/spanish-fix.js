@@ -327,6 +327,38 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
 /* `reviewed` names cards this pass READ and left alone. Checked exactly as a fix is, so a mistyped
    headword cannot quietly stand for a card nobody looked at. */
 let reviewedN = 0;
+/* A REBOLD CAN MARK ANOTHER CARD'S HEADWORD, and it does it silently. A Forms row is not always an
+   inflection — "verb: cantar" on la canción, "Spain says: aquí" on acá — and a cross-reference there
+   becomes a bold target, so a sentence ends up teaching the word next door. This is the check that was
+   being run by hand after every batch; it is a NOTE rather than a failure, because a legitimate form can
+   also be another card (usted's plural is ustedes, comer's first person is como), and only a reader can
+   tell those from the accidents. */
+const crossBold = [];
+for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.test(x)).sort()) {
+  const dk = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
+  const heads = new Map();
+  for (const c of dk.cards || []) for (const part of String(c.fields.Spanish).split(","))
+    heads.set(part.trim().replace(/^(el|la|los|las)\s+/, "").toLowerCase(), c.fields.Spanish);
+  /* Only cards the RECORD has touched: an untouched card carries the generator's own bolding, which is a
+     different and already-measured problem, and the other DELE levels are full of participles that are
+     also headwords in their own right. What this asks is whether a REBOLD went wrong. */
+  const touched = byDeck.get(dk.meta && dk.meta.id);
+  for (const c of dk.cards || []) {
+    if (!touched) break;
+    let mine = touched.get(c.fields.Spanish);
+    if (!mine) for (const cand of touched.values()) if (cand.fix.spanish === c.fields.Spanish) { mine = cand; break; }
+    if (!mine || !mine.fix.rebold) continue;
+    const own = new Set(String(c.fields.Spanish).split(",")
+      .map((x) => x.trim().replace(/^(el|la|los|las)\s+/, "").toLowerCase()));
+    for (const b of splitEx(c.fields.Examples)) {
+      const marks = [...String(b).matchAll(/<b>([^<]*)<\/b>/g)].map((m) => m[1].toLowerCase());
+      if (marks.some((x) => own.has(x))) continue;
+      const other = marks.filter((x) => heads.has(x) && !own.has(x));
+      if (other.length) crossBold.push(c.fields.Spanish + " → " + other.join(", ") + "  |  " + exText(b).slice(0, 58));
+    }
+  }
+}
+
 for (const [deck, list] of Object.entries(fixes.reviewed || {})) {
   const f = fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.test(x))
     .map((x) => JSON.parse(fs.readFileSync(path.join(DIR, x), "utf8")))
@@ -343,6 +375,10 @@ console.log("\n" + entries.length + " fixes, " + hints.length + " reverse-card h
   (seen.size + seenHint.size) + " matched a note, " + reviewedN + " read and left alone, " + metaHit + " matched a deck" +
   (dropped ? ", " + dropped + " card(s) folded away" : ""));
 
+if (crossBold.length) {
+  console.log("\n  note  " + crossBold.length + " example(s) whose only bolded word is another card's headword:");
+  crossBold.forEach((k) => console.log("        " + k));
+}
 if (badFold.length && (VERBOSE || CHECK)) {
   console.log("\n  note  " + badFold.length + " line(s) already applied (expected after the first run;" +
     " on a NEW entry, check for a typo):");
