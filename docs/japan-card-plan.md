@@ -475,8 +475,8 @@ that comes to hand.
     jp-078  The handen land allotment system
     jp-079  Fujiwara-kyō
     jp-080  The rise of the tennō
-    jp-081  Emperor of Japan
-    jp-082  The origins of the imperial title
+    jp-081  Battle of Hakusukinoe
+    jp-082  Empress Jitō
     jp-083  Early Japanese Buddhism and the state
     jp-084  Asuka art
     jp-085  Japan and Tang China
