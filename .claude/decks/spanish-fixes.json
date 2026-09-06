@@ -2418,6 +2418,246 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/el día": {
+      "why": "Two glosses, 'day (any period of 24 hours)' and 'day (a period from midnight to the following midnight)', which are a dictionary telling one sense from another the reader will never need to tell apart. What is missing is buenos días — the first thing said in a Spanish lesson — and todos los días, which is the card's own second example. día is also masculine although it ends in -a, which is the trap every English speaker falls into, and the card said so only in the small part-of-speech line.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "day"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "buenos días — good morning",
+            "todos los días — every day",
+            "de día — by day, in the daytime"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "los días"
+        ],
+        [
+          "masculine, though it ends in -a",
+          "el día"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/uno": {
+      "why": "Two of its three examples were the indefinite ARTICLE, bolding una and unos - both now forms on the un, una card - and the third is broken Spanish: 'Este coche el igual que uno nuevo' has el where es belongs. So one example taught the wrong word twice and the other did not parse. All three are replaced. uno as the impersonal pronoun (uno nunca sabe) was missing too.",
+      "senses": [
+        [
+          "numeral",
+          [
+            "one"
+          ]
+        ],
+        [
+          "pronoun",
+          [
+            "one, you (impersonal: uno nunca sabe)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "feminine",
+          "una"
+        ],
+        [
+          "before a masculine noun it shortens",
+          "un libro"
+        ]
+      ],
+      "dropEx": [
+        "Todo el mundo se merece una segunda oportunidad.",
+        "Este coche el igual que uno nuevo.",
+        "Por favor toma un descanso por unos días."
+      ],
+      "ex": [
+        [
+          "Solo tengo uno.",
+          "I only have one."
+        ],
+        [
+          "Uno de mis amigos vive en Madrid.",
+          "One of my friends lives in Madrid."
+        ],
+        [
+          "Uno nunca sabe.",
+          "One never knows."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la noche": {
+      "why": "Two disambiguated glosses and none of the three phrases the word is actually met in: buenas noches, esta noche - which is the card's own first example, translated 'tonight' - and por la noche.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "night",
+            "evening (after dark)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "buenas noches — good evening, good night",
+            "esta noche — tonight",
+            "por la noche — at night"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el acuerdo": {
+      "why": "Glossed as the noun alone, though TWO of its three examples are estar de acuerdo, which is how Spanish says 'to agree' and is a phrase rather than a use of the noun. 'compromise' is also not what acuerdo means - that is un compromiso, or in the English sense una concesión.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "agreement",
+            "deal"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "estar de acuerdo — to agree",
+            "de acuerdo — all right, agreed"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el trabajo": {
+      "why": "The gloss is right and thin: trabajo is also a single piece of work - an essay, an assignment - which is the sense a student meets first. The verb it is built on has a card of its own and neither pointed at the other.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "work",
+            "job",
+            "a piece of work, an assignment"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "los trabajos"
+        ],
+        [
+          "verb",
+          "trabajar"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el padre, la madre": {
+      "why": "'father, parent, mother' - and 'parent' is not what padre means on its own. It is what the MASCULINE PLURAL means: los padres is 'the parents', covering both, which is one of the first facts about Spanish gender a reader needs and which the card had folded into the middle of a list as though it were a third translation of the singular.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "padre — father",
+            "madre — mother"
+          ]
+        ],
+        [
+          "noun, masculine plural",
+          [
+            "los padres — parents (both together)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/nadie": {
+      "why": "'nobody (anyone or anybody)' is a parenthetical description rather than a translation. The card also had only TWO examples where every other card in the deck has three, and it said nothing about the two rules that govern the word: the no stays when nadie follows the verb, and as an object it takes the personal a - which its own first example does.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "nobody, no one",
+            "anybody (after a negative: no veo a nadie)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "the no stays; takes a",
+          "no conozco a nadie"
+        ]
+      ],
+      "ex": [
+        [
+          "No hay nadie en casa.",
+          "There's nobody at home."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/hablar": {
+      "why": "Two synonyms, a definition ('to communicate using words') and a disambiguation. Its third example is also broken Spanish - 'al menos que le hablen' should be a menos que - so it is replaced by the question a reader will be asked in their first conversation.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to speak, to talk",
+            "to speak (a language): habla español"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Él nunca habla al menos que le hablen."
+      ],
+      "ex": [
+        [
+          "¿Hablas español?",
+          "Do you speak Spanish?"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/después": {
+      "why": "'later, afterwards, afterward, post' is one gloss written twice over in two spellings plus 'post', which is not English for this. And después DE, which is what all three of the card's examples are, was not listed at all.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "afterwards, later"
+          ]
+        ],
+        [
+          "preposition",
+          [
+            "después de — after"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/desde": {
+      "why": "The glosses are right and carry a dictionary's parentheses where the phrase would serve better. desde hace, which is how Spanish says how long something has been going on, was missing and has no other home in the deck.",
+      "senses": [
+        [
+          "preposition",
+          [
+            "from (a place or a time)",
+            "since (a point in time)",
+            "desde hace — for (a length of time up to now: desde hace dos años)"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
