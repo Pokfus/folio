@@ -412,11 +412,11 @@ definitions, which exist precisely because the wording matters.
     ww2-064  Nazi propaganda
     ww2-065  Joseph Goebbels
     ww2-066  Nazi book burnings
-    ww2-067  Nazi persecution of Jews before the war
+    ww2-067  The Aryan Paragraph
     ww2-068  Nuremberg Laws
     ww2-069  Kristallnacht
-    ww2-070  Jewish emigration from Nazi Germany
-    ww2-071  Évian Conference
+    ww2-070  Évian Conference
+    ww2-071  Voyage of the St. Louis
     ww2-072  Aktion T4
     ww2-073  Nazi persecution of other groups before the war
     ww2-074  The German churches under Nazism

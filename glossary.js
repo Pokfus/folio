@@ -2108,7 +2108,18 @@ window.GLOSSARY = {
 "Machtergreifung": "Machtergreifung is the German term for Adolf Hitler’s appointment as chancellor on 30 January 1933 and for the destruction of parliamentary government that followed it.<sup class=\"fn\" data-fn=\"1\"></sup> The appointment was made by President Hindenburg after months of pressure from conservative politicians who opposed the Weimar state, feared communism, and believed they could use the movement’s popularity while keeping its leader in check.<sup class=\"fn\" data-fn=\"1\"></sup> Within six months a democratic state had become a one-party dictatorship, by way of an emergency decree, an enabling law, a purge of the civil service and the banning of every other party.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Night_of_the_Long_Knives": "The Night of the Long Knives was the purge, between 30 June and 2 July 1934, in which the leadership of the National Socialist party’s paramilitary wing was shot without trial along with other opponents.<sup class=\"fn\" data-fn=\"1\"></sup> Rumours of a planned coup had been spread beforehand, and the killings were presented afterwards as the thwarting of a second revolution, with a law of 3 July declaring them lawful retrospectively.<sup class=\"fn\" data-fn=\"1\"></sup> The paramilitary had been the movement’s street army since the early 1920s and had grown far larger than the regular armed forces, whose officers had wanted it cut down.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Preußenschlag": "Preußenschlag is the name given to the removal of the government of Prussia by the German federal government on 20 July 1932, carried out under the emergency article of the constitution.<sup class=\"fn\" data-fn=\"1\"></sup> Chancellor Franz von Papen used street violence in Altona as the ground for declaring an emergency, made himself Reich commissioner for Prussia, and removed the state’s leftist and centrist office-holders, among them the Social Democrat Otto Braun.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Prussia held about three fifths of Germany’s population, so the seizure of its administration weakened the federal pluralism of the Weimar state and opened the way to a more authoritarian order.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Reichstag_fire": "The Reichstag fire was the arson attack that destroyed the German parliament building in Berlin on the night of 27 February 1933, a month after Hitler became chancellor.<sup class=\"fn\" data-fn=\"1\"></sup> The government blamed the Communist Party and obtained an emergency decree the next day which suspended civil liberties and due process indefinitely and allowed the national government to take over the states.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> On that authority political opponents were arrested, police powers widened and the first concentration camps opened, and the election held a week later was the last contested by more than one party.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Reichstag_fire": "The Reichstag fire was the arson attack that destroyed the German parliament building in Berlin on the night of 27 February 1933, a month after Hitler became chancellor.<sup class=\"fn\" data-fn=\"1\"></sup> The government blamed the Communist Party and obtained an emergency decree the next day which suspended civil liberties and due process indefinitely and allowed the national government to take over the states.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> On that authority political opponents were arrested, police powers widened and the first concentration camps opened, and the election held a week later was the last contested by more than one party.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Aryanization": "Aryanisation was the transfer of Jewish-owned businesses, firms and other property in Nazi Germany into non-Jewish hands, usually at prices officially fixed well below what the assets were worth, with Jewish workers and managers dismissed in the same process.<sup class=\"fn\" data-fn=\"1\"></sup> It followed a boycott of Jewish businesses on 1 April 1933 and more than four hundred decrees issued over six years by every level of German government.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Owners were first required to register their property at home and abroad, which was the necessary prelude to taking it, and by the spring of 1939 most Jewish-owned businesses in Germany had changed hands.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Gestapo": "The Gestapo, an abbreviation of Geheime Staatspolizei or secret state police, was the political police force of Nazi Germany, charged with identifying and suppressing whatever the regime counted as a domestic threat.<sup class=\"fn\" data-fn=\"1\"></sup> Freed from constitutional limits by the emergency decree of February 1933 and centralised under Heinrich Himmler by the end of 1936, it could open mail, tap telephones and search homes without a warrant.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its most feared power was protective custody, which allowed it to send a person to a concentration camp without charge, trial or appeal; too small to watch a nation, it relied heavily on denunciations.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Joseph_Goebbels": "Joseph Goebbels was a German politician and propagandist who served as the Nazi Party’s chief in Greater Berlin from 1926, as its head of propaganda from 1930, and as Reich propaganda minister from 1933 until 1945.<sup class=\"fn\" data-fn=\"1\"></sup> Born in the Rhineland in 1897, rejected for war service because of a club foot, he took a doctorate in German literature at Heidelberg in 1920 and joined the party in 1924.<sup class=\"fn\" data-fn=\"1\"></sup> He dissolved Germany’s independent broadcasters, put a cheap radio receiver into ordinary homes, and was a radical antisemite who coordinated the anti-Jewish riot of November 1938.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Kristallnacht": "Kristallnacht, the night of broken glass, was the anti-Jewish riot that ran through Germany, Austria and the annexed Sudetenland on 9 and 10 November 1938, burning more than 1,400 synagogues.<sup class=\"fn\" data-fn=\"1\"></sup> Presented as spontaneous popular anger at the shooting of a German diplomat in Paris, it was in fact coordinated by the propaganda ministry with Hitler’s approval.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The perpetrators included party officials, the militia, the elite guard and ordinary Germans; about 26,000 Jewish men were then imprisoned in concentration camps, and the Jewish community was fined a billion marks in what the regime called an atonement payment.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Nazi_book_burnings": "The Nazi book burnings were public bonfires of books condemned as un-German, held in more than twenty German university towns and cities in May 1933 and at intervals before and after that month.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They were organised by pro-Nazi students of the national union of student bodies rather than by the government, though local and national party officials attended the ceremonies and so made the regime’s approval of them plain.<sup class=\"fn\" data-fn=\"1\"></sup> What was burnt included works by Jewish authors, pacifist writing that criticised war, and books praising socialism or communism, among them Erich Maria Remarque’s novel of the Western Front.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Nazi_concentration_camps": "Nazi concentration camps were detention sites established in Germany from 1933 and later across occupied Europe, used to imprison people the regime treated as enemies and to punish them by humiliation, violence and forced labour.<sup class=\"fn\" data-fn=\"1\"></sup> The first were improvised locally by the militia and the police in the spring of 1933 to hold political opponents, and most were soon replaced by a smaller number run centrally by the elite guard.<sup class=\"fn\" data-fn=\"1\"></sup> Dachau, opened near Munich in March 1933, was the only camp of that year to last until 1945 and became the model and training school for the rest of the system.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Nuremberg_Laws": "The Nuremberg Laws were two measures announced on 15 September 1935 at a Nazi Party rally, one reserving German citizenship to those of German or related blood and the other forbidding marriage between Jews and other Germans.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A regulation of 14 November defined a Jew as a person with three or four Jewish grandparents, a grandparent counting as Jewish if they had belonged to the Jewish religious community.<sup class=\"fn\" data-fn=\"1\"></sup> Because citizenship had been made a condition of many professions and courses of study, the laws were used to push Jews out of offices, armies and universities.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Propaganda_in_Nazi_Germany": "Propaganda in Nazi Germany was directed by a Reich Ministry of Public Enlightenment and Propaganda founded in March 1933, which held art, music, theatre, film, books, radio, schoolbooks and the press in its charge.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its minister treated radio as the most important instrument available, dissolved the independent broadcasters and had a cheap receiver mass-produced so that even the poorest households could be reached.<sup class=\"fn\" data-fn=\"2\"></sup> Campaigns were timed to prepare the public for measures rather than to explain them afterwards, and much of the effort aimed at passive acceptance rather than at enthusiasm.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Schutzstaffel": "The Schutzstaffel, or protection squads, was the organisation founded in 1925 as Adolf Hitler’s personal bodyguard that grew into the body controlling the police forces and the concentration camps of Nazi Germany.<sup class=\"fn\" data-fn=\"1\"></sup> Heinrich Himmler was made its Reich leader in January 1929, when it numbered 280 men, and rebuilt it as a self-described racial elite by admitting candidates only on tests of ancestry and political reliability.<sup class=\"fn\" data-fn=\"1\"></sup> Made independent of the party militia in 1934 and answerable to Hitler alone, it took over the whole political police apparatus and ran the camp system until 1945.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Évian_Conference": "The Évian Conference was a meeting of delegates from 32 countries held in July 1938 at a resort on the French shore of Lake Geneva to discuss the refugees fleeing Nazi persecution.<sup class=\"fn\" data-fn=\"1\"></sup> Delegate after delegate expressed sympathy and then explained why his own country could admit no more, and only the Dominican Republic offered to take a substantial number.<sup class=\"fn\" data-fn=\"1\"></sup> Its one lasting product was an intergovernmental committee that had no power to solve the problem, and a liner carrying nearly a thousand refugees was turned away from Cuba and then from the United States the following year.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Aryan_paragraph": "The Aryan paragraph was a clause excluding people of Jewish descent from an office, a profession, an association or a course of study, used across German public and private life under the Nazi regime.<sup class=\"fn\" data-fn=\"1\"></sup> It entered national law with the Law for the Restoration of the Professional Civil Service of 7 April 1933, which barred Jews and political opponents from public employment and reached judges, teachers, professors and lawyers.<sup class=\"fn\" data-fn=\"1\"></sup> The formula was then copied into hundreds of later decrees and adopted voluntarily by clubs and associations, until the race laws of 1935 rebuilt the exclusions on descent rather than religion.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2985,7 +2996,18 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Machtergreifung": "30 January 1933",
 "Night_of_the_Long_Knives": "30 June – 2 July 1934",
 "Preußenschlag": "20 July 1932",
-"Reichstag_fire": "27 February 1933"
+"Reichstag_fire": "27 February 1933",
+"Aryanization": "1933–1939",
+"Gestapo": "1933–1945",
+"Joseph_Goebbels": "1897–1945",
+"Kristallnacht": "9 – 10 November 1938",
+"Nazi_book_burnings": "1933",
+"Nazi_concentration_camps": "1933–1945",
+"Nuremberg_Laws": "15 September 1935",
+"Propaganda_in_Nazi_Germany": "1933–1945",
+"Schutzstaffel": "1925–1945",
+"Évian_Conference": "6 – 15 July 1938",
+"Aryan_paragraph": "1933–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4276,7 +4298,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Führerprinzip": ["leader principle"],
 "German_Labour_Front": ["Deutsche Arbeitsfront","German Labor Front"],
 "Night_of_the_Long_Knives": ["Röhm putsch"],
-"Preußenschlag": ["Prussian coup"]
+"Preußenschlag": ["Prussian coup"],
+"Aryanization": ["Aryanisation"],
+"Joseph_Goebbels": ["Goebbels"],
+"Kristallnacht": ["Night of Broken Glass"],
+"Nazi_book_burnings": ["book burning"],
+"Nazi_concentration_camps": ["concentration camp"],
+"Nuremberg_Laws": ["Nuremberg Race Laws"],
+"Propaganda_in_Nazi_Germany": ["Nazi propaganda"],
+"Schutzstaffel": ["SS"],
+"Évian_Conference": ["Evian Conference"],
+"Aryan_paragraph": ["Aryan Paragraph","Arierparagraph"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6420,7 +6452,18 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Machtergreifung": ["event","politics","history","germany"],
 "Night_of_the_Long_Knives": ["event","politics","history","germany"],
 "Preußenschlag": ["event","politics","history","germany"],
-"Reichstag_fire": ["event","politics","history","germany"]
+"Reichstag_fire": ["event","politics","history","germany"],
+"Aryanization": ["practice","event","history","germany","economics"],
+"Gestapo": ["institution","politics","history","germany"],
+"Joseph_Goebbels": ["person","politics","history","germany","20th century"],
+"Kristallnacht": ["event","history","germany","20th century"],
+"Nazi_book_burnings": ["event","practice","history","germany","art"],
+"Nazi_concentration_camps": ["institution","place","history","germany","20th century"],
+"Nuremberg_Laws": ["event","concept","politics","law","history","germany"],
+"Propaganda_in_Nazi_Germany": ["concept","practice","politics","history","germany"],
+"Schutzstaffel": ["institution","politics","history","germany","warfare"],
+"Évian_Conference": ["event","politics","history","20th century"],
+"Aryan_paragraph": ["concept","law","practice","history","germany"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
