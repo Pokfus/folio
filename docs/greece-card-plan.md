@@ -770,8 +770,8 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
 
     gr-521  The Peloponnesian War
     gr-522  Thucydides
-    gr-523  The causes of the war
-    gr-524  The Corcyra affair
+    gr-523  The causes of the war   (carded on `prophasis`, the word Thucydides uses for it)
+    gr-524  The Corcyra affair   (carded on Epidamnus; `Corcyra` is already a glossary term)
     gr-525  Battle of Sybota
     gr-526  Potidaea
     gr-527  The Megarian Decree

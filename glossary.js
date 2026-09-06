@@ -2316,7 +2316,16 @@ window.GLOSSARY = {
 "Thucydides_son_of_Melesias": "Thucydides son of Melesias was an Athenian politician of the mid-fifth century BCE who led the opposition to Pericles after the death of Cimon, to whom he was related by marriage<sup class=\"fn\" data-fn=\"1\"></sup>. Plutarch says he gathered the wealthy citizens into a bloc that sat together in the assembly so that their votes told, and made the spending of the allies' money on the temples of Athens his chief charge<sup class=\"fn\" data-fn=\"1\"></sup>; a later account names him leader of the notables against the people's champion<sup class=\"fn\" data-fn=\"2\"></sup>. The quarrel was settled by ostracism in about 443 BCE, and potsherds cast against him have been found in the excavations of the agora<sup class=\"fn\" data-fn=\"3\"></sup>.",
 "Old_Oligarch": "The Old Oligarch is the name modern scholars give to the anonymous author of a short Greek pamphlet on the Athenian constitution, transmitted among the works of Xenophon and now generally held not to be his. Its argument is that the democracy, of which the writer plainly disapproves, is well built for its own purposes: the poor row the fleet, so it is just that they rather than the well-born should hold the offices and the power<sup class=\"fn\" data-fn=\"1\"></sup>. The same writer explains the licence allowed at Athens to slaves and resident foreigners as a consequence of a naval city's need for them<sup class=\"fn\" data-fn=\"2\"></sup>.",
 "Treasury_of_the_Other_Gods": "The treasury of the Other Gods was a single Athenian fund into which the monies of the city's lesser sanctuaries were gathered, kept on the Acropolis and managed by one board of treasurers chosen by lot rather than by each cult for itself<sup class=\"fn\" data-fn=\"1\"></sup>. The decrees that set it up, known from the stone as Kallias' decrees, also ordered the debts owed to the gods to be reckoned and repaid and the records of them deleted once they had been<sup class=\"fn\" data-fn=\"1\"></sup>. The sacred treasuries then lent heavily to the state during the Peloponnesian War, and the surviving accounts of those loans record sums running into hundreds of talents<sup class=\"fn\" data-fn=\"2\"></sup>.",
-"Kleinias_decree": "The Kleinias decree is an Athenian decree, known from fragments of the stone on which it was cut, tightening the collection of tribute from the cities of the Delian League. It orders each city to write on a tablet the sum it is sending and to seal it with a token, so that those carrying the money cannot cheat, and provides for the prosecution of anyone who wrongs the carriers<sup class=\"fn\" data-fn=\"1\"></sup>. It is dated to 425/4 BCE or a little later, close in time to the reassessment of tribute carried through by Thoudippos<sup class=\"fn\" data-fn=\"2\"></sup>."
+"Kleinias_decree": "The Kleinias decree is an Athenian decree, known from fragments of the stone on which it was cut, tightening the collection of tribute from the cities of the Delian League. It orders each city to write on a tablet the sum it is sending and to seal it with a token, so that those carrying the money cannot cheat, and provides for the prosecution of anyone who wrongs the carriers<sup class=\"fn\" data-fn=\"1\"></sup>. It is dated to 425/4 BCE or a little later, close in time to the reassessment of tribute carried through by Thoudippos<sup class=\"fn\" data-fn=\"2\"></sup>.",
+"Peloponnesian_War": "The Peloponnesian War was fought from 431 to 404 BCE between Athens, at the head of a maritime empire, and Sparta, at the head of a league covering most of the Peloponnese and drawing in Boeotia, Megara and the north-west<sup class=\"fn\" data-fn=\"1\"></sup>. Thucydides, who lived through it, called it the greatest disturbance yet known among the Greeks and treated its ten-year first phase, the uneasy interval that followed and the fighting after that as one war of twenty-seven years<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>. It ended when Sparta, with Persian money behind it, destroyed the Athenian fleet, and the terms pulled down the Long Walls and left Athens twelve ships<sup class=\"fn\" data-fn=\"4\"></sup>.",
+"Prophasis": "Prophasis is a Greek noun that can mean either the underlying cause of something or the pretext given for it, and which of the two is meant has to be read from the sentence around it. Thucydides uses it at the point where he separates the grievances the parties announced from what he calls the truest cause, also the one most kept out of sight<sup class=\"fn\" data-fn=\"2\"></sup>. That cause, on his account, was the growth of Athenian power and the alarm it gave Sparta, and he sets the announced complaints out first so that nobody should afterwards have to ask how so great a war began<sup class=\"fn\" data-fn=\"1\"></sup>.",
+"Epidamnus": "Epidamnus was a Greek city on the Illyrian coast, at the entrance of the Ionic Gulf and among a people called the Taulantians, founded from Corcyra under a leader summoned from Corinth in the customary way<sup class=\"fn\" data-fn=\"1\"></sup>. It grew rich and then wore itself out in faction, and when its people expelled the nobles the exiles joined the neighbouring Illyrians and plundered the city by land and sea<sup class=\"fn\" data-fn=\"1\"></sup>. Refused help by Corcyra and told by Delphi to put itself under Corinth, it became the quarrel out of which the Corinthians and Corcyraeans went to war<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Battle_of_Sybota": "The Battle of Sybota was a sea-fight of 433 BCE off the coast opposite Corcyra, between a Corinthian fleet of a hundred and fifty ships and the Corcyraeans, whom a small Athenian squadron had been sent to protect<sup class=\"fn\" data-fn=\"1\"></sup>. Thucydides calls it the largest engagement yet fought between Greeks and an old-fashioned one, in which the ships lay still and the soldiers on their decks decided matters, so that it was more like a battle on land<sup class=\"fn\" data-fn=\"2\"></sup>. Both sides raised a trophy and claimed the victory, and the fighting between Athenian and Corinthian crews became the first of the grievances that led to open war<sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Potidaea": "Potidaea was a city on the isthmus of Pallene in the Chalcidice, a colony of Corinth that had become a tribute-paying ally of Athens while still receiving magistrates sent out from Corinth each year<sup class=\"fn\" data-fn=\"1\"></sup>. In 432 BCE Athens ordered it to raze the wall facing Pallene, give hostages and take no more Corinthian officials; it revolted instead, with Chalcidian and Bottiaean support<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. The siege lasted more than two years and cost two thousand talents, and Thucydides reports that hunger inside the walls had driven the people to eat one another before terms were agreed<sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Megarian_Decree": "The Megarian Decree was an Athenian measure shutting the Megarians out of the harbours of the Athenian empire and out of the market of Athens itself<sup class=\"fn\" data-fn=\"1\"></sup>. Megara laid it before the congress Sparta called in 432 BCE as a breach of the thirty years' treaty, and a Spartan embassy afterwards told Athens, more plainly than it said anything else, that war could be prevented by revoking it<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. Athens refused, answering with charges that the Megarians were cultivating consecrated ground and harbouring runaway slaves, and later writers made the refusal the personal work of Pericles<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Spartan_ultimatum": "The Spartan ultimatum is the name commonly given to the embassies Sparta sent to Athens in 432 BCE, which Thucydides says were meant to secure as good a pretext for war as possible<sup class=\"fn\" data-fn=\"1\"></sup>. The first demanded that Athens drive out an ancestral curse, a demand aimed at Pericles, whose mother's family carried it; the second asked that the siege of Potidaea be raised, that Aegina be left independent and that the decree against Megara be revoked<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. The last dropped every earlier subject and said only that the peace could continue if Athens would leave the Greeks independent, and Athens replied that it would do nothing under dictation<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Archidamian_War": "The Archidamian War is the name given to the first ten years of the Peloponnesian War, from 431 to 421 BCE, after the Spartan king who led its opening invasions<sup class=\"fn\" data-fn=\"1\"></sup>. Its pattern was a Peloponnesian army coming into Attica each summer to waste the land while the Athenians stayed behind their walls and raided the enemy coast by sea, and in its second year a plague broke out in the crowded city<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. It closed with a treaty sworn ten years to a few days from the first invasion, which Thucydides declined to call a peace because neither side gave back what it had promised<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>.",
+"Archidamus_II": "Archidamus II was a king of Sparta at the outbreak of the Peloponnesian War, introduced by Thucydides as a man reckoned at once wise and moderate<sup class=\"fn\" data-fn=\"1\"></sup>. He argued against declaring war at once, telling the assembly that Sparta was poorer and weaker at sea than its enemy, that wasting Attica would not decide anything while Athens could import what it needed, and that the war might be left as a legacy to their children<sup class=\"fn\" data-fn=\"2\"></sup>. The advice was not taken and he led the invasions himself, drawing his own army's censure for the time he spent besieging the border fort of Oenoe<sup class=\"fn\" data-fn=\"3\"></sup>."
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3168,7 +3177,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Thucydides_son_of_Melesias": "fl. c. 460 – 440 BCE",
 "Old_Oligarch": "5th century BCE",
 "Treasury_of_the_Other_Gods": "from c. 434 BCE",
-"Kleinias_decree": "425/4 BCE or a little later"
+"Kleinias_decree": "425/4 BCE or a little later",
+"Peloponnesian_War": "431 – 404 BCE",
+"Battle_of_Sybota": "433 BCE",
+"Megarian_Decree": "c. 432 BCE",
+"Spartan_ultimatum": "432 BCE",
+"Archidamian_War": "431 – 421 BCE",
+"Archidamus_II": "king of Sparta, d. c. 427 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4519,7 +4534,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Stoa_Poikile": ["Painted Stoa"],
 "Thucydides_son_of_Melesias": ["Thucydides of Alopece"],
 "Old_Oligarch": ["Pseudo-Xenophon"],
-"Kleinias_decree": ["Kleinias' decree","decree of Kleinias"]
+"Kleinias_decree": ["Kleinias' decree","decree of Kleinias"],
+"Peloponnesian_War": ["Peloponnesian war"],
+"Epidamnus": ["Epidamnos"],
+"Potidaea": ["Poteidaia"],
+"Megarian_Decree": ["Megarian decree","Megara decree"],
+"Spartan_ultimatum": ["Spartan ultimatum of 432"],
+"Archidamus_II": ["Archidamus","Archidamos II"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6870,7 +6891,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Thucydides_son_of_Melesias": ["person","politics","greece","athens"],
 "Old_Oligarch": ["text","politics","greece","athens","literature"],
 "Treasury_of_the_Other_Gods": ["institution","religion","greece","athens"],
-"Kleinias_decree": ["text","politics","greece","athens"]
+"Kleinias_decree": ["text","politics","greece","athens"],
+"Peloponnesian_War": ["event","warfare","greece","history"],
+"Prophasis": ["concept","history","greece"],
+"Epidamnus": ["place","city","greece","history"],
+"Battle_of_Sybota": ["battle","event","warfare","greece"],
+"Potidaea": ["place","city","greece","history"],
+"Megarian_Decree": ["text","politics","greece","athens"],
+"Spartan_ultimatum": ["event","politics","greece","history"],
+"Archidamian_War": ["event","warfare","greece","history"],
+"Archidamus_II": ["person","politics","greece","history"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
