@@ -7089,7 +7089,7 @@
    "rebold": true
   },
   "delea1/el norte": {
-   "why": "Its second gloss was north wind, a marginal sense given equal weight, while the three points of the compass that go with it - sur, este, oeste - were nowhere on the card. Two of its three examples were also the same sentence: my house is north of the city / of the library.",
+   "why": "Its second gloss was north wind, a marginal sense given equal weight, while the three points of the compass that go with it - sur, este, oeste - were nowhere on the card. Two of its three examples were also the same sentence: my house is north of the city / of the library. Read again beside el sur: los nortes is not a plural anybody uses - a compass point has no plural - and the generator had carried it forward on both cards.",
    "senses": [
     [
      "noun, masculine",
@@ -7106,10 +7106,6 @@
     ]
    ],
    "forms": [
-    [
-     "plural",
-     "los nortes"
-    ],
     [
      "the other three",
      "el sur, el este, el oeste"
@@ -7220,6 +7216,278 @@
     [
      "irregular participle",
      "escrito"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la estación": {
+   "why": "Both senses are listed and all three examples are the train station, so the season - which is the sense a reader is likelier to need first, and the one the four seasons hang off - is on the card in words and nowhere in use.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "station — la estación de tren, de autobuses, de metro",
+      "season (of the year)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "las cuatro estaciones — the four seasons: primavera, verano, otoño, invierno"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La estación de Tokio es la tercera parada."
+   ],
+   "ex": [
+    [
+     "El otoño es mi estación favorita.",
+     "Autumn is my favourite season."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/enfermo, enferma": {
+   "why": "Its third gloss was degenerate, a pejorative sense standing beside the everyday one - and meanwhile its own first example is the NOUN, el enfermo, the patient, which the card did not list at all. Nothing said estar enfermo or ponerse enfermo either, which is how the word is actually used.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "ill, sick — estar enfermo",
+      "ponerse enfermo — to fall ill"
+     ]
+    ],
+    [
+     "noun, masculine and feminine",
+     [
+      "el enfermo, la enferma — the patient, the sick person"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "enfermos, enfermas"
+    ],
+    [
+     "the illness",
+     "la enfermedad"
+    ],
+    [
+     "the nurse",
+     "el enfermero, la enfermera"
+    ]
+   ],
+   "bold": [
+    "enfermo",
+    "enferma",
+    "enfermos",
+    "enfermas"
+   ],
+   "rebold": true
+  },
+  "delea1/la salida": {
+   "why": "Three glosses and no sign of the verb it comes from, nor of the two compounds a reader meets on the first day: la salida de emergencia on every wall and la salida del sol.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "exit, way out — la salida de emergencia",
+      "departure — la salida del tren"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la salida del sol — sunrise"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las salidas"
+    ],
+    [
+     "the verb",
+     "salir"
+    ]
+   ],
+   "bold": [
+    "salida",
+    "salidas"
+   ],
+   "rebold": true
+  },
+  "delea1/bailar": {
+   "why": "Glossed to dance and to dribble (the ball) - the second a dictionary oddity given equal weight - while its own second example is el baile, the noun, which the card did not list, so one of the three sentences illustrated a word that was not on it.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to dance"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el baile — dance, dancing",
+      "sacar a alguien a bailar — to ask someone to dance"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La pareja está en la pista de baile."
+   ],
+   "ex": [
+    [
+     "¿Quieres bailar conmigo?",
+     "Do you want to dance with me?"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el sur": {
+   "why": "los sures is not a plural anybody uses - a compass point has no plural - and the card named none of the other three points, which is the one thing that makes this word worth a card of its own.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "south"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "al sur de — to the south of",
+      "el sur de España — the south of Spain"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the other three",
+     "el norte, el este, el oeste"
+    ]
+   ],
+   "bold": [
+    "sur",
+    "Sur",
+    "sures"
+   ],
+   "rebold": true
+  },
+  "delea1/aprender": {
+   "why": "One gloss, to learn, and no mention of aprender a + infinitive - which is what two of its own three examples do, and how the verb is used whenever what is learned is a skill rather than a subject.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to learn"
+     ]
+    ],
+    [
+     "verb, phrase",
+     [
+      "aprender a + infinitive — to learn to do something: aprender a nadar",
+      "aprender de memoria — to learn by heart"
+     ]
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el precio": {
+   "why": "Glossed price, worth, cost - worth is el valor rather than a translation of this word - and it had none of the phrases a reader needs at a till.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "price, cost"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¿qué precio tiene? — how much is it?",
+      "a buen precio — at a good price"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los precios"
+    ],
+    [
+     "cheap, expensive",
+     "barato, caro"
+    ]
+   ],
+   "bold": [
+    "precio",
+    "precios"
+   ],
+   "rebold": true
+  },
+  "delea1/el ojo": {
+   "why": "It shipped with two examples where every other card has three, and its second gloss was keyhole - which is el ojo de la cerradura, a compound rather than a sense of the bare word. Missing was ¡Ojo!, which is what a Spanish speaker actually says to make you watch out.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "eye"
+     ]
+    ],
+    [
+     "interjection",
+     [
+      "¡ojo! — careful!, watch out!"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el ojo de la cerradura — keyhole"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "Tiene los ojos azules como su madre.",
+     "She has blue eyes like her mother."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/azul": {
+   "why": "Correct as far as it went, and silent on the two things a colour card owes a reader: that azul is the same in the masculine and the feminine, and the everyday shades.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "blue (the same in the masculine and the feminine)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "azul claro, azul oscuro — light blue, dark blue",
+      "azul marino — navy blue"
+     ]
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el río": {
+   "why": "Its second example was carried by English that is not English - a large amount of rivers - which on the answer side of a card is the half a learner reads first.",
+   "dropEx": [
+    "En Francia hay un gran número de ríos."
+   ],
+   "ex": [
+    [
+     "El río pasa por el centro de la ciudad.",
+     "The river runs through the middle of the city."
     ]
    ],
    "rebold": true
