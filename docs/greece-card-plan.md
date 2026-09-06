@@ -756,15 +756,15 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-509  Aspasia
     gr-510  Metics
     gr-511  Slavery at Athens
-    gr-512  The Laurion mines
+    gr-512  The poletai and the public sales   (was: The Laurion mines — carded at gr-318 and gr-411)
     gr-513  The Athenian grain trade
     gr-514  The buildings of the Athenian agora
     gr-515  The Painted Stoa
     gr-516  Polygnotus
-    gr-517  Critics of Athenian democracy
+    gr-517  Thucydides son of Melesias   (the critics of the democracy, through the man who led them)
     gr-518  The Old Oligarch
-    gr-519  The finances of the empire
-    gr-520  Athenian imperial decrees
+    gr-519  The treasury of the Other Gods   (the building budget is already carded at gr-494)
+    gr-520  The Kleinias decree   (the Chalcis decree is already carded at gr-486)
 
 ### Peloponnesian War — `gr-peloponnesian-war`
 
