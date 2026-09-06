@@ -108,6 +108,12 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G4 — twelve more**: `gw-047` Ghana, `gw-048` Peru, `gw-049` Madagascar, `gw-050`
+  Côte d'Ivoire, `gw-051` Nepal, `gw-052` Cameroon, `gw-053` Venezuela, `gw-055` Niger, `gw-056` North
+  Korea, `gw-057` Syria, `gw-058` Mali and `gw-059` Burkina Faso, with all twelve date lines rewritten off
+  the same research. **`gw-054` Australia joins the deferral list**, the ninth country the FAO has no
+  AQUASTAT profile for; `gw-060` Taiwan is left for a batch of its own, being outside every UN-organised
+  source this pass rests on.
 - **2026-09-06, batch G3 — twelve more**: `gw-031` Uganda, `gw-033` Algeria, `gw-034` Iraq, `gw-035`
   Argentina, `gw-038` Yemen, `gw-039` Morocco, `gw-040` Angola, `gw-041` Ukraine, `gw-043` Uzbekistan,
   `gw-044` Malaysia, `gw-045` Saudi Arabia and `gw-046` Mozambique, with all twelve date lines rewritten
@@ -179,6 +185,40 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G4 found
+
+- **A COUNTRY OUTSIDE THE RECOGNITION GUIDE CAN STILL BE WRITTEN, AND `gw-056` IS THE PROOF.** The Office
+  of the Historian has **no page for North Korea** — the United States has never recognised it, and the
+  guide is a record of American recognition — so the card's whole second block comes from three other
+  works: the CBD profile for the forest, the coast and the islands; the **Korean War milestone**, which is
+  about an EVENT rather than a state and so covers a country the country index does not; and the DPRK's own
+  constitution. **When the guide has no country page, look for a milestone about the event.** The milestone
+  is heavily American in its framing and the two sentences taken from it name no American at all: the
+  peninsula "was temporarily divided at the 38th parallel", passive, because the actors in the source are
+  the United States and the Soviet Union and only one of them may be named here.
+- **THE CONSTITUTE PROJECT'S SLUG IS NOT ALWAYS THE COUNTRY'S NAME, AND THE INDEX RESOLVES IT.** Syria is
+  `Syria_2012` rather than `Syrian_Arab_Republic_2012`, and North Korea is **`Peoples_Republic_of_Korea_2016`**
+  — not the country's name at all, and not guessable from it. Fetch `constituteproject.org/countries` and
+  grep for the country's own directory, then grep that page for `constitution/…`; three guesses at the DPRK
+  slug returned 404 before the index gave it in one.
+- **AN AQUASTAT PROFILE'S YEAR IS ON ITS OWN FIRST PAGE, IN ITS OWN LANGUAGE.** The English profiles carry a
+  "Recommended citation" line; the French and Spanish ones carry *Citation recommandée* and, for Peru and
+  Venezuela, nothing at all — those two state **"Versión 2015"** in the running head under a survey banner
+  reading 2016 that is plainly a template artefact (it says *Irrigation in Africa in figures* on a South
+  American profile). Cite the version the document gives itself. Burkina Faso's address is also the batch's
+  reminder that these are read rather than composed: it is `…/3/I9864FR/i9864fr.pdf`, with the case of the
+  two halves reversed.
+- **THE CBD PROFILE IS NOT UNIVERSAL, AND THE GAP IS SILENT.** Venezuela's page answers 200, is 67 KB, and
+  carries no "Biodiversity Facts" section at all — only its national strategy — so a script keyed on the
+  page's existence would have reported it usable. `gw-053` took the guide's **Venezuela Boundary Dispute**
+  milestone instead, which is about Venezuela's own eastern frontier and its claim to the Essequibo on the
+  strength of the limits it held at independence from Spain.
+- **AN OH SUMMARY OFTEN CARRIES THE COUNTRY'S OWN MODERN HISTORY IN ONE CLAUSE.** Nepal's names the
+  abolition of the monarchy, the creation of a representative government and the end of a ten-year Maoist
+  insurgency in 2006; Peru's names territorial disputes with its neighbours, periods of military rule and
+  coups against civilian constitutional government; Côte d'Ivoire's dates the change of name to 1986 and
+  Burkina Faso's the change from Upper Volta to 1984. Read past the recognition paragraph.
 
 ## What G3 found
 
