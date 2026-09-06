@@ -3,23 +3,23 @@
   "decks": {
     "delea1": {
       "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention. It moved again when la tercera turned out to be a duplicate of tercero, tercera and was folded away: every count in the chain is kept so it still works on a deck freshly rebuilt from the generator.",
-      "subtitle": "495 words · both directions, as two cards per word",
+      "subtitle": "494 words · both directions, as two cards per word",
       "descSub": [
         [
           "500 words for level A1 of the DELE",
-          "495 words for level A1 of the DELE"
+          "494 words for level A1 of the DELE"
         ],
         [
           "490 words for level A1 of the DELE",
-          "495 words for level A1 of the DELE"
+          "494 words for level A1 of the DELE"
         ],
         [
           "493 words for level A1 of the DELE",
-          "495 words for level A1 of the DELE"
+          "494 words for level A1 of the DELE"
         ],
         [
-          "494 words for level A1 of the DELE",
-          "495 words for level A1 of the DELE"
+          "495 words for level A1 of the DELE",
+          "494 words for level A1 of the DELE"
         ],
         [
           "the rest of the 500 is filled from the A1 column in order of frequency",
@@ -2558,7 +2558,7 @@
       "rebold": true
     },
     "delea1/el padre, la madre": {
-      "why": "'father, parent, mother' - and 'parent' is not what padre means on its own. It is what the MASCULINE PLURAL means: los padres is 'the parents', covering both, which is one of the first facts about Spanish gender a reader needs and which the card had folded into the middle of a list as though it were a third translation of the singular.",
+      "why": "'father, parent, mother' - and 'parent' is not what padre means on its own. It is what the MASCULINE PLURAL means: los padres is 'the parents', covering both, which is one of the first facts about Spanish gender a reader needs and which the card had folded into the middle of a list as though it were a third translation of the singular. The deck also carried a SECOND card headed 'padres' — a bare plural, filed as 'noun' with no gender, glossed 'parents'. That is the veces fault again (a plural standing as a headword) and a duplicate of the sense block above, so it is folded away. Its three examples were all about somebody's parents and are covered here.",
       "senses": [
         [
           "noun, masculine and feminine",
@@ -2574,7 +2574,10 @@
           ]
         ]
       ],
-      "rebold": true
+      "rebold": true,
+      "fold": [
+        "padres"
+      ]
     },
     "delea1/nadie": {
       "why": "'nobody (anyone or anybody)' is a parenthetical description rather than a translation. The card also had only TWO examples where every other card in the deck has three, and it said nothing about the two rules that govern the word: the no stays when nadie follows the verb, and as an object it takes the personal a - which its own first example does.",
@@ -4907,6 +4910,194 @@
           [
             "el número de teléfono — phone number"
           ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la escuela": {
+      "why": "'school (an institution dedicated to teaching and learning)' is a definition rather than a translation. What a reader needs beside it is that el colegio and el instituto are the words they will meet as often, which the deck says nowhere.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "school"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "ir a la escuela — to go to school"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las escuelas"
+        ],
+        [
+          "also heard",
+          "el colegio, el instituto"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la pregunta": {
+      "why": "A definition for a gloss, and no HACER UNA PREGUNTA - which is what the card's own second example is, and is the thing an English speaker gets wrong first, since Spanish does not say preguntar una pregunta.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "question"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "hacer una pregunta — to ask a question",
+            "contestar una pregunta — to answer a question"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/segundo, segunda": {
+      "why": "Glossed as the ordinal alone, while the card's own third example is 'doce segundos' - el segundo, the unit of time, which it did not list.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "second"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "el segundo — a second (of time)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la comida": {
+      "why": "'food, lunch' - and MEAL, which is what both of the card's first two examples are (después de la comida, después de las comidas), was not there. Which meal comida names also varies: in Spain it is the midday one.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "food",
+            "meal",
+            "lunch (in Spain, the midday meal)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/fácil": {
+      "why": "'easy, facile, simple' - facile is a false friend, meaning glib in English rather than easy. Its opposite has a card of its own and neither pointed at the other.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "easy, simple"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "es fácil de + infinitive — it is easy to (fácil de encontrar)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "fáciles"
+        ],
+        [
+          "opposite",
+          "difícil"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el vino": {
+      "why": "Right, and thin: tinto and blanco are the two words a reader needs the moment they order any.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "wine"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "el vino tinto — red wine",
+            "el vino blanco — white wine"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la habitación": {
+      "why": "Two dictionary definitions of the same word. What is missing is the use a beginner needs it for first: a hotel room, una habitación doble.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "room",
+            "bedroom",
+            "hotel room (una habitación doble — a double room)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/creer": {
+      "why": "'to believe' and then four more words for it. creer EN, which is what the card's own third example is, and creo que sí — which is how the whole word is most often heard — had no line.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to think",
+            "to believe"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "creer en — to believe in",
+            "creo que sí — I think so; creo que no — I don't think so"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/joven": {
+      "why": "'young, youthful' and no mention that joven is also a NOUN - el joven, a young man - or that its comparative is menor, which is what the card's own second example bolds.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "young"
+          ]
+        ],
+        [
+          "noun, masculine and feminine",
+          [
+            "el joven, la joven — a young man, a young woman"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "jóvenes"
+        ],
+        [
+          "comparative",
+          "menor"
         ]
       ],
       "rebold": true
