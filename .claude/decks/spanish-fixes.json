@@ -4156,6 +4156,244 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/la leche": {
+      "why": "Found by a second sweep of what an example SAYS: its middle sentence was 'Es hora de irse cagando leches de aquí', where cagando leches is coarse Spanish slang, on an A1 card about milk. It was the only hit in the whole deck when the English translations were swept the same way. Its Forms row also gave 'las leches', a plural leche does not usefully have — the los dineros fault again.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "milk"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Es hora de irse cagando leches de aquí."
+      ],
+      "ex": [
+        [
+          "Bebo leche todas las mañanas.",
+          "I drink milk every morning."
+        ]
+      ],
+      "rebold": true,
+      "forms": []
+    },
+    "delea1/poder": {
+      "why": "Right as far as it goes, and silent on the two things beside it: poder for PERMISSION (¿puedo pasar?), which is a different question from ability and the one an A1 reader asks first, and el poder, the masculine noun.",
+      "senses": [
+        [
+          "verb",
+          [
+            "can, to be able to",
+            "may (asking permission: ¿puedo pasar?)"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "el poder — power"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/encontrar": {
+      "why": "'to meet, to find, encounter, come across' puts the wrong sense first - encontrar is to FIND - and two of the four are bare infinitives with the 'to' dropped. What it left out is the reflexive, which is what BOTH of the card's last two examples are: encontrarse con somebody, to run into them, and encontrarse, to feel.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to find"
+          ]
+        ],
+        [
+          "verb, reflexive",
+          [
+            "encontrarse con — to meet, to run into",
+            "encontrarse — to feel (¿cómo te encuentras?)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/cinco": {
+      "why": "Its second example is 'Me gustaría tres veintes, seis cincos, y el resto en unos' - changing money into American banknote denominations, which is neither A1 nor about the number. las cinco, telling the time, is how a reader meets the word.",
+      "senses": [
+        [
+          "numeral",
+          [
+            "five"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "las cinco — five o'clock"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Me gustaría tres veintes, seis cincos, y el resto en unos."
+      ],
+      "ex": [
+        [
+          "Tengo cinco hermanos.",
+          "I have five brothers."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el niño, la niña": {
+      "why": "The only pair card in the deck that already glossed both halves, and it did so as a flat list - 'child, boy, girl' - rather than saying which word is which. Brought into the shape the other four now have, with the masculine plural named.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "niño — boy, child",
+            "niña — girl"
+          ]
+        ],
+        [
+          "noun, masculine plural",
+          [
+            "los niños — children"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la cara": {
+      "why": "Two dictionary definitions of the same word - 'face (the front part of the head)' and 'face (one's facial expression)'. The side of a coin or a page, and cara a cara, are what the second bullet could usefully have been.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "face",
+            "side, face (of a coin or a sheet)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "cara a cara — face to face"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/cerca": {
+      "why": "Six glosses in one line - 'close, near, around, about, nearly, nigh' - the last of which is archaic English. cerca DE, which is what the card's own first example is, had no line; nor did la cerca, the feminine noun meaning a fence, which is what its second example bolds.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "near, close by"
+          ]
+        ],
+        [
+          "preposition",
+          [
+            "cerca de — near, close to; about, nearly (cerca de cien)"
+          ]
+        ],
+        [
+          "noun, feminine",
+          [
+            "la cerca — fence"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural of the noun",
+          "cercas"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/viejo, vieja": {
+      "why": "Two disambiguated glosses both meaning old. What a reader needs beside them is that viejo of a PERSON is blunt and mayor is the polite word - which the deck teaches nowhere, though mayor is already in bien's and grande's orbit.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "old (of a thing)",
+            "old (of a person; mayor is politer)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "viejos, viejas"
+        ],
+        [
+          "of a person, prefer",
+          "mayor"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/bastante": {
+      "why": "Filed as an ADJECTIVE, and TWO of its three examples are the adverb - bastante atractiva, bastante calor, meaning quite or fairly. Sixth card in this review whose part of speech and examples disagree, after hasta, mañana, demasiado, cuál and cuánto.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "quite, fairly, rather (bastante caro — quite expensive)",
+            "enough (no es bastante)"
+          ]
+        ],
+        [
+          "determiner",
+          [
+            "enough, quite a lot of (bastantes personas)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "bastantes"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el fin": {
+      "why": "'end' and then four words for purpose. ALL THREE of its examples are phrases the card did not list: al fin y al cabo, and el fin de semana twice - the weekend, which is the shape an A1 reader meets this word in far more often than as an end.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "end",
+            "purpose, aim"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "el fin de semana — the weekend",
+            "al fin y al cabo — after all",
+            "a fin de — in order to"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/tomar": {
+      "why": "'to take, to select, choose' - and not to HAVE or to DRINK, which is what tomar does in a café and is the first thing a reader will need it for (tomar un café, ¿qué vas a tomar?). Catching a bus is the other everyday sense and was also missing.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to take",
+            "to have, to drink (tomar un café — to have a coffee)",
+            "to catch (a bus, a train)"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
