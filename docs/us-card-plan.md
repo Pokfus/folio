@@ -406,7 +406,7 @@ matters.
     us-013  Poverty Point
     us-014  Adena culture
     us-015  Hopewell tradition
-    us-016  The Hopewell exchange network
+    us-016  The Hopewell interaction sphere
     us-017  Mississippian culture
     us-018  Cahokia
     us-019  Monks Mound
@@ -432,7 +432,7 @@ matters.
     us-039  Estimating the pre-contact population of North America
     us-040  How pre-contact America is known
 
-**Two decisions made while writing `us-001`–`us-010` (Sep 2026), recorded here because the lines
+**Three decisions made while writing `us-001`–`us-020` (Sep 2026), recorded here because the lines
 above no longer describe them exactly.**
 
 **`us-010` was renamed** from *The domestication of maize* to *Maize and its spread into North
@@ -448,6 +448,11 @@ in its prose auto-links to Greek history, which is the fault `check-gloss-links.
 report. The North American term keeps its existing key `Archaic_period_(North_America)` and now
 carries *North American Archaic* and *Archaic period in North America* as aliases. **Ask what else
 already claims a period name before choosing one as an answer term.**
+
+**`us-016` was renamed** from *The Hopewell exchange network* to *The Hopewell interaction sphere*,
+which is what the thing is called in the literature and what a reader will meet everywhere else;
+*Hopewell exchange network* is kept as a glossary alias, so a card writing either phrase links to
+the same term.
 
 ### Contact, disease and the colonial encounter — `us-native-contact`
 
