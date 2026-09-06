@@ -12,17 +12,30 @@ the batches the rest of it wants.
 
 ## What is wrong, measured
 
-Run these against `data.js` rather than trusting the figures below; they were taken on 2026-09-06.
+**`node .claude/gw-audit.js` is the measure — run it rather than quoting the table below.** The three
+rules are three questions about one card, and the first cut of this pass answered two of them with
+regexes it did not write down: it reported 205 grid repeats and 119 landscape mentions where the
+committed script reports 396 and 237 on the same data, because the earlier sweep matched only whole
+`facts` values and a shorter word list. **A figure in prose cannot say how it was taken.** The script
+can, so what follows is a dated reading of it and not the authority.
 
-| | |
+| as measured on 2026-09-06, before the first batch | |
 |---|---|
 | `gw-` cards | 468 |
 | …whose background mentions the United States | **419** |
 | mean share of a background's sentences that do | **31%** |
 | …that are the United States or a US territory, and legitimately may | 7 |
 | cards citing `history.state.gov` | 406 |
-| facts-grid figures repeated verbatim in a background | **205** |
-| …whose background mentions any landscape or climate word at all | 119 |
+| facts-grid values repeated in a background | **396** |
+| …whose background names no landform, water or weather at all | **237** |
+| **date lines that name the United States** | **194** |
+
+The last row is the one the plan did not have. A date line is not prose, so nothing in the three rules
+reaches it — and 194 `gw-` cards print `US recognition`, `First US consul` or `Relations severed` in the
+key/value list directly under the answer term, six of them (`gw-513` Cairo, `gw-516` Hanoi, `gw-521`
+London, `gw-525` Rome, `gw-533` Algiers, `gw-534` Baghdad) with nothing else in the list at all. **Rewrite
+a card's date line in the same batch as its background**, out of the same research; it costs one line in a
+`set-date-line.js` batch and there is no other moment when the dates are to hand.
 
 The cause is not carelessness, it is the SOURCE. The collection was written from the Office of the
 Historian's *Guide to the United States' History of Recognition, Diplomatic, and Consular Relations, by
@@ -95,6 +108,12 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G1 — the first thirteen backgrounds rewritten**: `gw-001` India, `gw-002` China,
+  `gw-004` Indonesia, `gw-005` Pakistan, `gw-006` Nigeria, `gw-007` Brazil, `gw-008` Bangladesh,
+  `gw-009` Russia, `gw-010` Ethiopia, `gw-011` Mexico, `gw-012` Japan, `gw-013` Egypt and `gw-014`
+  Philippines, each five sentences of landform, water and climate over five of the country's own
+  history, at 275–330 words with five cited works and their markers. Three date lines went with them
+  (`gw-007`, `gw-011`, `gw-012`), which had printed `US recognition` and `Perry arrives`.
 - **2026-09-06.** The date lines: fifteen `gw-` cards carried a census count or a population figure in the
   key/value list under the answer term (`Census | 21,893,095 in 2020` on `gw-502` Beijing), and none does
   now. The rule is that a geography card's date line carries DATES; the population belongs in the facts
@@ -107,6 +126,47 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   photographed at Kaikhali on the INDIAN side of the Sundarbans) and `gw-507` Brasília (a 14,177 × 1,820
   panorama — a 7.8∶1 strip, which in the card's 16∶9 frame is a sliver).
 
-**Nothing of rules 1 and 3 has shipped.** 419 cards still mention the United States.
+## What G1 found
+
+- **📖 THE SOURCE THAT MAKES THE PASS POSSIBLE IS THE FAO'S AQUASTAT COUNTRY PROFILE.** One PDF per
+  country at `https://www.fao.org/aquastat/en/countries-and-basins/country-profiles/country/<ISO3>`,
+  whose GEOGRAPHY, CLIMATE AND POPULATION section carries the landform, the borders, the coastline, the
+  regions and the altitude range, whose CLIMATE section carries the seasons, the mean rainfall AND its
+  range across the country, and whose WATER RESOURCES section names the rivers and the basins. It is
+  enough for a whole block of five sentences on its own, which is exactly what rule 3 asks for and what
+  no other openable per-country source supplies. Each profile also STATES ITS OWN recommended citation
+  on page 1, so the year is read rather than composed.
+- **…AND IT HAS NO PROFILE FOR SEVERAL LARGE COUNTRIES, THE UNITED STATES AMONG THEM.** `gw-003` is
+  therefore DEFERRED: it is the one card exempt from rule 1, it breaks rule 3 as badly as any, and the
+  obvious substitutes are shut here — `www.usgs.gov` and `www.weather.gov` are 403, `globalchange.gov`
+  refuses the connection outright, and NCEI's own explainer paths 404. `pubs.usgs.gov` and `nps.gov`
+  answer and are where the next attempt should start.
+- **THE RECOGNITION GUIDE IS STILL WORTH CITING AND ITS PAGES ARE MOSTLY NOT ABOUT THE COUNTRY.** For
+  `gw-006` Nigeria, `gw-014` Philippines, `gw-005` Pakistan and `gw-007` Brazil the whole national
+  content of the page is the colonial ruler and the independence date — one sentence, sometimes two.
+  What fills the other four is per country and there is no general answer; what worked in G1 was the
+  guide's **Milestones** (the two Chinese revolutions, Bandung, decolonisation, the Suez Crisis, the
+  collapse of the Soviet Union, the opening of Japan), the **UNdata** profile for the UN membership date
+  and the UN region, the **Commonwealth Secretariat** page for a member's landform, and a **primary
+  constitutional text** where one is openable (`planalto.gov.br` for the Brazilian constitution of 1824,
+  `diputados.gob.mx` for the Mexican one).
+- **AN OPEN JOURNAL ARTICLE IS A GOOD FIFTH SOURCE AND A BAD FIRST ONE.** DOAJ and Crossref find
+  Copernicus, PLOS, GRL and PEPS papers on a country's defining feature — the Amazon's hydrology, Lake
+  Baikal's effect on its own rainfall, Japan's winters since 1959, Teotihuacan's valley — and each
+  carries one specific, quotable, hedged claim. Searching for one that states a country's general
+  geography is a waste of a search: Europe PMC is life-sciences and returns amphipods for Baikal.
+- **TWO CARDS PAY A REAL PRICE FOR RULE 1 AND BOTH ARE FLAGGED HERE.** `gw-011` Mexico describes its
+  seas and its southern neighbours and does not name the country along its northern border; `gw-014`
+  Philippines carries the 1898 cession, the war that followed it, its casualties and the 1946
+  independence, and never says who the second colonial ruler was. Both read as written; both leave a
+  reader with a question the card declines to answer. **If the rule is meant to allow the bare
+  geographic and colonial facts, those are one clause each.**
+- **THREE 200-STATUS WALLS WERE MET AGAIN OR NEWLY**: `www.unesco.org/en/countries/<cc>` serves a
+  JavaScript challenge under a 200 (its own `unesdoc` is 403); `scielo.br` article pages serve
+  "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
+  JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
+  and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+**Rules 1 and 3 remain open on 400 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*

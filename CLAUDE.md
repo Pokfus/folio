@@ -1238,13 +1238,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   asks for one word cannot hold a capital question whose answer is the dispute.
   · **📖 `docs/geography-background-plan.md` — READ BEFORE REWRITING A `gw-` BACKGROUND.** These
     backgrounds were written out of the recognition guide, which is written from the American point of
-    view, so they are histories of *American recognition of* the country rather than histories *of* it:
-    measured Sep 2026, **419 of 468 mention the United States** and it is a third of their sentences, 205
-    repeat a figure their own facts grid already prints, and only 119 mention any landscape or climate
-    word at all. The three rules asked for, why it cannot be a find-and-replace (removing a third of the
+    view, so they are histories of *American recognition of* the country rather than histories *of* it.
+    **RUN `node .claude/gw-audit.js` FOR THE FIGURES RATHER THAN QUOTING ANY** — this bullet stated
+    three and two of them were wrong within a day, because the sweep behind them was never written
+    down; the script is report-only, exits 0, and answers all three rules plus the date lines at once.
+    The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
-    sources the rewrite needs, and fifteen batches. **What has shipped is the date lines, four population
-    figures and two pictures**; rules 1 and 3 are open.
+    sources the rewrite needs, fifteen batches, and what each shipped batch found.
+    **G1 has shipped — thirteen backgrounds rewritten** (`gw-001`–`gw-014` bar `gw-003`), each five
+    sentences of landform, water and climate over five of the country's own history. Its reusable
+    finding is the source that makes the pass possible: **the FAO's AQUASTAT country profile**, one PDF
+    per ISO3 code carrying the landform, the borders, the coastline, the altitude range, the seasons,
+    the mean rainfall AND its range, and the rivers — enough for a whole block on its own, and stating
+    its own recommended citation on page 1. **It has no profile for the United States**, which is why
+    `gw-003` is deferred. Rules 1 and 3 remain open on 400 cards.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |
