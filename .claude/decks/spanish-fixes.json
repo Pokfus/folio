@@ -3,19 +3,23 @@
   "decks": {
     "delea1": {
       "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention. It moved again when la tercera turned out to be a duplicate of tercero, tercera and was folded away: every count in the chain is kept so it still works on a deck freshly rebuilt from the generator.",
-      "subtitle": "493 words · both directions, as two cards per word",
+      "subtitle": "495 words · both directions, as two cards per word",
       "descSub": [
         [
           "500 words for level A1 of the DELE",
-          "493 words for level A1 of the DELE"
+          "495 words for level A1 of the DELE"
         ],
         [
           "490 words for level A1 of the DELE",
-          "493 words for level A1 of the DELE"
+          "495 words for level A1 of the DELE"
+        ],
+        [
+          "493 words for level A1 of the DELE",
+          "495 words for level A1 of the DELE"
         ],
         [
           "494 words for level A1 of the DELE",
-          "493 words for level A1 of the DELE"
+          "495 words for level A1 of the DELE"
         ],
         [
           "the rest of the 500 is filled from the A1 column in order of frequency",
@@ -2177,35 +2181,15 @@
       "rebold": true
     },
     "delea1/dónde": {
-      "why": "All three examples were the same sentence with one noun swapped - the nearest train station, art gallery and metro station - so the card asked its question three times and taught it once. The second gloss, 'in what place?', is a paraphrase rather than a translation; what was missing is where the word takes a preposition, de dónde and adónde.",
-      "senses": [
-        [
-          "adverb",
-          [
-            "where",
-            "de dónde — where from",
-            "adónde — where to"
-          ]
-        ]
-      ],
+      "why": "Its unaccented half, donde, now has a card, so this one names it — the same pairing cómo/como and cuándo/cuando now have.",
       "forms": [
         [
           "where to",
           "adónde"
-        ]
-      ],
-      "dropEx": [
-        "¿Dónde está la galería de arte más cercana?",
-        "¿Dónde está la estación de metro más cercana?"
-      ],
-      "ex": [
-        [
-          "¿Dónde vives?",
-          "Where do you live?"
         ],
         [
-          "¿Adónde vas?",
-          "Where are you going?"
+          "without an accent, the relative",
+          "donde"
         ]
       ],
       "rebold": true
@@ -4394,6 +4378,225 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/el punto": {
+      "why": "Two dictionary definitions, and neither of the two things a beginner needs: el punto is the full stop, and en punto is how Spanish tells the time on the hour. Its third example bolds puntito, a diminutive rather than a form of the word.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "point",
+            "full stop, period (in writing)",
+            "stitch (in knitting)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "en punto — on the dot (las tres en punto — three o'clock sharp)",
+            "el punto de vista — the point of view"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Nuestra Vía Láctea solo es un puntito insignificante en el universo."
+      ],
+      "ex": [
+        [
+          "Son las cinco en punto.",
+          "It's five o'clock sharp."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/cuándo": {
+      "why": "Right, and the card could not say the one thing that most needs saying about it: cuando without the accent is a different word, the conjunction, which had no card in this deck at all until this batch added one.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "when"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "¿desde cuándo? — since when?",
+            "¿hasta cuándo? — until when?"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "without an accent, the conjunction",
+          "cuando"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/grande": {
+      "why": "'big, large, great, grand' with nothing to tell them apart - and what tells them apart is POSITION: un hombre grande is a big man and un gran hombre a great one. gran, the form it takes before a singular noun, is the fourth apocopation in this deck after buen, mal and primer, and like them had no card and no mention. mayor, which the card's own third example bolds, was not there either.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "big, large (after the noun)",
+            "great (before the noun: un gran hombre)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "grandes"
+        ],
+        [
+          "before a singular noun",
+          "gran"
+        ],
+        [
+          "comparative",
+          "mayor"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/llegar": {
+      "why": "Four glosses, two of them bare infinitives with the 'to' dropped, all of them 'to arrive'. llegar tarde, which is what the card's own first example is, and llegar a ser had no line.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to arrive, to get (to a place)",
+            "to reach, to get up to"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "llegar tarde — to be late",
+            "llegar a ser — to become"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el coche": {
+      "why": "'carriage, coach, car' puts the horse-drawn senses first and the one a reader needs third. coche is also Peninsular; much of Latin America says carro or auto, which the deck says nowhere.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "car",
+            "carriage, coach (horse-drawn)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "los coches"
+        ],
+        [
+          "in much of Latin America",
+          "el carro, el auto"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la clase": {
+      "why": "'lecture' first, which is not what any of the card's three examples mean, and no sense for clase as a KIND - ¿qué clase de…? - which is the other half of the word.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "class, lesson",
+            "class (a group of students)",
+            "kind, sort (¿qué clase de música?)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/cuatro": {
+      "why": "Two of its three examples are telling the time, which the card did not name - the same line tres and cinco now carry.",
+      "senses": [
+        [
+          "numeral",
+          [
+            "four"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "las cuatro — four o'clock"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/pequeño, pequeña": {
+      "why": "'small, little' and no comparative: menor, which is the word for a younger brother or sister and is what the card's own third example is really about (mi hermana pequeña). The mirror of grande and mayor.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "small, little",
+            "young, younger (mi hermano pequeño — my little brother)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "pequeños, pequeñas"
+        ],
+        [
+          "comparative",
+          "menor"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/allá": {
+      "why": "'there, over there, thither, yonder' - two of those are archaic English - and ALL THREE of the card's examples are más allá de, meaning beyond, which it did not list. It also never said where allá stands among aquí, ahí and allí, which the other three now all do.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "over there (vaguer and further than allí)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "más allá de — beyond",
+            "allá por — back around (allá por 1990)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "nearer",
+          "aquí, ahí, allí"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la tierra": {
+      "why": "'Earth, land, ground' with no mark on which is which: la Tierra capitalised is the planet, and lower-case tierra is land, soil or the ground. The card's own first example is the soil.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "land",
+            "ground, soil",
+            "la Tierra — the Earth (the planet)"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
@@ -4555,6 +4758,83 @@
           [
             "¿Te acuerdas de aquello?",
             "Do you remember that?"
+          ]
+        ]
+      },
+      {
+        "id": "u_delea1_505",
+        "after": "cuándo",
+        "spanish": "cuando",
+        "word": "cuando",
+        "why": "The same gap as como, one accent over. supplement.py's QUESTION list names the ACCENTED interrogatives - qué, quién, cómo, cuándo, dónde, cuánto - and the deck therefore taught six question words and not one of the ordinary conjunctions written the same way without the accent. cuando is among the commonest words in Spanish and had no card. (donde is added beside it; quien and cual are deliberately left out — the relative quien is a B1 word and el cual is further on still, so adding them here would be teaching above the level rather than filling a gap.)",
+        "senses": [
+          [
+            "conjunction",
+            [
+              "when",
+              "whenever"
+            ]
+          ]
+        ],
+        "forms": [
+          [
+            "with an accent, the question word",
+            "cuándo"
+          ]
+        ],
+        "bold": [
+          "cuando"
+        ],
+        "ex": [
+          [
+            "Te llamo cuando llegue.",
+            "I'll call you when I arrive."
+          ],
+          [
+            "Cuando era niño, vivía en Madrid.",
+            "When I was a child, I lived in Madrid."
+          ],
+          [
+            "Ven cuando quieras.",
+            "Come whenever you like."
+          ]
+        ]
+      },
+      {
+        "id": "u_delea1_506",
+        "after": "dónde",
+        "spanish": "donde",
+        "word": "donde",
+        "why": "See the cuando entry: the unaccented half of a question word the deck taught only as a question.",
+        "senses": [
+          [
+            "adverb",
+            [
+              "where (as a relative: la casa donde vivo — the house where I live)"
+            ]
+          ]
+        ],
+        "forms": [
+          [
+            "with an accent, the question word",
+            "dónde"
+          ]
+        ],
+        "bold": [
+          "donde"
+        ],
+        "ex": [
+          [
+            "Esta es la casa donde vivo.",
+            "This is the house where I live."
+          ],
+          [
+            "Vamos donde tú quieras.",
+            "Let's go wherever you like."
+          ],
+          [
+            "El pueblo donde nació es muy pequeño.",
+            "The village where he was born is very small."
           ]
         ]
       }
