@@ -159,7 +159,7 @@ function load(rel) {
   const suites = files.filter((f) => f !== "test-noise.js");
   claim("committed regression suites", /\*\*Forty-seven committed regression tests\*\*/.test(MD) ? 47 : null, suites.length,
     "test-*.js, excluding the shared console filter");
-  claim("suites needing no browser", 7, noBrowser.filter((f) => f !== "test-noise.js").length, "named individually in the Testing section");
+  claim("suites needing no browser", 8, noBrowser.filter((f) => f !== "test-noise.js").length, "named individually in the Testing section");
 
   const pinned = Object.create(null);
   const rx = /`node \.claude\/(test-[a-z0-9-]+)\.js`(.{0,220}?)(\d[\d,]*)\s+assertions/gs;

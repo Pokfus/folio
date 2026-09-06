@@ -1502,7 +1502,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.09 MB and 45,336 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.1 MB and 45,472 lines is hard to find your way around, so this
   lists its 170 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -2156,6 +2156,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   learner meets a character in and silent about which of eleven of them is worth having;
   `uDeckWordFreq` answers that, with length as the tie-break, so a character whose words the deck never
   uses in a sentence lists exactly as it did before. Guarded by `.claude/test-char-network.js`.
+- **A CONJUGATION HEADING EXPLAINS ITSELF** (`TENSE_NOTES` / `tenseNote` / `ucMarkTenses` /
+  `openTenseWin` / `.uc-cj-ex` / `.tensewin`; Sep 2026, on request). A language deck's conjugation
+  table names its tenses and moods and said nothing about any of them: a reader meeting *Pretérito
+  imperfecto* was shown six forms and left to work out what the tense is FOR, which is the one thing
+  a paradigm cannot tell them. Tapping a heading opens a note. Four things decide the shape.
+  **THE HEADING ALONE IS AMBIGUOUS AND THE MOOD RESOLVES IT** — `Presente` stands under Indicativo,
+  under Subjuntivo and, in the Portuguese decks, under Conjuntivo, and those are three different
+  tenses — so a key is `<mood>|<heading>` with a bare `|<heading>` fallback, and the mood is carried
+  forward from the nearest PRECEDING `.uc-cj-mood`, the tables being flat rather than nested.
+  **ONLY A HEADING THE TABLE KNOWS IS MADE CLICKABLE**: `ucMarkTenses` runs over the sanitized HTML
+  in `cardTypeSideHTML`, so a reader never presses one and gets nothing — the rule the deck-order
+  cycler follows for an order it cannot deal — and the German decks' 117 one-off NOUN labels
+  (`Anwalt`, `Architektin`) are correctly left alone. **THE ATTRIBUTE IS WRITTEN FROM OUR OWN KEY,
+  never from the deck's text**, so a heading is matched against the table and can never be injected
+  through it. And it is **DELEGATED, like `openCharWin`** — a card type's HTML is sanitized and can
+  carry no handler of its own. **Measured: every heading occurring 20+ times across all 52 decks is
+  covered** (Spanish, Portuguese, French, German), which is what `test-tense-notes.js` asserts rather
+  than a count quoted here.
 - **…AND AN `Origin` LINE WHERE THERE IS ONE** (the Idioms deck's card type; Sep 2026, on request).
   **THE MEASUREMENT IS THE POINT: this is not a deck of classical 成语典故.** Against a list of the
   well-known ones, **13 of 477 matched**; read by eye, about ninety have a source worth naming. The
@@ -7036,8 +7054,9 @@ dead code (never rendered).
 
 - **CI RUNS ON EVERY PUSH** (`.github/workflows/checks.yml`, Aug 2026). Two jobs, deliberately split.
   **`fast`** is the GATE and must stay green: `node --check` over every root `.js` and every
-  `.claude/*.js`, then the seven no-browser suites (`test-card-plans`, `test-daily-quote`,
-  `test-date-line`, `test-difficulty`, `test-discovery`, `test-scheduler`, `test-streak-chest`) and the
+  `.claude/*.js`, then the eight no-browser suites (`test-card-plans`, `test-daily-quote`,
+  `test-date-line`, `test-difficulty`, `test-discovery`, `test-scheduler`, `test-streak-chest`,
+  `test-tense-notes`) and the
   three checkers (`check-docs`, `check-questions`, `check-style`). Seconds, no install, no network.
   **`browser`** runs the Playwright suites and is a slow SECOND OPINION rather than a gate — it `needs:
   fast`, because if the cheap job is red the answer is already known. `check-sizes` runs
@@ -7062,7 +7081,7 @@ dead code (never rendered).
 - **Forty-nine committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
-  `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
+  `test-discovery.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
   no browser). **Neither number is one to keep in your head — count them**: `ls .claude/test-*.js | wc -l`
   for the total and `grep -L playwright .claude/test-*.js` for the split. The headline had drifted TWO
@@ -7286,6 +7305,14 @@ dead code (never rendered).
     survives it. **Re-run after touching `langDeckFetch` / `langDeckDownload` / `langDeckStale` /
     `langDeckUpdate` / `uDeckNormalize`'s `langRev` / `uDeckIndexRecord` / `UDECK_META_KEYS`, the
     `data-langup` row or button, or `build-lang-decks.js`'s `rev`.**
+  · `node .claude/test-tense-notes.js` — **the conjugation headings' explanations** (15 assertions,
+    Sep 2026), no browser and no dependency: the table and the marking pass are sliced out of the real
+    `app.js` by text and run over every deck in `decks/`. Each check is for a silent failure — a
+    heading nothing marks is a feature that is simply absent for that language while the table looks
+    complete from the inside; a heading marked with the WRONG key gives a confident wrong explanation,
+    which is worse than none; and a German noun label marked as a tense would explain the imperfect
+    under a word for a lawyer. **Re-run after touching `TENSE_NOTES` / `tenseNote` / `ucMarkTenses` /
+    `openTenseWin` / `cardTypeSideHTML`, or after adding a deck whose conjugation table is new.**
   · `node .claude/test-char-network.js` — **tapping a character on a Mandarin card** (12 assertions,
     Sep 2026). Every way it can break is quiet: a missing `data-ucdeck` never opens the panel, an
     unwarmed deck answers "no other words", and an empty result is a REAL answer for some characters —

@@ -19122,6 +19122,142 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const r = el.getBoundingClientRect();
     openCharWin(ch, card.dataset.ucdeck, String(self).trim(), r.left + r.width / 2, r.bottom);
   });
+  /* ============================================================
+     WHAT A TENSE IS — the conjugation table's headings explain themselves (Sep 2026, on request)
+     ============================================================
+     A language deck's conjugation table names its tenses and moods and says nothing about any of them:
+     a reader meeting `Pretérito imperfecto` is shown six forms and left to work out what the tense is
+     FOR, which is the one thing a paradigm cannot tell them. Tapping a heading opens a note.
+
+     Three things decide the shape.
+
+     THE HEADING ALONE IS AMBIGUOUS AND THE MOOD IS WHAT RESOLVES IT. `Presente` appears under
+     Indicativo, under Subjuntivo and, in the Portuguese decks, under Conjuntivo, and those are three
+     different tenses; `Futuro simple` likewise. So a key is `<mood>|<heading>`, with a bare `|<heading>`
+     as the fallback for a heading that means one thing wherever it stands (Imparfait, Perfekt), and the
+     mood is read off the nearest PRECEDING `.uc-cj-mood` — the tables are flat, so it cannot be a
+     parent lookup.
+
+     ONLY A HEADING WE HAVE A NOTE FOR IS MADE CLICKABLE. `ucMarkTenses` runs over the sanitized HTML
+     and marks the ones the table knows, so a reader never presses a heading and gets nothing — the
+     rule the deck-order cycler follows for an order it cannot deal. The attribute is written from OUR
+     canonical key and never from the deck's own text, so a heading is matched against the table but
+     can never be injected through it.
+
+     AND IT IS DELEGATED, like openCharWin: a card type's HTML is sanitized and can carry no handler of
+     its own, so anything interactive inside one is app.js's. */
+  const TENSE_NOTES = {
+    // ---- moods -------------------------------------------------------------
+    "|Indicativo": ["Indicative", "The mood of plain statement: what is, was or will be the case. Nearly everything a beginner says is in it, and the other moods are departures from it."],
+    "|Subjuntivo": ["Subjunctive", "Not a tense but a mood, used for what is wanted, doubted, feared or not yet real, and almost always after que. Quiero que vengas — I want you to come."],
+    "|Conjuntivo": ["Subjunctive", "The Portuguese name for the subjunctive: the mood of what is wanted, doubted or not yet real, generally after que."],
+    "|Imperativo": ["Imperative", "The mood of orders and requests. It has a separate set of forms for telling someone TO do something and for telling them NOT to."],
+    "|Infinitivo": ["Infinitive", "The unconjugated name of the verb — hablar, comer, vivir — which is how it is listed in a dictionary and what follows another verb: quiero hablar."],
+    // ---- present -----------------------------------------------------------
+    "Indicativo|Presente": ["Present", "What is happening now, what happens regularly, and — with a time word — what is about to happen. Hablo español. Mañana salgo a las ocho."],
+    "Subjuntivo|Presente": ["Present subjunctive", "The subjunctive of now and of the future, after expressions of wanting, doubt, emotion or purpose. Espero que sea fácil — I hope it is easy."],
+    "Conjuntivo|Presente": ["Present subjunctive", "The subjunctive of now and of the future, after wanting, doubt, emotion or purpose."],
+    "|Presente": ["Present", "What is happening now, and what happens as a rule."],
+    "|Présent": ["Present", "What is happening now, and what happens as a rule. French uses it for the near future too: je pars demain."],
+    "|Präsens": ["Present", "What is happening now, what happens as a rule, and — far more than in English — what is going to happen. Ich fahre morgen nach Berlin."],
+    // ---- past --------------------------------------------------------------
+    "|Pretérito imperfecto": ["Imperfect", "The past as a background rather than an event: what used to happen, what was going on, and descriptions. De niño vivía en Madrid. It is the pair of the preterite, which reports the events themselves."],
+    "|Pretérito indefinido": ["Preterite", "A finished event in the past, seen as a whole: llegué, comí, salí. Where the imperfect sets the scene, this is what happened in it."],
+    "Subjuntivo|Pretérito imperfecto (-ra)": ["Imperfect subjunctive", "The past subjunctive. Spanish has two sets of endings, -ra and -se, which mean the same thing; -ra is much the commoner and is also used for politeness: quisiera un café."],
+    "Subjuntivo|Pretérito imperfecto (-se)": ["Imperfect subjunctive", "The second set of past-subjunctive endings. It means exactly what the -ra set means and is rather more formal and more written than spoken."],
+    "|Pretérito imperfecto (-ra)": ["Imperfect subjunctive", "The past subjunctive, in its commoner set of endings; the -se set beside it means the same."],
+    "|Pretérito imperfecto (-se)": ["Imperfect subjunctive", "The past subjunctive, in its second set of endings; it means what the -ra set means and is the more formal of the two."],
+    "|Pretérito imperfeito": ["Imperfect", "The past as a background: what used to happen and what was going on, as against the perfeito, which reports the events."],
+    "|Pretérito perfeito": ["Preterite", "A finished past event, seen as a whole — the Portuguese equivalent of the Spanish indefinido."],
+    "|Pretérito mais-que-perfeito": ["Pluperfect", "The past before the past: what had already happened when something else did. Mostly written; speech uses tinha feito instead."],
+    "|Passé composé": ["Perfect", "The everyday past in French: what happened. Built with avoir or être plus the participle — j'ai mangé, je suis allé — and it does the work the Spanish indefinido does."],
+    "|Imparfait": ["Imperfect", "The past as a background: what used to happen, what was going on, descriptions. The pair of the passé composé, which reports the events."],
+    "|Präteritum": ["Simple past", "The written past in German — the tense of narrative and of newspapers. In speech the Perfekt is used instead, except with sein, haben and the modals."],
+    "|Perfekt": ["Perfect", "The spoken past in German: ich habe gegessen, ich bin gefahren. It is what a German speaker uses to talk about what happened, where the Präteritum belongs to writing."],
+    // ---- future and conditional -------------------------------------------
+    "Indicativo|Futuro simple": ["Future", "What will happen: hablaré, comeré. In speech ir a + infinitive is commoner — voy a hablar — and this tense also states a guess about the present: serán las diez, it must be ten o'clock."],
+    "Subjuntivo|Futuro simple": ["Future subjunctive", "All but extinct: it survives in legal language and in a few set phrases — sea como fuere, adonde fueres. Nobody needs to produce it, and it is here for completeness."],
+    "|Futuro simple": ["Future", "What will happen. In everyday speech the ir a + infinitive form is commoner."],
+    "|Futuro": ["Future", "What will happen. In speech the ir a + infinitive form is commoner."],
+    "|Futur simple": ["Future", "What will happen: je parlerai. In speech the aller + infinitive form is commoner — je vais parler."],
+    "|Condicional simple": ["Conditional", "What would happen: hablaría, comería. Used for the consequence of an if-clause, for polite requests — ¿podría ayudarme? — and for a guess about the past."],
+    "|Condicional": ["Conditional", "What would happen; also used for polite requests and for a guess about the past."],
+    // ---- imperative halves -------------------------------------------------
+    "|Afirmativo": ["Telling someone TO do it", "The positive imperative. In Spanish an object pronoun is attached to the end of it and may pull an accent onto the verb: dime, levántate."],
+    "|Negativo": ["Telling someone NOT to do it", "The negative imperative, which in Spanish is not the positive one with no in front: it borrows the present subjunctive. No hables, not no habla — and the pronoun moves in front: no te levantes."],
+    "|Impératif": ["Imperative", "Orders and requests. The tu form of an -er verb drops its s — parle, not parles — and a pronoun follows a positive order and precedes a negative one."],
+    "|Imperativ": ["Imperative", "Orders and requests. German has three: du, ihr and the polite Sie, which keeps its pronoun — gehen Sie."],
+    // ---- Portuguese and German oddities -----------------------------------
+    "|Infinitivo pessoal": ["Personal infinitive", "A Portuguese form no other Romance language has: an infinitive with endings for a subject of its own. É melhor saíres — it is better that YOU leave."],
+    "|Declension": ["Declension", "How the word changes for case, gender and number. German nouns and adjectives take different endings as subject, direct object, indirect object and possessor."],
+    "|after der / die / das": ["Weak endings", "The endings an adjective takes after a definite article. The article has already shown the case and gender, so the adjective needs only -e or -en."],
+    "|after ein / kein / mein": ["Mixed endings", "The endings an adjective takes after ein, kein or a possessive. Those words show no ending in three places, so the adjective supplies it there and behaves as after der elsewhere."],
+    "|with no article": ["Strong endings", "The endings an adjective takes when nothing stands in front of it. With no article to show case and gender, the adjective carries that work itself."],
+    "|Accord": ["Agreement", "How the word changes for gender and number: feminine, plural, or both."],
+  };
+  const TENSE_KEYS = Object.keys(TENSE_NOTES);
+  function tenseNote(mood, head) {
+    return TENSE_NOTES[(mood || "") + "|" + head] || TENSE_NOTES["|" + head] || null;
+  }
+  /* Marks the headings the table knows, running over the ALREADY-SANITIZED html. The mood is carried
+     forward as the scan goes, which is what a flat table requires; the data attribute is written from
+     our own key rather than from the matched text, so the deck's own words never reach an attribute. */
+  function ucMarkTenses(html) {
+    if (String(html).indexOf("uc-cj-") < 0) return html;
+    let mood = "";
+    return String(html).replace(/class="uc-cj-(mood|h)">([^<]{1,60})</g, (m, kind, text) => {
+      const head = text.trim();
+      if (kind === "mood") mood = head;
+      const hit = tenseNote(kind === "mood" ? "" : mood, head);
+      if (!hit) return m;
+      const key = TENSE_NOTES[(kind === "mood" ? "" : mood) + "|" + head] ? (kind === "mood" ? "" : mood) + "|" + head : "|" + head;
+      if (TENSE_KEYS.indexOf(key) < 0) return m;
+      return 'class="uc-cj-' + kind + ' uc-cj-ex" data-tense="' + esc(key) + '" tabindex="0" role="button">' + text + "<";
+    });
+  }
+  let tenseWinEl = null;
+  function closeTenseWin() { if (tenseWinEl) { tenseWinEl.remove(); tenseWinEl = null; } }
+  function openTenseWin(key, label, x, y) {
+    closeTenseWin();
+    closeCtxMenu();
+    const note = TENSE_NOTES[key];
+    if (!note) return;
+    const m = document.createElement("div");
+    m.className = "ctx-menu tensewin";
+    m.innerHTML = '<div class="tw-head"><span class="tw-n">' + esc(label) + "</span>" +
+      '<button class="tw-x" type="button" aria-label="Close">×</button></div>' +
+      '<div class="tw-en">' + esc(note[0]) + "</div>" +
+      '<div class="tw-b">' + esc(note[1]) + "</div>";
+    document.body.appendChild(m);
+    tenseWinEl = m;
+    m.querySelector(".tw-x").addEventListener("click", closeTenseWin);
+    const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+    m.style.left = Math.max(6, Math.min(x - m.offsetWidth / 2, vw - m.offsetWidth - 8)) + "px";
+    m.style.top = Math.max(6, Math.min(y + 10, vh - m.offsetHeight - 8)) + "px";
+    setTimeout(() => {
+      const off = (ev) => { if (tenseWinEl && !tenseWinEl.contains(ev.target)) closeTenseWin(); };
+      document.addEventListener("pointerdown", off, { capture: true, once: true });
+      document.addEventListener("keydown", (ev) => { if (ev.key === "Escape") closeTenseWin(); }, { once: true });
+    }, 0);
+  }
+  // one delegated listener for every conjugation heading on every card of every deck
+  function tenseOpenFrom(el) {
+    const r = el.getBoundingClientRect();
+    openTenseWin(el.dataset.tense, (el.textContent || "").trim(), r.left + r.width / 2, r.bottom);
+  }
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest && e.target.closest(".uc-cj-ex[data-tense]");
+    if (!el) return;
+    e.stopPropagation();
+    tenseOpenFrom(el);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const el = e.target.closest && e.target.closest(".uc-cj-ex[data-tense]");
+    if (!el) return;
+    e.preventDefault();
+    tenseOpenFrom(el);
+  });
   function showCtxMenu(x, y, items) {
     closeCtxMenu();
     const m = document.createElement("div");
@@ -30372,7 +30508,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        is app.js's, delegated, and needs the deck named on an element it can walk up to. */
     const dk = c && c.deckId ? ' data-ucdeck="' + esc(c.deckId) + '"' : "";
     return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + tplN + lang + dk + ">" +
-      ucRestoreDetails(sanitizeHTML(html), scopeId) + "</div>";
+      ucMarkTenses(ucRestoreDetails(sanitizeHTML(html), scopeId)) + "</div>";
   }
   /* ============================================================
      MAP CARDS — the question is a place on the globe (Aug 2026, on request)
