@@ -125,6 +125,12 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G5 — twelve more, the first written under all four rules**: `gw-061` Sri Lanka,
+  `gw-062` Malawi, `gw-063` Zambia, `gw-064` Kazakhstan, `gw-065` Chad, `gw-066` Chile, `gw-068` Somalia,
+  `gw-069` Senegal, `gw-070` Guatemala, `gw-071` Ecuador, `gw-073` Cambodia and `gw-074` Zimbabwe, with
+  all twelve date lines rewritten off the same research. **`gw-067` Romania and `gw-072` the Netherlands
+  join the deferral list**, which now stands at eleven countries with no AQUASTAT profile; `gw-060`
+  Taiwan is left for a batch of its own, being outside every UN-organised source this pass rests on.
 - **2026-09-06, the border sweep — 42 of the 49 already rewritten**: rule 4 arrived after G4, and every
   background written under the first three rules opened on a list of neighbours, that being the sentence
   an AQUASTAT profile opens with. All 42 were rewritten in place — the bearings kept, each neighbour
@@ -209,6 +215,33 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G5 found
+
+- **WRITING UNDER RULE 4 FROM THE START COSTS NOTHING AND IS EASIER THAN SWEEPING FOR IT.** Every card
+  here opens on position, extent and water instead of neighbours — Chile's three territories and the
+  4,329 km of its continental strip, Malawi's 900 km against a 250 km maximum width, Zambia's latitudes,
+  Sri Lanka's three peneplains — and none of them is shorter or thinner for it. **The border list was
+  never carrying information the card needed; it was carrying the sentence AQUASTAT opens with.**
+- **THE OPENING SENTENCE OF AN AQUASTAT PROFILE IS THE ONE PARAGRAPH TO STOP READING AT.** Its geography
+  section runs *position → area → neighbours → relief → soils*, and the first three of those are now
+  either the facts grid's (rule 2) or forbidden (rule 4). The material worth having starts at the relief
+  and runs on into the soils and the agro-ecological zones, which is where every card in this batch takes
+  its first block from.
+- **A SECOND CLASS OF PERMITTED FINDING, and it is not the United States.** `gw-070` names the
+  **Federation of Central American States**, which is what the Office of the Historian calls the polity
+  Guatemala belonged to; the audit's rule-1 pattern matches `American` and reports it. That is a
+  different state from the one rule 1 is about, the name is the federation's own, and the card is right
+  as it stands. It joins `gw-005` and `gw-053` in the list of findings the rules permit.
+- **A CONSTITUTION'S SLUG YEAR IS THE YEAR OF ITS LATEST AMENDMENT, NOT OF ITS ADOPTION**, which is why
+  `Guatemala_1993` sits beside `Chile_2021` and `Ecuador_2021` — those are the 1985 and 2008 texts as
+  amended. All twelve G5 slugs answered on the first guess, unlike G4's; the pattern `Country_Year` holds
+  wherever the country's short English name is unambiguous.
+- **AND ARTICLE 1 IS NOT ALWAYS THE ARTICLE THAT SAYS WHAT THE STATE IS.** Five of the twelve put the
+  form of the state somewhere else — Sri Lanka's is article 2, Malawi's and Zimbabwe's are section 1 of a
+  founding chapter, Zambia's article 1 is the supremacy clause, and Chile's article 1 in the 2021 text is
+  an electoral provision about indigenous representation. **Grep for the sentence, not for the number**,
+  and cite the article the sentence is actually in.
 
 ## What G4 found
 
