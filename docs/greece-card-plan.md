@@ -888,7 +888,8 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-633  The Hippocratic Corpus
     gr-634  The Hippocratic Oath
     gr-635  Humoral theory
-    gr-636  Fifth-century Greek mathematics
+    gr-636  Fifth-century Greek mathematics   (carded on `incommensurability`, the century's defining
+                                               result; gr-637 carries the rest of the mathematics)
     gr-637  Hippocrates of Chios
     gr-638  Anaxagoras
     gr-639  Democritus
