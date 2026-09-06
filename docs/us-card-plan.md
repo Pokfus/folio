@@ -432,7 +432,7 @@ matters.
     us-039  Estimating the pre-contact population of North America
     us-040  How pre-contact America is known
 
-**Five decisions made while writing `us-001`–`us-030` (Sep 2026), recorded here because the lines
+**Seven decisions made while writing `us-001`–`us-040` (Sep 2026), recorded here because the lines
 above no longer describe them exactly.**
 
 **`us-010` was renamed** from *The domestication of maize* to *Maize and its spread into North
@@ -469,6 +469,24 @@ ancestors — so the Service writes *Hohokam* only of the archaeology and *ances
 people* of the people. The card's answer term stays `Hohokam`, because that is what a reader will
 meet in every book and museum label, and its second sentence is the correction. **Ask what a
 descendant community calls itself before writing an archaeological label as though it were a name.**
+
+**`us-032`'s potlatch card is sourced from the U'mista Cultural Society, and that retires a recorded
+gap.** CLAUDE.md's glossary-citation notes record (G9) that no openable qualifying source here says
+*potlatch*, so the prose of the day was written round the word. The Society's *Living Tradition*
+site, published with the Virtual Museum of Canada, is openable from this sandbox and is the
+community's own account: it carries the Chinook Jargon etymology, what the ceremony is for, the 1884
+amendment that took effect on 1 January 1885, the 1921 Cranmer potlatch and its prosecutions, the
+1951 repeal, and the repatriation that built the U'mista Cultural Centre. **A community's own museum
+may be openable where the scholarship is not.**
+
+**`us-036` and `us-037` are carded from the Haudenosaunee Confederacy's own pages**, which state the
+Peacemaker and Aiionwatha, the fifty chiefs and how they are apportioned between the nations, the
+clan mothers' power to raise and remove them, and the Great Tree of Peace. That is a nation
+describing its own constitution, which is the right source for what the Great Law says and is not a
+source for when it was agreed — the date is contested, the card says so, and the scholarship carries
+that half. **`us-040` is flagged `undatable`**: *pre-contact America* names everything before a
+frontier that reached different places centuries apart, so the Timeline game must not ask a reader to
+place it.
 
 ### Contact, disease and the colonial encounter — `us-native-contact`
 
