@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.669", released: "2026-09-06T16:38Z" };
+window.FOLIO_VERSION = { v: "1.676", released: "2026-09-06T19:08Z" };
 
 window.CHANGELOG = [
   {
@@ -63,7 +63,7 @@ window.CHANGELOG = [
       "<b>Rivers are drawn thinner the further out you zoom</b> on the Atlas, where at world scale they had washed the continents blue.",
       "<b>The Atlas now zooms twelve times closer than it did</b>, on both its tabs.",
       "<b>Thirty-three new cards in Ancient Rome</b>, on provincial revenue, Greek influence and Cato, the Gracchi, and the Jugurthine and Cimbric wars that made Marius.",
-      "<b>The Folio logo and its tagline</b> are now in the menu bar, and at the top of the home page on a phone, the tagline set under the name.",
+      "<b>The Folio logo and its tagline</b> are now in the menu bar, and at the top of the home page on a tablet, the tagline set under the name.",
       "<b>The Picture round no longer repeats the picture’s credit</b> under the answer — it is on the picture itself.",
       "<b>The Picture round’s sources start folded away</b>, so the answer is what you meet first.",
       "<b>The streak-chest meter drops its “3 / 7”</b>, leaving the row of days and the chest they earn.",
@@ -84,8 +84,22 @@ window.CHANGELOG = [
       "<b>The first ten Visual Art cards are here</b> — the picture is the question, and the answer names the work, dates it and credits the photograph.",
       "<b>Artworks now turn up in the Picture round</b> beside the artefacts.",
       "<b>The Japan collection has opened</b> with its first hundred cards, running from Jōmon Japan to the chronicles of the Nara court.",
-      "<b>A hundred and one new China cards</b> \u2014 the Shang deck finished, the Zhou carried through the Warring States to its end, and the Qin empire opened.",
-
+      "<b>A hundred and one new China cards</b> — the Shang deck finished, the Zhou carried through the Warring States to its end, and the Qin empire opened.",
+      "<b>Language decks now introduce a word both ways at once</b>, and the setting is there to change even before the deck has downloaded.",
+      "<b>Undiscovered land on your own atlas is darker</b>, so the earth you have earned stands further out from the earth you have not.",
+      "<b>Ancient cultures on your own atlas are washed in green</b> rather than red, which is now the colour of your own places alone.",
+      "<b>A capital city on your own atlas is a red square</b>, larger than the dot every other place is marked with.",
+      "<b>Your own atlas thins its marks and holds back their names when you zoom out</b>, so a well-studied globe is readable rather than a heap.",
+      "<b>A country now appears on your own atlas in the year it was founded</b> — the United States in 1776, the People's Republic in 1949 — rather than at the next map Folio holds.",
+      "<b>Your own atlas's rail can be shortened to start at 1000 BCE, 1000 CE, 1500 or 1900</b>, which is how you land on a recent year on a small screen.",
+      "<b>Your own atlas's rail no longer carries the world atlas's year marks</b>, having no stops of its own to mark.",
+      "<b>Rivers on a card's atlas window are thinner</b> until you are well zoomed in.",
+      "<b>“Think it through” is now a tabbed panel whose answers open on a chevron</b>, closed to begin with and closable again.",
+      "New pictures for two geography cards, and four city populations rounded to three figures.",
+      "<b>Fifteen geography cards no longer put a census count in the dates under the answer</b>, which is where the term's dates belong.",
+      "<b>The changelog puts a day's title under its date on a phone</b>, and a study card keeps only the three dots of “recalled on X of 3 days” on a tablet.",
+      "<b>Seventy-three cards in the World geography collection now describe the country itself</b> — its land, its water and its climate, and its own history rather than its dealings with America.",
+      "<b>A geography card no longer lists the countries around it</b>, the map beside the answer already showing them.",
     ],
   },
   {

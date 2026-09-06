@@ -6756,10 +6756,20 @@
      its levels — which is what a reader setting it on the deck plainly means, and the levels are what the
      cascade actually adds. */
   function deckPairNew(id) {
-    // curated decks and groups have no templates to pair, whatever an ancestor may say
-    if (!uDeckIdOf(id)) return false;
+    /* Curated decks and reader-made groups have no templates to pair, whatever an ancestor may say — but a
+       LANGUAGE container does, every one of its members being a community deck, and this answered false for
+       one until Sep 2026: the row was drawn on its sheet, rendered permanently off, and could be switched
+       on but never off again. */
+    if (!uDeckIdOf(id) && !isLangCtxId(id)) return false;
     const v = deckOpt(id, "pairNew");                // the walk this used to do by hand — see entryChain
-    return !!(v && v.value === true);
+    if (v) return v.value === true;
+    /* DEFAULT ON FOR A LANGUAGE DECK (Sep 2026, on request: "in all language collections, this option
+       should be on by default"). Every deck on the Languages shelf is built as two cards per word and says
+       so in its own subtitle, so forward-first was introducing half a deck at a time to a reader who had
+       already been told they were getting both. Nothing migrates and nothing is written: this is what an
+       UNSET option now MEANS, so a reader who has turned it off keeps it off, and the switch on a curated
+       deck is unaffected — `entryCatalogPairs` answers for the Languages shelf alone. */
+    return entryCatalogPairs(id);
   }
   function setDeckPairNew(id, on) { setDeckLimits(id, { pairNew: !!on }); }
   /* WHICH SCHEDULER, per entry — SM-2 or FSRS (Aug 2026, on request). Read by deckSchedCfg beside the
@@ -16422,7 +16432,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      same test `entryHasSpeech` makes for the read-aloud switch, and for the same reason: a control that
      cannot change anything is worse than no control. */
   function entryHasSiblings(id) {
-    return entryCardIds(id).some((c) => uNoteCardCount(c) > 1);
+    return entryCardIds(id).some((c) => uNoteCardCount(c) > 1) || entryCatalogPairs(id);
+  }
+  /* …AND A DECK THAT IS NOT ON THIS DEVICE YET STILL ANSWERS (Sep 2026, on a bug report: "the Spanish
+     collection doesn't have a 'Both directions together' option"). Add and Download are two presses, so an
+     added language deck holds no cards until the file is fetched — `entryCardIds` is empty, both sibling
+     switches vanished from the deck's own sheet AND from its language's, and a row that is not drawn looks
+     exactly like a feature that is not offered rather than one waiting on a file. THE CATALOGUE ALREADY
+     KNOWS: a row carrying more cards than notes is a deck whose words are studied both ways, which is the
+     same fact its subtitle prints on the shelf. It is also what `deckPairNew` defaults on. */
+  function entryCatalogPairs(id) {
+    if (isLangCtxId(id)) return langCtxEntries(id).some((e) => entryCatalogPairs(e));
+    const row = langCatalogById(uDeckIdOf(id));
+    return !!(row && (row.cards || 0) > (row.notes || 0));
   }
   /* ---------- SCHEDULING, per deck (Aug 2026, on request) ----------
      SM-2 or FSRS, the target retention, and a box for a reader's own parameters. It is a sheet of its own
@@ -21218,13 +21240,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      'Memorize anything'"). The same `.brand` markup the top bar carries — one set of styles, so the two
      can never come to disagree about what the logo is.
 
-     IT IS DRAWN AT EVERY WIDTH AND HIDDEN BY THE STYLESHEET WHERE THE TOP BAR HAS IT, which is what
-     closes the hole the obvious phone-only rule leaves. Measured in a browser, the brand costs the top bar
-     171px at Medium text and 292px at Very large, and the bar has that much to spare only from 1280px up —
-     so hiding this one below 640px would leave every width from 641 to 1279 with no logo anywhere at all.
-     `.home-brand` is therefore hidden from 1280px rather than from 641px, so exactly one of the two is on
-     screen at any width. It is a static heading rather than a button: the reader is already on the home
-     page, so a control that routes here would do nothing. */
+     IT IS DRAWN AT EVERY WIDTH AND THE STYLESHEET DECIDES WHERE IT SHOWS, which is what closes the hole
+     the obvious phone-only rule leaves. Measured in a browser, the brand costs the top bar 88px at Medium
+     text and 186px at Very large, and the bar has that much to spare only from 1180px up — so this one is
+     hidden from there rather than from 641px, or every width from 641 to 1179 would have no logo anywhere.
+     THE PHONE NOW HAS NONE EITHER (Sep 2026, on request), which is the one width where that is the right
+     answer: below 640px the wordmark and its tagline are the first 60px of a page whose whole job is the
+     day's study. So the split is three-way — nothing, then this, then the bar's — and `.home-brand` is the
+     one on screen between 641 and 1179px. It is a static heading rather than a button: the reader is
+     already on the home page, so a control that routes here would do nothing. */
   function homeBrandHTML() {
     return '<div class="brand home-brand" role="img" aria-label="Folio — memorise anything">' +
       '<span class="mark">Folio<span class="dot">.</span></span>' +
@@ -30963,10 +30987,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              NOW (Sep 2026, on request: "make rivers thinner when zooming out"). The Atlas draws its
              rivers only past a zoom; this window draws all 1,073 of them at every zoom, so at a card's
              opening ~50° view the same weight is a continent's worth of blue thread over a map whose
-             coast is stroked at 0.7. It reaches the old figure again around zoom 6 — where the frame is
-             a region and a river is something the reader is actually looking at — and nothing changes
-             at the deep end, where the cap has always decided it. */
-          ctx.strokeStyle = riverInk; ctx.lineWidth = clampN(0.15 + zoom * 0.18, 0.3, 1.8);
+             coast is stroked at 0.7.
+             AND THE THINNING NOW REACHES FURTHER IN (Sep 2026, on request: "in atlas windows on cards,
+             start make rivers thinner at a lower level of zoom"). `0.15 + zoom * 0.18` was still a third
+             of a pixel wider than the coast at the zoom a locator opens at, and it hit the 1.8px cap by
+             zoom 9 — so most of the range a reader actually uses was drawn at the ceiling. `0.10 + zoom *
+             0.13` takes zoom 2 from 0.51 to 0.36, zoom 4 from 0.87 to 0.62 and zoom 6 from 1.23 to 0.88,
+             and reaches the cap at zoom 13 instead: the deep end is untouched, because that is where a
+             river IS the subject, and everything short of it is a thread rather than a stripe. */
+          ctx.strokeStyle = riverInk; ctx.lineWidth = clampN(0.10 + zoom * 0.13, 0.25, 1.8);
           ctx.beginPath();
           for (let i = 0; i < RIV.length; i++) {
             const nm = ownSet ? String(RIV[i].n || "").toLowerCase() : "";
@@ -32092,7 +32121,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         }
         if (spec.dot) {
           if (spec.def.pointsBundle) need.add(spec.def.pointsBundle);
-          marks.push({ id: cid, title: title, kind: "dot", dot: spec.dot, points: spec.def.points, modern: true, y0: null, y1: null });
+          marks.push({ id: cid, title: title, kind: "dot", dot: spec.dot, points: spec.def.points, modern: true, cap: true, y0: null, y1: null });
         }
         return;
       }
@@ -32431,6 +32460,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      have its question silently vanish. The CONTENT TOOLS refuse the old shape (see .claude/card-links.js),
      so nothing new can be written that way; only what is already out there is honoured. */
   const WHY_MAX = 3;
+  // the disclosure mark on each question — the same polyline the changelog's days and the FAQ use, so a
+  // fold reads the same way everywhere on the site
+  const ELAB_CHEV = '<span class="elab-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>';
   function cardWhy(c) {
     const raw = c && c.why;
     if (!raw) return [];
@@ -32467,48 +32499,51 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          `aria-controls` at the paragraph say so — and nothing has to be built at the moment it is pressed.
          The ids are scoped by the card's own id, because two of these blocks are never on one page but the
          browser and the editor preview both draw a back beside other markup. */
-      const base = "elabA-" + String(c && c.id || "x").replace(/[^A-Za-z0-9_-]/g, "");
+      /* A CHEVRON RATHER THAN A "SHOW ANSWER" BUTTON, AND THE WHOLE QUESTION IS THE CONTROL (Sep 2026,
+         on request: "instead of a Show Answer button, simply put a chevron behind each question which is
+         always collapsed by default, which can be opened to reveal the answer"). Three reasons it is
+         better than the button it replaces, beyond being asked for. The row was question + button on one
+         line, so a long question and a 96px control competed for a 680px card and the button dropped to
+         its own line below 520px; a chevron costs 14px and never does. It gives the reader a target the
+         width of the row rather than of two words. And a native `<details>` carries the disclosure
+         semantics outright — the summary is focusable, Enter and Space work, and a screen reader is told
+         the state — where the button needed `aria-expanded` and `aria-controls` written by hand.
+         IT CLOSES AGAIN, WHICH THE BUTTON DELIBERATELY DID NOT. That button disabled itself on the
+         reasoning that a reader who has read an answer cannot un-read it, so taking it away could only
+         lose their place. A chevron makes the opposite promise — it is the mark that says "there are two
+         states and this is the other one" — and a fold that will not fold is the one thing a chevron must
+         not be. What the old reasoning was protecting is unaffected: nothing is lost by closing one, the
+         answer being three lines of the card's own prose. */
       return '<div class="elab" data-elab="why"><span class="elab-kind">Think it through</span>' +
-        ws.map((w, i) => {
-          const aid = base + "-" + i;
-          return '<div class="elab-item">' +
-            '<div class="elab-qrow"><p class="elab-q">' + esc(w.q) + "</p>" +
-            /* A LEGACY ITEM'S BUTTON IS A DIFFERENT CONTROL AND SAYS SO. It opens the card's background
-               rather than a paragraph of its own, so it carries neither `aria-controls` nor
-               `aria-expanded` — announcing an expanded region to a screen reader and then uncovering
-               nothing is worse than the old label, which was true. */
-            (w.a
-              ? '<button type="button" class="btn ghost elab-show" aria-expanded="false" aria-controls="' +
-                aid + '">Show answer</button></div><p class="elab-a" id="' + aid + '" hidden>' +
-                sanitizeHTML(w.a) + "</p>"
-              : '<button type="button" class="btn ghost elab-show" data-at="' + w.at +
-                '">Show me what the card says</button></div>') +
-            "</div>";
-        }).join("") + "</div>";
+        ws.map((w) => (w.a
+          ? '<details class="elab-item">' +
+              '<summary class="elab-qrow"><span class="elab-q">' + esc(w.q) + "</span>" + ELAB_CHEV + "</summary>" +
+              '<div class="elab-wrap"><p class="elab-a">' + sanitizeHTML(w.a) + "</p></div>" +
+            "</details>"
+          /* A LEGACY ITEM IS NOT A FOLD AND KEEPS ITS BUTTON. Its answer is a block of the card's own
+             background rather than a paragraph of its own, so there is nothing under the summary to
+             uncover — see `cardWhy`, and the overlay note above it. */
+          : '<div class="elab-item elab-legacy">' +
+              '<div class="elab-qrow"><p class="elab-q">' + esc(w.q) + "</p>" +
+              '<button type="button" class="btn ghost elab-show" data-at="' + w.at +
+              '">Show me what the card says</button></div></div>')).join("") + "</div>";
     }
     return "";
   }
-  /* Wire whichever block was drawn. Every "Show answer" button uncovers the paragraph under its own
-     question — a plain disclosure, and it does NOT close again: this is a self-check, and a reader who has
-     read the answer cannot un-read it, so a second press that took it away would only lose their place.
-
-     A button on a LEGACY item (one carrying `at` rather than an answer of its own) keeps doing what the
-     single question used to do: it opens the Background fold — which may be collapsed, and which the
-     reader may then want left open — and marks the paragraph the author named. The abstract is ONE
-     paragraph unless the card carries a quotation, in which case it is two, so `at` is resolved against
-     what is actually on the page rather than assumed. */
+  /* THE ORDINARY ITEM NEEDS NO WIRING AT ALL since Sep 2026 — it is a native `<details>`, so opening and
+     closing, the keyboard and the announced state all come from the platform. What is left here is the
+     LEGACY item (one carrying `at` rather than an answer of its own), which keeps doing what the single
+     question used to do: it opens the Background fold — which may be collapsed, and which the reader may
+     then want left open — and marks the paragraph the author named. The abstract is ONE paragraph unless
+     the card carries a quotation, in which case it is two, so `at` is resolved against what is actually
+     on the page rather than assumed. The function still runs on every card: a card with no legacy item
+     finds no buttons and does nothing, which is cheaper than asking the caller to know which it has. */
   function wireElabPrompt(scope) {
     const box = scope && scope.querySelector(".elab");
     if (!box) return;
     box.querySelectorAll(".elab-show").forEach((btn) => {
       btn.addEventListener("click", () => {
         btn.disabled = true;
-        if (btn.dataset.at == null) {
-          btn.setAttribute("aria-expanded", "true");
-          const ans = box.querySelector("#" + CSS.escape(btn.getAttribute("aria-controls") || ""));
-          if (ans) ans.hidden = false;
-          return;
-        }
         // legacy: the answer lives in the card's own background rather than beside the question
         const col = scope.querySelector(".bg-collapse"), tog = scope.querySelector(".bg-toggle");
         if (col && col.classList.contains("collapsed")) {
@@ -35289,7 +35324,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        empty earth "in every year since 4000 BCE", and it can be offered here precisely because nothing
        there depends on an era map: before 1500 the personal globe is landscape and the reader's own
        locator marks, which carry their own dates. */
-    const MINY = MINE ? -4000 : -1000, MAXY = new Date().getFullYear();
+    /* WHERE THE PERSONAL RAIL STARTS IS THE READER'S (Sep 2026, on request: "to the left of the timeline
+       should be small buttons to cycle through extend or shrink the timeline so it starts from 4000 BCE,
+       1000 BCE, 1000 CE, 1500, or 1900 — this will help users find specific recent years on the small
+       timeline"). The rail is LINEAR over six thousand years, so on a phone one pixel is about twenty
+       years and the whole twentieth century is five pixels wide: a reader looking for 1949 could not land
+       on it. Narrowing the rail is the answer, and it is a RANGE rather than a zoom because a range can be
+       NAMED — every stop is a round number printed on the control itself.
+       THE FIVE STARTS ARE THE REQUEST'S OWN, and each carries its own ticks: a rail from 1900 wants
+       decades where a rail from 4000 BCE wants millennia, and one tick table stretched over both would
+       print "2000 BCE" on a rail beginning in 1900. `present` is appended to every one of them.
+       IT IS CLOSURE STATE, NOT A SETTING — a way of looking at the rail, the same call the glossary
+       record's sort makes — so it survives a repaint, resets on reload, and writes nothing to progress. */
+    const MINE_STARTS = [
+      { y: -4000, ticks: [-4000, -2000, 1, 1000] },
+      { y: -1000, ticks: [-1000, 1, 1000, 1500] },
+      { y: 1000, ticks: [1000, 1300, 1600, 1900] },
+      { y: 1500, ticks: [1500, 1650, 1800, 1950] },
+      { y: 1900, ticks: [1900, 1950, 2000] },
+    ];
+    let mineStart = 0;
+    let MINY = MINE ? MINE_STARTS[mineStart].y : -1000;
+    const MAXY = new Date().getFullYear();
     const chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
     const chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
     // the country popup's collapsible section headers (description / year / figures)
@@ -35305,12 +35361,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const year2frac = MINE
       ? (y) => (y - MINY) / (MAXY - MINY)
       : (y) => y <= TL_KNEE ? (y - MINY) / (TL_KNEE - MINY) * TL_KNEE_F : TL_KNEE_F + (y - TL_KNEE) / (MAXY - TL_KNEE) * (1 - TL_KNEE_F);
-    const ticks = MINE
-      ? [{ y: -4000, t: "4000 BCE" }, { y: -2000, t: "2000 BCE" }, { y: 1, t: "1 CE" }, { y: 1000, t: "1000" }, { y: MAXY, t: "present" }]
+    const tickLabel = (y) => (y < 0 ? -y + " BCE" : y === 1 ? "1 CE" : String(y));
+    // …a FUNCTION rather than a table, because the personal rail's ticks change with its range
+    const tickList = () => (MINE
+      ? MINE_STARTS[mineStart].ticks.map((y) => ({ y: y, t: tickLabel(y) })).concat([{ y: MAXY, t: "present" }])
       : [   // no "1 CE" tick: at ~6% of the rail it collides with the left-anchored "1000 BCE" label on narrow tracks
-      { y: -1000, t: "1000 BCE" }, { y: 1500, t: "1500" }, { y: 1700, t: "1700" }, { y: 1900, t: "1900" }, { y: MAXY, t: "present" },
-    ];
-    const tickHTML = ticks.map((k) => {
+        { y: -1000, t: "1000 BCE" }, { y: 1500, t: "1500" }, { y: 1700, t: "1700" }, { y: 1900, t: "1900" }, { y: MAXY, t: "present" },
+      ]);
+    const tickHTML = () => tickList().map((k) => {
       const f = year2frac(k.y) * 100;
       return `<span class="tl-tick" style="left:${f}%">${k.t}</span>`;
     }).join("");
@@ -35519,13 +35577,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         </div>
         <div class="atlas-timebar"${GAME ? " inert" : ""}>
           <button class="tl-play" id="tlPlay" type="button" aria-label="Play through the map years" title="Play through the map years"></button>
+          ${/* HOW FAR BACK THE RAIL REACHES, on its left (Sep 2026, on request). Two chevrons and the
+                start year between them, so the control states what it is doing rather than leaving a
+                reader to read it off the ticks; the personal atlas only, the world rail having thirteen
+                fixed stops and nothing to narrow. */""}
+          ${MINE ? `<div class="tl-range" role="group" aria-label="How far back the timeline reaches">
+            <button class="tl-rbtn" id="tlWider" type="button" aria-label="Reach further back">${chevL}</button>
+            <span class="tl-rlabel" id="tlRangeLbl"></span>
+            <button class="tl-rbtn" id="tlNarrow" type="button" aria-label="Start later">${chevR}</button>
+          </div>` : ""}
           <div class="atlas-timeline">
             <div class="tl-track" id="tlTrack">
               <div class="tl-rail"></div>
               <div class="tl-fill" id="tlFill"></div>
               <button class="tl-pin" id="tlPin" aria-label="Drag to choose a year"><span class="tl-tip" id="tlTip"></span></button>
             </div>
-            <div class="tl-ticks">${tickHTML}</div>
+            <div class="tl-ticks" id="tlTicks">${tickHTML()}</div>
           </div>
           <div class="atlas-yearbox">
             <button class="ay-chev" id="ayPrev" type="button" aria-label="Previous mapped year">${chevL}</button>
@@ -35539,7 +35606,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function hex2rgb(h) { h = h.replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
     function mix(a, b, t) { const A = hex2rgb(a), B = hex2rgb(b); return `rgb(${Math.round(A[0] + (B[0] - A[0]) * t)},${Math.round(A[1] + (B[1] - A[1]) * t)},${Math.round(A[2] + (B[2] - A[2]) * t)})`; }
     function rgba(a, al) { const A = hex2rgb(a); return `rgba(${A[0]},${A[1]},${A[2]},${al})`; }
-    let ocean, land, landWild, landDim, border, grat, rim, labelFont, riverCol, adminCol, rangeCol, waterCol, lblHaloSoft, LBL_TEXT, LBL_HALO, forestCol, forestColD, forestColT, limbA, limbB, haloIn, haloOut, stippleCol, _stippleP;
+    let ocean, land, landWild, landDim, border, grat, rim, labelFont, riverCol, adminCol, rangeCol, waterCol, mineAreaFill, mineAreaLine, lblHaloSoft, LBL_TEXT, LBL_HALO, forestCol, forestColD, forestColT, limbA, limbB, haloIn, haloOut, stippleCol, _stippleP;
     function readColors() {
       const cs = getComputedStyle(document.body);
       const cv = (n) => cs.getPropertyValue(n).trim() || "#888888";
@@ -35554,8 +35621,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            "areas without any known countries or places should appear slightly darker"). The era branch
            darkens to 0.62 because its wilderness is a minority of the map and carries a stipple over it;
            here the wilderness is nearly the whole earth on a reader's first day, and at 0.62 the globe
-           reads as unlit rather than as unearned. 0.87 is a step, not a shadow. */
-        const g = 0.87; landDim = lm ? "rgb(" + Math.round(lm[1] * g) + "," + Math.round(lm[2] * g) + "," + Math.round(lm[3] * g) + ")" : land; }
+           reads as unlit rather than as unearned.
+           IT WENT FROM 0.87 TO 0.78 (Sep 2026, on request: "undiscovered areas on the personal atlas
+           should be darker"). 0.87 is a step a reader can miss on a screen in daylight, which on a map
+           whose whole grammar is earned-against-unearned is the one distinction that has to carry; 0.78
+           is still a step rather than the era branch's shadow, and the earned land is unchanged, so what
+           widens is the gap between the two rather than the darkness of the map. */
+        const g = 0.78; landDim = lm ? "rgb(" + Math.round(lm[1] * g) + "," + Math.round(lm[2] * g) + "," + Math.round(lm[3] * g) + ")" : land; }
       /* THE RIVERS ARE NOT THE OCEAN'S COLOUR IN LIGHT MODE (Sep 2026, on a bug report: "on the atlas,
          rivers are quite hard to see on light mode"). Drawing them in `ocean` is right in DARK mode,
          where the sea is a deep blue-grey against a lighter land and a river reads as water continuous
@@ -35568,6 +35640,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          wash and a river is a drawn line. Dark mode is untouched, where nothing was reported and the
          continuity argument still holds. */
       riverCol = dark ? ocean : "rgba(31,122,170,0.9)";
+      /* A CIVILISATION'S EXTENT IS GREEN (Sep 2026, on request: "ancient civilisations/cultures should
+         have their areas marked in green instead of red"). Red was the locator windows' own mark, which
+         made a culture's wash read as one of the reader's PLACES writ large; green separates the two
+         kinds of claim a personal globe makes — here is a thing you studied, and here is roughly where a
+         people were. It is a variable set with the theme rather than a literal at the draw, for the
+         reason `riverCol` is: a saturated forest green reads on the light land and disappears on the
+         dark one, so each mode takes its own. */
+      mineAreaFill = dark ? "rgba(104,196,132,0.18)" : "rgba(31,122,62,0.16)";
+      mineAreaLine = dark ? "rgba(120,206,146,0.92)" : "rgba(24,104,52,0.88)";
       waterCol = dark ? "rgba(150,196,226,0.92)" : "rgba(18,74,118,0.82)";        // sea / ocean / lake labels (reads on the cyan ocean)
       lblHaloSoft = dark ? "rgba(8,12,20,0.82)" : "rgba(255,255,255,0.92)";       // halo for the light-coloured labels (water/river/range): dark in dark mode so the glyph reads
       adminCol = rgba(ink, 0.34);                                                 // admin-1 borders (dotted)
@@ -37435,18 +37516,98 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        card, and a second visual language for the same fact is a second thing to learn. */
     let _mineFor = "", _mineCache = null;
     function eraIsModern(e) { return !!e && (e.present || (e.groups && !(e.geo && e.geo.length))); }
+    /* WHEN A STATE ARRIVES ON THIS GLOBE (Sep 2026, on request: "ensure that each modern year really
+       appears in the year of its founding, e.g. the United States in 1776, China in 1949 etc").
+       A country is unlocked by NAME against the year's era map, and Folio's maps step a century at a time
+       and then a decade — so the United States arrived in 1800 and the People's Republic in 1960, each at
+       the first map that happens to carry it rather than in the year it was founded.
+       THE ERA MAPS BRACKET THE ANSWER AND THE CARD SUPPLIES IT. The first era carrying a name says the
+       state existed BY that year; the era before it says Folio's own map did not show it THEN — so the
+       founding lies in (previous, first], and the card's own date line, which is cited and is the reason
+       that card exists, is read for a year inside that bracket. Where it holds none, the bracket's upper
+       end stands, which is exactly what happened before.
+       IT CAN ONLY EVER MOVE A COUNTRY EARLIER, and that clamp is the whole of what makes it safe to run
+       over all 233 of them rather than hand-writing 233 founding years. MEASURED over the corpus, the
+       unclamped rule DELAYS 264 countries and several of those delays are nonsense: it takes FRANCE off
+       the 1500, 1600 and 1700 maps, `gw-`'s date line for it recording the United States' recognition in
+       1778, and Japan off the same three on Perry's 1853. A date line states the dates its card is about;
+       the bracket is what says which of them could be a founding. Clamped, 163 countries move earlier and
+       not one moves later — China to 1949, the United States to 1776, Germany to 1871, Italy to 1861,
+       Canada to 1867, Mexico to 1822, Russia to 1991, Bangladesh to 1971.
+       THE NAMES ARE READ OFF THE ERA RECORDS RATHER THAN THROUGH `terrOf`, which would run `synthGroups`
+       over four eras at once — hundreds of milliseconds of edge masking — to answer a question about
+       spelling. An era with an EMPTY `groups` is the present-day map (see synthGroups), so its names are
+       world.js's own. */
+    let _mineFoundFor = "", _mineFound = null;
+    function mineFounded() {
+      const u = atlasUnlocks();
+      const eras = (window.TIMELINE || []).filter((e) => e && typeof e.year === "number").slice().sort((a, b) => a.year - b.year);
+      const key = u.count + "|" + eras.length + "|" + ((window.WORLD_GEO || []).length);
+      if (_mineFoundFor === key && _mineFound) return _mineFound;
+      const eraNames = eras.map((e) => {
+        const set = new Set();
+        if (e.geo && e.geo.length) e.geo.forEach((t) => { if (t && t.n) set.add(String(t.n).toLowerCase()); });
+        else if (e.groups && Object.keys(e.groups).length) Object.keys(e.groups).forEach((k) => { const g = e.groups[k]; if (g) set.add(String(g).toLowerCase()); });
+        else (window.WORLD_GEO || []).forEach((c) => { if (c && c.n) set.add(String(c.n).toLowerCase()); });
+        return set;
+      });
+      const out = new Map();
+      u.names.forEach((hit, lk) => {
+        const i = eraNames.findIndex((set) => set.has(lk));
+        if (i < 0) return;                                  // only ever on the present-day map — nothing to bring forward
+        const first = eras[i].year, floor = i > 0 ? eras[i - 1].year : -Infinity;
+        const c = CARD_BY_ID[hit.id];
+        const ys = (c ? cardSpanYears(c) : []).filter((y) => y > floor && y <= first);
+        out.set(lk, { y: ys.length ? Math.min.apply(null, ys) : first, first: first, era: eras[i] });
+      });
+      _mineFoundFor = key; _mineFound = out;
+      return out;
+    }
     function mineShapes() {
-      const u = atlasUnlocks(), e = activeEra(year);
-      const key = eraKey(year) + "|" + u.count + "|" + ((window.US_STATES || []).length) + "|" + ((window.CHINA_PROVINCES || []).length);
+      const u = atlasUnlocks(), e = activeEra(year), fnd = mineFounded();
+      /* THE CACHE IS KEYED ON WHAT IS DRAWABLE THIS YEAR, not on the year — a founding moves a country in
+         and out between two years of one era, and re-deriving the bounding boxes on every year the reader
+         drags past would walk every unlocked ring several times a second. The signature changes only at a
+         founding, and names the SOURCE era where that is not the current one. */
+      const vis = [];
+      fnd.forEach((f, lk) => { if (year >= f.y) vis.push(year < f.first ? lk + ">" + f.first : lk); });
+      vis.sort();
+      const key = eraKey(year) + "|" + u.count + "|" + ((window.US_STATES || []).length) + "|" + ((window.CHINA_PROVINCES || []).length) + "|" + vis.join(",");
       if (_mineFor === key && _mineCache) return _mineCache;
       const out = [];
+      const drawn = new Set();
       if (e) {
         const te = terrOf(e);
         if (te) for (let i = 0; i < te.terr.length; i++) {
           const nm = te.terr[i].n; if (!nm) continue;
-          const hit = u.names.get(String(nm).toLowerCase());
-          if (hit) out.push({ id: hit.id, title: hit.title, name: String(nm), rings: te.terr[i].p || [], bb: te.bb[i], at: null });
+          const lk = String(nm).toLowerCase();
+          const hit = u.names.get(lk);
+          if (!hit) continue;
+          const f = fnd.get(lk);
+          if (f && year < f.y) continue;                    // founded later than this year — see mineFounded
+          drawn.add(lk);
+          out.push({ id: hit.id, title: hit.title, name: String(nm), rings: te.terr[i].p || [], bb: te.bb[i], at: null });
         }
+        /* …AND A STATE FOUNDED BEFORE THE FIRST MAP THAT SHOWS IT is drawn from that map's own shape, which
+           is the only shape Folio has for it. The United States between 1776 and 1799 is the 1800 outline:
+           an honest "the earliest map we hold", where the alternative is not drawing the country at all in
+           the twenty-four years its card is about. Grouped by SOURCE era so `terrOf` runs once each. */
+        const gaps = new Map();
+        fnd.forEach((f, lk) => { if (year >= f.y && year < f.first && !drawn.has(lk)) {
+          if (!gaps.has(f.first)) gaps.set(f.first, { era: f.era, keys: [] });
+          gaps.get(f.first).keys.push(lk);
+        } });
+        gaps.forEach((g) => {
+          const gt = terrOf(g.era); if (!gt) return;
+          for (let i = 0; i < gt.terr.length; i++) {
+            const nm = gt.terr[i].n; if (!nm) continue;
+            const lk = String(nm).toLowerCase();
+            if (g.keys.indexOf(lk) < 0 || drawn.has(lk)) continue;
+            const hit = u.names.get(lk); if (!hit) continue;
+            drawn.add(lk);
+            out.push({ id: hit.id, title: hit.title, name: String(nm), rings: gt.terr[i].p || [], bb: gt.bb[i], at: null });
+          }
+        });
         if (eraIsModern(e)) u.subdiv.forEach((sd) => {
           const list = window[sd.global]; if (!Array.isArray(list)) return;
           sd.keys.forEach((k) => {
@@ -37481,7 +37642,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           if (!modern) continue;
           const tbl = window[m.points]; if (!tbl) continue;
           const row = tbl[m.dot]; if (!row || !Array.isArray(row.c)) continue;
-          out.push({ id: m.id, title: m.title, kind: "dot", at: row.c });
+          out.push({ id: m.id, title: m.title, kind: "dot", at: row.c, cap: true });
           continue;
         }
         if (m.y0 != null && year < m.y0) continue;
@@ -37494,9 +37655,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        displayed in their relevant years"). A civilisation older than 1500 has no era map to be a
        territory of, so what is drawn is the authored `area` from its own card — the same polygon its card
        map washes — and it is drawn the way that map draws it: a DASHED edge, because a culture has no
-       border to be right about and a crisp line would assert a frontier Folio has not surveyed. In the
-       marks' own red rather than the land shades, so it reads as one of the reader's places rather than
-       as a state.
+       border to be right about and a crisp line would assert a frontier Folio has not surveyed. In GREEN
+       rather than in the land shades (Sep 2026, on request) — it was the marks' own red, which made a
+       culture read as one of the reader's places writ large, where these are two different kinds of claim:
+       a dot is somewhere you could stand, and a wash is roughly where a people were. See `mineAreaFill`.
 
        CLIPPED TO THE LAND, for the reason a card map's region is (`landMask`): an authored area is a
        dozen points and a coast is a thousand, so an unclipped wash runs out into the sea. It is a
@@ -37516,9 +37678,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       for (let i = 0; i < areas.length; i++) {
         const sel = mineSel && areas[i].title === mineSel;   // a selected culture takes the map's selection gold, exactly as a country does
         ctx.beginPath(); addClipped(areas[i].area, true);
-        ctx.fillStyle = sel ? "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")" : "rgba(200,69,60,0.14)";
+        ctx.fillStyle = sel ? "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")" : mineAreaFill;
         ctx.fill("nonzero");
-        ctx.strokeStyle = sel ? TINT_SEL.line : "rgba(200,69,60,0.8)";
+        ctx.strokeStyle = sel ? TINT_SEL.line : mineAreaLine;
         ctx.beginPath(); addClipped(areas[i].area, false); ctx.stroke();
       }
       ctx.restore();
@@ -37549,8 +37711,43 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        names in a heap. The marks are the LOCATOR WINDOWS' OWN RED (Sep 2026, on request), the same
        `rgba(200,69,60,…)` a card's map draws its collection's other places in, with the Atlas's white city
        ring under it so it reads on the light land and the dark alike. */
+    /* HOW MANY MARKS, AND HOW MANY NAMES, BY ZOOM (Sep 2026, on request: "add zoom levels to displaying
+       the amount of dots and labels on the personal atlas so it doesn't become overcrowded when zoomed
+       out"). A reader four hundred cards in met four hundred dots at world scale, a dozen of them inside
+       one pixel — and the de-collision the names already had governed the WORDS alone, so the map
+       underneath went on filling up whatever the labels said.
+       TWO GATES, BECAUSE THEY ARE TWO PROBLEMS. A separation in SCREEN PIXELS thins the marks, which is
+       the Atlas's own `CITY_SEP` rule in the form this layer can afford; and the NAMES wait for a zoom
+       altogether, since at the opening 50-degree view a name is wider than the country it stands in and
+       no collision pass can rescue that.
+       WHICH MARK SURVIVES IS RANKED, NOT FIRST-COME: a capital outranks an ordinary place and the rest
+       fall back on the title, so the set is stable between frames and zooming in only ever ADDS. First
+       come over `Object.keys(S.cards)` would reshuffle the whole map every time a card was graded.
+       AND THE CLICK FOLLOWS THE INK. `mineAt` reads the same thinned list, so a mark that is not drawn
+       is not clickable either — otherwise a click on empty ground would open a popup about a place the
+       reader cannot see, which is the one thing worse than crowding. */
+    const MINE_SEP = (z) => clamp(58 - z * 7, 9, 58);   // screen px between two shown marks, by zoom
+    const MINE_LBL_Z = 2.6;                             // below this the marks stand unnamed — the popup is one click away
+    function mineDotsShown() {
+      const sep = MINE_SEP(zoom), sep2 = sep * sep, out = [];
+      const marks = mineMarks().filter((m) => m.kind === "dot" && m.at)
+        .sort((a, b) => (b.cap ? 1 : 0) - (a.cap ? 1 : 0) ||
+                        String(a.title || "").localeCompare(String(b.title || "")));
+      for (let i = 0; i < marks.length; i++) {
+        proj(marks[i].at[0], marks[i].at[1]); if (PV < 0) continue;
+        const x = PX, y = PY;
+        if (x < -40 || x > W + 40 || y < -40 || y > H + 40) continue;
+        let near = false;
+        for (let k = 0; k < out.length; k++) {
+          const dx = out[k].x - x, dy = out[k].y - y;
+          if (dx * dx + dy * dy < sep2) { near = true; break; }
+        }
+        if (!near) out.push({ m: marks[i], x: x, y: y });
+      }
+      return out;
+    }
     function drawMineMarks() {
-      const marks = mineMarks();
+      const dots = mineDotsShown();
       /* THE NAMES BELONG TO THE DOTS, AND TO NOTHING ELSE (Sep 2026, on request: "remove the name labels
          for countries and provinces"). A country and a province are now drawn with their own borders,
          which is what says where one ends — and a name across every unlocked state was the layer that put
@@ -37559,18 +37756,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          is called is the popup's answer, one click away. */
       const dotFill = "rgba(200,69,60,0.95)", dotRing = CITY_RING;
       const fs = clamp(11 + (zoom - 2) * 0.9, 11, 14);
+      const names = zoom >= MINE_LBL_Z;
       const boxes = [];
       ctx.save();
       ctx.font = "600 " + fs + "px " + labelFont;
       ctx.textBaseline = "middle";
-      for (let i = 0; i < marks.length; i++) {
-        const m = marks[i], at = m.at;
-        if (m.kind !== "dot" || !at) continue;
-        proj(at[0], at[1]); if (PV < 0) continue;
-        const x = PX, y = PY;
-        if (x < -40 || x > W + 40 || y < -40 || y > H + 40) continue;
-        ctx.beginPath(); ctx.arc(x, y, 4.4, 0, TAU); ctx.fillStyle = dotFill; ctx.fill();
+      for (let i = 0; i < dots.length; i++) {
+        const m = dots[i].m, x = dots[i].x, y = dots[i].y;
+        /* A CAPITAL IS A SQUARE (Sep 2026, on request: "make dots of capital cities instead slightly
+           larger red squares"), which is the card maps' own convention one tab over and what lets a
+           reader tell the two kinds of unlocked place apart without reading a word: a capital arrives
+           from a geography card's `map.dot` and everything else from a locator. Slightly larger,
+           because a square of the circle's own width reads smaller than the circle. */
+        ctx.beginPath();
+        if (m.cap) ctx.rect(x - 5.4, y - 5.4, 10.8, 10.8);
+        else ctx.arc(x, y, 4.4, 0, TAU);
+        ctx.fillStyle = dotFill; ctx.fill();
         ctx.lineWidth = 1.4; ctx.strokeStyle = dotRing; ctx.stroke();
+        if (!names) continue;
         const nm = gameCapFirst(m.title || "");
         if (!nm) continue;
         /* A NAME GOES TO THE RIGHT OF ITS DOT, OR TO THE LEFT WHERE THAT FITS BETTER (Sep 2026, on
@@ -37607,13 +37810,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const ll = screenToLonLat(px, py); if (!ll) return null;
       const lon = ll[0], lat = ll[1];
       const marks = mineMarks();
+      // the DRAWN marks and no others — see mineDotsShown: a mark thinned out by zoom must not answer a
+      // click, or a press on empty ground opens a popup about a place that is not on the map
+      const dots = mineDotsShown();
       let best = null, bd = Infinity;
-      for (let i = 0; i < marks.length; i++) {
-        const m = marks[i];
-        if (m.kind !== "dot" || !m.at) continue;
-        proj(m.at[0], m.at[1]); if (PV < 0) continue;
-        const dx = PX - px, dy = PY - py, d = dx * dx + dy * dy;
-        if (d < 196 && d < bd) { bd = d; best = m; }        // within 14px of the dot
+      for (let i = 0; i < dots.length; i++) {
+        const dx = dots[i].x - px, dy = dots[i].y - py, d = dx * dx + dy * dy;
+        if (d < 196 && d < bd) { bd = d; best = dots[i].m; }  // within 14px of the mark
       }
       if (best) return best;
       const shapes = mineShapes();
@@ -38704,6 +38907,13 @@ let prev = null;
     function renderMapYearMarks() {   // ticks on the rail marking the mapped years — focusable buttons, each naming its stop
       if (!track) return;
       track.querySelectorAll(".tl-mark").forEach((m) => m.remove());
+      /* AND NONE ON THE PERSONAL RAIL (Sep 2026, on request: "in the timeline of the personal atlas,
+         there are several small vertical lines to mark the years with detailed years on the world atlas.
+         Remove those lines from the personal atlas"). They are the WORLD rail's thirteen stops — the
+         years its pin snaps to — and on a rail where every year is reachable they mark nothing a reader
+         can act on while suggesting the pin will jump to them. The removal above runs first, so a rail
+         that has just changed range or tab cannot be left carrying a set of them. */
+      if (MINE) return;
       mapYears().forEach((y) => {
         const mk = document.createElement("button"); mk.type = "button"; mk.className = "tl-mark";
         mk.style.left = (year2frac(y) * 100) + "%";
@@ -38819,6 +39029,33 @@ let prev = null;
         playTick();
       });
     }
+
+    /* ---------- how far back the personal rail reaches (Sep 2026, on request) ----------
+       See `MINE_STARTS`. `year2frac` reads `MINY` at call time, so changing it is enough to re-scale the
+       rail — what has to follow is everything DERIVED from it: the tick labels, the pin and the fill, and
+       the year itself, which is clamped rather than left off the left-hand end of its own rail. Narrowing
+       past the current year is therefore a move IN TIME as well as in scale, and the pin lands on the new
+       start, which is the honest reading of "start from 1900" and the only one that leaves the map on a
+       year the rail can show. */
+    const rangeWider = root.querySelector("#tlWider"), rangeNarrow = root.querySelector("#tlNarrow");
+    const rangeLbl = root.querySelector("#tlRangeLbl"), ticksEl = root.querySelector("#tlTicks");
+    function paintRange() {
+      if (!rangeLbl) return;
+      rangeLbl.textContent = tickLabel(MINE_STARTS[mineStart].y);
+      if (rangeWider) rangeWider.disabled = mineStart <= 0;
+      if (rangeNarrow) rangeNarrow.disabled = mineStart >= MINE_STARTS.length - 1;
+    }
+    function setMineRange(i) {
+      const n = clamp(i, 0, MINE_STARTS.length - 1);
+      if (n === mineStart) return;
+      mineStart = n; MINY = MINE_STARTS[mineStart].y;
+      if (ticksEl) ticksEl.innerHTML = tickHTML();
+      paintRange();
+      if (year < MINY) setYear(MINY); else paintYear();
+    }
+    if (rangeWider) rangeWider.addEventListener("click", () => setMineRange(mineStart - 1));
+    if (rangeNarrow) rangeNarrow.addEventListener("click", () => setMineRange(mineStart + 1));
+    paintRange();
 
     year = snapYear(year); renderMapYearMarks();   // start on a mapped year and mark the stops on the rail
     paintYear();

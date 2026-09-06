@@ -1236,7 +1236,54 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   territory shaded on the map", which is true of all of them. **Twelve countries have more than one
   seat** and the plan says which each card asks for, with the working seat named in the facts box.
   **Israel and Palestine are deferred**, numbered but not written, because a card that shades a shape and
-  asks for one word cannot hold a capital question whose answer is the dispute. Not part of the site.
+  asks for one word cannot hold a capital question whose answer is the dispute.
+  · **📖 `docs/geography-background-plan.md` — READ BEFORE REWRITING A `gw-` BACKGROUND.** These
+    backgrounds were written out of the recognition guide, which is written from the American point of
+    view, so they are histories of *American recognition of* the country rather than histories *of* it.
+    **RUN `node .claude/gw-audit.js` FOR THE FIGURES RATHER THAN QUOTING ANY** — this bullet stated
+    three and two of them were wrong within a day, because the sweep behind them was never written
+    down; the script is report-only, exits 0, and answers all four rules plus the date lines at once.
+    **THE FOURTH RULE IS THAT A BACKGROUND MAY NOT LIST THE COUNTRIES THAT BORDER IT** (Sep 2026, on
+    request): the card draws the country on a globe with every neighbour around it, so the neighbours
+    are the one thing on it a reader can already see — rule 2 one step out. **The replacement is the
+    SAME sentence with each neighbour swapped for the sea, the region or the landform it stands in**,
+    which keeps the bearings and the length and needs no new source; a SEA is not a country and stays,
+    a HISTORICAL mention of a frontier is the country's own history and stays, and an ADJECTIVE ("the
+    Cameroonian border") counts and does not. All 42 of the already-rewritten cards that opened on a
+    border list were swept in the same pass.
+    The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
+    sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
+    sources the rewrite needs, fifteen batches, and what each shipped batch found.
+    **G1–G6 have shipped — seventy-three backgrounds rewritten** (`gw-001`–`gw-087`, less the
+    deferrals below), each five sentences of landform, water and climate over five of the country's own
+    history, with fifty-nine date lines rewritten out of the same research. Three sources make the
+    pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
+    landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
+    range, and the rivers — enough for a whole block on its own — and states its own recommended
+    citation on page 1. **The Constitute Project** carries an English text of nearly every constitution
+    on earth, whose opening articles state the form of the state, its territory and its founding claim.
+    **The CBD's country profiles** carry a country's own ecosystems in prose, which no statistical
+    profile does. **AND AN AQUASTAT URL MUST BE READ, NEVER COMPOSED**: eight of G2's twelve guesses
+    were wrong and one pointed at another country's profile — and **a 200 on a `.pdf` address is not a
+    PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **THIRTEEN
+    HIGH-INCOME COUNTRIES HAVE NO AQUASTAT PROFILE AT ALL** (`gw-003`, `gw-019`, `gw-021`, `gw-023`,
+    `gw-025`, `gw-032`, `gw-037`, `gw-042`, `gw-054`, `gw-067`, `gw-072`, `gw-082`, `gw-088`) and are
+    deferred rather than half-solved: the
+    World Bank's open climate API and the national met services answer for the weather, and nothing
+    reachable carries the LANDFORM. **A COUNTRY THE RECOGNITION GUIDE HAS NO PAGE FOR CAN STILL BE
+    WRITTEN**: it has none for North Korea, and `gw-056` rests instead on a MILESTONE, which is about
+    an event rather than a state. Rules 1 and 3 remain open on about 350 cards.
+  · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
+    geography decks should never have their census information mentioned in the period box below the main
+    answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |
+    97,857 people` on `gw-195` Jersey — and the population is already in the facts grid two inches above.
+    **A card with nothing else datable gets an EMPTY date line rather than a filler row**: Jersey's every
+    row was a census count and its prose dates nothing else, so it now has none, which `test-date-line.js`
+    is what caught — a non-empty line yielding no sort year is a card that STATES a date and cannot be
+    ordered by it. **And a population is written to three significant figures**, which was four on exactly
+    four cards in the whole corpus (Beijing, Jakarta, Moscow, Tokyo); the `+105.1%` rows on `gw-575`,
+    `gw-625` and `gw-673` are population GROWTH rates rather than population figures and are left alone.
+  Not part of the site.
 - `docs/china-geography-card-plan.md` — the running order for **China** (`geo-china`, the third
   collection of the Geography SECTION), and the third plan that is not a thousand cards: it is **58
   cards** — the 31 provincial-level divisions of mainland China (`gc-001`–`gc-031`) and the 27
@@ -1502,7 +1549,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.09 MB and 45,336 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.11 MB and 45,573 lines is hard to find your way around, so this
   lists its 170 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -2970,6 +3017,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     UNDER it**, so a collection that has lost two decks to a group stops claiming their cards. **⚠ No new
     group can be MADE** — the control was removed on request; everything a reader who already has one needs
     still works.
+  · **BOTH DIRECTIONS TOGETHER IS ON BY DEFAULT ON A LANGUAGE DECK, AND ITS ROW SHOWS BEFORE THE FILE
+    ARRIVES** (`entryCatalogPairs` / `entryHasSiblings` / `deckPairNew`; Sep 2026, on a bug report — "the
+    Spanish collection doesn't have a 'Both directions together' option" — and on request, "in all language
+    collections, this option should be on by default"). Three things, and the first is the fault.
+    **THE ROW VANISHED ON A DECK THAT HAD BEEN ADDED AND NOT YET DOWNLOADED.** Add and Download are two
+    presses, so an added deck holds no cards on this device — `entryCardIds` is empty, so `entryHasSiblings`
+    was false, so both sibling switches were left off the deck's sheet AND off its language's. A row that is
+    not drawn looks exactly like a feature that is not offered rather than one waiting on a file.
+    **THE CATALOGUE ALREADY KNEW.** A `lang-decks.js` row carrying more cards than notes is a deck whose
+    words are studied both ways — the same fact its subtitle prints on the shelf — so `entryCatalogPairs`
+    answers from there and needs no file. It is also what the default reads.
+    **AND `deckPairNew` NOW ANSWERS FOR A LANGUAGE CONTAINER.** It returned false for one whatever was
+    stored, so the row on a language's own sheet rendered permanently OFF and could be switched on but never
+    off again. Nothing migrates and nothing is written: the default is what an UNSET option now MEANS, so a
+    reader who has turned it off keeps it off, and a curated deck is untouched — `entryCatalogPairs` answers
+    for the Languages shelf alone.
   · **A LANGUAGE CAPS ITS DECKS; IT DOES NOT CASCADE TO THEM** (`langCtxLimits` / `langCtxOf` /
     `entrySkippedToday` / the buckets in `reviewQueue`; Aug 2026, on request: "custom study, scheduling,
     daily limits, and skip should also be options on the language collections"). **THE DRAW IS THREE
@@ -3198,9 +3261,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     keyboard down. `syncAttempt` is declared ABOVE the phrasing cycler and assigned below it, because the
     cycler replaces the question element and every `.blank-input` in it.
   · **`elabPromptHTML` — ONE ELABORATION PROMPT PER SESSION, AND IT IS NOW THREE QUESTIONS WITH THEIR
-    ANSWERS BEHIND BUTTONS** (Sep 2026, on request: the Think it through section "should read three
+    ANSWERS BEHIND CHEVRONS** (Sep 2026, on request: the Think it through section "should read three
     common/important why-questions about the answer term, with behind each question a 'show answer' button
-    which reveals a very brief paragraph below the question to answer it"). Elaborative interrogation
+    which reveals a very brief paragraph below the question to answer it" — and then, the same month,
+    "instead of a Show Answer button, simply put a chevron behind each question which is always collapsed
+    by default, which can be opened to reveal the answer"). Elaborative interrogation
     (`card.why`) and NOTHING ELSE since Sep 2026 — see the last paragraph of this bullet. **Injected by
     `showAnswer`, not built into `buildBack`**, because the budget
     belongs to the session and `buildBack` also draws the editor preview and the browser. **The questions
@@ -3216,9 +3281,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cloud content overlay can carry as a delta (see the overlay bullet under "Environment"), so a live
     overlay written before this change would otherwise have its question silently vanish — a legacy item's
     button opens and marks the named block exactly as it used to. Nothing new can be written that way.
-    **A "Show answer" DOES NOT CLOSE AGAIN**: this is a self-check, a reader who has read the answer cannot
-    un-read it, and a second press that took it away would only lose their place — so the button disables
-    itself and the paragraph stays.
+    **EACH ITEM IS A NATIVE `<details>` AND THE WHOLE QUESTION IS ITS SUMMARY** (Sep 2026, the second
+    request above). The button it replaces cost the row a 96px control that competed with the question on a
+    680px card and dropped to its own line below 520px, where a chevron costs 14px and never does; the
+    target is now the width of the row rather than of two words; and the platform supplies the disclosure
+    semantics — focusable summary, Enter and Space, the announced state — where the button needed
+    `aria-expanded` and `aria-controls` written by hand. **`wireElabPrompt` therefore wires nothing on an
+    ordinary card** and is left only for the legacy item below.
+    **THE BLOCK IS AN INDEX TAB** (Sep 2026, on request, choosing design 5 of six rendered
+    alternatives): a panel with a squared 3px corner and a hairline edge, its name riding the TOP EDGE as
+    a tab in the card's own answer ink, the chevron in that ink and the answer indented under a 3px rule
+    of it. **It is PAPER ON CARD where the design was card on paper**, and that is the same step mirrored
+    — the block lives inside the study card, which is already `--card`, so a white panel there would have
+    no edge at all. **THE TAB'S GROUND IS MIXED 72% TOWARDS `--ink`, AND THAT RATIO IS SOLVED RATHER THAN
+    CHOSEN**: a tab is reversed type, so its legibility is `--zh` against `--card`, and measured over all
+    sixteen themes in both modes that pair fails 4.5:1 four times (synth 3.55, opalite 2.98, marble night
+    4.01, academy night 4.49). Mixing towards the ink moves the ground away from the card in BOTH
+    directions with no per-theme table, `--ink` being by definition the far end from `--card`; at 72% the
+    worst case on the shelf is opalite at 4.72. The plain `--zh` is declared first, so a browser without
+    `color-mix` gets a readable tab rather than none.
+    **AND IT CLOSES AGAIN, WHICH THE BUTTON DELIBERATELY DID NOT.** That button disabled itself, on the
+    reasoning that a reader who has read an answer cannot un-read it, so taking it away could only lose
+    their place. A chevron makes the opposite promise — it is the mark that says there are two states and
+    this is the other one — and a fold that will not fold is the one thing a chevron must not be. What the
+    old reasoning protected is unaffected: the answer is three lines of the card's own prose.
     **THERE IS NO FALLBACK PROMPT ANY MORE, AND A CARD WITH NO AUTHORED `why` SHOWS NO SECTION AT ALL**
     (Sep 2026, on request: a Think-it-through section "should never have the 'You have also studied ...'
     fill in the blank type. It should always say three common 'Why ...?' questions about the answer term
@@ -4089,12 +4175,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     still), and daylight takes a saturated `rgba(31,122,170,…)` instead, at **3.56:1**. It is a variable
     set in the theme sync rather than a literal at the draw, so the two maps cannot come to disagree
     about what colour water is.
-  · **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** (Sep 2026, on request). The weight was the Atlas's own
-    `0.4 + zoom * 0.16` floored at 0.5 and is `0.15 + zoom * 0.18` floored at 0.3, reaching the old figure
-    again around zoom 6 and unchanged at the deep end, where the 1.8px cap has always decided it. The
-    Atlas draws its rivers only past a zoom; this window draws all 1,073 of them at every zoom, so at a
-    card's opening ~50° view the same weight is a continent of blue thread over a map whose coast is
-    stroked at 0.7.
+  · **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** (Sep 2026, on request), and the thinning now reaches
+    further in (Sep 2026, on a second: "in atlas windows on cards, start make rivers thinner at a lower
+    level of zoom"). The weight was the Atlas's own `0.4 + zoom * 0.16` floored at 0.5, then
+    `0.15 + zoom * 0.18`, and is **`0.10 + zoom * 0.13` floored at 0.25** — which takes zoom 2 from 0.51 to
+    0.36, zoom 4 from 0.87 to 0.62 and zoom 6 from 1.23 to 0.88, and reaches the 1.8px cap at zoom 13 where
+    the middle version reached it by zoom 9. The deep end is untouched, that being where a river IS the
+    subject. The Atlas draws its rivers only past a zoom; this window draws all 1,073 of them at every
+    zoom, so at a card's opening ~50° view the old weight is a continent of blue thread over a map whose
+    coast is stroked at 0.7.
   · **THE COLLECTION'S HOME CITY IS ON EVERY MAP IN IT** (`CMAP_ANCHOR`; Sep 2026, on request: "Rome
     should always be visible in the Roman collection, with a slightly larger red square as icon, and Athens
     should have the same in the Ancient Greek collection"). Every other red mark is EARNED — a sibling
@@ -4471,23 +4560,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   logo with the tagline 'Memorize anything'"). It stood in the top bar once and was taken out; the `.brand`
   styles and the `route("home")` click handler were both LEFT BEHIND against its return, so this is the
   markup coming back to them rather than a new control. Three things.
-  **EXACTLY ONE OF THE TWO IS ON SCREEN AT ANY WIDTH, AND THE SPLIT IS AT 1280px — MEASURED, NOT CHOSEN.**
-  The obvious rule is "bar logo wherever the bar is shown, home logo below 640px", and it does not fit: in a
-  browser, with the seventh tab in, **the brand costs the top bar 171px at Medium text and 292px at Very
-  large**, and the bar has that much to spare only from 1280px up. Below it the tabs are pushed off the end
-  — 171px of overflow at 901px, 76px at 1000px, and 70px at 1200px at Very large — which takes a DESTINATION
-  away to make room for an ornament. So `.topbar .brand` shows from 1280px up and `.home-brand` from 1279px
-  down. Re-measured after the change: the bar's overflow is now identical with the brand and without it at
-  every width and both text sizes. **The cost is stated rather than hidden: a landscape tablet gets the logo
-  at the head of the home page rather than in the bar**, which is the same place a phone gets it.
+  **THE SPLIT IS THREE-WAY AND EVERY THRESHOLD IS MEASURED, NOT CHOSEN.** The obvious rule is "bar logo
+  wherever the bar is shown, home logo below 640px", and it does not fit: in a browser, with the seventh
+  tab in, **the brand costs the top bar 88px at Medium text and 186px at Very large** (171 and 292 before
+  the tagline went under the wordmark), and the bar has that much to spare only from 1180px up. Below it the
+  tabs are pushed off the end, which takes a DESTINATION away to make room for an ornament. So `.topbar
+  .brand` shows from 1180px up and `.home-brand` from 1179px down — **and a PHONE now gets neither** (Sep
+  2026, on request: "on mobile, remove the logo and tagline from the top of the home page"), which reverses
+  the rule at the one width where it is the right answer: below 640px the wordmark and its tagline are the
+  first 60px of a page whose whole job is the day's study. Re-measured after the bar change: the bar's
+  overflow is identical with the brand and without it at every width and both text sizes.
   **THE TAGLINE IS AUTHORED BRITISH, like every other string on the site.** `spellText` runs over the whole
   document body, so an American reader is shown "Memorise" → "Memorize" by the same table that handles the
   rest of the prose — which needed a **`memoris`/`memoriz` row added to `SPELL_PAIRS`**, since the word was
   not in it. Writing it American instead would have made it the one string on the site a British reader
   cannot get their own spelling of.
   **THE HOME PAGE'S COPY IS A HEADING, NOT A BUTTON** — the reader is already on the home page, so a control
-  that routed there would do nothing — and it centres below 640px because `.page-head` does, while between
-  641 and 900 both are ranged left. Guarded by `test-layout.js`.
+  that routed there would do nothing — and between 641 and 900 it is ranged left, as `.page-head` is there.
+  (The rule that centred it below 640px went with the block itself.) Guarded by `test-layout.js`.
 - **THE VERSION LINE** (`versionLineHTML`, just above `PAGES.home`; `.site-ver` in styles.css — Aug 2026, on
   request). The shipped version and the moment it went out, very small in the **top-left corner of the home
   page**, above the greeting. Four decisions in it are load-bearing.
@@ -5496,6 +5586,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     ever. Switching tab is `render()`, not `route()`, or the reset would undo the press. The two tabs keep
     SEPARATE coach-mark keys (`folio_mine_tour_v1`), since a reader who dismissed the world atlas's card
     months ago has never been told what this one is.
+    **WHAT CHANGED IN A SECOND SEP 2026 REQUEST ABOUT THIS TAB.** Six things, and four are decisions.
+    **A COUNTRY NOW ARRIVES IN THE YEAR IT WAS FOUNDED** (`mineFounded`; "ensure that each modern year
+    really appears in the year of its founding, e.g. the United States in 1776, China in 1949"). Folio's
+    maps step a century and then a decade, so the United States arrived in 1800 and the People's Republic
+    in 1960 — at the first map that happens to carry the name. **THE ERA MAPS BRACKET THE ANSWER AND THE
+    CARD SUPPLIES IT**: the first era carrying a name says the state existed BY that year and the era
+    before it says Folio's map did not show it THEN, so the founding lies in (previous, first], and the
+    card's own cited date line is read for a year inside that bracket. **IT CAN ONLY EVER MOVE A COUNTRY
+    EARLIER, and that clamp is what makes it safe to run over all 233 rather than hand-writing 233 founding
+    years.** MEASURED: unclamped it DELAYS 264 countries and takes FRANCE off the 1500, 1600 and 1700 maps
+    — `gw-`'s date line for France records the United States' recognition in 1778 — and Japan off the same
+    three on Perry's 1853. Clamped, 163 move earlier and none later. A state founded before the first map
+    that shows it is drawn in THAT map's shape, which is the only shape Folio has for it.
+    **THE MARKS AND THEIR NAMES ARE GATED BY ZOOM** (`MINE_SEP`, `MINE_LBL_Z`, `mineDotsShown`): a
+    separation in screen pixels thins the marks and the NAMES wait for zoom 2.6 altogether. Which mark
+    survives is RANKED — a capital first, then the title — so the set is stable between frames and zooming
+    in only ever adds; first-come over `Object.keys(S.cards)` would reshuffle the map on every grade. **And
+    `mineAt` reads the same thinned list**, or a click on empty ground opens a popup about a place that is
+    not drawn.
+    **A CAPITAL IS A SQUARE** and everything else a dot, which is the card maps' own convention one tab
+    over; **a CIVILISATION'S wash is GREEN** (`mineAreaFill` / `mineAreaLine`), red having made it read as
+    one of the reader's places writ large; and **`landDim` went from 0.87 to 0.78**, a step a reader can
+    see on a map whose whole grammar is earned-against-unearned.
+    **THE RAIL LOST THE WORLD ATLAS'S YEAR MARKS AND GAINED A RANGE** (`MINE_STARTS`, `mineStart`,
+    `setMineRange`, `.tl-range`): the marks are the world rail's thirteen stops, and on a rail where every
+    year is reachable they mark nothing while suggesting the pin will jump to them. The range is five
+    declared starts, each with its own ticks — a rail from 1900 wants decades where one from 4000 BCE wants
+    millennia — and it is closure state rather than a setting, like the glossary record's sort.
   **📖 `docs/atlas.md` — READ BEFORE TOUCHING THE RENDER PATH, AN ERA OR THE TIMELINE.** Why every rule
   above exists, the host quirks behind `forceComposite`, the non-linear rail, the popup's own sections and
   pager, the era build's topology-preserving simplify, its region supplement and overlap cleaning, and the
@@ -6018,7 +6136,7 @@ lookup.
 
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
-| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, contiguous — next is `wh-301` |
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 500 cards, contiguous — next is `wh-501` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 500 cards, contiguous — next is `gr-501` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 300 cards, contiguous — next is `rm-301` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
@@ -6049,7 +6167,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (277 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (280 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7090,7 +7208,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 277 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 280 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -7216,10 +7334,12 @@ dead code (never rendered).
     names this section asserted a day earlier being what the request removed. **Re-run after touching `atlasTab` /
     `MINE` / `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
     `drawMineMarks` / `drawMineAreas` / `MINE_POLITY` / `areaBBox` / `mineCoastSkip` / `landDim` /
+    `mineFounded` / `mineDotsShown` / `MINE_SEP` / `MINE_LBL_Z` / `mineAreaFill` / `mineAreaLine` /
+    `MINE_STARTS` / `mineStart` / `setMineRange` / `tickList` / `tickHTML` / `renderMapYearMarks` /
     `showMinePopup` / `eraIsModern` / `renderStatic`'s MINE branch / `updateHoverName` / `snapYear` /
     `stepYear` / `frac2year` / `year2frac` / `ZMAX` / `cpSection` / `mountCardBack`'s `shutSources` / the
-    `.atlas-tabs` markup / `.atlas-empty` / `.cp-mine` / `.cp-shut`, or after changing which cards carry a
-    `map` or a `locator`.**
+    `.atlas-tabs` markup / `.atlas-empty` / `.cp-mine` / `.cp-shut` / `.tl-range`, or after changing which
+    cards carry a `map` or a `locator`.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and
     a glossary term's way onto the map (Aug 2026). **Re-run after touching `glossPlace` / `focusPlace` /
     `CITY_SEP` / `computeCityLayout` / `gsIndex` / `hmOpacity`, or after re-running
