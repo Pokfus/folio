@@ -996,13 +996,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   has **no page for North Korea** because the United States has never recognised it, and the loss that
   matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Almost none of its
   thousand topics matched an existing glossary key**, so expect the glossary to grow faster here than
-  anywhere since Greece — `ko-001`–`ko-060` alone added fifty-seven terms. **The plan's claim that NOT ONE
+  anywhere since Greece — `ko-001`–`ko-070` alone added sixty-seven terms. **The plan's claim that NOT ONE
   matched was wrong by one, and the exception is the useful half**: `Seoul` was already a cited term, so
   `ko-010` reuses it — **the pairing rule is satisfied by a term that already exists, and
   `add-glossary.js` overwrites in silence, so CHECK before running it.** The next card to write is the
   lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the
-  lookup. **`ko-001` to `ko-060` have shipped** (Sep 2026) — the whole of `ko-land`, and the opening of
-  `ko-prehistory` — so the
+  lookup. **`ko-001` to `ko-070` have shipped** (Sep 2026) — the whole of `ko-land`, the whole of
+  `ko-prehistory`, and the opening of `ko-gojoseon` — so the
   collection is live and its 42 empty decks are coming-soon automatically, `isComingSoon` being true for
   a node holding no card. **Its first ten are geography rather than events, and that shaped the
   sourcing**: what carried them was UNdata and the World Bank for figures, the Office of the Historian
@@ -1081,7 +1081,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   passage the card rests on is page 70. And **a key may be deliberately denied its bare name**:
   `Yan_(state)` claims no bare surface and takes "state of Yan" instead, because 33 of the 34 bare
   occurrences of *Yan* in the corpus are the state and the 34th is **Yan'an**, which the auto-linker's
-  boundary test would have matched. Not part of the site.
+  boundary test would have matched.
+  **`ko-061`–`ko-070` FINISH THE GOJOSEON DECK ON A BOOK REVIEW AND AN OBITUARY.** McBride's *Asian
+  Perspectives* review of Byington's *The Ancient State of Puyŏ* is the only openable account of Buyeo
+  found anywhere and carries four of that card's claims; Falkenhausen's obituary of Hyung Il Pai is
+  another. **Where the book itself is shut, a specialist's review of it is a citable summary** — cited
+  as a review, of that book, by that reviewer, never as the book. Three findings go with it. **A DATE
+  LINE IS AN ASSERTION, AND ON A CARD ABOUT A CLAIM IT IS THE YEAR THE CLAIM WAS MADE**: `ko-062` first
+  shipped `Claimed date | c. 3000 BCE`, which `cardYears` parses, so the card sorted at the head of the
+  deck with Folio's own chronology quietly asserting the DPRK's dating of Gojoseon; it sorts at **1993**,
+  the year of the excavation. **A card about a concept or a people has fewer figures in it than a card
+  about an object**, so five of the ten needed lengthening and four date-line rows had a label and no
+  number — turned into unlabelled continuation lines, which is what `date-line.js` requires. And
+  **`ko-065` spends a later card's answer term**: "Buyeo society and kingship" has no openable source for
+  the four animal-named offices, where the literature does carry Byington's *secondary state formation*
+  argument — so `ko-078` must take a different term, the way `ko-058` and `ko-059` had to be split.
+  Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -5412,7 +5427,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
-| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 60 cards, contiguous — next is `ko-061` |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 70 cards, contiguous — next is `ko-071` |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |

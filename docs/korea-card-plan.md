@@ -657,6 +657,55 @@ photograph, and Commons holds no image of either. `ko-053` does have one, and it
 batch: a **1927 photograph of the tomb shown for Gija outside Pyongyang**, from a Japanese survey series,
 whose own caption says the enclosure holds his cap and sword rather than his bones.
 
+## What the seventh ten found (Sep 2026)
+
+`ko-061`–`ko-070` finish the Gojoseon deck, and the sources changed shape again: this is the first
+batch carried mostly by the *International Journal of Korean History* and by two Asian Perspectives
+pieces that are not research articles at all — a **book review** and an **obituary**. McBride's review
+of Byington's *The Ancient State of Puyŏ* is the only openable account of Buyeo found anywhere, and it
+carries the Songhua setting, the Xituanshan antecedent, the 346 CE destruction and the Goguryeo and
+Baekje claims on its name. **A review of a book you cannot open is not a substitute for the book, but
+where the book is shut it is a citable summary by a specialist** — and it must be cited as a review, of
+that book, by that reviewer, which is what the entry says.
+
+**THE NORTH'S CLAIM IS CARDED AS A CLAIM, AND THE DATE LINE IS WHERE THAT NEARLY WENT WRONG.**
+`ko-062` first shipped with a row reading `Claimed date | c. 3000 BCE`, which `cardYears` reads, so the
+card sorted at 3000 BCE — at the very head of the deck, with Folio's own chronology quietly asserting
+the DPRK's dating of Gojoseon. It now sorts at **1993**, the year of the excavation, which is the date
+the card is actually about. **A date line is an assertion about when the card's subject happened, and on
+a card about a claim that is the year the claim was made.**
+
+**Five of the ten had to be lengthened and five date lines had to be rewritten**, all for the same
+underlying reason: a card about a concept or a people has fewer hard numbers in it than a card about an
+object, and both the word count and the sort year come under pressure. Four rows had a label and no
+figure at all — "Succeeds the Liaoning type", "Becomes Baekje" — and were turned into unlabelled
+continuation lines, which is what `date-line.js` requires and what reads better anyway.
+
+**ko-065 takes a concept the plan did not name, and it costs a later card.** "Buyeo society and
+kingship" has no openable source for the four animal-named offices or the harvest festival, and what the
+reachable literature does carry is Byington's central argument: Buyeo as **secondary state formation**,
+a state pushed into being by the Yan and Han incursions beside it, in two phases, with its migration
+legends re-read as later claims to legitimacy rather than as memories of arrival. That is a better card
+than a list of offices nothing supports — but it means **`ko-078`, "State formation in early Korea",
+must take a different answer term when it is written**, the way `ko-058` and `ko-059` had to be split.
+
+**`ko-067` and `ko-068` ship as *Samhan* and *Mahan*, one letter apart, deliberately.** The
+adjacent-answers rule exists to stop a reader meeting two blanks whose answers differ trivially in
+MEANING; these two are the pair the cards exist to distinguish — the three Han collectively, and the
+largest of them — and each question says which is wanted. Recording it here so the next session does not
+"fix" it.
+
+**Ten more glossary terms shipped with the cards** — `Taejonggyo`, `Tomb_of_Dangun`,
+`Korean-style_bronze_dagger`, `Buyeo`, `Secondary_state_formation`, `Okjeo`, `Samhan`, `Mahan`, `Soguk`
+and `Dongyi`. `Soguk`'s alias list was cut back before it shipped: "small polity" is ordinary English and
+would have auto-linked in any collection describing any small polity anywhere, which is `Life_(biology)`'s
+lesson in another subject.
+
+**`ko-065` and `ko-066` ship with no picture.** A concept has nothing to photograph, and Commons holds no
+image of the north-eastern coastal strip that the Okjeo occupied. The find of the batch is `ko-070`'s: a
+printed page of the **Wei Zhi**, the section of the *Sanguozhi* that carries the account of the eastern
+peoples and is the single source most of this deck rests on.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -770,16 +819,16 @@ where its findings go.
     ko-058  The Han conquest of Gojoseon — Emperor Wu of Han
     ko-059  The fall of Wanggeom-seong — Wanggeom-seong
     ko-060  Gojoseon in Korean national memory — minjok
-    ko-061  Dangun in modern Korea
-    ko-062  The Gojoseon debate in North and South
-    ko-063  Bronze culture and the Gojoseon question
-    ko-064  Buyeo
-    ko-065  Buyeo society and kingship
-    ko-066  Okjeo and Dongye
-    ko-067  The Samhan
-    ko-068  Mahan, Jinhan and Byeonhan
-    ko-069  Samhan society
-    ko-070  The early Korean states compared
+    ko-061  Dangun in modern Korea — Taejonggyo
+    ko-062  The Gojoseon debate in North and South — the Tomb of Dangun
+    ko-063  Bronze culture and the Gojoseon question — the slender bronze dagger
+    ko-064  Buyeo — Buyeo
+    ko-065  Buyeo society and kingship — secondary state formation
+    ko-066  Okjeo and Dongye — Okjeo
+    ko-067  The Samhan — the Samhan
+    ko-068  Mahan, Jinhan and Byeonhan — Mahan
+    ko-069  Samhan society — the soguk
+    ko-070  The early Korean states compared — the Dongyi
 
 ### The commanderies and the proto-Three Kingdoms — `ko-commanderies`
 
