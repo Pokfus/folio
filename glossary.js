@@ -2397,7 +2397,11 @@ window.GLOSSARY = {
 "Pastoral_nomadism": "Pastoral nomadism is a way of life in which a household lives off herds of grazing animals and moves with them between pastures, following the grass and the water instead of waiting on a harvest in one place. Herodotus thought its steppe form unbeatable, describing a people with no cities and no forts, all of them mounted archers, living off their cattle and carrying their dwellings on wagons.<sup class=\"fn\" data-fn=\"1\"></sup> Direct study of Iron Age communities in Ukraine has complicated that picture, finding most people living and dying near one place, in large settlements and on millet grown close by, so that herding, farming and trade were mixed rather than exclusive.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Pontic-Caspian_steppe": "The Pontic-Caspian steppe is the western third of the Eurasian grassland belt, reaching from the southern Urals to the lower Danube and lying north of the Black Sea and the Caspian.<sup class=\"fn\" data-fn=\"1\"></sup> Rivers cross it southward, the Volga, the Don and the Dnieper among them, and Herodotus described the country as flat, grassy and well watered, with nearly as many rivers running through it as Egypt has canals.<sup class=\"fn\" data-fn=\"2\"></sup> It was held in turn by the Srubnaya and Alakulskaya cultures from about 1800 BCE and then by the Cimmerians, the Scythians and the Sarmatians, groups that ancient genomes show to be linked but never directly ancestral to one another.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Sarmatians": "The Sarmatians are the Iranian-speaking horse peoples who succeeded the Scythians on the steppe north of the Black Sea, holding it from about the 3rd century BCE until roughly 400 CE, when the Goths and the Huns broke them.<sup class=\"fn\" data-fn=\"1\"></sup> They were never one nation but several groups of similar background, and Strabo names the Iazyges by the Danube and the Roxolani between the Don and the Dnieper, living in woollen tents fixed on wagons and armoured in untanned ox-hide.<sup class=\"fn\" data-fn=\"2\"></sup> Herodotus, writing of an earlier people he calls the Sauromatae, says their women hunted with the men or without them, went to war, and dressed as the men did.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Scythians": "The Scythians are the Iron Age horse peoples who held the steppe from the Altai to the Carpathians between about 700 and 300 BCE<sup class=\"fn\" data-fn=\"1\"></sup>, and Herodotus reports that they called themselves Skoloti, Scythian being the Greeks' word for them.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient genomes show the eastern and western groups arising independently, each mixing Bronze Age steppe ancestry with an East Asian component, which is why their weapons and ornament are so alike while the people are not.<sup class=\"fn\" data-fn=\"3\"></sup> Their kings went into deep pits under raised mounds, with strangled servants, horses and golden cups; their hold on the west broke around 300 BCE under pressure from Macedon and the arriving Sarmatians.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Scythians": "The Scythians are the Iron Age horse peoples who held the steppe from the Altai to the Carpathians between about 700 and 300 BCE<sup class=\"fn\" data-fn=\"1\"></sup>, and Herodotus reports that they called themselves Skoloti, Scythian being the Greeks' word for them.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient genomes show the eastern and western groups arising independently, each mixing Bronze Age steppe ancestry with an East Asian component, which is why their weapons and ornament are so alike while the people are not.<sup class=\"fn\" data-fn=\"3\"></sup> Their kings went into deep pits under raised mounds, with strangled servants, horses and golden cups; their hold on the west broke around 300 BCE under pressure from Macedon and the arriving Sarmatians.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Native_Americans_in_the_United_States": "Native Americans are the Indigenous peoples of the territory that became the United States, described in federal statute and in the census as American Indians and Alaska Natives.<sup class=\"fn\" data-fn=\"1\"></sup> The 2020 census counted 3.7 million people who marked that identity alone and 9.7 million who marked it alone or with another race, an increase of 87 per cent on 2010.<sup class=\"fn\" data-fn=\"1\"></sup> They are not a single people but the citizens of many nations, 575 of which the Bureau of Indian Affairs recognised in January 2026 as holding the immunities and privileges of a government-to-government relationship with the United States.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Coastal_migration_route": "The coastal migration route is the proposal that the first people to reach the Americas came down the Pacific shore rather than overland through the middle of North America, and in its best-known form, the kelp highway hypothesis, the productive kelp ecosystems ringing the North Pacific are what made the journey possible.<sup class=\"fn\" data-fn=\"1\"></sup> Cosmogenic dating shows an open corridor through the Alexander Archipelago of south-eastern Alaska after about 17,000 years ago, and ice and ocean modelling names two earlier windows as favourable.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> No shoreline site south of Alaska has yet been dated older than about 12,600 years, so it remains a hypothesis rather than a finding.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Clovis_First": "Clovis First is the model, orthodox in American archaeology for most of the 20th century, that the Clovis hunters were the first people in the Americas, and it rested on Clovis sitting at the base of every dated sequence on the continent.<sup class=\"fn\" data-fn=\"1\"></sup> It broke in 1997, when a panel of archaeologists visited Monte Verde in southern Chile and accepted in print that the main layer there was older than any Clovis point.<sup class=\"fn\" data-fn=\"2\"></sup> What has replaced it is an argument rather than a model, one synthesis reading a coherent record back to 20,000 years ago while another finds clean stratigraphy only from Clovis onwards.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Maize": "Maize is a domesticated grass, made out of the Mexican wild grass teosinte about 9,000 years ago, and now the most productive staple crop in the world.<sup class=\"fn\" data-fn=\"1\"></sup> It reached the south-western United States no later than 2100 BCE, passed from one community to the next rather than carried by farmers migrating, and irrigation canals were being dug for it in the Tucson Basin between 1750 and 1500 BCE.<sup class=\"fn\" data-fn=\"2\"></sup> In eastern North America it arrived among crops people had already domesticated for themselves, and became important across most of the region only after about 1,100 years ago.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3236,7 +3240,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Animal_style": "c. 800 – 200 BCE",
 "Cimmerians": "c. 1000 – 600 BCE",
 "Sarmatians": "c. 300 BCE – 400 CE",
-"Scythians": "c. 700 – 300 BCE"
+"Scythians": "c. 700 – 300 BCE",
+"Clovis_First": "orthodox c. 1930s – 1997",
+"Maize": "domesticated c. 9,000 years ago"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4645,7 +4651,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Pastoral_nomadism": ["nomadic pastoralism","mobile pastoralism","pastoral nomad"],
 "Pontic-Caspian_steppe": ["Pontic–Caspian steppe","Pontic steppe"],
 "Sarmatians": ["Sarmatian","Sauromatae","Roxolani"],
-"Scythians": ["Scythian","Skoloti"]
+"Scythians": ["Scythian","Skoloti"],
+"Native_Americans_in_the_United_States": ["Native Americans","Native American","American Indians","American Indian"],
+"Coastal_migration_route": ["kelp highway hypothesis","kelp highway","Pacific coastal route"],
+"Clovis_First": ["Clovis-first","Clovis first model"],
+"Archaic_period_(North_America)": ["North American Archaic","Archaic period in North America"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -7078,7 +7088,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pastoral_nomadism": ["practice","history","geography","nature","prehistory"],
 "Pontic-Caspian_steppe": ["place","geography","history","prehistory","migration"],
 "Sarmatians": ["people","history","warfare","migration","prehistory"],
-"Scythians": ["people","history","prehistory","warfare","art"]
+"Scythians": ["people","history","prehistory","warfare","art"],
+"Native_Americans_in_the_United_States": ["people","history","geography","united states","north america"],
+"Coastal_migration_route": ["concept","archaeology","prehistory","migration","north america"],
+"Clovis_First": ["theory","archaeology","prehistory","history","north america"],
+"Maize": ["plant","agriculture","prehistory","north america","mexico"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

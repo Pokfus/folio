@@ -400,7 +400,7 @@ matters.
     us-007  The pre-Clovis debate
     us-008  Monte Verde and the evidence for early arrival
     us-009  The Archaic period in North America
-    us-010  The domestication of maize
+    us-010  Maize and its spread into North America
     us-011  The Three Sisters
     us-012  Eastern Agricultural Complex
     us-013  Poverty Point
@@ -431,6 +431,23 @@ matters.
     us-038  The Algonquian peoples of the eastern woodlands
     us-039  Estimating the pre-contact population of North America
     us-040  How pre-contact America is known
+
+**Two decisions made while writing `us-001`–`us-010` (Sep 2026), recorded here because the lines
+above no longer describe them exactly.**
+
+**`us-010` was renamed** from *The domestication of maize* to *Maize and its spread into North
+America*. The domestication itself is already carded at exactly that altitude in World History
+(`wh-131`, on teosinte and the Balsas), and this collection needs the other half: when the crop
+reached the Southwest, why it took two thousand more years to matter in the east, and what it
+displaced. The answer term is `maize`.
+
+**`us-009`'s answer term is `North American Archaic`, not `Archaic period`.** The bare surface
+*Archaic period* is already claimed by the Greek glossary key `Archaic_period`, and
+`buildGlossIndex` has no way to tell two collections apart — so a US card writing *Archaic period*
+in its prose auto-links to Greek history, which is the fault `check-gloss-links.js` exists to
+report. The North American term keeps its existing key `Archaic_period_(North_America)` and now
+carries *North American Archaic* and *Archaic period in North America* as aliases. **Ask what else
+already claims a period name before choosing one as an answer term.**
 
 ### Contact, disease and the colonial encounter — `us-native-contact`
 
