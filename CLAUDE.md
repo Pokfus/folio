@@ -1980,6 +1980,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     record's `decks` section — a description that goes on counting the old number is the fault
     `check-counts.js` exists for one directory over. The A1 subtitle said 500 against a real 496 before
     any of this.
+  · **`conjSub` CORRECTS THE CONJUGATION TABLE, AND NOTHING ELSE IN THE PIPELINE CAN.** `senses`,
+    `forms` and `ex` all leave it alone, so a wrong paradigm can only be recorded or hand-edited —
+    and `despertarse` shipped a **fully regular** one (`me desperto`, `te despertas`, `se desperta`)
+    where the verb is stem-changing, so its whole present indicative, whole present subjunctive and
+    negative imperative were not Spanish. **The fault needs a reflexive AND a stem change at once**:
+    measured over the deck, every other stem-changing verb is right (`cierro`, `entiendo`, `duermo`)
+    and every other reflexive is a regular verb, so this is the only card that has it. Pairs are
+    `[find, replace]` applied to every occurrence, and one matching **neither** the old table nor the
+    new is an ERROR, for `descSub`'s reason. **Write them against the MARKUP, not the words**: the
+    table splits a form into stem and ending spans and does it inconsistently — the indicative writes
+    `despert<span…>o</span>` where the subjunctive writes a bare `desperte` — so a rule that reads
+    right can match nothing, which is what the first three pairs did. And **the nosotros and vosotros
+    forms must not change** (`despertemos`, not despiertemos), which is why this is a list of exact
+    strings rather than a stem rewrite.
   · **A PARADIGM AND A USAGE NOTE GO IN `forms`, NEVER IN `senses`.** `senses` is a list of
     TRANSLATIONS, and the generator renders each bullet as an English equivalent of the word — so `de`'s
     "used after the thing owned and before the owner" was printed as though it were one. `forms` is

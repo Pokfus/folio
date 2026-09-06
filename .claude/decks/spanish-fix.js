@@ -197,7 +197,7 @@ for (const [key, other] of hints) {
 
 const seen = new Set(), seenHint = new Set();
 let changed = 0, files = 0, metaHit = 0, dropped = 0;
-const missing = [], badEx = [], badFold = [], badSub = [];
+const missing = [], badEx = [], badFold = [], badSub = [], badConj = [];
 
 for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.test(x)).sort()) {
   const p = path.join(DIR, f);
@@ -289,6 +289,26 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
     if (fix.word !== undefined) fl.Word = fix.word;
     if (fix.senses) fl.English = (h ? '<div class="uc-pos">not ' + esc(h.other) + "</div>" : "") + renderSenses(fix.senses);
     if (fix.forms) fl.Forms = renderForms(fix.forms);
+
+    /* `conjSub` corrects the CONJUGATION table, which nothing else here can touch and which the
+       generator can get wrong: despertarse shipped a fully regular paradigm - me desperto, te
+       despertas - where the verb is stem-changing, so its whole present indicative, present
+       subjunctive and imperative were not Spanish. Every other stem-changing verb in the deck is
+       right and every other reflexive is a regular verb, so the fault is the two together. Each
+       pair is [find, replace], applied to every occurrence, and a pair matching neither the old
+       table nor the new is an ERROR: a correction the record claims and never made reads from the
+       file exactly like one that did. */
+    if (fix.conjSub) {
+      for (const [from, to] of fix.conjSub) {
+        const cj = String(fl.Conjugation || "");
+        if (cj.indexOf(from) < 0) {
+          if (cj.indexOf(to) < 0) badConj.push(w.key + " -> conjSub matches neither: " + from);
+          continue;
+        }
+        fl.Conjugation = cj.split(from).join(to);
+        hits++;
+      }
+    }
 
     const targets = boldTargets(fix, fl.Spanish, fl.Forms, fl.Conjugation);
     if (fix.ex || fix.dropEx || fix.rebold) {
@@ -383,6 +403,10 @@ if (badFold.length && (VERBOSE || CHECK)) {
   console.log("\n  note  " + badFold.length + " line(s) already applied (expected after the first run;" +
     " on a NEW entry, check for a typo):");
   badFold.forEach((k) => console.log("        " + k));
+}
+if (badConj.length) {
+  console.log("\n  FAIL  " + badConj.length + " `conjSub` pair(s) matching neither the old table nor the new:");
+  badConj.forEach((k) => console.log("        " + k)); process.exit(1);
 }
 if (badSub.length) {
   console.log("\n  FAIL  " + badSub.length + " `descSub` pair(s) matching neither the old text nor the new:");

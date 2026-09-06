@@ -11170,6 +11170,334 @@
     "transportes"
    ],
    "rebold": true
+  },
+  "delea1/contestar": {
+   "why": "Four words crammed into one gloss line - reply, retort, answer, respond - of which retort is a register no A1 reader writes in, and no preposition: you contestar A una pregunta. Neither la respuesta nor responder, the pair a reader will meet beside it, was on the card.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to answer, to reply"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "contestar a una pregunta — to answer a question",
+      "contestar al teléfono — to answer the phone"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the answer",
+     "la respuesta"
+    ],
+    [
+     "the other verb",
+     "responder"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/comprender": {
+   "why": "to understand, to comprehend, to comprise, to include - the last two are the formal sense of taking something in, given as much room as the everyday one - and nothing said that entender is the commoner word for understanding, which the deck already teaches on its own card.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to understand"
+     ]
+    ],
+    [
+     "note",
+     [
+      "entender is the everyday word; comprender is a little more formal and also means to comprise"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "la comprensión"
+    ],
+    [
+     "the everyday verb",
+     "entender"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/despertarse": {
+   "why": "Right as far as it goes, and silent on the pair: despertar without the pronoun is waking somebody ELSE up, which is a different verb on the same card. AND ITS CONJUGATION TABLE WAS WRONG: the generator wrote a fully regular paradigm - me desperto, te despertas, se desperta - where the verb is stem-changing, so the whole present indicative, the whole present subjunctive and the imperative were not Spanish. It is the only stem-changing reflexive in the deck; every other stem-changer is right and every other reflexive is a regular verb, so the fault needs both at once.",
+   "senses": [
+    [
+     "verb, reflexive",
+     [
+      "to wake up (by oneself)"
+     ]
+    ],
+    [
+     "verb",
+     [
+      "despertar a alguien — to wake someone else up"
+     ]
+    ],
+    [
+     "note",
+     [
+      "stem-changing e → ie: me despierto, te despiertas"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the alarm clock",
+     "el despertador"
+    ],
+    [
+     "to get up",
+     "levantarse"
+    ]
+   ],
+   "rebold": true,
+   "conjSub": [
+    [
+     "despert<span class=\"uc-cj-e\">o</span>",
+     "despiert<span class=\"uc-cj-e\">o</span>"
+    ],
+    [
+     "despert<span class=\"uc-cj-e\">as</span>",
+     "despiert<span class=\"uc-cj-e\">as</span>"
+    ],
+    [
+     "despert<span class=\"uc-cj-e\">a</span>",
+     "despiert<span class=\"uc-cj-e\">a</span>"
+    ],
+    [
+     "despert<span class=\"uc-cj-e\">an</span>",
+     "despiert<span class=\"uc-cj-e\">an</span>"
+    ],
+    [
+     "desperte</span>",
+     "despierte</span>"
+    ],
+    [
+     "desperte<span class=\"uc-cj-e\">s</span>",
+     "despierte<span class=\"uc-cj-e\">s</span>"
+    ],
+    [
+     "desperte<span class=\"uc-cj-e\">n</span>",
+     "despierte<span class=\"uc-cj-e\">n</span>"
+    ]
+   ],
+   "bold": [
+    "despierto",
+    "despiertas",
+    "despierta",
+    "despiertan",
+    "despierte",
+    "despiertes",
+    "despierten",
+    "desperté",
+    "despertaste",
+    "despertó",
+    "despertamos",
+    "despertando",
+    "despertado",
+    "despertaba",
+    "despertaban"
+   ]
+  },
+  "delea1/levantarse": {
+   "why": "The same gap as despertarse beside it: levantar without the pronoun is lifting or raising something, and the two are told apart by that pronoun alone. Nothing said that despertarse is opening your eyes and levantarse is getting out of bed, which is exactly the pair a reader confuses.",
+   "senses": [
+    [
+     "verb, reflexive",
+     [
+      "to get up, to get out of bed",
+      "to stand up"
+     ]
+    ],
+    [
+     "verb",
+     [
+      "levantar — to lift, to raise something"
+     ]
+    ],
+    [
+     "note",
+     [
+      "despertarse is waking; levantarse is getting up"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "to wake",
+     "despertarse"
+    ],
+    [
+     "to sit down",
+     "sentarse"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/enseñar": {
+   "why": "to teach, to show - both right - and no construction: enseñar A hacer algo, which is what its own first example does, and la enseñanza, the noun.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to teach",
+      "to show: me enseñó su casa"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "enseñar a + infinitive — to teach someone to do something"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "la enseñanza"
+    ],
+    [
+     "the teacher",
+     "el profesor, la profesora"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/quince": {
+   "why": "Fifteen, and not quince días - which is how Spanish says a fortnight, counting both ends, and is the sort of thing a reader will misread as fifteen days when a shop says it.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "fifteen"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "quince días — a fortnight, two weeks",
+      "las quince — three o clock in the afternoon, on a timetable"
+     ]
+    ]
+   ],
+   "bold": [
+    "quince"
+   ],
+   "rebold": true
+  },
+  "delea1/once": {
+   "why": "Eleven, and no warning about the false friend a reader trips over on sight: Spanish once is a number, and English once is una vez.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "eleven"
+     ]
+    ],
+    [
+     "note",
+     [
+      "not the English once, which is una vez"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "las once — eleven o clock"
+     ]
+    ]
+   ],
+   "bold": [
+    "once",
+    "Once"
+   ],
+   "rebold": true
+  },
+  "delea1/treinta": {
+   "why": "Thirty, and missing the rule the deck gives on veinte: from thirty upward the numbers are three words, treinta y uno, where twenty-one to twenty-nine are one.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "thirty"
+     ]
+    ],
+    [
+     "note",
+     [
+      "from thirty up they are three words: treinta y uno, treinta y dos",
+      "the tens: diez, veinte, treinta, cuarenta, cincuenta, sesenta, setenta, ochenta, noventa"
+     ]
+    ]
+   ],
+   "bold": [
+    "treinta"
+   ],
+   "rebold": true
+  },
+  "delea1/cincuenta": {
+   "why": "Fifty, standing alone, where the whole set of tens is what makes any one of them useful.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "fifty"
+     ]
+    ],
+    [
+     "note",
+     [
+      "the tens: cuarenta, cincuenta, sesenta, setenta, ochenta, noventa",
+      "cincuenta y uno, cincuenta y dos — three words, like every ten above veinte"
+     ]
+    ]
+   ],
+   "bold": [
+    "cincuenta"
+   ],
+   "rebold": true
+  },
+  "delea1/el miércoles": {
+   "why": "Owed the same note the other days now carry, and one of its own: miércoles keeps its accent and does not change in the plural.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "Wednesday"
+     ]
+    ],
+    [
+     "note",
+     [
+      "el miércoles — on Wednesday; los miércoles — on Wednesdays; Spanish uses no word for on",
+      "the days of the week are not capitalised in Spanish"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los miércoles (unchanged)"
+    ],
+    [
+     "the working week",
+     "de lunes a viernes"
+    ]
+   ],
+   "bold": [
+    "miércoles"
+   ],
+   "rebold": true
   }
  },
  "insert": {
