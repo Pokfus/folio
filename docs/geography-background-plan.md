@@ -125,6 +125,11 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G6 — twelve more**: `gw-075` Guinea, `gw-076` Benin, `gw-077` Rwanda, `gw-078`
+  Burundi, `gw-079` Bolivia, `gw-080` Tunisia, `gw-081` South Sudan, `gw-083` Haiti, `gw-084` Jordan,
+  `gw-085` Dominican Republic, `gw-086` United Arab Emirates and `gw-087` Cuba, with all twelve date
+  lines rewritten off the same research. **`gw-082` Belgium and `gw-088` Czechia join the deferral
+  list**, which now stands at thirteen countries with no AQUASTAT profile.
 - **2026-09-06, batch G5 — twelve more, the first written under all four rules**: `gw-061` Sri Lanka,
   `gw-062` Malawi, `gw-063` Zambia, `gw-064` Kazakhstan, `gw-065` Chad, `gw-066` Chile, `gw-068` Somalia,
   `gw-069` Senegal, `gw-070` Guatemala, `gw-071` Ecuador, `gw-073` Cambodia and `gw-074` Zimbabwe, with
@@ -215,6 +220,29 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G6 found
+
+- **⚠ RULE 2 WAS REPORTING FIVE CARDS FOR A REPEAT THEY NEVER MADE, and the bug was a substring test.**
+  The audit asked `abstract.includes(value)`, so **"Tunis" matched inside "Tunisia"** — the country's own
+  name — and the same trap waits in `Kuwait` beside Kuwait City, `Panama` inside Panama City, `Guatemala`,
+  `Djibouti`, `Mexico` and `Singapore`, wherever a capital's name is a prefix or a substring of its
+  country's. `gw-080` was rewritten once for a repeat it did not have before the script was read. **A
+  place-name comparison needs a word boundary on both sides**; with one the count went 362 → 357, and
+  five of those five were this.
+- **A COUNTRY WITH NO CBD PROFILE STILL HAS A FIFTH SOURCE, AND THE OPEN JOURNALS ARE WHERE IT IS.**
+  `cbd.int/countries/profile?country=ss` answers 200 and carries no Biodiversity Facts at all — G4's
+  Venezuela case again — so South Sudan takes a 2026 **HESS** paper on flood-wave timing from Lake
+  Victoria down into the Sudd, which is about the country's own dominant feature and says something no
+  statistical profile does. **Search Crossref for the country's landform, not for the country.**
+- **A CAPITAL THAT IS ALSO THE COUNTRY'S HISTORIC POLITY IS RULE 2's OTHER LIVE COLLISION.** "Tunis was a
+  state under nominal Ottoman dependence" is a true sentence about the polity and prints the grid's
+  Capital and Largest city in one word; it is now "the country". This is the sibling of G3's Algiers case
+  and will recur wherever a city gave its name to the state around it.
+- **THE CONSTITUTE SLUG YEAR IS THE LATEST AMENDMENT AND CAN BE DECADES OLD.** Benin is `Benin_1990` and
+  Guinea `Guinea_2010`; the 2019 and 2020 guesses both 404. And **article 1 is again not always the
+  article** — Rwanda's state-form clause is article 4, Haiti's article 1 names the capital (a grid value,
+  so unusable), and Benin's names it too.
 
 ## What G5 found
 

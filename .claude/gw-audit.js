@@ -74,9 +74,20 @@ for (const c of cards) {
   if (US.test(p)) hit.us.push(c.id);
   if (!NATURE.test(p)) hit.nature.push(c.id);
   /* A grid repeat is the VALUE as the grid prints it, minus its imperial bracket — "New Delhi",
-     "1.46B", "3,287,263 km²". A bare place name counts: the grid has already said it. */
+     "1.46B", "3,287,263 km²". A bare place name counts: the grid has already said it.
+     IT NEEDS A WORD BOUNDARY, and the reason is a country whose capital's name is a prefix of its
+     own: "Tunis" is inside "Tunisia", "Kuwait City" aside "Kuwait", "Panama" inside "Panama City",
+     "Djibouti", "Guatemala", "Mexico", "Singapore" and a dozen more. A bare substring test reports
+     every one of those cards as repeating a value it never printed. */
   const facts = (c.facts || []).map((f) => String(f[1]).replace(/\s*\(.*$/, "").trim()).filter((v) => v.length > 2);
-  const rep = facts.filter((v) => p.includes(v));
+  const rep = facts.filter((v) => {
+    let i = -1;
+    while ((i = p.indexOf(v, i + 1)) >= 0) {
+      const before = p[i - 1] || " ", after = p[i + v.length] || " ";
+      if (!/[A-Za-z]/.test(before) && !/[A-Za-z]/.test(after)) return true;
+    }
+    return false;
+  });
   if (rep.length) hit.grid.push(c.id + "  (" + rep.join(" / ") + ")");
   if (/\bUS\b|U\.S\.|United States|American/.test(String(c.answerDate || ""))) hit.dateline.push(c.id);
   const sents = p.split(/(?<=[.!?])\s+/).filter(Boolean);
