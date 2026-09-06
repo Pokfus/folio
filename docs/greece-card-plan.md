@@ -948,11 +948,11 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-689  Isocrates
     gr-690  Attic oratory  — carded on the `Attic orators`, the canon of ten, which is the thing the sources actually define
     gr-691  Lysias
-    gr-692  Demosthenes the orator
+    gr-692  Demosthenes the orator  — glossary key `Demosthenes_(orator)`, since `Demosthenes_(general)` is gr-559's term; neither parenthetical key claims the bare surface, so nothing auto-links to the wrong man
     gr-693  The Philippics
     gr-694  Aeschines
     gr-695  Philip II of Macedon
-    gr-696  The Macedonian phalanx
+    gr-696  The Macedonian phalanx  — answer term `Macedonian phalanx`, since `phalanx` is already gr-181 and a glossary term
     gr-697  Sarissa
     gr-698  The Third Sacred War
     gr-699  Battle of Chaeronea

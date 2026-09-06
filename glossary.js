@@ -2482,7 +2482,17 @@ window.GLOSSARY = {
 "Lyceum": "The Lyceum was a public exercise ground outside the eastern wall of Athens, sacred to Apollo, which gave its name to the school Aristotle taught in there from about 335 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias says it took its name from Lycus the son of Pandion but had been Apollo’s from the beginning down to his own day, and it was a working gymnasium long before it was a school.<sup class=\"fn\" data-fn=\"2\"></sup> Diogenes Laertius says Aristotle chose a promenade there and walked up and down it discussing philosophy, from which his followers were called Peripatetics, though a rival story derives the name from walking beside Alexander.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Nicomachean_Ethics": "The <i>Nicomachean Ethics</i> is Aristotle’s longest surviving account of how a life should be lived, named after his son Nicomachus and opening on the observation that every art and enquiry aims at some good.<sup class=\"fn\" data-fn=\"1\"></sup> It divides virtue in two: intellectual virtue is chiefly produced by teaching and so needs experience and time, while moral virtue is the product of habit.<sup class=\"fn\" data-fn=\"2\"></sup> Moral virtue is said to lie in a mean relative to us rather than in a fixed quantity, since six pounds of food is not the right ration merely because it lies between ten and two.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Politics_(Aristotle)": "The <i>Politics</i> is Aristotle’s treatise on the city-state, which opens by denying that the statesman, the king, the estate-manager and the household master differ merely in the numbers they govern.<sup class=\"fn\" data-fn=\"1\"></sup> Its most quoted claim is that the city-state is a natural growth and man by nature a political animal, argued from speech: other animals can signal pain and pleasure, and man alone indicates the right and the wrong.<sup class=\"fn\" data-fn=\"2\"></sup> Constitutions are then classified by whose advantage they serve, those aiming at the common advantage being rightly framed and those aiming at the rulers’ own being deviations from them.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Ladder_of_love": "The ladder of love is the ascent set out by the priestess Diotima in Plato’s <i>Symposium</i>, in which love of one beautiful body is trained upward until it rests on beauty itself.<sup class=\"fn\" data-fn=\"1\"></sup> The climb runs from a single body to all beautiful bodies, from bodies to beautiful observances, from observances to beautiful learning, and from learning to the study of the beautiful alone.<sup class=\"fn\" data-fn=\"2\"></sup> Plato’s own figure is a staircase, the lover “ever climbing aloft, as on the rungs of a ladder,” and the modern name preserves that image rather than any term Plato uses for the doctrine.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Ladder_of_love": "The ladder of love is the ascent set out by the priestess Diotima in Plato’s <i>Symposium</i>, in which love of one beautiful body is trained upward until it rests on beauty itself.<sup class=\"fn\" data-fn=\"1\"></sup> The climb runs from a single body to all beautiful bodies, from bodies to beautiful observances, from observances to beautiful learning, and from learning to the study of the beautiful alone.<sup class=\"fn\" data-fn=\"2\"></sup> Plato’s own figure is a staircase, the lover “ever climbing aloft, as on the rungs of a ladder,” and the modern name preserves that image rather than any term Plato uses for the doctrine.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Aeschines": "Aeschines was an Athenian orator of the 4th century BCE and the leading advocate of coming to terms with Philip II of Macedon, which set him against Demosthenes for twenty years.<sup class=\"fn\" data-fn=\"1\"></sup> The two served together on the embassy that made the Peace of Philocrates in 346 BCE, and each afterwards accused the other of having sold the city, Aeschines calling his opponent a slanderer who cared nothing for shared bread.<sup class=\"fn\" data-fn=\"1\"></sup> He prosecuted Ctesiphon in 330 BCE for proposing a crown for Demosthenes, failed to win a fifth of the votes, and left Athens; both speeches from that trial survive complete.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Battle_of_Chaeronea": "The battle of Chaeronea was fought in Boeotia in 338 BCE between Philip II of Macedon and the allied armies of Athens and the Boeotian League, and it settled the political future of Greece.<sup class=\"fn\" data-fn=\"1\"></sup> Philip placed his son Alexander, then about eighteen, on one wing with his most experienced generals and commanded the other himself; Diodorus puts Athenian losses at over a thousand killed and two thousand taken.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias saw the common grave of the Theban dead outside the town, surmounted by a lion and carrying no inscription, which he thought was because their courage had not been matched by fortune.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Demosthenes_(orator)": "Demosthenes was the foremost Athenian orator of the 4th century BCE and the most persistent opponent of the growing power of Philip II of Macedon.<sup class=\"fn\" data-fn=\"1\"></sup> He came to public speaking through his own lawsuits against the guardians who had wasted his inheritance, recovered almost nothing of it, and was laughed at when he first addressed the assembly.<sup class=\"fn\" data-fn=\"1\"></sup> His policy of resisting Philip ended in defeat at Chaeronea in 338 BCE, where Plutarch says he threw away his arms and ran, and yet Athens chose him to speak over the dead of that battle.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"League_of_Corinth": "The League of Corinth is the modern name for the settlement Philip II imposed on the Greek states after Chaeronea, a common peace under his own leadership with a war on Persia attached.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus says a congress met at Corinth, elected him general with full powers against Persia, and that he then prescribed how many soldiers each city was to send.<sup class=\"fn\" data-fn=\"1\"></sup> Two fragments of the Athenian copy of the treaty survive from the acropolis, carrying an oath by Zeus, Earth, Sun, Poseidon, Athena and Ares to abide by the peace and to do what the leader requires.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Lysias": "Lysias was a speech-writer of Classical Athens, a metic rather than a citizen, whose surviving work is almost entirely speeches composed for other men to deliver in their own defence.<sup class=\"fn\" data-fn=\"1\"></sup> His family lost its fortune and his brother Polemarchus to the Thirty in 404 BCE, and his prosecution of one of them is the only case in which he is known to have spoken for himself.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient critics took him as the model of the plain style and praised above all his ethopoiia, the fitting of the words to the character of the man delivering them, whether old or young, rich or poor.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Macedonian_phalanx": "The Macedonian phalanx was the infantry formation devised by Philip II in the 350s BCE, in which men armed with a very long pike stood sixteen ranks deep and advanced as a single body.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius calculates that the pikes of the first five ranks all reached past the front, so that five points faced any enemy who met one man of the leading rank, and held it irresistible in a frontal attack.<sup class=\"fn\" data-fn=\"2\"></sup> He also explains why Rome beat it: it needs flat, bare ground without ditches or banks, and an enemy who declines to come down into such country can avoid it altogether.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Philip_II_of_Macedon": "Philip II was king of Macedon from 359 to 336 BCE, and he turned a kingdom that had just lost an army and a king into the leading power in Greece.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus credits him with devising the close order and the equipment of the Macedonian phalanx, with drilling his men constantly, and with buying off neighbours by gifts and promises while he rebuilt.<sup class=\"fn\" data-fn=\"1\"></sup> He gained two votes on the Amphictyonic Council in 346 BCE, beat Athens and Thebes at Chaeronea in 338, and was elected general of the Greeks against Persia before his murder in 336.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Philippics": "The Philippics are the speeches in which Demosthenes urged Athens to act against Philip II of Macedon, and the name has since been used of any sustained political attack on a person.<sup class=\"fn\" data-fn=\"1\"></sup> Their argument is that the danger is Athenian delay rather than Macedonian strength, the First Philippic of 351 BCE holding that the position is bad only because nothing has been done, and so can be mended.<sup class=\"fn\" data-fn=\"1\"></sup> By the Third Philippic of 341 the tone has hardened into abuse, with Philip called neither a Greek nor a barbarian from anywhere respectable but a knave from Macedonia.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Sarissa": "The sarissa was the pike carried by the Macedonian infantry, far longer than the hoplite spear it replaced and held in both hands rather than one.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius gives its length as sixteen cubits by the original design and fourteen in practice, of which four are taken up by the grip and by the counterweight, leaving about ten projecting ahead of each man.<sup class=\"fn\" data-fn=\"1\"></sup> Holding it in both hands changed the rest of the equipment, since the large hoplite shield gave way to a smaller one slung from the shoulder and the soldier could no longer cover himself as he chose.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Third_Sacred_War": "The Third Sacred War was fought over the shrine of Apollo at Delphi from the 350s BCE, and it ended by bringing the king of Macedon into the religious politics of central Greece.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a court case, the Phocians being fined by the Amphictyonic Council for cultivating consecrated land and seizing the shrine rather than paying, then hiring mercenaries with its treasure.<sup class=\"fn\" data-fn=\"1\"></sup> Philip II finished it in 346 BCE, and the settlement expelled the Phocians from the Council, broke their cities into villages and gave their two votes to Philip and his descendants.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3480,7 +3490,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lyceum": "335 BCE – 322 BCE",
 "Nicomachean_Ethics": "c. 335 – 322 BCE",
 "Politics_(Aristotle)": "c. 335 – 322 BCE",
-"Ladder_of_love": "c. 385 – 370 BCE"
+"Ladder_of_love": "c. 385 – 370 BCE",
+"Aeschines": "c. 389 BCE – c. 314 BCE",
+"Battle_of_Chaeronea": "338 BCE",
+"Demosthenes_(orator)": "384 BCE – 322 BCE",
+"League_of_Corinth": "337 BCE",
+"Lysias": "c. 459 BCE – c. 380 BCE",
+"Macedonian_phalanx": "from 359 BCE",
+"Philip_II_of_Macedon": "382 BCE – 336 BCE",
+"Philippics": "351 BCE – 341 BCE",
+"Sarissa": "from 359 BCE",
+"Third_Sacred_War": "356 BCE – 346 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4874,7 +4894,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "History_of_Animals": ["Historia Animalium"],
 "Lyceum": ["Peripatetic school"],
 "Politics_(Aristotle)": ["Aristotle's Politics"],
-"Ladder_of_love": ["ascent of love","Platonic ascent"]
+"Ladder_of_love": ["ascent of love","Platonic ascent"],
+"Demosthenes_(orator)": ["Demosthenes the orator"],
+"Philip_II_of_Macedon": ["Philip of Macedon","Philip II"],
+"Philippics": ["Philippic"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -7393,7 +7416,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lyceum": ["place","institution","building","philosophy","history","greece"],
 "Nicomachean_Ethics": ["text","philosophy","concept","greece"],
 "Politics_(Aristotle)": ["text","philosophy","politics","greece"],
-"Ladder_of_love": ["concept","philosophy","literature","greece"]
+"Ladder_of_love": ["concept","philosophy","literature","greece"],
+"Aeschines": ["person","politics","literature","history","greece"],
+"Battle_of_Chaeronea": ["event","battle","war","history","greece"],
+"Demosthenes_(orator)": ["person","politics","literature","history","greece"],
+"League_of_Corinth": ["institution","event","politics","history","greece"],
+"Lysias": ["person","literature","history","greece"],
+"Macedonian_phalanx": ["concept","warfare","history","greece"],
+"Philip_II_of_Macedon": ["person","ruler","politics","warfare","history","greece"],
+"Philippics": ["text","literature","politics","history","greece"],
+"Sarissa": ["object","warfare","technology","history","greece"],
+"Third_Sacred_War": ["event","war","religion","history","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
