@@ -68,6 +68,16 @@ line here in the same commit as the card, and say so — this file is only usefu
 The one thing that must not happen is a card written to fill a slot. The house rule stands: never
 invent a date, a name or a definition. If a topic cannot be sourced, say so and replace the line.
 
+**Lines replaced so far, with the reason.** `cnh-167` was *Wu Qi* and is now *Marquis Wen of Wei*
+(Sep 2026). Wu Qi's biography is *Shiji* chapter 65, which Chavannes never reached — his translation
+stops at chapter 47 — and Wu Qi appears in that translation exactly twice, as a general sent against
+Qi in 378 BCE and in a footnote recommending him to the western march. He is in neither Giles nor
+Mayers under any spelling, he is absent from Duyvendak's index, and DOAJ, OpenAlex, Sino-Platonic
+Papers and archive.org between them offer no openable work about him. Five citations could not have
+been found without inventing them. Marquis Wen is the patron who assembled the first reforming
+government of the age, he is the missing half of the `cnh-165`/`cnh-166` pair, and Chavannes'
+fourteenth hereditary house carries him at length.
+
 Card ids run `cnh-001` … `cnh-1000`, in the order below, following the tree — which means the first
 thirty decks run roughly chronologically and the last nine are thematic, in a reading order rather
 than a claim about dates. Cards sort on the study page by `cardYears(answerDate)`, not by id.
@@ -538,7 +548,7 @@ already shipped before adding it.
     cnh-164  The seven warring states
     cnh-165  The rise of Wei
     cnh-166  Li Kui
-    cnh-167  Wu Qi
+    cnh-167  Marquis Wen of Wei
     cnh-168  Shang Yang
     cnh-169  Shang Yang's reforms
     cnh-170  The Qin state after Shang Yang
