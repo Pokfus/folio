@@ -489,7 +489,7 @@ that comes to hand.
     jp-089  Emperor Shōmu
     jp-090  Tōdai-ji
     jp-091  The Great Buddha of Nara
-    jp-092  The six schools of Nara Buddhism
+    jp-092  Kegon
     jp-093  Nara Buddhism and the state
     jp-094  Gyōki
     jp-095  Ganjin
