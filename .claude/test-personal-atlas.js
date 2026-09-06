@@ -20,29 +20,38 @@
        node .claude/test-personal-atlas.js
 
    Re-run after touching `atlasTab` / `MINE` / `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` /
-   `drawMineShapes` / `drawMineMarks` / `showMinePopup` / `eraIsModern` / `renderStatic`'s MINE branch /
-   `updateHoverName` / `snapYear` / `frac2year` / `year2frac` / the `.atlas-tabs` markup / `.atlas-empty`,
-   or after changing which cards carry a `map` or a `locator`. Not part of the site. */
+   `mineSel` / `drawMineShapes` / `drawMineMarks` / `mineCoastSkip` / `landDim` / `showMinePopup` /
+   `eraIsModern` / `renderStatic`'s MINE branch /
+   `updateHoverName` / `snapYear` / `frac2year` / `year2frac` / the `.atlas-tabs` markup / `.atlas-empty` /
+   `.cp-mine`, or after changing which cards carry a `map` or a `locator`. Not part of the site. */
 const { chromium } = require("playwright");
 const { isNoise } = require("./test-noise.js");
 const base = require("url").pathToFileURL(require("path").join(__dirname, "..", "index.html")).href;
 let pass = 0, fail = 0;
 const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? "  " + x : "")); } else { fail++; console.log("FAIL  " + n + "  " + (x || "")); } };
 
-/* The reader's own places are drawn in the map's selection gold, rgba(255,178,46) — SOLID on a dot and
-   at 0.16 as a country's wash, which over the neutral land is about (226,213,192). So the test is the
-   WARM CAST rather than the colour itself: r clearly above b with g between them, which the grey land,
-   the blue ocean and the grey coast ink all fail. A first cut asked for the literal gold and counted a
-   dot while reporting a shaded China as nothing — the failure a pixel test exists to prevent. */
-const GOLD = `(() => {
-  const cv = document.getElementById("globe"); if (!cv) return -1;
+/* WHAT THE PIXELS ARE ASKED (rewritten Sep 2026, when the tab stopped washing the reader's countries in
+   gold — see the request behind `landDim`). There are two claims to measure and they are now different
+   colours. A COUNTRY the reader has unlocked is drawn in the map's own light land shade while everything
+   else is a step darker, so "shaded" is a count of pixels at exactly that light shade — zero on an empty
+   globe, because there every pixel of land is the dark one. A PLACE is a red dot, `rgba(200,69,60)`, which
+   nothing else on this globe is: the land shades are grey, the ocean is cyan and the selection gold has
+   its red and green close together. The light shade is COMPUTED here from the same two CSS variables and
+   the same formula `readColors` uses, rather than sampled, so a theme change moves both together. */
+const PX = `(() => {
+  const cs = getComputedStyle(document.body);
+  const hex = (h) => { h = h.replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+  const P = hex(cs.getPropertyValue("--paper").trim() || "#ffffff"), I = hex(cs.getPropertyValue("--ink").trim() || "#000000");
+  const L = P.map((v, i) => Math.round(v + (I[i] - v) * 0.10));
+  const cv = document.getElementById("globe"); if (!cv) return null;
   const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
-  let n = 0;
+  let mine = 0, marks = 0;
   for (let i = 0; i < d.length; i += 4) {
     if (d[i + 3] < 8) continue;
-    if (d[i] > 150 && d[i] - d[i + 2] > 18 && d[i] - d[i + 1] > 4) n++;
+    if (Math.abs(d[i] - L[0]) <= 3 && Math.abs(d[i + 1] - L[1]) <= 3 && Math.abs(d[i + 2] - L[2]) <= 3) mine++;
+    if (d[i] > 140 && d[i] - d[i + 1] > 45 && d[i] - d[i + 2] > 45) marks++;
   }
-  return n;
+  return { mine: mine, marks: marks };
 })()`;
 
 const seed = (ids) => `localStorage.setItem("folio_v1", JSON.stringify({
@@ -74,8 +83,8 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
   check("the rail reaches 4000 BCE", (await page.$$eval(".tl-tick", (els) => els.map((e) => e.textContent)))[0] === "4000 BCE",
     (await page.$$eval(".tl-tick", (els) => els.map((e) => e.textContent))).join(" "));
   check("an empty register says so, in words", await page.evaluate(() => { const e = document.getElementById("atlasEmpty"); return !!e && !e.hidden; }));
-  const gold0 = await page.evaluate(GOLD);
-  check("...and NOTHING is marked on the globe", gold0 === 0, "gold px " + gold0);
+  const px0 = await page.evaluate(PX);
+  check("...and NOTHING is marked on the globe", px0.mine === 0 && px0.marks === 0, JSON.stringify(px0));
   /* The point of the tab is that the earth is still there — an empty globe and a broken globe look the
      same in a pixel count that only asks about the gold. */
   const land0 = await page.evaluate(`(() => {
@@ -104,8 +113,8 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
   await page.reload({ waitUntil: "load" });
   await page.waitForTimeout(4200);
   check("the empty note is gone", await page.evaluate(() => { const e = document.getElementById("atlasEmpty"); return !e || e.hidden; }));
-  const gold1 = await page.evaluate(GOLD);
-  check("the reader's countries are shaded", gold1 > 400, "gold px " + gold1);
+  const px1 = await page.evaluate(PX);
+  check("the reader's countries are in the light land shade", px1.mine > 400, JSON.stringify(px1));
 
   /* ---------- 3) the popup is the card ---------- */
   console.log("\n3) clicking a place opens its card");
@@ -133,6 +142,16 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
      display rather than on `hidden`, because an author `display:flex` beats the attribute and that is
      exactly how "Through the ages" survived on a panel showing a card. */
   check("...and the world atlas's own sections are off", off.year && off.stats && off.tools === "none", JSON.stringify(off));
+  /* AND NOTHING ON IT IS SAID TWICE (Sep 2026, on request). The card back carries the answer term as its
+     own heading and its dates on its own date line, so the panel's "Answer" label, its "From your card"
+     section head, its title bar and its dating are four repetitions — each hidden by `.cp-mine` rather
+     than by a write, since the title bar has to come back when the sheet is collapsed. Asserted on the
+     COMPUTED display, the trap the tools row above already carries. */
+  const dup = await page.evaluate(() => {
+    const g = (sel) => { const e = document.querySelector(sel); return e ? getComputedStyle(e).display : "absent"; };
+    return { label: g("#cpDesc .cp-cardback .answer .label"), head: g("#cpDescSec > .cp-sec-head"), title: g(".cp-titlemain"), span: g(".cp-span"), mine: document.getElementById("countryPop").classList.contains("cp-mine") };
+  });
+  check("...and says nothing the card already says", dup.mine && dup.label === "none" && dup.head === "none" && dup.title === "none" && dup.span === "none", JSON.stringify(dup));
 
   /* ---------- 4) a place appears in its own years and no others ---------- */
   console.log("\n4) the appropriate years");
@@ -146,13 +165,16 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
   await setYear(-1200);
   const shown = await page.$eval("#tlTip", (e) => e.textContent);
   check("the rail slides to any year, not just a mapped one", /1200\s*BCE/.test(shown), shown);
-  const gold2 = await page.evaluate(GOLD);
+  const px2 = await page.evaluate(PX);
   /* Yinxu stood in the 13th–11th centuries BCE, so its mark is there and the modern countries are not:
      a year with no era map has no country shapes at all, which is the empty earth the request asks for. */
-  check("...where a Shang capital is marked and no modern state is", gold2 > 0 && gold2 < gold1 / 3, "gold px " + gold2 + " against " + gold1);
+  /* A HANDFUL of light-shade pixels survives here and is not a country: an antialiased edge between the
+     red dot, its white label halo and the dark land lands on that shade by arithmetic. A country is four
+     figures of them, so the bar is a bar rather than a zero. */
+  check("...where a Shang capital is marked and no modern state is", px2.marks > 0 && px2.mine < 50, JSON.stringify(px2));
   await setYear(-3000);
-  const gold3 = await page.evaluate(GOLD);
-  check("...and in a century before it stood, nothing of the reader's is drawn", gold3 === 0, "gold px " + gold3);
+  const px3 = await page.evaluate(PX);
+  check("...and in a century before it stood, nothing of the reader's is drawn", px3.marks === 0 && px3.mine === 0, JSON.stringify(px3));
 
   /* ---------- 5) the world atlas is still the world atlas ---------- */
   console.log("\n5) the other tab");
