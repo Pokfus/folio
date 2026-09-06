@@ -2444,7 +2444,17 @@ window.GLOSSARY = {
 "Foundation_myth": "A <b>foundation myth</b> is a traditional story of how a people, a dynasty or a state began, told to establish who its hearers are rather than to record what happened.<sup class=\"fn\" data-fn=\"1\"></sup> Because the text carrying such a story is normally written down long after the events it claims, dating the story is a separate question from dating what it describes, and a compiler who says he only transmits what he received leaves no way of fixing when a tale first appeared.<sup class=\"fn\" data-fn=\"2\"></sup> Myth of this kind is invoked most strongly at moments of crisis, and is still drawn on as cultural material today.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Dangun": "<b>Dangun</b> is the figure Korean tradition names as founder of the first kingdom, Gojoseon, conventionally in 2333 BCE, and the story survives because two works of the 13th century wrote it down during the Mongol invasions.<sup class=\"fn\" data-fn=\"1\"></sup> In the legend as recorded, a bear that fasted in a cave for 21 days became a woman, and her son by Hwanung, himself the son of Hwanin, began to rule.<sup class=\"fn\" data-fn=\"2\"></sup> An era counted from 2333 BCE, a national foundation day, and a religion established in 1909 that made him an object of faith all belong to the decades around the loss of Korean independence.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Shiji": "The <b><i>Shiji</i></b>, or <i>Records of the Grand Historian</i>, is the earliest of the Chinese standard histories and the principal written source for Gojoseon.<sup class=\"fn\" data-fn=\"1\"></sup> Its chapter on Chosŏn records that Wiman was a refugee from the state of Yan, that several thousand migrants from the Chinese central plains fled east, and that the ruler of Chosŏn allowed them to settle along his western border; its chapter on the Xiongnu describes the seasonal gifts and border markets by which Han China traded with its neighbours.<sup class=\"fn\" data-fn=\"1\"></sup> Written from the far side of the frontier, it names polities whose location and character archaeologists still dispute.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Liao_River": "The <b>Liao River</b> runs through the plain of north-eastern China, and the country east of it is Liaodong, the ground across which most of what early Korea received from the continent travelled.<sup class=\"fn\" data-fn=\"1\"></sup> It is the line the argument about where Gojoseon lay is organised around, some scholars placing the polity in the Liaoning region west of the peninsula, others in the Taedong basin around Pyongyang, and a third position having it move between them.<sup class=\"fn\" data-fn=\"2\"></sup> Chinese sources describe refugees and armies crossing east of it, and after the Qin conquest of Yan the territory is said to have passed to the Liaodong outer fortifications, generally placed west of the Yalu.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Liao_River": "The <b>Liao River</b> runs through the plain of north-eastern China, and the country east of it is Liaodong, the ground across which most of what early Korea received from the continent travelled.<sup class=\"fn\" data-fn=\"1\"></sup> It is the line the argument about where Gojoseon lay is organised around, some scholars placing the polity in the Liaoning region west of the peninsula, others in the Taedong basin around Pyongyang, and a third position having it move between them.<sup class=\"fn\" data-fn=\"2\"></sup> Chinese sources describe refugees and armies crossing east of it, and after the Qin conquest of Yan the territory is said to have passed to the Liaodong outer fortifications, generally placed west of the Yalu.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Yemaek": "<b>Yemaek</b> is the name Chinese records give to peoples of the northern and eastern Korean peninsula and the country beyond it, and it is conventionally attached to the population of Gojoseon.<sup class=\"fn\" data-fn=\"1\"></sup> The records carrying it are late and external, the <i>Sanguozhi</i> of the 3rd century CE and the <i>Hou Hanshu</i> of the 5th describing several distinct groups south of the Chinese commanderies, and one of them notes that a distinction between local people and the people of Han was drawn only after those commanderies were established.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Attempts to match the name to particular tomb or pottery types have not held up under examination.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Eight_prohibitions": "The <b>eight prohibitions</b> are the law code that tradition assigns to Chosŏn in Korea, of which only three articles survive.<sup class=\"fn\" data-fn=\"1\"></sup> Murder was answered with death inflicted in the manner of the crime, injury done in a brawl was paid for in grain, and theft made the offender the slave of the person robbed, though he could buy his freedom back with a heavy payment; the other five were never recorded.<sup class=\"fn\" data-fn=\"1\"></sup> Short as it is, the list is almost the whole of what the written record claims about how that society worked, and it reaches modern readers through Chinese histories rather than from Chosŏn itself.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Gija": "<b>Gija</b> is the figure Korean tradition names as an uncle of the last Shang emperor of China who came east to Chosŏn about 1122 BCE and founded a line of forty generations.<sup class=\"fn\" data-fn=\"1\"></sup> The tradition credits him with teaching agriculture and writing, dividing the fields on a nine-square plan of which the state took a ninth, and giving the country its short code of law, and it ends the line with Gijun, from whom the throne was taken about 193 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Chosŏn-dynasty scholar-officials held that Korea had been civilised by him and set his tablet beside Dangun's, an arrangement that became awkward once a national history was wanted instead.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Wiman_Joseon": "<b>Wiman Joseon</b> is the polity that ruled north-western Korea from about 195 to 108 BCE, named for the refugee from the Chinese state of Yan who seized power there.<sup class=\"fn\" data-fn=\"1\"></sup> Chinese records describe hereditary kings ruling with an elite bureaucracy and a powerful army from a capital at Wanggeom-seong, at present-day Pyongyang, which is why it is usually described as a full state rather than a chiefdom.<sup class=\"fn\" data-fn=\"2\"></sup> It was formed out of an alliance of local people and immigrants and made itself the intermediary between Han China and the societies further south, and the Han coins found in its territory are the material trace of that trade.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Gijun": "<b>Gijun</b> is the last ruler of the older Chosŏn line in Korea, displaced about 195 BCE by Wiman, a refugee from the Chinese state of Yan.<sup class=\"fn\" data-fn=\"1\"></sup> The disorder of the late Qin and early Han years had sent thousands of fugitives east, and Gijun allowed them to settle in his western borderland, trusting Wiman with that frontier and titling him Erudite before Wiman used the position to take the throne.<sup class=\"fn\" data-fn=\"1\"></sup> Tradition has him loading his treasure onto boats and slipping down the river as the usurper entered the capital, going south into the country of the Samhan.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Yan_(state)": "<b>Yan</b> was a Chinese state of the Warring States period whose territory reached north-east to the Liao River, and its dealings with Gojoseon open the historical record of Korea.<sup class=\"fn\" data-fn=\"1\"></sup> About 300 BCE one of its generals campaigned against Gojoseon and Yan material began to spread eastward, and Korean archaeologists define their Early Iron Age as the period during which cast ironware distributed by Yan reached the peninsula.<sup class=\"fn\" data-fn=\"1\"></sup> When Qin destroyed the state its frontier works passed to the new empire, and refugees from it settled on the western border of Chosŏn, one of whom later took its throne.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Knife_money": "<b>Knife money</b> is bronze coinage cast in the shape of a blade, issued by several Chinese states of the Zhou period and found across south-western Manchuria and the north-west of the Korean peninsula.<sup class=\"fn\" data-fn=\"1\"></sup> It is the material centre of the argument about early Korean trade, since it is the one class of object that plainly came from the Chinese economy and can be counted where it was dropped, though coins alone cannot say who used them or for what.<sup class=\"fn\" data-fn=\"1\"></sup> One reading has the coins arriving with refugees moving east of the Liao River, another connects the sites yielding them with the Chosŏn polities directly.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Emperor_Wu_of_Han": "<b>Emperor Wu of Han</b> is the Chinese emperor who destroyed Chosŏn at the end of the 2nd century BCE and replaced it with commanderies of his own, the event that opens the documented history of the Korean peninsula.<sup class=\"fn\" data-fn=\"1\"></sup> A period source puts the campaign in 109 BCE and records that he killed Ugŏ, the grandson of Wiman, divided the conquered territory and set up four commanderies; another account gives the fall as 108 BCE, after the capital had held out for more than a year against 50,000 soldiers and 7,000 marines.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Lelang, planted at present-day Pyongyang, was the principal commandery, and Chinese administration of the region lasted some four centuries.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Wanggeom-seong": "<b>Wanggeom-seong</b> is the name the Chinese records give to the capital of Wiman Joseon in Korea, generally placed at present-day Pyongyang.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Shiji</i> says of its ruler only that he made Wanggeom his capital, without describing where it stood, so the identification rests on what came after rather than on that clause: a Han army and fleet took the city in 108 BCE and the Lelang commandery was established on the site.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> A household register and official seals recovered near Pyongyang are the material that settled the question for many scholars.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Minjok": "<b>Minjok</b> is the Korean term for the nation understood as a single people of common descent, and it is the frame in which the country's history is conventionally written.<sup class=\"fn\" data-fn=\"1\"></sup> The framing is modern: the idea of Koreans as descendants of Dangun spread through history books and newspapers in the late 19th and early 20th centuries, alongside an era counted from 2333 BCE, a national foundation day and a religion founded in 1909.<sup class=\"fn\" data-fn=\"1\"></sup> Because it requires continuity, evidence of Chinese commanderies on the peninsula has been experienced as an injury as much as a finding, and many scholars have treated Lelang as a blemish on national dignity or denied it outright.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3300,7 +3310,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Bangudae": "c. 3500 – 1000 BCE",
 "Yayoi_period": "c. 400 BCE – 300 CE",
 "Gojoseon": "c. 300 – 108 BCE",
-"Dangun": "traditionally from 2333 BCE"
+"Dangun": "traditionally from 2333 BCE",
+"Yemaek": "c. 300 BCE – 300 CE in the records",
+"Eight_prohibitions": "ascribed to Chosŏn, before 108 BCE",
+"Gija": "traditionally from 1122 BCE",
+"Wiman_Joseon": "c. 195 – 108 BCE",
+"Gijun": "reigned to c. 195 BCE",
+"Yan_(state)": "Warring States period, to the late 3rd century BCE",
+"Knife_money": "c. 400 – 100 BCE",
+"Emperor_Wu_of_Han": "conquered Chosŏn 109 – 108 BCE",
+"Wanggeom-seong": "capital c. 195 – 108 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4739,7 +4758,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Foundation_myth": ["origin myth","founding myth"],
 "Dangun": ["Tan'gun","Tangun"],
 "Shiji": ["Records of the Grand Historian"],
-"Liao_River": ["Liao He","Liaohe"]
+"Liao_River": ["Liao He","Liaohe"],
+"Yemaek": ["Ye-Maek","Yemaek people"],
+"Eight_prohibitions": ["eight articles of law","eight laws of Chosŏn"],
+"Gija": ["Kija","Gija Joseon","Kija Chosŏn"],
+"Wiman_Joseon": ["Wiman Chosŏn","Wiman Chosun"],
+"Gijun": ["King Jun","Ki-jun"],
+"Yan_(state)": ["state of Yan","Yan state"],
+"Knife_money": ["knife coins","knife-shaped coins"],
+"Emperor_Wu_of_Han": ["Han Wudi","Emperor Wu"],
+"Wanggeom-seong": ["Wanggeomseong","Wangkom-seong"],
+"Minjok": ["Korean nation"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -7219,7 +7248,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Foundation_myth": ["concept","mythology","history","literature"],
 "Dangun": ["person","mythology","korea","history","asia"],
 "Shiji": ["text","china","history","literature","asia"],
-"Liao_River": ["river","china","geography","asia","archaeology","history"]
+"Liao_River": ["river","china","geography","asia","archaeology","history"],
+"Yemaek": ["people","korea","china","asia","history","archaeology"],
+"Eight_prohibitions": ["concept","korea","law","history","asia"],
+"Gija": ["person","korea","china","mythology","history","asia"],
+"Wiman_Joseon": ["state","korea","china","history","archaeology","asia"],
+"Gijun": ["person","korea","history","asia"],
+"Yan_(state)": ["state","china","korea","history","asia","archaeology"],
+"Knife_money": ["object","china","korea","archaeology","history","asia"],
+"Emperor_Wu_of_Han": ["person","china","korea","history","warfare","asia"],
+"Wanggeom-seong": ["place","korea","china","history","archaeology","asia"],
+"Minjok": ["concept","korea","history","asia","nationalism"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

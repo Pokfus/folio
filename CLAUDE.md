@@ -996,12 +996,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   has **no page for North Korea** because the United States has never recognised it, and the loss that
   matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Almost none of its
   thousand topics matched an existing glossary key**, so expect the glossary to grow faster here than
-  anywhere since Greece — `ko-001`–`ko-050` alone added forty-seven terms. **The plan's claim that NOT ONE
+  anywhere since Greece — `ko-001`–`ko-060` alone added fifty-seven terms. **The plan's claim that NOT ONE
   matched was wrong by one, and the exception is the useful half**: `Seoul` was already a cited term, so
   `ko-010` reuses it — **the pairing rule is satisfied by a term that already exists, and
   `add-glossary.js` overwrites in silence, so CHECK before running it.** The next card to write is the
   lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the
-  lookup. **`ko-001` to `ko-050` have shipped** (Sep 2026) — the whole of `ko-land`, and the opening of
+  lookup. **`ko-001` to `ko-060` have shipped** (Sep 2026) — the whole of `ko-land`, and the opening of
   `ko-prehistory` — so the
   collection is live and its 42 empty decks are coming-soon automatically, `isComingSoon` being true for
   a node holding no card. **Its first ten are geography rather than events, and that shaped the
@@ -1066,8 +1066,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   how the figure has been used, so the story itself — the bear, the tiger, the garlic, the cave — comes
   from **Hulbert's *The Passing of Korea*, 1906, on archive.org**, which tells it and calls it legend in
   the same breath. Three cards ship with no picture because their subjects have no view — a region, a
-  corridor and a concept — and the contact sheet caught a **museum text panel** twice more. Not part of
-  the site.
+  corridor and a concept — and the contact sheet caught a **museum text panel** twice more.
+  **`ko-051`–`ko-060` take Gojoseon to the Han conquest and are carried by a SECOND HULBERT.** No
+  openable modern work sets out Chosŏn's eight prohibitions — DBpia is paywalled, the *Korea Journal* is
+  open access and serves no full text here, and the *Journal of Gojoseon & Dangun Studies* is shut — but
+  **Hulbert's *The History of Korea*, vol. 1 of 1905, is on Project Gutenberg**, gives all three
+  surviving articles, and carries the Gija tradition, King Jun's flight and the Yan frontier besides;
+  its HTML edition has page anchors, which is where those citations' page numbers come from. **When the
+  modern literature is shut, ask whether the period work is on Gutenberg and not only on archive.org.**
+  Three findings go with it. **A period source that answers everything is the one to watch the
+  concentration on**: `ko-053` first shipped three Hulbert citations of five and `check-cards.js` refused
+  it. **A REUSED SOURCE KEY CARRIES ITS PAGE NUMBERS, AND THEY WILL BE WRONG** — the second Hulbert
+  citation was reused from the existing `hulbert` entry, whose 337–38 belongs to another claim, where the
+  passage the card rests on is page 70. And **a key may be deliberately denied its bare name**:
+  `Yan_(state)` claims no bare surface and takes "state of Yan" instead, because 33 of the 34 bare
+  occurrences of *Yan* in the corpus are the state and the 34th is **Yan'an**, which the auto-linker's
+  boundary test would have matched. Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -5398,7 +5412,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
-| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 50 cards, contiguous — next is `ko-051` |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 60 cards, contiguous — next is `ko-061` |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |

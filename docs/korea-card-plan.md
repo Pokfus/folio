@@ -604,6 +604,59 @@ fall of Wanggeom-seong", which are the same event twice; whoever writes that bat
 them or drop one, and `ko-050` has taken the Liao River rather than Wanggeom-seong partly to leave that
 name free.
 
+## What the sixth ten found (Sep 2026)
+
+`ko-051`–`ko-060` take the Gojoseon deck through to the Han conquest, and they are the batch in which
+the collection's own scope rules did the most work.
+
+**THE PLAN'S OWN LINE HAD TO BE SPLIT, AND THE BATCH BEFORE THIS ONE SAW IT COMING.** `ko-058` is "The
+Han conquest of Gojoseon" and `ko-059` "The fall of Wanggeom-seong", which as written are the same
+event twice. They ship as **Emperor Wu of Han** — who ordered the war and why, and what the commanderies
+that followed were — and **Wanggeom-seong**, which is about the CAPITAL: the one clause of the *Shiji*
+that names it, the identification with Pyongyang, and the household register and seals that make the
+identification stick. Two cards on one event work only if one of them is about a place.
+
+**THE HARDEST SOURCING PROBLEM WAS THE EIGHT PROHIBITIONS, AND IT WAS SOLVED BY A SECOND HULBERT.** No
+modern openable work sets out Chosŏn's law code; DBpia is paywalled, the *Korea Journal* is open access
+and serves no full text this sandbox can read, and the *Journal of Gojoseon & Dangun Studies* is behind
+the same wall. **Hulbert's *The History of Korea*, vol. 1 of 1905, is on Project Gutenberg** and gives
+all three surviving articles — death for murder in the manner of the crime, grain for injury in a brawl,
+enslavement for theft with a redemption payment — and says plainly that the other five were never
+recorded. The same volume carries the Gija tradition, King Jun's flight and the Yan frontier. **When the
+modern literature is shut, ask whether the period work is on Gutenberg rather than only on archive.org**;
+the Gutenberg HTML also carries page anchors, which is how these citations got their page numbers.
+
+**AND THAT NEARLY BROKE A RULE THE PIPELINE CHECKS.** `ko-053` first shipped with three Hulbert
+citations of five, which `check-cards.js` refuses as one witness carrying a card; the third was
+re-pointed to the *Asian Perspectives* account of King Jun's displacement. **A period source that
+answers everything is exactly the one to watch the concentration on.** The same pass caught a worse
+fault by hand: the second Hulbert citation had been reused from the existing `hulbert` entry, whose page
+range 337–38 belongs to a different claim entirely — the passage the card actually rests on is page 70.
+**A reused source key carries its page numbers with it, and they will be wrong.**
+
+**A GLOSSARY KEY WAS DELIBERATELY NOT GIVEN ITS BARE NAME.** `Yan_(state)` is keyed with the
+parenthetical, which claims no bare surface, and takes "state of Yan" and "Yan state" as aliases
+instead. Measured over the shipped corpus, 33 of 34 bare occurrences of *Yan* are the state and the 34th
+is **Yan'an** in a China geography card — and the auto-linker's boundary test treats an apostrophe as a
+boundary, so claiming the bare name would have put one wrong link on a card nobody was editing. Losing
+"the Yan" as a link is the cheaper half of that trade.
+
+**Two figures were removed for being uncited rather than for being wrong.** Emperor Wu's reign dates and
+Yan's destruction in 222 BCE are both uncontroversial and neither is in any source this batch can open,
+so the card and the term say "at the end of the 2nd century BCE" and "late 3rd century BCE" instead. A
+date line is not marker-cited, which makes it the easiest place in a card to assert something nothing
+carries.
+
+**Ten more glossary terms shipped with the cards** — `Yemaek`, `Eight_prohibitions`, `Gija`,
+`Wiman_Joseon`, `Gijun`, `Yan_(state)`, `Knife_money`, `Emperor_Wu_of_Han`, `Wanggeom-seong` and
+`Minjok`. Three will be wanted by other collections before long: `Yan_(state)`, `Knife_money` and
+`Emperor_Wu_of_Han` are China's as much as Korea's, and are written so.
+
+**`ko-052` and `ko-055` ship with no picture.** A law code and a displaced king have nothing to
+photograph, and Commons holds no image of either. `ko-053` does have one, and it is the find of the
+batch: a **1927 photograph of the tomb shown for Gija outside Pyongyang**, from a Japanese survey series,
+whose own caption says the enclosure holds his cap and sword rather than his bones.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -707,16 +760,16 @@ where its findings go.
     ko-048  The Dangun myth as history — Dangun
     ko-049  Gojoseon in the Chinese sources — the Shiji
     ko-050  The location of Gojoseon — the Liao River
-    ko-051  Gojoseon society
-    ko-052  The eight prohibitions
-    ko-053  Gija Joseon and the Gija tradition
-    ko-054  Wiman Joseon
-    ko-055  Wiman's seizure of power
-    ko-056  Gojoseon and the Yan state
-    ko-057  Gojoseon's trade
-    ko-058  The Han conquest of Gojoseon
-    ko-059  The fall of Wanggeom-seong
-    ko-060  Gojoseon in Korean national memory
+    ko-051  Gojoseon society, and the Ye and Maek — Yemaek
+    ko-052  The eight prohibitions — the eight prohibitions
+    ko-053  Gija Joseon and the Gija tradition — Gija
+    ko-054  Wiman Joseon — Wiman Joseon
+    ko-055  Wiman's seizure of power — King Jun
+    ko-056  Gojoseon and the Yan state — Yan
+    ko-057  Gojoseon's trade — knife money
+    ko-058  The Han conquest of Gojoseon — Emperor Wu of Han
+    ko-059  The fall of Wanggeom-seong — Wanggeom-seong
+    ko-060  Gojoseon in Korean national memory — minjok
     ko-061  Dangun in modern Korea
     ko-062  The Gojoseon debate in North and South
     ko-063  Bronze culture and the Gojoseon question
