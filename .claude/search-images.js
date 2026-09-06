@@ -165,7 +165,8 @@ function stillMissing() {
    "Corinthian bronze helmet The Greek world" matches nothing at all rather than matching better. */
 function artefactTargets() {
   global.window = {};
-  require(path.join(ROOT, "artefacts.js"));
+  // ditto: this filters on `!a.image`, which is a field the eager index does not carry at all
+  global.window.ARTEFACTS = require("./artefact-io.js").loadArtefacts();
   return (global.window.ARTEFACTS || []).filter((a) => !(a.image && a.image.src))
     .map((a) => ({ key: "artefact:" + a.id, q: a.name, id: a.id, name: a.name, rarity: a.rarity }));
 }

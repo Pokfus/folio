@@ -261,51 +261,64 @@ The bullet below is as it stood in CLAUDE.md, verbatim.
   ACROSS on the phone.
   **Its parts each fold** (`.cp-sec` + `.cp-sec-head`/`.cp-sec-body`, one delegated click listener on
   `#countryPop`): the description, the year paragraph (whose header IS the year number, so it still reads while
-  shut), the figures grid and the sources. `cpSection(sec, hasContent, alwaysPane)` sets each one as the popup is
+  shut), the figures grid and the sources. `cpSection(sec, hasContent, alwaysShow)` sets each one as the popup is
   filled — **open when it has something, closed when it doesn't**, so a place with no year paragraph and no
   figures shows two quiet headers instead of a dash and a grid of dashes. That **resets per entity**: a reader's
   manual toggles belong to the popup they were made in, not to the next country.
-  **On a phone those sections are PAGES, not folds** (Aug 2026, on request). The sheet is short and four stacked
-  sections buried the figures three scrolls down, so at ≤720px `.cp-cols` becomes a `flex-direction:row`
-  `scroll-snap-type:x mandatory` scroller whose `.cp-sec` children are each `flex:0 0 100%`, swiped between one
-  page at a time. Three things follow from that and are load-bearing: **the title block lives in `.cp-head`,
-  OUTSIDE the scroller** (it was `.cp-main`, inside it, and would have slid away with the first swipe, leaving the
-  figures unlabelled); every page renders **expanded** and the head is inert there (`cpPagerOn()` makes the
-  delegated fold handler return, so a tap can't write `srcCollapsed` either) since there is nothing under a page
-  to uncover by shutting it; and an EMPTY section is **dropped from the run** (`cp-blank`) rather than collapsed,
-  so a swipe never lands on a dash — except the description, which passes `alwaysPane` because it carries a "no
-  description yet" line and is **the page every place must open on**. `#cpDots` is the pager (built by
-  `cpSyncDots`, followed by `cpActiveDot` on scroll, and a tap on one turns to that page); it is hidden outright
-  in the stacked layout, and `cpResize` rebuilds it when a rotation crosses the breakpoint.
-  **A swipe may never move more than ONE page** (Aug 2026, on a bug report: a hard flick carried from the
-  description straight to the figures, skipping the year paragraph). `mandatory` only says WHERE a scroll may come
-  to rest; **`scroll-snap-stop:always`** on `.cp-sec` is what forbids passing a snap point within one gesture,
-  momentum included, and is the real fix. **`wireOnePageSwipe(el)`** (beside `animateProgs`; it was shared with
-  the home pager, which no longer exists) is the net under it for engines that lack the property: it records the page a gesture STARTED on and,
-  once the scroller has settled, pulls it back to one step away if snapping landed further. The correction comes
-  **after** the settle rather than fighting the gesture — nothing can predict a fling, and a scroller wrestled
-  mid-flick feels broken in a way an overshoot does not. It is RTL-aware (`scrollLeft` runs negative there) and
-  the skip is invisible when it happens, which is why it does not rest on one mechanism.
+  **On a phone and a tablet those sections were PAGES for a year** (Aug 2026, on request). The sheet is short,
+  and four stacked sections buried the figures three scrolls down, so `.cp-cols` became a `flex-direction:row`
+  `scroll-snap-type:x mandatory` scroller whose `.cp-sec` children were each `flex:0 0 100%`, swiped between one
+  page at a time under a row of dots. **Retired Sep 2026, on request**: "users currently need to swipe right to
+  see the country data boxes — instead, move them to above the country background paragraphs so it is all in one
+  page." Reading the figures FIRST fixes what the pager was built for without a gesture, and the gesture was the
+  worse half of it — a page reached only by swiping is a page a reader who does not swipe never learns is there,
+  and the dots were the only thing on the sheet saying otherwise. Gone with it: `#cpDots` and `cpSyncDots` /
+  `cpActiveDot` / `cpPanes`, the snap and one-page-swipe machinery (`scroll-snap-stop:always` and
+  `wireOnePageSwipe`, whose only caller this was), and `cpFitH`, which re-fitted the sheet after a swipe.
+  What the sheet is now: the sections **stack and scroll**, as they do on the desktop, with `.cp-statsec`
+  lifted above them by **`order:-1`** in the ≤1024px block. It is `order` rather than a moved node so the
+  DESKTOP column — which has room for both and is read top to bottom, where the paragraph is what the reader
+  came for — keeps the order it has always had; the cost is that the sheet's visual order and its DOM order
+  differ by one section. Three things survive from the pager and are still load-bearing: **the title block
+  lives in `.cp-head`, outside the scroller** (it was `.cp-main`, inside it); an EMPTY section is **dropped
+  outright** (`cp-blank`) rather than shown collapsed, since on a box this size a header with nothing under it
+  spends a line on an absence — except the description, which passes `alwaysShow` because it carries a "no
+  description yet" line; and `cpResize` re-derives the height when a rotation crosses the breakpoint.
+  **The section heads fold again on the sheet**, which they could not while they were pages, and a fold
+  re-applies the height (see below).
   **The discovery chip shares the title's row** (`.cp-titlerow` wrapping `#cpName` + `#cpNew`, Aug 2026, on
   request): it names the place beside it, and a line of its own cost the short phone sheet a whole line before
-  the description started. The 20px right margin that clears the × moved from `.cp-name` up to the row.
-  **The sheet's CEILING is what the PAGE ON SCREEN needs** (`cpPaneNeedH` / `cpFitH`, Aug 2026, on request:
+  the description started. It reads **"New discovery!" and carries no counter** since Sep 2026, on request —
+  a running "7 / 258" beside a place's name is a second number competing with the one thing that line is for,
+  and the reader's tally is on the account page, read on purpose rather than glanced at over a map. The Atlas's
+  own `geoNameSet` / `countriesSeenCount` went with it; `placesSeen` is still written, and `countrySeenCount`
+  still reports it.
+  **…AND THE ROW NO LONGER WRAPS** (Sep 2026, on a bug report: a long country name, with the chip beside it,
+  pushed the × onto a second line, "so it appears in the bottom left"). Four items on one `flex-wrap:wrap` line
+  means the last two — the chevron and the × — are the ones pushed over, and the close button of a panel then
+  sits as far from where a reader looks for it as the box allows. `.cp-titlemain` wraps the name and its chip
+  and is the only item allowed to shrink or to wrap; the row itself is `nowrap`, and the two controls are
+  `align-self:flex-start` so a two-line name keeps them at the TOP right rather than centring them against it.
+  **The sheet's CEILING is what its CONTENT needs** (`cpContentNeedH` / `cpColsContentH`, Aug 2026, on request:
   "the max height should always be the point where everything is displayed fully, so we are never left with
-  empty space at the bottom"). `cpMaxH()` is now the smaller of the room the screen has and the height the
-  active pane actually asks for, and a swipe to a shorter page pulls the sheet down to fit it. The reader's
-  own dragged height is kept as the CAP it always was rather than overwritten, so swiping back to a long page
-  restores it — a swipe answers for the page it lands on and must not quietly relitigate a setting. The fit
-  is **debounced past the scroll settle**, not run per scroll event: resizing the box a gesture is being made
-  inside means the snap is measuring a moving target. `cpSyncDots` has to run BEFORE `cpApplyH` on every
-  populate, since the dot row is part of what the sheet must make room for.
+  empty space at the bottom"). `cpMaxH()` is the smaller of the room the screen has and the height the sections
+  actually ask for, and folding one away pulls the sheet down to fit what is left. **Both halves of that
+  measurement are taken off content rather than off boxes, and each was wrong once for the same reason.** The
+  head is measured by its own `scrollHeight`, not by where `.cp-cols` sits under it: it is `flex:0 1 auto`
+  inside the box being resized and is measured while the box is still at the height it is opening FROM, so at
+  that instant it is squeezed and the sheet opened ~26px shy of its content — a paragraph cut off mid-line, in
+  the state the fit exists to prevent. And the sections are added up (`cpColsContentH`) rather than read off
+  `.cp-cols`'s `scrollHeight`, which can never be less than the padding box we have already given a height:
+  folding a section away therefore measured as a no-op and left the sheet exactly as tall as the paragraph
+  that was no longer in it.
   **The sheet's HEIGHT is the reader's to set** (`.cp-grab` / `cpWireResize` / `cpApplyH` / `cpMinH` / `cpMaxH`,
   Aug 2026, on request): drag the grip at its top edge — a pill centred on it, since a draggable edge with no
   mark on it is one nobody will find — down to the title bar alone or up to the top of the screen. Stored as a
   **fraction of the viewport** in `localStorage["folio_cp_h_v1"]` (device-local like the marker's position, and a
   fraction so a rotation keeps the proportion), re-applied on every `showCountryPopupName`, so the next place
   opens at the height the last was left at. `.cp-sized` is what takes the stylesheet's 52% cap off and lets
-  `.cp-head` shrink; the desktop panel is untouched (`cpPagerOn()` gates everything, and the grip is
-  `display:none` above 720px).
+  `.cp-head` shrink; the desktop panel is untouched (`cpSheetOn()` — `cpPagerOn` until Sep 2026, when the
+  pager it was named for went — gates everything, and the grip is `display:none` above the breakpoint).
   **`cpMinH` measures through `offsetTop`/`offsetHeight`, never `getBoundingClientRect`** — and this is the whole
   trick. The head is a scroller inside the very box being shrunk, so its rect reports whatever is left of it, and
   a floor derived from that collapses as the drag approaches it: the first version bottomed out at the hard 56px
@@ -401,3 +414,100 @@ The bullet below is as it stood in CLAUDE.md, verbatim.
     That limit is a **per-era cached midpoint test** (`sovietSegsForEra`, keyed on `_htId` + `mapEditRev`), not a canvas
     clip: it used to build a complex clip mask from the USSR polygon on **every frame** of 1920/1938 for a layer whose
     geometry can't change within an era.
+
+## Your own atlas — the second tab (Sep 2026, on request)
+
+> "On the Atlas page, add a second tab, which will feature the user's own explored Atlas. Opening the
+> Atlas page should default to this tab. On this personal atlas, the whole globe should have no borders
+> or dots shown at first and be empty (except for landmasses+oceans+rivers etc.) in every year since
+> 4000 BCE. By studying cards from the curated collections, users unlock these countries and places on
+> the atlas in the appropriate years. … The information of the popups that appear when clicking a city
+> or country can be directly the answer side of the card. … The page doesn't need a legend."
+
+`CLAUDE.md`'s Atlas bullet carries the rules. This is the reasoning behind the three decisions that were
+not obvious, and the one measurement that settled the hardest of them.
+
+### "In the appropriate years" without a table of dates
+
+The obvious reading — a modern state appears from its independence year — needs an independence year for
+233 countries, which Folio does not have and which is not a thing to invent. `country-spans.js` was the
+first candidate and was measured: **13 of `world.js`'s 258 countries have an entry**, so it answers for
+5% of the deck.
+
+The answer that works is a level down. `map.key` names a place in `world.js`; every one of the Atlas's
+thirteen eras *also* files its own territories by name; so the unlock is the NAME, and the personal globe
+draws whatever territory of that name the era for the current year happens to carry. Measured over the
+shipped timeline, **every one of the 258 present-day countries is named in at least one era**, the
+earliest ranging from 1500 (France, Cyprus, Ethiopia) to 1960 (Indonesia, China, Israel, Vietnam).
+
+Three things follow, and all three are improvements rather than compromises:
+
+- What is on screen is exactly what Folio's own maps say, in the shape those maps give it — so an
+  unlocked France is its 1600 self in 1600 and its own self today, and the reader can watch it change.
+- A state simply does not appear in a year whose map has no such state, which is the requested behaviour
+  falling out of the model rather than being enforced by a rule.
+- Before 1500 there is no era map at all, so the globe there is landscape plus the reader's own locator
+  marks — which is precisely the "empty in every year since 4000 BCE" the request describes, and is why
+  the tab can offer 4000 BCE where the world atlas stops at 1000 BCE.
+
+A `us-states` / `china-provinces` shape belongs to no era and is today's boundary, so it is drawn only
+where the era's geometry IS `world.js`'s (`eraIsModern` — a property of the era, not a year somebody
+picked). Wyoming over a 1600 map would be a claim Folio does not make.
+
+### Why the register is derived and not stored
+
+`atlasUnlocks()` reads `S.cards`. That is the same test `locatorSiblings` already uses to decide which of
+a collection's places a card map draws, so the two cannot disagree about what "studied" means — and it
+means the feature shipped with no new `PROGRESS_FIELD`, no migration, and nothing to keep in step. The
+one visible consequence is the right one: **Reset progress on a deck takes that deck's places off the
+globe**, which is what a reader who has just forgotten a deck would expect.
+
+It is cached on the number of studied cards and the sizes of the three shape globals, and cleared by
+`uCacheBust` — declared beside it rather than beside `atlasUnlocks` for the temporal-dead-zone reason
+`_locSibCache` is (`uCacheBust` runs at boot out of `applyAdminEdits`).
+
+### Two rails, and why only one of them bends
+
+The world atlas's rail is piecewise because it has thirteen STOPS, twelve of them after 1500, and a
+linear scale crowds them into the right edge. The personal atlas has no stops: every year has a map,
+because the earth is always there. A bent scale there would buy nothing and would lie about how far apart
+two years are, so `year2frac`/`frac2year` are linear on that tab and `snapYear` returns the year it was
+given. The era years are still marked on the rail — that is where the political shapes change — but the
+pin slides freely between them, and the chevrons step by a century in the deep past and a decade after
+1500, because one fixed step of 25 years is 240 presses from 4000 BCE to today.
+
+### What the tab does NOT get, and why each absence is deliberate
+
+- **No legend.** Its layers are the earth's; there is no political toggle to offer. Which makes
+  `riversOn` the one toggle that tab actually reads, and it is forced on — the request names rivers, and
+  a layer promised with no control to reach it is worse than one not offered.
+- **No search.** The search index is the WORLD atlas's, so a hit would open a panel about a place the
+  reader has not unlocked — on the tab that exists to show only what they have.
+- **No hover chip from `hoverIdx`.** That index is the world atlas's territory index and is not
+  maintained here, so the chip went on naming whatever country had last been under the cursor. It reads
+  `mineAt` now, and names the reader's own place or nothing.
+- **No empire drill.** One click, one level: a place is either the reader's or it is not there, so the
+  single/double/triple ladder has nothing to count.
+
+### The popup
+
+It reuses the country panel rather than building a second one — the panel is a sheet on a phone and a
+column on the desktop, it resizes itself, it closes on Escape, and it is what the reader already knows
+how to dismiss. Its year paragraph, its Wikidata figures and the Atlas's own citation fold are hidden:
+all three describe a country as the world atlas knows it, and what is being shown is a card, whose own
+facts and sources arrive inside `buildBack`.
+
+It goes through `mountCardBack` rather than raw markup, for the reason the Multiple Choice card back
+does: the footnotes have to be numbered, the glossary terms wired and the picture made to open, and a
+surface that renders `buildBack` without that wiring is a card with dead links.
+
+One CSS rule is load-bearing and was found by looking at the page: **`.cp-tools[hidden]{display:none}`**.
+`showMinePopup` hides that row, and an author `display:flex` beats the `hidden` attribute — the same trap
+`.ces-imgpanel` and `.af-src` already carry — so the Atlas's "Through the ages" button stayed on a panel
+that is showing a card rather than a country.
+
+### The empty state
+
+A reader who has studied nothing meets a world with no marks on it, which is exactly right and says
+nothing about itself. `.atlas-empty` names what the globe is waiting for and offers a way to the
+collections; it is drawn only while the register really is empty.

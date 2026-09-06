@@ -32,20 +32,36 @@
        node .claude/test-card-locator.js
 
    Re-run after touching `locatorSiblings` / `cardCollectionRoot` / `cardLocatorHTML` / the extras block in
-   `startCardGlobe`'s `draw()` / the idle `ensureData("atlas")` beside it / `uCacheBust`. Not part of the
-   site. */
+   `startCardGlobe`'s `draw()` / the idle `ensureData("atlas")` beside it / `uCacheBust` / `CMAP_ANCHOR` /
+   `hiresRiverIngest` / `effRivers` / the `river_*` bundles, or after re-running
+   .claude/build-hires-rivers.js. Not part of the site. */
 const { chromium } = require("playwright");
 const { isNoise } = require("./test-noise.js");
 // The repo's own index.html, resolved from THIS file rather than written out: a hardcoded
 // absolute path is right on exactly one machine, and in CI it loaded nothing at all, which
 // fails as a crash before the first assertion rather than as a wrong answer.
 const base = require("url").pathToFileURL(require("path").join(__dirname, "..", "index.html")).href;
+/* WHAT COUNTS AS WATER, and why it is not the ocean's colour any more.
+   Both counters used to ask for the map's OCEAN colour (`b>200, b-r>40, g>180`), because a river was
+   stroked in exactly that — water continuous with the sea. Since Sep 2026 it is not: a river is drawn in
+   its own saturated blue by day (`riverInk`), on a report that rivers were nearly invisible on the light
+   paper, where they measured 1.03:1 against the land they cross. The old predicate therefore stopped
+   counting rivers at all, and section 4's "the map really draws it" — which measures the hi-res layer BY
+   TAKING IT AWAY — collapsed from a delta of ~1,100 pixels to ~110 and failed. Nothing was wrong with the
+   map: the check had quietly stopped measuring its subject, which is the one way a pixel test lies.
+   Blue-DOMINANT rather than any particular blue, so it covers the ocean, both river inks and their
+   antialiased edges, and still excludes the grey land, the coast ink and the selection gold. */
+/* It is INJECTED rather than written into each counter, because both counters are serialized into the
+   page and a second copy of a predicate is the thing that goes stale — which is exactly what happened
+   to the ocean-colour test above. `addInitScript` survives the reloads these sections do. */
+const IS_WATER = "window.isWater = (d, i) => d[i + 2] - d[i] > 25 && d[i + 2] > 120;";
 let pass = 0, fail = 0;
 const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? "  " + x : "")); } else { fail++; console.log("FAIL  " + n + "  " + (x || "")); } };
 (async () => {
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
   const errs = [], asked = [];
   const page = await browser.newPage({ viewport: { width: 1200, height: 1000 } });
+  await page.addInitScript(IS_WATER);
   page.on("pageerror", (e) => errs.push(e.message));
   page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("request", (r) => asked.push(r.url()));
@@ -90,7 +106,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     let ink = 0, water = 0;
     for (let i = 0; i < d.length; i += 4) {
       if (d[i + 3] > 0) ink++;
-      if (d[i + 2] > 200 && d[i + 2] - d[i] > 40 && d[i + 1] > 180) water++;   // the map's own ocean colour
+      if (isWater(d, i)) water++;
     }
     return { painted: ink > 10, w: cv.width, water: water };
   });
@@ -182,6 +198,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
 
   const openCard = async (cid) => {
     const pg = await browser.newPage({ viewport: { width: 1200, height: 1000 } });
+    await pg.addInitScript(IS_WATER);
     pg.on("pageerror", (e) => errs.push(cid + ": " + e.message));
     pg.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(cid + ": " + t); });
     await pg.addInitScript((id) => {
@@ -219,17 +236,27 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   check("a range card draws mountains along its spine", am.dark > 300 && am.dw > 120 * am.dpr,
     JSON.stringify({ dark: am.dark, spread: am.dw, dpr: am.dpr }));
   check("...and no gold dot with them", am.gold < 60, "gold px " + am.gold);
-  /* …AND NO RED: this reader has studied nothing, so none of the collection's other places is on the
-     map yet (Sep 2026, on request). A regression here is the old map — every place of the collection
-     drawn for a reader who has met none of them. */
+  /* …AND THE ONLY RED IS ROME: this reader has studied nothing, so none of the collection's EARNED places
+     is on the map (Sep 2026, on request) — but the collection's home city is drawn whether or not any card
+     has taught it (Sep 2026, on request: "Rome should always be visible in the Roman collection, with a
+     slightly larger red square as icon"). The two rules pull against each other and the measure is the
+     SHAPE of the red: one compact square, ~9px a side, and not the scattered dots of section 1's studied
+     reader (292 px spread across the Aegean). A regression either way is visible here — a red mark with a
+     wide bounding box is the old map back, and no red at all is the home city gone. */
   const rmRed = await rng.evaluate(() => {
     const cv = document.querySelector(".map-card.map-loc .mc-canvas");
     const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
-    let n = 0;
-    for (let i = 0; i < d.length; i += 4) { const r = d[i], g = d[i + 1], b = d[i + 2]; if (r > 150 && r - g > 60 && r - b > 60) n++; }
-    return n;
+    let n = 0, x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+    for (let i = 0; i < d.length; i += 4) {
+      const r = d[i], g = d[i + 1], b = d[i + 2];
+      if (r > 150 && r - g > 60 && r - b > 60) { n++; const p = i / 4, x = p % cv.width, y = (p / cv.width) | 0; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    }
+    return { n: n, w: x1 - x0, h: y1 - y0, dpr: cv.width / cv.getBoundingClientRect().width };
   });
-  check("a reader who has studied nothing sees none of the collection's other places", rmRed === 0, "red px " + rmRed);
+  check("a reader who has studied nothing sees none of the collection's EARNED places",
+    rmRed.w < 16 * rmRed.dpr && rmRed.h < 16 * rmRed.dpr, JSON.stringify(rmRed));
+  check("...but the collection's home city is always on the map, as a square",
+    rmRed.n > 30 && rmRed.n < 130, JSON.stringify(rmRed));
 
   /* ============================================================
      3. EVERY RIVER THE ATLAS DRAWS, AND NOT ONE OF THEIR NAMES (Aug 2026, on request)
@@ -260,7 +287,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
     let water = 0, dark = 0;
     for (let i = 0; i < d.length; i += 4) {
-      if (d[i + 2] > 200 && d[i + 2] - d[i] > 40 && d[i + 1] > 180) water++;                  // the ocean colour a river is stroked in
+      if (isWater(d, i)) water++;
       if (d[i] < 90 && d[i + 1] < 90 && d[i + 2] < 90 && d[i + 3] > 200) dark++;              // every label on the map
     }
     return { water: water, dark: dark };
@@ -271,14 +298,80 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     await pg.evaluate(() => { const b = document.querySelector('.map-card.map-loc [data-mc="out"]'); if (b) b.click(); });
     await pg.waitForTimeout(1100);
   };
+  /* The frame's own hi-res set, read BEFORE anything is emptied — section 4 asks about it, and by then
+     both river tables have been taken away to measure the layer. */
+  const hr = await rng.evaluate(() => {
+    const H = (window.HIRES_RIVER || {}).italy;
+    if (!H) return null;
+    const low = new Set((window.RIVERS || []).map((r) => String(r.n)));
+    const named = H.rivers.filter((r) => r.n);
+    return {
+      rivers: H.rivers.length, named: named.length, sup: H.sup.size,
+      supReal: [...H.sup].every((n) => low.has(n)),
+      doubled: named.filter((r) => low.has(String(r.n)) && !H.sup.has(String(r.n))).map((r) => r.n),
+      pts: H.rivers.reduce((a, r) => a + r.p.reduce((b, l) => b + l.length, 0), 0),
+    };
+  });
   const withRiv = await rng.evaluate(rivCount);
+  /* BOTH river tables, in two steps: since Sep 2026 an Italian or Greek frame draws its own hi-res set as
+     well (see hiresRiverIngest), so emptying rivers.js alone would leave the water on screen and report a
+     layer that had stopped drawing as one that was still there. Taking the hi-res set away first measures
+     it on its own, which is section 4's first check. */
+  await rng.evaluate(() => { window.HIRES_RIVER = {}; });
+  await redraw(rng);
+  const noHi = await rng.evaluate(rivCount);
   await rng.evaluate(() => { window.RIVERS = []; });
   await redraw(rng);
   const noRiv = await rng.evaluate(rivCount);
   check("the collection's map draws the Atlas's rivers", withRiv.water - noRiv.water > 150,
     JSON.stringify({ withRivers: withRiv.water, without: noRiv.water }));
-  check("...and not one of them is named", withRiv.dark === noRiv.dark,
+  /* A HANDFUL OF PIXELS EITHER WAY IS THE LABELS' ANTIALIASING, NOT A NAME. It was an equality until
+     Sep 2026, when the hi-res set joined rivers.js and taking BOTH away moved the count by five: a
+     label's edge pixels blend against whatever is under them, and a stroke of water under a letter puts
+     one or two of them the other side of the "dark" threshold. A river NAME is tens of dark pixels and
+     there are fifty-odd rivers in this frame, so the gap between a rounding and a regression is three
+     orders of magnitude — the tolerance costs the check nothing. */
+  check("...and not one of them is named", Math.abs(withRiv.dark - noRiv.dark) < 40,
     JSON.stringify({ withRivers: withRiv.dark, without: noRiv.dark }));
+
+  /* ============================================================
+     4. THE FRAME'S OWN RIVERS, AND THE CAPITAL THAT IS A SQUARE AND NOTHING ELSE (Sep 2026, on request)
+     ============================================================
+     "Rivers in Italy in the Roman deck and Greek rivers in the Greek deck should have a much higher
+     resolution … and there should be more of them", and — since Sep 2026 — "modern capitals/cities …
+     should not appear at all".
+
+     BOTH FAIL SILENTLY. A hi-res bundle that stops arriving leaves the map drawing rivers.js — a perfectly
+     good map, one thirtieth as detailed — and a supersede row that stops being honoured draws the same
+     river twice, five kilometres apart, which reads as two rivers rather than as a fault. The city layer
+     is the mirror: a layer that comes back looks deliberate.
+
+     The double-draw is checked on the DATA rather than on the ink, because that is where it can actually
+     go wrong: the drawn set is rivers.js minus `supersede` plus the region's own, so a name the region
+     carries that rivers.js also has and `supersede` does not name is the one way a river can be laid over
+     itself. The layer's presence is checked the way section 3 checks rivers.js — by taking it away. */
+  check("the Italian frame carries its own rivers, and more of them than rivers.js has there",
+    !!hr && hr.rivers >= 40 && hr.named >= 40 && hr.sup >= 15, JSON.stringify(hr && { rivers: hr.rivers, named: hr.named, supersedes: hr.sup }));
+  check("...at a resolution rivers.js has not got", !!hr && hr.pts / hr.rivers > 40, hr && "points " + hr.pts);
+  check("...every one it supersedes is really in rivers.js", !!hr && hr.supReal);
+  check("...and no river is drawn over itself", !!hr && hr.doubled.length === 0, hr && hr.doubled.join(", "));
+  check("...and the map really draws it", withRiv.water - noHi.water > 150,
+    JSON.stringify({ withHiRes: withRiv.water, without: noHi.water }));
+  /* A MODERN CITY IS NOT ON THE MAP AT ALL (Sep 2026, on request: "modern capitals/cities should no
+     longer be marked with small black squares, but should not appear at all"). This assertion used to run
+     the other way — that the square WAS drawn and its name was not — and it is measured the same way,
+     which is what makes the removal checkable rather than assumed: rm-002's page still has both river
+     tables emptied from section 3, so a capital dropped into the open Tyrrhenian, under a name long
+     enough that a label would be hundreds of dark pixels, is the only thing that could be added there.
+     A layer that comes back looks deliberate, which is why it is worth a test at all. */
+  await rng.evaluate(() => { window.CITIES = []; });
+  await redraw(rng);
+  const capBefore = (await rng.evaluate(rivCount)).dark;
+  await rng.evaluate(() => { window.CITIES = [{ n: "Mmmmmmmmmmmmmmmmmmmm", c: [12.2, 40.2], r: 0 }]; });
+  await redraw(rng);
+  const capAfter = (await rng.evaluate(rivCount)).dark;
+  const capInk = capAfter - capBefore;
+  check("a modern city puts nothing on the map — neither a square nor a name", capInk === 0, "dark px " + capInk);
   await rng.close();
 
   check("no console or page errors on the extent cards", errs.length === 0, errs.join(" | ").slice(0, 300));

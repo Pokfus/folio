@@ -28,6 +28,15 @@
   as a curated collection draws its subdecks.  A node's count is CARDS rather than notes, for the reason
   the deck's own count is.
 
+  IT CARRIES A CONTENT REVISION, `rev`, AND THAT IS WHAT LETS A DOWNLOADED DECK BE UPDATED (Sep 2026,
+  on a bug report that a card repaired weeks earlier still read the old pinyin).  A deck file is fetched
+  once and written to IndexedDB, and `langDeckDownload` returns early for a deck already mounted — so
+  before this every content repair reached only readers who had not yet downloaded the deck.  `rev` is
+  the first 12 hex of a SHA-256 over the deck's CARDS and GLOSSARY, canonically keyed, and deliberately
+  NOT over the file's bytes: `exportedAt`, key order and whitespace all move without a word changing,
+  and a row that says "update available" when nothing has changed is one a reader learns to ignore.
+  The site compares it against the copy it holds; see `langDeckStale` in app.js.
+
   THE ORDER IS THE ORDER THE ROWS ARE DRAWN IN, and it is by NATIVE SPEAKERS and then by the level the
   exam itself names, because a learner reads a ladder from the bottom.  A deck that is not a level
   (phrases, a core vocabulary) sorts last within its language, that being where a learner reaches it.
@@ -35,6 +44,7 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const ROOT = path.join(__dirname, "..");
 const DIR = path.join(ROOT, "decks");
 const OUT = path.join(ROOT, "lang-decks.js");
@@ -104,6 +114,12 @@ for (const f of files) {
   }
   const bytes = fs.statSync(path.join(DIR, f)).size;
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
+  // the content revision — see the header. Keys are sorted at every level so that a re-serialisation
+  // that moves them cannot move the hash, and nothing outside `cards` and `gloss` is in it.
+  const canon = (v) => Array.isArray(v) ? v.map(canon)
+    : (v && typeof v === "object") ? Object.keys(v).sort().reduce((o, k) => (o[k] = canon(v[k]), o), {}) : v;
+  const rev = crypto.createHash("sha256")
+    .update(JSON.stringify(canon({ cards: d.cards || [], gloss: d.gloss || {} }))).digest("hex").slice(0, 12);
   const m = d.meta || {};
   if (!m.id || !m.title) { console.error("! " + f + " has no meta.id or meta.title"); process.exit(1); }
   const notes = (d.cards || []).length;
@@ -126,6 +142,18 @@ for (const f of files) {
      a parent and its children cannot come to disagree about what a card is. A node is created for every
      PREFIX of a path a card names, so an intermediate level exists exactly when something sits under
      it — the tree app.js derives at study time, taken here at build time from the same paths. */
+  /* WHAT A DECK TEACHES, MEASURED OFF THE FILE (Sep 2026, on request). A reader deciding whether to
+     spend 20 MB could see a title, a card count and a size, and none of those says whether the deck
+     carries EXAMPLE SENTENCES or whether its words can be HEARD — the two things that most decide
+     whether a vocabulary deck is worth studying, and the two that vary most across this shelf (example
+     coverage runs from 16% to 100%, and eight of the fifty-three decks have no speech control at all).
+     Both are read off the deck, like every other figure here, so a rebuilt deck cannot come to disagree
+     with the row that offers it.
+     WHAT IS NOT CARRIED IS "asked both ways": every deck on the shelf has two templates, so the fact is
+     true of all of them and tells a reader choosing between two decks nothing. */
+  const hasEx = (c) => String((c.fields || {}).Examples || "").trim().length > 0;
+  const exPct = notes ? Math.round(((d.cards || []).filter(hasEx).length / notes) * 100) : 0;
+  const say = /\buc-tts\b/.test(JSON.stringify(types));
   const tree = [];
   const at = (path) => {
     const parts = path.split("::");
@@ -133,7 +161,7 @@ for (const f of files) {
     for (let i = 0; i < parts.length; i++) {
       const name = parts[i];
       node = list.find((x) => x.n === name);
-      if (!node) { node = { n: name, c: 0, k: [] }; list.push(node); }
+      if (!node) { node = { n: name, c: 0, e: 0, t: 0, k: [] }; list.push(node); }
       list = node.k;
     }
     return node;
@@ -143,9 +171,17 @@ for (const f of files) {
     if (!sub) continue;
     const mult = (c.type && tpl[c.type]) ? tpl[c.type] : 1;
     const parts = sub.split("::");
-    for (let i = 0; i < parts.length; i++) at(parts.slice(0, i + 1).join("::")).c += mult;
+    const ex = hasEx(c) ? 1 : 0;
+    for (let i = 0; i < parts.length; i++) {
+      const node = at(parts.slice(0, i + 1).join("::"));
+      node.c += mult; node.t += 1; node.e += ex;
+    }
   }
-  const prune = (list) => list.map((x) => (x.k.length ? { n: x.n, c: x.c, k: prune(x.k) } : { n: x.n, c: x.c }));
+  /* A NODE CARRIES ITS OWN EXAMPLE COVERAGE, not the file's, because on an UNWRAPPED deck the rows a
+     reader sees are these nodes — the nine Mandarin levels are one file, and a file-level figure would
+     print the same percentage on all nine while they in fact ran from 21% to 99%. */
+  const pct = (x) => (x.t ? Math.round((x.e / x.t) * 100) : 0);
+  const prune = (list) => list.map((x) => (x.k.length ? { n: x.n, c: x.c, x: pct(x), k: prune(x.k) } : { n: x.n, c: x.c, x: pct(x) }));
   /* UNWRAP: whether the Collections page draws this deck's own top-level subdecks as the LANGUAGE's decks
      rather than drawing the deck and folding them inside it (Aug 2026, on request: "The Mandarin Chinese
      collection should only contain its nine subdecks, not the combined folder … i.e. unwrap them", and
@@ -165,7 +201,8 @@ for (const f of files) {
   const flat = tree.length > 0 && !tree.some((n) => n.n.indexOf("\u2192") >= 0);
   rows.push({
     lang: hits[0].name, file: f, id: m.id, title: m.title, sub: m.subtitle || "",
-    notes: notes, cards: cards, subs: tree.length, tree: prune(tree), flat: flat, bytes: bytes, rank: levelRank(m.title),
+    notes: notes, cards: cards, subs: tree.length, tree: prune(tree), flat: flat, bytes: bytes, rev: rev,
+    ex: exPct, say: say, rank: levelRank(m.title),
   });
 }
 
@@ -186,7 +223,8 @@ for (const r of rows) {
     ", title: " + s(r.title) + ", sub: " + s(r.sub) +
     ", notes: " + r.notes + ", cards: " + r.cards + (r.subs ? ", subs: " + r.subs : "") +
     (r.tree.length ? ", tree: " + s(r.tree) : "") + (r.flat ? ", flat: true" : "") +
-    ", bytes: " + r.bytes + " },\n";
+    ", ex: " + r.ex + (r.say ? "" : ", say: false") +
+    ", bytes: " + r.bytes + ", rev: " + s(r.rev) + " },\n";
 }
 out += "];\n";
 fs.writeFileSync(OUT, out);

@@ -83,7 +83,12 @@ interactions that a plate's own glossary links forced.
     **THE PROGRESS IS ON THE ACCOUNT PAGE, UNDER THE STAT TILES** (`streakChestHTML` / `.streak-chest`) —
     beside the streak figure it counts from, since that tile says how long the run is and this says what the
     run is worth, which are two halves of one fact and read badly a section apart. **Seven pips rather than
-    a bar**: the unit is a DAY, and a continuous fill would suggest a part-finished one. **A CHEST SITS AT
+    a bar**: the unit is a DAY, and a continuous fill would suggest a part-finished one. **AND THE "3 / 7"
+    BESIDE THE TITLE IS GONE** (`.sc-count`, Sep 2026, on request: "remove the numerical counter so it is
+    only the grid and the chest") — the pips ARE the count, seven of them with three filled, so the figure
+    was the same fact in a second notation and the sentence under them already says how many days are left.
+    Nothing is lost to a reader who cannot see the pips: the row's `aria-label` has always carried
+    "3 of 7 days towards the next streak chest" in words, and still does. **A CHEST SITS AT
     THE RIGHT-HAND END** (`.sc-chest`, Aug 2026, on request), drawn in the quiet ink and lighting to the
     earned gold on the seventh day, so the row says what the pips are building towards rather than leaving
     it to the heading; it is the same `CHEST_SVG` the overlay and the notice use, so the three cannot come

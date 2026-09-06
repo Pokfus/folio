@@ -1020,13 +1020,18 @@ function aeneidChecks() {
     const libTabs = d.tabs.filter((t) => /^library$/i.test(t.l));
     check("exactly one tab is called Library, and it is the books one",
       libTabs.length === 1 && libTabs[0].r === "library", JSON.stringify(d.tabs));
-    /* …and there is no #decks TAB at all any more (Aug 2026, on request): Collections left the phone's bar
-       first and the desktop's a fortnight later, and is reached from the "Collections" button under the daily
-       review. So the assertion the rename needs is the pair — no tab called Collections, and none called
-       Library except the books one, which is what "two pages called Library" was ever about. The ROUTE is
-       asserted above, and separately: every #decks link ever shared still has to resolve. */
-    check("...and no tab claims the collections at all — the home page's lip is the way in",
-      !d.tabs.some((t) => t.r === "decks"), JSON.stringify(d.tabs));
+    /* …and the DESKTOP's Collections tab sits between Home and Library (Sep 2026, on request). This
+       assertion used to read the other way round — that no tab claimed the collections at all — which
+       was true for the fortnight between Collections leaving both bars and coming back to the top one.
+       What the rename actually needs is the pair the next two lines make: a tab pointing at `#decks`
+       that is NOT called Library, and exactly one called Library which is the books page, that being
+       what "two pages called Library" was ever about. The phone's bar is asserted separately in
+       test-layout.js, where the five-cell bar and the page swipe are checked against each other. */
+    const decksTab = d.tabs.find((t) => t.r === "decks");
+    check("...the top bar's Collections tab points at #decks and sits between Home and Library",
+      !!decksTab && /^Collections$/i.test(decksTab.l) &&
+      d.tabs.findIndex((t) => t.r === "home") < d.tabs.indexOf(decksTab) &&
+      d.tabs.indexOf(decksTab) < d.tabs.findIndex((t) => t.r === "library"), JSON.stringify(d.tabs));
     await page.close();
   }
 
@@ -1547,13 +1552,26 @@ function aeneidChecks() {
       check("...divided into the edition's six Parts, each the right length",
         JSON.stringify(summa.parts) === JSON.stringify([119, 114, 189, 90, 99, 3]),
         JSON.stringify(summa.parts));
-      check("...3,094 articles across them", summa.secs === 3094, String(summa.secs));
+      /* 3,094 until E38 restored question 35 (+4), then 3,098 until E39 read 27 article heads the
+         transcription had left as prose. A pinned total is exactly the assertion that ought to fire
+         on a change like either, and it did both times — so raise it deliberately, against a figure
+         derived from the edition, and never to whatever the run happens to print. E40 then took it
+         DOWN to 3,124: Supplement q.12's three articles stand where question 11's five were being
+         printed a second time, and q.180 gained the article it had lost. A pinned total that only
+         ever goes up is not measuring the book. E41 then put it at 3,125, for II-II q.153's first
+         article, whose heading the pass had been dropping as the question's own. */
+      check("...3,125 articles across them", summa.secs === 3125, String(summa.secs));
       check("...every chapter's articles ascending, with no duplicate",
         !summa.disorder.length, JSON.stringify(summa.disorder.slice(0, 6)));
-      check("[summa] the two questions with no article headings are the known two",
-        summa.none.join(",") === "147,551", summa.none.join(","));
-      check("[summa] no article heading left unread anywhere, bar the one the edition misnumbers",
-        summa.strayArt === 1, String(summa.strayArt));
+      /* Both of these were pinned to a fault rather than to a fact, and E39 removed the fault: I-II
+         q.28 and Supplement q.39 were "the two questions with no article headings" until their heads
+         — bare paragraphs and preformatted blocks — were read as headings, and the one stray head the
+         edition misnumbers went with the rest. Pinned to zero now, which is a fact about the book
+         rather than about how far the importer had got. */
+      check("[summa] every question has its article headings read",
+        summa.none.length === 0, summa.none.join(","));
+      check("[summa] no article heading is left unread anywhere",
+        summa.strayArt === 0, String(summa.strayArt));
       check("[summa] the seven notes the translators added, and their markers resolve",
         summa.notes === 7 && !summa.noteFaults.length,
         summa.notes + " — " + JSON.stringify(summa.noteFaults.slice(0, 4)));
@@ -1561,8 +1579,30 @@ function aeneidChecks() {
          say so — a reader who knows the Summa will go looking for the Latin. */
       check("[summa] the front matter says why there is no Latin",
         /207 of the 611/.test(summa.intro), summa.intro.slice(0, 60));
-      check("[summa] ...and what the transcription is missing",
-        /Fourteen questions/.test(summa.intro), "");
+      /* THIS ASSERTION USED TO PIN THE OPPOSITE (E49). It read `/Fourteen questions/`, holding the
+         front matter to its statement that fourteen questions were missing an article heading and
+         could not be cited from the page — which E39, E40 and E41 had made untrue, putting all 27
+         headings back. So the suite was keeping a book's apology for a defect it no longer had, and
+         the day the prose was corrected this is what failed. A test that pins prose pins it as it
+         was written; when the thing the prose describes is repaired, the assertion moves with it. */
+      check("[summa] ...and that the lost article headings were put back",
+        /Twenty-seven article headings were lost/.test(summa.intro) &&
+        !/missing an article heading/.test(summa.intro), "");
+      /* AND THE COUNT IN IT IS READ AGAINST THE MARKS THE BOOK ACTUALLY DRAWS (E49), never against a
+         number written here. That sentence said "3,094 articles" for four batches after the book held
+         3,125 — E38, E39, E40 and E41 each put articles back and none of them touched the prose that
+         counts them. A second pinned figure would go stale the same way; this one cannot, because both
+         sides of it come from the file. `check-counts.js` asks the same question of all 48 books. */
+      const said = /each of its ([\d,]+) articles is a numbered section/
+        .exec(summa.intro.replace(/<[^>]*>/g, ""));   // the figure is set in <b>, so read the prose
+      check("[summa] ...and the article count in the front matter is the one the book draws",
+        !!said && +said[1].replace(/,/g, "") === summa.secs,
+        (said ? said[1] + " stated" : "no such sentence") + ", " + summa.secs + " drawn");
+      /* E35: the front matter used to say "No prose is missing — the words are all there", and that
+         turned out to be untrue of two questions. It now says which two, and what was done. A page
+         that has stopped saying so is a page claiming more than the book delivers. */
+      check("[summa] ...and that two articles were missing and are back",
+        /Two articles were missing outright/.test(summa.intro) && /q\. 47/.test(summa.intro), "");
     } else {
       check("[summa] the book is on disk", false, "missing books/summa-theologica.js");
     }
@@ -2640,6 +2680,617 @@ function aeneidChecks() {
     await page.waitForTimeout(3000);
     check("[phone] the reader's choice survives a reload",
       (await page.evaluate(() => { const b = document.querySelector(".bk-bi"); return b && b.dataset.lang; })) === "or");
+    await page.close();
+  }
+
+  /* THE VERSE THAT WAS IN THE FILE AND NOT ON THE PAGE (Sep 2026, batch E26). Seneca quotes Virgil,
+     Ovid and Ennius constantly, and 63 of those quotations sat between two paragraphs and inside
+     neither — where `bookSections`, walking the ELEMENT children to split a chapter at its section
+     markers, dropped them without a word. The chapter rendered, the sections paired, every count was
+     right, and about six thousand characters of poetry were simply not there. So this asserts the
+     text, not the markup: three lines that ARE in books/seneca-letters.la.js must be on the screen.
+     It only shows in the two-column view, which is why it is here and not in section 3. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base, { waitUntil: "load" });
+    await page.evaluate(() => { try { localStorage.setItem("folio_book_orig_v1", "1"); } catch (e) {} });
+    await page.goto(base + "#book/seneca-letters/76", { waitUntil: "load" });
+    await page.waitForTimeout(3000);
+    const seen = await page.evaluate(() => {
+      const t = document.body.innerText;
+      return {
+        ctl: /Vergilius|animus/.test(t),
+        one: t.includes("non ulla laborum"),
+        two: t.includes("nova mi facies"),
+        three: t.includes("omnia praecepi"),
+      };
+    });
+    check("the Latin chapter renders at all", seen.ctl);
+    check("...and the Virgil it quotes is on the page, not only in the file",
+      seen.one && seen.two && seen.three, JSON.stringify(seen));
+    await page.close();
+  }
+
+  /* ================= 6c. every English branch is in the correction chain =================
+     Sep 2026, batch E31. Five branches — `play`, `fitts`, `terzine`, `eddapoem`, `laisses` — read a
+     cached page, handed it to a reader of their own and pushed the result onto `chapters` without
+     ever calling `correctRaw`, so a book on one of those branches never got its own corrections.
+     Nothing threw and the books built perfectly; the only symptom was a DID NOT FIRE line beside a
+     row whose word was plainly in the shipped file.
+
+     ASSERTED STATICALLY, OUT OF THE IMPORTER ITSELF, because there is nothing to click: this is a
+     property of a build-time script, and the browser only ever sees its output. The check runs over
+     `fetchBook` — the English half, which ends where `fetchOriginal` begins, the original column
+     being deliberately OUT of the chain — and holds every `const got = extract…(` to being in the
+     chain by ONE OF THE TWO SHAPES: wrapped in `correctGot(`, or preceded by `correctRaw` applied to
+     the page it just read. Both are live and both fire on every run, the caches on these branches
+     holding raw pages; E29 argues the first is the better of the two and seven branches are still on
+     the second. Written to accept either, so it guards against a branch in NEITHER — which is what
+     E31 found — rather than against the shape a branch happens to use. The two shipped repairs are
+     checked beside it, since a guard on the mechanism and a guard on the result fail for different
+     reasons. */
+  {
+    const src = fs.readFileSync(path.join(ROOT, ".claude", "fetch-book.js"), "utf8");
+    const cut = src.indexOf("async function fetchOriginal");
+    check("[chain] fetchOriginal is where the English half ends", cut > 0, String(cut));
+    const english = src.slice(0, cut);
+    const rx = /const got = (correctGot\()?extract([A-Za-z]+)\(/g;
+    const bare = [];
+    let m, sites = 0;
+    while ((m = rx.exec(english))) {
+      sites++;
+      if (m[1]) continue;                                    /* corrects the extracted prose */
+      const above = english.slice(Math.max(0, m.index - 1400), m.index);
+      if (/\b(h|raw|xml)\s*=\s*correctRaw\(/.test(above)) continue;   /* corrects the page */
+      bare.push(m[2]);
+    }
+    check("[chain] every English branch is in the correction chain",
+      sites >= 13 && bare.length === 0,
+      sites + " call sites, " + bare.length + " outside the chain: " + bare.join(" "));
+
+    const roland = fs.readFileSync(path.join(ROOT, "books", "song-of-roland.js"), "utf8");
+    const edda = fs.readFileSync(path.join(ROOT, "books", "poetic-edda.js"), "utf8");
+    const bad = [
+      ["song-of-roland", roland, /(?<![A-Za-z])(Carlum|Marsilium|Sarrazens)(?![A-Za-z])/g],
+      ["poetic-edda", edda, /(?<![A-Za-z])Balled(?![A-Za-z])/g],
+    ].flatMap(([id, txt, rx]) => (txt.match(rx) || []).map((w) => id + ":" + w));
+    check("[chain] ...and the four E31 repairs are in the shipped books",
+      bad.length === 0, bad.join(" "));
+    check("[chain] the corrected spellings really are there",
+      /(?<![A-Za-z])Carlun(?![A-Za-z])/.test(roland) &&
+      /(?<![A-Za-z])Marsiliun(?![A-Za-z])/.test(roland) &&
+      /(?<![A-Za-z])Sarrazins(?![A-Za-z])/.test(roland) &&
+      /(?<![A-Za-z])Ballad(?![A-Za-z])/.test(edda));
+
+    /* AND correctGot ITSELF REFUSES A SHAPE IT DOES NOT KNOW (Sep 2026, batch E32). Written to fall
+       through, it returned an unrecognised object untouched and reported nothing — so pointing it at
+       a reader whose parts hang off a name not in its list corrected NOTHING while every count read
+       healthy. Sliced out of the importer and run against a marker `correctRaw`, which is the only
+       way to see a helper whose whole contract is what it does to somebody else's object. */
+    const fn = src.slice(src.indexOf("function correctGot("));
+    let depth = 0, end = 0;
+    for (let i = fn.indexOf("{"); i < fn.length; i++) {
+      if (fn[i] === "{") depth++;
+      else if (fn[i] === "}") { depth--; if (!depth) { end = i + 1; break; } }
+    }
+    const correctGot = new Function("correctRaw", fn.slice(0, end) + "; return correctGot;")
+      ((t) => "<" + t + ">");
+    const arr = correctGot([{ html: "a", t: "b", notes: ["c"] }])[0];
+    check("[chain] correctGot corrects html, title and notes",
+      arr.html === "<a>" && arr.t === "<b>" && arr.notes[0] === "<c>", JSON.stringify(arr));
+    const map = correctGot({ cantos: { 1: { html: "a", name: "n" } }, counts: {} });
+    check("[chain] ...and a reader's named collection of parts",
+      map.cantos[1].html === "<a>" && map.cantos[1].name === "<n>", JSON.stringify(map.cantos));
+    let threw = "";
+    try { correctGot({ stanzas: [{ html: "a" }], counts: {} }); } catch (e) { threw = e.message; }
+    check("[chain] ...and it THROWS on a shape it does not know, rather than doing nothing",
+      /correctGot: nothing to correct/.test(threw), threw || "(returned quietly)");
+
+    /* ================= 6d. the transcription's italic =================
+       Sep 2026, batch E33. Project Gutenberg marks italic with a pair of underscores and
+       `extractQuixote` never converted them, so 86 passages of Don Quixote shipped with their marks
+       showing. The failure is entirely invisible to every other check on this shelf — the words are
+       spelled right, the tags balance, the counts read healthy — so what is asserted is the SHAPE of
+       the finished text: no underscore survives in any chapter of the three plain-text books, and
+       Don Quixote carries the italics it should. `extractChaucer`'s source is a SCAN rather than a
+       Gutenberg text, so its underscores were specks rather than markers and are asserted gone too. */
+    for (const id of ["don-quixote", "canterbury-tales", "journey-to-the-west"]) {
+      const txt = fs.readFileSync(path.join(ROOT, "books", id + ".js"), "utf8");
+      const body = txt.slice(txt.indexOf("chapters:"));
+      check("[italic] no underscore reaches the reader in " + id,
+        !/_/.test(body.replace(/FOLIO_BOOKS?_[A-Z_]*/g, "")),
+        (body.match(/.{0,40}_.{0,40}/) || [""])[0]);
+    }
+    const dq = fs.readFileSync(path.join(ROOT, "books", "don-quixote.js"), "utf8");
+    check("[italic] ...and Don Quixote carries its 86 italic passages",
+      (dq.match(/<i>/g) || []).length >= 86, String((dq.match(/<i>/g) || []).length));
+    check("[italic] ...including the ones the old rule would have missed",
+      dq.includes("<i>terra firma</i>") && dq.includes("<i>tantum pellis et ossa fuit</i>"));
+
+    /* ================= 6e. a plate is not part of the prose =================
+       Sep 2026, batch E34. Journey to the West is a scan of an illustrated volume, and the OCR reads
+       an engraving as a run of blank lines — so the caption printed under each plate arrived as an
+       ordinary line of text in the middle of the paragraph the plate was bound into, three of them
+       cutting a sentence in half. The failure is invisible to every word-level check: the captions
+       are the book's own words, correctly spelled, in balanced markup.
+
+       Asserted on the SHIPPED text rather than on a count, because a count that has stopped counting
+       reads the same as a book with no plates: the three sentences that were cut must read straight
+       through, and the engraving's own hatching must be gone. The last of them also pins where the
+       book ENDS — the final plate sat between the closing sentence and the index. */
+    const jw = fs.readFileSync(path.join(ROOT, "books", "journey-to-the-west.js"), "utf8");
+    check("[plates] the caption no longer cuts the women's sentence in half",
+      jw.includes("But the women would not let him go") && !jw.includes("Bathing Fool"));
+    check("[plates] ...nor the Incarnate One's, in the list of monkeys",
+      !jw.includes("Dove settling down") && !jw.includes("The Dove and Rosary"));
+    check("[plates] ...nor the temple's", jw.includes("The temple was called the Shang temple"));
+    check("[plates] the engraving's own hatching is gone too",
+      !jw.includes("-^A^^K^^^i^") && !jw.includes("uH^^^^-^^^") && !jw.includes("Mihi"));
+    check("[plates] and the book ends where its translator ends it",
+      !jw.includes("ASTtC IjIFE") && jw.includes("perfect saints of all the Universe"));
+    check("[plates] the running head 107 read as lOT is gone", !jw.includes("SCRIPTURES lOT"));
+
+    /* ================= 6f. two articles of the Summa that its transcription lost =================
+       Sep 2026, batch E35. Wikisource sets article 2 of I-II q.52 twice — the second under article
+       3's number — and article 4 of II-II q.43 twice under article 5's, so the book shipped a false
+       claim and an article of Aquinas was missing. Put back from Project Gutenberg's transcription of
+       the same translation. Asserted on the shipped text: the article that was lost is present, the
+       one that was duplicated appears once, and the heading matches the question's own list of points
+       of inquiry — which is the witness the repair was made on. */
+    const su = fs.readFileSync(path.join(ROOT, "books", "summa-theologica.js"), "utf8");
+    /* The book file is JavaScript, so its HTML attributes are written with escaped quotes; the
+       assertions that match markup read this unescaped copy, which is what the page carries. Declared
+       beside `su` rather than beside its first use — E41 added a block ABOVE that use and every
+       assertion in the section threw "Cannot access 'suH' before initialization". */
+    const suH = su.replace(/\\"/g, '"');
+    check("[summa] q.52 carries its third article again",
+      su.includes("Whether every act increases its habit?") &&
+      (su.match(/Whether habits increases by addition\?/g) || []).length === 1);
+    check("[summa] ...and it is the article the question's own list names",
+      su.includes("(3) Whether each act increases the habit?"));
+    check("[summa] q.43 carries its fifth article again",
+      su.includes("Whether passive scandal may happen even to the perfect?") &&
+      (su.match(/Whether scandal is a mortal sin\?/g) || []).length === 1);
+    check("[summa] ...and the supplied prose is there, not just the heading",
+      su.includes("Passive scandal implies that the mind of the person who takes scandal"));
+    /* AND THE ONE THIS BATCH DELIBERATELY DID NOT TOUCH: q.47's duplicated heading is the PRINTING's,
+       both transcriptions carrying it, so it must stay as printed. A future batch that "tidies" it
+       would be inventing a heading no edition has. */
+    check("[summa] q.47's duplicated heading is left as the printing has it",
+      (su.match(/Whether solicitude belongs to prudence\?/g) || []).length === 2);
+
+    /* E36 — the other two shapes of duplication in the same transcription. Asserted on the shipped
+       text and BOTH WAYS ROUND, because the rule that removes them is one measurement away from
+       removing the work's own closing formula: I q.109's article 1 must no longer end by answering
+       objections it never raised, and the four articles that legitimately end on "This suffices for
+       the Replies to the Objections" must still do so. */
+    check("[summa] the paste at the end of q.109 article 1 is gone",
+      (su.match(/The demons are not equal in nature/g) || []).length === 1);
+    /* The truncated half is a SUFFIX of the legitimate paragraph, so it cannot be tested for by its
+       words — only by the fact that it stood as a paragraph of its own, opening mid-sentence. */
+    check("[summa] ...and the truncated half of it with it",
+      !/<p>whereby some obey others/.test(su) && !/<p>conclusion, but not knowledge/.test(su));
+    check("[summa] q.20's eleven-paragraph repeat is gone",
+      (su.match(/It would seem that the consequences of the external action increase its goodness/g) || []).length === 1);
+    check("[summa] ...and so are the two single ones",
+      (su.match(/The same thing cannot be the subject of contraries/g) || []).length === 1 &&
+      (su.match(/there were some possessed of the spirit of prophecy/g) || []).length === 1);
+    /* ================= 6g. the chapter heads the correction chain nearly lost =================
+       Sep 2026, batch E37. Five of the Three Kingdoms' romanisation rows fire only on chapter HEADS,
+       because the printing drops the umlaut there and nowhere else — and a cache marked as holding
+       the extractor's own output was holding a corrected title, so all five reported themselves dead.
+       The house rule says prune a dead row; pruning these would have sent eight titles back to
+       Wade-Giles with the build saying nothing.
+
+       Asserted on the shipped titles rather than on the row count, because the count is exactly the
+       thing that lied. Both directions: the pinyin is there and the Wade-Giles is not. */
+    const tk = fs.readFileSync(path.join(ROOT, "books", "three-kingdoms.js"), "utf8");
+    const titles = (tk.match(/\bt: "[^"]*"/g) || []).join(" ");
+    check("[heads] the Three Kingdoms' chapter titles are in pinyin",
+      /Ding Yuan/.test(titles) && /Guan Yu /.test(titles) && /Zhao Yun/.test(titles) &&
+      /Zhou Yu /.test(titles) && /Guan Yunchang/.test(titles));
+    check("[heads] ...and carry no Wade-Giles left over",
+      !/Ting Yuan|Kuan Yu|Chao Yun|Chou Yu|Kuan Yun-/.test(titles),
+      (titles.match(/Ting Yuan|Kuan Yu|Chao Yun|Chou Yu|Kuan Yun-/) || [""])[0]);
+    /* AND NOT ROMANISED TWICE, which is what a stale cache made the fix do until the marker was
+       versioned: Tao became Dao and Pi became Bi in seven heads that were already right. */
+    check("[heads] ...and nothing romanised a second time",
+      /Cao Pi|Tao Qian|Gan Ning/.test(titles) && !/Cao Bi|Dao Qian/.test(titles),
+      (titles.match(/Cao Bi|Dao Qian/) || [""])[0]);
+
+    /* ================= 6m. the chapters that stopped rather than ended =================
+       Sep 2026, batch E43. A shelf-wide sweep for a chapter whose last paragraph has no terminal
+       punctuation found 22 of 4,403, five of them the Summa's — and all five are the SOURCE's
+       truncation, each wiki page itself stopping where Folio stopped. A truncated chapter is not
+       short and not ungrammatical: q.95's still ran to 20 KB with every sentence but the last whole.
+       What it cannot be is properly ended, which is the only tell there is. */
+    check("[summa] II-II q.148 no longer breaks off on 'wherefore'",
+      /but from the lustful will: wherefore it may be referred to either vice\./.test(su));
+    check("[summa] Supplement q.95 keeps the rest of its last answer",
+      /others reckon them to be vision, comprehension, and fruition/.test(su));
+    check("[summa] ...and the nine paragraphs after it, its Replies among them",
+      /these five should not be called dowries, but conditions of beatitude\./.test(su) &&
+      /Reply to Objection 7: The five things aforesaid mentioned by Boethius/.test(su));
+    /* And the three that were missing only a full stop. */
+    check("[summa] the three chapters missing only their last mark have it",
+      /be removed; and this is done by moral virtue\./.test(su) &&
+      /what is more difficult, and at the same time better\./.test(su) &&
+      /the point of restitution being immediate\./.test(su));
+
+    /* ================= 6l. the fable that was its neighbour =================
+       Sep 2026, batch E42. The Summa's duplicated-chapter check was pointed at the other 47 books
+       and found one pair: Aesop's fable 122, "The Old Lion", carrying fable 121's text, because
+       Wikisource's page for it transcludes the wrong part of a scan page holding three fables. The
+       failure is the quiet one — chapter 122 is perfectly good prose, correctly formatted, and about
+       two travellers and an axe. */
+    const ae = fs.readFileSync(path.join(ROOT, "books", "aesop-fables.js"), "utf8");
+    check("[aesop] The Old Lion is the Old Lion",
+      /A Lion, worn out with years, and powerless from disease/.test(ae));
+    check("[aesop] ...and the travellers' fable stands once, not twice",
+      (ae.match(/Two men were journeying together in each other's company/g) || []).length === 1,
+      String((ae.match(/Two men were journeying together in each other's company/g) || []).length));
+    /* Its witness is the scan page this book is transcribed FROM, not a second edition — so unlike
+       every other supplied text here it validates exactly, on the fable printed beside it. */
+    check("[aesop] ...and its neighbour on the same scan page is untouched",
+      /A Wolf passing by, saw some Shepherds in a hut eating for their dinner a haunch of mutton/.test(ae));
+
+    /* ================= 6k. the question heading that was really an article =================
+       Sep 2026, batch E41. II-II q.153's page heads itself "Question. 153 - Whether the matter of
+       lust is only venereal desires and pleasures?" — which is ARTICLE 1's title — and its prologue
+       is missing altogether, so the pass claimed that heading as the question's, dropped it as
+       furniture, and article 1 went with it: four headings for a stated five, and the printing's
+       articles 2 to 5 numbered 1 to 4. Every sentence was on the page and every number was wrong. */
+    check("[summa] II-II q.153's first article is its own, not the question's heading",
+      /<span class="bk-n">1<\/span> <b>Whether the matter of lust is only venereal desires and pleasures\?/.test(suH));
+    check("[summa] ...and the article that had been numbered 1 is numbered 2",
+      /<span class="bk-n">2<\/span> <b>Whether no venereal act can be without sin\?/.test(suH));
+    /* AND NO ARTICLE IS LEFT TITLED AFTER THE QUESTION IT IS IN. */
+    check("[summa] no article heading carries a 'Question. N -' prefix",
+      !/<b>Ques[a-z]{0,3}on\.?\s*\d+\s*[-–—]/i.test(suH),
+      (suH.match(/<b>Ques[a-z]{0,3}on\.?\s*\d+\s*[-–—][^<]{0,40}/i) || [""])[0]);
+
+    /* ================= 6j. the two articles that were simply gone =================
+       Sep 2026, batch E40. Two more losses of E38's kind and one of the programme's own making.
+
+       Supplement q.12 is E38's fault a second time — the wiki's page for it carries question 11's
+       text — and it has no Gutenberg volume behind it, so its witness is CCEL's copy of the same
+       translation, cross-checked against New Advent's. II-II q.180's article 5 is a LOST ARTICLE
+       rather than a lost question: the heading labelled `Art. 5` carries article SIX, so the
+       question ran 1,2,3,4,5,7,8 with the fifth absent and the sixth wearing its number. */
+    check("[summa] Supplement q.12 is no longer question 11 printed twice",
+      su.indexOf("We must now inquire about the seal of confession") ===
+      su.lastIndexOf("We must now inquire about the seal of confession"));
+    check("[summa] ...and carries satisfaction, with its three articles",
+      /We must now consider satisfaction; about which four things have to be considered/.test(su) &&
+      /Whether the definition of satisfaction given in the text is suitable\?/.test(su));
+    check("[summa] II-II q.180's article 5 is back, before the one that wore its number",
+      su.indexOf("reach to the vision of the Divine essence?") > 0 &&
+      su.indexOf("reach to the vision of the Divine essence?") <
+        su.indexOf("fittingly divided into a threefold movement"));
+    /* AND THE FAULT IN OUR OWN SUPPLIED TEXT. Two normalisations of the witness's abbreviations are
+       order-dependent and were applied the wrong way round, so 28 replies shipped as "Reply
+       Objection 3:" where this book writes "Reply to Objection 3:" 7,590 times. Nothing could see
+       it: the words are right and the marker is a form the book does not otherwise use. */
+    check("[summa] no reply is left without its 'to'",
+      !/Reply Objection \d+:/.test(su), (su.match(/Reply Objection \d+:/g) || []).length + " left");
+
+    /* ================= 6i. the heads the transcription left as prose =================
+       Sep 2026, batch E39. Twenty-seven article heads across fourteen questions never became
+       headings at all — five spellings of one fault, none of which throws and all of which read as a
+       book: an escaped `==== Art. N - …`, the same with no closing run, the same inside a `<pre>`,
+       a head with no markup whatever, and a question whose article count is stated only in its own
+       prose. Asserted on the two extremes, which between them cover every spelling.
+
+       I-II q.28 had NO article numbers at all — six articles run together as one wall of prose — and
+       Supplement q.39 the same, its heads being preformatted blocks. Both fail silently: the chapter
+       renders, the words are all there, and only the numbering is gone. */
+    check("[summa] I-II q.28's six articles are numbered",
+      /<span class="bk-n">6<\/span> <b>Whether love is cause of all that the lover does\?/.test(suH));
+    check("[summa] ...and Supplement q.39's six, whose heads were preformatted blocks",
+      /<span class="bk-n">6<\/span> <b>Whether lack of members should be an impediment\?/.test(suH));
+    /* AND NO ESCAPED HEADING IS LEFT STANDING IN THE PROSE — the shape that made this findable, and
+       the one a regression would put straight back. */
+    check("[summa] no article heading is left as literal wiki markup",
+      !/==== Art\./.test(su), (su.match(/==== Art\.[^<]{0,40}/) || [""])[0]);
+    /* III q.30 printed its first and fourth heads and nothing between; both middles are back. */
+    check("[summa] III q.30's annunciation articles 2 and 3 are back",
+      /<span class="bk-n">2<\/span> <b>Whether the annunciation should have been made by an angel/.test(suH) &&
+      /<span class="bk-n">3<\/span> <b>Whether the angel of annunciation should have appeared/.test(suH));
+
+    /* ================= 6h. the question a second witness found missing =================
+       Sep 2026, batch E38. Wikisource's Third Part serves question 33 under Question 34 and question
+       34 under Question 35, so question 35 — Of Christ's Nativity, eight articles — is on no page of
+       it, and Folio shipped chapters 455 and 456 byte-identical with the Nativity absent.
+
+       ASSERTED ON THE SHIPPED TEXT AND FROM BOTH ENDS, because each end fails silently on its own: a
+       redirection that stops firing puts the duplicate back, and a supplied question that stops
+       firing leaves a chapter titled Of Christ's Nativity holding the question before it. Neither
+       throws, and both read as a book. */
+    check("[summa] chapters 455 and 456 are no longer the same question twice",
+      su.indexOf("We have now to consider the mode and order of Christ's conception") ===
+      su.lastIndexOf("We have now to consider the mode and order of Christ's conception"));
+    check("[summa] ...and 456 carries question 34, the perfection of the child conceived",
+      /We must now consider the perfection of the child conceived/.test(su));
+    check("[summa] question 35, Of Christ's Nativity, is in the book",
+      /After considering Christ's conception, we must treat of His nativity/.test(su));
+    /* Its eight articles, by their own headings — the count alone would pass on eight of anything. */
+    check("[summa] ...with all eight of its articles",
+      /Whether nativity regards the nature rather than the person\?/.test(su) &&
+      /Whether there are two filiations in Christ\?/.test(su) &&
+      /Whether Christ was born without His Mother suffering\?/.test(su) &&
+      /Whether Christ should have been born in Bethlehem\?/.test(su) &&
+      /Whether Christ was born at a fitting time\?/.test(su));
+    /* AND THE CONTENTS-PAGE TYPO, which is the only correction row in the importer that fires on a
+       chapter title. It could not fire at all until E38 sent a freshly fetched title through the
+       chain, so this assertion is about the plumbing as much as about the word. */
+    check("[summa] the Supplement's question 25 is headed Of Indulgences",
+      /OF INDULGENCES/.test(su) && !/UNDLUGENCES/.test(su));
+
+    /* 55 until E40, and the one that went is the point rather than a loss: chapter 524 was printing
+       question 11's text a second time and question 11 uses the formula, so the 55th occurrence was
+       the duplicate. Checked chapter by chapter before this was re-pinned — every other chapter that
+       carried it still does, in the same number. */
+    check("[summa] but the work's own closing formula is untouched, 54 times over",
+      (su.match(/This suffices for the Replies to the Objections/g) || []).length === 54,
+      String((su.match(/This suffices for the Replies to the Objections/g) || []).length));
+  }
+
+  /* ================= 6n. the two columns actually pair (E44) =================
+     A bilingual book is drawn as ROWS, and a row is a claim the two editions themselves make: the
+     section number by which the passage is cited, on both sides. Where the two columns' keys do not
+     meet, every English section draws beside an empty cell and then every original one does — the
+     page renders perfectly, the prose is all present, the counts are all right, and the reader is
+     handed two columns that never look at each other.
+
+     THUCYDIDES SHIPPED THAT WAY. It is the only book here whose columns come from different
+     extractors, and each wrote a locally correct sort key: the Wikisource rule wrote a bare marker,
+     the Perseus one writes `data-n` on every marker of every book it reads. app.js pairs on
+     `parseInt(data-n ?? text)`, so the English offered 1..146 against the Greek's 100..14600 and the
+     work paired 7 of its 1,826 sections — those seven an English chapter number that happened to
+     equal a Greek key, which is worse than an empty cell because it reads as a pairing.
+
+     IT IS ASSERTED IN THE BROWSER RATHER THAN OVER THE DATA FILE, and that is the point of putting it
+     here at all: `.claude/check-pairing.js` measures the shipped files against app.js's rule as that
+     script's author understands it, and this measures what the reader is actually shown. What it asks
+     is what was false — that book 1 draws 146 rows rather than 291, that every one carries BOTH
+     columns, and that a row's two cells are the SAME PASSAGE, checked on a proper name, Thucydides
+     opening with his own, which is the one word that reads alike in Crawley and in Stuart Jones. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/thucydides-peloponnesian-war", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "1"); t.click(); });
+    await page.waitForTimeout(600);
+    await page.evaluate(() => document.querySelector("#bkLang").click());
+    await page.waitForTimeout(3000);
+
+    const th = await page.evaluate(() => {
+      const rows = [...document.querySelectorAll(".bk-row")];
+      const full = rows.filter((r) => {
+        const e = r.querySelector(".bk-col-en"), o = r.querySelector(".bk-col-or");
+        return e && o && e.textContent.trim() && o.textContent.trim();
+      });
+      /* THE ROW IS FOUND BY ITS OWN PROSE, not by `data-sec="1"`, and that is deliberate: `data-sec`
+         carries the SORT KEY, so chapter 1 of this book is `data-sec="100"` — which is exactly the
+         thing under test and would make the assertion circular. It is a within-render anchor for the
+         language switch, read out of the DOM and put straight back into a selector on the same DOM,
+         so the scale it is written on changes nothing. */
+      /* THE MARKER'S OWN DIGIT IS PART OF THE COLUMN'S TEXT, which is what a `bk-n` span IS, so the
+         first thing `textContent` hands back for chapter 1 is "1Thucydides, an Athenian…" — with no
+         space in the English and one in the Greek, since the two extractors emit the marker
+         differently. Strip a leading figure before anchoring, or the row is never found and the
+         assertion fails with an empty string, which reads as a missing row rather than as a regex. */
+      const body = (r, sel) => r.querySelector(sel).textContent.trim().replace(/^\d+\s*/, "");
+      const r1 = rows.find((r) => /^Thucydides, an Athenian/.test(body(r, ".bk-col-en")));
+      return {
+        rows: rows.length,
+        full: full.length,
+        secs: rows.map((r) => r.dataset.sec).filter(Boolean).slice(0, 5).join(","),
+        en1: r1 ? body(r1, ".bk-col-en").slice(0, 60) : "",
+        or1: r1 ? body(r1, ".bk-col-or").slice(0, 60) : "",
+      };
+    });
+    /* 146 chapters in book 1 and one row apiece — before the repair this was 291, being 145 English
+       rows, 145 Greek ones and the single accidental pair. */
+    check("[pairing] book 1 of Thucydides draws one row per chapter, not two",
+      th.rows === 146, th.rows + " rows, sections " + th.secs);
+    check("[pairing] ...and every one of them carries both columns",
+      th.full === 146, th.full + " of " + th.rows + " rows have text on both sides");
+    check("[pairing] ...with chapter 1 opening the work in English",
+      /^Thucydides, an Athenian/.test(th.en1), JSON.stringify(th.en1));
+    check("[pairing] ...on a row whose key is the Greek's scale, not the printed figure",
+      /^100,200,300,400,500$/.test(th.secs), th.secs);
+    check("[pairing] ...and in Greek, on the same row",
+      /\u0398\u03bf\u03c5\u03ba\u03c5\u03b4\u03af\u03b4\u03b7\u03c2 \u1f08\u03b8\u03b7\u03bd\u03b1\u1fd6\u03bf\u03c2/.test(th.or1), JSON.stringify(th.or1));
+    await page.close();
+  }
+
+  /* ================= 6o. no footnote markers in a column with no footnotes (E47) =================
+     Folio's reader folds notes under the TRANSLATION alone — an original column has nowhere to put one
+     — so the importer drops an original's editorial notes. For months it did NOT drop their markers,
+     and app.js does not ignore those: `wireFootnotes` takes its list from the first `.src-note` on the
+     page, which is the translation's, then walks every `sup.fn` in document order; a marker whose
+     number is at or under that count is numbered and made a CONTROL pointing at that note. 483 stood
+     in the Old English Beowulf and 84 in the Greek Herodotus, against zero notes on either side, and
+     369 of the 567 were clickable — offering a note about the English on a word of the Old English.
+
+     FITT 28 IS PINNED BECAUSE IT WAS THE WORST: twenty markers in the Old English against the
+     translation's ten notes, the first sitting on `heal-reced` and opening Gummere's note "By the
+     hands of one of his retainers, who, as Tacitus pointed out…". The assertion is on the RENDERED
+     page rather than on the data file, since what made this a fault rather than a stray attribute is
+     what `wireFootnotes` did with it — and the translation's own ten must still be there, or the fix
+     would have taken the apparatus with the fault. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/beowulf", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "28"); t.click(); });
+    await page.waitForTimeout(600);
+    await page.evaluate(() => document.querySelector("#bkLang").click());
+    await page.waitForTimeout(3000);
+    const fn = await page.evaluate(() => ({
+      or: document.querySelectorAll(".bk-col-or sup.fn").length,
+      orLive: [...document.querySelectorAll(".bk-col-or sup.fn")].filter((x) => x.getAttribute("role") === "button").length,
+      en: document.querySelectorAll(".bk-col-en sup.fn").length,
+      notes: document.querySelectorAll(".src-note .src-item").length,
+      rows: document.querySelectorAll(".bk-row").length,
+    }));
+    check("[notes] the Old English column carries no footnote marker at all",
+      fn.or === 0, fn.or + " markers, " + fn.orLive + " of them clickable");
+    check("[notes] ...while the translation keeps its own ten, with ten notes behind them",
+      fn.en === 10 && fn.notes === 10, fn.en + " markers, " + fn.notes + " notes");
+    check("[notes] ...and the two columns still pair",
+      fn.rows > 0, String(fn.rows));
+    await page.close();
+  }
+
+  /* ================= 6p. no entry in the fold that no sentence opens (E48) =================
+     The mirror of the check above, and the harder one to see: app.js is GRACEFUL about an
+     uncited entry — `wireFootnotes` gives it a plain number rather than a jump to nowhere — so
+     nothing looks broken, and what the reader gets is a line at the head of the apparatus that
+     no marker in the chapter points at.
+
+     THE LYSIS IS PINNED BECAUSE IT WAS THE SHELF'S ONLY ONE, and because it is not a footnote at
+     all: Perseus tags the Loeb's one-line argument of the dialogue `type="Com"` and prints it
+     ahead of section 203's first paragraph, so the extractor lifted it into the fold and its
+     marker went into text the paragraph sweep then threw away. It now stands where the printed
+     page puts it, in italic at the head of the section, and the fold holds the thirteen notes
+     that are notes. Both halves are asserted, because dropping the line altogether would satisfy
+     the first on its own — and that would lose editorial text the reader currently has. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/plato-dialogues", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "20"); t.click(); });
+    await page.waitForTimeout(900);
+    const got = await page.evaluate(() => {
+      const items = [...document.querySelectorAll(".src-note .src-item")];
+      const at = new Set([...document.querySelectorAll("#bkPage sup.fn")].map((x) => +x.getAttribute("data-fn")));
+      return {
+        notes: items.length,
+        unpointed: items.map((li, i) => i + 1).filter((n) => !at.has(n)),
+        first: (items[0] ? items[0].textContent : "").replace(/^\s*\d+\s*/, "").slice(0, 40),
+        argument: [...document.querySelectorAll("#bkPage .bk-prose i")].some(
+          (x) => /wrestling-school/.test(x.textContent)),
+      };
+    });
+    check("[notes] every entry in the Lysis's fold has a marker pointing at it",
+      got.notes === 13 && got.unpointed.length === 0,
+      got.notes + " entries, unpointed: " + (got.unpointed.join(",") || "none"));
+    check("[notes] ...and the fold now opens on a note rather than on the dialogue's argument",
+      /^i\.e\., of Hermes/.test(got.first), JSON.stringify(got.first));
+    check("[notes] ...which stands in the prose instead, in the editor's italic",
+      got.argument === true, String(got.argument));
+    await page.close();
+  }
+
+  /* ================= 6r. neither Homer draws an empty cell (E50) =================
+     Both front matters said lines "stand empty in the Greek column" — the wording the genuinely
+     one-sided books use — and neither poem has an empty cell: the Iliad's columns carry 425
+     numbered places each and the Odyssey's 288, and every one pairs. What a reader meets is a Greek
+     block shorter than its own numbering spans, which is a different thing and now says so.
+
+     ASSERTED ON THE RENDERED PAGE, because that is where the claim was wrong: a row whose Greek
+     cell is empty is what the old sentence promised, so the test counts them. The second assertion
+     pins the corrected count, since "eight" was the figure that had merged two mechanisms. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/homer-iliad", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "9"); if (t) t.click(); });
+    await page.waitForTimeout(600);
+    await page.evaluate(() => document.querySelector("#bkLang").click());
+    await page.waitForTimeout(3000);
+    const got = await page.evaluate(() => {
+      const rows = [...document.querySelectorAll(".bk-row")];
+      const blank = rows.filter((r) => {
+        const o = r.querySelector(".bk-col-or");
+        return o && !o.textContent.replace(/\s|\d/g, "");
+      }).length;
+      return { rows: rows.length, blank: blank, intro: document.body.innerText };
+    });
+    check("[homer] the Iliad draws both columns on every row",
+      got.rows > 0 && got.blank === 0, got.blank + " of " + got.rows + " rows with an empty Greek cell");
+    check("[homer] ...and its front matter no longer says any place stands empty",
+      !/stand\s+empty in the Greek/.test(got.intro), "the phrase is gone");
+    await page.close();
+  }
+
+  /* ================= 6s. the apparatus is not the author's words (E55) =================
+     Ihm's marginal references, unwrapped from `<add>`, stood inside Suetonius's own sentences — and
+     two of them said something FALSE in Latin: "de Officiis tertio libro 82" is book 82 of a work
+     with three, and "ad Brutum 261 oratores enumerans" reads as a count of orators. Nothing else can
+     see this. The prose is whole, the tags balance, the chapter is the right length, and a reader who
+     does not know the Brutus has 261 sections has no way to tell the reference from the text.
+
+     ASSERTED ON THE RENDERED PAGE rather than on the file, because the claim is about what a reader
+     meets; and the second assertion is the one that would catch an over-broad fix, since the sentences
+     those references sat in must still be there. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/suetonius-twelve-caesars", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    /* CHAPTER 0 IS THE FRONT MATTER, AND A BOOK OPENS ON IT. Written without this click the first two
+       assertions below passed on a page with NO LATIN ON IT AT ALL — the strongest form of the trap
+       this file keeps meeting, since a vacuous pass is indistinguishable from a real one in the
+       output. Divus Julius is where all eleven references stand, so it is the chapter to ask. */
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "1"); if (t) t.click(); });
+    await page.waitForTimeout(800);
+    await page.evaluate(() => document.querySelector("#bkLang").click());
+    await page.waitForTimeout(3000);
+    const la = await page.evaluate(() => (document.querySelector(".bk-page") || document.body).innerText);
+    check("[suetonius] no marginal reference stands in the Latin",
+      !/FPR\s*p\.|frg\.XV|bell\. Gall\. VIII pr\./.test(la), "none of Ihm's page references is printed");
+    check("[suetonius] ...and no bare apparatus number sits inside a sentence",
+      !/libro 82 semper|ad Brutum 261|eodem Bruto 262/.test(la), "the three numeric ones are gone too");
+    check("[suetonius] ...while the sentences that carried them are untouched",
+      /de Officiis tertio libro semper/.test(la) && /omitto Calui Licini notissimos uersus/.test(la),
+      "both read as Latin again");
+    check("[suetonius] ...and the space went with the reference, not the punctuation",
+      !/canebantur\s+:/.test(la) && /uulgo canebantur:/.test(la), "no colon left adrift, and the lost space closed");
+    await page.close();
+  }
+
+  /* ================= 6t. no page furniture standing in the Journey (E55) =================
+     Four pieces of the scan's own furniture stood in the prose: two running heads between paragraphs,
+     one welded into a sentence, and one that split Richard's note to the reader in half. The worst
+     broke the numbered hymn the pilgrims sing between its fifth and sixth verses, which a reader meets
+     as a shouted line in the middle of an anthem.
+
+     The last assertion is the one that guards the WIDENING rather than the repair: the rule that
+     removes these reads a page number, and admitting dirt after the number also matches "CHAPTER I."
+     — so the chapters have to still be there. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/journey-to-the-west", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    /* Counted over the NUMBERED tabs: tab 0 is the front matter, so a bare length is 101. */
+    const got = await page.evaluate(() => ({
+      chapters: [...document.querySelectorAll(".bk-tab")].filter((t) => +t.dataset.ch >= 1).length,
+    }));
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "100"); if (t) t.click(); });
+    await page.waitForTimeout(900);
+    const ch100 = await page.evaluate(() => (document.querySelector(".bk-page") || document.body).innerText);
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "11"); if (t) t.click(); });
+    await page.waitForTimeout(900);
+    const ch11 = await page.evaluate(() => (document.querySelector(".bk-page") || document.body).innerText);
+    check("[journey] no running head stands in the anthem",
+      !/THE PILGRIMS FINISHED WORK/.test(ch100), "chapter 100's own running title is gone");
+    check("[journey] ...and the hymn runs from verse 5 to verse 6 unbroken",
+      /Shakyamuni/.test(ch100) && /Vairochana/.test(ch100), "both verses are on the page");
+    check("[journey] the translator's note is one sentence again",
+      /given in Chap\. III\. p\. 38/.test(ch11), "the page break no longer splits it");
+    check("[journey] ...and the inscription over the gate is whole",
+      /GHOSTS WHO ENTER THE UNDERWORLD/.test(ch11), "its two halves are joined");
+    check("[journey] ...while all 100 chapters survive the widened head rule",
+      got.chapters === 100, got.chapters + " chapters");
     await page.close();
   }
 

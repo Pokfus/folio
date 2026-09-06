@@ -87,7 +87,8 @@ const G = loadGlossary();
 let ART = [];
 try {
   const w = {};
-  new Function("window", fs.readFileSync(path.join(ROOT, "artefacts.js"), "utf8"))(w);
+  // the citations live in the LAZY artefacts-extra.js, not in the eager index — see artefact-io.js
+  w.ARTEFACTS = require("./artefact-io.js").loadArtefacts();
   ART = w.ARTEFACTS || [];
 } catch (e) { /* artefacts are optional */ }
 
@@ -223,6 +224,12 @@ const CROSSREF_WRONG = [
   ["10.1371/journal.pone.0299286", "Yuxin Feng", "Feng Yuxin"],
   ["10.1371/journal.pone.0299286", "Yunxia Tian", "Tian Yunxia"],
   ["10.1371/journal.pone.0299286", "Xiaoyu Lv", "Lv Xiaoyu"],
+  // Crossref has transposed given and family for both authors of this paper: it
+  // holds given "Borowska" / family "Anna". The journal's own article page lists
+  // "Anna Borowska" and "Elzbieta Rzeszutko" with their affiliations, and its own
+  // How-to-Cite block renders them "Borowska, A., & Rzeszutko, E. (2014)".
+  ["10.7494/csci.2014.15.4.365", "Anna Borowska", "Borowska Anna"],
+  ["10.7494/csci.2014.15.4.365", "Elzbieta Rzeszutko", "Rzeszutko Elzbieta"],
   // The article's own title page spells it Jacques; Crossref has dropped the c.
   ["10.14430/arctic1218", "Jacques Cinq-Mars", "Jaques Cinq-Mars"],
   // Radiocarbon's own page gives van der Plicht, a Dutch tussenvoegsel Crossref has
@@ -247,6 +254,10 @@ const CROSSREF_WRONG = [
   // given "Teteriatnikov", family "Natalia". The article's own footnotes cite her as
   // N. Teteriatnikov, and Dumbarton Oaks publishes her as Natalia Teteriatnikov.
   ["10.2298/ZOG0530009T", "Natalia Teteriatnikov", "Teteriatnikov Natalia"],
+  // Crossref has Stephen; the article's own byline is Steven P. Ashby, and the ORCID
+  // it carries on that byline (0000-0003-1420-2108) registers Steven Paul Ashby.
+  // Crossref itself spells him Steven on 10.3176/arch.2020.1.01, under the same ORCID.
+  ["10.11141/ia.30.3", "Steven P. Ashby", "Stephen P. Ashby"],
 ];
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */

@@ -37,6 +37,7 @@
 //                          "alt": "The flag of Texas: a blue band at the hoist bearing a white star, …" }
 const fs = require("fs"), path = require("path");
 const { isDateList } = require("./date-line.js");
+const { checkWhy, checkLeadsTo, loadCardYears, collectionIndex } = require("./card-links.js");
 const dataPath = path.join(__dirname, "..", "data.js");
 const FIELDS = ["id","num","category","question","answer","answerDate","traditional","hanzi","pinyin","translations","abstract","citation","answerText"];
 const I18N_LANGS = ["es","fr","de","it","nl","ru","ar","zh","ja"];
@@ -118,6 +119,7 @@ const MAP_LAYERS = {
 };
 const MAPQ_MIN = 5, MAPQ_MAX = 20;
 const MAP_FACTS_MIN = 3, MAP_FACTS_MAX = 8;
+const ART_FACTS_MIN = 3;   // an artwork card: artist / maker, date, medium, size, where it is
 
 const cardFile = process.argv[2], deckId = process.argv[3];
 if (!cardFile) { console.error("usage: node .claude/add-card.js <card.json> [deckId]"); process.exit(1); }
@@ -126,6 +128,7 @@ for (const f of FIELDS) if (!(f in card)) { console.error("ERROR: card is missin
 if (!card.id) { console.error("ERROR: card.id is empty"); process.exit(1); }
 
 const isMap = !!card.map;
+const isArt = card.artwork === true;   // an ARTWORK card: the picture is its own subject (see the block below)
 if (isMap) {
   const m = card.map;
   if (typeof m !== "object" || Array.isArray(m)) { console.error("ERROR: card.map must be an object: { \"layer\": \"us-states\", \"key\": \"California\" }"); process.exit(1); }
@@ -191,13 +194,76 @@ if (isMap) {
     console.error("ERROR: a map card carries " + MAP_FACTS_MIN + "–" + MAP_FACTS_MAX + " `facts` rows — the figures box beside its answer (capital, population, area …). This one has " + facts.length + ".");
     process.exit(1);
   }
-} else if (Array.isArray(card.facts) && card.facts.length) {
-  // not refused — the box is general — but worth saying, since it is a map card's furniture
+} else if (!isArt && Array.isArray(card.facts) && card.facts.length) {
+  // not refused — the box is general, and an ARTWORK card's facts are its own furniture (the artist, the
+  // date, the medium) — but worth saying on anything else, since the box arrived with map cards
   console.warn("WARNING: card." + card.id + " has a `facts` box but no `map`. That is allowed; just check it was meant.");
 }
 
-const QMIN = isMap ? MAPQ_MIN : Q_MIN, QMAX = isMap ? MAPQ_MAX : Q_MAX;
-if (!isMap && (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim()))) {
+/* ---------- ARTWORK CARDS (Sep 2026, on request) ----------
+   `artwork: true` says THE PICTURE IS THIS CARD'S OWN SUBJECT: the front draws the work and nothing
+   else, and the reader names it. It is a flag rather than an inference from `image` because an ordinary
+   card's picture ILLUSTRATES its subject, which is a different claim — see cardArtSpec in app.js.
+
+   FOUR THINGS ARE CHECKED HERE AND NOWHERE ELSE, and every one of them ships looking perfect:
+
+   · A picture, with a CREDIT and an ALT. The credit is required of every card already; the alt is
+     required HERE because on this format it is not a courtesy, it is the question as a reader who
+     cannot see the picture receives it.
+   · THE ALT MAY NOT NAME THE ANSWER, and may not name whatever the `facts` box gives as the artist.
+     "Describe, never name" is the rule the plan states, and an alt reading "Rembrandt's Night Watch"
+     hands the answer to exactly the reader the alt exists for — silently, since no sighted reviewer
+     ever sees it.
+   · NO EXTRA PHRASINGS, for the map card's reason: three ways of asking "what is this picture?" are
+     one sentence written three times.
+   · A `facts` box, which is where the artist, the date, the medium and the location go. It is the
+     second half of the answer — the request asks the reader for the artist as well, and `gradeCloze`
+     matches one string, so the artist is shown rather than typed. */
+if ("artwork" in card && typeof card.artwork !== "boolean") {
+  console.error("ERROR: card.artwork is true or absent — it says the picture IS this card's subject."); process.exit(1);
+}
+if (isArt) {
+  if (isMap) { console.error("ERROR: a card is a map card or an artwork card, not both — each is a different question in the same slot."); process.exit(1); }
+  const img = card.image;
+  if (!img || !String(img.src || "").trim()) {
+    console.error("ERROR: an artwork card needs `image.src` — the picture IS the question. A work that cannot be shown (copyright: see docs/art-card-plan.md) is written as an ORDINARY card, without `artwork`.");
+    process.exit(1);
+  }
+  if (!String(img.alt || "").trim()) {
+    console.error("ERROR: an artwork card needs `image.alt` — on this format the alt text is the question for a reader who cannot see the picture. Describe what is depicted; never name the work or the artist.");
+    process.exit(1);
+  }
+  const alt = String(img.alt).toLowerCase();
+  const ansT = String(card.answerText || "").trim().toLowerCase();
+  if (ansT && alt.indexOf(ansT) >= 0) {
+    console.error("ERROR: image.alt contains the answer (" + JSON.stringify(card.answerText) + ") — it must DESCRIBE the picture, not name it.");
+    process.exit(1);
+  }
+  const artistRow = (Array.isArray(card.facts) ? card.facts : []).find((r) => Array.isArray(r) && /^(artist|maker|sculptor|painter|attributed to)$/i.test(String(r[0] || "").trim()));
+  const artist = artistRow ? String(artistRow[1] || "").trim() : "";
+  if (artist && !/^unknown$/i.test(artist) && alt.indexOf(artist.toLowerCase()) >= 0) {
+    console.error("ERROR: image.alt names the artist (" + JSON.stringify(artist) + ") — the card asks for the artist too, so the alt may not give it away.");
+    process.exit(1);
+  }
+  if (Array.isArray(card.questions) && card.questions.length) {
+    console.error("ERROR: an artwork card carries no extra question phrasings — the picture is the clue. Give it `\"questions\": []`.");
+    process.exit(1);
+  }
+  card.questions = [];
+  const facts = Array.isArray(card.facts) ? card.facts : [];
+  const bad = facts.find((r) => !Array.isArray(r) || r.length !== 2 || !String(r[0] || "").trim() || !String(r[1] || "").trim() || /[<>]/.test(String(r[0]) + String(r[1])));
+  if (bad) { console.error("ERROR: every `facts` row is a [label, value] pair of non-empty PLAIN TEXT: " + JSON.stringify(bad)); process.exit(1); }
+  if (facts.length < ART_FACTS_MIN || facts.length > MAP_FACTS_MAX) {
+    console.error("ERROR: an artwork card carries " + ART_FACTS_MIN + "–" + MAP_FACTS_MAX + " `facts` rows — the artist, the date, the medium, the size and where it is. This one has " + facts.length + ".");
+    process.exit(1);
+  }
+  if (!facts.some((r) => /^(artist|maker|sculptor|painter|attributed to|culture)$/i.test(String(r[0] || "").trim()))) {
+    console.warn("  ! no Artist / Maker / Culture row in `facts` — the card asks who made it, so the answer side should say.");
+  }
+}
+
+const QMIN = isMap || isArt ? MAPQ_MIN : Q_MIN, QMAX = isMap || isArt ? MAPQ_MAX : Q_MAX;
+if (!isMap && !isArt && (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim()))) {
   console.error("ERROR: card needs a `questions` array of exactly " + N_EXTRA + " EXTRA phrasings (3 questions in all — see CLAUDE.md). Each is a full standalone clue with its own mid-sentence blank.");
   process.exit(1);
 }
@@ -205,7 +271,7 @@ for (const [qi, q] of [card.question, ...card.questions].entries()) {
   const qn = qWords(q);
   if (qn < QMIN || qn > QMAX) {
     console.error("ERROR: question " + (qi + 1) + " is " + qn + " words — it must be " + QMIN + "–" + QMAX +
-      (isMap ? " (a map card's prompt is short: the map is the clue)." : " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract."));
+      (isMap || isArt ? " (the picture or the map is the clue, so the prompt is short)." : " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract."));
     process.exit(1);
   }
   if (!/class="blank"/.test(q)) {
@@ -217,7 +283,21 @@ for (const [qi, q] of [card.question, ...card.questions].entries()) {
    what the reader is being asked to recall is `polis`. The article belongs to the question and to the
    background, where the grammar needs it, and never to the term itself — which is also what keeps the
    answer matching its glossary key, its `answerText` and the way a reader would say it aloud. */
+/* ...EXCEPT WHERE THE ARTICLE IS PART OF THE PROPER NOUN (Sep 2026, on `gw-719`). A place can be
+   NAMED "The X": Anguilla's capital is The Valley on its own government's facts page, and the Dutch
+   seat of government is The Hague in English. Stripping the article there does not bare a term, it
+   renames a town — and `test-card-plans.js` compares the shipped answer against the plan's own name,
+   so the mangled form would fail there instead. Declared rather than pattern-matched, for the reason
+   `CROSSREF_WRONG` is: a rule that guesses which "The" is a name would let the real fault through.
+   Add an entry only after checking how the place's own authority writes it. */
+const ARTICLE_IS_NAME = new Set([
+  "the valley",   // Anguilla's capital; "The Valley" on gov.ai's own Anguilla Facts page
+  "the hague",    // the Dutch seat of government, the English name of 's-Gravenhage / Den Haag
+  "the gambia",   // the country's own constitutional name
+  "the bahamas",  // ditto
+]);
 for (const f of ["answer", "answerText"]) {
+  if (ARTICLE_IS_NAME.has(String(card[f] || "").trim().toLowerCase())) continue;
   if (/^(the|a|an)\s/i.test(card[f] || "")) {
     console.error("ERROR: card." + f + " begins with an article: " + JSON.stringify(card[f]) + "\n" +
       "       Drop it — the answer term is the bare term. Put the article in front of the blank in each\n" +
@@ -226,7 +306,8 @@ for (const f of ["answer", "answerText"]) {
     process.exit(1);
   }
 }
-if (/^<b>(the|a|an)\s/i.test(card.abstract || "")) {
+const boldTerm = (String(card.abstract || "").match(/^<b>([^<]*)<\/b>/) || [])[1] || "";
+if (!ARTICLE_IS_NAME.has(boldTerm.trim().toLowerCase()) && /^<b>(the|a|an)\s/i.test(card.abstract || "")) {
   console.error("ERROR: the background bolds the article. The bold is the answer term alone:\n" +
     "       write \"The <b>polis</b> is ...\", not \"<b>The polis</b> is ...\".");
   process.exit(1);
@@ -366,6 +447,21 @@ if (card.locator) {
     console.error("ERROR: card.locator has no `name` — the dot is drawn labelled, so an unnamed one is a mark with nothing to say.");
     process.exit(1);
   }
+  /* ---- AND IT OPENS ON THE PLACE, NOT ON AN ARTICLE (Sep 2026, on request: "the atlas location for the
+     card 'Hongshan culture' should not include the word 'The' in its label. The same goes for other
+     locations in the atlas windows, in all collections") ----
+     A map label is a place NAMED rather than a phrase in a sentence, and no atlas prints "The Apennines"
+     beside the range. Eight carried one across four collections, and they were stripped in data.js in the
+     same pass.
+     IT IS REFUSED HERE RATHER THAN STRIPPED AT DRAW TIME, and the reason is a handful of real place names:
+     The Hague is the seat of the Dutch government and The Valley is the capital of Anguilla, both of them
+     labels this same window draws off the capitals tables. A rule clever enough to tell those from a
+     definite article is a rule that will one day be wrong about one of them; a refusal at the point of
+     writing is not. */
+  if (/^the\s/i.test(String(card.locator.name).trim())) {
+    console.error("ERROR: card.locator.name opens on \"The\" — a map label names a place rather than reading as a phrase, so write " + JSON.stringify(String(card.locator.name).trim().replace(/^the\s+/i, "")) + ".");
+    process.exit(1);
+  }
   /* ---- AND WHAT SORT OF PLACE IT IS (Aug 2026, with the locator kinds) ----
      A dot is the right mark for a cave and the wrong one for a river, a range or a region, so a locator
      may declare a `kind` and — for the two that have extent — the shape to draw. Both are hand-authored,
@@ -444,6 +540,11 @@ if (card.answerFlag && String(card.answerFlag.src || "").trim() && !String(card.
   console.error("ERROR: card.answerFlag has a src but no `alt` — the flag is drawn with no title and no caption, so `alt` is all a reader who cannot see it gets.");
   process.exit(1);
 }
+/* THE "WHY" PROMPT AND THE CAUSAL EDGES both live in `.claude/card-links.js`, because `add-card-links.js`
+   writes the same two fields onto cards already shipped and a second copy of a rule is a rule with no
+   home. The `why` check needs nothing but the card; `leadsTo` needs the whole corpus and is run further
+   down, once data.js has been loaded. */
+{ const e = checkWhy(card); if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); } }
 if (REQUIRE_TRANSLATIONS && !card.skipTranslations) {   // a new card ships in all 9 site languages (i18n block)
   const missing = [];
   for (const l of I18N_LANGS) {
@@ -483,6 +584,19 @@ const leaves = []; for (const col of tree.collections) leafDecks(col, leaves);
 const deck = deckId ? leaves.find(d => d.id === deckId) : leaves[0];
 if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", leaves.map(d=>d.id).join(", ")); process.exit(1); }
 
+{
+  const appSrc = fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8");
+  const collIdx = collectionIndex(tree);
+  const byId = {}; for (const c of cards) byId[c.id] = c;
+  // the card being added is not in the tree yet, so its collection is the one its DECK belongs to
+  const deckColl = (() => { for (const col of tree.collections) { let hit = false; (function w(n) { if (n.id === deck.id) hit = true; (n.children || []).forEach(w); })(col); if (hit) return col.id; } return null; })();
+  const e = checkLeadsTo(card, {
+    byId, cardYears: loadCardYears(appSrc),
+    collectionOf: (cid) => (cid === card.id ? deckColl : collIdx[cid] || null),
+  });
+  if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); }
+}
+
 cards.push(card);
 deck.cardIds.push(card.id);
 for (const col of tree.collections) col.total = Math.max(col.total || 0, countIds(col));   // keep total >= card count
@@ -505,7 +619,7 @@ console.log("added card " + card.id + " -> deck " + deck.id + " | total cards: "
    already written the card, so a failure prints a line and changes no exit status. */
 // …except a MAP card, whose illustration is its map. A second picture there would sit under the globe
 // answering the same question, and the suggestion is a network round trip nobody is going to act on.
-if (!isMap && !(card.image && card.image.src) && !(card.video && card.video.src) && !process.argv.includes("--no-image")) {
+if (!isMap && !isArt && !(card.image && card.image.src) && !(card.video && card.video.src) && !process.argv.includes("--no-image")) {
   require("./suggest-image.js").report("cards", card.id, card.answerText || card.answer || card.id)
     .catch((e) => console.log("  (no picture looked for: " + e.message + ")"));
 }

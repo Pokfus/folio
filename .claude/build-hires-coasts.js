@@ -6,7 +6,7 @@
   coastlines of Italy / Greece / China" in the card Atlas windows of the Rome, Greece and China
   collections). Standalone Node helper, zero deps. Not part of the site.
 
-    node .claude/build-hires-coasts.js [--src=<ne_10m_admin_0_countries.geojson>] [--tol=0.0015] [--region=italy]
+    node .claude/build-hires-coasts.js [--src=<the 10m countries geojson>] [--tol=0.0015] [--region=italy]
 
   Writes coast/<region>.js, one file per region, each pushing onto `window.HIRES_COAST_IN` — a QUEUE
   rather than an assignment, for the reason the i18n files push: two regions may land in one session and
@@ -59,7 +59,11 @@
 const fs = require("fs"), path = require("path");
 const ROOT = path.join(__dirname, "..");
 const args = Object.fromEntries(process.argv.slice(2).map((a) => { const m = /^--([^=]+)(?:=(.*))?$/.exec(a); return m ? [m[1], m[2] == null ? true : m[2]] : [a, true]; }));
-const SRC = args.src || path.join(__dirname, "ne_10m_admin_0_countries.geojson");
+/* `dl-ne10.js` writes `ne_10m.geojson`; the default here named the file by its upstream name, which that
+   downloader has never produced — so a first run died on a file nobody could have had. Both are accepted:
+   the one the downloader writes wins, and a hand-placed copy under the upstream name still works. */
+const SRC = args.src || ["ne_10m.geojson", "ne_10m_admin_0_countries.geojson"]
+  .map((f) => path.join(__dirname, f)).find((f) => fs.existsSync(f)) || path.join(__dirname, "ne_10m.geojson");
 const TOL_DEFAULT = Number(args.tol) || 0.002;
 const ONLY = args.region ? String(args.region) : null;
 const die = (m) => { console.error("ERROR: " + m); process.exit(1); };
@@ -84,6 +88,32 @@ const REGIONS = {
     tol: 0.003,
     bbox: [73.0, 17.0, 132.0, 50.0],
     countries: ["China", "Taiwan", "Hong Kong", "Macao", "North Korea", "South Korea", "Vietnam"],
+  },
+  /* The United States, for the Geography section's states and capitals decks (Sep 2026, on request:
+     "give the US a higher resolution"). It is the widest frame of the four by a long way — the box has
+     to hold Hawaii at 155°W and Maine at 67°W — and the neighbours that share it are Canada, Mexico and
+     the Caribbean shores a Florida card looks across at. RUSSIA IS LEFT OUT for the reason it is left
+     out of China's: its mainland ring is the largest in world.js, and upgrading it for the fifty
+     kilometres of Bering Strait an Alaska card can see would carry thousands of low-res points for
+     nothing.
+     WHAT IT BUYS IS SMALL, AND IT IS WORTH WRITING DOWN, because the temptation on the next frame will
+     be to build the biggest one that will fit. Measured in a browser, A/B on one card with the bundle
+     dropped and the same view redrawn: 117 changed pixels on the California card and 377 on Texas, out
+     of 224,322. The reason is that a MAP CARD is not a locator — the state layer is drawn OVER world.js
+     and IS the coast the reader sees, and `us-states.js` is already 0.002°/3dp, one device pixel at the
+     card's own zoom ceiling. All this can sharpen is where world.js overhangs that layer, and the
+     neighbours' shores. Two thirds of the pixels are the United States' own entry and only a third the
+     neighbours', which is why it is kept despite being the shore that is mostly hidden.
+     CANADA IS THE SIZE, NOT THE TOLERANCE. Its 406 rings are half the frame's points at any tolerance,
+     so the box is narrowed to the belt that faces the lower 48 and the Lakes (52°N) rather than the 72°N
+     the frame needs for Alaska. Coarsening to 0.006° was measured too and saves a quarter of the bytes
+     for a coast that stair-steps at the ceiling; the ring count, not the vertex count, is the bulk. */
+  usa: {
+    tol: 0.003,
+    bbox: [-179.9, 17.5, -66.0, 72.0],
+    countries: ["United States of America", "Mexico", "Cuba", "Bahamas", "Canada"],
+    // Canada's own box stops at 52°N — see `boxes` in spliceCountry, and the note above
+    boxes: { Canada: [-125.0, 41.0, -60.0, 52.0] },
   },
 };
 
@@ -151,6 +181,26 @@ const inBox = (p, bb) => p[0] >= bb[0] && p[0] <= bb[2] && p[1] >= bb[1] && p[1]
 const ringBox = (r) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const p of r) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; } return [x0, y0, x1, y1]; };
 const boxesMeet = (a, b) => a[0] <= b[2] && a[2] >= b[0] && a[1] <= b[3] && a[3] >= b[1];
 
+/* THE ARC A LOW-RES EDGE STANDS FOR IS THE SHORT ONE, AND `dir` ALONE CANNOT SAY SO (Sep 2026, on a bug
+   report: "in the Ancient Greece collection I can no longer see the landmass of Turkey"). `dir` is the
+   ring's own direction, decided once by majority over the whole ring, and for a handful of edges the
+   index mapping runs the other way — a vertex whose rounded key matches the 10m ring in two places is
+   enough. Walking those in `dir` goes the LONG way round: the chain comes back as nearly the entire 10m
+   ring, and the spliced ring is then the country traced twice over.
+   IT RENDERS, WHICH IS WHY NOTHING CAUGHT IT. A doubled ring has twice the signed area and every vertex
+   in the right place, so it looks perfect stroked and perfect under a NONZERO fill — and the card window
+   fills EVEN-ODD, where two windings cancel: Turkey's mainland was drawn and then unfilled by its own
+   second copy, leaving Anatolia as open sea between the Black Sea and the Mediterranean. China's ring
+   was traced three times and so still filled, at three times the points. A low-res edge is a
+   simplification of a SHORT arc, so an arc longer than half the ring is wrong whatever `dir` says, and
+   the complementary walk is the true one. Used for a coast EDGE only — an island deliberately walks the
+   whole ring. */
+function edgeChain(ring, i, j, dir) {
+  const n = ring.length;
+  const m = (ring[0][0] === ring[n - 1][0] && ring[0][1] === ring[n - 1][1]) ? n - 1 : n;
+  const steps = dir > 0 ? ((j - i) % m + m) % m : ((i - j) % m + m) % m;
+  return subChain(ring, i, j, steps * 2 > m ? -dir : dir);
+}
 // the 10m sub-chain from index i to index j of `ring`, walking in direction `dir` (+1 / -1), wrapping
 function subChain(ring, i, j, dir) {
   const n = ring.length, out = [];
@@ -164,6 +214,11 @@ function subChain(ring, i, j, dir) {
 
 function spliceCountry(name, region, log) {
   const TOL = region.tol || TOL_DEFAULT;
+  /* A NEIGHBOUR MAY NEED A NARROWER BOX THAN THE FRAME (Sep 2026, with the usa frame). The region's box
+     has to reach 72°N to hold Alaska's north slope, and at that latitude it also swallows the whole
+     Canadian Arctic archipelago — 35,000 points of Ellesmere and Baffin that no state card can see, and
+     three quarters of the bundle. `boxes` narrows one country without narrowing the frame. */
+  const BOX = (region.boxes && region.boxes[name]) || region.bbox;
   const lo = byName.get(name);
   if (!lo) { log.push("  " + name + ": not in world.js — skipped"); return null; }
   const hi = neRings(name);
@@ -187,9 +242,16 @@ function spliceCountry(name, region, log) {
     const HR = best >= 0 ? hi[best] : null;
     // each vertex's index in the 10m ring
     const at = HR ? pts.map((p) => { const a = (idx.get(key2(p)) || []).filter((q) => q[0] === best); return a.length ? a[0][1] : -1; }) : [];
-    const touches = boxesMeet(ringBox(pts), region.bbox);
-    if (!HR || bestN < n || !touches) {
-      if (touches && HR && bestN < n) misses++;
+    const touches = boxesMeet(ringBox(pts), BOX);
+    /* EVERY VERTEX HAS TO HAVE AN INDEX IN THE RING WE CHOSE, and the vote alone does not say so
+       (Sep 2026, building the usa frame). A low-res vertex can sit on TWO 10m rings — a shared
+       border vertex, an island touching a mainland's bbox — so it votes for both, and `bestN` can
+       reach `n` while some vertex has no entry for `best` at all. `at` is then -1 there,
+       `edgeChain` indexes the ring at -1, and the build dies on an undefined point. Italy, Greece
+       and China never met it; the United States does, and the honest answer for such a ring is the
+       one the vote miss already gets — keep it low-res and report it. */
+    if (!HR || bestN < n || !touches || at.some((x) => x < 0)) {
+      if (touches && HR && (bestN < n || at.some((x) => x < 0))) misses++;
       out.push(ring); kept++;
       continue;
     }
@@ -199,7 +261,7 @@ function spliceCountry(name, region, log) {
     const dir = fwd >= back ? 1 : -1;
     // coast edges: a low-res edge is coast when the 10m chain it stands for is mostly unshared
     const coast = pts.map((p, i) => {
-      const chain = subChain(HR, at[i], at[(i + 1) % n], dir);
+      const chain = edgeChain(HR, at[i], at[(i + 1) % n], dir);
       let shared = 0;
       for (let q = 0; q + 1 < chain.length; q++) if (edgeShared(chain[q], chain[q + 1])) shared++;
       return shared * 2 < Math.max(1, chain.length - 1);
@@ -223,8 +285,8 @@ function spliceCountry(name, region, log) {
       if (coast[i]) {
         // a coast edge p[i] -> p[i+1]: the 10m chain between the same two vertices, where the frame reaches it
         const j = (i + 1) % n;
-        if (inBox(p, region.bbox) || inBox(pts[j], region.bbox)) {
-          const chain = dp(subChain(HR, at[i], at[j], dir), TOL).map(r4);
+        if (inBox(p, BOX) || inBox(pts[j], BOX)) {
+          const chain = dp(edgeChain(HR, at[i], at[j], dir), TOL).map(r4);
           for (let q = 0; q < chain.length - 1; q++) res.push(chain[q]);   // the edge's last vertex is the next edge's first
           runs++; hiPts += chain.length - 1;
         } else res.push(p);

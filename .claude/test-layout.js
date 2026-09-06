@@ -51,11 +51,21 @@ function serve() {
 }
 
 // the Atlas's first-visit coach marks cover the whole globe; every Atlas section here needs them gone
-async function atlas(page, base, ms) {
+/* THE ATLAS OPENS ON THE READER'S OWN TAB NOW (Sep 2026), AND EVERY SECTION BELOW IS ABOUT THE WORLD
+   ONE. The personal atlas hides the search and the legend outright — they are the world atlas's index and
+   its layer switches, neither of which that tab has — so once `#map` started landing there, eight
+   assertions about the chip layout began reading `{"w":0,"shown":false}` and failing on a feature that was
+   working perfectly one press away. This helper presses that press. Both coach-mark keys are set, since
+   each tab carries its own and an undismissed card sits over the chrome being measured. */
+async function atlas(page, base, ms, tab) {
   await page.goto(base, { waitUntil: "load" });
-  await page.evaluate(() => localStorage.setItem("folio_atlas_tour_v1", "1"));
+  await page.evaluate(() => { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); });
   await page.goto(base + "#map", { waitUntil: "load" });
   await page.waitForTimeout(ms || 4500);
+  const want = tab || "world";
+  const sel = '[data-atlastab="' + want + '"]';
+  const need = await page.evaluate((s) => { const b = document.querySelector(s); return !!b && !b.classList.contains("on"); }, sel);
+  if (need) { await page.click(sel); await page.waitForTimeout(2200); }
 }
 /* Put a collection in the daily review, the way a reader does. The first-run hero routes to the
    COLLECTIONS now (Aug 2026, on request) rather than picking a subject on the reader's behalf, so nothing
@@ -144,10 +154,17 @@ function scrimCheck() {
      after it, which reads as the swipe having broken rather than as an overlay being in the way. The
      home page's walkthrough OFFER is left alone deliberately: it is inline markup, it blocks nothing, and
      section 6 asserts the home page as a first-time reader actually meets it. */
+  /* …AND THE MARKER'S OWN COACH MARKS (Sep 2026). They open the first time the marker's panel is opened
+     and they are a full-screen card on `document.body`, so from the second press onward every click aimed
+     at the marker landed on the card instead: section 5d's "putting the tools away leaves the pen down"
+     read `panel:true` — the panel had never shut — and the ink section's clicks timed out on "the wb-tools
+     subtree intercepts pointer events", which took the whole suite down before its summary. The overlay
+     is a feature, and `test-tour.js` is where a coach mark is asserted; here it is furniture in the way of
+     the thing being measured. */
   const watch = (p) => {
     p.on("pageerror", (e) => errs.push("pageerror: " + e));
     p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
-    return p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
+    return p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); localStorage.setItem("folio_marker_tour_v1", "1"); } catch (e) {} });
   };
 
   /* ================= 1. the bottom tab bar ================= */
@@ -1867,7 +1884,7 @@ function scrimCheck() {
     await page.close();
   }
 
-  /* ================= 7c. the Atlas panel's discovery chip and its pages ================= */
+  /* ================= 7c. the Atlas panel's discovery chip and its title row ================= */
   {
     const page = await browser.newPage({ viewport: PHONE });
     await watch(page);
@@ -1882,18 +1899,37 @@ function scrimCheck() {
       name.textContent = "France";
       el.hidden = false;
       const a = name.getBoundingClientRect(), b = chip.getBoundingClientRect();
-      const secs = [...document.querySelectorAll(".cp-cols > .cp-sec")];
       return {
         sameRow: b.top < a.bottom - 2 && b.bottom > a.top + 2,   // vertically overlapping = one horizontal bar
         beside: b.left >= a.right - 1,
-        stop: secs.length ? getComputedStyle(secs[0]).scrollSnapStop : "",
-        headed: !!document.querySelector(".cp-titlerow #cpName") && !!document.querySelector(".cp-titlerow #cpNew"),
+        headed: !!document.querySelector(".cp-titlemain #cpName") && !!document.querySelector(".cp-titlemain #cpNew"),
+        counter: !!chip.querySelector(".disc-n"),
       };
     });
     check("the discovery chip shares the popup title's row", cp.sameRow && cp.beside, JSON.stringify(cp));
     check("...as its sibling in the title row", cp.headed);
-    // a big swipe used to carry from the description straight to the figures, skipping the year paragraph
-    check("...and a swipe can never skip the year section", cp.stop === "always", cp.stop);
+    /* THE CONTROLS KEEP THE TOP-RIGHT CORNER AT EVERY NAME LENGTH (Sep 2026, on a bug report). The row
+       wrapped, so a long name — with the chip beside it — pushed the chevron and the × onto a second line,
+       where they appeared at the BOTTOM LEFT of the sheet: the close button of a panel, as far from where a
+       reader looks for it as the box allows. Asserted with the longest name the Atlas actually carries. */
+    const corner = await page.evaluate(() => {
+      const el = document.querySelector("#countryPop");
+      document.querySelector("#cpName").textContent = "United Kingdom of Great Britain and Northern Ireland";
+      const p = el.getBoundingClientRect();
+      const x = document.querySelector("#cpClose").getBoundingClientRect();
+      const m = document.querySelector("#cpMore").getBoundingClientRect();
+      const n = document.querySelector("#cpName").getBoundingClientRect();
+      return {
+        wrapped: n.height > 30,                      // the name really did take more than one line
+        right: Math.round(p.right - x.right),        // …and the × is still at the panel's right edge
+        top: Math.round(x.top - p.top),              // …and at its TOP, not centred against two lines
+        sameLine: Math.abs(x.top - m.top) < 2,
+        afterChev: x.left >= m.right - 1,
+      };
+    });
+    check("a long name never pushes the × off the title's line", corner.wrapped && corner.sameLine && corner.afterChev,
+      JSON.stringify(corner));
+    check("...and it keeps the panel's top-right corner", corner.right < 26 && corner.top < 26, JSON.stringify(corner));
     await page.close();
   }
 
@@ -1939,7 +1975,12 @@ function scrimCheck() {
     }));
     check("the panel has no Draw button — the sizes are the pen", !panel.draw);
     check("...Mark beside them", panel.markWithSizes);
-    check("...Erase above Undo and Clear above Redo", panel.grid === "wb-eraser+wb-clear / wb-undo+wb-redo", panel.grid);
+    /* Sep 2026: the Help button — the way back to the marker's own coach marks — rides at the end of the
+       undo/redo row, so the second row is three cells now. What this asserts is the PAIRING the request
+       asked for (Erase over Undo, Clear over Redo), which is the first cell of each column; the row is
+       matched with the Help cell optional so that adding one more control to it is a deliberate edit here
+       rather than a mystery failure. */
+    check("...Erase above Undo and Clear above Redo", /^wb-eraser\+wb-clear \/ wb-undo\+wb-redo(\+wb-help)?$/.test(panel.grid), panel.grid);
     check("...and a custom colour of the reader's own", panel.custom && panel.pickShut, JSON.stringify({ swatch: panel.custom, shut: panel.pickShut }));
     // the platform's own dialog is a full-screen sheet of sliders over the card being annotated; the picker
     // is inline now, so an <input type=color> anywhere here means the change was reverted
@@ -2187,13 +2228,16 @@ function scrimCheck() {
     await atlas(page, base);
     await page.evaluate(() => { location.hash = "#map/2026/france"; });
     await page.waitForTimeout(2500);
-    // how much of the scroller is NOT filled by the page in it — the "empty space at the bottom"
+    // how much of the scroller is NOT filled by what is in it — the "empty space at the bottom". The
+    // sections are added up rather than read off the scroller's own scrollHeight, which can never be less
+    // than the box we have just given a height (see cpColsContentH).
     const slack = () => page.evaluate(() => {
       const cols = document.querySelector(".cp-cols");
-      const panes = [...cols.children].filter((c) => !c.hidden && !c.classList.contains("cp-blank"));
-      const i = Math.max(0, Math.min(panes.length - 1, Math.round(cols.scrollLeft / (cols.clientWidth || 1))));
+      const secs = [...cols.children].filter((c) => !c.hidden && getComputedStyle(c).display !== "none");
+      const gap = parseFloat(getComputedStyle(cols).rowGap) || 0;
+      const need = secs.reduce((a, c) => a + c.offsetHeight, 0) + gap * Math.max(0, secs.length - 1);
       const p = document.querySelector("#countryPop").getBoundingClientRect();
-      return { slack: Math.round(cols.clientHeight - panes[i].scrollHeight), h: Math.round(p.height), top: Math.round(p.top), pane: i, panes: panes.length };
+      return { slack: Math.round(cols.clientHeight - need), h: Math.round(p.height), top: Math.round(p.top), secs: secs.length };
     });
     /* THE DRAG IS GONE (Aug 2026, on request — "remove the size dragging system, and keep only the
        chevron"). Asserted as an ABSENCE from the DOM rather than as a hidden element: a grip that is
@@ -2256,7 +2300,30 @@ function scrimCheck() {
       && opened.h > shut.h, JSON.stringify({ shut: shut.h, opened: opened.h }));
 
     const s0 = await slack();
-    check("...and opens no taller than the page in it needs", s0.slack <= 24, JSON.stringify(s0));
+    check("...and opens no taller than the sections in it need", s0.slack <= 24, JSON.stringify(s0));
+
+    /* THE FIGURES ARE READ WITHOUT A GESTURE (Sep 2026, on request: "users currently need to swipe right to
+       see the country data boxes — instead, move them to above the country background paragraphs so it is
+       all in one page"). Three things, and each fails in its own silent way: a horizontal scroller left
+       behind would put the figures back behind a swipe; the figures BELOW the description would be the
+       fault the pager was built to fix; and a figures grid whose bottom edge falls outside the sheet is a
+       page that fits on paper and not on the screen. */
+    const onepage = await page.evaluate(() => {
+      const p = document.querySelector("#countryPop").getBoundingClientRect();
+      const cols = document.querySelector(".cp-cols");
+      const st = document.querySelector("#cpStatsSec").getBoundingClientRect();
+      const de = document.querySelector("#cpDescSec").getBoundingClientRect();
+      return {
+        horiz: cols.scrollWidth - cols.clientWidth,
+        statsTop: Math.round(st.top), descTop: Math.round(de.top),
+        statsIn: st.top >= p.top - 1 && st.bottom <= p.bottom + 1,
+        dots: !!document.querySelector(".cp-dots"),
+      };
+    });
+    check("the sheet scrolls one way only — there are no pages to swipe",
+      onepage.horiz <= 1 && !onepage.dots, JSON.stringify(onepage));
+    check("...the figures are read ABOVE the description", onepage.statsTop < onepage.descTop, JSON.stringify(onepage));
+    check("...and are wholly on screen when the sheet opens", onepage.statsIn, JSON.stringify(onepage));
 
     /* IT FOLDS RATHER THAN CUTTING (Aug 2026, on request), and both halves are measured MID-FLIGHT — a
        settled fold and a jumpcut end in exactly the same place, so anything asserted afterwards passes on
@@ -2279,20 +2346,79 @@ function scrimCheck() {
 
     await page.click("#cpMore");
     await page.waitForTimeout(600);
-    // …and a swipe to another page re-fits it. The figures grid is far shorter than the description.
-    const tall = await slack();
-    await page.evaluate(async () => {
-      const cols = document.querySelector(".cp-cols");
-      cols.scrollLeft = cols.clientWidth * ([...cols.children].filter((c) => !c.hidden && !c.classList.contains("cp-blank")).length - 1);
-      cols.dispatchEvent(new Event("scroll"));
-      await new Promise((r) => setTimeout(r, 500));
-    });
-    await page.waitForTimeout(400);
-    const swiped = await slack();
-    check("...swiping to a shorter page shrinks the sheet to fit it", swiped.slack <= 24 && swiped.h <= tall.h + 1,
-      JSON.stringify({ tall: tall, swiped: swiped }));
+    /* …and folding a section away re-fits it. The heads do nothing on the sheet while the sections are
+       pages — they are folds again now, and a fold that leaves the box the size of the paragraph it just
+       took away is a fold that has only made a gap. It measured as a no-op when this shipped, because a
+       scroller's `scrollHeight` is never less than the box it is in.
 
-    /* THE NEXT PLACE OPENS SHUT, AND THEN TO ITS OWN PAGE'S HEIGHT — there is nothing remembered now, which
+       BUT THE HEIGHT IS THE SMALLER OF TWO THINGS, AND ONLY ONE OF THEM IS THE CONTENT (`cpMaxH` =
+       min(room, need)). This was asserted as "fold one section and the sheet gets shorter", which is only
+       true where what is LEFT fits in the room — and on France at 390×800 it does not: the room is 602px
+       and folding the 552px description still leaves 567px of sections under ~90px of chrome. So the sheet
+       stayed at 602 and the check failed, on a sheet doing exactly the right thing. It failed on main for
+       as long as it existed, which is what a suite that is a second opinion rather than a gate can hide.
+       BOTH HALVES ARE ASSERTED NOW, because they fail in opposite directions: a sheet that shrank while
+       its content still overflowed would be showing empty space over a scroller with more to give, and one
+       that would not shrink once its content DID fit is the gap this check was written for. The second
+       half is what actually exercises the re-fit, so it names the numbers it is standing on.
+
+       THE CITATIONS NOW OPEN SHUT (Sep 2026, on request: "all atlas popups should have their sources
+       section collapsed by default"), and this section needs BOTH open before it starts: its whole shape
+       is fold one, still too much, fold the other, now it fits. Left as it was, folding the description
+       alone already fitted (183px of content in a 602px room) and the second fold OPENED the sources
+       instead of shutting them — two failures, both of them the fixture rather than the sheet. It is
+       opened here rather than by relaxing the assertions, since what is being measured is the two-stage
+       re-fit and there is no second long section to spend on it. */
+    await page.evaluate(() => { const h = document.querySelector("#cpSrcSec .cp-sec-head"); if (h && document.querySelector("#cpSrcSec").classList.contains("collapsed")) h.click(); });
+    await page.waitForTimeout(550);
+    const tall = await slack();
+    /* The room is the stage's height less the sheet's own two clearances, and those are SLICED OUT OF
+       app.js rather than copied: a test carrying its own 22 would fail on the day either constant moved,
+       and the message would be about a fold rather than about the clearance that had changed. */
+    const cpGaps = /const CP_TOP_GAP = (\d+), CP_BOTTOM_GAP = (\d+)/
+      .exec(fs.readFileSync(path.join(ROOT, "app.js"), "utf8"));
+    check("the sheet's two clearances are still declared where this test reads them", !!cpGaps);
+    const cpGap = cpGaps ? Number(cpGaps[1]) + Number(cpGaps[2]) : 22;
+    const foldSec = async (id) => {
+      await page.evaluate(async (sel) => {
+        document.querySelector(sel + " .cp-sec-head").click();
+        await new Promise((r) => setTimeout(r, 450));
+      }, id);
+      await page.waitForTimeout(400);
+      return page.evaluate((a) => {
+        const p = document.querySelector("#countryPop");
+        const stage = p.closest(".globe-stage");
+        return { h: Math.round(p.getBoundingClientRect().height),
+                 room: Math.round((stage ? stage.clientHeight : 0) - a.gap),   // CP_TOP_GAP + CP_BOTTOM_GAP
+                 // how much of what is left the sheet still cannot show. Measured against the SCROLLER's
+                 // box rather than against the room, since the room has to hold the head and the padding
+                 // too — comparing the sections' own height with the room reads ~90px of chrome as slack.
+                 over: Math.round(slackNeed() - cols().clientHeight),
+                 need: Math.round(slackNeed()), collapsed: document.querySelector(a.sel).classList.contains("collapsed") };
+        function cols() { return document.querySelector(".cp-cols"); }
+        function slackNeed() {
+          const c0 = cols();
+          const secs = [...c0.children].filter((c) => !c.hidden && getComputedStyle(c).display !== "none");
+          const gap = parseFloat(getComputedStyle(c0).rowGap) || 0;
+          return secs.reduce((a, c) => a + c.offsetHeight, 0) + gap * Math.max(0, secs.length - 1);
+        }
+      }, { sel: id, gap: cpGap });
+    };
+    const oneShut = await foldSec("#cpDescSec");
+    check("...folding a section that still leaves too much keeps the sheet at the room's height",
+      oneShut.collapsed && oneShut.over > 0 && oneShut.h === oneShut.room,
+      JSON.stringify({ tall: tall.h, oneShut }));
+    const bothShut = await foldSec("#cpSrcSec");
+    check("...and folding until it fits shrinks the sheet to what is left",
+      /* `over <= 0` rather than `< 0`: once the content fits, the sheet is sized TO the content, so the
+         scroller's box and what is in it are the same number and the slack is exactly zero — which is the
+         whole of what "fit what is left" means. */
+      bothShut.collapsed && bothShut.over <= 0 && bothShut.h < oneShut.h - 20,
+      JSON.stringify({ oneShut: oneShut.h, bothShut }));
+    await page.evaluate(() => { document.querySelector("#cpSrcSec .cp-sec-head").click(); });
+    await page.waitForTimeout(500);
+
+    /* THE NEXT PLACE OPENS SHUT, AND THEN TO ITS OWN CONTENT'S HEIGHT — there is nothing remembered now, which
        is what removing the drag bought. Both halves are asserted because they fail in opposite directions:
        a sheet still carrying a height from the last place would be the thing the grip was removed for, and
        one that would not open at all is worse than either. */
@@ -2307,8 +2433,42 @@ function scrimCheck() {
     await page.click("#cpMore");
     await page.waitForTimeout(600);
     const reopened = await slack();
-    check("...and opens to what ITS own page needs", reopened.slack <= 24 && reopened.h > next.h,
+    check("...and opens to what ITS own sections need", reopened.slack <= 24 && reopened.h > next.h,
       JSON.stringify({ shut: next.h, opened: reopened }));
+
+    /* A LONG PLACE IS CAPPED BY THE STAGE, NOT BY THE SCREEN (Sep 2026, on a bug report: on mobile the
+       popup expanded "too tall … i can't see the top of the popup or the button to close it"). The sheet
+       is absolutely positioned inside `.globe-stage`, which stops above the timeline and the tab bar and
+       CLIPS what overflows it — so a ceiling measured against `documentElement.clientHeight` overshot by
+       about 154px on a phone and pushed the title row, the breadcrumb and the × off the top, where they
+       were cut away with no way back but the chevron the reader could no longer see. Measured on the
+       United States, whose sections run past the room a phone has; France and Spain above both fit
+       comfortably, so neither of them can see this at all — which is why it is asserted on a place chosen
+       for being TOO LONG rather than on the one already open. The × is checked as a RECT inside the sheet
+       rather than by its height, since a control clipped by an ancestor's overflow still measures its full
+       size and reports itself perfectly visible. */
+    await page.evaluate(() => { location.hash = "#map/2026/united-states-of-america"; });
+    await page.waitForTimeout(1800);
+    await page.click("#cpMore");
+    await page.waitForTimeout(600);
+    const big = await page.evaluate(() => {
+      const p = document.querySelector("#countryPop"), stage = p.closest(".globe-stage");
+      const pr = p.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+      const tr = document.querySelector(".cp-titlerow").getBoundingClientRect();
+      const x = p.querySelector(".cp-close").getBoundingClientRect();
+      return {
+        top: Math.round(pr.top), bottom: Math.round(pr.bottom),
+        stageTop: Math.round(sr.top), stageBottom: Math.round(sr.bottom),
+        titleTop: Math.round(tr.top), xTop: Math.round(x.top), xBottom: Math.round(x.bottom),
+        overflow: Math.round(document.querySelector(".cp-cols").scrollHeight - document.querySelector(".cp-cols").clientHeight),
+      };
+    });
+    check("a long place's sheet stays inside the globe stage",
+      big.top >= big.stageTop - 1 && big.bottom <= big.stageBottom + 1, JSON.stringify(big));
+    check("...so its name is on screen", big.titleTop >= big.stageTop - 1, JSON.stringify(big));
+    check("...and so is the button that closes it",
+      big.xTop >= big.stageTop - 1 && big.xBottom <= big.stageBottom + 1, JSON.stringify(big));
+    check("...with the rest reached by scrolling rather than by growing", big.overflow > 0, JSON.stringify(big));
     await page.close();
   }
 

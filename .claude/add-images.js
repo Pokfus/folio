@@ -119,21 +119,19 @@ function writeCards(cardImages, dry, replace) {
   return n;
 }
 
-/* artefacts.js is rewritten whole in `serializeArtefacts`'s exact output format — the same one
-   add-artefacts.js and add-artefact-sources.js emit, so a hand edit and the next save from
-   Admin → Artefacts cannot drift apart.
+/* THE ARTEFACT POOL IS TWO FILES and both are written through .claude/artefact-io.js — never from an
+   emitter of this script's own.
 
-   IT REWRITES EVERY ARTEFACT, SO ITS EMITTER MUST CARRY EVERY FIELD `serializeArtefacts` CARRIES.
-   An artefact's image was three fields and has been FIVE since Aug 2026 (the plate's picture opens
-   the viewer, and with no title or desc it opened on a blank caption) — and this emitter did not
-   learn the two, so one run to replace one picture silently stripped `title` and `desc` from all 99.
-   Nothing threw; the captions simply went.  That is the trap CLAUDE.md already records against
-   `artefactSanitize` / `serializeArtefacts` / `add-artefacts.js`, met on the fourth writer nobody
-   thought to name.  Both are written only where they exist, so an entry without them is unchanged. */
+   IT USED TO CARRY ONE, AND THAT IS THE WHOLE ARGUMENT FOR THE SHARED MODULE. An artefact's image was
+   three fields and has been FIVE since Aug 2026 (the plate's picture opens the fullscreen viewer, and
+   with no title or desc it opened on a blank caption) — and this script's private emitter did not learn
+   the two, so one run to replace one picture silently stripped `title` and `desc` from all 99. Nothing
+   threw; the captions simply went. A copy of a serializer goes stale on a change made in another file by
+   someone with no reason to look here, and the split has now added a second way for that to happen: an
+   emitter that writes artefacts.js alone would take every description in the pool with it. */
 function writeArtefacts(images, dry, replace) {
-  const file = path.join(ROOT, "artefacts.js");
-  const win = loadWindow(file);
-  const all = win.ARTEFACTS;
+  const io = require("./artefact-io.js");
+  const all = io.loadArtefacts();     // BOTH files — the eager index and the lazy desc/sources/image
   const byId = new Map(all.map((a) => [a.id, a]));
   let n = 0;
   for (const [id, img] of Object.entries(images)) {
@@ -151,21 +149,7 @@ function writeArtefacts(images, dry, replace) {
     if (img.desc) a.image.desc = img.desc;
     n++;
   }
-  const s = (v) => JSON.stringify(String(v == null ? "" : v));
-  const HEAD = fs.readFileSync(file, "utf8").split("window.ARTEFACTS")[0];
-  const body = all.map((a) => {
-    let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
-    if (a.date) out += "    date: " + s(a.date) + ",\n";
-    if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
-    if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) +
-      (a.image.title ? ", title: " + s(a.image.title) : "") +
-      (a.image.desc ? ", desc: " + s(a.image.desc) : "") +
-      ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
-    out += "    desc: " + s(a.desc) + ",\n";
-    if (Array.isArray(a.sources) && a.sources.length) out += "    sources: [\n" + a.sources.map((x) => "      " + s(x) + ",").join("\n") + "\n    ],\n";
-    return out + "  },";
-  }).join("\n");
-  if (!dry) { fs.writeFileSync(file, HEAD + "window.ARTEFACTS = [\n" + body + "\n];\n"); loadWindow(file); }
+  if (!dry) io.writeArtefacts(all);
   return n;
 }
 

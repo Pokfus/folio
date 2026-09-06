@@ -122,7 +122,6 @@ function poolBody(name, endAt) {
 const FED = [
   ["buildChallengeQuestions", "return chosen.map", "Multiple Choice"],
   ["chronoPool", "function hashStr", "Timeline"],
-  ["picturePool", "function dailyPictureRounds", "Picture round"],
 ];
 for (const [fn, end, label] of FED) {
   const body = poolBody(fn, end);
@@ -130,6 +129,30 @@ for (const [fn, end, label] of FED) {
   if (!body) continue;
   ok(/gameCardIdSet\(\)/.test(body), label + " draws from gameCardIdSet()");
   ok(!/availableCardIdSet\(\)/.test(body), label + " does NOT draw the unfiltered set");
+}
+/* THE PICTURE ROUND LEFT THIS TABLE IN SEP 2026, on the request that it use artefact pictures alone, and
+   half of it came back in Sep 2026 on the request that the artworks appear there too. The rule it is held
+   to is therefore no longer "it does not draw from the cards" — that assertion would now pass for the
+   wrong reason — but the narrower one the two requests together make: it draws from the artefacts AND
+   from the ARTWORK cards, whose picture IS their own answer (`cardArtSpec`), and from nothing else. A
+   card's or a term's ordinary illustration DEPICTS nothing in particular — a flag under a country, a
+   hand-axe under `Acheulean` — and that is what must not come back.
+   IT DELIBERATELY DOES NOT GO THROUGH `gameCardIdSet()`, which is the difficulty door: that bar exists
+   because the games behind it deal a term cold with nothing on screen, where here the picture is on
+   screen and the answer is one of four. The artefact half has no rating to filter on either, so filtering
+   one half and not the other would deal two kinds of round. */
+{
+  const body = poolBody("picturePool", "function dailyPictureRounds");
+  ok(!!body && /artefactsMerged\(\)/.test(body), "Picture round draws from artefactsMerged()");
+  ok(!!body && /cardArtSpec\(/.test(body) && /availableCardIdSet\(\)/.test(body), "…and from the artwork cards beside them");
+  ok(!!body && !/gameCardIdSet\(\)/.test(body), "Picture round does not go through the difficulty door");
+  ok(!!body && !/threadEasyKeys\(\)/.test(body) && !/glossImage\(/.test(body), "Picture round does not draw from the glossary");
+}
+/* …and the other side of that pair: an ARTWORK card is out of every game `gameCardIdSet` feeds, for the
+   reason a map card is — those games deal the question cold, and this question is a picture. */
+{
+  const m = /function gameCardIdSet\(\)\s*\{[\s\S]*?\n  \}/.exec(APP);
+  ok(!!m && /!cardArtSpec\(c\)/.test(m[0]), "gameCardIdSet keeps artwork cards out of the card-fed games");
 }
 /* Timeline and What year? once shared `chronoPool`. What year? has its own pool now, so the assertion is
    that it no longer reaches for the cards at all — a silent reversion would bring back a game that asks

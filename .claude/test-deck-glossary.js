@@ -212,6 +212,14 @@ async function studyLinks(page, base) {
     if (!c) return null;
     c.click();
     await new Promise((r) => setTimeout(r, 900));
+    /* THE FIRST SESSION ON A DECK ASKS HOW IT SHOULD BE DEALT (PAGES.order, Sep 2026), intercepted in
+       `route()` — so this click lands on the picker rather than on a card, and the loop below found no
+       `#reveal-btn` and collected nothing. The check then passed its own emptiness off as a result:
+       "checked 0 links" is an isolation test that has stopped testing isolation, which is the one way
+       this kind of guard fails quietly. Skipped in one press, as a reader would, and guarded so it is a
+       no-op if the page ever stops asking. */
+    const sk = document.querySelector("#opSkip");
+    if (sk) { sk.click(); await new Promise((r) => setTimeout(r, 900)); }
     const out = [];
     for (let i = 0; i < 4; i++) {
       const rb = document.querySelector("#reveal-btn");
@@ -227,6 +235,9 @@ async function studyLinks(page, base) {
     }
     return out;
   });
+  /* `curated.length > 0` is the half that matters as much as the isolation: a run that collected nothing
+     proves nothing, and used to report itself as a pass-shaped failure rather than as a fixture that had
+     stopped reaching a card. */
   check("curated cards never link a deck's term", Array.isArray(curated) && curated.length > 0 && !curated.some((k) => /^u:/.test(k)),
     "checked " + (curated || []).length + " links");
 

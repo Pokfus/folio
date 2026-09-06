@@ -40,6 +40,15 @@ line here in the same commit as the card, and say so — this file is only usefu
 The one thing that must not happen is a card written to fill a slot. The house rule stands: never
 invent a date, a name or a definition. If a topic cannot be sourced, say so and replace the line.
 
+**AND CHECK THE SHIPPED DECK FOR THE SUBJECT UNDER ANOTHER NAME BEFORE WRITING.** A line can name an
+institution a much earlier card already carries, and the two answer terms will share no words, so
+nothing catches it — not `test-card-plans.js`, which checks ids and topics rather than subjects, and
+not a grep of the answers. `gr-470` was planned as *Boule and prytaneis* and written as **boule**,
+which duplicated `gr-312` **Council of Five Hundred** — the same body, six of ten sentences the same
+facts, and a second glossary term for a term that already existed. It was rewritten as **the
+prytaneis**, which `gr-312` touches in one clause, and the line above now says so. The check that
+would have caught it is to read the deck's existing answers for the SUBJECT, not to match the word.
+
 Card ids run `gr-001` … `gr-1000`, zero-padded to three digits, in the order below. Numbering follows
 the tree, and the tree follows chronology, so the running order is roughly chronological — which also
 means an early card and a late card in the same deck sort together on the study page, since cards are
@@ -705,7 +714,7 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-467  Pericles
     gr-468  Athenian radical democracy
     gr-469  Ecclesia
-    gr-470  Boule and prytaneis
+    gr-470  The prytaneis
     gr-471  Dikasteria
     gr-472  Misthos
     gr-473  Strategos
@@ -1233,6 +1242,45 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-964  Telemachus
     gr-965  Aeneas in Greek myth
 
+## Known omissions of this plan, and why they stay omitted (Sep 2026 audit)
+
+Two gaps the audit found were **filled by amending unwritten slots**, which costs nothing: `gr-983`
+was the oracle of Trophonius and is now the Delphic amphictyony and the First Sacred War, which is
+how Delphi was actually run and fought over; `gr-985` was hepatoscopy, already covered by `gr-984`
+Divination, and is now the crown games — the Pythian, Isthmian and Nemean, without which `gr-228`
+Panhellenic sanctuary and `gr-229` Olympic Games describe a circuit with three quarters missing.
+
+The rest fall inside decks that are **full and already written**, so adding one would mean deleting
+a shipped card and moving an id. A card id is a permanent address — it carries every reader's
+schedule, every shared link and every row of the cloud content overlay — so these stay out, and are
+recorded here rather than quietly forgotten:
+
+| topic | deck it belongs to | why it matters |
+|---|---|---|
+| Chania / Kydonia | `gr-crete` (full, 55) | the third Minoan centre, with both a Linear A and a Linear B archive, while Mochlos, Pseira and Petras each have a card |
+| Anemospilia | `gr-crete` (full) | the site the whole argument about Minoan human sacrifice rests on |
+| chamber tomb | `gr-mycenae` (full, 55) | the commonest Mycenaean grave form, where the shaft grave and the tholos each have a card |
+| Orchomenos and the Treasury of Minyas | `gr-mycenae` (full) | the Boeotian counterpart to Mycenae's tholoi |
+| Daedalic style | `gr-archaic-culture` (full, 60) | the phase of sculpture that precedes the kouros |
+| archaic Thessaly | `gr-polis` (full, 60) | a major region the collection never reaches |
+| archaic Megara | `gr-polis` (full) | present only through its colony, `gr-209` Megara Hyblaea |
+
+**Where one of these can be folded into a neighbouring card's prose, do that instead of adding a
+card — and the fold is only worth making where a source ALREADY ON THAT CARD carries it.** Two were
+made in the Sep 2026 audit: `gr-332` kouros now names Daedalus and the ancient tradition that he
+first opened his statues' eyes and freed their arms from their sides, on the Gardner handbook the
+card already cites; and `gr-051` Mycenaean Knossos now puts Chania among the Warrior Grave
+cemeteries, on the Rutter lesson it already cites.
+
+**The chamber tomb was NOT folded, and the reason is worth keeping.** The obvious hosts are `gr-063`
+and `gr-064`, and none of the works either card cites describes the form at all: Rutter's Lesson 19
+carries chamber tombs only in its bibliography, the Greek ministry's Mycenae page never uses the
+word, and Schuchhardt's Schliemann volume does not either. The standard work is Wace's *Chamber
+Tombs at Mycenae* (1932), which is not openable from this sandbox. **A fold that needs a citation
+the card has not got is a new card's worth of research wearing a clause's clothes** — leave it here
+until the source is reachable. Orchomenos, Anemospilia, archaic Thessaly and archaic Megara have no
+neighbouring card whose prose they belong in at all, and stay omitted outright.
+
 ### Cult, oracles and festivals — `gr-cult`
 
     gr-966  Greek religion
@@ -1252,9 +1300,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-980  The Delphic maxims
     gr-981  The omphalos
     gr-982  The oracle at Dodona
-    gr-983  The oracle of Trophonius
+    gr-983  The Delphic amphictyony and the First Sacred War
     gr-984  Divination
-    gr-985  Hepatoscopy
+    gr-985  The crown games: Pythian, Isthmian and Nemean
     gr-986  The Panathenaia
     gr-987  The Greek festival calendar
     gr-988  The Thesmophoria
