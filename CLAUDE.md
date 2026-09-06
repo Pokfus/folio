@@ -1315,7 +1315,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.06 MB and 44,955 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.07 MB and 45,085 lines is hard to find your way around, so this
   lists its 169 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -3450,9 +3450,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     never a warning). Links open in a new tab.
   · **CITATIONS ARE NOT TRANSLATED** (`notranslate`, and `sources` lives on the base card, not in `i18n`);
     only the "Sources" label and the chips are.
-  · **THE FOLD IS OPEN BY DEFAULT ON A CARD, A BOOK AND THE ATLAS PANEL, AND ALWAYS SHUT IN A GLOSS POPUP**
-    (`opts.compact`), which additionally never writes the reader's `S.settings.srcCollapsed`. A marker jump
-    force-opens it for one look and never changes the preference.
+  · **THE FOLD IS OPEN BY DEFAULT ON A CARD AND A BOOK, AND ALWAYS SHUT IN A GLOSS POPUP AND ON EVERY
+    ATLAS POPUP** (`opts.compact`, which additionally never writes the reader's `S.settings.srcCollapsed`;
+    and `cpSection(cpSrcSecEl, false, true)` plus `mountCardBack`'s `opts.shutSources`, added Sep 2026 on
+    request — "all atlas popups should have their sources section collapsed by default"). The Atlas panel
+    followed `srcCollapsed`, which is a setting written for a CARD, where the citations sit at the foot of
+    three hundred words the reader chose to open; on a place panel it put a list of works between the prose
+    and the bottom of a sheet a phone shows about a third of. **A panel is TWO folds** — its own Sources
+    section and, on the personal atlas, the card back drawn inside it — so both are shut, or one popup
+    disagrees with itself. `alwaysShow` is what keeps a shut section on the sheet, `cp-blank` being for a
+    section with nothing in it at all. A marker jump force-opens the fold for one look and never changes
+    the preference.
   · **A MARKER JUMP MEASURES A FOLD THAT IS ALREADY OPEN AND CLEARS THE FIXED FURNITURE**
     (`openFootnote` / `scrollNoteIntoView`, reading `--bar-h` / `--tabbar-h`), or the note lands under the
     tab bar or below the viewport entirely.
@@ -4894,6 +4902,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the row's last flex item, matching the chevron's 30px box rather than keeping its own 24px one — two
   controls of different sizes side by side read as two different kinds of thing. The row's 20px right
   margin goes with the absolute positioning, that margin having existed only to clear the corner button.
+  **AND A SHUT SHEET PUTS THE CHEVRON BEHIND THE NAME** (Sep 2026, on request: "on mobile when only the
+  name is shown in the popup with the rest collapsed, put the chevron just behind the name instead of in
+  the top right next to the X close button"). Open, the chevron is the far end of a full row and belongs
+  with the ×; SHUT, that row IS the whole sheet — a name at the left and two similar marks at the right,
+  the control that opens the thing pressed against the one that closes it. Three lines in the sheet block:
+  `.cp-shut .cp-titlemain` stops growing, so the chevron walks back to the name it opens, and
+  `margin-left:auto` moves from the chevron to the ×, which keeps the corner every close lives in.
 - **THE ATLAS SHEET IS ONE PAGE, WITH THE FIGURES AT THE TOP OF IT** (Sep 2026, on request: "users
   currently need to swipe right to see the country data boxes — instead, move them to above the country
   background paragraphs so it is all in one page"). The four sections lay SIDE BY SIDE and were swiped
@@ -4954,9 +4969,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a URL and contains no break opportunity.
 - **Atlas:** an orthographic **Canvas-2D** globe, full-bleed between the nav and a fixed bottom timeline
   (1000 BCE → present). Drag to rotate, wheel/pinch to zoom, plus on-screen `+`/`−` (`#gzIn`/`#gzOut`) and
-  the keyboard, all through `zoomStep()`; `ZMIN 0.82 … ZMAX 30` (raised from 10 in Sep 2026, on request —
-  the card maps have gone to `CMAP_ZMAX` 400 for years, and the coast, the rivers and the era borders all
-  carry more detail than zoom 10 could reach; both tabs share the constant), and zooming scales the disk radius
+  the keyboard, all through `zoomStep()`; `ZMIN 0.82 … ZMAX 120` (10 → 30 → 120, twice in Sep 2026 on
+  request — the coast, the rivers and the era borders all carry more detail than zoom 10 could reach; both
+  tabs share the constant). **It stops short of the card maps' `CMAP_ZMAX` 400 on purpose**: those splice
+  in a hi-res coastline where this globe does not, and `world.js` is 2dp — about a kilometre — so past
+  ~120 the coast is visibly polygonal and a deeper ceiling only magnifies the data's own steps. Zooming
+  scales the disk radius
   (`R = baseR·zoom`). It opens centred on `S.settings.home` (**Settings → Home location**, default the
   Netherlands). The operational half:
   · **THE WHEEL LISTENER IS ON `window`, IN THE CAPTURE PHASE** (`onGlobeWheel`) and normalises
@@ -5028,8 +5046,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     rule one step further on.
     **THE RAIL IS LINEAR HERE AND BENT THERE, and nothing snaps.** The world atlas has thirteen stops and
     bends its scale to keep them apart; the personal atlas has none, because every year has a map, so a
-    bent scale would only lie about how far apart two years are. The chevrons step a century in the deep
-    past and a decade after 1500.
+    bent scale would only lie about how far apart two years are. **The chevrons step ONE YEAR** (Sep 2026,
+    on request); they stepped a century in the deep past and a decade after 1500, which is a chevron that
+    cannot reach most of the years its own rail holds. Crossing a millennium is what dragging the rail is
+    for, and a hold on the chevron still accelerates.
     **THE POPUP IS THE CARD** — `buildBack` through `mountCardBack`, in the country panel's own shell, with
     its year paragraph, its Wikidata figures and the Atlas's citation fold hidden: those describe a country
     as the world atlas knows it, and what is being shown is a card, whose own facts and sources come with
@@ -5061,21 +5081,51 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     own map and drawn in that map's shape, which is a better answer than any authored polygon — and they
     are NOT demoted to a dot, a dot in the middle of Etruria being the false claim the card maps stopped
     making.
-    **A SHAPE'S NAME SITS AT ITS LABEL POINT, NEVER AT ITS BOUNDING-BOX CENTRE** (`lp` / `la` in
-    `mineShapes`; Sep 2026, on a bug report: "'United States of America' shows up over Europe and
-    'Russia' over the north sea"). A bbox centre says nothing about a country that crosses the
-    antimeridian — Chukotka sits just west of -180 and Alaska just east of it, so both bboxes run the
-    full -180..180 and their centres are longitude 0, which is the North Sea; measured, France's box
-    centre was in the Atlantic off Africa and New Zealand's and Kiribati's were the wrong side of the
-    planet. **`ringLabelAnchor` is the era layer's own answer and already solves it** — largest ring,
-    longitudes unwrapped as it walks, the point nudged back inside a concave shape — so the fix is to
-    call it rather than to write a second rule. It is computed in `mineShapes`, where the shape list is
-    cached, so a frame pays nothing; a subdivision's published label point (`at`) still wins. The names
-    are then drawn **biggest first and once per NAME**, since a country is several territory entries on
-    some eras and without that the de-collision decides which islet is labelled. **The same pass had an
-    early return on an empty mark list**, so a reader who had studied only geography cards — countries
-    and no places — met lit shapes with not one name on them; the shapes' names are drawn by the second
-    half of that function, so the guard now covers the marks loop alone.
+    **A SHAPE CARRIES ITS BORDER AND NO NAME** (Sep 2026, on request: "remove the name labels for
+    countries and provinces. Once a country is discovered, also show its border. Discovered provinces
+    should appear with dotted borders and selectable through a second-level/double click"). This reverses
+    a rule of the day before, and the reversal is the better answer: the names were placed at each
+    shape's own label point after a bug report that the United States was labelled over Europe (a bbox
+    centre is meaningless for a country crossing the antimeridian — Chukotka sits west of -180 and Alaska
+    east of it, so the box runs the full -180..180 and its centre is the North Sea, which is also where
+    France's fell in the Atlantic and New Zealand's on the wrong side of the planet). Correctly placed,
+    they were still a heap of words over the earth this tab exists to keep clear. **What says where a
+    country ends is now its OWN BORDER**, drawn for the shapes in the register and for nothing else — so
+    an inland state, which had no coast and so no edge of any kind, is finally a shape rather than a
+    patch. The country's is SOLID and in the map's own `border` ink (which the coast is stroked in too,
+    so a shared run drawn twice reads as one line); a **PROVINCE's is DOTTED**, which is how every atlas
+    separates the two and what `subdivInner` already does on the card maps. **A DOT KEEPS ITS NAME**: it
+    has no outline, so the name is the whole of what it says. `ringLabelAnchor` and the `lp` / `la`
+    fields went with the label pass.
+    **AND A PROVINCE IS THE SECOND CLICK** (`mineAt(px, py, sub)`): a state's own shape and its
+    province's coincide over most of their border, so "smallest wins" would hand every click inside
+    California to California and the country would be unreachable. The first click tests countries only
+    and the second provinces only — the world atlas's drill, two rungs instead of three, counted with
+    that tab's own 400ms window and 14px slop.
+    **A CULTURE OR A CIVILISATION IS DRAWN WITH ITS OWN EXTENT, IN THE YEARS IT STOOD** (`MINE_POLITY`,
+    the `area` marks, `drawMineAreas`; Sep 2026, on request: "ancient cultures and civilisations should be
+    displayed in their relevant years"). The earlier request — countries and civilisations yes, regions
+    and ranges no — could only be half kept, because a country is unlocked by NAME against the year's era
+    map and **Folio's maps begin at 1500**: every civilisation older than that had no shape to be drawn in
+    and appeared nowhere at all. What it does have is the authored `area` on its own card. **THE
+    DISCRIMINATOR IS THE CARD'S OWN KIND TAG** — `culture`, `people`, `state`, `dynasty`, `empire`: a
+    polity or a people, which is what "civilisation" means here, and NOT `place`, which is Etruria,
+    Attica, Latium and the Fertile Crescent, the regions the earlier request took off this globe.
+    Measured over the corpus that admits **30 of the 45 region locators and no geographic one**;
+    `rm-091` the Roman Republic is filed `era` by its own tags and so draws nothing, and the fix for that
+    is the card's tag rather than a wider rule here, since `era` is also the Bronze Age. **BOTH ENDS OF
+    THE SPAN BIND**, unlike a place's: the Liangzhu culture ends where Yinxu does not. It is drawn
+    DASHED, in the marks' red — a culture has no border to be right about and a crisp line would assert a
+    frontier Folio has not surveyed — and **CLIPPED TO THE LAND**, since an authored area is a dozen
+    points where a coast is a thousand. The clip is a `ctx.clip()` over the visible land rather than the
+    card maps' second canvas because it runs only in a frame that HAS a live civilisation in it; most
+    frames build no path at all.
+    **A RIVER IS NEITHER A DOT NOR A NAME** (Sep 2026, on request: "'Tiber' should not have a dot or
+    label"). It is drawn already — every river is, as one of the Atlas's own blue threads — so a dot on
+    one pins a 400 km course to an arbitrary point on it, which is the false precision a region's dot
+    would have been. It joins `range` and the non-polity regions in the register's own refusals.
+    **EVERYTHING DRAWN ANSWERS A CLICK** (same request): dot, culture, province, country, in that order
+    of how specific a claim each is.
     **THE STRAY BORDERS ARE THE COAST CLASSIFIER'S GENEROSITY, AND THE FIX IS A MASK** (`mineCoastSkip`;
     Sep 2026, on a bug report naming "the western border of Uzbekistan, some borders of Jordan,
     Montenegro, the Netherlands, western Spain, the southern border of the Western Sahara"). `coastEdges`
@@ -6786,7 +6836,7 @@ dead code (never rendered).
     three article spans) is exempt and must stay so**: the slash cannot be spoken and picking one gender
     asserts what the card declines to. Report-only, exit 1 on a finding. **Re-run after rebuilding any
     deck, and after touching `say_text` in cils/build_deck.py or the `say` block in delf/build_deck.py.**
-  · `node .claude/test-personal-atlas.js` — **the Atlas's second tab** (28 assertions, Sep 2026), and
+  · `node .claude/test-personal-atlas.js` — **the Atlas's second tab** (34 assertions, Sep 2026), and
     every fault it guards is silent: a globe with nothing on it looks exactly like a reader who has
     studied nothing, a place resolved in the wrong year looks like a deliberate absence, and a popup
     that has quietly gone back to the world atlas's country panel is a perfectly good country panel. The
@@ -6794,16 +6844,23 @@ dead code (never rendered).
     now different colours: an unlocked COUNTRY is the light land shade (zero of it on an empty globe, where
     every land pixel is the dark one) and a PLACE is the locator red, which nothing else on this globe is.
     The light shade is COMPUTED from the same two CSS variables and the same formula `readColors` uses
-    rather than sampled, so a theme change moves both together. **Its section 6 measures LABEL INK**
-    (`LBL_TEXT`, #221808, which nothing else on this globe is near): with only the United States and
-    Russia unlocked there must be none in a box around the centre of the disk, which is Europe — see the
-    bbox-centre note in the personal-atlas bullet — and some somewhere, or the check passes on a name
-    layer that has stopped drawing. **Re-run after touching `atlasTab` /
+    rather than sampled, so a theme change moves both together. **Sections 6–8 measure the Sep 2026 batch**
+    and two of them needed an instrument of their own. A BORDER cannot be found by colour — it is the ink
+    the coastline is drawn in, and coast is everywhere — so it is a DIFFERENCE: the same view with and
+    without landlocked Austria unlocked, counting land pixels darker than the unearned land shade. **The
+    view is zoomed in four presses first, and that is not tidying**: at the opening zoom the border is a
+    hairline whose every pixel antialiases above any threshold, and the two renders came back 22 pixels
+    apart — a real difference indistinguishable from noise; zoomed, it is 526. A PROVINCE's dotted border
+    is asserted through the CLICK LADDER rather than by counting dashes, since a dash count cannot tell a
+    province's border from a country's where the ladder can: one click inside California answers "United
+    States" and a second, in the same spot, answers "California". **Label ink must now be ZERO**, the
+    names this section asserted a day earlier being what the request removed. **Re-run after touching `atlasTab` /
     `MINE` / `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
-    `drawMineMarks` / `mineCoastSkip` / `landDim` / `showMinePopup` / `eraIsModern` /
-    `renderStatic`'s MINE branch / `updateHoverName` / `snapYear` / `frac2year` / `year2frac` / the
-    `.atlas-tabs` markup / `.atlas-empty` / `.cp-mine`, or after changing which cards carry a `map` or a
-    `locator`.**
+    `drawMineMarks` / `drawMineAreas` / `MINE_POLITY` / `areaBBox` / `mineCoastSkip` / `landDim` /
+    `showMinePopup` / `eraIsModern` / `renderStatic`'s MINE branch / `updateHoverName` / `snapYear` /
+    `stepYear` / `frac2year` / `year2frac` / `ZMAX` / `cpSection` / `mountCardBack`'s `shutSources` / the
+    `.atlas-tabs` markup / `.atlas-empty` / `.cp-mine` / `.cp-shut`, or after changing which cards carry a
+    `map` or a `locator`.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and
     a glossary term's way onto the map (Aug 2026). **Re-run after touching `glossPlace` / `focusPlace` /
     `CITY_SEP` / `computeCityLayout` / `gsIndex` / `hmOpacity`, or after re-running

@@ -197,41 +197,156 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
   check("...but coming back to the Atlas opens on your own again",
     await page.$eval('[data-atlastab="mine"]', (e) => e.classList.contains("on")));
 
-  /* ---------- 6) a shape's name sits on the shape ---------- */
-  /* Sep 2026, on a bug report: "'United States of America' shows up over Europe and 'Russia' over the
-     north sea". Both countries cross the antimeridian, so their BOUNDING BOXES run the full -180..180
-     and the box centre the label used to be placed at is longitude 0 — the North Sea. It is a silent
-     fault: the name is drawn, correctly spelled, in the right style, over the wrong continent.
+  /* ---------- 6) what a discovered shape is drawn with ---------- */
+  /* Sep 2026, on request: "remove the name labels for countries and provinces. Once a country is
+     discovered, also show its border. Discovered provinces should appear with dotted borders."
 
-     WHAT IS MEASURED IS LABEL INK, in the day theme's own `LBL_TEXT` (#221808), which nothing else on
-     this globe is near — the land shades are grey, the ocean cyan, the marks red. The globe opens
-     centred on the reader's home (the Netherlands), so Europe is the middle of the disk: with only the
-     United States and Russia unlocked there must be NO label ink in a box around the centre, and there
-     must be some SOMEWHERE, or the check would pass on a layer that had stopped drawing at all.
-     Measured against the unfixed code, that centre box held 176 ink pixels. */
-  console.log("\n6) a country's name is drawn on the country");
-  await page.close();
-  page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
-  page.on("pageerror", (e) => errs.push(e.message));
-  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
-  await page.addInitScript(seed(["gw-003", "gw-009"]));   // the United States and Russia, both antimeridian-crossing
-  await page.goto(base + "#map", { waitUntil: "load" });
-  await page.reload({ waitUntil: "load" });
-  await page.waitForTimeout(4200);
-  const ink = await page.evaluate(`(() => {
-    const cv = document.getElementById("globe"), ctx = cv.getContext("2d");
-    const dpr = cv.width / cv.getBoundingClientRect().width;
-    const bw = Math.round(90 * dpr), bh = Math.round(60 * dpr);
-    const cen = ctx.getImageData(Math.round(cv.width / 2) - bw, Math.round(cv.height / 2) - bh, bw * 2, bh * 2).data;
-    const all = ctx.getImageData(0, 0, cv.width, cv.height).data;
-    const count = (d) => { let n = 0; for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 8 && Math.abs(d[i] - 34) < 14 && Math.abs(d[i + 1] - 24) < 14 && Math.abs(d[i + 2] - 8) < 16) n++; return n; };
-    return { centre: count(cen), whole: count(all) };
-  })()`);
-  check("their names are drawn", ink.whole > 40, JSON.stringify(ink));
-  check("...and NOT over Europe, at the antimeridian-spanning bbox centre", ink.centre === 0, JSON.stringify(ink));
-  /* AND A COUNTRY NEEDS NO PLACE MARK TO BE NAMED: this seed carries no locator card, so the whole
-     name pass used to be skipped by an early return written when marks were all this layer drew. */
-  check("...on a register of countries alone, with no place marks in it", ink.whole > 40, JSON.stringify(ink));
+     This section replaces the one written a day earlier, which asserted the opposite — that a country
+     carries its NAME, drawn at the shape's own label point rather than at its antimeridian-spanning
+     bbox centre. That fault (the United States labelled over Europe) is gone with the whole label pass;
+     what is left of it here is the first check, which now reads the other way round.
+
+     BOTH CLAIMS ARE MEASURED IN PIXELS, because both are drawn on a canvas. LABEL INK is the day
+     theme's own `LBL_TEXT` (#221808), which nothing else on this globe is near. A BORDER cannot be
+     recognised by colour — it is the same ink as the coastline, which is everywhere — so it is measured
+     as a DIFFERENCE: the same view, once with nothing unlocked and once with an inland European country
+     unlocked, and the dark pixels the second one adds are its border and nothing else. Austria is
+     inland, so every line it gains is a border rather than a coast. */
+  console.log("\n6) a discovered country carries a border and no name");
+  /* BORDER INK, MEASURED AS A DIFFERENCE. A border cannot be recognised by its colour — it is the same
+     ink the coastline is drawn in, and the coast is everywhere — so it is measured as what an unlocked
+     country ADDS to the same view: land pixels darker than the unearned land shade, once with nothing
+     unlocked and once with Austria unlocked. Austria is landlocked, so every line it gains is a border
+     rather than a coast. THE VIEW IS ZOOMED IN FIRST, and that is not tidying: at the opening zoom the
+     border is a hairline whose every pixel is antialiased above the threshold, and the two renders came
+     back 22 pixels apart — a real difference too small to tell from noise. Four presses of the zoom
+     button take it to 526. LABEL INK is the day theme's own `LBL_TEXT` (#221808), which nothing else on
+     this globe is near, and it must now be ZERO: the names this section asserted a day earlier are the
+     thing this request removed. */
+  const INK = `(() => {
+    const cs = getComputedStyle(document.body);
+    const hex = (h) => { h = h.replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+    const P = hex(cs.getPropertyValue("--paper").trim() || "#ffffff"), I = hex(cs.getPropertyValue("--ink").trim() || "#000000");
+    const L = P.map((v, i) => Math.round(v + (I[i] - v) * 0.10));           // the light land: a country the reader holds
+    const lum = (r, g, b) => r * 0.299 + g * 0.587 + b * 0.114;
+    const cut = lum(L[0] * 0.87, L[1] * 0.87, L[2] * 0.87) - 12;           // darker than the unearned land shade
+    const cv = document.getElementById("globe"), d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
+    let ink = 0, mine = 0, label = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] < 8) continue;
+      if (Math.abs(d[i] - L[0]) <= 3 && Math.abs(d[i + 1] - L[1]) <= 3 && Math.abs(d[i + 2] - L[2]) <= 3) mine++;
+      if (Math.abs(d[i] - 34) < 14 && Math.abs(d[i + 1] - 24) < 14 && Math.abs(d[i + 2] - 8) < 16) label++;
+      if (d[i + 2] - d[i] > 30) continue;                                   // water
+      if (lum(d[i], d[i + 1], d[i + 2]) < cut) ink++;
+    }
+    return { ink: ink, mine: mine, label: label };
+  })()`;
+  const freshPage = async (ids, zoomIn) => {
+    await page.close();
+    page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+    page.on("pageerror", (e) => errs.push(e.message));
+    page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
+    await page.addInitScript(seed(ids));
+    await page.goto(base + "#map", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(4200);
+    for (let i = 0; i < (zoomIn || 0); i++) { await page.click("#gzIn"); await page.waitForTimeout(240); }
+    if (zoomIn) await page.waitForTimeout(1200);
+  };
+  await freshPage([], 4);
+  const bare = await page.evaluate(INK);
+  await freshPage(["gw-098"], 4);   // Austria — landlocked, so its whole outline is border rather than coast
+  const lit = await page.evaluate(INK);
+  check("an unlocked country is drawn", lit.mine > 1000, JSON.stringify({ bare: bare.mine, lit: lit.mine }));
+  check("...with a border of its own", lit.ink > bare.ink + 200, JSON.stringify({ bare: bare.ink, lit: lit.ink }));
+  check("...and no name anywhere on the globe", lit.label === 0 && bare.label === 0, JSON.stringify({ bare: bare.label, lit: lit.label }));
+
+  /* A PROVINCE IS DOTTED AND IS REACHED ON THE SECOND CLICK. The dotted border is asserted through the
+     hit test rather than by counting dashes: a dash count cannot tell a province's border from a
+     country's, where the CLICK LADDER can — a first click inside California answers "United States" and
+     a second, in the same spot, answers "California". That ladder is also the only thing that can go
+     wrong silently, a province drawn and unreachable looking exactly like decoration. */
+  await freshPage(["gw-003", "geo-001"]);   // the United States, and California
+  const rr = await page.$eval("#globe", (e) => { const b = e.getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height }; });
+  await page.evaluate(() => { location.hash = "#map"; });
+  // turn the globe to North America: drag from the centre
+  await page.mouse.move(rr.x + rr.w / 2, rr.y + rr.h / 2);
+  await page.mouse.down();
+  await page.mouse.move(rr.x + rr.w / 2 + 300, rr.y + rr.h / 2 + 40, { steps: 12 });
+  await page.mouse.up();
+  await page.waitForTimeout(1500);
+  let one = "", two = "";
+  for (let dx = -260; dx <= 260 && !two; dx += 22) {
+    for (let dy = -200; dy <= 200 && !two; dy += 22) {
+      const x = rr.x + rr.w / 2 + dx, y = rr.y + rr.h / 2 + dy;
+      await page.mouse.click(x, y);
+      await page.waitForTimeout(90);
+      const t1 = await page.evaluate(() => { const e = document.getElementById("countryPop"); return e && !e.hidden ? document.getElementById("cpName").textContent.trim() : ""; });
+      if (t1 !== "United States") continue;
+      await page.mouse.click(x, y);
+      await page.waitForTimeout(120);
+      const t2 = await page.evaluate(() => { const e = document.getElementById("countryPop"); return e && !e.hidden ? document.getElementById("cpName").textContent.trim() : ""; });
+      if (t2 === "California") { one = t1; two = t2; }
+    }
+  }
+  check("one click names the country, a second the province inside it", one === "United States" && two === "California", one + " / " + two);
+
+  /* ---------- 7) a civilisation is drawn in the years it stood ---------- */
+  /* Sep 2026, on request: "ancient cultures and civilisations should be displayed in their relevant
+     years". A country is unlocked by name against the year's era map and Folio's maps begin at 1500, so
+     before this every civilisation older than that appeared nowhere at all. What is drawn is the card's
+     own authored area, dashed, in the marks' red — which is what the red count below sees. */
+  console.log("\n7) an ancient culture, in its own years");
+  await freshPage(["cnh-047"]);   // the Hongshan culture, c. 4500–3000 BCE
+  await setYear(-3800);
+  const inSpan = await page.evaluate(PX);
+  check("a culture is on the globe inside its own span", inSpan.marks > 0, JSON.stringify(inSpan));
+  await setYear(-1000);
+  const after = await page.evaluate(PX);
+  check("...and gone from it after the culture ends", after.marks === 0, JSON.stringify(after));
+
+  /* A RIVER IS NEITHER A DOT NOR A NAME (Sep 2026, on request: "'Tiber' should not have a dot or
+     label"). It is drawn already, as one of the Atlas's own blue threads, so a dot on one pins a 400 km
+     course to an arbitrary point on it. */
+  await freshPage(["rm-003"]);   // the Tiber
+  const riv = await page.evaluate(PX);
+  check("a river card puts no dot on the globe", riv.marks === 0, JSON.stringify(riv));
+
+  /* ---------- 8) the year chevrons, and the citations ---------- */
+  console.log("\n8) the chevrons, the zoom and the sources");
+  await freshPage(["gw-013"]);
+  const yearNow = () => page.$eval("#ayNum", (e) => e.textContent.trim());
+  const y0 = await yearNow();
+  await page.click("#ayPrev");
+  await page.waitForTimeout(600);
+  const y1 = await yearNow();
+  check("a chevron press moves the year by one", Number(y0.replace(/[^0-9]/g, "")) - Number(y1.replace(/[^0-9]/g, "")) === 1, y0 + " → " + y1);
+
+  /* THE ZOOM CEILING, sliced out of app.js rather than pressed for (Sep 2026, on request: "users should
+     be able to zoom in further"). Pressing + to the stop and reading the disk back would measure the
+     button's step count rather than the ceiling, and the ceiling is the thing that was asked about. */
+  const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "app.js"), "utf8");
+  const zm = /const ZMIN = [\d.]+, ZMAX = (\d+)/.exec(APP);
+  check("the Atlas zooms deeper than it used to", !!zm && Number(zm[1]) > 30, zm ? "ZMAX " + zm[1] : "not found");
+
+  /* THE CITATIONS OPEN SHUT (on request: "all atlas popups should have their sources section collapsed
+     by default"). The panel's own Sources section and the card back inside it are two folds in one
+     popup, and only the second can be tested here — `country-sources.js` ships empty, so the panel's
+     own section is hidden on every place. */
+  let shut = null;
+  for (let dx = -240; dx <= 240 && shut === null; dx += 26) {
+    for (let dy = -190; dy <= 190 && shut === null; dy += 26) {
+      await page.mouse.click(rr.x + rr.w / 2 + dx, rr.y + rr.h / 2 + dy);
+      await page.waitForTimeout(80);
+      shut = await page.evaluate(() => {
+        const e = document.getElementById("countryPop");
+        if (!e || e.hidden) return null;
+        const f = e.querySelector(".src-collapse");
+        return f ? f.classList.contains("collapsed") : null;
+      });
+    }
+  }
+  check("a place's citations start collapsed", shut === true, String(shut));
 
   check("no console or page errors throughout", errs.length === 0, errs.slice(0, 3).join(" | "));
   await browser.close();

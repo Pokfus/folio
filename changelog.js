@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.659", released: "2026-09-06T11:53Z" };
+window.FOLIO_VERSION = { v: "1.660", released: "2026-09-06T12:26Z" };
 
 window.CHANGELOG = [
   {
@@ -54,9 +54,13 @@ window.CHANGELOG = [
       "<b>Places on your own atlas are marked in red</b>, and regions, mountain ranges and a few stray borders no longer show on it at all.",
       "<b>A place on your own atlas now stays on it</b> \u2014 marked from its earliest known date and never taken away again, where a city used to vanish when its card's dates ran out.",
       "<b>A place's panel on your own atlas no longer repeats what the card in it already says</b>.",
-      "<b>A country's name on your own atlas is now drawn on the country</b>, where the United States and Russia had been labelled over Europe and the North Sea.",
+      "<b>Your own atlas now draws a country's border instead of its name</b>, solid for a country and dotted for a province, which a second click selects.",
+      "<b>Ancient cultures and civilisations now appear on your own atlas</b>, each washed over the ground it held, in the years it stood.",
+      "<b>Your own atlas's year chevrons now move a single year at a time</b>, where they had jumped a century in the deep past.",
+      "<b>An Atlas popup now opens with its sources folded away</b>, and on a phone the chevron that opens it sits beside the place's name.",
+      "<b>A place's name on your own atlas can now sit to the left of its dot</b> where that fits better, and a river no longer gets a dot at all.",
       "<b>Rivers are drawn thinner the further out you zoom</b> on the Atlas, where at world scale they had washed the continents blue.",
-      "<b>The Atlas zooms three times closer than before</b>, on both its tabs.",
+      "<b>The Atlas now zooms twelve times closer than it did</b>, on both its tabs.",
       "<b>Thirty-three new cards in Ancient Rome</b>, on provincial revenue, Greek influence and Cato, the Gracchi, and the Jugurthine and Cimbric wars that made Marius.",
       "<b>Ten new cards in the Biology collection</b>, opening its chapter on the cell.",
       "<b>The word <i>cell</i> now opens its own glossary entry wherever it appears</b>, which it did not before.",

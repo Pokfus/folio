@@ -31892,6 +31892,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      A DOT IS A NAME, NOT A COORDINATE. `map.dot` names a city in its layer's own points table, which is
      lazy, so an unlock records the name and the layer and the point is resolved at DRAW time — a capital
      unlocked before `worldcaps` lands appears when it lands rather than being dropped. */
+  // the card kinds that are a POLITY OR A PEOPLE rather than a piece of geography — see the region branch below
+  const MINE_POLITY = new Set(["culture", "people", "state", "dynasty", "empire", "civilisation"]);
   function atlasUnlocks() {
     const key = Object.keys(S.cards || {}).length + "|" + ((window.WORLD_GEO || []).length) + "|" + ((window.US_STATES || []).length) + "|" + ((window.CHINA_PROVINCES || []).length);
     if (_atlasMineCache && _atlasMineCache.key === key) return _atlasMineCache.v;
@@ -31918,17 +31920,42 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (!loc) return;
       const ys = cardSpanYears(c);
       const y0 = ys.length ? Math.min.apply(null, ys) : null;   // the START only — see mineMarks: a place does not stop existing
-      /* A REGION AND A RANGE ARE NOT ON THIS GLOBE (Sep 2026, on request: "mountain ranges like the
-         Apennines should not be displayed … areas or regions (like Etruria, Attica) should not show.
-         countries or civilisations should"). They were drawn as a dashed wash and a spine — the marks
-         their own card maps use — and at world scale a dozen of them is a rash of amber blotches over an
-         earth whose whole point is that it is empty until it is earned. A COUNTRY OR A CIVILISATION is not
-         lost by this: those are unlocked by NAME against the year's own map (see `names` above) and are
-         drawn as the territory that map gives them, which is a better shape than any authored polygon.
-         What is left here is the reader's PLACES — cities, sites, caves, battles — each a dot.
-         Nor are they demoted to a dot: a dot in the middle of Etruria says Etruria is a point near Siena,
-         which is the false claim the card maps stopped making (see `locatorSiblings`). */
-      if (loc.kind === "region" || loc.kind === "range") return;
+      /* A GEOGRAPHIC REGION AND A RANGE ARE NOT ON THIS GLOBE (Sep 2026, on request: "mountain ranges
+         like the Apennines should not be displayed … areas or regions (like Etruria, Attica) should not
+         show. countries or civilisations should"). They were drawn as a dashed wash and a spine — the
+         marks their own card maps use — and at world scale a dozen of them is a rash of amber blotches
+         over an earth whose whole point is that it is empty until it is earned. What is left here is the
+         reader's PLACES — cities, sites, caves, battles — each a dot; and they are not demoted to one,
+         since a dot in the middle of Etruria says Etruria is a point near Siena, which is the false
+         claim the card maps stopped making (see `locatorSiblings`). The CIVILISATIONS that request
+         exempts are the branch below, and a COUNTRY is unlocked by NAME against the year's own map (see
+         `names` above), which gives it a better shape than any authored polygon. */
+      /* A CULTURE OR A CIVILISATION IS DRAWN WITH ITS EXTENT, IN THE YEARS IT STOOD (Sep 2026, on
+         request: "ancient cultures and civilisations should be displayed in their relevant years"). The
+         request above it — countries and civilisations yes, regions and ranges no — could only be half
+         kept: a COUNTRY is unlocked by name against the year's own era map, and Folio's maps begin at
+         1500, so every civilisation older than that had no shape to be drawn in and appeared nowhere at
+         all. What it does have is the authored `area` on its own card, which is what its card map draws.
+         THE DISCRIMINATOR IS THE CARD'S OWN KIND TAG, not the shape: `culture`, `people`, `state`,
+         `dynasty`, `empire` — a polity or a people, which is what "civilisation" means here — and NOT
+         `place`, which is Etruria, Attica, Latium and the Fertile Crescent, the regions the earlier
+         request took off this globe. Measured over the corpus, that admits 30 of the 45 region locators
+         and no geographic one. (`rm-091` the Roman Republic is filed `era` by its own tags and so draws
+         nothing; the fix for that is the card's tag, not a wider rule here, since `era` is also the
+         Bronze Age.)
+         BOTH ENDS OF THE SPAN BIND, unlike a place's: Yinxu is still there and the Liangzhu culture is
+         not, so a civilisation leaves the map at the end of its date line as it arrived at the start. */
+      if (loc.kind === "region") {
+        if (!loc.area || !MINE_POLITY.has(String((c.tags || [])[0] || "").toLowerCase())) return;
+        const y1 = ys.length ? Math.max.apply(null, ys) : null;
+        marks.push({ id: cid, title: loc.name || title, kind: "area", area: loc.area, at: loc.at, y0: y0, y1: y1 });
+        return;
+      }
+      /* A RANGE IS OFF THIS GLOBE (the request above), AND SO IS A RIVER (Sep 2026, on request: "'Tiber'
+         should not have a dot or label"). A river is already drawn — every river is, as one of the
+         Atlas's own blue threads — so a dot on one pins a 400 km course to an arbitrary point on it,
+         which is the false precision a region's dot would have been. */
+      if (loc.kind === "range" || loc.kind === "river") return;
       marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, y0: y0 });
     });
     const v = { names: names, subdiv: subdiv, marks: marks, need: need, count: names.size + subdiv.length + marks.length };
@@ -32714,6 +32741,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (opts.expand) {
       inner.querySelectorAll(".bg-collapse, .bg-toggle").forEach((el) => el.classList.remove("collapsed"));
       if (bgHead) bgHead.setAttribute("aria-expanded", "true");
+    }
+    /* …and `opts.shutSources` closes the citation fold, which `sourcesHTML` opened on the reader's own
+       setting. It is the Atlas panel's rule (see `cpSection` on `cpSrcSecEl`) reaching the card back that
+       panel draws, so the two halves of one popup cannot disagree about whether sources start open. */
+    if (opts.shutSources) {
+      inner.querySelectorAll(".src-collapse, .src-toggle").forEach((el) => el.classList.add("collapsed"));
+      const sh = inner.querySelector(".src-head"); if (sh) sh.setAttribute("aria-expanded", "false");
     }
     if (bgHead && bgCollapse) bgHead.addEventListener("click", () => {
       const col = bgCollapse.classList.toggle("collapsed");
@@ -35713,7 +35747,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          a citation. `.cp-srcnote` cancels the rule and margin `.src-note` draws for a card, the panel's
          own section furniture already providing both. */
       if (cpSrcEl) cpSrcEl.innerHTML = psrc.length ? '<div class="src-note cp-srcnote">' + sourceListHTML(psrc) + "</div>" : "";
-      if (cpSrcSecEl) { cpSrcSecEl.hidden = !psrc.length; cpSection(cpSrcSecEl, !(S.settings && S.settings.srcCollapsed)); }
+      /* THE SOURCES OPEN SHUT (Sep 2026, on request: "all atlas popups should have their sources
+         section collapsed by default"). It followed the reader's own `srcCollapsed` setting, which is
+         written for a card — where the citations sit at the foot of three hundred words a reader has
+         chosen to open — and on this panel put a list of works between the place's prose and the bottom
+         of a sheet a phone shows about a third of. `alwaysShow` keeps the section on the sheet: shut is
+         a state, where `cp-blank` would take the header away and the citations with it. */
+      if (cpSrcSecEl) { cpSrcSecEl.hidden = !psrc.length; cpSection(cpSrcSecEl, false, true); }
       // …and the join between the two, on the ancestor both halves share. Guarded like every other caller:
       // the numbering is decoration failing loudly enough to take a panel down with it otherwise.
       if (cpColsEl) { try { wireFootnotes(cpColsEl); } catch (err) {} }
@@ -35771,7 +35811,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (cpDescEl) {
         cpDescEl.innerHTML = '<div class="study-card cp-cardback"><div class="reveal show"><div class="reveal-inner">' + buildBack(c) + "</div></div></div>";
         const inner = cpDescEl.querySelector(".reveal-inner");
-        if (inner) mountCardBack(inner, c, { expand: true });
+        if (inner) mountCardBack(inner, c, { expand: true, shutSources: true });
       }
       cpEl.hidden = false;
       cpResize();
@@ -36305,7 +36345,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     let dpr = 1, W = 0, H = 0, baseR = 0;
     let rotLon = atlasView.rotLon, rotLat = atlasView.rotLat, zoom = atlasView.zoom, year = MAXY;   // restore persisted view; `year` = the timeline year (declared early so renderStatic/viewKey + the initial draw can read it)
     if (atlasPendingYear != null) { year = Math.max(MINY, Math.min(MAXY, atlasPendingYear)); atlasPendingYear = null; }   // "View on globe" opens the Atlas at a chosen era's year
-    const ZMIN = 0.82, ZMAX = 30;   // deeper max zoom so the higher-res heightmap + close detail are usable (raised 10 → 30 in Sep 2026, on request — the card maps have gone to CMAP_ZMAX 400 for years, and the coastline, the rivers and the era borders all carry more detail than zoom 10 could reach)
+    const ZMIN = 0.82, ZMAX = 120;   // deeper max zoom so the higher-res heightmap + close detail are usable (10 → 30 → 120, twice in Sep 2026 on request). It stops short of the card maps' CMAP_ZMAX 400 because those splice in a hi-res coastline where this globe does not: world.js is 2dp, about a kilometre, so past ~120 the coast is visibly polygonal and a deeper ceiling would only magnify the data's own steps.
     /* A RIVER IS THINNER THE FURTHER OUT YOU ARE (Sep 2026, on request: "further decrease the width of
        Rivers as you zoom out"). It was `0.4 + zoom * 0.16` floored at 0.5, so at world scale all 1,073 of
        them were drawn at half a pixel over a coast stroked at about the same — a blue haze over the
@@ -37165,34 +37205,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           sd.keys.forEach((k) => {
             const kl = k.toLowerCase();
             for (let i = 0; i < list.length; i++) if (String(list[i].n || "").toLowerCase() === kl) {
-              out.push({ id: sd.id, title: sd.title, name: String(list[i].n), rings: list[i].p || [], bb: null, at: list[i].c || null });
+              out.push({ id: sd.id, title: sd.title, name: String(list[i].n), rings: list[i].p || [], bb: null, at: list[i].c || null, sub: true });
               break;
             }
           });
         });
       }
       out.forEach((o) => { if (!o.bb) { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; o.rings.forEach((r) => r.forEach((p) => { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; })); o.bb = [x0, y0, x1, y1]; } });
-      /* THE NAME SITS AT THE SHAPE'S OWN LABEL POINT, NEVER AT ITS BOUNDING-BOX CENTRE (Sep 2026, on a
-         bug report: "'United States of America' shows up over Europe and 'Russia' over the north sea"). A
-         bbox centre is meaningless for a country that crosses the antimeridian — Russia's Chukotka sits
-         just west of -180 and Alaska just east of it, so both bboxes run the full -180..180 and their
-         centres land at longitude 0, which is the North Sea. `ringLabelAnchor` is the era layer's own
-         answer and already solves it: it takes the LARGEST ring, unwraps its longitudes as it walks it,
-         and nudges the point back inside a concave shape. Computed here rather than at the draw, so it is
-         cached with the shape list and costs a frame nothing; `at` (a subdivision's published label point)
-         still wins where there is one. `la` is that ring's area, which orders the labels below. */
-      out.forEach((o) => {
-        if (o.at) { o.lp = o.at; o.la = Math.abs((o.bb[2] - o.bb[0]) * (o.bb[3] - o.bb[1])); return; }
-        let best = null, bestA = -1;
-        for (let r = 0; r < o.rings.length; r++) {
-          const ring = o.rings[r]; if (!ring || ring.length < 4) continue;
-          let a = 0, px = ring[0][0], py = ring[0][1], ox = 0;
-          for (let i = 1; i < ring.length; i++) { let x = ring[i][0] + ox; if (x - px > 180) { ox -= 360; x -= 360; } else if (px - x > 180) { ox += 360; x += 360; } a += px * ring[i][1] - x * py; px = x; py = ring[i][1]; }
-          a = Math.abs(a / 2); if (a > bestA) { bestA = a; best = ring; }
-        }
-        if (best) { const an = ringLabelAnchor(best); o.lp = [an.lon, an.lat]; o.la = an.a; }
-        else { o.lp = [(o.bb[0] + o.bb[2]) / 2, (o.bb[1] + o.bb[3]) / 2]; o.la = 0; }
-      });
       _mineFor = key; _mineCache = out;
       return out;
     }
@@ -37219,9 +37238,43 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           continue;
         }
         if (m.y0 != null && year < m.y0) continue;
+        if (m.kind === "area" && m.y1 != null && year > m.y1) continue;   // a civilisation ends; a place does not
         out.push(m);
       }
       return out;
+    }
+    /* A CULTURE'S OWN EXTENT (Sep 2026, on request: "ancient cultures and civilisations should be
+       displayed in their relevant years"). A civilisation older than 1500 has no era map to be a
+       territory of, so what is drawn is the authored `area` from its own card — the same polygon its card
+       map washes — and it is drawn the way that map draws it: a DASHED edge, because a culture has no
+       border to be right about and a crisp line would assert a frontier Folio has not surveyed. In the
+       marks' own red rather than the land shades, so it reads as one of the reader's places rather than
+       as a state.
+
+       CLIPPED TO THE LAND, for the reason a card map's region is (`landMask`): an authored area is a
+       dozen points and a coast is a thousand, so an unclipped wash runs out into the sea. It is a
+       `clip()` over the visible land rather than a second canvas because this is the only pass on the
+       tab that needs one and it runs ONLY when the reader has a civilisation live in this year — most
+       frames build no path at all. Its cost is one geometry walk over visible `GEO`, the same walk the
+       fill above just made. */
+    function drawMineAreas(bw) {
+      const areas = mineMarks().filter((m) => m.kind === "area" && m.area && m.area.length > 2);
+      if (!areas.length) return;
+      ctx.save();
+      ctx.beginPath();
+      for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
+      ctx.clip("evenodd");
+      ctx.setLineDash([Math.max(3, bw * 4), Math.max(3, bw * 4)]);
+      ctx.lineWidth = Math.max(1.1, bw * 1.6);
+      for (let i = 0; i < areas.length; i++) {
+        const sel = mineSel && areas[i].title === mineSel;   // a selected culture takes the map's selection gold, exactly as a country does
+        ctx.beginPath(); addClipped(areas[i].area, true);
+        ctx.fillStyle = sel ? "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")" : "rgba(200,69,60,0.14)";
+        ctx.fill("nonzero");
+        ctx.strokeStyle = sel ? TINT_SEL.line : "rgba(200,69,60,0.8)";
+        ctx.beginPath(); addClipped(areas[i].area, false); ctx.stroke();
+      }
+      ctx.restore();
     }
     /* THE ONE SHAPE THE READER HAS JUST CLICKED, in the map's own selection gold — `TINT_SEL`, which is
        what the world atlas paints a chosen country with, so a selection means the same thing on both tabs.
@@ -37243,28 +37296,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ctx.stroke();
       ctx.restore();
     }
-    /* THE MARKS AND THEIR NAMES, above everything. A name is placed first-come and dropped when it will
-       not fit, which is the Atlas's own city rule in the form this layer can afford — a reader who has
-       studied four hundred places must not meet four hundred names in a heap. */
+    /* THE MARKS AND THEIR NAMES, above everything. A name is placed first-come, tried to the right of its
+       dot and then to the left, and dropped when neither fits — which is the Atlas's own city rule in the
+       form this layer can afford: a reader who has studied four hundred places must not meet four hundred
+       names in a heap. The marks are the LOCATOR WINDOWS' OWN RED (Sep 2026, on request), the same
+       `rgba(200,69,60,…)` a card's map draws its collection's other places in, with the Atlas's white city
+       ring under it so it reads on the light land and the dark alike. */
     function drawMineMarks() {
       const marks = mineMarks();
-      /* NO EARLY RETURN ON AN EMPTY MARK LIST: the shapes' own names are drawn by the second half of this
-         function, so bailing out here left a reader who has studied only geography cards — countries and
-         no places — with lit shapes and not one name on them. */
-      /* A MARK IS RED, AND IT IS THE LOCATOR WINDOWS' OWN RED (Sep 2026, on request) — the same
-         `rgba(200,69,60,…)` a card's map draws its collection's other places in, with the Atlas's white
-         city ring under it so it reads on the light land and on the dark. It was the selection gold, which
-         on this tab now means "you have just clicked this" and cannot also mean "you have studied this".
-         The area and line passes that stood here are GONE with the marks they drew — see mineMarks. */
+      /* THE NAMES BELONG TO THE DOTS, AND TO NOTHING ELSE (Sep 2026, on request: "remove the name labels
+         for countries and provinces"). A country and a province are now drawn with their own borders,
+         which is what says where one ends — and a name across every unlocked state was the layer that put
+         a heap of words over the map the empty earth exists to keep clear. A DOT has no such outline: it
+         is four pixels of red, so its name is the whole of what it says, and it keeps one. What a country
+         is called is the popup's answer, one click away. */
       const dotFill = "rgba(200,69,60,0.95)", dotRing = CITY_RING;
       const fs = clamp(11 + (zoom - 2) * 0.9, 11, 14);
       const boxes = [];
       ctx.save();
       ctx.font = "600 " + fs + "px " + labelFont;
-      ctx.textAlign = "left"; ctx.textBaseline = "middle";
+      ctx.textBaseline = "middle";
       for (let i = 0; i < marks.length; i++) {
         const m = marks[i], at = m.at;
-        if (!at) continue;
+        if (m.kind !== "dot" || !at) continue;
         proj(at[0], at[1]); if (PV < 0) continue;
         const x = PX, y = PY;
         if (x < -40 || x > W + 40 || y < -40 || y > H + 40) continue;
@@ -37272,52 +37326,44 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ctx.lineWidth = 1.4; ctx.strokeStyle = dotRing; ctx.stroke();
         const nm = gameCapFirst(m.title || "");
         if (!nm) continue;
-        const tw = ctx.measureText(nm).width, box = [x + 9, y - fs * 0.62, tw + 4, fs * 1.24];
-        let free = true;
-        for (let b = 0; b < boxes.length; b++) if (rectsHit(box, boxes[b])) { free = false; break; }
-        if (!free) continue;
+        /* A NAME GOES TO THE RIGHT OF ITS DOT, OR TO THE LEFT WHERE THAT FITS BETTER (Sep 2026, on
+           request). Right is the default because a reader scans left to right, so the dot is met before
+           the word it names; left is taken when the right-hand box would collide with a name already
+           placed or run off the edge of the canvas — which is what happens to a coastal place near the
+           limb, where every name is crowded into the same few degrees. Dropping the name was the only
+           other answer, and it is a worse one: the mark stays and says nothing. */
+        const tw = ctx.measureText(nm).width, h = fs * 1.24;
+        const rBox = [x + 9, y - fs * 0.62, tw + 4, h], lBox = [x - 13 - tw, y - fs * 0.62, tw + 4, h];
+        const clear = (b) => {
+          if (b[0] < 2 || b[0] + b[2] > W - 2) return false;
+          for (let k = 0; k < boxes.length; k++) if (rectsHit(b, boxes[k])) return false;
+          return true;
+        };
+        const box = clear(rBox) ? rBox : clear(lBox) ? lBox : null;
+        if (!box) continue;
         boxes.push(box);
-        ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x + 9, y);
-        ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, x + 9, y);
-      }
-      // and the shapes' own names, at each shape's label point
-      /* Biggest first, and one label per NAME: a country is several territory entries on some eras (1900
-         files 35 separate "Fiji" polygons), so without this the de-collision decides which islet gets the
-         name. */
-      const shapes = mineShapes().slice().sort((a, b) => (b.la || 0) - (a.la || 0)), named = new Set();
-      for (let i = 0; i < shapes.length; i++) {
-        const sh = shapes[i], at = sh.lp || sh.at || [(sh.bb[0] + sh.bb[2]) / 2, (sh.bb[1] + sh.bb[3]) / 2];
-        if (named.has(sh.name)) continue;
-        proj(at[0], at[1]); if (PV < 0) continue;
-        const x = PX, y = PY;
-        if (x < 0 || x > W || y < 0 || y > H) continue;
-        /* A SHAPE IS LABELLED WITH THE MAP'S OWN NAME, NEVER THE CARD'S ANSWER. A capital card's `map.key`
-           is the COUNTRY and its answer is the city, so labelling the shape with the card's title drew
-           "New Delhi" across India with a second "New Delhi" beside the dot. The card's own title is what
-           the popup is headed with, which is where it belongs. */
-        const nm = gameCapFirst(sh.name || sh.title);
-        const tw = ctx.measureText(nm).width, box = [x - tw / 2 - 2, y - fs * 0.62, tw + 4, fs * 1.24];
-        let free = true;
-        for (let b = 0; b < boxes.length; b++) if (rectsHit(box, boxes[b])) { free = false; break; }
-        if (!free) continue;
-        boxes.push(box); named.add(sh.name);
-        ctx.textAlign = "center";
-        ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x, y);
-        ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, x, y);
-        ctx.textAlign = "left";
+        const tx = box === rBox ? x + 9 : x - 9;
+        ctx.textAlign = box === rBox ? "left" : "right";
+        ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, tx, y);
+        ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, tx, y);
       }
       ctx.restore();
     }
-    /* WHAT THE READER JUST CLICKED. A mark wins over a shape when both are under the pointer, because a
-       mark is the smaller and more specific claim — a dot inside a country the reader also holds. */
-    function mineAt(px, py) {
+    /* WHAT THE READER JUST CLICKED, and everything drawn on this tab answers a click (Sep 2026, on
+       request: "every country and place should be clickable to open its card popup"). The ladder is by
+       how SPECIFIC a claim is: a dot beats a culture's extent, which beats the country round it, and a
+       PROVINCE is reached on the second click — see the `sub` argument, which is the drill the world
+       atlas spends its double-click on. A province is skipped on the first click rather than ranked
+       below the country, since a state's own shape and its province's coincide over most of the border
+       and "smallest wins" would hand every click inside California to California. */
+    function mineAt(px, py, sub) {
       const ll = screenToLonLat(px, py); if (!ll) return null;
       const lon = ll[0], lat = ll[1];
       const marks = mineMarks();
       let best = null, bd = Infinity;
       for (let i = 0; i < marks.length; i++) {
         const m = marks[i];
-        if (!m.at) continue;
+        if (m.kind !== "dot" || !m.at) continue;
         proj(m.at[0], m.at[1]); if (PV < 0) continue;
         const dx = PX - px, dy = PY - py, d = dx * dx + dy * dy;
         if (d < 196 && d < bd) { bd = d; best = m; }        // within 14px of the dot
@@ -37326,13 +37372,33 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const shapes = mineShapes();
       let hit = null, ba = Infinity;
       for (let i = 0; i < shapes.length; i++) {
+        if (!shapes[i].sub !== !sub) continue;              // first click: countries only; second: provinces only
         const b = shapes[i].bb;
         if (lon < b[0] || lon > b[2] || lat < b[1] || lat > b[3]) continue;
         if (!pointInRings(shapes[i].rings, lon, lat)) continue;
         const ar = (b[2] - b[0]) * (b[3] - b[1]);           // smallest wins, so an enclave beats the state round it
         if (ar < ba) { ba = ar; hit = shapes[i]; }
       }
-      return hit;
+      if (hit || sub) return hit;
+      /* A CULTURE'S EXTENT, under the countries: its polygon is authored and approximate, so a country
+         drawn from a real map is the better answer wherever the two overlap. */
+      let area = null, aa = Infinity;
+      for (let i = 0; i < marks.length; i++) {
+        const m = marks[i];
+        if (m.kind !== "area" || !m.area) continue;
+        if (!pointInRings([m.area], lon, lat)) continue;
+        const bb = areaBBox(m);
+        const ar = (bb[2] - bb[0]) * (bb[3] - bb[1]);
+        if (ar < aa) { aa = ar; area = m; }
+      }
+      return area;
+    }
+    function areaBBox(m) {
+      if (m._bb) return m._bb;
+      let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
+      m.area.forEach((pt) => { if (pt[0] < x0) x0 = pt[0]; if (pt[0] > x1) x1 = pt[0]; if (pt[1] < y0) y0 = pt[1]; if (pt[1] > y1) y1 = pt[1]; });
+      m._bb = [x0, y0, x1, y1];
+      return m._bb;
     }
     function renderStatic(bw) {
       ctx.clearRect(0, 0, W, H);
@@ -37367,8 +37433,33 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             for (let i = 0; i < mine.length; i++) for (let r = 0; r < mine[i].rings.length; r++) addClipped(mine[i].rings[r], true);
             ctx.fillStyle = land; ctx.fill("nonzero");   // NONZERO, like the era branch: an era's rings are CCW-normalized and overlapping territories must read as land rather than punching a dark hole
             ctx.strokeStyle = land; ctx.stroke();        // widen it over the dark base's own seam stroke, so an unlocked coast keeps its light edge
+            /* AND A DISCOVERED SHAPE NOW CARRIES ITS BORDER (Sep 2026, on request: "once a country is
+               discovered, also show its border … discovered provinces should appear with dotted
+               borders"). The tab draws no politics at all — that is the point of it — so the only lines
+               on an unlocked country were the coast it happens to have, which left an inland state
+               (Austria, Chad) as a light patch with no edge of any kind. A border the reader has EARNED
+               is not the political layer coming back: it is drawn for the shapes in the register and
+               for nothing else.
+               THE COUNTRY IS SOLID AND THE PROVINCE IS DOTTED, which is how every atlas separates the
+               two, and it is the same distinction the card maps make with `subdivInner`. The country
+               pass is stroked in the map's own `border` ink, which is what the coastline below is
+               stroked in, so a shared run is drawn twice in one colour and shows as one line. */
+            ctx.lineWidth = bw; ctx.strokeStyle = border;
+            ctx.beginPath();
+            for (let i = 0; i < mine.length; i++) { if (mine[i].sub) continue; for (let r = 0; r < mine[i].rings.length; r++) addClipped(mine[i].rings[r], false); }
+            ctx.stroke();
+            const subs = mine.filter((m) => m.sub);
+            if (subs.length) {
+              ctx.save();
+              ctx.setLineDash([Math.max(1.4, bw * 1.8), Math.max(2.6, bw * 3.4)]);
+              ctx.beginPath();
+              for (let i = 0; i < subs.length; i++) for (let r = 0; r < subs[i].rings.length; r++) addClipped(subs[i].rings[r], false);
+              ctx.stroke();
+              ctx.restore();
+            }
           }
         }
+        drawMineAreas(bw);
         if (heightmapOn) drawHeightmap();
         ctx.fillStyle = ocean;
         for (let p = 0; p < LAKES.length; p++) { const rings = LAKES[p]; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }
@@ -37861,10 +37952,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           else {
             { const pll = screenToLonLat(tpx, tpy); popPointLL = pll ? [pll[0], pll[1]] : null; }   // the geographic point that (maybe) opens the popup — feeds the crumb + "Through the ages"
             if (GAME) { gameTap(tpx, tpy); return; }   // game mode: a tap IS the answer — no selection/popup/drill
-            /* THE PERSONAL ATLAS HAS ONE LEVEL AND SO ONE CLICK. There is no empire to drill out of and
-               no constituent to drill into: a place is either the reader's or it is not there, so the
-               single/double/triple ladder below has nothing to count. */
-            if (MINE) { const hit = mineAt(tpx, tpy); mineSel = (hit && hit.rings) ? hit.name : ""; if (hit) showMinePopup(hit); else hideCountryPopup(); draw(); return; }
+            /* THE PERSONAL ATLAS HAS TWO LEVELS: THE COUNTRY, THEN THE PROVINCE (Sep 2026, on request:
+               "discovered provinces should appear with dotted borders and selectable through a
+               second-level/double click"). It is the world atlas's own drill one store over — there is
+               still no empire to climb out of, so the ladder is two rungs rather than three, and the
+               same-spot window and slop are the ones that tab counts with. */
+            if (MINE) {
+              const now = e.timeStamp || performance.now();
+              const same = (now - lastTapT < 400) && Math.hypot(tpx - lastTapX, tpy - lastTapY) < 14;
+              tapCount = same ? tapCount + 1 : 1;
+              lastTapT = now; lastTapX = tpx; lastTapY = tpy;
+              let hit = tapCount >= 2 ? mineAt(tpx, tpy, true) : null;   // 2nd click → the province under it, where the reader holds one
+              if (!hit) hit = mineAt(tpx, tpy);
+              mineSel = hit ? (hit.rings ? hit.name : hit.kind === "area" ? hit.title : "") : "";
+              if (hit) showMinePopup(hit); else hideCountryPopup();
+              draw(); return;
+            }
             const now = e.timeStamp || performance.now();
             const sameSpot = (now - lastTapT < 400) && Math.hypot(tpx - lastTapX, tpy - lastTapY) < 14;
             tapCount = sameSpot ? tapCount + 1 : 1;   // 1 = single, 2 = double, 3 = triple (same spot within 400ms)
@@ -38341,11 +38444,11 @@ let prev = null;
        pin slides freely between them. The chevrons step by an amount that suits the part of the rail they
        are on — a century in the deep past, a decade in the mapped centuries — since one step of 25 years
        would be 240 presses from 4000 BCE to today. */
-    const mineStep = (y) => (y < 0 ? 100 : y < 1500 ? 50 : 10);
+
     function snapYear(y) { if (MINE) return clamp(Math.round(y), MINY, MAXY); const ys = mapYears(); let best = ys[0], bd = Infinity; for (let i = 0; i < ys.length; i++) { const d = Math.abs(ys[i] - y); if (d < bd) { bd = d; best = ys[i]; } } return best; }
     function stepYear(dir) {   // jump to the adjacent mapped year, skipping every year with no map
       if (GAME) return;   // the round pins the year (the timebar is inert in game mode; this guards any other path)
-      if (MINE) return setYear(clamp(year + dir * mineStep(year), MINY, MAXY));
+      if (MINE) return setYear(clamp(year + dir, MINY, MAXY));   // ONE YEAR (Sep 2026, on request) — it stepped a century in the deep past and a decade after 1500, so the chevron could not reach a year the rail can hold; dragging the rail is still how a reader crosses a millennium
       const ys = mapYears();
       if (dir > 0) { for (let i = 0; i < ys.length; i++) if (ys[i] > year) return setYear(ys[i]); return setYear(ys[ys.length - 1]); }
       for (let i = ys.length - 1; i >= 0; i--) if (ys[i] < year) return setYear(ys[i]);
