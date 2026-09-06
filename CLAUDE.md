@@ -1315,7 +1315,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.05 MB and 44,851 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.06 MB and 44,955 lines is hard to find your way around, so this
   lists its 169 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -4954,7 +4954,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a URL and contains no break opportunity.
 - **Atlas:** an orthographic **Canvas-2D** globe, full-bleed between the nav and a fixed bottom timeline
   (1000 BCE → present). Drag to rotate, wheel/pinch to zoom, plus on-screen `+`/`−` (`#gzIn`/`#gzOut`) and
-  the keyboard, all through `zoomStep()`; `ZMIN 0.82 … ZMAX 10`, and zooming scales the disk radius
+  the keyboard, all through `zoomStep()`; `ZMIN 0.82 … ZMAX 30` (raised from 10 in Sep 2026, on request —
+  the card maps have gone to `CMAP_ZMAX` 400 for years, and the coast, the rivers and the era borders all
+  carry more detail than zoom 10 could reach; both tabs share the constant), and zooming scales the disk radius
   (`R = baseR·zoom`). It opens centred on `S.settings.home` (**Settings → Home location**, default the
   Netherlands). The operational half:
   · **THE WHEEL LISTENER IS ON `window`, IN THE CAPTURE PHASE** (`onGlobeWheel`) and normalises
@@ -4977,6 +4979,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     motion frames skip the city layer, the selection coastline and `shadowBlur`; a selection paints as ONE
     batch (`paintFillGroups`) and is cached into `selCv`; big buffers are released; and the idle warm
     reschedules itself while anything is moving.
+  · **ONE RIVER WEIGHT, AND IT IS THINNER THE FURTHER OUT YOU ARE** (`riverWidth`, Sep 2026, on request:
+    "further decrease the width of Rivers as you zoom out"). It was `0.4 + zoom * 0.16` floored at 0.5,
+    written out three times — the era branch, the present-day branch and the personal atlas — so at world
+    scale all 1,073 rivers were drawn at half a pixel over a coast stroked at about the same, which is a
+    blue haze on the continents rather than water in them. The deep end is unchanged (the 1.8 cap still
+    decides it); ONE function rather than three copies, so the three branches cannot come to disagree.
+    The card maps keep their own curve — see the map-card bullet.
   · **CITY LABELS THIN OUT WITH ZOOM** (`CITY_SEP` / `CITY_CAP`): a pin whose name cannot be placed is
     dropped WHOLE, pin and all, and `CITIES` is already sorted by significance so the drops are the right
     ones. A pin and its label go together, so the whole layer waits for the settled frame.
@@ -4992,8 +5001,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Guarded by `test-atlas-places.js` and `test-layout.js`**; eras are built by
     `node .claude/build-era.js <year> [label]` and edited in **Admin → Timeline → Open globe editor**.
   · **YOUR OWN ATLAS — A SECOND TAB, AND THE ONE THE PAGE OPENS ON** (`atlasTab` / `MINE` /
-    `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `drawMineShapes` / `drawMineMarks` /
-    `showMinePopup` / `eraIsModern` / `.atlas-tabs` / `.atlas-empty`; Sep 2026, on request). The globe
+    `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
+    `drawMineMarks` / `mineCoastSkip` / `landDim` / `showMinePopup` / `eraIsModern` / `.atlas-tabs` /
+    `.atlas-empty` / `.cp-mine`; Sep 2026, on request). The globe
     starts EMPTY — land, ocean, lakes, rivers and coast, and no border, dot or name anywhere — in every
     year from 4000 BCE, and studying a card is what puts a place on it. Seven things.
     **THE REGISTER IS DERIVED FROM `S.cards`, NEVER STORED.** A place is unlocked iff its card has a
@@ -5007,8 +5017,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     independence dates: **Folio's own maps already carry the answer.** A `us-states` or `china-provinces`
     shape belongs to no era, so it is drawn only where the map IS present-day (`eraIsModern`) — today's
     boundaries over a 1600 map would be a claim Folio does not make.
-    **A LOCATOR CARRIES ITS OWN YEARS** (`cardSpanYears`), and a card with no dates at all is a place
-    rather than a period — a river, a range, a cave — so it is drawn in every year.
+    **A LOCATOR CARRIES ITS OWN YEARS, AND ONLY THE START OF THEM BINDS** (`cardSpanYears`; the end was
+    dropped in Sep 2026, on request: "cities and dot locations should have no end date, i.e. should appear
+    in their earliest known date of settlement and then stay visible until the modern day"). Both ends is
+    right about a STATE — which is what the country shapes answer for, through the era's own map — and
+    wrong about a PLACE: Yinxu is still there, and a globe that took Athens away in 300 CE was telling the
+    reader the city had stopped existing. What a card's span really dates is its SUBJECT, the Shang capital
+    or the classical city, and a dot on a map is the place rather than the episode. A card with no dates at
+    all is a place rather than a period — a river, a cave — so it is drawn in every year, which is the same
+    rule one step further on.
     **THE RAIL IS LINEAR HERE AND BENT THERE, and nothing snaps.** The world atlas has thirteen stops and
     bends its scale to keep them apart; the personal atlas has none, because every year has a map, so a
     bent scale would only lie about how far apart two years are. The chevrons step a century in the deep
@@ -5023,6 +5040,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the one toggle that tab reads, and it is forced ON: the request describes the empty globe as
     "landmasses+oceans+rivers etc.", and with no legend a default of off is a layer promised and
     unreachable.
+    **THE EARTH IS COLOURLESS UNTIL IT IS EARNED, AND A CLICK IS THE ONLY GOLD** (Sep 2026, on request:
+    "make countries colourless unless they are clicked, same as on the normal atlas. areas without any
+    known countries or places should appear slightly darker"). Every unlocked country was washed in
+    `TINT_SEL` at 0.16, which says "selected" about all of them at once and leaves a click nothing to say.
+    Two shades of the land colour do it instead — `landDim` for the earth at large, `land` for the states
+    this reader has reached — and the map's own selection gold is spent on the one shape just clicked,
+    tracked in `mineSel` (a NAME, not an index: the shape list is rebuilt whenever the era or the register
+    changes, and an index would light whichever country inherited the slot). **`landDim` IS NOT
+    `landWild`**: the era branch darkens its wilderness to 0.62 because that wilderness is a minority of
+    the map and carries a stipple; here it is nearly the whole earth on a reader's first day, and at 0.62
+    the globe reads as unlit rather than as unearned. 0.87 is a step, not a shadow.
+    **A MARK IS A RED DOT, AND ONLY EVER A DOT** (Sep 2026, on request: "make the dots red instead of
+    orange … mountain ranges like the Apennines should not be displayed … areas or regions (like Etruria,
+    Attica) should not show. countries or civilisations should"). The red is the locator windows' own
+    `rgba(200,69,60)`, so a place looks the same here as on the card it came from, and the gold is left to
+    mean one thing. A REGION and a RANGE are dropped from the register outright: they were a dashed wash
+    and a spine, and a dozen of them at world scale is a rash of blotches over an earth whose point is that
+    it is empty. Nothing is lost by it — a country or a civilisation is unlocked by NAME against the year's
+    own map and drawn in that map's shape, which is a better answer than any authored polygon — and they
+    are NOT demoted to a dot, a dot in the middle of Etruria being the false claim the card maps stopped
+    making.
+    **THE STRAY BORDERS ARE THE COAST CLASSIFIER'S GENEROSITY, AND THE FIX IS A MASK** (`mineCoastSkip`;
+    Sep 2026, on a bug report naming "the western border of Uzbekistan, some borders of Jordan,
+    Montenegro, the Netherlands, western Spain, the southern border of the Western Sahara"). `coastEdges`
+    calls an unshared world.js chain a coast if OCEAN is found anywhere within its bbox plus 1.2°, which is
+    why every reported stray is a land border a short way inland from a sea — and on the world atlas nobody
+    could see it, a border being drawn there anyway. This tab draws the coast and nothing else, so each one
+    stands alone in an empty continent. The discriminator is `coastEdges`'s own, two DIFFERENT countries
+    across the chain; it is not run in there because the world atlas has no use for it, and it probes the
+    chain's middle first so the fuller vote runs only for the few that look like a border. Measured: ~410ms
+    once, inside a first paint that already costs 1.4s on this tab, and **a shortcut that skipped CLOSED
+    loops was tried and removed** — a country's whole outline chains as one closed loop, its coast and its
+    unshared border together, so it took the fix to zero while looking like a five-times speed-up.
+    **AND THE POPUP SAYS NOTHING THE CARD ALREADY SAYS** (`.cp-mine`; Sep 2026, on request: "remove the
+    'Answer' header and 'From your card' tagline, the title bar (should only display when popup is
+    collapsed) and its dating"). Four repetitions of the card back beside them — the answer term is its own
+    heading and its dates are its date line — taken off by a stylesheet class rather than by four writes,
+    because the title bar has to come BACK when the sheet is collapsed (a collapsed sheet is nothing but
+    its title bar) and because the "Answer" label is inside markup `showMinePopup` does not build. The name
+    is still WRITTEN: it is what the collapsed sheet shows and what a screen reader reads.
     **THE TAB IS MODULE-LEVEL AND `route()` RESETS IT**, which is what "opening the page defaults to this
     tab" means; a `S.settings` value would send a reader who once looked at the world atlas back to it for
     ever. Switching tab is `render()`, not `route()`, or the reset would undo the press. The two tabs keep
@@ -6718,13 +6775,16 @@ dead code (never rendered).
     every fault it guards is silent: a globe with nothing on it looks exactly like a reader who has
     studied nothing, a place resolved in the wrong year looks like a deliberate absence, and a popup
     that has quietly gone back to the world atlas's country panel is a perfectly good country panel. The
-    counts are PIXELS — the marks are on a canvas — and the predicate is the WARM CAST rather than the
-    literal gold, since a country's wash is that gold at 0.16 over grey land: written for the colour
-    itself it counted a dot and reported a shaded China as nothing, which is the exact failure a pixel
-    test exists to prevent. **Re-run after touching `atlasTab` / `MINE` / `atlasUnlocks` / `mineShapes` /
-    `mineMarks` / `mineAt` / `drawMineShapes` / `drawMineMarks` / `showMinePopup` / `eraIsModern` /
+    counts are PIXELS — the marks are on a canvas — and there are two of them, because the two claims are
+    now different colours: an unlocked COUNTRY is the light land shade (zero of it on an empty globe, where
+    every land pixel is the dark one) and a PLACE is the locator red, which nothing else on this globe is.
+    The light shade is COMPUTED from the same two CSS variables and the same formula `readColors` uses
+    rather than sampled, so a theme change moves both together. **Re-run after touching `atlasTab` /
+    `MINE` / `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
+    `drawMineMarks` / `mineCoastSkip` / `landDim` / `showMinePopup` / `eraIsModern` /
     `renderStatic`'s MINE branch / `updateHoverName` / `snapYear` / `frac2year` / `year2frac` / the
-    `.atlas-tabs` markup / `.atlas-empty`, or after changing which cards carry a `map` or a `locator`.**
+    `.atlas-tabs` markup / `.atlas-empty` / `.cp-mine`, or after changing which cards carry a `map` or a
+    `locator`.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and
     a glossary term's way onto the map (Aug 2026). **Re-run after touching `glossPlace` / `focusPlace` /
     `CITY_SEP` / `computeCityLayout` / `gsIndex` / `hmOpacity`, or after re-running

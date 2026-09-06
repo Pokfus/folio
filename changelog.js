@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.657", released: "2026-09-06T10:20Z" };
+window.FOLIO_VERSION = { v: "1.658", released: "2026-09-06T11:22Z" };
 
 window.CHANGELOG = [
   {
@@ -50,6 +50,12 @@ window.CHANGELOG = [
       "<b>China's modern province borders now show as dotted lines</b> in the China collection's card maps.",
       "<b>A minigame you have played now colours its whole tile</b> green, or gold for a perfect score, with a large tick washed behind the name.",
       "<b>The Atlas now opens on an atlas of your own</b> \u2014 an empty earth back to 4000 BCE that fills with the places you study, each one opening its card.",
+      "<b>Your own atlas now leaves the earth colourless until you earn it</b> \u2014 the countries you have studied in the light land shade, everything else a step darker.",
+      "<b>Places on your own atlas are marked in red</b>, and regions, mountain ranges and a few stray borders no longer show on it at all.",
+      "<b>A place on your own atlas now stays on it</b> \u2014 marked from its earliest known date and never taken away again, where a city used to vanish when its card's dates ran out.",
+      "<b>A place's panel on your own atlas no longer repeats what the card in it already says</b>.",
+      "<b>Rivers are drawn thinner the further out you zoom</b> on the Atlas, where at world scale they had washed the continents blue.",
+      "<b>The Atlas zooms three times closer than before</b>, on both its tabs.",
       "<b>Thirty-three new cards in Ancient Rome</b>, on provincial revenue, Greek influence and Cato, the Gracchi, and the Jugurthine and Cimbric wars that made Marius.",
       "<b>Ten new cards in the Biology collection</b>, opening its chapter on the cell.",
       "<b>The word <i>cell</i> now opens its own glossary entry wherever it appears</b>, which it did not before.",

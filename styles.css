@@ -3882,6 +3882,18 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .cp-cardback .answer{flex-direction:column; align-items:stretch; padding:12px 14px;}
 .cp-cardback .card-facts{max-width:none; width:100%; margin-top:10px;}
 .cp-cardback .card-img{margin-bottom:12px;}
+/* WHAT THE PERSONAL ATLAS'S PANEL DOES NOT REPEAT (Sep 2026, on request). Four things on it said
+   something the card back beside them already says: the "Answer" label above a term that is the card's
+   own heading; a "From your card" section head over the only section there is; the title bar, which
+   prints that same term a second time; and the dating, which the card's date line carries. Each is taken
+   off by a rule rather than by a write in `showMinePopup`, because the title bar has to come BACK when
+   the sheet is collapsed — a collapsed sheet is nothing but its title bar — and because the "Answer"
+   label is inside markup that function does not build. Above the sheet's breakpoint `.cp-shut` is never
+   applied, so on the desktop the name is simply always off; the × and the chevron keep their row. */
+.cp-mine .cp-span{display:none;}
+.cp-mine #cpDescSec > .cp-sec-head{display:none;}
+.cp-mine .cp-cardback .answer .label{display:none;}
+.country-pop.cp-mine:not(.cp-shut) .cp-titlemain{display:none;}
 /* `[hidden]` loses to an author `display:flex` — the trap this file already carries for `.ces-imgpanel`
    and `.af-src`. `showMinePopup` hides this row, and without the rule the Atlas's own "Through the ages"
    button stayed on a panel that is showing a card rather than a country. */
