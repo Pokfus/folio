@@ -2444,7 +2444,17 @@ window.GLOSSARY = {
 "Myron": "Myron was a Greek sculptor in bronze of the middle of the 5th century BCE, placed by Pliny in the ninetieth Olympiad alongside Polyclitus, and best known for figures caught at a single instant of movement.<sup class=\"fn\" data-fn=\"1\"></sup> Quintilian, tracing the development of sculpture, says his statues show a greater softness of form than the stiff work of Callon and Hegesias before him.<sup class=\"fn\" data-fn=\"2\"></sup> Nothing of his survives, and his most famous works, a discus thrower and a group of Athena with the satyr Marsyas, are known from Roman marble copies and from descriptions such as Lucian’s.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Polykleitos": "Polykleitos was a Greek sculptor from Argos active in the later 5th century BCE, placed by Pliny in the ninetieth Olympiad and working almost entirely in bronze on the standing male figure.<sup class=\"fn\" data-fn=\"1\"></sup> He repeated one scheme with small variations, the weight on one leg, the hip above it raised and the head turned towards the supporting side, which became the standard way of standing a figure.<sup class=\"fn\" data-fn=\"2\"></sup> He also wrote a lost treatise called the Canon on the proportions of the body and made a statue of the same name to embody it, and Quintilian calls him the most careful and graceful of sculptors while judging his work wanting in grandeur.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Riace_bronzes": "The Riace bronzes are two Greek bronze statues of naked warriors, each just under two metres tall, found in 1972 at a depth of eight metres in the sea off Riace Marina in Calabria.<sup class=\"fn\" data-fn=\"1\"></sup> Both were cast hollow by the lost-wax process with details inlaid in other materials, the eyes in calcite and glass paste, the lips and nipples in copper and the teeth in silver.<sup class=\"fn\" data-fn=\"2\"></sup> Whether they represent athletes, gods or figures of myth is unsettled, and analysis of the clay left inside the casts points to two different workshops, in Attica and the Argolid.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Severe_style": "The Severe style is the name modern art history gives to Greek sculpture of roughly 480 to 450 BCE, between the Archaic manner and the high Classical, and it is a judgement as much as a description.<sup class=\"fn\" data-fn=\"1\"></sup> Its figures have given up the Archaic smile for a grave closed expression, with heavy lids and a mouth turning slightly down, hair treated as a mass rather than in beaded ringlets, and weight resting on one leg.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient critics saw a comparable development, and Quintilian describes Callon and Hegesias as rude and Etruscan in feeling, Calamis as less stiff, and Myron as softer than either.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Severe_style": "The Severe style is the name modern art history gives to Greek sculpture of roughly 480 to 450 BCE, between the Archaic manner and the high Classical, and it is a judgement as much as a description.<sup class=\"fn\" data-fn=\"1\"></sup> Its figures have given up the Archaic smile for a grave closed expression, with heavy lids and a mouth turning slightly down, hair treated as a mass rather than in beaded ringlets, and weight resting on one leg.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient critics saw a comparable development, and Quintilian describes Callon and Hegesias as rude and Etruscan in feeling, Calamis as less stiff, and Myron as softer than either.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Cnidus": "The Battle of Cnidus was a sea fight of 394 BCE off the Carian coast in which a Persian fleet under Pharnabazus and the Athenian exile Conon destroyed the navy Sparta had built after the fall of Athens.<sup class=\"fn\" data-fn=\"1\"></sup> Xenophon reports that the Spartan admiral Peisander formed his line although his ships were clearly the fewer, that his allies on the left fled at once, and that he was driven ashore and fell fighting on board.<sup class=\"fn\" data-fn=\"2\"></sup> Diodorus gives him 85 triremes against more than ninety and says Conon took fifty of them; the Greek cities of Asia then expelled their Spartan garrisons and acknowledged Persian overlordship instead.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Coronea": "The Battle of Coronea was fought in Boeotia in 394 BCE between Agesilaus, marching home from Asia to deal with the Corinthian War, and the confederate army of Thebes, Athens, Argos and Corinth.<sup class=\"fn\" data-fn=\"1\"></sup> Xenophon fought in it and calls it unlike any other battle of his time, because each side broke the enemy facing its right wing and the two victorious wings then wheeled about and met head on.<sup class=\"fn\" data-fn=\"2\"></sup> Agesilaus was wounded many times and held the field, but the Thebans forced their way through his line, and he evacuated Boeotia at once, so the trophy he raised bought him nothing.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Nemea": "The Battle of Nemea was fought in 394 BCE near Corinth between Sparta with her Peloponnesian allies and the confederacy of Thebes, Athens, Corinth and Argos, and was the largest hoplite engagement of the Corinthian War.<sup class=\"fn\" data-fn=\"1\"></sup> Xenophon gives Sparta about six thousand Lacedaemonian hoplites within a larger allied force, and reports that the Boeotians made their phalanx unusually deep and edged rightwards to outflank the enemy, with the Athenians following to keep the line whole.<sup class=\"fn\" data-fn=\"2\"></sup> Both armies won on their right wings, and the Spartans then caught the Argives, Corinthians and Thebans returning from pursuit; Diodorus puts the confederate loss at about 2,800 against 1,100.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Contrapposto": "Contrapposto is the stance in which a standing figure rests its weight on one leg while the other trails, so that the hip above the engaged leg rises and the opposite shoulder answers it.<sup class=\"fn\" data-fn=\"1\"></sup> It replaced the Archaic kouros, which stands with weight evenly divided and both sides of the body answering each other exactly, and the earliest surviving Greek example is the Kritios Boy of about 480 BCE.<sup class=\"fn\" data-fn=\"2\"></sup> Polykleitos made the arrangement systematic about 440 BCE by crossing the tensions, pairing the engaged leg with the relaxed arm, and the scheme was reproduced throughout antiquity and recovered in Renaissance Italy, whose critics supplied the name.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Corinthian_War": "The Corinthian War was fought between 395 and 387 BCE by Thebes, Athens, Corinth and Argos against Sparta, and takes its name from the isthmus over which most of it was contested.<sup class=\"fn\" data-fn=\"1\"></sup> Its immediate cause was Persian money: the satrap Tithraustes sent Timocrates of Rhodes to Greece with gold worth fifty talents for leading men at Thebes, Corinth and Argos who would make war on Sparta.<sup class=\"fn\" data-fn=\"2\"></sup> It opened with the death of Lysander at Haliartus in 395 BCE, produced the battles of Nemea, Coronea and Cnidus in 394, and closed with the King’s Peace, under which Persia adjudicated the affairs of Greece.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Euphronios": "Euphronios was an Athenian vase painter and potter whose career began about 500 BCE and ran some forty years, and whom accounts of red-figure pottery treat as the master of the style.<sup class=\"fn\" data-fn=\"1\"></sup> Ten surviving vases carry his signature, three of them as painter and the rest as maker, among them the Louvre krater of Herakles and Antaios and the Munich cup of Herakles and Geryon.<sup class=\"fn\" data-fn=\"2\"></sup> His dates rest on the names of youths praised as beautiful on his vases, Leagros on the early ones and Glaukon on the late, who are plausibly an Athenian general killed in 467 BCE and his son.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Euthymides": "Euthymides was an Athenian red-figure vase painter active about 510 to 490 BCE, and the most conspicuous name of his generation apart from the specialists in drinking cups.<sup class=\"fn\" data-fn=\"1\"></sup> Five vases carry his signature, on which he names himself as the son of Polias, and he preferred the amphora to the cup, favouring mythological subjects balanced against scenes of the gymnasium or the symposium.<sup class=\"fn\" data-fn=\"2\"></sup> He is best remembered for an inscription on one of his Munich amphorae boasting that Euphronios never made the like, which is the clearest surviving evidence that Athenian painters competed with each other by name.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Spartan_hegemony": "The Spartan hegemony is the period of roughly thirty years after the fall of Athens in 404 BCE during which Sparta held the leadership of Greece, and it rested on garrisons rather than on any shared purpose.<sup class=\"fn\" data-fn=\"1\"></sup> Lysander suppressed the democracies, left a Spartan governor called a harmost in each city and set over it ten rulers drawn from political clubs of his own organising, appointing his partisans without regard to birth or wealth.<sup class=\"fn\" data-fn=\"2\"></sup> The empire was arranged to yield about a thousand talents a year, which obliged a state that had banned coined wealth to run a treasury, and it collapsed in the wars of 395 to 371 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Symmetria": "Symmetria is the Greek term for the commensurability of the parts of a work with one another and with the whole, and it means a shared measure rather than the mirroring of left and right the English word now suggests.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient criticism treats it as the quality that most distinguishes Polykleitos, who wrote a treatise called the Canon on the proportions of the body and made a statue of the same name to embody them.<sup class=\"fn\" data-fn=\"2\"></sup> Vitruvius passes it to Roman architects, defining symmetry as arising from proportion, which the Greeks call analogia, and giving the face as a tenth of a body’s height and the foot a sixth.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"White-ground_lekythos": "A white-ground lekythos is an Athenian oil flask covered with a pale slip and painted in outline, made for the grave rather than for use, and decorated as a rule with funerary subjects.<sup class=\"fn\" data-fn=\"1\"></sup> The white technique was applied to several shapes but only this one kept its popularity, and after the middle of the 5th century BCE it was the only shape still made that way, a fashion lasting about a hundred and fifty years.<sup class=\"fn\" data-fn=\"2\"></sup> Its subjects fall into four classes, the laying out of the body, its burial, the journey to Hades with Charon, and visits to the tomb, of which the last is much the commonest.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3404,7 +3414,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Myron": "active c. 470 BCE – 440 BCE",
 "Polykleitos": "active c. 460 BCE – 415 BCE",
 "Riace_bronzes": "c. 460 BCE – 450 BCE",
-"Severe_style": "c. 480 BCE – 450 BCE"
+"Severe_style": "c. 480 BCE – 450 BCE",
+"Battle_of_Cnidus": "394 BCE",
+"Battle_of_Coronea": "394 BCE",
+"Battle_of_Nemea": "394 BCE",
+"Contrapposto": "from c. 480 BCE",
+"Corinthian_War": "395 BCE – 387 BCE",
+"Euphronios": "active c. 500 BCE – 460 BCE",
+"Euthymides": "active c. 510 BCE – 490 BCE",
+"Spartan_hegemony": "404 BCE – 371 BCE",
+"Symmetria": "argued c. 440 BCE",
+"White-ground_lekythos": "c. 500 BCE – 400 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4778,7 +4798,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Choregos": ["choregoi","choregia"],
 "Ktema_es_aei": ["ktema es aei","a possession for all time"],
 "Elenchus": ["Socratic method","elenchos"],
-"Sophist": ["sophists"]
+"Sophist": ["sophists"],
+"Battle_of_Cnidus": ["battle of Knidos"],
+"Battle_of_Coronea": ["battle of Coroneia"],
+"Battle_of_Nemea": ["battle of the Nemea"],
+"Contrapposto": ["contrapposto"],
+"Symmetria": ["symmetria"],
+"White-ground_lekythos": ["white-ground lekythoi","white ground lekythos"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -7259,7 +7285,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Myron": ["person","art","sculpture","greece"],
 "Polykleitos": ["person","art","sculpture","greece"],
 "Riace_bronzes": ["object","art","sculpture","archaeology","greece","italy"],
-"Severe_style": ["concept","art","sculpture","greece"]
+"Severe_style": ["concept","art","sculpture","greece"],
+"Battle_of_Cnidus": ["event","battle","war","history","greece"],
+"Battle_of_Coronea": ["event","battle","war","history","greece"],
+"Battle_of_Nemea": ["event","battle","war","history","greece"],
+"Contrapposto": ["concept","art","sculpture","greece"],
+"Corinthian_War": ["event","war","history","greece"],
+"Euphronios": ["person","artist","art","pottery","greece"],
+"Euthymides": ["person","artist","art","pottery","greece"],
+"Spartan_hegemony": ["era","event","history","politics","greece","sparta"],
+"Symmetria": ["concept","art","sculpture","architecture","greece"],
+"White-ground_lekythos": ["object","pottery","art","death","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

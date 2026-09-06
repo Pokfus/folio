@@ -904,9 +904,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-648  Discobolus
     gr-649  Polykleitos
     gr-650  Doryphoros
-    gr-651  The Canon of Polykleitos
+    gr-651  The Canon of Polykleitos  — carded on `symmetria`, the Canon's own principle: the treatise and the statue are already at gr-649 and gr-650
     gr-652  Contrapposto
-    gr-653  Red-figure masters
+    gr-653  Red-figure masters  — carded on `Euthymides`, since the technique is at gr-330 and Euphronios has gr-654
     gr-654  Euphronios
     gr-655  White-ground lekythos
 
