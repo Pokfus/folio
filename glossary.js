@@ -2434,7 +2434,17 @@ window.GLOSSARY = {
 "Moated_settlement": "A moated settlement is a village enclosed by one or more dug ditches, often with an earth bank raised behind them. Such ditches serve several purposes at once — drainage, marking a boundary, excluding animals and defence — and deciding which purpose dominated at a given site is one of the standing problems of settlement archaeology. In the Japanese archipelago the form spreads during the Yayoi period, when open hamlets grew into ditched communities and the largest acquired a V-shaped outer ditch with separate inner compounds<sup class=\"fn\" data-fn=\"1\"></sup>, appearing alongside the first weapons made in the islands and a measurably higher rate of violent death than the preceding period shows<sup class=\"fn\" data-fn=\"2\"></sup>.",
 "Yoshinogari": "Yoshinogari is a Yayoi settlement in Saga Prefecture in northern Kyushu, occupied for roughly seven hundred years and the most extensively excavated site of its period in Japan. It grew from scattered hamlets into a ditched village and finally into the largest moated settlement in the country, with a V-shaped outer ditch, two inner enclosures, a burial mound raised for its leaders and cemeteries of jar coffins.<sup class=\"fn\" data-fn=\"1\"></sup> That mound, dated to about 150 BCE, is the oldest large earth fill in Japan built mainly by compacting successive layers, a technique whose closest parallels are Chinese rather than Korean.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Yayoi_chiefdom": "A Yayoi chiefdom is a farming community of the Japanese archipelago in which leaders had become materially distinguishable from everyone else, a development read from graves and imported goods rather than from any written record. Burial customs adopted from the continent at the start of the period were taken up differently in each region, and those differences underlie the later imbalance between eastern and western Japan.<sup class=\"fn\" data-fn=\"1\"></sup> By the middle of the period a few of the dead were raised on mounds of their own, and the goods buried with them included iron weapons distributed overwhelmingly to adult men and glass that lead isotope analysis traces to northern China.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Yayoi_warfare": "Yayoi warfare is the organised violence that appears in the Japanese archipelago alongside farming, evidenced by ditched settlements, the first weapons made in the islands and skeletons bearing weapon wounds. An exhaustive survey of Yayoi human remains found violent death significantly commoner than in the preceding Jōmon period, whose own rate was 1.8 per cent of adults with no clustering suggesting organised conflict.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Yayoi rate is nonetheless low beside figures reported for prehistoric societies elsewhere, and the survey concludes that it was too low to have driven the evolution of human cooperation.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Yayoi_warfare": "Yayoi warfare is the organised violence that appears in the Japanese archipelago alongside farming, evidenced by ditched settlements, the first weapons made in the islands and skeletons bearing weapon wounds. An exhaustive survey of Yayoi human remains found violent death significantly commoner than in the preceding Jōmon period, whose own rate was 1.8 per cent of adults with no clustering suggesting organised conflict.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Yayoi rate is nonetheless low beside figures reported for prehistoric societies elsewhere, and the survey concludes that it was too low to have driven the evolution of human cooperation.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Wa_(Japan)": "Wa is the name used in the Chinese dynastic histories for the people and countries of the Japanese archipelago, and for several centuries it is the only name for Japan in any surviving text. It describes a scatter of small polities rather than a state: the earliest notice records tribute from the country of Nu in 57 CE and a seal given in return, and a later account describes some thirty countries reached by sea from the Daifang commandery in Korea.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The gold seal survives, found on Shikanoshima in 1784 and inscribed with five characters naming the king of the Nu state of Wa of Han.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Hou_Han_shu": "The <i>Hou Han shu</i> is the standard Chinese history of the Later Han dynasty, and its chapter on the eastern peoples carries the earliest surviving narrative account of Japan. It records an embassy from the country of Nu in 57 CE and the seal granted to it, a second from a king of Wa in 107 CE, and a civil war late in the 2nd century that ended when the countries jointly made a woman their ruler.<sup class=\"fn\" data-fn=\"1\"></sup> Because the Japanese archipelago had no writing of its own at the time, this and the other Chinese histories are the only written sources for the period.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Wajinden": "The Wajinden is the account of the people of Wa that closes the thirtieth chapter of the <i>Sanguozhi</i>, the Chinese history of the Three Kingdoms, and at roughly two thousand characters it is the fullest description of Japan written before Japan wrote about itself. It gives a sailing route from the Daifang commandery through a chain of countries with their household counts, describes tattooing, rice and hemp, bone divination and markets, and records the queen Himiko and her embassies to the Wei court between 238 and 248 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Its distances cannot be reconciled with the map, which is the origin of a long argument about the queen’s country.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Yamatai": "Yamatai is the country in which the queen of Wa held her court, according to the third-century Chinese account that is the only text to name it. It is credited with more than seventy thousand households and four ranks of official, and some thirty countries are said to have acknowledged the queen, though the country of Kuna to the south kept a king of its own and refused.<sup class=\"fn\" data-fn=\"1\"></sup> Whether a wide political consolidation under Yamatai existed is one of three competing answers to the question of when a state first formed in the Japanese archipelago, the others placing that beginning in the 5th century or the 7th.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Himiko": "Himiko is the queen of Wa described in the third-century Chinese account of Japan, and the first named person in Japanese history. The account says she was made ruler by agreement among the countries after years of fighting, that she served the way of spirits and had no husband, that a younger brother helped her govern and a thousand female attendants waited on her, and that a Wei emperor titled her Ruler of Wa Friendly to Wei in 238 CE with a gold seal and a hundred bronze mirrors.<sup class=\"fn\" data-fn=\"1\"></sup> A mound over a hundred paces across was raised at her death, and those mirrors have been argued over ever since.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Yamatai_debate": "The Yamatai debate is the long argument over where the third-century country of the queen Himiko actually lay, conducted for roughly 280 years without decisive evidence. It exists because the Chinese account’s sailing directions and distances cannot both be right: followed literally they place the country in the ocean south of Kyushu, so distrusting the directions puts it in the Kinki region of central Honshu and distrusting the distances puts it in northern Kyushu.<sup class=\"fn\" data-fn=\"1\"></sup> Yoshinogari is the usual exhibit for the Kyushu case and the Makimuku site with the Hashihaka mound for the Kinki case.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Kofun_period": "The Kofun period is the age of mounded tombs in Japan, running for about 350 years from the middle of the 3rd century to the 7th, and it is the period in which a centralised polity took shape. Standardised keyhole-shaped tombs appear in the middle of the 3rd century and are then built by elites across a thousand kilometres (620 miles), tying local communities into a single network.<sup class=\"fn\" data-fn=\"1\"></sup> Horses reached the archipelago during it, imported from the Korean peninsula together with the equestrian specialists needed to breed and ride them, and while the central polity took the initiative, local polities invited those specialists themselves.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Kofun": "A kofun is a mounded tomb of the Japanese period named after it, built between the middle of the 3rd century and the late 6th. They take round, square and keyhole plans and range from mounds over four hundred metres (1,300 feet) long to squares less than ten metres a side, a range that placed each occupant within a hierarchy the builders all understood.<sup class=\"fn\" data-fn=\"1\"></sup> The largest have never been excavated, so their interiors are approached by non-invasive means rather than by digging, among them the imaging of one mound with cosmic-ray muons; the smaller mounds and the ground around them account for most of what has been excavated.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Daisenryō_Kofun": "Daisenryō Kofun in Sakai, south of Osaka, is the largest mounded tomb in Japan, its moated enclosure covering about 464,000 square metres, or some 115 acres. It is administered as the mausoleum of the emperor Nintoku rather than as an archaeological site, one of 899 mausolea and associated places held as objects of national reverence, and it has never been excavated.<sup class=\"fn\" data-fn=\"1\"></sup> It stands in the Mozu group of tombs, built between the late 4th and early 6th centuries, where mounds range from giants over four hundred metres (1,300 feet) long to squares under ten metres a side; 89 survive across the property inscribed as World Heritage in 2019.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Haniwa": "Haniwa are the unglazed ceramic objects set on and around the mounded tombs of Kofun-period Japan, made from the middle of the 3rd century to the early 6th. The commonest form is a plain cylinder planted in rows along a mound’s terraces; others take the shape of houses, shields, sunshades, boats, animals and people, and all were placed on the surface rather than buried with the dead.<sup class=\"fn\" data-fn=\"1\"></sup> Their production techniques changed in the central polity and in local polities at the same time, which is used as evidence that the centre kept direct contact with regional elites.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3292,7 +3302,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Mumun_pottery_culture": "c. 1500 – 300 BCE",
 "Yayoi_pottery": "c. 800 BCE – 250 CE",
 "Dōtaku": "c. 300 BCE – 300 CE",
-"Yoshinogari": "c. 300 BCE – 300 CE"
+"Yoshinogari": "c. 300 BCE – 300 CE",
+"Wa_(Japan)": "1st – 7th century CE",
+"Hou_Han_shu": "compiled 5th century CE",
+"Wajinden": "compiled 3rd century CE",
+"Yamatai": "3rd century CE",
+"Himiko": "d. after 247 CE",
+"Kofun_period": "c. 250 – 600 CE",
+"Kofun": "c. 250 – 600 CE",
+"Daisenryō_Kofun": "c. 350 – 525 CE",
+"Haniwa": "c. 250 – 525 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4737,7 +4756,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Moated_settlement": ["moated village","ditched settlement"],
 "Yoshinogari": ["Yoshinogari site"],
 "Yayoi_chiefdom": ["Yayoi chiefdoms"],
-"Yayoi_warfare": ["warfare in the Yayoi period"]
+"Yayoi_warfare": ["warfare in the Yayoi period"],
+"Wa_(Japan)": ["country of Wa","people of Wa"],
+"Hou_Han_shu": ["Book of the Later Han"],
+"Wajinden": ["Gishi Wajinden","Account of the Wa people"],
+"Yamatai": ["Yamataikoku","Yamatai-koku"],
+"Himiko": ["Pimiko","Queen Himiko"],
+"Yamatai_debate": ["Yamatai controversy","Yamatai location debate"],
+"Kofun_period": ["Kofun era"],
+"Kofun": ["kofun tomb"],
+"Daisenryō_Kofun": ["Daisenryo Kofun","Daisen Kofun","Nintoku-tenno-ryo Kofun"],
+"Haniwa": ["haniwa figure"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -7207,7 +7236,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Moated_settlement": ["place","archaeology","warfare","history"],
 "Yoshinogari": ["place","archaeology","warfare","japan","history"],
 "Yayoi_chiefdom": ["concept","history","archaeology","trade","japan"],
-"Yayoi_warfare": ["event","warfare","archaeology","history","japan"]
+"Yayoi_warfare": ["event","warfare","archaeology","history","japan"],
+"Wa_(Japan)": ["place","history","china","japan"],
+"Hou_Han_shu": ["text","history","china","japan"],
+"Wajinden": ["text","history","china","japan","archaeology"],
+"Yamatai": ["place","history","china","japan","concept"],
+"Himiko": ["person","ruler","history","religion","japan","china"],
+"Yamatai_debate": ["theory","history","archaeology","japan","china"],
+"Kofun_period": ["era","archaeology","history","japan"],
+"Kofun": ["object","building","archaeology","history","japan"],
+"Daisenryō_Kofun": ["place","building","archaeology","history","japan"],
+"Haniwa": ["object","art","archaeology","religion","japan"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
