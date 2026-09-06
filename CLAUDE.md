@@ -996,14 +996,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   has **no page for North Korea** because the United States has never recognised it, and the loss that
   matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Almost none of its
   thousand topics matched an existing glossary key**, so expect the glossary to grow faster here than
-  anywhere since Greece — `ko-001`–`ko-090` alone added eighty-eight terms. **The plan's claim that NOT ONE
+  anywhere since Greece — `ko-001`–`ko-100` alone added ninety-eight terms. **The plan's claim that NOT ONE
   matched was wrong by one, and the exception is the useful half**: `Seoul` was already a cited term, so
   `ko-010` reuses it — **the pairing rule is satisfied by a term that already exists, and
   `add-glossary.js` overwrites in silence, so CHECK before running it.** The next card to write is the
   lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the
-  lookup. **`ko-001` to `ko-090` have shipped** (Sep 2026) — the whole of `ko-land`, `ko-prehistory`,
-  `ko-gojoseon` and `ko-commanderies` — so the
-  collection is live and its 39 empty decks are coming-soon automatically, `isComingSoon` being true for
+  lookup. **`ko-001` to `ko-100` have shipped** (Sep 2026) — the whole of `ko-early`, and the opening of
+  `ko-tk` — so the
+  collection is live and its 38 empty decks are coming-soon automatically, `isComingSoon` being true for
   a node holding no card. **Its first ten are geography rather than events, and that shaped the
   sourcing**: what carried them was UNdata and the World Bank for figures, the Office of the Historian
   for the modern diplomacy, open marine and earth science (Frontiers, Copernicus, PLOS, PMC) for the
@@ -1129,6 +1129,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   surface sweep batch 8 made standing came up clean**, with one measurement worth keeping: `Armoury` and
   `armourer` do NOT match the surface `armour`, the auto-linker requiring a non-letter after it, so a
   first count of 19 Greek hits was really 18.
+  **`ko-091`–`ko-100` OPEN `ko-tk`, AND EIGHT OF THE TEN FIRST SORTED AS TIMELESS.** A period-overview
+  deck is made of concepts — investiture, tribute, indirect rule, genealogy, the epitaph, the wooden
+  tablet — and a concept card ships with no date line, which `cardStartYear` reads as 0. That is right
+  for one card among dated neighbours and **wrong when it is most of a deck**: four of the eight turned
+  out to have an anchor their SOURCES state, so they carry a date line AND `undatable: true`, which is
+  the `ko-073 lacquerware` shape. **Before accepting a timeless card, ask whether the sources date the
+  thing even though the term does not.** Two more findings. **A TERM THAT ALREADY EXISTS SATISFIES THE
+  PAIRING RULE ONLY IF IT SAYS WHAT THE NEW CARD NEEDS**: `ko-098` was going to be *aristocracy*, and
+  `Aristocracy` exists — cited to Aristotle and Polybius and linked from eleven Greece and Rome cards —
+  so pairing with it would have sent a Korean reader to Greek constitutional theory; the card takes
+  **genealogy** instead. And **the surface sweep paid IN ADVANCE for the first time**: `Epitaph` and
+  `Genealogy` were both drafted Korea-first, and five and eleven cards outside Korea respectively use
+  those words — for a Greek verse epitaph, the inscription of Ahiram, Hesiod's *Theogony*, the heroic
+  pedigrees of Argos. Both were rewritten before installing rather than after.
   Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
@@ -5460,7 +5474,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
-| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 90 cards, contiguous — next is `ko-091` |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |

@@ -824,6 +824,48 @@ test requiring a non-letter after the surface — which is why a first count of 
 of a Korean iron ingot, no image of the Hagoseongja fortress, nothing of the *Samguk sagi* above 750
 pixels, and nothing at all for a method. The one that stings is the ingot, since the object is the card.
 
+## What the tenth ten found (Sep 2026)
+
+`ko-091`–`ko-100` open `ko-tk`, and the batch is unusual in that eight of its ten answer terms are
+CONCEPTS, PRACTICES OR CLASSES OF OBJECT rather than people, places or events — investiture, the
+tributary system, indirect rule, genealogy, the epitaph, the wooden tablet. That is what a period
+overview deck is made of, and it produced the batch's two findings.
+
+**EIGHT OF TEN FIRST SORTED AS TIMELESS, WHICH WOULD HAVE EMPTIED THE DECK'S CHRONOLOGY.** A concept
+card ships with no date line and `cardStartYear` returns 0, which is right for `ko-078 chiefdom` sitting
+among dated cards and wrong when it is most of a deck. Four of the eight turned out to have a real
+anchor their sources state — Baekje's capital at Hanseong to 475, the Tang epitaphs after 660, the Wa in
+the Chinese records from about 200, the Seongsan tablets of the 6th and 7th centuries — so they carry a
+date line AND `undatable: true`, which is the `ko-073 lacquerware` shape: the deck orders them, and
+Timeline still never asks a reader to place a practice. **Before accepting a timeless card, ask whether
+the SOURCES date the thing even though the term does not.**
+
+**THE ADJACENT-ANSWERS RULE AND THE PAIRING RULE BOTH CHANGED A CARD.** `ko-098` was going to be
+*aristocracy*, and `Aristocracy` already exists — cited to Aristotle and Polybius, and linked from
+eleven Greece and Rome cards. Pairing with it was allowed and would have been wrong in the other
+direction: a Korean card would send its reader to a Greek constitutional theory. The card takes
+**genealogy** instead, which is what the evidence is actually about. **A term that already exists
+satisfies the pairing rule only if it says what the new card needs.**
+
+**THE SURFACE SWEEP CAUGHT TWO TERMS BEFORE THEY SHIPPED, WHICH IS THE FIRST TIME IT HAS PAID IN
+ADVANCE.** `Epitaph` was drafted with its second and third sentences about Korean exiles in Tang China,
+and five cards in the Greece, Rome and World History collections use the word for a Greek verse epitaph
+or the inscription of Ahiram. `Genealogy` was worse: eleven cards outside Korea use it, ten of them for
+Hesiod's *Theogony* and the heroic pedigrees of Argos and Acragas. Both were rewritten so the general
+sentence comes second and the Korean evidence third. **The lesson is batch 8's, arriving one step
+earlier: sweep the surfaces BEFORE installing, not after.**
+
+**Ten glossary terms shipped with the cards.** Four have pictures and four cards carry one: the
+peninsula in 476, Samnyeon Sanseong, the Tomb of King Jangsu and two Silla wooden tablets. Six cards
+ship without, all of them concepts — investiture, tribute, indirect rule, genealogy, the epitaph and Wa
+have nothing to photograph that is not another card's picture.
+
+**Three sources here are new and all three came from the same `IJKH` back run** — Nguyen Thi My Hanh on
+tributary activity, Jong-Rok Lee on the sumyoje inscriptions, and Nari Kang on the Seongsan Fortress
+tablets, with Junkyu Kim on Baekje's expansion, Dongmin Lim on the Ye family epitaphs and Kiheinarichika
+Ueda on Koguryŏ diaspora genealogies. **The journal is now carrying the collection**, and the two
+routes into it are DOAJ by subject and `api.crossref.org/journals/1598-2041/works`.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -975,16 +1017,16 @@ where its findings go.
 
 ### The Three Kingdoms period — `ko-tk`
 
-    ko-091  The Three Kingdoms of Korea
-    ko-092  The rise of the three kingdoms
-    ko-093  The Three Kingdoms in Chinese sources
-    ko-094  Warfare between the three kingdoms
-    ko-095  Diplomacy with China
-    ko-096  The tributary system
-    ko-097  The three kingdoms and Japan
-    ko-098  Aristocratic society in the Three Kingdoms
-    ko-099  Kingship in the Three Kingdoms
-    ko-100  Law codes and administration in the Three Kingdoms
+    ko-091  The Three Kingdoms of Korea — the Three Kingdoms of Korea
+    ko-092  The rise of the three kingdoms — indirect rule
+    ko-093  Chinese-language sources for the Three Kingdoms — the epitaph
+    ko-094  Warfare between the three kingdoms — the mountain fortress
+    ko-095  Diplomacy with China — investiture
+    ko-096  The tributary system — the tributary system
+    ko-097  The three kingdoms and Japan — the Wa
+    ko-098  Aristocratic society in the Three Kingdoms — genealogy
+    ko-099  Kingship and the royal tomb — sumyoje
+    ko-100  Administration and the written record — the wooden tablet
     ko-101  The introduction of Buddhism to Korea
     ko-102  The introduction of Confucian learning to Korea
     ko-103  Writing and Chinese characters in Korea
