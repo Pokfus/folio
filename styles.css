@@ -7064,6 +7064,31 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
    It borrows `.ctx-menu`'s box, shadow and positioning rather than inventing a second floating panel;
    what it adds is a scrolling list and a three-column row. Capped in height so a character used by
    forty words cannot fill the screen, and the list scrolls inside it. */
+/* A CONJUGATION HEADING THAT EXPLAINS ITSELF (Sep 2026, on request). Only a heading app.js has a note
+   for is given the class, so the affordance is never on one that answers a press with nothing; it is a
+   dotted underline and `cursor:help` rather than a link, because the heading is still a heading and the
+   table must not read as a row of buttons. */
+.uc-cj-ex{
+  cursor:help; text-decoration:underline dotted currentColor;
+  text-underline-offset:3px; text-decoration-thickness:1px;
+}
+.uc-cj-ex:hover, .uc-cj-ex:focus-visible{color:var(--ink); text-decoration-style:solid;}
+.tensewin{padding:0; min-width:250px; max-width:min(380px, 92vw);}
+.tw-head{
+  display:flex; align-items:center; gap:8px; padding:9px 10px 7px;
+  border-bottom:1px solid var(--rule);
+}
+.tw-n{flex:1; font-family:var(--serif); font-size:calc(14px * var(--fs)); color:var(--ink);}
+.tw-x{
+  flex:none; width:24px; height:24px; border:0; background:transparent; cursor:pointer;
+  font-size:calc(17px * var(--fs)); line-height:1; color:var(--ink-soft); border-radius:6px;
+}
+.tw-x:hover{background:var(--paper-2); color:var(--ink);}
+.tw-en{
+  padding:8px 10px 0; font-family:var(--sans); font-size:calc(10.5px * var(--fs));
+  letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);
+}
+.tw-b{padding:3px 10px 10px; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
 .charwin{padding:0; min-width:230px; max-width:min(360px, 92vw);}
 .cw-head{
   display:flex; align-items:center; gap:9px; padding:9px 10px 8px;

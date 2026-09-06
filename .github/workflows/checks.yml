@@ -64,6 +64,8 @@ jobs:
         run: node .claude/test-scheduler.js
       - name: test-streak-chest
         run: node .claude/test-streak-chest.js
+      - name: test-tense-notes
+        run: node .claude/test-tense-notes.js
       # test-learning is half no-browser: FOLIO_SKIP_BROWSER runs sections 1-5 here, in seconds,
       # and the browser job below picks the same file up again for the rest. The cheap half is
       # worth gating on -- it holds the relearning criterion's arithmetic, the answer matcher, and
