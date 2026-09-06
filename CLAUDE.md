@@ -891,7 +891,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   plan: Japanese counts in the same kanji so `cnNumeral()` is reused, but the `"zh"` KEY must not be,
   since it also selects `var(--han)` — a Simplified Chinese face. The next card to write is the lowest
   `jp-NNN` not yet in `data.js`; see the "JAPAN" bullet under "Generating cards & glossary entries".
-  **No card has been written yet.** Not part of the site.
+  **The first hundred cards have shipped** (Sep 2026) — `jp-001` to `jp-030`, the whole of `jp-jomon`,
+  `jp-031` to `jp-060`, the whole of `jp-yayoi`, `jp-061` to `jp-085`, the whole of `jp-asuka`, and
+  `jp-086` to `jp-100`, the first three fifths of `jp-nara` — so the collection is live and its 30 empty
+  decks are coming-soon automatically,
+  `isComingSoon` being true for a node holding no card. **Four of its lines have been retitled while
+  writing**, which is what the plan's own rule asks for. `jp-025`'s went when `jp-004` was written: the
+  peopling card's answer term turned out to be the dual-structure model itself, so that slot is now
+  *Jōmon ancestry in Japanese populations today* rather than a second card on the same model. `jp-081`
+  and `jp-082` went when `jp-080` was written: *Emperor of Japan* and *The origins of the imperial
+  title* would both have re-carded the title `jp-080` already carries with its own sources, so they are
+  now *Battle of Hakusukinoe* and *Empress Jitō*, two things the Asuka deck genuinely lacked. `jp-092`
+  went for a different reason — *The six schools of Nara Buddhism* could not be written to the citation
+  bar, nothing reachable from this sandbox describing the grouping, so it is *Kegon*, the one of them
+  the primary sources actually attest at Nara. Not part
+  of the site.
 - `docs/psychology-card-plan.md` — the **1000-card running order for the Psychology collection**
   (`psych`): every card's number, topic and deck, fixed in advance across 9 decks and 38 leaf decks.
   The twelfth of the planned collections, the fourth to **create its own collection** (node, tree,
@@ -5945,7 +5959,7 @@ lookup.
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 98 cards, SCATTERED — next is `cnh-042`, an early gap, and `cnh-070` was retired in Sep 2026; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
-| Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
+| Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
@@ -5967,7 +5981,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (274 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (277 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -6996,7 +7010,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 274 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 277 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

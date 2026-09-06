@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.664", released: "2026-09-06T14:02Z" };
+window.FOLIO_VERSION = { v: "1.665", released: "2026-09-06T14:07Z" };
 
 window.CHANGELOG = [
   {
@@ -69,13 +69,14 @@ window.CHANGELOG = [
       "<b>Etruscan Campania is drawn as a region on the map</b> rather than as a single dot.",
       "<b>Ten new cards in the Biology collection</b>, opening its chapter on the cell.",
       "<b>The word <i>cell</i> now opens its own glossary entry wherever it appears</b>, which it did not before.",
-      "<b>A hundred and forty more glossary terms</b>, written for the new cards’ answers.",
+      "<b>A hundred and seventy more glossary terms</b>, written for the new cards’ answers.",
       "<b>A hundred new cards open the Korea collection</b>, which now sits under Collections rather than Planned.",
       "<b>Fifty-seven new cards in the World War II collection</b>, with a glossary term for each and a picture for nearly all of them.",
       "<b>Organisation Consul now has a glossary entry</b>, so the Weimar Republic’s assassins no longer open the entry for a Roman magistrate.",
       "<b>A Visual Art collection is planned</b> — a thousand famous artworks and styles, dealt in the order they were made.",
       "<b>The first ten Visual Art cards are here</b> — the picture is the question, and the answer names the work, dates it and credits the photograph.",
       "<b>Artworks now turn up in the Picture round</b> beside the artefacts.",
+      "<b>The Japan collection has opened</b> with its first hundred cards, running from Jōmon Japan to the chronicles of the Nara court.",
     ],
   },
   {

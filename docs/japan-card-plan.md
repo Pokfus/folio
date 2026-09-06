@@ -413,7 +413,7 @@ that comes to hand.
     jp-022  The Jōmon in the Ryukyu Islands
     jp-023  What ended the Jōmon
     jp-024  Jōmon genetics
-    jp-025  The dual-structure model of Japanese origins
+    jp-025  Jōmon ancestry in Japanese populations today
     jp-026  Jōmon regional diversity
     jp-027  Jōmon archaeology and Japanese identity
     jp-028  The Japanese Paleolithic hoax
@@ -475,8 +475,8 @@ that comes to hand.
     jp-078  The handen land allotment system
     jp-079  Fujiwara-kyō
     jp-080  The rise of the tennō
-    jp-081  Emperor of Japan
-    jp-082  The origins of the imperial title
+    jp-081  Battle of Hakusukinoe
+    jp-082  Empress Jitō
     jp-083  Early Japanese Buddhism and the state
     jp-084  Asuka art
     jp-085  Japan and Tang China
@@ -489,7 +489,7 @@ that comes to hand.
     jp-089  Emperor Shōmu
     jp-090  Tōdai-ji
     jp-091  The Great Buddha of Nara
-    jp-092  The six schools of Nara Buddhism
+    jp-092  Kegon
     jp-093  Nara Buddhism and the state
     jp-094  Gyōki
     jp-095  Ganjin
