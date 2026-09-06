@@ -125,6 +125,12 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G9 — twelve more**: `gw-129` Panama, `gw-131` Georgia, `gw-132` Eritrea, `gw-133`
+  Mongolia, `gw-134` Uruguay, `gw-137` Armenia, `gw-138` Namibia, `gw-139` Lithuania, `gw-140` Qatar,
+  `gw-141` Jamaica, `gw-142` Gambia and `gw-143` Gabon, with all twelve date lines rewritten off the same
+  research. **Seven more join the deferral list** — `gw-130` Croatia, `gw-135` Puerto Rico, `gw-136` Bosnia
+  and Herzegovina, `gw-146` Albania, `gw-149` Slovenia, `gw-152` North Macedonia and `gw-153` Kosovo —
+  which takes it to thirty-six.
 - **2026-09-06, batch G8 — twelve more**: `gw-108` Paraguay, `gw-109` Nicaragua, `gw-112` El Salvador,
   `gw-113` Republic of the Congo, `gw-116` Lebanon, `gw-118` Liberia, `gw-122` Central African Republic,
   `gw-124` Palestine, `gw-125` Oman, `gw-126` Mauritania, `gw-127` Costa Rica and `gw-128` Kuwait, with all
@@ -233,6 +239,54 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G9 found
+
+- **THE PROBE THAT TELLS A PROFILE-LESS COUNTRY FROM ONE THE FAO HAS NEVER HEARD OF IS THE PAGE SIZE, AND
+  IT IS TWO DIFFERENT NUMBERS.** A high-income country with no AQUASTAT profile returns **286 KB** and no
+  `fao.org/3/…pdf` link; **Kosovo (`XKX`) and Hong Kong (`HKG`) return 189,869 bytes**, byte for byte the
+  same page, which is what the site serves for a code it does not carry at all. Both are deferred, but for
+  different reasons, and the size says which without opening anything. G8's rule stands: check the size
+  before believing the grep.
+- **RULE 1's `American` PATTERN CATCHES THE CONTINENT, WHICH IS A THIRD KIND OF PERMITTED FINDING.**
+  `gw-129` says "the narrowest country of the **Central American** isthmus" and `gw-134` "the southeast of
+  the **American** continent" — both are the landmass rather than the United States, and both are the
+  natural English for what they describe. They join the federation cases (`gw-070`, `gw-089`, `gw-109`,
+  `gw-112`) and the historical ones (`gw-005`, `gw-053`) in the list the rules permit, and unlike those
+  they are not a proper name at all: **the audit's rule-1 vocabulary cannot distinguish an American state
+  from an American continent, and it should not try** — a pattern narrow enough to tell them apart would
+  miss the thing it is for.
+- **PANAMA CAN NAME ITS CANAL WITHOUT BREAKING RULE 1, BECAUSE AQUASTAT DESCRIBES IT AS HYDROLOGY.** The
+  recognition guide's whole Panama page is the canal as an American undertaking — the 1904 treaty, the
+  Canal Zone, the transfers of 1979 and 1999 — and none of it may be used. The AQUASTAT profile names the
+  same waterway from the other side: the Chagres basin of 3,338 km² is "of vital importance to the
+  operation of the Panama Canal", and the artificial lakes of Alajuela and Gatún regulate the flow the
+  interoceanic route depends on. **When rule 1 takes a country's most famous thing away, look for the
+  source that describes it as a landform.**
+- **A THIN RECOGNITION-GUIDE PAGE STILL HAS ITS ONE CLAUSE, AND THE CARD MUST POINT AT IT.** `gw-131`
+  Georgia first shipped with the guide cited and no marker on it — the page says only "Georgia previously
+  had been a constituent republic of the USSR" — and `add-sources.js` would have refused the batch, as it
+  refused `gw-029` in G2. The fix is G2's: find the one national fact the page does carry and mark the
+  sentence to it as well as to AQUASTAT, which states the April 1991 declaration.
+- **THE CBD OVERVIEW IS SOMETIMES ALL THERE IS, AND WHAT IT CARRIES MAY BE WEATHER RATHER THAN WILDLIFE.**
+  Qatar's profile is four sentences under **Overview** — position, climate, mean temperatures, rainfall and
+  area — with no species at all, so `gw-140`'s fifth source carries a climate sentence and the card says
+  so. G8's finding widened: the heading varies (*Biodiversity Facts*, *Status and Trends of Biodiversity*,
+  *Overview*) and so does what is under it. **Read the section before deciding what the source is for**;
+  a first draft of that sentence claimed the peninsula was a landfall for migrating birds, which is
+  plausible, is true, and is in nothing that was open.
+- **TWO SOURCES DISAGREEING ABOUT ONE FIGURE IS A SENTENCE, NOT A PROBLEM.** Gabon's forest is 82 per cent
+  of the territory in AQUASTAT and 85 in the CBD profile, both cited on the card, the second introduced as
+  another reckoning. That is C1's read-both rule applied to prose rather than to a correction.
+- **RULE 4's COUNT FELL BY THREE ON A BATCH THAT REWROTE ONE OF ITS CARDS.** `gw-142` Gambia was on the
+  standing list for naming Senegal, and the country is describable without it: the River Gambia runs east
+  to west through the middle and divides the land into two strips 25 to 50 km wide, which is the same
+  bearing information and is what AQUASTAT leads with. **A border list is nearly always replaceable by the
+  landform that made the border.**
+- **AND THE LINK CHECK CAME BACK CLEAN FOR THE FIRST TIME.** Reading the twelve rendered cards for their
+  `.ttip` links — G7's method, which found a mis-link in each of the last two batches — turned up nothing:
+  `Byzantines` → the Byzantine Empire, `Commonwealth` → the Commonwealth of Nations, `karst`, `gazelles`,
+  `savannas` all resolve correctly. **Run it anyway; the two it caught were both invisible in the data.**
 
 ## What G8 found
 
@@ -525,6 +579,6 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
   and put a fifth in its place.
 
-**Rules 1 and 3 remain open on about 330 cards.** Run `node .claude/gw-audit.js` for the live figures.
+**Rules 1 and 3 remain open on about 320 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*
