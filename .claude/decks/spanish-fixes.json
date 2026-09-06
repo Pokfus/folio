@@ -7995,6 +7995,351 @@
     "taxis"
    ],
    "rebold": true
+  },
+  "delea1/preguntar": {
+   "why": "Three of its four glosses - to wonder, to ask oneself, to ponder - are the REFLEXIVE, preguntarse, listed as though they were senses of the bare verb, which is what its own third example uses: me pregunto. And nothing warned about the trap: preguntar is asking a question, pedir is asking FOR something, and English uses ask for both.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to ask (a question)",
+      "preguntar por alguien — to ask after someone"
+     ]
+    ],
+    [
+     "verb, reflexive",
+     [
+      "preguntarse — to wonder: me pregunto si vendrá"
+     ]
+    ],
+    [
+     "note",
+     [
+      "asking FOR something is pedir, not preguntar"
+     ]
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el árbol": {
+   "why": "Its two glosses were tree (a perennial woody plant) and tree - the same word twice, once wearing a botanist's parenthesis.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "tree"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el árbol genealógico — family tree",
+      "el árbol de Navidad — Christmas tree"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los árboles"
+    ],
+    [
+     "leaf, branch",
+     "la hoja, la rama"
+    ]
+   ],
+   "bold": [
+    "árbol",
+    "árboles"
+   ],
+   "rebold": true
+  },
+  "delea1/vender": {
+   "why": "to sell, to sell for (a sum), to fetch - one sense written three ways - while se vende, which is on every For Sale sign in Spain and is what its own third example uses, was not on the card.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to sell"
+     ]
+    ],
+    [
+     "verb, reflexive",
+     [
+      "venderse — to be sold, to sell: se vende bien"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "se vende — for sale (on a sign)",
+      "estar en venta — to be up for sale"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "la venta"
+    ],
+    [
+     "the seller",
+     "el vendedor, la vendedora"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el reloj": {
+   "why": "clock, watch, wristwatch - correct, and without the two compounds a reader needs first: the alarm clock that wakes them and the wristwatch they are asked the time from.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "clock; watch"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el reloj despertador — alarm clock",
+      "el reloj de pulsera — wristwatch"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los relojes"
+    ],
+    [
+     "the watchmaker or shop",
+     "el relojero, la relojería"
+    ]
+   ],
+   "bold": [
+    "reloj",
+    "relojes"
+   ],
+   "rebold": true
+  },
+  "delea1/el colegio": {
+   "why": "school, school before secondary school - the second is a definition standing in for a gloss, and it is also the whole point of the word: what a reader has to be told is which building each Spanish word names, because colegio, escuela and instituto are not interchangeable.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "school — in Spain usually a primary school, or a private school covering both stages"
+     ]
+    ],
+    [
+     "note",
+     [
+      "el instituto is the state secondary school",
+      "la escuela is a school in general, and a specialist one: escuela de música"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los colegios"
+    ],
+    [
+     "secondary school",
+     "el instituto"
+    ],
+    [
+     "the pupil",
+     "el alumno, la alumna"
+    ]
+   ],
+   "bold": [
+    "colegio",
+    "colegios"
+   ],
+   "rebold": true
+  },
+  "delea1/el código": {
+   "why": "One bare gloss, code, and two of its three examples are a programmer's - while el código postal, which a reader writes on the first form they ever fill in, was nowhere.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "code"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el código postal — postcode, ZIP code",
+      "el código PIN — PIN number",
+      "el código de barras — barcode"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los códigos"
+    ]
+   ],
+   "bold": [
+    "código",
+    "códigos"
+   ],
+   "rebold": true
+  },
+  "delea1/el pan": {
+   "why": "Its gloss carried a dictionary's definition - food made by baking cereal dough - and its third example was a proverb, misquoted at that: the saying is al pan, pan y al vino, vino, and a proverb is a poor use of one of three slots on an A1 card. What was missing is what a reader says in a bakery.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "bread"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "una barra de pan — a baguette, a loaf",
+      "el pan integral — wholemeal bread",
+      "el pan tostado — toast"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los panes"
+    ],
+    [
+     "the baker's",
+     "la panadería"
+    ]
+   ],
+   "bold": [
+    "pan",
+    "panes"
+   ],
+   "dropEx": [
+    "Llame al pan, pan y al vino, vino."
+   ],
+   "ex": [
+    [
+     "Voy a comprar pan a la panadería.",
+     "I am going to buy bread at the bakery."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el millón": {
+   "why": "The one thing that separates this word from cien and mil is that it is a noun and takes de before what is counted - un millón DE personas - and the card, whose own three examples all do it, never said so.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "million"
+     ]
+    ],
+    [
+     "note",
+     [
+      "it takes de before the thing counted: un millón de personas, dos millones de euros",
+      "unlike cien and mil, which take the noun directly: cien personas"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los millones"
+    ],
+    [
+     "a thousand million",
+     "mil millones"
+    ]
+   ],
+   "bold": [
+    "millón",
+    "millones"
+   ],
+   "rebold": true
+  },
+  "delea1/caminar": {
+   "why": "Its second example is el camino, the noun - a medio camino, halfway - which the card does not list, so one of its three sentences illustrates a different word. In Spain the everyday verb for walking is andar, and neither that nor dar un paseo was anywhere on it.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to walk"
+     ]
+    ],
+    [
+     "note",
+     [
+      "in Spain andar is the commoner word for walking; caminar is used everywhere",
+      "dar un paseo is to go for a walk"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "el camino — road, way, path"
+    ]
+   ],
+   "dropEx": [
+    "No te des por vencido a medio camino."
+   ],
+   "ex": [
+    [
+     "Camino al trabajo todos los días.",
+     "I walk to work every day."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la silla": {
+   "why": "Two of its three examples are la silla de ruedas, the wheelchair, which the card does not list - so the deck teaches chair and shows a wheelchair twice. El sillón, the armchair, is also missing, and the saddle sense is really silla de montar.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "chair"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la silla de ruedas — wheelchair",
+      "la silla de montar — saddle"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las sillas"
+    ],
+    [
+     "armchair",
+     "el sillón"
+    ]
+   ],
+   "bold": [
+    "silla",
+    "sillas"
+   ],
+   "dropEx": [
+    "¿Has visto la silla de ruedas del abuelo?"
+   ],
+   "ex": [
+    [
+     "Siéntate en esta silla, por favor.",
+     "Sit on this chair, please."
+    ]
+   ],
+   "rebold": true
   }
  },
  "insert": {
