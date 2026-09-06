@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.671", released: "2026-09-06T18:17Z" };
+window.FOLIO_VERSION = { v: "1.672", released: "2026-09-06T18:34Z" };
 
 window.CHANGELOG = [
   {
@@ -91,7 +91,7 @@ window.CHANGELOG = [
       "<b>Your own atlas's rail can be shortened to start at 1000 BCE, 1000 CE, 1500 or 1900</b>, which is how you land on a recent year on a small screen.",
       "<b>Your own atlas's rail no longer carries the world atlas's year marks</b>, having no stops of its own to mark.",
       "<b>Rivers on a card's atlas window are thinner</b> until you are well zoomed in.",
-      "<b>“Think it through” opens each answer on a chevron</b> instead of a button, closed to begin with and closable again.",
+      "<b>“Think it through” is now a tabbed panel whose answers open on a chevron</b>, closed to begin with and closable again.",
       "New pictures for two geography cards, and four city populations rounded to three figures.",
       "<b>Fifteen geography cards no longer put a census count in the dates under the answer</b>, which is where the term's dates belong.",
       "<b>The changelog puts a day's title under its date on a phone</b>, and a study card keeps only the three dots of “recalled on X of 3 days” on a tablet.",

@@ -8506,11 +8506,31 @@ body[data-theme="carnelian"].night .collection-deco{
 .grade.grade-suggest{box-shadow:inset 0 0 0 2px currentColor;}
 
 /* ELABORATION PROMPTS (see elabPromptHTML in app.js) — one per session, between the answer and the
-   background. Quiet and clearly not part of the card's own content: a dashed rule and the paper-2 ground,
-   so it reads as Folio asking a question rather than as another field of the card. */
-.elab{border:1px dashed var(--rule); border-radius:12px; background:var(--paper-2);
-  padding:14px 15px; margin:16px 0 4px; display:flex; flex-direction:column; gap:9px;}
-.elab-kind{font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
+   background. THE INDEX TAB (Sep 2026, on request, choosing design 5 of six rendered alternatives): a
+   panel with a squared 3px corner and a hairline edge, with the section's name riding its TOP EDGE as a
+   tab in the card's own answer ink, the way an index tab rides the edge of a page. The label was a line
+   of small caps sitting inside the box, which is the same thing said quietly; on the edge it names the
+   panel from outside it, which is what lets the panel itself be plain.
+
+   IT IS PAPER ON CARD, WHERE THE MOCK WAS CARD ON PAPER, AND THAT IS THE SAME STEP MIRRORED. The design
+   was drawn as a white card standing on the page's own ground; this block lives INSIDE the study card,
+   which is already `--card`, so a white panel there would have no edge at all. `--paper-2` is one step
+   the other way and reads as the same distinct object.
+
+   THE TAB'S GROUND IS MIXED 72% TOWARDS THE INK, AND THAT RATIO IS SOLVED RATHER THAN CHOSEN. A tab is
+   reversed type — the label takes `--card` — so its legibility is the contrast between `--zh` and
+   `--card`, and measured across all sixteen themes in both modes that pair fails the 4.5:1 bar four
+   times (synth 3.55, opalite 2.98, marble night 4.01, academy night 4.49). Mixing towards `--ink` moves
+   the ground AWAY from the card in BOTH directions with no per-theme table, `--ink` being by definition
+   the far end from `--card`: at 72% the worst case on the shelf is opalite at 4.72. The plain `--zh` is
+   declared first so a browser without `color-mix` still gets a readable tab rather than none. */
+.elab{position:relative; border:1px solid var(--rule); border-radius:3px; background:var(--paper-2);
+  padding:24px 16px 15px; margin:20px 0 4px; display:flex; flex-direction:column; gap:0;}
+.elab-kind{position:absolute; top:calc(-10px * var(--fs)); left:15px;
+  background:var(--zh); background:color-mix(in srgb, var(--zh) 72%, var(--ink));
+  color:var(--card); font-size:calc(9.5px * var(--fs)); font-weight:600; letter-spacing:.13em;
+  text-transform:uppercase; padding:calc(4px * var(--fs)) calc(10px * var(--fs));
+  border-radius:2px; line-height:1.25; white-space:nowrap;}
 .elab-q{margin:0; font-family:var(--serif); font-size:calc(16px * var(--fs)); line-height:1.6; color:var(--ink);}
 /* THREE QUESTIONS, EACH WITH ITS ANSWER BEHIND A BUTTON (Sep 2026, on request) — see elabPromptHTML.
    A row is question + button on one line, with the answer uncovered underneath it. The button is
@@ -8540,10 +8560,10 @@ body[data-theme="carnelian"].night .collection-deco{
 .elab-qrow::-webkit-details-marker{display:none;}
 .elab-qrow:focus-visible{outline:2px solid var(--indigo); outline-offset:3px;}
 .elab-qrow .elab-q{flex:1 1 auto; min-width:0;}
-.elab-chev{flex:none; color:var(--ink-faint); display:flex; align-items:center; height:calc(16px * var(--fs) * 1.6);}
+.elab-chev{flex:none; color:var(--zh); display:flex; align-items:center; height:calc(16px * var(--fs) * 1.6);}
 .elab-chev svg{width:15px; height:15px; display:block; transition:transform .18s var(--ease);}
 .elab-item[open] > .elab-qrow .elab-chev svg{transform:rotate(180deg);}
-.elab-qrow:hover .elab-chev{color:var(--indigo);}
+.elab-qrow:hover .elab-chev{color:var(--ink);}
 /* the legacy item (a `card.why` written before the answers were authored — see cardWhy) is a row and a
    button rather than a fold, since its answer is a block of the card's own background */
 .elab-legacy .elab-qrow{cursor:default;}
@@ -8552,7 +8572,7 @@ body[data-theme="carnelian"].night .collection-deco{
 /* the answer itself: the card's own prose, set off by a rule down its left edge so it reads as a reply to
    the line above rather than as another paragraph of the background */
 .elab-wrap{padding-top:7px;}
-.elab-a{margin:0; padding-left:12px; border-left:2px solid var(--rule);
+.elab-a{margin:0; padding-left:13px; border-left:3px solid var(--zh);
   font-family:var(--serif); font-size:calc(16px * var(--fs)); line-height:1.66; color:var(--ink-soft);}
 .elab-a[hidden]{display:none;}
 @media (max-width:520px){

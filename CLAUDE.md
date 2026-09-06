@@ -3278,6 +3278,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     semantics — focusable summary, Enter and Space, the announced state — where the button needed
     `aria-expanded` and `aria-controls` written by hand. **`wireElabPrompt` therefore wires nothing on an
     ordinary card** and is left only for the legacy item below.
+    **THE BLOCK IS AN INDEX TAB** (Sep 2026, on request, choosing design 5 of six rendered
+    alternatives): a panel with a squared 3px corner and a hairline edge, its name riding the TOP EDGE as
+    a tab in the card's own answer ink, the chevron in that ink and the answer indented under a 3px rule
+    of it. **It is PAPER ON CARD where the design was card on paper**, and that is the same step mirrored
+    — the block lives inside the study card, which is already `--card`, so a white panel there would have
+    no edge at all. **THE TAB'S GROUND IS MIXED 72% TOWARDS `--ink`, AND THAT RATIO IS SOLVED RATHER THAN
+    CHOSEN**: a tab is reversed type, so its legibility is `--zh` against `--card`, and measured over all
+    sixteen themes in both modes that pair fails 4.5:1 four times (synth 3.55, opalite 2.98, marble night
+    4.01, academy night 4.49). Mixing towards the ink moves the ground away from the card in BOTH
+    directions with no per-theme table, `--ink` being by definition the far end from `--card`; at 72% the
+    worst case on the shelf is opalite at 4.72. The plain `--zh` is declared first, so a browser without
+    `color-mix` gets a readable tab rather than none.
     **AND IT CLOSES AGAIN, WHICH THE BUTTON DELIBERATELY DID NOT.** That button disabled itself, on the
     reasoning that a reader who has read an answer cannot un-read it, so taking it away could only lose
     their place. A chevron makes the opposite promise — it is the mark that says there are two states and
