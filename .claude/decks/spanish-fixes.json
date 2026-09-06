@@ -3849,6 +3849,313 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/venir": {
+      "why": "THE WORST GLOSS IN THE DECK: its two bullets were 'Senses relating to literal movement.' and 'Senses relating to figurative movement.' — Wiktionary's own SENSE-GROUP HEADERS, the lines a dictionary prints above a list of meanings, extracted as though they were the meanings. The word 'come' appeared nowhere on the card. que viene, which is what its own second example is (la semana que viene), had no line either.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to come"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "que viene — next (la semana que viene — next week)",
+            "venir bien — to suit, to be convenient"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/pasar": {
+      "why": "Its second example is '¿Cómo fue el fin de semana pasada, Nancy?', where pasada does not agree - el fin is masculine, so it is el fin de semana pasado. A grammar mistake in the deck's own Spanish, and the second one this review has found after 'el igual que' and 'al menos que'. Both remaining examples were also the participle used as an adjective (el año pasado), so the card taught 'last' three times and 'to pass' never. ¿Qué pasa?, which is how the verb is most often heard, was not listed.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to happen (¿qué pasa? — what's up?)",
+            "to pass, to go past",
+            "to spend (time)",
+            "to pass, to hand (pásame la sal)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "¿Cómo fue el fin de semana pasada, Nancy?"
+      ],
+      "ex": [
+        [
+          "¿Qué pasa?",
+          "What's happening?"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/primero, primera": {
+      "why": "'first up' and 'top (head)' are not translations of primero. What was missing is primer, the form it takes before a masculine noun - the same shortening tercero has, and fixed there last batch - and the adverb. FOUND BY A SWEEP FOR EXAMPLES A READER SHOULD NOT BE SHOWN. The sentences come from Tatoeba, which is not written for a classroom, and three cards were carrying sentences that are crude or unkind about a person. Nothing in the pipeline looks at what an example SAYS, only at whether it contains the word. Its second example was 'La primera vez no se le puso dura', which is sexual, on an A1 card about the word 'first'.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "first"
+          ]
+        ],
+        [
+          "adverb",
+          [
+            "first, firstly"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "primeros, primeras"
+        ],
+        [
+          "before a masculine noun",
+          "primer"
+        ]
+      ],
+      "rebold": true,
+      "dropEx": [
+        "La primera vez no se le puso dura."
+      ],
+      "ex": [
+        [
+          "Es la primera vez que vengo aquí.",
+          "It's the first time I've come here."
+        ]
+      ]
+    },
+    "delea1/la semana": {
+      "why": "'week (7 days)' and nothing else, while el fin de semana is the card's own third example and la semana que viene and la semana pasada are how the word is met in a diary. That third example is also the ungrammatical 'fin de semana pasada' the pasar card carried.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "week"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "el fin de semana — the weekend",
+            "la semana que viene — next week",
+            "la semana pasada — last week"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "¿Cómo fue el fin de semana pasada, Nancy?"
+      ],
+      "ex": [
+        [
+          "El fin de semana voy al cine.",
+          "At the weekend I go to the cinema."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el año": {
+      "why": "'year' and 'age' - and año does not mean age; what it does is carry it, in tener … años, which the tener card now states and this one did not. el año pasado and el año que viene are the two phrases the word is met in.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "year"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "tener … años — to be … years old",
+            "el año pasado — last year",
+            "el año que viene — next year"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el tío, la tía": {
+      "why": "'uncle' and 'mister (title conferred on an adult male)', so AUNT was missing from a pair card - the fourth in this deck after el hijo la hija, el hermano la hermana and el chico la chica. The second gloss is also the Peninsular colloquial tío, bloke, described rather than translated.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "tío — uncle",
+            "tía — aunt"
+          ]
+        ],
+        [
+          "noun, masculine and feminine",
+          [
+            "bloke, guy; girl (Spain, colloquial)"
+          ]
+        ],
+        [
+          "noun, masculine plural",
+          [
+            "los tíos — aunt and uncle"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la ciudad": {
+      "why": "Glossed 'city' while two of its three examples translate it 'town' and one of them contrasts it with pueblos.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "city, town"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "el centro de la ciudad — the town centre"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/cuánto": {
+      "why": "Filed as an ADVERB, with no Forms, while two of its three examples bold cuántas and cuántos - the determiner agreeing with a noun. Fifth card in this review whose part of speech and examples disagree, after hasta, mañana, demasiado and cuál. ¿cuánto cuesta?, which is the question the word exists for, was not there.",
+      "senses": [
+        [
+          "determiner",
+          [
+            "how much",
+            "how many (cuántos, cuántas)"
+          ]
+        ],
+        [
+          "adverb",
+          [
+            "how much (¿cuánto cuesta? — how much does it cost?)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "feminine",
+          "cuánta"
+        ],
+        [
+          "plural",
+          "cuántos, cuántas"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el jefe, la jefa": {
+      "why": "'chief, president, head, leader of a business, political party, or other organization' - four glosses, the last a definition, and BOSS, the ordinary English word, among none of them, though the card's own second example is translated 'The boss of the company'.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "boss",
+            "head, chief (el jefe de cocina — the head chef)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el agua": {
+      "why": "This is the deck's canonical stressed-a noun - the one the article card names when it says a feminine noun beginning with a stressed a- takes el in the singular - and its own card said nothing about it. 'body of water' is also the plural las aguas rather than a second sense of the singular.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "water"
+          ]
+        ],
+        [
+          "noun, feminine plural",
+          [
+            "las aguas — waters (of a sea or a river)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las aguas"
+        ],
+        [
+          "feminine, but takes el in the singular",
+          "el agua fría"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/gordo, gorda": {
+      "why": "FOUND BY A SWEEP FOR EXAMPLES A READER SHOULD NOT BE SHOWN. The sentences come from Tatoeba, which is not written for a classroom, and three cards were carrying sentences that are crude or unkind about a person. Nothing in the pipeline looks at what an example SAYS, only at whether it contains the word. All three of this card's examples were about people being fat, two of them pointing at somebody — 'Esa chica de allí está muy gorda' — and the third ('Muy pocos hombres gordos tienen narices largas') saying nothing at all. gordo also means thick, and el gordo is the top prize in the Spanish Christmas lottery, neither of which the card carried.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "fat",
+            "thick (un libro gordo — a thick book)"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "el gordo — the jackpot (in the Spanish lottery)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Yo no sé por qué Tom es gordo.",
+        "Esa chica de allí está muy gorda.",
+        "Muy pocos hombres gordos tienen narices largas."
+      ],
+      "ex": [
+        [
+          "Mi gato está muy gordo.",
+          "My cat is very fat."
+        ],
+        [
+          "Compré un libro muy gordo.",
+          "I bought a very thick book."
+        ],
+        [
+          "A mi abuela le tocó el gordo.",
+          "My grandmother won the jackpot."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/feo, fea": {
+      "why": "FOUND BY A SWEEP FOR EXAMPLES A READER SHOULD NOT BE SHOWN. The sentences come from Tatoeba, which is not written for a classroom, and three cards were carrying sentences that are crude or unkind about a person. Nothing in the pipeline looks at what an example SAYS, only at whether it contains the word. Two of this card's three examples were insults about a person's looks, one of them about a named girl's face. The third is the figurative sense - things turning ugly - which is worth keeping and was the card's own second gloss, written as 'in poor condition'.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "ugly",
+            "nasty, bad (un tiempo feo — bad weather; ponerse feo — to turn nasty)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Tom me dijo que soy feo y estúpido.",
+        "La cara de esa muchacha es increíblemente fea."
+      ],
+      "ex": [
+        [
+          "Ese edificio es muy feo.",
+          "That building is very ugly."
+        ],
+        [
+          "Hace un tiempo muy feo.",
+          "The weather is very bad."
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
