@@ -10779,6 +10779,397 @@
     "conciertos"
    ],
    "rebold": true
+  },
+  "delea1/exterior": {
+   "why": "Filed as an adjective, and ALL THREE of its examples are the NOUN el exterior - a trip abroad, working outside, studying abroad - so not one sentence on the card showed the part of speech the card claims. Worse than interior, which had two of three. It also needed the note that in Spain going abroad is ir al extranjero, and al exterior is heard mostly in Latin America.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "outer, external, outside"
+     ]
+    ],
+    [
+     "noun, masculine",
+     [
+      "el exterior — the outside; abroad"
+     ]
+    ],
+    [
+     "note",
+     [
+      "in Spain abroad is usually el extranjero; el exterior is commoner in Latin America"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "exteriores"
+    ],
+    [
+     "the inside",
+     "el interior"
+    ]
+   ],
+   "bold": [
+    "exterior",
+    "exteriores"
+   ],
+   "rebold": true
+  },
+  "delea1/la escalera": {
+   "why": "stairs, staircase, stairway - three words for one sense - and TWO of its three examples are a LADDER: Tom fell when it broke, have you ever fallen off one. That is la escalera de mano, which the card did not list, so the deck taught stairs and showed a ladder twice.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "stairs, staircase"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la escalera de mano — ladder",
+      "la escalera mecánica — escalator",
+      "subir, bajar la escalera — to go up, to go down the stairs"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las escaleras"
+    ],
+    [
+     "the lift",
+     "el ascensor"
+    ]
+   ],
+   "bold": [
+    "escalera",
+    "escaleras"
+   ],
+   "dropEx": [
+    "¿Alguna vez te has caído de una escalera?"
+   ],
+   "ex": [
+    [
+     "Subimos por la escalera hasta el tercer piso.",
+     "We went up the stairs to the third floor."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el puerto": {
+   "why": "Its first example is not the common noun at all but a proper name - San Juan is the capital of PUERTO Rico - matched on the word inside it. The mountain pass, which is what a Spanish road sign means by puerto, was also missing.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "port, harbour"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el puerto de montaña — mountain pass",
+      "el puerto USB — USB port"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los puertos"
+    ],
+    [
+     "the boat",
+     "el barco"
+    ]
+   ],
+   "bold": [
+    "puerto",
+    "puertos"
+   ],
+   "dropEx": [
+    "San Juan es la capital de Puerto Rico."
+   ],
+   "ex": [
+    [
+     "El barco entra en el puerto.",
+     "The ship is coming into the harbour."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/visitar": {
+   "why": "Its second example is la visita, the noun - Tom is not ready to receive visitors - which the card does not list, so one of three sentences taught a different word. The eighth card in this review with that fault.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to visit"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la visita — a visit; a visitor",
+      "hacer una visita — to pay a visit"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "la visita"
+    ],
+    [
+     "the visitor",
+     "el visitante"
+    ]
+   ],
+   "dropEx": [
+    "Tom todavía no está listo para recibir visitas."
+   ],
+   "ex": [
+    [
+     "Visité el museo del Prado.",
+     "I visited the Prado museum."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/extranjero, extranjera": {
+   "why": "Filed as an adjective, and its own first example is the NOUN - mi padre nunca ha estado en el extranjero, abroad - which is both the commonest use of the word and the one the card did not carry. A foreigner is the other noun sense, and that was missing too.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "foreign"
+     ]
+    ],
+    [
+     "noun, masculine",
+     [
+      "el extranjero — abroad: ir al extranjero, vivir en el extranjero"
+     ]
+    ],
+    [
+     "noun, masculine and feminine",
+     [
+      "el extranjero, la extranjera — a foreigner"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "extranjeros, extranjeras"
+    ],
+    [
+     "the outside",
+     "el exterior"
+    ]
+   ],
+   "bold": [
+    "extranjero",
+    "extranjera",
+    "extranjeros",
+    "extranjeras"
+   ],
+   "rebold": true
+  },
+  "delea1/lento, lenta": {
+   "why": "Its first example is a Mexican simile - slower than the villain's horse - which a reader outside Mexico will never hear, and the card never said the thing that decides which word to use: lento is the adjective and despacio the adverb, so a car is lento and it goes despacio.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "slow"
+     ]
+    ],
+    [
+     "note",
+     [
+      "lento describes a thing; despacio describes how something is done: un tren lento va despacio"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "lentos, lentas"
+    ],
+    [
+     "the adverb",
+     "despacio"
+    ],
+    [
+     "the opposite",
+     "rápido, rápida"
+    ]
+   ],
+   "bold": [
+    "lento",
+    "lenta",
+    "lentos",
+    "lentas"
+   ],
+   "dropEx": [
+    "Eres más lento que el caballo del malo."
+   ],
+   "ex": [
+    [
+     "El servicio en este restaurante es muy lento.",
+     "The service in this restaurant is very slow."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/cocinar": {
+   "why": "Its third example is not Spanish: el marido le está cocinando PARA la esposa puts a dative pronoun and a para phrase on the same object, and no speaker would say it. The two nouns the verb lives beside, la cocina and el cocinero, were also absent.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to cook"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la cocina — kitchen; cooking, cuisine",
+      "el cocinero, la cocinera — cook, chef"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the room",
+     "la cocina"
+    ],
+    [
+     "the cook",
+     "el cocinero, la cocinera"
+    ]
+   ],
+   "dropEx": [
+    "El marido le está cocinando para la esposa."
+   ],
+   "ex": [
+    [
+     "¿Sabes cocinar paella?",
+     "Do you know how to cook paella?"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la flor": {
+   "why": "Both glosses were botanical definitions - structure in angiosperms, an expanded bud - and TWO of its three examples are the figurative flor de: the prime of life, the flower of the school. The literal flower a reader buys is on one sentence out of three.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "flower"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "un ramo de flores — a bunch of flowers",
+      "en flor — in bloom",
+      "la flor de la vida — the prime of life"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las flores"
+    ],
+    [
+     "the florist",
+     "la floristería"
+    ]
+   ],
+   "bold": [
+    "flor",
+    "flores"
+   ],
+   "dropEx": [
+    "Esta chica es la flor de la escuela."
+   ],
+   "ex": [
+    [
+     "Le regalé un ramo de flores.",
+     "I gave her a bunch of flowers."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/nadar": {
+   "why": "to swim (move through water), to be swimming in - the second is the figurative use, nadar en dinero, given as a bare gloss with nothing to show what it attaches to - and la piscina, where a reader actually swims, was not on the card.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to swim"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "saber nadar — to know how to swim",
+      "nadar en dinero — to be rolling in money"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the pool",
+     "la piscina"
+    ],
+    [
+     "swimming",
+     "la natación"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el transporte": {
+   "why": "transport, transportation - the same word on two sides of the Atlantic - and neither of the two phrases a reader needs in a city: el transporte público and los medios de transporte.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "transport"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el transporte público — public transport",
+      "los medios de transporte — means of transport"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los transportes"
+    ],
+    [
+     "the verb",
+     "transportar"
+    ]
+   ],
+   "bold": [
+    "transporte",
+    "transportes"
+   ],
+   "rebold": true
   }
  },
  "insert": {
