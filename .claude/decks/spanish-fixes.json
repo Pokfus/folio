@@ -5716,6 +5716,255 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/el negro": {
+      "why": "THE ONLY COLOUR IN THE DECK HEADED AS A NOUN. blanco, rojo, verde and azul are all adjectives; this one was 'el negro', glossed 'black (the color perceived in the absence of light)', while two of its three examples are the adjective (negra, negros). Headed as a masculine noun, el negro also names a person, which is a different and loaded word — and the card's second example is 'El sospechoso es un varón de raza negra', a police description of a suspect, on an A1 card about a colour. It is the adjective now, like its four siblings, with the colour noun as a second sense.",
+      "spanish": "negro, negra",
+      "word": "negro",
+      "senses": [
+        [
+          "adjective",
+          [
+            "black"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "el negro — the colour black"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "negros, negras"
+        ]
+      ],
+      "dropEx": [
+        "El sospechoso es un varón de raza negra."
+      ],
+      "ex": [
+        [
+          "Tengo un coche negro.",
+          "I have a black car."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/blanco, blanca": {
+      "why": "The other half of the negro entry: its second gloss was 'white (of light skin)', a racial sense given equal billing with the colour on an A1 card. What blanco does need is en blanco, and el vino blanco, which the vino card now carries from the other side.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "white"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "el blanco — the colour white; a target"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "blancos, blancas"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el mensaje": {
+      "why": "'message, speech' - speech is el discurso. el mensaje de texto, which is the card's own second example, is what the second line should have been.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "message"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "el mensaje de texto — text message",
+            "dejar un mensaje — to leave a message"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/cambiar": {
+      "why": "Five glosses for one verb, and its second example is not a verb at all - 'el tipo de cambio' is the masculine NOUN el cambio, the exchange rate, which the card did not list. cambiar DE, which is what its third example is (cambié de tren), had no line either.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to change"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "cambiar de — to change (cambiar de tren, cambiar de idea)"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "el cambio — change; the exchange rate"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el médico, la médica": {
+      "why": "'doctor, physician' - one word twice. ir al médico is the phrase a reader needs and it was not there.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "doctor"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "ir al médico — to go to the doctor"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/largo, larga": {
+      "why": "Its second gloss was five synonyms of its first - 'long, lengthy, extended, prolonged, protracted'. What the card most needed to say is that largo is a FALSE FRIEND: English 'large' is grande, and this is the mistake an English speaker makes with it before any other. a lo largo de, which is the card's own first example, had no line.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "long (not 'large' — that is grande)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "a lo largo de — along, throughout"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el baño": {
+      "why": "'bath (act of taking a bath)' first, which is not what any of the three examples mean - all three are the room. el cuarto de baño and ir al baño are how a reader will use the word.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "bathroom, toilet",
+            "bath (tomar un baño — to have a bath)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "el cuarto de baño — the bathroom",
+            "ir al baño — to go to the toilet"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la edad": {
+      "why": "'time since an event' is a definition rather than a translation. ¿qué edad tienes? is how the word is used and la Edad Media is where a reader will next meet it.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "age"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "¿qué edad tienes? — how old are you?",
+            "la Edad Media — the Middle Ages"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el aire": {
+      "why": "Two dictionary definitions of the same word. al aire libre and el aire acondicionado are the two compounds a beginner meets.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "air"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "al aire libre — outdoors, in the open air",
+            "el aire acondicionado — air conditioning"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/tuyo": {
+      "why": "The mirror of mío, and it had the same three faults: two examples where every other card has three, no Forms though its second example bolds tuyas, and only the pronoun - un amigo tuyo, the stressed possessive after its noun, was not there.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "el tuyo, la tuya — yours"
+          ]
+        ],
+        [
+          "adjective",
+          [
+            "of yours, your own (after the noun: un amigo tuyo)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "feminine",
+          "tuya"
+        ],
+        [
+          "plural",
+          "tuyos, tuyas"
+        ]
+      ],
+      "ex": [
+        [
+          "Un amigo tuyo me llamó.",
+          "A friend of yours called me."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el campo": {
+      "why": "'countryside, country, field (large open area)' - and the card's own third example is a campo de golf, a course, which is the sporting sense it did not list.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "countryside, country",
+            "field"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "el campo de fútbol — football pitch; el campo de golf — golf course"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
