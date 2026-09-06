@@ -848,7 +848,7 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-595  Sophocles
     gr-596  Oedipus Tyrannus
     gr-597  Antigone
-    gr-598  Ajax
+    gr-598  Ajax   (glossary key `Ajax_(play)`, so it cannot claim the hero's name, carded at gr-950)
     gr-599  Philoctetes
     gr-600  Euripides
     gr-601  Medea
