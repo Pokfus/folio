@@ -93,6 +93,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `glossary-length-plan.md` | **Complete** — every description at 100 words ±10%. |
 | `units-plan.md` | **Complete** — metric first with the imperial in brackets, across cards and glossary. |
 | `card-glossary-pairing.md` | **Complete** — every shipped card's answer term has a glossary entry. The rule stays in force. |
+| `why-questions-plan.md` | **Complete** — all 1,458 History and Science cards carry three authored why-questions, measured 2026-09-06. The rule stays in force: a new card ships with its own set. Its batch log records which seam each collection offers; `node .claude/why-count.js` is the measure. |
 | `audit-2026-08-08.md` | **Closed** — a whole-project sweep; all four batches shipped. |
 | `user-decks-plan.md` | **Phases 0–4 shipped.** Only Phase 5 (the paid tier) is still a proposal. Superseded as a reference by `community-decks.md`. |
 
@@ -101,7 +102,6 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | file | what is left |
 |---|---|
 | `history-focus-plan.md` | 45 cards flagged on the question and historiography rules; batches F1–F5. |
-| `why-questions-plan.md` | The Think-it-through pass: three authored why-questions for every History and Science card. 1,158 of 1,458 written — every card the pass ran over is done; the 300 Rome and Second World War cards that landed while it ran are what is left. Its batch log records which seam each collection offers; `node .claude/why-count.js` is the measure. |
 | `book-text-plan.md` | Correcting errors baked into the Library's source texts. |
 | `atlas-rewrite-plan.md` | Rewriting every place popup to a card's standard, with citations. |
 | `glossary-expansion-plan.md` | Three jobs asked for together — audit, expansion, and the terms still to write. |
