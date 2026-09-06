@@ -890,9 +890,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   plan: Japanese counts in the same kanji so `cnNumeral()` is reused, but the `"zh"` KEY must not be,
   since it also selects `var(--han)` — a Simplified Chinese face. The next card to write is the lowest
   `jp-NNN` not yet in `data.js`; see the "JAPAN" bullet under "Generating cards & glossary entries".
-  **The first ten cards have shipped** (Sep 2026) — `jp-001` to `jp-010`, the opening of `jp-jomon` —
+  **The first twenty cards have shipped** (Sep 2026) — `jp-001` to `jp-020`, two thirds of `jp-jomon` —
   so the collection is live and its 33 empty decks are coming-soon automatically, `isComingSoon` being
-  true for a node holding no card. Not part of the site.
+  true for a node holding no card. **`jp-025`'s line was retitled** when `jp-004` was written: the
+  peopling card's answer term turned out to be the dual-structure model itself, so that slot is now
+  *Jōmon ancestry in Japanese populations today* rather than a second card on the same model. Not part
+  of the site.
 - `docs/psychology-card-plan.md` — the **1000-card running order for the Psychology collection**
   (`psych`): every card's number, topic and deck, fixed in advance across 9 decks and 38 leaf decks.
   The twelfth of the planned collections, the fourth to **create its own collection** (node, tree,
@@ -5326,7 +5329,7 @@ lookup.
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 99 cards, SCATTERED — next is `cnh-042`, an early gap; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
-| Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 10 cards, contiguous — next is `jp-011` |
+| Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 20 cards, contiguous — next is `jp-021` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |

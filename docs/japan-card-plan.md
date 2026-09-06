@@ -413,7 +413,7 @@ that comes to hand.
     jp-022  The Jōmon in the Ryukyu Islands
     jp-023  What ended the Jōmon
     jp-024  Jōmon genetics
-    jp-025  The dual-structure model of Japanese origins
+    jp-025  Jōmon ancestry in Japanese populations today
     jp-026  Jōmon regional diversity
     jp-027  Jōmon archaeology and Japanese identity
     jp-028  The Japanese Paleolithic hoax
