@@ -2,16 +2,20 @@
   "why": "The record of every hand edit to the DELE Spanish decks. Applied by spanish-fix.js; see that file's header for what an entry may carry and why the record exists at all. DELE A1 is being read one card at a time in Sep 2026, in batches of ten; this is what that pass has changed so far.",
   "decks": {
     "delea1": {
-      "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator.",
-      "subtitle": "493 words · both directions, as two cards per word",
+      "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention.",
+      "subtitle": "494 words · both directions, as two cards per word",
       "descSub": [
         [
           "500 words for level A1 of the DELE",
-          "493 words for level A1 of the DELE"
+          "494 words for level A1 of the DELE"
         ],
         [
           "490 words for level A1 of the DELE",
-          "493 words for level A1 of the DELE"
+          "494 words for level A1 of the DELE"
+        ],
+        [
+          "493 words for level A1 of the DELE",
+          "494 words for level A1 of the DELE"
         ],
         [
           "the rest of the 500 is filled from the A1 column in order of frequency",
