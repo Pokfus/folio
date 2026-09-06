@@ -79,6 +79,12 @@
       it goes AFTER, so the deck's frequency order survives, and carries an id outside the generator's
       range (`u_delea1_5xx`) so a rebuild can never mint the same one. Idempotent on that id.
 
+  `reviewed`  cards read one by one and left ALONE, listed by deck and headword. Some cards are simply
+      right, and the review's own record of where it has got to is the note list — so without this a card
+      that needed nothing looks exactly like a card nobody has opened, and the next session reads it
+      again. Each entry is checked to name a real card, so a typo is an error rather than a silent gap.
+      It is deliberately not a `why`: the reason is always the same one.
+
   `decks`  the deck's own metadata. `subtitle` is set outright; `descSub` is `[find, replace]` pairs over
       the description, applied in order and then checked TOGETHER: a pair is satisfied if it matched, or
       if its replacement stands in the finished text — which is what lets a count be corrected twice
@@ -318,12 +324,23 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
   } else if (VERBOSE) console.log("  unchanged " + f + "  (already at the fix)");
 }
 
+/* `reviewed` names cards this pass READ and left alone. Checked exactly as a fix is, so a mistyped
+   headword cannot quietly stand for a card nobody looked at. */
+let reviewedN = 0;
+for (const [deck, list] of Object.entries(fixes.reviewed || {})) {
+  const f = fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.test(x))
+    .map((x) => JSON.parse(fs.readFileSync(path.join(DIR, x), "utf8")))
+    .find((x) => x.meta && x.meta.id === deck);
+  if (!f) { missing.push(deck + " (reviewed: no such deck)"); continue; }
+  const have = new Set(f.cards.map((c) => c.fields.Spanish));
+  for (const w of list) { if (have.has(w)) reviewedN++; else missing.push(deck + "/" + w + " (reviewed)"); }
+}
 for (const [key] of entries) if (!seen.has(key)) missing.push(key);
 for (const [key] of hints) if (!seenHint.has(key)) missing.push(key + " (hint)");
 
 console.log("\n" + entries.length + " fixes, " + hints.length + " reverse-card hints and " +
   Object.keys(deckMeta).length + " deck-metadata edits in spanish-fixes.json, " +
-  (seen.size + seenHint.size) + " matched a note, " + metaHit + " matched a deck" +
+  (seen.size + seenHint.size) + " matched a note, " + reviewedN + " read and left alone, " + metaHit + " matched a deck" +
   (dropped ? ", " + dropped + " card(s) folded away" : ""));
 
 if (badFold.length && (VERBOSE || CHECK)) {

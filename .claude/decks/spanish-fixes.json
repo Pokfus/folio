@@ -5547,6 +5547,175 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/el café": {
+      "why": "'coffee, cafe, coffee shop' - the last two are one thing. What the card needed instead is how coffee is ordered, which is its own second example: con leche and solo.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "coffee",
+            "café, coffee shop"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "el café con leche — white coffee",
+            "el café solo — black coffee"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/empezar": {
+      "why": "'to start, begin, to get started' - three ways of saying one thing, one of them with the 'to' dropped - and not empezar A, the preposition before an infinitive, which is what an English speaker leaves out.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to start, to begin"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "empezar a + infinitive — to start doing something",
+            "para empezar — to begin with"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/cuarto, cuarta": {
+      "why": "Glossed 'fourth' alone, and TWO of its three examples are the masculine NOUN el cuarto meaning a room - compañero de cuarto, cinco cuartos - which the card did not list. The other thing cuarto does is a quarter, which is how Spanish tells the time at quarter past.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "fourth"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "room",
+            "quarter (y cuarto — quarter past)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/buscar": {
+      "why": "Five glosses on one line - 'to seek, search for, look for, try to find, to scour'. What is worth saying instead is that buscar takes NO preposition: se busca algo, never se busca POR algo, which is the mistake an English speaker makes with this verb every time. ir a buscar, which is the card's own first example, had no line.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to look for, to search for"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "ir a buscar — to go and fetch, to pick up"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "takes no preposition",
+          "busco un libro"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/jugar": {
+      "why": "'to play, to risk, take a chance' - and not jugar A, which is what ALL THREE of the card's examples have (jugar al tenis, jugar a las cartas). Spanish also plays an instrument with a different verb, tocar, which is the confusion that follows immediately and which the deck did not mention.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to play (a game or a sport)"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "jugar a — to play (jugar al fútbol, jugar a las cartas)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "an instrument takes",
+          "tocar — tocar el piano"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el presidente, la presidenta": {
+      "why": "'president, head (leader)' — the second a description. The chair of a meeting or a company is the sense a reader will meet as often, and it is the same word.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "president",
+            "chairman, chairwoman (of a company or a meeting)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la información": {
+      "why": "'data' is los datos rather than información. The plural informaciones, which the card's own second example uses, is real but means separate items of news; the desk you ask at is worth more to a beginner.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "information"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "la oficina de información — the information desk"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/usar": {
+      "why": "'to use, to wear' is right, and it needs the regional note the llevar card now forces: Spain says llevar for wearing clothes and much of Latin America says usar, so a reader meeting both wants to know they are the same thing.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to use",
+            "to wear (chiefly Latin America; Spain says llevar)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ayer": {
+      "why": "'yesterday' alone, while both of the card's first two examples are ayer por la noche and ayer por la tarde, and anteayer has no card anywhere in the deck.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "yesterday"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "ayer por la mañana — yesterday morning",
+            "anteayer — the day before yesterday"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
@@ -5788,6 +5957,11 @@
           ]
         ]
       }
+    ]
+  },
+  "reviewed": {
+    "delea1": [
+      "el libro"
     ]
   }
 }

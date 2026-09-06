@@ -2009,6 +2009,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     unmarked. The pronoun is stripped, which is what the generator's own bolding does. And a form the
     table has no row for is named by `boldAlso`: `hay` on `haber`, `póngase` on `poner`. **A conjugation
     grid is not a complete list of a verb's forms.**
+  · **`reviewed` NAMES THE CARDS READ AND LEFT ALONE.** Some cards are simply right, and the review's own
+    record of where it has got to is the note list — so without this a card that needed nothing looks
+    exactly like a card nobody has opened, and the next session reads it again. Each entry is checked to
+    name a real card, so a typo is an error rather than a silent gap.
   · **`hints` IS THE MECHANICAL HALF, and is a map rather than an entry per note** — the English →
     Spanish card's front is the gloss alone, so `por` and `para` both glossing to "for" is one question
     with two right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or
