@@ -2334,7 +2334,17 @@ window.GLOSSARY = {
 "Sack_of_Haojing": "The sack of Haojing is the storming of the Western Zhou capital in the Wei valley of China in 771 BCE by the Marquis of Shen and his allies, in which King You was killed.<sup class=\"fn\" data-fn=\"1\"></sup> The quarrel was over the succession, the king having degraded Queen Shen and set aside her son in favour of the concubine Baosi and her child, and the <i>Bamboo Annals</i> record that the king had marched against Shen the year before.<sup class=\"fn\" data-fn=\"2\"></sup> The attackers killed the heir, carried off Baosi and the treasure of the Zhou, and left two claimants disputing the throne.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Xianyun": "Xianyun is the name the Western Zhou gave a people on their northern and western frontier in China, known almost wholly from Zhou poetry rather than from any record of their own.<sup class=\"fn\" data-fn=\"1\"></sup> The Chinese tradition placed the word in a sequence of names for successive northern neighbours running from the Xunyu through Guifang to the Xiongnu of the Han, which is a genealogy of names rather than of peoples.<sup class=\"fn\" data-fn=\"2\"></sup> An ode of the <i>Classic of Poetry</i> celebrates a campaign against them in which the commander Yin Jifu is said to have driven them back as far as Taiyuan.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Zhou_move_east": "The Zhou move east is King Ping’s transfer of the royal seat in China from the Wei valley to the Luo river after the sack of the western capital in 771 BCE, and it divides the dynasty into its Western and Eastern halves.<sup class=\"fn\" data-fn=\"1\"></sup> The city he moved to was not new, the Duke of Zhou having built Chengzhou there as a second seat nearly three centuries earlier, and the <i>Bamboo Annals</i> have four states escort the king with their troops.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The kings kept their sacrifices, their title and their calendar, and lost the power to compel anybody.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Zhou_warfare": "Zhou warfare is the campaigning of the Western Zhou kings and their lords in China between about 1046 and 771 BCE, organised around the war chariot rather than the man on foot.<sup class=\"fn\" data-fn=\"1\"></sup> Each carriage carried three armoured men standing, the driver between a spearman on his right and an archer on his left, with a body of foot marching alongside to protect it, so that the word for chariot came to name the whole party.<sup class=\"fn\" data-fn=\"1\"></sup> The infantry were husbandmen taken from their fields, which is why campaigning belonged to the months after harvest, and a team of four horses abreast became usual only under the Zhou.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Zhou_warfare": "Zhou warfare is the campaigning of the Western Zhou kings and their lords in China between about 1046 and 771 BCE, organised around the war chariot rather than the man on foot.<sup class=\"fn\" data-fn=\"1\"></sup> Each carriage carried three armoured men standing, the driver between a spearman on his right and an archer on his left, with a body of foot marching alongside to protect it, so that the word for chariot came to name the whole party.<sup class=\"fn\" data-fn=\"1\"></sup> The infantry were husbandmen taken from their fields, which is why campaigning belonged to the months after harvest, and a team of four horses abreast became usual only under the Zhou.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Decline_of_Zhou_royal_authority": "Decline of Zhou royal authority is the process by which the kings of the Eastern Zhou kept every form of sovereignty and lost its substance.<sup class=\"fn\" data-fn=\"1\"></sup> Its sharpest episode is a battle in Duke Huan of Lu's fifth year, when the king led an army against Zheng, was beaten and took an arrow in the shoulder, after which the earl of Zheng forbade pursuit and sent that night to ask after him.<sup class=\"fn\" data-fn=\"1\"></sup> The royal domain shrank with the authority, the king's own songs filed among those of the states, while the presiding chiefs who kept order professed attachment to the house of Zhou and exercised royal functions in its name.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Duke_Huan_of_Qi": "Duke Huan of Qi, personal name Xiao Bai, ruled Qi from 685 BCE and is reckoned the first and most celebrated of the Spring and Autumn presiding chiefs.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He took the throne in the disorder that followed the murder of Duke Xiang, won it with the help of Guan Zhong, and led the other states chiefly through covenant meetings, of which the assembly at Kuiqiu in 650 BCE was the greatest.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His last years were given to indulgence, and after his death in 643 BCE the sons of his favoured women fought over the succession, leaving his body uncoffined for 67 nights and the state in disorder.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Duke_Wen_of_Jin": "Duke Wen of Jin, personal name Chong'er, lived from 696 to 628 BCE and is reckoned the second of the presiding chiefs of the Spring and Autumn period.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He fled his father's state in 654 BCE, a favoured concubine seeking the succession for her own son having had a eunuch sent to kill him, and spent nineteen years in exile, chiefly among the Di tribes, before returning to take the government of Jin.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His leadership was settled by the defeat of Chu at Chengpu in 632 BCE, after which he summoned the Zhou king to an assembly and had him hold a court while the princes did homage.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Eastern_Zhou": "Eastern Zhou is the second half of the Zhou dynasty, running from the move of the royal seat to the Luo valley about 770 BCE to the extinction of the house in 256 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its name is a later convenience taken from geography, and its kings kept the sacrifices, the calendar, the royal title and the nine tripods while losing the power to compel any lord to act.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It is conventionally divided into the Spring and Autumn and the Warring States, both named after books rather than events, and it ended when Qin took the tripods, the last king died, and a surviving branch was annexed seven years later.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Guan_Zhong": "Guan Zhong, also called Guan Yiwu, was chief minister of Qi from 685 BCE until his death in 645 BCE, and is among the earliest Chinese statesmen of whom a detailed account survives.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A native of Qi, he owed his appointment to his friend Bao Shuya, and is credited with developing its commerce by sea and land until a comparatively small state stood level with far larger neighbours.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Confucius judged him two ways, faulting his observance of ritual propriety while saying that but for him the people would wear their hair unbound and their coats buttoning on the left; the work on government bearing his name is a later compilation.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Hegemon_system": "Hegemon system is the arrangement by which one Spring and Autumn state at a time took the lead of all the others and exercised royal functions while professing attachment to the house of Zhou.<sup class=\"fn\" data-fn=\"1\"></sup> Five presiding chiefs are usually named, of Qi, Jin, Song, Qin and Chu, though which five belong there has long been disputed, and one 19th-century translator of the chronicle held that only the first two really represented it.<sup class=\"fn\" data-fn=\"1\"></sup> Later writers treated the office as delegated rather than usurped, describing the chiefs as acting on the Son of Heaven's behalf, while the small states owed dues to the king and requisitions to the leading state as well.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Spring_and_Autumn_Annals": "Spring and Autumn Annals is a chronicle of the state of Lu covering 722 to 481 BCE, the oldest surviving Chinese work in annalistic form and named for the seasons that order its entries.<sup class=\"fn\" data-fn=\"1\"></sup> The name was not peculiar to it, since other states' records appear to have been called the same thing, and a tutor was appointed in Jin in 568 BCE for his acquaintance with such annals.<sup class=\"fn\" data-fn=\"1\"></sup> The book itself is a run of very brief notices under twelve dukes with no connecting narrative, three early commentaries grew up to supply what it omits, and whether Confucius composed it has been questioned in writing since the 18th century.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Spring_and_Autumn_period": "Spring and Autumn period is the first half of the Eastern Zhou, named after the chronicle of Lu whose entries run from 722 to 481 BCE, though the era is conventionally opened earlier, at the move of the capital east.<sup class=\"fn\" data-fn=\"1\"></sup> Its order was meant to run on protocol, the lords keeping to their allotments and reporting an unjust attack to the royal court, which would then take the field against the offender; no king had the force for it, and the arrangement failed.<sup class=\"fn\" data-fn=\"1\"></sup> The number of states fell steadily as smaller ones were absorbed, no new state arose, and what territorial growth there was went to Jin, Chu and Qin.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Western_Zhou_legacy": "Western Zhou legacy is what the first half of the Zhou dynasty left to the centuries after its capital fell in 771 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its most tangible part is buried, since the inscribed bronzes of the royal heartland come out of hoards rather than graves and are read as temple assemblages hidden when the aristocratic lineages fled, so vessels cast to record a family's service became the period's archive.<sup class=\"fn\" data-fn=\"2\"></sup> Less tangible and longer lived were the states planted across the east and north, which outlasted the house that founded them, and the vocabulary of Heaven's charge, which passed to lords claiming to act for a king they no longer obeyed.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Zuo_Zhuan": "Zuo Zhuan is a narrative account of the Spring and Autumn period, transmitted as the first and by far the most substantial of the three early commentaries on the chronicle of Lu.<sup class=\"fn\" data-fn=\"1\"></sup> It supplies the events of which the chronicle gives only a shadow, and reports much that the chronicle omits entirely across the 242 years it covers, which makes it the principal source for the era.<sup class=\"fn\" data-fn=\"1\"></sup> Its authorship is unsettled at the level of the name, scholars differing over whether the surname was Zuo or Zuoqiu, and recent work argues that the book is a composition adapting stories that also circulate on their own rather than a straightforward archive.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3207,7 +3217,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sack_of_Haojing": "771 BCE",
 "Xianyun": "c. 1046 – 771 BCE",
 "Zhou_move_east": "770 BCE",
-"Zhou_warfare": "c. 1046 – 771 BCE"
+"Zhou_warfare": "c. 1046 – 771 BCE",
+"Decline_of_Zhou_royal_authority": "8th – 3rd centuries BCE",
+"Duke_Huan_of_Qi": "ruled 685 – 643 BCE",
+"Duke_Wen_of_Jin": "696 – 628 BCE",
+"Eastern_Zhou": "c. 770 – 256 BCE",
+"Guan_Zhong": "died 645 BCE",
+"Hegemon_system": "c. 685 – 590 BCE",
+"Spring_and_Autumn_Annals": "entries 722 – 481 BCE",
+"Spring_and_Autumn_period": "722 – 481 BCE",
+"Western_Zhou_legacy": "after 771 BCE",
+"Zuo_Zhuan": "covering 722 – 468 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4589,7 +4609,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sack_of_Haojing": ["sack of Haojing","fall of Haojing","sack of Hao"],
 "Xianyun": ["Hsien-yun","Xian-yun"],
 "Zhou_move_east": ["eastward move of the Zhou","King Ping's move east"],
-"Zhou_warfare": ["Western Zhou warfare"]
+"Zhou_warfare": ["Western Zhou warfare"],
+"Decline_of_Zhou_royal_authority": ["decline of Zhou royal authority"],
+"Duke_Huan_of_Qi": ["Huan of Qi","Xiao Bai"],
+"Duke_Wen_of_Jin": ["Wen of Jin","Chong'er","Chong’er"],
+"Eastern_Zhou": ["Eastern Zhou dynasty"],
+"Guan_Zhong": ["Guan Yiwu","Kwan Chung"],
+"Hegemon_system": ["hegemon","hegemons","presiding chiefs","five hegemons"],
+"Spring_and_Autumn_Annals": ["Chunqiu","Ch’un Ts’ëw"],
+"Spring_and_Autumn_period": ["Spring and Autumn"],
+"Western_Zhou_legacy": ["Western Zhou legacy"],
+"Zuo_Zhuan": ["Zuo Commentary","commentary of Zuo","Tso Chuen","Zuozhuan"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6959,7 +6989,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sack_of_Haojing": ["event","battle","history","china","bronze age","zhou dynasty"],
 "Xianyun": ["people","warfare","history","china","bronze age","zhou dynasty"],
 "Zhou_move_east": ["event","history","china","bronze age","zhou dynasty","geography"],
-"Zhou_warfare": ["practice","warfare","history","china","bronze age","zhou dynasty"]
+"Zhou_warfare": ["practice","warfare","history","china","bronze age","zhou dynasty"],
+"Decline_of_Zhou_royal_authority": ["concept","event","history","china","zhou dynasty"],
+"Duke_Huan_of_Qi": ["ruler","person","history","china","zhou dynasty"],
+"Duke_Wen_of_Jin": ["ruler","person","history","china","zhou dynasty"],
+"Eastern_Zhou": ["era","history","china","zhou dynasty","bronze age"],
+"Guan_Zhong": ["person","title","history","china","zhou dynasty"],
+"Hegemon_system": ["institution","history","china","zhou dynasty","warfare"],
+"Spring_and_Autumn_Annals": ["text","history","china","zhou dynasty","literature"],
+"Spring_and_Autumn_period": ["era","history","china","zhou dynasty"],
+"Western_Zhou_legacy": ["concept","history","china","bronze age","zhou dynasty","archaeology"],
+"Zuo_Zhuan": ["text","history","china","zhou dynasty","literature"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
