@@ -195,6 +195,10 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Theological Reflections deposited this byline in caps with a CYRILLIC Н (U+041D) in
+  // place of the Latin H, so Crossref carries "KНARLAMOV". The article itself prints the
+  // name in Latin script in its own copyright line ("© V. Kharlamov, 2016").
+  ["10.29357/issn.2521-179X.2016.16.120", "Vladimir Kharlamov", "Vladimir KНARLAMOV"],
   // Persee deposited the PUBLISHER in the author field for this CRAI communication:
   // "E. J Brill" appears in its bibliography, and the article's own first page reads
   // "par m. claude rilly". Crossref relays the deposit, so the record is wrong and the
@@ -240,6 +244,8 @@ const CROSSREF_YEAR_WRONG = [
   // and in the citation line it prints ("2019, vol. 24, no. 6, pp. 81-89"); Crossref
   // carries the issue's January 2020 print deposit instead.
   ["10.15688/jvolsu4.2019.6.6", 2019, 2020],
+  // The same issue of Vestnik VolSU (24.6), same reason.
+  ["10.15688/jvolsu4.2019.6.22", 2019, 2020],
 ];
 const yearAllowed = (doi, plain, years) => CROSSREF_YEAR_WRONG.some(
   (r) => r[0].toLowerCase() === String(doi).toLowerCase() && plain.includes(String(r[1])) && years.includes(r[2]));

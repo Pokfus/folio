@@ -1863,7 +1863,10 @@ window.GLOSSARY = {
 "Hagia_Sophia": "Hagia Sophia is the great church of Constantinople, built for Justinian I between 532 and 537 on the site of an earlier basilica of the mid-4th century.<sup class=\"fn\" data-fn=\"1\"></sup> Its name means Holy Wisdom, which Byzantine writers understood as Christ the Word made flesh rather than a saint, and its dome rests on pendentives, curved triangles of masonry used before in smaller churches but never at this scale.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The first dome fell in 558 and the rebuilt church was re-consecrated in 562; it became a mosque after the Ottoman conquest of 1453, a museum in 1935 and a mosque again in 2020.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Theodora_(wife_of_Justinian_I)": "Theodora was the wife of Justinian I and empress of the eastern Roman empire from 527 until her death in 548. Procopius reports in his <i>Secret History</i> that she was a bear keeper’s daughter who had worked as a prostitute, a claim John of Ephesus independently supports, and as empress she openly backed Monophysite Christianity against the council of Chalcedon.<sup class=\"fn\" data-fn=\"1\"></sup> Almost everything scandalous said about her comes from that single invective, written in the late 540s and lost until a manuscript was printed at Lyon in 1623, so its portrait of her is a work of rhetoric as much as a record.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Plague_of_Justinian": "The Plague of Justinian was the outbreak that struck the eastern Roman empire in 541 and opened a pandemic of <i>Yersinia pestis</i> that returned in waves until about 750.<sup class=\"fn\" data-fn=\"1\"></sup> Procopius reports that it began in Egypt at Pelusium, and it reached Constantinople in 542 and the Frankish border by the winter of 543; ancient DNA from 6th-century burials in Bavaria and at Jerash in Jordan has since confirmed the pathogen.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its scale is disputed, since one reading of the texts has it killing a quarter to a half of the empire while coinage, papyri, inscriptions and pollen show no matching break in population.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Greek_fire": "Greek fire was the incendiary weapon of the Byzantine navy, a liquid thrown in pots or sprayed from a nozzle that went on burning where it landed.<sup class=\"fn\" data-fn=\"1\"></sup> Theophanes credits it to a man named Kallinikos in a notice too brief to say what he actually contributed, and the empire kept the method of making it so well that its composition is still unknown.<sup class=\"fn\" data-fn=\"1\"></sup> Medieval writers name sulphur, saltpetre, tar, resin, petroleum and plant oils among the ingredients; petroleum has most modern support, and the crude oil that seeped to the surface on the north-east shore of the Black Sea would have supplied it.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Greek_fire": "Greek fire was the incendiary weapon of the Byzantine navy, a liquid thrown in pots or sprayed from a nozzle that went on burning where it landed.<sup class=\"fn\" data-fn=\"1\"></sup> Theophanes credits it to a man named Kallinikos in a notice too brief to say what he actually contributed, and the empire kept the method of making it so well that its composition is still unknown.<sup class=\"fn\" data-fn=\"1\"></sup> Medieval writers name sulphur, saltpetre, tar, resin, petroleum and plant oils among the ingredients; petroleum has most modern support, and the crude oil that seeped to the surface on the north-east shore of the Black Sea would have supplied it.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Byzantine_Iconoclasm": "Byzantine Iconoclasm was the imperial policy of removing religious images and forbidding their veneration, pursued from the 720s until the council of Nicaea restored them in 787 and again from 815 until 843. Its earliest trace outside the empire is a lost inscription of about 730 from Corteolona near Pavia, saying that the emperor Leo had fallen into the pit of schism.<sup class=\"fn\" data-fn=\"1\"></sup> The familiar account of it as a heresy born in the palace and imposed on unwilling believers by three emperors is the version the victorious icon party wrote in the 9th century.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"East–West_Schism": "The East–West Schism is the division of Christendom between the Greek church centred on Constantinople and the Latin church centred on Rome, conventionally dated to the mutual anathemas of 1054 though the estrangement was gradual.<sup class=\"fn\" data-fn=\"1\"></sup> Its issues had surfaced in the 9th century, when the patriarch Photios broke communion with Pope Nicholas I over jurisdiction in Bulgaria, the standing of the two sees and the western addition of <i>Filioque</i> to the creed, a breach a synod of 879 and 880 repaired.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Beside that doctrinal core the polemic accumulated charges about unleavened bread, clerical celibacy, shaving and diet, whose lists circulated in eastern Europe into the 17th century.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Eastern_Orthodox_Church": "The Eastern Orthodox Church is the communion of self-governing churches descended from the Greek Christianity of the Roman East, held together not by a single head but by councils, whose authority runs from the parish to the whole body and which assembled as a Holy and Great Council only in Crete in 2016.<sup class=\"fn\" data-fn=\"1\"></sup> Its worship is aimed at <i>theosis</i>, the deification of the worshipper, which occupies roughly the place justification holds in Protestant theology.<sup class=\"fn\" data-fn=\"2\"></sup> Gregory Palamas gave that goal its classic guard in the 14th century by distinguishing God’s energies, in which creatures share, from his essence, in which they never do.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2729,7 +2732,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hagia_Sophia": "532 – 537 CE",
 "Theodora_(wife_of_Justinian_I)": "c. 500 – 548 CE",
 "Plague_of_Justinian": "541 – 750 CE",
-"Greek_fire": "7th – 12th century CE"
+"Greek_fire": "7th – 12th century CE",
+"Byzantine_Iconoclasm": "c. 726 – 843 CE",
+"East–West_Schism": "c. 858 – 1054 CE",
+"Eastern_Orthodox_Church": "c. 500 CE – present"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3894,7 +3900,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hagia_Sophia": ["Ayasofya","Church of the Holy Wisdom"],
 "Theodora_(wife_of_Justinian_I)": ["Theodora, wife of Justinian I","Empress Theodora"],
 "Plague_of_Justinian": ["Justinianic Plague","First Pandemic"],
-"Greek_fire": ["liquid fire","naval fire"]
+"Greek_fire": ["liquid fire","naval fire"],
+"Byzantine_Iconoclasm": ["iconoclasm","iconoclast controversy"],
+"East–West_Schism": ["Great Schism","Schism of 1054"],
+"Eastern_Orthodox_Church": ["Eastern Orthodoxy","Orthodox Church","Eastern Orthodox"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5788,7 +5797,10 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hagia_Sophia": ["building","history","religion","archaeology","europe"],
 "Theodora_(wife_of_Justinian_I)": ["ruler","history","europe","politics","religion"],
 "Plague_of_Justinian": ["event","history","science","genetics","europe"],
-"Greek_fire": ["technology","history","warfare","europe","science"]
+"Greek_fire": ["technology","history","warfare","europe","science"],
+"Byzantine_Iconoclasm": ["event","history","religion","europe","art"],
+"East–West_Schism": ["event","history","religion","europe","politics"],
+"Eastern_Orthodox_Church": ["institution","history","religion","europe","philosophy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
