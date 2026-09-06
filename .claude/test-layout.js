@@ -51,11 +51,21 @@ function serve() {
 }
 
 // the Atlas's first-visit coach marks cover the whole globe; every Atlas section here needs them gone
-async function atlas(page, base, ms) {
+/* THE ATLAS OPENS ON THE READER'S OWN TAB NOW (Sep 2026), AND EVERY SECTION BELOW IS ABOUT THE WORLD
+   ONE. The personal atlas hides the search and the legend outright — they are the world atlas's index and
+   its layer switches, neither of which that tab has — so once `#map` started landing there, eight
+   assertions about the chip layout began reading `{"w":0,"shown":false}` and failing on a feature that was
+   working perfectly one press away. This helper presses that press. Both coach-mark keys are set, since
+   each tab carries its own and an undismissed card sits over the chrome being measured. */
+async function atlas(page, base, ms, tab) {
   await page.goto(base, { waitUntil: "load" });
-  await page.evaluate(() => localStorage.setItem("folio_atlas_tour_v1", "1"));
+  await page.evaluate(() => { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); });
   await page.goto(base + "#map", { waitUntil: "load" });
   await page.waitForTimeout(ms || 4500);
+  const want = tab || "world";
+  const sel = '[data-atlastab="' + want + '"]';
+  const need = await page.evaluate((s) => { const b = document.querySelector(s); return !!b && !b.classList.contains("on"); }, sel);
+  if (need) { await page.click(sel); await page.waitForTimeout(2200); }
 }
 /* Put a collection in the daily review, the way a reader does. The first-run hero routes to the
    COLLECTIONS now (Aug 2026, on request) rather than picking a subject on the reader's behalf, so nothing
@@ -144,10 +154,17 @@ function scrimCheck() {
      after it, which reads as the swipe having broken rather than as an overlay being in the way. The
      home page's walkthrough OFFER is left alone deliberately: it is inline markup, it blocks nothing, and
      section 6 asserts the home page as a first-time reader actually meets it. */
+  /* …AND THE MARKER'S OWN COACH MARKS (Sep 2026). They open the first time the marker's panel is opened
+     and they are a full-screen card on `document.body`, so from the second press onward every click aimed
+     at the marker landed on the card instead: section 5d's "putting the tools away leaves the pen down"
+     read `panel:true` — the panel had never shut — and the ink section's clicks timed out on "the wb-tools
+     subtree intercepts pointer events", which took the whole suite down before its summary. The overlay
+     is a feature, and `test-tour.js` is where a coach mark is asserted; here it is furniture in the way of
+     the thing being measured. */
   const watch = (p) => {
     p.on("pageerror", (e) => errs.push("pageerror: " + e));
     p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
-    return p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
+    return p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); localStorage.setItem("folio_marker_tour_v1", "1"); } catch (e) {} });
   };
 
   /* ================= 1. the bottom tab bar ================= */
@@ -1958,7 +1975,12 @@ function scrimCheck() {
     }));
     check("the panel has no Draw button — the sizes are the pen", !panel.draw);
     check("...Mark beside them", panel.markWithSizes);
-    check("...Erase above Undo and Clear above Redo", panel.grid === "wb-eraser+wb-clear / wb-undo+wb-redo", panel.grid);
+    /* Sep 2026: the Help button — the way back to the marker's own coach marks — rides at the end of the
+       undo/redo row, so the second row is three cells now. What this asserts is the PAIRING the request
+       asked for (Erase over Undo, Clear over Redo), which is the first cell of each column; the row is
+       matched with the Help cell optional so that adding one more control to it is a deliberate edit here
+       rather than a mystery failure. */
+    check("...Erase above Undo and Clear above Redo", /^wb-eraser\+wb-clear \/ wb-undo\+wb-redo(\+wb-help)?$/.test(panel.grid), panel.grid);
     check("...and a custom colour of the reader's own", panel.custom && panel.pickShut, JSON.stringify({ swatch: panel.custom, shut: panel.pickShut }));
     // the platform's own dialog is a full-screen sheet of sliders over the card being annotated; the picker
     // is inline now, so an <input type=color> anywhere here means the change was reverted
@@ -2338,7 +2360,17 @@ function scrimCheck() {
        BOTH HALVES ARE ASSERTED NOW, because they fail in opposite directions: a sheet that shrank while
        its content still overflowed would be showing empty space over a scroller with more to give, and one
        that would not shrink once its content DID fit is the gap this check was written for. The second
-       half is what actually exercises the re-fit, so it names the numbers it is standing on. */
+       half is what actually exercises the re-fit, so it names the numbers it is standing on.
+
+       THE CITATIONS NOW OPEN SHUT (Sep 2026, on request: "all atlas popups should have their sources
+       section collapsed by default"), and this section needs BOTH open before it starts: its whole shape
+       is fold one, still too much, fold the other, now it fits. Left as it was, folding the description
+       alone already fitted (183px of content in a 602px room) and the second fold OPENED the sources
+       instead of shutting them — two failures, both of them the fixture rather than the sheet. It is
+       opened here rather than by relaxing the assertions, since what is being measured is the two-stage
+       re-fit and there is no second long section to spend on it. */
+    await page.evaluate(() => { const h = document.querySelector("#cpSrcSec .cp-sec-head"); if (h && document.querySelector("#cpSrcSec").classList.contains("collapsed")) h.click(); });
+    await page.waitForTimeout(550);
     const tall = await slack();
     /* The room is the stage's height less the sheet's own two clearances, and those are SLICED OUT OF
        app.js rather than copied: a test carrying its own 22 would fail on the day either constant moved,
