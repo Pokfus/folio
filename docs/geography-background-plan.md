@@ -125,6 +125,11 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G13 — twelve more, and the first written WITHOUT an AQUASTAT profile**: `gw-114`
+  Singapore, `gw-146` Albania, `gw-149` Slovenia, `gw-152` North Macedonia, `gw-168` Luxembourg, `gw-170`
+  Montenegro, `gw-172` Malta, `gw-188` Kiribati, `gw-191` Micronesia, `gw-194` Tonga, `gw-199` Andorra and
+  `gw-211` Liechtenstein, with all twelve date lines rewritten off the same research. **Every one of them
+  was on the deferral list**, which accordingly falls from fifty-nine to forty-seven.
 - **2026-09-06, batch G12 — twelve more**: `gw-177` Bahamas, `gw-179` Vanuatu, `gw-181` Barbados,
   `gw-183` São Tomé and Príncipe, `gw-184` Samoa, `gw-185` Saint Lucia, `gw-189` Seychelles, `gw-190`
   Grenada, `gw-196` Saint Vincent and the Grenadines, `gw-197` Antigua and Barbuda, `gw-202` Dominica and
@@ -258,6 +263,46 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G13 found
+
+- **THE AQUASTAT RECIPE IS FINISHED, AND THE PROOF IS EXHAUSTIVE RATHER THAN A GUESS.** All twenty-seven
+  `gw-` cards left after G12 — `gw-207` through `gw-233` — were probed, and **not one has a country
+  profile**: eighteen return the 189,869-byte page the FAO serves for a code it does not carry, and nine
+  return a real page with no PDF link on it. With the fifty-nine already deferred that is eighty-six
+  cards, so this batch either changed source 1 or the pass stopped. It changed source 1.
+- **A CBD COUNTRY PROFILE'S PHYSICAL CONTENT SCALES INVERSELY WITH THE SIZE OF THE COUNTRY**, which is why
+  it can replace AQUASTAT here and could not have replaced it in G7–G12. Germany's profile is species
+  counts and France's names no relief at all; **Liechtenstein's gives three physical regions, the Alpine
+  Rhine, the Rätikon massif and an altitude gradient of 450 to 2,600 m**, Tuvalu's gives three reef islands
+  and six atolls at an average height of one metre, San Marino's the Apennine position and the limestone
+  cliffs, North Macedonia's the altitude bands, the relief, the four watersheds AND the climate zones with
+  their rainfall. A biodiversity profile for a small country has to describe the whole territory; for a
+  large one it describes a fauna. **Measured before drafting**, which is what made the batch possible.
+- **THE NEW RECIPE IS CBD + RECOGNITION GUIDE + CONSTITUTE + UNDATA + PROTECTED PLANET**, and the fifth is
+  the find worth keeping: `protectedplanet.net/country/<ISO3>` is server-rendered, exists for every country
+  and territory including the dependencies, gives the number of protected areas, and **states its own
+  recommended citation on the page**, as AQUASTAT does. It answered 200 for all twelve.
+- **THE COST OF THE CHANGE IS LENGTH, AND IT IS MEASURABLE.** Every one of the twelve first drafts came in
+  UNDER 270 words — 210 to 279, against G12's 240 to 306 — because a CBD profile carries perhaps half of
+  what an AQUASTAT profile does. The material to make up the difference is there, but it is further down
+  the page, in the pressures-and-threats and ecosystem-services sections rather than in the opening
+  paragraph. **Budget two passes over the profile, not one.**
+- **AND THE CLIMATE IS THE HALF THAT DOES NOT SURVIVE.** AQUASTAT gave every card a mean rainfall, a range
+  and a season; CBD gives that for North Macedonia and for nobody else in this batch. Where a card needed
+  it, it came from the same G11 fallback — an open per-country paper — which is what carried `gw-168`
+  Luxembourg: Douinot et al. in *Hydrology and Earth System Sciences* (2022) gave the Moselle basin, the
+  Gutland's sandstone and marl, an elevation range and a rainfall gradient, and Protected Planet was
+  dropped from that one card to make room for it. **Rule 3 asks for landform, water OR weather, so a card
+  can clear it on the first two; the SHAPE the plan describes is what gives way.**
+- **A CONSTITUTION'S YEAR IS READ OFF THE PAGE'S TITLE, AND THREE OF TWELVE WOULD HAVE BEEN WRONG BY
+  GUESS**: Singapore's is 1963 rather than the 1965 of independence, Montenegro's 2007 rather than the 2006
+  of independence, Malta's 1964. A fourth row was **withdrawn rather than guessed** — Malta became a
+  republic in 1974 and the recognition-guide page does not say so, so the date line carries the
+  constitution instead.
+- **ONE MORE AUTO-LINK TAKEN BY THE TAIL**: "the sedimentary Paris Basin" linked its last word to
+  **`Paris`**. Reworded. That is the fourth batch running in which reading the rendered cards has found a
+  wrong link that no checker can see.
 
 ## What G12 found
 
@@ -725,6 +770,6 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
   and put a fifth in its place.
 
-**Rules 1 and 3 remain open on about 290 cards.** Run `node .claude/gw-audit.js` for the live figures.
+**Rules 1 and 3 remain open on about 280 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*
