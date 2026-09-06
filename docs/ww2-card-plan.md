@@ -412,43 +412,43 @@ definitions, which exist precisely because the wording matters.
     ww2-064  Nazi propaganda
     ww2-065  Joseph Goebbels
     ww2-066  Nazi book burnings
-    ww2-067  Nazi persecution of Jews before the war
+    ww2-067  The Aryan Paragraph
     ww2-068  Nuremberg Laws
     ww2-069  Kristallnacht
-    ww2-070  Jewish emigration from Nazi Germany
-    ww2-071  Évian Conference
+    ww2-070  Évian Conference
+    ww2-071  Voyage of the St. Louis
     ww2-072  Aktion T4
-    ww2-073  Nazi persecution of other groups before the war
-    ww2-074  The German churches under Nazism
-    ww2-075  German rearmament
-    ww2-076  The Nazi economy
+    ww2-073  Paragraph 175
+    ww2-074  The Confessing Church
+    ww2-075  The reintroduction of conscription
+    ww2-076  Hjalmar Schacht
     ww2-077  The Four Year Plan
     ww2-078  Volksgemeinschaft
     ww2-079  Hitler Youth
-    ww2-080  Opposition and dissent in prewar Nazi Germany
+    ww2-080  The Swing Kids
 
 ### Japan and the road to war in Asia — `ww2-asia-road`
 
     ww2-081  Empire of Japan
-    ww2-082  Japanese imperialism before 1931
-    ww2-083  Korea under Japanese rule
+    ww2-082  The Japanese colonial empire before 1931
+    ww2-083  The Government-General of Korea
     ww2-084  Taishō democracy and its collapse
-    ww2-085  The Japanese army and politics
-    ww2-086  Japanese ultranationalism
+    ww2-085  The Imperial Japanese Army and politics
+    ww2-086  The Imperial Way Faction and ultranationalism
     ww2-087  Mukden Incident
-    ww2-088  The Japanese occupation of Manchuria
+    ww2-088  The Kwantung Army and the occupation of Manchuria
     ww2-089  Manchukuo
     ww2-090  Lytton Report
-    ww2-091  Japan's withdrawal from the League of Nations
+    ww2-091  The Japanese withdrawal from the League of Nations
     ww2-092  February 26 Incident
-    ww2-093  The Japanese decision for expansion
+    ww2-093  The Basis of National Policy, 1936
     ww2-094  Greater East Asia Co-Prosperity Sphere
     ww2-095  Marco Polo Bridge Incident
     ww2-096  The outbreak of the Second Sino-Japanese War
     ww2-097  Battle of Shanghai
     ww2-098  Nanjing Massacre
-    ww2-099  The Chinese united front against Japan
-    ww2-100  Soviet-Japanese border conflicts
+    ww2-099  The Second United Front against Japan
+    ww2-100  The Soviet-Japanese border conflicts
     ww2-101  Battles of Khalkhin Gol
     ww2-102  The strike-north and strike-south debate
     ww2-103  Anti-Comintern Pact
