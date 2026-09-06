@@ -2658,6 +2658,214 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/el dinero": {
+      "why": "'wealth' is la riqueza, not dinero. And the Forms row gave a plural, los dineros, which is archaic and jocular - the same fault as the twelve months, the generator handing every noun a plural whether or not the word has a useful one. Cleared rather than corrected: a card that shows a form nobody uses is teaching it.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "money"
+          ]
+        ]
+      ],
+      "forms": [],
+      "rebold": true
+    },
+    "delea1/claro, clara": {
+      "why": "The card's third example is 'Bate las claras del huevo', which is the feminine NOUN la clara, an egg white - a sense the card did not list, so the sentence sat there illustrating nothing on it. And ¡claro!, which is among the commonest words in spoken Spanish, was missing.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "clear, obvious",
+            "light, pale (of a colour)"
+          ]
+        ],
+        [
+          "interjection",
+          [
+            "¡claro! — of course!, sure!"
+          ]
+        ],
+        [
+          "noun, feminine",
+          [
+            "la clara — egg white"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el momento": {
+      "why": "'timing' is not what momento means. What the card needed instead is the two phrases it is nearly always met in, one of which is its own first example (por el momento).",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "moment"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "en este momento — right now",
+            "por el momento, de momento — for the moment"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/tener": {
+      "why": "'to be (a condition or quality)' is a description standing in for the single most important pattern in A1 Spanish: tener hambre, sed, frío, calor, sueño, miedo, and tener … años for someone's age - where English uses 'to be'. The card's own third example is tener miedo, so it was showing the pattern without naming it. tener QUE, which is how Spanish says 'have to', was missing as well.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to have",
+            "to hold"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "tener que + infinitive — to have to (tengo que ir)",
+            "tener hambre, sed, frío, calor, sueño, miedo — to be hungry, thirsty, cold, hot, sleepy, afraid",
+            "tener … años — to be … years old"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el estado": {
+      "why": "'country, land (any broad area or territory)' is a dictionary's paraphrase and is not the sense TWO of the card's three examples use: estado de ánimo is a mood and el estado de mi amigo is his condition. State as a condition was missing from a card two thirds of whose sentences are that sense.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "state, condition",
+            "state (a country, or a region of one)",
+            "the State (the government)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "estado de ánimo — mood"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/mañana": {
+      "why": "Filed as an ADVERB meaning tomorrow, while TWO of its three examples are the feminine NOUN la mañana, the morning (por la mañana, todas las mañanas, de la mañana). The card was one part of speech and its sentences were mostly the other. 'soon' and 'shortly' are pronto, which has a card of its own.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "tomorrow"
+          ]
+        ],
+        [
+          "noun, feminine",
+          [
+            "la mañana — morning"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "por la mañana — in the morning",
+            "pasado mañana — the day after tomorrow"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las mañanas"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el lugar": {
+      "why": "'place' alone, and the card's own first example is en primer lugar, which is a phrase rather than that sense. en lugar de, which is how Spanish says 'instead of', has no other home in the deck.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "place",
+            "spot, position"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "en primer lugar — in the first place, first",
+            "en lugar de — instead of"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/nuevo, nueva": {
+      "why": "'new, brand new, all-new' is one gloss written three times, and de nuevo - which is what the card's FIRST example is ('nunca regresó a la escuela de nuevo') - was not among them.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "new"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "de nuevo — again"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el hijo, la hija": {
+      "why": "Glossed 'son' and 'child (of unknown gender)' - so DAUGHTER was missing from a card that is a pair and whose second example is hija. los hijos for children of both sexes is the same masculine-plural rule as los padres, and gets the same treatment.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "hijo — son",
+            "hija — daughter"
+          ]
+        ],
+        [
+          "noun, masculine plural",
+          [
+            "los hijos — children (sons and daughters together)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/allí": {
+      "why": "A description rather than a translation, and no mention of where allí sits among aquí, ahí and allá - which is the whole of what tells the four apart and which aquí and ahí now both carry.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "there (away from both the speaker and the listener)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "nearer",
+          "aquí, ahí"
+        ],
+        [
+          "vaguer",
+          "allá"
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
