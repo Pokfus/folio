@@ -19563,6 +19563,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     bio: "helix",
     dino: "sauropod",
     korea: "taegeuk",
+    /* Visual Art takes the EXISTING `brush`, which is the one collection mark on this shelf that was
+       reused rather than drawn. Every other was checked by eye at the 24-28px a deck row draws it at,
+       which is the one thing a session with no browser cannot do — and the cost is stated rather than
+       hidden: a brush is a PAINTING mark on a collection that also carries sculpture. A palette (a blob
+       with three holes, which is the owl's own failure) and a picture frame were both considered and
+       neither is worth shipping unlooked at. If it is to change, draw it and look at it. */
+    art: "brush",
     "geo-us": "compass",
     "geo-world": "map",
     "geo-china": "wall",
@@ -23505,8 +23512,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        unnamed under History and a Philosophy collection under a History heading is a claim about the
        subject rather than a gap. The echo resolves itself the day a second collection joins it. */
     { label: "Philosophy", slot: "collection-list-phil" },
+    /* The Arts — inert until Visual Art has a card, on the same rule Science and Philosophy shipped
+       under. It is a HEADING rather than a collection for the reason Geography is: the request that
+       made Visual Art says music, architecture, theatre and literature "may get their own collections
+       later", and each of those is an art. The second one costs a row in COLLECTION_SECTION and
+       nothing else. The collection under it is called Visual Art rather than Art so that it does not
+       read as the parent of the siblings that may join it. */
+    { label: "The Arts", slot: "collection-list-arts" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ---------- THE COLLECTIONS PAGE'S OWN TAB BAR (Sep 2026, on request) ----------
@@ -23541,7 +23555,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { id: "history", label: "History", sections: ["History"] },
     { id: "geography", label: "Geography", sections: ["Geography"] },
     { id: "language", label: "Language", sections: [] },       // the Languages shelf is its own builder
-    { id: "other", label: "Other", sections: ["Science", "Philosophy"] },
+    { id: "other", label: "Other", sections: ["Science", "Philosophy", "The Arts"] },
     { id: "community", label: "Community", sections: [] },     // your own decks, then everyone else's
     { id: "all", label: "All", sections: null },               // null = every section; the default
   ];
@@ -24213,6 +24227,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        colour they are named after. The whole-wheel optimum is the magenta again at 32.4, rejected for the
        fifth time on the standing note above. */
     korea:    { bg: "#A2726C" },
+    /* deep oxblood (Visual Art) — MEASURED, like every hue above it, and the one on this shelf where the
+       measurement and the aptness needed no trade at all: it is the red a picture gallery hangs old
+       masters on. Against all twenty-five hues (the eighteen curated collections and the seven language
+       decks) it stands 21.8 from its nearest neighbour, the Second World War's dark iron, with the
+       Indonesian deck's red at the same distance and Japan's kuwazome at 22.3 — against a TIGHTEST
+       EXISTING PAIR of 12.9 (China's vermilion against Russia's lacquer) and a median nearest-neighbour
+       distance of 20.0 over all twenty-five, 23.3 over the curated eighteen. L 28 and chroma 24, the dark
+       muted corner of the shelf's own band, and 10.0:1 against white, the highest contrast here beside
+       Biology's. THE MAGENTA WAS SWEPT AND REJECTED FOR THE SEVENTH TIME (#C65AB4, 31.5) and the
+       olive-brass for the fourth (22.0); the standing note on `dino` above is right and this run adds
+       nothing to it. */
+    art:      { bg: "#66333F" },
     /* deep olive (Geography) — MEASURED rather than picked, like every hue above it. The obvious choice is
        a teal, and the whole teal band is unusable: swept in CIELAB, every candidate lands 5–11 of Egypt's
        malachite or Greece's Aegean blue, against a tightest EXISTING pair of 12.9. The green band is

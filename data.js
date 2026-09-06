@@ -8844,6 +8844,310 @@ window.COLLECTION_TREE = {
           ]
         }
       ]
+    },
+    {
+      "id": "art",
+      "title": "Visual Art",
+      "total": 0,
+      "children": [
+        {
+          "id": "art-early",
+          "title": "Before History, to 700 BCE",
+          "total": 80,
+          "children": [
+            {
+              "id": "art-iceage",
+              "title": "Ice Age art, before 10,000 BCE",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "art-neolithic",
+              "title": "The first villages, 10,000–3000 BCE",
+              "total": 17,
+              "cardIds": []
+            },
+            {
+              "id": "art-bronze",
+              "title": "The Bronze Age, 3000–1500 BCE",
+              "total": 23,
+              "cardIds": []
+            },
+            {
+              "id": "art-lbronze",
+              "title": "Empires and the early Iron Age, 1500–700 BCE",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "art-classic",
+          "title": "The Classical World, 700 BCE–500 CE",
+          "total": 94,
+          "children": [
+            {
+              "id": "art-archaic",
+              "title": "The Greek awakening, 700–480 BCE",
+              "total": 16,
+              "cardIds": []
+            },
+            {
+              "id": "art-classical",
+              "title": "Classical Greece, 480–330 BCE",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "art-hellenistic",
+              "title": "The Hellenistic world, 330–30 BCE",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "art-rome",
+              "title": "Rome and the first centuries, 30 BCE–200 CE",
+              "total": 17,
+              "cardIds": []
+            },
+            {
+              "id": "art-lateantique",
+              "title": "Late antiquity, 200–500 CE",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "art-medieval",
+          "title": "Medieval Worlds, 500–1300",
+          "total": 104,
+          "children": [
+            {
+              "id": "art-500",
+              "title": "The sixth to eighth centuries, 500–800",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "art-800",
+              "title": "The ninth to eleventh centuries, 800–1050",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "art-1050",
+              "title": "Romanesque and Song, 1050–1150",
+              "total": 19,
+              "cardIds": []
+            },
+            {
+              "id": "art-1150",
+              "title": "Gothic and the thirteenth century, 1150–1300",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "art-1300s",
+          "title": "The Fourteenth and Fifteenth Centuries",
+          "total": 116,
+          "children": [
+            {
+              "id": "art-1300",
+              "title": "1300–1350",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "art-1350",
+              "title": "1350–1400",
+              "total": 14,
+              "cardIds": []
+            },
+            {
+              "id": "art-1400",
+              "title": "1400–1440",
+              "total": 29,
+              "cardIds": []
+            },
+            {
+              "id": "art-1440",
+              "title": "1440–1470",
+              "total": 21,
+              "cardIds": []
+            },
+            {
+              "id": "art-1470",
+              "title": "1470–1500",
+              "total": 27,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "art-1500s",
+          "title": "The Sixteenth Century",
+          "total": 102,
+          "children": [
+            {
+              "id": "art-1500",
+              "title": "1500–1520",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "art-1520",
+              "title": "1520–1550",
+              "total": 29,
+              "cardIds": []
+            },
+            {
+              "id": "art-1550",
+              "title": "1550–1580",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "art-1575",
+              "title": "1580–1600",
+              "total": 21,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "art-baroque",
+          "title": "The Baroque World, 1600–1750",
+          "total": 119,
+          "children": [
+            {
+              "id": "art-1600",
+              "title": "1600–1630",
+              "total": 37,
+              "cardIds": []
+            },
+            {
+              "id": "art-1630",
+              "title": "1630–1660",
+              "total": 38,
+              "cardIds": []
+            },
+            {
+              "id": "art-1660",
+              "title": "1660–1700",
+              "total": 21,
+              "cardIds": []
+            },
+            {
+              "id": "art-1700",
+              "title": "1700–1750",
+              "total": 23,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "art-revolution",
+          "title": "Revolution and Romance, 1750–1860",
+          "total": 110,
+          "children": [
+            {
+              "id": "art-1750",
+              "title": "1750–1790",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "art-1790",
+              "title": "1790–1820",
+              "total": 29,
+              "cardIds": []
+            },
+            {
+              "id": "art-1820",
+              "title": "1820–1840",
+              "total": 23,
+              "cardIds": []
+            },
+            {
+              "id": "art-1840",
+              "title": "1840–1860",
+              "total": 23,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "art-modernage",
+          "title": "The Modern Age, 1860–1914",
+          "total": 133,
+          "children": [
+            {
+              "id": "art-1860",
+              "title": "1860–1875",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "art-1875",
+              "title": "1875–1885",
+              "total": 31,
+              "cardIds": []
+            },
+            {
+              "id": "art-1885",
+              "title": "1885–1900",
+              "total": 41,
+              "cardIds": []
+            },
+            {
+              "id": "art-1900",
+              "title": "1900–1914",
+              "total": 34,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "art-c20",
+          "title": "The Twentieth Century and After, 1914 to now",
+          "total": 142,
+          "children": [
+            {
+              "id": "art-1914",
+              "title": "1914–1930",
+              "total": 31,
+              "cardIds": []
+            },
+            {
+              "id": "art-1930",
+              "title": "1930–1945",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "art-1945",
+              "title": "1945–1960",
+              "total": 29,
+              "cardIds": []
+            },
+            {
+              "id": "art-1960",
+              "title": "1960–1980",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "art-1980",
+              "title": "1980 to now",
+              "total": 24,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
     }
   ]
 };

@@ -905,7 +905,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   themselves against — and that **a finding is described with the people it was found in**, which is
   the psychology form of the history plans' rule about a state's account of itself and the easiest one
   here to break by accident. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the
-  index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup, and carries the count. **Its first
+  index table under "THE NINETEEN PLANNED COLLECTIONS" is the lookup, and carries the count. **Its first
   cards have shipped**, so the collection is live — `isComingSoon` is false for a node holding a card — and its 37 empty decks are
   coming-soon automatically, on the same rule. That first card is also what **woke the `Science` row in
   `COLLECTION_SECTIONS`**, which shipped inert with the plan: `sectionOf` returns History for anything
@@ -927,7 +927,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   are already in Folio's Library**, eleven with their original-language column, so `card.quote` is worth
   more here than anywhere on the site; and **a work is cited by its standard divisions** (Stephanus,
   Bekker, A/B) rather than by the page of one translation. The next card to write is the lowest `ph-NNN`
-  not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card
+  not yet in `data.js`; the index table under "THE NINETEEN PLANNED COLLECTIONS" is the lookup. **No card
   has been written yet.** It ships an inert **`Philosophy` row in `COLLECTION_SECTIONS`**, on the same
   reasoning as Psychology's `Science` row. Not part of the site.
 - `docs/biology-card-plan.md` — the **1000-card running order for the Biology collection** (`bio`):
@@ -998,8 +998,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Not one of its
   thousand topics matches an existing glossary key** and there is no `Korea` term, so expect the
   glossary to grow faster here than anywhere since Greece. The next card to write is the lowest `ko-NNN`
-  not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card
+  not yet in `data.js`; the index table under "THE NINETEEN PLANNED COLLECTIONS" is the lookup. **No card
   has been written yet.** Not part of the site.
+- **📖 `docs/art-card-plan.md` — READ BEFORE WRITING AN `art-` CARD, AND BEFORE BUILDING THE ARTWORK
+  CARD FORMAT.** The **1000-card running order for the Visual Art collection** (`art`): every card's
+  number, topic and deck, fixed in advance across 9 decks and 39 leaf decks. The seventeenth
+  thousand-card plan, the fifth that is not history, and one that **creates its own collection** —
+  node, tree, `COLL_THEME` hue and a section of its own, **The Arts**, all ship with the plan, on the
+  reasoning that music, architecture, theatre and literature are the siblings a heading is for.
+  Three things make it unlike every plan beside it.
+  · **THE TREE IS A TIMELINE AND NOTHING ELSE**, on request: the reader asked that Ordered study deal the
+    artworks in chronological order of creation, and "Ordered" is the cards' order of appearance in the
+    TREE (`buildSession`'s Ordered branch, with `cardStartYear` only as a tie-break) — so a collection is
+    dealt chronologically only if its running order is chronological end to end. Every deck and every
+    subdeck is therefore a date range: there is no sculpture deck, no Impressionism deck and no Italy
+    deck, and a slice holds whatever the world made in those years. The cost is stated in the plan
+    (a reader reaches sculpture or a movement through the card browser's `tag:` search, so the TAGS are
+    load-bearing here in a way they are not elsewhere), and the whole thousand was verified to take **no
+    backward step** in date. **A line moved out of date order is a card dealt out of date order, and
+    nothing on the page will say so.**
+  · **IT NEEDS A CARD FORMAT THAT DOES NOT EXIST YET**, and `art-001` cannot be written until it does.
+    The artwork card is a BUILT-IN format like the map card, for the map card's own reason (a community
+    card type cannot run code): the picture is the QUESTION, so the front draws the work and nothing
+    else, and `image.title` / `desc` / `credit` are **held back until the reveal** the way the picture
+    round holds an artefact's metadata — a Commons credit line names the work and its painter, so a front
+    that draws one has given the answer away and will look perfectly fine doing it. The answer term is
+    the TITLE (`gradeCloze` matches one string, so the artist is asked in the question and self-graded);
+    `answerDate` carries the creation date and is also the sort key; the artist, medium, size and
+    location go in `facts`, the map card's own field; the **alt text describes and never names**, which
+    makes this format more accessible than the map card rather than less; and an artwork card is out of
+    the minigames by construction, in `gameCardIdSet` beside `cardMapSpec`.
+  · **COPYRIGHT DECIDES WHICH CARDS CAN CARRY A PICTURE AT ALL.** Folio links pictures and the bar is
+    PD / CC BY / CC BY-SA, and Commons hosts a file only where it is free in the US *and* the country of
+    origin — so the canon is showable to about 1900, mixed to 1945 and almost entirely unshowable after
+    it. **A card that cannot show its work is an ordinary cloze card and says so**; the canon is not
+    narrowed to what happens to be free, because a thousand famous artworks without *Guernica* is a
+    false canon. **Check Commons before writing a post-1900 card, not after.**
+  Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -1315,7 +1350,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.06 MB and 44,955 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.06 MB and 44,981 lines is hard to find your way around, so this
   lists its 169 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -5598,7 +5633,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE EIGHTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE NINETEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -5622,6 +5657,7 @@ lookup.
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
+| Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | empty — not a history collection, and its CARD FORMAT is not built yet |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
@@ -5637,7 +5673,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (256 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (268 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -6666,7 +6702,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 256 assertions on **the join between the sixteen card plans and
+  · `node .claude/test-card-plans.js` — 268 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
