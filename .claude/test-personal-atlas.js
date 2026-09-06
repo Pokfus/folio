@@ -115,6 +115,11 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
   check("the empty note is gone", await page.evaluate(() => { const e = document.getElementById("atlasEmpty"); return !e || e.hidden; }));
   const px1 = await page.evaluate(PX);
   check("the reader's countries are in the light land shade", px1.mine > 400, JSON.stringify(px1));
+  /* A PLACE HAS NO END DATE (Sep 2026, on request). The seed's third card is Yinxu, whose date line is
+     Shang — so under the old both-ends rule its mark was absent at the present day, which told the reader
+     the city had stopped existing. Only the start binds now, and this is the assertion that says so:
+     the mark is on the modern globe. */
+  check("...and a place studied in a Shang card is still marked today", px1.marks > 0, JSON.stringify(px1));
 
   /* ---------- 3) the popup is the card ---------- */
   console.log("\n3) clicking a place opens its card");
@@ -174,7 +179,7 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
   check("...where a Shang capital is marked and no modern state is", px2.marks > 0 && px2.mine < 50, JSON.stringify(px2));
   await setYear(-3000);
   const px3 = await page.evaluate(PX);
-  check("...and in a century before it stood, nothing of the reader's is drawn", px3.marks === 0 && px3.mine === 0, JSON.stringify(px3));
+  check("...and in a century BEFORE it stood, nothing of the reader's is drawn", px3.marks === 0 && px3.mine === 0, JSON.stringify(px3));
 
   /* ---------- 5) the world atlas is still the world atlas ---------- */
   console.log("\n5) the other tab");

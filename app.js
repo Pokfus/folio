@@ -31884,8 +31884,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
 
      A LOCATOR CARRIES ITS OWN YEARS. `cardSpanYears` reads the card's own date line, so Yinxu shows in
      the centuries the Shang capital stood there and in no others; a card with no date at all is a place
-     rather than a period — a river, a cave — and is drawn in every year. A REGION and a RANGE are not
-     registered at all (Sep 2026, on request) — see the note beside the `marks.push` below.
+     rather than a period — a river, a cave — and is drawn in every year. ONLY THE START OF THAT SPAN
+     BINDS (Sep 2026, on request): a place is not taken off the map again — see `mineMarks`. A REGION and
+     a RANGE are not registered at all (Sep 2026, on request) — see the note beside the `marks.push`
+     below.
 
      A DOT IS A NAME, NOT A COORDINATE. `map.dot` names a city in its layer's own points table, which is
      lazy, so an unlock records the name and the layer and the point is resolved at DRAW time — a capital
@@ -31915,7 +31917,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const loc = cardLocator(c);
       if (!loc) return;
       const ys = cardSpanYears(c);
-      const y0 = ys.length ? Math.min.apply(null, ys) : null, y1 = ys.length ? Math.max.apply(null, ys) : null;
+      const y0 = ys.length ? Math.min.apply(null, ys) : null;   // the START only — see mineMarks: a place does not stop existing
       /* A REGION AND A RANGE ARE NOT ON THIS GLOBE (Sep 2026, on request: "mountain ranges like the
          Apennines should not be displayed … areas or regions (like Etruria, Attica) should not show.
          countries or civilisations should"). They were drawn as a dashed wash and a spine — the marks
@@ -31927,7 +31929,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          Nor are they demoted to a dot: a dot in the middle of Etruria says Etruria is a point near Siena,
          which is the false claim the card maps stopped making (see `locatorSiblings`). */
       if (loc.kind === "region" || loc.kind === "range") return;
-      marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, y0: y0, y1: y1 });
+      marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, y0: y0 });
     });
     const v = { names: names, subdiv: subdiv, marks: marks, need: need, count: names.size + subdiv.length + marks.length };
     _atlasMineCache = { key: key, v: v };
@@ -37173,9 +37175,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       _mineFor = key; _mineCache = out;
       return out;
     }
-    /* A MARK IS SHOWN WHEN THE YEAR IS INSIDE THE CARD'S OWN DATES — and a card with no dates at all is
-       a place rather than a period (a river, a range, a cave), so it is shown in every year. A capital
-       from a geography card rides with the modern map for the reason its state's shape does. */
+    /* A MARK APPEARS IN THE CARD'S EARLIEST YEAR AND NEVER GOES AWAY (Sep 2026, on request: "cities and
+       dot locations should have no end date, i.e. should appear in their earliest known date of settlement
+       and then stay visible until the modern day"). It was the card's whole SPAN, both ends — and that is
+       right about a state, which is what the country shapes above already answer for, and wrong about a
+       PLACE: Yinxu is still there, and a globe that took Athens away in 300 CE was telling the reader the
+       city had stopped existing. So only the start binds. What the span really dates is the card's
+       SUBJECT — the Shang capital, the classical city — and a dot on a map is the place rather than the
+       episode. A card with no date at all still shows in every year, for the same reason one step further
+       on. A capital from a geography card rides with the modern map for the reason its state's shape
+       does. */
     function mineMarks() {
       const u = atlasUnlocks(), modern = eraIsModern(activeEra(year));
       const out = [];
@@ -37188,7 +37197,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           out.push({ id: m.id, title: m.title, kind: "dot", at: row.c });
           continue;
         }
-        if (m.y0 != null && (year < m.y0 || year > m.y1)) continue;
+        if (m.y0 != null && year < m.y0) continue;
         out.push(m);
       }
       return out;

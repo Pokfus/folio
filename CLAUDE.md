@@ -1315,7 +1315,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.06 MB and 44,941 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.06 MB and 44,955 lines is hard to find your way around, so this
   lists its 169 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -5017,8 +5017,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     independence dates: **Folio's own maps already carry the answer.** A `us-states` or `china-provinces`
     shape belongs to no era, so it is drawn only where the map IS present-day (`eraIsModern`) — today's
     boundaries over a 1600 map would be a claim Folio does not make.
-    **A LOCATOR CARRIES ITS OWN YEARS** (`cardSpanYears`), and a card with no dates at all is a place
-    rather than a period — a river, a range, a cave — so it is drawn in every year.
+    **A LOCATOR CARRIES ITS OWN YEARS, AND ONLY THE START OF THEM BINDS** (`cardSpanYears`; the end was
+    dropped in Sep 2026, on request: "cities and dot locations should have no end date, i.e. should appear
+    in their earliest known date of settlement and then stay visible until the modern day"). Both ends is
+    right about a STATE — which is what the country shapes answer for, through the era's own map — and
+    wrong about a PLACE: Yinxu is still there, and a globe that took Athens away in 300 CE was telling the
+    reader the city had stopped existing. What a card's span really dates is its SUBJECT, the Shang capital
+    or the classical city, and a dot on a map is the place rather than the episode. A card with no dates at
+    all is a place rather than a period — a river, a cave — so it is drawn in every year, which is the same
+    rule one step further on.
     **THE RAIL IS LINEAR HERE AND BENT THERE, and nothing snaps.** The world atlas has thirteen stops and
     bends its scale to keep them apart; the personal atlas has none, because every year has a map, so a
     bent scale would only lie about how far apart two years are. The chevrons step a century in the deep
