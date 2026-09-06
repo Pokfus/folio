@@ -195,6 +195,10 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // DergiPark deposited this byline in Turkish CAPITALS, and the all-caps form cannot keep
+  // the dotless i: Crossref carries "GOKBAYIR" with a dotted I, where the journal's own
+  // article metadata (citation_author) prints "Gokmen Gunay Gokbayir" with the dotless one.
+  ["10.48146/odusobiad.1288135", "Gökmen Günay Gökbayır", "Gökmen Günay GÖKBAYIR"],
   // Erdem deposited this byline in ASCII, writing the Danish o-with-stroke as a plain o,
   // so Crossref carries "Jens Hoyrup". The article's own title page prints "JENS HØYRUP",
   // and Ø is a letter in its own right rather than an accent, so the diacritic fold cannot
