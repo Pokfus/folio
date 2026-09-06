@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.667", released: "2026-09-06T14:39Z" };
+window.FOLIO_VERSION = { v: "1.668", released: "2026-09-06T15:26Z" };
 
 window.CHANGELOG = [
   {
@@ -77,6 +77,7 @@ window.CHANGELOG = [
       "<b>Two hundred and seventy more glossary terms</b>, written for the new cards’ answers.",
       "<b>A hundred new cards open the Korea collection</b>, which now sits under Collections rather than Planned.",
       "<b>Fifty-seven new cards in the World War II collection</b>, with a glossary term for each and a picture for nearly all of them.",
+      "<b>57 new cards in the World History collection</b>, finishing its Byzantium and Islamic world decks and opening one on medieval Europe, with 56 new glossary terms.",
       "<b>Organisation Consul now has a glossary entry</b>, so the Weimar Republic’s assassins no longer open the entry for a Roman magistrate.",
       "<b>A Visual Art collection is planned</b> — a thousand famous artworks and styles, dealt in the order they were made.",
       "<b>The first ten Visual Art cards are here</b> — the picture is the question, and the answer names the work, dates it and credits the photograph.",
@@ -102,6 +103,7 @@ window.CHANGELOG = [
       "<b>135 citations of Polybius now give the right year</b> \u2014 the translation is published in six volumes and several were credited to the wrong one.",
       "<b>Seventeen pictures that had failed to load now show</b> \u2014 sixteen on Ancient Rome cards and one on a glossary term.",
       "<b>Ninety new cards in the Biology collection</b>, which open it: Biology now sits under Collections rather than Planned.",
+      "<b>58 new cards in the World History collection</b>, finishing its Ancient India and Ancient China decks and opening those on Africa, the Americas and Byzantium, with 58 new glossary terms.",
       "<b>The Russia collection has opened</b> with its first ten cards, in its Before Rus' deck.",
       "<b>Think it through</b> now asks three why-questions about the answer, each with a <b>Show answer</b> button that uncovers a brief reply.",
       "<b>How many separate days you have recalled a card</b> has moved to the top of the card, between the question and its difficulty.",
@@ -180,6 +182,7 @@ window.CHANGELOG = [
       "<b>269 more glossary terms</b> \u2014 central Italy and its provinces, East Africa’s fossil sites, Egypt from the Nile to Amarna, the struggle between the Roman orders, Ancient Greece’s own, and the vocabulary of states, diplomacy and government, all sourced.",
       "<b>Sixty-two new cards in Ancient Rome</b>, opening the conquest of Italy.",
       "<b>77 new cards in the Ancient Greece deck</b>, five of them the Parthenon, its sculpture and its architects.",
+      "<b>Seventy-six new cards in the World History collection</b>, completing its Persia, Greece and Rome decks and opening Ancient India, with sixty-five new glossary terms.",
       "One Ancient Greece card that repeated an older one has been rewritten on a subject the deck was missing.",
       "Tapping <b>Ephialtes</b> in a card now opens the Athenian reformer rather than the guide at Thermopylae.",
       "Fixed twelve pictures added today whose links were broken, so they show again.",
@@ -239,6 +242,7 @@ window.CHANGELOG = [
       "<b>A new badge for collecting 100 artefacts</b>, since the ladder used to stop at 50.",
       "<b>The site now loads a little faster</b>, because an artefact's description and picture are only fetched when you open a chest.",
       "<b>23 new cards in the Ancient Greece deck</b>.",
+      "<b>Nine new cards in the World History collection</b>, in its Iron Age Near East and Persia deck, with five new glossary terms.",
       "<b>The Canterbury Tales has been corrected in 689 places</b> against photographs of the 1912 edition — quotation marks, commas, possessives, and whole lines the scan had lost.",
       "<b>Romance of the Three Kingdoms prints another 1,400 Chinese names in modern pinyin</b>, and sixteen of its chapter titles are corrected.",
       "<b>An editor's note had been pasted into the Chinese of two books</b> \u2014 Journey to the West and Three Kingdoms \u2014 and both are cleaned.",
@@ -271,7 +275,7 @@ window.CHANGELOG = [
       "<b>The True or False statement about the 'Mozart effect' now states the claim plainly</b> instead of denying it.",
       "<b>Sixty new cards in The world</b>, completing the countries and territories deck at 227 of 233, with twenty-six new glossary terms and thirty-two others corrected against their own sources.",
       "<b>Seventeen new cards in the Ancient Greece deck</b>, with seventeen new glossary terms to go with them.",
-      "<b>Eighteen new cards in the World History collection</b>, in its Iron Age Near East deck, with sixteen new glossary terms.",
+      "<b>Twenty new cards in the World History collection</b>, in its Iron Age Near East deck, with sixteen new glossary terms.",
       "<b>The China geography collection is finished</b>, all 31 provinces and regions and all 27 provincial capitals, each with a glossary term and a picture of its own.",
       "The figures beside a geography card's answer are now <b>centred against it</b> rather than pinned to its top line.",
       "<b>All 58 China geography cards rewritten</b> around each place's own history, culture and society, with a consistent box of figures beside the answer.",
