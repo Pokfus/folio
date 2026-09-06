@@ -108,6 +108,9 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `refinements-plan.md` | ~60 items from one request, batched. |
 | `refinements-2026-08-27.md` | Thirty-five items from one request: what shipped, the four faults the fixes uncovered at scale, the four answers to "suggest a way", and a plan for the nine not built. |
 | `artefact-expansion-plan.md` | A second hundred artefacts, planned but not yet written: the rarity budget, the eager-path split to do first, and the fifteen batches. |
+| `mandarin-review.md` | The Mandarin collection measured end to end and then repaired: why a downloaded deck never saw a fix, the cards a speech engine misreads, the polyphones teaching one of two readings, the unanswerable reverse cards, the Idioms deck — and, for the three of twelve items that could not be finished, exactly where they stop and why. |
+| `greece-audit-2026-09.md` | The 500-card Ancient Greece audit: what passed, what was fixed, and the seven things still open — the Rutter concentration, the Athens deck's register, and the coverage gaps. |
+| `learning-science.md` | What the learning-science literature says works and does not, and twenty proposals for Folio. **Thirteen shipped Sep 2026; seven still proposals.** |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |
 
 ---

@@ -217,9 +217,10 @@ const SETTINGS = {
        their own on a collection, and it is stored beside the colour in the same S.deckGroups record — so
        it sits directly after it, and before Remove, which stays last. */
     check("holding the banner offers the deck sheet's options, minus Remove",
-      rm && rm.items.join(",") === "Review order,Question variety,Browse your cards,Custom study,Daily limits,Skip today,Colour,Icon", JSON.stringify(rm));
-    check("...the order is a CYCLER and the phrasing pool a switch, with no pair of rows for either",
-      rm && rm.cycles.join(",") === "Review order" && rm.switches.join(",") === "Question variety" && rm.choices === 0,
+      rm && rm.items.join(",") === "Review order,Question variety,Answer before revealing,Browse your cards,Custom study,Daily limits,Skip today,Colour,Icon", JSON.stringify(rm));
+    check("...the order is a CYCLER and the two policies are switches, with no pair of rows for any of them",
+      rm && rm.cycles.join(",") === "Review order" &&
+      rm.switches.join(",") === "Question variety,Answer before revealing" && rm.choices === 0,
       JSON.stringify(rm));
     check("...each showing its own current state — Ordered, and variety on by default",
       rm && rm.order === "Ordered" && rm.variety === true, JSON.stringify(rm && { order: rm.order, variety: rm.variety }));
@@ -244,9 +245,12 @@ const SETTINGS = {
     check("...a second reaches By difficulty, the order that had no control until now",
       c2.chip === "By difficulty" && c2.order === "difficulty" && c2.random === false, JSON.stringify(c2));
     const c3 = await cyc();
-    check("...and a third wraps back to Ordered", c3.chip === "Ordered" && c3.order === "ordered", JSON.stringify(c3));
+    check("...a third reaches Eased in, the blocked-then-interleaved order (Sep 2026)",
+      c3.chip === "Eased in" && c3.order === "hybrid" && c3.random === false, JSON.stringify(c3));
     const c4 = await cyc();
-    check("...leaving it on Random for the rest of this section", c4.order === "random" && c4.random === true, JSON.stringify(c4));
+    check("...and a fourth wraps back to Ordered", c4.chip === "Ordered" && c4.order === "ordered", JSON.stringify(c4));
+    const c5 = await cyc();
+    check("...leaving it on Random for the rest of this section", c5.order === "random" && c5.random === true, JSON.stringify(c5));
     /* …and the SHEET STAYS OPEN, which is the whole difference between a switch and a command: every
        other row here closes behind itself, and taking the sheet away is what makes a reader wonder
        whether the throw landed. (It must also not repaint — render() closes this very sheet.) */
@@ -496,7 +500,7 @@ const SETTINGS = {
        their own on a collection, and it is stored beside the colour in the same S.deckGroups record — so
        it sits directly after it, and before Remove, which stays last. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Icon", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Answer before revealing", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Icon", "Remove"]),
       JSON.stringify(menu.items));
 
     /* THE ORDER IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they are
@@ -1146,8 +1150,19 @@ const SETTINGS = {
       !!kept && kept.parent === geo.gid && !!kept.hue, JSON.stringify(kept));
     await carried.close();
 
-    // tapping it studies everything inside
+    /* Tapping it studies everything inside — THROUGH THE ORDER PICKER, since Sep 2026. A group is one of
+       the two things `orderAskEntry` asks about on their first session (see its own note), so the first
+       tap lands on `#order` rather than on a card, and it is the SKIP that deals the cards. Both halves
+       are asserted: a picker that stopped appearing and a picker a reader could not get past look the
+       same from here, and the assertion this replaces — which knew nothing about the picker — reported
+       the feature working as a broken group. */
     await page.evaluate((gid) => document.querySelector(`.active-deck[data-drag="${gid}"]`).click(), geo && geo.gid);
+    await page.waitForTimeout(900);
+    const asked = await page.evaluate(() => ({ hash: location.hash, cards: document.querySelectorAll(".op-card").length,
+                                               skip: !!document.querySelector("#opSkip") }));
+    check("...tapping a group asks how it should be dealt, the first time",
+      asked.hash.indexOf("order") >= 0 && asked.cards >= 3 && asked.skip, JSON.stringify(asked));
+    await page.evaluate(() => document.querySelector("#opSkip").click());
     await page.waitForTimeout(900);
     const studying = await page.evaluate(() => ({ hash: location.hash, card: !!document.querySelector(".question, .cardwrap") }));
     check("tapping a group studies the cards inside it",
