@@ -5061,6 +5061,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     own map and drawn in that map's shape, which is a better answer than any authored polygon — and they
     are NOT demoted to a dot, a dot in the middle of Etruria being the false claim the card maps stopped
     making.
+    **A SHAPE'S NAME SITS AT ITS LABEL POINT, NEVER AT ITS BOUNDING-BOX CENTRE** (`lp` / `la` in
+    `mineShapes`; Sep 2026, on a bug report: "'United States of America' shows up over Europe and
+    'Russia' over the north sea"). A bbox centre says nothing about a country that crosses the
+    antimeridian — Chukotka sits just west of -180 and Alaska just east of it, so both bboxes run the
+    full -180..180 and their centres are longitude 0, which is the North Sea; measured, France's box
+    centre was in the Atlantic off Africa and New Zealand's and Kiribati's were the wrong side of the
+    planet. **`ringLabelAnchor` is the era layer's own answer and already solves it** — largest ring,
+    longitudes unwrapped as it walks, the point nudged back inside a concave shape — so the fix is to
+    call it rather than to write a second rule. It is computed in `mineShapes`, where the shape list is
+    cached, so a frame pays nothing; a subdivision's published label point (`at`) still wins. The names
+    are then drawn **biggest first and once per NAME**, since a country is several territory entries on
+    some eras and without that the de-collision decides which islet is labelled. **The same pass had an
+    early return on an empty mark list**, so a reader who had studied only geography cards — countries
+    and no places — met lit shapes with not one name on them; the shapes' names are drawn by the second
+    half of that function, so the guard now covers the marks loop alone.
     **THE STRAY BORDERS ARE THE COAST CLASSIFIER'S GENEROSITY, AND THE FIX IS A MASK** (`mineCoastSkip`;
     Sep 2026, on a bug report naming "the western border of Uzbekistan, some borders of Jordan,
     Montenegro, the Netherlands, western Spain, the southern border of the Western Sahara"). `coastEdges`
@@ -6771,7 +6786,7 @@ dead code (never rendered).
     three article spans) is exempt and must stay so**: the slash cannot be spoken and picking one gender
     asserts what the card declines to. Report-only, exit 1 on a finding. **Re-run after rebuilding any
     deck, and after touching `say_text` in cils/build_deck.py or the `say` block in delf/build_deck.py.**
-  · `node .claude/test-personal-atlas.js` — **the Atlas's second tab** (23 assertions, Sep 2026), and
+  · `node .claude/test-personal-atlas.js` — **the Atlas's second tab** (28 assertions, Sep 2026), and
     every fault it guards is silent: a globe with nothing on it looks exactly like a reader who has
     studied nothing, a place resolved in the wrong year looks like a deliberate absence, and a popup
     that has quietly gone back to the world atlas's country panel is a perfectly good country panel. The
@@ -6779,7 +6794,11 @@ dead code (never rendered).
     now different colours: an unlocked COUNTRY is the light land shade (zero of it on an empty globe, where
     every land pixel is the dark one) and a PLACE is the locator red, which nothing else on this globe is.
     The light shade is COMPUTED from the same two CSS variables and the same formula `readColors` uses
-    rather than sampled, so a theme change moves both together. **Re-run after touching `atlasTab` /
+    rather than sampled, so a theme change moves both together. **Its section 6 measures LABEL INK**
+    (`LBL_TEXT`, #221808, which nothing else on this globe is near): with only the United States and
+    Russia unlocked there must be none in a box around the centre of the disk, which is Europe — see the
+    bbox-centre note in the personal-atlas bullet — and some somewhere, or the check passes on a name
+    layer that has stopped drawing. **Re-run after touching `atlasTab` /
     `MINE` / `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
     `drawMineMarks` / `mineCoastSkip` / `landDim` / `showMinePopup` / `eraIsModern` /
     `renderStatic`'s MINE branch / `updateHoverName` / `snapYear` / `frac2year` / `year2frac` / the

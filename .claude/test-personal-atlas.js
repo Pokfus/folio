@@ -197,6 +197,42 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
   check("...but coming back to the Atlas opens on your own again",
     await page.$eval('[data-atlastab="mine"]', (e) => e.classList.contains("on")));
 
+  /* ---------- 6) a shape's name sits on the shape ---------- */
+  /* Sep 2026, on a bug report: "'United States of America' shows up over Europe and 'Russia' over the
+     north sea". Both countries cross the antimeridian, so their BOUNDING BOXES run the full -180..180
+     and the box centre the label used to be placed at is longitude 0 — the North Sea. It is a silent
+     fault: the name is drawn, correctly spelled, in the right style, over the wrong continent.
+
+     WHAT IS MEASURED IS LABEL INK, in the day theme's own `LBL_TEXT` (#221808), which nothing else on
+     this globe is near — the land shades are grey, the ocean cyan, the marks red. The globe opens
+     centred on the reader's home (the Netherlands), so Europe is the middle of the disk: with only the
+     United States and Russia unlocked there must be NO label ink in a box around the centre, and there
+     must be some SOMEWHERE, or the check would pass on a layer that had stopped drawing at all.
+     Measured against the unfixed code, that centre box held 176 ink pixels. */
+  console.log("\n6) a country's name is drawn on the country");
+  await page.close();
+  page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+  page.on("pageerror", (e) => errs.push(e.message));
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
+  await page.addInitScript(seed(["gw-003", "gw-009"]));   // the United States and Russia, both antimeridian-crossing
+  await page.goto(base + "#map", { waitUntil: "load" });
+  await page.reload({ waitUntil: "load" });
+  await page.waitForTimeout(4200);
+  const ink = await page.evaluate(`(() => {
+    const cv = document.getElementById("globe"), ctx = cv.getContext("2d");
+    const dpr = cv.width / cv.getBoundingClientRect().width;
+    const bw = Math.round(90 * dpr), bh = Math.round(60 * dpr);
+    const cen = ctx.getImageData(Math.round(cv.width / 2) - bw, Math.round(cv.height / 2) - bh, bw * 2, bh * 2).data;
+    const all = ctx.getImageData(0, 0, cv.width, cv.height).data;
+    const count = (d) => { let n = 0; for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 8 && Math.abs(d[i] - 34) < 14 && Math.abs(d[i + 1] - 24) < 14 && Math.abs(d[i + 2] - 8) < 16) n++; return n; };
+    return { centre: count(cen), whole: count(all) };
+  })()`);
+  check("their names are drawn", ink.whole > 40, JSON.stringify(ink));
+  check("...and NOT over Europe, at the antimeridian-spanning bbox centre", ink.centre === 0, JSON.stringify(ink));
+  /* AND A COUNTRY NEEDS NO PLACE MARK TO BE NAMED: this seed carries no locator card, so the whole
+     name pass used to be skipped by an early return written when marks were all this layer drew. */
+  check("...on a register of countries alone, with no place marks in it", ink.whole > 40, JSON.stringify(ink));
+
   check("no console or page errors throughout", errs.length === 0, errs.slice(0, 3).join(" | "));
   await browser.close();
   console.log("\n" + pass + " passed, " + fail + " failed");

@@ -37172,6 +37172,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         });
       }
       out.forEach((o) => { if (!o.bb) { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; o.rings.forEach((r) => r.forEach((p) => { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; })); o.bb = [x0, y0, x1, y1]; } });
+      /* THE NAME SITS AT THE SHAPE'S OWN LABEL POINT, NEVER AT ITS BOUNDING-BOX CENTRE (Sep 2026, on a
+         bug report: "'United States of America' shows up over Europe and 'Russia' over the north sea"). A
+         bbox centre is meaningless for a country that crosses the antimeridian — Russia's Chukotka sits
+         just west of -180 and Alaska just east of it, so both bboxes run the full -180..180 and their
+         centres land at longitude 0, which is the North Sea. `ringLabelAnchor` is the era layer's own
+         answer and already solves it: it takes the LARGEST ring, unwraps its longitudes as it walks it,
+         and nudges the point back inside a concave shape. Computed here rather than at the draw, so it is
+         cached with the shape list and costs a frame nothing; `at` (a subdivision's published label point)
+         still wins where there is one. `la` is that ring's area, which orders the labels below. */
+      out.forEach((o) => {
+        if (o.at) { o.lp = o.at; o.la = Math.abs((o.bb[2] - o.bb[0]) * (o.bb[3] - o.bb[1])); return; }
+        let best = null, bestA = -1;
+        for (let r = 0; r < o.rings.length; r++) {
+          const ring = o.rings[r]; if (!ring || ring.length < 4) continue;
+          let a = 0, px = ring[0][0], py = ring[0][1], ox = 0;
+          for (let i = 1; i < ring.length; i++) { let x = ring[i][0] + ox; if (x - px > 180) { ox -= 360; x -= 360; } else if (px - x > 180) { ox += 360; x += 360; } a += px * ring[i][1] - x * py; px = x; py = ring[i][1]; }
+          a = Math.abs(a / 2); if (a > bestA) { bestA = a; best = ring; }
+        }
+        if (best) { const an = ringLabelAnchor(best); o.lp = [an.lon, an.lat]; o.la = an.a; }
+        else { o.lp = [(o.bb[0] + o.bb[2]) / 2, (o.bb[1] + o.bb[3]) / 2]; o.la = 0; }
+      });
       _mineFor = key; _mineCache = out;
       return out;
     }
@@ -37227,7 +37248,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        studied four hundred places must not meet four hundred names in a heap. */
     function drawMineMarks() {
       const marks = mineMarks();
-      if (!marks.length) return;
+      /* NO EARLY RETURN ON AN EMPTY MARK LIST: the shapes' own names are drawn by the second half of this
+         function, so bailing out here left a reader who has studied only geography cards — countries and
+         no places — with lit shapes and not one name on them. */
       /* A MARK IS RED, AND IT IS THE LOCATOR WINDOWS' OWN RED (Sep 2026, on request) — the same
          `rgba(200,69,60,…)` a card's map draws its collection's other places in, with the Atlas's white
          city ring under it so it reads on the light land and on the dark. It was the selection gold, which
@@ -37258,9 +37281,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, x + 9, y);
       }
       // and the shapes' own names, at each shape's label point
-      const shapes = mineShapes();
+      /* Biggest first, and one label per NAME: a country is several territory entries on some eras (1900
+         files 35 separate "Fiji" polygons), so without this the de-collision decides which islet gets the
+         name. */
+      const shapes = mineShapes().slice().sort((a, b) => (b.la || 0) - (a.la || 0)), named = new Set();
       for (let i = 0; i < shapes.length; i++) {
-        const sh = shapes[i], at = sh.at || [(sh.bb[0] + sh.bb[2]) / 2, (sh.bb[1] + sh.bb[3]) / 2];
+        const sh = shapes[i], at = sh.lp || sh.at || [(sh.bb[0] + sh.bb[2]) / 2, (sh.bb[1] + sh.bb[3]) / 2];
+        if (named.has(sh.name)) continue;
         proj(at[0], at[1]); if (PV < 0) continue;
         const x = PX, y = PY;
         if (x < 0 || x > W || y < 0 || y > H) continue;
@@ -37273,7 +37300,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         let free = true;
         for (let b = 0; b < boxes.length; b++) if (rectsHit(box, boxes[b])) { free = false; break; }
         if (!free) continue;
-        boxes.push(box);
+        boxes.push(box); named.add(sh.name);
         ctx.textAlign = "center";
         ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x, y);
         ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, x, y);
