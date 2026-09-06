@@ -753,6 +753,16 @@ overlapping subjects, so the same search returns the same object. `check-cards.j
 replacement is better than the original: 1st-century iron tools from Gimhae, Jecheon and Gyeongju, which
 illustrate the sentence the card actually makes about iron spreading through the period.
 
+**AND THE AUTO-LINK AUDIT CANNOT SEE THE FAULT IT IS CLOSEST TO.** `check-gloss-links.js` reports 161
+findings over the whole corpus, and neither the ten new cards nor the ten new terms account for one of
+them — the count is identical before and after. But `Lacquerware` still needed rewriting: `gc-018`
+*Shanxi* says Pingyao's lacquerware "is still made", which auto-links into a term whose third sentence
+talked only about Korean tombs. That is batch 4's `Dolmen` finding exactly, and **the audit is blind to
+it, because it matches on a term's TAGS** and this one is tagged `asia, china` rather than `korea`.
+What found it was a direct sweep of what each new surface actually matches across the corpus, which is
+two minutes of work and should be the last step of any batch that adds a general term: **ask which cards
+in other collections will now link to it, and read the term as one of those readers.**
+
 **Ten more glossary terms shipped with the cards** — `Han_commanderies`, `Lelang`, `Lacquerware`,
 `Bronze_mirror`, `Lelang_location_debate`, `Micheon_of_Goguryeo`, `Proto-Three_Kingdoms_period`,
 `Chiefdom`, `Xuantu_Commandery` and `Prestige_goods`. **`Lelang_location_debate` has no Wikipedia article
