@@ -995,11 +995,156 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   assumed** and carries two more 200-status error documents (`jstor.org` serves a 3 KB "Client
   Challenge"; `muse.jhu.edu` serves "Verification required!"), the finding that the recognition guide
   has **no page for North Korea** because the United States has never recognised it, and the loss that
-  matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Not one of its
-  thousand topics matches an existing glossary key** and there is no `Korea` term, so expect the
-  glossary to grow faster here than anywhere since Greece. The next card to write is the lowest `ko-NNN`
-  not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card
-  has been written yet.** Not part of the site.
+  matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Almost none of its
+  thousand topics matched an existing glossary key**, so expect the glossary to grow faster here than
+  anywhere since Greece — `ko-001`–`ko-100` alone added ninety-eight terms. **The plan's claim that NOT ONE
+  matched was wrong by one, and the exception is the useful half**: `Seoul` was already a cited term, so
+  `ko-010` reuses it — **the pairing rule is satisfied by a term that already exists, and
+  `add-glossary.js` overwrites in silence, so CHECK before running it.** The next card to write is the
+  lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the
+  lookup. **`ko-001` to `ko-100` have shipped** (Sep 2026) — the whole of `ko-early`, and the opening of
+  `ko-tk` — so the
+  collection is live and its 38 empty decks are coming-soon automatically, `isComingSoon` being true for
+  a node holding no card. **Its first ten are geography rather than events, and that shaped the
+  sourcing**: what carried them was UNdata and the World Bank for figures, the Office of the Historian
+  for the modern diplomacy, open marine and earth science (Frontiers, Copernicus, PLOS, PMC) for the
+  seas, the mountains and the monsoon, the USGS Minerals Yearbooks for the minerals, and — the two finds
+  worth carrying furthest — **the *International Journal of Korean History* serves its whole back run as
+  open PDFs at `ijkh.khistory.org/upload/pdf/`**, and **Ledyard's "Cartography in Korea" is free in full
+  from the University of Chicago Press**, both of which reach subjects no statistical profile does. Two
+  hosts to save the next session: `www.kma.go.kr` refuses the connection but its English climate page is
+  on `web.archive.org` and is the national figures in one screen, and `www.mdpi.com`, `koreascience.kr`,
+  `accesson.kr` and every Korean government host outside `pubs.usgs.gov`'s reach are shut.
+  **`ko-011`–`ko-020` leave geography behind half way and meet the walls that go with argument.**
+  `science.org` and `www.mdpi.com` are 403, so *Science Advances*, *Animals*, *Plants* and *Entropy* are
+  cited at their **PMC copies** — **a DOI that 403s is usually open one host over**, resolved with
+  `search?query=DOI:"…"&resultType=core` at Europe PMC — and `brill.com` refuses its own DOI while
+  serving the article at `brill.com/view/journals/…/article-p1_1.xml`. The *IJKH* is now the
+  collection's spine and is searched through **`api.crossref.org/journals/1598-2041/works`** rather than
+  by hand. Two content decisions in that batch are recorded in the plan and are the kind to re-read
+  rather than re-make: **`ko-012` could not be written as planned and was replaced** (the naming
+  question's three answer terms are taken by later cards and the *Hanguk*/*Chosŏn* split is in nothing
+  openable), and **a disputed island is keyed under the neutral name** — `Liancourt_Rocks`, reached by
+  `Dokdo` and `Takeshima` — because the glossary is shared with the Japan collection, while the rivers
+  keep Folio's own `Amnok_River` with `Yalu` an alias.
+  **`ko-021`–`ko-030` opened the prehistory deck on one find that changes the rest of it: the WHOLE BACK
+  RUN OF *ASIAN PERSPECTIVES* IS OPEN**, deposited by the University of Hawai'i Press in its own
+  repository, where the Project MUSE copies its DOIs resolve to are shut. Search it through the DSpace
+  API rather than the JavaScript web UI —
+  `scholarspace.manoa.hawaii.edu/server/api/discover/search/objects?query=…`, then `…/core/items/<uuid>`
+  for the durable handle — and **cite the handle** (`hdl.handle.net/10125/<n>`), never the bitstream
+  UUID. Volume 54, no. 1 (2015) is a special issue on Korean prehistory and carried five sources by
+  itself. That batch also relearned a fault this file already warns about: **`ko-022`'s date line opened
+  `Found | 1978` and the card sorted at 1978 CE**, at the wrong end of a deck running from 350,000 BP, so
+  **read a new card's sort year back through `cardYears` before committing it** — and it renamed two
+  answer terms so that no two adjacent cards differ by one word (`Jeulmun period` beside `comb-pattern
+  pottery`, `Korean Bronze Age` beside `Mumun pottery`).
+  **`ko-031`–`ko-040` finish the Bronze Age and open the Iron Age on two more open hosts** — **Copernicus
+  serves the ISPRS Archives**, whose 2025 paper on Gochang is the only openable work found that states the
+  2000 World Heritage inscription (`whc.unesco.org` is 403), and **`nature.com` serves *Nature
+  Communications***; `link.springer.com` joins the walls, with a 3 KB "Client Challenge" under a 200
+  status. Its finding is about the GLOSSARY rather than the sources: **a general term written for one
+  continent breaks the moment another collection links to it.** `Dolmen` already existed, cited and in
+  band, and described the European Neolithic and nothing else — so a Korean dolmen card would have linked
+  to a definition that excluded it, and the term was rewritten to say what a dolmen is, keep Europe's
+  earliest chambers and its reopening practice, and name Korea's Bronze Age form. **Read a term before
+  pairing a card with it**, `add-glossary.js` overwriting in silence. The dig-date fault fired again and
+  was caught in draft (`ko-036` drafted `Found | 1975`), which is what makes reading every new card's sort
+  year back through `cardYears` the last step before `add-card.js`; and **`ko-035` ships with no picture
+  because Commons has no photograph of a Korean stone cist** — every cist on it is European — while the
+  deck-agnostic `Stone_cist` term takes one, since there the European example is simply an example.
+  **`ko-041`–`ko-050` close the prehistory deck and open Gojoseon, and are the first cards here whose
+  subject is a WRITTEN RECORD rather than a site.** The *IJKH* carries them — nine of its articles, found
+  through `api.crossref.org/journals/1598-2041/works` — while `journals.openedition.org` is behind the
+  Anubis wall again, `www.journals.uchicago.edu` is 403, and JSTOR, De Gruyter and Project MUSE each
+  answer a challenge page under a 200 status. Two findings are worth carrying. **THE COLLECTION'S
+  TWO-SCHOLAR CAP DECIDED A CARD**: `ko-048` wanted to be a card about Ch'oe Namsŏn, who built an account
+  of Korean origins around Dangun under colonial rule, and the plan spends its one scholar on `ko-703` and
+  asks the other historiographical cards to name schools and projects rather than people — so `ko-047`
+  takes the general **foundation myth** and `ko-048` takes **Dangun**, with Ch'oe Namsŏn cited and
+  described rather than carded. **Read a collection's own scope rules before choosing an answer term.**
+  And **a myth's own NARRATIVE was the hardest thing to cite**: everything openable about Dangun is about
+  how the figure has been used, so the story itself — the bear, the tiger, the garlic, the cave — comes
+  from **Hulbert's *The Passing of Korea*, 1906, on archive.org**, which tells it and calls it legend in
+  the same breath. Three cards ship with no picture because their subjects have no view — a region, a
+  corridor and a concept — and the contact sheet caught a **museum text panel** twice more.
+  **`ko-051`–`ko-060` take Gojoseon to the Han conquest and are carried by a SECOND HULBERT.** No
+  openable modern work sets out Chosŏn's eight prohibitions — DBpia is paywalled, the *Korea Journal* is
+  open access and serves no full text here, and the *Journal of Gojoseon & Dangun Studies* is shut — but
+  **Hulbert's *The History of Korea*, vol. 1 of 1905, is on Project Gutenberg**, gives all three
+  surviving articles, and carries the Gija tradition, King Jun's flight and the Yan frontier besides;
+  its HTML edition has page anchors, which is where those citations' page numbers come from. **When the
+  modern literature is shut, ask whether the period work is on Gutenberg and not only on archive.org.**
+  Three findings go with it. **A period source that answers everything is the one to watch the
+  concentration on**: `ko-053` first shipped three Hulbert citations of five and `check-cards.js` refused
+  it. **A REUSED SOURCE KEY CARRIES ITS PAGE NUMBERS, AND THEY WILL BE WRONG** — the second Hulbert
+  citation was reused from the existing `hulbert` entry, whose 337–38 belongs to another claim, where the
+  passage the card rests on is page 70. And **a key may be deliberately denied its bare name**:
+  `Yan_(state)` claims no bare surface and takes "state of Yan" instead, because 33 of the 34 bare
+  occurrences of *Yan* in the corpus are the state and the 34th is **Yan'an**, which the auto-linker's
+  boundary test would have matched.
+  **`ko-061`–`ko-070` FINISH THE GOJOSEON DECK ON A BOOK REVIEW AND AN OBITUARY.** McBride's *Asian
+  Perspectives* review of Byington's *The Ancient State of Puyŏ* is the only openable account of Buyeo
+  found anywhere and carries four of that card's claims; Falkenhausen's obituary of Hyung Il Pai is
+  another. **Where the book itself is shut, a specialist's review of it is a citable summary** — cited
+  as a review, of that book, by that reviewer, never as the book. Three findings go with it. **A DATE
+  LINE IS AN ASSERTION, AND ON A CARD ABOUT A CLAIM IT IS THE YEAR THE CLAIM WAS MADE**: `ko-062` first
+  shipped `Claimed date | c. 3000 BCE`, which `cardYears` parses, so the card sorted at the head of the
+  deck with Folio's own chronology quietly asserting the DPRK's dating of Gojoseon; it sorts at **1993**,
+  the year of the excavation. **A card about a concept or a people has fewer figures in it than a card
+  about an object**, so five of the ten needed lengthening and four date-line rows had a label and no
+  number — turned into unlabelled continuation lines, which is what `date-line.js` requires. And
+  **`ko-065` spends a later card's answer term**: "Buyeo society and kingship" has no openable source for
+  the four animal-named offices, where the literature does carry Byington's *secondary state formation*
+  argument — so `ko-078` must take a different term, the way `ko-058` and `ko-059` had to be split.
+  **`ko-071`–`ko-080` OPEN `ko-commanderies` BY WIDENING THE SOURCE BASE ON PURPOSE.** Six or seven works
+  had come to carry most of the Gojoseon deck, which is the concentration the Greece audit warns about, so
+  this batch went looking: **DOAJ, searched by subject, returns IJKH articles with their direct PDF paths
+  attached** and finds the issues the Crossref journal listing buries. It produced the two works the batch
+  rests on — de Benedittis on the hybridization of Nangnang culture (the Lelang tombs, the lacquer, the
+  census households and the colonial survey history in one article) and O and Kim on Chinbŏn (the *Hanshu*
+  passage naming all four commanderies, and the northern, southern and migration theories of where it
+  stood). Three findings. **A CONCEPT CARD TAKES A SOURCE ABOUT THE CONCEPT, NOT ABOUT THE COLLECTION**:
+  `ko-078` *chiefdom* and `ko-080` *prestige goods* are cited to Junker on Philippine chiefdoms and to
+  D'Altroy on complex early societies, which is also what their deck-agnostic glossary entries need.
+  **A PICTURE IS REJECTED AGAINST ITS NEIGHBOURS** — `ko-079`'s Xuantu map says less than `ko-071`'s map
+  standing two cards away and was dropped from the card while being kept on the glossary term, where
+  nothing stands beside it — and **four of the ten ship with no picture**, the Wunu Mountain City
+  photographs turning out to be three site interpretation panels, the same fault the sheet has caught
+  twice before. And **the duplicate-picture check earned its keep again**: `ko-077` first took the
+  bird-shaped vessel `ko-067` already carries, two cards on overlapping subjects returning one object from
+  one search, and the replacement — 1st-century iron tools — illustrates the card's own sentence better.
+  **`ko-081`–`ko-090` FINISH THE DECK ON FOUR CARDS ABOUT TEXTS, AND THE DATE LINE WENT WRONG A FOURTH
+  WAY.** `ko-087` is about a book completed in 1145 and sorted at **1075**, because a second row read
+  `Compiler | Kim Busik, 1075 – 1151` and `cardYears` takes the MINIMUM — after a dig date, a claimed
+  date and a stray era marker, this is the fourth distinct route to a wrong sort year here, and the
+  answer is always to read it back through `cardYears` before committing. `ko-083` was caught in the
+  same pass: **an era marker carries leftwards across a RANGE and not across "and"**, so `357 and 408
+  CE` yields only 408. Three further findings. **THE ADJACENT-ANSWERS RULE FORCED A CARD TO BE NAMED FOR
+  A PERSON**: the *Samguk sagi* and *Samguk yusa* differ by one word, so `ko-088` is answered by
+  **Iryeon**, who compiled the second, and the book gets a glossary entry without being any card's
+  answer. **THE PLAUSIBLE SENTENCE YOU CANNOT CITE IS THE ONE TO REWRITE**, and three were: the *Samguk
+  sagi*'s arrangement into annals, treatises and biographies, the *yusa*'s Mongol context cited to an
+  article that never mentions it, and *shamanism* as a term borrowed from Siberian ethnography — each
+  replaced by what an openable work actually says, and the third is a better sentence for it. And **the
+  surface sweep batch 8 made standing came up clean**, with one measurement worth keeping: `Armoury` and
+  `armourer` do NOT match the surface `armour`, the auto-linker requiring a non-letter after it, so a
+  first count of 19 Greek hits was really 18.
+  **`ko-091`–`ko-100` OPEN `ko-tk`, AND EIGHT OF THE TEN FIRST SORTED AS TIMELESS.** A period-overview
+  deck is made of concepts — investiture, tribute, indirect rule, genealogy, the epitaph, the wooden
+  tablet — and a concept card ships with no date line, which `cardStartYear` reads as 0. That is right
+  for one card among dated neighbours and **wrong when it is most of a deck**: four of the eight turned
+  out to have an anchor their SOURCES state, so they carry a date line AND `undatable: true`, which is
+  the `ko-073 lacquerware` shape. **Before accepting a timeless card, ask whether the sources date the
+  thing even though the term does not.** Two more findings. **A TERM THAT ALREADY EXISTS SATISFIES THE
+  PAIRING RULE ONLY IF IT SAYS WHAT THE NEW CARD NEEDS**: `ko-098` was going to be *aristocracy*, and
+  `Aristocracy` exists — cited to Aristotle and Polybius and linked from eleven Greece and Rome cards —
+  so pairing with it would have sent a Korean reader to Greek constitutional theory; the card takes
+  **genealogy** instead. And **the surface sweep paid IN ADVANCE for the first time**: `Epitaph` and
+  `Genealogy` were both drafted Korea-first, and five and eleven cards outside Korea respectively use
+  those words — for a Greek verse epitaph, the inscription of Ahiram, Hesiod's *Theogony*, the heroic
+  pedigrees of Argos. Both were rewritten before installing rather than after.
+  Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -5724,7 +5869,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
-| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
@@ -5740,7 +5885,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (256 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (259 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -6769,7 +6914,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 256 assertions on **the join between the sixteen card plans and
+  · `node .claude/test-card-plans.js` — 259 assertions on **the join between the sixteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
