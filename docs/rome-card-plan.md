@@ -217,7 +217,7 @@ second home at writing time where it genuinely earns one — the obvious cases:
 - `rm-949 Virgil`, `rm-950 The Aeneid` → also `rm-augustus`
 - `rm-351 Caesar's Commentaries`, `rm-956 Livy` → also their narrative decks
 - `rm-399 The praetorian guard` → also `rm-army`
-- `rm-155 The manipular legion`, `rm-295 The Marian reforms` → also `rm-army`
+- `rm-155 Maniple`, `rm-295 The Marian reforms` → also `rm-army`
 - `rm-545 The Antonine Constitution` → also `rm-government`, which is where citizenship is taught
 - `rm-478 Pompeii`, `rm-479 Herculaneum` → also `rm-daily-life`, which is largely written from them
 - `rm-475 The Colosseum` → also `rm-spectacle`
@@ -382,52 +382,52 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-124  The Gallic sack of Rome
     rm-125  Brennus
     rm-126  The geese of the Capitol
-    rm-127  The rebuilding of Rome after the Gauls
+    rm-127  Aius Locutius
     rm-128  Licinio-Sextian laws
-    rm-129  The plebeian consulship
+    rm-129  Lex Genucia
     rm-130  Nobiles
     rm-131  Cursus honorum
     rm-132  The praetorship
     rm-133  Lex Ovinia
     rm-134  Lex Poetelia
     rm-135  Lex Hortensia
-    rm-136  The end of the Conflict of the Orders
+    rm-136  Lex Ogulnia
     rm-137  Appius Claudius Caecus
     rm-138  Via Appia
     rm-139  Aqua Appia
-    rm-140  Early Roman coinage
+    rm-140  Aes grave
 
 ### The conquest of Italy — `rm-conquest-italy`
 
-    rm-141  Rome's conquest of Italy
+    rm-141  Roman expansion in Italy
     rm-142  Latin War
-    rm-143  The dissolution of the Latin League
-    rm-144  The settlement of 338 BCE
+    rm-143  Feriae Latinae
+    rm-144  Praefectura
     rm-145  Latin rights
     rm-146  Municipium
     rm-147  Civitas sine suffragio
-    rm-148  Roman colonisation in Italy
+    rm-148  Colonia
     rm-149  Latin colony
     rm-150  Ager publicus
     rm-151  Samnite Wars
     rm-152  First Samnite War
     rm-153  Second Samnite War
     rm-154  Caudine Forks
-    rm-155  The manipular legion
+    rm-155  Maniple
     rm-156  Third Samnite War
     rm-157  Battle of Sentinum
-    rm-158  Rome's conquest of Etruria
-    rm-159  The conquest of Umbria and Picenum
-    rm-160  Rome's Gallic wars in northern Italy
+    rm-158  Roman conquest of Etruria
+    rm-159  Roman conquest of Umbria and Picenum
+    rm-160  Senones
     rm-161  Battle of Telamon
-    rm-162  The conquest of Cisalpine Gaul
+    rm-162  Roman conquest of Cisalpine Gaul
     rm-163  Tarentum
-    rm-164  Pyrrhus in Italy
+    rm-164  Pyrrhus of Epirus
     rm-165  Battle of Heraclea
     rm-166  Battle of Asculum
     rm-167  Pyrrhic victory
     rm-168  Battle of Beneventum
-    rm-169  The surrender of Tarentum
+    rm-169  Siege of Tarentum
     rm-170  The Roman confederation
     rm-171  Socii
     rm-172  Formula togatorum
@@ -438,13 +438,13 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-177  Evocatio
     rm-178  The Romanisation of Italy
     rm-179  The spread of Latin in Italy
-    rm-180  Rome in 264 BCE
+    rm-180  Roman Italy
 
 ### The Punic Wars — `rm-punic-wars`
 
     rm-181  Carthage
     rm-182  The Carthaginian empire
-    rm-183  Carthaginian government
+    rm-183  The Carthaginian constitution
     rm-184  The Carthaginian navy
     rm-185  The Roman–Carthaginian treaties
     rm-186  First Punic War
@@ -461,7 +461,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-197  Siege of Lilybaeum
     rm-198  Hamilcar Barca
     rm-199  Battle of the Aegates Islands
-    rm-200  The peace of 241 BCE
+    rm-200  The Treaty of Lutatius
     rm-201  The Roman annexation of Sicily
     rm-202  The first Roman province
     rm-203  Mercenary War
@@ -1089,7 +1089,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-777  Roman Dacia
     rm-778  Roman Sicily
     rm-779  Provincial self-government
-    rm-780  Colonia
+    rm-780  Ius Italicum
     rm-781  Roman urbanism in the provinces
     rm-782  Romanisation
     rm-783  Resistance to Roman rule

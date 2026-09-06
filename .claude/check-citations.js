@@ -196,6 +196,28 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // DergiPark deposited this byline in Turkish CAPITALS, and the all-caps form cannot keep
+  // the dotless i: Crossref carries "GOKBAYIR" with a dotted I, where the journal's own
+  // article metadata (citation_author) prints "Gokmen Gunay Gokbayir" with the dotless one.
+  ["10.48146/odusobiad.1288135", "Gökmen Günay Gökbayır", "Gökmen Günay GÖKBAYIR"],
+  // Erdem deposited this byline in ASCII, writing the Danish o-with-stroke as a plain o,
+  // so Crossref carries "Jens Hoyrup". The article's own title page prints "JENS HØYRUP",
+  // and Ø is a letter in its own right rather than an accent, so the diacritic fold cannot
+  // reach it.
+  ["10.32704/erdem.1986.5.445", "Jens Høyrup", "Jens Hoyrup"],
+  // Filozofija i drustvo deposited this byline in ASCII, transliterating the Serbian
+  // D-with-stroke as "Dj" and dropping the acute, so Crossref carries "Drago Djuric".
+  // The article's own title page and its running head both print "Drago Đurić".
+  ["10.2298/FID1301277D", "Drago Đurić", "Drago Djuric"],
+  // Theological Reflections deposited this byline in caps with a CYRILLIC Н (U+041D) in
+  // place of the Latin H, so Crossref carries "KНARLAMOV". The article itself prints the
+  // name in Latin script in its own copyright line ("© V. Kharlamov, 2016").
+  ["10.29357/issn.2521-179X.2016.16.120", "Vladimir Kharlamov", "Vladimir KНARLAMOV"],
+  // Persee deposited the PUBLISHER in the author field for this CRAI communication:
+  // "E. J Brill" appears in its bibliography, and the article's own first page reads
+  // "par m. claude rilly". Crossref relays the deposit, so the record is wrong and the
+  // citation is right.
+  ["10.3406/crai.2019.96830", "Claude Rilly", "E. J Brill"],
   // Crossref has parsed three Chinese bylines given surname-first, so the family
   // names land in the given-name field: the article's own byline is Yuxin Feng,
   // Yunxia Tian and Xiaoyu Lv.
@@ -228,6 +250,10 @@ const CROSSREF_WRONG = [
   ["10.9750/psas.057.41.45", "A. P. Laurie", "Principal Laurie"],
   // Crossref carries the shorter of a two-part surname: Aubin Nzeukou Nzeugang.
   ["10.1016/j.heliyon.2021.e07608", "Aubin Nzeukou Nzeugang", "A.N. Nzeukou"],
+  // Zograf files its bylines surname-first and Crossref has relayed the deposit as
+  // given "Teteriatnikov", family "Natalia". The article's own footnotes cite her as
+  // N. Teteriatnikov, and Dumbarton Oaks publishes her as Natalia Teteriatnikov.
+  ["10.2298/ZOG0530009T", "Natalia Teteriatnikov", "Teteriatnikov Natalia"],
   // Crossref has Stephen; the article's own byline is Steven P. Ashby, and the ORCID
   // it carries on that byline (0000-0003-1420-2108) registers Steven Paul Ashby.
   // Crossref itself spells him Steven on 10.3176/arch.2020.1.01, under the same ORCID.
@@ -238,6 +264,12 @@ const CROSSREF_WRONG = [
 const CROSSREF_YEAR_WRONG = [
   // Tyche: Beiträge zur Alten Geschichte, Band 7 is 1992; Crossref prints 1993.
   ["10.15661/tyche.1992.007.20", 1992, 1993],
+  // Vestnik VolSU dates volume 24, issue 6 to 2019 on the article's own first page
+  // and in the citation line it prints ("2019, vol. 24, no. 6, pp. 81-89"); Crossref
+  // carries the issue's January 2020 print deposit instead.
+  ["10.15688/jvolsu4.2019.6.6", 2019, 2020],
+  // The same issue of Vestnik VolSU (24.6), same reason.
+  ["10.15688/jvolsu4.2019.6.22", 2019, 2020],
 ];
 const yearAllowed = (doi, plain, years) => CROSSREF_YEAR_WRONG.some(
   (r) => r[0].toLowerCase() === String(doi).toLowerCase() && plain.includes(String(r[1])) && years.includes(r[2]));

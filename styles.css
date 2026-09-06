@@ -121,6 +121,10 @@ body.hc .xw-cn, body.hc .xw-len, body.hc .xw-n{color:var(--ink-soft);}
    still 3.32 on gazette's dark card and 4.70 on marble's light one. So in this mode they stop being a
    quiet colour and become ordinary ink, which is what the re-tone above does for every other one. */
 body.hc .card-stars .cs-lbl, body.hc .card-stars .cs-pct{color:var(--ink); opacity:1;}
+/* ...and the successive-relearning caption beside them, which took the same indigo at the same half
+   strength in Sep 2026 and therefore inherits the same failure. Its `.done` state is the gold, which is
+   re-toned by the rules beside it rather than here. */
+body.hc .crit-row:not(.done) .crit-lbl{color:var(--ink); opacity:1;}
 /* THE GRADE BAR IS THE SAME CASE AGAIN AND IS THE SITE'S MOST-USED CONTROL (Aug 2026, found the day
    `test-a11y.js` first reached a study card — the route list deliberately has no `study`, so every one
    of these had been failing since the bar was built and nothing had ever measured them). All three of
@@ -234,14 +238,43 @@ body[data-theme="folio"] .topbar::after{
   -webkit-backdrop-filter:saturate(140%) blur(10px);
   border-bottom:1px solid var(--rule);
 }
-.brand{display:flex; align-items:baseline; gap:9px; flex:none; user-select:none; cursor:pointer; appearance:none; border:0; padding:0; margin:0; background:none; font:inherit; color:inherit; text-align:left;}
+/* THE TAGLINE SITS UNDER THE WORDMARK (Sep 2026, on request: "move the tagline to right below the
+   logo"). It was a baseline-aligned row, which is why the two carry no shared alignment rule between
+   them any more: as a column the mark's own left edge is the tagline's, and `align-items:flex-start`
+   is what holds that at every text size rather than a hand-written offset. The gap is 4px because the
+   mark is set `line-height:1` — it has no descender space of its own to stand in for one. */
+.brand{display:flex; flex-direction:column; align-items:flex-start; gap:4px; flex:none; user-select:none; cursor:pointer; appearance:none; border:0; padding:0; margin:0; background:none; font:inherit; color:inherit; text-align:left;}
 .brand:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:5px;}
 .brand .mark{
   font-family:var(--display); font-weight:900; font-size:calc(23px * var(--fs)); letter-spacing:-.01em;
   color:var(--ink); line-height:1;
 }
 .brand .mark .dot{color:var(--zh);}
-.brand .tag{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.28em; color:var(--ink-faint); text-transform:uppercase; align-self:center;}
+/* The tracking comes down with the stacking. At .28em the tagline was half again as wide as the
+   wordmark above it, which as a ROW was invisible and as a COLUMN reads as a line that has escaped
+   the block it belongs to; at .16em the two are close enough in width to read as one mark. */
+.brand .tag{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.16em; color:var(--ink-faint); text-transform:uppercase;}
+/* WHICH OF THE TWO LOGOS IS ON SCREEN, AND WHY THE SPLIT IS AT 1180px (Sep 2026, with the masthead).
+   The obvious rule is "bar logo wherever the bar is shown, home logo below 640px" — and it does not fit.
+   MEASURED, in a browser, with the seven tabs in: STACKED, the brand costs the bar 88px at Medium text
+   and 186px at Very large, and the bar has that much to spare only from 1180px up. Below it the tabs are
+   pushed off the end — 259px of overflow at 901px, 164px at 1000px and 64px at 1100px at Very large —
+   which takes a destination away to make room for an ornament, exactly backwards. (The band rules further
+   down already claw back what they can between 641 and 900px, and that is spent on the tabs.)
+   THE THRESHOLD CAME DOWN FROM 1280px WHEN THE TAGLINE WENT UNDER THE WORDMARK: a row 171px wide became
+   a column 88px wide, which is most of a hundred pixels back and two more classes of screen inside the
+   bar. It is a MEASUREMENT, so re-measure it if either half of the brand changes.
+   So the BAR's logo is shown from 1180px up and the HOME page's from 1179px down, and exactly one of the
+   two is on screen at every width — including a portrait tablet, which gets it at the head of the home
+   page rather than in the bar. `.home-brand` is a block of its own above the greeting; it takes no
+   pointer, being a heading on the page it would have linked to. */
+.topbar .brand{display:none;}
+@media (min-width:1180px){ .topbar .brand{display:flex;} }
+.home-brand{display:flex; cursor:default; margin:0 0 18px;}
+@media (min-width:1180px){ .home-brand{display:none;} }
+/* ...and on a phone it centres with the greeting under it, because that is what `.page-head` does
+   below 640px; between 641 and 1179 the page head is ranged left and so is this. */
+@media (max-width:640px){ .home-brand{justify-content:center; align-items:center;} }
 
 .nav{display:flex; align-items:center; gap:4px;}
 .nav.right{margin-left:auto;}
@@ -850,82 +883,72 @@ body[data-theme="gazette"] .gt-check{box-shadow:none;}
 /* arcade squares every mark off and outlines it in ink; the gazette prints flat, so the wax loses its lift */
 body[data-theme="arcade"] .gt-seal{clip-path:none; border:2px solid var(--ink); filter:none;}
 body[data-theme="gazette"] .gt-seal{filter:none;}
-/* ---------- ON A PHONE A PLAYED TILE WEARS ITS COLOUR ABOVE THE TITLE (Sep 2026, on request: "the minigame
-   tiles have very large green or gold circles or medals when a minigame is completed. instead, make the top
-   60% of the tile turn green/gold, while keeping the checkmark where it is" — and then, the same day, "make
-   the gold/green start just above the minigame title … remove the circle/medal from behind the checkmark,
-   and make the white checkmark quite large") ----------
-   The first answer to this grew the mark itself to 46% of the tile, which on a 110px tile is a 68px medal
-   wearing the tile rather than a tile wearing a medal. The state is read off a BAND across the top instead,
-   green for played and gold for a perfect score, and what is left standing on it is the tick alone.
-   THE BAND IS A FLEX ITEM, NOT A PERCENTAGE OF THE TILE, which is the whole of how it knows where the title
-   is. `.gt-face` is already a flex column ending on `.gt-body`, so a `::before` (the FIRST child — the mark
-   and the glyph are absolute and out of flow) taking `flex:1 1 auto` fills exactly the space above the
-   title and its score line, at any type size, in any language, whether or not the score has wrapped. A
-   percentage cannot: 60% of a 112px tile is a number that lands above the title on one phone and through it
-   on another. It reaches the tile's edges by NEGATING the padding, which is why that padding is
-   `--gt-px`/`--gt-py` — and the overflow it makes is clipped by the tile's own `overflow:hidden`, so the
-   coloured left border still shows.
-   IT PAINTS UNDER THE GLYPH AND THE WORDS with no z-index at all: it is in flow, and an in-flow background
-   paints below every positioned descendant, which the glyph, the body and the mark all are.
-   THE GLYPH GOES ALTOGETHER (on request, having first been darkened so that it could be seen on the band —
-   which is what made it worth removing: the corner icon is an ornament naming a game whose name is written
-   underneath it in words, so on a played tile it is a second mark competing with the tick for the same
-   corner and the same colour). `display:none` rather than `opacity:0`, since it is decoration and a reader
-   on a screen reader gains nothing by keeping it in the tree. It is untouched above the breakpoint and on
-   every unplayed tile, which is every tile for most of the day.
-   THE MARK LOSES ITS DISC AND ITS WAX. Both existed to hold a small tick against whatever the tile was
-   showing; the band does that now, so the green circle and the gold seal are a second badge on top of a
-   badge. What is left is a big white tick with a shadow under it — the same tick in both states, since it
-   is the BAND that says which. `.gt-seal`'s clip-path, gold and glint all go with it; they are unchanged
-   above the breakpoint, where the tile has no band.
-   NEITHER BAND IS A FLAT COLOUR (on request): each is a three-stop gradient running with the tile's own
-   diagonal, palest at the top-left and deepest at the bottom-right, so the band reads as a lit surface
-   rather than as a swatch. The gold one additionally carries `gt-gold-shine` — the seal's own sweep, at the
-   seal's own 3.4s and with the same 3.4s rest between passes, since the glint the wax used to make is the
-   thing the wax took with it when it went, and a perfect score is the one state on the page worth a
-   flourish. The shine is a first background LAYER over the gold, which is why this rule sets
-   `background-image`/`-size`/`-position` rather than the shorthand the green band uses. The global motion
-   killswitch would leave it parked on its end frame, so it is named beside `.gt-seal` in both of that
-   switch's halves — the OS setting and Folio's own — exactly as the seal is. */
-@media (max-width:640px){
-  .game-tile.done .gt-face::before, .game-tile.won .gt-face::before{
-    content:""; flex:1 1 auto; min-height:0;
-    margin:calc(-1 * var(--gt-py)) calc(-1 * var(--gt-px)) 7px;
-    background:linear-gradient(158deg,
-      color-mix(in srgb, var(--good, #4F9D67) 54%, var(--card)) 0%,
-      color-mix(in srgb, var(--good, #4F9D67) 72%, var(--card)) 55%,
-      color-mix(in srgb, var(--good, #4F9D67) 88%, var(--card)) 100%);
-  }
-  .game-tile.won .gt-face::before{
-    background-image:
-      linear-gradient(112deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.52) 50%, rgba(255,255,255,0) 60%),
-      linear-gradient(158deg,
-        color-mix(in srgb, #F2DC9A 92%, var(--card)) 0%,
-        color-mix(in srgb, #DDB84E 90%, var(--card)) 52%,
-        color-mix(in srgb, #BE9527 88%, var(--card)) 100%);
-    background-size:250% 100%, 100% 100%;
-    background-repeat:no-repeat;
-    background-position:110% 0, 0 0;
-    animation:gt-gold-shine 3.4s ease-in-out infinite;
-  }
-  .game-tile.done .gt-glyph, .game-tile.won .gt-glyph{display:none;}
-  /* one tick, no badge behind it — every property either state set to hold a small mark is unset here */
-  .game-tile .gt-check, .game-tile .gt-seal{
-    top:4px; right:6px; width:auto; height:auto;
-    background:none; box-shadow:none; border:0; border-radius:0; clip-path:none;
-    animation:none; color:#fff;
-    filter:drop-shadow(0 1px 3px rgba(0,0,0,.38));
-  }
-  .game-tile .gt-check svg, .game-tile .gt-seal-face svg{width:32px; height:32px; stroke-width:3.4;}
-  .game-tile .gt-seal-face{color:#fff; filter:none;}
+/* ---------- A PLAYED TILE WEARS ITS STATE (Sep 2026, on request: "implement design 8, but make the
+   colour of the card's background gradient + left bar gold or green accordingly") ----------
+   Design 8 of eight rendered alternatives, chosen from images: NO BAND AND NO BADGE — one very large
+   tick washed across the tile behind the words, and the tile's own hue swapped for the state's.
+
+   WHAT CAME BEFORE IT, and why the request kept coming back. The tile FILLED with its colour when
+   played, which was a lot of surface for one fact; then it was a small mark in the corner; then, on a
+   phone, a green or gold BAND across the top 60% with a big white tick standing on it — which is the one
+   that was rejected twice ("I still don't like how the gold/green completed minigames tiles look"). Each
+   of those answered "which state is this tile in" by painting a NEW shape onto the tile. This answers it
+   by re-tinting the shape the tile already has: the wash from the left, the left bar, the hover border
+   and the title all read a single custom property, so a played tile is the same tile in a different
+   colour rather than a tile wearing a badge.
+
+   `--gt-accent` IS WHY THIS IS SMALL. The tile's own hue arrives inline as `--tile`, and an inline
+   declaration beats any selector without `!important` — so `.done` cannot simply re-set `--tile`. It sets
+   a second property that every treatment reads instead, and which merely DEFAULTS to `--tile`. One line
+   per state, and nothing that derives from it had to be found and changed.
+
+   THE TICK IS A MASK, NOT A GLYPH: the same 24-box polyline the corner marks draw, painted as a
+   background through `-webkit-mask`/`mask`, so it takes the accent colour with everything else and needs
+   no second copy of the SVG in the stylesheet. It sits at z-index 0 with `.gt-body` lifted above it — a
+   watermark the words are read OVER, which is what makes it able to be this large.
+
+   THE GLYPH GOES, as it did under the band and for the same reason: the corner ornament names a game
+   whose name is written underneath it in words, so on a played tile it is a second mark competing with
+   the tick for the same corner and the same colour. `display:none` rather than `opacity:0` — it is
+   decoration, and a screen reader gains nothing by keeping it in the tree.
+
+   THE CORNER MARKS ARE CLIPPED, NEVER `display:none`. `.gt-check` and `.gt-seal` are the only thing on
+   the tile that STATES the completion in words (`role="img"` + aria-label), so they stay in the
+   accessibility tree at 1px — the same trade the folded grade bar makes with its labels. Removing them
+   would leave a screen reader with a tile that says nothing about having been played. Scoped to
+   `.game-tile`, since the review banner draws the same two marks and still wants them visible. */
+.game-tile.done, .game-tile.won{ --gt-accent:var(--good, #4F9D67); }
+.game-tile.won{ --gt-accent:var(--gt-gold); }
+.game-tile{ --gt-gold:#B8892A; }
+body.night .game-tile{ --gt-gold:#D8B355; }
+/* WHERE THE TICK SITS FOLLOWS THE TILE'S SHAPE, and that is the one thing here that needed a
+   breakpoint. A phone tile is nearly square with the words filling its foot, so the tick is put at the
+   bottom-left and the title is read over it — which is the arrangement that was chosen from the eight.
+   A tile above the breakpoint is a wide letterbox whose right half is empty (it is where the corner
+   ornament used to be), and there the same placement lays the tick straight through the title for no
+   reason. So the base rule is the desktop's and the phone keeps its own, in the ≤640px block below. */
+.game-tile.done .gt-face::after, .game-tile.won .gt-face::after{
+  content:""; position:absolute; z-index:0; pointer-events:none;
+  right:-6px; top:50%; transform:translateY(-50%); width:min(44%, 112px); aspect-ratio:1;
+  background:var(--gt-accent); opacity:.20;
+  -webkit-mask:var(--gt-tick) no-repeat center/contain;
+  mask:var(--gt-tick) no-repeat center/contain;
 }
-/* the band's sweep answers to the same two switches the seal's does — and this half has to be declared
-   BELOW the block that starts it: `.game-tile.won .gt-face::before` beats nothing of its own specificity
-   except by coming later, so the copy that sits up beside `.gt-seal` reaches the seal alone. (Folio's own
-   switch is `body.no-anim …`, further down with the rest of the killswitch, and outranks it outright.) */
-@media (max-width:640px) and (prefers-reduced-motion:reduce){
-  .game-tile.won .gt-face::before{animation:none;}
+.game-tile.won .gt-face::after{ opacity:.30; }
+@media (max-width:640px){
+  .game-tile.done .gt-face::after, .game-tile.won .gt-face::after{
+    right:auto; top:auto; transform:none;
+    left:-8px; bottom:-12px; width:min(74%, 104px);
+  }
+}
+.game-tile{ --gt-tick:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>"); }
+/* the words are read OVER the watermark — `.gt-body` is positioned already, but its auto z-index would
+   put it UNDER a later positioned sibling, which the ::after is */
+.game-tile.done .gt-body, .game-tile.won .gt-body{ z-index:2; }
+.game-tile.done .gt-glyph, .game-tile.won .gt-glyph{ display:none; }
+.game-tile .gt-check, .game-tile .gt-seal{
+  width:1px; height:1px; padding:0; border:0; overflow:hidden;
+  clip-path:inset(50%); background:none; box-shadow:none; animation:none; filter:none;
 }
 /* daily challenge accent treatment */
 .banner.challenge{background:linear-gradient(135deg, var(--card) 60%, var(--zh-wash));}
@@ -1019,6 +1042,57 @@ body[data-theme="gazette"] .gt-seal{filter:none;}
   margin:6px 0 0; text-align:center;
   font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.16em; text-transform:uppercase;
   font-weight:600; color:var(--ink-faint);
+}
+
+/* ---------- home: the day's nine, and the chest they earn (Sep 2026, on request) ----------
+   A miniature of the grid below it — three rows of three small rounded bars in DAILY_GAMES order, so the
+   lit bar in the middle of the top row IS the tile in the middle of the top row — the count in figures,
+   and the chest that finishing all nine unlocks. See sweepRowHTML in app.js.
+   THE GAP IS 3px AND THAT IS THE REQUEST ("but closer together"): at 4px and up the nine bars read as
+   nine separate marks, and what they have to read as is one meter with nine segments. The bar itself is
+   sized off --fs like everything else, so the block grows with the reader's text size rather than
+   staying a fixed speck beside larger type. */
+.sweep-row{
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  margin:2px 0 2px;
+}
+.sweep-meter{display:flex; align-items:center; gap:9px;}
+.sweep-chips{
+  display:grid; grid-template-columns:repeat(3, auto); gap:3px;
+}
+.sw-chip{
+  display:block; width:calc(15px * var(--fs)); height:calc(4.5px * var(--fs)); border-radius:99px;
+  background:var(--rule); transition:background .25s var(--ease), box-shadow .25s var(--ease);
+}
+.sw-chip.on{background:var(--good, #4F9D67); box-shadow:0 0 0 1px color-mix(in srgb, var(--good, #4F9D67) 35%, transparent);}
+.sweep-count{
+  font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); letter-spacing:.04em;
+}
+.sweep-count b{color:var(--ink); font-weight:600;}
+/* The chest is a real button in every state (never a div promoted later), so `disabled` is what says
+   "locked" to the keyboard and the screen reader as well as to the eye. */
+.sweep-chest{
+  position:relative; display:inline-flex; align-items:center; justify-content:center;
+  width:calc(38px * var(--fs)); height:calc(32px * var(--fs)); padding:0;
+  background:none; border:0; cursor:default; color:var(--ink-faint); opacity:.45;
+  transition:opacity .25s var(--ease), color .25s var(--ease), transform .18s var(--ease);
+}
+.sweep-chest .chest-svg{width:100%; height:100%;}
+.sweep-chest .lock-svg{
+  position:absolute; right:calc(-2px * var(--fs)); bottom:calc(-1px * var(--fs));
+  width:calc(13px * var(--fs)); height:calc(13px * var(--fs));
+  background:var(--paper); border-radius:50%; padding:1px;
+}
+.sweep-chest.ready{
+  opacity:1; cursor:pointer; color:var(--gold, #C08A2E);
+  animation:sweepChestWait 2.4s var(--ease) infinite;
+}
+.sweep-chest.ready:hover{transform:translateY(-1px) scale(1.05);}
+.sweep-chest.claimed{opacity:.62; color:var(--good, #4F9D67);}
+@keyframes sweepChestWait{
+  0%, 68%, 100%{transform:none;}
+  76%{transform:translateY(-2px) rotate(-3deg);}
+  86%{transform:translateY(-1px) rotate(3deg);}
 }
 
 /* ---------- home: how-it-works strip — REMOVED (Aug 2026, on request) ----------
@@ -1469,7 +1543,11 @@ body[data-theme="folio"] .collection-deco::after{
   flex:0 0 auto; height:calc(26px * var(--fs)); width:auto; max-width:calc(56px * var(--fs));
   object-fit:contain; border-radius:2px; border:1px solid var(--rule); box-shadow:var(--shadow-sm);
   background:var(--card);
+  /* it opens in the fullscreen viewer (see answerFlagHTML) — a flag two centimetres wide hides the very
+     charges that tell one from another, so the cursor says there is more of it to see */
+  cursor:zoom-in;
 }
+.av-flag:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
 .av-row{display:flex; align-items:center; gap:14px; margin-top:7px;}
 .av-row:empty{margin-top:0;}
 /* SUCCESSIVE RELEARNING — the pips under the answer term (see CRIT_DAYS in app.js). Three marks saying
@@ -1486,12 +1564,19 @@ body[data-theme="folio"] .collection-deco::after{
 .crit-pips{display:inline-flex; gap:4px;}
 .crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--ink-faint); box-sizing:border-box;}
 .crit-pip.on{background:var(--ink-faint); border-color:var(--ink-faint);}
-.crit-lbl{font-size:calc(10.5px * var(--fs)); letter-spacing:.03em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap;}
+/* THE CAPTION IS SET LIKE THE TWO LABELS IT SHARES THE HEADER ROW WITH (Sep 2026, on request:
+   "make the 'Recalled on X of 3 days' atop cards the same font and blue color as the Question header
+   and difficulty rating"). Both of those are mono-ish small caps in the indigo at half strength —
+   `.study-card .label` and `.card-stars .cs-lbl` — and this row sat between them in the serif and the
+   faint ink, which read as a third kind of thing on a line that holds only two. The `.done` rules below
+   still override the colour with the gold: "Learned" is a state rather than a caption, and the gold is
+   how finishing something reads everywhere else on the site. */
+.crit-lbl{font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--indigo); opacity:.5; white-space:nowrap;}
 .crit-row.done .crit-pip{background:#C39A2E; border-color:#C39A2E;}
 body.night .crit-row.done .crit-pip{background:#D4AA3C; border-color:#D4AA3C;}
 /* the caption takes the DEEPER gold, for the reason `.prog-done .xp-lvl` does: #C39A2E at this size on
    the card is 3.6:1, and this is 10.5px uppercase text */
-.crit-row.done .crit-lbl{color:#8A6A1E;}
+.crit-row.done .crit-lbl{color:#8A6A1E; opacity:1;}
 body.night .crit-row.done .crit-lbl{color:#E0C069;}
 /* ...and in the header a PHONE gets the pips alone (Sep 2026, on request: "only display the text on
    desktop and tablet format. on mobile, only show the three dots"). Four things share that line — the
@@ -1630,6 +1715,39 @@ body.no-tts .ans-cn .ac-say{display:none;}
 }
 .map-card.mc-failed::after{content:"This map could not be loaded. The answer is below.";}
 .map-card.mc-loading .mc-zoom, .map-card.mc-failed .mc-zoom{display:none;}
+
+/* ---------- an artwork card's picture (see cardArtSpec in app.js) ----------
+   The question, on a card whose answer is the work in it. THREE THINGS ARE DELIBERATE.
+
+   IT IS SHOWN WHOLE (`object-fit:contain`) rather than filled into a frame, which every other picture on
+   the site is: a painting cropped to 16:9 is a different picture, and on a portrait or a scroll it is a
+   detail. The height is capped in `vh` so a tall work still leaves the question and the grade bar on
+   screen, and the box takes the paper behind it so the letterboxing reads as mount rather than as a gap.
+
+   IT CARRIES NO CHROME UNTIL THE REVEAL — no zoom glyph, no pointer, no caption — because all three say
+   "there is more here", and what is more here is the answer. `.revealed` is added by `cardArtReveal` and
+   is what turns it into the enlargeable, credited figure the rest of the site draws by default.
+
+   THE CAPTION IS THE FIGURE'S OWN `figcaption`, so it cannot be laid over the picture and cannot be
+   mistaken for part of the work. */
+.art-shot{
+  margin:2px 0 16px; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+  background:var(--paper-2); box-shadow:var(--shadow-sm);
+}
+.art-shot img{
+  display:block; width:100%; height:clamp(220px, 46vh, 420px);
+  object-fit:contain; background:var(--paper-2);
+}
+.art-shot.revealed{cursor:zoom-in;}
+.art-shot.revealed:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+.art-cap{
+  display:block; padding:9px 12px 11px; border-top:1px solid var(--rule); background:var(--card);
+  font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-soft); text-align:left;
+}
+.art-cap-t{display:block; font-weight:600; color:var(--ink);}
+.art-cap-d{display:block; margin-top:2px;}
+.art-cap-c{display:block; margin-top:4px; color:var(--ink-faint); font-size:calc(11px * var(--fs));}
+.art-cap-c a{color:inherit;}
 
 /* ---------- the locator (see cardLocatorHTML in app.js) ----------
    The same window on the back of a card whose answer is a place, saying where it is. It is shorter than a
@@ -2014,6 +2132,11 @@ body.grading .stage{padding-bottom:150px;}
    DAILY CHALLENGE
    ============================================================ */
 .dc-shell{max-width:680px; margin:0 auto;}
+/* THE CARD BEHIND A MULTIPLE-CHOICE ROUND (Sep 2026, on request) — the whole answer side, below the game
+   rather than inside it. It takes `.dc-shell`'s own column so the card and the question above it share an
+   edge, and a rule across the top says the game has ended and the card has begun. See PAGES.challenge. */
+.mc-cardback{max-width:680px; margin:22px auto 0; padding-top:20px; border-top:1px solid var(--rule);}
+.mc-cardback .study-card{margin:0;}
 .race{background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:var(--shadow-md); padding:18px 20px; margin-bottom:18px;}
 .racer{display:flex; align-items:center; gap:12px; padding:7px 0;}
 .racer + .racer{border-top:1px solid var(--rule);}
@@ -2232,8 +2355,11 @@ body.grading .stage{padding-bottom:150px;}
 /* what THIS picture shows, under what the subject IS (Aug 2026, on request) — the third line of the
    reveal, so quieter than the title above it; a caption set as loud as the title reads as a second one. */
 .pic-shows{font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint); margin:0 0 6px;}
-.pic-credit{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); margin:0 0 16px; overflow-wrap:anywhere;}
-.pic-credit a{color:inherit;}
+/* `.pic-credit` — the picture's attribution line under the fold — was REMOVED in Sep 2026, on request:
+   it is already on the enlarged picture, which is where a reader who wants it goes. The 16px of clearance
+   it gave the Next button goes on the button instead, so the spacing holds whether the block above it is
+   the caption, the sources fold or the paragraph. */
+#picReveal .btn{margin-top:10px;}
 
 /* ============================================================
    WHAT YEAR? (PAGES.whatyear)
@@ -3014,7 +3140,9 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 body.night .sc-chest.won{color:#E6C765;}
 .sc-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px;}
 .sc-title{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
-.sc-count{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink);}
+/* `.sc-count` — the "3 / 7" beside the title — was REMOVED in Sep 2026, on request: the pips are the
+   count, and the sentence under them says how many days are left. `.sc-head` keeps its flex row, which
+   now holds the title alone and is where anything put back beside it would go. */
 .sc-pips{display:flex; gap:6px; margin:9px 0 8px;}
 .sc-pip{flex:1; height:8px; border-radius:99px; background:var(--paper-2); border:1px solid var(--rule);}
 .sc-pip.on{background:#C39A2E; border-color:#C39A2E;}
@@ -3798,6 +3926,61 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .atlas-head{margin-bottom:14px;}
 .page:has(.atlas){animation:none;}
 .atlas{display:contents;}
+/* ---------- the two atlases (Sep 2026, on request) ----------
+   `.atlas` is `display:contents`, so this bar has no box of its own to sit in — it is fixed to the
+   viewport over the stage, like every other control on this page. Centred at the top rather than in a
+   corner: it names which of two maps is on screen, which is a fact about the whole page, where the
+   corners belong to the search and the legend. It is a pair of buttons rather than a switch because a
+   switch says "on/off" about one thing and these are two things. */
+.atlas-tabs{
+  position:fixed; z-index:6; top:calc(var(--bar-h) + 12px); left:50%; transform:translateX(-50%);
+  display:inline-flex; gap:2px; padding:3px; border-radius:99px;
+  background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule);
+  box-shadow:var(--shadow-sm); backdrop-filter:saturate(150%) blur(9px); -webkit-backdrop-filter:saturate(150%) blur(9px);
+}
+.at-tab{
+  border:0; background:none; cursor:pointer; border-radius:99px; padding:5px 13px;
+  font-family:var(--sans); font-size:calc(12px * var(--fs)); font-weight:600; color:var(--ink-soft);
+  transition:background .18s var(--ease), color .18s var(--ease);
+}
+.at-tab:hover{color:var(--ink);}
+.at-tab.on{background:var(--indigo); color:#fff;}
+.at-tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+@media (max-width:640px){
+  .atlas-tabs{top:10px; left:12px; transform:none;}   /* the search chip owns the right corner at this width */
+  .at-tab{padding:5px 10px; font-size:calc(11px * var(--fs));}
+}
+/* THE PERSONAL ATLAS'S POPUP IS A CARD, and a card brings its own margins — see showMinePopup. The panel
+   is a narrow column, so the card inside it drops the study page's own width cap and takes what there is. */
+.cp-cardback{margin:0; max-width:none; box-shadow:none; border:0; background:none; padding:0;}
+.cp-cardback .reveal{margin:0;}
+/* The panel is a ~340px column, which is the width the study card's ≤640px rules were written for — so
+   the answer box stacks here for the same reason it stacks on a phone: side by side, the term and a
+   four-tile grid of figures each get half of 340px and both break mid-word. */
+.cp-cardback .answer{flex-direction:column; align-items:stretch; padding:12px 14px;}
+.cp-cardback .card-facts{max-width:none; width:100%; margin-top:10px;}
+.cp-cardback .card-img{margin-bottom:12px;}
+/* WHAT THE PERSONAL ATLAS'S PANEL DOES NOT REPEAT (Sep 2026, on request). Four things on it said
+   something the card back beside them already says: the "Answer" label above a term that is the card's
+   own heading; a "From your card" section head over the only section there is; the title bar, which
+   prints that same term a second time; and the dating, which the card's date line carries. Each is taken
+   off by a rule rather than by a write in `showMinePopup`, because the title bar has to come BACK when
+   the sheet is collapsed — a collapsed sheet is nothing but its title bar — and because the "Answer"
+   label is inside markup that function does not build. Above the sheet's breakpoint `.cp-shut` is never
+   applied, so on the desktop the name is simply always off; the × and the chevron keep their row. */
+.cp-mine .cp-span{display:none;}
+.cp-mine #cpDescSec > .cp-sec-head{display:none;}
+.cp-mine .cp-cardback .answer .label{display:none;}
+.country-pop.cp-mine:not(.cp-shut) .cp-titlemain{display:none;}
+/* `[hidden]` loses to an author `display:flex` — the trap this file already carries for `.ces-imgpanel`
+   and `.af-src`. `showMinePopup` hides this row, and without the rule the Atlas's own "Through the ages"
+   button stayed on a panel that is showing a card rather than a country. */
+.cp-tools[hidden]{display:none;}
+/* The era cartouche is centred at the top of the stage and so is the tab bar — on the personal atlas the
+   two were printed over each other. The bar is a control and the cartouche a caption, so the caption is
+   the one that moves down. */
+.atlas-mine .map-cartouche{top:52px;}
+@media (max-width:640px){ .atlas-mine .map-cartouche{top:14px;} }   /* there the bar is top-LEFT, so nothing is in its way */
 .globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:calc(var(--timebar-h) + var(--tabbar-h) + env(safe-area-inset-bottom)); z-index:1; overflow:hidden;}
 .globe-stage canvas{position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none;}
 .globe-stage canvas:active{cursor:grabbing;}
@@ -4031,6 +4214,17 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
   .cp-titlerow .cp-close{position:static; margin-left:0; width:30px; height:30px; border-radius:9px; font-size:calc(19px * var(--fs)); color:var(--ink-soft); flex:none;}
   .cp-shut .cp-cols,.cp-shut .cp-tools,.cp-shut .cp-hist{display:none;}
   .cp-shut .cp-head{overflow:visible;}
+  /* ---- A SHUT SHEET PUTS THE CHEVRON BEHIND THE NAME (Sep 2026, on request: "on mobile when only the
+     name is shown in the popup with the rest collapsed, put the chevron just behind the name instead of
+     in the top right next to the X close button") ----
+     Open, the chevron is the far end of a full row and belongs with the ×. SHUT, that row IS the whole
+     sheet — a name at the left and two buttons at the right, with the control that opens the thing sitting
+     against the one that closes it, which is a pair of similar marks a thumb has to tell apart. Letting
+     `.cp-titlemain` shrink to its content walks the chevron back to the name it opens; `margin-left:auto`
+     moves from the chevron to the ×, so the close stays in the corner where every close is. */
+  .cp-shut .cp-titlemain{flex:0 1 auto;}
+  .cp-shut .cp-more{margin-left:0;}
+  .cp-shut .cp-titlerow .cp-close{margin-left:auto;}
 }
 /* map editor toolbar (Edit → Timeline → "Edit on globe") */
 .map-edit-bar{position:absolute; top:14px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:13px; flex-wrap:wrap; max-width:calc(100% - 28px); background:var(--card); border:1px solid var(--rule); border-radius:11px; padding:8px 12px; box-shadow:0 10px 28px -14px rgba(0,0,0,.5); z-index:8;}
@@ -4081,6 +4275,16 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .atlas-wip.show{opacity:1; transform:none; visibility:visible;}
 .atlas-wip strong{font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:700; color:var(--ink); letter-spacing:.01em;}
 .atlas-wip span{font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+/* The personal atlas's empty state wears the same card as the "no map yet" note above it — the same
+   thing said in the same place, so a reader meets one box on this page rather than two designs of it.
+   It is SHOWN by default and hidden by the `hidden` attribute, where the note above is the other way
+   round: this one is drawn once when the page mounts and never toggled, so it needs no transition and
+   the attribute is the whole of its state. It takes pointer events, because it carries a button. */
+.atlas-empty{position:absolute; top:clamp(56px,8vw,74px); left:clamp(14px,4vw,40px); z-index:6; max-width:310px; display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:14px 16px; background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-md); backdrop-filter:saturate(140%) blur(8px); -webkit-backdrop-filter:saturate(140%) blur(8px);}
+.atlas-empty[hidden]{display:none;}
+.atlas-empty strong{font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:700; color:var(--ink);}
+.atlas-empty span{font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.atlas-empty .btn{padding:6px 13px; font-size:calc(12px * var(--fs));}
 
 .atlas-timebar{position:fixed; left:0; right:0; bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom)); height:var(--timebar-h); z-index:30; display:flex; align-items:center; gap:26px; padding:0 74px 0 clamp(16px,4vw,40px); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-top:1px solid var(--rule); overflow:visible;}
 .tl-play{flex:none; width:34px; height:34px; border-radius:50%; appearance:none; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); cursor:pointer; display:flex; align-items:center; justify-content:center; margin-right:-8px;}
@@ -4794,20 +4998,23 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
    ============================================================ */
 .game-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
 .game-tile{
+  /* the hue every treatment on this tile reads. It DEFAULTS to the game's own inline `--tile` and is
+     re-set to green or gold on a played tile — see the completion block above. */
+  --gt-accent:var(--tile, var(--indigo));
   position:relative; overflow:hidden; text-align:left; min-height:130px;
   /* two layers: the hue washing in from the left (like the Library banners) OVER the original soft glow in the bottom-right corner */
-  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 20%, transparent), transparent 64%),
-             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile, var(--indigo)) 16%, var(--card)));
-  border:1px solid var(--rule); border-left:4px solid var(--tile, var(--rule)); border-radius:14px;
+  background:linear-gradient(105deg, color-mix(in srgb, var(--gt-accent) 20%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--gt-accent) 16%, var(--card)));
+  border:1px solid var(--rule); border-left:4px solid var(--gt-accent, var(--rule)); border-radius:14px;
   /* the padding is a pair of properties so a full-bleed child can negate it — the played band below */
   --gt-px:18px; --gt-py:18px; padding:var(--gt-py) var(--gt-px); box-shadow:var(--shadow-md);
   display:flex; flex-direction:column; justify-content:flex-end;
   transition:transform .18s var(--ease), box-shadow .22s var(--ease), border-color .18s;
 }
 button.game-tile{cursor:pointer;}
-button.game-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--tile, var(--indigo)) 45%, var(--rule)); border-left-color:var(--tile, var(--indigo));}
+button.game-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--gt-accent) 45%, var(--rule)); border-left-color:var(--gt-accent);}
 button.game-tile:active{transform:translateY(0) scale(.99);}
-.game-tile:focus-visible{outline:2px solid var(--tile, var(--indigo-bright)); outline-offset:3px;}
+.game-tile:focus-visible{outline:2px solid var(--gt-accent, var(--indigo-bright)); outline-offset:3px;}
 /* ---------- A TILE TURNS OVER TO ITS RECORD (Aug 2026, on request) ----------
    Held down, the tile shows what this reader has done at the game and what everyone else did at today's.
 
@@ -4867,19 +5074,17 @@ button.game-tile:active{transform:translateY(0) scale(.99);}
    top-right corner, a gold seal on a perfect score. Daylight needs a far stronger mix than night; night keeps
    the original whisper strength. */
 button.game-tile{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 26%, transparent), transparent 64%),
-             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile, var(--indigo)) 16%, var(--card)));
+  background:linear-gradient(105deg, color-mix(in srgb, var(--gt-accent) 26%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--gt-accent) 16%, var(--card)));
   box-shadow:var(--shadow-sm);
 }
 body.night button.game-tile,
 body.night .game-tile{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 12%, transparent), transparent 64%),
-             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile, var(--indigo)) 16%, var(--card)));
+  background:linear-gradient(105deg, color-mix(in srgb, var(--gt-accent) 12%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--gt-accent) 16%, var(--card)));
 }
-button.game-tile .gt-title{color:color-mix(in srgb, var(--tile, var(--indigo)) 45%, var(--ink));}
+button.game-tile .gt-title{color:color-mix(in srgb, var(--gt-accent) 45%, var(--ink));}
 button.game-tile .gt-glyph{opacity:.14;}
-/* the mark sits in the corner the tagline never reaches, but a long score line would run under it */
-.game-tile.done .gt-body, .game-tile.won .gt-body{padding-right:6px;}
 @keyframes gt-gold-shine{
   0%, 14%   {background-position:110% 0, 0 0;}   /* the shine band waits off the left edge */
   60%, 100% {background-position:-10% 0, 0 0;}   /* sweeps across the gold, then rests until the next glint */
@@ -5069,7 +5274,14 @@ button.game-tile .gt-glyph{opacity:.14;}
 .ci-grip:active{cursor:grabbing;}
 .ci-grip svg{width:18px; height:18px;}
 .ci-name{flex:1; min-width:0; font-family:var(--serif); font-size:calc(16px * var(--fs)); color:var(--ink); line-height:1.3;}
-.ci-year{flex:none; font-family:var(--mono); font-size:calc(13px * var(--fs)); font-weight:600; color:var(--ink-faint);}
+/* THE REVEALED DATE IS TWO LINES SINCE SEP 2026 (on request: each year "should also say what that
+   starting date is based on") — the year, and under it the date line's own label for the row it came
+   from. Ranged RIGHT, because the row's left is the term and the two numbers should line up down the
+   edge whatever length the words either side happen to be; the label is quiet and small, so the year
+   stays the thing being read and the basis reads as a caption on it. A card that cannot say honestly
+   which row it sorted on emits no caption at all and the cell is one line, exactly as it always was. */
+.ci-year{flex:none; display:flex; flex-direction:column; align-items:flex-end; gap:1px; font-family:var(--mono); font-size:calc(13px * var(--fs)); font-weight:600; color:var(--ink-faint); line-height:1.15;}
+.ci-year .ciy-b{font-size:calc(9px * var(--fs)); font-weight:500; letter-spacing:.07em; text-transform:uppercase; opacity:.72;}
 .chrono-item.correct .ci-year{color:var(--good);}
 .chrono-item.wrong .ci-year{color:var(--zh);}
 .ci-arrows{flex:none; display:flex; flex-direction:column; gap:3px;}
@@ -5403,7 +5615,7 @@ button.game-tile .gt-glyph{opacity:.14;}
 body.no-anim *,body.no-anim *::before,body.no-anim *::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
 body.no-anim .page > *{animation-delay:0s !important;}
 body.no-anim .lu-conf,body.no-anim .lu-burst{display:none;}
-body.no-anim .gt-seal, body.no-anim .game-tile.won .gt-face::before{animation:none;}
+body.no-anim .gt-seal{animation:none;}   /* the tile's own marks no longer animate — only the review banner's seal */
 body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::before{animation:none; border-color:var(--rule); border-top-color:var(--indigo);}
 
 /* ============================================================
@@ -6234,10 +6446,10 @@ body[data-theme="synth"] .tab{ border-radius:4px; }
 body[data-theme="synth"] a{ text-shadow:0 0 12px color-mix(in srgb,var(--indigo-bright) 45%, transparent); }
 
 /* —— SYNTH · neon panels: glow frame, glowing glyph + title —— */
-body[data-theme="synth"] .game-tile{ border-radius:5px; border:1px solid color-mix(in srgb,var(--tile, var(--indigo)) 48%, var(--rule)); border-left:3px solid var(--tile, var(--indigo)); box-shadow:0 0 22px color-mix(in srgb,var(--tile, var(--indigo)) 24%, transparent), inset 0 0 20px color-mix(in srgb,var(--tile, var(--indigo)) 8%, transparent); }
-body[data-theme="synth"] button.game-tile:hover{ box-shadow:0 0 34px color-mix(in srgb,var(--tile, var(--indigo)) 40%, transparent); }
+body[data-theme="synth"] .game-tile{ border-radius:5px; border:1px solid color-mix(in srgb,var(--gt-accent) 48%, var(--rule)); border-left:3px solid var(--gt-accent); box-shadow:0 0 22px color-mix(in srgb,var(--gt-accent) 24%, transparent), inset 0 0 20px color-mix(in srgb,var(--gt-accent) 8%, transparent); }
+body[data-theme="synth"] button.game-tile:hover{ box-shadow:0 0 34px color-mix(in srgb,var(--gt-accent) 40%, transparent); }
 body[data-theme="synth"] .gt-glyph{ opacity:.22; text-shadow:0 0 18px color-mix(in srgb,var(--tile, var(--indigo)) 55%, transparent); }
-body[data-theme="synth"] .gt-title{ text-shadow:0 0 16px color-mix(in srgb,var(--tile, var(--indigo)) 38%, transparent); }
+body[data-theme="synth"] .gt-title{ text-shadow:0 0 16px color-mix(in srgb,var(--gt-accent) 38%, transparent); }
 body[data-theme="synth"] .banner{ border-radius:5px; border:1px solid color-mix(in srgb,var(--indigo) 42%, var(--rule)); box-shadow:0 0 0 1px color-mix(in srgb,var(--indigo) 12%, transparent), 0 10px 34px color-mix(in srgb,var(--indigo) 26%, transparent); }
 body[data-theme="synth"] .banner h2.review-title{ text-shadow:0 0 24px color-mix(in srgb,var(--indigo) 48%, transparent); }
 body[data-theme="synth"] .banner .glyph{ text-shadow:0 0 30px color-mix(in srgb,var(--indigo) 45%, transparent); }
@@ -6370,7 +6582,7 @@ body[data-theme="arcade"] .banner::before{ background:repeating-conic-gradient(c
 body[data-theme="arcade"] .game-tile{ border:2px solid var(--ink); box-shadow:4px 4px 0 var(--hard); }
 body[data-theme="arcade"] button.game-tile:hover{ transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--hard); border-color:var(--ink); }
 body[data-theme="arcade"] button.game-tile:active{ transform:translate(2px,2px); box-shadow:0 0 0 var(--hard); }
-body[data-theme="arcade"] .game-tile::before{ background:repeating-linear-gradient(90deg, color-mix(in srgb,var(--tile,var(--indigo)) 55%, transparent) 0 5px, transparent 5px 10px) 0 0/100% 7px no-repeat; -webkit-mask:none; mask:none; opacity:.55; }
+body[data-theme="arcade"] .game-tile::before{ background:repeating-linear-gradient(90deg, color-mix(in srgb,var(--gt-accent) 55%, transparent) 0 5px, transparent 5px 10px) 0 0/100% 7px no-repeat; -webkit-mask:none; mask:none; opacity:.55; }
 body[data-theme="arcade"] .gt-title{ font-family:var(--px); font-weight:400; font-size:calc(11px * var(--fs)); line-height:1.5; letter-spacing:.02em; }
 /* library = level select; deco = static pixel-dither checker of the collection hue */
 body[data-theme="arcade"] .collection{ border:2px solid var(--ink); box-shadow:6px 6px 0 var(--hard); }
@@ -6684,7 +6896,7 @@ body[data-theme="gazette"].night .btn:not(.ghost){ box-shadow:0 0 18px color-mix
 /* game tiles — classified-ad boxes; tile colour only as a corner tag */
 body[data-theme="gazette"] .game-tile{ background:var(--card); border:1px solid var(--ink); }
 body[data-theme="gazette"] .game-tile:not(.done):not(.won){ box-shadow:inset 0 0 0 3px var(--card), inset 0 0 0 4px var(--rule); }
-body[data-theme="gazette"] .game-tile::after{ content:""; position:absolute; top:0; left:0; width:0; height:0; border-top:16px solid var(--tile, var(--rule)); border-right:16px solid transparent; pointer-events:none; }
+body[data-theme="gazette"] .game-tile::after{ content:""; position:absolute; top:0; left:0; width:0; height:0; border-top:16px solid var(--gt-accent, var(--rule)); border-right:16px solid transparent; pointer-events:none; }
 body[data-theme="gazette"] .gt-title{ font-family:var(--display); text-transform:uppercase; letter-spacing:.05em; }
 body[data-theme="gazette"] .gt-glyph{ opacity:.08; }
 /* the played check as a red rubber stamp */
@@ -8292,12 +8504,9 @@ body[data-theme="carnelian"].night .collection-deco{
 @media (max-width:520px){
   .elab-qrow{flex-direction:column; align-items:flex-start; gap:8px;}
 }
-.elab-box{width:100%; box-sizing:border-box; resize:vertical; font:inherit;
-  font-size:calc(14px * var(--fs)); line-height:1.5; color:var(--ink);
-  background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:9px 11px;}
-.elab-box:focus-visible{outline:2px solid var(--indigo); outline-offset:1px;}
-.elab-acts{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
-.elab-note{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
+/* `.elab-box` / `.elab-acts` / `.elab-note` were the self-explanation fallback's textarea and its
+   footnote, and went with it in Sep 2026 (see elabPromptHTML) — the Think-it-through block is now the
+   authored why-questions and nothing else, so there is no writing surface in it to style. */
 /* the paragraph "Show me" opens onto, marked for a moment. A background wash rather than a border, so
    nothing moves — a border would relayout the prose the reader has just been sent to read. */
 .abstract.elab-mark{background:var(--indigo-wash); border-radius:8px;

@@ -56,6 +56,14 @@ check("HTML source box opens and fills", await p.evaluate(()=>{
 await p.goto("http://127.0.0.1:5603/#decks",{waitUntil:"load"});await p.waitForTimeout(700);
 await p.evaluate(()=>{const c=document.querySelector("#collection-list-all .collection .collection-row");if(c)c.click();});
 await p.waitForTimeout(800);
+/* THE FIRST SESSION ON A DECK ASKS HOW IT SHOULD BE DEALT (PAGES.order, Sep 2026), and it is
+   intercepted in `route()` — so a click that used to land on a card now lands on the picker, and
+   everything below it looked for a `#reveal-btn` that was not there yet. Pressed through as a reader
+   would rather than seeded, because the picker is part of the path this section is walking and
+   skipping it in one press is exactly what a reader does. Guarded: if the page ever stops asking, this
+   is a no-op rather than a failure. */
+await p.evaluate(()=>{const sk=document.querySelector("#opSkip");if(sk)sk.click();});
+await p.waitForTimeout(900);
 await p.evaluate(()=>{const r=document.querySelector("#reveal-btn");if(r)r.click();});
 await p.waitForTimeout(400);
 const clicked=await p.evaluate(()=>{const t=document.querySelector(".abstract .ttip[data-k]");if(t){t.click();return t.getAttribute("data-k");}return null;});

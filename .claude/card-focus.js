@@ -31,6 +31,7 @@
   The measure is a PROXY, not a verdict. Read the card before rewriting it.
 */
 const fs = require("fs"), path = require("path");
+const splitAbstract = require("./split-abstract.js");
 const dataPath = path.join(__dirname, "..", "data.js");
 
 // Cards whose ANSWER TERM is itself a modern theory, debate, method or scholar. Historiography is the
@@ -50,7 +51,6 @@ const EXEMPT = {
   "wh-106": "Blytt–Sernander scheme — a 19th-century scheme",
   "cnh-061": "Doubting Antiquity School — a named modern school of historical criticism",
   "cnh-065": "Xia–Shang–Zhou Chronology Project — a named modern research programme",
-  "cnh-070": "the discovery of the oracle bones — a modern act, gr-075's counterpart",
 };
 
 /* TWO COLLECTIONS ARE EXCLUDED FROM RULE 1 OUTRIGHT (Aug 2026, on request), and this is a COLLECTION-WIDE
@@ -89,7 +89,10 @@ const NOT_A_SURNAME = new Set(["Bryn", "Mawr", "Classical", "Review", "Press", "
   // United States collection that says what Congress did read as one naming a scholar. Congress is not a
   // person and never a surname, so the token is safe to drop outright; the rule it guards is about the
   // MODERN ARGUER, and a legislature is neither an arguer nor modern in the sense the rule means.
-  "Congress"]);
+  "Congress",
+  // Same shape, one tribunal over: "International Military Tribunal for the Far East" ends on a
+  // COMPASS POINT, and every card citing the Tokyo judgment then read "East Asia" as a scholar.
+  "International", "Military", "Tribunal", "Far", "East"]);
 
 /* ANCIENT AUTHORS ARE NOT SCHOLARS, and the distinction is the whole point of the rule. Herodotus and
    Pausanias are cited here as SOURCES FOR THE PAST — a question that names one is teaching history, and
@@ -99,10 +102,11 @@ const NOT_A_SURNAME = new Set(["Bryn", "Mawr", "Classical", "Review", "Press", "
 const ANCIENT = new Set(`Homer Hesiod Herodotus Thucydides Xenophon Plato Aristotle Plutarch Pausanias Strabo
 Diodorus Polybius Arrian Apollodorus Aeschylus Sophocles Euripides Aristophanes Pindar Sappho Solon Theognis
 Tyrtaeus Archilochus Hippocrates Theophrastus Demosthenes Isocrates Lysias Aeschines Livy Ovid Lucretius
-Suetonius Caesar Seneca Cicero Tacitus Virgil Horace Vitruvius Pliny Josephus Athenaeus Vyasa Confucius
+Suetonius Caesar Seneca Cicero Tacitus Sallust Virgil Horace Vitruvius Pliny Josephus Athenaeus Vyasa Confucius
 Mencius Laozi Zhuangzi Sima Ptolemy Euclid Archimedes Galen Aelian Hyginus Ovidius Quintilian
 Gellius Aulus Dionysius Halicarnassus Varro Festus Censorinus
-Nepos Justin Trogus Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius`.split(/\s+/));
+Nepos Justin Trogus Florus Sallust Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius
+Appian Velleius Paterculus Augustus Hirtius Gaius Justinian Ulpian Cassius Dio Lactantius Eusebius Socrates Athanasius Tertullian Zosimus Jordanes Procopius Jerome Augustine`.split(/\s+/));
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
@@ -154,7 +158,18 @@ function scholarsOf(card) {
 // Attribution with the name filed off — still historiography.
 const ANON_ATTRIB = /\b(?:his|her|its|the) reviewer\b|\bone (?:contribution|scholarly account|essay|study|argument)\b|\bmodern (?:scholarship|accounts?|reading|pictures?|interpretations?)\b|\bscholars? (?:divide|disagree|now|have|hold|set|put|question)\b|\bhas (?:been|largely) (?:called|attacked|questioned|challenged|dismantled|doubted|taken apart)\b|\bis (?:now )?(?:doubted|unsettled|contested|not universally accepted)\b|\blater work\b|\bthe standard (?:work|collection)\b/i;
 
-const sentences = (t) => plain(t).split(/(?<=\.)\s+/).filter(Boolean);
+/* THE SENTENCE SPLIT IS split-abstract.js's, NOT A REGEX OF THIS SCRIPT'S OWN. It was
+   `plain(t).split(/(?<=\.)\s+/)`, which breaks after ANY full stop and never after a `?` or a `!` —
+   so an initial, a decimal, an era abbreviation or an abbreviated genus each added a phantom
+   sentence, and a sentence closing on a quoted question lost one. Measured over the shipped
+   corpus it disagreed with the real split on 206 of 1,426 cards: rule 2 is a fraction of TEN,
+   so every one of those had the wrong denominator — leniently on the 200-odd that over-counted,
+   strictly on the handful that under-counted. `pieces` carries every guard the batches
+   accumulated and is exported for exactly this. */
+const sentences = (t) => {
+  const { parts } = splitAbstract.blocks(String(t || ""));
+  return parts.flatMap((b) => splitAbstract.pieces(b)).map(plain).filter(Boolean);
+};
 
 function measure(card) {
   const names = [...scholarsOf(card)];

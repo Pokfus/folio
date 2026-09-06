@@ -276,7 +276,14 @@ for (const c of cards) {
      section and verse numbers inline — Herodotus' chapter numbers, the Rigveda's verse numbers —
      and a quotation rightly leaves them out, so comparing the raw strings fails on every
      verse-numbered book.  Both sides drop tokens that are purely digits before matching. */
-  const norm = t => " " + String(t).replace(/<[^>]*>/g, " ").split(/\s+/)
+  /* A WHITESPACE ENTITY IS WHITESPACE, NOT A WORD.  Four of the shelved editions carry literal
+     &#32; / &#160; / &#8195; / &#8201; in their HTML — a browser renders them as the spaces they
+     are, but stripping TAGS leaves the entity itself standing as a token, so a quotation that is
+     verbatim against what the reader sees was reported as "not in the book" (beowulf's prelude
+     carries 128 of them).  Decode them before splitting, or the checker cries wolf on the one
+     thing it exists to certify. */
+  const norm = t => " " + String(t).replace(/<[^>]*>/g, " ")
+    .replace(/&#(?:32|160|8195|8201|8194|8202|8239);/g, " ").split(/\s+/)
     .filter(w => w && !/^\d+$/.test(w)).join(" ") + " ";
   const flat = norm(ch.html);
   const said = norm(q.text).trim();
