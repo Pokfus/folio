@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.668", released: "2026-09-06T15:26Z" };
+window.FOLIO_VERSION = { v: "1.669", released: "2026-09-06T16:38Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-06",
     t: "An atlas of your own, and a reason behind every card",
     items: [
+      "<b>The United States collection has opened</b> with its first hundred cards, on Native America from before contact to tribal sovereignty today.",
       "<b>Playing all nine minigames in a day now earns a chest</b>, counted by a nine-bar meter under the Minigames heading.",
       "<b>Multiple Choice now shows the whole answer side of the card</b> below the round, once you have answered.",
       "<b>A deck's long-press menu can now forget everything you have studied in that deck</b>, leaving the rest of your progress alone.",
@@ -74,7 +75,7 @@ window.CHANGELOG = [
       "<b>Etruscan Campania is drawn as a region on the map</b> rather than as a single dot.",
       "<b>Ten new cards in the Biology collection</b>, opening its chapter on the cell.",
       "<b>The word <i>cell</i> now opens its own glossary entry wherever it appears</b>, which it did not before.",
-      "<b>Two hundred and seventy more glossary terms</b>, written for the new cards’ answers.",
+      "<b>359 more glossary terms</b>, written for the new cards’ answers.",
       "<b>A hundred new cards open the Korea collection</b>, which now sits under Collections rather than Planned.",
       "<b>Fifty-seven new cards in the World War II collection</b>, with a glossary term for each and a picture for nearly all of them.",
       "<b>57 new cards in the World History collection</b>, finishing its Byzantium and Islamic world decks and opening one on medieval Europe, with 56 new glossary terms.",
@@ -84,6 +85,7 @@ window.CHANGELOG = [
       "<b>Artworks now turn up in the Picture round</b> beside the artefacts.",
       "<b>The Japan collection has opened</b> with its first hundred cards, running from Jōmon Japan to the chronicles of the Nara court.",
       "<b>A hundred and one new China cards</b> \u2014 the Shang deck finished, the Zhou carried through the Warring States to its end, and the Qin empire opened.",
+
     ],
   },
   {
@@ -566,7 +568,7 @@ window.CHANGELOG = [
       "A line printed twice in Thucydides' account of the battle of Mantinea has been removed, restoring what the translator wrote.",
       "Four cards and two glossary terms now carry a picture of their own.",
       "Corrections to three of the World History cards and two of those terms, where a date or a detail had run ahead of the source behind it.",
-      "<b>78 more glossary terms</b> — the writers, gods and monsters of epic, the lands they name, the ages of the past, the materials worked and animals kept, and archaeology’s own words.",
+      "<b>98 more glossary terms</b> — the writers, gods and monsters of epic, the lands they name, the ages of the past, the materials worked and animals kept, and archaeology’s own words.",
       "<b>Thirty-seven terms already here now open from more of the cards’ own words</b> — adjectives, surnames, regional names, the continents, and phrases the cards write in ordinary sentence case.",
       "<b>Your shared decks are now the same on every device you are signed in on</b> — one you add arrives, one you remove goes, and both keep the settings you gave them.",
       "A shared deck deleted by its author still stays on your device, as it always has.",

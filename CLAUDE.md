@@ -1193,8 +1193,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the collection **opens with Native America as a deck rather than a prologue**, running forward to tribal
   sovereignty in the present, and it covers **the territory that became the United States**, so Spanish
   Florida, French Louisiana and New Netherland are in it. The next card to write is the lowest `us-NNN` not
-  yet in `data.js`; see the "THE UNITED STATES" bullet under "Generating cards & glossary entries". **No
-  card has been written yet.** Not part of the site.
+  yet in `data.js`; see the "THE UNITED STATES" bullet under "Generating cards & glossary entries". **Its
+  first hundred cards have shipped**, so the collection is live and its 32 empty decks are coming-soon
+  automatically, `isComingSoon` being true for a node holding no card. Not part of the site.
 - `docs/ww2-card-plan.md` — the **1000-card running order for the Second World War collection** (`ww2`):
   every card's number, topic and deck, fixed in advance across 8 decks and 30 leaf decks. The eighth of the
   planned collections, the second (after Egypt) to **create its own collection** — node, tree and
@@ -6020,7 +6021,7 @@ lookup.
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, contiguous — next is `wh-301` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 500 cards, contiguous — next is `gr-501` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 300 cards, contiguous — next is `rm-301` |
-| United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
+| United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 199 cards, `cnh-001` to `cnh-200` with `cnh-070` retired in Sep 2026 — next is `cnh-201`; the collection is open to study |

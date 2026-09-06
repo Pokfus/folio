@@ -400,13 +400,13 @@ matters.
     us-007  The pre-Clovis debate
     us-008  Monte Verde and the evidence for early arrival
     us-009  The Archaic period in North America
-    us-010  The domestication of maize
+    us-010  Maize and its spread into North America
     us-011  The Three Sisters
     us-012  Eastern Agricultural Complex
     us-013  Poverty Point
     us-014  Adena culture
     us-015  Hopewell tradition
-    us-016  The Hopewell exchange network
+    us-016  The Hopewell interaction sphere
     us-017  Mississippian culture
     us-018  Cahokia
     us-019  Monks Mound
@@ -432,6 +432,219 @@ matters.
     us-039  Estimating the pre-contact population of North America
     us-040  How pre-contact America is known
 
+**Twenty-nine decisions made while writing `us-001`–`us-100` (Sep 2026), recorded here because the
+lines above no longer describe them exactly.**
+
+**`us-010` was renamed** from *The domestication of maize* to *Maize and its spread into North
+America*. The domestication itself is already carded at exactly that altitude in World History
+(`wh-131`, on teosinte and the Balsas), and this collection needs the other half: when the crop
+reached the Southwest, why it took two thousand more years to matter in the east, and what it
+displaced. The answer term is `maize`.
+
+**`us-009`'s answer term is `North American Archaic`, not `Archaic period`.** The bare surface
+*Archaic period* is already claimed by the Greek glossary key `Archaic_period`, and
+`buildGlossIndex` has no way to tell two collections apart — so a US card writing *Archaic period*
+in its prose auto-links to Greek history, which is the fault `check-gloss-links.js` exists to
+report. The North American term keeps its existing key `Archaic_period_(North_America)` and now
+carries *North American Archaic* and *Archaic period in North America* as aliases. **Ask what else
+already claims a period name before choosing one as an answer term.**
+
+**`us-016` was renamed** from *The Hopewell exchange network* to *The Hopewell interaction sphere*,
+which is what the thing is called in the literature and what a reader will meet everywhere else;
+*Hopewell exchange network* is kept as a glossary alias, so a card writing either phrase links to
+the same term.
+
+**`us-024`'s answer term is `great house`, not the roads.** The plan line pairs *The Chaco roads and
+the great houses*, and a card has one answer: the roads are a strand inside a card whose subject is
+the building form, because the great house is the thing a reader will meet again — at Aztec, at
+Chimney Rock, in every account of the Southwest — while the roads are one of its properties. The
+glossary key is `Great_house_(Chacoan)`, which claims no bare surface, since *great house* is
+ordinary English and the Casa Grande is also called one; it is reached by the alias *Chacoan great
+house*.
+
+**`us-027` names both `Hohokam` and the ancestral Sonoran Desert people, and says why.** The National
+Park Service states plainly that *Hohokam* is not a tribe's name, that there is no such word in
+O'Odham, Hopi or Zuni, and that it appears to be a mishearing of the O'Odham *huhugam*, meaning
+ancestors — so the Service writes *Hohokam* only of the archaeology and *ancestral Sonoran Desert
+people* of the people. The card's answer term stays `Hohokam`, because that is what a reader will
+meet in every book and museum label, and its second sentence is the correction. **Ask what a
+descendant community calls itself before writing an archaeological label as though it were a name.**
+
+**`us-032`'s potlatch card is sourced from the U'mista Cultural Society, and that retires a recorded
+gap.** CLAUDE.md's glossary-citation notes record (G9) that no openable qualifying source here says
+*potlatch*, so the prose of the day was written round the word. The Society's *Living Tradition*
+site, published with the Virtual Museum of Canada, is openable from this sandbox and is the
+community's own account: it carries the Chinook Jargon etymology, what the ceremony is for, the 1884
+amendment that took effect on 1 January 1885, the 1921 Cranmer potlatch and its prosecutions, the
+1951 repeal, and the repatriation that built the U'mista Cultural Centre. **A community's own museum
+may be openable where the scholarship is not.**
+
+**`us-036` and `us-037` are carded from the Haudenosaunee Confederacy's own pages**, which state the
+Peacemaker and Aiionwatha, the fifty chiefs and how they are apportioned between the nations, the
+clan mothers' power to raise and remove them, and the Great Tree of Peace. That is a nation
+describing its own constitution, which is the right source for what the Great Law says and is not a
+source for when it was agreed — the date is contested, the card says so, and the scholarship carries
+that half. **`us-040` is flagged `undatable`**: *pre-contact America* names everything before a
+frontier that reached different places centuries apart, so the Timeline game must not ask a reader to
+place it.
+
+**`us-043`'s answer is `Great Dying`, and its glossary key is `Great_Dying_(Americas)`.** The
+Dinosaurs plan plans a card on the same phrase for the end-Permian extinction (`dino-187`, *The
+scale of the Great Dying*), and `buildGlossIndex` cannot tell two collections apart — so this key
+carries a disambiguating parenthetical, which claims no bare surface, and the alias is *Great Dying
+in the Americas*. The bare name is left free for whichever collection can carry it without
+ambiguity. **Ask what else is PLANNED to claim a phrase, not only what already claims it.**
+
+**`us-045` reuses the existing `Horse` term rather than writing a North American one**, since a
+glossary description is deck-agnostic by rule, and `North_American_fur_trade` deliberately carries
+no bare *fur trade* alias — Russia and China both have one, and the first collection to reach a
+phrase should not take it from the others.
+
+**The Comanche cards rest on the Handbook of Texas**, whose entries are signed and carry their own
+bibliographies, which is the test the glossary plan sets for citing an encyclopedia at all: per
+article, not per publisher. Two access findings went with them. **`si.edu` is Cloudflare-blocked
+here**, so the Smithsonian's Native Knowledge 360 material on the Oceti Sakowin cannot be cited from
+this sandbox; and **`hal.inrae.fr` is behind the same Anubis bot wall as `hal.science`** — the
+Taylor 2023 horse paper, which four of these cards rest on, is served openly instead by a Utah State
+University extension site.
+
+**`us-052` was renamed** from *Native nations and European rivalry* to *The Great Peace of
+Montreal*. The old line named a condition rather than a subject, and the condition is already the
+substance of `us-051` and `us-054`; the 1701 treaty is the event those two are on either side of,
+and it is the only place in the deck where thirty-nine nations state their own terms in a document
+that survives. The answer term is `Great Peace of Montreal`.
+
+**A `biographi.ca` 200 IS NOT A BIOGRAPHY — the Dictionary of Canadian Biography serves "Biography
+not found" with a 200 status**, which makes it the sixth variety of 200-status error document this
+project has recorded (after `senate.gov`'s 404 page, `state.gov`'s "Technical Difficulties", the
+CloudFront "Request blocked", the "Client Challenge" and `history.house.gov`'s slug form). Two
+composed slugs — `tekakwitha_kateri_1E` and a Vargas one — both answered 200 and both were empty;
+the real slug is `tekakwitha_1E`. **Grep the body for the subject's name before citing it.** The DCB
+is otherwise the best source in this batch: its articles are signed, and each carries its own "Cite
+This Article" block, which is what the Kondiaronk citation was corrected from — it was drafted as
+Bruce G. Trigger and is **William N. Fenton**, exactly the fabricated-author shape N4 records.
+
+**`us-056`'s picture is a devotional painting rather than a portrait, and its caption says so.**
+The Commons file is named for Claude Chauchetière, who painted Kateri Tekakwitha in the 1690s, and
+the file's own artist field gives **Joseph Légaré (1795–1855)** — a Quebec painter working more than
+a century later. The picture is a fair illustration of the veneration the card is partly about, and
+the caption names the painter and the gap rather than letting the file name assert a likeness taken
+from life. **Read a Commons file's artist field against its name**; here the two disagree outright.
+
+**`us-065` was renamed** from *Native diplomacy and the middle ground* to *The Ohio Country*. The
+middle ground is a modern historian's model rather than a thing that happened, so a card whose
+answer term was that phrase would have taught a reader the state of a literature instead of the past
+it is about — which the no-historiography rule exists to prevent, and which the rule's own exemption
+for a card *about* a modern theory would have licensed without making it a good card. The Ohio
+Country is the ground that model is about, it is where Pontiac's War, the Proclamation line, the
+1768 boundary and the Northwest Indian War all happen, and `us-072`–`us-073` need it established.
+
+**`us-069` was renamed** from *Native nations in the American Revolution* to *The Battle of
+Oriskany*, and `us-062` and `us-066` were narrowed to *The Indian slave trade* and *The deerskin
+trade*. All three old lines named a condition rather than a subject, which is a line that cannot be
+turned into one answer term; Oriskany is the day the Confederacy's own members met each other in
+arms, which is what "Native nations in the Revolution" was pointing at.
+
+**A `biographi.ca` 200 IS STILL NOT A BIOGRAPHY, and the check paid again.** Batch 6 recorded that
+the Dictionary of Canadian Biography serves "Biography not found" with a 200 status; a composed
+slug for John Lawson answered 200 and was empty, and Lawson has no entry there at all, being no part
+of Canadian history. **Grep the body for the subject's name.** The DCB's signed articles carried two
+of this batch's cards, with the author read off each page's own "Cite This Article" block —
+Louis Chevrette on Pontiac and Barbara Graymont on Thayendanegea.
+
+**`card-focus.js` READ A PLACE AS A SCHOLAR, and the fix is in the extractor rather than in the
+cards.** It pulls names from the AUTHOR POSITIONS of a card's own citations, and the `ed.` rule was
+swallowing the publisher parenthetical with them: `…, ed. William S. Powell (Chapel Hill: University
+of North Carolina Press, 2006)` yielded the surname **Carolina**, so `us-063` and `us-066` were
+reported as questions naming a researcher, and `us-063` as five-tenths historiography, purely
+because their prose says *Carolina* about the colony. Each segment is now cut at its opening
+parenthesis, which is general where adding the place to `NOT_A_SURNAME` would only ever be a list
+one place short — and the change was proved inert by re-running the measure over all 1,963 shipped
+cards, where it moves exactly those two rows and nothing else.
+
+**TWO CARDS IN THIS DECK CARRY THE SAME SITTER, AND THE CAPTIONS SAY SO.** `us-060` uses the
+engraving of Metacom published with Benjamin Church's account and `us-061` Paul Revere's
+hand-coloured plate of 1772; the second is derived from the first tradition, and no likeness of him
+taken from life exists at all, so the alternative was not a different portrait but no picture. Each
+caption names its engraver and its date and says the likeness is imagined. **Where a subject has
+only one iconography, print it with its provenance rather than dressing a second copy as a second
+source.** Two candidates were rejected on size — the marker in the Miery Swamp at 500px and King
+Philip's Seat at 300px — and one on subject: the Commons file `Slavery (BM 1868,0808.3600)` is a
+1738 British political satire about the liberties of Britons and has nothing to do with Native
+slavery, which is `us-062`'s subject. That card carries an 1880s wood engraving instead, captioned
+as one, the trade itself having left almost no images made at the time.
+
+**AND `upload.wikimedia.org` RATE-LIMITED THE WHOLE BATCH, WHERE `Special:FilePath` DID NOT.** The
+429 recorded in `CLAUDE.md` returned on the first file and did not clear with backoff;
+`https://commons.wikimedia.org/wiki/Special:FilePath/<FILE>?width=800` served every one of the
+thirteen candidates first time. It is the route to reach for when looking at pictures, and the `src`
+written into the card is still the ordinary upload URL copied from the API, since the limit is this
+container's rather than a reader's.
+
+**A COMPOSED LAW REPORT CITATION POINTED AT THE WRONG CASE, AND IT RESOLVED PERFECTLY.** *Cherokee
+Nation v. Georgia* was drafted as 31 U.S. 1 by analogy with *Worcester*'s 31 U.S. 515, and
+`law.cornell.edu/supremecourt/text/31/1` answers 200 — with *Schimmelpennick v. Turner*, a tobacco
+consignment dispute out of Maryland. The case is **30 U.S. (5 Pet.) 1 (1831)**. This is the
+fabricated-DOI shape in another vocabulary: a volume-and-page reference is exactly as composable as
+a DOI and exactly as plausible when wrong, and no checker in the pipeline reads what is at the other
+end of the URL. **Fetch a law report and grep it for the case name**, as a `biographi.ca` page is
+grepped for its subject.
+
+**THE OKLAHOMA HISTORICAL SOCIETY'S ENCYCLOPEDIA IS THE SPINE FOR REMOVAL, AND IT STATES ITS OWN
+CITATION.** Its entries are signed, carry their own bibliographies and publish a preferred Chicago
+form at the foot of each article, so the citation is read rather than composed — the rule the
+Stanford Encyclopedia finding established. It passes the glossary plan's per-article test for citing
+an encyclopedia at all. **But one author, Andrew K. Frank, wrote four of the entries this batch
+needed**, and `check-cards` refuses a card with the same author in more than two of its five
+sources; `us-080` tripped it. The fix was a genuine fifth source rather than a re-shuffle: the
+National Park Service's *The Five Civilized Tribes: Who Are They?* at Ocmulgee Mounds, a PDF that
+also carries the Seminole material the Frank entry was being used for. **Check the bylines across a
+batch before assigning sources, not after.**
+
+**`us-078`'S QUESTION NAMED THE SUPREME COURT AND WAS READ AS NAMING A SCHOLAR.** `check-cards`
+reads the shape of an attribution — *X held in Y that…* — and the court is the card's own subject
+rather than a modern arguer, so this is a limit of the shape test rather than a fault in the
+question. It was reworded to *the judgment in ___ declared…* rather than exempted: the rule is
+cheap to satisfy and the alternative is a per-card exemption for a checker that is right far more
+often than it is wrong.
+
+**A SIXTH 200-STATUS ERROR DOCUMENT, AND IT KILLS A WHOLE CLASS OF NPS CITATIONS.** Every URL under
+`nps.gov/parkhistory/online_books/…` answers 200 and serves the Park History Program landing page —
+a constant **56,054 bytes**, the signature `senate.gov`'s 37,523-byte shell has. That path holds the
+Service's own digitised books, including *Five Views: An Ethnic Historic Site Survey for California*,
+which is where three of `us-083`'s intended citations were going. The `/history/` variant of the path
+serves the same shell, so there is no alternative form. **Size-check an nps.gov book URL**; the
+finding cost nothing here only because the page was read rather than trusted, and the same check
+caught a Senate biography of Henry Dawes at exactly 37,523 bytes on the way past.
+
+**`us-083` IS CARDED FROM A TRIBAL SOURCE AND TWO FEDERAL ONES, AND THE FIGURES DISAGREE ON PURPOSE.**
+The scholarship on the California genocide — Madley, Lindsay, Secrest — is not open, `gov.ca.gov`,
+`library.ca.gov`, `escholarship.org` and `calindianhistory.org` are all 403, and `truthandhealing.ca.gov`
+refuses the connection. What is open is the **Muwekma Ohlone Tribe's own account**, which uses the
+term, gives its own bibliography and states plainly that this was done not by a hidden state ideology
+but by ordinary citizens acting through the institutions of a democracy; and the **National Library of
+Medicine's Native Voices timeline**, which is federal. Their pre-gold-rush figures are 150,000,
+100,000 and 310,000 for 1769, and they agree on about 30,000 left. **The card gives all three and says
+they disagree**, which is what the plan's rule about contested figures asks for and is better history
+than picking one. A composed `leginfo.ca.gov` bill number was checked and turned out to be a statute
+about secondhand goods — the *Cherokee Nation v. Georgia* lesson, one identifier family over.
+
+**`americanindian.si.edu` SERVES ASSETS EVEN THOUGH `si.edu` IS RECORDED AS BLOCKED**, so the block is
+path-dependent: the National Museum of the American Indian's Native Knowledge 360° PDFs download in
+full. This one could not be used — its fonts are subset with no ToUnicode map, the CID cipher the
+Library importer records — but the host is worth retrying rather than writing off.
+
+**AND THE FEDERAL BOARDING SCHOOL REPORT IS THE BEST SINGLE SOURCE THIS COLLECTION HAS FOUND.**
+*Federal Indian Boarding School Initiative Investigative Report* (Department of the Interior, May
+2022) is openable at `bia.gov`, is 29 MB, and states its findings in figures: 408 federal schools
+across 37 states or then-territories between 1819 and 1969, comprising 431 sites; marked or unmarked
+burial sites identified at about 53 of them; and the finding, in the report's own words, that the
+United States directly targeted American Indian, Alaska Native and Native Hawaiian children in
+pursuit of a policy of cultural assimilation that coincided with Indian territorial dispossession.
+**Extract it by decompressing only the streams containing text operators**; a whole-file pass runs to
+8 MB of glyph noise.
+
+
 ### Contact, disease and the colonial encounter — `us-native-contact`
 
     us-041  Columbian exchange
@@ -445,7 +658,7 @@ matters.
     us-049  The Plains horse cultures
     us-050  The North American fur trade
     us-051  The Beaver Wars
-    us-052  Native nations and European rivalry
+    us-052  The Great Peace of Montreal
     us-053  Wampum
     us-054  The Covenant Chain
     us-055  Praying towns
@@ -454,21 +667,21 @@ matters.
     us-058  Popé
     us-059  The Spanish return to New Mexico
     us-060  King Philip's War
-    us-061  Metacomet
-    us-062  Native slavery in colonial America
+    us-061  Metacom
+    us-062  The Indian slave trade
     us-063  The Yamasee War
     us-064  The Tuscarora War
-    us-065  Native diplomacy and the middle ground
-    us-066  Native nations and the deerskin trade
+    us-065  The Ohio Country
+    us-066  The deerskin trade
     us-067  Pontiac's War
     us-068  Royal Proclamation of 1763
-    us-069  Native nations in the American Revolution
+    us-069  The Battle of Oriskany
     us-070  Joseph Brant
-    us-071  The Sullivan Expedition and the destruction of Haudenosaunee towns
+    us-071  The Sullivan Expedition
     us-072  Northwest Indian War
     us-073  Battle of Fallen Timbers
     us-074  Tecumseh
-    us-075  Tenskwatawa and the Prophetstown movement
+    us-075  Tenskwatawa
 
 ### Removal, the reservations and sovereignty — `us-native-modern`
 
@@ -476,27 +689,67 @@ matters.
     us-077  Cherokee Nation v. Georgia
     us-078  Worcester v. Georgia
     us-079  Trail of Tears
-    us-080  The removal of the Five Tribes
+    us-080  The Five Tribes
     us-081  Indian Territory
     us-082  The Seminole Wars
     us-083  The California genocide
-    us-084  The reservation system
-    us-085  The Indian agent and the treaty system
-    us-086  The end of treaty-making in 1871
+    us-084  The Indian reservation
+    us-085  The Indian agent
+    us-086  The end of treaty-making
     us-087  Dawes Act
-    us-088  Allotment and the loss of Native land
-    us-089  American Indian boarding schools
+    us-088  Allotment
+    us-089  The Indian boarding school
     us-090  Carlisle Indian Industrial School
-    us-091  What the boarding schools did
+    us-091  The Meriam Report
     us-092  The Ghost Dance
     us-093  Wounded Knee Massacre
-    us-094  Native Americans and the First World War
+    us-094  The Choctaw code talkers
     us-095  Indian Citizenship Act
     us-096  Indian Reorganization Act
-    us-097  Indian termination policy
+    us-097  Termination
     us-098  American Indian Movement
     us-099  Wounded Knee Occupation
-    us-100  Tribal sovereignty in modern America
+    us-100  Tribal sovereignty
+
+
+**`us-091` was renamed** from *What the boarding schools did* to *The Meriam Report*. The old line
+names a subject and not an answer term, and the citable, dated thing that says what the boarding
+schools did is the 1928 survey *The Problem of Indian Administration*, whose chapter 1 is open in full
+at the National Indian Law Library. It is also the card that carries the eleven-cents-a-day food
+allowance and the half-day of child labour in the survey's own words, which no summary states as
+plainly.
+
+**`us-094` was renamed** from *Native Americans and the First World War* to *The Choctaw code talkers*.
+The broad line has no answer term a reader could be asked for; the code talkers are specific, are the
+distinctive thing Native soldiers did in that war, and are documented twice over — by William C.
+Meadows in the Oklahoma encyclopedia and by Congress's own findings in the Code Talkers Recognition
+bill. The enlistment of men who were not citizens is carded inside it, and leads into `us-095`.
+
+**HOW MANY CHOCTAW CODE TALKERS THERE WERE IS A RANGE, AND THE CARD GIVES IT AS ONE.** Congress's
+findings say a commander "recruited 18 Choctaw Indians"; the Oklahoma Military Hall of Fame lists
+nineteen; the Oklahoma encyclopedia names eight originals joined later by eleven more. All three are
+open, none is obviously wrong, and the sources are counting slightly different things — who was
+recruited, who served, who has since been honoured. The card says so with whose each figure is, which
+is the plan's rule about contested numbers applied to a number nobody would think to check.
+
+**THREE CITATIONS IN THIS BATCH WERE DRAFTED WITH FABRICATED AUTHORS AND CAUGHT BEFORE SHIPPING.** The
+Oklahoma encyclopedia's *Oklahombi, Joseph* was drafted as Larry O'Dell's and is Corie Delashaw's; the
+*South Dakota History* article on the historiography of Wounded Knee was drafted as Rex Alan Smith's
+and is Michael A. Sievers's; the one on the 1973 occupation was drafted as Elizabeth S. Grobsmith's and
+is Rolland Dewing's. Every one of the three URLs resolved perfectly throughout, and every name reads
+like the name of somebody who would have written that piece — which is exactly the N4 finding in the
+glossary plan, and the reason to open the work and read the byline rather than composing one. The
+Oklahoma encyclopedia prints its own preferred Chicago citation at the foot of every entry, and a
+*South Dakota History* PDF carries the author's name in capitals under the title.
+
+**`nlm.nih.gov/nativevoices` IS THE BEST-COVERED OPEN SOURCE THIS COLLECTION HAS FOUND FOR THE MODERN
+DECK.** The National Library of Medicine's *Native Voices* timeline is a federal exhibition of several
+hundred dated entries, each a short sourced paragraph on its own page at `/timeline/<n>.html`, and it
+covers the Ghost Dance, Wounded Knee, the boarding schools, the Citizenship Act, the Reorganization
+Act, termination, the American Indian Movement, the 1973 occupation and self-determination — nine of
+this batch's ten cards. The page numbers are not in any index that could be searched for, so they were
+found by fetching a range and reading the headings; the relevant ones are 374, 377, 378, 385, 398, 418,
+431, 452, 453, 488, 532, 535 and 539.
 
 ## Colonies and Empire, 1565–1763
 
