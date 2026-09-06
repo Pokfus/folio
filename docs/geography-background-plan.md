@@ -108,6 +108,12 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G2 — twelve more**: `gw-015` DR Congo, `gw-016` Vietnam, `gw-017` Iran, `gw-018`
+  Turkey, `gw-020` Thailand, `gw-022` Tanzania, `gw-024` South Africa, `gw-026` Kenya, `gw-027` Myanmar,
+  `gw-028` Colombia, `gw-029` South Korea and `gw-030` Sudan, on the same recipe, with eight date lines
+  rewritten off the same research. **The four European countries in that stretch — `gw-019` Germany,
+  `gw-021` United Kingdom, `gw-023` France, `gw-025` Italy — are DEFERRED**, for the reason `gw-003` is:
+  the FAO has no AQUASTAT profile for any of them.
 - **2026-09-06, batch G1 — the first thirteen backgrounds rewritten**: `gw-001` India, `gw-002` China,
   `gw-004` Indonesia, `gw-005` Pakistan, `gw-006` Nigeria, `gw-007` Brazil, `gw-008` Bangladesh,
   `gw-009` Russia, `gw-010` Ethiopia, `gw-011` Mexico, `gw-012` Japan, `gw-013` Egypt and `gw-014`
@@ -167,6 +173,38 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
 
-**Rules 1 and 3 remain open on 400 cards.** Run `node .claude/gw-audit.js` for the live figures.
+## What G2 found
+
+- **⚠ EIGHT OF TWELVE AQUASTAT URLS COMPOSED FROM THE PATTERN WERE WRONG, AND ONE OF THEM POINTED AT
+  ANOTHER COUNTRY'S PROFILE.** The profile addresses look regular — `ca0394en`, `ca0403en`, `i9807en` —
+  and they are not derivable: Thailand's is `ca0408en` where the guess `ca0412en` is VIET NAM'S, and
+  Tanzania, South Africa, Kenya, Iran, Turkey, DR Congo and Vietnam were all wrong too. G1's were right
+  only because they were copied out of `geo-src.js`'s output rather than typed. **Read the PDF link out
+  of the country page every time** (`grep -ao 'https://www.fao.org/3/[^"]*\.pdf' <ISO3>.html`), and read
+  the YEAR off the profile's own "Recommended citation" line, which was also wrong twice.
+- **CHECK EVERY CITATION URL WITH `SRC_URL_RX`'S OWN REGEX BEFORE APPLYING A BATCH.** Sweeping the batch's
+  57 addresses caught those eight and one more: `doi.org/10.1515/geo-2019-0013` answers **202**, De Gruyter
+  serving a challenge, so an Open Geosciences paper was swapped for a HESS one. The pattern is
+  `/https?:\/\/[^\s<>"')\]]+[^\s<>"')\].,;:]/g` — a looser one takes the citation's closing full stop
+  with it and reports every URL as a 404.
+- **📖 THE CONSTITUTE PROJECT IS THE SECOND SOURCE THE PASS NEEDED** —
+  `constituteproject.org/constitution/<Country>_<Year>`, open, with English text for nearly every country
+  on earth. A constitution's opening articles state the form of the state, its territory and its founding
+  claim, which is exactly the kind of thing a geography card's second half is for and which the
+  recognition guide does not carry: Iran's article 1 dates the Islamic Republic to the referendum of 29
+  and 30 March 1979, Myanmar's preamble dates the loss of sovereignty to 1885 and the recovery to 4
+  January 1948, South Korea's article 3 claims the whole peninsula, South Africa's section 1 founds the
+  state on non-racialism and universal suffrage. Slugs are `Country_Year` and are not always guessable
+  (`Republic_of_Korea_1987`, not `South_Korea_1987`; Vietnam has none).
+- **THE OFFICE OF THE HISTORIAN'S MILESTONES ARE AMERICAN-FRAMED AND STILL CARRY THE COUNTRY'S OWN FACTS**
+  — Dien Bien Phu's fall on 7 May 1954 after a four-month siege, the Force Publique mutiny at Thysville a
+  week after Congolese independence, de Lesseps's abandoned Panama canal, the 38th parallel and the 1953
+  truce. Read them for the sentences that are about the country and leave the rest.
+- **A SOURCE MUST STILL BE REFERENCED AFTER A REWRITE**, which is where `gw-029` first failed: taking the
+  recognition guide's American material out of the prose left its citation pointing at nothing, and
+  `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
+  and put a fifth in its place.
+
+**Rules 1 and 3 remain open on about 390 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*

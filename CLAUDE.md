@@ -1245,13 +1245,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1 has shipped — thirteen backgrounds rewritten** (`gw-001`–`gw-014` bar `gw-003`), each five
-    sentences of landform, water and climate over five of the country's own history. Its reusable
-    finding is the source that makes the pass possible: **the FAO's AQUASTAT country profile**, one PDF
-    per ISO3 code carrying the landform, the borders, the coastline, the altitude range, the seasons,
-    the mean rainfall AND its range, and the rivers — enough for a whole block on its own, and stating
-    its own recommended citation on page 1. **It has no profile for the United States**, which is why
-    `gw-003` is deferred. Rules 1 and 3 remain open on 400 cards.
+    **G1 and G2 have shipped — twenty-five backgrounds rewritten** (`gw-001`–`gw-030`, less `gw-003`
+    and the four European countries), each five sentences of landform, water and climate over five of
+    the country's own history, with eleven date lines rewritten out of the same research. Two sources
+    make the pass possible and both are per country. **The FAO's AQUASTAT country profile** carries the
+    landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
+    range, and the rivers — enough for a whole block on its own — and states its own recommended
+    citation on page 1; **it has no profile for the United States, Germany, the United Kingdom, France
+    or Italy**, which is why those cards are deferred. **The Constitute Project** carries an English
+    text of nearly every constitution on earth, whose opening articles state the form of the state, its
+    territory and its founding claim. **AND AN AQUASTAT URL MUST BE READ, NEVER COMPOSED**: eight of
+    G2's twelve guesses were wrong and one pointed at another country's profile. Rules 1 and 3 remain
+    open on about 390 cards.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |
