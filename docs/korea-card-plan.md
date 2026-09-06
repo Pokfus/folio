@@ -548,6 +548,62 @@ and `Rock_art` — plus the `Dolmen` rewrite above. Four of them are **general t
 a Korean card**, on the pattern the batch before established: `Stone_cist`, `Cast_iron`, `Shell_midden`
 and `Rock_art` are written for anybody, each closing on what Korea's own evidence looks like.
 
+## What the fifth ten found (Sep 2026)
+
+`ko-041`–`ko-050` close `ko-prehistory` and open `ko-gojoseon`, and they are the first cards in this
+collection whose subject is a written record rather than a site. That changed where the sources came
+from. The *Asian Perspectives* back run still carries the archaeology — Park on buffer-zone trade,
+Blackmore on the Han–Ye division, Rhee and colleagues on what crossed to Japan — but the Gojoseon and
+Dangun cards rest on the ***International Journal of Korean History***, whose whole run is open, and
+which is best searched through **`api.crossref.org/journals/1598-2041/works`** rather than by hand.
+Nine of its articles are cited here. Against them, `journals.openedition.org` is behind the Anubis wall
+again, `www.journals.uchicago.edu` is 403, and JSTOR, De Gruyter and Project MUSE all answer a challenge
+page with a 200 status, which rules out the one modern monograph on the *Samguk yusa*.
+
+**THE PLAN'S TWO-SCHOLAR CAP DECIDED A CARD, AND IT DECIDED IT AGAINST THE OBVIOUS ANSWER.** `ko-048`,
+"the Dangun myth as history", wants to be a card about **Ch'oe Namsŏn**, who built an account of Korean
+origins around Dangun under colonial rule; there is an open article about exactly that. But this plan
+spends its one scholar on `ko-703` and says the remaining historiographical cards should name schools,
+states and projects rather than people. So `ko-047` takes the general concept, **foundation myth**, and
+`ko-048` takes **Dangun** himself, with Ch'oe Namsŏn cited and described in a clause rather than carded.
+**Read the collection's own scope rules before choosing an answer term**; the cap is not a style
+preference, it is what keeps a history collection from becoming a historiography one.
+
+**A MYTH'S OWN NARRATIVE TURNED OUT TO BE THE HARDEST THING TO CITE.** Everything openable about Dangun
+is about how the figure has been USED — the era counted from 2333 BCE, the national foundation day, the
+religion founded in 1909 — and nothing reachable tells the story. What tells it is **Hulbert's *The
+Passing of Korea*, 1906, on archive.org**, which sets out the bear, the tiger, the garlic, the cave and
+the twenty-one days as they were then told, and flags them as legend in the same breath. That is the
+artefact pass's rule arriving in another subject: **where the modern synthesis is shut, the standard
+period work is open, and for a traditional story a period telling is the right kind of source anyway.**
+
+**`ko-045`'s answer term is the concept the rest of the deck rests on.** An *archaeological culture* is a
+named bundle of artefact types, invented in Europe early in the 20th century and brought into Korean
+archaeology by Japanese colonial scholars; because the people of the past cannot be read off their
+objects, the name came to stand for a whole way of life and then for a real ethnic group. A guest
+editor's introduction in the *IJKH* says so outright, and a critical review in *Asian Perspectives*
+shows the criteria dividing central Korea between two "peoples" failing under examination. Carding the
+concept is the honest way to give the reader the tool the previous twenty-four cards were using.
+
+**Three cards ship with no picture and the reason is the same each time: the subject has no view.**
+`ko-042` is a region spanning four countries, `ko-043` a corridor, `ko-045` a concept — and what Commons
+offers for the first two is satellite scenes, Admiralty charts and, twice over, a **museum text panel**,
+which is the fault the contact sheet caught in the batch before and caught again here. The other seven
+are illustrated, `ko-041` by a full-size replica of the Bangudae panel rather than the cliff itself,
+since at the size a card draws a picture the original reads as a bare rock face and the replica reads as
+whales and boats. The card says it is a replica.
+
+**Ten more glossary terms shipped with the cards** — `Bangudae`, `Northeast_Asia`, `Liaodong`,
+`Yayoi_period`, `Archaeological_culture`, `Gojoseon`, `Foundation_myth`, `Dangun`, `Shiji` and
+`Liao_River`. Four are **general terms that arrived through a Korean card**, which is now the settled
+pattern of this collection: `Northeast_Asia`, `Archaeological_culture`, `Foundation_myth` and
+`Yayoi_period` are written for anybody, and `Shiji` will be wanted by the China collection before long.
+
+**One plan line is left needing attention.** `ko-058` is "The Han conquest of Gojoseon" and `ko-059` "The
+fall of Wanggeom-seong", which are the same event twice; whoever writes that batch will have to split
+them or drop one, and `ko-050` has taken the Liao River rather than Wanggeom-seong partly to leave that
+name free.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -638,19 +694,19 @@ where its findings go.
     ko-038  Iron Age Korea — the Early Iron Age
     ko-039  Shell middens and coastal life — the shell midden
     ko-040  Rock art in Korea
-    ko-041  Bangudae petroglyphs
-    ko-042  Prehistoric Korea and its neighbours
-    ko-043  Contacts with the Liaodong region
-    ko-044  Contacts with the Japanese archipelago
-    ko-045  What archaeology can and cannot say about early Korea
+    ko-041  Bangudae petroglyphs — Bangudae
+    ko-042  Prehistoric Korea and its neighbours — Northeast Asia
+    ko-043  Contacts with the Liaodong region — Liaodong
+    ko-044  Contacts with the Japanese archipelago — the Yayoi period
+    ko-045  What archaeology can and cannot say about early Korea — the archaeological culture
 
 ### Gojoseon — `ko-gojoseon`
 
     ko-046  Gojoseon
-    ko-047  The Dangun foundation myth
-    ko-048  The Dangun myth as history
-    ko-049  Gojoseon in the Chinese sources
-    ko-050  The location of Gojoseon
+    ko-047  The Dangun foundation myth — the foundation myth
+    ko-048  The Dangun myth as history — Dangun
+    ko-049  Gojoseon in the Chinese sources — the Shiji
+    ko-050  The location of Gojoseon — the Liao River
     ko-051  Gojoseon society
     ko-052  The eight prohibitions
     ko-053  Gija Joseon and the Gija tradition
