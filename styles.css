@@ -1512,6 +1512,9 @@ body.night .crit-row.done .crit-lbl{color:#E0C069;}
    changes what is painted and nothing else. It reaches the letter through inline descendants, and on a
    hanzi answer it is simply inert, there being no case to change. */
 .answer .val::first-letter{text-transform:uppercase;}
+/* …and the one exception, set by buildBack: a term whose own lower-case initial is part of its name
+   (pH, mRNA, tRNA), recognised by a lower-case letter followed immediately by a capital. */
+.answer .val.nocap::first-letter{text-transform:none;}
 .answer .val a{color:inherit; text-decoration:none; border-bottom:1px solid rgba(200,69,60,.34);}
 .night .answer .val a{border-bottom-color:rgba(240,147,139,.42);}
 /* column-gap 16, not the 7 it was: the label is a small-caps mono word and the value beside it is mono
