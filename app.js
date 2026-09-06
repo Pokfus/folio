@@ -21052,12 +21052,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      can never come to disagree about what the logo is.
 
      IT IS DRAWN AT EVERY WIDTH AND HIDDEN BY THE STYLESHEET WHERE THE TOP BAR HAS IT, which is what
-     closes the hole the obvious phone-only rule leaves. The top bar is `display:none` below 640px, and
-     between 641 and 900px it is already 134px too narrow for its seven tabs (see the band rules in
-     styles.css), so the bar's own logo can only be shown from 901px up — leaving a small tablet with no
-     logo anywhere at all. `.home-brand` is therefore hidden from 901px rather than from 641px, so exactly
-     one of the two is on screen at any width. It is a static heading rather than a button: the reader is
-     already on the home page, so a control that routes here would do nothing. */
+     closes the hole the obvious phone-only rule leaves. Measured in a browser, the brand costs the top bar
+     171px at Medium text and 292px at Very large, and the bar has that much to spare only from 1280px up —
+     so hiding this one below 640px would leave every width from 641 to 1279 with no logo anywhere at all.
+     `.home-brand` is therefore hidden from 1280px rather than from 641px, so exactly one of the two is on
+     screen at any width. It is a static heading rather than a button: the reader is already on the home
+     page, so a control that routes here would do nothing. */
   function homeBrandHTML() {
     return '<div class="brand home-brand" role="img" aria-label="Folio — memorise anything">' +
       '<span class="mark">Folio<span class="dot">.</span></span>' +

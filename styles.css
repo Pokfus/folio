@@ -246,20 +246,23 @@ body[data-theme="folio"] .topbar::after{
 }
 .brand .mark .dot{color:var(--zh);}
 .brand .tag{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.28em; color:var(--ink-faint); text-transform:uppercase; align-self:center;}
-/* WHICH OF THE TWO LOGOS IS ON SCREEN, AND WHY THE SPLIT IS AT 901px RATHER THAN AT THE PHONE
-   BREAKPOINT (Sep 2026, with the masthead). The top bar is `display:none` below 640px, so the naive rule
-   is "bar logo above 640, home logo below" — and that leaves a 641–900px tablet with the bar's version,
-   which does not fit: measured with the seventh tab in, that band is already 76px over at 760px and 134px
-   over at 700px before any logo is added, which is what the padding-and-tracking rules below exist to
-   claw back. So the BAR's logo is shown from 901px up and the HOME page's from 900px down, and exactly
-   one of the two is on screen at every width. `.home-brand` is a block of its own above the greeting; it
-   takes no pointer, being a heading on the page it would have linked to. */
+/* WHICH OF THE TWO LOGOS IS ON SCREEN, AND WHY THE SPLIT IS AT 1280px (Sep 2026, with the masthead).
+   The obvious rule is "bar logo wherever the bar is shown, home logo below 640px" — and it does not fit.
+   MEASURED, in a browser, with the seven tabs in: the brand costs the bar 171px at Medium text and 292px
+   at Very large, and the bar has that much to spare only from 1280px up. Below it the tabs are pushed off
+   the end — 171px of overflow at 901px, 76px at 1000px, 70px at 1200px at Very large — which takes a
+   destination away to make room for an ornament, exactly backwards. (The band rules further down already
+   claw back what they can between 641 and 900px, and that is spent on the tabs.)
+   So the BAR's logo is shown from 1280px up and the HOME page's from 1279px down, and exactly one of the
+   two is on screen at every width — including a landscape tablet, which gets it at the head of the home
+   page rather than in the bar. `.home-brand` is a block of its own above the greeting; it takes no
+   pointer, being a heading on the page it would have linked to. */
 .topbar .brand{display:none;}
-@media (min-width:901px){ .topbar .brand{display:flex;} }
+@media (min-width:1280px){ .topbar .brand{display:flex;} }
 .home-brand{display:flex; cursor:default; margin:0 0 18px;}
-@media (min-width:901px){ .home-brand{display:none;} }
+@media (min-width:1280px){ .home-brand{display:none;} }
 /* ...and on a phone it centres with the greeting under it, because that is what `.page-head` does
-   below 640px; between 641 and 900 the page head is ranged left and so is this. */
+   below 640px; between 641 and 1279 the page head is ranged left and so is this. */
 @media (max-width:640px){ .home-brand{justify-content:center;} }
 
 .nav{display:flex; align-items:center; gap:4px;}

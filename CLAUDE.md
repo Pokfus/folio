@@ -4055,12 +4055,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   logo with the tagline 'Memorize anything'"). It stood in the top bar once and was taken out; the `.brand`
   styles and the `route("home")` click handler were both LEFT BEHIND against its return, so this is the
   markup coming back to them rather than a new control. Three things.
-  **EXACTLY ONE OF THE TWO IS ON SCREEN AT ANY WIDTH, AND THE SPLIT IS AT 901px RATHER THAN AT THE PHONE
-  BREAKPOINT.** The obvious rule — bar logo above 640, home logo below — leaves a 641–900px tablet with the
-  BAR's version, which does not fit: measured with the seventh tab in, that band is already 76px over at
-  760px and 134px over at 700px before any logo is added, which is what the padding-and-tracking rules in
-  that media query exist to claw back. So `.topbar .brand` is shown from 901px up and `.home-brand` from
-  900px down. Verified in a browser at 1280 / 820 / 390: 0px of top-bar overflow, and one logo at each.
+  **EXACTLY ONE OF THE TWO IS ON SCREEN AT ANY WIDTH, AND THE SPLIT IS AT 1280px — MEASURED, NOT CHOSEN.**
+  The obvious rule is "bar logo wherever the bar is shown, home logo below 640px", and it does not fit: in a
+  browser, with the seventh tab in, **the brand costs the top bar 171px at Medium text and 292px at Very
+  large**, and the bar has that much to spare only from 1280px up. Below it the tabs are pushed off the end
+  — 171px of overflow at 901px, 76px at 1000px, and 70px at 1200px at Very large — which takes a DESTINATION
+  away to make room for an ornament. So `.topbar .brand` shows from 1280px up and `.home-brand` from 1279px
+  down. Re-measured after the change: the bar's overflow is now identical with the brand and without it at
+  every width and both text sizes. **The cost is stated rather than hidden: a landscape tablet gets the logo
+  at the head of the home page rather than in the bar**, which is the same place a phone gets it.
   **THE TAGLINE IS AUTHORED BRITISH, like every other string on the site.** `spellText` runs over the whole
   document body, so an American reader is shown "Memorise" → "Memorize" by the same table that handles the
   rest of the prose — which needed a **`memoris`/`memoriz` row added to `SPELL_PAIRS`**, since the word was
