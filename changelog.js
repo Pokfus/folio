@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.655", released: "2026-09-06T07:43Z" };
+window.FOLIO_VERSION = { v: "1.656", released: "2026-09-06T09:48Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-06",
     t: "A logo, and the same figures on every geography card",
     items: [
-      "<b>The Folio logo and its tagline</b> are now in the menu bar, and at the top of the home page on a phone.",
+      "<b>The Folio logo and its tagline</b> are now in the menu bar, and at the top of the home page on a phone, the tagline set under the name.",
       "<b>The Picture round no longer repeats the picture’s credit</b> under the answer — it is on the picture itself.",
       "<b>The Picture round’s sources start folded away</b>, so the answer is what you meet first.",
       "<b>The streak-chest meter drops its “3 / 7”</b>, leaving the row of days and the chest they earn.",
@@ -50,7 +50,7 @@ window.CHANGELOG = [
       "<b>Every capital city gives its state, population, rank in the country and recent population growth</b>, with a question mark where the figure could not be found.",
       "<b>Timeline now says what each revealed date is</b> — a birth, a reign, a founding — rather than the year alone.",
       "<b>“Recalled on X of 3 days” is set like the labels beside it</b> at the top of a study card.",
-      "<b>“Think it through” now only ever asks why-questions about the card’s own answer.</b>",
+      "<b>“Think it through” now only ever asks why-questions about the card’s own answer</b>, and 125 World History cards have gained a set.",
       "<b>Etruscan Campania is drawn as a region on the map</b> rather than as a single dot.",
       "<b>Ten new cards in the Biology collection</b>, opening its chapter on the cell.",
       "<b>The word <i>cell</i> now opens its own glossary entry wherever it appears</b>, which it did not before.",
