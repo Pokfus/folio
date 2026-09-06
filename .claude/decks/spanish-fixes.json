@@ -6595,6 +6595,217 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/el abuelo, la abuela": {
+      "why": "Its second gloss was 'loose tufts of hair in the nape when one's hair is messed up' - a regional sense of abuelo lifted whole out of a dictionary and offered as the second thing to know about the word. GRANDMOTHER, meanwhile, was missing, on a card that is a pair: the sixth in this deck after el hijo, el hermano, el chico, el tío and el novio. los abuelos, which is the card's own third example, is grandparents.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "abuelo — grandfather",
+            "abuela — grandmother"
+          ]
+        ],
+        [
+          "noun, masculine plural",
+          [
+            "los abuelos — grandparents"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la cocina": {
+      "why": "'kitchen, stove, cooker, range' - three words for the appliance and none for COOKING, which is what the card's own third example is ('la cocina no es una de sus habilidades'). Its second example bolds cocinas in 'luego la cocinas' - the VERB cocinar in the second person, not the plural of the noun - and is a proverb about catching a hare.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "kitchen",
+            "cooking, cuisine (la cocina española — Spanish cooking)",
+            "cooker, stove"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las cocinas"
+        ],
+        [
+          "verb",
+          "cocinar"
+        ]
+      ],
+      "bold": [
+        "cocina",
+        "cocinas"
+      ],
+      "dropEx": [
+        "Primero atrapa tu liebre y luego la cocinas."
+      ],
+      "ex": [
+        [
+          "La cocina es muy grande.",
+          "The kitchen is very big."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la derecha": {
+      "why": "Its second example bolds derechas in 'las paredes no estaban derechas' - the ADJECTIVE derecho meaning straight, which is a different word from the noun the card teaches and which it did not list. a la derecha, which is its third example, had no line, and the political sense - which la izquierda now carries - was missing from this side.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "the right, the right-hand side",
+            "the Right (in politics)"
+          ]
+        ],
+        [
+          "adjective",
+          [
+            "derecho, derecha — right; straight"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "a la derecha — on the right, to the right"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "opposite",
+          "la izquierda"
+        ]
+      ],
+      "bold": [
+        "derecha",
+        "derechas"
+      ],
+      "rebold": true
+    },
+    "delea1/el piso": {
+      "why": "Two glosses about floors and neither of them the sense a reader in Spain meets first: EL PISO IS A FLAT. All three of the card's examples are the storey sense, so the commonest meaning of the word was nowhere on it.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "flat, apartment (in Spain)",
+            "floor, storey (of a building)",
+            "floor, ground"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el director, la directora": {
+      "why": "'director, conductor (of a musical ensemble)' - and TWO of the card's three examples translate it 'principal', a head teacher, which it did not list.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "director, manager",
+            "head teacher, principal (of a school)",
+            "conductor (of an orchestra)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el tren": {
+      "why": "'train' alone, while the card's own third example is coger el tren - and which verb you use depends on where you are, coger in Spain and tomar across most of Latin America, where coger is obscene.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "train"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "en tren — by train",
+            "coger el tren — to catch the train (tomar in Latin America)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el papel": {
+      "why": "'paper, role' is right and bare; hacer el papel de is how the second sense is actually used.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "paper",
+            "role, part"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "hacer el papel de — to play the part of"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/según": {
+      "why": "'according to, as, just as, the same way' - four glosses across two parts of speech with nothing to separate them.",
+      "senses": [
+        [
+          "preposition",
+          [
+            "according to"
+          ]
+        ],
+        [
+          "conjunction",
+          [
+            "as, depending on how (según te lo voy diciendo)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la iglesia": {
+      "why": "'church' alone; ir a la iglesia is the card's own first example and Spanish drops the article where English keeps it the other way round.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "church"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "ir a la iglesia — to go to church"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/inteligente": {
+      "why": "Two examples where every other card has three - the fourth card in the deck short of one, after nadie, mío and tuyo.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "intelligent, clever"
+          ]
+        ]
+      ],
+      "ex": [
+        [
+          "Es un chico muy inteligente.",
+          "He's a very intelligent boy."
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
