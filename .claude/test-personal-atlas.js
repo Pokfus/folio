@@ -330,9 +330,11 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
   check("the Atlas zooms deeper than it used to", !!zm && Number(zm[1]) > 30, zm ? "ZMAX " + zm[1] : "not found");
 
   /* THE CITATIONS OPEN SHUT (on request: "all atlas popups should have their sources section collapsed
-     by default"). The panel's own Sources section and the card back inside it are two folds in one
-     popup, and only the second can be tested here — `country-sources.js` ships empty, so the panel's
-     own section is hidden on every place. */
+     by default"). A popup carries TWO folds and both are asserted: the card back's, on this tab, and the
+     world panel's own Sources section, which is why the second half of this crosses to the other tab.
+     (`country-sources.js` holds 56 places and 282 citations — it was empty once, and CLAUDE.md still said
+     so, which is how the first draft of this comment came to claim the panel's fold could not be tested
+     at all.) */
   let shut = null;
   for (let dx = -240; dx <= 240 && shut === null; dx += 26) {
     for (let dy = -190; dy <= 190 && shut === null; dy += 26) {
@@ -347,6 +349,17 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
     }
   }
   check("a place's citations start collapsed", shut === true, String(shut));
+
+  await page.evaluate(() => { const b = document.querySelector('[data-atlastab="world"]'); if (b) b.click(); });
+  await page.waitForTimeout(2500);
+  await page.evaluate(() => { location.hash = "#map/2026/france"; });
+  await page.waitForTimeout(2200);
+  const panelSrc = await page.evaluate(() => {
+    const sec = document.getElementById("cpSrcSec");
+    if (!sec || sec.hidden) return "no section";
+    return sec.classList.contains("collapsed") ? "collapsed" : "open";
+  });
+  check("...and so does the world panel's own Sources section", panelSrc === "collapsed", panelSrc);
 
   check("no console or page errors throughout", errs.length === 0, errs.slice(0, 3).join(" | "));
   await browser.close();

@@ -6160,7 +6160,10 @@ through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`
 P1–P7, which complete Phase 2 — all 45 US presidents; C0–C12, which take Phase 3 through every region;
 D1–D3, which clear the European and Asian deferral lists and the last four terms; and **N1–N10,
 sixty-eight new Palaeolithic terms written cited rather than cited afterwards** — which is how the pass stays
-complete: a term added after it joins at the bar instead of reopening a backlog). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+complete: a term added after it joins at the bar instead of reopening a backlog). `country-sources.js` carries **56 places and 282 citations** — it was empty when this paragraph was
+written and that sentence stood after it had been filled, which is what a hand-written claim about a data
+file does; **count it rather than quoting this**. The Atlas panel shows a Sources fold on a cited place
+and none on the rest, and since Sep 2026 that fold opens SHUT (see the source-footnotes bullet).
 **N9 is the batch that measured a rule change, and its finding is that the change buys less than it
 sounds like.** The rule was relaxed on request — **an encyclopedia may be cited, but only if that
 encyclopedia cites its sources** — and the test to apply is **per article, for that article's own
@@ -6710,7 +6713,16 @@ dead code (never rendered).
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
     community store's record shape, or the `fn` / `data-fn` sanitizer allowlists.**
   · `node .claude/test-layout.js` — 332 assertions on **the shell**: the rules that break silently
-    because nothing throws when a layout is wrong. **Re-run after touching `.tabbar` / `--tabbar-h` /
+    because nothing throws when a layout is wrong. **ITS FIXTURE MUST DISMISS EVERY FIRST-VISIT OVERLAY
+    AND LAND ON THE TAB IT MEANS TO MEASURE**, and both halves of that cost the suite fifteen assertions
+    in Sep 2026 — it was red on `main` for a day, which is the state in which a suite guards nothing.
+    `atlas()` now presses through to the WORLD tab (the personal one hides the search and the legend
+    outright, so eight assertions about the chip layout read `{"w":0,"shown":false}` and failed on a
+    feature working perfectly one press away), and `watch()` sets `folio_marker_tour_v1` beside the
+    library's key (the marker's coach marks open with its panel and cover the marker, so from the second
+    press on every click meant for it hit the card — which also **timed out and took the suite down
+    before its summary**, so the run reported nothing at all). **When a feature gains a first-run card or
+    a new default tab, the fixtures are part of the change.** **Re-run after touching `.tabbar` / `--tabbar-h` /
     `--timebar-h` / `layoutTicks` / the Atlas chrome's media queries / `.settings` / `.auth-split` / the
     coming-soon rows / `.home-collections` / `.games-sec` / `.home-about` /
     `gameSub` / `pileCounts` / `adProg` / `.active-deck` / `gbWireResize` / `.gb-fold` /
@@ -6720,8 +6732,8 @@ dead code (never rendered).
     `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` / the ink layer's
     pass-through / `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on
     `.admin-list-items` / `cpResize` / `cpContentNeedH` / `cpColsContentH` / `cpRoomH` / `cpMaxH` /
-    `.cp-titlemain` / `lockHeight`, or after adding an
-    overlay to `document.body`.**
+    `.cp-titlemain` / `lockHeight` / `atlasTab` / `MARKER_TOUR_KEY` / the `.wb-panel` row markup, or
+    after adding an overlay to `document.body`.**
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js` —
     including that **`SEEN_CAP` still clears the shipped universe with room to spare**, since every geo
@@ -6836,7 +6848,7 @@ dead code (never rendered).
     three article spans) is exempt and must stay so**: the slash cannot be spoken and picking one gender
     asserts what the card declines to. Report-only, exit 1 on a finding. **Re-run after rebuilding any
     deck, and after touching `say_text` in cils/build_deck.py or the `say` block in delf/build_deck.py.**
-  · `node .claude/test-personal-atlas.js` — **the Atlas's second tab** (34 assertions, Sep 2026), and
+  · `node .claude/test-personal-atlas.js` — **the Atlas's second tab** (36 assertions, Sep 2026), and
     every fault it guards is silent: a globe with nothing on it looks exactly like a reader who has
     studied nothing, a place resolved in the wrong year looks like a deliberate absence, and a popup
     that has quietly gone back to the world atlas's country panel is a perfectly good country panel. The
