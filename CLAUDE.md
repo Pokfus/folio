@@ -1254,9 +1254,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1–G13 have shipped — one hundred and fifty-seven backgrounds rewritten** (`gw-001`–`gw-211`, less
+    **G1–G14 have shipped — one hundred and sixty-nine backgrounds rewritten** (`gw-001`–`gw-211`, less
     the deferrals below), each five sentences of landform, water and climate over five of the country's
-    own history, with one hundred and forty-three date lines rewritten out of the same research. Three sources make the
+    own history, with one hundred and fifty-five date lines rewritten out of the same research. Three sources make the
     pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
@@ -1268,20 +1268,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Commonwealth Secretariat's member page and the International Court of Justice's own case record as
     their fifth source instead. **AND AN AQUASTAT URL MUST BE READ, NEVER COMPOSED**: eight of G2's twelve guesses
     were wrong and one pointed at another country's profile — and **a 200 on a `.pdf` address is not a
-    PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **FORTY-SEVEN
+    PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **THIRTY-EIGHT
     COUNTRIES AND TERRITORIES HAVE NO AQUASTAT PROFILE AT ALL** — the list grows fastest in the
-    small-island tail, where the deck fills with dependencies the FAO carries no code for — `gw-003`, `gw-019`, `gw-021`,
-    `gw-023`, `gw-025`, `gw-032`, `gw-037`, `gw-042`, `gw-054`, `gw-067`, `gw-072`, `gw-082`, `gw-088`,
-    `gw-090`, `gw-093`, `gw-094`, `gw-097`, `gw-098`, `gw-100`, `gw-104`, `gw-110`, `gw-111`,
-    `gw-115`, `gw-117`, `gw-119`, `gw-120`, `gw-121`, `gw-123`, `gw-130`, `gw-135`, `gw-136`,
-    `gw-153`, `gw-167`, `gw-171`, `gw-178`, `gw-180`,
-    `gw-182`, `gw-186`, `gw-187`, `gw-192`, `gw-193`, `gw-195`, `gw-198`,
-    `gw-200`, `gw-201`, `gw-203`, `gw-204`, `gw-205` — plus every one of `gw-207`–`gw-233`, probed in
+    small-island tail, where the deck fills with dependencies the FAO carries no code for — `gw-072`, `gw-082`, `gw-088`, `gw-090`, `gw-093`, `gw-094`, `gw-097`, `gw-098`, `gw-100`,
+    `gw-104`, `gw-110`, `gw-111`, `gw-115`, `gw-117`, `gw-119`, `gw-120`, `gw-121`, `gw-123`,
+    `gw-130`, `gw-135`, `gw-136`, `gw-153`, `gw-167`, `gw-171`, `gw-178`, `gw-180`, `gw-182`,
+    `gw-186`, `gw-187`, `gw-192`, `gw-193`, `gw-195`, `gw-198`, `gw-200`, `gw-201`, `gw-203`,
+    `gw-204`, `gw-205` — plus every one of `gw-207`–`gw-233`, probed in
     G13 and none of them carried. **THAT RECIPE IS THEREFORE FINISHED**, and what replaced source 1 is
     the CBD profile promoted to carry the landform with **UNEP-WCMC's Protected Planet** country profile
     beside it: a CBD profile's PHYSICAL content scales inversely with the country's size, so the small
     states the tail is made of are exactly the ones it describes in relief, watersheds and altitude
-    bands. Where it carries no climate, an open paper on the country's own hydrology does. The rest were
+    bands. Where it carries no climate, an open paper on the country's own hydrology does — and **the
+    uniform answer for climate is the World Bank's ERA5 climatology, one request per country**
+    (`cckpapi.worldbank.org/cckp/v1/era5-x0.25_climatology_tas,pr_…/<ISO3>?_format=json`), which
+    answers for all 233 including the ones no UN body carries; the portal's own human-readable pages
+    are 403 here, so the API route is what is cited. **AND THE CONSTITUTE PROJECT HAS NO UNITED
+    KINGDOM**, which is not a gap but the fact that there is no codified text to carry —
+    `legislation.gov.uk` serves the Acts of Union of 1706 and 1800 and the Scotland Act 1998 instead.
+    **AND RULE 2 TAKES THE CAPITAL'S NAME OUT OF THE HISTORY BLOCK**, which on the great powers is the
+    binding constraint rather than a nicety: the grid prints Capital and Largest city, so a background
+    may not say Berlin, Paris, Rome, Madrid or Warsaw at all, and the Treaty of Paris, the Berlin Wall
+    and the Grand Duchy of Warsaw have to be written round. **AND THE AUDIT DOES NOT EXEMPT `gw-003`
+    FROM RULE 1**, nor could it — the card's own answer term is the United States — so exactly one
+    card will always stand in that list. The rest were
     deferred rather than half-solved before that: the
     World Bank's open climate API and the national met services answer for the weather, and nothing
     reachable carries the LANDFORM. **AND THE COUNTRY PAGE 301-REDIRECTS**, so a `curl` without `-L`

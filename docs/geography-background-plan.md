@@ -125,6 +125,13 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G14 — the twelve largest deferrals, and the ones the pass most needed**: `gw-003`
+  the United States, `gw-019` Germany, `gw-021` the United Kingdom, `gw-023` France, `gw-025` Italy,
+  `gw-032` Spain, `gw-036` Afghanistan, `gw-037` Canada, `gw-042` Poland, `gw-054` Australia, `gw-060`
+  Taiwan and `gw-067` Romania, with all twelve date lines rewritten off the same research. Ten of them
+  had no AQUASTAT profile and the other two were deferred for reasons of their own, so the whole batch
+  is written on G13's replacement recipe.
+
 - **2026-09-06, batch G13 — twelve more, and the first written WITHOUT an AQUASTAT profile**: `gw-114`
   Singapore, `gw-146` Albania, `gw-149` Slovenia, `gw-152` North Macedonia, `gw-168` Luxembourg, `gw-170`
   Montenegro, `gw-172` Malta, `gw-188` Kiribati, `gw-191` Micronesia, `gw-194` Tonga, `gw-199` Andorra and
@@ -263,6 +270,73 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G14 found
+
+**These were the worst cards in the collection and that is why they were left until now.** Before this
+batch, `gw-003` was ten sentences on the drafting of the Declaration of Independence and the Louisiana
+Purchase; `gw-021` was a list of the consular posts opened at Leith, Belfast, Falmouth and Cardiff and
+the years each closed; `gw-023` was the XYZ affair and the Quasi-War. None of the twelve said where the
+country is, what it is made of or what its weather does. They were deferred because the FAO carries no
+AQUASTAT profile for a rich northern state, and G13's replacement recipe is what unblocked them.
+
+**THE UNIFORM CLIMATE SOURCE IS THE WORLD BANK'S ERA5 CLIMATOLOGY, AND IT ANSWERS FOR EVERY COUNTRY IN
+THE DECK.** AQUASTAT's value was that one document carried landform, water AND climate; the CBD profile
+carries the first two and says nothing about weather. One request to
+`cckpapi.worldbank.org` returns the 1991–2020 mean annual temperature and precipitation for an ISO3
+code — Canada at −3.7 °C and 669 mm, Australia at 22.2 °C and 454 mm, Taiwan at 20.3 °C and 2,829 mm,
+Spain the driest of the large western European states at 647 mm. **It answers for Taiwan**, which no UN
+statistical source does, and for Kosovo and every other code outside the UN system, so it closes the
+one hole D2 recorded as needing a different CLASS of source. The portal's own human-readable pages are
+403 from here, so the API route is what is cited; it returns JSON a reader can open and check.
+
+**THE RECOGNITION GUIDE'S SUMMARY PARAGRAPH IS A COUNTRY HISTORY, AND ON THESE TWELVE IT IS THE BEST ONE
+AVAILABLE.** C12 found that a page which opens with a sentence of CONTEXT before the recognition
+paragraph carries the independence date; here the context runs to whole paragraphs. Poland's gives the
+elective monarchy, the liberum veto, the three partitions, the republic of 1918, the corridor to the
+Baltic and the Treaty of Riga; Romania's gives the 1862 union of Moldavia and Wallachia, Charles of
+Hohenzollern-Sigmaringen, the 1878 treaties and the 1989 revolution; Australia's gives the six colonies,
+the Balfour Declaration and the Statute of Westminster Adoption Act with its retroactive date. **The
+exception is the United Kingdom, whose page is about America from its first line to its last** — the
+guide is written from the United States outward, and the UK is the state it separated from — so that
+card's history is taken from `legislation.gov.uk` instead.
+
+**AND THE CONSTITUTE PROJECT HAS NO UNITED KINGDOM.** That is not a gap in the site but the fact it
+records: there is no codified text to carry. The Acts of Union of 1706 and 1800 and the Scotland Act
+1998 are all served in full at `legislation.gov.uk`, which is a better source for that state's shape
+than any single document would be. Germany's slug is **`German_Federal_Republic_2014`**, not
+`Germany_<year>`, and it was found the way C1 says to find one — by grepping the search page's own
+hrefs, after six guessed years returned 404.
+
+**RULE 2 TAKES THE CAPITAL OUT OF THE HISTORY BLOCK, AND ON THE GREAT POWERS THAT IS THE BINDING
+CONSTRAINT.** The facts grid prints Capital and Largest city, so the audit counts a bare "Berlin",
+"Paris", "Rome", "Madrid" or "Warsaw" as a repeat wherever it stands — which rules out the Treaty of
+Paris, the Berlin Wall, the Congress of Vienna's Polish settlement written round the Grand Duchy of
+Warsaw, and, on Afghanistan, **the Kabul River**, the longest river in the country. Those sentences have
+to be written another way: the Afghan card names the Helmand, the Harirod-Murghab, the Northern and the
+Panj Amu and calls the fifth "the river that flows east to the Indus".
+
+**THE AUDIT DOES NOT EXEMPT `gw-003` FROM RULE 1, AND CANNOT.** Rule 1 is "no United States on a card
+that is not the United States", and the card's own answer term is that name, so it appears in the
+rule-1 list and always will. Exactly one card stands there legitimately; every other name on that list
+is still work.
+
+**FOUR WRONG AUTO-LINKS, THE MOST ANY BATCH HAS PRODUCED, AND ALL FOUR WERE FOUND BY READING THE
+RENDERED CARDS.** `Mazu` is a Chinese sea goddess in this glossary, so the island group off Taiwan
+linked to a deity — the sharpest mis-link the pass has turned up — and it is now spelled Matsu.
+`Commonwealth` resolves to the Commonwealth of Nations, which is neither the Polish-Lithuanian
+Commonwealth nor the Commonwealth of Australia, so both were reworded. And `Turkey` is the modern
+republic, so "the Russo-Turkish war of 1877 to 1878" sent a reader to a country that did not exist for
+another forty-five years; the sentence now names the Ottoman Empire, which the glossary does not carry
+and so cannot mis-link. **One was left standing and recorded rather than reworded**: "the Philippine Sea
+plate" links to the Philippines, which is the water-body class CLAUDE.md already measures — the sea IS
+named after the country, so the link is related rather than wrong, and the fix belongs in a glossary
+entry rather than in this card's prose.
+
+**AND THE SHIPPED CARDS DISAGREE ABOUT THE BOLD ANSWER TERM.** Measured over the 233 country cards, 185
+carry a `<b>` on the answer term at first mention and 48 do not, and the 48 include every card G13
+shipped. The house rule says it is bolded; this batch bolds. **It is worth one sweep of its own rather
+than a fix per batch.**
 
 ## What G13 found
 
@@ -770,6 +844,6 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
   and put a fifth in its place.
 
-**Rules 1 and 3 remain open on about 280 cards.** Run `node .claude/gw-audit.js` for the live figures.
+**Rules 1 and 3 remain open on about 270 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*
