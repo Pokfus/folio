@@ -218,7 +218,9 @@ function loadCorpus() {
   // glossary-extra.js — so load through the shared helper, which merges both. Requiring
   // glossary.js alone yields EMPTY GLOSSARY_IMAGES/GLOSSARY_SOURCES, silently.
   require("./gloss-io.js").loadGlossary(global.window);
-  require(path.join(ROOT, "artefacts.js"));
+  // the artefact pool is TWO files too, and the PICTURES this script repairs are in the lazy half —
+  // requiring artefacts.js alone yields an index with no `image` on any entry, silently
+  global.window.ARTEFACTS = require("./artefact-io.js").loadArtefacts();
   return global.window;
 }
 
@@ -272,7 +274,8 @@ for (const f of ["data.js", "glossary.js"]) {
 
 /* ---- artefacts: a title and a description where there were none ---- */
 {
-  const p = path.join(ROOT, "artefacts.js");
+  // the swaps below are against the file that actually HOLDS an image, which is the lazy half
+  const p = path.join(ROOT, "artefacts-extra.js");
   let src = fs.readFileSync(p, "utf8");
   let n = 0;
   /* The alt first, so a title/desc built below is built from the repaired text. It is a swap of the

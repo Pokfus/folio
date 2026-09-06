@@ -1268,6 +1268,13 @@ body[data-theme="folio"] .collection-deco::after{
    under its name or beside it was a function of the window and of how long that deck happened to be
    called — which is what made "the same way history decks do" impossible to point at. */
 .node-meta{display:flex; align-items:center; gap:9px; flex-wrap:wrap; row-gap:4px; margin-top:5px;}
+/* A LANGUAGE DECK'S OWN LINE — what it is and when to study it (Sep 2026). Quiet ink and a measure that
+   stops well short of the row's width: it is guidance under a title, not a paragraph, and a line that
+   ran the full width of a wide row would read as the deck's description rather than as a caption. */
+.node-sub{
+  margin-top:4px; font-family:var(--sans); font-size:calc(11.5px * var(--fs));
+  line-height:1.45; color:var(--ink-faint); max-width:52ch;
+}
 .node-meta:empty{display:none;}
 .node-title{font-family:var(--serif); font-weight:600; font-size:calc(17px * var(--fs)); line-height:1;}
 .node-span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
@@ -1285,6 +1292,15 @@ body[data-theme="folio"] .collection-deco::after{
    and a size hidden on a phone is a size hidden from most readers, which on a 21 MB download is exactly
    the wrong half to lose. Wrapping costs a row nothing at any width the figures fit. */
 .node-size{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); opacity:.72; white-space:nowrap;}
+
+/* WHAT A DECK TEACHES, beside how big it is (Sep 2026, on request). Set as the count and the size are —
+   same face, same size, same quiet ink — because these are figures on the same line and a fourth
+   typographic treatment on one row is noise. They are drawn only where they VARY: every deck on the
+   shelf is asked both ways, so that fact says nothing; audio is the norm, so only its absence is
+   printed, and `.node-fact-no` gives that one the ochre the site already uses for a fact a reader
+   should notice without being warned by it. */
+.node-fact{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); opacity:.72; white-space:nowrap;}
+.node-fact-no{color:var(--ochre); opacity:.9;}
 
 /* ============================================================
    STUDY / FLASHCARD  (mirrors the source collection card CSS)
@@ -1357,7 +1373,15 @@ body[data-theme="folio"] .collection-deco::after{
    The stars therefore stop being absolute HERE and stay absolute nowhere else; `.card-stars` is emitted
    at exactly one site, so there is no other layout to keep in step. Where read-aloud is on, its mute
    button still holds the true corner, so the row keeps clear of it. */
-.study-card .q-head{display:flex; align-items:center; gap:12px; margin:0 0 7px;}
+/* IT IS A THREE-COLUMN GRID SINCE SEP 2026, and that is what centres the successive-relearning row the
+   request asked for: `1fr auto 1fr` gives the two OUTER columns an equal share of whatever is left, so
+   the middle one sits at the card's own centre — exactly, at every text size, with no offset written
+   down. A flex row cannot do it, because the state dot is a fourth item on the left whose width is
+   `calc(8px * var(--fs))`: flexing the label and the stars equally leaves the middle pushed right by half
+   the dot and its gap, which is a number that moves when the reader changes text size. Wrapping the dot
+   and the label in `.q-lead` makes the left column ONE item, which is what makes the grid possible. */
+.study-card .q-head{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px; margin:0 0 7px;}
+.study-card .q-head .q-lead{display:flex; align-items:center; gap:12px; min-width:0; overflow:hidden;}
 /* ...AND THE LABEL IS A FLEX ROW OF ITS OWN (Aug 2026, on a bug report that the dot, the word, the
    phrasing counter, the DIFFICULTY label and the stars sit at four different heights). The row above
    centres the two BOXES; inside the label the parts were still inline, so each aligned by its own rule —
@@ -1367,7 +1391,7 @@ body[data-theme="folio"] .collection-deco::after{
    centres on one line and that line centres against the stars, at every text size and with no offset
    anywhere. The per-part `vertical-align` rules below are inert in flex and are left as they are for
    any other context that ever renders them. */
-.study-card .q-head .label{margin:0; flex:1; min-width:0; display:flex; align-items:center;}
+.study-card .q-head .label{margin:0; flex:1 1 auto; min-width:0; display:flex; align-items:center;}
 .study-card:has(.tts-mute) .q-head{padding-right:38px;}
 .study-card .card-stars{position:static; flex:none; z-index:2; display:inline-flex; gap:2px; align-items:center; pointer-events:none;}
 /* WHERE THIS CARD STANDS, in the three colours the study bar's own counts use (Aug 2026, on request) —
@@ -1407,7 +1431,10 @@ body[data-theme="folio"] .collection-deco::after{
 .study-card .qc-btn svg{width:11px; height:11px;}
 .study-card .qc-btn:hover{opacity:1; background:color-mix(in srgb,var(--indigo) 14%, transparent);}
 .study-card .qc-btn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;}
-.study-card .qc-n{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; min-width:30px; text-align:center;}
+/* `nowrap` because the counter is a pair of numbers and a slash: with the header's middle column now
+   taken by the successive-relearning row, a narrow phone can squeeze this box to its 30px minimum,
+   and "2 / 3" then breaks across two lines — which makes the whole header two lines tall. */
+.study-card .qc-n{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; min-width:30px; text-align:center; white-space:nowrap;}
 .study-card .question{font-size:calc(18px * var(--fs)); line-height:1.62; margin:0 0 20px; color:var(--ink);}
 .study-card .blank{display:inline-block; box-sizing:border-box; width:2.7em; color:transparent; overflow:hidden; white-space:nowrap; vertical-align:baseline; border-bottom:2px solid var(--ochre); margin:0 3px; line-height:1;}
 /* the golden blank becomes a typing field; on reveal it is replaced by the typed letters, coloured
@@ -1445,6 +1472,36 @@ body[data-theme="folio"] .collection-deco::after{
 }
 .av-row{display:flex; align-items:center; gap:14px; margin-top:7px;}
 .av-row:empty{margin-top:0;}
+/* SUCCESSIVE RELEARNING — the pips under the answer term (see CRIT_DAYS in app.js). Three marks saying
+   which separate DAYS this card has been recalled on, which is the distinction the whole thing draws and
+   which a count could not make. Quiet by design: it is a record, not a demand, and it sits under a term
+   set at 25px, so it must not compete with it. It goes gold once the criterion is met, taking the same
+   ink the collection icons and the finished-deck bars use, so "you are done with this" reads the same
+   way everywhere on the site. */
+/* THE SUCCESSIVE-RELEARNING ROW LIVES IN THE STUDY CARD'S HEADER (Sep 2026, on request) — see
+   critPipsHTML in app.js, and the `.q-head` grid above for how it is centred. */
+.crit-row{display:flex; align-items:center; gap:7px; margin-top:9px;}
+.study-card .q-head .crit-row{margin-top:0; min-width:0; justify-self:center;}
+.study-card .q-head .card-stars{justify-self:end;}
+.crit-pips{display:inline-flex; gap:4px;}
+.crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--ink-faint); box-sizing:border-box;}
+.crit-pip.on{background:var(--ink-faint); border-color:var(--ink-faint);}
+.crit-lbl{font-size:calc(10.5px * var(--fs)); letter-spacing:.03em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap;}
+.crit-row.done .crit-pip{background:#C39A2E; border-color:#C39A2E;}
+body.night .crit-row.done .crit-pip{background:#D4AA3C; border-color:#D4AA3C;}
+/* the caption takes the DEEPER gold, for the reason `.prog-done .xp-lvl` does: #C39A2E at this size on
+   the card is 3.6:1, and this is 10.5px uppercase text */
+.crit-row.done .crit-lbl{color:#8A6A1E;}
+body.night .crit-row.done .crit-lbl{color:#E0C069;}
+/* ...and in the header a PHONE gets the pips alone (Sep 2026, on request: "only display the text on
+   desktop and tablet format. on mobile, only show the three dots"). Four things share that line — the
+   state dot, the "Question" label with its phrasing counter, this row and the difficulty stars — and
+   measured on a 390px screen the sentence alone is wider than the stars beside it. The whole sentence is
+   still on the row as its `aria-label` and its tooltip, which is the only form a reader who cannot see
+   three dots has ever had, so nothing is said by the words alone. */
+@media (max-width:640px){
+  .study-card .q-head .crit-lbl{display:none;}
+}
 .answer .val{font-family:var(--display); font-weight:600; font-size:calc(25px * var(--fs)); color:var(--zh); line-height:1.18; min-width:0; display:block;}
 /* THE ANSWER TERM ALWAYS OPENS ON A CAPITAL (Aug 2026, on request), even where the question and the
    background write it lower-case — here it is a heading naming the thing, not a word in a sentence.
@@ -1455,6 +1512,9 @@ body[data-theme="folio"] .collection-deco::after{
    changes what is painted and nothing else. It reaches the letter through inline descendants, and on a
    hanzi answer it is simply inert, there being no case to change. */
 .answer .val::first-letter{text-transform:uppercase;}
+/* …and the one exception, set by buildBack: a term whose own lower-case initial is part of its name
+   (pH, mRNA, tRNA), recognised by a lower-case letter followed immediately by a capital. */
+.answer .val.nocap::first-letter{text-transform:none;}
 .answer .val a{color:inherit; text-decoration:none; border-bottom:1px solid rgba(200,69,60,.34);}
 .night .answer .val a{border-bottom-color:rgba(240,147,139,.42);}
 /* column-gap 16, not the 7 it was: the label is a small-caps mono word and the value beside it is mono
@@ -5130,15 +5190,9 @@ button.game-tile .gt-glyph{opacity:.14;}
   body.grading .study-shell .undobtn{display:none;}
   .study-shell .undobtn{margin-left:0;}
 
-  /* ---- NOTHING ON A PHONE NAMES A KEY IT HAS NOT GOT (Aug 2026, on request) ----
-     The digit under each grade and the shortcut line in the ? bubble both describe a keyboard. A phone has
-     none, so on a phone they are two pieces of furniture explaining a control that cannot be reached: the
-     digits cost the four buttons a line of height each, and the shortcut line costs the bubble a third of
-     its own. They are hidden here rather than dropped from the markup, because the same markup is what a
-     desktop reader gets — and there the keys are real and worth saying. (The ≤430px block used to carry
-     the .gk rule alone; the whole phone range takes it now, so the two can't disagree.) */
-  .grade .gk{display:none;}
-  .grade-help-bubble .ghb-keys{display:none;}
+  /* (The shortcut digits and the ? bubble's key line are hidden across the whole TOUCH range — phone and
+     tablet alike — in the ≤1024px block below this one. They used to be hidden here; a tablet has no
+     keyboard either, so the rule had to widen, and it lives in ONE place so the two cannot disagree.) */
 
   /* ---------- the grade bar's two heights (Aug 2026, on request) ----------
      Drag the grip down and the bar halves: the four grades go side by side as bare COLOURS, and the ?,
@@ -5288,6 +5342,24 @@ button.game-tile .gt-glyph{opacity:.14;}
   .acct-syncnote{margin:-10px 0 16px; text-align:center; padding-left:0;}
 }
 
+/* ---- NOTHING TOUCH-SIZED NAMES A KEY IT HAS NOT GOT (Aug 2026, on request; widened to tablets Sep 2026,
+   on request: "on tablet, ensure the grading buttons don't mention their keyboard shortcuts") ----
+   The digit under each grade and the shortcut line in the ? bubble both describe a keyboard. A phone has
+   none and a tablet has none either, so on both they are furniture explaining a control that cannot be
+   reached: the digits cost the four buttons a line of height each, and the shortcut line costs the bubble
+   a third of its own. They are hidden rather than dropped from the markup, because the same markup is what
+   a desktop reader gets — and there the keys are real and worth saying.
+
+   THE BREAKPOINT IS 1024px, WHICH IS THE SITE'S OWN TABLET LINE — the width `--cp-sheet` already uses to
+   decide that the Atlas place panel is a sheet rather than a desktop column, so a tablet is one thing here
+   and not two. And it is ONE rule at ONE width rather than a copy inside each narrower block: the ≤640px
+   and ≤430px blocks both used to carry a `.gk` line of their own, which is exactly how two rules about one
+   decision come to disagree. */
+@media (max-width:1024px){
+  .grade .gk{display:none;}
+  .grade-help-bubble .ghb-keys{display:none;}
+}
+
 /* ---- narrow phones: the grade bar in ONE row ----
    Two rows of two, plus a row for help and suspend, took about a quarter of a 390px screen — over a card
    whose background already runs several screens. Four columns fit once the shortcut digits go (they name
@@ -5304,7 +5376,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   .grade{padding:9px 3px 8px; border-radius:9px;}
   .grade .gl{font-size:calc(10px * var(--fs)); letter-spacing:.02em;}
   .grade .gi{font-size:calc(9px * var(--fs)); margin-top:4px;}
-  /* (.grade .gk is hidden across the whole phone range — see the ≤640px block above) */
+  /* (.grade .gk is hidden across the whole TOUCH range, phone and tablet — see the ≤1024px block above) */
   .grade-wrap{gap:8px;}
   body.grading .stage{padding-bottom:150px;}
   body.grading .wb-tools{bottom:120px;}
@@ -6727,6 +6799,48 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
   background:color-mix(in srgb, var(--indigo) 26%, transparent);
   transition:width .2s var(--ease);
 }
+/* AN UPDATE IS AVAILABLE FOR A DECK ALREADY HERE (Sep 2026, on the 蛋糕 report). It shares Download's
+   markup and its bar because it is the same fetch, and differs in ink because it is a different offer:
+   Download is the only thing a pending row can do, where this sits on a row that is already perfectly
+   studiable and must not shout over the deck's own counts. Ochre rather than indigo — the site's
+   "worth knowing" colour, and never the red that would read as a fault in the reader's deck. */
+.btn.tiny.dk-up{
+  border-color:color-mix(in srgb, var(--ochre) 55%, var(--rule));
+  color:color-mix(in srgb, var(--ochre) 82%, var(--ink));
+  background:color-mix(in srgb, var(--ochre) 10%, transparent);
+}
+.btn.tiny.dk-up:hover{background:color-mix(in srgb, var(--ochre) 20%, transparent);}
+/* THE CHARACTER NETWORK (Sep 2026) — the other words in this deck built on the character just tapped.
+   It borrows `.ctx-menu`'s box, shadow and positioning rather than inventing a second floating panel;
+   what it adds is a scrolling list and a three-column row. Capped in height so a character used by
+   forty words cannot fill the screen, and the list scrolls inside it. */
+.charwin{padding:0; min-width:230px; max-width:min(360px, 92vw);}
+.cw-head{
+  display:flex; align-items:center; gap:9px; padding:9px 10px 8px;
+  border-bottom:1px solid var(--rule);
+}
+.cw-ch{font-family:var(--han); font-size:calc(21px * var(--fs)); line-height:1; color:var(--ink);}
+/* the character's own reading, beside it (Sep 2026). Set in the site's mono face rather than the Han one:
+   it is a romanisation, and setting it in the CJK face would file it with the character it describes. */
+.cw-r{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.02em; color:var(--zh);}
+.cw-n{flex:1; font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
+.cw-x{
+  flex:none; width:24px; height:24px; border:0; background:transparent; cursor:pointer;
+  font-size:calc(17px * var(--fs)); line-height:1; color:var(--ink-soft); border-radius:6px;
+}
+.cw-x:hover{background:var(--paper-2); color:var(--ink);}
+.cw-list{max-height:min(46vh, 320px); overflow-y:auto; padding:4px 0;}
+.cw-row{display:flex; align-items:baseline; gap:8px; padding:4px 10px;}
+.cw-row + .cw-row{border-top:1px solid color-mix(in srgb, var(--rule) 45%, transparent);}
+.cw-w{flex:none; font-family:var(--han); font-size:calc(15px * var(--fs)); color:var(--ink);}
+.cw-p{flex:none; font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--zh);}
+.cw-g{
+  flex:1; min-width:0; font-family:var(--sans); font-size:calc(11px * var(--fs));
+  color:var(--ink-soft); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.cw-more{padding:8px 10px; font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
+/* the character block's own characters are the handle, so they say so */
+.uc-chc{cursor:pointer;}
 .btn.danger{background:transparent; color:var(--zh); border-color:color-mix(in srgb,var(--zh) 45%, var(--rule));}
 .btn.danger:hover{background:var(--zh); color:#fff; border-color:var(--zh);}
 
@@ -8082,3 +8196,178 @@ body[data-theme="carnelian"].night .collection-deco{
     color-mix(in srgb,var(--coll-bg) 36%, var(--card)) 0 14px,
     color-mix(in srgb,var(--coll-bg) 18%, var(--card)) 14px 30px);
 }
+
+/* ==========================================================================================
+   THE FIRST-SESSION ORDER PICKER, AND THE DECK PRETEST (Sep 2026, on request)
+   ==========================================================================================
+   Two pages that stand between pressing Study and studying. Both are read ONCE per deck and then
+   never again, which decides how they are set: long lines, generous leading, nothing clever. A page
+   somebody reads once has to be legible on the first pass or it is not read at all.
+
+   The option cards are BUTTONS, so everything in them is a <span> — a <p> inside a <button> is invalid
+   and gets hoisted out by the parser, exactly as a <button> inside the review banner is. */
+.op-grid{display:grid; gap:14px; grid-template-columns:1fr;}
+@media (min-width:900px){ .op-grid{grid-template-columns:1fr 1fr;} }
+.op-card{display:flex; flex-direction:column; gap:9px; text-align:left; width:100%;
+  background:var(--paper-2); border:1px solid var(--rule); border-radius:14px;
+  padding:18px 18px 16px; cursor:pointer; color:inherit; font:inherit;
+  transition:border-color .22s var(--ease), transform .22s var(--ease);}
+.op-card:hover{border-color:var(--indigo); transform:translateY(-2px);}
+.op-card:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+.op-name{font-family:var(--display); font-size:calc(19px * var(--fs)); font-weight:600; color:var(--ink);
+  display:flex; align-items:baseline; gap:9px; flex-wrap:wrap;}
+.op-tag{font-family:var(--sans); font-size:calc(10px * var(--fs)); letter-spacing:.05em; text-transform:uppercase;
+  color:var(--ink-faint); border:1px solid var(--rule); border-radius:999px; padding:1px 7px;}
+.op-lead{font-size:calc(14.5px * var(--fs)); color:var(--ink); line-height:1.5;}
+.op-p{font-size:calc(13.5px * var(--fs)); color:var(--ink-soft); line-height:1.62;}
+.op-who{font-size:calc(13px * var(--fs)); color:var(--ink); line-height:1.5; font-style:italic;
+  border-top:1px solid var(--rule); padding-top:9px; margin-top:2px;}
+.op-go{align-self:flex-start; font-size:calc(12.5px * var(--fs)); font-weight:600; letter-spacing:.02em;
+  color:var(--indigo);}
+.op-card:hover .op-go{text-decoration:underline;}
+.op-foot{margin-top:20px; border-top:1px solid var(--rule); padding-top:16px;
+  display:flex; flex-direction:column; gap:12px; align-items:flex-start;}
+.op-foot p{font-size:calc(13.5px * var(--fs)); color:var(--ink-soft); line-height:1.62; margin:0; max-width:70ch;}
+.op-footacts{display:flex; gap:10px; flex-wrap:wrap;}
+
+/* the pretest — one question at a time, and no feedback until the end */
+.pt-intro,.pt-q,.pt-res{background:var(--paper-2); border:1px solid var(--rule); border-radius:14px; padding:20px;}
+.pt-intro p,.pt-res p{font-size:calc(14.5px * var(--fs)); line-height:1.66; color:var(--ink-soft); margin:0 0 12px; max-width:68ch;}
+.pt-acts{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+.pt-bar{height:4px; border-radius:999px; background:var(--rule); overflow:hidden; margin-bottom:18px;}
+.pt-bar i{display:block; height:100%; background:var(--indigo); transition:width .22s var(--ease);}
+.pt-qtext{font-family:var(--display); font-size:calc(19px * var(--fs)); line-height:1.62; color:var(--ink);}
+.pt-note{font-size:calc(12px * var(--fs)); color:var(--ink-faint); line-height:1.5; margin:14px 0 0;}
+.pt-list{display:flex; flex-direction:column; margin:16px 0 0; border-top:1px solid var(--rule);}
+.pt-row{display:grid; grid-template-columns:20px 1fr auto; gap:10px; align-items:baseline;
+  padding:8px 0; border-bottom:1px solid var(--rule); font-size:calc(13.5px * var(--fs));}
+.pt-mark{color:var(--ink-faint); text-align:center;}
+.pt-row.ok .pt-mark{color:var(--good);}
+.pt-ans{color:var(--ink); font-weight:600;}
+.pt-you{color:var(--ink-faint); font-style:italic;}
+
+/* ANSWER BEFORE REVEALING (see deckAttempt in app.js) — the held-back Reveal, its escape hatch and the
+   hint that says why. The hint is `hidden` rather than removed, so nothing reflows when it goes. */
+.reveal-cta{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:center;}
+.reveal-cta .btn:disabled{opacity:.45; cursor:not-allowed;}
+.reveal-hint{font-size:calc(12.5px * var(--fs)); color:var(--ink-faint); flex-basis:100%; text-align:center;}
+.reveal-hint[hidden]{display:none;}
+/* the grade the "I don't know" button suggests — a ring, never a fill: the reader still chooses */
+.grade.grade-suggest{box-shadow:inset 0 0 0 2px currentColor;}
+
+/* ELABORATION PROMPTS (see elabPromptHTML in app.js) — one per session, between the answer and the
+   background. Quiet and clearly not part of the card's own content: a dashed rule and the paper-2 ground,
+   so it reads as Folio asking a question rather than as another field of the card. */
+.elab{border:1px dashed var(--rule); border-radius:12px; background:var(--paper-2);
+  padding:14px 15px; margin:16px 0 4px; display:flex; flex-direction:column; gap:9px;}
+.elab-kind{font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
+.elab-q{margin:0; font-family:var(--serif); font-size:calc(16px * var(--fs)); line-height:1.6; color:var(--ink);}
+/* THREE QUESTIONS, EACH WITH ITS ANSWER BEHIND A BUTTON (Sep 2026, on request) — see elabPromptHTML.
+   A row is question + button on one line, with the answer uncovered underneath it. The button is
+   `flex:none` and the question `flex:1 1 auto` with `min-width:0`, so a long question wraps and the
+   button keeps its size rather than being squeezed to a word a line; below 520px the button drops to its
+   own line under the question, because at that width a right-hand column of "Show answer" leaves the
+   question about half the card. The rule between items is what stops three questions reading as one
+   paragraph with buttons in it.
+
+   IT IS SET IN THE CARD'S OWN TYPE (Sep 2026, on request: "change the fonts so it fits better with the
+   rest of the card"). The block was in the display face at the size of a heading, which read as a second
+   card sitting inside the first. Both halves take `--serif`, the face the question and the background are
+   already set in: the QUESTION at the abstract's own size in the full ink, the ANSWER at the abstract's
+   own size, leading and quieter ink exactly — so uncovering one reads as a paragraph of the card rather
+   than as a panel that has opened. NEITHER IS BOLD (Sep 2026, on request, having been for a few hours):
+   what tells a question from its answer is the ink and the rule the answer is indented under, and three
+   bold lines in a row read as three headings over a card whose own prose is not set that way. */
+.elab-item{display:flex; flex-direction:column; gap:7px; padding-top:10px; border-top:1px solid var(--rule);}
+.elab-item:first-of-type{padding-top:2px; border-top:0;}
+.elab-qrow{display:flex; align-items:flex-start; gap:12px;}
+.elab-qrow .elab-q{flex:1 1 auto; min-width:0;}
+.elab-qrow .elab-show{flex:none; white-space:nowrap; padding:6px 11px; font-size:calc(11.5px * var(--fs));}
+.elab-qrow .elab-show:disabled{opacity:.4; cursor:default;}
+/* the answer itself: the card's own prose, set off by a rule down its left edge so it reads as a reply to
+   the line above rather than as another paragraph of the background */
+.elab-a{margin:0; padding-left:12px; border-left:2px solid var(--rule);
+  font-family:var(--serif); font-size:calc(16px * var(--fs)); line-height:1.66; color:var(--ink-soft);}
+.elab-a[hidden]{display:none;}
+@media (max-width:520px){
+  .elab-qrow{flex-direction:column; align-items:flex-start; gap:8px;}
+}
+.elab-box{width:100%; box-sizing:border-box; resize:vertical; font:inherit;
+  font-size:calc(14px * var(--fs)); line-height:1.5; color:var(--ink);
+  background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:9px 11px;}
+.elab-box:focus-visible{outline:2px solid var(--indigo); outline-offset:1px;}
+.elab-acts{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+.elab-note{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
+/* the paragraph "Show me" opens onto, marked for a moment. A background wash rather than a border, so
+   nothing moves — a border would relayout the prose the reader has just been sent to read. */
+.abstract.elab-mark{background:var(--indigo-wash); border-radius:8px;
+  box-shadow:0 0 0 6px var(--indigo-wash); transition:background .3s var(--ease), box-shadow .3s var(--ease);}
+
+/* CAUSAL CHAINS — "what came of this" (see cardLeadsToHTML in app.js). A list of links at the foot of
+   the answer, outside the Background fold. Set as rows rather than as a sentence: each edge is a
+   separate claim about the past and reads as one. */
+.leadsto{margin-top:18px;}
+.lt-list{list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; gap:2px;}
+.lt-row{margin:0;}
+.lt-go{display:flex; flex-direction:column; gap:2px; width:100%; text-align:left;
+  background:none; border:0; border-left:2px solid var(--rule); padding:7px 0 7px 12px;
+  cursor:pointer; color:inherit; font:inherit; transition:border-color .22s var(--ease);}
+.lt-go:hover{border-left-color:var(--zh);}
+.lt-go:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+.lt-term{font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); color:var(--zh);}
+.lt-how{font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+/* the peek sheet a causal link opens */
+.cp-dates{margin:2px 0 10px;}
+.cp-lead{margin:0 0 4px; font-size:calc(14.5px * var(--fs)); line-height:1.62; color:var(--ink-soft);}
+
+/* ELABORATED FEEDBACK ON A MISSED CARD (see the gradeCloze block in app.js). The defining sentence,
+   directly under the answer and outside the Background fold, so a reader whose fold is collapsed still
+   gets an explanation rather than a bare term. Set in the answer's own red so it reads as part of the
+   correction rather than as the start of the prose below it. */
+.miss-lead{margin:12px 0 0; padding:11px 13px; border-radius:10px;
+  background:var(--zh-wash); border:1px solid var(--rule);}
+.miss-kind{display:block; font-size:calc(10px * var(--fs)); letter-spacing:.06em;
+  text-transform:uppercase; color:var(--zh); margin-bottom:5px;}
+.miss-lead p{margin:0; font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink);}
+/* the wrong option a reader actually chose, explained (see PAGES.challenge). Set apart from the answer's
+   own note above it by a rule rather than a colour, so it reads as a second paragraph and not a warning. */
+.mc-chose{border-top:1px solid var(--rule); padding-top:10px; margin-top:10px;}
+
+/* THE CONFUSION ROW (see noteConfusion in app.js) — the one thing on the home page that is personal to
+   this reader. Deliberately quieter than the review banner above it: it is a suggestion, not the day's
+   work, and it must never look like a warning about something being wrong with their study. */
+.confuse-row{display:flex; flex-direction:column; gap:4px; width:100%; text-align:left;
+  background:var(--paper-2); border:1px solid var(--rule); border-left:3px solid var(--newterm);
+  border-radius:12px; padding:13px 15px; cursor:pointer; color:inherit; font:inherit;
+  transition:border-color .22s var(--ease), transform .22s var(--ease);}
+.confuse-row:hover{transform:translateY(-1px); border-color:var(--newterm);}
+.confuse-row:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+.cf-main{font-family:var(--display); font-size:calc(15.5px * var(--fs)); color:var(--ink);}
+.cf-note{font-size:calc(12.5px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
+.cf-go{font-size:calc(12.5px * var(--fs)); font-weight:600; color:var(--newterm); margin-top:2px;}
+
+/* THE READER'S OWN FORGETTING CURVE, AND THE RECALLED-ONCE LIST (see forgettingCurveHTML in app.js).
+   Both are `.rs-card`s, so they take the statistics grid's own frame and need no layout of their own. */
+.fg-bars{display:flex; align-items:flex-end; gap:8px; margin-top:6px;}
+.fg-col{flex:1 1 0; min-width:0; display:flex; flex-direction:column; align-items:center; gap:5px;}
+.fg-track{width:100%; height:74px; background:var(--paper-2); border-radius:5px;
+  display:flex; align-items:flex-end; overflow:hidden;}
+.fg-track i{display:block; width:100%; background:var(--good); border-radius:5px 5px 0 0;}
+.fg-pct{font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--ink);}
+.fg-lbl{font-size:calc(10px * var(--fs)); color:var(--ink-faint); text-align:center; line-height:1.25;}
+.so-lead{margin:4px 0 8px; font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft);}
+.so-names{margin:0 0 12px; font-size:calc(13px * var(--fs)); line-height:1.6; color:var(--ink);}
+
+/* "HOW FOLIO STUDIES YOU" (see PAGES.how in app.js) — a page read once, so it is set as prose at a
+   comfortable measure rather than as a grid of cards. The claim is the heading, because the claim is
+   the point: a reader skimming should come away with the four sentences even if they read nothing else. */
+.how-list{display:flex; flex-direction:column; gap:22px;}
+.how-claim{border-left:3px solid var(--indigo); padding:2px 0 2px 16px;}
+.how-claim h3{margin:0 0 8px; font-family:var(--display); font-size:calc(19px * var(--fs));
+  line-height:1.35; font-weight:600; color:var(--ink);}
+.how-claim p{margin:0 0 8px; font-size:calc(14.5px * var(--fs)); line-height:1.68;
+  color:var(--ink-soft); max-width:72ch;}
+.how-so{color:var(--ink) !important; font-style:italic;}
+.how-foot{margin-top:26px; border-top:1px solid var(--rule); padding-top:16px;
+  display:flex; flex-direction:column; gap:12px; align-items:flex-start;}
+.how-foot p{margin:0; max-width:72ch; font-size:calc(13.5px * var(--fs)); line-height:1.62; color:var(--ink-soft);}

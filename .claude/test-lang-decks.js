@@ -636,11 +636,13 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
      looks exactly like a row that was never meant to, which is why nobody could tell whether this was a
      design or a bug, and why it is asserted rather than left to the eye.
 
-     ALL THREE ROUTES ARE ASSERTED because they are three different mechanisms: `contextmenu` is the
-     mouse's, the click is the tap's — this is the one row on the list whose tap opens its options rather
-     than a session, having no session to open — and Enter is the keyboard's, which only works because the
-     row is a real `role="button"` with a tab stop. A hold cannot be typed, so without that last one the
-     sheet would be unreachable without a pointer.
+     TWO ROUTES ARE ASSERTED because they are two different mechanisms: `contextmenu` is the mouse's and
+     Enter-after-a-hold is the keyboard's, which only works because the row is a real `role="button"` with
+     a tab stop. A hold cannot be typed, so without that last one the sheet would be unreachable without a
+     pointer. THE PLAIN TAP IS NO LONGER ONE OF THEM (Sep 2026, on a bug report: "I can't study [language
+     collections] directly in the way that I can with history collections"): the row carries `data-review`
+     now, so a tap studies the language and the sheet is what a hold opens — which is what a tap and a hold
+     mean on every other container row on this list.
 
      AND WHAT IS IN THE SHEET, in both directions. The rows a CONTAINER gets are the group's (a name, a
      colour, an icon and the session settings) and the ones it must not get are the daily allowances, which
@@ -661,9 +663,11 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
   if (head) {
     check("…which is a real button with a tab stop", head.role === "button" && head.tab === "0" && head.cursor === "pointer",
       JSON.stringify(head));
-    /* …and STILL not a review row. The fix gave it a role and a press; what it must not have gained is a
-       study scope, which is the thing the container was deliberately kept out of in the first place. */
-    check("…and still deals no cards of its own", !head.review);
+    /* …and IS a review row (Sep 2026). It was asserted the other way round until then, on the reasoning
+       that "study all of Spanish" is a scope the reader never asked for — and a reader asked for it, which
+       is the answer to that. The row already shows three coloured pile counts and a progress bar out of
+       `entryCardIds`; a row that claims cards and refuses to deal them is the odd one out on this list. */
+    check("…and deals the cards it claims, like every other container row", !!head.review);
 
     const sheetRows = async (open) => {
       await open();
@@ -680,15 +684,16 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
       document.querySelector(sel).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })), headSel));
     check("holding a language header opens its options", !!byHold && byHold.length > 0,
       JSON.stringify(byHold));
-    const byTap = await sheetRows(() => page.evaluate((sel) => document.querySelector(sel).click(), headSel));
-    check("…and so does a plain tap, this row having no session to open instead",
-      !!byTap && byTap.join("|") === (byHold || []).join("|"), JSON.stringify(byTap));
+    /* AND THE KEYBOARD, which is the Menu key rather than Enter since Sep 2026: Enter is bound to the TAP
+       handler, and the tap now studies the language. That is the row behaving like every other container
+       row on the list rather than a route being lost — `wireHoldMenu` binds Menu and Shift+F10 to the
+       sheet on all of them — and it still matters, because a hold is something that cannot be typed. */
     const byKey = await sheetRows(() => page.evaluate((sel) => {
       const e = document.querySelector(sel);
       e.focus();
-      e.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true }));
+      e.dispatchEvent(new KeyboardEvent("keydown", { key: "ContextMenu", bubbles: true, cancelable: true }));
     }, headSel));
-    check("…and Enter from the keyboard, a hold being something that cannot be typed",
+    check("…and the Menu key from the keyboard, a hold being something that cannot be typed",
       !!byKey && byKey.join("|") === (byHold || []).join("|"), JSON.stringify(byKey));
 
     const rows = byHold || [];
@@ -701,6 +706,36 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     check("…and the four allowance rows, which a language does have",
       ["Custom study", "Daily limits", "Scheduling", "Skip today"].every((k) => rows.indexOf(k) >= 0),
       JSON.stringify(rows));
+
+    /* A PLAIN TAP STUDIES IT INSTEAD (Sep 2026), and that is asserted by where the tap LANDS rather than
+       by what the session holds: the queue depends on what this device has downloaded and on the day's
+       allowances, where the route does not. `#study` — or the caught-up placard it falls through to — is
+       the whole claim: the row is no longer a dead end. The way BACK is the hash rather than a fresh
+       `goto`, which would reload the page and take the mounted decks with it. */
+    await page.evaluate((sel) => document.querySelector(sel).click(), headSel);
+    await page.waitForTimeout(700);
+    const tapLanded = await page.evaluate(() => ({ hash: location.hash, sheet: !!document.querySelector(".deck-menu") }));
+    check("…and a plain tap studies the language rather than opening the sheet",
+      tapLanded.hash.indexOf("#study") === 0 && !tapLanded.sheet, JSON.stringify(tapLanded));
+    await page.evaluate(() => { location.hash = "#home"; });
+    await page.waitForTimeout(700);
+
+    /* AND THE EDIT MODE'S CROSS REACHES IT (Sep 2026, on a bug report: "language collections don't have an
+       X to remove them"). The row is not itself in `S.active` — it is synthesised from the decks gathered
+       under it — which is why it was skipped when the mode was built, and `removeActive` has known what
+       removing one means all along. A row that can be removed from its own options sheet and not from the
+       mode built for removing rows is the mode having a hole in it, and a missing control looks exactly
+       like a control that was never meant to be there, which is why it is asserted rather than eyed. */
+    const crosses = async () => page.evaluate((sel) => {
+      const e = document.querySelector(sel);
+      return e ? !!e.querySelector(".dk-del") : null;
+    }, headSel);
+    check("a language header carries no remove cross at rest", (await crosses()) === false);
+    await page.evaluate(() => { const b = document.querySelector("#dkEdit"); if (b) b.click(); });
+    await page.waitForTimeout(500);
+    check("…and does once the deck list is being edited", (await crosses()) === true);
+    await page.evaluate(() => { const b = document.querySelector("#dkEditDone"); if (b) b.click(); });
+    await page.waitForTimeout(400);
 
     /* THE COLOUR REACHES EVERY DECK OF THE LANGUAGE, which is what makes the row a container rather than a
        label: the hue is passed DOWN the list's build, so a header that took a colour and kept it to itself

@@ -123,6 +123,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `river_italy` / `river_greece` | `rivers/<region>.js` | warmed at IDLE by a LOCATOR window in the Rome or Greece collection, never awaited (China has no river file) |
 | `worldcaps` | `world-capitals.js` | a map card asks for a DOT on the `world` layer (a capital card in the world collection). Its own bundle, and fetched only when a card carries `map.dot`: the shapes are `world`'s, which every map window already loads for the coastline under it, and a locator card reads those shapes and never this table |
 | `glossExtra` | `glossary-extra.js` | **warmed at IDLE after boot**, and awaited by `openGlossWin` for a reader who beats the warm. The glossary's CITATIONS and ILLUSTRATIONS — 54% of `glossary.js`, and nothing reads either until a popup opens |
+| `artefactExtra` | `artefacts-extra.js` | **warmed at IDLE after boot**, and awaited by the chest reveal, the Reliquary, a friend's collection and Admin → Artefacts. An artefact's DESCRIPTION, CITATIONS and PICTURE — **94% of `artefacts.js`** (237 KB of 251), and nothing reads any of them until a chest opens |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
 | ~~`glossI18n:<lang>`~~ | *(removed 2026-08-08)* | the glossary translations were deleted on request; `loadLangData` no longer asks for this bundle, and the registration in `langBundle` is inert |
 | `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
@@ -164,6 +165,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     exist?" but **"does that text say which section each passage is?"** — app.js pairs the two columns
     on the section NUMBER, never on paragraph or list order. The number need not be the unit the
     edition is DIVIDED into, nor an integer (a Bekker page is `1094a`).
+  · **AND THE TWO COLUMNS MUST BE ON ONE SCALE, which is a second question and cost Thucydides three
+    weeks** (Sep 2026, batch E44). Where a number is not one to sort on, the importer writes an
+    explicit `data-n` sort key beside the figure it prints, and app.js pairs on
+    `parseInt(data-n ?? text)` — so a book whose two columns are written by DIFFERENT extractors can
+    have each side locally correct and share no key at all: the English offered 1..146 against the
+    Greek's 100..14600 and 1,819 sections drew beside an empty cell. **A CHECK THAT COMPARES THE
+    PRINTED LABEL CANNOT SEE THIS**, both columns printing "34", which is what the importer's own
+    reconciliation did. `node .claude/check-pairing.js` asks it of the whole shelf in app.js's terms.
   · **And ask what the TRANSLATION is a translation OF** before assuming an original can be found: a
     composite of three traditions faces nothing. **And what a medieval original's EDITOR died** — a
     constituted text is a modern work with a modern copyright.
@@ -182,12 +191,137 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     colour row it falls through to the generic indigo.
   · **The entry says HOW THE EDITION IS SET, not just where it is** — `sections`, `layout`, `body`,
     `dropHeads`, `glyphs` and the rest are declared PER BOOK precisely so a rule written for one
-    cannot re-set another. **Twenty-two layouts** exist; reach for a **hook** before a layout.
+    cannot re-set another. **Twenty-six layouts** exist; reach for a **hook** before a layout.
   · **`--force` re-runs the EXTRACTOR** (the cache holds extracted prose, not the fetched page). The
     chapter titles and volume divisions are re-derived on every run, so re-titling costs no refetch.
+  · **MARKUP THE SOURCE ESCAPED IS DROPPED AT THE WRITE, AND THE EDITOR'S ANGLE BRACKET IS NOT**
+    (`dropEscapedTags`). Eight tags reached readers as characters — `<poem>`, a raw `<A HREF=…>` —
+    while a critical text supplies words the manuscripts lack INSIDE angle brackets: Godley's
+    `<Pisidians>`, Ross's `<are not wicked>`, the Latin Seneca's ninety-odd including **`<a>`, a
+    preposition and a tag name at once**. 166 of those stand on the shelf, so the rule is three narrow
+    tests — a CLOSING tag, an ATTRIBUTE, a DECLARED extension-tag name — and nothing else. It runs in
+    `writeEnglish`/`writeOriginal` and NOT in `stripTags`, which 21 call sites make look like the one
+    choke point and which the Rigveda's own flattener bypasses; `book-audit.js` carries the same three
+    tests over the shipped shelf.
+  · **AN ORIGINAL-LANGUAGE COLUMN HAS ITS OWN CORRECTION TABLE, `O.reFixes`** — declared rows and
+    nothing else, applied in `writeOriginal`. `BOOK.reFixes` is English and drags a romanisation pass
+    and a glyph table with it through `correctRaw`, which is why the original branches never called it
+    and why, until Sep 2026, a defect in an original could only be recorded.
+  · **AN ORIGINAL-LANGUAGE COLUMN CARRIES NO FOOTNOTE MARKER, BECAUSE IT CARRIES NO NOTES.** The
+    reader has one fold and gives it to the translation, so `writeOriginal` drops an original's notes —
+    and until Sep 2026 kept their markers: 483 in the Old English Beowulf, 84 in the Greek Herodotus.
+    `wireFootnotes` reads its list from the page's FIRST `.src-note`, which is the translation's, so
+    369 of them became clickable links offering a note about the English on a word of the Old English.
+    Stripped in `writeOriginal`; `book-audit.js` checks it, on the original side only.
+  · **AND THE MIRROR OF THAT: A NOTE THE FOLD CARRIES THAT NO MARKER POINTS AT** (Sep 2026, batch
+    E48). `teiSectionProse` lifts a note out where it stands and then keeps only what is inside a
+    `<p>`, so a note standing OUTSIDE one keeps its text and loses its marker. It happened once on the
+    whole shelf and it was not a footnote at all — Perseus tags the Loeb's one-line ARGUMENT of the
+    *Lysis* `type="Com"` and prints it ahead of section 203, so the dialogue shipped with fourteen
+    entries and thirteen markers numbered 2 to 14. **Nothing looked broken**: `wireFootnotes` gives an
+    uncited entry a plain number rather than a jump to nowhere, so the loss is one of meaning. The
+    rule now reads `type` as it already reads `place` — the argument is set as its own italic
+    paragraph at the head of its section, which is where the printed page puts it and the only place
+    that sweep can keep it — and it is deliberately NOT dropped, since dropping loses editorial text
+    the reader has. `teiSections` warns on any note whose marker did not survive, and `book-audit.js`
+    asks it of the whole shelf.
+  · **A BOOK'S FRONT MATTER COUNTS THINGS, AND A REPAIR DOES NOT TRAVEL TO IT** (Sep 2026, batch
+    E49). Four batches put 31 articles of the Summa back — 3,094 to 3,125 — and none touched the
+    sentence in its `about` that counts them; worse, the same front matter went on telling readers
+    that fourteen of its questions were missing an article heading, which those batches had made
+    untrue, and **no count anywhere disagrees with a sentence like that**. **When a batch changes what
+    a book HOLDS, grep that book's `about` for the figure**, as a card correction is grepped through
+    to its date line. `node .claude/check-counts.js` is the proxy — report-only, the NEAR MISS being
+    the signal, a count under 40 untested and the legitimate misses declared with reasons — and its
+    own header states the three things it cannot see.
+  · **A CORPUS-INTERNAL SPLIT TEST CANNOT FIND A RUN-TOGETHER WHOSE HALVES ARE RARE, AND LATIN'S OWN
+    MORPHOLOGY DROWNS IT** (Sep 2026, batch E54, finishing E28). 153 more lost spaces in the Latin
+    Seneca. A bare test — a token occurring once that splits into two words the column uses elsewhere —
+    returns **525 candidates and is useless**: the `-que` enclitic makes `voluptatemque` look like two
+    words and the prefixes make `transmittuntur` and `supervenerunt` look like two each. **Excluding a
+    split whose LEFT half is a prefix or whose RIGHT half is a bound ending takes it to 145**, at which
+    size every one can be read — and every survivor before letter 84 is a real Latin word, which is the
+    confirmation that the fault is the transcription's last quarter rather than the language. Three
+    escaped even that: one outside E28's stated range, one whose half occurs NOWHERE else, and two with
+    a CRUX between the words, which `lostSpaces` cannot express (letters-only keys) and which went to
+    `O.reFixes`. **637 rows fired and none was reported dead.**
+  · **A CRUX IS NOT OCR DAMAGE, AND A BOOK MUST SAY WHAT ITS MARKS MEAN** (Sep 2026, batch E53). The
+    Latin Seneca prints 19 passages between TILDES — its transcription's daggers, round text the
+    manuscripts hand down corrupt (`~aitarens malitia et ea agitata~`, where *aitarens* is not a Latin
+    word) — and 76 SQUARE BRACKETS, the opposite judgement. **Its front matter explained neither**, and
+    `book-audit.js` had been calling all 19 scan damage since E33: 21 of the 37 hits its sentinel check
+    produces, which is why the other 16 had never been read. **A scanner whose findings nobody reads has
+    stopped working.** The mask is BY SHAPE — a crux wraps whole words between a tilde pair, where real
+    damage sits INSIDE a word (`jatave~as` for *Jatavedas*, which the Rigveda spells right 112 times).
+  · **…AND `book-audit.js` REPORTS ONLY WHAT NOBODY HAS JUDGED YET** (Sep 2026, batch E55, applying
+    that lesson properly). Every standing finding on the shelf was read through and given a verdict;
+    eleven turned out to be the printing doing its job — Richard's own cross-references, the Summa
+    translators' citation of the *Phaedo*, Yule's `&c.` for *et cetera*, and Gregory's dating formula
+    at the foot of two letters both written on 22 June 601. Those are DECLARED in `ADJUDICATED` with
+    the reason beside each, and **a row matches only when the book, the check AND the matched text all
+    agree** (`check-citations.js`'s `CROSSREF_WRONG` rule), so a new artefact in the same book still
+    reports. The report went from 8 files to 3, and all three are unrepaired scan damage in books whose
+    front matter says so. **THE DOUBLED-SPACE CHECK WAS RETIRED OUTRIGHT**, and not because its
+    nineteen findings were benign but because IT CANNOT HAVE A REAL ONE: book prose is HTML, nothing
+    on that path sets `white-space`, and HTML collapses a run of spaces, so the thing it names is
+    invisible to every reader. **Before adding a check, ask whether its subject can reach a reader at
+    all**; `&nbsp;` runs can and there are none on the shelf.
+  · **AND THE OTHER KIND OF CLAIM IT MAKES — WHAT IS WRONG WITH THE BOOK — HAS NO CHECK AT ALL**
+    (Sep 2026, batch E50). A count can be compared to the file; a sentence saying an edition leaves
+    lines out cannot. All **106 such sentences across the 48 books** were read and 105 hold; the
+    Iliad's did not, saying its Greek loses eight lines where it loses **ten across four books**, two
+    of them unnamed — because it had merged two different mechanisms, a line Perseus wraps in `<del>`
+    (numbering intact) with one absent from the numbering outright. **And neither Homer has an empty
+    cell**, though both front matters said "stand empty in the Greek column": the columns carry 425
+    and 288 numbered places each and pair on every one. **Write what a reader would SEE**, and reserve
+    that phrase for the books that really do draw one side blank.
+  · **ONE TEI MARK MAY BE DOING TWO JOBS, AND A RULE THAT KEEPS BOTH PRINTS THE APPARATUS AS THE
+    AUTHOR'S WORDS** (Sep 2026, batch E55) — E53's finding in another vocabulary. `<add>` is the
+    editor's supplement and is KEPT; Ihm's Suetonius also uses it for the MARGINAL REFERENCE beside a
+    quotation, so ten of them stood inside the Latin, two of them saying something false — `de
+    Officiis tertio libro 82` is book 82 of a work with three, and `ad Brutum 261 oratores enumerans`
+    reads as a count of orators. **THE DISCRIMINATOR IS A DIGIT AND IT IS MEASURED**: all 355 `<add>`
+    on the shelf were read, nine carry a digit and every one is a reference, and NO SUPPLEMENT
+    ANYWHERE CARRIES ONE, a supplement being words. **The looser test written first would have
+    deleted lines of Plato** — an internal full stop also selects whole speeches of the *Alcibiades*
+    that Burnet supplies. They are DROPPED rather than set apart, unlike E48's argument, because a
+    margin is not a place Folio's reader has: every in-flow position is a claim the edition does not
+    make, and Thomson's English carries none of them.
+  · **A SWEEP KEYED ON A PAGE NUMBER IS KEYED ON THE WORST-READ PART OF THE PAGE** (Sep 2026, batch
+    E55, the Journey). Three running heads survived `HEAD_NUM` — `113` read as `US`, and two numbers
+    carrying a mark off the leaf edge — because the number is small isolated type at the outer margin
+    while the title beside it comes through readable every time. Widened on the NUMBER's shape, twice,
+    each measured over the whole book; the second widening needs its proviso that the number really
+    contain a digit, **or `CHAPTER I.` is read as a head and the chapter markers are deleted**.
+    **AND THE OBVIOUS GENERALISATION DOES NOT WORK**: matching the line against the book's own chapter
+    titles — E34's plate rule one table over — proposes deleting 33 lines loosely matched, mostly
+    chapter headings, and exactly matched finds 15 titles inside their own chapters of which ONE is
+    furniture. **A plate caption is a distinctive phrase; a chapter title is made of the words its
+    chapter is about.** Removing a head also leaves the PAGE BREAK it sat in, which still splits the
+    sentence in two.
+  · **SEARCH FOR ANOTHER SCAN BEFORE DECIDING A BOOK CANNOT BE CHECKED** (Sep 2026, batch E56). The
+    Canterbury Tales was corrected by INFERENCE for ten batches — the shelf as a dictionary, the
+    rhyme, the Middle English facing it — because its entry assumed one transcription existed.
+    **Archive.org holds EIGHT scans of the same 1912 volume**, and reading ours against two of them
+    recovered what no inference could reach: `* ^en^s` is **At St. Denis** and `s^sput` is **soul**, a
+    whole place-name and a whole word. `node .claude/witness-check.js` is that comparison — each token
+    looked up by the three words either side, and only a position both witnesses resolve, agree on and
+    differ from us at is reported. **A GLOBAL DIFF IS USELESS HERE**, three OCRs of one printing
+    disagreeing in thousands of places; and **FILTER TO WHAT THE BOOK SHIPS**, since 161 of its 199
+    findings were in the rest of Chaucer's complete works. **A WITNESS IS A QUESTION, NOT A VERDICT**
+    (E46's lesson): two OCRs agree on `heginneth` for `beginneth`, and a 2-to-1 majority was still not
+    enough to change `Prioress's`, a heading that reads correctly either way. The Journey really does
+    have one transcription — re-checked in E56 — and its front matter now says so.
+  · **AND WHERE IN THE CHAIN A ROW RUNS DECIDES HOW TO WRITE IT** (same batch): 35 of E56's 44 rows
+    failed silently, drafted against the SHIPPED text where that book's corrections run on the RAW,
+    whose words carry double spaces and break across lines. `correctRaw` is
+    `applyRoman(applyReFixes(applyFixes(applyGlyphs(…))))`, so a `fixes` row has already fired by the
+    time a `reFixes` row sees the text. **Draft against the text the row will actually see**; the
+    importer's dead-row report is what tells you when you have not.
   · **A CHANGE TO A SHARED EXTRACTOR MUST BE PROVED INERT ON ITS SIBLINGS, BYTE-FOR-BYTE** — re-run
     every other book on that path and diff the generated files. That check has twice found a live
-    fault in a book nobody was editing.
+    fault in a book nobody was editing. **`teiInline` is the widest of those paths — 17 books, 34
+    generated files** — and E55's `<add>` change was proved by rebuilding every one of them.
   · **📖 `docs/library-importer.md` — READ BEFORE ADDING A BOOK OR TOUCHING ANY EXTRACTOR.** The 22
     layouts, the five Wikisource extraction faults, the per-book options and every finding behind
     them.
@@ -234,8 +368,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
   NGO/IGO — **plus, since 2026-08-03 and on request, an encyclopedia that cites its own sources**, tested
   per article rather than per publisher (see N9's finding below: most do not).
-  **THE GLOSSARY CITATION PASS IS COMPLETE: all 401 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N10), all with
-  in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
+  **THE GLOSSARY CITATION PASS IS COMPLETE: EVERY term is cited and at the bar**, with in-text markers
+  (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N10). **Run `node .claude/gloss-source-audit.js` for the
+  count rather than quoting one here** — it was 401 when the pass closed and the glossary is now more
+  than four times that, and the claim still holds because a NEW term ships cited rather than joining a
+  backlog. That is the rule doing the work, not the pass.
+  **G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
   to McKinley, P5 to Hoover, P6 to Nixon and P7 to Biden, which finishes all 45**. **P1–P7 are the batches
@@ -635,7 +773,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `[^\s<>"')\]]`, which bit twice in Aug 2026 while illustrating psychology cards: the obvious Commons
   page for Kant carries parentheses and the obvious one for Broca's area carries an apostrophe, so both
   credit lines would have shipped truncated. **Check a Commons page URL for `'` and `()` before choosing
-  the file**, since a picture is usually replaceable and the credit line is not optional), **`senate.gov` serves its 404 page with a 200 status**, and
+  the file** — though that is now a reason to PERCENT-ENCODE rather than to reject one (Sep 2026, on
+  `gw-722`): `%27`, `%28` and `%29` carry none of the stopped characters, resolve on Commons, and match
+  the regex whole, where the raw forms truncate a credit at the first `'` or `)`. Verified both ways —
+  `…/File:Parliament_and_Courthouse_%2815222121087%29.jpg` and `…/Category:Broca%27s_area` each answer
+  200, and the raw form of the first matches only `.jpg`. **The picture is no longer the thing that has
+  to be replaced**), **`senate.gov` serves its 404 page with a 200 status**, and
   **`monticello.org` and `founders.archives.gov` are closed here** — so Founders Online, named as a
   second-source spine in the plan, is not usable and the NARA milestone documents replace it. G9's finding held into G10 and G11 and is now a law of the pass:
   the register pays for taxa and periods and **not** for peoples, places or objects, so 24 of G9's 26 and
@@ -675,6 +818,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   can be grown one card at a time over many sessions. See the "ANCIENT GREECE" bullet under "Generating
   cards & glossary entries" for the workflow — the short version is that the next card to write is the
   lowest `gr-NNN` not yet in `data.js`. Not part of the site.
+  · **📖 `docs/greece-audit-2026-09.md` — READ BEFORE WRITING A `gr-` CARD, and before opening
+    any repair batch on the first 500.** The audit of `gr-001`–`gr-500`: the eight dimensions that
+    passed, measured rather than assumed; the five that were fixed (276 picture captions carrying
+    their own source, 99 missing date lines, 14 pictures of the wrong thing, 13 questions naming a
+    scholar); and the seven still open, with their card ids — above all that **237 citations, 8.7%
+    of the collection's whole apparatus, come from one Dartmouth course website**, and that the
+    Athens deck paraphrases Aristotle rather than explaining him, so 42 of its 45 cards state no
+    year in their prose. It also holds the coverage gaps inside the covered span (the Pythian,
+    Isthmian and Nemean games, the Delphic amphictyony, Chania, the chamber tomb) and the measured
+    list of terms to add to the glossary.
 - `docs/world-history-card-plan.md` — the **1000-card running order for the World History collection**
   (`col-8`): every card's number, topic and deck, fixed in advance across 8 decks and 39 leaf subdecks,
   so the collection can be grown one card at a time over many sessions. The sibling of the Greece plan
@@ -695,8 +848,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
   grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
   the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
-  under "Generating cards & glossary entries". **No card has been written yet**: the plan and the tree
-  shipped together on 2026-08-06 and the collection starts at `ru-001`. It is the first plan that has to
+  under "Generating cards & glossary entries". **The first ten cards have shipped** (Sep 2026) — `ru-001`
+  to `ru-010`, the whole opening of `ru-before` — so the collection is live and its 28 empty decks are
+  coming-soon automatically, `isComingSoon` being true for a node holding no card. It is the first plan that has to
   set **date, name and transliteration conventions** (the Julian/Gregorian gap, Kyiv against Kiev), and the
   first whose subject reaches the present day — read its "History, not archaeology" and "Sourcing" sections
   before writing anything after 1917. Not part of the site.
@@ -789,9 +943,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the pair deliberately, write the shared glossary term ONCE (whichever collection reaches it first),
   and know that **`bio-897` and `ps-432` are both called "Extinction" and are unrelated senses of the
   word**, so they cannot share a glossary key. Four terms it needs already exist (`Domestication`,
-  `Boreal`, `Human_evolution`, `Genus`) and must be reused rather than re-keyed. The next card to write
+  `Boreal`, `Human_evolution`, `Genus`) and must be reused rather than re-keyed. **`Life` is keyed
+  `Life_(biology)` for the same machinery and a different reason**: the bare word is ordinary English —
+  measured over the shipped corpus, 157 card backgrounds contain "life" and every first occurrence
+  sampled is "way of life", "life-sized" or "life expectancy" — so a key claiming that surface would
+  auto-link the wrong sense on all of them, and `caseSensitive` does not help, all 15 capitalised
+  occurrences being "Life of Lycurgus", "Life Insurance" and the like. A parenthetical key claims no
+  bare name (`bareTaken` in `buildGlossIndex`), so it is reached by its two narrower aliases and by a
+  hand-written `data-k` instead. **Ask what a one-word answer term is in ordinary English before
+  keying it.** **`Cell_(biology)` is the same shape and is the REAL Wikipedia slug**, and it
+  deliberately carries no bare `cell` alias yet: only 7 shipped abstracts contain the word and two of
+  them mean an architectural bay and a prison cell, so claiming it today ships two wrong links to buy
+  nothing. **Revisit that when `bio-celltheory` lands**, by which time the biological sense will
+  dominate the corpus. The next card to write
   is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED
-  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+  COLLECTIONS" is the lookup. **Its first cards have shipped**, so the collection is live — `isComingSoon`
+  is false for a node holding a card — and its 45 empty decks are coming-soon automatically, on the same
+  rule. Not part of the site.
 - `docs/dinosaurs-card-plan.md` — the **1000-card running order for the Dinosaurs collection**
   (`dino`): every card's number, topic and deck, fixed in advance across 9 decks and 43 leaf decks. The
   fifteenth of the planned collections and the fourth that is not history; it joins Psychology and
@@ -951,6 +1119,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   are not counted as needing revision, because the alternative is a measure that reports a permanent, growing
   false finding on two collections — and `EXEMPT` is deliberately the wrong instrument, being per card. Rule 2
   still binds on them. Not part of the site.
+- `.claude/check-cards.js` — **the card-level faults nothing else in the pipeline can see**:
+  `node .claude/check-cards.js [--prefix=gr-] [--verbose] [--report]`, exit 1 on a violation and never
+  on `--report`. Six checks, each written after a real fault shipped unreported — **an author cited in
+  more than two of one card's sources** (`add-card.js` checks a citation ends in a URL,
+  `source-audit.js` counts them and `check-citations.js` checks the names against Crossref, and all
+  three pass a card whose whole apparatus is one website; ancient authors are counted separately,
+  six passages of one witness being a different fault from six pages of one scholar), **a modern
+  scholar named in a question**, **one picture on two cards**, **a picture description that names its
+  own source**, **a card with no picture** (reported, never failed) and **two sources in the same
+  non-English language**. Two of them are the reason it exists at all. `card-focus.js` takes the names
+  it looks for from the AUTHOR POSITIONS of a card's own citations, so **a scholar named in a question
+  but not cited on that card is invisible to it** — it reported ONE Greece card where an independent
+  sweep found thirteen; this reads the question for the SHAPE of an attribution and asks afterwards
+  whether the name is an ancient witness. And the duplicate-picture check compares on the file name
+  **with the `\d+px-` prefix stripped**, because the same file at two widths is two different `src`
+  strings and gr-267 and gr-379 carried one map for weeks at 1920 and 1280.
+  · **THE GLOSSARY IS THE DISCRIMINATOR FOR THE QUESTION RULE, AND A MODERN PERSON IS WITHHELD FROM
+    IT.** "Athenian Constitution" and "White Castle" wear the shape of an attribution and are a work
+    and a place; both are glossary surfaces. But the pairing rule gives every card's answer its own
+    entry, so an excavator who is herself a card's subject has one — `Harriet_Boyd_Hawes`, with
+    "Harriet Boyd" as an alias — and a flat exemption **suppressed the one real finding it was meant
+    to leave standing**. A term is withheld when it is tagged `person` and its date line begins after
+    1500, which is the site's own record of a modern figure rather than a guess from the name.
+  · **THE COMMA ENDS AN AUTHOR FIELD, NOT THE FULL STOP.** A book's title is italicised rather than
+    quoted, so a quoted-title pattern cannot see it and a full-stop fallback reads an INITIAL as the
+    whole name: "H. B. Walters, History of Ancient Pottery…" gave an author called **"H"**, so three
+    citations of one book were filed under a scholar named for a letter and the concentration was
+    missed. A citation OPENING on its title has no author at all — reading the title as one gave
+    gr-333 an author called "Athens".
+  · **AND IT CHECKS A `card.quote` AGAINST THE BOOK IT NAMES, WORD FOR WORD.** `test-card-quote.js`
+    asserts the placement and the address and neither of them the WORDS, so a quotation can be
+    re-punctuated, re-worded or elided across a gap and still render perfectly under a link to the
+    real text — `gr-467` joined two passages 200 words apart with no ellipsis, opened on an
+    editorial "He" where Thucydides names Pericles, and set the translator's `--` as an em dash. An
+    explicit ` … ` is the author saying a gap was cut and each side of it is checked on its own;
+    **a bare number is the edition's apparatus and is dropped from both sides**, since several
+    shelved editions run their section and verse numbers inline and a quotation rightly leaves them
+    out.
+  · **IT IS A REPORT TOOL RUN BY HAND AND IS DELIBERATELY NOT IN THE CI FAST GATE.** Over the whole
+    corpus it finds a large standing backlog on the first and last checks — the Greece collection's
+    early decks rest on one Dartmouth course site and on the French excavation reports, whose
+    substitutes are not reachable from this sandbox (the seven measured routes are in
+    `docs/greece-audit-2026-09.md`). Run it with `--prefix=` over the cards a batch touches. Not part
+    of the site.
 - `.claude/check-questions.js` — the card QUESTION house rules, measured over the shipped `data.js`:
   `node .claude/check-questions.js [--verbose]`, exit 1 on any violation, so it guards a batch the way
   `check-style.js` does. Four rules — **one sentence**; **understandable on its own** (a question may not
@@ -1019,6 +1231,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
   because a file nobody is told to read is a file nobody reads. Eight docs were in exactly that state
   when it was written — unreferenced from here, several of them holding OPEN work.
+- `artefacts-extra.js` + `.claude/split-artefacts.js` + `.claude/artefact-io.js` — **the artefact pool
+  is TWO files**, and it is the glossary split below in miniature. `desc`, `sources` and `image` were
+  **237.5 KB of `artefacts.js`'s 251 — 94%** — on the EAGER path, and **not one of them is read until a
+  chest opens or the Reliquary is visited**; the only boot-adjacent reader of the pool is `progStats`,
+  which counts legendaries and so needs `rarity` alone. The eager file went **262.8 KB → 19.2 KB**.
+  · **IT MERGES BACK INTO `window.ARTEFACTS` AND THEN REBUILDS** (`artefactExtraIngest`), where the
+    glossary's hook re-seeds a separate PRISTINE snapshot. The reason is that the artefact pool has no
+    such snapshot: `window.ARTEFACTS` **IS** the revert baseline — `artefactIsShipped` and
+    `revertArtefact` read it directly and `artefactsMerged` re-applies `ADMIN_EDITS` over it on every
+    call — so merging into it and calling `refreshArtefacts()` is what puts the overlay back on top of
+    what just landed. Without it, Admin → Artefacts' **Revert would compare a real description against
+    nothing and DELETE it**. Guarded by a browser check in the split's own commit.
+  · **IT STAGES ONTO A QUEUE** (`window.ARTEFACTS_EXTRA_IN`), for the reason `glossary-extra.js` does,
+    and **an id the INDEX does not carry is not resurrected**: the index decides the pool, so a row left
+    behind by a retired artefact must not walk back in carrying only prose.
+  · **EVERY HELPER GOES THROUGH `.claude/artefact-io.js`** (`loadArtefacts` / `writeArtefacts`).
+    Requiring `artefacts.js` alone now yields entries with EMPTY prose: a READER then reports a fully
+    cited pool as uncited — **`test-artefacts.js` did exactly that on its first run after the split,
+    printing `0 of 100 cited` while 80 assertions passed over an empty list** — and a WRITER
+    re-serialises what it loaded and **deletes 240 KB without erroring**. Eleven scripts were repointed.
+    `writeArtefacts` writes **BOTH files or neither**: they are joined on `id`, and an index entry with
+    no row in the extra is an artefact with no prose anywhere.
+  · **THE SHARED SERIALIZER ALSO CLOSED A LIVE BUG.** `add-artefact-sources.js` carried a private copy
+    that emitted an image as `{ src, credit, alt }` — written before the fullscreen viewer's `title` and
+    `desc` were added — so **one run of the citation tool would have stripped the caption off all 100
+    pictures** while doing its own job perfectly. A copy of a serializer goes stale on a change made in
+    another file by someone with no reason to look here; `add-images.js` had the same trap recorded
+    against it and now shares the module too.
+  · **`check-style.js` reads `artefacts-extra.js`**, and that is not housekeeping: rule 4 (BCE/CE) sweeps
+    the text a PICTURE carries as well as the prose, and the split moved BOTH out of its reach.
+  · **`node .claude/split-artefacts.js --check` asserts the split is still intact, and CI runs it** —
+    both directions of the join, no heavy field back in the index, and a byte-for-byte round trip. The
+    split itself REFUSED to write until it had re-loaded its own output and compared it field by field
+    against what it started with, so the bytes that ship are the bytes that were checked.
 - `glossary-extra.js` + `.claude/split-glossary.js` + `.claude/gloss-io.js` — **the glossary is TWO
   files.** `GLOSSARY_SOURCES` (786 KB) and `GLOSSARY_IMAGES` (523 KB) were 54% of `glossary.js`, which is
   on the EAGER path, and **nothing reads either until a popup opens** — so they moved to
@@ -1068,12 +1314,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 2.57 MB and 38,000 lines is hard to find your way around, so this
-  lists its 142 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 2.98 MB and 43,957 lines is hard to find your way around, so this
+  lists its 164 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
-  file is ONE IIFE under `"use strict"` whose ~1,250 top-level functions share a single closure —
+  file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
-  exactly **14** things are put on `window`. Splitting it across `<script>` tags means either making
+  **29** things are put on `window`. Splitting it across `<script>` tags means either making
   every shared name a property of a namespace object (thousands of call sites, and no test can prove
   closure-equivalence) or making them true globals — which leaks the whole application surface onto
   `window`, where a community deck's sanitized HTML and any browser extension can reach it. The
@@ -1084,6 +1330,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   conclusion of a long explanation — it reported a sentence about one minigame's draw as a 266 KB
   "section". **A map that invents sections is worse than none, because it is read as structure.**)
   Not part of the site.
+- `.claude/check-claims.js` — **CLAUDE.md's own figures, measured**: `node .claude/check-claims.js
+  [--all]`. This file is the ONLY operational memory a cloud session has, it is written in the present
+  tense as the state of the repository, and it is full of hand-written counts. **Its first run found
+  TWENTY of forty-one wrong** (Sep 2026, batch E51), several by a factor of four — the collection index
+  table had Ancient Rome as "empty" against 100 shipped cards and Ancient Greece at 180 against 400,
+  app.js was described as 2.57 MB and 38,000 lines against a real 2.87 MB and 42,261, and one suite's
+  assertion count was pinned at **two different numbers in the same file**, neither of them right.
+  **The file already knew**: it warns against quoting a figure in nine places, and every one of those
+  warnings is a scar (the theme count said 8 and then 6; the eager path's size drifted four times out
+  of date with "re-measure it rather than quoting it" written beside it, which is why `check-sizes.js`
+  exists). A warning cannot measure. **It defers to `app-map.js` for app.js's shape rather than
+  measuring it again** — two scripts disagreeing about one number is worse than either being wrong —
+  and its own header states the three things it does not ask: a BROWSER suite's assertion count (too
+  slow for a pre-commit check; re-pin one from the run you did when you changed it), a figure that is a
+  judgement rather than a count, and anything in `docs/`, whose numbers are a record of what a batch
+  measured ON THE DAY and are right about that day.
+  **IT ALSO CHECKS THE NAMES, NOT ONLY THE NUMBERS** (Sep 2026, batch E52): every identifier named in a
+  **"Re-run after touching …"** list exists in the code — 379 of them across 31 lists, and two were dead
+  pointers (`cpWireResize` for `cpResize`, `nodeSpanHTML` for `nodeSpanText`) — and a DECLARED list of
+  fifteen symbols this file says are GONE has not come back, with `traceMapToGeo`, the one it says
+  survives unused, checked in the other direction. **The haystack excludes CLAUDE.md and `docs/`**, or a
+  name surviving only in this file's own prose would answer its own question; **comments are stripped
+  first**, for the reason `adBaitCheck` strips them — app.js records most removals in a comment naming
+  the thing removed. A free-text sweep for deletion claims was tried and abandoned: nine of eleven hits
+  were ordinary words in backticks, so the list is declared. Report-only, exits 0. **Run it after any
+  batch that changes a count, or renames anything this file names.** Not part of the site.
 - `.claude/check-sizes.js` — what Folio actually weighs: `node .claude/check-sizes.js [--json]`. It
   reads the eager path **out of `index.html`** rather than from a list, prints each file's raw and
   gzipped size with the totals, lists the biggest files off that path, and breaks `glossary.js` and
@@ -1119,14 +1391,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
   bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling)
-  L1–L10 and the L-audit have ALL SHIPPED — **THE PASS IS COMPLETE: 477 of 477 terms are inside the bar
-  (100%), mean 106.7 words, range 90 (`James_A._Garfield`) – 110 (`Y-chromosomal_Adam`), and every one of the
-  eighteen kinds is 0 outside**: the 197 countries (A–E, F–L, M–R, S–Z), L5's 55 caves, type sites, continents,
-  oceans and regions, L6's 54 people (45 US presidents plus nine antiquarians, archaeologists and a poet),
-  L7's 44 periods and stone industries, L8's 40 taxa, fossils and animals, L9's 45 tools, artworks, cultures
-  and peoples, and L10's 24 concepts with the four singleton kinds.
-  `node .claude/gloss-length.js` is
-  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. **What keeps it true is the rule, not the
+  L1–L10 and the L-audit have ALL SHIPPED — **THE PASS IS COMPLETE: EVERY term is inside the bar, and
+  every kind of term is 0 outside it.** It closed at 477 of 477, over the 197 countries, L5's caves,
+  type sites, continents, oceans and regions, L6's people (the 45 US presidents plus nine antiquarians,
+  archaeologists and a poet), L7's periods and stone industries, L8's taxa, fossils and animals, L9's
+  tools, artworks, cultures and peoples, and L10's concepts with the four singleton kinds.
+  **`node .claude/gloss-length.js` is the measure and the place to read the figures** — the count, the
+  mean and the range — rather than quoting any of them here, with `--over` / `--under` / `--tag=<kind>`
+  / `--list`. **What keeps it true is the rule, not the
   measure**: a new term ships at 90–110 words, three sentences, cited at the bar, exactly as it ships with its
   citations — so **re-run `gloss-length.js` after `add-sources.js` and after `add-glossary.js`**, since both
   write prose and neither measures it. Three things the bar does not
@@ -1265,10 +1537,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Würm`'s "generally"). One blind spot remains, worth knowing before a batch of calibrated dates: the year
   regex needs the number immediately before "years ago", so an intervening word defeats it and `Boreal`'s
   "8,000 **calendar** years ago" reads as lost when it survived. Not part of the site.
-- `docs/artefact-citation-plan.md` — the batch plan for **citing the 100 artefacts**, the third citation pass
+- `docs/artefact-citation-plan.md` — the batch plan for **citing the artefacts**, the third citation pass
   after the cards' and the glossary's. The bar is **3 works per artefact** (`ARTEFACT_SRC_TARGET`), each with
   an openable URL and a marker pointing at it, and unlike the other two it is a REFUSAL rather than a target
-  reported against. **THE PASS IS COMPLETE: all 100 are cited and at the bar** (batches 1–15), so a new
+  reported against. **THE PASS IS COMPLETE: all 100 were cited and at the bar** (batches 1–15), and the second
+  hundred was written cited, so the pool stands at **200 of 200** — a new
   artefact joins at the bar instead of reopening a backlog, exactly as the glossary now works; the file holds
   the batch table and the per-artefact workflow. Its most reusable half is the **reachable-host survey** —
   which scholarly and museum hosts answer from this sandbox and which serve a bot wall, measured rather than
@@ -1281,12 +1554,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
+- **📖 `docs/artefact-expansion-plan.md` — READ BEFORE ADDING AN ARTEFACT, OR BEFORE LOOKING FOR AN OPEN
+  SOURCE FOR ANYTHING.** **THE EXPANSION IS COMPLETE: the pool is 200, at 116 common / 52 rare / 25 epic /
+  7 legendary, which is the budget's target shape exactly** — so the file is now a record of what was
+  decided rather than a queue, and its value is its findings: forty-odd batches of measured host
+  reachability, the search order that emerged (**DOAJ finds the articles, OpenAIRE finds the repository
+  copies, OAPEN finds the books**), the seven varieties of 200-status wall, and the two PDF ciphers
+  (a fixed CID offset, and a full substitution solvable on words with the digits pinned by arithmetic).
+  It planned the pool from 100 to 200 in fifteen batches, each with its source spine, weighted the OPPOSITE
+  way from the first hundred — Rome has 19 artefacts and South Asia, Southeast Asia, Korea, Oceania, North
+  America and the Arctic have **none**, and none of the India, Korea, Russia, United States or Second World
+  War collections is served at all. Three things in it are decisions rather than lists. **The rarity budget
+  is 60 / 25 / 12 / 3 and is not free choice**: `rollArtefact` renormalises the drop odds over whatever
+  rarities still hold something unowned, so a tier whose share of the POOL does not match its share of the
+  ODDS empties early and drops out of the roll — a failure a reader experiences and never reports. **A
+  common is a KIND of object and is where a missing region is cheapest to fill**, since every culture has
+  its everyday things and everyday things are what the pool lacks outside Rome; a named singular object is
+  naturally epic or legendary. And **`artefacts.js` is on the EAGER path, where 94% of it is `desc` +
+  `sources` + `image` that nothing reads until a chest opens** — measured: 237.5 KB of 251, against a 14 KB
+  index that is all `progStats` needs — so the file wants `glossary-extra.js`'s split BEFORE the prose is
+  written, which makes doubling the pool cost every visitor about 14 KB rather than 260 — the split shipped first, and it did. It also records the
+  reachability measured for the new regions on 2026-09-03, of which the load-bearing finding is that **the
+  East Asian and Israeli national museum sites answer 200 and serve their object pages through JavaScript**
+  (e-Museum, the National Museum of Korea and the Dead Sea Scrolls digital library all return zero hits when
+  their own object's name is grepped out of the HTML), so Japan, Korea and Qumran rest on **J-Stage** and
+  archive.org rather than on the obvious institutional page. Not part of the site.
 - `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not
   part of the site and never loaded by it: a deck file is somebody else's content that happens to have
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
   **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO** — no changelog line, no version bump.
-  Currently **44 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
-  Portuguese, Spanish — **136,222 cards over 76,502 notes, 181 MB**. **Count them rather than quoting
+  Currently **52 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
+  Portuguese, Spanish — **136,222 cards over 68,111 notes, 152 MB**. **Count them rather than quoting
   that**: `node .claude/build-lang-decks.js` prints the tally on every run.
   · **A COMBINED FILE IS GITIGNORED**: it is an artefact of the levels it combines, every byte already
     in the repo, and its own `combine.py` regenerates it byte for byte. **Anything else in `decks/` is
@@ -1303,6 +1601,53 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Add and Download are two presses.** Add writes the entry into `S.active` and fetches nothing;
     Download fetches the file. That split is the whole reason a deck added on a phone reaches a laptop
     — `S.active` syncs and IndexedDB does not.
+  · **…AND A THIRD, UPDATE, FOR A DECK ALREADY HERE** (`rev` in the catalogue, `langDeckStale` /
+    `langDecksStale` / `langDeckUpdate` in app.js; Sep 2026, on a bug report that a card repaired weeks
+    earlier still showed the old pinyin). `langDeckDownload` returns early for a deck already in
+    `UDECKS` and nothing compared the copy on the device against the shipped one — `meta.version` is 1
+    in every file and no code reads it — so **every content repair ever made to a language deck reached
+    only readers who had not yet downloaded it.** The catalogue row now carries a CONTENT REVISION (a
+    hash over the deck's cards and glossary, canonically keyed, so a re-serialisation that moves
+    whitespace or key order cannot move it), a mounted deck records the one it was built from, and the
+    two disagreeing puts an Update button on the deck's row in the daily study. **A deck downloaded
+    before this carries no revision at all and counts as stale**, which is deliberate: those are
+    exactly the readers holding an unrepaired copy.
+    **IT MERGES INTO THE EXISTING DECK ID RATHER THAN IMPORTING.** `uDeckImportText` mints a fresh id
+    for a deck already mounted, which would orphan the reader's whole schedule while producing a deck
+    that looks perfect. A language deck keeps the file's own id, so a re-fetched file has bit-identical
+    card ids and the merge is by id — `S.cards`, `S.buried`, `S.flags` and `S.deckOpts` are all keyed
+    by ids that do not move, so the correct action on them is NONE. A note the shipped deck has dropped
+    is KEPT rather than deleted, and the reader's own colour and the date they got the deck survive it.
+    **`langRev` rides at the TOP LEVEL of the store record beside `srev`, not in `meta`**, for `srev`'s
+    own reason: `meta` is what an export copies, so a deck FILE could otherwise claim to be current.
+    **ONE button per DECK**, on the first of its rows the reader has — its levels and its directions
+    are the same file seen from further in. Guarded by `.claude/test-deck-update.js`.
+  · **…AND WHAT THE DECK TEACHES, BESIDE WHAT IT COSTS** (`ex` / `say` in the catalogue, `.node-fact`,
+    `langFactsHTML`; Sep 2026, on request). A row said how many cards and how many megabytes and nothing
+    about whether the deck carries EXAMPLE SENTENCES or whether its words can be HEARD — the two things
+    that most decide whether a vocabulary deck is worth the download, and the two that actually vary
+    (example coverage runs 16%–100%; eight of the fifty-three decks have no speech control at all).
+    **ONLY WHAT VARIES IS DRAWN**: every deck on the shelf is asked both ways, so saying so on all of them
+    tells a reader choosing between two of them nothing, and audio is the norm so only its ABSENCE is
+    printed. **A tree node carries its OWN example coverage rather than its file's**, because on an
+    unwrapped deck those nodes are the rows a reader chooses between.
+  · **A LANGUAGE DECK CAN BE STUDIED BY FREQUENCY** (`DECK_ORDERS`'s fourth entry, `uDeckWordFreq` /
+    `sortByFrequency` / `deckOrdersFor` / `entryCanFreq`; Sep 2026, on request). The exam lists these
+    decks are built from are alphabetical by reading, an ordering with no teaching in it — a reader
+    working through HSK Level 5 in order meets 报到 on the first day and 自觉 in a year — and "By
+    difficulty" can say nothing here, `card.difficulty` being an editorial rating only curated cards
+    carry. This counts how often a deck's own example sentences use each of its headwords (longest match
+    at each position, so 天 is not counted inside 今天) and deals the commonest first. **IT IS DERIVED,
+    NEVER STORED**, one pass over a deck the reader has just asked to study. **WHERE IT STOPS WORKING IS
+    MEASURED**: the median count is 57 at Level 1 and 7 at Level 5, and **1 at Levels 7–9, where 3,029 of
+    5,562 words occur exactly once — in their own sentence**. The sort is stable, so that run keeps deck
+    order and only genuinely common words move. **Offered ONLY where it can act** — `deckOrdersFor` steps
+    the cycler past it on a deck with no examples, an option that is drawn and does nothing being worse
+    than one that is not drawn.
+  · **A DECK'S OWN SUBTITLE IS PRINTED UNDER ITS TITLE** on the Collections page (`.node-sub`, top-level
+    rows only; Sep 2026). Nine Mandarin decks presented as nine levels gave a learner no route — where
+    to start, how big each is against the others, where the two decks outside the ladder fit — and the
+    line is where a deck says so.
 - `.claude/build-lang-decks.js` — the generator above. Zero deps, reads `decks/*.folio-deck.json`.
   Every figure is read off the deck it describes, and `cards` is CARDS rather than notes, which is what
   makes a one-note-two-templates deck comparable with a two-notes deck.
@@ -1348,6 +1693,196 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   "hello (answering the telephone)" over three sentences reading "I am". **Report-only and a proxy** —
   23% of the corpus trips it, because a correct gloss is often a synonym of what the sentence says — so
   it is a ranked review list, never a gate.
+- `.claude/decks/check-say-reading.js` — **which Mandarin cards a speech engine will read with the WRONG
+  READING** (Sep 2026, on a bug report: "the card '了' tts pronounces it as liao instead of le. '差' reads
+  chà but pronounces chā"). A Mandarin card's speaker is handed the card's own CHARACTERS, which is right —
+  a Mandarin voice given "bēizi" reads the romanisation — and is the whole of the problem where the word is
+  ONE POLYPHONIC CHARACTER: a lone 了 or 差 carries no context, so the engine falls back to the character's
+  commonest reading, and for these two that is not the reading the card teaches.
+  · **THERE IS NO POLYPHONE DICTIONARY HERE, SO THE MEASURE IS THE CORPUS'S OWN.** The decks carry 11,000-odd
+    multi-character words with their pinyin written syllable by syllable, so where a word's character count
+    and syllable count agree, each character's reading is readable straight off — which gives every
+    character a reading DISTRIBUTION, and "what an engine will guess" is very well approximated by "what
+    this corpus uses most". A single-character card on a MINORITY reading is a card the engine is likely to
+    get wrong: **27 of 1,503**, of which the two reported are the 3rd and 11th widest margins.
+  · **REPORT-ONLY AND A PROXY, like `check-senses.js`.** A card whose Pinyin teaches BOTH readings
+    ("重 chóng / zhòng") is listed and is not a fault, and a character split a few cards either way in a
+    corpus this size is noise. **Read the list; do not sweep it.**
+  · **THE REPAIR IS A `Say` FIELD, and it is what makes any of this fixable.** The Mandarin card type's
+    templates read `{{#Say}}{{Say}}{{/Say}}{{^Say}}{{Simplified}}{{/Say}}`, so a card carrying one has its
+    own value spoken and every other card is untouched — the same `data-say` contract `cardSpeak` has
+    always honoured. What goes in it is the shortest ORDINARY word that pins the reading (了 is spoken as
+    好了, 差 as 还差), and **that is a two-syllable answer to a one-syllable question, knowingly**: a lone
+    polyphone gives an engine no reading to pick, and a substituted homophone would be a different
+    character carrying its own risk of being read wrong. The reader hears one syllable of context and then
+    the card's own, which is what a dictionary's audio does with a particle. **Adding the field to a deck
+    is a change to that deck's TYPE as well as to the card**, so it is two edits in one file.
+- **📖 `.claude/decks/mandarin-fixes.json` + `mandarin-fix.js` — THE ONE WAY A MANDARIN DECK IS
+  HAND-EDITED, AND THE ONLY PLACE AN EDIT MAY BE MADE.** The Mandarin generator inputs (`w26-*.json`)
+  are NOT in this repo, so unlike the DELE, DELF, CAPLE, Goethe and UKBI decks these nine cannot be
+  regenerated: every correction is a hand edit on top of an artefact nobody can rebuild, and done
+  directly it leaves no record of WHICH of 11,532 notes were touched or why. The JSON is that record —
+  one entry per note, keyed by `<deck id>/<headword>`, each carrying the fields it overrides and a
+  `why` — and `node .claude/decks/mandarin-fix.js [--check] [--verbose]` applies it **idempotently**,
+  with `--check` asserting the decks still carry it. **A fix that matches no note is an ERROR**, since
+  a correction the record claims and never made reads from the file exactly like one that did.
+  · **THE LEGACY MIRRORS ARE REBUILT, NEVER PATCHED.** A note carries its reading three times over
+    (`fields.Pinyin`, the top-level `pinyin`, the head of `answer`) and its senses twice, `answer`
+    carrying them abbreviated (`(v.)` for `verb`). An edit that moved one and not the others is the
+    shape the reported `蛋糕` fault's siblings had, so `answer` is derived from the fields.
+  · **THE COMPACT FORMS ARE EXPANDED HERE, FROM THE CORPUS'S OWN TABLES.** `mw: ["个","位"]` becomes
+    the character, its traditional form and its pinyin, read off the 1,148 notes that already carry a
+    measure word — a character the decks have never used as one is REFUSED rather than guessed at.
+    `senses` takes `[reading, part of speech, gloss]`, `[part of speech, gloss]` or `[gloss]` alone,
+    the last being what an idiom has; `gloss` insists on a note with exactly one sense and `glossAll`
+    replaces however many there are. `ex: [[chinese, english]]` builds an example block and marks it
+    `uc-exadd`.
+  · **THE FILE IS AUTHORITATIVE FOR TWO THINGS, AND BOTH ARE REGENERATED RATHER THAN ACCUMULATED.**
+    `hints` is the complete list of `not <other word>` blocks (see the reverse-card note below), and
+    every `uc-exadd` example block is STRIPPED from every note before the fixes are applied — without
+    that, deleting an `ex` from the record leaves the sentence in the deck and `--check` goes on
+    passing, which is the decks and their own record drifting apart in silence.
+- `.claude/decks/check-mandarin-coverage.js` — **what a Mandarin card does NOT say**:
+  `node .claude/decks/check-mandarin-coverage.js [--top=N] [--deck=] [--only=]`. The three checkers
+  above all ask whether what a card SAYS is right and all report the Mandarin decks clean or nearly
+  so; a reader can still meet a card teaching one sense of a four-sense word, or one with no example
+  sentence at all. **Faults of OMISSION are the one shape a correctness checker cannot see** — nothing
+  on the card is wrong, there is simply less of it than the card type promises. Five counts, never a
+  verdict, so it is **report-only** like `check-senses.js`: examples per note broken down by deck;
+  **glosses shared by two or more notes**, which on an English → Chinese card whose front is
+  `{{English}}` and nothing else is one question with several right answers; senses against part of
+  speech; pinyin written as one word, with **erhua exempt** (哪儿 `nǎr` IS one syllable); and measure
+  words on nouns, the loosest of the five, most noun-tagged notes not being countable. **RUN IT rather
+  than quoting a figure from here** — this bullet stated five and every one of them moved within a day.
+- **📖 `.claude/decks/check-example-fit.js` — AN EXAMPLE THAT DOES NOT ACTUALLY CONTAIN ITS OWN WORD**,
+  and **the largest single fault this collection has turned up**: `node .claude/decks/check-example-fit.js
+  [--deck=] [--top=N] [--all]`. An example is chosen by FINDING the headword in a sentence, and a
+  substring match is not a word match — 生动 was illustrated three times over inside 野生动物, 后期 three
+  times inside 最后期限, 上火 three times inside 赶上火车, 久病 inside 不久病人. The sentence is real, the
+  translation is right, the card BOLDS the characters, and the word the card teaches is not in it.
+  **Nothing else in the pipeline could see this**, and no reader could either.
+  · **IT SEGMENTS AND ASKS WHETHER THE HEADWORD STRADDLES A BOUNDARY.** The nine decks list 11,532 words,
+    which is a serviceable lexicon; the sentence is re-segmented longest-match-first and a finding is an
+    occurrence whose characters are split BETWEEN two words. Asking the looser question — "did the
+    segmenter land on the headword?" — reports 514 sentences of which almost all are Chinese working
+    normally (国 lives inside 国家, 点 inside 几点), which is reporting the language rather than a fault.
+    A single-character headword is skipped, since one character cannot straddle anything.
+  · **THE RANKING IS WHAT MAKES IT READABLE, and it is a frequency ranking.** Greedy segmentation cannot
+    tell 如何|在 (a real fault) from 十分|钟 (not one) — they have the same SHAPE — so a finding is ranked
+    by how much more the competing word is used, across every example sentence in all nine decks, than
+    the headword. The real faults come to the top and stay there.
+  · **MEASURED: 350 findings, of which about 200 were real and repaired, leaving 103.** The rest are the
+    greedy segmenter losing to a negator or a modifier (不|安全 read as 不安|全, 有|时间 as 有时|间) —
+    ~57% precision, stated rather than rounded up. A ranked review list, never a gate; it exits 0.
+  · **A REPAIR IS `dropEx` PLUS AN AUTHORED `ex`**, that being the only way these decks may be edited.
+    **`dropEx` HAD TO LEARN TO FILTER THE RECORD'S OWN EXAMPLES**: it began as a way to remove a sentence
+    the GENERATOR shipped, so it only filtered what was read off the deck — and the moment a HARVESTED
+    sentence turned out to be wrong the drop silently did nothing, because the applier strips the added
+    blocks and then puts them straight back from the record.
+- `.claude/decks/check-gloss-source.js` — **the Mandarin glosses and readings against a SECOND
+  dictionary**: `node .claude/decks/check-gloss-source.js [--deck=] [--top=N] [--all] [--cedict=<path>]`.
+  Every other checker here asks whether a card is INTERNALLY consistent — pinyin against bopomofo, gloss
+  against the card's own examples, reading against the corpus's own distribution — and **a wrong gloss
+  survives all of them, being a perfectly well-formed gloss**; `炒作` was defined as "Nest", which is its
+  neighbour `巢穴`'s gloss. It fetches **CC-CEDICT** (CC BY-SA) at run time into `.claude/.cedict.txt`,
+  gitignored and never vendored. **Report-only, exit 0.**
+  · **THE NEIGHBOUR CHECK IS THE POINT AND THE OVERLAP CHECK IS THE SLUDGE.** 9% of glosses share no
+    content word with the dictionary's own entry, which is what a three-word card gloss meeting a
+    fifteen-word dictionary entry produces. A gloss that instead matches the entry for the card **two
+    either way in the file** is not a paraphrase but a copy: 24 findings over all nine decks, every one a
+    **near-synonym pair the exam list's alphabetical order happens to sit side by side** (感情/感觉,
+    视力/视觉, 简练/简洁). The rule was verified to catch `炒作` on its pre-fix gloss, so that fault was a
+    one-off.
+  · **THE READING HALF IS THE STRONGER ONE and found two real errors on its first run**: `掠夺` and `战略`
+    wrote **`luè` where pinyin orthography requires `lüè`** — their own bopomofo said ㄌㄩㄝˋ all along, and
+    `check-pinyin.js` cannot see it because it compares syllable BOUNDARIES rather than vowel spellings.
+    It also settled `嗯`, whose `ǹg` is not a pinyin syllable and which carries no bopomofo. **Fold erhua
+    and split a two-reading card on the slash before comparing**, or every polyphone is a finding — 97
+    before those two rules, 2 after.
+- **A SHARED GLOSS IS DISAMBIGUATED BY THE DECK'S OWN `not <other word>` BLOCK.** The English → Chinese
+  card's front is the gloss and nothing else, so two notes sharing one are a single question with
+  several right answers — the reader types 再 for "again", is shown 又, and cannot tell a wrong answer
+  from a collision. The decks answer it with a `<div class="uc-pos">not X</div>` above the senses.
+  **It is used for a PAIR and never for a group of three or more**: naming four of five answers on the
+  front of the card is worse than the ambiguity, so such a group is given distinguishing GLOSSES
+  instead — and a note that gets one drops its hint, a disambiguator disambiguating nothing being worse
+  than none, since a reader takes it for a real distinction.
+- **📖 `docs/mandarin-review.md` — READ BEFORE WORKING ON THE MANDARIN DECKS.** The Sep 2026 review
+  and the twelve-item pass that came out of it, in full: why the repaired `蛋糕` still read `dàng āo`
+  on the reader's screen and what the update path does about it, the polyphones that taught one of
+  their character's two readings, the reverse-card collisions and why a group of three could not take
+  the same fix as a pair, the Idioms deck's literal line, what was authored rather than harvested and
+  why that distinction is stated on every entry, and — with its reasoning — **what was NOT done**, and
+  why 3,610 semicolon-crammed glosses must not be split in bulk. **EVERY ONE OF THE 11,532 NOTES NOW
+  CARRIES AN EXAMPLE SENTENCE**, and the shape of that pass is its most reusable finding: it took
+  **3,222 AUTHORED sentences against 836 real ones**, because the free sentence banks run out long
+  before the syllabus does — measured, relaxing the harvest's 36-character cap to 50 buys 111 notes of
+  the 2,391 Levels 7–9 still needed, and only 5 of those had no example at all, so **the cap was never
+  the constraint**. It also carries the TEN FURTHER improvements the review's twelve grew into, of
+  which **the first is now DONE as well (Sep 2026): every one of the 11,532 notes carries the THREE
+  example sentences the card type shows**, 100% across all nine decks with none showing the same
+  sentence twice — roughly 10,200 further authored sentences, the banks having run dry several levels
+  down. Two rules from that grind, for any pass of its shape: **a second example must use a DIFFERENT
+  construction from the first**, or it teaches nothing the first did not; and **dedupe against the DECK
+  rather than against the fixes record**, since eight authored sentences matched an already-harvested
+  one and shipped twice before a duplicate sweep found them.
+- **TAPPING A CHARACTER LISTS THE OTHER WORDS BUILT ON IT** (`openCharWin` / `charNeighbours` /
+  `CHARWIN_MAX` / `.charwin`; Sep 2026). A Mandarin card already breaks its word into characters and
+  glosses each one, and that block was read-only furniture: it told a learner that 蛋 is "egg" and left
+  them no way to find the other words in the deck built on it. Three things decide the shape.
+  **IT IS DELEGATED AND READS `data-ucdeck` OFF THE CARD WRAPPER**, which `cardTypeSideHTML` writes for
+  it — a card type's HTML is sanitized and can carry no handler of its own, so anything interactive
+  inside one is app.js's. **IT WARMS THE DECK FIRST AND SAYS SO MEANWHILE**: boot mounts a note as a
+  STUB WITH NO FIELDS, so searching what happens to be warm answers "three other words" for a deck
+  holding forty — a plausible answer, and wrong. The read is once per deck per session and the reader
+  asked for it. **IT LISTS AND DOES NOT LINK**: a row is a word, its reading and its gloss, and making
+  it navigable would take the reader out of a card they are part way through answering. The `not
+  <other word>` disambiguator is stripped from the gloss here, reading in a list of words as part of
+  the definition. **IT NAMES THE CHARACTER'S OWN READING AND ORDERS ITS WORDS COMMONEST FIRST** (Sep
+  2026, on request). Neither figure is stored: the reading is derived the way `check-say-reading.js`
+  derives one — a word whose character count equals its syllable count reads off one reading per
+  character, which gives every character a distribution — and where that distribution genuinely
+  disagrees the two commonest are shown with a slash, a polyphone being a fact about the character
+  rather than doubt about the data. The order was shortest-first, which is right about which words a
+  learner meets a character in and silent about which of eleven of them is worth having;
+  `uDeckWordFreq` answers that, with length as the tie-break, so a character whose words the deck never
+  uses in a sentence lists exactly as it did before. Guarded by `.claude/test-char-network.js`.
+- **…AND AN `Origin` LINE WHERE THERE IS ONE** (the Idioms deck's card type; Sep 2026, on request).
+  **THE MEASUREMENT IS THE POINT: this is not a deck of classical 成语典故.** Against a list of the
+  well-known ones, **13 of 477 matched**; read by eye, about ninety have a source worth naming. The
+  reason is the deck's own selection rule — expressions the dictionary marks as idioms, appearing 60+
+  times in a corpus of film subtitles, and in no HSK list — which finds COLLOQUIAL four-character
+  expressions (谢天谢地, 原来如此, 说来话长), most of which never had a story and whose `Literally` line
+  already says everything there is. So ninety carry an `Origin` naming the work and what happened there,
+  and the field is simply absent on the rest. Two of the ninety are honest about not being classical:
+  **一石二鸟 is a translation of the English proverb** and **连锁反应 a modern term out of physics**.
+  Chinese→English side only, like `Literally`.
+- **AN EXAMPLE CAN SAY WHICH SENSE IT SHOWS** (`exSense` in `mandarin-fixes.json`, `.uc-exsn`; Sep 2026,
+  on request). **204 notes carry 2+ senses AND 2+ examples, and that is NOT the size of the job**: most
+  of those senses are a dictionary's near-synonym list (没错 has five, all "that's right"), and numbering
+  a sentence as sense 3 of 5 synonyms is noise dressed as information — so the record names the notes
+  and the applier never sweeps them. Fourteen have it. **IT RUNS AFTER `senses`**, which is load-bearing:
+  the note worth tagging is often the one this same record SPLITS, and read before the split it counts
+  the senses the deck shipped with — which is how `道`'s third sense tripped its own guard on the first
+  run. A tag naming a sense the note has not got is a FAIL, that being the shape a later merge produces.
+  **A `decks[<id>].css` block appends a rule to every type's own scoped sheet**, which is what a rule
+  belonging to no single field needs.
+- **NAMING TWO PARTS OF SPEECH IS ALMOST NEVER A MISSING SENSE** (Sep 2026, measured). 1,510 notes give
+  one gloss under two or more parts of speech and it reads like 1,510 notes teaching one use and testing
+  two; broken down it is **371 `X / idiom`** (one meaning, two labels), **209 verb/adjective** (a Chinese
+  adjective IS a stative verb), **400 noun/verb** (zero-derivation, one meaning) and only ~130 in the
+  measure-word, preposition and conjunction families where the fault actually lives. **23 were split by
+  hand and six are Level 1–2 words**: `天` was "sky" and never "day", `回` "to return" and never "a time",
+  `给` "to give" and never the preposition, `比` "to compare" and never "than", `还是` the "or" of a
+  question and never "still", `名` the noun and never the measure word for people. **Do not sweep this
+  flag** — a rule that split on the slash would make two cards out of 半 "adverb / numeral".
+- **AN IDIOM CARD CARRIES A `Literally` LINE** (the Idioms deck's card type; Sep 2026). An idiom's gloss
+  says what it MEANS and throws away what it SAYS, and the image is most of what makes a
+  four-character idiom stick — 谢天谢地 is "thank goodness" and it says "thank heaven, thank earth".
+  It is on the **Chinese → English side only**: on the reverse card the image would give the answer
+  away. **A FIELD IS ADDED IN TWO PLACES OR IN NEITHER** — the type's `fields` list and the template
+  that renders it — which is why `mandarin-fixes.json`'s `decks.addFields` does both plus the type's
+  own scoped CSS; adding one and not the others stores the field and shows it nowhere.
 - **📖 `docs/lang-decks.md` — READ BEFORE TOUCHING ANY DECK OR GENERATOR.** Every pipeline's findings:
   which exam boards publish a word list and which do not, the CJK and PDF extraction traps, the
   variety filters, the clitic and conjugation rules, the sense-ranking faults, and the catalogue's
@@ -1372,6 +1907,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   differently and nothing is lost; it is review noise, and the cure is the same — restore those lines from
   `git show HEAD:data.js` before committing.
   Not part of the site.
+- `.claude/card-links.js` + `.claude/add-card-links.js` — the rules for **`card.why` and `card.leadsTo`**,
+  and the batch tool that writes them onto cards already shipped
+  (`node .claude/add-card-links.js <batch.json> [--dry]`). **The rules are a MODULE because two tools
+  enforce them** — `add-card.js` for a new card and this for the other 1,400 — and a copy of a validation
+  goes stale on a change made in the other file by somebody with no reason to look here; this repo has the
+  scar (`add-card-tags.js` kept its own copy of a field list and stripped two fields from all 500 cards in
+  one run). The batch tool **splices LINES rather than rewriting `data.js`**: the file is one JSON object
+  per line, and re-serialising the array normalises every card's key order, which turns a five-card change
+  into a 1,400-line diff nobody can review — the run that added the first five touched exactly five lines.
+  It validates the WHOLE batch before writing anything. **`why` is THREE `{ q, a }` items since Sep 2026**
+  — the question and the brief paragraph its "Show answer" button reveals — and the retired single
+  `{ q, at }` shape is REFUSED here with the migration named, while app.js goes on rendering one for the
+  overlay's sake. Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
   ANSWER TERM is, in batches: `node .claude/add-card-difficulty.js <batch.json>` over
   `{ "cards": { "wh-001": 1, … } }`. It validates the WHOLE batch before writing anything (a half-applied
@@ -1641,8 +2189,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`PAGES.map`** holds a `.data-loading` placard until `world` + `atlas` land, then re-renders (`render()`
     re-invokes the *current* page, so this covers `PAGES.findit` too). **It is the one placard with a
     PROGRESS BAR** — see the next paragraph.
-  · **`startMiniGlobe`** (home) fetches `world` at **idle** so a 170px ornament never delays first paint,
-    and skips entirely under `navigator.connection.saveData`.
+  · ~~**`startMiniGlobe`** (home)~~ — **deleted with the home page's discovery row** (see `PAGES.home`),
+    so nothing on the home page fetches `world` any more. Its shape is still the one to copy for an
+    ornament that must not delay first paint: fetch at IDLE, skip entirely under
+    `navigator.connection.saveData`, and stop on `root.isConnected`.
   · **Settings' home-location picker** holds just the current home until `world` arrives, then fills.
   · **`loadLangData`** pulls `uiI18n` + `glossI18n` whenever the language isn't English.
   **THE LOAD BAR COUNTS FILES, NOT BYTES** (`dlBarHTML(names)` / `wireDlBar(host, names)` / `_bundleWatch`
@@ -2002,7 +2552,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **THE LESSON IS THE SHARED ONE: A BADGE THAT CANNOT FIRE LOOKS EXACTLY LIKE A BADGE NOT YET EARNED.**
     Nothing throws, nothing is logged, and the reader assumes they have not done enough. When a badge's
     `test` reads a counter, check that something still WRITES that counter.
-  · **FIFTEEN COLLECTOR'S BADGES** read `progStats`, and are tested **at the moment they are earned**
+  · **THE ARTEFACT LADDER GOES TO 100** (`art10` / `art25` / `art50` / **`art100` "Antiquary Royal"**,
+    Sep 2026, on request). It stopped at 50 while the pool was 100, so its top rung was half the
+    Reliquary; the pool is being taken to 200, which would have made `art50` a quarter — an early
+    milestone wearing the name of a final one. **Adding a rung changes nothing already earned**, a badge
+    being only ever ADDED to `S.achievements`, which is why this is cheap where RENAMING one is not (see
+    the Victor/Champion note above: renaming an id takes the badge off everybody holding it).
+  · **SIXTEEN COLLECTOR'S BADGES** read `progStats`, and are tested **at the moment they are earned**
     rather than at the next card. A badge grants a chest, so the chest balance is not a plain subtraction —
     `spendChest()` increments `S.chestsOpened`, which is what the tests assert against.
   · `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` / `S.chestsOpened` / `S.themes` /
@@ -2148,13 +2704,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     language through `entryChain`. **A GROUP still gets none of the four**, deliberately: it is an
     arrangement holding decks from anywhere, so a figure on it would cap several collections at once from
     a row that names none of them.
-  · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND ITS ONE ACTION IS ITS OPTIONS** (`langCtxId`,
-    `.dk-langhead`, `data-langhead`; Aug 2026, on a bug report that holding one opened nothing). It carries
-    no `data-review` — it deals no cards — so neither of the home page's two hold-menu walks reached it, and
-    a row that answers a hold with nothing looks exactly like a row that was never meant to. It is a real
-    `role="button"` with a tab stop now and the TAP opens the sheet as well as the hold, this being the one
-    row with no session to open instead; that is also its keyboard route, a hold not being something that
-    can be typed. **It takes the GROUP's shape of the sheet** — the cascading session settings, a name, a
+  · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND IT IS STUDIED AND REMOVED LIKE ANY OTHER**
+    (`langCtxId`, `.dk-langhead`, `data-langhead`; Aug 2026, on a bug report that holding one opened
+    nothing, and Sep 2026, on one that it could be neither studied nor removed). It carried no
+    `data-review` — the reasoning being that it deals no cards — so neither of the home page's two
+    hold-menu walks reached it, and a row that answers a hold with nothing looks exactly like a row that
+    was never meant to. The first fix made it a real `role="button"` with a tab stop whose ONE action, tap
+    and hold alike, was the sheet. **That reasoning was wrong twice and the second report is what showed
+    it**: `entryCardIds` unions its members, which is what draws its three coloured pile counts and its
+    progress bar, so the row DOES claim cards — and a row that claims cards and refuses to deal them is
+    the only one on the list that does. It carries `data-review` now, so the generic walk gives it the
+    TAP-studies / HOLD-opens-the-options pair every other container row has, and its own walk is retired
+    (two walks on one row would open the sheet twice). **It studies as a GROUP, not as a deck**
+    (`entryScope`): both are containers with no cards of their own and their own allowances, order and
+    skip, which is exactly `buildSession`'s group branch, where the deck branch would look a synthesised
+    id up in `NODE_BY_ID` and find nothing. **AND THE EDIT MODE'S CROSS REACHES IT**: it was skipped there
+    because it is not itself in `S.active`, but `removeActive` has always known what removing one means —
+    take out the decks gathered under it and free anything dragged in — and its own sheet has carried
+    Remove all along, so the mode simply had a hole in it. **It takes the GROUP's shape of the sheet** — the cascading session settings, a name, a
     colour and an icon, never the daily allowances, which belong to something the review iterates — and its
     last row is Remove, a language not being something that can be taken apart. **Four helpers know about
     it and each was silent in its own way**: `entryChain` (or a switch is stored where nothing reads it),
@@ -2261,6 +2828,162 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   on the page — the ordering floor walking Easy past the maximum interval, a preview reading a different
   clock from the grade, elapsed days read as a fraction where every fitted parameter set assumes whole ones,
   and a one-day interval that meant twenty-four hours from whenever you happened to grade it.
+- **HOW A READER MEETS A CARD — THE LEARNING-SCIENCE BATCH (Sep 2026, on request).** Folio was built out
+  of the two techniques a literature review rates HIGH utility — practice testing and distributed practice
+  — and did both well. Thirteen changes shipped together to act on the rest of that literature. Three
+  RULES come first, because they decide what may be built here at all:
+  **RETRIEVAL EFFORT IS THE MECHANISM** — a reader who presses Space and reads the answer has run a
+  rereading trial, so the typed blank is not decoration and nothing may quietly make revealing the cheaper
+  path. **FEEDBACK TYPE IS WHERE THE EFFECT IS, AND TIMING IS NOT**: an explanation measures d = 0.49, a
+  correct answer 0.32, a bare right-or-wrong **0.05**, while immediate-against-delayed is genuinely
+  contested — so a game that answers with a cross is buying almost nothing, and timing is not somewhere to
+  spend effort. And **THE LOW-UTILITY TECHNIQUES ARE THE ONES A READER WILL ASK FOR** — rereading,
+  highlighting and summarising all raise confidence without raising learning, so a request for a
+  notes-and-highlights study mode is a request to build the fluency illusion.
+  · **`CRIT_DAYS` — "LEARNED" MEANS THREE CORRECT RECALLS ON THREE DIFFERENT DAYS.** Anki graduates a card
+    inside one session (`learnSteps` is `1m 10m`), so a card met at nine was "learned" by ten past, and a
+    card could be studied for a month without once being recalled on a second day. Successive relearning
+    is the strongest flashcard-shaped finding there is and it says the gains come from SEPARATED successes
+    and flatten after about three. **It is a counter and a label, NOT a second scheduler** — not one
+    interval, ease or due date changes. `critMark` is called from **`grade()`, never from `schedAnswer`**,
+    which stays pure; it needs the reader's day boundary and the pre-grade `firstToday`, neither of which
+    the scheduler may see. **The DAYS are stored, not a count**, because a count cannot tell a second
+    recall today from one next week, which is the whole distinction. **It is a CONSTANT and not a deck
+    option**, since the evidence names three and a quantity does not cascade (`DECK_OPT_INHERIT`) anyway.
+    Shown as three pips **in the study card's HEADER ROW**, a Card info row, and a **Learned** tile beside
+    "studied" — a SECOND figure rather than a replacement, since swapping the bar would make every existing
+    reader's progress appear to collapse overnight. The pips hung under the answer term until Sep 2026 and
+    were moved on request ("to the top center of the card, between the question number and difficulty
+    rating"): under the answer they were below the fold on a long card and only after the reveal, where in
+    the header they are on screen from the moment the card opens, which is when a reader is deciding how
+    hard to try. Three things about that row. **`.q-head` is a `1fr auto 1fr` GRID rather than a flex row,
+    and the state dot and the label are wrapped in `.q-lead` to make it one** — flexing the label and the
+    stars equally leaves the middle pushed right by half the dot and its gap, and the dot is
+    `calc(8px * var(--fs))`, so the error is a number that moves when the reader changes text size.
+    **A PHONE GETS THE PIPS ALONE** (≤640px, Sep 2026, on request: "only display the text on desktop and
+    tablet format") — the sentence is wider than the stars beside it at 390px, and the row carries the
+    whole of it as its `aria-label` and its tooltip in every state, which is the only form a reader who
+    cannot see three dots has ever had. And **`.qc-n` needed `white-space:nowrap`**: with the middle column
+    taken, a narrow phone squeezes the phrasing counter to its 30px minimum and "2 / 3" breaks in two,
+    which makes the whole header two lines tall. `byDue` is the one comparator every due sort goes through: a
+    review card's due date lands at the start of its day, so among cards due at the same moment the one
+    with fewer separated recalls goes first.
+  · **`warmUpFirst` — THE SESSION OPENS ON A CARD THE READER HAS MET.** The forward effect of testing:
+    retrieving earlier material improves the learning of new material studied afterwards. A tail pass in
+    `buildSession` on `spreadNoteSiblings`'s model, **deferring rather than shuffling** so every ordering
+    promise survives except at the head, and **running BEFORE the sibling pass**, which is the one that can
+    fix a note's two sides being pushed together. A first-ever session has nothing to warm up with and is
+    left alone.
+  · **`hybrid` — A FOURTH DECK ORDER, "Eased in".** Interleaving wins at long delay; a hybrid may beat
+    both, because a novice needs to see what a category has in common before discriminating means anything.
+    A subdeck is GREEN once `HYBRID_N` (12) of its cards have a record — measured off `S.cards`, so it needs
+    no field. **Fresh subdecks come first and come whole**: the new-card allowance is sliced off the front
+    of the unseen cards, so a fresh subdeck at the front is the one being learned and drops into the robin
+    the moment it greens. The round robin is `robinOrder`, lifted out of `studyOrder` so the hybrid can run
+    it on a subset. **The review branch needs its own case** — the Ordered branch re-sorts the pooled queue
+    into the tree's global sequence and would undo it.
+  · **`PAGES.order` — THE FIRST SESSION ON A DECK ASKS HOW IT SHOULD BE DEALT.** Intercepted in `route()`,
+    one choke point, so the home rows, the banner, the Collections page and a pasted `#study` link are all
+    covered; **`params.resume` is exempt**, a reader returning to a session not being one starting it.
+    `S.orderPicked[entryId]` records that the QUESTION was put (`""` for "asked and left at the default"),
+    which `deckOpts` could not say. **A reader who has already studied the deck is never asked** — if any
+    card in it has a record the question is silently marked answered, or shipping this would interrupt
+    every existing reader about a deck they have used for months. Skippable in one press.
+    **TWO STATED EXCLUSIONS, both measured.** The POOLED REVIEW is not asked: it is not a deck, its order
+    lives on the banner's own sheet, and asking there puts a page of prose between a new reader and the
+    first card they ever see. A COMMUNITY OR LANGUAGE DECK is not asked either, and that one is a GAP
+    rather than a decision — it is where an order pays most. Extending it through `scopeEntryId` works
+    and fires inside the fixtures of `test-card-types`, `test-community` and `test-deck-ux`, each of
+    which imports a deck and studies it at once; each needs an `orderPicked` seed, which is a contained
+    change that wants its own pass with those three green.
+  · **`deckAttempt` — ANSWER BEFORE REVEALING.** A policy (in `DECK_OPT_INHERIT`) with a global default in
+    Settings, **off by default**. **ONE guard, in `showAnswer`, keyed on `fromReader`** — the button, Enter
+    and Space all go through it, and the restore path that re-opens an already-revealed card after a reload
+    must never be refused. **The escape hatch is not optional**: "I don't know" reveals and rings Again
+    without submitting it. It never focuses the blank — `setupCloze` deliberately leaves a touch reader's
+    keyboard down. `syncAttempt` is declared ABOVE the phrasing cycler and assigned below it, because the
+    cycler replaces the question element and every `.blank-input` in it.
+  · **`elabPromptHTML` — ONE ELABORATION PROMPT PER SESSION, AND IT IS NOW THREE QUESTIONS WITH THEIR
+    ANSWERS BEHIND BUTTONS** (Sep 2026, on request: the Think it through section "should read three
+    common/important why-questions about the answer term, with behind each question a 'show answer' button
+    which reveals a very brief paragraph below the question to answer it"). Elaborative interrogation
+    (`card.why`) where the card carries one, self-explanation ("you have also studied X and Y — how does
+    this connect?") otherwise. **Injected by `showAnswer`, not built into `buildBack`**, because the budget
+    belongs to the session and `buildBack` also draws the editor preview and the browser. **The questions
+    AND their answers are AUTHORED and never generated** — choosing which three questions a card is worth
+    being asked, and what the card's own cited prose answers them with, is the editorial act the apparatus
+    exists for; an answer written from anywhere but the card's own sources is an uncited claim wearing a
+    card's apparatus. Four things.
+    **`card.why` IS A LIST OF THREE `{ q, a }`**, checked by `.claude/card-links.js` — the question 4–24
+    words and ending in a question mark, the answer 12–60 words and not another question. It was one
+    `{ q, at }` naming which block of the abstract answered it, which asked the reader to think and then
+    sent them off to read three hundred words to find out whether they were right.
+    **THE SITE STILL RENDERS THE RETIRED SHAPE and the TOOLS refuse it**: `card.why` is one of the fields a
+    cloud content overlay can carry as a delta (see the overlay bullet under "Environment"), so a live
+    overlay written before this change would otherwise have its question silently vanish — a legacy item's
+    button opens and marks the named block exactly as it used to. Nothing new can be written that way.
+    **A "Show answer" DOES NOT CLOSE AGAIN**: this is a self-check, a reader who has read the answer cannot
+    un-read it, and a second press that took it away would only lose their place — so the button disables
+    itself and the paragraph stays.
+    **THE FALLBACK PROMPT IS UNCHANGED** — a card with no authored `why` still gets the self-explanation
+    question and its textarea, and **what the reader types goes nowhere**: not the schedule, not the log,
+    not the server, and the page says so, which is what makes people answer honestly.
+  · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
+    background's own opening definition — inline under the answer, so a reader whose fold is collapsed
+    still gets an explanation. **The footnote markers are stripped**: `sup.fn:empty::before` prints a
+    marker's own digit, so a lifted sentence would carry numerals pointing at a list that is not there.
+    In **Multiple Choice** the option the reader ACTUALLY CHOSE is explained from that card's own defining
+    sentence — only the chosen one, since four definitions under four options is a paragraph nobody reads.
+  · **`noteConfusion` — THE PAIRS THIS READER MIXES UP.** `gradeCloze` always read the typed guess to mark
+    it character by character and then **threw it away**; it hands it back now. A guess that is not this
+    card's answer but IS another card's, in the same collection, is a confusion rather than a slip.
+    `S.confused["<idA>|<idB>"]` (ids sorted), pruned at `CONFUSE_CAP`, surfaced on the home page at
+    `CONFUSE_MIN` (2) and drilled through the new `{type:"ids"}` scope. **It is the only personal thing on
+    that page** — every other figure would be the same for anybody with the same decks.
+  · **`PAGES.pretest` — TWELVE QUESTIONS BEFORE A DECK BEGINS.** The pretesting effect: being tested on
+    material not yet studied improves learning of it even though nearly every answer is wrong, provided the
+    answers follow — so **no feedback until the end**. **Offered only where the deck is dealt BY DIFFICULTY**
+    (on request), which is not arbitrary: that is the only order that sorts the new pile by a property of
+    the card, so it is the only one a result can be spliced into. **⚠ IT MUST NEVER WRITE `S.cards`.**
+    Folio's XP is `Object.keys(S.cards).length` and a level buys an artefact chest, so a pretest that
+    seeded twelve records the obvious way would hand a brand-new reader several levels and their chests for
+    answering twelve questions, silently. It writes `S.pretest[entryId]` and `sortByDifficulty` reads it as
+    a deal-order preference; a known card is still taught, later. Matching is `pretestMatch` → `nearMiss`,
+    which forgives case, accents, an article, a bracketed aside and ONE slip **including a transposition**
+    — plain edit distance counts a swap as two, so without it `Mousterain` reads as a different word.
+  · **`card.leadsTo` — CAUSAL CHAINS, AND WHAT CAME OF THIS.** Chronology is the scaffold; causation is the
+    building, and Timeline tested WHEN while nothing tested WHY. An authored `[{ id, how }]` forming a
+    shallow DAG **within one collection**, drawn as a strip outside the Background fold, each edge opening
+    a `openCardPeek` sheet rather than routing — a click meant as a glance must not end the session and
+    spend that card's schedule. **Four rules, enforced in `.claude/card-links.js` rather than trusted**: the
+    target exists, is in the same collection, is LATER by `cardStartYear` (which catches an edge written the
+    wrong way round), and **`how` is a historical claim and needs the card cited like any other**.
+  · **`forgettingCurveHTML` / `seenOnceHTML` — THE LOG READ A THIRD WAY.** `S.revlog` has held one row per
+    answer since Aug 2026 and only Card info and the answer-button card read it. The curve buckets rows by
+    `prevMin` — the interval the card was actually on — and **prints nothing for a bucket under
+    `CURVE_MIN_ROWS`**, a percentage drawn from four answers being exactly the sort of number people act on.
+    The seen-once list is `crit` read from the other end: cards recalled on one day and never again.
+  · **`PAGES.how` — SAYING WHY IT IS HARD ON PURPOSE.** Half of this batch makes studying feel worse, and
+    the measured finding about desirable difficulties is that learners will switch them off unless somebody
+    explains why; refutation plus a metacognitive prompt raises adoption. Four claims, each **refuting a
+    belief by name** rather than asserting a fact, each with what Folio does about it. Reached from
+    Settings → Study and from the order picker. **It is the licence for the rest of this batch**: an
+    unexplained desirable difficulty is just a worse website.
+  · **Guarded by `.claude/test-learning.js`** (sections 1–5 need no browser). **Re-run after touching
+    `CRIT_DAYS` / `critMark` / `critDays` / `critPipsHTML` / `critLearnedCount` / `byDue` / `warmUpFirst` /
+    `WARMUP_N` / `robinOrder` / `studyOrder` / `HYBRID_N` / `DECK_ORDERS` / `deckAttempt` / `PAGES.order` /
+    `orderAskEntry` / `setOrderPicked` / `PAGES.pretest` / `pretestOffer` / `pretestPick` / `pretestMatch` /
+    `nearMiss` / `editDistanceLE1` / `pretestKnownSet` / `sortByDifficulty` / `elabPromptHTML` /
+    `wireElabPrompt` / `cardWhy` / `connectKin` / `cardFirstSentence` / `openCardPeek` / `cardLeadsTo` /
+    `cardLeadsToHTML` / `gradeCloze` / `normAnswer` / `answerNear` / `answerIndex` / `noteConfusion` /
+    `confusionPairs` / `confusionDrillIds` / `confusionRowHTML` / `forgettingCurveHTML` / `seenOnceIds` /
+    `seenOnceHTML` / `PAGES.how` / `HOW_CLAIMS`, the `{type:"ids"}` branch in `buildSession`, or
+    `.claude/card-links.js`.**
+  **📖 `docs/learning-science.md` — READ BEFORE CHANGING THE SCHEDULER'S GRADUATION RULE, THE STUDY PAGE'S
+  REVEAL PATH, A MINIGAME'S FEEDBACK, OR ANYTHING THAT DECIDES HOW A READER MEETS A CARD.** The findings
+  with their effect sizes and sources, an honest audit of what Folio already got right, and the twenty
+  proposals with what each would look like to a reader — thirteen of which are now built, and the file
+  says which.
 - **Undoing a grade (Aug 2026, on request)** — `undoStack` / `undoSnapshot` / `undoGrade` inside `PAGES.study`,
   reached by the `#undoGrade` button in the study bar (rendered only when there is something to undo), by
   **Ctrl/Cmd+Z**, and by "Undo the last card" on the completion screen (where the queue is empty and there is no
@@ -2620,6 +3343,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   against in the cloze box and matched by the glossary, none of which must see a capital the data has not
   got. `::first-letter` changes what is painted and nothing else; it reaches the letter through inline
   descendants, and on a hanzi answer it is simply inert.
+  **…EXCEPT WHERE THE LOWER-CASE INITIAL IS THE TERM** (`.answer .val.nocap`, the `noCap` test in
+  `buildBack`; Sep 2026, with the pH card). Rendered `PH`, the answer to a card whose whole subject is the
+  scale is not a capitalised term but a different string — the `p` is what the name means. **The test is
+  the SHAPE rather than a new card field**: a lower-case letter followed immediately by a capital is `pH`,
+  `mRNA`, `tRNA`, `iPSC`, and no ordinary English word, so it says the whole of what this class has to say
+  and needs nothing written down per card. Note also that `buildGlossIndex` **skips any surface under three
+  characters**, so the paired glossary term `pH` can never auto-link on its bare name and carries the alias
+  `pH scale` to be reachable at all — ask that of any two-letter answer term.
 - **Source footnotes** — the `SOURCE FOOTNOTES` block in app.js, just above `buildBack`. Four surfaces say
   things about the past — a card's background, a glossary description, an artefact's plate and an Atlas place
   panel — and each names the scholarship behind them: a **`sources` list of Chicago note-form citations**
@@ -2785,21 +3516,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     continent.
   · **A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT** (`cardCollectionRoot` /
     `locatorSiblings` / `_locSibCache`; Aug 2026, on request). Four layers under the card's own gold dot:
-    the collection's other card places as smaller RED dots, the Atlas's capitals and million-plus cities
-    as grey ones, and its rivers. **The two halves are paid for differently and that is the whole design.**
+    the collection's other card places as smaller RED dots and its rivers. **The two halves are paid for
+    differently and that is the whole design.**
     The siblings are FREE — every locator is in `data.js`, which every visitor downloads before flipping a
-    card — so they ship unconditionally; the cities and rivers are the `atlas` bundle (~600 KB), so they
+    card — so they ship unconditionally; the rivers are the `atlas` bundle (~600 KB), so they
     are **warmed at IDLE and never awaited**, which is `glossExtra`'s bargain, and skipped outright under
     `saveData`, which is `startMiniGlobe`'s. A card with a locator therefore paints at once with its own
-    places and fills in a moment later. **THE CITIES THIN WITH ZOOM, and that was found by LOOKING**: all
-    2,665 drawn at once cover Europe and North Africa in a grey rash at the opening 50° view and bury the
-    red marks that are the point — so the 216 capitals show always and the 392 million-plus cities once
-    the frame is a region. **THE 2,057 DIVISION CAPITALS ARE GONE ALTOGETHER, and the rest are quieter**
-    (Aug 2026, on request: "make all the black dots smaller and less conspicuous, and only put them for
-    foreign capitals and cities with over 1M population") — that tier was five sixths of the layer and
-    every one of them a place no card is about, and what is left is drawn at about two thirds of its old
-    radius and two thirds of its old ink. They are there to give the card's own mark a world to sit in,
-    and the moment they compete with it they have stopped doing their job. **EVERY RIVER THE ATLAS
+    places and fills in a moment later. **THE MODERN CITIES ARE GONE ALTOGETHER** (Sep 2026, on request:
+    "in all atlas windows in all history decks, modern capitals/cities should no longer be marked with
+    small black squares, but should not appear at all — unless they’re a card answer term e.g. Athens,
+    which should always appear"). The layer was `cities.js` filtered to national capitals and million-plus
+    cities, and its whole history is one long retreat: 2,665 dots covered Europe in a grey rash, so it was
+    thinned by zoom; the 2,057 division capitals went; the rest were made smaller and greyer twice; and a
+    capital falling under one of the collection's own marks stood aside for it. Every one of them was a
+    place no card in the collection is about, which is what the request settles — **a history card's map
+    carries the collection's places, and the coastline, the rivers and the borders are the world it sits
+    in.** The exception the request names needed nothing added: **a city that IS a card's answer is drawn
+    already**, as a studied sibling, or as the collection's home city through `CMAP_ANCHOR`. `nearSib`
+    went with the layer, having existed only so a grey square could stand aside for a red one.
+    **EVERY RIVER THE ATLAS
     DRAWS IS DRAWN HERE TOO, AND NOT ONE OF THEIR NAMES** (Aug 2026, on request: "the same Rivers
     displayed on the Atlas should also be displayed in Atlas windows in cards (only without their
     labels)"). For a fortnight a river was drawn only where the collection taught one, and that narrowing
@@ -2948,17 +3683,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the coast and never awaited, so the card paints on `rivers.js` and the water sharpens when the file
     lands. **📖 read `.claude/build-hires-rivers.js`'s header before touching it** — why a river is
     replaced whole rather than clipped to the frame, and where the extra rivers come from.
-  · **A MODERN CAPITAL IS A SQUARE AND NOTHING ELSE** (Sep 2026, on request: "modern capitals should not
-    have their text labels shown, only their squares"). They were named once the frame was a region rather
-    than a continent, which on a Roman Republic card put Tirana, Valletta and Podgorica in the same face
-    and weight as the places the collection teaches — a map of modern states with a history card's marks on
-    it. The square still gives a reader a seat of government to place a site against, which is the whole
-    of what that layer is for; **the words on this map belong to the collection.** `capAt` is DELETED
-    rather than left unread, a register nothing draws from being the next session's bug. **The square is SMALLER and
-    outlined in GREY rather than white** (Sep 2026, on request): a white keyline is what an atlas gives a
-    mark that must survive being drawn over land, sea and a label at once, and here it was a second
-    highlight around the loudest thing on a quiet map.
-  · **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** (same request). The weight was the Atlas's own
+  · **A MODERN CAPITAL WAS A SQUARE, THEN A SMALLER ONE, AND IS NOW NOTHING** — three requests in one
+    month, each taking more off the same layer, and the third took the layer. The reasoning is in the
+    locator bullet above; what is worth keeping here is the shape of the retreat, because it is the
+    argument against ever adding a layer of places the collection is not about: every step of it was
+    "make this quieter" and the end of that road is "take it away". `capAt` and `nearSib` are DELETED
+    rather than left unread, a register nothing draws from being the next session's bug.
+  · **THE LAND IS FILLED, THEN THE RIVERS, THEN THE BORDERS** (Sep 2026, on two bug reports: "in the
+    atlas windows of the world history collection, rivers appear on top of borders, making the borders
+    invisible", and "in the China collection atlas windows, the northeast border with Russia is
+    invisible"). **Those are one fault seen twice, and the second is the one that shows why it matters**:
+    the Amur and the Ussuri ARE China's north-eastern frontier, so the river drawn over the border did not
+    merely obscure a line, it deleted a country's edge — and nothing about it looks like a fault, since
+    what is left is a perfectly good map with one border missing. The rivers were painted after the
+    countries, in the ocean colour and at up to 1.8px against a border stroked at 0.7, so anywhere a
+    border FOLLOWS a river it was painted out. A river is water on the land and a border is a line drawn
+    over it; the fix is the ORDER, not the weight. **It costs one geometry pass and not two**: the obvious
+    split walks all 117,000 vertices twice a frame on a globe the reader is dragging, so each country's
+    projected outline is built ONCE into a `Path2D`, filled from it, and added to a single border path
+    stroked after the water — `addRing` writes through `tc`, so pointing that at a path rather than at the
+    context is the whole of it. The thin-river pass moved out of the sibling block into `drawThinRivers()`
+    for the same reason; the card's own river, which is the ANSWER, still goes on last and over everything.
+  · **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** (Sep 2026, on request). The weight was the Atlas's own
     `0.4 + zoom * 0.16` floored at 0.5 and is `0.15 + zoom * 0.18` floored at 0.3, reaching the old figure
     again around zoom 6 and unchanged at the deep end, where the 1.8px cap has always decided it. The
     Atlas draws its rivers only past a zoom; this window draws all 1,073 of them at every zoom, so at a
@@ -4464,6 +5210,12 @@ the end of a successful add and print the candidates, their licences, their size
   into the card stays the normal `/thumb/…/1920px-…` URL, since the limit is this container's and not a
   reader's. The rule this protects is the one that matters: **look at the picture before using it**, and a
   host that will not serve it is a reason to keep trying or to ship without one, never to install unseen.
+· **AND THE `src` IS COPIED FROM THE API, NEVER BUILT BY HAND** (Sep 2026). An upload URL carries a
+  two-character shard — `…/commons/0/07/<FILE>` — which is the first characters of the file name's MD5
+  and CANNOT be guessed; a hand-typed one is a 404 on a card that otherwise looks finished. Ask
+  `api.php` for `imageinfo` with `iiprop=url` and take `url` (or `thumburl`, minus its tracking query).
+  It cost a broken picture once, caught only because the rate limit above forced a re-check — so when
+  a `src` cannot be fetched to confirm it, compare it against the API's own string instead.
 · It writes the same fields the pass writes: a card and a term take `{ src, title, desc, credit, alt }`, an
   artefact `{ src, credit, alt }`, and **`credit` is required in all three** — a picture on Folio is always
   somebody else's file, and `add-card.js`, `add-glossary.js`, `add-artefacts.js`, `add-images.js` and the
@@ -4563,23 +5315,23 @@ lookup.
 
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
-| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 89 cards, scattered — next id is an early GAP |
-| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 180 cards, contiguous |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | empty |
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, contiguous — next is `wh-301` |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 500 cards, contiguous — next is `gr-501` |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 100 cards, contiguous — next is `rm-101` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
-| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 40 cards — `cn-myth` complete, and the collection is now open to study |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 99 cards, SCATTERED — next is `cnh-042`, an early gap; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
-| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
+| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
-| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
-| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 136 cards — 470 rather than 1000, and sorted by POPULATION, see below |
+| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
+| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
@@ -4593,10 +5345,14 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (142 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (251 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
-topics, and CLAUDE.md names each plan, carries a working next-id command and states each prefix in the
+topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
+names the ANSWER rather than a subject to research, i.e. the three geography plans — the card sitting at
+that number IS the city the plan put there** (both added Sep 2026, after eight capitals shipped at other
+cities' ids, one of them at a number its plan deliberately leaves unused, with nothing complaining
+because every card was correct in itself), and CLAUDE.md names each plan, carries a working next-id command and states each prefix in the
 index table (the command is asserted ONCE as a template and the prefix per collection — the rule is
 shape plus prefix, and eleven copies of the shape guarded nothing the pair does not). **Re-run it after editing a plan, after changing a tree in
 `data.js`, and after adding a collection** — every fault it catches is silent, and the worst of them
@@ -4828,6 +5584,26 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   only to a card the games can reach (rated at or below the bar); the deck's own chronological order, the
   other games and studying are all unaffected. See the "SOME TERMS DO NOT HAPPEN AT A TIME" bullet under
   "How the app is wired", and flag an older card with `.claude/mark-undatable.js`.
+- `why` — **OPTIONAL: three why-questions about the answer term, each with its own brief answer**, as
+  `[{ "q": "Why …?", "a": "Because …" }, …]` — elaborative interrogation (see the learning-science bullet
+  under "How the app is wired"). It is shown after the reveal, above the Background, under the heading
+  **Think it through**, each question with a **Show answer** button that uncovers its paragraph. Each `q`
+  must END IN A QUESTION MARK and run 4–24 words; each `a` runs 12–60 words and is not itself a question;
+  all three questions must differ. **Never generate any of it**: choosing which three questions a card is
+  worth being asked is the editorial act the whole apparatus exists for, and a guess is a guess presented
+  to a reader as a question worth thinking about. **AND THE ANSWER SAYS WHAT THE CARD'S OWN CITED PROSE
+  SAYS** — write it out of the abstract, whose claims already carry their sources; an answer researched
+  from anywhere else is an uncited claim wearing a card's apparatus, and nothing in the pipeline can see
+  it. Written onto an existing card with `node .claude/add-card-links.js <batch.json>`. (The retired
+  single-question shape, `{ "q": …, "at": 1|2 }`, is refused by both tools; app.js still renders one, for
+  a live cloud overlay's sake.)
+- `leadsTo` — **OPTIONAL: at most three `{ id, how }` edges to cards this one led to** — the causal strip
+  at the foot of the answer (see the same bullet). **Four rules, all enforced by `.claude/card-links.js`
+  and none of them visible to an author when broken**: the target must exist (a dangling edge draws
+  nothing at all), must be in the SAME collection, must be LATER by `cardStartYear` (which catches an edge
+  written the wrong way round — it renders perfectly while asserting that the later thing caused the
+  earlier), and **`how` is a historical claim and needs the card cited like any other**, in 4–28 words.
+  Write it deliberately and sparingly: a list of every consequence is a list nobody reads.
 - `answer` / `answerText` — **the answer term NEVER carries an article** (Aug 2026, on request): it is
   `polis`, `Iliad`, `rhapsode`, `cist grave`, not "the polis" or "a cist grave". What the reader is being
   asked to recall is the term; "the" is a fact about the sentence around it, so it belongs to the QUESTION
@@ -4841,6 +5617,15 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   plural subject can be left with a singular complement ("17 of the 34 tombs are a cist grave"), which the
   article was hiding. Read every phrasing back after the change; the length rule bites too, since inserting
   the article costs a word.
+  **THE ONE EXEMPTION IS A PLACE ACTUALLY NAMED "The X"** (`ARTICLE_IS_NAME` in `add-card.js`, Sep 2026,
+  on `gw-719`): Anguilla's capital is **The Valley** on its own government's facts page and the Dutch seat
+  of government is **The Hague**, so stripping the article there renames a town rather than baring a term
+  — and `test-card-plans.js` compares a shipped answer against its plan's own name, so the mangled form
+  fails there instead. It is a **DECLARED four-entry table with the reason beside each**, exempting
+  `answer`, `answerText` and the abstract's opening `<b>` together, for the reason `CROSSREF_WRONG` is
+  declared: a rule clever enough to tell a name from a phrase would let the real fault through. **Add an
+  entry only after checking how the place's own authority writes it**, and never to get a card past the
+  check.
 - `answerText` — the answer as plain text, no HTML.
 - `image` / `video` (optional, one or the other) — `{ src, title, desc, credit }`. **`credit` is required**:
   `add-card.js` refuses a `src` with no source line, matching the editors' media gate.
@@ -5068,6 +5853,14 @@ latter on `/document/<id>` as well as its property pages — are all **403** her
 `nature.com` and `link.springer.com`, the last two **303ing to an identity-provider cookie endpoint**, for
 which **Europe PMC is the way in** (resolve the PMCID with `search?query=DOI:"…"&resultType=core` — a
 guessed one in N1 returned a paper on stress in mice).
+**THAT LAST PART IS A FACT ABOUT THE TOOL, NOT THE HOST, and it was measured wrong** (Sep 2026,
+artefact batch C1b): **WebFetch** will not follow a cross-host redirect, so it stops at the identity
+provider and reports the article unreachable — but **`curl -L` with a browser user-agent completes the
+cookie handshake and serves the whole article**, 86,000 characters of it, on a paper Europe PMC has no
+record of at all. So **Springer Open journals — `Heritage Science` above all — ARE open to this
+sandbox**, which is a large body of exactly the archaeometry the citation passes need. **Retest a host
+with curl before trusting a WebFetch refusal**; the two disagree, and only one of them is measuring the
+host.
 **N8's finding is that a wrong TERM is not always a wrong FACT, and only a reader caught it.**
 `Smilodon` opened "*Smilodon fatalis* is the saber-toothed cat" and held every sabre-tooth alias, so the
 whole vocabulary of the group resolved to one American genus. Nothing in it was false about *Smilodon* —
@@ -5456,7 +6249,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty-seven committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **Forty-eight committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
@@ -5559,7 +6352,7 @@ dead code (never rendered).
     after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
     community store's record shape, or the `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 308 assertions on **the shell**: the rules that break silently
+  · `node .claude/test-layout.js` — 332 assertions on **the shell**: the rules that break silently
     because nothing throws when a layout is wrong. **Re-run after touching `.tabbar` / `--tabbar-h` /
     `--timebar-h` / `layoutTicks` / the Atlas chrome's media queries / `.settings` / `.auth-split` / the
     coming-soon rows / `.home-collections` / `.games-sec` / `.home-about` /
@@ -5569,7 +6362,8 @@ dead code (never rendered).
     `#fsRange` / `MULTILANG` / `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
     `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` / the ink layer's
     pass-through / `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on
-    `.admin-list-items` / `cpWireResize` / `cpContentNeedH` / `cpColsContentH` / `cpRoomH` / `cpMaxH` / `.cp-titlemain` / `lockHeight`, or after adding an
+    `.admin-list-items` / `cpResize` / `cpContentNeedH` / `cpColsContentH` / `cpRoomH` / `cpMaxH` /
+    `.cp-titlemain` / `lockHeight`, or after adding an
     overlay to `document.body`.**
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js` —
@@ -5580,7 +6374,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 202 assertions on **the join between the sixteen card plans and
+  · `node .claude/test-card-plans.js` — 251 assertions on **the join between the sixteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -5589,7 +6383,7 @@ dead code (never rendered).
     **Re-run after adding or removing quotes** (a fifth Confucius line tightens the pool) as well as
     after touching `quoteRunningOrder` — the rule is a property of the ARRANGEMENT, so it breaks
     silently.
-  · `node .claude/test-streak-chest.js` — 18 assertions on the weekly streak chest (Aug 2026). **Re-run
+  · `node .claude/test-streak-chest.js` — 24 assertions on the weekly streak chest (Aug 2026). **Re-run
     after touching `bumpStreak` / `maybeStreakChest` / `streakChestProgress` / `STREAK_CHEST_EVERY` /
     `S.streak`.**
   · `node .claude/test-scheduler.js` — 136 assertions on **the schedule itself**, which is the thing a
@@ -5651,6 +6445,15 @@ dead code (never rendered).
     touching `locatorSiblings` / `cardCollectionRoot` / `locOwnTerms` / `LOC_KINDS` / `locPts` /
     `drawSwords` / the extras block in `startCardGlobe`'s `draw()` / `fitTarget`'s extent branch / the idle
     `ensureData("atlas")` beside it / `uCacheBust`, and after giving a card a locator `kind`.**
+  · `node .claude/test-learning.js` — **the learning-science batch** (Sep 2026), and every one of its
+    subjects fails SILENTLY: a criterion that stops recording reads as a reader who never gets anything
+    right; an order picker asked twice is a wall and asked never is a feature nobody meets; a reveal guard
+    that misses one of its three doors is a policy that does nothing on a keyboard; and a confusion
+    register whose capture breaks stays empty for ever, which looks exactly like a reader who never
+    confuses anything. **Its starred assertion is that the deck pretest writes NO card records** — XP is
+    the count of those, and a level buys a chest, so the obvious implementation hands a new reader several
+    levels for answering twelve questions. Sections 1–5 need no browser. **Re-run after touching anything
+    in the "HOW A READER MEETS A CARD" bullet's own list.**
   · `node .claude/test-card-quote.js` — **a card quoting the book it cites** (13 assertions, Aug 2026),
     and every part of it fails silently: a quotation appended after the prose instead of standing between
     the two blocks looks deliberate, one that wraps around the floated illustration looks deliberate, and
@@ -5658,6 +6461,18 @@ dead code (never rendered).
     touching `cardQuote` / `cardQuoteHTML` / `buildBack`'s abstract split / the `.cq-go` listener /
     `PAGES.book`'s `params.n` / the `#book` branches in boot and hashchange / `serializeCardData` /
     `revertCard`, or `add-card.js`'s quote guard.**
+  · `node .claude/test-deck-update.js` — **updating a language deck this device already holds** (21
+    assertions, Sep 2026), and the reported fault reproduced: it corrupts a card in IndexedDB the way a
+    stale download is corrupt, reloads, and asserts the repair arrives AND the reader's schedule
+    survives it. **Re-run after touching `langDeckFetch` / `langDeckDownload` / `langDeckStale` /
+    `langDeckUpdate` / `uDeckNormalize`'s `langRev` / `uDeckIndexRecord` / `UDECK_META_KEYS`, the
+    `data-langup` row or button, or `build-lang-decks.js`'s `rev`.**
+  · `node .claude/test-char-network.js` — **tapping a character on a Mandarin card** (12 assertions,
+    Sep 2026). Every way it can break is quiet: a missing `data-ucdeck` never opens the panel, an
+    unwarmed deck answers "no other words", and an empty result is a REAL answer for some characters —
+    so it asserts a count only a warmed deck can reach, and that an empty one says so in words rather
+    than showing nothing. **Re-run after touching `openCharWin` / `charNeighbours` / the `.uc-chc`
+    listener / `cardTypeSideHTML`'s `data-ucdeck` / the `.charwin` styles.**
   · `node .claude/decks/check-say.js` — **a language card's speaker says what the card shows**: where the
     headword displays ONE article, the spoken field must carry it. It found 3,674 cards that dropped it —
     3,640 French and 34 Italian — and `--fix` repairs them. **A common-gender noun (`il/la complice`,
@@ -5694,7 +6509,7 @@ dead code (never rendered).
     gone, so a refactor cannot leave it testing nothing. **Re-run after touching `openAvatarCropper` /
     `openAvatarViewer` / `AVATAR_PX` / `supaSetAvatar` / `monogramHTML` / the `img.viewClass` hook in
     `openMediaViewer`, or the `.av-crop` / `.avc-*` / `.iv-avatar` / `.mono-view` styles.**
-  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (69
+  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (70
     assertions, Aug 2026). **Re-run after touching `cardDifficulty` / `difficultyOK` / `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY` / `cardUndatable` / `chronoPool` / `cardStartYear` / `serializeCardData` /
     `revertCard`, any game's pool function, `add-card.js`'s difficulty or undatable guard,
@@ -5737,9 +6552,10 @@ dead code (never rendered).
   · `node .claude/test-lang-decks.js` — **the Collections page's Languages section** (Aug 2026), in two
     halves and both for silent failures. **Re-run after touching `langCollectionsHTML` /
     `langCollectionHTML` / `langRowHTML` / `langRowSpecs` / `langNodeSpecs` / `langCollId` /
-    `wireLangDecks` / `entryPending` / `langDeckDownload` / `langCatalogById` / `langCatalogNode` / the
+    `wireLangDecks` / `entryPending` / `langDeckDownload` / `langCatalogById` / `langCatalogNode` /
+    `entryScope`'s language branch / `buildSession`'s group branch / the deck list's `.dk-del` walk / the
     `.dk-pending` row in `PAGES.home` / `cardBytes` / `nodeBytes` / `fmtDeckSize` / `.node-size` /
-    `buildNode`'s `nodeSpanHTML` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`, and
+    `buildNode`'s `nodeSpanText` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`, and
     after adding, rebuilding or removing a deck in `decks/`. Section 4 covers the LANGUAGE HEADER's own
     options sheet, so re-run it after touching `langCtxId` / `langCtxName` / `langCtxEntries` / the
     `.dk-langhead` row and its `data-langhead` wiring / `entryExists` / `entryInfo` / `entryChain` /
@@ -5750,7 +6566,79 @@ dead code (never rendered).
   · `node .claude/test-reset.js` — **Settings → Danger zone → Reset progress, and who the home page
     thinks you are** (21 assertions, Aug 2026). **Re-run after touching `resetProgress` / `RESET_KEEPS` /
     `PROGRESS_FIELDS` / `emptyProgress`, the home page's `fresh`, or the Settings reset row.**
-  · `node .claude/test-library.js` — the Library (333 assertions): the rename, the shelf, one book, and
+  · `node .claude/summa-witness.js` — **the Summa against a second transcription of the same
+    translation** (Sep 2026, batch E38). The fourth scanner, and the only one that can see text that
+    is simply GONE: a spelling sweep reads what is there, `book-audit.js` asks whether what is there
+    belongs, and the duplication check finds a loss only where it left a duplicate behind. It found a
+    whole question of Aquinas — Third Part q.35, Of Christ's Nativity, eight articles — absent from
+    the book, because Wikisource serves q.33 under `Question 34` and q.34 under `Question 35`. Three
+    checks: articles against the witness; each chapter's TITLE against its own PROLOGUE (two
+    independent statements of one fact, which is what finds a question standing in another's place);
+    and any two chapters with byte-identical text. The last two need no witness, which is why they
+    reach the Supplement and the Appendix, where 102 of the 614 questions have none. **Read the
+    heading's ORDINAL WORD, never its bracket** — Gutenberg's disagree seventeen times, and keyed on
+    the bracket the first run reported 33 phantom findings. **EVERY DISAGREEMENT IS ADJUDICATED and
+    the report is by KIND** (Sep 2026, batch E46): a count says two books disagree and not which is
+    wrong, so each is settled by asking whether the other book has the text AT ALL — missing from
+    Folio, present but unnumbered, or the other book's own heading at fault. **All sixteen standing
+    are Gutenberg's, three of them citation typos**, and nothing there is Folio's to repair. **The
+    probe is five runs of sixty characters, not one**: a lone one reported III q.5 art 4 missing from
+    a witness that has it, having landed on a scripture reference — the two transcriptions differ most
+    in their apparatus. **`--selftest` asks whether the adjudicator is blind or deaf**, since "the
+    other book's fault" is what a probe matching everything would say. **It exits 0 whatever it
+    finds**, being a measure like `card-focus.js` rather than a gate. **Re-run after any change to
+    that book.** Not part of the site.
+  · `node .claude/check-counts.js` — **a book's own account of itself, checked against itself**
+    (Sep 2026, batch E49). Every book opens by counting things — "124 letters", "614 questions",
+    "404 chapters on each side" — and nothing had ever compared one of those hand-written figures
+    to the file. **A repair does not travel to the prose that describes it**: four batches put 31
+    articles of the Summa back and none touched the sentence counting them, so it read 3,094 against
+    a real 3,125. **The signal is the NEAR MISS** — a figure far from any count is nearly always
+    about something else (Chambry's 359 fables, the Franco-Italian Polo's 232 chapters) — with two
+    measured floors: a count under 40 is not tested at all (22 rows of noise without it, 4 with),
+    and a figure the prose hedges is passed over rather than reported for rounding. The legitimate
+    misses are DECLARED with reasons, and a row excuses a claim only while the book, the claimed
+    number AND the actual count all still agree, which is `check-citations.js`'s `CROSSREF_WRONG`
+    rule. **Its header states the three things it cannot see**, the first being a sentence that
+    counts with a pronoun. Report-only, exits 0. **Re-run after changing what a book holds.** Not
+    part of the site.
+  · `node .claude/check-cutoff.js` — **a chapter that STOPS rather than ends** (Sep 2026, batch
+    E43). The tell is terminal punctuation and it is the only one there is: a truncated chapter is
+    not short — the Summa's Supplement q.95 lost 1,123 words and still ran to 20 KB — and it is not
+    ungrammatical, every sentence but the last being whole. **Neither other structural scanner can
+    see it**, since a chapter that is the right chapter, correctly placed, and simply stops two
+    thirds of the way through passes both. It found 22 of 4,403, five of them the Summa's and all
+    five the SOURCE's truncation. **The rest are settled by asking what the NEXT chapter opens
+    with** — a lowercase word means the division falls mid-sentence and nothing is missing. Exits 0
+    whatever it finds. **Re-run after adding a book.** Not part of the site.
+  · `node .claude/check-twins.js` — **a chapter carrying another chapter's text, over the whole
+    shelf** (Sep 2026, batch E42). The Summa's cheapest check — the one in `summa-witness.js` that
+    needs no second transcription — pointed at all 48 books. It found Aesop's fable 122, *The Old
+    Lion*, carrying fable 121's text, because Wikisource's page for it transcludes the wrong part of
+    a scan page holding three fables. **This is the one fault no other checker here can see**: the
+    wrong chapter is perfectly good prose, and what gives it away is a fact about the BOOK rather
+    than about any sentence in it. **It compares runs of eight words, never vocabulary** — two
+    chapters of one work share their author's whole vocabulary, so a bag-of-words test scores every
+    pair high and finds nothing. The bar is half the shorter chapter's runs, low enough that a
+    partial paste shows and measured to cost nothing. It **exits 0 whatever it finds**, being a
+    measure rather than a gate. **Re-run after adding a book.** Not part of the site.
+  · `node .claude/check-pairing.js` — **the two columns paired the way the READER's page pairs them**
+    (Sep 2026, batch E44). A bilingual book is drawn as rows and `bookSections` pairs on
+    `parseInt(data-n ?? textContent)`; nothing had ever asked the shelf whether the two columns' keys
+    meet. **Thucydides paired 7 of its 1,826 sections, and seven is worse than none** — it is the only
+    book whose columns come from different extractors, and each wrote a locally correct key (the wiki
+    rule a bare marker, `teiBookChapters` a `data-n` on every marker of every book it reads), so the
+    English offered 1..146 against the Greek's 100..14600 and the seven were accidental collisions
+    that READ as pairings. Both columns were complete, correctly numbered and printing the same
+    figure. **The importer's own reconciliation called them perfect, because it compared the LABEL** —
+    both print "34" — which is the finding to carry: **a check that reads a different field from the
+    one the reader's page reads is not a check.** So this one **slices the rule out of app.js by text
+    and stops if it is not there**, names each chapter by the shipped record's own title, and calls
+    out separately any book pairing under half its sections: 107 of 25,379 rows draw with one side
+    empty, which is two editors dividing a text differently, and every one of the 107 was already
+    recorded in its book's entry. Exits 0 whatever it finds. **Re-run after adding an
+    original-language column.** Not part of the site.
+  · `node .claude/test-library.js` — the Library (404 assertions): the rename, the shelf, one book, and
     the reader's place. **Re-run after touching `PAGES.library` / `PAGES.book` / `BOOKS` / `bookIngest` /
     `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` / `setReadingPos` /
     `bookSections` / `bookRows` / `applyLangMode` / `anchorNow` / `slideChapter` / `BOOK_SORTS` /
@@ -5767,8 +6655,11 @@ dead code (never rendered).
     `body: "plain"` slice / `extractCaput` / `extractTerzina` / `terzinaLines` / `terzinaHtml` /
     `teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the mid-line
     card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` / `stripTags`'s `data-n`
-    carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after renaming anything on the
-    Collections page.**
+    carry and its `VOID_TAGS` guard / `teiBookChapters`' `data-n` scale / cleanBody's
+    `sections: "bookchapter"` marker rule / `dropEscapedTagsIn` and `writeOriginal`'s footnote-marker
+    strip / `teiSectionProse`'s `type="Com"` rule and `teiSections`' lost-marker warning, after running
+    `fetch-book.js`, after changing a book's `about`, or after renaming anything on the Collections
+    page.**
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
     figures (Aug 2026). **Re-run after touching `acctSelfView` / `showcaseHTML` / `openCollectionWin` /
     `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**

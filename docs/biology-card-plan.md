@@ -513,7 +513,7 @@ vocabulary on the site, this collection will add more glossary terms than any ot
 
 ### Cells and cell theory — `bio-celltheory`
 
-    bio-091  The cell
+    bio-091  What every cell has in common
     bio-092  Cell theory
     bio-093  The discovery of the cell
     bio-094  Prokaryotic cells
