@@ -101,6 +101,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | file | what is left |
 |---|---|
 | `history-focus-plan.md` | 45 cards flagged on the question and historiography rules; batches F1–F5. |
+| `why-questions-plan.md` | The Think-it-through pass: three authored why-questions for every History and Science card. 1,158 of 1,458 written — every card the pass ran over is done; the 300 Rome and Second World War cards that landed while it ran are what is left. Its batch log records which seam each collection offers; `node .claude/why-count.js` is the measure. |
 | `book-text-plan.md` | Correcting errors baked into the Library's source texts. |
 | `atlas-rewrite-plan.md` | Rewriting every place popup to a card's standard, with citations. |
 | `glossary-expansion-plan.md` | Three jobs asked for together — audit, expansion, and the terms still to write. |

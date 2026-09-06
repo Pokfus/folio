@@ -1315,7 +1315,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.06 MB and 44,955 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.07 MB and 45,050 lines is hard to find your way around, so this
   lists its 169 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -1387,6 +1387,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   read the plan's entry before starting one, since three of them turn on a decision that is not obvious
   (what Save means in the deck editor, which bundle a card locator may fetch, and why merging language
   notes cannot be done to a shipped deck).
+- **📖 `docs/why-questions-plan.md` — READ BEFORE WRITING A `card.why`, OR BEFORE OPENING A BATCH OF THEM.**
+  The Think-it-through pass, opened Sep 2026 on request: three authored why-questions for every card in
+  the HISTORY and SCIENCE sections. **It ran to the end of its own list — all 1,159 cards as the sections
+  stood — and did NOT finish the sections**, because 300 more shipped on main while it ran; run
+  `node .claude/why-count.js` for the figure rather than quoting one here. **What closes it is
+  the rule rather than the pass**: a new card in either section ships with its own set, exactly as it ships
+  with its citations and its glossary term. Geography is out
+  (a map card's back is a figures grid, so there is no prose to draw an answer from) and so are the
+  language decks. It holds the three things the checker cannot see — that the answer says what the CARD'S
+  OWN CITED PROSE says, that the question is a why rather than a what wearing one, and that the three ask
+  about different things — plus the four seams a 300-word hedged abstract reliably offers (the hedge, the
+  correction, the definition's own edge, the evidence), the batch workflow, and the log. **Where a card
+  really has no reason in it, leave it out and say so**: a manufactured question is worse than an absent
+  section, which is why the self-explanation fallback was removed in the first place. Its batch log is now
+  the reusable half, recording **which seam each collection turned out to offer** — a contested source in
+  the history collections, a measured exception to a stated rule in Biology, a claim tested and not
+  surviving in Psychology. Not part of the site.
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
@@ -1921,6 +1938,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   — the question and the brief paragraph its "Show answer" button reveals — and the retired single
   `{ q, at }` shape is REFUSED here with the migration named, while app.js goes on rendering one for the
   overlay's sake. Not part of the site.
+- `.claude/set-facts.js` — writes a MAP CARD's `facts` grid, in batches:
+  `node .claude/set-facts.js <batch.json> [--check]` over `{ "cards": { "gw-001": [[label, value], …] } }`.
+  **A TOOL RATHER THAN AN EDIT, because none of the others can touch it**: `facts` is an ARRAY of pairs, so
+  `add-sources.js` (only `sources` and the abstract) and `fix-field.js` (find/replace inside a STRING field)
+  both refuse it, and `update-cards.js` assigns whole fields with no validation in front of it. **The grid is
+  READ BY POSITION** — `cardFacts` draws it two to a row — so "Capital | Population / Largest city | Area" is
+  an ORDER as much as a set of labels, which is the one thing a hand edit gets wrong without anything saying
+  so. It validates the WHOLE batch before writing anything, splices in the one-card-per-line shape every
+  other helper writes, and re-parses afterwards; `--check` prints every map card's grid and writes nothing,
+  which is how a batch is reviewed by eye. **A CELL MAY BE `"?"` AND THAT IS DELIBERATE** (Sep 2026, on
+  request: "if you cannot find data for any particular one, just put a questionmark there") — it is the card
+  saying the figure was looked for and not found, which is the honest state and the one thing a fabricated
+  number destroys. Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
   ANSWER TERM is, in batches: `node .claude/add-card-difficulty.js <batch.json>` over
   `{ "cards": { "wh-001": 1, … } }`. It validates the WHOLE batch before writing anything (a half-applied
@@ -2983,8 +3013,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     ANSWERS BEHIND BUTTONS** (Sep 2026, on request: the Think it through section "should read three
     common/important why-questions about the answer term, with behind each question a 'show answer' button
     which reveals a very brief paragraph below the question to answer it"). Elaborative interrogation
-    (`card.why`) where the card carries one, self-explanation ("you have also studied X and Y — how does
-    this connect?") otherwise. **Injected by `showAnswer`, not built into `buildBack`**, because the budget
+    (`card.why`) and NOTHING ELSE since Sep 2026 — see the last paragraph of this bullet. **Injected by
+    `showAnswer`, not built into `buildBack`**, because the budget
     belongs to the session and `buildBack` also draws the editor preview and the browser. **The questions
     AND their answers are AUTHORED and never generated** — choosing which three questions a card is worth
     being asked, and what the card's own cited prose answers them with, is the editorial act the apparatus
@@ -3001,9 +3031,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **A "Show answer" DOES NOT CLOSE AGAIN**: this is a self-check, a reader who has read the answer cannot
     un-read it, and a second press that took it away would only lose their place — so the button disables
     itself and the paragraph stays.
-    **THE FALLBACK PROMPT IS UNCHANGED** — a card with no authored `why` still gets the self-explanation
-    question and its textarea, and **what the reader types goes nowhere**: not the schedule, not the log,
-    not the server, and the page says so, which is what makes people answer honestly.
+    **THERE IS NO FALLBACK PROMPT ANY MORE, AND A CARD WITH NO AUTHORED `why` SHOWS NO SECTION AT ALL**
+    (Sep 2026, on request: a Think-it-through section "should never have the 'You have also studied ...'
+    fill in the blank type. It should always say three common 'Why ...?' questions about the answer term
+    with a very brief explanation that can be revealed with a show answer button"). The self-explanation
+    prompt — three kin cards named out of `S.cards` over an empty textarea — was what a card with no `why`
+    got, and it is a much weaker exercise than the one beside it: it has no right answer, nothing to check
+    against, and no relation to the term, so a reader met two different things under one heading. Silence
+    is the honest alternative, because **`card.why` is authored out of the card's own cited prose and is
+    never generated** (see the `why` bullet under "Add a card"), so the choice is between an authored
+    question and a manufactured one. **`connectKin` and the `.elab-box` / `.elab-acts` / `.elab-note`
+    styles went with it**; `cardKinship`, which `connectKin` used, is still Multiple Choice's distractor
+    ranking. **THE PASS THAT FILLED THAT GAP RAN THE LENGTH OF ITS OWN LIST** (Sep 2026): the 1,159 HISTORY and
+    SCIENCE cards it was planned against all carry a set, and 300 that landed on main while it ran do
+    not — so the section is absent on those, on the Geography cards and on the language decks, the last
+    two deliberately out of scope. **Run `node .claude/why-count.js` for the figure rather
+    than quoting one here.**
   · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
     background's own opening definition — inline under the answer, so a reader whose fold is collapsed
     still gets an explanation. **The footnote markers are stripped**: `sup.fn:empty::before` prints a
@@ -3050,7 +3093,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `WARMUP_N` / `robinOrder` / `studyOrder` / `HYBRID_N` / `DECK_ORDERS` / `deckAttempt` / `PAGES.order` /
     `orderAskEntry` / `setOrderPicked` / `PAGES.pretest` / `pretestOffer` / `pretestPick` / `pretestMatch` /
     `nearMiss` / `editDistanceLE1` / `pretestKnownSet` / `sortByDifficulty` / `elabPromptHTML` /
-    `wireElabPrompt` / `cardWhy` / `connectKin` / `cardFirstSentence` / `openCardPeek` / `cardLeadsTo` /
+    `wireElabPrompt` / `cardWhy` / `cardFirstSentence` / `openCardPeek` / `cardLeadsTo` /
     `cardLeadsToHTML` / `gradeCloze` / `normAnswer` / `answerNear` / `answerIndex` / `noteConfusion` /
     `confusionPairs` / `confusionDrillIds` / `confusionRowHTML` / `forgettingCurveHTML` / `seenOnceIds` /
     `seenOnceHTML` / `PAGES.how` / `HOW_CLAIMS`, the `{type:"ids"}` branch in `buildSession`, or
@@ -3451,7 +3494,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **CITATIONS ARE NOT TRANSLATED** (`notranslate`, and `sources` lives on the base card, not in `i18n`);
     only the "Sources" label and the chips are.
   · **THE FOLD IS OPEN BY DEFAULT ON A CARD, A BOOK AND THE ATLAS PANEL, AND ALWAYS SHUT IN A GLOSS POPUP**
-    (`opts.compact`), which additionally never writes the reader's `S.settings.srcCollapsed`. A marker jump
+    (`opts.compact`) **AND IN THE PICTURE ROUND** (`opts.shut`, Sep 2026). Both render collapsed and
+    neither writes the reader's `S.settings.srcCollapsed` — that guard is the **`src-nopref`** class, which
+    `compact` carries alongside its own smaller typography, so a surface can take the second half without
+    the first. A marker jump
     force-opens it for one look and never changes the preference.
   · **A MARKER JUMP MEASURES A FOLD THAT IS ALREADY OPEN AND CLEARS THE FIXED FURNITURE**
     (`openFootnote` / `scrollNoteIntoView`, reading `--bar-h` / `--tabbar-h`), or the note lands under the
@@ -4180,6 +4226,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   spelling table's traps in full, the units sweep's awkward shapes, the i18n engine's `I18N_HTML` gating
   and its cap, and the whole dormant narration system — the voice scoring, the chunking, the baked
   manifest's hashing gotcha and the `--rehash` flag.
+- **THE MASTHEAD — the wordmark and its tagline** (`.brand` in index.html's top bar; `homeBrandHTML` beside
+  `versionLineHTML` for the home page; `.brand` / `.home-brand` in styles.css. Sep 2026, on request: "on
+  tablet and desktop in the top menu bar, and on mobile at the top of the home page, there should be a folio
+  logo with the tagline 'Memorize anything'"). It stood in the top bar once and was taken out; the `.brand`
+  styles and the `route("home")` click handler were both LEFT BEHIND against its return, so this is the
+  markup coming back to them rather than a new control. Three things.
+  **EXACTLY ONE OF THE TWO IS ON SCREEN AT ANY WIDTH, AND THE SPLIT IS AT 1280px — MEASURED, NOT CHOSEN.**
+  The obvious rule is "bar logo wherever the bar is shown, home logo below 640px", and it does not fit: in a
+  browser, with the seventh tab in, **the brand costs the top bar 171px at Medium text and 292px at Very
+  large**, and the bar has that much to spare only from 1280px up. Below it the tabs are pushed off the end
+  — 171px of overflow at 901px, 76px at 1000px, and 70px at 1200px at Very large — which takes a DESTINATION
+  away to make room for an ornament. So `.topbar .brand` shows from 1280px up and `.home-brand` from 1279px
+  down. Re-measured after the change: the bar's overflow is now identical with the brand and without it at
+  every width and both text sizes. **The cost is stated rather than hidden: a landscape tablet gets the logo
+  at the head of the home page rather than in the bar**, which is the same place a phone gets it.
+  **THE TAGLINE IS AUTHORED BRITISH, like every other string on the site.** `spellText` runs over the whole
+  document body, so an American reader is shown "Memorise" → "Memorize" by the same table that handles the
+  rest of the prose — which needed a **`memoris`/`memoriz` row added to `SPELL_PAIRS`**, since the word was
+  not in it. Writing it American instead would have made it the one string on the site a British reader
+  cannot get their own spelling of.
+  **THE HOME PAGE'S COPY IS A HEADING, NOT A BUTTON** — the reader is already on the home page, so a control
+  that routed there would do nothing — and it centres below 640px because `.page-head` does, while between
+  641 and 900 both are ranged left. Guarded by `test-layout.js`.
 - **THE VERSION LINE** (`versionLineHTML`, just above `PAGES.home`; `.site-ver` in styles.css — Aug 2026, on
   request). The shipped version and the moment it went out, very small in the **top-left corner of the home
   page**, above the greeting. Four decisions in it are load-bearing.
@@ -4303,6 +4372,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     (`card.undatable`) and nothing else may borrow it. **Three games are not card-fed at all** and each
     left that rule by being asked to: the crossword (`crossword.js`), What year? (`whatyear.js`) and the
     picture round (the artefacts).
+  · **TIMELINE'S REVEALED DATES SAY WHAT THE DATE IS** (`cardYearBasis` / `dateLineRows`, beside
+    `cardSpanYears`; `.ciy-n` / `.ciy-b`. Sep 2026, on request: when the answers are revealed "each year
+    should also say what that starting date is based on"). A card's place in the order is
+    `min(cardYears)` over the whole `answerDate` field, which is a bare number: on a card dated
+    `Born 100 BCE / Died 44 BCE` the ordering fact is the birth, and on `Built c. 447 BCE /
+    Destroyed 1687 CE` it is the building, and the row said neither. The date line already names both in
+    its `dt-k` labels, so the basis is READ BACK OUT of it rather than stored a second time.
+    **IT IS DERIVED AND MAY HONESTLY COME BACK EMPTY, WHICH IS THE WHOLE OF ITS HONESTY**: a row is the
+    basis only when THAT ROW'S own earliest year equals the card's sort year, so a card with no date line,
+    one whose sort year comes from a continuation line, and one an admin has given a manual chronology
+    override all print the year alone, exactly as before. Printing "Era" over a year that did not come
+    from the Era row would be worse than printing nothing. **Measured over the shipped corpus: 1,617 of
+    the 1,627 datable cards yield a basis**, the commonest being Independence, US recognition, In use,
+    Founded and Era. `chronoPool` reads it ONCE when the pool is built rather than at reveal time.
   · **THE PICTURE ROUND IS THE ARTEFACTS AND NOTHING ELSE** (Sep 2026, on request: "The game 'Picture
     round' should only use pictures from artefacts"). A card's or a term's picture ILLUSTRATES its subject,
     which is a different thing from depicting it — a hand-axe under `Acheulean`, a flag under a country —
@@ -4317,6 +4400,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     apparatus behaves exactly as it does on the plate itself. **The SUMMARY screen strips the markers**
     (`picNoteBare`) — there is no list under it, and `sup.fn:empty::before` prints a marker's own digit,
     so leaving them in sets stray numerals through five paragraphs pointing at nothing.
+  · **…AND THE REVEAL CARRIES NO CREDIT AND OPENS ITS SOURCES SHUT** (`picCaption`, `sourcesHTML`'s
+    `shut` option and the `src-nopref` class; Sep 2026, on request: the reveal "still shows the credits of
+    the image … delete these, they're already available when the user clicks on the image", and "ensure
+    that in this minigame, the sources section is always collapsed by default"). Three things.
+    **TAKING `.pic-credit` AWAY WAS ONLY HALF OF IT: HALF THE POOL CARRIES THE ATTRIBUTION A SECOND TIME
+    INSIDE THE CAPTION** — measured, **96 of the 192 artefact pictures end `image.desc` with the opening
+    clause of their own `image.credit`** — so with the credit element gone the last line of the reveal was
+    still "Ardon Bar-Hama, public domain, via Wikimedia Commons." `picCaption` cuts it, and **it is an
+    EXACT match against that item's own credit rather than a pattern that looks like an attribution**: the
+    credit's text up to its URL is compared with the end of the caption and only a byte-for-byte tail is
+    removed, so it cannot eat a caption that merely mentions a photographer. Verified over the whole pool:
+    96 trimmed, 96 untouched, none left carrying an attribution. **The DATA is deliberately left alone** —
+    what remains on those 96 is usually the Commons file's own name ("CairoEgMuseumTaaMaskMostlyPhotographed"),
+    so cleaning it is a rewrite of 96 captions rather than a deletion, and that is a content pass.
+    **THE FOLD'S TWO HALVES HAD TO COME APART.** `opts.compact` already forced a fold shut and kept it out
+    of the reader's `S.settings.srcCollapsed` — but it also restyles the list to a gloss popup's size, which
+    a game round set at the card's own size does not want. So `opts.shut` is the second half alone, and
+    **`src-nopref` is now what the delegated header handler tests** (with `src-compact` carrying it as well
+    as its own styling). Without that guard, opening the fold in one round would open it on every card the
+    reader studies afterwards.
   · **MULTIPLE CHOICE SHOWS THE WHOLE ANSWER SIDE OF THE CARD** (`mountCardBack` / `.mc-cardback`; Sep
     2026, on request). It is the one game built on a real card, and it was answering with a one-sentence
     note where the card itself has a date line, a picture, an atlas window, its background and its
@@ -6649,7 +6752,7 @@ dead code (never rendered).
     `--timebar-h` / `layoutTicks` / the Atlas chrome's media queries / `.settings` / `.auth-split` / the
     coming-soon rows / `.home-collections` / `.games-sec` / `.home-about` /
     `gameSub` / `pileCounts` / `adProg` / `.active-deck` / `gbWireResize` / `.gb-fold` /
-    `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` / `makePageGhost` / `clipStageFor` / the
+    `body.gb-compact` / `.brand` / `homeBrandHTML` / `.home-brand` / `wirePageSwipe` / `SWIPE_ORDER` / `makePageGhost` / `clipStageFor` / the
     `.page-next`/`.page-prev` keyframes / `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` /
     `#fsRange` / `MULTILANG` / `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
     `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` / the ink layer's
@@ -6796,7 +6899,8 @@ dead code (never rendered).
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's
     restricted pool** (75 assertions), and every one of its checks is for something that fails SILENTLY.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
-    `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `picturePool` /
+    `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `chronoPool` /
+    `cardYearBasis` / `dateLineRows`, `picturePool` /
     `dailyPictureRounds` / `tagKinship`, `dayPick` / `buildChallengeQuestions` / `buildWhoSaidRounds` /
     `PAGES.truefalse`'s draw, `threadEasyKeys` / `dailyThreadPuzzle` /
     `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
