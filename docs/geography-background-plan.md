@@ -125,6 +125,12 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G11 — twelve more**: `gw-160` Eswatini, `gw-161` Djibouti, `gw-162` Fiji, `gw-163`
+  Comoros, `gw-164` Guyana, `gw-165` Solomon Islands, `gw-166` Bhutan, `gw-169` Suriname, `gw-173`
+  Maldives, `gw-174` Cabo Verde, `gw-175` Brunei and `gw-176` Belize, with all twelve date lines rewritten
+  off the same research. **Eight more join the deferral list** — `gw-167` Macau, `gw-168` Luxembourg,
+  `gw-170` Montenegro, `gw-171` Western Sahara, `gw-172` Malta, `gw-178` Iceland, `gw-180` New Caledonia
+  and `gw-182` French Polynesia — which takes it to forty-four.
 - **2026-09-06, batch G10 — twelve more**: `gw-144` Botswana, `gw-145` Moldova, `gw-147` Lesotho,
   `gw-148` Guinea-Bissau, `gw-150` Equatorial Guinea, `gw-151` Latvia, `gw-154` Bahrain, `gw-155`
   Timor-Leste, `gw-156` Estonia, `gw-157` Trinidad and Tobago, `gw-158` Cyprus and `gw-159` Mauritius,
@@ -244,6 +250,54 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G11 found
+
+- **THE RECOGNITION GUIDE'S SLUG IS THE COUNTRY'S OLDER NAME, AND THREE OF THIS BATCH NEEDED IT.**
+  `history.state.gov/countries/eswatini` and `/cabo-verde` are both 404 while `/swaziland` and
+  `/cape-verde` are 200 — and the guide's own INDEX lists them under the current names, so the index
+  resolves the slug where the title does not. That is D2's `burma` finding generalised: **the page is
+  filed under the name the United States recognised the country by**, and each page says so in a closing
+  sentence ("In 2018, the country was re-named Eswatini"; "In 2013, the country was re-named Cabo
+  Verde"), which is also the citable source for the rename. `/bhutan` is a genuine absence, as D2
+  recorded: the country is not in the index at all.
+- **A COUNTRY WITH NO GUIDE PAGE TAKES AN OPEN PAPER ABOUT ITS OWN LANDFORM, AND SO DOES A COUNTRY WHOSE
+  PAGE SAYS NOTHING.** `gw-166` Bhutan has no page, and `gw-163` Comoros has one that never mentions
+  1975, France or any event before the recognition of 1977 — C11's grep check paying for itself again.
+  Both took the recipe's stated fallback. Bhutan's is Wangchuk and Tsubaki in *Natural Hazards and Earth
+  System Sciences* (2024), which dates the Luggye glacial lake outburst of 6 October 1994 and states what
+  it released and what it cost; the Comoros' is Dille et al. in *Frontiers in Earth Science* (2020), which
+  describes Karthala as a young, little-eroded basaltic shield forming the southern two thirds of Grande
+  Comore. **Both are Crossref-verified by `check-citations.js`**, which is the check that makes an
+  author-bearing citation safe to write at all.
+- **AND WHERE THE HISTORY IS UNCITABLE, THE CONSTITUTION IS STILL AN ACT OF STATE.** `gw-163` therefore
+  dates nothing before its admission to the United Nations on 12 November 1975, and reports what its
+  constitution SAYS — that it names the islands and islets of Mwali, Maoré, Ndzuwani and Ngazidja and
+  makes the return of Mayotte a national priority — as the constitution's own claim rather than as
+  Folio's. Its date line has two rows, which is the honest length.
+- **A WATER BODY NAMED AFTER A COUNTRY AUTO-LINKS TO THE COUNTRY, AND G10 PATCHED ONE CARD OF A CLASS OF
+  THIRTY-FOUR.** G10 reworded `gw-150` because "Gulf of Guinea" linked its last word to Guinea; measured
+  over the shipped `gw-` cards, **ten say "Gulf of Guinea", eight "Sea of Japan", six "South China Sea",
+  five "Gulf of Mexico", three "Mozambique Channel" and two "East China Sea"** — 34 occurrences, and not
+  one of the six water bodies is a glossary term, so the country surface wins every time. ("Persian Gulf",
+  19 cards, and "Bay of Bengal", 3, are safe: neither *Persia* nor *Bengal* is a surface.) **The fix is a
+  glossary term per water body, not a reword per card** — `buildGlossIndex` gives the longest surface the
+  match, so one cited entry retires every occurrence at once — and it is a content pass of its own. G11's
+  prose is left saying what those seas are called.
+- **EIGHT MORE COUNTRIES HAVE NO AQUASTAT PROFILE, AND THE TWO PAGE SIZES SORTED THEM WITHOUT A FETCH
+  EACH.** `gw-168` Luxembourg, `gw-170` Montenegro, `gw-172` Malta and `gw-178` Iceland return 283–287 KB
+  with no `fao.org/3/…pdf` link — a real page for a country the FAO simply has no profile for — while
+  `gw-167` Macau, `gw-171` Western Sahara, `gw-180` New Caledonia and `gw-182` French Polynesia return
+  **189,869 bytes**, byte for byte the page G9 recorded for Kosovo and Hong Kong, which is a code the FAO
+  does not carry at all.
+- **THE OLDEST AND THE NEWEST PROFILES SIT SIDE BY SIDE IN ONE BATCH**: Eswatini, Djibouti, the Comoros
+  and Cabo Verde are 2005 and Fiji and the Solomon Islands 2016, with Bhutan, Brunei and the Maldives at
+  2011 and Belize, Guyana and Suriname at 2015. Read the year off each profile's own recommended-citation
+  line; there is no survey round to infer it from.
+- **TWO CONSTITUTE SLUGS ARE THE COUNTRY'S OLDER OR ANGLICISED NAME**, on the same principle as the
+  recognition guide's: Eswatini is **`Swaziland_2005`** and Suriname is **`Surinam_1992`** — the second
+  found only by grepping the country index's own `href`, since `Suriname_1992` is a 404 while the index
+  link resolves. Belize is **`Belize_2022`**, the newest revision on the shelf.
 
 ## What G10 found
 
@@ -625,6 +679,6 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
   and put a fifth in its place.
 
-**Rules 1 and 3 remain open on about 310 cards.** Run `node .claude/gw-audit.js` for the live figures.
+**Rules 1 and 3 remain open on about 300 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*

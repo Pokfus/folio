@@ -1254,9 +1254,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1–G10 have shipped — one hundred and twenty-one backgrounds rewritten** (`gw-001`–`gw-159`, less
+    **G1–G11 have shipped — one hundred and thirty-three backgrounds rewritten** (`gw-001`–`gw-176`, less
     the deferrals below), each five sentences of landform, water and climate over five of the country's
-    own history, with one hundred and seven date lines rewritten out of the same research. Three sources make the
+    own history, with one hundred and nineteen date lines rewritten out of the same research. Three sources make the
     pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
@@ -1268,27 +1268,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Commonwealth Secretariat's member page and the International Court of Justice's own case record as
     their fifth source instead. **AND AN AQUASTAT URL MUST BE READ, NEVER COMPOSED**: eight of G2's twelve guesses
     were wrong and one pointed at another country's profile — and **a 200 on a `.pdf` address is not a
-    PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **THIRTY-SIX
+    PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **FORTY-FOUR
     COUNTRIES AND TERRITORIES HAVE NO AQUASTAT PROFILE AT ALL** — `gw-003`, `gw-019`, `gw-021`,
     `gw-023`, `gw-025`, `gw-032`, `gw-037`, `gw-042`, `gw-054`, `gw-067`, `gw-072`, `gw-082`, `gw-088`,
     `gw-090`, `gw-093`, `gw-094`, `gw-097`, `gw-098`, `gw-100`, `gw-104`, `gw-110`, `gw-111`, `gw-114`,
     `gw-115`, `gw-117`, `gw-119`, `gw-120`, `gw-121`, `gw-123`, `gw-130`, `gw-135`, `gw-136`, `gw-146`,
-    `gw-149`, `gw-152`, `gw-153` — and are
+    `gw-149`, `gw-152`, `gw-153`, `gw-167`, `gw-168`, `gw-170`, `gw-171`, `gw-172`, `gw-178`, `gw-180`,
+    `gw-182` — and are
     deferred rather than half-solved: the
     World Bank's open climate API and the national met services answer for the weather, and nothing
     reachable carries the LANDFORM. **AND THE COUNTRY PAGE 301-REDIRECTS**, so a `curl` without `-L`
     hands back an empty file and reports every country as having none — check the SIZE of what came
     back before believing a grep that found no PDF link in it: **286–291 KB is a real page with no
     profile, and 189,869 bytes is the page the FAO serves for a code it does not carry at all**
-    (Kosovo and Hong Kong). **A COUNTRY THE RECOGNITION GUIDE HAS NO PAGE FOR CAN STILL BE
-    WRITTEN**: it has none for North Korea, and `gw-056` rests instead on a MILESTONE, which is about
+    (Kosovo and Hong Kong). **AND ITS SLUG IS THE COUNTRY'S OLDER NAME**: `/eswatini` and `/cabo-verde` are 404 where `/swaziland`
+    and `/cape-verde` are 200, and the guide's own INDEX lists both under the current name, so the index
+    resolves what the title will not — D2's `burma` finding as a rule. **A COUNTRY THE RECOGNITION GUIDE
+    HAS NO PAGE FOR CAN STILL BE WRITTEN**: it has none for North Korea, and `gw-056` rests instead on a MILESTONE, which is about
     an event rather than a state; it has none for Palestine either, and `gw-124` rests on two UN
     instruments and the International Court of Justice's own case record instead, the CBD profile being
     empty there as well. **AND RULE 1 ITSELF WAS WRONG ABOUT THE AMERICAS UNTIL SEP 2026**: its pattern
     deliberately left "America" out and left the ADJECTIVE in, so a bare `\bAmerican\b` matched "South
     American" and "Latin American" — measured, 8 of its 307 findings were that and nothing else, and every
     one of the eight was a card this pass had already rewritten, which is a measure quietly training its
-    reader to ignore it. Rules 1 and 3 remain open on about 310 cards.
+    reader to ignore it. **AND A WATER BODY NAMED AFTER A COUNTRY AUTO-LINKS TO THE COUNTRY**: measured over the shipped `gw-`
+    cards, 34 occurrences across six seas — Gulf of Guinea, Sea of Japan, South China Sea, Gulf of Mexico,
+    Mozambique Channel, East China Sea — none of which is a glossary term, so the country surface wins;
+    the fix is one cited entry per water body rather than a reword per card. Rules 1 and 3 remain open on
+    about 300 cards.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |
