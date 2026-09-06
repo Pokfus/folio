@@ -851,16 +851,16 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-598  Ajax   (glossary key `Ajax_(play)`, so it cannot claim the hero's name, carded at gr-950)
     gr-599  Philoctetes
     gr-600  Euripides
-    gr-601  Medea
+    gr-601  Medea   (the PLAY; glossary key `Medea_(play)`, leaving the bare name for gr-935)
     gr-602  Bacchae
     gr-603  Trojan Women
     gr-604  Hippolytus
     gr-605  Satyr play
     gr-606  Old Comedy
     gr-607  Aristophanes
-    gr-608  Clouds
+    gr-608  Clouds   (glossary key `Clouds_(play)`, or the term would auto-link the ordinary word)
     gr-609  Lysistrata
-    gr-610  Frogs
+    gr-610  Frogs   (glossary key `Frogs_(play)`, for the reason gr-608 carries one)
     gr-611  Birds
     gr-612  The Theatre of Dionysus
     gr-613  Greek theatre architecture
