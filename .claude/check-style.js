@@ -66,7 +66,7 @@ const NUM_RE = new RegExp("\\b(" + Object.keys(TENS).join("|") + ")-(" + Object.
 const HUNDRED_RE = new RegExp("\\b(" + Object.keys(UNITS).join("|") + ")\\s+hundred\\s+and\\s+(?:(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")|(" + Object.keys(TENS).join("|") + ")|(eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|ten)|(" + Object.keys(UNITS).join("|") + "))\\b", "gi");
 const TEENS = { ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19 };
 // PROPER NAMES that contain number words — never converted
-const NUM_EXCLUDE = [/Twenty-Four Histories/gi, /Twenty-four Filial Exemplars/gi];
+const NUM_EXCLUDE = [/Twenty-Four Histories/gi, /Twenty-four Filial Exemplars/gi, /Twenty-One Demands/gi];
 
 /* --- rule 3: literature titles --- */
 // Unambiguous titles (safe to auto-wrap when not already italicised)

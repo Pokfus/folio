@@ -2129,7 +2129,17 @@ window.GLOSSARY = {
 "MS_St._Louis": "The MS St. Louis was a German ocean liner that left Hamburg on 13 May 1939 carrying almost a thousand Jewish refugees who held landing permits for Cuba bought in good faith.<sup class=\"fn\" data-fn=\"1\"></sup> The Cuban government revoked those permits before she arrived, the United States refused the passengers as well, and in June she turned back across the Atlantic towards the continent they had paid to leave.<sup class=\"fn\" data-fn=\"1\"></sup> Britain, France, Belgium and the Netherlands then divided the passengers between them, but three of those countries were occupied the following year and many of those landed there were later murdered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Paragraph_175": "Paragraph 175 was the clause of the German criminal code, in force from 1871 until 1994, that made sexual relations between men a criminal offence while saying nothing about relations between women.<sup class=\"fn\" data-fn=\"1\"></sup> Courts before 1933 read it narrowly, requiring proof of acts resembling intercourse, but the Nazi regime rewrote it in 1935 in far wider terms and convictions rose sharply thereafter.<sup class=\"fn\" data-fn=\"1\"></sup> About 100,000 arrests were made under it during the Nazi years and roughly half ended in conviction; most of those convicted were imprisoned and some were sent on to concentration camps.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Swingjugend": "The Swingjugend, or Swing Kids, were young Germans who went on listening and dancing to jazz and swing after the Nazi regime condemned the music as degenerate and tied it to Black American and Jewish influence.<sup class=\"fn\" data-fn=\"1\"></sup> Whether that amounted to resistance is disputed, since a person could frequent the clubs and still accept the regime's racial doctrine, and much of it was non-conformity rather than opposition.<sup class=\"fn\" data-fn=\"1\"></sup> Some groups did become political, refusing the compulsory youth organisation and keeping up communication with the student circle in Munich that printed leaflets against the regime.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Romani_people": "The Romani people, also called Roma, are a people living across Europe in communities of many kinds, among them the Sinti of the German-speaking lands, and long subject to registration and policing by European states.<sup class=\"fn\" data-fn=\"1\"></sup> A Bavarian police office set up in 1899 kept a central register of Roma in Munich, and after 1933 German authorities enforced older laws against them more rigorously and made them subject to the race laws of 1935.<sup class=\"fn\" data-fn=\"1\"></sup> Thousands were forcibly sterilised, interned in municipal camps and sent to concentration camps as asocials, and between 1939 and 1945 at least 250,000 European Roma were murdered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Romani_people": "The Romani people, also called Roma, are a people living across Europe in communities of many kinds, among them the Sinti of the German-speaking lands, and long subject to registration and policing by European states.<sup class=\"fn\" data-fn=\"1\"></sup> A Bavarian police office set up in 1899 kept a central register of Roma in Munich, and after 1933 German authorities enforced older laws against them more rigorously and made them subject to the race laws of 1935.<sup class=\"fn\" data-fn=\"1\"></sup> Thousands were forcibly sterilised, interned in municipal camps and sent to concentration camps as asocials, and between 1939 and 1945 at least 250,000 European Roma were murdered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Empire_of_Japan": "The Empire of Japan was the Japanese state established under the Meiji Constitution, which was promulgated on 11 February 1889 and put an elected lower house inside an Imperial Diet that first met the following year.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It vested executive, legislative and judicial power in the emperor and named him commander-in-chief, while in practice policy rested with a small circle of former samurai from the Satsuma and Chōshū domains.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its territory grew as it modernised, and it took Taiwan in 1895, defeated Russia in 1905, annexed Korea in 1910 and was dissolved when a new constitution took effect in 1947.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Government-General_of_Korea": "The Government-General of Korea was the administration through which Japan governed the Korean peninsula from the annexation treaty of 22 August 1910, by which the Korean emperor ceded all rights of sovereignty, until 1945.<sup class=\"fn\" data-fn=\"1\"></sup> It grew out of the Residency-General set up after Japan took charge of Korean foreign relations on 17 November 1905, which had already built a censorship system through press, textbook and publication laws between 1907 and 1909.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its first decade was enforced by a military gendarmerie whose conduct in the countryside was widely criticised, and after the nationwide independence demonstrations of March 1919 it eased censorship and replaced gendarmes with civil police.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Imperial_Japanese_Army": "The Imperial Japanese Army was the land force of the Japanese empire from 1873 until 1945, created by national conscription and given an autonomous General Staff in 1878.<sup class=\"fn\" data-fn=\"1\"></sup> The Imperial Rescript to Soldiers and Sailors of 1882 tied it directly to the emperor, and ordinances of 1900 required that the army and navy ministers be officers on the active list, a rule that let it bring cabinets down.<sup class=\"fn\" data-fn=\"1\"></sup> Restored in 1936 after two decades in abeyance, that requirement was used the following January to prevent Ugaki Kazushige from forming a government, and the army was itself divided by a bitter feud between rival factions.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Imperial_Way_Faction": "The Imperial Way Faction was the radical current within the Japanese army, gathered around generals Araki Sadao and Masaki Jinzaburō, whose junior officers held that politicians and court advisers stood between the emperor and his people.<sup class=\"fn\" data-fn=\"1\"></sup> It was opposed by the more technocratic Control Faction, and the feud between them produced an attempted coup by cadets in November 1934 and the murder of the Control Faction's leading officer in August 1935.<sup class=\"fn\" data-fn=\"1\"></sup> Its officers seized central Tokyo on 26 February 1936 and killed three senior figures, but the emperor demanded the revolt be crushed and the purge that followed removed the faction from the army.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Japanese_colonial_empire": "The Japanese colonial empire was the body of overseas territory Japan acquired between 1895 and 1919, beginning with Taiwan after its defeat of China and continuing after victory over Russia in 1905.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Treaty of Portsmouth gave Japan southern Sakhalin and a free hand in Korea, which became a protectorate that year and was annexed outright on 22 August 1910.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The First World War extended it further, as Japanese forces took the German island groups of the western Pacific in October 1914 and, with British help, captured the German fortress at Qingdao in November of that year.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Kwantung_Army": "The Kwantung Army was the Japanese force stationed in the leased territory at the tip of the Liaotung Peninsula and along the South Manchuria Railway, numbering about 10,000 soldiers in 1931 with a treaty claim to raise that to 15,000.<sup class=\"fn\" data-fn=\"1\"></sup> Its officers were widely held to have staged the railway explosion of September 1931, after which it overran Manchuria within a few months against an untrained Chinese army that offered almost no resistance.<sup class=\"fn\" data-fn=\"2\"></sup> One of the officers behind the plan, Ishiwara Kanji, had argued that Manchuria was the crucial strategic stronghold of Japan's destiny, chiefly as a barrier against Russian expansion eastward.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Lytton_Report": "The Lytton Report was the account of the Manchurian crisis produced by a League of Nations commission of enquiry and signed on 1 October 1932, after about six weeks of investigation in Manchuria itself.<sup class=\"fn\" data-fn=\"1\"></sup> It held that the Japanese operations of September 1931 had not been legitimate self-defence and that the new state established in Manchuria owed its existence to Japanese troops and officials.<sup class=\"fn\" data-fn=\"1\"></sup> Rather than restoring the previous position it proposed an autonomous administration for the three provinces under Chinese sovereignty, and when the Assembly adopted it in February 1933 the Japanese delegation walked out.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Manchukuo": "Manchukuo was the state proclaimed in Manchuria in 1932 after the Japanese occupation, with a declaration of independence published on 18 February signed by four provincial governors and by Mongol princes.<sup class=\"fn\" data-fn=\"1\"></sup> An organic law promulgated the following month vested all executive power in a regent, the last Qing emperor Puyi, who could overrule its legislative chamber.<sup class=\"fn\" data-fn=\"1\"></sup> The League of Nations commission concluded that it could not have been formed without Japanese troops and officials and was therefore no spontaneous independence movement, and few governments other than Japan ever recognised it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Mukden_Incident": "The Mukden Incident was the explosion that destroyed a short stretch of the South Manchuria Railway near Mukden on the night of 18 September 1931, which Japan blamed on Chinese nationalists and used as its reason for invading Manchuria.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The League of Nations commission that examined it found that the damage did not stop the next train arriving on time and was not enough by itself to justify military action.<sup class=\"fn\" data-fn=\"2\"></sup> It concluded that the operations which followed could not be regarded as legitimate self-defence, and the blast is generally attributed to officers of the Japanese force stationed along the line.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Taishō_democracy": "Taishō democracy is the name historians give to the period of roughly two decades after 1912 in which elected political parties came closest to governing Japan, rather than the oligarchs who had founded the modern state.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A coalition of parties brought down an oligarchic cabinet for the first time in February 1913, Japan gained its first genuine party cabinet in September 1918, and party cabinets held office almost continuously from 1924 to 1932.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The Universal Manhood Suffrage Law passed in March 1925 alongside the Peace Preservation Law, and the era is generally taken to end with the assassination of Prime Minister Inukai Tsuyoshi in May 1932.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3025,7 +3035,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hjalmar_Schacht": "1877–1970",
 "MS_St._Louis": "1939",
 "Paragraph_175": "1871–1994",
-"Swingjugend": "1930s–1940s"
+"Swingjugend": "1930s–1940s",
+"Empire_of_Japan": "1868–1947",
+"Government-General_of_Korea": "1910–1945",
+"Imperial_Japanese_Army": "1873–1945",
+"Imperial_Way_Faction": "1931–1936",
+"Japanese_colonial_empire": "1895–1945",
+"Kwantung_Army": "1919–1945",
+"Lytton_Report": "1 October 1932",
+"Manchukuo": "1932–1945",
+"Mukden_Incident": "18 September 1931",
+"Taishō_democracy": "1912–1932"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4332,7 +4352,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hjalmar_Schacht": ["Schacht"],
 "MS_St._Louis": ["MS St. Louis","SS St. Louis"],
 "Swingjugend": ["Swing Kids"],
-"Romani_people": ["Roma"]
+"Romani_people": ["Roma"],
+"Empire_of_Japan": ["Imperial Japan","Dai Nippon Teikoku"],
+"Government-General_of_Korea": ["Chōsen Government-General"],
+"Imperial_Japanese_Army": ["Japanese army"],
+"Imperial_Way_Faction": ["Kōdōha","Kodoha"],
+"Japanese_colonial_empire": ["Japanese Empire","Japanese overseas empire"],
+"Kwantung_Army": ["Kwantung Garrison"],
+"Lytton_Report": ["Report of the Commission of Enquiry"],
+"Manchukuo": ["Manchoukuo","Manchutikuo"],
+"Mukden_Incident": ["Manchurian Incident","Liutiaohu Incident"],
+"Taishō_democracy": ["Taisho democracy"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6497,7 +6527,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "MS_St._Louis": ["object","event","history","20th century"],
 "Paragraph_175": ["law","concept","history","germany"],
 "Swingjugend": ["people","culture","practice","history","germany"],
-"Romani_people": ["people","history","europe","germany"]
+"Romani_people": ["people","history","europe","germany"],
+"Empire_of_Japan": ["state","history","japan","politics","20th century"],
+"Government-General_of_Korea": ["institution","history","korea","japan","imperialism"],
+"Imperial_Japanese_Army": ["institution","history","japan","military","politics"],
+"Imperial_Way_Faction": ["institution","history","japan","politics","military"],
+"Japanese_colonial_empire": ["state","history","japan","imperialism","20th century"],
+"Kwantung_Army": ["institution","history","japan","china","military"],
+"Lytton_Report": ["text","history","japan","china","diplomacy"],
+"Manchukuo": ["state","history","japan","china","20th century"],
+"Mukden_Incident": ["event","history","japan","china","20th century"],
+"Taishō_democracy": ["era","history","japan","politics","20th century"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

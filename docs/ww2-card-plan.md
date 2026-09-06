@@ -430,13 +430,13 @@ definitions, which exist precisely because the wording matters.
 ### Japan and the road to war in Asia — `ww2-asia-road`
 
     ww2-081  Empire of Japan
-    ww2-082  Japanese imperialism before 1931
-    ww2-083  Korea under Japanese rule
+    ww2-082  The Japanese colonial empire before 1931
+    ww2-083  The Government-General of Korea
     ww2-084  Taishō democracy and its collapse
-    ww2-085  The Japanese army and politics
-    ww2-086  Japanese ultranationalism
+    ww2-085  The Imperial Japanese Army and politics
+    ww2-086  The Imperial Way Faction and ultranationalism
     ww2-087  Mukden Incident
-    ww2-088  The Japanese occupation of Manchuria
+    ww2-088  The Kwantung Army and the occupation of Manchuria
     ww2-089  Manchukuo
     ww2-090  Lytton Report
     ww2-091  Japan's withdrawal from the League of Nations
