@@ -2306,7 +2306,15 @@ window.GLOSSARY = {
 "Shang_in_later_memory": "The Shang in later memory is the place the Shang dynasty held in Chinese thought after its fall in about 1046 BCE, as an ancestry, a precedent in ritual and a warning to those in power.<sup class=\"fn\" data-fn=\"1\"></sup> Its line continued in the state of Song, whose dukes kept up the ancestral offerings and from whom Confucius traced his descent, and he made the dynasty a link in a chain of ceremonial precedent.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The warning came from its own poetry, an ode telling the last Shang king that the beacon of Yin was not far distant, lying in the age of the last ruler of the house before him.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Oracle_bone_archives": "The oracle bone archives are the inscribed divination records recovered from the last capital of China's Shang dynasty, the only writing that dynasty left and the basis of most of what can be said about it.<sup class=\"fn\" data-fn=\"1\"></sup> They record one institution in one place over roughly two centuries, uninscribed pieces make up more than nine-tenths of the specimens recovered, and the surviving inscriptions are broken enough that annotated corpora count the lost characters as well as the legible ones.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> What is written is a selective record of an elite's concerns, so the archives fall silent wherever the court did not think a question worth putting.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Shang_chronology": "Shang chronology is the problem of assigning absolute years to China's Shang dynasty, whose conventional span of about 1600 to 1046 BCE is a reconstruction rather than a dated record.<sup class=\"fn\" data-fn=\"1\"></sup> It has to join a king list handed down in texts, the internal order of the dynasty's own inscriptions and the stratified layers excavated at its sites, none of which carries a year of its own.<sup class=\"fn\" data-fn=\"1\"></sup> Radiocarbon now supplies the absolute framework, with thousands of published dates gathered into a single databank, but it dates deposits rather than reigns and so brackets events instead of naming their years.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Shang_in_the_Bronze_Age_world": "The Shang in the Bronze Age world is China's Shang dynasty considered among its contemporaries in Eurasia, a comparison that turns on contact and exchange rather than on rank.<sup class=\"fn\" data-fn=\"1\"></sup> Its northern traffic passed through a belt of mountains and plateaux rather than reaching the steppe directly, and burial practice and isotopes together suggest that people of several regional origins were living at the capital itself.<sup class=\"fn\" data-fn=\"1\"></sup> Materials moved comparable distances, with carnelian beads buried in south-west China around 1200 to 1000 BCE cut from stone quarried more than 1,000 kilometres (620 miles) to the north.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Shang_in_the_Bronze_Age_world": "The Shang in the Bronze Age world is China's Shang dynasty considered among its contemporaries in Eurasia, a comparison that turns on contact and exchange rather than on rank.<sup class=\"fn\" data-fn=\"1\"></sup> Its northern traffic passed through a belt of mountains and plateaux rather than reaching the steppe directly, and burial practice and isotopes together suggest that people of several regional origins were living at the capital itself.<sup class=\"fn\" data-fn=\"1\"></sup> Materials moved comparable distances, with carnelian beads buried in south-west China around 1200 to 1000 BCE cut from stone quarried more than 1,000 kilometres (620 miles) to the north.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Duke_of_Zhou": "The Duke of Zhou is the title of Ji Dan, a son of King Wen who governed as regent for his young nephew after his brother King Wu died, and whom later tradition ranked second only to Confucius.<sup class=\"fn\" data-fn=\"1\"></sup> He put down a three-year revolt led by two of his own brothers together with the surviving Shang heir, and afterwards resettled the officers of the fallen house in a new city on the Luo river.<sup class=\"fn\" data-fn=\"2\"></sup> His regency is given as seven years, after which he returned the government to the king; granted the state of Lu, he sent his eldest son to hold it.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Fengjian": "Fengjian is the Zhou practice of granting land, together with the people living on it, to a kinsman or ally who then ruled the territory in the king's name and recorded the grant on a bronze vessel.<sup class=\"fn\" data-fn=\"1\"></sup> After the conquest of the Shang the court sent members of the royal house out to hold strategic ground, so the grants founded new states rather than dividing an existing map.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Book of Documents describes five orders of nobility holding territories on a threefold scale, and Mencius, naming them gong, hou, bo, zi and nan, reports the particulars were already lost.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"King_Wen": "King Wen is the title given after his death to Ji Chang, the lord of the Zhou who held the Shang office of Chief of the West from a seat under Mount Qi in northern China.<sup class=\"fn\" data-fn=\"1\"></sup> He was denounced to the last Shang king and imprisoned about two years at Youli before gifts secured his release, and tradition credits him with the judgements of the Book of Changes.<sup class=\"fn\" data-fn=\"1\"></sup> He died before the Shang were overthrown and the royal title was conferred by his son, so the Zhou dated their charge to rule from his lifetime and treated him as founder.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"King_Wu": "King Wu is the title under which Ji Fa, son of King Wen, is known as the ruler who overthrew the Shang and became the first sovereign of the Zhou dynasty of China.<sup class=\"fn\" data-fn=\"1\"></sup> His settlement left the dead Shang king's son over the Shang lands so the ancestral offerings could go on, with brothers of the new king administering beside him, and it freed prisoners of the old court.<sup class=\"fn\" data-fn=\"2\"></sup> He fell gravely ill two years after the conquest and died soon afterwards, leaving an heir of 13, so a brother governed as regent and a revolt broke out within a few years.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Rebellion_of_the_Three_Guards": "The Rebellion of the Three Guards is the revolt that broke out a few years after the Zhou overthrew the Shang, when royal brothers set to oversee the conquered lands joined the surviving Shang heir against the regent.<sup class=\"fn\" data-fn=\"1\"></sup> Tribes of the Huai river came in on the same side, so the fighting ran across the whole newly taken east, and the Book of Documents preserves the announcement made before the campaign.<sup class=\"fn\" data-fn=\"2\"></sup> It lasted three years and ended with the Shang heir and one royal brother killed and another exiled; afterwards the east was colonised rather than merely garrisoned.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Shang_record": "The Shang record is the whole body of evidence for the Shang dynasty of China: divination inscriptions from the last royal capital, short dedications cast on bronze, the archaeology of its settlements, and texts written down centuries later.<sup class=\"fn\" data-fn=\"1\"></sup> Nothing the dynasty wrote is a narrative, so it left no account of its own past, its law or its transactions, and excavation has followed the court, leaving the countryside barely dug.<sup class=\"fn\" data-fn=\"2\"></sup> The transmitted histories were composed under the Zhou or afterwards, and the earliest gives the Shang only a list of kings, its author reporting that his materials fixed no year before 841 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Zhou_dynasty": "The Zhou dynasty is the royal house that ruled and then nominally presided over the Chinese world from about 1046 to 256 BCE, longer than any other, named for the plain below Mount Qi where the family settled.<sup class=\"fn\" data-fn=\"1\"></sup> Its span divides at 771 BCE, when the western capital was lost and the court moved east; only the earlier half was a working monarchy, and afterwards the regional states made war on one another.<sup class=\"fn\" data-fn=\"2\"></sup> The period produced the doctrine that Heaven charges a house to rule and withdraws that charge, along with the texts that became the classics, and 841 BCE is its earliest firmly dated year.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Tian_(Chinese_religion)": "Tian, usually translated Heaven, is the Chinese term for the sky and for the supreme power held to govern the world, and the word the Zhou used where earlier Shang inscriptions speak of Di.<sup class=\"fn\" data-fn=\"1\"></sup> The oldest Chinese dictionary analyses its graph as the elements for one and for great, and in the classics the impersonal term alternates with the personal names Di and Shangdi inside a single passage.<sup class=\"fn\" data-fn=\"2\"></sup> It is treated as a moral power whose judgements are silent, one classical text saying Heaven does not speak but shows its will through a ruler's conduct, while other passages use the word for undeserved misfortune.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3151,7 +3159,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Muye": "c. 1046 BCE",
 "Oracle_bone_archives": "c. 1250 – 1046 BCE",
 "Shang_chronology": "c. 1600 – 1046 BCE",
-"Shang_in_the_Bronze_Age_world": "c. 1250 – 1046 BCE"
+"Shang_in_the_Bronze_Age_world": "c. 1250 – 1046 BCE",
+"Duke_of_Zhou": "11th century BCE",
+"Fengjian": "from c. 1040 BCE",
+"King_Wen": "11th century BCE",
+"King_Wu": "11th century BCE",
+"Rebellion_of_the_Three_Guards": "c. 1042 – 1039 BCE",
+"Shang_record": "c. 1250 BCE – 1st century BCE",
+"Zhou_dynasty": "c. 1046 – 256 BCE",
+"Tian_(Chinese_religion)": "from c. 1046 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4126,8 +4142,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Doubting_Antiquity_School": ["yigupai"],
 "Xia–Shang–Zhou_Chronology_Project": ["Xia-Shang-Zhou Chronology Project"],
 "Basic_Annals_of_Yin": ["Yin benji","Annals of Yin"],
-"Tang_of_Shang": ["Cheng Tang","Tang the Victorious"],
-"Wu_Ding": ["Gaozong of Shang"],
+"Tang_of_Shang": ["Cheng Tang","Tang the Victorious","Tian Yi"],
+"Wu_Ding": ["Gaozong of Shang","King Wu Ding"],
 "Tomb_of_Fu_Hao": ["Fu Hao's tomb","burial M5","Anyang M5"],
 "Shang_kingship": ["Shang king","kingship of the Shang"],
 "Shangdi": ["Shang Di"],
@@ -4505,7 +4521,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Shang_in_later_memory": ["memory of the Shang","Shang in Chinese memory"],
 "Oracle_bone_archives": ["oracle bone archive"],
 "Shang_chronology": ["chronology of the Shang"],
-"Shang_in_the_Bronze_Age_world": ["Shang and the Bronze Age world"]
+"Shang_in_the_Bronze_Age_world": ["Shang and the Bronze Age world"],
+"Duke_of_Zhou": ["Zhou Gong","Ji Dan","Chou Kung","Duke Dan of Zhou"],
+"Fengjian": ["feng-jian","Zhou enfeoffment","fengjian system"],
+"King_Wen": ["Wen Wang","Ji Chang","Chief of the West","King Wen of Zhou"],
+"King_Wu": ["Wu Wang","Ji Fa","King Wu of Zhou"],
+"Rebellion_of_the_Three_Guards": ["Three Guards","revolt of the Three Guards","Sanjian rebellion"],
+"Shang_record": ["Shang evidence","record of the Shang"],
+"Zhou_dynasty": ["Zhou period","house of Zhou","Chou dynasty"],
+"Tian_(Chinese_religion)": ["T'ien","Tien"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4536,7 +4560,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Tyre": true,
 "Olduvai_Beds": true,
 "Little_Foot": true,
-"Commonwealth_of_Nations": true
+"Commonwealth_of_Nations": true,
+"Tian_(Chinese_religion)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -6846,7 +6871,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Shang_in_later_memory": ["concept","history","china","bronze age","religion"],
 "Oracle_bone_archives": ["concept","archaeology","history","china","bronze age","writing"],
 "Shang_chronology": ["concept","history","archaeology","china","bronze age"],
-"Shang_in_the_Bronze_Age_world": ["concept","history","archaeology","china","bronze age","migration"]
+"Shang_in_the_Bronze_Age_world": ["concept","history","archaeology","china","bronze age","migration"],
+"Duke_of_Zhou": ["person","ruler","history","china","bronze age","zhou dynasty"],
+"Fengjian": ["concept","institution","history","china","bronze age","zhou dynasty"],
+"King_Wen": ["person","ruler","history","china","bronze age","zhou dynasty"],
+"King_Wu": ["person","ruler","history","china","bronze age","zhou dynasty"],
+"Rebellion_of_the_Three_Guards": ["event","history","china","warfare","bronze age","zhou dynasty"],
+"Shang_record": ["concept","archaeology","history","china","bronze age","writing"],
+"Zhou_dynasty": ["dynasty","history","china","bronze age","zhou dynasty"],
+"Tian_(Chinese_religion)": ["concept","religion","history","china","bronze age","zhou dynasty"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
