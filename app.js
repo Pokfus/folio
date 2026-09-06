@@ -32009,9 +32009,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* The flag, where the card has one, sits BESIDE the term inside `.answer-av` — so the wrapper is
          emitted only when there is one, and every card without a flag keeps byte-identical markup. */
       const flagHTML = answerFlagHTML(c);
+      /* …EXCEPT WHERE THE LOWER-CASE FIRST LETTER IS THE TERM ITSELF (Sep 2026, with the pH card).
+         The ::first-letter rule above renders `pH` as `PH`, which is not a capitalised term but a
+         different string — the p is what the name means. The test is the SHAPE rather than a new card
+         field: a lower-case letter followed immediately by a capital is `pH`, `mRNA`, `tRNA`, `iPSC`,
+         and no ordinary word, so it says all this class has to say. */
+      const noCap = /^[a-z][A-Z]/.test(c.answerText || String(c.answer || "").replace(/<[^>]*>/g, "")) ? " nocap" : "";
       html += '<div class="answer-av">' +
-        (flagHTML ? '<div class="av-term"><span class="val">' + c.answer + "</span>" + flagHTML + "</div>"
-                  : '<span class="val">' + c.answer + "</span>");
+        (flagHTML ? '<div class="av-term"><span class="val' + noCap + '">' + c.answer + "</span>" + flagHTML + "</div>"
+                  : '<span class="val' + noCap + '">' + c.answer + "</span>");
       html += '<div class="av-row">' + (c.answerDate || "") + "</div></div>";
       // (how many separate days this card has been recalled on used to close `.answer-main` here; it is in
       // the study card's header row now — see critPipsHTML)

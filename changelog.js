@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.654", released: "2026-09-06T01:08Z" };
+window.FOLIO_VERSION = { v: "1.655", released: "2026-09-06T01:24Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-06",
-    t: "A chest for finishing all nine minigames",
+    t: "An atlas of your own, and thirty-three more Rome cards",
     items: [
       "<b>Playing all nine minigames in a day now earns a chest</b>, counted by a nine-bar meter under the Minigames heading.",
       "<b>Multiple Choice now shows the whole answer side of the card</b> below the round, once you have answered.",
@@ -50,6 +50,10 @@ window.CHANGELOG = [
       "<b>China's modern province borders now show as dotted lines</b> in the China collection's card maps.",
       "<b>A minigame you have played now colours its whole tile</b> green, or gold for a perfect score, with a large tick washed behind the name.",
       "<b>The Atlas now opens on an atlas of your own</b> \u2014 an empty earth back to 4000 BCE that fills with the places you study, each one opening its card.",
+      "<b>Thirty-three new cards in Ancient Rome</b>, on provincial revenue, Greek influence and Cato, the Gracchi, and the Jugurthine and Cimbric wars that made Marius.",
+      "<b>Ten new cards in the Biology collection</b>, opening its chapter on the cell.",
+      "<b>The word <i>cell</i> now opens its own glossary entry wherever it appears</b>, which it did not before.",
+      "<b>Forty-two more glossary terms</b>, written for the new cards’ answers.",
     ],
   },
   {
@@ -64,6 +68,11 @@ window.CHANGELOG = [
       "Sixteen cards in the China and World History decks now show where their subject was, with a culture drawn as an <b>area</b> rather than a dot.",
       "One card retired from the China deck, its subject folded into the broader card beside it.",
       "A new picture on one card in the China deck.",
+      "<b>A hundred and five new cards in Ancient Rome</b>, on the conquest of Italy, the settlement after it, the Punic wars and the Greek east.",
+      "<b>135 citations of Polybius now give the right year</b> \u2014 the translation is published in six volumes and several were credited to the wrong one.",
+      "<b>Seventeen pictures that had failed to load now show</b> \u2014 sixteen on Ancient Rome cards and one on a glossary term.",
+      "<b>Ninety new cards in the Biology collection</b>, which open it: Biology now sits under Collections rather than Planned.",
+      "<b>The Russia collection has opened</b> with its first ten cards, in its Before Rus' deck.",
       "<b>Think it through</b> now asks three why-questions about the answer, each with a <b>Show answer</b> button that uncovers a brief reply.",
       "<b>How many separate days you have recalled a card</b> has moved to the top of the card, between the question and its difficulty.",
       "The grade buttons no longer name keyboard shortcuts on a <b>tablet</b>, where there is no keyboard to press them on.",
@@ -91,7 +100,7 @@ window.CHANGELOG = [
       "<b>Picture captions across the collection no longer repeat the source</b>, which is on the line beneath them, and 33 that said nothing now describe what is in the frame.",
       "<b>Fourteen pictures showing something other than the card have been taken down</b>, among them a Viking grave standing in for a Greek one and a Viennese weight of 1756 for a Greek weight standard.",
       "<b>Thirteen questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who wrote on it.",
-      "<b>Nineteen new glossary terms the Ancient Greece cards were already using</b>, among them the Constitution of the Athenians, the parts of a temple and the Greek money.",
+      "<b>222 more glossary terms</b> \u2014 ninety-two written for the new Biology cards, a hundred and two for the new Ancient Rome cards, nineteen the Ancient Greece cards were already using, and nine for the first Russia cards.",
       "<b>Sixteen Ancient Greece backgrounds no longer read as lists of who argued what</b>, keeping every claim and dropping the roll-call of modern scholars.",
       "<b>Twelve Athens cards now give the year beside the archon they date by</b>, so \u201cin the archonship of Aristaechmus\u201d also says 621/620 BCE.",
       "<b>Eleven Ancient Greece cards now quote the primary text from Folio\u2019s own Library</b>, opening Herodotus, Homer or Thucydides at the passage the card is about.",
@@ -99,6 +108,7 @@ window.CHANGELOG = [
       "<b>Five pictures that were doing duty on two cards each have been sorted out</b>, so every card\u2019s illustration is of that card\u2019s own subject.",
       "<b>Sixteen more Ancient Greece cards show their place on the globe</b>, with the ten battles among them marked by crossed swords.",
       "<b>Eighteen Ancient Greece cards are no longer dealt by the Timeline game</b>, terms like agora and phyle having no date to place them at.",
+      "<b>An answer like <i>pH</i> keeps its own lower-case first letter</b>, where the answer line used to capitalise every term.",
       "<b>Forty-nine corrections to the Canterbury Tales and the Journey to the West</b> \u2014 read for the first time against two other scans of the same printing, which recovered a lost place-name and a lost word.",
       "<b>Fourteen page references and running heads taken out of Suetonius and the Journey to the West</b> \u2014 a printed page\u2019s own furniture, standing in the text where one of them split a hymn in half.",
       "<b>The project\u2019s own notes brought back up to date</b> \u2014 twenty figures and three names describing the site had fallen behind what it actually holds, some of them four times over.",
@@ -137,7 +147,8 @@ window.CHANGELOG = [
       "<b>The map on the Zagora card now names the place simply Zagora.</b>",
       "<b>On a phone, a played minigame tile is now coloured above its title</b> — green, or a shining gold for a perfect score — carrying a large white tick and nothing else.",
       "<b>Forty more countries on the Atlas have a full information box with sources</b> — from Iran, Turkey and Germany down to Australia, Nepal and both Koreas.",
-      "<b>208 more glossary terms</b> — central Italy and its provinces, East Africa’s fossil sites, Egypt from the Nile to Amarna, the vocabulary of states and government, and Ancient Greece’s own, all sourced.",
+      "<b>269 more glossary terms</b> \u2014 central Italy and its provinces, East Africa’s fossil sites, Egypt from the Nile to Amarna, the struggle between the Roman orders, Ancient Greece’s own, and the vocabulary of states, diplomacy and government, all sourced.",
+      "<b>Sixty-two new cards in Ancient Rome</b>, opening the conquest of Italy.",
       "<b>77 new cards in the Ancient Greece deck</b>, five of them the Parthenon, its sculpture and its architects.",
       "One Ancient Greece card that repeated an older one has been rewritten on a subject the deck was missing.",
       "Tapping <b>Ephialtes</b> in a card now opens the Athenian reformer rather than the guide at Thermopylae.",
@@ -193,7 +204,7 @@ window.CHANGELOG = [
       "<b>Creating an account now tells you when the username you asked for was already taken</b>, and gives you the handle your account was made under instead.",
       "<b>Your username can now be changed</b> from the account page — it is the handle you sign in with and the one friends add you by.",
       "<b>The Sign in and Create account buttons no longer stay stuck reading \u201c\u2026\u201d</b> after an attempt that was refused.",
-      "<b>105 more glossary terms</b> — Greek pottery and regions, the sites of Crete and Cyprus, ancient materials, Rome’s institutions and hills, and Ancient Greece’s own — each with sources and most with a picture.",
+      "<b>107 more glossary terms</b> \u2014 Greek pottery and regions, the sites of Crete and Cyprus, ancient materials, Rome’s institutions and hills, and Ancient Greece’s own \u2014 each with sources and most with a picture.",
       "<b>One hundred new artefacts to find in a chest</b> — among them a Terracotta Army warrior, the Antikythera Mechanism, the Book of Kells, the Bayeux Tapestry, the Aztec Sun Stone, an Enigma machine and a Hokusai print.",
       "<b>A new badge for collecting 100 artefacts</b>, since the ladder used to stop at 50.",
       "<b>The site now loads a little faster</b>, because an artefact's description and picture are only fetched when you open a chest.",

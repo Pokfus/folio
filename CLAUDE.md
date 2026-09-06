@@ -849,8 +849,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
   grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
   the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
-  under "Generating cards & glossary entries". **No card has been written yet**: the plan and the tree
-  shipped together on 2026-08-06 and the collection starts at `ru-001`. It is the first plan that has to
+  under "Generating cards & glossary entries". **The first ten cards have shipped** (Sep 2026) — `ru-001`
+  to `ru-010`, the whole opening of `ru-before` — so the collection is live and its 28 empty decks are
+  coming-soon automatically, `isComingSoon` being true for a node holding no card. It is the first plan that has to
   set **date, name and transliteration conventions** (the Julian/Gregorian gap, Kyiv against Kiev), and the
   first whose subject reaches the present day — read its "History, not archaeology" and "Sourcing" sections
   before writing anything after 1917. Not part of the site.
@@ -943,9 +944,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the pair deliberately, write the shared glossary term ONCE (whichever collection reaches it first),
   and know that **`bio-897` and `ps-432` are both called "Extinction" and are unrelated senses of the
   word**, so they cannot share a glossary key. Four terms it needs already exist (`Domestication`,
-  `Boreal`, `Human_evolution`, `Genus`) and must be reused rather than re-keyed. The next card to write
+  `Boreal`, `Human_evolution`, `Genus`) and must be reused rather than re-keyed. **`Life` is keyed
+  `Life_(biology)` for the same machinery and a different reason**: the bare word is ordinary English —
+  measured over the shipped corpus, 157 card backgrounds contain "life" and every first occurrence
+  sampled is "way of life", "life-sized" or "life expectancy" — so a key claiming that surface would
+  auto-link the wrong sense on all of them, and `caseSensitive` does not help, all 15 capitalised
+  occurrences being "Life of Lycurgus", "Life Insurance" and the like. A parenthetical key claims no
+  bare name (`bareTaken` in `buildGlossIndex`), so it is reached by its two narrower aliases and by a
+  hand-written `data-k` instead. **Ask what a one-word answer term is in ordinary English before
+  keying it.** **`Cell_(biology)` is the same shape and is the REAL Wikipedia slug**, and it
+  deliberately carries no bare `cell` alias yet: only 7 shipped abstracts contain the word and two of
+  them mean an architectural bay and a prison cell, so claiming it today ships two wrong links to buy
+  nothing. **Revisit that when `bio-celltheory` lands**, by which time the biological sense will
+  dominate the corpus. The next card to write
   is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED
-  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+  COLLECTIONS" is the lookup. **Its first cards have shipped**, so the collection is live — `isComingSoon`
+  is false for a node holding a card — and its 45 empty decks are coming-soon automatically, on the same
+  rule. Not part of the site.
 - `docs/dinosaurs-card-plan.md` — the **1000-card running order for the Dinosaurs collection**
   (`dino`): every card's number, topic and deck, fixed in advance across 9 decks and 43 leaf decks. The
   fifteenth of the planned collections and the fourth that is not history; it joins Psychology and
@@ -1300,7 +1315,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.05 MB and 44,845 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.05 MB and 44,851 lines is hard to find your way around, so this
   lists its 169 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -3394,6 +3409,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   against in the cloze box and matched by the glossary, none of which must see a capital the data has not
   got. `::first-letter` changes what is painted and nothing else; it reaches the letter through inline
   descendants, and on a hanzi answer it is simply inert.
+  **…EXCEPT WHERE THE LOWER-CASE INITIAL IS THE TERM** (`.answer .val.nocap`, the `noCap` test in
+  `buildBack`; Sep 2026, with the pH card). Rendered `PH`, the answer to a card whose whole subject is the
+  scale is not a capitalised term but a different string — the `p` is what the name means. **The test is
+  the SHAPE rather than a new card field**: a lower-case letter followed immediately by a capital is `pH`,
+  `mRNA`, `tRNA`, `iPSC`, and no ordinary English word, so it says the whole of what this class has to say
+  and needs nothing written down per card. Note also that `buildGlossIndex` **skips any surface under three
+  characters**, so the paired glossary term `pH` can never auto-link on its bare name and carries the alias
+  `pH scale` to be reachable at all — ask that of any two-letter answer term.
 - **Source footnotes** — the `SOURCE FOOTNOTES` block in app.js, just above `buildBack`. Four surfaces say
   things about the past — a card's background, a glossary description, an artefact's plate and an Atlas place
   panel — and each names the scholarship behind them: a **`sources` list of Chicago note-form citations**
@@ -5412,6 +5435,12 @@ the end of a successful add and print the candidates, their licences, their size
   into the card stays the normal `/thumb/…/1920px-…` URL, since the limit is this container's and not a
   reader's. The rule this protects is the one that matters: **look at the picture before using it**, and a
   host that will not serve it is a reason to keep trying or to ship without one, never to install unseen.
+· **AND THE `src` IS COPIED FROM THE API, NEVER BUILT BY HAND** (Sep 2026). An upload URL carries a
+  two-character shard — `…/commons/0/07/<FILE>` — which is the first characters of the file name's MD5
+  and CANNOT be guessed; a hand-typed one is a 404 on a card that otherwise looks finished. Ask
+  `api.php` for `imageinfo` with `iiprop=url` and take `url` (or `thumburl`, minus its tracking query).
+  It cost a broken picture once, caught only because the rate limit above forced a re-check — so when
+  a `src` cannot be fetched to confirm it, compare it against the API's own string instead.
 · It writes the same fields the pass writes: a card and a term take `{ src, title, desc, credit, alt }`, an
   artefact `{ src, credit, alt }`, and **`credit` is required in all three** — a picture on Folio is always
   somebody else's file, and `add-card.js`, `add-glossary.js`, `add-artefacts.js`, `add-images.js` and the
@@ -5513,9 +5542,9 @@ lookup.
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, contiguous — next is `wh-301` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 500 cards, contiguous — next is `gr-501` |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 100 cards, contiguous — next is `rm-101` |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 300 cards, contiguous — next is `rm-301` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
-| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 98 cards, SCATTERED — next is `cnh-042`, an early gap, and `cnh-070` was retired in Sep 2026; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
@@ -5523,7 +5552,7 @@ lookup.
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
-| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
+| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
@@ -5541,7 +5570,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (245 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (251 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -6570,7 +6599,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 245 assertions on **the join between the sixteen card plans and
+  · `node .claude/test-card-plans.js` — 251 assertions on **the join between the sixteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
