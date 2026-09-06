@@ -439,16 +439,16 @@ definitions, which exist precisely because the wording matters.
     ww2-088  The Kwantung Army and the occupation of Manchuria
     ww2-089  Manchukuo
     ww2-090  Lytton Report
-    ww2-091  Japan's withdrawal from the League of Nations
+    ww2-091  The Japanese withdrawal from the League of Nations
     ww2-092  February 26 Incident
-    ww2-093  The Japanese decision for expansion
+    ww2-093  The Basis of National Policy, 1936
     ww2-094  Greater East Asia Co-Prosperity Sphere
     ww2-095  Marco Polo Bridge Incident
     ww2-096  The outbreak of the Second Sino-Japanese War
     ww2-097  Battle of Shanghai
     ww2-098  Nanjing Massacre
-    ww2-099  The Chinese united front against Japan
-    ww2-100  Soviet-Japanese border conflicts
+    ww2-099  The Second United Front against Japan
+    ww2-100  The Soviet-Japanese border conflicts
     ww2-101  Battles of Khalkhin Gol
     ww2-102  The strike-north and strike-south debate
     ww2-103  Anti-Comintern Pact

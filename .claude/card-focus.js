@@ -84,7 +84,10 @@ const NOT_A_SURNAME = new Set(["Bryn", "Mawr", "Classical", "Review", "Press", "
   "The", "And", "France", "Fels", "Hohle", "Agora", "Athenian", "Anzick", "Sands", "Grotte", "Sahul", "Dartmouth", "Hanover", "Tufts",
   // A CORPORATE AUTHOR ends on a place, and the place is what the last-token rule takes for a surname:
   // "Archaeological Survey of India" left every question naming India reading as one naming a scholar.
-  "Archaeological", "Survey", "India"]);
+  "Archaeological", "Survey", "India",
+  // Same shape, one tribunal over: "International Military Tribunal for the Far East" ends on a
+  // COMPASS POINT, and every card citing the Tokyo judgment then read "East Asia" as a scholar.
+  "International", "Military", "Tribunal", "Far", "East"]);
 
 /* ANCIENT AUTHORS ARE NOT SCHOLARS, and the distinction is the whole point of the rule. Herodotus and
    Pausanias are cited here as SOURCES FOR THE PAST — a question that names one is teaching history, and
