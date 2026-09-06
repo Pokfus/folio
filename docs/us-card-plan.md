@@ -432,7 +432,7 @@ matters.
     us-039  Estimating the pre-contact population of North America
     us-040  How pre-contact America is known
 
-**Eighteen decisions made while writing `us-001`–`us-070` (Sep 2026), recorded here because the
+**Twenty-one decisions made while writing `us-001`–`us-080` (Sep 2026), recorded here because the
 lines above no longer describe them exactly.**
 
 **`us-010` was renamed** from *The domestication of maize* to *Maize and its spread into North
@@ -581,6 +581,33 @@ thirteen candidates first time. It is the route to reach for when looking at pic
 written into the card is still the ordinary upload URL copied from the API, since the limit is this
 container's rather than a reader's.
 
+**A COMPOSED LAW REPORT CITATION POINTED AT THE WRONG CASE, AND IT RESOLVED PERFECTLY.** *Cherokee
+Nation v. Georgia* was drafted as 31 U.S. 1 by analogy with *Worcester*'s 31 U.S. 515, and
+`law.cornell.edu/supremecourt/text/31/1` answers 200 — with *Schimmelpennick v. Turner*, a tobacco
+consignment dispute out of Maryland. The case is **30 U.S. (5 Pet.) 1 (1831)**. This is the
+fabricated-DOI shape in another vocabulary: a volume-and-page reference is exactly as composable as
+a DOI and exactly as plausible when wrong, and no checker in the pipeline reads what is at the other
+end of the URL. **Fetch a law report and grep it for the case name**, as a `biographi.ca` page is
+grepped for its subject.
+
+**THE OKLAHOMA HISTORICAL SOCIETY'S ENCYCLOPEDIA IS THE SPINE FOR REMOVAL, AND IT STATES ITS OWN
+CITATION.** Its entries are signed, carry their own bibliographies and publish a preferred Chicago
+form at the foot of each article, so the citation is read rather than composed — the rule the
+Stanford Encyclopedia finding established. It passes the glossary plan's per-article test for citing
+an encyclopedia at all. **But one author, Andrew K. Frank, wrote four of the entries this batch
+needed**, and `check-cards` refuses a card with the same author in more than two of its five
+sources; `us-080` tripped it. The fix was a genuine fifth source rather than a re-shuffle: the
+National Park Service's *The Five Civilized Tribes: Who Are They?* at Ocmulgee Mounds, a PDF that
+also carries the Seminole material the Frank entry was being used for. **Check the bylines across a
+batch before assigning sources, not after.**
+
+**`us-078`'S QUESTION NAMED THE SUPREME COURT AND WAS READ AS NAMING A SCHOLAR.** `check-cards`
+reads the shape of an attribution — *X held in Y that…* — and the court is the card's own subject
+rather than a modern arguer, so this is a limit of the shape test rather than a fault in the
+question. It was reworded to *the judgment in ___ declared…* rather than exempted: the rule is
+cheap to satisfy and the alternative is a per-card exemption for a checker that is right far more
+often than it is wrong.
+
 
 ### Contact, disease and the colonial encounter — `us-native-contact`
 
@@ -614,11 +641,11 @@ container's rather than a reader's.
     us-068  Royal Proclamation of 1763
     us-069  The Battle of Oriskany
     us-070  Joseph Brant
-    us-071  The Sullivan Expedition and the destruction of Haudenosaunee towns
+    us-071  The Sullivan Expedition
     us-072  Northwest Indian War
     us-073  Battle of Fallen Timbers
     us-074  Tecumseh
-    us-075  Tenskwatawa and the Prophetstown movement
+    us-075  Tenskwatawa
 
 ### Removal, the reservations and sovereignty — `us-native-modern`
 
@@ -626,7 +653,7 @@ container's rather than a reader's.
     us-077  Cherokee Nation v. Georgia
     us-078  Worcester v. Georgia
     us-079  Trail of Tears
-    us-080  The removal of the Five Tribes
+    us-080  The Five Tribes
     us-081  Indian Territory
     us-082  The Seminole Wars
     us-083  The California genocide
