@@ -2,20 +2,20 @@
   "why": "The record of every hand edit to the DELE Spanish decks. Applied by spanish-fix.js; see that file's header for what an entry may carry and why the record exists at all. DELE A1 is being read one card at a time in Sep 2026, in batches of ten; this is what that pass has changed so far.",
   "decks": {
     "delea1": {
-      "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention.",
-      "subtitle": "494 words · both directions, as two cards per word",
+      "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention. It moved again when la tercera turned out to be a duplicate of tercero, tercera and was folded away: every count in the chain is kept so it still works on a deck freshly rebuilt from the generator.",
+      "subtitle": "493 words · both directions, as two cards per word",
       "descSub": [
         [
           "500 words for level A1 of the DELE",
-          "494 words for level A1 of the DELE"
+          "493 words for level A1 of the DELE"
         ],
         [
           "490 words for level A1 of the DELE",
-          "494 words for level A1 of the DELE"
+          "493 words for level A1 of the DELE"
         ],
         [
-          "493 words for level A1 of the DELE",
-          "494 words for level A1 of the DELE"
+          "494 words for level A1 of the DELE",
+          "493 words for level A1 of the DELE"
         ],
         [
           "the rest of the 500 is filled from the A1 column in order of frequency",
@@ -28,7 +28,9 @@
     "delea1/por": "para",
     "delea1/para": "por",
     "delea1/ser": "estar",
-    "delea1/estar": "ser"
+    "delea1/estar": "ser",
+    "delea1/saber": "conocer",
+    "delea1/conocer": "saber"
   },
   "notes": {
     "delea1/de": {
@@ -2863,6 +2865,410 @@
         [
           "vaguer",
           "allá"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/menos": {
+      "why": "'less, least' and nothing else - so menos … que, the comparative of inferiority, was missing, and so were al menos and por lo menos, and the minus of arithmetic. Its third example is the same broken sentence the hablar card carried, 'al menos que le hablen' for a menos que.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "less",
+            "least",
+            "menos … que — less … than"
+          ]
+        ],
+        [
+          "preposition",
+          [
+            "minus (in arithmetic)",
+            "except (todos menos yo)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "al menos, por lo menos — at least"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Él nunca habla al menos que le hablen."
+      ],
+      "ex": [
+        [
+          "Hoy hace menos frío que ayer.",
+          "It's less cold today than yesterday."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el amigo, la amiga": {
+      "why": "Glossed 'friend' once for a card that teaches a pair, and silent on the masculine plural covering a mixed group - the third card in this deck with that fact to state, after los padres and los hijos, and the third time it was missing.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "amigo — friend (male)",
+            "amiga — friend (female)"
+          ]
+        ],
+        [
+          "noun, masculine plural",
+          [
+            "los amigos — friends (of either sex together)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/nuestro": {
+      "why": "Glossed 'ours' - the pronoun - while TWO of its three examples are the possessive DETERMINER, 'our' (Nuestra escuela, Nuestros planes). The card's main sense was missing and it had no Forms at all, though both of those examples bold an inflection.",
+      "senses": [
+        [
+          "determiner",
+          [
+            "our"
+          ]
+        ],
+        [
+          "pronoun",
+          [
+            "el nuestro, la nuestra — ours"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "feminine",
+          "nuestra"
+        ],
+        [
+          "plural",
+          "nuestros, nuestras"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la mujer": {
+      "why": "Right as far as it goes; worth saying that the 'wife' sense competes with la esposa, which has no card, so a reader meeting mujer for wife has no way to place it.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "woman",
+            "wife (also la esposa)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/hoy": {
+      "why": "'today, tonight (on the current day)' - hoy does not mean tonight; that is esta noche, which now sits on the noche card. hoy en día was missing.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "today"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "hoy en día — nowadays, these days"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/tres": {
+      "why": "Right, and thin: the card's own third example is 'a las tres de la tarde', telling the time, which is the shape a reader meets a number in before they meet it counting.",
+      "senses": [
+        [
+          "numeral",
+          [
+            "three"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "las tres — three o'clock"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/haber": {
+      "why": "'have' and 'forms the perfect aspect' - a description, and between them they left out HAY, which is 'there is' and 'there are' and is what the card's own third example is ('No hay nada tan importante como el tiempo'). It is the most useful thing about the verb and the card did not carry it. hay que goes with it. hay is not in the card's own conjugation table - it is the impersonal form, which no person-and-number grid has a row for - so after the rebold its example stood with nothing marked in it. It goes in Forms, where it is worth stating anyway.",
+      "senses": [
+        [
+          "verb, auxiliary",
+          [
+            "to have (forming the perfect: he comido — I have eaten)"
+          ]
+        ],
+        [
+          "verb, impersonal",
+          [
+            "hay — there is, there are",
+            "había — there was, there were",
+            "hay que + infinitive — one must, it is necessary to"
+          ]
+        ]
+      ],
+      "rebold": true,
+      "forms": [
+        [
+          "impersonal",
+          "hay"
+        ]
+      ]
+    },
+    "delea1/el nombre": {
+      "why": "'name' and 'noun', the second being the grammarian's sense, offered before the distinction a reader actually needs: el nombre is the first name and the surname is el apellido, which has no card in the deck at all.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "name",
+            "first name (the surname is el apellido)",
+            "noun (in grammar)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/mío": {
+      "why": "Two examples where every other card has three, no Forms though its second example bolds mías, and only the pronoun - un amigo mío, the stressed possessive standing after its noun, is the other half of the word and was not there.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "el mío, la mía — mine"
+          ]
+        ],
+        [
+          "adjective",
+          [
+            "of mine, my own (after the noun: un amigo mío)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "feminine",
+          "mía"
+        ],
+        [
+          "plural",
+          "míos, mías"
+        ]
+      ],
+      "ex": [
+        [
+          "Un amigo mío vive en Sevilla.",
+          "A friend of mine lives in Seville."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/saber": {
+      "why": "saber and conocer both gloss to 'to know', which on the English-to-Spanish card is one question with two right answers, and neither said which is which - the second classic A1 confusion after ser and estar. saber is a fact or a skill, conocer a person or a place; both now carry the rule in Forms and name the other on the reverse card. 'to understand (a fact)' and 'to know how to do something' were descriptions rather than translations.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to know (a fact)",
+            "saber + infinitive — to know how to (sabe nadar)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "for a person or a place, use",
+          "conocer"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/conocer": {
+      "why": "The other half of the saber entry: four glosses, all of them 'to know' in some wording, and nothing about the division between the two verbs.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to know (a person or a place), to be familiar with",
+            "to meet (for the first time)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "for a fact or a skill, use",
+          "saber"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el radio": {
+      "why": "FOUND BY A PROBE RATHER THAN BY READING: every Forms plural in the deck was checked against every example sentence in it, and 79 plurals appear nowhere. Most of that is noise - a feminine plural of an adjective has no reason to turn up - but it surfaced a handful of forms that are not Spanish. This one is the worst: el radio is the RADIUS, or the metal radium. The radio set is LA radio, feminine, which is what all three of the card's examples use - so the headword was the wrong word and the gender line was wrong with it. The plural was written 'los/las radios', a slash the generator emits for a noun it thinks takes either gender.",
+      "spanish": "la radio",
+      "word": "la radio",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "radio (the set, and the medium)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las radios"
+        ],
+        [
+          "el radio, masculine",
+          "radius; radium"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el internet": {
+      "why": "FOUND BY A PROBE RATHER THAN BY READING: every Forms plural in the deck was checked against every example sentence in it, and 79 plurals appear nowhere. Most of that is noise - a feminine plural of an adjective has no reason to turn up - but it surfaced a handful of forms that are not Spanish. Its plural was 'los/las internets'.",
+      "spanish": "internet",
+      "word": "internet",
+      "senses": [
+        [
+          "noun",
+          [
+            "the internet (usually with no article: en internet)"
+          ]
+        ]
+      ],
+      "forms": []
+    },
+    "delea1/el mar": {
+      "why": "FOUND BY A PROBE RATHER THAN BY READING: every Forms plural in the deck was checked against every example sentence in it, and 79 plurals appear nowhere. Most of that is noise - a feminine plural of an adjective has no reason to turn up - but it surfaced a handful of forms that are not Spanish. Its plural was written 'los/las mares'. The feminine la mar is real but poetic and survives mainly in set phrases, which is where the card's own second example uses it (la mar de bonito, 'ever so pretty').",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "sea"
+          ]
+        ],
+        [
+          "noun, feminine",
+          [
+            "la mar — the sea (poetic); la mar de — ever so, loads of"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "los mares"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el calor": {
+      "why": "FOUND BY A PROBE RATHER THAN BY READING: every Forms plural in the deck was checked against every example sentence in it, and 79 plurals appear nowhere. Most of that is noise - a feminine plural of an adjective has no reason to turn up - but it surfaced a handful of forms that are not Spanish. 'los calores' exists and means hot flushes; on an A1 card it is a form nobody uses, like los dineros. hacer calor, which all its examples use, was not listed.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "heat",
+            "hace calor — it is hot (of the weather)"
+          ]
+        ]
+      ],
+      "forms": [],
+      "rebold": true
+    },
+    "delea1/tercero, tercera": {
+      "why": "FOUND BY A PROBE RATHER THAN BY READING: every Forms plural in the deck was checked against every example sentence in it, and 79 plurals appear nowhere. Most of that is noise - a feminine plural of an adjective has no reason to turn up - but it surfaced a handful of forms that are not Spanish. The deck carried a SECOND card headed 'la tercera', glossed 'a third (interval)' — the musical interval — whose three examples are all this adjective, one of them the very sentence this card also carries. It is a duplicate and is folded away.",
+      "fold": [
+        "la tercera"
+      ],
+      "senses": [
+        [
+          "adjective",
+          [
+            "third"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "terceros, terceras"
+        ],
+        [
+          "before a masculine noun",
+          "tercer"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/pronto, pronta": {
+      "why": "FOUND BY A PROBE RATHER THAN BY READING: every Forms plural in the deck was checked against every example sentence in it, and 79 plurals appear nowhere. Most of that is noise - a feminine plural of an adjective has no reason to turn up - but it surfaced a handful of forms that are not Spanish. pronto is chiefly an ADVERB meaning soon, which is what two of the card's three examples are; the adjective 'prompt, ready' is secondary and was given as the whole word. Headed as a pair it also claimed a feminine plural, prontas, that no sentence in the deck uses.",
+      "spanish": "pronto",
+      "word": "pronto",
+      "senses": [
+        [
+          "adverb",
+          [
+            "soon, early"
+          ]
+        ],
+        [
+          "adjective",
+          [
+            "pronto, pronta — prompt, ready"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "¡hasta pronto! — see you soon",
+            "de pronto — suddenly"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "as an adjective",
+          "pronta, prontos, prontas"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/temprano, temprana": {
+      "why": "FOUND BY A PROBE RATHER THAN BY READING: every Forms plural in the deck was checked against every example sentence in it, and 79 plurals appear nowhere. Most of that is noise - a feminine plural of an adjective has no reason to turn up - but it surfaced a handful of forms that are not Spanish. The same as pronto: temprano is chiefly the adverb 'early', which two of its three examples are.",
+      "spanish": "temprano",
+      "word": "temprano",
+      "senses": [
+        [
+          "adverb",
+          [
+            "early"
+          ]
+        ],
+        [
+          "adjective",
+          [
+            "temprano, temprana — early"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "as an adjective",
+          "temprana, tempranos, tempranas"
         ]
       ],
       "rebold": true
