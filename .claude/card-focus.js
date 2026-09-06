@@ -50,7 +50,6 @@ const EXEMPT = {
   "wh-106": "Blytt–Sernander scheme — a 19th-century scheme",
   "cnh-061": "Doubting Antiquity School — a named modern school of historical criticism",
   "cnh-065": "Xia–Shang–Zhou Chronology Project — a named modern research programme",
-  "cnh-070": "the discovery of the oracle bones — a modern act, gr-075's counterpart",
 };
 
 /* TWO COLLECTIONS ARE EXCLUDED FROM RULE 1 OUTRIGHT (Aug 2026, on request), and this is a COLLECTION-WIDE
@@ -97,10 +96,11 @@ const NOT_A_SURNAME = new Set(["Bryn", "Mawr", "Classical", "Review", "Press", "
 const ANCIENT = new Set(`Homer Hesiod Herodotus Thucydides Xenophon Plato Aristotle Plutarch Pausanias Strabo
 Diodorus Polybius Arrian Apollodorus Aeschylus Sophocles Euripides Aristophanes Pindar Sappho Solon Theognis
 Tyrtaeus Archilochus Hippocrates Theophrastus Demosthenes Isocrates Lysias Aeschines Livy Ovid Lucretius
-Suetonius Caesar Seneca Cicero Tacitus Virgil Horace Vitruvius Pliny Josephus Athenaeus Vyasa Confucius
+Suetonius Caesar Seneca Cicero Tacitus Sallust Virgil Horace Vitruvius Pliny Josephus Athenaeus Vyasa Confucius
 Mencius Laozi Zhuangzi Sima Ptolemy Euclid Archimedes Galen Aelian Hyginus Ovidius Quintilian
 Gellius Aulus Dionysius Halicarnassus Varro Festus Censorinus
-Nepos Justin Trogus Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius`.split(/\s+/));
+Nepos Justin Trogus Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius
+Procopius Appian`.split(/\s+/));
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();

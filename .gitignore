@@ -116,3 +116,9 @@ decks/Spanish-All-Levels.folio-deck.json
 # The rivers/<region>.js it writes IS committed — this is only the working cache behind it.
 .claude/ne_10m_rivers_lake_centerlines.geojson
 .claude/ne_10m_rivers_europe.geojson
+
+# the CC-CEDICT copy check-gloss-source.js fetches (10 MB, CC BY-SA, somebody else's work)
+.claude/.cedict.txt
+
+# scratch inputs to the content helpers — never part of the site
+scratchpad/

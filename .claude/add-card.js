@@ -37,6 +37,7 @@
 //                          "alt": "The flag of Texas: a blue band at the hoist bearing a white star, …" }
 const fs = require("fs"), path = require("path");
 const { isDateList } = require("./date-line.js");
+const { checkWhy, checkLeadsTo, loadCardYears, collectionIndex } = require("./card-links.js");
 const dataPath = path.join(__dirname, "..", "data.js");
 const FIELDS = ["id","num","category","question","answer","answerDate","traditional","hanzi","pinyin","translations","abstract","citation","answerText"];
 const I18N_LANGS = ["es","fr","de","it","nl","ru","ar","zh","ja"];
@@ -217,7 +218,21 @@ for (const [qi, q] of [card.question, ...card.questions].entries()) {
    what the reader is being asked to recall is `polis`. The article belongs to the question and to the
    background, where the grammar needs it, and never to the term itself — which is also what keeps the
    answer matching its glossary key, its `answerText` and the way a reader would say it aloud. */
+/* ...EXCEPT WHERE THE ARTICLE IS PART OF THE PROPER NOUN (Sep 2026, on `gw-719`). A place can be
+   NAMED "The X": Anguilla's capital is The Valley on its own government's facts page, and the Dutch
+   seat of government is The Hague in English. Stripping the article there does not bare a term, it
+   renames a town — and `test-card-plans.js` compares the shipped answer against the plan's own name,
+   so the mangled form would fail there instead. Declared rather than pattern-matched, for the reason
+   `CROSSREF_WRONG` is: a rule that guesses which "The" is a name would let the real fault through.
+   Add an entry only after checking how the place's own authority writes it. */
+const ARTICLE_IS_NAME = new Set([
+  "the valley",   // Anguilla's capital; "The Valley" on gov.ai's own Anguilla Facts page
+  "the hague",    // the Dutch seat of government, the English name of 's-Gravenhage / Den Haag
+  "the gambia",   // the country's own constitutional name
+  "the bahamas",  // ditto
+]);
 for (const f of ["answer", "answerText"]) {
+  if (ARTICLE_IS_NAME.has(String(card[f] || "").trim().toLowerCase())) continue;
   if (/^(the|a|an)\s/i.test(card[f] || "")) {
     console.error("ERROR: card." + f + " begins with an article: " + JSON.stringify(card[f]) + "\n" +
       "       Drop it — the answer term is the bare term. Put the article in front of the blank in each\n" +
@@ -226,7 +241,8 @@ for (const f of ["answer", "answerText"]) {
     process.exit(1);
   }
 }
-if (/^<b>(the|a|an)\s/i.test(card.abstract || "")) {
+const boldTerm = (String(card.abstract || "").match(/^<b>([^<]*)<\/b>/) || [])[1] || "";
+if (!ARTICLE_IS_NAME.has(boldTerm.trim().toLowerCase()) && /^<b>(the|a|an)\s/i.test(card.abstract || "")) {
   console.error("ERROR: the background bolds the article. The bold is the answer term alone:\n" +
     "       write \"The <b>polis</b> is ...\", not \"<b>The polis</b> is ...\".");
   process.exit(1);
@@ -366,6 +382,21 @@ if (card.locator) {
     console.error("ERROR: card.locator has no `name` — the dot is drawn labelled, so an unnamed one is a mark with nothing to say.");
     process.exit(1);
   }
+  /* ---- AND IT OPENS ON THE PLACE, NOT ON AN ARTICLE (Sep 2026, on request: "the atlas location for the
+     card 'Hongshan culture' should not include the word 'The' in its label. The same goes for other
+     locations in the atlas windows, in all collections") ----
+     A map label is a place NAMED rather than a phrase in a sentence, and no atlas prints "The Apennines"
+     beside the range. Eight carried one across four collections, and they were stripped in data.js in the
+     same pass.
+     IT IS REFUSED HERE RATHER THAN STRIPPED AT DRAW TIME, and the reason is a handful of real place names:
+     The Hague is the seat of the Dutch government and The Valley is the capital of Anguilla, both of them
+     labels this same window draws off the capitals tables. A rule clever enough to tell those from a
+     definite article is a rule that will one day be wrong about one of them; a refusal at the point of
+     writing is not. */
+  if (/^the\s/i.test(String(card.locator.name).trim())) {
+    console.error("ERROR: card.locator.name opens on \"The\" — a map label names a place rather than reading as a phrase, so write " + JSON.stringify(String(card.locator.name).trim().replace(/^the\s+/i, "")) + ".");
+    process.exit(1);
+  }
   /* ---- AND WHAT SORT OF PLACE IT IS (Aug 2026, with the locator kinds) ----
      A dot is the right mark for a cave and the wrong one for a river, a range or a region, so a locator
      may declare a `kind` and — for the two that have extent — the shape to draw. Both are hand-authored,
@@ -444,6 +475,11 @@ if (card.answerFlag && String(card.answerFlag.src || "").trim() && !String(card.
   console.error("ERROR: card.answerFlag has a src but no `alt` — the flag is drawn with no title and no caption, so `alt` is all a reader who cannot see it gets.");
   process.exit(1);
 }
+/* THE "WHY" PROMPT AND THE CAUSAL EDGES both live in `.claude/card-links.js`, because `add-card-links.js`
+   writes the same two fields onto cards already shipped and a second copy of a rule is a rule with no
+   home. The `why` check needs nothing but the card; `leadsTo` needs the whole corpus and is run further
+   down, once data.js has been loaded. */
+{ const e = checkWhy(card); if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); } }
 if (REQUIRE_TRANSLATIONS && !card.skipTranslations) {   // a new card ships in all 9 site languages (i18n block)
   const missing = [];
   for (const l of I18N_LANGS) {
@@ -482,6 +518,19 @@ if (cards.some(c => c.id === card.id)) { console.error("ERROR: duplicate id:", c
 const leaves = []; for (const col of tree.collections) leafDecks(col, leaves);
 const deck = deckId ? leaves.find(d => d.id === deckId) : leaves[0];
 if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", leaves.map(d=>d.id).join(", ")); process.exit(1); }
+
+{
+  const appSrc = fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8");
+  const collIdx = collectionIndex(tree);
+  const byId = {}; for (const c of cards) byId[c.id] = c;
+  // the card being added is not in the tree yet, so its collection is the one its DECK belongs to
+  const deckColl = (() => { for (const col of tree.collections) { let hit = false; (function w(n) { if (n.id === deck.id) hit = true; (n.children || []).forEach(w); })(col); if (hit) return col.id; } return null; })();
+  const e = checkLeadsTo(card, {
+    byId, cardYears: loadCardYears(appSrc),
+    collectionOf: (cid) => (cid === card.id ? deckColl : collIdx[cid] || null),
+  });
+  if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); }
+}
 
 cards.push(card);
 deck.cardIds.push(card.id);

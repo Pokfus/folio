@@ -2038,7 +2038,13 @@ modern sculptural stelae carved with enlarged oracle-bone graphs. What answered 
 which shows what a Shang palace actually leaves behind. **For a site card, look for the excavated FEATURE
 rather than the site's name**; the name finds the visitor centre.
 
-  **`cnh-070` IS ONE OF THE TWO CARDS IN THE THOUSAND WHERE THE PLAN SPENDS A MODERN SCHOLAR, AND THE
+  **⚠ `cnh-070` WAS RETIRED IN SEP 2026, ON REQUEST — everything in this entry is a record of how it was
+written, not of a card on the shelf.** The reasoning below still holds for the next event-shaped card,
+and `gr-075` is still the model; what changed is that a discovery story sitting beside a general card
+about the same subject was the wrong division of the deck, and the general card took the whole subject.
+See the plan's own note under "Modern scholars are capped at two".
+
+  **`cnh-070` WAS ONE OF THE TWO CARDS IN THE THOUSAND WHERE THE PLAN SPENDS A MODERN SCHOLAR, AND THE
 MODEL FOR IT ALREADY EXISTS IN GREECE.** `gr-075` was renamed from *Michael Ventris* to **the
 decipherment of Linear B** — the event nominalised — and its question describes the men without naming
 them ("a young British architect", "a Cambridge philologist"). This card copies that exactly: the answer

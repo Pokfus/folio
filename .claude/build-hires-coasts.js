@@ -89,6 +89,32 @@ const REGIONS = {
     bbox: [73.0, 17.0, 132.0, 50.0],
     countries: ["China", "Taiwan", "Hong Kong", "Macao", "North Korea", "South Korea", "Vietnam"],
   },
+  /* The United States, for the Geography section's states and capitals decks (Sep 2026, on request:
+     "give the US a higher resolution"). It is the widest frame of the four by a long way — the box has
+     to hold Hawaii at 155°W and Maine at 67°W — and the neighbours that share it are Canada, Mexico and
+     the Caribbean shores a Florida card looks across at. RUSSIA IS LEFT OUT for the reason it is left
+     out of China's: its mainland ring is the largest in world.js, and upgrading it for the fifty
+     kilometres of Bering Strait an Alaska card can see would carry thousands of low-res points for
+     nothing.
+     WHAT IT BUYS IS SMALL, AND IT IS WORTH WRITING DOWN, because the temptation on the next frame will
+     be to build the biggest one that will fit. Measured in a browser, A/B on one card with the bundle
+     dropped and the same view redrawn: 117 changed pixels on the California card and 377 on Texas, out
+     of 224,322. The reason is that a MAP CARD is not a locator — the state layer is drawn OVER world.js
+     and IS the coast the reader sees, and `us-states.js` is already 0.002°/3dp, one device pixel at the
+     card's own zoom ceiling. All this can sharpen is where world.js overhangs that layer, and the
+     neighbours' shores. Two thirds of the pixels are the United States' own entry and only a third the
+     neighbours', which is why it is kept despite being the shore that is mostly hidden.
+     CANADA IS THE SIZE, NOT THE TOLERANCE. Its 406 rings are half the frame's points at any tolerance,
+     so the box is narrowed to the belt that faces the lower 48 and the Lakes (52°N) rather than the 72°N
+     the frame needs for Alaska. Coarsening to 0.006° was measured too and saves a quarter of the bytes
+     for a coast that stair-steps at the ceiling; the ring count, not the vertex count, is the bulk. */
+  usa: {
+    tol: 0.003,
+    bbox: [-179.9, 17.5, -66.0, 72.0],
+    countries: ["United States of America", "Mexico", "Cuba", "Bahamas", "Canada"],
+    // Canada's own box stops at 52°N — see `boxes` in spliceCountry, and the note above
+    boxes: { Canada: [-125.0, 41.0, -60.0, 52.0] },
+  },
 };
 
 // ---- load ----
@@ -188,6 +214,11 @@ function subChain(ring, i, j, dir) {
 
 function spliceCountry(name, region, log) {
   const TOL = region.tol || TOL_DEFAULT;
+  /* A NEIGHBOUR MAY NEED A NARROWER BOX THAN THE FRAME (Sep 2026, with the usa frame). The region's box
+     has to reach 72°N to hold Alaska's north slope, and at that latitude it also swallows the whole
+     Canadian Arctic archipelago — 35,000 points of Ellesmere and Baffin that no state card can see, and
+     three quarters of the bundle. `boxes` narrows one country without narrowing the frame. */
+  const BOX = (region.boxes && region.boxes[name]) || region.bbox;
   const lo = byName.get(name);
   if (!lo) { log.push("  " + name + ": not in world.js — skipped"); return null; }
   const hi = neRings(name);
@@ -211,9 +242,16 @@ function spliceCountry(name, region, log) {
     const HR = best >= 0 ? hi[best] : null;
     // each vertex's index in the 10m ring
     const at = HR ? pts.map((p) => { const a = (idx.get(key2(p)) || []).filter((q) => q[0] === best); return a.length ? a[0][1] : -1; }) : [];
-    const touches = boxesMeet(ringBox(pts), region.bbox);
-    if (!HR || bestN < n || !touches) {
-      if (touches && HR && bestN < n) misses++;
+    const touches = boxesMeet(ringBox(pts), BOX);
+    /* EVERY VERTEX HAS TO HAVE AN INDEX IN THE RING WE CHOSE, and the vote alone does not say so
+       (Sep 2026, building the usa frame). A low-res vertex can sit on TWO 10m rings — a shared
+       border vertex, an island touching a mainland's bbox — so it votes for both, and `bestN` can
+       reach `n` while some vertex has no entry for `best` at all. `at` is then -1 there,
+       `edgeChain` indexes the ring at -1, and the build dies on an undefined point. Italy, Greece
+       and China never met it; the United States does, and the honest answer for such a ring is the
+       one the vote miss already gets — keep it low-res and report it. */
+    if (!HR || bestN < n || !touches || at.some((x) => x < 0)) {
+      if (touches && HR && (bestN < n || at.some((x) => x < 0))) misses++;
       out.push(ring); kept++;
       continue;
     }
@@ -247,7 +285,7 @@ function spliceCountry(name, region, log) {
       if (coast[i]) {
         // a coast edge p[i] -> p[i+1]: the 10m chain between the same two vertices, where the frame reaches it
         const j = (i + 1) % n;
-        if (inBox(p, region.bbox) || inBox(pts[j], region.bbox)) {
+        if (inBox(p, BOX) || inBox(pts[j], BOX)) {
           const chain = dp(edgeChain(HR, at[i], at[j], dir), TOL).map(r4);
           for (let q = 0; q < chain.length - 1; q++) res.push(chain[q]);   // the edge's last vertex is the next edge's first
           runs++; hiPts += chain.length - 1;
