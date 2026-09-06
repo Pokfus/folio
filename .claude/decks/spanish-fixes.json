@@ -7720,6 +7720,281 @@
     ]
    ],
    "rebold": true
+  },
+  "delea1/el verano": {
+   "why": "Right, and alone: la estación now names the four seasons and each of them should point back, since a reader who has one has three quarters of a set.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "summer"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en verano — in summer",
+      "las vacaciones de verano — the summer holidays"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los veranos"
+    ],
+    [
+     "the other three",
+     "la primavera, el otoño, el invierno"
+    ]
+   ],
+   "bold": [
+    "verano",
+    "veranos"
+   ],
+   "rebold": true
+  },
+  "delea1/correr": {
+   "why": "to run, to jog, to flow - and nothing about la carrera, which is both the race you run and the degree you take, nor about salir corriendo, which is how the verb is most often heard.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to run",
+      "to flow (of water, a river)"
+     ]
+    ],
+    [
+     "verb, phrase",
+     [
+      "salir corriendo — to run off, to dash out"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "la carrera — race; university degree"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/las vacaciones": {
+   "why": "The one thing this word demands of a learner is that it is ALWAYS PLURAL - una vacación does not exist - and the card said nothing about it, nor about the two phrases it lives in, nor about the trap English sets: a public holiday is not vacaciones but un día festivo.",
+   "senses": [
+    [
+     "noun, feminine plural",
+     [
+      "holiday, holidays, vacation — always plural in Spanish"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "estar de vacaciones — to be on holiday",
+      "irse de vacaciones — to go on holiday"
+     ]
+    ],
+    [
+     "note",
+     [
+      "a single public holiday is un día festivo, not una vacación"
+     ]
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el cine": {
+   "why": "cinema, moviehouse, film (when specifying types of films) - the second is an Americanism nobody needs and the third is a dictionary describing its own entry rather than translating the word. What the word does have is two senses: the building you go to, and film as an art.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "cinema, the picture house — ir al cine",
+      "film, cinema as an art — el cine español"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los cines"
+    ],
+    [
+     "a single film",
+     "la película"
+    ]
+   ],
+   "bold": [
+    "cine",
+    "cines"
+   ],
+   "rebold": true
+  },
+  "delea1/el estudio": {
+   "why": "Its first and third examples are the same sentence with a different name in it - George / Tom no es serio en sus estudios - and between them they use the plural sense, education, which the bare gloss study does not make plain. The studio flat, which is what a reader will meet house-hunting, was not there at all.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "a study, a piece of research",
+      "los estudios — studies, education",
+      "study, studio (a room to work in)",
+      "studio flat; recording studio"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los estudios"
+    ],
+    [
+     "the verb",
+     "estudiar"
+    ]
+   ],
+   "bold": [
+    "estudio",
+    "estudios"
+   ],
+   "dropEx": [
+    "Tom no es serio con sus estudios."
+   ],
+   "ex": [
+    [
+     "Alquilé un estudio en el centro.",
+     "I rented a studio flat in the centre."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/vuestro": {
+   "why": "Filed as a pronoun, and its own second example is the ADJECTIVE - vuestros invitados, your guests - so one of the two sentences on the card is a part of speech the card does not carry. It also shipped with two examples where the rest of the deck has three, and said nothing about the two facts that decide when it is used at all: it belongs to vosotros, so it is Spain only, and it agrees with the thing owned.",
+   "senses": [
+    [
+     "adjective and pronoun",
+     [
+      "your, yours — of vosotros, when you are speaking to more than one person you address as tú"
+     ]
+    ],
+    [
+     "note",
+     [
+      "Spain only: Latin America says su, suyo to any group",
+      "it agrees with the thing owned: vuestra casa, vuestros libros"
+     ]
+    ]
+   ],
+   "bold": [
+    "vuestro",
+    "vuestra",
+    "vuestros",
+    "vuestras"
+   ],
+   "ex": [
+    [
+     "¿Esta es vuestra casa?",
+     "Is this your house?"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la empresa": {
+   "why": "company, enterprise, undertaking - the last is the abstract sense and the least of the three - while the person who runs one, el empresario, and the everyday sense business were both missing.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "company, firm, business"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "montar una empresa — to set up a business"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las empresas"
+    ],
+    [
+     "the owner",
+     "el empresario, la empresaria"
+    ]
+   ],
+   "bold": [
+    "empresa",
+    "empresas"
+   ],
+   "rebold": true
+  },
+  "delea1/casado, casada": {
+   "why": "married, and no preposition - estar casado CON alguien - no verb to get there, and no opposite, which on a form a reader has to fill in is the word beside it.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "married — estar casado con alguien"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "casados, casadas"
+    ],
+    [
+     "the verb",
+     "casarse"
+    ],
+    [
+     "the opposite",
+     "soltero, soltera"
+    ]
+   ],
+   "bold": [
+    "casado",
+    "casada",
+    "casados",
+    "casadas"
+   ],
+   "rebold": true
+  },
+  "delea1/el taxi": {
+   "why": "Its own third example says coger un taxi, which is right in Spain and coarse in much of Latin America, and the card gave a reader no way to know that tomar is the safe word everywhere.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "taxi, cab"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "coger un taxi (Spain), tomar un taxi (everywhere) — to take a taxi"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los taxis"
+    ],
+    [
+     "the driver",
+     "el taxista, la taxista"
+    ]
+   ],
+   "bold": [
+    "taxi",
+    "taxis"
+   ],
+   "rebold": true
   }
  },
  "insert": {
@@ -7971,7 +8246,8 @@
    "el edificio",
    "el banco",
    "la radio",
-   "aquello"
+   "aquello",
+   "el restaurante"
   ]
  }
 }
