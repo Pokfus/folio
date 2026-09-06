@@ -156,7 +156,11 @@ function scrimCheck() {
   const watch = (p) => {
     p.on("pageerror", (e) => errs.push("pageerror: " + e));
     p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
-    return p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
+    /* …and the MARKER's own card, added Sep 2026 for the same reason one line up: it is shown the first
+       time the panel is opened, and it covers the page — so every section below that drives the marker
+       with a REAL click (the pen-down pair, the pass-through checks) had its click land on the card's
+       backdrop instead of the toggle, and reported a marker that had stopped working. */
+    return p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); localStorage.setItem("folio_marker_tour_v1", "1"); } catch (e) {} });
   };
 
   /* ================= 1. the bottom tab bar ================= */
@@ -1967,7 +1971,11 @@ function scrimCheck() {
     }));
     check("the panel has no Draw button — the sizes are the pen", !panel.draw);
     check("...Mark beside them", panel.markWithSizes);
-    check("...Erase above Undo and Clear above Redo", panel.grid === "wb-eraser+wb-clear / wb-undo+wb-redo", panel.grid);
+    /* HELP joined the second of those rows in Sep 2026, when the marker learned to explain itself: a
+       tutorial that can be met once is one nobody can re-read, so the button that brings it back sits
+       with Undo and Redo. The PAIRING this asserts is untouched — Erase is still above Undo and Clear
+       above Redo — and the row is a flex row, so a third control spaces itself beside them. */
+    check("...Erase above Undo and Clear above Redo", panel.grid === "wb-eraser+wb-clear / wb-undo+wb-redo+wb-help", panel.grid);
     check("...and a custom colour of the reader's own", panel.custom && panel.pickShut, JSON.stringify({ swatch: panel.custom, shut: panel.pickShut }));
     // the platform's own dialog is a full-screen sheet of sliders over the card being annotated; the picker
     // is inline now, so an <input type=color> anywhere here means the change was reverted
