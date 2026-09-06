@@ -432,7 +432,7 @@ matters.
     us-039  Estimating the pre-contact population of North America
     us-040  How pre-contact America is known
 
-**Three decisions made while writing `us-001`–`us-020` (Sep 2026), recorded here because the lines
+**Five decisions made while writing `us-001`–`us-030` (Sep 2026), recorded here because the lines
 above no longer describe them exactly.**
 
 **`us-010` was renamed** from *The domestication of maize* to *Maize and its spread into North
@@ -453,6 +453,22 @@ already claims a period name before choosing one as an answer term.**
 which is what the thing is called in the literature and what a reader will meet everywhere else;
 *Hopewell exchange network* is kept as a glossary alias, so a card writing either phrase links to
 the same term.
+
+**`us-024`'s answer term is `great house`, not the roads.** The plan line pairs *The Chaco roads and
+the great houses*, and a card has one answer: the roads are a strand inside a card whose subject is
+the building form, because the great house is the thing a reader will meet again — at Aztec, at
+Chimney Rock, in every account of the Southwest — while the roads are one of its properties. The
+glossary key is `Great_house_(Chacoan)`, which claims no bare surface, since *great house* is
+ordinary English and the Casa Grande is also called one; it is reached by the alias *Chacoan great
+house*.
+
+**`us-027` names both `Hohokam` and the ancestral Sonoran Desert people, and says why.** The National
+Park Service states plainly that *Hohokam* is not a tribe's name, that there is no such word in
+O'Odham, Hopi or Zuni, and that it appears to be a mishearing of the O'Odham *huhugam*, meaning
+ancestors — so the Service writes *Hohokam* only of the archaeology and *ancestral Sonoran Desert
+people* of the people. The card's answer term stays `Hohokam`, because that is what a reader will
+meet in every book and museum label, and its second sentence is the correction. **Ask what a
+descendant community calls itself before writing an archaeological label as though it were a name.**
 
 ### Contact, disease and the colonial encounter — `us-native-contact`
 
