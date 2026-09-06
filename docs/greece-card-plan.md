@@ -809,15 +809,15 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-559  Demosthenes the general   (glossary key `Demosthenes_(general)`, so it cannot auto-link the orator)
     gr-560  The destruction of the Athenian force   (carded on the `Assinarus`, the river where it ended)
     gr-561  The Decelean War
-    gr-562  The fortification of Decelea
-    gr-563  Persian intervention
+    gr-562  The fortification of Decelea   (carded on `epiteichismos`, the strategy it is the great example of)
+    gr-563  Persian intervention   (carded on Amorges, whose revolt is why Tissaphernes wanted a Spartan alliance)
     gr-564  Tissaphernes
     gr-565  Pharnabazus
-    gr-566  The treaties with Persia
-    gr-567  The oligarchic coup of 411
+    gr-566  The treaties with Persia   (carded on Lichas, the Spartan who repudiated the first two of them)
+    gr-567  The oligarchic coup of 411   (carded on Colonus, where the assembly voted the democracy away)
     gr-568  The oligarchy of the Four Hundred
     gr-569  The Five Thousand
-    gr-570  The fleet at Samos
+    gr-570  The fleet at Samos   (`Samos` itself is already a glossary term, so the card answers `Athenian fleet at Samos`)
     gr-571  Battle of Cynossema
     gr-572  Battle of Cyzicus
     gr-573  The restoration of the democracy

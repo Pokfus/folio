@@ -2355,7 +2355,17 @@ window.GLOSSARY = {
 "Gylippus": "Gylippus son of Cleandridas was the Spartan officer sent out in 414 BCE to command at Syracuse, on information from the exiled Alcibiades that persuaded Sparta the island was worth saving<sup class=\"fn\" data-fn=\"1\"></sup>. Believing the reports that the city was already invested, he crossed to Italy hoping only to save that, and reached Syracuse over Epipolae at the moment when a short unbuilt stretch was all that remained of the Athenian wall<sup class=\"fn\" data-fn=\"2\"></sup>. In 413 BCE Nicias surrendered to him rather than to the Syracusans, and he wanted to take the Athenian generals back to Sparta but was overruled and they were killed<sup class=\"fn\" data-fn=\"3\"></sup>.",
 "Battle_of_the_Great_Harbour": "The Battle of the Great Harbour was fought at Syracuse in 413 BCE, when the Athenian fleet tried to force its way out of the bay in which it was penned<sup class=\"fn\" data-fn=\"1\"></sup>. The Syracusans had closed the harbour mouth with boats, merchantmen and galleys moored broadside on, and nearly 200 ships then fought in what Thucydides calls the largest fleets ever engaged in the narrowest space, so that ramming gave way to collision and hand-to-hand fighting on the decks<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. The Athenians were driven back to the beach, their crews afterwards refused to man the ships again, and the army marched inland two days later<sup class=\"fn\" data-fn=\"3\"></sup>.",
 "Demosthenes_(general)": "Demosthenes son of Alcisthenes was an Athenian general of the Peloponnesian War, remembered for two campaigns at opposite ends of his career<sup class=\"fn\" data-fn=\"1\"></sup>. In 425 BCE he insisted on fortifying a headland on the Messenian coast against his colleagues' judgement, arguing that Messenians raiding from it could do Sparta great mischief, and the fort trapped a Spartan force on the island in the bay<sup class=\"fn\" data-fn=\"1\"></sup>. In 413 BCE he brought a second armament to Sicily, attacked at once rather than repeat the delay that had let Gylippus arrive, and after that failed urged sailing home; he was overruled, taken in the retreat and killed<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>.",
-"Assinarus": "The Assinarus is a river in south-eastern Sicily where the Athenian army retreating from Syracuse was destroyed in 413 BCE<sup class=\"fn\" data-fn=\"2\"></sup>. Thucydides puts the multitude on the march at not less than 40,000 and compares them to a starved-out town escaping; harassed from every side, they pushed for the river in the hope of drinking and of breathing more freely across it<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. Order ended at the bank, the Syracusans shot down from the steep far side while the Peloponnesians butchered those in the water, and Nicias surrendered asking only that the killing stop<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>."
+"Assinarus": "The Assinarus is a river in south-eastern Sicily where the Athenian army retreating from Syracuse was destroyed in 413 BCE<sup class=\"fn\" data-fn=\"2\"></sup>. Thucydides puts the multitude on the march at not less than 40,000 and compares them to a starved-out town escaping; harassed from every side, they pushed for the river in the hope of drinking and of breathing more freely across it<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. Order ended at the bank, the Syracusans shot down from the steep far side while the Peloponnesians butchered those in the water, and Nicias surrendered asking only that the killing stop<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Amorges": "Amorges was a Carian warlord in revolt against the Persian King in the late 5th century BCE, described by Thucydides as an illegitimate son of Pissuthnes, a former satrap of Sardis<sup class=\"fn\" data-fn=\"2\"></sup>. He held the coastal town of Iasus with a body of mercenaries, most of them from the Peloponnese, and received support from Athens at a time when Persian control of the seaboard was weak<sup class=\"fn\" data-fn=\"2\"></sup>. The King had ordered his satrap Tissaphernes to bring him in alive or dead, an instruction that helped push that satrap towards an alliance with Sparta; Iasus was stormed in 412 BCE and Amorges taken alive and handed over<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Athenian_fleet_at_Samos": "The Athenian fleet at Samos was the armament that refused to recognise the oligarchic government installed at Athens in 411 BCE and conducted itself as though it were the city<sup class=\"fn\" data-fn=\"1\"></sup>. Its crews bound themselves and the Samians by oath to keep a democracy, to prosecute the war and to treat the new regime as an enemy, then held an assembly, deposed the generals they suspected and elected others in their place<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. Arguing that a fleet could raise money anywhere in the empire and needed no capital behind it, the soldiers voted to recall Alcibiades and were only with difficulty dissuaded from sailing against Athens itself<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Colonus": "Colonus was a deme of Attica lying a little more than a mile outside the walls of Athens, containing a precinct of Poseidon<sup class=\"fn\" data-fn=\"1\"></sup>. It is best known as the place where the Athenian assembly met in 411 BCE, enclosed there by the men organising the oligarchic revolution rather than sitting on the hill where it usually voted<sup class=\"fn\" data-fn=\"1\"></sup>. A single motion was put, allowing anyone to propose what he pleased without risk of prosecution for illegality, after which pay and tenure of office were declared at an end and a council of four hundred given full powers<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>.",
+"Decelean_War": "The Decelean War is the name given to the final phase of the Peloponnesian War, running from the Spartan fortification of Decelea in 413 BCE to the surrender of Athens in 404 BCE<sup class=\"fn\" data-fn=\"1\"></sup>. Unlike the short invasions of the earlier fighting, the post was held all year by garrisons from the allied cities, so that the Athenians lost their countryside and more than twenty thousand runaway slaves<sup class=\"fn\" data-fn=\"2\"></sup>. Thucydides counts the resulting destruction of property and loss of men among the principal causes of the Athenian defeat, and records that the tribute was replaced by a duty on seaborne trade to meet the cost<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Epiteichismos": "Epiteichismos is a Greek term for planting a permanent fortified post inside an enemy's territory and raiding from it, in place of an invasion that comes and withdraws<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. The word appears in the speech the Corinthians make at Sparta in 432 BCE, where such a fort is listed among the ways of stripping an adversary of the revenues on which its strength rests<sup class=\"fn\" data-fn=\"1\"></sup>. The method suited a state whose enemy could shelter behind walls until a seasonal raid was over, and Thucydides shows it urged on the ground that a fort beside a harbour, held by men hostile to the surrounding country, would do great mischief<sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Five_Thousand": "The Five Thousand were the body of Athenians granted political rights under the constitution that followed the fall of the oligarchy of the Four Hundred in 411 BCE<sup class=\"fn\" data-fn=\"1\"></sup>. The number began as a slogan of the revolutionaries, who said that no more than five thousand should share in government, meaning those most able to serve in person and in purse; the oligarchy then kept the name without ever convening the body<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. Membership was finally defined as every man who could furnish himself a suit of armour, and pay for holding office was abolished; Thucydides judged this the best government Athens had in his lifetime<sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Four_Hundred": "The Four Hundred were the oligarchic council that governed Athens for roughly four months in 411 BCE, after an assembly held outside the city voted the democratic constitution away<sup class=\"fn\" data-fn=\"1\"></sup>. Five presidents were to choose a hundred men, and each of those three more, making up a body with full powers to govern and to convene a wider citizen body of five thousand whenever it chose<sup class=\"fn\" data-fn=\"1\"></sup>. Its members entered the council chamber with concealed daggers, ruled by force, put a few opponents to death and sought terms with Sparta; it fell when the fleet refused it and the people voted power to the five thousand<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Lichas": "Lichas, son of Arcesilaus, was a Spartan sent out in 412 BCE as one of eleven commissioners appointed to oversee the conduct of the war in Asia<sup class=\"fn\" data-fn=\"1\"></sup>. He is remembered for objecting to the treaties Sparta had made with the Persian King, arguing that a clause conceding every country the King or his ancestors had ruled would give the Greeks a Persian master in place of the freedom Sparta had promised<sup class=\"fn\" data-fn=\"2\"></sup>. He nevertheless urged the Milesians to submit to their satrap, and when he died of illness there they refused to let him be buried where the Spartan army wished<sup class=\"fn\" data-fn=\"3\"></sup>.",
+"Pharnabazus": "Pharnabazus was the Persian satrap of Hellespontine Phrygia in the late 5th and early 4th centuries BCE, and the rival of Tissaphernes for the Spartan alliance during the Peloponnesian War<sup class=\"fn\" data-fn=\"1\"></sup>. He sent Greek exiles from his court to Sparta in 412 BCE to ask for a fleet for the northern straits, hoping to bring the cities of his province out of the Athenian empire, and he proved the more reliable paymaster of the two<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. Xenophon shows him supplying a beaten Peloponnesian fleet with clothing and two months of provisions, and later reproaching a Spartan king whose army had burned the houses and parks he had inherited<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>.",
+"Tissaphernes": "Tissaphernes was a Persian satrap who commanded the maritime districts of Asia Minor from about 415 BCE and brought the King's money into the last decade of the Peloponnesian War<sup class=\"fn\" data-fn=\"1\"></sup>. In arrears on his province's tribute, he invited the Peloponnesians over in 412 BCE and concluded three treaties with Sparta, then paid its crews badly and irregularly<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>. Thucydides says he took the advice of Alcibiades to leave one Greek side master of the sea and the other of the land rather than end the war; the King later held him responsible for a defeat and had him put to death<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>."
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3236,7 +3246,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Siege_of_Syracuse": "415 – 413 BCE",
 "Battle_of_the_Great_Harbour": "413 BCE",
 "Demosthenes_(general)": "d. 413 BCE",
-"Assinarus": "413 BCE"
+"Assinarus": "413 BCE",
+"Amorges": "fl. 413 – 412 BCE",
+"Athenian_fleet_at_Samos": "411 BCE",
+"Decelean_War": "413 – 404 BCE",
+"Five_Thousand": "411 – 410 BCE",
+"Four_Hundred": "411 BCE",
+"Lichas": "d. 411 BCE",
+"Pharnabazus": "fl. 413 – 373 BCE",
+"Tissaphernes": "d. c. 395 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4601,7 +4619,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_Mantinea": ["Battle of Mantineia"],
 "Egesta": ["Segesta","Egestaeans"],
 "Mutilation_of_the_Herms": ["mutilation of the herms"],
-"Demosthenes_(general)": ["Demosthenes son of Alcisthenes"]
+"Demosthenes_(general)": ["Demosthenes son of Alcisthenes"],
+"Athenian_fleet_at_Samos": ["fleet at Samos"],
+"Decelean_War": ["Decelean War"],
+"Epiteichismos": ["epiteichismos"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4632,7 +4653,9 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Tyre": true,
 "Olduvai_Beds": true,
 "Little_Foot": true,
-"Commonwealth_of_Nations": true
+"Commonwealth_of_Nations": true,
+"Five_Thousand": true,
+"Four_Hundred": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -6991,7 +7014,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Gylippus": ["person","warfare","greece","history"],
 "Battle_of_the_Great_Harbour": ["battle","event","warfare","greece"],
 "Demosthenes_(general)": ["person","warfare","greece","athens"],
-"Assinarus": ["place","event","warfare","greece"]
+"Assinarus": ["place","event","warfare","greece"],
+"Amorges": ["person","history","greece","politics","warfare"],
+"Athenian_fleet_at_Samos": ["institution","event","warfare","greece","athens","history"],
+"Colonus": ["place","greece","athens","politics","history"],
+"Decelean_War": ["event","warfare","greece","history"],
+"Epiteichismos": ["concept","warfare","greece","history"],
+"Five_Thousand": ["institution","politics","greece","athens","history"],
+"Four_Hundred": ["institution","politics","greece","athens","history"],
+"Lichas": ["person","history","greece","politics","warfare"],
+"Pharnabazus": ["person","history","greece","politics","warfare"],
+"Tissaphernes": ["person","history","greece","politics","warfare"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
