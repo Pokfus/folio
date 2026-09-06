@@ -432,7 +432,7 @@ matters.
     us-039  Estimating the pre-contact population of North America
     us-040  How pre-contact America is known
 
-**Seven decisions made while writing `us-001`–`us-040` (Sep 2026), recorded here because the lines
+**Ten decisions made while writing `us-001`–`us-050` (Sep 2026), recorded here because the lines
 above no longer describe them exactly.**
 
 **`us-010` was renamed** from *The domestication of maize* to *Maize and its spread into North
@@ -487,6 +487,27 @@ source for when it was agreed — the date is contested, the card says so, and t
 that half. **`us-040` is flagged `undatable`**: *pre-contact America* names everything before a
 frontier that reached different places centuries apart, so the Timeline game must not ask a reader to
 place it.
+
+**`us-043`'s answer is `Great Dying`, and its glossary key is `Great_Dying_(Americas)`.** The
+Dinosaurs plan plans a card on the same phrase for the end-Permian extinction (`dino-187`, *The
+scale of the Great Dying*), and `buildGlossIndex` cannot tell two collections apart — so this key
+carries a disambiguating parenthetical, which claims no bare surface, and the alias is *Great Dying
+in the Americas*. The bare name is left free for whichever collection can carry it without
+ambiguity. **Ask what else is PLANNED to claim a phrase, not only what already claims it.**
+
+**`us-045` reuses the existing `Horse` term rather than writing a North American one**, since a
+glossary description is deck-agnostic by rule, and `North_American_fur_trade` deliberately carries
+no bare *fur trade* alias — Russia and China both have one, and the first collection to reach a
+phrase should not take it from the others.
+
+**The Comanche cards rest on the Handbook of Texas**, whose entries are signed and carry their own
+bibliographies, which is the test the glossary plan sets for citing an encyclopedia at all: per
+article, not per publisher. Two access findings went with them. **`si.edu` is Cloudflare-blocked
+here**, so the Smithsonian's Native Knowledge 360 material on the Oceti Sakowin cannot be cited from
+this sandbox; and **`hal.inrae.fr` is behind the same Anubis bot wall as `hal.science`** — the
+Taylor 2023 horse paper, which four of these cards rest on, is served openly instead by a Utah State
+University extension site.
+
 
 ### Contact, disease and the colonial encounter — `us-native-contact`
 
