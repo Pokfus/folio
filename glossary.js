@@ -1870,7 +1870,12 @@ window.GLOSSARY = {
 "Cyril_and_Methodius": "Cyril and Methodius were brothers from Thessalonica sent from Constantinople to Great Moravia after 863, at the invitation of a prince who wanted teachers who were not Frankish.<sup class=\"fn\" data-fn=\"1\"></sup> The elder, Constantine the Philosopher, who took the name Cyril late in life, devised an alphabet for Slavonic, the script called Glagolitic; a Bulgarian monk of the following century credited him with 38 letters made for a people who had until then reckoned with strokes and notches.<sup class=\"fn\" data-fn=\"2\"></sup> Where those letters came from is still argued over, one leading account building most of them out of the cross, the circle and the triangle.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Kievan_Rus'": "Kievan Rus’ was the state built along the river roads of eastern Europe by princes ruling from Kyiv, whose own chronicle traces its founding to Varangians from beyond the sea, an origin argued over for two centuries with heavy political freight.<sup class=\"fn\" data-fn=\"1\"></sup> It dealt with Byzantium by turns as trading partner and enemy, preserving four treaties with the empire in its chronicle while a Rus’ fleet attacked Constantinople in 941 and an emperor campaigned against the Rus’ in 971.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its 11th century brought a cultural rise, with the raising of St Sophia in Kyiv, the founding of the Caves monastery and the first theology written in Slavonic there.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "First_Bulgarian_Empire": "The First Bulgarian Empire was the state founded on the lower Danube by the Bulgars under Asparuh in 681, out of a war that ended in Byzantium recognising it, and it remained the empire’s most persistent European rival for three centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Its ruler Boris accepted Christianity in the 860s, and under his son Symeon, who ruled from 893 to 927, it fought long and victorious wars and led south-eastern Europe.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The 10th century brought a literary flowering in Slavonic and then a military collapse, and by 1018 the state had lost its independence to Byzantium for a century and a half.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Battle_of_Manzikert": "The Battle of Manzikert was fought in eastern Anatolia on 26 August 1071 between the Byzantine emperor Romanos IV Diogenes, who had mobilised his whole strength to destroy the Great Seljuk state, and the sultan Alp Arslan, who defeated and captured him.<sup class=\"fn\" data-fn=\"1\"></sup> Turkmen had been pressing west from Turkestan and Iran since 1037 and had failed to settle Anatolia before; after this defeat they stayed, and within decades the Danishmendids, Saltuqids, Mengujekids and the Seljuk sultanate of Anatolia ruled on formerly Byzantine ground.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Modern Turkey has made the day a founding story of national identity, though it was largely passed over in the Republic’s public life until the 1950s.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Battle_of_Manzikert": "The Battle of Manzikert was fought in eastern Anatolia on 26 August 1071 between the Byzantine emperor Romanos IV Diogenes, who had mobilised his whole strength to destroy the Great Seljuk state, and the sultan Alp Arslan, who defeated and captured him.<sup class=\"fn\" data-fn=\"1\"></sup> Turkmen had been pressing west from Turkestan and Iran since 1037 and had failed to settle Anatolia before; after this defeat they stayed, and within decades the Danishmendids, Saltuqids, Mengujekids and the Seljuk sultanate of Anatolia ruled on formerly Byzantine ground.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Modern Turkey has made the day a founding story of national identity, though it was largely passed over in the Republic’s public life until the 1950s.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Sack_of_Constantinople": "The Sack of Constantinople was the storming and plundering of the Byzantine capital in April 1204 by a crusading army that had sailed from Venice in 1202 bound for Egypt and never got there.<sup class=\"fn\" data-fn=\"1\"></sup> It is described by two participants in Old French and, from the other side of Europe, by an Old Russian account written into the Novgorod First Chronicle within about fifty years, apparently from the testimony of people who saw it.<sup class=\"fn\" data-fn=\"2\"></sup> A Latin emperor was installed and the Greek provinces shared out, while surviving Greek rulers at Trebizond and elsewhere each claimed to be the lawful heirs of a state they described as merely broken apart.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Fall_of_Constantinople": "The Fall of Constantinople was the conquest of the city by the Ottoman Turks under Mehmed II in 1453, the event by which the Byzantine Empire is reckoned to have ended.<sup class=\"fn\" data-fn=\"1\"></sup> An earlier Ottoman siege in 1422 had failed but had taught the besiegers a great deal about the walls and the defence, and that knowledge was spent thirty years later.<sup class=\"fn\" data-fn=\"2\"></sup> Four Greek historians described the conquest at length and disagree so sharply about it that the familiar narrative is a composite of four, while anonymous laments in everyday Greek went on mourning the city itself, its beauty and its wonders, for two centuries afterwards.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Christianisation_of_Armenia": "The Christianisation of Armenia is the adoption of Christianity as the religion of the Armenian kingdom under Tiridates III, the first such adoption by any state and one whose date is argued over.<sup class=\"fn\" data-fn=\"1\"></sup> One account of it is political: Greater Armenia lay between Rome and Persia with no neutral ground of its own, and a faith belonging to neither and rejected by both bought a new independence, taken up on this reading just after the peace of Nisibis in 298 rather than in the traditional 301.<sup class=\"fn\" data-fn=\"1\"></sup> A century later Mashtots gave the language an alphabet, so that a church which had borrowed its books could write its own.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Kingdom_of_Georgia": "The Kingdom of Georgia was the Christian state of the southern Caucasus that became the dominant power of its region in the 12th century, under David IV the Builder, who came to the throne in 1089 at sixteen and is credited with uniting the country.<sup class=\"fn\" data-fn=\"1\"></sup> Its rulers worked their power by marriage as well as by arms, sending David's daughter about 1111 to the Muslim ruler of Shirvan, where she reigned for more than twenty years.<sup class=\"fn\" data-fn=\"1\"></sup> Its painters signed and dated their work, so that murals by Tevdore of the royal court survive in the Svaneti highlands from 1096, 1112 and 1130.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Ethiopian_Orthodox_Tewahedo_Church": "The Ethiopian Orthodox Tewahedo Church is the Christian church of the Ethiopian highlands, tracing itself to the conversion of the Aksumite kingdom in the 4th century under the king Ezana, whose royal proclamation has been dated to about 333.<sup class=\"fn\" data-fn=\"1\"></sup> Read through Ezana's own coins and inscriptions rather than through distant church historians, that conversion looks like a rise through the population rather than a decree from the throne.<sup class=\"fn\" data-fn=\"2\"></sup> Its monarchy was grounded in descent from Solomon by the <i>Kǝbrä nägäśt</i>, now read as an early 14th-century work made to praise a new dynasty rather than as a survival from late antiquity.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2743,7 +2748,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Cyril_and_Methodius": "9th century CE",
 "Kievan_Rus'": "9th – 13th century CE",
 "First_Bulgarian_Empire": "681 – 1018 CE",
-"Battle_of_Manzikert": "26 August 1071 CE"
+"Battle_of_Manzikert": "26 August 1071 CE",
+"Sack_of_Constantinople": "April 1204 CE",
+"Fall_of_Constantinople": "1453 CE",
+"Christianisation_of_Armenia": "c. 298 – 301 CE",
+"Kingdom_of_Georgia": "1089 – 1801 CE",
+"Ethiopian_Orthodox_Tewahedo_Church": "4th century CE – present"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3915,7 +3925,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cyril_and_Methodius": ["Saints Cyril and Methodius","Constantine the Philosopher","Methodius"],
 "Kievan_Rus'": ["Kyivan Rus","Kyivan Rus’","Kievan Rus","Rus’"],
 "First_Bulgarian_Empire": ["First Bulgarian Tsardom","First Bulgarian state"],
-"Battle_of_Manzikert": ["Manzikert","Malazgirt"]
+"Battle_of_Manzikert": ["Manzikert","Malazgirt"],
+"Sack_of_Constantinople": ["Sack of Constantinople in 1204"],
+"Fall_of_Constantinople": ["Fall of Constantinople in 1453","conquest of Constantinople"],
+"Christianisation_of_Armenia": ["Christianization of Armenia","conversion of Armenia"],
+"Kingdom_of_Georgia": ["Georgian kingdom"],
+"Ethiopian_Orthodox_Tewahedo_Church": ["Ethiopian Orthodox Church","Ethiopian Church"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5816,7 +5831,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Cyril_and_Methodius": ["person","history","religion","europe","technology"],
 "Kievan_Rus'": ["state","history","europe","politics","religion"],
 "First_Bulgarian_Empire": ["state","history","europe","politics","warfare"],
-"Battle_of_Manzikert": ["battle","history","warfare","europe","politics"]
+"Battle_of_Manzikert": ["battle","history","warfare","europe","politics"],
+"Sack_of_Constantinople": ["event","history","warfare","europe","religion"],
+"Fall_of_Constantinople": ["event","history","warfare","europe","politics"],
+"Christianisation_of_Armenia": ["event","history","religion","asia","politics"],
+"Kingdom_of_Georgia": ["state","history","europe","asia","religion"],
+"Ethiopian_Orthodox_Tewahedo_Church": ["institution","history","religion","africa","politics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
