@@ -356,6 +356,516 @@ written by missionaries and by men in the employ of one government or another du
 peninsula was being taken, and a card that cites one is citing a colonial-era source. Use them for what
 they witnessed, name what they were, and do not let them carry a judgement.
 
+## What the first ten found (Sep 2026)
+
+`ko-001`–`ko-010`, the whole of `ko-land`'s opening, are geography rather than events, and that decided
+where they could be sourced from. Six findings are worth carrying into `ko-011` and beyond.
+
+**Two open works reach subjects no statistical profile does, and both were found by accident.** The
+*International Journal of Korean History* serves its **entire back run as open PDFs** under
+`ijkh.khistory.org/upload/pdf/` — it carried early-Joseon local administration, Manchuria's place in
+Korean history, and Jurchen-Manchu historiography, and it is the closest thing this sandbox has to a
+Korean-studies library. And **Gari Ledyard's "Cartography in Korea"** (*The History of Cartography*
+vol. 2 bk 2) is free in full from the University of Chicago Press at
+`press.uchicago.edu/books/HOC/HOC_V2_B2/HOC_VOLUME2_Book2_chapter10.pdf` — 110 pages on Korean
+geographical thought, the eight provinces, Mount Baekdu, geomancy and the siting of Hanyang. Reach for
+both before searching.
+
+**The national meteorological agency is unreachable and its own English climate page is not.**
+`www.kma.go.kr` refuses the connection, and `web.archive.org`'s copy of `/eng/biz/climate_01.jsp`
+carries the annual means, the precipitation totals, the changma's onset and length, the winter share and
+the typhoon count — the whole national climate in one screen, from the body that measures it.
+
+**More is shut than the plan's own survey recorded.** `www.mdpi.com` is 403, which closes a large
+Korean-authored open-access literature on urban and heritage subjects; `koreascience.kr`, `accesson.kr`
+(the *Korea Journal* archive), `www.kostat.go.kr` and the Korean government hosts generally refuse the
+connection. What answers: `pubs.usgs.gov`, `data.un.org`, `api.worldbank.org` and `data.worldbank.org`,
+`history.state.gov`, `digitallibrary.un.org`, `archive.org`, `press.uchicago.edu`, `nautilus.org`,
+`www.kida.re.kr`, and the open science publishers — Frontiers, PLOS, Copernicus, Springer Nature's own
+journals and Europe PMC.
+
+**A figure a state reports and a figure an outside body can verify are different figures, and this
+collection will meet that constantly.** `ko-008` is the first case: North Korea's magnesite is put at
+about six billion tonnes by a South Korean study and called the world's second largest, while the USGS
+says North Korean reserves cannot be verified from outside and its own world table lists no figure for
+the country at all. The card gives both and names whose each is. Expect the same shape on every DPRK
+number.
+
+**A card whose answer is a place still needs an editorial choice of what the place IS.** Seven of the
+ten plan lines were subjects rather than answer terms, and the answers chosen — Taebaek Mountains,
+Baekdudaegan, Changma, Manchuria, Yellow Sea, magnesite, Eight Provinces — are recorded in the running
+order above, with the line reworded to name them.
+
+**And two of the ten had to be researched around a gap rather than into one.** No openable source here
+states that the eight provinces were fixed in 1413 or replaced in 1896, so `ko-009` carries neither date
+and rests instead on what Ledyard and the *IJKH* do state — the 1402 *P'altodo*, Taejong's
+reorganisation of counties and prefectures, the 1424–25 survey of all 334 districts, the 1432
+monograph. **Write the card round what the sources bear**; a date nobody can check is the one thing the
+apparatus exists to prevent.
+
+## What the second ten found (Sep 2026)
+
+`ko-011`–`ko-020` finish `ko-land`, and they leave the geography behind half way through: the last six
+are population, language, frontier and periodisation, which are argued about rather than measured. Five
+findings.
+
+**A plan line can name a topic that cannot be written, and the honest answer is to replace it.**
+`ko-012` was *The origins of the name Korea*, and it cannot be carded here: the three natural answer
+terms are already taken by cards further on (`ko-291` Goryeo, `ko-401` Joseon, `ko-634` the Korean
+Empire), and the modern split between *Hanguk* in the South and *Chosŏn* in the North is in nothing
+openable from this sandbox — `iias.asia` is behind Cloudflare and a full-text search of Europe PMC
+returns bibliography and no prose. It was replaced by **the Han River**, which no line anywhere in the
+thousand covered and which is the largest basin in the country. **The naming question belongs on
+`ko-291`**, where Goryeo is the subject and the word's route into European languages is part of it.
+
+**Three of Phase 3's habits do not transfer, and the replacements are the useful part.** `science.org`
+is 403, so *Science Advances* is read at its **PMC copy**; `www.mdpi.com` is 403, so *Animals*,
+*Plants* and *Entropy* are read the same way; and `link.springer.com` and `nature.com` behave
+differently from each other, `nature.com` answering in full. **A DOI that 403s is usually open one host
+over** — resolve the PMCID with `search?query=DOI:"…"&resultType=core` at Europe PMC and cite that.
+`brill.com` refuses its own DOI and serves the article at `brill.com/view/journals/…/article-p1_1.xml`.
+
+**The *IJKH* back run is now the collection's spine and it is worth searching by Crossref rather than by
+hand.** `api.crossref.org/journals/1598-2041/works` lists the whole journal with titles and DOIs, which
+is how the Koryŏ–Khitan article behind `ko-016` and the Marxist-historiography article behind `ko-020`
+were found; the PDF then sits at `ijkh.khistory.org/upload/pdf/ijkh-<vol>-<iss>-<page>.pdf`.
+
+**A disputed island is keyed under the neutral name and reached by both partisan ones.** The card
+answers **Dokdo**, which is what a reader of a Korea collection will meet; the glossary term is
+`Liancourt_Rocks` with `Dokdo` and `Takeshima` as aliases, because the glossary is shared with the Japan
+collection and a term is deck-agnostic by rule. The same reasoning does NOT apply to the rivers: the
+card and the term both head **Amnok River**, with `Yalu` an alias, since that is Folio's own name for it
+and the plan's own line says so.
+
+**And `Periodization` is the first term this collection has added that is not about Korea.** The card is
+about Korean periodisation and the term had to be written about periodisation, which is what a shared
+glossary means; it takes the geological time spiral for its picture and says nothing about Goryeo. Expect
+more of these: `Chronology`-shaped concepts arrive through a national collection and belong to nobody.
+
+**Nine more terms shipped with them** — `Koreans`, `Han_River_(Korea)`, `West_Liao_River`,
+`Koreanic_languages`, `Goryeo_long_wall`, `Amnok_River`, `Jeju_Island`, `Liancourt_Rocks` and
+`Periodization` — with `Pyongyang` reused, which the batch-1 finding about checking first had already
+taught. **`Han_River_(Korea)` carries the parenthetical deliberately**: a parenthetical key claims no
+bare name (`bareTaken` in `buildGlossIndex`), so it cannot capture the Chinese Han River or the Han
+dynasty, and it is reached by `Hangang` and by hand-written links.
+
+**One card ships without a picture and the reason is stated rather than hidden.** `ko-013` *Koreans* has
+no illustration: what Commons offers for a people is a shop rack of hanbok, a Seoul shopping alley or a
+politically specific crowd, and none of the three depicts the Koreans of both states without privileging
+one costume, one city or one moment. A population pyramid exists for each state separately and for
+neither together. **Ship without one and say so**, rather than installing a picture that makes a claim
+the card does not.
+
+## What the third ten found (Sep 2026)
+
+`ko-021`–`ko-030` open `ko-prehistory`, and the batch was decided by one discovery.
+
+**THE WHOLE BACK RUN OF *ASIAN PERSPECTIVES* IS OPEN, AND IT IS THE SPINE OF EVERY PREHISTORY CARD THIS
+COLLECTION WILL WRITE.** The University of Hawai'i Press journal — the leading English-language journal
+on East Asian archaeology — deposits its articles in **ScholarSpace**, the university's repository, and
+they are free PDFs. `muse.jhu.edu`, which its DOIs resolve to, is shut here; the repository is not.
+Search it through its DSpace API rather than its web UI, which is a JavaScript app:
+`scholarspace.manoa.hawaii.edu/server/api/discover/search/objects?query=<terms>` returns items with
+their UUIDs, `…/server/api/core/items/<uuid>` gives the durable **handle**, and
+`…/server/api/core/items/<uuid>/bundles` leads to the PDF. **Cite the handle**
+(`https://hdl.handle.net/10125/<n>`), which is permanent and resolves to a real item page, rather than
+the bitstream UUID, which is not. *Asian Perspectives* 54, no. 1 (2015) is a whole special issue on
+Korean prehistory and carried five of this batch's sources on its own.
+
+**Two card answers were renamed to keep an adjacent pair from being one word apart.** The plan's
+ko-023/ko-024 and ko-029/ko-030 each pair a period with the pottery it is named after, so the obvious
+answers would have been *Jeulmun period* beside *Jeulmun pottery* and *Mumun period* beside *Mumun
+pottery* — two cards in a row whose blanks differ by a single word. They ship as **Jeulmun period** and
+**comb-pattern pottery**, **Korean Bronze Age** and **Mumun pottery**, which is also how the literature
+in fact talks: *jeulmun* means comb-pattern, and both cards say so.
+
+**A DIG DATE IN A DATE LINE IS THE FAULT `CLAUDE.md` WARNS ABOUT AND IT FIRED HERE.** `ko-022`'s date
+line opened with `Found | 1978`, which is right about the discovery and made the card sort at **1978
+CE**, at the wrong end of a deck running from 350,000 BP — `cardYears` reads the largest plain year it
+can find. It now reads `Deposits | up to c. 350,000 BP`, and `ko-026` lost its `Excavated | from the
+1960s` for the same reason, both discovery facts living in the abstract where the history-focus rule
+puts them. **Read a new card's sort year back through `cardYears` before committing it**; nothing in the
+pipeline reports this.
+
+**The genuine disagreement in this deck is whether Bronze Age farming grew out of Neolithic farming, and
+it is carded rather than settled.** Counting pit houses against radiocarbon dates shows sedentary
+millet-growing settlements rising through the late fourth millennium BCE and almost vanishing from
+central and southern Korea after the late third, which is evidence for a break; a comparable decline in
+Japan at the same time has been linked to a wider northern Eurasian downturn. `ko-023`, `ko-025`,
+`ko-027` and `ko-028` all state the two models and say which way the counts point.
+
+**Ten more glossary terms shipped with the cards** — `Paleolithic_Korea`, `Jeongok-ri`,
+`Jeulmun_pottery_period`, `Comb-pattern_pottery`, `Pit-house`, `Amsa-dong`, `Foxtail_millet`,
+`Paddy_field`, `Bronze_Age_Korea` and `Mumun_pottery`. Three of them are **general terms that arrived
+through a Korean card** and are written generally, as `Periodization` was in the batch before:
+`Pit-house`, `Paddy_field` and `Foxtail_millet` belong to nobody. `Paleolithic_Korea` follows the
+existing `Neolithic_China` and `Bronze_Age_Italy` pattern rather than a Wikipedia slug, and is spelled
+the American way to match `Paleolithic`, with `Palaeolithic Korea` as an alias — the spelling switch
+carries `palaeo`/`paleo` both ways, so a reader sees whichever they have chosen.
+
+## What the fourth ten found (Sep 2026)
+
+`ko-031`–`ko-040` finish the Bronze Age half of `ko-prehistory` and open the Early Iron Age. **The
+*Asian Perspectives* back run at ScholarSpace is still carrying the deck** — Bale and Ko on craft
+production at Daepyeong, Kisung Yi on Bronze Age burial, Nelson on Songgungni — and it was joined by
+two hosts worth keeping. **Copernicus publishes the ISPRS Archives openly**, and a 2025 paper on
+digital documentation at Gochang is the only openable work found that states the 2000 World Heritage
+inscription, `whc.unesco.org` being 403 here; **`nature.com` serves *Nature Communications*** and
+carried the 2026 whale paper the Bangudae panel rests on. Against them, `science.org`, `www.mdpi.com`
+and `link.springer.com` are all shut, the last serving a 3 KB "Client Challenge" with a 200 status.
+
+**A GENERAL GLOSSARY TERM WRITTEN FOR ONE CONTINENT BREAKS THE MOMENT ANOTHER COLLECTION LINKS TO IT.**
+`Dolmen` already existed, cited and inside the length band — and it described the European Neolithic
+and nothing else, because Europe is where Folio had met dolmens before. Korea holds among the highest
+densities of them in the world and `ko-033` is a card about exactly that, so the term was **rewritten**
+rather than left: it now says what a dolmen is, gives Europe's earliest chambers and its reopening
+practice, and names Korea's Bronze Age form, on four sources. **Before pairing a card with a term that
+already exists, read the term** — `add-glossary.js` overwrites in silence, and a term that is right
+about one continent reads as a definition rather than as a regional account.
+
+**THE DIG-DATE FAULT FIRED AGAIN AND WAS CAUGHT BEFORE IT SHIPPED.** `ko-036`'s date line was drafted
+with `Found | 1975`, the year the Songguk-ri slab tomb was discovered, which would have sorted a
+Bronze Age card at 1975 CE exactly as `ko-022` sorted at 1978 in the batch before. Reading every card's
+sort year back through the real `cardYears` is now the last thing done before `add-card.js` is run; all
+ten come back negative, from −6000 for the shell midden to −300 for the two iron cards.
+
+**Two more pairs of adjacent answers were renamed apart.** `ko-033` and `ko-034` would have been
+*dolmen* beside *Korean dolmen sites*, and `ko-037` and `ko-038` *cast ironware* beside *Early Iron
+Age*; they ship as **dolmen** / **Gochang** and **cast iron** / **Early Iron Age**. `ko-038` could not
+take *proto-Three Kingdoms*, which `ko-077` holds, and `ko-040` was kept as **rock art** in general
+with Bangudae reserved for `ko-041`.
+
+**`ko-035` ships with no picture and the reason is that none exists.** Commons holds no photograph of a
+Korean stone cist — every cist on it is European — and a German slab grave on a Korea card would say
+something the card does not. The glossary term `Stone_cist` is deck-agnostic and takes one, since there
+the European example is simply an example. The other nine cards are illustrated, and the contact sheet
+earned its place again: the only Commons file named for the Liaoning dagger type is a **museum text
+panel**, which passes every licence and size test and is a photograph of a paragraph.
+
+**Nine more glossary terms shipped with the cards** — `Daepyeong`, `Liaoning_bronze_dagger`,
+`Gochang_Dolmen_Site`, `Stone_cist`, `Songgungni`, `Cast_iron`, `Early_Iron_Age_Korea`, `Shell_midden`
+and `Rock_art` — plus the `Dolmen` rewrite above. Four of them are **general terms that arrived through
+a Korean card**, on the pattern the batch before established: `Stone_cist`, `Cast_iron`, `Shell_midden`
+and `Rock_art` are written for anybody, each closing on what Korea's own evidence looks like.
+
+## What the fifth ten found (Sep 2026)
+
+`ko-041`–`ko-050` close `ko-prehistory` and open `ko-gojoseon`, and they are the first cards in this
+collection whose subject is a written record rather than a site. That changed where the sources came
+from. The *Asian Perspectives* back run still carries the archaeology — Park on buffer-zone trade,
+Blackmore on the Han–Ye division, Rhee and colleagues on what crossed to Japan — but the Gojoseon and
+Dangun cards rest on the ***International Journal of Korean History***, whose whole run is open, and
+which is best searched through **`api.crossref.org/journals/1598-2041/works`** rather than by hand.
+Nine of its articles are cited here. Against them, `journals.openedition.org` is behind the Anubis wall
+again, `www.journals.uchicago.edu` is 403, and JSTOR, De Gruyter and Project MUSE all answer a challenge
+page with a 200 status, which rules out the one modern monograph on the *Samguk yusa*.
+
+**THE PLAN'S TWO-SCHOLAR CAP DECIDED A CARD, AND IT DECIDED IT AGAINST THE OBVIOUS ANSWER.** `ko-048`,
+"the Dangun myth as history", wants to be a card about **Ch'oe Namsŏn**, who built an account of Korean
+origins around Dangun under colonial rule; there is an open article about exactly that. But this plan
+spends its one scholar on `ko-703` and says the remaining historiographical cards should name schools,
+states and projects rather than people. So `ko-047` takes the general concept, **foundation myth**, and
+`ko-048` takes **Dangun** himself, with Ch'oe Namsŏn cited and described in a clause rather than carded.
+**Read the collection's own scope rules before choosing an answer term**; the cap is not a style
+preference, it is what keeps a history collection from becoming a historiography one.
+
+**A MYTH'S OWN NARRATIVE TURNED OUT TO BE THE HARDEST THING TO CITE.** Everything openable about Dangun
+is about how the figure has been USED — the era counted from 2333 BCE, the national foundation day, the
+religion founded in 1909 — and nothing reachable tells the story. What tells it is **Hulbert's *The
+Passing of Korea*, 1906, on archive.org**, which sets out the bear, the tiger, the garlic, the cave and
+the twenty-one days as they were then told, and flags them as legend in the same breath. That is the
+artefact pass's rule arriving in another subject: **where the modern synthesis is shut, the standard
+period work is open, and for a traditional story a period telling is the right kind of source anyway.**
+
+**`ko-045`'s answer term is the concept the rest of the deck rests on.** An *archaeological culture* is a
+named bundle of artefact types, invented in Europe early in the 20th century and brought into Korean
+archaeology by Japanese colonial scholars; because the people of the past cannot be read off their
+objects, the name came to stand for a whole way of life and then for a real ethnic group. A guest
+editor's introduction in the *IJKH* says so outright, and a critical review in *Asian Perspectives*
+shows the criteria dividing central Korea between two "peoples" failing under examination. Carding the
+concept is the honest way to give the reader the tool the previous twenty-four cards were using.
+
+**Three cards ship with no picture and the reason is the same each time: the subject has no view.**
+`ko-042` is a region spanning four countries, `ko-043` a corridor, `ko-045` a concept — and what Commons
+offers for the first two is satellite scenes, Admiralty charts and, twice over, a **museum text panel**,
+which is the fault the contact sheet caught in the batch before and caught again here. The other seven
+are illustrated, `ko-041` by a full-size replica of the Bangudae panel rather than the cliff itself,
+since at the size a card draws a picture the original reads as a bare rock face and the replica reads as
+whales and boats. The card says it is a replica.
+
+**Ten more glossary terms shipped with the cards** — `Bangudae`, `Northeast_Asia`, `Liaodong`,
+`Yayoi_period`, `Archaeological_culture`, `Gojoseon`, `Foundation_myth`, `Dangun`, `Shiji` and
+`Liao_River`. Four are **general terms that arrived through a Korean card**, which is now the settled
+pattern of this collection: `Northeast_Asia`, `Archaeological_culture`, `Foundation_myth` and
+`Yayoi_period` are written for anybody, and `Shiji` will be wanted by the China collection before long.
+
+**One plan line is left needing attention.** `ko-058` is "The Han conquest of Gojoseon" and `ko-059` "The
+fall of Wanggeom-seong", which are the same event twice; whoever writes that batch will have to split
+them or drop one, and `ko-050` has taken the Liao River rather than Wanggeom-seong partly to leave that
+name free.
+
+## What the sixth ten found (Sep 2026)
+
+`ko-051`–`ko-060` take the Gojoseon deck through to the Han conquest, and they are the batch in which
+the collection's own scope rules did the most work.
+
+**THE PLAN'S OWN LINE HAD TO BE SPLIT, AND THE BATCH BEFORE THIS ONE SAW IT COMING.** `ko-058` is "The
+Han conquest of Gojoseon" and `ko-059` "The fall of Wanggeom-seong", which as written are the same
+event twice. They ship as **Emperor Wu of Han** — who ordered the war and why, and what the commanderies
+that followed were — and **Wanggeom-seong**, which is about the CAPITAL: the one clause of the *Shiji*
+that names it, the identification with Pyongyang, and the household register and seals that make the
+identification stick. Two cards on one event work only if one of them is about a place.
+
+**THE HARDEST SOURCING PROBLEM WAS THE EIGHT PROHIBITIONS, AND IT WAS SOLVED BY A SECOND HULBERT.** No
+modern openable work sets out Chosŏn's law code; DBpia is paywalled, the *Korea Journal* is open access
+and serves no full text this sandbox can read, and the *Journal of Gojoseon & Dangun Studies* is behind
+the same wall. **Hulbert's *The History of Korea*, vol. 1 of 1905, is on Project Gutenberg** and gives
+all three surviving articles — death for murder in the manner of the crime, grain for injury in a brawl,
+enslavement for theft with a redemption payment — and says plainly that the other five were never
+recorded. The same volume carries the Gija tradition, King Jun's flight and the Yan frontier. **When the
+modern literature is shut, ask whether the period work is on Gutenberg rather than only on archive.org**;
+the Gutenberg HTML also carries page anchors, which is how these citations got their page numbers.
+
+**AND THAT NEARLY BROKE A RULE THE PIPELINE CHECKS.** `ko-053` first shipped with three Hulbert
+citations of five, which `check-cards.js` refuses as one witness carrying a card; the third was
+re-pointed to the *Asian Perspectives* account of King Jun's displacement. **A period source that
+answers everything is exactly the one to watch the concentration on.** The same pass caught a worse
+fault by hand: the second Hulbert citation had been reused from the existing `hulbert` entry, whose page
+range 337–38 belongs to a different claim entirely — the passage the card actually rests on is page 70.
+**A reused source key carries its page numbers with it, and they will be wrong.**
+
+**A GLOSSARY KEY WAS DELIBERATELY NOT GIVEN ITS BARE NAME.** `Yan_(state)` is keyed with the
+parenthetical, which claims no bare surface, and takes "state of Yan" and "Yan state" as aliases
+instead. Measured over the shipped corpus, 33 of 34 bare occurrences of *Yan* are the state and the 34th
+is **Yan'an** in a China geography card — and the auto-linker's boundary test treats an apostrophe as a
+boundary, so claiming the bare name would have put one wrong link on a card nobody was editing. Losing
+"the Yan" as a link is the cheaper half of that trade.
+
+**Two figures were removed for being uncited rather than for being wrong.** Emperor Wu's reign dates and
+Yan's destruction in 222 BCE are both uncontroversial and neither is in any source this batch can open,
+so the card and the term say "at the end of the 2nd century BCE" and "late 3rd century BCE" instead. A
+date line is not marker-cited, which makes it the easiest place in a card to assert something nothing
+carries.
+
+**Ten more glossary terms shipped with the cards** — `Yemaek`, `Eight_prohibitions`, `Gija`,
+`Wiman_Joseon`, `Gijun`, `Yan_(state)`, `Knife_money`, `Emperor_Wu_of_Han`, `Wanggeom-seong` and
+`Minjok`. Three will be wanted by other collections before long: `Yan_(state)`, `Knife_money` and
+`Emperor_Wu_of_Han` are China's as much as Korea's, and are written so.
+
+**`ko-052` and `ko-055` ship with no picture.** A law code and a displaced king have nothing to
+photograph, and Commons holds no image of either. `ko-053` does have one, and it is the find of the
+batch: a **1927 photograph of the tomb shown for Gija outside Pyongyang**, from a Japanese survey series,
+whose own caption says the enclosure holds his cap and sword rather than his bones.
+
+## What the seventh ten found (Sep 2026)
+
+`ko-061`–`ko-070` finish the Gojoseon deck, and the sources changed shape again: this is the first
+batch carried mostly by the *International Journal of Korean History* and by two Asian Perspectives
+pieces that are not research articles at all — a **book review** and an **obituary**. McBride's review
+of Byington's *The Ancient State of Puyŏ* is the only openable account of Buyeo found anywhere, and it
+carries the Songhua setting, the Xituanshan antecedent, the 346 CE destruction and the Goguryeo and
+Baekje claims on its name. **A review of a book you cannot open is not a substitute for the book, but
+where the book is shut it is a citable summary by a specialist** — and it must be cited as a review, of
+that book, by that reviewer, which is what the entry says.
+
+**THE NORTH'S CLAIM IS CARDED AS A CLAIM, AND THE DATE LINE IS WHERE THAT NEARLY WENT WRONG.**
+`ko-062` first shipped with a row reading `Claimed date | c. 3000 BCE`, which `cardYears` reads, so the
+card sorted at 3000 BCE — at the very head of the deck, with Folio's own chronology quietly asserting
+the DPRK's dating of Gojoseon. It now sorts at **1993**, the year of the excavation, which is the date
+the card is actually about. **A date line is an assertion about when the card's subject happened, and on
+a card about a claim that is the year the claim was made.**
+
+**Five of the ten had to be lengthened and five date lines had to be rewritten**, all for the same
+underlying reason: a card about a concept or a people has fewer hard numbers in it than a card about an
+object, and both the word count and the sort year come under pressure. Four rows had a label and no
+figure at all — "Succeeds the Liaoning type", "Becomes Baekje" — and were turned into unlabelled
+continuation lines, which is what `date-line.js` requires and what reads better anyway.
+
+**ko-065 takes a concept the plan did not name, and it costs a later card.** "Buyeo society and
+kingship" has no openable source for the four animal-named offices or the harvest festival, and what the
+reachable literature does carry is Byington's central argument: Buyeo as **secondary state formation**,
+a state pushed into being by the Yan and Han incursions beside it, in two phases, with its migration
+legends re-read as later claims to legitimacy rather than as memories of arrival. That is a better card
+than a list of offices nothing supports — but it means **`ko-078`, "State formation in early Korea",
+must take a different answer term when it is written**, the way `ko-058` and `ko-059` had to be split.
+
+**`ko-067` and `ko-068` ship as *Samhan* and *Mahan*, one letter apart, deliberately.** The
+adjacent-answers rule exists to stop a reader meeting two blanks whose answers differ trivially in
+MEANING; these two are the pair the cards exist to distinguish — the three Han collectively, and the
+largest of them — and each question says which is wanted. Recording it here so the next session does not
+"fix" it.
+
+**Ten more glossary terms shipped with the cards** — `Taejonggyo`, `Tomb_of_Dangun`,
+`Korean-style_bronze_dagger`, `Buyeo`, `Secondary_state_formation`, `Okjeo`, `Samhan`, `Mahan`, `Soguk`
+and `Dongyi`. `Soguk`'s alias list was cut back before it shipped: "small polity" is ordinary English and
+would have auto-linked in any collection describing any small polity anywhere, which is `Life_(biology)`'s
+lesson in another subject.
+
+**`ko-065` and `ko-066` ship with no picture.** A concept has nothing to photograph, and Commons holds no
+image of the north-eastern coastal strip that the Okjeo occupied. The find of the batch is `ko-070`'s: a
+printed page of the **Wei Zhi**, the section of the *Sanguozhi* that carries the account of the eastern
+peoples and is the single source most of this deck rests on.
+
+## What the eighth ten found (Sep 2026)
+
+`ko-071`–`ko-080` open `ko-commanderies`, and the batch's finding is about the SOURCE BASE rather than
+about any one card. Six or seven works had been carrying most of the Gojoseon deck, which is the
+concentration the Greece audit warns about; this batch deliberately went looking for new ones and found
+four, of which two are the batch's best sources. De Benedittis on the hybridization of Nangnang culture
+(*IJKH* 27.1) carries the archaeology of the Lelang tombs, the lacquer, the census households and the
+colonial survey history in one article; Dayang O and Gimin Kim on Chinbŏn (*IJKH* 31.1) quotes the
+*Hanshu* passage naming all four commanderies and sets out the northern, southern and migration theories
+of where Chinbŏn stood. **DOAJ is what found both** — searching it by subject returns IJKH articles with
+their direct PDF paths attached, which is faster than the Crossref journal listing and turns up the
+2025 and 2026 issues the listing buries.
+
+**TWO OF THE FOUR NEW SOURCES ARE DELIBERATELY NOT ABOUT KOREA.** `ko-078` is *the chiefdom* and `ko-080`
+is *prestige goods*, and both are anthropological concepts rather than Korean facts — so they are cited
+to Junker on Philippine chiefdoms and D'Altroy's comments on complex early societies in Asia, which
+define the terms in general and are what a deck-agnostic glossary entry needs. **A concept card takes a
+source about the concept, not a source about the collection.** The Korean half of each card is carried by
+the Korean works beside them, and Pak's review of Barnes's *State Formation in Korea* supplies the
+chiefdom-to-state framework as it was actually applied to Joseon, Jin, Goguryeo, the Samhan, Gaya,
+Baekje and Silla.
+
+**THE PLAN'S `ko-080` WAS RENAMED, AND `ko-078` COULD NOT TAKE THE TERM THE PLAN IMPLIED.** Batch 7 spent
+*secondary state formation* on `ko-065`, and this file said then that `ko-078` would need a different
+answer term; it takes **the chiefdom**, which is the concept the whole argument is conducted in. That
+pushed `ko-079` off *chiefdoms to kingdoms* as an answer and onto **Xuantu**, the commandery whose
+pressure is the strongest published explanation of how Goguryeo became a kingdom — which is the same card
+in a Korean coat. `ko-080` then had nothing left to say about kingship that its sources carry, so the
+line is now *Kingship and prestige goods in early Korea* and the answer is **prestige goods**: how a
+leader without a bureaucracy made himself one is a question the archaeology can actually answer.
+
+**FOUR OF THE TEN SHIP WITHOUT A PICTURE, WHICH IS THE MOST OF ANY BATCH HERE, AND THE CONTACT SHEET IS
+WHY.** `ko-078` and `ko-080` are concepts whose every concrete example is a picture that belongs to
+another card — a gold crown is the Silla deck's, a lacquer basket is `ko-073`'s. `ko-076` *Micheon* has
+no portrait, no monument and no openable image of the 314 conquest; the Goguryeo capital photographs
+Commons offers are a municipal park and, at Wunu Mountain City, **three site interpretation panels**,
+which is the same fault the sheet caught twice in earlier batches. `ko-079` *Xuantu* had a map, and it was
+rejected for saying less than `ko-071`'s map standing two cards away — a hatched ellipse on a blank base —
+though it is good enough for the glossary term, where nothing stands beside it. **A picture is rejected
+against its neighbours, not on its own.**
+
+**AND THE DUPLICATE-PICTURE CHECK EARNED ITS KEEP AGAIN.** `ko-077`'s first picture was the bird-shaped
+proto-Three Kingdoms vessel, which `ko-067` *Samhan* already carries — the two cards are about
+overlapping subjects, so the same search returns the same object. `check-cards.js` refused it, and the
+replacement is better than the original: 1st-century iron tools from Gimhae, Jecheon and Gyeongju, which
+illustrate the sentence the card actually makes about iron spreading through the period.
+
+**AND THE AUTO-LINK AUDIT CANNOT SEE THE FAULT IT IS CLOSEST TO.** `check-gloss-links.js` reports 161
+findings over the whole corpus, and neither the ten new cards nor the ten new terms account for one of
+them — the count is identical before and after. But `Lacquerware` still needed rewriting: `gc-018`
+*Shanxi* says Pingyao's lacquerware "is still made", which auto-links into a term whose third sentence
+talked only about Korean tombs. That is batch 4's `Dolmen` finding exactly, and **the audit is blind to
+it, because it matches on a term's TAGS** and this one is tagged `asia, china` rather than `korea`.
+What found it was a direct sweep of what each new surface actually matches across the corpus, which is
+two minutes of work and should be the last step of any batch that adds a general term: **ask which cards
+in other collections will now link to it, and read the term as one of those readers.**
+
+**Ten more glossary terms shipped with the cards** — `Han_commanderies`, `Lelang`, `Lacquerware`,
+`Bronze_mirror`, `Lelang_location_debate`, `Micheon_of_Goguryeo`, `Proto-Three_Kingdoms_period`,
+`Chiefdom`, `Xuantu_Commandery` and `Prestige_goods`. **`Lelang_location_debate` has no Wikipedia article
+behind it**, unlike most keys here, and is named for the argument rather than for a person because the
+collection's two-scholar cap is spent on `ko-703` and the plan asks the remaining historiographical cards
+to name schools, states and projects. A `Sekino_Tadashi` card would have been the obvious alternative and
+is exactly what that rule exists to prevent.
+
+## What the ninth ten found (Sep 2026)
+
+`ko-081`–`ko-090` finish `ko-commanderies`, and four of them are about TEXTS rather than events — the
+*Samguk sagi*, the *Samguk yusa*, the *Sanguozhi* and the practice of reading them. That is where the
+batch's findings are.
+
+**TWO ADJACENT CARDS COULD NOT BOTH BE NAMED FOR THEIR BOOK.** The plan gives `ko-087` the *Samguk
+sagi* and `ko-088` the *Samguk yusa*, whose titles differ by one word — exactly what the
+adjacent-answers rule exists to prevent, and worse than batch 7's *Samhan*/*Mahan* pair, where the two
+cards exist to distinguish those names. So `ko-088` is answered by **Iryeon**, the monk who compiled the
+*yusa*, and the book has a glossary entry of its own without being any card's answer. **A card about a
+work can be carded through its maker when the title is the problem.**
+
+**A DATE LINE THAT NAMES A PERSON DATES THE CARD TO THAT PERSON.** `ko-087` first shipped with a second
+row reading `Compiler | Kim Busik, 1075 – 1151`, and `cardYears` takes the minimum, so the card about a
+book completed in 1145 sorted at **1075**, thirty years before it was written. The row is now an
+unlabelled continuation with no years in it. This is the fourth distinct way a date line has produced a
+wrong sort year in this collection — after a dig date, a claimed date and a stray era marker — and the
+answer is the same each time: **read the sort year back through `cardYears` before committing.**
+`ko-083` was caught in the same pass: `357 and 408 CE` yields only 408, because an era marker carries
+leftwards across a RANGE and not across "and". Written `357 CE and 408 CE` it yields both.
+
+**THE SOURCE BASE WIDENED AGAIN, AND THE ROUTE WAS THE SAME ONE.** Searching DOAJ and the Crossref
+journal listing by subject produced three more *IJKH* articles that carry cards on their own: Bonggeun
+Kim on the Hagoseongja earthen fortress (`ko-081`), Sebastian Müller on the monumental mounds at
+Gyeongju (`ko-085`), and Maurizio Riotto on the monk Ariyabalma, which is nominally about a Silla pilgrim
+and is in fact the batch's best account of **how the three early Korean sources are read against each
+other** — it supplies the *Samguk sagi*'s completion in 1145, Iryeon's dates, the five books of the
+*yusa* and the *Haedong goseung jeon* of 1215. **An article about one obscure figure can be the best
+available account of the method used to study him.**
+
+**AND THREE CLAIMS WERE CUT BECAUSE THE SOURCES DID NOT CARRY THEM.** A first draft of `ko-087` described
+the *Samguk sagi*'s internal arrangement into annals, treatises and biographies on the Chinese model;
+none of the openable sources says so, and it now claims only the annals, which they do. A draft of
+`ko-088` explained the *Samguk yusa* by the Mongol invasions citing an article that never mentions the
+book — Kim Soo-ja's does, in one sentence, and carries it now. And `ko-086` was drafted saying that
+*shamanism* is a modern term borrowed from Siberian ethnography that no ancient source uses, which is
+true and is in nothing openable; what Nelson's review of the Korean literature does say is that the
+resemblance between these bronzes and present-day shamans' equipment is an interesting observation
+needing more systematic evidence, and that is both citable and a better sentence. **The plausible
+sentence you cannot cite is the one to rewrite, not to keep.**
+
+**Eleven glossary terms shipped with the ten cards** — one more than the pairing rule requires, because
+`Samguk_yusa` deserves an entry whether or not a card is named for it. **The surface sweep that batch 8
+made a standing step came up clean**: of the new terms only `Armour` reaches outside Korea, and its 18
+matches in the Greece and Rome collections are all genuine, with the Korean detail a trailing example
+rather than the sentence's subject. **`Armoury` and `armourer` do not match**, the auto-linker's boundary
+test requiring a non-letter after the surface — which is why a first count of 19 Greek hits was really 18.
+
+**Four cards ship without a picture** — `ko-081`, `ko-084`, `ko-087`, `ko-090`. Commons has no photograph
+of a Korean iron ingot, no image of the Hagoseongja fortress, nothing of the *Samguk sagi* above 750
+pixels, and nothing at all for a method. The one that stings is the ingot, since the object is the card.
+
+## What the tenth ten found (Sep 2026)
+
+`ko-091`–`ko-100` open `ko-tk`, and the batch is unusual in that eight of its ten answer terms are
+CONCEPTS, PRACTICES OR CLASSES OF OBJECT rather than people, places or events — investiture, the
+tributary system, indirect rule, genealogy, the epitaph, the wooden tablet. That is what a period
+overview deck is made of, and it produced the batch's two findings.
+
+**EIGHT OF TEN FIRST SORTED AS TIMELESS, WHICH WOULD HAVE EMPTIED THE DECK'S CHRONOLOGY.** A concept
+card ships with no date line and `cardStartYear` returns 0, which is right for `ko-078 chiefdom` sitting
+among dated cards and wrong when it is most of a deck. Four of the eight turned out to have a real
+anchor their sources state — Baekje's capital at Hanseong to 475, the Tang epitaphs after 660, the Wa in
+the Chinese records from about 200, the Seongsan tablets of the 6th and 7th centuries — so they carry a
+date line AND `undatable: true`, which is the `ko-073 lacquerware` shape: the deck orders them, and
+Timeline still never asks a reader to place a practice. **Before accepting a timeless card, ask whether
+the SOURCES date the thing even though the term does not.**
+
+**THE ADJACENT-ANSWERS RULE AND THE PAIRING RULE BOTH CHANGED A CARD.** `ko-098` was going to be
+*aristocracy*, and `Aristocracy` already exists — cited to Aristotle and Polybius, and linked from
+eleven Greece and Rome cards. Pairing with it was allowed and would have been wrong in the other
+direction: a Korean card would send its reader to a Greek constitutional theory. The card takes
+**genealogy** instead, which is what the evidence is actually about. **A term that already exists
+satisfies the pairing rule only if it says what the new card needs.**
+
+**THE SURFACE SWEEP CAUGHT TWO TERMS BEFORE THEY SHIPPED, WHICH IS THE FIRST TIME IT HAS PAID IN
+ADVANCE.** `Epitaph` was drafted with its second and third sentences about Korean exiles in Tang China,
+and five cards in the Greece, Rome and World History collections use the word for a Greek verse epitaph
+or the inscription of Ahiram. `Genealogy` was worse: eleven cards outside Korea use it, ten of them for
+Hesiod's *Theogony* and the heroic pedigrees of Argos and Acragas. Both were rewritten so the general
+sentence comes second and the Korean evidence third. **The lesson is batch 8's, arriving one step
+earlier: sweep the surfaces BEFORE installing, not after.**
+
+**Ten glossary terms shipped with the cards.** Four have pictures and four cards carry one: the
+peninsula in 476, Samnyeon Sanseong, the Tomb of King Jangsu and two Silla wooden tablets. Six cards
+ship without, all of them concepts — investiture, tribute, indirect rule, genealogy, the epitaph and Wa
+have nothing to photograph that is not another card's picture.
+
+**Three sources here are new and all three came from the same `IJKH` back run** — Nguyen Thi My Hanh on
+tributary activity, Jong-Rok Lee on the sumyoje inscriptions, and Nari Kang on the Seongsan Fortress
+tablets, with Junkyu Kim on Baekje's expansion, Dongmin Lim on the Ye family epitaphs and Kiheinarichika
+Ueda on Koguryŏ diaspora genealogies. **The journal is now carrying the collection**, and the two
+routes into it are DOAJ by subject and `api.crossref.org/journals/1598-2041/works`.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -371,12 +881,17 @@ different again: `wh-540` and `wh-725` are one card each on a subject Korea give
 twenty-five, so the Korean versions are narrower and the World History ones are the survey.
 
 **The glossary is nearly empty for this subject and that is the useful finding.** Checked against the
-live `glossary.js`: **not one of the thousand topics matches an existing key.** What exists nearby is
-`North_Korea`, `South_Korea`, `Japan`, `China`, `Mongolia`, `Longshan_culture` and `Rice_domestication`
-— five of them country terms from Phase 3 of the citation pass — and **there is no `Korea`**, which is
-the first thing `ko-001` will need. Every other term this collection uses is written from nothing, at
-the bar, in the same commit as its card. Expect the glossary to grow faster here than anywhere since
-Greece.
+live `glossary.js` when this plan was written: **not one of the thousand topics matched an existing
+key.** What existed nearby was `North_Korea`, `South_Korea`, `Seoul`, `Japan`, `China`, `Mongolia`,
+`Longshan_culture` and `Rice_domestication` — five of them country terms from Phase 3 of the citation
+pass — and there was no `Korea`, which was the first thing `ko-001` needed. (`Seoul` was missed off
+that list and was there all along, which is why `ko-010` reuses it rather than writing a second one:
+**the pairing rule is satisfied by a term that already exists, so CHECK before running
+`add-glossary.js`, which overwrites in silence.**) Every other term this collection uses is written
+from nothing, at the bar, in the same commit as its card. `ko-001`–`ko-010` added nine: `Korea`,
+`Korean_Peninsula`, `Taebaek_Mountains`, `Baekdudaegan`, `Changma`, `Manchuria`, `Yellow_Sea`,
+`Magnesite` and `Eight_Provinces_of_Korea`. Expect the glossary to grow faster here than anywhere
+since Greece.
 
 **Two surface collisions to watch when writing those terms.** `Han` is the Chinese dynasty, the Han
 commanderies, the Han River through Seoul and the *han* of Korean aesthetics; `Jin` is already two
@@ -400,20 +915,20 @@ where its findings go.
 
     ko-001  Korea
     ko-002  The Korean peninsula
-    ko-003  The geography of Korea
-    ko-004  Korea's mountains and rivers
-    ko-005  The Korean climate
-    ko-006  Korea's position between China and Japan
-    ko-007  The seas around Korea
-    ko-008  Korea's natural resources
-    ko-009  The regions of Korea
+    ko-003  The Taebaek Mountains and the shape of the peninsula
+    ko-004  The Baekdudaegan, Korea's mountain spine
+    ko-005  The Korean climate and the changma
+    ko-006  Manchuria and Korea's position on the continent
+    ko-007  The Yellow Sea and the seas around Korea
+    ko-008  Korea's natural resources, and magnesite
+    ko-009  The Eight Provinces and the regions of Korea
     ko-010  Seoul and its setting
     ko-011  Pyongyang and its setting
-    ko-012  The origins of the name Korea
+    ko-012  The Han River and Korea's largest basin
     ko-013  The Korean people
-    ko-014  The origins of the Korean population
-    ko-015  The Korean language and its relatives
-    ko-016  Korea's historical borders
+    ko-014  The origins of the Korean population, and the West Liao River
+    ko-015  Koreanic, the Korean language and its relatives
+    ko-016  Korea's historical borders, and the Goryeo long wall
     ko-017  The Amnok and Duman rivers
     ko-018  Jeju Island
     ko-019  Dokdo and the islands question
@@ -423,95 +938,95 @@ where its findings go.
 
     ko-021  The Palaeolithic in Korea
     ko-022  Jeongok-ri and the Korean hand axe
-    ko-023  The Korean Neolithic
-    ko-024  Jeulmun pottery
-    ko-025  Neolithic settlement in Korea
+    ko-023  The Korean Neolithic, the Jeulmun period
+    ko-024  Jeulmun, or comb-pattern, pottery
+    ko-025  Neolithic settlement in Korea, and the pit house
     ko-026  Amsa-dong
-    ko-027  Early agriculture in Korea
-    ko-028  The arrival of rice in Korea
+    ko-027  Early agriculture in Korea, and foxtail millet
+    ko-028  The arrival of rice in Korea, and the paddy field
     ko-029  The Korean Bronze Age
     ko-030  Mumun pottery
-    ko-031  Bronze Age society in Korea
-    ko-032  Korean bronze daggers
+    ko-031  Bronze Age society in Korea — Daepyeong
+    ko-032  Korean bronze daggers — the Liaoning bronze dagger
     ko-033  Dolmens
-    ko-034  The Korean dolmen sites
-    ko-035  Bronze Age burial in Korea
-    ko-036  The Songgungni culture
-    ko-037  The introduction of iron to Korea
-    ko-038  Iron Age Korea
-    ko-039  Shell middens and coastal life
+    ko-034  The Korean dolmen sites — Gochang
+    ko-035  Bronze Age burial in Korea — the stone cist
+    ko-036  The Songgungni culture — Songgungni
+    ko-037  The introduction of iron to Korea — cast iron
+    ko-038  Iron Age Korea — the Early Iron Age
+    ko-039  Shell middens and coastal life — the shell midden
     ko-040  Rock art in Korea
-    ko-041  Bangudae petroglyphs
-    ko-042  Prehistoric Korea and its neighbours
-    ko-043  Contacts with the Liaodong region
-    ko-044  Contacts with the Japanese archipelago
-    ko-045  What archaeology can and cannot say about early Korea
+    ko-041  Bangudae petroglyphs — Bangudae
+    ko-042  Prehistoric Korea and its neighbours — Northeast Asia
+    ko-043  Contacts with the Liaodong region — Liaodong
+    ko-044  Contacts with the Japanese archipelago — the Yayoi period
+    ko-045  What archaeology can and cannot say about early Korea — the archaeological culture
 
 ### Gojoseon — `ko-gojoseon`
 
     ko-046  Gojoseon
-    ko-047  The Dangun foundation myth
-    ko-048  The Dangun myth as history
-    ko-049  Gojoseon in the Chinese sources
-    ko-050  The location of Gojoseon
-    ko-051  Gojoseon society
-    ko-052  The eight prohibitions
-    ko-053  Gija Joseon and the Gija tradition
-    ko-054  Wiman Joseon
-    ko-055  Wiman's seizure of power
-    ko-056  Gojoseon and the Yan state
-    ko-057  Gojoseon's trade
-    ko-058  The Han conquest of Gojoseon
-    ko-059  The fall of Wanggeom-seong
-    ko-060  Gojoseon in Korean national memory
-    ko-061  Dangun in modern Korea
-    ko-062  The Gojoseon debate in North and South
-    ko-063  Bronze culture and the Gojoseon question
-    ko-064  Buyeo
-    ko-065  Buyeo society and kingship
-    ko-066  Okjeo and Dongye
-    ko-067  The Samhan
-    ko-068  Mahan, Jinhan and Byeonhan
-    ko-069  Samhan society
-    ko-070  The early Korean states compared
+    ko-047  The Dangun foundation myth — the foundation myth
+    ko-048  The Dangun myth as history — Dangun
+    ko-049  Gojoseon in the Chinese sources — the Shiji
+    ko-050  The location of Gojoseon — the Liao River
+    ko-051  Gojoseon society, and the Ye and Maek — Yemaek
+    ko-052  The eight prohibitions — the eight prohibitions
+    ko-053  Gija Joseon and the Gija tradition — Gija
+    ko-054  Wiman Joseon — Wiman Joseon
+    ko-055  Wiman's seizure of power — King Jun
+    ko-056  Gojoseon and the Yan state — Yan
+    ko-057  Gojoseon's trade — knife money
+    ko-058  The Han conquest of Gojoseon — Emperor Wu of Han
+    ko-059  The fall of Wanggeom-seong — Wanggeom-seong
+    ko-060  Gojoseon in Korean national memory — minjok
+    ko-061  Dangun in modern Korea — Taejonggyo
+    ko-062  The Gojoseon debate in North and South — the Tomb of Dangun
+    ko-063  Bronze culture and the Gojoseon question — the slender bronze dagger
+    ko-064  Buyeo — Buyeo
+    ko-065  Buyeo society and kingship — secondary state formation
+    ko-066  Okjeo and Dongye — Okjeo
+    ko-067  The Samhan — the Samhan
+    ko-068  Mahan, Jinhan and Byeonhan — Mahan
+    ko-069  Samhan society — the soguk
+    ko-070  The early Korean states compared — the Dongyi
 
 ### The commanderies and the proto-Three Kingdoms — `ko-commanderies`
 
-    ko-071  The Han commanderies
-    ko-072  Lelang
-    ko-073  Lelang's archaeology
-    ko-074  Chinese influence through the commanderies
-    ko-075  The commanderies in Korean historiography
-    ko-076  The fall of the commanderies
-    ko-077  The proto-Three Kingdoms period
-    ko-078  State formation in early Korea
-    ko-079  Chiefdoms to kingdoms
-    ko-080  Early Korean kingship
-    ko-081  Walled-town states
-    ko-082  The horse-riding peoples of the north
-    ko-083  Early Korean warfare
-    ko-084  Early Korean metalworking
-    ko-085  Early Korean burial mounds
-    ko-086  Shamanism in early Korea
-    ko-087  The Samguk sagi as a source
-    ko-088  The Samguk yusa as a source
-    ko-089  Chinese records of early Korea
-    ko-090  The problems of the early Korean sources
+    ko-071  The Han commanderies — the Han commanderies
+    ko-072  Lelang — Lelang
+    ko-073  Lelang's archaeology — lacquerware
+    ko-074  Chinese influence through the commanderies — the bronze mirror
+    ko-075  The commanderies in Korean historiography — the Lelang location debate
+    ko-076  The fall of the commanderies — Micheon
+    ko-077  The proto-Three Kingdoms period — the proto-Three Kingdoms period
+    ko-078  State formation in early Korea — the chiefdom
+    ko-079  Chiefdoms to kingdoms — Xuantu
+    ko-080  Kingship and prestige goods in early Korea — prestige goods
+    ko-081  Walled sites and the earthen fortress — the earthen fortress
+    ko-082  The horse-riding peoples of the north — the Xianbei
+    ko-083  Early Korean warfare — armour
+    ko-084  Early Korean metalworking — the iron ingot
+    ko-085  Early Korean tombs — the wooden-chamber tomb
+    ko-086  Shamanism in early Korea — shamanism
+    ko-087  The Samguk sagi as a source — the Samguk sagi
+    ko-088  The Samguk yusa as a source — Iryeon
+    ko-089  Chinese records of early Korea — the Sanguozhi
+    ko-090  The problems of the early Korean sources — source criticism
 
 ## The Three Kingdoms
 
 ### The Three Kingdoms period — `ko-tk`
 
-    ko-091  The Three Kingdoms of Korea
-    ko-092  The rise of the three kingdoms
-    ko-093  The Three Kingdoms in Chinese sources
-    ko-094  Warfare between the three kingdoms
-    ko-095  Diplomacy with China
-    ko-096  The tributary system
-    ko-097  The three kingdoms and Japan
-    ko-098  Aristocratic society in the Three Kingdoms
-    ko-099  Kingship in the Three Kingdoms
-    ko-100  Law codes and administration in the Three Kingdoms
+    ko-091  The Three Kingdoms of Korea — the Three Kingdoms of Korea
+    ko-092  The rise of the three kingdoms — indirect rule
+    ko-093  Chinese-language sources for the Three Kingdoms — the epitaph
+    ko-094  Warfare between the three kingdoms — the mountain fortress
+    ko-095  Diplomacy with China — investiture
+    ko-096  The tributary system — the tributary system
+    ko-097  The three kingdoms and Japan — the Wa
+    ko-098  Aristocratic society in the Three Kingdoms — genealogy
+    ko-099  Kingship and the royal tomb — sumyoje
+    ko-100  Administration and the written record — the wooden tablet
     ko-101  The introduction of Buddhism to Korea
     ko-102  The introduction of Confucian learning to Korea
     ko-103  Writing and Chinese characters in Korea

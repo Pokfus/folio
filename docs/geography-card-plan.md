@@ -123,6 +123,42 @@ state's four rows therefore run **Capital, Population, Largest city, Total area*
 column and the two figures in the other, rather than a city over a figure in both. Write a new card's rows
 so that like sits over like.
 
+**THE GRID IS THE SAME FOUR ROWS ON EVERY GEOGRAPHY CARD SINCE SEP 2026, on request.** Every country,
+territory, state and province card carries
+
+    Capital       | Population
+    Largest city  | Area
+
+and every capital-city card carries
+
+    Province/state       | Population
+    Rank in the country  | Population growth (most recent)
+
+— which is the column rule above applied across all six decks rather than deck by deck, so a reader
+comparing a state with a country is comparing the same four things in the same four places. Three notes
+that go with it. **The `geo-` states' fourth row was relabelled `Total area` → `Area`**, so the world and
+the state decks agree. **The China capitals keep `Rank in China` and, on the five autonomous regions,
+`Region` rather than `Province`** — both are the requested label said more precisely, and neither is worth
+losing to uniformity. And **a cell may be `"?"`**, which is the request's own escape hatch and is what
+`.claude/set-facts.js` writes rather than a guess: 93 of the world capitals' 940 cells are one, every one a
+rank or a growth that no like-for-like source could give (see the pass's own record in CLAUDE.md).
+
+**WHERE THE NEW FIGURES CAME FROM**, since they were researched at scale rather than card by card and the
+next session should know what they rest on. **Largest city** is the English Wikipedia country infobox's own
+`largest_city` / `admin_center` / `largest_settlement` field — one curated answer per article — and NOT a
+max over Wikidata's city populations, which mixes city-proper, municipal and agglomeration figures and so
+answers "largest" differently depending on which figure a given city happens to carry (Delhi's 26.5M NCT
+against Mumbai's 15.4M city proper). **A city-state's "largest settlement" is one of its own districts** —
+Tampines, Monte Carlo, Sha Tin, Nossa Senhora de Fátima — so those are overridden to the capital or to `?`.
+**The US capitals' rank and growth** are the Census Bureau's own `SUB-EST2024` place estimates, ranked over
+every incorporated place in the country, because Wikipedia's list of cities stops at the ~350 largest and
+eighteen state capitals are smaller than that. **The world capitals' growth** compares two LIKE-FOR-LIKE
+figures — Wikidata values sharing a declared determination method, the article's own
+`{{Historical population}}` table, or untagged Wikidata values — and every one of them is then held to a
+plausible annual rate, because a shared method turned out not to be enough on its own: La Paz carries
+2,867,504 (2017) and 755,732 (2024) under one method, which is the metropolitan figure against the city's,
+and trusting the tag prints "-73.6%".
+
 **A card about a place with a flag of its own carries one** (Aug 2026, on request), as a fourth field in
 the same three-field shape every other picture on the site uses:
 

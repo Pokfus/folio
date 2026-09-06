@@ -995,11 +995,156 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   assumed** and carries two more 200-status error documents (`jstor.org` serves a 3 KB "Client
   Challenge"; `muse.jhu.edu` serves "Verification required!"), the finding that the recognition guide
   has **no page for North Korea** because the United States has never recognised it, and the loss that
-  matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Not one of its
-  thousand topics matches an existing glossary key** and there is no `Korea` term, so expect the
-  glossary to grow faster here than anywhere since Greece. The next card to write is the lowest `ko-NNN`
-  not yet in `data.js`; the index table under "THE NINETEEN PLANNED COLLECTIONS" is the lookup. **No card
-  has been written yet.** Not part of the site.
+  matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Almost none of its
+  thousand topics matched an existing glossary key**, so expect the glossary to grow faster here than
+  anywhere since Greece — `ko-001`–`ko-100` alone added ninety-eight terms. **The plan's claim that NOT ONE
+  matched was wrong by one, and the exception is the useful half**: `Seoul` was already a cited term, so
+  `ko-010` reuses it — **the pairing rule is satisfied by a term that already exists, and
+  `add-glossary.js` overwrites in silence, so CHECK before running it.** The next card to write is the
+  lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the
+  lookup. **`ko-001` to `ko-100` have shipped** (Sep 2026) — the whole of `ko-early`, and the opening of
+  `ko-tk` — so the
+  collection is live and its 38 empty decks are coming-soon automatically, `isComingSoon` being true for
+  a node holding no card. **Its first ten are geography rather than events, and that shaped the
+  sourcing**: what carried them was UNdata and the World Bank for figures, the Office of the Historian
+  for the modern diplomacy, open marine and earth science (Frontiers, Copernicus, PLOS, PMC) for the
+  seas, the mountains and the monsoon, the USGS Minerals Yearbooks for the minerals, and — the two finds
+  worth carrying furthest — **the *International Journal of Korean History* serves its whole back run as
+  open PDFs at `ijkh.khistory.org/upload/pdf/`**, and **Ledyard's "Cartography in Korea" is free in full
+  from the University of Chicago Press**, both of which reach subjects no statistical profile does. Two
+  hosts to save the next session: `www.kma.go.kr` refuses the connection but its English climate page is
+  on `web.archive.org` and is the national figures in one screen, and `www.mdpi.com`, `koreascience.kr`,
+  `accesson.kr` and every Korean government host outside `pubs.usgs.gov`'s reach are shut.
+  **`ko-011`–`ko-020` leave geography behind half way and meet the walls that go with argument.**
+  `science.org` and `www.mdpi.com` are 403, so *Science Advances*, *Animals*, *Plants* and *Entropy* are
+  cited at their **PMC copies** — **a DOI that 403s is usually open one host over**, resolved with
+  `search?query=DOI:"…"&resultType=core` at Europe PMC — and `brill.com` refuses its own DOI while
+  serving the article at `brill.com/view/journals/…/article-p1_1.xml`. The *IJKH* is now the
+  collection's spine and is searched through **`api.crossref.org/journals/1598-2041/works`** rather than
+  by hand. Two content decisions in that batch are recorded in the plan and are the kind to re-read
+  rather than re-make: **`ko-012` could not be written as planned and was replaced** (the naming
+  question's three answer terms are taken by later cards and the *Hanguk*/*Chosŏn* split is in nothing
+  openable), and **a disputed island is keyed under the neutral name** — `Liancourt_Rocks`, reached by
+  `Dokdo` and `Takeshima` — because the glossary is shared with the Japan collection, while the rivers
+  keep Folio's own `Amnok_River` with `Yalu` an alias.
+  **`ko-021`–`ko-030` opened the prehistory deck on one find that changes the rest of it: the WHOLE BACK
+  RUN OF *ASIAN PERSPECTIVES* IS OPEN**, deposited by the University of Hawai'i Press in its own
+  repository, where the Project MUSE copies its DOIs resolve to are shut. Search it through the DSpace
+  API rather than the JavaScript web UI —
+  `scholarspace.manoa.hawaii.edu/server/api/discover/search/objects?query=…`, then `…/core/items/<uuid>`
+  for the durable handle — and **cite the handle** (`hdl.handle.net/10125/<n>`), never the bitstream
+  UUID. Volume 54, no. 1 (2015) is a special issue on Korean prehistory and carried five sources by
+  itself. That batch also relearned a fault this file already warns about: **`ko-022`'s date line opened
+  `Found | 1978` and the card sorted at 1978 CE**, at the wrong end of a deck running from 350,000 BP, so
+  **read a new card's sort year back through `cardYears` before committing it** — and it renamed two
+  answer terms so that no two adjacent cards differ by one word (`Jeulmun period` beside `comb-pattern
+  pottery`, `Korean Bronze Age` beside `Mumun pottery`).
+  **`ko-031`–`ko-040` finish the Bronze Age and open the Iron Age on two more open hosts** — **Copernicus
+  serves the ISPRS Archives**, whose 2025 paper on Gochang is the only openable work found that states the
+  2000 World Heritage inscription (`whc.unesco.org` is 403), and **`nature.com` serves *Nature
+  Communications***; `link.springer.com` joins the walls, with a 3 KB "Client Challenge" under a 200
+  status. Its finding is about the GLOSSARY rather than the sources: **a general term written for one
+  continent breaks the moment another collection links to it.** `Dolmen` already existed, cited and in
+  band, and described the European Neolithic and nothing else — so a Korean dolmen card would have linked
+  to a definition that excluded it, and the term was rewritten to say what a dolmen is, keep Europe's
+  earliest chambers and its reopening practice, and name Korea's Bronze Age form. **Read a term before
+  pairing a card with it**, `add-glossary.js` overwriting in silence. The dig-date fault fired again and
+  was caught in draft (`ko-036` drafted `Found | 1975`), which is what makes reading every new card's sort
+  year back through `cardYears` the last step before `add-card.js`; and **`ko-035` ships with no picture
+  because Commons has no photograph of a Korean stone cist** — every cist on it is European — while the
+  deck-agnostic `Stone_cist` term takes one, since there the European example is simply an example.
+  **`ko-041`–`ko-050` close the prehistory deck and open Gojoseon, and are the first cards here whose
+  subject is a WRITTEN RECORD rather than a site.** The *IJKH* carries them — nine of its articles, found
+  through `api.crossref.org/journals/1598-2041/works` — while `journals.openedition.org` is behind the
+  Anubis wall again, `www.journals.uchicago.edu` is 403, and JSTOR, De Gruyter and Project MUSE each
+  answer a challenge page under a 200 status. Two findings are worth carrying. **THE COLLECTION'S
+  TWO-SCHOLAR CAP DECIDED A CARD**: `ko-048` wanted to be a card about Ch'oe Namsŏn, who built an account
+  of Korean origins around Dangun under colonial rule, and the plan spends its one scholar on `ko-703` and
+  asks the other historiographical cards to name schools and projects rather than people — so `ko-047`
+  takes the general **foundation myth** and `ko-048` takes **Dangun**, with Ch'oe Namsŏn cited and
+  described rather than carded. **Read a collection's own scope rules before choosing an answer term.**
+  And **a myth's own NARRATIVE was the hardest thing to cite**: everything openable about Dangun is about
+  how the figure has been used, so the story itself — the bear, the tiger, the garlic, the cave — comes
+  from **Hulbert's *The Passing of Korea*, 1906, on archive.org**, which tells it and calls it legend in
+  the same breath. Three cards ship with no picture because their subjects have no view — a region, a
+  corridor and a concept — and the contact sheet caught a **museum text panel** twice more.
+  **`ko-051`–`ko-060` take Gojoseon to the Han conquest and are carried by a SECOND HULBERT.** No
+  openable modern work sets out Chosŏn's eight prohibitions — DBpia is paywalled, the *Korea Journal* is
+  open access and serves no full text here, and the *Journal of Gojoseon & Dangun Studies* is shut — but
+  **Hulbert's *The History of Korea*, vol. 1 of 1905, is on Project Gutenberg**, gives all three
+  surviving articles, and carries the Gija tradition, King Jun's flight and the Yan frontier besides;
+  its HTML edition has page anchors, which is where those citations' page numbers come from. **When the
+  modern literature is shut, ask whether the period work is on Gutenberg and not only on archive.org.**
+  Three findings go with it. **A period source that answers everything is the one to watch the
+  concentration on**: `ko-053` first shipped three Hulbert citations of five and `check-cards.js` refused
+  it. **A REUSED SOURCE KEY CARRIES ITS PAGE NUMBERS, AND THEY WILL BE WRONG** — the second Hulbert
+  citation was reused from the existing `hulbert` entry, whose 337–38 belongs to another claim, where the
+  passage the card rests on is page 70. And **a key may be deliberately denied its bare name**:
+  `Yan_(state)` claims no bare surface and takes "state of Yan" instead, because 33 of the 34 bare
+  occurrences of *Yan* in the corpus are the state and the 34th is **Yan'an**, which the auto-linker's
+  boundary test would have matched.
+  **`ko-061`–`ko-070` FINISH THE GOJOSEON DECK ON A BOOK REVIEW AND AN OBITUARY.** McBride's *Asian
+  Perspectives* review of Byington's *The Ancient State of Puyŏ* is the only openable account of Buyeo
+  found anywhere and carries four of that card's claims; Falkenhausen's obituary of Hyung Il Pai is
+  another. **Where the book itself is shut, a specialist's review of it is a citable summary** — cited
+  as a review, of that book, by that reviewer, never as the book. Three findings go with it. **A DATE
+  LINE IS AN ASSERTION, AND ON A CARD ABOUT A CLAIM IT IS THE YEAR THE CLAIM WAS MADE**: `ko-062` first
+  shipped `Claimed date | c. 3000 BCE`, which `cardYears` parses, so the card sorted at the head of the
+  deck with Folio's own chronology quietly asserting the DPRK's dating of Gojoseon; it sorts at **1993**,
+  the year of the excavation. **A card about a concept or a people has fewer figures in it than a card
+  about an object**, so five of the ten needed lengthening and four date-line rows had a label and no
+  number — turned into unlabelled continuation lines, which is what `date-line.js` requires. And
+  **`ko-065` spends a later card's answer term**: "Buyeo society and kingship" has no openable source for
+  the four animal-named offices, where the literature does carry Byington's *secondary state formation*
+  argument — so `ko-078` must take a different term, the way `ko-058` and `ko-059` had to be split.
+  **`ko-071`–`ko-080` OPEN `ko-commanderies` BY WIDENING THE SOURCE BASE ON PURPOSE.** Six or seven works
+  had come to carry most of the Gojoseon deck, which is the concentration the Greece audit warns about, so
+  this batch went looking: **DOAJ, searched by subject, returns IJKH articles with their direct PDF paths
+  attached** and finds the issues the Crossref journal listing buries. It produced the two works the batch
+  rests on — de Benedittis on the hybridization of Nangnang culture (the Lelang tombs, the lacquer, the
+  census households and the colonial survey history in one article) and O and Kim on Chinbŏn (the *Hanshu*
+  passage naming all four commanderies, and the northern, southern and migration theories of where it
+  stood). Three findings. **A CONCEPT CARD TAKES A SOURCE ABOUT THE CONCEPT, NOT ABOUT THE COLLECTION**:
+  `ko-078` *chiefdom* and `ko-080` *prestige goods* are cited to Junker on Philippine chiefdoms and to
+  D'Altroy on complex early societies, which is also what their deck-agnostic glossary entries need.
+  **A PICTURE IS REJECTED AGAINST ITS NEIGHBOURS** — `ko-079`'s Xuantu map says less than `ko-071`'s map
+  standing two cards away and was dropped from the card while being kept on the glossary term, where
+  nothing stands beside it — and **four of the ten ship with no picture**, the Wunu Mountain City
+  photographs turning out to be three site interpretation panels, the same fault the sheet has caught
+  twice before. And **the duplicate-picture check earned its keep again**: `ko-077` first took the
+  bird-shaped vessel `ko-067` already carries, two cards on overlapping subjects returning one object from
+  one search, and the replacement — 1st-century iron tools — illustrates the card's own sentence better.
+  **`ko-081`–`ko-090` FINISH THE DECK ON FOUR CARDS ABOUT TEXTS, AND THE DATE LINE WENT WRONG A FOURTH
+  WAY.** `ko-087` is about a book completed in 1145 and sorted at **1075**, because a second row read
+  `Compiler | Kim Busik, 1075 – 1151` and `cardYears` takes the MINIMUM — after a dig date, a claimed
+  date and a stray era marker, this is the fourth distinct route to a wrong sort year here, and the
+  answer is always to read it back through `cardYears` before committing. `ko-083` was caught in the
+  same pass: **an era marker carries leftwards across a RANGE and not across "and"**, so `357 and 408
+  CE` yields only 408. Three further findings. **THE ADJACENT-ANSWERS RULE FORCED A CARD TO BE NAMED FOR
+  A PERSON**: the *Samguk sagi* and *Samguk yusa* differ by one word, so `ko-088` is answered by
+  **Iryeon**, who compiled the second, and the book gets a glossary entry without being any card's
+  answer. **THE PLAUSIBLE SENTENCE YOU CANNOT CITE IS THE ONE TO REWRITE**, and three were: the *Samguk
+  sagi*'s arrangement into annals, treatises and biographies, the *yusa*'s Mongol context cited to an
+  article that never mentions it, and *shamanism* as a term borrowed from Siberian ethnography — each
+  replaced by what an openable work actually says, and the third is a better sentence for it. And **the
+  surface sweep batch 8 made standing came up clean**, with one measurement worth keeping: `Armoury` and
+  `armourer` do NOT match the surface `armour`, the auto-linker requiring a non-letter after it, so a
+  first count of 19 Greek hits was really 18.
+  **`ko-091`–`ko-100` OPEN `ko-tk`, AND EIGHT OF THE TEN FIRST SORTED AS TIMELESS.** A period-overview
+  deck is made of concepts — investiture, tribute, indirect rule, genealogy, the epitaph, the wooden
+  tablet — and a concept card ships with no date line, which `cardStartYear` reads as 0. That is right
+  for one card among dated neighbours and **wrong when it is most of a deck**: four of the eight turned
+  out to have an anchor their SOURCES state, so they carry a date line AND `undatable: true`, which is
+  the `ko-073 lacquerware` shape. **Before accepting a timeless card, ask whether the sources date the
+  thing even though the term does not.** Two more findings. **A TERM THAT ALREADY EXISTS SATISFIES THE
+  PAIRING RULE ONLY IF IT SAYS WHAT THE NEW CARD NEEDS**: `ko-098` was going to be *aristocracy*, and
+  `Aristocracy` exists — cited to Aristotle and Polybius and linked from eleven Greece and Rome cards —
+  so pairing with it would have sent a Korean reader to Greek constitutional theory; the card takes
+  **genealogy** instead. And **the surface sweep paid IN ADVANCE for the first time**: `Epitaph` and
+  `Genealogy` were both drafted Korea-first, and five and eleven cards outside Korea respectively use
+  those words — for a Greek verse epitaph, the inscription of Ahiram, Hesiod's *Theogony*, the heroic
+  pedigrees of Argos. Both were rewritten before installing rather than after.
+  Not part of the site.
 - **📖 `docs/art-card-plan.md` — READ BEFORE WRITING AN `art-` CARD, AND BEFORE BUILDING THE ARTWORK
   CARD FORMAT.** The **1000-card running order for the Visual Art collection** (`art`): every card's
   number, topic and deck, fixed in advance across 9 decks and 39 leaf decks. The seventeenth
@@ -1342,7 +1487,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.07 MB and 45,105 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.08 MB and 45,200 lines is hard to find your way around, so this
   lists its 170 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -1414,6 +1559,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   read the plan's entry before starting one, since three of them turn on a decision that is not obvious
   (what Save means in the deck editor, which bundle a card locator may fetch, and why merging language
   notes cannot be done to a shipped deck).
+- **📖 `docs/why-questions-plan.md` — READ BEFORE WRITING A `card.why`, OR BEFORE OPENING A BATCH OF THEM.**
+  The Think-it-through pass, opened Sep 2026 on request: three authored why-questions for every card in
+  the HISTORY and SCIENCE sections. **COMPLETE as measured on 2026-09-06 — all 1,458 cards in both
+  sections carry a set.** It closed twice: it first ran to the end of a list of 1,159 and did not finish
+  the sections, because 300 more had shipped on main while it ran. Run `node .claude/why-count.js` for
+  the figure rather than quoting one here. **What keeps it closed is the rule rather than the pass**: a
+  new card in either section ships with its own set, exactly as it ships with its citations and its
+  glossary term. Geography is out
+  (a map card's back is a figures grid, so there is no prose to draw an answer from) and so are the
+  language decks. It holds the three things the checker cannot see — that the answer says what the CARD'S
+  OWN CITED PROSE says, that the question is a why rather than a what wearing one, and that the three ask
+  about different things — plus the four seams a 300-word hedged abstract reliably offers (the hedge, the
+  correction, the definition's own edge, the evidence), the batch workflow, and the log. **Where a card
+  really has no reason in it, leave it out and say so**: a manufactured question is worse than an absent
+  section, which is why the self-explanation fallback was removed in the first place. Its batch log is now
+  the reusable half, recording **which seam each collection turned out to offer** — a contested source in
+  the history collections, a measured exception to a stated rule in Biology, a claim tested and not
+  surviving in Psychology. Not part of the site.
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
@@ -1948,6 +2111,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   — the question and the brief paragraph its "Show answer" button reveals — and the retired single
   `{ q, at }` shape is REFUSED here with the migration named, while app.js goes on rendering one for the
   overlay's sake. Not part of the site.
+- `.claude/set-facts.js` — writes a MAP CARD's `facts` grid, in batches:
+  `node .claude/set-facts.js <batch.json> [--check]` over `{ "cards": { "gw-001": [[label, value], …] } }`.
+  **A TOOL RATHER THAN AN EDIT, because none of the others can touch it**: `facts` is an ARRAY of pairs, so
+  `add-sources.js` (only `sources` and the abstract) and `fix-field.js` (find/replace inside a STRING field)
+  both refuse it, and `update-cards.js` assigns whole fields with no validation in front of it. **The grid is
+  READ BY POSITION** — `cardFacts` draws it two to a row — so "Capital | Population / Largest city | Area" is
+  an ORDER as much as a set of labels, which is the one thing a hand edit gets wrong without anything saying
+  so. It validates the WHOLE batch before writing anything, splices in the one-card-per-line shape every
+  other helper writes, and re-parses afterwards; `--check` prints every map card's grid and writes nothing,
+  which is how a batch is reviewed by eye. **A CELL MAY BE `"?"` AND THAT IS DELIBERATE** (Sep 2026, on
+  request: "if you cannot find data for any particular one, just put a questionmark there") — it is the card
+  saying the figure was looked for and not found, which is the honest state and the one thing a fabricated
+  number destroys. Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
   ANSWER TERM is, in batches: `node .claude/add-card-difficulty.js <batch.json>` over
   `{ "cards": { "wh-001": 1, … } }`. It validates the WHOLE batch before writing anything (a half-applied
@@ -3010,8 +3186,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     ANSWERS BEHIND BUTTONS** (Sep 2026, on request: the Think it through section "should read three
     common/important why-questions about the answer term, with behind each question a 'show answer' button
     which reveals a very brief paragraph below the question to answer it"). Elaborative interrogation
-    (`card.why`) where the card carries one, self-explanation ("you have also studied X and Y — how does
-    this connect?") otherwise. **Injected by `showAnswer`, not built into `buildBack`**, because the budget
+    (`card.why`) and NOTHING ELSE since Sep 2026 — see the last paragraph of this bullet. **Injected by
+    `showAnswer`, not built into `buildBack`**, because the budget
     belongs to the session and `buildBack` also draws the editor preview and the browser. **The questions
     AND their answers are AUTHORED and never generated** — choosing which three questions a card is worth
     being asked, and what the card's own cited prose answers them with, is the editorial act the apparatus
@@ -3028,9 +3204,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **A "Show answer" DOES NOT CLOSE AGAIN**: this is a self-check, a reader who has read the answer cannot
     un-read it, and a second press that took it away would only lose their place — so the button disables
     itself and the paragraph stays.
-    **THE FALLBACK PROMPT IS UNCHANGED** — a card with no authored `why` still gets the self-explanation
-    question and its textarea, and **what the reader types goes nowhere**: not the schedule, not the log,
-    not the server, and the page says so, which is what makes people answer honestly.
+    **THERE IS NO FALLBACK PROMPT ANY MORE, AND A CARD WITH NO AUTHORED `why` SHOWS NO SECTION AT ALL**
+    (Sep 2026, on request: a Think-it-through section "should never have the 'You have also studied ...'
+    fill in the blank type. It should always say three common 'Why ...?' questions about the answer term
+    with a very brief explanation that can be revealed with a show answer button"). The self-explanation
+    prompt — three kin cards named out of `S.cards` over an empty textarea — was what a card with no `why`
+    got, and it is a much weaker exercise than the one beside it: it has no right answer, nothing to check
+    against, and no relation to the term, so a reader met two different things under one heading. Silence
+    is the honest alternative, because **`card.why` is authored out of the card's own cited prose and is
+    never generated** (see the `why` bullet under "Add a card"), so the choice is between an authored
+    question and a manufactured one. **`connectKin` and the `.elab-box` / `.elab-acts` / `.elab-note`
+    styles went with it**; `cardKinship`, which `connectKin` used, is still Multiple Choice's distractor
+    ranking. **THE PASS THAT FILLED THAT GAP IS COMPLETE** (Sep 2026): all 1,458 HISTORY and SCIENCE
+    cards carry a set, so the section is absent only on the Geography cards and on the language decks,
+    both deliberately out of scope. **Run `node .claude/why-count.js` for the figure rather
+    than quoting one here.**
   · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
     background's own opening definition — inline under the answer, so a reader whose fold is collapsed
     still gets an explanation. **The footnote markers are stripped**: `sup.fn:empty::before` prints a
@@ -3077,7 +3265,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `WARMUP_N` / `robinOrder` / `studyOrder` / `HYBRID_N` / `DECK_ORDERS` / `deckAttempt` / `PAGES.order` /
     `orderAskEntry` / `setOrderPicked` / `PAGES.pretest` / `pretestOffer` / `pretestPick` / `pretestMatch` /
     `nearMiss` / `editDistanceLE1` / `pretestKnownSet` / `sortByDifficulty` / `elabPromptHTML` /
-    `wireElabPrompt` / `cardWhy` / `connectKin` / `cardFirstSentence` / `openCardPeek` / `cardLeadsTo` /
+    `wireElabPrompt` / `cardWhy` / `cardFirstSentence` / `openCardPeek` / `cardLeadsTo` /
     `cardLeadsToHTML` / `gradeCloze` / `normAnswer` / `answerNear` / `answerIndex` / `noteConfusion` /
     `confusionPairs` / `confusionDrillIds` / `confusionRowHTML` / `forgettingCurveHTML` / `seenOnceIds` /
     `seenOnceHTML` / `PAGES.how` / `HOW_CLAIMS`, the `{type:"ids"}` branch in `buildSession`, or
@@ -3478,7 +3666,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **CITATIONS ARE NOT TRANSLATED** (`notranslate`, and `sources` lives on the base card, not in `i18n`);
     only the "Sources" label and the chips are.
   · **THE FOLD IS OPEN BY DEFAULT ON A CARD, A BOOK AND THE ATLAS PANEL, AND ALWAYS SHUT IN A GLOSS POPUP**
-    (`opts.compact`), which additionally never writes the reader's `S.settings.srcCollapsed`. A marker jump
+    (`opts.compact`) **AND IN THE PICTURE ROUND** (`opts.shut`, Sep 2026). Both render collapsed and
+    neither writes the reader's `S.settings.srcCollapsed` — that guard is the **`src-nopref`** class, which
+    `compact` carries alongside its own smaller typography, so a surface can take the second half without
+    the first. A marker jump
     force-opens it for one look and never changes the preference.
   · **A MARKER JUMP MEASURES A FOLD THAT IS ALREADY OPEN AND CLEARS THE FIXED FURNITURE**
     (`openFootnote` / `scrollNoteIntoView`, reading `--bar-h` / `--tabbar-h`), or the note lands under the
@@ -4249,6 +4440,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   spelling table's traps in full, the units sweep's awkward shapes, the i18n engine's `I18N_HTML` gating
   and its cap, and the whole dormant narration system — the voice scoring, the chunking, the baked
   manifest's hashing gotcha and the `--rehash` flag.
+- **THE MASTHEAD — the wordmark and its tagline** (`.brand` in index.html's top bar; `homeBrandHTML` beside
+  `versionLineHTML` for the home page; `.brand` / `.home-brand` in styles.css. Sep 2026, on request: "on
+  tablet and desktop in the top menu bar, and on mobile at the top of the home page, there should be a folio
+  logo with the tagline 'Memorize anything'"). It stood in the top bar once and was taken out; the `.brand`
+  styles and the `route("home")` click handler were both LEFT BEHIND against its return, so this is the
+  markup coming back to them rather than a new control. Three things.
+  **EXACTLY ONE OF THE TWO IS ON SCREEN AT ANY WIDTH, AND THE SPLIT IS AT 1280px — MEASURED, NOT CHOSEN.**
+  The obvious rule is "bar logo wherever the bar is shown, home logo below 640px", and it does not fit: in a
+  browser, with the seventh tab in, **the brand costs the top bar 171px at Medium text and 292px at Very
+  large**, and the bar has that much to spare only from 1280px up. Below it the tabs are pushed off the end
+  — 171px of overflow at 901px, 76px at 1000px, and 70px at 1200px at Very large — which takes a DESTINATION
+  away to make room for an ornament. So `.topbar .brand` shows from 1280px up and `.home-brand` from 1279px
+  down. Re-measured after the change: the bar's overflow is now identical with the brand and without it at
+  every width and both text sizes. **The cost is stated rather than hidden: a landscape tablet gets the logo
+  at the head of the home page rather than in the bar**, which is the same place a phone gets it.
+  **THE TAGLINE IS AUTHORED BRITISH, like every other string on the site.** `spellText` runs over the whole
+  document body, so an American reader is shown "Memorise" → "Memorize" by the same table that handles the
+  rest of the prose — which needed a **`memoris`/`memoriz` row added to `SPELL_PAIRS`**, since the word was
+  not in it. Writing it American instead would have made it the one string on the site a British reader
+  cannot get their own spelling of.
+  **THE HOME PAGE'S COPY IS A HEADING, NOT A BUTTON** — the reader is already on the home page, so a control
+  that routed there would do nothing — and it centres below 640px because `.page-head` does, while between
+  641 and 900 both are ranged left. Guarded by `test-layout.js`.
 - **THE VERSION LINE** (`versionLineHTML`, just above `PAGES.home`; `.site-ver` in styles.css — Aug 2026, on
   request). The shipped version and the moment it went out, very small in the **top-left corner of the home
   page**, above the greeting. Four decisions in it are load-bearing.
@@ -4372,6 +4586,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     (`card.undatable`) and nothing else may borrow it. **Three games are not card-fed at all** and each
     left that rule by being asked to: the crossword (`crossword.js`), What year? (`whatyear.js`) and the
     picture round (the artefacts).
+  · **TIMELINE'S REVEALED DATES SAY WHAT THE DATE IS** (`cardYearBasis` / `dateLineRows`, beside
+    `cardSpanYears`; `.ciy-n` / `.ciy-b`. Sep 2026, on request: when the answers are revealed "each year
+    should also say what that starting date is based on"). A card's place in the order is
+    `min(cardYears)` over the whole `answerDate` field, which is a bare number: on a card dated
+    `Born 100 BCE / Died 44 BCE` the ordering fact is the birth, and on `Built c. 447 BCE /
+    Destroyed 1687 CE` it is the building, and the row said neither. The date line already names both in
+    its `dt-k` labels, so the basis is READ BACK OUT of it rather than stored a second time.
+    **IT IS DERIVED AND MAY HONESTLY COME BACK EMPTY, WHICH IS THE WHOLE OF ITS HONESTY**: a row is the
+    basis only when THAT ROW'S own earliest year equals the card's sort year, so a card with no date line,
+    one whose sort year comes from a continuation line, and one an admin has given a manual chronology
+    override all print the year alone, exactly as before. Printing "Era" over a year that did not come
+    from the Era row would be worse than printing nothing. **Measured over the shipped corpus: 1,617 of
+    the 1,627 datable cards yield a basis**, the commonest being Independence, US recognition, In use,
+    Founded and Era. `chronoPool` reads it ONCE when the pool is built rather than at reveal time.
   · **THE PICTURE ROUND IS THE ARTEFACTS AND THE ARTWORK CARDS, AND NOTHING ELSE** (Sep 2026, on two
     requests: "The game 'Picture round' should only use pictures from artefacts", and then "the artworks
     should also show up in the Picture It minigame"). A card's or a term's picture ILLUSTRATES its
@@ -4398,6 +4626,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     apparatus behaves exactly as it does on the plate itself. **The SUMMARY screen strips the markers**
     (`picNoteBare`) — there is no list under it, and `sup.fn:empty::before` prints a marker's own digit,
     so leaving them in sets stray numerals through five paragraphs pointing at nothing.
+  · **…AND THE REVEAL CARRIES NO CREDIT AND OPENS ITS SOURCES SHUT** (`picCaption`, `sourcesHTML`'s
+    `shut` option and the `src-nopref` class; Sep 2026, on request: the reveal "still shows the credits of
+    the image … delete these, they're already available when the user clicks on the image", and "ensure
+    that in this minigame, the sources section is always collapsed by default"). Three things.
+    **TAKING `.pic-credit` AWAY WAS ONLY HALF OF IT: HALF THE POOL CARRIES THE ATTRIBUTION A SECOND TIME
+    INSIDE THE CAPTION** — measured, **96 of the 192 artefact pictures end `image.desc` with the opening
+    clause of their own `image.credit`** — so with the credit element gone the last line of the reveal was
+    still "Ardon Bar-Hama, public domain, via Wikimedia Commons." `picCaption` cuts it, and **it is an
+    EXACT match against that item's own credit rather than a pattern that looks like an attribution**: the
+    credit's text up to its URL is compared with the end of the caption and only a byte-for-byte tail is
+    removed, so it cannot eat a caption that merely mentions a photographer. Verified over the whole pool:
+    96 trimmed, 96 untouched, none left carrying an attribution. **The DATA is deliberately left alone** —
+    what remains on those 96 is usually the Commons file's own name ("CairoEgMuseumTaaMaskMostlyPhotographed"),
+    so cleaning it is a rewrite of 96 captions rather than a deletion, and that is a content pass.
+    **THE FOLD'S TWO HALVES HAD TO COME APART.** `opts.compact` already forced a fold shut and kept it out
+    of the reader's `S.settings.srcCollapsed` — but it also restyles the list to a gloss popup's size, which
+    a game round set at the card's own size does not want. So `opts.shut` is the second half alone, and
+    **`src-nopref` is now what the delegated header handler tests** (with `src-compact` carrying it as well
+    as its own styling). Without that guard, opening the fold in one round would open it on every card the
+    reader studies afterwards.
   · **MULTIPLE CHOICE SHOWS THE WHOLE ANSWER SIDE OF THE CARD** (`mountCardBack` / `.mc-cardback`; Sep
     2026, on request). It is the one game built on a real card, and it was answering with a one-sentence
     note where the card itself has a date line, a picture, an atlas window, its background and its
@@ -5702,7 +5950,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
-| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
@@ -5719,7 +5967,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (271 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (274 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -6731,7 +6979,7 @@ dead code (never rendered).
     `--timebar-h` / `layoutTicks` / the Atlas chrome's media queries / `.settings` / `.auth-split` / the
     coming-soon rows / `.home-collections` / `.games-sec` / `.home-about` /
     `gameSub` / `pileCounts` / `adProg` / `.active-deck` / `gbWireResize` / `.gb-fold` /
-    `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` / `makePageGhost` / `clipStageFor` / the
+    `body.gb-compact` / `.brand` / `homeBrandHTML` / `.home-brand` / `wirePageSwipe` / `SWIPE_ORDER` / `makePageGhost` / `clipStageFor` / the
     `.page-next`/`.page-prev` keyframes / `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` /
     `#fsRange` / `MULTILANG` / `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
     `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` / the ink layer's
@@ -6748,7 +6996,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 271 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 274 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -6887,7 +7135,8 @@ dead code (never rendered).
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's
     restricted pool** (75 assertions), and every one of its checks is for something that fails SILENTLY.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
-    `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `picturePool` /
+    `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `chronoPool` /
+    `cardYearBasis` / `dateLineRows`, `picturePool` /
     `dailyPictureRounds` / `tagKinship`, `dayPick` / `buildChallengeQuestions` / `buildWhoSaidRounds` /
     `PAGES.truefalse`'s draw, `threadEasyKeys` / `dailyThreadPuzzle` /
     `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
