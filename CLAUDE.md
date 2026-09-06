@@ -1017,17 +1017,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     load-bearing here in a way they are not elsewhere), and the whole thousand was verified to take **no
     backward step** in date. **A line moved out of date order is a card dealt out of date order, and
     nothing on the page will say so.**
-  · **IT NEEDS A CARD FORMAT THAT DOES NOT EXIST YET**, and `art-001` cannot be written until it does.
-    The artwork card is a BUILT-IN format like the map card, for the map card's own reason (a community
-    card type cannot run code): the picture is the QUESTION, so the front draws the work and nothing
-    else, and `image.title` / `desc` / `credit` are **held back until the reveal** the way the picture
-    round holds an artefact's metadata — a Commons credit line names the work and its painter, so a front
-    that draws one has given the answer away and will look perfectly fine doing it. The answer term is
-    the TITLE (`gradeCloze` matches one string, so the artist is asked in the question and self-graded);
-    `answerDate` carries the creation date and is also the sort key; the artist, medium, size and
-    location go in `facts`, the map card's own field; the **alt text describes and never names**, which
-    makes this format more accessible than the map card rather than less; and an artwork card is out of
-    the minigames by construction, in `gameCardIdSet` beside `cardMapSpec`.
+  · **IT NEEDED A CARD FORMAT THAT DID NOT EXIST, AND THAT FORMAT IS NOW BUILT** — see the ARTWORK CARDS
+    bullet under "How the app is wired" for how it works and what it holds back. The plan still specifies
+    it in full, which is what the bullet was written against.
   · **COPYRIGHT DECIDES WHICH CARDS CAN CARRY A PICTURE AT ALL.** Folio links pictures and the bar is
     PD / CC BY / CC BY-SA, and Commons hosts a file only where it is free in the US *and* the country of
     origin — so the canon is showable to about 1900, mixed to 1945 and almost entirely unshowable after
@@ -1350,8 +1342,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.06 MB and 44,981 lines is hard to find your way around, so this
-  lists its 169 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.07 MB and 45,105 lines is hard to find your way around, so this
+  lists its 170 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -3904,6 +3896,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   reusing the Atlas, the fit's near-rings rule and the Alaska and District of Columbia exceptions, the three
   attempts it took to prove the fill is a tint, `h2r` learning `rgb()`, where the facts box sits and why,
   and the ten-times-finer trace and its zoom-ceiling arithmetic.
+- **ARTWORK CARDS — the picture IS the question** (`card.artwork` + `image` + `facts`; `cardArtSpec` /
+  `cardArtHTML` / `cardArtReveal` / `.art-shot` in styles.css; the Visual Art collection. Sep 2026, on
+  request: "the user is shown a famous historical artwork … and must guess the name of the work and the
+  artist"). The card shows the work and asks what it is; the answer names it, dates it and credits the
+  photograph. A **built-in format like the map card and for the map card's own reason** — a community card
+  type is templates plus scoped CSS and cannot run code, and this needs a picture promoted to the front
+  with its own metadata withheld. Six things.
+  · **`artwork: true` SAYS THE PICTURE IS THIS CARD'S OWN SUBJECT**, which is the whole of what the flag
+    means and why it is a flag rather than an inference from `image`: an ordinary card's picture
+    ILLUSTRATES its subject — a hand-axe under `Acheulean`, a flag under a country — and must never be
+    dealt as "what is this?". A STYLE card in the same collection carries a representative work and no
+    flag, so it stays an ordinary card everywhere.
+  · **THREE THINGS ARE HELD BACK UNTIL THE REVEAL, and the first is the whole difficulty.** A Commons
+    credit line routinely reads "Rembrandt, The Night Watch, Rijksmuseum", so the front draws the picture
+    and NOTHING else — no title, no description, no credit, no `data-img-*` and no way to enlarge it,
+    since the viewer's own caption bar carries all three. It is the picture round's own trade: the
+    attribution the licence asks for is given on the same card, one press away, rather than before the
+    picture has done its job. **Anything that leaks `title` or `credit` onto the front has broken the
+    collection and will look perfectly fine doing it**, which is what `test-artwork-cards.js` asserts
+    first.
+  · **THE ALT TEXT DESCRIBES AND NEVER NAMES**, which makes this format MORE accessible than the map card
+    rather than less: a shape on a globe cannot be described without answering the question and a painting
+    can, so a reader who cannot see it gets a real question rather than none. `add-card.js` refuses an alt
+    that carries the answer term or the Artist fact, and refuses an artwork card with no alt at all.
+  · **ONE PICTURE PER CARD, AND IT IS THE FRONT'S.** `buildBack` still emits the background slot, because
+    every other surface that draws a card back — the browser, `openCardPeek`, Multiple Choice's
+    `mountCardBack`, the editor preview — draws it WITH NO FRONT and would otherwise show no picture at
+    all. The study page drops that copy at the reveal (`showAnswer`), which is the one place the two would
+    be on screen together, and drops it from the BACK so that nothing the reader is already looking at
+    moves. `cardArtReveal` likewise UPGRADES the element already on screen rather than re-rendering it.
+  · **IT IS OUT OF THE TEXT-ONLY GAMES BY CONSTRUCTION AND IN THE PICTURE ROUND BY REQUEST** —
+    `gameCardIdSet` tests `cardArtSpec` beside `cardMapSpec`, and `picturePool` reads the artwork cards
+    off `availableCardIdSet` (see the picture-round bullet under "Home minigames"). Like the map card this
+    needs no editorial judgement and so needs no field, and for the same reason **`undatable` should not
+    be set on one**.
+  · **THE ANSWER TERM IS THE TITLE.** `gradeCloze` matches one string, so the artist is asked for in the
+    question and self-graded; `answerDate` carries the creation date and is also the sort key; the artist,
+    medium, size and location go in `facts`, the map card's own field, at least three rows.
+  Guarded by `.claude/test-artwork-cards.js`. **Re-run after touching `cardArtSpec` / `cardArtHTML` /
+  `cardArtReveal` / `cardFrontHTML`'s artwork branch / `showAnswer`'s reveal and duplicate-slot drop /
+  `IMG_OPEN_SEL` / `picturePool` / `gameCardIdSet` / `serializeCardData` / `revertCard` / the `.art-shot`
+  styles, or after adding an artwork card.**
 - **ONE media panel on the card surface** (Aug 2026, on request — it was two, with a `.ces-media-swap` pill
   between them). A card shows one frame, so the editor offers one slot (`#cesMediaSlot`) and one panel
   (`#cesMediaPanel`, fields `data-mediafield="src|title|desc|credit"`), and the pasted URL decides which of
@@ -4338,15 +4372,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     (`card.undatable`) and nothing else may borrow it. **Three games are not card-fed at all** and each
     left that rule by being asked to: the crossword (`crossword.js`), What year? (`whatyear.js`) and the
     picture round (the artefacts).
-  · **THE PICTURE ROUND IS THE ARTEFACTS AND NOTHING ELSE** (Sep 2026, on request: "The game 'Picture
-    round' should only use pictures from artefacts"). A card's or a term's picture ILLUSTRATES its subject,
-    which is a different thing from depicting it — a hand-axe under `Acheulean`, a flag under a country —
-    and the two filters that had grown up around that (`PIC_ABSTRACT_KINDS`, and the difficulty bar
-    reaching into the glossary through `threadEasyKeys()`) are **DELETED** with the halves they guarded:
-    an artefact is a photograph of ONE object, so there is nothing to rate and nothing to except. The pool
-    falls from 157 subjects to 99, still an order above `PIC_MIN_POOL`. Its decoys are ranked on tags
-    DERIVED from what an artefact carries — an era bucket off `artefactYear` and its `origin` — since it is
-    filed under none of its own.
+  · **THE PICTURE ROUND IS THE ARTEFACTS AND THE ARTWORK CARDS, AND NOTHING ELSE** (Sep 2026, on two
+    requests: "The game 'Picture round' should only use pictures from artefacts", and then "the artworks
+    should also show up in the Picture It minigame"). A card's or a term's picture ILLUSTRATES its
+    subject, which is a different thing from depicting it — a hand-axe under `Acheulean`, a flag under a
+    country — and the two filters that had grown up around that (`PIC_ABSTRACT_KINDS`, and the difficulty
+    bar reaching into the glossary through `threadEasyKeys()`) are **DELETED** with the halves they
+    guarded: an artefact is a photograph of ONE object, so there is nothing to rate and nothing to except.
+    **The second request is not that narrowing undone, and the distinction is what lets it back in**: an
+    ARTWORK card is the one card on the site whose picture IS its answer (`cardArtSpec`), so the rule the
+    narrowing established — "does this picture depict its subject?" is answered by which table the picture
+    came out of — still decides it, and this is a second table that answers yes. A STYLE card in the same
+    collection carries a representative work, no flag, and is not here.
+    It is **`availableCardIdSet`, never `gameCardIdSet`**: that door filters on `difficultyOK` because the
+    games behind it deal a term cold, where here the picture is on screen and the answer is one of four —
+    and the artefact half has no rating to filter on either, so filtering one half and not the other would
+    deal two kinds of round. Its decoys are ranked on tags DERIVED from what each carries — an era bucket
+    off `artefactYear` or `cardStartYear`, plus an artefact's `origin` or a card's own tags — and **the
+    first tag is `artefact` or `artwork` for all of them**, which is what keeps the two apart in the draw:
+    `tagKinship` weights `tags[0]` fourfold and caps the score where the kinds differ, so an artwork is
+    answered against artworks wherever there are three, and meets an artefact across the shared era bucket
+    only when there are not.
   · **…AND ITS REVEAL IS THE ARTEFACT'S OWN PLATE, MINUS THE PLATE** (same request): the five sentences
     with their footnote markers intact and `sourcesHTML` under them, wired by `wireFootnotes`, so the
     apparatus behaves exactly as it does on the plate itself. **The SUMMARY screen strips the markers**
@@ -5657,7 +5703,7 @@ lookup.
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
-| Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | empty — not a history collection, and its CARD FORMAT is not built yet |
+| Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
@@ -5673,7 +5719,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (268 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (271 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -6702,7 +6748,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 268 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 271 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -6829,6 +6875,15 @@ dead code (never rendered).
     of it with no browser. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
     `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `serializeCardData` /
     `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map card.**
+  · `node .claude/test-artwork-cards.js` — **the artwork card format** (56 assertions, Sep 2026), and
+    every fault it guards RENDERS PERFECTLY: a `title`, `credit` or `data-img-*` reaching the FRONT
+    answers the question outright; an alt naming the work is that leak in the one place nobody looks; a
+    duplicate picture is the back's own copy failing to be dropped; and a card missing from the picture
+    pool is a game that simply never deals it. **The pool half is asserted through a PATCHED app.js**
+    (`test-i18n-lang.js`'s technique — `picturePool` is a closure variable), because the alternative is
+    sweeping days of the real game until an artwork happens to be dealt: six artworks in a pool of two
+    hundred is a coin toss, and a sweep that saw none would say nothing at all — one of eight days was
+    run and saw none. **Re-run after touching anything in the ARTWORK CARDS bullet's own list.**
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's
     restricted pool** (75 assertions), and every one of its checks is for something that fails SILENTLY.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
@@ -6860,7 +6915,7 @@ dead code (never rendered).
     gone, so a refactor cannot leave it testing nothing. **Re-run after touching `openAvatarCropper` /
     `openAvatarViewer` / `AVATAR_PX` / `supaSetAvatar` / `monogramHTML` / the `img.viewClass` hook in
     `openMediaViewer`, or the `.av-crop` / `.avc-*` / `.iv-avatar` / `.mono-view` styles.**
-  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (70
+  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (72
     assertions, Aug 2026). **Re-run after touching `cardDifficulty` / `difficultyOK` / `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY` / `cardUndatable` / `chronoPool` / `cardStartYear` / `serializeCardData` /
     `revertCard`, any game's pool function, `add-card.js`'s difficulty or undatable guard,

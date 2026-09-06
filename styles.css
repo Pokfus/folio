@@ -1676,6 +1676,39 @@ body.no-tts .ans-cn .ac-say{display:none;}
 .map-card.mc-failed::after{content:"This map could not be loaded. The answer is below.";}
 .map-card.mc-loading .mc-zoom, .map-card.mc-failed .mc-zoom{display:none;}
 
+/* ---------- an artwork card's picture (see cardArtSpec in app.js) ----------
+   The question, on a card whose answer is the work in it. THREE THINGS ARE DELIBERATE.
+
+   IT IS SHOWN WHOLE (`object-fit:contain`) rather than filled into a frame, which every other picture on
+   the site is: a painting cropped to 16:9 is a different picture, and on a portrait or a scroll it is a
+   detail. The height is capped in `vh` so a tall work still leaves the question and the grade bar on
+   screen, and the box takes the paper behind it so the letterboxing reads as mount rather than as a gap.
+
+   IT CARRIES NO CHROME UNTIL THE REVEAL — no zoom glyph, no pointer, no caption — because all three say
+   "there is more here", and what is more here is the answer. `.revealed` is added by `cardArtReveal` and
+   is what turns it into the enlargeable, credited figure the rest of the site draws by default.
+
+   THE CAPTION IS THE FIGURE'S OWN `figcaption`, so it cannot be laid over the picture and cannot be
+   mistaken for part of the work. */
+.art-shot{
+  margin:2px 0 16px; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+  background:var(--paper-2); box-shadow:var(--shadow-sm);
+}
+.art-shot img{
+  display:block; width:100%; height:clamp(220px, 46vh, 420px);
+  object-fit:contain; background:var(--paper-2);
+}
+.art-shot.revealed{cursor:zoom-in;}
+.art-shot.revealed:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+.art-cap{
+  display:block; padding:9px 12px 11px; border-top:1px solid var(--rule); background:var(--card);
+  font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-soft); text-align:left;
+}
+.art-cap-t{display:block; font-weight:600; color:var(--ink);}
+.art-cap-d{display:block; margin-top:2px;}
+.art-cap-c{display:block; margin-top:4px; color:var(--ink-faint); font-size:calc(11px * var(--fs));}
+.art-cap-c a{color:inherit;}
+
 /* ---------- the locator (see cardLocatorHTML in app.js) ----------
    The same window on the back of a card whose answer is a place, saying where it is. It is shorter than a
    map card's, which is the question and deserves the room; this is an annotation, so it takes about the

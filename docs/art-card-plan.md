@@ -458,22 +458,66 @@ names were written for other collections and must be reused rather than re-keyed
 new term here changes what a reader meets on a card written two years ago. `node
 .claude/check-gloss-links.js` is the report that catches a link pointing at the wrong sense.
 
+## The batch log
+
+**BATCH 1 — `art-001` to `art-010` (Sep 2026), the first cards written, and the format built with them.**
+Five findings, and the first three changed the plan.
+
+**THE SULAWESI DATES HAVE MOVED TWICE SINCE THIS PLAN WAS WRITTEN, AND BOTH LINES WERE RESEARCHED IN THE
+WRONG ORDER.** The Leang Bulu' Sipong 4 hunting scene was published in 2019 at a minimum of 43,900 years
+and re-dated in 2024, by laser-ablation U-series, to about 50,200 — so it is OLDER than the Leang
+Tedongnge pig (45,500), not younger, and `art-004` and `art-005` were swapped before either was written.
+The same 2024 paper dates a scene at Leang Karampuang to at least 51,200 years, and a 2026 paper puts a
+hand stencil on Muna Island at a minimum of 67,800, which is now the oldest demonstrated age for cave art
+anywhere. **A future batch should find `art-011`–`art-020` room for Leang Karampuang and Liang
+Metanduno**; both are more significant than several lines standing in that slice.
+
+**AND `art-008` MOVED WITH THEM**: Chauvet's first phase of drawing is 37,000–33,500 years ago, which is
+older than the Venus of Hohle Fels and the Vogelherd horse at about 35,000, so the cave was written
+before them rather than after. The rule that produced all three swaps is the one this plan opens with —
+**a line's year is a sort key, and the sort is what the running order is FOR** — and the swaps were free
+only because no card had shipped. After a card exists its number is a permanent address and the drift
+stays.
+
+**THE ICE AGE LINES ARE DATED IN YEARS AGO, NOT BCE, WHEREVER A SOURCE GIVES A MINIMUM AGE.** The lines
+in this deck were drafted "c. 45,500 BCE" and the sources say "at least 45,500 years ago", which is a
+different number and a different KIND of number — a floor rather than a date. The ten written here were
+corrected as they were written; **the rest of `art-iceage` and `art-neolithic` still carry the BCE
+spelling and each should be corrected as its card is researched.** At these depths the two differ by
+2,000 years and the ordering is unaffected, which is why they were left rather than swept.
+
+**FOUR OF THE TEN CARRY NO `artwork` FLAG, AND ONLY ONE OF THE FOUR IS FOR THE REASON THE PLAN
+EXPECTED.** The copyright section above predicts picture-less cards after about 1900; the first four came
+90,000 years earlier. `art-002` and `art-001` are a method and a material rather than a work, so their
+pictures illustrate rather than depict and the flag would be a lie. But `art-003` (the Blombos engraved
+ochres) and `art-004` (the Leang Bulu' Sipong 4 panel) are works with no free photograph in existence:
+the published images belong to the excavators and their journals, and Wikimedia Commons has nothing of
+either. **A famous work can be unshowable for want of a photographer as easily as for copyright**, and
+the answer is the same one the plan already gives — an ordinary cloze card, and say so.
+
+**AND A REPLICA CAN CARRY AN ARTWORK CARD, DISCLOSED ON BOTH CHANNELS.** `art-008`'s picture is a
+full-size museum copy of the Chauvet lion panel, because every photograph of the cave itself is reserved;
+the caption says so at the reveal and **the alt text says so on the front**, so the one reader who meets
+the picture only in words is not told less than the reader who can see it. The rule against a cast
+standing in for an object is about passing one off; disclosing it in both places is what makes this
+allowed rather than an exception.
+
 # The list
 
 ## Before History, to 700 BCE — `art-early`
 
 ### Ice Age art, before 10,000 BCE — `art-iceage`
 
-    art-001  The Blombos ochre-processing kit — South Africa, c. 100,000 BCE
-    art-002  The first art — what counts as art, and how the earliest of it is dated, c. 100,000 BCE
-    art-003  The Blombos Cave ochre plaque — South Africa, c. 73,000 BCE
-    art-004  The Leang Tedongnge warty pig — Sulawesi, c. 45,500 BCE
-    art-005  The Leang Bulu' Sipong 4 hunting scene — Sulawesi, c. 43,900 BCE
-    art-006  The El Castillo hand stencils — Spain, c. 40,800 BCE
-    art-007  The Lion-man of Hohlenstein-Stadel — Swabia, c. 40,000 BCE
-    art-008  The Venus of Hohle Fels — Swabia, c. 40,000 BCE
-    art-009  The Vogelherd horse — Swabia, c. 35,000 BCE
-    art-010  Chauvet Cave — France, c. 32,000 BCE
+    art-001  Ochre, and the Blombos processing kit — South Africa, c. 100,000 years ago
+    art-002  How the earliest art is dated, and what counts as art at all — uranium-series dating
+    art-003  Blombos Cave and its engraved ochres — South Africa, c. 77,000 years ago
+    art-004  The Leang Bulu' Sipong 4 hunting scene — Sulawesi, c. 50,200 years ago
+    art-005  The Leang Tedongnge warty pig — Sulawesi, c. 45,500 years ago
+    art-006  The El Castillo hand stencils — Spain, c. 40,800 years ago
+    art-007  The Lion-man of Hohlenstein-Stadel — Swabia, c. 40,000 years ago
+    art-008  Chauvet Cave — France, c. 37,000 years ago
+    art-009  The Venus of Hohle Fels — Swabia, c. 35,000 years ago
+    art-010  The Vogelherd horse — Swabia, c. 35,000 years ago
     art-011  The Venus of Dolní Věstonice — Moravia, c. 26,000 BCE
     art-012  The Apollo 11 stones — Namibia, c. 25,500 BCE
     art-013  The Venus of Willendorf — Austria, c. 25,000 BCE
