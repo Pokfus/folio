@@ -937,16 +937,16 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-678  The Academy
     gr-679  Plato's Republic
     gr-680  The theory of Forms
-    gr-681  Plato's Symposium
+    gr-681  Plato's Symposium  — carded on the `ladder of love`, Diotima's ascent: `Symposium` the drinking party is already gr-363 and a glossary term
     gr-682  Aristotle
     gr-683  The Lyceum
-    gr-684  Aristotle's Politics
+    gr-684  Aristotle's Politics  — the glossary key is `Politics_(Aristotle)`, since a bare `Politics` would auto-link an ordinary English word
     gr-685  Nicomachean Ethics
-    gr-686  Aristotle's biology
+    gr-686  Aristotle's biology  — carded on the `History of Animals`, the longest of the zoological works, rather than on the field in the abstract
     gr-687  Diogenes of Sinope
     gr-688  Cynicism
     gr-689  Isocrates
-    gr-690  Attic oratory
+    gr-690  Attic oratory  — carded on the `Attic orators`, the canon of ten, which is the thing the sources actually define
     gr-691  Lysias
     gr-692  Demosthenes the orator
     gr-693  The Philippics
