@@ -873,15 +873,16 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-619  Xenophon
     gr-620  Hellenica
     gr-621  Anabasis
-    gr-622  The sophists
+    gr-622  The sophists   (carded on the singular, `Sophist`, with `sophists` as an alias)
     gr-623  Protagoras
     gr-624  Gorgias
     gr-625  Prodicus
     gr-626  Antiphon
     gr-627  Socrates
-    gr-628  The Socratic method
+    gr-628  The Socratic method   (carded on the `elenchus`, the Greek name for the cross-examination;
+                                   `Socratic method` is an alias of that term)
     gr-629  The trial of Socrates
-    gr-630  Plato's Apology
+    gr-630  Plato's Apology   (glossary key `Apology_(Plato)`, so it cannot claim the ordinary word)
     gr-631  Xenophon's Memorabilia
     gr-632  Hippocrates
     gr-633  The Hippocratic Corpus
