@@ -195,6 +195,10 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Filozofija i drustvo deposited this byline in ASCII, transliterating the Serbian
+  // D-with-stroke as "Dj" and dropping the acute, so Crossref carries "Drago Djuric".
+  // The article's own title page and its running head both print "Drago Đurić".
+  ["10.2298/FID1301277D", "Drago Đurić", "Drago Djuric"],
   // Theological Reflections deposited this byline in caps with a CYRILLIC Н (U+041D) in
   // place of the Latin H, so Crossref carries "KНARLAMOV". The article itself prints the
   // name in Latin script in its own copyright line ("© V. Kharlamov, 2016").
