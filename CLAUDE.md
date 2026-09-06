@@ -1386,16 +1386,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   read the plan's entry before starting one, since three of them turn on a decision that is not obvious
   (what Save means in the deck editor, which bundle a card locator may fetch, and why merging language
   notes cannot be done to a shipped deck).
-- **📖 `docs/why-questions-plan.md` — READ BEFORE WRITING A `card.why`, OR BEFORE OPENING A BATCH OF THEM.**
-  The Think-it-through pass, opened Sep 2026 on request: three authored why-questions for every card in
-  the HISTORY and SCIENCE sections — 1,159 cards, which is 3,477 questions and answers. Geography is out
+- **📖 `docs/why-questions-plan.md` — READ BEFORE WRITING A `card.why`.**
+  The Think-it-through pass, opened and COMPLETED Sep 2026 on request: three authored why-questions for
+  every card in the HISTORY and SCIENCE sections — 1,159 cards, which is 3,477 questions and answers, and
+  all of them written. **What keeps it complete is the rule rather than the pass**: a new card in either
+  section ships with its own set, exactly as it ships with its citations and its glossary term. Geography is out
   (a map card's back is a figures grid, so there is no prose to draw an answer from) and so are the
   language decks. It holds the three things the checker cannot see — that the answer says what the CARD'S
   OWN CITED PROSE says, that the question is a why rather than a what wearing one, and that the three ask
   about different things — plus the four seams a 300-word hedged abstract reliably offers (the hedge, the
   correction, the definition's own edge, the evidence), the batch workflow, and the log. **Where a card
   really has no reason in it, leave it out and say so**: a manufactured question is worse than an absent
-  section, which is why the self-explanation fallback was removed in the first place. Not part of the site.
+  section, which is why the self-explanation fallback was removed in the first place. Its batch log is now
+  the reusable half, recording **which seam each collection turned out to offer** — a contested source in
+  the history collections, a measured exception to a stated rule in Biology, a claim tested and not
+  surviving in Psychology. Not part of the site.
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
@@ -2959,9 +2964,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     never generated** (see the `why` bullet under "Add a card"), so the choice is between an authored
     question and a manufactured one. **`connectKin` and the `.elab-box` / `.elab-acts` / `.elab-note`
     styles went with it**; `cardKinship`, which `connectKin` used, is still Multiple Choice's distractor
-    ranking. **The cost is stated rather than hidden: 5 of the 1,785 shipped cards carry a `why`**, so the
-    section is now rare — which is a measure of how much of that content is still to be written, not of the
-    feature.
+    ranking. **THE PASS THAT FILLED THAT GAP IS COMPLETE** (Sep 2026): all 1,159 cards of the HISTORY and
+    SCIENCE sections carry a set, so the section is rare only on the Geography cards and the language
+    decks, which are deliberately out of scope. **Run `node .claude/add-card-links.js --check` for the
+    figure rather than quoting one here.**
   · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
     background's own opening definition — inline under the answer, so a reader whose fold is collapsed
     still gets an explanation. **The footnote markers are stripped**: `sup.fn:empty::before` prints a
