@@ -3,10 +3,13 @@
 The plan for giving every HISTORY and SCIENCE card its three why-questions, opened Sep 2026 on request
 ("start working on the Think it through questions for all history and science cards").
 
-**THE PASS IS COMPLETE: all 1,159 cards carry three authored why-questions with their answers.** What
-keeps it complete is the rule rather than the pass — a new History or Science card ships with its own set,
-exactly as it ships with its citations and its glossary term — so this file is now a record of what was
-decided and what each collection turned out to offer.
+**THE PASS RAN TO THE END OF ITS OWN LIST: all 1,159 cards in the History and Science sections as they
+stood carry three authored why-questions with their answers.** It did not finish the sections, because
+300 cards — 200 in Ancient Rome, 100 in the Second World War — landed on main while it was running, and
+those are the queue. **The lesson is the one this file should have stated first: a pass measured against a
+corpus that is still growing cannot close.** What closes it is the rule rather than the pass — a new
+History or Science card ships with its own set, exactly as it ships with its citations and its glossary
+term — and until that rule is in force, run the count rather than trusting a figure here.
 
 **📖 Read this before writing a `card.why`.** The rules for the field itself are in `.claude/card-links.js` and
 in CLAUDE.md's `why` bullet under "Add a card"; what is here is the SHAPE of the pass — what a good
@@ -35,13 +38,14 @@ app.js), which is what a reader sees, not a category invented here:
 | History | `col-8` World History, `col-13` Ancient Greece, `col-40` Ancient Rome, `china`, `col-42` Russia | 1,009 |
 | Science | `bio` Biology, `psych` Psychology | 150 |
 
-**1,159 cards, which is 3,477 authored questions and answers.** Geography is out — a map card's question
+**1,159 cards when the pass opened, which is 3,477 authored questions and answers; 1,458 by the time it
+reached the end of that list.** Geography is out — a map card's question
 is a shape and its back is a figures grid, so there is no prose to draw an answer from — and so are the
 Language decks, which are somebody else's content.
 
 Run the count rather than quoting it:
 
-    node .claude/add-card-links.js --check          # corpus-wide coverage
+    node .claude/why-count.js                      # coverage, whole corpus and per collection
     node -e "global.window={};require('./data.js');const C=window.CARD_DATA;\
       const p=process.argv[1];console.log(C.filter(c=>c.id.startsWith(p)&&c.why).length+' of '+\
       C.filter(c=>c.id.startsWith(p)).length)" wh-
@@ -117,3 +121,5 @@ the other collections lean on.
 | 2026-09-06 | `cnh-001`–`cnh-100`, `ru-001`–`ru-010` (109 cards) | **THE WHOLE HISTORY SECTION IS COMPLETE: 1,009 of 1,009**, leaving only Biology and Psychology. China and Russia are the two collections whose cards are written from a **tradition that is itself the subject**, and that changes what a why-question can ask. A Chinese card rarely offers a scholar disagreeing with a scholar; it offers a text disagreeing with the ground — the Bamboo Annals against the Shiji, a dynasty’s own account of the one before it, a chronology that is exact from 841 BCE and reconstructed before it, an excavation that confirms a king list nobody could test for two thousand years. So the seam is **why the record says what it says**, which is a question about who wrote it and when, rather than about a method’s limit. Russia’s ten cards are earlier still and mostly Greek-sourced, and they carry the collection’s own warning in miniature: the steppe is described only by outsiders, so the third question is repeatedly **what the surviving account could not have known**. One tooling note for the batches to come: the 12-word floor on an answer bites hardest on a card whose reason is a single plain fact (`cnh-089`’s modern city sitting on the site), and the fix is always to give the answer its evidence rather than to pad the sentence.
 | 2026-09-06 | `bio-001`–`bio-100` (100 cards) | **BIOLOGY IS COMPLETE**, leaving only Psychology’s fifty. This is the first collection outside History, and the seam changes completely: a science card offers no source disagreeing with a source, because there is no source in it to disagree — what it offers instead is **a rule with a measured exception attached**. The abstracts are written that way throughout: the prokaryote–eukaryote contrast against the centimetre-long sulphur bacterium with membrane-bound compartments; the enzyme temperature curve against enzymes that peak well below where they unfold; quarter-power metabolic scaling against 358 studies whose exponents run from 0.5 to 1.0; structure-function against the half of human genes carrying disordered segments. So the reliable third question is simply **where does this rule stop, and what stops it** — and the answer is always a figure the card already states. Two other patterns worth carrying into any science collection. **A method card answers from what the instrument cannot do** (why an electron micrograph is always of something dead, why a colour change is not a measurement, why optical methods report an average where mass spectrometry does not), which is the history plans’ evidence seam in another vocabulary. And **a card citing a survey of practice writes its own third question outright**: blinding in 6.3 per cent of 960 studies, 51 per cent of surveyed researchers reporting an unexpected finding as though hypothesised, 12 per cent of papers treating repeated measures as independent. Those are the sharpest answers in the collection, and they belong to the reader rather than to biology.
 | 2026-09-06 | `ps-001`–`ps-050` (50 cards) | **THE PASS IS COMPLETE: 1,159 of 1,159.** Psychology is the one collection where the plan’s own exclusion pays off directly — it is exempt from the no-researchers-in-a-question rule because the literature IS the subject matter, and its history deck is made of people, so a question may name Broca, Fechner or Titchener outright. Its seam is neither History’s contested source nor Biology’s measured exception but a third thing: **the claim that was tested and did not survive, on the discipline’s own methods**. Phrenology’s central claim checked against 5,724 MRI scans; the readiness potential reread as stochastic fluctuation; Brigham retracting his own army-test conclusion on the ground his own data had always shown; the imageless-thought dispute that two identical laboratories could not settle. **Ask what would have counted as the test, and what it returned**, and the third question writes itself. Two smaller patterns worth carrying. **A card about a historical figure answers from the argument rather than the biography** — why Elisabeth’s objection was the one Descartes could not meet, why Wundt put the higher processes outside the laboratory, why Donders doubted his own subtraction — which is the history plans’ rule that a question may not rest on who said a thing, kept even where the rule itself is lifted. And **a method card in a science that studies people offers its own reflexive question**: hindsight bias is why a finding must be predicted rather than recognised, and 34,560 significance maps are why objectivity is a set of procedures rather than a state of mind.
+| 2026-09-06 | merge with `main` | **THE SECTIONS ARE NOT COMPLETE, THOUGH THE LIST WAS**, and it is worth
+recording why rather than quietly restating a number. The pass was planned against a snapshot — 1,159 cards — and while it ran, 200 Ancient Rome and 100 Second World War cards shipped on `main`, so merging left 1,158 of 1,458 (the odd one being `cnh-070`, retired on main, whose set went with it). Nothing was lost and nothing was wrong; the target moved. **A content pass over a growing corpus has no finish line, only a rule**, which is why the standing instruction is that a new History or Science card ships with its own set, and why every claim of completeness here now names the day it was measured.

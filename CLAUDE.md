@@ -119,8 +119,9 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 |---|---|---|
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
-| `usstates` | `us-states.js` `lakes.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing. **`lakes.js` rides here because `world.js` has NO LAKE HOLES** — the Great Lakes sit inside the USA polygon, so a card map drew five inland seas as grey fields with an outline round each; it is listed in `atlas` too, which is harmless because `lakes.js` ASSIGNS `window.LAKES` rather than pushing onto a queue. **The card map STROKES a lake shore where the Atlas does not**, in the world layer's own coast ink: on a world globe a lake is a small blue mark, on a card zoomed to one state a Great Lake is half the window, and an unstroked shore beside a stroked ocean coast reads as two kinds of edge on one map |
+| `usstates` | `us-states.js` `lakes.js` `rivers.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing. **`lakes.js` rides here because `world.js` has NO LAKE HOLES** — the Great Lakes sit inside the USA polygon, so a card map drew five inland seas as grey fields with an outline round each; it is listed in `atlas` too, which is harmless because `lakes.js` ASSIGNS `window.LAKES` rather than pushing onto a queue. **The card map STROKES a lake shore where the Atlas does not**, in the world layer's own coast ink: on a world globe a lake is a small blue mark, on a card zoomed to one state a Great Lake is half the window, and an unstroked shore beside a stroked ocean coast reads as two kinds of edge on one map |
 | `river_italy` / `river_greece` | `rivers/<region>.js` | warmed at IDLE by a LOCATOR window in the Rome or Greece collection, never awaited (China has no river file) |
+| `coast_italy` / `coast_greece` / `coast_china` / `coast_usa` | `coast/<region>.js` | warmed at IDLE and never awaited: by a LOCATOR window of the collection that frames it (Rome, Greece, China), and — since Sep 2026 — by a MAP CARD whose layer names a frame (`CMAP_LAYER_HIRES`: the China and United States geography collections) |
 | `worldcaps` | `world-capitals.js` | a map card asks for a DOT on the `world` layer (a capital card in the world collection). Its own bundle, and fetched only when a card carries `map.dot`: the shapes are `world`'s, which every map window already loads for the coastline under it, and a locator card reads those shapes and never this table |
 | `glossExtra` | `glossary-extra.js` | **warmed at IDLE after boot**, and awaited by `openGlossWin` for a reader who beats the warm. The glossary's CITATIONS and ILLUSTRATIONS — 54% of `glossary.js`, and nothing reads either until a popup opens |
 | `artefactExtra` | `artefacts-extra.js` | **warmed at IDLE after boot**, and awaited by the chest reveal, the Reliquary, a friend's collection and Admin → Artefacts. An artefact's DESCRIPTION, CITATIONS and PICTURE — **94% of `artefacts.js`** (237 KB of 251), and nothing reads any of them until a chest opens |
@@ -1074,8 +1075,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   it is and never as an independent source. Not part of the site.
 - `china-provinces.js` + `.claude/build-china-provinces.js` — the 31 provincial-level divisions of
   mainland China and the 27 provincial capitals (`window.CHINA_PROVINCES` / `window.CHINA_CAPITALS`),
-  the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` beside
-  it for the reason `usstates` carries it), **generated — never hand-edited**. Its shape is
+  the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` and `rivers.js` beside
+  it for the reason `usstates` carries them), **generated — never hand-edited**. Its shape is
   `us-states.js`'s exactly, down to the tolerance, plus a `t` for the division's KIND — Province,
   Autonomous Region or Municipality, which every card in the deck states and which the question is
   careful not to assume — so one renderer draws a province and a state alike.
@@ -1314,8 +1315,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 2.99 MB and 44,052 lines is hard to find your way around, so this
-  lists its 164 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.07 MB and 45,050 lines is hard to find your way around, so this
+  lists its 169 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -1386,11 +1387,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   read the plan's entry before starting one, since three of them turn on a decision that is not obvious
   (what Save means in the deck editor, which bundle a card locator may fetch, and why merging language
   notes cannot be done to a shipped deck).
-- **📖 `docs/why-questions-plan.md` — READ BEFORE WRITING A `card.why`.**
-  The Think-it-through pass, opened and COMPLETED Sep 2026 on request: three authored why-questions for
-  every card in the HISTORY and SCIENCE sections — 1,159 cards, which is 3,477 questions and answers, and
-  all of them written. **What keeps it complete is the rule rather than the pass**: a new card in either
-  section ships with its own set, exactly as it ships with its citations and its glossary term. Geography is out
+- **📖 `docs/why-questions-plan.md` — READ BEFORE WRITING A `card.why`, OR BEFORE OPENING A BATCH OF THEM.**
+  The Think-it-through pass, opened Sep 2026 on request: three authored why-questions for every card in
+  the HISTORY and SCIENCE sections. **It ran to the end of its own list — all 1,159 cards as the sections
+  stood — and did NOT finish the sections**, because 300 more shipped on main while it ran; run
+  `node .claude/why-count.js` for the figure rather than quoting one here. **What closes it is
+  the rule rather than the pass**: a new card in either section ships with its own set, exactly as it ships
+  with its citations and its glossary term. Geography is out
   (a map card's back is a figures grid, so there is no prose to draw an answer from) and so are the
   language decks. It holds the three things the checker cannot see — that the answer says what the CARD'S
   OWN CITED PROSE says, that the question is a why rather than a what wearing one, and that the three ask
@@ -1962,11 +1965,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   adding an entry** — the answer is one word of 4–11 letters already normalised to capitals, the clue is
   emitted RAW (so no bare `<`, `>` or `&`), and a clue may not contain its own answer. `check-style.js`
   sweeps it for BCE/CE and `test-difficulty.js` checks the whole bank's shape.
-- `coast/italy.js`, `coast/greece.js`, `coast/china.js` — the **hi-res coastlines** for the Rome, Greece
-  and China collections' card maps (`window.HIRES_COAST_IN.push({ region, shapes })`, a QUEUE for the
+- `coast/italy.js`, `coast/greece.js`, `coast/china.js`, `coast/usa.js` — the **hi-res coastlines** for
+  the Rome, Greece and China collections' locator windows and, since Sep 2026, the China and United States
+  GEOGRAPHY collections' map cards (`window.HIRES_COAST_IN.push({ region, shapes })`, a QUEUE for the
   reason the i18n files push). **Lazy** (`coast_<region>`), **generated — never hand-edited**, by
   `.claude/build-hires-coasts.js`. A sparse patch over world.js's own rings rather than a second world
-  map, so nothing doubles; see the map-card bullet under "How the app is wired".
+  map, so nothing doubles; see the map-card bullet under "How the app is wired". `usa` is much the
+  largest — 220 KB gzipped against China's 63, most of it Canada — and its gain is the smallest, which
+  the builder's own header measures rather than asserts.
 - `rivers/italy.js`, `rivers/greece.js` — the **hi-res rivers** for the Rome and Greece collections' card
   maps (`window.HIRES_RIVER_IN.push({ region, supersede, rivers })`, a QUEUE for the reason the coast
   files push). **Lazy** (`river_<region>`), **generated — never hand-edited**, by
@@ -2000,10 +2006,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Mongolia got a topographic sheet and Qinghai a geological one**: those are the University of Texas
     map library's scans, they are enormous, so they win any largest-file tie-break, and neither says
     "map" anywhere in its name.
-  · **THE CREDIT ENDS IN ITS URL, AFTER A FULL STOP, NEVER IN BRACKETS.** That is the shape 567 of the
-    site's 2,281 existing credits already use (the other 1,714 are a bare URL, which `mediaCreditHTML`
-    turns into a link); a Commons file name is full of parentheses — `Historic Entrance (Mammoth Cave,
-    Kentucky, USA) 2 (37773583192).jpg` — so a URL wrapped in another pair ends on `))`.
+  · **THE CREDIT ENDS IN ITS URL, AFTER A FULL STOP, NEVER IN BRACKETS.** A Commons file name is full of
+    parentheses — `Historic Entrance (Mammoth Cave, Kentucky, USA) 2 (37773583192).jpg` — so a URL wrapped
+    in another pair ends on `))`.
+    **BOTH SHAPES ARE LINKS SINCE SEP 2026** (on request: "when clicked an image to enlarge it, the links
+    in the source sections should be clickable"). `mediaCreditHTML` tested `/^https?:/` against the WHOLE
+    string, so a bare URL became a link and this house form was escaped end to end with its address dead
+    text — measured over the cards and the glossary, **1,817 credits are a bare URL and 1,309 are the
+    prose form**, so nearly two in five of the site's credits offered an address a reader could not
+    follow. **It is NOT `SRC_URL_RX`, and that is the whole difficulty**: the citation pattern stops at a
+    bracket, deliberately, since a citation's address is percent-encoded — but 149 of these credits carry
+    one, and matching with that pattern truncates `…G.Gardner_(9255157507).jpg` to `…G.Gardner_(1` and
+    hands the reader a 404. The match runs to the next space and is trimmed from the right: sentence
+    punctuation first, then a closing bracket ONLY where the address carries no opening one to match it,
+    which is the four credits that write the address inside brackets mid-sentence and the only way to tell
+    those from the 149. Dry-run over all 3,126 addresses: 42 trimmed, every one a stray `)`.
   · **A SMALL STATE CAPITAL HAS NO SKYLINE, AND THE HONEST ANSWER IS ITS MAIN STREET.** Commons has no
     wide view of Montpelier (7,900 people), Pierre, Frankfort, Dover, Concord or Jefferson City, and
     what it offers instead is a 19th-century bird's-eye LITHOGRAPH — a drawing of a town that no longer
@@ -2280,6 +2297,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   It resets **field by field rather than replacing the object**, so a PROGRESS_FIELD added later is reset by
   default and has to be NAMED to survive — the safe direction for a control like this. The row's own
   description and the confirmation both say what is kept. Guarded by `.claude/test-reset.js`.
+- **…AND ONE DECK'S PROGRESS CAN BE RESET ON ITS OWN** (`resetEntryProgress(id)`, declared directly after
+  `RESET_KEEPS`; the **Reset progress** row on a deck's long-press sheet. Sep 2026, on request). Settings →
+  Danger zone is all or nothing, so a reader who wanted to start one deck again had to throw away every
+  other deck with it. Four things.
+  **IT IS DEFINED BESIDE `resetProgress`, NOT BESIDE THE SHEET**, because the two answer one question at
+  two scales and a rule about what "progress" means must not exist in two places able to disagree — this
+  is that rule restricted to `entryCardIds(id)`.
+  **WHAT IT TAKES IS THE SCHEDULE AND THE HISTORY**: `S.cards` and `S.buried` for those ids, their rows in
+  `S.revlog`, any `S.confused` pair naming one of them, and the entry's own `S.pretest` / `S.orderPicked` /
+  `S.deckDay`. **WHAT IT LEAVES IS ANNOTATION AND CHOICE**: the reader's flags, their suspensions, the
+  deck's own options and its place in the list — `RESET_KEEPS`'s distinction one level down.
+  **THE LEVEL GOES DOWN AND THE CONFIRMATION SAYS SO.** Folio's XP is `Object.keys(S.cards).length`, so
+  forgetting a deck of 200 cards costs real levels; the dialog names the card count and, when it moves,
+  the level it will leave the reader on. A chest already opened is not taken back — `checkAchievements`
+  only ever adds, and the artefact is the reader's.
+  **IT BUSTS `uCacheBust()` AND RE-RENDERS**, since the piles, the bars and the banner are all derived
+  from the records it has just deleted. The row is drawn only when the deck HAS studied cards, and it sits
+  immediately before Remove: both are destructive, and Remove stays last because it is the one that takes
+  the deck off the list. **`test-review-decks.js` pins both sheet row lists EXACTLY**, so this row is in
+  that assertion rather than trusted.
 - **…and `S.settings.newPerDay` gained the back-fill every setting beside it already had** (same batch).
   `load()` shallow-merges, so a stored `settings` replaces the default object wholesale, and
   `deckLimits`/`reviewLimits` read `S.settings.newPerDay` with **no fallback of their own** — so a save old
@@ -2539,10 +2576,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     opens, and `congratsPopup` is no longer raised behind it. **AN UNOPENED CHEST QUEUES** (`S.chests` is a
     COUNT), and since Aug 2026 the reader can say so: **Save for later** stands beside the closed chest and
     `chestBannerHTML` says one is waiting above the daily-study banner.
-  · **THREE CHANNELS**: a level; the **daily sweep** (all games won in one day, `S.sweepChest` recording
-    the DAY rather than a boolean, since nothing runs at midnight); and the **STREAK, every seventh day**
+  · **FOUR CHANNELS**: a level; the **daily sweep** (all games WON in one day, `S.sweepChest` recording
+    the DAY rather than a boolean, since nothing runs at midnight); the **STREAK, every seventh day**
     (`S.streakChest` is the streak length last PAID, so the test is arithmetic and can never pay twice for
-    one day), each week worth one chest more than the last.
+    one day), each week worth one chest more than the last; and, since Sep 2026 and on request, the
+    **daily PLAY** — all nine minigames *finished*, whatever the score (`S.playChest`, the same
+    day-string shape for the same reason).
+  · **THE PLAY CHEST IS CLAIMED, NOT GRANTED** (`playChestReady` / `claimPlayChest` / `sweepRowHTML` /
+    `.sweep-row`, Sep 2026, on request). The other three fire from inside something the reader has just
+    done — a grade, a win, a streak roll — where the ninth game may be finished on its own results
+    screen, several routes away from the home page. So the home page draws the chest and the reader
+    presses it: `playChestReady()` is `allGamesPlayedToday(S) && S.playChest !== todayStr()`, and
+    `claimPlayChest()` stamps the day BEFORE calling `grantChest()`, so a double press cannot pay twice.
+    **The order in the click handler is load-bearing**: claim, then `renderInPlace()`, and THEN
+    `openChestPop()` — a repaint after the overlay is up would close it, `render()` clearing every
+    overlay on `document.body`. The meter is a MINIATURE of the grid below it, nine bars in
+    `DAILY_GAMES` order so the lit bar in the middle of the top row is the tile in the middle of the top
+    row; its 3px gap is the request ("but closer together") and is what makes nine marks read as one
+    meter. Locked, it is a real `<button disabled>` wearing `LOCK_SVG` rather than a div promoted later,
+    so the state reaches a screen reader and the keyboard as well as the eye.
+  · **A GAME'S "PLAYED TODAY" IS `gamePlayedToday(key)` AND NOTHING ELSE.** Two tiles still read the
+    legacy `S.daily.lastPlayed` / `S.chrono.date` (Multiple Choice and Timeline), which is the same
+    answer by a different route for most of the day and NOT the same answer at the seam — so the meter
+    and the tiles could disagree about which of nine had been played, which is exactly the arithmetic a
+    meter exists to make checkable. Both now go through the one door.
   · **A CHEST MAY ALSO HOLD A THEME** (Aug 2026, on request): the five non-`folio` themes are locked until
     one drops, at `THEME_DROP` (14%) while any are still locked. **`themeGrandfather` is the part not to
     remove** — a theme already worn is written into the register, once, or the change would silently strip
@@ -2676,10 +2733,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the step lasts. **The fix is NOT to drop the timer**: the requeue already puts a failed card at the
     back of the queue WITHIN a session, and across sessions the delay is the whole of what a step is. So
     the queue learns ahead instead, Anki's `collapseTime` answer — **ONE TAIL STEP in `buildSession`
-    rather than a fix in each of its six branches**, firing only on an EMPTY queue, so the spacing is
-    untouched while there is other work. **It carries no window, unlike `SCHED_AHEAD_MS`**, which bounds
-    the in-session requeue: a bound here would put the disagreement back the day a step ran longer than
-    it. Guarded by `test-review-decks.js` section 21, which asserts the two AGREE rather than any figure.
+    rather than a fix in each of its six branches**. **It carries no window, unlike `SCHED_AHEAD_MS`**,
+    which bounds the in-session requeue: a bound here would put the disagreement back the day a step ran
+    longer than it. Guarded by `test-review-decks.js` section 21, which asserts the two AGREE rather than
+    any figure.
+  · **…AND IT IS APPENDED, NEVER SUBSTITUTED** (Sep 2026, on a second report: "sometimes when i complete
+    a study session of cards, i go back to the home page and find the deck i was studying still has a red
+    number and cards left to study"). It fired only on an EMPTY queue, which closed the half of the first
+    report where the row's red count OPENED a completion screen and left the other half standing: a card
+    already on a learning step when the session is BUILT is in none of the six branches, so a deck
+    offering four new cards and one learning card dealt the four, said "Session complete" and left the
+    red 1 exactly where it was. Measured on a five-card deck, the row read `4 1 0` before the session and
+    `0 1 0` after. **They go at the END of the queue**, so every ordering promise the branches made is
+    kept and the reader meets the day's real work before a step that has not come round — which is what
+    the in-session requeue already does with a card failed a moment ago — and they are PUSHED rather than
+    concatenated, since the queue carries `_sd` / `_ud` / `_unseen` as properties a new array would drop.
   · **THE POOLED REVIEW IS ITSELF AN ENTRY**, `REVIEW_ENTRY` (`"review:all"`), so `deckLimits` /
     `deckDoneToday` / `entryCardIds` / `entryInfo` and the long-press sheet all answer for it as for a deck —
     which is what makes the banner and the rows beneath it arithmetically incapable of disagreeing. Its
@@ -2924,6 +2992,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and fires inside the fixtures of `test-card-types`, `test-community` and `test-deck-ux`, each of
     which imports a deck and studies it at once; each needs an `orderPicked` seed, which is a contained
     change that wants its own pass with those three green.
+    **AND IT STANDS BETWEEN EVERY SUITE AND THE FIRST CARD, which is how it broke two of them** (Sep
+    2026). `test-admin-editor` and `test-deck-glossary` both reach a study card the way a reader does —
+    open the Collections page, click a collection — and since this landed, that click lands on the
+    PICKER. Neither suite was looking for it, so both went on to hunt for a `#reveal-btn` that was not
+    there yet: the first reported three gloss-popup failures, and the second collected nothing and
+    reported **"checked 0 links"** — an isolation check passing its own emptiness off as a result, which
+    is the quietest way a guard can stop guarding. Both now press `#opSkip` if it is there, as a reader
+    would, guarded so it is a no-op if the page stops asking. **A SUITE THAT REACHES A CARD THROUGH THE
+    COLLECTIONS PAGE HAS TO PRESS THROUGH THIS**, and a check that counts what it found should assert
+    that it found ANY.
   · **`deckAttempt` — ANSWER BEFORE REVEALING.** A policy (in `DECK_OPT_INHERIT`) with a global default in
     Settings, **off by default**. **ONE guard, in `showAnswer`, keyed on `fromReader`** — the button, Enter
     and Space all go through it, and the restore path that re-opens an already-revealed card after a reload
@@ -2964,10 +3042,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     never generated** (see the `why` bullet under "Add a card"), so the choice is between an authored
     question and a manufactured one. **`connectKin` and the `.elab-box` / `.elab-acts` / `.elab-note`
     styles went with it**; `cardKinship`, which `connectKin` used, is still Multiple Choice's distractor
-    ranking. **THE PASS THAT FILLED THAT GAP IS COMPLETE** (Sep 2026): all 1,159 cards of the HISTORY and
-    SCIENCE sections carry a set, so the section is rare only on the Geography cards and the language
-    decks, which are deliberately out of scope. **Run `node .claude/add-card-links.js --check` for the
-    figure rather than quoting one here.**
+    ranking. **THE PASS THAT FILLED THAT GAP RAN THE LENGTH OF ITS OWN LIST** (Sep 2026): the 1,159 HISTORY and
+    SCIENCE cards it was planned against all carry a set, and 300 that landed on main while it ran do
+    not — so the section is absent on those, on the Geography cards and on the language decks, the last
+    two deliberately out of scope. **Run `node .claude/why-count.js` for the figure rather
+    than quoting one here.**
   · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
     background's own opening definition — inline under the answer, so a reader whose fold is collapsed
     still gets an explanation. **The footnote markers are stripped**: `sup.fn:empty::before` prints a
@@ -3455,8 +3534,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **16:9 frame** (`.card-img`, `cardImageHTML`) at the top of the Background section. Clicking it opens the
   **fullscreen viewer** (`openImageViewer`: wheel and pinch zoom 1–8×, tap toggles 1↔2.5×, drag pans when
   zoomed, **only the × and Escape close**, `closeImageViewer()` runs in `render()`). One **delegated**
-  document click/keydown listener opens it from any `.card-img` via the figure's `data-img-*` attributes —
-  no per-render wiring.
+  document click/keydown listener opens it from any `.card-img` — and, since Sep 2026, from a geography
+  card's `.av-flag` — via the figure's `data-img-*` attributes; the pair is `IMG_OPEN_SEL`, and there is no
+  per-render wiring.
+  · **THE VIEWER'S TITLE OPENS ON A CAPITAL** (Sep 2026, on request: "image titles should always be
+    capitalised"). This is the one place a picture's title is set as a heading and **111 of them arrive
+    lower-case** — a Commons file name reads `inscribed ox scapula`, and a card's caption is written as a
+    phrase — which above the description reads as a typo rather than as a style. Done at DRAW time through
+    `gameCapFirst`, as every other label on the site is, so it covers a community deck's picture and
+    anything added later with no pass over the data; a numeral or a Han character passes through untouched.
   · **NOTHING INSIDE THE STAGE CLOSES IT** (Aug 2026, on request): a click on the image toggled zoom and a
     click beside it CLOSED, which is the same gesture a few pixels apart doing opposite things — and a
     picture opened to be looked at is one a reader zooms and drags about. **A VIDEO KEEPS ITS BACKDROP
@@ -3666,6 +3752,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `Gabii`, `Clusium`, `Aventine Hill`, `Lake Regillus`). **The rule is that the label names somewhere a
     reader could stand**; where the card's subject has no place of its own, the city is the honest answer
     and the hill is false precision.
+  · **…AND IT DOES NOT OPEN ON "THE"** (Sep 2026, on request: "the atlas location for the card 'Hongshan
+    culture' should not include the word 'The' in its label. The same goes for other locations in the
+    atlas windows, in all collections"). A map label is a place NAMED rather than a phrase in a sentence,
+    and no atlas prints "The Apennines" beside the range. Eight carried one across four collections and
+    they were stripped in `data.js`. **IT IS REFUSED IN `add-card.js` AND `add-locators.js` RATHER THAN
+    STRIPPED AT DRAW TIME**, and the reason is a handful of real place names: **The Hague** is the seat of
+    the Dutch government and **The Valley** the capital of Anguilla, both labels this same window draws off
+    the capitals tables. A rule clever enough to tell those from a definite article is one that will
+    eventually be wrong about one of them; a refusal at the point of writing cannot be.
   · **WHAT CHANGED IN SEP 2026, ON ONE REQUEST ABOUT THE CARD ATLAS WINDOWS.** Seven things, and three
     of them are decisions rather than tuning.
     **THE SIBLINGS ARE THE PLACES THE READER HAS ALREADY STUDIED** — a sibling is drawn once its card has
@@ -3698,9 +3793,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     chains SPLICED into world.js's own rings — a hi-res copy drawn over the low-res one doubles every LAND
     border, so a country keeps world.js's vertex chain wherever an edge is shared with a neighbour and
     only the runs no neighbour owns are replaced. Warmed at IDLE by the locator windows of the collection
-    that frames it, never awaited and never by a map card or the Atlas. **📖 read
+    that frames it, never awaited and never by the Atlas. **📖 read
     `.claude/build-hires-coasts.js`'s header before touching it** — it records why the coast is classified
     off the 10m data rather than off world.js, and why Russia is left out of the China frame.
+    **A MAP CARD GETS ONE TOO, KEYED BY ITS LAYER** (`CMAP_LAYER_HIRES`, the `coast_usa` bundle; Sep 2026,
+    on request: "ensure that in the China geography collection, rivers are visible in China, and China's
+    borders are of a higher resolution, like in the China history collection. Do the same for the US
+    states geography collection"). A map card carries no `data-map-card`, so it cannot be looked up by
+    collection the way a locator is — and does not need to be: its LAYER already says which part of the
+    world it frames, one layer per geography collection. **The world layer is deliberately absent**, a
+    `gw-` card framing any country on earth and a world-wide hi-res coast being a second world.js.
+    **WHAT IT BUYS IS SMALL AND IT IS MEASURED**: A/B in a browser with the bundle dropped and the same
+    view redrawn, it changes **117 pixels on the California card and 377 on Texas**, out of 224,322 —
+    because a map card is not a locator, the state layer is drawn OVER world.js and IS the coast the
+    reader sees, and `us-states.js` is already 0.002°/3dp, one device pixel at this window's zoom ceiling.
+    All it can sharpen is where world.js overhangs that layer and the neighbours' own shores, and it costs
+    220 KB gzipped against China's 63. **State the figure before building the next frame.**
     **A SPLICED RING CAN BE THE COUNTRY TRACED TWICE, AND IT RENDERS PERFECTLY** (Sep 2026, on a bug
     report: "in the Ancient Greece collection I can no longer see the landmass of Turkey"). The splice
     walks the 10m chain between a low-res edge's two ends in the RING's own direction, decided once by
@@ -3732,6 +3840,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     argument against ever adding a layer of places the collection is not about: every step of it was
     "make this quieter" and the end of that road is "take it away". `capAt` and `nearSib` are DELETED
     rather than left unread, a register nothing draws from being the next session's bug.
+  · **A COLLECTION MAY DRAW ITS COUNTRY'S MODERN SUBDIVISIONS, DOTTED** (`CMAP_SUBDIV` / `subdivInner` /
+    `_subdivFor` / `_subdivLines`; Sep 2026, on request: "in the China history collection, add dotted
+    lines for modern province borders in the atlas windows"). A history card's map already carries the
+    coast, the rivers and the modern national borders; what a reader placing Anyang or Erlitou has no way
+    to do is say which province it is in. The table is keyed by COLLECTION ROOT — `china` alone today —
+    naming a bundle and the global it assigns, so it rides the locator's own machinery and no other
+    collection pays for it.
+    **ONLY THE INTERNAL EDGES ARE DRAWN, and they are found by ownership rather than by clipping.** Every
+    edge of every province is keyed on its two endpoints sorted (`"lon,lat|lon,lat"`); an edge two
+    provinces share is internal and one only one province has is the national border, which
+    `world.js` is already drawing solid — so drawing the whole province outline would double it. The
+    shared edges are then walked back into RUNS rather than stroked one at a time, or a dash pattern
+    restarts at every vertex and the line reads as a smear rather than as a dotted rule.
+    **IT IS WARMED AT IDLE AND NEVER AWAITED**, the rivers' own bargain: the card paints at once with its
+    national borders and the provinces appear a moment later, and the cache is dropped when the bundle
+    lands so the next frame recomputes. **`chinaprov` carries `lakes.js` beside it** for the reason
+    `usstates` does.
   · **THE LAND IS FILLED, THEN THE RIVERS, THEN THE BORDERS** (Sep 2026, on two bug reports: "in the
     atlas windows of the world history collection, rivers appear on top of borders, making the borders
     invisible", and "in the China collection atlas windows, the northeast border with Russia is
@@ -3747,6 +3872,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stroked after the water — `addRing` writes through `tc`, so pointing that at a path rather than at the
     context is the whole of it. The thin-river pass moved out of the sibling block into `drawThinRivers()`
     for the same reason; the card's own river, which is the ANSWER, still goes on last and over everything.
+  · **AND A MAP CARD ON A FRAMED LAYER DRAWS RIVERS TOO** (`wantRivers`; Sep 2026, same request as the
+    hi-res coast above). A locator has drawn them since Aug 2026 and a geography card drew none:
+    `rivers.js` is in the `atlas` bundle, which is ~600 KB of era maps, a timeline and a city index that a
+    card asking which state is shaded has no use for. It rides in the `usstates` and `chinaprov` bundles
+    instead — the one file listed three times, which is free, `rivers.js` ASSIGNING `window.RIVERS` rather
+    than pushing onto a queue, exactly as `lakes.js` does. **A row in `CMAP_LAYER_HIRES` turns the water on
+    as well as the coast**, and the two are one decision rather than two: both halves of the request ask
+    for the window a history card already draws, and every layer that wants the finer coast wants the
+    water on it. **Measured by TAKING IT AWAY** — read the pixels, empty `window.RIVERS`, redraw the same
+    view, read them again, which is `test-card-locator.js` section 3's method: the water paints 1,885
+    pixels on a China card and 612 on a United States one, and **0 on a world card, which never loads
+    `rivers.js` at all**.
+  · **A RIVER IS DRAWN IN ITS OWN BLUE IN DAYLIGHT, NOT IN THE OCEAN'S** (`riverInk`; the Atlas's own
+    `riverCol`. Sep 2026, on request: "on the atlas, rivers are quite hard to see on light mode"). Both
+    maps drew a river in the OCEAN colour, which is right at night — the sea is dark against dark land —
+    and nearly invisible by day, where the light paper's ocean is a pale wash: measured at **1.03:1**
+    against the land it crosses, which is no contrast at all. The night value is unchanged (the ocean
+    still), and daylight takes a saturated `rgba(31,122,170,…)` instead, at **3.56:1**. It is a variable
+    set in the theme sync rather than a literal at the draw, so the two maps cannot come to disagree
+    about what colour water is.
   · **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** (Sep 2026, on request). The weight was the Atlas's own
     `0.4 + zoom * 0.16` floored at 0.5 and is `0.15 + zoom * 0.18` floored at 0.3, reaching the old figure
     again around zoom 6 and unchanged at the deep end, where the 1.8px cap has always decided it. The
@@ -3827,6 +3972,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **The viewer's `z-index` (9800) must stay above the gloss stack** — popups sit at 8000+ and the mobile
   sheet at 9600, and a gloss image opens the viewer *from inside* a popup; `focusGlossWin` renormalizes its
   counter at `GLOSS_Z_CAP` so a long session cannot climb past it.
+- **A GEOGRAPHY CARD'S FLAG ENLARGES, AND DOES SO WITH THE MARKER DOWN** (`answerFlagHTML` /
+  `IMG_OPEN_SEL` / `.av-flag`; Sep 2026, on request: "ensure with stylus mode on i can still click flags to
+  enlarge them"). The flag is drawn a couple of centimetres wide inside the answer box, which on a phone is
+  a device whose charge, quarterings and canton cannot be made out at all. Two things.
+  **IT IS NOT GIVEN THE `.card-img` CLASS to earn the delegated listener**, which is the shortcut the
+  picture round already refused: that class carries a fixed 16:9 frame and a `height:100%` on the picture
+  inside it, so adopting it would RESHAPE the very mark the reader is looking at. The listener names
+  `IMG_OPEN_SEL` (`.card-img, .av-flag`) instead and the flag keeps its own small inline box.
+  **AND IT IS A `TIP_SEL` TARGET**, which is the half the request is about: with the marker down the ink
+  canvas is the pointer target for everything on the page, and a flag is neither a real control nor a
+  `.card-img`, so under stylus mode the tap reached nothing at all. There it behaves as a glossary term
+  does — a tap opens it, a line drawn across it is a line drawn across it. **Proved load-bearing by taking
+  `.av-flag` back out of `TIP_SEL` and watching the tap stop opening the viewer.**
 - **A PROFILE PHOTO IS CROPPED BY ITS OWNER AND ENLARGED BY ANYONE ELSE** (`openAvatarCropper` /
   `openAvatarViewer` / `AVATAR_PX` / `.av-crop` / `.iv-avatar`; Aug 2026, on request). The upload
   centre-cropped and there was no appeal — a portrait lost the head and the chin at once. The cropper is a
@@ -4262,6 +4420,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **`src-nopref` is now what the delegated header handler tests** (with `src-compact` carrying it as well
     as its own styling). Without that guard, opening the fold in one round would open it on every card the
     reader studies afterwards.
+  · **MULTIPLE CHOICE SHOWS THE WHOLE ANSWER SIDE OF THE CARD** (`mountCardBack` / `.mc-cardback`; Sep
+    2026, on request). It is the one game built on a real card, and it was answering with a one-sentence
+    note where the card itself has a date line, a picture, an atlas window, its background and its
+    citations — the elaborated feedback the learning-science batch measured at d = 0.49 against a bare
+    right-or-wrong's 0.05, already written and simply not shown. It replaces `gameAnswerNote`'s
+    paragraph rather than standing beside it.
+    **`mountCardBack(inner, c, opts)` IS THE ONE WIRING PATH AND THAT IS THE POINT**: a card's back is
+    not markup alone — the footnotes have to be numbered, the glossary terms wired, the fold made to
+    open, the map mounted and revealed — and `openCardPeek` had its own copy of that list, so any surface
+    rendering `buildBack` was one forgotten line away from a card with dead links or a blank map window.
+    Both go through it now. It sits BELOW the round rather than inside it, in `.dc-shell`'s own column
+    with a rule across the top, so the game has plainly ended before the card begins.
   · **A ROUND ANSWERED STAYS ANSWERED** (`gameProgress` / `setGameProgress`; Sep 2026, on a bug report
     that leaving the picture round half way and re-entering dealt the same questions again with the
     answers known). The one-play lock is only set when a run FINISHES, so an abandoned run was free; the
@@ -4300,9 +4470,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     hand. The placard wears the game's own tile icon (`ICON`, at module scope so the tile and the placard
     cannot disagree). Each records `S.games[key] = { date, played, won }` through `markGamePlayed`, where
     **`won` is a PERFECT score, not a play**.
-  · **THE TILE EARNS ITS COLOUR**: a whisper of its hue unplayed, filled with a green check once played, a
-    shining gold ribbon on a perfect run. All nine `won` on one day is the **Clean Sweep** badge and a
+  · **A PLAYED TILE WEARS ITS STATE — the tile's OWN hue is swapped, not painted over** (`--gt-accent`,
+    Sep 2026, on request, choosing design 8 of eight rendered alternatives). Unplayed, a tile washes in
+    its game's colour with a corner ornament; played, that whole treatment — the wash, the left bar, the
+    hover border, the focus ring, the title — turns green, or gold on a perfect score, and one very
+    large tick is washed across the tile behind the words. **THREE ANSWERS CAME BEFORE IT AND ALL THREE
+    PAINTED A NEW SHAPE ONTO THE TILE**: a full fill, then a small corner mark (a green disc, a gold wax
+    seal), then a green/gold BAND across the top of a phone tile with a big white tick on it — the last
+    rejected twice in the words "I still don't like how the gold/green completed minigames tiles look".
+    Re-tinting the shape the tile already has is what none of them tried.
+    **`--gt-accent` IS WHY IT IS A SMALL CHANGE, and it exists because `--tile` CANNOT BE RE-SET**: the
+    game's hue arrives inline (`style="--tile:…"`) and an inline declaration beats any selector without
+    `!important`, so `.done` sets a SECOND property that every treatment reads and which merely defaults
+    to `--tile`. One line per state, and every derived rule — including the synth, arcade and gazette
+    overrides — followed by being repointed once.
+    **THE CORNER MARKS ARE CLIPPED TO 1px, NEVER `display:none`.** `.gt-check` / `.gt-seal` carry
+    `role="img"` and the aria-label, and are the only thing on the tile that STATES the completion; the
+    tick is decoration and says nothing. Same trade the folded grade bar makes with its labels. Scoped to
+    `.game-tile`, since the review banner draws the same two marks and still shows them.
+    **WHERE THE TICK SITS IS THE ONE THING THAT NEEDED A BREAKPOINT**: a phone tile is nearly square with
+    its words along the foot (the tick goes bottom-left, and the title is read over it — the arrangement
+    that was chosen), where a wider tile is a letterbox with an empty right half and the same placement
+    lays the tick through the title. All nine `won` on one day is still the **Clean Sweep** badge and a
     chest, and the badge gets harder each time the grid grows, deliberately.
+    Guarded by `test-minigames.js`'s `[home]` block, which asserts the accent really switches, that the
+    left bar is painted from it, that the tick is drawn — and that the state is **still stated in words**.
   · **AND IT TURNS OVER TO ITS RECORD** (`gameBackHTML` / `flipGameTile` / `gameStatsPost` /
     `gameStatsLoad` / `.gt-face` / `.gt-back`; Aug 2026, on request). A HOLD flips it — `wireHoldMenu`'s
     own gesture, the deck rows' and the review banner's, so a tap still opens the game and the guard that
@@ -4750,6 +4942,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     plain first-wins rule would leave a stylus reader unable to draw at all; nothing preempts a pen.
     **Capture cannot do this** — the canvas covers the visible page, so it is the hit target for every
     contact regardless. Guarded by `.claude/test-whiteboard.js`.
+  · **IT EXPLAINS ITSELF THE FIRST TIME IT IS OPENED** (`MARKER_TOUR_KEY` / `MARKER_HELP_TIPS` /
+    `openMarkerHelp`, Sep 2026, on request). The panel is seven controls and a hold gesture, and nothing
+    on it said what any of them did — above all that **choosing a tool is what puts the pen down**, which
+    is the one thing a reader cannot discover by pressing things, the panel opening with nothing selected
+    on purpose. It is `pageHelp`'s card, the Atlas's and the Library's, so the coach marks read the same
+    everywhere and the dismissal is the same three ways out; the key is written on first open and the
+    **`.wb-help` button on the Undo/Redo row brings it back**, since a tutorial that can be met once is a
+    tutorial nobody can re-read. It is called at the END of the toggle's open branch, after
+    `applyWBState()`, or the card would be laid over a panel that has not finished drawing.
   **📖 `docs/whiteboard.md` — READ BEFORE CHANGING ANY OF IT.** The fling's sample-window arithmetic (a
   per-event velocity is wrong in both directions, and a synthetic drag is what exposes it), the snap-home
   probe and the transition that must be turned off to take it, the inline colour picker and why an
@@ -4856,7 +5057,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a URL and contains no break opportunity.
 - **Atlas:** an orthographic **Canvas-2D** globe, full-bleed between the nav and a fixed bottom timeline
   (1000 BCE → present). Drag to rotate, wheel/pinch to zoom, plus on-screen `+`/`−` (`#gzIn`/`#gzOut`) and
-  the keyboard, all through `zoomStep()`; `ZMIN 0.82 … ZMAX 10`, and zooming scales the disk radius
+  the keyboard, all through `zoomStep()`; `ZMIN 0.82 … ZMAX 30` (raised from 10 in Sep 2026, on request —
+  the card maps have gone to `CMAP_ZMAX` 400 for years, and the coast, the rivers and the era borders all
+  carry more detail than zoom 10 could reach; both tabs share the constant), and zooming scales the disk radius
   (`R = baseR·zoom`). It opens centred on `S.settings.home` (**Settings → Home location**, default the
   Netherlands). The operational half:
   · **THE WHEEL LISTENER IS ON `window`, IN THE CAPTURE PHASE** (`onGlobeWheel`) and normalises
@@ -4879,6 +5082,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     motion frames skip the city layer, the selection coastline and `shadowBlur`; a selection paints as ONE
     batch (`paintFillGroups`) and is cached into `selCv`; big buffers are released; and the idle warm
     reschedules itself while anything is moving.
+  · **ONE RIVER WEIGHT, AND IT IS THINNER THE FURTHER OUT YOU ARE** (`riverWidth`, Sep 2026, on request:
+    "further decrease the width of Rivers as you zoom out"). It was `0.4 + zoom * 0.16` floored at 0.5,
+    written out three times — the era branch, the present-day branch and the personal atlas — so at world
+    scale all 1,073 rivers were drawn at half a pixel over a coast stroked at about the same, which is a
+    blue haze on the continents rather than water in them. The deep end is unchanged (the 1.8 cap still
+    decides it); ONE function rather than three copies, so the three branches cannot come to disagree.
+    The card maps keep their own curve — see the map-card bullet.
   · **CITY LABELS THIN OUT WITH ZOOM** (`CITY_SEP` / `CITY_CAP`): a pin whose name cannot be placed is
     dropped WHOLE, pin and all, and `CITIES` is already sorted by significance so the drops are the right
     ones. A pin and its label go together, so the whole layer waits for the settled frame.
@@ -4893,6 +5103,91 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     gets a dot and its name and is drawn only while focused.
   · **Guarded by `test-atlas-places.js` and `test-layout.js`**; eras are built by
     `node .claude/build-era.js <year> [label]` and edited in **Admin → Timeline → Open globe editor**.
+  · **YOUR OWN ATLAS — A SECOND TAB, AND THE ONE THE PAGE OPENS ON** (`atlasTab` / `MINE` /
+    `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
+    `drawMineMarks` / `mineCoastSkip` / `landDim` / `showMinePopup` / `eraIsModern` / `.atlas-tabs` /
+    `.atlas-empty` / `.cp-mine`; Sep 2026, on request). The globe
+    starts EMPTY — land, ocean, lakes, rivers and coast, and no border, dot or name anywhere — in every
+    year from 4000 BCE, and studying a card is what puts a place on it. Seven things.
+    **THE REGISTER IS DERIVED FROM `S.cards`, NEVER STORED.** A place is unlocked iff its card has a
+    record, which is the same test a locator window already uses for a studied sibling — so this needed
+    no progress field, no migration and nothing to keep in step, and resetting one deck's progress takes
+    that deck's places off the globe the same afternoon.
+    **A COUNTRY IS UNLOCKED BY NAME AND RESOLVED THROUGH THE ERA.** A geography card names a place in
+    `world.js`, and every one of the thirteen eras files its own territories by name too, so an unlocked
+    France is drawn in whatever shape the year's map gives it and does not appear at all in a year whose
+    map has no such state. That is the whole of "in the appropriate years" and it needed no table of
+    independence dates: **Folio's own maps already carry the answer.** A `us-states` or `china-provinces`
+    shape belongs to no era, so it is drawn only where the map IS present-day (`eraIsModern`) — today's
+    boundaries over a 1600 map would be a claim Folio does not make.
+    **A LOCATOR CARRIES ITS OWN YEARS, AND ONLY THE START OF THEM BINDS** (`cardSpanYears`; the end was
+    dropped in Sep 2026, on request: "cities and dot locations should have no end date, i.e. should appear
+    in their earliest known date of settlement and then stay visible until the modern day"). Both ends is
+    right about a STATE — which is what the country shapes answer for, through the era's own map — and
+    wrong about a PLACE: Yinxu is still there, and a globe that took Athens away in 300 CE was telling the
+    reader the city had stopped existing. What a card's span really dates is its SUBJECT, the Shang capital
+    or the classical city, and a dot on a map is the place rather than the episode. A card with no dates at
+    all is a place rather than a period — a river, a cave — so it is drawn in every year, which is the same
+    rule one step further on.
+    **THE RAIL IS LINEAR HERE AND BENT THERE, and nothing snaps.** The world atlas has thirteen stops and
+    bends its scale to keep them apart; the personal atlas has none, because every year has a map, so a
+    bent scale would only lie about how far apart two years are. The chevrons step a century in the deep
+    past and a decade after 1500.
+    **THE POPUP IS THE CARD** — `buildBack` through `mountCardBack`, in the country panel's own shell, with
+    its year paragraph, its Wikidata figures and the Atlas's citation fold hidden: those describe a country
+    as the world atlas knows it, and what is being shown is a card, whose own facts and sources come with
+    it. `.cp-tools[hidden]{display:none}` is required — an author `display:flex` beats the attribute, the
+    trap `.ces-imgpanel` and `.af-src` already carry.
+    **NO LEGEND AND NO SEARCH** (the request says so for the legend; the search is the WORLD atlas's index,
+    so a hit there would open a panel about a place the reader has not unlocked). Which makes `riversOn`
+    the one toggle that tab reads, and it is forced ON: the request describes the empty globe as
+    "landmasses+oceans+rivers etc.", and with no legend a default of off is a layer promised and
+    unreachable.
+    **THE EARTH IS COLOURLESS UNTIL IT IS EARNED, AND A CLICK IS THE ONLY GOLD** (Sep 2026, on request:
+    "make countries colourless unless they are clicked, same as on the normal atlas. areas without any
+    known countries or places should appear slightly darker"). Every unlocked country was washed in
+    `TINT_SEL` at 0.16, which says "selected" about all of them at once and leaves a click nothing to say.
+    Two shades of the land colour do it instead — `landDim` for the earth at large, `land` for the states
+    this reader has reached — and the map's own selection gold is spent on the one shape just clicked,
+    tracked in `mineSel` (a NAME, not an index: the shape list is rebuilt whenever the era or the register
+    changes, and an index would light whichever country inherited the slot). **`landDim` IS NOT
+    `landWild`**: the era branch darkens its wilderness to 0.62 because that wilderness is a minority of
+    the map and carries a stipple; here it is nearly the whole earth on a reader's first day, and at 0.62
+    the globe reads as unlit rather than as unearned. 0.87 is a step, not a shadow.
+    **A MARK IS A RED DOT, AND ONLY EVER A DOT** (Sep 2026, on request: "make the dots red instead of
+    orange … mountain ranges like the Apennines should not be displayed … areas or regions (like Etruria,
+    Attica) should not show. countries or civilisations should"). The red is the locator windows' own
+    `rgba(200,69,60)`, so a place looks the same here as on the card it came from, and the gold is left to
+    mean one thing. A REGION and a RANGE are dropped from the register outright: they were a dashed wash
+    and a spine, and a dozen of them at world scale is a rash of blotches over an earth whose point is that
+    it is empty. Nothing is lost by it — a country or a civilisation is unlocked by NAME against the year's
+    own map and drawn in that map's shape, which is a better answer than any authored polygon — and they
+    are NOT demoted to a dot, a dot in the middle of Etruria being the false claim the card maps stopped
+    making.
+    **THE STRAY BORDERS ARE THE COAST CLASSIFIER'S GENEROSITY, AND THE FIX IS A MASK** (`mineCoastSkip`;
+    Sep 2026, on a bug report naming "the western border of Uzbekistan, some borders of Jordan,
+    Montenegro, the Netherlands, western Spain, the southern border of the Western Sahara"). `coastEdges`
+    calls an unshared world.js chain a coast if OCEAN is found anywhere within its bbox plus 1.2°, which is
+    why every reported stray is a land border a short way inland from a sea — and on the world atlas nobody
+    could see it, a border being drawn there anyway. This tab draws the coast and nothing else, so each one
+    stands alone in an empty continent. The discriminator is `coastEdges`'s own, two DIFFERENT countries
+    across the chain; it is not run in there because the world atlas has no use for it, and it probes the
+    chain's middle first so the fuller vote runs only for the few that look like a border. Measured: ~410ms
+    once, inside a first paint that already costs 1.4s on this tab, and **a shortcut that skipped CLOSED
+    loops was tried and removed** — a country's whole outline chains as one closed loop, its coast and its
+    unshared border together, so it took the fix to zero while looking like a five-times speed-up.
+    **AND THE POPUP SAYS NOTHING THE CARD ALREADY SAYS** (`.cp-mine`; Sep 2026, on request: "remove the
+    'Answer' header and 'From your card' tagline, the title bar (should only display when popup is
+    collapsed) and its dating"). Four repetitions of the card back beside them — the answer term is its own
+    heading and its dates are its date line — taken off by a stylesheet class rather than by four writes,
+    because the title bar has to come BACK when the sheet is collapsed (a collapsed sheet is nothing but
+    its title bar) and because the "Answer" label is inside markup `showMinePopup` does not build. The name
+    is still WRITTEN: it is what the collapsed sheet shows and what a screen reader reads.
+    **THE TAB IS MODULE-LEVEL AND `route()` RESETS IT**, which is what "opening the page defaults to this
+    tab" means; a `S.settings` value would send a reader who once looked at the world atlas back to it for
+    ever. Switching tab is `render()`, not `route()`, or the reset would undo the press. The two tabs keep
+    SEPARATE coach-mark keys (`folio_mine_tour_v1`), since a reader who dismissed the world atlas's card
+    months ago has never been told what this one is.
   **📖 `docs/atlas.md` — READ BEFORE TOUCHING THE RENDER PATH, AN ERA OR THE TIMELINE.** Why every rule
   above exists, the host quirks behind `forceComposite`, the non-linear rail, the popup's own sections and
   pager, the era build's topology-preserving simplify, its region supplement and overlap cleaning, and the
@@ -5417,11 +5712,11 @@ lookup.
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, contiguous — next is `wh-301` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 500 cards, contiguous — next is `gr-501` |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 100 cards, contiguous — next is `rm-101` |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 300 cards, contiguous — next is `rm-301` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 99 cards, SCATTERED — next is `cnh-042`, an early gap; the collection is open to study |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 98 cards, SCATTERED — next is `cnh-042`, an early gap, and `cnh-070` was retired in Sep 2026; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -5445,7 +5740,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (251 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (256 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -6349,7 +6644,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty-eight committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **Forty-nine committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
@@ -6474,7 +6769,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 251 assertions on **the join between the sixteen card plans and
+  · `node .claude/test-card-plans.js` — 256 assertions on **the join between the sixteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -6579,6 +6874,20 @@ dead code (never rendered).
     three article spans) is exempt and must stay so**: the slash cannot be spoken and picking one gender
     asserts what the card declines to. Report-only, exit 1 on a finding. **Re-run after rebuilding any
     deck, and after touching `say_text` in cils/build_deck.py or the `say` block in delf/build_deck.py.**
+  · `node .claude/test-personal-atlas.js` — **the Atlas's second tab** (23 assertions, Sep 2026), and
+    every fault it guards is silent: a globe with nothing on it looks exactly like a reader who has
+    studied nothing, a place resolved in the wrong year looks like a deliberate absence, and a popup
+    that has quietly gone back to the world atlas's country panel is a perfectly good country panel. The
+    counts are PIXELS — the marks are on a canvas — and there are two of them, because the two claims are
+    now different colours: an unlocked COUNTRY is the light land shade (zero of it on an empty globe, where
+    every land pixel is the dark one) and a PLACE is the locator red, which nothing else on this globe is.
+    The light shade is COMPUTED from the same two CSS variables and the same formula `readColors` uses
+    rather than sampled, so a theme change moves both together. **Re-run after touching `atlasTab` /
+    `MINE` / `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
+    `drawMineMarks` / `mineCoastSkip` / `landDim` / `showMinePopup` / `eraIsModern` /
+    `renderStatic`'s MINE branch / `updateHoverName` / `snapYear` / `frac2year` / `year2frac` / the
+    `.atlas-tabs` markup / `.atlas-empty` / `.cp-mine`, or after changing which cards carry a `map` or a
+    `locator`.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and
     a glossary term's way onto the map (Aug 2026). **Re-run after touching `glossPlace` / `focusPlace` /
     `CITY_SEP` / `computeCityLayout` / `gsIndex` / `hmOpacity`, or after re-running
@@ -6599,6 +6908,15 @@ dead code (never rendered).
     `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
     `markGamePlayed`, `gameAnswerNote` / `gameGlossKey`, `gameTap` / `gameCommit` / `gameClearPick` /
     `gameFound` / `TINT_PICK` / the `.mg-acts` buttons, or the home page's tile grid.**
+    **`crosswordForPage` MATCHES THE DAY ON THE SQUARES, NEVER ON THE CLUE NUMBERS** (Sep 2026). It used
+    to fingerprint the grid by its set of `n + dir` — "1d,2d,3a,4d,5d,6a,7a,8a,9a" — which is not an
+    identity at all: the layout search fills a nine-entry grid the same shape most days, so consecutive
+    days routinely share it. When they did, the FIRST candidate won, everything below was computed
+    against another day's geometry, and the suite asked the page for a square that grid has not got and
+    **died there — taking every check after it with it**, which is how a stale matcher reads as a broken
+    game. The squares are the right key because they are exactly what those checks go on to address, and
+    because they survive what the clue TEXT does not: the page rewrites its own prose as it renders
+    (spelling, units), so a text fingerprint would fail on a reader's setting rather than on a mismatch.
   · `node .claude/test-avatar.js` — **the profile photo's crop, and enlarging someone else's** (17
     assertions, Aug 2026), and all three of its subjects fail SILENTLY: a hole in the crop becomes a black
     wedge in a JPEG that only its owner ever sees; a drag wired to nothing still opens a dialog, shows the

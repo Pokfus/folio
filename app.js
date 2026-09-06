@@ -637,12 +637,16 @@
      because a locator moved or a card retired changes what a sibling map draws, and an admin edit is
      exactly the thing that does either. */
   let _locSibCache = null;
+  /* `_atlasMineCache` is here for the same reason and with the same trap: `uCacheBust` runs at boot from
+     `applyAdminEdits`, so a `let` declared beside `atlasUnlocks` 31,000 lines down would be in its
+     temporal dead zone and throw on the way in. */
+  let _atlasMineCache = null;
   /* HOW OFTEN A DECK USES ITS OWN WORDS (`_wordFreq`; Sep 2026, on request that a deck be ordered by
      frequency rather than by the alphabet). See `uDeckWordFreq` for what it counts and what it cannot;
      declared here for the reason every cache above it is, and busted with them because a deck remounted
      or repaired is a deck whose sentences have moved. */
   let _wordFreq = new Map();
-  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; _wordFreq = new Map(); _answerIdx = null; }
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; _atlasMineCache = null; _wordFreq = new Map(); _answerIdx = null; }
   let _byteEnc = null;
   function cardBytes(id) {
     let n = _cardBytes.get(id);
@@ -1571,6 +1575,7 @@
       chests: 0,         // unopened chests. A level-up offers to open one at once; this is what is left if they don't.
       showcase: [],      // up to SHOWCASE_MAX artefact ids, in the order the reader arranged them, shown on the profile
       sweepChest: "",    // the day a Clean-Sweep chest was granted, so a second win that day cannot grant another
+      playChest: "",     // the day the reader CLAIMED the nine-games-finished chest (see sweepRowHTML)
       streakChest: 0,    // the streak COUNT a chest was last granted at — see maybeStreakChest for why it is a count
       /* Three counters the badges added in Aug 2026 need, and each is a counter rather than something
          derivable. `chestsOpened` cannot be read off `artefacts` any more, a chest now sometimes giving
@@ -1941,12 +1946,23 @@
     const g = (prog && prog.games) || {}, t = todayStr();
     return DAILY_GAMES.every((k) => g[k] && g[k].date === t && g[k].won);
   }
+  /* FINISHING all nine is a different thing from WINNING all nine, and it earns its own chest (Sep 2026,
+     on request: "completing (not perfecting) all the minigames each day should give the user a free
+     chest"). The Clean Sweep asks for a perfect score in every game, which is a hard day's work and
+     rightly rare; this asks only that the reader turned up to all nine, which is the habit the daily
+     games exist to build. Both can fall on one day and both pay — the two are answering different
+     questions, and a reader who swept has by definition also finished. */
+  function gamesPlayedTodayCount(prog) {
+    const g = (prog && prog.games) || {}, t = todayStr();
+    return DAILY_GAMES.filter((k) => g[k] && g[k].date === t && g[k].played).length;
+  }
+  function allGamesPlayedToday(prog) { return gamesPlayedTodayCount(prog) === DAILY_GAMES.length; }
 
   /* ---------- LEGACY local accounts (superseded by the Supabase online accounts below) ----------
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2039,6 +2055,45 @@
      would take the site's own look away from somebody who reset a card schedule, and would leave them
      wearing a theme they no longer own. `chestsOpened` and `published` are history and go. */
   const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags", "themes", "theme"];
+  /* ---------- RESETTING ONE DECK (Sep 2026, on request: "in the long press menu of active decks, there
+     should be an option to reset all the user's progress in that particular deck") ----------
+     `resetProgress` above is the whole save; this is one entry's share of it, and the two answer the same
+     question about what "progress" means. What goes is the STUDY HISTORY of the cards under this entry —
+     their schedules, their criterion days, their per-review rows and the pairs the reader kept mixing up
+     among them — so the deck reads as one they have never opened.
+     WHAT STAYS IS WHAT WAS NEVER HISTORY, and it is `RESET_KEEPS`' own list read one level down: a FLAG
+     is an annotation the reader put on a card, and a SUSPENDED card is a standing decision that this card
+     is not to be dealt — neither is something they studied, and a reset that quietly undid them would be
+     destroying in ways the row's own words do not describe. A BURIED card goes: burying is a by-product
+     of answering, it expires tomorrow anyway, and leaving it would hold cards out of a deck the reader
+     has just emptied.
+     IT LOWERS THE READER'S LEVEL, and that cannot be helped: Folio's XP is the number of distinct cards
+     studied, derived on every read, so forgetting fifty cards is fifty XP gone. Nothing is taken back for
+     it — the artefacts, the chests and the badges are all `S.achievements` and `S.artefacts`, which only
+     ever grow — but the number on the banner does fall, so the confirmation says so before it happens.
+     THE REMOTE REVIEW ARCHIVE IS LEFT ALONE. `S.revlog` is a local window on a table of its own (see the
+     per-review log), and the rows for these cards are pruned here so nothing on the page reports a
+     history for a card with no record; the archive itself is what the FSRS optimiser fits on, and
+     deleting somebody's measurements because they re-started a deck is a different act from forgetting
+     where they had got to. */
+  function resetEntryProgress(id) {
+    const ids = entryCardIds(id);
+    if (!ids.length) return 0;
+    const set = new Set(ids);
+    let n = 0;
+    ids.forEach((cid) => {
+      if (S.cards && S.cards[cid]) { delete S.cards[cid]; n++; }
+      if (S.buried) delete S.buried[cid];
+    });
+    if (Array.isArray(S.revlog)) S.revlog = S.revlog.filter((r) => !set.has(r && r[0]));
+    if (S.confused) Object.keys(S.confused).forEach((k) => { const p = k.split("|"); if (set.has(p[0]) || set.has(p[1])) delete S.confused[k]; });
+    if (S.pretest) delete S.pretest[id];        // the pre-test is about this deck's first session, which is ahead of them again
+    if (S.orderPicked) delete S.orderPicked[id];   // …and so is the question of how they want it dealt
+    if (S.deckDay) delete S.deckDay[id];        // today's tally is derived from the records just deleted
+    save();
+    uCacheBust();
+    return n;
+  }
   function resetProgress() {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { if (RESET_KEEPS.indexOf(k) < 0) S[k] = JSON.parse(JSON.stringify(base[k])); });
@@ -10030,7 +10085,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        fetched only by a reader who opens a map card — nothing like the ~4 MB the `atlas` bundle would
        cost to get the same file. It is listed in `atlas` too and that is fine: lakes.js ASSIGNS
        window.LAKES rather than pushing onto a queue, so arriving twice is idempotent. */
-    usstates: { files: ["us-states.js", "lakes.js"] },
+    /* …AND `rivers.js` RIDES HERE TOO (Sep 2026, on request: "do the same for the US states geography
+       collection, add the rivers"). It is 347 KB and it is in `atlas`, which is where a history card's
+       locator gets it — but `atlas` is ~600 KB of era maps, a timeline and a city index that a card
+       asking which state is shaded has no use for at all, and this bundle exists precisely so the two
+       decks do not pay each other's weight. Listing the one file twice costs nothing: rivers.js ASSIGNS
+       window.RIVERS rather than pushing onto a queue, exactly as lakes.js does above. */
+    usstates: { files: ["us-states.js", "lakes.js", "rivers.js"] },
     /* The 31 provincial-level divisions of mainland China and their 27 capitals, for the Geography
        section's China collection. Its own bundle rather than a file inside `usstates` for the reason
        `usstates` is not part of `atlas`: a reader studying the states must not fetch the provinces to be
@@ -10038,7 +10099,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the one recorded above — it is about world.js rather than about the province shapes, which are
        NOT clipped (measured; see .claude/build-china-provinces.js). Without it Qinghai Lake and Poyang
        are grey fields under a province. Arriving twice is free: lakes.js ASSIGNS window.LAKES. */
-    chinaprov: { files: ["china-provinces.js", "lakes.js"] },
+    chinaprov: { files: ["china-provinces.js", "lakes.js", "rivers.js"] },
     /* The capital of every country and territory as a POINTS TABLE, for the gold dot on a world capital
        card (see CARD_MAP_LAYERS). Its own bundle rather than a file inside `world`, and fetched only by a
        card that actually asks for a dot: `world` is what every map window loads for the coastline under
@@ -10055,6 +10116,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     coast_italy: { files: ["coast/italy.js"], after: hiresCoastIngest },
     coast_greece: { files: ["coast/greece.js"], after: hiresCoastIngest },
     coast_china: { files: ["coast/china.js"], after: hiresCoastIngest },
+    /* The United States, for the Geography section's map cards rather than for a locator (Sep 2026, on
+       request: "give the US a higher resolution"). It is the largest of the four by a distance — the
+       frame has to hold Hawaii and Maine, and the Canadian shore that shares it is half the file even
+       with Canada's own box cut to 52°N — so 220 KB gzipped against China's 63.
+       WHAT IT BUYS IS SMALL AND MEASURED, and the figure belongs beside the weight rather than in the
+       builder alone: A/B in a browser with the bundle dropped and the same view redrawn, it changes 117
+       pixels on the California card and 377 on Texas, out of 224,322. A map card is not a locator — the
+       state layer is drawn OVER world.js and IS the coast the reader sees, and us-states.js is already
+       0.002°/3dp, one device pixel at this window's zoom ceiling. All a hi-res world coast can sharpen
+       is where world.js overhangs that layer and the neighbours' own shores. It is warmed at idle and
+       never awaited, so nobody waits for it; a reader who never opens the states deck never fetches it. */
+    coast_usa: { files: ["coast/usa.js"], after: hiresCoastIngest },
     /* HI-RES RIVERS for the same two frames (Sep 2026, on request). Their own bundles rather than files
        inside coast_italy / coast_greece: the coast is what a window is drawn ON and the rivers are a layer
        over it, the coast files are warmed for China too where there is no river file, and a reader on a
@@ -14117,6 +14190,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (name !== "study") clearStudySession();
     // the hold belongs to the trip between the study page and the editor; going anywhere else ends it
     if (name !== "admin" && name !== "study") studyHold = null;
+    // the Atlas opens on the reader's own atlas every time — see the note beside `atlasTab`
+    if (name === "map") atlasTab = "mine";
     /* An admin-only route is refused HERE and not in the page, so a deep link, a Back and a stray
        `route()` are all covered by one line. `warofages` joins `admin`: the tab is hidden for everybody
        else (applyMode), but a hidden tab is not a guard — the address is typeable. */
@@ -15587,6 +15662,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          says what the row is wearing NOW, which for most rows is the mark the site gives them. */
       item("icon", "Icon", iconRowNote(id)) +
       (nestedIn ? item("unnest", "Move out of " + groupTitle(nestedIn), "Put it back at the top of the list") : "") +
+      /* RESET PROGRESS — this entry's share of the Danger zone (Sep 2026, on request). It is offered only
+         where there is something to forget, for the reason the chest banner renders nothing at zero: a
+         destructive row on a deck the reader has never opened is a row that can only disappoint. It sits
+         with the other destructive rows and carries their red. */
+      (studied ? item("resetprog", "Reset progress",
+        "Forget the " + studied + " card" + (studied === 1 ? "" : "s") + " you have studied in this " + thing, "dm-danger") : "") +
       (isGroup ? item("ungroup", "Ungroup", "Take the group apart — the decks inside stay in your review", "dm-danger")
        : isReview ? "" : item("remove", "Remove",
            isLang ? "Take every deck of this language out of the daily study"
@@ -15731,6 +15812,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           return;
         }
         if (act === "sched") { close(); openDeckSched(id); return; }
+        if (act === "resetprog") {
+          close();
+          /* THE LEVEL IS NAMED WHEN IT WOULD ACTUALLY MOVE, and only then. Folio's XP is the count of
+             distinct cards studied, so forgetting a deck lowers it — which is a surprise nothing else on
+             this row would warn about, and a sentence about levels on a reset that does not change one
+             would be noise. See resetEntryProgress. */
+          const before = levelFromXP(Object.keys(S.cards).length).level;
+          const after = levelFromXP(Math.max(0, Object.keys(S.cards).length - studied)).level;
+          inlineConfirm(
+            "Forget everything you have studied in “" + info.title + "”? " + studied +
+            (studied === 1 ? " card goes" : " cards go") + " back to being new, and this cannot be undone." +
+            (after < before ? " Your level falls from " + before + " to " + after + "; your artefacts and badges stay." : "") +
+            " Your flags and any suspended cards are kept.",
+            () => {
+              const n = resetEntryProgress(id);
+              render();
+              toast(n ? n + " card" + (n === 1 ? "" : "s") + " reset" : "Nothing to reset");
+            }, "Reset");
+          return;
+        }
         if (act === "skip") {
           setDeckSkip(id, !skipped);
           close();
@@ -17839,6 +17940,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <div class="wb-row">
           <button class="wb-btn wb-undo" aria-label="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Undo</button>
           <button class="wb-btn wb-redo" aria-label="Redo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>Redo</button>
+          ${/* …and the way BACK to the card that explains all of this (Sep 2026, with the tutorial). Every
+                other first-visit card on the site has one — the Atlas's `#gzHelp`, the Library's
+                `#libHelpBtn`, a book's `#bkHelp` — and without it the panel's own explanation could be
+                dismissed once and never seen again. */""}
+          <button class="wb-btn wb-help" aria-label="What do these buttons do?" title="What do these buttons do?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.2a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.7-.9 1.3v.6"/><path d="M12 17h.01"/></svg>Help</button>
         </div>
       </div>
       <button class="wb-toggle" aria-label="Drawing tools" title="Drawing tools — hold to put the pen up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>`;
@@ -18034,7 +18140,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          and it is exactly the tap that says which tool was meant. */
       WB.panelOpen = true;
       applyWBState();
+      openMarkerHelp();   // the first time only — see MARKER_TOUR_KEY
     });
+    el.querySelector(".wb-help").addEventListener("click", () => openMarkerHelp(true));
     wbMakeDraggable(el, el.querySelector(".wb-toggle"));
     wbWireHoldToRelease(el.querySelector(".wb-toggle"));
     wbToolsRef = el;
@@ -18054,6 +18162,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     WB.enabled = !!on;
     applyWBState();
     if (WB.onToggle) WB.onToggle();
+  }
+  /* ---------- THE MARKER EXPLAINS ITSELF, ONCE (Sep 2026, on request: "when the whiteboard icon is
+     opened for the first time, the user should go through a brief tutorial explaining what the buttons
+     do and the long press on the icon to select/unselect it") ----------
+     The panel is eight controls in a 200px square with no labels on any of them, and one of the two
+     gestures that matter — holding the marker to put the pen up — is not on the panel at all. Neither is
+     discoverable by looking, which is what the request is about.
+     IT IS `pageHelp`, the card the Atlas, the Library shelf and a book already use, so this is a fourth
+     instance of one pattern rather than a fourth kind of overlay — and it is shown when the panel is
+     OPENED rather than when a page mounts, which is the moment the reader has asked what this thing is.
+     `?` ON THE PANEL BRINGS IT BACK, exactly as the Atlas's and the Library's do, so the card can be
+     dismissed without losing it. And it is one key in `localStorage`, like theirs: a reader who has met
+     it does not meet it again, on any page and on any device this browser is signed in on. */
+  const MARKER_TOUR_KEY = "folio_marker_tour_v1";
+  const MARKER_HELP_TIPS = [
+    "<b>Choosing a tool is what starts drawing</b> — the three dots are the pen at three widths, and beside them are the highlighter and the eraser. Opening the panel on its own selects nothing, so you can reach a colour or Undo without the page being taken over.",
+    "<b>Hold the marker button to put the pen up — or back down</b>. That is the quickest way to stop drawing and read the page again; the button glows while the pen is down, with the panel open or shut. A tap opens and closes the panel, and a drag throws the whole thing to another corner.",
+    "<b>The rest of the row</b> — Undo and Redo step through your strokes, the bin clears the page, and the last button is for a stylus: turn it on and your finger scrolls while only the pen draws. Underneath, the swatches set the colour, and the square below them mixes one of your own.",
+    "<b>Where the ink goes</b> — on a study card it is scratch paper and is gone when you move on; in a book and on the Atlas globe it is kept, pinned to the page or to the map, so it is still there when you come back.",
+  ];
+  function openMarkerHelp(force) {
+    if (!force) {
+      try { if (localStorage.getItem(MARKER_TOUR_KEY)) return; } catch (e) { return; }
+    }
+    pageHelp("The marker", MARKER_HELP_TIPS, "Got it",
+      () => { try { localStorage.setItem(MARKER_TOUR_KEY, "1"); } catch (e) {} });
   }
   function showWBTools() {
     if (!markerOn()) return;   // turned off in Settings — the floating panel never appears
@@ -18262,7 +18396,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the case that makes it plain: claimed at pointerdown, a picture could not be drawn on at all, which
        is exactly what the comment above says a marker is for. Here a tap opens it and a line across it is
        a line across it. */
-    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img";
+    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img, .av-flag";
     const hitUnder = (e, sel) => {
       const prev = canvas.style.pointerEvents;
       canvas.style.pointerEvents = "none";
@@ -19838,6 +19972,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     grantChest();
     toast("🎯 A perfect score in every game today — a chest is waiting in your account.");
   }
+  /* A FOURTH CHANNEL, AND THE ONLY ONE THE READER HAS TO CLAIM (Sep 2026, on request: "completing (not
+     perfecting) all the minigames each day should give the user a free chest… a locked chest which
+     becomes clickable when all nine are completed"). Every other chest is granted where it is earned and
+     found later in the account; this one is a control on the home page, so the grant happens WHEN IT IS
+     PRESSED and the overlay opens straight away — the press is the reward, and a chest silently added to
+     a count somewhere else is exactly what the request's "locked chest which becomes clickable" is not.
+     `S.playChest` records the day it was claimed rather than a boolean, for `sweepChest`'s reason:
+     nothing runs at midnight to clear a flag. */
+  function playChestReady() { return allGamesPlayedToday(S) && S.playChest !== todayStr(); }
+  function claimPlayChest() {
+    if (!playChestReady()) return false;
+    S.playChest = todayStr();
+    grantChest();   // grantChest saves
+    return true;
+  }
 
   /* Draw one artefact. Returns null when there is nothing left to find, which the overlay says out loud
      rather than opening an empty chest. */
@@ -20016,7 +20165,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return '<div class="chest-banner" id="chestBanner">' +
       '<span class="cb-ic" aria-hidden="true">' + CHEST_SVG + "</span>" +
       '<div class="cb-text"><b>' + (n === 1 ? "A chest is waiting" : n + " chests are waiting") + "</b>" +
-      "<small>Every Folio level opens one, and so does winning every daily game in a day.</small></div>" +
+      "<small>Every Folio level opens one, and so does finishing all nine of the day's minigames.</small></div>" +
       '<button type="button" class="btn cb-open" id="cbOpen">Open ' + (n === 1 ? "it" : "one") + "</button></div>";
   }
   /* The inventory. `opts.entry` renders the head and a way through to the Reliquary page INSTEAD of the
@@ -20439,6 +20588,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<g class="chest-lid"><path d="M14 40V30a46 16 0 0 1 92 0v10z" fill="currentColor" fill-opacity=".14"/><path d="M6 40h108v11H6z" fill="currentColor" fill-opacity=".22"/></g>' +
       '<g class="chest-box"><path d="M14 51h92v35a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="currentColor" fill-opacity=".14"/><path d="M52 51h16v17H52z" fill="currentColor" fill-opacity=".3"/><path d="M60 60v6"/></g>' +
     '</svg>';
+  /* The padlock on the home page's daily chest while it is locked (Sep 2026). Drawn in the same 24-unit
+     stroke style as every other mark on the site, and `aria-hidden`: the button's own label says it is
+     locked and what would unlock it, so the picture repeats nothing. */
+  const LOCK_SVG =
+    '<svg class="lock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<rect x="4.5" y="10.5" width="15" height="10" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg>';
   let _chestClose = null;
   function closeChestPop() { if (_chestClose) _chestClose(); }
   /* opts.level — announce a level above the chest (the level-up path). The chest overlay IS the level-up
@@ -22252,9 +22407,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return h < 5 ? "Late night" : h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
     })();
 
-    const playedChallengeToday =
-      !!S.daily.lastPlayed && dayKey(S.daily.lastPlayed) === todayStr();
-    const playedChronoToday = !!S.chrono && S.chrono.date === todayStr();
+    /* ALL NINE READ ONE FACT (Sep 2026, with the counter above them). These two used to be read off the
+       LEGACY fields each game keeps for itself — `S.daily.lastPlayed` for Multiple Choice and
+       `S.chrono.date` for Timeline — while the other seven asked `gamePlayedToday`. Both games write
+       `S.games` through `markGamePlayed` in the same breath, so a real player never saw the two disagree;
+       what forced the change is that the chip counter above is a MINIATURE of this grid, and a miniature
+       reading a different field from the thing it depicts is one that will eventually contradict it. The
+       legacy writes stay — `S.chrono.best` and the rest are read elsewhere — but nothing decides a tile's
+       state from them any more. */
+    const playedChallengeToday = gamePlayedToday("challenge");
+    const playedChronoToday = gamePlayedToday("chrono");
     const playedTrueFalseToday = gamePlayedToday("truefalse");
     const playedWhoSaidToday = gamePlayedToday("whosaid");
     const playedFindItToday = gamePlayedToday("findit");
@@ -22327,6 +22489,47 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const g = S.games && S.games[key];
       if (!(g && g.date === todayStr() && g.played && typeof g.s === "number" && typeof g.n === "number")) return "";
       return g.s + "/" + g.n;
+    };
+    /* ---------- THE DAY'S NINE, AND THE CHEST THEY EARN (Sep 2026, on request) ----------
+       "On the home page, below the minigame header put a counter X/9 and a locked chest which becomes
+       clickable when all nine are completed. The counter should look like a 3x3 grid of small rounded
+       chips… but closer together. A line should light up if the corresponding minigame in the grid is
+       completed."
+       It is a MINIATURE OF THE GRID BENEATH IT, and that is the whole of the design: nine chips in three
+       rows of three, in `DAILY_GAMES` order, which is the order the tiles are laid out in — so the lit
+       chip in the middle of the top row is the tile in the middle of the top row, and the counter says
+       WHICH nine as well as how many. Each chip carries the game's name as its title and the row carries
+       the count in words for a screen reader, since nine unlabelled bars are nothing to read out.
+       THE CHIPS LIGHT IN ONE COLOUR RATHER THAN NINE. Taking each tile's own hue was tried on paper and
+       is what the miniature argues for, but a chip is about 16×5px: nine hues at that size read as
+       confetti rather than as a meter, and this is a meter. It takes `--good`, which is the colour of the
+       check a played tile already wears, so "finished" means the same thing in both places.
+       THE CHEST IS A REAL BUTTON IN EVERY STATE, never a `<div>` that becomes one: it is `disabled` while
+       locked, so the keyboard and the screen reader both learn it exists and is not yet available, and
+       the title says what would unlock it. */
+    const sweepRowHTML = () => {
+      const done = DAILY_GAMES.map(gamePlayedToday);
+      const n = done.filter(Boolean).length, all = DAILY_GAMES.length;
+      const claimed = S.playChest === todayStr();
+      const ready = n === all && !claimed;
+      const chips = done.map((d, i) =>
+        '<span class="sw-chip' + (d ? " on" : "") + '" title="' + esc((GAME_NAMES[DAILY_GAMES[i]] || [])[0] || DAILY_GAMES[i]) +
+        (d ? " — finished today" : "") + '"></span>').join("");
+      return '<div class="sweep-row">' +
+        '<div class="sweep-meter" role="img" aria-label="' + n + " of " + all + ' minigames finished today">' +
+          '<div class="sweep-chips">' + chips + "</div>" +
+          '<span class="sweep-count"><b>' + n + "</b>/" + all + "</span>" +
+        "</div>" +
+        '<button type="button" class="sweep-chest' + (ready ? " ready" : "") + (claimed ? " claimed" : "") + '"' +
+          ' id="sweepChest" data-sweepchest="1"' + (ready ? "" : " disabled") +
+          ' title="' + (claimed ? "Today's chest is opened — it is in your account"
+            : ready ? "Open the chest for finishing all nine today"
+            : "Finish all nine of today's minigames to unlock a chest") + '"' +
+          ' aria-label="' + (claimed ? "Today's minigame chest, already opened"
+            : ready ? "Open today's minigame chest"
+            : "Locked: finish all nine minigames to unlock today's chest") + '">' +
+          CHEST_SVG + (ready || claimed ? "" : '<span class="sw-lock" aria-hidden="true">' + LOCK_SVG + "</span>") +
+        "</button></div>";
     };
     const gameGrid = `<div class="game-grid">
       ${tile({ id: "g-challenge", key: "challenge", cls: "g-challenge", color: "#D9544C", glyph: ICON.choices, title: "Multiple Choice", sub: gameSub("challenge"), done: playedChallengeToday, won: wonToday.challenge })}
@@ -22646,6 +22849,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               coloured squares under nothing at all does not say what it is. */""}
         <section class="games-sec">
           <h2 class="games-head">Minigames</h2>
+          ${sweepRowHTML()}
           ${gameGrid}
         </section>
         ${aboutLink}
@@ -22661,6 +22865,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (cfRow) cfRow.addEventListener("click", () => {
       const ids = confusionDrillIds();
       if (ids.length) route("study", { scope: { type: "ids", ids, where: "Cards you mix up" } });
+    });
+    /* The day's chest. It repaints the whole page rather than the row, because claiming it changes the
+       chest count the banner above may be showing too — and `renderInPlace` is what keeps that from
+       reading as a navigation (no scroll to the top, no entrance animation). */
+    const swc = root.querySelector("#sweepChest");
+    /* THE REPAINT COMES FIRST AND THE OVERLAY SECOND, which is not an ordering preference: `render()`
+       closes every overlay on `document.body`, the chest included, so opening it and then repainting
+       takes it away in the same tick — which is what shipped for ten minutes and reads as a button that
+       does nothing. The repaint is what turns the chest from `ready` to `claimed`, and it is
+       `renderInPlace` so that claiming is not read as a navigation. */
+    if (swc) swc.addEventListener("click", () => {
+      if (!claimPlayChest()) return;
+      renderInPlace();
+      openChestPop();
     });
     root.querySelectorAll(".game-tile[data-game]").forEach((el) => {
       const key = el.dataset.game;
@@ -24338,16 +24556,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* THE LEARN-AHEAD IS ONE TAIL STEP RATHER THAN SIX BRANCHES (see learnAheadIds). Every branch above
        selects on `isDueNow`, so a card whose learning step has not come round is in none of them — and a
        fix written into each would be five copies of one rule, with the sixth added later left out and
-       nothing on the page to say so. Here it can only ever fire on an EMPTY queue, which is exactly the
-       state the bug report describes: a row showing a red count that opens on a completion screen.
-       The review scope needs no help — `reviewQueue` has already done it, so `queue` is not empty there —
-       but going through the same step costs nothing and means there is one rule rather than two.
+       nothing on the page to say so. It runs on EVERY session, appending whatever the branches could not
+       reach — see the note below for why that is not the empty-queue form it started as.
+       The review scope needs its own copy in `reviewQueue` all the same, since the home banner reads that
+       function directly and has to offer a Start where the pile counts say there is work.
        `_sd` / `_ud` / `_unseen` are left alone: those are the "push on with extra cards" affordance, and
        a learning card is not an extra. */
-    if (!queue.length) {
-      const ahead = learnAheadIds(scopeAllIds(scope));
-      if (ahead.length) { queue = ahead; total = ahead.length; }
-    }
+    /* IT IS APPENDED, NEVER SUBSTITUTED (Sep 2026, on a bug report: "sometimes when i complete a
+       study session of cards, i go back to the home page and find the deck i was studying still has a red
+       number and cards left to study"). Firing it only on an EMPTY queue closed one half of the original
+       report — a row whose red count opened a completion screen — and left the other half standing: a card
+       already on a learning step when the session is BUILT is in none of the six branches, so a deck
+       offering four new cards and one learning card dealt the four, said "Session complete", and left the
+       red 1 exactly where it was. Measured on a five-card deck: the row read `4 1 0` before the session
+       and `0 1 0` after it.
+       THEY GO AT THE END, so every ordering promise the branches made is kept and the reader meets the
+       day's real work before a step that has not come round — which is what the in-session requeue already
+       does with a card failed a moment ago. And they are PUSHED rather than concatenated: the queue carries
+       `_sd` / `_ud` / `_unseen` as properties on the array, and a new array drops the "push on with extra
+       cards" affordance with them. */
+    { const have = new Set(queue);
+      const ahead = learnAheadIds(scopeAllIds(scope)).filter((id) => !have.has(id));
+      if (ahead.length) { ahead.forEach((id) => queue.push(id)); total = queue.length; } }
     warmUpFirst(queue);        // …open on something the reader has met (see WARMUP_N)
     spreadNoteSiblings(queue);
     return { queue, where, scope };
@@ -30183,6 +30413,59 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      and .claude/build-hires-coasts.js. A window substitutes the bundle's rings for world.js's, ring by
      ring, the moment it lands; a collection with no row here draws world.js and nothing else. */
   const CMAP_HIRES = { "col-40": "italy", "col-13": "greece", china: "china" };
+  /* AND THE SAME FOR A MAP CARD, KEYED BY ITS LAYER (Sep 2026, on request: "ensure that in the China
+     geography collection, rivers are visible in China, and China's borders are of a higher resolution,
+     like in the China history collection. Do the same for the US states geography collection").
+     A map card has no `data-map-card`, so it cannot be looked up by collection the way a locator is —
+     and it does not need to be: its LAYER already says which part of the world it frames, one layer per
+     geography collection, so the table is the honest key rather than a second list to keep in step.
+     THE WORLD LAYER IS DELIBERATELY ABSENT. `gw-` cards frame any country on earth, so there is no
+     frame to build a coast for and no country whose rivers could be the point; a world-wide hi-res coast
+     is a second world.js, which is exactly what the splice exists to avoid.
+     A ROW HERE ALSO TURNS THE RIVERS ON, and the two are one decision rather than two: both requests ask
+     for the same window a history card already draws, and every layer that wants the finer coast wants
+     the water on it. */
+  const CMAP_LAYER_HIRES = { "china-provinces": "china", "us-states": "usa" };
+  /* ---------- MODERN SUBDIVISIONS UNDER A HISTORY CARD'S MAP (Sep 2026, on request: "in the China
+     history collection, add dotted lines for modern province borders in the atlas windows") ----------
+     A locator window frames a stretch of country and gives a reader a coastline, some rivers and a gold
+     mark; a reader who knows where Henan is has nothing on that map to hang it on. The provinces are the
+     modern grid the subject sits in, and DOTTED is what says they are modern: an atlas draws a
+     present-day administrative line dotted precisely so it is not read as a frontier of the period.
+     KEYED BY COLLECTION ROOT, like `CMAP_HIRES`, because this is a fact about which part of the world a
+     collection is about — and the shapes are a bundle the site already ships for the geography deck, so
+     the whole feature is a warm and a stroke.
+     ONLY THE INTERIOR EDGES ARE DRAWN, and that is the whole of the difficulty: a province ring traces
+     the national coast and the national frontier as well as its neighbours, so stroking every ring
+     dotted would draw a second, slightly-offset copy of the coastline the window has already drawn
+     properly. `subdivInner` keeps only the edges TWO provinces share, which is the same test the Atlas's
+     era builder calls interior — measured on the shipped file, 10,073 of 32,536 edges. It is computed
+     once per bundle and cached, since it is a walk over 32,000 edges and this runs on a globe the reader
+     is dragging. */
+  const CMAP_SUBDIV = { china: { bundle: "chinaprov", global: "CHINA_PROVINCES" } };
+  let _subdivFor = null, _subdivLines = null;
+  function subdivInner(list) {
+    if (_subdivFor === list) return _subdivLines;
+    const seen = new Map();
+    const key = (a, b) => { const ka = a[0] + "," + a[1], kb = b[0] + "," + b[1]; return ka < kb ? ka + "|" + kb : kb + "|" + ka; };
+    (list || []).forEach((c) => (c.p || []).forEach((r) => {
+      for (let i = 0; i + 1 < r.length; i++) { const k = key(r[i], r[i + 1]); seen.set(k, (seen.get(k) || 0) + 1); }
+    }));
+    /* The shared edges, gathered into RUNS rather than kept as loose segments: a path of 10,000
+       two-point moves strokes ten thousand dash phases that restart at every vertex, which draws a line
+       of even dashes as a line of dots of random length. Walking each ring and breaking wherever an edge
+       stops being shared gives the dash pattern a continuous line to run along. */
+    const out = [];
+    (list || []).forEach((c) => (c.p || []).forEach((r) => {
+      let run = null;
+      for (let i = 0; i + 1 < r.length; i++) {
+        if ((seen.get(key(r[i], r[i + 1])) || 0) > 1) { if (!run) { run = [r[i]]; out.push(run); } run.push(r[i + 1]); }
+        else run = null;
+      }
+    }));
+    _subdivFor = list; _subdivLines = out;
+    return out;
+  }
   /* NEVER DRAWN IN A CARD WINDOW (Sep 2026, on request: "the square of the Vatican City State borders
      should not be displayed"). world.js rounds the Vatican to a 0.06° box — six kilometres a side round a
      state of 0.44 km² — which on any card framing Rome is a square nobody asked about. Italy's polygon
@@ -30360,7 +30643,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        country's rings with the bundle's patched rings substituted index for index, memoised per country
        and thrown away when a different bundle object lands — a per-frame map over 117,000 vertices is not
        something a drag can afford. Before the bundle arrives it is world.js's own rings, untouched. */
-    const hiRegion = sibCard ? (CMAP_HIRES[(cardCollectionRoot(sibCard) || {}).id] || "") : "";
+    const hiRegion = sibCard ? (CMAP_HIRES[(cardCollectionRoot(sibCard) || {}).id] || "") : (CMAP_LAYER_HIRES[layerName] || "");
+    /* THE WATER. A locator has always drawn it; a map card on a framed layer draws it now, for the reason
+       CMAP_LAYER_HIRES gives. Everything else — the world layer's capitals and countries deck — draws
+       none, and pays for none: `rivers.js` rides in that layer's own bundle. */
+    const wantRivers = !!sibCard || !!hiRegion;
+    /* The modern subdivisions this collection's locators draw under their subject (see CMAP_SUBDIV).
+       A LOCATOR only: a map card's own layer IS the divisions, so drawing them again dotted would trace
+       the very shape the reader is being asked to name. */
+    const subdiv = sibCard ? (CMAP_SUBDIV[(cardCollectionRoot(sibCard) || {}).id] || null) : null;
     /* The collection's home city (see CMAP_ANCHOR) — dropped on the card that IS that city, or on one
        standing inside it, where the answer's own gold mark is already there and a red square beside it
        would be a second name for one place. */
@@ -30407,6 +30698,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     let PX = 0, PY = 0, PV = 0, P3x = 0, P3y = 0, P3z = 0;
     const HP = { x: 0, y: 0 };
     let ocean = "#b3ebff", land = "#ddd", border = "#999", sub = "#bbb", ink = "#222", halo = "#fff", font = "sans-serif";
+    /* A CARD'S RIVERS TAKE THE ATLAS'S OWN RIVER INK, which in light mode is NOT the ocean colour — see
+       the note beside `riverCol` there. The fault was reported on the Atlas and is the same fault here,
+       on the same pale land, in the same pale cyan; fixing one and not the other would leave the site
+       drawing water two ways.
+       IT IS A SHADE SOFTER HERE THAN ON THE ATLAS (0.72 against 0.9), and the reason is what each map is
+       FOR: the Atlas is a map of the world and its rivers are one of the things a reader turned the layer
+       on to see, where this window is an annotation on a card whose subject is the gold mark on it. At
+       full strength the water was the loudest thing in the frame. */
+    let riverInk = "rgba(31,122,170,0.72)";
     const clampN = (v, a, b) => (v < a ? a : v > b ? b : v);
     /* Hex OR an `rgb(r,g,b)` string, because the shaded place's colour comes from `TINT_SEL`, which states
        its own as a triple. Without the second branch `parseInt` reads "rgb(255,178,46)" as NaN, `|| 0`
@@ -30427,6 +30727,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const inkc = cv2("--ink"), paper = cv2("--paper"), paper2 = cv2("--paper-2"), indigo = cv2("--indigo");
       const L = h2r(paper), dark = (L[0] * 0.299 + L[1] * 0.587 + L[2] * 0.114) < 128;
       ocean = dark ? mixc(paper2, indigo, 0.30) : "#b3ebff";
+      riverInk = dark ? ocean : "rgba(31,122,170,0.72)";
       land = mixc(paper, inkc, 0.10); border = mixc(paper, inkc, 0.42); sub = rgbaOf(inkc, 0.22);
       /* The shaded place's own colour is NOT read here: it is `TINT_SEL`, a module-level literal, and it is
          theme-INDEPENDENT on purpose — the whole question a map card asks is "which shape is lit up", and
@@ -30628,7 +30929,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              coast is stroked at 0.7. It reaches the old figure again around zoom 6 — where the frame is
              a region and a river is something the reader is actually looking at — and nothing changes
              at the deep end, where the cap has always decided it. */
-          ctx.strokeStyle = ocean; ctx.lineWidth = clampN(0.15 + zoom * 0.18, 0.3, 1.8);
+          ctx.strokeStyle = riverInk; ctx.lineWidth = clampN(0.15 + zoom * 0.18, 0.3, 1.8);
           ctx.beginPath();
           for (let i = 0; i < RIV.length; i++) {
             const nm = ownSet ? String(RIV[i].n || "").toLowerCase() : "";
@@ -30683,8 +30984,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ctx.fill(gp, "evenodd");
         bord.addPath(gp);
       }
-      if (sibCard) drawThinRivers();
+      if (wantRivers) drawThinRivers();
       ctx.strokeStyle = border; ctx.lineWidth = 0.7; ctx.stroke(bord);
+      /* THE MODERN SUBDIVISIONS, DOTTED (see CMAP_SUBDIV). After the national borders, so a province line
+         never sits on top of the frontier it runs up to, and before the collection's own marks, which are
+         what the card is about. Quiet — the ink at a third strength, under a pixel wide — because this is
+         the grid the subject is placed on rather than anything the card asserts. */
+      if (subdiv && Array.isArray(window[subdiv.global])) {
+        const runs = subdivInner(window[subdiv.global]);
+        if (runs.length) {
+          ctx.save();
+          ctx.strokeStyle = rgbaOf("#000000", 0.34);
+          ctx.lineWidth = clampN(0.35 + zoom * 0.05, 0.4, 0.9);
+          /* The dash is scaled with the line, so it stays a DOTTED line at every zoom rather than
+             becoming a dashed one close in and a solid one far out. */
+          const d = clampN(1.6 + zoom * 0.2, 1.6, 4);
+          ctx.setLineDash([d, d * 1.5]);
+          ctx.beginPath();
+          for (let i = 0; i < runs.length; i++) if (visible(runs[i])) addRing(runs[i], false);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
       /* The layer's own shapes are FILLED with the land colour before they are outlined, because the two
          files trace the same coastline at different tolerances: world.js at 0.02 for a world map, this
          layer at 0.002 for a card that zooms to 90×. So the states are the finer of the two and routinely
@@ -31217,12 +31538,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        `glossExtra`'s bargain, and the `saveData` guard is `startMiniGlobe`'s.
        It is fired from HERE rather than from the promise below because it depends on nothing that
        resolves there, and a reader who never scrolls to the foot of a card should not have had it. */
-    if (sibCard && !(navigator.connection && navigator.connection.saveData)) {
-      whenIdle(() => { if (!stopped) ensureData("atlas").then(() => { if (!stopped) schedule(); }); });
-      // …and the frame's hi-res coast, on the same bargain (see CMAP_HIRES)
+    if ((sibCard || hiRegion) && !(navigator.connection && navigator.connection.saveData)) {
+      /* A LOCATOR alone asks for `atlas`: its rivers and cities live there. A MAP CARD gets rivers.js
+         inside its own layer bundle instead (see DATA_BUNDLES), which is awaited below with the shapes,
+         so there is nothing here for it to warm. */
+      if (sibCard) whenIdle(() => { if (!stopped) ensureData("atlas").then(() => { if (!stopped) schedule(); }); });
+      // …and the frame's hi-res coast, on the same bargain (see CMAP_HIRES / CMAP_LAYER_HIRES)
       if (hiRegion) whenIdle(() => { if (!stopped) ensureData("coast_" + hiRegion).then(() => { if (!stopped) { hiFor = null; schedule(); } }); });
-      // …and its hi-res rivers, where the frame has a set (Italy and Greece; China has none)
+      // …and its hi-res rivers, where the frame has a set (Italy and Greece; China and the USA have none)
       if (hiRegion && DATA_BUNDLES["river_" + hiRegion]) whenIdle(() => { if (!stopped) ensureData("river_" + hiRegion).then(() => { if (!stopped) schedule(); }); });
+      // …and the modern subdivisions, on the same bargain: the card is readable at once and the grid
+      // fills in behind it (see CMAP_SUBDIV)
+      if (subdiv) whenIdle(() => { if (!stopped) ensureData(subdiv.bundle).then(() => { if (!stopped) { _subdivFor = null; schedule(); } }); });
     }
     host.classList.add("mc-loading");
     /* The points table is a THIRD bundle, and only where this card asks for a dot — see `pointsBundle`
@@ -31386,8 +31713,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      as `image` does.
 
      IT IS NOT THE CARD'S ONE FRAME. `image` and `video` are alternatives and the card shows one of them;
-     this is a small mark inside the answer box, never opened fullscreen and never a `.card-img`, so it does
-     not retire either of them. It is deliberately NOT a community-deck field: `CARD_FIELDS` does not carry
+     this is a small mark inside the answer box and never a `.card-img`, so it does not retire either of
+     them. It DOES enlarge — see answerFlagHTML, and the reason the class is not simply reused. It is deliberately NOT a community-deck field: `CARD_FIELDS` does not carry
      it, so a stranger's deck cannot ship one and nothing has to sanitize it. */
   function answerFlag(c) {
     const f = c && c.answerFlag;
@@ -31405,10 +31732,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* The `alt` is the flag's own description where the card carries one and the CREDIT otherwise, never an
      empty string: a reader who cannot see it is owed at least whose file it is. `title` carries the credit
      in both cases, since there is nowhere else on a card for a flag's provenance to be read. */
+  /* AND IT ENLARGES (Sep 2026, on request: "ensure with stylus mode on i can still click flags to enlarge
+     them"). The flag is drawn a couple of centimetres wide inside the answer box, which on a phone is a
+     device whose charge, quarterings and canton cannot be made out at all — so it opens in the site's own
+     fullscreen viewer, where the credit sits under it like every other picture's.
+     IT IS NOT GIVEN THE `.card-img` CLASS to earn the delegated listener, which is the shortcut the
+     picture round already refused: that class carries a fixed 16:9 frame and a `height:100%` on the
+     picture inside it, so adopting it would RESHAPE the very mark the reader is looking at. The listener
+     is widened to name `.av-flag` instead, and the flag keeps its own small inline box.
+     AND IT IS A TIP_SEL TARGET, which is the half the request asks about: with the marker down the ink
+     canvas is the pointer target for everything on the page, and a flag is neither a real control nor a
+     `.card-img`, so under stylus mode the tap reached nothing. There it behaves as a glossary term does —
+     a tap opens it, a line drawn across it is a line drawn across it. */
   function answerFlagHTML(c) {
     const f = answerFlag(c);
     if (!f) return "";
-    return '<img class="av-flag" src="' + esc(f.src) + '" alt="' + esc(f.alt || f.credit) + '" title="' + esc(f.credit) + '" loading="lazy">';
+    return '<img class="av-flag" role="button" tabindex="0" src="' + esc(f.src) + '" alt="' + esc(f.alt || f.credit) + '" title="' + esc(f.credit) + '" loading="lazy"' +
+      ' data-img-src="' + esc(f.src) + '" data-img-title="' + esc(f.alt || "") + '" data-img-desc="" data-img-credit="' + esc(f.credit) + '">';
   }
 
   /* ---------- the locator map (Aug 2026, on request) ----------
@@ -31584,6 +31924,85 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (Array.isArray(al)) al.forEach((a) => { const v = String(a || "").trim(); if (v) own.add(v.toLowerCase()); });
     }
     return own;
+  }
+  /* ---------- YOUR OWN ATLAS: what studying a card puts on the globe (Sep 2026, on request) ----------
+     "On the Atlas page, add a second tab, which will feature the user's own explored Atlas … the whole
+     globe should have no borders or dots shown at first and be empty … in every year since 4000 BCE. By
+     studying cards from the curated collections, users unlock these countries and places on the atlas in
+     the appropriate years."
+
+     THE REGISTER IS DERIVED, NEVER STORED, which is the whole reason this needed no new progress field
+     and no migration: a place is unlocked iff its card has a record in `S.cards` — exactly the test a
+     locator window already uses to decide which sibling places to draw. A reader who resets one deck's
+     progress loses that deck's places the same afternoon, with no second register to keep in step.
+
+     A COUNTRY IS UNLOCKED BY NAME AND DRAWN FROM WHATEVER MAP THE YEAR HAS. A geography card names a
+     place in `world.js` (`map.key`), and every one of the Atlas's thirteen eras files its own territories
+     by name too — so studying France does not unlock one polygon, it unlocks the NAME, and the personal
+     globe draws whatever territory of that name the era for the current year carries. That is what makes
+     "every year that that state has existed" answerable at all without a table of independence dates
+     nobody has written: what is on screen is exactly what Folio's own historical maps say, in the shape
+     those maps give it, and a state simply does not appear in a year whose map has no such state. Before
+     1500 there is no era map, so the globe there is landscape and the reader's own locator marks — which
+     is the empty earth the request describes.
+
+     A MODERN SUBDIVISION IS DRAWN ONLY WHERE THE MAP IS PRESENT-DAY. `us-states` and `china-provinces`
+     shapes are today's boundaries and belong to no era, so drawing Wyoming over a 1600 map would be a
+     claim Folio does not make. The test is a property of the era — its geometry IS `world.js`'s — rather
+     than a year somebody picked.
+
+     A LOCATOR CARRIES ITS OWN YEARS. `cardSpanYears` reads the card's own date line, so Yinxu shows in
+     the centuries the Shang capital stood there and in no others; a card with no date at all is a place
+     rather than a period — a river, a cave — and is drawn in every year. ONLY THE START OF THAT SPAN
+     BINDS (Sep 2026, on request): a place is not taken off the map again — see `mineMarks`. A REGION and
+     a RANGE are not registered at all (Sep 2026, on request) — see the note beside the `marks.push`
+     below.
+
+     A DOT IS A NAME, NOT A COORDINATE. `map.dot` names a city in its layer's own points table, which is
+     lazy, so an unlock records the name and the layer and the point is resolved at DRAW time — a capital
+     unlocked before `worldcaps` lands appears when it lands rather than being dropped. */
+  function atlasUnlocks() {
+    const key = Object.keys(S.cards || {}).length + "|" + ((window.WORLD_GEO || []).length) + "|" + ((window.US_STATES || []).length) + "|" + ((window.CHINA_PROVINCES || []).length);
+    if (_atlasMineCache && _atlasMineCache.key === key) return _atlasMineCache.v;
+    const names = new Map(), subdiv = [], marks = [], need = new Set();
+    Object.keys(S.cards || {}).forEach((cid) => {
+      const c = CARD_BY_ID[cid];
+      if (!c) return;                                   // a community card names no place on this globe
+      const title = String(c.answerText || "").trim() || String(cid);
+      const spec = cardMapSpec(c);
+      if (spec) {
+        if (spec.layer === "world") {
+          spec.keys.forEach((k) => { const lk = k.toLowerCase(); if (!names.has(lk)) names.set(lk, { id: cid, title: title, key: k }); });
+        } else {
+          if (spec.def.bundle) need.add(spec.def.bundle);
+          subdiv.push({ id: cid, title: title, layer: spec.layer, keys: spec.keys, global: spec.def.global });
+        }
+        if (spec.dot) {
+          if (spec.def.pointsBundle) need.add(spec.def.pointsBundle);
+          marks.push({ id: cid, title: title, kind: "dot", dot: spec.dot, points: spec.def.points, modern: true, y0: null, y1: null });
+        }
+        return;
+      }
+      const loc = cardLocator(c);
+      if (!loc) return;
+      const ys = cardSpanYears(c);
+      const y0 = ys.length ? Math.min.apply(null, ys) : null;   // the START only — see mineMarks: a place does not stop existing
+      /* A REGION AND A RANGE ARE NOT ON THIS GLOBE (Sep 2026, on request: "mountain ranges like the
+         Apennines should not be displayed … areas or regions (like Etruria, Attica) should not show.
+         countries or civilisations should"). They were drawn as a dashed wash and a spine — the marks
+         their own card maps use — and at world scale a dozen of them is a rash of amber blotches over an
+         earth whose whole point is that it is empty until it is earned. A COUNTRY OR A CIVILISATION is not
+         lost by this: those are unlocked by NAME against the year's own map (see `names` above) and are
+         drawn as the territory that map gives them, which is a better shape than any authored polygon.
+         What is left here is the reader's PLACES — cities, sites, caves, battles — each a dot.
+         Nor are they demoted to a dot: a dot in the middle of Etruria says Etruria is a point near Siena,
+         which is the false claim the card maps stopped making (see `locatorSiblings`). */
+      if (loc.kind === "region" || loc.kind === "range") return;
+      marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, y0: y0 });
+    });
+    const v = { names: names, subdiv: subdiv, marks: marks, need: need, count: names.size + subdiv.length + marks.length };
+    _atlasMineCache = { key: key, v: v };
+    return v;
   }
   function locatorSiblings(id) {
     const root = cardCollectionRoot(id);
@@ -31977,12 +32396,48 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* "Source: …" for a picture or a clip, with a URL turned into a link and anything else left as words.
      ONE builder, because the fullscreen viewer and the Picture round both print it and a second copy is
      how the two come to disagree about whether a credit is a link. */
+  /* A URL ANYWHERE IN THE CREDIT IS A LINK, not only a credit that IS one (Sep 2026, on request: "when
+     clicked an image to enlarge it, the links in the source sections should be clickable"). The test was
+     `/^https?:/` against the WHOLE string, so a bare URL became a link and the house form — an author, a
+     licence, then the address after a full stop — was escaped end to end and its address was dead text.
+     Measured over the cards and the glossary: 1,817 credits are a bare URL and 1,309 are that second
+     shape, so nearly two in five of the site's credits offered an address the reader could not follow,
+     which reads as a broken link rather than as a rule.
+     IT IS NOT `SRC_URL_RX`, AND THAT IS THE WHOLE OF THE DIFFICULTY. The citation pattern stops at `(`
+     and `)` — deliberately, since a citation's address is percent-encoded — but a credit's address is a
+     Commons file name written as it stands, and 149 of them carry a bracket: matching with that pattern
+     truncates `…G.Gardner_(9255157507).jpg` to `…G.Gardner_(1` and hands the reader a link that 404s,
+     which is worse than the plain text it replaced. So the match runs to the next space and is then
+     trimmed from the right: sentence punctuation first, then a closing bracket ONLY where the address
+     carries no opening one to match it, which is the four credits that write the address inside brackets
+     mid-sentence and the only way to tell those from the 149.
+     The escaping is piecewise round the matches, never over a string that already carries markup. A
+     credit that is nothing but an address still prints without its scheme, which is what keeps a long
+     Commons URL from running past the picture; one with prose round it keeps the address as written,
+     since cutting the scheme out of the middle of a sentence reads as a typo. */
+  const MEDIA_URL_RX = /https?:\/\/[^\s<>"]+/g;
+  function trimCreditUrl(u) {
+    let s = u;
+    for (;;) {
+      if (/[.,;:]$/.test(s)) { s = s.slice(0, -1); continue; }
+      if (s.endsWith(")") && (s.split(")").length - 1) > (s.split("(").length - 1)) { s = s.slice(0, -1); continue; }
+      return s;
+    }
+  }
   function mediaCreditHTML(credit) {
     const c = String(credit == null ? "" : credit).trim();
     if (!c) return "";
-    return /^https?:\/\//i.test(c)
-      ? 'Source: <a href="' + esc(c) + '" target="_blank" rel="noopener">' + esc(c.replace(/^https?:\/\//i, "").replace(/\/$/, "")) + "</a>"
-      : "Source: " + esc(c);
+    const link = (href, text) => '<a href="' + esc(href) + '" target="_blank" rel="noopener">' + esc(text) + "</a>";
+    if (/^https?:\/\//i.test(c) && !/\s/.test(c)) return "Source: " + link(c, c.replace(/^https?:\/\//i, "").replace(/\/$/, ""));
+    let out = "", last = 0;
+    MEDIA_URL_RX.lastIndex = 0;
+    for (let m; (m = MEDIA_URL_RX.exec(c)); ) {
+      const url = trimCreditUrl(m[0]);
+      if (!url) continue;
+      out += esc(c.slice(last, m.index)) + link(url, url);
+      last = m.index + url.length;
+    }
+    return "Source: " + out + esc(c.slice(last));
   }
   function cardImageHTML(img) {
     return '<figure class="card-img" role="button" tabindex="0" title="Click to enlarge"' +
@@ -32193,7 +32648,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        begins in the caption — the stage owns pan and zoom, and a credit is a link to be clicked. */
     const metaHTML = (img.title || img.desc || credit)
       ? '<div class="iv-meta">' +
-        (img.title ? '<div class="iv-title">' + esc(img.title) + "</div>" : "") +
+        /* AND THE TITLE OPENS ON A CAPITAL (Sep 2026, on request: "image titles should always be
+           capitalised"). This is the one place a picture's title is set as a heading, and 111 of them
+           arrive lower-case — a Commons file name reads `inscribed ox scapula` and a card's caption is
+           written as a phrase — which above the description reads as a typo rather than as a style. Done
+           at DRAW time, as every other label on the site is, so it covers a community deck's picture and
+           anything added later without a pass over the data; `gameCapFirst` passes a numeral or a Han
+           character through untouched. */
+        (img.title ? '<div class="iv-title">' + esc(gameCapFirst(img.title)) + "</div>" : "") +
         (img.desc ? '<p class="iv-desc">' + esc(img.desc) + "</p>" : "") +
         (creditHTML ? '<div class="iv-credit">' + creditHTML + "</div>" : "") +
         "</div>"
@@ -32293,6 +32755,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     stage.addEventListener("pointercancel", liftPtr);
     ov.querySelector(".iv-close").addEventListener("click", closeImageViewer);
     requestAnimationFrame(() => ov.classList.add("show"));
+  }
+  /* ---------- WIRING A RENDERED CARD BACK (Sep 2026) ----------
+     `buildBack` returns markup; making it BEHAVE takes eight more calls — the glossary links, the
+     tooltips, the footnote numbering, the Background fold, the read-aloud controls and, on a card that
+     carries one, the map window. That ritual was written out four times, and the copies had already
+     drifted: the card peek called neither `wireFootnotes` nor `mountCardMaps`, so a peeked locator card
+     showed an empty globe. One function, called wherever a back is put on the page outside the study
+     card's own path.
+     `opts.expand` opens the Background fold, which is what a PREVIEW wants and a reader does not. */
+  function mountCardBack(inner, c, opts) {
+    if (!inner) return;
+    opts = opts || {};
+    openLinks(inner);
+    processAbstract(inner, c); setupTooltips(inner); wireFootnotes(inner);
+    const bgHead = inner.querySelector(".bg-head"), bgToggle = inner.querySelector(".bg-toggle"), bgCollapse = inner.querySelector(".bg-collapse");
+    if (opts.expand) {
+      inner.querySelectorAll(".bg-collapse, .bg-toggle").forEach((el) => el.classList.remove("collapsed"));
+      if (bgHead) bgHead.setAttribute("aria-expanded", "true");
+    }
+    if (bgHead && bgCollapse) bgHead.addEventListener("click", () => {
+      const col = bgCollapse.classList.toggle("collapsed");
+      if (bgToggle) bgToggle.classList.toggle("collapsed", col);
+      bgHead.setAttribute("aria-expanded", col ? "false" : "true");
+    });
+    inner.querySelectorAll(".tr-play").forEach((btn) => btn.addEventListener("click", () => speak(btn.dataset.say, btn)));
+    wireAnswerSay(inner);
+    wireTTS(inner, c);
+    // a locator's globe, already naming its place: the answer is on screen, so there is nothing to hold back
+    mountCardMaps(inner); cardMapReveal(inner);
   }
   // render a static, fully-expanded card preview (question + back) into a box — used by the admin editor's live preview
   function renderCardPreviewInto(box, c) {
@@ -32592,7 +33083,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <div class="opts" id="opts"></div>
             <div class="tf-reveal" id="reveal" hidden></div>
           </div>
-        </div>`;
+        </div>
+        ${/* THE WHOLE ANSWER SIDE OF THE CARD, BELOW THE GAME (Sep 2026, on request: "since the Multiple
+              Choice minigame is based on cards anyway, make it so that when the answer is revealed, the
+              entire answer side of the card is displayed below the minigame section"). Multiple Choice is
+              the one game whose rounds ARE curated cards, so the card's own back — the term, the date
+              line, the figures, the picture, the background and the citations — is already written and
+              already cited, and printing a two-line gloss instead was answering a question the card
+              answers better. Its shell is `.study-card`, so it is set exactly as it is on the study page
+              rather than in a second style that would drift.
+              It is a SIBLING of `.dc-shell` and outside it, which is what "below the minigame section"
+              asks for; it is empty and hidden until a choice is made, and `renderQuestion` rebuilds
+              `root` for every round, so nothing has to clear it. */""}
+        <div class="mc-cardback" id="mcBack" hidden></div>`;
       const opts = root.querySelector("#opts");
       item.options.forEach((opt, i) => {
         const b = document.createElement("button");
@@ -32612,10 +33115,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         else if (idx === i) b.classList.add("wrong");
       });
       const rev = root.querySelector("#reveal"); rev.hidden = false;
-      /* The answer's own glossary entry — see gameAnswerNote. `.tf-why` is True or False's explanation
-         class, reused rather than copied: the two say the same kind of thing in the same place under the
-         same verdict line, and a second class for it is how they come to look like different features. */
-      const note = gameAnswerNote(item.correct);
       /* ELABORATED FEEDBACK ON THE OPTION THEY ACTUALLY CHOSE (Sep 2026). Naming the right answer is
          knowledge-of-correct-response and measures d = 0.32; explaining measures 0.49, and the thing most
          worth explaining to somebody who picked Gravettian is what Gravettian IS. The distractors are
@@ -32634,11 +33133,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const lead = oc ? cardFirstSentence(cardLocalized(oc)) : "";
         if (lead) chose = '<p class="tf-why mc-chose"><b>You said ' + esc(gameCapFirst(picked)) + ".</b> " + lead + "</p>";
       }
+      /* THE GLOSSARY NOTE ON THE RIGHT ANSWER IS GONE, and the card below is why (Sep 2026, with the
+         card back). `gameAnswerNote` prints the answer term's glossary entry, which by house rule is the
+         same claim the card's own background opens on — so with the whole back on the page the reader met
+         "The Olympic Games are the athletic festival at Olympia…" twice, a hundred pixels apart, in two
+         registers. The card is the better of the two and it is cited. The note on the option they CHOSE
+         stays: that is a different term, on a card that is not being shown, and nothing repeats it. */
       rev.innerHTML =
         '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(gameCapFirst(item.correct)) + "</b></div>" +
-        (note ? '<p class="tf-why">' + note + "</p>" : "") + chose +
+        chose +
         '<button class="btn" id="mc-next">' + (qi + 1 < Q.length ? "Next question" : "See results") + "</button>";
       rev.querySelector("#mc-next").addEventListener("click", next);
+      /* …and the card itself underneath. `item.card` is the copy the round was built from — localised,
+         and cut to its first phrasing — so the back shown is the back of the card that was just asked.
+         `mountCardBack` is what makes it behave: glossary links, footnote numbers, the Background fold
+         and a locator's globe. */
+      const back = root.querySelector("#mcBack");
+      if (back) {
+        back.hidden = false;
+        back.innerHTML =
+          '<div class="study-card mc-card"><div class="reveal show"><div class="reveal-inner">' +
+          buildBack(item.card) + "</div></div></div>";
+        mountCardBack(back.querySelector(".reveal-inner"), item.card);
+      }
     }
 
     function next() {
@@ -32841,7 +33358,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <div class="opts" id="opts"></div>
             <div class="tf-reveal" id="reveal" hidden></div>
           </div>
-        </div>`;
+        </div>
+        ${/* THE WHOLE ANSWER SIDE OF THE CARD, BELOW THE GAME (Sep 2026, on request: "since the Multiple
+              Choice minigame is based on cards anyway, make it so that when the answer is revealed, the
+              entire answer side of the card is displayed below the minigame section"). Multiple Choice is
+              the one game whose rounds ARE curated cards, so the card's own back — the term, the date
+              line, the figures, the picture, the background and the citations — is already written and
+              already cited, and printing a two-line gloss instead was answering a question the card
+              answers better. Its shell is `.study-card`, so it is set exactly as it is on the study page
+              rather than in a second style that would drift.
+              It is a SIBLING of `.dc-shell` and outside it, which is what "below the minigame section"
+              asks for; it is empty and hidden until a choice is made, and `renderQuestion` rebuilds
+              `root` for every round, so nothing has to clear it. */""}
+        <div class="mc-cardback" id="mcBack" hidden></div>`;
       const opts = root.querySelector("#opts");
       options.forEach((opt, i) => {
         const b = document.createElement("button");
@@ -34528,6 +35057,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // the globe's rotation + zoom persist across map setups, so a mid-interaction re-render doesn't reset the zoom to 1. The INITIAL
   // centre is the scholar's home location (Settings → Home location; the Netherlands by default).
   const _home = (S.settings && S.settings.home) || null;
+  /* WHICH ATLAS THE PAGE IS SHOWING (Sep 2026, on request: "add a second tab, which will feature the
+     user's own explored Atlas … Opening the Atlas page should default to this tab"). It is MODULE-LEVEL
+     rather than a setting, and `route()` puts it back to "mine" on every navigation TO the Atlas — which
+     is what "opening the page defaults to this tab" means and what a `S.settings` value would get wrong,
+     since a reader who once looked at the world atlas would be sent back to it for ever. `render()` does
+     not go through `route()`, so switching tab (which repaints) keeps the reader where they are. */
+  let atlasTab = "mine";
   const atlasView = { rotLon: _home && isFinite(_home.lon) ? _home.lon : 90, rotLat: _home && isFinite(_home.lat) ? _home.lat : 22, zoom: 1 };
   PAGES.map = function (root, params) {
     // The Atlas data is lazy (see DATA_BUNDLES) — hold the page on a loading state until it lands,
@@ -34555,7 +35091,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     const GAME = !!(params && params.game);   // "Find it" mode (PAGES.findit): the globe is the game board — search/legend/popup/hover-name/timebar are off, taps answer the round
-    const MINY = -1000, MAXY = new Date().getFullYear();
+    /* YOUR OWN ATLAS (Sep 2026, on request) — the same globe with its political layer replaced by what
+       this reader has studied. See `atlasUnlocks` for the register and `drawMine` for what is drawn.
+       Never in the game, which needs the whole world to ask a question about it. */
+    const MINE = !GAME && atlasTab === "mine";
+    /* IT REACHES BACK TO 4000 BCE, where the world atlas stops at 1000 BCE. The request asks for the
+       empty earth "in every year since 4000 BCE", and it can be offered here precisely because nothing
+       there depends on an era map: before 1500 the personal globe is landscape and the reader's own
+       locator marks, which carry their own dates. */
+    const MINY = MINE ? -4000 : -1000, MAXY = new Date().getFullYear();
     const chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
     const chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
     // the country popup's collapsible section headers (description / year / figures)
@@ -34564,8 +35108,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // rail and the densely-mapped 1500 → present span stretches over the remaining 85% — so the 13 map stops aren't crowded
     // into the right edge. year2frac/frac2year are exact inverses; every rail position (pin, fill, ticks, marks) uses them.
     const TL_KNEE = 1500, TL_KNEE_F = 0.15;
-    const year2frac = (y) => y <= TL_KNEE ? (y - MINY) / (TL_KNEE - MINY) * TL_KNEE_F : TL_KNEE_F + (y - TL_KNEE) / (MAXY - TL_KNEE) * (1 - TL_KNEE_F);
-    const ticks = [   // no "1 CE" tick: at ~6% of the rail it collides with the left-anchored "1000 BCE" label on narrow tracks
+    /* THE PERSONAL RAIL IS LINEAR AND THE WORLD RAIL IS NOT, and the reason is what each is a rail OF.
+       The world atlas has thirteen stops, twelve of them after 1500, so its scale bends to keep them
+       apart. The personal atlas has no stops: every year from 4000 BCE has a map, because the earth is
+       always there, so a bent scale would only lie about how far apart two years are. */
+    const year2frac = MINE
+      ? (y) => (y - MINY) / (MAXY - MINY)
+      : (y) => y <= TL_KNEE ? (y - MINY) / (TL_KNEE - MINY) * TL_KNEE_F : TL_KNEE_F + (y - TL_KNEE) / (MAXY - TL_KNEE) * (1 - TL_KNEE_F);
+    const ticks = MINE
+      ? [{ y: -4000, t: "4000 BCE" }, { y: -2000, t: "2000 BCE" }, { y: 1, t: "1 CE" }, { y: 1000, t: "1000" }, { y: MAXY, t: "present" }]
+      : [   // no "1 CE" tick: at ~6% of the rail it collides with the left-anchored "1000 BCE" label on narrow tracks
       { y: -1000, t: "1000 BCE" }, { y: 1500, t: "1500" }, { y: 1700, t: "1700" }, { y: 1900, t: "1900" }, { y: MAXY, t: "present" },
     ];
     const tickHTML = ticks.map((k) => {
@@ -34574,7 +35126,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }).join("");
 
     root.innerHTML = `
-      <div class="atlas${GAME ? " atlas-game" : ""}">
+      <div class="atlas${GAME ? " atlas-game" : ""}${MINE ? " atlas-mine" : ""}">
+        ${/* THE TWO ATLASES (Sep 2026, on request). A tab bar rather than a switch in the legend,
+              because these are two pages' worth of map sharing one globe and the reader has to be able
+              to see which one they are on without reading the map. It is not drawn in the game, where
+              the globe is the board. `aria-selected` on real buttons rather than a `role=tablist`
+              proper: the panel is a canvas the same element in both states, so there is no second panel
+              to point at. */""}
+        ${GAME ? "" : `<div class="atlas-tabs" role="group" aria-label="Which atlas">
+          <button class="at-tab${MINE ? " on" : ""}" type="button" data-atlastab="mine" aria-pressed="${MINE}">Your atlas</button>
+          <button class="at-tab${MINE ? "" : " on"}" type="button" data-atlastab="world" aria-pressed="${!MINE}">World atlas</button>
+        </div>`}
         <div class="globe-stage" id="globeStage">
           <div class="globe-limb-glow" id="globeHalo" aria-hidden="true"></div>
           ${/* role=application, because it IS one: a canvas driven entirely by keys of its own (arrows,
@@ -34584,6 +35146,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 instead of the map, which no assistive technology can read off a canvas. */""}
           <canvas id="globe" tabindex="0" role="application" aria-label="Interactive globe — arrow keys rotate, plus and minus zoom, Enter selects the centre, [ and ] step the map years"></canvas>
           <div class="globe-limb-shade" id="globeShade" aria-hidden="true"></div>
+          ${/* THE EMPTY GLOBE SAYS WHAT IT IS WAITING FOR (Sep 2026). A reader who has studied nothing
+                meets a world with no marks on it, which is exactly right and says nothing about itself —
+                and the one thing they need to know is that the marks are earned. It is drawn only while
+                the register really is empty, and goes the moment the first place lands. */""}
+          ${MINE ? `<div class="atlas-empty" id="atlasEmpty" role="status" aria-live="polite"${atlasUnlocks().count ? " hidden" : ""}>
+            <strong>Your atlas is empty</strong>
+            <span>Study a card from a geography or history collection and the place it is about appears here, in the years it belongs to.</span>
+            <button class="btn" type="button" data-goto="decks">Find a collection</button>
+          </div>` : ""}
           <div class="atlas-wip" id="atlasWip" role="status" aria-live="polite">
             <strong>No map for this year yet</strong>
             <span>The Atlas is a work in progress — so far only the present-day map (${MAXY} CE) has been drawn. Slide the timeline back to the present year to return to a map.</span>
@@ -34607,16 +35178,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="atlas-help" id="atlasHelp" hidden>
             <div class="ah-card">
               <button class="ah-close" id="ahClose" type="button" aria-label="Close">×</button>
-              <h3>Reading the Atlas</h3>
+              ${/* THE PERSONAL ATLAS IS EXPLAINED IN ITS OWN WORDS (Sep 2026). Three of the world
+                    atlas's five tips are wrong here — there is no empire to drill out of, no search, and
+                    the timeline's stops are not what a reader is stepping between — and a help card that
+                    describes controls the page has not got is worse than none. The marker and the caution
+                    are shared, because both are still true. */""}
+              <h3>${MINE ? "Your own atlas" : "Reading the Atlas"}</h3>
+              ${MINE ? `
+              <div class="ah-tip"><b>It starts empty</b> — the earth, its coasts, its lakes and its rivers, and nothing else. Every place on it is one you have put there.</div>
+              <div class="ah-tip"><b>Study a card to unlock its place</b> — a country from the geography decks appears in every year Folio's maps carry a state of that name, and a place from a history card appears in the years its own card gives it.</div>
+              <div class="ah-tip"><b>Click a place</b> to see the card it came from, answer side and all.</div>
+              <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. The timeline runs from 4000 BCE to today, and every year on it has a map.</div>` : `
               <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. From the keyboard: arrows rotate, + and − zoom, <kbd>[</kbd> and <kbd>]</kbd> step through the mapped years, Enter selects whatever is at the centre and Esc clears it.</div>
               <div class="ah-tip"><b>Click</b> — one click selects a state (on old maps, its whole empire); a double-click drills into a single territory; a triple-click reaches the UK's home nations.</div>
-              <div class="ah-tip"><b>Time-travel</b> — the ticks along the timeline are the mapped years: click one, press ▶ to play through them, or search any place across the centuries (top-right).</div>
+              <div class="ah-tip"><b>Time-travel</b> — the ticks along the timeline are the mapped years: click one, press ▶ to play through them, or search any place across the centuries (top-right).</div>`}
               <div class="ah-tip"><b>Draw on it</b> — the marker floating over the globe is the same one that writes on a study card: tap it for pens, a highlighter and an eraser, and drag it out of the way. Strokes here are pinned to the map, so they turn with it.</div>
               <div class="ah-tip"><b>A caution</b> — historical borders are rough estimates and should never be taken as factually accurate. Many past frontiers were vague, disputed or simply never recorded, so read every old map as an approximation rather than a precise picture of the world.</div>
               <button class="btn" id="ahGo" type="button">Explore</button>
             </div>
           </div>
-          <div class="globe-search" id="globeSearch">
+          ${/* NO LEGEND AND NO SEARCH ON THE PERSONAL ATLAS (Sep 2026, on request: "the page doesn't need
+                a legend"). Its layers are the earth's — there is no political toggle to offer — and the
+                search is the WORLD atlas's index, so a hit there would open a country panel about a
+                place the reader has not unlocked, on the tab that exists to show only what they have. */""}
+          <div class="globe-search" id="globeSearch"${MINE ? " hidden" : ""}>
             ${/* the phone's collapsed state: a chip that opens the field across the stage. Hidden on desktop,
                   where a 240px box in the corner costs nothing. */""}
             <button class="gs-toggle" id="gsToggle" type="button" aria-label="Search the atlas" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></button>
@@ -34628,7 +35213,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <button class="gz-btn" id="gzOut" type="button" aria-label="Zoom out">−</button>
             <button class="gz-btn gz-help" id="gzHelp" type="button" aria-label="How to use the Atlas">?</button>
           </div>
-          <div class="globe-legend" id="globeLegend" role="group" aria-labelledby="legendTitle">
+          <div class="globe-legend" id="globeLegend" role="group" aria-labelledby="legendTitle"${MINE ? " hidden" : ""}>
             <div class="legend-head" id="legendHead">
               <span class="legend-title" id="legendTitle">Legend</span>
               ${/* on a phone the collapsed legend shrinks to a round chip, and a dash on a chip reads as nothing —
@@ -34764,7 +35349,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function hex2rgb(h) { h = h.replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
     function mix(a, b, t) { const A = hex2rgb(a), B = hex2rgb(b); return `rgb(${Math.round(A[0] + (B[0] - A[0]) * t)},${Math.round(A[1] + (B[1] - A[1]) * t)},${Math.round(A[2] + (B[2] - A[2]) * t)})`; }
     function rgba(a, al) { const A = hex2rgb(a); return `rgba(${A[0]},${A[1]},${A[2]},${al})`; }
-    let ocean, land, landWild, border, grat, rim, labelFont, riverCol, adminCol, rangeCol, waterCol, lblHaloSoft, LBL_TEXT, LBL_HALO, forestCol, forestColD, forestColT, limbA, limbB, haloIn, haloOut, stippleCol, _stippleP;
+    let ocean, land, landWild, landDim, border, grat, rim, labelFont, riverCol, adminCol, rangeCol, waterCol, lblHaloSoft, LBL_TEXT, LBL_HALO, forestCol, forestColD, forestColT, limbA, limbB, haloIn, haloOut, stippleCol, _stippleP;
     function readColors() {
       const cs = getComputedStyle(document.body);
       const cv = (n) => cs.getPropertyValue(n).trim() || "#888888";
@@ -34774,8 +35359,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       land = mix(paper, ink, 0.10); border = mix(paper, ink, 0.46); grat = rgba(ink, 0.07); rim = mix(paper, ink, 0.32);
       // subtly darker shade for non-clickable / unclaimed land on historical eras — a gentle luminance drop.
       // (land is already an "rgb(r,g,b)" string, so parse+scale rather than mix(), whose hex2rgb can't read it.)
-      { const lm = /(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/.exec(land); const f = 0.62; landWild = lm ? "rgb(" + Math.round(lm[1] * f) + "," + Math.round(lm[2] * f) + "," + Math.round(lm[3] * f) + ")" : land; }
-      riverCol = ocean;                                                          // rivers drawn in the ocean colour, so they read as water continuous with the sea
+      { const lm = /(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/.exec(land); const f = 0.62; landWild = lm ? "rgb(" + Math.round(lm[1] * f) + "," + Math.round(lm[2] * f) + "," + Math.round(lm[3] * f) + ")" : land;
+        /* The personal atlas's own unclaimed shade, and it is NOT `landWild` (Sep 2026, on request:
+           "areas without any known countries or places should appear slightly darker"). The era branch
+           darkens to 0.62 because its wilderness is a minority of the map and carries a stipple over it;
+           here the wilderness is nearly the whole earth on a reader's first day, and at 0.62 the globe
+           reads as unlit rather than as unearned. 0.87 is a step, not a shadow. */
+        const g = 0.87; landDim = lm ? "rgb(" + Math.round(lm[1] * g) + "," + Math.round(lm[2] * g) + "," + Math.round(lm[3] * g) + ")" : land; }
+      /* THE RIVERS ARE NOT THE OCEAN'S COLOUR IN LIGHT MODE (Sep 2026, on a bug report: "on the atlas,
+         rivers are quite hard to see on light mode"). Drawing them in `ocean` is right in DARK mode,
+         where the sea is a deep blue-grey against a lighter land and a river reads as water continuous
+         with it — and in LIGHT mode the sea is #b3ebff, a pale cyan, sitting on a land that is the paper
+         mixed a tenth of the way to the ink. Measured against that land in the folio theme, the cyan is
+         **1.03:1** — which is not "hard to see", it is the same colour, and on a line 0.5px wide at the
+         zoom the Atlas opens at there is nothing there at all.
+         So light mode takes a deeper blue of the same family — still unmistakably water, and **3.56:1**
+         on the same land — and the sea keeps its cyan, which is what a printed atlas does: the sea is a
+         wash and a river is a drawn line. Dark mode is untouched, where nothing was reported and the
+         continuity argument still holds. */
+      riverCol = dark ? ocean : "rgba(31,122,170,0.9)";
       waterCol = dark ? "rgba(150,196,226,0.92)" : "rgba(18,74,118,0.82)";        // sea / ocean / lake labels (reads on the cyan ocean)
       lblHaloSoft = dark ? "rgba(8,12,20,0.82)" : "rgba(255,255,255,0.92)";       // halo for the light-coloured labels (water/river/range): dark in dark mode so the glyph reads
       adminCol = rgba(ink, 0.34);                                                 // admin-1 borders (dotted)
@@ -34807,6 +35409,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     let _ghnSig = "", _ghnW = 0, _ghnH = 0;   // memo: writing textContent + reading offsetWidth per pointermove forced a layout reflow even when the name hadn't changed
     function updateHoverName() {
       if (!ghnEl) return;
+      /* ON THE PERSONAL ATLAS THE CHIP NAMES THE READER'S OWN PLACE OR NOTHING. It used to read
+         `hoverIdx`, which is the WORLD atlas's territory index and is not maintained here — so it went on
+         naming whatever country had last been under the cursor, which on this tab is a place the reader
+         may never have studied. */
+      if (MINE) {
+        const h = (hoverOn && !dragging && !mapEdit && !WB.enabled) ? mineAt(hoverPx, hoverPy) : null;
+        const hn = h ? gameCapFirst(h.title || h.name || "") : "";
+        if (!hn) { ghnEl.hidden = true; _ghnSig = ""; return; }
+        if (hn !== _ghnSig) { _ghnSig = hn; ghnTopEl.style.display = "none"; ghnMainEl.textContent = hn; ghnEl.hidden = false; _ghnW = ghnEl.offsetWidth; _ghnH = ghnEl.offsetHeight; }
+        else if (ghnEl.hidden) ghnEl.hidden = false;
+      } else {
       if (hoverIdx < 0 || !hoverOn || dragging || mapEdit || WB.enabled || GAME) { ghnEl.hidden = true; _ghnSig = ""; return; }   // GAME: naming what's under the cursor would be the whole answer
       const nm = entityName(hoverIdx);
       if (!nm) { ghnEl.hidden = true; _ghnSig = ""; return; }
@@ -34824,6 +35437,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ghnEl.hidden = false;
         _ghnW = ghnEl.offsetWidth; _ghnH = ghnEl.offsetHeight;   // measure once per name — the follow-the-cursor path below is pure style writes
       } else if (ghnEl.hidden) ghnEl.hidden = false;
+      }
       const gw = _ghnW, gh = _ghnH;
       let x = hoverPx + 16, y = hoverPy - gh - 10;
       if (x + gw > W - 8) x = hoverPx - gw - 14;    // flip left near the right edge
@@ -34831,6 +35445,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ghnEl.style.left = Math.max(4, x) + "px"; ghnEl.style.top = y + "px";
     }
     const selSet = new Set();            // multi-select: indices of chosen countries (era territories, or present-day countries)
+    let mineSel = "";                    // the personal atlas's own selection: the NAME of the shape last clicked (see drawMineShapes)
     let subSelGeo = -1;                  // double-click drill-down inside a historical era: index of a present-day country picked WITHIN a larger era entity (a "country that is part of another"); -1 = none
     // UK constituent countries (England / Scotland / Wales / Northern Ireland; + Ireland, the whole island, for the pre-1922
     // all-Ireland UK), from uk.js. Their internal land borders (England–Scotland, England–Wales) draw light, and double-clicking
@@ -35193,6 +35808,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // …and the join between the two, on the ancestor both halves share. Guarded like every other caller:
       // the numbering is decoration failing loudly enough to take a panel down with it otherwise.
       if (cpColsEl) { try { wireFootnotes(cpColsEl); } catch (err) {} }
+      cpEl.classList.remove("cp-mine");
       cpEl.hidden = false;
       // A fresh entity starts at the top of its own panel. The popup element is REUSED, so without this the
       // scroller keeps wherever the previous country left it, and the next place opens part way down
@@ -35203,7 +35819,54 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       cpShut = true;
       cpApplyH();   // …at the reader's height, capped by what this page actually needs
     }
-    function hideCountryPopup() { if (cpEl) cpEl.hidden = true; }
+    function hideCountryPopup() { if (cpEl) cpEl.hidden = true; if (mineSel) { mineSel = ""; scheduleDraw(); } }   // closing the panel drops the personal atlas's highlight with it — a shape lit with nothing to say what it is reads as a fault
+    /* ---------- THE PERSONAL ATLAS'S POPUP IS THE CARD (Sep 2026, on request: "The information of the
+       popups that appear when clicking a city or country can be directly the answer side of the card")
+       ----------
+       It REUSES the country panel rather than building a second one, for the reason the Multiple Choice
+       card back reuses `buildBack`: the panel is a sheet on a phone and a column on the desktop, it
+       resizes itself, it closes on Escape and it is what the reader already knows how to dismiss — all
+       of which a second element would have to be taught again.
+       Three of its four sections are simply hidden. The year paragraph, the Wikidata figures and the
+       Atlas's own citation fold all describe a COUNTRY as the world atlas knows it, and what is being
+       shown here is a card: its own facts and its own sources come with it, inside `buildBack`.
+       AND IT GOES THROUGH `mountCardBack`, never through raw markup — the footnotes have to be numbered,
+       the glossary terms wired and the picture made to open, and a surface that renders `buildBack`
+       without that wiring is a card with dead links (see the note beside that function). */
+    function showMinePopup(hit) {
+      if (!cpEl || !hit) return;
+      const c = CARD_BY_ID[hit.id];
+      if (!c) { hideCountryPopup(); return; }
+      const nm = gameCapFirst(hit.title || hit.name || String(c.answerText || ""));
+      if (markSeen("placesSeen", nm)) { sfx("discover"); checkAchievements(); }
+      /* WHAT THE PANEL SAYS IS THE CARD, AND ONLY THE CARD (Sep 2026, on request: "remove the 'Answer'
+         header and 'From your card' tagline, the title bar (should only display when popup is collapsed)
+         and its dating"). Every one of those four repeats something the card back already carries — the
+         answer term is its own heading, its dates are its date line — so all four are stated twice on a
+         panel a phone shows about a third of. `cp-mine` is what the stylesheet takes them off with, rather
+         than four writes here: the title bar is only hidden while the sheet is OPEN, which is a state the
+         class changes under, and the "Answer" label is inside markup this function does not build.
+         The name is still WRITTEN, because it is what the collapsed sheet shows and what a screen reader
+         reads; it is the open sheet that has no use for it. */
+      cpEl.classList.add("cp-mine");
+      cpNameEl.textContent = nm;
+      if (cpSpanEl) cpSpanEl.textContent = "";
+      if (cpNewEl) { cpNewEl.hidden = true; cpNewEl.innerHTML = ""; }
+      if (cpCrumbEl) { cpCrumbEl.hidden = true; cpCrumbEl.innerHTML = ""; }
+      if (cpHistListEl) { cpHistListEl.hidden = true; cpHistListEl.innerHTML = ""; }
+      const tools = cpEl.querySelector(".cp-tools"); if (tools) tools.hidden = true;
+      if (cpYearSecEl) cpYearSecEl.hidden = true;
+      if (cpStatsSecEl) cpStatsSecEl.hidden = true;
+      if (cpSrcSecEl) cpSrcSecEl.hidden = true;
+      if (cpDescSecEl) { cpDescSecEl.hidden = false; cpSection(cpDescSecEl, true, true); }
+      if (cpDescEl) {
+        cpDescEl.innerHTML = '<div class="study-card cp-cardback"><div class="reveal show"><div class="reveal-inner">' + buildBack(c) + "</div></div></div>";
+        const inner = cpDescEl.querySelector(".reveal-inner");
+        if (inner) mountCardBack(inner, c, { expand: true });
+      }
+      cpEl.hidden = false;
+      cpResize();
+    }
 
     // ===== Map editor (Admin → Timeline → "Edit on globe"): draw/edit/delete territories + place capitals & cities, per year =====
     let mapEdit = false, mapEditEra = null, mapTool = "select", mapSelTerr = -1, mapSelCity = -1, mapDraw = null, mapEditRev = 0, mapBar = null, mapDragV = -1, mapDragCity = -1, mapDragging = false;
@@ -35340,6 +36003,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     let moving = false;                  // during drag / spin / zoom
     let bordersOn = true, citiesOn = true, majorCitiesOn = false, divCapsOn = false, riversOn = false, riverLabelsOn = false, waterOn = false, rangesOn = false, adminOn = false, countryNamesOn = false, forestsOn = false, heightmapOn = false;   // legend toggles (default: Borders + Capitals)
+    /* THE PERSONAL ATLAS TURNS THE RIVERS ON, and it has to: the request describes the empty globe as
+       "landmasses+oceans+rivers etc." and there is no legend on that tab to turn them on with, so a
+       default of off would be a layer the reader is promised and cannot reach. Everything political is
+       already unreachable there by construction — `renderStatic`'s MINE branch draws none of it — so this
+       is the one toggle whose value that tab actually reads. */
+    if (MINE) riversOn = true;
     if (GAME) { citiesOn = false; majorCitiesOn = false; countryNamesOn = false; }   // game mode: no labeled pins or name layers — a capital label on the board IS the capital round's answer
     // bounding cap (centroid unit vector + sin of max angular radius) of each country — robust to antimeridian / pole
     // spans (Russia, USA, Antarctica, Fiji) unlike a lon/lat bbox. Lets renderStatic skip fully off-view countries.
@@ -35657,6 +36326,59 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       _presentBorders = borders;
       return (_coastEdges = coasts);
     }
+    /* ---------- THE STRAY BORDERS ON THE EMPTY PERSONAL ATLAS (Sep 2026, on a bug report naming "the
+       western border of Uzbekistan, some borders of Jordan, Montenegro, the Netherlands, western Spain,
+       the southern border of the Western Sahara") ----------
+       `coastEdges` classifies an UNSHARED world.js edge, and its cheap tests are generous about the sea: a
+       chain is a coast if it spans a continent, if it sits in the Caspian/Aral box, or if OCEAN is found
+       anywhere within its own bbox plus 1.2°. That last one is why every one of the reported strays is a
+       land border a short way inland from a coast — Spain/Portugal, Netherlands/Belgium, Western
+       Sahara/Mauritania — and on the world atlas nobody could see it, because a border is drawn there
+       anyway and one more line among them is invisible. The personal atlas draws the COAST AND NOTHING
+       ELSE, so each one stands alone in an empty continent and reads as a country nobody asked for.
+       The discriminator is `coastEdges`'s own: two DIFFERENT countries across the chain. It is not run in
+       there because it would cost the world atlas a pass it has no use for, and it is not run over every
+       chain because `countryAt` is a point-in-polygon walk — so it is a cheap probe at the chain's middle
+       first (two calls), and the fuller vote only for the few that come back looking like a border.
+       A MASK RATHER THAN A FILTERED LIST: `coastCaps()` is indexed in step with `coastEdges()`, and a
+       shorter list would silently read somebody else's cap and cull the wrong chains.
+       MEASURED: ~410ms, once, inside a first paint that already costs 1.4s on this tab. A SHORTCUT THAT
+       SKIPPED CLOSED LOOPS WAS TRIED AND REMOVED — it looked like a five-times speed-up on the reasoning
+       that an island's outline comes back to where it started while a border runs junction to junction,
+       and it took the fix to zero: a country's WHOLE outline chains as one closed loop, its coast and its
+       unshared border together, which is why these strays are chains that are mostly coast. */
+    let _mineSkip = null;
+    function mineCoastSkip() {
+      if (_mineSkip) return _mineSkip;
+      const ce = coastEdges();
+      const skip = new Uint8Array(ce.length);
+      const gbb = GEO.map((g) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const r of g.p) for (const p of r) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; } return [x0, y0, x1, y1]; });
+      const inRingPt = (lon, lat, ring) => { let c = false; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1]; if (((yi > lat) !== (yj > lat)) && (lon < (xj - xi) * (lat - yi) / (yj - yi) + xi)) c = !c; } return c; };
+      const countryAt = (lo, la) => { for (let g = 0; g < GEO.length; g++) { const b = gbb[g]; if (lo < b[0] || lo > b[2] || la < b[1] || la > b[3]) continue; const rings = GEO[g].p; let ins = false; for (let r = 0; r < rings.length; r++) if (inRingPt(lo, la, rings[r])) ins = !ins; if (ins) return g; } return -1; };
+      const PROBE = 0.15;
+      const sides = (line, i) => {   // the two countries across the chain at vertex i, or null where it has no normal
+        const a = line[i - 1], b = line[i + 1], q = line[i];
+        if (!a || !b) return null;
+        let dx = b[0] - a[0], dy = b[1] - a[1];
+        const L = Math.hypot(dx, dy); if (!L) return null;
+        dx /= L; dy /= L;
+        return [countryAt(q[0] - dy * PROBE, q[1] + dx * PROBE), countryAt(q[0] + dy * PROBE, q[1] - dx * PROBE)];
+      };
+      for (let k = 0; k < ce.length; k++) {
+        const line = ce[k];
+        if (line.length < 4) continue;
+        let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
+        for (const q of line) { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < y0) y0 = q[1]; if (q[1] > y1) y1 = q[1]; }
+        if (Math.max(x1 - x0, y1 - y0) >= 15) continue;                                 // a continent or an ocean coast — never one of these
+        const mid = sides(line, line.length >> 1);
+        if (!mid || mid[0] === -1 || mid[1] === -1 || mid[0] === mid[1]) continue;       // water on a side, or one country on both → a real shore
+        let pts = 0, bord = 0;
+        const step = Math.max(1, Math.floor(line.length / 12));
+        for (let i = 1; i < line.length - 1; i += step) { const sd = sides(line, i); if (!sd) continue; pts++; if (sd[0] !== -1 && sd[1] !== -1 && sd[0] !== sd[1]) bord++; }
+        if (pts && bord / pts >= 0.4) skip[k] = 1;
+      }
+      return (_mineSkip = skip);
+    }
     // geo-anchored whiteboard ink: each stroke = { mode:'pen'|'hl', color, size, pts:[[lon,lat],...] }
     const strokes = []; let activeStroke = null, erasing = false;
     // whiteboard undo/redo: snapshots of the geo-anchored stroke list (deep-copied), pushed after each committed change (a
@@ -35674,7 +36396,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     let dpr = 1, W = 0, H = 0, baseR = 0;
     let rotLon = atlasView.rotLon, rotLat = atlasView.rotLat, zoom = atlasView.zoom, year = MAXY;   // restore persisted view; `year` = the timeline year (declared early so renderStatic/viewKey + the initial draw can read it)
     if (atlasPendingYear != null) { year = Math.max(MINY, Math.min(MAXY, atlasPendingYear)); atlasPendingYear = null; }   // "View on globe" opens the Atlas at a chosen era's year
-    const ZMIN = 0.82, ZMAX = 10;   // deeper max zoom so the higher-res heightmap + close detail are usable
+    const ZMIN = 0.82, ZMAX = 30;   // deeper max zoom so the higher-res heightmap + close detail are usable (raised 10 → 30 in Sep 2026, on request — the card maps have gone to CMAP_ZMAX 400 for years, and the coastline, the rivers and the era borders all carry more detail than zoom 10 could reach)
+    /* A RIVER IS THINNER THE FURTHER OUT YOU ARE (Sep 2026, on request: "further decrease the width of
+       Rivers as you zoom out"). It was `0.4 + zoom * 0.16` floored at 0.5, so at world scale all 1,073 of
+       them were drawn at half a pixel over a coast stroked at about the same — a blue haze over the
+       continents rather than water on them. The deep end is unchanged (the 1.8 cap still decides it); what
+       moves is the shallow end, which is where every river is on screen at once. ONE function rather than
+       the three copies of the expression it replaces, so the era branch, the present-day branch and the
+       personal atlas cannot come to disagree about how wide a river is. */
+    function riverWidth() { return clamp(0.05 + zoom * 0.17, 0.22, 1.8); }
     const CAP_Z = 1.8, MAJOR_Z = 2.4, CLOSE_Z = 4.5;   // hard cutoffs: capitals at CAP_Z; major cities (metros/admin caps) just above at MAJOR_Z; admin/province borders only when zoomed close at CLOSE_Z
     const RIVER_LABEL_Z = 1.55;   // river names only once zoomed in a little (1073 rivers would swamp the globe at world scale)
     // a legend row only appears once zoomed in far enough for that layer to matter — at full zoom-out only Borders shows
@@ -36452,7 +37182,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return best;
     }
     function eraKey(y) { const e = activeEra(y); return e ? (e.present ? "P" : "E" + (e.id || e.year)) : "none"; }
-    function viewKey() { return rotLon.toFixed(2) + "," + rotLat.toFixed(2) + "," + zoom.toFixed(3) + "," + W + "," + H + "," + (bordersOn ? 1 : 0) + (riversOn ? 1 : 0) + (riverLabelsOn ? 1 : 0) + (waterOn ? 1 : 0) + (rangesOn ? 1 : 0) + (adminOn ? 1 : 0) + (forestsOn ? 1 : 0) + (countryNamesOn ? 1 : 0) + (heightmapOn ? 1 : 0) + (heightmapOn ? hmOpacity.toFixed(2) : "") + "," + eraKey(year) + "," + mapEditRev + "," + land + "|" + ocean + "|" + border + "|" + rim + "|" + grat; }
+    function viewKey() { return rotLon.toFixed(2) + "," + rotLat.toFixed(2) + "," + zoom.toFixed(3) + "," + W + "," + H + "," + (bordersOn ? 1 : 0) + (riversOn ? 1 : 0) + (riverLabelsOn ? 1 : 0) + (waterOn ? 1 : 0) + (rangesOn ? 1 : 0) + (adminOn ? 1 : 0) + (forestsOn ? 1 : 0) + (countryNamesOn ? 1 : 0) + (heightmapOn ? 1 : 0) + (heightmapOn ? hmOpacity.toFixed(2) : "") + "," + eraKey(year) + "," + (MINE ? "M" + year + ":" + atlasUnlocks().count + ":" + mineSel : "") + "," + mapEditRev + "," + land + "|" + ocean + "|" + border + "|" + rim + "|" + grat; }
     function stipplePattern() {   // 7px dot tile in the theme's stipple colour; rebuilt lazily after every readColors()
       if (_stippleP) return _stippleP;
       const t = document.createElement("canvas"); t.width = 7; t.height = 7;
@@ -36489,6 +37219,185 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       shadeEl.style.width = shadeEl.style.height = R * 2 + "px";
     }
     paintLimbDom();
+    /* ---------- YOUR OWN ATLAS: what is on it, and how it is drawn (Sep 2026, on request) ----------
+       The register is `atlasUnlocks()`, which is derived from `S.cards` and knows nothing about years.
+       This is the half that knows about years, because everything here is a question about the CURRENT
+       one: which of the reader's countries has a shape on this year's map, and which of their locator
+       marks is inside its own dates.
+
+       A COUNTRY IS RESOLVED THROUGH THE ERA, NEVER THROUGH `world.js` DIRECTLY. `terrOf(era)` is the
+       same territory list the world atlas draws and hit-tests, so an unlocked France is that era's
+       France — its 1600 shape in 1600 and its own shape today — and a year whose map has no such state
+       simply draws nothing. That is the whole of "in the appropriate years", and it needed no table of
+       dates: Folio's own maps already carry the answer.
+
+       IT IS CACHED PER (YEAR-ERA, REGISTER), NOT PER YEAR. The shapes only change when the era does, so
+       scrubbing the rail across a century costs one resolve rather than a hundred.
+
+       THE MARKS ARE DRAWN AS THE LOCATOR WINDOWS DRAW THEM — a dot for a place, a dashed washed area for
+       a region, a line for a range — because a reader meeting Yinxu here has already met it on its own
+       card, and a second visual language for the same fact is a second thing to learn. */
+    let _mineFor = "", _mineCache = null;
+    function eraIsModern(e) { return !!e && (e.present || (e.groups && !(e.geo && e.geo.length))); }
+    function mineShapes() {
+      const u = atlasUnlocks(), e = activeEra(year);
+      const key = eraKey(year) + "|" + u.count + "|" + ((window.US_STATES || []).length) + "|" + ((window.CHINA_PROVINCES || []).length);
+      if (_mineFor === key && _mineCache) return _mineCache;
+      const out = [];
+      if (e) {
+        const te = terrOf(e);
+        if (te) for (let i = 0; i < te.terr.length; i++) {
+          const nm = te.terr[i].n; if (!nm) continue;
+          const hit = u.names.get(String(nm).toLowerCase());
+          if (hit) out.push({ id: hit.id, title: hit.title, name: String(nm), rings: te.terr[i].p || [], bb: te.bb[i], at: null });
+        }
+        if (eraIsModern(e)) u.subdiv.forEach((sd) => {
+          const list = window[sd.global]; if (!Array.isArray(list)) return;
+          sd.keys.forEach((k) => {
+            const kl = k.toLowerCase();
+            for (let i = 0; i < list.length; i++) if (String(list[i].n || "").toLowerCase() === kl) {
+              out.push({ id: sd.id, title: sd.title, name: String(list[i].n), rings: list[i].p || [], bb: null, at: list[i].c || null });
+              break;
+            }
+          });
+        });
+      }
+      out.forEach((o) => { if (!o.bb) { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; o.rings.forEach((r) => r.forEach((p) => { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; })); o.bb = [x0, y0, x1, y1]; } });
+      _mineFor = key; _mineCache = out;
+      return out;
+    }
+    /* A MARK APPEARS IN THE CARD'S EARLIEST YEAR AND NEVER GOES AWAY (Sep 2026, on request: "cities and
+       dot locations should have no end date, i.e. should appear in their earliest known date of settlement
+       and then stay visible until the modern day"). It was the card's whole SPAN, both ends — and that is
+       right about a state, which is what the country shapes above already answer for, and wrong about a
+       PLACE: Yinxu is still there, and a globe that took Athens away in 300 CE was telling the reader the
+       city had stopped existing. So only the start binds. What the span really dates is the card's
+       SUBJECT — the Shang capital, the classical city — and a dot on a map is the place rather than the
+       episode. A card with no date at all still shows in every year, for the same reason one step further
+       on. A capital from a geography card rides with the modern map for the reason its state's shape
+       does. */
+    function mineMarks() {
+      const u = atlasUnlocks(), modern = eraIsModern(activeEra(year));
+      const out = [];
+      for (let i = 0; i < u.marks.length; i++) {
+        const m = u.marks[i];
+        if (m.modern) {
+          if (!modern) continue;
+          const tbl = window[m.points]; if (!tbl) continue;
+          const row = tbl[m.dot]; if (!row || !Array.isArray(row.c)) continue;
+          out.push({ id: m.id, title: m.title, kind: "dot", at: row.c });
+          continue;
+        }
+        if (m.y0 != null && year < m.y0) continue;
+        out.push(m);
+      }
+      return out;
+    }
+    /* THE ONE SHAPE THE READER HAS JUST CLICKED, in the map's own selection gold — `TINT_SEL`, which is
+       what the world atlas paints a chosen country with, so a selection means the same thing on both tabs.
+       Everything else is drawn in the land shades by the branch above. `mineSel` is a NAME rather than an
+       index: the shape list is rebuilt whenever the era or the register changes, and an index into the old
+       one would highlight whichever country happened to inherit the slot. */
+    function drawMineShapes(bw) {
+      if (!mineSel) return;
+      const shapes = mineShapes().filter((sh) => sh.name === mineSel);
+      if (!shapes.length) return;
+      ctx.save();
+      ctx.beginPath();
+      for (let i = 0; i < shapes.length; i++) for (let r = 0; r < shapes[i].rings.length; r++) addClipped(shapes[i].rings[r], true);
+      ctx.fillStyle = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")"; ctx.fill("nonzero");
+      if (!moving) { ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9; }
+      ctx.lineWidth = Math.max(1.6, bw * 2); ctx.strokeStyle = TINT_SEL.line;
+      ctx.beginPath();
+      for (let i = 0; i < shapes.length; i++) for (let r = 0; r < shapes[i].rings.length; r++) addClipped(shapes[i].rings[r], false);
+      ctx.stroke();
+      ctx.restore();
+    }
+    /* THE MARKS AND THEIR NAMES, above everything. A name is placed first-come and dropped when it will
+       not fit, which is the Atlas's own city rule in the form this layer can afford — a reader who has
+       studied four hundred places must not meet four hundred names in a heap. */
+    function drawMineMarks() {
+      const marks = mineMarks();
+      if (!marks.length) return;
+      /* A MARK IS RED, AND IT IS THE LOCATOR WINDOWS' OWN RED (Sep 2026, on request) — the same
+         `rgba(200,69,60,…)` a card's map draws its collection's other places in, with the Atlas's white
+         city ring under it so it reads on the light land and on the dark. It was the selection gold, which
+         on this tab now means "you have just clicked this" and cannot also mean "you have studied this".
+         The area and line passes that stood here are GONE with the marks they drew — see mineMarks. */
+      const dotFill = "rgba(200,69,60,0.95)", dotRing = CITY_RING;
+      const fs = clamp(11 + (zoom - 2) * 0.9, 11, 14);
+      const boxes = [];
+      ctx.save();
+      ctx.font = "600 " + fs + "px " + labelFont;
+      ctx.textAlign = "left"; ctx.textBaseline = "middle";
+      for (let i = 0; i < marks.length; i++) {
+        const m = marks[i], at = m.at;
+        if (!at) continue;
+        proj(at[0], at[1]); if (PV < 0) continue;
+        const x = PX, y = PY;
+        if (x < -40 || x > W + 40 || y < -40 || y > H + 40) continue;
+        ctx.beginPath(); ctx.arc(x, y, 4.4, 0, TAU); ctx.fillStyle = dotFill; ctx.fill();
+        ctx.lineWidth = 1.4; ctx.strokeStyle = dotRing; ctx.stroke();
+        const nm = gameCapFirst(m.title || "");
+        if (!nm) continue;
+        const tw = ctx.measureText(nm).width, box = [x + 9, y - fs * 0.62, tw + 4, fs * 1.24];
+        let free = true;
+        for (let b = 0; b < boxes.length; b++) if (rectsHit(box, boxes[b])) { free = false; break; }
+        if (!free) continue;
+        boxes.push(box);
+        ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x + 9, y);
+        ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, x + 9, y);
+      }
+      // and the shapes' own names, at each shape's label point
+      const shapes = mineShapes();
+      for (let i = 0; i < shapes.length; i++) {
+        const sh = shapes[i], at = sh.at || [(sh.bb[0] + sh.bb[2]) / 2, (sh.bb[1] + sh.bb[3]) / 2];
+        proj(at[0], at[1]); if (PV < 0) continue;
+        const x = PX, y = PY;
+        if (x < 0 || x > W || y < 0 || y > H) continue;
+        /* A SHAPE IS LABELLED WITH THE MAP'S OWN NAME, NEVER THE CARD'S ANSWER. A capital card's `map.key`
+           is the COUNTRY and its answer is the city, so labelling the shape with the card's title drew
+           "New Delhi" across India with a second "New Delhi" beside the dot. The card's own title is what
+           the popup is headed with, which is where it belongs. */
+        const nm = gameCapFirst(sh.name || sh.title);
+        const tw = ctx.measureText(nm).width, box = [x - tw / 2 - 2, y - fs * 0.62, tw + 4, fs * 1.24];
+        let free = true;
+        for (let b = 0; b < boxes.length; b++) if (rectsHit(box, boxes[b])) { free = false; break; }
+        if (!free) continue;
+        boxes.push(box);
+        ctx.textAlign = "center";
+        ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x, y);
+        ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, x, y);
+        ctx.textAlign = "left";
+      }
+      ctx.restore();
+    }
+    /* WHAT THE READER JUST CLICKED. A mark wins over a shape when both are under the pointer, because a
+       mark is the smaller and more specific claim — a dot inside a country the reader also holds. */
+    function mineAt(px, py) {
+      const ll = screenToLonLat(px, py); if (!ll) return null;
+      const lon = ll[0], lat = ll[1];
+      const marks = mineMarks();
+      let best = null, bd = Infinity;
+      for (let i = 0; i < marks.length; i++) {
+        const m = marks[i];
+        if (!m.at) continue;
+        proj(m.at[0], m.at[1]); if (PV < 0) continue;
+        const dx = PX - px, dy = PY - py, d = dx * dx + dy * dy;
+        if (d < 196 && d < bd) { bd = d; best = m; }        // within 14px of the dot
+      }
+      if (best) return best;
+      const shapes = mineShapes();
+      let hit = null, ba = Infinity;
+      for (let i = 0; i < shapes.length; i++) {
+        const b = shapes[i].bb;
+        if (lon < b[0] || lon > b[2] || lat < b[1] || lat > b[3]) continue;
+        if (!pointInRings(shapes[i].rings, lon, lat)) continue;
+        const ar = (b[2] - b[0]) * (b[3] - b[1]);           // smallest wins, so an enclave beats the state round it
+        if (ar < ba) { ba = ar; hit = shapes[i]; }
+      }
+      return hit;
+    }
     function renderStatic(bw) {
       ctx.clearRect(0, 0, W, H);
       countryLabelRects.length = 0;   // repopulated by drawCountryNames() below if the layer is on; empty otherwise so cities don't avoid stale boxes
@@ -36497,6 +37406,57 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
       ctx.lineJoin = "round"; ctx.lineCap = "round";
       const era = activeEra(year);
+      /* THE PERSONAL ATLAS DRAWS THE EARTH AND THE READER'S OWN PLACES, and nothing else — no political
+         borders, no capitals, no country names. It takes the whole branch rather than adding guards to
+         the two below it: what it shares with them is the LANDSCAPE, and every political line in those
+         branches is a line this one must not draw. */
+      if (MINE) {
+        for (let p = 0; p < GEO.length; p++) VIS[p] = cullHidden(p) ? 0 : 1;
+        /* THE READER'S OWN LAND IS THE LIGHT LAND; EVERYTHING ELSE IS THE DARK (Sep 2026, on request:
+           "make countries colourless unless they are clicked … areas without any known countries or
+           places should appear slightly darker"). It was a gold wash over every unlocked country, which
+           said "selected" about all of them at once and left nothing for a click to say. So two shades of
+           the land colour do the work instead — `landDim` for the earth at large, `land` for the states
+           this reader has reached — and the map's
+           own selection gold is spent on the one shape that has just been clicked, exactly as it is on the
+           world atlas. There is no stipple and no offscreen layer here: the era branch needs both because
+           it paints a pattern over the wilderness, and two flat fills need neither. */
+        ctx.lineWidth = Math.max(0.8, bw); ctx.fillStyle = landDim;
+        for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }
+        if (!moving) { ctx.strokeStyle = landDim; for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], false); ctx.stroke(); } }   // close world.js's own seams in the LAND colour, so no country outline shows through as a hairline border
+        {
+          const mine = mineShapes();
+          if (mine.length) {
+            ctx.beginPath();
+            for (let i = 0; i < mine.length; i++) for (let r = 0; r < mine[i].rings.length; r++) addClipped(mine[i].rings[r], true);
+            ctx.fillStyle = land; ctx.fill("nonzero");   // NONZERO, like the era branch: an era's rings are CCW-normalized and overlapping territories must read as land rather than punching a dark hole
+            ctx.strokeStyle = land; ctx.stroke();        // widen it over the dark base's own seam stroke, so an unlocked coast keeps its light edge
+          }
+        }
+        if (heightmapOn) drawHeightmap();
+        ctx.fillStyle = ocean;
+        for (let p = 0; p < LAKES.length; p++) { const rings = LAKES[p]; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }
+        if (riversOn && RIVERS.length) { ctx.lineWidth = riverWidth(); ctx.strokeStyle = riverCol; ctx.beginPath(); for (let p = 0; p < RIVERS.length; p++) { const segs = RIVERS[p].p; for (let s = 0; s < segs.length; s++) addClipped(segs[s], false); } ctx.stroke(); }
+        drawMineShapes(bw);
+        // the coastline is landscape rather than politics, so it is drawn whatever the Borders toggle says
+        ctx.lineWidth = bw; ctx.strokeStyle = border; ctx.beginPath();
+        const mce = coastEdges(), mcc = coastCaps(), mskip = mineCoastSkip();
+        for (let i = 0; i < mce.length; i++) {
+          if (mskip[i]) continue;   // an inland border world.js left unshared — see mineCoastSkip
+          const o = i * 4, x = mcc[o], y = mcc[o + 1], z = mcc[o + 2], sr = mcc[o + 3];
+          if (x * Cx + y * Cy + z * Cz + sr < -0.1) continue;
+          const pxx = cx + R * (x * Ex + y * Ey + z * Ez), pyy = cy - R * (x * Nx + y * Ny + z * Nz), rad = R * sr + 8;
+          if (pxx + rad < 0 || pxx - rad > W || pyy + rad < 0 || pyy - rad > H) continue;
+          addClipped(mce[i], false);
+        }
+        ctx.stroke();
+        if (riverLabelsOn && RIVERS.length) drawRiverLabels();
+        if (waterOn && WATER.length) drawWaterLabels();
+        ctx.restore();
+        drawLimb();
+        drawMineMarks();
+        return;
+      }
       if (!era) {   // no map for this year → empty ocean + graticule (the WIP note overlays it)
         ctx.restore();
         drawLimb();
@@ -36555,7 +37515,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (heightmapOn) drawHeightmap();                                                // terrain + sea-floor relief (same in every era); low-res while moving, crisp + cached when settled
         ctx.fillStyle = ocean;                                                         // lakes (present-day)
         for (let p = 0; p < LAKES.length; p++) { const rings = LAKES[p]; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }
-        if (riversOn && RIVERS.length) { ctx.lineWidth = clamp(0.4 + zoom * 0.16, 0.5, 1.8); ctx.strokeStyle = riverCol; ctx.beginPath(); for (let p = 0; p < RIVERS.length; p++) { const segs = RIVERS[p].p; for (let s = 0; s < segs.length; s++) addClipped(segs[s], false); } ctx.stroke(); }
+        if (riversOn && RIVERS.length) { ctx.lineWidth = riverWidth(); ctx.strokeStyle = riverCol; ctx.beginPath(); for (let p = 0; p < RIVERS.length; p++) { const segs = RIVERS[p].p; for (let s = 0; s < segs.length; s++) addClipped(segs[s], false); } ctx.stroke(); }
         if (rangesOn && RANGES.length) drawRanges();
         if (forestsOn && FORESTS.length) drawForests();
         if (bordersOn) {                                                               // era political borders — ONE geometry source per era (no source-mixing → no double borders):
@@ -36610,7 +37570,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       for (let p = 0; p < LAKES.length; p++) { const rings = LAKES[p]; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }
       // rivers (toggle) — thin blue lines on the land
       if (riversOn && RIVERS.length) {
-        ctx.lineWidth = clamp(0.4 + zoom * 0.16, 0.5, 1.8); ctx.strokeStyle = riverCol; ctx.beginPath();
+        ctx.lineWidth = riverWidth(); ctx.strokeStyle = riverCol; ctx.beginPath();
         for (let p = 0; p < RIVERS.length; p++) { const segs = RIVERS[p].p; for (let s = 0; s < segs.length; s++) addClipped(segs[s], false); }
         ctx.stroke();
       }
@@ -36668,7 +37628,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // dynamic overlays (clipped to the disk): matte country fills + whiteboard ink. Present-day country fills + city pins
       // belong only to the present-day map — historical eras / empty years show their own borders (or nothing).
       if (mapEdit) { mapEditDraw(); return; }   // the map editor owns the dynamic overlay
-      const eraNow = activeEra(year), onPresent = !!(eraNow && eraNow.present), fillsOn = onPresent || !!histTerr();
+      /* On the personal atlas there are no era territories to hover, select or fill, and no city layer:
+         the only political thing on the globe is what the reader has unlocked, and that is drawn in
+         `renderStatic` with the land it sits on. */
+      const eraNow = activeEra(year), onPresent = !MINE && !!(eraNow && eraNow.present), fillsOn = !MINE && (onPresent || !!histTerr());
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip(); ctx.lineJoin = "round"; ctx.lineCap = "round";
       if (fillsOn) {   // clickable countries (present-day) or era territories (historical) — hover + selection fills
         drawSelectionOverlay();   // selection (cached offscreen while settled — pulse/fade animation frames blit instead of re-blurring dozens of territories)
@@ -36681,7 +37644,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (onPresent) {
         const showCap = zoom >= CAP_Z && citiesOn, showCities = zoom >= MAJOR_Z && majorCitiesOn, showDiv = zoom >= MAJOR_Z && divCapsOn;
         if (showCap || showCities || showDiv) drawCities(showCap, showCities, showDiv);
-      } else if (citiesOn && zoom >= CAP_Z && eraNow && !eraNow.present && eraNow.cities && eraNow.cities.length) drawEraCities(eraNow, false);   // a historical era's capitals — same Capitals legend toggle + zoom cutoff (CAP_Z) as present-day
+      } else if (!MINE && citiesOn && zoom >= CAP_Z && eraNow && !eraNow.present && eraNow.cities && eraNow.cities.length) drawEraCities(eraNow, false);   // a historical era's capitals — same Capitals legend toggle + zoom cutoff (CAP_Z) as present-day
       // country names are no longer tied to hover/selection — they're a persistent layer via the "Country names" legend toggle (drawn in renderStatic)
       // "what changed?" pulse: two soft gold throbs (~1.6s) over the territories that changed hands on the last timeline step
       if (pulseSet) {
@@ -36851,7 +37814,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (moving) {
         moving = false; if (wheelActive) forceComposite();
         // the globe rotated/zoomed under a stationary cursor — re-derive what's under it so the hover fill + name tag aren't stale
-        if (hoverOn && ptrs.size === 0 && !mapEdit) { const ni = countryAt(hoverPx, hoverPy); if (ni !== hoverIdx) { hoverIdx = ni; canvas.style.cursor = ni >= 0 ? "pointer" : "grab"; } }
+        if (MINE) { if (hoverOn && ptrs.size === 0 && !mapEdit) canvas.style.cursor = mineAt(hoverPx, hoverPy) ? "pointer" : "grab"; }
+        else if (hoverOn && ptrs.size === 0 && !mapEdit) { const ni = countryAt(hoverPx, hoverPy); if (ni !== hoverIdx) { hoverIdx = ni; canvas.style.cursor = ni >= 0 ? "pointer" : "grab"; } }
         draw(); updateHoverName();
       }
       wheelActive = false;
@@ -36961,6 +37925,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           else {
             { const pll = screenToLonLat(tpx, tpy); popPointLL = pll ? [pll[0], pll[1]] : null; }   // the geographic point that (maybe) opens the popup — feeds the crumb + "Through the ages"
             if (GAME) { gameTap(tpx, tpy); return; }   // game mode: a tap IS the answer — no selection/popup/drill
+            /* THE PERSONAL ATLAS HAS ONE LEVEL AND SO ONE CLICK. There is no empire to drill out of and
+               no constituent to drill into: a place is either the reader's or it is not there, so the
+               single/double/triple ladder below has nothing to count. */
+            if (MINE) { const hit = mineAt(tpx, tpy); mineSel = (hit && hit.rings) ? hit.name : ""; if (hit) showMinePopup(hit); else hideCountryPopup(); draw(); return; }
             const now = e.timeStamp || performance.now();
             const sameSpot = (now - lastTapT < 400) && Math.hypot(tpx - lastTapX, tpy - lastTapY) < 14;
             tapCount = sameSpot ? tapCount + 1 : 1;   // 1 = single, 2 = double, 3 = triple (same spot within 400ms)
@@ -37258,6 +38226,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     WB.onCanRedo = () => gRedo.length > 0;
     gSnapshot();   // base (empty) state so Undo can return to a blank globe
     // legend toggles — borders/rivers/mountains/provinces affect the cached base (baseValid=false); cities are overlays
+    /* SWITCHING ATLAS IS A REPAINT, NOT A NAVIGATION — `render()` rather than `route()`, which is what
+       keeps `route()`'s "the Atlas opens on your own" reset from immediately undoing the press. The whole
+       page is rebuilt because the two differ in their rail, their ticks, their legend and their draw
+       path, and a mode that deep is cheaper to re-enter than to mutate. */
+    /* A READER'S OWN STATES AND PROVINCES ARE IN THEIR OWN BUNDLES, warmed at IDLE and never awaited —
+       the locator windows' bargain (see the note beside `CMAP_HIRES`). The globe paints at once with the
+       countries, which are in `world` and already here, and the fifty states arrive a moment later. */
+    if (MINE) {
+      const needs = Array.from(atlasUnlocks().need).filter((b) => !dataReady(b));
+      if (needs.length) whenIdle(() => { Promise.all(needs.map((b) => ensureData(b))).then(() => { if (!canvas.isConnected) return; _mineFor = ""; baseValid = false; draw(); }); });
+    }
+    const emptyGo = root.querySelector("#atlasEmpty [data-goto]");
+    if (emptyGo) emptyGo.addEventListener("click", () => route("decks"));
+    root.querySelectorAll("[data-atlastab]").forEach((b) => b.addEventListener("click", () => {
+      const want = b.getAttribute("data-atlastab");
+      if (want === atlasTab) return;
+      atlasTab = want; sfx("toggle"); render();
+    }));
     const wire = (id, set, rebuild) => { const cb = root.querySelector(id); if (cb) cb.addEventListener("change", () => { set(cb.checked); if (rebuild) baseValid = false; draw(); }); };
     wire("#bordersToggle", (v) => bordersOn = v, true);
     wire("#riversToggle", (v) => riversOn = v, true);
@@ -37402,9 +38388,11 @@ let prev = null;
       // plate-title cartouche. The present-day plate says simply TODAY (Aug 2026, on request): every other
       // year's plate is "THE WORLD · <year>", so on this one the two words before the date were the only
       // part carrying no information — the globe under it is the world either way.
-      if (cartEl) cartEl.textContent = year >= MAXY ? "TODAY" : "THE WORLD · " + ff.n + (ff.e === "BCE" ? " BCE" : "");
+      // on the personal atlas the cartouche names whose map it is, since that is the thing that differs
+      if (cartEl) cartEl.textContent = year >= MAXY ? "TODAY" : (MINE ? "YOUR ATLAS · " : "THE WORLD · ") + ff.n + (ff.e === "BCE" ? " BCE" : "");
       // show the work-in-progress note only when no map (present-day or a historical era) covers this year
-      if (wipEl) wipEl.classList.toggle("show", activeEra(year) == null);
+      // …and never on the personal atlas, where a year with no era map is not a gap but the empty earth
+      if (wipEl) wipEl.classList.toggle("show", !MINE && activeEra(year) == null);
     }
     // years that have a map: each historical era's year + the present (world.js). Browsing snaps to these; blank years are skipped.
     function mapYears() {
@@ -37412,9 +38400,16 @@ let prev = null;
       (window.TIMELINE || []).forEach((e) => { if (e && typeof e.year === "number") ys.add(clamp(Math.round(e.year), MINY, MAXY)); });
       return Array.from(ys).sort((a, b) => a - b);
     }
-    function snapYear(y) { const ys = mapYears(); let best = ys[0], bd = Infinity; for (let i = 0; i < ys.length; i++) { const d = Math.abs(ys[i] - y); if (d < bd) { bd = d; best = ys[i]; } } return best; }
+    /* ON THE PERSONAL RAIL EVERY YEAR IS A YEAR WITH A MAP, so nothing snaps and nothing is skipped: the
+       marks are still the era years, because that is where the political shapes actually change, but the
+       pin slides freely between them. The chevrons step by an amount that suits the part of the rail they
+       are on — a century in the deep past, a decade in the mapped centuries — since one step of 25 years
+       would be 240 presses from 4000 BCE to today. */
+    const mineStep = (y) => (y < 0 ? 100 : y < 1500 ? 50 : 10);
+    function snapYear(y) { if (MINE) return clamp(Math.round(y), MINY, MAXY); const ys = mapYears(); let best = ys[0], bd = Infinity; for (let i = 0; i < ys.length; i++) { const d = Math.abs(ys[i] - y); if (d < bd) { bd = d; best = ys[i]; } } return best; }
     function stepYear(dir) {   // jump to the adjacent mapped year, skipping every year with no map
       if (GAME) return;   // the round pins the year (the timebar is inert in game mode; this guards any other path)
+      if (MINE) return setYear(clamp(year + dir * mineStep(year), MINY, MAXY));
       const ys = mapYears();
       if (dir > 0) { for (let i = 0; i < ys.length; i++) if (ys[i] > year) return setYear(ys[i]); return setYear(ys[ys.length - 1]); }
       for (let i = ys.length - 1; i >= 0; i--) if (ys[i] < year) return setYear(ys[i]);
@@ -37481,8 +38476,9 @@ let prev = null;
     }
     function step(dir) { stepYear(dir); }   // chevrons / arrow keys move one mapped year at a time (amt arg from hold-repeat is ignored — there are only a few stops)
     const clientFrac = (clientX) => { const r = track.getBoundingClientRect(); return clamp((clientX - r.left) / r.width, 0, 1); };
-    const frac2year = (fr) => {   // inverse of the piecewise year2frac rail scale
-      let y = fr <= TL_KNEE_F ? Math.round(MINY + (fr / TL_KNEE_F) * (TL_KNEE - MINY)) : Math.round(TL_KNEE + ((fr - TL_KNEE_F) / (1 - TL_KNEE_F)) * (MAXY - TL_KNEE));
+    const frac2year = (fr) => {   // inverse of the piecewise year2frac rail scale (linear on the personal rail)
+      let y = MINE ? Math.round(MINY + fr * (MAXY - MINY))
+        : fr <= TL_KNEE_F ? Math.round(MINY + (fr / TL_KNEE_F) * (TL_KNEE - MINY)) : Math.round(TL_KNEE + ((fr - TL_KNEE_F) / (1 - TL_KNEE_F)) * (MAXY - TL_KNEE));
       if (y === 0) y = 1; return clamp(y, MINY, MAXY);
     };
 
@@ -37856,7 +38852,10 @@ let prev = null;
     }
     /* ---------- first-visit coach marks + the "?" help button ---------- */
     { const helpEl = root.querySelector("#atlasHelp"), helpBtn = root.querySelector("#gzHelp");
-      const hideHelp = () => { if (helpEl) helpEl.hidden = true; try { localStorage.setItem("folio_atlas_tour_v1", "1"); } catch (err) {} };
+      /* THE TWO ATLASES REMEMBER THEIR CARDS SEPARATELY, since they explain different pages: a reader
+         who dismissed the world atlas's card months ago has never been told what the personal one is. */
+      const HELP_KEY = MINE ? "folio_mine_tour_v1" : "folio_atlas_tour_v1";
+      const hideHelp = () => { if (helpEl) helpEl.hidden = true; try { localStorage.setItem(HELP_KEY, "1"); } catch (err) {} };
       if (helpEl) {
         helpEl.addEventListener("click", (e) => { if (e.target === helpEl) hideHelp(); });   // backdrop click closes
         const c1 = root.querySelector("#ahClose"), c2 = root.querySelector("#ahGo");
@@ -37864,7 +38863,7 @@ let prev = null;
         if (c2) c2.addEventListener("click", hideHelp);
       }
       if (helpBtn) helpBtn.addEventListener("click", () => { if (helpEl) helpEl.hidden = false; });
-      let seen = "1"; try { seen = localStorage.getItem("folio_atlas_tour_v1") || ""; } catch (err) {}
+      let seen = "1"; try { seen = localStorage.getItem(HELP_KEY) || ""; } catch (err) {}
       if (!GAME && !seen && helpEl) helpEl.hidden = false;   // first Atlas visit: a 20-second orientation
     }
     // warm the expensive one-time caches in idle time — the coastline chaining + flood-fill classification (~1s) and the
@@ -42309,12 +43308,7 @@ let prev = null;
       gradeCloze(cardRoot.querySelector(".question"), c.answer);
       const inner = host.querySelector("#revealInner");
       inner.innerHTML = buildBack(c);
-      openLinks(inner); processAbstract(inner, c); setupTooltips(inner);
-      const bgHead = inner.querySelector(".bg-head"), bgToggle = inner.querySelector(".bg-toggle"), bgCollapse = inner.querySelector(".bg-collapse");
-      if (bgHead && bgCollapse) bgHead.addEventListener("click", () => { const col = bgCollapse.classList.toggle("collapsed"); if (bgToggle) bgToggle.classList.toggle("collapsed", col); bgHead.setAttribute("aria-expanded", col ? "false" : "true"); });
-      inner.querySelectorAll(".tr-play").forEach((btn) => btn.addEventListener("click", () => speak(btn.dataset.say, btn)));
-      wireAnswerSay(inner);
-      wireTTS(inner, c);
+      mountCardBack(inner, c);
       host.querySelector("#reveal").classList.add("show");
       const p = preview(id);
       // grades render inline in the pane (preview only — nothing is scheduled)
@@ -43910,6 +44904,10 @@ let prev = null;
     });
   }
 
+  /* Everything the fullscreen viewer opens from. `.card-img` is the framed figure a card, a glossary
+     popup, an artefact plate and the editor previews all emit; `.av-flag` is the small flag inside a
+     geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML. */
+  const IMG_OPEN_SEL = ".card-img, .av-flag";
   // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor).
   // A .card-vid wears the same frame but plays in place, so only its corner expand control opens the viewer —
   // every other click inside it belongs to the player.
@@ -43951,7 +44949,7 @@ let prev = null;
     const slot = fig.closest(".gloss-imgslot, .card-imgslot"); if (slot) slot.hidden = true;
   }, true);
   document.addEventListener("click", (e) => {
-    const fig = e.target.closest(".card-img"); if (!fig) return;
+    const fig = e.target.closest(IMG_OPEN_SEL); if (!fig) return;
     if (fig.classList.contains("media-dead")) return;   // nothing to enlarge — the file never arrived
     if (fig.classList.contains("card-vid")) {
       if (!e.target.closest(".cv-expand")) return;
@@ -43991,7 +44989,7 @@ let prev = null;
   }, true);
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
-    const fig = e.target.closest && e.target.closest(".card-img"); if (!fig) return;
+    const fig = e.target.closest && e.target.closest(IMG_OPEN_SEL); if (!fig) return;
     if (fig.classList.contains("media-dead")) return;
     if (fig.classList.contains("card-vid")) return;   // the expand control is a real <button> — the browser fires its click itself
     e.preventDefault();
