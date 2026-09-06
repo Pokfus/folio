@@ -771,6 +771,59 @@ collection's two-scholar cap is spent on `ko-703` and the plan asks the remainin
 to name schools, states and projects. A `Sekino_Tadashi` card would have been the obvious alternative and
 is exactly what that rule exists to prevent.
 
+## What the ninth ten found (Sep 2026)
+
+`ko-081`–`ko-090` finish `ko-commanderies`, and four of them are about TEXTS rather than events — the
+*Samguk sagi*, the *Samguk yusa*, the *Sanguozhi* and the practice of reading them. That is where the
+batch's findings are.
+
+**TWO ADJACENT CARDS COULD NOT BOTH BE NAMED FOR THEIR BOOK.** The plan gives `ko-087` the *Samguk
+sagi* and `ko-088` the *Samguk yusa*, whose titles differ by one word — exactly what the
+adjacent-answers rule exists to prevent, and worse than batch 7's *Samhan*/*Mahan* pair, where the two
+cards exist to distinguish those names. So `ko-088` is answered by **Iryeon**, the monk who compiled the
+*yusa*, and the book has a glossary entry of its own without being any card's answer. **A card about a
+work can be carded through its maker when the title is the problem.**
+
+**A DATE LINE THAT NAMES A PERSON DATES THE CARD TO THAT PERSON.** `ko-087` first shipped with a second
+row reading `Compiler | Kim Busik, 1075 – 1151`, and `cardYears` takes the minimum, so the card about a
+book completed in 1145 sorted at **1075**, thirty years before it was written. The row is now an
+unlabelled continuation with no years in it. This is the fourth distinct way a date line has produced a
+wrong sort year in this collection — after a dig date, a claimed date and a stray era marker — and the
+answer is the same each time: **read the sort year back through `cardYears` before committing.**
+`ko-083` was caught in the same pass: `357 and 408 CE` yields only 408, because an era marker carries
+leftwards across a RANGE and not across "and". Written `357 CE and 408 CE` it yields both.
+
+**THE SOURCE BASE WIDENED AGAIN, AND THE ROUTE WAS THE SAME ONE.** Searching DOAJ and the Crossref
+journal listing by subject produced three more *IJKH* articles that carry cards on their own: Bonggeun
+Kim on the Hagoseongja earthen fortress (`ko-081`), Sebastian Müller on the monumental mounds at
+Gyeongju (`ko-085`), and Maurizio Riotto on the monk Ariyabalma, which is nominally about a Silla pilgrim
+and is in fact the batch's best account of **how the three early Korean sources are read against each
+other** — it supplies the *Samguk sagi*'s completion in 1145, Iryeon's dates, the five books of the
+*yusa* and the *Haedong goseung jeon* of 1215. **An article about one obscure figure can be the best
+available account of the method used to study him.**
+
+**AND THREE CLAIMS WERE CUT BECAUSE THE SOURCES DID NOT CARRY THEM.** A first draft of `ko-087` described
+the *Samguk sagi*'s internal arrangement into annals, treatises and biographies on the Chinese model;
+none of the openable sources says so, and it now claims only the annals, which they do. A draft of
+`ko-088` explained the *Samguk yusa* by the Mongol invasions citing an article that never mentions the
+book — Kim Soo-ja's does, in one sentence, and carries it now. And `ko-086` was drafted saying that
+*shamanism* is a modern term borrowed from Siberian ethnography that no ancient source uses, which is
+true and is in nothing openable; what Nelson's review of the Korean literature does say is that the
+resemblance between these bronzes and present-day shamans' equipment is an interesting observation
+needing more systematic evidence, and that is both citable and a better sentence. **The plausible
+sentence you cannot cite is the one to rewrite, not to keep.**
+
+**Eleven glossary terms shipped with the ten cards** — one more than the pairing rule requires, because
+`Samguk_yusa` deserves an entry whether or not a card is named for it. **The surface sweep that batch 8
+made a standing step came up clean**: of the new terms only `Armour` reaches outside Korea, and its 18
+matches in the Greece and Rome collections are all genuine, with the Korean detail a trailing example
+rather than the sentence's subject. **`Armoury` and `armourer` do not match**, the auto-linker's boundary
+test requiring a non-letter after the surface — which is why a first count of 19 Greek hits was really 18.
+
+**Four cards ship without a picture** — `ko-081`, `ko-084`, `ko-087`, `ko-090`. Commons has no photograph
+of a Korean iron ingot, no image of the Hagoseongja fortress, nothing of the *Samguk sagi* above 750
+pixels, and nothing at all for a method. The one that stings is the ingot, since the object is the card.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -907,16 +960,16 @@ where its findings go.
     ko-078  State formation in early Korea — the chiefdom
     ko-079  Chiefdoms to kingdoms — Xuantu
     ko-080  Kingship and prestige goods in early Korea — prestige goods
-    ko-081  Walled-town states
-    ko-082  The horse-riding peoples of the north
-    ko-083  Early Korean warfare
-    ko-084  Early Korean metalworking
-    ko-085  Early Korean burial mounds
-    ko-086  Shamanism in early Korea
-    ko-087  The Samguk sagi as a source
-    ko-088  The Samguk yusa as a source
-    ko-089  Chinese records of early Korea
-    ko-090  The problems of the early Korean sources
+    ko-081  Walled sites and the earthen fortress — the earthen fortress
+    ko-082  The horse-riding peoples of the north — the Xianbei
+    ko-083  Early Korean warfare — armour
+    ko-084  Early Korean metalworking — the iron ingot
+    ko-085  Early Korean tombs — the wooden-chamber tomb
+    ko-086  Shamanism in early Korea — shamanism
+    ko-087  The Samguk sagi as a source — the Samguk sagi
+    ko-088  The Samguk yusa as a source — Iryeon
+    ko-089  Chinese records of early Korea — the Sanguozhi
+    ko-090  The problems of the early Korean sources — source criticism
 
 ## The Three Kingdoms
 
