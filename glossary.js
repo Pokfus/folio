@@ -1866,7 +1866,11 @@ window.GLOSSARY = {
 "Greek_fire": "Greek fire was the incendiary weapon of the Byzantine navy, a liquid thrown in pots or sprayed from a nozzle that went on burning where it landed.<sup class=\"fn\" data-fn=\"1\"></sup> Theophanes credits it to a man named Kallinikos in a notice too brief to say what he actually contributed, and the empire kept the method of making it so well that its composition is still unknown.<sup class=\"fn\" data-fn=\"1\"></sup> Medieval writers name sulphur, saltpetre, tar, resin, petroleum and plant oils among the ingredients; petroleum has most modern support, and the crude oil that seeped to the surface on the north-east shore of the Black Sea would have supplied it.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Byzantine_Iconoclasm": "Byzantine Iconoclasm was the imperial policy of removing religious images and forbidding their veneration, pursued from the 720s until the council of Nicaea restored them in 787 and again from 815 until 843. Its earliest trace outside the empire is a lost inscription of about 730 from Corteolona near Pavia, saying that the emperor Leo had fallen into the pit of schism.<sup class=\"fn\" data-fn=\"1\"></sup> The familiar account of it as a heresy born in the palace and imposed on unwilling believers by three emperors is the version the victorious icon party wrote in the 9th century.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "East–West_Schism": "The East–West Schism is the division of Christendom between the Greek church centred on Constantinople and the Latin church centred on Rome, conventionally dated to the mutual anathemas of 1054 though the estrangement was gradual.<sup class=\"fn\" data-fn=\"1\"></sup> Its issues had surfaced in the 9th century, when the patriarch Photios broke communion with Pope Nicholas I over jurisdiction in Bulgaria, the standing of the two sees and the western addition of <i>Filioque</i> to the creed, a breach a synod of 879 and 880 repaired.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Beside that doctrinal core the polemic accumulated charges about unleavened bread, clerical celibacy, shaving and diet, whose lists circulated in eastern Europe into the 17th century.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Eastern_Orthodox_Church": "The Eastern Orthodox Church is the communion of self-governing churches descended from the Greek Christianity of the Roman East, held together not by a single head but by councils, whose authority runs from the parish to the whole body and which assembled as a Holy and Great Council only in Crete in 2016.<sup class=\"fn\" data-fn=\"1\"></sup> Its worship is aimed at <i>theosis</i>, the deification of the worshipper, which occupies roughly the place justification holds in Protestant theology.<sup class=\"fn\" data-fn=\"2\"></sup> Gregory Palamas gave that goal its classic guard in the 14th century by distinguishing God’s energies, in which creatures share, from his essence, in which they never do.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Eastern_Orthodox_Church": "The Eastern Orthodox Church is the communion of self-governing churches descended from the Greek Christianity of the Roman East, held together not by a single head but by councils, whose authority runs from the parish to the whole body and which assembled as a Holy and Great Council only in Crete in 2016.<sup class=\"fn\" data-fn=\"1\"></sup> Its worship is aimed at <i>theosis</i>, the deification of the worshipper, which occupies roughly the place justification holds in Protestant theology.<sup class=\"fn\" data-fn=\"2\"></sup> Gregory Palamas gave that goal its classic guard in the 14th century by distinguishing God’s energies, in which creatures share, from his essence, in which they never do.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Cyril_and_Methodius": "Cyril and Methodius were brothers from Thessalonica sent from Constantinople to Great Moravia after 863, at the invitation of a prince who wanted teachers who were not Frankish.<sup class=\"fn\" data-fn=\"1\"></sup> The elder, Constantine the Philosopher, who took the name Cyril late in life, devised an alphabet for Slavonic, the script called Glagolitic; a Bulgarian monk of the following century credited him with 38 letters made for a people who had until then reckoned with strokes and notches.<sup class=\"fn\" data-fn=\"2\"></sup> Where those letters came from is still argued over, one leading account building most of them out of the cross, the circle and the triangle.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Kievan_Rus'": "Kievan Rus’ was the state built along the river roads of eastern Europe by princes ruling from Kyiv, whose own chronicle traces its founding to Varangians from beyond the sea, an origin argued over for two centuries with heavy political freight.<sup class=\"fn\" data-fn=\"1\"></sup> It dealt with Byzantium by turns as trading partner and enemy, preserving four treaties with the empire in its chronicle while a Rus’ fleet attacked Constantinople in 941 and an emperor campaigned against the Rus’ in 971.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its 11th century brought a cultural rise, with the raising of St Sophia in Kyiv, the founding of the Caves monastery and the first theology written in Slavonic there.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"First_Bulgarian_Empire": "The First Bulgarian Empire was the state founded on the lower Danube by the Bulgars under Asparuh in 681, out of a war that ended in Byzantium recognising it, and it remained the empire’s most persistent European rival for three centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Its ruler Boris accepted Christianity in the 860s, and under his son Symeon, who ruled from 893 to 927, it fought long and victorious wars and led south-eastern Europe.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The 10th century brought a literary flowering in Slavonic and then a military collapse, and by 1018 the state had lost its independence to Byzantium for a century and a half.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Manzikert": "The Battle of Manzikert was fought in eastern Anatolia on 26 August 1071 between the Byzantine emperor Romanos IV Diogenes, who had mobilised his whole strength to destroy the Great Seljuk state, and the sultan Alp Arslan, who defeated and captured him.<sup class=\"fn\" data-fn=\"1\"></sup> Turkmen had been pressing west from Turkestan and Iran since 1037 and had failed to settle Anatolia before; after this defeat they stayed, and within decades the Danishmendids, Saltuqids, Mengujekids and the Seljuk sultanate of Anatolia ruled on formerly Byzantine ground.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Modern Turkey has made the day a founding story of national identity, though it was largely passed over in the Republic’s public life until the 1950s.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2735,7 +2739,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Greek_fire": "7th – 12th century CE",
 "Byzantine_Iconoclasm": "c. 726 – 843 CE",
 "East–West_Schism": "c. 858 – 1054 CE",
-"Eastern_Orthodox_Church": "c. 500 CE – present"
+"Eastern_Orthodox_Church": "c. 500 CE – present",
+"Cyril_and_Methodius": "9th century CE",
+"Kievan_Rus'": "9th – 13th century CE",
+"First_Bulgarian_Empire": "681 – 1018 CE",
+"Battle_of_Manzikert": "26 August 1071 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2859,7 +2867,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tajikistan": ["Tajik"],
 "Thailand": ["Thai","Siam"],
 "East_Timor": ["Timor-Leste","East Timorese"],
-"Turkmenistan": ["Turkmen"],
+"Turkmenistan": [],
 "United_Arab_Emirates": ["UAE","Emirati"],
 "Uzbekistan": ["Uzbek"],
 "Vietnam": ["Vietnamese"],
@@ -3903,7 +3911,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Greek_fire": ["liquid fire","naval fire"],
 "Byzantine_Iconoclasm": ["iconoclasm","iconoclast controversy"],
 "East–West_Schism": ["Great Schism","Schism of 1054"],
-"Eastern_Orthodox_Church": ["Eastern Orthodoxy","Orthodox Church","Eastern Orthodox"]
+"Eastern_Orthodox_Church": ["Eastern Orthodoxy","Orthodox Church","Eastern Orthodox"],
+"Cyril_and_Methodius": ["Saints Cyril and Methodius","Constantine the Philosopher","Methodius"],
+"Kievan_Rus'": ["Kyivan Rus","Kyivan Rus’","Kievan Rus","Rus’"],
+"First_Bulgarian_Empire": ["First Bulgarian Tsardom","First Bulgarian state"],
+"Battle_of_Manzikert": ["Manzikert","Malazgirt"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5800,7 +5812,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Greek_fire": ["technology","history","warfare","europe","science"],
 "Byzantine_Iconoclasm": ["event","history","religion","europe","art"],
 "East–West_Schism": ["event","history","religion","europe","politics"],
-"Eastern_Orthodox_Church": ["institution","history","religion","europe","philosophy"]
+"Eastern_Orthodox_Church": ["institution","history","religion","europe","philosophy"],
+"Cyril_and_Methodius": ["person","history","religion","europe","technology"],
+"Kievan_Rus'": ["state","history","europe","politics","religion"],
+"First_Bulgarian_Empire": ["state","history","europe","politics","warfare"],
+"Battle_of_Manzikert": ["battle","history","warfare","europe","politics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
