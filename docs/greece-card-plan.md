@@ -791,7 +791,7 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-541  Brasidas
     gr-542  Amphipolis
     gr-543  Battle of Amphipolis
-    gr-544  The exile of Thucydides
+    gr-544  The exile of Thucydides   (carded on Eion, the harbour he did save; the exile itself is at gr-522)
     gr-545  The Peace of Nicias
     gr-546  Nicias
     gr-547  Alcibiades
