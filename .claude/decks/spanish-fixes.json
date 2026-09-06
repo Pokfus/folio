@@ -9293,6 +9293,405 @@
     ]
    ],
    "rebold": true
+  },
+  "delea1/el primo, la prima": {
+   "why": "It shipped with two examples where the rest of the deck has three, and its gloss carried a parenthesis - cousin (of male or unspecified gender) - explaining a distinction the headword el primo, la prima already makes on the same line.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "cousin"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el primo hermano — first cousin",
+      "la prima — also a bonus, a premium (in banking and insurance)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los primos, las primas"
+    ],
+    [
+     "the other relatives",
+     "el tío, el sobrino, el nieto"
+    ]
+   ],
+   "bold": [
+    "primo",
+    "prima",
+    "primos",
+    "primas"
+   ],
+   "ex": [
+    [
+     "Mi prima vive en Madrid.",
+     "My cousin lives in Madrid."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el domingo": {
+   "why": "Its first example says cae un día domingo, which is a Latin American turn; in Spain it is cae en domingo, and neither form was explained. The days-of-the-week note the deck now gives on el viernes belongs on every one of the seven.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "Sunday"
+     ]
+    ],
+    [
+     "note",
+     [
+      "el domingo — on Sunday; los domingos — on Sundays; Spanish uses no word for on",
+      "the days of the week are not capitalised in Spanish"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los domingos (unchanged)"
+    ],
+    [
+     "the weekend",
+     "el fin de semana"
+    ]
+   ],
+   "bold": [
+    "domingo",
+    "domingos"
+   ],
+   "dropEx": [
+    "Este año, la navidad cae un día domingo."
+   ],
+   "ex": [
+    [
+     "Los domingos comemos en casa de mis padres.",
+     "On Sundays we eat at my parents house."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el examen": {
+   "why": "Its third example, voy a ir a un examen, is not something a Spanish speaker says - an exam is something you tener or hacer - and the two verbs a student actually needs, aprobar and suspender, were nowhere on the card.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "exam, test"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hacer un examen — to sit an exam",
+      "aprobar — to pass; suspender — to fail"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los exámenes"
+    ],
+    [
+     "the verb",
+     "examinar, examinarse"
+    ]
+   ],
+   "bold": [
+    "examen",
+    "exámenes"
+   ],
+   "dropEx": [
+    "Voy a ir a un examen en enero."
+   ],
+   "ex": [
+    [
+     "Mañana tengo un examen de historia.",
+     "Tomorrow I have a history exam."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la montaña": {
+   "why": "Its first example asks for la montaña más GRANDE and translates it as the highest - which is not what the Spanish says, and not how a Spanish speaker asks the question either, since a mountain is alta.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "mountain"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la montaña rusa — roller coaster",
+      "ir a la montaña — to go up to the mountains"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las montañas"
+    ],
+    [
+     "a range",
+     "la sierra, la cordillera"
+    ]
+   ],
+   "bold": [
+    "montaña",
+    "montañas"
+   ],
+   "dropEx": [
+    "¿Cuál es la montaña más grande del mundo?"
+   ],
+   "ex": [
+    [
+     "El Teide es la montaña más alta de España.",
+     "El Teide is the highest mountain in Spain."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el fútbol": {
+   "why": "The card teaches fútbol and its own second example spells it futbol, without the accent - which is the Mexican spelling and correct there, but on a card that has just told the reader where the stress goes it reads as a typo. Nothing said jugar AL fútbol either, which is the construction the word is always used in.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "football, soccer"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "jugar al fútbol — to play football",
+      "el partido — the match; el equipo — the team"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "also spelt",
+     "futbol (Mexico and much of Latin America)"
+    ]
+   ],
+   "bold": [
+    "fútbol",
+    "futbol"
+   ],
+   "dropEx": [
+    "Suelo jugar al futbol después de clase."
+   ],
+   "ex": [
+    [
+     "Jugamos al fútbol todos los domingos.",
+     "We play football every Sunday."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el gas": {
+   "why": "Both its glosses were physics definitions in brackets - matter between liquid and plasma, an element or compound in such a state - where what a reader needs is agua CON GAS, which is what its own first example is and what they will be asked in every bar in Spain. Its third example, a carbonated tea, is not a thing.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "gas"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el agua con gas — sparkling water; sin gas — still",
+      "la cocina de gas — gas cooker"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los gases"
+    ],
+    [
+     "petrol",
+     "la gasolina"
+    ]
+   ],
+   "bold": [
+    "gas",
+    "gases"
+   ],
+   "dropEx": [
+    "He visto alguna vez un té con gas."
+   ],
+   "ex": [
+    [
+     "¿Agua con gas o sin gas?",
+     "Sparkling or still water?"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el instituto": {
+   "why": "Its second example is about handing out condoms in schools, which is not a sentence a vocabulary deck should deal an exam candidate. The word itself is right and is now cross-referenced from el colegio.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "secondary school (in Spain, from about twelve)",
+      "institute (a research or teaching body)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los institutos"
+    ],
+    [
+     "primary school",
+     "el colegio"
+    ]
+   ],
+   "bold": [
+    "instituto",
+    "institutos"
+   ],
+   "dropEx": [
+    "Una de las propuestas del gobierno es repartir condones en los institutos."
+   ],
+   "ex": [
+    [
+     "Mi hermano empieza el instituto en septiembre.",
+     "My brother starts secondary school in September."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la camisa": {
+   "why": "shirt, gas mantle - the second is a piece of Victorian lamp fitting, and the least likely word in the deck - while la camiseta, the t-shirt a reader owns several of, was missing. Its third example is a straitjacket, a compound the card did not list and a poor thing to teach beside shirt.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "shirt"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la camiseta — t-shirt",
+      "la camisa de fuerza — straitjacket"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las camisas"
+    ],
+    [
+     "t-shirt",
+     "la camiseta"
+    ]
+   ],
+   "bold": [
+    "camisa",
+    "camisas"
+   ],
+   "dropEx": [
+    "Le pusieron a Tom una camisa de fuerza."
+   ],
+   "ex": [
+    [
+     "Esta camisa me queda pequeña.",
+     "This shirt is too small for me."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el crédito": {
+   "why": "Its second example says tarjetas de créditos, which is not Spanish - the compound is tarjeta de crédito, with the second noun singular - and the card's own third example gets it right two lines below, so the deck contradicted itself.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "credit"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la tarjeta de crédito — credit card",
+      "a crédito — on credit"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los créditos"
+    ],
+    [
+     "debit card",
+     "la tarjeta de débito"
+    ]
+   ],
+   "bold": [
+    "crédito",
+    "créditos"
+   ],
+   "dropEx": [
+    "¿Aceptáis tarjetas de créditos?"
+   ],
+   "ex": [
+    [
+     "¿Aceptan tarjeta de crédito?",
+     "Do you take credit cards?"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el lunes": {
+   "why": "Right, and owed the same note the other days now carry: el lunes is on Monday, los lunes is on Mondays, and Spanish uses no preposition for either.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "Monday"
+     ]
+    ],
+    [
+     "note",
+     [
+      "el lunes — on Monday; los lunes — on Mondays; Spanish uses no word for on",
+      "the days of the week are not capitalised in Spanish"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los lunes (unchanged)"
+    ],
+    [
+     "the working week",
+     "de lunes a viernes"
+    ]
+   ],
+   "bold": [
+    "lunes"
+   ],
+   "rebold": true
   }
  },
  "insert": {
