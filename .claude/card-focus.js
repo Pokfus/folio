@@ -115,7 +115,12 @@ function authorSegments(src) {
   const segs = [];
   const rev = s.match(/^(.*?),\s*review of/i);           // reviewer, at the head
   if (rev) segs.push(rev[1]);
-  for (const m of s.matchAll(/,\s*(?:by|ed\.|edited by)\s+([^,§]*(?:,\s*[A-Z][^,§]*)?)/gi)) segs.push(m[1]);
+  /* A PUBLISHER PARENTHETICAL IS NOT PART OF THE AUTHOR FIELD, and swallowing one hands the
+     last-token rule a PLACE. "…, ed. William S. Powell (Chapel Hill: University of North Carolina
+     Press, 2006)" yielded the surname "Carolina", so every question naming the colony read as one
+     naming a scholar. Cutting each segment at its opening parenthesis is general, where adding the
+     place to NOT_A_SURNAME would only ever be a list that is one place short. */
+  for (const m of s.matchAll(/,\s*(?:by|ed\.|edited by)\s+([^,§]*(?:,\s*[A-Z][^,§]*)?)/gi)) segs.push(m[1].split("(")[0]);
   if (!segs.length) {                                    // not a review: authors run to the first title
     const head = s.split("§TITLE§")[0];
     if (head && head.length < 200) segs.push(head);

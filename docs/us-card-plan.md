@@ -432,7 +432,7 @@ matters.
     us-039  Estimating the pre-contact population of North America
     us-040  How pre-contact America is known
 
-**Thirteen decisions made while writing `us-001`–`us-060` (Sep 2026), recorded here because the
+**Eighteen decisions made while writing `us-001`–`us-070` (Sep 2026), recorded here because the
 lines above no longer describe them exactly.**
 
 **`us-010` was renamed** from *The domestication of maize* to *Maize and its spread into North
@@ -531,6 +531,56 @@ a century later. The picture is a fair illustration of the veneration the card i
 the caption names the painter and the gap rather than letting the file name assert a likeness taken
 from life. **Read a Commons file's artist field against its name**; here the two disagree outright.
 
+**`us-065` was renamed** from *Native diplomacy and the middle ground* to *The Ohio Country*. The
+middle ground is a modern historian's model rather than a thing that happened, so a card whose
+answer term was that phrase would have taught a reader the state of a literature instead of the past
+it is about — which the no-historiography rule exists to prevent, and which the rule's own exemption
+for a card *about* a modern theory would have licensed without making it a good card. The Ohio
+Country is the ground that model is about, it is where Pontiac's War, the Proclamation line, the
+1768 boundary and the Northwest Indian War all happen, and `us-072`–`us-073` need it established.
+
+**`us-069` was renamed** from *Native nations in the American Revolution* to *The Battle of
+Oriskany*, and `us-062` and `us-066` were narrowed to *The Indian slave trade* and *The deerskin
+trade*. All three old lines named a condition rather than a subject, which is a line that cannot be
+turned into one answer term; Oriskany is the day the Confederacy's own members met each other in
+arms, which is what "Native nations in the Revolution" was pointing at.
+
+**A `biographi.ca` 200 IS STILL NOT A BIOGRAPHY, and the check paid again.** Batch 6 recorded that
+the Dictionary of Canadian Biography serves "Biography not found" with a 200 status; a composed
+slug for John Lawson answered 200 and was empty, and Lawson has no entry there at all, being no part
+of Canadian history. **Grep the body for the subject's name.** The DCB's signed articles carried two
+of this batch's cards, with the author read off each page's own "Cite This Article" block —
+Louis Chevrette on Pontiac and Barbara Graymont on Thayendanegea.
+
+**`card-focus.js` READ A PLACE AS A SCHOLAR, and the fix is in the extractor rather than in the
+cards.** It pulls names from the AUTHOR POSITIONS of a card's own citations, and the `ed.` rule was
+swallowing the publisher parenthetical with them: `…, ed. William S. Powell (Chapel Hill: University
+of North Carolina Press, 2006)` yielded the surname **Carolina**, so `us-063` and `us-066` were
+reported as questions naming a researcher, and `us-063` as five-tenths historiography, purely
+because their prose says *Carolina* about the colony. Each segment is now cut at its opening
+parenthesis, which is general where adding the place to `NOT_A_SURNAME` would only ever be a list
+one place short — and the change was proved inert by re-running the measure over all 1,963 shipped
+cards, where it moves exactly those two rows and nothing else.
+
+**TWO CARDS IN THIS DECK CARRY THE SAME SITTER, AND THE CAPTIONS SAY SO.** `us-060` uses the
+engraving of Metacom published with Benjamin Church's account and `us-061` Paul Revere's
+hand-coloured plate of 1772; the second is derived from the first tradition, and no likeness of him
+taken from life exists at all, so the alternative was not a different portrait but no picture. Each
+caption names its engraver and its date and says the likeness is imagined. **Where a subject has
+only one iconography, print it with its provenance rather than dressing a second copy as a second
+source.** Two candidates were rejected on size — the marker in the Miery Swamp at 500px and King
+Philip's Seat at 300px — and one on subject: the Commons file `Slavery (BM 1868,0808.3600)` is a
+1738 British political satire about the liberties of Britons and has nothing to do with Native
+slavery, which is `us-062`'s subject. That card carries an 1880s wood engraving instead, captioned
+as one, the trade itself having left almost no images made at the time.
+
+**AND `upload.wikimedia.org` RATE-LIMITED THE WHOLE BATCH, WHERE `Special:FilePath` DID NOT.** The
+429 recorded in `CLAUDE.md` returned on the first file and did not clear with backoff;
+`https://commons.wikimedia.org/wiki/Special:FilePath/<FILE>?width=800` served every one of the
+thirteen candidates first time. It is the route to reach for when looking at pictures, and the `src`
+written into the card is still the ordinary upload URL copied from the API, since the limit is this
+container's rather than a reader's.
+
 
 ### Contact, disease and the colonial encounter — `us-native-contact`
 
@@ -554,15 +604,15 @@ from life. **Read a Commons file's artist field against its name**; here the two
     us-058  Popé
     us-059  The Spanish return to New Mexico
     us-060  King Philip's War
-    us-061  Metacomet
-    us-062  Native slavery in colonial America
+    us-061  Metacom
+    us-062  The Indian slave trade
     us-063  The Yamasee War
     us-064  The Tuscarora War
-    us-065  Native diplomacy and the middle ground
-    us-066  Native nations and the deerskin trade
+    us-065  The Ohio Country
+    us-066  The deerskin trade
     us-067  Pontiac's War
     us-068  Royal Proclamation of 1763
-    us-069  Native nations in the American Revolution
+    us-069  The Battle of Oriskany
     us-070  Joseph Brant
     us-071  The Sullivan Expedition and the destruction of Haudenosaunee towns
     us-072  Northwest Indian War
