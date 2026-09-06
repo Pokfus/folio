@@ -1790,7 +1790,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
   **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO** — no changelog line, no version bump.
   Currently **52 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
-  Portuguese, Spanish — **136,214 cards over 68,107 notes, 152 MB**. **Count them rather than quoting
+  Portuguese, Spanish — **136,218 cards over 68,109 notes, 152 MB**. **Count them rather than quoting
   that**: `node .claude/build-lang-decks.js` prints the tally on every run.
   · **A COMBINED FILE IS GITIGNORED**: it is an artefact of the levels it combines, every byte already
     in the repo, and its own `combine.py` regenerates it byte for byte. **Anything else in `decks/` is
@@ -1998,6 +1998,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     este barrio" came back unmarked because `mucha` was in no Forms row — **an example with nothing
     bolded in it reads exactly like one the deck chose and forgot to point at**, so it is worth counting
     after a batch (`0` across all 1,467 as of this pass).
+  · **AN ARTICLE COMES OFF A FORMS VALUE ONLY UNDER AN INFLECTION LABEL.** A noun's plural is written
+    with it — "plural: los tiempos" — and left whole the value is two words and is dropped, so `tiempos`,
+    `casas`, `señora` and `señoras` went unmarked in their own cards' examples. It must NOT come off
+    elsewhere: the article card's row reads "before a stressed a-: el agua, las aguas", and stripping
+    there bolds `agua` on a card about the article. The headword is stripped the same way and PER HALF,
+    a headword being a pair as often as a word.
   · **`hints` IS THE MECHANICAL HALF, and is a map rather than an entry per note** — the English →
     Spanish card's front is the gloss alone, so `por` and `para` both glossing to "for" is one question
     with two right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or

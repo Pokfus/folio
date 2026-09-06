@@ -1768,6 +1768,450 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/el aeropuerto": {
+      "why": "A SWEEP FOR GLOSSES CARRIED STRAIGHT OUT OF WIKTIONARY. Measured over the whole deck: nineteen glosses are a grammatical description, an antiquarian sense or a run of synonyms rather than an English equivalent a reader can use. They are fixed together, because the fault is one fault - the extractor takes a dictionary entry's whole sense list, and a dictionary is written for someone who already knows the word. This is the worst of them: the second gloss on the AIRPORT card was 'a Peruvian dish based on fried rice with chicken eggs and various other ingredients'.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "airport"
+          ]
+        ]
+      ]
+    },
+    "delea1/la planta": {
+      "why": "Glossed with a botanical definition that runs off the end of its own sentence - 'plant or of the Chlorophyta, a eukaryote that includes double-membraned chloroplasts in its' - and it left out the sense the card's OWN THIRD EXAMPLE uses: planta is a floor or storey of a building (viven en la planta doce). The sole of the foot goes with it, since that is the other everyday sense.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "plant",
+            "floor, storey (la planta baja — the ground floor)",
+            "sole (of the foot)"
+          ]
+        ]
+      ]
+    },
+    "delea1/la policía": {
+      "why": "Glossed 'Civility, polity, public order, police, fineness, neatness, urbanity' - an eighteenth-century dictionary's sense list, capitalised, with the modern meaning fourth of seven. What the card actually has to teach is the pair its own examples show without explaining: la policía is the FORCE and el policía is one officer.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "the police (the force)"
+          ]
+        ],
+        [
+          "noun, masculine and feminine",
+          [
+            "el policía, la policía — a police officer"
+          ]
+        ]
+      ]
+    },
+    "delea1/difícil": {
+      "why": "A SWEEP FOR GLOSSES CARRIED STRAIGHT OUT OF WIKTIONARY. Measured over the whole deck: nineteen glosses are a grammatical description, an antiquarian sense or a run of synonyms rather than an English equivalent a reader can use. They are fixed together, because the fault is one fault - the extractor takes a dictionary entry's whole sense list, and a dictionary is written for someone who already knows the word. Nine synonyms for one word: 'difficult, hard, tough, challenging, rough, tricky, trying, arduous, testing'.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "difficult, hard"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "opposite",
+          "fácil"
+        ]
+      ]
+    },
+    "delea1/la televisión": {
+      "why": "'television' and then 'television set, TV set, television receiver, television, telly' - five names for the box, one of them repeating the gloss above it.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "television, TV (the medium)",
+            "television set (also el televisor)"
+          ]
+        ]
+      ]
+    },
+    "delea1/la gente": {
+      "why": "'guys, lads (used to address a group of people)' is a vocative that Spanish barely has, and the card left out the one thing about gente that an English speaker gets wrong every time: it is grammatically SINGULAR, which its own first example shows (la gente está de acuerdo) without saying so. The plural gentes, which the second example bolds, is literary.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "people"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "singular in Spanish",
+          "la gente está, not están"
+        ]
+      ],
+      "dropEx": [
+        "La plaza está abarrotada de gentes."
+      ],
+      "ex": [
+        [
+          "Mucha gente vive en la ciudad.",
+          "A lot of people live in the city."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/aún": {
+      "why": "The third gloss trailed a description - 'even (implying an extreme example in the case mentioned)'. And aun without the accent is a different word meaning 'even', which has no card; the two are one accent apart and the accent is the whole distinction.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "still",
+            "yet (with a negative: aún no)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "without the accent, 'even'",
+          "aun así — even so"
+        ]
+      ]
+    },
+    "delea1/deber": {
+      "why": "The modal sense a reader needs was MISSING: deber is 'must, should', which is what the card's own first example is (debería seguir los consejos). What it gave instead was 'to owe' and then deber DE, the guessing sense, described rather than translated. Its third example bolds deberes, the masculine noun meaning homework - a fourth thing the card did not list.",
+      "senses": [
+        [
+          "verb",
+          [
+            "must, should, ought to (obligation)",
+            "to owe"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "deber de — must, probably (a guess: debe de estar en casa)"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "duty; los deberes — homework"
+          ]
+        ]
+      ]
+    },
+    "delea1/tampoco": {
+      "why": "Its gloss list was broken by the extractor: 'either (as well' and 'with implied negative)' are two halves of one parenthesis, split at the comma inside it and rendered as two separate translations.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "neither, nor",
+            "not … either (yo tampoco — nor me)"
+          ]
+        ]
+      ]
+    },
+    "delea1/querer": {
+      "why": "A SWEEP FOR GLOSSES CARRIED STRAIGHT OUT OF WIKTIONARY. Measured over the whole deck: nineteen glosses are a grammatical description, an antiquarian sense or a run of synonyms rather than an English equivalent a reader can use. They are fixed together, because the fault is one fault - the extractor takes a dictionary entry's whole sense list, and a dictionary is written for someone who already knows the word. 'to desire, to want, to want to, to love, to be fond of' is two senses written five times. It also left out querer decir, which is how Spanish says 'to mean'.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to want",
+            "to love (a person)"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "querer decir — to mean"
+          ]
+        ]
+      ]
+    },
+    "delea1/antes": {
+      "why": "A SWEEP FOR GLOSSES CARRIED STRAIGHT OUT OF WIKTIONARY. Measured over the whole deck: nineteen glosses are a grammatical description, an antiquarian sense or a run of synonyms rather than an English equivalent a reader can use. They are fixed together, because the fault is one fault - the extractor takes a dictionary entry's whole sense list, and a dictionary is written for someone who already knows the word. Five glosses for one word. antes de, which is how it is nearly always used, was not among them.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "before, earlier",
+            "antes de — before (a time or an action)",
+            "antes que — rather than"
+          ]
+        ]
+      ]
+    },
+    "delea1/mismo, misma": {
+      "why": "A SWEEP FOR GLOSSES CARRIED STRAIGHT OUT OF WIKTIONARY. Measured over the whole deck: nineteen glosses are a grammatical description, an antiquarian sense or a run of synonyms rather than an English equivalent a reader can use. They are fixed together, because the fault is one fault - the extractor takes a dictionary entry's whole sense list, and a dictionary is written for someone who already knows the word. 'same, identical, one and the same, similar, alike' - and 'similar' is not what mismo means. The emphatic use (yo mismo, hoy mismo) was missing.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "same",
+            "-self (yo mismo — myself)"
+          ]
+        ],
+        [
+          "adverb",
+          [
+            "right, very (hoy mismo — this very day)"
+          ]
+        ]
+      ]
+    },
+    "delea1/volver": {
+      "why": "A SWEEP FOR GLOSSES CARRIED STRAIGHT OUT OF WIKTIONARY. Measured over the whole deck: nineteen glosses are a grammatical description, an antiquarian sense or a run of synonyms rather than an English equivalent a reader can use. They are fixed together, because the fault is one fault - the extractor takes a dictionary entry's whole sense list, and a dictionary is written for someone who already knows the word. Five ways of saying 'to come back'. volver a + infinitive, which is how Spanish says 'to do something again', was missing and has no other home in the deck.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to return, to come back, to go back"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "volver a + infinitive — to do something again (vuelvo a leerlo)"
+          ]
+        ]
+      ]
+    },
+    "delea1/entrar": {
+      "why": "A SWEEP FOR GLOSSES CARRIED STRAIGHT OUT OF WIKTIONARY. Measured over the whole deck: nineteen glosses are a grammatical description, an antiquarian sense or a run of synonyms rather than an English equivalent a reader can use. They are fixed together, because the fault is one fault - the extractor takes a dictionary entry's whole sense list, and a dictionary is written for someone who already knows the word. Five ways of saying 'to go in'. Note that Spanish says entrar EN (or entrar a in Latin America), never entrar without a preposition.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to go in, to come in, to enter"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "takes en",
+          "entrar en la casa"
+        ]
+      ]
+    },
+    "delea1/el salón": {
+      "why": "A SWEEP FOR GLOSSES CARRIED STRAIGHT OUT OF WIKTIONARY. Measured over the whole deck: nineteen glosses are a grammatical description, an antiquarian sense or a run of synonyms rather than an English equivalent a reader can use. They are fixed together, because the fault is one fault - the extractor takes a dictionary entry's whole sense list, and a dictionary is written for someone who already knows the word. 'living room, sitting room, parlor, drawing room, hall (meeting hall)' - four names for one room, two of them dated.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "living room, sitting room",
+            "hall (a large room for events)"
+          ]
+        ]
+      ]
+    },
+    "delea1/quién": {
+      "why": "'if only' and 'I wish' are the exclamative ¡Quién pudiera!, which is not A1, and '(with de) whose?' was written as a note rather than as the phrase. The plural quiénes, which the card's own second example bolds, was in no Forms row.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "who",
+            "whom",
+            "de quién — whose"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "quiénes"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el señor, la señora": {
+      "why": "'mister, sir, lord, Ms, a title or form of address for a woman' - a mixed list in which the masculine and the feminine senses are shuffled together and the last entry is a description rather than a translation. The card is a pair, so the glosses are given as a pair.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "señor — Mr, sir, gentleman",
+            "señora — Mrs, madam, lady"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/hacer": {
+      "why": "'to do, perform, execute, carry out' is four words for one sense, and the two uses of hacer that an A1 course teaches on its first day were both missing: the weather (hace frío, hace calor) and hace + a length of time for 'ago'. The deck notices the first without saying it - the tiempo card's own example is about complaining of the weather. The second example is a subjunctive (que nos hagan), which is well above this level.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to do",
+            "to make"
+          ]
+        ],
+        [
+          "verb, impersonal",
+          [
+            "hace frío, hace calor — it is cold, it is hot",
+            "hace dos años — two years ago"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Vamos a pedir que nos hagan una foto."
+      ],
+      "ex": [
+        [
+          "Hoy hace mucho frío.",
+          "It's very cold today."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/porque": {
+      "why": "The gloss is right; what the card could not say is the thing readers actually get wrong, that the question is TWO WORDS with an accent. por qué now has a line on the por card, and this is the other half of it. Two of its three examples were also the same sentence with a different second half.",
+      "forms": [
+        [
+          "as a question, two words",
+          "por qué"
+        ]
+      ],
+      "dropEx": [
+        "Me quedé dormido porque mi alarma no sonó."
+      ],
+      "ex": [
+        [
+          "No salgo porque llueve.",
+          "I'm not going out because it's raining."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la casa": {
+      "why": "Glossed 'house' alone, though TWO of its three examples mean home rather than house - quedarse en casa, llevarte hasta tu casa - and en casa and a casa drop the article, which is the form a reader meets first.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "house",
+            "home (en casa — at home, a casa — home)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el tiempo": {
+      "why": "Glossed 'time' and then four synonyms for a length of time - and WEATHER was missing, though the card's own third example is 'la gente se queja a menudo del tiempo', translated 'people often complain about the weather'. The card was showing a sense it did not carry.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "time",
+            "weather (¿qué tiempo hace?)",
+            "a while, a length of time"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/dos": {
+      "why": "Two of its three examples are 'ninguno de los dos' and 'ninguna de las dos' - los dos meaning both, which the card did not list.",
+      "senses": [
+        [
+          "numeral",
+          [
+            "two"
+          ]
+        ],
+        [
+          "pronoun",
+          [
+            "los dos, las dos — both"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/nunca": {
+      "why": "Like nada, nunca keeps the no when it follows the verb - which the card's own first example shows (no es nunca un desperdicio) and did not say.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "never",
+            "ever (in a question: ¿has estado nunca…?)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "the no stays",
+          "no viene nunca"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/dónde": {
+      "why": "All three examples were the same sentence with one noun swapped - the nearest train station, art gallery and metro station - so the card asked its question three times and taught it once. The second gloss, 'in what place?', is a paraphrase rather than a translation; what was missing is where the word takes a preposition, de dónde and adónde.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "where",
+            "de dónde — where from",
+            "adónde — where to"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "where to",
+          "adónde"
+        ]
+      ],
+      "dropEx": [
+        "¿Dónde está la galería de arte más cercana?",
+        "¿Dónde está la estación de metro más cercana?"
+      ],
+      "ex": [
+        [
+          "¿Dónde vives?",
+          "Where do you live?"
+        ],
+        [
+          "¿Adónde vas?",
+          "Where are you going?"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/decir": {
+      "why": "'to pronounce' and 'sound out' are not what decir means - that is pronunciar - and es decir, which is how Spanish says 'that is to say', was missing.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to say",
+            "to tell"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "es decir — that is to say"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
@@ -1856,6 +2300,79 @@
           [
             "Les escribí una carta.",
             "I wrote them a letter."
+          ]
+        ]
+      },
+      {
+        "id": "u_delea1_503",
+        "after": "cómo",
+        "spanish": "como",
+        "word": "como",
+        "why": "cómo had a card and como, one accent away and just as common, had none - so the deck taught the question word and not the ordinary conjunction that means 'as' or 'like'. It is also the one that turns up in a comparison (tan alto como) and in a reason clause (como llueve, no salgo), neither of which the deck could say anywhere. It is also the first person of comer, which is why the comer card's own examples bold it.",
+        "senses": [
+          [
+            "conjunction",
+            [
+              "as, like",
+              "tan … como — as … as",
+              "since, as (giving a reason)"
+            ]
+          ]
+        ],
+        "forms": [
+          [
+            "with an accent, the question word",
+            "cómo"
+          ],
+          [
+            "also a verb form",
+            "como — I eat, from comer"
+          ]
+        ],
+        "bold": [
+          "como"
+        ],
+        "ex": [
+          [
+            "Es tan alto como su padre.",
+            "He's as tall as his father."
+          ],
+          [
+            "Trabaja como profesor.",
+            "He works as a teacher."
+          ],
+          [
+            "Como llueve, no salgo.",
+            "Since it's raining, I'm not going out."
+          ]
+        ]
+      },
+      {
+        "id": "u_delea1_504",
+        "after": "aquel, aquella",
+        "spanish": "aquello",
+        "word": "aquello",
+        "why": "esto and eso each had a card and aquello, the third of the same set of three, had none - so the deck taught two thirds of a closed class and left the reader to guess the rest.",
+        "senses": [
+          [
+            "pronoun",
+            [
+              "that (neuter, further off — an idea, a situation, or something not yet named)"
+            ]
+          ]
+        ],
+        "ex": [
+          [
+            "Aquello fue muy difícil.",
+            "That was very difficult."
+          ],
+          [
+            "No me gustó nada aquello.",
+            "I didn't like that at all."
+          ],
+          [
+            "¿Te acuerdas de aquello?",
+            "Do you remember that?"
           ]
         ]
       }

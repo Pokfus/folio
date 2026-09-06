@@ -129,14 +129,23 @@ function boldTargets(fix, spanish, formsHTML, conjHTML) {
      cross-reference rather than an inflection, name what may be bolded instead. */
   if (fix.bold) return [...fix.bold].sort((a, b) => b.length - a.length);
   const out = new Set();
-  const add = (s) => String(s).split(/[,/·]| or /).map((x) => x.trim())
+  /* A NOUN'S PLURAL IS WRITTEN WITH ITS ARTICLE — "plural: los tiempos" — and the article has to come off
+     or the whole value is two words and is dropped, which left tiempos, casas, señora and señoras unmarked
+     in their own cards' examples. It comes off ONLY under an inflection label: the article card's row
+     reads "before a stressed a-: el agua, las aguas", and stripping there would bold agua on a card about
+     the article, which is the opposite of what that row is showing. */
+  const INFL = /^(plural|singular|feminine|masculine|comparative)$/i;
+  const add = (s, label) => String(s).split(/[,/·]| or /).map((x) => x.trim())
+    .map((x) => (INFL.test(String(label || "")) ? x.replace(/^(el|la|los|las)\s+/, "") : x))
     .forEach((x) => { if (x && !/\s/.test(x)) out.add(x); });
-  add(String(spanish).replace(/^(el|la|los|las)\s+/, ""));
+  // the headword is a pair as often as a word ("el señor, la señora"), so the article comes off EACH half:
+  // stripping only the leading one leaves "la señora" two words, and señora went unmarked in its own example
+  add(String(spanish), "plural");
   /* the fix's own Forms if it sets them, otherwise the ones ALREADY ON THE CARD — without that, a rebold
      on a card whose Forms the record does not touch loses every plural: caro's "esos zapatos son
      demasiado caros" came back with nothing bolded in it. */
-  if (fix.forms) fix.forms.forEach(([, v]) => add(v));
-  else for (const m of String(formsHTML || "").matchAll(/<span class="uc-fl">[^<]*<\/span>([^<]*)/g)) add(m[1]);
+  if (fix.forms) fix.forms.forEach(([l, v]) => add(v, l));
+  else for (const m of String(formsHTML || "").matchAll(/<span class="uc-fl">([^<]*)<\/span>([^<]*)/g)) add(m[2], m[1]);
   conjForms(conjHTML).forEach((x) => out.add(x));
   return [...out].sort((a, b) => b.length - a.length);
 }
