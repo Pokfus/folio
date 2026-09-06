@@ -3,23 +3,23 @@
   "decks": {
     "delea1": {
       "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention. It moved again when la tercera turned out to be a duplicate of tercero, tercera and was folded away: every count in the chain is kept so it still works on a deck freshly rebuilt from the generator.",
-      "subtitle": "494 words · both directions, as two cards per word",
+      "subtitle": "493 words · both directions, as two cards per word",
       "descSub": [
         [
           "500 words for level A1 of the DELE",
-          "494 words for level A1 of the DELE"
+          "493 words for level A1 of the DELE"
         ],
         [
           "490 words for level A1 of the DELE",
-          "494 words for level A1 of the DELE"
+          "493 words for level A1 of the DELE"
         ],
         [
-          "493 words for level A1 of the DELE",
-          "494 words for level A1 of the DELE"
+          "494 words for level A1 of the DELE",
+          "493 words for level A1 of the DELE"
         ],
         [
           "495 words for level A1 of the DELE",
-          "494 words for level A1 of the DELE"
+          "493 words for level A1 of the DELE"
         ],
         [
           "the rest of the 500 is filled from the A1 column in order of frequency",
@@ -1346,20 +1346,26 @@
       "rebold": true
     },
     "delea1/ellos": {
-      "why": "Two of its three examples bolded les, which is now a form on the le card and was nowhere at all when these were chosen. The feminine ellas has no card and was not mentioned.",
+      "why": "Two of its three examples bolded les, which is now a form on the le card and was nowhere at all when these were chosen. The feminine ellas has no card and was not mentioned. And the deck carried a SEPARATE card for ellas, the feminine plural, which is a form rather than a word of its own — nosotras has no card, so this was inconsistent with its own sibling as well as a duplicate of the Forms row added here. Fourth duplicate found, after la tercera, padres and this one. The card is headed as a pair now, which is the deck's convention for exactly this shape. maxEx is 4 here for the reason un, una's is: a card teaching two forms needs an example of each, and the feminine one would not otherwise fit.",
       "senses": [
         [
           "pronoun",
           [
-            "they",
+            "ellos — they (men, or a mixed group)",
+            "ellas — they (women)"
+          ]
+        ],
+        [
+          "pronoun",
+          [
             "them (after a preposition: para ellos)"
           ]
         ]
       ],
       "forms": [
         [
-          "feminine",
-          "ellas"
+          "singular",
+          "él, ella"
         ]
       ],
       "dropEx": [
@@ -1374,9 +1380,19 @@
         [
           "Este regalo es para ellos.",
           "This present is for them."
+        ],
+        [
+          "Ellas están tomando el sol.",
+          "They're sunbathing."
         ]
       ],
-      "rebold": true
+      "rebold": true,
+      "spanish": "ellos, ellas",
+      "word": "ellos",
+      "fold": [
+        "ellas"
+      ],
+      "maxEx": 4
     },
     "delea1/nosotros": {
       "why": "Glossed 'we (masculine plural)' and 'ourselves', of which the second is nos rather than nosotros. The feminine nosotras, which the second example bolds, had no mention.",
@@ -5965,6 +5981,171 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/la foto": {
+      "why": "Right, and silent on the trap: foto is FEMININE although it ends in -o, because it is short for la fotografía. The deck states the mirror of that on el día and said nothing here. hacer una foto, which is the card's own first example, had no line.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "photo, photograph"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "hacer una foto, sacar una foto — to take a photo"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las fotos"
+        ],
+        [
+          "feminine, though it ends in -o",
+          "short for la fotografía"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el abogado, la abogada": {
+      "why": "Three synonyms, the last of them carrying a stray full stop out of the dictionary: 'lawyer, solicitor, counsel.'",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "lawyer, solicitor"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/pagar": {
+      "why": "'to be worthwhile' and 'to have a pay off' are one idiomatic sense written twice, from the proverb the card's own third example is. What a reader needs instead is how to pay: en efectivo or con tarjeta.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to pay",
+            "to pay for (pagar la cuenta — to pay the bill)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "pagar en efectivo — to pay cash",
+            "pagar con tarjeta — to pay by card"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el pelo": {
+      "why": "Two dictionary definitions telling one hair from a head of hair, which a reader will never need told. cortarse el pelo is the phrase they will need, and por los pelos is the card's own second example.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "hair"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "cortarse el pelo — to have one's hair cut",
+            "por los pelos — by the skin of one's teeth"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la cena": {
+      "why": "Right, and the verb it is built on has a card of its own with neither pointing at the other.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "dinner, supper (the evening meal)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las cenas"
+        ],
+        [
+          "verb",
+          "cenar"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/sentir": {
+      "why": "Its third example bolds SENTIDO in 'no tiene ningún sentido' - the masculine noun meaning sense or meaning, not a form of this verb. And the two things sentir is most used for were both missing: sentirse plus an adjective (me siento mal, which the mal card now shows), and LO SIENTO, which is the first apology a reader will ever make in Spanish.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to feel (sentir dolor — to feel pain)",
+            "to be sorry, to regret"
+          ]
+        ],
+        [
+          "verb, reflexive",
+          [
+            "sentirse — to feel (me siento bien — I feel well)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "lo siento — I'm sorry"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Una vida sin amor no tiene ningún sentido."
+      ],
+      "ex": [
+        [
+          "Lo siento mucho.",
+          "I'm very sorry."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/bonito, bonita": {
+      "why": "Nine glosses - 'pretty, cute, nice, lovely, sweet, fine, charming, great' - for a word that means pretty.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "pretty, nice, lovely"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la tienda": {
+      "why": "'tent' first, and not one of the card's three examples is a tent - all three are a shop. The tent is la tienda de campaña, which is worth its own line rather than the head of the list.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "shop, store"
+          ]
+        ],
+        [
+          "noun, feminine",
+          [
+            "la tienda de campaña — tent"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
@@ -6210,7 +6391,8 @@
   },
   "reviewed": {
     "delea1": [
-      "el libro"
+      "el libro",
+      "el hotel"
     ]
   }
 }
