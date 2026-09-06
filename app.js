@@ -15129,6 +15129,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      on `#decks` (8,848 text nodes, the heaviest list on the site), a `closest("[lang]")` per node costs
      2.74ms and this costs 0.15ms. A reader who has no foreign text on screen pays for none of it. */
   const SPELL_FOREIGN_SEL = '[lang]:not([lang|="en" i])';
+  /* Declared rather than derived: the English-bearing parts of a card whose wrapper declares another
+     language. See the reasoning in spellSkip for why this is one class and not the gloss blocks too. */
+  const SPELL_EN_SEL = ".uc-exe";
   // one skip test for both branches: the walker's nodes AND a bare text node handed to spellTree by the
   // observer, which had no test of its own at all — so a citation updated in place was being rewritten
   function spellSkip(p, foreign) {
@@ -15141,6 +15144,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!p.closest) return false;
     if (p.closest(".notranslate, .bk-page")) return true;
     if (!foreign) return false;
+    /* THE ONE PART OF A FOREIGN-LANGUAGE CARD THAT IS CERTAINLY ENGLISH (Sep 2026, on request).
+       A language deck's card wrapper carries the deck's own `speechLang`, so the guard above rightly
+       skips everything inside it — and that took the TRANSLATION of every example sentence with it,
+       which is English and is the half a learner reads first. Measured over DELE A1 alone, 35 of them
+       carry an American spelling or usage (color, favorite, theater, meters, soccer, neighbors) that
+       a British reader was shown untouched, where the same words are converted everywhere else on the
+       site. `.uc-exe` is the example's English line and nothing else.
+
+       IT IS SCOPED TO THAT ONE CLASS ON PURPOSE, and the obvious widening is the dangerous one: the
+       GLOSS blocks (`.uc-gl`, `.uc-gls`) are English prose that quotes Spanish — "el color favorito",
+       "un favor", "el honor" — and `color`, `favor`, `honor`, `meter` and `center` are all Spanish
+       words as well as American spellings, so sweeping them would rewrite the language the card is
+       teaching. That is the 5,568-rewrite fault the language guard was built for, one element in. */
+    if (p.closest(SPELL_EN_SEL)) return false;
     const decl = p.closest("[lang]");
     if (!decl) return false;
     // an EMPTY lang declares nothing (HTML's "unknown"), so it is not a reason to skip — only a stated

@@ -1502,7 +1502,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.1 MB and 45,472 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.1 MB and 45,489 lines is hard to find your way around, so this
   lists its 170 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -2030,6 +2030,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     it is a NOTE rather than a failure: a legitimate form can also be another card — `usted`'s plural is
     `ustedes`, `comer`'s first person is `como` — and only a reader tells those from the accidents. It
     caught `la canción` marking `cantar`, from a "verb: cantar" cross-reference in its Forms.
+  · **THE FIVE DECK-LEVEL PASSES, and why each is a table rather than 200 entries.** A per-note entry
+    is for a JUDGEMENT; a mechanical substitution belongs in one place, where it cannot be applied to
+    116 cards and forgotten on the 117th. `exNames` recasts the example sentences — Tatoeba is an
+    English-first corpus and 139 of DELE A1's 1,477 sentences starred Tom, Mary or Ken — and rewrites
+    the SPOKEN field with the visible ones, since `data-say` carries its own copy and a rename that
+    missed it would show Carlos and say Tom. `exBritish` converts the examples' English, and **SLICES
+    `SPELL_PAIRS` OUT OF app.js RATHER THAN COPYING IT**, for the `add-card-tags.js` reason: a second
+    copy of a 144-row word list goes stale on a change made in a file nobody here has reason to open.
+    `exUsage` is the short DECLARED list of words that are not spellings at all (soccer, movie,
+    vacation, elevator) — `apartment` is deliberately absent, `el apartamento` being a card whose
+    whole point is that a Spanish flat is a piso. `gloss` + `glossMode` give the deck a glossary of
+    its own (`both`, so every site term a card already linked goes on linking). And `conjSub`
+    corrects a wrong paradigm, which nothing else can reach.
+  · **THE SITE'S SPELLING SWITCH IS ONE-WAY, WHICH IS WHY A DECK MUST BE AUTHORED BRITISH.**
+    `applySpelling` returns at once under en-GB — the authored system — and converts to American only
+    for a reader who asks. So an AMERICAN spelling inside deck content is never corrected for anybody:
+    it is simply what both readers see, and DELE A1 had 35 of them. The fix is at the SOURCE, in
+    `exBritish`; app.js's own change was narrower and is described under the spelling bullet.
   · **DELE A1 HAS NOW BEEN READ IN FULL — all 493 cards, one at a time, Sep 2026.** 486 carry a
     correction and 8 were read and left alone, so the record IS the deck's editorial history rather
     than a list of spot fixes. The recurring faults, in order of how often they turned up: an example
@@ -4444,6 +4462,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is the Phoenician city, `draught` the Knossos corridor, `kerb` excluded because `curb` is also a verb.
   · **A URL IS NOT PROSE, AND THE MASK IS IN `spellText` RATHER THAN `spellTree`** (`SPELL_URL_RX`): 173 of
     10,108 URLs carry a mapped word, and `mediaCreditHTML` renders a credit URL as its own visible text.
+  · **AND THE ONE PART OF A FOREIGN-LANGUAGE CARD THAT IS CERTAINLY ENGLISH IS SWEPT** (`SPELL_EN_SEL`
+    = `.uc-exe`; Sep 2026, on request). A language deck's card wrapper carries its `speechLang`, so
+    the language guard above rightly skipped everything inside it — and took the TRANSLATION of every
+    example sentence with it, which is English and is the half a learner reads first. **The widening
+    that suggests itself is the dangerous one**: the GLOSS blocks are English prose that QUOTES
+    Spanish, and `color`, `favor`, `honor`, `meter` and `center` are Spanish words as well as American
+    spellings, so sweeping those would rewrite the language the card is teaching — the 5,568-rewrite
+    fault one element in. One class, declared, and no more.
   · **THE CITATIONS AND THE LIBRARY'S BOOKS ARE SKIPPED** (`.notranslate, .bk-page`) — rewriting *The
     Colour of Prehistory* invents a title that does not exist, and a book is somebody's translation.
   · **`gradeCloze` TRANSFORMS THE ANSWER, NEVER THE GUESS** — the stored `answerText` is British, so an

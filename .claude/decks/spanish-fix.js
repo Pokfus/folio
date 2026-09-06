@@ -263,6 +263,115 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
     hits++;
   }
 
+  /* THE CAST OF THE EXAMPLE SENTENCES (Sep 2026, on request). Tatoeba is an English-first corpus and
+     its people are English: measured over DELE A1, 250 occurrences of Tom, 57 of Mary and a further
+     40 of John, Bob, Paul, Ken and the rest — 139 of the deck's 1,477 example sentences, on 116
+     cards. None of that is wrong Spanish and all of it is somebody else's furniture, and a deck for
+     an exam set in Spain reads better with the names a reader will actually hear.
+
+     IT IS A DECK-LEVEL TABLE RATHER THAN 116 ENTRIES, because it is a mechanical substitution with
+     no editorial judgement in it — which is exactly the kind of thing that belongs in one place. The
+     boundary is Unicode-aware for the reason spellText's is: JS's \b is defined over ASCII, so an
+     accented letter stands as a boundary of its own and a \b-anchored pattern matches INSIDE an
+     accented word. And it rewrites the SPOKEN field as well as the two visible ones — `data-say`
+     carries its own copy of the sentence, so a rename that missed it would have the card show
+     Carlos and the speaker say Tom. */
+  /* THE DECK'S OWN GLOSSARY (Sep 2026, on request). `glossMode` was "site", so a word inside a card
+     linked only where Folio's own curated glossary happened to carry it — and the words this review
+     added are Spanish culture rather than history: caña, mercadillo, instituto, DNI, tapa. `both`
+     keeps every site term working and adds the deck's own on top, so nothing that linked before
+     stops linking. The entries are written here rather than into the deck file for the reason every
+     other edit is: the DELE decks are regenerable, and a hand edit made straight into one survives
+     exactly until the next run.py. */
+  /* THE EXAMPLES' ENGLISH IS AUTHORED BRITISH, LIKE EVERY OTHER STRING ON THE SITE (Sep 2026, on
+     request). Folio's British/American switch is deliberately ONE-WAY — the site is authored British
+     and `applySpelling` converts to American for a reader who asks, doing nothing at all for the
+     other — so an AMERICAN spelling inside a deck is never corrected for anybody: it is simply what
+     both readers see. Tatoeba's English is American, so `color`, `favorite`, `theater`, `meters`,
+     `soccer` and `neighbors` reached every reader untouched, in the one part of the site that opts
+     out of its own convention.
+
+     THE TABLE IS SLICED OUT OF app.js RATHER THAN COPIED. A second copy of a 144-row word list is a
+     copy that goes stale on a change made in another file by somebody with no reason to look here —
+     this repo's own scar, from `add-card-tags.js` keeping a private copy of a field list and
+     stripping two fields from 500 cards. So the pairs come from the shipping `SPELL_PAIRS`, in the
+     American → British direction, and a row added there reaches this pass with nobody remembering.
+
+     AND IT RUNS ONLY INSIDE `.uc-exe`, the example's English line. The Spanish beside it contains
+     `color`, `favor` and `honor` as ordinary Spanish words, which is exactly the fault the site's own
+     language guard exists for; the gloss blocks quote Spanish for the same reason. */
+  if (dm && dm.exBritish) {
+    const app = fs.readFileSync(path.join(__dirname, "..", "..", "app.js"), "utf8");
+    const a = app.indexOf("const SPELL_PAIRS = [");
+    const z = app.indexOf("];", a);
+    if (a < 0 || z < 0) throw new Error("SPELL_PAIRS not found in app.js — the slice this pass depends on has moved");
+    const rows = [];
+    for (const m of app.slice(a, z).matchAll(/\["([a-z-]+)",\s*"([a-z-]+)"(?:,\s*"([^"]*)")?(?:,\s*(true))?\]/g)) {
+      const [, gb, usw, sfx, oneWay] = m;
+      if (oneWay) continue;                       // a one-way row is British → American only
+      const ends = (sfx === undefined ? [""] : sfx.split("|"));
+      for (const e of ends) rows.push([usw + e, gb + e]);
+    }
+    rows.sort((x, y) => y[0].length - x[0].length);
+    const map = new Map(rows);
+    const rx = new RegExp("(?<![\\p{L}\\p{N}_])(" + rows.map((x) => x[0]).join("|") + ")(?![\\p{L}\\p{N}_])", "giu");
+    for (const c of d.cards || []) {
+      const fl = c.fields || {};
+      if (!fl.Examples) continue;
+      const out = fl.Examples.replace(/(<div class="uc-exe">)([\s\S]*?)(<\/div>)/g, (m0, o, body, cl) =>
+        o + body.replace(rx, (w) => {
+          const hit = map.get(w.toLowerCase());
+          if (!hit) return w;
+          return w === w.toLowerCase() ? hit
+            : w === w.toUpperCase() ? hit.toUpperCase()
+            : w[0] === w[0].toUpperCase() ? hit[0].toUpperCase() + hit.slice(1) : hit;
+        }) + cl);
+      if (out !== fl.Examples) { fl.Examples = out; hits++; }
+    }
+  }
+
+  /* AND THE WORDS THAT ARE NOT SPELLINGS AT ALL, but American USAGE (Sep 2026, same request).
+     `SPELL_PAIRS` is a table of spellings and rightly says nothing about soccer, movie, vacation or
+     elevator, which are different WORDS rather than different spellings of one — so the sweep above
+     cannot touch them and 24 of them stood in the English of a deck sat by candidates for a Spanish
+     exam. They are declared here rather than derived, and the list is deliberately short: `apartment`
+     is NOT in it, because `el apartamento` is a card whose whole point is that a Spanish flat is a
+     piso and its English must be free to say apartment. */
+  if (dm && dm.exUsage) {
+    for (const c of d.cards || []) {
+      const fl = c.fields || {};
+      if (!fl.Examples) continue;
+      const out = fl.Examples.replace(/(<div class="uc-exe">)([\s\S]*?)(<\/div>)/g, (m0, o, body, cl) => {
+        let t = body;
+        for (const [from, to] of dm.exUsage) {
+          const rx = new RegExp("(?<![\\p{L}\\p{N}_])" + from + "(?![\\p{L}\\p{N}_])", "gu");
+          t = t.replace(rx, to);
+        }
+        return o + t + cl;
+      });
+      if (out !== fl.Examples) { fl.Examples = out; hits++; }
+    }
+  }
+
+  if (dm && dm.gloss) {
+    d.gloss = d.gloss || {};
+    for (const slug of Object.keys(dm.gloss)) { d.gloss[slug] = dm.gloss[slug]; hits++; }
+    if (dm.glossMode) { d.meta.glossMode = dm.glossMode; hits++; }
+  }
+
+  if (dm && dm.exNames) {
+    for (const c of d.cards || []) {
+      const fl = c.fields || {};
+      if (!fl.Examples) continue;
+      let out = fl.Examples;
+      for (const [from, to] of dm.exNames) {
+        const rx = new RegExp("(?<![\\p{L}\\p{N}_])" + from + "(?![\\p{L}\\p{N}_])", "gu");
+        out = out.replace(rx, to);
+      }
+      if (out !== fl.Examples) { fl.Examples = out; hits++; }
+    }
+  }
+
   for (const c of d.cards || []) {
     const fl = c.fields || {};
     // this file is authoritative for the blocks it adds: strip them all, then put back what it names
