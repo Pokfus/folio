@@ -820,14 +820,14 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-570  The fleet at Samos   (`Samos` itself is already a glossary term, so the card answers `Athenian fleet at Samos`)
     gr-571  Battle of Cynossema
     gr-572  Battle of Cyzicus
-    gr-573  The restoration of the democracy
+    gr-573  The restoration of the democracy   (carded on the decree of Demophantus, the oath it was secured with)
     gr-574  Battle of Arginusae
-    gr-575  The trial of the generals
+    gr-575  The trial of the generals   (carded on the decree of Cannonus, the law the assembly set aside to hold it)
     gr-576  Lysander
     gr-577  Battle of Aegospotami
     gr-578  The siege of Athens
     gr-579  The surrender of Athens
-    gr-580  The demolition of the Long Walls
+    gr-580  The demolition of the Long Walls   (`Long Walls` is carded at gr-488, so this answers the demolition itself)
     gr-581  The Thirty Tyrants
     gr-582  Critias
     gr-583  Thrasybulus
