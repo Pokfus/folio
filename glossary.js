@@ -2414,7 +2414,17 @@ window.GLOSSARY = {
 "Late_Jōmon": "The Late Jōmon is the fifth of the six phases of the Jōmon period of the Japanese archipelago, running from about 2,000 to 1,000 BCE, when settlements became decentralised and stone circles were raised.<sup class=\"fn\" data-fn=\"1\"></sup> It covers the end of the long population growth of the preceding phases, counts of radiocarbon dates in eastern Japan holding high between five and four thousand years ago before falling to a trough about 3,700 years ago.<sup class=\"fn\" data-fn=\"2\"></sup> The decline was not simultaneous, turning down about 5,000 years ago in northern Hokkaido, about 4,400 on the Kanto plain and nearer 4,000 in Aomori, with swings in North Pacific productivity proposed as the cause.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Secondary_burial": "A secondary burial is one in which the dead are interred a second time, the remains being gathered up and buried again after the flesh has decayed.<sup class=\"fn\" data-fn=\"1\"></sup> Collective forms of it, in which many individuals are placed together in one grave, allow the relationships among them to be tested, and at one Japanese site kinship was assessed by measuring the crowns of the teeth that survived.<sup class=\"fn\" data-fn=\"1\"></sup> The same remains often carry other marks of mortuary custom: the deliberate removal of front teeth during life was practised very widely in prehistoric Japan, and which teeth were taken changed from one phase to the next.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Shell_midden": "A shell midden, or shell mound, is a deposit built up where shellfish were eaten in such quantity that the discarded shells accumulated into a layer of their own.<sup class=\"fn\" data-fn=\"1\"></sup> Because the species can be identified one by one, a midden records the waters and the shore that fed the settlement beside it, and the bones thrown out with the shells add the fish and animals taken as well.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Middens are commonly found to contain burials, and the human remains preserved in them carry the isotopic record of what those people ate over generations.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Stone_circle": "A stone circle is a ring of stones, laid flat or set upright, built as a monument rather than as a dwelling or a defence.<sup class=\"fn\" data-fn=\"1\"></sup> The Japanese examples are among the largest known from a society without agriculture: the two at Ōyu measure 52 and 44 metres across, are made of river stones carried up to a plateau, and have a sundial-like setting at each centre, with a line between the two centres pointing at the midsummer sunset.<sup class=\"fn\" data-fn=\"1\"></sup> Pit graves lie around and beneath such rings, so they served as burial grounds as much as places of ceremony, and figurines and other ritual objects are found in quantity around them.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Stone_circle": "A stone circle is a ring of stones, laid flat or set upright, built as a monument rather than as a dwelling or a defence.<sup class=\"fn\" data-fn=\"1\"></sup> The Japanese examples are among the largest known from a society without agriculture: the two at Ōyu measure 52 and 44 metres across, are made of river stones carried up to a plateau, and have a sundial-like setting at each centre, with a line between the two centres pointing at the midsummer sunset.<sup class=\"fn\" data-fn=\"1\"></sup> Pit graves lie around and beneath such rings, so they served as burial grounds as much as places of ceremony, and figurines and other ritual objects are found in quantity around them.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Funadomari": "Funadomari is an archaeological site on Rebun Island off the northern coast of Hokkaido, whose Late Jōmon burials of about 3,800 to 3,500 years ago produced the most deeply sequenced ancient genome yet recovered in the Japanese archipelago. A woman from the site, known as F23, carries a lineage that separates from other East Eurasians before the ancestors of Native Americans do, and both she and a man from the same burials carry a variant suiting a diet very high in fat.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient DNA of this age survives in the far north and rarely elsewhere in the islands, where a warm wet climate and acid volcanic soils destroy it.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Epi-Jōmon": "The Epi-Jōmon is the culture of Hokkaido in the centuries after the Jōmon period had ended elsewhere in the Japanese archipelago, beginning about two thousand years ago. Rice agriculture, whose arrival closes the Jōmon further south, did not take hold on the island, so its people went on hunting, fishing and gathering, and the local sequence runs from the Jōmon through the Epi-Jōmon to the Okhotsk and Satsumon cultures and then to the Ainu.<sup class=\"fn\" data-fn=\"1\"></sup> Frequencies of one gene in human bones two to three thousand years old differ significantly between Jōmon and Ainu but not between Jōmon and Epi-Jōmon, which is read as continuity across that boundary.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Noguni_shell_middens": "The Noguni shell middens are a group of prehistoric deposits on the main island of Okinawa, in use between about 7,200 and 4,400 years ago and belonging to the separate prehistory of the Ryukyu chain rather than to the Jōmon of the mainland. They are best known for their pigs, whose molars are markedly smaller than those of the wild boar living on the island today, so the animals were either introduced from elsewhere or the prehistoric boar of the islands varied far more than the modern one.<sup class=\"fn\" data-fn=\"1\"></sup> Reaching Okinawa at all meant 220 kilometres (137 miles) of open water, a crossing made by about 36,000 years ago.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Final_Jōmon": "The Final Jōmon is the last of the six phases into which the Jōmon period of Japanese prehistory is divided, running from roughly 1,000 to 400 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It is the phase during which rice agriculture reached the archipelago from the Korean peninsula, arriving in northern Kyushu between about 1176 and 845 BCE and spreading unevenly afterwards, at over four kilometres (2.5 miles) a year in western Japan and about one across the Kanto plain in the east.<sup class=\"fn\" data-fn=\"2\"></sup> Because of that unevenness the phase ends at a different date in each region, and in Hokkaido, which took no rice, it does not end at all.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Jōmon_ancestry": "Jōmon ancestry is the share of a person’s genome inherited from the hunter-gatherer population of the Japanese archipelago that preceded agriculture. It is distributed unevenly across Japan today, averaging about 12 percent in a large biobank and running to 26.1 percent in Okinawa against 9.8 in the Kinki region around Osaka and Kyoto.<sup class=\"fn\" data-fn=\"1\"></sup> A separate study of 10,842 people from all 47 prefectures finds the same gradient, highest in Okinawa and the northern Tohoku prefectures and lowest in Wakayama and Nara, and reads it as a record of how many people were living in each region before the incomers arrived rather than of differences among the incomers.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Kamegaoka": "Kamegaoka is the culture of the Final Jōmon in northern Tohoku, at the northern end of the main Japanese island of Honshu, and the elaborate pottery it produced is generally held to be the finest of the period.<sup class=\"fn\" data-fn=\"1\"></sup> It is one regional tradition among several, since the Jōmon was never a single culture spread evenly across the archipelago. Its burials have been read as evidence of emerging social rank, but a study of the graves themselves finds two mortuary systems corresponding to settlement in open country and in the mountains rather than a hierarchy among the dead.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Koropokkuru": "The Koropokkuru are a small people of Ainu legend who, for a generation of scholars in Japan around the turn of the 20th century, were offered as the answer to who had left the country’s prehistoric shell mounds. The founder of Japanese anthropology held them to be a people distinct from both the Ainu and the Japanese, while the founder of Japanese physical anthropology argued that the Ainu were themselves the indigenous population, a disagreement that turned on whether one people had displaced another or the two had mixed.<sup class=\"fn\" data-fn=\"1\"></sup> The makers of the shell mounds are now read instead as ancestral in part to the modern population of Japan.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Japanese_Paleolithic_hoax": "The Japanese Paleolithic hoax was the planting of stone tools at more than 180 supposed Paleolithic sites in eastern Japan by an amateur archaeologist, carried on from at least 1976 until the press exposed it in November 2000. The fabricated finds had supported a widely accepted Early Paleolithic reaching back more than half a million years, and one account of how they went untested points to a postwar conception of archaeology in Japan as the people’s history.<sup class=\"fn\" data-fn=\"1\"></sup> After the exposure the Early and Middle Paleolithic of the archipelago were withdrawn, four conditions were set for accepting an assemblage, and no site older than about forty thousand years meets them all.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Tachikawa_Loam": "The Tachikawa Loam is the bed of weathered volcanic soil that covers the Kanto plain of eastern Japan, and its lowest levels hold the earliest human occupation that Japanese archaeology accepts. That limit dates from the withdrawal of the country’s claimed Early and Middle Paleolithic, which rested on material planted at more than 180 sites and exposed as a fabrication in 2000.<sup class=\"fn\" data-fn=\"1\"></sup> Four conditions are now applied to any claimed assemblage — clear human working of the stone, a deposit that cannot have produced natural lookalikes, a secure stratigraphy, and enough material to judge — and nothing older than about forty thousand years satisfies all of them.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Tephrochronology": "Tephrochronology is the dating and correlation of deposits by the layers of volcanic ash, or tephra, that fall across them. A large explosive eruption spreads ash over a wide area within days, so a single layer is effectively instantaneous, and once it has been identified and dated everything below it is older and everything above it younger wherever the layer is found; individual ashes are told apart by their chemistry and physical character.<sup class=\"fn\" data-fn=\"1\"></sup> The method gives archaeology and Quaternary geology a framework of horizons independent of radiocarbon, and it can bracket a deposit that lies directly beneath a dated ash.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3260,7 +3270,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sannai-Maruyama": "c. 3,900 – 2,200 BCE",
 "Dogū": "c. 13,000 – 400 BCE",
 "Jōmon_subsistence": "c. 13,000 – 400 BCE",
-"Late_Jōmon": "c. 2,000 – 1,000 BCE"
+"Late_Jōmon": "c. 2,000 – 1,000 BCE",
+"Funadomari": "c. 3,800 – 3,500 years ago",
+"Epi-Jōmon": "from c. 2,000 years ago",
+"Noguni_shell_middens": "c. 7,200 – 4,400 BP",
+"Final_Jōmon": "c. 1,000 – 400 BCE",
+"Kamegaoka": "c. 1,000 – 400 BCE",
+"Japanese_Paleolithic_hoax": "from at least 1976; exposed 2000",
+"Tachikawa_Loam": "earliest accepted occupation c. 38,000 years ago"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4686,7 +4703,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Late_Jōmon": ["Late Jomon"],
 "Secondary_burial": ["secondary burials"],
 "Shell_midden": ["shell middens","shell mound","shell mounds","shell midden"],
-"Stone_circle": ["stone circles"]
+"Stone_circle": ["stone circles"],
+"Funadomari": ["Funadomari site"],
+"Epi-Jōmon": ["Epi-Jomon","Zoku-Jōmon"],
+"Noguni_shell_middens": ["Noguni shell midden"],
+"Final_Jōmon": ["Final Jomon"],
+"Jōmon_ancestry": ["Jomon ancestry"],
+"Kamegaoka": ["Kamegaoka culture"],
+"Koropokkuru": ["Korpokkur","Koropokguru"],
+"Japanese_Paleolithic_hoax": ["Japanese Palaeolithic hoax"],
+"Tachikawa_Loam": ["Tachikawa loam"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -7136,7 +7162,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Late_Jōmon": ["era","archaeology","prehistory","japan","climate"],
 "Secondary_burial": ["practice","archaeology","prehistory","history"],
 "Shell_midden": ["place","archaeology","practice","prehistory","nature"],
-"Stone_circle": ["building","archaeology","practice","prehistory"]
+"Stone_circle": ["building","archaeology","practice","prehistory"],
+"Funadomari": ["place","archaeology","genetics","prehistory","japan"],
+"Epi-Jōmon": ["era","archaeology","prehistory","japan","history"],
+"Noguni_shell_middens": ["place","archaeology","prehistory","japan","animal"],
+"Final_Jōmon": ["era","archaeology","prehistory","japan","history"],
+"Jōmon_ancestry": ["concept","genetics","history","prehistory","japan"],
+"Kamegaoka": ["culture","archaeology","art","prehistory","japan"],
+"Koropokkuru": ["concept","theory","history","archaeology","japan"],
+"Japanese_Paleolithic_hoax": ["event","archaeology","history","japan","theory"],
+"Tachikawa_Loam": ["place","geology","archaeology","prehistory","japan"],
+"Tephrochronology": ["concept","geology","science","archaeology"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
