@@ -432,7 +432,7 @@ matters.
     us-039  Estimating the pre-contact population of North America
     us-040  How pre-contact America is known
 
-**Twenty-one decisions made while writing `us-001`–`us-080` (Sep 2026), recorded here because the
+**Twenty-four decisions made while writing `us-001`–`us-090` (Sep 2026), recorded here because the
 lines above no longer describe them exactly.**
 
 **`us-010` was renamed** from *The domestication of maize* to *Maize and its spread into North
@@ -608,6 +608,42 @@ question. It was reworded to *the judgment in ___ declared…* rather than exemp
 cheap to satisfy and the alternative is a per-card exemption for a checker that is right far more
 often than it is wrong.
 
+**A SIXTH 200-STATUS ERROR DOCUMENT, AND IT KILLS A WHOLE CLASS OF NPS CITATIONS.** Every URL under
+`nps.gov/parkhistory/online_books/…` answers 200 and serves the Park History Program landing page —
+a constant **56,054 bytes**, the signature `senate.gov`'s 37,523-byte shell has. That path holds the
+Service's own digitised books, including *Five Views: An Ethnic Historic Site Survey for California*,
+which is where three of `us-083`'s intended citations were going. The `/history/` variant of the path
+serves the same shell, so there is no alternative form. **Size-check an nps.gov book URL**; the
+finding cost nothing here only because the page was read rather than trusted, and the same check
+caught a Senate biography of Henry Dawes at exactly 37,523 bytes on the way past.
+
+**`us-083` IS CARDED FROM A TRIBAL SOURCE AND TWO FEDERAL ONES, AND THE FIGURES DISAGREE ON PURPOSE.**
+The scholarship on the California genocide — Madley, Lindsay, Secrest — is not open, `gov.ca.gov`,
+`library.ca.gov`, `escholarship.org` and `calindianhistory.org` are all 403, and `truthandhealing.ca.gov`
+refuses the connection. What is open is the **Muwekma Ohlone Tribe's own account**, which uses the
+term, gives its own bibliography and states plainly that this was done not by a hidden state ideology
+but by ordinary citizens acting through the institutions of a democracy; and the **National Library of
+Medicine's Native Voices timeline**, which is federal. Their pre-gold-rush figures are 150,000,
+100,000 and 310,000 for 1769, and they agree on about 30,000 left. **The card gives all three and says
+they disagree**, which is what the plan's rule about contested figures asks for and is better history
+than picking one. A composed `leginfo.ca.gov` bill number was checked and turned out to be a statute
+about secondhand goods — the *Cherokee Nation v. Georgia* lesson, one identifier family over.
+
+**`americanindian.si.edu` SERVES ASSETS EVEN THOUGH `si.edu` IS RECORDED AS BLOCKED**, so the block is
+path-dependent: the National Museum of the American Indian's Native Knowledge 360° PDFs download in
+full. This one could not be used — its fonts are subset with no ToUnicode map, the CID cipher the
+Library importer records — but the host is worth retrying rather than writing off.
+
+**AND THE FEDERAL BOARDING SCHOOL REPORT IS THE BEST SINGLE SOURCE THIS COLLECTION HAS FOUND.**
+*Federal Indian Boarding School Initiative Investigative Report* (Department of the Interior, May
+2022) is openable at `bia.gov`, is 29 MB, and states its findings in figures: 408 federal schools
+across 37 states or then-territories between 1819 and 1969, comprising 431 sites; marked or unmarked
+burial sites identified at about 53 of them; and the finding, in the report's own words, that the
+United States directly targeted American Indian, Alaska Native and Native Hawaiian children in
+pursuit of a policy of cultural assimilation that coincided with Indian territorial dispossession.
+**Extract it by decompressing only the streams containing text operators**; a whole-file pass runs to
+8 MB of glyph noise.
+
 
 ### Contact, disease and the colonial encounter — `us-native-contact`
 
@@ -657,12 +693,12 @@ often than it is wrong.
     us-081  Indian Territory
     us-082  The Seminole Wars
     us-083  The California genocide
-    us-084  The reservation system
-    us-085  The Indian agent and the treaty system
-    us-086  The end of treaty-making in 1871
+    us-084  The Indian reservation
+    us-085  The Indian agent
+    us-086  The end of treaty-making
     us-087  Dawes Act
-    us-088  Allotment and the loss of Native land
-    us-089  American Indian boarding schools
+    us-088  Allotment
+    us-089  The Indian boarding school
     us-090  Carlisle Indian Industrial School
     us-091  What the boarding schools did
     us-092  The Ghost Dance
