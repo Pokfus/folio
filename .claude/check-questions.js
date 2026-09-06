@@ -25,10 +25,18 @@
 
   4. THE BLANK IS MID-SENTENCE, never at the end: the clue must keep going after it.
 
-  MAP CARDS ARE EXEMPT FROM 3 AND 4, BY DESIGN.  A map card's clue is the SHAPE on
+  MAP CARDS AND ARTWORK CARDS ARE EXEMPT FROM 3 AND 4, BY DESIGN.  A map card's clue is the SHAPE on
   the globe rather than the sentence, so its question is deliberately short (5–20
   words) and deliberately ends on the blank — "The state shaded on the map is ___."
   See the map-card bullet in CLAUDE.md.  They are still held to rules 1 and 2.
+
+  AN ARTWORK CARD IS THE SAME CASE WITH A PICTURE IN PLACE OF THE GLOBE (Sep 2026): `artwork: true`
+  says the picture on the front IS the question, so the prompt is short and says what to do with it.
+  IT IS ALSO EXEMPT FROM 2 for a reason the map card never needed: such a question opens "This ivory
+  animal ..." or "These lions ...", and the antecedent of that pronoun is the PICTURE ABOVE IT, which
+  the reader is looking at — not the hidden answer.  Rule 2 is about a clue that says nothing until
+  the blank is filled, and a card whose clue is an image is the one place a demonstrative is doing
+  its ordinary work.
 
   It does NOT check that a question describes its topic's most important aspect.
   That is a judgement no checker can make; it is stated in CLAUDE.md and read by eye.
@@ -59,11 +67,13 @@ const words = s =>
    .replace(/\s+/g, " ").trim().split(" ").filter(Boolean).length;
 
 const fails = [];
-let checked = 0, mapCards = 0;
+let checked = 0, mapCards = 0, artCards = 0;
 
 for (const c of window.CARD_DATA) {
   const isMap = !!(c.map && c.map.key);
+  const isArt = c.artwork === true;
   if (isMap) mapCards++;
+  if (isArt) artCards++;
   const all = [c.question, ...(c.questions || [])];
   all.forEach((q, i) => {
     if (typeof q !== "string" || !q.trim()) return;
@@ -77,20 +87,21 @@ for (const c of window.CARD_DATA) {
     if (stops > 1) fails.push([tag, "more than one sentence", p]);
     if (stops < 1) fails.push([tag, "no closing stop", p]);
 
-    if (CATAPHORA.test(p) && !DUMMY_IT.test(p))
+    if (CATAPHORA.test(p) && !DUMMY_IT.test(p) && !isArt)
       fails.push([tag, "opens on a pronoun that only the answer can resolve", p]);
 
     const w = words(q);
-    const lo = isMap ? MAP_MIN : MIN, hi = isMap ? MAP_MAX : MAX;
+    const short = isMap || isArt;
+    const lo = short ? MAP_MIN : MIN, hi = short ? MAP_MAX : MAX;
     if (w < lo || w > hi)
-      fails.push([tag, `${w} words (want ${lo}–${hi}${isMap ? ", map card" : ""})`, p]);
+      fails.push([tag, `${w} words (want ${lo}–${hi}${short ? ", picture card" : ""})`, p]);
 
-    if (!isMap && new RegExp(BLANK_RX.source + "\\s*[.!?]?\\s*$").test(q))
+    if (!short && new RegExp(BLANK_RX.source + "\\s*[.!?]?\\s*$").test(q))
       fails.push([tag, "blank at the end of the sentence", p]);
   });
 }
 
-console.log(`${checked} questions across ${window.CARD_DATA.length} cards (${mapCards} map cards).`);
+console.log(`${checked} questions across ${window.CARD_DATA.length} cards (${mapCards} map cards, ${artCards} artwork cards).`);
 if (!fails.length) { console.log("All question rules pass."); process.exit(0); }
 
 console.log(`\n${fails.length} violation${fails.length === 1 ? "" : "s"}:`);

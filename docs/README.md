@@ -73,11 +73,12 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `biology-card-plan.md` | Biology (`bio`) | `bio-` |
 | `dinosaurs-card-plan.md` | Dinosaurs (`dino`) | `dino-` |
 | `korea-card-plan.md` | Korea (`korea`) | `ko-` |
+| `art-card-plan.md` | Visual Art (`art`) — a TIMELINE tree; its card format is not built yet | `art-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
 | `world-geography-card-plan.md` | World (`geo-world`) — 459 cards, sorted by population | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
 
-`china-card-findings.md` is China's per-card research log; the other seventeen keep theirs in their own plan
+`china-card-findings.md` is China's per-card research log; the other eighteen keep theirs in their own plan
 or in the citation plans. `node .claude/test-card-plans.js` checks every plan against `data.js`.
 
 ## Content passes — the finished ones

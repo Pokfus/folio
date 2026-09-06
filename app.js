@@ -931,6 +931,7 @@
     CARD_BY_ID[id].difficulty = p.difficulty; // and how obscure its answer term was rated (see cardDifficulty)
     CARD_BY_ID[id].undatable = p.undatable;   // and whether that term happens at a time at all (see cardUndatable)
     CARD_BY_ID[id].map = p.map;               // and the place its question shades on the globe (see cardMapSpec)
+    CARD_BY_ID[id].artwork = p.artwork;       // and whether its picture IS its subject (see cardArtSpec)
     CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
@@ -5927,7 +5928,11 @@
      a lie: Texas is a household name. See the MAP CARDS block. */
   function gameCardIdSet() {
     const s = new Set();
-    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c)) s.add(id); });
+    /* A MAP CARD AND AN ARTWORK CARD ARE BOTH OUT BY CONSTRUCTION, and for one reason: these games deal a
+       question COLD, with no globe and no picture beside it, and both of those cards ask about something
+       the game cannot show. Neither needs an editorial judgement per card, so neither needs a field.
+       The picture ROUND is the exception and asks for the artworks by name — see picturePool. */
+    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c)) s.add(id); });
     return s;
   }
   function activeCardIds() {
@@ -19604,6 +19609,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     bio: "helix",
     dino: "sauropod",
     korea: "taegeuk",
+    /* Visual Art takes the EXISTING `brush`, which is the one collection mark on this shelf that was
+       reused rather than drawn. Every other was checked by eye at the 24-28px a deck row draws it at,
+       which is the one thing a session with no browser cannot do — and the cost is stated rather than
+       hidden: a brush is a PAINTING mark on a collection that also carries sculpture. A palette (a blob
+       with three holes, which is the owl's own failure) and a picture frame were both considered and
+       neither is worth shipping unlooked at. If it is to change, draw it and look at it. */
+    art: "brush",
     "geo-us": "compass",
     "geo-world": "map",
     "geo-china": "wall",
@@ -23565,8 +23577,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        unnamed under History and a Philosophy collection under a History heading is a claim about the
        subject rather than a gap. The echo resolves itself the day a second collection joins it. */
     { label: "Philosophy", slot: "collection-list-phil" },
+    /* The Arts — inert until Visual Art has a card, on the same rule Science and Philosophy shipped
+       under. It is a HEADING rather than a collection for the reason Geography is: the request that
+       made Visual Art says music, architecture, theatre and literature "may get their own collections
+       later", and each of those is an art. The second one costs a row in COLLECTION_SECTION and
+       nothing else. The collection under it is called Visual Art rather than Art so that it does not
+       read as the parent of the siblings that may join it. */
+    { label: "The Arts", slot: "collection-list-arts" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ---------- THE COLLECTIONS PAGE'S OWN TAB BAR (Sep 2026, on request) ----------
@@ -23601,7 +23620,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { id: "history", label: "History", sections: ["History"] },
     { id: "geography", label: "Geography", sections: ["Geography"] },
     { id: "language", label: "Language", sections: [] },       // the Languages shelf is its own builder
-    { id: "other", label: "Other", sections: ["Science", "Philosophy"] },
+    { id: "other", label: "Other", sections: ["Science", "Philosophy", "The Arts"] },
     { id: "community", label: "Community", sections: [] },     // your own decks, then everyone else's
     { id: "all", label: "All", sections: null },               // null = every section; the default
   ];
@@ -24273,6 +24292,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        colour they are named after. The whole-wheel optimum is the magenta again at 32.4, rejected for the
        fifth time on the standing note above. */
     korea:    { bg: "#A2726C" },
+    /* deep oxblood (Visual Art) — MEASURED, like every hue above it, and the one on this shelf where the
+       measurement and the aptness needed no trade at all: it is the red a picture gallery hangs old
+       masters on. Against all twenty-five hues (the eighteen curated collections and the seven language
+       decks) it stands 21.8 from its nearest neighbour, the Second World War's dark iron, with the
+       Indonesian deck's red at the same distance and Japan's kuwazome at 22.3 — against a TIGHTEST
+       EXISTING PAIR of 12.9 (China's vermilion against Russia's lacquer) and a median nearest-neighbour
+       distance of 20.0 over all twenty-five, 23.3 over the curated eighteen. L 28 and chroma 24, the dark
+       muted corner of the shelf's own band, and 10.0:1 against white, the highest contrast here beside
+       Biology's. THE MAGENTA WAS SWEPT AND REJECTED FOR THE SEVENTH TIME (#C65AB4, 31.5) and the
+       olive-brass for the fourth (22.0); the standing note on `dino` above is right and this run adds
+       nothing to it. */
+    art:      { bg: "#66333F" },
     /* deep olive (Geography) — MEASURED rather than picked, like every hue above it. The obvious choice is
        a teal, and the whole teal band is unusable: swept in CIELAB, every candidate lands 5–11 of Egypt's
        malachite or Greece's Aegean blue, against a tightest EXISTING pair of 12.9. The green band is
@@ -29171,8 +29202,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const missed = attempted && !typedVals.some((v) => answerNear(v, c));
         if (typedVals.length) noteConfusion(id, typedVals);
         cardMapReveal(cardRoot);   // the map may now name what it was shading — the shape and its name together
+        cardArtReveal(cardRoot, c);   // …and an artwork may now be titled, credited and enlarged
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
+        /* ONE PICTURE ON THE STUDY PAGE. `buildBack` emits the background slot for every surface that
+           draws a back with no front (see cardArtSpec's block); here the front is still on screen and
+           carrying the same file, so the BACK's copy goes rather than the front's — dropping the front's
+           would move a picture the reader is looking at by its own height. */
+        if (cardArtSpec(c)) { const dup = inner.querySelector(".card-imgslot"); if (dup) dup.remove(); }
         /* ELABORATED FEEDBACK ON A MISS. The term alone is knowledge-of-correct-response (d = 0.32); the
            term with a sentence saying what it IS is the beginning of an explanation (d = 0.49), and the
            reader gets it without having to open a fold they may have collapsed months ago. Drawn only
@@ -31611,7 +31648,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (custom != null) return custom;
     const q = (c && c.question) || "";
     const spec = cardMapSpec(c);
-    return spec ? cardMapHTML(spec) + q : q;
+    if (spec) return cardMapHTML(spec) + q;
+    // an artwork card: the picture IS the question, and the words only say what to do with it
+    const art = cardArtSpec(c);
+    return art ? cardArtHTML(art) + q : q;
   }
 
   /* ---------- the figures box (Aug 2026, with map cards) ----------
@@ -31638,6 +31678,77 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!rows.length) return "";
     return '<div class="card-facts">' + rows.map((r) =>
       '<div class="cf-tile"><span class="cf-k">' + esc(r[0]) + '</span><span class="cf-v">' + esc(r[1]) + "</span></div>").join("") + "</div>";
+  }
+
+  /* ---------- ARTWORK CARDS: the picture is the question (Sep 2026, on request) ----------
+     "The user is shown a famous historical artwork ... and must guess the name of the work and the artist."
+     A built-in format, like the map card and for the map card's own reason: a community card type is
+     templates plus scoped CSS and cannot run code, and this needs a picture promoted to the front of the
+     card with its own metadata held back. See docs/art-card-plan.md, which specifies it in full.
+
+     `artwork: true` says THE PICTURE IS THIS CARD'S OWN SUBJECT, which is the whole of what the flag
+     means and is why it is a flag rather than an inference from `image`: an ordinary card's picture
+     ILLUSTRATES its subject (a hand-axe under `Acheulean`, a flag under a country) and must never be
+     dealt as "what is this?". A STYLE card in the same collection carries a representative work and no
+     flag, so it stays an ordinary card everywhere.
+
+     THREE THINGS ARE HELD BACK UNTIL THE REVEAL, and the first is the whole difficulty: a Commons credit
+     line routinely reads "Rembrandt, The Night Watch, Rijksmuseum", so the front draws the picture and
+     NOTHING else — no title, no description, no credit, and no way to enlarge it, since the viewer's own
+     caption bar carries all three. It is the same trade the picture round already makes: the attribution
+     the licence asks for is given on the same card, one press away, rather than before the picture has
+     done its job. **Anything that leaks `title` or `credit` onto the front has broken the collection, and
+     it will look perfectly fine doing it** — which is why `test-artwork-cards.js` asserts that first.
+
+     THE ALT TEXT DESCRIBES AND NEVER NAMES, which makes this format MORE accessible than the map card
+     rather than less: a shape on a globe cannot be described without answering the question, but a
+     painting can, so a reader who cannot see it gets a real question rather than none.
+
+     ONE PICTURE PER CARD, AND IT IS THE FRONT'S. `buildBack` still emits the background slot, because
+     every other surface that draws a card back — the browser, `openCardPeek`, Multiple Choice's
+     `mountCardBack`, the editor preview — draws it WITHOUT a front and would otherwise show no picture at
+     all. The study page drops that copy at the reveal instead (see showAnswer), which is the one place
+     the two would be on screen together, and drops it from the BACK so that nothing the reader is already
+     looking at moves. */
+  function cardArtSpec(c) {
+    if (!c || c.artwork !== true) return null;
+    const img = c.image;
+    if (!img || !img.src || !sanitizeUrl(String(img.src), ["http", "https", "data"])) return null;
+    return { src: String(img.src), alt: String(img.alt || ""), title: String(img.title || ""),
+             desc: String(img.desc || ""), credit: String(img.credit || "") };
+  }
+  function cardArtHTML(spec) {
+    /* The alt is the author's description of what is depicted. Where a card has none the label says what
+       the picture is FOR and nothing about what is in it — a generic "Card illustration" would be a
+       fallback that quietly answers nothing, and naming the work would answer everything. */
+    const alt = spec.alt || "The artwork to be identified.";
+    return '<figure class="art-shot"><img src="' + esc(spec.src) + '" alt="' + esc(alt) +
+      '" loading="lazy" draggable="false"></figure>';
+  }
+  /* The answer is out, so the picture may say what it is: it gains its caption, its credit and the
+     fullscreen viewer's own attributes. Written as an UPGRADE of the element already on screen rather
+     than as a re-render, so the picture the reader is looking at does not reload or move. */
+  function cardArtReveal(root, c) {
+    const spec = cardArtSpec(c);
+    if (!root || !spec) return;
+    const fig = root.querySelector(".art-shot");
+    if (!fig || fig.classList.contains("revealed")) return;
+    fig.classList.add("revealed");
+    fig.setAttribute("role", "button");
+    fig.setAttribute("tabindex", "0");
+    fig.setAttribute("title", "Click to enlarge");
+    fig.setAttribute("data-img-src", spec.src);
+    fig.setAttribute("data-img-title", spec.title);
+    fig.setAttribute("data-img-desc", spec.desc);
+    fig.setAttribute("data-img-credit", spec.credit);
+    const cap = document.createElement("figcaption");
+    cap.className = "art-cap";
+    let h = "";
+    if (spec.title) h += '<span class="art-cap-t">' + esc(spec.title) + "</span>";
+    if (spec.desc) h += '<span class="art-cap-d">' + esc(spec.desc) + "</span>";
+    if (spec.credit) h += '<span class="art-cap-c">' + mediaCreditHTML(spec.credit) + "</span>";
+    cap.innerHTML = h;
+    fig.appendChild(cap);
   }
 
   /* ---------- the name in Chinese, under a map card's answer term (Aug 2026, on request) ----------
@@ -34541,8 +34652,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* ============================================================
      PAGE: PICTURE ROUND (name what is in the picture)
      ============================================================
-     Five pictures, four options each, drawn from the ARTEFACTS and from nothing else (Sep 2026, on
-     request) — see picturePool below for what left the pool and why.
+     Five pictures, four options each, drawn from the ARTEFACTS (Sep 2026, on request) and from the
+     ARTWORK CARDS beside them (Sep 2026, on request) — see picturePool below for what is in the pool,
+     what left it, and why the two are the same rule rather than a reversal of it.
 
      THREE THINGS ARE DELIBERATE ABOUT WHAT IS SHOWN. The picture's own TITLE, DESCRIPTION AND CREDIT are
      held back until the guess is in — every one of them names the subject, so showing the credit up front
@@ -34602,6 +34714,44 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          artefact's own plate. */
       out.push({ src: img.src, label: label, title: img.title || "", desc: img.desc || "", credit: img.credit || "",
                  alt: img.alt || "", note: sanitizeHTML(String(a.desc || "")), sources: normSources(a.sources), tags: tags });
+    });
+    /* ---------- …AND THE ARTWORKS (Sep 2026, on request: "the artworks should also show up in the
+       Picture It minigame") ----------
+       This is not the pool the Sep 2026 narrowing above took away, and the distinction is the whole
+       reason it can come back. What left was every card's and every term's ILLUSTRATION — a picture OF
+       something the card is about — and an artwork card is the one card on the site whose picture IS its
+       answer: `artwork: true` says exactly that (see cardArtSpec), it is what makes the study card a
+       picture question in the first place, and a STYLE card in the same collection carries a
+       representative work, no flag, and so is not here. The rule the narrowing established therefore
+       still holds — "does this picture depict its subject?" is answered by which table the picture came
+       out of — and this is a second table that answers yes.
+
+       IT IS `availableCardIdSet`, NOT `gameCardIdSet`. That door filters on `difficultyOK` because the
+       games it guards deal a term COLD, with nothing on screen but words; here the picture is on screen
+       and the answer is one of four, so an obscure work is a fair question in exactly the way it is not
+       in Multiple Choice — and the artefact half above has no rating to filter on either, so filtering
+       one half and not the other would deal two kinds of round. (`gameCardIdSet` excludes artwork cards
+       for its own games, which is the same fact seen from the other side.)
+
+       THE FIRST TAG IS `artwork` FOR ALL OF THEM, and that is what keeps the two halves apart in the
+       draw: `tagKinship` weights tags[0] fourfold and CAPS the score at 2 where the two kinds differ, so
+       an artwork is answered against three other artworks wherever there are three, and against
+       artefacts only when there are not. The era bucket is the artefacts' own, so the two can still meet
+       across it rather than scoring zero. */
+    const artIds = availableCardIdSet();
+    artIds.forEach((id) => {
+      const c = cardById(id), spec = cardArtSpec(c);
+      if (!spec) return;
+      const label = String(c.answerText || "").trim();
+      if (!label || seen.has(label.toLowerCase())) return;
+      seen.add(label.toLowerCase());
+      const y = cardStartYear(c);
+      const era = !y ? "" : y < -3000 ? "prehistory" : y < 500 ? "antiquity" : y < 1500 ? "medieval" : "modern";
+      const tags = ["artwork"];
+      if (era) tags.push(era);
+      (Array.isArray(c.tags) ? c.tags : []).forEach((t) => { const v = String(t || "").toLowerCase(); if (v && tags.indexOf(v) < 0) tags.push(v); });
+      out.push({ src: spec.src, label: label, title: spec.title, desc: spec.desc, credit: spec.credit,
+                 alt: spec.alt, note: sanitizeHTML(String(c.abstract || "")), sources: normSources(cardSources(c)), tags: tags });
     });
     return out;
   }
@@ -41878,7 +42028,7 @@ let prev = null;
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -44907,7 +45057,7 @@ let prev = null;
   /* Everything the fullscreen viewer opens from. `.card-img` is the framed figure a card, a glossary
      popup, an artefact plate and the editor previews all emit; `.av-flag` is the small flag inside a
      geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML. */
-  const IMG_OPEN_SEL = ".card-img, .av-flag";
+  const IMG_OPEN_SEL = ".card-img, .av-flag, .art-shot.revealed";
   // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor).
   // A .card-vid wears the same frame but plays in place, so only its corner expand control opens the viewer —
   // every other click inside it belongs to the player.
