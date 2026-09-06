@@ -99,6 +99,9 @@ const holdRow = (page, match) => page.evaluate((m) => {
   // the spy goes in before any page script, so it is watching from the first frame
   await ctx.addInitScript(() => {
     window.__spoke = [];
+    // the marker explains itself the first time its panel is opened, and that card covers the page —
+    // including the button this suite taps with the pen down
+    try { localStorage.setItem("folio_marker_tour_v1", "1"); } catch (e) {}
     try {
       const orig = speechSynthesis.speak.bind(speechSynthesis);
       speechSynthesis.speak = (u) => { window.__spoke.push({ text: u.text, lang: u.lang }); try { orig(u); } catch (e) {} };

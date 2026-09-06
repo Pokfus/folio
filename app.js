@@ -14688,7 +14688,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const U_METRIC = "(?:kilometres|kilometers|kilometre|kilometer|centimetres|centimeters|centimetre|centimeter|millimetres|millimeters|millimetre|millimeter|millilitres|milliliters|millilitre|milliliter|kilogrammes|kilogramme|kilograms|kilogram|hectares|hectare|tonnes|tonne|grammes|gramme|grams|gram|metres|meters|metre|meter|litres|liters|litre|liter|km²|m²|km|cm|mm|ml|kg|ha|°C|m|g)(?![A-Za-z²])";
   // the dashes include U+2212 MINUS SIGN, which is what a sub-zero temperature is written with and is not
   // any of the three dashes beside it — "(−129 °F)" was the fourth unseen shape
-  const U_FILL = "(?:and|or|to|by|square|cubic|sq|cu|fluid|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|−|-|,|/|\\s)";
+  const U_FILL = "(?:and|or|to|by|an|per|hours?|square|cubic|sq|cu|fluid|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|−|-|,|/|\\s)";
   const U_IMP = "(?:miles?|sq\\s*mi|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)";
   const U_ONLY_RX = new RegExp("^(?:" + U_NW + "|" + U_IMP + "|" + U_FILL + ")+$", "i");
   const U_HAS_IMP_RX = new RegExp("(?:^|[^A-Za-z])" + U_IMP + "(?![A-Za-z])", "i");
@@ -14699,14 +14699,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      ("10–7 kilometres"), and swallowing one would take the first figure of the range with it. */
   const U_SIGN = "−?";
   const U_RUN = "(" + U_SIGN + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)";
-  const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")(\\s*)\\(([^()]{1,90})\\)", "gi");
+  /* A SPEED IS A MEASUREMENT WITH A TAIL, and the tail has to be captured or metric mode loses it
+     (Sep 2026, found by test-units.js's independent sweep): "300 kilometres an hour (190 miles an
+     hour)" has four words between the unit and the bracket, so nothing matched at all and BOTH
+     figures reached every reader whatever their setting. Captured rather than merely tolerated —
+     emitted back in metric mode, dropped with the rest in imperial, where the bracket carries its own. */
+  const U_RATE = "(?:\\s+(?:an|per)\\s+hour)";
+  const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")(" + U_RATE + "?)(\\s*)\\(([^()]{1,90})\\)", "gi");
   const U_BARE_RX = new RegExp(U_RUN + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   function unitSystem() { return UNIT_SYSTEMS.includes(S.settings && S.settings.units) ? S.settings.units : "metric"; }
   function isImperialParen(s) { return U_ONLY_RX.test(s) && U_HAS_IMP_RX.test(s) && U_HAS_NUM_RX.test(s); }
   // plain text in, plain text out — never HTML: this runs on text NODES, so a tag can never be inside a match
   function unitizeText(text, imperial) {
     if (!text || text.indexOf("(") < 0) return text;
-    let out = text.replace(U_CONV_RX, (m, num, gap, unit, sp, inner) => (isImperialParen(inner) ? (imperial ? inner : num + gap + unit) : m));
+    let out = text.replace(U_CONV_RX, (m, num, gap, unit, rate, sp, inner) => (isImperialParen(inner) ? (imperial ? inner : num + gap + unit + rate) : m));
     out = out.replace(U_BARE_RX, (m, num, sp, inner) => (isImperialParen(inner) ? (imperial ? inner : num) : m));
     return out;
   }

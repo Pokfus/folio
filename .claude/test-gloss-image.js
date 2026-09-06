@@ -221,7 +221,9 @@ async function openGlossEditor(page, base, key) {
   check("the viewer shows the image description", cap.d === "Something depicted.", cap.d);
   check("a URL source becomes a link", cap.c === "https://example.org/plate", cap.c);
 
-  await page.locator(".iv-stage").hover();
+  // the caption sits INSIDE .iv-stage since Sep 2026, so the stage's own centre can land on the words
+  // rather than the picture — and a wheel over the caption scrolls it, deliberately. Hover the image.
+  await page.locator(".iv-img").hover();
   await page.mouse.wheel(0, -400);
   await page.waitForTimeout(300);
   const zoomed = await page.evaluate(() => document.querySelector(".iv-img").style.transform);

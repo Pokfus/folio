@@ -173,12 +173,19 @@ async function shown(page, html) {
          `cubic` shipped unseen across 30 sites. This one decides what a measurement is WITHOUT the engine:
          a bracket holding a digit and a strong imperial unit is one, and the engine must agree. */
       const STRONG = /(?:^|[^A-Za-z])(?:miles?|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)(?![A-Za-z])/i;
+      /* AN ANCIENT UNIT IS NOT AN IMPERIAL ONE, THOUGH IT SHARES THE WORD (Sep 2026). Four Rome cards
+         state a distance the source gives in ROMAN miles — 1.48 km, not 1.609 — with the metric figure
+         first as the house style requires, so the bracket carries the ancient figure rather than a
+         conversion. `isImperialParen` refuses it, which is exactly right: converting it would restate a
+         Roman mile as an English one. The mask is a NAMED SYSTEM before the unit, never the bare unit,
+         so an ordinary "(11 miles)" is still swept. */
+      const ANCIENT = /(?:^|[^A-Za-z])(?:Roman|Greek|Egyptian|Attic|Olympic)\s+(?:miles?|feet|foot|inch(?:es)?|yards?|pounds?|ounces?|acres?|tons?)(?![A-Za-z])/i;
       const unknown = [];
       const sweep = (s, where) => {
         if (typeof s !== "string" || s.indexOf("(") < 0) return;
         (strip(s).match(/\([^()]{1,90}\)/g) || []).forEach((p) => {
           const inner = p.slice(1, -1);
-          if (/\d/.test(inner) && STRONG.test(inner) && !U.isImperialParen(inner)) unknown.push(where + " " + p);
+          if (/\d/.test(inner) && STRONG.test(inner) && !ANCIENT.test(inner) && !U.isImperialParen(inner)) unknown.push(where + " " + p);
         });
       };
       (win.CARD_DATA || []).forEach((c) => {

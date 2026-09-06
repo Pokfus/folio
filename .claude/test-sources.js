@@ -405,10 +405,15 @@ async function requireTerm(page) {
   await page.evaluate((src) => {
     window.COUNTRY_SOURCES = { france: [src[0], src[1]] };
     window.COUNTRY_YEAR_SOURCES = { france: { 1938: [src[1], src[2]] } };   // [1] is in BOTH — it must fold into one footnote
+    // the Atlas opens on the reader's OWN atlas, which draws no search box and no place panel; both
+    // help cards are dismissed first, since either would sit over the tab this needs to press
+    try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); } catch (e) {}
   }, SRC);
   await page.goto(base + "#map", { waitUntil: "load" });
   await page.waitForFunction(() => !!window.WORLD_GEO && !!window.COUNTRY_INFO, { timeout: 60000 });
   await page.waitForTimeout(1500);
+  const wtab = await page.locator('[data-atlastab="world"]').count();
+  if (wtab) { await page.click('[data-atlastab="world"]'); await page.waitForTimeout(1200); }
   check("the panel has a Sources section", await page.locator("#cpSrcSec").count() === 1);
   check("...hidden while nothing is selected", await page.evaluate(() => document.querySelector("#cpSrcSec").hidden === true));
   // reach the panel through the search box, the one public entry point that does not need a canvas hit-test
