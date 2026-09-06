@@ -779,9 +779,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-529  The Archidamian War
     gr-530  Archidamus II
     gr-531  Pericles' strategy
-    gr-532  The invasions of Attica
+    gr-532  The invasions of Attica   (carded on Acharnae, where the first one stopped)
     gr-533  The plague of Athens
-    gr-534  The death of Pericles
+    gr-534  The death of Pericles   (carded on `first citizen`; `Pericles` is already carded at gr-467)
     gr-535  Cleon
     gr-536  The Mytilenean revolt
     gr-537  The Mytilenean debate
