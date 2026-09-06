@@ -996,14 +996,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   has **no page for North Korea** because the United States has never recognised it, and the loss that
   matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Almost none of its
   thousand topics matched an existing glossary key**, so expect the glossary to grow faster here than
-  anywhere since Greece — `ko-001`–`ko-070` alone added sixty-seven terms. **The plan's claim that NOT ONE
+  anywhere since Greece — `ko-001`–`ko-080` alone added seventy-seven terms. **The plan's claim that NOT ONE
   matched was wrong by one, and the exception is the useful half**: `Seoul` was already a cited term, so
   `ko-010` reuses it — **the pairing rule is satisfied by a term that already exists, and
   `add-glossary.js` overwrites in silence, so CHECK before running it.** The next card to write is the
   lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the
-  lookup. **`ko-001` to `ko-070` have shipped** (Sep 2026) — the whole of `ko-land`, the whole of
-  `ko-prehistory`, and the opening of `ko-gojoseon` — so the
-  collection is live and its 42 empty decks are coming-soon automatically, `isComingSoon` being true for
+  lookup. **`ko-001` to `ko-080` have shipped** (Sep 2026) — the whole of `ko-land`, `ko-prehistory` and
+  `ko-gojoseon`, and the opening of `ko-commanderies` — so the
+  collection is live and its 39 empty decks are coming-soon automatically, `isComingSoon` being true for
   a node holding no card. **Its first ten are geography rather than events, and that shaped the
   sourcing**: what carried them was UNdata and the World Bank for figures, the Office of the Historian
   for the modern diplomacy, open marine and earth science (Frontiers, Copernicus, PLOS, PMC) for the
@@ -1096,6 +1096,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **`ko-065` spends a later card's answer term**: "Buyeo society and kingship" has no openable source for
   the four animal-named offices, where the literature does carry Byington's *secondary state formation*
   argument — so `ko-078` must take a different term, the way `ko-058` and `ko-059` had to be split.
+  **`ko-071`–`ko-080` OPEN `ko-commanderies` BY WIDENING THE SOURCE BASE ON PURPOSE.** Six or seven works
+  had come to carry most of the Gojoseon deck, which is the concentration the Greece audit warns about, so
+  this batch went looking: **DOAJ, searched by subject, returns IJKH articles with their direct PDF paths
+  attached** and finds the issues the Crossref journal listing buries. It produced the two works the batch
+  rests on — de Benedittis on the hybridization of Nangnang culture (the Lelang tombs, the lacquer, the
+  census households and the colonial survey history in one article) and O and Kim on Chinbŏn (the *Hanshu*
+  passage naming all four commanderies, and the northern, southern and migration theories of where it
+  stood). Three findings. **A CONCEPT CARD TAKES A SOURCE ABOUT THE CONCEPT, NOT ABOUT THE COLLECTION**:
+  `ko-078` *chiefdom* and `ko-080` *prestige goods* are cited to Junker on Philippine chiefdoms and to
+  D'Altroy on complex early societies, which is also what their deck-agnostic glossary entries need.
+  **A PICTURE IS REJECTED AGAINST ITS NEIGHBOURS** — `ko-079`'s Xuantu map says less than `ko-071`'s map
+  standing two cards away and was dropped from the card while being kept on the glossary term, where
+  nothing stands beside it — and **four of the ten ship with no picture**, the Wunu Mountain City
+  photographs turning out to be three site interpretation panels, the same fault the sheet has caught
+  twice before. And **the duplicate-picture check earned its keep again**: `ko-077` first took the
+  bird-shaped vessel `ko-067` already carries, two cards on overlapping subjects returning one object from
+  one search, and the replacement — 1st-century iron tools — illustrates the card's own sentence better.
   Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
@@ -5427,7 +5444,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
-| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 70 cards, contiguous — next is `ko-071` |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 80 cards, contiguous — next is `ko-081` |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |

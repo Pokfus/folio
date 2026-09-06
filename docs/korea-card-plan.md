@@ -706,6 +706,61 @@ image of the north-eastern coastal strip that the Okjeo occupied. The find of th
 printed page of the **Wei Zhi**, the section of the *Sanguozhi* that carries the account of the eastern
 peoples and is the single source most of this deck rests on.
 
+## What the eighth ten found (Sep 2026)
+
+`ko-071`–`ko-080` open `ko-commanderies`, and the batch's finding is about the SOURCE BASE rather than
+about any one card. Six or seven works had been carrying most of the Gojoseon deck, which is the
+concentration the Greece audit warns about; this batch deliberately went looking for new ones and found
+four, of which two are the batch's best sources. De Benedittis on the hybridization of Nangnang culture
+(*IJKH* 27.1) carries the archaeology of the Lelang tombs, the lacquer, the census households and the
+colonial survey history in one article; Dayang O and Gimin Kim on Chinbŏn (*IJKH* 31.1) quotes the
+*Hanshu* passage naming all four commanderies and sets out the northern, southern and migration theories
+of where Chinbŏn stood. **DOAJ is what found both** — searching it by subject returns IJKH articles with
+their direct PDF paths attached, which is faster than the Crossref journal listing and turns up the
+2025 and 2026 issues the listing buries.
+
+**TWO OF THE FOUR NEW SOURCES ARE DELIBERATELY NOT ABOUT KOREA.** `ko-078` is *the chiefdom* and `ko-080`
+is *prestige goods*, and both are anthropological concepts rather than Korean facts — so they are cited
+to Junker on Philippine chiefdoms and D'Altroy's comments on complex early societies in Asia, which
+define the terms in general and are what a deck-agnostic glossary entry needs. **A concept card takes a
+source about the concept, not a source about the collection.** The Korean half of each card is carried by
+the Korean works beside them, and Pak's review of Barnes's *State Formation in Korea* supplies the
+chiefdom-to-state framework as it was actually applied to Joseon, Jin, Goguryeo, the Samhan, Gaya,
+Baekje and Silla.
+
+**THE PLAN'S `ko-080` WAS RENAMED, AND `ko-078` COULD NOT TAKE THE TERM THE PLAN IMPLIED.** Batch 7 spent
+*secondary state formation* on `ko-065`, and this file said then that `ko-078` would need a different
+answer term; it takes **the chiefdom**, which is the concept the whole argument is conducted in. That
+pushed `ko-079` off *chiefdoms to kingdoms* as an answer and onto **Xuantu**, the commandery whose
+pressure is the strongest published explanation of how Goguryeo became a kingdom — which is the same card
+in a Korean coat. `ko-080` then had nothing left to say about kingship that its sources carry, so the
+line is now *Kingship and prestige goods in early Korea* and the answer is **prestige goods**: how a
+leader without a bureaucracy made himself one is a question the archaeology can actually answer.
+
+**FOUR OF THE TEN SHIP WITHOUT A PICTURE, WHICH IS THE MOST OF ANY BATCH HERE, AND THE CONTACT SHEET IS
+WHY.** `ko-078` and `ko-080` are concepts whose every concrete example is a picture that belongs to
+another card — a gold crown is the Silla deck's, a lacquer basket is `ko-073`'s. `ko-076` *Micheon* has
+no portrait, no monument and no openable image of the 314 conquest; the Goguryeo capital photographs
+Commons offers are a municipal park and, at Wunu Mountain City, **three site interpretation panels**,
+which is the same fault the sheet caught twice in earlier batches. `ko-079` *Xuantu* had a map, and it was
+rejected for saying less than `ko-071`'s map standing two cards away — a hatched ellipse on a blank base —
+though it is good enough for the glossary term, where nothing stands beside it. **A picture is rejected
+against its neighbours, not on its own.**
+
+**AND THE DUPLICATE-PICTURE CHECK EARNED ITS KEEP AGAIN.** `ko-077`'s first picture was the bird-shaped
+proto-Three Kingdoms vessel, which `ko-067` *Samhan* already carries — the two cards are about
+overlapping subjects, so the same search returns the same object. `check-cards.js` refused it, and the
+replacement is better than the original: 1st-century iron tools from Gimhae, Jecheon and Gyeongju, which
+illustrate the sentence the card actually makes about iron spreading through the period.
+
+**Ten more glossary terms shipped with the cards** — `Han_commanderies`, `Lelang`, `Lacquerware`,
+`Bronze_mirror`, `Lelang_location_debate`, `Micheon_of_Goguryeo`, `Proto-Three_Kingdoms_period`,
+`Chiefdom`, `Xuantu_Commandery` and `Prestige_goods`. **`Lelang_location_debate` has no Wikipedia article
+behind it**, unlike most keys here, and is named for the argument rather than for a person because the
+collection's two-scholar cap is spent on `ko-703` and the plan asks the remaining historiographical cards
+to name schools, states and projects. A `Sekino_Tadashi` card would have been the obvious alternative and
+is exactly what that rule exists to prevent.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -832,16 +887,16 @@ where its findings go.
 
 ### The commanderies and the proto-Three Kingdoms — `ko-commanderies`
 
-    ko-071  The Han commanderies
-    ko-072  Lelang
-    ko-073  Lelang's archaeology
-    ko-074  Chinese influence through the commanderies
-    ko-075  The commanderies in Korean historiography
-    ko-076  The fall of the commanderies
-    ko-077  The proto-Three Kingdoms period
-    ko-078  State formation in early Korea
-    ko-079  Chiefdoms to kingdoms
-    ko-080  Early Korean kingship
+    ko-071  The Han commanderies — the Han commanderies
+    ko-072  Lelang — Lelang
+    ko-073  Lelang's archaeology — lacquerware
+    ko-074  Chinese influence through the commanderies — the bronze mirror
+    ko-075  The commanderies in Korean historiography — the Lelang location debate
+    ko-076  The fall of the commanderies — Micheon
+    ko-077  The proto-Three Kingdoms period — the proto-Three Kingdoms period
+    ko-078  State formation in early Korea — the chiefdom
+    ko-079  Chiefdoms to kingdoms — Xuantu
+    ko-080  Kingship and prestige goods in early Korea — prestige goods
     ko-081  Walled-town states
     ko-082  The horse-riding peoples of the north
     ko-083  Early Korean warfare
