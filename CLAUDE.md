@@ -890,8 +890,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   plan: Japanese counts in the same kanji so `cnNumeral()` is reused, but the `"zh"` KEY must not be,
   since it also selects `var(--han)` — a Simplified Chinese face. The next card to write is the lowest
   `jp-NNN` not yet in `data.js`; see the "JAPAN" bullet under "Generating cards & glossary entries".
-  **The first seventy cards have shipped** (Sep 2026) — `jp-001` to `jp-030`, the whole of `jp-jomon`,
-  `jp-031` to `jp-060`, the whole of `jp-yayoi`, and `jp-061` to `jp-070`, the first two fifths of
+  **The first eighty cards have shipped** (Sep 2026) — `jp-001` to `jp-030`, the whole of `jp-jomon`,
+  `jp-031` to `jp-060`, the whole of `jp-yayoi`, and `jp-061` to `jp-080`, the first four fifths of
   `jp-asuka` — so the collection is live and its 31 empty decks are coming-soon automatically,
   `isComingSoon` being true for a node holding no card. **`jp-025`'s line was retitled** when `jp-004` was written: the
   peopling card's answer term turned out to be the dual-structure model itself, so that slot is now
@@ -5330,7 +5330,7 @@ lookup.
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 99 cards, SCATTERED — next is `cnh-042`, an early gap; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
-| Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 70 cards, contiguous — next is `jp-071` |
+| Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 80 cards, contiguous — next is `jp-081` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
