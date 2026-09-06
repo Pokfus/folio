@@ -4597,6 +4597,319 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/final": {
+      "why": "FOUND BY A PROBE FOR A GLOSS WITH UNBALANCED BRACKETS. The extractor splits a dictionary's sense list on the comma, and a comma INSIDE a parenthesis splits it too - so one gloss arrives as two fragments, neither of which is a translation. tampoco was the first found (batch 5) and there are five more; every one is fixed here. This card's four glosses were 'final (last', 'ultimate)', 'final (conclusive' and 'decisive)'. It is also a NOUN - el final is the end, which is what the card's own first example is (al final) - and la final is a sporting final.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "final, last"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "el final — the end (al final — in the end)"
+          ]
+        ],
+        [
+          "noun, feminine",
+          [
+            "la final — the final (in sport)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la película": {
+      "why": "FOUND BY A PROBE FOR A GLOSS WITH UNBALANCED BRACKETS. The extractor splits a dictionary's sense list on the comma, and a comma INSIDE a parenthesis splits it too - so one gloss arrives as two fragments, neither of which is a translation. tampoco was the first found (batch 5) and there are five more; every one is fixed here. Its glosses were 'film (layer)', 'movie (US', 'Canada)' and 'film' - the everyday sense split in half and then repeated.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "film, movie"
+          ]
+        ],
+        [
+          "noun, feminine",
+          [
+            "film, thin layer (una película de polvo)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la izquierda": {
+      "why": "FOUND BY A PROBE FOR A GLOSS WITH UNBALANCED BRACKETS. The extractor splits a dictionary's sense list on the comma, and a comma INSIDE a parenthesis splits it too - so one gloss arrives as two fragments, neither of which is a translation. tampoco was the first found (batch 5) and there are five more; every one is fixed here. Its glosses were 'left (side', 'direction)' and 'left'. a la izquierda, which is how the word is used, had no line, and neither did the political sense. Its second example is the ADJECTIVE izquierda (el ala izquierda), which the card did not list either.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "the left, the left-hand side",
+            "the Left (in politics)"
+          ]
+        ],
+        [
+          "adjective",
+          [
+            "izquierdo, izquierda — left (el ala izquierda — the left wing)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "a la izquierda — on the left, to the left"
+          ]
+        ]
+      ],
+      "rebold": true,
+      "forms": [
+        [
+          "masculine",
+          "izquierdo"
+        ],
+        [
+          "opposite",
+          "la derecha"
+        ]
+      ]
+    },
+    "delea1/la tarjeta": {
+      "why": "FOUND BY A PROBE FOR A GLOSS WITH UNBALANCED BRACKETS. The extractor splits a dictionary's sense list on the comma, and a comma INSIDE a parenthesis splits it too - so one gloss arrives as two fragments, neither of which is a translation. tampoco was the first found (batch 5) and there are five more; every one is fixed here. This one had NO usable gloss at all: its two fragments were 'card (only sometimes' and 'see carta)' — a lexicographer's cross-reference, split in half, standing where the translation should be. The distinction it was pointing at is worth stating properly, since carta has a card of its own. Note when replacing a Forms block: the plural has to be carried across with it, or the card's own example goes unmarked — tarjetas did, for one run.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "card (a bank card, a postcard, a business card)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "la tarjeta de crédito — credit card",
+            "la tarjeta postal — postcard"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las tarjetas"
+        ],
+        [
+          "a letter or a menu is",
+          "la carta"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/abierto, abierta": {
+      "why": "FOUND BY A PROBE FOR A GLOSS WITH UNBALANCED BRACKETS. The extractor splits a dictionary's sense list on the comma, and a comma INSIDE a parenthesis splits it too - so one gloss arrives as two fragments, neither of which is a translation. tampoco was the first found (batch 5) and there are five more; every one is fixed here. Its glosses were 'open', 'unlocked (not closed', 'accessible)' and 'open (actively conducting business)'. It is also the past participle of abrir, which has its own card and was not named.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "open",
+            "unlocked",
+            "open (of a shop: está abierto)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "abiertos, abiertas"
+        ],
+        [
+          "past participle of",
+          "abrir"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/pensar": {
+      "why": "'to think, ponder, to reflect, think through' - four glosses, two of them bare infinitives with the 'to' dropped. pensar EN, which is what the card's own first example is (pensar en Mary), and pensar + infinitive for an intention had no line.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to think"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "pensar en — to think about",
+            "pensar + infinitive — to intend to (pienso ir)",
+            "¿qué piensas de…? — what do you think of…?"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/trabajar": {
+      "why": "'to work, to work in, work on, to workshop (+ en)' - the last is not English for anything trabajar does. trabajar de or como, which is how you say what job somebody has, was missing.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to work"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "trabajar de, trabajar como — to work as (trabaja de camarero)",
+            "trabajar en — to work at, to work on"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el juego": {
+      "why": "Its first and third examples are the SAME SENTENCE with a different name in it - 'A ella le gustan los juegos de palabras' and 'A Tom le gustan los juegos de palabras'. un juego de llaves, a set, was also not listed.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "game",
+            "play",
+            "set (un juego de llaves — a set of keys)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "A Tom le gustan los juegos de palabras."
+      ],
+      "ex": [
+        [
+          "Este juego es muy divertido.",
+          "This game is great fun."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el teléfono": {
+      "why": "Right, and thin: por teléfono is what the card's own first example is, and el teléfono móvil - el celular across most of Latin America - is what its third one is.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "telephone, phone",
+            "phone number (¿me das tu teléfono?)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "por teléfono — on the phone",
+            "el teléfono móvil — mobile phone (el celular in Latin America)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la fiesta": {
+      "why": "'party, feast' - and the sense the card's own second example uses, a public holiday (antes de las fiestas), was not among them.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "party",
+            "public holiday, festival (las fiestas — the holidays)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/dar": {
+      "why": "'to give, to give out, to hand over' - three ways of saying one thing, and TWO of the card's three examples are idioms it did not list: dar las gracias, to thank, and dar miedo, to frighten. dar is the verb Spanish builds most of its everyday expressions on and the card said so nowhere.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to give"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "dar las gracias — to thank",
+            "dar miedo — to frighten",
+            "darse cuenta de — to realise",
+            "da igual — it doesn't matter"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/vivir": {
+      "why": "Its first example is 'Como desearía poder volver a vivir mí vida', where mí carries an accent it should not have - mi is the determiner and mí the pronoun, a distinction the mi card now states. That is the fourth grammar mistake found in the deck's own Spanish. vivir en, which is what a reader will say first, had no line.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to live",
+            "to be alive"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "vivir en — to live in (a place)",
+            "vivir de — to live on, to make a living from"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Como desearía poder volver a vivir mí vida."
+      ],
+      "ex": [
+        [
+          "Vivo en Madrid.",
+          "I live in Madrid."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/posible": {
+      "why": "'possible' alone; es posible que, which is the card's own first example, and lo antes posible are the two shapes the word is met in.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "possible"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "es posible que — it's possible that, maybe",
+            "lo antes posible — as soon as possible"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el número": {
+      "why": "'number (counting)' and 'musical number', the second being a sense of the English word rather than a use a reader will meet. el número de teléfono is the card's own third example, and a shoe size is the other everyday sense.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "number",
+            "size (of shoes: ¿qué número calzas?)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "el número de teléfono — phone number"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
