@@ -1021,6 +1021,57 @@ body[data-theme="gazette"] .gt-seal{filter:none;}
   font-weight:600; color:var(--ink-faint);
 }
 
+/* ---------- home: the day's nine, and the chest they earn (Sep 2026, on request) ----------
+   A miniature of the grid below it — three rows of three small rounded bars in DAILY_GAMES order, so the
+   lit bar in the middle of the top row IS the tile in the middle of the top row — the count in figures,
+   and the chest that finishing all nine unlocks. See sweepRowHTML in app.js.
+   THE GAP IS 3px AND THAT IS THE REQUEST ("but closer together"): at 4px and up the nine bars read as
+   nine separate marks, and what they have to read as is one meter with nine segments. The bar itself is
+   sized off --fs like everything else, so the block grows with the reader's text size rather than
+   staying a fixed speck beside larger type. */
+.sweep-row{
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  margin:2px 0 2px;
+}
+.sweep-meter{display:flex; align-items:center; gap:9px;}
+.sweep-chips{
+  display:grid; grid-template-columns:repeat(3, auto); gap:3px;
+}
+.sw-chip{
+  display:block; width:calc(15px * var(--fs)); height:calc(4.5px * var(--fs)); border-radius:99px;
+  background:var(--rule); transition:background .25s var(--ease), box-shadow .25s var(--ease);
+}
+.sw-chip.on{background:var(--good, #4F9D67); box-shadow:0 0 0 1px color-mix(in srgb, var(--good, #4F9D67) 35%, transparent);}
+.sweep-count{
+  font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); letter-spacing:.04em;
+}
+.sweep-count b{color:var(--ink); font-weight:600;}
+/* The chest is a real button in every state (never a div promoted later), so `disabled` is what says
+   "locked" to the keyboard and the screen reader as well as to the eye. */
+.sweep-chest{
+  position:relative; display:inline-flex; align-items:center; justify-content:center;
+  width:calc(38px * var(--fs)); height:calc(32px * var(--fs)); padding:0;
+  background:none; border:0; cursor:default; color:var(--ink-faint); opacity:.45;
+  transition:opacity .25s var(--ease), color .25s var(--ease), transform .18s var(--ease);
+}
+.sweep-chest .chest-svg{width:100%; height:100%;}
+.sweep-chest .lock-svg{
+  position:absolute; right:calc(-2px * var(--fs)); bottom:calc(-1px * var(--fs));
+  width:calc(13px * var(--fs)); height:calc(13px * var(--fs));
+  background:var(--paper); border-radius:50%; padding:1px;
+}
+.sweep-chest.ready{
+  opacity:1; cursor:pointer; color:var(--gold, #C08A2E);
+  animation:sweepChestWait 2.4s var(--ease) infinite;
+}
+.sweep-chest.ready:hover{transform:translateY(-1px) scale(1.05);}
+.sweep-chest.claimed{opacity:.62; color:var(--good, #4F9D67);}
+@keyframes sweepChestWait{
+  0%, 68%, 100%{transform:none;}
+  76%{transform:translateY(-2px) rotate(-3deg);}
+  86%{transform:translateY(-1px) rotate(3deg);}
+}
+
 /* ---------- home: how-it-works strip — REMOVED (Aug 2026, on request) ----------
    `.howit` / `.hi-step` / `.hi-num` / `.hi-body` were the three-beat first-run strip under the review
    banner: study a card, grade yourself, it comes back. The walkthrough offered directly above it now
@@ -2015,6 +2066,11 @@ body.grading .stage{padding-bottom:150px;}
    DAILY CHALLENGE
    ============================================================ */
 .dc-shell{max-width:680px; margin:0 auto;}
+/* THE CARD BEHIND A MULTIPLE-CHOICE ROUND (Sep 2026, on request) — the whole answer side, below the game
+   rather than inside it. It takes `.dc-shell`'s own column so the card and the question above it share an
+   edge, and a rule across the top says the game has ended and the card has begun. See PAGES.challenge. */
+.mc-cardback{max-width:680px; margin:22px auto 0; padding-top:20px; border-top:1px solid var(--rule);}
+.mc-cardback .study-card{margin:0;}
 .race{background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:var(--shadow-md); padding:18px 20px; margin-bottom:18px;}
 .racer{display:flex; align-items:center; gap:12px; padding:7px 0;}
 .racer + .racer{border-top:1px solid var(--rule);}
@@ -3799,6 +3855,49 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .atlas-head{margin-bottom:14px;}
 .page:has(.atlas){animation:none;}
 .atlas{display:contents;}
+/* ---------- the two atlases (Sep 2026, on request) ----------
+   `.atlas` is `display:contents`, so this bar has no box of its own to sit in — it is fixed to the
+   viewport over the stage, like every other control on this page. Centred at the top rather than in a
+   corner: it names which of two maps is on screen, which is a fact about the whole page, where the
+   corners belong to the search and the legend. It is a pair of buttons rather than a switch because a
+   switch says "on/off" about one thing and these are two things. */
+.atlas-tabs{
+  position:fixed; z-index:6; top:calc(var(--bar-h) + 12px); left:50%; transform:translateX(-50%);
+  display:inline-flex; gap:2px; padding:3px; border-radius:99px;
+  background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule);
+  box-shadow:var(--shadow-sm); backdrop-filter:saturate(150%) blur(9px); -webkit-backdrop-filter:saturate(150%) blur(9px);
+}
+.at-tab{
+  border:0; background:none; cursor:pointer; border-radius:99px; padding:5px 13px;
+  font-family:var(--sans); font-size:calc(12px * var(--fs)); font-weight:600; color:var(--ink-soft);
+  transition:background .18s var(--ease), color .18s var(--ease);
+}
+.at-tab:hover{color:var(--ink);}
+.at-tab.on{background:var(--indigo); color:#fff;}
+.at-tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+@media (max-width:640px){
+  .atlas-tabs{top:10px; left:12px; transform:none;}   /* the search chip owns the right corner at this width */
+  .at-tab{padding:5px 10px; font-size:calc(11px * var(--fs));}
+}
+/* THE PERSONAL ATLAS'S POPUP IS A CARD, and a card brings its own margins — see showMinePopup. The panel
+   is a narrow column, so the card inside it drops the study page's own width cap and takes what there is. */
+.cp-cardback{margin:0; max-width:none; box-shadow:none; border:0; background:none; padding:0;}
+.cp-cardback .reveal{margin:0;}
+/* The panel is a ~340px column, which is the width the study card's ≤640px rules were written for — so
+   the answer box stacks here for the same reason it stacks on a phone: side by side, the term and a
+   four-tile grid of figures each get half of 340px and both break mid-word. */
+.cp-cardback .answer{flex-direction:column; align-items:stretch; padding:12px 14px;}
+.cp-cardback .card-facts{max-width:none; width:100%; margin-top:10px;}
+.cp-cardback .card-img{margin-bottom:12px;}
+/* `[hidden]` loses to an author `display:flex` — the trap this file already carries for `.ces-imgpanel`
+   and `.af-src`. `showMinePopup` hides this row, and without the rule the Atlas's own "Through the ages"
+   button stayed on a panel that is showing a card rather than a country. */
+.cp-tools[hidden]{display:none;}
+/* The era cartouche is centred at the top of the stage and so is the tab bar — on the personal atlas the
+   two were printed over each other. The bar is a control and the cartouche a caption, so the caption is
+   the one that moves down. */
+.atlas-mine .map-cartouche{top:52px;}
+@media (max-width:640px){ .atlas-mine .map-cartouche{top:14px;} }   /* there the bar is top-LEFT, so nothing is in its way */
 .globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:calc(var(--timebar-h) + var(--tabbar-h) + env(safe-area-inset-bottom)); z-index:1; overflow:hidden;}
 .globe-stage canvas{position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none;}
 .globe-stage canvas:active{cursor:grabbing;}
@@ -4082,6 +4181,16 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .atlas-wip.show{opacity:1; transform:none; visibility:visible;}
 .atlas-wip strong{font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:700; color:var(--ink); letter-spacing:.01em;}
 .atlas-wip span{font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+/* The personal atlas's empty state wears the same card as the "no map yet" note above it — the same
+   thing said in the same place, so a reader meets one box on this page rather than two designs of it.
+   It is SHOWN by default and hidden by the `hidden` attribute, where the note above is the other way
+   round: this one is drawn once when the page mounts and never toggled, so it needs no transition and
+   the attribute is the whole of its state. It takes pointer events, because it carries a button. */
+.atlas-empty{position:absolute; top:clamp(56px,8vw,74px); left:clamp(14px,4vw,40px); z-index:6; max-width:310px; display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:14px 16px; background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-md); backdrop-filter:saturate(140%) blur(8px); -webkit-backdrop-filter:saturate(140%) blur(8px);}
+.atlas-empty[hidden]{display:none;}
+.atlas-empty strong{font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:700; color:var(--ink);}
+.atlas-empty span{font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.atlas-empty .btn{padding:6px 13px; font-size:calc(12px * var(--fs));}
 
 .atlas-timebar{position:fixed; left:0; right:0; bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom)); height:var(--timebar-h); z-index:30; display:flex; align-items:center; gap:26px; padding:0 74px 0 clamp(16px,4vw,40px); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-top:1px solid var(--rule); overflow:visible;}
 .tl-play{flex:none; width:34px; height:34px; border-radius:50%; appearance:none; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); cursor:pointer; display:flex; align-items:center; justify-content:center; margin-right:-8px;}

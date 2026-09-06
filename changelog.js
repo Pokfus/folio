@@ -35,9 +35,22 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.652", released: "2026-09-05T22:52Z" };
+window.FOLIO_VERSION = { v: "1.653", released: "2026-09-06T00:08Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-09-06",
+    t: "A chest for finishing all nine minigames",
+    items: [
+      "<b>Playing all nine minigames in a day now earns a chest</b>, counted by a nine-bar meter under the Minigames heading.",
+      "<b>Multiple Choice now shows the whole answer side of the card</b> below the round, once you have answered.",
+      "<b>A deck's long-press menu can now forget everything you have studied in that deck</b>, leaving the rest of your progress alone.",
+      "<b>The marker explains its own buttons the first time you open it</b>, and a Help button brings that tutorial back.",
+      "<b>Rivers are easier to see on the Atlas in daylight</b>, where they were nearly the colour of the land.",
+      "<b>China's modern province borders now show as dotted lines</b> in the China collection's card maps.",
+      "<b>The Atlas now opens on an atlas of your own</b> \u2014 an empty earth back to 4000 BCE that fills with the places you study, each one opening its card.",
+    ],
+  },
   {
     d: "2026-09-05",
     t: "Studying rebuilt around what the evidence says works",
