@@ -356,6 +356,53 @@ written by missionaries and by men in the employ of one government or another du
 peninsula was being taken, and a card that cites one is citing a colonial-era source. Use them for what
 they witnessed, name what they were, and do not let them carry a judgement.
 
+## What the first ten found (Sep 2026)
+
+`ko-001`–`ko-010`, the whole of `ko-land`'s opening, are geography rather than events, and that decided
+where they could be sourced from. Six findings are worth carrying into `ko-011` and beyond.
+
+**Two open works reach subjects no statistical profile does, and both were found by accident.** The
+*International Journal of Korean History* serves its **entire back run as open PDFs** under
+`ijkh.khistory.org/upload/pdf/` — it carried early-Joseon local administration, Manchuria's place in
+Korean history, and Jurchen-Manchu historiography, and it is the closest thing this sandbox has to a
+Korean-studies library. And **Gari Ledyard's "Cartography in Korea"** (*The History of Cartography*
+vol. 2 bk 2) is free in full from the University of Chicago Press at
+`press.uchicago.edu/books/HOC/HOC_V2_B2/HOC_VOLUME2_Book2_chapter10.pdf` — 110 pages on Korean
+geographical thought, the eight provinces, Mount Baekdu, geomancy and the siting of Hanyang. Reach for
+both before searching.
+
+**The national meteorological agency is unreachable and its own English climate page is not.**
+`www.kma.go.kr` refuses the connection, and `web.archive.org`'s copy of `/eng/biz/climate_01.jsp`
+carries the annual means, the precipitation totals, the changma's onset and length, the winter share and
+the typhoon count — the whole national climate in one screen, from the body that measures it.
+
+**More is shut than the plan's own survey recorded.** `www.mdpi.com` is 403, which closes a large
+Korean-authored open-access literature on urban and heritage subjects; `koreascience.kr`, `accesson.kr`
+(the *Korea Journal* archive), `www.kostat.go.kr` and the Korean government hosts generally refuse the
+connection. What answers: `pubs.usgs.gov`, `data.un.org`, `api.worldbank.org` and `data.worldbank.org`,
+`history.state.gov`, `digitallibrary.un.org`, `archive.org`, `press.uchicago.edu`, `nautilus.org`,
+`www.kida.re.kr`, and the open science publishers — Frontiers, PLOS, Copernicus, Springer Nature's own
+journals and Europe PMC.
+
+**A figure a state reports and a figure an outside body can verify are different figures, and this
+collection will meet that constantly.** `ko-008` is the first case: North Korea's magnesite is put at
+about six billion tonnes by a South Korean study and called the world's second largest, while the USGS
+says North Korean reserves cannot be verified from outside and its own world table lists no figure for
+the country at all. The card gives both and names whose each is. Expect the same shape on every DPRK
+number.
+
+**A card whose answer is a place still needs an editorial choice of what the place IS.** Seven of the
+ten plan lines were subjects rather than answer terms, and the answers chosen — Taebaek Mountains,
+Baekdudaegan, Changma, Manchuria, Yellow Sea, magnesite, Eight Provinces — are recorded in the running
+order above, with the line reworded to name them.
+
+**And two of the ten had to be researched around a gap rather than into one.** No openable source here
+states that the eight provinces were fixed in 1413 or replaced in 1896, so `ko-009` carries neither date
+and rests instead on what Ledyard and the *IJKH* do state — the 1402 *P'altodo*, Taejong's
+reorganisation of counties and prefectures, the 1424–25 survey of all 334 districts, the 1432
+monograph. **Write the card round what the sources bear**; a date nobody can check is the one thing the
+apparatus exists to prevent.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -371,12 +418,17 @@ different again: `wh-540` and `wh-725` are one card each on a subject Korea give
 twenty-five, so the Korean versions are narrower and the World History ones are the survey.
 
 **The glossary is nearly empty for this subject and that is the useful finding.** Checked against the
-live `glossary.js`: **not one of the thousand topics matches an existing key.** What exists nearby is
-`North_Korea`, `South_Korea`, `Japan`, `China`, `Mongolia`, `Longshan_culture` and `Rice_domestication`
-— five of them country terms from Phase 3 of the citation pass — and **there is no `Korea`**, which is
-the first thing `ko-001` will need. Every other term this collection uses is written from nothing, at
-the bar, in the same commit as its card. Expect the glossary to grow faster here than anywhere since
-Greece.
+live `glossary.js` when this plan was written: **not one of the thousand topics matched an existing
+key.** What existed nearby was `North_Korea`, `South_Korea`, `Seoul`, `Japan`, `China`, `Mongolia`,
+`Longshan_culture` and `Rice_domestication` — five of them country terms from Phase 3 of the citation
+pass — and there was no `Korea`, which was the first thing `ko-001` needed. (`Seoul` was missed off
+that list and was there all along, which is why `ko-010` reuses it rather than writing a second one:
+**the pairing rule is satisfied by a term that already exists, so CHECK before running
+`add-glossary.js`, which overwrites in silence.**) Every other term this collection uses is written
+from nothing, at the bar, in the same commit as its card. `ko-001`–`ko-010` added nine: `Korea`,
+`Korean_Peninsula`, `Taebaek_Mountains`, `Baekdudaegan`, `Changma`, `Manchuria`, `Yellow_Sea`,
+`Magnesite` and `Eight_Provinces_of_Korea`. Expect the glossary to grow faster here than anywhere
+since Greece.
 
 **Two surface collisions to watch when writing those terms.** `Han` is the Chinese dynasty, the Han
 commanderies, the Han River through Seoul and the *han* of Korean aesthetics; `Jin` is already two
@@ -400,13 +452,13 @@ where its findings go.
 
     ko-001  Korea
     ko-002  The Korean peninsula
-    ko-003  The geography of Korea
-    ko-004  Korea's mountains and rivers
-    ko-005  The Korean climate
-    ko-006  Korea's position between China and Japan
-    ko-007  The seas around Korea
-    ko-008  Korea's natural resources
-    ko-009  The regions of Korea
+    ko-003  The Taebaek Mountains and the shape of the peninsula
+    ko-004  The Baekdudaegan, Korea's mountain spine
+    ko-005  The Korean climate and the changma
+    ko-006  Manchuria and Korea's position on the continent
+    ko-007  The Yellow Sea and the seas around Korea
+    ko-008  Korea's natural resources, and magnesite
+    ko-009  The Eight Provinces and the regions of Korea
     ko-010  Seoul and its setting
     ko-011  Pyongyang and its setting
     ko-012  The origins of the name Korea

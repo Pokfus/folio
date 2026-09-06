@@ -994,11 +994,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   assumed** and carries two more 200-status error documents (`jstor.org` serves a 3 KB "Client
   Challenge"; `muse.jhu.edu` serves "Verification required!"), the finding that the recognition guide
   has **no page for North Korea** because the United States has never recognised it, and the loss that
-  matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Not one of its
-  thousand topics matches an existing glossary key** and there is no `Korea` term, so expect the
-  glossary to grow faster here than anywhere since Greece. The next card to write is the lowest `ko-NNN`
-  not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card
-  has been written yet.** Not part of the site.
+  matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Almost none of its
+  thousand topics matched an existing glossary key**, so expect the glossary to grow faster here than
+  anywhere since Greece — `ko-001`–`ko-010` alone added nine terms. **The plan's claim that NOT ONE
+  matched was wrong by one, and the exception is the useful half**: `Seoul` was already a cited term, so
+  `ko-010` reuses it — **the pairing rule is satisfied by a term that already exists, and
+  `add-glossary.js` overwrites in silence, so CHECK before running it.** The next card to write is the
+  lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the
+  lookup. **`ko-001` to `ko-010` have shipped** (Sep 2026) — the whole of `ko-land`'s opening — so the
+  collection is live and its 42 empty decks are coming-soon automatically, `isComingSoon` being true for
+  a node holding no card. **Its first ten are geography rather than events, and that shaped the
+  sourcing**: what carried them was UNdata and the World Bank for figures, the Office of the Historian
+  for the modern diplomacy, open marine and earth science (Frontiers, Copernicus, PLOS, PMC) for the
+  seas, the mountains and the monsoon, the USGS Minerals Yearbooks for the minerals, and — the two finds
+  worth carrying furthest — **the *International Journal of Korean History* serves its whole back run as
+  open PDFs at `ijkh.khistory.org/upload/pdf/`**, and **Ledyard's "Cartography in Korea" is free in full
+  from the University of Chicago Press**, both of which reach subjects no statistical profile does. Two
+  hosts to save the next session: `www.kma.go.kr` refuses the connection but its English climate page is
+  on `web.archive.org` and is the national figures in one screen, and `www.mdpi.com`, `koreascience.kr`,
+  `accesson.kr` and every Korean government host outside `pubs.usgs.gov`'s reach are shut. Not part of
+  the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -5329,7 +5344,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
-| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 10 cards, contiguous — next is `ko-011` |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
@@ -5345,7 +5360,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (251 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (254 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -6374,7 +6389,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 251 assertions on **the join between the sixteen card plans and
+  · `node .claude/test-card-plans.js` — 254 assertions on **the join between the sixteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
