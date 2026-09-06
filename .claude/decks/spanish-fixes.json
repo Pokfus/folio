@@ -5101,6 +5101,232 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/esperar": {
+      "why": "'to hope, to expect' - and TO WAIT, which is what BOTH of the card's first two examples are (vamos a esperar aquí, está esperando en la parada del autobús), was not among them. One verb, three English words, and the deck carried the two a reader needs least.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to wait, to wait for",
+            "to hope",
+            "to expect"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "espero que sí — I hope so",
+            "esperar a alguien — to wait for somebody"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/lejos": {
+      "why": "lejos DE, which is what two of the card's three examples are, had no line. Its first example is also poor Spanish - 'a unas cinco millas lejos de aquí' says the distance twice; a cinco millas de aquí is how it is said. Fifth grammar fault found in the deck's own sentences.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "far, far away"
+          ]
+        ],
+        [
+          "preposition",
+          [
+            "lejos de — far from"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "a lo lejos — in the distance"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Está a unas cinco millas lejos de aquí."
+      ],
+      "ex": [
+        [
+          "El aeropuerto está muy lejos.",
+          "The airport is very far away."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/alto, alta": {
+      "why": "'tall, high' with nothing to say which goes with what - tall is for a person and high for a thing - and no en voz alta, which is how the word is met as often as either.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "tall (of a person)",
+            "high (of a thing)",
+            "loud (en voz alta — aloud, out loud)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "altos, altas"
+        ],
+        [
+          "opposite",
+          "bajo"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/seis": {
+      "why": "Two of its three examples are telling the time, which the card did not name - the line tres, cuatro and cinco now carry.",
+      "senses": [
+        [
+          "numeral",
+          [
+            "six"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "las seis — six o'clock"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la oficina": {
+      "why": "Flagged by the junk-gloss sweep in batch 5 and left over from it. 'office (a room used for non-manual work)' is a definition, and 'workshop' is el taller rather than la oficina. The two compounds a reader will actually need are the post office and the tourist office.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "office"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "la oficina de correos — the post office",
+            "la oficina de turismo — the tourist office"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la cama": {
+      "why": "'bed' alone, while BOTH of the phrases the card's own examples use - irse a la cama and hacer la cama - had no line.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "bed"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "irse a la cama — to go to bed",
+            "hacer la cama — to make the bed"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/dormir": {
+      "why": "'to sleep, to fall asleep' - and to fall asleep is dormirse, the reflexive, which is a different form rather than a second meaning of the same one. dormir la siesta was missing.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to sleep"
+          ]
+        ],
+        [
+          "verb, reflexive",
+          [
+            "dormirse — to fall asleep"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "dormir la siesta — to have a nap"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ayudar": {
+      "why": "'to help' alone, and the card's own first example is ayudar A cuidar - the preposition before the infinitive, which is exactly what an English speaker leaves out.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to help"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "ayudar a + infinitive — to help (to) do something",
+            "¿en qué puedo ayudarle? — how can I help you?"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el marido": {
+      "why": "Its third example is 'Mary le puso los cuernos a su marido' - poner los cuernos, a colloquial idiom about infidelity, which the card does not teach and an A1 reader does not need. The feminine has no card of its own, so the two words for a wife go in Forms.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "husband"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "los maridos"
+        ],
+        [
+          "the wife is",
+          "la mujer, la esposa"
+        ]
+      ],
+      "dropEx": [
+        "Mary le puso los cuernos a su marido."
+      ],
+      "ex": [
+        [
+          "Su marido trabaja en un banco.",
+          "Her husband works in a bank."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el pueblo": {
+      "why": "'town, village, the common people, the working classes' - the last two are one sense written twice, and it is a different sense from the first two, so they belong in blocks of their own rather than in one list.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "village, small town"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "the people (of a country: el pueblo español)"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
