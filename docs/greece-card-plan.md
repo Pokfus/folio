@@ -802,12 +802,12 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-552  The Sicilian Expedition
     gr-553  Egesta
     gr-554  The mutilation of the Herms
-    gr-555  The recall of Alcibiades
+    gr-555  The recall of Alcibiades   (carded on the `Salaminia`, the ship sent to fetch him)
     gr-556  The siege of Syracuse
     gr-557  Gylippus
     gr-558  Battle of the Great Harbour
-    gr-559  Demosthenes the general
-    gr-560  The destruction of the Athenian force
+    gr-559  Demosthenes the general   (glossary key `Demosthenes_(general)`, so it cannot auto-link the orator)
+    gr-560  The destruction of the Athenian force   (carded on the `Assinarus`, the river where it ended)
     gr-561  The Decelean War
     gr-562  The fortification of Decelea
     gr-563  Persian intervention
