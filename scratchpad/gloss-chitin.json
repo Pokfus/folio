@@ -1,9 +1,0 @@
-{
-  "slug": "Chitin",
-  "description": "Chitin is a polysaccharide made of N-acetylglucosamine units, each a glucose ring bearing an acetylamino group, joined by &beta;-1,4 glycosidic bonds so that the chains lie straight and pack side by side into tough sheets.<sup class=\"fn\" data-fn=\"1\"></sup> It is the structural material of fungal cell walls and of the cuticle of insects, crustaceans and other arthropods, and some algae build with it too, which makes it the second most abundant biopolymer on Earth after cellulose.<sup class=\"fn\" data-fn=\"1\"></sup> Animals that grow inside a chitinous cuticle must digest part of it to moult, using chitinases of their own,<sup class=\"fn\" data-fn=\"2\"></sup> and enzymes of the same kind let bacteria return its carbon and nitrogen to circulation.<sup class=\"fn\" data-fn=\"1\"></sup>",
-  "tags": ["object", "science", "biology", "chemistry"],
-  "sources": [
-    "Xuebing Ren, Xin Song, Hang Zhang, Guangqiang Wang, Fan Xie, Haerlihashi Muhetaerhan, Lianzhong Ai, and Yanjun Tian, “Genomic and Transcriptomic Analysis Reveals Chitin Metabolic Pathways in the Marine Bacterium <i>Microbulbifer harenosus</i> CGMCC 1.13584T,” <i>BMC Microbiology</i> 26, no. 1 (2026): 562, https://doi.org/10.1186/s12866-026-05115-3. [Open access]",
-    "Siming Fang, Xiaoxiao Chang, Han Chen, and Juan Shi, “RNA Interference Targeting MaCht-2 Induces Severe Molting Defects and Lethality in <i>Monochamus alternatus</i>,” <i>Insects</i> 17, no. 5 (2026): 530, https://doi.org/10.3390/insects17050530. [Open access]"
-  ]
-}

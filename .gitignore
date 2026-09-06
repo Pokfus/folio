@@ -119,3 +119,6 @@ decks/Spanish-All-Levels.folio-deck.json
 
 # the CC-CEDICT copy check-gloss-source.js fetches (10 MB, CC BY-SA, somebody else's work)
 .claude/.cedict.txt
+
+# scratch inputs to the content helpers — never part of the site
+scratchpad/
