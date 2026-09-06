@@ -8340,6 +8340,287 @@
     ]
    ],
    "rebold": true
+  },
+  "delea1/verde": {
+   "why": "Both colour senses were there and the everyday third was not: verde is what unripe fruit is, and las verduras, the vegetables a reader buys, come from the same word.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "green (the same in the masculine and the feminine)",
+      "unripe, not yet ready: el plátano está verde"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "las verduras — vegetables, greens"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "verdes"
+    ],
+    [
+     "vegetables",
+     "las verduras"
+    ]
+   ],
+   "bold": [
+    "verde",
+    "verdes"
+   ],
+   "rebold": true
+  },
+  "delea1/la playa": {
+   "why": "beach, car park - the second is a River Plate regionalism (playa de estacionamiento) standing beside the sense every reader wants, with nothing to say which is which.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "beach"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ir a la playa — to go to the beach",
+      "la playa de estacionamiento — car park (River Plate)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las playas"
+    ],
+    [
+     "the coast",
+     "la costa"
+    ]
+   ],
+   "bold": [
+    "playa",
+    "playas"
+   ],
+   "rebold": true
+  },
+  "delea1/cantar": {
+   "why": "Its first and third examples are both Tom and the shower, so two of three slots teach one scene, and neither la canción nor el cantante was on the card.",
+   "forms": [
+    [
+     "the noun",
+     "la canción"
+    ],
+    [
+     "the singer",
+     "el cantante, la cantante"
+    ]
+   ],
+   "dropEx": [
+    "Tom escuchó a Mary cantando en la ducha."
+   ],
+   "ex": [
+    [
+     "Cantamos el cumpleaños feliz.",
+     "We sang Happy Birthday."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la unidad": {
+   "why": "unit (object, military, or measure) - a dictionary listing its own subdivisions inside a parenthesis rather than translating the word.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "unit — one of a number of things; a unit of measurement",
+      "unity, being united"
+     ]
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el parque": {
+   "why": "park, parking lot - the second is not what parque means in Spain, where a car park is el aparcamiento or el parking, and it was given equal weight to the only sense the card actually needs. The two compounds a reader with children needs were both missing.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "park"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el parque de atracciones — funfair, theme park",
+      "el parque infantil — playground"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los parques"
+    ],
+    [
+     "a car park",
+     "el aparcamiento, el parking"
+    ]
+   ],
+   "bold": [
+    "parque",
+    "parques"
+   ],
+   "rebold": true
+  },
+  "delea1/el viento": {
+   "why": "wind, woodwind section - the second is a term off a musical score - and the phrase a reader uses every day, hace viento, was not there, though the deck has already been given hace frío and hace calor.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "wind"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hace viento — it is windy",
+      "el molino de viento — windmill"
+     ]
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/necesitar": {
+   "why": "One gloss and no constructions: necesitar takes an infinitive directly - necesito hablar contigo - and the commoner way of saying the same thing in Spain, hacer falta, was nowhere near it.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to need"
+     ]
+    ],
+    [
+     "verb, phrase",
+     [
+      "necesitar + infinitive — to need to do something: necesito hablar contigo"
+     ]
+    ],
+    [
+     "note",
+     [
+      "me hace falta says the same thing and is commoner in Spain"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "la necesidad"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la nariz": {
+   "why": "nose, smell (sense of smell) - the second belongs to a wine taster - and meanwhile its own second example is the idiom en las narices, in the plural, which the card did not explain.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "nose"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "sonarse la nariz — to blow one's nose",
+      "en las narices — right in front of someone: me cerró la puerta en las narices"
+     ]
+    ],
+    [
+     "note",
+     [
+      "the idioms use the plural, narices, even of one nose"
+     ]
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el autobús": {
+   "why": "bus, coach, and nothing about getting on one: la parada, and the verb, where coger is right in Spain and coarse in much of Latin America - the same trap el taxi had two batches ago.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "bus; coach"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "coger el autobús (Spain), tomar el autobús (everywhere) — to take the bus",
+      "la parada de autobús — bus stop"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los autobuses"
+    ],
+    [
+     "shortened",
+     "el bus"
+    ]
+   ],
+   "bold": [
+    "autobús",
+    "autobuses"
+   ],
+   "rebold": true
+  },
+  "delea1/el paseo": {
+   "why": "walk, stroll, outing, excursion - four near-synonyms for one sense - while dar un paseo, which is what all three of its own examples do and is the only way this noun is usually met, was not listed. Nor was the other paseo, the broad avenue a reader will read on a street sign.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "a walk, a stroll"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dar un paseo — to go for a walk",
+      "dar un paseo en coche — to go for a drive"
+     ]
+    ],
+    [
+     "noun, masculine",
+     [
+      "a promenade, a broad avenue — el Paseo del Prado"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los paseos"
+    ],
+    [
+     "the verb",
+     "pasear"
+    ]
+   ],
+   "bold": [
+    "paseo",
+    "paseos"
+   ],
+   "rebold": true
   }
  },
  "insert": {
