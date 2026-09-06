@@ -2216,6 +2216,208 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/también": {
+      "why": "'also, too, as well, so' - three ways of saying one thing and then 'so', which también does not mean. The echo it is most often used in, yo también, is the mirror of the yo tampoco now on the tampoco card, and neither said so.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "also, too, as well"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "yo también — me too, so do I"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/sobre": {
+      "why": "Five prepositions for 'on' and then 'about' - and the card's own second example is 'Quisiera algunos sobres', I'd like some envelopes, which is the masculine NOUN el sobre, a sense the card did not carry at all. The time sense (sobre las tres, around three) was missing too, and it is the one an A1 reader needs to arrange to meet someone.",
+      "senses": [
+        [
+          "preposition",
+          [
+            "on, on top of",
+            "over, above",
+            "about, on (a subject)",
+            "around, about (a time: sobre las tres)"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "envelope"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural of the noun",
+          "sobres"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/sin": {
+      "why": "The gloss is right and left out the commonest shape the word takes: sin before an infinitive, 'without …-ing'. Its second example is a subjunctive (sin que yo lo sepa) translated with 'unbeknownst', which is neither A1 Spanish nor A1 English.",
+      "senses": [
+        [
+          "preposition",
+          [
+            "without",
+            "without …-ing, before an infinitive (sin comer)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Lo ha hecho sin que yo lo sepa."
+      ],
+      "ex": [
+        [
+          "Se fue sin decir nada.",
+          "He left without saying anything."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ver": {
+      "why": "Four glosses for 'to see' - and 'to watch', which is what BOTH of the first two examples are (ver la televisión, viendo la tele), was not among them. The card was showing a sense it did not carry, twice.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to see",
+            "to watch (television, a film)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "a ver — let's see"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el hombre": {
+      "why": "'man (adult male human)' and 'man' are the same gloss twice, the first carrying a dictionary's disambiguation. What the two bullets should have been is the individual and the generic - el mejor amigo del hombre, which is the card's own first example, is mankind rather than a man.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "man",
+            "man, mankind (humanity)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/alguien": {
+      "why": "Two pairs of synonyms for one word. What is worth a line instead is that alguien is invariable - no feminine, no plural - and that as an object it takes the personal a, which all three of the card's examples do without saying so.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "someone, somebody",
+            "anyone, anybody (in questions)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "invariable; as an object takes a",
+          "¿conoces a alguien?"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/siempre": {
+      "why": "'in spite of it' and 'still...at least' are regional idioms carried out of a dictionary, and the second is not English. What a reader needs instead is para siempre and siempre que, neither of which has a home anywhere else in the deck.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "always"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "para siempre — forever",
+            "siempre que — whenever, as long as"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/hasta": {
+      "why": "THE WORST CARD OF THE BATCH: hasta was filed as an ADVERB meaning 'even', and all three of its examples are the preposition meaning 'until' or 'as far as' (hasta tu casa, llegó hasta los 30 grados, desde la mañana hasta la noche). The part of speech was wrong, the one gloss was a marginal sense, and nothing on the card taught what every sentence on it was doing. ¡Hasta luego! goes with it: it is the first thing an A1 reader ever says in Spanish and the deck had it nowhere.",
+      "senses": [
+        [
+          "preposition",
+          [
+            "until, till (a time)",
+            "up to, as far as (a place)",
+            "desde … hasta — from … to"
+          ]
+        ],
+        [
+          "adverb",
+          [
+            "even (hasta yo lo sé — even I know that)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "¡hasta luego! — see you later"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ahí": {
+      "why": "'that (in certain phrases)' is a description of a use rather than a translation. ahí is the middle of a set of three - aquí, ahí, allí - and where it sits among them is the whole of what tells it from the other two; aquí already carries the cross-reference and this is its other half. por ahí, which the second example shows, was not listed.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "there (near the person spoken to)",
+            "por ahí — around, thereabouts"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "nearer, further off",
+          "aquí, allí"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ir": {
+      "why": "One gloss, and it was a description - 'to go (away from speaker and listener)'. Missing were the two things ir is most used for and which an A1 course reaches in its first fortnight: ir a + infinitive, which is how Spanish makes the everyday future, and irse, to leave. The card's own third example bolds Vamos, which is neither of the senses it listed.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to go"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "ir a + infinitive — to be going to (voy a comer — I'm going to eat)",
+            "irse — to leave, to go away",
+            "¡vamos! — let's go, come on"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
