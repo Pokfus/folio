@@ -1,5 +1,5 @@
 {
- "why": "The record of every hand edit to the DELE Spanish decks. Applied by spanish-fix.js; see that file's header for what an entry may carry and why the record exists at all. DELE A1 is being read one card at a time in Sep 2026, in batches of ten; this is what that pass has changed so far.",
+ "why": "The record of every hand edit to the DELE Spanish decks. Applied by spanish-fix.js; see that file's header for what an entry may carry and why the record exists at all. DELE A1 WAS READ IN FULL in Sep 2026, one card at a time in batches of ten - all 493 of them - and this is what that pass changed: 486 cards carry a correction and 8 were read and left alone. The counts in the deck's own description (220 nouns with their article, 63 feminine pairs) are the GENERATOR's and were deliberately not recomputed: they use categories run.py knows and this record cannot reproduce, and a figure quietly rewritten to a different rule is worse than one left as it was. The word count IS maintained, through the descSub chain.",
  "decks": {
   "delea1": {
    "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention. It moved again when la tercera turned out to be a duplicate of tercero, tercera and was folded away: every count in the chain is kept so it still works on a deck freshly rebuilt from the generator.",
@@ -12379,6 +12379,296 @@
     "Le",
     "les",
     "Les"
+   ],
+   "rebold": true
+  },
+  "delea1/dedicarse": {
+   "why": "Its first example is the one question this verb exists for - ¿a qué se dedica? - and the English beside it renders it as what does he dedicate his life to, which misses it entirely: it is how Spanish asks what somebody does for a living, and is on the first page of every DELE A1 speaking paper.",
+   "senses": [
+    [
+     "verb, reflexive",
+     [
+      "to work as, to do for a living: ¿a qué te dedicas? — me dedico a la enseñanza",
+      "to devote oneself to something"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "la dedicación"
+    ],
+    [
+     "the job",
+     "el trabajo"
+    ]
+   ],
+   "dropEx": [
+    "¿A qué se dedica en su vida?"
+   ],
+   "ex": [
+    [
+     "¿A qué te dedicas?",
+     "What do you do for a living?"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/noveno, novena": {
+   "why": "All three of its examples were weak at once: the first and second both say the ninth month, and the third is not a sentence but the whole list of ordinals from first to last, which teaches nothing about this one. The same fault el martes had with the days of the week.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "ninth"
+     ]
+    ],
+    [
+     "note",
+     [
+      "primero, segundo, tercero, cuarto, quinto, sexto, séptimo, octavo, noveno, décimo",
+      "above tenth Spanish uses the plain number: el piso once"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "novenos, novenas"
+    ]
+   ],
+   "bold": [
+    "noveno",
+    "novena",
+    "novenos",
+    "novenas"
+   ],
+   "dropEx": [
+    "Dime el nombre del noveno mes.",
+    "Primero, segundo, tercero, cuarto, quinto, sexto, séptimo, octavo, noveno, décimo... penúltimo, último."
+   ],
+   "ex": [
+    [
+     "Vivo en el noveno piso.",
+     "I live on the ninth floor."
+    ],
+    [
+     "Terminó en noveno lugar.",
+     "He finished ninth."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/décimo, décima": {
+   "why": "Tenth, and no sight of the other nine - and it is the last of them, which is exactly where a card should say that Spanish stops using ordinals and goes back to the plain number.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "tenth"
+     ]
+    ],
+    [
+     "note",
+     [
+      "primero, segundo, tercero, cuarto, quinto, sexto, séptimo, octavo, noveno, décimo",
+      "above tenth Spanish uses the plain number: el piso once",
+      "un décimo is also a tenth share of a Spanish lottery ticket, which is how they are sold"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "décimos, décimas"
+    ]
+   ],
+   "bold": [
+    "décimo",
+    "décima",
+    "décimos",
+    "décimas"
+   ],
+   "rebold": true
+  },
+  "delea1/veintiuno": {
+   "why": "A GOOD card that never explains itself: its own second example says veintiÚN años and its third veintiUNA vocales, so both changes are on the card and neither is stated. Veintiuno drops its o before a masculine noun and takes an accent doing it, and becomes veintiuna before a feminine one.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "twenty-one"
+     ]
+    ],
+    [
+     "note",
+     [
+      "veintiún before a masculine noun, with an accent: veintiún años",
+      "veintiuna before a feminine noun: veintiuna vocales",
+      "21 to 29 are one word: veintiuno, veintidós, veintitrés"
+     ]
+    ]
+   ],
+   "bold": [
+    "veintiuno",
+    "veintiún",
+    "veintiuna"
+   ],
+   "rebold": true
+  },
+  "delea1/diecinueve": {
+   "why": "Its first and third examples are the same sentence twice - me casé cuando tenía diecinueve años, me casé a los diecinueve años - and its second, la muchacha con piel clara pasa por una de diecinueve, is stilted where a number card wants something plain.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "nineteen"
+     ]
+    ],
+    [
+     "note",
+     [
+      "16 to 19 are one word: dieciséis, diecisiete, dieciocho, diecinueve",
+      "dieciséis carries an accent; diecisiete, dieciocho and diecinueve do not"
+     ]
+    ]
+   ],
+   "bold": [
+    "diecinueve"
+   ],
+   "dropEx": [
+    "La muchacha con piel clara pasa por una de diecinueve.",
+    "Me casé a los diecinueve años."
+   ],
+   "ex": [
+    [
+     "Tengo diecinueve euros.",
+     "I have nineteen euros."
+    ],
+    [
+     "El diecinueve de julio es su cumpleaños.",
+     "The nineteenth of July is his birthday."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/diecisiete": {
+   "why": "Seventeen on its own, where the rule that makes it one word is what the card is for.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "seventeen"
+     ]
+    ],
+    [
+     "note",
+     [
+      "16 to 19 are one word: dieciséis, diecisiete, dieciocho, diecinueve",
+      "dieciséis carries an accent; diecisiete, dieciocho and diecinueve do not"
+     ]
+    ]
+   ],
+   "bold": [
+    "diecisiete"
+   ],
+   "rebold": true
+  },
+  "delea1/esquiar": {
+   "why": "Its second example, va esquiando de fondo, is not how it is said - cross-country skiing is hacer esquí de fondo - and the card never mentioned el esquí, nor that this verb takes an accent through the singular: esquío, esquías, esquía.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to ski"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ir a esquiar — to go skiing",
+      "el esquí — skiing; a ski",
+      "hacer esquí de fondo — to do cross-country skiing"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "accented in the singular",
+     "esquío, esquías, esquía, esquían"
+    ],
+    [
+     "the noun",
+     "el esquí"
+    ]
+   ],
+   "dropEx": [
+    "Tom a menudo va esquiando de fondo."
+   ],
+   "ex": [
+    [
+     "Aprendí a esquiar de pequeño.",
+     "I learnt to ski as a child."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/bañarse": {
+   "why": "to have a bath, to bathe - and not the sense a reader needs on the first hot day: in Spain bañarse is what you do in the sea and in a swimming pool, and prohibido bañarse on a sign does not mean no baths.",
+   "senses": [
+    [
+     "verb, reflexive",
+     [
+      "to have a bath",
+      "to swim, to go in the water — bañarse en el mar, en la piscina"
+     ]
+    ],
+    [
+     "note",
+     [
+      "se prohíbe bañarse on a sign means no swimming",
+      "a shower is ducharse, the card at the end of this deck"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the bath",
+     "el baño, la bañera"
+    ],
+    [
+     "a shower",
+     "ducharse"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/ducharse": {
+   "why": "Right, and the pair of bañarse: nothing on either card said which is which, and the deck now says so from both ends.",
+   "senses": [
+    [
+     "verb, reflexive",
+     [
+      "to have a shower"
+     ]
+    ],
+    [
+     "note",
+     [
+      "a bath, or a swim, is bañarse",
+      "the noun is la ducha: darse una ducha"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "la ducha"
+    ],
+    [
+     "a bath or a swim",
+     "bañarse"
+    ]
    ],
    "rebold": true
   }

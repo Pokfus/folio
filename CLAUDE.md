@@ -2030,6 +2030,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     it is a NOTE rather than a failure: a legitimate form can also be another card — `usted`'s plural is
     `ustedes`, `comer`'s first person is `como` — and only a reader tells those from the accidents. It
     caught `la canción` marking `cantar`, from a "verb: cantar" cross-reference in its Forms.
+  · **DELE A1 HAS NOW BEEN READ IN FULL — all 493 cards, one at a time, Sep 2026.** 486 carry a
+    correction and 8 were read and left alone, so the record IS the deck's editorial history rather
+    than a list of spot fixes. The recurring faults, in order of how often they turned up: an example
+    that illustrates a word the card does not carry (its own derived noun, its own adjective, or a
+    different word matched on shared letters — `beber` shown twice with a BABY, `el periódico` with
+    the PERIODIC table, `costar` with a pain in one's SIDE); a dictionary's full sense list copied as
+    though every entry were equal (`el jardín` glossed with two senses of the ENGLISH idiom "rabbit
+    hole"); a definition standing in for a translation; a card whose examples are unanimously a part
+    of speech it does not claim (`interior`, `exterior`, `regular`); a noun given a plural it has not
+    got; and ten faults in the deck's own Spanish. **Two cards CONTRADICTED THEMSELVES** (`séptimo`,
+    `octavo`) — each example fine alone, and only reading the three together shows it, which no
+    checker here can do. **Start the other levels from these shapes**, and see the batch commits on
+    `claude/spanish-a1-vocab-review-ccyd0l` for the per-card reasoning.
   · **`reviewed` NAMES THE CARDS READ AND LEFT ALONE.** Some cards are simply right, and the review's own
     record of where it has got to is the note list — so without this a card that needed nothing looks
     exactly like a card nobody has opened, and the next session reads it again. Each entry is checked to
