@@ -45,13 +45,20 @@ const PX = `(() => {
   const L = P.map((v, i) => Math.round(v + (I[i] - v) * 0.10));
   const cv = document.getElementById("globe"); if (!cv) return null;
   const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
-  let mine = 0, marks = 0;
+  /* THE MARKS ARE RED AND A CIVILISATION'S WASH IS GREEN (Sep 2026, on request), so they are counted
+     apart: a single count could not tell "the dots stopped drawing" from "the cultures did", which is
+     exactly the pair of failures section 7 and section 5 are each about. Green is tested the way red is,
+     on the DOMINANT channel rather than on a value, so it survives the theme's own light and dark
+     paper without either count being written down twice. */
+  let mine = 0, marks = 0, green = 0, label = 0;
   for (let i = 0; i < d.length; i += 4) {
     if (d[i + 3] < 8) continue;
     if (Math.abs(d[i] - L[0]) <= 3 && Math.abs(d[i + 1] - L[1]) <= 3 && Math.abs(d[i + 2] - L[2]) <= 3) mine++;
     if (d[i] > 140 && d[i] - d[i + 1] > 45 && d[i] - d[i + 2] > 45) marks++;
+    if (d[i + 1] - d[i] > 22 && d[i + 1] - d[i + 2] > 22) green++;
+    if (Math.abs(d[i] - 34) < 14 && Math.abs(d[i + 1] - 24) < 14 && Math.abs(d[i + 2] - 8) < 16) label++;
   }
-  return { mine: mine, marks: marks };
+  return { mine: mine, marks: marks, green: green, label: label };
 })()`;
 
 const seed = (ids) => `localStorage.setItem("folio_v1", JSON.stringify({
@@ -60,6 +67,11 @@ const seed = (ids) => `localStorage.setItem("folio_v1", JSON.stringify({
 }));
 localStorage.setItem("folio_mine_tour_v1", "1");
 localStorage.setItem("folio_atlas_tour_v1", "1");`;
+
+/* app.js's own source, read once. Two checks slice a constant out of it rather than writing the number
+   down here — see DIMF and the zoom ceiling — so it is declared at the top of the run rather than beside
+   whichever of them happens to come first. */
+const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "app.js"), "utf8");
 
 (async () => {
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
@@ -223,13 +235,23 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
      button take it to 526. LABEL INK is the day theme's own `LBL_TEXT` (#221808), which nothing else on
      this globe is near, and it must now be ZERO: the names this section asserted a day earlier are the
      thing this request removed. */
-  const INK = `(() => {
+  /* THE UNEARNED SHADE'S OWN FACTOR, SLICED OUT OF app.js (Sep 2026). It was written down here as 0.87
+     and the moment app.js took it to 0.78 — on request, "undiscovered areas should be darker" — this
+     probe's threshold sat ABOVE the whole unearned globe, so `ink` counted 400,000 pixels of ordinary
+     land and the border assertion under it failed on a border that was drawn perfectly. A threshold that
+     is a copy of a constant is a threshold that will be wrong the day the constant moves. */
+  const DIMF = (() => {
+    const m = /const g = ([\d.]+); landDim =/.exec(APP);
+    check("the personal atlas's unearned-land factor is still in app.js", !!m, m ? m[1] : "not found");
+    return m ? Number(m[1]) : 0.78;
+  })();
+  const INK = `const DIMF = ${DIMF}; (() => {
     const cs = getComputedStyle(document.body);
     const hex = (h) => { h = h.replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
     const P = hex(cs.getPropertyValue("--paper").trim() || "#ffffff"), I = hex(cs.getPropertyValue("--ink").trim() || "#000000");
     const L = P.map((v, i) => Math.round(v + (I[i] - v) * 0.10));           // the light land: a country the reader holds
     const lum = (r, g, b) => r * 0.299 + g * 0.587 + b * 0.114;
-    const cut = lum(L[0] * 0.87, L[1] * 0.87, L[2] * 0.87) - 12;           // darker than the unearned land shade
+    const cut = lum(L[0] * DIMF, L[1] * DIMF, L[2] * DIMF) - 12;           // darker than the unearned land shade — DIMF is app.js's own factor, spliced in below
     const cv = document.getElementById("globe"), d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
     let ink = 0, mine = 0, label = 0;
     for (let i = 0; i < d.length; i += 4) {
@@ -295,15 +317,19 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
   /* Sep 2026, on request: "ancient cultures and civilisations should be displayed in their relevant
      years". A country is unlocked by name against the year's era map and Folio's maps begin at 1500, so
      before this every civilisation older than that appeared nowhere at all. What is drawn is the card's
-     own authored area, dashed, in the marks' red — which is what the red count below sees. */
+     own authored area, dashed — and in GREEN since Sep 2026, on request ("ancient civilisations/cultures
+     should have their areas marked in green instead of red"), which is what the green count below sees.
+     Counting the red would pass on a globe drawing no culture at all the moment a dot happened to be in
+     view, which is why the two colours are counted apart. */
   console.log("\n7) an ancient culture, in its own years");
   await freshPage(["cnh-047"]);   // the Hongshan culture, c. 4500–3000 BCE
   await setYear(-3800);
   const inSpan = await page.evaluate(PX);
-  check("a culture is on the globe inside its own span", inSpan.marks > 0, JSON.stringify(inSpan));
+  check("a culture is on the globe inside its own span", inSpan.green > 0, JSON.stringify(inSpan));
+  check("...in green rather than in the marks' red", inSpan.green > inSpan.marks, JSON.stringify(inSpan));
   await setYear(-1000);
   const after = await page.evaluate(PX);
-  check("...and gone from it after the culture ends", after.marks === 0, JSON.stringify(after));
+  check("...and gone from it after the culture ends", after.green === 0, JSON.stringify(after));
 
   /* A RIVER IS NEITHER A DOT NOR A NAME (Sep 2026, on request: "'Tiber' should not have a dot or
      label"). It is drawn already, as one of the Atlas's own blue threads, so a dot on one pins a 400 km
@@ -325,7 +351,6 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
   /* THE ZOOM CEILING, sliced out of app.js rather than pressed for (Sep 2026, on request: "users should
      be able to zoom in further"). Pressing + to the stop and reading the disk back would measure the
      button's step count rather than the ceiling, and the ceiling is the thing that was asked about. */
-  const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "app.js"), "utf8");
   const zm = /const ZMIN = [\d.]+, ZMAX = (\d+)/.exec(APP);
   check("the Atlas zooms deeper than it used to", !!zm && Number(zm[1]) > 30, zm ? "ZMAX " + zm[1] : "not found");
 
@@ -360,6 +385,75 @@ localStorage.setItem("folio_atlas_tour_v1", "1");`;
     return sec.classList.contains("collapsed") ? "collapsed" : "open";
   });
   check("...and so does the world panel's own Sources section", panelSrc === "collapsed", panelSrc);
+
+  /* ---------- 9) the Sep 2026 batch: founding years, the rail's range, and the crowding gates ----------
+     Four requests, and every one of them fails silently. A country arriving at the wrong year looks like
+     a deliberate absence, exactly as section 4's does. A rail carrying the world atlas's stops looks like
+     a rail with stops. A range control that changes the label and not the SCALE looks like it worked. And
+     a crowding gate cannot be seen at all from one screenshot — what says it is working is that zooming
+     OUT draws fewer marks than zooming in, which is two measurements of the same globe. */
+  console.log("\n9) founding years, the rail's range and the crowding gates");
+  await freshPage(["gw-002"]);   // China: its card gives the Republic in 1911 and the PRC on 1 October 1949
+  /* THE ERA MAPS BRACKET IT AND THE CARD SUPPLIES IT (see mineFounded): the first era carrying "China" is
+     1960 and the one before it is 1938, so 1911 is out of the bracket and 1949 is in. Before this the
+     country arrived in 1960 flat, so 1952 is the assertion that matters — and 1945 is the other half,
+     since a rule that simply drew the country in every year would pass the first on its own. */
+  await setYear(1945);
+  const before = await page.evaluate(PX);
+  check("a modern state is not on the globe before it was founded", before.mine === 0, JSON.stringify(before));
+  await setYear(1952);
+  const after49 = await page.evaluate(PX);
+  check("...and is there from its founding year, not from the first map that carries it",
+    after49.mine > 500, JSON.stringify(after49));
+
+  /* THE RAIL'S RANGE. The label, the ticks and the SCALE are asserted together: the first two can both be
+     right over a rail that never re-scaled, which is what makes the pin's own position the real check —
+     at the same year the pin sits further right on a shorter rail. */
+  const railState = () => page.evaluate(() => ({
+    lbl: (document.getElementById("tlRangeLbl") || {}).textContent || "",
+    ticks: [...document.querySelectorAll(".tl-tick")].map((e) => e.textContent),
+    marks: document.querySelectorAll(".tl-mark").length,
+    pin: parseFloat(document.getElementById("tlPin").style.left) || 0,
+  }));
+  const r0 = await railState();
+  check("the personal rail carries none of the world atlas's year marks", r0.marks === 0, String(r0.marks));
+  check("...and says where it starts", r0.lbl.trim() === "4000 BCE", r0.lbl);
+  await page.click("#tlNarrow"); await page.waitForTimeout(400);
+  await page.click("#tlNarrow"); await page.waitForTimeout(400);
+  const r1 = await railState();
+  check("...and narrows on request", r1.lbl.trim() === "1000" && r1.ticks[0] === "1000",
+    r1.lbl + " / " + r1.ticks.join(" "));
+  /* THE PIN MOVES LEFT, and that is the direction that proves the SCALE moved rather than the label:
+     the year here is 1952, which is 98.8% of the way along a rail starting at 4000 BCE and 92.8% of one
+     starting at 1000 CE — narrowing the rail is what gives a recent year room, which is the whole point
+     of the control. A rail that only relabelled would leave the pin where it was. */
+  check("...re-scaling the rail rather than only relabelling it", r1.pin < r0.pin - 3,
+    r0.pin.toFixed(1) + "% → " + r1.pin.toFixed(1) + "%");
+  // …to the end of the list, pressing only while there is somewhere left to go
+  for (let i = 0; i < 5; i++) {
+    if (await page.$eval("#tlNarrow", (e) => e.disabled)) break;
+    await page.click("#tlNarrow"); await page.waitForTimeout(200);
+  }
+  const r2 = await page.evaluate(() => ({ lbl: document.getElementById("tlRangeLbl").textContent.trim(),
+    off: document.getElementById("tlNarrow").disabled }));
+  check("...stopping at the last of its five starts", r2.lbl === "1900" && r2.off, JSON.stringify(r2));
+
+  /* THE CROWDING GATES, measured by TAKING THE ZOOM AWAY rather than by reading a constant.
+     THE CAPITALS ARE ALL EUROPEAN AND THAT IS THE WHOLE FIXTURE. Zooming in shows a SMALLER piece of the
+     world, so a set spread over the planet draws fewer marks close in than far out however the gate
+     behaves — which is the globe working, not the gate. Fifteen capitals inside one continent are all in
+     frame at both zooms (the tab opens on the reader's home, which defaults to the Netherlands), so the
+     only thing that changes between the two readings is how many of them the separation rule allows. */
+  await freshPage(["gw-519", "gw-521", "gw-523", "gw-525", "gw-532", "gw-542", "gw-572", "gw-582",
+                   "gw-588", "gw-590", "gw-598", "gw-600", "gw-615", "gw-621", "gw-668"]);
+  const wide = await page.evaluate(PX);
+  for (let i = 0; i < 6; i++) { await page.click("#gzIn"); await page.waitForTimeout(200); }
+  await page.waitForTimeout(1200);
+  const close = await page.evaluate(PX);
+  check("a world view thins the reader's marks where they crowd",
+    close.marks > wide.marks, JSON.stringify({ wide: wide.marks, close: close.marks }));
+  check("...and the names wait for the zoom", wide.label === 0 && close.label > 0,
+    JSON.stringify({ wide: wide.label, close: close.label }));
 
   check("no console or page errors throughout", errs.length === 0, errs.slice(0, 3).join(" | "));
   await browser.close();
