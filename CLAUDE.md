@@ -1254,9 +1254,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1–G11 have shipped — one hundred and thirty-three backgrounds rewritten** (`gw-001`–`gw-176`, less
+    **G1–G12 have shipped — one hundred and forty-five backgrounds rewritten** (`gw-001`–`gw-206`, less
     the deferrals below), each five sentences of landform, water and climate over five of the country's
-    own history, with one hundred and nineteen date lines rewritten out of the same research. Three sources make the
+    own history, with one hundred and thirty-one date lines rewritten out of the same research. Three sources make the
     pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
@@ -1268,22 +1268,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Commonwealth Secretariat's member page and the International Court of Justice's own case record as
     their fifth source instead. **AND AN AQUASTAT URL MUST BE READ, NEVER COMPOSED**: eight of G2's twelve guesses
     were wrong and one pointed at another country's profile — and **a 200 on a `.pdf` address is not a
-    PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **FORTY-FOUR
-    COUNTRIES AND TERRITORIES HAVE NO AQUASTAT PROFILE AT ALL** — `gw-003`, `gw-019`, `gw-021`,
+    PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **FIFTY-NINE
+    COUNTRIES AND TERRITORIES HAVE NO AQUASTAT PROFILE AT ALL** — the list grows fastest in the
+    small-island tail, where the deck fills with dependencies the FAO carries no code for — — `gw-003`, `gw-019`, `gw-021`,
     `gw-023`, `gw-025`, `gw-032`, `gw-037`, `gw-042`, `gw-054`, `gw-067`, `gw-072`, `gw-082`, `gw-088`,
     `gw-090`, `gw-093`, `gw-094`, `gw-097`, `gw-098`, `gw-100`, `gw-104`, `gw-110`, `gw-111`, `gw-114`,
     `gw-115`, `gw-117`, `gw-119`, `gw-120`, `gw-121`, `gw-123`, `gw-130`, `gw-135`, `gw-136`, `gw-146`,
     `gw-149`, `gw-152`, `gw-153`, `gw-167`, `gw-168`, `gw-170`, `gw-171`, `gw-172`, `gw-178`, `gw-180`,
-    `gw-182` — and are
+    `gw-182`, `gw-186`, `gw-187`, `gw-188`, `gw-191`, `gw-192`, `gw-193`, `gw-194`, `gw-195`, `gw-198`,
+    `gw-199`, `gw-200`, `gw-201`, `gw-203`, `gw-204`, `gw-205` — and are
     deferred rather than half-solved: the
     World Bank's open climate API and the national met services answer for the weather, and nothing
     reachable carries the LANDFORM. **AND THE COUNTRY PAGE 301-REDIRECTS**, so a `curl` without `-L`
     hands back an empty file and reports every country as having none — check the SIZE of what came
     back before believing a grep that found no PDF link in it: **286–291 KB is a real page with no
     profile, and 189,869 bytes is the page the FAO serves for a code it does not carry at all**
-    (Kosovo and Hong Kong). **AND ITS SLUG IS THE COUNTRY'S OLDER NAME**: `/eswatini` and `/cabo-verde` are 404 where `/swaziland`
-    and `/cape-verde` are 200, and the guide's own INDEX lists both under the current name, so the index
-    resolves what the title will not — D2's `burma` finding as a rule. **A COUNTRY THE RECOGNITION GUIDE
+    (Kosovo and Hong Kong). **AND ITS SLUG IS THE COUNTRY'S OLDER NAME, OR ITS COMPOUND NAME WITHOUT THE "AND"**: `/eswatini` and
+    `/cabo-verde` are 404 where `/swaziland` and `/cape-verde` are 200, and `/antigua-and-barbuda` and
+    `/saint-vincent-and-the-grenadines` are 404 where `/antigua-barbuda` and `/saint-vincent-grenadines`
+    are 200 — two independent ways for a guessed slug to fail, and one fix for both: **grep the index's own
+    hrefs**, which is also how the Constitute Project's `Surinam_1992`, `St_Lucia_1978` and
+    `St_Kitts_and_Nevis_1983` are found. **AND A WESTMINSTER CONSTITUTION HAS NO STATE-FORM CLAUSE AT
+    SECTION 1**: Saint Lucia, Grenada and Saint Vincent open on fundamental rights and are cited at their
+    executive-authority sections (59, 57 and 50), Barbados at 28 and Dominica at 116. **A COUNTRY THE RECOGNITION GUIDE
     HAS NO PAGE FOR CAN STILL BE WRITTEN**: it has none for North Korea, and `gw-056` rests instead on a MILESTONE, which is about
     an event rather than a state; it has none for Palestine either, and `gw-124` rests on two UN
     instruments and the International Court of Justice's own case record instead, the CBD profile being

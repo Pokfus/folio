@@ -125,6 +125,14 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G12 — twelve more**: `gw-177` Bahamas, `gw-179` Vanuatu, `gw-181` Barbados,
+  `gw-183` São Tomé and Príncipe, `gw-184` Samoa, `gw-185` Saint Lucia, `gw-189` Seychelles, `gw-190`
+  Grenada, `gw-196` Saint Vincent and the Grenadines, `gw-197` Antigua and Barbuda, `gw-202` Dominica and
+  `gw-206` Saint Kitts and Nevis, with all twelve date lines rewritten off the same research. **Fifteen
+  more join the deferral list** — `gw-186` Guam, `gw-187` Curaçao, `gw-188` Kiribati, `gw-191` Micronesia,
+  `gw-192` Aruba, `gw-193` United States Virgin Islands, `gw-194` Tonga, `gw-195` Jersey, `gw-198` Isle of
+  Man, `gw-199` Andorra, `gw-200` Cayman Islands, `gw-201` Guernsey, `gw-203` Bermuda, `gw-204` Greenland
+  and `gw-205` Faroe Islands — which takes it to fifty-nine.
 - **2026-09-06, batch G11 — twelve more**: `gw-160` Eswatini, `gw-161` Djibouti, `gw-162` Fiji, `gw-163`
   Comoros, `gw-164` Guyana, `gw-165` Solomon Islands, `gw-166` Bhutan, `gw-169` Suriname, `gw-173`
   Maldives, `gw-174` Cabo Verde, `gw-175` Brunei and `gw-176` Belize, with all twelve date lines rewritten
@@ -250,6 +258,44 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G12 found
+
+- **THE SMALL-ISLAND TAIL IS WHERE THE DEFERRAL LIST GROWS FASTEST, AND IT IS TWO DIFFERENT ABSENCES.**
+  Reaching twelve writable cards from `gw-177` meant passing fifteen, against eight in G11 and none in
+  G10 — because below about 400,000 people the deck fills with DEPENDENCIES, and the FAO carries no code
+  for one: Guam, Aruba, the United States Virgin Islands, Jersey, the Isle of Man, the Cayman Islands,
+  Guernsey, Bermuda, Greenland and Curaçao all return the 189,869-byte page G9 recorded for Kosovo. The
+  others — Kiribati, Micronesia, Tonga, Andorra, the Faroe Islands — return a real page of 283–287 KB with
+  no profile on it. **Expect the ratio to get worse, not better**, and to reach a point where a plan for
+  the dependencies has to be written rather than a batch run.
+- **THE RECOGNITION GUIDE DROPS THE "AND" FROM A COMPOUND NAME.** `saint-vincent-and-the-grenadines` and
+  `antigua-and-barbuda` are both 404; `saint-vincent-grenadines` and `antigua-barbuda` are 200, and
+  `saint-kitts-nevis` (which C11 had already found) is the same rule. With G11's finding — that the slug is
+  the country's OLDER name — that makes two independent ways for a guessed slug to fail, and one fix for
+  both: **grep the index's own `href`s**, never compose the slug from the card's title.
+- **AND SO DOES THE CONSTITUTE PROJECT, IN ITS OWN WAY.** `Suriname_1992` was a 404 in G11 and the index's
+  link read `Surinam_1992`; here the same grep gives **`St_Lucia_1978`, `St_Vincent_and_the_Grenadines_1979`
+  and `St_Kitts_and_Nevis_1983`** with the saint abbreviated, against `Antigua_and_Barbuda_1981` and
+  `Sao_Tome_and_Principe_2003` written out. There is no rule; there is only the index.
+- **A WESTMINSTER CONSTITUTION HAS NO STATE-FORM CLAUSE AT SECTION 1, AND THE EXECUTIVE-AUTHORITY SECTION
+  IS WHAT TO CITE INSTEAD.** Saint Lucia, Grenada and Saint Vincent and the Grenadines all open on
+  fundamental rights, and the constitutional fact worth reporting is in the executive chapter — "The
+  executive authority of Saint Lucia is vested in Her Majesty", section 59, with Grenada at 57 and Saint
+  Vincent at 50. **Barbados is the same shape with the opposite answer**: it became a republic in 2021, so
+  its section 28 now reads "There shall be a President who shall be the Head of State", and Dominica's
+  declaration of a republic is at section 116, not section 1. **Read where the clause IS rather than
+  assuming article 1**, which held for every card in G10 and G11 and for only half of G12.
+- **TWO MORE AUTO-LINKS TAKEN BY THE TAIL, AND ONE OF THEM HAD A ONE-LINE FIX.** "New Providence" linked
+  to **`Providence`, the capital of Rhode Island**, and "São Tomé" as the name of the ISLAND linked to
+  **`São_Tomé`, the capital city**. The island names were reworded out; but measuring the `Providence`
+  surface over the whole corpus first showed it also claimed **gr-318's "divine providence"**, Xenophon on
+  the silver of Attica, so the term is now `caseSensitive: true` — the `Boreal` precedent, verified against
+  the four legitimate occurrences on `geo-004` and `geo-504`, every one of them capitalised.
+- **THE OLDEST PROFILES IN THIS BATCH ARE THE TWO AFRICAN ONES.** São Tomé and Príncipe and the Seychelles
+  are 2005 and everything Caribbean is 2015, with Fiji's neighbours Vanuatu and Samoa at 2016 — the
+  regional survey rounds showing through, which is a reason to read the year rather than infer it and not a
+  rule that can be leaned on.
 
 ## What G11 found
 
@@ -679,6 +725,6 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
   and put a fifth in its place.
 
-**Rules 1 and 3 remain open on about 300 cards.** Run `node .claude/gw-audit.js` for the live figures.
+**Rules 1 and 3 remain open on about 290 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*
