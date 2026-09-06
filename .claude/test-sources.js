@@ -409,6 +409,15 @@ async function requireTerm(page) {
   await page.goto(base + "#map", { waitUntil: "load" });
   await page.waitForFunction(() => !!window.WORLD_GEO && !!window.COUNTRY_INFO, { timeout: 60000 });
   await page.waitForTimeout(1500);
+  /* THE ATLAS OPENS ON THE READER'S OWN TAB NOW (Sep 2026), and this section is about the WORLD one — it
+     reaches the panel through the search box, which the personal tab hides outright (it is the world
+     atlas's index, and a hit there would open a panel about a place the reader has not unlocked). Without
+     this press the fill below waited sixty seconds on an invisible field and took the suite down with a
+     TimeoutError, which is a stale fixture reported as a broken apparatus. Its coach marks are dismissed
+     for the same reason `test-layout.js` dismisses them: an undismissed card sits over the chrome. */
+  await page.evaluate(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); } catch (e) {} });
+  const toWorld = await page.evaluate(() => { const b = document.querySelector('[data-atlastab="world"]'); if (!b || b.classList.contains("on")) return false; b.click(); return true; });
+  if (toWorld) await page.waitForTimeout(2200);
   check("the panel has a Sources section", await page.locator("#cpSrcSec").count() === 1);
   check("...hidden while nothing is selected", await page.evaluate(() => document.querySelector("#cpSrcSec").hidden === true));
   // reach the panel through the search box, the one public entry point that does not need a canvas hit-test
@@ -423,8 +432,14 @@ async function requireTerm(page) {
   if (picked && await page.evaluate(() => document.querySelector("#countryPop") && !document.querySelector("#countryPop").hidden)) {
     check("selecting a place opens its panel", true);
     check("the panel's Sources section is shown", await page.evaluate(() => document.querySelector("#cpSrcSec").hidden === false));
-    check("...open, like the rest of the apparatus",
-      await page.evaluate(() => !document.querySelector("#cpSrcSec").classList.contains("collapsed")));
+    /* …AND SHUT, WHICH REVERSES WHAT THIS ASSERTED (Sep 2026, on request: "all atlas popups should have
+       their sources section collapsed by default"). It followed the reader's own `srcCollapsed`, a
+       setting written for a CARD — where the citations sit at the foot of three hundred words the reader
+       chose to open — and on a place panel it put a list of works between the prose and the bottom of a
+       sheet a phone shows about a third of. The apparatus is all still THERE, which the count below is
+       what says; this is about what the reader meets first. */
+    check("...and shut, which is how every Atlas popup now opens",
+      await page.evaluate(() => document.querySelector("#cpSrcSec").classList.contains("collapsed")));
     const n = await page.locator("#cpSrc .src-item").count();
     // present-day France: the general sources only (2). The shared work must not be listed twice.
     check("the general sources are listed", n >= 2, String(n));

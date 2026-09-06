@@ -4214,6 +4214,17 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
   .cp-titlerow .cp-close{position:static; margin-left:0; width:30px; height:30px; border-radius:9px; font-size:calc(19px * var(--fs)); color:var(--ink-soft); flex:none;}
   .cp-shut .cp-cols,.cp-shut .cp-tools,.cp-shut .cp-hist{display:none;}
   .cp-shut .cp-head{overflow:visible;}
+  /* ---- A SHUT SHEET PUTS THE CHEVRON BEHIND THE NAME (Sep 2026, on request: "on mobile when only the
+     name is shown in the popup with the rest collapsed, put the chevron just behind the name instead of
+     in the top right next to the X close button") ----
+     Open, the chevron is the far end of a full row and belongs with the ×. SHUT, that row IS the whole
+     sheet — a name at the left and two buttons at the right, with the control that opens the thing sitting
+     against the one that closes it, which is a pair of similar marks a thumb has to tell apart. Letting
+     `.cp-titlemain` shrink to its content walks the chevron back to the name it opens; `margin-left:auto`
+     moves from the chevron to the ×, so the close stays in the corner where every close is. */
+  .cp-shut .cp-titlemain{flex:0 1 auto;}
+  .cp-shut .cp-more{margin-left:0;}
+  .cp-shut .cp-titlerow .cp-close{margin-left:auto;}
 }
 /* map editor toolbar (Edit → Timeline → "Edit on globe") */
 .map-edit-bar{position:absolute; top:14px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:13px; flex-wrap:wrap; max-width:calc(100% - 28px); background:var(--card); border:1px solid var(--rule); border-radius:11px; padding:8px 12px; box-shadow:0 10px 28px -14px rgba(0,0,0,.5); z-index:8;}
