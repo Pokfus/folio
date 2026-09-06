@@ -114,6 +114,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `greece-audit-2026-09.md` | The 500-card Ancient Greece audit: what passed, what was fixed, and the seven things still open — the Rutter concentration, the Athens deck's register, and the coverage gaps. |
 | `learning-science.md` | What the learning-science literature says works and does not, and twenty proposals for Folio. **Thirteen shipped Sep 2026; seven still proposals.** |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |
+| `geography-background-plan.md` | The World geography backgrounds, written out of the US recognition guide and therefore about American diplomacy rather than about the country: **419 of 468 mention the United States**, 205 repeat a figure from their own facts grid, and 119 mention any landscape word at all. The three rules, why it cannot be a find-and-replace, and fifteen batches. |
 
 ---
 

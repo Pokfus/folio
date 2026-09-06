@@ -401,10 +401,25 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
       why = await page.evaluate(() => {
         const e = document.querySelector('.elab[data-elab="why"]');
         if (!e) return null;
+        const items = [...e.querySelectorAll(".elab-item")];
         return { kind: e.querySelector(".elab-kind").textContent,
-                 qs: [...e.querySelectorAll(".elab-item .elab-q")].map((x) => x.textContent),
+                 qs: items.map((i) => (i.querySelector(".elab-q") || {}).textContent || ""),
+                 tags: items.map((i) => i.tagName),
+                 open: items.map((i) => !!i.open),
+                 chev: items.map((i) => !!i.querySelector(".elab-chev")),
                  btns: [...e.querySelectorAll(".elab-show")].map((b) => b.textContent.trim()),
-                 hidden: [...e.querySelectorAll(".elab-a")].map((a) => a.hidden),
+                 /* SHOWN IS `checkVisibility`, AND NEITHER OF THE TWO OBVIOUS PROBES WORKS. The answers
+                    are no longer hidden by an attribute — Chrome wraps a closed `<details>`'s content in
+                    a `::details-content` pseudo-element carrying `content-visibility:hidden`, so the
+                    paragraph still HAS a layout box: `hidden` is false and `getClientRects()` returns 1
+                    on an answer nobody can see. Measuring the item against its own summary fails too, an
+                    `.elab-item` being 11px taller than its summary from its own padding and border alone.
+                    `checkVisibility({contentVisibilityAuto:true})` answers it outright — verified in this
+                    browser to be false closed and true open. */
+                 shown: items.map((i) => {
+                   const a = i.querySelector(".elab-a");
+                   return !!a && a.checkVisibility({ contentVisibilityAuto: true, opacityProperty: true, visibilityProperty: true });
+                 }),
                  answered: [...e.querySelectorAll(".elab-a")].map((a) => a.textContent.trim().length) };
       });
       if (why) break;
@@ -416,23 +431,39 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
       check("it reads THREE why-questions about the answer term", why.qs.length === 3, JSON.stringify(why.qs));
       check("…each a real question, not a statement", why.qs.every((q) => /\?$/.test(q.trim())), JSON.stringify(why.qs));
       check("…and no two of them are the same", new Set(why.qs).size === 3);
-      check("each has a Show answer button behind it",
-        why.btns.length === 3 && why.btns.every((b) => /show answer/i.test(b)), JSON.stringify(why.btns));
-      check("*** every answer starts HIDDEN — an uncovered one is not a self-check ***",
-        why.hidden.every(Boolean), JSON.stringify(why.hidden));
+      /* A CHEVRON, NOT A BUTTON (Sep 2026, on request) — see elabPromptHTML. Each item is a native
+         `<details>` whose whole question row is the summary, so the disclosure semantics come from the
+         platform and there is no `.elab-show` on an ordinary card at all: the assertion that there is
+         NONE is what would catch the button quietly coming back. */
+      check("each question is a fold with a chevron behind it",
+        why.tags.join(",") === "DETAILS,DETAILS,DETAILS" && why.chev.every(Boolean),
+        JSON.stringify({ tags: why.tags, chev: why.chev }));
+      check("…and no Show answer button anywhere in it", why.btns.length === 0, JSON.stringify(why.btns));
+      check("*** every answer starts CLOSED — an uncovered one is not a self-check ***",
+        !why.open.some(Boolean) && !why.shown.some(Boolean),
+        JSON.stringify({ open: why.open, shown: why.shown }));
       check("…and each really carries a paragraph rather than an empty box",
         why.answered.every((n) => n > 40), JSON.stringify(why.answered));
-      await page.click(".elab .elab-item:nth-of-type(2) .elab-show");
-      await page.waitForTimeout(220);
-      const after = await page.evaluate(() => ({
-        hidden: [...document.querySelectorAll(".elab-a")].map((a) => a.hidden),
-        exp: [...document.querySelectorAll(".elab-show")].map((b) => b.getAttribute("aria-expanded")),
-        dis: [...document.querySelectorAll(".elab-show")].map((b) => b.disabled) }));
-      check("pressing one reveals ITS answer and nobody else's",
-        after.hidden.join(",") === "true,false,true", JSON.stringify(after.hidden));
-      check("…the button says so to a screen reader", after.exp.join(",") === "false,true,false", JSON.stringify(after.exp));
-      check("…and it cannot be pressed back — a read answer cannot be un-read",
-        after.dis.join(",") === "false,true,false", JSON.stringify(after.dis));
+      await page.click(".elab .elab-item:nth-of-type(2) .elab-qrow");
+      await page.waitForTimeout(260);
+      const read = () => page.evaluate(() => ({
+        open: [...document.querySelectorAll(".elab-item")].map((i) => !!i.open),
+        // `checkVisibility`, for the reason in the note beside `shown` above
+        shown: [...document.querySelectorAll(".elab-item")].map((i) => {
+          const a = i.querySelector(".elab-a");
+          return !!a && a.checkVisibility({ contentVisibilityAuto: true, opacityProperty: true, visibilityProperty: true }); }),
+      }));
+      const after = await read();
+      check("opening one reveals ITS answer and nobody else's",
+        after.open.join(",") === "false,true,false" && after.shown.join(",") === "false,true,false",
+        JSON.stringify(after));
+      /* AND IT CLOSES AGAIN, which the button deliberately would not: a chevron is the mark that says
+         there are two states, and a fold that will not fold is the one thing it must not be. */
+      await page.click(".elab .elab-item:nth-of-type(2) .elab-qrow");
+      await page.waitForTimeout(260);
+      const shut = await read();
+      check("…and closes again — a chevron that will not close is not a chevron",
+        !shut.open.some(Boolean) && !shut.shown.some(Boolean), JSON.stringify(shut));
     }
 
     check("no console or page errors throughout", errs.length === 0, errs.slice(0, 4).join(" | "));

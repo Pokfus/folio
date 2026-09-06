@@ -756,22 +756,22 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-509  Aspasia
     gr-510  Metics
     gr-511  Slavery at Athens
-    gr-512  The Laurion mines
+    gr-512  The poletai and the public sales   (was: The Laurion mines — carded at gr-318 and gr-411)
     gr-513  The Athenian grain trade
     gr-514  The buildings of the Athenian agora
     gr-515  The Painted Stoa
     gr-516  Polygnotus
-    gr-517  Critics of Athenian democracy
+    gr-517  Thucydides son of Melesias   (the critics of the democracy, through the man who led them)
     gr-518  The Old Oligarch
-    gr-519  The finances of the empire
-    gr-520  Athenian imperial decrees
+    gr-519  The treasury of the Other Gods   (the building budget is already carded at gr-494)
+    gr-520  The Kleinias decree   (the Chalcis decree is already carded at gr-486)
 
 ### Peloponnesian War — `gr-peloponnesian-war`
 
     gr-521  The Peloponnesian War
     gr-522  Thucydides
-    gr-523  The causes of the war
-    gr-524  The Corcyra affair
+    gr-523  The causes of the war   (carded on `prophasis`, the word Thucydides uses for it)
+    gr-524  The Corcyra affair   (carded on Epidamnus; `Corcyra` is already a glossary term)
     gr-525  Battle of Sybota
     gr-526  Potidaea
     gr-527  The Megarian Decree
@@ -779,9 +779,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-529  The Archidamian War
     gr-530  Archidamus II
     gr-531  Pericles' strategy
-    gr-532  The invasions of Attica
+    gr-532  The invasions of Attica   (carded on Acharnae, where the first one stopped)
     gr-533  The plague of Athens
-    gr-534  The death of Pericles
+    gr-534  The death of Pericles   (carded on `first citizen`; `Pericles` is already carded at gr-467)
     gr-535  Cleon
     gr-536  The Mytilenean revolt
     gr-537  The Mytilenean debate
@@ -791,7 +791,7 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-541  Brasidas
     gr-542  Amphipolis
     gr-543  Battle of Amphipolis
-    gr-544  The exile of Thucydides
+    gr-544  The exile of Thucydides   (carded on Eion, the harbour he did save; the exile itself is at gr-522)
     gr-545  The Peace of Nicias
     gr-546  Nicias
     gr-547  Alcibiades
@@ -802,36 +802,36 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-552  The Sicilian Expedition
     gr-553  Egesta
     gr-554  The mutilation of the Herms
-    gr-555  The recall of Alcibiades
+    gr-555  The recall of Alcibiades   (carded on the `Salaminia`, the ship sent to fetch him)
     gr-556  The siege of Syracuse
     gr-557  Gylippus
     gr-558  Battle of the Great Harbour
-    gr-559  Demosthenes the general
-    gr-560  The destruction of the Athenian force
+    gr-559  Demosthenes the general   (glossary key `Demosthenes_(general)`, so it cannot auto-link the orator)
+    gr-560  The destruction of the Athenian force   (carded on the `Assinarus`, the river where it ended)
     gr-561  The Decelean War
-    gr-562  The fortification of Decelea
-    gr-563  Persian intervention
+    gr-562  The fortification of Decelea   (carded on `epiteichismos`, the strategy it is the great example of)
+    gr-563  Persian intervention   (carded on Amorges, whose revolt is why Tissaphernes wanted a Spartan alliance)
     gr-564  Tissaphernes
     gr-565  Pharnabazus
-    gr-566  The treaties with Persia
-    gr-567  The oligarchic coup of 411
+    gr-566  The treaties with Persia   (carded on Lichas, the Spartan who repudiated the first two of them)
+    gr-567  The oligarchic coup of 411   (carded on Colonus, where the assembly voted the democracy away)
     gr-568  The oligarchy of the Four Hundred
     gr-569  The Five Thousand
-    gr-570  The fleet at Samos
+    gr-570  The fleet at Samos   (`Samos` itself is already a glossary term, so the card answers `Athenian fleet at Samos`)
     gr-571  Battle of Cynossema
     gr-572  Battle of Cyzicus
-    gr-573  The restoration of the democracy
+    gr-573  The restoration of the democracy   (carded on the decree of Demophantus, the oath it was secured with)
     gr-574  Battle of Arginusae
-    gr-575  The trial of the generals
+    gr-575  The trial of the generals   (carded on the decree of Cannonus, the law the assembly set aside to hold it)
     gr-576  Lysander
     gr-577  Battle of Aegospotami
     gr-578  The siege of Athens
     gr-579  The surrender of Athens
-    gr-580  The demolition of the Long Walls
+    gr-580  The demolition of the Long Walls   (`Long Walls` is carded at gr-488, so this answers the demolition itself)
     gr-581  The Thirty Tyrants
     gr-582  Critias
     gr-583  Thrasybulus
-    gr-584  The restoration of 403
+    gr-584  The restoration of 403   (carded on the Battle of Munychia, which brought the Thirty down)
     gr-585  The amnesty of 403
 
 ### Classical arts and thought — `gr-classical-culture`
@@ -848,45 +848,48 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-595  Sophocles
     gr-596  Oedipus Tyrannus
     gr-597  Antigone
-    gr-598  Ajax
+    gr-598  Ajax   (glossary key `Ajax_(play)`, so it cannot claim the hero's name, carded at gr-950)
     gr-599  Philoctetes
     gr-600  Euripides
-    gr-601  Medea
+    gr-601  Medea   (the PLAY; glossary key `Medea_(play)`, leaving the bare name for gr-935)
     gr-602  Bacchae
     gr-603  Trojan Women
     gr-604  Hippolytus
     gr-605  Satyr play
     gr-606  Old Comedy
     gr-607  Aristophanes
-    gr-608  Clouds
+    gr-608  Clouds   (glossary key `Clouds_(play)`, or the term would auto-link the ordinary word)
     gr-609  Lysistrata
-    gr-610  Frogs
-    gr-611  Birds
+    gr-610  Frogs   (glossary key `Frogs_(play)`, for the reason gr-608 carries one)
+    gr-611  Birds   (glossary key `Birds_(play)`, for the reason gr-608 carries one)
     gr-612  The Theatre of Dionysus
-    gr-613  Greek theatre architecture
-    gr-614  Skene and orchestra
+    gr-613  Greek theatre architecture   (carded on the `theatron`, the auditorium the word theatre descends from)
+    gr-614  Skene and orchestra   (carded on the `skene`; the orchestra is described on it and on gr-613)
     gr-615  The tragic mask
     gr-616  Choregos
-    gr-617  Herodotus' Histories
-    gr-618  Thucydides' method
+    gr-617  Herodotus' Histories   (the WORK is carded at gr-439; this cards `historiē`, the word Herodotus
+                                    uses for what he is doing, from which history descends)
+    gr-618  Thucydides' method   (carded on `ktēma es aei`, his own name for the book at History 1.22.4)
     gr-619  Xenophon
     gr-620  Hellenica
     gr-621  Anabasis
-    gr-622  The sophists
+    gr-622  The sophists   (carded on the singular, `Sophist`, with `sophists` as an alias)
     gr-623  Protagoras
     gr-624  Gorgias
     gr-625  Prodicus
     gr-626  Antiphon
     gr-627  Socrates
-    gr-628  The Socratic method
+    gr-628  The Socratic method   (carded on the `elenchus`, the Greek name for the cross-examination;
+                                   `Socratic method` is an alias of that term)
     gr-629  The trial of Socrates
-    gr-630  Plato's Apology
+    gr-630  Plato's Apology   (glossary key `Apology_(Plato)`, so it cannot claim the ordinary word)
     gr-631  Xenophon's Memorabilia
     gr-632  Hippocrates
     gr-633  The Hippocratic Corpus
     gr-634  The Hippocratic Oath
     gr-635  Humoral theory
-    gr-636  Fifth-century Greek mathematics
+    gr-636  Fifth-century Greek mathematics   (carded on `incommensurability`, the century's defining
+                                               result; gr-637 carries the rest of the mathematics)
     gr-637  Hippocrates of Chios
     gr-638  Anaxagoras
     gr-639  Democritus
@@ -901,9 +904,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-648  Discobolus
     gr-649  Polykleitos
     gr-650  Doryphoros
-    gr-651  The Canon of Polykleitos
+    gr-651  The Canon of Polykleitos  — carded on `symmetria`, the Canon's own principle: the treatise and the statue are already at gr-649 and gr-650
     gr-652  Contrapposto
-    gr-653  Red-figure masters
+    gr-653  Red-figure masters  — carded on `Euthymides`, since the technique is at gr-330 and Euphronios has gr-654
     gr-654  Euphronios
     gr-655  White-ground lekythos
 
@@ -917,7 +920,7 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-661  Conon
     gr-662  The King's Peace
     gr-663  Agesilaus II
-    gr-664  Agesilaus in Asia Minor
+    gr-664  Agesilaus in Asia Minor  — carded on the `battle of Sardis`, the campaign's decisive action; the man himself is at gr-663
     gr-665  The seizure of the Cadmea
     gr-666  The liberation of Thebes
     gr-667  The Second Athenian League
@@ -928,28 +931,28 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-672  Theban hegemony
     gr-673  The liberation of Messenia
     gr-674  Megalopolis
-    gr-675  Battle of Mantinea, 362 BCE
+    gr-675  Battle of Mantinea, 362 BCE  — carded on the `second battle of Mantinea`, since `Battle_of_Mantinea` (418 BCE) is already gr-548 and a glossary term
     gr-676  The Social War
     gr-677  Plato
     gr-678  The Academy
     gr-679  Plato's Republic
     gr-680  The theory of Forms
-    gr-681  Plato's Symposium
+    gr-681  Plato's Symposium  — carded on the `ladder of love`, Diotima's ascent: `Symposium` the drinking party is already gr-363 and a glossary term
     gr-682  Aristotle
     gr-683  The Lyceum
-    gr-684  Aristotle's Politics
+    gr-684  Aristotle's Politics  — the glossary key is `Politics_(Aristotle)`, since a bare `Politics` would auto-link an ordinary English word
     gr-685  Nicomachean Ethics
-    gr-686  Aristotle's biology
+    gr-686  Aristotle's biology  — carded on the `History of Animals`, the longest of the zoological works, rather than on the field in the abstract
     gr-687  Diogenes of Sinope
     gr-688  Cynicism
     gr-689  Isocrates
-    gr-690  Attic oratory
+    gr-690  Attic oratory  — carded on the `Attic orators`, the canon of ten, which is the thing the sources actually define
     gr-691  Lysias
-    gr-692  Demosthenes the orator
+    gr-692  Demosthenes the orator  — glossary key `Demosthenes_(orator)`, since `Demosthenes_(general)` is gr-559's term; neither parenthetical key claims the bare surface, so nothing auto-links to the wrong man
     gr-693  The Philippics
     gr-694  Aeschines
     gr-695  Philip II of Macedon
-    gr-696  The Macedonian phalanx
+    gr-696  The Macedonian phalanx  — answer term `Macedonian phalanx`, since `phalanx` is already gr-181 and a glossary term
     gr-697  Sarissa
     gr-698  The Third Sacred War
     gr-699  Battle of Chaeronea
