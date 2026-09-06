@@ -167,21 +167,33 @@ function simulate(days) {
 }
 /* The page's grid, generated here so the test knows its answers. The site's day runs on the reader's own
    clock with a settable boundary, which need not be Node's UTC date, so the neighbouring days are tried
-   too and the one whose entries MATCH the rendered clue list is the one the page is showing — which also
+   too and the one whose grid MATCHES the rendered one is the one the page is showing — which also
    re-proves the seeding the two-context run used to prove: a browser and a bare Node process, given only
-   the date, deal the identical grid. */
-function crosswordForPage(clueIds) {
+   the date, deal the identical grid.
+
+   IT IS MATCHED ON THE SQUARES, NOT ON THE CLUE NUMBERS, and that is the whole of a fault this file
+   carried for weeks. The fingerprint used to be the set of `n + dir` — "1d,2d,3a,4d,5d,6a,7a,8a,9a" —
+   which is not an identity at all: the layout search fills a nine-entry grid the same shape most days, so
+   consecutive days routinely share it. When they did, the FIRST candidate won and everything below was
+   computed against another day's geometry; the first thing it did was ask the page for a square that grid
+   does not have, and the suite died there — taking every check after it with it, which is how a stale
+   matcher reads as a broken game.
+   The squares are the right key because they are exactly what the checks below go on to address, and
+   because they survive what the clue TEXT does not: the page rewrites its own prose as it renders
+   (British or American spelling, metric or imperial), so a text fingerprint would fail on a reader
+   setting rather than on a real mismatch. */
+function crosswordForPage(cells) {
   const build = builder();
-  const want = clueIds.slice().sort().join("|");
+  const want = cells.slice().sort().join("|");
   for (let off = -1; off <= 1; off++) {
     const day = new Date(Date.now() + off * 86400000).toISOString().slice(0, 10);
     const p = build(day).dailyCrossword();
     if (!p) continue;
-    if (p.entries.map((e) => e.n + e.dir).sort().join("|") !== want) continue;
     const letters = {};
     p.entries.forEach((e) => {
       for (let i = 0; i < e.w.length; i++) letters[(e.dir === "a" ? e.x + i : e.x) + "," + (e.dir === "a" ? e.y : e.y + i)] = e.w[i];
     });
+    if (Object.keys(letters).sort().join("|") !== want) continue;
     return { puz: p, letters: letters, day: day };
   }
   return null;
@@ -435,7 +447,7 @@ function crosswordForPage(clueIds) {
          same grid from the date alone). Everything below fails silently: an entry that never turns colour
          is a game with no feedback, red squares that lock are a game that cannot be retried, and a grid
          that forgets itself between visits is one a reader cannot finish. */
-      const today = crosswordForPage(built.clues.map((c) => c.e));
+      const today = crosswordForPage(built.cells);
       check("[xw] the page's grid is the one the date deals", !!today, today ? today.day : "no matching day");
       if (today) {
         const first = today.puz.entries[0];

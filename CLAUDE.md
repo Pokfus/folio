@@ -2962,6 +2962,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and fires inside the fixtures of `test-card-types`, `test-community` and `test-deck-ux`, each of
     which imports a deck and studies it at once; each needs an `orderPicked` seed, which is a contained
     change that wants its own pass with those three green.
+    **AND IT STANDS BETWEEN EVERY SUITE AND THE FIRST CARD, which is how it broke two of them** (Sep
+    2026). `test-admin-editor` and `test-deck-glossary` both reach a study card the way a reader does —
+    open the Collections page, click a collection — and since this landed, that click lands on the
+    PICKER. Neither suite was looking for it, so both went on to hunt for a `#reveal-btn` that was not
+    there yet: the first reported three gloss-popup failures, and the second collected nothing and
+    reported **"checked 0 links"** — an isolation check passing its own emptiness off as a result, which
+    is the quietest way a guard can stop guarding. Both now press `#opSkip` if it is there, as a reader
+    would, guarded so it is a no-op if the page stops asking. **A SUITE THAT REACHES A CARD THROUGH THE
+    COLLECTIONS PAGE HAS TO PRESS THROUGH THIS**, and a check that counts what it found should assert
+    that it found ANY.
   · **`deckAttempt` — ANSWER BEFORE REVEALING.** A policy (in `DECK_OPT_INHERIT`) with a global default in
     Settings, **off by default**. **ONE guard, in `showAnswer`, keyed on `fromReader`** — the button, Enter
     and Space all go through it, and the restore path that re-opens an already-revealed card after a reload
@@ -6734,6 +6744,15 @@ dead code (never rendered).
     `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
     `markGamePlayed`, `gameAnswerNote` / `gameGlossKey`, `gameTap` / `gameCommit` / `gameClearPick` /
     `gameFound` / `TINT_PICK` / the `.mg-acts` buttons, or the home page's tile grid.**
+    **`crosswordForPage` MATCHES THE DAY ON THE SQUARES, NEVER ON THE CLUE NUMBERS** (Sep 2026). It used
+    to fingerprint the grid by its set of `n + dir` — "1d,2d,3a,4d,5d,6a,7a,8a,9a" — which is not an
+    identity at all: the layout search fills a nine-entry grid the same shape most days, so consecutive
+    days routinely share it. When they did, the FIRST candidate won, everything below was computed
+    against another day's geometry, and the suite asked the page for a square that grid has not got and
+    **died there — taking every check after it with it**, which is how a stale matcher reads as a broken
+    game. The squares are the right key because they are exactly what those checks go on to address, and
+    because they survive what the clue TEXT does not: the page rewrites its own prose as it renders
+    (spelling, units), so a text fingerprint would fail on a reader's setting rather than on a mismatch.
   · `node .claude/test-avatar.js` — **the profile photo's crop, and enlarging someone else's** (17
     assertions, Aug 2026), and all three of its subjects fail SILENTLY: a hole in the crop becomes a black
     wedge in a JPEG that only its owner ever sees; a drag wired to nothing still opens a dialog, shows the
