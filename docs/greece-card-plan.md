@@ -831,7 +831,7 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-581  The Thirty Tyrants
     gr-582  Critias
     gr-583  Thrasybulus
-    gr-584  The restoration of 403
+    gr-584  The restoration of 403   (carded on the Battle of Munychia, which brought the Thirty down)
     gr-585  The amnesty of 403
 
 ### Classical arts and thought — `gr-classical-culture`
