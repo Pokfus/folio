@@ -6146,6 +6146,228 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/la mesa": {
+      "why": "Its second gloss was 'mesa' — the Spanish word glossed with the English loanword of itself, which is the geological flat-topped hill and tells a reader nothing. Its own second example translates mesas as 'desks', a sense it did not list, and poner la mesa is what the poner card now carries from the other side.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "table",
+            "desk"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "poner la mesa — to lay the table"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la carta": {
+      "why": "'letter (document), map' — and the two senses an A1 reader meets first were both absent: the MENU in a restaurant, and PLAYING CARDS, which is what the card's own second example is (jugamos a las cartas). The tarjeta card now points here for the distinction, and this is the other half of it.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "letter (that you post)",
+            "menu (in a restaurant)",
+            "playing card (las cartas — cards)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las cartas"
+        ],
+        [
+          "a bank or postcard is",
+          "la tarjeta"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el novio, la novia": {
+      "why": "'boyfriend (romantic partner), fiancé', so GIRLFRIEND was missing from a pair card - the fifth in this deck after el hijo la hija, el hermano la hermana, el chico la chica and el tío la tía. novia is also the bride, and los novios the couple getting married, neither of which was there. Its third example also spelt éste with the accent the RAE dropped in 2010, and said nothing the first two did not; it makes room for the wedding sense.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "novio — boyfriend",
+            "novia — girlfriend"
+          ]
+        ],
+        [
+          "noun, masculine and feminine",
+          [
+            "novio — groom; novia — bride"
+          ]
+        ],
+        [
+          "noun, masculine plural",
+          [
+            "los novios — the couple; the bride and groom"
+          ]
+        ]
+      ],
+      "rebold": true,
+      "dropEx": [
+        "Ella tiene muchos novios, pero éste es especial."
+      ],
+      "ex": [
+        [
+          "Los novios salieron de la iglesia.",
+          "The bride and groom came out of the church."
+        ]
+      ]
+    },
+    "delea1/comprar": {
+      "why": "'to buy (to obtain in exchange of money or goods)' is a definition, and its English is wrong as well — in exchange FOR. 'to buy out' is a business sense no A1 reader needs. ir de compras, which is what the card's own first example is, had no line.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to buy"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "ir de compras — to go shopping",
+            "comprar algo a alguien — to buy something for, or from, somebody"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el centro": {
+      "why": "'center' and then 'center, moderate tendencies or ideas' — the political sense given as much room as the ordinary one, and el centro comercial, which is where a reader will hear the word most, missing altogether.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "centre, middle",
+            "town centre, downtown (el centro de la ciudad)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "el centro comercial — shopping centre"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el mes": {
+      "why": "'month' alone, while both of the card's own examples are el mes pasado — the same line el año now carries.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "month"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "el mes pasado — last month",
+            "el mes que viene — next month"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el sol": {
+      "why": "hace sol was missing, which is the weather phrase that goes with hace frío and hace calor on the hacer card, and so was tomar el sol. Its second example — 'como si se hubieran levantado siete soles dentro de mí' — is a poetic sentence in the subjunctive, well above this level.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "sun",
+            "sunshine, sunlight"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "hace sol — it's sunny",
+            "tomar el sol — to sunbathe"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Me sentí como si se hubieran levantado siete soles dentro de mí."
+      ],
+      "ex": [
+        [
+          "Hoy hace mucho sol.",
+          "It's very sunny today."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la dirección": {
+      "why": "'direction, address' in that order, though two of the card's three examples are the address. The management of a company is the third sense and was not there. Its first and third examples were also the same sentence with one verb changed.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "address",
+            "direction",
+            "management (of a company)"
+          ]
+        ]
+      ],
+      "rebold": true,
+      "dropEx": [
+        "Tom no pudo averiguar la dirección de Mary."
+      ],
+      "ex": [
+        [
+          "¿Cuál es tu dirección?",
+          "What's your address?"
+        ]
+      ]
+    },
+    "delea1/siete": {
+      "why": "Two of its three examples are telling the time, which the card did not name — the line tres, cuatro, cinco, seis and diez now carry.",
+      "senses": [
+        [
+          "numeral",
+          [
+            "seven"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "las siete — seven o'clock"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el barco": {
+      "why": "'boat (usually with a concave hull)' is a definition, and a qualifier that distinguishes nothing a reader needs distinguished — all three of the card's examples translate it 'ship'. en barco was missing.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "boat, ship"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "en barco — by boat, by sea"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
