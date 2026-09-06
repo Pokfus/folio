@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Card plans ↔ data.js — the check that keeps "generate the next <collection> card" working.
  *
- * Eighteen collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
+ * Nineteen collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
  * lowest id not yet in data.js, and its deck comes from the plan. That workflow rests on agreements
  * nothing else verifies, and every one of them fails SILENTLY:
  *
@@ -71,6 +71,7 @@ const PLANS = {
   bio: ["biology", "bio-", 1000],
   dino: ["dinosaurs", "dino-", 1000],
   korea: ["korea", "ko-", 1000],
+  art: ["art", "art-", 1000],
   /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */
@@ -104,6 +105,29 @@ let pass = 0, fail = 0;
 const ok = (m, extra) => { pass++; console.log("ok    " + m + (extra ? "  " + extra : "")); };
 const no = (m, extra) => { fail++; console.log("FAIL  " + m + (extra ? "  " + extra : "")); };
 const is = (cond, m, extra) => (cond ? ok(m, extra) : no(m, extra));
+
+/* ---- data.js's own card array ---- */
+/* A HOLE IN `CARD_DATA` IS INVISIBLE TO EVERY OTHER CHECK AND BREAKS THE WHOLE SITE (Sep 2026).
+ * A stray second comma in the array literal — `…}, ,{…}` — is VALID JavaScript: it makes a sparse
+ * array, so `node --check` passes, and `map`/`forEach`/`filter` all SKIP holes, so the card count,
+ * the citation audits and every suite here went on reporting healthy figures. app.js builds
+ * `CARD_BY_ID` with an iterator, which does NOT skip a hole: it yields `undefined`, `new Map` throws
+ * "Iterator value undefined is not an entry object" at boot, and the reader gets a page with nothing
+ * on it but the nav bar. Found when add-images.js threw the same error; it had shipped in a commit
+ * whose browser check had been run BEFORE the diff was tidied. Iterate with a plain index — a `for
+ * … of` here would skip nothing but a `.map` would, which is the whole point. */
+{
+  const n = CARDS.length;
+  const holes = [];
+  for (let i = 0; i < n; i++) if (!(i in CARDS)) holes.push(i);
+  is(holes.length === 0, "CARD_DATA has no holes  (a stray comma makes a sparse array and breaks boot)",
+     holes.length ? holes.length + " at index " + holes.slice(0, 5).join(", ") : n + " entries");
+  const ids = [];
+  for (let i = 0; i < n; i++) if (i in CARDS) ids.push(CARDS[i].id);
+  const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
+  is(dupes.length === 0, "every card id in data.js is unique",
+     dupes.length ? [...new Set(dupes)].slice(0, 5).join(", ") : ids.length + " ids");
+}
 
 /* ---- the tree ---- */
 const leafOf = new Map();   // leaf id → collection id
@@ -235,7 +259,7 @@ for (const [colId, [slug, prefix, numbering]] of Object.entries(PLANS)) {
        symptom was that the plan and the deck had quietly stopped describing the same thing. A card
        id is a permanent address, so the drift is unrecoverable once a reader holds the card.
 
-       The number check is general to all eighteen collections. The name check applies only where a
+       The number check is general to all nineteen collections. The name check applies only where a
        plan line reads `Name  [Country]`, which is the three GEOGRAPHY plans: elsewhere a topic is a
        subject to research and deliberately is not the answer term. A DEFERRED slot holds no card. */
     const byNum = new Map(plan.cards.map((c) => [c.n, c.topic]));

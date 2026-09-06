@@ -50,7 +50,6 @@ const EXEMPT = {
   "wh-106": "Blytt–Sernander scheme — a 19th-century scheme",
   "cnh-061": "Doubting Antiquity School — a named modern school of historical criticism",
   "cnh-065": "Xia–Shang–Zhou Chronology Project — a named modern research programme",
-  "cnh-070": "the discovery of the oracle bones — a modern act, gr-075's counterpart",
 };
 
 /* TWO COLLECTIONS ARE EXCLUDED FROM RULE 1 OUTRIGHT (Aug 2026, on request), and this is a COLLECTION-WIDE
@@ -84,7 +83,10 @@ const NOT_A_SURNAME = new Set(["Bryn", "Mawr", "Classical", "Review", "Press", "
   "The", "And", "France", "Fels", "Hohle", "Agora", "Athenian", "Anzick", "Sands", "Grotte", "Sahul", "Dartmouth", "Hanover", "Tufts",
   // A CORPORATE AUTHOR ends on a place, and the place is what the last-token rule takes for a surname:
   // "Archaeological Survey of India" left every question naming India reading as one naming a scholar.
-  "Archaeological", "Survey", "India"]);
+  "Archaeological", "Survey", "India",
+  // Same shape, one tribunal over: "International Military Tribunal for the Far East" ends on a
+  // COMPASS POINT, and every card citing the Tokyo judgment then read "East Asia" as a scholar.
+  "International", "Military", "Tribunal", "Far", "East"]);
 
 /* ANCIENT AUTHORS ARE NOT SCHOLARS, and the distinction is the whole point of the rule. Herodotus and
    Pausanias are cited here as SOURCES FOR THE PAST — a question that names one is teaching history, and
@@ -94,10 +96,11 @@ const NOT_A_SURNAME = new Set(["Bryn", "Mawr", "Classical", "Review", "Press", "
 const ANCIENT = new Set(`Homer Hesiod Herodotus Thucydides Xenophon Plato Aristotle Plutarch Pausanias Strabo
 Diodorus Polybius Arrian Apollodorus Aeschylus Sophocles Euripides Aristophanes Pindar Sappho Solon Theognis
 Tyrtaeus Archilochus Hippocrates Theophrastus Demosthenes Isocrates Lysias Aeschines Livy Ovid Lucretius
-Suetonius Caesar Seneca Cicero Tacitus Virgil Horace Vitruvius Pliny Josephus Athenaeus Vyasa Confucius
+Suetonius Caesar Seneca Cicero Tacitus Sallust Virgil Horace Vitruvius Pliny Josephus Athenaeus Vyasa Confucius
 Mencius Laozi Zhuangzi Sima Ptolemy Euclid Archimedes Galen Aelian Hyginus Ovidius Quintilian
 Gellius Aulus Dionysius Halicarnassus Varro Festus Censorinus
-Nepos Justin Trogus Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius`.split(/\s+/));
+Nepos Justin Trogus Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius
+Procopius Appian`.split(/\s+/));
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
