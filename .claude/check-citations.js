@@ -236,6 +236,10 @@ const CROSSREF_WRONG = [
 const CROSSREF_YEAR_WRONG = [
   // Tyche: Beiträge zur Alten Geschichte, Band 7 is 1992; Crossref prints 1993.
   ["10.15661/tyche.1992.007.20", 1992, 1993],
+  // Vestnik VolSU dates volume 24, issue 6 to 2019 on the article's own first page
+  // and in the citation line it prints ("2019, vol. 24, no. 6, pp. 81-89"); Crossref
+  // carries the issue's January 2020 print deposit instead.
+  ["10.15688/jvolsu4.2019.6.6", 2019, 2020],
 ];
 const yearAllowed = (doi, plain, years) => CROSSREF_YEAR_WRONG.some(
   (r) => r[0].toLowerCase() === String(doi).toLowerCase() && plain.includes(String(r[1])) && years.includes(r[2]));

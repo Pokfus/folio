@@ -1860,7 +1860,10 @@ window.GLOSSARY = {
 "Constantinople": "Constantinople was the capital of the eastern Roman and Byzantine empire, refounded by Constantine the Great on the Greek colony of Byzantion and inaugurated on 11 May 330.<sup class=\"fn\" data-fn=\"1\"></sup> It stood on a promontory between the Golden Horn and the Sea of Marmara, commanding the passage between the Mediterranean and the Black Sea, and took in grain shipped from Alexandria through the Theodosian Harbour, begun about 390.<sup class=\"fn\" data-fn=\"2\"></sup> Constantine left it largely a building site; his son Constantius granted it the rights of Rome, a senate and a city prefect, and the city fell to the Ottomans in 1453.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Justinian_I": "Justinian I was Roman emperor in the east from 527 to 565, and his reign was spent trying to restore Roman rule, Roman law and Christian orthodoxy across the Mediterranean.<sup class=\"fn\" data-fn=\"1\"></sup> His armies recovered Africa from the Vandals and Italy from the Ostrogoths, and he built and rebuilt on a scale catalogued in Procopius' <i>Buildings</i>, from churches and hospices to the wall across the Isthmus of Corinth.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The reign also saw Roman law recodified, plague arrive in 541 with effects on population that are now disputed, and silkworms reach the capital about 552.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Corpus_Juris_Civilis": "Corpus Juris Civilis is the name later given to the collection of Roman law made under Justinian I between 528 and 534: a code of imperial enactments, a Digest of the classical jurists and a manual for students, with the emperor’s later laws beside them.<sup class=\"fn\" data-fn=\"1\"></sup> Its compilers, working under the quaestor Tribonian, were told to settle the questions the jurists had left open and to alter their excerpts so that the approved rule stood without acknowledgement.<sup class=\"fn\" data-fn=\"1\"></sup> Extended to Italy in 554, it went largely unread in the west for two centuries, and the revival of legal study about 1100 made it the foundation of the civil-law tradition.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Hagia_Sophia": "Hagia Sophia is the great church of Constantinople, built for Justinian I between 532 and 537 on the site of an earlier basilica of the mid-4th century.<sup class=\"fn\" data-fn=\"1\"></sup> Its name means Holy Wisdom, which Byzantine writers understood as Christ the Word made flesh rather than a saint, and its dome rests on pendentives, curved triangles of masonry used before in smaller churches but never at this scale.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The first dome fell in 558 and the rebuilt church was re-consecrated in 562; it became a mosque after the Ottoman conquest of 1453, a museum in 1935 and a mosque again in 2020.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Hagia_Sophia": "Hagia Sophia is the great church of Constantinople, built for Justinian I between 532 and 537 on the site of an earlier basilica of the mid-4th century.<sup class=\"fn\" data-fn=\"1\"></sup> Its name means Holy Wisdom, which Byzantine writers understood as Christ the Word made flesh rather than a saint, and its dome rests on pendentives, curved triangles of masonry used before in smaller churches but never at this scale.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The first dome fell in 558 and the rebuilt church was re-consecrated in 562; it became a mosque after the Ottoman conquest of 1453, a museum in 1935 and a mosque again in 2020.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Theodora_(wife_of_Justinian_I)": "Theodora was the wife of Justinian I and empress of the eastern Roman empire from 527 until her death in 548. Procopius reports in his <i>Secret History</i> that she was a bear keeper’s daughter who had worked as a prostitute, a claim John of Ephesus independently supports, and as empress she openly backed Monophysite Christianity against the council of Chalcedon.<sup class=\"fn\" data-fn=\"1\"></sup> Almost everything scandalous said about her comes from that single invective, written in the late 540s and lost until a manuscript was printed at Lyon in 1623, so its portrait of her is a work of rhetoric as much as a record.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Plague_of_Justinian": "The Plague of Justinian was the outbreak that struck the eastern Roman empire in 541 and opened a pandemic of <i>Yersinia pestis</i> that returned in waves until about 750.<sup class=\"fn\" data-fn=\"1\"></sup> Procopius reports that it began in Egypt at Pelusium, and it reached Constantinople in 542 and the Frankish border by the winter of 543; ancient DNA from 6th-century burials in Bavaria and at Jerash in Jordan has since confirmed the pathogen.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its scale is disputed, since one reading of the texts has it killing a quarter to a half of the empire while coinage, papyri, inscriptions and pollen show no matching break in population.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Greek_fire": "Greek fire was the incendiary weapon of the Byzantine navy, a liquid thrown in pots or sprayed from a nozzle that went on burning where it landed.<sup class=\"fn\" data-fn=\"1\"></sup> Theophanes credits it to a man named Kallinikos in a notice too brief to say what he actually contributed, and the empire kept the method of making it so well that its composition is still unknown.<sup class=\"fn\" data-fn=\"1\"></sup> Medieval writers name sulphur, saltpetre, tar, resin, petroleum and plant oils among the ingredients; petroleum has most modern support, and the crude oil that seeped to the surface on the north-east shore of the Black Sea would have supplied it.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2723,7 +2726,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Constantinople": "330 – 1453 CE",
 "Justinian_I": "r. 527 – 565 CE",
 "Corpus_Juris_Civilis": "528 – 534 CE",
-"Hagia_Sophia": "532 – 537 CE"
+"Hagia_Sophia": "532 – 537 CE",
+"Theodora_(wife_of_Justinian_I)": "c. 500 – 548 CE",
+"Plague_of_Justinian": "541 – 750 CE",
+"Greek_fire": "7th – 12th century CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3885,7 +3891,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Constantinople": ["Constantinopolis","New Rome"],
 "Justinian_I": ["Justinian","Justinian the Great"],
 "Corpus_Juris_Civilis": ["Corpus Iuris Civilis","Justinianic corpus"],
-"Hagia_Sophia": ["Ayasofya","Church of the Holy Wisdom"]
+"Hagia_Sophia": ["Ayasofya","Church of the Holy Wisdom"],
+"Theodora_(wife_of_Justinian_I)": ["Theodora, wife of Justinian I","Empress Theodora"],
+"Plague_of_Justinian": ["Justinianic Plague","First Pandemic"],
+"Greek_fire": ["liquid fire","naval fire"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5776,7 +5785,10 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Constantinople": ["city","history","archaeology","europe","politics"],
 "Justinian_I": ["ruler","history","europe","politics","religion"],
 "Corpus_Juris_Civilis": ["text","history","politics","europe","concept"],
-"Hagia_Sophia": ["building","history","religion","archaeology","europe"]
+"Hagia_Sophia": ["building","history","religion","archaeology","europe"],
+"Theodora_(wife_of_Justinian_I)": ["ruler","history","europe","politics","religion"],
+"Plague_of_Justinian": ["event","history","science","genetics","europe"],
+"Greek_fire": ["technology","history","warfare","europe","science"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
