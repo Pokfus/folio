@@ -1859,7 +1859,8 @@ window.GLOSSARY = {
 "Byzantine_Empire": "The Byzantine Empire is the name modern historians give the Roman state that carried on in the east, its history usually cut into an Early Byzantine period of 324 to 842 CE, a Middle one to 1204 and a Late one to 1430.<sup class=\"fn\" data-fn=\"1\"></sup> Its cities were transformed in the 6th and 7th centuries, when many in Anatolia lost their urban functions, and evidence thins so far afterwards that those centuries are called the Dark Ages, until prosperity returns in the late 9th.<sup class=\"fn\" data-fn=\"2\"></sup> Constantinople fell to the crusaders in 1204 and the empire fragmented, and its second city, Thessaloniki, was taken by the Ottomans in 1430.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Constantinople": "Constantinople was the capital of the eastern Roman and Byzantine empire, refounded by Constantine the Great on the Greek colony of Byzantion and inaugurated on 11 May 330.<sup class=\"fn\" data-fn=\"1\"></sup> It stood on a promontory between the Golden Horn and the Sea of Marmara, commanding the passage between the Mediterranean and the Black Sea, and took in grain shipped from Alexandria through the Theodosian Harbour, begun about 390.<sup class=\"fn\" data-fn=\"2\"></sup> Constantine left it largely a building site; his son Constantius granted it the rights of Rome, a senate and a city prefect, and the city fell to the Ottomans in 1453.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Justinian_I": "Justinian I was Roman emperor in the east from 527 to 565, and his reign was spent trying to restore Roman rule, Roman law and Christian orthodoxy across the Mediterranean.<sup class=\"fn\" data-fn=\"1\"></sup> His armies recovered Africa from the Vandals and Italy from the Ostrogoths, and he built and rebuilt on a scale catalogued in Procopius' <i>Buildings</i>, from churches and hospices to the wall across the Isthmus of Corinth.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The reign also saw Roman law recodified, plague arrive in 541 with effects on population that are now disputed, and silkworms reach the capital about 552.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Corpus_Juris_Civilis": "Corpus Juris Civilis is the name later given to the collection of Roman law made under Justinian I between 528 and 534: a code of imperial enactments, a Digest of the classical jurists and a manual for students, with the emperor’s later laws beside them.<sup class=\"fn\" data-fn=\"1\"></sup> Its compilers, working under the quaestor Tribonian, were told to settle the questions the jurists had left open and to alter their excerpts so that the approved rule stood without acknowledgement.<sup class=\"fn\" data-fn=\"1\"></sup> Extended to Italy in 554, it went largely unread in the west for two centuries, and the revival of legal study about 1100 made it the foundation of the civil-law tradition.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Corpus_Juris_Civilis": "Corpus Juris Civilis is the name later given to the collection of Roman law made under Justinian I between 528 and 534: a code of imperial enactments, a Digest of the classical jurists and a manual for students, with the emperor’s later laws beside them.<sup class=\"fn\" data-fn=\"1\"></sup> Its compilers, working under the quaestor Tribonian, were told to settle the questions the jurists had left open and to alter their excerpts so that the approved rule stood without acknowledgement.<sup class=\"fn\" data-fn=\"1\"></sup> Extended to Italy in 554, it went largely unread in the west for two centuries, and the revival of legal study about 1100 made it the foundation of the civil-law tradition.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Hagia_Sophia": "Hagia Sophia is the great church of Constantinople, built for Justinian I between 532 and 537 on the site of an earlier basilica of the mid-4th century.<sup class=\"fn\" data-fn=\"1\"></sup> Its name means Holy Wisdom, which Byzantine writers understood as Christ the Word made flesh rather than a saint, and its dome rests on pendentives, curved triangles of masonry used before in smaller churches but never at this scale.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The first dome fell in 558 and the rebuilt church was re-consecrated in 562; it became a mosque after the Ottoman conquest of 1453, a museum in 1935 and a mosque again in 2020.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2721,7 +2722,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Byzantine_Empire": "324 – 1453 CE",
 "Constantinople": "330 – 1453 CE",
 "Justinian_I": "r. 527 – 565 CE",
-"Corpus_Juris_Civilis": "528 – 534 CE"
+"Corpus_Juris_Civilis": "528 – 534 CE",
+"Hagia_Sophia": "532 – 537 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3882,7 +3884,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Byzantine_Empire": ["Byzantine","Byzantines","Eastern Roman Empire"],
 "Constantinople": ["Constantinopolis","New Rome"],
 "Justinian_I": ["Justinian","Justinian the Great"],
-"Corpus_Juris_Civilis": ["Corpus Iuris Civilis","Justinianic corpus"]
+"Corpus_Juris_Civilis": ["Corpus Iuris Civilis","Justinianic corpus"],
+"Hagia_Sophia": ["Ayasofya","Church of the Holy Wisdom"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5772,7 +5775,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Byzantine_Empire": ["state","history","archaeology","europe","religion"],
 "Constantinople": ["city","history","archaeology","europe","politics"],
 "Justinian_I": ["ruler","history","europe","politics","religion"],
-"Corpus_Juris_Civilis": ["text","history","politics","europe","concept"]
+"Corpus_Juris_Civilis": ["text","history","politics","europe","concept"],
+"Hagia_Sophia": ["building","history","religion","archaeology","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

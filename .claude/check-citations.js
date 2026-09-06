@@ -226,6 +226,10 @@ const CROSSREF_WRONG = [
   ["10.9750/psas.057.41.45", "A. P. Laurie", "Principal Laurie"],
   // Crossref carries the shorter of a two-part surname: Aubin Nzeukou Nzeugang.
   ["10.1016/j.heliyon.2021.e07608", "Aubin Nzeukou Nzeugang", "A.N. Nzeukou"],
+  // Zograf files its bylines surname-first and Crossref has relayed the deposit as
+  // given "Teteriatnikov", family "Natalia". The article's own footnotes cite her as
+  // N. Teteriatnikov, and Dumbarton Oaks publishes her as Natalia Teteriatnikov.
+  ["10.2298/ZOG0530009T", "Natalia Teteriatnikov", "Teteriatnikov Natalia"],
 ];
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */
