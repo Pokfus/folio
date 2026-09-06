@@ -125,6 +125,13 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G8 — twelve more**: `gw-108` Paraguay, `gw-109` Nicaragua, `gw-112` El Salvador,
+  `gw-113` Republic of the Congo, `gw-116` Lebanon, `gw-118` Liberia, `gw-122` Central African Republic,
+  `gw-124` Palestine, `gw-125` Oman, `gw-126` Mauritania, `gw-127` Costa Rica and `gw-128` Kuwait, with all
+  twelve date lines rewritten off the same research. **Ten more join the deferral list** — `gw-104` Hong
+  Kong, `gw-110` Serbia, `gw-111` Bulgaria, `gw-114` Singapore, `gw-115` Denmark, `gw-117` Finland,
+  `gw-119` Norway, `gw-120` Slovakia, `gw-121` Ireland and `gw-123` New Zealand — which takes it to
+  twenty-nine countries with no AQUASTAT profile.
 - **2026-09-06, batch G7 — twelve more**: `gw-089` Honduras, `gw-091` Tajikistan, `gw-092` Papua New
   Guinea, `gw-095` Azerbaijan, `gw-096` Israel, `gw-099` Belarus, `gw-101` Sierra Leone, `gw-102` Togo,
   `gw-103` Laos, `gw-105` Turkmenistan, `gw-106` Libya and `gw-107` Kyrgyzstan, with all twelve date
@@ -226,6 +233,74 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G8 found
+
+- **THE CBD PROFILE'S HEADING IS NOT ALWAYS "Biodiversity Facts", AND A GREP FOR IT REPORTS A GOOD PAGE AS
+  EMPTY.** `cbd.int/countries/profile?country=py` carries a full account of Paraguay's two geological
+  formations, its habitats and its 13,000 plants under **"Status and Trends of Biodiversity"** with no
+  Biodiversity Facts heading anywhere, so the probe this pass has used since G3 called it a Venezuela case
+  and it is not one. **Test for the CONTENT, not for the heading** — and the two shapes are worth knowing
+  apart from the genuine absences, of which this batch has exactly one (`gw-124`, below).
+- **A COUNTRY THAT CANNOT USE THE RECOGNITION GUIDE AT ALL: `gw-124` PALESTINE, AND IT NEEDED A SOURCE SET
+  OF ITS OWN.** `history.state.gov/countries/palestine` is a 404 — G4's North Korea case, and for the same
+  reason, since the guide is a record of American recognition — and the CBD profile is genuinely empty, so
+  two of the recipe's five sources are gone at once. What replaced them are **two UN instruments and a
+  court record**: UNdata (which carries forest cover and threatened-species counts where the CBD carries
+  nothing), **General Assembly resolution 67/19 of 29 November 2012**, read from its own PDF at
+  `documents.un.org` (`digitallibrary.un.org` answers 202 and `un.org/unispal` 403, both recorded before),
+  and the **International Court of Justice's own case record at `icj-cij.org/case/131`**, which is open and
+  substantive. **The AQUASTAT profile is titled *Occupied Palestinian Territory* and is cited under that
+  name**; it is also the one source that describes Areas A, B and C, which no statistical profile does.
+  The card states what each source states and adopts no view of its own on the dispute, which is the same
+  footing `gw-096` Israel was written on in G7.
+- **RULE 2's LIVE COLLISIONS IN THIS BATCH ARE A CITY INSIDE A REGION AND A CAPITAL INSIDE A CLAUSE.** The
+  facts grid gives `gw-124`'s largest city as **Gaza**, so *the Gaza Strip* — a territory, not that city —
+  would be reported by the audit, which compares words and cannot tell them apart; the card says "a narrow
+  coastal strip on the Mediterranean", which is AQUASTAT's own wording for it. Three more were reworded for
+  the same reason and each is the G3 Algiers / G6 Tunis case again: the Republic of the Congo's chief town
+  was **the symbolic capital of Free France between 1940 and 1943**, Oman's Basic Law names its capital in
+  the same article 1 that defines the state, and Costa Rica's Central Valley is described by AQUASTAT
+  through the cities in it.
+- **⚠ RULE 4's PROXY READS A LANDFORM NAMED AFTER A COUNTRY AS THAT COUNTRY, AND `MASK` DOES NOT COVER
+  "depression".** `gw-122` first wrote "the Chad depression to the north and the Congo depression to the
+  south", which is AQUASTAT's own phrasing translated, and the compass bearing beside the name is exactly
+  the BORDERISH construction rule 4 looks for. The mask covers `Basin|Delta|Valley|Plateau|…` and only when
+  the geographic word is CAPITALISED, so neither "Chad depression" nor "Chad basin" is masked. It was
+  reworded to drop the bearings, which the sentence did not need. **`gw-128` Kuwait names Iraq and is NOT
+  reported**, correctly: the invasion of 2 August 1990 carries no bordering construction, which is the rule
+  working as the plan says it should — a historical mention is not a border list.
+- **RULE 1's PERMITTED FINDINGS ARE THE SAME TWO WORDS AS EVER.** `gw-109` and `gw-112` name the
+  **Federation of Central American States** and the **United Provinces of Central America**, which the
+  audit's rule-1 pattern matches on `American`. Both are the Office of the Historian's own names for the
+  polity the country belonged to, and both cards are right as they stand; they join `gw-005`, `gw-053`,
+  `gw-070` and `gw-089`.
+- **AND ONE CARD PAYS A REAL PRICE FOR RULE 1, WHICH IS WORTH SAYING OUTRIGHT.** Liberia's origin is that
+  the **American Colonization Society** founded a settlement there in 1822 for freedmen and recaptured
+  slaves, and the card cannot name the society. It says the settlement was founded and that in 1847 it
+  constituted itself as a republic — every fact the source gives except the founder's name — which is
+  `gw-011` Mexico's and `gw-014` Philippines' position for a third time. **If the rule is meant to allow
+  the bare founding fact, that is one clause.**
+- **⚠ AN OVER-BROAD GLOSSARY ALIAS SENT TWO CARDS TO ANOTHER CONTINENT, AND THE FIX WAS MEASURED BEFORE IT
+  WAS MADE.** Reading the twelve rendered cards for their `.ttip` links — G7's method — found **Chaco →
+  `Chaco_Canyon`**, the Ancestral Puebloan site in New Mexico, on the Paraguayan Chaco, and **Saint Paul →
+  `St._Paul`**, the capital of Minnesota, on the Liberian river. Both came from an ALIAS, and in both cases
+  removing it costs nothing: every one of the four US cards that mean the canyon writes *Chaco Canyon* or
+  *Chaco Culture*, which is the term's own longer surface and wins on longest match, and every corpus
+  mention of the Minnesota city writes *St. Paul*, which is its key. So the two aliases were dropped —
+  `Yan_(state)`'s rule, and the checker's own second remedy — which also fixed **`gw-035` Argentina**, a
+  card nobody was editing. **Measure what an alias is carrying before removing it, and measure it before
+  deciding it is safe to keep.**
+- **THE STANDING WRONG LINKS ARE ALL ONE SHAPE: A FEATURE NAMED AFTER A PLACE.** `Jordan River` → the
+  country Jordan (on `gw-124` and on G7's `gw-096`), `the Senegal river` → the country, `the Oslo Accords`
+  → the city, and G7's `Gulf of Guinea` → the country on eleven cards. Each is a real term reached by a
+  surface that really is that word, so none can be fixed by an alias; the fix is a term of its own for the
+  feature, which would win on longest match, and that is a cited-term job rather than a rewrite. Recorded
+  here rather than half-swept.
+- **THE OMAN PROFILE IS THE NEW-STYLE ONE AND SAYS "Required citation", NOT "Recommended citation".**
+  `cb4413en` (2021, revised April 2021) is the only one of the twelve whose year the G7 grep could not
+  find, and the line is on its own first page like all the others. Eleven of the twelve are the 2005–2016
+  vintage; three are Spanish, three French.
 
 ## What G7 found
 
@@ -450,6 +525,6 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
   and put a fifth in its place.
 
-**Rules 1 and 3 remain open on about 340 cards.** Run `node .claude/gw-audit.js` for the live figures.
+**Rules 1 and 3 remain open on about 330 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*
