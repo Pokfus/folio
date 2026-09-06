@@ -2261,8 +2261,11 @@ body.grading .stage{padding-bottom:150px;}
 /* what THIS picture shows, under what the subject IS (Aug 2026, on request) — the third line of the
    reveal, so quieter than the title above it; a caption set as loud as the title reads as a second one. */
 .pic-shows{font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint); margin:0 0 6px;}
-.pic-credit{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); margin:0 0 16px; overflow-wrap:anywhere;}
-.pic-credit a{color:inherit;}
+/* `.pic-credit` — the picture's attribution line under the fold — was REMOVED in Sep 2026, on request:
+   it is already on the enlarged picture, which is where a reader who wants it goes. The 16px of clearance
+   it gave the Next button goes on the button instead, so the spacing holds whether the block above it is
+   the caption, the sources fold or the paragraph. */
+#picReveal .btn{margin-top:10px;}
 
 /* ============================================================
    WHAT YEAR? (PAGES.whatyear)
@@ -3043,7 +3046,9 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 body.night .sc-chest.won{color:#E6C765;}
 .sc-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px;}
 .sc-title{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
-.sc-count{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink);}
+/* `.sc-count` — the "3 / 7" beside the title — was REMOVED in Sep 2026, on request: the pips are the
+   count, and the sentence under them says how many days are left. `.sc-head` keeps its flex row, which
+   now holds the title alone and is where anything put back beside it would go. */
 .sc-pips{display:flex; gap:6px; margin:9px 0 8px;}
 .sc-pip{flex:1; height:8px; border-radius:99px; background:var(--paper-2); border:1px solid var(--rule);}
 .sc-pip.on{background:#C39A2E; border-color:#C39A2E;}

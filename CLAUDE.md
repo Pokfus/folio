@@ -3399,7 +3399,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **CITATIONS ARE NOT TRANSLATED** (`notranslate`, and `sources` lives on the base card, not in `i18n`);
     only the "Sources" label and the chips are.
   · **THE FOLD IS OPEN BY DEFAULT ON A CARD, A BOOK AND THE ATLAS PANEL, AND ALWAYS SHUT IN A GLOSS POPUP**
-    (`opts.compact`), which additionally never writes the reader's `S.settings.srcCollapsed`. A marker jump
+    (`opts.compact`) **AND IN THE PICTURE ROUND** (`opts.shut`, Sep 2026). Both render collapsed and
+    neither writes the reader's `S.settings.srcCollapsed` — that guard is the **`src-nopref`** class, which
+    `compact` carries alongside its own smaller typography, so a surface can take the second half without
+    the first. A marker jump
     force-opens it for one look and never changes the preference.
   · **A MARKER JUMP MEASURES A FOLD THAT IS ALREADY OPEN AND CLEARS THE FIXED FURNITURE**
     (`openFootnote` / `scrollNoteIntoView`, reading `--bar-h` / `--tabbar-h`), or the note lands under the
@@ -4223,6 +4226,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     apparatus behaves exactly as it does on the plate itself. **The SUMMARY screen strips the markers**
     (`picNoteBare`) — there is no list under it, and `sup.fn:empty::before` prints a marker's own digit,
     so leaving them in sets stray numerals through five paragraphs pointing at nothing.
+  · **…AND THE REVEAL CARRIES NO CREDIT AND OPENS ITS SOURCES SHUT** (`picCaption`, `sourcesHTML`'s
+    `shut` option and the `src-nopref` class; Sep 2026, on request: the reveal "still shows the credits of
+    the image … delete these, they're already available when the user clicks on the image", and "ensure
+    that in this minigame, the sources section is always collapsed by default"). Three things.
+    **TAKING `.pic-credit` AWAY WAS ONLY HALF OF IT: HALF THE POOL CARRIES THE ATTRIBUTION A SECOND TIME
+    INSIDE THE CAPTION** — measured, **96 of the 192 artefact pictures end `image.desc` with the opening
+    clause of their own `image.credit`** — so with the credit element gone the last line of the reveal was
+    still "Ardon Bar-Hama, public domain, via Wikimedia Commons." `picCaption` cuts it, and **it is an
+    EXACT match against that item's own credit rather than a pattern that looks like an attribution**: the
+    credit's text up to its URL is compared with the end of the caption and only a byte-for-byte tail is
+    removed, so it cannot eat a caption that merely mentions a photographer. Verified over the whole pool:
+    96 trimmed, 96 untouched, none left carrying an attribution. **The DATA is deliberately left alone** —
+    what remains on those 96 is usually the Commons file's own name ("CairoEgMuseumTaaMaskMostlyPhotographed"),
+    so cleaning it is a rewrite of 96 captions rather than a deletion, and that is a content pass.
+    **THE FOLD'S TWO HALVES HAD TO COME APART.** `opts.compact` already forced a fold shut and kept it out
+    of the reader's `S.settings.srcCollapsed` — but it also restyles the list to a gloss popup's size, which
+    a game round set at the card's own size does not want. So `opts.shut` is the second half alone, and
+    **`src-nopref` is now what the delegated header handler tests** (with `src-compact` carrying it as well
+    as its own styling). Without that guard, opening the fold in one round would open it on every card the
+    reader studies afterwards.
   · **A ROUND ANSWERED STAYS ANSWERED** (`gameProgress` / `setGameProgress`; Sep 2026, on a bug report
     that leaving the picture round half way and re-entering dealt the same questions again with the
     answers known). The one-play lock is only set when a run FINISHES, so an abandoned run was free; the

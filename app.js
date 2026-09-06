@@ -29560,14 +29560,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      glance at a word met mid-sentence — a reader who expands one term's sources has said something about
      that term, not about every term they open afterwards, and the fold is a third of the popup's height.
      So the compact variant ignores the setting rather than sharing it: every popup starts collapsed, one
-     opened by hand included, and the next one opens collapsed again. A marker jump still force-opens it. */
+     opened by hand included, and the next one opens collapsed again. A marker jump still force-opens it.
+     opts.shut = the same TWO exceptions without the compact typography (Sep 2026, on request, for the
+     Picture round: "ensure that in this minigame, the sources section is always collapsed by default").
+     A game round is a glance like a popup — the citations are there to be checkable, not to be read
+     between rounds — but the list is set at the card's own size here rather than a gloss window's, so the
+     two halves of `compact` had to come apart: `src-nopref` is what says "do not write the preference",
+     and `src-compact` now carries it as well as its own styling. Without that split, opening the fold in
+     one round would open it on every card the reader studies afterwards. */
   function sourcesHTML(list, opts) {
     const src = normSources(list);
     if (!src.length) return "";
     const o = opts || {};
-    const shut = o.compact ? true : !!(S.settings && S.settings.srcCollapsed);
+    const shut = (o.compact || o.shut) ? true : !!(S.settings && S.settings.srcCollapsed);
     const c = shut ? " collapsed" : "";
-    return '<section class="src-note' + (o.compact ? " src-compact" : "") + '">' +
+    return '<section class="src-note' + (o.compact ? " src-compact src-nopref" : (o.shut ? " src-nopref" : "")) + '">' +
       '<button class="src-head" type="button" aria-expanded="' + (shut ? "false" : "true") + '" aria-label="Show or hide the sources" title="Show or hide the sources">' +
         '<span class="src-label">Sources</span>' +
         '<span class="src-count notranslate">' + src.length + "</span>" +
@@ -29776,10 +29783,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const head = t.closest(".src-head");
     if (head) {
       // shutting the list is a lasting choice; jumping to a marker is not, so only this path remembers it —
-      // and a gloss popup's fold (.src-compact) is never remembered at all, so the next term opens shut
+      // and a fold marked `.src-nopref` is never remembered at all (a gloss popup's, a Picture round's), so
+      // the next one opens shut. `.src-compact` carries that class rather than being tested for it here:
+      // the two are different questions, and the Picture round wants the second without the first.
       const note = head.closest(".src-note");
       const open = toggleSourceNote(note);
-      if (S.settings && note && !note.classList.contains("src-compact")) { S.settings.srcCollapsed = !open; save(); }
+      if (S.settings && note && !note.classList.contains("src-nopref")) { S.settings.srcCollapsed = !open; save(); }
       return;
     }
     const num = t.closest(".src-n.src-back");
@@ -34181,9 +34190,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            with no wiring of this game's own. */
         (it.title ? '<p class="pic-cap">' + esc(it.title) + "</p>" : "") +
         (it.note ? '<div class="tf-why pic-note">' + it.note + "</div>" : "") +
-        (it.sources && it.sources.length ? sourcesHTML(it.sources) : "") +
-        (it.desc ? '<p class="pic-shows">' + esc(it.desc) + "</p>" : "") +
-        (it.credit ? '<p class="pic-credit">' + mediaCreditHTML(it.credit) + "</p>" : "") +
+        (it.sources && it.sources.length ? sourcesHTML(it.sources, { shut: true }) : "") +
+        (picCaption(it) ? '<p class="pic-shows">' + esc(picCaption(it)) + "</p>" : "") +
         '<button class="btn" id="pic-next">' + (r + 1 < ROUNDS ? "Next round" : "See results") + "</button>";
       wireFootnotes(rev);
       /* The answered round is written before the reader can leave it — the point of the record is the
@@ -34197,6 +34205,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        paragraphs pointing at nothing. `wireFootnotes` removes such a marker where it runs, and it does
        not run here; taking them out is the same answer one step earlier. */
     function picNoteBare(note) { return String(note || "").replace(/<sup class="fn"[^>]*><\/sup>/g, ""); }
+    /* THE CAPTION WITHOUT THE CREDIT SENTENCE ON THE END OF IT (Sep 2026, on request: the reveal "still
+       shows the credits of the image … they're already available when the user clicks on the image").
+       Taking `.pic-credit` away was only half of it: HALF THE POOL carries the attribution a second time
+       INSIDE the caption — 96 of the 192 artefact pictures end `image.desc` with the opening clause of
+       their own `image.credit`, so "Ardon Bar-Hama, public domain, via Wikimedia Commons." was still the
+       last line of the reveal with the credit element gone.
+
+       IT IS AN EXACT MATCH AGAINST THIS ITEM'S OWN CREDIT, never a pattern that looks like an attribution:
+       the credit's text up to its URL is compared with the end of the caption, and only a byte-for-byte
+       tail (bar whitespace and the closing full stop) is cut. So it cannot eat a caption that merely
+       mentions a photographer, and an artefact whose caption does not repeat its credit is untouched.
+       The DATA is left as it is deliberately — what remains on those 96 is usually the Commons file's own
+       name ("CairoEgMuseumTaaMaskMostlyPhotographed"), so cleaning it is a rewrite of 96 captions rather
+       than a deletion, and that is a content pass rather than this change. */
+    const picNorm = (x) => String(x || "").replace(/\s+/g, " ").trim();
+    function picCaption(it) {
+      const d = picNorm(it && it.desc);
+      const cred = picNorm(String((it && it.credit) || "").split(/\s[—–-]\s|https?:\/\//)[0]).replace(/[.\s]+$/, "");
+      if (!d || !cred) return d;
+      const dt = d.replace(/[.\s]+$/, "");
+      if (!dt.endsWith(cred)) return d;
+      return picNorm(dt.slice(0, dt.length - cred.length)).replace(/[.,;:\s]+$/, "");
+    }
     function renderEnd() {
       markGamePlayed("picture", score === ROUNDS, score, ROUNDS);
       setGameProgress("picture", null);   // the run is over; the lock answers for it now
@@ -38603,10 +38634,14 @@ let prev = null;
        waiting-chest notice draw, so the reader has met it before and meets one shape everywhere; it is
        DECORATIVE, the pips carrying the label a screen reader needs. It goes gold on the day the chest is
        earned, which is the one state the pips alone cannot distinguish from six-of-seven at a glance. */
+    /* THE "3 / 7" IS GONE (Sep 2026, on request: "remove the numerical counter so it is only the grid and
+       the chest"). The pips ARE the count — seven of them, three filled — so the figure beside them was
+       the same fact in a second notation, and the sentence under them already says how many days are
+       left. Nothing is lost to a reader who cannot see the pips: the row's own `aria-label` has always
+       carried "3 of 7 days towards the next streak chest" in words, and still does. */
     return '<div class="streak-chest">' +
       '<div class="sc-main">' +
-        '<div class="sc-head"><span class="sc-title">Next streak chest</span>' +
-          '<span class="sc-count">' + p.into + " / " + p.need + "</span></div>" +
+        '<div class="sc-head"><span class="sc-title">Next streak chest</span></div>' +
         '<div class="sc-pips" role="img" aria-label="' + esc(p.into + " of " + p.need + " days towards the next streak chest") + '">' + pips + "</div>" +
         '<div class="sc-note">' + esc(note) + "</div>" +
       "</div>" +

@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.654", released: "2026-09-06T01:45Z" };
+window.FOLIO_VERSION = { v: "1.655", released: "2026-09-06T07:43Z" };
 
 window.CHANGELOG = [
   {
@@ -43,6 +43,9 @@ window.CHANGELOG = [
     t: "A logo, and the same figures on every geography card",
     items: [
       "<b>The Folio logo and its tagline</b> are now in the menu bar, and at the top of the home page on a phone.",
+      "<b>The Picture round no longer repeats the picture’s credit</b> under the answer — it is on the picture itself.",
+      "<b>The Picture round’s sources start folded away</b>, so the answer is what you meet first.",
+      "<b>The streak-chest meter drops its “3 / 7”</b>, leaving the row of days and the chest they earn.",
       "<b>Every geography card shows the same four figures</b>: a country, state or province gives its capital, population, largest city and area.",
       "<b>Every capital city gives its state, population, rank in the country and recent population growth</b>, with a question mark where the figure could not be found.",
       "<b>Timeline now says what each revealed date is</b> — a birth, a reign, a founding — rather than the year alone.",
