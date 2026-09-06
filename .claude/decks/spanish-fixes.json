@@ -6806,6 +6806,235 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/beber": {
+      "why": "TWO of its three examples are about a BABY. 'El bebé se quedó dormido en la cuna' and 'Ella cogió a su bebe en sus brazos' bold bebé and bebe - the noun, matched because its letters are those of the third person of this verb. Two thirds of the card taught a word it does not teach, which is the worst instance of that fault found so far.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to drink"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "beber algo — to have a drink"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "El bebé se quedó dormido en la cuna.",
+        "Ella cogió a su bebe en sus brazos."
+      ],
+      "ex": [
+        [
+          "Bebo agua todos los días.",
+          "I drink water every day."
+        ],
+        [
+          "¿Qué quieres beber?",
+          "What do you want to drink?"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/frío, fría": {
+      "why": "Its FIRST example is the masculine noun - 'azules del frío', blue with cold - which the card did not list. And neither hace frío nor tener frío was there, though the hacer and tener cards both now point at them from the other side.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "cold"
+          ]
+        ],
+        [
+          "noun, masculine",
+          [
+            "el frío — the cold"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "hace frío — it's cold (the weather)",
+            "tener frío — to be cold (a person)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/caliente": {
+      "why": "Its second example is ungrammatical: 'cosas que sean demasiadas calientes' - demasiado is an adverb here and does not agree. Seventh grammar fault found in the deck's own Spanish. The card also needed the distinction frío now carries from the other side: caliente describes a THING, and a person who feels hot says tengo calor - estar caliente of a person means something else entirely.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "hot, warm (of a thing)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "calientes"
+        ],
+        [
+          "a person who feels hot says",
+          "tener calor"
+        ],
+        [
+          "opposite",
+          "frío"
+        ]
+      ],
+      "dropEx": [
+        "No puedo comer o tomar cosas que sean demasiadas calientes."
+      ],
+      "ex": [
+        [
+          "El agua está muy caliente.",
+          "The water is very hot."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/mirar": {
+      "why": "Its second example bolds mirada - the feminine NOUN, a look or a glance - which is not a form of the verb. Its third is mirar hacia, to face, a sense the card did not list. ver has a card of its own and neither pointed at the other, though which of the two you use is a real question for a reader.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to look, to look at",
+            "to watch"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "¡mira! — look!",
+            "mirar hacia — to face, to look out on"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "to see is",
+          "ver"
+        ]
+      ],
+      "bold": [
+        "mirar",
+        "mira",
+        "miro",
+        "miras",
+        "miramos",
+        "miráis",
+        "miran",
+        "miraba",
+        "miré",
+        "mirando",
+        "mirado"
+      ],
+      "dropEx": [
+        "Ella echó una mirada alrededor de la habitación."
+      ],
+      "ex": [
+        [
+          "Mira esa foto.",
+          "Look at that photo."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/entender": {
+      "why": "'to understand, to fathom, to hear' - entender does not mean to hear, which is oír. no entiendo, which is the sentence a beginner needs most in a conversation, had no line.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to understand"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "no entiendo — I don't understand",
+            "¿entiendes? — do you understand?"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/hermoso, hermosa": {
+      "why": "Four glosses for one word, and its third example is 'Mi esposa no es hermosa. La suya sí' — my wife isn't beautiful, yours is — which is an unkind sentence to put in front of a beginner and teaches nothing the other two do not.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "beautiful, lovely"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Mi esposa no es hermosa. La suya sí."
+      ],
+      "ex": [
+        [
+          "Es una ciudad muy hermosa.",
+          "It's a very beautiful city."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el bar": {
+      "why": "'bar, coffee shop, café, pub' - four words, and none of them says the thing a reader arriving in Spain needs to know: a bar there is one place that serves coffee in the morning and beer at night, and is where you have breakfast.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "bar, café (in Spain one place: coffee, drinks and food)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la carne": {
+      "why": "'flesh' before 'an animal's meat', which is the wrong way round for a card a reader will meet in a shop, and the second is a definition rather than a translation.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "meat",
+            "flesh"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "la carne de vaca — beef; la carne de cerdo — pork"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la cerveza": {
+      "why": "'beer' alone, and what a reader ordering one in Spain actually says is una caña, which the deck has nowhere.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "beer"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "una caña — a small draught beer (Spain)"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
@@ -7053,7 +7282,8 @@
     "delea1": [
       "el libro",
       "el hotel",
-      "interesante"
+      "interesante",
+      "el edificio"
     ]
   }
 }
