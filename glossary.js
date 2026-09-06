@@ -2119,7 +2119,17 @@ window.GLOSSARY = {
 "Propaganda_in_Nazi_Germany": "Propaganda in Nazi Germany was directed by a Reich Ministry of Public Enlightenment and Propaganda founded in March 1933, which held art, music, theatre, film, books, radio, schoolbooks and the press in its charge.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its minister treated radio as the most important instrument available, dissolved the independent broadcasters and had a cheap receiver mass-produced so that even the poorest households could be reached.<sup class=\"fn\" data-fn=\"2\"></sup> Campaigns were timed to prepare the public for measures rather than to explain them afterwards, and much of the effort aimed at passive acceptance rather than at enthusiasm.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Schutzstaffel": "The Schutzstaffel, or protection squads, was the organisation founded in 1925 as Adolf Hitler’s personal bodyguard that grew into the body controlling the police forces and the concentration camps of Nazi Germany.<sup class=\"fn\" data-fn=\"1\"></sup> Heinrich Himmler was made its Reich leader in January 1929, when it numbered 280 men, and rebuilt it as a self-described racial elite by admitting candidates only on tests of ancestry and political reliability.<sup class=\"fn\" data-fn=\"1\"></sup> Made independent of the party militia in 1934 and answerable to Hitler alone, it took over the whole political police apparatus and ran the camp system until 1945.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Évian_Conference": "The Évian Conference was a meeting of delegates from 32 countries held in July 1938 at a resort on the French shore of Lake Geneva to discuss the refugees fleeing Nazi persecution.<sup class=\"fn\" data-fn=\"1\"></sup> Delegate after delegate expressed sympathy and then explained why his own country could admit no more, and only the Dominican Republic offered to take a substantial number.<sup class=\"fn\" data-fn=\"1\"></sup> Its one lasting product was an intergovernmental committee that had no power to solve the problem, and a liner carrying nearly a thousand refugees was turned away from Cuba and then from the United States the following year.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Aryan_paragraph": "The Aryan paragraph was a clause excluding people of Jewish descent from an office, a profession, an association or a course of study, used across German public and private life under the Nazi regime.<sup class=\"fn\" data-fn=\"1\"></sup> It entered national law with the Law for the Restoration of the Professional Civil Service of 7 April 1933, which barred Jews and political opponents from public employment and reached judges, teachers, professors and lawyers.<sup class=\"fn\" data-fn=\"1\"></sup> The formula was then copied into hundreds of later decrees and adopted voluntarily by clubs and associations, until the race laws of 1935 rebuilt the exclusions on descent rather than religion.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Aryan_paragraph": "The Aryan paragraph was a clause excluding people of Jewish descent from an office, a profession, an association or a course of study, used across German public and private life under the Nazi regime.<sup class=\"fn\" data-fn=\"1\"></sup> It entered national law with the Law for the Restoration of the Professional Civil Service of 7 April 1933, which barred Jews and political opponents from public employment and reached judges, teachers, professors and lawyers.<sup class=\"fn\" data-fn=\"1\"></sup> The formula was then copied into hundreds of later decrees and adopted voluntarily by clubs and associations, until the race laws of 1935 rebuilt the exclusions on descent rather than religion.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Aktion_T4": "Aktion T4 was the German programme, named after the Berlin address Tiergartenstrasse 4, under which doctors and nurses killed institutionalised patients with mental and physical disabilities from 1939.<sup class=\"fn\" data-fn=\"1\"></sup> A decree of August 1939 required the reporting of disabled infants, who were then killed in special clinics by overdoses of medicine or by starvation, while adult patients were gassed at six installations built for the purpose.<sup class=\"fn\" data-fn=\"1\"></sup> By the programme's own reckoning 70,273 people were killed at those six centres between January 1940 and August 1941, and the methods and personnel passed afterwards into the camp system.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Confessing_Church": "The Confessing Church was the movement within German Protestantism that formed in opposition to the pro-Nazi German Christians, who wanted a single national church shaped by racial ideology.<sup class=\"fn\" data-fn=\"1\"></sup> Its founding Barmen declaration of 1934 held that the church owed allegiance to God and scripture rather than to any earthly leader, and both groups remained inside one German Evangelical Church.<sup class=\"fn\" data-fn=\"1\"></sup> Dietrich Bonhoeffer and Martin Niemöller belonged to it, but for most of its members the struggle was an internal church matter about doctrine and appointments rather than a fight against the regime.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Conscription": "Conscription is the compulsory enrolment of citizens into the armed forces, imposed by a state on those it defines as liable, usually men of a stated range of ages.<sup class=\"fn\" data-fn=\"1\"></sup> It is generally introduced or expanded when a state expects a war it cannot fight with volunteers alone, and its reach and exemptions are among the most contested questions in any country that uses it.<sup class=\"fn\" data-fn=\"1\"></sup> Where a treaty forbids it, its reintroduction is a public act with diplomatic consequences, and the powers affected must decide whether to accept the breach or answer it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Four_Year_Plan": "The Four-Year Plan was the German economic programme begun in October 1936, directed by Hermann Göring, which set out to make the army fit for deployment and the economy fit for war within four years.<sup class=\"fn\" data-fn=\"1\"></sup> It centralised the mobilisation of labour, restricted imports, imposed controls on wages and prices, allocated raw materials and pressed for the synthesis of what Germany could not buy or mine.<sup class=\"fn\" data-fn=\"1\"></sup> Its aim was autarky, so that a war could be fought without depending on trade for fuel or food, and households were told to salvage waste and consume less as a duty owed to the community.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Hitler_Youth": "The Hitler Youth was the youth organisation of the German National Socialist party, with a branch of that name for boys and the League of German Girls for girls.<sup class=\"fn\" data-fn=\"1\"></sup> It grew from about 100,000 members in January 1933 to 5.4 million by 1937 as other youth movements were dissolved and their members drawn in, and a law of December 1936 made membership compulsory.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Training for boys took increasingly paramilitary forms and stressed obedience and duty, while the girls' branch prepared its members for the roles of wife and mother the regime intended for them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Hjalmar_Schacht": "Hjalmar Schacht was the German banker who served as president of the Reichsbank and, from August 1934, as minister of economics, and who financed the first phase of Nazi rearmament.<sup class=\"fn\" data-fn=\"1\"></sup> He devised a system of credit bills drawn on a company that existed only on paper, which paid for about half of all weapons purchases between 1934 and 1936 while keeping the spending out of published accounts.<sup class=\"fn\" data-fn=\"1\"></sup> He brought foreign trade under state control to serve the same end, then lost influence from 1936 to Hermann Göring's four-year plan and was dismissed after criticising the pace of rearmament.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"MS_St._Louis": "The MS St. Louis was a German ocean liner that left Hamburg on 13 May 1939 carrying almost a thousand Jewish refugees who held landing permits for Cuba bought in good faith.<sup class=\"fn\" data-fn=\"1\"></sup> The Cuban government revoked those permits before she arrived, the United States refused the passengers as well, and in June she turned back across the Atlantic towards the continent they had paid to leave.<sup class=\"fn\" data-fn=\"1\"></sup> Britain, France, Belgium and the Netherlands then divided the passengers between them, but three of those countries were occupied the following year and many of those landed there were later murdered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Paragraph_175": "Paragraph 175 was the clause of the German criminal code, in force from 1871 until 1994, that made sexual relations between men a criminal offence while saying nothing about relations between women.<sup class=\"fn\" data-fn=\"1\"></sup> Courts before 1933 read it narrowly, requiring proof of acts resembling intercourse, but the Nazi regime rewrote it in 1935 in far wider terms and convictions rose sharply thereafter.<sup class=\"fn\" data-fn=\"1\"></sup> About 100,000 arrests were made under it during the Nazi years and roughly half ended in conviction; most of those convicted were imprisoned and some were sent on to concentration camps.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Swingjugend": "The Swingjugend, or Swing Kids, were young Germans who went on listening and dancing to jazz and swing after the Nazi regime condemned the music as degenerate and tied it to Black American and Jewish influence.<sup class=\"fn\" data-fn=\"1\"></sup> Whether that amounted to resistance is disputed, since a person could frequent the clubs and still accept the regime's racial doctrine, and much of it was non-conformity rather than opposition.<sup class=\"fn\" data-fn=\"1\"></sup> Some groups did become political, refusing the compulsory youth organisation and keeping up communication with the student circle in Munich that printed leaflets against the regime.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Romani_people": "The Romani people, also called Roma, are a people living across Europe in communities of many kinds, among them the Sinti of the German-speaking lands, and long subject to registration and policing by European states.<sup class=\"fn\" data-fn=\"1\"></sup> A Bavarian police office set up in 1899 kept a central register of Roma in Munich, and after 1933 German authorities enforced older laws against them more rigorously and made them subject to the race laws of 1935.<sup class=\"fn\" data-fn=\"1\"></sup> Thousands were forcibly sterilised, interned in municipal camps and sent to concentration camps as asocials, and between 1939 and 1945 at least 250,000 European Roma were murdered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3007,7 +3017,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Propaganda_in_Nazi_Germany": "1933–1945",
 "Schutzstaffel": "1925–1945",
 "Évian_Conference": "6 – 15 July 1938",
-"Aryan_paragraph": "1933–1945"
+"Aryan_paragraph": "1933–1945",
+"Aktion_T4": "1939–1945",
+"Confessing_Church": "1934–1945",
+"Four_Year_Plan": "1936–1940",
+"Hitler_Youth": "1926–1945",
+"Hjalmar_Schacht": "1877–1970",
+"MS_St._Louis": "1939",
+"Paragraph_175": "1871–1994",
+"Swingjugend": "1930s–1940s"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3666,7 +3684,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cyclades": ["Cycladic"],
 "Anatolia": ["Anatolian","Asia Minor"],
 "Mycenaean_Thebes": ["Thebes"],
-"Rome": ["Roma"],
+"Rome": [],
 "Boeotia": ["Boeotian","Boiotia"],
 "Peloponnese": ["Peloponnesus","Peloponnesian"],
 "Samos": ["Samian"],
@@ -4308,7 +4326,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Propaganda_in_Nazi_Germany": ["Nazi propaganda"],
 "Schutzstaffel": ["SS"],
 "Évian_Conference": ["Evian Conference"],
-"Aryan_paragraph": ["Aryan Paragraph","Arierparagraph"]
+"Aryan_paragraph": ["Aryan Paragraph","Arierparagraph"],
+"Aktion_T4": ["Action T4"],
+"Four_Year_Plan": ["Four Year Plan"],
+"Hjalmar_Schacht": ["Schacht"],
+"MS_St._Louis": ["MS St. Louis","SS St. Louis"],
+"Swingjugend": ["Swing Kids"],
+"Romani_people": ["Roma"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6463,7 +6487,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Propaganda_in_Nazi_Germany": ["concept","practice","politics","history","germany"],
 "Schutzstaffel": ["institution","politics","history","germany","warfare"],
 "Évian_Conference": ["event","politics","history","20th century"],
-"Aryan_paragraph": ["concept","law","practice","history","germany"]
+"Aryan_paragraph": ["concept","law","practice","history","germany"],
+"Aktion_T4": ["event","practice","history","germany","science"],
+"Confessing_Church": ["institution","concept","religion","history","germany"],
+"Conscription": ["practice","concept","warfare","politics","history"],
+"Four_Year_Plan": ["event","concept","economics","politics","history","germany"],
+"Hitler_Youth": ["institution","practice","politics","history","germany"],
+"Hjalmar_Schacht": ["person","economics","politics","history","germany"],
+"MS_St._Louis": ["object","event","history","20th century"],
+"Paragraph_175": ["law","concept","history","germany"],
+"Swingjugend": ["people","culture","practice","history","germany"],
+"Romani_people": ["people","history","europe","germany"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

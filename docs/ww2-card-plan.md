@@ -418,14 +418,14 @@ definitions, which exist precisely because the wording matters.
     ww2-070  Évian Conference
     ww2-071  Voyage of the St. Louis
     ww2-072  Aktion T4
-    ww2-073  Nazi persecution of other groups before the war
-    ww2-074  The German churches under Nazism
-    ww2-075  German rearmament
-    ww2-076  The Nazi economy
+    ww2-073  Paragraph 175
+    ww2-074  The Confessing Church
+    ww2-075  The reintroduction of conscription
+    ww2-076  Hjalmar Schacht
     ww2-077  The Four Year Plan
     ww2-078  Volksgemeinschaft
     ww2-079  Hitler Youth
-    ww2-080  Opposition and dissent in prewar Nazi Germany
+    ww2-080  The Swing Kids
 
 ### Japan and the road to war in Asia — `ww2-asia-road`
 
