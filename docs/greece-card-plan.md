@@ -861,14 +861,15 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-608  Clouds   (glossary key `Clouds_(play)`, or the term would auto-link the ordinary word)
     gr-609  Lysistrata
     gr-610  Frogs   (glossary key `Frogs_(play)`, for the reason gr-608 carries one)
-    gr-611  Birds
+    gr-611  Birds   (glossary key `Birds_(play)`, for the reason gr-608 carries one)
     gr-612  The Theatre of Dionysus
-    gr-613  Greek theatre architecture
-    gr-614  Skene and orchestra
+    gr-613  Greek theatre architecture   (carded on the `theatron`, the auditorium the word theatre descends from)
+    gr-614  Skene and orchestra   (carded on the `skene`; the orchestra is described on it and on gr-613)
     gr-615  The tragic mask
     gr-616  Choregos
-    gr-617  Herodotus' Histories
-    gr-618  Thucydides' method
+    gr-617  Herodotus' Histories   (the WORK is carded at gr-439; this cards `historiē`, the word Herodotus
+                                    uses for what he is doing, from which history descends)
+    gr-618  Thucydides' method   (carded on `ktēma es aei`, his own name for the book at History 1.22.4)
     gr-619  Xenophon
     gr-620  Hellenica
     gr-621  Anabasis
