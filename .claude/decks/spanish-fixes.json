@@ -9692,6 +9692,367 @@
     "lunes"
    ],
    "rebold": true
+  },
+  "delea1/el pescado": {
+   "why": "Its glosses were dead fish intended for consumption and food fish - a definition rather than a translation, and a bleak one - when the single fact this word exists to teach is that Spanish has two words where English has one: el pescado is fish on a plate, el pez is the animal in the water.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "fish, as food"
+     ]
+    ],
+    [
+     "note",
+     [
+      "el pez is the live animal; el pescado is what is caught and eaten"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la pescadería — fishmonger's",
+      "el marisco — seafood, shellfish"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los pescados"
+    ],
+    [
+     "the live animal",
+     "el pez, los peces"
+    ]
+   ],
+   "bold": [
+    "pescado",
+    "pescados"
+   ],
+   "rebold": true
+  },
+  "delea1/el móvil": {
+   "why": "cellular, cell phone (US), mobile phone (UK, Australia), sculpture - a list of English regional labels and then a piece of hanging art - and no word about the split that matters here: el móvil is Spain, el celular is most of Latin America.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "mobile phone"
+     ]
+    ],
+    [
+     "note",
+     [
+      "el móvil in Spain; el celular in most of Latin America",
+      "in full it is el teléfono móvil, which is what all three examples say"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los móviles"
+    ],
+    [
+     "in Latin America",
+     "el celular"
+    ]
+   ],
+   "bold": [
+    "móvil",
+    "móviles"
+   ],
+   "rebold": true
+  },
+  "delea1/el bolso": {
+   "why": "purse, bag - two words that do not agree with each other, and no way to tell this word from the two beside it: la bolsa is the carrier bag, el bolsillo the pocket, and el bolso the handbag a reader is warned to keep an eye on.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "handbag, bag carried over the shoulder"
+     ]
+    ],
+    [
+     "note",
+     [
+      "la bolsa is a carrier bag or a sports bag; el bolsillo is a pocket"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los bolsos"
+    ],
+    [
+     "carrier bag",
+     "la bolsa"
+    ],
+    [
+     "pocket",
+     "el bolsillo"
+    ]
+   ],
+   "bold": [
+    "bolso",
+    "bolsos"
+   ],
+   "rebold": true
+  },
+  "delea1/el mapa": {
+   "why": "Its gloss carried a definition in brackets - sheet with geographical information on it - and left out the one thing about the word a beginner gets wrong: it ends in -a and is MASCULINE, el mapa, which is exactly the trap that makes it worth a card.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "map"
+     ]
+    ],
+    [
+     "note",
+     [
+      "masculine despite the -a ending: el mapa, los mapas — like el día, el problema"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el mapa del metro — underground map"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los mapas"
+    ],
+    [
+     "others of the same kind",
+     "el día, el problema, el idioma"
+    ]
+   ],
+   "bold": [
+    "mapa",
+    "mapas"
+   ],
+   "rebold": true
+  },
+  "delea1/la fecha": {
+   "why": "Its third example says fuera de fecha, which is English wearing Spanish clothes - a calque of out of date that a Spanish speaker would render anticuado or pasado de moda - and the two things a reader actually does with this word, asking the date and reading a use-by, were both missing.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "date"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¿a qué fecha estamos? — what is the date today?",
+      "la fecha de nacimiento — date of birth",
+      "la fecha de caducidad — use-by date"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las fechas"
+    ],
+    [
+     "the day",
+     "el día"
+    ]
+   ],
+   "bold": [
+    "fecha",
+    "fechas"
+   ],
+   "dropEx": [
+    "Este tipo de métodos están fuera de fecha."
+   ],
+   "ex": [
+    [
+     "¿A qué fecha estamos hoy?",
+     "What is the date today?"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/corto, corta": {
+   "why": "Both senses were written as definitions in brackets, and the opposite - largo - was nowhere, which on a pair of adjectives this basic is half the card.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "short (in length or distance)",
+      "short (in time)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "los pantalones cortos — shorts",
+      "a corto plazo — in the short term"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "cortos, cortas"
+    ],
+    [
+     "the opposite",
+     "largo, larga"
+    ]
+   ],
+   "bold": [
+    "corto",
+    "corta",
+    "cortos",
+    "cortas"
+   ],
+   "rebold": true
+  },
+  "delea1/el plato": {
+   "why": "Its first example says el plato fuerte, which is what a main course is called in much of Latin America and not in Spain, where it is el plato principal - and the card, which is about the word for a course as well as for a piece of crockery, named neither el primer plato nor el segundo.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "plate, dish (the crockery)",
+      "dish, course (the food)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el primer plato, el segundo plato — starter and main course",
+      "el plato principal (Spain), el plato fuerte (Latin America) — main course"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los platos"
+    ],
+    [
+     "to wash up",
+     "fregar los platos"
+    ]
+   ],
+   "bold": [
+    "plato",
+    "platos"
+   ],
+   "rebold": true
+  },
+  "delea1/la página": {
+   "why": "One bare gloss, page, while two of its own three examples are la página web, which is how a reader meets the word far more often than in a book.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "page"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la página web — website, web page",
+      "pasar la página — to turn the page"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las páginas"
+    ],
+    [
+     "the internet",
+     "la web, la red"
+    ]
+   ],
+   "bold": [
+    "página",
+    "páginas"
+   ],
+   "rebold": true
+  },
+  "delea1/la lección": {
+   "why": "Two glosses, both written as definitions of themselves, and no mention of la clase - which is what a school lesson is actually called, la lección being the unit in the textbook.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "lesson, a unit of a course or a textbook",
+      "a lesson learned: me enseñó una lección"
+     ]
+    ],
+    [
+     "note",
+     [
+      "a lesson at school is usually la clase; la lección is the chapter it works through"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las lecciones"
+    ],
+    [
+     "a class",
+     "la clase"
+    ]
+   ],
+   "bold": [
+    "lección",
+    "lecciones"
+   ],
+   "rebold": true
+  },
+  "delea1/el/la estudiante": {
+   "why": "Right, and standing alone: el alumno, which the deck now gives on el colegio, is the word used of a schoolchild, and estudiante of anyone older - a distinction a reader will meet on the first form they fill in.",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "student — the same form for both, only the article changes"
+     ]
+    ],
+    [
+     "note",
+     [
+      "el alumno, la alumna is the word for a schoolchild; estudiante is used of older students"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los/las estudiantes"
+    ],
+    [
+     "the verb",
+     "estudiar"
+    ],
+    [
+     "a schoolchild",
+     "el alumno, la alumna"
+    ]
+   ],
+   "bold": [
+    "estudiante",
+    "estudiantes"
+   ],
+   "rebold": true
   }
  },
  "insert": {
