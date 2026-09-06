@@ -4018,6 +4018,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     carrying a number and a STRONG imperial unit, since `in` and `mi` alone would take "(in 1920)".
     Verified over the whole corpus: 341 fields transform and no other bracket is touched. **Re-run that
     check after a units batch.**
+  · **A SPEED IS A MEASUREMENT WITH A TAIL** (`U_RATE`, Sep 2026, found by `test-units.js`'s independent
+    sweep). `U_CONV_RX` ran the unit straight into the bracket, so "300 kilometres an hour (190 miles an
+    hour)" matched nothing at all and **both figures reached every reader whatever their setting** — the
+    quiet half of the failure, since a sentence carrying two figures still reads. The rate is CAPTURED
+    rather than merely tolerated, emitted back in metric mode and dropped with the rest in imperial.
+  · **AN ANCIENT UNIT SHARES THE WORD AND IS NOT THE UNIT** — a Roman mile is 1.48 km against 1.609, so
+    "(11 Roman miles)" is the figure the SOURCE states rather than a conversion, and `isImperialParen`
+    refusing it is right. The sweep in `test-units.js` masks it on a NAMED SYSTEM before the unit
+    (`ANCIENT`), never on the bare unit, so an ordinary "(11 miles)" is still swept.
+  · **AND A COMPOUND CONVERSION IS OUT OF SCOPE, DELIBERATELY.** `Brades` gave its island as "40.1 of its
+    103 square kilometres (15 of 40 square miles)" — two figures under one bracket. Teaching `U_FILL` the
+    word "of" would let a great deal through; **write it as two ordinary measurements instead.**
 - **British or American spelling, the reader's** (`S.settings.spelling` / `SPELL_PAIRS` / `spellText` /
   `spellTree` / `applySpelling`). The units switch's shape exactly, so no field is authored twice. Ten
   things are decisions rather than plumbing.
