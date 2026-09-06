@@ -996,12 +996,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   has **no page for North Korea** because the United States has never recognised it, and the loss that
   matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Almost none of its
   thousand topics matched an existing glossary key**, so expect the glossary to grow faster here than
-  anywhere since Greece — `ko-001`–`ko-030` alone added twenty-eight terms. **The plan's claim that NOT ONE
+  anywhere since Greece — `ko-001`–`ko-040` alone added thirty-seven terms. **The plan's claim that NOT ONE
   matched was wrong by one, and the exception is the useful half**: `Seoul` was already a cited term, so
   `ko-010` reuses it — **the pairing rule is satisfied by a term that already exists, and
   `add-glossary.js` overwrites in silence, so CHECK before running it.** The next card to write is the
   lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the
-  lookup. **`ko-001` to `ko-030` have shipped** (Sep 2026) — the whole of `ko-land`, and the opening of
+  lookup. **`ko-001` to `ko-040` have shipped** (Sep 2026) — the whole of `ko-land`, and the opening of
   `ko-prehistory` — so the
   collection is live and its 42 empty decks are coming-soon automatically, `isComingSoon` being true for
   a node holding no card. **Its first ten are geography rather than events, and that shaped the
@@ -1037,7 +1037,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Found | 1978` and the card sorted at 1978 CE**, at the wrong end of a deck running from 350,000 BP, so
   **read a new card's sort year back through `cardYears` before committing it** — and it renamed two
   answer terms so that no two adjacent cards differ by one word (`Jeulmun period` beside `comb-pattern
-  pottery`, `Korean Bronze Age` beside `Mumun pottery`). Not part of the site.
+  pottery`, `Korean Bronze Age` beside `Mumun pottery`).
+  **`ko-031`–`ko-040` finish the Bronze Age and open the Iron Age on two more open hosts** — **Copernicus
+  serves the ISPRS Archives**, whose 2025 paper on Gochang is the only openable work found that states the
+  2000 World Heritage inscription (`whc.unesco.org` is 403), and **`nature.com` serves *Nature
+  Communications***; `link.springer.com` joins the walls, with a 3 KB "Client Challenge" under a 200
+  status. Its finding is about the GLOSSARY rather than the sources: **a general term written for one
+  continent breaks the moment another collection links to it.** `Dolmen` already existed, cited and in
+  band, and described the European Neolithic and nothing else — so a Korean dolmen card would have linked
+  to a definition that excluded it, and the term was rewritten to say what a dolmen is, keep Europe's
+  earliest chambers and its reopening practice, and name Korea's Bronze Age form. **Read a term before
+  pairing a card with it**, `add-glossary.js` overwriting in silence. The dig-date fault fired again and
+  was caught in draft (`ko-036` drafted `Found | 1975`), which is what makes reading every new card's sort
+  year back through `cardYears` the last step before `add-card.js`; and **`ko-035` ships with no picture
+  because Commons has no photograph of a Korean stone cist** — every cist on it is European — while the
+  deck-agnostic `Stone_cist` term takes one, since there the European example is simply an example. Not
+  part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -5368,7 +5383,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
-| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 30 cards, contiguous — next is `ko-031` |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 40 cards, contiguous — next is `ko-041` |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |

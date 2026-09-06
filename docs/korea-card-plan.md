@@ -503,6 +503,51 @@ existing `Neolithic_China` and `Bronze_Age_Italy` pattern rather than a Wikipedi
 the American way to match `Paleolithic`, with `Palaeolithic Korea` as an alias — the spelling switch
 carries `palaeo`/`paleo` both ways, so a reader sees whichever they have chosen.
 
+## What the fourth ten found (Sep 2026)
+
+`ko-031`–`ko-040` finish the Bronze Age half of `ko-prehistory` and open the Early Iron Age. **The
+*Asian Perspectives* back run at ScholarSpace is still carrying the deck** — Bale and Ko on craft
+production at Daepyeong, Kisung Yi on Bronze Age burial, Nelson on Songgungni — and it was joined by
+two hosts worth keeping. **Copernicus publishes the ISPRS Archives openly**, and a 2025 paper on
+digital documentation at Gochang is the only openable work found that states the 2000 World Heritage
+inscription, `whc.unesco.org` being 403 here; **`nature.com` serves *Nature Communications*** and
+carried the 2026 whale paper the Bangudae panel rests on. Against them, `science.org`, `www.mdpi.com`
+and `link.springer.com` are all shut, the last serving a 3 KB "Client Challenge" with a 200 status.
+
+**A GENERAL GLOSSARY TERM WRITTEN FOR ONE CONTINENT BREAKS THE MOMENT ANOTHER COLLECTION LINKS TO IT.**
+`Dolmen` already existed, cited and inside the length band — and it described the European Neolithic
+and nothing else, because Europe is where Folio had met dolmens before. Korea holds among the highest
+densities of them in the world and `ko-033` is a card about exactly that, so the term was **rewritten**
+rather than left: it now says what a dolmen is, gives Europe's earliest chambers and its reopening
+practice, and names Korea's Bronze Age form, on four sources. **Before pairing a card with a term that
+already exists, read the term** — `add-glossary.js` overwrites in silence, and a term that is right
+about one continent reads as a definition rather than as a regional account.
+
+**THE DIG-DATE FAULT FIRED AGAIN AND WAS CAUGHT BEFORE IT SHIPPED.** `ko-036`'s date line was drafted
+with `Found | 1975`, the year the Songguk-ri slab tomb was discovered, which would have sorted a
+Bronze Age card at 1975 CE exactly as `ko-022` sorted at 1978 in the batch before. Reading every card's
+sort year back through the real `cardYears` is now the last thing done before `add-card.js` is run; all
+ten come back negative, from −6000 for the shell midden to −300 for the two iron cards.
+
+**Two more pairs of adjacent answers were renamed apart.** `ko-033` and `ko-034` would have been
+*dolmen* beside *Korean dolmen sites*, and `ko-037` and `ko-038` *cast ironware* beside *Early Iron
+Age*; they ship as **dolmen** / **Gochang** and **cast iron** / **Early Iron Age**. `ko-038` could not
+take *proto-Three Kingdoms*, which `ko-077` holds, and `ko-040` was kept as **rock art** in general
+with Bangudae reserved for `ko-041`.
+
+**`ko-035` ships with no picture and the reason is that none exists.** Commons holds no photograph of a
+Korean stone cist — every cist on it is European — and a German slab grave on a Korea card would say
+something the card does not. The glossary term `Stone_cist` is deck-agnostic and takes one, since there
+the European example is simply an example. The other nine cards are illustrated, and the contact sheet
+earned its place again: the only Commons file named for the Liaoning dagger type is a **museum text
+panel**, which passes every licence and size test and is a photograph of a paragraph.
+
+**Nine more glossary terms shipped with the cards** — `Daepyeong`, `Liaoning_bronze_dagger`,
+`Gochang_Dolmen_Site`, `Stone_cist`, `Songgungni`, `Cast_iron`, `Early_Iron_Age_Korea`, `Shell_midden`
+and `Rock_art` — plus the `Dolmen` rewrite above. Four of them are **general terms that arrived through
+a Korean card**, on the pattern the batch before established: `Stone_cist`, `Cast_iron`, `Shell_midden`
+and `Rock_art` are written for anybody, each closing on what Korea's own evidence looks like.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -583,15 +628,15 @@ where its findings go.
     ko-028  The arrival of rice in Korea, and the paddy field
     ko-029  The Korean Bronze Age
     ko-030  Mumun pottery
-    ko-031  Bronze Age society in Korea
-    ko-032  Korean bronze daggers
+    ko-031  Bronze Age society in Korea — Daepyeong
+    ko-032  Korean bronze daggers — the Liaoning bronze dagger
     ko-033  Dolmens
-    ko-034  The Korean dolmen sites
-    ko-035  Bronze Age burial in Korea
-    ko-036  The Songgungni culture
-    ko-037  The introduction of iron to Korea
-    ko-038  Iron Age Korea
-    ko-039  Shell middens and coastal life
+    ko-034  The Korean dolmen sites — Gochang
+    ko-035  Bronze Age burial in Korea — the stone cist
+    ko-036  The Songgungni culture — Songgungni
+    ko-037  The introduction of iron to Korea — cast iron
+    ko-038  Iron Age Korea — the Early Iron Age
+    ko-039  Shell middens and coastal life — the shell midden
     ko-040  Rock art in Korea
     ko-041  Bangudae petroglyphs
     ko-042  Prehistoric Korea and its neighbours
