@@ -5327,6 +5327,226 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/la música": {
+      "why": "ALL THREE of its examples were the same sentence: 'A todo el mundo le gusta la música', the same again as a question, and the same with a different subject. That is the worst duplication in the deck after entre's three. 'song' is la canción, which has a card of its own; what música does carry besides the mass noun is a female musician. Its Forms row also gave las músicas, a plural the word does not usefully have.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "music"
+          ]
+        ],
+        [
+          "noun, masculine and feminine",
+          [
+            "el músico, la música — musician"
+          ]
+        ]
+      ],
+      "forms": [],
+      "dropEx": [
+        "¿A todo el mundo le gusta la música?",
+        "A mi padre no le gusta la música."
+      ],
+      "ex": [
+        [
+          "Me gusta la música clásica.",
+          "I like classical music."
+        ],
+        [
+          "Escucho música todos los días.",
+          "I listen to music every day."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el minuto": {
+      "why": "A definition - 'a unit of time equal to 60 seconds or 1/60 hour' - and then the word itself as the second gloss.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "minute"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "¡un minuto! — just a minute!",
+            "al minuto — right away"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/llamarse": {
+      "why": "The gloss is right and the card never asks the question the word exists for: ¿cómo te llamas? is the first sentence in any Spanish course. llamar without the se - to call, to phone - has no card in the deck either, so it goes in Forms. It also showed up a gap in the tool: a reflexive verb's conjugation table carries its pronoun ('me llamo', 'te llamas'), so every cell is two words and the rebold dropped them all — all three of this card's examples came back with nothing marked. The pronoun is stripped now, which is what the generator's own bolding does.",
+      "senses": [
+        [
+          "verb, reflexive",
+          [
+            "to be called (me llamo Ana — my name is Ana)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "¿cómo te llamas? — what's your name?",
+            "¿cómo se llama usted? — what is your name? (formal)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "without se",
+          "llamar — to call, to phone"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el país": {
+      "why": "'country (the territory of a nation)', then 'country', then 'land' - a definition followed by the word itself. What is worth a line instead is that the English 'country' meaning countryside is el campo, which has its own card and is the confusion an English speaker actually has.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "country, nation"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "los países"
+        ],
+        [
+          "the countryside is",
+          "el campo"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el rey, la reina": {
+      "why": "A pair card that already glosses both halves — and the masculine plural means the king AND queen together, and los Reyes Magos are who bring Spanish children their presents on 6 January. Neither was there.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "rey — king",
+            "reina — queen"
+          ]
+        ],
+        [
+          "noun, masculine plural",
+          [
+            "los reyes — the king and queen; los Reyes Magos — the Three Wise Men"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/diez": {
+      "why": "Two of its three examples are diez minutos and one is telling the time, which the card did not name.",
+      "senses": [
+        [
+          "numeral",
+          [
+            "ten"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "las diez — ten o'clock"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el hospital": {
+      "why": "'hospital' alone. estar en el hospital, which is the card's own second example, is worth the line because Spanish keeps the article where English drops it.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "hospital"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "estar en el hospital — to be in hospital"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/llevar": {
+      "why": "'to take somewhere, to carry, bear, hold' - four glosses for one sense, and neither of the two things llevar does that an A1 reader needs most: TO WEAR (llevar una camisa) and llevar + a length of time (llevo dos años aquí), which is how Spanish says how long something has been going on. llevarse was missing too.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to take, to carry (to a place)",
+            "to wear (llevar una camisa)",
+            "to have been (llevo dos años aquí — I've been here two years)"
+          ]
+        ],
+        [
+          "verb, reflexive",
+          [
+            "llevarse — to take away; llevarse bien con — to get on well with"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/poner": {
+      "why": "'to put, to write' - and PONERSE, which is what the card's own third example is (el cielo se puso oscuro), was not there. It is two things at once, putting clothes on and becoming, and both are A1. poner la mesa goes with it. Its second example bolds póngase, an imperative with the pronoun attached, which no person-and-number table has a row for — the same shape as hay on the haber card, and named the same way.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to put, to place",
+            "to put on (the television, music)"
+          ]
+        ],
+        [
+          "verb, reflexive",
+          [
+            "ponerse — to put on (clothes); to become (se puso rojo — he went red)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "poner la mesa — to lay the table"
+          ]
+        ]
+      ],
+      "rebold": true,
+      "boldAlso": [
+        "póngase"
+      ]
+    },
+    "delea1/la calle": {
+      "why": "'street' and then a definition of a swimming lane that specifies what it is not. en la calle, which is how the word is used, is the better second line.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "street, road"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "en la calle — in the street, outside"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {

@@ -63,6 +63,8 @@
 
   `bold`  the words a rebold may mark, replacing the list derived from `spanish`, `forms` and the card's
       own Conjugation block. Needed only where a Forms row is a cross-reference rather than an inflection.
+      `boldAlso` ADDS to that list instead of replacing it — for a form the conjugation table has not got,
+      such as an imperative with its pronoun attached (`póngase`).
 
   `hints`  a separate, mechanical map: the English → Spanish card's front is the gloss and nothing else,
       so two notes sharing a gloss are one question with two right answers. `por` and `para` both gloss
@@ -120,7 +122,11 @@ function conjForms(html) {
     out.push(m[1].replace(/<[^>]*>/g, "").trim());
   for (const m of String(html || "").matchAll(/<b>([\s\S]*?)<\/b>/g))
     out.push(m[1].replace(/<[^>]*>/g, "").trim());
-  return out.filter((x) => x && !/\s/.test(x));
+  /* A REFLEXIVE VERB'S TABLE CARRIES ITS PRONOUN — llamarse conjugates as "me llamo", "te llamas" — and
+     the whole cell is then two words, which the whitespace filter below drops: all three of llamarse's
+     examples came back unmarked. The generator bolds the VERB alone (llamo, llamaba), so the pronoun is
+     stripped here to match it. */
+  return out.map((x) => x.replace(/^(me|te|se|nos|os)\s+/, "")).filter((x) => x && !/\s/.test(x));
 }
 function boldTargets(fix, spanish, formsHTML, conjHTML) {
   /* `bold` OVERRIDES THE DERIVED LIST OUTRIGHT, and exists because a Forms row is not always a form: the
@@ -128,7 +134,7 @@ function boldTargets(fix, spanish, formsHTML, conjHTML) {
      deriving from them bolds the ARTICLE la in "lo importante es la salud". Where a Forms row is a
      cross-reference rather than an inflection, name what may be bolded instead. */
   if (fix.bold) return [...fix.bold].sort((a, b) => b.length - a.length);
-  const out = new Set();
+  const out = new Set(fix.boldAlso || []);
   /* A NOUN'S PLURAL IS WRITTEN WITH ITS ARTICLE — "plural: los tiempos" — and the article has to come off
      or the whole value is two words and is dropped, which left tiempos, casas, señora and señoras unmarked
      in their own cards' examples. It comes off ONLY under an inflection label: the article card's row

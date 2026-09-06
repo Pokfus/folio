@@ -2004,6 +2004,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     elsewhere: the article card's row reads "before a stressed a-: el agua, las aguas", and stripping
     there bolds `agua` on a card about the article. The headword is stripped the same way and PER HALF,
     a headword being a pair as often as a word.
+  · **A REFLEXIVE VERB'S CONJUGATION TABLE CARRIES ITS PRONOUN**, so every cell is two words ("me llamo",
+    "te llamas") and the whitespace filter drops the lot — all three of `llamarse`'s examples came back
+    unmarked. The pronoun is stripped, which is what the generator's own bolding does. And a form the
+    table has no row for is named by `boldAlso`: `hay` on `haber`, `póngase` on `poner`. **A conjugation
+    grid is not a complete list of a verb's forms.**
   · **`hints` IS THE MECHANICAL HALF, and is a map rather than an entry per note** — the English →
     Spanish card's front is the gloss alone, so `por` and `para` both glossing to "for" is one question
     with two right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or
