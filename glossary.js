@@ -2464,7 +2464,16 @@ window.GLOSSARY = {
 "Pelopidas": "Pelopidas was a Theban general of the 4th century BCE, leader of the conspiracy that freed Thebes in 379 and commander of the Sacred Band.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch pairs him with Epaminondas as colleagues rather than rivals, dating their friendship to a battle at Mantinea where Pelopidas fell with seven wounds in front and Epaminondas stood over him.<sup class=\"fn\" data-fn=\"2\"></sup> He kept the Sacred Band together as a single unit instead of spreading it along the line, and led its charge at Leuctra; he was killed campaigning in Thessaly in 364 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Sacred_Band_of_Thebes": "The Sacred Band of Thebes was a corps of three hundred picked hoplites kept at public expense on the citadel, raised by Gorgidas after the city was freed in 379 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch reports the tradition that it was made up of pairs of lovers, on the reasoning that a band held together by love cannot be broken because neither man will be shamed before the other.<sup class=\"fn\" data-fn=\"2\"></sup> Pelopidas kept it whole rather than spread along the phalanx, and Plutarch says it was never beaten until Chaeronea in 338 BCE, where Philip of Macedon wept over its dead.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Second_Athenian_League": "The Second Athenian League was an alliance founded at Athens in 378 BCE against Sparta, whose charter survives on stone as the decree moved by Aristoteles.<sup class=\"fn\" data-fn=\"1\"></sup> The decree invites any Greek or islander not subject to the King to join, free and autonomous under whatever constitution he chooses, with no garrison, no imposed governor and no tribute, and forbids Athenians to own land in allied territory.<sup class=\"fn\" data-fn=\"2\"></sup> The allies had a council of their own at Athens in which every city had one vote and Athens none, and Diodorus says Chios and Byzantium seceded from Sparta first.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Seizure_of_the_Cadmea": "The seizure of the Cadmea was the occupation of the citadel of Thebes by a Spartan force under Phoebidas in 382 BCE, in peacetime and without orders.<sup class=\"fn\" data-fn=\"1\"></sup> The Theban polemarch Leontiades proposed it for the day of the Thesmophoria, when the women held the citadel and the streets were empty at midday, and it was taken without a blow struck.<sup class=\"fn\" data-fn=\"2\"></sup> Sparta fined Phoebidas and kept the citadel, executed the opposing polemarch Ismenias for Medism, and installed a friendly government; the exiles it drove to Athens returned in 379 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Seizure_of_the_Cadmea": "The seizure of the Cadmea was the occupation of the citadel of Thebes by a Spartan force under Phoebidas in 382 BCE, in peacetime and without orders.<sup class=\"fn\" data-fn=\"1\"></sup> The Theban polemarch Leontiades proposed it for the day of the Thesmophoria, when the women held the citadel and the streets were empty at midday, and it was taken without a blow struck.<sup class=\"fn\" data-fn=\"2\"></sup> Sparta fined Phoebidas and kept the citadel, executed the opposing polemarch Ismenias for Medism, and installed a friendly government; the exiles it drove to Athens returned in 379 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Academy": "The Academy was the school Plato taught at from about 387 BCE, named after the public grove north-west of Athens where it met.<sup class=\"fn\" data-fn=\"1\"></sup> Diogenes Laertius describes the place as a suburban exercise ground planted like a grove and named after an ancient hero called Hecademus, so it was public land before it was a school.<sup class=\"fn\" data-fn=\"2\"></sup> Mathematics had a central place in its programme alongside philosophy, and the leadership passed on Plato’s death to his nephew Speusippus and then to Xenocrates.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Leuctra": "The battle of Leuctra was fought in Boeotia in 371 BCE between the Thebans under Epaminondas and a Spartan army under King Cleombrotus, and it ended the Spartan supremacy in a single afternoon.<sup class=\"fn\" data-fn=\"1\"></sup> Xenophon says the Lacedaemonians stood not more than twelve men deep while the Thebans massed not less than fifty shields deep on one wing, reasoning that beating the troops around the king would decide everything.<sup class=\"fn\" data-fn=\"2\"></sup> Cleombrotus was killed, and Xenophon counts about a thousand Lacedaemonian dead including some four hundred of the seven hundred Spartiates present, where Diodorus gives more than four thousand.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Liberation_of_Messenia": "The liberation of Messenia was the restoration in 369 BCE of an independent Messenian state on land Sparta had held since the 7th century BCE, carried out by Epaminondas after Leuctra.<sup class=\"fn\" data-fn=\"1\"></sup> The Messenians had been scattered rather than merely subjected, and Pausanias records communities of them at Rhegium, in Sicily and among the Euesperitae in Libya, all of whom were summoned home.<sup class=\"fn\" data-fn=\"2\"></sup> A new city was founded under Mount Ithome with sacrifices by Thebans, Argives and Messenians, and the loss of Messenian helot labour removed the economic base of the Spartiate class.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Megalopolis": "Megalopolis was a city founded in Arcadia in the 360s BCE by uniting some forty small communities, part of the settlement of the Peloponnese that followed the Theban victory at Leuctra.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias calls it the youngest city in Greece, says the Arcadians united into it to gain strength against Sparta on the model of Argos, and names ten founders, two from each participating district.<sup class=\"fn\" data-fn=\"2\"></sup> Epaminondas gathered the Arcadians for the union and sent a thousand Thebans to protect it; four communities changed their minds, three were moved by force, and the people of Trapezus left the Peloponnese.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Republic_(Plato)": "The Republic is Plato’s longest and best-known dialogue, written probably around 380 BCE, in which Socrates and a group of Athenians ask what justice is and look for it first in a city rather than a person.<sup class=\"fn\" data-fn=\"1\"></sup> The city is built up from the fact that nobody is self-sufficient, acquires a guardian class and an education for it, and yields a definition of justice as each part doing its own work.<sup class=\"fn\" data-fn=\"2\"></sup> Its central books carry the divided line, the allegory of the cave and the claim that there will be no rest from evils until philosophers become kings, which Socrates calls the greatest wave of paradox.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Second_Battle_of_Mantinea": "The second battle of Mantinea was fought in Arcadia in 362 BCE between Epaminondas with the Thebans and their allies and a coalition including Sparta, Athens, Mantinea and Elis.<sup class=\"fn\" data-fn=\"1\"></sup> Xenophon says Epaminondas grounded arms as though making camp to relax the enemy, then deepened one wing and led it forward prow on like a trireme, meaning to cut through and break the whole army.<sup class=\"fn\" data-fn=\"2\"></sup> The line broke but Epaminondas was killed, after which both sides set up trophies and each gave back and received the dead under truce, so that nobody was better off than before the battle.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Social_War": "The Social War was the revolt of the major allies of the Second Athenian League, fought from 357 BCE and ending with Athens conceding their independence.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus names Chios, Rhodes, Cos and Byzantium as the states that revolted, with help from Mausolus of Caria, and records that the Athenian general Chabrias died fighting in the harbour of Chios.<sup class=\"fn\" data-fn=\"2\"></sup> Athens fined and dismissed Iphicrates and Timotheus on their colleague’s accusation, and ended the war on the report that Persia might send three hundred ships against her.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Theban_hegemony": "The Theban hegemony is the period from the victory at Leuctra in 371 BCE to the death of Epaminondas at Mantinea in 362, during which Thebes was the leading power in Greece.<sup class=\"fn\" data-fn=\"1\"></sup> It rested on repeated invasions of the Peloponnese rather than on any institution, and its two lasting works were the refoundation of Messene and the founding of Megalopolis, which hemmed Sparta in on two sides.<sup class=\"fn\" data-fn=\"2\"></sup> It was not gentler than the supremacy it displaced: Orchomenus was taken, its men killed and its women and children sold, and Diodorus writes that the power of Thebes died with Epaminondas.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Theory_of_Forms": "The theory of Forms is Plato’s doctrine that for each kind of thing there is a single unchanging entity, not perceptible by the senses, which the many particulars are named after.<sup class=\"fn\" data-fn=\"1\"></sup> The Phaedo argues from equality: equal sticks and stones sometimes appear equal in one respect and unequal in another, while equality itself never does, so it cannot be any of the equal things.<sup class=\"fn\" data-fn=\"2\"></sup> Plato raised objections to it himself in the Parmenides, and Aristotle held that it doubles the number of things to be explained and generates the regress later called the third man.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3444,7 +3453,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Pelopidas": "c. 410 BCE – 364 BCE",
 "Sacred_Band_of_Thebes": "379 BCE – 338 BCE",
 "Second_Athenian_League": "378 BCE – 355 BCE",
-"Seizure_of_the_Cadmea": "382 BCE"
+"Seizure_of_the_Cadmea": "382 BCE",
+"Academy": "c. 387 BCE",
+"Battle_of_Leuctra": "371 BCE",
+"Liberation_of_Messenia": "369 BCE",
+"Megalopolis": "founded in the 360s BCE",
+"Republic_(Plato)": "written c. 380 BCE",
+"Second_Battle_of_Mantinea": "362 BCE",
+"Social_War": "357 BCE – 355 BCE",
+"Theban_hegemony": "371 BCE – 362 BCE",
+"Theory_of_Forms": "set out from c. 380 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4827,7 +4845,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "White-ground_lekythos": ["white-ground lekythoi","white ground lekythos"],
 "Agesilaus_II": ["Agesilaus"],
 "King's_Peace": ["Peace of Antalcidas"],
-"Sacred_Band_of_Thebes": ["Sacred Band"]
+"Sacred_Band_of_Thebes": ["Sacred Band"],
+"Academy": ["Platonic Academy"],
+"Liberation_of_Messenia": ["refoundation of Messene"],
+"Second_Battle_of_Mantinea": ["battle of Mantinea, 362 BCE"],
+"Theory_of_Forms": ["Platonic Forms"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -7328,7 +7350,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pelopidas": ["person","general","military","history","greece"],
 "Sacred_Band_of_Thebes": ["institution","military","history","greece"],
 "Second_Athenian_League": ["institution","event","history","politics","greece"],
-"Seizure_of_the_Cadmea": ["event","history","politics","warfare","greece","sparta"]
+"Seizure_of_the_Cadmea": ["event","history","politics","warfare","greece","sparta"],
+"Academy": ["institution","place","philosophy","education","greece"],
+"Battle_of_Leuctra": ["event","battle","war","history","greece"],
+"Liberation_of_Messenia": ["event","history","politics","greece"],
+"Megalopolis": ["place","city","event","history","greece"],
+"Republic_(Plato)": ["text","philosophy","politics","greece"],
+"Second_Battle_of_Mantinea": ["event","battle","war","history","greece"],
+"Social_War": ["event","war","history","greece"],
+"Theban_hegemony": ["era","event","history","politics","greece"],
+"Theory_of_Forms": ["concept","theory","philosophy","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

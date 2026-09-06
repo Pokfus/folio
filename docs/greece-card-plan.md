@@ -931,7 +931,7 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-672  Theban hegemony
     gr-673  The liberation of Messenia
     gr-674  Megalopolis
-    gr-675  Battle of Mantinea, 362 BCE
+    gr-675  Battle of Mantinea, 362 BCE  — carded on the `second battle of Mantinea`, since `Battle_of_Mantinea` (418 BCE) is already gr-548 and a glossary term
     gr-676  The Social War
     gr-677  Plato
     gr-678  The Academy
