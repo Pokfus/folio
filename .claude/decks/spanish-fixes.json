@@ -1,0 +1,103 @@
+{
+  "why": "The record of every hand edit to the DELE Spanish decks. Applied by spanish-fix.js; see that file's header for what an entry may carry and why the record exists at all. Cards 1-10 of DELE A1 were read one by one in Sep 2026; this is what that pass changed.",
+
+  "decks": {
+    "delea1": {
+      "why": "Folding the eight article cards into two changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before the fold - the subtitle said 500 against 496 cards - so both figures are set to what is actually there.",
+      "subtitle": "490 words · both directions, as two cards per word",
+      "descSub": [
+        ["500 words for level A1 of the DELE", "490 words for level A1 of the DELE"],
+        ["the rest of the 500 is filled from the A1 column in order of frequency", "the rest is filled from the A1 column in order of frequency"]
+      ]
+    }
+  },
+
+  "hints": {
+    "delea1/por": "para",
+    "delea1/para": "por"
+  },
+
+  "notes": {
+    "delea1/de": {
+      "why": "The third bullet - 'used after the thing owned and before the owner' - was a usage NOTE standing in the list of translations, where the card renders it as though it were an English equivalent of the word. It moves into the gloss it qualifies. The list also left out three senses an A1 reader meets in the first week: origin (soy de Madrid), material (de madera) and topic (un libro de historia). Examples 2 and 3 were the same sentence with its two halves swapped - 'La esencia de las matematicas es la libertad' and 'La esencia de la libertad son las matematicas' - so the card showed one example twice; the second is dropped for a sentence that shows the origin sense.",
+      "senses": [["preposition", ["of", "'s (after the thing owned, before the owner)", "from (origin)", "made of", "about, on"]]],
+      "dropEx": ["La esencia de la libertad son las matemáticas."],
+      "ex": [["¿De dónde eres?", "Where are you from?"]],
+      "rebold": true
+    },
+
+    "delea1/que": {
+      "why": "Glossed as a conjunction only, so the RELATIVE PRONOUN - which is what its own first example shows, and one of the two commonest uses of the commonest word in Spanish - was missing. That example made the loss invisible: 'El color que me encanta es el rojo' was translated 'My favorite color is red', which translates the que away, so the card asked a reader to learn a word from a sentence whose English does not contain it. It is dropped for a sentence whose translation carries the relative through.",
+      "senses": [["pronoun", ["that, which, who (relative)"]], ["conjunction", ["that", "than"]]],
+      "dropEx": ["El color que me encanta es el rojo."],
+      "ex": [["Este es el libro que me gusta.", "This is the book that I like."]],
+      "rebold": true
+    },
+
+    "delea1/no": {
+      "why": "Glossed 'not' alone. The commonest English translation of Spanish no - no, in answer to a question - was missing, and the deck carries si as 'yes, yeah', so the pair was taught from one side only. The third example, 'No abrir antes de que pare el tren', is one of the deck's most reused sentences (it also illustrates de and que) and is an infinitive notice rather than everyday speech; it makes room for an answer.",
+      "senses": [["adverb", ["not"]], ["particle", ["no (in answer to a question)"]]],
+      "dropEx": ["No abrir antes de que pare el tren."],
+      "ex": [["—¿Quieres café? —No, gracias.", "\"Do you want coffee?\" \"No, thanks.\""]],
+      "rebold": true
+    },
+
+    "delea1/la": {
+      "why": "THE DEFINITE ARTICLE, FOLDED FROM FOUR CARDS INTO ONE. el, la, los and las were four separate notes for one paradigm, which the deck's own stated policy already refuses everywhere else - a noun's plural sits beneath it and a feminine pair is taught as one card (el nino, la nina above los ninos, las ninas, 63 of them). Split, the four glosses had drifted apart: los was filed as a PRONOUN ('plural masculine or neuter pronoun') with 'the' missing altogether, though all three of its own examples used it as an article. Split, they also collided on the reverse card, where three of them prompted the reader with 'the' and nothing else. The surviving note keeps the lowest id of the four (u_delea1_4), which is the earliest and most frequent slot. The paradigm moves into Forms, where a paradigm belongs, and takes the el agua rule with it - which the deck was already illustrating on this card, in the example about oil and water, without saying anywhere what the reader was looking at. The third example, 'con los que charlar', uses los as a relative rather than as an article; it is dropped for one that shows the masculine plural plainly.",
+      "spanish": "el, la",
+      "word": "el",
+      "fold": ["el", "los", "las"],
+      "senses": [["article", ["the"]]],
+      "forms": [["masculine", "el, los"], ["feminine", "la, las"], ["before a stressed a-", "el agua, las aguas"]],
+      "dropEx": ["Él no tiene amigos con los que charlar."],
+      "ex": [["Él trabaja todos los días excepto los domingos.", "He works every day except Sundays."]],
+      "rebold": true
+    },
+
+    "delea1/un": {
+      "why": "THE INDEFINITE ARTICLE, FOLDED FROM FOUR CARDS INTO ONE, on the same reasoning as el, la above. Split, un/una/unos/unas had drifted the same way: una was filed as a PRONOUN meaning 'one' with 'a, an' missing, and unos and unas - the same word - were given opposite halves of its meaning, unos 'about, approximately' and unas 'some, a few', on two cards a hundred and fifty apart. The numeral uno keeps its own card. The four examples show all four forms and both senses, which three cannot, so maxEx is raised here and says why.",
+      "spanish": "un, una",
+      "word": "un",
+      "fold": ["una", "unos", "unas"],
+      "senses": [["article", ["a, an"]], ["determiner", ["unos, unas — some, a few", "unos, unas before a number — about, approximately"]]],
+      "forms": [["plural", "unos, unas"]],
+      "dropEx": ["Amar a alguien no es nunca un desperdicio."],
+      "ex": [
+        ["Él es un hombre de unos sesenta años.", "He is around sixty years old."],
+        ["Ella dijo unas palabras de agradecimiento por el regalo.", "She said a few words of thanks for the present."]
+      ],
+      "maxEx": 4,
+      "rebold": true
+    },
+
+    "delea1/y": {
+      "why": "Two bullets, 'and' and 'plus, and', which is one gloss written twice - the second says nothing the first does not, and buries the arithmetic sense it was presumably meant to carry. The card is also the only place the deck can teach that y becomes e before a word beginning i- or hi- (madre e hija): there is no e card, and nothing else in the deck mentions it.",
+      "senses": [["conjunction", ["and", "plus (in arithmetic)"]]],
+      "forms": [["before i-, hi-", "e"]],
+      "rebold": true
+    },
+
+    "delea1/en": {
+      "why": "The gloss list left out the means-of-transport sense - which is exactly what the card's own first example is, 'Mejor te llevo hasta tu casa en coche'. The card showed a sentence for a meaning it did not list.",
+      "senses": [["preposition", ["in", "at", "on", "in (a time)", "by (a means of transport)"]]],
+      "rebold": true
+    },
+
+    "delea1/por": {
+      "why": "The weakest card of the first ten: glossed 'by' and 'for (indicates something given in an exchange)', while ALL THREE of its examples showed senses that were not on the list - por telefono (means), manana por la manana (time of day) and por que (why). The list now carries the senses an A1 reader meets, and por que gets a line of its own because the deck teaches the phrase nowhere else, though it uses it in examples on two cards. por and para both glossed to 'for', which on the English-to-Spanish card is one question with two right answers; both now carry a hint naming the other.",
+      "senses": [
+        ["preposition", ["by (an agent or a means)", "because of, for (a reason)", "through, along, around", "in, during (por la mañana)", "for, in exchange for", "per", "times (in multiplication)"]],
+        ["phrase", ["por qué — why"]]
+      ],
+      "rebold": true
+    },
+
+    "delea1/qué": {
+      "why": "Glossed 'what / which / what a / such'; 'such' is not a translation of que in any ordinary use and is dropped. Two of its three examples were por que, 'why' - a different item, which the deck lists separately in its own inventory of question words and which now has a line on the por card - so only one of the three taught the word on the card. They make room for the plain interrogative and the exclamative, the two uses the gloss claims.",
+      "senses": [["pronoun", ["what"]], ["determiner", ["what, which (before a noun)", "what a…! (in exclamations)"]]],
+      "dropEx": ["¿Por qué no se lo dijiste a ella?", "¿Por qué vas a visitar el Reino Unido?"],
+      "ex": [["¿Qué hora es?", "What time is it?"], ["¡Qué bonita es esta ciudad!", "What a beautiful city this is!"]],
+      "rebold": true
+    }
+  }
+}

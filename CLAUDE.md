@@ -1790,7 +1790,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
   **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO** — no changelog line, no version bump.
   Currently **52 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
-  Portuguese, Spanish — **136,222 cards over 68,111 notes, 152 MB**. **Count them rather than quoting
+  Portuguese, Spanish — **136,210 cards over 68,105 notes, 152 MB**. **Count them rather than quoting
   that**: `node .claude/build-lang-decks.js` prints the tally on every run.
   · **A COMBINED FILE IS GITIGNORED**: it is an artefact of the levels it combines, every byte already
     in the repo, and its own `combine.py` regenerates it byte for byte. **Anything else in `decks/` is
@@ -1948,6 +1948,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     every `uc-exadd` example block is STRIPPED from every note before the fixes are applied — without
     that, deleting an `ex` from the record leaves the sentence in the deck and `--check` goes on
     passing, which is the decks and their own record drifting apart in silence.
+- **📖 `.claude/decks/spanish-fixes.json` + `spanish-fix.js` — THE ONE WAY A DELE SPANISH DECK IS
+  HAND-EDITED, AND THE ONLY PLACE AN EDIT MAY BE MADE.** `mandarin-fix.js`'s model, for the opposite
+  reason: the Mandarin decks cannot be regenerated, so a hand edit there is permanent; the DELE decks
+  CAN be, from `.claude/dele/`, so a hand edit made straight into the deck file survives exactly until
+  the next `run.py` — which silently puts the fault back. **The record is what makes a correction
+  durable, and re-running it is the last step of a rebuild.** One entry per note keyed by
+  `<deck id>/<headword>`, each with a `why`; `node .claude/decks/spanish-fix.js [--check] [--verbose]`
+  applies it idempotently and `--check` asserts the decks still carry it.
+  · **IT IS THE EDITORIAL HALF ONLY, AND THE OTHER HALF IS THE GENERATOR'S.** `examples.py`'s
+    `forms_of()` matches a sentence on ANY inflected form Wiktionary lists for the lemma, so the article
+    cards were illustrated by each other — `la`'s examples bolded `El` and `los`, `un`'s bolded `una`
+    and `unos`. Measured over DELE A1: **580 of 1,478 examples bold something other than the headword**,
+    of which **24 bold a word that is itself another card in the deck** (18 cards). Most of the 580 is
+    legitimate inflection (`todo`→`todas`); the rule worth enforcing is **an example may show an
+    inflection of its own headword and never another card's headword**. A second, separate fault is that
+    the bolding can miss even when the word IS there — `el`'s "Sé que **el** dinero no *lo* es todo"
+    bolded `lo`. `rebold` is the local repair; the general one belongs in `examples.py`.
+  · **A FOLD DELETES CARDS AND SO CHANGES WHAT THE DECK HOLDS.** `fold` names the headwords a note
+    absorbs; the survivor keeps the LOWEST id of the group, which is the earliest and most frequent
+    slot, and a deleted note is kept on any device that already has it (`langDeckUpdate` never deletes).
+    **Re-run `.claude/build-lang-decks.js` after**, and fix the deck's own `subtitle`/`desc` through the
+    record's `decks` section — a description that goes on counting the old number is the fault
+    `check-counts.js` exists for one directory over. The A1 subtitle said 500 against a real 496 before
+    any of this.
+  · **A PARADIGM AND A USAGE NOTE GO IN `forms`, NEVER IN `senses`.** `senses` is a list of
+    TRANSLATIONS, and the generator renders each bullet as an English equivalent of the word — so `de`'s
+    "used after the thing owned and before the owner" was printed as though it were one. `forms` is
+    `[[label, value]]` and is where `el, los / la, las / el agua` and `y` → `e` belong.
+  · **`hints` IS THE MECHANICAL HALF, and is a map rather than an entry per note** — the English →
+    Spanish card's front is the gloss alone, so `por` and `para` both glossing to "for" is one question
+    with two right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or
+    more gets distinguishing glosses instead.
 - `.claude/decks/check-mandarin-coverage.js` — **what a Mandarin card does NOT say**:
   `node .claude/decks/check-mandarin-coverage.js [--top=N] [--deck=] [--only=]`. The three checkers
   above all ask whether what a card SAYS is right and all report the Mandarin decks clean or nearly
