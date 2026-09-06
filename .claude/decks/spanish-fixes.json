@@ -10053,6 +10053,371 @@
     "estudiantes"
    ],
    "rebold": true
+  },
+  "delea1/viajar": {
+   "why": "TWO of its three examples are el viaje, the NOUN - how was your trip, the nearest travel agency - which the card does not list, so only one of the three sentences was about the verb. The same shape as limpiar three batches ago.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to travel"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "viajar en tren, en avión, en coche — to travel by train, plane, car",
+      "el viaje — the journey, the trip"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "el viaje"
+    ],
+    [
+     "the traveller",
+     "el viajero, la viajera"
+    ]
+   ],
+   "dropEx": [
+    "¿Qué les ha parecido su viaje a Australia?",
+    "¿Dónde queda la agencia de viajes más cercana?"
+   ],
+   "ex": [
+    [
+     "Viajamos a Italia el verano pasado.",
+     "We travelled to Italy last summer."
+    ],
+    [
+     "Me gusta viajar en avión.",
+     "I like travelling by plane."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la parada": {
+   "why": "Its second example is not this word: paradas there is the participle, three women STANDING at the bar, matched on the letters alone. Both its glosses were definitions of themselves, and the two stops a reader waits at - de autobús, de taxis - were not written out.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "stop — where a bus or a train stops"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la parada de autobús — bus stop",
+      "la parada de taxis — taxi rank"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las paradas"
+    ],
+    [
+     "the verb",
+     "parar"
+    ]
+   ],
+   "bold": [
+    "parada",
+    "paradas"
+   ],
+   "dropEx": [
+    "Había tres mujeres paradas en el bar."
+   ],
+   "ex": [
+    [
+     "Bajamos en la próxima parada.",
+     "We get off at the next stop."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/veinte": {
+   "why": "Its first example is a Mexican idiom - no me cayó el veinte, it did not click - and the English beside it does not contain the word twenty at all, so a reader could not see why the word was highlighted. Nothing said that 21 to 29 are written as one word, which is the fact this card is for.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "twenty"
+     ]
+    ],
+    [
+     "note",
+     [
+      "21 to 29 are one word: veintiuno, veintidós, veintitrés",
+      "from 31 they are three: treinta y uno"
+     ]
+    ]
+   ],
+   "bold": [
+    "veinte"
+   ],
+   "dropEx": [
+    "No me cayó el veinte hasta mucho después."
+   ],
+   "ex": [
+    [
+     "Tengo veinte euros en el bolsillo.",
+     "I have twenty euros in my pocket."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/ciento": {
+   "why": "Its third example misquotes the proverb - it is más vale pájaro en mano que ciento volando, a bird in the hand - and prints an English version that does not match what the Spanish says either. The card is also the other half of cien and never said so: cien before a noun, ciento the moment a number follows.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "a hundred — used when a number follows: ciento uno, ciento veinte"
+     ]
+    ],
+    [
+     "note",
+     [
+      "before a noun it is cien: cien personas",
+      "por ciento — per cent; cientos de — hundreds of"
+     ]
+    ]
+   ],
+   "bold": [
+    "ciento",
+    "cientos"
+   ],
+   "dropEx": [
+    "¡Más vale amigo en mano que ciento volando!"
+   ],
+   "ex": [
+    [
+     "El billete cuesta ciento veinte euros.",
+     "The ticket costs a hundred and twenty euros."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/alemán, alemana": {
+   "why": "Filed as an adjective with two definitions for glosses, and two of its own three examples are NOUNS: el alemán, the language, and los alemanes, the people. Nothing said that a nationality is written in lower case in Spanish, which is the rule behind every language and country card in the deck.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "German"
+     ]
+    ],
+    [
+     "noun, masculine and feminine",
+     [
+      "el alemán, la alemana — a German",
+      "el alemán — the German language"
+     ]
+    ],
+    [
+     "note",
+     [
+      "nationalities and languages are not capitalised in Spanish"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "alemanes, alemanas"
+    ],
+    [
+     "the country",
+     "Alemania"
+    ]
+   ],
+   "bold": [
+    "alemán",
+    "alemana",
+    "alemanes",
+    "alemanas"
+   ],
+   "rebold": true
+  },
+  "delea1/el armario": {
+   "why": "Its first example is a three-handed monster coming out of the wardrobe, which teaches a reader nothing they can use, and the built-in wardrobe every Spanish flat listing mentions was not on the card.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "wardrobe, cupboard, cabinet"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el armario empotrado — built-in wardrobe",
+      "el armario de cocina — kitchen cupboard"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los armarios"
+    ],
+    [
+     "chest of drawers",
+     "la cómoda"
+    ]
+   ],
+   "bold": [
+    "armario",
+    "armarios"
+   ],
+   "dropEx": [
+    "Un monstruo de tres manos salió del armario."
+   ],
+   "ex": [
+    [
+     "Guarda la ropa en el armario.",
+     "Put the clothes away in the wardrobe."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el invierno": {
+   "why": "Alone, like el verano was: the deck now names the four seasons on la estación and each of them should point back at the other three.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "winter"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en invierno — in winter",
+      "hace frío en invierno — it is cold in winter"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los inviernos"
+    ],
+    [
+     "the other three",
+     "la primavera, el verano, el otoño"
+    ]
+   ],
+   "bold": [
+    "invierno",
+    "inviernos"
+   ],
+   "rebold": true
+  },
+  "delea1/el conductor, la conductora": {
+   "why": "driver, motorist - and no sign of the verb it comes from, which the deck has just been told is manejar across most of Latin America, nor of el chófer, the word for a driver by trade.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "driver"
+     ]
+    ],
+    [
+     "note",
+     [
+      "el chófer is a driver by trade, of a coach or a private car",
+      "in Latin America el conductor can also be a television or radio presenter"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los conductores, las conductoras"
+    ],
+    [
+     "the verb",
+     "conducir"
+    ],
+    [
+     "driving licence",
+     "el carné de conducir"
+    ]
+   ],
+   "bold": [
+    "conductor",
+    "conductora",
+    "conductores",
+    "conductoras"
+   ],
+   "rebold": true
+  },
+  "delea1/estudiar": {
+   "why": "to study, to examine, look into - the last two are a formal sense of the verb given as much room as the everyday one - and the constructions a student uses, estudiar para and estudiar una carrera, were not there.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to study"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "estudiar para un examen — to study for an exam",
+      "estudiar una carrera — to do a degree"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "estudios"
+    ],
+    [
+     "the student",
+     "estudiante"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la sopa": {
+   "why": "Right, and beside the two words a reader meets on the same menu: el caldo, the clear broth, and la crema, the thick soup that is not a cream at all.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "soup"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el caldo — broth, clear soup",
+      "la crema — thick, blended soup"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las sopas"
+    ],
+    [
+     "the bowl",
+     "el plato hondo"
+    ]
+   ],
+   "bold": [
+    "sopa",
+    "sopas"
+   ],
+   "rebold": true
   }
  },
  "insert": {
