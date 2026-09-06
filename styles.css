@@ -238,32 +238,43 @@ body[data-theme="folio"] .topbar::after{
   -webkit-backdrop-filter:saturate(140%) blur(10px);
   border-bottom:1px solid var(--rule);
 }
-.brand{display:flex; align-items:baseline; gap:9px; flex:none; user-select:none; cursor:pointer; appearance:none; border:0; padding:0; margin:0; background:none; font:inherit; color:inherit; text-align:left;}
+/* THE TAGLINE SITS UNDER THE WORDMARK (Sep 2026, on request: "move the tagline to right below the
+   logo"). It was a baseline-aligned row, which is why the two carry no shared alignment rule between
+   them any more: as a column the mark's own left edge is the tagline's, and `align-items:flex-start`
+   is what holds that at every text size rather than a hand-written offset. The gap is 4px because the
+   mark is set `line-height:1` — it has no descender space of its own to stand in for one. */
+.brand{display:flex; flex-direction:column; align-items:flex-start; gap:4px; flex:none; user-select:none; cursor:pointer; appearance:none; border:0; padding:0; margin:0; background:none; font:inherit; color:inherit; text-align:left;}
 .brand:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:5px;}
 .brand .mark{
   font-family:var(--display); font-weight:900; font-size:calc(23px * var(--fs)); letter-spacing:-.01em;
   color:var(--ink); line-height:1;
 }
 .brand .mark .dot{color:var(--zh);}
-.brand .tag{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.28em; color:var(--ink-faint); text-transform:uppercase; align-self:center;}
-/* WHICH OF THE TWO LOGOS IS ON SCREEN, AND WHY THE SPLIT IS AT 1280px (Sep 2026, with the masthead).
+/* The tracking comes down with the stacking. At .28em the tagline was half again as wide as the
+   wordmark above it, which as a ROW was invisible and as a COLUMN reads as a line that has escaped
+   the block it belongs to; at .16em the two are close enough in width to read as one mark. */
+.brand .tag{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.16em; color:var(--ink-faint); text-transform:uppercase;}
+/* WHICH OF THE TWO LOGOS IS ON SCREEN, AND WHY THE SPLIT IS AT 1180px (Sep 2026, with the masthead).
    The obvious rule is "bar logo wherever the bar is shown, home logo below 640px" — and it does not fit.
-   MEASURED, in a browser, with the seven tabs in: the brand costs the bar 171px at Medium text and 292px
-   at Very large, and the bar has that much to spare only from 1280px up. Below it the tabs are pushed off
-   the end — 171px of overflow at 901px, 76px at 1000px, 70px at 1200px at Very large — which takes a
-   destination away to make room for an ornament, exactly backwards. (The band rules further down already
-   claw back what they can between 641 and 900px, and that is spent on the tabs.)
-   So the BAR's logo is shown from 1280px up and the HOME page's from 1279px down, and exactly one of the
-   two is on screen at every width — including a landscape tablet, which gets it at the head of the home
+   MEASURED, in a browser, with the seven tabs in: STACKED, the brand costs the bar 88px at Medium text
+   and 186px at Very large, and the bar has that much to spare only from 1180px up. Below it the tabs are
+   pushed off the end — 259px of overflow at 901px, 164px at 1000px and 64px at 1100px at Very large —
+   which takes a destination away to make room for an ornament, exactly backwards. (The band rules further
+   down already claw back what they can between 641 and 900px, and that is spent on the tabs.)
+   THE THRESHOLD CAME DOWN FROM 1280px WHEN THE TAGLINE WENT UNDER THE WORDMARK: a row 171px wide became
+   a column 88px wide, which is most of a hundred pixels back and two more classes of screen inside the
+   bar. It is a MEASUREMENT, so re-measure it if either half of the brand changes.
+   So the BAR's logo is shown from 1180px up and the HOME page's from 1179px down, and exactly one of the
+   two is on screen at every width — including a portrait tablet, which gets it at the head of the home
    page rather than in the bar. `.home-brand` is a block of its own above the greeting; it takes no
    pointer, being a heading on the page it would have linked to. */
 .topbar .brand{display:none;}
-@media (min-width:1280px){ .topbar .brand{display:flex;} }
+@media (min-width:1180px){ .topbar .brand{display:flex;} }
 .home-brand{display:flex; cursor:default; margin:0 0 18px;}
-@media (min-width:1280px){ .home-brand{display:none;} }
+@media (min-width:1180px){ .home-brand{display:none;} }
 /* ...and on a phone it centres with the greeting under it, because that is what `.page-head` does
-   below 640px; between 641 and 1279 the page head is ranged left and so is this. */
-@media (max-width:640px){ .home-brand{justify-content:center;} }
+   below 640px; between 641 and 1179 the page head is ranged left and so is this. */
+@media (max-width:640px){ .home-brand{justify-content:center; align-items:center;} }
 
 .nav{display:flex; align-items:center; gap:4px;}
 .nav.right{margin-left:auto;}

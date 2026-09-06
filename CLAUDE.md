@@ -1386,6 +1386,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   read the plan's entry before starting one, since three of them turn on a decision that is not obvious
   (what Save means in the deck editor, which bundle a card locator may fetch, and why merging language
   notes cannot be done to a shipped deck).
+- **📖 `docs/why-questions-plan.md` — READ BEFORE WRITING A `card.why`, OR BEFORE OPENING A BATCH OF THEM.**
+  The Think-it-through pass, opened Sep 2026 on request: three authored why-questions for every card in
+  the HISTORY and SCIENCE sections — 1,159 cards, which is 3,477 questions and answers. Geography is out
+  (a map card's back is a figures grid, so there is no prose to draw an answer from) and so are the
+  language decks. It holds the three things the checker cannot see — that the answer says what the CARD'S
+  OWN CITED PROSE says, that the question is a why rather than a what wearing one, and that the three ask
+  about different things — plus the four seams a 300-word hedged abstract reliably offers (the hedge, the
+  correction, the definition's own edge, the evidence), the batch workflow, and the log. **Where a card
+  really has no reason in it, leave it out and say so**: a manufactured question is worse than an absent
+  section, which is why the self-explanation fallback was removed in the first place. Not part of the site.
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
