@@ -8952,6 +8952,347 @@
     "correos"
    ],
    "rebold": true
+  },
+  "delea1/el teatro": {
+   "why": "theater, drama - and not la obra de teatro, the play, which is what two of its own three examples are about.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "theatre, the building",
+      "theatre, drama as an art"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la obra de teatro — a play",
+      "el teatro de ópera — opera house"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los teatros"
+    ],
+    [
+     "the actor",
+     "el actor, la actriz"
+    ]
+   ],
+   "bold": [
+    "teatro",
+    "teatros"
+   ],
+   "rebold": true
+  },
+  "delea1/cien": {
+   "why": "The mirror of el millón, which the deck has just been told takes de: cien takes the noun directly - cien personas - and becomes ciento the moment anything follows it, ciento uno. Neither was on the card, and its own first example is por ciento, a third form again.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "a hundred, one hundred"
+     ]
+    ],
+    [
+     "note",
+     [
+      "cien before a noun: cien personas, cien euros — and no de",
+      "ciento when a number follows: ciento uno, doscientos",
+      "por ciento — per cent"
+     ]
+    ]
+   ],
+   "bold": [
+    "cien"
+   ],
+   "rebold": true
+  },
+  "delea1/normalmente": {
+   "why": "normally, usually, most of the time, customarily - four ways of saying one thing, of which the last belongs to a register no A1 reader writes in.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "usually, normally"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "por lo general — the commoner way of saying the same thing"
+     ]
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/cerrado, cerrada": {
+   "why": "Its third gloss described itself in a parenthesis - closed off (personality trait) - where the sense can simply be written out, and the sign a reader reads on a shut shop was not on the card.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "shut, closed",
+      "reserved, not open with people"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cerrado por vacaciones — closed for the holidays"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "cerrados, cerradas"
+    ],
+    [
+     "the verb",
+     "cerrar"
+    ],
+    [
+     "the opposite",
+     "abierto, abierta"
+    ]
+   ],
+   "bold": [
+    "cerrado",
+    "cerrada",
+    "cerrados",
+    "cerradas"
+   ],
+   "rebold": true
+  },
+  "delea1/descansar": {
+   "why": "Its two glosses are the same word twice - to rest, to rest (put into a state of rest) - and its second example is el descanso, the noun, which the card did not list, so one of three sentences taught a word that was not on it.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to rest, to have a rest"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el descanso — a rest, a break; half-time",
+      "tomarse un descanso — to take a break"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "el descanso"
+    ]
+   ],
+   "dropEx": [
+    "Vamos a tomar un descanso de diez minutos."
+   ],
+   "ex": [
+    [
+     "Los domingos descanso todo el día.",
+     "On Sundays I rest all day."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la carretera": {
+   "why": "road, highway - and no way to tell which Spanish word a reader is looking at on a sign: la autopista is the motorway, la calle the street in town, and carretera the road between them.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "road, the open road between towns"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "por carretera — by road",
+      "la carretera nacional — main road, A-road"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las carreteras"
+    ],
+    [
+     "motorway",
+     "la autopista"
+    ],
+    [
+     "street in a town",
+     "la calle"
+    ]
+   ],
+   "bold": [
+    "carretera",
+    "carreteras"
+   ],
+   "rebold": true
+  },
+  "delea1/el desayuno": {
+   "why": "The noun alone, with no verb - desayunar, which is one word in Spanish where English needs three - and nothing about what a Spanish breakfast is, which is the sort of thing this deck exists to say.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "breakfast"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "desayunar — to have breakfast (one word, no auxiliary)",
+      "el desayuno continental — continental breakfast"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los desayunos"
+    ],
+    [
+     "the verb",
+     "desayunar"
+    ],
+    [
+     "the other meals",
+     "la comida, la cena"
+    ]
+   ],
+   "bold": [
+    "desayuno",
+    "desayunos"
+   ],
+   "rebold": true
+  },
+  "delea1/el periódico": {
+   "why": "Its third example is not this word at all: la tabla PERIÓDICA is the adjective periodic, matched because the letters are the same, so a card about newspapers taught the periodic table. El diario, the commoner word in much of Latin America, was also missing.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "newspaper"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el diario — newspaper (commoner in Latin America)",
+      "la prensa — the press"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los periódicos"
+    ],
+    [
+     "the journalist",
+     "el periodista, la periodista"
+    ]
+   ],
+   "bold": [
+    "periódico",
+    "periódicos"
+   ],
+   "dropEx": [
+    "Él memorizó la tabla periódica sólo por diversión."
+   ],
+   "ex": [
+    [
+     "Compro el periódico todas las mañanas.",
+     "I buy the newspaper every morning."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/limpiar": {
+   "why": "TWO of its three examples are the ADJECTIVE limpio, clean, which the card does not list - Tom's room isn't very clean, bring me a clean knife - so only one of three sentences was about the verb at all.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to clean, to clean up",
+      "to wipe: limpiarse las manos"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the adjective",
+     "limpio, limpia — clean"
+    ],
+    [
+     "the noun",
+     "la limpieza"
+    ]
+   ],
+   "dropEx": [
+    "La habitación de Tom no está muy limpia.",
+    "¿Me podrías traer un cuchillo limpio, por favor?"
+   ],
+   "ex": [
+    [
+     "Limpio la casa los sábados.",
+     "I clean the house on Saturdays."
+    ],
+    [
+     "¿Quién ha limpiado la cocina?",
+     "Who has cleaned the kitchen?"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/guapo, guapa": {
+   "why": "Its third example - that is only for handsome men - reads oddly on a vocabulary card and teaches nothing the first two do not. What the card was missing is that in Spain guapo is said to and of both sexes, and is used as a friendly form of address.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "good-looking, handsome, pretty — said of both men and women"
+     ]
+    ],
+    [
+     "note",
+     [
+      "in Spain guapo, guapa is also a friendly way to address someone: hola, guapa",
+      "estar guapo is looking good today; ser guapo is being good-looking"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "guapos, guapas"
+    ]
+   ],
+   "bold": [
+    "guapo",
+    "guapa",
+    "guapos",
+    "guapas"
+   ],
+   "dropEx": [
+    "Eso, sin embargo, es sólo para hombres guapos."
+   ],
+   "ex": [
+    [
+     "¡Qué guapa estás hoy!",
+     "You look lovely today!"
+    ]
+   ],
+   "rebold": true
   }
  },
  "insert": {
