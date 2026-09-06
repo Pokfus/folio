@@ -432,8 +432,8 @@ matters.
     us-039  Estimating the pre-contact population of North America
     us-040  How pre-contact America is known
 
-**Ten decisions made while writing `us-001`–`us-050` (Sep 2026), recorded here because the lines
-above no longer describe them exactly.**
+**Thirteen decisions made while writing `us-001`–`us-060` (Sep 2026), recorded here because the
+lines above no longer describe them exactly.**
 
 **`us-010` was renamed** from *The domestication of maize* to *Maize and its spread into North
 America*. The domestication itself is already carded at exactly that altitude in World History
@@ -508,6 +508,29 @@ this sandbox; and **`hal.inrae.fr` is behind the same Anubis bot wall as `hal.sc
 Taylor 2023 horse paper, which four of these cards rest on, is served openly instead by a Utah State
 University extension site.
 
+**`us-052` was renamed** from *Native nations and European rivalry* to *The Great Peace of
+Montreal*. The old line named a condition rather than a subject, and the condition is already the
+substance of `us-051` and `us-054`; the 1701 treaty is the event those two are on either side of,
+and it is the only place in the deck where thirty-nine nations state their own terms in a document
+that survives. The answer term is `Great Peace of Montreal`.
+
+**A `biographi.ca` 200 IS NOT A BIOGRAPHY — the Dictionary of Canadian Biography serves "Biography
+not found" with a 200 status**, which makes it the sixth variety of 200-status error document this
+project has recorded (after `senate.gov`'s 404 page, `state.gov`'s "Technical Difficulties", the
+CloudFront "Request blocked", the "Client Challenge" and `history.house.gov`'s slug form). Two
+composed slugs — `tekakwitha_kateri_1E` and a Vargas one — both answered 200 and both were empty;
+the real slug is `tekakwitha_1E`. **Grep the body for the subject's name before citing it.** The DCB
+is otherwise the best source in this batch: its articles are signed, and each carries its own "Cite
+This Article" block, which is what the Kondiaronk citation was corrected from — it was drafted as
+Bruce G. Trigger and is **William N. Fenton**, exactly the fabricated-author shape N4 records.
+
+**`us-056`'s picture is a devotional painting rather than a portrait, and its caption says so.**
+The Commons file is named for Claude Chauchetière, who painted Kateri Tekakwitha in the 1690s, and
+the file's own artist field gives **Joseph Légaré (1795–1855)** — a Quebec painter working more than
+a century later. The picture is a fair illustration of the veneration the card is partly about, and
+the caption names the painter and the gap rather than letting the file name assert a likeness taken
+from life. **Read a Commons file's artist field against its name**; here the two disagree outright.
+
 
 ### Contact, disease and the colonial encounter — `us-native-contact`
 
@@ -522,7 +545,7 @@ University extension site.
     us-049  The Plains horse cultures
     us-050  The North American fur trade
     us-051  The Beaver Wars
-    us-052  Native nations and European rivalry
+    us-052  The Great Peace of Montreal
     us-053  Wampum
     us-054  The Covenant Chain
     us-055  Praying towns
