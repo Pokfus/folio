@@ -10418,6 +10418,367 @@
     "sopas"
    ],
    "rebold": true
+  },
+  "delea1/la revista": {
+   "why": "Its second example is a different word: revistas there is the verb revistar, to inspect troops, matched on the letters - and the sentence is odd Spanish besides, since reviewing a matter is revisar. Revue, the second gloss, is a theatre term nobody at this level needs.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "magazine"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la revista del corazón — celebrity magazine",
+      "pasar revista — to review, to inspect"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las revistas"
+    ],
+    [
+     "a newspaper",
+     "el periódico"
+    ]
+   ],
+   "bold": [
+    "revista",
+    "revistas"
+   ],
+   "dropEx": [
+    "¿Por qué no revistas el asunto tú mismo?"
+   ],
+   "ex": [
+    [
+     "Compro una revista de moda cada mes.",
+     "I buy a fashion magazine every month."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/firmar": {
+   "why": "Its second example is the adjective firme, firm - he has a firm purpose in life - matched on the letters and having nothing to do with signing. La firma, the signature the verb produces and also the word for a firm, was not on the card either.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to sign"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la firma — signature; also a firm, a company",
+      "firmar un contrato — to sign a contract"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the noun",
+     "la firma"
+    ]
+   ],
+   "dropEx": [
+    "Él tiene un firme propósito en la vida."
+   ],
+   "ex": [
+    [
+     "Firme aquí, por favor.",
+     "Sign here, please."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la biblioteca": {
+   "why": "library, bookcase - and no warning about the false friend that catches every English speaker in their first week: la librería is the BOOKSHOP, not the library, and a bookcase is la estantería.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "library"
+     ]
+    ],
+    [
+     "note",
+     [
+      "la librería is a bookshop, not a library",
+      "a bookcase is la estantería"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las bibliotecas"
+    ],
+    [
+     "bookshop",
+     "la librería"
+    ],
+    [
+     "the librarian",
+     "el bibliotecario, la bibliotecaria"
+    ]
+   ],
+   "bold": [
+    "biblioteca",
+    "bibliotecas"
+   ],
+   "rebold": true
+  },
+  "delea1/el martes": {
+   "why": "Its second example is not a sentence but a list of all seven days, which teaches nothing about this one - and it starts the week on Sunday while its third example says Tuesday is the second day, so the card contradicts itself.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "Tuesday"
+     ]
+    ],
+    [
+     "note",
+     [
+      "el martes — on Tuesday; los martes — on Tuesdays; Spanish uses no word for on",
+      "the Spanish week starts on Monday, so Tuesday is the second day",
+      "martes y trece is the Spanish unlucky day, not Friday the thirteenth"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los martes (unchanged)"
+    ],
+    [
+     "the working week",
+     "de lunes a viernes"
+    ]
+   ],
+   "bold": [
+    "martes",
+    "Martes"
+   ],
+   "dropEx": [
+    "Domingo, lunes, martes, miércoles, jueves, viernes y sábado."
+   ],
+   "ex": [
+    [
+     "El martes tengo clase de inglés.",
+     "On Tuesday I have an English class."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la identidad": {
+   "why": "The abstract noun on its own, without el carné de identidad - the card every resident of Spain carries and is asked for, and the first place a reader will ever see this word.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "identity"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el carné de identidad, el DNI — identity card",
+      "el documento de identidad — proof of identity"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las identidades"
+    ]
+   ],
+   "bold": [
+    "identidad",
+    "identidades"
+   ],
+   "rebold": true
+  },
+  "delea1/el sofá": {
+   "why": "Its first example is a dog urinating on the furniture, which is not a sentence worth one of three slots, and the card said nothing about the word itself: it ends in a stressed -á, keeps the accent in the plural sofás, and is masculine.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "sofa, couch"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el sofá cama — sofa bed"
+     ]
+    ],
+    [
+     "note",
+     [
+      "masculine, and the plural is sofás, with the accent kept"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los sofás"
+    ],
+    [
+     "armchair",
+     "el sillón"
+    ]
+   ],
+   "bold": [
+    "sofá",
+    "sofás"
+   ],
+   "dropEx": [
+    "El perro está haciendo pis en el sofá."
+   ],
+   "ex": [
+    [
+     "Nos sentamos en el sofá a ver la tele.",
+     "We sat on the sofa to watch television."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/la ducha": {
+   "why": "Both senses were written as definitions of themselves, and the verb was missing: ducharse is one word where English needs three, and it is what a reader says every morning.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "shower — the fitting, and the act"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ducharse — to have a shower",
+      "darse una ducha — to take a shower"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las duchas"
+    ],
+    [
+     "the verb",
+     "ducharse"
+    ],
+    [
+     "the bath",
+     "el baño, la bañera"
+    ]
+   ],
+   "bold": [
+    "ducha",
+    "duchas"
+   ],
+   "rebold": true
+  },
+  "delea1/doce": {
+   "why": "Twelve, and not las doce - which is what its own first example is, and the way a Spanish speaker says midday and midnight - nor la docena, the dozen a reader buys eggs by.",
+   "senses": [
+    [
+     "numeral",
+     [
+      "twelve"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "las doce — twelve o clock, midday or midnight",
+      "la docena — a dozen",
+      "las doce del mediodía, las doce de la noche"
+     ]
+    ]
+   ],
+   "bold": [
+    "doce"
+   ],
+   "rebold": true
+  },
+  "delea1/el actor, la actriz": {
+   "why": "Its gloss carried a definition in brackets - person who performs in a theatrical play or movie - and said nothing about the form that makes this card worth having: la actriz is irregular, and its plural is actrices, with the z turning into c.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "actor; actress"
+     ]
+    ],
+    [
+     "note",
+     [
+      "the feminine is irregular: la actriz, not la actora",
+      "the plural of actriz is actrices — z becomes c before -es"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los actores, las actrices"
+    ],
+    [
+     "to act",
+     "actuar"
+    ]
+   ],
+   "bold": [
+    "actor",
+    "actriz",
+    "actores",
+    "actrices"
+   ],
+   "rebold": true
+  },
+  "delea1/el concierto": {
+   "why": "concert, concerto - both right - and neither of the two things a reader does with the word: buy a ticket for one and go to it.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "concert",
+      "concerto (a piece of music)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ir a un concierto — to go to a concert",
+      "dar un concierto — to give a concert"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los conciertos"
+    ],
+    [
+     "the ticket",
+     "la entrada"
+    ]
+   ],
+   "bold": [
+    "concierto",
+    "conciertos"
+   ],
+   "rebold": true
   }
  },
  "insert": {
