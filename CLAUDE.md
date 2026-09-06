@@ -996,12 +996,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   has **no page for North Korea** because the United States has never recognised it, and the loss that
   matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Almost none of its
   thousand topics matched an existing glossary key**, so expect the glossary to grow faster here than
-  anywhere since Greece — `ko-001`–`ko-010` alone added nine terms. **The plan's claim that NOT ONE
+  anywhere since Greece — `ko-001`–`ko-020` alone added eighteen terms. **The plan's claim that NOT ONE
   matched was wrong by one, and the exception is the useful half**: `Seoul` was already a cited term, so
   `ko-010` reuses it — **the pairing rule is satisfied by a term that already exists, and
   `add-glossary.js` overwrites in silence, so CHECK before running it.** The next card to write is the
   lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the
-  lookup. **`ko-001` to `ko-010` have shipped** (Sep 2026) — the whole of `ko-land`'s opening — so the
+  lookup. **`ko-001` to `ko-020` have shipped** (Sep 2026) — the whole of `ko-land` — so the
   collection is live and its 42 empty decks are coming-soon automatically, `isComingSoon` being true for
   a node holding no card. **Its first ten are geography rather than events, and that shaped the
   sourcing**: what carried them was UNdata and the World Bank for figures, the Office of the Historian
@@ -1012,8 +1012,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   from the University of Chicago Press**, both of which reach subjects no statistical profile does. Two
   hosts to save the next session: `www.kma.go.kr` refuses the connection but its English climate page is
   on `web.archive.org` and is the national figures in one screen, and `www.mdpi.com`, `koreascience.kr`,
-  `accesson.kr` and every Korean government host outside `pubs.usgs.gov`'s reach are shut. Not part of
-  the site.
+  `accesson.kr` and every Korean government host outside `pubs.usgs.gov`'s reach are shut.
+  **`ko-011`–`ko-020` leave geography behind half way and meet the walls that go with argument.**
+  `science.org` and `www.mdpi.com` are 403, so *Science Advances*, *Animals*, *Plants* and *Entropy* are
+  cited at their **PMC copies** — **a DOI that 403s is usually open one host over**, resolved with
+  `search?query=DOI:"…"&resultType=core` at Europe PMC — and `brill.com` refuses its own DOI while
+  serving the article at `brill.com/view/journals/…/article-p1_1.xml`. The *IJKH* is now the
+  collection's spine and is searched through **`api.crossref.org/journals/1598-2041/works`** rather than
+  by hand. Two content decisions in that batch are recorded in the plan and are the kind to re-read
+  rather than re-make: **`ko-012` could not be written as planned and was replaced** (the naming
+  question's three answer terms are taken by later cards and the *Hanguk*/*Chosŏn* split is in nothing
+  openable), and **a disputed island is keyed under the neutral name** — `Liancourt_Rocks`, reached by
+  `Dokdo` and `Takeshima` — because the glossary is shared with the Japan collection, while the rivers
+  keep Folio's own `Amnok_River` with `Yalu` an alias. Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -5344,7 +5355,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
-| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 10 cards, contiguous — next is `ko-011` |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 20 cards, contiguous — next is `ko-021` |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |

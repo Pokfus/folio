@@ -403,6 +403,59 @@ reorganisation of counties and prefectures, the 1424–25 survey of all 334 dist
 monograph. **Write the card round what the sources bear**; a date nobody can check is the one thing the
 apparatus exists to prevent.
 
+## What the second ten found (Sep 2026)
+
+`ko-011`–`ko-020` finish `ko-land`, and they leave the geography behind half way through: the last six
+are population, language, frontier and periodisation, which are argued about rather than measured. Five
+findings.
+
+**A plan line can name a topic that cannot be written, and the honest answer is to replace it.**
+`ko-012` was *The origins of the name Korea*, and it cannot be carded here: the three natural answer
+terms are already taken by cards further on (`ko-291` Goryeo, `ko-401` Joseon, `ko-634` the Korean
+Empire), and the modern split between *Hanguk* in the South and *Chosŏn* in the North is in nothing
+openable from this sandbox — `iias.asia` is behind Cloudflare and a full-text search of Europe PMC
+returns bibliography and no prose. It was replaced by **the Han River**, which no line anywhere in the
+thousand covered and which is the largest basin in the country. **The naming question belongs on
+`ko-291`**, where Goryeo is the subject and the word's route into European languages is part of it.
+
+**Three of Phase 3's habits do not transfer, and the replacements are the useful part.** `science.org`
+is 403, so *Science Advances* is read at its **PMC copy**; `www.mdpi.com` is 403, so *Animals*,
+*Plants* and *Entropy* are read the same way; and `link.springer.com` and `nature.com` behave
+differently from each other, `nature.com` answering in full. **A DOI that 403s is usually open one host
+over** — resolve the PMCID with `search?query=DOI:"…"&resultType=core` at Europe PMC and cite that.
+`brill.com` refuses its own DOI and serves the article at `brill.com/view/journals/…/article-p1_1.xml`.
+
+**The *IJKH* back run is now the collection's spine and it is worth searching by Crossref rather than by
+hand.** `api.crossref.org/journals/1598-2041/works` lists the whole journal with titles and DOIs, which
+is how the Koryŏ–Khitan article behind `ko-016` and the Marxist-historiography article behind `ko-020`
+were found; the PDF then sits at `ijkh.khistory.org/upload/pdf/ijkh-<vol>-<iss>-<page>.pdf`.
+
+**A disputed island is keyed under the neutral name and reached by both partisan ones.** The card
+answers **Dokdo**, which is what a reader of a Korea collection will meet; the glossary term is
+`Liancourt_Rocks` with `Dokdo` and `Takeshima` as aliases, because the glossary is shared with the Japan
+collection and a term is deck-agnostic by rule. The same reasoning does NOT apply to the rivers: the
+card and the term both head **Amnok River**, with `Yalu` an alias, since that is Folio's own name for it
+and the plan's own line says so.
+
+**And `Periodization` is the first term this collection has added that is not about Korea.** The card is
+about Korean periodisation and the term had to be written about periodisation, which is what a shared
+glossary means; it takes the geological time spiral for its picture and says nothing about Goryeo. Expect
+more of these: `Chronology`-shaped concepts arrive through a national collection and belong to nobody.
+
+**Nine more terms shipped with them** — `Koreans`, `Han_River_(Korea)`, `West_Liao_River`,
+`Koreanic_languages`, `Goryeo_long_wall`, `Amnok_River`, `Jeju_Island`, `Liancourt_Rocks` and
+`Periodization` — with `Pyongyang` reused, which the batch-1 finding about checking first had already
+taught. **`Han_River_(Korea)` carries the parenthetical deliberately**: a parenthetical key claims no
+bare name (`bareTaken` in `buildGlossIndex`), so it cannot capture the Chinese Han River or the Han
+dynasty, and it is reached by `Hangang` and by hand-written links.
+
+**One card ships without a picture and the reason is stated rather than hidden.** `ko-013` *Koreans* has
+no illustration: what Commons offers for a people is a shop rack of hanbok, a Seoul shopping alley or a
+politically specific crowd, and none of the three depicts the Koreans of both states without privileging
+one costume, one city or one moment. A population pyramid exists for each state separately and for
+neither together. **Ship without one and say so**, rather than installing a picture that makes a claim
+the card does not.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -461,11 +514,11 @@ where its findings go.
     ko-009  The Eight Provinces and the regions of Korea
     ko-010  Seoul and its setting
     ko-011  Pyongyang and its setting
-    ko-012  The origins of the name Korea
+    ko-012  The Han River and Korea's largest basin
     ko-013  The Korean people
-    ko-014  The origins of the Korean population
-    ko-015  The Korean language and its relatives
-    ko-016  Korea's historical borders
+    ko-014  The origins of the Korean population, and the West Liao River
+    ko-015  Koreanic, the Korean language and its relatives
+    ko-016  Korea's historical borders, and the Goryeo long wall
     ko-017  The Amnok and Duman rivers
     ko-018  Jeju Island
     ko-019  Dokdo and the islands question
