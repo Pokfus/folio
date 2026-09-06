@@ -134,6 +134,22 @@ function staticChecks() {
   const cards = dwin.CARD_DATA || [];
   const maps = cards.filter((c) => c.map);
   ok(maps.length > 0, "data.js carries map cards", maps.length);
+  /* WHERE THE POINTS TABLE DISAMBIGUATES A NAME THE CARD DELIBERATELY DOES NOT (Sep 2026).
+     `world-capitals.js` is generated from Natural Earth, which labels a capital that shares its country's
+     name with a disambiguator — Djibouti City, Luxembourg City, City of San Marino — while the card
+     teaches the city's own name, which is Djibouti, Luxembourg and San Marino. The three are a DECISION
+     rather than a slip: `docs/world-geography-card-plan.md` records each of them where it was made, in
+     the same words ("`add-card.js` warns again and the warning is again correct to ignore"), and pairs
+     each with a `..._(city)` glossary key so the country keeps the bare one.
+     DECLARED, in the shape `CROSSREF_WRONG` and `ARTICLE_IS_NAME` use: a row matches only when the card
+     id, the ANSWER and the DOT all agree, so it can never quietly excuse a different fault on the same
+     card — a card that started pointing at the wrong city would still fail here. Add a row only after
+     reading what the plan says about that card. */
+  const DOT_NAMED_TWICE = {
+    "gw-661": "Djibouti / Djibouti City",
+    "gw-668": "Luxembourg / Luxembourg City",
+    "gw-716": "San Marino / City of San Marino",
+  };
   maps.forEach((c) => {
     const L = LAYERS[c.map.layer];
     ok(!!L, c.id + ": names a known layer", c.map.layer);
@@ -155,7 +171,8 @@ function staticChecks() {
       const P = L.points[c.map.dot];
       ok(!!P, c.id + ": its dot is a capital the layer actually has", c.map.dot);
       ok(P && mkeys.indexOf(P.s) >= 0, c.id + ": …in the " + L.what + " the card shades", P && P.s);
-      ok((c.answerText || "").trim() === c.map.dot, c.id + ": …and the answer is that city", c.answerText);
+      const dot = (c.answerText || "").trim() === c.map.dot || DOT_NAMED_TWICE[c.id] === (c.answerText || "").trim() + " / " + c.map.dot;
+      ok(dot, c.id + ": …and the answer is that city", c.answerText);
     }
   });
   const dotted = maps.filter((c) => c.map.dot);

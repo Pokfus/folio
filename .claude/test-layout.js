@@ -50,12 +50,21 @@ function serve() {
   });
 }
 
-// the Atlas's first-visit coach marks cover the whole globe; every Atlas section here needs them gone
+/* The Atlas's first-visit coach marks cover the whole globe; every Atlas section here needs them gone —
+   BOTH cards, since the two tabs remember theirs separately (a reader who dismissed the world atlas's has
+   never been told what the personal one is).
+   AND IT SWITCHES TO THE WORLD ATLAS, because that is the tab these sections are about. Since Sep 2026
+   the page opens on the reader's OWN atlas, which deliberately carries no legend and no search — its
+   layers are the earth's, and the search index is the world atlas's — so every check below ran against
+   two hidden elements and reported the phone's chips as never rendering. That is the shape to watch for
+   here: a default that moves turns a whole section into an assertion about the wrong page. */
 async function atlas(page, base, ms) {
   await page.goto(base, { waitUntil: "load" });
-  await page.evaluate(() => localStorage.setItem("folio_atlas_tour_v1", "1"));
+  await page.evaluate(() => { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); });
   await page.goto(base + "#map", { waitUntil: "load" });
   await page.waitForTimeout(ms || 4500);
+  const w = await page.$('[data-atlastab="world"]');
+  if (w) { await w.click(); await page.waitForTimeout(2200); }
 }
 /* Put a collection in the daily review, the way a reader does. The first-run hero routes to the
    COLLECTIONS now (Aug 2026, on request) rather than picking a subject on the reader's behalf, so nothing
