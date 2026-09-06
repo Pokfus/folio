@@ -1976,7 +1976,7 @@
       ]
     },
     "delea1/volver": {
-      "why": "A SWEEP FOR GLOSSES CARRIED STRAIGHT OUT OF WIKTIONARY. Measured over the whole deck: nineteen glosses are a grammatical description, an antiquarian sense or a run of synonyms rather than an English equivalent a reader can use. They are fixed together, because the fault is one fault - the extractor takes a dictionary entry's whole sense list, and a dictionary is written for someone who already knows the word. Five ways of saying 'to come back'. volver a + infinitive, which is how Spanish says 'to do something again', was missing and has no other home in the deck.",
+      "why": "FOUND BY A PROBE FOR A BOLDED WORD THAT IS NOT A FORM OF ITS HEADWORD. examples.py matches a sentence on any inflected form, and the match is not always a word: nine sentences across the deck illustrate a word that merely SHARES LETTERS with the card's, or a related noun that is not a form of the verb at all. Every one renders perfectly - a real sentence, a real translation, a bolded word - and teaches something else. Its third example is 'da la vuelta a la página', which is the noun la vuelta rather than a form of the verb.",
       "senses": [
         [
           "verb",
@@ -1990,7 +1990,17 @@
             "volver a + infinitive — to do something again (vuelvo a leerlo)"
           ]
         ]
-      ]
+      ],
+      "dropEx": [
+        "Por favor da la vuelta a la página."
+      ],
+      "ex": [
+        [
+          "Vuelvo a casa a las seis.",
+          "I come home at six."
+        ]
+      ],
+      "rebold": true
     },
     "delea1/entrar": {
       "why": "A SWEEP FOR GLOSSES CARRIED STRAIGHT OUT OF WIKTIONARY. Measured over the whole deck: nineteen glosses are a grammatical description, an antiquarian sense or a run of synonyms rather than an English equivalent a reader can use. They are fixed together, because the fault is one fault - the extractor takes a dictionary entry's whole sense list, and a dictionary is written for someone who already knows the word. Five ways of saying 'to go in'. Note that Spanish says entrar EN (or entrar a in Latin America), never entrar without a preposition.",
@@ -3475,6 +3485,367 @@
           [
             "salir con — to go out with, to date"
           ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el hermano, la hermana": {
+      "why": "'brother' and 'sibling', so SISTER was missing from a card that is a pair - the third such card in the deck after el hijo, la hija and el chico, la chica. Its second example is 'La niña tomó la mano de su madre', which bolds mano, the hand: a word that is not a form of hermano and has nothing to do with it, matched because it sits inside the letters of the headword.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "hermano — brother",
+            "hermana — sister"
+          ]
+        ],
+        [
+          "noun, masculine plural",
+          [
+            "los hermanos — siblings, brothers and sisters"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "La niña tomó la mano de su madre."
+      ],
+      "ex": [
+        [
+          "Tengo dos hermanos y una hermana.",
+          "I have two brothers and a sister."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el lado": {
+      "why": "'side' and 'face', the second being the geometer's sense. al lado de, which is how Spanish says 'next to', has no other home in the deck. Its first and third examples are also the same sentence twice - somebody did not see somebody por ningún lado - so one makes room.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "side"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "al lado de — next to, beside",
+            "por todos lados — everywhere",
+            "por ningún lado — anywhere (with a negative)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Tom no vio a Mary por ningún lado."
+      ],
+      "ex": [
+        [
+          "El banco está al lado del hotel.",
+          "The bank is next to the hotel."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el chico, la chica": {
+      "why": "'boy, kid, guy, lad' - four words for the masculine and none at all for the feminine, on a card that is a pair. Third time in this deck, after el hijo, la hija and el hermano, la hermana.",
+      "senses": [
+        [
+          "noun, masculine and feminine",
+          [
+            "chico — boy, young man",
+            "chica — girl, young woman"
+          ]
+        ],
+        [
+          "noun, masculine plural",
+          [
+            "los chicos — the kids, the children (of either sex)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/quizá": {
+      "why": "Right, and silent on the variant: quizás is as common as quizá and is the form half the corpus uses. tal vez, which means the same and now sits on the vez card, is worth naming beside it.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "perhaps, maybe"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "also spelt",
+          "quizás"
+        ],
+        [
+          "same meaning",
+          "tal vez"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/durante": {
+      "why": "'during, in, over, for (as a duration)' is four prepositions where two will do, and the parenthesis on the last is doing the work the example should.",
+      "senses": [
+        [
+          "preposition",
+          [
+            "during",
+            "for (a length of time: durante dos horas)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/rápido, rápida": {
+      "why": "Three synonyms for one adjective, and no mention that rápido is also the adverb - habla muy rápido - which is how it is most often heard.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "fast, quick"
+          ]
+        ],
+        [
+          "adverb",
+          [
+            "fast, quickly (habla muy rápido)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/cuál": {
+      "why": "Filed as a DETERMINER, and all three of its examples are the pronoun (¿cuál es…?). Careful Spanish does not say ¿cuál libro? - the determiner is qué - so the card's part of speech and its examples disagreed, which is the fourth time in this review after hasta, mañana and demasiado. The plural cuáles, which its own second example bolds, was in no Forms row.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "which one, which",
+            "what (¿cuál es tu nombre? — what is your name?)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "cuáles"
+        ],
+        [
+          "before a noun, use",
+          "qué"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la historia": {
+      "why": "Two disambiguated glosses both meaning history, and STORY - which is what TWO of the card's three examples are (muchas historias para contar, la historia completa) - was not there at all.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "history",
+            "story, tale"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/casi": {
+      "why": "'almost' alone; casi nada and casi nunca, which is what the card's third example is, needed a line.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "almost, nearly",
+            "hardly any, hardly ever (casi nada, casi nunca)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la puerta": {
+      "why": "Two dictionary definitions - 'door (portal of entry into a building)' and 'gate (doorlike structure outside a house)'. Its third example, 'Todo niño se porta mal de vez en cuando', bolds porta, from portarse, to behave: a different verb matched because its letters sit inside the headword's, the same fault as mano inside hermano.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "door",
+            "gate",
+            "gate (at an airport)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Todo niño se porta mal de vez en cuando."
+      ],
+      "ex": [
+        [
+          "La puerta está abierta.",
+          "The door is open."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/mil": {
+      "why": "FOUND BY A PROBE FOR A BOLDED WORD THAT IS NOT A FORM OF ITS HEADWORD. examples.py matches a sentence on any inflected form, and the match is not always a word: nine sentences across the deck illustrate a word that merely SHARES LETTERS with the card's, or a related noun that is not a form of the verb at all. Every one renders perfectly - a real sentence, a real translation, a bolded word - and teaches something else. This card's second example is 'Miles Davis fue un músico de jazz americano', with the musician's FORENAME bolded as a form of the numeral.",
+      "senses": [
+        [
+          "numeral",
+          [
+            "a thousand, one thousand"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Miles Davis fue un músico de jazz americano."
+      ],
+      "ex": [
+        [
+          "El coche cuesta mil euros.",
+          "The car costs a thousand euros."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el pie": {
+      "why": "FOUND BY A PROBE FOR A BOLDED WORD THAT IS NOT A FORM OF ITS HEADWORD. examples.py matches a sentence on any inflected form, and the match is not always a word: nine sentences across the deck illustrate a word that merely SHARES LETTERS with the card's, or a related noun that is not a form of the verb at all. Every one renders perfectly - a real sentence, a real translation, a bolded word - and teaches something else. Its third example is '¿Alguna vez has comido un pay de plátano?' - pay being the Mexican spelling of the English word PIE, bolded on a card about the foot. 'English or American foot' is also the unit of length rather than the body part and does not lead.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "foot"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "a pie — on foot",
+            "de pie — standing up"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "¿Alguna vez has comido un pay de plátano?"
+      ],
+      "ex": [
+        [
+          "Me duele el pie derecho.",
+          "My right foot hurts."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/comer": {
+      "why": "FOUND BY A PROBE FOR A BOLDED WORD THAT IS NOT A FORM OF ITS HEADWORD. examples.py matches a sentence on any inflected form, and the match is not always a word: nine sentences across the deck illustrate a word that merely SHARES LETTERS with the card's, or a related noun that is not a form of the verb at all. Every one renders perfectly - a real sentence, a real translation, a bolded word - and teaches something else. Its second example is 'No hay nada tan importante como el tiempo', where como is the CONJUNCTION 'as' - a sentence with nothing to do with eating, on the card for to eat.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to eat",
+            "to have lunch (in Spain)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "No hay nada tan importante como el tiempo."
+      ],
+      "ex": [
+        [
+          "Comemos a las dos.",
+          "We eat at two."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/nevar": {
+      "why": "FOUND BY A PROBE FOR A BOLDED WORD THAT IS NOT A FORM OF ITS HEADWORD. examples.py matches a sentence on any inflected form, and the match is not always a word: nine sentences across the deck illustrate a word that merely SHARES LETTERS with the card's, or a related noun that is not a form of the verb at all. Every one renders perfectly - a real sentence, a real translation, a bolded word - and teaches something else. TWO of this card's three examples are wrong: one bolds Nevada, the American state, as a form of the verb, and the other bolds la nieve, the noun, under a translation that says 'Everybody likes ice cream' — a mistranslation as well as the wrong word. The verb is also impersonal, so the conjugation table's nievo and nievas are forms nobody uses.",
+      "senses": [
+        [
+          "verb, impersonal",
+          [
+            "to snow (nieva — it snows, está nevando — it is snowing)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "impersonal: only the third person",
+          "nieva, nevaba, nevó"
+        ]
+      ],
+      "dropEx": [
+        "A todo el mundo le gusta la nieve.",
+        "Los juegos de azar son legales en Nevada."
+      ],
+      "ex": [
+        [
+          "En invierno nieva mucho aquí.",
+          "It snows a lot here in winter."
+        ],
+        [
+          "Está nevando.",
+          "It's snowing."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/merendar": {
+      "why": "FOUND BY A PROBE FOR A BOLDED WORD THAT IS NOT A FORM OF ITS HEADWORD. examples.py matches a sentence on any inflected form, and the match is not always a word: nine sentences across the deck illustrate a word that merely SHARES LETTERS with the card's, or a related noun that is not a form of the verb at all. Every one renders perfectly - a real sentence, a real translation, a bolded word - and teaches something else. Its first example is 'Vamos a hacer una pausa para la merienda', which is the NOUN la merienda and contains no form of the verb.",
+      "dropEx": [
+        "Vamos a hacer una pausa para la merienda."
+      ],
+      "ex": [
+        [
+          "Merendamos a las cinco.",
+          "We have a snack at five."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la ama": {
+      "why": "FOUND BY A PROBE FOR A BOLDED WORD THAT IS NOT A FORM OF ITS HEADWORD. examples.py matches a sentence on any inflected form, and the match is not always a word: nine sentences across the deck illustrate a word that merely SHARES LETTERS with the card's, or a related noun that is not a form of the verb at all. Every one renders perfectly - a real sentence, a real translation, a bolded word - and teaches something else. The whole card was wrong. The headword is a feminine noun beginning with a stressed a-, so it takes EL in the singular - el ama, like el agua - and the deck's own article card states that rule. And all three of its examples were the verb AMAR, to love: 'Tom ama el sentido del humor de Mary', 'si me amas', 'yo todavía la amo'. Nothing on the card was about the lady of the house it claimed to teach.",
+      "spanish": "el ama",
+      "word": "el ama",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "lady of the house, mistress",
+            "el ama de casa — housewife"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las amas"
+        ],
+        [
+          "takes el in the singular",
+          "el ama, like el agua"
+        ]
+      ],
+      "dropEx": [
+        "Tom ama el sentido del humor de Mary.",
+        "Si me amas, ama a mi perro también.",
+        "Ella se fue, pero yo todavía la amo."
+      ],
+      "ex": [
+        [
+          "El ama de casa prepara la comida.",
+          "The housewife prepares the meal."
+        ],
+        [
+          "Ella es el ama de la casa.",
+          "She is the lady of the house."
+        ],
+        [
+          "Las amas de casa trabajan mucho.",
+          "Housewives work hard."
         ]
       ],
       "rebold": true
