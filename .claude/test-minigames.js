@@ -303,6 +303,56 @@ function crosswordForPage(clueIds) {
     // one colour per tile: two games washing the same hue read as one game the reader has already played
     const cols = home.tiles.map((t) => t.colour.toLowerCase());
     check("[home] …and no two tiles share a colour", new Set(cols).size === cols.length, cols.join(","));
+    /* ---- A PLAYED TILE WEARS ITS STATE (Sep 2026, on request: design 8 of eight) ----
+       Every part of this fails SILENTLY. A tile whose accent has stopped switching is a perfectly good
+       tile in the game's own colour; a watermark that has stopped being drawn leaves a tile that looks
+       merely unplayed; and the mark that CARRIES THE STATE IN WORDS is now clipped to 1px, so losing it
+       altogether would take the fact off the page for a screen reader while changing nothing anyone can
+       see. All three are asserted on the computed style of the real tiles. */
+    {
+      const [c2, p2] = await fresh();
+      watch(p2, "[home]");
+      await p2.addInitScript(() => {
+        const d = new Date();
+        const t = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+        localStorage.setItem("folio_v1", JSON.stringify({ games: { chrono: { date: t, played: true, won: false }, truefalse: { date: t, played: true, won: true } } }));
+      });
+      await p2.goto(base, { waitUntil: "load" });
+      await p2.waitForTimeout(1400);
+      const st = await p2.evaluate(() => {
+        const read = (id) => {
+          const el = document.getElementById(id); if (!el) return null;
+          const cs = getComputedStyle(el), af = getComputedStyle(el.querySelector(".gt-face"), "::after");
+          const mark = el.querySelector(".gt-check, .gt-seal");
+          return {
+            accent: cs.getPropertyValue("--gt-accent").trim(),
+            tile: cs.getPropertyValue("--tile").trim(),
+            bar: cs.borderLeftColor,
+            tick: parseFloat(af.width) || 0,
+            named: mark ? (mark.getAttribute("aria-label") || "") : "",
+            markW: mark ? mark.getBoundingClientRect().width : -1,
+            glyph: getComputedStyle(el.querySelector(".gt-glyph")).display,
+          };
+        };
+        return { played: read("g-chrono"), perfect: read("g-truefalse"), idle: read("g-findit") };
+      });
+      const same = (a, b) => a && b && a.toLowerCase() === b.toLowerCase();
+      check("[home] an untouched tile keeps the game's own hue", same(st.idle.accent, st.idle.tile), JSON.stringify(st.idle));
+      check("[home] …a played one takes the state's instead", !!st.played.accent && !same(st.played.accent, st.played.tile), JSON.stringify({ a: st.played.accent, t: st.played.tile }));
+      check("[home] …a perfect one a different colour again", !same(st.perfect.accent, st.played.accent), st.played.accent + " / " + st.perfect.accent);
+      // the left bar is painted FROM that property — the half of the request that is not the wash
+      check("[home] …and the left bar is painted from it", st.played.bar !== st.idle.bar && st.perfect.bar !== st.played.bar,
+        [st.idle.bar, st.played.bar, st.perfect.bar].join(" / "));
+      check("[home] the watermark tick is drawn on both", st.played.tick > 30 && st.perfect.tick > 30, st.played.tick + " / " + st.perfect.tick);
+      check("[home] …and not on an untouched tile", st.idle.tick === 0, String(st.idle.tick));
+      check("[home] the corner ornament stands down for it", st.played.glyph === "none" && st.idle.glyph !== "none", st.played.glyph + " / " + st.idle.glyph);
+      /* CLIPPED, NOT REMOVED: the tick is decoration and says nothing to a screen reader, so the state
+         has to keep the one element that names it. */
+      check("[home] the state is still stated in words", /played/i.test(st.played.named) && /perfect/i.test(st.perfect.named),
+        st.played.named + " / " + st.perfect.named);
+      check("[home] …while taking no room on the tile", st.played.markW <= 2 && st.perfect.markW <= 2, st.played.markW + " / " + st.perfect.markW);
+      await c2.close();
+    }
     for (const g of NEW_GAMES) {
       await page.click("#" + g.id);
       await page.waitForTimeout(700);

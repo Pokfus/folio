@@ -4334,9 +4334,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     hand. The placard wears the game's own tile icon (`ICON`, at module scope so the tile and the placard
     cannot disagree). Each records `S.games[key] = { date, played, won }` through `markGamePlayed`, where
     **`won` is a PERFECT score, not a play**.
-  · **THE TILE EARNS ITS COLOUR**: a whisper of its hue unplayed, filled with a green check once played, a
-    shining gold ribbon on a perfect run. All nine `won` on one day is the **Clean Sweep** badge and a
+  · **A PLAYED TILE WEARS ITS STATE — the tile's OWN hue is swapped, not painted over** (`--gt-accent`,
+    Sep 2026, on request, choosing design 8 of eight rendered alternatives). Unplayed, a tile washes in
+    its game's colour with a corner ornament; played, that whole treatment — the wash, the left bar, the
+    hover border, the focus ring, the title — turns green, or gold on a perfect score, and one very
+    large tick is washed across the tile behind the words. **THREE ANSWERS CAME BEFORE IT AND ALL THREE
+    PAINTED A NEW SHAPE ONTO THE TILE**: a full fill, then a small corner mark (a green disc, a gold wax
+    seal), then a green/gold BAND across the top of a phone tile with a big white tick on it — the last
+    rejected twice in the words "I still don't like how the gold/green completed minigames tiles look".
+    Re-tinting the shape the tile already has is what none of them tried.
+    **`--gt-accent` IS WHY IT IS A SMALL CHANGE, and it exists because `--tile` CANNOT BE RE-SET**: the
+    game's hue arrives inline (`style="--tile:…"`) and an inline declaration beats any selector without
+    `!important`, so `.done` sets a SECOND property that every treatment reads and which merely defaults
+    to `--tile`. One line per state, and every derived rule — including the synth, arcade and gazette
+    overrides — followed by being repointed once.
+    **THE CORNER MARKS ARE CLIPPED TO 1px, NEVER `display:none`.** `.gt-check` / `.gt-seal` carry
+    `role="img"` and the aria-label, and are the only thing on the tile that STATES the completion; the
+    tick is decoration and says nothing. Same trade the folded grade bar makes with its labels. Scoped to
+    `.game-tile`, since the review banner draws the same two marks and still shows them.
+    **WHERE THE TICK SITS IS THE ONE THING THAT NEEDED A BREAKPOINT**: a phone tile is nearly square with
+    its words along the foot (the tick goes bottom-left, and the title is read over it — the arrangement
+    that was chosen), where a wider tile is a letterbox with an empty right half and the same placement
+    lays the tick through the title. All nine `won` on one day is still the **Clean Sweep** badge and a
     chest, and the badge gets harder each time the grid grows, deliberately.
+    Guarded by `test-minigames.js`'s `[home]` block, which asserts the accent really switches, that the
+    left bar is painted from it, that the tick is drawn — and that the state is **still stated in words**.
   · **AND IT TURNS OVER TO ITS RECORD** (`gameBackHTML` / `flipGameTile` / `gameStatsPost` /
     `gameStatsLoad` / `.gt-face` / `.gt-back`; Aug 2026, on request). A HOLD flips it — `wireHoldMenu`'s
     own gesture, the deck rows' and the review banner's, so a tap still opens the game and the guard that
