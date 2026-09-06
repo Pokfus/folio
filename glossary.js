@@ -1894,7 +1894,12 @@ window.GLOSSARY = {
 "Islamic_Golden_Age": "The Islamic Golden Age is a modern label for a period of Muslim learning and art, usually placed between the 8th century and the 13th and conventionally closed by the Mongol destruction of Baghdad in 1258.<sup class=\"fn\" data-fn=\"1\"></sup> It rests on the movement that turned Greek, Persian, Syriac and Indian works into Arabic, on hospitals that treated the poor without charge while training physicians, and on advances in astronomy, mathematics and medicine.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its span has widened in the telling, a standard account of a century ago giving it a single hundred years from 750 to 850 and dating the decline to theological and political change rather than to invasion.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Al-Khwarizmi": "Al-Khwārizmī was a mathematician and astronomer working at Baghdad under the caliph al-Maʾmūn, who ruled from 813 to 833, and almost all that is known of him comes from the Fihrist, an index of books compiled there about 987.<sup class=\"fn\" data-fn=\"1\"></sup> The caliph set him to revise Ptolemy's tables, to observe at Baghdad and Damascus and to measure a degree of the earth's meridian, and his Latinised name, Algoritmi, is the origin of the word algorithm.<sup class=\"fn\" data-fn=\"1\"></sup> His treatise on calculating by completion and reduction, whose first Arabic word gave English algebra, sorts quantities into roots, squares and numbers and solves six standard cases by rearranging areas.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Avicenna": "Avicenna, in Arabic Abū ʿAlī al-Ḥusayn ibn Sīnā, was a physician, philosopher and minister of state, born near Bukhara about 980 and dead in 1037 after a career spent serving and fleeing a succession of princes.<sup class=\"fn\" data-fn=\"1\"></sup> His Canon of Medicine, five books of nearly a million words on principles, drugs, diseases and compound remedies, displaced the earlier Arabic handbooks and, in Latin, remained a standard European authority for centuries.<sup class=\"fn\" data-fn=\"1\"></sup> In philosophy he distinguished a thing's essence from its being and called God the Necessary Existent, who falls under no genus, and he held the highest happiness to be the comprehension of God.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Islamic_medicine": "Islamic medicine is the practice and literature that grew in the Islamic world from the 8th century out of Greek, Syriac, Persian and Indian material, its Greek inheritance reaching Arabic through Syriac translation.<sup class=\"fn\" data-fn=\"1\"></sup> Its institutional form was the bimaristan, a hospital that treated patients without charge, gave them bed, food and clothing while they recovered, divided its wards by sex and complaint, kept a library and required its salaried physicians to pass an examination.<sup class=\"fn\" data-fn=\"2\"></sup> Four Persian authors dominate the surviving literature, ʿAlī ibn Rabban, al-Rāzī, al-Majūsī and Ibn Sīnā, and the last of them eventually displaced the rest.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Islamic_medicine": "Islamic medicine is the practice and literature that grew in the Islamic world from the 8th century out of Greek, Syriac, Persian and Indian material, its Greek inheritance reaching Arabic through Syriac translation.<sup class=\"fn\" data-fn=\"1\"></sup> Its institutional form was the bimaristan, a hospital that treated patients without charge, gave them bed, food and clothing while they recovered, divided its wards by sex and complaint, kept a library and required its salaried physicians to pass an examination.<sup class=\"fn\" data-fn=\"2\"></sup> Four Persian authors dominate the surviving literature, ʿAlī ibn Rabban, al-Rāzī, al-Majūsī and Ibn Sīnā, and the last of them eventually displaced the rest.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Islamic_art": "Islamic art is the art of the lands where Islam was the ruling faith, running from Spain to India and covering architecture, calligraphy, ornament, ceramics, metalwork and textiles rather than any single medium.<sup class=\"fn\" data-fn=\"1\"></sup> The living figure is absent from the mosque, where script, geometry and plant forms take its place, but it is common elsewhere: an Umayyad bath house of about 743 is painted with hunters, bathers and enthroned kings, and early caliphal coins carried the ruler's own image.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Older material and technique were routinely taken over and re-set, from Byzantine mosaic at Damascus to Roman columns in the arcades at Cordoba.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Great_Mosque_of_Córdoba": "The Great Mosque of Córdoba was begun in the 8th century by the Umayyad emir ʿAbd al-Raḥmān I, and its plan of parallel naves on arcades allowed three later extensions, the last of them added by al-Manṣūr in the 10th century.<sup class=\"fn\" data-fn=\"2\"></sup> Al-Ḥakam II, who enlarged it from 962, built a triple front of prayer niche, treasury and palace door faced in glazed mosaic, a design copied by great mosques across the western Islamic world.<sup class=\"fn\" data-fn=\"1\"></sup> Castile took the city in 1236 and used the building as a church rather than pulling it down, and a cathedral was raised inside it between 1523 and 1607.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Fatimid_Caliphate": "The Fatimid Caliphate was an Ismaili Shiʿi dynasty proclaimed in Ifrīqiya about 909, which claimed descent from Muhammad's daughter Fāṭima and went on to rule North Africa and Sicily before conquering Egypt in 969.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its general Jawhar founded a new capital beside Fustat and named it al-Qāhira, Cairo, after the planet in the ascendant when its trenches were opened, and the Abbasid caliph's name was struck from the Friday prayers.<sup class=\"fn\" data-fn=\"1\"></sup> Ruling a country that was mostly not Ismaili, its caliphs relied on Sunni officials and on the loyalty of Christians and Jews rather than on conversion, and the dynasty ended when Saladin took Egypt in 1171.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Al-Azhar": "Al-Azhar is a mosque and school of Islamic learning at Cairo, founded on 3 April 970 by the Fatimid general Jawhar as he laid out the new capital, and finished on 24 June 972.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was made over to the use of the learned in 988 and has been a chief university of Islam ever since, drawing students from across the Muslim world, each nation to the riwāq or portico assigned to it, and charging no fees.<sup class=\"fn\" data-fn=\"1\"></sup> Its old curriculum covered theology, exegesis, hadith, jurisprudence, grammar, prosody, logic, rhetoric and algebra, and in 1901 some 239 professors were lecturing to nine thousand students.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Sufism": "Sufism, in Arabic taṣawwuf, is the inward and mystical strand of Islam, concerned with purifying the self and drawing near to God rather than with law and doctrine alone, and it grew out of an ascetic movement of the 8th and 9th centuries whose teachers were remembered for tawba, a repentance that turned a whole life round.<sup class=\"fn\" data-fn=\"1\"></sup> Its later thought became philosophical, Ibn ʿArabī holding that the highest happiness is the comprehension of God.<sup class=\"fn\" data-fn=\"2\"></sup> From the 12th century it organised itself into orders gathered around a founding master, among them the Chishtī order, which became the largest in India.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2788,7 +2793,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Abbasid_Caliphate": "750 – 1258 CE",
 "Islamic_Golden_Age": "c. 750 – 1258 CE",
 "Al-Khwarizmi": "active c. 813 – 833 CE",
-"Avicenna": "c. 980 – 1037 CE"
+"Avicenna": "c. 980 – 1037 CE",
+"Great_Mosque_of_Córdoba": "begun 8th century CE",
+"Fatimid_Caliphate": "909 – 1171 CE",
+"Al-Azhar": "founded 970 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3968,7 +3976,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ethiopian_Orthodox_Tewahedo_Church": ["Ethiopian Orthodox Church","Ethiopian Church"],
 "Al-Khwarizmi": ["al-Khwārizmī","Khwarizmi","Muhammad ibn Musa al-Khwarizmi"],
 "Avicenna": ["Ibn Sina","Ibn Sīnā"],
-"Islamic_medicine": ["Arabian medicine","Arabic medicine"]
+"Islamic_medicine": ["Arabian medicine","Arabic medicine"],
+"Great_Mosque_of_Córdoba": ["Great Mosque of Cordoba","Mosque-Cathedral of Córdoba","Mezquita"],
+"Fatimid_Caliphate": ["Fatimids","Fatimid dynasty"],
+"Al-Azhar": ["al-Azhar Mosque","Al-Azhar University"],
+"Sufism": ["Sufi","tasawwuf"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5893,7 +5905,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Islamic_Golden_Age": ["era","history","science","asia","religion"],
 "Al-Khwarizmi": ["person","history","science","asia","technology"],
 "Avicenna": ["person","history","science","asia","philosophy"],
-"Islamic_medicine": ["practice","history","science","asia","technology"]
+"Islamic_medicine": ["practice","history","science","asia","technology"],
+"Islamic_art": ["practice","history","art","asia","religion"],
+"Great_Mosque_of_Córdoba": ["building","history","art","europe","religion"],
+"Fatimid_Caliphate": ["state","history","politics","africa","religion"],
+"Al-Azhar": ["institution","history","religion","africa","building"],
+"Sufism": ["practice","history","religion","asia","philosophy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
