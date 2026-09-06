@@ -8621,6 +8621,337 @@
     "paseos"
    ],
    "rebold": true
+  },
+  "delea1/el jardín": {
+   "why": "Its glosses were garden, rabbit hole, and a time-consuming, hard to abandon tangent or detour - two senses of the ENGLISH idiom rabbit hole, attached to the Spanish word for a garden. The worst gloss the review has found: neither has anything to do with jardín, and a reader meeting them would have no way to guess where they came from.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "garden"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el jardín de infancia — kindergarten, nursery school",
+      "el jardín botánico — botanical garden"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los jardines"
+    ],
+    [
+     "the gardener",
+     "el jardinero, la jardinera"
+    ]
+   ],
+   "bold": [
+    "jardín",
+    "jardines"
+   ],
+   "rebold": true
+  },
+  "delea1/conducir": {
+   "why": "to drive, to conduct - and no word about the one thing a reader crossing the Atlantic needs: in Latin America driving is manejar, and conducir there is closer to leading. El carné de conducir, the licence, was missing too, and its own second example is conducir A, to lead to, which the card did not list.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to drive",
+      "conducir a — to lead to: este camino conduce al pueblo"
+     ]
+    ],
+    [
+     "note",
+     [
+      "in Latin America the everyday verb for driving is manejar"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "driving licence",
+     "el carné de conducir"
+    ],
+    [
+     "the driver",
+     "el conductor, la conductora"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el animal": {
+   "why": "Its first and third examples are the same sentence with one word changed - the only animal that laughs, the only animal that talks - so two of three slots teach one idea, and neither la mascota nor el animal doméstico was on the card.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "animal"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el animal doméstico — domestic animal",
+      "la mascota — a pet"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los animales"
+    ]
+   ],
+   "bold": [
+    "animal",
+    "animales"
+   ],
+   "dropEx": [
+    "El hombre es el único animal que habla."
+   ],
+   "ex": [
+    [
+     "En el zoo hay animales de todo el mundo.",
+     "There are animals from all over the world at the zoo."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el viernes": {
+   "why": "Friday, and nothing about how a day of the week is used in Spanish - el viernes is on Friday and los viernes is on Fridays, with no preposition at all, and the names are not capitalised. That is the whole grammar of seven cards in this deck.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "Friday"
+     ]
+    ],
+    [
+     "note",
+     [
+      "el viernes — on Friday; los viernes — on Fridays; Spanish uses no word for on",
+      "the days of the week are not capitalised in Spanish"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los viernes (unchanged)"
+    ],
+    [
+     "the weekend",
+     "el fin de semana"
+    ]
+   ],
+   "bold": [
+    "viernes"
+   ],
+   "rebold": true
+  },
+  "delea1/el oeste": {
+   "why": "It shipped with two examples where the rest of the deck has three, and named none of the other three points of the compass, which el norte and el sur have both been given.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "west"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "al oeste de — to the west of"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the other three",
+     "el norte, el sur, el este"
+    ]
+   ],
+   "bold": [
+    "oeste",
+    "Oeste"
+   ],
+   "ex": [
+    [
+     "Mi habitación da al oeste.",
+     "My room faces west."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/despacio": {
+   "why": "Its second and third examples are the same request twice - speak a little slower - so one of three slots was spent repeating the other. It is also worth saying that despacio never changes: there is no despacia.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "slowly — it never changes form"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "más despacio — more slowly, slow down"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Podría hablar un poco más despacio, por favor?"
+   ],
+   "ex": [
+    [
+     "El tren va muy despacio hoy.",
+     "The train is going very slowly today."
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/oscuro, oscura": {
+   "why": "Both senses were there and the phrase was not: a oscuras, in the dark, which is how the word is most often heard, and the opposite a reader needs beside it.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "dark, unlit",
+      "dark (of a colour): azul oscuro"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a oscuras — in the dark",
+      "estar oscuro — to be dark out"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "oscuros, oscuras"
+    ],
+    [
+     "the opposite",
+     "claro, clara"
+    ]
+   ],
+   "bold": [
+    "oscuro",
+    "oscura",
+    "oscuros",
+    "oscuras"
+   ],
+   "rebold": true
+  },
+  "delea1/el mercado": {
+   "why": "One bare gloss, and the two words a reader shops with - el supermercado, where they will actually go, and el mercadillo, the weekly street market - were both missing.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "market"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el mercadillo — street market, flea market",
+      "el mercado de abastos — covered food market"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los mercados"
+    ],
+    [
+     "the supermarket",
+     "el supermercado"
+    ]
+   ],
+   "bold": [
+    "mercado",
+    "mercados"
+   ],
+   "rebold": true
+  },
+  "delea1/cerrar": {
+   "why": "Four glosses that are two pairs - to close / to shut, to shut down / to close down - and neither of the two things worth knowing: it is a stem-changing verb (cierro, not cerro), and cerrar CON LLAVE is to lock, which is what its own first example does and the card did not list.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to close, to shut",
+      "cerrar con llave — to lock"
+     ]
+    ],
+    [
+     "verb, reflexive",
+     [
+      "cerrarse — to close (of a door, a shop)"
+     ]
+    ],
+    [
+     "note",
+     [
+      "stem-changing e → ie: cierro, cierras, cierra"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "the opposite",
+     "abrir"
+    ],
+    [
+     "closed",
+     "cerrado, cerrada"
+    ]
+   ],
+   "rebold": true
+  },
+  "delea1/el correo": {
+   "why": "mail, post office - and not el correo electrónico, which is what its own third example is and what the word means most of the time now. Correos, the Spanish postal service, is a proper name a reader reads on the building itself.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "post, mail"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el correo electrónico — email",
+      "la oficina de correos — post office",
+      "Correos — the Spanish postal service"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los correos"
+    ],
+    [
+     "the postbox",
+     "el buzón"
+    ]
+   ],
+   "bold": [
+    "correo",
+    "correos"
+   ],
+   "rebold": true
   }
  },
  "insert": {
