@@ -41,12 +41,27 @@ const { isNoise } = require("./test-noise.js");
 // absolute path is right on exactly one machine, and in CI it loaded nothing at all, which
 // fails as a crash before the first assertion rather than as a wrong answer.
 const base = require("url").pathToFileURL(require("path").join(__dirname, "..", "index.html")).href;
+/* WHAT COUNTS AS WATER, and why it is not the ocean's colour any more.
+   Both counters used to ask for the map's OCEAN colour (`b>200, b-r>40, g>180`), because a river was
+   stroked in exactly that — water continuous with the sea. Since Sep 2026 it is not: a river is drawn in
+   its own saturated blue by day (`riverInk`), on a report that rivers were nearly invisible on the light
+   paper, where they measured 1.03:1 against the land they cross. The old predicate therefore stopped
+   counting rivers at all, and section 4's "the map really draws it" — which measures the hi-res layer BY
+   TAKING IT AWAY — collapsed from a delta of ~1,100 pixels to ~110 and failed. Nothing was wrong with the
+   map: the check had quietly stopped measuring its subject, which is the one way a pixel test lies.
+   Blue-DOMINANT rather than any particular blue, so it covers the ocean, both river inks and their
+   antialiased edges, and still excludes the grey land, the coast ink and the selection gold. */
+/* It is INJECTED rather than written into each counter, because both counters are serialized into the
+   page and a second copy of a predicate is the thing that goes stale — which is exactly what happened
+   to the ocean-colour test above. `addInitScript` survives the reloads these sections do. */
+const IS_WATER = "window.isWater = (d, i) => d[i + 2] - d[i] > 25 && d[i + 2] > 120;";
 let pass = 0, fail = 0;
 const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? "  " + x : "")); } else { fail++; console.log("FAIL  " + n + "  " + (x || "")); } };
 (async () => {
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
   const errs = [], asked = [];
   const page = await browser.newPage({ viewport: { width: 1200, height: 1000 } });
+  await page.addInitScript(IS_WATER);
   page.on("pageerror", (e) => errs.push(e.message));
   page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("request", (r) => asked.push(r.url()));
@@ -91,7 +106,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     let ink = 0, water = 0;
     for (let i = 0; i < d.length; i += 4) {
       if (d[i + 3] > 0) ink++;
-      if (d[i + 2] > 200 && d[i + 2] - d[i] > 40 && d[i + 1] > 180) water++;   // the map's own ocean colour
+      if (isWater(d, i)) water++;
     }
     return { painted: ink > 10, w: cv.width, water: water };
   });
@@ -183,6 +198,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
 
   const openCard = async (cid) => {
     const pg = await browser.newPage({ viewport: { width: 1200, height: 1000 } });
+    await pg.addInitScript(IS_WATER);
     pg.on("pageerror", (e) => errs.push(cid + ": " + e.message));
     pg.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(cid + ": " + t); });
     await pg.addInitScript((id) => {
@@ -271,7 +287,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
     let water = 0, dark = 0;
     for (let i = 0; i < d.length; i += 4) {
-      if (d[i + 2] > 200 && d[i + 2] - d[i] > 40 && d[i + 1] > 180) water++;                  // the ocean colour a river is stroked in
+      if (isWater(d, i)) water++;
       if (d[i] < 90 && d[i + 1] < 90 && d[i + 2] < 90 && d[i + 3] > 200) dark++;              // every label on the map
     }
     return { water: water, dark: dark };

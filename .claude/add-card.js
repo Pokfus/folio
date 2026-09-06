@@ -382,6 +382,21 @@ if (card.locator) {
     console.error("ERROR: card.locator has no `name` — the dot is drawn labelled, so an unnamed one is a mark with nothing to say.");
     process.exit(1);
   }
+  /* ---- AND IT OPENS ON THE PLACE, NOT ON AN ARTICLE (Sep 2026, on request: "the atlas location for the
+     card 'Hongshan culture' should not include the word 'The' in its label. The same goes for other
+     locations in the atlas windows, in all collections") ----
+     A map label is a place NAMED rather than a phrase in a sentence, and no atlas prints "The Apennines"
+     beside the range. Eight carried one across four collections, and they were stripped in data.js in the
+     same pass.
+     IT IS REFUSED HERE RATHER THAN STRIPPED AT DRAW TIME, and the reason is a handful of real place names:
+     The Hague is the seat of the Dutch government and The Valley is the capital of Anguilla, both of them
+     labels this same window draws off the capitals tables. A rule clever enough to tell those from a
+     definite article is a rule that will one day be wrong about one of them; a refusal at the point of
+     writing is not. */
+  if (/^the\s/i.test(String(card.locator.name).trim())) {
+    console.error("ERROR: card.locator.name opens on \"The\" — a map label names a place rather than reading as a phrase, so write " + JSON.stringify(String(card.locator.name).trim().replace(/^the\s+/i, "")) + ".");
+    process.exit(1);
+  }
   /* ---- AND WHAT SORT OF PLACE IT IS (Aug 2026, with the locator kinds) ----
      A dot is the right mark for a cave and the wrong one for a river, a range or a region, so a locator
      may declare a `kind` and — for the two that have extent — the shape to draw. Both are hand-authored,

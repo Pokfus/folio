@@ -35,13 +35,21 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.654", released: "2026-09-06T01:09Z" };
+window.FOLIO_VERSION = { v: "1.655", released: "2026-09-06T01:24Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-06",
-    t: "Thirty-three Rome cards, and the Cell opens in Biology",
+    t: "An atlas of your own, and thirty-three more Rome cards",
     items: [
+      "<b>Playing all nine minigames in a day now earns a chest</b>, counted by a nine-bar meter under the Minigames heading.",
+      "<b>Multiple Choice now shows the whole answer side of the card</b> below the round, once you have answered.",
+      "<b>A deck's long-press menu can now forget everything you have studied in that deck</b>, leaving the rest of your progress alone.",
+      "<b>The marker explains its own buttons the first time you open it</b>, and a Help button brings that tutorial back.",
+      "<b>Rivers are easier to see on the Atlas in daylight</b>, where they were nearly the colour of the land.",
+      "<b>China's modern province borders now show as dotted lines</b> in the China collection's card maps.",
+      "<b>A minigame you have played now colours its whole tile</b> green, or gold for a perfect score, with a large tick washed behind the name.",
+      "<b>The Atlas now opens on an atlas of your own</b> \u2014 an empty earth back to 4000 BCE that fills with the places you study, each one opening its card.",
       "<b>Thirty-three new cards in Ancient Rome</b>, on provincial revenue, Greek influence and Cato, the Gracchi, and the Jugurthine and Cimbric wars that made Marius.",
       "<b>Ten new cards in the Biology collection</b>, opening its chapter on the cell.",
       "<b>The word <i>cell</i> now opens its own glossary entry wherever it appears</b>, which it did not before.",
@@ -52,6 +60,14 @@ window.CHANGELOG = [
     d: "2026-09-05",
     t: "Studying rebuilt around what the evidence says works",
     items: [
+      "<b>Finishing a session now finishes the deck</b>: a card sitting out a short learning step is dealt with the rest rather than left behind as a red number.",
+      "<b>A picture's source is a link again</b> wherever the address sits in its credit line, and a picture's title now opens on a capital.",
+      "<b>A geography card's flag can be tapped to see it full size</b>, with the marker down or up.",
+      "Places named in a card's atlas window no longer open on the word <b>The</b>.",
+      "<b>Rivers now run across the China and United States geography maps</b>, on a sharper coastline.",
+      "Sixteen cards in the China and World History decks now show where their subject was, with a culture drawn as an <b>area</b> rather than a dot.",
+      "One card retired from the China deck, its subject folded into the broader card beside it.",
+      "A new picture on one card in the China deck.",
       "<b>A hundred and five new cards in Ancient Rome</b>, on the conquest of Italy, the settlement after it, the Punic wars and the Greek east.",
       "<b>135 citations of Polybius now give the right year</b> \u2014 the translation is published in six volumes and several were credited to the wrong one.",
       "<b>Seventeen pictures that had failed to load now show</b> \u2014 sixteen on Ancient Rome cards and one on a glossary term.",

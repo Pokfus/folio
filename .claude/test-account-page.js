@@ -75,11 +75,16 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "admin", 
   await page.reload({ waitUntil: "load" });
   await page.waitForTimeout(2600);
 
-  /* THE FOUR ACCOUNT ACTIONS ARE A 2×2 GRID, not the one row they were until Aug 2026 — four buttons side
+  /* THE ACCOUNT ACTIONS ARE A TWO-COLUMN GRID, not the one row they were until Aug 2026 — buttons side
      by side ran to the width of the card and squeezed the name and handle beside them into what was left.
-     So what is asserted is the GRID: two columns, four buttons of ONE width (the columns are `1fr` exactly
-     so the four are the same size rather than four different label widths), and Change password above Sign
-     out in the same block. Reading "are they on one row" would now pass only on a regression. */
+     So what is asserted is the GRID: two columns, buttons of ONE width (the columns are `1fr` exactly, so
+     they are the same size rather than several different label widths), and Change password above Sign
+     out in the same block. Reading "are they on one row" would now pass only on a regression.
+     IT PINS THE ACTIONS BY NAME RATHER THAN BY COUNT, and that is the repair: it used to require exactly
+     FOUR, which is a copy of a number rather than a rule, and it went stale the day the account learned
+     to change its username — five buttons, a perfectly good grid, and a suite reporting a layout fault
+     that was not there. A list of ids says WHICH control went missing when one does, where a count only
+     ever says that the total moved. */
   const a = await page.evaluate(() => {
     const pw = document.querySelector("#pwToggle"), so = document.querySelector("#signout"), note = document.querySelector(".acct-syncnote"), stats = document.querySelector(".ph-stats");
     if (!pw || !so || !note) return { missing: !pw ? "pwToggle" : !so ? "signout" : "note" };
@@ -89,7 +94,7 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "admin", 
     const cols = getComputedStyle(box).gridTemplateColumns.trim().split(/\s+/).length;
     const w = btns.map((b) => Math.round(b.getBoundingClientRect().width));
     return {
-      cols, buttons: btns.length,
+      cols, buttons: btns.length, ids: btns.map((b) => b.id).join(","),
       oneWidth: w.length > 1 && Math.max(...w) - Math.min(...w) < 2,
       siblings: pw.parentElement === so.parentElement,
       stacked: s.top > p.top + 4,
@@ -99,7 +104,8 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "admin", 
       order: pw.compareDocumentPosition(so) & Node.DOCUMENT_POSITION_FOLLOWING ? "pw,signout" : "signout,pw",
     };
   });
-  check("the four account actions are a 2×2 grid", a.cols === 2 && a.buttons === 4 && a.siblings, JSON.stringify(a));
+  check("the account actions are a two-column grid", a.cols === 2 && a.siblings, JSON.stringify(a));
+  check("...carrying every action the account has", a.ids === "unToggle,emToggle,pwToggle,swToggle,signout", a.ids);
   check("…with the four buttons one size rather than four", a.oneWidth, JSON.stringify(a));
   check("…inside the profile card", a.inProfile, JSON.stringify(a));
   check("the sync note sits directly below them", a.noteBelowButtons && a.noteAboveStats, JSON.stringify(a));

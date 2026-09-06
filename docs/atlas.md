@@ -414,3 +414,100 @@ The bullet below is as it stood in CLAUDE.md, verbatim.
     That limit is a **per-era cached midpoint test** (`sovietSegsForEra`, keyed on `_htId` + `mapEditRev`), not a canvas
     clip: it used to build a complex clip mask from the USSR polygon on **every frame** of 1920/1938 for a layer whose
     geometry can't change within an era.
+
+## Your own atlas — the second tab (Sep 2026, on request)
+
+> "On the Atlas page, add a second tab, which will feature the user's own explored Atlas. Opening the
+> Atlas page should default to this tab. On this personal atlas, the whole globe should have no borders
+> or dots shown at first and be empty (except for landmasses+oceans+rivers etc.) in every year since
+> 4000 BCE. By studying cards from the curated collections, users unlock these countries and places on
+> the atlas in the appropriate years. … The information of the popups that appear when clicking a city
+> or country can be directly the answer side of the card. … The page doesn't need a legend."
+
+`CLAUDE.md`'s Atlas bullet carries the rules. This is the reasoning behind the three decisions that were
+not obvious, and the one measurement that settled the hardest of them.
+
+### "In the appropriate years" without a table of dates
+
+The obvious reading — a modern state appears from its independence year — needs an independence year for
+233 countries, which Folio does not have and which is not a thing to invent. `country-spans.js` was the
+first candidate and was measured: **13 of `world.js`'s 258 countries have an entry**, so it answers for
+5% of the deck.
+
+The answer that works is a level down. `map.key` names a place in `world.js`; every one of the Atlas's
+thirteen eras *also* files its own territories by name; so the unlock is the NAME, and the personal globe
+draws whatever territory of that name the era for the current year happens to carry. Measured over the
+shipped timeline, **every one of the 258 present-day countries is named in at least one era**, the
+earliest ranging from 1500 (France, Cyprus, Ethiopia) to 1960 (Indonesia, China, Israel, Vietnam).
+
+Three things follow, and all three are improvements rather than compromises:
+
+- What is on screen is exactly what Folio's own maps say, in the shape those maps give it — so an
+  unlocked France is its 1600 self in 1600 and its own self today, and the reader can watch it change.
+- A state simply does not appear in a year whose map has no such state, which is the requested behaviour
+  falling out of the model rather than being enforced by a rule.
+- Before 1500 there is no era map at all, so the globe there is landscape plus the reader's own locator
+  marks — which is precisely the "empty in every year since 4000 BCE" the request describes, and is why
+  the tab can offer 4000 BCE where the world atlas stops at 1000 BCE.
+
+A `us-states` / `china-provinces` shape belongs to no era and is today's boundary, so it is drawn only
+where the era's geometry IS `world.js`'s (`eraIsModern` — a property of the era, not a year somebody
+picked). Wyoming over a 1600 map would be a claim Folio does not make.
+
+### Why the register is derived and not stored
+
+`atlasUnlocks()` reads `S.cards`. That is the same test `locatorSiblings` already uses to decide which of
+a collection's places a card map draws, so the two cannot disagree about what "studied" means — and it
+means the feature shipped with no new `PROGRESS_FIELD`, no migration, and nothing to keep in step. The
+one visible consequence is the right one: **Reset progress on a deck takes that deck's places off the
+globe**, which is what a reader who has just forgotten a deck would expect.
+
+It is cached on the number of studied cards and the sizes of the three shape globals, and cleared by
+`uCacheBust` — declared beside it rather than beside `atlasUnlocks` for the temporal-dead-zone reason
+`_locSibCache` is (`uCacheBust` runs at boot out of `applyAdminEdits`).
+
+### Two rails, and why only one of them bends
+
+The world atlas's rail is piecewise because it has thirteen STOPS, twelve of them after 1500, and a
+linear scale crowds them into the right edge. The personal atlas has no stops: every year has a map,
+because the earth is always there. A bent scale there would buy nothing and would lie about how far apart
+two years are, so `year2frac`/`frac2year` are linear on that tab and `snapYear` returns the year it was
+given. The era years are still marked on the rail — that is where the political shapes change — but the
+pin slides freely between them, and the chevrons step by a century in the deep past and a decade after
+1500, because one fixed step of 25 years is 240 presses from 4000 BCE to today.
+
+### What the tab does NOT get, and why each absence is deliberate
+
+- **No legend.** Its layers are the earth's; there is no political toggle to offer. Which makes
+  `riversOn` the one toggle that tab actually reads, and it is forced on — the request names rivers, and
+  a layer promised with no control to reach it is worse than one not offered.
+- **No search.** The search index is the WORLD atlas's, so a hit would open a panel about a place the
+  reader has not unlocked — on the tab that exists to show only what they have.
+- **No hover chip from `hoverIdx`.** That index is the world atlas's territory index and is not
+  maintained here, so the chip went on naming whatever country had last been under the cursor. It reads
+  `mineAt` now, and names the reader's own place or nothing.
+- **No empire drill.** One click, one level: a place is either the reader's or it is not there, so the
+  single/double/triple ladder has nothing to count.
+
+### The popup
+
+It reuses the country panel rather than building a second one — the panel is a sheet on a phone and a
+column on the desktop, it resizes itself, it closes on Escape, and it is what the reader already knows
+how to dismiss. Its year paragraph, its Wikidata figures and the Atlas's own citation fold are hidden:
+all three describe a country as the world atlas knows it, and what is being shown is a card, whose own
+facts and sources arrive inside `buildBack`.
+
+It goes through `mountCardBack` rather than raw markup, for the reason the Multiple Choice card back
+does: the footnotes have to be numbered, the glossary terms wired and the picture made to open, and a
+surface that renders `buildBack` without that wiring is a card with dead links.
+
+One CSS rule is load-bearing and was found by looking at the page: **`.cp-tools[hidden]{display:none}`**.
+`showMinePopup` hides that row, and an author `display:flex` beats the `hidden` attribute — the same trap
+`.ces-imgpanel` and `.af-src` already carry — so the Atlas's "Through the ages" button stayed on a panel
+that is showing a card rather than a country.
+
+### The empty state
+
+A reader who has studied nothing meets a world with no marks on it, which is exactly right and says
+nothing about itself. `.atlas-empty` names what the globe is waiting for and offers a way to the
+collections; it is drawn only while the register really is empty.
