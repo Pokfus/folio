@@ -22,7 +22,9 @@
   },
   "hints": {
     "delea1/por": "para",
-    "delea1/para": "por"
+    "delea1/para": "por",
+    "delea1/ser": "estar",
+    "delea1/estar": "ser"
   },
   "notes": {
     "delea1/de": {
@@ -1144,7 +1146,7 @@
       "rebold": true
     },
     "delea1/mucho": {
-      "why": "The other half of the muy entry above: mucho is glossed as a determiner alone, though it is just as often the adverb that follows a verb (trabaja mucho), which is the use that gets confused with muy.",
+      "why": "The other half of the muy entry above: mucho is glossed as a determiner alone, though it is just as often the adverb that follows a verb (trabaja mucho), which is the use that gets confused with muy. Its third example is 'Mucha gente rica vive en este barrio', and mucha was not in the Forms at all, so after the rebold that sentence stood with nothing marked in it — which reads exactly like a sentence the deck chose and then forgot to point at.",
       "senses": [
         [
           "determiner",
@@ -1161,6 +1163,10 @@
         ]
       ],
       "forms": [
+        [
+          "feminine",
+          "mucha"
+        ],
         [
           "plural",
           "muchos, muchas"
@@ -1186,6 +1192,579 @@
         [
           "further off",
           "ahí, allí, allá"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/algo": {
+      "why": "The pronoun is right; algo as an ADVERB - 'a bit, somewhat', as in es algo caro - was missing, and it is the sense a reader meets as soon as they start describing things. The first example is Lacan's definition of love, which is abstract enough that a reader can follow the Spanish and still not know what algo does in it.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "something",
+            "anything (in questions)"
+          ]
+        ],
+        [
+          "adverb",
+          [
+            "a bit, somewhat (es algo caro)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Amar es dar algo que no se tiene."
+      ],
+      "ex": [
+        [
+          "Este libro es algo caro.",
+          "This book is a bit expensive."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/bueno, buena": {
+      "why": "Two bullets that both read 'good', and neither of the two things a reader most needs: that bueno shortens to BUEN before a masculine noun (un buen día), which has no card and is mentioned nowhere in the deck, and that bueno on its own is the everyday filler for 'well…' or 'all right'. Its comparative mejor likewise has no card - it is already in bien's Forms and belongs here too.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "good",
+            "kind, good (of a person)",
+            "tasty (of food)"
+          ]
+        ],
+        [
+          "interjection",
+          [
+            "well…, right (bueno, vamos)",
+            "all right, OK (as an answer)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "buenos, buenas"
+        ],
+        [
+          "before a masculine noun",
+          "buen"
+        ],
+        [
+          "comparative",
+          "mejor"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/él": {
+      "why": "Two of its three examples were another word: the first bolded ello, the neuter pronoun, which has no card in this deck, and the third bolded ella, which has one. What was missing from the gloss is that él is also what follows a preposition (para él) - Spanish has no separate object form - and that it is one accent away from the article el, which after the article fold is the very next card but one.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "he",
+            "him (after a preposition: para él)",
+            "it (standing for a masculine noun)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "ellos"
+        ],
+        [
+          "without an accent, the article",
+          "el"
+        ]
+      ],
+      "bold": [
+        "él",
+        "ellos"
+      ],
+      "dropEx": [
+        "No soy un artista. Nunca tuve mente para ello.",
+        "A ella le comenzó a gustar esa casa."
+      ],
+      "ex": [
+        [
+          "Él es mi hermano.",
+          "He is my brother."
+        ],
+        [
+          "Este regalo es para él.",
+          "This present is for him."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ella": {
+      "why": "Two of its three examples bolded él and Ellos, both of them cards of their own, so only one of the three taught the word. The gloss also carried a grammatical description - 'used subjectively and after prepositions to refer to feminine nouns' - where a translation goes, and the plural ellas had no card and no mention.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "she",
+            "her (after a preposition: para ella)",
+            "it (standing for a feminine noun)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "ellas"
+        ]
+      ],
+      "dropEx": [
+        "Seguramente él me llamará por teléfono esta noche.",
+        "Ellos lo oyeron bajar por las escaleras."
+      ],
+      "ex": [
+        [
+          "Ella es mi hermana.",
+          "She is my sister."
+        ],
+        [
+          "Este regalo es para ella.",
+          "This present is for her."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ellos": {
+      "why": "Two of its three examples bolded les, which is now a form on the le card and was nowhere at all when these were chosen. The feminine ellas has no card and was not mentioned.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "they",
+            "them (after a preposition: para ellos)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "feminine",
+          "ellas"
+        ]
+      ],
+      "dropEx": [
+        "Daniel les dio las gracias a los policías.",
+        "A los gatos no les gusta el agua."
+      ],
+      "ex": [
+        [
+          "Ellos son mis amigos.",
+          "They are my friends."
+        ],
+        [
+          "Este regalo es para ellos.",
+          "This present is for them."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/nosotros": {
+      "why": "Glossed 'we (masculine plural)' and 'ourselves', of which the second is nos rather than nosotros. The feminine nosotras, which the second example bolds, had no mention.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "we",
+            "us (after a preposition: para nosotros)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "feminine",
+          "nosotras"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/nos": {
+      "why": "The reflexive and reciprocal sense was missing, though the second example is one ('ya nos hemos conocido' — we have met each other before).",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "us",
+            "to us, for us",
+            "ourselves, each other (reflexive)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/nada": {
+      "why": "'nothing, zero, zilch, not...anything' - zilch is slang, and zero is wrong, nada not being the number. What it left out is the ADVERB, 'not at all', which is what BOTH of the first two examples show (no le gusta salir para nada, no estás para nada de acuerdo) - so two of three sentences illustrated a sense the card did not carry. The double negative goes in Forms: a Spanish sentence keeps its no when nada follows the verb, which is the rule an English speaker breaks first.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "nothing",
+            "anything (after a negative: no veo nada)"
+          ]
+        ],
+        [
+          "adverb",
+          [
+            "at all (no… nada, para nada)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "the no stays",
+          "no tengo nada"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/cómo": {
+      "why": "'how?' alone. Missing the two uses a reader meets first after it: ¿cómo es? for what something is like, and cómo on its own as 'sorry?' when asking for something to be repeated.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "how",
+            "what … like (¿cómo es?)",
+            "sorry? what? (asking for a repeat)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/este": {
+      "why": "A FAMILY WITH NO FORMS AT ALL WHILE ITS EXAMPLES BOLD THE INFLECTIONS. The deck's own convention is an adjective headed with its feminine and its plural beneath it (bueno, buena above buenos, buenas), and the demonstratives and quantifiers were left out of it - so este was headed este while its examples bolded estos, and one of them bolded ese, which is a card of its own. Every card in the family is brought into the convention at once: doing one of eight would leave the deck disagreeing with itself about how a determiner is written. este also gets the pronoun use ('this one'), which since the RAE dropped the accent in 2010 is spelt exactly like the determiner.",
+      "spanish": "este, esta",
+      "word": "este",
+      "senses": [
+        [
+          "determiner",
+          [
+            "this"
+          ]
+        ],
+        [
+          "pronoun",
+          [
+            "this one"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "estos, estas"
+        ],
+        [
+          "neuter",
+          "esto"
+        ]
+      ],
+      "dropEx": [
+        "También me gusta la voz de ese cantante."
+      ],
+      "ex": [
+        [
+          "Este libro es mío.",
+          "This book is mine."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ese": {
+      "why": "See the este entry: the same family, the same fault. Two of its three examples bolded estos and este, which are the neighbouring card.",
+      "spanish": "ese, esa",
+      "word": "ese",
+      "senses": [
+        [
+          "determiner",
+          [
+            "that"
+          ]
+        ],
+        [
+          "pronoun",
+          [
+            "that one"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "esos, esas"
+        ],
+        [
+          "neuter",
+          "eso"
+        ]
+      ],
+      "dropEx": [
+        "La experiencia lo dice todo en estos casos.",
+        "La vida de este paciente está en peligro."
+      ],
+      "ex": [
+        [
+          "Esa casa es muy grande.",
+          "That house is very big."
+        ],
+        [
+          "No me gusta ese color.",
+          "I don't like that colour."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/aquel": {
+      "why": "See the este entry. Two of its three examples bolded esta and esa, both of them other cards.",
+      "spanish": "aquel, aquella",
+      "word": "aquel",
+      "senses": [
+        [
+          "determiner",
+          [
+            "that (over there, further off than ese)"
+          ]
+        ],
+        [
+          "pronoun",
+          [
+            "that one (over there)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "aquellos, aquellas"
+        ],
+        [
+          "neuter",
+          "aquello"
+        ]
+      ],
+      "dropEx": [
+        "Seguramente él me llamará por teléfono esta noche.",
+        "A ella le comenzó a gustar esa casa."
+      ],
+      "ex": [
+        [
+          "Aquel edificio es muy antiguo.",
+          "That building over there is very old."
+        ],
+        [
+          "En aquella época no había teléfonos.",
+          "In those days there were no telephones."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/poco": {
+      "why": "See the este entry: no Forms, while two of its three examples bold pocos and pocas. The adverb (dormí poco) was missing too, and so was un poco, which is what the first example actually shows.",
+      "spanish": "poco, poca",
+      "word": "poco",
+      "senses": [
+        [
+          "determiner",
+          [
+            "little, not much",
+            "few, not many"
+          ]
+        ],
+        [
+          "adverb",
+          [
+            "little, not much (duermo poco)",
+            "a bit, a little (un poco)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "pocos, pocas"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/otro": {
+      "why": "See the este entry: no Forms, while two of its three examples bold otra and otros. Note also that otro takes no article in Spanish - one says otro café, never un otro café - which is the mistake an English speaker makes first.",
+      "spanish": "otro, otra",
+      "word": "otro",
+      "senses": [
+        [
+          "determiner",
+          [
+            "other",
+            "another"
+          ]
+        ],
+        [
+          "pronoun",
+          [
+            "another one, the other one"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "otros, otras"
+        ],
+        [
+          "never un otro",
+          "otro café"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/mal": {
+      "why": "All three of its examples were a different word: the first two are the masculine NOUN el mal (evil, harm) and its plural males, and the third bolds malo, which is a card of its own. Nothing on the card taught the adverb it is for.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "badly, poorly",
+            "wrong, wrongly",
+            "unwell (me siento mal)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "comparative",
+          "peor"
+        ]
+      ],
+      "dropEx": [
+        "No hay mal que por bien no venga.",
+        "El dinero es la raíz de todos los males.",
+        "Eres más lento que el caballo del malo."
+      ],
+      "ex": [
+        [
+          "Hablo mal el francés.",
+          "I speak French badly."
+        ],
+        [
+          "Me siento mal.",
+          "I feel unwell."
+        ],
+        [
+          "Lo hiciste mal.",
+          "You did it wrong."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/malo, mala": {
+      "why": "The mirror of bueno: malo shortens to MAL before a masculine noun (un mal día), which is why the adverb card and this one look alike, and its comparative is peor. Neither had a card or a mention. 'bad, evil, mean' is also three words for one sense.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "bad, poor (of quality)",
+            "bad, wicked (of a person)",
+            "off, spoilt (of food)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "malos, malas"
+        ],
+        [
+          "before a masculine noun",
+          "mal"
+        ],
+        [
+          "comparative",
+          "peor"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/o": {
+      "why": "Its second example was 'Tus oes parecen aes' - your o's look like a's - which is the plural of the LETTER o, on a card about the conjunction. And o becomes U before a word beginning o- or ho- (siete u ocho), exactly as y becomes e, with no u card anywhere in the deck to say so.",
+      "senses": [
+        [
+          "conjunction",
+          [
+            "or",
+            "either … or (o … o)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "before o-, ho-",
+          "u"
+        ]
+      ],
+      "dropEx": [
+        "Tus oes parecen aes."
+      ],
+      "ex": [
+        [
+          "¿Té o café?",
+          "Tea or coffee?"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ser": {
+      "why": "ser and estar both glossed 'to be' and neither said a word about which is which, though telling them apart is the single defining problem of A1 Spanish. The gloss gestured at it - 'to be (essentially or identified as)' - in language a beginner cannot act on; it is replaced by the list of things ser is actually used for, and the rule goes in Forms on both cards. They also collided on the English-to-Spanish card, where 'to be' was one question with two right answers, so both now carry a line naming the other. The third example is the reversed twin of a sentence the de card was showing.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to be — identity, origin, profession, time, possession, material",
+            "to be (forming the passive: fue construido en 1920)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "for a state or a place, use",
+          "estar"
+        ]
+      ],
+      "dropEx": [
+        "La esencia de la libertad son las matemáticas."
+      ],
+      "ex": [
+        [
+          "Mi hermana es médica.",
+          "My sister is a doctor."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/estar": {
+      "why": "The other half of the ser entry. Glossed as location and presence only - 'to be (have a temporary or permanent location in space)' - which leaves out the sense the ser/estar question actually turns on, a STATE or a condition: estoy cansado, la sopa está fría. The second and third examples are both that sense, so the card was showing what it did not say.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to be — a state or a condition (estoy cansado)",
+            "to be — a place (está en Madrid)",
+            "to be (forming the continuous: está lloviendo)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "for identity or origin, use",
+          "ser"
         ]
       ],
       "rebold": true

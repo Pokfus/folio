@@ -61,8 +61,8 @@
       which is what the generator bolds on a noun — and matched with UNICODE-AWARE word boundaries,
       since JS's `\b` is ASCII-only and an accented letter reads to it as a boundary of its own.
 
-  `bold`  the words a rebold may mark, replacing the list derived from `spanish` and `forms`. Needed
-      only where a Forms row is a cross-reference rather than an inflection.
+  `bold`  the words a rebold may mark, replacing the list derived from `spanish`, `forms` and the card's
+      own Conjugation block. Needed only where a Forms row is a cross-reference rather than an inflection.
 
   `hints`  a separate, mechanical map: the English → Spanish card's front is the gloss and nothing else,
       so two notes sharing a gloss are one question with two right answers. `por` and `para` both gloss
@@ -110,7 +110,19 @@ const renderForms = (forms) => !forms.length ? "" : '<div class="uc-forms">' + f
 /* BOLD TARGETS. The generator bolds the bare word, so a noun's leading article is stripped; a headword
    that teaches a pair or a paradigm ("el, la", "bueno, buena") contributes each member, and so does
    every value in `forms`. Longest first, so `unos` is not bolded as `un` + `os`. */
-function boldTargets(fix, spanish, formsHTML) {
+/* A VERB'S OWN PARADIGM. The generator bolds an example on any inflected form — ser's examples bold `es`
+   and `son` — so a rebold that knew only the infinitive would strip those and mark nothing, and the
+   "example must contain its headword" guard would refuse a perfectly good sentence. The forms are read
+   off the card's own Conjugation block, which is where they already are, rather than declared twice. */
+function conjForms(html) {
+  const out = [];
+  for (const m of String(html || "").matchAll(/<span class="uc-cj-f">([\s\S]*?)<\/span><\/div>/g))
+    out.push(m[1].replace(/<[^>]*>/g, "").trim());
+  for (const m of String(html || "").matchAll(/<b>([\s\S]*?)<\/b>/g))
+    out.push(m[1].replace(/<[^>]*>/g, "").trim());
+  return out.filter((x) => x && !/\s/.test(x));
+}
+function boldTargets(fix, spanish, formsHTML, conjHTML) {
   /* `bold` OVERRIDES THE DERIVED LIST OUTRIGHT, and exists because a Forms row is not always a form: the
      lo card's rows read "feminine: la" and "plural: los, las", which are the pronoun's own paradigm, and
      deriving from them bolds the ARTICLE la in "lo importante es la salud". Where a Forms row is a
@@ -125,6 +137,7 @@ function boldTargets(fix, spanish, formsHTML) {
      demasiado caros" came back with nothing bolded in it. */
   if (fix.forms) fix.forms.forEach(([, v]) => add(v));
   else for (const m of String(formsHTML || "").matchAll(/<span class="uc-fl">[^<]*<\/span>([^<]*)/g)) add(m[1]);
+  conjForms(conjHTML).forEach((x) => out.add(x));
   return [...out].sort((a, b) => b.length - a.length);
 }
 const RXSAFE = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -206,7 +219,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
   for (const ins of (fixes.insert || {})[id] || []) {
     if (d.cards.some((c) => c.id === ins.id)) continue;
     const type = (d.cards[0] || {}).type;
-    const targets = boldTargets(ins, ins.spanish, "");
+    const targets = boldTargets(ins, ins.spanish, "", ins.conjugation);
     (ins.ex || []).forEach(([es, en]) => {
       if (!targets.some((t) => new RegExp("(?<![\\p{L}\\p{N}_])" + RXSAFE(t) + "(?![\\p{L}\\p{N}_])", "iu").test(es)))
         badEx.push(id + "/" + ins.spanish + " (insert) → " + es);
@@ -256,7 +269,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
     if (fix.senses) fl.English = (h ? '<div class="uc-pos">not ' + esc(h.other) + "</div>" : "") + renderSenses(fix.senses);
     if (fix.forms) fl.Forms = renderForms(fix.forms);
 
-    const targets = boldTargets(fix, fl.Spanish, fl.Forms);
+    const targets = boldTargets(fix, fl.Spanish, fl.Forms, fl.Conjugation);
     if (fix.ex || fix.dropEx || fix.rebold) {
       let kept = splitEx(fl.Examples);
       if (fix.dropEx) {

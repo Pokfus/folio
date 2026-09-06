@@ -1990,6 +1990,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     bolds a CROSS-REFERENCE, which is what `lo`'s "feminine: la" would do to the article `la` in *lo
     importante es la salud*. So the card's Forms are read when the fix does not set them, and `bold`
     names the exceptions outright.
+  · **A VERB'S BOLD TARGETS COME OUT OF ITS OWN CONJUGATION BLOCK.** The generator bolds an example on
+    any inflected form, so `ser`'s examples mark `es` and `son`; a rebold knowing only the infinitive
+    strips those and marks nothing, and the "an example must contain its headword" guard then REFUSES a
+    perfectly good sentence. They are read off the Conjugation field the card already carries rather
+    than declared a second time. The same rule caught a determiner: `mucho`'s "Mucha gente rica vive en
+    este barrio" came back unmarked because `mucha` was in no Forms row — **an example with nothing
+    bolded in it reads exactly like one the deck chose and forgot to point at**, so it is worth counting
+    after a batch (`0` across all 1,467 as of this pass).
   · **`hints` IS THE MECHANICAL HALF, and is a map rather than an entry per note** — the English →
     Spanish card's front is the gloss alone, so `por` and `para` both glossing to "for" is one question
     with two right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or
