@@ -121,6 +121,10 @@ body.hc .xw-cn, body.hc .xw-len, body.hc .xw-n{color:var(--ink-soft);}
    still 3.32 on gazette's dark card and 4.70 on marble's light one. So in this mode they stop being a
    quiet colour and become ordinary ink, which is what the re-tone above does for every other one. */
 body.hc .card-stars .cs-lbl, body.hc .card-stars .cs-pct{color:var(--ink); opacity:1;}
+/* ...and the successive-relearning caption beside them, which took the same indigo at the same half
+   strength in Sep 2026 and therefore inherits the same failure. Its `.done` state is the gold, which is
+   re-toned by the rules beside it rather than here. */
+body.hc .crit-row:not(.done) .crit-lbl{color:var(--ink); opacity:1;}
 /* THE GRADE BAR IS THE SAME CASE AGAIN AND IS THE SITE'S MOST-USED CONTROL (Aug 2026, found the day
    `test-a11y.js` first reached a study card — the route list deliberately has no `study`, so every one
    of these had been failing since the bar was built and nothing had ever measured them). All three of
@@ -242,6 +246,21 @@ body[data-theme="folio"] .topbar::after{
 }
 .brand .mark .dot{color:var(--zh);}
 .brand .tag{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.28em; color:var(--ink-faint); text-transform:uppercase; align-self:center;}
+/* WHICH OF THE TWO LOGOS IS ON SCREEN, AND WHY THE SPLIT IS AT 901px RATHER THAN AT THE PHONE
+   BREAKPOINT (Sep 2026, with the masthead). The top bar is `display:none` below 640px, so the naive rule
+   is "bar logo above 640, home logo below" — and that leaves a 641–900px tablet with the bar's version,
+   which does not fit: measured with the seventh tab in, that band is already 76px over at 760px and 134px
+   over at 700px before any logo is added, which is what the padding-and-tracking rules below exist to
+   claw back. So the BAR's logo is shown from 901px up and the HOME page's from 900px down, and exactly
+   one of the two is on screen at every width. `.home-brand` is a block of its own above the greeting; it
+   takes no pointer, being a heading on the page it would have linked to. */
+.topbar .brand{display:none;}
+@media (min-width:901px){ .topbar .brand{display:flex;} }
+.home-brand{display:flex; cursor:default; margin:0 0 18px;}
+@media (min-width:901px){ .home-brand{display:none;} }
+/* ...and on a phone it centres with the greeting under it, because that is what `.page-head` does
+   below 640px; between 641 and 900 the page head is ranged left and so is this. */
+@media (max-width:640px){ .home-brand{justify-content:center;} }
 
 .nav{display:flex; align-items:center; gap:4px;}
 .nav.right{margin-left:auto;}
@@ -1486,12 +1505,19 @@ body[data-theme="folio"] .collection-deco::after{
 .crit-pips{display:inline-flex; gap:4px;}
 .crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--ink-faint); box-sizing:border-box;}
 .crit-pip.on{background:var(--ink-faint); border-color:var(--ink-faint);}
-.crit-lbl{font-size:calc(10.5px * var(--fs)); letter-spacing:.03em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap;}
+/* THE CAPTION IS SET LIKE THE TWO LABELS IT SHARES THE HEADER ROW WITH (Sep 2026, on request:
+   "make the 'Recalled on X of 3 days' atop cards the same font and blue color as the Question header
+   and difficulty rating"). Both of those are mono-ish small caps in the indigo at half strength —
+   `.study-card .label` and `.card-stars .cs-lbl` — and this row sat between them in the serif and the
+   faint ink, which read as a third kind of thing on a line that holds only two. The `.done` rules below
+   still override the colour with the gold: "Learned" is a state rather than a caption, and the gold is
+   how finishing something reads everywhere else on the site. */
+.crit-lbl{font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--indigo); opacity:.5; white-space:nowrap;}
 .crit-row.done .crit-pip{background:#C39A2E; border-color:#C39A2E;}
 body.night .crit-row.done .crit-pip{background:#D4AA3C; border-color:#D4AA3C;}
 /* the caption takes the DEEPER gold, for the reason `.prog-done .xp-lvl` does: #C39A2E at this size on
    the card is 3.6:1, and this is 10.5px uppercase text */
-.crit-row.done .crit-lbl{color:#8A6A1E;}
+.crit-row.done .crit-lbl{color:#8A6A1E; opacity:1;}
 body.night .crit-row.done .crit-lbl{color:#E0C069;}
 /* ...and in the header a PHONE gets the pips alone (Sep 2026, on request: "only display the text on
    desktop and tablet format. on mobile, only show the three dots"). Four things share that line — the
@@ -5069,7 +5095,14 @@ button.game-tile .gt-glyph{opacity:.14;}
 .ci-grip:active{cursor:grabbing;}
 .ci-grip svg{width:18px; height:18px;}
 .ci-name{flex:1; min-width:0; font-family:var(--serif); font-size:calc(16px * var(--fs)); color:var(--ink); line-height:1.3;}
-.ci-year{flex:none; font-family:var(--mono); font-size:calc(13px * var(--fs)); font-weight:600; color:var(--ink-faint);}
+/* THE REVEALED DATE IS TWO LINES SINCE SEP 2026 (on request: each year "should also say what that
+   starting date is based on") — the year, and under it the date line's own label for the row it came
+   from. Ranged RIGHT, because the row's left is the term and the two numbers should line up down the
+   edge whatever length the words either side happen to be; the label is quiet and small, so the year
+   stays the thing being read and the basis reads as a caption on it. A card that cannot say honestly
+   which row it sorted on emits no caption at all and the cell is one line, exactly as it always was. */
+.ci-year{flex:none; display:flex; flex-direction:column; align-items:flex-end; gap:1px; font-family:var(--mono); font-size:calc(13px * var(--fs)); font-weight:600; color:var(--ink-faint); line-height:1.15;}
+.ci-year .ciy-b{font-size:calc(9px * var(--fs)); font-weight:500; letter-spacing:.07em; text-transform:uppercase; opacity:.72;}
 .chrono-item.correct .ci-year{color:var(--good);}
 .chrono-item.wrong .ci-year{color:var(--zh);}
 .ci-arrows{flex:none; display:flex; flex-direction:column; gap:3px;}
@@ -8292,12 +8325,9 @@ body[data-theme="carnelian"].night .collection-deco{
 @media (max-width:520px){
   .elab-qrow{flex-direction:column; align-items:flex-start; gap:8px;}
 }
-.elab-box{width:100%; box-sizing:border-box; resize:vertical; font:inherit;
-  font-size:calc(14px * var(--fs)); line-height:1.5; color:var(--ink);
-  background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:9px 11px;}
-.elab-box:focus-visible{outline:2px solid var(--indigo); outline-offset:1px;}
-.elab-acts{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
-.elab-note{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
+/* `.elab-box` / `.elab-acts` / `.elab-note` were the self-explanation fallback's textarea and its
+   footnote, and went with it in Sep 2026 (see elabPromptHTML) — the Think-it-through block is now the
+   authored why-questions and nothing else, so there is no writing surface in it to style. */
 /* the paragraph "Show me" opens onto, marked for a moment. A background wash rather than a border, so
    nothing moves — a border would relayout the prose the reader has just been sent to read. */
 .abstract.elab-mark{background:var(--indigo-wash); border-radius:8px;

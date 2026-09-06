@@ -52,6 +52,21 @@
        them once the top bar is gone.
        ============================================================ -->
   <header class="topbar">
+    <!-- THE LOGO AND ITS TAGLINE (Sep 2026, on request: "on tablet and desktop in the top menu bar, and on
+         mobile at the top of the home page, there should be a folio logo with the tagline 'Memorize
+         anything'"). It stood here once, was taken out, and the `.brand` styles and the click handler in
+         app.js were both left behind against its return — so this is the markup coming back to them rather
+         than a new control. It routes home, like the Home tab beside it; that is a duplicate on purpose,
+         a masthead being the one thing on a site everybody already expects to be clickable.
+         THE TAGLINE IS AUTHORED BRITISH, like every other string on the site: `spellText` runs over the
+         whole document body, so an American reader is shown "Memorise" -> "Memorize" by the same table
+         that handles the rest of the prose (the `memoris` row in SPELL_PAIRS was added with this). The
+         phone never sees this bar — it is `display:none` below 640px — and gets `homeBrandHTML()` at the
+         top of the home page instead. -->
+    <button class="brand" type="button" aria-label="Folio — home">
+      <span class="mark">Folio<span class="dot">.</span></span>
+      <span class="tag">Memorise anything</span>
+    </button>
     <nav class="nav left" aria-label="Primary">
       <button class="tab" type="button" data-route="home">
         <svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.4 12 4l9 7.4"/><path d="M5.5 9.8V20h13V9.8"/></svg>

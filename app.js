@@ -160,6 +160,44 @@
     if (c && c.id != null && ADMIN_EDITS && ADMIN_EDITS.chrono && c.id in ADMIN_EDITS.chrono) { const ov = ADMIN_EDITS.chrono[c.id]; return ov === "none" ? 0 : ov; }   // "none" = admin set it to no year → timeless
     const y = cardYears(c); return y.length ? Math.min(...y) : 0;
   }
+  /* WHICH ROW OF THE DATE LINE THE SORT YEAR CAME FROM (Sep 2026, on request: in Timeline, "when the
+     answers are revealed, each year should also say what that starting date is based on"). A card's
+     chronological position is `min(cardYears)` over the whole `answerDate` field, which is a number with
+     nothing beside it to say what it is a date OF — and on a card whose date line reads
+     `Born 100 BCE / Died 44 BCE` the ordering fact is the birth, while on `Built c. 447 BCE /
+     Destroyed 1687 CE` it is the building. The date line already names both, in its `dt-k` labels, so the
+     basis is read back out of it rather than stored a second time.
+
+     IT IS DERIVED AND MAY HONESTLY COME BACK EMPTY. A row is the basis only when that row's OWN earliest
+     year equals the card's sort year, so a label is never guessed at: a card with no date line, one whose
+     sort year comes from a continuation line, and one an admin has given a manual chronology override all
+     return "" and the game prints the year alone, exactly as it did before. Saying "Era" over a year that
+     did not come from the Era row would be worse than saying nothing. */
+  const _DT_ROW_RX = /<span class="dt-k">([^<]*)<\/span>\s*<span class="dt-v">([^<]*)<\/span>|<span class="dt-v dt-sub">([^<]*)<\/span>/g;
+  function dateLineRows(c) {
+    const html = c && c.answerDate ? String(c.answerDate) : "";
+    const rows = [];
+    let m, cur = null;
+    _DT_ROW_RX.lastIndex = 0;
+    while ((m = _DT_ROW_RX.exec(html))) {
+      if (m[3] != null) { if (cur) cur.value += " " + m[3]; }        // a continuation line belongs to the row above it
+      else rows.push((cur = { label: (m[1] || "").trim(), value: m[2] || "" }));
+    }
+    return rows;
+  }
+  function cardYearBasis(c) {
+    if (!c) return "";
+    if (c.id != null && ADMIN_EDITS && ADMIN_EDITS.chrono && c.id in ADMIN_EDITS.chrono) return "";   // the override is nobody's row
+    const y = cardStartYear(c);
+    if (!y) return "";
+    const rows = dateLineRows(c);
+    for (let i = 0; i < rows.length; i++) {
+      if (!rows[i].label) continue;
+      const ys = cardYears({ answerDate: rows[i].value });
+      if (ys.length && Math.min.apply(null, ys) === y) return rows[i].label.replace(/&lt;/gi, "<").replace(/&gt;/gi, ">").replace(/&amp;/gi, "&");
+    }
+    return "";
+  }
   // years bounding a card's historical era; etymology / coinage date lines (e.g. "Silk Road —
   // coined 1877") describe a term's origin rather than the subject's period, so they're skipped
   function cardSpanYears(c) {
@@ -14825,6 +14863,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["centralis", "centraliz", "e|es|ed|ing|ation|ations"],
     ["decentralis", "decentraliz", "e|es|ed|ing|ation|ations"],
     ["modernis", "moderniz", "e|es|ed|ing|ation|ations"],
+    // added Sep 2026 with the masthead's tagline, which is authored British ("Memorise anything") and
+    // has to reach an American reader as their own spelling like every other string on the site.
+    ["memoris", "memoriz", "e|es|ed|ing|ation"],
     ["industrialis", "industrializ", "e|es|ed|ing|ation"],
     ["militaris", "militariz", "e|es|ed|ing|ation"],
     ["demilitaris", "demilitariz", "e|es|ed|ing|ation"],
@@ -21005,6 +21046,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            `v${v}${when ? " · " + w : ""}</div>`;
   }
 
+  /* THE MASTHEAD, AT THE TOP OF THE HOME PAGE (Sep 2026, on request: "on tablet and desktop in the top
+     menu bar, and on mobile at the top of the home page, there should be a folio logo with the tagline
+     'Memorize anything'"). The same `.brand` markup the top bar carries — one set of styles, so the two
+     can never come to disagree about what the logo is.
+
+     IT IS DRAWN AT EVERY WIDTH AND HIDDEN BY THE STYLESHEET WHERE THE TOP BAR HAS IT, which is what
+     closes the hole the obvious phone-only rule leaves. The top bar is `display:none` below 640px, and
+     between 641 and 900px it is already 134px too narrow for its seven tabs (see the band rules in
+     styles.css), so the bar's own logo can only be shown from 901px up — leaving a small tablet with no
+     logo anywhere at all. `.home-brand` is therefore hidden from 901px rather than from 641px, so exactly
+     one of the two is on screen at any width. It is a static heading rather than a button: the reader is
+     already on the home page, so a control that routes here would do nothing. */
+  function homeBrandHTML() {
+    return '<div class="brand home-brand" role="img" aria-label="Folio — memorise anything">' +
+      '<span class="mark">Folio<span class="dot">.</span></span>' +
+      '<span class="tag">Memorise anything</span></div>';
+  }
+
   /* ---------- the review list's SUBDECK FOLD (Aug 2026, on request) ----------
      Adding a collection brings its whole subtree into the review (see addActive), and a 1,000-card plan's
      tree runs to thirty or forty leaves — so the list under the banner had become by a wide margin the
@@ -22556,6 +22615,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        from its top bar. */
     root.innerHTML = `
       ${versionLineHTML()}
+      ${homeBrandHTML()}
       <div class="page-head">
         <span class="eyebrow">${greeting}, ${esc(S.user.name)}</span>
         <h1>Today</h1>
@@ -31819,23 +31879,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     return out;
   }
-  // up to three cards this reader HAS studied that are closest in subject to this one
-  function connectKin(c, n) {
-    if (!c || !c.id) return [];
-    const scored = [];
-    Object.keys(S.cards || {}).forEach((id) => {
-      if (id === c.id) return;
-      const o = cardById(id);
-      if (!o || !o.answerText) return;
-      const k = cardKinship(c, o);
-      if (k > 0) scored.push([k, id, o]);
-    });
-    scored.sort((a, b) => b[0] - a[0]);
-    return scored.slice(0, n || 3).map((s) => s[2]);
-  }
   /* The block itself, or "" when this card has nothing to ask. It is injected by `showAnswer` rather than
      built into `buildBack`, because the budget is a property of the SESSION and `buildBack` is also what
      the editor's preview and the card browser draw — neither of which has a session or should have one. */
+  /* THERE IS ONE KIND OF PROMPT AND IT IS THE AUTHORED ONE (Sep 2026, on request: a Think-it-through
+     section "should never have the 'You have also studied ...' fill in the blank type. It should always
+     say three common 'Why ...?' questions about the answer term with a very brief explanation that can be
+     revealed with a show answer button"). The self-explanation fallback — three kin cards named from
+     `S.cards` over an empty textarea — was written for the cards that carry no `card.why`, and it asked a
+     reader to connect a card to whatever else they happened to have studied, which is a different and much
+     weaker exercise: it has no right answer, nothing to check against, and no relation to the term. A card
+     with nothing authored now shows NO section at all, which is the honest state — `card.why` is authored
+     out of the card's own cited prose and is never generated (see the `why` bullet under "Add a card"), so
+     the alternative to an authored question is silence rather than a manufactured one. `connectKin` went
+     with it; `cardKinship`, which it used, is still Multiple Choice's distractor ranking. */
   function elabPromptHTML(c) {
     const ws = cardWhy(c);
     if (ws.length) {
@@ -31863,14 +31920,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             "</div>";
         }).join("") + "</div>";
     }
-    const kin = connectKin(c, 3);
-    if (kin.length < 2) return "";
-    return '<div class="elab" data-elab="connect"><span class="elab-kind">Think it through</span>' +
-      '<p class="elab-q">You have also studied ' +
-        kin.map((k) => "<b>" + esc(k.answerText) + "</b>").join(", ").replace(/, ([^,]*)$/, " and $1") +
-        ". How does this card connect to one of them?</p>" +
-      '<textarea class="elab-box" rows="2" placeholder="In a sentence — no one sees this, and nothing is marked."></textarea>' +
-      '<div class="elab-acts"><span class="elab-note">Nothing here is saved or scored. Putting the connection into words is the whole of the exercise.</span></div></div>';
+    return "";
   }
   /* Wire whichever block was drawn. Every "Show answer" button uncovers the paragraph under its own
      question — a plain disclosure, and it does NOT close again: this is a self-check, and a reader who has
@@ -32842,7 +32892,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      read off the card rather than derived from its date line, which cannot tell an onset from a span. */
   function chronoPool() {
     const avail = gameCardIdSet();
-    return CARDS.filter((c) => avail.has(c.id) && !cardUndatable(c)).map((c) => ({ id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c) })).filter(
+    /* `basis` is the date line's own label for the row the sort year came from — "Founded", "Reigned",
+       "In use" — carried through so the reveal can say what each date IS (Sep 2026, on request). It is
+       read once here rather than at reveal time because the pool is built once and the reveal is a loop
+       over five rows; a card whose basis cannot be established honestly carries "" (see cardYearBasis). */
+    return CARDS.filter((c) => avail.has(c.id) && !cardUndatable(c)).map((c) => ({ id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c), basis: cardYearBasis(c) })).filter(
       (x) => x.year != null && x.name
     );
   }
@@ -33068,7 +33122,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (ok) score++;
         el.classList.toggle("correct", ok);
         el.classList.toggle("wrong", !ok);
-        el.querySelector(".ci-year").textContent = chronoLabel(byId[id].year);
+        /* THE YEAR, AND UNDER IT WHAT THE YEAR IS (Sep 2026, on request). A bare "753 BCE" beside a term
+           says where it sorted and not why, which on a card dated by a reign, a building or a death is
+           the whole of what a reader wanted to know once the order is given away. The label is the date
+           line's own; a card that cannot say honestly which row it sorted on prints the year alone. */
+        const x = byId[id];
+        el.querySelector(".ci-year").innerHTML = '<span class="ciy-n">' + esc(chronoLabel(x.year)) + "</span>" +
+          (x.basis ? '<span class="ciy-b">' + esc(x.basis) + "</span>" : "");
       });
       checked = true;
       const solved = score === N;
