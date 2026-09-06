@@ -195,6 +195,11 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Erdem deposited this byline in ASCII, writing the Danish o-with-stroke as a plain o,
+  // so Crossref carries "Jens Hoyrup". The article's own title page prints "JENS HØYRUP",
+  // and Ø is a letter in its own right rather than an accent, so the diacritic fold cannot
+  // reach it.
+  ["10.32704/erdem.1986.5.445", "Jens Høyrup", "Jens Hoyrup"],
   // Filozofija i drustvo deposited this byline in ASCII, transliterating the Serbian
   // D-with-stroke as "Dj" and dropping the acute, so Crossref carries "Drago Djuric".
   // The article's own title page and its running head both print "Drago Đurić".

@@ -1889,7 +1889,12 @@ window.GLOSSARY = {
 "Damascus": "Damascus is the chief city of Syria and was the seat of the Umayyad caliphs, who ruled the Muslim world from it between 661 and 750 and struck its coinage at its mint.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its Great Mosque was raised by al-Walīd I between 705 and 715 on the site of the Byzantine basilica of St John the Baptist, and its walls and porticoes were faced with mosaics of towns, buildings and fruit trees.<sup class=\"fn\" data-fn=\"1\"></sup> When the Abbasids took the caliphate in 750 they governed from Iraq instead, and the move east turned the state away from the Mediterranean.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Battle_of_Tours": "The Battle of Tours, called the battle of Poitiers in French, was fought about 732 between the Frankish mayor of the palace Charles Martel and an army under ʿAbd al-Raḥmān al-Ghāfiqī, governor of al-Andalus.<sup class=\"fn\" data-fn=\"1\"></sup> Charles won, but the victory was one of many clashes with the governors of al-Andalus and ended neither the raids into Gaul nor the quarrel, which ran on into the 9th century.<sup class=\"fn\" data-fn=\"1\"></sup> The place, the date and the course of the fighting are all uncertain, and the battle owes its modern prominence less to the sources than to the uses later made of its name.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Al-Andalus": "Al-Andalus is the name for the part of the Iberian Peninsula under Muslim rule, which began with the arrival of Islam in 711 and made the country a frontier of the Islamic world for eight centuries.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An Umayyad refugee, ʿAbd al-Raḥmān I, ruled there from 756 to 788, and his great mosque at Cordoba set Roman and Visigothic columns into its arcades, claiming the older past of the land for the new order.<sup class=\"fn\" data-fn=\"1\"></sup> ʿAbd al-Raḥmān III took the title of caliph in 929, after which al-Andalus became the leading centre of art and learning in the western Mediterranean.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Abbasid_Caliphate": "The Abbasid Caliphate is the dynasty that took the caliphate from the Umayyads in 750 and held the title, at least in name, until 1258, governing from Iraq rather than Syria.<sup class=\"fn\" data-fn=\"1\"></sup> Its second caliph, al-Manṣūr, founded a new capital there called Madīnat al-Salām, 'the city of peace', laid out as a circle inside three rings of wall whose outer ring appears to have been symbolic rather than defensive.<sup class=\"fn\" data-fn=\"2\"></sup> Under Abbasid patronage the translation of Greek, Syriac, Persian and Indian learning into Arabic reached its height, and mathematics, medicine and astronomy flourished with it, work that continued under al-Mutawakkil between 847 and 861.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Abbasid_Caliphate": "The Abbasid Caliphate is the dynasty that took the caliphate from the Umayyads in 750 and held the title, at least in name, until 1258, governing from Iraq rather than Syria.<sup class=\"fn\" data-fn=\"1\"></sup> Its second caliph, al-Manṣūr, founded a new capital there called Madīnat al-Salām, 'the city of peace', laid out as a circle inside three rings of wall whose outer ring appears to have been symbolic rather than defensive.<sup class=\"fn\" data-fn=\"2\"></sup> Under Abbasid patronage the translation of Greek, Syriac, Persian and Indian learning into Arabic reached its height, and mathematics, medicine and astronomy flourished with it, work that continued under al-Mutawakkil between 847 and 861.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"House_of_Wisdom": "The House of Wisdom, in Arabic Bayt al-Ḥikma, was a library at the Abbasid court in Baghdad where collected manuscripts were rendered into Arabic, either directly from the Greek or through a Syriac version first.<sup class=\"fn\" data-fn=\"1\"></sup> Early accounts of it disagree: one credits its founding to the Barmakid vizier Yaḥyā ibn Khālid, who paid for Sanskrit works and Greek astronomy and mathematics to be translated, while another has the caliph al-Maʾmūn install astronomers in a well-stocked library with an observatory attached.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It passed to the caliph directly when the Barmakids fell, and after al-Maʾmūn died in 833 it disappears from the record.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Islamic_Golden_Age": "The Islamic Golden Age is a modern label for a period of Muslim learning and art, usually placed between the 8th century and the 13th and conventionally closed by the Mongol destruction of Baghdad in 1258.<sup class=\"fn\" data-fn=\"1\"></sup> It rests on the movement that turned Greek, Persian, Syriac and Indian works into Arabic, on hospitals that treated the poor without charge while training physicians, and on advances in astronomy, mathematics and medicine.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its span has widened in the telling, a standard account of a century ago giving it a single hundred years from 750 to 850 and dating the decline to theological and political change rather than to invasion.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Al-Khwarizmi": "Al-Khwārizmī was a mathematician and astronomer working at Baghdad under the caliph al-Maʾmūn, who ruled from 813 to 833, and almost all that is known of him comes from the Fihrist, an index of books compiled there about 987.<sup class=\"fn\" data-fn=\"1\"></sup> The caliph set him to revise Ptolemy's tables, to observe at Baghdad and Damascus and to measure a degree of the earth's meridian, and his Latinised name, Algoritmi, is the origin of the word algorithm.<sup class=\"fn\" data-fn=\"1\"></sup> His treatise on calculating by completion and reduction, whose first Arabic word gave English algebra, sorts quantities into roots, squares and numbers and solves six standard cases by rearranging areas.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Avicenna": "Avicenna, in Arabic Abū ʿAlī al-Ḥusayn ibn Sīnā, was a physician, philosopher and minister of state, born near Bukhara about 980 and dead in 1037 after a career spent serving and fleeing a succession of princes.<sup class=\"fn\" data-fn=\"1\"></sup> His Canon of Medicine, five books of nearly a million words on principles, drugs, diseases and compound remedies, displaced the earlier Arabic handbooks and, in Latin, remained a standard European authority for centuries.<sup class=\"fn\" data-fn=\"1\"></sup> In philosophy he distinguished a thing's essence from its being and called God the Necessary Existent, who falls under no genus, and he held the highest happiness to be the comprehension of God.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Islamic_medicine": "Islamic medicine is the practice and literature that grew in the Islamic world from the 8th century out of Greek, Syriac, Persian and Indian material, its Greek inheritance reaching Arabic through Syriac translation.<sup class=\"fn\" data-fn=\"1\"></sup> Its institutional form was the bimaristan, a hospital that treated patients without charge, gave them bed, food and clothing while they recovered, divided its wards by sex and complaint, kept a library and required its salaried physicians to pass an examination.<sup class=\"fn\" data-fn=\"2\"></sup> Four Persian authors dominate the surviving literature, ʿAlī ibn Rabban, al-Rāzī, al-Majūsī and Ibn Sīnā, and the last of them eventually displaced the rest.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2780,7 +2785,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Damascus": "Umayyad capital 661 – 750 CE",
 "Battle_of_Tours": "c. 732 CE",
 "Al-Andalus": "711 – 1492 CE",
-"Abbasid_Caliphate": "750 – 1258 CE"
+"Abbasid_Caliphate": "750 – 1258 CE",
+"Islamic_Golden_Age": "c. 750 – 1258 CE",
+"Al-Khwarizmi": "active c. 813 – 833 CE",
+"Avicenna": "c. 980 – 1037 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3957,7 +3965,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Fall_of_Constantinople": ["Fall of Constantinople in 1453","conquest of Constantinople"],
 "Christianisation_of_Armenia": ["Christianization of Armenia","conversion of Armenia"],
 "Kingdom_of_Georgia": ["Georgian kingdom"],
-"Ethiopian_Orthodox_Tewahedo_Church": ["Ethiopian Orthodox Church","Ethiopian Church"]
+"Ethiopian_Orthodox_Tewahedo_Church": ["Ethiopian Orthodox Church","Ethiopian Church"],
+"Al-Khwarizmi": ["al-Khwārizmī","Khwarizmi","Muhammad ibn Musa al-Khwarizmi"],
+"Avicenna": ["Ibn Sina","Ibn Sīnā"],
+"Islamic_medicine": ["Arabian medicine","Arabic medicine"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5877,7 +5888,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Damascus": ["city","history","geography","asia","religion"],
 "Battle_of_Tours": ["battle","history","warfare","europe","politics"],
 "Al-Andalus": ["state","history","geography","europe","religion"],
-"Abbasid_Caliphate": ["state","history","politics","asia","religion"]
+"Abbasid_Caliphate": ["state","history","politics","asia","religion"],
+"House_of_Wisdom": ["institution","history","science","asia","technology"],
+"Islamic_Golden_Age": ["era","history","science","asia","religion"],
+"Al-Khwarizmi": ["person","history","science","asia","technology"],
+"Avicenna": ["person","history","science","asia","philosophy"],
+"Islamic_medicine": ["practice","history","science","asia","technology"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
