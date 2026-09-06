@@ -125,6 +125,11 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G15 — twelve more, mostly European and one that belongs to no state's statistics**:
+  `gw-072` the Netherlands, `gw-082` Belgium, `gw-088` Czechia, `gw-090` Portugal, `gw-093` Sweden,
+  `gw-094` Greece, `gw-097` Hungary, `gw-098` Austria, `gw-100` Switzerland, `gw-104` Hong Kong,
+  `gw-110` Serbia and `gw-111` Bulgaria, with all twelve date lines rewritten off the same research.
+
 - **2026-09-06, batch G14 — the twelve largest deferrals, and the ones the pass most needed**: `gw-003`
   the United States, `gw-019` Germany, `gw-021` the United Kingdom, `gw-023` France, `gw-025` Italy,
   `gw-032` Spain, `gw-036` Afghanistan, `gw-037` Canada, `gw-042` Poland, `gw-054` Australia, `gw-060`
@@ -270,6 +275,56 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G15 found
+
+**THE FIVE-SOURCE RECIPE NOW HAS A EUROPEAN FORM AND IT IS TWO FETCHES PLUS THREE LOOKUPS**: the CBD
+country profile for the landform and the ecosystems, the World Bank's ERA5 climatology for the weather,
+the recognition guide for the history, the Constitute Project for the state's own account of itself, and
+the EU country page for the accession, euro and Schengen dates. Nine of these twelve took it whole. **And
+the EU page's dates are worth reading rather than assuming**: Greece adopted the euro in 2001 rather than
+1999, Sweden entered Schengen in 2001 and Czechia and Hungary only in December 2007, and **Bulgaria adopts
+the euro on 1 January 2026**, which no card in the collection had said.
+
+**THE RECOGNITION GUIDE'S SUMMARY IS A LOTTERY, AND THE LOSERS ARE THE COUNTRIES THAT NEVER FOUGHT
+ANYBODY.** G14 found those summaries carrying whole country histories; here the same field runs from four
+paragraphs to one sentence, and the length has nothing to do with the country's importance. Hungary's
+gives the Ottoman conquest of 1526, the Habsburg reconquest of 1699, the Compromise of 1867, the
+declaration of 17 October 1918 and the Treaty of Trianon with the three-quarters of territory it cost;
+Bulgaria's gives the revolt of 1876, San Stefano, the smaller principality the Treaty of Berlin left and
+the independence of 5 October 1908; Serbia's traces the whole break-up from 1992 to 2006. **Greece's is
+one sentence, Portugal's and Sweden's two, and the Netherlands' is about somebody else** — so those four
+carry their history on the constitution's own preamble and revision history instead, which is why
+`gw-090` opens on the coup of 25 April 1974 that the Portuguese text itself dates and names.
+
+**HONG KONG IS INVISIBLE TO EVERY SOURCE THE PASS USES AND IS STILL THE BEST-SOURCED CARD IN THE BATCH.**
+It has no CBD profile, no recognition-guide page, no UNdata profile and no Constitute entry — the last of
+those not a gap but a fact, its Basic Law being a national law of another state rather than a constitution
+of its own. What answers instead is the territory's own government, and it answers better than any
+international body would: **the AFCD's country-parks table** gives 25 parks over 43,997 hectares with the
+date each was designated, which is a landform inventory in disguise (Tai Mo Shan, Lantau Peak, Sunset
+Peak, Lion Rock, the Pat Sin range); **the Hong Kong Observatory's "Climate of Hong Kong"** gives the
+season-by-season account, the typhoon record and a rainfall range from about 1,400 mm at Ping Chau to over
+3,000 near Tai Mo Shan; **the Basic Law's own Chapter I** gives Articles 1, 2 and 5 verbatim; **the Hong
+Kong Act 1985** at `legislation.gov.uk` is the other side of the transfer; and **the WTO's member page**
+dates its accession in its own right. **When a place has no international profile, ask what it publishes
+about itself.**
+
+**AND THE CBD ANSWERS 200 FOR A COUNTRY IT HAS NO PROFILE FOR — CHECK FOR THE SECTION, NOT THE STATUS.**
+That warning was already in this file; Portugal is a new instance and a bigger country than the ones that
+prompted it, and its page returns the country SELECTOR under a 200. `gw-090`'s landform therefore rests on
+an open paper on the Western Iberian Coast — the estuaries of the Minho and the Douro, Cape São Vicente,
+and the seasonal upwelling that makes marine cold spells there outnumber marine heat waves — which is the
+G11 fallback working exactly as recorded.
+
+**TWO WRONG AUTO-LINKS, BOTH FOUND BY READING THE RENDERED CARDS, AND ONE OF THEM WAS MY OWN CIRCUMLOCUTION
+BITING BACK.** `Consul` in this glossary is the highest magistrate of the Roman Republic, so Greece's "the
+first foreign consul took up residence" pointed at a Roman office; it is now a "consular post", which the
+linker cannot match. And **"the Atlantic alliance" links to the Atlantic Ocean** — the phrase was chosen to
+vary the prose, and the glossary carries `NATO` as a key, so writing the plain acronym both reads better
+and links correctly. **A periphrasis is not free here: the auto-linker rewards the ordinary name.** Two
+links were left standing and are the G14 Berlin case: the Treaty of London and the Congress of Vienna
+point at the cities, which is where those treaties were made.
 
 ## What G14 found
 
@@ -844,6 +899,6 @@ than a fix per batch.**
   `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
   and put a fifth in its place.
 
-**Rules 1 and 3 remain open on about 270 cards.** Run `node .claude/gw-audit.js` for the live figures.
+**Rules 1 and 3 remain open on about 260 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*

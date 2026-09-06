@@ -1254,9 +1254,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1–G14 have shipped — one hundred and sixty-nine backgrounds rewritten** (`gw-001`–`gw-211`, less
+    **G1–G15 have shipped — one hundred and eighty-one backgrounds rewritten** (`gw-001`–`gw-211`, less
     the deferrals below), each five sentences of landform, water and climate over five of the country's
-    own history, with one hundred and fifty-five date lines rewritten out of the same research. Three sources make the
+    own history, with one hundred and sixty-seven date lines rewritten out of the same research. Three sources make the
     pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
@@ -1291,7 +1291,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     may not say Berlin, Paris, Rome, Madrid or Warsaw at all, and the Treaty of Paris, the Berlin Wall
     and the Grand Duchy of Warsaw have to be written round. **AND THE AUDIT DOES NOT EXEMPT `gw-003`
     FROM RULE 1**, nor could it — the card's own answer term is the United States — so exactly one
-    card will always stand in that list. The rest were
+    card will always stand in that list. **AND A PLACE WITH NO INTERNATIONAL PROFILE PUBLISHES ABOUT
+    ITSELF**: Hong Kong has no CBD profile, no recognition-guide page, no UNdata profile and no
+    Constitute entry, and its own government answers better than any of them would — the AFCD's
+    country-parks table is a landform inventory in disguise and the Observatory's "Climate of Hong Kong"
+    is the season-by-season account. **AND THE AUTO-LINKER REWARDS THE ORDINARY NAME**: "the Atlantic
+    alliance" links to the Atlantic Ocean where the plain `NATO` links correctly, and `Consul` in this
+    glossary is a Roman magistrate. The rest were
     deferred rather than half-solved before that: the
     World Bank's open climate API and the national met services answer for the weather, and nothing
     reachable carries the LANDFORM. **AND THE COUNTRY PAGE 301-REDIRECTS**, so a `curl` without `-L`
