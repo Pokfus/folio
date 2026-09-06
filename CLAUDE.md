@@ -1241,7 +1241,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     view, so they are histories of *American recognition of* the country rather than histories *of* it.
     **RUN `node .claude/gw-audit.js` FOR THE FIGURES RATHER THAN QUOTING ANY** — this bullet stated
     three and two of them were wrong within a day, because the sweep behind them was never written
-    down; the script is report-only, exits 0, and answers all three rules plus the date lines at once.
+    down; the script is report-only, exits 0, and answers all four rules plus the date lines at once.
+    **THE FOURTH RULE IS THAT A BACKGROUND MAY NOT LIST THE COUNTRIES THAT BORDER IT** (Sep 2026, on
+    request): the card draws the country on a globe with every neighbour around it, so the neighbours
+    are the one thing on it a reader can already see — rule 2 one step out. **The replacement is the
+    SAME sentence with each neighbour swapped for the sea, the region or the landform it stands in**,
+    which keeps the bearings and the length and needs no new source; a SEA is not a country and stays,
+    a HISTORICAL mention of a frontier is the country's own history and stays, and an ADJECTIVE ("the
+    Cameroonian border") counts and does not. All 42 of the already-rewritten cards that opened on a
+    border list were swept in the same pass.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.

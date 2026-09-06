@@ -46,17 +46,34 @@ recognition of* the country rather than a history *of* the country. `gw-008` Ban
 case: nine of its ten sentences are about Washington's hesitation, Nixon's message and the date an
 American consulate opened.
 
-## The three rules, and what each costs
+## The four rules, and what each costs
 
 1. **No United States, on a card that is not one.** Seven cards are exempt by subject — `gw-003` the
    United States and the six territories it administers. On the other 412 the American material has to
    come out, and it is a third of the prose, so what replaces it is not an edit but new research.
 2. **Nothing the data grid already says.** `facts` prints Capital, Population, Largest city and Area
-   under the answer term; 205 backgrounds print one of those figures again. A background repeating the
-   grid is spending a tenth of its 300 words saying what is already on screen two inches above.
-3. **Geography, climate and history first.** Only 119 of 468 backgrounds mention a landscape or climate
-   word at all. This is the positive half of rule 1 and the one that makes the collection worth studying:
-   a card asking a reader to recognise a shaded country should tell them what that country IS.
+   under the answer term. A background repeating the grid is spending a tenth of its 300 words saying
+   what is already on screen two inches above.
+3. **Geography, climate and history first.** This is the positive half of rule 1 and the one that makes
+   the collection worth studying: a card asking a reader to recognise a shaded country should tell them
+   what that country IS.
+4. **No list of the countries that border it** (Sep 2026, on request). The card draws the country on a
+   globe with every neighbour around it, so the neighbours are the one thing on the card a reader can
+   already see — and a border list is the single commonest opening a statistical profile hands you, so
+   it arrives by default rather than by choice. **It is rule 2 one step out**: the same objection to
+   spending the prose on what the page has already said. The replacement is not a shorter sentence but
+   the SAME sentence with each neighbour swapped for the sea, the region or the landform it stands in —
+   "the Gulf of Guinea along its southern edge", "the dry interior of Asia stretching away to its west" —
+   which keeps the bearings, keeps the length, and needs no new source.
+   · **A SEA IS NOT A COUNTRY AND STAYS.** The Bay of Bengal, the Gulf of Aden and the Sea of Japan are
+     what a coast faces, and naming them is the rule doing its job rather than breaking it.
+   · **NOR IS A HISTORICAL MENTION A BORDER LIST.** A card may still say that a partition line was drawn
+     across a subcontinent, or that a frontier was protested for fifty years — that is the country's own
+     history, which rule 3 asks for. `gw-005` and `gw-053` are reported by the audit for exactly those
+     sentences and are correct as they stand.
+   · **AND AN ADJECTIVE COUNTS.** "the Cameroonian border", "the Kenyan border", "at the Zimbabwean and
+     South African borders" name a neighbour as surely as a list does, and each was rewritten to a
+     bearing.
 
 ## Why this is not one batch
 
@@ -108,6 +125,13 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, the border sweep — 42 of the 49 already rewritten**: rule 4 arrived after G4, and every
+  background written under the first three rules opened on a list of neighbours, that being the sentence
+  an AQUASTAT profile opens with. All 42 were rewritten in place — the bearings kept, each neighbour
+  swapped for the sea, region or landform it stands in — plus four adjectival mentions ("the Cameroonian
+  border") and two historical ones reworded. `node .claude/gw-audit.js` gained rule 4 and its own
+  vocabulary, taken from the deck's own answer terms below `gw-500`; the finding went 65 → 24, and every
+  one of the 24 left is outside the rewritten range but two that the rule permits.
 - **2026-09-06, batch G4 — twelve more**: `gw-047` Ghana, `gw-048` Peru, `gw-049` Madagascar, `gw-050`
   Côte d'Ivoire, `gw-051` Nepal, `gw-052` Cameroon, `gw-053` Venezuela, `gw-055` Niger, `gw-056` North
   Korea, `gw-057` Syria, `gw-058` Mali and `gw-059` Burkina Faso, with all twelve date lines rewritten off
