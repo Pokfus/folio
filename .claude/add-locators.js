@@ -10,12 +10,12 @@
 
     { "cards": {
         "gr-008": { "title": "Knossos" },
-        "gr-012": { "title": "Cyclades", "name": "The Cyclades", "zoom": 5 },
+        "gr-012": { "title": "Cyclades", "name": "Cyclades", "zoom": 5 },
         "rm-004": { "title": "Tiber", "zoom": 9 }
     } }
 
   `name` is what the dot is labelled and defaults to the card's own answer term — give it where the article
-  and the answer are not the same words ("Cycladic civilisation" is marked at "The Cyclades"). `zoom` is
+  and the answer are not the same words ("Cycladic civilisation" is marked at "Cyclades"). `zoom` is
   optional and overrides the default ~50° window; a river or a region wants less, a small site more.
 
   A PLACE WITH EXTENT DECLARES ITS SHAPE HERE, AND THE SHAPE IS THE ONE THING NOT FETCHED (Sep 2026, with
@@ -24,7 +24,7 @@
   as mountains along the line, and the dash is the honesty — a people's country has no border to be right
   about, so the drawing says "about here" rather than asserting a frontier Folio surveyed.
 
-    { "cards": { "rm-012": { "title": "Rieti", "name": "The Sabine country", "kind": "region",
+    { "cards": { "rm-012": { "title": "Rieti", "name": "Sabine country", "kind": "region",
                              "area": [[12.42, 42.27], [12.62, 42.12], …] } } }
 
   The `at` is STILL FETCHED even for these: it is what a region falls back to when its own shape cannot be
@@ -77,6 +77,10 @@ for (const id of Object.keys(want)) {
   if (spec.zoom != null && (!isFinite(zoom) || zoom <= 0)) die(id + ": `zoom` must be a positive number");
   const name = String(spec.name || card.answerText || "").trim();
   if (!name) die(id + ": no `name` and the card has no answerText to fall back on");
+  /* A MAP LABEL NAMES A PLACE, so it does not open on "The" (Sep 2026, on request) — no atlas prints
+     "The Apennines" beside the range. Refused rather than stripped, for the reason add-card.js gives: The
+     Hague and The Valley are real names this same window draws. */
+  if (/^the\s/i.test(name)) die(id + ": `name` opens on \"The\" — write " + JSON.stringify(name.replace(/^the\s+/i, "")));
   /* The authored half, validated before a single request is made — the same rule this file already
      follows for everything else: a half-applied batch is worse than a refused one, and here a refusal
      after the fetches would also have wasted them. */

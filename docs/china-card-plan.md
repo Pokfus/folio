@@ -244,11 +244,21 @@ a real unit. The rule the Rome, Russia and India plans use holds: **no person is
 of cards.** Several cards carry Qin Shi Huang's or Mao's name; they are policies, campaigns and
 consequences, not episodes of a biography.
 
-**Modern scholars are capped at two in the thousand and this plan spends both.** `cnh-070 The discovery
-of the oracle bones` and `cnh-937 Dunhuang manuscripts` are events with consequences on the scale of
-the Linear B decipherment that earns Greece its `gr-075`: before 1899 the Shang was a literary
-tradition, and the Dunhuang library cave rewrote what was known of Chinese Buddhism and of vernacular
-writing. Both are cards about what changed, not about who changed it.
+**Modern scholars are capped at two in the thousand and this plan now spends one.** `cnh-937 Dunhuang
+manuscripts` is an event with consequences on the scale of the Linear B decipherment that earns Greece
+its `gr-075`: the library cave rewrote what was known of Chinese Buddhism and of vernacular writing. It
+is a card about what changed, not about who changed it.
+
+**`cnh-070` USED TO SPEND THE OTHER, AND IT WAS RETIRED IN SEP 2026, ON REQUEST** ("delete the card
+'discovery of oracle bone script' … and ensure the card 'oracle bone script' covers the topic
+generally"). *The discovery of the oracle bones* was written, shipped and then taken out: a card about
+1899 sat beside `cnh-071 Oracle bone script`, which had drifted into the STRUCTURE of the signs — how
+many are pictures, how much of the corpus is read, why a machine cannot recognise the variants — and
+between them the deck asked a reader to learn a discovery story before it had told them what the bones
+were for. The general card carries the subject now, discovery and all, and the slot went to a topic the
+deck did not have. It is also the collection's own instance of the rule two documents up: **Folio is a
+history site, and the story of how a thing was found is not the thing.** The retirement leaves one
+scholar unspent; do not spend it lightly.
 
 ## Names, dates and romanisation
 
@@ -435,7 +445,7 @@ already shipped before adding it.
     cnh-067  Basic Annals of Yin
     cnh-068  Tang of Shang
     cnh-069  Yinxu
-    cnh-070  The discovery of the oracle bones
+    cnh-070  Shang bronze inscriptions
     cnh-071  Oracle bone script
     cnh-072  Shang divination
     cnh-073  Wu Ding
