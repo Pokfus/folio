@@ -2,12 +2,16 @@
   "why": "The record of every hand edit to the DELE Spanish decks. Applied by spanish-fix.js; see that file's header for what an entry may carry and why the record exists at all. DELE A1 is being read one card at a time in Sep 2026, in batches of ten; this is what that pass has changed so far.",
   "decks": {
     "delea1": {
-      "why": "Folding the eight article cards into two changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before the fold - the subtitle said 500 against 496 cards - so both figures are set to what is actually there.",
-      "subtitle": "490 words · both directions, as two cards per word",
+      "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator.",
+      "subtitle": "493 words · both directions, as two cards per word",
       "descSub": [
         [
           "500 words for level A1 of the DELE",
-          "490 words for level A1 of the DELE"
+          "493 words for level A1 of the DELE"
+        ],
+        [
+          "490 words for level A1 of the DELE",
+          "493 words for level A1 of the DELE"
         ],
         [
           "the rest of the 500 is filled from the A1 column in order of frequency",
@@ -536,6 +540,746 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/eso": {
+      "why": "All three examples bolded Ésa, Éste and ése - three demonstratives, none of them eso, two of which are their own cards - so nothing on the card taught the word. They are also spelt with the accent the RAE dropped in 2010, and all three sat on the esto card as well, so two cards shared one wrong set of examples. Replaced, and the gloss now says what neuter means here: eso points at an idea or a situation rather than at a noun.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "that (neuter — an idea, a situation, or something not yet named)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Ésa es la oficina en la que trabaja.",
+        "Éste es el mismo coche que tengo yo.",
+        "¿Es ése el tren que tengo que tomar?"
+      ],
+      "ex": [
+        [
+          "¿Qué es eso?",
+          "What's that?"
+        ],
+        [
+          "Eso no es verdad.",
+          "That isn't true."
+        ],
+        [
+          "Eso me parece bien.",
+          "That seems fine to me."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/esto": {
+      "why": "Glossed 'substitutes a noun one can't remember or can't remember the name of' - Wiktionary's entry for the hesitation filler, offered as the whole meaning of the word, so the card never said that esto means 'this'. Its three examples were the same three the eso card carried, bolding Ésa, Éste and ése, none of which is esto.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "this (neuter — an idea, a situation, or something not yet named)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Ésa es la oficina en la que trabaja.",
+        "Éste es el mismo coche que tengo yo.",
+        "¿Es ése el tren que tengo que tomar?"
+      ],
+      "ex": [
+        [
+          "¿Qué es esto?",
+          "What's this?"
+        ],
+        [
+          "Esto es muy importante.",
+          "This is very important."
+        ],
+        [
+          "No entiendo esto.",
+          "I don't understand this."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/caro, cara": {
+      "why": "'dear (loved)' was given before 'expensive', which is the wrong way round - caro means expensive in ordinary use and 'dear' in the sense of loved is literary. Its third example bolded cara, the noun meaning face, in 'No me acuerdo de la cara de Tom' - a different word that only looks like the feminine of this one.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "expensive, dear (costly)",
+            "dear, beloved (literary)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "No me acuerdo de la cara de Tom."
+      ],
+      "ex": [
+        [
+          "Este coche es muy caro.",
+          "This car is very expensive."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/tú": {
+      "why": "One of six cards in this deck whose English gloss is 'you'. On the English-to-Spanish card the gloss is the whole of the front, so six cards were one question with six right answers. A group of that size is not hinted - naming five of the six on the front is worse than the ambiguity - so each is given a gloss that distinguishes it, which is the rule the Mandarin decks settled on. Its second and third examples bold ti and contigo, which are tú's own forms after a preposition and have no cards anywhere in the deck; they go in Forms so the examples are teaching something the card admits to.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "you (singular, informal)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "after a preposition",
+          "ti"
+        ],
+        [
+          "with you",
+          "contigo"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/usted": {
+      "why": "'second person formal' is a grammatical description rather than a translation, and the card gave 'you (singular)' beside it, which does not distinguish it from tú. See the tú entry for the group this belongs to.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "you (singular, formal)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "ustedes"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ustedes": {
+      "why": "Glossed 'you (plural), you guys, y'all, yous, yinz, ye' - five dialect forms of English carried straight out of Wiktionary, two of which (yinz, yous) are regional to a degree no learner of Spanish needs. What the card actually has to say is which Spanish-speaking places use it for whom. Two of its three examples were somebody else's card as well: one bolded les and one bolded usted, the singular.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "you (plural — formal in Spain, and the only plural you in Latin America)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Daniel les dio las gracias a los policías.",
+        "¿Estaba Joe con usted ayer por la tarde?"
+      ],
+      "ex": [
+        [
+          "¿Ustedes hablan español?",
+          "Do you speak Spanish?"
+        ],
+        [
+          "Esto es para ustedes.",
+          "This is for you."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/vosotros": {
+      "why": "See the tú entry: one of six cards glossed 'you'. vosotros is Peninsular and informal, which is the whole of what tells it from ustedes.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "you (plural, informal — Spain)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "feminine",
+          "vosotras"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/os": {
+      "why": "See the tú entry. os is the object pronoun that goes with vosotros, so it is Peninsular too, and the card said neither.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "you, to you (plural object — Spain)",
+            "yourselves (reflexive)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el enero": {
+      "why": "THE TWELVE MONTHS WERE ALL HEADED WITH AN ARTICLE AND ALL GIVEN A PLURAL, AND SPANISH DOES NEITHER. The generator gives every noun its article and its plural beneath it, which is right for the 220 nouns it was written for and wrong for a month: one says en marzo, never en el marzo, and los marzos is not a form anyone uses. The days and the seasons are left alone, because there the article is real and so is the plural - el lunes is 'on Monday' and los lunes is 'on Mondays'.",
+      "spanish": "enero",
+      "word": "enero",
+      "forms": [],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "January"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el febrero": {
+      "why": "See the enero entry: a month takes no article and has no useful plural.",
+      "spanish": "febrero",
+      "word": "febrero",
+      "forms": [],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "February"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el marzo": {
+      "why": "See the enero entry: a month takes no article and has no useful plural. Its second example was 'Tu vestido nuevo es la mar de bonito', where the matcher had bolded mar — the sea, inside an idiom that has nothing to do with the month.",
+      "spanish": "marzo",
+      "word": "marzo",
+      "forms": [],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "March"
+          ]
+        ]
+      ],
+      "rebold": true,
+      "dropEx": [
+        "Tu vestido nuevo es la mar de bonito."
+      ],
+      "ex": [
+        [
+          "Mi cumpleaños es en marzo.",
+          "My birthday is in March."
+        ]
+      ]
+    },
+    "delea1/el abril": {
+      "why": "See the enero entry: a month takes no article and has no useful plural. Its second gloss, 'years of age', is the poetic plural (quince abriles) and is not A1.",
+      "spanish": "abril",
+      "word": "abril",
+      "forms": [],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "April"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el mayo": {
+      "why": "See the enero entry: a month takes no article and has no useful plural. Its second gloss, 'maypole', is a real but rare sense that has no place on an A1 card. Its second example was 'May a veces pasa el tiempo ella sola' — the English given name May, which the form matcher took for the Spanish month.",
+      "spanish": "mayo",
+      "word": "mayo",
+      "forms": [],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "May"
+          ]
+        ]
+      ],
+      "rebold": true,
+      "dropEx": [
+        "May a veces pasa el tiempo ella sola."
+      ],
+      "ex": [
+        [
+          "Nos vemos en mayo.",
+          "See you in May."
+        ]
+      ]
+    },
+    "delea1/el junio": {
+      "why": "See the enero entry: a month takes no article and has no useful plural.",
+      "spanish": "junio",
+      "word": "junio",
+      "forms": [],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "June"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el julio": {
+      "why": "See the enero entry: a month takes no article and has no useful plural.",
+      "spanish": "julio",
+      "word": "julio",
+      "forms": [],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "July"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el agosto": {
+      "why": "See the enero entry: a month takes no article and has no useful plural.",
+      "spanish": "agosto",
+      "word": "agosto",
+      "forms": [],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "August"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el septiembre": {
+      "why": "See the enero entry: a month takes no article and has no useful plural. Its second example uses setiembre, the RAE's accepted variant spelling, which the card did not admit to having — so the sentence sat there with nothing marked in it. The variant goes in Forms.",
+      "spanish": "septiembre",
+      "word": "septiembre",
+      "forms": [
+        [
+          "also spelt",
+          "setiembre"
+        ]
+      ],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "September"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el octubre": {
+      "why": "See the enero entry: a month takes no article and has no useful plural.",
+      "spanish": "octubre",
+      "word": "octubre",
+      "forms": [],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "October"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el noviembre": {
+      "why": "See the enero entry: a month takes no article and has no useful plural.",
+      "spanish": "noviembre",
+      "word": "noviembre",
+      "forms": [],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "November"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el diciembre": {
+      "why": "See the enero entry: a month takes no article and has no useful plural.",
+      "spanish": "diciembre",
+      "word": "diciembre",
+      "forms": [],
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "December"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/el jueves": {
+      "why": "Its second gloss was 'the letter J in the Spanish alphabet' - Wiktionary's entry for the radio-alphabet use of the word, which no reader of an A1 deck will ever meet. Thursday is the whole of it. The article and the plural stay: unlike a month, el jueves means 'on Thursday' and los jueves 'on Thursdays'.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "Thursday"
+          ]
+        ]
+      ]
+    },
+    "delea1/el sábado": {
+      "why": "'Saturday, Sabbath, sabbath' - the same word twice over in two capitalisations, and neither is what the card is for.",
+      "senses": [
+        [
+          "noun, masculine",
+          [
+            "Saturday"
+          ]
+        ]
+      ]
+    },
+    "delea1/la primavera": {
+      "why": "Its second gloss, 'year of age', is the poetic plural (veinte primaveras) and is not A1.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "spring (the season)"
+          ]
+        ]
+      ]
+    },
+    "delea1/su": {
+      "why": "The gloss is right and complete; what was missing is the plural sus, which the card's own second example bolds and which mi already carries in Forms. Two possessives in the same deck, one showing its plural and one not.",
+      "forms": [
+        [
+          "plural",
+          "sus"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/tu": {
+      "why": "Same as su: the plural tus is missing, though mi carries mis. tú, the pronoun one accent away, has a card of its own, so unlike mi/mí it needs no cross-reference here.",
+      "forms": [
+        [
+          "plural",
+          "tus"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/yo": {
+      "why": "The first bullet, 'first-person singular pronoun in the nominative case', is a grammatical description standing where a translation goes. The card also said nothing about the one fact an English speaker most needs: Spanish normally leaves the subject pronoun out, and using yo is emphatic or contrastive - which is why two of the three examples are 'que yo' after a comparison rather than a plain subject. Examples 2 and 3 were the same construction twice, so one makes room for the plain subject the card never showed.",
+      "senses": [
+        [
+          "pronoun",
+          [
+            "I",
+            "me (after que or como: más viejo que yo)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "usually left out",
+          "(yo) soy de España"
+        ]
+      ],
+      "dropEx": [
+        "Él es el doble de viejo que yo."
+      ],
+      "ex": [
+        [
+          "Yo soy de España.",
+          "I'm from Spain."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/más": {
+      "why": "'more / -er / most / -est' covers the comparative and the superlative and leaves out the two other things más does: no… más and nunca más, 'not any more', which is what the card's own third example shows, and the plus of arithmetic. None of the three examples was the plain comparative - the first is más o menos, a set phrase meaning roughly - so one is replaced with it.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "more",
+            "-er (comparative: más alto que…)",
+            "most",
+            "-est (superlative: el más alto)",
+            "any more, any longer (with no or nunca)",
+            "plus (in arithmetic)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Él tiene más o menos tu misma edad."
+      ],
+      "ex": [
+        [
+          "Este libro es más interesante que el otro.",
+          "This book is more interesting than the other one."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/todo": {
+      "why": "Headed todo alone while two of its three examples bolded todas and todos, so the card showed forms its headword did not admit to having - which is exactly what the deck's own convention exists to prevent (bueno, buena above buenos, buenas). It is also glossed as a determiner only, and todo as a PRONOUN meaning 'everything' is a different thing a reader meets just as early. The first example, 'todo el mundo', is a set phrase already carried on other cards, so it makes room for the pronoun.",
+      "spanish": "todo, toda",
+      "word": "todo",
+      "forms": [
+        [
+          "plural",
+          "todos, todas"
+        ]
+      ],
+      "senses": [
+        [
+          "determiner",
+          [
+            "all",
+            "every",
+            "each"
+          ]
+        ],
+        [
+          "pronoun",
+          [
+            "everything, all (todo es posible)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "A todo el mundo le gusta la música."
+      ],
+      "ex": [
+        [
+          "Todo es posible.",
+          "Everything is possible."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ya": {
+      "why": "'already' was missing, and it is the commonest translation of ya by a long way - the card's own third example, 'Ella ya había estado en Inglaterra', is that sense, and its English ('She has been to England once') drops the word entirely. What the card gave instead was 'now', 'right now' and 'indicates completion of an action', the last being a usage note rather than a translation. All three examples go: the first is the headache sentence a third card was already using, the second uses 'se me hace que', which is Mexican colloquial, and the third is the mistranslation.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "already",
+            "now, by now",
+            "any more, any longer (ya no)"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "Ya se me quitó el dolor de cabeza.",
+        "Se me hace que ya nos hemos conocido.",
+        "Ella ya había estado en Inglaterra una vez."
+      ],
+      "ex": [
+        [
+          "Ya he comido.",
+          "I've already eaten."
+        ],
+        [
+          "Ya no vivo aquí.",
+          "I don't live here any more."
+        ],
+        [
+          "¿Ya estás listo?",
+          "Are you ready yet?"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/ahora": {
+      "why": "The second gloss, 'just now, just a moment ago (in the past)', is a regional use that reads on an A1 card as though ahora ordinarily referred to the past, which it does not. It is replaced by the two phrases a reader really meets, ahora mismo and por ahora.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "now, at the moment",
+            "right now (ahora mismo)",
+            "for now, for the time being (por ahora)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/muy": {
+      "why": "Its second example bolded mucho, which is another card - and it is not an accident of the generator's form matching but the single commonest mistake an English speaker makes in Spanish, since both answer to 'very much'. muy goes before an adjective or an adverb and mucho everywhere else, and neither card said so. The rule goes in Forms, where it can be read at a glance, and the example is replaced with one that shows muy doing its own job.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "very"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "before a noun or a verb, use",
+          "mucho"
+        ]
+      ],
+      "dropEx": [
+        "Él tiene mucho dinero, pero casi ningún amigo."
+      ],
+      "ex": [
+        [
+          "Estoy muy cansado.",
+          "I'm very tired."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/mucho": {
+      "why": "The other half of the muy entry above: mucho is glossed as a determiner alone, though it is just as often the adverb that follows a verb (trabaja mucho), which is the use that gets confused with muy.",
+      "senses": [
+        [
+          "determiner",
+          [
+            "much, a lot of",
+            "many"
+          ]
+        ],
+        [
+          "adverb",
+          [
+            "a lot, very much (after a verb: trabaja mucho)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "muchos, muchas"
+        ],
+        [
+          "before an adjective or an adverb, use",
+          "muy"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/aquí": {
+      "why": "Nothing wrong with the gloss; the card simply did not say where aquí sits among the four words this deck teaches for here and there. ahí, allí and allá all have cards of their own, so the distinction is worth one line.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "here (where the speaker is)"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "further off",
+          "ahí, allí, allá"
+        ]
+      ],
+      "rebold": true
     }
+  },
+  "insert": {
+    "delea1": [
+      {
+        "id": "u_delea1_501",
+        "after": "el, la",
+        "spanish": "lo",
+        "word": "lo",
+        "why": "THE DECK HAD NO THIRD-PERSON OBJECT PRONOUN AT ALL. supplement.py's PRONOUNS list names me, te, se, nos and os and stops, so DELE A1 shipped with cards for los and unas and nothing for lo, la, le or les - the pronouns an A1 reader needs the moment they stop using a noun twice in a sentence. The only trace of them was the los card's gloss, which called it 'a plural masculine or neuter pronoun' and gave no English at all; that card is now folded into the definite article, so without this the sense would have gone entirely. It also carries the neuter article lo, which turns an adjective into a noun (lo importante) and is a construction with no other home in the deck. The paradigm goes in Forms rather than in the headword, so the front of the card is not one letter away from the article's. Its Forms rows are the pronoun's own paradigm and not words to mark up, so the card names what may be bolded: deriving from them would bold the ARTICLE la in 'lo importante es la salud'.",
+        "senses": [
+          [
+            "pronoun",
+            [
+              "it, him, you (formal) — direct object"
+            ]
+          ],
+          [
+            "article",
+            [
+              "the … thing, what is … (neuter, before an adjective: lo importante)"
+            ]
+          ]
+        ],
+        "forms": [
+          [
+            "feminine",
+            "la"
+          ],
+          [
+            "plural",
+            "los, las"
+          ]
+        ],
+        "ex": [
+          [
+            "No lo sé.",
+            "I don't know."
+          ],
+          [
+            "Lo compré ayer.",
+            "I bought it yesterday."
+          ],
+          [
+            "Lo importante es la salud.",
+            "The important thing is health."
+          ]
+        ],
+        "bold": [
+          "lo"
+        ]
+      },
+      {
+        "id": "u_delea1_502",
+        "after": "lo",
+        "spanish": "le",
+        "word": "le",
+        "why": "The indirect object, missing for the same reason as lo. It carries the se rule in Forms - le and les become se before lo, la, los and las - which is the one thing about Spanish pronouns a reader cannot guess, and which the deck already shows in an example on the por card ('¿Por qué no se lo dijiste a ella?') without ever explaining. les is a form rather than a card, on the same reasoning that folded el, la, los and las into one.",
+        "senses": [
+          [
+            "pronoun",
+            [
+              "to him, to her, to you (formal) — indirect object"
+            ]
+          ]
+        ],
+        "forms": [
+          [
+            "plural",
+            "les"
+          ],
+          [
+            "before lo, la, los, las",
+            "se"
+          ]
+        ],
+        "ex": [
+          [
+            "Le di el libro a María.",
+            "I gave the book to María."
+          ],
+          [
+            "¿Qué le pasa?",
+            "What's the matter with him?"
+          ],
+          [
+            "Les escribí una carta.",
+            "I wrote them a letter."
+          ]
+        ]
+      }
+    ]
   }
 }

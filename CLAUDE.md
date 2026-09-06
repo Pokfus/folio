@@ -1790,7 +1790,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
   **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO** — no changelog line, no version bump.
   Currently **52 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
-  Portuguese, Spanish — **136,210 cards over 68,105 notes, 152 MB**. **Count them rather than quoting
+  Portuguese, Spanish — **136,214 cards over 68,107 notes, 152 MB**. **Count them rather than quoting
   that**: `node .claude/build-lang-decks.js` prints the tally on every run.
   · **A COMBINED FILE IS GITIGNORED**: it is an artefact of the levels it combines, every byte already
     in the repo, and its own `combine.py` regenerates it byte for byte. **Anything else in `decks/` is
@@ -1965,6 +1965,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     inflection of its own headword and never another card's headword**. A second, separate fault is that
     the bolding can miss even when the word IS there — `el`'s "Sé que **el** dinero no *lo* es todo"
     bolded `lo`. `rebold` is the local repair; the general one belongs in `examples.py`.
+  · **`insert` ADDS A CARD THE GENERATOR'S WORD LIST HAS NOT GOT.** `supplement.py`'s PRONOUNS names
+    `me te se nos os` and no third person, so DELE A1 shipped with cards for `los` and `unas` and
+    **nothing for `lo`, `la`, `le` or `les`** — the pronouns a reader needs the moment they stop
+    repeating a noun. An entry names the headword it sits AFTER, so the frequency order survives, and
+    takes an id outside the generator's range (`u_delea1_5xx`). **Its examples must NOT carry
+    `uc-exadd`**: that class marks a block added to a GENERATOR's card and every one is stripped before
+    the record is re-applied, so tagging an inserted card's own examples had the strip take them
+    straight back off — `lo` and `le` were written with three each and shipped with none.
   · **A FOLD DELETES CARDS AND SO CHANGES WHAT THE DECK HOLDS.** `fold` names the headwords a note
     absorbs; the survivor keeps the LOWEST id of the group, which is the earliest and most frequent
     slot, and a deleted note is kept on any device that already has it (`langDeckUpdate` never deletes).
@@ -1976,6 +1984,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     TRANSLATIONS, and the generator renders each bullet as an English equivalent of the word — so `de`'s
     "used after the thing owned and before the owner" was printed as though it were one. `forms` is
     `[[label, value]]` and is where `el, los / la, las / el agua` and `y` → `e` belong.
+  · **A REBOLD DERIVES ITS TARGETS FROM THE CARD'S OWN FORMS, AND A FORMS ROW IS NOT ALWAYS A FORM.**
+    Reading only the fix's own `forms` loses every plural on a card the record does not re-state them
+    for (`caro`'s "esos zapatos son demasiado caros" came back with nothing marked); reading them all
+    bolds a CROSS-REFERENCE, which is what `lo`'s "feminine: la" would do to the article `la` in *lo
+    importante es la salud*. So the card's Forms are read when the fix does not set them, and `bold`
+    names the exceptions outright.
   · **`hints` IS THE MECHANICAL HALF, and is a map rather than an entry per note** — the English →
     Spanish card's front is the gloss alone, so `por` and `para` both glossing to "for" is one question
     with two right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or

@@ -61,6 +61,9 @@
       which is what the generator bolds on a noun — and matched with UNICODE-AWARE word boundaries,
       since JS's `\b` is ASCII-only and an accented letter reads to it as a boundary of its own.
 
+  `bold`  the words a rebold may mark, replacing the list derived from `spanish` and `forms`. Needed
+      only where a Forms row is a cross-reference rather than an inflection.
+
   `hints`  a separate, mechanical map: the English → Spanish card's front is the gloss and nothing else,
       so two notes sharing a gloss are one question with two right answers. `por` and `para` both gloss
       to "for". Written as the card type's own `uc-pos` line above the senses, REPLACED rather than
@@ -68,9 +71,17 @@
       no judgement in it. A group of THREE OR MORE is deliberately not hinted — naming three of four
       answers on the front is worse than the ambiguity — and is given distinguishing glosses instead.
 
+  `insert`  a card the GENERATOR'S WORD LIST does not have at all. `supplement.py`'s PRONOUNS names
+      `me te se nos os` and no third-person object pronoun, so DELE A1 shipped with `los` and `unas` as
+      cards and `lo`, `la`, `le`, `les` nowhere — a gap a gloss cannot close. An entry names the headword
+      it goes AFTER, so the deck's frequency order survives, and carries an id outside the generator's
+      range (`u_delea1_5xx`) so a rebuild can never mint the same one. Idempotent on that id.
+
   `decks`  the deck's own metadata. `subtitle` is set outright; `descSub` is `[find, replace]` pairs over
-      the description, each of which must either match (and is replaced) or be already applied — a pair
-      matching neither is an error. A FOLD changes what the deck holds, and a description that goes on
+      the description, applied in order and then checked TOGETHER: a pair is satisfied if it matched, or
+      if its replacement stands in the finished text — which is what lets a count be corrected twice
+      (500 → 490 → 493) with both pairs kept, so the chain still works on a deck freshly rebuilt from
+      500. A pair satisfied by neither is an error. A FOLD changes what the deck holds, and a description that goes on
       counting the old number is the fault `check-counts.js` exists for one directory over.
 */
 const fs = require("fs"), path = require("path");
@@ -99,12 +110,21 @@ const renderForms = (forms) => !forms.length ? "" : '<div class="uc-forms">' + f
 /* BOLD TARGETS. The generator bolds the bare word, so a noun's leading article is stripped; a headword
    that teaches a pair or a paradigm ("el, la", "bueno, buena") contributes each member, and so does
    every value in `forms`. Longest first, so `unos` is not bolded as `un` + `os`. */
-function boldTargets(fix, spanish) {
+function boldTargets(fix, spanish, formsHTML) {
+  /* `bold` OVERRIDES THE DERIVED LIST OUTRIGHT, and exists because a Forms row is not always a form: the
+     lo card's rows read "feminine: la" and "plural: los, las", which are the pronoun's own paradigm, and
+     deriving from them bolds the ARTICLE la in "lo importante es la salud". Where a Forms row is a
+     cross-reference rather than an inflection, name what may be bolded instead. */
+  if (fix.bold) return [...fix.bold].sort((a, b) => b.length - a.length);
   const out = new Set();
   const add = (s) => String(s).split(/[,/·]| or /).map((x) => x.trim())
     .forEach((x) => { if (x && !/\s/.test(x)) out.add(x); });
   add(String(spanish).replace(/^(el|la|los|las)\s+/, ""));
-  (fix.forms || []).forEach(([, v]) => add(v));
+  /* the fix's own Forms if it sets them, otherwise the ones ALREADY ON THE CARD — without that, a rebold
+     on a card whose Forms the record does not touch loses every plural: caro's "esos zapatos son
+     demasiado caros" came back with nothing bolded in it. */
+  if (fix.forms) fix.forms.forEach(([, v]) => add(v));
+  else for (const m of String(formsHTML || "").matchAll(/<span class="uc-fl">[^<]*<\/span>([^<]*)/g)) add(m[1]);
   return [...out].sort((a, b) => b.length - a.length);
 }
 const RXSAFE = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -157,10 +177,14 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
 
   if (dm) {
     if (dm.subtitle !== undefined) d.meta.subtitle = dm.subtitle;
+    const subPend = [];
     (dm.descSub || []).forEach(([from, to]) => {
       if (String(d.meta.desc).indexOf(from) >= 0) d.meta.desc = d.meta.desc.split(from).join(to);
-      else if (String(d.meta.desc).indexOf(to) < 0) badSub.push(id + " → " + from);
+      else subPend.push([from, to]);
     });
+    // checked only once every pair has run: a count corrected twice keeps both pairs, and the earlier
+    // one is satisfied by the later one's replacement standing in the finished text
+    subPend.forEach(([from, to]) => { if (String(d.meta.desc).indexOf(to) < 0) badSub.push(id + " → " + from); });
     metaHit++;
   }
 
@@ -175,6 +199,34 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
     if (d.cards.length !== n) { dropped += n - d.cards.length; hits += n - d.cards.length; }
     const still = new Set(d.cards.map((c) => c.fields.Spanish));
     foldAway.forEach((x) => { if (still.has(x)) badFold.push(id + " → " + x + " survived the fold"); });
+  }
+
+  /* NEW CARDS. Keyed on the id rather than the headword, so a re-run is a no-op and a rebuild that ever
+     minted the headword itself could not produce two of it. */
+  for (const ins of (fixes.insert || {})[id] || []) {
+    if (d.cards.some((c) => c.id === ins.id)) continue;
+    const type = (d.cards[0] || {}).type;
+    const targets = boldTargets(ins, ins.spanish, "");
+    (ins.ex || []).forEach(([es, en]) => {
+      if (!targets.some((t) => new RegExp("(?<![\\p{L}\\p{N}_])" + RXSAFE(t) + "(?![\\p{L}\\p{N}_])", "iu").test(es)))
+        badEx.push(id + "/" + ins.spanish + " (insert) → " + es);
+      else if (!en || !String(en).trim()) badEx.push(id + "/" + ins.spanish + " (insert) → no translation");
+    });
+    const card = { sub: "", fields: {
+      Spanish: ins.spanish, Word: ins.word || ins.spanish,
+      English: renderSenses(ins.senses || []), Forms: renderForms(ins.forms || []),
+      Conjugation: ins.conjugation || "",
+      /* NOT `uc-exadd`. That class marks a block this file ADDED to a generator's card, and every one of
+         them is stripped before the record is re-applied — so tagging an inserted card's own examples
+         made the strip pass, which runs over every note, take them straight back off: lo and le were
+         written with three examples each and shipped with none. An inserted card is the record's in
+         full, and its idempotency is the id. */
+      Examples: (ins.ex || []).map(([es, en]) => exBlock(es, en, targets, "")).join(""),
+    }, id: ins.id, type };
+    const at = d.cards.findIndex((c) => c.fields.Spanish === ins.after);
+    if (at < 0) { badFold.push(id + " → insert " + ins.spanish + ": no card '" + ins.after + "' to sit after"); continue; }
+    d.cards.splice(at + 1, 0, card);
+    hits++;
   }
 
   for (const c of d.cards || []) {
@@ -204,7 +256,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
     if (fix.senses) fl.English = (h ? '<div class="uc-pos">not ' + esc(h.other) + "</div>" : "") + renderSenses(fix.senses);
     if (fix.forms) fl.Forms = renderForms(fix.forms);
 
-    const targets = boldTargets(fix, fl.Spanish);
+    const targets = boldTargets(fix, fl.Spanish, fl.Forms);
     if (fix.ex || fix.dropEx || fix.rebold) {
       let kept = splitEx(fl.Examples);
       if (fix.dropEx) {
@@ -246,7 +298,7 @@ console.log("\n" + entries.length + " fixes, " + hints.length + " reverse-card h
   (seen.size + seenHint.size) + " matched a note, " + metaHit + " matched a deck" +
   (dropped ? ", " + dropped + " card(s) folded away" : ""));
 
-if (badFold.length) {
+if (badFold.length && (VERBOSE || CHECK)) {
   console.log("\n  note  " + badFold.length + " line(s) already applied (expected after the first run;" +
     " on a NEW entry, check for a typo):");
   badFold.forEach((k) => console.log("        " + k));
