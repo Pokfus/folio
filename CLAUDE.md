@@ -1254,9 +1254,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1–G6 have shipped — seventy-three backgrounds rewritten** (`gw-001`–`gw-087`, less the
+    **G1–G7 have shipped — eighty-five backgrounds rewritten** (`gw-001`–`gw-107`, less the
     deferrals below), each five sentences of landform, water and climate over five of the country's own
-    history, with fifty-nine date lines rewritten out of the same research. Three sources make the
+    history, with seventy-one date lines rewritten out of the same research. Three sources make the
     pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
@@ -1265,14 +1265,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **The CBD's country profiles** carry a country's own ecosystems in prose, which no statistical
     profile does. **AND AN AQUASTAT URL MUST BE READ, NEVER COMPOSED**: eight of G2's twelve guesses
     were wrong and one pointed at another country's profile — and **a 200 on a `.pdf` address is not a
-    PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **THIRTEEN
+    PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **NINETEEN
     HIGH-INCOME COUNTRIES HAVE NO AQUASTAT PROFILE AT ALL** (`gw-003`, `gw-019`, `gw-021`, `gw-023`,
-    `gw-025`, `gw-032`, `gw-037`, `gw-042`, `gw-054`, `gw-067`, `gw-072`, `gw-082`, `gw-088`) and are
+    `gw-025`, `gw-032`, `gw-037`, `gw-042`, `gw-054`, `gw-067`, `gw-072`, `gw-082`, `gw-088`, `gw-090`,
+    `gw-093`, `gw-094`, `gw-097`, `gw-098`, `gw-100`) and are
     deferred rather than half-solved: the
     World Bank's open climate API and the national met services answer for the weather, and nothing
-    reachable carries the LANDFORM. **A COUNTRY THE RECOGNITION GUIDE HAS NO PAGE FOR CAN STILL BE
+    reachable carries the LANDFORM. **AND THE COUNTRY PAGE 301-REDIRECTS**, so a `curl` without `-L`
+    hands back an empty file and reports every country as having none — check the SIZE of what came
+    back (286–291 KB) before believing a grep that found no PDF link in it. **A COUNTRY THE RECOGNITION GUIDE HAS NO PAGE FOR CAN STILL BE
     WRITTEN**: it has none for North Korea, and `gw-056` rests instead on a MILESTONE, which is about
-    an event rather than a state. Rules 1 and 3 remain open on about 350 cards.
+    an event rather than a state. Rules 1 and 3 remain open on about 340 cards.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |

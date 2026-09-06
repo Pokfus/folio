@@ -125,6 +125,12 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-06, batch G7 — twelve more**: `gw-089` Honduras, `gw-091` Tajikistan, `gw-092` Papua New
+  Guinea, `gw-095` Azerbaijan, `gw-096` Israel, `gw-099` Belarus, `gw-101` Sierra Leone, `gw-102` Togo,
+  `gw-103` Laos, `gw-105` Turkmenistan, `gw-106` Libya and `gw-107` Kyrgyzstan, with all twelve date
+  lines rewritten off the same research. **Six more high-income countries join the deferral list** —
+  `gw-090` Portugal, `gw-093` Sweden, `gw-094` Greece, `gw-097` Hungary, `gw-098` Austria and `gw-100`
+  Switzerland — which now stands at nineteen countries with no AQUASTAT profile.
 - **2026-09-06, batch G6 — twelve more**: `gw-075` Guinea, `gw-076` Benin, `gw-077` Rwanda, `gw-078`
   Burundi, `gw-079` Bolivia, `gw-080` Tunisia, `gw-081` South Sudan, `gw-083` Haiti, `gw-084` Jordan,
   `gw-085` Dominican Republic, `gw-086` United Arab Emirates and `gw-087` Cuba, with all twelve date
@@ -220,6 +226,84 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G7 found
+
+- **⚠ THE AQUASTAT COUNTRY PAGE 301-REDIRECTS, AND A `curl` WITHOUT `-L` REPORTS EVERY COUNTRY AS
+  HAVING NO PROFILE.** The first sweep of this batch fetched twenty country pages, got twenty empty
+  files and a 301 status, and read the result as twenty deferrals — which would have deferred the whole
+  of G7 and G8 in one command. The page is 286–291 KB when it arrives, so **check the SIZE of what came
+  back before believing the grep that found nothing in it**: a profile-less country (Portugal, Sweden,
+  Greece, Hungary, Austria, Switzerland) returns 286 KB and no `fao.org/3/…pdf` link, which is a
+  different fact from returning nothing at all. G2's rule — read the PDF address out of the page, never
+  compose it — still holds and was still needed here; nine of the twelve addresses are irregular
+  (`ca0420es`, `I9758EN`, `ca0211fr`, `i9803en`), and three are in a language other than English.
+- **📖 THE `pypdf` INSTALL NEEDS `--ignore-installed cffi cryptography` IN THIS SANDBOX.** A plain
+  `pip install pypdf` succeeds and then dies on `ModuleNotFoundError: _cffi_backend` inside a Rust
+  panic from the system `cryptography` 41.0.7, which pip cannot uninstall ("RECORD file not found. Hint:
+  the package was installed by debian"). `pip install --ignore-installed cffi cryptography` fixes it in
+  one command, and all twelve profiles then extract cleanly (12–22 pages each, 24–63 KB of text).
+- **THE RECOGNITION GUIDE'S SUMMARY IS THE COUNTRY'S OWN HISTORY FOUR TIMES IN TWELVE, AND ITS
+  RECOGNITION SECTION IS THE OTHER EIGHT.** Azerbaijan's summary carries the centuries of Russian,
+  Persian and Ottoman contention, the brief independence of 1918 and the Red Army's arrival in April
+  1920; Belarus's carries the National Republic of 25 March 1918, the absorption by the Bolsheviks, the
+  retaking of 1944 and the declarations of 27 July 1990 and 25 August 1991; Libya's carries the Ottoman
+  province, the Italian colony and the Franco-British occupation. **The three Central Asian republics
+  carry nothing at all** beyond "previously had been a constituent republic of the USSR", which is one
+  clause for a whole second block — so Tajikistan, Turkmenistan and Kyrgyzstan take their history from
+  the CONSTITUTION instead, whose preamble is where a post-Soviet state says what it claims to be.
+- **A CONSTITUTION'S PREAMBLE IS A HISTORY SOURCE WHERE ITS ARTICLE 1 IS ONLY A DEFINITION.** Laos's
+  dates the founding of the unified Lane Xang country to the middle of the 14th century under Chao Fa
+  Ngum, the repeated invasions to the 18th century, the founding of the republic to 2 December 1975 and
+  the first constitution to 15 August 1991 — four datable claims from one document, on a country whose
+  recognition-guide page is otherwise a list of chargés d'affaires. Kyrgyzstan's invokes the precepts of
+  Manas the Magnificent, Turkmenistan's the status of permanent neutrality, Belarus's the centuries-long
+  development of Belarusian statehood, Azerbaijan's the traditions of many centuries of statehood.
+  **Read the preamble before deciding a country's history cannot be sourced.**
+- **ISRAEL HAS NO SINGLE WRITTEN CONSTITUTION, AND THE CONSTITUTE PROJECT SERVES THE BASIC LAWS
+  INSTEAD** — a document that opens on *Basic Law: The Knesset* (1958) rather than on an article 1, so a
+  grep for the state-form sentence returns nothing and reads as a missing text. The usable clause is in
+  *Basic Law: Human Dignity and Liberty* (1992), section 1A, whose stated purpose is "to establish in a
+  Basic Law the values of the State of Israel as a Jewish and democratic state"; the absence of a single
+  constitution is itself the fact worth carding. **The first section of `Basic Law: The Knesset` states
+  where the Knesset sits, which is a grid value on this card** and could not be used.
+- **A COUNTRY WITH NO CBD BIODIVERSITY FACTS TAKES A MILESTONE RATHER THAN A JOURNAL, WHERE ONE FITS.**
+  `cbd.int/countries/profile?country=ly` answers 200 with no Biodiversity Facts section — G4's Venezuela
+  and G6's South Sudan case a third time — and the open literature on the Libyan landform is thin here:
+  the MDPI and Egyptian Journal of Botany copies are shut, `persee.fr` serves the Al-Jabal Al-Akhdar
+  vegetation paper's record page but 404s its `.txt` and 403s its PDF, so only the title could be read.
+  The **Barbary Wars milestone** carries a sentence that is about the country rather than about America
+  — Tripoli owed a loose allegiance to the Ottoman Empire rather than standing wholly apart from it —
+  and is G3's rule applied one country further east. **Cite the title of a paper you could not open at
+  your peril; take the milestone.**
+- **RULE 1's ONE PERMITTED FINDING IN THIS BATCH IS G5's, AGAIN.** `gw-089` Honduras names the
+  **Federation of Central American States**, which the audit's rule-1 pattern matches on `American`. It
+  is the Office of the Historian's own name for the polity Honduras belonged to between 1823 and 1840, it
+  is a different state from the one rule 1 is about, and the card is right as it stands. It joins
+  `gw-005`, `gw-053` and `gw-070` in the list the rules permit.
+- **⚠ A FORMAL STATE NAME CAN AUTO-LINK TO ANOTHER COUNTRY, AND IT RENDERS PERFECTLY.** `gw-106` first
+  shipped "as the United Kingdom of Libya under King Idris I", which is what the recognition guide calls
+  the state — and `buildGlossIndex` matched the surface *United Kingdom* inside it, so a reader clicking
+  the name of the Libyan monarchy was shown a definition of Britain. Nothing failed: the sentence is
+  correct, the citation is correct, and the link is a working link to a real term. It was caught only by
+  looking at the rendered card. **Read a formal state name for the shorter state name inside it** —
+  *United Kingdom of Libya*, *Republic of the Congo*, *United States of Mexico* are all this shape — and
+  reword rather than reach for a hand-written `data-k`.
+- **…AND THE OTHER TWO MIS-LINKS ARE A SPELLING AND A STANDING GAP.** Reading the twelve rendered cards
+  for their auto-linked terms — `[...document.querySelectorAll(".study-card .ttip")]` with each one's
+  `data-k`, which is far faster than `check-gloss-links.js` (that script did not finish inside 280s here)
+  — turned up two more. **`Tien Shan` links to `Tian_(Chinese_religion)`**, whose alias list is
+  `["T'ien", "Tien"]`, where **`Tian Shan` does not**, the key being parenthetical and so claiming no bare
+  name; `wh-277` and `ru-001` already spell it *Tian Shan*, so `gw-107` was respelled to match and the
+  corpus is now consistent. **`Gulf of Guinea` links to the COUNTRY Guinea on eleven cards**, six of them
+  already rewritten (`gw-006`, `gw-047`, `gw-050`, `gw-058`, `gw-059`, `gw-076`), so it is a standing
+  condition rather than anything G7 introduced and is recorded here rather than half-swept: the fix is a
+  `Gulf_of_Guinea` glossary term, which would win on longest match, and that is a cited term of its own.
+- **CHECK-STYLE's `data.js` BASELINE IS 127, NOT 92**, measured by stashing the batch and re-running:
+  the figure quoted in a request drifts like every other figure in prose. G7 added none of them. All 60
+  citation URLs answered 200 on the `SRC_URL_RX` sweep, and `check-citations` reports 0 mismatches over
+  the 17 of 1,752 gw- citations it can adjudicate — none of this batch's carries a DOI, so all 60 are
+  UNCHECKED rather than passed, which is that script's own distinction.
 
 ## What G6 found
 
@@ -366,6 +450,6 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
   and put a fifth in its place.
 
-**Rules 1 and 3 remain open on about 390 cards.** Run `node .claude/gw-audit.js` for the live figures.
+**Rules 1 and 3 remain open on about 340 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*
