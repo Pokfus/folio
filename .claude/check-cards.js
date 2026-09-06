@@ -225,7 +225,17 @@ for (const c of cards) {
 
   // 3 + 4 + 5
   if (c.image && c.image.src) {
-    const file = decodeURIComponent(String(c.image.src).split("/").pop()).replace(/^\d+px-/, "").toLowerCase();
+    /* THE KEY IS THE SOURCE FILE, NOT THE THUMBNAIL'S NAME. A thumb URL is
+       …/thumb/<a>/<ab>/<FILE>/<width>px-<FILE>, so the last segment normally carries the file name with a
+       width prefix — but Commons TRUNCATES a long one to the literal "1920px-thumbnail.jpg", and stripping
+       the prefix then leaves every such picture keyed "thumbnail.jpg". Two entirely different pictures
+       compare equal, which reported the Hopewell mica face and a 1930s Senate hearing as one photograph.
+       The segment BEFORE the width is the real file name and is never truncated; fall back to the last
+       segment for a URL that is not a thumb. */
+    const parts = String(c.image.src).split("/");
+    const wIdx = parts.findIndex((p) => /^\d+px-/.test(p));
+    const file = decodeURIComponent(wIdx > 0 ? parts[wIdx - 1] : parts[parts.length - 1])
+      .replace(/^\d+px-/, "").toLowerCase();
     if (!imgByFile.has(file)) imgByFile.set(file, []);
     imgByFile.get(file).push(id);
     if (/via wikimedia commons|public domain,|\bCC[ -]?BY\b|\bCC0\b/i.test(String(c.image.desc || "")))
@@ -266,7 +276,14 @@ for (const c of cards) {
      section and verse numbers inline — Herodotus' chapter numbers, the Rigveda's verse numbers —
      and a quotation rightly leaves them out, so comparing the raw strings fails on every
      verse-numbered book.  Both sides drop tokens that are purely digits before matching. */
-  const norm = t => " " + String(t).replace(/<[^>]*>/g, " ").split(/\s+/)
+  /* A WHITESPACE ENTITY IS WHITESPACE, NOT A WORD.  Four of the shelved editions carry literal
+     &#32; / &#160; / &#8195; / &#8201; in their HTML — a browser renders them as the spaces they
+     are, but stripping TAGS leaves the entity itself standing as a token, so a quotation that is
+     verbatim against what the reader sees was reported as "not in the book" (beowulf's prelude
+     carries 128 of them).  Decode them before splitting, or the checker cries wolf on the one
+     thing it exists to certify. */
+  const norm = t => " " + String(t).replace(/<[^>]*>/g, " ")
+    .replace(/&#(?:32|160|8195|8201|8194|8202|8239);/g, " ").split(/\s+/)
     .filter(w => w && !/^\d+$/.test(w)).join(" ") + " ";
   const flat = norm(ch.html);
   const said = norm(q.text).trim();

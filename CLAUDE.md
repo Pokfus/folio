@@ -868,12 +868,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-040` have
-  shipped** (Aug 2026)
-  and the rest of the collection is open ground. **The `placeholder: true` that had held it back was
-  CLEARED on request in Aug 2026**, so the forty cards now reach the daily review, the games, the card of
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-200` have
+  shipped, less `cnh-070`, which was retired in Sep 2026 and must not be written again** — so the
+  lowest unused number is not the next card, and the rest of the collection is open ground. **The `placeholder: true` that had held it back
+  was CLEARED on request in Aug 2026**, so its cards reach the daily review, the games, the card of
   the day and study deep links, and the collection sits under Collections rather than Planned. Its
-  thirty-eight EMPTY decks are still coming-soon, automatically — `isComingSoon` is `!!node.placeholder ||
+  EMPTY decks are still coming-soon, automatically — `isComingSoon` is `!!node.placeholder ||
   subtreeCardIds(node).length === 0`, so a deck earns its place by holding a card and nothing has to be
   un-flagged deck by deck. Not part of the site.
 - `docs/egypt-card-plan.md` — the **1000-card running order for the Ancient Egypt collection** (`egypt`):
@@ -1193,8 +1193,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the collection **opens with Native America as a deck rather than a prologue**, running forward to tribal
   sovereignty in the present, and it covers **the territory that became the United States**, so Spanish
   Florida, French Louisiana and New Netherland are in it. The next card to write is the lowest `us-NNN` not
-  yet in `data.js`; see the "THE UNITED STATES" bullet under "Generating cards & glossary entries". **No
-  card has been written yet.** Not part of the site.
+  yet in `data.js`; see the "THE UNITED STATES" bullet under "Generating cards & glossary entries". **Its
+  first hundred cards have shipped**, so the collection is live and its 32 empty decks are coming-soon
+  automatically, `isComingSoon` being true for a node holding no card. Not part of the site.
 - `docs/ww2-card-plan.md` — the **1000-card running order for the Second World War collection** (`ww2`):
   every card's number, topic and deck, fixed in advance across 8 decks and 30 leaf decks. The eighth of the
   planned collections, the second (after Egypt) to **create its own collection** — node, tree and
@@ -6135,13 +6136,13 @@ lookup.
 
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
-| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 300 cards, contiguous — next is `wh-301` |
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 500 cards, contiguous — next is `wh-501` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 500 cards, contiguous — next is `gr-501` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 300 cards, contiguous — next is `rm-301` |
-| United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
+| United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 98 cards, SCATTERED — next is `cnh-042`, an early gap, and `cnh-070` was retired in Sep 2026; the collection is open to study |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 199 cards, `cnh-001` to `cnh-200` with `cnh-070` retired in Sep 2026 — next is `cnh-201`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
@@ -6166,7 +6167,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (277 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (280 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7207,7 +7208,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 277 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 280 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
