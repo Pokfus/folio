@@ -3272,6 +3272,212 @@
         ]
       ],
       "rebold": true
+    },
+    "delea1/veces": {
+      "why": "THE WORST HEADWORD IN THE DECK SO FAR: the card was headed veces - a PLURAL - and filed as a PREPOSITION glossed 'by' and 'times (multiplication)'. The word is la vez, a feminine noun meaning a time or an occasion, and all three of the card's examples are that noun in one of its phrases: a veces, dos veces, algunas veces. The headword, the part of speech and both glosses were wrong together, and the plural now sits in Forms where the deck puts every other noun's.",
+      "spanish": "la vez",
+      "word": "la vez",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "time, occasion (una vez — once, dos veces — twice)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "a veces — sometimes",
+            "otra vez — again",
+            "en vez de — instead of",
+            "tal vez — perhaps"
+          ]
+        ]
+      ],
+      "forms": [
+        [
+          "plural",
+          "las veces"
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/serio, seria": {
+      "why": "Seven synonyms in two disambiguated blocks - 'serious, earnest, sober, solemn (without humor)' and 'serious, grave, deep (important, weighty)'. en serio, which is what the card's own first example is, was not among them.",
+      "senses": [
+        [
+          "adjective",
+          [
+            "serious (of a person)",
+            "serious, grave (of a matter)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "en serio — seriously",
+            "¿en serio? — really?"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la tarde": {
+      "why": "Its third example is 'Él llega tarde a la escuela', which is the ADVERB tarde meaning late - a different word from the noun the card teaches, and one it did not list. buenas tardes and por la tarde were missing as well, which are the two shapes the noun is met in.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "afternoon, early evening"
+          ]
+        ],
+        [
+          "adverb",
+          [
+            "tarde — late"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "buenas tardes — good afternoon",
+            "por la tarde — in the afternoon"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la hora": {
+      "why": "'hour (a time period of sixty minutes)' and 'time', and neither of the two questions the word exists for: ¿qué hora es? and ¿a qué hora…?, the second being the card's own third example.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "hour",
+            "time (of day)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "¿qué hora es? — what time is it?",
+            "¿a qué hora…? — at what time…?"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/demasiado, demasiada": {
+      "why": "Filed as an adjective, and the card's FIRST example is the adverb - 'La vida es demasiado corta', life is too short - which is a use it did not list. Third card in this review to be filed under one part of speech while its own examples are mostly another, after hasta and mañana.",
+      "senses": [
+        [
+          "determiner",
+          [
+            "too much",
+            "too many"
+          ]
+        ],
+        [
+          "adverb",
+          [
+            "too (demasiado corto — too short)",
+            "too much (comes demasiado — you eat too much)"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/entre": {
+      "why": "All three examples were the SAME SENTENCE three times over - 'X es muy popular entre Y', with X and Y swapped - so the card asked one thing thrice and taught it once. That is the worst example duplication found in the deck. 'from' is also not a meaning of entre.",
+      "senses": [
+        [
+          "preposition",
+          [
+            "between",
+            "among"
+          ]
+        ]
+      ],
+      "dropEx": [
+        "El tenis es muy popular entre los estudiantes.",
+        "Betty White es muy popular entre los americanos."
+      ],
+      "ex": [
+        [
+          "El gato está entre las dos sillas.",
+          "The cat is between the two chairs."
+        ],
+        [
+          "Entre tú y yo, no me gusta.",
+          "Between you and me, I don't like it."
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la familia": {
+      "why": "'family (group of people related to each other)' and 'family' are the same gloss twice, the first carrying a dictionary's definition.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "family"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/la cuenta": {
+      "why": "A COMPLETE MISS: glossed 'count, tally, operation', and not one of those three appears anywhere on the card, while ALL THREE of its examples are senses it does not list - darse cuenta de (to realise), a fin de cuentas, and pagar la cuenta, the bill. The reader was shown three sentences and given three translations, and no line joined them.",
+      "senses": [
+        [
+          "noun, feminine",
+          [
+            "bill, check (in a restaurant)",
+            "account (at a bank)"
+          ]
+        ],
+        [
+          "phrase",
+          [
+            "darse cuenta de — to realise",
+            "tener en cuenta — to bear in mind"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/todavía": {
+      "why": "'even' is incluso, or aún; todavía does not mean it. All three of the card's examples are todavía no, which had no line of its own.",
+      "senses": [
+        [
+          "adverb",
+          [
+            "still",
+            "todavía no — not yet"
+          ]
+        ]
+      ],
+      "rebold": true
+    },
+    "delea1/salir": {
+      "why": "'to go out, to leave, to depart, to head out' and then 'to go out' again - four words, then a repeat. salir DE, which is the shape the card's own second example takes (sale de casa), and salir con had no line.",
+      "senses": [
+        [
+          "verb",
+          [
+            "to go out",
+            "to leave (salir de casa — to leave home)",
+            "to come out, to turn out"
+          ]
+        ],
+        [
+          "verb, phrase",
+          [
+            "salir con — to go out with, to date"
+          ]
+        ]
+      ],
+      "rebold": true
     }
   },
   "insert": {
