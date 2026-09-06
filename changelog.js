@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.657", released: "2026-09-06T11:19Z" };
+window.FOLIO_VERSION = { v: "1.658", released: "2026-09-06T11:22Z" };
 
 window.CHANGELOG = [
   {
@@ -60,12 +60,15 @@ window.CHANGELOG = [
       "<b>Ten new cards in the Biology collection</b>, opening its chapter on the cell.",
       "<b>The word <i>cell</i> now opens its own glossary entry wherever it appears</b>, which it did not before.",
       "<b>Forty-two more glossary terms</b>, written for the new cards’ answers.",
+      "<b>Fifty-seven new cards in the World War II collection</b>, with a glossary term for each and a picture for nearly all of them.",
+      "<b>Organisation Consul now has a glossary entry</b>, so the Weimar Republic’s assassins no longer open the entry for a Roman magistrate.",
     ],
   },
   {
     d: "2026-09-05",
     t: "Studying rebuilt around what the evidence says works",
     items: [
+      "<b>Forty-three new cards in the World War II collection</b>, with a glossary term for each.",
       "<b>Finishing a session now finishes the deck</b>: a card sitting out a short learning step is dealt with the rest rather than left behind as a red number.",
       "<b>A picture's source is a link again</b> wherever the address sits in its credit line, and a picture's title now opens on a capital.",
       "<b>A geography card's flag can be tapped to see it full size</b>, with the marker down or up.",
