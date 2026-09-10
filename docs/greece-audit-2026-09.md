@@ -452,11 +452,93 @@ each.
 `Politics` (Aristotle, 9 cards) and `Eunomia` (Tyrtaeus, 2) are the other two works cited by title
 with no entry behind them.
 
+**BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
+`gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
+Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
+keeps a second finding of its own, for the reason set out below.
+
+**BRYN MAWR CLASSICAL REVIEW IS OPEN AGAIN, AND THE NOTE AT THE FOOT OF THIS FILE SAYING OTHERWISE HAS
+BEEN CORRECTED.** It answered 502 on all 353 URLs when this audit was written and answers 200 now,
+search included (`bmcr.brynmawr.edu/?s=<query>`). That single change carried four of this batch's six
+substitutions, because a BMCR review is the one instrument this pass had been missing: it is open, it is
+signed by a named specialist who is not the book's author, and it summarises exactly the survey-level
+claims a Folio card makes — which the excavation reports that ARE open do not, being granular by
+design. **Search BMCR before searching anywhere else.** The precedent was already in the collection:
+`gr-051` and `gr-053` have cited BMCR reviews since they were written.
+
+**THE THREE REVIEWS THIS BATCH RESTS ON, and what each turned out to carry.** Yannis Galanakis on
+*Mochlos IIA* (BMCR 2009.11.12) publishes the receptacle counts for one whole Late Minoan III cemetery —
+"26 chamber tombs and 5 pits … one of the largest known LM IIIA-B cemeteries in Crete", used "from about
+1400 (LM IIIA1) to 1250 BC (LM IIIB)", with "pithoi … in 18 tombs, chest larnakes in 5, tub larnakes in
+4" — which is the whole of what `gr-033`, `gr-034` and `gr-053` were asking Rutter's Lesson 13 for.
+Donald C. Haggis on *Knossos: Protopalatial Deposits* (BMCR 2008.05.32) calls Kamares ware "the
+notionally 'palatial' pottery par excellence" and names the elite-production reading of the Knossos and
+Phaistos fine wares. Anne P. Chapin on *Mycenaean Wall Painting in Context* (BMCR 2016.11.09) carries
+the West House chariots at Mycenae, the Boar Hunt fresco at Tiryns, and the Late Minoan III paintings of
+Ayia Triada. **One review can serve several cards** — Galanakis serves three here — because what it
+states is a fact about a period rather than about one card's subject.
+
+**TWO CARDS TURNED OUT TO BE WRONG, AND BOTH WERE FOUND BY READING THE SUBSTITUTE RATHER THAN THE
+CARD.** `gr-030` said "every known figured Minoan fresco is Neopalatial"; Chapin's review describes "the
+Late Minoan (LM) III paintings of Ayia Triada", the Great Procession and the Woman and an Altar among
+them, so the absolute is false and now reads "figured Minoan fresco is chiefly Neopalatial … with a Late
+Minoan III sequel at Ayia Triada". `gr-087` said "in palatial art the horses are shown hitched to
+chariots at both Tiryns and Mycenae"; the Mycenae chariots are from the West House, which the same
+review names as the evidence that these themes "are now known to have decorated nonpalatial buildings",
+so the sentence now says where the paintings actually are. **A substitute read carefully is a
+fact-check**, and neither error was visible from inside the card.
+
+**`gr-030`'s SECOND FINDING IS NOT REDUCIBLE AND SHOULD NOT BE CHASED.** With Rutter down to 2 the card
+still reports "arthur j. evans in 3 of 6 sources", and that is the rule working correctly on a subject
+where the concentration is honest: horns of consecration are Evans's own coinage, his 1901 *Mycenaean
+Tree and Pillar Cult* is where the category was defined, and the two Knossos objects the card describes
+are published in his own annual reports and nowhere else. Substituting there would mean citing somebody
+who is reporting Evans. **Leave it, and leave it recorded**, exactly as Rutter is kept where nothing
+else states a claim.
+
+**A PERIOD REPORT CAN CARRY A CLAIM ABOUT A DIFFERENT SITE ENTIRELY.** `gr-053` needed a source for a
+sentence naming two shrines, at Knossos and at Gournia, and Evans's own 1903 report (ABSA 9) carries
+both: the Shrine of the Double Axes "found with the original arrangement intact", the Dove Goddess
+beside the sacral horns (p. 91), and, forty pages earlier, Harriet Boyd's Gournia shrine with "coarse
+images of a Goddess rising from a cylindrical base, about which serpents were coiled" (pp. 83–84).
+**Read the whole volume, not the page the card already cites**; the Gournia paragraph is in a section
+about Knossos.
+
+**Prose losses, named.** `gr-025` gave up "it ranked with seals and ceremonial weaponry among the luxury
+goods the palaces had made" for what Haggis actually states about elite production. `gr-030` gave up
+Evans's "potsherds rounded as though in running water" for "water-rounded potsherds", to buy the words
+the Ayia Triada correction cost. `gr-034` gave up "the commonest container" for "one of the commonest
+containers" — which the Mochlos counts make the more defensible of the two — and "after about 1470 BCE",
+which its date line still carries. `gr-053` gave up the Knossos shrine's floor area and "stood alone
+near the top of the settlement", neither being in Evans. `gr-033` gave up "on the floor".
+
+**Hosts measured on 2026-09-10, beyond the four the pass already had.** OPEN: `bmcr.brynmawr.edu`
+(above); `aegeussociety.org`, whose *Aegean Studies* is open but runs to five articles in all;
+`degruyterbrill.com` (Open Archaeology). SHUT: `aura.arch.uoa.gr` (connection reset),
+`heraklionmuseum.gr` (TLS failure, as before). **DOAJ is thin for Aegean archaeology** — "Ayia Triada
+sarcophagus" and "Kamares ware" both return zero — and a bare "Linear A" returns 327,616 results, none
+of them about Crete. Cambridge Core's open-access filter is the better index for this subject.
+
+**Searched for and not found.** No open source states the Linear A distribution outside Crete (`gr-020`
+[4]: Ayia Irini, Phylakopi, Akrotiri) — the two BMCR reviews of Linear A books, *Aegean Linear Scripts*
+and *Minoan Stone Vessels with Linear A Inscriptions*, mention none of the three sites — so `gr-020`
+stays over-cited although its other loose marker is solved (Manning carries "no later than Late Minoan
+I", the LMIB destructions being "in the mid-15th century BCE"). Burke's AJA article on the Ayia Triada
+sarcophagus is genuinely paywalled: `ajaonline.org/article/107/` carries no open-access badge and no
+PDF. The *Archaeological Reports* survey Haysom's review points at — Christakis, "Palatial Crete: recent
+discoveries & research, 2014–2019", AR 66 — is not open. And **Matthew Haysom, "Minoan Studies",
+*Classical Review* 76.1 (2026), IS open (CC BY) and was read in full**: it is a historiographical survey
+of the Knossos-hegemony and nature-of-the-palaces debates, and it was not used here only because no card
+in this batch makes a claim it states. **It is the obvious first source for `gr-016`, `gr-048` and
+`gr-051`**, whose subjects are those very debates.
+
 ## Two notes on the tooling
 
 - **`cardYears` reads "594/3 BCE" as year 3.** Writing split years the short way in a date line
   sorts the card to the wrong millennium, silently. Write them out: "594/593 BCE".
   `test-date-line.js` catches the century-only case but not this one.
-- **All 353 Bryn Mawr Classical Review URLs answer 502 from this sandbox**, in parallel and one at
-  a time alike, and `ascsa.edu.gr` refuses the connection outright. Neither is a dead link; both
-  are this container. Wikimedia rate-limits image requests to 429 after about thirty.
+- **The Bryn Mawr Classical Review outage was the container, and it has lifted.** All 353 BMCR
+  URLs answered 502 when this file was written, in parallel and one at a time alike; on
+  2026-09-10 the site answers 200, search included. `ascsa.edu.gr` still refuses the connection
+  outright. Wikimedia rate-limits image requests to 429 after about thirty. **Re-test a host
+  before trusting a refusal recorded here.**
