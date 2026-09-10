@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.691", released: "2026-09-10T16:34Z" };
+window.FOLIO_VERSION = { v: "1.692", released: "2026-09-10T19:38Z" };
 
 window.CHANGELOG = [
   {
@@ -48,7 +48,6 @@ window.CHANGELOG = [
       "<b>One search now covers the whole site</b> \u2014 cards, glossary terms and the Library\u2019s books, from the menu bar or by pressing <b>/</b>.",
       "<b>The Collections filter no longer opens with nothing selected on a phone</b>, and the row says that it scrolls.",
       "<b>Quieter first visits</b>: the Atlas and the Library now introduce themselves in a line you can dismiss, instead of a card over the page.",
-      "On a phone the day\u2019s study now sits above the quote, so the first card is one tap away rather than one scroll.",
       "Small text across the site is darker where it was too faint to read comfortably.",
       "<b>Every card now has a link of its own</b>, which opens it to read rather than to study, so nothing you share spends a schedule.",
       "<b>A card now points at its nearest neighbours</b>, so one answer leads to the four cards closest to it in the same collection.",
