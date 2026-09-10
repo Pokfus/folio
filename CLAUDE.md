@@ -1203,18 +1203,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   actively contested in public**, which is why its "History, not commemoration" and "Sourcing" sections are
   the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
   `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **`ww2-001`
-  to `ww2-120` have shipped**, so the collection is live and its empty decks are coming-soon
-  automatically, `isComingSoon` being true for a node holding no card. **Six of its lines have been
+  to `ww2-130` have shipped**, so the collection is live and its empty decks are coming-soon
+  automatically, `isComingSoon` being true for a node holding no card. **Eleven of its lines have been
   retitled while writing**, which is what the plan's own rule asks for, and each retitle has one of three
   reasons. A card is answered by a TERM rather than by a description: `ww2-102` is answered by *Southern
-  Advance*, `ww2-105` by *Pan-Asianism*, `ww2-112` by *International Brigades* and `ww2-117` by
-  *Sudetenland*. An earlier card has already spent the obvious answer: `ww2-107` is the *Stimson Doctrine*,
+  Advance*, `ww2-105` by *Pan-Asianism*, `ww2-112` by *International Brigades*, `ww2-117` by
+  *Sudetenland*, `ww2-122` by *Protectorate of Bohemia and Moravia*, `ww2-123` by *Anglo-Polish alliance*,
+  `ww2-128` by *sphere of influence* and `ww2-130` by *Free City of Danzig* — a line naming an EVENT
+  ("the German occupation of Czechoslovakia", "the Danzig crisis") usually wants the THING the event
+  made or was about, since that is what a reader will meet the word for again. An earlier card has already spent the obvious answer: `ww2-107` is the *Stimson Doctrine*,
   since `ww2-090` and `ww2-091` had already carded the League's own handling of the Manchurian crisis.
   **And `ww2-120` is the third reason, which is the one to read before planning a historiography card**:
   *the debate over appeasement* has no name of its own that anything openable defines, so it is answered by
   **`Guilty Men`**, the 1940 polemic that fixed the popular verdict — a contemporary argument rather than a
   modern scholar, which is what the plan's two-scholar cap requires, and a card whose answer term IS a
-  modern argument, so the historiography cap under "Generating cards" does not bind on it. Not part of the
+  modern argument, so the historiography cap under "Generating cards" does not bind on it.
+  **`ww2-129` is that third reason met again from the other side**: *why the Soviet Union signed* is a
+  question rather than a term, and no openable work names the motive, so the card is answered by
+  **`Maxim Litvinov`** — the commissar whose dismissal on 3 May 1939 is where the change of course is
+  documented and datable, in the German chargé's own telegram and in the American reports of the day.
+  **A MOTIVE LINE WANTS THE MOMENT THE MOTIVE BECAME VISIBLE**, not a paraphrase of the motive.
+  One thing that batch measured and did not act on: `Neville_Chamberlain` is deliberately denied the
+  bare alias **Chamberlain**, because the corpus's eleven surfaces include Austen twice and Joseph once,
+  and an alias right six times and wrong three is worse than none. Not part of the
   site.
 - `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
   Geography SECTION), and **the
@@ -6569,7 +6580,7 @@ lookup.
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 199 cards, `cnh-001` to `cnh-200` with `cnh-070` retired in Sep 2026 — next is `cnh-201`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
-| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 120 cards, contiguous — next is `ww2-121` |
+| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 130 cards, contiguous — next is `ww2-131` |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |

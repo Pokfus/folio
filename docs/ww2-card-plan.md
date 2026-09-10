@@ -309,6 +309,38 @@ served under the file's OWN name (`2015.5205.Guilty-Men_djvu.txt`) rather than t
 which is why the usual `<id>/<id>_djvu.txt` address 404s; read the item's file list before concluding a
 scan has no OCR text.
 
+**THE TWO SOURCES THAT OPEN THE WHOLE OF 1939, measured in Sep 2026 writing `ww2-121`–`ww2-130`.**
+The Office of the Historian serves **FRUS 1939, volume I** in full at
+`history.state.gov/historicaldocuments/frus1939v01/`, and its chapters are the diplomatic history of
+that year arranged as this deck is: chapter II is the occupation of Czechoslovakia, chapter V the
+German pressure on Poland, chapter VI is titled *Anglo-French-Soviet negotiations* outright and
+chapter VII the German-Soviet rapprochement. Individual documents are addressed `…/d249` and its
+own site search (`history.state.gov/search?q=…`) reaches every volume, so a claim can be traced to
+the telegram that carries it. Beside it, Avalon holds **the whole of `Nazi-Soviet Relations
+1939-1941`** — the Department of State's 1948 edition of the captured German foreign-office files,
+about 160 documents from April 1939 to June 1941, with the non-aggression treaty, the Secret
+Additional Protocol, the September boundary treaty and the memorandum of the night Ribbentrop spent
+with Stalin. Between them a card about the pact can quote the pact, the protocol and the
+conversation, and a card about the talks that failed can quote both sides saying why.
+**A third route worth keeping:** the German Historical Institute's **German History in Documents and
+Images** (`germanhistorydocs.org`) carries sourced document and image pages with a stated citation,
+which is where the Pact of Steel's signing is described.
+
+**AND THE HANSARD INDEX IS THE FASTEST WAY INTO ANY BRITISH DECISION OF 1939.** A sitting's index
+(`/commons/<year>/<mon>/<day>/index.html`) lists every item by its own heading, so the guarantee to
+Poland is under *European Situation* on 31 March, the Albanian invasion under *European Situation*
+on 13 April, the Moscow military mission under *Anglo-French-Russian Conversations* on 31 July, the
+Danzig question under *Danzig (British Position)* on 10 July, and the fact that the Anglo-Polish
+treaty was signed on 25 August is in the *International Situation* statement of 29 August. **Read
+the index rather than guessing the slug** — the same heading recurs and the second use is
+`european-situation-1`, which is where Chamberlain's guarantee actually is.
+
+**A picture cannot always be found, and two of these ten ship without one.** There is no free
+photograph of the guarantee of 31 March, of the signing of the Agreement of Mutual Assistance on
+25 August, or of the Anglo-French military mission in Moscow; `suggest-image.js` returns nothing
+usable for either subject and Commons searches turn up only portraits of participants, which
+illustrate a person rather than the thing the card is about.
+
 **A caution that cost a picture.** The Commons `api.php` rate-limits hard after a dozen calls and answers
 `Special:FilePath` throughout, which is the route CLAUDE.md already records — but the fault worth naming
 here is the other one: a file in the category *Assemblies of the League of Nations* turned out to be six
@@ -509,15 +541,15 @@ definitions, which exist precisely because the wording matters.
     ww2-119  Appeasement
     ww2-120  The debate over appeasement  → written as *Guilty Men*
     ww2-121  Neville Chamberlain
-    ww2-122  The German occupation of Czechoslovakia
-    ww2-123  The British guarantee to Poland
+    ww2-122  The German occupation of Czechoslovakia  → written as *Protectorate of Bohemia and Moravia*
+    ww2-123  The British guarantee to Poland  → written as *Anglo-Polish alliance*
     ww2-124  Italian invasion of Albania
     ww2-125  Pact of Steel
     ww2-126  The Anglo-French-Soviet negotiations of 1939
     ww2-127  Molotov-Ribbentrop Pact
-    ww2-128  The secret protocol
-    ww2-129  Why the Soviet Union signed
-    ww2-130  The Danzig crisis
+    ww2-128  The secret protocol  → written as *sphere of influence*
+    ww2-129  Why the Soviet Union signed  → written as *Maxim Litvinov*
+    ww2-130  The Danzig crisis  → written as *Free City of Danzig*
     ww2-131  American isolationism
     ww2-132  Neutrality Acts of the 1930s
     ww2-133  Franklin D. Roosevelt and the approach of war
