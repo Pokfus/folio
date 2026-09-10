@@ -6991,6 +6991,12 @@ that WANTS the bare name says so with an ALIAS, which is how all five parentheti
 were already written (`Georgia_(country)` carries "Georgia"). **`node .claude/check-gloss-links.js` reports
 what is left**: an auto-link whose term is bound to a different part of the world (a proxy, report-only, 34
 findings) and — exactly — two keys competing for one surface.
+**RUN IT PER CARD WHEN CHECKING A BATCH — `--card=<id>`** (Sep 2026, writing `ww2-101`–`ww2-110`): over the
+whole corpus it did not finish inside five minutes and was still going at twenty, the glossary having grown
+to 3,400-odd terms and 11,700 surfaces since the figure above was measured, where one card answers in a
+couple of seconds. **And read the finding before acting on it, which is what "proxy" means here**: the one
+it returned for that batch was `ww2-108`, tagged italy/africa/ethiopia, linking "Anti-Comintern Pact" to a
+term tagged germany/japan — correct, because the sentence really is about Germany and Japan.
 
 Optional `"aliases": ["alt spelling", …]` lists extra background spellings that should open the same
 popup (lands in `window.GLOSSARY_ALIASES`); **plural forms link automatically**, so only add aliases
