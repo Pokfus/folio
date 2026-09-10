@@ -275,6 +275,55 @@ ABSA article on Aghios Vasileios contains `wanax` seven times and *lawagetas* no
 not. **No Cape Gelidonya source was found at all**, and the ABSA articles on oxhide ingots that would
 carry both it and `gr-013`'s ingots are behind the `/abs/` paywall.
 
+**BATCH R4 — 2026-09-10. Eight cards; 26 → 18, over-cited 103 → 95.** `gr-010` Throne Room, `gr-013`
+Zakros (5 of 6 → 2), `gr-022` Minoan frescoes, `gr-026` Marine Style, `gr-044` Flotilla fresco,
+`gr-045` Theran tephra, `gr-050` destruction of the Minoan palaces (4 of 5 → 2), `gr-068` Palace of
+Nestor.
+
+**THE CHRONOLOGY ROUTE IS NOW EXHAUSTED, and it is worth writing down which way.** Batch R1 established
+that Rutter's "Chronology Overview" — the most reused citation of the 39 — cannot be swapped on the
+strength of the period name. Every remaining card carrying it was checked against Déderix's Table 1 and
+only ONE matches: `gr-049`'s "Middle Minoan IA, around 2000 BCE". The rest (`gr-005`, `gr-006`,
+`gr-010`, `gr-022`, `gr-025`, `gr-030`, `gr-034`, `gr-048`, `gr-051`, `gr-053`) are 50 to 100 years
+apart from Warren 2010 because the cards were written from Rutter's scheme. **Do not re-run that
+comparison; it has been done card by card.**
+
+**WHAT REPLACED IT IS THE ERUPTION LITERATURE, WHICH DATES THE PERIODS BY DOING SOMETHING ELSE.**
+Manning's *PLOS One* 2022 paper on the Thera date is open, and because its whole subject is the high-
+against-low chronology argument it states in prose what the cards' chronology markers assert: that the
+eruption falls "late in, or at the end of, the Late Minoan (LM) IA cultural period"; that airfall Theran
+tephra is found at Trianda on Rhodes; and that "the LMIB period on Crete famously ends in a set of
+well-known destructions at a number of sites", placed "in the mid-15th century BCE". **That one paper
+carried five of this batch's eight** — `gr-010`, `gr-026`, `gr-044`, `gr-045` and `gr-050` — and it is
+the first substitute in this pass that reaches the period framework rather than a site or an object.
+**Reach for the dating literature when a chronology marker needs replacing**, not for a chronology
+table: a paper arguing about a date has to say what the date is a date OF.
+
+**AND A SITE CAN CARRY ITS OWN CARD TWICE, WHICH IS WHAT UNLOCKED `gr-013`.** Odysseus publishes a
+site's HISTORY and its DESCRIPTION at two addresses (`eh351` and `eh352` on the same `obj_id`), and the
+collection already cites both for the Palace of Nestor. Zakros needed three substitutions and has only
+one obvious institutional source; taking both pages plus Manning made three. The description carries the
+west wing "devoted to religious activity" with its eleven-room shrine, the palace "surrounded by the
+town", and that after its destruction "it was not rebuilt"; the history carries the two building phases
+and the destruction "along with the other centres of Minoan Crete". **Where a site card needs more than
+one substitute, the two Odysseus pages are two sources, not one.**
+
+**Two small prose edits, both losses worth naming.** `gr-022` gave up "Phylakopi on Melos and" from its
+travelling-frescoes sentence, Odysseus carrying Akrotiri and nothing carrying Melos. `gr-068` gave up
+"1,107 clay tablets … by 32 different scribes, the most substantial collection anywhere on the mainland"
+for "about a thousand Linear B texts … the work of some thirty to forty different scribal hands" —
+which is what Judson's open ABSA article actually publishes ("the majority of the c. 1000 Linear B texts
+from this palace"; "c. 30–40 identified scribal hands at this site"). **The precise figure was the more
+impressive and the range is the one a specialist will defend.**
+
+**Searched for and not found, so the next batch need not repeat it.** No open source states the position
+of the Throne Room within the Knossos palace; the Cambridge open-access ABSA report on the Middle and
+Late Minoan tombs south of the palace contains neither "shaft-niche" nor "warrior grave", so `gr-051`'s
+mainland-form tombs are still unsourced; Odysseus's Tiryns pages mention no fresco and no chariot, which
+leaves `gr-087`; the National Archaeological Museum's page on the silver Battle Krater carries the krater
+and not the Siege Rhyton, so `gr-090`'s sentence cannot be moved whole; and Christakis, who carried
+`gr-017` and `gr-018`, never mentions Kamares, so he cannot carry `gr-025`.
+
 ### 2. Seventy-six cards rest mostly on one ancient witness
 
 An ancient author is a witness rather than a researcher, so this is a softer finding — but a card
