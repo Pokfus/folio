@@ -27,6 +27,15 @@
     { "cards": { "rm-012": { "title": "Rieti", "name": "Sabine country", "kind": "region",
                              "area": [[12.42, 42.27], [12.62, 42.12], …] } } }
 
+  AN `area` MAY ALSO BE SEVERAL RINGS, for a place that is genuinely in separate blocks — pass a list of
+  rings instead of a list of points. The Etruscan civilisation is the case it was written for: Etruria,
+  the Po valley colonies and the Campanian cities, with Latium and Umbria in between, which were not
+  Etruscan. One ring can draw Etruria or a blob containing Rome, and the second is a false claim rather
+  than a rough one.
+
+    { "cards": { "rm-022": { "title": "Etruscan civilization", "kind": "region",
+                             "area": [ [[10.2,43.9], …], [[10.9,45.1], …], [[14.0,41.2], …] ] } } }
+
   The `at` is STILL FETCHED even for these: it is what a region falls back to when its own shape cannot be
   read, and a hand-typed pair is the one error nothing downstream can see. The shape is validated the way
   add-card.js validates a new card's — every point a real [lon, lat], at least three of them, and neither
@@ -100,7 +109,20 @@ for (const id of Object.keys(want)) {
     return out;
   };
   let shape = null;
-  if (shapeKey) {
+  if (shapeKey === "area") {
+    /* AN AREA MAY BE SEVERAL RINGS (Sep 2026, with the Etruscan civilisation). At its height the Etruscan
+       world was three separate blocks — Etruria between the Arno and the Tiber, the Po valley colonies,
+       and the Campanian cities — with Latium and Umbria in between, which were not Etruscan. One ring can
+       draw Etruria or it can draw a blob containing Rome; neither is the civilisation, and the second is
+       a claim rather than an approximation. So `area` takes a flat ring OR a list of rings, and every
+       ring is validated on its own — a flat one is what every locator written before this carries and is
+       still exactly right for a place with a single extent. */
+    const v = spec.area;
+    const nested = Array.isArray(v) && Array.isArray(v[0]) && Array.isArray(v[0][0]);
+    const rings = (nested ? v : [v]).map(pts);
+    if (!Array.isArray(v) || !v.length || rings.some((r) => !r)) die(id + ": `area` must be at least three [lon, lat] points, or a list of such rings — without a valid one the card falls back to a dot, which is the mark this kind exists to replace");
+    shape = nested ? rings : rings[0];
+  } else if (shapeKey) {
     shape = pts(spec[shapeKey]);
     if (!shape) die(id + ": a locator of kind \"" + kind + "\" needs a `" + shapeKey + "` of at least three [lon, lat] points — without it the card falls back to a dot, which is the mark this kind exists to replace");
   }
@@ -109,6 +131,14 @@ for (const id of Object.keys(want)) {
   }
   const within = spec.within == null ? "" : String(spec.within).trim();
   jobs.push({ id, card, title, name, zoom, kind, shapeKey, shape, within });
+}
+
+/* A shape is a polyline (a spine) or a list of RINGS (an area) — say which, so the run's own report
+   makes it obvious whether a multi-block area went in as one ring by mistake. */
+function shapeSize(shape) {
+  const nested = Array.isArray(shape[0]) && Array.isArray(shape[0][0]);
+  if (!nested) return shape.length + " pts";
+  return shape.length + " rings, " + shape.reduce((a, r) => a + r.length, 0) + " pts";
 }
 
 (async () => {
@@ -144,7 +174,7 @@ for (const id of Object.keys(want)) {
     if (j.shapeKey && j.shape) loc[j.shapeKey] = j.shape;
     if (j.within) loc.within = j.within;
     j.card.locator = loc;
-    done.push(j.id + "  " + j.name + "  " + (j.kind === "point" ? "" : j.kind + (j.shape ? " (" + j.shape.length + " pts)" : "") + "  ") + "[" + got.join(", ") + "]" + (redirected && redirected !== j.title ? "  ← " + redirected : ""));
+    done.push(j.id + "  " + j.name + "  " + (j.kind === "point" ? "" : j.kind + (j.shape ? " (" + shapeSize(j.shape) + ")" : "") + "  ") + "[" + got.join(", ") + "]" + (redirected && redirected !== j.title ? "  ← " + redirected : ""));
     await new Promise((r) => setTimeout(r, 900));   // be polite to the API
   }
 

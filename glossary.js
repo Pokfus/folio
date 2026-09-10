@@ -8361,7 +8361,7 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Rosetta_Stone": ["object","archaeology","history","egypt","writing","language"],
 "Papyrus": ["object","archaeology","history","egypt","writing","technology"],
 "Pharaoh": ["title","history","religion","egypt","monarchy"],
-"Old_Kingdom_of_Egypt": ["era","history","egypt","architecture","monarchy"],
+"Old_Kingdom_of_Egypt": ["era","history","egypt","monarchy"],
 "Pyramid_of_Djoser": ["building","history","architecture","religion","egypt"],
 "Great_Pyramid_of_Giza": ["building","history","archaeology","architecture","egypt"],
 "Great_Sphinx_of_Giza": ["object","archaeology","history","egypt","religion","monarchy"],
