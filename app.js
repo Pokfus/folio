@@ -1484,7 +1484,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -1497,6 +1497,27 @@
          means unflagged; nothing stores a 0. It is a marker rather than history, which is why it survives
          Settings → Reset progress (see RESET_KEEPS) while the schedule beside it does not. */
       flags: {},
+      /* THE READER'S OWN NOTE ON A CARD — id -> a short string (Sep 2026). A reader could flag, suspend,
+         bury and draw on a card and could not WRITE on it, which is the mnemonic slot every serious user
+         of an SRS eventually wants: the sentence that makes this one card stick is almost never the
+         sentence the card is written in.
+         It is ANNOTATION, NOT EDITING, and the two must never meet: `ADMIN_EDITS` is published to every
+         reader through the content overlay, and this is private to its writer. So it lives here, rides in
+         PROGRESS_FIELDS with the flags, and survives Reset progress with them (RESET_KEEPS) — a note is
+         no more study history than a flag is. Absent means no note; an emptied note deletes its key
+         rather than storing "". */
+      notes: {},
+      /* A SESSION HANDED BETWEEN DEVICES (Sep 2026). `STUDY_KEY` is sessionStorage — a session survives a
+         reload and dies with the tab, which is right for what it is — so a reader who starts ten cards on
+         a phone at breakfast and opens a laptop at lunch began again. Progress already syncs; the QUEUE
+         did not.
+         It is `{ scope, queue, id, qi, at, dev }` and it is deliberately SHORT-LIVED: a queue is a fact
+         about a sitting, so `HANDOFF_MAX_AGE` decides when it stops being offered rather than being kept
+         until it is used. Yesterday's queue resurrecting itself would be worse than no handoff at all —
+         the cards in it are no longer the cards the day has.
+         `dev` is this browser's own id, which is what makes it a HANDOFF rather than a second copy of the
+         same session: the device that wrote it already has the real thing in sessionStorage. */
+      handoff: null,
       /* Where the reader had got to in each Library book: bookId -> { ch, y, at }. A book runs to
          hundreds of screens, so "open it again where I left off" is not a convenience but the only way
          it is usable at all. It is PROGRESS, not a device setting — it rides in PROGRESS_FIELDS so a
@@ -1998,7 +2019,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2090,7 +2111,7 @@
      streak and the badges, and an unlocked theme is an appearance the reader is wearing — clearing it
      would take the site's own look away from somebody who reset a card schedule, and would leave them
      wearing a theme they no longer own. `chestsOpened` and `published` are history and go. */
-  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags", "themes", "theme"];
+  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags", "notes", "themes", "theme"];
   /* ---------- RESETTING ONE DECK (Sep 2026, on request: "in the long press menu of active decks, there
      should be an option to reset all the user's progress in that particular deck") ----------
      `resetProgress` above is the whole save; this is one entry's share of it, and the two answer the same
@@ -3774,6 +3795,32 @@
     } catch (e) { return null; }
   }
   function clearStudySession() { try { sessionStorage.removeItem(STUDY_KEY); } catch (e) {} }
+  /* ---------- …AND THE SAME RECORD, SYNCED, FOR ANOTHER DEVICE (see S.handoff) ---------- */
+  const HANDOFF_MAX_AGE = 4 * 3600 * 1000;   // four hours: a sitting, not a day
+  const DEV_KEY = "folio_dev_v1";
+  function deviceId() {
+    let d = "";
+    try { d = localStorage.getItem(DEV_KEY) || ""; } catch (e) { return "nostore"; }
+    if (!d) { d = Math.random().toString(36).slice(2, 10); try { localStorage.setItem(DEV_KEY, d); } catch (e) {} }
+    return d;
+  }
+  function writeHandoff(rec) {
+    if (!rec || !Array.isArray(rec.queue) || !rec.queue.length) { S.handoff = null; return; }
+    S.handoff = { scope: rec.scope, queue: rec.queue.slice(0, 400), id: rec.id || null, qi: rec.qi, at: Date.now(), dev: deviceId() };
+  }
+  function clearHandoff() { S.handoff = null; }
+  /* Offered only to a device that is NOT the one that wrote it, only while it is fresh, and only when the
+     cards in it are still real, still unsuspended and still there — a queue is a list of ids and four
+     hours is long enough for a deck to have been removed. */
+  function handoffOffer() {
+    const h = S.handoff;
+    if (!h || !Array.isArray(h.queue) || !h.queue.length) return null;
+    if (Date.now() - (h.at || 0) > HANDOFF_MAX_AGE) return null;
+    if (h.dev === deviceId()) return null;
+    const ok = h.queue.filter((id) => cardById(id) && !isSuspended(id) && !isBuried(id));
+    if (!ok.length) return null;
+    return { scope: h.scope, queue: ok, id: h.id, qi: h.qi };
+  }
   /* …and ONE record held aside, so an admin can edit the card they are studying and come straight back to
      it (Aug 2026, on request: "when clicking the edit button while studying a card, there should be a button
      to take me back to my studies once edits are made"). The editor is a PAGE, so reaching it routes — and
@@ -5166,6 +5213,29 @@
   function preview(id) {
     return schedPreview(S.cards[id], id, null, schedCfgFor(id));
   }
+  /* ---------- WHAT "4d" MEANS (Sep 2026) ----------
+     The four grade buttons have always shown their next interval, and a number is not a decision: a
+     first-week reader does not know that Easy at `4d` means Thursday, still less that Easy and Hard move
+     every LATER interval too and not just the next one. This is one line inside the `?` bubble, keyed to
+     the card in hand — derived from the same `preview` the buttons are drawn from, so the sentence and
+     the numbers above it can never disagree.
+     It names DAYS rather than repeating the intervals, that being the half the buttons cannot say; a
+     step measured in minutes is "later today", since a weekday would be a false precision about it. And
+     it says the ease effect in terms both schedulers share — SM-2 moves an ease and FSRS a difficulty,
+     and what a reader needs to know is that the two outer buttons are not only about this sitting. */
+  function gradeExplainHTML(id, p) {
+    const c = S.cards[id];
+    const state = !c ? "new" : (schedIsLearning(c) ? (c.status === "relearning" ? "being relearned" : "still being learned") : "in review");
+    const when = (d) => {
+      if (!(d > 0)) return "later today";
+      if (d < 1) return "later today";
+      const dt = new Date(Date.now() + d * DAY);
+      if (d < 6) return "on " + dt.toLocaleDateString(undefined, { weekday: "long" });
+      return "on " + dt.toLocaleDateString(undefined, { day: "numeric", month: "short" });
+    };
+    return '<span class="ghb-now">This card is <b>' + state + "</b>. Good brings it back " + esc(when(p.good)) +
+      ", Easy " + esc(when(p.easy)) + " \u2014 and Easy and Hard change every later interval too, not just the next one.</span>";
+  }
   /* apply a grade; returns {requeue: bool} for in-session relearning.
      `ms` is how long the reader spent on the card — measured by the caller, since only the study page knows
      when the question appeared. It is optional: a grade applied with no timing logs a 0 rather than refusing,
@@ -6512,7 +6582,7 @@
      marks a row it INHERITS with the name of the deck above it, and throwing the switch there writes an
      override on this row and says so. */
   const DECK_OPT_INHERIT = ["order", "random", "variety", "autoSpeak", "burySiblings", "pairNew",
-                            "attempt", "sched", "retention", "fsrsParams"];
+                            "attempt", "recall", "sched", "retention", "fsrsParams"];
   function entryChain(id) {
     const out = [], seen = new Set();
     const push = (e) => { if (e && typeof e === "string" && !seen.has(e)) { seen.add(e); out.push(e); } };
@@ -6614,6 +6684,20 @@
     return !!(S.settings && S.settings.attemptFirst);
   }
   function setDeckAttempt(id, on) { setDeckLimits(id, { attempt: !!on }); }
+  /* RECALL IN FULL (Sep 2026) — the second half of the same finding, and a POLICY beside `attempt` for
+     the same reason. A cloze blank sits inside a sentence that has already narrowed the answer to one
+     word; free recall — write down everything you can remember, then look — is the harder retrieval and
+     the one an exam actually asks for. What the reader writes is theirs to mark: it is shown BESIDE the
+     answer at the reveal and then thrown away, because a matcher over a paragraph of free prose would
+     mark a right answer wrong, which is the one failure that would make a reader stop writing.
+     NOTHING IS STORED. It is not a note (see cardNoteHTML, which is), it is the attempt itself, and an
+     attempt is worth exactly as long as it takes to compare it with the answer. */
+  function deckRecall(id) {
+    const o = deckOpt(id, "recall");
+    if (o && typeof o.value === "boolean") return o.value;
+    return !!(S.settings && S.settings.recallFirst);
+  }
+  function setDeckRecall(id, on) { setDeckLimits(id, { recall: !!on }); }
   /* ---------- A THIRD ORDER: BY DIFFICULTY (Aug 2026, on request) ----------
      Ordered and Random were a BOOLEAN, and a third answer will not fit in one — so `order` is a string
      beside it and the boolean stays the fallback, which is what keeps every existing save working
@@ -14264,7 +14348,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : name === "book" ? "library"
       // the Studio is where one of your own decks is edited, and those live on the Collections page
       // a card at its own address belongs under the collections its deck sits in
-      : name === "studio" || name === "deck" || name === "card" ? "decks"
+      : name === "studio" || name === "deck" || name === "card" || name === "sample" ? "decks"
       // the two pages that stand between pressing Study and studying belong to the session they open
       : name === "order" || name === "pretest" ? "study"
       // …and the page explaining how Folio studies you is reached from Settings, and belongs there
@@ -14288,6 +14372,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const PAGE_META = {
     home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, daily games and an interactive atlas."],
     search:    ["Search — Folio", "Find a card, a glossary term or a book by name, across everything Folio holds."],
+    sample:    ["Try ten cards — Folio", "Ten cards from a Folio collection, read rather than studied — nothing is scheduled."],
     card:      ["A card — Folio", "One of Folio's cards, with its background, its dates and the works it rests on."],
     decks:     ["Collections — Folio", "Browse Folio's collections and decks, and pick what to review each day."],
     library:   ["Library — Folio", "Read whole works of history and philosophy in public-domain English translations."],
@@ -14375,6 +14460,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          could be linked to and a card could not, which is the one thing a reader wants to send
          somebody. It is READ-ONLY and spends no schedule: opening it is not studying it. */
       : name === "card" && current.params.id ? "card/" + encodeURIComponent(current.params.id)
+      : name === "sample" && current.params.id ? "sample/" + encodeURIComponent(current.params.id)
       : name;
     render();
   }
@@ -15730,7 +15816,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<span class="dm-cyval">' + esc(value) + "</span>" +
       "</button>";
     const order = deckOrderMode(id);
-    const variety = deckVariety(id), attemptFirst = deckAttempt(id);
+    const variety = deckVariety(id), attemptFirst = deckAttempt(id), recallFirst = deckRecall(id);
     // shown only where something in this entry can actually speak — see entryHasSpeech
     const canSpeak = entryHasSpeech(id), autoSpeak = deckAutoSpeak(id);
     /* How far through the deck the reader is, on the title's own line (Aug 2026, on request). It used to
@@ -15776,6 +15862,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       swRow("attempt", "Answer before revealing",
         "You have to type something, or say you don’t know",
         "Reveal is always available", attemptFirst, false, fromMark(["attempt"])) +
+      swRow("recall", "Recall in full",
+        "A box asks what you remember before the answer is shown",
+        "The blank is the only thing you fill in", recallFirst, false, fromMark(["recall"])) +
       (canSpeak ? swRow("speak", "Read aloud automatically",
         "The answer is spoken as soon as it is revealed",
         "Press the speaker on a card to hear it", autoSpeak, false, fromMark(["autoSpeak"])) : "") +
@@ -15816,6 +15905,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       (isGroup ? "" :
         item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
         item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
+        /* READY BY A DATE (see openDeadline). It sits directly under Daily limits because it is the same
+           figure asked for from the other end — a reader who knows the date does not know the number, and
+           this is the one row on the sheet that answers a question rather than setting a value. It is off
+           a pooled review's sheet: the review is every deck at once, so "ready by" would be a date for a
+           body of work that has no end. */
+        (isReview ? "" : item("deadline", "Ready by a date", "Work backwards from an exam or a deadline")) +
         /* WHICH SCHEDULER — on a deck, and on a LANGUAGE since Aug 2026. Unlike the two rows above it
            this one is a POLICY and genuinely cascades: `sched`, `retention` and `fsrsParams` are
            `DECK_OPT_INHERIT` keys and `entryChain` reaches a deck's language, so choosing FSRS here puts
@@ -15935,6 +16030,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             setDeckAttempt(id, on);
             note.textContent = on ? "You have to type something, or say you don’t know" : "Reveal is always available";
             toast(on ? "Answer before revealing" : "Reveal is always available");
+          } else if (rowEl.dataset.act === "recall") {
+            setDeckRecall(id, on);
+            note.textContent = on ? "A box asks what you remember before the answer is shown" : "The blank is the only thing you fill in";
+            toast(on ? "Recall in full" : "Recall box off");
           } else if (rowEl.dataset.act === "speak") {
             setDeckAutoSpeak(id, on);
             note.textContent = on ? "The answer is spoken as soon as it is revealed" : "Press the speaker on a card to hear it";
@@ -15969,6 +16068,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (act === "icon") { close(); openIconPicker(id); return; }
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
+        if (act === "deadline") { close(); openDeadline(id); return; }
         if (act === "rename") {
           close();
           /* `info.title` rather than `groupTitle(id)`, and `setEntryTitle` rather than `setGroupTitle`:
@@ -16910,6 +17010,92 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         close();
         render();
         toast("Daily limits saved");
+      });
+    });
+  }
+  /* ==========================================================================================
+     "I SIT THE EXAM ON THE 14TH" — working backwards from a date (Sep 2026)
+     ==========================================================================================
+     Custom study can raise TODAY's allowance and nothing in Folio has ever worked backwards from a day.
+     Every SRS tool is asked for this, and Folio already holds all the arithmetic: how many cards the deck
+     has, how many the reader has met, and what a new-cards-a-day figure does.
+
+     THE HONEST ANSWER INCLUDES "NO", and that is the more useful case. Three things are said rather than
+     one number:
+       · the new cards a day needed to have MET every card by the date;
+       · how many reviews a day that generates once it is running, which is the figure that actually
+         decides whether a plan is bearable — `REV_PER_NEW` is a rule of thumb and is labelled as one;
+       · and what the last cards will have had, because a card introduced the night before an exam has
+         been seen once and is not learned. `LEAD_DAYS` is how much of the run has to be over before the
+         date for the plan to be worth calling a plan.
+     It sets a per-deck new-card allowance and, where the reviews it implies would be capped away, raises
+     that deck's review ceiling with it — a plan that quietly throttles itself on the other limit is the
+     failure this is meant to prevent.
+     It is per DECK, like every other quantity here (see DECK_OPT_INHERIT: a quantity does not cascade). */
+  const REV_PER_NEW = 2.2;   // reviews a day a card in its first weeks generates, roughly — Anki's own rough figure
+  const LEAD_DAYS = 7;       // a card met inside this many days of the date has not been learned, only seen
+  function deadlinePlan(id, dateStr) {
+    const ids = entryCardIds(id);
+    const left = ids.filter((c) => !isSeen(c) && !isSuspended(c)).length;
+    const t = new Date(dateStr + "T12:00:00");
+    if (isNaN(t.getTime())) return null;
+    const now = new Date(); now.setHours(12, 0, 0, 0);
+    const days = Math.round((t.getTime() - now.getTime()) / DAY);
+    if (days < 1) return { days: days, left: left, impossible: "past" };
+    const perDay = Math.ceil(left / days);
+    // reviews a day once the run is at full tilt: each of the last ~10 days' intakes is still coming back
+    const revDay = Math.round(perDay * REV_PER_NEW * Math.min(days, 10) / 2) || 0;
+    const settled = Math.max(0, days - LEAD_DAYS);
+    const seenProperly = Math.min(left, perDay * settled);
+    return { days: days, left: left, perDay: perDay, revDay: revDay, rushed: left - seenProperly, total: ids.length };
+  }
+  function openDeadline(id) {
+    const info = entryInfo(id);
+    const iso = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    const soon = new Date(Date.now() + 30 * DAY);
+    const html =
+      '<div class="dm-head"><span class="dm-title">Ready by a date</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
+      '<label class="dm-field"><span>I need to know this by</span><input class="dm-num dl-date" type="date" min="' + esc(iso(new Date())) + '" value="' + esc(iso(soon)) + '"></label>' +
+      '<div class="dl-out" id="dlOut"></div>' +
+      '<div class="dm-actions"><button type="button" class="btn ghost" data-act="cancel">Cancel</button>' +
+      '<button type="button" class="btn" data-act="save">Set the pace</button></div>';
+    deckSheet("Ready by a date", html, (ov, close) => {
+      const inp = ov.querySelector(".dl-date"), out = ov.querySelector("#dlOut");
+      const saveBtn = ov.querySelector('[data-act="save"]');
+      let plan = null;
+      const paint = () => {
+        plan = deadlinePlan(id, inp.value);
+        if (!plan) { out.innerHTML = '<p class="dm-note">Pick a date.</p>'; saveBtn.disabled = true; return; }
+        if (plan.impossible === "past") { out.innerHTML = '<p class="dm-note">That day has been and gone.</p>'; saveBtn.disabled = true; return; }
+        if (!plan.left) {
+          out.innerHTML = '<p class="dm-note">You have already met every card in this deck \u2014 there is nothing left to pace. What is left is review, and the schedule is already doing it.</p>';
+          saveBtn.disabled = true; return;
+        }
+        const hard = plan.perDay > 40;
+        out.innerHTML =
+          '<p class="dl-big">' + plan.perDay + ' new card' + (plan.perDay === 1 ? "" : "s") + ' a day</p>' +
+          '<p class="dm-note">' + plan.left + " card" + (plan.left === 1 ? "" : "s") + " you have not met, over " + plan.days + " day" + (plan.days === 1 ? "" : "s") + "." +
+          " At that pace you would be reviewing roughly <b>" + plan.revDay + " cards a day</b> once it is running \u2014 a rough figure, not a promise.</p>" +
+          (plan.rushed > 0
+            ? '<p class="dm-warn">' + plan.rushed + " of them would be met in the last week and seen two or three times, which is not the same as learned. A date " +
+              Math.ceil(plan.rushed / Math.max(1, plan.perDay)) + " day" + (Math.ceil(plan.rushed / Math.max(1, plan.perDay)) === 1 ? "" : "s") + " later would fix that.</p>"
+            : '<p class="dm-note">Every card would be met with a week or more to spare, which is enough for the schedule to bring them back twice.</p>') +
+          (hard ? '<p class="dm-warn">That is a great many new cards a day. Most people cannot hold that pace \u2014 consider a later date, or studying part of the deck.</p>' : "");
+        saveBtn.disabled = false;
+      };
+      inp.addEventListener("input", paint);
+      inp.addEventListener("change", paint);
+      paint();
+      ov.querySelector('[data-act="cancel"]').addEventListener("click", close);
+      saveBtn.addEventListener("click", () => {
+        if (!plan || !plan.perDay) return;
+        const L = deckLimits(id);
+        const patch = { newPerDay: plan.perDay };
+        // …and the review ceiling with it, where the plan would otherwise be throttled by the other limit
+        if (plan.revDay > L.maxReviews) patch.maxReviews = plan.revDay;
+        setDeckLimits(id, patch);
+        close(); render();
+        toast(plan.perDay + " new cards a day in " + info.title + (patch.maxReviews ? ", with the review ceiling raised to match." : "."));
       });
     });
   }
@@ -20552,6 +20738,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      chests" is a banner that reads as broken.
      `chest-banner` is `#chestBanner`, so refreshReliquary can take it away the moment the last one is
      opened without rebuilding the page under the reader. */
+  /* ---------- CARRY ON FROM ANOTHER DEVICE (Sep 2026) ---------- */
+  function handoffRowHTML() {
+    const h = handoffOffer();
+    if (!h) return "";
+    const where = h.scope && h.scope.type === "review" ? "your daily review" : (entryInfo(scopeEntryId(h.scope)) || {}).title || "a deck";
+    return '<button type="button" class="handoff-row" id="handoffGo">' +
+      '<span class="ho-lead">Carry on where you left off</span>' +
+      '<span class="ho-sub">' + esc(String(h.queue.length)) + " card" + (h.queue.length === 1 ? "" : "s") +
+      " left in " + esc(where) + ", started on another device.</span></button>";
+  }
   function chestBannerHTML() {
     const n = chestCount();
     if (!n) return "";
@@ -23239,6 +23435,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               sentence with the button beside it. The slot is always in the markup so `refreshReliquary`
               can fill and empty it in place, without rebuilding the page under a reader. */""}
         <div id="chestSlot">${chestBannerHTML()}</div>
+        ${/* A SESSION LEFT ON ANOTHER DEVICE (see S.handoff). ABOVE the day's review rather than below it,
+              because it is about work already begun and the banner is about work not begun; and it names
+              the deck and the count, since "carry on" without saying carry on with WHAT is a button
+              asking to be trusted. It is drawn only when there is really something to carry on with. */""}
+        ${handoffRowHTML()}
         ${reviewGroup}
         ${/* CARDS THIS READER KEEPS MIXING UP (Sep 2026) — see noteConfusion. It is the only row on this
               page that is personal: everything else here would look the same for anybody with the same
@@ -23320,6 +23521,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        inside the banner, so it needs no keydown handler of its own — which is the whole reason for
        getting it out of there. ("+ New group" was wired here too, and went with the control.) */
     wireChestBanner(root);
+    {
+      /* CARRY ON (see handoffOffer). It routes with the offer as `resume`, which is the same shape
+         PAGES.study already takes from sessionStorage — so a session handed between devices and one
+         resumed after a reload arrive by exactly one path, and the queue, the card and its phrasing
+         all come across without a second restore written for the occasion. */
+      const hb = root.querySelector("#handoffGo");
+      if (hb) hb.addEventListener("click", () => {
+        const h = handoffOffer();
+        if (!h) return void render();
+        route("study", { scope: h.scope, resume: { scope: h.scope, queue: h.queue, id: h.id, qi: h.qi, rev: false, studied: 0 } });
+      });
+    }
     // the Collections button under the review group and the About line under the games — both at every
     // width now, each being the only route to the page it names anywhere on the site
     { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
@@ -24047,6 +24260,100 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const rootNode = cardCollectionRoot(id);
     if (rootNode) cb.addEventListener("click", () => route("study", { scope: { type: "deck", id: rootNode.id } }));
     else cb.hidden = true;
+  };
+
+  /* ==========================================================================================
+     TRY TEN CARDS (Sep 2026) — sampling a collection without committing to it
+     ==========================================================================================
+     Twenty collections, and the only way to find out whether one suited you was to ADD it: the deck
+     joined your daily review, its cards joined your schedule, and undoing that meant a removal and a
+     per-deck progress reset. So a reader browsing the shelf either committed or guessed.
+
+     THIS WRITES NOTHING. No `S.active`, no `S.cards`, no review log, no XP — which matters more than it
+     sounds, because Folio's level is `Object.keys(S.cards).length` and a level buys an artefact chest, so
+     a sampler that scheduled its cards the obvious way would hand a browsing reader levels and chests for
+     reading ten cards. `PAGES.pretest` made exactly this decision first and for exactly this reason; this
+     follows it.
+
+     THE TEN ARE THE COLLECTION'S OWN FIRST TEN, not a random draw. A collection is written in an order —
+     the plans are running orders — and the opening cards are where it introduces itself; a random ten out
+     of a thousand is a fair sample of the SUBJECT and a poor sample of the experience. Cards already
+     studied are skipped, so a reader who samples twice does not meet the same ten.
+     A `#sample/<id>` is a real address, so it can be shared and it survives a reload. */
+  const SAMPLE_N = 10;
+  function sampleIds(nodeId) {
+    const node = NODE_BY_ID[nodeId];
+    if (!node) return [];
+    const avail = availableCardIdSet();
+    return subtreeCardIds(node).filter((id) => avail.has(id) && !isSeen(id) && !isSuspended(id)).slice(0, SAMPLE_N);
+  }
+  PAGES.sample = function (root, params) {
+    const nodeId = (params && params.id) || "";
+    const node = NODE_BY_ID[nodeId];
+    const ids = node ? sampleIds(nodeId) : [];
+    if (!node || !ids.length) {
+      root.innerHTML = `
+        <div class="page-head"><span class="eyebrow">Try ten cards</span><h1>${esc(node ? nodeTitle(node) : "Not found")}</h1>
+        <p>${node ? "There are no unstudied cards here to sample \u2014 you have met them all." : "There is no collection at that address."}</p></div>
+        <div class="cardpg-acts"><button type="button" class="btn" id="smpBack">Back to collections</button></div>`;
+      const b = root.querySelector("#smpBack"); if (b) b.addEventListener("click", () => route("decks"));
+      return;
+    }
+    let i = (params && Number.isInteger(params.i) && params.i >= 0 && params.i < ids.length) ? params.i : 0;
+    const title = nodeTitle(node);
+    function draw() {
+      const id = ids[i];
+      if (!cardExtraLoaded(id)) {
+        root.innerHTML = '<div class="page-head"><span class="eyebrow">Try ten cards</span><h1>' + esc(title) + "</h1></div>";
+        ensureCardExtra(ids).then(() => { if (current && current.name === "sample") draw(); });
+        return;
+      }
+      const c = cardLocalized(cardById(id));
+      root.innerHTML = `
+        <div class="page-head"><span class="eyebrow">${esc(title)} \u00b7 a taste</span><h1>Card ${i + 1} of ${ids.length}</h1>
+        <p class="smp-note">Nothing here is scheduled, counted or remembered \u2014 it is a look at the deck, not a study session.</p></div>
+        <div class="study-card cardpg-card">
+          <span class="label">Question</span>
+          <div class="question">${cardFrontHTML(c) || ""}</div>
+          <div class="reveal" id="smpReveal"><div class="reveal-inner" id="smpBack"></div></div>
+        </div>
+        <div class="cardpg-acts smp-acts">
+          <button type="button" class="btn" id="smpShow">Show the answer</button>
+          <button type="button" class="btn ghost" id="smpPrev"${i === 0 ? " disabled" : ""}>Previous</button>
+          <button type="button" class="btn ghost" id="smpNext">${i + 1 === ids.length ? "Finish" : "Next card"}</button>
+        </div>`;
+      const show = () => {
+        const inner = root.querySelector("#smpBack");
+        if (!inner || inner.innerHTML) return;
+        inner.innerHTML = buildBack(c);
+        mountCardBack(inner, c, { expand: true });
+        root.querySelector("#smpReveal").classList.add("show");
+        const sb = root.querySelector("#smpShow");
+        if (sb) sb.remove();
+      };
+      const sh = root.querySelector("#smpShow"); if (sh) sh.addEventListener("click", show);
+      root.querySelector("#smpPrev").addEventListener("click", () => { if (i > 0) { i--; draw(); } });
+      root.querySelector("#smpNext").addEventListener("click", () => {
+        if (i + 1 < ids.length) { i++; draw(); } else done();
+      });
+    }
+    function done() {
+      const added = activeEntryIds().indexOf(nodeId) >= 0;
+      root.innerHTML = `
+        <div class="placard">
+          <div class="big">\u2713</div>
+          <h2>That is ${esc(title)}</h2>
+          <p>Ten of its cards, and none of them scheduled. Adding the collection puts it in your daily study, a few new cards a day, with everything you have just read waiting to be learned properly.</p>
+          <div class="row">
+            ${added ? "" : '<button class="btn" id="smpAdd">Add ' + esc(title) + "</button>"}
+            <button class="btn ghost" id="smpMore">Back to collections</button>
+          </div>
+        </div>`;
+      const a = root.querySelector("#smpAdd");
+      if (a) a.addEventListener("click", () => { addActive(nodeId); toast(title + " added to your daily study."); route("home"); });
+      root.querySelector("#smpMore").addEventListener("click", () => route("decks"));
+    }
+    draw();
   };
 
   PAGES.search = function (root) {
@@ -25149,6 +25456,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             }
           </div>
           <div class="collection-actions">
+            ${/* TRY TEN CARDS (see PAGES.sample), offered only where there is something to sample and only
+                  to a reader who has NOT added the collection — once it is in the daily study, sampling it
+                  is what studying it does. It sits before the +, since it is the question the + answers. */""}
+            ${!soon && total && !isActive(d.id) ? `<button class="collection-try" data-try="${esc(d.id)}" type="button" title="Read ten of its cards without adding it">Try ten</button>` : ""}
             ${!soon ? `<button class="collection-add${isActive(d.id) ? " added" : ""}" data-id="${d.id}" aria-label="${isActive(d.id) ? "Remove from review" : "Add to review"}">${addIcon(isActive(d.id))}</button>` : ""}
             ${hasSubs ? `<button class="chev" aria-label="Expand children"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>` : ""}
           </div>
@@ -25164,6 +25475,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       } else if (deco) { deco.remove(); }
       const collAddBtn = collEl.querySelector(".collection-add");
       if (collAddBtn) wireAddButton(collAddBtn, d.id);
+      {
+        // stopPropagation, or the row's own click (which studies the whole subtree) fires with it
+        const tb = collEl.querySelector(".collection-try");
+        if (tb) tb.addEventListener("click", (e) => { e.stopPropagation(); route("sample", { id: d.id }); });
+      }
 
       if (hasSubs) {
         const padEl = collEl.querySelector(".node-children-pad");
@@ -29444,6 +29760,50 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reports the time spent looking at it after coming back rather than the hours in between. */
     let shownAt = 0;
     let buriedToldThisSession = false;   // see doGrade: the sibling-burying note is worth making once
+    /* A TIME BOX (Sep 2026). Folio budgets a session in CARDS, which is the unit it thinks in and not the
+       unit a commute is measured in — a reader with ten minutes has no way to say so. `boxMs` is how long
+       they asked for and `boxFrom` when the clock started; the session ends at the END OF THE CURRENT CARD
+       rather than mid-answer, which is the whole point of doing this at the grade rather than on a timer.
+       Session-scoped and deliberately NOT in `S`: it is how this sitting is being worked, like the deck
+       list's edit mode, and a box silently still in force tomorrow morning would be a session that ends
+       for no reason a reader can see. It rides in the STUDY_KEY record so a reload keeps it. */
+    let boxMs = 0, boxFrom = 0;
+    const BOX_CHOICES = [5, 10, 15, 20, 30, 45];
+    function boxLeftMs() { return boxMs ? Math.max(0, boxMs - (Date.now() - boxFrom)) : 0; }
+    function boxLeftLabel() {
+      const left = boxLeftMs();
+      if (left >= 60000) return Math.ceil(left / 60000) + "m";
+      return Math.ceil(left / 1000) + "s";
+    }
+    /* THE BOX IS SPENT AT THE END OF A CARD, NEVER MID-ANSWER. Checked in doGrade rather than on the tick
+       for exactly that reason: a session that closed itself while the reader was reading an answer would
+       be a feature that takes work away, and the whole promise here is "ten minutes and then stop". */
+    function boxSpent() { return boxMs > 0 && Date.now() - boxFrom >= boxMs; }
+    function setTimeBox(min) {
+      boxMs = min > 0 ? min * 60000 : 0;
+      boxFrom = boxMs ? Date.now() : 0;
+      persistStudy();
+      renderCard();
+      toast(boxMs ? "Studying for " + min + " minutes — the session ends after the card you are on." : "No time limit.");
+    }
+    function openTimeBox(btn, ev) {
+      const r = btn.getBoundingClientRect();
+      const items = BOX_CHOICES.map((m) => ({ label: m + " minutes", act: () => setTimeBox(m) }));
+      if (boxMs) items.push({ label: "No limit", act: () => setTimeBox(0) });
+      showCtxMenu(ev && ev.clientX ? ev.clientX : r.left, r.bottom + 4, items);
+    }
+    /* One interval per RENDER, self-stopping on root.isConnected — the shape startTimeTicker uses, and for
+       its reason: render() replaces #view without telling anybody and there is no teardown hook. It only
+       ever writes the label; ending the session is the grade's business. */
+    function startBoxTick(pageRoot) {
+      if (pageRoot._boxTick) clearInterval(pageRoot._boxTick);
+      pageRoot._boxTick = setInterval(() => {
+        if (!pageRoot.isConnected) { clearInterval(pageRoot._boxTick); pageRoot._boxTick = 0; return; }
+        const lbl = pageRoot.querySelector("#boxLbl");
+        if (!lbl) return;
+        lbl.textContent = boxMs ? boxLeftLabel() : "Time";
+      }, 1000);
+    }
     /* Which of the card's phrasings is being asked. null means "not chosen yet" — renderCard picks one and
        every move to another card sets it back to null, so a phrasing belongs to the card that is on screen
        and never leaks onto the next one. A resumed session gets its saved index back, which is the half of
@@ -29456,13 +29816,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const ok = resume.queue.filter((id) => cardById(id) && !isSuspended(id) && !isBuried(id));
       if (ok.length) {
         queue = ok;
+        if (resume.box > 0 && resume.boxFrom > 0) { boxMs = resume.box; boxFrom = resume.boxFrom; }
         if (Number.isInteger(resume.qi) && resume.id === queue[0]) qIdx = resume.qi;
         if (resume.rev && resume.id === queue[0]) studyRevealId = queue[0];   // …and revealed, if it was
         if (Number.isFinite(resume.studied)) studiedThisSession = resume.studied;
       }
     }
     function persistStudy() {
-      writeStudySession({ scope: params.scope, queue: queue.slice(), id: queue[0] || null, qi: qIdx, rev: revealed, studied: studiedThisSession });
+      const rec = { scope: params.scope, queue: queue.slice(), id: queue[0] || null, qi: qIdx, rev: revealed, studied: studiedThisSession, box: boxMs, boxFrom: boxFrom };
+      writeStudySession(rec);
+      /* …and the SYNCED half (see S.handoff). Written here rather than on a timer so the two records can
+         never say different things, and NOT saved from here: persistStudy runs on every render, and a
+         `save()` per render would queue a synced push per card turn. `grade()` saves anyway, which is the
+         cadence a handoff actually wants — the other device cares which cards are left, not which one is
+         on screen this second. */
+      writeHandoff(rec);
     }
 
     /* ---------- the day's time on cards (Aug 2026, on request) ----------
@@ -29547,6 +29915,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (i >= 0) S.revlog.splice(i, 1);
     }
     function canUndo() { return undoStack.length > 0; }
+    /* WHICH CARD UNDO WILL GIVE BACK (Sep 2026). The stack has held a hundred snapshots since it shipped
+       and a second press has always reached the card before last — what it has never done is SAY so, so
+       a reader who realised three cards later that they had mis-graded had no way to tell whether one
+       more press would land on the card they meant. The button names it, and names the grade it is
+       taking back, so stepping back through a run is something a reader can watch rather than count. */
+    function undoLabel() {
+      const s0 = undoStack[undoStack.length - 1];
+      if (!s0) return "";
+      const t = cardTitle(s0.id, 40) || s0.id;
+      const g = s0.g ? String(s0.g).charAt(0).toUpperCase() + String(s0.g).slice(1) : "";
+      return (g ? "Undo " + g + " on " : "Undo ") + "\u201c" + t + "\u201d" +
+        (undoStack.length > 1 ? " \u00b7 " + undoStack.length + " to step back through" : "");
+    }
     function undoGrade() {
       const tNow = Date.now();
       if (tNow - undoAt < UNDO_GUARD_MS) return;   // the same press arriving twice — see UNDO_GUARD_MS
@@ -29757,7 +30138,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <div class="study-shell">
           <div class="study-bar">
             <button class="backbtn" id="exit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Home</button>
-            ${canUndo() ? '<button class="backbtn undobtn" id="undoGrade" title="Go back to the last card and undo its grade (Ctrl+Z)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg> Undo</button>' : ""}
+            ${canUndo() ? '<button class="backbtn undobtn" id="undoGrade" title="${esc(undoLabel())} (Ctrl+Z)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg> Undo</button>' : ""}
             ${/* Card info — Anki's `I`, and deliberately in the study BAR rather than in the grade bar. The
                   grade bar's phone layout is a fixed three-cell row under the grades ("help undo suspend"),
                   and Undo is duplicated down there because a misclick is URGENT; asking why a card is due is
@@ -29771,6 +30152,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   the session was built, and re-deriving it per card there would only be able to say the
                   same thing less well (a card cross-listed into two leaves, a subdeck's row naming the
                   whole deck). See cardWhereLabel. */""}
+            ${/* The TIME BOX, beside Info and the flag and for their reason: it is a quiet control about
+                  the session rather than about the card, and the grade bar's phone row has three fixed
+                  cells. Set, it counts down in its own label, so the bar says how long is left without
+                  being opened. */""}
+            <button class="backbtn boxbtn${boxMs ? " on" : ""}" id="timeBox" type="button" title="Study for a set length of time"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9.5V13l2.2 1.6"/><path d="M9 2.5h6"/></svg> <span id="boxLbl">${boxMs ? esc(boxLeftLabel()) : "Time"}</span></button>
             <span class="study-where">${esc((params.scope.type === "review" && cardWhereLabel(id)) || sess.where)}</span>
             <div class="counts">
               <span class="cnt new">${rc.nw}</span>
@@ -29854,6 +30240,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          reason to un-reveal it. renderCard() re-runs this same function, which redraws the bar with the new
          colour on it and calls showAnswer() again for a card that was open. */
       { const fb = root.querySelector("#flagBtn"); if (fb) fb.addEventListener("click", () => openFlagSheet([id], () => renderCard())); }
+      { const tb = root.querySelector("#timeBox"); if (tb) tb.addEventListener("click", (e) => openTimeBox(tb, e)); }
+      startBoxTick(root);
       /* ---------- A SUSPENDED NEW CARD IS REPLACED (Aug 2026, on a bug report) ----------
          Suspending costs the reader one of the day's new cards. Not the ALLOWANCE — that is derived from
          `c.first`, the day a card was first graded, so a card set aside without ever being answered spends
@@ -29904,10 +30292,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          The field is NOT focused by this: `setupCloze` deliberately leaves a touch reader's keyboard
          down until they tap the blank, and a policy about effort has no business overriding that. */
       const attemptOn = deckAttempt(cardEntryId(id)) && !!cardRoot.querySelector(".question .blank-input");
+      /* RECALL IN FULL (see deckRecall). The box sits between the question and the Reveal button, which is
+         where the reader's attention already is; it is a plain textarea for cardNoteHTML's reason (nothing
+         to sanitize, and the units and spelling passes cannot reach a field's value). It is NOT required
+         before revealing — that is `attempt`'s job, and stacking two gates would make a habit into a lock. */
+      const recallOn = deckRecall(cardEntryId(id));
+      let recallEl = null;
+      if (recallOn) {
+        const box = document.createElement("div");
+        box.className = "freerecall";
+        box.innerHTML = '<label class="fr-lab" for="frTa">Write what you remember</label>' +
+          '<textarea id="frTa" class="fr-ta" rows="3" placeholder="Everything you can bring back about this term — not just the missing word."></textarea>';
+        const rv = cardRoot.querySelector(".reveal");
+        if (rv) cardRoot.insertBefore(box, rv); else cardRoot.appendChild(box);
+        recallEl = box.querySelector(".fr-ta");
+      }
       let saidDunno = false;
       const actions = root.querySelector("#actions");
       actions.innerHTML = '<div class="reveal-cta">' +
-        '<button class="btn" id="reveal-btn"' + (attemptOn ? " disabled" : "") + ">Reveal answer</button>" +
+        '<button class="btn" id="reveal-btn"' + (attemptOn ? " disabled" : "") + ">" + (recallOn ? "Reveal and compare" : "Reveal answer") + "</button>" +
         (attemptOn ? '<button class="btn ghost" id="dunno-btn" type="button">I don’t know</button>' +
                      '<span class="reveal-hint" id="revealHint">Type your answer, or say you don’t know</span>' : "") +
         "</div>";
@@ -29978,6 +30381,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         cardArtReveal(cardRoot, c);   // …and an artwork may now be titled, credited and enlarged
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
+        /* WHAT THEY WROTE, PUT BESIDE THE ANSWER (see deckRecall). It goes at the TOP of the reveal, above
+           the answer box, so the comparison is one glance rather than a scroll; the box it was typed into
+           is taken away, since leaving an editable copy of it on screen invites a reader to improve their
+           recall after seeing the answer, which is the one thing free recall must not allow. Nothing is
+           stored — it lives as long as this card is on screen. */
+        if (recallEl) {
+          const said = recallEl.value.trim();
+          const box = recallEl.closest(".freerecall");
+          if (box) box.remove();
+          if (said) {
+            const w = document.createElement("div");
+            w.className = "fr-said";
+            w.innerHTML = '<span class="label">What you wrote</span><p></p>';
+            w.querySelector("p").textContent = said;
+            inner.insertBefore(w, inner.firstChild);
+          }
+          recallEl = null;
+        }
         /* ONE PICTURE ON THE STUDY PAGE. `buildBack` emits the background slot for every surface that
            draws a back with no front (see cardArtSpec's block); here the front is still on screen and
            carrying the same file, so the BACK's copy goes rather than the front's — dropping the front's
@@ -30053,7 +30474,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         actions.innerHTML = "";
         showGradeBar(
           `<div class="grade-wrap">
-            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span><span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, <kbd>I</kbd> shows this card's history, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
+            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span>${gradeExplainHTML(id, p)}<span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, <kbd>I</kbd> shows this card's history, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
             <div class="grades">
               <button class="grade again" data-g="again"><span class="gl">Again</span><span class="gi">${fmtInterval(p.again)}</span><span class="gk">1</span></button>
               <button class="grade hard" data-g="hard"><span class="gl">Hard</span><span class="gi">${fmtInterval(p.hard)}</span><span class="gk">2</span></button>
@@ -30064,7 +30485,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   so on a phone the one way back from a misclicked grade was off screen at the moment it was
                   wanted. CSS shows this only below 640px and hides the study bar's copy while the grade bar
                   is up, so no card ever carries two. */""}
-            ${canUndo() ? '<button class="gb-undo" id="undoGradeBar" type="button" title="Go back to the last card and undo its grade (Ctrl+Z)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg>Undo</button>' : ""}
+            ${canUndo() ? '<button class="gb-undo" id="undoGradeBar" type="button" title="' + esc(undoLabel()) + ' (Ctrl+Z)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg>Undo</button>' : ""}
             <button class="suspendbtn gradebar-suspend" id="suspendBtn" type="button" aria-label="Suspend this card so it won't appear again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg>Suspend card</button>
           </div>`,
           (g) => doGrade(g)
@@ -30124,6 +30545,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         }
         studyRevealId = null;   // moving on: the next card (or a requeued step) opens at its question, unrevealed
         qIdx = null;            // …and picks a phrasing of its own rather than inheriting this card's
+        // …and the time box, asked HERE rather than on a tick, so a session never closes mid-answer
+        if (boxSpent()) return renderComplete({ timeUp: true });
         // swap animation handled by re-render
         renderCard();
       }
@@ -30206,22 +30629,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (studyRevealId === id) showAnswer();
     }
 
-    function renderComplete() {
+    function renderComplete(how) {
       detachKeys();
-      // the session is over — a reload from here starts a fresh one rather than resurrecting an empty queue
+      // the session is over — a reload from here starts a fresh one rather than resurrecting an empty queue,
+      // and no other device should be offered one either
       clearStudySession();
+      clearHandoff();
+      save();
       hideGradeBar();
       hideWBTools();
       root.innerHTML = "";
       const card = document.createElement("div");
       card.className = "placard";
       card.innerHTML = `
-        <div class="big">✓</div>
-        <h2>Session complete</h2>
-        <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}. Your progress is saved.</p>
+        <div class="big">${how && how.timeUp ? "⏱" : "✓"}</div>
+        <h2>${how && how.timeUp ? "Time's up" : "Session complete"}</h2>
+        <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}${how && how.timeUp ? " in " + Math.round(boxMs / 60000) + " minutes" : ""}. Your progress is saved.</p>
         <div class="row">
           <button class="btn" id="more">Keep studying</button>
-          ${canUndo() ? '<button class="btn ghost" id="undoLast">Undo the last card</button>' : ""}
+          ${canUndo() ? '<button class="btn ghost" id="undoLast" title="${esc(undoLabel())}">Undo the last card</button>' : ""}
           <button class="btn ghost" id="home">Back home</button>
         </div>`;
       /* …AND THE NEXT DECK DOWN THE LIST (Aug 2026, on request). A reader working through their active
@@ -30245,7 +30671,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the last card of a session is exactly where a misclick is hardest to live with — the queue is empty
       // and there is no card left to press Undo on, so the way back sits here too
       { const ul = card.querySelector("#undoLast"); if (ul) ul.addEventListener("click", undoGrade); }
-      card.querySelector("#more").addEventListener("click", () => route("study", params));
+      /* Keep studying after a spent box would otherwise end on the very first card, the clock having run
+         out before the button was pressed: the box is dropped rather than restarted, since a reader who
+         asked for ten minutes and then asked for more has plainly stopped counting. */
+      card.querySelector("#more").addEventListener("click", () => { boxMs = 0; boxFrom = 0; route("study", params); });
       {
         const nb = card.querySelector("#nextDeck");
         // the scope a row is tapped with on the home page, which is the one place that decides what a row
@@ -32995,6 +33424,72 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
       "</div></div></div>";
   }
+  /* ---------- THE READER'S OWN NOTE (Sep 2026) ----------
+     Rendered on the answer side, directly under the answer box, because a mnemonic is about the TERM and
+     a reader who has shut the Background fold has not asked to lose it. It is a real `<textarea>` rather
+     than a contenteditable: what goes in is plain text and nothing else, so there is no markup to
+     sanitize, no paste to clean, and the units and spelling passes — which walk text NODES — cannot
+     reach a field's value and rewrite what somebody wrote.
+     It is DELEGATED, wired once for the document, for the reason the footnotes are: this markup is drawn
+     by six surfaces (the study page, the peek sheet, the browser, Multiple Choice's card back, the
+     Atlas's own popup and the editor preview) and a per-render wiring is one forgotten call away from a
+     box that swallows what is typed into it. */
+  const CARD_NOTE_MAX = 500;
+  function cardNote(id) { return (S.notes && S.notes[id]) || ""; }
+  function setCardNote(id, t) {
+    if (!id) return;
+    if (!S.notes || typeof S.notes !== "object") S.notes = {};
+    const v = String(t || "").slice(0, CARD_NOTE_MAX);
+    // an emptied note deletes its key rather than storing "" — the blob is PATCHed whole on every save
+    if (v.trim()) S.notes[id] = v; else delete S.notes[id];
+    save();
+  }
+  function cardNoteHTML(c) {
+    if (!c || !c.id) return "";
+    const t = cardNote(c.id);
+    return '<div class="cardnote' + (t ? " cn-has" : "") + '" data-cardnote="' + esc(c.id) + '">' +
+      '<button type="button" class="cn-open" aria-expanded="' + (t ? "true" : "false") + '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h13"/><path d="M4 11h13"/><path d="M4 16.5h8"/></svg>' +
+      (t ? "Your note" : "Add a note") + "</button>" +
+      '<div class="cn-body"' + (t ? "" : " hidden") + '>' +
+      '<textarea class="cn-ta" maxlength="' + CARD_NOTE_MAX + '" rows="2" aria-label="Your own note on this card" placeholder="A mnemonic, a link, anything that makes this one stick. Only you can see it.">' + esc(t) + "</textarea></div></div>";
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target && e.target.closest && e.target.closest(".cn-open");
+    if (!b) return;
+    const box = b.closest(".cardnote");
+    const body = box && box.querySelector(".cn-body");
+    if (!body) return;
+    const open = body.hidden;
+    body.hidden = !open;
+    b.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) { const ta = body.querySelector(".cn-ta"); if (ta) ta.focus(); }
+  });
+  /* Debounced, because `save()` queues a synced push and a push per keystroke on a 500-character field
+     would be a great deal of traffic for a sentence. `blur` writes at once, so a reader who types and
+     navigates away inside the window does not lose it. */
+  let _noteT = 0;
+  document.addEventListener("input", (e) => {
+    const ta = e.target && e.target.classList && e.target.classList.contains("cn-ta") ? e.target : null;
+    if (!ta) return;
+    const box = ta.closest(".cardnote");
+    if (!box) return;
+    clearTimeout(_noteT);
+    _noteT = setTimeout(() => {
+      setCardNote(box.getAttribute("data-cardnote"), ta.value);
+      box.classList.toggle("cn-has", !!ta.value.trim());
+      const b = box.querySelector(".cn-open");
+      if (b) b.lastChild.textContent = ta.value.trim() ? "Your note" : "Add a note";
+    }, 600);
+  });
+  document.addEventListener("blur", (e) => {
+    const ta = e.target && e.target.classList && e.target.classList.contains("cn-ta") ? e.target : null;
+    if (!ta) return;
+    const box = ta.closest(".cardnote");
+    if (!box) return;
+    clearTimeout(_noteT);
+    setCardNote(box.getAttribute("data-cardnote"), ta.value);
+  }, true);
   function buildBack(c) {
     c = cardFillExtra(c);   // the lazy half may have landed after this card was drawn — see cardFillExtra
     // a custom type owns the whole of the back — but keeps the site's own source apparatus below it, since
@@ -33034,6 +33529,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       html += cardFactsHTML(c);
       html += "</div>";
     }
+    html += cardNoteHTML(c);   // the reader's own line about this card, under the answer it is about
     const hasImg = !!(c.image && c.image.src);
     // one frame per card. Every writer retires the other field, so this only decides a hand-authored data.js
     // that carries both — and there the picture wins, so existing cards keep rendering as they always did.
@@ -40262,9 +40758,135 @@ let prev = null;
      The three numbers a spaced-repetition user actually wants: how consistently have I shown up,
      what is coming, and am I remembering. Rendered for the signed-in profile and for a friend's. */
   const HEAT_WEEKS = 53, FORECAST_DAYS = 14;
+  /* ---------- THE FORTNIGHT IS NOT WHERE AN SRS PILES UP (Sep 2026) ----------
+     The forecast has always been 14 days, which is long enough to plan a week and far too short to see
+     the thing that makes people abandon spaced repetition: a term's worth of Easy grades all landing in
+     one week, three months out. `FORECAST_HORIZONS` offers 90 and 180 beside it, and past three weeks
+     the bars bucket by WEEK — 180 daily bars in a 400px card is a texture rather than a chart, and what
+     a reader can act on at that range is "which week", not "which Tuesday".
+     THE PEAK IS MARKED, deliberately, because the peak is the whole reason to look: the load balancer
+     already exists to flatten it (Settings → Study), it is off by default, and a reader with no way to
+     SEE a pile-up has no reason to turn it on.
+     The horizon is a module-level way of looking, not a setting — the glossary record's sort and the
+     Collections page's tab make the same call — so it survives a repaint and resets on reload. */
+  const FORECAST_HORIZONS = [14, 90, 180];
+  let fcDays = FORECAST_DAYS;
   const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   function heatLevel(n) { return n === 0 ? 0 : n < 5 ? 1 : n < 15 ? 2 : n < 30 ? 3 : 4; }
 
+  /* One card, rebuilt in place when the horizon changes — so the picker costs no re-render of the
+     heatmap, the retention figure or the three panels below it. `today` is passed in rather than read
+     again, so the bars and the heatmap above them agree about which day is today. */
+  function forecastCardHTML(prog, today) {
+    const days = FORECAST_HORIZONS.indexOf(fcDays) >= 0 ? fcDays : FORECAST_DAYS;
+    const fc = dueForecast(prog, days);
+    // past three weeks a daily bar is a hairline; a week is the unit a reader can act on at that range
+    const step = days <= 21 ? 1 : 7;
+    const groups = [];
+    for (let i = 0; i < fc.buckets.length; i += step) {
+      groups.push({ i: i, n: fc.buckets.slice(i, i + step).reduce((a, b) => a + b, 0) });
+    }
+    const peak = Math.max(1, ...groups.map((g) => g.n));
+    const onePeak = groups.filter((g) => g.n === peak).length === 1;
+    const bars = groups.map((g, k) => {
+      const dt = new Date(today.getTime() + g.i * DAY);
+      const end = new Date(today.getTime() + Math.min(g.i + step - 1, days - 1) * DAY);
+      const lbl = step === 1
+        ? (g.i === 0 ? "Today" : dt.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" }))
+        : dt.toLocaleDateString(undefined, { month: "short", day: "numeric" }) + " \u2013 " + end.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+      // a bucket with nothing due still gets a hairline stub, so the run reads as a continuous axis
+      const h = g.n === 0 ? 0 : Math.max(4, Math.round((g.n / peak) * 100));
+      /* A PEAK IS ONE BAR. Several buckets tied at the top is a plateau, and marking all of them says
+         nothing except that the chart has a maximum — which is what the first cut did on a flat
+         forecast, painting every bar the warning colour. Today is never marked: it has a colour of its
+         own, and the point of the mark is the pile-up a reader cannot yet see. */
+      const isPeak = g.n === peak && peak > 1 && g.i > 0 && groups.length > 2 && onePeak;
+      const tick = step === 1
+        ? (g.i === 0 ? "Today" : dt.toLocaleDateString(undefined, { weekday: "narrow" }))
+        : (k === 0 || dt.getMonth() !== new Date(today.getTime() + groups[k - 1].i * DAY).getMonth() ? MONTH_ABBR[dt.getMonth()] : "");
+      return `<span class="fc-bar${g.i === 0 ? " fc-today" : ""}${g.n === 0 ? " fc-zero" : ""}${isPeak ? " fc-peak" : ""}" title="${g.n} due \u00b7 ${esc(lbl)}">
+        <i style="height:${h}%"></i>
+        <em>${esc(tick)}</em>
+      </span>`;
+    }).join("");
+    const total = fc.buckets.reduce((a, b) => a + b, 0);
+    const peakLbl = (() => {
+      if (!(peak > 1) || groups.length < 3 || !onePeak) return "";
+      const g = groups.find((x) => x.n === peak);
+      const dt = new Date(today.getTime() + g.i * DAY);
+      const when = step === 1 ? dt.toLocaleDateString(undefined, { weekday: "long" }) : "the week of " + dt.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+      return ` \u00b7 busiest ${esc(when)}, ${peak}`;
+    })();
+    const note = total === 0
+      ? "Nothing scheduled yet \u2014 cards appear here once you've studied them."
+      : `${total} ${total === 1 ? "review" : "reviews"} over the next ${days} days` +
+        (fc.backlog ? ` \u00b7 ${fc.backlog} overdue, folded into today` : "") + peakLbl;
+    const pick = FORECAST_HORIZONS.map((d) =>
+      `<button type="button" class="fc-h${d === days ? " on" : ""}" data-fcd="${d}">${d}d</button>`).join("");
+    return `
+        <div class="rs-card rs-fc">
+          <div class="rs-head"><h3>Coming up</h3><span class="fc-pick">${pick}</span></div>
+          <div class="fc-bars">${bars}</div>
+          <span class="rs-sub">${note}</span>
+        </div>`;
+  }
+  /* Called at BOTH sites that draw the panel — your own account and a friend's — so the picker cannot be
+     live on one and dead on the other; a friend's forecast is drawn from their own progress blob. */
+  function wireReviewStats(host, prog) {
+    if (!host) return;
+    host.addEventListener("click", (e) => {
+      const lr = e.target.closest("[data-leech]");
+      if (lr && host.contains(lr)) return void openCardInfo(lr.getAttribute("data-leech"), () => render());
+      const b = e.target.closest("[data-fcd]");
+      if (!b || !host.contains(b)) return;
+      fcDays = parseInt(b.getAttribute("data-fcd"), 10) || FORECAST_DAYS;
+      const card = host.querySelector(".rs-fc");
+      const today = new Date(); today.setHours(12, 0, 0, 0);
+      if (card) card.outerHTML = forecastCardHTML(prog, today);
+    });
+  }
+  /* ---------- THE CARDS THAT KEEP BEATING YOU (Sep 2026) ----------
+     `SCHED.leech` has been 8 since the scheduler was ported and every lapse has been recorded since, and
+     until now nothing anywhere SHOWED a reader which cards those were: Anki suspends a leech, Folio
+     deliberately does not (see schedAnswer — "recorded, never acted on"), so the statistic simply sat
+     there. Twenty rows, worst first, each opening the Card info panel the study bar already has, with
+     its flag / set-due / forget / suspend actions attached — which turns an invisible number into the
+     highest-leverage twenty minutes a reader can spend.
+     OWN ACCOUNT ONLY, and that is not modesty about the data: a friend's lapse counts arrive in their
+     progress blob and would render perfectly, but every action on the row acts on YOUR schedule, so the
+     panel would be a list of somebody else's problems wearing your own controls.
+     A card SUSPENDED is left out — it is already dealt with — and one no longer in the tree with it. */
+  const LEECH_ROWS = 20;
+  function leechCards(prog) {
+    const cards = (prog && prog.cards) || {};
+    const susp = (prog && prog.suspended) || {};
+    const avail = availableCardIdSet();
+    return Object.keys(cards)
+      .filter((id) => !susp[id] && avail.has(id) && (cards[id].lapses | 0) > 0)
+      .sort((a, b) => (cards[b].lapses | 0) - (cards[a].lapses | 0) || String(a).localeCompare(String(b)))
+      .slice(0, LEECH_ROWS);
+  }
+  function leechPanelHTML(prog) {
+    if (prog !== S) return "";
+    const ids = leechCards(prog);
+    if (!ids.length) return "";
+    const rows = ids.map((id) => {
+      const c = prog.cards[id], n = c.lapses | 0;
+      const t = cardTitle(id, 60) || id;
+      return `<button type="button" class="lc-row${c.leech ? " lc-bad" : ""}" data-leech="${esc(id)}" title="Open this card's history and actions">
+          <span class="lc-n">${n}</span>
+          <span class="lc-t">${esc(t)}</span>
+          <span class="lc-w">${esc(cardWhereLabel(id) || "")}</span>
+        </button>`;
+    }).join("");
+    const bad = ids.filter((id) => prog.cards[id].leech).length;
+    return `
+        <div class="rs-card rs-leech">
+          <div class="rs-head"><h3>Cards fighting you</h3><span class="rs-meta">${bad ? bad + " at " + SCHED.leech + "+ lapses" : "Most forgotten"}</span></div>
+          <div class="lc-list">${rows}</div>
+          <span class="rs-sub">Sorted by how often you have forgotten them. A card you keep losing is usually one card doing two jobs \u2014 open it, and consider rewriting, flagging or suspending it.</span>
+        </div>`;
+  }
   function reviewStatsHTML(prog, joined) {
     // ---- heatmap: whole weeks, Monday-first, ending on today's column.
     // It starts on the day the account was created (`joined`) rather than always showing a bare year of
@@ -40322,24 +40944,8 @@ let prev = null;
       ? `<b class="rs-big">${ret.pct}<i>%</i></b><span class="rs-sub">${ret.ok} of ${ret.tot} mature cards recalled, last 90 days</span>`
       : `<b class="rs-big rs-none">—</b><span class="rs-sub">No mature cards reviewed yet. This fills in once cards start coming back after a few days.</span>`;
 
-    // ---- forecast
-    const fc = dueForecast(prog, FORECAST_DAYS);
-    const peak = Math.max(1, ...fc.buckets);
-    const bars = fc.buckets.map((n, i) => {
-      const dt = new Date(today.getTime() + i * DAY);
-      const lbl = i === 0 ? "Today" : dt.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
-      // a day with nothing due still gets a hairline stub, so the run of days reads as a continuous axis
-      const h = n === 0 ? 0 : Math.max(4, Math.round((n / peak) * 100));
-      return `<span class="fc-bar${i === 0 ? " fc-today" : ""}${n === 0 ? " fc-zero" : ""}" title="${n} due · ${lbl}">
-        <i style="height:${h}%"></i>
-        <em>${i === 0 ? "Today" : dt.toLocaleDateString(undefined, { weekday: "narrow" })}</em>
-      </span>`;
-    }).join("");
-    const fcTotal = fc.buckets.reduce((a, b) => a + b, 0);
-    const fcNote = fcTotal === 0
-      ? "Nothing scheduled yet — cards appear here once you've studied them."
-      : `${fcTotal} ${fcTotal === 1 ? "review" : "reviews"} scheduled over the next ${FORECAST_DAYS} days` +
-        (fc.backlog ? ` · ${fc.backlog} overdue, folded into today` : "");
+    // ---- forecast (see FORECAST_HORIZONS)
+    const fcCard = forecastCardHTML(prog, today);
 
     return `
       <div class="revstats">
@@ -40358,11 +40964,8 @@ let prev = null;
           <div class="rs-head"><h3>Retention</h3><span class="rs-meta" title="A card counts once it has graduated to review. Anything but Again counts as remembered.">Mature recall</span></div>
           ${retBody}
         </div>
-        <div class="rs-card rs-fc">
-          <div class="rs-head"><h3>Coming up</h3><span class="rs-meta">Next ${FORECAST_DAYS} days</span></div>
-          <div class="fc-bars">${bars}</div>
-          <span class="rs-sub">${fcNote}</span>
-        </div>
+        ${fcCard}
+        ${leechPanelHTML(prog)}
         ${forgettingCurveHTML(prog)}
         ${seenOnceHTML(prog)}
         ${answerButtonsHTML(prog)}
@@ -41317,6 +41920,7 @@ let prev = null;
       </div>`;
     root.querySelector("#statWrap").innerHTML = statGridHTML(S, dueCountNow());
     root.querySelector("#reviewStats").innerHTML = reviewStatsHTML(S, S.user && S.user.joined);   // the heatmap opens on the day the account was created
+    wireReviewStats(root.querySelector("#reviewStats"), S);
     /* "Study these" on the recalled-once card. Drawn only on the reader's OWN page (see seenOnceHTML) —
        a friend's list is a fact about them and not a session anybody else can start. */
     {
@@ -41583,6 +42187,7 @@ let prev = null;
         <div class="suspbox"><div class="suspbox-collapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="fDeck"></div></div></div></div>`;
       root.querySelector("#fStat").innerHTML = statGridHTML(prog, null);
       root.querySelector("#fReviewStats").innerHTML = reviewStatsHTML(prog, u.joined);   // their reviewLog rides along in the synced progress blob
+      wireReviewStats(root.querySelector("#fReviewStats"), prog);
       renderDeckStats(root.querySelector("#fDeckStats"), prog, false);   // their community decks live on their device, not in the blob
       root.querySelector("#fExploreStats").innerHTML = exploreStatsHTML(prog);
       // no friend count is forced any more: their own blob carries `friendCount`, so their First Friend
@@ -42448,6 +43053,13 @@ let prev = null;
             <div class="ctl"><div class="switch ${S.settings.attemptFirst ? "on" : ""}" id="sw-attempt" role="switch" aria-label="Answer before revealing" tabindex="0" aria-checked="${!!S.settings.attemptFirst}"></div></div>
           </div>
           <div class="set-row">
+            ${/* RECALL IN FULL — see deckRecall. Off by default, on the same reasoning: it makes studying
+                  harder on purpose. The copy says what the reader will be asked to DO, since the point is
+                  a habit rather than a setting. */""}
+            <div class="info"><h3>Recall in full</h3><p>Before the answer is shown, a box asks you to write down everything you can remember about the term &mdash; not just the missing word. What you wrote is put beside the answer so you can mark it yourself, and then thrown away. Nobody sees it and nothing is stored.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.recallFirst ? "on" : ""}" id="sw-recall" role="switch" aria-label="Recall in full" tabindex="0" aria-checked="${!!S.settings.recallFirst}"></div></div>
+          </div>
+          <div class="set-row">
             ${/* THE WHITEBOARD MARKER (Aug 2026, on request). It floats over every study card, every page of
                   a book and the Atlas globe, and a reader who never draws has been carrying it round the
                   corner of the screen on all three. OFF removes the panel and the ink canvas with it — see
@@ -42599,6 +43211,7 @@ let prev = null;
        Settings page is not one of the three that mount it, so nothing would repaint it away by itself, and a
        panel still floating over the page a switch has just disabled reads as a switch that did nothing. */
     wireSwitch("#sw-attempt", () => !!S.settings.attemptFirst, (v) => { S.settings.attemptFirst = v; });
+    wireSwitch("#sw-recall", () => !!S.settings.recallFirst, (v) => { S.settings.recallFirst = v; });
     { const hb = root.querySelector("#howLink"); if (hb) hb.addEventListener("click", () => route("how")); }
     wireSwitch("#sw-marker", () => S.settings.marker !== false, (v) => {
       S.settings.marker = v;
@@ -46151,7 +46764,7 @@ let prev = null;
     e.preventDefault();
     route("search");
   });
-  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card"];
+  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = hParts[0] === "community" ? "decks" : valid.includes(hParts[0]) ? hParts[0] : "home";
@@ -46169,6 +46782,8 @@ let prev = null;
   if (initName === "deck") { try { initParams.slug = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.slug = hParts[1] || ""; } }   // a mangled %-escape must not kill boot
   // #card/<id> — one card at a stable address, the same shape as #book/<id>
   if (initName === "card") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
+  // #sample/<collection id> — ten cards of a collection, scheduling nothing (see PAGES.sample)
+  if (initName === "sample") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
   // #book/<id> — a book is a shareable address, the same shape as #deck/<slug> and #map/<year>/<slug>
   if (initName === "book") {
     try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; }
@@ -46375,6 +46990,12 @@ let prev = null;
       let slug = "";
       try { slug = decodeURIComponent(parts[1] || ""); } catch (e) { slug = parts[1] || ""; }
       if (!(current.name === "deck" && current.params.slug === slug)) route("deck", { slug: slug });
+      return;
+    }
+    if (parts[0] === "sample") {   // #sample/<collection id> pasted or followed mid-session
+      let sid = parts[1] || "";
+      try { sid = decodeURIComponent(sid); } catch (e) {}
+      if (!(current.name === "sample" && current.params.id === sid)) route("sample", { id: sid });
       return;
     }
     if (parts[0] === "card") {   // #card/<id> pasted or followed mid-session

@@ -217,10 +217,10 @@ const SETTINGS = {
        their own on a collection, and it is stored beside the colour in the same S.deckGroups record — so
        it sits directly after it, and before Remove, which stays last. */
     check("holding the banner offers the deck sheet's options, minus Remove",
-      rm && rm.items.join(",") === "Review order,Question variety,Answer before revealing,Browse your cards,Custom study,Daily limits,Skip today,Colour,Icon", JSON.stringify(rm));
-    check("...the order is a CYCLER and the two policies are switches, with no pair of rows for any of them",
+      rm && rm.items.join(",") === "Review order,Question variety,Answer before revealing,Recall in full,Browse your cards,Custom study,Daily limits,Skip today,Colour,Icon", JSON.stringify(rm));
+    check("...the order is a CYCLER and the three policies are switches, with no pair of rows for any of them",
       rm && rm.cycles.join(",") === "Review order" &&
-      rm.switches.join(",") === "Question variety,Answer before revealing" && rm.choices === 0,
+      rm.switches.join(",") === "Question variety,Answer before revealing,Recall in full" && rm.choices === 0,
       JSON.stringify(rm));
     check("...each showing its own current state — Ordered, and variety on by default",
       rm && rm.order === "Ordered" && rm.variety === true, JSON.stringify(rm && { order: rm.order, variety: rm.variety }));
@@ -500,7 +500,7 @@ const SETTINGS = {
        their own on a collection, and it is stored beside the colour in the same S.deckGroups record — so
        it sits directly after it, and before Remove, which stays last. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Answer before revealing", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Icon", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Answer before revealing", "Recall in full", "Browse your cards", "Custom study", "Daily limits", "Ready by a date", "Scheduling", "Skip today", "Colour", "Icon", "Remove"]),
       JSON.stringify(menu.items));
 
     /* THE ORDER IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they are

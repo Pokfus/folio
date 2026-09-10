@@ -2622,6 +2622,50 @@ body.grading .stage{padding-bottom:150px;}
 .rs-head h3{font-family:var(--display); font-weight:600; font-size:calc(16px * var(--fs)); color:var(--ink); margin:0;}
 .rs-meta{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); text-align:right;}
 .rs-sub{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+/* CARDS FIGHTING YOU (Sep 2026). The lapse count LEADS, in the tabular figure, because the list is
+   ordered by it and a reader is scanning that column rather than reading the titles. A card past
+   SCHED.leech takes the warning ochre — the scheduler records a leech and deliberately never acts on
+   one, so this is the only place the flag is ever shown. */
+/* THE READER'S OWN NOTE (Sep 2026). Quiet at rest — one small button under the answer — and a plain
+   field once opened. `[hidden]` needs saying because the author display beats the UA rule, the trap
+   `.ces-imgpanel` and `.af-src` already carry. */
+/* RECALL IN FULL (Sep 2026): the box under the question, and what was written in it shown above the
+   answer at the reveal. The written copy is a `<p>` with textContent set, never innerHTML — it is the
+   reader's own typing and has no business being parsed. */
+/* CARRY ON FROM ANOTHER DEVICE (Sep 2026). A quiet full-width row above the day's review, in the
+   indigo the site uses for "somewhere to go" rather than in a colour that competes with the banner. */
+/* READY BY A DATE (Sep 2026). The number is the answer, so it leads; the caveats are the point of the
+   feature and are set as prose under it rather than as a footnote. */
+.dl-out{margin:2px 0 4px;}
+.dl-big{margin:0 0 4px; font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); color:var(--ink);}
+.dm-warn{margin:6px 0 0; font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--geo);}
+.handoff-row{display:block; width:100%; text-align:left; margin:0 0 12px; padding:12px 15px; border:1px solid color-mix(in srgb, var(--indigo) 34%, var(--rule)); border-radius:12px; background:var(--card); box-shadow:var(--shadow-sm); cursor:pointer;}
+.handoff-row:hover{border-color:var(--indigo);}
+.ho-lead{display:block; font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--indigo);}
+.ho-sub{display:block; margin-top:2px; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-soft);}
+.freerecall{margin:14px 0 2px; border-top:1px solid var(--rule); padding-top:12px;}
+.fr-lab{display:block; font-family:var(--sans); font-size:calc(10.5px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-quiet); margin-bottom:6px;}
+.fr-ta{display:block; width:100%; box-sizing:border-box; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.55; color:var(--ink); background:var(--paper-2); border:1px solid var(--rule); border-radius:8px; padding:9px 11px; resize:vertical;}
+.fr-ta:focus{outline:none; border-color:var(--indigo);}
+.fr-said{margin:0 0 14px; padding:10px 12px; border-left:3px solid var(--ink-quiet); background:var(--paper-2); border-radius:0 8px 8px 0;}
+.fr-said .label{display:block; font-family:var(--sans); font-size:calc(10px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-quiet); margin-bottom:4px;}
+.fr-said p{margin:0; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft); white-space:pre-wrap;}
+.cardnote{margin:10px 0 2px;}
+.cn-body[hidden]{display:none !important;}
+.cn-open{display:inline-flex; align-items:center; gap:5px; font-family:var(--sans); font-size:calc(11px * var(--fs)); letter-spacing:.02em; color:var(--ink-quiet); background:none; border:0; padding:2px 0; cursor:pointer;}
+.cn-open svg{width:13px; height:13px; opacity:.8;}
+.cn-open:hover{color:var(--ink);}
+.cardnote.cn-has .cn-open{color:var(--geo);}
+.cn-ta{display:block; width:100%; margin-top:6px; box-sizing:border-box; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink); background:var(--paper-2); border:1px solid var(--rule); border-radius:8px; padding:8px 10px; resize:vertical; min-height:calc(52px * var(--fs));}
+.cn-ta:focus{outline:none; border-color:var(--indigo);}
+.lc-list{display:flex; flex-direction:column; gap:1px; max-height:300px; overflow:auto;}
+.lc-row{display:flex; align-items:baseline; gap:10px; width:100%; text-align:left; padding:5px 7px; border:0; border-radius:5px; background:none; cursor:pointer; font:inherit;}
+.lc-row:hover{background:var(--paper-2);}
+.lc-n{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); font-variant-numeric:tabular-nums; color:var(--ink-soft); min-width:2.2em; text-align:right;}
+.lc-row.lc-bad .lc-n{color:var(--geo); font-weight:700;}
+.lc-t{flex:1; min-width:0; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.lc-w{font-family:var(--sans); font-size:calc(10.5px * var(--fs)); color:var(--ink-quiet); white-space:nowrap; max-width:32%; overflow:hidden; text-overflow:ellipsis;}
+@media (max-width:520px){ .lc-w{display:none;} }
 .rs-big{font-family:var(--display); font-weight:600; font-size:calc(44px * var(--fs)); line-height:1; color:var(--indigo); display:block;}
 .rs-big i{font-style:normal; font-size:calc(22px * var(--fs)); margin-left:2px; color:var(--ink-faint);}
 .rs-big.rs-none{color:var(--ink-faint);}
@@ -2654,6 +2698,20 @@ body.grading .stage{padding-bottom:150px;}
 /* "Today" is wider than one narrow weekday letter — let it overhang its column rather than clip to "To…" */
 .fc-bar.fc-today em{color:var(--zh); font-weight:600; overflow:visible; max-width:none;}
 .fc-bar.fc-zero i{height:2px !important; background:var(--rule);}   /* nothing due — a flat tick keeps the axis continuous */
+/* THE HORIZON PICKER AND THE PEAK (Sep 2026). The peak is the whole reason to look at 90 or 180 days —
+   a term's Easy grades landing in one week is what makes people quit — so it is marked in the warning
+   ochre rather than left as the tallest of forty identical bars. At 180 days the bars are 2px wide, so
+   the gap closes with them or the chart is more gap than chart. */
+.fc-bar.fc-peak i{background:var(--geo);}
+.fc-pick{display:flex; gap:2px;}
+.fc-pick .fc-h{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.04em; padding:2px 6px; border:1px solid var(--rule); background:none; color:var(--ink-faint); cursor:pointer; border-radius:3px;}
+.fc-pick .fc-h:hover{color:var(--ink); border-color:var(--ink-faint);}
+.fc-pick .fc-h.on{color:var(--paper); background:var(--indigo); border-color:var(--indigo);}
+.rs-fc .fc-bars:has(.fc-bar:nth-child(30)){gap:2px;}
+.rs-fc .fc-bars:has(.fc-bar:nth-child(30)) .fc-bar{gap:3px;}
+/* On a WEEKLY chart the tick is a month name over a 10px bar, so it has to be allowed out of its own
+   box — there is only one per month and they sit four bars apart, which is room enough. */
+.rs-fc .fc-bars:has(.fc-bar:nth-child(22)) .fc-bar em{overflow:visible; max-width:none;}
 
 /* answer buttons — one bar per grade, in the grade bar's OWN four colours so the two surfaces cannot come
    to disagree about which colour "Hard" is. It is the forecast's shape deliberately: the two cards sit in
@@ -2750,6 +2808,11 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
    on the study page that says so — the flag is invisible otherwise, and a marker nobody can see mid-review
    is a marker nobody trusts. The colour is on the mark and the label, never a fill: this bar is four small
    controls in a row and a filled one would read as the selected tab of something. */
+/* THE TIME BOX (Sep 2026). It says "Time" at rest and counts down once set, so the bar reports how
+   long is left without being opened — which is the only reason to spend a study-bar cell on it. */
+.boxbtn svg{opacity:.85;}
+.boxbtn.on{color:var(--geo);}
+.boxbtn.on svg{opacity:1;}
 .flagbtn svg{opacity:.85;}
 .flagbtn.on{color:var(--flag);}
 .flagbtn.on svg{opacity:1; fill:color-mix(in srgb,var(--flag) 30%,transparent);}
@@ -4625,6 +4688,12 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
   transition:transform .12s var(--ease), background .18s, border-color .18s, color .18s;
 }
 .collection-add{width:36px; height:36px;}
+/* TRY TEN (Sep 2026). A text button rather than another icon: the row already carries a + and a
+   chevron, and a third glyph beside them would be a puzzle. It goes on a phone, where the row has
+   space for the two controls it already had and not for a third. */
+.collection-try{font-family:var(--sans); font-size:calc(11px * var(--fs)); letter-spacing:.02em; white-space:nowrap; padding:5px 10px; border:1px solid var(--rule); border-radius:999px; background:var(--card); color:var(--ink-soft); cursor:pointer;}
+.collection-try:hover{color:var(--ink); border-color:var(--ink-faint);}
+@media (max-width:560px){ .collection-try{display:none;} }
 .node-add{width:30px; height:30px;}
 .collection-add svg,.node-add svg{width:16px; height:16px;}
 .collection-add:hover,.node-add:hover{border-color:var(--indigo); color:var(--indigo); background:var(--indigo-wash); transform:translateY(-1px);}

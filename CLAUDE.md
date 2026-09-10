@@ -1503,8 +1503,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `glossary-extra.js` + `.claude/split-glossary.js` + `.claude/gloss-io.js` — **the glossary is TWO
   files.** `GLOSSARY_SOURCES` (786 KB) and `GLOSSARY_IMAGES` (523 KB) were 54% of `glossary.js`, which is
   on the EAGER path, and **nothing reads either until a popup opens** — so they moved to
-  `glossary-extra.js`, fetched by the `glossExtra` bundle. The eager path went **8.80 → 7.51 MB raw,
-  2.45 → 2.16 MB gzipped**.
+  `glossary-extra.js`, fetched by the `glossExtra` bundle. It took **1.29 MB off the eager path** on the
+  day it shipped; **for what that path weighs NOW, run `node .claude/check-sizes.js`** — the two figures
+  once written here (8.80 → 7.51 MB raw, 2.45 → 2.16 gzipped) were four splits and a font migration out
+  of date within the month, which is the drift that script exists to end. What is worth stating is the
+  SAVING, which is a fact about this change and does not move.
   · **IT STAGES ONTO A QUEUE (`window.GLOSSARY_EXTRA_IN`) RATHER THAN ASSIGNING**, exactly as
     `i18n/gloss-<lang>.js` does, and `glossExtraIngest` drains it. app.js snapshots
     `PRISTINE_GLOSS_SOURCES` / `PRISTINE_GLOSS_IMAGES` at boot, which is BEFORE this file lands — so a
@@ -1549,12 +1552,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.12 MB and 45,726 lines is hard to find your way around, so this
-  lists its 170 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.20 MB and 47,032 lines is hard to find your way around, so this
+  lists its 176 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
-  **29** things are put on `window`. Splitting it across `<script>` tags means either making
+  **30** things are put on `window`. Splitting it across `<script>` tags means either making
   every shared name a property of a namespace object (thousands of call sites, and no test can prove
   closure-equivalence) or making them true globals — which leaks the whole application surface onto
   `window`, where a community deck's sanitized HTML and any browser extension can reach it. The
@@ -3515,6 +3518,77 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   with their effect sizes and sources, an honest audit of what Folio already got right, and the twenty
   proposals with what each would look like to a reader — thirteen of which are now built, and the file
   says which.
+- **TEN THINGS A READER COULD NOT DO, AND NOW CAN (Sep 2026, out of the field audit).** The scheduler and
+  the session were sound; what was missing was everything a reader wants to do ABOUT a session. Each is
+  small on its own and three of them carry a decision worth keeping.
+  · **A SESSION FOLLOWS THE READER BETWEEN DEVICES** (`S.handoff` / `HANDOFF_MAX_AGE` / `deviceId` /
+    `writeHandoff` / `handoffOffer` / `handoffRowHTML`). `STUDY_KEY` is sessionStorage, so a session
+    survives a reload and dies with the tab — right for what it is, and it meant a reader who started ten
+    cards on a phone at breakfast began again on a laptop at lunch. **Progress already synced; the QUEUE
+    did not.** It rides in the progress blob, is written by `persistStudy` (and never SAVED from there —
+    that runs on every render, and `grade()` saves anyway), and is **offered only to a device that is not
+    the one that wrote it**, which is what `dev` is for. **FOUR HOURS AND THEN IT IS GONE**: a queue is a
+    fact about a sitting, and yesterday's resurrecting itself would be worse than no handoff at all. It
+    routes with the offer as `resume`, the shape `PAGES.study` already takes from sessionStorage, so a
+    handed-over session and a reloaded one arrive by exactly one path.
+  · **"I SIT THE EXAM ON THE 14TH"** (`deadlinePlan` / `openDeadline` / `REV_PER_NEW` / `LEAD_DAYS`; the
+    **Ready by a date** row on a deck's sheet, under Daily limits, which is the same figure asked for from
+    the other end). **THE HONEST ANSWER INCLUDES "NO"** and that is the more useful half: it says the new
+    cards a day needed, the REVIEW load that pace generates (a rule of thumb, labelled as one), and how
+    many cards would be met in the last week and therefore **seen rather than learned**. Setting the pace
+    raises the deck's review ceiling with its new-card figure where the plan would otherwise throttle
+    itself on the other limit. Off the pooled review's sheet: the review is every deck at once and has no
+    end to be ready by.
+  · **THE CARDS THAT KEEP BEATING YOU** (`LEECH_ROWS` / `leechCards` / `leechPanelHTML`). `SCHED.leech`
+    has been 8 since the port and every lapse has been recorded since, and **nothing anywhere showed a
+    reader which cards those were** — Anki suspends a leech and Folio deliberately does not, so the
+    statistic simply sat there. Twenty rows on the account page, worst first, each opening Card info with
+    its flag / set-due / forget / suspend actions attached. **OWN ACCOUNT ONLY**, and not out of modesty
+    about the data: a friend's lapse counts render perfectly and every action on the row acts on YOUR
+    schedule.
+  · **THE FORECAST REACHES 180 DAYS** (`FORECAST_HORIZONS` / `fcDays` / `forecastCardHTML` /
+    `wireReviewStats`). A fortnight is long enough to plan a week and far too short to see the thing that
+    makes people abandon an SRS: a term's Easy grades landing in one week, three months out. Past three
+    weeks the bars bucket by WEEK, and **the peak is marked** — the load balancer exists to flatten it, is
+    off by default, and a reader who cannot SEE a pile-up has no reason to turn it on. **A PEAK IS ONE
+    BAR**: several tied at the top is a plateau, and marking all of them says only that the chart has a
+    maximum, which is what the first cut did on a flat forecast. The horizon is module-level, like the
+    glossary record's sort.
+  · **THE READER'S OWN NOTE ON A CARD** (`S.notes` / `CARD_NOTE_MAX` / `cardNote` / `setCardNote` /
+    `cardNoteHTML`). A reader could flag, suspend, bury and draw on a card and could not WRITE on it.
+    **It is ANNOTATION, NOT EDITING, and the two must never meet** — `ADMIN_EDITS` is published to every
+    reader through the content overlay and this is private to its writer — so it rides in
+    `PROGRESS_FIELDS` with the flags and survives Reset progress with them. A real `<textarea>` rather
+    than a contenteditable: plain text has nothing to sanitize, and the units and spelling passes walk
+    text NODES and so cannot reach a field's value and rewrite what somebody wrote. Delegated, once for
+    the document, because six surfaces draw a card back.
+  · **A TIME BOX** (`boxMs` / `boxFrom` / `BOX_CHOICES` / `boxSpent` / `openTimeBox` / `startBoxTick`; the
+    clock in the study bar). Folio budgets a session in CARDS, which is the unit it thinks in and not the
+    unit a commute is measured in. **It is checked at the GRADE, never on the tick**: a session that
+    closed itself while the reader was reading an answer would be a feature that takes work away. Session
+    -scoped and not in `S`, and it rides in the `STUDY_KEY` record so a reload keeps it.
+  · **RECALL IN FULL** (`deckRecall` / `setDeckRecall` / `.freerecall` / `.fr-said`), a POLICY beside
+    `deckAttempt` in `DECK_OPT_INHERIT` with a global default in Settings, off by default. A cloze blank
+    sits inside a sentence that has already narrowed the answer to one word; free recall is the harder
+    retrieval and the one an exam asks for. **WHAT IS WRITTEN IS SHOWN BESIDE THE ANSWER AND THEN THROWN
+    AWAY** — a matcher over free prose would mark a right answer wrong, which is the one failure that
+    would stop a reader writing — and **the box is removed at the reveal**, since leaving an editable copy
+    invites improving a recall after seeing the answer.
+  · **TRY TEN CARDS** (`SAMPLE_N` / `sampleIds` / `PAGES.sample` at `#sample/<id>`; the **Try ten** button
+    on a collection row). **IT WRITES NOTHING** — no `S.active`, no `S.cards` — which matters more than it
+    sounds, XP being `Object.keys(S.cards).length` and a level buying a chest, so a sampler that scheduled
+    its cards would hand a browsing reader levels and chests for reading ten cards. `PAGES.pretest` made
+    this decision first. **The ten are the collection's OWN first ten**, unstudied ones skipped: a plan is
+    a running order and the opening cards are where a collection introduces itself.
+  · **UNDO NAMES THE CARD IT WILL GIVE BACK** (`undoLabel`). The stack has held a hundred snapshots since
+    it shipped and a second press has always reached the card before last; what it never did was SAY so.
+  · **AND THE FOUR GRADE BUTTONS SAY WHAT "4d" MEANS** (`gradeExplainHTML`), one line in the `?` bubble
+    keyed to the card in hand and derived from the same `preview` the buttons are drawn from, so the
+    sentence and the numbers cannot disagree. It names DAYS rather than repeating intervals, and says the
+    ease effect in terms both schedulers share.
+  **Re-run after touching any of them: `.claude/test-review-decks.js` (which pins BOTH sheet row lists
+  EXACTLY — a row added here fails there until that assertion is updated, which is the point of pinning
+  it), `test-learning.js`, `test-reset.js` and `test-account-switch.js` (`PROGRESS_FIELDS` grew twice).**
 - **Undoing a grade (Aug 2026, on request)** — `undoStack` / `undoSnapshot` / `undoGrade` inside `PAGES.study`,
   reached by the `#undoGrade` button in the study bar (rendered only when there is something to undo), by
   **Ctrl/Cmd+Z**, and by "Undo the last card" on the completion screen (where the queue is empty and there is no

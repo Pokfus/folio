@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.683", released: "2026-09-10T13:53Z" };
+window.FOLIO_VERSION = { v: "1.684", released: "2026-09-10T14:28Z" };
 
 window.CHANGELOG = [
   {
@@ -56,6 +56,16 @@ window.CHANGELOG = [
       "Each collection now says how far along it is \u2014 five hundred cards of a planned thousand, and the share written so far.",
       "Collections can be shown compactly, which fits about twice as many on a screen.",
       "Wind speeds and fractions of an area now follow your choice of measurements, where both figures used to be shown at once.",
+      "<b>A session you start on one device can be picked up on another</b>, with a row on the home page saying how many cards are left and where.",
+      "<b>Work backwards from an exam</b>: give a deck a date and Folio says how many new cards a day it takes, and when the answer is that it cannot be done.",
+      "<b>A new panel lists the cards you keep forgetting</b>, worst first, with everything you need to fix one on the same row.",
+      "The review forecast now reaches ninety and a hundred and eighty days, and marks the week the work piles up.",
+      "<b>You can write your own note on any card</b> — a mnemonic, a link, anything that makes it stick.",
+      "<b>Study for ten minutes rather than for ten cards</b>: set a length and the session ends cleanly after the card you are on.",
+      "<b>A new “Recall in full” option</b> asks you to write down everything you remember before the answer is shown, and puts the two side by side.",
+      "<b>Try ten cards of any collection without adding it</b>, scheduling nothing and counting nothing.",
+      "Undo now says which card it will give back, and which grade it will take off it.",
+      "The Reveal button’s help now says what “4d” actually means for the card in front of you.",
     ],
   },
   {

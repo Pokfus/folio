@@ -200,10 +200,17 @@
   <!-- ============================================================
        SCRIPTS
 
-       Only the study-critical data ships here (4.9 MB raw / 1.35 MB gzipped, measured
-       2026-08-08 — re-measure rather than quoting it): the cards, the glossary, the
+       Only the study-critical data ships here: the cards' LIGHT half, the glossary, the
        minigame pools and the app itself. Everything else is LAZY — app.js's DATA_BUNDLES
-       injects it on demand:
+       injects it on demand.
+
+       WHAT THIS LIST WEIGHS IS A COMMAND, NOT A FIGURE: `node .claude/check-sizes.js`,
+       which reads the path OUT OF THIS FILE rather than from a list of its own. A number
+       stood here for a month with "re-measure rather than quoting it" written beside it
+       and was 4.2x understated by the time anybody looked — it said 4.9 MB raw / 1.35 MB
+       gzipped against a real 22.20 / 5.69. A warning cannot measure. CI now writes the
+       gzipped total into every run's job summary and fails past a ceiling, which is the
+       only arrangement that has ever kept it honest.
 
          bundle "world"      world.js                     — Atlas, home-page mini globe, Settings home picker
          bundle "atlas"      uk / lakes / rivers / water / cities / timeline /
