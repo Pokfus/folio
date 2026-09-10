@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-10, batch C5 — six capitals, and one constitution names a different city**: `gw-523` Paris, `gw-524` Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw and `gw-528` Bogotá, with all six date lines rewritten off the same research. Six again, for C2’s reason.
+
 - **2026-09-10, batch C4 — six capitals, and four of the six have no constitutional clause**: `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London and `gw-522` Dodoma, with all six date lines rewritten off the same research. Six again, for C2’s reason.
 
 - **2026-09-10, batch C3 — six more capitals, and the fifth leg is not always a constitution**: `gw-511` Mexico City, `gw-512` Tokyo, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa and `gw-516` Hanoi, with all six date lines rewritten off the same research. Six again, for C2’s reason.
@@ -394,6 +396,93 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C5 found
+
+**A CONSTITUTION CAN NAME A CAPITAL AND NAME THE WRONG ONE.** C3 found the fifth leg missing on two
+capitals in six and C4 on four; C5’s count is three of six — Italy’s article 114 says outright that
+“Rome is the capital of the Republic. Its status is regulated by State Law”, Myanmar’s section 50
+prescribes Nay Pyi Taw a union territory under the direct administration of the president, and
+Colombia’s article 322 organises Bogotá as a capital district of the republic and of its department at
+once. France’s text contains the word *Paris* **zero times**, and Kenya’s names no capital either: its
+article 200 lets Parliament legislate for “the governance of the capital city” without saying which
+city that is, which is C4’s Iranian case again — **a topic tag is not a clause, and neither is a
+sentence about the capital that does not name it.** What Kenya does carry is the First Schedule, where
+**Nairobi City is one of the forty-seven counties**, so the leg answers for a different claim.
+**And South Africa’s answers for a DIFFERENT CITY**: section 42(6) puts the seat of Parliament at Cape
+Town, and Pretoria appears in the whole text **not once**. That is a fourth outcome to expect beside
+present, absent and a bare topic tag, and on a three-capital state it is the honest one.
+
+**AND UNdata’S CAPITAL FOOTNOTE PAID A FOURTH TIME, ONCE AS THE WHOLE ANSWER.** South Africa’s
+footnote *c* is the three-capital arrangement stated outright — “Pretoria is the administrative
+capital, Cape Town is the legislative capital and Bloemfontein is the judiciary capital” — which no
+other source in the recipe says in one line. Colombia’s footnote counts **four separate nuclei**
+(Santa Fe de Bogotá with Soacha, Chía and Funza), Italy’s says the figure “refers to the official
+Metropolitan City”, and **four of the six figures are dated 2019 in a table headed 2025**. C4 said to
+print a footnote that says something; C5 adds that on a state with more than one capital the footnote
+is the one place the arrangement is written down.
+
+**AND A WMO RECORD’S `stationName` CAN NAME ANOTHER CITY ENTIRELY, WITH ONLY THE DATA TO SAY SO.** The
+WMO’s Nairobi entry (id 251) carries `stationName: Mombasa` and no normals window at all — and its
+numbers are a highland city’s: maxima of 21–26 °C, July nights near 10 °C, and **two rain peaks**, 219
+mm in April and 154 mm in November. Mombasa’s own entry (id 520) is 8 °C hotter with **one** peak in
+May. So the field is stray and the data is Nairobi’s; the citation names the entry and not the
+station, and the check is to fetch the neighbouring city and compare rather than to trust the label.
+**Read the numbers before quoting the metadata.**
+
+**WHERE THE HISTORY CAME FROM: FOUR OF THE SIX ARE BOOKS, AND TWO OF THEM ARE THE CITY’S OWN
+INSTITUTION.** The Presidency’s page on the **Union Buildings** is a landform source in disguise —
+Meintjeskop chosen over Muckleneuk Ridge, under two kilometres from the centre, the highest ground the
+city has, the terraces of mountain stone quarried on the spot — and the **National Museums of Kenya**
+page on the Nairobi Gallery carries the point from which distances across the country were measured,
+the 1913 Native Ministry building, and the colonial courthouse where people accused of entering the
+city without a pass were tried. The other four are out-of-copyright books on Project Gutenberg and
+archive.org (Okey’s *The Story of Paris*, Lanciani’s *The Ruins and Excavations of Ancient Rome*,
+Cunninghame Graham’s life of Quesada) and one open-access press: **ANU Press publishes its whole
+catalogue as free PDFs**, and Selth’s *Interpreting Myanmar* dates the designation of Naypyidaw to
+November 2005 and gives its distance from Yangon as 327 km — with a footnote saying the 367 km often
+quoted is the road distance. **Ask whether a university press is open before hunting for a paper.**
+
+**AND A PERIOD BOOK CAN DATE THE CARD WHEN NOTHING MODERN WILL.** Rome’s five sources between them
+carry almost no year a date line can use: the uplift phases are hundreds of thousands of years old,
+the radiocarbon dates are BP, the normals are a window and the UNdata figure is census information a
+geography date line may not print. What gave the card a sort year was one clause of Lanciani’s —
+“the shepherds who occupied the hill in 753 B.C.” — so the line reads `Founded | 753 BCE by tradition`
+and the card sorts at −753. **When a capital’s modern sources are all undated, the period book is
+where the anchor is.**
+
+**HOSTS.** Open here: `bluepapers.nl`, `press.anu.edu.au`, `ans-names.pitt.edu` (the journal *Names*,
+CC BY), `annalsofgeophysics.eu`, `revistas.sgc.gov.co` (the Colombian *Boletín Geológico*),
+`journals.uj.ac.za`, `bg.copernicus.org`, `nature.com`, `museums.or.ke`, `thepresidency.gov.za`,
+`senat.fr`, `storia.camera.it`, `sanbi.org`, `geoscience.org.za`, `wrc.org.za`, `bogota.gov.co`,
+`redalyc.org`, `insee.fr`. Shut: **`e3s-conferences.org` is 403 on every PDF path**, and so are
+`legifrance.gouv.fr`, `ogst.ifpenergiesnouvelles.fr`, `pubs.geoscienceworld.org` (the *South African
+Journal of Geology*), `hindawi.com`, `journals.sagepub.com`, `journal.maranatha.edu`, `dws.gov.za`
+and `gnlm.com.mm`; `myanmar.gov.mm`, `kws.go.ke`, `tshwane.gov.za` and `sahris.sahra.org.za` refuse
+the connection and `president-office.gov.mm` answers 522.
+**AND TWO ROUTES EARLIER BATCHES RELIED ON HAVE CLOSED**: `journals.openedition.org` is **behind the
+Anubis wall again** (N3 recorded it had dropped), which cost a *Physio-Géo* paper on the Paris
+quarries; and **`www.unesco.org`’s Man and the Biosphere pages now serve a JavaScript CAPTCHA under a
+200**, which is the route G17 named for a country with no CBD profile — a ninth variety of 200-status
+non-document, and it did not clear on a retry.
+
+**AND A REDALYC PDF IS A CIPHER.** The *Territorios* article on the canalisation of Bogotá’s San
+Francisco river is served by `redalyc.org` at a guessable path (`/pdf/<journal>/<id>.pdf`) and answers
+200 with a real 10-page PDF whose fonts are subset with no ToUnicode map: everything but the cover
+page extracts as mojibake. It was abandoned rather than deciphered. **`sanbi.org` has its own trap**:
+`/gardens/pretoria/wildlife-and-biodiversity/` answers 200 and serves **Kirstenbosch’s** page, breadcrumb
+and all — a slug that quietly returns another garden.
+
+**AND THE AUTO-LINKER TOOK SIX, TWO OF THEM ON THE WRONG CONTINENT.** `Monte_Verde` is the Chilean
+site, so Lanciani’s quarries “at the foot of the hills now called Monte Verde” on the Roman right bank
+linked to a waterlogged settlement in southern Chile; `Santa_Fe` is the capital of New Mexico, so
+UNdata’s own spelling *Santa Fe de Bogotá* linked to a town founded in 1610. Both were written round.
+`Water` was written round three times again, `Netherlands` claims the adjective *Dutch* (so the Apies
+River’s Dutch name linked to a modern country’s area and population — dropped, and the name is
+Afrikaans anyway), and `Great_Britain` claims *British* while `Settlement` claims the bare surface, so
+one clause about British settlement at Nairobi in 1899 carried two wrong links and was cut. `Council`
+is Aristotle’s boule and `Constitution` his politeia; both are recorded rather than fixed, the second
+because its own first sentence is a general definition and four write-rounds would buy nothing.
 
 ## What C4 found
 

@@ -1561,6 +1561,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     carry. **AND `Afghanistan` CLAIMS THE ADJECTIVE *Afghan***, so an 18th-century Afghan invasion of
     Persia links to a modern country's area and population; recorded rather than fixed, on the `Islam
     Khan` reasoning, while `Water` was written round three times in the batch.
+    **AND A CONSTITUTION CAN NAME A CAPITAL AND NAME THE WRONG ONE** (Sep 2026, C5), which is a fourth
+    outcome beside present, absent and a bare topic tag: South Africa's section 42(6) puts the seat of
+    Parliament at **Cape Town** and the word *Pretoria* appears in the whole text **not once**, so on a
+    three-capital state the leg answers about a different city. Kenya's is C4's Iranian case again —
+    article 200 lets Parliament legislate for "the governance of the capital city" without naming it,
+    and **a sentence about the capital that does not name it is not a clause** — but its First Schedule
+    does list **Nairobi City among the forty-seven counties**, so the leg answers for a different claim.
+    France's text contains *Paris* zero times and the city's standing rests on a statute instead (Loi
+    n° 2017-257 of 28 February 2017, at `senat.fr`, `legifrance.gouv.fr` being 403). **AND UNdata'S
+    CAPITAL FOOTNOTE IS SOMETIMES THE ONLY PLACE AN ARRANGEMENT IS WRITTEN DOWN**: South Africa's
+    footnote states all three capitals and their roles in one line, where no other source in the recipe
+    does. **AND A WMO RECORD'S `stationName` CAN NAME ANOTHER CITY ENTIRELY, WITH ONLY THE DATA TO SAY
+    SO** — Nairobi's entry carries `stationName: Mombasa` and no normals window, and its numbers are a
+    highland city's (maxima 21–26 °C, two rain peaks in April and November) against Mombasa's own entry
+    8 °C hotter with one peak in May; **fetch the neighbouring city and compare rather than trust the
+    label**, and cite the ENTRY rather than the station. **AND A PERIOD BOOK CAN DATE THE CARD WHEN
+    NOTHING MODERN WILL**: Rome's five sources carry only deep time, BP dates, a normals window and a
+    census figure a geography date line may not print, so its sort year comes from one clause of
+    Lanciani's — "the shepherds who occupied the hill in 753 B.C." **AND `press.anu.edu.au` PUBLISHES
+    ITS WHOLE CATALOGUE AS FREE PDFs**, which is what dates Naypyidaw's designation to November 2005;
+    **ask whether a university press is open before hunting for a paper.** **AND TWO ROUTES EARLIER
+    BATCHES RELIED ON HAVE CLOSED**: `journals.openedition.org` is behind the Anubis wall again (N3
+    recorded it had dropped), and **`www.unesco.org`'s Man and the Biosphere pages now serve a
+    JavaScript CAPTCHA under a 200** — a ninth variety of 200-status non-document, and G17's named route
+    for a country with no CBD profile. `e3s-conferences.org`, `hindawi.com`, `journals.sagepub.com` and
+    `pubs.geoscienceworld.org` are 403, and **a `redalyc.org` PDF is a cipher**, its fonts subset with no
+    ToUnicode map. **AND THE AUTO-LINKER TOOK TWO PLACES ON THE WRONG CONTINENT**: `Monte_Verde` is the
+    Chilean site, so Lanciani's Roman quarries linked to a waterlogged settlement in Chile, and
+    `Santa_Fe` is the capital of New Mexico, so UNdata's own *Santa Fe de Bogotá* linked to a town
+    founded in 1610 — both written round, with `Netherlands` claiming *Dutch*, `Great_Britain`
+    *British*, `Settlement` the bare surface, and `Council` and `Constitution` recorded rather than
+    fixed.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |
