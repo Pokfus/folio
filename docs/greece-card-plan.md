@@ -969,7 +969,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-705  The destruction of Thebes
     gr-706  Alexander's army
     gr-707  The Companion cavalry
-    gr-708  Hetairoi and pezhetairoi
+    gr-708  Pezhetairoi  — retitled from "Hetairoi and pezhetairoi" when gr-707 was written: the
+             hetairoi ARE the Companion cavalry, so the two lines were one card twice; the foot
+             companions are the half of the pair that had no card of its own
     gr-709  Parmenion
     gr-710  The crossing of the Hellespont
     gr-711  Battle of the Granicus

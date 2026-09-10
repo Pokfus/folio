@@ -3434,7 +3434,16 @@ window.GLOSSARY = {
 "Macedonian_phalanx": "The Macedonian phalanx was the infantry formation devised by Philip II in the 350s BCE, in which men armed with a very long pike stood sixteen ranks deep and advanced as a single body.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius calculates that the pikes of the first five ranks all reached past the front, so that five points faced any enemy who met one man of the leading rank, and held it irresistible in a frontal attack.<sup class=\"fn\" data-fn=\"2\"></sup> He also explains why Rome beat it: it needs flat, bare ground without ditches or banks, and an enemy who declines to come down into such country can avoid it altogether.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Philippics": "The Philippics are the speeches in which Demosthenes urged Athens to act against Philip II of Macedon, and the name has since been used of any sustained political attack on a person.<sup class=\"fn\" data-fn=\"1\"></sup> Their argument is that the danger is Athenian delay rather than Macedonian strength, the First Philippic of 351 BCE holding that the position is bad only because nothing has been done, and so can be mended.<sup class=\"fn\" data-fn=\"1\"></sup> By the Third Philippic of 341 the tone has hardened into abuse, with Philip called neither a Greek nor a barbarian from anywhere respectable but a knave from Macedonia.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Sarissa": "The sarissa was the pike carried by the Macedonian infantry, far longer than the hoplite spear it replaced and held in both hands rather than one.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius gives its length as sixteen cubits by the original design and fourteen in practice, of which four are taken up by the grip and by the counterweight, leaving about ten projecting ahead of each man.<sup class=\"fn\" data-fn=\"1\"></sup> Holding it in both hands changed the rest of the equipment, since the large hoplite shield gave way to a smaller one slung from the shoulder and the soldier could no longer cover himself as he chose.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Third_Sacred_War": "The Third Sacred War was fought over the shrine of Apollo at Delphi from the 350s BCE, and it ended by bringing the king of Macedon into the religious politics of central Greece.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a court case, the Phocians being fined by the Amphictyonic Council for cultivating consecrated land and seizing the shrine rather than paying, then hiring mercenaries with its treasure.<sup class=\"fn\" data-fn=\"1\"></sup> Philip II finished it in 346 BCE, and the settlement expelled the Phocians from the Council, broke their cities into villages and gave their two votes to Philip and his descendants.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Third_Sacred_War": "The Third Sacred War was fought over the shrine of Apollo at Delphi from the 350s BCE, and it ended by bringing the king of Macedon into the religious politics of central Greece.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a court case, the Phocians being fined by the Amphictyonic Council for cultivating consecrated land and seizing the shrine rather than paying, then hiring mercenaries with its treasure.<sup class=\"fn\" data-fn=\"1\"></sup> Philip II finished it in 346 BCE, and the settlement expelled the Phocians from the Council, broke their cities into villages and gave their two votes to Philip and his descendants.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Accession_of_Alexander": "The accession of Alexander was the securing of the Macedonian throne by Alexander the Great in 336 BCE, at about the age of twenty, after the murder of his father Philip II.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus reports that he punished his father’s murderers, reassured the Macedonians that only the name of the king had changed, and had the rival Attalus killed in Asia.<sup class=\"fn\" data-fn=\"2\"></sup> He then marched south, took the leadership of Greece by vote of the Thessalians and of the Amphictyons, and was granted the command against Persia by the Greek states, every one of which agreed except Sparta.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Army_of_Alexander_the_Great": "Alexander’s army was the combined force with which Alexander the Great invaded the Persian Empire, built by his father Philip II out of Macedonian, allied, mercenary and subject contingents.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus counts thirty-two thousand infantry and four thousand five hundred cavalry crossing into Asia in 334 BCE, with a further twelve thousand foot and fifteen hundred horse left behind in Europe under Antipater.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its method was to hold an enemy line in place with a deep phalanx of pikemen while heavy cavalry drove at a weak point and worked round behind, an arrangement worked out under Philip and inherited whole.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Assassination_of_Philip_II": "The assassination of Philip II was the killing of the Macedonian king in the theatre at Aegae in 336 BCE, during a festival for his daughter’s marriage, which brought his son Alexander to the throne.<sup class=\"fn\" data-fn=\"2\"></sup> Diodorus names the killer as Pausanias of Orestis, a member of the royal bodyguard, and explains the act by a private grievance, since Pausanias had been abused at the instance of Attalus and could get no redress from the king.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Later writers also report a suspicion that others had encouraged him, with the blame falling chiefly on Alexander’s mother Olympias, though the accounts offer no evidence for it.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Companion_cavalry": "The Companion cavalry was the heavy horse of the Macedonian kings, drawn up on the right of the line beside the king and used to charge home once the infantry had fixed the enemy.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Diodorus counts eighteen hundred of them among the four thousand five hundred cavalry that crossed into Asia with Alexander the Great in 334 BCE, under the command of Philotas son of Parmenion.<sup class=\"fn\" data-fn=\"2\"></sup> Arrian’s order of battle at Gaugamela puts the whole body under one commander with a royal squadron in front of it, and applies the same word to infantry as well, so it named a relation to the king rather than a kind of soldier.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Crossing_of_the_Hellespont": "The crossing of the Hellespont was the passage of Alexander the Great’s army from Europe into Asia in the spring of 334 BCE, which opened his campaign against the Persian Empire.<sup class=\"fn\" data-fn=\"1\"></sup> Parmenion took the cavalry and most of the infantry over the strait from Sestos to Abydos in a hundred and sixty triremes and a great many merchant ships, while Alexander sailed separately to the Troad.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The ancient accounts dwell on the ceremony rather than on the shipping, with a sacrifice at the tomb of Protesilaus, a bull offered to Poseidon in mid-channel, and a spear flung ashore to claim Asia as a prize won by the spear.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Destruction_of_Thebes": "The destruction of Thebes was the storming and razing of the Boeotian city by Alexander the Great and his Greek allies in 335 BCE, after Thebes revolted against Macedonian control and refused terms.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus puts the dead at more than six thousand and the enslaved at more than thirty thousand, and says the sale of the captives realised four hundred and forty talents of silver.<sup class=\"fn\" data-fn=\"1\"></sup> The sentence was voted by the allies who had fought in the action rather than imposed by the king alone, and it exempted priests, guest-friends of Macedon and the descendants of the poet Pindar.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Olympias": "Olympias was a Molossian princess of Epirus, a daughter of King Neoptolemus, who married Philip II of Macedon in 357 BCE and bore Alexander the Great the following summer.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient writers describe her as devoted to the ecstatic worship of Dionysus, and Plutarch reports that a serpent was seen lying beside her as she slept, one of several portents later attached to her son’s birth.<sup class=\"fn\" data-fn=\"2\"></sup> Her standing at court collapsed when Philip took another wife, and after Alexander’s death she held power in Macedonia until Cassander besieged her at Pydna and the Macedonians voted for her death in 316 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Parmenion": "Parmenion was a Macedonian general who served Philip II and then Alexander the Great, and was the senior officer of the invasion of the Persian Empire.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus lists the whole of the infantry that crossed into Asia in 334 BCE under his command, while his son Philotas commanded the Companion cavalry, so the two of them held both halves of the army between them.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient accounts use his caution as a foil for Alexander’s boldness, most famously over the Persian king’s offer of terms, and he was put to death in Media after Philotas was condemned for concealing a conspiracy.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pezhetairoi": "Pezhetairoi, meaning foot companions, was the name carried by the Macedonian pike infantry that formed the line of battle under Philip II and Alexander the Great.<sup class=\"fn\" data-fn=\"1\"></sup> They fought with a pike about six metres (twenty feet) long that had to be held in both hands, so the large hoplite shield gave way to a smaller one slung from the shoulder, and they stood sixteen to twenty ranks deep.<sup class=\"fn\" data-fn=\"1\"></sup> The name is older than Alexander’s reign, since Demosthenes already uses it of the troops about Philip, and it was still felt to be a Macedonian title when Persian units were given it late in the reign.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5074,7 +5083,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Macedonian_phalanx": "from 359 BCE",
 "Philippics": "351 BCE – 341 BCE",
 "Sarissa": "from 359 BCE",
-"Third_Sacred_War": "356 BCE – 346 BCE"
+"Third_Sacred_War": "356 BCE – 346 BCE",
+"Accession_of_Alexander": "336 BCE",
+"Army_of_Alexander_the_Great": "334 – 323 BCE",
+"Assassination_of_Philip_II": "336 BCE",
+"Companion_cavalry": "4th century BCE",
+"Crossing_of_the_Hellespont": "334 BCE",
+"Destruction_of_Thebes": "335 BCE",
+"Olympias": "c. 375 – 316 BCE",
+"Parmenion": "4th century BCE",
+"Pezhetairoi": "4th century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7079,7 +7097,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Politics_(Aristotle)": ["Aristotle's Politics"],
 "Ladder_of_love": ["ascent of love","Platonic ascent"],
 "Demosthenes_(orator)": ["Demosthenes the orator"],
-"Philippics": ["Philippic"]
+"Philippics": ["Philippic"],
+"Accession_of_Alexander": ["Alexander’s accession","Alexander's accession"],
+"Army_of_Alexander_the_Great": ["Alexander’s army","Alexander's army"],
+"Companion_cavalry": ["cavalry Companions"],
+"Pezhetairoi": ["foot companions"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10554,7 +10576,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Macedonian_phalanx": ["concept","warfare","history","greece"],
 "Philippics": ["text","literature","politics","history","greece"],
 "Sarissa": ["object","warfare","technology","history","greece"],
-"Third_Sacred_War": ["event","war","religion","history","greece"]
+"Third_Sacred_War": ["event","war","religion","history","greece"],
+"Accession_of_Alexander": ["event","history","politics","greece","classical"],
+"Army_of_Alexander_the_Great": ["institution","military","warfare","history","greece"],
+"Assassination_of_Philip_II": ["event","history","politics","greece","classical"],
+"Companion_cavalry": ["institution","military","warfare","history","greece"],
+"Crossing_of_the_Hellespont": ["event","history","warfare","greece","classical"],
+"Destruction_of_Thebes": ["event","history","warfare","greece","classical"],
+"Olympias": ["person","history","politics","greece","classical"],
+"Parmenion": ["person","military","warfare","history","greece"],
+"Pezhetairoi": ["institution","military","warfare","history","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
