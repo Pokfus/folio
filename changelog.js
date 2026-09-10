@@ -78,7 +78,7 @@ window.CHANGELOG = [
       "<b>A friend\u2019s profile now opens on you and them side by side</b> \u2014 streak, cards studied, days studied and artefacts.",
       "Twenty-seven cards that shared a picture with another card now have one of their own.",
       "<b>Fourteen more cards now quote the book they rest on</b>, with a button through to that passage in the Library.",
-      "Five cards in the Ancient Greece deck now rest on a wider range of sources rather than mostly on one.",
+      "Ten cards in the Ancient Greece deck now rest on a wider range of sources rather than mostly on one.",
       "<b>\u201cThink it through\u201d now reaches every card in the History and Science sections</b>, with 801 more cards gaining three why-questions and their answers.",
       "<b>The US states and China province cards now draw their rivers</b>, which the shaded state was painting over.",
       "<b>Twenty-one more cards open an Atlas window</b>, among them the Etruscan world, the Aegean Sea, the Eurasian steppe, Zhoukoudian, Nariokotome and Beringia.",

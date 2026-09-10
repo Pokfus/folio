@@ -199,6 +199,46 @@ Gelidonya cargo. Beck's *GRBS* amber series carries the Baltic attribution but n
 Odysseus for its cult rooms and its town plan but nothing yet for the oxhide ingots or the Late
 Minoan IB horizon; the ABSA article that would carry both is one of the `/abs/` paywalled ones.
 
+**BATCH R2 — 2026-09-10. Five more cleared, 34 → 29; over-cited 111 → 106.** `gr-017` Palace
+storerooms (3 of 6 → 2), `gr-018` Minoan palace economy (3 of 6 → 2), `gr-028` Peak sanctuaries
+(3 of 5 → 2), `gr-029` Cretan cult caves (3 of 5 → 2), `gr-058` Mycenae (4 of 8 → 2).
+
+**THE SCAN THAT MAKES THIS TRACTABLE, and it is worth running before any further batch.** Count the
+MARKERS each Rutter citation on a card carries. Most of the cards need only one substitution, and most
+of them have a Rutter source carrying exactly ONE marker — which is the cheapest possible swap, because
+the claim to be re-sourced is a single sentence and the replacement keeps the source's position, so no
+marker is renumbered and no other sentence is touched. Measured over the 34 remaining: 22 need one
+substitution, and all but `gr-005`, `gr-006`, `gr-015`, `gr-020` and `gr-092` have a single-marker
+Rutter to spend it on.
+
+**Two sources did the work here and both are worth reaching for again.** **Christakis's contribution
+to the AJA's 2011 *Redistribution in Aegean Palatial Societies* forum** is Minoan palace storage and
+the redistribution argument entire, and the whole forum is AJA Open Access — Galaty, Nakassis and
+Parkinson's introduction at `ajaonline.org/forum/867`, Christakis on Crete at `/870`, Lupack at `/871`
+and Schon at `/872`. **Middleton's *Antiquity* review carries the Mycenaean destructions by name** —
+Mycenae, Tiryns, Thebes and Pylos — which is `gr-058`'s last sentence and half of `gr-056`'s.
+
+**AND CHRISTAKIS COST TWO SENTENCES A SMALL REWRITE, which is the honest half of this pass.** Rutter's
+Lesson 11 gives the redistribution argument as a contest between "a countryside specialising in oil and
+wine" and "trade and on wool, cheese and hides"; Christakis contains none of those six words. What he
+does state is the contest the field actually has — palaces as "centralized redistributive agents,
+reallocating wealth to the community as a whole and providing security in times of crisis" against
+palaces as mobilisers of wealth "meant to serve the exclusive needs of the elite" — so `gr-017` and
+`gr-018` now say that instead, and each sentence rests on a work that carries it. **Where the substitute
+will not bear the clause, rewrite the clause rather than moving the marker onto it.** Both cards stayed
+inside the 270–330 word band (`gr-017` 320 → 323, `gr-018` 310 → 316).
+
+**A TOOLING FAULT FOUND AND FIXED IN PASSING, because it blocks this whole pass.** `add-sources.js`
+read `data.js` through its own `loadWindow` — a bare `new Function` — where a card's abstract, sources,
+`why`, `quote` and `image` now live in `data-extra/<prefix>.js` and are merged back by a loader inside
+`data.js` that needs `require` and `__dirname`. A `new Function` body has neither, so the merge silently
+did nothing and every abstract came back `undefined`; the tool then refused the batch, reporting **"card
+gr-028 has no footnote marker in its abstract"** on a card whose abstract is full of them. It ran
+correctly only from `node -e`, where those two names happen to be global — an accident, and the reason
+the first batch went through. It reads through `card-io.js` now, which is what `data.js`'s own comment
+says a helper must do. **The message names the wrong thing entirely, so the next session would have gone
+looking at the card.**
+
 ### 2. Seventy-six cards rest mostly on one ancient witness
 
 An ancient author is a witness rather than a researcher, so this is a softer finding — but a card
