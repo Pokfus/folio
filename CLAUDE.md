@@ -967,10 +967,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   bare name (`bareTaken` in `buildGlossIndex`), so it is reached by its two narrower aliases and by a
   hand-written `data-k` instead. **Ask what a one-word answer term is in ordinary English before
   keying it.** **`Cell_(biology)` is the same shape and is the REAL Wikipedia slug**, and it
-  deliberately carries no bare `cell` alias yet: only 7 shipped abstracts contain the word and two of
-  them mean an architectural bay and a prison cell, so claiming it today ships two wrong links to buy
-  nothing. **Revisit that when `bio-celltheory` lands**, by which time the biological sense will
-  dominate the corpus. The next card to write
+  carried no bare `cell` alias at first: only 7 shipped abstracts contained the word and two of them
+  meant an architectural bay and a prison cell, so claiming it then would have shipped two wrong links
+  to buy nothing. **THAT REVISIT HAS HAPPENED AND THE BARE ALIAS IS NOW CLAIMED** — re-measured Sep
+  2026 while writing `wh-525`: 79 abstracts contain the word, 72 of them Biology's own, and of the
+  seven outside it two are biological in sense anyway (`wh-045`'s mitochondria, `ps-034`'s single-cell
+  recording). **The five that are not are the accepted cost and are worth knowing before writing a
+  sixth**: `geo-535` a jail's cells, `wh-406` and `cnh-172` a workshop's, `wh-492` a monk's and
+  `wh-525` an examination candidate's, each of which now auto-links to the biological definition.
+  There is no glossary term for any of those senses, so the checker's three fixes — hand-write the
+  link, narrow the other term's alias, reword — all come to nothing here, and the word is the right
+  one in all five. **A term that claims an ordinary English word buys its dominant sense and pays for
+  the rest**, which is the trade `Life_(biology)` was written to refuse and this one to accept. The next card to write
   is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED
   COLLECTIONS" is the lookup. **Its first cards have shipped**, so the collection is live — `isComingSoon`
   is false for a node holding a card — and its 45 empty decks are coming-soon automatically, on the same
