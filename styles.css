@@ -2401,6 +2401,26 @@ body.grading .stage{padding-bottom:150px;}
 .th-term:hover{color:var(--indigo); border-bottom-color:var(--indigo);}
 .th-term:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px; border-radius:3px;}
 .th-g0{--th-c:#C2793A;} .th-g1{--th-c:#4F74C2;} .th-g2{--th-c:#4F9D67;} .th-g3{--th-c:#8257C2;}
+/* WHICH GROUPS THE READER ACTUALLY FOUND (Sep 2026, on request). `finish` reveals the unsolved groups by
+   pushing them onto the same list, so without this every band looks identical and a reader who found one
+   of four sees the same screen as one who found all four. A found band keeps its full colour; a missed one
+   is washed back towards the paper and its terms go quiet, so the four read at a glance as two kinds.
+   THE COLOUR IS NEVER THE ONLY SIGNAL — `.th-verdict` says which in words, for the reader who cannot see
+   the difference and for the one on a screen that flattens it. */
+.th-solved.th-missed{
+  background:color-mix(in srgb, var(--th-c) 7%, var(--card));
+  border-color:color-mix(in srgb, var(--th-c) 26%, var(--rule));
+  border-style:dashed;
+}
+.th-solved.th-missed .th-solved-name{color:var(--ink-soft);}
+.th-solved.th-missed .th-term{color:var(--ink-soft); border-bottom-color:color-mix(in srgb, var(--th-c) 30%, var(--rule));}
+.th-solved.th-missed .th-term:hover{color:var(--indigo); border-bottom-color:var(--indigo);}
+.th-verdict{
+  margin-left:9px; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.09em;
+  font-weight:600; white-space:nowrap;
+}
+.th-got .th-verdict{color:color-mix(in srgb, var(--th-c) 78%, var(--ink));}
+.th-missed .th-verdict{color:var(--ink-faint);}
 .th-actions{display:flex; gap:10px;}
 .th-actions .btn{flex:1;}
 .th-msg{color:var(--ink-soft); margin:-4px 0 18px; font-family:var(--serif); font-size:calc(15px * var(--fs));}

@@ -35,14 +35,13 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.690", released: "2026-09-10T16:13Z" };
+window.FOLIO_VERSION = { v: "1.691", released: "2026-09-10T16:34Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-10",
     t: "Folio opens far faster, and works where Google does not",
     items: [
-      "<b>\u201cThink it through\u201d now reaches every card outside Geography</b>, with 811 more cards gaining three why-questions and their answers.",
       "<b>The site now opens in a fraction of the time</b>, downloading less than half of what it used to before the first card.",
       "<b>Fonts are served by Folio itself</b>, so the site no longer waits on Google to draw a single word \u2014 and looks right offline for the first time.",
       "The arcade theme finally gets the display face it was written for.",
@@ -79,6 +78,21 @@ window.CHANGELOG = [
       "<b>A friend\u2019s profile now opens on you and them side by side</b> \u2014 streak, cards studied, days studied and artefacts.",
       "Twenty-seven cards that shared a picture with another card now have one of their own.",
       "<b>Fourteen more cards now quote the book they rest on</b>, with a button through to that passage in the Library.",
+      "<b>\u201cThink it through\u201d now reaches every card in the History and Science sections</b>, with 801 more cards gaining three why-questions and their answers.",
+      "<b>The US states and China province cards now draw their rivers</b>, which the shaded state was painting over.",
+      "<b>Twenty-one more cards open an Atlas window</b>, among them the Etruscan world, the Aegean Sea, the Eurasian steppe, Zhoukoudian, Nariokotome and Beringia.",
+      "The Etruscan world, the Sabines and the Umbrians now show on your own atlas for as long as they lasted, rather than for a single year.",
+      "<b>A card's Atlas window can now draw a sea and a drowned coastline</b>, so Doggerland and Beringia show the ground they were rather than the water over it.",
+      "<b>A place panel on your own atlas no longer repeats the card's own Atlas window</b> under the answer you are looking at.",
+      "<b>Only a country capital is a square on your own atlas now</b> — a province capital is a circle and everything else a smaller dot.",
+      "<b>Common Thread now marks which groups you found and which you missed</b> when the answers are revealed.",
+      "<b>Find it no longer names your pick on the button</b>, which gave the answer away before you pressed it.",
+      "<b>Find it now asks only for places Folio has a card about</b>.",
+      "<b>Glossary terms in a Think it through answer are now links</b>, as they are everywhere else.",
+      "<b>The Spanish articles are now one card with a table</b> — el, la, un and una in two genders and two numbers, instead of eight cards teaching one grid twice.",
+      "<b>A deck's long-press menu can now fetch its files again</b>, for when a repair has not shown up.",
+      "The card for the Lower Paleolithic no longer implies the Acheulean hand-axe began in France.",
+      "A picture of Beringia that showed the wrong thing, and the Cowrie shell card no longer appears in Timeline.",
     ],
   },
   {

@@ -2,24 +2,24 @@
  "why": "The record of every hand edit to the DELE Spanish decks. Applied by spanish-fix.js; see that file's header for what an entry may carry and why the record exists at all. DELE A1 WAS READ IN FULL in Sep 2026, one card at a time in batches of ten - all 493 of them - and this is what that pass changed: 486 cards carry a correction and 8 were read and left alone. The counts in the deck's own description (220 nouns with their article, 63 feminine pairs) are the GENERATOR's and were deliberately not recomputed: they use categories run.py knows and this record cannot reproduce, and a figure quietly rewritten to a different rule is worse than one left as it was. The word count IS maintained, through the descSub chain.",
  "decks": {
   "delea1": {
-   "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention. It moved again when la tercera turned out to be a duplicate of tercero, tercera and was folded away: every count in the chain is kept so it still works on a deck freshly rebuilt from the generator.",
-   "subtitle": "493 words · both directions, as two cards per word",
+   "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention. It moved again when la tercera turned out to be a duplicate of tercero, tercera and was folded away: every count in the chain is kept so it still works on a deck freshly rebuilt from the generator. It moved once more when the DEFINITE and INDEFINITE article cards were folded together into one: 493 to 492. Every figure in the chain is kept, so the record still works on a deck freshly rebuilt from the generator.",
+   "subtitle": "492 words · both directions, as two cards per word",
    "descSub": [
     [
      "500 words for level A1 of the DELE",
-     "493 words for level A1 of the DELE"
+     "492 words for level A1 of the DELE"
     ],
     [
      "490 words for level A1 of the DELE",
-     "493 words for level A1 of the DELE"
+     "492 words for level A1 of the DELE"
     ],
     [
      "494 words for level A1 of the DELE",
-     "493 words for level A1 of the DELE"
+     "492 words for level A1 of the DELE"
     ],
     [
      "495 words for level A1 of the DELE",
-     "493 words for level A1 of the DELE"
+     "492 words for level A1 of the DELE"
     ],
     [
      "the rest of the 500 is filled from the A1 column in order of frequency",
@@ -32,6 +32,10 @@
     [
      "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR.",
      "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR, except the 454 written for this deck."
+    ],
+    [
+     "493 words for level A1 of the DELE",
+     "492 words for level A1 of the DELE"
     ]
    ],
    "exNames": [
@@ -399,66 +403,25 @@
    "rebold": true
   },
   "delea1/la": {
-   "why": "THE DEFINITE ARTICLE, FOLDED FROM FOUR CARDS INTO ONE. el, la, los and las were four separate notes for one paradigm, which the deck's own stated policy already refuses everywhere else - a noun's plural sits beneath it and a feminine pair is taught as one card (el nino, la nina above los ninos, las ninas, 63 of them). Split, the four glosses had drifted apart: los was filed as a PRONOUN ('plural masculine or neuter pronoun') with 'the' missing altogether, though all three of its own examples used it as an article. Split, they also collided on the reverse card, where three of them prompted the reader with 'the' and nothing else. The surviving note keeps the lowest id of the four (u_delea1_4), which is the earliest and most frequent slot. The paradigm moves into Forms, where a paradigm belongs, and takes the el agua rule with it - which the deck was already illustrating on this card, in the example about oil and water, without saying anywhere what the reader was looking at. The third example, 'con los que charlar', uses los as a relative rather than as an article; it is dropped for one that shows the masculine plural plainly. AND ITS EXAMPLES ARE GRADED AT THE HEAD OF THE DECK: measured over the first forty cards every example ran to eight words or more here, where the deck's median is ten and a reader on their first day should meet something shorter. One short sentence replaces the longest.",
-   "spanish": "el, la",
-   "word": "el",
+   "why": "THE ARTICLES, FOLDED INTO ONE CARD WITH A TABLE (Sep 2026, on request: \"in the Spanish decks, fold the articles into one card, with a conjugation table\"). THE DEFINITE ARTICLE, FOLDED FROM FOUR CARDS INTO ONE. el, la, los and las were four separate notes for one paradigm, which the deck's own stated policy already refuses everywhere else - a noun's plural sits beneath it and a feminine pair is taught as one card (el nino, la nina above los ninos, las ninas, 63 of them). Split, the four glosses had drifted apart: los was filed as a PRONOUN ('plural masculine or neuter pronoun') with 'the' missing altogether, though all three of its own examples used it as an article. Split, they also collided on the reverse card, where three of them prompted the reader with 'the' and nothing else. The surviving note keeps the lowest id of the four (u_delea1_4), which is the earliest and most frequent slot. The paradigm moves into Forms, where a paradigm belongs, and takes the el agua rule with it - which the deck was already illustrating on this card, in the example about oil and water, without saying anywhere what the reader was looking at. The third example, 'con los que charlar', uses los as a relative rather than as an article; it is dropped for one that shows the masculine plural plainly. AND ITS EXAMPLES ARE GRADED AT THE HEAD OF THE DECK: measured over the first forty cards every example ran to eight words or more here, where the deck's median is ten and a reader on their first day should meet something shorter. One short sentence replaces the longest. THE INDEFINITE ARTICLE NOW JOINS IT, on the same reasoning one level up: el/la/los/las and un/una/unos/unas are one system with one shape - two genders, two numbers - and a learner who knows that shape knows both halves of it. Taught apart, the reader met the same grid twice and was never shown that it IS the same grid. AND THE PARADIGM MOVES OUT OF Forms INTO A TABLE: eight forms in two genders and two numbers is a grid, and `uc-forms` is a list of label-and-value pairs, which is why the definite article's three rows read as three unrelated notes rather than as one paradigm. It uses the card type's own conjugation markup, so it looks like every other table in the deck. The numeral uno keeps its own card, and so do lo, la, le and les, which are pronouns rather than articles. FIVE EXAMPLES, AND THE RECORD SAYS WHY: the deck gives every card three, and this one now teaches eight forms in two paradigms - three sentences cannot show both articles in both genders and both numbers, and a card whose whole point is the shape of a grid should not illustrate a quarter of it. The generator's own el agua sentence is kept as the first, since it is the one that shows the stressed-a rule the Forms row states.",
+   "spanish": "el, la, un, una",
+   "word": "el, la, un, una",
    "fold": [
     "el",
     "los",
-    "las"
-   ],
-   "senses": [
-    [
-     "article",
-     [
-      "the"
-     ]
-    ]
-   ],
-   "forms": [
-    [
-     "masculine",
-     "el, los"
-    ],
-    [
-     "feminine",
-     "la, las"
-    ],
-    [
-     "before a stressed a-",
-     "el agua, las aguas"
-    ]
-   ],
-   "dropEx": [
-    "Él no tiene amigos con los que charlar.",
-    "Llama a la compañía mañana por la mañana."
-   ],
-   "ex": [
-    [
-     "Él trabaja todos los días excepto los domingos.",
-     "He works every day except Sundays."
-    ],
-    [
-     "El libro está en la mesa.",
-     "The book is on the table."
-    ]
-   ],
-   "rebold": true
-  },
-  "delea1/un": {
-   "why": "THE INDEFINITE ARTICLE, FOLDED FROM FOUR CARDS INTO ONE, on the same reasoning as el, la above. Split, un/una/unos/unas had drifted the same way: una was filed as a PRONOUN meaning 'one' with 'a, an' missing, and unos and unas - the same word - were given opposite halves of its meaning, unos 'about, approximately' and unas 'some, a few', on two cards a hundred and fifty apart. The numeral uno keeps its own card. The four examples show all four forms and both senses, which three cannot, so maxEx is raised here and says why. THE DECK PROMISES THREE EXAMPLES AND THIS CARD DID NOT HAVE THEM: the description says every word carries three, and five cards shipped with one, two or four. The card also stood at four examples: the fold that made it added two, and one of those is dropped so that the three left show un, una, unos and unas between them. AND ITS EXAMPLES ARE GRADED AT THE HEAD OF THE DECK: measured over the first forty cards every example ran to eight words or more here, where the deck's median is ten and a reader on their first day should meet something shorter. One short sentence replaces the longest.",
-   "spanish": "un, una",
-   "word": "un",
-   "fold": [
+    "las",
+    "un",
     "una",
     "unos",
-    "unas"
+    "unas",
+    "un, una"
    ],
    "senses": [
     [
      "article",
      [
-      "a, an"
+      "the — definite",
+      "a, an — indefinite"
      ]
     ],
     [
@@ -471,26 +434,103 @@
    ],
    "forms": [
     [
-     "plural",
-     "unos, unas"
+     "before a stressed a-",
+     "el agua, las aguas — but una/alguna agua"
     ]
    ],
    "dropEx": [
     "Amar a alguien no es nunca un desperdicio.",
-    "Todo el mundo se merece una segunda oportunidad."
+    "Llama a la compañía mañana por la mañana.",
+    "Todo el mundo se merece una segunda oportunidad.",
+    "Él no tiene amigos con los que charlar."
    ],
    "ex": [
     [
-     "Ella dijo unas palabras de agradecimiento por el regalo.",
-     "She said a few words of thanks for the present."
+     "Él trabaja todos los días excepto los domingos.",
+     "He works every day except Sundays."
+    ],
+    [
+     "El libro está en la mesa.",
+     "The book is on the table."
     ],
     [
      "Quiero una manzana.",
      "I want an apple."
+    ],
+    [
+     "Ella dijo unas palabras de agradecimiento por el regalo.",
+     "She said a few words of thanks for the present."
     ]
    ],
-   "maxEx": 4,
-   "rebold": true
+   "rebold": true,
+   "conj": [
+    [
+     "Artículo definido",
+     [
+      [
+       "Masculino",
+       [
+        [
+         "singular",
+         "el"
+        ],
+        [
+         "plural",
+         "los"
+        ]
+       ]
+      ],
+      [
+       "Femenino",
+       [
+        [
+         "singular",
+         "la"
+        ],
+        [
+         "plural",
+         "las"
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "Artículo indefinido",
+     [
+      [
+       "Masculino",
+       [
+        [
+         "singular",
+         "un"
+        ],
+        [
+         "plural",
+         "unos"
+        ]
+       ]
+      ],
+      [
+       "Femenino",
+       [
+        [
+         "singular",
+         "una"
+        ],
+        [
+         "plural",
+         "unas"
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "maxEx": 5,
+   "was": [
+    "el, la"
+   ]
   },
   "delea1/y": {
    "why": "Two bullets, 'and' and 'plus, and', which is one gloss written twice - the second says nothing the first does not, and buries the arithmetic sense it was presumably meant to carry. The card is also the only place the deck can teach that y becomes e before a word beginning i- or hi- (madre e hija): there is no e card, and nothing else in the deck mentions it. AND ITS EXAMPLES ARE GRADED AT THE HEAD OF THE DECK: measured over the first forty cards every example ran to eight words or more here, where the deck's median is ten and a reader on their first day should meet something shorter. One short sentence replaces the longest.",

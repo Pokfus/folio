@@ -712,18 +712,38 @@ function crosswordForPage(cells) {
     const rev = await page.evaluate(() => ({
       verdict: (document.querySelector(".tf-verdict") || {}).textContent || "",
       cap: (document.querySelector(".pic-cap") || {}).textContent || "",
-      // `.pic-credit` was REMOVED in Sep 2026, on request — the reveal no longer repeats the
-      // attribution the viewer's own meta bar carries. What stands in its place is `.pic-shows`, the
-      // caption with any duplicated credit tail trimmed off it (see picCaption). Asserting the old
-      // element left this suite failing on behaviour that had been deliberately taken away.
-      credit: !!document.querySelector(".pic-credit"),
       shows: (document.querySelector(".pic-shows") || {}).textContent || "",
+      credit: !!document.querySelector(".pic-credit"),
       marked: document.querySelectorAll("#picOpts .opt.correct").length,
       dead: !!document.querySelector(".pic-frame.pic-dead"),
     }));
-    check("[pic] …the guess reveals the answer and its caption, and repeats no credit",
-      /correct|not quite/i.test(rev.verdict) && /Plate \d/.test(rev.cap) && rev.credit === false && rev.marked === 1,
-      JSON.stringify({ cap: rev.cap, creditEl: rev.credit, shows: rev.shows.slice(0, 60) }));
+    check("[pic] …the guess reveals the answer and marks the option chosen",
+      /correct|not quite/i.test(rev.verdict) && /Plate \d/.test(rev.cap) && rev.marked === 1,
+      JSON.stringify({ cap: rev.cap, marked: rev.marked }));
+    /* THE REVEAL CARRIES NO CREDIT, AND THIS ASSERTION USED TO DEMAND ONE. It read `.pic-credit a` and
+       wanted the planted `example.org` href, which is what the round shipped until Sep 2026, when the
+       credit line was removed on request ("still shows the credits of the image … delete these, they're
+       already available when the user clicks on the image") — so the check went on failing against a
+       deliberate change, which is a suite guarding the opposite of the rule. Both halves are asserted
+       here because taking `.pic-credit` away was only half of the change: half the pool repeats the
+       attribution INSIDE the caption, and `picCaption` cuts that tail, so the credit must be absent from
+       `.pic-shows` as well as from an element of its own. */
+    check("[pic] …and no credit with it, the caption having lost its repeated attribution too",
+      !rev.credit && !/example\.org/.test(rev.shows), JSON.stringify({ credit: rev.credit, shows: rev.shows.slice(0, 60) }));
+    /* …BECAUSE IT IS ONE TAP FURTHER IN, which is what makes the removal a move rather than a loss. The
+       picture became enlargeable at the guess (the check above asserts it is not before), and the
+       viewer's own meta bar is where the title and the credit live. Asserting the credit's ABSENCE alone
+       would pass just as happily on a round that had quietly dropped the attribution altogether. */
+    await page.click(".pic-frame");
+    await page.waitForTimeout(300);
+    const ivw = await page.evaluate(() => {
+      const a = document.querySelector(".iv-credit a");
+      return { open: !!document.querySelector(".img-viewer"), href: a ? a.getAttribute("href") : "" };
+    });
+    check("[pic] …and the credit is one tap in, on the enlarged picture",
+      ivw.open && /^https:\/\/example\.org\//.test(ivw.href), JSON.stringify(ivw));
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(200);
     /* THE ARTEFACT'S OWN FIVE SENTENCES, AND THE WORKS THEY REST ON (Sep 2026, on request: "below it
        should show that Artefacts background paragraph with citations"). Three things have to be true at
        once and each fails on its own: the paragraph is there, the fold under it lists the artefact's real
@@ -1060,15 +1080,18 @@ function crosswordForPage(cells) {
      should still count if they were correct." Nothing in the suite covered this game at all, which is
      how a score that disagreed with the reader's own arithmetic went unremarked.
 
-     THE TARGET IS HUNTED RATHER THAN COMPUTED, and that is forced: the rounds are built inside the Atlas
-     closure from the era geometry, and turning a lon/lat into a screen point needs the globe's own
-     rotation and zoom, neither of which is reachable from outside. So the board is swept and the CONFIRM
-     BUTTON is read — it names the place under the last tap, which is exactly the readout the feature
-     added. ~850 clicks sweep a hemisphere in about eleven seconds; the globe is spun a quarter turn and
-     swept again when the day's target is on the far side, since the opening view is centred on the
-     reader's home and the draw is seeded by the date rather than by what happens to be facing us.
-     It FAILS if the target is never found rather than skipping the assertion — a hunt that quietly gives
-     up is a test that passes on the day the feature breaks. */
+     THE TARGET IS CENTRED RATHER THAN HUNTED (Sep 2026). It used to be hunted: the board was swept a
+     tap at a time and the CONFIRM BUTTON read back, because it named the place under the last tap. That
+     readout is gone — it gave away whether the guess was right before it was committed, which is the
+     bug this section now guards against — so the oracle had to go with it, and a sweep with nothing to
+     read is 850 clicks that cannot tell one country from another.
+     WHAT REPLACES IT USES ONLY WHAT A READER HAS. The globe opens centred on `S.settings.home`, so the
+     page is loaded once to learn the day's target, that country's own label point is read out of
+     `world.js`, and the page is loaded AGAIN with home set to it — after which the target is under the
+     middle of the disk and a tap at the centre is a tap on it. Zooming in a few steps first is what
+     makes that true of a small country as well as of Greenland.
+     It FAILS if the target cannot be resolved rather than skipping the assertion — a hunt that quietly
+     gives up is a test that passes on the day the feature breaks. */
   {
     const [ctx, page] = await fresh({ width: 1280, height: 900 });
     watch(page);
@@ -1090,65 +1113,108 @@ function crosswordForPage(cells) {
     check("[fi] the game opens on a round with a place to find", !!target && opened.acts === "none",
       JSON.stringify(opened));
 
-    /* 1. A TAP SELECTS AND DOES NOT ANSWER. The whole of the first report: the score must not move, no
-       verdict may appear, and the button must name what was tapped. */
-    await tap(0.5, 0.5);
-    const picked = await read();
+    /* THE TARGET'S OWN LABEL POINT, out of `world.js` — the same `c` the Atlas writes a country's name
+       at, so it is a point inside the country by construction rather than a bbox centre that can fall
+       in the sea. A HISTORICAL round is an era territory and is not in `world.js`, but round 1 is
+       always a present-day country (see buildGameRounds' running order), which is the round this
+       section plays. */
+    const home = await page.evaluate((t) => {
+      const g = (window.WORLD_GEO || []).find((x) => String(x.n || "").toLowerCase() === String(t).toLowerCase());
+      return g && g.c ? { name: g.n, lon: g.c[0], lat: g.c[1] } : null;
+    }, target);
+    check("[fi] …and that place is one world.js can be centred on", !!home, target + " → " + JSON.stringify(home));
+    await ctx.close();
+    // no early return: this is a bare block inside the suite's own IIFE, so returning here would end the
+    // run before the page-error check at the foot of the file
+    if (home) {
+
+    /* Reloaded with the globe's home set to the target, so the middle of the disk IS the answer. The day
+       decides the round, so it is the same round as before; nothing about the game is told where to
+       look, and every assertion below is made through the same controls a reader has. */
+    const [ctx2, page2] = await fresh({ width: 1280, height: 900 });
+    watch(page2);
+    await page2.addInitScript((h) => {
+      localStorage.setItem("folio_v1", JSON.stringify({ settings: { home: h } }));
+    }, home);
+    await page2.goto(base + "#findit", { waitUntil: "load" });
+    await page2.waitForTimeout(2600);
+    const read2 = () => page2.evaluate(() => {
+      const t = (s) => { const e = document.querySelector(s); return e ? (e.textContent || "").trim() : ""; };
+      const h = (s) => { const e = document.querySelector(s); return !e || e.hidden; };
+      const acts = document.querySelector(".mg-acts");
+      return { q: t("#mgQ"), score: t("#mgScore"), fb: t("#mgFeedback"),
+               confirm: t("#mgConfirm"), confirmHidden: h("#mgConfirm"), clearHidden: h("#mgClear"),
+               nextHidden: h("#mgNext"), acts: acts ? getComputedStyle(acts).display : "" };
+    });
+    const box2 = await page2.locator("canvas").first().boundingBox();
+    const tap2 = (fx, fy) => page2.mouse.click(box2.x + box2.width * fx, box2.y + box2.height * fy);
+    // a few steps in, so the centre is well inside the target even when the target is a small country
+    for (let i = 0; i < 5; i++) { await page2.click("#gzIn").catch(() => {}); await page2.waitForTimeout(140); }
+    await page2.waitForTimeout(600);
+
+    /* 1. A TAP SELECTS AND DOES NOT ANSWER — the first reported fault: the score must not move and no
+       verdict may appear until the button is pressed. */
+    await tap2(0.5, 0.5);
+    const picked = await read2();
     check("[fi] a tap selects rather than guessing",
-      !picked.confirmHidden && /^Guess /.test(picked.confirm) && picked.fb === "" && picked.score === opened.score,
-      JSON.stringify(picked));
+      !picked.confirmHidden && picked.fb === "" && picked.score === opened.score, JSON.stringify(picked));
+    /* …AND THE BUTTON DOES NOT NAME WHAT WAS TAPPED (Sep 2026, on a bug report: "it says on the button
+       'GUESS [selected place]', but that gives away whether the answer is right or not"). It read
+       "Guess Greenland" on a round asking for Greenland, so a reader could try a country, be told they
+       had it, and commit only when the button agreed — which is not a test of whether they know where
+       it is. The word alone, and NOTHING resembling the target's name anywhere in the label. */
+    check("[fi] …and the button names nothing, so a pick gives no verdict away",
+      picked.confirm === "Guess" && picked.confirm.toLowerCase().indexOf(target.toLowerCase()) < 0,
+      JSON.stringify({ confirm: picked.confirm, target: target }));
     check("[fi] …and offers a way to withdraw it", !picked.clearHidden && picked.acts !== "none",
       JSON.stringify(picked));
 
     /* 2. CLEAR PUTS IT BACK. A pick that cannot be withdrawn is a click that has still been spent. */
-    await page.click("#mgClear");
-    await page.waitForTimeout(200);
-    const cleared = await read();
+    await page2.click("#mgClear");
+    await page2.waitForTimeout(200);
+    const cleared = await read2();
     check("[fi] Clear withdraws the pick, and the row collapses with it",
       cleared.confirmHidden && cleared.clearHidden && cleared.acts === "none" && cleared.fb === "",
       JSON.stringify(cleared));
 
-    /* 3. A DELIBERATE MISS, COMMITTED. It must take a Confirm to score anything at all. */
-    let missed = null;
-    for (const [fx, fy] of [[0.5, 0.5], [0.46, 0.52], [0.54, 0.48], [0.5, 0.44]]) {
-      await tap(fx, fy);
-      const st = await read();
-      if (!st.confirmHidden && st.confirm !== "Guess " + target) { missed = st; break; }
+    /* 3. A WRONG GUESS SPENDS A TRY. ZOOMED BACK OUT FIRST, and that is not tidying: the view is centred
+       on the answer, so close in every point on the disk is still inside it — five steps into Greenland
+       and all four offsets below were Greenland, which is the round being ANSWERED rather than missed.
+       At world scale a fifth of the disk from centre is a different continent. The "km away" reading is
+       what says the guess really was wrong, rather than the tap's position being assumed to mean it. */
+    for (let i = 0; i < 7; i++) { await page2.click("#gzOut").catch(() => {}); await page2.waitForTimeout(120); }
+    await page2.waitForTimeout(500);
+    let missed = null, landed = false;
+    for (const [fx, fy] of [[0.24, 0.5], [0.5, 0.26], [0.76, 0.5], [0.5, 0.74], [0.32, 0.32], [0.68, 0.68], [0.32, 0.68], [0.68, 0.32]]) {
+      if (missed || landed) break;
+      await tap2(fx, fy);
+      if ((await read2()).confirmHidden) continue;          // the sky, or open sea on an entity round
+      await page2.click("#mgConfirm");
+      await page2.waitForTimeout(800);
+      const st = await read2();
+      if (/away/.test(st.fb)) missed = st;
+      else if (/Found it/.test(st.fb)) landed = true;        // hit it after all — section 4 has nothing left to try
     }
-    check("[fi] a wrong place can be picked without being answered", !!missed, JSON.stringify(missed));
-    if (missed) {
-      await page.click("#mgConfirm");
-      await page.waitForTimeout(700);
-      const after = await read();
-      check("[fi] …and confirming it is what spends the try",
-        /try/i.test(after.fb) && after.confirmHidden, JSON.stringify(after));
-    }
+    check("[fi] a wrong guess spends a try and says how far off it was",
+      !!missed && /try/i.test(missed.fb) && missed.confirmHidden, JSON.stringify(missed));
 
     /* 4. THE SECOND TRY, RIGHT. The reported scoring bug: this used to leave the score at 0. */
-    let hit = null;
-    for (let turn = 0; turn < 4 && !hit; turn++) {
-      if (turn) {   // spin a quarter turn — the day's target may be on the far side of the globe
-        await page.locator("canvas").first().click({ position: { x: 5, y: 5 } }).catch(() => {});
-        for (let i = 0; i < 18; i++) await page.keyboard.press("ArrowRight");
-        await page.waitForTimeout(400);
-      }
-      for (let gy = 0.2; gy <= 0.84 && !hit; gy += 0.02) {
-        for (let gx = 0.2; gx <= 0.84; gx += 0.02) {
-          await tap(gx, gy);
-          const lbl = await page.evaluate(() => { const b = document.querySelector("#mgConfirm"); return b && !b.hidden ? b.textContent : ""; });
-          if (lbl === "Guess " + target) { hit = [gx, gy]; break; }
-        }
-      }
-    }
-    check("[fi] the day's target can be found on the globe", !!hit, "swept four quarter-turns for " + target);
-    if (hit) {
-      await page.click("#mgConfirm");
-      await page.waitForTimeout(900);
-      const won = await read();
+    if (missed) {
+      for (let i = 0; i < 7; i++) { await page2.click("#gzIn").catch(() => {}); await page2.waitForTimeout(120); }
+      await page2.waitForTimeout(500);
+      await tap2(0.5, 0.5);
+      const aim = await read2();
+      check("[fi] the day's target can be aimed at once the globe is centred on it",
+        !aim.confirmHidden, JSON.stringify({ target: target, confirm: aim.confirm }));
+      await page2.click("#mgConfirm");
+      await page2.waitForTimeout(900);
+      const won = await read2();
       check("[fi] a correct SECOND guess counts towards the score",
         /^1 found/.test(won.score) && /Found it/.test(won.fb), JSON.stringify(won));
       check("[fi] …and the round is over rather than offering a third try",
         !won.nextHidden, JSON.stringify(won));
+    }
+    await ctx2.close();
     }
     await ctx.close();
   }

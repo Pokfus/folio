@@ -1576,7 +1576,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.24 MB and 47,488 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.27 MB and 47,918 lines is hard to find your way around, so this
   lists its 182 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -1934,7 +1934,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
   **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO** — no changelog line, no version bump.
   Currently **52 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
-  Portuguese, Spanish — **136,216 cards over 68,108 notes, 152 MB**. **Count them rather than quoting
+  Portuguese, Spanish — **136,214 cards over 68,107 notes, 152 MB**. **Count them rather than quoting
   that**: `node .claude/build-lang-decks.js` prints the tally on every run.
   · **A COMBINED FILE IS GITIGNORED**: it is an artefact of the levels it combines, every byte already
     in the repo, and its own `combine.py` regenerates it byte for byte. **Anything else in `decks/` is
@@ -4559,9 +4559,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     as well as the coast**, and the two are one decision rather than two: both halves of the request ask
     for the window a history card already draws, and every layer that wants the finer coast wants the
     water on it. **Measured by TAKING IT AWAY** — read the pixels, empty `window.RIVERS`, redraw the same
-    view, read them again, which is `test-card-locator.js` section 3's method: the water paints 1,885
-    pixels on a China card and 612 on a United States one, and **0 on a world card, which never loads
+    view, read them again, which is `test-card-locator.js` section 3's method: the water paints **5,980
+    pixels on a China card and 10,631 on a United States one**, and **0 on a world card, which never loads
     `rivers.js` at all**.
+    **AND THE SHAPE LAYER WAS PAINTING OVER THEM, so on both framed layers the figure was 0 for a
+    fortnight** (Sep 2026). The bullet above put the rivers before the BORDERS and that is only half the
+    order: a map card also fills its own layer's shapes — the states, the provinces — and that fill ran
+    after the water, so every river inside the United States or inside China was covered by the state it
+    ran through. **Nothing about it looks like a fault**: the map is complete, the coast and the borders
+    are right, and what is missing is a layer nobody has seen there before. The shapes are filled and
+    their outlines collected into a `Path2D` FIRST, the water goes down over the fill, and the borders and
+    the subdivision lines are stroked from the collected paths afterwards. **The figures above are the
+    only thing that can see this** — a screenshot of a map with no rivers in it is a perfectly good map —
+    so re-measure them rather than reading them, and treat a 0 on a framed layer as the fault returning.
   · **A RIVER IS DRAWN IN ITS OWN BLUE IN DAYLIGHT, NOT IN THE OCEAN'S** (`riverInk`; the Atlas's own
     `riverCol`. Sep 2026, on request: "on the atlas, rivers are quite hard to see on light mode"). Both
     maps drew a river in the OCEAN colour, which is right at night — the sea is dark against dark land —
@@ -6829,6 +6839,36 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   written the wrong way round — it renders perfectly while asserting that the later thing caused the
   earlier), and **`how` is a historical claim and needs the card cited like any other**, in 4–28 words.
   Write it deliberately and sparingly: a list of every consequence is a list nobody reads.
+- `locator` — **OPTIONAL, and ASK FOR IT ON EVERY NEW HISTORY OR SCIENCE CARD** (Sep 2026, on request:
+  "henceforth all new history and science cards should check whether there's an appropriate Atlas location
+  to include"). `{ name, at: [lon, lat], kind?, area?, spine?, within? }` draws the card's own Atlas window
+  — the globe under the answer — and puts the place on the reader's personal atlas the day they study the
+  card. **The question to ask is not "does this card mention a place" but "is there somewhere a reader
+  could stand?"**: a card about an object asks where it was found, a card about a people or a state asks
+  where they were, a card about an event asks where it happened. Where the honest answer is nowhere — a
+  concept, a technique, a word — the card takes none, and that is a decision rather than an omission.
+  · **THE NAME IS A PLACE, NEVER THE CARD'S ANSWER TERM.** Thirty Rome locators were once named
+    `imperium`, `collegiality`, `Fasti Consulares`, so the map put a labelled dot on a place called
+    collegiality. Where the subject has no place of its own the CITY is the honest label and the hill is
+    false precision. It also may not open on "The" — `add-card.js` and `add-locators.js` refuse one, for
+    the four real place names (The Hague, The Valley) a strip-at-draw rule would eventually mangle.
+  · **THE KIND DECIDES THE MARK, AND A THING WITH EXTENT MAY NOT BE A DOT.** `point` (a dot), `battle`
+    (crossed swords), `river` (traced out of the rivers layer by the term's own name and aliases), `range`
+    (triangles along an authored `spine`), `region` (an authored `area`, washed and clipped to present-day
+    land), `sea` (a water wash and a blue name, unclipped), `shelf` (an authored area that is NOT clipped
+    to the land, for ground now drowned — Doggerland, Beringia). A dot in the middle of the Apennines does
+    not merely under-describe the range; it makes a false claim about it.
+  · **`area` MAY BE SEVERAL RINGS, separated by `;`**, which is how a civilisation is drawn as the blocks
+    it actually held rather than as one blob containing everything between them.
+  · **THE COORDINATE IS FETCHED, NEVER TYPED**: `node .claude/add-locators.js <batch.json>` takes a named
+    Wikipedia article or Wikidata id and reads the published coordinate off it. Only the SHAPE — `area`,
+    `spine` — is authored, which is exactly why both tools validate it: a transposed pair draws a region in
+    the wrong ocean and nothing throws.
+  · **A MAP CARD NEVER TAKES ONE** — a geography card's globe IS its question — and a locator is drawn
+    beside the collection's other studied places, so it also decides what a reader's own atlas fills up
+    with. Coverage is uneven and deliberately so: run
+    `node -e "global.window={};require('./data.js');const c=window.CARD_DATA.filter(x=>x.id.startsWith('rm-'));console.log(c.filter(x=>x.locator).length+'/'+c.length)"`
+    for a collection's own figure rather than quoting one here.
 - `answer` / `answerText` — **the answer term NEVER carries an article** (Aug 2026, on request): it is
   `polis`, `Iliad`, `rhapsode`, `cist grave`, not "the polis" or "a cist grave". What the reader is being
   asked to recall is the term; "the" is a fact about the sentence around it, so it belongs to the QUESTION
@@ -7641,7 +7681,7 @@ dead code (never rendered).
     being measured leaves a card of dashes that reads as a reader who answers instantly. **Re-run after
     touching `logReviewEntry` / `revRead` / `revForCard` / `revWindow` / `grade()`'s logging / `shownAt`
     / `undoRevRow` / `openCardInfo` / `answerButtonsHTML`.**
-  · `node .claude/test-date-line.js` — 13 assertions on the card date line, run against the real
+  · `node .claude/test-date-line.js` — 15 assertions on the card date line, run against the real
     `data.js`: that every shipped card's `answerDate` is still a LIST OF DATES and not the paragraph it
     replaced (the check is content-aware, since an old date line wore exactly the same tags), that the
     limits in `date-line.js` still describe a glance, that every card stating a date still yields a sort
@@ -7649,6 +7689,16 @@ dead code (never rendered).
     date sorts by the year it was dug up**, which is how Atapuerca came to sort at 1978 CE. Re-run after
     touching `cardYears` / `date-line.js`, **and after any batch of date lines** — the field is edited
     card by card and grew into a paragraph the same way.
+    **Its section 4 is the date line read by a THIRD consumer** (Sep 2026): the personal atlas draws a
+    polity's authored `area` in the years its date line names, and unlike a dot — drawn from its
+    earliest date and never taken away — BOTH ends of that span bind, so a line yielding a SINGLE year
+    draws the shape in one year and in no other. **It looks like nothing at all from every other
+    angle**: the card is right, its own map window is right, its sort year is right, `isDateList`
+    passes, and the symptom is a shape nobody ever sees. All three cards that had it were Rome cards
+    whose only readable year was one, the rest of the line being written in CENTURIES, which
+    `cardYears` deliberately cannot read — so the fix is rule 2's own: write the span the century
+    MEANS. The section also reads `MINE_POLITY` OUT of app.js rather than restating it, so a kind added
+    there is covered here without anybody remembering to.
   · `node .claude/test-review-decks.js` — the daily review's decks and the study session that comes out
     of them (Aug 2026). **Re-run after touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` /
     `deckLimits` / `globalLimits` / `mixPiles` / `orderPile` / `DECK_ORDERS` / `deckOrderMode` /
@@ -7699,12 +7749,18 @@ dead code (never rendered).
     touching `cardQuote` / `cardQuoteHTML` / `buildBack`'s abstract split / the `.cq-go` listener /
     `PAGES.book`'s `params.n` / the `#book` branches in boot and hashchange / `serializeCardData` /
     `revertCard`, or `add-card.js`'s quote guard.**
-  · `node .claude/test-deck-update.js` — **updating a language deck this device already holds** (21
-    assertions, Sep 2026), and the reported fault reproduced: it corrupts a card in IndexedDB the way a
-    stale download is corrupt, reloads, and asserts the repair arrives AND the reader's schedule
-    survives it. **Re-run after touching `langDeckFetch` / `langDeckDownload` / `langDeckStale` /
-    `langDeckUpdate` / `uDeckNormalize`'s `langRev` / `uDeckIndexRecord` / `UDECK_META_KEYS`, the
-    `data-langup` row or button, or `build-lang-decks.js`'s `rev`.**
+  · `node .claude/test-deck-update.js` — **updating a language deck this device already holds**, and
+    **fetching its files again when nothing says it is out of date** (Sep 2026), the reported faults
+    reproduced: it corrupts a card in IndexedDB the way a stale download is corrupt, reloads, and asserts
+    the repair arrives AND the reader's schedule survives it. **Its second half is the harder case and is
+    what the Redownload row exists for**: the card is made wrong while the stored REVISION is left
+    current, so nothing offers an Update — correctly, the two copies having been built from one source —
+    and the assertion is that the sheet's own row still repairs it, fetches the file exactly once, leaves
+    the deck's id, size and schedule alone, and says how many cards it refreshed rather than merely that
+    it did something. Run it for the figure rather than quoting one here. **Re-run after touching
+    `langDeckFetch` / `langDeckDownload` / `langDeckStale` / `langDeckUpdate` / `entryLangDecks` /
+    `uDeckIdOf` / `uDeckNormalize`'s `langRev` / `uDeckIndexRecord` / `UDECK_META_KEYS`, the
+    `data-langup` row or button, the sheet's `redownload` row, or `build-lang-decks.js`'s `rev`.**
   · `node .claude/test-panels.js` — **the arithmetic behind the Sep 2026 panels and the map in words**
     (37 assertions, no browser, no dependency): every function is sliced out of the real `app.js` by text
     and the map half runs against the real `us-states.js`. Each subject fails SILENTLY on the page — a
@@ -7782,7 +7838,15 @@ dead code (never rendered).
     hundred is a coin toss, and a sweep that saw none would say nothing at all — one of eight days was
     run and saw none. **Re-run after touching anything in the ARTWORK CARDS bullet's own list.**
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's
-    restricted pool** (75 assertions), and every one of its checks is for something that fails SILENTLY.
+    restricted pool** (114 assertions), and every one of its checks is for something that fails SILENTLY.
+    **AN ASSERTION CAN COME TO GUARD THE OPPOSITE OF THE RULE** (Sep 2026): the picture round's reveal
+    check demanded `.pic-credit a` and the planted credit's href, which is what the round shipped until
+    the credit line was REMOVED on request — so it failed against a deliberate change and stayed red,
+    where a stale check reads exactly like a broken feature. It now asserts the shipped rule from both
+    ends: no credit on the reveal AND none left inside `.pic-shows` (half the pool repeats it there and
+    `picCaption` cuts it), then the viewer opened and the credit found in its `.iv-credit`. **Asserting
+    an absence alone would pass just as happily on a round that had dropped the attribution outright**,
+    which is why the second half is not optional.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
     `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `chronoPool` /
     `cardYearBasis` / `dateLineRows`, `picturePool` /
