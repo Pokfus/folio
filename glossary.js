@@ -3444,7 +3444,17 @@ window.GLOSSARY = {
 "Lex_Julia_(90_BCE)": "The lex Julia was a law of 90 BCE, carried during the Social War in the consulship of Lucius Julius Caesar, that opened Roman citizenship to Italy's allies.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Cicero says the citizenship was extended by it to the allies and the Latins on the condition that any people which had not expressed its assent to the law should not receive it, and records the argument this caused at Heraclea and Neapolis.<sup class=\"fn\" data-fn=\"1\"></sup> Appian describes the same measure from the Senate's side, saying it voted the citizenship to those Italians who had kept faith and enrolled them in ten new tribes which voted last, rather than among the 35 that already existed.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Enfranchisement_of_Italy": "The enfranchisement of Italy was the extension of Roman citizenship to the free population of the Italian peninsula, granted in instalments during and after the war that began in 91 BCE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Appian says the new citizens were kept out of the 35 existing tribes lest they outvote the old ones and were enrolled instead in ten new tribes which voted last, so that a majority was often reached before their votes were counted at all.<sup class=\"fn\" data-fn=\"1\"></sup> He adds that the Italians either did not notice this or were satisfied with what they had won, and that it was observed later and became the source of a fresh conflict.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Lucius_Cornelius_Sulla": "Lucius Cornelius Sulla was a Roman general who rose as Marius's quaestor, held the consulship of 88 BCE and died in 78.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Plutarch says he belonged to a patrician family whose fortunes had long since sunk, an ancestor having been expelled from the Senate for owning more than ten pounds of silver plate.<sup class=\"fn\" data-fn=\"1\"></sup> Livy's summary says he was made dictator, had 24 fasces carried before him as none had before, took from the tribunes their right to introduce legislation and barred the children of the proscribed from office; Velleius holds that no praise is sufficient for him up to his victory and none adequate against him after it.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"First_Mithridatic_War": "The First Mithridatic War was fought from 89 to 85 BCE between Rome and Mithridates VI of Pontus, chiefly in Asia Minor and Greece.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Appian says the Roman commanders in the region raised allied forces and began it without waiting to hear what the Senate and people would think, and that they were alarmed at their first defeat because they had kindled so great a strife without any public decree.<sup class=\"fn\" data-fn=\"1\"></sup> Livy's summary says the king overran Asia and ordered every Roman citizen in the province killed on a single day, and that peace came when he ceded the provinces of Asia, Bithynia and Cappadocia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"First_Mithridatic_War": "The First Mithridatic War was fought from 89 to 85 BCE between Rome and Mithridates VI of Pontus, chiefly in Asia Minor and Greece.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Appian says the Roman commanders in the region raised allied forces and began it without waiting to hear what the Senate and people would think, and that they were alarmed at their first defeat because they had kindled so great a strife without any public decree.<sup class=\"fn\" data-fn=\"1\"></sup> Livy's summary says the king overran Asia and ordered every Roman citizen in the province killed on a single day, and that peace came when he ceded the provinces of Asia, Bithynia and Cappadocia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Mithridates_VI_Eupator": "Mithridates VI Eupator was the king of Pontus in northern Asia Minor who fought Rome in three wars over some 40 years and was defeated in the last of them.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says the kingdom came to him as an orphan, that he reigned 57 of his 68 or 69 years, and calls him bloodthirsty and cruel to all, the slayer of his own mother, his brother, three sons and three daughters.<sup class=\"fn\" data-fn=\"1\"></sup> Velleius says he was a man impossible either to praise or to pass over in silence, a general in strategy and a soldier in bodily prowess, and in his hatred of the Romans a Hannibal.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Asiatic_Vespers": "The Asiatic Vespers was the killing of the Romans and Italians living in the Roman province of Asia on one appointed day in 88 BCE, ordered by Mithridates VI of Pontus.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says he wrote secretly to his satraps and city magistrates that on the thirtieth day after they should set upon every Roman and Italian, their wives, children and Italian-born freedmen, throw the bodies out unburied and share the goods with him.<sup class=\"fn\" data-fn=\"1\"></sup> The reported totals do not agree, Plutarch giving 150,000 Romans massacred in a single day and Memnon 80,000 killed by the sword.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Sulla's_march_on_Rome": "Sulla's march on Rome in 88 BCE was the first occasion on which a Roman consul led an army against the city, and Appian dates the wars fought between citizen armies from it.<sup class=\"fn\" data-fn=\"1\"></sup> The quarrel was over a command: the war against Mithridates had fallen to Sulla by lot and the tribune Publius Sulpicius carried a law transferring it to Marius, so Sulla went to his legions and told them what had been done.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says the praetors sent to forbid his advance had their fasces broken and their togas stripped from them, and that Sulla fired the houses whose occupants pelted his men with tiles.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Lucius_Cornelius_Cinna": "Lucius Cornelius Cinna was the Roman consul who held the city for most of Sulla's absence in the East, from 87 BCE until his own army killed him four years later.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Appian says he took up the cause of distributing the new Italian citizens among all the tribes and was driven from the forum by his colleague Octavius, after which the Senate voted him out of the consulship and out of the citizenship.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Velleius says he raised more than three hundred cohorts from the new citizens and recalled Marius and the other exiles to supply the leaders his party lacked.<sup class=\"fn\" data-fn=\"5\"></sup>",
+"Marian_terror": "The Marian terror was the hunting down of Sulla's supporters in Rome after Marius and Cinna entered the city late in 87 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says the consul Octavius was beheaded in his curule chair and his head hung before the rostra, the first consul's head so exposed, and that spies then searched for men of the senatorial and equestrian orders.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says Marius kept a picked band of slaves called the Bardyaei who killed citizens at a word from him or a nod, and that a greeting he did not return became the signal for a death.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Civil_war_of_83_BCE": "The civil war of 83 BCE was the war Sulla fought on returning from the East to take Rome back from the party of Marius and Cinna.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says he crossed from the Peloponnese with five legions and 6,000 horse, that Brundusium received him without a fight, and that the consuls raised 200 cohorts against him with popular sympathy on their side.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Livy's summary carries the campaign to its end: Sulla routed and destroyed the army of the younger Marius at Sacriportus, besieged him in the town of Praeneste, and recovered the city of Rome from the hands of his enemies.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_the_Colline_Gate": "The Battle of the Colline Gate was fought outside Rome on the Kalends of November 82 BCE and decided the civil war in Sulla's favour.<sup class=\"fn\" data-fn=\"1\"></sup> Velleius says Pontius Telesinus, a Samnite commander who hated the very name of Rome, had gathered about 40,000 of the bravest youth still under arms, and went from rank to rank saying the last day was at hand for the Romans.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says Sulla was victorious on the right and beaten on the left, put the dead on both sides at 50,000, and had more than 8,000 prisoners shot down with darts.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Proscription": "Proscription was the Roman practice of publishing a list of citizens declared outlaw, so that their killers were paid and their property was forfeit.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says Sulla was the first to make a formal list of those he punished, proscribing about 40 senators and 1,600 knights in 82 BCE, offering prizes to assassins and rewards to informers and threatening those who concealed a proscribed man.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says the reward was two talents a head, payable even to a slave who killed his master, and that the sons and grandsons of the proscribed lost their civil rights while the property of all was confiscated.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Sulla's_dictatorship": "Sulla's dictatorship was the office Lucius Cornelius Sulla took after winning the civil war in 82 BCE, and it was the first Roman dictatorship held for no fixed term.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says both consuls were dead, so the Senate appointed an interrex, whom Sulla told to put to the people that the dictatorship be revived, not for a fixed period but until the state was firmly re-established.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says the act granted him immunity for all his past acts and, for the future, power of life and death, of confiscation, of colonisation, of founding or demolishing cities and of bestowing kingdoms.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Sullan_constitution": "The Sullan constitution is the body of law Sulla enacted as dictator, which cut the powers of the tribunes and enlarged the Senate and the priestly colleges.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Appian says he fixed the order of the magistracies, forbidding any man to be praetor before quaestor or consul before praetor or to hold the same office twice within ten years, and barred a tribune from holding any office afterwards.<sup class=\"fn\" data-fn=\"1\"></sup> Livy's summary adds that the tribunes lost the right to introduce legislation, that the colleges of priests and augurs were raised to fifteen, and that members of the equestrian order were enrolled in the Senate.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5092,7 +5102,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lex_Julia_(90_BCE)": "90 BCE",
 "Enfranchisement_of_Italy": "90 – 87 BCE",
 "Lucius_Cornelius_Sulla": "c. 138 – 78 BCE",
-"First_Mithridatic_War": "89 – 85 BCE"
+"First_Mithridatic_War": "89 – 85 BCE",
+"Mithridates_VI_Eupator": "c. 132 – 63 BCE",
+"Asiatic_Vespers": "88 BCE",
+"Sulla's_march_on_Rome": "88 BCE",
+"Lucius_Cornelius_Cinna": "d. 84 BCE",
+"Marian_terror": "87 – 86 BCE",
+"Civil_war_of_83_BCE": "83 – 82 BCE",
+"Battle_of_the_Colline_Gate": "1 November 82 BCE",
+"Sulla's_dictatorship": "from 82 BCE",
+"Sullan_constitution": "81 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7101,7 +7120,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Marcus_Livius_Drusus_(tribune)": ["Marcus Livius Drusus","Livius Drusus"],
 "Social_War_(91–87_BCE)": ["Marsic War"],
 "Lex_Julia_(90_BCE)": ["lex Julia"],
-"Lucius_Cornelius_Sulla": ["Sulla"]
+"Lucius_Cornelius_Sulla": ["Sulla"],
+"Mithridates_VI_Eupator": ["Mithridates VI","Mithridates Eupator","Mithridates of Pontus"],
+"Asiatic_Vespers": ["Vespers of Asia"],
+"Sulla's_march_on_Rome": ["march on Rome"],
+"Lucius_Cornelius_Cinna": ["Cinna"],
+"Marian_terror": ["Marian proscriptions"],
+"Civil_war_of_83_BCE": ["Sulla's civil war"],
+"Battle_of_the_Colline_Gate": ["Colline Gate"],
+"Proscription": ["proscription lists"],
+"Sulla's_dictatorship": ["dictatorship of Sulla"],
+"Sullan_constitution": ["Sulla's laws","Sullan laws"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10586,7 +10615,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lex_Julia_(90_BCE)": ["concept","law","history","politics","rome"],
 "Enfranchisement_of_Italy": ["event","concept","history","politics","rome"],
 "Lucius_Cornelius_Sulla": ["person","history","politics","warfare","rome"],
-"First_Mithridatic_War": ["event","war","history","warfare","rome"]
+"First_Mithridatic_War": ["event","war","history","warfare","rome"],
+"Mithridates_VI_Eupator": ["ruler","person","history","warfare","anatolia"],
+"Asiatic_Vespers": ["event","history","warfare","rome","anatolia"],
+"Sulla's_march_on_Rome": ["event","history","warfare","politics","rome"],
+"Lucius_Cornelius_Cinna": ["person","history","politics","warfare","rome"],
+"Marian_terror": ["event","history","politics","warfare","rome"],
+"Civil_war_of_83_BCE": ["event","war","history","warfare","rome"],
+"Battle_of_the_Colline_Gate": ["battle","event","history","warfare","rome"],
+"Proscription": ["practice","institution","law","history","rome"],
+"Sulla's_dictatorship": ["institution","event","history","politics","rome"],
+"Sullan_constitution": ["concept","institution","law","history","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

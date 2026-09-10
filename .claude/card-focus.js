@@ -104,7 +104,7 @@ Diodorus Polybius Arrian Apollodorus Aeschylus Sophocles Euripides Aristophanes 
 Tyrtaeus Archilochus Hippocrates Theophrastus Demosthenes Isocrates Lysias Aeschines Livy Ovid Lucretius
 Suetonius Caesar Seneca Cicero Tacitus Sallust Virgil Horace Vitruvius Pliny Josephus Athenaeus Vyasa Confucius
 Mencius Laozi Zhuangzi Sima Ptolemy Euclid Archimedes Galen Aelian Hyginus Ovidius Quintilian
-Gellius Aulus Dionysius Halicarnassus Varro Festus Censorinus
+Gellius Aulus Dionysius Halicarnassus Varro Festus Censorinus Memnon Photius
 Nepos Justin Trogus Florus Sallust Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius
 Appian Velleius Paterculus Augustus Hirtius Gaius Justinian Ulpian Cassius Dio Lactantius Eusebius Socrates Athanasius Tertullian Zosimus Jordanes Procopius Jerome Augustine`.split(/\s+/));
 
