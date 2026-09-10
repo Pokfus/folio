@@ -3195,3 +3195,92 @@ check it against the file you fetched instead of hunting for a better link.
 serve the identical path; the corpus convention is `upload.wikimedia.org/wikipedia/commons/thumb/…`, and
 every one written here was fetched to confirm it answers 200 before it was installed. **The shard is
 still never guessed** — it comes from `imageinfo`, and only the host was substituted.
+
+## cnh-231 – cnh-240, the western conquests to Sima Qian (Sep 2026)
+
+Ten cards taking the Han from the seizure of the Hexi Corridor to the historian who wrote the
+dynasty's own account of itself: the corridor, Nanyue, the Korean commanderies, the salt and iron
+monopoly, the *Discourses on Salt and Iron*, equable transport, Dong Zhongshu, the supremacy of
+Confucianism, the Taixue and Sima Qian. Nine new glossary terms; `Lelang`, `Sima_Qian`, `Shiji` and
+`Confucianism` already existed and were reused.
+
+**CORDIER CARRIES THE TAIXUE, AND THE GAP THAT NEARLY RENAMED A CARD WAS A SEARCH PROBLEM.**
+`cnh-239` was blocked for most of a session: Crossref and DOAJ return nothing openable on the founding
+of the Han imperial university, the useful chapters being in paywalled books, and the plan's own rule
+would have allowed the line to be renamed the way `jp-092` was. What answered was a book already on
+the shelf — **Cordier, *Histoire générale de la Chine*, vol. 1, 256–57**, which states that in 124 BCE,
+following a request from Dong Zhongshu, Emperor Wu created the *T'ai Hio* at Chang'an for the teaching
+of the books of Confucius, that Guangwu founded a second at Luoyang in 29 CE with fourteen professors
+of the Five Classics under the ministry of rites, and (p. 257, quoting Biot) the four grades of merit
+by which higher officers were chosen, of which the second earned a man the charge of *boshi*.
+**Grep the period works already cached before concluding a subject is unsourceable here**; the
+nineteenth-century general histories cover institutions the modern open literature does not.
+
+**THE PLAN'S LINE IS A SUBJECT AND `cnh-233` TOOK A DIFFERENT ANSWER FOR A REASON.** "The Han
+commanderies in Korea" would naturally answer *Lelang* — and `ko-072` is already a good Lelang card
+with the same glossary term behind it. The answer here is **Four Commanderies of Han**, which is the
+plural the line actually names, is the Chinese-side subject rather than the Korean one, and is what
+Cordier 237–38 sets out (Lelang, Xuantu, Lintun, Zhenfan, with the frontier pulled back towards the
+Liao within a generation). **`cnh-240` DELIBERATELY DOES re-card a `wh-` answer**: `wh-411` is also
+Sima Qian, and a thousand-card China collection without him would be odd, so the pair is written
+apart — World History has the founder of Chinese historiography and the Li Ling affair, China has the
+office of grand astrologer, the calendar reform of 104 BCE and Wei Hong's harsher tradition.
+
+**THE TWO-PER-AUTHOR CAP DECIDED THREE CARDS' SOURCE LISTS.** Tanrıkut's article on the *Discourses*
+is the only openable modern account of the monopoly found, and it would have carried four of
+`cnh-234`'s five citations. `check-cards.js` refuses that, and the fix improved the cards: the
+monopoly card now rests half on **archaeology** — Liu and Wood in *Internet Archaeology* 69 for the
+Han melting furnaces at Wafangzhuang and the Yangcheng tool foundry, and Song et al. in *Scientific
+Reports* 15 for the two Han processes and the *Wu Le Gong Ming* quality-traceability system — so it
+describes an industry rather than only a policy. **When the cap bites, look for the other kind of
+evidence rather than a second page of the same work.**
+
+**A SOURCE THAT ANSWERS EVERYTHING STILL HAS TO BE READ, NOT SUMMARISED.** Two claims drafted for
+`cnh-235` from memory of the debate are in nothing openable: that only the liquor monopoly was
+surrendered, and that the *Yantielun* runs to sixty chapters. Tanrıkut says instead that the
+monopolies continued **except for three years from 44 to 41 BCE**, and that Sang Hongyang was killed
+with his whole family for a plot against Huo Guang — who then went on running the policies he had
+helped attack. Both sentences were rewritten to what the page says.
+
+**BRILL'S OWN DOI IS 403 TO A SCRIPT AND 200 TO A BROWSER.** The two *Journal of Chinese Humanities*
+articles are open access, and `curl` on `https://doi.org/10.1163/…` returns 403 while the same URL
+with a browser user-agent resolves to `brill.com/view/journals/joch/12/1/article-pN_M.xml` with a
+200. The Korea findings record the same wall one path over. **A 403 from a bot check is not a dead
+citation** — retest with a browser user-agent before rewriting a citation to a bare article URL.
+
+**MAYERS' ZHAO TUO ENTRY CONTRADICTS ITSELF AND THE DEATH DATE WAS NOT USED.** Pt. I, no. 50 gives
+"B. circa B.C. 240. D. B.C. 187" and then says he died a centenarian, which those two dates make
+impossible. Everything else in the entry is used — the 215 BCE posting under Ren Xiao, the governorship
+of Longchuan, the deathbed advice, the 196 BCE mission of Lu Jia — and the death year is simply left
+out, as is any founding year for the kingdom, so `Nanyue` ships with no date line rather than a
+composed one.
+
+**AND THE ENVOY AND THE MINISTER ARE BOTH called Lü/Lu Jia.** The Han envoy of 196 BCE is Lu Jia 陸賈
+and the Nanyue chief minister who killed the king in 112 BCE is Lü Jia 呂嘉. Both appear in Cordier
+and Mayers; the card names the first and describes the second without naming him, because two names
+that differ only by a diacritic on one card is a trap for a reader rather than a fact.
+
+**FOUR MORE ROUTES TO A WRONG SORT YEAR DID NOT FIRE, BECAUSE EVERY DATE LINE WAS READ BACK.** All
+ten were run through `cardYears` before committing and all ten sort inside their subject's own span.
+Two shapes were caught in draft: `cnh-235`'s "Written up | under Emperor Xuan" carried no number,
+which `date-line.js` refuses, and became "74 – 49 BCE" with the reign as an unlabelled continuation
+line; and `cnh-237` was nearly given "Active | 2nd century BCE", which yields no sort year at all.
+
+**PICTURES: SEVEN OF TEN, AND THE THREE WITHOUT ARE STATED.** `cnh-233` has none because the good
+Lelang objects on Commons are already spent — the incense burner on `ko-072`, the painted lacquer
+basket on `ko-073` and the `Lacquerware` term, the excavation photograph on `ko-075` — and what is
+left is maps, Japanese-era survey PDFs and a KOGL-licensed buckle the picture bar does not admit.
+`cnh-235` and `cnh-238` have none because a debate and a doctrine have no object; the Xiping stone
+classics would serve either, and are spent on `cnh-239`, where they are the subject rather than a
+stand-in. **The glossary terms ship without pictures, as the previous batch's nine did.**
+
+**LOCATORS: SIX OF TEN, THREE OF THEM ONE CITY.** The Hexi Corridor, Nanyue and the four
+commanderies are regions with authored areas; the *Discourses*, Dong Zhongshu and the Taixue take a
+point at Chang'an with `within: "Chang'an"` so the three group into one mark. The salt and iron
+monopoly, equable transport and the supremacy of Confucianism take none — an empire-wide policy and a
+doctrine have nowhere a reader could stand, which is the locator rule's own answer.
+
+**`add-locators.js` NEEDS AN ARTICLE THAT PUBLISHES A COORDINATE, WHICH A CONCEPT DOES NOT.**
+`Nanyue` and `Lelang Commandery` both came back "no primary coordinate"; the `at` is only a region's
+fallback, so the batch was re-run with `Guangzhou` and `Pyongyang` as the titles and the region names
+kept. **Name a settlement, not the polity.**
