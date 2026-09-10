@@ -1392,12 +1392,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **a bare number is the edition's apparatus and is dropped from both sides**, since several
     shelved editions run their section and verse numbers inline and a quotation rightly leaves them
     out.
+  · **AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS** (Sep 2026,
+    out of the field audit). Rule 1 was written against a card whose whole apparatus is one
+    researcher's view, and it counted a DATA PUBLISHER the same way — so a geography card citing the
+    World Bank for its population, its area and its GDP was reported as resting three sources on one
+    author. Measured over the corpus that shape was **274 of the 431 findings**: the World Bank 84
+    times, the National Park Service 65, the Census Bureau 50, the Holocaust Memorial Museum 31.
+    **They are REPORTED SEPARATELY rather than excused** — a card resting entirely on one ministry's
+    site is thin however official the ministry — so `INSTITUTIONAL` sends them to a `one-institution`
+    note and the failure list drops to **116**, which is the finding the rule exists for: before the
+    split, `jeremy b. rutter` (39 cards, the Dartmouth course site the Greece audit names) sat in a
+    list of 431 where nobody would read it. **The list is DECLARED, never pattern-matched** — "anything
+    ending in Museum or Bureau" would quietly excuse a real author — so add an entry only after
+    reading a card that cites it.
   · **IT IS A REPORT TOOL RUN BY HAND AND IS DELIBERATELY NOT IN THE CI FAST GATE.** Over the whole
     corpus it finds a large standing backlog on the first and last checks — the Greece collection's
-    early decks rest on one Dartmouth course site and on the French excavation reports, whose
-    substitutes are not reachable from this sandbox (the seven measured routes are in
-    `docs/greece-audit-2026-09.md`). Run it with `--prefix=` over the cards a batch touches. Not part
-    of the site.
+    early decks rest on one Dartmouth course site and on the French excavation reports (the seven
+    measured routes are in `docs/greece-audit-2026-09.md`). **That file's "no substitute is
+    reachable" was re-measured in Sep 2026 and four more routes DO open** — Europe PMC (291
+    open-access Aegean hits), DOAJ (44 for *minoan crete*, against the one thin query first tried),
+    **`persee.fr` INCLUDING ITS SEARCH** (`/search?ta=article&q=…` over plain HTTP, proved a real
+    search by a nonsense query returning nothing, with `/doc/<id>` serving the whole article — BCH,
+    CRAI and Ktèma, the French School at Athens' own record of Malia and Knossos) and
+    `chs.harvard.edu`. JSTOR still serves a Client Challenge under a 200 and `ascsa.edu.gr` refuses.
+    **What they carry is the archaeological SCIENCE and the French excavation record**, where the
+    Rutter citations carry pottery sequences and palace phasing — so a substitute is found claim by
+    claim and some claims still have none (`gr-001`'s Cycladic longboats were searched for across
+    all four and found in none). **The re-sourcing is a content pass, card by card, not a
+    substitution table**, and keeping Rutter for a claim nothing else states is the right answer
+    rather than a failure. Run it with `--prefix=` over the cards a batch touches. Not part of the
+    site.
 - `.claude/check-questions.js` — the card QUESTION house rules, measured over the shipped `data.js`:
   `node .claude/check-questions.js [--verbose]`, exit 1 on any violation, so it guards a batch the way
   `check-style.js` does. Four rules — **one sentence**; **understandable on its own** (a question may not

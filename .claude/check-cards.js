@@ -128,7 +128,32 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
 /* An ancient author is a WITNESS, not a researcher (the same distinction card-focus.js
    draws), so the two are counted apart.  The list is of authors the collections actually
    cite; add to it rather than loosening the pattern. */
-const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius)\b/i;
+const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|sallust|florus|historia augusta|eusebius|julius caesar|caesar|kautilya|zosimus|procopius|ammianus|cassius dio|orosius)\b/i;
+
+/* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
+   the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,
+   and it counted a DATA PUBLISHER the same way — so a geography card citing the World Bank for its
+   population, its area and its GDP was reported as resting three sources on one author. Measured over
+   the corpus, that shape was **274 of the 431 findings**: the World Bank 84 times, the National Park
+   Service 65, the Census Bureau 50, the Holocaust Memorial Museum 31.
+   THEY ARE REPORTED SEPARATELY RATHER THAN EXCUSED. A concentration on one institution is still worth
+   seeing — a card resting entirely on one ministry's site is thin however official the ministry — so it
+   becomes a NOTE under its own heading and stops drowning the finding rule 1 exists for, which is a
+   card whose apparatus is one scholar. Before the split, `jeremy b. rutter` (39 cards, the Dartmouth
+   course site the Greece audit names) sat in a list of 431 where nobody would read it.
+   DECLARED, never pattern-matched. "Anything ending in Museum or Bureau" would quietly excuse a real
+   author, and the point of a declared list is that adding to it is a decision somebody made. Add an
+   entry only after reading a card that cites it. */
+const INSTITUTIONAL = new Set([
+  "world bank", "u.s. census bureau", "united nations statistics division", "un general assembly",
+  "un security council", "office of the historian", "united states department of state",
+  "national park service", "historic american buildings survey", "smithsonian national museum of natural history",
+  "united states holocaust memorial museum", "national diet library", "american school of classical studies at athens",
+  "institute for the study of the ancient world", "digital egypt for universities",
+  "ministère de la culture", "ministère de la culture (france)", "government of the netherlands",
+  "government of anguilla", "governorate of vatican city state", "statistics jersey",
+  "administration supérieure des îles wallis et futuna",
+]);
 
 /* The author field of a Chicago note is what stands before the first quoted title.  A
    work with no author (a museum record, an institutional page) falls back to the text
@@ -202,8 +227,11 @@ for (const c of cards) {
     if (!k) continue;
     (ANCIENT.test(a) ? ancient : modern)[k] = ((ANCIENT.test(a) ? ancient : modern)[k] || 0) + 1;
   }
-  for (const [k, n] of Object.entries(modern))
-    if (n > 2) fails.push(["over-cited", `${id}: ${k} in ${n} of ${srcs.length} sources`, id]);
+  for (const [k, n] of Object.entries(modern)) {
+    if (n <= 2) continue;
+    if (INSTITUTIONAL.has(k)) notes.push(["one-institution", `${id}: ${k} in ${n} of ${srcs.length} sources`, id]);
+    else fails.push(["over-cited", `${id}: ${k} in ${n} of ${srcs.length} sources`, id]);
+  }
   for (const [k, n] of Object.entries(ancient))
     if (n > 2 && n / srcs.length >= 0.5)
       notes.push(["one-witness", `${id}: ${k} carries ${n} of ${srcs.length} sources`, id]);
