@@ -2979,3 +2979,79 @@ Caesar shift, which is what gave the volume and article number away.
 **AND cnh-210 WAS RENAMED IN THE PLAN.** Its line read *Qin Shi Huang and the search for
 immortality*, and the emperor already has `cnh-192`; the answer term a reader can be asked for is
 **Xu Fu**, so the card is his and the line now says so.
+
+## cnh-211 – cnh-220, the end of the Qin and the founding of the Han (Sep 2026)
+
+Two cards close the Qin deck (`col-7`) and eight open Western Han (`col-10`). All ten are
+narrative political history, which is a different sourcing problem from the ten before them and
+produced a different apparatus.
+
+**ONE VOLUME CARRIES ALL TEN, AND KNOWING THAT UP FRONT IS MOST OF THE WORK.** Chavannes' second
+volume of the *Mémoires historiques* holds chapters V–XII — the Qin annals, Xiang Yu, Gaozu and
+Empress Lü — so every card in this batch rests on a primary translation that is already on disk.
+The pages, all verified against the volume's own running heads: the Shaqiu plot 191–93; the fall
+of the Qin 204–5 and 213–18; Xiang Yu's origins 247–48, Julu 267, Xin'an 273, the verdict 322–23;
+the Feast at Hong Gate 274–82; Pengcheng 365 and the Honggou treaty 377; Gaozu 324–25, the three
+articles of law 353, the three heroes 383–84, the Great Wind Song 397; the founding settlement
+380–82; Gaixia 316–22; Empress Lü 406–7, 409–10, the white-horse oath 414, and the verdict on her
+years 441–42.
+
+**THE FIFTH SOURCE IS NOT A SCIENCE PAPER HERE, AND LOOKING FOR ONE IS WASTED TIME.** The Qin
+batch before this could reach for archaeometry — mercury over the tomb, isotopes in a mass grave,
+chromium on bronze weapons. A palace conspiracy, a banquet and a battle have been MEASURED by
+nobody, and an OpenAlex sweep filtered to open access returns predatory-publisher essays,
+self-deposited Zenodo preprints and academia.org uploads for every one of these subjects. **What
+answers instead is another out-of-copyright historian**, and the one found for this batch is
+**Henri Cordier, *Histoire générale de la Chine*, vol. 1 (1920)**, whose pages 215–22 carry the
+murder of the Second Emperor, Ziying, the sack of Xianyang, Gaixia, the accession of 28 February
+202 BCE, the twenty kingdoms of the interregnum, Gaozu's death on 1 June 195 and the whole of
+Empress Lü's regency. Its dates agree with Chavannes' own chronological notes where the two
+overlap, which is what made it usable rather than merely available.
+
+**THE TWO-SOURCES-PER-AUTHOR CAP DECIDES THE SHAPE OF EVERY CARD IN THE BATCH.** Chavannes twice,
+Giles once, Mayers once, Cordier once. Where a card needed a second Giles instead of a Cordier it
+took one — `cnh-217` cites the *Hsiang Chi* and *Fan Ts‘êng* entries, since the banquet is a
+scene the biographical dictionary tells from two sides. **A single citation may carry two page
+ranges**, which is how a card gets four Chavannes passages out of two sources.
+
+**GILES AND MAYERS FILE THESE PEOPLE UNDER NAMES A SEARCH FOR THE MODERN ROMANISATION WILL NOT
+FIND.** Xiang Yu is **Hsiang Chi** in both (Giles no. 690, pp. 274–76; Mayers no. 165, pp. 51–52);
+Gaozu is **Liu Pang** (Giles no. 1334, pp. 513–15; Mayers no. 414, p. 133); Zhao Gao is Giles
+no. 165, pp. 67–68 and Mayers no. 43, pp. 13–14; Fan Zeng is **Fan Ts‘êng**, Giles no. 544, p. 218;
+Fan Kuai is **Fan Kw'ai**, Mayers no. 126, pp. 38–39; Ziying is **Tzu Ying**, Giles p. 798.
+**Giles has no headword for Empress Lü at all** — Mayers does, no. 458, pp. 144–45 — so her card
+reaches Giles only through the last sentence of the *Liu Pang* entry, which says he died leaving
+his consort regent of the empire. Mayers' page numbers are found by the running head
+`<n> CHINESE READER'S MANUAL`, which is printed on even pages only, so a hit between head *n* and
+head *n+2* is on page *n+1*.
+
+**MAYERS PART III IS A DATE TABLE AND IS THE RIGHT SOURCE FOR A DYNASTY'S SPAN.** The Han tables
+(pp. 370–74) print *Claimed the Empire from B.C. 206; actually ascended the Throne B.C. 202*,
+which is the discrepancy `cnh-213`'s date line has to state, and they name the Western and Eastern
+halves by their capitals. **Do not reach for a journal article for a fact a chronological table
+states outright.**
+
+**A DATE LINE WENT WRONG A FIFTH WAY AND WAS CAUGHT BY READING IT BACK.** `cnh-212` carries
+`Ziying reigned | 46 days`, which is a number in a labelled row and is *not* a year — `cardYears`
+correctly ignores it, so the card sorts at 209 BCE from the row above. Every one of the ten was
+read back through `cardYears` before committing, and all ten land where the deck needs them.
+`cnh-216` sorts at 247 BCE because its first row is Gaozu's birth, which is right for a person card
+and is deliberately earlier than the cards around it.
+
+**AN ADDED SENTENCE CAN INTRODUCE A FACT THE SOURCES DO NOT CARRY, AND THE PLACE IT HAPPENS IS THE
+LENGTH TRIM.** `cnh-219` came back at 259 words, and a clause added to reach the bar said the
+court sat at Luoyang *where the emperor had been proclaimed* — he was proclaimed north of the Si
+river, not at Luoyang. Caught by re-reading rather than by any check. **Padding to a word count is
+where an uncited claim gets in**; write the extra clause from the same page as the sentence it
+extends.
+
+**THE PICTURE SEARCH IS THE STEP THAT RATE-LIMITS.** Ten cards and nine glossary terms mean
+nineteen `suggest-image` calls, after which `commons.wikimedia.org/w/api.php` answers *You are
+making too many requests to the API* to everything, including a plain search. Do the picture pass
+in one block, spaced, rather than card by card, and do the offline work (docs, changelog, version)
+while the quota recovers.
+
+**AND `Han founding settlement` IS THE PLAN'S OWN NAME FOR A TOPIC THAT HAS NO STANDARD TERM.**
+The alternative considered was *junguo system*, the commandery-and-kingdom compromise, which is a
+better teaching term and is in nothing openable from here under that name — so the plan's line
+stands, and the glossary entry defines the settlement rather than the term.

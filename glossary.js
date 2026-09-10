@@ -3443,7 +3443,16 @@ window.GLOSSARY = {
 "Meng_Tian": "Meng Tian was a general of the Qin in China who died in 209 BCE, made commander-in-chief of its forces in 221 BCE, the year the empire was proclaimed.<sup class=\"fn\" data-fn=\"1\"></sup> He was sent north with three hundred thousand men against the peoples of the steppe, took the land inside the great bend of the Yellow River, organised it into prefectures filled with deported convicts, and built a wall and forts along the new frontier.<sup class=\"fn\" data-fn=\"2\"></sup> After the emperor's death he fell under suspicion and was forced to take his own life; tradition also makes him the inventor of the writing brush.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Qin_long_walls": "The Qin long walls are the rammed-earth frontier walls raised and linked along the northern border of the first Chinese empire from 214 BCE, built by the army that had just taken the country inside the Yellow River bend.<sup class=\"fn\" data-fn=\"1\"></sup> They were neither the first walls of the kind nor a single line, since rival states had built such walls earlier, one of them against Qin itself.<sup class=\"fn\" data-fn=\"2\"></sup> Their solid earthen platforms differ sharply from the hollow brick towers of much later work, and survey of a surviving Qin line shows watchtowers whose heights and plans vary from sector to sector.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Mausoleum_of_the_First_Qin_Emperor": "The Mausoleum of the First Qin Emperor is the burial complex raised for him below Mount Li, east of modern Xi'an in China, under a mound planted so that it should look like a hill.<sup class=\"fn\" data-fn=\"1\"></sup> The annals say more than seven hundred thousand men worked on it, that the ground was dug down to the water table, and that mercury was made into the rivers and the sea beneath a ceiling of heavenly signs.<sup class=\"fn\" data-fn=\"1\"></sup> Measurement above the unopened mound finds atmospheric mercury well above the local background, and a mass grave nearby holds men in iron leg shackles whose diet points to origins far to the south.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Xu_Fu": "Xu Fu was a magician from the state of Qi who persuaded the First Emperor of China to send an expedition to sea in 219 BCE in search of the immortals and the drug that prevents death.<sup class=\"fn\" data-fn=\"1\"></sup> He sailed with several thousand young men and women towards three mountains believed to stand in the Eastern Sea, and by a fuller account was later given three thousand more, with craftsmen and seed grain, after reporting the demands of a sea god.<sup class=\"fn\" data-fn=\"2\"></sup> That account has him find a calm and fertile country, settle there, make himself king and never return.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Xu_Fu": "Xu Fu was a magician from the state of Qi who persuaded the First Emperor of China to send an expedition to sea in 219 BCE in search of the immortals and the drug that prevents death.<sup class=\"fn\" data-fn=\"1\"></sup> He sailed with several thousand young men and women towards three mountains believed to stand in the Eastern Sea, and by a fuller account was later given three thousand more, with craftsmen and seed grain, after reporting the demands of a sea god.<sup class=\"fn\" data-fn=\"2\"></sup> That account has him find a calm and fertile country, settle there, make himself king and never return.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Shaqiu_plot": "The Shaqiu plot was the conspiracy of 210 BCE that diverted the succession to the first emperor of a unified China after he died on progress in the east.<sup class=\"fn\" data-fn=\"1\"></sup> A sealed letter summoning his eldest son to conduct the funeral had not yet left the office of sealed orders when he died, and the eunuch who controlled that office, the chief minister and the emperor's youngest son destroyed it together.<sup class=\"fn\" data-fn=\"1\"></sup> In its place they produced a testamentary decree naming the youngest son heir and a forged order requiring the eldest, and the general beside him, to take their own lives.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Fall_of_the_Qin": "The fall of the Qin is the collapse of the first Chinese empire between 209 and 206 BCE, three years after the death of its founder and fifteen after its founding.<sup class=\"fn\" data-fn=\"1\"></sup> Revolt broke out across the kingdoms the Qin had swallowed, and the court met it by arming pardoned convicts; the eunuch who dominated the second emperor then had him killed and set up a nephew as king rather than emperor, on the ground that the empire no longer existed.<sup class=\"fn\" data-fn=\"1\"></sup> That king reigned 46 days before surrendering the imperial seal, and was killed with the whole ruling house when the victors quarrelled over the spoils.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Chu–Han_Contention": "The Chu–Han Contention was the war of 206 to 202 BCE for the empire the Qin dynasty had left, fought between Xiang Yu, king of Western Chu, and Liu Bang, king of Han.<sup class=\"fn\" data-fn=\"2\"></sup> It began in a quarrel over the division of the conquered country, in which Liu Bang was sent to the far west while the land inside the passes went to three former Qin generals.<sup class=\"fn\" data-fn=\"2\"></sup> A treaty of 203 BCE dividing the empire at a canal was broken within months by the side that had asked for it, and the war was decided at Gaixia.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Xiang_Yu": "Xiang Yu, personal name Ji, was the general from Chu who broke the armies of the Qin dynasty and then lost the empire in the war that followed.<sup class=\"fn\" data-fn=\"2\"></sup> Grandson of a Chu general and raised by an uncle, he gave up both letters and swordsmanship, saying that fencing was the fight against a single man, and rose in the revolt of 209 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Victorious at Julu, he massacred more than 200,000 soldiers who had surrendered, took the title of hegemon-king, parcelled the empire out among the rebel leaders, and killed himself after his defeat at Gaixia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Emperor_Gaozu_of_Han": "Emperor Gaozu of Han is the temple name of Liu Bang, founder of the Han dynasty and the first man of no family to rule China.<sup class=\"fn\" data-fn=\"2\"></sup> A village officer in the district of Pei, he took a party of convict labourers into the hills when too many died on the road, and was made duke of his own district when revolt broke out in 209 BCE.<sup class=\"fn\" data-fn=\"2\"></sup> Entering the Qin capital first, he cut the imperial code to three articles, on killing, wounding and theft; he took the throne in 202 BCE and died seven years later.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Feast_at_Hong_Gate": "The Feast at Hong Gate was a banquet held in 206 BCE at which Xiang Yu might have killed his rival Liu Bang and did not.<sup class=\"fn\" data-fn=\"2\"></sup> Warned by the host's own uncle, the guest came to the camp to explain himself; the counsellor Fan Zeng raised his jade ring three times as a signal that was ignored, and a sword dance staged to reach the guest was blocked by that same uncle.<sup class=\"fn\" data-fn=\"1\"></sup> Liu Bang left on the pretext of the privy and escaped by a footpath, while his counsellor stayed behind to present the parting gifts and make his excuses.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Battle_of_Gaixia": "The Battle of Gaixia, fought in 202 BCE in what is now Anhui, ended the four-year war for the Chinese empire that followed the fall of the Qin dynasty.<sup class=\"fn\" data-fn=\"2\"></sup> Xiang Yu was entrenched with hungry troops and encircled several ranks deep when he heard the songs of his own country sung on every side of the enemy camp, and took it to mean that his homeland had gone over.<sup class=\"fn\" data-fn=\"1\"></sup> He broke out with about eight hundred horsemen, was reduced by pursuit and a misdirection to 28, refused a boat that would have carried him home, and killed himself.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Han_founding_settlement": "The Han founding settlement is the arrangement of the Chinese empire made in 202 BCE by the founder of the Han dynasty in the months after his victory.<sup class=\"fn\" data-fn=\"1\"></sup> The commanders who had won the war were paid in kingdoms across the east, the armies were broken up and every soldier sent home under a grant of years free of dues, and a general amnesty followed.<sup class=\"fn\" data-fn=\"1\"></sup> The capital was then moved west into the land inside the passes, leaving a divided state in which the court governed the west directly while kings held much of the east.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Empress_Lü": "Empress Lü was the wife of the founder of the Han dynasty and the effective ruler of China for fifteen years after his death in 195 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> The annals call her hard and inflexible, credit her with helping to secure the empire, and record that most of the great officers executed in the reign were killed on her authority rather than her husband's.<sup class=\"fn\" data-fn=\"1\"></sup> She poisoned her husband's favourite's son, mutilated the favourite herself, governed in her own name through her son and then two infant emperors, and saw her kinsmen destroyed as soon as she was dead.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5092,7 +5101,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Meng_Tian": "d. 209 BCE",
 "Qin_long_walls": "from 214 BCE",
 "Mausoleum_of_the_First_Qin_Emperor": "sealed 210 BCE",
-"Xu_Fu": "3rd century BCE"
+"Xu_Fu": "3rd century BCE",
+"Shaqiu_plot": "210 BCE",
+"Fall_of_the_Qin": "209–206 BCE",
+"Chu–Han_Contention": "206–202 BCE",
+"Xiang_Yu": "233–202 BCE",
+"Emperor_Gaozu_of_Han": "247–195 BCE",
+"Feast_at_Hong_Gate": "206 BCE",
+"Battle_of_Gaixia": "202 BCE",
+"Han_founding_settlement": "202 BCE",
+"Empress_Lü": "d. 180 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7106,7 +7124,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Meng_Tian": ["Meng T'ien","Mêng T'ien"],
 "Qin_long_walls": ["Qin walls","Qin wall"],
 "Mausoleum_of_the_First_Qin_Emperor": ["mausoleum of Qin Shi Huang","Qin Shi Huang's mausoleum","Qin Shihuang Mausoleum"],
-"Xu_Fu": ["Hsü Fu","Xu Shi","Hsü Shih"]
+"Xu_Fu": ["Hsü Fu","Xu Shi","Hsü Shih"],
+"Shaqiu_plot": ["Sand Dune plot","Shaqiu conspiracy"],
+"Fall_of_the_Qin": ["collapse of the Qin","Qin collapse"],
+"Chu–Han_Contention": ["Chu-Han Contention","Chu–Han war","Chu-Han war"],
+"Xiang_Yu": ["Xiang Ji","Hsiang Yü","Hsiang Chi"],
+"Emperor_Gaozu_of_Han": ["Liu Bang","Gaozu of Han","Han Gaozu"],
+"Feast_at_Hong_Gate": ["Hongmen Banquet","Banquet at Hongmen","Hong Gate banquet"],
+"Battle_of_Gaixia": ["Gaixia","Kai-hsia"],
+"Han_founding_settlement": ["Han settlement of 202 BCE"],
+"Empress_Lü": ["Lü Hou","Lü Zhi","Empress Dowager Lü","Lu Hou"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10590,7 +10617,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Meng_Tian": ["person","warfare","history","china"],
 "Qin_long_walls": ["building","warfare","archaeology","history","china"],
 "Mausoleum_of_the_First_Qin_Emperor": ["place","building","archaeology","history","china"],
-"Xu_Fu": ["person","mythology","religion","history","china"]
+"Xu_Fu": ["person","mythology","religion","history","china"],
+"Shaqiu_plot": ["event","history","politics"],
+"Fall_of_the_Qin": ["event","history","warfare","politics"],
+"Chu–Han_Contention": ["event","warfare","history"],
+"Xiang_Yu": ["person","ruler","warfare","history"],
+"Emperor_Gaozu_of_Han": ["ruler","person","history","politics"],
+"Feast_at_Hong_Gate": ["event","history","politics"],
+"Battle_of_Gaixia": ["battle","warfare","history"],
+"Han_founding_settlement": ["event","politics","history"],
+"Empress_Lü": ["ruler","person","politics","history"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
