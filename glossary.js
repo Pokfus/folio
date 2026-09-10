@@ -3434,7 +3434,17 @@ window.GLOSSARY = {
 "Macedonian_phalanx": "The Macedonian phalanx was the infantry formation devised by Philip II in the 350s BCE, in which men armed with a very long pike stood sixteen ranks deep and advanced as a single body.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius calculates that the pikes of the first five ranks all reached past the front, so that five points faced any enemy who met one man of the leading rank, and held it irresistible in a frontal attack.<sup class=\"fn\" data-fn=\"2\"></sup> He also explains why Rome beat it: it needs flat, bare ground without ditches or banks, and an enemy who declines to come down into such country can avoid it altogether.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Philippics": "The Philippics are the speeches in which Demosthenes urged Athens to act against Philip II of Macedon, and the name has since been used of any sustained political attack on a person.<sup class=\"fn\" data-fn=\"1\"></sup> Their argument is that the danger is Athenian delay rather than Macedonian strength, the First Philippic of 351 BCE holding that the position is bad only because nothing has been done, and so can be mended.<sup class=\"fn\" data-fn=\"1\"></sup> By the Third Philippic of 341 the tone has hardened into abuse, with Philip called neither a Greek nor a barbarian from anywhere respectable but a knave from Macedonia.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Sarissa": "The sarissa was the pike carried by the Macedonian infantry, far longer than the hoplite spear it replaced and held in both hands rather than one.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius gives its length as sixteen cubits by the original design and fourteen in practice, of which four are taken up by the grip and by the counterweight, leaving about ten projecting ahead of each man.<sup class=\"fn\" data-fn=\"1\"></sup> Holding it in both hands changed the rest of the equipment, since the large hoplite shield gave way to a smaller one slung from the shoulder and the soldier could no longer cover himself as he chose.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Third_Sacred_War": "The Third Sacred War was fought over the shrine of Apollo at Delphi from the 350s BCE, and it ended by bringing the king of Macedon into the religious politics of central Greece.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a court case, the Phocians being fined by the Amphictyonic Council for cultivating consecrated land and seizing the shrine rather than paying, then hiring mercenaries with its treasure.<sup class=\"fn\" data-fn=\"1\"></sup> Philip II finished it in 346 BCE, and the settlement expelled the Phocians from the Council, broke their cities into villages and gave their two votes to Philip and his descendants.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Third_Sacred_War": "The Third Sacred War was fought over the shrine of Apollo at Delphi from the 350s BCE, and it ended by bringing the king of Macedon into the religious politics of central Greece.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a court case, the Phocians being fined by the Amphictyonic Council for cultivating consecrated land and seizing the shrine rather than paying, then hiring mercenaries with its treasure.<sup class=\"fn\" data-fn=\"1\"></sup> Philip II finished it in 346 BCE, and the settlement expelled the Phocians from the Council, broke their cities into villages and gave their two votes to Philip and his descendants.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Vinland": "Vinland is the name Icelandic sagas give to the country in North America that Norse voyagers from Greenland reached about the year 1000, and which they said was named for the wild grapes found growing there.<sup class=\"fn\" data-fn=\"1\"></sup> The sagas place it beyond two other coasts, Helluland and Markland, describe winters mild enough for cattle to be left without fodder, and record an attempt at settlement abandoned after fighting with the people already living there.<sup class=\"fn\" data-fn=\"1\"></sup> The one confirmed Norse site in the Americas, L'Anse aux Meadows in northern Newfoundland, has produced wood felled in the exact year 1021 and served as a base from which places further south were explored.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Feudalism": "Feudalism is the term modern historians use for the medieval European arrangements in which land, called a fief, was held from a lord in return for service, usually a mounted warrior's.<sup class=\"fn\" data-fn=\"2\"></sup> The bond was made by homage and an oath of fealty and was meant to run both ways: a letter written about 1020 by Fulbert of Chartres sets out what a vassal owes and says the lord owes the same.<sup class=\"fn\" data-fn=\"1\"></sup> The word is contested, since the model was built up by later jurists reading the 12th-century <i>Libri feudorum</i>, and Susan Reynolds argued in 1994 that the medieval evidence fits it only when forced.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Manorialism": "Manorialism is the term for the organisation of land and labour on the medieval European estate, in which a lord's own land, the demesne, was worked by tenants who held their holdings of him.<sup class=\"fn\" data-fn=\"1\"></sup> In English records their obligations fall under three heads — week-work of a few days each week, boon-work at the busy seasons, and payments in money or in kind — and the arable usually lay in open fields as scattered strips.<sup class=\"fn\" data-fn=\"1\"></sup> A manorial court enforced the lord's claims on his unfree tenants, fining them for poor work or for marrying without leave, and also settled the villagers' own quarrels over animals, boundaries and debts.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Norman_Conquest": "The Norman Conquest was the invasion and takeover of England by Duke William of Normandy, who landed in 1066, defeated and killed King Harold at Hastings, and was crowned at Westminster that midwinter.<sup class=\"fn\" data-fn=\"1\"></sup> Holding the country took much longer than winning it: castles went up across England in the following year, and William's own laws fined the whole hundred in which a Frenchman was found murdered if the killer could not be produced.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> By 1086 the survey known as Domesday Book was setting down who had held each estate in King Edward's day beside who held it then, which made it a register of the change of landholders.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Domesday_Book": "Domesday Book is the survey of landholding in England that William the Conqueror ordered at Christmas 1085 and had carried out the following year, arranged county by county and within each county by landholder.<sup class=\"fn\" data-fn=\"1\"></sup> Sworn inquests in the local courts asked of each manor what it was called, who held it under King Edward and who held it in 1086, how many ploughs and people it had, and what it was worth.<sup class=\"fn\" data-fn=\"2\"></sup> It survives as two volumes, omits London, Winchester and the far north, and was already being called Domesday within a century, by metaphor the day of judgment, because there was no appeal from its verdict.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Crusades": "The Crusades were wars authorised by the papacy in which anyone who took the vow and wore a cross received a remission of sins, beginning with the expedition Urban II proclaimed at Clermont in 1095.<sup class=\"fn\" data-fn=\"1\"></sup> A crusader also gained a legal status that made a long absence survivable: his family, lands and goods stood under church protection, lawsuits against him were suspended and the interest on his debts was cancelled.<sup class=\"fn\" data-fn=\"1\"></sup> Expeditions to the eastern Mediterranean ran until the fall of Acre in 1291, but the same privileges were granted for war in the Baltic, in Languedoc and against the emperor Frederick II.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"First_Crusade": "The First Crusade was the expedition proclaimed by Pope Urban II at the council of Clermont in 1095, which left western Europe the following year and captured Jerusalem on 15 July 1099.<sup class=\"fn\" data-fn=\"1\"></sup> It was the only crusade to the eastern Mediterranean that took the city it was called for, and the Latin principalities it founded, at Edessa, Antioch and Jerusalem, gave the later expeditions their purpose.<sup class=\"fn\" data-fn=\"1\"></sup> Its violence is recorded on both sides: an eyewitness describes the conquerors riding in blood in the precinct of the Temple, and the Jewish chronicler of Mainz describes the destruction of the Rhineland communities on the way out in 1096.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Knights_Templar": "The Knights Templar were a religious order founded at Jerusalem about 1118, whose brothers took monastic vows of poverty, chastity and obedience and also fought.<sup class=\"fn\" data-fn=\"1\"></sup> Given quarters beside the Lord's Temple by the king of Jerusalem, they were named the Poor Knights of Christ of the Temple, and a council at Troyes gave them a written rule in 1129.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Donations across Europe made the order wealthy; after the loss of Acre in 1291 the king of France had its members arrested and tortured into confessing heresy, and papal decrees of 1312 abolished it and gave its property to the Hospitallers.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Castle": "A castle is the fortified residence of a lord, built to serve at once as a stronghold, as a household and as the centre from which a district was held and governed.<sup class=\"fn\" data-fn=\"1\"></sup> The earliest European examples were earth and timber: a mound thrown up from its own ditch, carrying a tower, with a banked enclosure or base court beside it; stone keeps followed where a holding was secure.<sup class=\"fn\" data-fn=\"1\"></sup> Because a castle held a district with a small garrison it was a political instrument as much as a military one, which is why rulers seized and demolished them and why the concentric plans of the 13th century cost so much.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Gothic_architecture": "Gothic architecture is the style of building that took shape in northern France in the 12th century and spread across Europe, chiefly in churches.<sup class=\"fn\" data-fn=\"1\"></sup> It is defined by structure rather than ornament: the pointed arch, the diagonal rib and the flying buttress gather a stone vault's weight onto a few piers and carry its outward thrust beyond the wall, so that the wall between the piers can be opened for glass.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The name is not medieval but a term of contempt from Renaissance architects for whatever departed from classical form, and the structural account of the style was only worked out in the 19th century.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5074,7 +5084,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Macedonian_phalanx": "from 359 BCE",
 "Philippics": "351 BCE – 341 BCE",
 "Sarissa": "from 359 BCE",
-"Third_Sacred_War": "356 BCE – 346 BCE"
+"Third_Sacred_War": "356 BCE – 346 BCE",
+"Vinland": "c. 1000 CE",
+"Feudalism": "c. 900 – 1300 CE",
+"Manorialism": "c. 800 – 1500 CE",
+"Norman_Conquest": "1066 – 1086 CE",
+"Domesday_Book": "1086 CE",
+"Crusades": "1095 – 1291 CE",
+"First_Crusade": "1095 – 1099 CE",
+"Knights_Templar": "1118 – 1312 CE",
+"Gothic_architecture": "12th – 16th century"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7079,7 +7098,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Politics_(Aristotle)": ["Aristotle's Politics"],
 "Ladder_of_love": ["ascent of love","Platonic ascent"],
 "Demosthenes_(orator)": ["Demosthenes the orator"],
-"Philippics": ["Philippic"]
+"Philippics": ["Philippic"],
+"Vinland": ["Wineland","Vínland"],
+"Feudalism": ["feudal"],
+"Manorialism": ["manorial","manor","manorial system"],
+"Domesday_Book": ["Domesday"],
+"Crusades": ["crusade","crusader","crusading"],
+"Knights_Templar": ["Templar","Templars","Order of the Temple"],
+"Gothic_architecture": ["Gothic style"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10554,7 +10580,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Macedonian_phalanx": ["concept","warfare","history","greece"],
 "Philippics": ["text","literature","politics","history","greece"],
 "Sarissa": ["object","warfare","technology","history","greece"],
-"Third_Sacred_War": ["event","war","religion","history","greece"]
+"Third_Sacred_War": ["event","war","religion","history","greece"],
+"Vinland": ["place","history","europe","north america","migration","archaeology"],
+"Feudalism": ["concept","history","europe","politics","law","society"],
+"Manorialism": ["concept","history","europe","agriculture","law","society"],
+"Norman_Conquest": ["event","history","europe","england","warfare","politics"],
+"Domesday_Book": ["text","history","europe","england","law","institution"],
+"Crusades": ["event","history","europe","religion","warfare","politics"],
+"First_Crusade": ["event","history","europe","religion","warfare","syria"],
+"Knights_Templar": ["institution","history","europe","religion","warfare","france"],
+"Castle": ["building","history","europe","architecture","warfare","england"],
+"Gothic_architecture": ["architecture","history","europe","building","art","france"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
