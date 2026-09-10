@@ -1499,6 +1499,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the religion**; measured over the whole corpus that card is the only one where *Islam* is followed
     by a capitalised word, and it is recorded rather than fixed, every write-round either renaming a
     historical person or removing him from his own city's founding.
+    **AND THE FIFTH LEG FAILS ON TWO CAPITALS IN SIX, WHERE THE STATUTE REPLACES IT** (Sep 2026, C3):
+    Japan's 1946 constitution names no capital and the Philippine constitution of 1987 names none
+    either, so Tokyo is the capital by the emperor's move of 1868 and by nothing written down, and
+    Manila by **Presidential Decree No. 940 of 24 June 1976** — which also names the metropolitan
+    region the permanent seat and so explains that card's UNdata footnote — after **Republic Act No.
+    333 of 17 July 1948** had moved the capital to Quezon City in the first place. Both are open at
+    `lawphil.net`, where `officialgazette.gov.ph` and `elibrary.judiciary.gov.ph` are shut.
+    **AND THE WMO HAS NO STATION IN SOME COUNTRIES AT ALL**, the Democratic Republic of the Congo
+    among them, and there the climate comes out of the SAME open paper that carries the landform —
+    `gw-515`'s crescent along Pool Malebo, its Arenoferrasol sands over red sandstone, its seasons and
+    its shortening rainy season are one article. **Look in the geology paper before hunting a second
+    climate source.**
+    **AND A THREE-DIGIT CE YEAR IS INVISIBLE TO `cardYears`, SILENTLY** — the third route to a wrong
+    sort year found in this pass after `c. 1200s` and `1620s`: the parser matches `1\d{3}` or
+    `20\d{2}`, so `641` and `969` yield nothing and `gw-513` Cairo sorted at **1168**, the only
+    four-digit year on its own date line. Writing the era out (`641 CE`) parses and is house style
+    anyway; reading the sort year back before committing is what caught it.
+    **AND `gw-511` MEXICO CITY IS THE FIFTH PERMANENT RULE-2 CARD, FOR THE MIRROR OF `gw-213`'s
+    REASON**: the grid's first row is Country, its value is *Mexico*, and the abstract's own opening
+    bold answer term contains it — measured, the word occurs there once and nowhere else, and nothing
+    can be written round it. **AND `Stanley,_Falkland_Islands` CARRIES THE EXPLICIT ALIAS `Stanley`**,
+    so Henry Morton Stanley links to a town of two thousand people in the South Atlantic; recorded
+    rather than fixed on the `Islam Khan` reasoning above, while `Republic` claiming the bare surface
+    was written round by naming Republic Act 333 by its date. **AND J-STAGE IS OPEN, THROUGH ITS
+    SEARCH API** (`api.jstage.jst.go.jp/searchapi/do?service=3&text=…`, then the `_pdf` path), which is
+    how Tokyo's incised-valley fills were cited; `link.springer.com`, `sciencedirect.com`, `mdpi.com`,
+    `journals.openedition.org` and the Egyptian Knowledge Bank's `ejpasa.journals.ekb.eg` are all shut.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |

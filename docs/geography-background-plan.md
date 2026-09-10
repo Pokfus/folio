@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-10, batch C3 — six more capitals, and the fifth leg is not always a constitution**: `gw-511` Mexico City, `gw-512` Tokyo, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa and `gw-516` Hanoi, with all six date lines rewritten off the same research. Six again, for C2’s reason.
+
 - **2026-09-10, batch C2 — six capitals, and the history leg turns out to be a book**: `gw-505`
   Islamabad, `gw-506` Abuja, `gw-507` Brasília, `gw-508` Dhaka, `gw-509` Moscow and `gw-510` Addis
   Ababa, with all six date lines rewritten off the same research. Six rather than twelve, and the
@@ -390,6 +392,84 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C3 found
+
+**THE ANSWER TERM CAN CONTAIN THE COUNTRY’S NAME, AND THAT IS A PERMANENT RULE-2 CASE OF ITS OWN.**
+G18 put `gw-213` Gibraltar, `gw-214` Monaco and `gw-216` San Marino on the permanent list because the
+country, its capital and its largest city are one name; `gw-232` Vatican City joined them in G20.
+**`gw-511` Mexico City is the mirror of that and the fifth permanent entry**: the grid’s first row is
+`Country`, whose value is *Mexico*, and the abstract’s own opening bold answer term contains it, so
+the audit fires on the one sentence house rule requires. Measured after the batch, the whole abstract
+contains the word once and nowhere else. Nothing can be written round it.
+
+**A CAPITAL WITH NO WMO STATION TAKES ITS CLIMATE FROM THE SAME STUDY-AREA PAPER THAT CARRIES ITS
+LANDFORM.** C1 made the WMO the uniform first leg — 3,598 cities — and the index has **no station in
+the Democratic Republic of the Congo at all**, so `gw-515` had to be carried another way. The paper
+that answered is one open article on Kinshasa’s rainfall record, and it turned out to give the
+landform as well: the crescent along the southern shore of Pool Malebo, the flat ground at about
+300 m, the N’djili and N’sele, the Arenoferrasol sands over a Precambrian red-sandstone basement that
+breaks surface at the rapids, and then the seasons, the annual rainfall and the fact that the rainy
+season has been shortening. **Where the WMO has no station, look for the climate in the geology
+paper rather than for a second climate source.**
+
+**AND THE FIFTH LEG — THE CONSTITUTION — FAILS ON TWO OF SIX.** C2 promoted the Constitute Project to
+the recipe because a constitution says what a capital IS in law. **Japan’s 1946 constitution names no
+capital and the Philippine constitution of 1987 names none either**: Tokyo is the capital by the
+emperor’s move in 1868 and by nothing written down, and Manila is the capital by **Presidential
+Decree No. 940 of 24 June 1976**, which also names the metropolitan region the permanent seat and so
+explains the UNdata footnote. **Where the constitution is silent, the statute is the leg** — and for
+Manila there are two, since **Republic Act No. 333 of 17 July 1948** had moved the capital to Quezon
+City in the first place, which is the fact the card is actually about. Both are open at
+`lawphil.net`, where `officialgazette.gov.ph` and `elibrary.judiciary.gov.ph` are shut.
+
+**A THREE-DIGIT CE YEAR IS INVISIBLE TO `cardYears`, SILENTLY.** After `c. 1200s` and `1620s` in C1,
+this is the third route to a wrong sort year found in this pass and the quietest: the parser matches
+`1\d{3}` or `20\d{2}`, so **`641` and `969` yield nothing at all** and `gw-513` Cairo sorted at
+**1168**, the only four-digit year on its own date line. Writing the era explicitly (`641 CE`,
+`969 CE`) parses and is house style anyway. **Read the sort year back before committing**, which is
+what caught it.
+
+**THE OLD CAPITAL’S HISTORY IS A BOOK AGAIN, AND THE PERIOD AUTHOR IS A WITNESS OR A TRANSMITTER.**
+C2’s finding held for all six. `mos.ru` had already failed there; here `egymonuments.gov.eg` answers
+but serves its object pages through JavaScript, `inah.gob.mx`’s archaeological-zone pages are a
+JavaScript shell, `cdmx.gob.mx` is egress-blocked, and `gob.mx`, `diputados.gob.mx` and
+`senado.gob.mx` are 79–1,864-byte shells. What answered was **archive.org**: Stanley Lane-Poole’s
+*The Story of Cairo* for Fustat in 641, al-Askar in 751, Ibn Tulun’s al-Qatai about 860, al-Qahira in
+969 and the burning of Fustat in 1168; John Foreman’s *The Philippine Islands* for Soliman firing his
+own town and Legazpi’s council of 24 June 1571; and **Henry Morton Stanley’s own book for 9 April
+1882**, the day his party named the station at Kintamo. **Read the title page**: the Lane-Poole item
+is the second edition of 1906, not the first of 1902.
+
+**AND TWO CAPITALS PUBLISH ABOUT THEMSELVES AFTER ALL.** The Tokyo Metropolitan Government’s
+*Tokyo’s History, Geography, and Population* carries the landform, the area, the ward and island
+figures and a full dated history in one page — the one source of the batch that answers three legs at
+once. It is reached at `english.metro.tokyo.lg.jp/w/000-101-007591`, and **its page ids are
+unguessable**: the ids are found only by grepping another page’s own hrefs and fetching each to read
+its `<title>`.
+
+**J-STAGE IS OPEN AND ITS SEARCH API IS THE WAY IN.** `api.jstage.jst.go.jp/searchapi/do?service=3&text=…`
+returns Atom with English and Japanese titles, authors, journal, volume, pages and DOI, and the
+`_pdf` path serves the file — which is how Tokyo’s incised-valley fills came from the *Journal of the
+Sedimentological Society of Japan*. `link.springer.com` is a 3 KB challenge, so *Earth, Planets and
+Space* is unreachable by its own DOI; `sciencedirect.com` is 403; `journals.openedition.org` is behind
+the Anubis wall again; `mdpi.com` is 403; and **`ejpasa.journals.ekb.eg` — the Egyptian Knowledge
+Bank — refuses the connection outright**, on four consecutive attempts.
+
+**A DOI THAT 403s IS OPEN ONE HOST OVER, AND SO IS A DEAD ONE.** `doi.org/10.1073/pnas.2500095122`
+answers 403 through `pnas.org`, so the Templo Mayor obsidian paper is cited at its PMC copy;
+`doi.org/10.32454/…` for the Russian geology journal times out where the journal’s own article page
+answers 200, so that citation names the article page. **Sweep every citation URL before writing the
+JSON**, which is what found both.
+
+**AND THE AUTO-LINKER TOOK A SURNAME.** `Stanley,_Falkland_Islands` carries the explicit alias
+**`Stanley`**, so Henry Morton Stanley links to a town of two thousand people in the South Atlantic —
+the `Alofi` and `Liancourt_Rocks` collision in its sharpest form yet, a bare common surname claimed by
+a capital. It is **recorded rather than fixed**, on C2’s reasoning about `Islam` on Islam Khan: every
+write-round removes a man from the founding that is his. `Temple` (a Greek definition), `Water`,
+`Council` and `Settlement` all fired again and are already recorded; **`Republic` claims the bare
+surface**, so *Republic Act 333* linked to the political form and the sentence now names the act by
+its date instead.
 
 ## What C2 found
 
