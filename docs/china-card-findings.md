@@ -3047,9 +3047,29 @@ extends.
 
 **THE PICTURE SEARCH IS THE STEP THAT RATE-LIMITS.** Ten cards and nine glossary terms mean
 nineteen `suggest-image` calls, after which `commons.wikimedia.org/w/api.php` answers *You are
-making too many requests to the API* to everything, including a plain search. Do the picture pass
-in one block, spaced, rather than card by card, and do the offline work (docs, changelog, version)
-while the quota recovers.
+making too many requests to the API* to everything, including a plain search, and
+`upload.wikimedia.org` starts returning a 2,255-byte 429 in place of the file. Two things get past
+it. The ordinary file DESCRIPTION page (`commons.wikimedia.org/wiki/File:…`) keeps answering
+throughout and carries the shard, the licence and the author, so a URL can be read off it rather
+than guessed. And a download loop that retries every 20 seconds eventually lands; a `/thumb/`
+request is throttled harder than the original, so where a thumbnail will not come the full-size
+file often will. Do the picture pass in one block and do the offline work while the quota recovers.
+
+**SIX OF THE TEN GOT A PICTURE AND FOUR DID NOT, AND THE FOUR ARE A CATEGORY RATHER THAN AN
+ACCIDENT.** What is illustrable here is an OBJECT, a PORTRAIT or a MAP: `cnh-213` a group of Han
+tomb figures, `cnh-214` a modern map of the war, `cnh-215` and `cnh-216` the album portraits of
+Xiang Wang and Liu Bang, `cnh-217` the Western Han tomb mural of the banquet itself, and `cnh-220`
+the jade seal of a Western Han empress. What has none is an EVENT with no surviving thing and no
+site anybody photographs — the Shaqiu plot, the fall of the Qin, the battlefield of Gaixia and the
+settlement of 202 BCE. Searching 垓下 returns Qing gazetteers and a blood-brain-barrier diagram by
+a researcher named Gaixia Xu; there is no photograph of the field.
+
+**AND THE ALBUM'S `- <name> 2.jpg` FILES ARE THE FACING TEXT LEAVES, NOT SECOND PORTRAITS.**
+`suggest-image` offered *Portraits of Famous Men - Liu Bang 2.jpg* for `cnh-216`, and it is a page
+of running calligraphy about 漢高祖 with no picture on it at all; the portrait is
+*Portraits of Famous Men - Liu Bang.jpg*. Nothing in the metadata says so — same album, same
+licence, same dimensions to within a few pixels. **This is the whole argument for looking at the
+picture**, and it costs one download.
 
 **AND `Han founding settlement` IS THE PLAN'S OWN NAME FOR A TOPIC THAT HAS NO STANDARD TERM.**
 The alternative considered was *junguo system*, the commandery-and-kingdom compromise, which is a
