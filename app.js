@@ -10217,7 +10217,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      rendering its light half rather than throwing inside a render. */
   function ensureCardExtra(idOrIds) {
     const ids = Array.isArray(idOrIds) ? idOrIds : [idOrIds];
-    const want = [...new Set(ids.map(cardExtraPrefix).filter((p) => p && !_cardExtraIn.has(p) && !isCommunityCard(ids[0])))];
+    const want = [...new Set(ids.filter((id) => !isCommunityCard(id)).map(cardExtraPrefix).filter((p) => p && !_cardExtraIn.has(p)))];
     if (!want.length) return Promise.resolve(true);
     return Promise.all(want.map((p) => ensureData(cardExtraBundle(p)))).then((r) => r.every(Boolean));
   }
@@ -10226,6 +10226,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      that skipped it would draw a card with an empty background, which looks exactly like a card that
      has none. A community card and an already-loaded collection both run synchronously, so no
      surface gains a frame of delay for the common case. */
+  /* FILL A CARD IN HAND FROM THE STORE, for the heavy fields only.
+
+     A card object is captured when the card is DRAWN — `cardLocalized` hands back a copy, and the
+     phrasing cycler makes another — while `cardExtraIngest` writes into CARD_BY_ID. So a bundle that
+     lands in between updates the store and NOT the copy the page is holding, and the reveal draws a
+     back with no background and no citations. It renders perfectly and looks exactly like a card that
+     has neither, which is why buildBack calls this rather than each surface remembering to.
+
+     GAPS ONLY: a field the caller already has wins, so an admin edit and a localized override both
+     survive. */
+  function cardFillExtra(c) {
+    if (!c || !c.id) return c;
+    const live = CARD_BY_ID[c.id];
+    if (!live || live === c) return c;
+    for (const k of CARD_EXTRA_FIELDS) if (c[k] === undefined && live[k] !== undefined) c[k] = live[k];
+    return c;
+  }
   function withCardExtra(c, fn) {
     const id = c && (typeof c === "string" ? c : c.id);
     if (!id || cardExtraLoaded(id)) { fn(); return; }
@@ -14257,6 +14274,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const ADMIN_ROUTES = ["admin", "warofages"];
   const PAGE_META = {
     home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, daily games and an interactive atlas."],
+    search:    ["Search — Folio", "Find a card, a glossary term or a book by name, across everything Folio holds."],
     decks:     ["Collections — Folio", "Browse Folio's collections and decks, and pick what to review each day."],
     library:   ["Library — Folio", "Read whole works of history and philosophy in public-domain English translations."],
     book:      ["Library — Folio", "Read a public-domain English translation, with the glossary linked through it."],
@@ -17342,8 +17360,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      On the body it is render()'s to close, like every other overlay there — see closePageHelp. */
   let _pageHelpEl = null;
   function closePageHelp() { if (_pageHelpEl) { _pageHelpEl.remove(); _pageHelpEl = null; } }
-  function pageHelp(label, tips, goLabel, onDone) {
+  /* A PAGE'S FIRST-VISIT CARD, IN TWO STRENGTHS (the second added Sep 2026, from the site review).
+
+     A reader who opened Folio, then the Atlas, then the Library, then the marker met FOUR separate
+     explainers before doing anything — and the Atlas's is six paragraphs standing between them and a
+     globe that is largely self-evident. Each is individually well written and individually justified;
+     together they are a site that explains itself before it lets you use it.
+
+     So `opts.quiet` renders the same content as a DISMISSIBLE STRIP at the top of the page rather than
+     a modal over it: the heading, the first tip, and a control that unfolds the rest in place. Nothing
+     is hidden and nothing is cut — the reader chooses when to read it, which is the whole difference.
+     The Atlas and the Library open quiet; the MARKER keeps the modal, because a floating pen whose
+     tools do nothing until you pick one is genuinely undiscoverable and is the one case worth
+     interrupting for. Pressing a page's own "?" always gets the full modal: a reader who asks for help
+     has asked for all of it. */
+  function pageHelp(label, tips, goLabel, onDone, opts) {
     closePageHelp();
+    if (opts && opts.quiet) return pageHelpQuiet(label, tips, goLabel, onDone);
     const ov = document.createElement("div");
     ov.className = "page-help";
     ov.innerHTML = '<div class="ah-card" role="dialog" aria-modal="true" aria-label="' + esc(label) + '">' +
@@ -17360,6 +17393,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ov.querySelector(".ah-go").addEventListener("click", done);
     setTimeout(() => { const f = ov.querySelector(".btn"); if (f) f.focus(); }, 0);
     return ov;
+  }
+  /* The strip. It goes at the TOP OF THE PAGE rather than on document.body, because unlike the modal it
+     is part of the page's own flow and should scroll away with it — and so it dies with the page on the
+     next render, needing no entry in render()'s close list. `role="note"` rather than `dialog`: it takes
+     no focus and traps none, which is the point of it. */
+  function pageHelpQuiet(label, tips, goLabel, onDone) {
+    const host = document.querySelector("#view .page") || document.querySelector("#view");
+    if (!host) return null;
+    const el = document.createElement("div");
+    el.className = "page-help-quiet";
+    el.setAttribute("role", "note");
+    el.innerHTML =
+      '<div class="phq-main"><span class="phq-label">' + esc(label) + "</span>" +
+      '<div class="phq-first">' + tips[0] + "</div>" +
+      '<div class="phq-rest" hidden>' + tips.slice(1).map((t) => '<div class="ah-tip">' + t + "</div>").join("") + "</div>" +
+      (tips.length > 1
+        ? '<button type="button" class="phq-more" aria-expanded="false">' + esc(goLabel ? "How this works" : "More") + "</button>"
+        : "") +
+      "</div><button class=\"phq-close\" type=\"button\" aria-label=\"Dismiss\">×</button>";
+    host.insertBefore(el, host.firstChild);
+    const done = () => { el.remove(); if (onDone) onDone(); };
+    const more = el.querySelector(".phq-more");
+    if (more) more.addEventListener("click", () => {
+      const rest = el.querySelector(".phq-rest");
+      const open = !rest.hidden;
+      rest.hidden = open;
+      more.setAttribute("aria-expanded", open ? "false" : "true");
+      more.textContent = open ? "How this works" : "Show less";
+    });
+    // dismissing is what writes the key — a reader who ignores the strip meets it again next visit
+    el.querySelector(".phq-close").addEventListener("click", done);
+    return el;
   }
   /* THE LIBRARY'S CARD IS TWO CARDS (Aug 2026, on request). It was one, shown on the shelf, and it
      explained the whole system in five tips — three of which are about the inside of a book: the chapter
@@ -17378,8 +17443,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "<b>Find your way</b> — search by title, author or date, sort the shelf either way, and hold a book for its options: star it to the top of the shelf, or share it.",
     "<b>Open one and it stays open</b> — Folio remembers the paragraph you stopped at, on every device you are signed in to. The rest of the reading — the chapters, the original language, marking up a page — is explained the first time you open a book.",
   ];
-  function openLibHelp() {
-    pageHelp("The Library", LIB_HELP_TIPS, "Start reading", () => { try { localStorage.setItem(LIB_TOUR_KEY, "1"); } catch (e) {} });
+  function openLibHelp(quiet) {
+    pageHelp("The Library", LIB_HELP_TIPS, "Start reading",
+      () => { try { localStorage.setItem(LIB_TOUR_KEY, "1"); } catch (e) {} },
+      quiet ? { quiet: true } : null);
   }
   const BOOK_TOUR_KEY = "folio_book_tour_v1";
   /* …and a session flag beside the key, because the book page RE-RENDERS under the reader: the original
@@ -18939,6 +19006,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   let TTS_BAKED = null;   // the selected narrator's manifest.json: { files: { "<cardId>": { q|a|bg: { h: <hashStr(text)>, b: bytes } } } }
   function loadBakedManifest() {
     TTS_BAKED = null;
+    /* GATED ON ttsEnabled(), which has returned false since read-aloud was set aside in July 2026.
+       Without the guard this ran at module scope on EVERY page load and fetched a manifest for a
+       feature no reader can reach — a wasted round trip in the boot path, and a 404 on any deploy
+       that never baked the audio. Found by watching the request log during the Sep 2026 review.
+       The machinery stays dormant either way; flip ttsEnabled() and this comes back with it. */
+    if (!ttsEnabled()) return;
     try { fetch("audio/cards/" + ttsNarrator() + "/manifest.json").then((r) => (r.ok ? r.json() : null)).then((m) => { TTS_BAKED = m; }).catch(() => {}); } catch (e) {}   // file:// or not baked → stays null (device voice)
   }
   loadBakedManifest();
@@ -23752,6 +23825,169 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     repaint();
   };
 
+  /* ============================================================
+     PAGE: SEARCH — one field over everything Folio holds
+     ============================================================
+     Folio holds 2,895 cards, ~1,600 glossary terms, 48 books and an atlas of named places, and until
+     Sep 2026 there was no single place to look for any of it. The card browser is excellent, searches
+     CARDS only, and is reached from the account page — which is to say most readers never find it.
+
+     WHY IT SEARCHES ONLY WHAT IS ALREADY IN MEMORY. Every field below is on the eager path: a card's
+     `answerText`, `question` and `tags`, a term's key, title and aliases, a book's title and author.
+     The heavy half of a card — its background — is per-collection and lazy (see CARD_EXTRA_FIELDS),
+     so searching it would mean fetching 3.16 MB to answer one query. That is the wrong trade for a
+     field a reader types in, and it is the trade the card browser already offers deliberately for the
+     reader who wants it. This looks for THINGS BY NAME, which is what a reader typing into a search
+     box nearly always wants, and says so on the page rather than quietly returning less.
+
+     THE QUERY IS MODULE-LEVEL, NOT IN `S`. It is a way of looking at the site rather than a preference
+     about Folio — the same call `glossSort` and `collTab` make — so it survives a repaint, resets on
+     reload, and a shared `#search` link opens an empty field rather than somebody else's query. */
+  const SEARCH_MIN = 2;        // below this every query matches half the corpus
+  const SEARCH_PER_GROUP = 8;  // per group, with a count saying how many more there are
+  let searchQ = "";
+
+  /* Fold case and accents so `Nuwa` finds `Nüwa` and `Cesar` finds `César`. NFD + strip marks is the
+     whole of it; `localeCompare` cannot do a substring test and a hand table would be wrong the first
+     time a Vietnamese or Turkish name arrived. */
+  function searchNorm(s) {
+    return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+  /* Rank, so the obvious answer is first: an exact name beats a word that STARTS with the query,
+     which beats a match anywhere inside. Without this, typing "rome" puts eleven cards mentioning
+     Rome above the card whose answer IS Rome. */
+  function searchRank(hay, q) {
+    const h = searchNorm(hay);
+    if (!h) return 0;
+    if (h === q) return 100;
+    if (h.startsWith(q)) return 60;
+    if (new RegExp("(^|[^a-z0-9])" + q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).test(h)) return 40;
+    return h.includes(q) ? 15 : 0;
+  }
+
+  function searchAll(raw) {
+    const q = searchNorm(raw).trim();
+    const out = { cards: [], terms: [], books: [], q: q };
+    if (q.length < SEARCH_MIN) return out;
+
+    // ---- cards, from the set a reader can actually study ----
+    const avail = availableCardIdSet();
+    avail.forEach((id) => {
+      const c = cardById(id);
+      if (!c) return;
+      const term = c.answerText || String(c.answer || "").replace(/<[^>]*>/g, "");
+      let r = searchRank(term, q) * 2;                       // the answer term is what a card IS
+      if (!r) r = searchRank(String(c.question || "").replace(/<[^>]*>/g, " "), q);
+      if (!r && Array.isArray(c.tags)) r = c.tags.some((t) => searchNorm(t) === q) ? 30 : 0;
+      if (r) out.cards.push({ id: id, label: term, sub: collectionLabelFor(id), r: r });
+    });
+
+    // ---- glossary terms: the key's own title, and every alias a reader might type ----
+    const G = window.GLOSSARY || {};
+    const AL = window.GLOSSARY_ALIASES || {};
+    Object.keys(G).forEach((k) => {
+      if (uGlossParse(k)) return;   // a community deck's own term is not site-wide content
+      const t = glossTitle(k);
+      let r = searchRank(t, q);
+      if (!r) (AL[k] || []).forEach((a) => { r = Math.max(r, searchRank(a, q) - 5); });
+      if (r) out.terms.push({ key: k, label: t, sub: (window.GLOSSARY_DATES || {})[k] || "", r: r });
+    });
+
+    // ---- books ----
+    BOOKS.forEach((b) => {
+      const r = Math.max(searchRank(b.title, q), searchRank(b.author, q) - 5, searchRank(b.subtitle || "", q) - 10);
+      if (r) out.books.push({ id: b.id, label: b.title, sub: b.author + " · " + b.written, r: r });
+    });
+
+    const byRank = (a, b) => b.r - a.r || a.label.localeCompare(b.label, undefined, { sensitivity: "base" });
+    out.cards.sort(byRank); out.terms.sort(byRank); out.books.sort(byRank);
+    return out;
+  }
+
+  /* Which collection a card belongs to, for the line under its name — the one thing that tells two
+     cards with the same answer term apart (Korea and Japan share eighteen titles verbatim). */
+  function collectionLabelFor(id) {
+    // cardCollectionRoot returns the NODE, not its id — indexing NODE_BY_ID with it gave every row a
+    // blank sub-label, which on a query like "sparta" (78 cards, two of them called Sparta) removes the
+    // one thing that tells two results apart.
+    const n = typeof cardCollectionRoot === "function" ? cardCollectionRoot(id) : null;
+    return n ? nodeTitle(n) : "";
+  }
+
+  PAGES.search = function (root) {
+    const res = searchAll(searchQ);
+    const group = (title, rows, render, more) => {
+      if (!rows.length) return "";
+      return '<section class="srch-group"><h2 class="srch-gh">' + esc(title) +
+        '<span class="srch-n">' + rows.length + (more ? "+" : "") + "</span></h2>" +
+        '<ul class="srch-list">' + rows.slice(0, SEARCH_PER_GROUP).map(render).join("") + "</ul>" +
+        (rows.length > SEARCH_PER_GROUP
+          ? '<p class="srch-more">' + (rows.length - SEARCH_PER_GROUP) + " more not shown — narrow the search.</p>"
+          : "") + "</section>";
+    };
+    const row = (cls, attr, label, sub) =>
+      '<li><button type="button" class="srch-row ' + cls + '" ' + attr + '>' +
+        '<span class="srch-label">' + esc(label) + "</span>" +
+        (sub ? '<span class="srch-sub">' + sub + "</span>" : "") + "</button></li>";
+
+    const body = res.q.length < SEARCH_MIN
+      ? '<p class="srch-hint">Type at least ' + SEARCH_MIN + " letters. Folio looks through card answers, glossary terms and the Library's books.</p>"
+      : (res.cards.length + res.terms.length + res.books.length)
+        ? group("Cards", res.cards, (c) => row("is-card", 'data-scard="' + esc(c.id) + '"', c.label, esc(c.sub))) +
+          group("Glossary", res.terms, (t) => row("is-term", 'data-sterm="' + esc(t.key) + '"', t.label, esc(t.sub))) +
+          group("Books", res.books, (b) => row("is-book", 'data-sbook="' + esc(b.id) + '"', b.label, esc(b.sub)))
+        : '<p class="srch-hint">Nothing matched “' + esc(searchQ) + '”. Folio searches by NAME — a card\'s answer, a glossary term, a book\'s title or author. To search inside the backgrounds, use <button type="button" class="lnk" id="srchBrowse">the card browser</button>.</p>';
+
+    root.innerHTML = `
+      <div class="page-head">
+        <span class="eyebrow">Search</span>
+        <h1>Find anything</h1>
+        <p>Cards, glossary terms and the books on the shelf.</p>
+      </div>
+      <div class="srch-bar">
+        <input type="search" id="srchInput" class="srch-input" placeholder="Search Folio…" autocomplete="off"
+               spellcheck="false" aria-label="Search Folio" value="${esc(searchQ)}" />
+      </div>
+      <div id="srchResults">${body}</div>`;
+
+    const inp = root.querySelector("#srchInput");
+    /* Repaint the RESULTS in place rather than re-rendering the page: a full render would replace the
+       input under the reader and take the caret with it. Same reason renderInPlace exists. */
+    let t = null;
+    const repaint = () => {
+      searchQ = inp.value;
+      const r = searchAll(searchQ);
+      const host = root.querySelector("#srchResults");
+      if (!host) return;
+      host.innerHTML = r.q.length < SEARCH_MIN
+        ? '<p class="srch-hint">Type at least ' + SEARCH_MIN + " letters. Folio looks through card answers, glossary terms and the Library's books.</p>"
+        : (r.cards.length + r.terms.length + r.books.length)
+          ? group("Cards", r.cards, (c) => row("is-card", 'data-scard="' + esc(c.id) + '"', c.label, esc(c.sub))) +
+            group("Glossary", r.terms, (t2) => row("is-term", 'data-sterm="' + esc(t2.key) + '"', t2.label, esc(t2.sub))) +
+            group("Books", r.books, (b) => row("is-book", 'data-sbook="' + esc(b.id) + '"', b.label, esc(b.sub)))
+          : '<p class="srch-hint">Nothing matched. Folio searches by name — a card\'s answer, a glossary term, a book\'s title or author.</p>';
+      wireRows();
+    };
+    function wireRows() {
+      root.querySelectorAll("[data-scard]").forEach((b) =>
+        b.addEventListener("click", () => openCardPeek(b.dataset.scard)));
+      root.querySelectorAll("[data-sterm]").forEach((b) =>
+        b.addEventListener("click", () => openGlossWin(b.dataset.sterm, b)));
+      root.querySelectorAll("[data-sbook]").forEach((b) =>
+        b.addEventListener("click", () => route("book", { id: b.dataset.sbook })));
+      const br = root.querySelector("#srchBrowse");
+      if (br) br.addEventListener("click", () => route("browse"));
+    }
+    inp.addEventListener("input", () => { clearTimeout(t); t = setTimeout(repaint, 120); });
+    inp.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { inp.value = ""; repaint(); }
+      // Enter opens the first result, which is what a reader who typed a name and pressed Enter meant
+      if (e.key === "Enter") { const f = root.querySelector(".srch-row"); if (f) f.click(); }
+    });
+    wireRows();
+    if (!touchDevice()) setTimeout(() => { try { inp.focus(); } catch (e) {} }, 0);
+  };
+
   PAGES.glossary = function (root) {
     const G = window.GLOSSARY || {};
     const reg = S.glossSeen || {};
@@ -23990,6 +24226,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             above, not from where a collection is dropped. */""}
       ${/* The tab bar, directly under the page head — see COLLECTION_TABS. Everything below is filtered
             by it; under "All", which is the default, nothing is filtered at all. */""}
+      ${/* THE PHONE'S WAY IN. The top bar carries a Search tab from 641px up; below that the bar is
+             hidden outright and the five-cell tab bar has no room for a sixth destination (the page
+             swipe is deliberately kept in step with it). The Collections page is where a reader
+             already comes looking for content, so the field sits at its head at every width. It is a
+             button rather than a live input: two search fields on one site that behave differently
+             is worse than one that is always the same page. */""}
+      <button type="button" class="srch-open" id="srchOpen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span>Search cards, terms and books</span>
+      </button>
       ${collTabBarHTML()}
       ${COLLECTION_SECTIONS.map((sec, i) => {
         if (shown.indexOf(sec.label) < 0) return "";
@@ -24024,11 +24270,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* The bar itself. `renderInPlace` rather than `render()`: changing a filter is not a navigation, and
        scrolling the reader to the top of the page and replaying its entrance animation is exactly the
        "the page refreshes" complaint that helper exists for. */
+    { const so = root.querySelector("#srchOpen"); if (so) so.addEventListener("click", () => route("search")); }
     root.querySelectorAll("[data-colltab]").forEach((b) => b.addEventListener("click", () => {
       if (collTab === b.dataset.colltab) return;
       collTab = b.dataset.colltab;
       renderInPlace();
     }));
+    /* SCROLL THE ACTIVE CHIP INTO VIEW (Sep 2026, on a bug report found by measurement).
+       The bar scrolls sideways on a phone — six words do not fit on 390px — and the default tab is
+       ALL, which is last. Measured at 390px: the row is 512px of content in a 358px track and the
+       lit chip sits at x=476..528, entirely off screen. So the page opened on Collections showing
+       four unlit chips, nothing selected anywhere, and no cue that the row scrolls at all — which
+       reads as a filter bar that is broken rather than one that is scrolled.
+       `inline:"nearest"` rather than "center": a chip already on screen must not be yanked to the
+       middle every time the reader taps along the row, and only the ones that are off screen move.
+       Guarded because jsdom-ish environments and older Safari lack the options form. */
+    const lit = root.querySelector(".coll-tab.on");
+    if (lit && lit.parentElement && lit.parentElement.scrollWidth > lit.parentElement.clientWidth) {
+      try { lit.scrollIntoView({ inline: "nearest", block: "nearest" }); }
+      catch (e) { lit.parentElement.scrollLeft = lit.offsetLeft - 12; }
+    }
     wireLibraryDnd(root);
     wireLangDecks(root);
     wireCommunityLibrary(root);
@@ -25734,7 +25995,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       let seen = "1"; try { seen = localStorage.getItem(LIB_TOUR_KEY) || ""; } catch (err) {}
       // never over the walkthrough — it routes through nothing but Home and the collections, but a reader
       // who finished it and came straight here would otherwise meet two cards at once
-      if (!seen && !tourRunning()) openLibHelp();
+      if (!seen && !tourRunning()) openLibHelp(true);   // first visit: the strip, not the modal — see pageHelp
     }
   };
   /* The direction control. A real button rather than four more options in the select, because the field
@@ -29256,10 +29517,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
 
     function renderCard() {
-      /* Warm this card's collection, and the next few cards' — fire and forget. By the time the
-         reader reveals, the file is in. Cheap: ensureData de-duplicates, so a queue of 20 cards from
-         one collection makes one request. */
-      try { if (queue.length) ensureCardExtra(queue.slice(0, 8).map((q) => (typeof q === "string" ? q : q && q.id)).filter(Boolean)); } catch (e) {}
+      /* Warm the collections this SESSION needs — fire and forget, every render, because ensureData
+         de-duplicates and a queue drawn from one collection therefore makes exactly one request. The
+         whole queue rather than the next few: a session is built before its first card is drawn, so
+         this gives the fetch the entire time the reader spends on question one, which is the head
+         start that keeps the reveal instant on a real network. */
+      try { if (queue.length) ensureCardExtra(queue.map((q) => (typeof q === "string" ? q : q && q.id)).filter(Boolean)); } catch (e) {}
       closeAllGloss();   // clear any gloss popup from the previous card (incl. before the completion screen) so it can't linger or be restored on reload
       ttsStop();         // …and stop the previous card's read-aloud
       if (queue.length === 0) return renderComplete();
@@ -29474,7 +29737,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            first card, a slow link — we wait and re-enter rather than rendering a card with an empty
            background, which would look exactly like a card that has none. Re-entry is safe because
            this call returns before touching `revealed` or the DOM. */
-        if (!cardExtraLoaded(id)) { ensureCardExtra(id).then(() => { if (!revealed) showAnswer(fromReader); }); return; }
+        if (!cardExtraLoaded(id)) {
+          /* Measured at 358 ms from local disk, but this is a real network fetch on a real device, so
+             the button must not simply sit dead. `.waiting` puts it in a pending state for exactly as
+             long as the wait lasts; in the common case the file is already in and this branch never
+             runs at all. */
+          const rb = cardRoot.parentElement && cardRoot.parentElement.querySelector("#reveal-btn");
+          if (rb) { rb.classList.add("waiting"); rb.setAttribute("aria-busy", "true"); }
+          ensureCardExtra(id).then(() => {
+            if (rb) { rb.classList.remove("waiting"); rb.removeAttribute("aria-busy"); }
+            if (!revealed) showAnswer(fromReader);
+          });
+          return;
+        }
         /* THE ONE GUARD, and it is here rather than on the button because Space and Enter reveal too and
            three copies of a rule is two too many. `fromReader` is exactly the right test: the restore
            line at the foot of `renderCard` re-opens an already-revealed card after a reload, a language
@@ -32513,6 +32788,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       "</div></div></div>";
   }
   function buildBack(c) {
+    c = cardFillExtra(c);   // the lazy half may have landed after this card was drawn — see cardFillExtra
     // a custom type owns the whole of the back — but keeps the site's own source apparatus below it, since
     // a community card can carry citations and the fold is not the template's to reinvent
     const typed = cardTypeSideHTML(c, "back");
@@ -32690,6 +32966,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      lifted out of the prose and shown away from its source list would carry stray numerals pointing at
      nothing. The picture round met exactly this and answered it with `picNoteBare`; this is the same rule
      for a single sentence. */
+  /* KEPT PURE — it takes an abstract and returns its first sentence, and reads nothing else.
+     `.claude/test-learning.js` slices this function out of app.js by text and runs it in Node, so a
+     reference to anything in the surrounding closure is a ReferenceError there rather than a failed
+     assertion. Its two callers hand it a card whose heavy half is already in: `buildBack` fills the
+     card it is given (see cardFillExtra) before the study page's elaborated feedback reads it, and
+     `openCardPeek` awaits the bundle before it renders. */
   function cardFirstSentence(c) {
     const ab = (c && c.abstract) || "";
     if (!ab) return "";
@@ -35129,6 +35411,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   PAGES.picture = function (root) {
     detachKeys();
     if (gameLockedToday(root, "picture")) return;
+    /* THE ARTWORK CARDS' PROSE IS LAZY, like the artefacts' beside them (see CARD_EXTRA_FIELDS).
+       An artwork card's PICTURE stays eager — it is the question — but its background is the reveal's
+       elaborated feedback, which is the difference between telling a reader they were wrong (d = 0.05)
+       and telling them what the thing was (d = 0.32). Without this the round dealt perfectly and
+       revealed a blank note, which looks exactly like a card that has no background.
+       `art` is named directly rather than derived from the pool: the pool is what we are about to
+       build, and the artwork half of it is one collection by construction. */
+    if (!cardExtraLoaded("art-000")) { ensureCardExtra("art-000").then(() => { if (current && current.name === "picture") render(); }); return; }
     const rounds = dailyPictureRounds();
     if (!rounds || rounds.length < PIC_ROUNDS) {
       root.innerHTML = emptyPlacard("Coming soon", ICON.picture, "Folio doesn't have enough illustrated cards and terms to deal a round yet.", () => route("home"), "Back home");
@@ -39660,9 +39950,16 @@ let prev = null;
         if (c1) c1.addEventListener("click", hideHelp);
         if (c2) c2.addEventListener("click", hideHelp);
       }
-      if (helpBtn) helpBtn.addEventListener("click", () => { if (helpEl) helpEl.hidden = false; });
+      /* Pressing "?" always gets the FULL card: a reader who asks for help has asked for all of it. */
+      if (helpBtn) helpBtn.addEventListener("click", () => { if (helpEl) { helpEl.classList.remove("ah-compact"); helpEl.hidden = false; } });
       let seen = "1"; try { seen = localStorage.getItem(HELP_KEY) || ""; } catch (err) {}
-      if (!GAME && !seen && helpEl) helpEl.hidden = false;   // first Atlas visit: a 20-second orientation
+      /* A FIRST VISIT GETS THE COMPACT FORM instead (Sep 2026, from the site review). This card is six
+         paragraphs laid over the globe, and it was the third of four explainers a new reader met before
+         doing anything. `.ah-compact` turns the dimmer into a strip along the top of the stage with the
+         heading and the first tip in it, and a control that unfolds the rest in place — the globe stays
+         visible and usable underneath, which for a page this self-evident is most of the explanation.
+         Nothing is cut; the reader chooses when to read it. */
+      if (!GAME && !seen && helpEl) { helpEl.classList.add("ah-compact"); helpEl.hidden = false; }
     }
     // warm the expensive one-time caches in idle time — the coastline chaining + flood-fill classification (~1s) and the
     // border-ownership map (~0.3s) used to run synchronously inside the FIRST frame of the first historical-era visit,
@@ -43733,6 +44030,16 @@ let prev = null;
 
   function adminRenderEditor() {
     const host = document.getElementById("adminEditor"); if (!host) return;
+    /* THE CARD'S HEAVY HALF HAS TO BE HERE BEFORE THE FORM IS DRAWN (see CARD_EXTRA_FIELDS).
+       The editor's fields are populated FROM the card, so drawing it before the lazy half lands gives
+       an empty background box and an empty citation list — and the editor saves on every keystroke,
+       so the next keypress would write that emptiness into the overlay as a deliberate deletion. This
+       is the one surface where rendering early is not merely wrong to look at but destructive. */
+    if (adminState.tab === "cards" && adminState.card && !cardExtraLoaded(adminState.card)) {
+      host.innerHTML = '<div class="admin-editor-empty">Loading this card…</div>';
+      ensureCardExtra(adminState.card).then(() => { if (current && current.name === "admin") adminRenderEditor(); });
+      return;
+    }
     saveAdminUI();   // remember the open card/deck/tab across reloads
     closeGlossPicker();   // a term picker from a previous field can't outlive the editor it was opened from
     clearTimeout(adminPvTimer);
@@ -45609,7 +45916,21 @@ let prev = null;
   /* `community` is deliberately NOT here any more (Aug 2026): the shared-deck list is a section of the
      Collections page, so that address is retired — and a retired address is REDIRECTED rather than dropped,
      since links to it have been shared. Both readers of the hash map it to `decks` below. */
-  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary"];
+  /* `/` OPENS SEARCH FROM ANYWHERE — the shortcut every site with a search field has, and the phone's
+     tab bar has no cell to spare for one. Refused while the reader is typing (an input, a textarea or
+     a contenteditable), while an overlay owns the keyboard (OVERLAY_SEL — a reader pressing / over
+     Card info means the character, not a navigation), and with a modifier held, which is a browser
+     shortcut. */
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
+    const t = e.target;
+    if (t && (t.matches("input, textarea, select") || t.isContentEditable)) return;
+    if (typeof overlayOpen === "function" && overlayOpen()) return;
+    if (current && current.name === "search") return;
+    e.preventDefault();
+    route("search");
+  });
+  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = hParts[0] === "community" ? "decks" : valid.includes(hParts[0]) ? hParts[0] : "home";
@@ -45687,6 +46008,12 @@ let prev = null;
      — see CARD_EXTRA_FIELDS. A reader who opens a card before the warm lands simply waits for
      that one file; showAnswer handles it. */
   warmActiveCardExtra();
+  /* …and the ARTWORK collection's prose unconditionally, which is the one collection whose lazy half a
+     reader needs without having studied it: the picture round draws from the artwork cards and the
+     artefacts together, and an artwork card's background IS that round's reveal. It is 0.04 MB across
+     ten cards — the whole collection — so warming it for everybody costs less than the branch that
+     would avoid it. The artefacts' own half is warmed on the line above for the same reason. */
+  whenIdle(() => { if (!(navigator.connection && navigator.connection.saveData)) ensureCardExtra("art-000"); });
   /* …and the artefact pool's descriptions, citations and pictures (artefacts-extra.js), which used to
      sit on the EAGER path inside artefacts.js and were 94% of it. Same bargain as the line above: a
      chest arrives unasked, in the middle of a study session, and the reader should not watch a spinner

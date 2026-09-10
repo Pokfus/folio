@@ -712,13 +712,18 @@ function crosswordForPage(cells) {
     const rev = await page.evaluate(() => ({
       verdict: (document.querySelector(".tf-verdict") || {}).textContent || "",
       cap: (document.querySelector(".pic-cap") || {}).textContent || "",
-      credit: (document.querySelector(".pic-credit a") || {}).getAttribute ? document.querySelector(".pic-credit a").getAttribute("href") : "",
+      // `.pic-credit` was REMOVED in Sep 2026, on request — the reveal no longer repeats the
+      // attribution the viewer's own meta bar carries. What stands in its place is `.pic-shows`, the
+      // caption with any duplicated credit tail trimmed off it (see picCaption). Asserting the old
+      // element left this suite failing on behaviour that had been deliberately taken away.
+      credit: !!document.querySelector(".pic-credit"),
+      shows: (document.querySelector(".pic-shows") || {}).textContent || "",
       marked: document.querySelectorAll("#picOpts .opt.correct").length,
       dead: !!document.querySelector(".pic-frame.pic-dead"),
     }));
-    check("[pic] …the guess reveals the answer, its caption and its credit as a link",
-      /correct|not quite/i.test(rev.verdict) && /Plate \d/.test(rev.cap) && /^https:\/\/example\.org\//.test(rev.credit) && rev.marked === 1,
-      JSON.stringify({ cap: rev.cap, credit: rev.credit }));
+    check("[pic] …the guess reveals the answer and its caption, and repeats no credit",
+      /correct|not quite/i.test(rev.verdict) && /Plate \d/.test(rev.cap) && rev.credit === false && rev.marked === 1,
+      JSON.stringify({ cap: rev.cap, creditEl: rev.credit, shows: rev.shows.slice(0, 60) }));
     /* THE ARTEFACT'S OWN FIVE SENTENCES, AND THE WORKS THEY REST ON (Sep 2026, on request: "below it
        should show that Artefacts background paragraph with citations"). Three things have to be true at
        once and each fails on its own: the paragraph is there, the fold under it lists the artefact's real

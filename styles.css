@@ -15,6 +15,15 @@
 :root{
   --paper:#F6F5F1; --paper-2:#EFEDE6; --card:#FFFFFF;
   --ink:#1B1A17; --ink-soft:#4A4843; --ink-faint:#8B887F; --rule:#E3E0D7;
+  /* --ink-quiet: QUIET, BUT NOT BELOW THE BAR. See the CONTRAST block below. --ink-faint is
+     3.0-3.5:1 and is right for what it was written for — an eyebrow, a caption, a source line —
+     but it had spread to things that are not captions at all: the primary nav labels, a page's
+     own 15.5px description, the card counts a reader picks a collection by, and the single
+     control that is the only route to the About page. A reader with mild low vision does not
+     know the high-contrast mode exists, so those cases take this instead. The value is not a new
+     guess: it is the one `body.hc` already solves to, each hue scaled toward the ink until it
+     clears 4.6:1 against --paper-2, the darkest of the three papers. */
+  --ink-quiet:#6C6A63;
   --indigo:#36357A; --indigo-bright:#4E4CB0; --indigo-wash:#ECECF7; --ochre:#B5722A;
   --zh:#C8453C; --zh-wash:#FBECEA; --geo:#BC7A18; --good:#3F7E5C;
   /* an UNDISCOVERED glossary term (Aug 2026, on request). This teal began life as --bknote, the Library
@@ -60,6 +69,7 @@
 body.night{
   --paper:#161619; --paper-2:#1F1F24; --card:#26262C;
   --ink:#ECEAE3; --ink-soft:#D6D2C8; --ink-faint:#8A877F; --rule:#34343C;
+  --ink-quiet:#918E87;   /* see the light value — night's own hc figure, 4.6:1 on --card */
   --indigo:#A6A4F0; --indigo-bright:#B9B7F7; --indigo-wash:#2E2E47; --ochre:#E0A45A;
   --zh:#F0938B; --zh-wash:#33262A; --geo:#E0A23F; --good:#79C39B;
   --newterm:#5FC2CE; --admin:#CF93DC;
@@ -86,7 +96,22 @@ body.night{
    against `--paper-2`, the darkest of the three papers, so it clears the bar on all three.
 
    One failure was NOT left to the mode, because it is a primary control rather than a caption: in night
-   mode `.btn` was #FFF on the light-lavender --indigo, at 2.29:1. That is fixed outright below. */
+   mode `.btn` was #FFF on the light-lavender --indigo, at 2.29:1. That is fixed outright below.
+
+   …AND SIX MORE WERE PROMOTED IN SEP 2026, on the same principle (found in the site review, where
+   test-a11y.js reported 110 shortfalls in the DEFAULT mode — it only ever FAILED on the hc sweep, so
+   the number was being printed and not read). The mode's own reasoning holds for a caption and does
+   not hold for these, because a reader with mild low vision does not know the mode exists and these
+   are not captions:
+
+       .tab .tab-label   the primary nav labels, on every page
+       .page-head p      a page's own 15.5px description — running body text
+       .home-about       the ONLY route to the About page anywhere on the site
+       .node-num / .node-count / .group-count   the card counts a collection is chosen by
+
+   They take `--ink-quiet` (declared at the top of this file), which is not a new guess: it is the
+   value `body.hc` already solves to. `--ink-faint` keeps every genuine caption, so the hierarchy the
+   design rests on is intact and the mode still has work to do. */
 /* The ink is for a FILLED button — on night's light-lavender --indigo it reads 7.9:1 against #fff's 2.29.
    A .ghost button is transparent, so the same dark ink puts near-black on the dark card and the label
    disappears altogether: found on the new Common Thread board's Shuffle/Deselect, and it was every ghost
@@ -290,7 +315,7 @@ body[data-theme="folio"] .topbar::after{
   position:relative; appearance:none; border:0; background:none; cursor:pointer;
   display:inline-flex; align-items:center;
   font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.16em; text-transform:uppercase;
-  color:var(--ink-faint); font-weight:500; padding:10px 13px; border-radius:7px;
+  color:var(--ink-quiet); font-weight:500; padding:10px 13px; border-radius:7px;
   transition:color .18s var(--ease), background .18s var(--ease);
 }
 .tab .tab-ic{width:16px; height:16px; flex:none;}
@@ -322,6 +347,33 @@ body[data-theme="folio"] .topbar::after{
   .nav{gap:2px;}
   .topbar .tab{padding:10px 7px; letter-spacing:.06em;}
   .topbar .tab .tab-label{margin-inline-start:6px;}
+  /* …AND THE EIGHTH TAB GIVES UP ITS WORD, WHICH IS THE ONE THAT CAN (Sep 2026, with Search).
+     Measured with eight tabs in: the tightening above holds to 768px and then runs out — 28px of
+     overflow at 700 and 86px at 641 — so something has to go, and the rule above says the last thing
+     to give is a name. A MAGNIFIER IS THE EXCEPTION AND ONLY THE MAGNIFIER: it is the one icon in the
+     bar that names itself, universally, without a word beside it — which is exactly what could not be
+     said of a house, a globe or a stack of cards, and why the other seven keep theirs. The name is
+     CLIPPED rather than removed, so it still reaches a screen reader; `aria-label` would be the
+     alternative and would mean the markup carrying the word twice. */
+  .topbar .tab-search .tab-label{
+    position:absolute; width:1px; height:1px; overflow:hidden;
+    clip-path:inset(50%); white-space:nowrap; margin:0;
+  }
+  .topbar .tab-search{padding-inline:9px;}
+}
+/* THE NARROW END OF THE BAND NEEDED ONE MORE TURN (Sep 2026, measured at every width from 641 to 1440).
+   Two things were found there and only one of them is new. With the Search tab in, 641px overflowed by
+   39px; WITHOUT it, by 3 — so the bar has been three pixels too wide at its narrowest supported width
+   all along, and nobody could see it because until the fonts were self-hosted a sandbox run had no
+   webfonts at all and the fallback stack is narrower. (It is what `test-layout`'s Atlas-sheet assertion
+   was reporting as `horiz: 3`.)
+   Both are closed by the same turn of the screw, and it stays in the padding rather than the words:
+   7px -> 4px each side across eight tabs is 48px, against 39 needed. Measured after: 0 at every width
+   tested, with the Admin tab shown, which is the widest the bar ever gets. */
+@media (min-width:641px) and (max-width:720px){
+  .topbar{gap:8px; padding:0 8px;}
+  .topbar .tab{padding:10px 4px;}
+  .topbar .tab .tab-label{margin-inline-start:5px;}
 }
 /* …and an admin-only tab wears --admin instead, in every state. It is the colour that says so and not a
    badge: the nav is icons and one word each, and a second mark on two of six tabs would be more furniture
@@ -518,7 +570,7 @@ html[dir="rtl"] .site-ver{text-align:right;}
 
 .page-head{margin:2px 0 22px;}
 .page-head h1{font-family:var(--display); font-weight:600; font-size:calc(clamp(28px,5vw,38px) * var(--fs)); margin:6px 0 0; letter-spacing:-.015em;}
-.page-head p{color:var(--ink-faint); margin:8px 0 0; font-size:calc(15.5px * var(--fs)); max-width:60ch;}
+.page-head p{color:var(--ink-quiet); margin:8px 0 0; font-size:calc(15.5px * var(--fs)); max-width:60ch;}
 /* a slim accent hairline under every page title (centred fade on mobile, where the head is centred) */
 .page-head::after{content:""; display:block; width:190px; max-width:38%; height:2px; margin-top:14px; border-radius:2px;
   background:linear-gradient(90deg, color-mix(in srgb, var(--indigo) 55%, transparent), transparent);}
@@ -1021,7 +1073,7 @@ body.night .game-tile{ --gt-gold:#D8B355; }
 .home-about{
   appearance:none; border:0; background:none; cursor:pointer; width:100%;
   padding:20px 0 16px; text-align:center;
-  font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);
+  font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet);
 }
 /* …and on a desktop it stands further off the game grid above it (Aug 2026, on request). The padding is a
    PHONE figure — at 390px the page ends a thumb's width below the last tile and more air there is just
@@ -1191,6 +1243,74 @@ body.night .game-tile{ --gt-gold:#D8B355; }
 .td-pen svg{width:20px; height:20px;}
 .td-scribble{flex:1 1 auto; height:34px; color:var(--ochre);}
 
+/* THE REVEAL BUTTON WHILE THE CARD'S BACK IS STILL COMING (Sep 2026 — see CARD_EXTRA_FIELDS).
+   A card's heavy half is fetched per collection, and in the ordinary case it is already in before the
+   reader has read the question. When it is not — a cold deck on a slow link — the button says so
+   rather than sitting dead: the label is replaced by a pulsing ellipsis, and `aria-busy` says the
+   same thing to a screen reader. The pulse is a plain animation, so the global reduced-motion
+   killswitch lands it on its resting state with no rule of its own. */
+#reveal-btn.waiting{position:relative; color:transparent; pointer-events:none;}
+#reveal-btn.waiting::after{
+  content:"\2026"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  color:var(--paper); font-size:calc(19px * var(--fs)); letter-spacing:.12em;
+  animation:revealWait 1.1s ease-in-out infinite;
+}
+@keyframes revealWait{0%,100%{opacity:.45;}50%{opacity:1;}}
+
+/* THE QUIET FORM OF A FIRST-VISIT CARD (Sep 2026 — see pageHelp in app.js). A strip at the top of the
+   page rather than a modal over it: the heading, the first tip, and a control that unfolds the rest in
+   place. It is in the page's own flow, so it scrolls away and dies with the page. Used by the Library
+   and the Atlas; the marker keeps the modal, being the one genuinely undiscoverable control. */
+.page-help-quiet{
+  display:flex; align-items:flex-start; gap:12px;
+  margin:0 0 18px; padding:13px 14px;
+  border:1px solid var(--rule); border-left:3px solid var(--indigo); border-radius:8px;
+  background:var(--card);
+}
+.page-help-quiet .phq-main{flex:1 1 auto; min-width:0;}
+.page-help-quiet .phq-label{
+  display:block; font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--indigo); margin-bottom:5px;
+}
+.page-help-quiet .phq-first,
+.page-help-quiet .ah-tip{font-size:calc(14px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.page-help-quiet .phq-rest{margin-top:9px; display:flex; flex-direction:column; gap:8px;}
+.page-help-quiet .phq-rest[hidden]{display:none;}
+.page-help-quiet .phq-more{
+  appearance:none; border:0; background:none; cursor:pointer; padding:7px 0 0;
+  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
+  font-weight:600; color:var(--indigo); text-decoration:underline; text-underline-offset:3px;
+}
+.page-help-quiet .phq-close{
+  appearance:none; border:0; background:none; cursor:pointer; flex:none;
+  width:26px; height:26px; border-radius:6px; font-size:calc(17px * var(--fs)); line-height:1;
+  color:var(--ink-quiet);
+}
+.page-help-quiet .phq-close:hover{color:var(--ink); background:var(--paper-2);}
+.page-help-quiet .phq-more:focus-visible,
+.page-help-quiet .phq-close:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+
+/* …and the Atlas's own card in that same form. It is a static element inside the globe stage, so the
+   compact state is a class rather than a second element: the full-bleed dimmer becomes a strip pinned
+   to the top of the stage, and the globe stays visible and draggable underneath it. */
+.atlas-help.ah-compact{
+  inset:auto 0 auto 0; display:block; background:none; backdrop-filter:none; -webkit-backdrop-filter:none;
+  /* the top padding clears .atlas-tabs, which is fixed at bar-h + 12px and is the same 34px-tall,
+     centred row this strip would otherwise be drawn straight on top of */
+  padding:58px 12px 10px; pointer-events:none;
+}
+.atlas-help.ah-compact .ah-card{
+  pointer-events:auto; max-width:min(560px, calc(100% - 24px)); margin:0 auto;
+  max-height:none; padding:13px 40px 13px 16px; text-align:left;
+}
+.atlas-help.ah-compact .ah-card h3{font-size:calc(14px * var(--fs)); margin:0 0 6px;}
+/* everything past the first tip, and the go button, fold away — the "?" reopens the full card.
+   The button is `#ahGo` and carries only `.btn`, so it is named by id: a `.ah-go` selector (the class
+   the pageHelp modal uses) matches nothing here and left the Explore button sitting under one tip. */
+.atlas-help.ah-compact .ah-tip:not(:first-of-type){display:none;}
+.atlas-help.ah-compact #ahGo{display:none;}
+.atlas-help.ah-compact .ah-tip{font-size:calc(13px * var(--fs));}
+
 /* ---------- a page's own first-visit coach marks (the Library; the Atlas has .atlas-help) ---------- */
 /* The same card as the Atlas's, in a wrapper fixed to the VIEWPORT rather than absolute inside a
    full-bleed stage — an ordinary page has no such stage to sit inside. */
@@ -1333,7 +1453,7 @@ body[data-theme="folio"] .collection-deco::after{
 .lib-dragging{opacity:.4 !important; transform:none !important;}
 .lib-drop-before{box-shadow:inset 0 3px 0 -1px var(--indigo-bright);}
 .lib-drop-into{outline:2px dashed color-mix(in srgb, var(--indigo) 45%, transparent); outline-offset:4px; border-radius:14px;}
-.lib-empty{padding:22px; text-align:center; border:1.5px dashed var(--rule); border-radius:14px; color:var(--ink-faint); font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.06em; text-transform:uppercase;}
+.lib-empty{padding:22px; text-align:center; border:1.5px dashed var(--rule); border-radius:14px; color:var(--ink-quiet); font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.06em; text-transform:uppercase;}
 .lib-empty::before{content:"✦"; display:block; font-size:calc(18px * var(--fs)); margin-bottom:6px; opacity:.55; color:var(--indigo);}
 .node.branch{cursor:pointer; border-left-color:var(--ochre); background:var(--card);}
 .node.branch:hover{transform:translateX(2px);}
@@ -1342,7 +1462,7 @@ body[data-theme="folio"] .collection-deco::after{
 .chev-sm{width:32px; height:32px;}
 .chev-sm svg{width:15px; height:15px;}
 .node-children .node-children .node-children-pad{padding-top:10px;}
-.node-num{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); font-weight:500; flex:none; width:18px;}
+.node-num{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-quiet); font-weight:500; flex:none; width:18px;}
 .node-main{flex:1; min-width:0;}
 .node-title-row{display:flex; align-items:center; gap:9px; flex-wrap:wrap; row-gap:4px;}
 /* THE FIGURES ARE A LINE OF THEIR OWN, on both shelves and at every width. They used to sit on the
@@ -1355,7 +1475,7 @@ body[data-theme="folio"] .collection-deco::after{
    ran the full width of a wide row would read as the deck's description rather than as a caption. */
 .node-sub{
   margin-top:4px; font-family:var(--sans); font-size:calc(11.5px * var(--fs));
-  line-height:1.45; color:var(--ink-faint); max-width:52ch;
+  line-height:1.45; color:var(--ink-quiet); max-width:52ch;
 }
 .node-meta:empty{display:none;}
 .node-title{font-family:var(--serif); font-weight:600; font-size:calc(17px * var(--fs)); line-height:1;}
@@ -1363,7 +1483,7 @@ body[data-theme="folio"] .collection-deco::after{
 /* how many cards the deck holds — the collection banner's own `.collection-count`, a size down to sit on
    a deck row rather than a banner. Same figure, same words, same place on the line, so the two levels of
    the hierarchy cannot be read as saying different things. */
-.node-count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
+.node-count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-quiet); white-space:nowrap;}
 /* how much of the download the deck is — the same setting as the count it sits beside, a shade quieter,
    because it is the second figure on the line and the count is the one a reader came for. A language
    deck's row uses the same span (it is the size of a file that WILL be fetched); one fact, one place, on
@@ -1373,7 +1493,7 @@ body[data-theme="folio"] .collection-deco::after{
    on it would push the deck's NAME — the one part of the row with no shorter form — off the end at 390px;
    and a size hidden on a phone is a size hidden from most readers, which on a 21 MB download is exactly
    the wrong half to lose. Wrapping costs a row nothing at any width the figures fit. */
-.node-size{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); opacity:.72; white-space:nowrap;}
+.node-size{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-quiet); opacity:.72; white-space:nowrap;}
 
 /* WHAT A DECK TEACHES, beside how big it is (Sep 2026, on request). Set as the count and the size are —
    same face, same size, same quiet ink — because these are figures on the same line and a fourth
@@ -1381,7 +1501,7 @@ body[data-theme="folio"] .collection-deco::after{
    shelf is asked both ways, so that fact says nothing; audio is the norm, so only its absence is
    printed, and `.node-fact-no` gives that one the ochre the site already uses for a fact a reader
    should notice without being warned by it. */
-.node-fact{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); opacity:.72; white-space:nowrap;}
+.node-fact{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-quiet); opacity:.72; white-space:nowrap;}
 .node-fact-no{color:var(--ochre); opacity:.9;}
 
 /* ============================================================
@@ -2467,6 +2587,19 @@ body.grading .stage{padding-bottom:150px;}
   overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
 }
 .coll-tabs::-webkit-scrollbar{display:none;}
+/* …AND THE ROW SAYS THAT IT SCROLLS. With the scrollbar hidden there was no cue at all that four
+   visible chips were not all of them. A mask fades the last 22px of the track wherever the content
+   overflows it — `mask-image` on the scroll container follows its own scroll position, so the fade
+   sits at whichever end still has content beyond it rather than being painted on at a fixed place.
+   It is a progressive nicety: a browser without mask support simply gets the row as before. */
+@supports (mask-image: linear-gradient(#000, #000)) {
+  .coll-tabs{
+    mask-image:linear-gradient(to right, #000 calc(100% - 22px), transparent 100%);
+    -webkit-mask-image:linear-gradient(to right, #000 calc(100% - 22px), transparent 100%);
+  }
+  /* above the breakpoint every chip fits, so the fade would be a mark with nothing behind it */
+  @media (min-width:641px){ .coll-tabs{mask-image:none; -webkit-mask-image:none;} }
+}
 .coll-tab{
   appearance:none; flex:none; cursor:pointer; white-space:nowrap;
   padding:7px 14px; border-radius:999px; border:1px solid var(--rule); background:var(--card);
@@ -3042,6 +3175,27 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
 /* The figure is held at the height of its TALLER language (lockHeight in app.js sets the min-height), so
    flipping it to the original moves nothing under it. Centring the content in that box is what keeps the
    shorter of the two from reading as a quote with a hole beneath it. */
+/* ON A PHONE THE QUOTE COMES AFTER THE DAY'S WORK (Sep 2026, found in the site review).
+   It sat between the page head and the daily-study banner, and at 390x844 that put the first control
+   that starts a session BELOW THE FOLD on a fresh install: the quote's own 38px of padding top and
+   bottom, its 34px opening mark, the line, the attribution and the source run to about 300px before
+   the banner begins. For a site whose whole proposition is a few minutes a day, the few minutes
+   should not open with a scroll.
+   It is `order` on the phone rather than a change to the markup, so the DESKTOP keeps the running
+   order it was designed with — there the quote is the first thing under the masthead and there is
+   room for the banner beside it. `.page` becomes a flex column only inside this query; the children
+   are all full-width blocks, so nothing else about the layout moves. The quote is not demoted, only
+   moved: it still opens the page's second screen, which is where a reader who has finished today's
+   cards lands. */
+@media (max-width:640px){
+  .page{display:flex; flex-direction:column;}
+  .page > .daily-quote{order:3;}
+  .page > .banners{order:2;}
+  /* the version line, masthead and page head keep their source order ahead of both */
+  .page > .site-ver{order:0;} .page > .page-head{order:1;}
+  /* …and the quote no longer needs a top gutter it is not the first thing on the screen for */
+  .page > .daily-quote{padding-top:10px; margin-top:14px; border-top:1px solid var(--rule);}
+}
 .daily-quote{position:relative; margin:0 0 26px; padding:38px 0; text-align:center; background:none; box-shadow:none;
   display:flex; flex-direction:column; justify-content:center;}
 .daily-quote blockquote{margin:0; font-family:var(--serif); font-size:calc(18px * var(--fs)); font-style:italic; line-height:1.5; color:var(--ink);}
@@ -4980,7 +5134,7 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
 .group-label::before{content:""; display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--indigo); margin-right:9px; vertical-align:1px;}
 .collection-group + .collection-group .group-label::before{background:var(--ochre);}
 .group-line{flex:1; height:1px; background:var(--rule);}
-.group-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); flex:none;}
+.group-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-quiet); flex:none;}
 
 /* The "Planned" section is a <details> disclosure — the collections still being written outnumber the
    finished ones, and listing them flat made the Library read as empty. It was labelled "Coming soon"
@@ -8683,3 +8837,57 @@ body[data-theme="carnelian"].night .collection-deco{
 .how-foot{margin-top:26px; border-top:1px solid var(--rule); padding-top:16px;
   display:flex; flex-direction:column; gap:12px; align-items:flex-start;}
 .how-foot p{margin:0; max-width:72ch; font-size:calc(13.5px * var(--fs)); line-height:1.62; color:var(--ink-soft);}
+
+/* ============================================================
+   SEARCH (Sep 2026) — see PAGES.search in app.js
+   One field over the cards, the glossary and the shelf. The page is deliberately plain: it is read
+   fast, scanned rather than admired, and every row is a target. Groups are separated by their heading
+   alone — a card per group would spend three borders saying what three words already say.
+   ============================================================ */
+.srch-bar{margin:0 0 22px;}
+.srch-input{
+  width:100%; appearance:none; box-sizing:border-box;
+  padding:13px 15px; border-radius:10px; border:1.5px solid var(--rule); background:var(--card);
+  font-family:var(--serif); font-size:calc(17px * var(--fs)); color:var(--ink);
+}
+.srch-input::placeholder{color:var(--ink-quiet);}
+.srch-input:focus{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
+.srch-input::-webkit-search-cancel-button{cursor:pointer;}
+
+.srch-group{margin:0 0 26px;}
+.srch-gh{
+  display:flex; align-items:baseline; gap:9px; margin:0 0 8px;
+  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--indigo);
+}
+.srch-n{font-weight:500; color:var(--ink-quiet); letter-spacing:.06em;}
+.srch-gh::after{content:""; flex:1 1 auto; height:1px; background:var(--rule);}
+.srch-list{list-style:none; margin:0; padding:0;}
+.srch-row{
+  appearance:none; border:0; background:none; cursor:pointer; width:100%; text-align:left;
+  display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+  padding:10px 10px; margin:0 -10px; border-radius:8px;
+}
+.srch-row:hover{background:var(--paper-2);}
+.srch-row:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+.srch-label{font-family:var(--serif); font-size:calc(16.5px * var(--fs)); color:var(--ink); flex:0 1 auto;}
+/* the line that tells two cards with the same answer term apart — Korea and Japan share eighteen */
+.srch-sub{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink-quiet); letter-spacing:.04em; margin-left:auto; flex:none;}
+@media (max-width:520px){ .srch-sub{margin-left:0; flex-basis:100%;} }
+.srch-more,.srch-hint{font-size:calc(14.5px * var(--fs)); color:var(--ink-quiet); margin:6px 0 0; line-height:1.55;}
+.srch-hint{margin-top:4px;}
+.srch-hint .lnk{
+  appearance:none; border:0; background:none; padding:0; cursor:pointer; font:inherit;
+  color:var(--indigo); text-decoration:underline; text-underline-offset:3px;
+}
+
+/* the way in from the Collections page, which is how every phone reaches it */
+.srch-open{
+  appearance:none; cursor:pointer; width:100%; box-sizing:border-box;
+  display:flex; align-items:center; gap:10px; margin:0 0 16px; padding:11px 14px;
+  border:1px solid var(--rule); border-radius:10px; background:var(--card); color:var(--ink-quiet);
+  font-family:var(--serif); font-size:calc(15px * var(--fs)); text-align:left;
+}
+.srch-open svg{width:16px; height:16px; flex:none;}
+.srch-open:hover{border-color:var(--indigo); color:var(--ink);}
+.srch-open:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
