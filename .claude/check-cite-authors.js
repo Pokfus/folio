@@ -35,7 +35,8 @@ const wantCards = !args.includes("--gloss") || args.includes("--all");
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 
-const win = loadWindow(path.join(ROOT, "data.js"));
+/* Card citations are in data-extra/<prefix>.js, not data.js — see card-io.js's header. */
+const win = { CARD_DATA: require(path.join(ROOT, ".claude", "card-io.js")).loadCards().cards };
 const gloss = require(path.join(ROOT, ".claude", "gloss-io.js")).loadGlossary();
 const GS = gloss.GLOSSARY_SOURCES || (global.window && global.window.GLOSSARY_SOURCES) || {};
 

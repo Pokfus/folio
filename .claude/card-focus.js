@@ -188,7 +188,9 @@ function measure(card) {
            q1off: rule1Excluded(card.id) };
 }
 
-const win = loadWindow(dataPath);
+/* Citations and abstracts live in data-extra/<prefix>.js — see card-io.js's header.  Loading
+   dataPath alone leaves every card with no sources, so the measure finds nothing. */
+const win = { CARD_DATA: require("./card-io.js").loadCards().cards };
 const argv = process.argv.slice(2);
 const prefix = (argv.find((a) => a.startsWith("--prefix=")) || "").split("=")[1] || "";
 const one = (argv.find((a) => a.startsWith("--card=")) || "").split("=")[1];

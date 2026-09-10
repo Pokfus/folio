@@ -341,6 +341,45 @@ photograph of the guarantee of 31 March, of the signing of the Agreement of Mutu
 usable for either subject and Commons searches turn up only portraits of participants, which
 illustrate a person rather than the thing the card is about.
 
+**AND THE MILITARY CARDS ARE SERVED BY OFFICIAL HISTORY AND BY TWO OPEN JOURNALS, NOT BY THE
+LITERATURE** (Sep 2026, writing `ww2-134`–`ww2-140`). Doctrine, fortification and orders of battle are
+where this collection's usual sources go quiet: `journals.sagepub.com` and Project MUSE hold the standard
+articles behind a paywall, `history.army.mil`, `iwm.org.uk`, `armyupress.army.mil` and
+`media.defense.gov` all answer **403**, `apps.dtic.mil` serves an "Under Maintenance" page **under a 200
+status**, OpenEdition is behind the Anubis wall, and **`cheminsdememoire.gouv.fr` redirects to a
+MindefConnect login form** — a seventh variety of wall, and the one that cost the Maginot Line card its
+French sources. **Persée is half-open**: `/search?ta=article&q=…` works and `/doc/<id>` returns the
+reference and the page images, but NOT the article text, so a Persée hit can be found and cannot be read.
+What answered instead:
+· **The US Army's own histories, in full text on archive.org.** *The German Campaign in Poland, 1939*
+  (DA Pam 20-255, 1956) carries the Reichswehr, Seeckt's Truppenamt, the evasions in the Soviet Union,
+  the Westwall, German and POLISH orders of battle and the composition of a Panzer division down to the
+  tank types. Beside it the War Department's own 1942 study of the same campaign and the 1945 *Handbook
+  on German Military Forces* (TM-E 30-451) corroborate the 1939 divisional counts.
+· **Two open military-history journals.** The *Journal of Military and Strategic Studies* (`jmss.org`,
+  Calgary) is fully open and holds Robert Citino on the German way of war and Ioannis Salavrakos on the
+  French economy and army of 1939 — between them the Maginot Line's cost and extent, the French order of
+  battle, and Bewegungskrieg with its Kesselschlacht and Auftragstaktik. *Scientia Militaria*
+  (`scientiamilitaria.journals.ac.za`) is the other.
+· **Avalon's Nuremberg Blue Set is addressable BY DATE**, `imt/<mm-dd-yy>.asp`, with a menu per volume —
+  so a witness's testimony can be found by looking up the day he testified. Jodl on 4 and 5 June 1946
+  gives both the 110 inactive French and British divisions against 23 German ones and the reason the
+  1940 offensive went round the Maginot Line rather than through it. The **Hossbach Memorandum** and the
+  **Judgment** are there too, the second carrying the defence's answer to the first.
+· **The American Presidency Project serves PRESS CONFERENCES as well as speeches**, which is what makes
+  `ww2-133` a card rather than a paraphrase: the transcript of 6 October 1937 has the president refusing
+  to explain his own metaphor. Its date-range search (`/advanced-search?field-keywords=…&from[date]=…`)
+  is the way in.
+· **AND A PDF CAN BE READ HERE AFTER ALL.** There is no `pdftotext` and `pypdf` will not import, because
+  its crypt provider pulls in a broken `cryptography`; stubbing that module in `sys.modules` before the
+  import makes `pypdf` work, which is what opened the govinfo *Statutes at Large* scan of the Neutrality
+  Act of 1935 and the JMSS articles. **Worth rebuilding before deciding a PDF source is unreadable.**
+
+**A picture cannot always be found, and three of these ten ship without one** — `ww2-133` (no free
+photograph of the Chicago speech above 900px; the one Commons has is 275×177), `ww2-135` (nothing that
+depicts British rearmament rather than a wartime factory) and `ww2-140` (a memorandum of a secret
+meeting has no picture of itself).
+
 **A caution that cost a picture.** The Commons `api.php` rate-limits hard after a dozen calls and answers
 `Special:FilePath` throughout, which is the route CLAUDE.md already records — but the fault worth naming
 here is the other one: a file in the category *Assemblies of the League of Nations* turned out to be six
@@ -552,14 +591,14 @@ definitions, which exist precisely because the wording matters.
     ww2-130  The Danzig crisis  → written as *Free City of Danzig*
     ww2-131  American isolationism
     ww2-132  Neutrality Acts of the 1930s
-    ww2-133  Franklin D. Roosevelt and the approach of war
+    ww2-133  Franklin D. Roosevelt and the approach of war  → written as *Quarantine Speech*
     ww2-134  Maginot Line
     ww2-135  British rearmament
-    ww2-136  Interwar military thought
-    ww2-137  The development of armoured warfare
-    ww2-138  Interwar air power theory
-    ww2-139  The armies of 1939 compared
-    ww2-140  Was the war inevitable?
+    ww2-136  Interwar military thought  → written as *Bewegungskrieg*
+    ww2-137  The development of armoured warfare  → written as *Panzer division*
+    ww2-138  Interwar air power theory  → written as *Giulio Douhet*
+    ww2-139  The armies of 1939 compared  → written as *Wehrmacht*
+    ww2-140  Was the war inevitable?  → written as *Hossbach Memorandum*
 
 ## The War in Europe, 1939–1941
 

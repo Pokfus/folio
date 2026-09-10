@@ -1203,13 +1203,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   actively contested in public**, which is why its "History, not commemoration" and "Sourcing" sections are
   the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
   `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **`ww2-001`
-  to `ww2-130` have shipped**, so the collection is live and its empty decks are coming-soon
-  automatically, `isComingSoon` being true for a node holding no card. **Eleven of its lines have been
-  retitled while writing**, which is what the plan's own rule asks for, and each retitle has one of three
+  to `ww2-140` have shipped**, so the collection is live and its empty decks are coming-soon
+  automatically, `isComingSoon` being true for a node holding no card. **Seventeen of its lines have been
+  retitled while writing**, which is what the plan's own rule asks for, and each retitle has one of four
   reasons. A card is answered by a TERM rather than by a description: `ww2-102` is answered by *Southern
   Advance*, `ww2-105` by *Pan-Asianism*, `ww2-112` by *International Brigades*, `ww2-117` by
   *Sudetenland*, `ww2-122` by *Protectorate of Bohemia and Moravia*, `ww2-123` by *Anglo-Polish alliance*,
-  `ww2-128` by *sphere of influence* and `ww2-130` by *Free City of Danzig* — a line naming an EVENT
+  `ww2-128` by *sphere of influence*, `ww2-130` by *Free City of Danzig*, `ww2-136` by *Bewegungskrieg*,
+  `ww2-137` by *Panzer division*, `ww2-138` by *Giulio Douhet* and `ww2-139` by *Wehrmacht* — a line naming an EVENT
   ("the German occupation of Czechoslovakia", "the Danzig crisis") usually wants the THING the event
   made or was about, since that is what a reader will meet the word for again. An earlier card has already spent the obvious answer: `ww2-107` is the *Stimson Doctrine*,
   since `ww2-090` and `ww2-091` had already carded the League's own handling of the Manchurian crisis.
@@ -1223,6 +1224,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **`Maxim Litvinov`** — the commissar whose dismissal on 3 May 1939 is where the change of course is
   documented and datable, in the German chargé's own telegram and in the American reports of the day.
   **A MOTIVE LINE WANTS THE MOMENT THE MOTIVE BECAME VISIBLE**, not a paraphrase of the motive.
+  **AND `ww2-133` IS A FOURTH REASON, WHICH IS THE ONE TO CHECK FOR FIRST**: its line is
+  *Franklin D. Roosevelt and the approach of war*, and `Franklin_D._Roosevelt` has been a cited glossary
+  term since Phase 2 of the citation pass, so the pairing rule was already satisfied and the line had no
+  term of its own left to teach. It is answered by the **`Quarantine Speech`** instead. **A LINE NAMED
+  AFTER A PERSON THE GLOSSARY ALREADY HOLDS WANTS THE MOMENT, NOT THE MAN** — and the check is one command
+  against the glossary keys before the research starts, not after.
+  `ww2-140` is `ww2-120`'s reason a third time: *was the war inevitable?* is a question, the plan cards the
+  origins debate as an argument rather than as people, so it is answered by the **`Hossbach Memorandum`**,
+  the one document the argument turns on — with the IMT judgment's record of the defence's answer to it on
+  the same card, which is what keeps the historiography inside the cap.
   One thing that batch measured and did not act on: `Neville_Chamberlain` is deliberately denied the
   bare alias **Chamberlain**, because the corpus's eleven surfaces include Austen twice and Joseph once,
   and an alias right six times and wrong three is worse than none. Not part of the
@@ -1458,7 +1469,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   by eye. Not part of the site.
 - `.claude/check-citations.js` — **every citation's AUTHOR NAMES and YEAR, against Crossref**:
   `node .claude/check-citations.js [--prefix=wh-] [--card=] [--term=] [--artefacts] [--verbose]`, exit 1
-  on a mismatch. **RUN IT BEFORE WRITING A CARD'S JSON, NOT AFTER** — as an audit afterwards it let eight
+  on a mismatch. **A RUN THAT REPORTS `works cited 0` IS THE TOOL FAILING, NOT THE CORPUS PASSING** — it
+  read `data.js` alone for as long as the `data-extra/` split existed and saw no card sources at all (see
+  the `data-extra` bullet above); check the count before believing the verdict. **RUN IT BEFORE WRITING A
+  CARD'S JSON, NOT AFTER** — as an audit afterwards it let eight
   bad citations ship across four cards in one week. It exists because **Europe PMC returns author lists as
   INITIALS** ("Liu C, Sainsbury V", "Ding K, Li S, Lu H") and a Chicago note wants full given names:
   expanding them by hand produces names that read perfectly and are wrong — Chunlin Liu for **Cheng Liu**,
@@ -1513,6 +1527,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
   because a file nobody is told to read is a file nobody reads. Eight docs were in exactly that state
   when it was written — unreferenced from here, several of them holding OPEN work.
+- `data-extra/<prefix>.js` + `.claude/card-io.js` + `.claude/split-cards.js` — **THE CARD CORPUS IS TWO
+  FILES PER COLLECTION**, the glossary and artefact splits above applied to `data.js`: the light half
+  (id, question, answer, date line, tags, difficulty, `facts`, `map`, `locator`) stays on the eager path
+  and the heavy half — `abstract`, `sources`, `why`, `quote` and a non-artwork card's `image` — lives in
+  `data-extra/<prefix>.js`, fetched only when a reader reveals a card in that collection. **`card-io.js`
+  is the one door**: `loadCards()` returns `{ cards, tree }` with the halves joined on `id`, and
+  `writeCards()` writes both or neither. **NEVER `require("../data.js")` FROM A HELPER** — read that
+  module's own header, which sets out both directions of the trap.
+  · **AND FIVE CHECKERS WERE BLIND FOR EXACTLY THAT REASON UNTIL SEP 2026, WHICH IS THE FAULT THE HEADER
+    PREDICTS** (found writing `ww2-131`–`ww2-140`). `check-citations.js`, `source-audit.js`,
+    `card-focus.js`, `card-length.js` and `why-count.js` all loaded `data.js` alone, so every card came
+    back with no abstract, no sources and no `why` — and each reported that as a RESULT rather than as a
+    failure: "0 works cited", "0 cards needing revision", "500 backgrounds, 500 outside the bar, mean 0",
+    "0 of 2935 cards". **CLAUDE.md tells every session to run the first of those BEFORE writing a card's
+    JSON**, so the one check written to catch a fabricated author had been answering "everything matches"
+    over an empty list. All five are repointed. **When a checker reports zero, ask what it loaded before
+    believing it** — and a helper that reads a heavy field is one `require` away from this.
 - `artefacts-extra.js` + `.claude/split-artefacts.js` + `.claude/artefact-io.js` — **the artefact pool
   is TWO files**, and it is the glossary split below in miniature. `desc`, `sources` and `image` were
   **237.5 KB of `artefacts.js`'s 251 — 94%** — on the EAGER path, and **not one of them is read until a
@@ -6580,7 +6611,7 @@ lookup.
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 199 cards, `cnh-001` to `cnh-200` with `cnh-070` retired in Sep 2026 — next is `cnh-201`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
-| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 130 cards, contiguous — next is `ww2-131` |
+| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 140 cards, contiguous — next is `ww2-141` |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |

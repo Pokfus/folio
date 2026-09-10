@@ -22,7 +22,9 @@ const m = /const SRC_TARGET = (\d+);/.exec(appSrc);
 if (!m) { console.error("ERROR: could not find `const SRC_TARGET` in app.js — has the constant been renamed?"); process.exit(1); }
 const TARGET = +m[1];
 
-const cards = loadWindow(path.join(root, "data.js")).CARD_DATA || [];
+/* `sources` lives in data-extra/<prefix>.js, not in data.js: loading data.js alone reports a
+   fully cited corpus as uncited.  card-io.js joins the two halves — see its header. */
+const cards = require("./card-io.js").loadCards().cards;
 const rows = cards.map((c) => {
   const src = Array.isArray(c.sources) ? c.sources : [];
   const why = typeof c.sourcesBlocked === "string" ? c.sourcesBlocked.trim() : "";
