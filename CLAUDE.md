@@ -1254,9 +1254,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1–G19 have shipped — two hundred and twenty-nine backgrounds rewritten** (`gw-001`–`gw-229`, less
-    the deferrals below), each five sentences of landform, water and climate over five of the country's
-    own history, with two hundred and fifteen date lines rewritten out of the same research. Three sources make the
+    **THE COUNTRY HALF IS FINISHED: G1–G20 have shipped and all two hundred and thirty-three
+    backgrounds are rewritten** (`gw-001`–`gw-233`), each five sentences of landform, water and climate
+    over five of the country's own history, with two hundred and nineteen date lines rewritten out of
+    the same research. Three sources make the
     pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
@@ -1417,6 +1418,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     matching `to the east` and its mask not knowing *Indies*, so Saint Helena reported Portugal until
     the sentence read "bound **for** the East Indies" — a rule-4 finding on a card with no neighbours
     in it is worth reading before believing.
+    **AND A PLACE THAT IS ITSELF A CAPITAL CANNOT ESCAPE RULE 2 — `gw-232` VATICAN CITY IS THE FOURTH**
+    (Sep 2026, G20), joining `gw-213`, `gw-214` and `gw-216` on the permanent list for G18's reason; what
+    the prose CAN drop is the figure, so the state's extent is written as **44 hectares** rather than as
+    the grid's 0.44 km². **AND WHERE FOUR OF THE FIVE STANDARD SOURCES FAIL, THE DEPARTMENT THAT MANAGES
+    A TERRITORY ANSWERS BETTER THAN THE ONE THAT COUNTS IT**: Norfolk Island and the Pitcairn Islands
+    have no UNdata profile, no CBD Biodiversity Facts section, no recognition-guide page and no
+    constitution to carry, and **Parks Australia's national-park pages** are a landform inventory in
+    disguise — separate pages for the geology, the plants, the history and the **Norfolk Ridge** beneath.
+    **AND A CITATION OPENING ON ITS QUOTED TITLE HAS NO AUTHOR**, which is what lets such a card cite
+    four pages of one body: `check-cards.js` refuses one author in more than two of a card's sources, and
+    an anonymous institutional page written in the Chicago note form it actually takes satisfies the rule
+    honestly rather than dodging it. **AND `Compact_of_Free_Association` CLAIMS THE BARE SURFACE *free
+    association***, which is explicitly the treaty between the United States and a formerly administered
+    Pacific state — so Niue's free association with New Zealand linked to a definition that excludes it;
+    written round and recorded, with `Settlement` (the archaeologists' dwelling place) and `Water` (the
+    chemistry term) written round in the same read.
     Rules 1 and 3 remain open on
     about 300 cards.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in

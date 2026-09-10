@@ -125,6 +125,11 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-10, batch G20 — the last four, and the country half of the deck is finished**:
+  `gw-230` Norfolk Island, `gw-231` Niue, `gw-232` Vatican City and `gw-233` the Pitcairn Islands, with
+  all four date lines rewritten off the same research. **All 233 country and territory backgrounds have
+  now been rewritten.**
+
 - **2026-09-10, batch G19 — the last of the small islands, and four sovereign states among them**:
   `gw-218` Saint Martin, `gw-219` Anguilla, `gw-220` Palau, `gw-221` the Cook Islands, `gw-222` Nauru,
   `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy, `gw-225` Tuvalu, `gw-226` Saint Pierre and
@@ -298,6 +303,56 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G20 found
+
+Four cards, and the batch that closes the country half of the deck. Its findings are small because the
+recipe was settled long before it; what is worth keeping is where the recipe stopped applying.
+
+**A PLACE THAT IS ITSELF A CAPITAL CANNOT ESCAPE RULE 2, AND `gw-232` IS THE FOURTH SUCH CARD.** The
+grid prints Capital and Largest city, both of which read *Vatican City* — which is also the card's own
+answer term, so the abstract's opening bold word IS a grid repeat and nothing can be written round it.
+It joins `gw-213` Gibraltar, `gw-214` Monaco and `gw-216` San Marino in the permanent rule-2 list, for
+exactly the reason G18 recorded. The area and the population were still taken out of the prose, since
+those the grid really does say twice: the state's extent is written as **44 hectares** rather than as
+the grid's 0.44 km², which is the same measurement in the unit the Governorate's own page uses.
+
+**AND WHERE FOUR OF THE FIVE STANDARD SOURCES FAIL, A NATIONAL PARK SERVICE ANSWERS BETTER THAN ANY OF
+THEM WOULD HAVE.** Norfolk Island and the Pitcairn Islands have no UNdata profile (both 500, as Jersey
+and Guernsey do), no CBD Biodiversity Facts section, no recognition-guide page and no constitution in
+the Constitute Project — G17's finding about dependencies, one more time. What carried `gw-230` is
+**Parks Australia**, whose Norfolk Island National Park pages are a landform inventory in disguise:
+separate pages for the geology (the basalt under Mount Pitt and Mount Bates, the krasnozem clays, the
+skeletal soils on the summit ridge, Phillip Island's volcanism at 3.2 to 2.3 million years), for the
+plants (200 natives, 46 of them endemic) and for the history (Polynesian seafarers between the 13th
+and 15th centuries, Cook in 1774, the two convict settlements, the Pitcairners in 1856), with the
+Australian Marine Parks page for the **Norfolk Ridge** and its seamounts beneath. G16's Hong Kong
+finding and G17's museum finding at a third address: **a territory's administering power publishes
+about it in the department that manages it, not in the department that counts it.**
+
+**AND A CITATION THAT OPENS ON ITS QUOTED TITLE HAS NO AUTHOR, WHICH IS WHAT MAKES SUCH A CARD
+POSSIBLE.** `check-cards.js` refuses a card citing one author in more than two of its sources, and four
+Parks Australia pages or three Government of the Pitcairn Islands pages would trip it — written in the
+Chicago note form an anonymous institutional page actually takes, opening on the title, `authorOf`
+returns nothing and the rule is satisfied honestly rather than dodged. **Cite an institutional web page
+the way Chicago says to; the concentration rule is measuring authors, and such a page has none.**
+
+**AND THE TWO ENDS OF THE BATCH TURN OUT TO BE ONE STORY.** The whole Pitcairn community moved to
+Norfolk Island in 1856 — 196 people, the descendants of the *Bounty* mutineers and their Tahitian
+wives, into the buildings the second convict station had left — and families returned to Pitcairn in
+1859 and 1864. Each card is written from the other island's own source, so the two halves are cited
+independently and agree.
+
+**AND ONE MORE WRONG AUTO-LINK, VISIBLE ONLY IN A BROWSER**: `Compact_of_Free_Association` claims the
+bare surface *free association*, and that term is explicitly the treaty between the United States and
+a formerly administered Pacific state — so Niue's free association with New Zealand, which is a
+different arrangement entirely, linked to a definition that excludes it. Written round
+("self-government while remaining freely associated with New Zealand") and recorded here; the fix is a
+narrower alias on that term, which is a glossary pass rather than a background one. Two smaller ones
+were written round in the same read: `Settlement` is the archaeologists' dwelling place, so "Settlement
+began about 1000 CE" sent a reader to the wrong sense, and `Water` is the chemistry term, so "salt
+water" offered a reader a polar molecule where they wanted the sea. **`Council` was left standing**, as
+CLAUDE.md already records it — Niue's Island Council is a proper name, and there is one occurrence.
 
 ## What G19 found
 
