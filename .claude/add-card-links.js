@@ -97,6 +97,11 @@ if (touched !== Object.keys(merged).length) {
 }
 if (DRY) { console.log("dry run: " + touched + " card" + (touched === 1 ? "" : "s") + " would change"); process.exit(0); }
 fs.writeFileSync(DATA, lines.join("\n"));
+/* data.js is the LIGHT half of the corpus. This helper splices its change straight into that
+   file, so a heavy field (abstract / sources / why / quote / image) lands there fat and has to
+   be moved back out — otherwise data.js re-fattens one card at a time and the eager load path
+   grows back in silence. See .claude/card-io.js. */
+require("./card-io").resplit();
 loadWindow(DATA);   // re-parse to confirm the written file is valid JS
 
 const after = loadWindow(DATA).CARD_DATA;

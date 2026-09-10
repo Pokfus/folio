@@ -93,6 +93,11 @@ if (arrEnd < 0) die("could not find the end of the CARD_DATA array");
 // ONE card per line, the shape every other helper writes — otherwise data.js flip-flops between
 // 1.4k and 15k lines depending on which tool wrote last, and every batch's diff is the whole file.
 fs.writeFileSync(DATA, src.slice(0, arrStart) + "[\n" + CARDS.map((c) => JSON.stringify(c)).join(",\n") + "\n]" + src.slice(arrEnd + 1));
+/* data.js is the LIGHT half of the corpus. This helper splices its change straight into that
+   file, so a heavy field (abstract / sources / why / quote / image) lands there fat and has to
+   be moved back out — otherwise data.js re-fattens one card at a time and the eager load path
+   grows back in silence. See .claude/card-io.js. */
+require("./card-io").resplit();
 
 // re-parse to confirm we did not corrupt the file
 delete require.cache[require.resolve(DATA)];

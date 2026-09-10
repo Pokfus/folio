@@ -172,6 +172,11 @@ for (const id of Object.keys(want)) {
   if (arrEnd < 0) die("could not find the end of the CARD_DATA array");
   // ONE card per line, the shape every other helper writes
   fs.writeFileSync(DATA, src.slice(0, arrStart) + "[\n" + CARDS.map((c) => JSON.stringify(c)).join(",\n") + "\n]" + src.slice(arrEnd + 1));
+  /* data.js is the LIGHT half of the corpus. This helper splices its change straight into that
+     file, so a heavy field (abstract / sources / why / quote / image) lands there fat and has to
+     be moved back out — otherwise data.js re-fattens one card at a time and the eager load path
+     grows back in silence. See .claude/card-io.js. */
+  require("./card-io").resplit();
 
   // re-parse to confirm we did not corrupt the file
   try { loadWindow(DATA); } catch (e) { die("data.js no longer parses: " + e.message); }

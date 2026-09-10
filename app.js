@@ -442,6 +442,33 @@
      in that position (`Apennines`, `Tiber` and the question) and are flagged anyway, because the day a
      date line is added to one of them it would otherwise walk silently back into the puzzle. */
   function cardUndatable(c) { const card = typeof c === "string" ? cardById(c) : c; return !!(card && card.undatable); }
+  /* THE HEAVY HALF OF A CARD IS LAZY (Sep 2026). `abstract`, `sources`, `why`, `quote` and a
+     non-artwork card's `image` were 12.6 MB of data.js's 14.9 — on the EAGER path, downloaded by
+     every visitor before they could flip one card — and NOT ONE of them is read until a reader
+     reveals an answer. They live in data-extra/<collection>.js now, one file per collection,
+     fetched when a reader actually reveals a card in it. The eager path went 5.69 -> 2.63 MB gz.
+
+     ONE FILE PER COLLECTION rather than one big one: a single data-extra.js is 3.16 MB gz warmed
+     for everybody, which is most of the win handed straight back. A reader studying Ancient Greece
+     fetches gr.js and nothing else.
+
+     AN ARTWORK CARD'S `image` STAYS EAGER and that is a rule, not an exception: there the picture
+     IS the question (cardArtSpec draws it on the FRONT), where every other card's picture
+     illustrates its answer. Six cards, ~10 KB.
+
+     Keep this list in step with EXTRA_FIELDS in .claude/card-io.js — split-cards.js --check slices
+     this declaration out by text and fails if the two have drifted, because a field app.js expects
+     lazily and the splitter leaves eager is a field that ships twice. */
+  const CARD_EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image"];
+  const cardExtraPrefix = (id) => String(id || "").replace(/-\d+$/, "");
+  /* Has this card's heavy half arrived? A community card never has one (its whole record is in the
+     deck file), and a card with no prefix we ship simply answers yes so nothing waits for ever. */
+  function cardExtraLoaded(id) {
+    const p = cardExtraPrefix(id);
+    return !p || isCommunityCard(id) || _cardExtraIn.has(p);
+  }
+  const _cardExtraIn = new Set();   // collection prefixes whose data-extra file has landed
+
   // pristine copies (taken before edits are applied) so any field can be reverted to what shipped
   const PRISTINE_CARDS = Object.fromEntries(CARDS.map((c) => [c.id, Object.assign({}, c)]));
   const BASE_CARD_IDS = new Set(Object.keys(PRISTINE_CARDS));   // shipped card ids (before any admin-created cards) — used to rebuild the deck from base on undo
@@ -10175,6 +10202,51 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // registered as bundles on demand, so a Spanish reader fetches ~310 KB of Spanish instead of the 2.7 MB
   // of all-languages tables the single-file layout made everyone download. Registering lazily (rather than
   // listing 18 static bundles) also means a session only ever knows about the languages it actually visits.
+  /* A COLLECTION'S HEAVY CARD HALF, registered on demand exactly as a language file is (see
+     CARD_EXTRA_FIELDS). Listing fifteen static bundles would work and would also mean a session
+     knows about collections it never opens; this way `cardExtra:gr` exists only once something has
+     asked for Greece. */
+  function cardExtraBundle(prefix) {
+    const name = "cardExtra:" + prefix;
+    if (!DATA_BUNDLES[name]) DATA_BUNDLES[name] = { files: ["data-extra/" + prefix + ".js"], after: cardExtraIngest };
+    return name;
+  }
+  /* Fetch the heavy half for one card (or a list of them), and resolve when it is merged in.
+     Resolves TRUE for a community card and for anything already present, so a caller can await it
+     unconditionally. Never rejects — ensureData does not — so a failed fetch leaves the card
+     rendering its light half rather than throwing inside a render. */
+  function ensureCardExtra(idOrIds) {
+    const ids = Array.isArray(idOrIds) ? idOrIds : [idOrIds];
+    const want = [...new Set(ids.map(cardExtraPrefix).filter((p) => p && !_cardExtraIn.has(p) && !isCommunityCard(ids[0])))];
+    if (!want.length) return Promise.resolve(true);
+    return Promise.all(want.map((p) => ensureData(cardExtraBundle(p)))).then((r) => r.every(Boolean));
+  }
+  /* Run `fn` once this card's heavy half is in — now if it already is. Every surface that renders a
+     card BACK goes through this, because `buildBack` is synchronous and returns a string: a caller
+     that skipped it would draw a card with an empty background, which looks exactly like a card that
+     has none. A community card and an already-loaded collection both run synchronously, so no
+     surface gains a frame of delay for the common case. */
+  function withCardExtra(c, fn) {
+    const id = c && (typeof c === "string" ? c : c.id);
+    if (!id || cardExtraLoaded(id)) { fn(); return; }
+    ensureCardExtra(id).then(fn);
+  }
+  /* Warm the collections this reader actually studies, at idle after boot. A reader with three decks
+     pays for three files and a reader with none pays for nothing — which is the whole reason the
+     split is per collection. */
+  function warmActiveCardExtra() {
+    whenIdle(() => {
+      try {
+        if (navigator.connection && navigator.connection.saveData) return;
+        const pre = new Set();
+        activeEntryIds().forEach((eid) => entryCardIds(eid).slice(0, 400).forEach((id) => {
+          const p = cardExtraPrefix(id);
+          if (p && !isCommunityCard(id)) pre.add(p);
+        }));
+        [...pre].slice(0, 4).forEach((p) => ensureData(cardExtraBundle(p)));
+      } catch (e) {}
+    });
+  }
   function langBundle(kind, lang) {
     const name = kind + ":" + lang;
     if (!DATA_BUNDLES[name]) {
@@ -10231,6 +10303,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     });
     refreshArtefacts();   // rebuilds from the enriched base, re-applying ADMIN_EDITS on top
+  }
+  /* THE HEAVY HALF OF ONE COLLECTION'S CARDS, arriving after boot (bundle `cardExtra:<prefix>`).
+
+     IT MERGES INTO BOTH THE LIVE CARD AND THE PRISTINE BASELINE, and both halves are load-bearing.
+     PRISTINE_CARDS is snapshotted at boot, which is BEFORE this file lands, so without the re-seed
+     the editor's Revert would compare a real abstract against nothing and DELETE it — the exact
+     fault glossExtraIngest exists to prevent, one store over. And ADMIN_EDITS goes back on top
+     afterwards, because a lazy file overwrites what applyAdminEdits() already did.
+
+     An id data.js does not carry is NOT resurrected: the light half decides what a card is, so a
+     row left behind by a retired card must not walk back in carrying only prose.
+
+     A QUEUE rather than a slot, like the i18n files, so nothing is lost when two collections' files
+     land before either hook runs. */
+  function cardExtraIngest() {
+    const q = window.CARD_EXTRA_IN || [];
+    window.CARD_EXTRA_IN = [];
+    q.forEach((inc) => {
+      const t = inc.CARD_EXTRA || {};
+      Object.keys(t).forEach((id) => {
+        const p = PRISTINE_CARDS[id];
+        if (!p) return;   // not a shipped card any more
+        Object.assign(p, t[id]);
+        _cardExtraIn.add(cardExtraPrefix(id));
+        const live = CARD_BY_ID[id];
+        if (!live) return;
+        Object.keys(t[id]).forEach((k) => {
+          // the overlay wins: a field the admin has edited must not be overwritten by the file
+          const d = (ADMIN_EDITS.cards || {})[id];
+          if (d && d[k] !== undefined) return;
+          live[k] = t[id][k];
+        });
+      });
+    });
+    uCacheBust();
   }
   function glossExtraIngest() {
     const q = window.GLOSSARY_EXTRA_IN || [];
@@ -29149,6 +29256,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
 
     function renderCard() {
+      /* Warm this card's collection, and the next few cards' — fire and forget. By the time the
+         reader reveals, the file is in. Cheap: ensureData de-duplicates, so a queue of 20 cards from
+         one collection makes one request. */
+      try { if (queue.length) ensureCardExtra(queue.slice(0, 8).map((q) => (typeof q === "string" ? q : q && q.id)).filter(Boolean)); } catch (e) {}
       closeAllGloss();   // clear any gloss popup from the previous card (incl. before the completion screen) so it can't linger or be restored on reload
       ttsStop();         // …and stop the previous card's read-aloud
       if (queue.length === 0) return renderComplete();
@@ -29357,6 +29468,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          undo. A card that spoke again on every repaint would be a card nobody could leave open. */
       function showAnswer(fromReader) {
         if (revealed) return;
+        /* THE HEAVY HALF OF THE CARD IS LAZY, so the answer side may not be here yet (see
+           CARD_EXTRA_FIELDS). Nearly always it is: renderCard warms this card's collection the
+           moment the card is dealt, and a reader takes seconds to answer. When it is not — a cold
+           first card, a slow link — we wait and re-enter rather than rendering a card with an empty
+           background, which would look exactly like a card that has none. Re-entry is safe because
+           this call returns before touching `revealed` or the DOM. */
+        if (!cardExtraLoaded(id)) { ensureCardExtra(id).then(() => { if (!revealed) showAnswer(fromReader); }); return; }
         /* THE ONE GUARD, and it is here rather than on the button because Space and Enter reveal too and
            three copies of a rule is two too many. `fromReader` is exactly the right test: the restore
            line at the foot of `renderCard` re-opens an already-revealed card after a reload, a language
@@ -32589,6 +32707,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function openCardPeek(id) {
     const c0 = cardById(id);
     if (!c0) return;
+    // the sheet's whole body is the card's defining sentence, which lives in the lazy half
+    if (!cardExtraLoaded(id)) { ensureCardExtra(id).then(() => openCardPeek(id)); return; }
     const c = cardLocalized(c0);
     const term = c.answerText || String(c.answer || "").replace(/<[^>]*>/g, "");
     deckSheet("Card", '<div class="dm-head"><span class="dm-title">' + esc(term) + "</span></div>" +
@@ -33126,6 +33246,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   // render a static, fully-expanded card preview (question + back) into a box — used by the admin editor's live preview
   function renderCardPreviewInto(box, c) {
+    if (!cardExtraLoaded(c && c.id)) { ensureCardExtra(c.id).then(() => renderCardPreviewInto(box, c)); return; }
     box.innerHTML =
       '<div class="study-card admin-pv-card">' +
         '<span class="label">Question</span>' +
@@ -33488,13 +33609,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          `mountCardBack` is what makes it behave: glossary links, footnote numbers, the Background fold
          and a locator's globe. */
       const back = root.querySelector("#mcBack");
-      if (back) {
+      if (back) withCardExtra(item.card, () => {
         back.hidden = false;
         back.innerHTML =
           '<div class="study-card mc-card"><div class="reveal show"><div class="reveal-inner">' +
           buildBack(item.card) + "</div></div></div>";
         mountCardBack(back.querySelector(".reveal-inner"), item.card);
-      }
+      });
     }
 
     function next() {
@@ -36289,11 +36410,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (cpStatsSecEl) cpStatsSecEl.hidden = true;
       if (cpSrcSecEl) cpSrcSecEl.hidden = true;
       if (cpDescSecEl) { cpDescSecEl.hidden = false; cpSection(cpDescSecEl, true, true); }
-      if (cpDescEl) {
+      if (cpDescEl) withCardExtra(c, () => {
         cpDescEl.innerHTML = '<div class="study-card cp-cardback"><div class="reveal show"><div class="reveal-inner">' + buildBack(c) + "</div></div></div>";
         const inner = cpDescEl.querySelector(".reveal-inner");
         if (inner) mountCardBack(inner, c, { expand: true, shutSources: true });
-      }
+        cpResize();   // the body just changed height — re-fit the sheet
+      });
       cpEl.hidden = false;
       cpResize();
     }
@@ -43980,7 +44102,9 @@ let prev = null;
     const actions = host.querySelector("#actions");
     actions.innerHTML = '<div class="reveal-cta"><button class="btn" id="reveal-btn">Reveal answer</button></div>';
     function showAnswer() {
-      if (revealed) return; revealed = true;
+      if (revealed) return;
+      if (!cardExtraLoaded(c && c.id)) { ensureCardExtra(c.id).then(() => { if (!revealed) showAnswer(); }); return; }
+      revealed = true;
       gradeCloze(cardRoot.querySelector(".question"), c.answer);
       const inner = host.querySelector("#revealInner");
       inner.innerHTML = buildBack(c);
@@ -45558,6 +45682,11 @@ let prev = null;
      warm still gets both: openGlossWin re-fills its picture and Sources slots when the file lands.
      Skipped under Save-Data, like the mini globe was. */
   whenIdle(() => { if (!(navigator.connection && navigator.connection.saveData)) ensureData("glossExtra"); });
+  /* …and the heavy half of the cards in the collections this reader actually studies. Per
+     collection, so a reader with two decks warms two files and a reader with none warms nothing
+     — see CARD_EXTRA_FIELDS. A reader who opens a card before the warm lands simply waits for
+     that one file; showAnswer handles it. */
+  warmActiveCardExtra();
   /* …and the artefact pool's descriptions, citations and pictures (artefacts-extra.js), which used to
      sit on the EAGER path inside artefacts.js and were 94% of it. Same bargain as the line above: a
      chest arrives unasked, in the middle of a study session, and the reader should not watch a spinner

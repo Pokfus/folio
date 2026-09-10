@@ -76,6 +76,11 @@ const out =
   "/* Collection -> deck -> sub-deck tree. Leaf decks carry a `cardIds` array. */\n" +
   "window.COLLECTION_TREE = " + JSON.stringify(tree, null, 2) + ";\n";
 fs.writeFileSync(dataPath, out);
+/* data.js is the LIGHT half of the corpus. This helper splices its change straight into that
+   file, so a heavy field (abstract / sources / why / quote / image) lands there fat and has to
+   be moved back out — otherwise data.js re-fattens one card at a time and the eager load path
+   grows back in silence. See .claude/card-io.js. */
+require("./card-io").resplit();
 try { loadWindow(dataPath); } catch (e) { die("data.js no longer parses after the write: " + e.message); }
 
 // ---- report ------------------------------------------------------------------------------------------

@@ -5,7 +5,11 @@
    monospace eyebrows.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito+Sans:wght@400;600;700&family=Spectral:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700;900&Press+Start+2P&family=VT323&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cinzel:wght@400;600;700&family=Oswald:wght@400;500;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Special+Elite&display=swap');
+/* The webfonts are self-hosted and declared in fonts.css, which index.html links ahead of
+   this file. They were an `@import` here until Sep 2026; that single line blocked every
+   script on the page behind a third-party request (12,949 ms to first paint with Google
+   unreachable, against 437 ms without it). Do not reintroduce one — see the reasoning in
+   index.html's head and in .claude/build-fonts.js. */
 
 /* ---------- tokens ---------- */
 :root{
