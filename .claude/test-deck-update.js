@@ -246,6 +246,109 @@ const ROWS = (() => { const w = {}; new Function("window", catSrc)(w); return w.
   const gone = await page.evaluate(() => document.querySelectorAll("[data-langup]").length);
   check("and the Update button goes once there is nothing to update", gone === 0, String(gone));
 
+  /* ---------- 5. Redownload, which is the door for a staleness no revision can see ----------
+     Sep 2026, on request ("in the active decks long press menu, there should be an option to redownload
+     the collection files, since sometimes updates don't load appear correctly"). Section 3 corrupts the
+     stored REVISION as well as the card, because that is what an out-of-date download looks like; here
+     the revision is left CURRENT and only the card is made wrong, which is what a cut-off download, a
+     half-applied merge or a stale cache handed back leaves behind. Nothing on the page then offers an
+     Update — correctly, since the two copies really were built from the same source — so without this
+     row a reader looking at a card they know was repaired has nothing to press. */
+  console.log("\n5) a card that is wrong while the revision says the deck is current\n");
+  const RE_BAD = "STILL WRONG";
+  const target2 = await page.evaluate((args) => new Promise((res) => {
+    const deckId = args[0], bad = args[1], cardId = args[2];
+    const q = indexedDB.open("folio-community");
+    q.onsuccess = () => {
+      const db = q.result;
+      const tx = db.transaction("notes", "readwrite"), ns = tx.objectStore("notes");
+      let out = null;
+      const g = ns.get(deckId + "/" + cardId);
+      g.onsuccess = () => {
+        const note = g.result;
+        if (!note || !note.c || !note.c.fields) return;
+        out = { id: cardId, was: note.c.fields.Pinyin };
+        note.c.fields.Pinyin = bad;
+        note.c.pinyin = bad;
+        ns.put(note);
+      };
+      tx.oncomplete = () => { db.close(); res(out); };
+    };
+    q.onerror = () => res(null);
+  }), [small.id, RE_BAD, target.id]);
+  check("a card is wrong again, with the revision left alone",
+    !!target2 && target2.was && target2.was !== RE_BAD, target2 ? JSON.stringify(target2.was) : "—");
+
+  await page.reload({ waitUntil: "load" });
+  await page.waitForTimeout(2500);
+  const stillNoUpdate = await page.evaluate(() => document.querySelectorAll("[data-langup]").length);
+  check("…and nothing offers an Update, the two copies being built from one source", stillNoUpdate === 0,
+    String(stillNoUpdate));
+
+  fetched.length = 0;
+  const sheet = await page.evaluate((deckId) => {
+    const row = document.querySelector('[data-review="u:' + deckId + '"]') ||
+      [...document.querySelectorAll("[data-review]")].find((e) => (e.dataset.review || "").indexOf(deckId) >= 0);
+    if (!row) return null;
+    row.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
+    return true;
+  }, small.id);
+  check("the deck's row opens its options", sheet === true);
+  await page.waitForTimeout(500);
+  const rows = await page.evaluate(() =>
+    [...document.querySelectorAll(".deck-menu .dm-item")].map((x) => (x.querySelector("b") || x).textContent.trim()));
+  check("…and the sheet offers Redownload", rows.indexOf("Redownload") >= 0, JSON.stringify(rows));
+  /* IT IS NOT IN THE DANGER BLOCK, and the order is the claim: the merge keeps every card id, so nothing
+     the reader has is at risk, and a row that sits beside Remove reads as one that might take something. */
+  check("…before Remove, which stays last", rows[rows.length - 1] === "Remove", JSON.stringify(rows));
+
+  const pressed = await page.evaluate(() => {
+    const r = document.querySelector('.deck-menu .dm-item[data-act="redownload"]');
+    if (r) r.click();
+    return !!r;
+  });
+  check("the Redownload row is there to press", pressed);
+  await page.waitForTimeout(16000);
+  check("Redownload fetches the deck file, once", fetched.length === 1, fetched.join(", ") || "nothing fetched");
+
+  const after2 = await page.evaluate((args) => new Promise((res) => {
+    const deckId = args[0], cardId = args[1];
+    const q = indexedDB.open("folio-community");
+    q.onsuccess = () => {
+      const db = q.result;
+      const tx = db.transaction(["decks", "notes"]);
+      const g = tx.objectStore("decks").get(deckId);
+      const n = tx.objectStore("notes").get(deckId + "/" + cardId);
+      tx.oncomplete = () => {
+        db.close();
+        const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+        const c = n.result && n.result.c;
+        res({
+          pinyin: c && c.fields ? c.fields.Pinyin : null,
+          mirror: c ? c.pinyin : null,
+          sched: (s.cards || {})[cardId] || null,
+          notes: ((g.result && g.result.index) || []).length,
+          deckId: g.result && g.result.id,
+        });
+      };
+    };
+    q.onerror = () => res(null);
+  }), [small.id, target.id]);
+  check("the card is repaired without any revision having changed", !!after2 && after2.pinyin === target2.was,
+    JSON.stringify({ now: after2 && after2.pinyin, want: target2.was }));
+  check("…including its legacy mirror", !!after2 && after2.mirror === target2.was, String(after2 && after2.mirror));
+  check("…with the deck's id and size unchanged",
+    !!after2 && after2.deckId === small.id && after2.notes === small.notes,
+    JSON.stringify({ id: after2 && after2.deckId, notes: after2 && after2.notes }));
+  /* The whole reason this is safe to offer from a menu rather than from a danger block. */
+  check("…and the reader's schedule for that card still untouched",
+    !!(after2 && after2.sched && after2.sched.ivl === 42 && after2.sched.reps === 7),
+    JSON.stringify(after2 && after2.sched));
+  /* IT REPORTS WHAT IT DID rather than that it did something — "Redownloaded" cannot tell a deck that
+     gained a repair from one that gained nothing, and the count is the only honest answer. */
+  const said = await page.evaluate(() => (document.querySelector("#toast") || {}).textContent || "");
+  check("…and says how many cards it refreshed", /\d/.test(said) && /card/i.test(said), JSON.stringify(said));
+
   check("no uncaught page errors", errs.length === 0, errs.join(" | "));
 
   console.log("");

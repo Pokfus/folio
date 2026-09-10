@@ -7483,12 +7483,18 @@ dead code (never rendered).
     touching `cardQuote` / `cardQuoteHTML` / `buildBack`'s abstract split / the `.cq-go` listener /
     `PAGES.book`'s `params.n` / the `#book` branches in boot and hashchange / `serializeCardData` /
     `revertCard`, or `add-card.js`'s quote guard.**
-  · `node .claude/test-deck-update.js` — **updating a language deck this device already holds** (21
-    assertions, Sep 2026), and the reported fault reproduced: it corrupts a card in IndexedDB the way a
-    stale download is corrupt, reloads, and asserts the repair arrives AND the reader's schedule
-    survives it. **Re-run after touching `langDeckFetch` / `langDeckDownload` / `langDeckStale` /
-    `langDeckUpdate` / `uDeckNormalize`'s `langRev` / `uDeckIndexRecord` / `UDECK_META_KEYS`, the
-    `data-langup` row or button, or `build-lang-decks.js`'s `rev`.**
+  · `node .claude/test-deck-update.js` — **updating a language deck this device already holds**, and
+    **fetching its files again when nothing says it is out of date** (Sep 2026), the reported faults
+    reproduced: it corrupts a card in IndexedDB the way a stale download is corrupt, reloads, and asserts
+    the repair arrives AND the reader's schedule survives it. **Its second half is the harder case and is
+    what the Redownload row exists for**: the card is made wrong while the stored REVISION is left
+    current, so nothing offers an Update — correctly, the two copies having been built from one source —
+    and the assertion is that the sheet's own row still repairs it, fetches the file exactly once, leaves
+    the deck's id, size and schedule alone, and says how many cards it refreshed rather than merely that
+    it did something. Run it for the figure rather than quoting one here. **Re-run after touching
+    `langDeckFetch` / `langDeckDownload` / `langDeckStale` / `langDeckUpdate` / `entryLangDecks` /
+    `uDeckIdOf` / `uDeckNormalize`'s `langRev` / `uDeckIndexRecord` / `UDECK_META_KEYS`, the
+    `data-langup` row or button, the sheet's `redownload` row, or `build-lang-decks.js`'s `rev`.**
   · `node .claude/test-tense-notes.js` — **the conjugation headings' explanations** (15 assertions,
     Sep 2026), no browser and no dependency: the table and the marking pass are sliced out of the real
     `app.js` by text and run over every deck in `decks/`. Each check is for a silent failure — a
