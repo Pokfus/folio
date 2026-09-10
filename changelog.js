@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.686", released: "2026-09-10T14:52Z" };
+window.FOLIO_VERSION = { v: "1.687", released: "2026-09-10T15:12Z" };
 
 window.CHANGELOG = [
   {
@@ -69,6 +69,14 @@ window.CHANGELOG = [
       "<b>Fifteen cards now say what came of them</b>, linking the fall of the Roman monarchy, the plebs’ first secession and the Messenian wars to what each led to.",
       "124 picture captions no longer repeat, word for word, the credit line printed beside them.",
       "<b>Forty-eight new pictures in the Biology deck</b>, which is taught in diagrams and had almost none.",
+      "<b>Press ? anywhere to see the keyboard shortcuts</b>, including the ones that only work on the page you are on.",
+      "The home page now says how close the next artefact chest is \u2014 a level, a day of games or a run of days, whichever is nearest.",
+      "<b>A new panel names the cards you get right and cannot get right quickly</b>, measured against how fast you usually answer.",
+      "<b>A new \u201cUse less data\u201d setting</b> stops Folio fetching anything in the background and holds each card\u2019s picture back until you tap it.",
+      "<b>Geography maps can now describe themselves</b> \u2014 a new setting adds a line naming what the shaded place borders, for a reader who cannot see the shape.",
+      "A geography card opened by its own link now draws its globe, where it used to show an empty grey box.",
+      "<b>Every reader now has a profile at a link you can share</b>, showing your name and photo to anyone and your progress to your friends.",
+      "<b>A friend\u2019s profile now opens on you and them side by side</b> \u2014 streak, cards studied, days studied and artefacts.",
     ],
   },
   {

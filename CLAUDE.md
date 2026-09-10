@@ -1552,8 +1552,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.20 MB and 47,032 lines is hard to find your way around, so this
-  lists its 176 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.24 MB and 47,488 lines is hard to find your way around, so this
+  lists its 182 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -1567,6 +1567,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first cut also treated any SHOUTED comment opening as a banner, which is how the house writes the
   conclusion of a long explanation — it reported a sentence about one minigame's draw as a 266 KB
   "section". **A map that invents sections is worse than none, because it is read as structure.**)
+  Not part of the site.
+- `.claude/check-i18n-drift.js` — **how much of the nine translations is still true**:
+  `node .claude/check-i18n-drift.js [--verbose]`, report-only, exits 0. **THE STATED DECISION ABOUT THE
+  NINE LANGUAGES IS: KEEP THE ENGINE, KEEP THE THREE SURVIVING FAMILIES, REVIVE NOTHING YET — AND STOP
+  DESCRIBING THE COVERAGE AS THOUGH IT WERE INTACT** (Sep 2026, out of the field audit). Nobody could
+  reach a word of it since `MULTILANG` went false, so nothing on the page reports when a translated
+  string stops matching the English it was written against; it falls through to English, silently, for
+  ever. **RUN IT FOR THE FIGURE RATHER THAN QUOTING ONE HERE** — when it was written, better than a
+  quarter of every language's chrome strings translated text app.js no longer contains, most of them
+  retired changelog lines, removed features (`Collection levels`, `Challenge wins`) and reworded copy,
+  with one pair differing only by a straight against a curly apostrophe. **It is a FLOOR and its header
+  says why**: a string ASSEMBLED at runtime is in no source file whole and reads as dead (the thirteen
+  era labels are exactly that), a key surviving in a comment reads as live, and it says nothing at all
+  about the much larger other direction — every English string written since the gate went up, which
+  has no translation in any language and which no static check can count. **The three families are
+  LAZY, so a reader pays nothing for any of this today**; what it costs is the belief that flipping
+  `MULTILANG` back would give nine working languages, which it would not. Reviving means a chrome pass
+  per language BEFORE the flag moves, and the card and glossary translations regenerated from nothing.
   Not part of the site.
 - `.claude/check-claims.js` — **CLAUDE.md's own figures, measured**: `node .claude/check-claims.js
   [--all]`. This file is the ONLY operational memory a cloud session has, it is written in the present
@@ -3586,6 +3604,94 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     keyed to the card in hand and derived from the same `preview` the buttons are drawn from, so the
     sentence and the numbers cannot disagree. It names DAYS rather than repeating intervals, and says the
     ease effect in terms both schedulers share.
+  · **THE SHORTCUTS ARE WRITTEN DOWN, AND `?` IS WHERE** (`KEY_SHEET` / `openKeySheet` /
+    `closeKeySheet` / `.key-sheet`). Folio has had a dozen keyboard shortcuts for months and exactly two
+    surfaces said so — the grade bar's `?` bubble, which a reader only meets mid-answer, and the Atlas's
+    coach marks. **The table is keyed by PAGE and prints the current page's keys under the ones that work
+    anywhere**, because a list of every shortcut on the site is a list in which the four that apply here
+    are hidden; a page with none says so in a sentence rather than being drawn empty. It is in
+    `render()`'s close list beside `closePageHelp()` — it names the CURRENT page's keys, so it cannot
+    outlive it — and its `?` handler carries the `/` search handler's guards exactly (not in a field, not
+    over an overlay). **Its scrim is `#000`, never `var(--ink)`**: that token is the LIGHTEST thing a dark
+    theme has, so an ink-mixed scrim is a white veil at night — `test-layout.js`'s `scrimCheck` catches it
+    statically, and caught this one.
+  · **AND THE HOME PAGE SAYS HOW FAR THE NEXT ARTEFACT IS** (the `nextChest` block in `PAGES.home`,
+    `.rv-chestnext`). Four channels grant a chest — a level, a clean sweep, all nine games finished, every
+    seventh day of a streak — and only the streak ever showed its progress, so three of the four were
+    invisible mechanisms. **It names the NEAREST one and only that**: four lines would be a scoreboard for
+    something meant to be a small pleasure, and the nearest is the only one that answers *is it worth
+    finishing this session?*. **It is silent while a chest is already WAITING**, `chestBannerHTML` being on
+    screen directly above saying so — which is also why a fresh reader sees nothing here, the first badge
+    granting a chest before the line could ever be read.
+  · **AND THE CARDS YOU GET RIGHT SLOWLY** (`SLOW_ROWS` / `SLOW_MULT` / `SLOW_FLOOR_DS` / `medianOf` /
+    `slowCards` / `slowPanelHTML` / `.rs-slow`). Every answer has been TIMED since Aug 2026 and exactly one
+    surface read the figure — Card info printed it per row — so the log's `ds` column was half a feature.
+    This is the other half, and it names a state the grade buttons cannot: a card answered Good after
+    fifteen seconds of hunting is not a card you know. **The bar is the READER'S OWN MEDIAN, never a
+    constant** — how long an answer takes is a fact about the reader, the deck and the device, so a fixed
+    "over 10 seconds" would report a whole collection on one reader and nothing on another — with a floor
+    so a fast reader does not meet a list of five-second cards. **The MEDIAN on both sides**, one answer
+    interrupted by a doorbell being worth `REV_MAX_DS`. **Two answers minimum**, and **learning steps are
+    excluded outright** (`REV_ST.relearn` — note the key is `relearn`, not `relearning`, and a comparison
+    against the wrong name is silently always false). Own account only, for `leechPanelHTML`'s reason: the
+    rows open Card info, whose actions act on YOUR schedule.
+  · **AND A READER CAN ASK FOR LESS DATA WHATEVER BROWSER THEY ARE ON** (`lightMode` / `S.settings.saveData`
+    / `.ci-held` / `.ci-hold`). Six places already asked `navigator.connection.saveData` before warming a
+    bundle, each written out longhand — and **that hint does not exist on Safari or Firefox**, so on those
+    browsers all six answered false and a reader had no way to ask. `lightMode()` is the one door, ORing
+    the reader's switch with the hint so a browser that does say so is still obeyed and the switch can only
+    ever ask for LESS. It stops the idle warms and **holds each card's picture back behind one press** —
+    the `src` rides in `data-src` and the delegated `IMG_OPEN_SEL` handler loads on the first press and
+    enlarges on the second, one branch in a listener that already exists rather than a second way of
+    drawing a picture. **The frame stays**, dashed and labelled: a picture silently absent looks like a
+    card that has none. **The predicate cannot be written `!!(navigator.connection && …)` beside a sweep
+    that replaces `!(navigator.connection && …)`** — the double-bang CONTAINS the single-bang form, so the
+    sweep rewrote the function into a call to itself, which is a stack overflow on the first render and
+    took four page loads to find.
+  · **AND THE ONE CARD FORMAT WITH NO TEXT ALTERNATIVE HAS AN OPT-IN ROUTE THROUGH IT** (`mapNeighbours`
+    / `andList` / `S.settings.mapAlt` / `.mc-alt`; **📖 the reasoning in full is in
+    `docs/geography-card-plan.md`'s accessibility section**). The sentence that cannot be written is a
+    DESCRIPTION OF THE SHAPE; what the map actually shows is the shaded shape **with its neighbours drawn
+    around it**, and that can be said in words without describing anything. **The neighbours are COMPUTED,
+    never authored** — and NOT by shared edges, which was the first attempt and was **wrong by a quarter,
+    silently**: `us-states.js` is simplified per state, so a border is two chains that diverge, and an
+    exact edge test found 83 of the 107 pairs and missed CALIFORNIA–OREGON. A reader told "Ohio borders
+    Indiana, Kentucky, Michigan and West Virginia" has been handed a list that rules out the right answer,
+    which is the one kind of output this site must never produce. It is a PROXIMITY GRID instead — each
+    boundary walked, the cells it passes stamped with the shape's name — which finds **107 at every cell
+    size from 0.03° to 0.08°**, the geometry deciding rather than the parameter, and correctly excludes
+    the Four Corners diagonals. ~230ms for the world layer, once per layer, cached and **run at idle**. **It is filled in by `startCardGlobe`
+    and not by `cardMapHTML`**, for the reason the canvas is: the shapes are lazy, so at render time there
+    is nothing to read them off; and the slot **ships hidden in the markup** rather than being created on
+    demand, `#toast`'s own rule. **OFF BY DEFAULT AND THE COPY STATES THE TRADE**: for many readers a list
+    of neighbours is a SHORTER route to the answer than the outline, so switching it on makes the deck
+    easier — the reader's trade to make, and an easy card beats one nobody can answer.
+  · **AND A PERSON HAS AN ADDRESS** (`PAGES_u` at `#u/<username>`, plus the five places a route is
+    registered — `PAGES`, `valid`, `PAGE_META`, the boot/hashchange parsers, the hash writer and
+    `setActiveTab`, which maps it to `account`). A friend's profile was reachable only by pressing their
+    row, and its address was `#account` with the friend's UUID carried IN MEMORY — so there was no such
+    thing as a link to a person, and the back button went somewhere else. **The username is the right name
+    for the address**, being what a reader already types into the Add-a-friend box. **WHAT A STRANGER SEES
+    IS THE HONEST HALF**: `progress` is RLS-scoped to its owner and their accepted friends, so this page
+    cannot show a stranger somebody's streak however it is addressed — and rather than 404ing or pretending,
+    it resolves the username against `profiles` (readable by any signed-in reader) and shows the name, the
+    photo, the theme they wear and one button that adds them, with a sentence saying the rest is between
+    them and their friends. **Your own username routes to your own account page**, and an accepted friend
+    gets exactly `acctFriendView` — the same page the row already opened. **Signed out it asks for a
+    sign-in** rather than reporting that the person does not exist, `profiles` being readable only `to
+    authenticated`. The account page's identity line carries a **copy link** button, built from
+    `location.href` minus its fragment so it is right on the live site, on a local copy and in a preview
+    alike.
+  · **AND A FRIEND'S PROFILE OPENS ON YOU AND THEM** (`versusHTML` / `streakLive` / `daysStudied` /
+    `firstName` / `.vs-card`). It showed their figures and never yours, so the one question a reader opens
+    a friend's page to answer had to be done from memory. Four rows, their figure beside yours, the larger
+    marked. **It costs no schema and no second fetch** — the whole blob is already read by that page, and
+    every figure is derived from it exactly as the same figure is derived from your own, so a row cannot
+    contradict the page below it. **A STREAK IS ONLY LIVE IF IT WAS TOUCHED TODAY OR YESTERDAY**:
+    `bumpStreak` resets the count only on the next day studied, so a reader who stopped six weeks ago still
+    carries a 40 in their blob, and printing it as a current streak compares against something that is not
+    happening. **Nothing is ranked beyond the pair** — a wider standing would have to be published
+    somewhere `progress` is not.
   **Re-run after touching any of them: `.claude/test-review-decks.js` (which pins BOTH sheet row lists
   EXACTLY — a row added here fails there until that assertion is updated, which is the point of pinning
   it), `test-learning.js`, `test-reset.js` and `test-account-switch.js` (`PROGRESS_FIELDS` grew twice).**
@@ -7296,10 +7402,10 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty-nine committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **54 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
-  `test-discovery.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
+  `test-discovery.js`, `test-panels.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
   no browser). **Neither number is one to keep in your head — count them**: `ls .claude/test-*.js | wc -l`
   for the total and `grep -L playwright .claude/test-*.js` for the split. The headline had drifted TWO
@@ -7523,6 +7629,18 @@ dead code (never rendered).
     survives it. **Re-run after touching `langDeckFetch` / `langDeckDownload` / `langDeckStale` /
     `langDeckUpdate` / `uDeckNormalize`'s `langRev` / `uDeckIndexRecord` / `UDECK_META_KEYS`, the
     `data-langup` row or button, or `build-lang-decks.js`'s `rev`.**
+  · `node .claude/test-panels.js` — **the arithmetic behind the Sep 2026 panels and the map in words**
+    (37 assertions, no browser, no dependency): every function is sliced out of the real `app.js` by text
+    and the map half runs against the real `us-states.js`. Each subject fails SILENTLY on the page — a
+    "right, but slowly" list built on a fixed threshold reports a whole collection on one reader and
+    nothing on another and both look like the feature working; a stale streak printed as a current one
+    compares against something that is not happening; a route registered in six of its seven places works
+    until somebody pastes the link. **Its map section is the one that has already caught two faults**: the
+    neighbour list computed by shared EDGES found 83 of the 107 US pairs and missed California–Oregon, and
+    the proximity grid that replaced it found 110 and called the Four Corners diagonals borders until it
+    required TWO shared cells. **Re-run after touching `slowCards` / `medianOf` / `mapNeighbours` /
+    `mapNeighbourCells` / `NBR_MIN_CELLS` / `andList` / `streakLive` / `daysStudied` / `lightMode`, or
+    after adding a route.**
   · `node .claude/test-tense-notes.js` — **the conjugation headings' explanations** (15 assertions,
     Sep 2026), no browser and no dependency: the table and the marking pass are sliced out of the real
     `app.js` by text and run over every deck in `decks/`. Each check is for a silent failure — a

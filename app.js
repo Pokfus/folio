@@ -1484,7 +1484,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -10350,7 +10350,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function warmActiveCardExtra() {
     whenIdle(() => {
       try {
-        if (navigator.connection && navigator.connection.saveData) return;
+        if (lightMode()) return;
         const pre = new Set();
         activeEntryIds().forEach((eid) => entryCardIds(eid).slice(0, 400).forEach((id) => {
           const p = cardExtraPrefix(id);
@@ -14348,6 +14348,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : name === "book" ? "library"
       // the Studio is where one of your own decks is edited, and those live on the Collections page
       // a card at its own address belongs under the collections its deck sits in
+      : name === "u" ? "account"
       : name === "studio" || name === "deck" || name === "card" || name === "sample" ? "decks"
       // the two pages that stand between pressing Study and studying belong to the session they open
       : name === "order" || name === "pretest" ? "study"
@@ -14374,6 +14375,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     search:    ["Search — Folio", "Find a card, a glossary term or a book by name, across everything Folio holds."],
     sample:    ["Try ten cards — Folio", "Ten cards from a Folio collection, read rather than studied — nothing is scheduled."],
     card:      ["A card — Folio", "One of Folio's cards, with its background, its dates and the works it rests on."],
+    u:         ["A profile — Folio", "A Folio reader's profile. What they study is shown to their friends."],
     decks:     ["Collections — Folio", "Browse Folio's collections and decks, and pick what to review each day."],
     library:   ["Library — Folio", "Read whole works of history and philosophy in public-domain English translations."],
     book:      ["Library — Folio", "Read a public-domain English translation, with the glossary linked through it."],
@@ -14460,6 +14462,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          could be linked to and a card could not, which is the one thing a reader wants to send
          somebody. It is READ-ONLY and spends no schedule: opening it is not studying it. */
       : name === "card" && current.params.id ? "card/" + encodeURIComponent(current.params.id)
+      : name === "u" && current.params.name ? "u/" + encodeURIComponent(current.params.name)
       : name === "sample" && current.params.id ? "sample/" + encodeURIComponent(current.params.id)
       : name;
     render();
@@ -14572,6 +14575,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     closeReliquaryPage(); // …and the Reliquary page's repaint hook goes with the page it belonged to
     closeDeckMenu();      // …nor an added deck's options sheet, which also lives on document.body
     closePageHelp();      // …nor a page's first-visit card, which is on the body for the same reason (pageHelp)
+    closeKeySheet();      // …nor the keyboard sheet: it names the CURRENT page's keys, so it cannot outlive it
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
     closeGlossPicker();
     closeRtColorMenu();
@@ -23237,6 +23241,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          where the longest this prints — "studied 3h 07m today" — runs past the row and ellipsises. */
       return ms > 0 ? `<div class="rv-time" title="Time spent on cards today — the daily games are not counted"><span>studied</span><b>${esc(fmtStudyTime(ms))}</b><span class="rv-today">today</span></div>` : "";
     })();
+    /* ---------- WHAT THE NEXT ARTEFACT NEEDS (Sep 2026) ----------
+       FOUR CHANNELS GRANT A CHEST and only the streak has ever shown its progress — a level, a clean
+       sweep of the day's games, finishing all nine whatever the score, and every seventh day of a run.
+       Three of the four were therefore invisible mechanisms: a reader had no way to know they were two
+       cards from a chest, or one game.
+       IT NAMES THE NEAREST ONE AND ONLY THAT. Four lines would be a scoreboard for a thing that is
+       meant to be a small pleasure, and the nearest is the only one that answers "is it worth finishing
+       this session?". It is silent while a chest is already WAITING — `chestBannerHTML` is on screen
+       directly above saying so, and "two cards to the next" beside "a chest is waiting" reads as two
+       different claims about the same thing. */
+    const nextChest = (() => {
+      if ((S.chests | 0) > 0) return "";
+      const lv = levelFromXP(folioXP());
+      const cards = Math.max(0, lv.need - lv.into);
+      const played = gamesPlayedTodayCount(S), games = DAILY_GAMES.length;
+      const toPlay = S.playChest === todayStr() ? Infinity : games - played;
+      const st = streakChestProgress(S);
+      const days = st.count > 0 ? st.left : Infinity;
+      const opts = [
+        [cards, cards === 1 ? "one more card" : cards + " more cards"],
+        [toPlay, toPlay === 1 ? "one more game today" : toPlay + " more games today"],
+        [days, days === 1 ? "one more day's streak" : days + " more days' streak"],
+      ].filter((o) => o[0] > 0 && o[0] !== Infinity);
+      if (!opts.length) return "";
+      opts.sort((a, b) => a[0] - b[0]);
+      return '<div class="rv-chestnext" title="A level, a day of all nine games, or every seventh day of a streak — each earns an artefact chest">' +
+        '<span>' + esc(opts[0][1]) + "</span><b>to a chest</b></div>";
+    })();
     /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
        standing in the meta row beside New / Learning / Review — a fourth figure in a row of three, counting
        something that is not a pile of cards at all — and it is gone from both branches. What replaces it is
@@ -23381,8 +23413,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Revert reachable after the last deck has been removed, and is why this is not simply gated on
        `dayTime` as the timer alone was. */
     const editActs = fresh || (!activeIds.length && !deckEditOn) ? "" : deckEditBarHTML();
-    const footRow = fresh || (!editActs && !dayTime) ? ""
-      : `<div class="rv-foot"><span class="rv-timeslot">${dayTime}</span>${editActs}</div>`;
+    const footRow = fresh || (!editActs && !dayTime && !nextChest) ? ""
+      : `<div class="rv-foot"><span class="rv-timeslot">${dayTime}${nextChest}</span>${editActs}</div>`;
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
@@ -24253,6 +24285,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const inner = root.querySelector("#cpgBack");
     inner.innerHTML = buildBack(c);
     mountCardBack(inner, c, { expand: true });
+    /* AND THE QUESTION'S OWN GLOBE, which `mountCardBack` cannot reach: a map card's map is the QUESTION
+       and so is emitted by `cardFrontHTML`, outside `#cpgBack` — so this page drew a geography card as a
+       dead grey box for as long as it has existed. It is REVEALED at once, unlike a study card's: the
+       answer is the heading of the page. */
+    mountCardMaps(root); cardMapReveal(root);
     root.querySelectorAll("[data-kin]").forEach((b) =>
       b.addEventListener("click", () => route("card", { id: b.dataset.kin })));
     root.querySelector("#cpgStudy").addEventListener("click", () => route("study", { scope: { type: "card", id: id } }));
@@ -31626,20 +31663,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const CARD_MAP_LAYERS = {
     // a layer names the bundle that carries its polygons, the global that bundle assigns, and — where the
     // layer has one — the global holding the POINTS a card may put a dot on (see `map.dot`)
-    "us-states": { bundle: "usstates", global: "US_STATES", what: "state", points: "US_CAPITALS", dotWhat: "city" },
+    "us-states": { bundle: "usstates", global: "US_STATES", what: "state", plural: "states", cell: 0.05, points: "US_CAPITALS", dotWhat: "city" },
     /* The world's own borders, which every map window already loads for the coastline under it. Its POINT
        TABLE is the capitals, and it is in a bundle of its OWN (`pointsBundle`) rather than in `world`
        beside the shapes: a locator gives its coordinates outright and never reads the table, so a history
        card would otherwise fetch 13 KB of capitals to point at a valley. The loader below asks for it
        only where the card carries a `dot`. */
-    world: { bundle: "world", global: "WORLD_GEO", what: "country", points: "WORLD_CAPITALS", pointsBundle: "worldcaps", dotWhat: "capital city" },
+    world: { bundle: "world", global: "WORLD_GEO", what: "country", plural: "countries", cell: 0.06, points: "WORLD_CAPITALS", pointsBundle: "worldcaps", dotWhat: "capital city" },
     /* China's own provincial-level divisions, and the 27 provincial capitals beside them in the SAME
        bundle rather than in one of their own. That differs from `world` above and the difference is the
        whole reason each is written the way it is: the world's shapes are loaded by every map window on
        the site for the coastline under it, so a history card's locator would fetch a table of capitals
        to point at a valley — where this layer is loaded by nothing but a China map card, and every
        reader of it is studying one of the two decks. One fetch, 13 KB of capitals inside it. */
-    "china-provinces": { bundle: "chinaprov", global: "CHINA_PROVINCES", what: "province", points: "CHINA_CAPITALS", dotWhat: "city" },
+    "china-provinces": { bundle: "chinaprov", global: "CHINA_PROVINCES", what: "province", plural: "provinces", cell: 0.05, points: "CHINA_CAPITALS", dotWhat: "city" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
@@ -31688,6 +31725,85 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      is dragging. */
   const CMAP_SUBDIV = { china: { bundle: "chinaprov", global: "CHINA_PROVINCES" } };
   let _subdivFor = null, _subdivLines = null;
+  /* ---------- THE MAP, IN WORDS, FOR A READER WHO CANNOT SEE IT (Sep 2026, out of the field audit) ----------
+     A MAP CARD IS THE ONE FORMAT ON THE SITE WITH NO TEXT ALTERNATIVE, and `docs/geography-card-plan.md`
+     has said so plainly rather than papering over it: the shape IS the question, so any description of the
+     shape answers it. That is true of a DESCRIPTION and it is not true of what the map actually shows —
+     which is the shaded shape with its neighbours drawn around it. Naming the neighbours gives a reader who
+     cannot see the map exactly what a reader who can see it is given, and nothing more.
+     IT IS OPT-IN AND OFF BY DEFAULT (`S.settings.mapAlt`), and the setting says why: for many readers a
+     list of neighbours is a SHORTER route to the answer than the outline is, so switching it on makes the
+     deck easier. That is the reader's trade to make, and a card nobody can answer is worse than an easy one.
+     THE NEIGHBOURS ARE COMPUTED, NEVER AUTHORED, AND NOT BY SHARED EDGES — which was the first attempt and
+     was WRONG BY A QUARTER, silently. `coastEdges` and the province borders rely on world.js's rings
+     sharing their border vertices exactly, and `us-states.js` does NOT: it is simplified per state, so a
+     border is two chains that diverge slightly. Measured, an exact edge test found 83 of the 107 pairs of
+     neighbouring US states and missed CALIFORNIA–OREGON — and a reader told "Ohio borders Indiana,
+     Kentucky, Michigan and West Virginia" has been given a list that rules out the right answer, which is
+     the one kind of output this site must never produce.
+     SO IT IS PROXIMITY, ON A GRID: each boundary is walked and the cells it passes through are stamped
+     with the shape's name, and two shapes stamping one cell are neighbours. Measured over `us-states.js`
+     it finds **107 pairs at every cell size from 0.03° to 0.08°** — the geometry decides the answer, not
+     the parameter — and 107 is the standard count. It correctly EXCLUDES the Four Corners diagonals
+     (Arizona–Colorado, Utah–New Mexico, which meet at a point), Alaska–Washington, Hawaii–California and
+     New York–Rhode Island. On `world.js` it finds Monaco for France and Siachen Glacier for India, both
+     of which the map really does draw. It costs ~230ms for the world layer, ONCE per layer per session,
+     cached and run at idle — so it never sits in front of a frame.
+     THREE LIMITS, STATED RATHER THAN HIDDEN, because each is a case where the words and the picture differ:
+       - A SHARED POINT IS NOT A BORDER. Arizona and Colorado meet at Four Corners, one vertex, and the list
+         does not name it — correct by the word "borders" and not by what the map shows.
+       - A LAYER KNOWS ONLY ITS OWN SHAPES. `us-states.js` has no Mexico, so Arizona's list is silent about
+         the international border a sighted reader can see. The copy therefore says "borders, among the
+         <what>s on this map" rather than claiming a complete list.
+       - AND A SHAPE WITH NO NEIGHBOURS SAYS SO, which is real information (Hawaii, Iceland) rather than
+         an empty list that reads as a failure to compute one. */
+  let _nbrFor = null, _nbrCells = null;
+  function mapNeighbourCells(list, g) {
+    if (_nbrFor === list) return _nbrCells;
+    const by = new Map(), step = g / 2;
+    list.forEach((c) => (c.p || []).forEach((r) => {
+      for (let i = 0; i + 1 < r.length; i++) {
+        const x1 = r[i][0], y1 = r[i][1], x2 = r[i + 1][0], y2 = r[i + 1][1];
+        const n = Math.max(1, Math.ceil(Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)) / step));
+        // a segment longer than the whole map is the antimeridian seam, not a border: walking it would
+        // stamp a stripe across the world and make neighbours of everything on one latitude
+        if (n > 4000) continue;
+        for (let k = 0; k <= n; k++) {
+          const key = Math.round((x1 + ((x2 - x1) * k) / n) / g) + ":" + Math.round((y1 + ((y2 - y1) * k) / n) / g);
+          let set = by.get(key); if (!set) by.set(key, (set = new Set()));
+          set.add(c.n);
+        }
+      }
+    }));
+    _nbrFor = list; _nbrCells = by;
+    return by;
+  }
+  /* TWO CELLS, NOT ONE, AND THAT IS THE FOUR CORNERS RULE. A shape meeting another at a single POINT
+     stamps exactly one shared cell — Arizona and Colorado, Utah and New Mexico — and a border, however
+     short, runs through several. Requiring one gives 110 pairs of US states and calls the two Four
+     Corners diagonals neighbours; requiring two gives 107, which is the standard count, and gives the
+     same 107 at every cell size from 0.03° to 0.08°. */
+  const NBR_MIN_CELLS = 2;
+  function mapNeighbours(list, keys, g) {
+    if (!Array.isArray(list) || !list.length) return null;
+    const by = mapNeighbourCells(list, g || 0.05);
+    const own = new Set(keys || []), hits = new Map();
+    by.forEach((set) => {
+      let mine = false;
+      set.forEach((n) => { if (own.has(n)) mine = true; });
+      if (!mine) return;
+      set.forEach((n) => { if (!own.has(n)) hits.set(n, (hits.get(n) || 0) + 1); });
+    });
+    const out = [];
+    hits.forEach((n, name) => { if (n >= NBR_MIN_CELLS) out.push(name); });
+    return out.sort((a, b) => a.localeCompare(b));
+  }
+  // "A, B and C" — an Oxford-less list, since this is read aloud as often as it is read
+  function andList(a) {
+    if (!a.length) return "";
+    if (a.length === 1) return a[0];
+    return a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
+  }
   function subdivInner(list) {
     if (_subdivFor === list) return _subdivLines;
     const seen = new Map();
@@ -31820,7 +31936,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
       '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
-      "</div></div>";
+      "</div>" +
+      /* The slot is always in the markup and HIDDEN, never created on demand: it is filled after the
+         shapes bundle lands, and a live region announced at the moment it is inserted is one the screen
+         reader has not been watching — the same reason `#toast` is declared in index.html. */
+      '<p class="mc-alt" hidden></p>' +
+      "</div>";
   }
   /* Start every map window inside `root` that has not been started. Called from renderCard and from the
      editor previews — the same two places `setupCloze` is called from, and for the same reason. */
@@ -32787,7 +32908,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        `glossExtra`'s bargain, and the `saveData` guard is `startMiniGlobe`'s.
        It is fired from HERE rather than from the promise below because it depends on nothing that
        resolves there, and a reader who never scrolls to the foot of a card should not have had it. */
-    if ((sibCard || hiRegion) && !(navigator.connection && navigator.connection.saveData)) {
+    if ((sibCard || hiRegion) && !lightMode()) {
       /* A LOCATOR alone asks for `atlas`: its rivers and cities live there. A MAP CARD gets rivers.js
          inside its own layer bundle instead (see DATA_BUNDLES), which is awaited below with the shapes,
          so there is nothing here for it to warm. */
@@ -32822,6 +32943,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           targets.push(t);
         }
         target = targets[0];
+        /* THE MAP IN WORDS, where the reader has asked for it — see `mapNeighbours`. It is filled in HERE
+           rather than built in `cardMapHTML` for the reason the canvas is: the shapes are lazy, so at
+           render time there is nothing to read the neighbours off. A locator has no `key` and so gets
+           none, which is right — it is an annotation on a card whose answer is already on screen. */
+        if (S.settings && S.settings.mapAlt) {
+          /* AT IDLE, never in front of the first frame: the grid costs ~230ms over the world layer, once
+             per layer per session, and the map is what the reader came for. */
+          const names = targets.map((t) => t.n), shp = shapes;
+          whenIdle(() => {
+            if (stopped) return;
+            const slot = host.querySelector(".mc-alt");
+            if (!slot) return;
+            const nb = mapNeighbours(shp, names, def.cell);
+            const one = def.what || "shape", many = def.plural || one + "s";
+            slot.textContent = nb && nb.length
+              ? "The shaded " + one + " borders, among the " + many + " on this map: " + andList(nb) + "."
+              : "The shaded " + one + " borders no other " + one + " on this map.";
+            slot.hidden = false;
+          });
+        }
       }
       /* A LOCATOR CARRIES ITS OWN COORDINATE, and it is a coordinate rather than a name in a table because
          there is no table: the places a history card is about — a palace, a river, a valley, a group of
@@ -33879,13 +34020,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     return "Source: " + out + esc(c.slice(last));
   }
+  /* ---------- USING LESS DATA IS A CHOICE, NOT ONLY A BROWSER'S HINT (Sep 2026) ----------
+     Six places already asked `navigator.connection.saveData` before warming a bundle or fetching a
+     picture, each written out longhand, and that hint DOES NOT EXIST on Safari or Firefox — so on those
+     browsers every one of the six answered false and a reader had no way to ask for less. This is the
+     same question with a door of its own: `S.settings.saveData`, a switch in Settings, ORed with the
+     hint so a browser that does say so is still obeyed and the switch can only ever ask for LESS.
+     ONE predicate rather than six copies, so a seventh warm added later is covered by asking it. */
+  function lightMode() {
+    return !!(S.settings && S.settings.saveData) || !!(navigator.connection && navigator.connection.saveData === true);
+  }
   function cardImageHTML(img) {
-    return '<figure class="card-img" role="button" tabindex="0" title="Click to enlarge"' +
+    /* UNDER LIGHT MODE THE PICTURE IS HELD BACK, and the frame says so rather than vanishing: an
+       illustration silently absent looks like a card that has none, where a held one is the reader's own
+       setting visibly doing what they asked. The `src` rides in `data-src` and the delegated handler
+       loads it on the first press and enlarges on the second — one branch in a listener that already
+       exists, rather than a second way of drawing a picture. */
+    const held = lightMode();
+    return '<figure class="card-img' + (held ? ' ci-held' : '') + '" role="button" tabindex="0" title="' + (held ? 'Tap to load this picture' : 'Click to enlarge') + '"' +
       ' data-img-src="' + esc(img.src) + '" data-img-title="' + esc(img.title || "") + '"' +
       ' data-img-desc="' + esc(img.desc || "") + '" data-img-credit="' + esc(img.credit || "") + '">' +
       // the author's own alt text first; the title is a fallback, and the generic string only where there
       // is neither — an image with no text alternative at all is worse than a weak one
-      '<img src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || "Card illustration") + '" loading="lazy" draggable="false">' +
+      '<img ' + (held ? 'data-src' : 'src') + '="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || "Card illustration") + '" loading="lazy" draggable="false">' +
+      (held ? '<span class="ci-hold">Picture held back \u2014 tap to load</span>' : '') +
       '<span class="ci-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>' +
       "</figure>";
   }
@@ -40887,6 +41045,75 @@ let prev = null;
           <span class="rs-sub">Sorted by how often you have forgotten them. A card you keep losing is usually one card doing two jobs \u2014 open it, and consider rewriting, flagging or suspending it.</span>
         </div>`;
   }
+  /* ---------- THE CARDS YOU GET RIGHT AND CANNOT GET RIGHT QUICKLY (Sep 2026) ----------
+     EVERY ANSWER HAS BEEN TIMED SINCE AUG 2026 and until now exactly one surface read the figure: Card
+     info printed it per row. So the log's `ds` column was half a feature — collected on every grade,
+     capped at `REV_MAX_DS`, synced to a table of its own, and never once aggregated. This is the other
+     half, and it names a state the grade buttons cannot: a card answered GOOD after fifteen seconds of
+     hunting is not a card you know, and the schedule cannot tell it from one answered in two.
+     THE BAR IS THE READER'S OWN MEDIAN, NEVER A CONSTANT. How long an answer takes is a fact about the
+     reader, the deck and the device — a language card read aloud is slower than a date, and a phone is
+     slower than a keyboard — so a fixed "over 10 seconds" would report a whole collection on one reader
+     and nothing at all on another. A card qualifies at `SLOW_MULT` times the reader's own median and no
+     less than `SLOW_FLOOR_DS`, the floor being what stops a reader whose median is two seconds meeting a
+     list of cards that took five.
+     THE MEDIAN, NOT THE MEAN, on both sides: one answer interrupted by a doorbell is worth `REV_MAX_DS`
+     and would drag a mean far enough to hide everything around it.
+     TWO ANSWERS MINIMUM. A single slow answer is a moment rather than a difficulty, and a list built on
+     one reading is a list of the days a reader was tired.
+     OWN ACCOUNT ONLY, for `leechPanelHTML`'s reason exactly: the rows open Card info, whose actions act
+     on YOUR schedule. And it deliberately does NOT overlap the leech list, which counts cards you get
+     WRONG — these are the ones you get right, which is why nothing else could have found them. */
+  const SLOW_ROWS = 12, SLOW_MULT = 2, SLOW_FLOOR_DS = 60, SLOW_MIN_N = 2, SLOW_WINDOW_DAYS = 90;
+  function medianOf(ns) {
+    if (!ns.length) return 0;
+    const a = ns.slice().sort((x, y) => x - y), m = a.length >> 1;
+    return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;
+  }
+  function slowCards(prog) {
+    const rows = revWindow(prog, SLOW_WINDOW_DAYS).rows;
+    const avail = availableCardIdSet();
+    const susp = (prog && prog.suspended) || {};
+    const by = {}, all = [];
+    rows.forEach((r) => {
+      /* A CORRECT ANSWER ONLY, and never a learning step: a card walked through `1m 10m` is answered
+         three times in ten minutes and the second and third readings are of a card still on screen.
+         A zero is a grade that reached the log with no timing (see `logReviewEntry`) and is not a
+         fast answer. */
+      if (!r.correct || !r.secs || r.st === REV_ST.learning || r.st === REV_ST.relearn) return;
+      all.push(r.secs);
+      if (!susp[r.id] && avail.has(r.id)) (by[r.id] || (by[r.id] = [])).push(r.secs);
+    });
+    const base = medianOf(all);
+    if (!base) return { base: 0, rows: [] };
+    const bar = Math.max(base * SLOW_MULT, SLOW_FLOOR_DS / 10);
+    const out = [];
+    Object.keys(by).forEach((id) => {
+      const ns = by[id];
+      if (ns.length < SLOW_MIN_N) return;
+      const med = medianOf(ns);
+      if (med >= bar) out.push({ id: id, secs: med, n: ns.length });
+    });
+    out.sort((a, b) => b.secs - a.secs || String(a.id).localeCompare(String(b.id)));
+    return { base: base, bar: bar, rows: out.slice(0, SLOW_ROWS) };
+  }
+  function slowPanelHTML(prog) {
+    if (prog !== S) return "";
+    const r = slowCards(prog);
+    if (!r.rows.length) return "";
+    const secs = (n) => (n >= 10 ? Math.round(n) + "s" : (Math.round(n * 10) / 10) + "s");
+    const rows = r.rows.map((row) => `<button type="button" class="lc-row sc-row" data-leech="${esc(row.id)}" title="Open this card\u2019s history and actions">
+          <span class="lc-n sc-n">${esc(secs(row.secs))}</span>
+          <span class="lc-t">${esc(cardTitle(row.id, 60) || row.id)}</span>
+          <span class="lc-w">${esc(cardWhereLabel(row.id) || "")}</span>
+        </button>`).join("");
+    return `
+        <div class="rs-card rs-slow">
+          <div class="rs-head"><h3>Right, but slowly</h3><span class="rs-meta" title="Your own median answer takes ${esc(secs(r.base))}. A card is listed at ${SLOW_MULT}\u00d7 that or more, over the last ${SLOW_WINDOW_DAYS} days.">Median ${esc(secs(r.base))}</span></div>
+          <div class="lc-list">${rows}</div>
+          <span class="rs-sub">You answer these correctly and it takes you far longer than usual \u2014 recall you are reconstructing rather than remembering, which the grade buttons cannot say. Often the question is doing two jobs, or the answer term is one you have never actually said aloud.</span>
+        </div>`;
+  }
   function reviewStatsHTML(prog, joined) {
     // ---- heatmap: whole weeks, Monday-first, ending on today's column.
     // It starts on the day the account was created (`joined`) rather than always showing a bare year of
@@ -40966,6 +41193,7 @@ let prev = null;
         </div>
         ${fcCard}
         ${leechPanelHTML(prog)}
+        ${slowPanelHTML(prog)}
         ${forgettingCurveHTML(prog)}
         ${seenOnceHTML(prog)}
         ${answerButtonsHTML(prog)}
@@ -41806,7 +42034,7 @@ let prev = null;
         <input type="file" id="avatarFile" accept="image/*" hidden>
         <div class="who">
           <input class="namefield" id="name" value="${esc(S.user.name)}" maxlength="28" aria-label="Display name" />
-          <div class="since"><span id="unShown">@${esc(me.username)}</span> · ${roleBadge(me.role)} · since ${joined}</div>
+          <div class="since"><span id="unShown">@${esc(me.username)}</span> · ${roleBadge(me.role)} · since ${joined}${/* THE ADDRESS OF YOUR OWN PROFILE, so the thing to share is on the page rather than something a reader has to know the shape of. It copies rather than opening: pressing it would take you to your own account page, which is where you already are. */""} · <button type="button" class="link-btn" id="unCopy" title="Copy the link to your profile">copy link</button></div>
         </div>
         ${/* Aug 2026, on request: Change password moved up here beside Sign out. The two are the same kind
               of thing — what you do to the ACCOUNT — and it had been sitting a section lower among the
@@ -41990,6 +42218,16 @@ let prev = null;
       if (el) el.hidden = p === want ? !el.hidden : true;
     });
     root.querySelector("#unToggle").addEventListener("click", () => openPanel("unPanel"));
+    const unCopy = root.querySelector("#unCopy");
+    if (unCopy) unCopy.addEventListener("click", () => {
+      /* `location.href` minus whatever fragment is on it — the page is `#account`, and the link a reader
+         wants to hand somebody is `#u/<their username>`. It is built from the CURRENT address rather than
+         from a stored origin so it is right on the live site, on a local copy and in a preview alike. */
+      const url = location.href.split("#")[0] + "#u/" + encodeURIComponent(me.username || "");
+      const done = () => toast("Link to your profile copied.");
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, () => toast(url));
+      else toast(url);
+    });
     root.querySelector("#emToggle").addEventListener("click", () => openPanel("emPanel"));
     root.querySelector("#swToggle").addEventListener("click", () => openPanel("swPanel"));
     root.querySelector("#pwToggle").addEventListener("click", () => openPanel("pwPanel"));
@@ -42125,7 +42363,15 @@ let prev = null;
         box.querySelector("#friendAdd").value = "";
         fmsg("Request sent.", true); refresh();
       });
-      box.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => route("account", { viewUser: b.dataset.view })));
+      /* THE ROW ROUTES BY USERNAME, NOT BY UUID (Sep 2026). It went to `#account` carrying the friend's
+         id in memory, so the page a reader was looking at had no address of its own and the back button
+         went somewhere else entirely. `#u/<username>` is the same page with a name on it — and the
+         `viewUser` path is untouched, since `acctFriendView` is what that route still renders. */
+      box.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => {
+        const u = profs[b.dataset.view];
+        if (u && u.username) route("u", { name: u.username });
+        else route("account", { viewUser: b.dataset.view });
+      }));
       box.querySelectorAll("[data-accept]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + b.dataset.accept + "&friend_id=eq." + me, { method: "PATCH", body: { status: "accepted" } }); refresh(); }));
       box.querySelectorAll("[data-decline]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + b.dataset.decline + "&friend_id=eq." + me, { method: "DELETE" }); refresh(); }));
       box.querySelectorAll("[data-cancel]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + me + "&friend_id=eq." + b.dataset.cancel, { method: "DELETE" }); refresh(); }));
@@ -42133,6 +42379,128 @@ let prev = null;
     })();
   }
 
+  /* ---------- YOU AND THEM, SIDE BY SIDE (Sep 2026, out of the field audit) ----------
+     A FRIEND'S PROFILE HAS ALWAYS SHOWN THEIR FIGURES AND NEVER YOURS, so the one thing a reader opens
+     a friend's page to find out — *am I ahead?* — had to be done by remembering your own numbers and
+     scrolling. Four rows at the top of their profile, their figure beside yours, the larger one marked.
+     IT COSTS NO SCHEMA AND NO SECOND FETCH. The whole progress blob of an accepted friend is already
+     read by this page (RLS grants it), and every figure here is derived from it exactly as the same
+     figure is derived from your own — so a row can never say something the page below it contradicts.
+     A STREAK IS ONLY LIVE IF IT WAS TOUCHED TODAY OR YESTERDAY, and a stale one is shown as ENDED rather
+     than as a number: `bumpStreak` only resets the count on the next day studied, so a reader who stopped
+     six weeks ago still carries a 40 in their blob, and printing it as a current streak would be a
+     comparison against something that is not happening. **The day keys are each reader's OWN** — the two
+     of you may be on different sides of midnight and neither is wrong — so the test is against this
+     device's today and yesterday, which is the closest an honest comparison can get.
+     NOTHING IS RANKED BEYOND THE PAIR. There is no leaderboard and no site-wide position: `progress` is
+     readable only by its owner and their accepted friends (see the Dashboard's own note), so any wider
+     standing would have to be published somewhere it is not. */
+  function streakLive(prog) {
+    const n = ((prog && prog.streak && prog.streak.count) | 0);
+    if (n <= 0) return 0;
+    const last = (prog.streak && prog.streak.last) || "";
+    const t = todayStr(), y = dayKeyOfDate(new Date(Date.now() - DAY));
+    return last === t || last === y ? n : 0;
+  }
+  function daysStudied(prog, days) {
+    const log = (prog && prog.reviewLog) || {};
+    // `days - 1`, so a 90-day window is 90 days INCLUDING today rather than 91
+    const cut = dayKeyOfDate(new Date(Date.now() - (days - 1) * DAY));
+    return Object.keys(log).filter((k) => k >= cut && (log[k] || [])[0] > 0).length;
+  }
+  function versusHTML(mine, theirs, name) {
+    const rows = [
+      ["Current streak", streakLive(mine), streakLive(theirs), (n) => (n > 0 ? n + (n === 1 ? " day" : " days") : "none")],
+      ["Cards studied", Object.keys((mine && mine.cards) || {}).length, Object.keys((theirs && theirs.cards) || {}).length, (n) => String(n)],
+      ["Days studied, last 90", daysStudied(mine, 90), daysStudied(theirs, 90), (n) => String(n)],
+      ["Artefacts", Object.keys((mine && mine.artefacts) || {}).length, Object.keys((theirs && theirs.artefacts) || {}).length, (n) => String(n)],
+    ];
+    const body = rows.map(([label, a, b, fmt]) => {
+      const lead = a === b ? "" : a > b ? " vs-mine" : " vs-theirs";
+      return '<div class="vs-row' + lead + '">' +
+        '<span class="vs-lbl">' + esc(label) + "</span>" +
+        '<span class="vs-a">' + esc(fmt(a)) + "</span>" +
+        '<span class="vs-b">' + esc(fmt(b)) + "</span></div>";
+    }).join("");
+    return '<div class="rs-card vs-card">' +
+      '<div class="vs-head"><span class="vs-lbl"></span><span class="vs-a">You</span><span class="vs-b">' + esc(firstName(name)) + "</span></div>" +
+      body + "</div>";
+  }
+  // the first word of a name, so a column heading stays a column heading — "Alexandra Petrova" is two lines
+  function firstName(n) { return String(n || "").trim().split(/\s+/)[0] || "They"; }
+  /* ---------- A PROFILE AT A STABLE ADDRESS (Sep 2026, out of the field audit) ----------
+     A FRIEND'S PROFILE WAS REACHABLE ONLY BY PRESSING THEIR ROW, and its address was
+     `#account` with the friend's UUID carried in memory — not in the hash at all — so there was no such
+     thing as a link to a person. `#u/<username>` is that link: the username is what a reader knows and
+     what they type into the Add-a-friend box, so it is the right name for the address.
+     WHAT A STRANGER SEES IS THE HONEST HALF. `progress` is readable only by its owner and their accepted
+     friends (RLS), so this page cannot show a stranger somebody's streak however it is addressed — and it
+     does not pretend otherwise or fail as though something were broken. It resolves the username against
+     `profiles`, which any signed-in reader may read, and then:
+       - your OWN username → your own account page, unchanged;
+       - an accepted friend → exactly the friend view, which is what the row already opened;
+       - anyone else → their name, their photo, the theme they wear, and one button that adds them.
+     SIGNED OUT IT ASKS FOR A SIGN-IN rather than 404ing: `profiles` is readable `to authenticated`, so a
+     signed-out visitor following a shared link would otherwise be told the person does not exist.
+     IT IS A LOOKUP AND THEREFORE ASYNCHRONOUS, so the page paints a placard first and the route stays
+     `u` throughout — `setActiveTab` maps it to `account`, since it is plainly part of "your record" even
+     when the record is somebody else's. */
+  function PAGES_u(root, params) {
+    const uname = uKey((params && params.name) || "");
+    if (!uname) { route("account"); return; }
+    if (!supaLoggedIn()) {
+      root.innerHTML = '<div class="page-head"><span class="eyebrow">Profile</span><h1>@' + esc(uname) + "</h1></div>" +
+        '<p class="auth-foot">Folio profiles are shown to people with an account, so that what a reader studies stays between them and the friends they choose. ' +
+        '<button class="auth-btn sm" id="uSignIn" type="button">Sign in</button></p>';
+      root.querySelector("#uSignIn").addEventListener("click", () => route("account"));
+      return;
+    }
+    if (SUPA.user && uKey(SUPA.user.username || "") === uname) { route("account"); return; }
+    root.innerHTML = '<div class="page-head"><span class="eyebrow">Profile</span><h1>Loading…</h1></div>';
+    (async () => {
+      const pr = await supaFetch("/rest/v1/profiles?username=eq." + encodeURIComponent(uname) + "&select=*");
+      const u = pr.ok && Array.isArray(pr.data) ? pr.data[0] : null;
+      if (current.name !== "u") return;                     // they navigated away while we were asking
+      if (!u) {
+        root.innerHTML = '<div class="page-head"><span class="eyebrow">Profile</span><h1>@' + esc(uname) + "</h1></div>" +
+          '<p class="auth-foot">' + (pr.ok ? "No account with that username." : "Couldn’t reach the server — check your connection and try again.") +
+          ' <button class="auth-btn sm" id="uBack" type="button">Back to your account</button></p>';
+        root.querySelector("#uBack").addEventListener("click", () => route("account"));
+        return;
+      }
+      /* ARE WE FRIENDS? The friends table is RLS-scoped to rows involving you, so asking it about this
+         person is either a row or nothing — there is no way to learn anything about anyone else's. */
+      const me = SUPA.user.id;
+      const fq = await supaFetch("/rest/v1/friends?select=user_id,friend_id,status&or=(and(user_id.eq." + me + ",friend_id.eq." + u.id + "),and(user_id.eq." + u.id + ",friend_id.eq." + me + "))");
+      const row = fq.ok && Array.isArray(fq.data) ? fq.data[0] : null;
+      if (current.name !== "u") return;
+      if (row && row.status === "accepted") return void acctFriendView(root, u.id);
+      const t = THEME_BY_ID[u.theme] || THEME_BY_ID.folio;
+      const skin = ' data-ftheme="' + esc(t[0]) + '" style="--ft-a:' + t[3] + ';--ft-b:' + t[4] + ';--ft-p:' + t[5] + '"';
+      const pending = row && row.status === "pending";
+      const mine = pending && row.user_id === me;
+      root.innerHTML = `
+        <button class="back-link" id="uBack" type="button">← Back to your account</button>
+        <div class="profile friend-profile"${skin}>
+          ${monogramHTML(u.avatar, u.name)}
+          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + "</span>" : ""}</div></div>
+          ${pending
+            ? '<span class="mini-btn static">' + (mine ? "Request sent" : "Wants to be friends") + "</span>"
+            : '<button class="auth-btn sm" id="uAdd" type="button">Add friend</button>'}
+        </div>
+        <p class="auth-foot u-private">What ${esc(firstName(u.name))} studies \u2014 their streak, their cards, the artefacts they hold \u2014 is shown to their friends and to nobody else. ${pending ? (mine ? "Your request is waiting for them." : "Accept their request from your account page to see it.") : "Add them as a friend and, once they accept, it appears here."}</p>`;
+      root.querySelector("#uBack").addEventListener("click", () => route("account"));
+      const add = root.querySelector("#uAdd");
+      if (add) add.addEventListener("click", async () => {
+        add.disabled = true; add.textContent = "…";
+        const r = await supaFetch("/rest/v1/friends", { method: "POST", body: { user_id: me, friend_id: u.id } });
+        if (!r.ok) { add.disabled = false; add.textContent = "Add friend"; toast(supaErrMsg(r, "Could not send the request.")); return; }
+        toast("Request sent to @" + u.username + ".");
+        render();
+      });
+    })();
+  }
+  PAGES.u = PAGES_u;
   function acctFriendView(root, key) {   // key = the friend's user id (uuid)
     root.innerHTML = '<div class="page-head"><span class="eyebrow">Friends</span><h1>Loading…</h1></div>';
     (async () => {
@@ -42167,6 +42535,7 @@ let prev = null;
         </div>
         ${/* the four artefacts they chose to be seen holding — the whole point of the showcase is that
               somebody else sees it, so it sits at the top of their profile as it does on your own */""}
+        <div id="fVersus"></div>
         <div id="fShowcase"></div>
         <div id="fStat"></div>
         <div class="section-label">Review statistics</div>
@@ -42194,6 +42563,7 @@ let prev = null;
       // and Well Connected badges read their friends rather than a hard 0. See progStats.
       root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog));
       renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their progress, with a "You: …" chip beside each
+      root.querySelector("#fVersus").innerHTML = versusHTML(S, prog, u.name);
       root.querySelector("#fShowcase").innerHTML = showcaseHTML(prog, false);
       wireReliquary(root.querySelector("#fShowcase"), prog, false);   // …so "See Reliquary" opens THEIR collection, not yours
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
@@ -43060,6 +43430,15 @@ let prev = null;
             <div class="ctl"><div class="switch ${S.settings.recallFirst ? "on" : ""}" id="sw-recall" role="switch" aria-label="Recall in full" tabindex="0" aria-checked="${!!S.settings.recallFirst}"></div></div>
           </div>
           <div class="set-row">
+            ${/* THE MAP IN WORDS — see mapNeighbours. The copy states the trade rather than selling the
+                  feature: a geography card's shape IS its question, so any text alternative is a second
+                  route to the answer, and for many readers the neighbour list is the SHORTER one. Off by
+                  default and the reader's own trade to make; a card nobody can answer is worse than an
+                  easy one. */""}
+            <div class="info"><h3>Describe geography maps</h3><p>A geography card asks you to name a shape on a globe, which is a question with no words in it. This adds a line under the map naming what the shaded place borders &mdash; the same thing the map shows a reader who can see it. It will often make the card easier to answer.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.mapAlt ? "on" : ""}" id="sw-mapalt" role="switch" aria-label="Describe geography maps" tabindex="0" aria-checked="${!!S.settings.mapAlt}"></div></div>
+          </div>
+          <div class="set-row">
             ${/* THE WHITEBOARD MARKER (Aug 2026, on request). It floats over every study card, every page of
                   a book and the Atlas globe, and a reader who never draws has been carrying it round the
                   corner of the screen on all three. OFF removes the panel and the ink canvas with it — see
@@ -43099,6 +43478,15 @@ let prev = null;
         </div>
         <div class="set-card">
           ${setHead("#2BA6A0", '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>', "Data")}
+          <div class="set-row">
+            ${/* USE LESS DATA — see lightMode(). It goes in the DATA card rather than in Appearance because
+                  what it changes is what gets fetched, and it says the two things it does rather than
+                  promising a vague economy: the background warms stop, and a picture waits to be asked
+                  for. It is ON automatically wherever the browser itself asks for it (Chrome's Data Saver),
+                  and the row says so, since a reader who finds it already on deserves to know why. */""}
+            <div class="info"><h3>Use less data</h3><p>Folio quietly fetches the glossary's citations, the artefacts and the rest of each card's background while you read, so they are there the moment you want them. This stops all of that, and holds each card's picture back until you tap it. ${navigator.connection && navigator.connection.saveData ? "Your browser is asking for this already, so it is on whatever this switch says." : "Nothing is lost — everything still arrives when you actually open it."}</p></div>
+            <div class="ctl"><div class="switch ${lightMode() ? "on" : ""}" id="sw-lightdata" role="switch" aria-label="Use less data" tabindex="0" aria-checked="${lightMode()}"></div></div>
+          </div>
           <div class="set-row">
             <div class="info"><h3>Export data</h3><p>Download your progress as a JSON backup.</p></div>
             <div class="ctl"><button class="btn ghost" id="export">Export</button></div>
@@ -43212,6 +43600,8 @@ let prev = null;
        panel still floating over the page a switch has just disabled reads as a switch that did nothing. */
     wireSwitch("#sw-attempt", () => !!S.settings.attemptFirst, (v) => { S.settings.attemptFirst = v; });
     wireSwitch("#sw-recall", () => !!S.settings.recallFirst, (v) => { S.settings.recallFirst = v; });
+    wireSwitch("#sw-lightdata", () => lightMode(), (v) => { S.settings.saveData = v; });
+    wireSwitch("#sw-mapalt", () => !!S.settings.mapAlt, (v) => { S.settings.mapAlt = v; });
     { const hb = root.querySelector("#howLink"); if (hb) hb.addEventListener("click", () => route("how")); }
     wireSwitch("#sw-marker", () => S.settings.marker !== false, (v) => {
       S.settings.marker = v;
@@ -46764,7 +47154,57 @@ let prev = null;
     e.preventDefault();
     route("search");
   });
-  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample"];
+  /* ---------- ? — THE KEYS, WHEREVER YOU ARE (Sep 2026) ----------
+     The study page has documented its own keys in the grade bar's `?` bubble since it shipped and the
+     Atlas its click drill-down in its coach marks; the card browser, the Library, the reader and the
+     games have shortcuts documented NOWHERE. One overlay, page-aware: the global keys always, and the
+     current page's underneath them when it has any.
+     IT IS `?` AND IT IS THE CHARACTER, NOT THE KEY POSITION — `e.key === "?"` is what a reader who has
+     just typed a question mark pressed, on any layout, where `Shift` plus the key beside the full stop
+     is only true of some. The guards are `/`'s exactly, one line down, and for the same reasons.
+     ON A PHONE IT IS UNREACHABLE AND THAT IS FINE: there is no keyboard to describe. */
+  const KEY_SHEET = {
+    "": [["/", "Search everything"], ["?", "This list"], ["Esc", "Close whatever is open"]],
+    study: [["Space", "Reveal the answer"], ["1 – 4", "Again, Hard, Good, Easy"], ["Enter", "Good"],
+            ["I", "This card's history and actions"], ["Ctrl + Z", "Take the last grade back"],
+            ["Ctrl + 1 – 7", "Flag this card"]],
+    browse: [["Enter", "Open the card under the caret"], ["Ctrl + 1 – 7", "Flag what is selected"]],
+    book: [["\u2190 \u2192", "Previous and next chapter"], ["Esc", "Back to the shelf"]],
+    map: [["[  ]", "Step back and forward through the years"], ["Enter", "Open what is selected"],
+          ["Esc", "Clear the selection"], ["+ \u2212", "Zoom"]],
+    chrono: [["1 – 5", "Pick a card"], ["\u2190 \u2192", "Move it in the order"], ["Enter", "Lock the order in"]],
+  };
+  function openKeySheet() {
+    if (document.getElementById("keySheet")) return closeKeySheet();
+    const page = (current && current.name) || "";
+    const rows = (list) => list.map((r) => '<div class="ks-row"><kbd>' + esc(r[0]) + "</kbd><span>" + esc(r[1]) + "</span></div>").join("");
+    const own = KEY_SHEET[page];
+    const el = document.createElement("div");
+    el.id = "keySheet";
+    el.className = "key-sheet";
+    el.innerHTML =
+      '<div class="ks-card" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">' +
+      '<button type="button" class="ks-x" aria-label="Close">\u00d7</button>' +
+      "<h2>Keyboard</h2>" +
+      '<div class="ks-group"><h3>Anywhere</h3>' + rows(KEY_SHEET[""]) + "</div>" +
+      (own ? '<div class="ks-group"><h3>' + esc((PAGE_META[page] || [page])[0].split(" \u2014 ")[0]) + "</h3>" + rows(own) + "</div>"
+           : '<p class="ks-none">This page has no shortcuts of its own.</p>') +
+      "</div>";
+    document.body.appendChild(el);
+    el.addEventListener("click", (ev) => { if (ev.target === el || ev.target.closest(".ks-x")) closeKeySheet(); });
+    const x = el.querySelector(".ks-x"); if (x) x.focus();
+  }
+  function closeKeySheet() { const el = document.getElementById("keySheet"); if (el) el.remove(); }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.getElementById("keySheet")) { e.preventDefault(); return closeKeySheet(); }
+    if (e.key !== "?" || e.ctrlKey || e.metaKey || e.altKey) return;
+    const t = e.target;
+    if (t && (t.matches("input, textarea, select") || t.isContentEditable)) return;
+    if (typeof overlayOpen === "function" && overlayOpen()) return;
+    e.preventDefault();
+    openKeySheet();
+  });
+  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = hParts[0] === "community" ? "decks" : valid.includes(hParts[0]) ? hParts[0] : "home";
@@ -46784,6 +47224,8 @@ let prev = null;
   if (initName === "card") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
   // #sample/<collection id> — ten cards of a collection, scheduling nothing (see PAGES.sample)
   if (initName === "sample") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
+  // #u/<username> — a person at a stable address (see PAGES_u)
+  if (initName === "u") { try { initParams.name = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.name = hParts[1] || ""; } }
   // #book/<id> — a book is a shareable address, the same shape as #deck/<slug> and #map/<year>/<slug>
   if (initName === "book") {
     try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; }
@@ -46840,7 +47282,7 @@ let prev = null;
      stop it blocking first paint, not to make a reader wait for a definition. A reader who beats the
      warm still gets both: openGlossWin re-fills its picture and Sources slots when the file lands.
      Skipped under Save-Data, like the mini globe was. */
-  whenIdle(() => { if (!(navigator.connection && navigator.connection.saveData)) ensureData("glossExtra"); });
+  whenIdle(() => { if (!lightMode()) ensureData("glossExtra"); });
   /* …and the heavy half of the cards in the collections this reader actually studies. Per
      collection, so a reader with two decks warms two files and a reader with none warms nothing
      — see CARD_EXTRA_FIELDS. A reader who opens a card before the warm lands simply waits for
@@ -46851,14 +47293,14 @@ let prev = null;
      artefacts together, and an artwork card's background IS that round's reveal. It is 0.04 MB across
      ten cards — the whole collection — so warming it for everybody costs less than the branch that
      would avoid it. The artefacts' own half is warmed on the line above for the same reason. */
-  whenIdle(() => { if (!(navigator.connection && navigator.connection.saveData)) ensureCardExtra("art-000"); });
+  whenIdle(() => { if (!lightMode()) ensureCardExtra("art-000"); });
   /* …and the artefact pool's descriptions, citations and pictures (artefacts-extra.js), which used to
      sit on the EAGER path inside artefacts.js and were 94% of it. Same bargain as the line above: a
      chest arrives unasked, in the middle of a study session, and the reader should not watch a spinner
      at the one moment the site is congratulating them — but it has no business blocking first paint
      either. The four surfaces that render an artefact's prose or picture await the bundle for the
      reader who beats the warm. Skipped under Save-Data. */
-  whenIdle(() => { if (!(navigator.connection && navigator.connection.saveData)) ensureData("artefactExtra"); });
+  whenIdle(() => { if (!lightMode()) ensureData("artefactExtra"); });
 
   // Service worker (sw.js) — makes Folio installable and usable offline. Registered after boot so
   // it never competes with first paint, and NEVER on a dev origin: a file-watching dev server's
@@ -46921,6 +47363,14 @@ let prev = null;
   document.addEventListener("click", (e) => {
     const fig = e.target.closest(IMG_OPEN_SEL); if (!fig) return;
     if (fig.classList.contains("media-dead")) return;   // nothing to enlarge — the file never arrived
+    if (fig.classList.contains("ci-held")) {           // light mode: the first press is what fetches it
+      const im = fig.querySelector("img[data-src]");
+      if (im) { im.src = im.getAttribute("data-src"); im.removeAttribute("data-src"); }
+      fig.classList.remove("ci-held");
+      fig.title = "Click to enlarge";
+      const note = fig.querySelector(".ci-hold"); if (note) note.remove();
+      return;
+    }
     if (fig.classList.contains("card-vid")) {
       if (!e.target.closest(".cv-expand")) return;
       openVideoViewer({ src: fig.dataset.vidSrc, title: fig.dataset.vidTitle, desc: fig.dataset.vidDesc, credit: fig.dataset.vidCredit });
@@ -46996,6 +47446,12 @@ let prev = null;
       let sid = parts[1] || "";
       try { sid = decodeURIComponent(sid); } catch (e) {}
       if (!(current.name === "sample" && current.params.id === sid)) route("sample", { id: sid });
+      return;
+    }
+    if (parts[0] === "u") {   // #u/<username> pasted or followed mid-session
+      let un = parts[1] || "";
+      try { un = decodeURIComponent(un); } catch (e) {}
+      if (!(current.name === "u" && current.params.name === un)) route("u", { name: un });
       return;
     }
     if (parts[0] === "card") {   // #card/<id> pasted or followed mid-session

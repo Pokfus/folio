@@ -869,6 +869,19 @@ body.night .rv-edit-icons.on{color:#E6C765; border-color:color-mix(in srgb,#E6C7
   font-family:var(--display); font-weight:600; font-size:calc(13px * var(--fs)); line-height:1;
   letter-spacing:0; text-transform:none; color:var(--ink-soft); font-variant-numeric:tabular-nums;
 }
+/* WHAT THE NEXT ARTEFACT NEEDS (Sep 2026), set exactly as the day's timer beside it: the same mono
+   caption, the same baseline, the same quiet ink. It is a small pleasure rather than a target, so it
+   is a caption and not a meter — and the FIGURE leads here where the word leads in the timer, because
+   what the reader is being told is how many, not what of. On the narrowest phones it gives way to the
+   timer, the timer being about work already done. */
+.rv-chestnext{
+  display:inline-flex; align-items:baseline; gap:6px; flex:0 1 auto; min-width:0;
+  margin-inline-start:20px; padding:7px 0 0;
+  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.rv-chestnext span{font-family:var(--display); font-weight:600; font-size:calc(13px * var(--fs)); line-height:1; letter-spacing:0; text-transform:none; color:var(--ink-soft);}
+@media (max-width:430px){ .rv-chestnext{display:none;} }
 .banner .glyph{
   position:absolute; right:-10px; bottom:-26px; font-family:var(--han); font-weight:700;
   font-size:calc(150px * var(--fs)); line-height:1; color:var(--indigo); opacity:.05; pointer-events:none; user-select:none;
@@ -2644,6 +2657,20 @@ body.grading .stage{padding-bottom:150px;}
 .dl-out{margin:2px 0 4px;}
 .dl-big{margin:0 0 4px; font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); color:var(--ink);}
 .dm-warn{margin:6px 0 0; font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--geo);}
+/* THE KEYBOARD SHEET (Sep 2026). One overlay on the body, so `render()` closes it like every other;
+   above the tab bar and the grade bar, below the image viewer, which is the stack every modal here
+   sits in. It is never reachable on a phone and needs no rule for that — there is no keyboard. */
+.key-sheet{position:fixed; inset:0; z-index:9600; display:flex; align-items:center; justify-content:center; padding:24px; background:color-mix(in srgb, #000 46%, transparent); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);}
+.ks-card{position:relative; max-width:520px; width:100%; max-height:82vh; overflow:auto; background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:var(--shadow-lg, 0 18px 50px rgba(0,0,0,.28)); padding:22px 24px 20px;}
+.ks-card h2{font-family:var(--display); font-weight:600; font-size:calc(19px * var(--fs)); color:var(--ink); margin:0 0 14px;}
+.ks-group{margin:0 0 16px;}
+.ks-group h3{font-family:var(--sans); font-size:calc(10.5px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-quiet); margin:0 0 7px;}
+.ks-row{display:flex; align-items:baseline; gap:12px; padding:3px 0;}
+.ks-row kbd{flex:none; min-width:5.6em; font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink); background:var(--paper-2); border:1px solid var(--rule); border-bottom-width:2px; border-radius:5px; padding:2px 6px; text-align:center;}
+.ks-row span{font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink-soft);}
+.ks-none{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-quiet); margin:0;}
+.ks-x{position:absolute; top:10px; right:12px; width:28px; height:28px; border:0; background:none; color:var(--ink-quiet); font-size:calc(20px * var(--fs)); line-height:1; cursor:pointer; border-radius:6px;}
+.ks-x:hover{color:var(--ink); background:var(--paper-2);}
 .handoff-row{display:block; width:100%; text-align:left; margin:0 0 12px; padding:12px 15px; border:1px solid color-mix(in srgb, var(--indigo) 34%, var(--rule)); border-radius:12px; background:var(--card); box-shadow:var(--shadow-sm); cursor:pointer;}
 .handoff-row:hover{border-color:var(--indigo);}
 .ho-lead{display:block; font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--indigo);}
@@ -2668,6 +2695,53 @@ body.grading .stage{padding-bottom:150px;}
 .lc-row:hover{background:var(--paper-2);}
 .lc-n{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); font-variant-numeric:tabular-nums; color:var(--ink-soft); min-width:2.2em; text-align:right;}
 .lc-row.lc-bad .lc-n{color:var(--geo); font-weight:700;}
+/* "Right, but slowly" reuses the leech rows' geometry exactly: two lists of cards, in the same card,
+   doing the same thing when pressed. What differs is the FIGURE — seconds rather than lapses, so it is
+   wider (a "12.5s" needs more room than a "7") and it is the QUIET ink, never the alarm red the leech
+   list spends on a card past `SCHED.leech`. A slow card is not a failing card. */
+.sc-n{min-width:3.4em; color:var(--ink-soft);}
+
+/* A PICTURE HELD BACK UNDER "Use less data" KEEPS ITS FRAME (see cardImageHTML). It is the same 16:9 box
+   the picture will fill, in the page's own quiet paper with a dashed edge — so the card does not resize
+   under the reader when they ask for it, and an empty frame that says why can never be mistaken for a
+   card that simply has no illustration. */
+.card-img.ci-held{background:var(--paper-2); border-style:dashed;}
+.card-img.ci-held img{display:none;}
+.card-img.ci-held .ci-zoom{display:none;}
+.ci-hold{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:0 16px; text-align:center;
+  font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-faint); letter-spacing:.02em;}
+
+/* THE MAP IN WORDS (see mapNeighbours). Under the globe rather than over it — it is a caption, not a
+   label — in the quiet ink the picture credits use, and `[hidden]` is honoured explicitly because the
+   slot ships in the markup and is only filled once the shapes land. */
+.mc-alt{margin:0; padding:9px 13px 11px; border-top:1px solid var(--rule); background:var(--paper-2);
+  font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.mc-alt[hidden]{display:none;}
+
+/* YOU AND THEM (see versusHTML). A three-column grid rather than a table: the label takes what is left
+   and the two figures sit in fixed columns, so four rows line up down the page whatever the numbers are.
+   The LEADING figure is marked in the ink the site already uses for a win — never a colour of its own,
+   and never both, which would make a draw look like two wins. */
+.vs-card{padding:14px 16px 12px;}
+.vs-head,.vs-row{display:grid; grid-template-columns:1fr 5.4em 5.4em; align-items:baseline; gap:8px;}
+.vs-head{padding-bottom:7px; margin-bottom:5px; border-bottom:1px solid var(--rule);}
+.vs-head .vs-a,.vs-head .vs-b{font-family:var(--sans); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-quiet);}
+.vs-row{padding:5px 0;}
+.vs-row + .vs-row{border-top:1px solid var(--rule-soft, var(--rule));}
+.vs-lbl{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-soft); min-width:0;}
+.vs-a,.vs-b{font-family:var(--mono); font-size:calc(13px * var(--fs)); font-variant-numeric:tabular-nums; text-align:right; color:var(--ink-soft);}
+.vs-row.vs-mine .vs-a,.vs-row.vs-theirs .vs-b{color:var(--good); font-weight:700;}
+@media (max-width:430px){ .vs-head,.vs-row{grid-template-columns:1fr 4.4em 4.4em; gap:6px;} }
+
+/* A button that reads as part of the sentence it sits in — used for "copy link" on the account page's
+   identity line, where a real `.btn` would be a control shouting beside three quiet facts. It keeps a
+   focus ring and a real hit area; only the chrome goes. */
+.link-btn{font:inherit; color:inherit; background:none; border:0; padding:2px 1px; margin:0; cursor:pointer; text-decoration:underline; text-underline-offset:2px; text-decoration-thickness:1px; opacity:.85;}
+.link-btn:hover{opacity:1;}
+/* …and a chip that is a STATE rather than an action (a pending friend request), which must not look
+   pressable: `.mini-btn` gives it the shape and this takes the affordance away. */
+.mini-btn.static{cursor:default; opacity:.7;}
+.u-private{max-width:52ch;}
 .lc-t{flex:1; min-width:0; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .lc-w{font-family:var(--sans); font-size:calc(10.5px * var(--fs)); color:var(--ink-quiet); white-space:nowrap; max-width:32%; overflow:hidden; text-overflow:ellipsis;}
 @media (max-width:520px){ .lc-w{display:none;} }

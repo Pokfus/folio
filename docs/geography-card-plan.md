@@ -332,6 +332,40 @@ That is the Picture round's position, and it is the honest one for a format whos
 is a reason to keep the geography collection to its own deck rather than mixing map cards into a collection
 somebody is studying for its history.
 
+**Since Sep 2026 there is an OPT-IN route through it, and it does not repeal the paragraph above.** The
+sentence that cannot be written is a *description of the shape*; what the map actually shows is the shaded
+shape **with its neighbours drawn around it**, and that can be said in words without describing anything.
+`S.settings.mapAlt` — Settings → Study → **Describe geography maps**, off by default — puts a line under
+the globe reading *"The shaded state borders, among the states on this map: California, Nevada, New Mexico
+and Utah."* The neighbours are COMPUTED from the layer's own polygons (`mapNeighbours` in app.js), never authored,
+so it costs the plan nothing and cannot go stale.
+
+**They are computed by PROXIMITY, not by shared edges, and the difference is not academic.** The obvious
+implementation — two shapes sharing a polygon EDGE are neighbours, which is how `coastEdges` and the
+province borders already work — is **wrong by a quarter here and silently so**: `us-states.js` is
+simplified per state, so a border is two chains that diverge slightly. Measured, it found **83 of the 107
+pairs** and missed **California–Oregon**. A reader told *"Ohio borders Indiana, Kentucky, Michigan and West
+Virginia"* has been handed a list that rules out the right answer. What ships instead walks each boundary
+and stamps the grid cells it passes through; two shapes stamping one cell are neighbours. That finds **107
+at every cell size from 0.03° to 0.08°** — the geometry decides the answer, not the parameter — and 107 is
+the standard count of adjacent US state pairs.
+
+**The setting's own copy states the trade rather than selling the feature**, because the trade is real:
+for many readers a list of neighbours is a *shorter* route to the answer than the outline is, so switching
+it on makes the deck easier. That is the reader's trade to make, and an easy card is better than one
+nobody can answer.
+
+Three limits, each a place where the words and the picture differ, and all three are in the code's own
+header rather than left to be rediscovered:
+
+- **A shared point is not a border.** Arizona and Colorado meet at Four Corners — one vertex — and the list
+  does not name it. Correct by the word *borders*; not what the map shows.
+- **A layer knows only its own shapes.** `us-states.js` has no Mexico, so Arizona's line is silent about an
+  international border a sighted reader can see. Hence *"borders, among the states on this map"* rather
+  than a claim to completeness.
+- **A shape with no neighbours says so** (Hawaii, Iceland), which is real information rather than an empty
+  list that reads as a failure to compute one.
+
 ### The globe
 
 Drawn by `startCardGlobe` in app.js, not by the Atlas — `PAGES.map` is one enormous closure holding a
