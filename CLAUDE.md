@@ -1568,6 +1568,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   conclusion of a long explanation — it reported a sentence about one minigame's draw as a 266 KB
   "section". **A map that invents sections is worse than none, because it is read as structure.**)
   Not part of the site.
+- **A DUPLICATE PICTURE IS TWO DIFFERENT FAULTS, AND ONLY ONE OF THEM REACHES A READER** (Sep 2026, out
+  of the field audit). `check-cards.js` reports cards sharing one picture and counts them all alike; they
+  are not alike. **WITHIN one collection** a reader working through the deck meets the same photograph
+  twice, which is the fault the check was written for. **ACROSS two collections** a reader studying either
+  one never meets the repeat at all, and the picture is usually right for both — the same object carded in
+  World History and in Ancient Greece. **So repair the within-collection pairs first**, and where a
+  cross-collection pair's picture genuinely serves both and nothing better is free, **leave it**: a poor
+  picture is worse than a shared good one, and `wh-343` cost four rounds before that was the honest answer.
+  Measured Sep 2026: 47 pairs → 21, of which **19 are cross-collection and 2 are within** — `rm-202` /
+  `rm-269` and `rm-206` / `rm-225`, each of which resisted four rounds because Rome's obvious pictures are
+  already spent (the lictor relief is on three cards and a glossary term; the Scipio bust is on `rm-224`).
+  **The pass's own findings, worth having before the next batch.** A candidate is chosen by JUDGEMENT and
+  then LOOKED AT: over four batches the contact sheet rejected roughly a third — "Yinxu Royal Tombs" is a
+  modern red gate, "Centuriation in Treviglio" is a street with a parked car, a Scipio bust came back as a
+  photograph of a lantern SLIDE with the slide's handwriting on it, and two museum TEXT PANELS got through
+  the search. **Decide which card the picture DEPICTS, not which is more important**: the oracle-bone pit
+  is China's own card, the helmet inscribed by Miltiades is Miltiades', the modius is the taxation card's
+  because the tax was grain. And **the fetcher caches by CARD ID**, so a second candidate for one card
+  silently returns the first unless `--force` is passed.
 - `.claude/check-image-free.js` — **is this picture already on something?**:
   `node .claude/check-image-free.js "<file name or url>" … | --batch=<batch.json>`, exit 1 if any is
   taken. **RUN IT BEFORE FETCHING A REPLACEMENT, NEVER AFTER.** `check-cards.js` reports which cards
