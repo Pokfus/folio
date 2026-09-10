@@ -115,7 +115,42 @@ function orderedStringify(card, order) {
   return JSON.stringify(o);
 }
 
-function writeCards(cards, tree) {
+/* ============================================================================
+   THE GUARD THAT MAKES THE COMMONEST CATASTROPHE IMPOSSIBLE (Sep 2026).
+
+   Twenty-one helpers in this directory read data.js with `new Function("window", src)(win)`. Inside a
+   MODULE that body sees neither `require` nor `__dirname`, so data.js's own rejoin block never runs and
+   what comes back is the LIGHT half: every card with no abstract, no sources, no `why`, no picture.
+   Hand THAT set to this function and it serialises a data-extra with nothing in it — 12.6 MB deleted,
+   no error thrown, and every card still rendering its question, its answer and its date line. It
+   happened, in a run that was otherwise perfect, and it took a restore from git.
+
+   So the write now compares what it has been given with what the corpus already holds, field by field,
+   and REFUSES when it is being asked to drop heavy fields wholesale. A genuine removal — retiring a
+   card, clearing one abstract — passes; losing them all cannot. `{ allowLoss: true }` is the explicit
+   way to say a large removal is meant, and no helper here passes it.
+   ============================================================================ */
+function heavyCount(list) {
+  let n = 0;
+  for (const c of list || []) for (const k of EXTRA_FIELDS) if (c[k] !== undefined) n++;
+  return n;
+}
+
+function writeCards(cards, tree, opts) {
+  if (!(opts && opts.allowLoss)) {
+    let had = 0;
+    try { had = heavyCount(loadCards().cards); } catch (e) { had = 0; }
+    const has = heavyCount(cards);
+    /* A tenth of the corpus is far more than any real edit removes and far less than the light half
+       reports, which is zero. The message names the cause, because the cause is always the same one. */
+    if (had > 100 && has < had * 0.9) {
+      throw new Error(
+        "card-io: refusing to write — the cards handed in carry " + has + " heavy fields where the corpus holds " + had + ".\n" +
+        "  This is what loading data.js with `new Function` inside a module looks like: that body cannot see\n" +
+        "  `require`, so the file's rejoin block never runs and every abstract, source, `why` and picture is\n" +
+        "  missing. Load through loadCards(). If the removal is genuinely meant, pass { allowLoss: true }.");
+    }
+  }
   const order = [];
   for (const c of cards) for (const k of Object.keys(c)) if (!order.includes(k)) order.push(k);
 
@@ -135,10 +170,57 @@ function writeCards(cards, tree) {
     }
   }
 
-  // data.js — one card per line, the tree spliced back verbatim
+  /* THE NODE-ONLY REJOIN BLOCK IS WRITTEN BY THIS FUNCTION, not preserved from the file (Sep 2026).
+     It was appended once, by hand, and then SILENTLY DELETED by the first writer that rebuilt data.js
+     from a template of its own — `add-images.js`, in a run that was otherwise perfect. Nothing broke
+     that day: the block does nothing in a browser, and under Node its absence only means the next
+     helper to `require("../data.js")` sees every abstract as empty and reports a fully cited corpus as
+     uncited. Owning it here means a writer cannot lose it by forgetting it exists. */
+  const REJOIN = `/* ============================================================================
+   NODE-ONLY: rejoin the lazy half, so a helper that requires this file sees WHOLE cards.
+
+   In a BROWSER this block does nothing — there is no \`require\` and no \`__dirname\`, and the
+   heavy half arrives through the \`cardExtra:<collection>\` bundles when a reader actually
+   reveals a card (see CARD_EXTRA_FIELDS in app.js).
+
+   Under NODE it is what stops the split silently breaking forty helpers at once. A READER
+   that saw only the light half would report a fully cited corpus as uncited — \`gloss-source-audit.js\`
+   did exactly that after the glossary split, printing "0 of 100 cited" while its assertions
+   passed over an empty list. This makes \`require("../data.js")\` keep meaning what it always meant.
+
+   IT DOES NOT MAKE WRITING SAFE, and nothing here can. A helper that re-serialises what it
+   loaded would write the heavy fields back into this file and undo the split — so every WRITER
+   goes through \`.claude/card-io.js\`'s writeCards(), and \`split-cards.js --check\` (which CI runs)
+   fails the build if a heavy field reappears here.
+   ============================================================================ */
+try {
+  if (typeof require === "function" && typeof __dirname === "string" && typeof document === "undefined") {
+    var _fs = require("fs"), _p = require("path");
+    var _dir = _p.join(__dirname, "data-extra");
+    if (_fs.existsSync(_dir)) {
+      var _by = {};
+      window.CARD_DATA.forEach(function (c) { _by[c.id] = c; });
+      _fs.readdirSync(_dir).filter(function (f) { return /\\.js$/.test(f); }).forEach(function (f) {
+        var _w = { CARD_EXTRA_IN: [] };
+        new Function("window", _fs.readFileSync(_p.join(_dir, f), "utf8"))(_w);
+        _w.CARD_EXTRA_IN.forEach(function (inc) {
+          Object.keys(inc.CARD_EXTRA || {}).forEach(function (id) {
+            var _c = _by[id]; if (!_c) return;
+            // fill gaps only — data.js wins where it carries the field (see card-io.js)
+            Object.keys(inc.CARD_EXTRA[id]).forEach(function (k) { if (_c[k] === undefined) _c[k] = inc.CARD_EXTRA[id][k]; });
+          });
+        });
+      });
+    }
+  }
+} catch (e) { /* a helper running this through new Function has no require — it uses card-io.js */ }`;
+  // data.js — one card per line, the tree spliced back verbatim, and the rejoin block after it
   const prev = fs.readFileSync(DATA, "utf8");
   const treeAt = prev.indexOf("\nwindow.COLLECTION_TREE");
-  const tail = treeAt >= 0 ? prev.slice(treeAt + 1) : "window.COLLECTION_TREE = " + JSON.stringify(tree, null, 1) + ";\n";
+  let tail = treeAt >= 0 ? prev.slice(treeAt + 1) : "window.COLLECTION_TREE = " + JSON.stringify(tree, null, 1) + ";\n";
+  const rejoinAt = tail.indexOf("/* ===================");
+  if (rejoinAt >= 0) tail = tail.slice(0, rejoinAt);
+  tail = tail.replace(/\n+$/, "\n") + "\n" + REJOIN + "\n";
   const head =
     "/* Card data — the LIGHT half. Add cards one at a time with `node .claude/add-card.js <card.json> [deckId]`.\n" +
     " *\n" +

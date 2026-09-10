@@ -88,7 +88,15 @@ function writeGlossary(images, dry) {
 /* data.js is rewritten whole, exactly as add-card.js and update-cards.js write it — one JSON
    object per line for the cards, the tree pretty-printed. */
 function writeCards(cardImages, dry, replace) {
-  const win = loadWindow(DATA);
+  /* LOADED THROUGH card-io, WHICH IS NOT OPTIONAL NOW THAT IT IS ALSO WRITTEN THROUGH IT. `data.js` is
+     the LIGHT half; its Node-only rejoin block runs on `require`, and a `new Function` body inside a
+     module sees neither `require` nor `__dirname`, so loading it that way hands back cards with no
+     abstract and no sources. Writing THOSE back through the door serialises a data-extra with nothing
+     in it — 12.6 MB deleted, no error, and every card still rendering its question and its answer.
+     That is card-io.js's second warning, and it cost a corpus restore from git to learn. */
+  const io2 = require("./card-io");
+  const { cards: allCards, tree } = io2.loadCards();
+  const win = { CARD_DATA: allCards, COLLECTION_TREE: tree };
   const byId = new Map(win.CARD_DATA.map((c) => [c.id, c]));
   let n = 0;
   for (const [id, img] of Object.entries(cardImages)) {
@@ -110,17 +118,13 @@ function writeCards(cardImages, dry, replace) {
     card.image = img;
     n++;
   }
-  const out =
-    "/* Card data. Add cards one at a time with `node .claude/add-card.js <card.json> [deckId]` (see CLAUDE.md). */\n" +
-    "window.CARD_DATA = [\n" + win.CARD_DATA.map((c) => JSON.stringify(c)).join(",\n") + "\n];\n\n" +
-    "/* Collection -> deck -> sub-deck tree. Leaf decks carry a `cardIds` array. */\n" +
-    "window.COLLECTION_TREE = " + JSON.stringify(win.COLLECTION_TREE, null, 2) + ";\n";
-  if (!dry) { fs.writeFileSync(DATA, out); loadWindow(DATA); }
-  /* data.js is the LIGHT half of the corpus. This helper splices its change straight into that
-     file, so a heavy field (abstract / sources / why / quote / image) lands there fat and has to
-     be moved back out — otherwise data.js re-fattens one card at a time and the eager load path
-     grows back in silence. See .claude/card-io.js. */
-  require("./card-io").resplit();
+  /* WRITTEN THROUGH card-io, NOT FROM A TEMPLATE OF ITS OWN. This function used to rebuild data.js
+     from four lines of its own, which is how the file's Node-only rejoin block came to be deleted in
+     a run that was otherwise perfect — and the loss is silent, since that block does nothing in a
+     browser and only decides whether the NEXT helper to require the file sees whole cards. Going
+     through the one door writes both halves, keeps the head and the tail the door owns, and moves
+     any heavy field this pass put in data.js straight back out. */
+  if (!dry) { io2.writeCards(win.CARD_DATA, win.COLLECTION_TREE); }
   return n;
 }
 
@@ -199,7 +203,10 @@ function main() {
   const c = writeCards(cards, dry, replace);
   const ar = writeArtefacts(arte, dry, replace);
 
-  const total = loadWindow(DATA).CARD_DATA;
+  /* THE TALLY READS THE JOINED CORPUS. `image` is one of the fields that moved out of data.js, so
+     counting it there reports 6 of 2,895 immediately after writing forty-eight — which reads as a
+     tool that did nothing. (See card-io.js: a READER of data.js alone sees the light half only.) */
+  const total = require("./card-io").loadCards().cards;
   console.log(`${dry ? "[dry] " : ""}glossary images: +${Object.keys(gloss).length} (table now ${g} of ${Object.keys(win.GLOSSARY).length} terms)`);
   console.log(`${dry ? "[dry] " : ""}card images:     +${c} (now ${total.filter((x) => x.image && x.image.src).length} of ${total.length} cards)`);
   const arts = loadWindow(path.join(ROOT, "artefacts.js")).ARTEFACTS;

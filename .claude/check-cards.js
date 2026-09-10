@@ -79,7 +79,13 @@ const REPORT  = args.includes("--report");
 const PREFIX  = (args.find(a => a.startsWith("--prefix=")) || "").slice(9);
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
-const win = loadWindow(path.join(ROOT, "data.js"));
+/* THE CARDS COME THROUGH card-io, and every check here depends on it: `sources` and `image` are two of
+   the fields that moved to data-extra/, so read from data.js alone this file reports a fully cited,
+   fully illustrated corpus as uncited and unillustrated — "no-picture — 100" on a collection where
+   fifty-seven cards carry one. A checker that reports a clean corpus as broken is a checker nobody
+   runs. (See card-io.js: a `new Function` body inside a module cannot see `require`, so data.js's own
+   rejoin block never fires there.) */
+const win = Object.assign(loadWindow(path.join(ROOT, "data.js")), { CARD_DATA: require("./card-io.js").loadCards().cards });
 
 /* THE GLOSSARY IS THE DISCRIMINATOR FOR RULE 2, and it is the right one because it is the
    collection's own register of what its words NAME.  "Athenian Constitution" and "White Castle"

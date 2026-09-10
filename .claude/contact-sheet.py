@@ -60,7 +60,18 @@ for i, cid in enumerate(ids):
     b = grab(src, cid + "-" + (e.get("title") or e.get("name") or e.get("file") or ""))
     if b:
         try:
-            im = Image.open(io.BytesIO(b)).convert("RGB")
+            im = Image.open(io.BytesIO(b))
+            # A TRANSPARENT PICTURE IS COMPOSITED ONTO THE PAPER THE CARD GIVES IT, not onto the
+            # sheet's own dark ground. Commons stores nearly every chemical structure as an SVG or
+            # PNG with a transparent background and BLACK strokes; flattened straight to RGB on a
+            # dark sheet, three perfectly good diagrams came back as a few coloured blobs with
+            # nothing between them, and were nearly rejected as unusable. `.card-img img` and
+            # `.iv-img` both paint #F7F5EF behind a picture, so this is what a reader will see.
+            if im.mode in ("RGBA", "LA", "P"):
+                im = im.convert("RGBA")
+                bg = Image.new("RGBA", im.size, "#F7F5EF")
+                im = Image.alpha_composite(bg, im)
+            im = im.convert("RGB")
             im.thumbnail((CELL - 6, CELL - 6))
             sheet.paste(im, (x + (CELL - im.width) // 2, y + (CELL - im.height) // 2))
         except Exception as ex:

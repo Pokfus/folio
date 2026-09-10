@@ -2060,7 +2060,12 @@ body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var
 .iv-stage{flex:1; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; overflow:hidden; cursor:zoom-in; touch-action:none; padding:3vh 0;}
 .iv-stage.zoomed{cursor:grab;}
 .iv-stage.zoomed:active{cursor:grabbing;}
-.iv-img{max-width:94%; max-height:100%; min-height:0; flex:0 1 auto; object-fit:contain; transition:transform .18s var(--ease); user-select:none;}
+/* THE ENLARGED PICTURE SITS ON THE SAME PAPER THE CARD'S FRAME GIVES IT (Sep 2026, illustrating
+   Biology). `.card-img img` has carried this ground since it was written; the viewer had none, and a
+   viewer's stage is dark — so a diagram with a TRANSPARENT background, which is how Commons stores
+   nearly every chemical structure, enlarged to black lines on a black screen and showed nothing at
+   all. A photograph is opaque, so the ground never shows and nothing else on the site moves. */
+.iv-img{max-width:94%; max-height:100%; min-height:0; flex:0 1 auto; object-fit:contain; background:#F7F5EF; transition:transform .18s var(--ease); user-select:none;}
 .iv-stage.iv-live .iv-img{transition:none;}   /* a pinch or a drag moves the picture per frame; the ease would lag behind the fingers */
 /* a profile photo in the viewer — round, because that is the shape it was cropped in, and capped rather
    than shown at its stored 128px, which would be barely larger than the row it was tapped in. See
