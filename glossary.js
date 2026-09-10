@@ -3463,7 +3463,17 @@ window.GLOSSARY = {
 "Song_dynasty": "The Song dynasty ruled China from 960 to 1279 and is divided into a northern period ruled from Kaifeng and a southern one ruled from Hangzhou.<sup class=\"fn\" data-fn=\"1\"></sup> It began when the army placed the imperial robe on its commander Zhao Kuangyin on the road at Chenqiao, and it presided over a commercial expansion the existing coinage could not carry, which prompted long arguments over free coining, a double standard of metals and the export of copper.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The north was lost in 1127, when a Jurchen army took Kaifeng and carried two emperors into captivity, and the dynasty ended at sea off Yaishan in 1279.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Sui_dynasty": "The Sui dynasty ruled China from 581 to 618 and reunited an empire that had been divided between northern and southern courts for close on three centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Its first emperor took the throne in 581, destroyed the southern Chen state in 589, moved his capital to a new city beside the old Chang'an, and established community granaries filled by a levy graded on the wealth of households.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His son drove canals from the Yellow River to the Huai and north towards the frontier, conscripting labour on a scale the histories number in millions and, when adult men fell short, women; rebellion followed and the dynasty fell in 618.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Tang_dynasty": "The Tang dynasty ruled China from 618 to 907 and is conventionally treated as the high point of the medieval Chinese empire.<sup class=\"fn\" data-fn=\"1\"></sup> Founded by a duke of the dynasty it replaced, it kept its capital at Chang'an, which stood at the eastern end of the Silk Road and was among the world's largest cities, and it graded officials in nine ranks and examination graduates in three classes.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A rebellion begun in 755 broke the court's hold on the provinces, the tax registers falling from 52.9 million people in 754 to about 16.9 million in 764, and the dynasty ended in 907 when its last emperor was deposed and killed.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Woodblock_printing": "Woodblock printing is the reproduction of a page by cutting it in relief on one block of wood, inking the block and taking an impression from it.<sup class=\"fn\" data-fn=\"1\"></sup> The technique descends from seals and from stone rubbings, and the impression may be taken with a brush rather than a press: the text is written on thin paper, pasted face down on the block and cut around, so the characters print black on white.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The oldest printed book bearing its own date was made this way in 868, and the movable types that followed did not displace the block, which could be stored and reprinted for as long as the wood lasted.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Woodblock_printing": "Woodblock printing is the reproduction of a page by cutting it in relief on one block of wood, inking the block and taking an impression from it.<sup class=\"fn\" data-fn=\"1\"></sup> The technique descends from seals and from stone rubbings, and the impression may be taken with a brush rather than a press: the text is written on thin paper, pasted face down on the block and cut around, so the characters print black on white.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The oldest printed book bearing its own date was made this way in 868, and the movable types that followed did not displace the block, which could be stored and reprinted for as long as the wood lasted.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Compass": "A compass shows direction by means of a magnetised needle left free to turn, which settles along the line of the Earth's magnetic field.<sup class=\"fn\" data-fn=\"1\"></sup> The needle points not at the true pole but a little to one side, an offset called magnetic declination that differs from place to place; the oldest description of it, from about 1088, already remarks on this.<sup class=\"fn\" data-fn=\"2\"></sup> Mounted on a float, balanced on a point or hung from a thread, and later set over a card marked with bearings, it lets a ship hold a course when cloud hides the sun and stars; it is named in Europe first in a poem of about 1190.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Movable_type": "Movable type is printing in which each character or letter is a separate piece, so that a page is built by setting the pieces in a frame and taken apart afterwards for them to be used again.<sup class=\"fn\" data-fn=\"1\"></sup> It stands against block printing, where a whole page is cut in relief into one board and can print nothing else; the type may be fired clay, wood or cast metal, and is held level by a paste or by wedges.<sup class=\"fn\" data-fn=\"2\"></sup> The earliest known type was clay, made in the 1040s, and the method spread slowly where the writing system needed thousands of distinct pieces, but transformed printing where an alphabet needed dozens.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Neo-Confucianism": "Neo-Confucianism is the reworking of Confucian teaching by scholars of 11th- and 12th-century China, which supplied it with an account of nature, mind and the cosmos the older texts had never set out.<sup class=\"fn\" data-fn=\"1\"></sup> Its central pair of terms distinguishes the rule of existence that every thing has, translated as Law or principle, from the stuff in which it is embodied, translated as Ether or material force; Law is held to be immaterial, and human nature is Law as a person receives it.<sup class=\"fn\" data-fn=\"2\"></sup> The movement is associated above all with Zhu Xi, who died in 1200, and whose commentaries displaced readings of the canon received as beyond question since the Han.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Porcelain": "Porcelain is a pottery made translucent by adding to the clay body a material that fuses in the fire, the two usual constituents being a white clay and a fusible stone.<sup class=\"fn\" data-fn=\"1\"></sup> It is fired far hotter than earthenware, which leaves it hard, white, closed against water and thin enough to let light through; glazed pottery that fails those tests is not porcelain, whatever its finish.<sup class=\"fn\" data-fn=\"2\"></sup> Decoration painted beneath the glaze in cobalt blue gave the ware its most copied form, and because the ware travelled as trade goods long before anyone outside the kiln towns knew how it was made, it was imitated for centuries before it was understood.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Yuan_dynasty": "The Yuan dynasty was the Mongol dynasty of China, proclaimed by Kublai Khan in 1271 and the first under which the whole empire passed to a ruler from outside it.<sup class=\"fn\" data-fn=\"1\"></sup> Its capital was at Dadu, on the site of modern Beijing, from 1264, and its conquest was completed in 1279 when the last Song emperor was drowned at Yaishan on the southern coast.<sup class=\"fn\" data-fn=\"2\"></sup> The court patronised learning, ordering a new alphabet for Mongol and a revised calendar, and the century of its rule is the one in which Chinese drama and the Chinese novel first appear; a rebel army took the capital in 1368 and the last emperor fled north.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Marco_Polo": "Marco Polo was a Venetian merchant who travelled in Asia for some 24 years in the late 13th century, serving the Mongol emperor Kublai Khan, and returned to Venice in 1295.<sup class=\"fn\" data-fn=\"1\"></sup> Three years later, a prisoner of war in Genoa, he dictated what he had seen to a fellow captive who wrote Arthurian romances; the book was set down in an Old French heavily marked by Italian, and circulated widely in Latin and other versions within a generation.<sup class=\"fn\" data-fn=\"2\"></sup> It became medieval Europe's fullest description of eastern Asia; the exaggeration his contemporaries suspected in it has been argued over ever since, though parts stand up against Chinese records.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Mongol_invasions_of_Japan": "The Mongol invasions of Japan were two seaborne expeditions launched by Kublai Khan from Korea, the first in 1274 and the second in 1281, after the Kamakura government refused to answer his demand for submission.<sup class=\"fn\" data-fn=\"1\"></sup> The first landed at Hakata after taking the islands of Tsushima and Iki, and withdrew within days; the second, of about 100,000 men, was wrecked by a storm in August 1281 and its stranded army destroyed on the shore.<sup class=\"fn\" data-fn=\"2\"></sup> The victory left the Japanese government with no captured land to reward the warriors and temples that had served it, and the resulting strain on its finances helped undo the regime that had won.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Muromachi_period": "The Muromachi period is the era of Japanese history covered by the Ashikaga shogunate, from 1338 to 1573, named after the quarter of Kyoto in which that government sat.<sup class=\"fn\" data-fn=\"1\"></sup> Its first 56 years were divided between two rival imperial courts, reunited in 1392, and its later decades saw the shogunate lose control of the provinces to lords whose estates outmatched its own.<sup class=\"fn\" data-fn=\"2\"></sup> A succession dispute in 1467 set off eleven years of war that wrecked the capital and opened a century of local warfare, yet the same period produced the Nō drama, a flowering of painting and the first Japanese attempts at overseas trade.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Zen": "Zen is a school of Mahayana Buddhism whose name comes, through Chinese, from the Sanskrit for meditation, and which holds that understanding passes directly from mind to mind rather than through scripture.<sup class=\"fn\" data-fn=\"1\"></sup> Its practice centres on seated meditation and on seeing into one's own nature, a doctrine set out in the sermon ascribed to its sixth Chinese patriarch, whose best-known verse denies that enlightenment is a thing to be possessed.<sup class=\"fn\" data-fn=\"2\"></sup> Carried from China to Japan around 1200 in two lines, one stressing sudden insight and the other steady sitting, it became the faith of the warrior class and a route by which Chinese painting and letters reached Japan.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Goryeo": "Goryeo was the Korean kingdom that ruled the peninsula from 918 to 1392, founded by the general Wang Geon and governed from Songdo, the city now called Kaesong.<sup class=\"fn\" data-fn=\"1\"></sup> It brought the territories of the earlier Silla, Baekje and Goguryeo under one house, which held the throne for more than four centuries, and it recruited its officials by written examination, including a licensing examination for physicians held from 958.<sup class=\"fn\" data-fn=\"2\"></sup> Its potters produced the celadon for which the period is best known, Mongol invasions from the 1230s reduced it to a tributary building ships for the Yuan, and a coup in 1392 replaced it with the Joseon dynasty.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5128,7 +5138,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Song_dynasty": "960 – 1279 CE",
 "Sui_dynasty": "581 – 618 CE",
 "Tang_dynasty": "618 – 907 CE",
-"Woodblock_printing": "earliest dated book 868 CE"
+"Woodblock_printing": "earliest dated book 868 CE",
+"Neo-Confucianism": "11th – 12th century",
+"Yuan_dynasty": "1271 – 1368 CE",
+"Marco_Polo": "c. 1254 – 1324",
+"Mongol_invasions_of_Japan": "1274 and 1281 CE",
+"Muromachi_period": "1338 – 1573 CE",
+"Goryeo": "918 – 1392 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6796,7 +6812,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "February_26_Incident": ["2.26 Incident","Ni-niroku Incident"],
 "Greater_East_Asia_Co-Prosperity_Sphere": ["Co-Prosperity Sphere"],
 "Japanese_withdrawal_from_the_League_of_Nations": ["Japan's withdrawal from the League of Nations"],
-"Marco_Polo_Bridge_Incident": ["Lugou Bridge Incident","Lukouchiao Incident"],
+"Marco_Polo_Bridge_Incident": ["Lugou Bridge Incident","Lukouchiao Incident","Marco Polo Bridge"],
 "Nanjing_Massacre": ["Rape of Nanking","Nanking Massacre"],
 "Second_Sino-Japanese_War": ["Sino-Japanese War of 1937"],
 "Second_United_Front": ["United Front against Japan"],
@@ -7152,7 +7168,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "An_Lushan_Rebellion": ["An Lushan","An Shi Rebellion"],
 "Imperial_examination": ["keju"],
 "Paper_money": ["jiaozi"],
-"Woodblock_printing": ["block printing","xylography"]
+"Woodblock_printing": ["block printing","xylography"],
+"Compass": ["magnetic compass","mariner's compass","compass needle"],
+"Movable_type": ["movable-type","moveable type"],
+"Neo-Confucianism": ["neo-Confucian","Neo-Confucian"],
+"Porcelain": ["porcelains","china ware"],
+"Yuan_dynasty": ["Yuan","Great Yuan"],
+"Marco_Polo": ["Marco Polo's book"],
+"Mongol_invasions_of_Japan": ["Mongol invasion of Japan"],
+"Muromachi_period": ["Ashikaga period","Ashikaga shogunate"],
+"Zen": ["Chan Buddhism","Zen Buddhism"],
+"Goryeo": ["Koryo","Koryŏ","Goryeo dynasty"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10656,7 +10682,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Song_dynasty": ["dynasty","history","politics","china"],
 "Sui_dynasty": ["dynasty","history","politics","china"],
 "Tang_dynasty": ["dynasty","history","politics","china"],
-"Woodblock_printing": ["practice","technology","history","art","china"]
+"Woodblock_printing": ["practice","technology","history","art","china"],
+"Compass": ["object","technology","science","navigation","geography"],
+"Movable_type": ["object","technology","history","writing","printing"],
+"Neo-Confucianism": ["school of thought","philosophy","history","china","confucianism"],
+"Porcelain": ["object","technology","art","trade","history"],
+"Yuan_dynasty": ["dynasty","history","china","state","mongols"],
+"Marco_Polo": ["person","history","travel","trade","italy"],
+"Mongol_invasions_of_Japan": ["event","history","japan","warfare","mongols"],
+"Muromachi_period": ["era","history","japan","state","art"],
+"Zen": ["school of thought","religion","buddhism","japan","practice"],
+"Goryeo": ["dynasty","history","korea","state","buddhism"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

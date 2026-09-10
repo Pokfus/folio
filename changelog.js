@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.684", released: "2026-09-10T20:32Z" };
+window.FOLIO_VERSION = { v: "1.685", released: "2026-09-10T22:59Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-10",
     t: "Every history and science card now has a reason behind it",
     items: [
-      "<b>Thirty new cards in the World History collection</b>, finishing the medieval Europe deck and opening East Asia, each with a glossary term and a picture of its own.",
+      "<b>Forty new cards in the World History collection</b>, finishing the medieval Europe deck and carrying East Asia from the Sui to the Mongols, each with a glossary term and a picture of its own.",
       "<b>\u201cThink it through\u201d now reaches every card in the History and Science sections</b>, with 801 more cards gaining three why-questions and their answers.",
       "<b>The US states and China province cards now draw their rivers</b>, which the shaded state was painting over.",
       "<b>Twenty-one more cards open an Atlas window</b>, among them the Etruscan world, the Aegean Sea, the Eurasian steppe, Zhoukoudian, Nariokotome and Beringia.",
@@ -57,7 +57,7 @@ window.CHANGELOG = [
       "<b>The Spanish articles are now one card with a table</b> — el, la, un and una in two genders and two numbers, instead of eight cards teaching one grid twice.",
       "<b>A deck's long-press menu can now fetch its files again</b>, for when a repair has not shown up.",
       "The card for the Lower Paleolithic no longer implies the Acheulean hand-axe began in France.",
-      "A picture of Beringia that showed the wrong thing, and the Cowrie shell card no longer appears in Timeline.",
+      "A picture of Beringia and one of Chang'an that showed the wrong thing, and the Cowrie shell card no longer appears in Timeline.",
     ],
   },
   {
