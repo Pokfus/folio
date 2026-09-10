@@ -270,6 +270,16 @@ const CROSSREF_YEAR_WRONG = [
   ["10.15688/jvolsu4.2019.6.6", 2019, 2020],
   // The same issue of Vestnik VolSU (24.6), same reason.
   ["10.15688/jvolsu4.2019.6.22", 2019, 2020],
+  // Routledge deposits a chapter DOI months before the volume appears, so Crossref
+  // carries a print date one year earlier than the book's own imprint. Romans at War
+  // (ed. Armstrong and Fronda) says "First published 2020" on its copyright page and
+  // Crossref dates its chapters 1 October 2019.
+  ["10.4324/9781351063500-2", 2020, 2019],
+  ["10.4324/9781351063500-3", 2020, 2019],
+  ["10.4324/9781351063500-11", 2020, 2019],
+  // Same again: Running Rome and Its Empire (ed. Lopez Garcia) says "First published
+  // 2024" and carries a 2024 copyright line; Crossref dates its chapters 30 Oct 2023.
+  ["10.4324/b23090-16", 2024, 2023],
 ];
 const yearAllowed = (doi, plain, years) => CROSSREF_YEAR_WRONG.some(
   (r) => r[0].toLowerCase() === String(doi).toLowerCase() && plain.includes(String(r[1])) && years.includes(r[2]));

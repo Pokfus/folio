@@ -680,10 +680,76 @@ sentence would mean changing what the card says and its date line with it, on th
 book against a summary that reads the evidence differently. **Left as it is, with the disagreement
 recorded here rather than resolved by whichever source happens to be open.**
 
-**WHERE THE PASS STANDS.** Rutter: 39 cards → 1. Over-cited across the whole corpus: 116 → 78. The next
-author on the list is William Smith (13 `rm-` cards), then James Legge (11 `cnh-`), then a tail of three
-or fewer each. **Start those with OAPEN and BMCR**, in that order; between them they carried eleven of
-the last fifteen substitutions here.
+**BATCH R11 — 2026-09-10. THE FIRST ROME BATCH: seven cards, William Smith 13 → 6, over-cited 78 → 71.**
+`rm-096` collegiality, `rm-131` cursus honorum, `rm-132` praetorship, `rm-134` Lex Poetelia, `rm-141`
+Roman expansion in Italy, `rm-145` Latin rights and `rm-149` Latin colony. **Three OAPEN volumes carried
+all seven**, and the finding is that a Rome batch is cheaper than a Greece one: where the Aegean cards
+each needed their own excavation report, the Republic's institutions are covered by a handful of open
+edited volumes whose chapters are exactly the survey pitch a card is written at. The three are
+*Romans at War*, ed. Armstrong and Fronda (Routledge, 2020) — five of the seven substitutions, from
+Drogula's chapter on the institutionalization of warfare, VanDerPuy's on debt and Roselaar's on ager
+publicus — *Running Rome and Its Empire*, ed. Lopez Garcia (Routledge, 2024), and *How Republics Die*,
+ed. Vervaet, Rafferty and Dart (De Gruyter, 2025).
+
+**TWO CORRECTIONS, AND BOTH ARE THE 19TH-CENTURY HANDBOOK BEING OVERTAKEN RATHER THAN CONTRADICTED.**
+`rm-141` said the settlers of a colony took "usually a third of the land", which is Smith's *Colonia*
+and is still what most modern summaries repeat; Roselaar's own footnote says it outright — one-third or
+one-half "is often considered the standard amount taken by the Romans", but Frusino in 303 "is actually
+the only one in which one-third is specified". The card now says a third is often claimed and that one
+case names it. And `rm-132` gave the whole of Livy's account of 367 BCE, in which the praetorship is the
+patricians' price for the consulship; Drogula reads the same reform as a military one, making a college
+of three annual commanders of whom two came to be called consuls — which is the more interesting claim
+and the one the card now carries beside Livy's.
+
+**A THIRD CLAIM WAS WITHDRAWN RATHER THAN RE-SOURCED, and that is worth naming as its own outcome.**
+`rm-131` said that "from the First Punic War the cost of the public games fell on the aediles instead of
+the treasury, which put a price on that rung and kept poorer men off it". Bartz's chapter on the
+organisation of the ludi is precisely about who paid, and it carries none of those three things: what it
+carries is that the official games grew longer through the Republic and that the financial burden on the
+magistrates grew with them, and that giving them promoted a career. The card now says that and stops.
+**Where a source is squarely on the subject and still does not carry the claim, the claim goes.**
+
+**THE PAGE NUMBER IS READ OFF THE RUNNING HEAD, AND THE EXTRACTION PUTS IT IN AN ODD PLACE.** In these
+Routledge and De Gruyter PDFs the text comes out as *body, then that page's footnotes, then the NEXT
+page's running head*, so a passage's page is the head that stands immediately BEFORE it, not after.
+Getting that backwards puts every citation one page out and nothing anywhere reports it.
+
+**THE CHAPTER DOI IS FINDABLE AND IS WORTH THE TWO MINUTES.** A Routledge chapter's DOI is the book's
+with `-N` appended and a De Gruyter's with `-00N`, but neither may be composed: the number is printed at
+the foot of the chapter's own first page, and Crossref then confirms the chapter's title, authors and
+page range in one request. That turns a citation `check-citations.js` could only send to the eye into one
+it can adjudicate — which is how these seven were checked.
+
+**AND IT PRODUCED THE PASS'S FIRST DECLARED YEAR EXCEPTIONS.** Routledge deposits a chapter DOI months
+before the volume appears, so Crossref carries a print date a year earlier than the book's own imprint:
+*Romans at War* says "First published 2020" and Crossref dates its chapters 1 October 2019, *Running Rome
+and Its Empire* says 2024 against a 30 October 2023 deposit. Chicago cites the imprint year, so the four
+DOIs are declared in `CROSSREF_YEAR_WRONG` with the reason beside them rather than the citations being
+bent to the deposit.
+
+**`rm-166` BATTLE OF ASCULUM WAS DEFERRED, AND THE REASON IS A URL RATHER THAN A SOURCE.** Yntema's
+*The Archaeology of South-East Italy in the First Millennium BC* (Amsterdam University Press, 2013) is
+open and carries exactly what the card's first sentence needs — Ausculum is Ascoli Satriano in the
+north-Apulian Tavoliere, Daunian country, and Pyrrhus won there after Herakleia. But **its DOI
+(10.5117/9789089645791) is a 404 at doi.org**, its OAPEN handle answers 403 here, `aup.nl` redirects to a
+Routledge shop page for a different edition, and the extracted text carries no page numbers at all. A
+book that cannot be pointed at is not citable, however open it is. Left for a batch that finds a live
+address for it.
+
+**HOST NOTES.** `library.oapen.org`'s **REST API is open and its `/handle/` pages are 403** from this
+container — which is a change from earlier in this pass, when the handles were fetched directly, so the
+handle URLs already shipped in the Greece cards should be re-tested rather than assumed. Search with
+`rest/search?query=…&expand=metadata,bitstreams`; every book has a pre-extracted `.pdf.txt` bitstream.
+`www.taylorfrancis.com` is 403 to any user agent, so a Routledge chapter DOI cannot be opened from here
+even when the chapter is CC BY-NC; the licence line is read off the PDF's own first page instead.
+
+**WHERE THE PASS STANDS.** Rutter: 39 cards → 1. William Smith: 13 → 6, the six left being `rm-105`
+concilium plebis, `rm-135` Lex Hortensia, `rm-139` Aqua Appia, `rm-140` aes grave, `rm-166` Battle of
+Asculum and `rm-174` Via Aemilia. Over-cited across the whole corpus: 116 → 71. After Smith comes James
+Legge (11 `cnh-` cards, plus `wh-399`), then a tail of three or fewer each — William Frederick Mayers,
+Mary Ann Clark, Arthur J. Evans. **Start those with OAPEN and BMCR**, in that order; between them they
+have carried eighteen of the last twenty-two substitutions here, and for Rome the three open edited
+volumes named in R11 are the first place to look before searching at all.
 
 ## Two notes on the tooling
 
