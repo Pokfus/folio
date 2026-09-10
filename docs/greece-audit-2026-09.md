@@ -138,6 +138,67 @@ against the claim its marker carries — and it is now a CONTENT PASS rather tha
 card at a time, through Persée and DOAJ, keeping Rutter for the claims nothing else states rather
 than swapping in a work that does not carry them.
 
+#### The re-sourcing pass: batch log
+
+**BATCH R1 — 2026-09-10. Five cards cleared, 39 → 34.** `gr-011` Phaistos (4 of 7 → 2), `gr-012` Malia
+(3 of 6 → 2), `gr-035` Mesara tholos tombs (3 of 5 → 2), `gr-038` Mochlos (3 of 5 → 2), `gr-042`
+Akrotiri (3 of 5 → 2). Six citations swapped, each read against the claim its marker carries; no
+prose was changed, and every swap kept the source's position in the list so no marker had to be
+renumbered.
+
+**FOUR MORE ROUTES OPEN THAN THE TABLE ABOVE RECORDS, and two of them are large.** Re-measured
+2026-09-10, with `curl` and a browser user-agent:
+
+| route | result |
+|---|---|
+| **Cambridge Core** | **OPEN, full text, search included** — this is the *Annual of the British School at Athens*, *Antiquity*, the *Cambridge Classical Journal*, the *Classical Review* and the *European Journal of Archaeology*. A browser UA is required; the bare default gets nothing. Its open-access filter (`filters[openAccess]=true`) is what makes the search usable, and an `/abs/` in a result's path means that one is not open. Judson's ABSA 2023 came back at 19,107 words |
+| **AJA Online** (`ajaonline.org`) | **open** — the AJA's own site serves its open-access articles as PDFs where `doi.org` → `journals.uchicago.edu` is 403. This is the way to the articles the collection already cites (Lupack 2011, Schon 2011) and could not otherwise reach |
+| **GRBS** (`grbs.library.duke.edu`) | **open, whole back run** — a full OJS instance, so every article page carries `citation_author`, `citation_volume`, `citation_firstpage` and a `citation_pdf_url` in its metadata: a citation can be read off the record instead of composed |
+| **BMCR** (`bmcr.brynmawr.edu`) | **OPEN AGAIN** — the table above records 502 on all 353 URLs tried; it answers 200 now. The collection already leans on it |
+| Odysseus (`odysseus.culture.gr`) | open, and the index is walkable: `eh351.jsp?obj_id=N` is a site's history and `eh352.jsp?obj_id=N` its description, over a contiguous id range. Phaistos 2363, Gournia 2368, Knossos 2369, Zakros 2376, Tiryns 2382, Malia 2385, Agia Triada 2405/2406, Akrotiri 2410, Glas 2421, Mochlos 2448, Palace of Nestor 2562, Mycenae 2573 |
+| `assets.cambridge.org` | **SHUT** (connection reset), which matters because `gr-001`, `gr-006` and `gr-008` cite the Watrous *Minoan Crete* excerpt PDF there. Those three citations are currently unreachable — recorded, not repaired, since it may be transient |
+| CORE, OAPEN, MDPI, De Gruyter, Wiley, T&F, ScienceDirect, `academia.edu` | shut. JSTOR still serves a Client Challenge under a 200 |
+
+**THE ONE FINDING THAT GOVERNS THE REST OF THIS PASS: A CHRONOLOGY CITATION CANNOT BE SWAPPED ON THE
+STRENGTH OF THE PERIOD NAME.** Rutter's "Chronology Overview" is the single most reused citation here —
+it is on 25 of the 39 cards — and on nearly all of them it carries a period date bracket, which looks
+like the cheapest possible substitution. It is not, because **the schemes genuinely disagree**.
+Déderix, Schmitt & Caloi's Table 1 (*Antiquity* 99, 2025, after Warren 2010) gives Protopalatial as
+MM IB–IIB 1900–1700 and Neopalatial as 1700–1430, where the cards, written from Rutter, give the
+Protopalatial as about 2000–1750 and the Neopalatial as about 1750–1500, and put the Postpalatial
+after about 1470 where Warren's table has a Final Palatial phase first and starts the Postpalatial at
+1360. So the substitution is clean on `gr-011` (first palace MM IB, about 1900 BCE — exact) and on
+`gr-035` (tholoi first built EM I from about 3000 BCE, and in use "up to a millennium" — both stated
+outright), and it is a MISMATCH on `gr-025`, `gr-034`, `gr-048` and `gr-005`, whose brackets differ by
+50 to 100 years. **Read the substitute's own table against the card's date line before swapping, and
+where they differ, spend the replacement on a different Rutter citation on that card.**
+
+**The three substitutes that did most of the work, and why each was chosen.** Déderix, Schmitt & Caloi
+2025 for the Cretan tombs and the chronology table; **the Odysseus site pages**, which turn out to
+carry exactly the register a site card states — Phaistos's history gives the palace destroyed in the
+15th century, the city inhabited on through the Mycenaean and Geometric periods and destroyed by
+Gortyn in the mid-2nd century BCE, which is `gr-011`'s last sentence entire, and Akrotiri's
+description names the crocus-gatherers offering to a seated goddess, the monkeys, the boxing children
+and the Flotilla frieze, which is `gr-042`'s last sentence entire; and **the INSTAP Study Center's own
+Mochlos page**, which states the two monumental tombs' "symbols of rank, including gold diadems and a
+silver vessel" and the Neopalatial town "laid out with distinct blocks of houses separated by paved or
+bedrock streets". **An institution is not a scholar** (`check-cards.js` counts them separately), so an
+Odysseus page is a legitimate substitute for the rule this pass is clearing — but it is a real source
+only where it states the claim, and on the destruction DATES it repeatedly does not: it gives Zakros
+and Malia c. 1450 BCE where the cards say about 1470.
+
+**What is queued, and what each still needs.** `gr-056` Mycenaean civilisation (8 of 10, the worst on
+the shelf) is half solved: **Middleton's review article in *Antiquity* 98 (2024) carries the collapse
+sentence outright** — Mycenae, Tiryns, Thebes and Pylos, and Maran arguing for a combination of causes
+"rather than any sudden single 'silver bullet' cause" — and **Lupack's AJA 2011 carries the Linear B
+society sentence**, giving the wanax as king, te-re-ta as officials holding land and the damos holding
+ke-ke-me-na land in common. Still unfound for it: the shaft-grave metalwork's Minoan character, the
+tholos sequence beginning in Messenia, the Cyclopean fortifications at about 1250, and the Cape
+Gelidonya cargo. Beck's *GRBS* amber series carries the Baltic attribution but not a date, so the
+"amber coming south from about 1700 BCE" clause has no substitute yet. `gr-013` Zakros (5 of 6) has
+Odysseus for its cult rooms and its town plan but nothing yet for the oxhide ingots or the Late
+Minoan IB horizon; the ABSA article that would carry both is one of the `/abs/` paywalled ones.
+
 ### 2. Seventy-six cards rest mostly on one ancient witness
 
 An ancient author is a witness rather than a researcher, so this is a softer finding — but a card
