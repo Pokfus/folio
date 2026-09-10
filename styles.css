@@ -3187,14 +3187,14 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
    are all full-width blocks, so nothing else about the layout moves. The quote is not demoted, only
    moved: it still opens the page's second screen, which is where a reader who has finished today's
    cards lands. */
+/* The quote is a CHILD of `.banners` (see PAGES.home). On a phone it falls where it stands — after the
+   day's work, before the games — which is what keeps the first card above the fold. On a desktop the
+   page has room for the running order it was designed with, so `order:-1` lifts it back to the top of
+   that column, exactly where it used to sit as a sibling. */
+@media (min-width:641px){ .banners > .daily-quote{order:-1;} }
 @media (max-width:640px){
-  .page{display:flex; flex-direction:column;}
-  .page > .daily-quote{order:3;}
-  .page > .banners{order:2;}
-  /* the version line, masthead and page head keep their source order ahead of both */
-  .page > .site-ver{order:0;} .page > .page-head{order:1;}
-  /* …and the quote no longer needs a top gutter it is not the first thing on the screen for */
-  .page > .daily-quote{padding-top:10px; margin-top:14px; border-top:1px solid var(--rule);}
+  /* …and it no longer needs the top gutter it had as the first thing on the screen */
+  .banners > .daily-quote{padding-top:12px; margin-top:2px; border-top:1px solid var(--rule);}
 }
 .daily-quote{position:relative; margin:0 0 26px; padding:38px 0; text-align:center; background:none; box-shadow:none;
   display:flex; flex-direction:column; justify-content:center;}
@@ -4305,12 +4305,36 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .cp-year-num{font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); letter-spacing:-.01em; color:var(--ink);}
 .cp-year-desc{font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
 .cp-statsec{border-top:1px solid var(--rule); padding-top:10px;}
-.cp-stats{display:grid; grid-template-columns:1fr 1fr; gap:7px; align-content:start;}
-.cp-tile{position:relative; border:1px solid var(--rule); border-radius:8px; padding:7px 9px; display:flex; flex-direction:column; gap:3px;}
+/* `min-width:0` ON THE TILES, and it is load-bearing (Sep 2026, measured).
+   A grid track sized `1fr` will not shrink below its content's minimum, so a tile holding one long
+   unbroken figure or place name pushes its column past half the panel and the whole grid past
+   `.cp-cols`. Measured on a 390px sheet: 3px of horizontal overflow, which `overflow-x:clip` hides
+   from the reader as a clipped final character rather than as a scrollbar — so nothing looked wrong
+   and nothing was reported. It only showed up once the webfonts were SELF-HOSTED: until then a
+   sandbox run had no webfonts at all and the fallback stack is narrower, so every measurement of this
+   panel had been taken in the wrong type. `.cp-cols > *` has carried this rule all along; the tiles
+   are one level further in, inside `.cp-stats`, and were missed. */
+.cp-stats{display:grid; grid-template-columns:1fr 1fr; gap:7px; align-content:start; min-width:0;}
+.cp-stats > *{min-width:0;}
+.cp-tile{position:relative; border:1px solid var(--rule); border-radius:8px; padding:7px 9px; display:flex; flex-direction:column; gap:3px; min-width:0;}
+.cp-tile .cp-k,.cp-tile .cp-v{min-width:0; overflow-wrap:anywhere;}
 .cp-k{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
 .cp-v{font-family:var(--display); font-size:calc(13.5px * var(--fs)); font-weight:600; color:var(--ink); line-height:1.1; cursor:help; align-self:flex-start; outline:none;}
 /* hovering (or focusing) a number shows a small speech bubble naming its source */
-.cp-v[data-tip]::after{content:attr(data-tip); position:absolute; bottom:calc(100% + 6px); left:7px; white-space:pre-line; width:max-content; max-width:240px; background:var(--ink); color:var(--card); font-family:var(--sans); font-size:calc(10px * var(--fs)); font-weight:500; letter-spacing:0; text-transform:none; padding:4px 8px; border-radius:6px; box-shadow:var(--shadow-md); opacity:0; transform:translateY(3px); pointer-events:none; transition:opacity .12s ease, transform .12s ease; z-index:9;}
+/* THE BUBBLE IS ANCHORED ON BOTH EDGES, and that is what stops the sheet reporting a sideways scroll
+   (Sep 2026, bisected in the page). It is absolutely positioned inside `.cp-tile`, and an absolutely
+   positioned descendant counts towards an ancestor's scrollWidth — so `width:max-content` made the
+   tile 163 wide against a 158 client box, `.cp-stats` 331 against 326, and `.cp-cols` 331 against 328.
+   `overflow-x:clip` on `.cp-cols` hid it from the reader as a clipped bubble rather than as a
+   scrollbar, so nothing looked wrong and nothing was reported; and it was invisible to every sandbox
+   run until the webfonts were self-hosted, because until then there were no webfonts at all and the
+   fallback stack is narrower. It had therefore been happening on the live site the whole time.
+   `max-width` alone did NOT fix it — measured, the clamped bubble was 140.5px inside a 158px tile and
+   the overflow stayed at 5px, so the excess is in how `max-content` is resolved rather than in the
+   painted box. `left` AND `right` removes `max-content` from the question outright: the bubble is
+   exactly the tile's width less its insets, and wraps, which `white-space:pre-line` already allows
+   and which is what a source name in a small box wants anyway. */
+.cp-v[data-tip]::after{content:attr(data-tip); position:absolute; bottom:calc(100% + 6px); left:7px; right:7px; white-space:pre-line; width:auto; max-width:none; background:var(--ink); color:var(--card); font-family:var(--sans); font-size:calc(10px * var(--fs)); font-weight:500; letter-spacing:0; text-transform:none; padding:4px 8px; border-radius:6px; box-shadow:var(--shadow-md); opacity:0; transform:translateY(3px); pointer-events:none; transition:opacity .12s ease, transform .12s ease; z-index:9;}
 .cp-v[data-tip]::before{content:""; position:absolute; bottom:calc(100% + 1px); left:15px; border:5px solid transparent; border-top-color:var(--ink); opacity:0; transition:opacity .12s ease; z-index:9;}
 .cp-v[data-tip]:hover::after, .cp-v[data-tip]:focus::after{opacity:1; transform:translateY(0);}
 .cp-v[data-tip]:hover::before, .cp-v[data-tip]:focus::before{opacity:1;}
@@ -8891,3 +8915,91 @@ body[data-theme="carnelian"].night .collection-deco{
 .srch-open svg{width:16px; height:16px; flex:none;}
 .srch-open:hover{border-color:var(--indigo); color:var(--ink);}
 .srch-open:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
+
+/* ============================================================
+   NEARBY IN THIS COLLECTION (Sep 2026) — see relatedCardsHTML in app.js
+   The other half of the causal strip's slot. `leadsTo` is an AUTHORED claim that one thing led to
+   another and is set on one card in the corpus; this is ranked from the tags every card already
+   carries, so it reaches all of them. Quieter than the strip above it accordingly: no rule, no
+   heading weight, just a label and a row of names.
+   ============================================================ */
+.kin{margin:18px 0 0; padding-top:14px; border-top:1px solid var(--rule);}
+.kin .label{
+  display:block; margin-bottom:7px;
+  font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet);
+}
+.kin-list{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:7px;}
+.kin-row{
+  appearance:none; cursor:pointer; padding:6px 11px; border-radius:999px;
+  border:1px solid var(--rule); background:var(--paper-2); color:var(--ink-soft);
+  font-family:var(--serif); font-size:calc(14px * var(--fs)); text-align:left;
+}
+.kin-row:hover{border-color:var(--indigo); color:var(--ink);}
+.kin-row:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
+
+/* ---------- one card at its own address (#card/<id>) ---------- */
+.cardpg-card{margin:0 auto;}
+.cardpg-acts{display:flex; flex-wrap:wrap; gap:10px; margin:20px 0 0; justify-content:center;}
+
+/* ============================================================
+   COLLECTIONS: HOW FAR THROUGH, AND HOW DENSE (Sep 2026)
+   ============================================================ */
+/* The reach label — see COLLECTION_TARGET in app.js. It sits on the title row beside the name, in the
+   quiet mono the counts already use, because it is the same kind of fact as a count and putting it in
+   a second register would make it compete with the title. */
+.coll-reach{
+  font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.05em;
+  color:var(--ink-quiet); white-space:nowrap; margin-left:auto; flex:none;
+  display:inline-flex; align-items:baseline; gap:6px;
+}
+.coll-reach-pct{color:var(--indigo); font-weight:600;}
+.coll-reach.is-done{
+  color:var(--good); font-weight:600; letter-spacing:.11em; text-transform:uppercase;
+}
+/* the long form is the sentence; the short one is the same fact in four characters. Below 720px the
+   sentence does not fit beside a collection's name — it ran under the + button and pushed the title
+   to three lines — so the percentage stands alone there and the pct chip beside it goes with it. */
+.coll-reach .cr-short{display:none;}
+@media (max-width:720px){
+  .coll-reach{margin-left:auto;}
+  .coll-reach .cr-long,
+  .coll-reach .coll-reach-pct{display:none;}
+  .coll-reach .cr-short{display:inline; color:var(--indigo); font-weight:600;}
+  .coll-reach.is-done .cr-short{color:var(--good);}
+}
+/* the title takes the room that is left, and ellipsises rather than wrapping to three lines */
+.collection-title-row{min-width:0;}
+.coll-compact .collection-title{
+  flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+
+/* the tab row now carries the density toggle at its far end */
+.coll-tabrow{display:flex; align-items:center; gap:10px; margin:0 0 18px;}
+.coll-tabrow .coll-tabs{margin:0; flex:1 1 auto; min-width:0;}
+.coll-dense{
+  appearance:none; cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:6px;
+  padding:7px 11px; border-radius:999px; border:1px solid var(--rule); background:var(--card);
+  font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
+  font-weight:600; color:var(--ink-quiet);
+}
+.coll-dense svg{width:13px; height:13px;}
+.coll-dense:hover{color:var(--ink); border-color:var(--indigo);}
+.coll-dense.on{background:var(--indigo); border-color:var(--indigo); color:#fff;}
+.coll-dense:focus-visible{outline:none; box-shadow:0 0 0 3px var(--indigo-wash);}
+@media (max-width:520px){ .coll-dense span{display:none;} .coll-dense{padding:7px 9px;} }
+
+/* COMPACT. A collection row is ~230px tall on a phone, so twenty of them is over 4,000px of scrolling
+   to see what is on offer — and every row below the first screen carries an identical empty progress
+   bar. Compact keeps the name, the count and the reach, and drops the wash, the icon, the bar and the
+   deco to a single line per collection. The rows stay the same ELEMENTS, so every handler, drag target
+   and test selector still resolves; only their height changes. */
+.coll-compact .collection-row{padding-block:9px; min-height:0;}
+.coll-compact .collection-deco{display:none;}
+.coll-compact .coll-ic{width:22px; height:22px;}
+.coll-compact .coll-ic svg{width:20px; height:20px;}
+.coll-compact .deck-prog{display:none;}
+.coll-compact .collection-title{font-size:calc(17px * var(--fs));}
+.coll-compact .udeck-sub,
+.coll-compact .node-sub{display:none;}
+.coll-compact .node-row{padding-block:7px;}

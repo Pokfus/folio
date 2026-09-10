@@ -465,9 +465,17 @@
      deck file), and a card with no prefix we ship simply answers yes so nothing waits for ever. */
   function cardExtraLoaded(id) {
     const p = cardExtraPrefix(id);
-    return !p || isCommunityCard(id) || _cardExtraIn.has(p);
+    return !p || isCommunityCard(id) || _cardExtraIn.has(p) || _cardExtraFailed.has(p);
   }
-  const _cardExtraIn = new Set();   // collection prefixes whose data-extra file has landed
+  const _cardExtraIn = new Set();     // collection prefixes whose data-extra file has landed
+  /* …AND THE ONES WE HAVE ALREADY TRIED AND FAILED TO FETCH. Every guard that waits for a card's
+     heavy half re-renders when the promise settles, and `ensureData` resolves FALSE on a failure and
+     retries on the next call — so without this a bundle that cannot load (offline, a 404, a deploy
+     mid-flight) puts the study page, the card page and the ADMIN EDITOR into an endless
+     render → fetch → render loop, which on the editor also means saving on every keystroke against a
+     form that never settles. A card whose heavy half will not come simply renders its light half:
+     that is a card with no background, which is honest, where a spinning page is not. */
+  const _cardExtraFailed = new Set();
 
   // pristine copies (taken before edits are applied) so any field can be reverted to what shipped
   const PRISTINE_CARDS = Object.fromEntries(CARDS.map((c) => [c.id, Object.assign({}, c)]));
@@ -10219,7 +10227,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const ids = Array.isArray(idOrIds) ? idOrIds : [idOrIds];
     const want = [...new Set(ids.filter((id) => !isCommunityCard(id)).map(cardExtraPrefix).filter((p) => p && !_cardExtraIn.has(p)))];
     if (!want.length) return Promise.resolve(true);
-    return Promise.all(want.map((p) => ensureData(cardExtraBundle(p)))).then((r) => r.every(Boolean));
+    return Promise.all(want.map((p) => ensureData(cardExtraBundle(p)).then((ok) => {
+      // a file that did not arrive is recorded as tried, so the guards above it stop waiting for it
+      if (!ok && !_cardExtraIn.has(p)) _cardExtraFailed.add(p);
+      return ok;
+    }))).then((r) => r.every(Boolean));
   }
   /* Run `fn` once this card's heavy half is in — now if it already is. Every surface that renders a
      card BACK goes through this, because `buildBack` is synchronous and returns a string: a caller
@@ -14251,7 +14263,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const lit = name === "glossary" || name === "browse" || name === "reliquary" ? "account"
       : name === "book" ? "library"
       // the Studio is where one of your own decks is edited, and those live on the Collections page
-      : name === "studio" || name === "deck" ? "decks"
+      // a card at its own address belongs under the collections its deck sits in
+      : name === "studio" || name === "deck" || name === "card" ? "decks"
       // the two pages that stand between pressing Study and studying belong to the session they open
       : name === "order" || name === "pretest" ? "study"
       // …and the page explaining how Folio studies you is reached from Settings, and belongs there
@@ -14275,6 +14288,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const PAGE_META = {
     home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, daily games and an interactive atlas."],
     search:    ["Search — Folio", "Find a card, a glossary term or a book by name, across everything Folio holds."],
+    card:      ["A card — Folio", "One of Folio's cards, with its background, its dates and the works it rests on."],
     decks:     ["Collections — Folio", "Browse Folio's collections and decks, and pick what to review each day."],
     library:   ["Library — Folio", "Read whole works of history and philosophy in public-domain English translations."],
     book:      ["Library — Folio", "Read a public-domain English translation, with the glossary linked through it."],
@@ -14357,6 +14371,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : name === "book" && current.params.id
         ? "book/" + encodeURIComponent(current.params.id) +
           (current.params.n != null && current.params.n !== "" ? "/" + encodeURIComponent(current.params.n) : "")
+      /* #card/<id> — a card at a stable address (Sep 2026). Every other kind of content on the site
+         could be linked to and a card could not, which is the one thing a reader wants to send
+         somebody. It is READ-ONLY and spends no schedule: opening it is not studying it. */
+      : name === "card" && current.params.id ? "card/" + encodeURIComponent(current.params.id)
       : name;
     render();
   }
@@ -14857,7 +14875,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const U_NUM = "(?:" + U_NW + "(?:\\s+(?:hundred|thousand|million|billion))?)";
   // `by` joins the two figures of a plan or a court ("54 by 27 metres"), so the run has to survive it or
   // U_CONV_RX starts at the SECOND number and imperial mode renders "54 by 177 by 89 feet"
-  const U_JOIN = "(?:\\s*(?:–|—|-|,)\\s*|\\s+(?:to|and|or|by)\\s+)";
+  // …and `of` joins the two figures of a FRACTION ("92,963 of the 282,870 square kilometres"), where the
+  // bracket states both — so a run stopping at the second figure leaves imperial mode rendering
+  // "40.1 of its 15 of 40 square miles". The determiner has to be swallowed with it, or `of the` breaks it.
+  const U_JOIN = "(?:\\s*(?:–|—|-|,)\\s*|\\s+(?:to|and|or|by|of(?:\\s+(?:its|the|their|his|her))?)\\s+)";
   // a dimension qualifier standing between the number and its unit ("7,600 square metres", "129 cubic
   // kilometres"); the gap group is otherwise whitespace-only, which is what made those brackets invisible
   const U_DIM = "(?:square|cubic|sq|cu)";
@@ -14866,7 +14887,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const U_METRIC = "(?:kilometres|kilometers|kilometre|kilometer|centimetres|centimeters|centimetre|centimeter|millimetres|millimeters|millimetre|millimeter|millilitres|milliliters|millilitre|milliliter|kilogrammes|kilogramme|kilograms|kilogram|hectares|hectare|tonnes|tonne|grammes|gramme|grams|gram|metres|meters|metre|meter|litres|liters|litre|liter|km²|m²|km|cm|mm|ml|kg|ha|°C|m|g)(?![A-Za-z²])";
   // the dashes include U+2212 MINUS SIGN, which is what a sub-zero temperature is written with and is not
   // any of the three dashes beside it — "(−129 °F)" was the fourth unseen shape
-  const U_FILL = "(?:and|or|to|by|square|cubic|sq|cu|fluid|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|−|-|,|/|\\s)";
+  const U_FILL = "(?:and|or|to|by|of|its|the|per|hours?|square|cubic|sq|cu|fluid|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|−|-|,|/|\\s)";
   const U_IMP = "(?:miles?|sq\\s*mi|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)";
   const U_ONLY_RX = new RegExp("^(?:" + U_NW + "|" + U_IMP + "|" + U_FILL + ")+$", "i");
   const U_HAS_IMP_RX = new RegExp("(?:^|[^A-Za-z])" + U_IMP + "(?![A-Za-z])", "i");
@@ -14877,14 +14898,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      ("10–7 kilometres"), and swallowing one would take the first figure of the range with it. */
   const U_SIGN = "−?";
   const U_RUN = "(" + U_SIGN + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)";
-  const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")(\\s*)\\(([^()]{1,90})\\)", "gi");
+  /* A RATE carries a denominator between the unit and the bracket ("300 kilometres an hour (190 miles an
+     hour)"), which the whitespace-only gap could not cross — so the bracket was invisible and BOTH figures
+     were shown to a metric reader. It is captured rather than tolerated: metric keeps it, since dropping it
+     renders "winds of nearly 300 kilometres". */
+  const U_RATE = "((?:\\s+(?:an|per)\\s+hour|\\s*/\\s*h)?)";
+  const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")" + U_RATE + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   const U_BARE_RX = new RegExp(U_RUN + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   function unitSystem() { return UNIT_SYSTEMS.includes(S.settings && S.settings.units) ? S.settings.units : "metric"; }
   function isImperialParen(s) { return U_ONLY_RX.test(s) && U_HAS_IMP_RX.test(s) && U_HAS_NUM_RX.test(s); }
   // plain text in, plain text out — never HTML: this runs on text NODES, so a tag can never be inside a match
   function unitizeText(text, imperial) {
     if (!text || text.indexOf("(") < 0) return text;
-    let out = text.replace(U_CONV_RX, (m, num, gap, unit, sp, inner) => (isImperialParen(inner) ? (imperial ? inner : num + gap + unit) : m));
+    let out = text.replace(U_CONV_RX, (m, num, gap, unit, rate, sp, inner) => (isImperialParen(inner) ? (imperial ? inner : num + gap + unit + rate) : m));
     out = out.replace(U_BARE_RX, (m, num, sp, inner) => (isImperialParen(inner) ? (imperial ? inner : num) : m));
     return out;
   }
@@ -23192,7 +23218,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <span class="eyebrow">${greeting}, ${esc(S.user.name)}</span>
         <h1>Today</h1>
       </div>
-      ${dailyQuoteHTML()}
+      ${/* THE QUOTE LIVES INSIDE `.banners` NOW (Sep 2026). It used to sit here, between the page head
+             and the review — and at 390x844 that put the first control that starts a session below the
+             fold on a fresh install. Ordering it with CSS could not fix that, because the games are
+             inside `.banners` too: `order` only sorts siblings, so moving the quote past the banner
+             moved it past the whole grid as well and buried it at the foot of the page. So it is a
+             CHILD of that flex column, dealt after the day's work and before the games — and on a
+             desktop `order:-1` lifts it back to the top, which is the running order that page was
+             designed with and has room for. */""}
       <div class="banners">
         ${/* The walkthrough is OFFERED, never raised over the page unasked — see the GUIDED TOUR block. It
               sits above the review with the first-run hero, which is first-run-only for the same reason,
@@ -23213,6 +23246,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               again when it stops, so it is never furniture. Under the review rather than above it: the
               day's own work comes first. */""}
         ${confusionRowHTML()}
+        ${dailyQuoteHTML()}
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
@@ -23914,6 +23948,107 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return n ? nodeTitle(n) : "";
   }
 
+  /* THE CARDS NEAREST THIS ONE (Sep 2026). `cardKinship` has ranked cards by shared tags since Aug
+     2026 — it is what picks Multiple Choice's three wrong answers, so a Mousterian question is
+     answered against the Oldowan and the Acheulean rather than against a cave and an ice age. Pointed
+     the other way round, the same function is a "see also" for free, and unlike `card.leadsTo` (which
+     is authored, and set on one card in 2,895) it reaches every card in the corpus.
+
+     WITHIN THE COLLECTION, which is the same rule leadsTo enforces and for the same reason: a link
+     across collections is nearly always a claim about historiography rather than about the past, and
+     it would send a reader out of the deck they are reading.
+
+     It reads TAGS ONLY — eager — so it costs no fetch. */
+  const KIN_MAX = 4;
+  function relatedCards(id, n) {
+    const c = cardById(id);
+    const rootNode = cardCollectionRoot(id);
+    if (!c || !rootNode) return [];
+    const sibs = subtreeCardIds(rootNode).filter((x) => x !== id);
+    const scored = [];
+    for (const sid of sibs) {
+      const o = cardById(sid);
+      if (!o) continue;
+      const k = cardKinship(c, o);
+      if (k > 1) scored.push({ id: sid, k: k });
+    }
+    scored.sort((a, b) => b.k - a.k || a.id.localeCompare(b.id));
+    return scored.slice(0, n || KIN_MAX);
+  }
+  function relatedCardsHTML(id) {
+    const rows = relatedCards(id);
+    if (!rows.length) return "";
+    return '<div class="kin"><span class="label">Nearby in this collection</span><ul class="kin-list">' +
+      rows.map((r) => {
+        const o = cardLocalized(cardById(r.id));
+        const t = o.answerText || String(o.answer || "").replace(/<[^>]*>/g, "");
+        return '<li><button type="button" class="kin-row" data-kin="' + esc(r.id) + '">' + esc(t) + "</button></li>";
+      }).join("") + "</ul></div>";
+  }
+
+  /* ============================================================
+     PAGE: ONE CARD, AT A STABLE ADDRESS (#card/<id>)
+     ============================================================
+     Every other kind of content on Folio could be linked to — a book, a deck, a place on the globe,
+     a section of a translation — and a CARD could not, which is the one thing a reader actually wants
+     to send somebody. This is that address.
+
+     IT IS READ-ONLY AND SPENDS NO SCHEDULE. Opening a card is not studying it: no record is written,
+     no interval moves, and the reader's own progress is untouched — the same rule `openCardPeek`
+     follows, for the same reason. What it offers instead is a button that studies the card properly,
+     which is the deliberate act.
+
+     IT SHOWS THE ANSWER SIDE. A link to a card is a link to the thing, not a quiz — somebody sending
+     it means "look at this", and a page that hid the answer behind a reveal would be a worse version
+     of the study session that already exists one button away. */
+  PAGES.card = function (root, params) {
+    const id = (params && params.id) || "";
+    const c0 = cardById(id);
+    if (!c0) {
+      root.innerHTML = `
+        <div class="page-head"><span class="eyebrow">Card</span><h1>Not found</h1>
+        <p>There is no card at that address. It may have been renumbered, or the link may be from another site.</p></div>
+        <div class="cardpg-acts"><button type="button" class="btn" id="cpgSearch">Search Folio</button></div>`;
+      const b = root.querySelector("#cpgSearch"); if (b) b.addEventListener("click", () => route("search"));
+      return;
+    }
+    // the background, the citations and the picture are the lazy half — wait rather than draw a blank
+    if (!cardExtraLoaded(id)) {
+      root.innerHTML = '<div class="page-head"><span class="eyebrow">Card</span><h1>Loading…</h1></div>';
+      ensureCardExtra(id).then(() => { if (current && current.name === "card") render(); });
+      return;
+    }
+    const c = cardLocalized(c0);
+    const term = c.answerText || String(c.answer || "").replace(/<[^>]*>/g, "");
+    const coll = collectionLabelFor(id);
+    root.innerHTML = `
+      <div class="page-head">
+        <span class="eyebrow">${esc(coll || "Card")}</span>
+        <h1>${esc(term)}</h1>
+      </div>
+      <div class="study-card cardpg-card">
+        <span class="label">Question</span>
+        <div class="question">${cardFrontHTML(c) || ""}</div>
+        <div class="reveal show"><div class="reveal-inner" id="cpgBack"></div></div>
+      </div>
+      ${/* the "nearby" rail is NOT emitted here: buildBack already carries it at the foot of every card
+             back, so a second copy on this page rendered it twice. */""}
+      <div class="cardpg-acts">
+        <button type="button" class="btn" id="cpgStudy">Study this card</button>
+        <button type="button" class="btn ghost" id="cpgColl">Open ${esc(coll || "the collection")}</button>
+      </div>`;
+    const inner = root.querySelector("#cpgBack");
+    inner.innerHTML = buildBack(c);
+    mountCardBack(inner, c, { expand: true });
+    root.querySelectorAll("[data-kin]").forEach((b) =>
+      b.addEventListener("click", () => route("card", { id: b.dataset.kin })));
+    root.querySelector("#cpgStudy").addEventListener("click", () => route("study", { scope: { type: "card", id: id } }));
+    const cb = root.querySelector("#cpgColl");
+    const rootNode = cardCollectionRoot(id);
+    if (rootNode) cb.addEventListener("click", () => route("study", { scope: { type: "deck", id: rootNode.id } }));
+    else cb.hidden = true;
+  };
+
   PAGES.search = function (root) {
     const res = searchAll(searchQ);
     const group = (title, rows, render, more) => {
@@ -23969,8 +24104,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       wireRows();
     };
     function wireRows() {
+      // the card PAGE rather than the peek sheet: a search result is a destination, and the page has
+      // an address the reader can keep, share or come back to
       root.querySelectorAll("[data-scard]").forEach((b) =>
-        b.addEventListener("click", () => openCardPeek(b.dataset.scard)));
+        b.addEventListener("click", () => route("card", { id: b.dataset.scard })));
       root.querySelectorAll("[data-sterm]").forEach((b) =>
         b.addEventListener("click", () => openGlossWin(b.dataset.sterm, b)));
       root.querySelectorAll("[data-sbook]").forEach((b) =>
@@ -24152,12 +24289,65 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const t = COLLECTION_TABS.find((x) => x.id === collTab);
     return t && t.sections ? t.sections : [];
   }
+  /* HOW BIG A COLLECTION IS MEANT TO GET (Sep 2026).
+     A first-time visitor is shown twenty collections in tree order with no signal about which is
+     finished, which is ten cards deep, and which is worth starting — and the card COUNT alone cannot
+     say it, because 700 means "most of the way through a thousand" in Ancient Greece and "complete"
+     in the world geography deck.
+
+     THE TARGET IS DECLARED, because nothing in data.js knows it. `node.total` tracks the cards a
+     collection actually has (add-card.js keeps it >= the count), so it says how far along a
+     collection is and never how far it has to go; the target lives in that collection's own
+     `docs/*-card-plan.md` and is the one number a reader needs to read the count. Sixteen plans are a
+     thousand cards each and the three geography collections are their own fixed size — 100 states and
+     capitals, 58 Chinese divisions, 471 countries and capitals of which three are deliberately
+     deferred (see docs/world-geography-card-plan.md).
+
+     A collection NOT in this table simply shows its count, which is the honest answer for anything
+     added later without a plan. */
+  const COLLECTION_TARGET = {
+    "col-8": 1000, "col-13": 1000, "col-40": 1000, "col-41": 1000, "col-42": 1000, "col-43": 1000,
+    china: 1000, egypt: 1000, ww2: 1000, japan: 1000, psych: 1000, phil: 1000, bio: 1000,
+    dino: 1000, korea: 1000, art: 1000,
+    "geo-us": 100, "geo-china": 58, "geo-world": 471,
+  };
+  /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
+     figure means something — a collection with no cards yet already says "Planned" on its own pill. */
+  function collectionReachHTML(id, have) {
+    const target = COLLECTION_TARGET[id];
+    if (!target || !have) return "";
+    if (have >= target) return '<span class="coll-reach is-done"><span class="cr-long">Complete</span><span class="cr-short">100%</span></span>';
+    const pct = Math.round((have / target) * 100);
+    /* TWO FORMS, AND THE STYLESHEET PICKS ONE — the shape `.gtb-brief` already uses on a flipped game
+       tile. "199 of 1,000 planned" is the useful sentence and it does not fit beside a title on a
+       390px row: measured, it ran under the + button and the title wrapped to three lines trying to
+       make room. The percentage says the same thing in four characters. Choosing in CSS rather than
+       from a breakpoint read in JS keeps one markup for both. */
+    return '<span class="coll-reach">' +
+      '<span class="cr-long">' + have.toLocaleString() + " of " + target.toLocaleString() + " planned</span>" +
+      '<span class="cr-short">' + (pct < 1 ? "<1" : pct) + "%</span>" +
+      '<span class="coll-reach-pct">' + (pct < 1 ? "<1" : pct) + "%</span></span>";
+  }
+
+  /* DENSITY (Sep 2026). A collection row is ~230px tall on a phone, so twenty of them is over 4,000px
+     of scrolling to see what is on offer — and every row below the first screen carries an identical
+     empty progress bar. Compact drops the row to its name, its count and its reach.
+     MODULE-LEVEL, not in `S`: it is a way of looking at one page, the call `collTab` and `glossSort`
+     already make, so it survives a repaint and resets on reload. */
+  let collDense = false;
+
   function collTabBarHTML() {
-    return '<div class="coll-tabs" role="tablist" aria-label="Which collections to show">' +
+    return '<div class="coll-tabrow">' +
+      '<div class="coll-tabs" role="tablist" aria-label="Which collections to show">' +
       COLLECTION_TABS.map((t) =>
         '<button type="button" class="coll-tab' + (collTab === t.id ? " on" : "") + '" role="tab"' +
         ' aria-selected="' + (collTab === t.id ? "true" : "false") + '" data-colltab="' + t.id + '">' +
         esc(t.label) + "</button>").join("") +
+      "</div>" +
+      '<button type="button" class="coll-dense' + (collDense ? " on" : "") + '" id="collDense"' +
+        ' aria-pressed="' + (collDense ? "true" : "false") + '" title="' + (collDense ? "Show full rows" : "Show a compact list") + '">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">' +
+        '<path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Compact</span></button>' +
       "</div>";
   }
 
@@ -24208,6 +24398,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ${slot(slotId, count)}
       </details>`;
 
+    // the density class rides on the PAGE, so it dies with the page and needs no reset anywhere
+    root.classList.toggle("coll-compact", collDense);
     root.innerHTML = `
       <div class="page-head">
         ${/* The eyebrow read "Library" until Aug 2026, when that name moved to the reading room next
@@ -24271,6 +24463,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        scrolling the reader to the top of the page and replaying its entrance animation is exactly the
        "the page refreshes" complaint that helper exists for. */
     { const so = root.querySelector("#srchOpen"); if (so) so.addEventListener("click", () => route("search")); }
+    { const cd = root.querySelector("#collDense");
+      if (cd) cd.addEventListener("click", () => { collDense = !collDense; renderInPlace(); }); }
     root.querySelectorAll("[data-colltab]").forEach((b) => b.addEventListener("click", () => {
       if (collTab === b.dataset.colltab) return;
       collTab = b.dataset.colltab;
@@ -24933,6 +25127,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <div class="collection-title-row">
               <span class="collection-title">${esc(nodeTitle(d))}</span>
               ${spanHTML}
+              ${/* …AND HOW FAR THROUGH ITS PLAN IT IS (Sep 2026). The card COUNT alone cannot say whether
+                    a collection is finished: 700 is most of the way through Ancient Greece's planned
+                    thousand and the whole of the world geography deck. See COLLECTION_TARGET — the target
+                    comes from that collection's own plan, because data.js only ever knows what has
+                    shipped (`node.total` tracks the count, not the goal). */""}
+              ${soon ? "" : collectionReachHTML(d.id, total)}
               ${/* A LIVE collection states its size ONCE, on the bar (Aug 2026, on request). The count
                     behind the title said the same number the studied/total bar directly under it already
                     says, so the row carried "412 cards" beside "0 / 412 cards" — and the DECK rows inside
@@ -25991,7 +26191,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* first-visit coach marks + the "?" that brings them back (see pageHelp). The card is built on
        document.body rather than written into this page — the reason is worth reading there. */
     { const helpBtn = root.querySelector("#libHelpBtn");
-      if (helpBtn) helpBtn.addEventListener("click", openLibHelp);
+      /* WRAPPED, and it matters: `openLibHelp(quiet)` takes a flag, and passing the function straight to
+         addEventListener hands it the CLICK EVENT as that argument — which is truthy, so pressing "?"
+         opened the quiet strip instead of the full card it is there to bring back. */
+      if (helpBtn) helpBtn.addEventListener("click", () => openLibHelp());
       let seen = "1"; try { seen = localStorage.getItem(LIB_TOUR_KEY) || ""; } catch (err) {}
       // never over the walkthrough — it routes through nothing but Home and the collections, but a reader
       // who finished it and came straight here would otherwise meet two cards at once
@@ -29780,6 +29983,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            carrying the same file, so the BACK's copy goes rather than the front's — dropping the front's
            would move a picture the reader is looking at by its own height. */
         if (cardArtSpec(c)) { const dup = inner.querySelector(".card-imgslot"); if (dup) dup.remove(); }
+        /* the "nearby in this collection" rail — a PEEK, never a route: a click meant as a glance must
+           not end the session the reader is part way through, which is exactly the rule the causal
+           strip above it already follows. */
+        inner.querySelectorAll("[data-kin]").forEach((b) =>
+          b.addEventListener("click", (e) => { e.stopPropagation(); openCardPeek(b.dataset.kin); }));
         /* ELABORATED FEEDBACK ON A MISS. The term alone is knowledge-of-correct-response (d = 0.32); the
            term with a sentence saying what it IS is the beginning of an explanation (d = 0.49), and the
            reader gets it without having to open a fold they may have collapsed months ago. Drawn only
@@ -32874,6 +33082,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        locator, for the reason the locator is outside it: this is not prose, it is a set of links, and a
        reader who has shut the fold to see only the answer has not asked to lose it. */
     html += cardLeadsToHTML(c);
+    /* …and the cards nearest this one, which is the same slot's other half (see relatedCardsHTML).
+       Only for a CURATED card: a community deck has no tags to rank on and no collection to stay
+       inside. Suppressed inside a game round, where a rail of other cards is a distraction from the
+       answer the reader is being shown. */
+    if (c && c.id && !isCommunityCard(c.id)) html += relatedCardsHTML(c.id);
     html += cardLocatorHTML(c);
     // the citations behind the background, at the very foot of the card — outside the Background fold, so
     // they can be checked without re-opening prose the reader has already read
@@ -32942,6 +33155,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!Array.isArray(a)) return [];
     return a.filter((e) => e && typeof e === "object" && typeof e.id === "string" && e.id);
   }
+  /* …and the rail joins the causal strip at the foot of a revealed card. They answer different
+     questions — `leadsTo` is an AUTHORED claim that one thing caused another, this is "these are about
+     similar things" — so where a card has both, both are shown and the authored one goes first. */
   function cardLeadsToHTML(c) {
     const edges = cardLeadsTo(c);
     if (!edges.length) return "";
@@ -33496,6 +33712,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!inner) return;
     opts = opts || {};
     openLinks(inner);
+    /* the "nearby in this collection" rail — a PEEK rather than a route, because a card back is
+       usually inside something the reader is part way through (a study session, a game round, an
+       Atlas popup) and navigating away would end it. The card PAGE routes properly; it wires its own. */
+    inner.querySelectorAll("[data-kin]").forEach((b) =>
+      b.addEventListener("click", (e) => { e.stopPropagation(); openCardPeek(b.dataset.kin); }));
     processAbstract(inner, c); setupTooltips(inner); wireFootnotes(inner);
     const bgHead = inner.querySelector(".bg-head"), bgToggle = inner.querySelector(".bg-toggle"), bgCollapse = inner.querySelector(".bg-collapse");
     if (opts.expand) {
@@ -45930,7 +46151,7 @@ let prev = null;
     e.preventDefault();
     route("search");
   });
-  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search"];
+  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = hParts[0] === "community" ? "decks" : valid.includes(hParts[0]) ? hParts[0] : "home";
@@ -45946,6 +46167,8 @@ let prev = null;
   if (initName === "map" && hParts.length > 1) parseMapHash(hParts);   // #map/<year>/<slug> deep link
   let initParams = {};
   if (initName === "deck") { try { initParams.slug = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.slug = hParts[1] || ""; } }   // a mangled %-escape must not kill boot
+  // #card/<id> — one card at a stable address, the same shape as #book/<id>
+  if (initName === "card") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
   // #book/<id> — a book is a shareable address, the same shape as #deck/<slug> and #map/<year>/<slug>
   if (initName === "book") {
     try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; }
@@ -46152,6 +46375,12 @@ let prev = null;
       let slug = "";
       try { slug = decodeURIComponent(parts[1] || ""); } catch (e) { slug = parts[1] || ""; }
       if (!(current.name === "deck" && current.params.slug === slug)) route("deck", { slug: slug });
+      return;
+    }
+    if (parts[0] === "card") {   // #card/<id> pasted or followed mid-session
+      let cid = parts[1] || "";
+      try { cid = decodeURIComponent(cid); } catch (e) {}
+      if (!(current.name === "card" && current.params.id === cid)) route("card", { id: cid });
       return;
     }
     if (parts[0] === "book") {   // #book/<id>[/<n>] pasted or followed mid-session
