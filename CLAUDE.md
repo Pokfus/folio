@@ -1254,9 +1254,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1–G18 have shipped — two hundred and seventeen backgrounds rewritten** (`gw-001`–`gw-217`, less
+    **G1–G19 have shipped — two hundred and twenty-nine backgrounds rewritten** (`gw-001`–`gw-229`, less
     the deferrals below), each five sentences of landform, water and climate over five of the country's
-    own history, with two hundred and three date lines rewritten out of the same research. Three sources make the
+    own history, with two hundred and fifteen date lines rewritten out of the same research. Three sources make the
     pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
@@ -1388,6 +1388,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     there being no `Southeast_Asia` term; `Council` in this glossary is Aristotle's boule, so the
     Council of Europe, the Privy Council and a Council of Ministers all link to it, which is recorded
     rather than fixed.
+    **AND THE UN'S OWN DOCUMENT ROUTES ARE THREE, AND ONLY ONE SERVES THE TEXT** (Sep 2026, G19,
+    correcting G18): `docs.un.org/en/<symbol>`, `undocs.org/en/<symbol>` and
+    `docs.un.org/api/symbol/<symbol>` all answer 200 with a 4.2 KB JavaScript document VIEWER and no
+    text in it — a sixth variety of 200-status non-document — where
+    `documents.un.org/api/symbol/access?s=<symbol>&l=en&t=pdf` serves the real PDF and **needs `curl
+    -L`**, a bare request handing back a 64-byte redirect stub that reads as an empty paper. So a
+    working paper is READ through the API and CITED at `docs.un.org/en/<symbol>`, which is the UN's own
+    permalink and does display in a browser; a symbol carrying brackets is **percent-encoded**
+    (`S/RES/956%281994%29`), `SRC_URL_RX` stopping at one. **AND THE CCKP DOES NOT ANSWER FOR ALL 233**,
+    which G17 said it did: `FLK` returns an empty `data` on the annual and monthly endpoints alike, and
+    the Falklands' climate is carried instead by a *Biogeosciences* paper's study-site section — **a
+    Study Area is the fallback for climate as well as for landform**. **AND A CBD PROFILE HAS THREE
+    STATES**: the Cook Islands page carries no Biodiversity Facts section and is still a real profile,
+    its NBSAP narrative describing the fifteen islands, the northern atolls and the high island of
+    Rarotonga, so **read past the missing heading before writing one off**. **AND WHERE SEVERAL CARDS
+    IN A BATCH SIT ON ONE BANK, ARCH OR PLATE, ONE PAPER CARRIES THE LANDFORM FOR ALL OF THEM** —
+    Saint Martin, Anguilla and Saint Barthélemy are the three main islands of the Anguilla Bank, and a
+    *Molecular Ecology* paper on its anoles gives all three peak elevations and the Pleistocene
+    lowstands that joined them, while an *NHESS* reconstruction of Hurricane Irma gives two of them
+    their area, maximum dimension, lowland and summit as its model's terrain. **AND THE AUTO-LINKER
+    TOOK THREE MORE, VISIBLE ONLY IN A BROWSER**: `Federated_States_of_Micronesia` claimed the REGION
+    on `gw-220` twice, `Indian_reservation` claims the bare surface *reservation* so the Falklands'
+    1946 diplomatic reservations linked to a land tenure, and **`Alofi` is the third collision of the
+    `Liancourt_Rocks` kind** — the term is Niue's capital and Wallis and Futuna's third main island
+    shares the name, so that card cannot name its own island and calls it Futuna's uninhabited
+    neighbour, recorded rather than fixed. **AND `to the East Indies` IS BORDERISH**, rule 4's pattern
+    matching `to the east` and its mask not knowing *Indies*, so Saint Helena reported Portugal until
+    the sentence read "bound **for** the East Indies" — a rule-4 finding on a card with no neighbours
+    in it is worth reading before believing.
     Rules 1 and 3 remain open on
     about 300 cards.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in

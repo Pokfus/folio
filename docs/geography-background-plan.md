@@ -125,6 +125,12 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-10, batch G19 — the last of the small islands, and four sovereign states among them**:
+  `gw-218` Saint Martin, `gw-219` Anguilla, `gw-220` Palau, `gw-221` the Cook Islands, `gw-222` Nauru,
+  `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy, `gw-225` Tuvalu, `gw-226` Saint Pierre and
+  Miquelon, `gw-227` Saint Helena, `gw-228` Montserrat and `gw-229` the Falkland Islands, with all
+  twelve date lines rewritten off the same research.
+
 - **2026-09-10, batch G18 — the small-state tail, and three whose own name is their capital's**:
   `gw-204` Greenland, `gw-205` the Faroe Islands, `gw-207` American Samoa, `gw-208` the Turks and Caicos
   Islands, `gw-209` the Northern Mariana Islands, `gw-210` Sint Maarten, `gw-212` the British Virgin
@@ -292,6 +298,70 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G19 found
+
+**THE UN'S OWN DOCUMENT ROUTES ARE THREE, AND ONLY ONE OF THEM SERVES THE TEXT.** G18 recorded that
+`digitallibrary.un.org` answers **202 with an empty body** and proposed `docs.un.org/en/<symbol>` as
+the route to adopt in one sweep. That is wrong and this batch measured it: `docs.un.org/en/<symbol>`,
+`undocs.org/en/<symbol>` and `docs.un.org/api/symbol/<symbol>` all answer **200 with a 4.2 KB
+JavaScript document viewer and no text in it** — a sixth variety of 200-status non-document. What does
+serve the PDF is **`documents.un.org/api/symbol/access?s=<symbol>&l=en&t=pdf`**, which redirects to the
+real file and needs `curl -L` (without it you get a 64-byte redirect stub, which is how the first pass
+here read every working paper as empty). So the machine route and the citable route are different
+addresses: the working papers are **read** through the `documents.un.org` API and **cited** at
+`docs.un.org/en/<symbol>`, which is the UN's own permalink and does display the document in a browser.
+The same swap fixed `gw-220`'s Security Council citation, which had been pointing at a 202
+(`docs.un.org/en/S/RES/956%281994%29` — **percent-encoded**, since `SRC_URL_RX` stops at a bracket).
+The four papers this batch needed are A/AC.109/2026/2 (Anguilla), /6 (Falkland Islands (Malvinas)),
+/10 (Montserrat) and /13 (Saint Helena); the numbering is alphabetical by territory and is worth
+grepping out of the first two pages of each PDF rather than guessing.
+
+**THE WORLD BANK'S CLIMATE PORTAL DOES NOT ANSWER FOR ALL 233.** G17 called the CCKP ERA5 climatology
+"the uniform answer for climate … which answers for all 233 including the ones no UN body carries", and
+it does not: **`FLK` returns `"data": []`** on the annual and the monthly endpoint alike, and in a
+multi-country request the other codes come back while it is simply absent. The Falklands' climate is
+carried instead by **Groff, Williams and Gill in *Biogeosciences*** (2020), whose study-site section
+gives the whole of it — mean 9.4 °C in January and 2.2 in July over 1922–1988, winds averaging 8.5
+metres a second with gales on about 70 days a year, rainfall of 400 to 600 millimetres, and the cold
+Antarctic Circumpolar Current that sets it. **A paper's Study Area is the fallback for climate as well
+as for landform**, which is G16's Kosovo finding one column over.
+
+**A CBD PROFILE HAS THREE STATES, NOT TWO.** G18 established that the Biodiversity Facts *section* is
+the check and the byte count is not. This batch found the third state: **the Cook Islands page carries
+no Biodiversity Facts at all and is still a real profile**, its NBSAP narrative describing the fifteen
+islands, the northern atolls, the high island of Rarotonga, the raised islands and the almost-atoll of
+Aitutaki, and stating that about 60 per cent of the land is still forested. **Read past the missing
+heading before writing a profile off.** Palau, Nauru and Tuvalu — the three UN members in this batch —
+all have Facts; the eight dependencies serve the empty shell, as G17 predicted.
+
+**THE ANGUILLA BANK IS ONE PAPER SERVING THREE CARDS.** `gw-218`, `gw-219` and `gw-224` are the three
+main islands of a single shallow shelf, and Browne et al. in *Molecular Ecology* (2026) state it with
+the peak elevations of all three — Saint Martin 424 m, Saint Barthélemy 286 m, Anguilla 73 m — and with
+the Pleistocene sea-level falls that joined them into one landmass. **Where several cards in a batch
+sit on one bank, arch or plate, one paper about its biogeography carries the landform sentence for all
+of them**; the same held for `gw-218` and `gw-224` with Cécé et al. in *NHESS* (2021), whose Hurricane
+Irma reconstruction gives each island's area, maximum dimension, lowland elevation and summit as its
+model's terrain description. Its DOI is at Wiley and **403s**, so it is cited at its PMC copy, as
+*Science Advances* already was for `gw-228`.
+
+**AND THE AUTO-LINKER TOOK THREE MORE, ALL OF THEM ONLY VISIBLE IN A BROWSER.** G18's
+`Federated_States_of_Micronesia` fault fired again the moment a card named the REGION: `gw-220` said
+"the greatest area of continuous native forest in Micronesia" and "files it under Micronesia with code
+585", and both linked the region to one small country in it, so both were written round. **`Alofi` is
+the third glossary collision of the `Liancourt_Rocks` kind**: the term is Niue's CAPITAL, and Wallis and
+Futuna's third main island shares the name, so `gw-223` cannot name its own island at all and now calls
+it "Futuna's uninhabited neighbour" — recorded here rather than fixed, since the real repair is a
+second term or a re-keying of Niue's, which is a glossary pass. And `Indian_reservation` claims the bare
+surface **reservation**, so the Falklands' 1946 diplomatic reservations linked to a North American
+land tenure; `gw-229` says "put on record" and "stated in parallel" instead.
+
+**AND `to the East Indies` IS A BORDERISH CONSTRUCTION.** Rule 4's pattern matches `to the east`
+case-insensitively, and the mask that hides a compound geographic name ends at `Sea|Ocean|Gulf|…|Islands`
+and does not know *Indies* — so Saint Helena's "ships bound to the East Indies" made its own sentence
+borderish and reported Portugal, named in it for a wholly different reason. Written "bound **for** the
+East Indies" it is clean. **A rule-4 finding on a card with no neighbours in it is worth reading before
+believing.**
 
 ## What G18 found
 
