@@ -1254,9 +1254,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1–G15 have shipped — one hundred and eighty-one backgrounds rewritten** (`gw-001`–`gw-211`, less
+    **G1–G16 have shipped — one hundred and ninety-three backgrounds rewritten** (`gw-001`–`gw-211`, less
     the deferrals below), each five sentences of landform, water and climate over five of the country's
-    own history, with one hundred and sixty-seven date lines rewritten out of the same research. Three sources make the
+    own history, with one hundred and seventy-nine date lines rewritten out of the same research. Three sources make the
     pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
@@ -1297,7 +1297,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     country-parks table is a landform inventory in disguise and the Observatory's "Climate of Hong Kong"
     is the season-by-season account. **AND THE AUTO-LINKER REWARDS THE ORDINARY NAME**: "the Atlantic
     alliance" links to the Atlantic Ocean where the plain `NATO` links correctly, and `Consul` in this
-    glossary is a Roman magistrate. The rest were
+    glossary is a Roman magistrate. **AND THAT LESSON HAS A LIMIT, MEASURED IN G16**: Hong
+    Kong's government publishes its own Basic Law in plain HTML and **Macau's publishes nothing openable
+    at all** — `basiclaw.gov.mo` answers 405 with a JSON trace id on every path, `bo.io.gov.mo` is
+    egress-blocked, and `dsaj.gov.mo` serves one identical 23,682-byte shell for everything — so `gw-167`
+    ships without the 1999 transfer rather than guessing it. **AND `digitallibrary.un.org` RETURNS 202
+    WITH AN EMPTY BODY**, so a UN resolution is cited through the International Court of Justice's own
+    case page, which recites it (`icj-cij.org/case/61` for resolution 1514, `/case/141` for 1244).
+    **AND FOUR OF THE FIVE STANDARD SOURCES FOLLOW UN MEMBERSHIP**: Kosovo has no UNdata profile, no CBD
+    profile, no World Bank climate code and no Protected Planet entry under any of `XKO`/`XK`/`KOS`/`RKS`,
+    while Western Sahara has the last two and not the first two — different lists failing in different
+    places. Where they fail, **an open paper's STUDY AREA carries the card**: Kosovo's landform came out
+    of a sand-fly ecology paper and Macau's out of a soil-chemistry one. The rest were
     deferred rather than half-solved before that: the
     World Bank's open climate API and the national met services answer for the weather, and nothing
     reachable carries the LANDFORM. **AND THE COUNTRY PAGE 301-REDIRECTS**, so a `curl` without `-L`

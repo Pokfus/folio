@@ -125,6 +125,11 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-10, batch G16 — twelve more, four of which no international body carries**: `gw-115` Denmark,
+  `gw-117` Finland, `gw-119` Norway, `gw-120` Slovakia, `gw-121` Ireland, `gw-123` New Zealand, `gw-130`
+  Croatia, `gw-135` Puerto Rico, `gw-136` Bosnia and Herzegovina, `gw-153` Kosovo, `gw-167` Macau and
+  `gw-171` Western Sahara, with all twelve date lines rewritten off the same research.
+
 - **2026-09-06, batch G15 — twelve more, mostly European and one that belongs to no state's statistics**:
   `gw-072` the Netherlands, `gw-082` Belgium, `gw-088` Czechia, `gw-090` Portugal, `gw-093` Sweden,
   `gw-094` Greece, `gw-097` Hungary, `gw-098` Austria, `gw-100` Switzerland, `gw-104` Hong Kong,
@@ -275,6 +280,72 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G16 found
+
+**FOUR OF THE FIVE STANDARD SOURCES ARE ORGANISED AROUND UN MEMBERSHIP, AND THIS BATCH MEASURED EXACTLY
+WHERE THAT BITES.** D2 recorded it for Taiwan; here it is a table. **Kosovo** has no UNdata profile (`xk`
+500s), no CBD profile, no World Bank climate code and — new this batch — **no Protected Planet entry
+either**, `XKO`, `XK`, `KOS` and `RKS` all returning 500. **Western Sahara** has no CBD profile and no
+climate code, but DOES have UNdata and Protected Planet. **Macau** and **Puerto Rico** have UNdata, the
+climate API and Protected Planet, and neither has a CBD profile or a recognition-guide page. So the
+gap is not "outside the UN" but **outside the World Bank's country list AND the CBD's party list**, which
+are different lists that fail in different places: the climate API answers for Taiwan, Hong Kong, Macau
+and Puerto Rico and refuses Kosovo and Western Sahara.
+
+**AND WHAT ANSWERS INSTEAD IS THE OPEN LITERATURE, WHICH G11 PUT IN THE RECIPE AS A FALLBACK AND IS NOW
+CARRYING WHOLE CARDS.** Kosovo's landform and climate come from a paper on the ecology of sand flies —
+its study area gives the Accursed, Sharri and Kopaonik ranges, the mid-elevation Carralevë and Zhegoc,
+the humid continental climate and the rapid meeting of maritime and continental influences — and its
+water from a 2025 description of a new caddisfly from the Lumbardhi i Deçanit. Western Sahara's climate
+comes from a four-decade study of the Arab world (its maximum temperatures rising 0.2 °C a decade, the
+second slowest of 22 units measured) and its sea from a loggerhead-turtle fisheries paper (north-west
+African waters among the most productive on earth, and this territory's own zone third of eight for
+fishing effort, 2013–2023). Macau's geography comes from a soil-chemistry paper. **Read the study area,
+not the subject**: none of those four papers is about geography and all four state it precisely.
+
+**HONG KONG'S GOVERNMENT PUBLISHES ITS OWN BASIC LAW AND MACAU'S DOES NOT, WHICH IS THE EXACT INVERSE OF
+G15's FINDING AND THE MOST USEFUL THING HERE.** G15 concluded that a place with no international profile
+publishes about itself; Macau is the counter-example that shows the conclusion is about a GOVERNMENT
+rather than about a class of place. `basiclaw.gov.mo` answers **405 with a JSON trace id on every path**
+tried — root, `/en/`, `/index.html`, `/en/web/en` — which is an API gateway with no HTML at all;
+`bo.io.gov.mo` and `images.io.gov.mo` are refused by the egress policy; `www.dsaj.gov.mo` serves one
+identical 23,682-byte shell for every path (an eighth variety of 200-status error document, and its size
+tells them apart the way `senate.gov`'s 37,523 bytes does); the tourism office 404s; and
+`gov.mo/en/about-government/` is real and mentions neither 1999, nor the Basic Law, nor autonomy. **So
+`gw-167` ships without the 1999 transfer**, because nothing openable states it, and says instead what
+the sources do carry — that it is a special administrative region, that it trades in its own name (GATT
+11 January 1991, WTO on the day that body opened), that it keeps the pataca, and that services are 92.8%
+of its value added. **An absent date is better than a guessed one**, and this is the fourth card in the
+pass to be written round a hole rather than over it.
+
+**AND THE UN's OWN DOCUMENT LIBRARY IS UNUSABLE, SO CITE THE COURT INSTEAD.** `digitallibrary.un.org`
+returns **202 with an empty body** on every record — Security Council resolution 1244 and General
+Assembly resolution 1514 (XV) were both drafted as citations and both had to be withdrawn at the URL
+sweep. The way round is that **the International Court of Justice's own case pages recite the
+instruments**: `icj-cij.org/case/61` quotes resolution 1514 in the Western Sahara opinion of 1975, and
+`icj-cij.org/case/141` recites 1244 and dates Kosovo's declaration to 17 February 2008. Two citations
+became one better one on each card.
+
+**RULE 1 EXEMPTS A UNITED STATES TERRITORY AND THE AUDIT STILL COUNTS IT.** `gw-135` Puerto Rico names
+the United States four times — the national forest system, Public Law 600, the Federal Relations Act and
+the dollar — every one of them unavoidable, since the territory's constitutional position IS its
+relationship with that state. With `gw-003` that makes **two cards permanently in the rule-1 list**, and
+both belong there; every other name on it is still work.
+
+**NO WRONG AUTO-LINK, FOR THE FIRST TIME SINCE G11.** Five batches running turned one up — Guinea,
+Providence, Paris, Mazu, Consul — and this one's rendered cards were read the same way and came back
+clean, with `Settlement`, `Genus`, `Karst` and `Principality` all resolving to the right sense and
+`Paris` on `gw-136` the Berlin case again (a treaty named for the city it was signed in). **The reason is
+worth stating: this batch's prose names almost no institution by a periphrasis**, which was G15's own
+lesson applied before the fact rather than after it.
+
+**AND FIVE UNSUPPORTED SUPERLATIVES WERE CAUGHT IN DRAFT, ALL OF ONE SHAPE.** Having the whole batch's
+climate figures side by side invites a ranking — "the wettest country in Europe outside the Alps", "the
+second coldest country in the European Union", "the smallest and most easterly of the Greater Antilles"
+— and **a comparison across a batch is not a claim any source in that batch makes**. Each was softened
+to what the figures actually support. The one that survived is Norway's "changes more over a short
+distance than almost anywhere on earth", which is the CBD profile's own sentence.
 
 ## What G15 found
 
@@ -899,6 +970,6 @@ than a fix per batch.**
   `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
   and put a fifth in its place.
 
-**Rules 1 and 3 remain open on about 260 cards.** Run `node .claude/gw-audit.js` for the live figures.
+**Rules 1 and 3 remain open on about 250 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*
