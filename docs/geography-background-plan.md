@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-10, batch C9 — six capitals, and the WMO leg has no station at one of them at all**: `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu and `gw-552` Yaoundé, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-10, batch C8 — six capitals, and every one of their constitutions names its capital**: `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh and `gw-546` Maputo, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-10, batch C7 — six capitals, and the climate leg fails outright on one of them**: `gw-535` Buenos Aires, `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat and `gw-540` Luanda, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -402,6 +404,81 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C9 found
+
+**The recipe held for five of six and the sixth had no weather station at all.** Côte d'Ivoire has six
+WMO stations and not one of them is at Yamoussoukro — the nearest, Bouaké, is another city a hundred
+kilometres away, and C5's rule that the country is a refusal rather than a preference applies one level
+in: **a station in the wrong CITY is as wrong as one in the wrong country**, so `gw-550` is written with
+no normals for its own place and takes its seasons out of an open paper instead, as C7's `gw-538` Sana'a
+did. What that paper gave was better than a substitute station: an ornithological survey of the city's
+lakes states the four seasons by name and month and the mean annual rainfall in its own study area.
+
+**AND THE CONSTITUTION LEG ANSWERED FOR FOUR OF SIX, WITH AN EIGHTH OUTCOME BESIDE THE SEVEN C2–C8
+ESTABLISHED: A CLAUSE THAT NAMES TWO CAPITALS, ONE OF THEM HISTORICAL.** Peru's article 49 reads "The
+capital of the Republic of Peru is the city of Lima. Its historical capital is the city of Cusco," and
+article 198 adds that the capital belongs to no region and is governed by its own metropolitan
+municipality — the fullest constitutional treatment of a capital met in the pass after Turkey's. Madagascar
+names Antananarivo at article 4, Nepal at article 288 and Cameroon in its very FIRST article, where the
+capital is listed beside the flag, the anthem and the seal as a mark of the state. **Ghana's text of 1996
+and Côte d'Ivoire's of 2020 name no capital anywhere**, which is C6's silence; unlike C3's Manila and C5's
+Paris, no openable statute stands in for either.
+
+**AND UNdata'S CAPITAL FOOTNOTE NAMED A SECOND SEAT FOR THE SECOND BATCH RUNNING.** C8 found Malaysia's
+Putrajaya recorded in a footnote and nowhere else; Côte d'Ivoire's says "Yamoussoukro is the capital and
+Abidjan is the administrative capital", which is the same arrangement seen from the other end and again
+recorded in no other source in the recipe. Nepal's says the figure "refers to the municipality" and Peru's
+that it counts the Province of Lima together with the Constitutional Province of Callao. **All six capital
+figures are dated 2018 or 2019 in a table headed 2025** — the second unanimous year-gap after C6's.
+
+**AND A HAZARD PAPER CARRIED THE LANDFORM ON FOUR OF SIX, FOR THE FOURTH BATCH RUNNING**: a flood-risk
+model for Greater Accra, a landslide and rockfall study of the hills north-west of Yaoundé, a river
+metabarcoding survey of the Rímac, and a malaria geography of Antananarivo that divides the city between
+erodible slopes and ground below 1,250 m that floods. Two of them carry the finding worth keeping.
+**Accra sits in what climatologists call the ANOMALOUS DRY EQUATORIAL region** — which is why a city three
+hundred kilometres from the equator records only about 740 mm of rain a year, less than half what Yaoundé
+gets — and **Kathmandu's floor is the dry bed of a vanished lake** about 25 km across and once 75 m deep,
+filled with lake and river sediment since the late Pliocene, which is what a *Climate of the Past* core
+study says in its opening paragraph while being about monsoon vegetation.
+
+**AND THE HISTORY LEG WAS A PERIOD BOOK FOUR TIMES, AND THE BEST OF THEM IS A CAPITAL'S OWN CITIZEN
+WRITING IN ENGLISH.** Manuel Atanasio Fuentes's *Lima: or, Sketches of the Capital of Peru* (1866) gives
+the founding of 18 January 1535, the town of Jauja it displaced and why, the wooden bridge of 1554 and
+the stone one that replaced it, the statue of Philip V thrown down by the earthquake of 1746, and the
+plain statement that the ground shakes on average eight times a year. Claridge's *Gold Coast* carries
+Accra's three forts and — in its second volume — the sentence this pass most wanted, that **the
+headquarters of government were moved there in 1876 "on account of its supposed better climate and the
+proximity of the Akwapim mountains"**, a history claim that explains the landform block above it.
+Oldfield's *Sketches from Nipal* (1880) gives Kathmandu's sword-shaped plan, its walls and gateways and
+the four-year Gorkha conquest from the siege of Kirtipur in 1765 to the fall of Bhadgaon early in 1769;
+Sibree's *Madagascar before the Conquest* (1896) gives the meaning of Antananarivo's name, the twelve old
+towns, and the old custom forbidding stone or clay inside the city that left it burning twenty, thirty or
+a hundred houses at a time. **Claridge counts as ONE author in TWO of a card's sources, which is exactly
+what `check-cards.js` allows and no more.**
+
+**AND THE HOLY SEE IS AN OPENABLE ARCHIVE.** `vatican.va` serves every papal homily by date, and the
+dedication of the Basilica of Our Lady of Peace at Yamoussoukro — Monday 10 September 1990 — is a primary
+record of the event, naming the head of state who raised it and Félix Houphouët-Boigny's generosity in
+paying for it, in a city whose own institutions publish nothing openable. **The English path 404s and the
+French and Italian ones do not**, so the index at `/content/john-paul-ii/en/homilies/<year>.index.html` is
+what settles a slug.
+
+**AND YAOUNDÉ'S GERMAN FOUNDING IS IN NOTHING OPENABLE HERE, WHICH IS RECORDED RATHER THAN GUESSED.**
+Persée has 151 articles naming Yamoussoukro and a dozen naming Yaoundé, and its article bodies are PAGE
+IMAGES with no text layer, so a search that finds the right article cannot read it; `docAsPDF` is 403.
+IMIST answers 302 with an empty body on every path, Érudit's search is a JavaScript shell, `link.springer.com`
+still serves a 3 KB challenge under a 200, ScienceDirect 403s an Elsevier gold open-access article, and the
+one German account on archive.org (von Morgen, 1893) is Fraktur OCR and unreadable. `prc.cm` IS open and
+carries the Centre Region's ten divisions and its 68,953 km², so that card's history is written from what
+can be checked and stops there.
+
+**AND THE AUTO-LINKER TOOK THE GULF OF GUINEA.** `Guinea` is a deck answer term claiming its bare name, so
+"the head of the Gulf of Guinea" linked to a country 1,500 km away — rule 4's own MASK knows that "Gulf of
+X" is not X and `buildGlossIndex` does not. Written round with the latitude the source states instead.
+`Water` was written round four times and `Settlement` twice, with `Constitution` recorded rather than fixed
+for the fifth batch running; `Grassland`, `Savanna`, `Irrigation`, `Clay`, `Principality`, `Hinduism`,
+`Pacific_Ocean`, `Europe` and `Abidjan` all resolved correctly.
 
 ## What C8 found
 

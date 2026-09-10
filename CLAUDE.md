@@ -1686,6 +1686,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     linked to 56 modern states, and `Turkey` claims *Turkish*, so a medieval Turkic nomad linked to
     the modern republic — with `Great_Britain`-as-*British*, `Water`, `Settlement` and `Council`
     written round again and `Constitution` and `Russia`-as-*Russian* recorded rather than fixed.
+    **AND THE WMO LEG CAN FAIL A THIRD WAY: A COUNTRY WITH STATIONS AND NONE AT ITS CAPITAL** (Sep
+    2026, C9). C3 found a country with no WMO station at all and C7 an entry carrying temperature and no
+    rainfall; Côte d'Ivoire has six stations and not one is at Yamoussoukro, the nearest being Bouaké, a
+    hundred kilometres off. **C5's rule that the country is a REFUSAL rather than a preference applies one
+    level in** — a station in the wrong CITY is as wrong as one in the wrong country — so `gw-550` is
+    written with no normals of its own and takes its seasons from an ornithological survey of the city's
+    own lakes, which names all four by month and gives the mean annual rainfall of its study area.
+    **AND AN EIGHTH CONSTITUTIONAL OUTCOME: A CLAUSE THAT NAMES TWO CAPITALS, ONE OF THEM HISTORICAL.**
+    Peru's article 49 makes Lima the capital and Cusco the *historical* capital in consecutive sentences,
+    and article 198 adds that the capital belongs to no region — the fullest treatment in the pass after
+    Turkey's. Cameroon names its capital in the very FIRST article, beside the flag, the anthem and the
+    seal; Ghana's text of 1996 and Côte d'Ivoire's of 2020 name none, and unlike C3's Manila **no openable
+    statute stands in for either**. The leg answered for four of six. **AND UNdata'S FOOTNOTE NAMED A
+    SECOND SEAT FOR THE SECOND BATCH RUNNING** — "Yamoussoukro is the capital and Abidjan is the
+    administrative capital", recorded in no other source in the recipe, which is C8's Putrajaya from the
+    other end; all six capital figures are dated 2018 or 2019 in a table headed 2025. **AND THE HOLY SEE IS
+    AN OPENABLE ARCHIVE**: `vatican.va` serves every papal homily by date, so the dedication of the
+    Basilica of Our Lady of Peace on 10 September 1990 is a primary record for a city whose own
+    institutions publish nothing — **the English path 404s where the French and Italian ones do not**, so
+    the year index at `/content/john-paul-ii/en/homilies/<year>.index.html` is what settles a slug. **AND
+    A PERIOD BOOK CARRIED THE HISTORY FOUR TIMES, THE BEST OF THEM BY A CITIZEN OF THE CITY**: Fuentes's
+    *Lima* (1866) gives the founding of 1535, the town it displaced, the bridge of 1554, the statue thrown
+    down in 1746 and the eight earthquakes a year; Claridge's *Gold Coast* gives Accra's forts and the
+    sentence that the seat of government moved there in 1876 "on account of its supposed better climate",
+    which explains the landform block above it. **A SEARCHABLE ARCHIVE IS NOT A READABLE ONE**: Persée
+    finds the right articles on Yaoundé and Yamoussoukro and serves their bodies as PAGE IMAGES with no
+    text layer, `docAsPDF` 403ing, so **Yaoundé's German founding date is in nothing openable here and is
+    recorded rather than guessed** (IMIST 302s with an empty body, Érudit's search is a JavaScript shell,
+    ScienceDirect 403s an Elsevier gold open-access article, and the one German account on archive.org is
+    Fraktur OCR); `prc.cm` and `ajol.info` are open and carry that card instead. **AND THE AUTO-LINKER
+    TOOK THE GULF OF GUINEA** — `Guinea` is a deck answer term claiming its bare name, and rule 4's own
+    mask knows "Gulf of X" is not X where `buildGlossIndex` does not — with `Water` written round four
+    times, `Settlement` twice, and `Constitution` recorded rather than fixed for the fifth batch running.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |
