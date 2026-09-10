@@ -209,7 +209,12 @@ function main() {
   const total = require("./card-io").loadCards().cards;
   console.log(`${dry ? "[dry] " : ""}glossary images: +${Object.keys(gloss).length} (table now ${g} of ${Object.keys(win.GLOSSARY).length} terms)`);
   console.log(`${dry ? "[dry] " : ""}card images:     +${c} (now ${total.filter((x) => x.image && x.image.src).length} of ${total.length} cards)`);
-  const arts = loadWindow(path.join(ROOT, "artefacts.js")).ARTEFACTS;
+  /* THROUGH artefact-io, NEVER `artefacts.js` ALONE (Sep 2026). The pool is TWO files and the image
+     lives in the lazy half, so reading the index reported a fully illustrated pool as "0 of 200" — the
+     same fault `test-artefacts.js` and `gloss-source-audit.js` each had on their first run after their
+     own splits. A reporter that says zero about something complete is an invitation to "fix" it by
+     re-adding 194 pictures over the ones already there. */
+  const arts = require("./artefact-io.js").loadArtefacts();
   console.log(`${dry ? "[dry] " : ""}artefact images: +${ar} (now ${arts.filter((x) => x.image && x.image.src).length} of ${arts.length} artefacts)`);
 }
 

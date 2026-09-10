@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.687", released: "2026-09-10T15:12Z" };
+window.FOLIO_VERSION = { v: "1.688", released: "2026-09-10T15:52Z" };
 
 window.CHANGELOG = [
   {
@@ -77,6 +77,7 @@ window.CHANGELOG = [
       "A geography card opened by its own link now draws its globe, where it used to show an empty grey box.",
       "<b>Every reader now has a profile at a link you can share</b>, showing your name and photo to anyone and your progress to your friends.",
       "<b>A friend\u2019s profile now opens on you and them side by side</b> \u2014 streak, cards studied, days studied and artefacts.",
+      "Seven cards that shared a picture with another card now have one of their own.",
     ],
   },
   {

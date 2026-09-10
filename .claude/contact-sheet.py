@@ -57,7 +57,12 @@ for i, cid in enumerate(ids):
     src = e.get("src") or ""
     if not src and e.get("file"):
         src = "https://commons.wikimedia.org/wiki/Special:FilePath/" + urllib.parse.quote(re.sub(r"^File:", "", e["file"]))
-    b = grab(src, cid + "-" + (e.get("title") or e.get("name") or e.get("file") or ""))
+    # KEYED ON THE URL, NEVER ON THE CARD (Sep 2026). It was `cid + "-" + title`, and
+    # `fetch-geo-images.js` writes a title derived from the CARD rather than from the file — so a second
+    # candidate for the same card hit the first one's cache entry and the sheet showed the PICTURE THAT
+    # WAS ALREADY REJECTED. A stale contact sheet is worse than none: the whole point of it is to look at
+    # what will actually ship, and it silently showed something else. The src is what identifies an image.
+    b = grab(src, src)
     if b:
         try:
             im = Image.open(io.BytesIO(b))

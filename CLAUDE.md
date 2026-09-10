@@ -1568,6 +1568,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   conclusion of a long explanation — it reported a sentence about one minigame's draw as a 266 KB
   "section". **A map that invents sections is worse than none, because it is read as structure.**)
   Not part of the site.
+- `.claude/check-image-free.js` — **is this picture already on something?**:
+  `node .claude/check-image-free.js "<file name or url>" … | --batch=<batch.json>`, exit 1 if any is
+  taken. **RUN IT BEFORE FETCHING A REPLACEMENT, NEVER AFTER.** `check-cards.js` reports which cards
+  SHARE a picture, and a session repairing those pairs naturally checks its candidate against the pair in
+  hand — which is not enough, the corpus being 2,895 cards, 3,434 glossary terms and 200 artefacts, any
+  of which may already hold it. **It happened on the first batch**: the Guillaume bronze chosen for
+  `rm-283` was already `wh-350`'s AND the `Gracchi_brothers` glossary term's, so repairing one duplicate
+  made another, and the only thing that caught it was re-running the count. It compares on the FILE NAME
+  with any `\d+px-` prefix stripped, which is `check-cards.js`'s own rule, **and it folds underscores to
+  spaces** — a card's `src` carries underscores and a name typed off a search result carries spaces, and
+  without that it answers "free" about a file that is already on a card, which is the one answer it must
+  never get wrong. Not part of the site.
 - `.claude/check-i18n-drift.js` — **how much of the nine translations is still true**:
   `node .claude/check-i18n-drift.js [--verbose]`, report-only, exits 0. **THE STATED DECISION ABOUT THE
   NINE LANGUAGES IS: KEEP THE ENGINE, KEEP THE THREE SURVIVING FAMILIES, REVIVE NOTHING YET — AND STOP
@@ -7914,6 +7926,23 @@ dead code (never rendered).
 - Developed on Windows. Use forward-slash relative paths inside the site.
 - The project is a **Git repo** (initialized Jul 2026) so any change can be reviewed and rolled back — commit meaningful
   changes as you go.
+- **THE REPOSITORY WEIGHS ABOUT HALF A GIGABYTE, AND THAT IS DATA.JS's HISTORY** (Sep 2026, measured out
+  of the field audit). `git count-objects -vH` for the figure rather than quoting this. Where it comes
+  from: **3.8 GB of raw `data.js` blobs across 423 commits**, then 654 MB of `glossary-extra.js`, 521 MB of
+  `glossary.js` and 298 MB of one Mandarin deck file — the corpus is one enormous line-per-card file that
+  every content batch rewrites, so each batch stores another near-copy. Delta compression is what takes
+  3.8 GB to a few hundred MB, and it is already doing its job.
+  **A FULL REPACK BUYS 14% AND NOBODY ELSE EVER SEES IT.** `git repack -a -d --depth=250 --window=250`
+  took the pack from **533.62 MiB to 458.61 MiB in 32 seconds**, with no history change and nothing to
+  re-clone. It is worth running in a container that will be reclaimed anyway; what it is NOT is a fix,
+  because **GitHub packs server-side**, so a `git clone` downloads whatever GitHub's own gc produced and
+  a local repack cannot reach it.
+  **THE ONLY REAL LEVER IS REWRITING HISTORY, AND THAT IS NOT A DECISION TO TAKE UNILATERALLY.** Dropping
+  or truncating `data.js`'s history would change every commit id after the rewrite: every existing clone
+  breaks, every commit link ever shared 404s, and the PRs this project is merged from a phone would have
+  to be reopened. It is the user's call, it is cheap to defer, and **half a gigabyte costs a cloud session
+  nothing** — the clone at session start is the only time it is paid, once. Recorded here so the next
+  session measures rather than re-derives, and does not quietly rewrite anything.
 - **Cloud sessions (claude.ai/code, driven from the phone)** — when this project is worked on from an Anthropic cloud
   sandbox instead of the desktop: (1) the sandbox clones from **GitHub** — anything uncommitted on the desktop is
   invisible, and desktop sessions must push before/after a travel period; (2) cloud sessions **cannot push to `main`** —
