@@ -7570,7 +7570,15 @@ dead code (never rendered).
     hundred is a coin toss, and a sweep that saw none would say nothing at all — one of eight days was
     run and saw none. **Re-run after touching anything in the ARTWORK CARDS bullet's own list.**
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's
-    restricted pool** (75 assertions), and every one of its checks is for something that fails SILENTLY.
+    restricted pool** (114 assertions), and every one of its checks is for something that fails SILENTLY.
+    **AN ASSERTION CAN COME TO GUARD THE OPPOSITE OF THE RULE** (Sep 2026): the picture round's reveal
+    check demanded `.pic-credit a` and the planted credit's href, which is what the round shipped until
+    the credit line was REMOVED on request — so it failed against a deliberate change and stayed red,
+    where a stale check reads exactly like a broken feature. It now asserts the shipped rule from both
+    ends: no credit on the reveal AND none left inside `.pic-shows` (half the pool repeats it there and
+    `picCaption` cuts it), then the viewer opened and the credit found in its `.iv-credit`. **Asserting
+    an absence alone would pass just as happily on a round that had dropped the attribution outright**,
+    which is why the second half is not optional.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
     `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `chronoPool` /
     `cardYearBasis` / `dateLineRows`, `picturePool` /

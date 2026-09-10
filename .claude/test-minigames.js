@@ -712,13 +712,38 @@ function crosswordForPage(cells) {
     const rev = await page.evaluate(() => ({
       verdict: (document.querySelector(".tf-verdict") || {}).textContent || "",
       cap: (document.querySelector(".pic-cap") || {}).textContent || "",
-      credit: (document.querySelector(".pic-credit a") || {}).getAttribute ? document.querySelector(".pic-credit a").getAttribute("href") : "",
+      shows: (document.querySelector(".pic-shows") || {}).textContent || "",
+      credit: !!document.querySelector(".pic-credit"),
       marked: document.querySelectorAll("#picOpts .opt.correct").length,
       dead: !!document.querySelector(".pic-frame.pic-dead"),
     }));
-    check("[pic] …the guess reveals the answer, its caption and its credit as a link",
-      /correct|not quite/i.test(rev.verdict) && /Plate \d/.test(rev.cap) && /^https:\/\/example\.org\//.test(rev.credit) && rev.marked === 1,
-      JSON.stringify({ cap: rev.cap, credit: rev.credit }));
+    check("[pic] …the guess reveals the answer and marks the option chosen",
+      /correct|not quite/i.test(rev.verdict) && /Plate \d/.test(rev.cap) && rev.marked === 1,
+      JSON.stringify({ cap: rev.cap, marked: rev.marked }));
+    /* THE REVEAL CARRIES NO CREDIT, AND THIS ASSERTION USED TO DEMAND ONE. It read `.pic-credit a` and
+       wanted the planted `example.org` href, which is what the round shipped until Sep 2026, when the
+       credit line was removed on request ("still shows the credits of the image … delete these, they're
+       already available when the user clicks on the image") — so the check went on failing against a
+       deliberate change, which is a suite guarding the opposite of the rule. Both halves are asserted
+       here because taking `.pic-credit` away was only half of the change: half the pool repeats the
+       attribution INSIDE the caption, and `picCaption` cuts that tail, so the credit must be absent from
+       `.pic-shows` as well as from an element of its own. */
+    check("[pic] …and no credit with it, the caption having lost its repeated attribution too",
+      !rev.credit && !/example\.org/.test(rev.shows), JSON.stringify({ credit: rev.credit, shows: rev.shows.slice(0, 60) }));
+    /* …BECAUSE IT IS ONE TAP FURTHER IN, which is what makes the removal a move rather than a loss. The
+       picture became enlargeable at the guess (the check above asserts it is not before), and the
+       viewer's own meta bar is where the title and the credit live. Asserting the credit's ABSENCE alone
+       would pass just as happily on a round that had quietly dropped the attribution altogether. */
+    await page.click(".pic-frame");
+    await page.waitForTimeout(300);
+    const ivw = await page.evaluate(() => {
+      const a = document.querySelector(".iv-credit a");
+      return { open: !!document.querySelector(".img-viewer"), href: a ? a.getAttribute("href") : "" };
+    });
+    check("[pic] …and the credit is one tap in, on the enlarged picture",
+      ivw.open && /^https:\/\/example\.org\//.test(ivw.href), JSON.stringify(ivw));
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(200);
     /* THE ARTEFACT'S OWN FIVE SENTENCES, AND THE WORKS THEY REST ON (Sep 2026, on request: "below it
        should show that Artefacts background paragraph with citations"). Three things have to be true at
        once and each fails on its own: the paragraph is there, the fold under it lists the artefact's real
