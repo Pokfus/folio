@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-10, batch C4 — six capitals, and four of the six have no constitutional clause**: `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London and `gw-522` Dodoma, with all six date lines rewritten off the same research. Six again, for C2’s reason.
+
 - **2026-09-10, batch C3 — six more capitals, and the fifth leg is not always a constitution**: `gw-511` Mexico City, `gw-512` Tokyo, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa and `gw-516` Hanoi, with all six date lines rewritten off the same research. Six again, for C2’s reason.
 
 - **2026-09-10, batch C2 — six capitals, and the history leg turns out to be a book**: `gw-505`
@@ -392,6 +394,85 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C4 found
+
+**FOUR OF THE SIX HAVE NO CONSTITUTIONAL CAPITAL CLAUSE, WHICH MAKES THE FIFTH LEG THE WEAKEST OF THE
+FIVE.** C3 found the Constitute Project failing on two capitals in six; C4 ran the same probe and it
+failed on four. **Only Türkiye and the Federal Republic name their capital in the constitutional text**
+— and the Turkish clause is the strongest on the shelf, article 3 naming the city beside the language,
+the flag and the anthem and **article 4 forbidding any amendment to it or even the proposal of one**,
+so the choice is among the handful of things that text puts beyond change; the German one is article 22
+of the Basic Law, which also gives the federation the task of representing the nation as a whole there.
+**Iran’s constitution does not name Tehran** (Constitute tags an article of its own with the
+*National capital* topic, which is a topic label rather than a clause — read the sentence, not the tag),
+**Thailand’s 2017 text contains the word Bangkok nowhere**, and **Tanzania’s names no city at all**,
+speaking instead of “the town which is the seat of Government of the United Republic”. Running the leg
+over the whole capital half is now the honest expectation: it answers for about a third of them, and
+what replaces it is a statute (C3), a resolution, or nothing.
+
+**AND THE CONSTITUTE PROJECT DOES HAVE A UNITED KINGDOM, WHICH THE COUNTRY HALF SAID IT DID NOT.**
+`United_Kingdom_2013` exists and is a 3.4 MB compilation of texts collected from `legislation.gov.uk`,
+opening on Magna Carta 1297. It names no capital, so the practical conclusion of the country half stands
+— but the entry is there, and it carries a clause about the city itself: **chapter IX, the liberties of
+London.** That is where `gw-521` is cited, and at `legislation.gov.uk` rather than through Constitute,
+which is the primary text and states its own amendment history: **of the thirty-seven chapters of the
+1297 confirmation only three are still law**, I (Confirmation of Liberties), IX (Liberties of London)
+and XXIX (Imprisonment contrary to Law), and the page for IX says there are no known outstanding
+effects on it. **A capital with no codified constitution still has constitutional facts; they are
+statutes, and they are open.**
+
+**THE WMO HAS A STATION FOR ALL SIX**, which C3 could not assume — there is none in the Democratic
+Republic of the Congo at all — so the climate leg was uniform again. Two of the six normals are worth
+knowing before quoting a figure: **Ankara’s run 1926–2000**, a 75-year window rather than the usual 30,
+and **London’s 1981–2010** where Tehran’s and Bangkok’s are 1961–1990. The station name is not always
+the city (Tehran’s is Tehran-Mehrabad).
+
+**AND UNdata’S CAPITAL FOOTNOTE PAID FOR A THIRD BATCH RUNNING, ONCE SPECTACULARLY.** **Ankara’s
+figure is the sum of eight named boroughs** — Altındağ, Çankaya, Etimesgut, Gölbaşı, Keçiören, Mamak,
+Sincan and Yenimahalle — which the footnote lists outright, and **London’s is not the city at all but
+the “Urban area (Greater London)”**. Four of the six are additionally footnoted to a year before the
+table that carries them (2019 for Tehran, Ankara, Berlin and Bangkok; 2018 for Dodoma), so a capital’s
+population in a table headed 2025 is routinely six or seven years old. **Where the footnote says
+something, print it**; where it only says a year, one card a batch is enough.
+
+**AND WHERE THE HISTORY LEG FAILS, ARCHIVE.ORG ANSWERS — BUT CITE BY CHAPTER, NOT BY PAGE.** C2’s route
+carried Tehran and Bangkok: **Curzon’s *Persia and the Persian Question* (1892)** gives the Safavid
+court’s occasional residence, the Afghan sack, Agha Mohammad Khan’s choice of a seat further south than
+the Kajar lands at Astarabad, the elevation to metropolitan rank “commonly dated from 1788”, and the
+fact that the place has no river and drank through qanats after a diversion of the Karaj was abandoned;
+**Carter’s *The Kingdom of Siam* (1904)**, a volume the kingdom published about itself, gives 1782,
+Ayutthaya, the east bank, the “Venice of the East” and the canals bridged for tramways. **The DLI scan
+of Curzon’s volume 1 has page markers the OCR mangles beyond recovery** — the running head comes through
+as `TEHERAX 333` and a grep for them returns nothing — so it is cited at chapter 11, which the chapter
+headings do survive well enough to establish.
+
+**AND DOAJ IS SEARCHED BY FIELD, WITH SPACES AROUND THE OPERATOR.** `bibjson.title:Ankara AND
+bibjson.abstract:geomorphology` returns one article and the right one; the same query with `+AND+` in
+it returns zero, the plus being percent-encoded into a literal. Three of C4’s landform sources came out
+of field queries that free text could not find. **Elsevier, MDPI, Taylor & Francis and De Gruyter are
+all shut** (403, or 202 with an empty body), so a Heliyon article is cited at its **PMC** copy and a
+*Geology, Ecology and Landscapes* one could not be used at all; **Copernicus, Nature, Frontiers and the
+Turkish DergiPark and university presses are open**, and `nature.com` needs `curl -L` rather than
+WebFetch. **A city’s own institution answered twice** — Berlin’s *Umweltatlas*, whose English
+soil-associations map description is the glacial geology of the city in prose, and the German statute
+portal `gesetze-im-internet.de`, which serves the Berlin/Bonn Act of 26 April 1994 with its preamble
+reciting the Unification Treaty and the Bundestag’s resolution of 20 June 1991.
+**But the *Umweltatlas* rate-limits**: a fourth fetch in quick succession returns a 429 whose body is
+the words “Calm down”, and the text is on the `map-description` page — the `introduction` and `summary`
+pages of the same chapter carry only furniture.
+
+**AND A GEOGRAPHY CARD’S DATE LINE HAS NOWHERE TO PUT A CENTURY.** Tehran’s only firm early date is
+Curzon’s hedged “commonly dated from 1788”; had he written only “the close of the eighteenth century”
+the card would have had no sort year at all, since `cardYears` reads no century form and the population
+figures that would otherwise fill the line are census information the date line may not carry. **Read a
+history source for a YEAR, not just for a period**, and check the sort year back before committing.
+
+**AND `Afghanistan` CLAIMS THE ADJECTIVE *Afghan***, so `gw-517`’s eighteenth-century Afghan invasion of
+Persia links to a modern country entry that gives its area, population and capital. Recorded rather than
+fixed, on the `Islam Khan` reasoning: the write-round costs the sentence its precision. `Water` (the
+chemistry term) was written round three times in this batch and `Republic`, `Constitution`, `Citadel`,
+`Treaty` and `Venice` all fired correctly.
 
 ## What C3 found
 

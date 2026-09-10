@@ -1284,9 +1284,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     uniform answer for climate is the World Bank's ERA5 climatology, one request per country**
     (`cckpapi.worldbank.org/cckp/v1/era5-x0.25_climatology_tas,pr_…/<ISO3>?_format=json`), which
     answers for all 233 including the ones no UN body carries; the portal's own human-readable pages
-    are 403 here, so the API route is what is cited. **AND THE CONSTITUTE PROJECT HAS NO UNITED
-    KINGDOM**, which is not a gap but the fact that there is no codified text to carry —
+    are 403 here, so the API route is what is cited. **AND THE CONSTITUTE PROJECT NAMES NO UNITED KINGDOM
+    CAPITAL**, which is not a gap but the fact that there is no codified text to carry —
     `legislation.gov.uk` serves the Acts of Union of 1706 and 1800 and the Scotland Act 1998 instead.
+    (This said the project HAS no United Kingdom, and that was wrong: `United_Kingdom_2013` is a 3.4 MB
+    compilation of texts collected from `legislation.gov.uk`, opening on Magna Carta 1297 — corrected
+    Sep 2026, C4, which cites its chapter IX at the primary site.)
     **AND RULE 2 TAKES THE CAPITAL'S NAME OUT OF THE HISTORY BLOCK**, which on the great powers is the
     binding constraint rather than a nicety: the grid prints Capital and Largest city, so a background
     may not say Berlin, Paris, Rome, Madrid or Warsaw at all, and the Treaty of Paris, the Berlin Wall
@@ -1526,6 +1529,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     SEARCH API** (`api.jstage.jst.go.jp/searchapi/do?service=3&text=…`, then the `_pdf` path), which is
     how Tokyo's incised-valley fills were cited; `link.springer.com`, `sciencedirect.com`, `mdpi.com`,
     `journals.openedition.org` and the Egyptian Knowledge Bank's `ejpasa.journals.ekb.eg` are all shut.
+    **AND THE FIFTH LEG FAILS ON FOUR CAPITALS IN SIX, WHICH MAKES IT THE WEAKEST OF THE FIVE** (Sep
+    2026, C4): C3 found the constitution missing on two, and of Tehran, Ankara, Berlin, Bangkok, London
+    and Dodoma only **Ankara and Berlin** are named in a constitutional text. Turkey's is the strongest
+    clause on the shelf — article 3 names the city beside the language, the flag and the anthem and
+    **article 4 forbids amending it or even proposing an amendment** — where Iran's names no city (a
+    Constitute *National capital* TOPIC TAG is not a clause: read the sentence), Thailand's 2017 text
+    contains the word Bangkok nowhere, and Tanzania's speaks only of "the town which is the seat of
+    Government of the United Republic". **Expect it to answer for about a third of the capitals**, with
+    a statute, a resolution or nothing in its place. **AND UNdata's CAPITAL FOOTNOTE PAID AGAIN, ONCE
+    SPECTACULARLY**: Ankara's figure is the SUM OF EIGHT NAMED BOROUGHS, listed in the footnote, and
+    London's is not the city but the "Urban area (Greater London)" — while four of the six are dated
+    2018 or 2019 in a table headed 2025, so **print a footnote that says something and spend the
+    year-gap on one card a batch**. **AND DOAJ IS SEARCHED BY FIELD WITH SPACES ROUND THE OPERATOR**:
+    `bibjson.title:Ankara AND bibjson.abstract:geomorphology` finds the right article where the same
+    query written with `+AND+` returns zero, the plus being percent-encoded into a literal — three of
+    C4's landform sources came out of field queries free text could not reach. Elsevier, MDPI, Taylor &
+    Francis and De Gruyter are shut (403, or **202 with an empty body**), so a Heliyon paper is cited at
+    its PMC copy; Copernicus, Nature, Frontiers and the Turkish DergiPark and university presses are
+    open. **AND A CITY'S OWN INSTITUTION ANSWERED TWICE** — Berlin's *Umweltatlas*, whose English
+    soil-associations MAP-DESCRIPTION page is the glacial geology of the city in prose (the
+    `introduction` and `summary` pages of the same chapter carry only furniture), and
+    `gesetze-im-internet.de`, which serves the Berlin/Bonn Act of 26 April 1994 with its preamble
+    reciting the Unification Treaty and the Bundestag's resolution of 20 June 1991. **The *Umweltatlas*
+    rate-limits**, a fourth quick fetch answering 429 with the words "Calm down". **AND AN ARCHIVE.ORG
+    BOOK IS CITED BY CHAPTER WHERE THE OCR HAS EATEN THE PAGE NUMBERS**: the DLI scan of Curzon's
+    *Persia and the Persian Question* renders its running head as `TEHERAX 333` and a grep for page
+    markers returns nothing, while the chapter headings survive — so `gw-517` cites chapter 11, and the
+    hedged year it yields ("commonly dated from 1788") is what saves that card's date line, a century
+    being a form `cardYears` cannot read and a population being census information the line may not
+    carry. **AND `Afghanistan` CLAIMS THE ADJECTIVE *Afghan***, so an 18th-century Afghan invasion of
+    Persia links to a modern country's area and population; recorded rather than fixed, on the `Islam
+    Khan` reasoning, while `Water` was written round three times in the batch.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |
