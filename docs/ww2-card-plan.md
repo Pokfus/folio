@@ -278,6 +278,22 @@ for the Holocaust and the camps and is not interchangeable with a secondary sour
 are frequently self-serving, and several influential German generals' accounts were written to shape
 the record. Cite them as what they are.
 
+**Two open routes were measured in Sep 2026, writing `ww2-101`–`ww2-110`, and both are cheap.** The
+**Avalon Project** carries the English text of nearly every instrument this collection turns on — the
+Anti-Comintern Pact with its supplementary protocol, the Tripartite Pact, the Covenant of the League of
+Nations, the Treaty of Locarno, the Soviet-Japanese Neutrality Pact — so a card about a treaty can quote
+the treaty rather than a summary of it. And **`api.parliament.uk/historic-hansard`** serves the whole of
+the Commons debates in full text, which is the primary record for every British decision of the 1930s:
+Hoare's own account of the Paris talks and Baldwin's admission of collective responsibility are both in
+the sitting of 19 December 1935, and Eden's statement of the Rhineland case is in that of 26 March 1936.
+**A Hansard section URL is a slug that must be read off the day's index** (`/commons/<year>/<mon>/<day>/`)
+rather than guessed, and the volume and column reference is printed at the head of each section.
+
+**A caution that cost a picture.** The Commons `api.php` rate-limits hard after a dozen calls and answers
+`Special:FilePath` throughout, which is the route CLAUDE.md already records — but the fault worth naming
+here is the other one: a file in the category *Assemblies of the League of Nations* turned out to be six
+men outside a French grocer's shop. **Look at the picture.**
+
 ## Living beside the other collections
 
 **World History is the survey and never waits for this collection.** The war gets 30 cards there
@@ -450,15 +466,15 @@ definitions, which exist precisely because the wording matters.
     ww2-099  The Second United Front against Japan
     ww2-100  The Soviet-Japanese border conflicts
     ww2-101  Battles of Khalkhin Gol
-    ww2-102  The strike-north and strike-south debate
+    ww2-102  The strike-north and strike-south debate  → written as *Southern Advance*
     ww2-103  Anti-Comintern Pact
     ww2-104  Tripartite Pact
-    ww2-105  Japan and the Western empires in Asia
+    ww2-105  Japan and the Western empires in Asia  → written as *Pan-Asianism*
 
 ### The crises of the 1930s — `ww2-crisis`
 
     ww2-106  The collapse of collective security
-    ww2-107  The Manchurian crisis and the League
+    ww2-107  The Manchurian crisis and the League  → written as *Stimson Doctrine*
     ww2-108  Abyssinia Crisis
     ww2-109  Hoare-Laval Pact
     ww2-110  Remilitarisation of the Rhineland

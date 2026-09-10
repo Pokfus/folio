@@ -1202,8 +1202,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `COLL_THEME` hue ship with the plan — and **the first whose subject is inside living memory and is
   actively contested in public**, which is why its "History, not commemoration" and "Sourcing" sections are
   the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
-  `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **No card
-  has been written yet.** Not part of the site.
+  `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **`ww2-001`
+  to `ww2-110` have shipped**, so the collection is live and its empty decks are coming-soon
+  automatically, `isComingSoon` being true for a node holding no card. **Three of its lines have been
+  retitled while writing**, which is what the plan's own rule asks for: `ww2-102` is answered by *Southern
+  Advance* and `ww2-105` by *Pan-Asianism*, because a card is answered by a term rather than by a
+  description of a debate, and `ww2-107` by the *Stimson Doctrine*, since `ww2-090` and `ww2-091` had
+  already carded the League's own handling of the Manchurian crisis. Not part of the site.
 - `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
   Geography SECTION), and **the
   only plan that is not a thousand cards**: it is fifty states (`geo-001`–`geo-050`) and
@@ -6557,7 +6562,7 @@ lookup.
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 199 cards, `cnh-001` to `cnh-200` with `cnh-070` retired in Sep 2026 — next is `cnh-201`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
-| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
+| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 110 cards, contiguous — next is `ww2-111` |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
