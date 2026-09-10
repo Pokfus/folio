@@ -121,8 +121,15 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
 
 /* An ancient author is a WITNESS, not a researcher (the same distinction card-focus.js
    draws), so the two are counted apart.  The list is of authors the collections actually
-   cite; add to it rather than loosening the pattern. */
-const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius)\b/i;
+   cite; add to it rather than loosening the pattern.
+   THE LIST WAS INCOMPLETE AND THE GAP WAS ALL ROMAN.  Measured over data.js and the
+   glossary in Sep 2026, fifteen ancient authors were being counted as modern scholars —
+   Appian 183 citations, Dionysius of Halicarnassus 109, Velleius 54, Sallust 32, Aulus
+   Gellius 27, Cassius Dio 24, Florus 13 — so a Rome card resting on three passages of
+   Appian was reported under the same heading as one resting on three pages of a course
+   website, which is the one distinction this check's own header says it draws.  A checker
+   that cries wolf on a well-sourced card is one nobody runs. */
+const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial)\b/i;
 
 /* The author field of a Chicago note is what stands before the first quoted title.  A
    work with no author (a museum record, an institutional page) falls back to the text

@@ -3454,7 +3454,16 @@ window.GLOSSARY = {
 "Battle_of_the_Colline_Gate": "The Battle of the Colline Gate was fought outside Rome on the Kalends of November 82 BCE and decided the civil war in Sulla's favour.<sup class=\"fn\" data-fn=\"1\"></sup> Velleius says Pontius Telesinus, a Samnite commander who hated the very name of Rome, had gathered about 40,000 of the bravest youth still under arms, and went from rank to rank saying the last day was at hand for the Romans.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says Sulla was victorious on the right and beaten on the left, put the dead on both sides at 50,000, and had more than 8,000 prisoners shot down with darts.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Proscription": "Proscription was the Roman practice of publishing a list of citizens declared outlaw, so that their killers were paid and their property was forfeit.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says Sulla was the first to make a formal list of those he punished, proscribing about 40 senators and 1,600 knights in 82 BCE, offering prizes to assassins and rewards to informers and threatening those who concealed a proscribed man.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says the reward was two talents a head, payable even to a slave who killed his master, and that the sons and grandsons of the proscribed lost their civil rights while the property of all was confiscated.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Sulla's_dictatorship": "Sulla's dictatorship was the office Lucius Cornelius Sulla took after winning the civil war in 82 BCE, and it was the first Roman dictatorship held for no fixed term.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says both consuls were dead, so the Senate appointed an interrex, whom Sulla told to put to the people that the dictatorship be revived, not for a fixed period but until the state was firmly re-established.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says the act granted him immunity for all his past acts and, for the future, power of life and death, of confiscation, of colonisation, of founding or demolishing cities and of bestowing kingdoms.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Sullan_constitution": "The Sullan constitution is the body of law Sulla enacted as dictator, which cut the powers of the tribunes and enlarged the Senate and the priestly colleges.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Appian says he fixed the order of the magistracies, forbidding any man to be praetor before quaestor or consul before praetor or to hold the same office twice within ten years, and barred a tribune from holding any office afterwards.<sup class=\"fn\" data-fn=\"1\"></sup> Livy's summary adds that the tribunes lost the right to introduce legislation, that the colleges of priests and augurs were raised to fifteen, and that members of the equestrian order were enrolled in the Senate.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Sullan_constitution": "The Sullan constitution is the body of law Sulla enacted as dictator, which cut the powers of the tribunes and enlarged the Senate and the priestly colleges.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Appian says he fixed the order of the magistracies, forbidding any man to be praetor before quaestor or consul before praetor or to hold the same office twice within ten years, and barred a tribune from holding any office afterwards.<sup class=\"fn\" data-fn=\"1\"></sup> Livy's summary adds that the tribunes lost the right to introduce legislation, that the colleges of priests and augurs were raised to fifteen, and that members of the equestrian order were enrolled in the Senate.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Fall_of_the_Roman_Republic": "The fall of the Roman Republic is the end of Rome's century of civil war, after which one man governed while the Republic's own offices and titles stayed in use.<sup class=\"fn\" data-fn=\"1\"></sup> Tacitus sets the sequence out as a series of powers that failed to last: neither Cinna nor Sulla created a lasting despotism, Pompey and Crassus forfeited their power to Caesar, and Lepidus and Antony gave up their swords to Augustus.<sup class=\"fn\" data-fn=\"1\"></sup> Appian ends his civil wars the same way, saying the Roman state passed out of many commotions into harmony and monarchy, and Tacitus describes Augustus laying down his triumviral title and taking the style of consul instead.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Revolt_of_Lepidus": "The revolt of Lepidus was a short civil war in Italy raised by Marcus Aemilius Lepidus, one of the two consuls elected for the year Sulla died.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says Lepidus and his colleague Quintus Catulus belonged to opposite factions and quarrelled from the first day, that Lepidus offered the Italians back land Sulla had taken from them, and that the Senate made both men swear not to carry the dispute as far as war.<sup class=\"fn\" data-fn=\"1\"></sup> He returned from his province under arms instead, was beaten near the Campus Martius, and Florus says he was declared an enemy by the Senate and died in Sardinia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Quintus_Sertorius": "Quintus Sertorius was a Roman commander who held much of Spain against Rome for eight years after losing the civil war to Sulla.<sup class=\"fn\" data-fn=\"3\"></sup> Plutarch says he fought the Cimbri, spied among them in Celtic dress for Marius, lost an eye in the Social War and left Italy for Spain when Sulla's victory was certain, after which the Lusitanians invited him to lead them.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Appian says he formed a council of three hundred exiles and called it the Roman Senate in derision of the real one, and Velleius says Perpenna murdered him at a banquet at Osca.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Sertorian_War": "The Sertorian War was fought in Spain between Rome and an army of Lusitanians, Celtiberians and Roman exiles under Quintus Sertorius.<sup class=\"fn\" data-fn=\"1\"></sup> Appian calls it the last of the troubles Sulla left behind and says it was hard because it was waged against other Romans as well as against Spaniards, while Florus doubts whether to name it a war against enemies or a civil war.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Rome sent Metellus Pius and then Pompey, who was given proconsular power while still a knight, and Livy's summary says the Spanish provinces were recovered in almost the tenth year after the fighting began.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Pompey": "Pompey was a Roman commander whose career was built on extraordinary commands rather than on the ordinary sequence of magistracies.<sup class=\"fn\" data-fn=\"1\"></sup> Velleius says he was 23 and acting on his own initiative when he raised an army from Picenum with his own money, and Plutarch says he had been appointed general by nobody at all and levied three legions after setting up a tribunal at Auximum.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He triumphed while still a Roman knight, was sent against Sertorius with proconsular power, held the consulship of 70 BCE without having been quaestor or praetor, and was killed in Egypt in his 58th year.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Marcus_Licinius_Crassus": "Marcus Licinius Crassus was a Roman politician whose fortune was the largest in public life of his generation and who commanded the army that ended the rising of Spartacus.<sup class=\"fn\" data-fn=\"3\"></sup> Plutarch says he began with 300 talents and was worth 7,100 before his Parthian expedition, having bought the property of the proscribed cheaply and kept over 500 slave builders with whom he bought burning houses and the houses beside them.<sup class=\"fn\" data-fn=\"1\"></sup> Giving up any rivalry with Pompey in the field, he built influence by advocacy, money-lending and canvassing for other men, then took the praetorship nobody else would stand for and held the consulship of 70 BCE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Spartacus": "Spartacus was a Thracian gladiator who led the largest slave rising Rome ever faced in Italy.<sup class=\"fn\" data-fn=\"1\"></sup> Appian says he had served as a soldier with the Romans, had since been a prisoner and been sold for a gladiator, and was in a training school at Capua when he persuaded about seventy comrades to strike for their freedom, while Florus calls him a mercenary who became a soldier, a deserter, a highwayman and then a gladiator.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Plutarch says he tried to lead his men over the Alps to their homes and that they refused, and that he died on his feet after killing his own horse.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Consulship_of_70_BCE": "The consulship of 70 BCE was held jointly by Pompey and Crassus, and undid the most conspicuous parts of Sulla's political settlement.<sup class=\"fn\" data-fn=\"2\"></sup> Appian says both men stood for the office while keeping armies encamped near the city and that neither would disband first, and Livy's summary says a special decree of the Senate was needed before Pompey could be elected, since he had held no quaestorship and was still a Roman knight.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Plutarch says the two then differed on almost every measure, that the year was otherwise barren of achievement, and that they were reconciled only when the people begged them from the forum.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Restoration_of_the_tribunate": "The restoration of the tribunate was the Roman law of 70 BCE that returned to the tribunes of the plebs the powers Sulla had taken from them as dictator.<sup class=\"fn\" data-fn=\"2\"></sup> Livy's summary says Sulla had diminished those powers by removing the right to introduce legislation, and Velleius says what he left of the office was the shadow without the substance.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Cicero, speaking in the same year, says the popular demand for the measure was only nominally about the office and was really a demand for honest law courts, and reports Pompey announcing the restoration to a meeting near the city before he entered office.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5111,7 +5120,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Civil_war_of_83_BCE": "83 – 82 BCE",
 "Battle_of_the_Colline_Gate": "1 November 82 BCE",
 "Sulla's_dictatorship": "from 82 BCE",
-"Sullan_constitution": "81 BCE"
+"Sullan_constitution": "81 BCE",
+"Revolt_of_Lepidus": "78 – 77 BCE",
+"Quintus_Sertorius": "died 72 BCE",
+"Sertorian_War": "c. 80 – 72 BCE",
+"Spartacus": "died 71 BCE",
+"Consulship_of_70_BCE": "70 BCE",
+"Restoration_of_the_tribunate": "70 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6912,7 +6927,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Greco-Persian_Wars": ["Persian Wars","Persian War","Median war"],
 "Greek_theatre": ["Greek theater","Greek drama"],
 "Gracchi_brothers": ["Gracchi","Tiberius Gracchus","Gaius Gracchus","Sempronius Gracchus"],
-"Third_Servile_War": ["Spartacus","war of Spartacus","Spartacus revolt"],
+"Third_Servile_War": ["war of Spartacus","Spartacus revolt"],
 "Julius_Caesar": ["Caesar","Gaius Julius Caesar"],
 "Gallic_Wars": ["Gallic War","Vercingetorix","Alesia"],
 "Caesars_civil_war": ["Caesar's civil war","Pharsalus","Battle of Pharsalus","Rubicon"],
@@ -7130,7 +7145,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_the_Colline_Gate": ["Colline Gate"],
 "Proscription": ["proscription lists"],
 "Sulla's_dictatorship": ["dictatorship of Sulla"],
-"Sullan_constitution": ["Sulla's laws","Sullan laws"]
+"Sullan_constitution": ["Sulla's laws","Sullan laws"],
+"Fall_of_the_Roman_Republic": ["fall of the Republic"],
+"Revolt_of_Lepidus": ["Lepidus's revolt","rising of Lepidus"],
+"Quintus_Sertorius": ["Sertorius"],
+"Sertorian_War": ["war with Sertorius"],
+"Pompey": ["Pompey the Great","Pompeius Magnus"],
+"Marcus_Licinius_Crassus": ["Marcus Crassus"],
+"Consulship_of_70_BCE": ["consulship of Pompey and Crassus"],
+"Restoration_of_the_tribunate": ["restoration of tribunician power"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10625,7 +10648,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_the_Colline_Gate": ["battle","event","history","warfare","rome"],
 "Proscription": ["practice","institution","law","history","rome"],
 "Sulla's_dictatorship": ["institution","event","history","politics","rome"],
-"Sullan_constitution": ["concept","institution","law","history","rome"]
+"Sullan_constitution": ["concept","institution","law","history","rome"],
+"Fall_of_the_Roman_Republic": ["event","history","politics","warfare","rome"],
+"Revolt_of_Lepidus": ["event","history","politics","warfare","rome"],
+"Quintus_Sertorius": ["person","history","politics","warfare","rome"],
+"Sertorian_War": ["event","history","warfare","rome","hispania"],
+"Pompey": ["person","history","politics","warfare","rome"],
+"Marcus_Licinius_Crassus": ["person","history","politics","warfare","rome"],
+"Spartacus": ["person","history","warfare","practice","rome"],
+"Consulship_of_70_BCE": ["event","history","politics","law","rome"],
+"Restoration_of_the_tribunate": ["event","history","politics","law","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
