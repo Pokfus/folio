@@ -2910,3 +2910,72 @@ case of CROSSREF being wrong about a TITLE**: it registers the Slovene *Podoba i
 Zahodnega kraljestva* for an article the publisher's own page titles *Image and Role of the Queen
 Mother of the West in Han Grave Art*. The journal registered its translated title; the citation
 stands. **Read the record against the publisher before correcting anything.**
+
+## cnh-201 – cnh-210, the Qin deck's second ten (Sep 2026)
+
+**ONE VOLUME CARRIES THE WHOLE QIN DECK, AND ITS PAGE NUMBERS ARE RECOVERABLE FROM THE OCR.**
+Chavannes' *Mémoires historiques* vol. 2 is the Qin annals in full — the book-burning edict, the
+460 put to death, the southern commanderies, Meng Tian's 300,000, the imperial highways and the
+Straight Road, the mercury rivers of the tomb, Xu Fu's three mountains and the great fish — and
+archive.org's `_djvu.txt` keeps the running heads (`TS'IN CHE-HOANG 173`) well enough to pin a
+citation. **The method is a dozen lines**: scan backwards from a passage for the nearest short
+line whose letters are all capitals and which contains a two- or three-digit number. Every
+Chavannes page in this batch was found that way; without it the volume is uncitable at the page
+level and the deck falls back to vaguer references.
+
+**THE TWO-SOURCES-PER-AUTHOR CAP IS WHAT SHAPES A QIN CARD'S APPARATUS, AND FINDING THE FIFTH
+SOURCE IS THE WORK.** `check-cards.js` fails a card citing one author in three of its sources, so
+Chavannes can carry at most two, and Giles and Mayers two each. Each card here is therefore built
+as Chavannes ×2 + Giles + Mayers + **one modern open paper**, and the modern paper is nearly
+always a SCIENCE paper rather than a history one: laser radar reading mercury over the tomb mound,
+carbon and nitrogen isotopes on the prisoners' mass grave, the chromium on the bronze weapons,
+cyanobacteria blooming in Pit 1, spatial-interaction modelling of the Zhidao. **Ask what has been
+MEASURED about a Qin subject before concluding there is no modern literature on it.**
+
+**AND THE STRANGEST OF THOSE IS A FISH PAPER.** Nothing openable from here is a study of the
+Lingqu canal — the Springer chapters are behind the 3,038-byte Client Challenge, the tourism
+journals say nothing a card can use — but **freshwater-fish phylogeography cites it constantly**,
+because the canal is a corridor between the Yangtze and Pearl basins that shows up in
+mitochondrial haplotypes. Two independent studies (Genes 2025, IJMS 2012) invoke it by name to
+explain types shared across the Nanling divide, and between them they carry the canal's geography,
+its age and a consequence no historical source states. **When the history literature on a
+structure is shut, ask which science has to take account of it.**
+
+**`data.js` IS ONLY THE INDEX, AND A FIND-AND-REPLACE OVER IT SILENTLY MISSES THE PROSE.** The
+abstract, sources, `why` and image live in `data-extra/<prefix>.js` (see `.claude/card-io.js`). A
+house-style fix applied to `data.js` alone reported success, changed the question and left the
+same words standing in the abstract and the why-answers. CLAUDE.md did not mention `data-extra/`
+at all and now does.
+
+**AND THE SAME TRAP HAD SWALLOWED `source-audit.js` WHOLE.** It required `data.js` directly, so
+`sources` came back empty for every card and it reported the entire 2,905-card corpus — every one
+of them cited — as *uncited, not yet researched*. Nothing threw and the totals added up. Repointed
+at `card-io.js`; it now reports 2,905 of 2,905 at the bar. **card-io.js names `gloss-source-audit.js`
+doing exactly this after the glossary split; the card split left this one behind.**
+
+**A CROSSREF LOOKUP FOR THE AUTHOR LIST FOUND A WRONG ARTICLE NUMBER IN THE SHIPPED CORPUS.** Bevan
+et al.'s ink-marks paper is *Heritage Science* 6 (2018): **75**, not 55, and 55 was on the
+`Terracotta_Army` glossary term and on a `wh-` card. **Pull the metadata rather than copying a
+citation already in the repo** — this is N4's fabricated-author rule one field over, and the field
+nobody re-checks.
+
+**THE PICTURE SEARCH FAILED THE SAME WAY IT ALWAYS DOES.** `Xu Fu` returned the calligrapher Mi Fu
+and a Qing seal-script scholar; `Meng Tian` returned ninety pages of a Catholic doctrinal treatise
+(*Tian xue bian jing lu*). Searching the CHARACTERS answered for one of them — 徐福 found the
+granite statue at Weihai and the Japanese landing steles — and **found nothing at all for 蒙恬**, so
+`cnh-206` ships with no picture and this is the record of why. Two other findings: the Commons
+"Lingqu Canal and Qin Conquest" file is a **museum wall label**, the fault this file has now caught
+four times; and **a constructed `upload.wikimedia.org` path is wrong four times out of four** —
+every one of `cnh-201`–`cnh-204`'s first URLs 404'd, and only certain thumbnail widths are served
+(1600px 400s where 1920px is 200), so take the URL from `imageinfo` and check it with curl.
+
+**A CC BY PDF CAN STILL BE A CIPHER, AND THIS ONE IS A THIRD VARIETY.** The Zhidao paper is CC BY
+4.0 and 403 at Elsevier; the UCL Discovery copy downloads, and its body text extracts as a
+**monoalphabetic substitution over the CID stream** (`GournalofXrchaeologicalPcience` for *Journal
+of Archaeological Science*), solvable on cribs, with the **digits scrambled separately** — so the
+prose is readable and no figure in it may be quoted. The running heads came out under a plain
+Caesar shift, which is what gave the volume and article number away.
+
+**AND cnh-210 WAS RENAMED IN THE PLAN.** Its line read *Qin Shi Huang and the search for
+immortality*, and the emperor already has `cnh-192`; the answer term a reader can be asked for is
+**Xu Fu**, so the card is his and the line now says so.

@@ -10,8 +10,15 @@
 //   short    — below it, and nobody has researched it yet          (amber chip)
 //   blocked  — below it, and a batch concluded it cannot be raised (red chip; `card.sourcesBlocked`)
 //
-// No dependencies, no browser. It reads the real data.js and the real app.js, slicing SRC_TARGET out of
-// the latter by text so this script and the site can never disagree about what the bar is.
+// No dependencies, no browser. It reads the real card corpus and the real app.js, slicing SRC_TARGET out
+// of the latter by text so this script and the site can never disagree about what the bar is.
+//
+// IT GOES THROUGH `card-io.js` AND NOT THROUGH `data.js`, and that is the whole of a bug this script
+// carried from the day the card corpus was split in two: `sources` lives in `data-extra/<prefix>.js`, so
+// reading data.js alone gave every card an empty list and the audit reported the WHOLE corpus — 2,905
+// cards, every one of them cited — as "uncited, not yet researched". That is card-io.js's own warning
+// happening to the very tool it names (`gloss-source-audit.js` did it after the glossary split), and it
+// is the quietest kind of failure: nothing throws, the totals add up, and the number is simply false.
 const fs = require("fs"), path = require("path");
 const root = path.join(__dirname, "..");
 
@@ -22,7 +29,7 @@ const m = /const SRC_TARGET = (\d+);/.exec(appSrc);
 if (!m) { console.error("ERROR: could not find `const SRC_TARGET` in app.js — has the constant been renamed?"); process.exit(1); }
 const TARGET = +m[1];
 
-const cards = loadWindow(path.join(root, "data.js")).CARD_DATA || [];
+const cards = require("./card-io").loadCards().cards;
 const rows = cards.map((c) => {
   const src = Array.isArray(c.sources) ? c.sources : [];
   const why = typeof c.sourcesBlocked === "string" ? c.sourcesBlocked.trim() : "";

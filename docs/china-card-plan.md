@@ -596,7 +596,7 @@ already shipped before adding it.
     cnh-207  The Qin long walls
     cnh-208  Mausoleum of the First Qin Emperor
     cnh-209  Terracotta Army
-    cnh-210  Qin Shi Huang and the search for immortality
+    cnh-210  Xu Fu and the search for immortality
     cnh-211  The Shaqiu plot
     cnh-212  The fall of the Qin
 

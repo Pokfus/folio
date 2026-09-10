@@ -868,7 +868,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-200` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-210` have
   shipped, less `cnh-070`, which was retired in Sep 2026 and must not be written again** — so the
   lowest unused number is not the next card, and the rest of the collection is open ground. **The `placeholder: true` that had held it back
   was CLEARED on request in Aug 2026**, so its cards reach the daily review, the games, the card of
@@ -1490,6 +1490,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
   because a file nobody is told to read is a file nobody reads. Eight docs were in exactly that state
   when it was written — unreferenced from here, several of them holding OPEN work.
+- `data-extra/<prefix>.js` + `.claude/card-io.js` — **THE CARD CORPUS IS TWO HALVES AND `data.js` IS
+  ONLY THE INDEX.** The light half (id, question, answer, date line, tags, difficulty, facts, map,
+  locator) stays on the eager path; `abstract`, `sources`, `why`, `quote` and every non-artwork card's
+  `image` live in `data-extra/<prefix>.js`, ONE FILE PER COLLECTION, fetched when a reader reveals a
+  card in it (an ARTWORK card's picture stays eager — there the picture is the question).
+  **EVERY HELPER GOES THROUGH `.claude/card-io.js`** (`loadCards` / `writeCards`), which joins the two
+  on `id` and writes both or neither: a reader that requires `data.js` alone sees every card with an
+  empty abstract and reports a cited corpus as uncited, and a writer that does so deletes 12.6 MB
+  without erroring. **AND A FIND-AND-REPLACE OVER `data.js` ALONE SILENTLY MISSES THE PROSE** — a house-style
+  fix applied there reports success, changes the question and leaves the same words standing in the
+  abstract and the why-answers (Sep 2026, on the `cnh-201`–`cnh-210` batch). Read `card-io.js`'s own
+  header before touching either half.
 - `artefacts-extra.js` + `.claude/split-artefacts.js` + `.claude/artefact-io.js` — **the artefact pool
   is TWO files**, and it is the glossary split below in miniature. `desc`, `sources` and `image` were
   **237.5 KB of `artefacts.js`'s 251 — 94%** — on the EAGER path, and **not one of them is read until a
@@ -6555,7 +6567,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 199 cards, `cnh-001` to `cnh-200` with `cnh-070` retired in Sep 2026 — next is `cnh-201`; the collection is open to study |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 209 cards, `cnh-001` to `cnh-210` with `cnh-070` retired in Sep 2026 — next is `cnh-211`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |

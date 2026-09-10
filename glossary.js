@@ -3434,7 +3434,16 @@ window.GLOSSARY = {
 "Macedonian_phalanx": "The Macedonian phalanx was the infantry formation devised by Philip II in the 350s BCE, in which men armed with a very long pike stood sixteen ranks deep and advanced as a single body.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius calculates that the pikes of the first five ranks all reached past the front, so that five points faced any enemy who met one man of the leading rank, and held it irresistible in a frontal attack.<sup class=\"fn\" data-fn=\"2\"></sup> He also explains why Rome beat it: it needs flat, bare ground without ditches or banks, and an enemy who declines to come down into such country can avoid it altogether.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Philippics": "The Philippics are the speeches in which Demosthenes urged Athens to act against Philip II of Macedon, and the name has since been used of any sustained political attack on a person.<sup class=\"fn\" data-fn=\"1\"></sup> Their argument is that the danger is Athenian delay rather than Macedonian strength, the First Philippic of 351 BCE holding that the position is bad only because nothing has been done, and so can be mended.<sup class=\"fn\" data-fn=\"1\"></sup> By the Third Philippic of 341 the tone has hardened into abuse, with Philip called neither a Greek nor a barbarian from anywhere respectable but a knave from Macedonia.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Sarissa": "The sarissa was the pike carried by the Macedonian infantry, far longer than the hoplite spear it replaced and held in both hands rather than one.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius gives its length as sixteen cubits by the original design and fourteen in practice, of which four are taken up by the grip and by the counterweight, leaving about ten projecting ahead of each man.<sup class=\"fn\" data-fn=\"1\"></sup> Holding it in both hands changed the rest of the equipment, since the large hoplite shield gave way to a smaller one slung from the shoulder and the soldier could no longer cover himself as he chose.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Third_Sacred_War": "The Third Sacred War was fought over the shrine of Apollo at Delphi from the 350s BCE, and it ended by bringing the king of Macedon into the religious politics of central Greece.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a court case, the Phocians being fined by the Amphictyonic Council for cultivating consecrated land and seizing the shrine rather than paying, then hiring mercenaries with its treasure.<sup class=\"fn\" data-fn=\"1\"></sup> Philip II finished it in 346 BCE, and the settlement expelled the Phocians from the Council, broke their cities into villages and gave their two votes to Philip and his descendants.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Third_Sacred_War": "The Third Sacred War was fought over the shrine of Apollo at Delphi from the 350s BCE, and it ended by bringing the king of Macedon into the religious politics of central Greece.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a court case, the Phocians being fined by the Amphictyonic Council for cultivating consecrated land and seizing the shrine rather than paying, then hiring mercenaries with its treasure.<sup class=\"fn\" data-fn=\"1\"></sup> Philip II finished it in 346 BCE, and the settlement expelled the Phocians from the Council, broke their cities into villages and gave their two votes to Philip and his descendants.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Shuihudi_Qin_bamboo_texts": "The Shuihudi Qin bamboo texts are a group of inscribed bamboo slips recovered in 1975 from the grave of a Qin official at Yunmeng in Hubei, and the earliest documents of Chinese imperial law that can be read directly.<sup class=\"fn\" data-fn=\"1\"></sup> The slips were lifted from the inner coffin in eight piles and sorted into ten manuscripts, among them three collections of statutes, a handbook of criminal procedure, a chronicle and an almanac.<sup class=\"fn\" data-fn=\"2\"></sup> Because they are an official's own working copies rather than later quotation, they are a principal source for how the government of the Qin was carried on.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Burning_of_books_and_burying_of_scholars": "The burning of books and burying of scholars is the name given to two acts of the Qin regime in China, an edict of 213 BCE destroying the histories and the classics and the killing of some 460 learned men at the capital the following year.<sup class=\"fn\" data-fn=\"1\"></sup> The edict spared works on medicine, divination and agriculture, punished discussion of the Odes and the Documents with death, and sent those who had not burnt their books within thirty days to branding and forced labour.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Both halves of the English name are disputed, since the dead included adepts of magic as well as followers of Confucius.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Qin_road_system": "The Qin road system is the network of highways laid out across the first Chinese empire from 220 BCE, together with the military road driven north from the capital region to the frontier.<sup class=\"fn\" data-fn=\"1\"></sup> A later text quoted by a commentator gives the highways a width of fifty paces, says they were planted with trees, and has them running from the capital to the far east and south of the empire.<sup class=\"fn\" data-fn=\"1\"></sup> Because such roads were built of rammed earth rather than stone, little of the fabric survives, and the course of the northern road has been studied by modelling movement between the forts along that frontier.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Lingqu": "The Lingqu is a canal in the north of Guangxi in southern China, cut in the third century BCE to join the headwaters of the Xiang, which drains north into the Yangtze system, with the Gui, which drains south into the Pearl.<sup class=\"fn\" data-fn=\"1\"></sup> It carries water across the watershed of the Nanling ranges, and was dug to move supplies to armies campaigning beyond those mountains.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Tradition credits it to an official of the Qin, who is described as an engineer and given a channel of sixty li with a series of locks.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Qin_conquest_of_the_south": "The Qin conquest of the south is the campaign by which the first Chinese empire took the country beyond the Nanling ranges, the land of the Yue peoples, in the years around 214 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Three commanderies were made of the ground taken, one of them reaching into what is now northern Vietnam, and they were settled with people the regime wanted rid of, the condemned being banished there in garrison.<sup class=\"fn\" data-fn=\"1\"></sup> When the dynasty fell, the officer left in charge at the southern seat of government declared himself an independent prince and ruled the region as a kingdom of his own.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Meng_Tian": "Meng Tian was a general of the Qin in China who died in 209 BCE, made commander-in-chief of its forces in 221 BCE, the year the empire was proclaimed.<sup class=\"fn\" data-fn=\"1\"></sup> He was sent north with three hundred thousand men against the peoples of the steppe, took the land inside the great bend of the Yellow River, organised it into prefectures filled with deported convicts, and built a wall and forts along the new frontier.<sup class=\"fn\" data-fn=\"2\"></sup> After the emperor's death he fell under suspicion and was forced to take his own life; tradition also makes him the inventor of the writing brush.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Qin_long_walls": "The Qin long walls are the rammed-earth frontier walls raised and linked along the northern border of the first Chinese empire from 214 BCE, built by the army that had just taken the country inside the Yellow River bend.<sup class=\"fn\" data-fn=\"1\"></sup> They were neither the first walls of the kind nor a single line, since rival states had built such walls earlier, one of them against Qin itself.<sup class=\"fn\" data-fn=\"2\"></sup> Their solid earthen platforms differ sharply from the hollow brick towers of much later work, and survey of a surviving Qin line shows watchtowers whose heights and plans vary from sector to sector.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Mausoleum_of_the_First_Qin_Emperor": "The Mausoleum of the First Qin Emperor is the burial complex raised for him below Mount Li, east of modern Xi'an in China, under a mound planted so that it should look like a hill.<sup class=\"fn\" data-fn=\"1\"></sup> The annals say more than seven hundred thousand men worked on it, that the ground was dug down to the water table, and that mercury was made into the rivers and the sea beneath a ceiling of heavenly signs.<sup class=\"fn\" data-fn=\"1\"></sup> Measurement above the unopened mound finds atmospheric mercury well above the local background, and a mass grave nearby holds men in iron leg shackles whose diet points to origins far to the south.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Xu_Fu": "Xu Fu was a magician from the state of Qi who persuaded the First Emperor of China to send an expedition to sea in 219 BCE in search of the immortals and the drug that prevents death.<sup class=\"fn\" data-fn=\"1\"></sup> He sailed with several thousand young men and women towards three mountains believed to stand in the Eastern Sea, and by a fuller account was later given three thousand more, with craftsmen and seed grain, after reporting the demands of a sea god.<sup class=\"fn\" data-fn=\"2\"></sup> That account has him find a calm and fertile country, settle there, make himself king and never return.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5074,7 +5083,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Macedonian_phalanx": "from 359 BCE",
 "Philippics": "351 BCE – 341 BCE",
 "Sarissa": "from 359 BCE",
-"Third_Sacred_War": "356 BCE – 346 BCE"
+"Third_Sacred_War": "356 BCE – 346 BCE",
+"Shuihudi_Qin_bamboo_texts": "3rd century BCE",
+"Burning_of_books_and_burying_of_scholars": "213–212 BCE",
+"Qin_road_system": "from 220 BCE",
+"Lingqu": "3rd century BCE",
+"Qin_conquest_of_the_south": "c. 214 BCE",
+"Meng_Tian": "d. 209 BCE",
+"Qin_long_walls": "from 214 BCE",
+"Mausoleum_of_the_First_Qin_Emperor": "sealed 210 BCE",
+"Xu_Fu": "3rd century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7079,7 +7097,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Politics_(Aristotle)": ["Aristotle's Politics"],
 "Ladder_of_love": ["ascent of love","Platonic ascent"],
 "Demosthenes_(orator)": ["Demosthenes the orator"],
-"Philippics": ["Philippic"]
+"Philippics": ["Philippic"],
+"Shuihudi_Qin_bamboo_texts": ["Shuihudi Qin bamboo slips","Shuihudi slips","Shuihudi texts"],
+"Burning_of_books_and_burying_of_scholars": ["burning of the books","Fenshu kengru"],
+"Qin_road_system": ["Qin roads","Qin Straight Road","Zhidao"],
+"Lingqu": ["Lingqu Canal","Ling Canal"],
+"Qin_conquest_of_the_south": ["Qin conquest of Lingnan"],
+"Meng_Tian": ["Meng T'ien","Mêng T'ien"],
+"Qin_long_walls": ["Qin walls","Qin wall"],
+"Mausoleum_of_the_First_Qin_Emperor": ["mausoleum of Qin Shi Huang","Qin Shi Huang's mausoleum","Qin Shihuang Mausoleum"],
+"Xu_Fu": ["Hsü Fu","Xu Shi","Hsü Shih"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10554,7 +10581,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Macedonian_phalanx": ["concept","warfare","history","greece"],
 "Philippics": ["text","literature","politics","history","greece"],
 "Sarissa": ["object","warfare","technology","history","greece"],
-"Third_Sacred_War": ["event","war","religion","history","greece"]
+"Third_Sacred_War": ["event","war","religion","history","greece"],
+"Shuihudi_Qin_bamboo_texts": ["text","object","archaeology","history","china"],
+"Burning_of_books_and_burying_of_scholars": ["event","history","china","literature","religion"],
+"Qin_road_system": ["building","technology","history","warfare","china"],
+"Lingqu": ["place","technology","geography","history","china"],
+"Qin_conquest_of_the_south": ["event","warfare","history","china"],
+"Meng_Tian": ["person","warfare","history","china"],
+"Qin_long_walls": ["building","warfare","archaeology","history","china"],
+"Mausoleum_of_the_First_Qin_Emperor": ["place","building","archaeology","history","china"],
+"Xu_Fu": ["person","mythology","religion","history","china"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
