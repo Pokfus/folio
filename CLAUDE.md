@@ -1587,6 +1587,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   is China's own card, the helmet inscribed by Miltiades is Miltiades', the modius is the taxation card's
   because the tax was grain. And **the fetcher caches by CARD ID**, so a second candidate for one card
   silently returns the first unless `--force` is passed.
+- `.claude/add-card-quotes.js` — writes **`card.quote`** onto cards that already exist:
+  `node .claude/add-card-quotes.js <batch.json> [--dry] [--replace]` over
+  `{ "cards": { "<id>": { book, n, cite, text } } }`. **A TOOL RATHER THAN AN EDIT, because nothing else
+  could set the field**: `add-card.js` only ever adds a WHOLE new card, so on a corpus of 2,895 the
+  Library's best feature was permanently dormant — 23 cards carried a quotation when this was written
+  against several hundred citing a work sitting on the shelf. **THE PASSAGE IS STILL AUTHORED, NEVER
+  EXTRACTED**; what the tool adds is a REFUSAL of a transcription that is not what the book says, which
+  is the one half a machine can check and a reader cannot. It checks the book against app.js's own
+  `BOOKS` registry, the section against the generated `books/<id>.js`, and **the WORDS against that
+  section — using `check-cards.js`'s own comparison, SLICED OUT by text rather than copied**, so a rename
+  there stops this rather than silently checking something else.
+  · **A BEKKER PAGE NUMBER IS NOT A BARE DIGIT AND IS NOT DROPPED.** The shared normaliser drops tokens
+    that are purely digits — several editions run their section numbers inline — and `1103b` is not one,
+    so a quotation of the *Nicomachean Ethics* must stop before it or step over it with an explicit
+    ` … `. The same holds for any edition whose apparatus carries a letter.
+  · **AND THE ONE MISTAKE THE CHECKER CATCHES IS THE ONE A HUMAN MAKES**: the failure that cost a round
+    here was a semicolon retyped as a full stop. The tool named the first stray words, which is exactly
+    what a verbatim check is for.
+  Refuses a card that already has one without `--replace`, validates the whole batch before writing
+  anything, splices LINES rather than rewriting `data.js`, and resplits so the passage lands in the lazy
+  half. Not part of the site.
 - `.claude/check-image-free.js` — **is this picture already on something?**:
   `node .claude/check-image-free.js "<file name or url>" … | --batch=<batch.json>`, exit 1 if any is
   taken. **RUN IT BEFORE FETCHING A REPLACEMENT, NEVER AFTER.** `check-cards.js` reports which cards
