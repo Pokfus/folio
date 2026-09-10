@@ -128,7 +128,13 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
 /* An ancient author is a WITNESS, not a researcher (the same distinction card-focus.js
    draws), so the two are counted apart.  The list is of authors the collections actually
    cite; add to it rather than loosening the pattern. */
-const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|sallust|florus|historia augusta|eusebius|julius caesar|caesar|kautilya|zosimus|procopius|ammianus|cassius dio|orosius)\b/i;
+/* THE CHINESE CLASSICS ARE WITNESSES TOO, and they reach the list by their TITLES because
+   most of them are anonymous.  A translated ancient work is cited ancient-author-first with
+   the translator after (Livy trans. Roberts, the Greek Anthology trans. Paton), so an
+   anonymous one opens on its title — and the title is then what `authorOf` returns.  Before
+   the China cards were re-cited, five different classics translated by James Legge read as
+   one modern scholar cited five times, which is the opposite of what rule 1 is for. */
+const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|sallust|florus|historia augusta|eusebius|julius caesar|caesar|kautilya|zosimus|procopius|ammianus|cassius dio|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books)\b/i;
 
 /* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
    the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,

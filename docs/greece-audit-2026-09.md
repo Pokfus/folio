@@ -788,14 +788,62 @@ OAPEN.** Two reviews were read and set aside for saying nothing the cards needed
 field guide, whose review is about finding ruins) and Poehler on Kolb's *Roman Roads* (which is about
 milestones in the provinces, not the Via Aemilia).
 
-**WHERE THE PASS STANDS.** Rutter: 39 cards → 1. William Smith: 13 → 0. Over-cited across the whole
-corpus: 116 → 65. The next author is James Legge (11 `cnh-` cards, plus `wh-399`), then a tail of three
-or fewer each — William Frederick Mayers, Mary Ann Clark, Arthur J. Evans, Jean Gran-Aymerich, Platner
-and Ashby. **Start with BMCR and OAPEN**, in that order for a subject with a monograph on it and the
-other way round for one covered by an edited volume; between them they have carried twenty-four of the
-last twenty-eight substitutions here. For Legge the shape of the problem is different — a translator
-cited for the text he translated is nearer `check-cards.js`'s ancient-witness case than its
-one-scholar case — so read those cards before assuming a substitute is what they need.
+**BATCH R13 — 2026-09-10. THE LEGGE CARDS, AND THEY DID NOT NEED RE-SOURCING AT ALL: fourteen cards,
+over-cited 65 → 51.** `cnh-008`, `cnh-010` to `cnh-014`, `cnh-025`, `cnh-055`, `cnh-057`, `cnh-059`,
+`cnh-060`, `cnh-067`, `cnh-068` and `wh-399`. **The finding is that this was a CITATION-FORM fault
+wearing the shape of an over-citation**, and it is the first time in the pass that the right answer was
+to change how a source is written rather than which source it is.
+
+**JAMES LEGGE IS A TRANSLATOR, NOT THE AUTHOR OF WHAT HE TRANSLATED.** `cnh-010` Yao cited the Shû King,
+the Yî King, the *Analects* and the *Mencius* — four different ancient works — and every one of them
+opened `James Legge, trans., …`, so `check-cards.js`, which takes a citation's author from the first
+field, read four ancient witnesses as one modern scholar cited four times. The collection's own record
+had already reasoned it out: `docs/china-card-findings.md` on `cnh-010` says "Four different WORKS by one
+out-of-copyright translator is variety; four citations of one work would not be." **The card was right
+and the citation was wrong.** They are now written the way every other translated ancient work in the
+corpus is written — `Livy … trans. Canon Roberts`, `Plutarch … trans. Bernadotte Perrin`, and for an
+anonymous work its own title first, which the corpus already does for the *Greek Anthology* and the
+*Historia Augusta*. Forty-two Legge citations and nine Chavannes ones were rewritten.
+
+**THE DISCRIMINATOR IS WHETHER THE CITATION POINTS AT THE TEXT OR AT THE PROLEGOMENA, AND IT IS A
+JUDGEMENT PER CITATION.** Legge's Shoo King is a translation with a 250-page introduction of his own, so
+`James Legge, prolegomena to <i>The Shoo King</i>` is exactly right where the card is leaning on his
+argument and exactly wrong where it is quoting the text. Eight citations stayed in his name on that
+test, which is why `cnh-060` still failed after the rewrite and the other thirteen did not.
+
+**`cnh-060` IS THEREFORE THE ONE REAL SUBSTITUTION, and it was already half in the card's own hand.**
+Three of its five sources were Legge's Prolegomena. Yun Kuen Lee's "Building the Chronology of Early
+Chinese History" (*Asian Perspectives* 41.1, open at ScholarSpace) was already source 4 cited at the
+whole article; read properly it carries two separate things at two separate pages — Li Xueqin's
+screening of the Xia entries at p. 22, which is what source 4 was standing for, and at p. 30 the entry
+"the sun rose twice at Zheng" in King Yiwang's first year, read as a solar eclipse and dated to 21 April
+899 BCE. **A whole-article page range is a citation that has not been read**; pinning both pages replaced
+a Legge citation and gained the card its one concrete modern date.
+
+**AND THE TOOL WAS TAUGHT WHAT IT WAS LOOKING AT.** `check-cards.js`'s `ANCIENT` list now carries
+`confucius`, `mencius`, and the anonymous classics by TITLE (`the shû king`, `the yî king`, `the shoo
+king`, `the ch'un ts'ëw`, `the annals of the bamboo books`), so a future card citing one of them three
+times gets the `one-witness` NOTE it deserves rather than an over-cited failure. `cnh-068`, which cites
+the *Shiji* four times over, moved to that note the moment its citations were rewritten
+`Sima Qian … trans. Édouard Chavannes` — which is the checker finally saying what is true of the card.
+
+**THE REST OF THE SWEEP IS MEASURED AND DELIBERATELY NOT DONE.** **304 more citations across 145 cards**
+(150 opening `James Legge`, 154 opening `Édouard Chavannes`) plus 71 in `glossary-extra.js` still carry
+the translator-first form. It is not a regex job: every one has to be read for the text-versus-prolegomena
+distinction above, and getting that wrong attributes a Victorian's argument to a Zhou compiler. This
+batch changed only the cards where the form was actually causing a rule-1 failure; the rest is a pass of
+its own, and the rule is now written down in CLAUDE.md's `sources` bullet so nothing new joins the
+backlog.
+
+**WHERE THE PASS STANDS.** Rutter: 39 cards → 1. William Smith: 13 → 0. James Legge: 11 → 0, and not
+by re-sourcing. Over-cited across the whole corpus: 116 → 51. What is left is a tail of two to five
+cards each — William Frederick Mayers (3) and Henry Doré (2) in China, Arthur J. Evans (3), Herbert
+Weir Smyth (2) and H. B. Walters (2) in Greece, E. B. Titchener (2) in Psychology, and a dozen
+singletons, mostly World History cards resting on the excavators' own three papers. **Read a card before assuming it needs a substitute**: R13's eleven needed a
+citation rewritten, and `gr-046` and `wh-041`'s shape may be the one-witness case in another coat.
+**Start with BMCR and OAPEN**, in that order for a subject with a monograph on it and the other way
+round for one covered by an edited volume; between them they have carried twenty-four of the pass's
+substitutions.
 
 ## Two notes on the tooling
 
