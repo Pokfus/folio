@@ -3075,3 +3075,123 @@ picture**, and it costs one download.
 The alternative considered was *junguo system*, the commandery-and-kingdom compromise, which is a
 better teaching term and is in nothing openable from here under that name — so the plan's line
 stands, and the glossary entry defines the settlement rather than the term.
+
+## cnh-221 – cnh-230, the Rule of Wen and Jing to the opening of the Silk Road (Sep 2026)
+
+**THE HAN ANNALS RUN OUT WHERE CHAVANNES DOES, AND THE XIONGNU CHAPTERS WERE NEVER HIS TO
+TRANSLATE.** *Les Mémoires historiques* vol. 2 carries Shiji 5–12, which is Emperor Wen (ch. X, pp.
+455–94), Emperor Jing (ch. XI, pp. 495–510) and Emperor Wu (ch. XII, pp. 511–12) — and the Xiongnu are
+Shiji 110 and Zhang Qian Shiji 123, both far outside the five volumes Chavannes published. So the
+spine had to change half way through the batch, and what replaced it is **primary text in English**:
+**Wylie's translation of Han shu 94** (*Journal of the Anthropological Institute* 3 (1874): 401–52,
+`sim_royal-anthropological-institute-of-great-britain-ireland_february-4-1873-january-27-1874_3`) and
+**Hirth's of Shiji 123** (*JAOS* 37 (1917): 89–152). Between them they carry Touman, Modu, the
+sounding arrow, Baideng, the heqin terms, Mayi, every campaign of 129–119 BCE and the whole of Zhang
+Qian's report.
+
+**TWO TRAPS IN FETCHING THOSE TWO, both of which return a plausible wrong thing.** Wylie's article
+came out in TWO instalments and the second one is the wrong half for this period: *JAI* 5 (1876):
+41–80 opens on Huhanye Chanyu in the 50s BCE, a century past anything in this batch, and reads
+perfectly as "the Wylie article" until you notice the names. And the JAOS item on archive.org is
+filed as **`journalofamerica36ameruoft`**, whose own volume field reads "36-37" because it holds both
+— Hirth's article is the volume 37 one, with running heads `JAOS 37` and `90 Friedrich Hirth`, so the
+identifier is not a mistake and must not be "corrected" to a 37.
+
+**CHAVANNES SAYS SHIJI CH. 12 IS NOT ANNALS AT ALL, and that is `cnh-223`'s last sentence.** His note
+to the chapter records that the Emperor Wu annals *«ne sont que la reproduction de la seconde partie
+du Traité sur les sacrifices fong et chan»*, probably because the real chapter had disappeared and an
+interpolator filled the gap "assez maladroite". The Grand Historian's own year-by-year record of the
+longest reign he lived through does not survive; what stands in its place was put there later. **Only
+a translator's apparatus carries a fact like that** — the text itself reads as a chapter.
+
+**GILES COPIED MAYERS ON ZHANG QIAN, SO CITING BOTH IS FALSE CORROBORATION.** Giles' *Chang Ch'ien*
+(pp. 12–13) and Mayers' entry 18 (pt. I, p. 5) carry the same claims in the same order down to the
+Milky Way legend, and where Mayers has the historians calling him one who "pierced the void" Giles has
+"made a road" — the same 鑿空, two renderings. `cnh-229` and `cnh-230` therefore cite ONE of them and
+take the fifth source elsewhere. **Two 19th-century reference works agreeing is not two sources**;
+before pairing them, read whether the later one is a rewrite of the earlier.
+
+**THE SOURCES DISAGREE ABOUT HUO QUBING'S AGE AND THE CARD DOES NOT PRETEND OTHERWISE.** Wylie calls
+him "a youth of eighteen" at his first command in the spring of 121 BCE; Cordier has him dying in 117
+at twenty-four, which would make him twenty-one or twenty-two in 121. Both are on `cnh-228`, and they
+are deliberately not in the same sentence: the eighteen is given with the command and marked to Wylie
+(the date line says "at eighteen, by the Han history's account"), and the death year is given without
+an age. **Recording a contradiction costs a clause; asserting either figure flat is a claim neither
+source supports alone.**
+
+**A REIGN HAS TWO ACCESSION YEARS AND BOTH ARE RIGHT.** Mayers' Part III table (pp. 370–71) gives Wen
+179, Jing 156 and Wu 140; Chavannes and Cordier give the deaths as 157 and 9 March 141. The table
+reckons a reign from the first full year after the succession, which is a convention rather than a
+disagreement — so `cnh-223` says so in a sentence and its date line carries it in the sub-row, instead
+of choosing one and looking wrong against the other.
+
+**WYLIE'S "the lady Ung-choo" IS NOT A NAME.** 翁主 *wengzhu* is the TITLE of a king's daughter, and
+Wylie's translation reads it as the princess's personal name ("The lady Ung-choo was selected, and
+conveyed to the home of her new lord by Lew King"). `cnh-227` says "a princess was chosen and conveyed
+north by Liu Jing" and names nobody. **A 19th-century translation can turn a title into a person, and
+nothing downstream can see it** — the sentence reads perfectly and the citation resolves.
+
+**THE DATE LINE'S CONTINUATION ROW IS CAPPED AT TEN WORDS, AND THE ERROR MESSAGE DOES NOT SAY SO.**
+`cnh-227` was refused with "and again in 135, two years before the plot at Mayi" — eleven words — and
+what `add-card.js` printed was *card.answerDate is not a date line*, followed by the markup it wanted.
+That reads as a tag problem and is a length. Count the words in a sub-row before hunting the markup.
+
+**`add-sources.js` WAS REPORTING A FULLY CITED CORPUS AS UNCITED, AND PRINTING IT AS A FACT.** Its
+running-coverage line read the cards out of `data.js` alone, where `sources` has lived in
+`data-extra/<prefix>.js` since the split — so every run ended `cards cited 0/2925 · at the 5-source
+bar 0/2925` underneath a batch that had just succeeded. This is exactly the failure `card-io.js`'s own
+header warns about, one helper further along, and it is the shape that sends the next session looking
+for a disaster that is not there. Repointed at `loadCards()`; it now reads 2925/2925. **The write
+paths were already split-aware** — the card branch splices into `data.js` and then calls `resplit()` —
+so nothing was ever damaged, and what was wrong was only the claim.
+
+**`cnh-228` WAS RENAMED FROM "Wei Qing and Huo Qubing", because a cloze blank cannot hold two names.**
+The card is answered by **Huo Qubing**, describes Wei Qing in full, and both men got a glossary entry,
+so nothing is lost but the awkwardness. The plan's own rule asks for exactly this — a line is a
+subject to research, not always the finished answer term.
+
+**AND THE PLAN'S FIRST WARNING HAD GONE STALE.** `docs/china-card-plan.md` still opened with
+*"⚠ Before `cnh-001` ships: the collection is SET ASIDE"*, telling the next session that cards written
+into this tree would be written and never studied. The `placeholder` flag was cleared on request in
+Aug 2026 and 219 cards have shipped since. Rewritten to say what happened rather than deleted, on the
+ground that a plan which quietly stops mentioning a hazard reads like a plan that never met one.
+**One further stale string was found and deliberately left**: the `china` node in `data.js` still
+carries `blurb: "Template deck — one example card. Generate more with Claude."`, which is false about
+a 219-card collection — but nothing in app.js draws a collection blurb (it is read into
+`COLLECTION_META` and re-serialised and never rendered), so it costs a reader nothing and changing the
+tree by hand costs review noise.
+
+**`Xiongnu` IS A SHARED SURFACE AND THE TERM IS WRITTEN FOR ALL OF IT.** The word occurs on nine
+shipped cards across World History, Russia, Korea and China, so the new entry describes the
+confederation on its own terms — no cities, no written character, the Chanyu and his sage princes,
+and the open question about the Huns — rather than as a fact about the Han frontier. This is the
+`Dolmen` rule met again: **a general term written for one collection breaks the moment another links
+to it.** `Emperor_Wu_of_Han` was the same case in reverse and was REWRITTEN rather than duplicated —
+it existed already, cited, and said nothing but the conquest of Chosŏn, so a China reader clicking it
+would have landed in Korea; it now opens on the reign and keeps both Korean sources on the sentences
+they were written for.
+
+**NINE OF THE TEN GOT A PICTURE, and the one that did not is last batch's category again.** What was
+illustrable was an OBJECT, a PLACE or a PORTRAIT: `cnh-221` a silk painting of Emperor Wen enthroned,
+`cnh-223` the tumulus of Maoling with its stele tower, `cnh-224` the rammed-earth Han wall near the
+Jade Gate, `cnh-225` an embroidered woollen hanging from the Xiongnu royal tombs at Noin-Ula,
+`cnh-226` a modern bronze of Modu (captioned as modern, since no likeness from his own time
+survives), `cnh-227` a patterned Western Han silk from Mawangdui, `cnh-228` the *Horse Trampling a
+Xiongnu* from Huo Qubing's tomb photographed in situ in 1923, `cnh-229` the Mogao mural of his
+departure and `cnh-230` the Jade Gate itself. **`cnh-222` has none**: a rebellion has no surviving
+object, the Wikipedia article on the Liang kings' burial mountain carries no image at all, and a Han
+crossbow would have illustrated the period rather than the event.
+
+**THE RATE LIMIT IS STILL THE SLOWEST PART AND THE WAY THROUGH IS PATIENCE, NOT CLEVERNESS.** Nineteen
+`suggest-image` calls plus the searches exhaust the quota, after which `api.php` refuses everything and
+`upload.wikimedia.org` answers a 2,255-byte 429. Three things get past it and all three were used here.
+A retry loop at 20-second intervals lands eventually — the last of nine files took about twenty minutes.
+**`en.wikipedia.org/w/api.php?action=query&titles=<article>&prop=images` is a DIFFERENT quota** and kept
+answering throughout, which is how Maoling's file name was found when every Commons search was refused.
+And a `429` on a URL you have already downloaded is the container's quota rather than a bad address:
+check it against the file you fetched instead of hunting for a better link.
+
+**A THUMB URL FROM THE API COMES BACK ON `thumb.wikimedia.org` AND THE CORPUS USES `upload`.** Both
+serve the identical path; the corpus convention is `upload.wikimedia.org/wikipedia/commons/thumb/…`, and
+every one written here was fetched to confirm it answers 200 before it was installed. **The shard is
+still never guessed** — it comes from `imageinfo`, and only the host was substituted.
