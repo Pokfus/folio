@@ -402,6 +402,29 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
     the whiteboard marker's drag — a finger that moves more than `AD_SLOP` is scrolling, not holding — and
     `contextmenu` plus the ContextMenu key give a mouse and a keyboard the same way in. The sheet lives on
     `document.body`, so **`render()` closes it** (`closeDeckMenu`).
+  · **REDOWNLOAD — the door for a staleness the revision check cannot see** (`entryLangDecks`, the sheet's
+    `redownload` row; Sep 2026, on request: "in the active decks long press menu, there should be an option
+    to redownload the collection files, since sometimes updates don't load appear correctly").
+    `langDeckUpdate` has re-fetched and merged since the 蛋糕 report, and the reader had no way in from a
+    deck the catalogue calls CURRENT — a content revision can only say the two copies were built from
+    different sources, so a download that was cut off, a merge that half-applied or a file a cache handed
+    back stale all look identical to a deck that is up to date, and a reader looking at a card they know was
+    repaired had nothing to press. **It deliberately does not ask whether the deck is stale.**
+    · **It is offered only where there is a file to fetch.** `entryLangDecks` resolves an entry to the
+      catalogue decks this device actually holds — a language container covers every level under it, a
+      subdeck or a direction row is part of a single file, and `uDeckIdOf` flattens all three shapes — so a
+      curated collection, a deck the reader imported from a file of their own, and a deck added and never
+      downloaded (whose row already offers Download) all get no row at all.
+    · **It is NOT in the danger block, and the order is the claim.** The merge keeps every card id, so the
+      schedule, the flags and the suspensions survive it and a note the shipped deck has since dropped is
+      kept rather than deleted; the row sits before Remove, which stays last, and its note says the
+      progress is kept rather than warning about anything.
+    · **It reports WHAT IT DID rather than that it did something**, which is the Update button's own rule:
+      a reader told "Redownloaded" cannot tell a deck that gained a repair from one that gained nothing, so
+      the toast names the number of cards refreshed and the number of files. The fetches run SEQUENTIALLY —
+      a language may be nine files and each is megabytes — and the FIRST error stops the run and is
+      reported, since carrying on after one failure leaves the reader told a mixed result they cannot act
+      on. Guarded by `test-deck-update.js` section 5.
   · **DAILY LIMITS HAS TWO TABS, and the Settings page has no allowance any more** (`globalLimits` /
     `setGlobalLimits` / `clearDeckLimits` / `.dm-tabs`, Aug 2026, on request). **This deck** writes
     `S.deckOpts[id]`, as it always did; **All decks** writes the DEFAULT every deck follows until it has
