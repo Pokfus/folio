@@ -569,6 +569,68 @@ Studies* paper mentions Vapheio cups only as a Knossian ripple-ware phase marker
 **The four remaining authors after Rutter.** Once these ten are settled the concentration list is
 William Smith (13 `rm-` cards), James Legge (11 `cnh-`), and a tail of three or fewer per author.
 
+**BATCHES R7–R8 — 2026-09-10. Seven cards; Rutter 10 → 3, over-cited 87 → 80.** `gr-005` Early Minoan
+Crete, `gr-006` Minoan civilisation, `gr-015` Protopalatial period, `gr-016` Neopalatial period, `gr-020`
+Linear A, `gr-048` Minoan thalassocracy, `gr-092` Vapheio cups. R6 said every cheap route was spent; it
+was wrong, and the route it had missed is the largest one in this whole pass.
+
+**OAPEN IS OPEN, AND IT IS FULL-TEXT SCHOLARLY MONOGRAPHS.** `library.oapen.org` answers, its REST API
+takes a plain query (`/rest/search?query=Minoan&expand=metadata`), and every book carries a
+**pre-extracted `.pdf.txt` bitstream** — so a 300,000-word monograph is one `curl` and a `grep` away, with
+no PDF extraction at all. Ask `/rest/search?query=handle:"20.500.12657/<n>"&expand=bitstreams` for the
+download links. Four books fetched in one afternoon came to ~620,000 words of open Aegean scholarship.
+**This is where the next session should start, on any collection.**
+
+**THE ONE THAT SETTLED FIVE CARDS IS A CHRONOLOGY TABLE.** Graziadio's *The Aegean and Cyprus* (Edizioni
+Ca' Foscari, 2025) opens chapter 2 with a comparative table of Cretan and mainland phases with absolute
+dates after Manning 2010 — Pre-Palatial EM I **3100–2650**, EM II 2650–2200, EM III 2200–2100/2050, MM IA
+2100/2050–**1925/1900**, Protopalatial MM IB 1925/1900–1875/1850, MM II 1875/1850–**1750/1700**,
+Postpalatial LM IIIC 1200/1190–**1075/1050**. Those are the cards' own figures, to the year in several
+places: `gr-006`'s "from about 3100 to 1050 BCE" needed **no rewording at all**, and `gr-015`'s "given as
+1925 or 1900 for the opening" is the table's own MM IB entry. **R4 concluded that the chronology route was
+exhausted because Déderix's Table 1 (after Warren 2010) is 50–100 years off the cards; the answer was not
+that no open table matches but that the WRONG open table had been tried.** Where a card is written from
+one scheme, look for a work that prints that scheme rather than reading the mismatch as a dead end.
+
+**TWO CARDS WERE CORRECTED TO THE TABLE.** `gr-005`'s date line now reads EM II c. 2650–2200 and EM III
+c. 2200–2050 where it read 2650–2150 and 2150–2000, and its prose closes at 2050 rather than 2000;
+`gr-015`'s alternative close moves from 1720 to 1700. Both were Rutter's alternative column, and both are
+now the column the card's own citation prints. **A date line is not marked, so nothing in the pipeline
+would have caught the contradiction** between a prose bracket sourced to one scheme and a date line
+carrying another; check it by hand when a chronology marker moves.
+
+**AND ONE CARD WAS SIMPLY WRONG.** `gr-020` said "only three places outside Crete have produced true
+texts: Ayia Irini on Kea, Phylakopi on Melos and Akrotiri on Thera". Philippa Steele's *Exploring Writing
+Systems and Practices in the Bronze Age Aegean* (Oxbow, 2024, open at OAPEN) writes that "inscriptions
+including administrative documents have also been found outside Crete in the islands (Kea, Melos,
+**Samothrace** and Thera)". Four, not three. That plus Manning on the mid-15th-century destructions
+finishes the card R6 recorded as blocked on exactly this claim.
+
+**A GERMAN DISSERTATION IS A SOURCE LIKE ANY OTHER, and it was the only one for the villas.** Adlung's
+*Die Minoischen Villen Kretas* (Hamburg University Press, 2020) is a whole book on the buildings `gr-016`
+spends three sentences on: it gives the villa as a *Mittelstufe zwischen den Palästen und Bürgerhäusern*,
+places Vathypetro and Sklavokampos at 497 and 422 m on the edges of upland plateaus, records that
+Dickinson doubted their isolation at all, and puts the lustral baths and the *Minoische Hallen* across the
+island. **The card is better for saying the isolation is argued** than it was for asserting it.
+
+**AND ONE BOOK WAS FOUND AND REFUSED.** OAPEN's top hit for "Minoan" is *Matriarchy in Bronze Age Crete: A
+Perspective from Archaeomythology and Modern Matriarchal Studies*, which does carry a usable sentence
+about 3100 BC as the Neolithic–Bronze Age boundary on Crete. It is not cited. **An aggregator returns
+books of very uneven standing, and a citation is read by the reader who follows it**: a title announcing
+an archaeomythological thesis in the apparatus is not an improvement on a course website, whatever the
+sentence it happens to carry. Read the title and the press before citing.
+
+**THE LAST THREE, and what each is stuck on.** `gr-001` Aegean Bronze Age (4 of 8) — nothing open states
+the Early Cycladic longboats with crews of fifty or the two-storeyed towns of 2650 BCE; Graziadio mentions
+'frying pans' once, in passing, about mainland pottery parallels. `gr-046` Minoan trade with Egypt (5 of
+6) — needs three substitutions and Graziadio can supply at most two before tripping the same rule in his
+own name; his ostrich eggs are Cypriot tomb goods rather than Cretan rhyta, and his Kommos is about
+Cypriot copper, so taking it would cost the card Egypt, the Levant and Italy on a card about Egypt.
+`gr-049` Minoan Kythera (5 of 6) — Graziadio carries the Minoanisation contrast and the MM IA date, which
+is two, and nothing open found carries the *lapis Lacedaemonius* trade, the Kythera chamber tombs or the
+Late Minoan IB painting styles at Kastri. **All three want a source found for one particular claim, not a
+wider search.**
+
 ## Two notes on the tooling
 
 - **`cardYears` reads "594/3 BCE" as year 3.** Writing split years the short way in a date line
