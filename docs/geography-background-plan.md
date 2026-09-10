@@ -125,6 +125,12 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-10, batch G18 — the small-state tail, and three whose own name is their capital's**:
+  `gw-204` Greenland, `gw-205` the Faroe Islands, `gw-207` American Samoa, `gw-208` the Turks and Caicos
+  Islands, `gw-209` the Northern Mariana Islands, `gw-210` Sint Maarten, `gw-212` the British Virgin
+  Islands, `gw-213` Gibraltar, `gw-214` Monaco, `gw-215` the Marshall Islands, `gw-216` San Marino and
+  `gw-217` Åland, with all twelve date lines rewritten off the same research.
+
 - **2026-09-10, batch G17 — twelve dependencies, and none of the pass's three standard sources carries
   eleven of them**: `gw-178` Iceland, `gw-180` New Caledonia, `gw-182` French Polynesia, `gw-186` Guam,
   `gw-187` Curaçao, `gw-192` Aruba, `gw-193` the United States Virgin Islands, `gw-195` Jersey, `gw-198`
@@ -286,6 +292,84 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G18 found
+
+Twelve of the smallest entries left in the deck: two North Atlantic autonomies of the Danish Realm, five
+Caribbean and Pacific dependencies, three sovereign microstates and Åland. G17's dependency recipe held
+for the dependencies and the three microstates each needed something of their own.
+
+- **THREE CARDS ARE PERMANENTLY IN THE RULE-2 LIST, AND THEIR OWN NAME IS WHY.** Rule 2 refuses a
+  background that repeats a facts-grid value, and the grid prints Capital and Largest city — so on
+  `gw-213` Gibraltar, `gw-214` Monaco and `gw-216` San Marino, where the country, its capital and its
+  largest city are one name, the abstract's own opening bold answer term IS a grid repeat and nothing
+  can be written round it. They join `gw-003` and `gw-193`, which stand in the rule-1 list for the
+  mirror of the same reason. `gw-207` American Samoa is a third of that kind: its answer term contains
+  the adjective the rule matches, and its prose was still written clear of every other mention (the
+  Treaty of Berlin of 1899 "divided the archipelago between two powers").
+
+- **`Saipan` IS A GRID VALUE, SO THE MARIANAS CANNOT NAME THEIR OWN MAIN ISLAND.** It is the Largest
+  city on `gw-209`, so the background is written on Mount Pagan and the northern arc instead — which is
+  the better card anyway, the arc being what the place IS.
+
+- **THE CBD ANSWERS FOR TWO OF THE THREE MICROSTATES AND SERVES THE SHELL FOR THE THIRD.** Monaco's and
+  San Marino's profiles carry real Biodiversity Facts — Monaco's 202 hectares of hilly rock with 53 of
+  them reclaimed from the sea, San Marino's land-use split of 41 per cent farmed, 16 woodland, 17
+  shrubland and 4 badlands — while the Marshall Islands' answers 200 at 65,891 bytes and carries no such
+  section at all. **The byte count is not the check; the section is.** G17 read the shell at 54,8xx and
+  a real profile at 65,963, so a page can be larger than a known-good one and still be the shell.
+
+- **THE CONSTITUTE PROJECT HAS NO SAN MARINO**, which is the United Kingdom's case in miniature: there
+  is no single codified text to carry, the republic's constitutional order resting on its own statutes.
+  Monaco is `Monaco_2002` and the Marshall Islands `Marshall_Islands_1995` — **the slug carries the
+  revision year, not the year of adoption**, so a guess built from the constitution's own date 404s.
+
+- **AND FOR SAN MARINO THE RECOGNITION GUIDE IS UNUSABLE UNDER RULE 1, NOT MERELY UNHELPFUL.** Its page
+  is one long account of Lincoln's 1861 reply, so every date on it names the thing rule 1 forbids. What
+  replaced it is the republic's own foreign ministry: `esteri.sm` publishes a history of its relations
+  with the European Union — diplomatic relations from 1983, a cooperation and customs union agreement
+  signed at Brussels on 16 December 1991, approved by the European Parliament on 9 July 1992 — in
+  Italian, which the house rules allow. **Monaco's guide page, by contrast, is full of facts about
+  Monaco** (annexed 1793, independent again 1814, Vienna 1815, Piedmont-Sardinia to 1861), so it is
+  cited there and the card names no other state's recognition of anything.
+
+- **A COMPACT OF FREE ASSOCIATION CAN BE DESCRIBED WITHOUT NAMING THE OTHER PARTY**, and on `gw-215`
+  it is: the compact "entered into force on 21 October 1986", ended the trusteeship agreement, and left
+  "the administering Power" responsible for defence and for the military use of Kwajalein Atoll. The
+  same dodge carries the 43 nuclear tests at Enewetak between 1948 and 1958 — a fact about the atoll,
+  whoever ran them — and the finding that gives the card its landform sentence is that **the atoll
+  consisted of 42 islands, of which 39 still exist**.
+
+- **UNdata HAS NO ÅLAND**, a 500 on `ax` exactly as G17 found for Jersey and Guernsey, and Protected
+  Planet does — 59 areas under `ALA`, a real profile rather than Finland's. So the fifth source there is
+  a paper: the Ordovician limestone under Lumparn Bay, which fills the depression of an ancient meteorite
+  impact, 15 km² of it up to 70 m thick and all of it now below sea level.
+
+- **WHAT COULD NOT BE KEPT ON ÅLAND IS ITS DEMILITARISATION DATES.** The shipped card carried 1809, 1856
+  and the 1921 convention; `aland.ax` states only that the islands ARE demilitarised, `asub.ax` and
+  `peace.ax` carry no dates either, and nothing else reachable does — so the date line is **one row**,
+  the Autonomy Act in force on 1 January 1993, and the prose says demilitarised without dating it. A
+  single-row date line is the honest form here, exactly as an empty one is where nothing is datable.
+
+- **`digitallibrary.un.org` IS STILL 202 WITH AN EMPTY BODY**, on all four working papers this batch
+  reuses. **`docs.un.org/en/<symbol>` answers 200** and is the UN's current viewer — a route worth
+  adopting, but the four cards keep the addresses the other thirty-odd working-paper citations in the
+  collection already use, since one batch spelling them differently is worse than all of them being
+  hard to fetch from a sandbox.
+
+- **TWO DOIs HAD TO BE REPOINTED TO PMC**: `science.org` 403s the Marianas rice paper (G17's finding
+  again) and `peerj.com` now 403s its own articles, so `10.7717/peerj.18487` is cited at
+  `pmc.ncbi.nlm.nih.gov/articles/PMC11660859/`. **Ask Europe PMC before assuming a DOI that 403s is
+  lost.**
+
+- **THE AUTO-LINKER MATCHED TWO SENSES WRONG AND ONLY THE BROWSER SHOWED IT.** `Micronesia` is an alias
+  of `Federated_States_of_Micronesia`, so "files under Micronesia" on the Marianas and the Marshalls
+  linked the region to one small country in it — G17's `Micronesian` finding one word over — and
+  **`East_Asia` matched inside "South-East Asia"**, the hyphen counting as a boundary, there being no
+  `Southeast_Asia` term at all. Both clauses were rewritten. Standing and NOT fixed: `Council` in this
+  glossary is Aristotle's boule, so the Council of Europe, the Privy Council and the Council of
+  Ministers for the Kingdom all link to it — three cards, one glossary key, and a reword would rename
+  three real bodies.
 
 ## What G17 found
 

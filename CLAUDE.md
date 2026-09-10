@@ -1254,9 +1254,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1–G17 have shipped — two hundred and five backgrounds rewritten** (`gw-001`–`gw-211`, less
+    **G1–G18 have shipped — two hundred and seventeen backgrounds rewritten** (`gw-001`–`gw-217`, less
     the deferrals below), each five sentences of landform, water and climate over five of the country's
-    own history, with one hundred and ninety-one date lines rewritten out of the same research. Three sources make the
+    own history, with two hundred and three date lines rewritten out of the same research. Three sources make the
     pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
@@ -1362,6 +1362,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     clause was dropped; "horse mussel" linked `Horse`, a grazing mammal. **AND A 202 WITH A SHORT BODY IS
     THE PROXY, NOT THE HOST** — `dcnanature.org` answered 200, then 202, then 200 in three consecutive
     requests, so re-request before treating a territory's one source as lost.
+    **AND THREE CARDS ARE PERMANENTLY IN THE RULE-2 LIST FOR THE MIRROR OF `gw-003`'s REASON** (Sep
+    2026, G18): the grid prints Capital and Largest city, so where the country, its capital and its
+    largest city are one name — `gw-213` Gibraltar, `gw-214` Monaco, `gw-216` San Marino — the
+    abstract's own opening bold answer term IS a grid repeat, and nothing can be written round it. The
+    same rule takes `Saipan` away from the Northern Marianas, it being that card's Largest city, so
+    that background is written on the volcanic arc instead. **AND THE CBD SERVES ITS EMPTY SHELL AT
+    65,891 BYTES FOR THE MARSHALL ISLANDS**, larger than a real profile G17 measured at 65,963 — so the
+    check is the Biodiversity Facts SECTION and never the byte count, which was G17's own proxy and is
+    now known to fail in both directions. **AND THE CONSTITUTE PROJECT HAS NO SAN MARINO**, the United
+    Kingdom's case in miniature, while its slug for a state it does carry names the REVISION year
+    (`Monaco_2002`, `Marshall_Islands_1995`) rather than the year of adoption. **AND THE RECOGNITION
+    GUIDE IS UNUSABLE UNDER RULE 1 FOR SAN MARINO** — its page is one account of Lincoln's 1861 reply —
+    where Monaco's is full of facts about Monaco; what replaced it is the republic's own foreign
+    ministry at `esteri.sm`, in Italian, which the house rules allow. **AND A COMPACT OF FREE
+    ASSOCIATION CAN BE DESCRIBED WITHOUT NAMING THE OTHER PARTY**, which is how `gw-215` keeps the 1986
+    compact and the 43 nuclear tests at Enewetak between 1948 and 1958. **AND UNdata HAS NO ÅLAND** (a
+    500 on `ax`, as for Jersey and Guernsey) where Protected Planet has a real one under `ALA`; what
+    Åland LOST is its demilitarisation dates, since `aland.ax`, `asub.ax` and `peace.ax` all state that
+    it is demilitarised and none of them says when, so that date line is one row. **AND
+    `docs.un.org/en/<symbol>` ANSWERS 200** where `digitallibrary.un.org` is still 202 with an empty
+    body — a route worth adopting in one sweep rather than one batch at a time. **AND `peerj.com` NOW
+    403s ITS OWN ARTICLES**, so that DOI is cited at its PMC copy, as `science.org`'s already was.
+    **AND `East_Asia` MATCHES INSIDE "South-East Asia"**, the hyphen counting as a word boundary and
+    there being no `Southeast_Asia` term; `Council` in this glossary is Aristotle's boule, so the
+    Council of Europe, the Privy Council and a Council of Ministers all link to it, which is recorded
+    rather than fixed.
     Rules 1 and 3 remain open on
     about 300 cards.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
