@@ -6293,7 +6293,7 @@ lookup.
 
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
-| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 510 cards, contiguous — next is `wh-511` |
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 520 cards, contiguous — next is `wh-521` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 700 cards, contiguous — next is `gr-701` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 300 cards, contiguous — next is `rm-301` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
