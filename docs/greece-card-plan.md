@@ -1016,7 +1016,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-745  The mutiny at Opis
     gr-746  The death of Hephaestion
     gr-747  The death of Alexander
-    gr-748  Alexander's city foundations
+    gr-748  Alexander's city foundations  — answered by "Alexandria Eschate", chosen when the card
+             was written: "Alexandrias" is the collective term but makes an awkward cloze, and the
+             furthest of them carries the whole foundation policy in its own story
     gr-749  The Alexander historians
     gr-750  Alexander's legacy
 

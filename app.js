@@ -15017,6 +15017,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["hybridis", "hybridiz", "e|es|ed|ing|ation"],
     ["crystallis", "crystalliz", "e|es|ed|ing|ation"],
     ["orientalis", "orientaliz", "e|es|ed|ing|ation"],
+    ["hellenis", "helleniz", "e|es|ed|ing|ation"],
     ["analys", "analyz", "e|ed|ing"],
     ["catalys", "catalyz", "e|ed|ing"],
     ["paralys", "paralyz", "e|ed|ing"],
