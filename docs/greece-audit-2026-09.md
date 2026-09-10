@@ -239,6 +239,42 @@ the first batch went through. It reads through `card-io.js` now, which is what `
 says a helper must do. **The message names the wrong thing entirely, so the next session would have gone
 looking at the card.**
 
+**BATCH R3 — 2026-09-10. `gr-056` cleared, and two more; 29 → 26, over-cited 106 → 103.** `gr-039`
+Pseira (3 of 5 → 2, INSTAP's own Pseira project page), `gr-071` Gla (3 of 5 → 2, Middleton for the
+destruction) and — **the worst card on the shelf — `gr-056` Mycenaean civilisation, 8 of 10 → 2.**
+
+**THE SOURCE THAT MADE `gr-056` POSSIBLE IS A MUSEUM, AND IT WAS THE LAST PLACE LOOKED.** The National
+Archaeological Museum in Athens publishes a page on its Collection of Mycenaean Antiquities
+(`namuseum.gr`, open) which carries, in a few hundred words, six of the eight claims that were resting
+on the teaching site: the Mycenaean world at 1600–1100 BC and "called after its largest centre, Mycenae
+in the Peloponnese"; the royal shaft graves of Grave Circles A and B; the palaces of Mycenae, Tiryns,
+Pylos and Thebes as "administrative, economic, military and religious centres" behind "strong Cyclopean
+walls"; the beehive tombs kept for the ruling elite; an administration "led by the 'anax' (king)"
+keeping "archives … of clay tablets inscribed with Linear B script, the first Greek script"; and a
+collapse put down to social unrest, economic decline, migration and earthquake. **A national museum's
+own collection page is written at exactly the altitude a survey card is**, which no journal article is,
+so the museum and Odysseus family is what to reach for FIRST on a card that surveys a period rather
+than a site.
+
+**What `gr-056` cost, stated plainly.** Six sentences were adjusted so each says what its new source
+says, and five specifics went with them: the tholos sequence beginning in Messenia; the palaces dated
+from about 1400 BCE with Gla, Orchomenos and Athens among them; the fortifications finished about 1250;
+the archive list with Chania and the figure of 3,369 tablets at Knossos; and the *lawagetas*, the one
+title of the four that no open work found here defines. Everything else survives, the card is 316 → 303
+words and still ten sentences in two blocks, and it now rests on ten sources of which two are Rutter —
+kept deliberately for the two claims nothing open states: the shaft-grave metalwork's Minoan character,
+and the Baltic amber with the Cape Gelidonya wreck. **That is the trade this pass makes and it should be
+made with the eyes open: a card loses specifics that were resting on one course website and gains an
+apparatus a reader can check.** Where a specific is worth more than the citation, keep Rutter.
+
+**Sources that did NOT work, so the next batch need not re-try them.** Harding's *Studia Hercynia* 2022
+review of Mycenaean–European contact is historiography and states no date for amber reaching Greece;
+Beck's *GRBS* amber series establishes the Baltic attribution and gives no chronology; the open-access
+ABSA article on Aghios Vasileios contains `wanax` seven times and *lawagetas* not once; and
+`heraklionmuseum.gr` and `ascsa.edu.gr` both fail TLS verification from here where `namuseum.gr` does
+not. **No Cape Gelidonya source was found at all**, and the ABSA articles on oxhide ingots that would
+carry both it and `gr-013`'s ingots are behind the `/abs/` paywall.
+
 ### 2. Seventy-six cards rest mostly on one ancient witness
 
 An ancient author is a witness rather than a researcher, so this is a softer finding — but a card
