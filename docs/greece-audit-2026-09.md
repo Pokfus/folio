@@ -532,6 +532,43 @@ of the Knossos-hegemony and nature-of-the-palaces debates, and it was not used h
 in this batch makes a claim it states. **It is the obvious first source for `gr-016`, `gr-048` and
 `gr-051`**, whose subjects are those very debates.
 
+**BATCH R6 — 2026-09-10. Two cards; Rutter 12 → 10, over-cited 89 → 87.** `gr-051` Mycenaean Knossos,
+`gr-090` figure-of-eight shield. A short batch, and the shortness is the finding: **every cheap route is
+now spent.** The chronology brackets, the Odysseus site pages, the eruption literature and the BMCR
+reviews have each been run to the end of what they can carry, and the ten cards left need a source found
+for one particular claim apiece.
+
+**A CAMBRIDGE OPEN-ACCESS EXCAVATION REPORT CARRIES AN ARGUMENT AS WELL AS A DIG.** Hood, Galanakis,
+Hughes-Brock, Nafplioti and Preston's Ailias tombs publication (*ABSA* 119, 2024, CC BY) is 100 pages on
+four tombs and it also states, in its discussion, that "Hägg and Sieurin believed that the wooden chest
+was introduced in the LM II tombs as a mainland-inspired idea" while "Preston considered the use of the
+wooden bier/coffin a re-invention or continuation of an earlier tradition at Knossos" — which is
+`gr-051`'s own subject, the question of who was running Knossos, in a form the card did not have. It
+also reports that strontium testing of "the hypothesis that these people may have originated from the
+Argolid on the mainland … yielded negative results", **which is the single most useful modern fact for
+that card and did not fit**: the card is at 324 of 330 words. Recorded here so the next prose pass on
+`gr-051` knows where to spend the room if any is ever freed.
+
+**A MUSEUM'S EXHIBIT-OF-THE-MONTH PAGE IS A CITABLE OBJECT RECORD.** The National Archaeological
+Museum's Unseen Museum page for the silver Battle Krater gives Schliemann's 1876 excavation and the
+scene — two groups fighting over a fallen man — which is more than `gr-090` said and better anchored.
+**The loss is named**: the sentence gave up the silver siege rhyton, which nothing openable describes;
+`gr-044` still carries it, so it is not lost from the collection.
+
+**What is left, and why each is stuck.** `gr-001` (2 needed) — no open source for the Early Cycladic
+longboats or the two-storeyed towns; the BMCR review of *Horizon: A Colloquium on the Prehistory of the
+Cyclades* is about Keros and Dhaskalio and mentions no boat. `gr-005`, `gr-006` — the Early Minoan and
+Minoan brackets, 3100–2000 and 3100–1050, which Déderix's Table 1 puts at 3000–2050 and cannot carry.
+`gr-015`, `gr-016` — no single-marker Rutter citation to spend, so a substitute would have to carry
+three or four claims at once. `gr-020` (1 of 2 solved) — nothing states the Linear A distribution
+outside Crete. `gr-046`, `gr-049` — three substitutions each against two spendable markers. `gr-048` —
+Haysom's open review is about the Knossian hegemony debate and not the thalassocracy. `gr-092` — nothing
+open states that the Vapheio cup shape is common in the Cycladic repertoire; Mathioudaki's open *Aegean
+Studies* paper mentions Vapheio cups only as a Knossian ripple-ware phase marker.
+
+**The four remaining authors after Rutter.** Once these ten are settled the concentration list is
+William Smith (13 `rm-` cards), James Legge (11 `cnh-`), and a tail of three or fewer per author.
+
 ## Two notes on the tooling
 
 - **`cardYears` reads "594/3 BCE" as year 3.** Writing split years the short way in a date line
