@@ -30917,10 +30917,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        named at its middle, the way an atlas names one. A RANGE keeps `at` — a spine's bbox centre is out
        in the Tyrrhenian Sea, where "The Apennines" would be a caption for the water. */
     const locMid = locLabelPt && locLabelPt.length ? locLabelPt[0]
-      : locArea && locArea.length
-      ? (() => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
-          for (const ring of locArea) for (const q of ring) { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < y0) y0 = q[1]; if (q[1] > y1) y1 = q[1]; }
-          return [(x0 + x1) / 2, (y0 + y1) / 2]; })()
+      : locArea && locArea.length ? (() => { const b = ringsBBox(locArea); return [wrapLon((b[0] + b[2]) / 2), (b[1] + b[3]) / 2]; })()
       : null;
     /* THE HI-RES COAST, where this card's collection has one (see CMAP_HIRES). `effRings` hands back a
        country's rings with the bundle's patched rings substituted index for index, memoised per country
@@ -31113,7 +31110,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        an hour, and that erased the fill: `source-in` makes everything outside the new shape transparent,
        so the dashed stroke painted after the fill wiped the fill and kept a half-width sliver of itself. */
     let maskCv = null, mctx = null, areaCv = null, actx = null;
-    function landMask(paint) {
+    /* …AND `water` TURNS IT INSIDE OUT (Sep 2026, with the `sea` locator). A region is clipped to the
+       land because an authored polygon is a dozen points where a coast is a thousand, so an unclipped
+       wash runs out into the sea; a SEA is the same problem seen from the other side, and its wash runs
+       up onto the land. One composite operation is the whole difference — `destination-out` keeps what
+       falls OUTSIDE the land where `destination-in` keeps what falls inside — so the mask, the lake
+       holes and the two offscreen canvases are shared rather than written twice. */
+    function landMask(paint, water) {
       if (!maskCv) { maskCv = document.createElement("canvas"); mctx = maskCv.getContext("2d"); areaCv = document.createElement("canvas"); actx = areaCv.getContext("2d"); }
       if (maskCv.width !== cv.width || maskCv.height !== cv.height) { maskCv.width = areaCv.width = cv.width; maskCv.height = areaCv.height = cv.height; }
       mctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -31132,7 +31135,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       actx.clearRect(0, 0, W, H);
       tc = actx;
       paint(actx);
-      actx.globalCompositeOperation = "destination-in";
+      actx.globalCompositeOperation = water ? "destination-out" : "destination-in";
       actx.drawImage(maskCv, 0, 0, W, H);
       actx.globalCompositeOperation = "source-over";
       tc = ctx;
@@ -31380,14 +31383,36 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          legible over it. */
       // …and SEVERAL rings are one wash under one dashed edge (see `readRings`): the Etruscan world is
       // three blocks, and filling each separately would double the tint anywhere two of them touched
-      if (locArea && locArea.some(visible)) landMask((m) => {
+      /* A SEA TAKES THE SAME SHAPE AND THE OPPOSITE EVERYTHING ELSE (see LOC_KINDS): the water's own ink
+         rather than the answer's gold, and clipped to the SEA rather than to the land — the wash faint,
+         since the water underneath is already the right colour and what is being said is only which of
+         it the card means. */
+      /* …AND A `shelf` IS CLIPPED TO NEITHER (Sep 2026, with Beringia). Some of the land a card is about
+         is not land any more: Beringia IS the floor of the Bering Strait and Doggerland the floor of the
+         North Sea, and both were drawn clipped to the present-day coast — so the Doggerland card drew two
+         slivers on the Norfolk and Dutch shores with the whole drowned plain between them blank, and the
+         Beringia card drew the two continents and nothing across the strait. Each was a map of everywhere
+         except its subject, and each rendered perfectly. A shelf takes the region's gold, because it was
+         LAND, and no mask at all, because the thing that would clip it is exactly what covered it. */
+      const shelf = locKind === "shelf", sea = locKind === "sea";
+      const paintArea = (m) => {
         m.beginPath();
         for (const ring of locArea) if (visible(ring)) addRing(ring);
-        m.fillStyle = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")"; m.fill();
+        /* `riverInk` is already an rgba string (and, at night, the theme's ocean hex), so the sea's two
+           strengths are taken with `globalAlpha` rather than by rebuilding the colour — which would have
+           to parse two different notations to do it. */
+        m.globalAlpha = sea ? 0.38 : 1;
+        m.fillStyle = sea ? riverInk : "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")";
+        m.fill();
+        m.globalAlpha = 1;
         m.setLineDash([7, 5]);
-        m.strokeStyle = TINT_SEL.line; m.lineWidth = 2; m.stroke();
+        m.strokeStyle = sea ? riverInk : TINT_SEL.line; m.lineWidth = 2; m.stroke();
         m.setLineDash([]);
-      });
+      };
+      if (locArea && locArea.some(visible)) {
+        if (shelf) { tc = ctx; paintArea(ctx); }
+        else landMask(paintArea, sea);
+      }
       /* A CITY IS A DOT, because a capital card's answer is the city and shading its state alone says only
          which state (Aug 2026, on request). It is the Atlas's own focus-point mark — the same gold at full
          strength, the same 5.5px radius, the same dark ring — so a place pointed at on a card and a place
@@ -31649,7 +31674,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* A REGION AND A RANGE GET NO DOT EITHER: "not just as dots" is what the request asked for, and a
          gold dot inside a shaded region says "and specifically HERE", which is the false precision the
          shape was drawn to be rid of. */
-      if (dot && !(locKind === "river" && ownRiver) && locKind !== "range" && locKind !== "region") {
+      if (dot && !(locKind === "river" && ownRiver) && locKind !== "range" && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") {
         proj(dot.c[0], dot.c[1]);
         if (PV >= 0) {
           if (locKind === "battle") drawSwords(PX, PY, 7.5);
@@ -31688,11 +31713,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             /* A DOT is named beside itself, or the word covers the mark. An AREA, a RANGE and a shaded
                shape are named at their middle, where there is no single mark to be covered and the label
                reads as belonging to the whole of it. */
-            const beside = !!dot && locKind !== "region" && locKind !== "range";
+            const beside = !!dot && locKind !== "region" && locKind !== "range" && locKind !== "sea" && locKind !== "shelf";
             ctx.textAlign = beside ? "left" : "center"; ctx.textBaseline = "middle";
             const lx = beside ? PX + 10 : PX;
             ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, lx, PY);
-            ctx.fillStyle = ink; ctx.fillText(nm, lx, PY);
+            // water is named in the water's own ink, which is how an atlas tells a sea from a province
+            ctx.fillStyle = locKind === "sea" ? riverInk : ink; ctx.fillText(nm, lx, PY);
           }
         }
       }
@@ -31730,9 +31756,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // `locArea` is a list of RINGS and `locSpine` a single polyline, so the fit runs over rings either way
       const ext = locArea || (locSpine ? [locSpine] : null);
       if (!target && ext && ext.length) {
-        let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
-        for (const ring of ext) for (const q of ring) { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < y0) y0 = q[1]; if (q[1] > y1) y1 = q[1]; }
-        homeLon = (x0 + x1) / 2; homeLat = (y0 + y1) / 2;
+        // …through `ringsBBox`, so a shape crossing the antimeridian frames itself rather than the Atlantic
+        const b = ringsBBox(ext), x0 = b[0], y0 = b[1], x1 = b[2], y1 = b[3];
+        homeLon = wrapLon((x0 + x1) / 2); homeLat = (y0 + y1) / 2;
         const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(homeLat * CMAP_DEG), 0.2);
         z = 0.85 / (0.46 * CMAP_DEG * span);
       }
@@ -32233,7 +32259,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      answer term and its glossary aliases, which is the machinery that was already there for naming a
      river a collection teaches. Natural Earth files the Tiber under `Tevere`, so the alias is what finds
      it — and a card whose term has no alias visibly draws no river, which is the honest failure. */
-  const LOC_KINDS = ["point", "battle", "river", "range", "region"];
+  /* `sea` JOINED THEM IN SEP 2026, on request ("the card 'Aegean Bronze Age' should show the Aegean Sea
+     on its atlas window", and its name in blue on the personal atlas). A body of water is the one kind of
+     place this window could not point at: `region` washes its shape in the answer's gold and CLIPS IT TO
+     THE LAND, which for a sea removes the whole of it, and a dot on open water pins a sea to a point the
+     way a dot on the Tiber pinned a river to one. A `sea` carries an `area` like a region and is drawn
+     as WATER — a faint wash in the map's own river ink under a dashed edge, clipped to the sea instead
+     of to the land — and named in that ink rather than in the answer's gold, which is how an atlas
+     distinguishes water from land without a legend. */
+  /* …AND `shelf` WITH IT: land that is not land any more. Beringia is the floor of the Bering Strait and
+     Doggerland the floor of the North Sea, and a `region` clips its wash to the present-day coast — so
+     each of those cards drew the coasts either side of its subject and left the subject itself blank. A
+     shelf is drawn in the region's own gold, because it WAS land, and with no clip at all. */
+  const LOC_KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf"];
   // a list of [lon, lat] pairs, validated rather than trusted: `locator` is hand-authored in data.js and a
   // transposed pair draws a region in the wrong ocean without anything throwing
   function locPts(v) {
@@ -32248,6 +32286,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     return out;
   }
+  /* THE BOUNDING BOX OF A LIST OF RINGS, WITH THE ANTIMERIDIAN HANDLED (Sep 2026, with Beringia).
+     Beringia is the land bridge between Siberia and Alaska, so its shape runs from 168°E to 168°W and
+     straddles the 180th meridian. Taken as plain minimum and maximum that is a box 336° wide whose centre
+     is longitude 0 — so the card opened on the ATLANTIC, zoomed out to the whole earth, with the subject
+     as two slivers at either edge. It rendered perfectly and was simply a map of somewhere else.
+     A SPAN OVER 180° IS THE TELL, and the fix is to measure again with the western longitudes carried
+     past 180 rather than wrapped back to negative. The result may exceed 180 and is wrapped once by the
+     caller, which is why this hands back the raw box: the WIDTH is what the fit needs and wrapping the
+     edges would throw it away. It is exactly the trap the personal atlas's own label anchors record — a
+     bbox centre is meaningless for a shape crossing the antimeridian. */
+  function ringsBBox(rings) {
+    let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
+    for (const ring of rings) for (const q of ring) { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < y0) y0 = q[1]; if (q[1] > y1) y1 = q[1]; }
+    if (x1 - x0 > 180) {
+      let u0 = 360, u1 = -360;
+      for (const ring of rings) for (const q of ring) { const u = q[0] < 0 ? q[0] + 360 : q[0]; if (u < u0) u0 = u; if (u > u1) u1 = u; }
+      // …unless unwrapping makes it WIDER, which is what a shape genuinely spanning the globe does
+      if (u1 - u0 < x1 - x0) { x0 = u0; x1 = u1; }
+    }
+    return [x0, y0, x1, y1];
+  }
+  const wrapLon = (x) => (x > 180 ? x - 360 : x < -180 ? x + 360 : x);
   // an authored `area`: a flat ring, or a list of rings — see cardLocator. Always hands back rings.
   function locRings(v) {
     if (!Array.isArray(v) || !v.length) return null;
@@ -32269,7 +32329,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        single extent) or a list of such lists; a RING THAT DOES NOT VALIDATE IS DROPPED rather than
        poisoning the rest, and an area left with no valid ring at all is null, which falls the card back
        to its dot exactly as a missing area always has. */
-    const area = kind === "region" ? locRings(l.area) : null;
+    const area = kind === "region" || kind === "sea" || kind === "shelf" ? locRings(l.area) : null;
     const spine = kind === "range" ? locPts(l.spine) : null;
     /* `within` names the CITY a place stands inside — "Rome" on the Forum, the hills and the Cloaca — and
        is what lets a map fold the collection's places in one city into one mark (see the sibling pass in
@@ -32424,17 +32484,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          Bronze Age.)
          BOTH ENDS OF THE SPAN BIND, unlike a place's: Yinxu is still there and the Liangzhu culture is
          not, so a civilisation leaves the map at the end of its date line as it arrived at the start. */
-      if (loc.kind === "region") {
+      // a SHELF is judged as a region here: Beringia and Doggerland are `place`, so both fall to the
+      // polity test below and register nothing, which is what the "no regions on this globe" request asks
+      if (loc.kind === "region" || loc.kind === "shelf") {
         if (!loc.area || !MINE_POLITY.has(String((c.tags || [])[0] || "").toLowerCase())) return;
         const y1 = ys.length ? Math.max.apply(null, ys) : null;
         marks.push({ id: cid, title: loc.name || title, kind: "area", area: loc.area, at: loc.at, y0: y0, y1: y1 });
         return;
       }
-      /* A RANGE IS OFF THIS GLOBE (the request above), AND SO IS A RIVER (Sep 2026, on request: "'Tiber'
-         should not have a dot or label"). A river is already drawn — every river is, as one of the
-         Atlas's own blue threads — so a dot on one pins a 400 km course to an arbitrary point on it,
-         which is the false precision a region's dot would have been. */
-      if (loc.kind === "range" || loc.kind === "river") return;
+      /* WATER IS NAMED, NOT MARKED (Sep 2026, on request: the Aegean Bronze Age card should "add its
+         blue name label to the personal atlas. Do the same with 'Tiber', a blue river label"). This
+         REVISES the rule directly below it rather than contradicting it: that request was "'Tiber'
+         should not have a dot or label", and what was wrong with the dot is what is still wrong with it
+         — it pins a 400 km course to an arbitrary point. A NAME does not. The river itself is already
+         drawn, as one of the Atlas's own blue threads, and the sea is already drawn as the sea; what
+         neither had was a word saying which one the reader has learned. So a river and a sea register a
+         LABEL — the name alone, in the water's own ink, with no mark under it — and it answers a click
+         like everything else on this globe.
+         A RANGE STILL REGISTERS NOTHING. It is neither water nor a polity, and its mark was a line of
+         triangles that at world scale is the rash the earlier request took off. */
+      if (loc.kind === "river" || loc.kind === "sea") {
+        marks.push({ id: cid, title: loc.name || title, kind: "water", at: loc.at, area: loc.area || null, y0: y0 });
+        return;
+      }
+      if (loc.kind === "range") return;
       marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, y0: y0 });
     });
     const v = { names: names, subdiv: subdiv, marks: marks, need: need, count: names.size + subdiv.length + marks.length };
@@ -37319,6 +37392,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // place EVERY visible city's label without overlap (right/left, then staggered up/down, with a leader line when
     // displaced). A spatial grid keeps the overlap test ~O(1) so the whole pass runs every frame, even while moving.
     let cityCache = null, cityCacheKey = "", countryLabelRects = [];   // country-name boxes (from drawCountryNames) so city labels can avoid them
+    /* WHERE EACH WATER LABEL WAS ACTUALLY DRAWN — filled by drawMineMarks, read by mineAt. A sea's name is
+       offered several places to stand and takes the first that is free (see mineWaterSpots), so the point
+       the mark is REGISTERED at is not the point the word ended up at: testing a click against the
+       register opened the popup for a label the reader was not pressing and, more often, for none at all.
+       The same shape `countryLabelRects` uses one layer up: what was drawn is recorded by the pass that
+       drew it, rather than re-derived by the pass that has to hit-test it and quietly getting it wrong. */
+    let mineWaterRects = [];
     /* ---------- how crowded the city layer is allowed to get (Aug 2026, on request) ----------
        Turning Cities on used to put a label on EVERY city in view, because a name that could not be placed
        cleanly was given a leader line and, failing even that, forced into its last candidate slot. At any
@@ -37941,7 +38021,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           if (!modern) continue;
           const tbl = window[m.points]; if (!tbl) continue;
           const row = tbl[m.dot]; if (!row || !Array.isArray(row.c)) continue;
-          out.push({ id: m.id, title: m.title, kind: "dot", at: row.c, cap: true });
+          // `cap` / `subcap` are carried from the register rather than re-asserted: a country's capital is
+          // a square and a province's a circle (see drawMineMarks), and a fresh `cap: true` here made
+          // every one of them a square again
+          out.push({ id: m.id, title: m.title, kind: "dot", at: row.c, cap: m.cap, subcap: m.subcap });
           continue;
         }
         if (m.y0 != null && year < m.y0) continue;
@@ -38108,7 +38191,85 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, tx, y);
         ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, tx, y);
       }
+      /* THE WATER THE READER HAS LEARNED, named and not marked (see atlasUnlocks' `water` branch). It is
+         drawn AFTER the dots and takes their boxes into account, so a river's name never lands on a place
+         — a place is a mark with a name beside it and this is a name with nothing under it, so where the
+         two compete the mark has more to lose. Centred on the word rather than set beside a dot, which is
+         how an atlas writes water; in `waterCol`, the ink the world atlas already names a sea in, so
+         water is named the same on both tabs; and italic, which is the other half of that convention and
+         is what a reader who cannot tell the two blues apart still has. */
+      const waters = mineWaterShown();
+      mineWaterRects = [];
+      if (waters.length) {
+        ctx.textAlign = "center";
+        ctx.font = "italic 600 " + fs + "px " + labelFont;
+        for (let i = 0; i < waters.length; i++) {
+          const w = waters[i], nm = gameCapFirst(w.m.title || "");
+          if (!nm) continue;
+          const tw = ctx.measureText(nm).width, h = fs * 1.24;
+          /* A SEA GETS SEVERAL PLACES TO STAND, and that is not polish. A dot's name is drawn first and
+             wins the box, so a single centred position meant the Aegean lost its label to Mycenae — and
+             the more Greek cards a reader studies the more certain that becomes, which would have made a
+             sea's name vanish exactly as the collection filled up. A sea is a large shape and the middle
+             is not the only place its name may honestly sit, so the centre is tried first and then two
+             points along its own longer axis. A RIVER has one place and keeps it: `at` is a point on its
+             course, and moving the name off it would name a different stretch of water. */
+            let drawn = false;
+          for (const at of w.spots) {
+            proj(at[0], at[1]); if (PV < 0) continue;
+            const x = PX, y = PY;
+            const box = [x - tw / 2 - 2, y - fs * 0.62, tw + 4, h];
+            if (box[0] < 2 || box[0] + box[2] > W - 2) continue;
+            let clash = false;
+            for (let k = 0; k < boxes.length; k++) if (rectsHit(box, boxes[k])) { clash = true; break; }
+            if (clash) continue;
+            boxes.push(box);
+            mineWaterRects.push({ m: w.m, box: box });
+            ctx.lineWidth = 3.4; ctx.strokeStyle = lblHaloSoft; ctx.strokeText(nm, x, y);
+            ctx.fillStyle = waterCol; ctx.fillText(nm, x, y);
+            drawn = true;
+            break;
+          }
+          if (!drawn) continue;
+        }
+      }
       ctx.restore();
+    }
+    /* WHERE A WATER LABEL SITS, and what thins it out. A sea is named at the middle of its own authored
+       area, the way a region's name is on a card map — `at` is a point the author picked somewhere inside
+       it, which for a sea is a coast. A river has no area and is named at `at`, which for a river IS a
+       point on its course. The same separation the dots use, and against the same list, so a river and a
+       city do not crowd each other; and the same zoom gate, so at world scale the earth stays clear. */
+    function mineWaterShown() {
+      if (zoom < MINE_LBL_Z) return [];
+      const out = [];
+      const marks = mineMarks().filter((m) => m.kind === "water" && m.at)
+        .sort((a, b) => String(a.title || "").localeCompare(String(b.title || "")));
+      for (let i = 0; i < marks.length; i++) {
+        const spots = mineWaterSpots(marks[i]);
+        // the FIRST spot decides whether the mark is on screen at all and answers a click; the rest are
+        // only somewhere else the name may sit when the first one is taken (see drawMineMarks)
+        proj(spots[0][0], spots[0][1]); if (PV < 0) continue;
+        const x = PX, y = PY;
+        if (x < -40 || x > W + 40 || y < -40 || y > H + 40) continue;
+        out.push({ m: marks[i], x: x, y: y, spots: spots });
+      }
+      return out;
+    }
+    // where a water label may sit: a river at its own point, a sea at the middle of its area and then at
+    // two points along its longer axis (see drawMineMarks for why it needs more than one)
+    function mineWaterSpots(m) {
+      if (!m.area || !m.area.length) return [m.at];
+      const b = ringsBBox(m.area);
+      const cx = wrapLon((b[0] + b[2]) / 2), cy = (b[1] + b[3]) / 2;
+      const w = b[2] - b[0], h = b[3] - b[1];
+      /* FIVE SPOTS, AND THEY VARY IN BOTH AXES. Three along the long axis alone was the first cut and it
+         did not work: they share a latitude, so a single label already sitting in that band knocks all
+         three out at once — which is what Mycenae did to the Aegean. Spreading them up and down as well
+         is what makes the name find a gap. Ordered centre-first, so the ordinary case is unchanged. */
+      const x30 = wrapLon(b[0] + w * 0.3), x70 = wrapLon(b[0] + w * 0.7);
+      const y30 = b[1] + h * 0.3, y70 = b[1] + h * 0.7;
+      return [[cx, cy], [cx, y70], [cx, y30], [x30, cy], [x70, cy], [x30, y70], [x70, y30]];
     }
     /* WHAT THE READER JUST CLICKED, and everything drawn on this tab answers a click (Sep 2026, on
        request: "every country and place should be clickable to open its card popup"). The ladder is by
@@ -38130,6 +38291,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (d < 196 && d < bd) { bd = d; best = dots[i].m; }  // within 14px of the mark
       }
       if (best) return best;
+      /* A WATER LABEL ANSWERS A CLICK ON THE WORD ITSELF (see drawMineMarks' water pass). It sits below
+         the dots and above the shapes: a place is the more specific claim, and a sea's name floating over
+         a coast must not swallow the country under it. The target is the WORD's OWN BOX, taken from
+         `mineWaterRects` — which the drawing pass fills — rather than recomputed here: a sea's name may
+         stand at any of several points and only the pass that drew it knows which one it took. */
+      for (let i = 0; i < mineWaterRects.length; i++) {
+        const b = mineWaterRects[i].box;
+        // a couple of pixels of slack, since a word is a thin target and the halo reads as part of it
+        if (px >= b[0] - 3 && px <= b[0] + b[2] + 3 && py >= b[1] - 3 && py <= b[1] + b[3] + 3) return mineWaterRects[i].m;
+      }
       const shapes = mineShapes();
       let hit = null, ba = Infinity;
       for (let i = 0; i < shapes.length; i++) {
