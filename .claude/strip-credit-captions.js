@@ -42,7 +42,8 @@
 "use strict";
 
 const { loadCards, writeCards } = require("./card-io.js");
-const { loadGlossary, writeGlossary } = require("./gloss-io.js");
+const { loadGlossary, writeGlossary, MAIN: GLOSS_MAIN } = require("./gloss-io.js");
+const fs = require("fs");
 const { loadArtefacts, writeArtefacts } = require("./artefact-io.js");
 
 const CHECK = process.argv.includes("--check");
@@ -105,6 +106,10 @@ if (!hits.length) { console.log("Nothing to do."); process.exit(0); }
 
 hits.forEach((h) => { h.it.desc = h.to; });
 writeCards(cards, tree);
-writeGlossary(G);
+/* writeGlossary takes the caller's serialised glossary.js, because most of its callers have just
+   rewritten it. Nothing here touches that half — an image lives in glossary-extra.js — so the file
+   is handed straight back, which the door then round-trips byte for byte (verified). Going through
+   it rather than writing the extra file directly is what keeps every writer on one path. */
+writeGlossary(G, fs.readFileSync(GLOSS_MAIN, "utf8"));
 writeArtefacts(arts);
 console.log("\nWritten. " + hits.length + " captions no longer repeat the credit beside them.");

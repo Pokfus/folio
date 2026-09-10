@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.684", released: "2026-09-10T14:28Z" };
+window.FOLIO_VERSION = { v: "1.685", released: "2026-09-10T14:34Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-10",
     t: "Folio opens far faster, and works where Google does not",
     items: [
-      "<b>\u201cThink it through\u201d now reaches every card in the History and Science sections</b>, with 801 more cards gaining three why-questions and their answers.",
+      "<b>\u201cThink it through\u201d now reaches every card outside Geography</b>, with 811 more cards gaining three why-questions and their answers.",
       "<b>The site now opens in a fraction of the time</b>, downloading less than half of what it used to before the first card.",
       "<b>Fonts are served by Folio itself</b>, so the site no longer waits on Google to draw a single word \u2014 and looks right offline for the first time.",
       "The arcade theme finally gets the display face it was written for.",
@@ -66,6 +66,8 @@ window.CHANGELOG = [
       "<b>Try ten cards of any collection without adding it</b>, scheduling nothing and counting nothing.",
       "Undo now says which card it will give back, and which grade it will take off it.",
       "The Reveal button’s help now says what “4d” actually means for the card in front of you.",
+      "<b>Fifteen cards now say what came of them</b>, linking the fall of the Roman monarchy, the plebs’ first secession and the Messenian wars to what each led to.",
+      "124 picture captions no longer repeat, word for word, the credit line printed beside them.",
     ],
   },
   {
