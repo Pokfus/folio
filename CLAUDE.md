@@ -1254,9 +1254,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and what each shipped batch found.
-    **G1–G16 have shipped — one hundred and ninety-three backgrounds rewritten** (`gw-001`–`gw-211`, less
+    **G1–G17 have shipped — two hundred and five backgrounds rewritten** (`gw-001`–`gw-211`, less
     the deferrals below), each five sentences of landform, water and climate over five of the country's
-    own history, with one hundred and seventy-nine date lines rewritten out of the same research. Three sources make the
+    own history, with one hundred and ninety-one date lines rewritten out of the same research. Three sources make the
     pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
     landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
     range, and the rivers — enough for a whole block on its own — and states its own recommended
@@ -1333,7 +1333,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     reader to ignore it. **AND A WATER BODY NAMED AFTER A COUNTRY AUTO-LINKS TO THE COUNTRY**: measured over the shipped `gw-`
     cards, 34 occurrences across six seas — Gulf of Guinea, Sea of Japan, South China Sea, Gulf of Mexico,
     Mozambique Channel, East China Sea — none of which is a glossary term, so the country surface wins;
-    the fix is one cited entry per water body rather than a reword per card. Rules 1 and 3 remain open on
+    the fix is one cited entry per water body rather than a reword per card.
+    **AND A DEPENDENCY HAS NONE OF THE THREE STANDARD SOURCES, WHICH IS ONE FACT RATHER THAN THREE**
+    (Sep 2026, G17, the first batch made entirely of them): the CBD, the recognition guide and the
+    Constitute Project are all organised around UN MEMBERSHIP, so of twelve territories the CBD carried
+    Iceland alone and served the empty country-selector shell for the other eleven — **all twelve answer
+    200, and the byte count is the check** (54,8xx for the shell against Iceland's 65,963) — while a
+    dependency has no recognition-guide page, being a guide to relations with states, and no constitution
+    to carry. What answers for all twelve is the World Bank's ERA5 climatology and Protected Planet, and
+    **UNdata for ten**: it 500s for Jersey and Guernsey, which the UN files together as the Channel
+    Islands. **AND `www.unesco.org` ANSWERS WHERE `whc.unesco.org` IS 403**, its Man and the Biosphere
+    pages carrying a coastline, hills, peat and seabed in prose — a CBD profile in another coat — with
+    **the RESERVE's own name as the slug, never the country's** (`/en/mab/commune-de-fakarava` answers
+    where `/en/mab/fakarava` is a 404). **AND A DEPENDENCY'S OWN INSTITUTIONS ANSWER, THE MUSEUM OFTEN
+    BEST OF THEM** — G16's Hong Kong finding at scale: `gov.ky`, `parliament.bm`, `tynwald.org.im`,
+    `societe.org.gg` and `jerseyheritage.org` each carry real history or geology, while **the two most
+    obvious sites are the two that fail**, `gov.je` answering 500 on every path and `gov.im` a 269-byte
+    stub, so Jersey is carried by its heritage trust and by GUERNSEY's constitutional page, which
+    describes both bailiwicks. **AND A `gov.gg` ARTICLE IS FOUND THROUGH `/article/119691/Sitemap` AND
+    NOWHERE ELSE**, the root linking almost nothing internal and the ids being unguessable. **AND RULE 2
+    CAN COLLIDE WITH A TREATY'S NAME**: the Nouméa Accord is named after New Caledonia's capital, so it is
+    written round as "an accord signed on 5 May 1998", exactly as the Treaty of Paris and the Berlin Wall
+    were. **AND `gw-193` JOINS `gw-003` AS PERMANENTLY IN THE RULE-1 LIST**, its own answer term being the
+    United States Virgin Islands — where **Guam was written clear of it**, the absence of a
+    recognition-guide page being what made an American-free history easy rather than hard. **AND THE
+    AUTO-LINKER MATCHES AN ADJECTIVE**: `Federated_States_of_Micronesia` claims the surface *Micronesia*
+    and matched *Micronesian* too, so the UN's Micronesia REGION cannot be named on a card at all and the
+    clause was dropped; "horse mussel" linked `Horse`, a grazing mammal. **AND A 202 WITH A SHORT BODY IS
+    THE PROXY, NOT THE HOST** — `dcnanature.org` answered 200, then 202, then 200 in three consecutive
+    requests, so re-request before treating a territory's one source as lost.
+    Rules 1 and 3 remain open on
     about 300 cards.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main

@@ -125,6 +125,12 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
 
 ## What has shipped
 
+- **2026-09-10, batch G17 — twelve dependencies, and none of the pass's three standard sources carries
+  eleven of them**: `gw-178` Iceland, `gw-180` New Caledonia, `gw-182` French Polynesia, `gw-186` Guam,
+  `gw-187` Curaçao, `gw-192` Aruba, `gw-193` the United States Virgin Islands, `gw-195` Jersey, `gw-198`
+  the Isle of Man, `gw-200` the Cayman Islands, `gw-201` Guernsey and `gw-203` Bermuda, with all twelve
+  date lines rewritten off the same research.
+
 - **2026-09-10, batch G16 — twelve more, four of which no international body carries**: `gw-115` Denmark,
   `gw-117` Finland, `gw-119` Norway, `gw-120` Slovakia, `gw-121` Ireland, `gw-123` New Zealand, `gw-130`
   Croatia, `gw-135` Puerto Rico, `gw-136` Bosnia and Herzegovina, `gw-153` Kosovo, `gw-167` Macau and
@@ -280,6 +286,64 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What G17 found
+
+**THE STANDARD SOURCES FOLLOW UN MEMBERSHIP, AND A DEPENDENCY HAS NO MEMBERSHIP.** G16 found this one
+country at a time — Kosovo missing from four lists, Western Sahara from two — and a batch made entirely of
+dependencies makes it a rule. Measured over the twelve: the **CBD** carried Iceland and served the empty
+country-selector shell for the other eleven (54,8xx bytes every time, against Iceland's 65,963 — the
+byte count is the check, since all twelve answer 200); the **recognition guide** has a page for Iceland
+and for no dependency, being a guide to relations with *states*; the **Constitute Project** likewise, there
+being no constitution to carry. What answers for all twelve is the **World Bank's ERA5 climatology** and
+**UNEP-WCMC's Protected Planet**, and **UNdata for ten** — it 500s for Jersey and Guernsey, which the UN
+files together as the Channel Islands and gives no ISO profile of their own.
+
+**`www.unesco.org` ANSWERS WHERE `whc.unesco.org` IS 403, AND ITS BIOSPHERE PAGES ARE A CBD PROFILE IN
+ANOTHER COAT.** A Man and the Biosphere page carries the coastline, the hills, the peat, the wetlands and
+the seabed in prose, per reserve, which is exactly what the CBD gives a country and exactly what the tail
+of this deck has been missing. The Isle of Man's whole island and the whole of its territorial waters were
+designated in 2016, and the Commune de Fakarava page carried French Polynesia's atolls, including the
+ring-shaped one raised on a volcano that subsided as the Pacific seafloor drifted. **The slug is the
+reserve's own name, not the country's** — `/en/mab/commune-de-fakarava` answers where `/en/mab/fakarava`
+is a 404, and the Isle of Man's is `/en/mab/isle-man`.
+
+**A DEPENDENCY'S OWN INSTITUTIONS ANSWER, AND THE MUSEUM IS OFTEN THE BEST OF THEM.** This is G16's Hong
+Kong finding at scale: `gov.ky` carries a real history page from Columbus's sighting on 10 May 1503 to
+the first constitution of 1959, `parliament.bm` a legislature history back to the assembly Governor
+Nathaniel Butler summoned on 1 August 1620, Tynwald its own claim to be the oldest parliament with an
+unbroken existence, La Société Guernesiaise the 2.5-billion-year-old Icart Gneiss under the southern
+cliffs, and Jersey Heritage both the 584-million-year-old volcanic origin of the island and the passage
+grave opened in September 1924. **But the two most obvious sites are the two that fail**: `gov.je`
+answers **500 on every path tried** and `gov.im` hands back a 269-byte stub, so Jersey is carried entirely
+by its heritage trust and by GUERNSEY's constitutional page, which describes both bailiwicks together.
+
+**A `gov.gg` ARTICLE IS FOUND THROUGH THE SITEMAP AND NOWHERE ELSE.** The root links almost nothing
+internal and every guessed `/article/<id>/<slug>` is a 404, the ids being unguessable; `/article/119691/Sitemap`
+is 500 KB and holds every one of them, which is how `152732/Constitution-position-and-customs-territory`
+was found. The same shape works on `museums.gov.gg`.
+
+**RULE 2 CAN COLLIDE WITH A TREATY'S NAME.** The Nouméa Accord is named after New Caledonia's capital, so
+naming it repeats a facts-grid value; it is written round as "a further accord was signed on 5 May 1998",
+which is the move the great powers already forced for the Treaty of Paris, the Berlin Wall and the Grand
+Duchy of Warsaw.
+
+**RULE 1 IS UNAVOIDABLE ON `gw-193`, AND AVOIDABLE ON `gw-186`.** The United States Virgin Islands' own
+answer term contains the phrase, so that card joins `gw-003` as one that will always stand in the rule-1
+list. **Guam did not have to**: with no recognition-guide page to write from, its history is the first
+islanders of 3,500 years ago, the rice in their pottery, the occupation from 10 December 1941 and the
+retaking on 21 July 1944 — the National Park Service tells all of it without the card ever naming the
+sovereign. The absence of the American-facing source is what made the American-free card easy.
+
+**TWO WRONG AUTO-LINKS, AND ONE OF THEM CANNOT BE REWORDED ROUND.** `Federated_States_of_Micronesia` claims
+the surface *Micronesia*, and the linker matched the ADJECTIVE too, so "the Micronesian region" linked a UN
+subregion to a sovereign country; the clause was dropped from Guam's card rather than reworded, since every
+form of the word is claimed. And **"horse mussel" linked `Horse`**, a grazing mammal of the open grassland,
+on the Isle of Man — the species list was cut back to the reefs and beds that carry no such trap.
+
+**A 202 WITH A SHORT BODY IS THE PROXY, NOT THE HOST.** `dcnanature.org`, Curaçao's only openable landform
+source, answered 200 (263 KB), then 202 (179 bytes), then 200 again in three consecutive requests.
+Re-request before treating a territory's one source as lost.
 
 ## What G16 found
 
