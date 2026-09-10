@@ -986,7 +986,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-720  The founding of Alexandria
     gr-721  The oracle of Ammon at Siwa
     gr-722  Battle of Gaugamela
-    gr-723  The fall of Babylon
+    gr-723  The surrender of Babylon  — retitled from "The fall of Babylon" when the card was
+             written: the fall of Babylon is Cyrus in 539 BCE, and Arrian's Babylonians come out
+             in a mass with their priests and offer the city, the citadel and the money
     gr-724  Susa
     gr-725  Persepolis
     gr-726  The burning of Persepolis
