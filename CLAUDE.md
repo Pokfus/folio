@@ -1593,6 +1593,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     founded in 1610 — both written round, with `Netherlands` claiming *Dutch*, `Great_Britain`
     *British*, `Settlement` the bare surface, and `Council` and `Constitution` recorded rather than
     fixed.
+    **AND A FIFTH OUTCOME: THE TEXT IS SILENT AND NOTHING REPLACES IT** (Sep 2026, C6). C3 found the
+    clause missing with a statute in its place, C4 a bare *National capital* topic tag, C5 a clause
+    naming a different city; the Korean text of 1987 contains *Seoul* **zero times** and the Sudanese
+    document of 2020 names no capital either, and **no openable statute stands in for either**, so
+    both cards are written without the leg (`english.ccourt.go.kr` serves its home page and drops the
+    connection on its case-search path). It answered for **four of six** — Uganda art. 5, Spain sec. 5,
+    Algeria art. 5, Iraq arts. 11 and 124. **AND UNdata'S FOOTNOTE NAMED THE TOWNS IT SWALLOWED**:
+    Kampala's figure "includes Kira, Makindye Ssabagabo and Nansana", Algiers's is the Governorate of
+    Grand Algiers, Seoul's the Special City — and **all six are dated 2019 in a table headed 2025**, the
+    first batch where the year-gap is unanimous; Sudan's profile has no `Surface area` field at all.
+    **AND A CAPITAL'S LANDFORM SOURCE IS USUALLY A HAZARD PAPER**, which is how to search for one: four
+    of six came from a landslide zonation, a tsunami risk scale, an aquifer-subsidence study and a
+    dust-storm analysis, each of whose Study Area is a description of the ground. **AND THE PERIOD BOOK
+    CARRIED FOUR OF THE SIX HISTORIES AND ONE OF THE LANDFORMS** — Churchill's *The River War* (1899),
+    Cunningham's *Uganda and Its Peoples* (1905), Thomas-Stanford's *About Algeria* (1912, which also
+    gives the Sahel and the Tell) and Le Strange's *Baghdad during the Abbasid Caliphate* (1900) —
+    **and an `archive.org` `_djvu.txt` that answers 200 is not always OCR**: one Le Strange item serves
+    215 KB of catalogue description reading exactly like the book where another serves the real 833 KB,
+    so check the SIZE against the book's length. **AND A CITY'S OWN INSTITUTION CAN BE THE BEST SOURCE
+    FOR ONE LEG AND USELESS FOR ANOTHER**: the Seoul Metropolitan Government's history page carries
+    Wiryeseong, the fall of 475, Hanyang in 1394 and the 18 km wall over four named hills, while its
+    geography page is a 404 and its climate page carries not one figure. **AND A DOI CAN 503 WHILE ITS
+    ARTICLE PAGE IS 200** (`10.5944/etfi.10.2017.15940`), so cite what opens and read Crossref for the
+    metadata. **CSIC'S WHOLE JOURNAL PLATFORM IS SHUT** — `cultureandhistory`, `informesdelaconstruccion`
+    and `dra.revistas.csic.es` all refuse — where `revistas.uned.es` and `bage.age-geografia.es` are
+    open; `pam-journal.pl` 404s its own article and PDF paths while the same team is open at
+    `journals.iaepan.pl`; `igj-iraq.org` answers 202 and `madrid.es` 403. **AND THE AUTO-LINKER TOOK A
+    CALIPH AND AN EMPIRE**: `Muhammad` here is the Prophet, so Madrid's 9th-century emir linked to a
+    life ending in 632 — written round by keeping the source's **Muḥammad I** — and `Rome` is the
+    modern capital of Italy, so "the granary of Rome" pointed at a city of 4.2 million; `Water` was
+    written round three more times, with `Constitution`, `Republic` and `Japan`-as-*Japanese* recorded
+    rather than fixed.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |

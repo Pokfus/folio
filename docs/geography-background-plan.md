@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-10, batch C6 — six capitals, and two constitutions say nothing at all**: `gw-529` Seoul, `gw-530` Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers and `gw-534` Baghdad, with all six date lines rewritten off the same research. Six again, for C2’s reason.
+
 - **2026-09-10, batch C5 — six capitals, and one constitution names a different city**: `gw-523` Paris, `gw-524` Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw and `gw-528` Bogotá, with all six date lines rewritten off the same research. Six again, for C2’s reason.
 
 - **2026-09-10, batch C4 — six capitals, and four of the six have no constitutional clause**: `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London and `gw-522` Dodoma, with all six date lines rewritten off the same research. Six again, for C2’s reason.
@@ -396,6 +398,90 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C6 found
+
+**A FIFTH OUTCOME FOR THE CONSTITUTION LEG: THE TEXT IS SIMPLY SILENT, AND NOTHING STANDS IN ITS
+PLACE.** C3 found the clause missing on two capitals and a statute in its stead; C4 found a bare
+*National capital* topic tag that is not a clause; C5 found a clause naming a different city. Here
+the Korean text of 1987 contains *Seoul* **zero times** and the Sudanese constitutional document of
+2020 names no capital either — and unlike Tokyo or Manila **no openable statute replaces it**, so
+those two cards are written without the leg at all and take a fifth source elsewhere. The Korean
+Constitutional Court's own English site serves its home page and then drops the connection on
+`/site/eng/decisions/casesearch/caseSearch.do`, so its case law could not be read from here. Where
+the leg does answer it answers plainly: Uganda's article 5 (Kampala, *located in Buganda*,
+administered by the Central Government), Spain's section 5, Algeria's article 5, and Iraq's articles
+11 and 124, the last making the city within its municipal borders a governorate of its own that may
+not merge with a region. **Four of six** — the same proportion C4 measured, arrived at by a
+different route.
+
+**AND UNdata'S CAPITAL FOOTNOTE PAID A FIFTH TIME, ONCE BY NAMING THE TOWNS IT SWALLOWED.**
+Kampala's figure "includes Kira, Makindye Ssabagabo and Nansana" — three neighbouring towns folded
+into the capital's count and listed by name — where Algiers's "Refers to the Governorate of Grand
+Algiers" and Seoul's to "Seoul Special City". **And all six are dated 2019 in a table headed 2025**,
+which is the first batch where the year-gap is unanimous rather than a case or two. **Sudan's
+profile has no `Surface area` field at all**, which C9 of the glossary pass recorded for the country
+term and which turns up here again: the only one in the deck that omits one.
+
+**A LANDFORM PAPER FOR A CAPITAL IS USUALLY A HAZARD PAPER, AND THAT IS HOW TO SEARCH FOR ONE.**
+Four of C6's six landform sources are risk studies whose Study Area is a description of the ground:
+a landslide susceptibility zonation for the July 2011 Seoul event (Mt Woomyeon, 293 m of Precambrian
+banded biotite gneiss under oak forest, 147 shallow slides in one storm), a tsunami risk scale for
+the Bay of Algiers (the bay 30 km east to west, the old quarter on mica schist with lenses of
+limestone), a subsidence study of the Madrid aquifer (a tectonic depression holding a 2,500 km²
+Tertiary detrital aquifer between the Sierra de Guadarrama and the alluvium of the Manzanares and
+Jarama) and a dust-storm analysis over Baghdad. **Search the hazard, not the geology** — a city has
+papers about what threatens it long before it has papers about its rocks.
+
+**THE PERIOD BOOK CARRIED FOUR OF THE SIX HISTORIES, AND CAN CARRY THE LANDFORM TOO.** Churchill's
+*The River War* (1899) gives the confluence as "the point on which the trade of the south must
+inevitably converge" and the Mahdi's move across the White Nile to Omdurman because the marshes
+about the older town "did not commend itself"; Cunningham's *Uganda and Its Peoples* (1905) gives
+Mengo as the kabaka's capital with the Lukiko sitting there and the missions on the neighbouring
+hills; Thomas-Stanford's *About Algeria* (1912) gives Roman Icosium, the Arab town founded in the
+10th century, the Moors who settled about 1500 and took to piracy, and the landing of 35,000 men at
+Sidi Ferruch on 14 June 1830 — **and, in the same book, the wooded hills of the Sahel and the Tell
+"once the granary of Rome"**; Le Strange's *Baghdad during the Abbasid Caliphate* (1900) gives
+al-Mansur laying out the round city in AH 145 / 762 CE just above where the Sarat canal ran in, the
+Nestorian monasteries on the spot, and *Madinat as-Salam* as the mint name on Abbasid coins.
+
+**AND AN `archive.org` `_djvu.txt` THAT ANSWERS 200 IS NOT ALWAYS OCR.** The item
+`BaghdadDuringTheAbbasidCaliphateFromContemporaryArabicAndPersian` serves 215 KB under that path and
+every word of it is the catalogue description — a chapter list that reads exactly like the book —
+while `bub_gb_rdcoAAAAYAAJ` serves the real 833 KB. The standing rule is to grep for a word the book
+must contain; **the cheaper tell is the SIZE against the book's length.**
+
+**AND THE CITY'S OWN INSTITUTION CAN BE THE BEST SOURCE FOR ONE LEG AND USELESS FOR ANOTHER.** The
+Seoul Metropolitan Government's history page, compiled by its Historiography Institute, carries
+Wiryeseong and the Baekje earthworks at Pungnaptoseong and Mongchontoseong, the 493 years the
+kingdom held the city, the fall to Goguryeo in 475, Yi Seong-gye's move to Hanyang in 1394, the
+palaces of 1395 and 1405 and the 18 km wall over Bugaksan, Naksan, Namsan and Inwangsan — G16's Hong
+Kong finding at full strength. Its *geography* page is a 404 and its *climate* page is tourist copy
+with not one figure in it.
+
+**AND A DOI CAN 503 WHILE ITS ARTICLE PAGE IS 200.** `10.5944/etfi.10.2017.15940` refused on every
+attempt and `revistas.uned.es/index.php/ETFI/article/view/15940` answered, so the Maŷrīṭ paper is
+cited at the page that opens while its Crossref record was still read for the authors and
+pagination. **Cite what opens.**
+
+**HOSTS.** Open: `nature.com`, `journals.plos.org`, `ajol.info`, `piahs.copernicus.org`,
+`nhess.copernicus.org`, `tsunamisociety.org`, `journals.iaepan.pl`, `jstage.jst.go.jp`,
+`findingspress.org`, `revistas.uned.es`, `bage.age-geografia.es`, `mjs.uomustansiriyah.edu.iq`,
+`english.seoul.go.kr`, `gutenberg.org`, `archive.org`. Shut: **CSIC's whole journal platform**
+(`cultureandhistory`, `informesdelaconstruccion` and `dra.revistas.csic.es` all refuse the
+connection, which rules out a great deal of Spanish scholarship), `madrid.es` 403,
+`e3s-conferences.org` 403 again, `gtg.webhost.uoradea.ro` and `jdesert.ut.ac.ir` closing
+mid-exchange, `igj-iraq.org` answering **202**, `etj.uotechnology.edu.iq` 404ing its own
+DOAJ-listed PDF, and **`pam-journal.pl` 404ing both its article and its PDF path** — the same team's
+work on the same site is open one journal over at `journals.iaepan.pl`. A `mjs.uomustansiriyah.edu.iq`
+PDF is a cipher (fonts subset with no ToUnicode map), so its abstract was read from the HTML.
+
+**AND THE AUTO-LINKER TOOK A CALIPH AND AN EMPIRE.** `Muhammad` in this glossary is the Prophet, so
+Madrid's 9th-century emir linked to a life that ends in 632 — written round by keeping the source's
+own **Muḥammad I**, which the surface cannot match — and `Rome` is the modern capital of Italy, so
+"the granary of Rome" pointed at a city of 4.2 million; written as "the Roman empire" it links
+correctly to `Roman_Empire`. `Water` was written round three more times, and `Constitution`,
+`Republic` and `Japan` claiming the adjective *Japanese* are recorded rather than fixed.
 
 ## What C5 found
 
