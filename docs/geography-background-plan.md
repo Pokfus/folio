@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-10, batch C8 — six capitals, and every one of their constitutions names its capital**: `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh and `gw-546` Maputo, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-10, batch C7 — six capitals, and the climate leg fails outright on one of them**: `gw-535` Buenos Aires, `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat and `gw-540` Luanda, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-10, batch C6 — six capitals, and two constitutions say nothing at all**: `gw-529` Seoul, `gw-530` Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers and `gw-534` Baghdad, with all six date lines rewritten off the same research. Six again, for C2’s reason.
@@ -400,6 +402,79 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C8 found
+
+**The constitution leg answered for all six, which is the first unanimous batch — and one of the six names
+its capital PROVISIONALLY, which is a seventh outcome.** C3 found the clause missing with a statute in its
+place, C4 a bare *National capital* topic tag, C5 a clause naming a different city, C6 silence with nothing
+to replace it, C7 a clause that is a procedure. Malaysia's article 154 reads *until Parliament otherwise
+determines, the municipality of Kuala Lumpur shall be the federal capital* — and the country has moved half
+of the government anyway, which only **UNdata's own footnote** records: *Kuala Lumpur is the capital and
+Putrajaya is the administrative capital*. The other five are plain: Ukraine art. 20 closes the article on
+the state symbols by naming the city, Poland art. 29 and Mozambique art. 301 are one line each, Uzbekistan
+art. 6 the same, and Saudi Arabia's Basic Law names the capital in article 1 and puts the Shura's seat there
+in article 12. Against C3–C7's third-to-two-thirds, six of six is the batch to remember as the ceiling
+rather than the norm.
+
+**A CITY PORTAL THAT LOOKS MUNICIPAL AND IS NOT.** `kualalumpurcity.my` carries a dated historical timeline
+of Kuala Lumpur — 1857, the Klang and the Gombak, the Kapitan Cina, the 1880 move of the Residency — exactly
+the shape of the city institution the recipe's fourth leg asks for, and it is a **commercial city guide**
+with an *Advertise & Partnerships* page and no mention of the city hall anywhere in it. **Read the footer
+before citing a city site**; `dbkl.gov.my` answers and publishes nothing usable, while `arkib.gov.my` (the
+national archives) and `jmbras.org` both refuse the connection. What carried that card instead was a
+**hazard paper about a heritage district** — D'Ayala et al. on flood vulnerability in Kampung Baru — plus
+Swettenham's own 1907 account, written by the man who ran the administration and read as the witness he is.
+
+**AND PMC SERVES A reCAPTCHA CHALLENGE UNDER A 200, WHICH IS THE TENTH VARIETY OF 200-STATUS
+NON-DOCUMENT.** Fetched with a short user-agent, `pmc.ncbi.nlm.nih.gov` answered 200 with **21,281 bytes**
+of Google challenge page; the same URL with a full browser user-agent answered 200 with **148,853 bytes** of
+article. It is intermittent, and it is indistinguishable from a real answer to any check that reads only the
+status code. **Retest with a full user-agent before treating a PMC copy as lost** — this is the route C1
+established for everything walled at its publisher, so losing it would cost far more than one citation.
+
+**A NATIONAL INSTITUTE'S OWN ENCYCLOPEDIA IS THE WAY INTO A CITY WHOSE GOVERNMENT IS SHUT.**
+`kyivcity.gov.ua` is 403 and `st-sophia.org.ua` refuses, where the **Institute of History of Ukraine**
+publishes the *Encyclopedia of the History of Ukraine* in full, and its Kyiv article is signed by three
+named authorities, carries a bibliography of its own, and is prefaced by the site's own preferred citation.
+That is the encyclopedia test the glossary pass settled — cite one that cites its sources — met by a
+national academy rather than a publisher. **Its short permalink fails TLS from here** (`https://www.history.org.ua/?termin=…` returns nothing while the `http` form answers), so the citation
+uses the long `resource.history.org.ua/cgi-bin/eiu/history.exe?…` address, which serves over https and
+carries none of the characters `SRC_URL_RX` stops at.
+
+**AND THE HAZARD PAPER CARRIED THE LANDFORM ON FOUR OF SIX, FOR THE THIRD BATCH RUNNING** — a groundwater
+and landslide review of the Kyiv-Pechersk Lavra, a flood-risk study of the Vistula reach, a seismic risk
+assessment of Tashkent's housing, and a flood-vulnerability study of Kampung Baru. The Lavra paper is the
+one to copy: written about a monument, it describes the loess plateau at 170–198 m, the 80 m ravine that
+splits it, slopes of 23–26° and the first floodplain terrace below them, which is the whole of Kyiv's
+ground in one Study Site section. Where no hazard paper existed the answer was **a national agency's own
+geology** — the Saudi National Center for Vegetation Cover's *Geology of the North Riyadh Geopark*, 7.9 MB
+of Jurassic stratigraphy that names Wadi Hanifah outright — and **a landfill-siting paper** for Maputo,
+whose criteria sections describe the bedrock, the soils, the dunes and the slope one after another.
+
+**AND `nature.com` IS OPEN HERE**, serving a 2026 *Scientific Reports* article in full at 426 KB, where C1
+recorded it 303ing to an identity-provider cookie endpoint. Shut this batch: `matec-conferences.org` and the
+rest of EDP Sciences (403), De Gruyter's *Open Geosciences* (202 with an empty body), `link.springer.com`
+(a 3 KB challenge under a 200), ScienceDirect (2.7 KB), `pgi.gov.pl`, `um.warszawa.pl`, `darah.org.sa`,
+`rcrc.gov.sa` and `diriyah.sa`. Open: Copernicus, PLOS, `journals.iaepan.pl`, `periodicals.karazin.ua`,
+`acquesotterranee.net`, `muzeumwarszawy.pl`, `1944.pl`, `scielo.org.za`, `culture.pl` and archive.org.
+
+**AND A FIGURE THE SOURCES DO NOT STATE IS THE ONE TO CATCH IN DRAFT.** Tashkent's climate sentence first
+read *of which barely a fifth falls between June and September*; the WMO's own months give 17.1 mm of 419,
+which is a twenty-fifth. Nothing in the pipeline can see an arithmetic claim made on top of a source — the
+citation is real, the marker is right, the sentence is wrong — so **a proportion computed while writing has
+to be computed again before committing**, or written as the source states it. It ships as *next to none of
+that falls between June and September*.
+
+**AND A PARENTHETICAL GLOSSARY KEY CLAIMS NO BARE NAME, BUT ITS ALIASES DO.** `Tian_(Chinese_religion)`
+carries the explicit aliases `T'ien` and `Tien`, so **Tashkent's Tien Shan linked to the Chinese sky
+deity** — written round by using the modern spelling *Tian Shan*, which the key does not claim. Three more
+went the same way: `Commonwealth_of_Nations` claims the bare *Commonwealth*, so the Polish-Lithuanian
+Commonwealth linked to an association of 56 modern states; `Turkey` claims *Turkish*, so a Turkic nomad of
+the Middle Ages linked to the modern republic; and `Great_Britain` claims *British* for the fourth time in
+this pass. `Water`, `Settlement` and `Council` were written round again — the last because in this glossary
+a council is Aristotle's boule and the Shura is not one — with `Constitution` and `Russia`-as-*Russian*
+recorded rather than fixed.
 
 ## What C7 found
 

@@ -1654,6 +1654,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is the capital of the Bahamas, so Monteiro's Count of Nassau linked to a town in the Atlantic —
     the `Alofi` and `Stanley` collision a third time — with `Water` written round twice more and
     `Settlement` twice, its definition being explicitly the archaeologists' dwelling place.
+    **AND SIX OF SIX CONSTITUTIONS NAMED THEIR CAPITAL, WHICH IS THE CEILING RATHER THAN THE NORM**
+    (Sep 2026, C8) — against C3–C7's third to two-thirds — **and one of them names it PROVISIONALLY,
+    a seventh outcome**: Malaysia's article 154 makes Kuala Lumpur the federal capital *until
+    Parliament otherwise determines*, and the country has moved half its government anyway, which
+    only **UNdata's footnote** records — *Kuala Lumpur is the capital and Putrajaya is the
+    administrative capital*. **AND A CITY PORTAL THAT LOOKS MUNICIPAL NEED NOT BE**:
+    `kualalumpurcity.my` carries a dated founding timeline in exactly the shape the recipe's fourth
+    leg wants and is a commercial guide with an *Advertise & Partnerships* page, so **read the footer
+    before citing a city site** — `arkib.gov.my` and `jmbras.org` refuse and `dbkl.gov.my` publishes
+    nothing usable, and what carried that card was a hazard paper on a heritage district plus
+    Swettenham's own 1907 account. **AND `pmc.ncbi.nlm.nih.gov` SERVES A reCAPTCHA PAGE UNDER A 200 TO
+    A SHORT USER-AGENT** — 21,281 bytes against the article's 148,853 — a tenth variety of
+    200-status non-document, intermittent and invisible to a status-code check; **retest with a full
+    browser user-agent before treating a PMC copy as lost**, that being C1's route into everything
+    walled at its publisher. **AND A NATIONAL INSTITUTE'S OWN ENCYCLOPEDIA IS THE WAY INTO A CITY
+    WHOSE GOVERNMENT IS SHUT**: `kyivcity.gov.ua` is 403 and `st-sophia.org.ua` refuses, while the
+    Institute of History of Ukraine's *Encyclopedia of the History of Ukraine* carries a Kyiv article
+    signed by three named authorities with a bibliography and the site's own preferred citation —
+    the glossary pass's encyclopedia test met by a national academy. Its short permalink fails TLS
+    here, so the long `resource.history.org.ua/cgi-bin/eiu/history.exe?…` form is what is cited.
+    **AND `nature.com` IS OPEN**, serving a 2026 *Scientific Reports* article whole, where C1
+    recorded it 303ing; EDP Sciences, De Gruyter's *Open Geosciences*, `pgi.gov.pl`,
+    `um.warszawa.pl`, `darah.org.sa` and `diriyah.sa` are shut. **AND A PROPORTION COMPUTED WHILE
+    WRITING IS INVISIBLE TO EVERY CHECK**: Tashkent's rain was drafted as *barely a fifth* between
+    June and September where the WMO's own months give a twenty-fifth — real source, right marker,
+    wrong sentence — so recompute it before committing or write what the source states. **AND A
+    PARENTHETICAL GLOSSARY KEY CLAIMS NO BARE NAME BUT ITS ALIASES DO**: `Tian_(Chinese_religion)`
+    carries `Tien`, so the Tien Shan linked to the Chinese sky deity, written round as *Tian Shan*;
+    `Commonwealth_of_Nations` claims the bare *Commonwealth*, so the Polish-Lithuanian Commonwealth
+    linked to 56 modern states, and `Turkey` claims *Turkish*, so a medieval Turkic nomad linked to
+    the modern republic — with `Great_Britain`-as-*British*, `Water`, `Settlement` and `Council`
+    written round again and `Constitution` and `Russia`-as-*Russian* recorded rather than fixed.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |
