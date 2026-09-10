@@ -67,8 +67,12 @@ const cards = window.CARD_DATA.filter((c) => String(c.id).startsWith(PREFIX));
    and 501+ are their capitals, and a capital's name in the vocabulary reports Victoria for
    Lake Victoria, Stanley for a mountain and Riga for a gulf. Longest first so "Democratic
    Republic of the Congo" is claimed before "Congo" and "South Africa" before "South Sudan"
-   can steal the word South. */
-const COUNTRIES = cards.filter((c) => Number(String(c.id).slice(3)) < 500)
+   can steal the word South.
+   IT IS READ OFF THE WHOLE DECK, NEVER OFF THE FILTERED SET, and that was a live fault until
+   Sep 2026: taken from `cards`, a run under --prefix=gw-5 had an EMPTY vocabulary, so rule 4
+   reported 0 on every capital hundred and read as a rule those cards passed. A check that
+   silently measures nothing under a filter is worse than one that refuses the filter. */
+const COUNTRIES = window.CARD_DATA.filter((c) => /^gw-\d+$/.test(String(c.id)) && Number(String(c.id).slice(3)) < 500)
   .map((c) => String(c.answerText || "").trim())
   .filter((n) => n.length > 3).sort((a, b) => b.length - a.length);
 const plain = (s) => String(s || "").replace(/<sup[^>]*><\/sup>/g, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();

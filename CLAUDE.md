@@ -1434,8 +1434,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Pacific state — so Niue's free association with New Zealand linked to a definition that excludes it;
     written round and recorded, with `Settlement` (the archaeologists' dwelling place) and `Water` (the
     chemistry term) written round in the same read.
-    Rules 1 and 3 remain open on
-    about 300 cards.
+    **THE CAPITAL HALF IS NOW OPEN, AND ITS FIRST RULE IS THAT A CAPITAL CARD MAY NOT NAME ITS OWN
+    COUNTRY** (Sep 2026, C1). `gw-501`–`gw-733` and `gw-751`–`gw-761` are 235 cards written out of the
+    same recognition guide, and measured before the first batch **211 of them mention the United
+    States** (25% of their sentences), 216 repeat a grid value, 126 name no landform, water or weather
+    and 99 date lines name it — the country half's fault at nearly twice the concentration. The grid's
+    first row is `Country`, so rule 2's forbidden value IS *India*, *China*, *Indonesia*, which rules
+    out the sentence nearly every one of these cards opens on; it is sharper here than on the country
+    cards, the reader looking at that country shaded on a globe with the grid naming it two inches
+    above. **AND `gw-503` WASHINGTON, D.C. IS PERMANENTLY IN THE RULE-1 LIST FOR `gw-003`'s REASON**,
+    its own answer term containing the word the pattern matches — as are `gw-207` American Samoa and
+    `gw-135` Puerto Rico among the countries, while **`gw-134` Uruguay is a MEASUREMENT fault**: the
+    lookbehind excludes *South American* and cannot see a bare "the American continent".
+    **THE COUNTRY RECIPE DOES NOT TRANSFER — AQUASTAT, THE CBD, THE CONSTITUTE PROJECT AND THE
+    RECOGNITION GUIDE ARE ALL ORGANISED AROUND STATES** — and what replaces it is four legs, three of
+    them uniform: **the WMO's World Weather Information Service** for the city's own climatological
+    normals (the capitals' CCKP, and better, being per CITY where the CCKP has no subnational endpoint
+    at all — the index of 3,598 cities is at `worldweather.wmo.int/en/json/full_city_list.txt`);
+    **UNdata's `Capital city` and `Capital city pop.` fields AND THEIR FOOTNOTES**, which say what the
+    figure counts; **an open paper's Study Area** for the site and the geology, found through DOAJ and
+    never through Europe PMC, which is biomedical and returns a capital's hospitals; and **the city's
+    own institution** for the history. **BUT THE WMO'S HUMAN PAGE IS THE EIGHTH VARIETY OF 200-STATUS
+    NON-DOCUMENT**: `worldweather.wmo.int/en/city.html?cityId=N` is 116,080 bytes **byte-identical for
+    every city**, with the city's own name in it **zero times**, so the address cited is
+    `…/en/json/<id>_en.xml`, which carries the data. **AND THE COUNTRY IS A REFUSAL, NEVER A
+    PREFERENCE**, when matching a capital to its station: written as "prefer the same country, else
+    take the first candidate", a fuzzy match gave **Bern the Belgian village of Bernissart**, a real
+    station in the wrong country whose normals would have rendered perfectly — refusing a candidate
+    outside the card's own country dropped 17 of 172 matches, one in ten.
+    **AND `gw-audit.js`'s RULE 4 WAS INERT UNDER A `--prefix`**: `COUNTRIES` was read off the FILTERED
+    card set, so a run over one capital hundred had an empty vocabulary and reported 0 bordering
+    countries — a rule those cards appeared to pass. Read off the whole deck the real figure is 9.
+    **A check that silently measures nothing under a filter is worse than one that refuses the filter.**
+    **AND A DECADE OR CENTURY WRITTEN WITH A TRAILING `s` IS INVISIBLE TO `cardYears`, QUIETLY**:
+    `c. 1200s` and `1620s` yield no year at all, so `gw-502` sorted at 1750 and `gw-504` at 1645 —
+    each rescued by a neighbouring row, which is why the sort year is read back before committing.
+    Both are written as ranges the parser reads (`c. 1200 – 1300`), asserting no more than the source.
+    **AND `Great_Britain` CLAIMS THE ADJECTIVE *British*** — on a term whose own description says it
+    "should never be used interchangeably" with the United Kingdom — so "the British government" of
+    1911 linked to a definition that excludes it; written round as "the government in London", with
+    `Water` and `Council` written round again in the same read, and `Temple` (a Greek definition
+    claiming the Temple of Heaven) and **`India` matching inside "Dutch East India Company"** recorded
+    rather than fixed.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |

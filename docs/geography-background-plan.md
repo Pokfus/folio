@@ -123,7 +123,88 @@ the countries a reader meets first are done first). Each batch:
 **G-topup, first and separately:** rule 2 alone, over all 205 cards. It needs no research — the figure is
 already on the card twice — so it can ship ahead of the rest and is the cheapest third of the job.
 
+## The capitals — the second half of the deck
+
+**The country half is finished and the capital half has never been touched.** `gw-501`–`gw-733` and
+`gw-751`–`gw-761` are 235 shipped cards, and their backgrounds were written out of the same
+recognition guide, so they have the country half's fault at nearly twice the concentration. Measured
+with `node .claude/gw-audit.js --prefix=gw-5` (and `gw-6`, `gw-7`, which between them are exactly the
+capitals) before the first batch:
+
+| | capitals | of 235 |
+|---|---|---|
+| 1. mention the United States | 211 | 90% |
+|  mean share of their sentences | 25% | |
+| 2. repeat a facts-grid value | 216 | 92% |
+| 3. name NO landform, water or weather | 126 | 54% |
+| 4. name a bordering country | 9 | 4% |
+| date lines naming the United States | 99 | 42% |
+
+**RULE 2 ON A CAPITAL CARD IS THE COUNTRY'S NAME**, and that is the constraint that shapes the whole
+half. The grid's first row is `Country`, so the value the prose may not repeat is *India*, *China*,
+*Indonesia* — which rules out the sentence nearly every one of these cards opens on. It is the right
+rule and it is sharper here than on the country cards: the reader is looking at that country shaded on
+a globe with the grid naming it two inches above, so *X is the capital of India* spends a tenth of the
+card on the one thing already on screen. It makes the history block hard and it makes it better — the
+Ming court, a republic proclaimed from a rostrum in 1949, the government in London.
+
+**And the audit had a hole that made the capitals look better than they are.** `COUNTRIES`, rule 4's
+vocabulary, was read off the *filtered* card set, so a run under `--prefix=gw-5` had an empty
+vocabulary and reported **0 bordering countries** on every capital hundred — a rule those cards
+appeared to pass. It is read off the whole deck now, and the real figure is 9. **A check that
+silently measures nothing under a filter is worse than one that refuses the filter.**
+
+### The recipe for a city
+
+The country recipe is dead here: AQUASTAT, the CBD, the Constitute Project and the recognition guide
+are all organised around STATES. Four legs replace it, three of them uniform.
+
+1. **The WMO's World Weather Information Service** — the city's own climatological normals, supplied
+   by its national meteorological service, with the station named and the normals period stated:
+   monthly mean maximum and minimum temperature, rain days and rainfall. **This is the capitals' CCKP,
+   and it is better**, being per CITY where the CCKP answers only per country (probed: there is no
+   subnational endpoint). The full index is at
+   `worldweather.wmo.int/en/json/full_city_list.txt`, 3,598 cities with their ids.
+   · **THE HUMAN PAGE IS A SHELL AND MUST NOT BE CITED.** `worldweather.wmo.int/en/city.html?cityId=N`
+   answers 200 with 116,080 bytes **byte-identical for every city**, and the city's own name appears in
+   it **zero times** — C0's CIA World Factbook finding in a new coat, and it would have shipped as the
+   uniform citation for 235 cards. The address that carries the data is
+   `worldweather.wmo.int/en/json/<id>_en.xml`, which is what is cited.
+   · **THE COUNTRY IS A REFUSAL, NEVER A PREFERENCE.** Matching a capital to a WMO station by name needs
+   a fuzzy match (the station is *Rabat-Sale*, *Helsinki-Vantaa*, *Muscat (Seeb)*, *Phnom Penh -
+   Pochentong*), and written as "prefer the same country, else take the first candidate" it gave **Bern
+   the Belgian village of Bernissart** — a real station, in the wrong country, with a full set of
+   normals that would have rendered perfectly. Refusing a candidate outside the card's own country
+   dropped **17 of 172 matches**, one in ten. What is left is a country-NAME problem rather than a
+   matching one (*Türkiye*, *Republic of Korea*, *Lao People's Democratic Republic*, Greenland under
+   Denmark), and is resolved by hand, twelve cities at a time.
+2. **UNdata's country profile** — for the `Capital city` and `Capital city pop.` fields **and their
+   footnotes**, which say what the figure actually counts: Delhi's "is not restricted to state
+   boundaries … includes Faridabad, Gurgaon and Ghaziabad", Beijing's "all city districts (exc.
+   Yanqing) meeting criteria such as contiguous built-up areas", Jakarta's "the functional urban area".
+   That is a real fact about a capital and it is uniform across every UN member.
+3. **An open paper's Study Area** — the site, the geology and the river, per city. DOAJ finds them
+   (`bibjson.title:(<city> AND (groundwater OR subsidence OR geology OR aquifer))`); Frontiers,
+   Copernicus, Springer Open and the national OJS journals serve them. Europe PMC is the wrong index
+   here — it is biomedical, and a search for a capital returns its hospitals.
+4. **The city's or the country's own institution** for the history — a municipal council, a capital
+   development authority, a parks service, a national archive. This is the per-city leg and the one
+   that decides whether a card can be written at all.
+
+### Batches
+
+Twenty batches of about twelve, in the deck's own running order (which is by population). Each batch
+follows the country half's workflow exactly — draft, measure against the four rules before applying,
+sweep every citation URL, apply with `add-sources.js` and `set-date-line.js`, read every sort year back
+through `cardYears`, render in a browser to read the glossary auto-links, then record the figures here.
+
 ## What has shipped
+
+- **2026-09-10, batch C1 — the capitals begin, and the recipe is settled**: `gw-501` New Delhi,
+  `gw-502` Beijing, `gw-503` Washington, D.C. and `gw-504` Jakarta, with all four date lines rewritten
+  off the same research. **Deliberately four rather than twelve** — the country recipe does not
+  transfer and this batch is where the city one was found.
+
 
 - **2026-09-10, batch G20 — the last four, and the country half of the deck is finished**:
   `gw-230` Norfolk Island, `gw-231` Niue, `gw-232` Vatican City and `gw-233` the Pitcairn Islands, with
@@ -303,6 +384,57 @@ already on the card twice — so it can ship ahead of the rest and is the cheape
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C1 found
+
+**A CAPITAL CARD MAY NOT NAME ITS OWN COUNTRY, AND THAT IS RULE 2 DOING ITS JOB.** The grid's first
+row is `Country`, so *India*, *China*, *Indonesia* and *United States* are grid values like any other.
+Every one of the four opened on "X is the capital of Y" and none of them does now. What the constraint
+costs is a sentence of throat-clearing; what it buys is that the history has to be written in the
+things that happened — the government in London, the Ming and the Qing, the Netherlands Indies, the
+Federal City of 1791 — rather than in the name the reader can already see.
+
+**AND ONE CAPITAL IS PERMANENTLY IN THE RULE-1 LIST, FOR `gw-003`'s REASON**: `gw-503`'s own answer
+term is *Washington, D.C.*, and the rule-1 pattern contains `\bWashington\b`, so that card will always
+stand in that list — as `gw-003` and `gw-193` always will. It is written with no *United States* and no
+*America* in it all the same, because rule 2 forbids the grid's `United States` independently, and the
+two rules push the same way.
+
+**THE WMO'S CITY PAGE IS THE EIGHTH VARIETY OF 200-STATUS NON-DOCUMENT**, and it nearly became the
+uniform citation for 235 cards. `worldweather.wmo.int/en/city.html?cityId=N` answers 200 with 116,080
+bytes that are **byte-identical for every city** and contain the city's name **zero times**; the data
+is served from `…/en/json/<id>_en.xml`, which is what the cards cite. Every earlier variety on this
+list was found by grepping the page for a word it must contain, and so was this one — **do that before
+adopting an address as a recipe's uniform leg**, since a wrong one is wrong 235 times.
+
+**A DECADE OR A CENTURY WRITTEN WITH A TRAILING `s` IS INVISIBLE TO `cardYears`, AND IT FAILS
+QUIETLY.** `gw-502`'s first date line read `Axis laid out | c. 1200s` and `Axis reshaped | c. 1500s`
+and yielded **no year at all**, so the card sorted at 1750, the one row the parser could read; `gw-504`
+opened `Canals begun | 1620s` and sorted at 1645. Neither looked broken — a neighbouring row rescued
+the sort each time, which is exactly why reading every new sort year back through `cardYears` is the
+last step before committing. Both were rewritten as ranges the parser reads (`c. 1200 – 1300`,
+`c. 1622 – 1627`), which assert no more than the sources do.
+
+**A CITATION OPENING ON ITS QUOTED TITLE HAS NO AUTHOR**, which is what lets `gw-503` cite four pages
+of the National Park Service and the Architect of the Capitol without tripping `check-cards.js`'s
+one-author-in-three-sources rule — G20's finding, and the capital half will lean on it constantly,
+since a city's history is usually published by one municipal body.
+
+**THREE MORE AUTO-LINKS WRITTEN ROUND, AND TWO RECORDED.** `Water` (the chemistry term) and `Council`
+(Aristotle's boule) both fired again, and `Great_Britain` claims the adjective *British* — on a term
+whose own description says it "should never be used interchangeably" with the United Kingdom, so "the
+British government" of 1911 linked to a definition that excludes it, and the sentence now says "the
+government in London". Recorded rather than fixed: `Temple` opens on a Greek definition and claims the
+*Temple* of Heaven, and **`India` matches inside "Dutch East India Company"**, which is the standard
+English name of a company that has nothing to do with the country.
+
+**AND THE COUNTRY HALF IS NOT QUITE 233 CLEAN ON RULE 1, WHICH THE FULL-DECK RUN HIDES.** Four country
+cards report: `gw-003` and `gw-193` permanently, `gw-207` American Samoa for the same reason (its own
+answer term), `gw-135` Puerto Rico because its claims are intrinsically about the United States — and
+one that is a measurement fault rather than a card fault, **`gw-134` Uruguay, which says "the American
+continent"**. The rule's lookbehind excludes *South American*, *North American*, *Latin American* and
+*Central American* and cannot see a bare *the American continent*; the phrase is a calque and wants
+rewording to "South American" in a sweep of its own.
 
 ## What G20 found
 
