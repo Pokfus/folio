@@ -1476,6 +1476,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `Water` and `Council` written round again in the same read, and `Temple` (a Greek definition
     claiming the Temple of Heaven) and **`India` matching inside "Dutch East India Company"** recorded
     rather than fixed.
+    **AND THREE OF THE FOUR LEGS ARE UNIFORM WHILE THE FOURTH IS A BOOK** (Sep 2026, C2): the figures
+    and the climate come from UNdata and the WMO for every city on earth, and the HISTORY is per
+    capital and is where the research time goes — which is why a capital batch is six rather than
+    twelve. **A PURPOSE-BUILT MODERN CAPITAL PUBLISHES ITS OWN FOUNDING** (`cda.gov.pk` carries the
+    1958 site commission, the Doxiadis master plan and the 1963 move; `camara.leg.br/historia-e-arquivo/`
+    carries the Cruls survey and the inauguration of 21 April 1960) **AND AN OLD ONE PUBLISHES NOTHING
+    OPENABLE AT ALL**: `mos.ru/en` is a 6.6 KB JavaScript shell, `addisababa.gov.et`,
+    `dhakanorthcity.gov.bd` and `iphan.gov.br` are egress-blocked, `kreml.ru` 404s on every path tried,
+    and SciELO, JSTOR, Project MUSE, MDPI and Wiley are shut. **WHAT ANSWERS THERE IS ARCHIVE.ORG**,
+    the Korea collection's Hulbert route: Bradley-Birt's *Dacca* (1914) for Islam Khan's choice of the
+    site in 1608, Gerrare's *The Story of Moscow* (1900) for Yuri Dolgoruki in 1147, Vivian's
+    *Abyssinia* (1901) for Entotto abandoned for want of firewood — **and a period traveller is a
+    WITNESS and is written as one** ("a traveller found"), never as a survey. **AND THE FIFTH LEG IS
+    THE CONSTITUTION**, which the country half already had: the Constitute Project says what a capital
+    IS in law, and Ethiopia's article 49 alone carries self-government, responsibility to the federal
+    government, representation and the special interest of the State of Oromia in a city standing
+    inside it. **AND UNDATA'S CAPITAL FOOTNOTE IS WORTH PRINTING RATHER THAN JUST READING**, because no
+    two answers agree: Abuja's figure is *the urban agglomeration*, Dhaka's a *mega city*, Brasília's a
+    whole "Região Integrada de Desenvolvimento" around the district, and three more are a DATE — 2019,
+    in a column headed 2025. **AND `Islam` CLAIMS THE BARE SURFACE, so `gw-508`'s Islam Khan links to
+    the religion**; measured over the whole corpus that card is the only one where *Islam* is followed
+    by a capitalised word, and it is recorded rather than fixed, every write-round either renaming a
+    historical person or removing him from his own city's founding.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |

@@ -200,6 +200,12 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-10, batch C2 — six capitals, and the history leg turns out to be a book**: `gw-505`
+  Islamabad, `gw-506` Abuja, `gw-507` Brasília, `gw-508` Dhaka, `gw-509` Moscow and `gw-510` Addis
+  Ababa, with all six date lines rewritten off the same research. Six rather than twelve, and the
+  reason is the fourth leg: the figures and the climate come uniformly from UNdata and the WMO, and
+  the HISTORY is per city and is where the research time goes.
+
 - **2026-09-10, batch C1 — the capitals begin, and the recipe is settled**: `gw-501` New Delhi,
   `gw-502` Beijing, `gw-503` Washington, D.C. and `gw-504` Jakarta, with all four date lines rewritten
   off the same research. **Deliberately four rather than twelve** — the country recipe does not
@@ -384,6 +390,53 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C2 found
+
+**THE FOURTH LEG IS THE EXPENSIVE ONE, AND FOR AN OLD CAPITAL IT IS AN OUT-OF-COPYRIGHT BOOK.** C1
+settled a four-leg recipe — WMO normals, UNdata, an open paper's Study Area, the city's own
+institution — and three of those four are uniform. The fourth is not: a purpose-built modern capital
+publishes its own founding (the Capital Development Authority's *Islamabad — The Beautiful* carries
+the 1958 site commission, the Doxiadis master plan and the 1963 move; the Chamber of Deputies'
+*História e Arquivo* carries the Cruls survey, the seats of the Chamber and the inauguration of 21
+April 1960), and an OLD capital publishes nothing openable at all. `mos.ru/en` is a 6.6 KB JavaScript
+shell, `addisababa.gov.et`, `dhakanorthcity.gov.bd` and `iphan.gov.br` are egress-blocked, `kreml.ru`
+answers 404 on every path tried, and SciELO, JSTOR, Project MUSE, MDPI and Wiley are all shut.
+**WHAT ANSWERED WAS ARCHIVE.ORG**, exactly as it did for the Korea collection's Hulbert: Bradley-Birt's
+*Dacca: The Romance of an Eastern Capital* (2nd ed., 1914) gives Islam Khan's move from Rajmahal in
+1608, the rejection of Gonakpara because the land was too low-lying, and the choice of the site for the
+high ground behind it; Gerrare's *The Story of Moscow* (1900) gives Yuri Dolgoruki's meeting of 1147
+and the Kremlin hill; and Vivian's *Abyssinia* (1901) gives Entotto abandoned for want of firewood and
+the new capital as a camp of huts across some 130 square kilometres with no streets in it.
+**A PERIOD TRAVELLER IS A WITNESS AND IS CITED AS ONE** — Vivian's figures are what he saw, and the
+prose says so ("a traveller found", "the same visitor found") rather than passing them off as a survey.
+
+**AND THE FIFTH LEG IS THE CONSTITUTION, WHICH THE COUNTRY HALF ALREADY HAD.** The Constitute Project
+answers for all six and it says something no statistical profile does: what the capital IS in law.
+Ethiopia's article 49 is the richest of them — the city is the capital, its residents have a full
+measure of self-government, its administration answers to the federal government, its residents sit in
+the House of Peoples' Representatives, and the special interest of the State of Oromia in it is to be
+respected. Nigeria's sections 297–299 vest every piece of land in the territory in the federal
+government and put the territory's limits in a schedule to the text; Pakistan's article 1 lists the
+Islamabad Capital Territory among the federation's territories and article 51 gives it three of 326
+seats; Brazil's article 18 states the whole thing in five words. **Reach for it whenever a capital card
+needs a fifth source**, and note the Constitute slug names the REVISION year, not the adoption year.
+
+**AND UNDATA'S CAPITAL FOOTNOTE IS WORTH PRINTING, NOT JUST READING.** C1 found that the `Capital city
+pop.` field carries a footnote saying what the figure counts; C2 is where that became the closing
+sentence of four cards, because the four answers are all different and none of them is "the city":
+Abuja's is *the urban agglomeration*, Dhaka's is *mega city*, **Brasília's is the "Região Integrada de
+Desenvolvimento do Distrito Federal e Entorno"** — a whole development region around the district —
+and Islamabad's, Moscow's and Addis Ababa's are a DATE, 2019, printed in a column headed 2025. Saying
+so is the honest form of a figure the grid has already printed.
+
+**AND THE AUTO-LINKER TOOK A PERSON'S NAME FOR A RELIGION.** `Islam` claims the bare surface, so
+`gw-508`'s Islam Khan — the viceroy who founded the city — links to the religion. Measured over the
+whole shipped corpus, `gw-508` is the ONLY card in which *Islam* is followed by a capitalised word, so
+this collision is new; it is recorded rather than fixed, because every way of writing round it either
+renames a historical person or removes him from his own city's founding. `Great_Rift_Valley` matching
+"Ethiopian Rift Valley", `Ethiopia` matching "Ethiopian", `Belgium` matching "Belgian" and
+`Urban_agglomeration` matching the UNdata footnote's own words are all correct and were left.
 
 ## What C1 found
 
