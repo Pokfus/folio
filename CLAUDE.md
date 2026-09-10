@@ -1203,12 +1203,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   actively contested in public**, which is why its "History, not commemoration" and "Sourcing" sections are
   the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
   `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **`ww2-001`
-  to `ww2-110` have shipped**, so the collection is live and its empty decks are coming-soon
-  automatically, `isComingSoon` being true for a node holding no card. **Three of its lines have been
-  retitled while writing**, which is what the plan's own rule asks for: `ww2-102` is answered by *Southern
-  Advance* and `ww2-105` by *Pan-Asianism*, because a card is answered by a term rather than by a
-  description of a debate, and `ww2-107` by the *Stimson Doctrine*, since `ww2-090` and `ww2-091` had
-  already carded the League's own handling of the Manchurian crisis. Not part of the site.
+  to `ww2-120` have shipped**, so the collection is live and its empty decks are coming-soon
+  automatically, `isComingSoon` being true for a node holding no card. **Six of its lines have been
+  retitled while writing**, which is what the plan's own rule asks for, and each retitle has one of three
+  reasons. A card is answered by a TERM rather than by a description: `ww2-102` is answered by *Southern
+  Advance*, `ww2-105` by *Pan-Asianism*, `ww2-112` by *International Brigades* and `ww2-117` by
+  *Sudetenland*. An earlier card has already spent the obvious answer: `ww2-107` is the *Stimson Doctrine*,
+  since `ww2-090` and `ww2-091` had already carded the League's own handling of the Manchurian crisis.
+  **And `ww2-120` is the third reason, which is the one to read before planning a historiography card**:
+  *the debate over appeasement* has no name of its own that anything openable defines, so it is answered by
+  **`Guilty Men`**, the 1940 polemic that fixed the popular verdict — a contemporary argument rather than a
+  modern scholar, which is what the plan's two-scholar cap requires, and a card whose answer term IS a
+  modern argument, so the historiography cap under "Generating cards" does not bind on it. Not part of the
+  site.
 - `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
   Geography SECTION), and **the
   only plan that is not a thousand cards**: it is fifty states (`geo-001`–`geo-050`) and
@@ -6562,7 +6569,7 @@ lookup.
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 199 cards, `cnh-001` to `cnh-200` with `cnh-070` retired in Sep 2026 — next is `cnh-201`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
-| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 110 cards, contiguous — next is `ww2-111` |
+| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 120 cards, contiguous — next is `ww2-121` |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |

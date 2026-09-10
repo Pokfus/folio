@@ -289,6 +289,26 @@ the sitting of 19 December 1935, and Eden's statement of the Rhineland case is i
 **A Hansard section URL is a slug that must be read off the day's index** (`/commons/<year>/<mon>/<day>/`)
 rather than guessed, and the volume and column reference is printed at the head of each section.
 
+**Three more open routes, measured in Sep 2026 writing `ww2-111`–`ww2-120`.** The **Deutsches
+Historisches Museum's LeMO** (`dhm.de/lemo/kapitel/ns-regime/aussenpolitik/…`) has a signed page for
+nearly every episode of the 1930s in German — the Spanish Civil War, the Condor Legion, the
+International Brigades, the Berlin-Rome axis, the Anschluss, the Karlsbad Programme and the Munich
+Agreement — which is a second national record beside the American and British ones and the only one of
+the three that is not written from a victor's archive. **The National Archives (UK) publish their
+classroom resources in full** (`nationalarchives.gov.uk/education/resources/…`), each built round
+scanned documents with the archive's own background prose: the *Chamberlain and Hitler 1938* lesson
+carries the Berchtesgaden minutes and Ismay's secret note to the cabinet. And **the Avalon Project's
+IMT collection holds the Hossbach Memorandum**, which is Hitler's own statement in November 1937 that
+Austria and Czechoslovakia were to be overthrown together — a primary source for intent that no
+secondary account can replace.
+
+**A book nobody could open turned out to be readable.** `Guilty Men`, the 1940 polemic that fixed the
+popular verdict on appeasement, is in no open journal and behind every paywall — and the **whole text
+is on archive.org** as a Digital Library of India scan (`in.ernet.dli.2015.5205`). Its `_djvu.txt` is
+served under the file's OWN name (`2015.5205.Guilty-Men_djvu.txt`) rather than the item identifier,
+which is why the usual `<id>/<id>_djvu.txt` address 404s; read the item's file list before concluding a
+scan has no OCR text.
+
 **A caution that cost a picture.** The Commons `api.php` rate-limits hard after a dozen calls and answers
 `Special:FilePath` throughout, which is the route CLAUDE.md already records — but the fault worth naming
 here is the other one: a file in the category *Assemblies of the League of Nations* turned out to be six
@@ -479,15 +499,15 @@ definitions, which exist precisely because the wording matters.
     ww2-109  Hoare-Laval Pact
     ww2-110  Remilitarisation of the Rhineland
     ww2-111  Spanish Civil War
-    ww2-112  Foreign intervention in the Spanish Civil War
+    ww2-112  Foreign intervention in the Spanish Civil War  → written as *International Brigades*
     ww2-113  Bombing of Guernica
     ww2-114  The Non-Intervention Committee
     ww2-115  Rome-Berlin Axis
     ww2-116  Anschluss
-    ww2-117  The Sudeten crisis
+    ww2-117  The Sudeten crisis  → written as *Sudetenland*
     ww2-118  Munich Agreement
     ww2-119  Appeasement
-    ww2-120  The debate over appeasement
+    ww2-120  The debate over appeasement  → written as *Guilty Men*
     ww2-121  Neville Chamberlain
     ww2-122  The German occupation of Czechoslovakia
     ww2-123  The British guarantee to Poland
