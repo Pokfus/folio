@@ -1001,9 +1001,12 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-733  The killing of Cleitus
     gr-734  The Pages' Conspiracy
     gr-735  Callisthenes
-    gr-736  Bactria and Sogdiana
+    gr-736  Bactria and Sogdiana  — the answer term is Sogdiana, chosen when the card was written:
+             Bactria is where Bessus was run down (gr-728) and Sogdiana is where the two years went,
+             so the campaign card is named for the country that cost the time
     gr-737  Roxana
-    gr-738  The invasion of India
+    gr-738  The invasion of India  — answered by "Indian campaign", the whole 327–325 BCE march,
+             so the card can be about the limit of the army's reach rather than about one siege
     gr-739  Battle of the Hydaspes
     gr-740  Porus
     gr-741  The mutiny at the Hyphasis
