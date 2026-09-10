@@ -631,6 +631,60 @@ is two, and nothing open found carries the *lapis Lacedaemonius* trade, the Kyth
 Late Minoan IB painting styles at Kastri. **All three want a source found for one particular claim, not a
 wider search.**
 
+**BATCHES R9–R10 — 2026-09-10. Two cards; Rutter 3 → 1, over-cited 80 → 78.** `gr-001` Aegean Bronze
+Age, `gr-049` Minoan Kythera (5 of 6 → 2). **THE RUTTER PASS IS FINISHED AT 38 OF 39.** One card is left
+and it is left deliberately; the reason is set out at the end of this entry.
+
+**A BMCR REVIEW OF A SITE REPORT CAN CARRY A CLAIM ABOUT A DIFFERENT ISLAND.** `gr-049` was recorded in
+R6 and R8 as blocked on the *lapis Lacedaemonius* trade, the Kythera tombs and the Late Minoan IB
+painting styles. What settled it was Daniel Pullen's review of *Ayios Stephanos* (BMCR 2009.09.08), a
+site on the **Laconian coast** and not on Kythera at all: it states that Ayios Stephanos's "proximity to
+the famous lapis lacedaemonius quarry" made it "most likely the entrepôt for its exportation, most likely
+to Kastri on Kythera and from there to the wider world", records a Linear A sign in its catalogue, and
+quotes Janko's judgement that the place was "neither a Minoan colony such as Kastri [on Kythera] nor a
+heavily Minoanised settlement like Phylakopi" — which carries three of the card's sentences at once.
+**Search the sites a card's subject TRADED WITH, not only the subject.**
+
+**AND A THEORY IS BEST CITED TO THE MAN WHOSE THEORY IT IS.** `gr-049` reported Evans's reading of the
+Shaft Graves through Rutter's lesson on them; it now cites Evans's own *The Shaft Graves and Bee-hive
+Tombs of Mycenae and Their Interrelation* (1929), which is on archive.org and says it in his own words —
+conquerors "more set on bringing armourers and goldsmiths than potters in their train". **The scan's page
+numbers cannot be read reliably** (the OCR of the running heads is broken), so the citation carries none
+rather than one composed from a character offset.
+
+**Graziadio's Broodbank–Kiriatzi paragraph replaced a sentence and improved the card.** `gr-049` said its
+dead "were laid in chamber tombs, and both the tombs and the goods put in them are thoroughly Minoan";
+it now says that the Minoans of Kythera "have lately been recast not as invaders but as friendly
+newcomers who lived peaceably beside the people already there", which is what the open literature
+actually argues and what makes the Evans sentence after it mean something.
+
+**`gr-001` COST A CLAUSE AND IS WORTH RECORDING AS THE SHAPE OF THAT TRADE.** Its chronology citation
+went to Graziadio's table with no rewording at all; its second substitution took the sentence "the
+palaces … called for trained masons and workforces far larger than anything the island had assembled
+before" down to the date alone, because nothing open found states the labour claim and Adlung — the one
+book on Minoan building on the shelf — has no word for workforce in it. **A vivid clause was traded for a
+citation that holds.** Say so when it happens; do not let it pass as a tidy-up.
+
+**`gr-046` MINOAN TRADE WITH EGYPT IS LEFT AT 5 OF 6, ON PURPOSE, AND THIS IS WHAT RULE 2 LOOKS LIKE.**
+It can be cleared. Judith Weingarten's review of Koehl's *Aegean Bronze Age Rhyta* (BMCR 2009.04.04) is
+open and rich — rhyta are "the only Aegean vessels that were adopted for ritual use in Egypt, Cyprus and
+the Levant", thirteen Egyptian imitations are catalogued, four from Tel el-Dabʿa "clearly based on LM IA
+prototypes" — and Graziadio carries the card's Levantine-intermediary sentence word for word. Two
+substitutions from Weingarten plus one from Graziadio takes Rutter to 2. **The price is the card's two
+best facts**: the ostrich-egg rhyta, which nothing open describes, and the Minoan genius as a reworking
+of Ta-weret, which Graziadio mentions as a figure holding an ewer and never derives from Egypt. Two
+sentences of rhyton typology in their place is a worse card. **And a third claim is not merely
+unsourceable but contested**: the card dates the Kahun and Harageh pottery MM IB–IIA, where Graziadio
+reports Caloi's conclusion that everything exported to Egypt is *later than MM IIA* — so re-sourcing the
+sentence would mean changing what the card says and its date line with it, on the strength of one open
+book against a summary that reads the evidence differently. **Left as it is, with the disagreement
+recorded here rather than resolved by whichever source happens to be open.**
+
+**WHERE THE PASS STANDS.** Rutter: 39 cards → 1. Over-cited across the whole corpus: 116 → 78. The next
+author on the list is William Smith (13 `rm-` cards), then James Legge (11 `cnh-`), then a tail of three
+or fewer each. **Start those with OAPEN and BMCR**, in that order; between them they carried eleven of
+the last fifteen substitutions here.
+
 ## Two notes on the tooling
 
 - **`cardYears` reads "594/3 BCE" as year 3.** Writing split years the short way in a date line
