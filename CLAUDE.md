@@ -1625,6 +1625,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     modern capital of Italy, so "the granary of Rome" pointed at a city of 4.2 million; `Water` was
     written round three more times, with `Constitution`, `Republic` and `Japan`-as-*Japanese* recorded
     rather than fixed.
+    **AND THE WMO LEG ITSELF CAN FAIL, TWO DIFFERENT WAYS** (Sep 2026, C7). C3 found a country with
+    no WMO station at all; **Yemen is another**, so `gw-538` is written with no normals for the city
+    and its climate comes out of the same kind of open paper as its landform — Wilby and Yu's
+    *Rainfall and temperature estimation for a data sparse region*, whose title names no country. The
+    second failure is quieter and a script will not notice it: **an entry can carry temperature and no
+    rainfall at all**, Luanda's twelve months giving maxima and minima and a null for every rainfall
+    figure, so a summed annual total reads 0 mm; neither its entry nor Kabul's states a normals window
+    either. **Read the monthly fields rather than a total computed from them.** **AND A SIXTH
+    CONSTITUTIONAL OUTCOME: THE CLAUSE IS A PROCEDURE.** Argentina's article 3 provides for a capital
+    by a special law of Congress, after a province has ceded the territory to be federalised, and
+    names no city — which is not the silence of C6 but a rule worth citing in its own right, since it
+    says why a country whose capital has not moved in a century still declines to name it; Morocco's
+    2011 text IS C6's silence, containing *Rabat* zero times with no topic tag and no openable statute
+    behind it. The leg answered for four of six, Canada's section 16 of the Act of 1867 being the
+    strongest on the shelf after Turkey's. **AND THE CONSTITUTE SLUG NAMES THE LATEST COMPILATION**:
+    `Canada_1982` is a 404 where `Canada_2011` serves the 1867 Act. **AND AN `archive.org` ITEM'S
+    `_djvu.txt` NAME IS NOT DERIVABLE FROM ITS IDENTIFIER** — `india.history.resource.107503` serves
+    its text as `107503_djvu.txt`, so ask `archive.org/metadata/<id>` rather than composing the
+    address — while **a period book's FIGURE can be wrong where its DESCRIPTION is sound**: Playfair
+    puts Sana'a at "four thousand feet above the level of the sea" against a real 2,200 m, so the
+    valley and Jabal Nuqum are what the witness carries and the altitude comes from the modern paper.
+    **ÉRUDIT IS OPEN** (its search page is a JavaScript shell, so reach it by a site-restricted
+    search), as are `pubs.usgs.gov`, `parks.canada.ca` and `buenosaires.gob.ar`, while `mdpi.com`,
+    `tandfonline.com`, `facetsjournal.com` and `www.canada.ca` are shut, `link.springer.com` serves a
+    3 KB challenge under a 200 on its own `/content/pdf/` path, and **`squjs.squ.edu.om` serves its
+    abstract page and 403s its own PDF**. **AND THE AUTO-LINKER TOOK A CARIBBEAN CAPITAL**: `Nassau`
+    is the capital of the Bahamas, so Monteiro's Count of Nassau linked to a town in the Atlantic —
+    the `Alofi` and `Stanley` collision a third time — with `Water` written round twice more and
+    `Settlement` twice, its definition being explicitly the archaeologists' dwelling place.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |

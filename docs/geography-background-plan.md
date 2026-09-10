@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-10, batch C7 — six capitals, and the climate leg fails outright on one of them**: `gw-535` Buenos Aires, `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat and `gw-540` Luanda, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-10, batch C6 — six capitals, and two constitutions say nothing at all**: `gw-529` Seoul, `gw-530` Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers and `gw-534` Baghdad, with all six date lines rewritten off the same research. Six again, for C2’s reason.
 
 - **2026-09-10, batch C5 — six capitals, and one constitution names a different city**: `gw-523` Paris, `gw-524` Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw and `gw-528` Bogotá, with all six date lines rewritten off the same research. Six again, for C2’s reason.
@@ -398,6 +400,90 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C7 found
+
+**THE WMO LEG CAN FAIL, AND IT FAILS TWO DIFFERENT WAYS.** C3 recorded that some countries have no
+WMO station at all; **Yemen is another**, so `gw-538` is the second capital card written with no
+climatological normals for the city and the first in the capital half where the climate had to come
+out of the same kind of open paper as the landform — Wilby and Yu's *Rainfall and temperature
+estimation for a data sparse region*, whose title names no country and which gives the highland belt
+its altitude band, its two rainy seasons and the range of its annual totals. The second failure is
+quieter: **an entry can carry temperature and no rainfall at all.** Luanda's twelve months give
+maxima and minima and a null for every rainfall figure, so a script that sums them reports an annual
+total of zero — and neither Luanda's entry nor Kabul's states a normals window. **Read the monthly
+fields; do not trust a total computed from them.**
+
+**THE FIFTH LEG ANSWERED FOR FOUR OF SIX AND ADDED A SIXTH OUTCOME.** C2 found the clause present,
+C3 absent with a statute in its place, C4 a bare *National capital* topic tag, C5 a clause naming a
+different city and C6 silence with nothing to replace it. Argentina's is a new shape: **article 3
+provides for a capital by a special law of Congress, after a province has ceded the territory to be
+federalised, and names no city** — a clause that is a PROCEDURE rather than a designation, and the
+procedure is itself the fact worth citing, since it explains why the constitution of a country whose
+capital has not moved in a century still declines to name it. Morocco's 2011 text is C6's silence
+exactly: *Rabat* appears **zero times**, there is no topic tag either, and nothing openable stands in
+for it, so that card is written without the leg and takes a fifth source elsewhere. The other four
+are clean — Afghanistan art. 21, Yemen arts. 66 and 157, Angola art. 20, and **Canada's section 16 of
+the Act of 1867, the strongest on the shelf after Turkey's**: "Until the Queen otherwise directs, the
+Seat of Government of Canada shall be Ottawa."
+
+**AND THE CONSTITUTE SLUG NAMES THE LATEST COMPILATION, NOT THE FOUNDING TEXT.** `Canada_1982` is a
+404 where `Canada_2011` serves the Constitution Act of 1867 with everything since bound in after it —
+G16's rule about grepping an index's own hrefs, one site over.
+
+**FOUR OF THE SIX LANDFORM SOURCES ARE A HAZARD PAPER AGAIN** (C6's finding, held): a basin-level
+flood-risk analysis for Buenos Aires, a tsunami vulnerability assessment for Rabat, a slope-stability
+map for the wadis north-west of Sana'a and a lagoon-sediment health study for Luanda. **Where a
+capital has no hazard paper, look for the national survey's own report**: `pubs.usgs.gov` is open,
+and its *Conceptual Model of Water Resources in the Kabul Basin* gives the altitudes of the central
+plains, the Paghman fault scarp, the ranges, the rivers and the annual precipitation and evaporation
+in one document. Ottawa's came through PMC — a *Groundwater* paper on the Champlain Sea muds that
+dates the sea's inundation of the valley to ~12,800–10,400 cal BP and puts the Leda clay at 98 m.
+
+**A PERIOD BOOK CARRIED THREE OF THE SIX HISTORIES** — Playfair's *A History of Arabia Felix or
+Yemen* (1859), Elphinstone's *An Account of the Kingdom of Caubul* (1842) and Monteiro's *Angola and
+the River Congo* (1875) — and two things about that route are worth carrying. **The `_djvu.txt` file
+name is not derivable from the identifier**: `india.history.resource.107503` serves its text as
+`107503_djvu.txt`, so a composed `<id>_djvu.txt` address 404s and the real name has to be read off
+`archive.org/metadata/<id>`. And **a period book's FIGURE may be wrong where its DESCRIPTION is
+sound**: Playfair puts Sana'a at "four thousand feet above the level of the sea" where the city
+stands above 2,200 m, so the valley's length and breadth and Jabal Nuqum are what the witness is
+trusted for and the altitude band comes from the modern paper instead.
+
+**AND THE CITY'S OWN INSTITUTION ANSWERED TWICE.** The Buenos Aires city government's historical
+museum publishes both foundations, the cabildo, the 250-block grid, the three thousand inhabitants
+and the 1776 viceroyalty in one page; and **Parks Canada's national-historic-site page is the same
+kind of source** — G20's Parks Australia finding one country over — carrying Colonel By's arrival in
+1826, the start of work in 1827, the labourers and the malaria, the opening in the summer of 1832,
+the 47 locks over 202 km and the parliamentary inquiry that met the builder instead of an honour.
+
+**UNdata'S CAPITAL FOOTNOTE PAID A SIXTH TIME, AND NAMED TOWNS TWICE**: Rabat's figure is "Including
+Salé and Temara" and Luanda's "the urban population of the province of Luanda", with Buenos Aires's
+"Refers to Gran Buenos Aires", Ottawa's "the Census Metropolitan Area" and Sana'a's "the urban
+agglomeration". **All six are dated 2019 in a table headed 2025 — the second unanimous batch running.**
+
+**ÉRUDIT IS OPEN**, which is a large find for anything Canadian or French-language: it carries
+*Géographie physique et Quaternaire*, the journal of record for the Champlain Sea, along with much
+else, and its article PDFs answer directly. Its SEARCH page is a JavaScript shell, so it is reached
+by a site-restricted web search rather than by its own form. **DOAJ still needs field queries with
+spaces round the operator** (C4): a free-text query returns 0 where
+`bibjson.title:Rabat AND bibjson.abstract:coastal` finds the tsunami paper first.
+
+Shut this batch: `mdpi.com` 403; `link.springer.com` serves a 3 KB challenge under a 200 on its own
+`/content/pdf/` path; `tandfonline.com` and `facetsjournal.com` sit behind Cloudflare; OpenEdition is
+behind the Anubis wall again; `e3s-conferences.org` 403; `revistas.ute.edu.ec` serves a challenge;
+`revista.ismm.edu.cu` 503; **`squjs.squ.edu.om` serves its abstract page and 403s its own PDF**, so
+that citation rests on what the abstract states; `lop.parl.ca` 403, `geoscan.nrcan.gc.ca` and
+`www.canada.ca` refuse the connection while **`parks.canada.ca` answers**, and NRCan's open-science
+repository is a JavaScript shell whose API path serves the same shell.
+
+**AND THE AUTO-LINKER TOOK A CARIBBEAN CAPITAL**: `Nassau` is the capital of the Bahamas, so
+Monteiro's Count of Nassau, who sent the fleet that took Luanda in 1641, linked to a town in the
+Atlantic — the `Alofi` and `Stanley` collision for a third time, written round by naming the fleet's
+commander instead. `Water` was written round twice more, `Settlement` twice (its definition is
+explicitly the archaeologists' dwelling place, which a 19th-century canal town is not) and `Republic`
+once; `Constitution` claiming the bare surface is recorded rather than fixed for the sixth batch
+running.
 
 ## What C6 found
 
