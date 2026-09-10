@@ -1719,6 +1719,51 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     TOOK THE GULF OF GUINEA** — `Guinea` is a deck answer term claiming its bare name, and rule 4's own
     mask knows "Gulf of X" is not X where `buildGlossIndex` does not — with `Water` written round four
     times, `Settlement` twice, and `Constitution` recorded rather than fixed for the fifth batch running.
+    **AND THE CONSTITUTE PROJECT CAN CARRY A DRAFT THAT WAS NEVER IN FORCE** (Sep 2026, C10), which is the
+    tenth outcome of the fifth leg and the most dangerous, because it looks like the first: the project's only
+    Syrian text is **`Syria_2017D`**, the browser tab reads "Syrian Arab Republic 2017 Constitution", article
+    17 says the capital of the state is Damascus — and the page's own header line reads **"Draft of 23 Jan
+    2017 — Presented by Russian officials at Syrian peace negotiations"**. It was never adopted. **Read the
+    header line, not the tab**, and treat a slug ending in `D` as a draft until the page says otherwise;
+    `gw-557` therefore ships with four legs and Le Strange twice, which `check-cards.js` allows and the pass
+    had not had to do before. **AND THE NINTH OUTCOME IS A CLAUSE THAT FIXES WHERE THE CAPITAL MAY BE WITHOUT
+    NAMING IT, BY ITS DISTANCE FROM ANOTHER CITY**: section 125 of the Australian constitution leaves the seat
+    to parliament but requires it inside New South Wales, **at least 100 miles from Sydney**, and has
+    parliament sit at Melbourne until it can meet there — so the text deciding the capital names two other
+    cities and not the capital, and the **Seat of Government Act 1908** then names the *district of
+    Yass-Canberra* and requires at least 900 square miles **with access to the sea**, which is why it was
+    amended in 1955 by legislation acquiring lands at Jervis Bay. The leg answered for five of six.
+    **AND RULE 2 CAN TAKE A RIVER'S NAME AWAY, the mirror of `gw-511`'s case**: the grid's first row is
+    Country, so on `gw-555` the forbidden value is *Niger* and Niamey may not name the river it stands on,
+    calling it "the great river of West Africa". **AND THE FEDERAL REGISTER OF LEGISLATION IS AN ELEVENTH
+    VARIETY OF 200-STATUS NON-DOCUMENT** — `legislation.gov.au/<id>/latest/text` is 76 KB of JavaScript shell
+    in which the word *Yass* appears zero times, the act's words living only in the compilation PDF at
+    `…/text/original/pdf`; **grep the served page for a word the statute must contain.** **AND THE AUSTRALIAN
+    DICTIONARY OF BIOGRAPHY RESOLVES BY NUMERIC ID AND IGNORES THE SLUG**, `history.house.gov`'s fault in a new
+    coat: `/biography/griffin-walter-burley-6489` answers 200 and serves **John Alfred Griffiths**, so every
+    guessed slug is a different person under a 200, and its search endpoint 400s and 404s on every form tried.
+    **AND UNdata'S FOOTNOTE SAID SOMETHING NEW — THAT THE FIGURE ITSELF SHOULD NOT BE TRUSTED**: Syria's
+    carries "Est. should be viewed with caution as these are derived from scarce data", a caution about the
+    count rather than a description of what it counts, and **all six are dated 2019 in a table headed 2025**.
+    **AND THE WMO LEG ANSWERED FOR ALL SIX for the first time since C2**, two of them stating no normals
+    window, which is C7's Luanda case and not a failure. **AND PYONGYANG'S HISTORY IS IN A RUSSIAN JOURNAL** —
+    MDPI, `apjjf.org`, ScholarSpace and the *IJKH* all fail there, and Stoyakin's "The Third Capital of Koguryo
+    in Pyongyang" at `nguhist.elpub.ru` carries the whole block; its PDF is at `/jour/article/download/<id>/<f>`
+    where **the `/view/` path of the same numbers serves the viewer HTML**, which pypdf reports as a truncated
+    stream rather than as a wrong page. **AND `archive.org`'s `/download/` PATH CAN 500 AND THEN WORK**, Curtis
+    coming back as a 170-byte nginx error and then as the full 702 KB from another mirror — check the SIZE
+    before believing a grep that found nothing. **AND GALLIENI'S OCR NEEDS THE FRENCH BOOK'S OWN SHAPE**: its
+    page numbers are gone and its chapter numerals mangled, so the chapters were recovered by counting
+    `CHAPITRE` headings, which only works once you notice a French book puts its *table des matières* at the
+    **back**. **AND THE AUTO-LINKER TOOK A CHILEAN CAPITAL AND AN AUSTRALIAN FEDERATION** — `Santiago` is the
+    capital of Chile, so *Santiago León de Caracas* linked to a city 5,000 km away (the `Alofi`/`Stanley`/
+    `Nassau` collision a fourth time), and `Commonwealth_of_Nations` claims the bare *Commonwealth*, so land
+    "granted to the Commonwealth" linked to 56 modern states rather than to the federation the clause is
+    about; `Guinea` claimed the adjective *Guinean* again, and **`Lebanon` matching inside "Anti-Lebanon" is
+    recorded rather than fixed**, the hyphen being a word boundary exactly as in G18's `East_Asia`. `Water`
+    was written round three times, `Council` and `Republic` once each, and `Constitution` recorded for the
+    sixth batch running; **`Mountain_fortress` is the batch's one perfect link**, its definition being
+    explicitly the fortification of the Korean Three Kingdoms.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |

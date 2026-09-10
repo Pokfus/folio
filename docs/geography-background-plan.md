@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-10, batch C10 — six capitals, a constitution that is a draft, and a river the grid forbids naming**: `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus and `gw-558` Bamako, with all six date lines rewritten off the same research. Six again, for C2’s reason.
+
 - **2026-09-10, batch C9 — six capitals, and the WMO leg has no station at one of them at all**: `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu and `gw-552` Yaoundé, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-10, batch C8 — six capitals, and every one of their constitutions names its capital**: `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh and `gw-546` Maputo, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -404,6 +406,108 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C10 found
+
+**THE CONSTITUTE PROJECT CAN CARRY A DRAFT THAT WAS NEVER IN FORCE, AND ITS OWN PAGE TITLE CALLS IT A
+CONSTITUTION.** C3–C9 recorded eight outcomes for the fifth leg — present, absent with a statute in its
+place, a bare *National capital* topic tag, a clause naming a different city, silence with nothing to
+replace it, a procedure naming no city, a provisional clause, and a clause naming two capitals. Syria is a
+tenth kind of answer and the most dangerous of them, because it looks like the first: the project’s only
+Syrian text is `Syria_2017D`, the browser tab reads “Syrian Arab Republic 2017 Constitution”, article 17
+says *The capital of the state is Damascus* — and the page’s own header line reads **“Draft of 23 Jan 2017
+— Presented by Russian officials at Syrian peace negotiations”**. It was never adopted. **Read the header
+line, not the tab**, and treat a slug ending in `D` as a draft until the page says otherwise. Damascus
+therefore ships with four legs and Le Strange twice, which `check-cards.js` allows and which the pass has
+not had to do before.
+
+**AND THE NINTH CONSTITUTIONAL OUTCOME IS A CLAUSE THAT FIXES WHERE THE CAPITAL MAY BE WITHOUT NAMING IT,
+BY ITS DISTANCE FROM ANOTHER CITY.** Section 125 of the Australian constitution leaves the seat of
+government to parliament but requires it to lie within New South Wales, **at least 100 miles from Sydney**,
+on at least 100 square miles granted to the Commonwealth, and adds that parliament shall sit at Melbourne
+until it can meet there. So the text that decides the capital names two other cities and not the capital,
+and the statute that finally chose the ground — the **Seat of Government Act 1908**, assented to on 14
+December — names the *district of Yass-Canberra*, requires at least 900 square miles and, remarkably,
+**access to the sea**, which is why the act was amended in 1955 by legislation acquiring lands at Jervis
+Bay. The leg answered for five of six this batch, the highest since C8’s ceiling of six.
+
+**AND RULE 2 CAN TAKE A RIVER’S NAME AWAY, WHICH IS THE MIRROR OF `gw-511`’S CASE.** The grid’s first row
+is Country, so on `gw-555` the forbidden value is *Niger* — and Niamey stands on the Niger. The card
+therefore cannot name the river it is built on, and calls it “the great river of West Africa”; `gw-558`
+Bamako is on the same river and merely has to avoid *Mali*, which is easier. **Where a capital’s country
+shares its name with the water it stands on, the water is written round**, and there is no fix for it: the
+grid really has said the word two inches above.
+
+**AND THE FEDERAL REGISTER OF LEGISLATION IS AN ELEVENTH VARIETY OF 200-STATUS NON-DOCUMENT.**
+`legislation.gov.au/C1908A00024/latest/text` answers 200 with 76 KB and the word *Yass* appears in it **zero
+times**: it is the register’s JavaScript shell, and the act’s words are only in the compilation PDF at
+`…/1973-12-31/1973-12-31/text/original/pdf`, which is what is cited. **Grep the served page for a word the
+statute must contain before citing a `/text` path.**
+
+**AND THE AUSTRALIAN DICTIONARY OF BIOGRAPHY RESOLVES BY NUMERIC ID AND IGNORES THE SLUG ENTIRELY**, which
+is `history.house.gov`’s fault in a new coat: `/biography/griffin-walter-burley-6489` answers 200 and serves
+**John Alfred Griffiths**, and `/biography/x-6493` serves Clarrie Grimmett. Every guessed slug is a 200 and
+a different person. Its search endpoint 400s and 404s on every form tried, so the ADB was abandoned and
+Canberra’s history taken from the constitution and the statute instead — which is the better source anyway.
+
+**AND UNdata’S CAPITAL FOOTNOTE SAID SOMETHING NEW: THAT THE FIGURE ITSELF SHOULD NOT BE TRUSTED.** C2–C9
+found footnotes naming an agglomeration, a mega city, a development region, a special city, the boroughs
+summed, and a second administrative seat. Syria’s carries footnote *c*, “Est. should be viewed with caution
+as these are derived from scarce data” — a caution about the count rather than a description of what it
+counts, and worth printing rather than merely reading. **All six capital figures are dated 2019 in a table
+headed 2025**, unanimous for the second batch after C6.
+
+**AND THE WMO LEG ANSWERED FOR ALL SIX, WHICH IT HAS NOT DONE SINCE C2**, after C3’s country with no
+station, C7’s entry with temperature and no rainfall, and C9’s country whose six stations are all somewhere
+else. Two of the six state no normals window (Niamey and Damascus), which is C7’s Luanda case and not a
+failure. The data is what carries the climate block everywhere this batch: Canberra’s July mean minimum of
+−0.2 °C against a January mean maximum of 27.7 °C, Damascus’s 134 mm of rain a year with **none at all in
+July or August**, Pyongyang’s 275.2 mm in July alone.
+
+**AND A HAZARD OR RESOURCE PAPER CARRIED THE LANDFORM ON FOUR OF SIX, THE FIFTH BATCH RUNNING** — a GIS
+study of destroyed areas for Damascus (the plain at the edge of the Anti-Lebanon, the Barada, the Ghouta
+oasis, the Barada’s 72 km against the Awaj’s 70), a red-flood model for Niamey, a groundwater potential map
+for Bamako (the metamorphosed sandstone under more than half the region, aquifers 30–50 m thick), and a
+bushfire-smoke study for Canberra. **Caracas’s came from a Chagas review**, whose “Characteristics of the
+Caracas Valley” section gives the depression in the coastal range, 870–1,043 m, 22 °C and 870 mm in four
+lines. **Search the hazard or the disease, not the geology.**
+
+**AND PYONGYANG WAS THE HARD ONE, AND WHAT ANSWERED WAS A RUSSIAN JOURNAL.** Every obvious route is shut:
+MDPI’s *Land* and *Remote Sensing* papers on Pyongyang land cover, `apjjf.org` (403), `scholarspace` and the
+*IJKH* carry nothing on the city, and DOAJ’s 82 Pyongyang articles are almost all about nuclear weapons.
+**M. A. Stoyakin’s “The Third Capital of Koguryo in Pyongyang,” in the NSU *Vestnik* at `nguhist.elpub.ru`,
+is the whole history block** — the move of 427 under King Changsu, the early phase on the Daesong mountain
+fortress and the Anhakgung palace, the late one the sources call Chang’an. Its PDF is at
+`/jour/article/download/<id>/<file>` and **the `/view/` path of the same numbers serves the viewer HTML
+instead**, which pypdf reports as a truncated stream rather than as a wrong page.
+
+**AND A PERIOD BOOK CARRIED THREE OF THE SIX HISTORIES, ONE OF THEM IN FRENCH.** Curtis’s *Venezuela: A Land
+Where It’s Always Summer* (1896) gives Losada’s founding of 1567, the valley behind the coast range, and the
+1812 earthquake with its 12,000 dead; Le Strange’s *Palestine under the Moslems* (1890) gives the Ghouta as
+Mukaddasi and Yakut described it, the Barada canals under Jabal Qasiyun, and the fourteen Umayyad caliphs
+of 661–750; and **Gallieni’s *Voyage au Soudan français* (1885) is Bamako before the French post** — a
+walled market village held nominally by the Niaré, “premiers maîtres du pays”, whose trade a Moorish family
+had taken over, with the treaty of 5 November 1880 that followed. **Its OCR has eaten the page numbers and
+mangled the chapter numerals**, so the chapters were recovered by counting `CHAPITRE` headings — and the
+count only works once you notice that a French book puts its *table des matières* at the **back**, so the
+first twenty headings are the body and the last twenty-three the contents.
+
+**AND `archive.org`’s `/download/` PATH CAN 500 AND THEN WORK.** Curtis’s `_djvu.txt` came back as a 170-byte
+nginx 500 page on the first request and as the full 702 KB on the second, from a different mirror host.
+**Check the size of what came back before believing a grep that found nothing** — G16’s rule, one host over.
+
+**AND THE AUTO-LINKER TOOK A CHILEAN CAPITAL AND AN AUSTRALIAN FEDERATION.** `Santiago` is the capital of
+Chile, so Losada’s *Santiago León de Caracas* linked to a city 5,000 km away — the `Alofi`, `Stanley` and
+`Nassau` collision a fourth time, and written round by naming the apostle instead. `Commonwealth_of_Nations`
+claims the bare *Commonwealth*, so the land “granted to the Commonwealth” in section 125 linked to 56 modern
+states rather than to the federation the clause is about; and `Guinea` claims the adjective, so the *Guinean*
+climatic zone linked to a country. **`Lebanon` matching inside “Anti-Lebanon” is recorded rather than fixed**
+— the hyphen is a word boundary, G18’s `East_Asia`-in-“South-East Asia” exactly, and the range’s name is
+worth more than the link is worth avoiding. `Water` was written round three times (the verb *water*, a
+*water-clock* now set as a clepsydra, and a talweg running down to the water), `Council` once (the Council of
+the Indies is not Aristotle’s boule), `Republic` once, and `Constitution` recorded for the sixth batch
+running. **`Mountain_fortress` is the batch’s one perfect link**: its definition is explicitly the
+fortification of the Korean Three Kingdoms, and it landed on Daesong.
 
 ## What C9 found
 
