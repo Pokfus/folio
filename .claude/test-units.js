@@ -118,6 +118,29 @@ async function shown(page, html) {
     await page.evaluate(() => { const s = JSON.parse(localStorage.getItem("folio_v1")); s.settings.units = "imperial"; localStorage.setItem("folio_v1", JSON.stringify(s)); });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1200);
+    /* THE ABSTRACTS ARE LAZY. They moved to data-extra/<collection>.js in Sep 2026 (see
+       CARD_EXTRA_FIELDS in app.js), so `window.CARD_DATA` carries none of them at rest and this check
+       was searching an empty haystack — reported as "the shipped data no longer carries both figures",
+       which reads like a content regression rather than like a fixture looking in the wrong place.
+       One collection's half is enough for a check about the SHAPE of a stored measurement, and pulling
+       it in as a script tag works the same on http and on file://. */
+    await page.evaluate(async () => {
+      /* The guard has to ask for the SHAPE this check needs, not merely for any abstract at all:
+         a few cards' extras land during boot (the warm), so `some(c => c.abstract)` is true within a
+         second of load while none of those few carries an imperial bracket — and the fixture then
+         skipped the fetch and searched an almost-empty haystack. */
+      const WANT = /\(\s*\d[^()]*(miles|feet|ft|inches|sq mi)/;
+      if ((window.CARD_DATA || []).some((c) => WANT.test(c.abstract || ""))) return;
+      await new Promise((res) => {
+        const s = document.createElement("script");
+        s.src = "data-extra/wh.js"; s.onload = res; s.onerror = res;
+        document.head.appendChild(s);
+      });
+      const q = window.CARD_EXTRA_IN || [];
+      const by = {};
+      (window.CARD_DATA || []).forEach((c) => { by[c.id] = c; });
+      q.forEach((inc) => Object.keys(inc.CARD_EXTRA || {}).forEach((id) => { if (by[id]) Object.assign(by[id], inc.CARD_EXTRA[id]); }));
+    });
     const src = await page.evaluate(() => {
       const c = (window.CARD_DATA || []).find((x) => /\(\s*\d[^()]*(miles|feet|ft|inches|sq mi)/.test(x.abstract || ""));
       return c ? c.abstract.slice(c.abstract.search(/\(\s*\d[^()]*(miles|feet|ft|inches|sq mi)/) - 30, c.abstract.search(/\(\s*\d[^()]*(miles|feet|ft|inches|sq mi)/) + 24) : "";
@@ -173,11 +196,22 @@ async function shown(page, html) {
          `cubic` shipped unseen across 30 sites. This one decides what a measurement is WITHOUT the engine:
          a bracket holding a digit and a strong imperial unit is one, and the engine must agree. */
       const STRONG = /(?:^|[^A-Za-z])(?:miles?|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)(?![A-Za-z])/i;
+      /* A HISTORICAL UNIT IS NOT AN UNCONVERTED IMPERIAL ONE, and the sweep has to say so.
+         The house rule is metric first with the imperial in brackets, and this sweep exists to catch a
+         bracket the engine would fail to convert. But four Roman-roads cards write the distance the
+         ANCIENT source states — "about 310 km (210 Roman miles)" — and a Roman mile has no imperial
+         equivalent to swap to: it is the figure Rome measured and carved on its own milestones, which
+         on a card about the Appian Way is the point rather than a conversion. `isImperialParen` rightly
+         rejects it (there is nothing to convert), so the sweep filed it as unseen; leaving the strings
+         alone is the CORRECT behaviour and what needed changing was the sweep's question.
+         Named units only, and each one is a unit an ancient source actually reports in. */
+      const HISTORICAL = /\b(Roman\s+(miles?|feet|foot|pace|paces)|stadi(?:a|um|on|ons|es)|stades?|cubits?|talents?|plethra|schoeni?|parasangs?)\b/i;
       const unknown = [];
       const sweep = (s, where) => {
         if (typeof s !== "string" || s.indexOf("(") < 0) return;
         (strip(s).match(/\([^()]{1,90}\)/g) || []).forEach((p) => {
           const inner = p.slice(1, -1);
+          if (HISTORICAL.test(inner)) return;
           if (/\d/.test(inner) && STRONG.test(inner) && !U.isImperialParen(inner)) unknown.push(where + " " + p);
         });
       };

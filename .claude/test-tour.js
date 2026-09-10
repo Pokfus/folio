@@ -271,20 +271,33 @@ const CARD = () => {
     watch(page);
     await page.goto(base + "#library", { waitUntil: "load" });
     await page.waitForTimeout(1400);
+    /* A FIRST VISIT GETS THE QUIET STRIP, NOT THE MODAL (Sep 2026 — see pageHelp's `opts.quiet`).
+       A reader who opened Folio, then the Atlas, then the Library, then the marker met four explainers
+       before doing anything, so the Library's and the Atlas's became a dismissible strip at the head of
+       the page with the first tip in it and a control that unfolds the rest. Pressing "?" still gets
+       the full modal, which is what the block below this one asserts.
+       The strip is IN THE PAGE rather than on the body, which reverses the old assertion here — and
+       correctly: the modal had to be on the body because `.page` carries a filled animation and would
+       become the containing block for anything fixed inside it, centring the card a screen and a half
+       down a long shelf. A strip is in the flow, scrolls away with the page, and dies with it. */
     const h = await page.evaluate(() => {
-      const ov = document.querySelector(".page-help");
+      const ov = document.querySelector(".page-help-quiet");
       if (!ov) return null;
-      const c = ov.querySelector(".ah-card"), r = c.getBoundingClientRect();
+      const r = ov.getBoundingClientRect();
+      const rest = ov.querySelector(".phq-rest");
       return {
-        onBody: ov.parentElement === document.body,
-        tips: ov.querySelectorAll(".ah-tip").length,
+        inPage: !!ov.closest("#view .page"),
+        // the rest of the tips are present and folded — nothing is cut, the reader chooses when to read
+        tips: ov.querySelectorAll(".ah-tip").length + (ov.querySelector(".phq-first") ? 1 : 0),
+        folded: !!(rest && rest.hidden),
+        hasMore: !!ov.querySelector(".phq-more"),
         text: ov.textContent,
-        // THE BUG: written into .page it centres itself in the SHELF and lands below the fold
         onScreen: r.top >= 0 && r.bottom <= innerHeight + 1 && r.width > 120,
       };
     });
-    check("a first visit to the Library explains it", !!h, h ? "" : "no .page-help");
-    check("...ON THE BODY, so it is fixed to the viewport and not to the shelf", !!(h && h.onBody));
+    check("a first visit to the Library explains it", !!h, h ? "" : "no .page-help-quiet");
+    check("...as a strip IN the page, which scrolls away and dies with it", !!(h && h.inPage));
+    check("...with the rest folded behind a control rather than cut", !!(h && h.folded && h.hasMore));
     check("...and is actually on the screen", !!(h && h.onScreen));
     /* THE CARD IS TWO CARDS (Aug 2026, on request), and the split is what these assert — in BOTH
        directions, since a tip in the wrong half is invisible from either side on its own. The SHELF's
@@ -295,9 +308,11 @@ const CARD = () => {
     check("...and the reading position it keeps", !!(h && /remember/i.test(h.text)));
     check("...but NOT the marker, which belongs to the book half", !!(h && !/marker/i.test(h.text)));
 
-    await page.click(".page-help .ah-go");
+    /* The strip is dismissed by its own ×, not by the modal's "Start reading" button — the quiet form
+       has no go button, because there is nothing to go past: the page is already usable underneath it. */
+    await page.click(".page-help-quiet .phq-close");
     await page.waitForTimeout(300);
-    check("dismissing it clears the shelf", await page.evaluate(() => !document.querySelector(".page-help")));
+    check("dismissing it clears the shelf", await page.evaluate(() => !document.querySelector(".page-help-quiet, .page-help")));
     // a book still opens — a scrim left hit-testing would make the whole shelf dead to the touch
     await page.click(".book-tile");
     await page.waitForTimeout(2500);

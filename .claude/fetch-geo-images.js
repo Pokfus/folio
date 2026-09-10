@@ -251,8 +251,17 @@ function creditLine(f) {
          licence. */
       const t = /^File:/i.test(spec.file) ? spec.file : "File:" + spec.file;
       const f = await fileInfo(t);
+      /* THE PIXEL BAR SAYS NOTHING ABOUT AN SVG, and holding one to it threw away exactly the pictures
+         a diagram-taught subject needs (Sep 2026, illustrating Biology). A vector file's `width` is a
+         nominal figure an editor typed — `IsomerOverview.svg` reports 283px and renders at any size —
+         and `fileInfo` already asks Commons for a 1920px raster of it, which is what the card would
+         carry. So the bar is skipped for a vector and applied to everything else unchanged.
+         It is skipped HERE ONLY, on a file named by hand: the city and landmark branches refuse an SVG
+         outright, and for their own reason — a diagram is not a photograph of a place, and a flag is an
+         SVG. Nothing about that changes. */
+      const vector = f && /svg/i.test(f.mime || "");
       if (!f) why = "no file info for " + t;
-      else if (f.fullWidth < MIN_W) why = t + " is only " + f.fullWidth + "px";
+      else if (!vector && f.fullWidth < MIN_W) why = t + " is only " + f.fullWidth + "px";
       else if (!licenceOK(f)) why = t + " is " + (f.licence || "unlicensed");
       else picked = f;
     } else if (spec.city) {

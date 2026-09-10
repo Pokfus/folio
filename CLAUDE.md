@@ -1392,12 +1392,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **a bare number is the edition's apparatus and is dropped from both sides**, since several
     shelved editions run their section and verse numbers inline and a quotation rightly leaves them
     out.
+  · **AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS** (Sep 2026,
+    out of the field audit). Rule 1 was written against a card whose whole apparatus is one
+    researcher's view, and it counted a DATA PUBLISHER the same way — so a geography card citing the
+    World Bank for its population, its area and its GDP was reported as resting three sources on one
+    author. Measured over the corpus that shape was **274 of the 431 findings**: the World Bank 84
+    times, the National Park Service 65, the Census Bureau 50, the Holocaust Memorial Museum 31.
+    **They are REPORTED SEPARATELY rather than excused** — a card resting entirely on one ministry's
+    site is thin however official the ministry — so `INSTITUTIONAL` sends them to a `one-institution`
+    note and the failure list drops to **116**, which is the finding the rule exists for: before the
+    split, `jeremy b. rutter` (39 cards, the Dartmouth course site the Greece audit names) sat in a
+    list of 431 where nobody would read it. **The list is DECLARED, never pattern-matched** — "anything
+    ending in Museum or Bureau" would quietly excuse a real author — so add an entry only after
+    reading a card that cites it.
   · **IT IS A REPORT TOOL RUN BY HAND AND IS DELIBERATELY NOT IN THE CI FAST GATE.** Over the whole
     corpus it finds a large standing backlog on the first and last checks — the Greece collection's
-    early decks rest on one Dartmouth course site and on the French excavation reports, whose
-    substitutes are not reachable from this sandbox (the seven measured routes are in
-    `docs/greece-audit-2026-09.md`). Run it with `--prefix=` over the cards a batch touches. Not part
-    of the site.
+    early decks rest on one Dartmouth course site and on the French excavation reports (the seven
+    measured routes are in `docs/greece-audit-2026-09.md`). **That file's "no substitute is
+    reachable" was re-measured in Sep 2026 and four more routes DO open** — Europe PMC (291
+    open-access Aegean hits), DOAJ (44 for *minoan crete*, against the one thin query first tried),
+    **`persee.fr` INCLUDING ITS SEARCH** (`/search?ta=article&q=…` over plain HTTP, proved a real
+    search by a nonsense query returning nothing, with `/doc/<id>` serving the whole article — BCH,
+    CRAI and Ktèma, the French School at Athens' own record of Malia and Knossos) and
+    `chs.harvard.edu`. JSTOR still serves a Client Challenge under a 200 and `ascsa.edu.gr` refuses.
+    **What they carry is the archaeological SCIENCE and the French excavation record**, where the
+    Rutter citations carry pottery sequences and palace phasing — so a substitute is found claim by
+    claim and some claims still have none (`gr-001`'s Cycladic longboats were searched for across
+    all four and found in none). **The re-sourcing is a content pass, card by card, not a
+    substitution table**, and keeping Rutter for a claim nothing else states is the right answer
+    rather than a failure. Run it with `--prefix=` over the cards a batch touches. Not part of the
+    site.
 - `.claude/check-questions.js` — the card QUESTION house rules, measured over the shipped `data.js`:
   `node .claude/check-questions.js [--verbose]`, exit 1 on any violation, so it guards a batch the way
   `check-style.js` does. Four rules — **one sentence**; **understandable on its own** (a question may not
@@ -1503,8 +1527,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `glossary-extra.js` + `.claude/split-glossary.js` + `.claude/gloss-io.js` — **the glossary is TWO
   files.** `GLOSSARY_SOURCES` (786 KB) and `GLOSSARY_IMAGES` (523 KB) were 54% of `glossary.js`, which is
   on the EAGER path, and **nothing reads either until a popup opens** — so they moved to
-  `glossary-extra.js`, fetched by the `glossExtra` bundle. The eager path went **8.80 → 7.51 MB raw,
-  2.45 → 2.16 MB gzipped**.
+  `glossary-extra.js`, fetched by the `glossExtra` bundle. It took **1.29 MB off the eager path** on the
+  day it shipped; **for what that path weighs NOW, run `node .claude/check-sizes.js`** — the two figures
+  once written here (8.80 → 7.51 MB raw, 2.45 → 2.16 gzipped) were four splits and a font migration out
+  of date within the month, which is the drift that script exists to end. What is worth stating is the
+  SAVING, which is a fact about this change and does not move.
   · **IT STAGES ONTO A QUEUE (`window.GLOSSARY_EXTRA_IN`) RATHER THAN ASSIGNING**, exactly as
     `i18n/gloss-<lang>.js` does, and `glossExtraIngest` drains it. app.js snapshots
     `PRISTINE_GLOSS_SOURCES` / `PRISTINE_GLOSS_IMAGES` at boot, which is BEFORE this file lands — so a
@@ -1549,12 +1576,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.15 MB and 46,156 lines is hard to find your way around, so this
-  lists its 170 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.27 MB and 47,918 lines is hard to find your way around, so this
+  lists its 182 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
-  **29** things are put on `window`. Splitting it across `<script>` tags means either making
+  **30** things are put on `window`. Splitting it across `<script>` tags means either making
   every shared name a property of a namespace object (thousands of call sites, and no test can prove
   closure-equivalence) or making them true globals — which leaks the whole application surface onto
   `window`, where a community deck's sanitized HTML and any browser extension can reach it. The
@@ -1564,6 +1591,76 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first cut also treated any SHOUTED comment opening as a banner, which is how the house writes the
   conclusion of a long explanation — it reported a sentence about one minigame's draw as a 266 KB
   "section". **A map that invents sections is worse than none, because it is read as structure.**)
+  Not part of the site.
+- **A DUPLICATE PICTURE IS TWO DIFFERENT FAULTS, AND ONLY ONE OF THEM REACHES A READER** (Sep 2026, out
+  of the field audit). `check-cards.js` reports cards sharing one picture and counts them all alike; they
+  are not alike. **WITHIN one collection** a reader working through the deck meets the same photograph
+  twice, which is the fault the check was written for. **ACROSS two collections** a reader studying either
+  one never meets the repeat at all, and the picture is usually right for both — the same object carded in
+  World History and in Ancient Greece. **So repair the within-collection pairs first**, and where a
+  cross-collection pair's picture genuinely serves both and nothing better is free, **leave it**: a poor
+  picture is worse than a shared good one, and `wh-343` cost four rounds before that was the honest answer.
+  Measured Sep 2026: 47 pairs → 21, of which **19 are cross-collection and 2 are within** — `rm-202` /
+  `rm-269` and `rm-206` / `rm-225`, each of which resisted four rounds because Rome's obvious pictures are
+  already spent (the lictor relief is on three cards and a glossary term; the Scipio bust is on `rm-224`).
+  **The pass's own findings, worth having before the next batch.** A candidate is chosen by JUDGEMENT and
+  then LOOKED AT: over four batches the contact sheet rejected roughly a third — "Yinxu Royal Tombs" is a
+  modern red gate, "Centuriation in Treviglio" is a street with a parked car, a Scipio bust came back as a
+  photograph of a lantern SLIDE with the slide's handwriting on it, and two museum TEXT PANELS got through
+  the search. **Decide which card the picture DEPICTS, not which is more important**: the oracle-bone pit
+  is China's own card, the helmet inscribed by Miltiades is Miltiades', the modius is the taxation card's
+  because the tax was grain. And **the fetcher caches by CARD ID**, so a second candidate for one card
+  silently returns the first unless `--force` is passed.
+- `.claude/add-card-quotes.js` — writes **`card.quote`** onto cards that already exist:
+  `node .claude/add-card-quotes.js <batch.json> [--dry] [--replace]` over
+  `{ "cards": { "<id>": { book, n, cite, text } } }`. **A TOOL RATHER THAN AN EDIT, because nothing else
+  could set the field**: `add-card.js` only ever adds a WHOLE new card, so on a corpus of 2,895 the
+  Library's best feature was permanently dormant — 23 cards carried a quotation when this was written
+  against several hundred citing a work sitting on the shelf. **THE PASSAGE IS STILL AUTHORED, NEVER
+  EXTRACTED**; what the tool adds is a REFUSAL of a transcription that is not what the book says, which
+  is the one half a machine can check and a reader cannot. It checks the book against app.js's own
+  `BOOKS` registry, the section against the generated `books/<id>.js`, and **the WORDS against that
+  section — using `check-cards.js`'s own comparison, SLICED OUT by text rather than copied**, so a rename
+  there stops this rather than silently checking something else.
+  · **A BEKKER PAGE NUMBER IS NOT A BARE DIGIT AND IS NOT DROPPED.** The shared normaliser drops tokens
+    that are purely digits — several editions run their section numbers inline — and `1103b` is not one,
+    so a quotation of the *Nicomachean Ethics* must stop before it or step over it with an explicit
+    ` … `. The same holds for any edition whose apparatus carries a letter.
+  · **AND THE ONE MISTAKE THE CHECKER CATCHES IS THE ONE A HUMAN MAKES**: the failure that cost a round
+    here was a semicolon retyped as a full stop. The tool named the first stray words, which is exactly
+    what a verbatim check is for.
+  Refuses a card that already has one without `--replace`, validates the whole batch before writing
+  anything, splices LINES rather than rewriting `data.js`, and resplits so the passage lands in the lazy
+  half. Not part of the site.
+- `.claude/check-image-free.js` — **is this picture already on something?**:
+  `node .claude/check-image-free.js "<file name or url>" … | --batch=<batch.json>`, exit 1 if any is
+  taken. **RUN IT BEFORE FETCHING A REPLACEMENT, NEVER AFTER.** `check-cards.js` reports which cards
+  SHARE a picture, and a session repairing those pairs naturally checks its candidate against the pair in
+  hand — which is not enough, the corpus being 2,895 cards, 3,434 glossary terms and 200 artefacts, any
+  of which may already hold it. **It happened on the first batch**: the Guillaume bronze chosen for
+  `rm-283` was already `wh-350`'s AND the `Gracchi_brothers` glossary term's, so repairing one duplicate
+  made another, and the only thing that caught it was re-running the count. It compares on the FILE NAME
+  with any `\d+px-` prefix stripped, which is `check-cards.js`'s own rule, **and it folds underscores to
+  spaces** — a card's `src` carries underscores and a name typed off a search result carries spaces, and
+  without that it answers "free" about a file that is already on a card, which is the one answer it must
+  never get wrong. Not part of the site.
+- `.claude/check-i18n-drift.js` — **how much of the nine translations is still true**:
+  `node .claude/check-i18n-drift.js [--verbose]`, report-only, exits 0. **THE STATED DECISION ABOUT THE
+  NINE LANGUAGES IS: KEEP THE ENGINE, KEEP THE THREE SURVIVING FAMILIES, REVIVE NOTHING YET — AND STOP
+  DESCRIBING THE COVERAGE AS THOUGH IT WERE INTACT** (Sep 2026, out of the field audit). Nobody could
+  reach a word of it since `MULTILANG` went false, so nothing on the page reports when a translated
+  string stops matching the English it was written against; it falls through to English, silently, for
+  ever. **RUN IT FOR THE FIGURE RATHER THAN QUOTING ONE HERE** — when it was written, better than a
+  quarter of every language's chrome strings translated text app.js no longer contains, most of them
+  retired changelog lines, removed features (`Collection levels`, `Challenge wins`) and reworded copy,
+  with one pair differing only by a straight against a curly apostrophe. **It is a FLOOR and its header
+  says why**: a string ASSEMBLED at runtime is in no source file whole and reads as dead (the thirteen
+  era labels are exactly that), a key surviving in a comment reads as live, and it says nothing at all
+  about the much larger other direction — every English string written since the gate went up, which
+  has no translation in any language and which no static check can count. **The three families are
+  LAZY, so a reader pays nothing for any of this today**; what it costs is the belief that flipping
+  `MULTILANG` back would give nine working languages, which it would not. Reviving means a chrome pass
+  per language BEFORE the flag moves, and the card and glossary translations regenerated from nothing.
   Not part of the site.
 - `.claude/check-claims.js` — **CLAUDE.md's own figures, measured**: `node .claude/check-claims.js
   [--all]`. This file is the ONLY operational memory a cloud session has, it is written in the present
@@ -3515,6 +3612,165 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   with their effect sizes and sources, an honest audit of what Folio already got right, and the twenty
   proposals with what each would look like to a reader — thirteen of which are now built, and the file
   says which.
+- **TEN THINGS A READER COULD NOT DO, AND NOW CAN (Sep 2026, out of the field audit).** The scheduler and
+  the session were sound; what was missing was everything a reader wants to do ABOUT a session. Each is
+  small on its own and three of them carry a decision worth keeping.
+  · **A SESSION FOLLOWS THE READER BETWEEN DEVICES** (`S.handoff` / `HANDOFF_MAX_AGE` / `deviceId` /
+    `writeHandoff` / `handoffOffer` / `handoffRowHTML`). `STUDY_KEY` is sessionStorage, so a session
+    survives a reload and dies with the tab — right for what it is, and it meant a reader who started ten
+    cards on a phone at breakfast began again on a laptop at lunch. **Progress already synced; the QUEUE
+    did not.** It rides in the progress blob, is written by `persistStudy` (and never SAVED from there —
+    that runs on every render, and `grade()` saves anyway), and is **offered only to a device that is not
+    the one that wrote it**, which is what `dev` is for. **FOUR HOURS AND THEN IT IS GONE**: a queue is a
+    fact about a sitting, and yesterday's resurrecting itself would be worse than no handoff at all. It
+    routes with the offer as `resume`, the shape `PAGES.study` already takes from sessionStorage, so a
+    handed-over session and a reloaded one arrive by exactly one path.
+  · **"I SIT THE EXAM ON THE 14TH"** (`deadlinePlan` / `openDeadline` / `REV_PER_NEW` / `LEAD_DAYS`; the
+    **Ready by a date** row on a deck's sheet, under Daily limits, which is the same figure asked for from
+    the other end). **THE HONEST ANSWER INCLUDES "NO"** and that is the more useful half: it says the new
+    cards a day needed, the REVIEW load that pace generates (a rule of thumb, labelled as one), and how
+    many cards would be met in the last week and therefore **seen rather than learned**. Setting the pace
+    raises the deck's review ceiling with its new-card figure where the plan would otherwise throttle
+    itself on the other limit. Off the pooled review's sheet: the review is every deck at once and has no
+    end to be ready by.
+  · **THE CARDS THAT KEEP BEATING YOU** (`LEECH_ROWS` / `leechCards` / `leechPanelHTML`). `SCHED.leech`
+    has been 8 since the port and every lapse has been recorded since, and **nothing anywhere showed a
+    reader which cards those were** — Anki suspends a leech and Folio deliberately does not, so the
+    statistic simply sat there. Twenty rows on the account page, worst first, each opening Card info with
+    its flag / set-due / forget / suspend actions attached. **OWN ACCOUNT ONLY**, and not out of modesty
+    about the data: a friend's lapse counts render perfectly and every action on the row acts on YOUR
+    schedule.
+  · **THE FORECAST REACHES 180 DAYS** (`FORECAST_HORIZONS` / `fcDays` / `forecastCardHTML` /
+    `wireReviewStats`). A fortnight is long enough to plan a week and far too short to see the thing that
+    makes people abandon an SRS: a term's Easy grades landing in one week, three months out. Past three
+    weeks the bars bucket by WEEK, and **the peak is marked** — the load balancer exists to flatten it, is
+    off by default, and a reader who cannot SEE a pile-up has no reason to turn it on. **A PEAK IS ONE
+    BAR**: several tied at the top is a plateau, and marking all of them says only that the chart has a
+    maximum, which is what the first cut did on a flat forecast. The horizon is module-level, like the
+    glossary record's sort.
+  · **THE READER'S OWN NOTE ON A CARD** (`S.notes` / `CARD_NOTE_MAX` / `cardNote` / `setCardNote` /
+    `cardNoteHTML`). A reader could flag, suspend, bury and draw on a card and could not WRITE on it.
+    **It is ANNOTATION, NOT EDITING, and the two must never meet** — `ADMIN_EDITS` is published to every
+    reader through the content overlay and this is private to its writer — so it rides in
+    `PROGRESS_FIELDS` with the flags and survives Reset progress with them. A real `<textarea>` rather
+    than a contenteditable: plain text has nothing to sanitize, and the units and spelling passes walk
+    text NODES and so cannot reach a field's value and rewrite what somebody wrote. Delegated, once for
+    the document, because six surfaces draw a card back.
+  · **A TIME BOX** (`boxMs` / `boxFrom` / `BOX_CHOICES` / `boxSpent` / `openTimeBox` / `startBoxTick`; the
+    clock in the study bar). Folio budgets a session in CARDS, which is the unit it thinks in and not the
+    unit a commute is measured in. **It is checked at the GRADE, never on the tick**: a session that
+    closed itself while the reader was reading an answer would be a feature that takes work away. Session
+    -scoped and not in `S`, and it rides in the `STUDY_KEY` record so a reload keeps it.
+  · **RECALL IN FULL** (`deckRecall` / `setDeckRecall` / `.freerecall` / `.fr-said`), a POLICY beside
+    `deckAttempt` in `DECK_OPT_INHERIT` with a global default in Settings, off by default. A cloze blank
+    sits inside a sentence that has already narrowed the answer to one word; free recall is the harder
+    retrieval and the one an exam asks for. **WHAT IS WRITTEN IS SHOWN BESIDE THE ANSWER AND THEN THROWN
+    AWAY** — a matcher over free prose would mark a right answer wrong, which is the one failure that
+    would stop a reader writing — and **the box is removed at the reveal**, since leaving an editable copy
+    invites improving a recall after seeing the answer.
+  · **TRY TEN CARDS** (`SAMPLE_N` / `sampleIds` / `PAGES.sample` at `#sample/<id>`; the **Try ten** button
+    on a collection row). **IT WRITES NOTHING** — no `S.active`, no `S.cards` — which matters more than it
+    sounds, XP being `Object.keys(S.cards).length` and a level buying a chest, so a sampler that scheduled
+    its cards would hand a browsing reader levels and chests for reading ten cards. `PAGES.pretest` made
+    this decision first. **The ten are the collection's OWN first ten**, unstudied ones skipped: a plan is
+    a running order and the opening cards are where a collection introduces itself.
+  · **UNDO NAMES THE CARD IT WILL GIVE BACK** (`undoLabel`). The stack has held a hundred snapshots since
+    it shipped and a second press has always reached the card before last; what it never did was SAY so.
+  · **AND THE FOUR GRADE BUTTONS SAY WHAT "4d" MEANS** (`gradeExplainHTML`), one line in the `?` bubble
+    keyed to the card in hand and derived from the same `preview` the buttons are drawn from, so the
+    sentence and the numbers cannot disagree. It names DAYS rather than repeating intervals, and says the
+    ease effect in terms both schedulers share.
+  · **THE SHORTCUTS ARE WRITTEN DOWN, AND `?` IS WHERE** (`KEY_SHEET` / `openKeySheet` /
+    `closeKeySheet` / `.key-sheet`). Folio has had a dozen keyboard shortcuts for months and exactly two
+    surfaces said so — the grade bar's `?` bubble, which a reader only meets mid-answer, and the Atlas's
+    coach marks. **The table is keyed by PAGE and prints the current page's keys under the ones that work
+    anywhere**, because a list of every shortcut on the site is a list in which the four that apply here
+    are hidden; a page with none says so in a sentence rather than being drawn empty. It is in
+    `render()`'s close list beside `closePageHelp()` — it names the CURRENT page's keys, so it cannot
+    outlive it — and its `?` handler carries the `/` search handler's guards exactly (not in a field, not
+    over an overlay). **Its scrim is `#000`, never `var(--ink)`**: that token is the LIGHTEST thing a dark
+    theme has, so an ink-mixed scrim is a white veil at night — `test-layout.js`'s `scrimCheck` catches it
+    statically, and caught this one.
+  · **AND THE HOME PAGE SAYS HOW FAR THE NEXT ARTEFACT IS** (the `nextChest` block in `PAGES.home`,
+    `.rv-chestnext`). Four channels grant a chest — a level, a clean sweep, all nine games finished, every
+    seventh day of a streak — and only the streak ever showed its progress, so three of the four were
+    invisible mechanisms. **It names the NEAREST one and only that**: four lines would be a scoreboard for
+    something meant to be a small pleasure, and the nearest is the only one that answers *is it worth
+    finishing this session?*. **It is silent while a chest is already WAITING**, `chestBannerHTML` being on
+    screen directly above saying so — which is also why a fresh reader sees nothing here, the first badge
+    granting a chest before the line could ever be read.
+  · **AND THE CARDS YOU GET RIGHT SLOWLY** (`SLOW_ROWS` / `SLOW_MULT` / `SLOW_FLOOR_DS` / `medianOf` /
+    `slowCards` / `slowPanelHTML` / `.rs-slow`). Every answer has been TIMED since Aug 2026 and exactly one
+    surface read the figure — Card info printed it per row — so the log's `ds` column was half a feature.
+    This is the other half, and it names a state the grade buttons cannot: a card answered Good after
+    fifteen seconds of hunting is not a card you know. **The bar is the READER'S OWN MEDIAN, never a
+    constant** — how long an answer takes is a fact about the reader, the deck and the device, so a fixed
+    "over 10 seconds" would report a whole collection on one reader and nothing on another — with a floor
+    so a fast reader does not meet a list of five-second cards. **The MEDIAN on both sides**, one answer
+    interrupted by a doorbell being worth `REV_MAX_DS`. **Two answers minimum**, and **learning steps are
+    excluded outright** (`REV_ST.relearn` — note the key is `relearn`, not `relearning`, and a comparison
+    against the wrong name is silently always false). Own account only, for `leechPanelHTML`'s reason: the
+    rows open Card info, whose actions act on YOUR schedule.
+  · **AND A READER CAN ASK FOR LESS DATA WHATEVER BROWSER THEY ARE ON** (`lightMode` / `S.settings.saveData`
+    / `.ci-held` / `.ci-hold`). Six places already asked `navigator.connection.saveData` before warming a
+    bundle, each written out longhand — and **that hint does not exist on Safari or Firefox**, so on those
+    browsers all six answered false and a reader had no way to ask. `lightMode()` is the one door, ORing
+    the reader's switch with the hint so a browser that does say so is still obeyed and the switch can only
+    ever ask for LESS. It stops the idle warms and **holds each card's picture back behind one press** —
+    the `src` rides in `data-src` and the delegated `IMG_OPEN_SEL` handler loads on the first press and
+    enlarges on the second, one branch in a listener that already exists rather than a second way of
+    drawing a picture. **The frame stays**, dashed and labelled: a picture silently absent looks like a
+    card that has none. **The predicate cannot be written `!!(navigator.connection && …)` beside a sweep
+    that replaces `!(navigator.connection && …)`** — the double-bang CONTAINS the single-bang form, so the
+    sweep rewrote the function into a call to itself, which is a stack overflow on the first render and
+    took four page loads to find.
+  · **AND THE ONE CARD FORMAT WITH NO TEXT ALTERNATIVE HAS AN OPT-IN ROUTE THROUGH IT** (`mapNeighbours`
+    / `andList` / `S.settings.mapAlt` / `.mc-alt`; **📖 the reasoning in full is in
+    `docs/geography-card-plan.md`'s accessibility section**). The sentence that cannot be written is a
+    DESCRIPTION OF THE SHAPE; what the map actually shows is the shaded shape **with its neighbours drawn
+    around it**, and that can be said in words without describing anything. **The neighbours are COMPUTED,
+    never authored** — and NOT by shared edges, which was the first attempt and was **wrong by a quarter,
+    silently**: `us-states.js` is simplified per state, so a border is two chains that diverge, and an
+    exact edge test found 83 of the 107 pairs and missed CALIFORNIA–OREGON. A reader told "Ohio borders
+    Indiana, Kentucky, Michigan and West Virginia" has been handed a list that rules out the right answer,
+    which is the one kind of output this site must never produce. It is a PROXIMITY GRID instead — each
+    boundary walked, the cells it passes stamped with the shape's name — which finds **107 at every cell
+    size from 0.03° to 0.08°**, the geometry deciding rather than the parameter, and correctly excludes
+    the Four Corners diagonals. ~230ms for the world layer, once per layer, cached and **run at idle**. **It is filled in by `startCardGlobe`
+    and not by `cardMapHTML`**, for the reason the canvas is: the shapes are lazy, so at render time there
+    is nothing to read them off; and the slot **ships hidden in the markup** rather than being created on
+    demand, `#toast`'s own rule. **OFF BY DEFAULT AND THE COPY STATES THE TRADE**: for many readers a list
+    of neighbours is a SHORTER route to the answer than the outline, so switching it on makes the deck
+    easier — the reader's trade to make, and an easy card beats one nobody can answer.
+  · **AND A PERSON HAS AN ADDRESS** (`PAGES_u` at `#u/<username>`, plus the five places a route is
+    registered — `PAGES`, `valid`, `PAGE_META`, the boot/hashchange parsers, the hash writer and
+    `setActiveTab`, which maps it to `account`). A friend's profile was reachable only by pressing their
+    row, and its address was `#account` with the friend's UUID carried IN MEMORY — so there was no such
+    thing as a link to a person, and the back button went somewhere else. **The username is the right name
+    for the address**, being what a reader already types into the Add-a-friend box. **WHAT A STRANGER SEES
+    IS THE HONEST HALF**: `progress` is RLS-scoped to its owner and their accepted friends, so this page
+    cannot show a stranger somebody's streak however it is addressed — and rather than 404ing or pretending,
+    it resolves the username against `profiles` (readable by any signed-in reader) and shows the name, the
+    photo, the theme they wear and one button that adds them, with a sentence saying the rest is between
+    them and their friends. **Your own username routes to your own account page**, and an accepted friend
+    gets exactly `acctFriendView` — the same page the row already opened. **Signed out it asks for a
+    sign-in** rather than reporting that the person does not exist, `profiles` being readable only `to
+    authenticated`. The account page's identity line carries a **copy link** button, built from
+    `location.href` minus its fragment so it is right on the live site, on a local copy and in a preview
+    alike.
+  · **AND A FRIEND'S PROFILE OPENS ON YOU AND THEM** (`versusHTML` / `streakLive` / `daysStudied` /
+    `firstName` / `.vs-card`). It showed their figures and never yours, so the one question a reader opens
+    a friend's page to answer had to be done from memory. Four rows, their figure beside yours, the larger
+    marked. **It costs no schema and no second fetch** — the whole blob is already read by that page, and
+    every figure is derived from it exactly as the same figure is derived from your own, so a row cannot
+    contradict the page below it. **A STREAK IS ONLY LIVE IF IT WAS TOUCHED TODAY OR YESTERDAY**:
+    `bumpStreak` resets the count only on the next day studied, so a reader who stopped six weeks ago still
+    carries a 40 in their blob, and printing it as a current streak compares against something that is not
+    happening. **Nothing is ranked beyond the pair** — a wider standing would have to be published
+    somewhere `progress` is not.
+  **Re-run after touching any of them: `.claude/test-review-decks.js` (which pins BOTH sheet row lists
+  EXACTLY — a row added here fails there until that assertion is updated, which is the point of pinning
+  it), `test-learning.js`, `test-reset.js` and `test-account-switch.js` (`PROGRESS_FIELDS` grew twice).**
 - **Undoing a grade (Aug 2026, on request)** — `undoStack` / `undoSnapshot` / `undoGrade` inside `PAGES.study`,
   reached by the `#undoGrade` button in the study bar (rendered only when there is something to undo), by
   **Ctrl/Cmd+Z**, and by "Undo the last card" on the completion screen (where the queue is empty and there is no
@@ -7262,10 +7518,10 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty-nine committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **54 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
-  `test-discovery.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
+  `test-discovery.js`, `test-panels.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
   no browser). **Neither number is one to keep in your head — count them**: `ls .claude/test-*.js | wc -l`
   for the total and `grep -L playwright .claude/test-*.js` for the split. The headline had drifted TWO
@@ -7505,6 +7761,18 @@ dead code (never rendered).
     `langDeckFetch` / `langDeckDownload` / `langDeckStale` / `langDeckUpdate` / `entryLangDecks` /
     `uDeckIdOf` / `uDeckNormalize`'s `langRev` / `uDeckIndexRecord` / `UDECK_META_KEYS`, the
     `data-langup` row or button, the sheet's `redownload` row, or `build-lang-decks.js`'s `rev`.**
+  · `node .claude/test-panels.js` — **the arithmetic behind the Sep 2026 panels and the map in words**
+    (37 assertions, no browser, no dependency): every function is sliced out of the real `app.js` by text
+    and the map half runs against the real `us-states.js`. Each subject fails SILENTLY on the page — a
+    "right, but slowly" list built on a fixed threshold reports a whole collection on one reader and
+    nothing on another and both look like the feature working; a stale streak printed as a current one
+    compares against something that is not happening; a route registered in six of its seven places works
+    until somebody pastes the link. **Its map section is the one that has already caught two faults**: the
+    neighbour list computed by shared EDGES found 83 of the 107 US pairs and missed California–Oregon, and
+    the proximity grid that replaced it found 110 and called the Four Corners diagonals borders until it
+    required TWO shared cells. **Re-run after touching `slowCards` / `medianOf` / `mapNeighbours` /
+    `mapNeighbourCells` / `NBR_MIN_CELLS` / `andList` / `streakLive` / `daysStudied` / `lightMode`, or
+    after adding a route.**
   · `node .claude/test-tense-notes.js` — **the conjugation headings' explanations** (15 assertions,
     Sep 2026), no browser and no dependency: the table and the marking pass are sliced out of the real
     `app.js` by text and run over every deck in `decks/`. Each check is for a silent failure — a
@@ -7786,6 +8054,23 @@ dead code (never rendered).
 - Developed on Windows. Use forward-slash relative paths inside the site.
 - The project is a **Git repo** (initialized Jul 2026) so any change can be reviewed and rolled back — commit meaningful
   changes as you go.
+- **THE REPOSITORY WEIGHS ABOUT HALF A GIGABYTE, AND THAT IS DATA.JS's HISTORY** (Sep 2026, measured out
+  of the field audit). `git count-objects -vH` for the figure rather than quoting this. Where it comes
+  from: **3.8 GB of raw `data.js` blobs across 423 commits**, then 654 MB of `glossary-extra.js`, 521 MB of
+  `glossary.js` and 298 MB of one Mandarin deck file — the corpus is one enormous line-per-card file that
+  every content batch rewrites, so each batch stores another near-copy. Delta compression is what takes
+  3.8 GB to a few hundred MB, and it is already doing its job.
+  **A FULL REPACK BUYS 14% AND NOBODY ELSE EVER SEES IT.** `git repack -a -d --depth=250 --window=250`
+  took the pack from **533.62 MiB to 458.61 MiB in 32 seconds**, with no history change and nothing to
+  re-clone. It is worth running in a container that will be reclaimed anyway; what it is NOT is a fix,
+  because **GitHub packs server-side**, so a `git clone` downloads whatever GitHub's own gc produced and
+  a local repack cannot reach it.
+  **THE ONLY REAL LEVER IS REWRITING HISTORY, AND THAT IS NOT A DECISION TO TAKE UNILATERALLY.** Dropping
+  or truncating `data.js`'s history would change every commit id after the rewrite: every existing clone
+  breaks, every commit link ever shared 404s, and the PRs this project is merged from a phone would have
+  to be reopened. It is the user's call, it is cheap to defer, and **half a gigabyte costs a cloud session
+  nothing** — the clone at session start is the only time it is paid, once. Recorded here so the next
+  session measures rather than re-derives, and does not quietly rewrite anything.
 - **Cloud sessions (claude.ai/code, driven from the phone)** — when this project is worked on from an Anthropic cloud
   sandbox instead of the desktop: (1) the sandbox clones from **GitHub** — anything uncommitted on the desktop is
   invisible, and desktop sessions must push before/after a travel period; (2) cloud sessions **cannot push to `main`** —
