@@ -44,6 +44,7 @@ window.CHANGELOG = [
     items: [
       "<b>The US states and China province cards now draw their rivers</b>, which the shaded state was painting over.",
       "<b>Twenty-one more cards open an Atlas window</b>, among them the Etruscan world, the Aegean Sea, the Eurasian steppe, Zhoukoudian, Nariokotome and Beringia.",
+      "The Etruscan world, the Sabines and the Umbrians now show on your own atlas for as long as they lasted, rather than for a single year.",
       "<b>A card's Atlas window can now draw a sea and a drowned coastline</b>, so Doggerland and Beringia show the ground they were rather than the water over it.",
       "<b>A place panel on your own atlas no longer repeats the card's own Atlas window</b> under the answer you are looking at.",
       "<b>Only a country capital is a square on your own atlas now</b> — a province capital is a circle and everything else a smaller dot.",

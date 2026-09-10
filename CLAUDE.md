@@ -7425,7 +7425,7 @@ dead code (never rendered).
     being measured leaves a card of dashes that reads as a reader who answers instantly. **Re-run after
     touching `logReviewEntry` / `revRead` / `revForCard` / `revWindow` / `grade()`'s logging / `shownAt`
     / `undoRevRow` / `openCardInfo` / `answerButtonsHTML`.**
-  · `node .claude/test-date-line.js` — 13 assertions on the card date line, run against the real
+  · `node .claude/test-date-line.js` — 15 assertions on the card date line, run against the real
     `data.js`: that every shipped card's `answerDate` is still a LIST OF DATES and not the paragraph it
     replaced (the check is content-aware, since an old date line wore exactly the same tags), that the
     limits in `date-line.js` still describe a glance, that every card stating a date still yields a sort
@@ -7433,6 +7433,16 @@ dead code (never rendered).
     date sorts by the year it was dug up**, which is how Atapuerca came to sort at 1978 CE. Re-run after
     touching `cardYears` / `date-line.js`, **and after any batch of date lines** — the field is edited
     card by card and grew into a paragraph the same way.
+    **Its section 4 is the date line read by a THIRD consumer** (Sep 2026): the personal atlas draws a
+    polity's authored `area` in the years its date line names, and unlike a dot — drawn from its
+    earliest date and never taken away — BOTH ends of that span bind, so a line yielding a SINGLE year
+    draws the shape in one year and in no other. **It looks like nothing at all from every other
+    angle**: the card is right, its own map window is right, its sort year is right, `isDateList`
+    passes, and the symptom is a shape nobody ever sees. All three cards that had it were Rome cards
+    whose only readable year was one, the rest of the line being written in CENTURIES, which
+    `cardYears` deliberately cannot read — so the fix is rule 2's own: write the span the century
+    MEANS. The section also reads `MINE_POLITY` OUT of app.js rather than restating it, so a kind added
+    there is covered here without anybody remembering to.
   · `node .claude/test-review-decks.js` — the daily review's decks and the study session that comes out
     of them (Aug 2026). **Re-run after touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` /
     `deckLimits` / `globalLimits` / `mixPiles` / `orderPile` / `DECK_ORDERS` / `deckOrderMode` /
