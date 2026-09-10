@@ -3479,7 +3479,17 @@ window.GLOSSARY = {
 "Hyphasis": "The Hyphasis, the river now called the Beas, is the easternmost of the great Punjab tributaries of the Indus, and Diodorus describes it as seven furlongs wide, six fathoms deep and violent in current.<sup class=\"fn\" data-fn=\"2\"></sup> It marks the limit of Alexander the Great’s advance: in 326 BCE the Macedonians refused to cross it, and reports of a fertile country beyond, well governed and rich in large elephants, moved the king but not the ranks.<sup class=\"fn\" data-fn=\"1\"></sup> Twelve altars were raised on its bank as thank-offerings and as monuments of the expedition’s labours, and the army turned back, so the river became a boundary rather than a stage of the march.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Mutiny_at_Opis": "The mutiny at Opis broke out in 324 BCE at a town on the Tigris north of Babylon, when Alexander the Great discharged ten thousand of his oldest Macedonians and the assembly shouted him down.<sup class=\"fn\" data-fn=\"3\"></sup> Behind it lay a year of grievances — thirty thousand Asian youths trained in Macedonian arms, Persian dress and ceremony at court, and Asian horsemen enrolled among the Companions — and the men demanded that he dismiss them all.<sup class=\"fn\" data-fn=\"1\"></sup> Alexander seized the ringleaders, gave the brigade commands to Persians, and relented only when the soldiers laid down their arms at his gates, telling them that he counted every Macedonian a kinsman.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Nearchus": "Nearchus was a Cretan brought up at Amphipolis in Macedonia, educated alongside the future Alexander the Great, banished by Philip II in about 337 BCE and later made satrap of Lycia and Pamphylia.<sup class=\"fn\" data-fn=\"1\"></sup> In 325 BCE he commanded the fleet that sailed from the Indus delta along the Makran coast to the Persian Gulf and the mouth of the Tigris, meeting the land army again in Carmania.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He wrote an account of the voyage which is lost but which Arrian and Strabo drew on, so that almost everything known about it comes at second hand from him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Susa_weddings": "The Susa weddings were a mass marriage held in 324 BCE at which Alexander the Great and about eighty of his Companions took Persian and Median noblewomen as wives in a single ceremony conducted in the Persian manner.<sup class=\"fn\" data-fn=\"1\"></sup> Alexander married a daughter of Darius III, whom Arrian calls Barsine while Plutarch and Diodorus call her Stateira, and gave her sister Drypetis to Hephaestion so that their children would be cousins.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> More than ten thousand ordinary Macedonians who had taken Asian wives were registered and given presents, but most of these marriages appear to have been abandoned after Alexander’s death.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Susa_weddings": "The Susa weddings were a mass marriage held in 324 BCE at which Alexander the Great and about eighty of his Companions took Persian and Median noblewomen as wives in a single ceremony conducted in the Persian manner.<sup class=\"fn\" data-fn=\"1\"></sup> Alexander married a daughter of Darius III, whom Arrian calls Barsine while Plutarch and Diodorus call her Stateira, and gave her sister Drypetis to Hephaestion so that their children would be cousins.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> More than ten thousand ordinary Macedonians who had taken Asian wives were registered and given presents, but most of these marriages appear to have been abandoned after Alexander’s death.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Antipater": "Antipater was a Macedonian general who governed Macedonia and Greece on Alexander the Great’s behalf throughout the Asian campaign, and who kept that command when the king died in 323 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He put down the Greek rising called the Lamian War, was besieged for a winter in the town that gave it its name, and then imposed garrisons and property qualifications on the defeated cities, ending the Athenian democracy.<sup class=\"fn\" data-fn=\"2\"></sup> After Perdiccas was murdered he was elected guardian of the kings, redistributed the provinces of the empire, and took the royal family home to Macedonia, where he died.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Crannon": "The battle of Crannon was fought in Thessaly in 322 BCE between the Macedonian army of Antipater and Craterus and the Greek allies of the Lamian War.<sup class=\"fn\" data-fn=\"1\"></sup> The Greek cavalry had the better of the fighting until the Macedonian phalanx drove the Greek infantry onto broken ground, at which point the horse broke off and the day was left to the Macedonians.<sup class=\"fn\" data-fn=\"1\"></sup> Losses were light on both sides, five hundred Greeks against a hundred and thirty Macedonians, but the alliance dissolved as its cities took separate terms, and Plutarch blamed that collapse on young commanders and on Macedonian diplomacy.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Calauria": "Calauria is a small island in the Saronic Gulf, lying off the coast of Troezen and measuring some thirty stadia round, whose sanctuary of Poseidon served as an asylum for fugitives.<sup class=\"fn\" data-fn=\"1\"></sup> Seven cities kept the shrine and sacrificed at it in common — Hermione, Epidaurus, Aegina, Athens, Prasiae, Nauplia and Orchomenus — with Argos and Sparta paying the dues of two of them, an arrangement of the kind the Greeks called an amphictyony.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias records a tradition that the island had once belonged to Apollo, who exchanged it for Delphi, and that its priesthood was held by an unmarried girl.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Cassander": "Cassander was the eldest son of the Macedonian regent Antipater, and he ruled Macedonia for some twenty years, taking the title of king in 306 BCE and holding it until 298.<sup class=\"fn\" data-fn=\"1\"></sup> Passed over by his father in favour of the veteran Polyperchon, he took power by force, put Alexander the Great’s mother Olympias to death, and married Alexander’s half-sister Thessalonice to attach himself to the royal house.<sup class=\"fn\" data-fn=\"3\"></sup> He kept Alexander’s widow Roxane and their infant son in confinement at Amphipolis and had both killed in 309 BCE, extinguishing the dynasty that had ruled Macedonia for three centuries.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Diadochi": "The Diadochi, from a Greek word meaning successors, are the generals and satraps who divided the empire of Alexander the Great after his death in 323 BCE and then fought one another over it for two generations.<sup class=\"fn\" data-fn=\"1\"></sup> None of them was able to hold the whole of it, and the wars ended with the empire settled into separate kingdoms in Egypt, in Asia and in Macedonia, ruled by their descendants.<sup class=\"fn\" data-fn=\"3\"></sup> The period is thinly documented and hard to date, so historians work with rival high and low chronologies and lean on Babylonian tablets to fix events the Greek narratives leave floating.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Eumenes_of_Cardia": "Eumenes of Cardia was a Greek from the Thracian Chersonese who served as chief secretary to Philip II and then to Alexander the Great, and who became one of the ablest commanders of the wars that followed Alexander’s death.<sup class=\"fn\" data-fn=\"1\"></sup> Because he was Greek rather than Macedonian he could claim no authority of his own, and his career depended on holding office from others and on managing soldiers who thought a secretary no soldier.<sup class=\"fn\" data-fn=\"3\"></sup> He won battles for the regent Perdiccas, was condemned to death in his absence once Perdiccas had been murdered, and was in the end handed over by his own troops and killed.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Lamian_War": "The Lamian War was a rising of Athens and much of central Greece against Macedonian control, fought in the year after the death of Alexander the Great.<sup class=\"fn\" data-fn=\"1\"></sup> Athens paid for it with treasure brought west by Alexander’s runaway treasurer and with mercenaries the satraps had dismissed, and was joined by the Aetolians, most of Thessaly, the Locrians, the Phocians and several Peloponnesian states.<sup class=\"fn\" data-fn=\"1\"></sup> It takes its name from Lamia, the Thessalian town in which the Macedonian commander was blockaded through a winter; the allies were beaten in the field the following summer, and the Athenian democracy did not survive the peace.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Partition_of_Babylon": "The Partition of Babylon is the settlement that Alexander the Great’s officers reached in 323 BCE, in the days after his death, over who should rule and where.<sup class=\"fn\" data-fn=\"1\"></sup> It made his half-brother Arrhidaeus king under the name Philip, gave the regency to Perdiccas, and left an infantry claim and a cavalry claim uneasily reconciled after the two arms of the army had faced each other under weapons.<sup class=\"fn\" data-fn=\"1\"></sup> The provinces were dealt out at the same time, Egypt going to Ptolemy, Thrace to Lysimachus, Macedonia to Antipater and Cappadocia to Eumenes, so that each senior officer held a country with its own army and revenues.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Perdiccas_(regent)": "Perdiccas was a Macedonian nobleman who commanded the Companion cavalry under Alexander the Great and became regent of his empire after the king’s death in 323 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He held the royal army and the royal seal, dealt the provinces out among the other officers, and then reached for a throne of his own by breaking his engagement to Antipater’s daughter in order to court Alexander’s sister Cleopatra.<sup class=\"fn\" data-fn=\"3\"></sup> The other commanders combined against him; his invasion of Egypt failed at a Nile crossing that drowned more than two thousand men, and his own officers stabbed him to death in his tent.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Triparadisus": "Triparadisus was a place in upper Syria, no longer identified, where the Macedonian royal army halted and the empire of Alexander the Great was divided for a second time.<sup class=\"fn\" data-fn=\"1\"></sup> The settlement made there confirmed Ptolemy in Egypt, gave Babylon to Seleucus, made Antigonus general of the royal army with orders to destroy Eumenes, and elected Antipater guardian of the kings.<sup class=\"fn\" data-fn=\"1\"></sup> Its date is disputed, and the choice between 321 and 320 BCE fixes the chronology of the surrounding years, which is why the argument is conducted with Babylonian documents as well as with Greek narrative.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5156,7 +5166,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hephaestion": "c. 357 – 324 BCE",
 "Mutiny_at_Opis": "324 BCE",
 "Nearchus": "c. 360 – c. 300 BCE",
-"Susa_weddings": "324 BCE"
+"Susa_weddings": "324 BCE",
+"Antipater": "399 – 319 BCE",
+"Battle_of_Crannon": "322 BCE",
+"Cassander": "c. 350 – 298 BCE",
+"Diadochi": "323 – c. 275 BCE",
+"Eumenes_of_Cardia": "c. 362 – 316 BCE",
+"Lamian_War": "323 – 322 BCE",
+"Partition_of_Babylon": "323 BCE",
+"Perdiccas_(regent)": "d. 320 BCE",
+"Triparadisus": "320 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7191,7 +7210,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hyphasis": ["Beas"],
 "Mutiny_at_Opis": ["Opis mutiny"],
 "Nearchus": ["Nearchus of Crete"],
-"Susa_weddings": ["Susa marriages","weddings at Susa"]
+"Susa_weddings": ["Susa marriages","weddings at Susa"],
+"Antipater": ["Antipater of Macedon"],
+"Calauria": ["Kalaureia"],
+"Cassander": ["Kassandros"],
+"Diadochi": ["Diadochoi","successors of Alexander"],
+"Eumenes_of_Cardia": ["Eumenes of Kardia"],
+"Lamian_War": ["Hellenic War"],
+"Partition_of_Babylon": ["settlement at Babylon","Babylon settlement"],
+"Perdiccas_(regent)": ["Perdiccas the regent","Perdiccas son of Orontes"],
+"Triparadisus": ["Triparadeisus","conference at Triparadisus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10711,7 +10739,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hyphasis": ["river","geography","asia","history"],
 "Mutiny_at_Opis": ["event","military","politics","history","greece"],
 "Nearchus": ["person","military","exploration","history","greece"],
-"Susa_weddings": ["event","politics","history","greece","persia"]
+"Susa_weddings": ["event","politics","history","greece","persia"],
+"Antipater": ["person","ruler","history","politics","military","greece","classical"],
+"Battle_of_Crannon": ["event","battle","warfare","history","greece","classical"],
+"Calauria": ["place","island","geography","religion","history","greece","classical"],
+"Cassander": ["person","ruler","history","politics","greece","classical"],
+"Diadochi": ["people","history","politics","warfare","greece","classical"],
+"Eumenes_of_Cardia": ["person","history","politics","military","greece","classical"],
+"Lamian_War": ["event","war","warfare","history","politics","greece","athens","classical"],
+"Partition_of_Babylon": ["event","history","politics","greece","classical"],
+"Perdiccas_(regent)": ["person","history","politics","military","greece","classical"],
+"Triparadisus": ["place","event","history","politics","greece","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

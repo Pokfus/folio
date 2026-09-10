@@ -1030,9 +1030,12 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-754  Antipater
     gr-755  The Lamian War
     gr-756  Battle of Crannon
-    gr-757  The death of Demosthenes
+    gr-757  The death of Demosthenes  — answered by "Calauria", the island whose sanctuary of
+             Poseidon he died in: "Demosthenes" is already the answer of gr-559 and gr-692, so the
+             card takes the place instead, which also fills a gap in the collection's amphictyonies
     gr-758  Eumenes of Cardia
-    gr-759  The Partition of Triparadisus
+    gr-759  The Partition of Triparadisus  — answered by "Triparadisus" alone, so that it does not
+             begin with the same two words as gr-752
     gr-760  Cassander
     gr-761  Antigonus Monophthalmus
     gr-762  Demetrius Poliorcetes
