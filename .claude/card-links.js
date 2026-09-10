@@ -32,10 +32,29 @@ const LEADS_MAX = 3, HOW_MIN_WORDS = 4, HOW_MAX_WORDS = 28;
  * and an answer that is a paragraph the reader can take in without leaving the block. What cannot be
  * checked, and is the whole editorial act, is that the answer says what the CARD'S OWN CITED PROSE says —
  * an answer written from anywhere else is an uncited claim wearing a card's apparatus.
+ *
+ * IT IS REQUIRED ON A NEW CARD (Sep 2026, on request). The Think-it-through pass put a set on all 1,458
+ * History and Science cards and then watched the sections come apart twice, because a pass measured
+ * against a growing corpus has no finish line — 300 cards shipped on `main` while it ran, and three whole
+ * collections landed after it closed. So `add-card.js` passes `{ required: true }` and a card written
+ * from today carries its own set, exactly as it carries its citations and its glossary term. Only
+ * `add-card-links.js` still treats the field as optional, since it is the tool for repairing the backlog
+ * that rule exists to stop growing.
+ *
+ * THE ONE EXEMPTION IS A MAP CARD, and it is `card.map` rather than a collection list because that field
+ * is exactly the Geography section and is readable from the card alone. Such a card asks for a shape and
+ * answers with a grid of figures; the pass excluded them from the start.
  */
-function checkWhy(card) {
+const whyExempt = (card) => !!(card && card.map);
+
+function checkWhy(card, opts) {
   const w = card && card.why;
-  if (w == null) return null;
+  if (w == null)
+    return opts && opts.required && !whyExempt(card)
+      ? "card.why is missing. A new card ships with its three Think-it-through questions and their " +
+        "answers, written out of the card's own cited prose — see the `why` bullet in CLAUDE.md and " +
+        "docs/why-questions-plan.md. A map card is the only exemption"
+      : null;
   if (!Array.isArray(w)) {
     return w && typeof w === "object" && typeof w.q === "string"
       ? 'card.why is the retired single-question shape { q, at }. It is now a list of ' + WHY_COUNT +
@@ -138,6 +157,6 @@ function collectionIndex(tree) {
   return out;
 }
 
-module.exports = { checkWhy, checkLeadsTo, loadCardYears, collectionIndex,
+module.exports = { checkWhy, whyExempt, checkLeadsTo, loadCardYears, collectionIndex,
                    WHY_COUNT, WHY_MIN_WORDS, WHY_MAX_WORDS, WHY_ANS_MIN_WORDS, WHY_ANS_MAX_WORDS,
                    LEADS_MAX, HOW_MIN_WORDS, HOW_MAX_WORDS };

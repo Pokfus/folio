@@ -1623,8 +1623,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   notes cannot be done to a shipped deck).
 - **📖 `docs/why-questions-plan.md` — READ BEFORE WRITING A `card.why`, OR BEFORE OPENING A BATCH OF THEM.**
   The Think-it-through pass, opened Sep 2026 on request: three authored why-questions for every card in
-  the HISTORY and SCIENCE sections. **COMPLETE as measured on 2026-09-06 — all 1,458 cards in both
-  sections carry a set.** It closed twice: it first ran to the end of a list of 1,159 and did not finish
+  the HISTORY and SCIENCE sections. **COMPLETE as measured on 2026-09-10 — every card in both
+  sections carries a set.** It closed twice: it first ran to the end of a list of 1,159 and did not finish
   the sections, because 300 more had shipped on main while it ran. Run `node .claude/why-count.js` for
   the figure rather than quoting one here. **What keeps it closed is the rule rather than the pass**: a
   new card in either section ships with its own set, exactly as it ships with its citations and its
@@ -3455,8 +3455,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     never generated** (see the `why` bullet under "Add a card"), so the choice is between an authored
     question and a manufactured one. **`connectKin` and the `.elab-box` / `.elab-acts` / `.elab-note`
     styles went with it**; `cardKinship`, which `connectKin` used, is still Multiple Choice's distractor
-    ranking. **THE PASS THAT FILLED THAT GAP IS COMPLETE** (Sep 2026): all 1,458 HISTORY and SCIENCE
-    cards carry a set, so the section is absent only on the Geography cards and on the language decks,
+    ranking. **THE PASS THAT FILLED THAT GAP IS COMPLETE** (Sep 2026): every HISTORY and SCIENCE
+    card carries a set, so the section is absent only on the Geography cards and on the language decks,
     both deliberately out of scope. **Run `node .claude/why-count.js` for the figure rather
     than quoting one here.**
   · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the

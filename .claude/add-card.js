@@ -543,8 +543,12 @@ if (card.answerFlag && String(card.answerFlag.src || "").trim() && !String(card.
 /* THE "WHY" PROMPT AND THE CAUSAL EDGES both live in `.claude/card-links.js`, because `add-card-links.js`
    writes the same two fields onto cards already shipped and a second copy of a rule is a rule with no
    home. The `why` check needs nothing but the card; `leadsTo` needs the whole corpus and is run further
-   down, once data.js has been loaded. */
-{ const e = checkWhy(card); if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); } }
+   down, once data.js has been loaded.
+
+   IT IS REQUIRED HERE AND OPTIONAL THERE (Sep 2026, on request), which is the whole point of the flag:
+   a card written from today ships with its Think-it-through set, and `add-card-links.js` stays the tool
+   for the cards written before the rule. A MAP CARD is the one exemption — see `whyExempt`. */
+{ const e = checkWhy(card, { required: true }); if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); } }
 if (REQUIRE_TRANSLATIONS && !card.skipTranslations) {   // a new card ships in all 9 site languages (i18n block)
   const missing = [];
   for (const l of I18N_LANGS) {
