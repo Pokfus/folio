@@ -1764,6 +1764,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     was written round three times, `Council` and `Republic` once each, and `Constitution` recorded for the
     sixth batch running; **`Mountain_fortress` is the batch's one perfect link**, its definition being
     explicitly the fortification of the Korean Three Kingdoms.
+    **AND THE FIFTH LEG FAILED ON FIVE OF SIX, THE WEAKEST SHOWING OF THE PASS** (Sep 2026, C11). C4
+    called the constitution the weakest of the five legs at four of six failing; here only Kazakhstan's
+    article 2 names its capital. Burkina Faso's text of 2015, Malawi's of 2017 and Zambia's of 2016 name
+    none and carry no topic tag either, and the Republic of China's of 1947 provides only that the
+    National Assembly meet **at the seat of the Central Government** — C4's Iranian case again. **AND SRI
+    LANKA IS AN ELEVENTH OUTCOME: a clause that names the city and does not make it the capital**, its
+    Ninth Schedule excluding "the city of Colombo, Sri Jayewardenepura, Kotte, and their environs" from
+    the provincial councils' police powers; what carries that card instead is **UNdata's footnote and the
+    Commonwealth's Key Facts**, which between them state a functional split no constitution does.
+    **AND WHERE FOUR LEGS FAIL AT ONCE, THE CITY'S OWN GOVERNMENT ANSWERS FOR ALL OF THEM** — G16's Hong
+    Kong finding at capital scale: **Taipei has no UNdata profile** (`tw` is a 75-byte 500, as `xk` and
+    `ax` are) and its WMO entry is the **third variety of that leg's failure — rainfall for every month
+    and no temperature at all**, the mirror of C7's Luanda, while `cwa.gov.tw` refuses the connection and
+    `tao.cgu.org.tw` is 403. `english.gov.taipei`'s **Geographical Overview** and **History** pages carry
+    the faults, the landform types, the rivers, a year of station figures and the whole settlement story.
+    **AND THE WMO LEG FAILED A FOURTH WAY: A COUNTRY WHOSE ONLY STATION IS AT ANOTHER CITY IN THE SAME
+    CONURBATION** — Sri Lanka's is Colombo, eight kilometres from Kotte inside one built-up area, which
+    is C9's Yamoussoukro rule at a distance small enough to be tempting and is still a different city; so
+    `gw-561` takes its seasons from the paper that carries its landform, and **Lilongwe has no station at
+    all** (C3's Kinshasa case).
+    **AND A COLONIAL ANNUAL REPORT IS A PRIMARY RECORD OF A CAPITAL'S OWN FOUNDING**: nothing modern
+    openable dates Lusaka's promotion, and the Colonial Office's *Northern Rhodesia, 1936* states on page
+    7 that the seat of government was transferred from Livingstone in 1935 with the inauguration timed to
+    the king's birthday on 3 June, while the 1932 report shows the same capital half built. **AND A
+    PERIOD ACADEMIC WORK CARRIED TWO MORE** — Marc's *Le Pays Mossi* (1909) for Naba Oubri, Krause 1885,
+    Binger 1888 and the French column of August 1896; Davidson's *Island of Formosa* (1903) for Taipei's
+    prefecture of 1878 and its gates. **AND THE LANDFORM SOURCE WAS A MINING PAPER, A ZOOPLANKTON SURVEY
+    AND A BLACKFLY RECORD**, which widens C6's hazard-paper rule: search the fauna and the extraction,
+    not the geology.
+    **AND RULE 2 TOOK THE COUNTRY'S NAME AWAY FIVE TIMES OVER** — the grid's first row is Country, so
+    `gw-560` may not write *Taiwan* even once, nor `gw-561` *Sri Lanka*, `gw-562` *Malawi*, `gw-563`
+    *Zambia*, `gw-564` *Kazakhstan* — **and the ADJECTIVE is safe where the noun is not**, "Sri Lankan"
+    carrying a letter after *Lanka* and so not matching, which is what makes several of these sentences
+    writeable. **AND A WALLED ELSEVIER PAPER'S REPOSITORY COPY CAN BE A CIPHER**: the 2009 Ouagadougou
+    flood study is deposited at White Rose and at NERC's NORA, both serve the full PDF, and **both
+    extract as raw CID codes** — C5's redalyc case; ask OpenAIRE for the deposits, then check the text
+    comes out as words. **AJOL is open and searchable**, `sljol.info` 403s its own root while its
+    per-journal subdomains answer, `pressto.amu.edu.pl` and `czasopisma.uwm.edu.pl` are open, and
+    `doi.org` 403s the GeoHealth article that PMC serves whole. **AND THE AUTO-LINKER TOOK A CONVENTION
+    AND A WILDLIFE RESERVE**: `Great_Britain` claims the adjective *British*, so the Franco-British
+    convention of 1898 linked to a definition that excludes the United Kingdom (written round with Marc's
+    own *franco-anglaise*), and **`Sanctuary` here is ground set apart for a god**, so Lilongwe's zoned
+    *nature sanctuary* linked to a Greek temenos; `Constitution` is recorded rather than fixed for the
+    seventh batch running.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
     geography decks should never have their census information mentioned in the period box below the main
     answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |

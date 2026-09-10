@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-10, batch C11 — six capitals, and the constitution leg fails on five of six**: `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka and `gw-564` Astana, with all six date lines rewritten off the same research. Six again, for C2’s reason.
+
 - **2026-09-10, batch C10 — six capitals, a constitution that is a draft, and a river the grid forbids naming**: `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus and `gw-558` Bamako, with all six date lines rewritten off the same research. Six again, for C2’s reason.
 
 - **2026-09-10, batch C9 — six capitals, and the WMO leg has no station at one of them at all**: `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu and `gw-552` Yaoundé, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -406,6 +408,89 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C11 found
+
+**THE CONSTITUTION LEG FAILED ON FIVE OF SIX, WHICH IS THE WEAKEST SHOWING OF THE PASS.** C4 called it the weakest
+of the five legs at four of six failing; here only **Kazakhstan** names its capital outright (article 2: the capital
+shall be the city of Astana, its status to be fixed by constitutional law). Burkina Faso's text of 2015, the Malawian
+of 2017 and the Zambian of 2016 name no capital at all and carry no *National capital* topic tag either; the Republic
+of China's text of 1947 names none and provides only that the National Assembly shall meet **at the seat of the
+Central Government** — C4's Iranian case, a sentence about the seat that names no city. **AND SRI LANKA IS AN
+ELEVENTH OUTCOME: a clause that names the city and does not make it the capital.** Its Ninth Schedule excludes "the
+city of Colombo, Sri Jayewardenepura, Kotte, and their environs" from the provincial councils' law-and-order powers —
+a real, citable clause about the place, and not a capital clause. The card is carried by **UNdata's footnote and the
+Commonwealth Secretariat's Key Facts instead**, which between them state the functional split (Colombo executive and
+judicial, this city legislative) that no constitutional text does.
+
+**AND WHERE FOUR OF THE FIVE LEGS FAIL, THE CITY'S OWN GOVERNMENT ANSWERS FOR ALL OF THEM** — G16's Hong Kong
+finding at capital scale. **Taipei has no UNdata profile** (`tw` returns a 75-byte 500, as `xk` and `ax` do) and its
+WMO entry is the third variety of that leg's failure: filed under the China Meteorological Administration, it carries
+**rainfall for every month and no temperature at all**, the mirror of C7's Luanda, which carried temperature and no
+rainfall. What replaced both is `english.gov.taipei`, whose **Geographical Overview** states the three faults crossing
+the city, the three kinds of landform, the three rivers and a full year of station figures, and whose **History** page
+runs from the Ketagalan through the Qing land grants to the trading quarters. `cwa.gov.tw` refuses the connection and
+`tao.cgu.org.tw` is 403, so the city site is not a convenience but the only way in.
+
+**AND THE WMO LEG FAILED A FOURTH WAY: A COUNTRY WHOSE ONLY STATION IS AT ANOTHER CITY IN THE SAME CONURBATION.**
+Sri Lanka's single WMO entry is **Colombo**, about eight kilometres from Kotte inside one continuous built-up area —
+which is C9's Yamoussoukro rule at a distance small enough to be tempting. It is still a different city and the card
+may not print its normals as its own, so `gw-561` takes its seasons from the open paper that carries its landform
+(the south-west monsoon of May to September and the convective inter-monsoon of October and November), and **Lilongwe
+has no WMO station at all**, C3's Kinshasa case, its rainfall coming from the same catchment study.
+
+**AND THE COLONIAL ANNUAL REPORT IS A PRIMARY RECORD OF A CAPITAL'S OWN FOUNDING.** No openable modern work found
+dates Lusaka's promotion, and the **Colonial Office's *Annual Report … Northern Rhodesia, 1936*** states it on page 7
+in one sentence: "The seat of government was transferred from Livingstone to Lusaka in 1935, the official inauguration
+of the new capital being arranged to coincide with the ceremonial celebration of His late Majesty's birthday on the
+3rd of June." The **1932 report** shows the same capital half built — fifteen houses nearly finished on the new site.
+Both are on archive.org with clean OCR and running heads that survive, so the page numbers can be cited. A colonial
+administration reporting the movement of its own offices is the record for that fact, which is the same ground the
+house rules allow a state's account of an administrative act.
+
+**AND A PERIOD ACADEMIC WORK CARRIED TWO MORE.** Lucien Marc's *Le Pays Mossi* (1909), a Paris doctoral thesis by an
+officer who had spent five years in the Ouagadougou cercle, gives both the tradition (Naba Oubri conquered the
+country and settled his capital there, first of the Moro Nabas, placed near the middle of the 14th century by counting
+three rulers to a century) and the contact history (Krause in 1885, Binger in 1888, a French column in August 1896);
+and Davidson's *The Island of Formosa* (1903) gives Taipei's founding in a detail nothing modern matches — three
+districts joined into a prefecture in 1878, the city marked out on unplanted farmland north-east of Mengjia, building
+begun in May 1879, four gates nearly finished by the end of that year.
+
+**AND THE LANDFORM SOURCE WAS A MINING PAPER, A ZOOPLANKTON SURVEY AND A BLACKFLY RECORD.** C6's rule that a
+capital's landform source is usually a hazard paper widens again: Ouagadougou's area, altitude and granite come from
+a *Scientific Reports* study of **artisanal aggregate quarrying**; Kotte's marshes, canal depths and 400 hectares of
+flood storage from a **zooplankton survey of the Diyawanna Oya**; and Astana's whole river — source, catchment,
+gradient, spring flood, concreted urban reach, willow and reed banks, the weir at Koktal-1 — from the **first record
+of a blackfly species complex in Central Kazakhstan**. Search the fauna and the extraction, not the geology.
+
+**AND RULE 2 TOOK THE COUNTRY'S NAME AWAY FIVE TIMES OVER**, which on these six is the binding constraint: the grid's
+first row is Country, so `gw-560` may not write *Taiwan* even once (the city government's own page opens "the northern
+part of Taiwan Island"), `gw-561` may not write *Sri Lanka*, `gw-562` *Malawi*, `gw-563` *Zambia*, `gw-564`
+*Kazakhstan*, and three of them may not write *largest* either. **The adjective is safe and the noun is not** —
+"Sri Lankan" carries a letter after *Lanka* and does not match, which is what makes several of these sentences
+writeable at all.
+
+**ACCESS.** `link.springer.com`, `sciencedirect.com`, `mdpi.com`, `onlinelibrary.wiley.com`, `journals.openedition.org`
+(Anubis again), `tao.cgu.org.tw`, `digitalcommons.usf.edu`'s `viewcontent.cgi`, `unece.org`, `cwa.gov.tw`,
+`lawnet.gov.lk`, `astana.gov.kz` and `adilet.zan.kz` are all shut. **`agupubs`/`doi.org` 403s the GeoHealth article
+that PMC serves whole**, so it is cited at its PMC copy. **AJOL is open and its search is usable**, which is what
+found the Ouagadougou reservoir chemistry and the Lilongwe catchment study; **`sljol.info` 403s its own root while its
+per-journal subdomains answer**, so an OUSL Journal article is reached at `ouslj.sljol.info`. **`pressto.amu.edu.pl`
+and `czasopisma.uwm.edu.pl` are open**, and the first carries the Astana history nothing else did.
+**AND A WALLED ELSEVIER PAPER'S REPOSITORY COPY CAN BE A CIPHER**: the 2009 Ouagadougou flood study is deposited at
+White Rose and at NERC's NORA, both serve the full 7.5 MB PDF, and **both extract as raw CID codes** — subset fonts
+with no ToUnicode map, C5's redalyc case. Ask OpenAIRE for the deposits, then check that the text comes out as words.
+
+**AND THE UNdata CAPITAL FIGURE WAS DATED 2019 ON ALL FIVE PROFILES THAT HAVE ONE**, in a table headed 2025 — the
+second unanimous batch after C6. Sri Lanka's is the one whose footnote says something: *Colombo is the capital and
+Sri Jayewardenepura Kotte is the legislative capital*, which is the fact the card is about.
+
+**AND THE AUTO-LINKER TOOK A CONVENTION AND A WILDLIFE RESERVE.** `Great_Britain` claims the adjective *British*, so
+the Franco-British convention of 1898 linked to a definition that explicitly excludes the United Kingdom — written
+round with Marc's own *franco-anglaise*; and **`Sanctuary` in this glossary is ground set apart for a god**, so
+Lilongwe's zoned *nature sanctuary* linked to a Greek temenos. `Water`, `Settlement`, `Council` and `Republic` were
+written round again, and `Europe`-as-*European*, `Japan`-as-*Japanese*, `Russia`-as-*Russian*, `Plough` on a verb and
+`Constitution` for the seventh batch running are recorded rather than fixed.
 
 ## What C10 found
 
