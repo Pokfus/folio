@@ -743,13 +743,59 @@ handle URLs already shipped in the Greece cards should be re-tested rather than 
 `www.taylorfrancis.com` is 403 to any user agent, so a Routledge chapter DOI cannot be opened from here
 even when the chapter is CC BY-NC; the licence line is read off the PDF's own first page instead.
 
-**WHERE THE PASS STANDS.** Rutter: 39 cards → 1. William Smith: 13 → 6, the six left being `rm-105`
-concilium plebis, `rm-135` Lex Hortensia, `rm-139` Aqua Appia, `rm-140` aes grave, `rm-166` Battle of
-Asculum and `rm-174` Via Aemilia. Over-cited across the whole corpus: 116 → 71. After Smith comes James
-Legge (11 `cnh-` cards, plus `wh-399`), then a tail of three or fewer each — William Frederick Mayers,
-Mary Ann Clark, Arthur J. Evans. **Start those with OAPEN and BMCR**, in that order; between them they
-have carried eighteen of the last twenty-two substitutions here, and for Rome the three open edited
-volumes named in R11 are the first place to look before searching at all.
+**BATCH R12 — 2026-09-10. THE LAST SIX SMITH CARDS: William Smith 6 → 0, over-cited 71 → 65.**
+`rm-105` concilium plebis, `rm-135` Lex Hortensia, `rm-139` Aqua Appia, `rm-140` aes grave, `rm-166`
+Battle of Asculum and `rm-174` Via Aemilia. **Five of the six came from BMCR and the sixth from the book
+R11 was already reading**, and the batch is the clearest case yet for the review as a source: four
+reviews, each of a book squarely on one card's subject, each written by a named specialist and pitched
+at the level a card is written at.
+
+**A REVIEW CARRIES THE BOOK'S THESIS, WHICH IS OFTEN THE MOST INTERESTING THING A CARD CAN SAY.** Three
+of this batch's six substitutions are a dispute rather than a fact. `rm-135` opened by treating the Lex
+Hortensia as the settled end of the Struggle of the Orders; Champion's review of Feig Vishnia reports
+her case that the real turning point came eighty years earlier with the Licinio-Sextian rogations, that
+the ancient authorities give the law no great weight, and that its beneficiaries were the tribunes, who
+by 287 belonged to the same nobility as the senate. `rm-140` said aes grave was bronze "whose value was
+their weight"; Muccigrosso's review of *Making the Middle Republic* reports Yarrow's conclusion, from the
+weights themselves, that Rome's early bronze was not bullion but closer to fiat money with wide
+variation. And `rm-105` now says the Volero plebiscite of 471 freed plebeian elections from the CURIATE
+assembly and gave them to a tribal one "whose making and composition are now unclear", which is what
+Kondratieff's review of Lanfranchi actually says.
+
+**THE OTHER THREE NEEDED NO PROSE CHANGE AT ALL, AND THAT IS WORTH RECORDING AS THE CHEAP CASE.**
+Rosenstein's review of Bernard's *Building Mid-Republican Rome* names "Appius' road and aqueduct"
+together, which is `rm-139`'s first sentence; Champion's review quotes Feig Vishnia on "Ariminum, the key
+to Cisalpine Gaul" and the Flaminian way built up to it, which is `rm-174`'s; and Tan's chapter in
+*Romans at War* notes that Dionysius lists the Italian contingents by name in his account of Asculum,
+which `rm-166` was already reporting. **When a review names the very thing the card names, the
+substitution is one line.**
+
+**`rm-166` IS THE DEFERRAL FROM R11 CLEARED BY LOOKING IN THE OTHER DIRECTION.** R11 could not cite
+Yntema because his book has no openable address; the card did not need a book about Apulia at all, only
+a work that says something about the passage of Dionysius the card already quotes — and that was one
+page of a chapter already open on this machine. **Before hunting a new source for a deferred card, re-read
+what the batch before it already had.**
+
+**AND THE SEARCH ORDER THAT PRODUCED THIS BATCH IS WORTH KEEPING.** BMCR's own search
+(`bmcr.brynmawr.edu/?s=…`) answered every one of four subject queries with a book-length treatment of
+that subject: *Les tribuns de la plèbe … 494-287* for the plebs and the tribunate, Vishnia's *State,
+Society, and Popular Leaders … 241-167* for the middle Republic, Aicher's *Guide to the Aqueducts of
+Ancient Rome* and Bernard's *Building Mid-Republican Rome* for the water. OAPEN's subject searches for the
+same topics returned nothing usable — "Roman coinage Republic", "Roman aqueduct water supply", "Roman
+roads Italy" and "Roman law Republic plebiscite" between them produced one relevant book. **For a
+subject with a modern monograph on it, search BMCR first; for a subject covered by an edited volume,
+OAPEN.** Two reviews were read and set aside for saying nothing the cards needed — Taylor on Aicher (a
+field guide, whose review is about finding ruins) and Poehler on Kolb's *Roman Roads* (which is about
+milestones in the provinces, not the Via Aemilia).
+
+**WHERE THE PASS STANDS.** Rutter: 39 cards → 1. William Smith: 13 → 0. Over-cited across the whole
+corpus: 116 → 65. The next author is James Legge (11 `cnh-` cards, plus `wh-399`), then a tail of three
+or fewer each — William Frederick Mayers, Mary Ann Clark, Arthur J. Evans, Jean Gran-Aymerich, Platner
+and Ashby. **Start with BMCR and OAPEN**, in that order for a subject with a monograph on it and the
+other way round for one covered by an edited volume; between them they have carried twenty-four of the
+last twenty-eight substitutions here. For Legge the shape of the problem is different — a translator
+cited for the text he translated is nearer `check-cards.js`'s ancient-witness case than its
+one-scholar case — so read those cards before assuming a substitute is what they need.
 
 ## Two notes on the tooling
 

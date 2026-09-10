@@ -276,6 +276,7 @@ const CROSSREF_YEAR_WRONG = [
   // Crossref dates its chapters 1 October 2019.
   ["10.4324/9781351063500-2", 2020, 2019],
   ["10.4324/9781351063500-3", 2020, 2019],
+  ["10.4324/9781351063500-4", 2020, 2019],
   ["10.4324/9781351063500-11", 2020, 2019],
   // Same again: Running Rome and Its Empire (ed. Lopez Garcia) says "First published
   // 2024" and carries a 2024 copyright line; Crossref dates its chapters 30 Oct 2023.
