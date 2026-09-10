@@ -15625,6 +15625,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        sheet, so it answers for a deck, for a community deck, for the Card-of-the-day list and for the
        pooled review alike. */
     const ids = entryCardIds(id), total = ids.length, studied = ids.filter(isSeen).length;
+    // the catalogue deck files behind this row, if any — see entryLangDecks
+    const redlDecks = entryLangDecks(id);
     // the nearest row above this one, and whatever this one has been given of its own — see clearDeckOverrides
     const own = deckOwnOverrides(id), followFrom = own.length ? (entryChain(id)[1] || null) : null;
     /* A GROUP is not in `S.active` — it has no cards of its own and the review iterates the decks inside
@@ -15730,6 +15732,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          says what the row is wearing NOW, which for most rows is the mark the site gives them. */
       item("icon", "Icon", iconRowNote(id)) +
       (nestedIn ? item("unnest", "Move out of " + groupTitle(nestedIn), "Put it back at the top of the list") : "") +
+      /* FETCH THE FILE AGAIN (Sep 2026, on request — see entryLangDecks for why a stale check is not
+         enough). It is NOT in the danger block: the merge keeps every card id, so the schedule, the flags
+         and the suspensions all survive it, and a note the shipped deck has since dropped is kept rather
+         than deleted. What the reader loses is nothing, which is why the note says so rather than
+         warning. Offered only where there is a file to fetch. */
+      (redlDecks.length ? item("redownload", "Redownload",
+        redlDecks.length > 1
+          ? "Fetch all " + redlDecks.length + " deck files again — your progress is kept"
+          : "Fetch the deck file again if a repair has not shown up — your progress is kept") : "") +
       /* RESET PROGRESS — this entry's share of the Danger zone (Sep 2026, on request). It is offered only
          where there is something to forget, for the reason the chest banner renders nothing at zero: a
          destructive row on a deck the reader has never opened is a row that can only disappoint. It sits
@@ -15872,6 +15883,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           return;
         }
         if (act === "unnest") { close(); setNestParent(id, null); render(); toast("Moved out"); return; }
+        if (act === "redownload") {
+          close();
+          /* IT REPORTS WHAT IT DID rather than that it did something, which is the Update button's own
+             rule: a reader who is told "Redownloaded" cannot tell a deck that gained a repair from one
+             that gained nothing, and the count is the only honest answer to the question they pressed it
+             to ask. Sequential rather than parallel — a language may be nine files and the fetches are
+             megabytes each — and the FIRST error stops the run and is reported, since carrying on after
+             one failure leaves the reader told a mixed result they cannot act on. */
+          (async () => {
+            toast(redlDecks.length > 1 ? "Fetching " + redlDecks.length + " deck files…" : "Fetching the deck file…");
+            let notes = 0, kept = 0;
+            for (const d of redlDecks) {
+              const r = await langDeckUpdate(d);
+              if (r.error) { toast(r.error); return; }
+              if (r.saved) await r.saved;
+              notes += r.notes || 0; kept += r.kept || 0;
+            }
+            renderInPlace();
+            toast("Refreshed " + notes.toLocaleString() + " card" + (notes === 1 ? "" : "s") +
+              " from " + redlDecks.length + " file" + (redlDecks.length === 1 ? "" : "s") +
+              ", your progress kept" + (kept ? ", " + kept + " retired card" + (kept === 1 ? "" : "s") + " left alone" : ""),
+              4200);
+          })();
+          return;
+        }
         if (act === "ungroup") {
           close();
           inlineConfirm("Take “" + groupTitle(id) + "” apart? The decks inside stay in your daily review.", () => {
@@ -19228,6 +19264,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "|Conjuntivo": ["Subjunctive", "The Portuguese name for the subjunctive: the mood of what is wanted, doubted or not yet real, generally after que."],
     "|Imperativo": ["Imperative", "The mood of orders and requests. It has a separate set of forms for telling someone TO do something and for telling them NOT to."],
     "|Infinitivo": ["Infinitive", "The unconjugated name of the verb — hablar, comer, vivir — which is how it is listed in a dictionary and what follows another verb: quiero hablar."],
+    /* ---- the articles ------------------------------------------------------
+       NOT A TENSE, AND THE TABLE IS NOT ONLY FOR TENSES (Sep 2026, with the folded article card). The
+       DELE decks' article card carries its eight forms as a grid in the same `uc-cj-*` markup a verb's
+       paradigm uses — two genders, two numbers, twice over — because a grid is what an eight-form
+       paradigm is. `ucMarkTenses` marks a heading the table knows and leaves the rest inert, so without
+       these six rows the card would carry six headings that explain nothing, which is what
+       `test-tense-notes.js` is there to catch. What a definite article IS is exactly the kind of thing a
+       heading should be able to answer for an English speaker, whose own articles do neither of these
+       jobs. */
+    "|Artículo definido": ["Definite article", "The: it points at something both speaker and hearer already have in mind. Spanish uses it far more than English does — before nouns in general (me gusta el café), before languages, and with parts of the body and clothes where English uses my or your."],
+    "|Artículo indefinido": ["Indefinite article", "A, an: it introduces something not yet identified. Spanish leaves it out where English keeps it — after ser with a profession (soy profesor), and before otro, medio, cien and mil."],
+    "Artículo definido|Masculino": ["Masculine", "The forms used with a masculine noun. Gender is a property of the noun rather than of what it names, so it has to be learnt with the word: el libro, el problema, el día."],
+    "Artículo definido|Femenino": ["Feminine", "The forms used with a feminine noun — la casa, la mano, la foto. A feminine noun beginning with a stressed a- takes el in the singular for the sound of it alone (el agua fría), and stays feminine."],
+    "Artículo indefinido|Masculino": ["Masculine", "The forms used with a masculine noun. Gender is a property of the noun rather than of what it names, so it has to be learnt with the word: un libro, un problema, un día."],
+    "Artículo indefinido|Femenino": ["Feminine", "The forms used with a feminine noun — una casa, una mano, una foto. A feminine noun beginning with a stressed a- takes un in the singular for the sound of it alone (un aula), and stays feminine."],
     // ---- present -----------------------------------------------------------
     "Indicativo|Presente": ["Present", "What is happening now, what happens regularly, and — with a time word — what is about to happen. Hablo español. Mañana salgo a las ocho."],
     "Subjuntivo|Presente": ["Present subjunctive", "The subjunctive of now and of the future, after expressions of wanting, doubt, emotion or purpose. Espero que sea fácil — I hope it is easy."],
@@ -27959,6 +28010,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const cat = d ? langCatalogById(d) : null;
       return !!cat && langCtxId(cat.lang) === id;
     });
+  }
+  /* WHICH CATALOGUE DECKS AN ENTRY'S FILES ARE, and this device actually holds — what the options sheet's
+     Redownload row acts on (Sep 2026, on request: "in the active decks long press menu, there should be
+     an option to redownload the collection files, since sometimes updates don't load appear correctly").
+     `langDeckUpdate` already re-fetches and merges, and has since the 蛋糕 report; what it had no way in
+     from was a deck the catalogue calls CURRENT. A revision hash can only say the two copies were built
+     from different sources — it cannot see a download that was cut off, a merge that half-applied, or a
+     file a cache handed back stale — so a reader looking at a card they know was repaired had nothing to
+     press. This is that door, and it deliberately does not ask whether the deck is stale.
+     ONE ENTRY MAY BE SEVERAL DECKS OR PART OF ONE. A language container covers every level under it; a
+     subdeck or a direction row is part of a single file, and redownloading from there is the same fetch —
+     `uDeckIdOf` resolves all three shapes to the deck the file belongs to. Deduped, because a language's
+     levels each contribute their own entries. */
+  function entryLangDecks(id) {
+    const ids = isLangCtxId(id) ? langCtxEntries(id) : [id];
+    const out = [];
+    ids.forEach((e) => {
+      const d = uDeckIdOf(e);
+      // held on this device AND in the catalogue: there is nothing to re-fetch for a deck added and never
+      // downloaded (its row already offers Download) or for a deck a reader imported from a file of their own
+      if (d && UDECKS[d] && langCatalogById(d) && out.indexOf(d) < 0) out.push(d);
+    });
+    return out;
   }
   function langCollectionHTML(lang, rows) {
     const id = langCollId(lang);

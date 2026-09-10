@@ -34,6 +34,12 @@
       article cards become one, and the survivor's headword becomes `el, la`. A renamed note is matched
       by its ORIGINAL key or by its new `spanish`, so the rename is idempotent.
 
+  `was`  headwords this note has carried BEFORE, so a second rename can still find its own card. The two
+      ordinary tests — the entry's key, and its current `spanish` — cover exactly one rename: after
+      `el`/`los`/`las` were folded into `el, la`, an entry renaming that survivor again matched neither.
+      Naming the intermediate keeps the record working both on a deck freshly rebuilt from the generator
+      and on the shipped one.
+
   `fold`  the headwords this note absorbs. Those cards are DELETED. After the first run they are gone,
       so a `fold` naming a card that is not there is reported and is not an error — the same semantics
       `dropEx` has and for the same reason: on a NEW entry it is a line to read, afterwards it is normal.
@@ -53,6 +59,13 @@
       removing an `ex` from the record removes it from the deck — without that the two drift apart in
       silence. `dropEx` names Spanish sentences to remove by substring. `maxEx` is 3 by default, the
       number the generator gives every card; raise it only where the record says why.
+
+  `conj`  the Conjugation field, BUILT — `[[mood, [[table, [[label, form], ...]], ...]], ...]`, rendered
+      in the card type's own `uc-cj-*` markup. `conjSub` can only correct a table the generator already
+      wrote; this is for a card that has none and wants one. The articles are what it was written for:
+      eight forms in two genders and two numbers is a grid, and a `uc-forms` list of label-and-value pairs
+      cannot show a grid. A heading the deck's tense table does not know is left inert by app.js's
+      `ucMarkTenses`, so an article's headings offer no tense note.
 
   `rebold`  re-bold every example on this note against the note's OWN forms, stripping whatever the
       generator bolded. This is the local repair for the second generator fault: `el`'s first example is
@@ -114,6 +127,22 @@ function renderSenses(senses) {
 const renderForms = (forms) => !forms.length ? "" : '<div class="uc-forms">' + forms.map(
   ([lab, val]) => '<span class="uc-fi"><span class="uc-fl">' + esc(lab) + "</span>" + esc(val) + "</span>"
 ).join("") + "</div>";
+
+/* A TABLE, IN THE CARD TYPE'S OWN CONJUGATION MARKUP (Sep 2026, with the article card). `conjSub` can
+   correct a table the generator wrote and nothing here could BUILD one, which is what the articles need:
+   eight forms in two genders and two numbers is a grid, and a `uc-forms` list of label-and-value pairs is
+   the wrong instrument for a grid — it was the reason the paradigm read as three unrelated notes.
+   IT EMITS THE MARKUP THE DECKS ALREADY USE (`uc-cj-mood` / `uc-cj-grid` / `uc-cj-t` / `uc-cj-h` /
+   `uc-cj-r`), so it needs no CSS of its own and looks like every other table in the deck; and app.js's
+   `ucMarkTenses` leaves a heading its own table does not know alone, which is what keeps these inert
+   rather than offering a tense note about an article. */
+const renderConj = (moods) => moods.map(([mood, tables]) =>
+  '<div class="uc-cj-mood">' + esc(mood) + '</div><div class="uc-cj-grid">' + tables.map(
+    ([head, rows]) => '<div class="uc-cj-t"><div class="uc-cj-h">' + esc(head) + "</div>" + rows.map(
+      ([who, form]) => '<div class="uc-cj-r"><span class="uc-cj-p">' + esc(who) + '</span><span class="uc-cj-f">' + esc(form) + "</span></div>"
+    ).join("") + "</div>"
+  ).join("") + "</div>"
+).join("");
 
 /* BOLD TARGETS. The generator bolds the bare word, so a noun's leading article is stripped; a headword
    that teaches a pair or a paradigm ("el, la", "bueno, buena") contributes each member, and so does
@@ -386,10 +415,20 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
       fl.English = '<div class="uc-pos">not ' + esc(h.other) + "</div>" + body;
       hits++;
     }
-    // matched by the ORIGINAL key, or by the new headword a rename has already written — so a fold that
-    // has run once is not reported as a fix that matched nothing
+    /* Matched by the ORIGINAL key, or by the new headword a rename has already written — so a fold that
+       has run once is not reported as a fix that matched nothing.
+       …AND BY ANY NAME IN `was`, which is what makes a SECOND fold possible (Sep 2026, with the article
+       card). The two tests above cover one rename and no more: once `el`, `los` and `las` had been folded
+       into `el, la`, an entry that folded the indefinite article in as well and renamed the survivor
+       again matched neither its own key (`la`, a card that no longer exists) nor its new `spanish`
+       (`el, la, un, una`, a card that does not exist yet). It reported as a fix matching no note, which
+       is an ERROR here rather than a no-op — correctly, since from the file a rename that never happened
+       reads exactly like one that did. `was` names the headwords this entry has carried before, so the
+       record still applies both to a deck freshly rebuilt from the generator and to the shipped one. */
     let w = want && want.get(fl.Spanish);
-    if (!w && want) for (const cand of want.values()) if (cand.fix.spanish === fl.Spanish) { w = cand; break; }
+    if (!w && want) for (const cand of want.values()) {
+      if (cand.fix.spanish === fl.Spanish || (cand.fix.was || []).indexOf(fl.Spanish) >= 0) { w = cand; break; }
+    }
     if (!w) continue;
     seen.add(w.key);
     const fix = w.fix;
@@ -398,6 +437,12 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
     if (fix.word !== undefined) fl.Word = fix.word;
     if (fix.senses) fl.English = (h ? '<div class="uc-pos">not ' + esc(h.other) + "</div>" : "") + renderSenses(fix.senses);
     if (fix.forms) fl.Forms = renderForms(fix.forms);
+
+    /* `conj` SETS the conjugation table outright, where `conjSub` below corrects one the generator
+       already wrote. Rebuilt rather than patched, for `senses`' and `forms`' reason: one source for it,
+       so it cannot drift. It runs BEFORE `conjSub`, so a card may in principle be given a table and then
+       have it corrected — and after `forms`, since neither reads the other. */
+    if (fix.conj) fl.Conjugation = renderConj(fix.conj);
 
     /* `conjSub` corrects the CONJUGATION table, which nothing else here can touch and which the
        generator can get wrong: despertarse shipped a fully regular paradigm - me desperto, te

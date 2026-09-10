@@ -35,9 +35,28 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.679", released: "2026-09-06T21:24Z" };
+window.FOLIO_VERSION = { v: "1.680", released: "2026-09-10T05:41Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-09-10",
+    t: "Rivers on the geography maps, and places for the Etruscans",
+    items: [
+      "<b>The US states and China province cards now draw their rivers</b>, which the shaded state was painting over.",
+      "<b>Twenty-one more cards open an Atlas window</b>, among them the Etruscan world, the Aegean Sea, the Eurasian steppe, Zhoukoudian, Nariokotome and Beringia.",
+      "<b>A card's Atlas window can now draw a sea and a drowned coastline</b>, so Doggerland and Beringia show the ground they were rather than the water over it.",
+      "<b>A place panel on your own atlas no longer repeats the card's own Atlas window</b> under the answer you are looking at.",
+      "<b>Only a country capital is a square on your own atlas now</b> — a province capital is a circle and everything else a smaller dot.",
+      "<b>Common Thread now marks which groups you found and which you missed</b> when the answers are revealed.",
+      "<b>Find it no longer names your pick on the button</b>, which gave the answer away before you pressed it.",
+      "<b>Find it now asks only for places Folio has a card about</b>.",
+      "<b>Glossary terms in a Think it through answer are now links</b>, as they are everywhere else.",
+      "<b>The Spanish articles are now one card with a table</b> — el, la, un and una in two genders and two numbers, instead of eight cards teaching one grid twice.",
+      "<b>A deck's long-press menu can now fetch its files again</b>, for when a repair has not shown up.",
+      "The card for the Lower Paleolithic no longer implies the Acheulean hand-axe began in France.",
+      "A picture of Beringia that showed the wrong thing, and the Cowrie shell card no longer appears in Timeline.",
+    ],
+  },
   {
     d: "2026-09-06",
     t: "An atlas of your own, and a reason behind every card",
