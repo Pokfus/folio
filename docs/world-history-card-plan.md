@@ -807,6 +807,13 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
 
 ### East Asia — `wh-east-asia`
 
+**`wh-529` was renamed from *Song economic revolution* to *Paper money* when it was written** (Sep 2026).
+The planned line named a historian's label rather than a thing, and no openable source used the phrase —
+which is `ko-088`'s rule, that the plausible sentence you cannot cite is the one to rewrite. The card's
+SUBJECT is unchanged: its ten sentences are the commercial expansion that outgrew the Song coinage, told
+through the notes that expansion produced. Paper money appeared nowhere else in this plan, so the slot
+also closes a real gap.
+
     wh-521  Sui dynasty
     wh-522  Grand Canal
     wh-523  Tang dynasty
@@ -815,7 +822,7 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-526  Woodblock printing
     wh-527  An Lushan Rebellion
     wh-528  Song dynasty
-    wh-529  Song economic revolution
+    wh-529  Paper money
     wh-530  Gunpowder
     wh-531  Compass
     wh-532  Movable type

@@ -6293,7 +6293,7 @@ lookup.
 
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
-| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 520 cards, contiguous — next is `wh-521` |
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 530 cards, contiguous — next is `wh-531` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 700 cards, contiguous — next is `gr-701` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 300 cards, contiguous — next is `rm-301` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
@@ -6630,11 +6630,16 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   on `gw-719`): Anguilla's capital is **The Valley** on its own government's facts page and the Dutch seat
   of government is **The Hague**, so stripping the article there renames a town rather than baring a term
   — and `test-card-plans.js` compares a shipped answer against its plan's own name, so the mangled form
-  fails there instead. It is a **DECLARED four-entry table with the reason beside each**, exempting
+  fails there instead. It is a **DECLARED table with the reason beside each row**, exempting
   `answer`, `answerText` and the abstract's opening `<b>` together, for the reason `CROSSREF_WRONG` is
   declared: a rule clever enough to tell a name from a phrase would let the real fault through. **Add an
   entry only after checking how the place's own authority writes it**, and never to get a card past the
   check.
+  **AND ITS FIFTH ENTRY IS NOT A PLACE AT ALL** (Sep 2026, on `wh-527`): "An Lushan" opens on the Chinese
+  surname An (安), which the check cannot tell from the English indefinite article — the same trap one
+  language over, and the same answer, since a matcher clever enough to see it would let a real "an" through.
+  **Expect the table to grow through the transliterations rather than through the places**: a Chinese,
+  Korean or Japanese name beginning `A`, `An` or `The-` is a bare term wearing an article's clothes.
 - `answerText` — the answer as plain text, no HTML.
 - `image` / `video` (optional, one or the other) — `{ src, title, desc, credit }`. **`credit` is required**:
   `add-card.js` refuses a `src` with no source line, matching the editors' media gate.
