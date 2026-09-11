@@ -4807,46 +4807,21 @@ states, provinces, etc., should feature a picture of the most famous or signific
 wonder/landmark. Cards about cities should feature a picture of the city — NOT a particular building or
 small place within the city, but the city zoomed out, as a skyline or aerial view."
 · **WHICH LANDMARK IS AN EDITORIAL JUDGEMENT AND NO METADATA MAKES IT.** `pageimages` for `Arizona`
-  returns the state FLAG; the batch therefore NAMES the subject (`{"subject": "Grand Canyon"}`) and the
-  fetcher takes that article's picture. The judgement stays with the author, the licence and the size are
-  read off Commons — the division `fetch-images.js` argues for.
-· **A CITY'S SUBJECT IS ESTABLISHED BY CATEGORY, NEVER BY A SEARCH.** Searching Commons for
-  `"Phoenix, Arizona" skyline` returned a photograph of NEW YORK — CC BY-SA, 1,724px, a description
-  carrying a view word — which would have shipped on the card asking for Arizona's capital. A candidate
-  must be IN one of the city's own view categories (or on its article) AND carry the city's name AND have
-  a title that reads as a wide view.
+  returns the state FLAG, and for a country its flag; the batch therefore NAMES the subject
+  (`{"subject": "Grand Canyon"}`) and the fetcher takes that article's picture. The judgement stays with
+  the author, the licence and the size are read off Commons — the division `fetch-images.js` argues for.
+· **A CITY'S SUBJECT IS ESTABLISHED BY CATEGORY, NEVER BY A SEARCH.** A candidate must be IN one of the
+  city's own view categories (or on its article) AND carry the city's name AND have a title that reads as
+  a wide view. **A city name is ambiguous far more often than it looks**, so a capital's search carries
+  its state and the result is still read.
 · **AND EVERY PICTURE IS LOOKED AT**, through `.claude/contact-sheet.py`, which tiles a fetched batch so
-  fifty of them are one image to read. That pass found four wrong or poor pictures in the first 38 —
-  a false-colour Landsat scene for Chesapeake Bay, the VISITOR CENTRE for White Sands, a monochrome USGS
-  survey photograph for Mammoth Cave, and a hooded figure in steam for Hot Springs — none of which any
-  automatic test would have caught. The first three are now refused by name.
-· **THE UNITED STATES AND CHINA COLLECTIONS ARE COMPLETE: 158 of 158**, every picture read on a sheet.
-  The measure of how far the search alone gets is that **41 of the 158 had to be pinned by name** after
-  review, and the rejects were not near misses: a MAP of the Mammoth Cave system, the Berlin
-  Olympiastadion for Olympia, a Nissan Skyline GT-R for Montpelier, Dover Castle in England for Dover
-  in Delaware, and Springfield MASSACHUSETTS for the capital of Illinois. **A city name is ambiguous far
-  more often than it looks**, so a capital's search carries its state and the result is still read.
-· **ALL THREE GEOGRAPHY COLLECTIONS ARE COMPLETE: 421 of 421** (100 United States, 58 China, 263
-  World), every picture read on a sheet before it was applied. The World collection's 227 countries
-  were the editorial half — which landmark stands for Bhutan, for Chad, for Niue — and the answer for
-  each is NAMED in the batch rather than searched for, because `pageimages` for a country returns its
-  flag.
-· **WHAT THE SHEET CAUGHT, over 421 cards, is one taxonomy and it is worth knowing before the next
-  pass.** Roughly one in eight had to be replaced, and almost none was a near miss:
-  **a picture from ORBIT** (Landsat, MODIS, Sentinel, an STS or ISS frame, NASA, Apollo 17's whole
-  Earth for the Great Blue Hole) — a diagram of a place rather than a view of it;
-  **a MAP** wearing no such word in its name (`Txu-…`/`pclmaps` map-library scans for Inner Mongolia
-  and Qinghai, a nautical chart for Kiritimati, locator `.png`s for Santorini, Issyk-Kul, Baa Atoll
-  and the Stockholm archipelago);
-  **a MONTAGE or COLLAGE** (Asmara, Paramaribo, Torres del Paine) and a 7:1 wiki **banner**;
-  **the RIGHT NAME IN THE WRONG PLACE** — Ostrog Monastery in Montenegro filed against Kosovo's
-  Gračanica, the Berlin Olympiastadion for Olympia, Dover Castle in England for Dover in Delaware,
-  Springfield Massachusetts for the capital of Illinois, and a photograph of New York for Phoenix;
-  and **a thing that is not the place at all** — a necklace for Meroë, a signboard for Dzanga-Sangha,
-  a window sticker reading "you can see Kuwait City", the interior tuned mass damper for Taipei 101,
-  and a portrait of a man in sunglasses for Anguilla.
-  The first three families are now refused by `SPACEBORNE` / `SURVEY` / `NOTAPHOTO`; **the last two
-  cannot be, and that is the whole argument for the sheet.**
+  fifty of them are one image to read. Roughly one in eight of the 421 shipped had to be replaced and
+  almost none was a near miss; three families — a picture from ORBIT, a MAP, a MONTAGE or banner — are
+  now refused by `SPACEBORNE` / `SURVEY` / `NOTAPHOTO`, and **the other two, the right name in the wrong
+  place and a thing that is not the place at all, cannot be, which is the whole argument for the sheet.**
+· **📖 `docs/geography-card-plan.md` — READ BEFORE OPENING A PICTURE BATCH ON A GEOGRAPHY COLLECTION.**
+  The pass's own record, moved out of here: what was completed, how far a name match alone gets you (41
+  of 158 pinned by hand), and the full taxonomy of what the contact sheet caught, family by family.
 **A NEW CARD SHIPS WITH A GLOSSARY ENTRY FOR ITS OWN ANSWER TERM, IN THE SAME COMMIT (Aug 2026, on
 request).** Not afterwards and not in a later batch: a card's answer is exactly the word its siblings will
 use in their own backgrounds, and a term with no entry auto-links to nothing. Write it **cited, at the
