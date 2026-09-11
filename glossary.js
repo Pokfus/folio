@@ -3481,7 +3481,16 @@ window.GLOSSARY = {
 "Publius_Clodius_Pulcher": "Publius Clodius Pulcher was a Roman politician of patrician birth who had himself transferred to the plebeians in order to hold the tribunate of 58 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Prosecuted for entering in women's dress a rite from which men were excluded, and acquitted, he used the office to carry popular laws, to bring the poorer citizens into organised political bands kept about him with armed slaves, and to drive Cicero out of Italy by a law penalising the execution of citizens without trial.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He was killed on the Appian Way in 52 BCE by the servants of Titus Annius Milo, and the crowd burned his body inside the senate house.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
 "Exile_of_Cicero": "The exile of Cicero was his banishment from Italy in 58 BCE under a law of the tribune Publius Clodius Pulcher condemning whoever had put a Roman citizen to death without trial.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Cicero was not named in the bill but was its only target, and he left the city after the consuls refused him support and Pompey avoided an interview, whereupon Clodius had a vote of banishment passed, burned his house and raised a shrine of Liberty on the site.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A vote of the people recalled him in 57 BCE, in the sixteenth month of his absence, and the senate paid to rebuild the house.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Political_violence_in_the_late_Roman_Republic": "Political violence in the late Roman Republic is the name given to the pattern by which public disputes at Rome came to be settled by force rather than by vote.<sup class=\"fn\" data-fn=\"1\"></sup> Appian dates its beginning to the killing of the tribune Tiberius Gracchus in 133 BCE, writing that until then the sword had never been carried into an assembly, and describes what followed as a sequence in which magistrates and candidates were killed in the temples and the forum, commanders refused to disband their armies, and factions hired soldiers against one another.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Organised gangs of slaves, freedmen and hired men served particular politicians in the Republic's last decades.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Conference_at_Luca": "The conference at Luca was the meeting in 56 BCE at which Caesar, Pompey and Crassus renewed the agreement that had governed Roman politics for several years.<sup class=\"fn\" data-fn=\"1\"></sup> Caesar was resting his army in Cisalpine Gaul and receiving a stream of Roman office-holders, and Appian reports that 120 lictors and more than 200 senators could be seen about him at one time, after which the three settled privately that Pompey and Crassus should hold a second consulship while Caesar kept his command.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The arrangement produced the consulship of 55 BCE, Spain for Pompey, Syria for Crassus and five further years for Caesar.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Conference_at_Luca": "The conference at Luca was the meeting in 56 BCE at which Caesar, Pompey and Crassus renewed the agreement that had governed Roman politics for several years.<sup class=\"fn\" data-fn=\"1\"></sup> Caesar was resting his army in Cisalpine Gaul and receiving a stream of Roman office-holders, and Appian reports that 120 lictors and more than 200 senators could be seen about him at one time, after which the three settled privately that Pompey and Crassus should hold a second consulship while Caesar kept his command.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The arrangement produced the consulship of 55 BCE, Spain for Pompey, Syria for Crassus and five further years for Caesar.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Caesars_Commentaries": "Caesar's Commentaries are the memoirs Gaius Julius Caesar wrote of his own campaigns, seven books on the war in Gaul and three on the civil war, their author writing of himself throughout in the third person.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Suetonius records that Hirtius supplied the final Gallic book which Caesar left unwritten and that the author of the Alexandrian, African and Spanish wars is unknown, and preserves both the praise of Cicero, who called the prose straightforward yet graceful and stripped of all rhetorical adornment, and the complaint of Asinius Pollio that the books were carelessly made.<sup class=\"fn\" data-fn=\"1\"></sup> They remain the fullest narrative of either war.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Vercingetorix": "Vercingetorix was the Arvernian noble who led the general Gallic revolt of 52 BCE against Julius Caesar.<sup class=\"fn\" data-fn=\"1\"></sup> Caesar's account makes him the son of Celtillus, who had held a supremacy over the whole country and was killed by his own people for aiming at kingship; expelled from Gergovia by his uncle and the other nobles, he raised a following, drove out his opponents, was saluted king and drew in the Senones, the Parisii, the Pictones and the peoples along the ocean.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Besieged at Alesia and left without relief, he surrendered himself to Caesar.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Siege_of_Alesia": "The siege of Alesia was the blockade of 52 BCE at which the Gallic revolt against Julius Caesar was broken.<sup class=\"fn\" data-fn=\"1\"></sup> Alesia was a hill town of the Mandubii, and the Romans drew a circuit of works about 16 km long with 23 redoubts about it, then a second line facing outwards when a relieving army that Caesar numbers at 8,000 cavalry and about 240,000 infantry marched to break the blockade.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The relief was beaten in front of the works, 74 standards were taken, and the besieged surrendered the next day.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Caesars_British_expeditions": "Caesar's British expeditions were the two crossings of 55 and 54 BCE, the first Roman landings in Britain.<sup class=\"fn\" data-fn=\"1\"></sup> Caesar gives as his reason that in almost every war with the Gauls help had reached his enemies from the island, and says that merchants could tell him neither its size nor what nations held it nor which harbours would take large ships.<sup class=\"fn\" data-fn=\"1\"></sup> The first summer ended with a fleet wrecked by a high tide, the second with the surrender of Cassivellaunus, hostages taken and a yearly tribute fixed, and no garrison was left behind.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Crassus_Parthian_campaign": "Crassus' Parthian campaign was the expedition against the Parthian empire undertaken in 54 and 53 BCE by Marcus Licinius Crassus, to whom the law of 55 BCE had given Syria.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> No decree had authorised a war against a people at treaty with Rome, and a tribune cursed him at the gate as he left; he crossed the Euphrates, took towns in Mesopotamia, then wintered in Syria counting revenues and weighing temple treasure while the enemy prepared.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Refusing a route through the Armenian mountains where cavalry could not serve, he was drawn on to open plain, and the campaign ended in the destruction of his army and his own death.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Battle_of_Carrhae": "The battle of Carrhae was fought in 53 BCE on the Mesopotamian plain, where the Parthian general Surena destroyed a Roman army of seven legions under Marcus Licinius Crassus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Formed into a hollow square, the legions were surrounded by horse archers who shot as they retreated and drew on fresh arrows brought up by camels, so that closing with them cost as much as standing still; Crassus was killed at a parley his own soldiers forced him to attend.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Plutarch reports 20,000 killed and 10,000 taken alive, and Appian that of 100,000 men not quite 10,000 reached Syria again.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Titus_Annius_Milo": "Titus Annius Milo was a Roman politician of the late Republic who kept armed followings of his own and killed Publius Clodius Pulcher on the Appian Way near Bovillae in 52 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> As tribune in 57 BCE he had been among the men who brought Cicero back from exile; standing for the consulship five years later, he met Clodius on the road, and the crowd that carried the body to Rome burned the senate house over its pyre.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Tried before jurors ringed by Pompey's soldiers, he was condemned and sent into exile.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Pompeys_sole_consulship": "Pompey's sole consulship was the office Gnaeus Pompeius held in 52 BCE without a colleague, which Livy's summary says had never happened before at Rome.<sup class=\"fn\" data-fn=\"1\"></sup> Armed canvassing had stopped the elections and the killing of Clodius had left the senate looking for a remedy, so on Cato's advice the house appointed him consul alone rather than dictator, so that ruling by himself he would have a dictator's power with a consul's responsibility.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He carried laws against bribery and violence, superintended the courts behind a ring of soldiers, and took a colleague after two months.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Rubicon": "The Rubicon was the small river marking the southern boundary of Cisalpine Gaul, and so the limit of the province Julius Caesar governed.<sup class=\"fn\" data-fn=\"1\"></sup> Because a proconsul's authority ended where his province did, leading troops across it in January 49 BCE turned a governor into an invader and began the civil war; Suetonius has Caesar tell his companions at the bank that they might still draw back, but that once over the little bridge the whole issue would be with the sword.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Both he and Appian give the saying that the die was cast.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5162,7 +5171,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Publius_Clodius_Pulcher": "tribune 58 BCE",
 "Exile_of_Cicero": "58 – 57 BCE",
 "Political_violence_in_the_late_Roman_Republic": "c. 133 – 44 BCE",
-"Conference_at_Luca": "56 BCE"
+"Conference_at_Luca": "56 BCE",
+"Caesars_Commentaries": "58 – 48 BCE",
+"Vercingetorix": "led the revolt 52 BCE",
+"Siege_of_Alesia": "52 BCE",
+"Caesars_British_expeditions": "55 and 54 BCE",
+"Crassus_Parthian_campaign": "54 – 53 BCE",
+"Battle_of_Carrhae": "53 BCE",
+"Titus_Annius_Milo": "tribune 57 BCE",
+"Pompeys_sole_consulship": "52 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6965,8 +6982,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Gracchi_brothers": ["Gracchi","Tiberius Gracchus","Gaius Gracchus","Sempronius Gracchus"],
 "Third_Servile_War": ["war of Spartacus","Spartacus revolt"],
 "Julius_Caesar": ["Caesar","Gaius Julius Caesar"],
-"Gallic_Wars": ["Gallic War","Vercingetorix","Alesia"],
-"Caesars_civil_war": ["Caesar's civil war","Pharsalus","Battle of Pharsalus","Rubicon"],
+"Gallic_Wars": ["Gallic War"],
+"Caesars_civil_war": ["Caesar's civil war","Pharsalus","Battle of Pharsalus"],
 "Assassination_of_Julius_Caesar": ["Ides of March","assassination of Caesar"],
 "Augustus": ["Octavian","Gaius Octavius","Caesar Augustus"],
 "Roman_Empire": ["Roman empire"],
@@ -7202,7 +7219,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cato_the_Younger": ["Cato Uticensis"],
 "Caesars_first_consulship": ["Caesar's first consulship"],
 "Publius_Clodius_Pulcher": ["Clodius Pulcher"],
-"Political_violence_in_the_late_Roman_Republic": ["political violence in the late Republic"]
+"Political_violence_in_the_late_Roman_Republic": ["political violence in the late Republic"],
+"Caesars_Commentaries": ["Caesar's Commentaries","Commentarii","Commentarii de Bello Gallico"],
+"Siege_of_Alesia": ["Alesia","battle of Alesia"],
+"Caesars_British_expeditions": ["Caesar's British expeditions","British expeditions"],
+"Crassus_Parthian_campaign": ["Crassus' Parthian campaign","Parthian campaign"],
+"Battle_of_Carrhae": ["Carrhae"],
+"Titus_Annius_Milo": ["Annius Milo"],
+"Pompeys_sole_consulship": ["Pompey's sole consulship","sole consulship"],
+"Rubicon": ["crossing of the Rubicon"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10724,7 +10749,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Publius_Clodius_Pulcher": ["person","history","politics","rome","classical"],
 "Exile_of_Cicero": ["event","history","politics","law","rome","classical"],
 "Political_violence_in_the_late_Roman_Republic": ["concept","history","politics","law","rome","classical"],
-"Conference_at_Luca": ["event","history","politics","rome","classical"]
+"Conference_at_Luca": ["event","history","politics","rome","classical"],
+"Caesars_Commentaries": ["text","history","literature","warfare","rome","classical"],
+"Vercingetorix": ["person","history","warfare","politics","gaul","rome","classical"],
+"Siege_of_Alesia": ["event","history","warfare","gaul","rome","classical"],
+"Caesars_British_expeditions": ["event","history","warfare","britain","gaul","rome","classical"],
+"Crassus_Parthian_campaign": ["event","history","warfare","politics","rome","parthia","classical"],
+"Battle_of_Carrhae": ["battle","event","history","warfare","rome","parthia","classical"],
+"Titus_Annius_Milo": ["person","history","politics","law","rome","classical"],
+"Pompeys_sole_consulship": ["event","history","politics","law","rome","classical"],
+"Rubicon": ["place","river","event","history","politics","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
