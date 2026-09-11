@@ -842,6 +842,13 @@ also closes a real gap.
 
 ### South and Southeast Asia — `wh-south-asia`
 
+**`wh-550` was written as *bhakti* rather than *the Bhakti movement*** (Sep 2026). The planned line named
+a modern historiographical label, and no openable source uses the phrase — which is `ko-088`'s rule, that
+the plausible sentence you cannot cite is the one to rewrite. The card's SUBJECT is unchanged: it is the
+devotional strand of Indian religion, from the Tamil hymn-singers of the seventh century to Kabir, and its
+last sentence says in so many words that gathering those poets into one movement is a modern convenience.
+The glossary term is keyed `Bhakti`, with *bhakti movement* among its aliases.
+
     wh-546  Harsha
     wh-547  Chola dynasty
     wh-548  Delhi Sultanate

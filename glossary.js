@@ -3473,7 +3473,17 @@ window.GLOSSARY = {
 "Mongol_invasions_of_Japan": "The Mongol invasions of Japan were two seaborne expeditions launched by Kublai Khan from Korea, the first in 1274 and the second in 1281, after the Kamakura government refused to answer his demand for submission.<sup class=\"fn\" data-fn=\"1\"></sup> The first landed at Hakata after taking the islands of Tsushima and Iki, and withdrew within days; the second, of about 100,000 men, was wrecked by a storm in August 1281 and its stranded army destroyed on the shore.<sup class=\"fn\" data-fn=\"2\"></sup> The victory left the Japanese government with no captured land to reward the warriors and temples that had served it, and the resulting strain on its finances helped undo the regime that had won.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Muromachi_period": "The Muromachi period is the era of Japanese history covered by the Ashikaga shogunate, from 1338 to 1573, named after the quarter of Kyoto in which that government sat.<sup class=\"fn\" data-fn=\"1\"></sup> Its first 56 years were divided between two rival imperial courts, reunited in 1392, and its later decades saw the shogunate lose control of the provinces to lords whose estates outmatched its own.<sup class=\"fn\" data-fn=\"2\"></sup> A succession dispute in 1467 set off eleven years of war that wrecked the capital and opened a century of local warfare, yet the same period produced the Nō drama, a flowering of painting and the first Japanese attempts at overseas trade.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Zen": "Zen is a school of Mahayana Buddhism whose name comes, through Chinese, from the Sanskrit for meditation, and which holds that understanding passes directly from mind to mind rather than through scripture.<sup class=\"fn\" data-fn=\"1\"></sup> Its practice centres on seated meditation and on seeing into one's own nature, a doctrine set out in the sermon ascribed to its sixth Chinese patriarch, whose best-known verse denies that enlightenment is a thing to be possessed.<sup class=\"fn\" data-fn=\"2\"></sup> Carried from China to Japan around 1200 in two lines, one stressing sudden insight and the other steady sitting, it became the faith of the warrior class and a route by which Chinese painting and letters reached Japan.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Goryeo": "Goryeo was the Korean kingdom that ruled the peninsula from 918 to 1392, founded by the general Wang Geon and governed from Songdo, the city now called Kaesong.<sup class=\"fn\" data-fn=\"1\"></sup> It brought the territories of the earlier Silla, Baekje and Goguryeo under one house, which held the throne for more than four centuries, and it recruited its officials by written examination, including a licensing examination for physicians held from 958.<sup class=\"fn\" data-fn=\"2\"></sup> Its potters produced the celadon for which the period is best known, Mongol invasions from the 1230s reduced it to a tributary building ships for the Yuan, and a coup in 1392 replaced it with the Joseon dynasty.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Goryeo": "Goryeo was the Korean kingdom that ruled the peninsula from 918 to 1392, founded by the general Wang Geon and governed from Songdo, the city now called Kaesong.<sup class=\"fn\" data-fn=\"1\"></sup> It brought the territories of the earlier Silla, Baekje and Goguryeo under one house, which held the throne for more than four centuries, and it recruited its officials by written examination, including a licensing examination for physicians held from 958.<sup class=\"fn\" data-fn=\"2\"></sup> Its potters produced the celadon for which the period is best known, Mongol invasions from the 1230s reduced it to a tributary building ships for the Yuan, and a coup in 1392 replaced it with the Joseon dynasty.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Metal_movable_type": "Metal movable type is printing from individual characters cast in metal, assembled into a page, inked, then redistributed for reuse, as against a wooden block cut for one page alone.<sup class=\"fn\" data-fn=\"1\"></sup> Bronze type was cast on a national scale in Korea from 1403, where a royal foundry cast several hundred thousand pieces within months and further founts followed in 1420 and 1434.<sup class=\"fn\" data-fn=\"1\"></sup> The method turns on a mould in which identical sorts can be cast in quantity; the Korean mould held its characters in line with bamboo strips, and the technique was still in occasional use there in the 19th century.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Heian_period": "The Heian period is the era of Japanese history running from 794, when the emperor Kammu moved the capital to Heian-kyo, now Kyoto, until authority passed to a military government in the east at the end of the 12th century.<sup class=\"fn\" data-fn=\"1\"></sup> It is the classical age of Japanese literature: the phonetic scripts katakana and hiragana were both in use by the end of the 9th century, and an unusually large share of the period's best writing was done by women of the court.<sup class=\"fn\" data-fn=\"2\"></sup> It was an age of a narrow aristocracy at the capital, while tax-exempt estates in the provinces absorbed villages and reduced the revenue reaching the throne.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"The_Tale_of_Genji": "The Tale of Genji, in Japanese the Genji Monogatari, is a long prose romance of court life written at Kyoto early in the 11th century by Murasaki Shikibu, a lady of a junior Fujiwara branch who served the empress Akiko.<sup class=\"fn\" data-fn=\"1\"></sup> It follows a prince of imperial birth through his love affairs and then turns to one of his sons, running to fifty-four chapters and covering some sixty years.<sup class=\"fn\" data-fn=\"2\"></sup> It is often called the first novel, in that it abandoned the short romantic tale for a sustained realistic account of recognisable people in ordinary surroundings, and it is the fullest surviving picture of Japanese court society of its day.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Samurai": "The samurai were the hereditary warrior class of Japan, drawn from provincial fighting men who served the great landholding houses and who by the end of the 12th century had taken the government out of the hands of the court.<sup class=\"fn\" data-fn=\"1\"></sup> Their rise followed from a land system full of exemptions from tax, which allowed provincial families to accumulate estates and to keep armed followings to defend them.<sup class=\"fn\" data-fn=\"1\"></sup> No code of conduct for the class was written down while it was forming: what survives from the period is the war tales, and the ethical system later known as bushido was set out for foreign readers only in 1900.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Kamakura_shogunate": "The Kamakura shogunate was the military government of Japan founded by Minamoto Yoritomo in 1185 and named for the eastern town it ruled from, the emperor and his court remaining at Kyoto with their titles intact.<sup class=\"fn\" data-fn=\"1\"></sup> It governed through a constable in each province and a steward on each estate, who oversaw justice, order and taxation whoever the estate belonged to and levied a rice tax for war.<sup class=\"fn\" data-fn=\"1\"></sup> Its Joei code of 1232 was the first body of law in Japan drawn up by warriors for warriors; the Minamoto line failed early, after which the Hojo governed as regents for shoguns who were figureheads, until the shogunate fell in 1333.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Harsha": "Harsha was the ruler who held most of northern India from 606 to 647, a younger son of the raja of Thanesar who took the throne after his elder brother was assassinated, and who governed from Kanauj.<sup class=\"fn\" data-fn=\"1\"></sup> His reign is the best documented of any early Indian king after the Mauryas, two contemporary accounts surviving alongside the inscriptions: the travels of a Chinese pilgrim, and a life by a poet he patronised.<sup class=\"fn\" data-fn=\"1\"></sup> The pilgrim records an army of 5,000 elephants and 50,000 foot and six years of campaigning, after which the arms were at rest for thirty years; the empire broke up soon after his death.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Chola_dynasty": "The Chola dynasty was a Tamil ruling house of the Kaveri delta in southern India, old enough to be named in rock-cut Buddhist edicts of the 3rd century BCE and, from the accession of Rajaraja the Great in 985, the leading power of the south for roughly two centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings conquered the Pandya country, Kerala and Ceylon, kept a navy that carried campaigns across the Bay of Bengal, and marched north as far as the Ganges, taking a title and founding a capital in memory of it.<sup class=\"fn\" data-fn=\"2\"></sup> It is remembered as much for its temples and its bronze images, cast solid by the lost-wax method, as for its conquests.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Delhi_Sultanate": "The Delhi Sultanate is the name given to the succession of Muslim states that governed northern India from Delhi between the early 13th century and 1526, under five dynasties in turn, beginning with Turkish commanders of slave origin.<sup class=\"fn\" data-fn=\"1\"></sup> It faced repeated Mongol invasion from the north-west, and met the cost of a large standing army by fixing the price of grain under a controller of markets with power to seize traders and open the royal granaries.<sup class=\"fn\" data-fn=\"2\"></sup> Its administration reached the provinces through a courier system of mounted and running messengers, and its later sultans invested in irrigation works that brought a second harvest to land which had given one.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Vijayanagara_Empire": "The Vijayanagara Empire was a south Indian state founded in 1336 and ruled from a capital of the same name on the Tungabhadra river, whose ruins stand at Hampi in modern Karnataka.<sup class=\"fn\" data-fn=\"1\"></sup> At its height it was overlord of the country between the Deccan and Ceylon, and Persian and Portuguese visitors described its capital as one of the great cities of the world, ringed by concentric walls and watered by conduits.<sup class=\"fn\" data-fn=\"2\"></sup> Its wealth rested on trade, including a trade in diamonds, and its armies were raised by great captains who each brought their own contingents; a coalition of the Deccan sultanates destroyed that army at Talikota in 1565.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Bhakti": "Bhakti is the Sanskrit word for love of God, and the name given to the strand of Indian religion in which devotion to a personal deity, rather than sacrifice or philosophical knowledge, is held to be the way to release.<sup class=\"fn\" data-fn=\"1\"></sup> It is the characteristic teaching of the Bhagavad Gita, and from the 7th century it took popular form in hymns composed in spoken languages, first by Tamil poets travelling between shrines.<sup class=\"fn\" data-fn=\"2\"></sup> Devotional poetry of this kind spread across India over the following thousand years and is often gathered by historians into a single movement, although its poets belonged to different regions, languages and sects.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5144,7 +5154,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Marco_Polo": "c. 1254 – 1324",
 "Mongol_invasions_of_Japan": "1274 and 1281 CE",
 "Muromachi_period": "1338 – 1573 CE",
-"Goryeo": "918 – 1392 CE"
+"Goryeo": "918 – 1392 CE",
+"Heian_period": "794 – 1185 CE",
+"The_Tale_of_Genji": "c. 1004 CE",
+"Kamakura_shogunate": "1185 – 1333 CE",
+"Harsha": "Reigned 606 – 647 CE",
+"Chola_dynasty": "985 – 1279 CE",
+"Delhi_Sultanate": "1206 – 1526 CE",
+"Vijayanagara_Empire": "1336 – 1565 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7178,7 +7195,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mongol_invasions_of_Japan": ["Mongol invasion of Japan"],
 "Muromachi_period": ["Ashikaga period","Ashikaga shogunate"],
 "Zen": ["Chan Buddhism","Zen Buddhism"],
-"Goryeo": ["Koryo","Koryŏ","Goryeo dynasty"]
+"Goryeo": ["Koryo","Koryŏ","Goryeo dynasty"],
+"Metal_movable_type": ["metal type","cast metal type","bronze type"],
+"Heian_period": ["Heian era","Heian"],
+"The_Tale_of_Genji": ["Genji Monogatari","Tale of Genji"],
+"Samurai": ["bushi"],
+"Kamakura_shogunate": ["Kamakura bakufu"],
+"Harsha": ["Harshavardhana","Harsha-vardhana","Siladitya"],
+"Chola_dynasty": ["Cholas","Chola empire"],
+"Delhi_Sultanate": ["Sultanate of Delhi"],
+"Vijayanagara_Empire": ["Vijayanagar","Vijayanagara"],
+"Bhakti": ["bhakti movement","bhakti devotion"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10692,7 +10719,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mongol_invasions_of_Japan": ["event","history","japan","warfare","mongols"],
 "Muromachi_period": ["era","history","japan","state","art"],
 "Zen": ["school of thought","religion","buddhism","japan","practice"],
-"Goryeo": ["dynasty","history","korea","state","buddhism"]
+"Goryeo": ["dynasty","history","korea","state","buddhism"],
+"Metal_movable_type": ["practice","technology","writing","printing"],
+"Heian_period": ["era","history","japan","literature","asia"],
+"The_Tale_of_Genji": ["text","literature","japan","history","asia"],
+"Samurai": ["people","history","japan","warfare","asia"],
+"Kamakura_shogunate": ["state","history","japan","warfare","asia"],
+"Harsha": ["ruler","person","history","india","asia"],
+"Chola_dynasty": ["dynasty","history","india","state","art","asia"],
+"Delhi_Sultanate": ["state","history","india","islam","asia"],
+"Vijayanagara_Empire": ["state","history","india","empire","asia"],
+"Bhakti": ["concept","religion","india","literature","asia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
