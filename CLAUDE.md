@@ -2831,158 +2831,113 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the session were sound; what was missing was everything a reader wants to do ABOUT a session. Each is
   small on its own and three of them carry a decision worth keeping.
   · **A SESSION FOLLOWS THE READER BETWEEN DEVICES** (`S.handoff` / `HANDOFF_MAX_AGE` / `deviceId` /
-    `writeHandoff` / `handoffOffer` / `handoffRowHTML`). `STUDY_KEY` is sessionStorage, so a session
-    survives a reload and dies with the tab — right for what it is, and it meant a reader who started ten
-    cards on a phone at breakfast began again on a laptop at lunch. **Progress already synced; the QUEUE
-    did not.** It rides in the progress blob, is written by `persistStudy` (and never SAVED from there —
-    that runs on every render, and `grade()` saves anyway), and is **offered only to a device that is not
-    the one that wrote it**, which is what `dev` is for. **FOUR HOURS AND THEN IT IS GONE**: a queue is a
-    fact about a sitting, and yesterday's resurrecting itself would be worse than no handoff at all. It
-    routes with the offer as `resume`, the shape `PAGES.study` already takes from sessionStorage, so a
-    handed-over session and a reloaded one arrive by exactly one path.
+    `writeHandoff` / `handoffOffer` / `handoffRowHTML`). Progress already synced; the QUEUE did not. It
+    rides in the progress blob, is written by `persistStudy` (**and never SAVED from there** — that runs
+    on every render, and `grade()` saves anyway), and is **offered only to a device that is not the one
+    that wrote it**, which is what `dev` is for. **FOUR HOURS AND THEN IT IS GONE**: a queue is a fact
+    about a sitting, and yesterday's resurrecting itself would be worse than no handoff at all. It routes
+    with the offer as `resume`, so a handed-over session and a reloaded one arrive by exactly one path.
   · **"I SIT THE EXAM ON THE 14TH"** (`deadlinePlan` / `openDeadline` / `REV_PER_NEW` / `LEAD_DAYS`; the
-    **Ready by a date** row on a deck's sheet, under Daily limits, which is the same figure asked for from
-    the other end). **THE HONEST ANSWER INCLUDES "NO"** and that is the more useful half: it says the new
-    cards a day needed, the REVIEW load that pace generates (a rule of thumb, labelled as one), and how
-    many cards would be met in the last week and therefore **seen rather than learned**. Setting the pace
-    raises the deck's review ceiling with its new-card figure where the plan would otherwise throttle
-    itself on the other limit. Off the pooled review's sheet: the review is every deck at once and has no
-    end to be ready by.
+    **Ready by a date** row). **THE HONEST ANSWER INCLUDES "NO"** and that is the more useful half: it
+    says the new cards a day needed, the REVIEW load that pace generates (a rule of thumb, labelled as
+    one), and how many cards would be met in the last week and therefore **seen rather than learned**.
+    Setting the pace raises the deck's review ceiling with its new-card figure. Off the pooled review's
+    sheet: the review is every deck at once and has no end to be ready by.
   · **THE CARDS THAT KEEP BEATING YOU** (`LEECH_ROWS` / `leechCards` / `leechPanelHTML`). `SCHED.leech`
-    has been 8 since the port and every lapse has been recorded since, and **nothing anywhere showed a
-    reader which cards those were** — Anki suspends a leech and Folio deliberately does not, so the
-    statistic simply sat there. Twenty rows on the account page, worst first, each opening Card info with
-    its flag / set-due / forget / suspend actions attached. **OWN ACCOUNT ONLY**, and not out of modesty
-    about the data: a friend's lapse counts render perfectly and every action on the row acts on YOUR
-    schedule.
+    has been 8 since the port and nothing anywhere showed a reader which cards those were, Anki
+    suspending a leech where Folio deliberately does not. Twenty rows, worst first, each opening Card
+    info with its actions attached. **OWN ACCOUNT ONLY**, and not out of modesty about the data: every
+    action on the row acts on YOUR schedule.
   · **THE FORECAST REACHES 180 DAYS** (`FORECAST_HORIZONS` / `fcDays` / `forecastCardHTML` /
-    `wireReviewStats`). A fortnight is long enough to plan a week and far too short to see the thing that
-    makes people abandon an SRS: a term's Easy grades landing in one week, three months out. Past three
-    weeks the bars bucket by WEEK, and **the peak is marked** — the load balancer exists to flatten it, is
-    off by default, and a reader who cannot SEE a pile-up has no reason to turn it on. **A PEAK IS ONE
-    BAR**: several tied at the top is a plateau, and marking all of them says only that the chart has a
-    maximum, which is what the first cut did on a flat forecast. The horizon is module-level, like the
-    glossary record's sort.
+    `wireReviewStats`). Past three weeks the bars bucket by WEEK, and **the peak is marked** — the load
+    balancer exists to flatten it, is off by default, and a reader who cannot SEE a pile-up has no reason
+    to turn it on. **A PEAK IS ONE BAR**: several tied at the top is a plateau, and marking all of them
+    says only that the chart has a maximum. The horizon is module-level, like the glossary record's sort.
   · **THE READER'S OWN NOTE ON A CARD** (`S.notes` / `CARD_NOTE_MAX` / `cardNote` / `setCardNote` /
-    `cardNoteHTML`). A reader could flag, suspend, bury and draw on a card and could not WRITE on it.
-    **It is ANNOTATION, NOT EDITING, and the two must never meet** — `ADMIN_EDITS` is published to every
-    reader through the content overlay and this is private to its writer — so it rides in
-    `PROGRESS_FIELDS` with the flags and survives Reset progress with them. A real `<textarea>` rather
-    than a contenteditable: plain text has nothing to sanitize, and the units and spelling passes walk
-    text NODES and so cannot reach a field's value and rewrite what somebody wrote. Delegated, once for
-    the document, because six surfaces draw a card back.
-  · **A TIME BOX** (`boxMs` / `boxFrom` / `BOX_CHOICES` / `boxSpent` / `openTimeBox` / `startBoxTick`; the
-    clock in the study bar). Folio budgets a session in CARDS, which is the unit it thinks in and not the
-    unit a commute is measured in. **It is checked at the GRADE, never on the tick**: a session that
-    closed itself while the reader was reading an answer would be a feature that takes work away. Session
-    -scoped and not in `S`, and it rides in the `STUDY_KEY` record so a reload keeps it.
+    `cardNoteHTML`). **It is ANNOTATION, NOT EDITING, and the two must never meet** — `ADMIN_EDITS` is
+    published to every reader through the content overlay and this is private to its writer — so it rides
+    in `PROGRESS_FIELDS` with the flags. A real `<textarea>` rather than a contenteditable: plain text has
+    nothing to sanitize, and the units and spelling passes walk text NODES and so cannot reach a field's
+    value and rewrite what somebody wrote. Delegated once for the document, six surfaces drawing a card back.
+  · **A TIME BOX** (`boxMs` / `boxFrom` / `BOX_CHOICES` / `boxSpent` / `openTimeBox` / `startBoxTick`).
+    **It is checked at the GRADE, never on the tick**: a session that closed itself while the reader was
+    reading an answer would be a feature that takes work away. Session-scoped and not in `S`, and it rides
+    in the `STUDY_KEY` record so a reload keeps it.
   · **RECALL IN FULL** (`deckRecall` / `setDeckRecall` / `.freerecall` / `.fr-said`), a POLICY beside
-    `deckAttempt` in `DECK_OPT_INHERIT` with a global default in Settings, off by default. A cloze blank
-    sits inside a sentence that has already narrowed the answer to one word; free recall is the harder
-    retrieval and the one an exam asks for. **WHAT IS WRITTEN IS SHOWN BESIDE THE ANSWER AND THEN THROWN
-    AWAY** — a matcher over free prose would mark a right answer wrong, which is the one failure that
-    would stop a reader writing — and **the box is removed at the reveal**, since leaving an editable copy
-    invites improving a recall after seeing the answer.
-  · **TRY TEN CARDS** (`SAMPLE_N` / `sampleIds` / `PAGES.sample` at `#sample/<id>`; the **Try ten** button
-    on a collection row). **IT WRITES NOTHING** — no `S.active`, no `S.cards` — which matters more than it
-    sounds, XP being `Object.keys(S.cards).length` and a level buying a chest, so a sampler that scheduled
-    its cards would hand a browsing reader levels and chests for reading ten cards. `PAGES.pretest` made
-    this decision first. **The ten are the collection's OWN first ten**, unstudied ones skipped: a plan is
-    a running order and the opening cards are where a collection introduces itself.
-  · **UNDO NAMES THE CARD IT WILL GIVE BACK** (`undoLabel`). The stack has held a hundred snapshots since
-    it shipped and a second press has always reached the card before last; what it never did was SAY so.
-  · **AND THE FOUR GRADE BUTTONS SAY WHAT "4d" MEANS** (`gradeExplainHTML`), one line in the `?` bubble
-    keyed to the card in hand and derived from the same `preview` the buttons are drawn from, so the
-    sentence and the numbers cannot disagree. It names DAYS rather than repeating intervals, and says the
-    ease effect in terms both schedulers share.
-  · **THE SHORTCUTS ARE WRITTEN DOWN, AND `?` IS WHERE** (`KEY_SHEET` / `openKeySheet` /
-    `closeKeySheet` / `.key-sheet`). Folio has had a dozen keyboard shortcuts for months and exactly two
-    surfaces said so — the grade bar's `?` bubble, which a reader only meets mid-answer, and the Atlas's
-    coach marks. **The table is keyed by PAGE and prints the current page's keys under the ones that work
-    anywhere**, because a list of every shortcut on the site is a list in which the four that apply here
-    are hidden; a page with none says so in a sentence rather than being drawn empty. It is in
-    `render()`'s close list beside `closePageHelp()` — it names the CURRENT page's keys, so it cannot
-    outlive it — and its `?` handler carries the `/` search handler's guards exactly (not in a field, not
-    over an overlay). **Its scrim is `#000`, never `var(--ink)`**: that token is the LIGHTEST thing a dark
-    theme has, so an ink-mixed scrim is a white veil at night — `test-layout.js`'s `scrimCheck` catches it
-    statically, and caught this one.
+    `deckAttempt` in `DECK_OPT_INHERIT`, off by default. **WHAT IS WRITTEN IS SHOWN BESIDE THE ANSWER AND
+    THEN THROWN AWAY** — a matcher over free prose would mark a right answer wrong, which is the one
+    failure that would stop a reader writing — and **the box is removed at the reveal**, since leaving an
+    editable copy invites improving a recall after seeing the answer.
+  · **TRY TEN CARDS** (`SAMPLE_N` / `sampleIds` / `PAGES.sample` at `#sample/<id>`). **IT WRITES
+    NOTHING** — no `S.active`, no `S.cards` — which matters more than it sounds, XP being
+    `Object.keys(S.cards).length` and a level buying a chest, so a sampler that scheduled its cards would
+    hand a browsing reader levels and chests for reading ten cards. **The ten are the collection's OWN
+    first ten**, unstudied ones skipped: a plan is a running order and the opening cards are where a
+    collection introduces itself.
+  · **UNDO NAMES THE CARD IT WILL GIVE BACK** (`undoLabel`), and **THE FOUR GRADE BUTTONS SAY WHAT "4d"
+    MEANS** (`gradeExplainHTML`) — one line in the `?` bubble keyed to the card in hand and derived from
+    the same `preview` the buttons are drawn from, so the sentence and the numbers cannot disagree.
+  · **THE SHORTCUTS ARE WRITTEN DOWN, AND `?` IS WHERE** (`KEY_SHEET` / `openKeySheet` / `closeKeySheet`
+    / `.key-sheet`). **The table is keyed by PAGE and prints the current page's keys under the ones that
+    work anywhere**, because a list of every shortcut on the site is a list in which the four that apply
+    here are hidden; a page with none says so in a sentence rather than being drawn empty. It is in
+    `render()`'s close list beside `closePageHelp()`, and its `?` handler carries the `/` search
+    handler's guards exactly. **Its scrim is `#000`, never `var(--ink)`**: that token is the LIGHTEST
+    thing a dark theme has, so an ink-mixed scrim is a white veil at night — `test-layout.js`'s
+    `scrimCheck` catches it statically.
   · **AND THE HOME PAGE SAYS HOW FAR THE NEXT ARTEFACT IS** (the `nextChest` block in `PAGES.home`,
-    `.rv-chestnext`). Four channels grant a chest — a level, a clean sweep, all nine games finished, every
-    seventh day of a streak — and only the streak ever showed its progress, so three of the four were
-    invisible mechanisms. **It names the NEAREST one and only that**: four lines would be a scoreboard for
-    something meant to be a small pleasure, and the nearest is the only one that answers *is it worth
-    finishing this session?*. **It is silent while a chest is already WAITING**, `chestBannerHTML` being on
-    screen directly above saying so — which is also why a fresh reader sees nothing here, the first badge
-    granting a chest before the line could ever be read.
+    `.rv-chestnext`). **It names the NEAREST channel and only that**: four lines would be a scoreboard
+    for something meant to be a small pleasure. **It is silent while a chest is already WAITING**,
+    `chestBannerHTML` being on screen directly above saying so.
   · **AND THE CARDS YOU GET RIGHT SLOWLY** (`SLOW_ROWS` / `SLOW_MULT` / `SLOW_FLOOR_DS` / `medianOf` /
-    `slowCards` / `slowPanelHTML` / `.rs-slow`). Every answer has been TIMED since Aug 2026 and exactly one
-    surface read the figure — Card info printed it per row — so the log's `ds` column was half a feature.
-    This is the other half, and it names a state the grade buttons cannot: a card answered Good after
-    fifteen seconds of hunting is not a card you know. **The bar is the READER'S OWN MEDIAN, never a
-    constant** — how long an answer takes is a fact about the reader, the deck and the device, so a fixed
-    "over 10 seconds" would report a whole collection on one reader and nothing on another — with a floor
-    so a fast reader does not meet a list of five-second cards. **The MEDIAN on both sides**, one answer
+    `slowCards` / `slowPanelHTML` / `.rs-slow`). **The bar is the READER'S OWN MEDIAN, never a constant**
+    — how long an answer takes is a fact about the reader, the deck and the device — with a floor so a
+    fast reader does not meet a list of five-second cards. **The MEDIAN on both sides**, one answer
     interrupted by a doorbell being worth `REV_MAX_DS`. **Two answers minimum**, and **learning steps are
     excluded outright** (`REV_ST.relearn` — note the key is `relearn`, not `relearning`, and a comparison
-    against the wrong name is silently always false). Own account only, for `leechPanelHTML`'s reason: the
-    rows open Card info, whose actions act on YOUR schedule.
-  · **AND A READER CAN ASK FOR LESS DATA WHATEVER BROWSER THEY ARE ON** (`lightMode` / `S.settings.saveData`
-    / `.ci-held` / `.ci-hold`). Six places already asked `navigator.connection.saveData` before warming a
-    bundle, each written out longhand — and **that hint does not exist on Safari or Firefox**, so on those
-    browsers all six answered false and a reader had no way to ask. `lightMode()` is the one door, ORing
-    the reader's switch with the hint so a browser that does say so is still obeyed and the switch can only
-    ever ask for LESS. It stops the idle warms and **holds each card's picture back behind one press** —
-    the `src` rides in `data-src` and the delegated `IMG_OPEN_SEL` handler loads on the first press and
-    enlarges on the second, one branch in a listener that already exists rather than a second way of
-    drawing a picture. **The frame stays**, dashed and labelled: a picture silently absent looks like a
+    against the wrong name is silently always false). Own account only, for `leechPanelHTML`'s reason.
+  · **AND A READER CAN ASK FOR LESS DATA WHATEVER BROWSER THEY ARE ON** (`lightMode` /
+    `S.settings.saveData` / `.ci-held` / `.ci-hold`). `navigator.connection.saveData` **does not exist on
+    Safari or Firefox**, so six places asking it longhand all answered false and a reader had no way to
+    ask. `lightMode()` is the one door, ORing the reader's switch with the hint so it can only ever ask
+    for LESS. It stops the idle warms and **holds each card's picture back behind one press**, the `src`
+    riding in `data-src`. **The frame stays**, dashed and labelled: a picture silently absent looks like a
     card that has none. **The predicate cannot be written `!!(navigator.connection && …)` beside a sweep
     that replaces `!(navigator.connection && …)`** — the double-bang CONTAINS the single-bang form, so the
-    sweep rewrote the function into a call to itself, which is a stack overflow on the first render and
-    took four page loads to find.
+    sweep rewrote the function into a call to itself.
   · **AND THE ONE CARD FORMAT WITH NO TEXT ALTERNATIVE HAS AN OPT-IN ROUTE THROUGH IT** (`mapNeighbours`
-    / `andList` / `S.settings.mapAlt` / `.mc-alt`; **📖 the reasoning in full is in
-    `docs/geography-card-plan.md`'s accessibility section**). The sentence that cannot be written is a
-    DESCRIPTION OF THE SHAPE; what the map actually shows is the shaded shape **with its neighbours drawn
-    around it**, and that can be said in words without describing anything. **The neighbours are COMPUTED,
-    never authored** — and NOT by shared edges, which was the first attempt and was **wrong by a quarter,
-    silently**: `us-states.js` is simplified per state, so a border is two chains that diverge, and an
-    exact edge test found 83 of the 107 pairs and missed CALIFORNIA–OREGON. A reader told "Ohio borders
-    Indiana, Kentucky, Michigan and West Virginia" has been handed a list that rules out the right answer,
-    which is the one kind of output this site must never produce. It is a PROXIMITY GRID instead — each
-    boundary walked, the cells it passes stamped with the shape's name — which finds **107 at every cell
-    size from 0.03° to 0.08°**, the geometry deciding rather than the parameter, and correctly excludes
-    the Four Corners diagonals. ~230ms for the world layer, once per layer, cached and **run at idle**. **It is filled in by `startCardGlobe`
-    and not by `cardMapHTML`**, for the reason the canvas is: the shapes are lazy, so at render time there
-    is nothing to read them off; and the slot **ships hidden in the markup** rather than being created on
-    demand, `#toast`'s own rule. **OFF BY DEFAULT AND THE COPY STATES THE TRADE**: for many readers a list
-    of neighbours is a SHORTER route to the answer than the outline, so switching it on makes the deck
-    easier — the reader's trade to make, and an easy card beats one nobody can answer.
+    / `andList` / `S.settings.mapAlt` / `.mc-alt`). The sentence that cannot be written is a DESCRIPTION
+    OF THE SHAPE; the neighbours drawn around it can be said in words without describing anything. **The
+    neighbours are COMPUTED, never authored — and NOT by shared edges**, which was wrong by a quarter,
+    silently: the shapes are simplified per state, so a border is two chains that diverge, and an exact
+    edge test missed CALIFORNIA–OREGON. **A reader told a list that rules out the right answer has been
+    handed the one kind of output this site must never produce.** It is a PROXIMITY GRID instead — each
+    boundary walked, the cells it passes stamped — which finds 107 at every cell size from 0.03° to 0.08°,
+    the geometry deciding rather than the parameter. Run at idle, cached. **It is filled in by
+    `startCardGlobe` and not by `cardMapHTML`**, the shapes being lazy, and the slot **ships hidden in the
+    markup** rather than being created on demand, `#toast`'s own rule. **OFF BY DEFAULT AND THE COPY
+    STATES THE TRADE**: for many readers a list of neighbours is a SHORTER route to the answer than the
+    outline, so this makes the deck easier — the reader's trade to make.
   · **AND A PERSON HAS AN ADDRESS** (`PAGES_u` at `#u/<username>`, plus the five places a route is
     registered — `PAGES`, `valid`, `PAGE_META`, the boot/hashchange parsers, the hash writer and
-    `setActiveTab`, which maps it to `account`). A friend's profile was reachable only by pressing their
-    row, and its address was `#account` with the friend's UUID carried IN MEMORY — so there was no such
-    thing as a link to a person, and the back button went somewhere else. **The username is the right name
-    for the address**, being what a reader already types into the Add-a-friend box. **WHAT A STRANGER SEES
-    IS THE HONEST HALF**: `progress` is RLS-scoped to its owner and their accepted friends, so this page
-    cannot show a stranger somebody's streak however it is addressed — and rather than 404ing or pretending,
-    it resolves the username against `profiles` (readable by any signed-in reader) and shows the name, the
-    photo, the theme they wear and one button that adds them, with a sentence saying the rest is between
-    them and their friends. **Your own username routes to your own account page**, and an accepted friend
-    gets exactly `acctFriendView` — the same page the row already opened. **Signed out it asks for a
-    sign-in** rather than reporting that the person does not exist, `profiles` being readable only `to
-    authenticated`. The account page's identity line carries a **copy link** button, built from
-    `location.href` minus its fragment so it is right on the live site, on a local copy and in a preview
-    alike.
+    `setActiveTab`, which maps it to `account`). **The username is the right name for the address**, being
+    what a reader already types into the Add-a-friend box. **WHAT A STRANGER SEES IS THE HONEST HALF**:
+    `progress` is RLS-scoped, so this page cannot show a stranger somebody's streak however it is
+    addressed — and rather than 404ing or pretending, it resolves the username against `profiles` and
+    shows the name, the photo, the theme and one button that adds them. Your own username routes to your
+    own account page; an accepted friend gets exactly `acctFriendView`; **signed out it asks for a
+    sign-in** rather than reporting that the person does not exist. The identity line carries a **copy
+    link** button built from `location.href` minus its fragment.
   · **AND A FRIEND'S PROFILE OPENS ON YOU AND THEM** (`versusHTML` / `streakLive` / `daysStudied` /
-    `firstName` / `.vs-card`). It showed their figures and never yours, so the one question a reader opens
-    a friend's page to answer had to be done from memory. Four rows, their figure beside yours, the larger
-    marked. **It costs no schema and no second fetch** — the whole blob is already read by that page, and
-    every figure is derived from it exactly as the same figure is derived from your own, so a row cannot
+    `firstName` / `.vs-card`). **It costs no schema and no second fetch** — every figure is derived from
+    the blob that page already reads, exactly as the same figure is derived from your own, so a row cannot
     contradict the page below it. **A STREAK IS ONLY LIVE IF IT WAS TOUCHED TODAY OR YESTERDAY**:
-    `bumpStreak` resets the count only on the next day studied, so a reader who stopped six weeks ago still
-    carries a 40 in their blob, and printing it as a current streak compares against something that is not
-    happening. **Nothing is ranked beyond the pair** — a wider standing would have to be published
-    somewhere `progress` is not.
+    `bumpStreak` resets the count only on the next day studied, so printing a stale one compares against
+    something that is not happening. **Nothing is ranked beyond the pair** — a wider standing would have
+    to be published somewhere `progress` is not.
+  **📖 `docs/study-records.md` — READ BEFORE CHANGING ANY OF THESE.** Besides the flags, the browser and
+  the logs it now carries the account of this batch, moved out of here: what each affordance was missing,
+  the measurements, and the shared-edge neighbour test that was wrong by a quarter with nothing to say so.
   **Re-run after touching any of them: `.claude/test-review-decks.js` (which pins BOTH sheet row lists
   EXACTLY — a row added here fails there until that assertion is updated, which is the point of pinning
   it), `test-learning.js`, `test-reset.js` and `test-account-switch.js` (`PROGRESS_FIELDS` grew twice).**
