@@ -3284,3 +3284,105 @@ doctrine have nowhere a reader could stand, which is the locator rule's own answ
 `Nanyue` and `Lelang Commandery` both came back "no primary coordinate"; the `at` is only a region's
 fallback, so the batch was re-run with `Guangzhou` and `Pyongyang` as the titles and the region names
 kept. **Name a settlement, not the polity.**
+
+## cnh-241 – cnh-250, the Records, the late Western Han court and the Xin (Sep 2026)
+
+Ten cards: the *Records of the Grand Historian*, Weiyang Palace, the regional inspector, the consort
+clan, the Xin dynasty, Wang Mang, the acting emperor, wangtian, the wuzhu and avulsion. Four in
+`col-10`, six in the new `col-11`, which this batch opens.
+
+**A GLOSSARY TERM WRITTEN FOR ONE COLLECTION BREAKS THE MOMENT ANOTHER LINKS TO IT — AGAIN, AND
+`Shiji` WAS THE CASE.** The term existed, cited and in band, and its first sentence read "the
+earliest of the Chinese standard histories **and the principal written source for Gojoseon**", with
+the two sentences after it on Wiman and the Chosŏn chapter. It was written for `ko-049`, whose card
+is about Gojoseon; a China card on the work itself would have linked a reader to a definition of the
+*Shiji* as a Korean source. Rewritten deck-agnostic — what the work is, its five parts and 130
+chapters, its span — with the frontier-source clause kept in general form so the Korea card's link
+still lands. This is `Dolmen`'s finding from `ko-031`–`ko-040` in a second coat, and the rule is the
+same: **read a term before pairing a card with it, and check whose collection wrote it.**
+`Chang'an` is the next one waiting — it is a Tang-and-Japan term (`jp-088`) and `cnh-367` will want it.
+
+**THE PAIRING RULE MADE cnh-242 A PALACE RATHER THAN A CITY.** `Chang'an` is already a card's answer
+(`jp-088`) and is the natural answer for `cnh-367 Chang'an under the Tang`, so this card takes
+**Weiyang Palace**, the emperor's residence and a third of the walled city, and leaves the city to the
+Tang card. The same reasoning renamed three more plan lines: `cnh-243 Han provincial administration`
+takes **regional inspector** because `cnh-197` already answers *commandery-county system*;
+`cnh-244 The late Western Han court` takes **consort clan**, which is what that court WAS; and
+`cnh-247 Wang Mang's usurpation` takes **acting emperor**, since a card answered "Wang Mang" would
+have differed from `cnh-246` by nothing at all.
+
+**A PLAN LINE THAT NAMES A RIVER EVENT CAN BE ANSWERED BY THE MECHANISM, AND HERE IT HAD TO BE.**
+`cnh-250 The Yellow River shift of 11 CE` could not take *Yellow River* as its answer without
+spending `cnh-805 The Yellow River and its floods`, 555 numbers away. It takes **avulsion** — the
+abandonment of a bed for a new course — which the sources name outright, which no other Folio term
+covers, and which one World History card already uses in prose (`the avulsion node at Kut`), so the
+new term auto-links there correctly. Measured before claiming the surface: "avulsion" occurs once in
+the shipped prose and once inside a citation, and the citation is masked from the auto-linker.
+
+**PERSÉE'S SEARCH IS THE ROUTE TO FRENCH SINOLOGY AND NUMISMATICS, AND ITS FULL TEXT IS THE FIRST
+PAGE ONLY.** `persee.fr/search?ta=article&q=…` answers over plain HTTP and found François Thierry's
+"La chronologie des wuzhu" (*Revue numismatique* 1989) and Sophia-Karin Psarras' "Chinois et Xiongnu
+à l'époque han" (*Dialogues d'histoire ancienne* 1990) — both exactly on subject. **But `docAsPDF`
+is 403 and the `/doc/` page carries only the article's opening page**, about 2 KB of text. That is
+still a real, citable page with real claims on it (Thierry's p. 223 gives the wuzhu's span to 618 CE
+and calls Wang Mang "membre du clan de l'impératrice"), so cite the page you can actually read and
+nothing beyond it.
+
+**CHINAKNOWLEDGE.DE IS USED HERE, AND THE TEST IT PASSES IS THE GLOSSARY PLAN'S OWN.** Four of its
+articles carry claims nothing else openable states — the regional inspector's six statutory questions
+and 600-bushel rank, the Han administrative hierarchy, *waiqi* as a category with its own chapters in
+the dynastic histories, and Wang Mang's *wangtian* and *wujun liuguan* programmes. It is an
+encyclopedia, which the plan bars **unless that article cites its own sources**: all four carry a
+`Sources:` block naming Chinese reference works or the Cambridge History, and each is a dated,
+signed article by a named sinologist. Cited as such, at most twice per card, and never where an
+openable scholarly work says the same thing.
+
+**A SPRINGER JOURNAL IS READABLE AT `nature.com` WHEN `link.springer.com` IS BEHIND THE CLIENT
+CHALLENGE.** The Weiyang Palace wall paper (*Heritage Science* 12, art. 364) 403s through
+`link.springer.com` and serves in full from `https://www.nature.com/articles/s40494-024-01485-x` —
+Springer moved the journal under npj. `www.mdpi.com` is 403 as recorded, `ieeexplore.ieee.org`
+answers 202 with an empty body, and `sciencedirect.com` serves a Cloudflare error.
+
+**THE HAN CAPITAL'S ARCHAEOLOGY HAS ONE OPEN ARTICLE AND IT IS IN A MALAYSIAN JOURNAL.** Xie Libin,
+"A Study of Military Defense in the Ancient Chinese City of Chang'an During the Han Dynasty"
+(*Minden Journal of History and Archaeology* 1, no. 1 (2024)) carries the wall's 25.7 km perimeter
+and 34 km² area, the twelve gates, the moat, the corner turrets and the placing of the Northern and
+Southern armies — all off the CASS excavation reports, which are not openable themselves. DOAJ found
+it; a plain web search did not.
+
+**THE TWO-PER-AUTHOR CAP DECIDED THREE CARDS' SOURCE LISTS.** `cnh-241` could have been four
+Chavannes citations and is two (the five divisions at clxxii–clxxiv, the ten lost chapters and Chu
+Shaosun at cci–cciv) with Wylie and two Cordier pages carrying the rest. `cnh-245` was drafted with
+three Cordier pages and the third was replaced by Theobald, which is also what made the card honest
+about how Wang Mang died: **Cordier says his own soldiers, Giles says a revolt of his troops and
+names Du Wu, Boulger says he was cut down by the storming enemy, and Theobald says a merchant called
+Du Wu** — so the card gives two accounts rather than picking one.
+
+**FOUR DATE LINES WERE READ BACK THROUGH `cardYears` AND ALL TEN SORT CORRECTLY.** The one worth
+recording is that a **one-digit CE year parses** — "9 CE", "6 – 8 CE" and "11 CE" all yield their
+years — which was not obvious and was tested against a sliced copy of `cardYears` before the cards
+were written. `cnh-243`'s second row is `Provinces | 13`, which yields no year at all and correctly
+leaves the sort on 106 BCE.
+
+**ONE HOUSE-STYLE FAULT SHIPPED INTO `check-style.js` AND IT WAS IN BOTH HALVES OF THE CORPUS.**
+`cnh-247` was written with "Fifty-three princes of the nearer generation", which breaks the
+numerals-above-twenty rule. The fix had to be applied to `data.js` (the question) **and** to
+`data-extra/cnh.js` (the abstract) — the same words in two files, which is exactly what CLAUDE.md
+warns a find-and-replace over `data.js` alone will miss.
+
+**PICTURES: NINE OF TEN, AND THE CONTACT-SHEET RULE PAID TWICE.** `Wang Mang(Emperor of the Xin
+dynasty).png` is titled as a portrait and is a decayed painted-clay temple tableau of three figures
+hacking a bearded man with swords — wrong subject, and grim on a study card; replaced by the
+woodblock portrait from Zhong Xing's illustrated *Eastern and Western Han*. And the wuzhu scan first
+chosen is the collector's *bagsider* — the **reverses**, which are blank, so the coin's own name is
+nowhere on it; the *forsider* scan, with 五銖 cast either side of every hole, replaced it and the
+reverses went to the glossary term, where a plain back is itself the fact. `cnh-247` ships with none:
+a title is not a thing, and the two candidate images of the regency are of Wang Mang, who has his own
+card one number back. Four of the nine new glossary terms took a picture — Weiyang's site from a
+second angle, the Xin *huobu* spade coin, a Han pottery farmstead and the wuzhu reverses; the other
+five are concepts and offices with no object.
+
+**LOCATORS: TWO OF TEN.** Weiyang Palace takes a point at its own coordinate with
+`within: "Chang'an"`, and the Xin dynasty a point at Chang'an. The rest are a book, an office, a
+kind of family, a man, a title, a land decree, a coin and a river process — none of them a place a
+reader could stand, which is the rule answering rather than a gap.
