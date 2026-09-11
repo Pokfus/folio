@@ -4206,24 +4206,21 @@ It is a plain static website — open `index.html` and it runs.
   (`ensureWBTools` / `showWBTools` / `setupWhiteboard` / `wbMakeDraggable`; `.wb-tools` in styles.css).
   · **It can be turned off altogether** (**Settings → Study → Whiteboard marker**, `S.settings.marker`,
     default ON): **ONE predicate, `markerOn`, asked in the two places that bring the marker into
-    existence** — `showWBTools`, which puts the panel on screen, and `setupWhiteboard`, which lays the ink
-    canvas over the page — so a disabled marker costs a page neither the panel, the canvas nor the pointer
-    listeners. It needs no third gate, the panel being the only way to put the pen DOWN. The guard in
-    `setupWhiteboard` sits AFTER that function's own teardown, or a listener from the previous page would
-    outlive it; and the switch calls `hideWBTools()` when thrown OFF, Settings not being a page that
-    mounts the marker. Ink already drawn is kept — this decides whether the marker APPEARS.
+    existence** — `showWBTools` and `setupWhiteboard` — so a disabled marker costs a page neither the
+    panel, the canvas nor the pointer listeners. It needs no third gate, the panel being the only way to
+    put the pen DOWN. The guard in `setupWhiteboard` sits AFTER that function's own teardown, or a
+    listener from the previous page would outlive it; the switch calls `hideWBTools()` when thrown OFF.
+    Ink already drawn is kept — this decides whether the marker APPEARS.
   · **`WB.enabled` (the pen is down) and `WB.panelOpen` (the tools are showing) are TWO states.** The
     marker button only opens and closes the panel; what puts the pen down is **choosing a tool inside
-    it**, and what puts it up is unselecting that tool. **Opening the tools selects NOTHING** (Aug 2026,
-    on request) — `enabled` lays a canvas over the whole visible page, so a reader who opened the panel to
-    reach Undo or a colour would find the card underneath already taken. **`wbSetEnabled` is the one place
-    `enabled` changes**, because the Atlas owns its own cursor, hover and spin state and has to be told
-    through `WB.onToggle`.
+    it**. **Opening the tools selects NOTHING** — `enabled` lays a canvas over the whole visible page, so
+    a reader who opened the panel to reach Undo or a colour would find the card underneath already taken.
+    **`wbSetEnabled` is the one place `enabled` changes**, because the Atlas owns its own cursor, hover
+    and spin state and has to be told through `WB.onToggle`.
   · **It is DRAGGABLE anywhere on screen, can be THROWN, and SNAPS HOME** near the corner it started in —
-    at which point the stored position is FORGOTTEN, since the default is a stylesheet corner that MOVES
-    (18px normally, 108 while grading, 25 on the Atlas). The position is device-local
-    (`localStorage["folio_wb_pos_v1"]`, clamped on every apply and on resize) and the element is
-    positioned by `right`/`bottom`, never `left`/`top`.
+    at which point the stored position is FORGOTTEN, since the default is a stylesheet corner that MOVES.
+    The position is device-local (`localStorage["folio_wb_pos_v1"]`, clamped on every apply and on resize)
+    and the element is positioned by `right`/`bottom`, never `left`/`top`.
   · **HOLDING the marker TOGGLES the pen**, restoring the tool and colour last drawn with, with a toast
     saying which way it went. **There is no Draw button: the three SIZE buttons ARE the pen.**
   · **Controls under the ink stay usable** — the canvas hit-tests underneath itself on pointerdown and
@@ -4231,51 +4228,36 @@ It is a plain static website — open `index.html` and it runs.
     both animate with a fill mode, so nothing inside them can paint above a sibling of the stage.
     `CTL_SEL` is real controls only; a **glossary term** (`TIP_SEL`, plus a community deck's `.uc-tts`) is
     a third kind of target decided at POINTERUP — a tap opens it, a drag through it draws.
-  · **AND A CARD'S MAP WINDOW IS A FOURTH KIND: A SURFACE THAT OWNS ITS OWN DRAG** (`mapUnder`; Aug 2026,
-    on a bug report: "on mobile, dragging to move that atlas window doesn't work, it only scrolls the whole
-    page"). With the pen down the ink canvas covers the whole visible page and IS the pointer target, so a
-    finger over a card's globe never reached that globe's own listeners — and in STYLUS MODE, where a
-    finger is declared not to be a drawing tool, the whole gesture went to the hand-rolled page scroll
-    instead. Reproduced through CDP touch input: the globe did not move a degree and the page went down
-    130px. It cannot join `CTL_SEL`, which claims a press at pointerdown and activates it as a CLICK — a
-    click is not a drag, and a drag is the whole of what that window is for — so the ink canvas keeps the
-    pointer (it must, or the moves stop arriving) and forwards the DELTA through a small `pan` the map
-    exposes for it. **It is scoped to a FINGER IN STYLUS MODE and nothing else, deliberately**: everywhere
-    else the finger IS the pen, and taking drawing away from it would be a regression nobody asked for.
+  · **AND A CARD'S MAP WINDOW IS A FOURTH KIND: A SURFACE THAT OWNS ITS OWN DRAG** (`mapUnder`). It cannot
+    join `CTL_SEL`, which claims a press at pointerdown and activates it as a CLICK — a click is not a
+    drag, and a drag is the whole of what that window is for — so the ink canvas keeps the pointer (it
+    must, or the moves stop arriving) and forwards the DELTA through a small `pan` the map exposes for it.
+    **It is scoped to a FINGER IN STYLUS MODE and nothing else, deliberately**: everywhere else the finger
+    IS the pen.
   · **A STYLUS TAKES THE PEN and fingers go back to scrolling** once one has been seen on this device
     (`WB.stylusSeen` / `WB.penOnly`, device-local). The scroll is **performed, not permitted** —
     `touch-action` is a property of the ELEMENT and cannot tell a pen from a finger, so the canvas keeps
     `touch-action:none` in every state and a finger's scroll is done by hand with momentum.
-  · **ONE POINTER OWNS THE GESTURE, AND THE REST ARE NOT THIS STROKE** (`gid` / `gpen` / `dropGesture`,
-    Aug 2026, on a bug report: "sometimes I find myself unable to draw lines for a few seconds … other
-    times lines that should be straight end up crooked"). Every other pointer surface on the site records
-    the id it started on — the marker's own drag handle, the page swipe, the colour picker, the gloss
-    window — and **the drawing surface, where a second pointer is not merely possible but expected, did
-    not**: a stylus rests a palm and a phone has two thumbs, and the four handlers share one `WB.drawing`,
-    `WB.last` and `passScroll`, so a second contact walked into the first one's gesture. **Both reported
-    symptoms are that walk seen from two sides.** A crooked line is the palm's coordinates sewn into the
-    pen's stroke on alternate samples; not drawing is any other pointer's `pointerup` or `pointercancel`
-    running `end()` and taking `WB.drawing` down mid-stroke — or, in stylus mode, a palm setting
-    `passScroll`, whose test is the FIRST line of the move handler, so the pen scrolled the card it was
-    marking. **The one preemption is a PEN over a finger**, because the palm usually lands first and a
-    plain first-wins rule would leave a stylus reader unable to draw at all; nothing preempts a pen.
-    **Capture cannot do this** — the canvas covers the visible page, so it is the hit target for every
-    contact regardless. Guarded by `.claude/test-whiteboard.js`.
+  · **ONE POINTER OWNS THE GESTURE, AND THE REST ARE NOT THIS STROKE** (`gid` / `gpen` / `dropGesture`).
+    A stylus rests a palm and a phone has two thumbs, and the four handlers share one `WB.drawing`,
+    `WB.last` and `passScroll`, so a second contact walks into the first one's gesture — a crooked line is
+    the palm's coordinates sewn into the pen's stroke, and not drawing is another pointer's `pointerup`
+    taking `WB.drawing` down mid-stroke. **The one preemption is a PEN over a finger**, because the palm
+    usually lands first and a plain first-wins rule would leave a stylus reader unable to draw at all;
+    nothing preempts a pen. **Capture cannot do this** — the canvas covers the visible page, so it is the
+    hit target for every contact regardless. Guarded by `.claude/test-whiteboard.js`.
   · **IT EXPLAINS ITSELF THE FIRST TIME IT IS OPENED** (`MARKER_TOUR_KEY` / `MARKER_HELP_TIPS` /
-    `openMarkerHelp`, Sep 2026, on request). The panel is seven controls and a hold gesture, and nothing
-    on it said what any of them did — above all that **choosing a tool is what puts the pen down**, which
-    is the one thing a reader cannot discover by pressing things, the panel opening with nothing selected
-    on purpose. It is `pageHelp`'s card, the Atlas's and the Library's, so the coach marks read the same
-    everywhere and the dismissal is the same three ways out; the key is written on first open and the
-    **`.wb-help` button on the Undo/Redo row brings it back**, since a tutorial that can be met once is a
-    tutorial nobody can re-read. It is called at the END of the toggle's open branch, after
-    `applyWBState()`, or the card would be laid over a panel that has not finished drawing.
-  **📖 `docs/whiteboard.md` — READ BEFORE CHANGING ANY OF IT.** The fling's sample-window arithmetic (a
-  per-event velocity is wrong in both directions, and a synthetic drag is what exposes it), the snap-home
-  probe and the transition that must be turned off to take it, the inline colour picker and why an
-  `<input type="color">` was refused, the pass-through's `preventDefault` consequence, the hand-rolled
+    `openMarkerHelp`), through `pageHelp`'s card, with the **`.wb-help` button on the Undo/Redo row**
+    bringing it back — a tutorial that can be met once is a tutorial nobody can re-read. It is called at
+    the END of the toggle's open branch, after `applyWBState()`, or the card would be laid over a panel
+    that has not finished drawing. The one thing a reader cannot discover by pressing things is that
+    **choosing a tool is what puts the pen down**, the panel opening with nothing selected on purpose.
+  **📖 `docs/whiteboard.md` — READ BEFORE CHANGING ANY OF IT.** The fling's sample-window arithmetic, the
+  snap-home probe and the transition that must be turned off to take it, the inline colour picker and why
+  an `<input type="color">` was refused, the pass-through's `preventDefault` consequence, the hand-rolled
   scroll that replaced a `touch-action` rule which lost every stylus stroke, the per-page default corners,
-  and the page-swipe and Atlas-sheet assertions that had drifted into the end of this bullet.
+  and — moved out of here — the bug reports behind the gesture-ownership rules and the reproduction that
+  settled them.
 - **Reduced motion:** styles.css ends with a **global killswitch** — `@media (prefers-reduced-motion:reduce){ *,*::before,*::after
   { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }`.
   It covers every CSS animation and transition in the file (entrance animations land on their end state), so a new one usually
