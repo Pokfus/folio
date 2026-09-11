@@ -87,3 +87,29 @@ spanning both columns above them (dashboard), so what was free was TEAL and MAGE
 teal (`#118e96`) and Artefacts the magenta (`#a8478f`), which also puts the two tabs that write back into
 app.js's own literals at opposite ends of the wheel. **Every `data-atab` needs a pair of rules** (the rest
 state and `.active`); adding a tab and not adding them is invisible in code review and obvious on screen.
+
+---
+
+## Admin → Themes (2026-09-11)
+
+**Read this before changing what the Themes tab counts.** CLAUDE.md keeps the rules; this is the bullet as
+it stood there.
+
+- **Admin → Themes: who wears what (Aug 2026, on request: "add another tab for Themes, showing their usage
+stats etc.").** `adminRenderThemes` / `themeLoadUsage`, a seventh tab taking the admin area over the way
+the Dashboard, Quotes, Artefacts, Timeline and Feedback do (`themes-mode`, the same hide list, the same
+≤860px panel-cap exception). Three things.
+**THE QUESTION THE DATABASE CAN ANSWER IS WHO WEARS ONE, and that is why the column is on `profiles`.**
+A theme is now both a collectible and how an account presents itself, and only the second is readable:
+`profiles.theme` is public to any signed-in user, so an editor can count it, where a reader's own
+`S.themes` register lives in `progress` and RLS keeps it private — **so there is no figure here for how
+many people have UNLOCKED a theme without wearing it, and the panel says so rather than leaving a gap to
+be read as a zero.** One `count=exact` request per theme plus a total, which is seven tiny requests
+against one large one and needs no paging.
+**A DATABASE WITHOUT SECTION 14 SAYS SO AND NAMES THE BLOCK**, exactly as the publish path does for the
+deck-colour column: PostgREST answers 400/404 on a column that does not exist, which the loader turns into
+a `missing` flag rather than an error, and every account simply presents itself in the default meanwhile.
+**AND ITS TAB COLOUR IS OLIVE** (`#6d8f1f`), the one quarter of the wheel the other six leave empty
+(purple, blue, green, teal, magenta, amber, red) — **every `data-atab` needs a pair of rules**, a resting
+one and an `.active` one, or the tab renders in the inherited ink and reads as DISABLED beside six that
+are lit, which is what happened to Quotes and Artefacts when they arrived.
