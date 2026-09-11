@@ -7194,8 +7194,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Regional_inspector": ["cishi"],
 "Wangtian": ["royal fields"],
 "Weiyang_Palace": ["Weiyang palace"],
-"Wuzhu": ["wuzhu coin","five-zhu coin"],
-"Xin_dynasty": ["Xin"]
+"Wuzhu": ["wuzhu coin","five-zhu coin"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */

@@ -3386,3 +3386,13 @@ five are concepts and offices with no object.
 `within: "Chang'an"`, and the Xin dynasty a point at Chang'an. The rest are a book, an office, a
 kind of family, a man, a title, a land decree, a coin and a river process — none of them a place a
 reader could stand, which is the rule answering rather than a gap.
+
+**AND THE ALIAS `Xin` WAS WRONG 23 TIMES IN 26, CAUGHT AFTER THE PUSH.** `Xin_dynasty` shipped with
+the bare name as an alias. Measured over the corpus, the surface occurs 26 times and only three are
+the dynasty: the rest are **Di Xin**, the last Shang king (`cnh-067`, `cnh-076`, `cnh-101`–`cnh-103`),
+**Han Xin**, the general (`cnh-214`, `cnh-216`, `cnh-219`, `cnh-220`), **Xin'an** where Xiang Yu
+killed his prisoners, the **Xin river** in Jiangxi (`gc-013`), and the sites Xin'gan and Xin'anzhuang
+— and an apostrophe is not a letter, so the auto-linker's boundary test matches inside those last two
+as well. Dropped; the term is reached by its full name. This is `Yan_(state)`'s finding run the other
+way round, and the check is two lines of Node against the shipped prose: **count the bare surface
+before claiming it, and read what the hits actually are.**
