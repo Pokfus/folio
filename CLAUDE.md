@@ -255,9 +255,6 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the batch account of E48–E56 behind every rule above: what each fault looked like on the page, the
     measurements that settled each discriminator, and the generalisations that were tried and do not
     work.
-  · **📖 `docs/library-importer.md` — READ BEFORE ADDING A BOOK OR TOUCHING ANY EXTRACTOR.** The 22
-    layouts, the five Wikisource extraction faults, the per-book options and every finding behind
-    them.
 - `styles.css` — editorial design system; **16 themes** via CSS custom properties (`THEMES` in
   app.js — folio, synth, arcade, academy, marble, gazette, and the ten GEMSTONES added Sep 2026 on
   request: diamond, ruby, opalite, jade, emerald, amber, amethyst, aquamarine, bloodstone, carnelian.
@@ -1389,7 +1386,6 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     measured scale of each fault, the DELE A1 full read (486 of 493 cards corrected, the recurring fault
     shapes in order of frequency, and the two cards that contradicted themselves), and the per-card
     reasoning's branch.
-    more gets distinguishing glosses instead.
 - `.claude/decks/check-mandarin-coverage.js` — **what a Mandarin card does NOT say**:
   `node .claude/decks/check-mandarin-coverage.js [--top=N] [--deck=] [--only=]`. The three checkers
   above all ask whether what a card SAYS is right and all report the Mandarin decks clean or nearly
@@ -3765,10 +3761,6 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (`thread`, the only one built on the GLOSSARY), **Crossword** (`crossword`, clued from the cards' own
   questions), **Picture round** (`picture`, from the ARTEFACTS alone since Sep 2026) and **What year?**
   (`whatyear`, from `whatyear.js`). The operational half:
-  · **EVERY CARD-FED GAME DRAWS THROUGH `gameCardIdSet()`, NEVER `availableCardIdSet()`** — the well-known
-    terms only, at or below `GAME_MAX_DIFFICULTY`, since a game deals a term COLD. A tenth game reaches for
-    that function; `test-difficulty.js` asserts there is no other path. **Timeline has a second filter**
-    (`card.undatable`) and nothing else may borrow it. **Three games are not card-fed at all** and each
   · **EVERY CARD-FED GAME DRAWS THROUGH `gameCardIdSet()`, NEVER `availableCardIdSet()`** — the well-known
     terms only, at or below `GAME_MAX_DIFFICULTY`, since a game deals a term COLD. A tenth game reaches for
     that function; `test-difficulty.js` asserts there is no other path. **Timeline has a second filter**
