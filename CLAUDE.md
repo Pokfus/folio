@@ -776,51 +776,47 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `node .claude/check-citations.js [--prefix=wh-] [--card=] [--term=] [--artefacts] [--verbose]`, exit 1
   on a mismatch. **RUN IT BEFORE WRITING A CARD'S JSON, NOT AFTER** — as an audit afterwards it let eight
   bad citations ship across four cards in one week. It exists because **Europe PMC returns author lists as
-  INITIALS** ("Liu C, Sainsbury V", "Ding K, Li S, Lu H") and a Chicago note wants full given names:
-  expanding them by hand produces names that read perfectly and are wrong — Chunlin Liu for **Cheng Liu**,
-  Vanessa Sainsbury for **Victoria Sainsbury**, Shuo Li for **Siyang Li**, Huayu Lu for **Houyuan Lu**. A
-  DOI composed from the shape of a publisher's identifier fails the same way and is caught too, Crossref
-  simply having no record. **Nothing else in the pipeline can see this**: `add-card.js` checks a citation
-  ENDS IN A URL, `source-audit.js` counts them, `add-sources.js` checks the markers — all of them pass a
-  citation whose author never wrote it, and so does a reader, the name being plausible and the DOI real.
+  INITIALS** and a Chicago note wants full given names: expanding them by hand produces names that read
+  perfectly and are wrong. A DOI composed from the shape of a publisher's identifier fails the same way
+  and is caught too, Crossref simply having no record. **Nothing else in the pipeline can see this**:
+  `add-card.js` checks a citation ENDS IN A URL, `source-audit.js` counts them, `add-sources.js` checks
+  the markers — all of them pass a citation whose author never wrote it, and so does a reader, the name
+  being plausible and the DOI real.
   · **It reports in TWO TIERS and the second is the point.** A **mismatch** is a differing SURNAME, or a
     full given name differing from a full given name — an error, exit 1. **"To check by eye"** is a
     citation spelling out a name Crossref only abbreviates: that cannot be verified from here at all, and
     it is exactly where a fabricated given name hides. Diacritics, spacing and the periods after initials
     are folded away — **and so is the DASH FAMILY**, Crossref writing a hyphenated surname with U+2010
-    (`Marie‐Helene Moncel`) where the citation has an ASCII hyphen — so `Éric Boëda` and `Eric Boëda` are
-    one name and only real differences are reported.
+    where the citation has an ASCII hyphen.
   · **A citation with no DOI and no PMC id is UNCHECKED, never "ok"** — an out-of-copyright book on
     archive.org has no record to check against, and saying it passed would be the checker lying.
   · **CROSSREF IS A RECORD, NOT AN AUTHORITY, and three of its records are wrong about a name Folio has
-    right** — a dropped letter (*Jaques* Cinq-Mars), a title-cased and misspelt Dutch tussenvoegsel (*Van
-    Der Plight* for van der Plicht), and a Catalan double surname parsed as a given name (*Autuori* Josep
-    Cervelló). They are **declared in `CROSSREF_WRONG` with the reason beside each**, not left to be
+    right.** They are **declared in `CROSSREF_WRONG` with the reason beside each**, not left to be
     re-derived every run: a checker that cries wolf on three good citations is one nobody runs. A row
     matches only when the DOI, the cited name AND Crossref's name all agree, so it can never quietly
-    excuse a different fault on the same paper; add one only after reading the article's own byline.
+    excuse a different fault on the same paper; **add one only after reading the article's own byline.**
   · **A YEAR CROSSREF CANNOT ADJUDICATE IS NOT AN ERROR, and where a record has no published-print date
     it cannot adjudicate at all** — all it holds is when the record went ONLINE, which is a deposit date
-    and falls on either side of the issue: late for an advance-access paper (*Nature Human Behaviour* 7,
-    no. 2 is Feb 2023 for a paper Crossref dates 2022) and **years early for a society digitising its back
-    catalogue** (PSAS 125 (1995) deposited 1996, BGSG 43 (2010) deposited 2017). Chicago cites the ISSUE,
-    so a record with no print date goes to the eye and never to the mismatch list. A print year the
-    citation does not carry is still an error, with one declared exception (`CROSSREF_YEAR_WRONG`).
+    and falls on either side of the issue, late for an advance-access paper and **years early for a
+    society digitising its back catalogue**. Chicago cites the ISSUE, so a record with no print date goes
+    to the eye and never to the mismatch list. A print year the citation does not carry is still an error,
+    with one declared exception (`CROSSREF_YEAR_WRONG`).
   · **A TITLE THAT DIFFERS WHILE THE FIRST AUTHOR MATCHES IS A BILINGUAL RECORD, not a wrong DOI** — a
-    journal publishing in two languages registers one of its two titles, so the Croatian *Liber Linteus i
-    Zagrebačka mumija* and the Slovenian *Podoba in vloga Matere Zahodnega kraljestva* were each reported
-    as a different paper from their own English original. That is a judgement, so it goes to the eye. The
-    title is also read to the comma INSIDE the closing quote, since a title may carry quotation marks of
-    its own and a matcher stopping at the first one captures four characters.
+    journal publishing in two languages registers one of its two titles. That is a judgement, so it goes
+    to the eye. The title is also read to the comma INSIDE the closing quote, since a title may carry
+    quotation marks of its own and a matcher stopping at the first one captures four characters.
   · **THE INITIALS SPLIT IS DECIDED PER TOKEN, ON THE RAW TEXT.** Crossref writes several initials as one
     token (`G.M. MacDonald`, `J.C Long`), which have to be split to compare against a spelled-out name —
     but asking whether the NAME contains a cluster anywhere splits every short surname into letters as
-    soon as an initial appears beside one, so `Jeffrey C. Long` and `J.C Long` compared as different
-    people and **Long, Wang, Chen and Ma were all reported wrong**. Written that way the checker reported
-    21 mismatches of which several were its own; per token it reports what is really there.
+    soon as an initial appears beside one, so the checker reports its own faults as mismatches.
   Needs the network; with none it says so and exits 0 rather than failing a build for a fact it could not
   check. Answers are cached in `.claude/.crossref-cache.json` (gitignored); `--refresh` throws it away.
   Not part of the site.
+  · **📖 `docs/citation-plan.md` — READ BEFORE ADDING A ROW TO `CROSSREF_WRONG` OR CHANGING WHAT THE
+    CHECKER COMPARES.** The worked examples behind every rule above, moved out of here: the four expanded
+    given names that read perfectly and were wrong, the three Crossref records that are wrong and why
+    each is, the two journals whose deposit dates fall on either side of the issue, the two bilingual
+    records, and the 21 mismatches the first initials rule reported against itself.
 - **📖 `docs/README.md` — READ BEFORE LOOKING FOR A DOC, ADDING ONE, OR SPLITTING ANYTHING OUT OF THIS
   FILE.** The index of `docs/`, and the rule the directory exists for. Every file
   there, one line each, grouped into the wiring references, the sixteen card plans, the FINISHED content
