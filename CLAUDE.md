@@ -1203,17 +1203,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   actively contested in public**, which is why its "History, not commemoration" and "Sourcing" sections are
   the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
   `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **`ww2-001`
-  to `ww2-140` have shipped**, so the collection is live and its empty decks are coming-soon
-  automatically, `isComingSoon` being true for a node holding no card. **Seventeen of its lines have been
+  to `ww2-150` have shipped**, so the collection is live and its empty decks are coming-soon
+  automatically, `isComingSoon` being true for a node holding no card. **Twenty-three of its lines have been
   retitled while writing**, which is what the plan's own rule asks for, and each retitle has one of four
   reasons. A card is answered by a TERM rather than by a description: `ww2-102` is answered by *Southern
   Advance*, `ww2-105` by *Pan-Asianism*, `ww2-112` by *International Brigades*, `ww2-117` by
   *Sudetenland*, `ww2-122` by *Protectorate of Bohemia and Moravia*, `ww2-123` by *Anglo-Polish alliance*,
   `ww2-128` by *sphere of influence*, `ww2-130` by *Free City of Danzig*, `ww2-136` by *Bewegungskrieg*,
-  `ww2-137` by *Panzer division*, `ww2-138` by *Giulio Douhet* and `ww2-139` by *Wehrmacht* — a line naming an EVENT
+  `ww2-137` by *Panzer division*, `ww2-138` by *Giulio Douhet*, `ww2-139` by *Wehrmacht*, `ww2-141` by
+  *Fall Weiss*, `ww2-143` by *cordon defence*, `ww2-147` by *German-Soviet Frontier Treaty* and `ww2-148`
+  by *declaration of war* — a line naming an EVENT
   ("the German occupation of Czechoslovakia", "the Danzig crisis") usually wants the THING the event
   made or was about, since that is what a reader will meet the word for again. An earlier card has already spent the obvious answer: `ww2-107` is the *Stimson Doctrine*,
-  since `ww2-090` and `ww2-091` had already carded the League's own handling of the Manchurian crisis.
+  since `ww2-090` and `ww2-091` had already carded the League's own handling of the Manchurian crisis; the
+  Poland deck gave that reason twice more, `ww2-144` taking *Battle of the Bzura* because `ww2-141` already
+  cards the campaign under its German name, and `ww2-150` taking *Reichsgau* because the General Government
+  and the Intelligenzaktion are `ww2-151` and `ww2-153`.
   **And `ww2-120` is the third reason, which is the one to read before planning a historiography card**:
   *the debate over appeasement* has no name of its own that anything openable defines, so it is answered by
   **`Guilty Men`**, the 1940 polemic that fixed the popular verdict — a contemporary argument rather than a
@@ -6611,7 +6616,7 @@ lookup.
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 199 cards, `cnh-001` to `cnh-200` with `cnh-070` retired in Sep 2026 — next is `cnh-201`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
-| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 140 cards, contiguous — next is `ww2-141` |
+| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 150 cards, contiguous — next is `ww2-151` |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |

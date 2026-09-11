@@ -375,6 +375,47 @@ What answered instead:
   import makes `pypdf` work, which is what opened the govinfo *Statutes at Large* scan of the Neutrality
   Act of 1935 and the JMSS articles. **Worth rebuilding before deciding a PDF source is unreadable.**
 
+**THE POLAND DECK RUNS ON DOCUMENTS, AND FOUR COLLECTIONS CARRY IT** (Sep 2026, writing
+`ww2-141`–`ww2-150`). Ten cards, fifty-three citations, and not one of them from a monograph: the
+modern literature on the September campaign is paywalled almost entirely (`journals.sagepub.com`,
+Taylor & Francis, Project MUSE, Springer), and what is open is enough.
+· **Avalon holds the whole diplomatic record of the outbreak, in five collections addressable by
+  path.** `subject_menus/nazsov.asp` lists *Nazi-Soviet Relations 1939–1941* as `20th_century/nsNNN.asp`,
+  ns001 to ns116 — Ribbentrop pressing Moscow for a date on 15 September (ns072) and Schulenburg
+  reporting Stalin's two-in-the-morning announcement of the crossing (ns074) are the Soviet invasion
+  card in two documents. The 28 September treaty and its papers are NOT numbered: `gsbound.asp`,
+  `sesupp.asp`, `sesupp1.asp`, `conproto.asp` and `dec939.asp`. `subject_menus/gbmenu.asp`,
+  `gpmenu.asp` and `frmenu.asp` hold the British, German and French statements of 1–3 September as
+  `wwii/gb1-3`, `gp1-4`, `fr1-3`; `hague03.asp` is the 1907 convention on opening hostilities, which
+  is what makes *declaration of war* a glossary term rather than a phrase.
+· **The Blue Set by date gave the Gleiwitz card its two witnesses.** The Naujocks affidavit
+  (2751-PS) is read into the record at `imt/12-20-45.asp` and Lahousen's testimony about Undertaking
+  Himmler is at `imt/11-30-45.asp`; `imt/judpolan.asp` carries Hitler's 22 August promise of a
+  propagandist cause. Its neighbours `judnazi`, `judaus`, `judseize`, `juddenma`, `judsov` and
+  `judwarcr` are the same judgment section by section and will serve the decks after this one.
+· **THE ARCHIVE.ORG COPY OF DA PAM 20-255 THAT `ww2-140` CITES IS TRUNCATED.** `PAM20-255` stops on
+  the eve of operations, about page 79, so the whole campaign narrative — the Bzura, the Warsaw
+  chapters, the Soviet intervention, the fourth partition — is simply not in it, and `PAM20-255-nsia`
+  500s on its `_djvu.txt`. The full text is
+  `kennedy-robert-m-the-german-campaign-in-poland-1939-1956`, whose file name carries a comma that
+  must be percent-encoded. **Grep for a chapter heading before citing a page from a scan.**
+· **FRUS 1939 volume I is a day-by-day narrative of the outbreak** and is where the cards get what no
+  document states: d403 (the Danzig consul told a state of war had existed since 4:45), d420 and d421
+  (London moving before the agreed hour, and the French note naming five o'clock), d434 (Chamberlain
+  refusing to bomb Germany and thinking Poland lost in any case), d436 (Beck and Śmigły-Rydz on 14
+  September, the Allies "staging more of a demonstration than a serious attack"), d437, d440 and d450
+  (the Soviet crossing, the Polish protest, and the Foreign Office concluding that the guarantee did
+  not cover it).
+· **THE NAME OF A PERIOD CAN BE THE HARDEST THING TO CITE.** Nothing openable defines the Phoney War;
+  what exists is an open, CC-BY article whose title uses the term for exactly the months in question
+  (du Reau in the *MGIMO Review of International Relations*, 2009). **Where the term itself is the
+  claim, look for a work that uses it in its title.**
+· Two hosts to save the next session: `hansard.parliament.uk` is **403** while
+  `api.parliament.uk/historic-hansard/...` is open and has a sitting index per day
+  (`/sittings/1939/sep/03`); and *Security and Defence Quarterly* is open but its 2013 PDFs are
+  **image-only scans with no text layer**, so Corum on the Luftwaffe in Poland cannot be read here
+  however openable it is.
+
 **A picture cannot always be found, and three of these ten ship without one** — `ww2-133` (no free
 photograph of the Chicago speech above 900px; the one Commons has is 275×177), `ww2-135` (nothing that
 depicts British rearmament rather than a wartime factory) and `ww2-140` (a memorandum of a secret
@@ -604,16 +645,16 @@ definitions, which exist precisely because the wording matters.
 
 ### Poland and the outbreak — `ww2-poland`
 
-    ww2-141  Invasion of Poland
+    ww2-141  Invasion of Poland  → written as *Fall Weiss*
     ww2-142  Gleiwitz incident
-    ww2-143  The Polish army in 1939
-    ww2-144  The September campaign
+    ww2-143  The Polish army in 1939  → written as *cordon defence*
+    ww2-144  The September campaign  → written as *Battle of the Bzura*
     ww2-145  Siege of Warsaw
     ww2-146  The Soviet invasion of Poland
-    ww2-147  The fourth partition of Poland
-    ww2-148  The Anglo-French declarations of war
+    ww2-147  The fourth partition of Poland  → written as *German-Soviet Frontier Treaty*
+    ww2-148  The Anglo-French declarations of war  → written as *declaration of war*
     ww2-149  Phoney War
-    ww2-150  The beginning of the German occupation of Poland
+    ww2-150  The beginning of the German occupation of Poland  → written as *Reichsgau*
     ww2-151  General Government
     ww2-152  Nazi policy towards Poles
     ww2-153  Intelligenzaktion
