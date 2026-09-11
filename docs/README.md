@@ -41,6 +41,7 @@ before changing the thing it names.
 | `reader-settings.md` | Themes, text size, motion, contrast, units, spelling, i18n, sound, the dormant TTS. |
 | `chrome-navigation.md` | Repaints, page transitions, the phone swipe, the walkthrough and coach marks. |
 | `home-page.md` | The home page's running order, the daily quote, the review banner. |
+| `collections-page.md` | The Collections page — the tab bar, the declared sections, the Planned fold, the shelf rows and their size figures. |
 | `whiteboard.md` | The floating marker — the fling, the snap home, the pass-through, the stylus split. |
 | `reliquary.md` | Artefact chests, collectible themes, the showcase, the collector's badges. |
 | `card-difficulty.md` | The 1–5 rating, the community rating, and `undatable`. |
