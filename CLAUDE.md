@@ -2222,106 +2222,71 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   deck/subdeck/sub-subdeck — don't reintroduce the old names.)
 - **Cards** can belong to several decks at once (cross-listed by era/date) with shared progress,
   and are ordered chronologically.
-- **XP / levels** (`levelFromXP` / `xpBarMarkup` / `levelBadgeMarkup` in app.js): **XP = the number of distinct cards
-  studied** (derived from `S.cards`; no separate persistence). Each level costs **`XP_PER_LEVEL × level`** more cards,
-  and **`XP_PER_LEVEL` is 5** (bar starts at 0/5, then 0/10, 0/15, …). It was 3 until Aug 2026 and was raised on
-  request, because the daily allowance defaults to FIVE new cards: at a step of three a level turned over in the
-  middle of an ordinary day's work, which made the badge mean nothing. **Keep the step and the default allowance in
-  step** — the number is a constant precisely so the two can be read against each other, and the two had come
-  APART: this paragraph said the allowance was five from the day the step was raised and
-  `defaultState().settings.newPerDay` said 3 until Aug 2026, when it was set to 5 on request. Nothing migrates
-  there either — the key has been in that object since the beginning, so every existing save carries its reader's
-  own figure and only a first-time visitor meets the new one. Nothing migrates for the level: XP is
-  derived from `S.cards` on every read, so an existing reader's level simply recomputes on the new curve (roughly
-  ×0.77 of the old level number at the same card count). Guarded by `test-card-types.js`, which slices `levelFromXP`
+- **XP / levels** (`levelFromXP` / `xpBarMarkup` in app.js): **XP = the number of distinct cards
+  studied** (derived from `S.cards`; no separate persistence). Each level costs **`XP_PER_LEVEL × level`**
+  more cards, and **`XP_PER_LEVEL` is 5** (bar starts at 0/5, then 0/10, 0/15, …). **Keep the step and the
+  default allowance in step** — the number is a constant precisely so the two can be read against each
+  other, and the two had come APART once. **Nothing migrates** for either: XP is derived from `S.cards` on
+  every read, so an existing reader's level recomputes on the new curve, and `newPerDay` has been in
+  `defaultState().settings` since the beginning, so every existing save carries its reader's own figure and
+  only a first-time visitor meets the new one. Guarded by `test-card-types.js`, which slices `levelFromXP`
   out of app.js and walks every threshold through level 13.
-  **THERE IS EXACTLY ONE LEVEL NOW, AND IT IS FOLIO'S** (`folioXP` = `Object.keys(S.cards).length`), shown on the
-  **home Daily-study banner**. Collections had their own (distinct cards studied within them) and it was removed on
-  request in Aug 2026, along with the per-script numerals that counted it — `COLLECTION_NUMERALS`, `numeralIn` and
-  the five numeral functions (`cnNumeral` / `romanNumeral` / `greekNumeral` / `devanagariNumeral` / `cyrillicNumeral`)
-  are **deleted**, as are their `.level-badge.zh` / `.num-*` rules. A collection banner carries a **subject icon**
-  and a **studied/total bar** instead — see the collection-icon bullet under "How the app is wired". *(The
-  `COLLECTION_NUMERALS` paragraphs in `docs/*-card-plan.md` are historical from that date: read them as a record of
-  what each collection would have counted in, not as something to wire up.)*
-  **What a level buys is an ARTEFACT CHEST** — see THE RELIQUARY. It used to cap how many decks the daily review
-  would hold, which is the opposite of a reward, and that cap is gone.
-  **`levelBadgeMarkup` AND `.level-badge` / `.lb-num` / `.lb-lbl` ARE GONE**, and that is a second removal
-  finishing a first: the home banner gave its own big numeral up earlier in Aug 2026 on request (see the
-  `pileBadgeMarkup` note in `PAGES.home`), which left the badge rendering only on collection banners — so when
-  those lost their levels, nothing was calling it at all. The level is still spelled out **in words** by the
-  banner's xp bar, which **runs in gold** (`.banner .xp-fill` + `.xp-lvl`): the Library's bars take each
-  collection's hue and the account's are indigo, so one indigo bar read as another. Its "Level N" label is a
-  DEEPER gold than the fill — `#C39A2E` on the card is only 3.6:1, too thin for 10px text. The earned
-  `.done`/`.won` fills override both with their own on-fill colour, since gold on gold reads as nothing.
-  **The Daily-review list got one back** in July 2026, on request: each added row carries an `X/X studied` bar
-  (`adProg` in `PAGES.home` → `.prog.dk-prog`, animated by the existing `animateProgs`) where a blue `.dk-dot` used to
-  sit. (The bin at the right of each row went in Aug 2026 — Remove moved into the row's long-press options sheet;
-  see `docs/daily-study.md`.) The dot and the ancestor rows' hollow `.dk-branch` went together — the branch existed only to line the two up,
-  and alone it would have pushed every parent title 21px right of the deck beneath it; the `data-depth` indent carries
-  the hierarchy. The bar's label also replaced the `.dk-count` "N cards" chip, which stated the same total twice.
-  **THE BAR UNDERLINES THE ROW AT EVERY WIDTH** (Aug 2026, on request), where it was a bottom edge on a
-  phone and an inline track between the name and the figure above 640px — two rules answering one
-  question. The phone's answer is the better one and its reason holds everywhere: an underline costs the
-  line no width, where an inline track's length is paid for out of the deck's NAME, the one part of the
-  row with no shorter form. The media query is gone and the base rule is the phone's; the row is still
-  `position:relative; overflow:hidden`, which is what clips the track to the last row's rounded corners.
-  **AND THE FOLD SURVIVES A RELOAD** (`adFoldMap` / `adFoldSet`, `localStorage["folio_ad_open_v1"]`, same
-  request): only an EXPLICIT choice is stored, so a row nobody has touched still takes its seeded default,
-  exactly as a card type's disclosure works.
-  **A FINISHED COLLECTION GOES GOLD** — `deckProgMarkup` and `adProg` both write `prog-done` on the BAR
-  when studied ≥ total > 0, and the stylesheet takes the NAME from there with `:has()`, so the two halves
-  cannot come apart and every surface drawing one of those bars is covered without a rule apiece.
-  **The row is ONE horizontal line** (Aug 2026, on request): piles · name · figure · bin, all centred on the same
-  level, with the row's vertical padding down to 10px. It was two lines — the title on top and the bar indented
-  under it — which left a band of empty card either side of a short deck name. Two things had to give for five
-  things to share a 390px screen. **Below 640px the bar leaves the line and becomes the row's own bottom edge**
-  (`.dk-prog .track` absolutely positioned along it; the row is `position:relative; overflow:hidden` so the last
-  row's rounded corners clip it), an underline costing no width at all — measured, the label alone is ~88px and
-  the name needs ~100, so an inline track of any useful length can only be paid for by cutting the deck's name.
-  **Above the breakpoint it stays in the line**, stretched between the name and the figure, which is what fills
-  the middle of a wide row; the phone block must therefore sit BELOW those rules, a media query adding no
-  specificity. And the label was shortened to **`X/X studied`** (its `I18N_RULES` pattern moved with it in all nine
-  languages, the old one retired). The `data-depth` indent went with them, from `22 + depth*21` to
-  `16 + depth*16`. The name is the only thing that ellipsises, since it is the only part of the row with a
+  **THERE IS EXACTLY ONE LEVEL NOW, AND IT IS FOLIO'S** (`folioXP` = `Object.keys(S.cards).length`), shown
+  on the **home Daily-study banner**. Collections had their own and it was removed on request, along with
+  the per-script numerals that counted it — `COLLECTION_NUMERALS`, `numeralIn` and the five numeral
+  functions (`cnNumeral` / `romanNumeral` / `greekNumeral` / `devanagariNumeral` / `cyrillicNumeral`) are
+  **deleted**, as are their `.level-badge.zh` / `.num-*` rules, and so are `levelBadgeMarkup` and
+  `.level-badge` / `.lb-num` / `.lb-lbl`. A collection banner carries a **subject icon** and a
+  **studied/total bar** instead. *(The `COLLECTION_NUMERALS` paragraphs in `docs/*-card-plan.md` are
+  historical: read them as a record of what each collection would have counted in, not as something to wire
+  up.)* **What a level buys is an ARTEFACT CHEST** — see THE RELIQUARY. It used to cap how many decks the
+  daily review would hold, which is the opposite of a reward, and that cap is gone.
+  The level is spelled out **in words** by the banner's xp bar, which **runs in gold** (`.banner .xp-fill`
+  + `.xp-lvl`), the Library's bars taking each collection's hue and the account's being indigo. Its
+  "Level N" label is a DEEPER gold than the fill — `#C39A2E` on the card is only 3.6:1, too thin for 10px
+  text — and the earned `.done`/`.won` fills override both with their own on-fill colour.
+  **Each added deck row carries an `X/X studied` bar** (`adProg` in `PAGES.home` → `.prog.dk-prog`,
+  animated by `animateProgs`). **THE BAR UNDERLINES THE ROW AT EVERY WIDTH**: an underline costs the line
+  no width, where an inline track's length is paid for out of the deck's NAME, the one part of the row with
+  no shorter form. The row is `position:relative; overflow:hidden`, which is what clips the track to the
+  last row's rounded corners. **AND THE FOLD SURVIVES A RELOAD** (`adFoldMap` / `adFoldSet`,
+  `localStorage["folio_ad_open_v1"]`): only an EXPLICIT choice is stored, so a row nobody has touched still
+  takes its seeded default. **A FINISHED COLLECTION GOES GOLD** — `deckProgMarkup` and `adProg` both write
+  `prog-done` on the BAR, and the stylesheet takes the NAME from there with `:has()`, so the two halves
+  cannot come apart and every surface drawing one of those bars is covered without a rule apiece. **The row
+  is ONE horizontal line**, and the name is the only thing that ellipsises, being the only part with a
   shorter form.
-  **NEVER NAME A CLASS `ad-…`, AND THIS WHOLE ROW WAS RENAMED `ad-` → `dk-` BECAUSE OF IT** (Aug 2026, on a
-  bug report: "on desktop, the active decks don't display their names"). The row's parts were named for the
-  ACTIVE DECK they belong to — and `.ad-body` and `.ad-title` are also real advertisement class names, so
-  **EasyList and its relatives carry generic cosmetic filters for them**: on any reader with an ad blocker
-  the deck's NAME and the bar beside it were `display:none`, leaving a row of bare numbers with the chevron
-  slid left against them. An ad blocker injects those rules as an **origin-level user stylesheet**, so no
-  specificity, no `!important` and no inline style can outrank one — renaming is the only fix. Three things
-  are worth carrying. **It is the quietest failure shape this file records**: the markup was perfect (the
-  name is right there in `innerHTML`), nothing threw, every other page was untouched — the Collections page
-  renders the same titles through `nodeTitle` and uses no `ad-` names — and it could not be reproduced at
-  any width, font size, theme or state, because **Playwright runs no extensions**. It was settled only by
-  reading `getComputedStyle` off the reader's own machine. **The blocker took `.ad-body` and `.ad-title` and
-  left `.ad-counts`, `.ad-grip` and `.ad-chev` alone**, which is why the whole prefix went rather than the
-  two that were caught: being in the lists is a matter of which names real ad markup happens to use, and the
-  next list update is not something to find out about from a bug report. `ads-`, `advert…`, `sponsor…`,
-  `promo…` and `banner-ad` are the same trap. **It has fired since**: the Aug 2026 pending-deck row was written
-  `.ad-pending`, for the ACTIVE DECK it belongs to, and is `.dk-pending`. **The guard is a STATIC check** — `adBaitCheck()` at the top of
-  `.claude/test-layout.js` scans the stylesheet's selectors and every `class="…"` in `app.js`/`index.html`
-  and fails the build on one — because a browser test cannot see this at all; and the row's own assertion
-  now measures that the name is **drawn** (text, width, and a `.dk-body` that has not collapsed), the old
-  "not cut off" test having passed on a hidden title, whose `scrollWidth` and `clientWidth` are both 0.
-  Each collection's PROGRESS is also listed on the **profile** (`renderCollectionLevels` in
-  `acctSelfView` — the name is historical; the section is headed "Collection progress" and shows an icon and a
-  studied/total bar). `grade()` calls `announceLevelUps()` on a freshly-studied card, which grants a chest and
-  **opens the chest overlay** — that overlay IS the level-up celebration now, so `congratsPopup` is no longer
-  raised behind it (two overlays for one event). `congratsPopup(items)` (a `.levelup-pop` overlay modelled on
-  `inlineModal`) survives for anything else that wants it and is **dismissed by clicking anywhere on screen**
-  (or Esc/Enter) — the click-to-close listener is wired a tick later (`setTimeout 0`) so the click that spawned
-  it doesn't instantly dismiss it.
-  **`render()` closes it too** (`closeCongrats`, beside `closeImageViewer`, Aug 2026). Dismiss-on-any-click made
-  it look as though it could not outlive its page — clicking a nav tab takes it away — but a back/forward, a
-  deep link and any programmatic hash change move the route without a click, and it then sat over whatever
-  rendered next. It lives on `document.body`, so like every other overlay there it is `render()`'s to clear.
-  Clicking a **deck row in the home Daily-review list** starts a study session scoped to just that deck
-  (`data-review` → `route("study",{scope:{type:"deck",id}})`). On the **Library page, clicking a collection's body studies its
-  whole subtree** (`wireExpander`'s optional `rowClick` → `route("study",{scope:{type:"deck",id}})`, since a collection is in
-  `NODE_BY_ID` and `subtreeCardIds` covers it); its **chevron still expands/collapses** the decks within (the chevron's
-  `stopPropagation` keeps it from also studying). A coming-soon / empty collection falls back to toggling.
+  **NEVER NAME A CLASS `ad-…`, AND THIS WHOLE ROW WAS RENAMED `ad-` → `dk-` BECAUSE OF IT.** `.ad-body`
+  and `.ad-title` are also real advertisement class names, so **EasyList and its relatives carry generic
+  cosmetic filters for them**: on any reader with an ad blocker the deck's NAME and the bar beside it were
+  `display:none`. An ad blocker injects those rules as an **origin-level user stylesheet**, so no
+  specificity, no `!important` and no inline style can outrank one — **renaming is the only fix**. **It is
+  the quietest failure shape this file records**: the markup was perfect, nothing threw, and it could not
+  be reproduced at any width, font size, theme or state, because **Playwright runs no extensions**. **The
+  blocker took two of the five names and left three**, which is why the whole prefix went: being in the
+  lists is a matter of which names real ad markup happens to use. `ads-`, `advert…`, `sponsor…`, `promo…`
+  and `banner-ad` are the same trap, and **it has fired since**. **The guard is a STATIC check** —
+  `adBaitCheck()` in `.claude/test-layout.js` scans the stylesheet's selectors and every `class="…"` in
+  `app.js`/`index.html` — because a browser test cannot see this at all; and the row's own assertion
+  measures that the name is **drawn**, the old "not cut off" test having passed on a hidden title, whose
+  `scrollWidth` and `clientWidth` are both 0.
+  Each collection's PROGRESS is also listed on the **profile** (`renderCollectionLevels` in `acctSelfView`
+  — the name is historical; the section is headed "Collection progress"). `grade()` calls
+  `announceLevelUps()` on a freshly-studied card, which grants a chest and **opens the chest overlay** —
+  that overlay IS the level-up celebration, so `congratsPopup` is not raised behind it. `congratsPopup(items)`
+  survives for anything else and is **dismissed by clicking anywhere on screen** (or Esc/Enter), its
+  click-to-close listener wired a tick later (`setTimeout 0`) so the click that spawned it does not instantly
+  dismiss it. **`render()` closes it too** (`closeCongrats`): a back/forward, a deep link and any
+  programmatic hash change move the route without a click, and it lives on `document.body`, so like every
+  other overlay there it is `render()`'s to clear.
+  Clicking a **deck row in the home Daily-review list** studies just that deck (`data-review` →
+  `route("study",{scope:{type:"deck",id}})`); on the **Collections page, clicking a collection's body
+  studies its whole subtree** (`wireExpander`'s optional `rowClick`), its **chevron still
+  expands/collapses** (the chevron's `stopPropagation` keeps it from also studying), and a coming-soon or
+  empty collection falls back to toggling.
+  **📖 `docs/daily-study.md` also carries this bullet's account, moved out of here** — the level curve's
+  history, the deck row's two-line past and the measurements behind its one line, and the ad-blocker fault
+  in full.
 - **THE RELIQUARY — artefact chests** (the `THE RELIQUARY` block in app.js, just below the levels block;
   `artefacts.js`; Aug 2026, on request). A level buys a **chest**, and a chest holds one real historical
   object — the first thing a Folio level has ever GIVEN the reader rather than taken away.
