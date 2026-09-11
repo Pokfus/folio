@@ -157,9 +157,13 @@ function load(rel) {
   const files = fs.readdirSync(path.join(ROOT, ".claude")).filter((f) => /^test-.*\.js$/.test(f));
   const noBrowser = files.filter((f) => !/playwright/.test(fs.readFileSync(path.join(ROOT, ".claude", f), "utf8")));
   const suites = files.filter((f) => f !== "test-noise.js");
-  claim("committed regression suites", /\*\*Forty-seven committed regression tests\*\*/.test(MD) ? 47 : null, suites.length,
+  /* THE TOTAL IS READ OUT OF THE FILE AS A NUMERAL, not matched against a spelled word. It was written
+     as `/Forty-seven committed regression tests/` and went INERT the day the file said "Forty-nine" —
+     a claim that stops matching stops being checked, and reads from here exactly like one that passes. */
+  const totalM = /\*\*(\d+) committed regression tests\*\*/.exec(MD);
+  claim("committed regression suites", totalM ? Number(totalM[1]) : null, suites.length,
     "test-*.js, excluding the shared console filter");
-  claim("suites needing no browser", 7, noBrowser.filter((f) => f !== "test-noise.js").length, "named individually in the Testing section");
+  claim("suites needing no browser", 9, noBrowser.filter((f) => f !== "test-noise.js").length, "named individually in the Testing section");
 
   const pinned = Object.create(null);
   const rx = /`node \.claude\/(test-[a-z0-9-]+)\.js`(.{0,220}?)(\d[\d,]*)\s+assertions/gs;

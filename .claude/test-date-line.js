@@ -35,7 +35,15 @@ const src = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
 const a = src.indexOf("const DEEP_MAG = {");
 const b = src.indexOf("// start year of a card's answer term");
 if (a < 0 || b < 0) { console.error("could not find cardYears in app.js"); process.exit(1); }
-const { cardYears } = new Function(src.slice(a, b) + "\nreturn { cardYears };")();
+/* `cardSpanYears` comes with it for section 4: it is declared BELOW the marker above, so the slice runs
+   to the end of its body rather than stopping at `b`. It is sliced rather than reimplemented for this
+   file's whole reason — a second copy of the rule cannot fail when app.js's changes. */
+const sp = src.indexOf("function cardSpanYears(");
+if (sp < 0) { console.error("could not find cardSpanYears in app.js"); process.exit(1); }
+let d = 0, spEnd = src.indexOf("{", sp);
+for (let k = spEnd; k < src.length; k++) { if (src[k] === "{") d++; else if (src[k] === "}") { d--; if (!d) { spEnd = k + 1; break; } } }
+const { cardYears, cardSpanYears } = new Function(
+  src.slice(a, b) + "\n" + src.slice(sp, spEnd) + "\nreturn { cardYears, cardSpanYears };")();
 
 global.window = {};
 require(path.join(ROOT, "data.js"));
@@ -98,6 +106,36 @@ eq("c. 4.2 – 2 Mya", [-4200000, -2000000]);
 eq("c. 2.6 Mya – 9700 BCE", [-2600000, -9700]);
 eq("c. 12,000 – 1700 BCE", [-12000, -1700]);
 ok(Math.min(...Y("Lived c. 4.2 – 2 Mya")) === -4200000, "a range sorts from its OPENING date", "4.2 Mya, not 2");
+
+/* ---- 4. a polity's area is drawn for as long as the polity stood ----------------------------------
+   Sep 2026, after the Etruscan civilisation turned out to be on the personal atlas for exactly one year.
+   That globe draws a `culture`, `people`, `state`, `dynasty` or `empire` card's authored `area` in the
+   years its card's own date line names — and unlike a DOT, which is drawn from its earliest date and
+   never taken away, BOTH ENDS of that span bind: the Liangzhu culture ends where Yinxu does not. So a
+   date line yielding a single year draws the shape in that one year and in no other, which is a shape
+   nobody will ever see.
+   IT LOOKS LIKE NOTHING AT ALL FROM EVERY OTHER ANGLE. The card is correct, its window is correct, its
+   sort year is correct, `isDateList` passes, and the only symptom is an area that never appears on a
+   globe most readers reach by accident. All three that had it were Rome cards whose only readable year
+   was a single one, the rest of the line being written in CENTURIES, which `cardYears` deliberately
+   cannot read (teaching it to would move the sort year of 52 shipped cards). The fix is the one this
+   file's own rule 2 prescribes: write the span the century MEANS. */
+console.log("\n-- a polity's area lasts as long as it did --");
+const POLITY = new Set(["culture", "people", "state", "dynasty", "empire", "civilisation"]);
+const areaCards = CARDS.filter((c) => c.locator && c.locator.area && POLITY.has((c.tags || [])[0]));
+const oneYear = areaCards.filter((c) => {
+  const y = cardSpanYears(c);
+  return y && y.length && Math.min(...y) === Math.max(...y);
+});
+ok(!oneYear.length, "no polity's area is drawn in a single year only",
+  oneYear.length ? oneYear.map((c) => c.id + " (" + Math.min(...cardSpanYears(c)) + ")").join(", ")
+    : areaCards.length + " cards carry a polity area");
+// …and the set is read off app.js rather than restated, so a kind added there is covered here
+const declared = /const MINE_POLITY = new Set\(\[([^\]]*)\]\)/.exec(src);
+ok(!!declared && declared[1].split(",").map((t) => t.trim().replace(/^["']|["']$/g, "")).filter(Boolean)
+  .every((k) => POLITY.has(k)),
+  "…and this file knows every kind the personal atlas treats as a polity",
+  declared ? declared[1].replace(/\s+/g, " ").trim() : "MINE_POLITY not found");
 
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);

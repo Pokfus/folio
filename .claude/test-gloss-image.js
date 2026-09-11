@@ -221,7 +221,12 @@ async function openGlossEditor(page, base, key) {
   check("the viewer shows the image description", cap.d === "Something depicted.", cap.d);
   check("a URL source becomes a link", cap.c === "https://example.org/plate", cap.c);
 
-  await page.locator(".iv-stage").hover();
+  /* HOVER THE PICTURE, NOT THE STAGE. The caption moved INSIDE `.iv-stage` in Sep 2026 so it sits
+     directly under the image at any shape — which means the stage's own centre, where Playwright's
+     `hover()` aims, can now land on `.iv-meta`, where a wheel deliberately SCROLLS the description
+     rather than zooming the picture above it (see `inMeta`). The viewer was working; the fixture was
+     pointing at the one part of it that is supposed to ignore a wheel. */
+  await page.locator(".iv-img").hover();
   await page.mouse.wheel(0, -400);
   await page.waitForTimeout(300);
   const zoomed = await page.evaluate(() => document.querySelector(".iv-img").style.transform);

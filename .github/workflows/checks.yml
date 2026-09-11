@@ -64,6 +64,10 @@ jobs:
         run: node .claude/test-scheduler.js
       - name: test-streak-chest
         run: node .claude/test-streak-chest.js
+      - name: test-tense-notes
+        run: node .claude/test-tense-notes.js
+      - name: test-panels
+        run: node .claude/test-panels.js
       # test-learning is half no-browser: FOLIO_SKIP_BROWSER runs sections 1-5 here, in seconds,
       # and the browser job below picks the same file up again for the rest. The cheap half is
       # worth gating on -- it holds the relearning criterion's arithmetic, the answer matcher, and
@@ -92,11 +96,59 @@ jobs:
       - name: check-style
         run: node .claude/check-style.js
 
-      # Reported, never gating: sizes drift by the day and a number is not a failure.
-      # It is here so the eager path's real weight is in every run's log, which is the
-      # thing prose in CLAUDE.md could not manage to stay honest about.
-      - name: sizes (report only)
-        run: node .claude/check-sizes.js
+      # THE SIZE GOES IN THE JOB SUMMARY, NOT ONLY IN THE LOG (Sep 2026). It ran here with
+      # continue-on-error from the start, which is right -- a size is not a failure -- and
+      # NOBODY READS A GREEN JOB'S LOG. The eager path grew 2.6x past the largest figure
+      # written down anywhere without one person noticing, which is exactly what a threshold
+      # is for. So: the gzipped total is written to $GITHUB_STEP_SUMMARY, where it is on the
+      # run's own front page, and the step FAILS above EAGER_GZ_MAX_KB.
+      #
+      # The ceiling is deliberately generous rather than tight. It is not a budget to be held
+      # to the byte: it is a tripwire against the class of change that doubles the path in one
+      # commit -- a data file put on the eager list, a translation table re-added. Raise it
+      # DELIBERATELY, in the commit that spends it, and say in the message what was bought.
+      - name: eager path size
+        env:
+          EAGER_GZ_MAX_KB: "3200"
+        run: |
+          node .claude/check-sizes.js | tee /tmp/sizes.txt
+          gz=$(node .claude/check-sizes.js --json | node -e '
+            let s = ""; process.stdin.on("data", (d) => (s += d)).on("end", () => {
+              console.log(Math.round((JSON.parse(s).eagerGz || 0) / 1024));
+            });
+          ')
+          {
+            echo "### Eager load path"
+            echo ""
+            echo "**${gz} KB gzipped** (ceiling ${EAGER_GZ_MAX_KB} KB)"
+            echo ""
+            echo '```'
+            head -40 /tmp/sizes.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$gz" -gt "$EAGER_GZ_MAX_KB" ]; then
+            echo "::error::the eager path is ${gz} KB gzipped, past the ${EAGER_GZ_MAX_KB} KB ceiling"
+            exit 1
+          fi
+          echo "eager path ${gz} KB gzipped, within ${EAGER_GZ_MAX_KB} KB"
+
+      # THE CARD-LEVEL FINDINGS AS A TREND, NOT A GATE (Sep 2026). check-cards.js reports a
+      # large standing backlog -- one card in seven rests three or more citations on a single
+      # author, and the substitutes for the worst of it are not reachable from this sandbox --
+      # so gating on it would block every commit, and that is why it has always been a tool run
+      # by hand. But a backlog is a number that can only be read as a DIRECTION, and read once
+      # a month it tells you nothing about the day it moved. Written into the summary on every
+      # push, a regression is visible the day it lands.
+      - name: card findings (report only)
+        run: |
+          node .claude/check-cards.js --report | tee /tmp/cards.txt || true
+          {
+            echo "### Card findings"
+            echo ""
+            echo '```'
+            tail -25 /tmp/cards.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
         continue-on-error: true
 
   browser:

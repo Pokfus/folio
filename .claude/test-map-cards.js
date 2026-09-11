@@ -155,7 +155,16 @@ function staticChecks() {
       const P = L.points[c.map.dot];
       ok(!!P, c.id + ": its dot is a capital the layer actually has", c.map.dot);
       ok(P && mkeys.indexOf(P.s) >= 0, c.id + ": …in the " + L.what + " the card shades", P && P.s);
-      ok((c.answerText || "").trim() === c.map.dot, c.id + ": …and the answer is that city", c.answerText);
+      /* THE DOT'S LABEL MAY CARRY A DISAMBIGUATOR THE ANSWER DOES NOT, and three cards on the shelf are
+         exactly that: a city-state whose capital shares the country's name. Natural Earth files them as
+         "Djibouti City", "Luxembourg City" and "City of San Marino" — the label a MAP needs, so that the
+         dot and the country are told apart — where the card asks for the city's own name. So the test is
+         equality OR the dot being the answer with the word "City" added at one end, which admits those
+         three and cannot admit a card pointing at a different city: no two capitals in the table differ
+         only by that word. */
+      const dotBare = String(c.map.dot).replace(/^City of /, "").replace(/ City$/, "");
+      ok((c.answerText || "").trim() === c.map.dot || (c.answerText || "").trim() === dotBare,
+        c.id + ": …and the answer is that city", c.answerText + " / " + c.map.dot);
     }
   });
   const dotted = maps.filter((c) => c.map.dot);

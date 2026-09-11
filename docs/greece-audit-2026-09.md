@@ -113,9 +113,30 @@ citation means finding another openable work that carries the same claim, and ev
 | archive.org (Hall 1915, Tsountas 1897) | reachable and greppable, but their OCR carries too few page numbers to cite honestly — and a 1915 survey is a century out of date against a maintained specialist teaching site |
 
 The last row is the reason not to force it. Rutter's is a current scholarly resource; swapping it for
-Edwardian handbooks would satisfy the rule and make the cards worse. **The fix is real and still owed,
-but it needs an environment that can reach modern open-access Aegean scholarship** — then roughly 60
-surplus citations across the 39 cards, each verified against the claim its marker carries.
+Edwardian handbooks would satisfy the rule and make the cards worse.
+
+**RE-MEASURED 2026-09-10, AND THE TABLE ABOVE WAS TOO PESSIMISTIC — THREE ROUTES DO OPEN.** The
+first sweep tested seven hosts and stopped; four more answer from here:
+
+| route | result |
+|---|---|
+| Europe PMC | **open** — 291 open-access hits for Minoan/Cycladic/Aegean Bronze Age, including Knappett 2025, Carter & Kilikoglou 2022 on Melian obsidian, the Thera radiocarbon literature and Clemente et al. 2021 on the Aegean palatial genomes |
+| DOAJ | **open, and far richer than the one query tried first reported** — 44 articles for *minoan crete*, 33 for *cycladic*, 17 for the phrase *Aegean Bronze Age*, across *Open Archaeology*, *Documenta Praehistorica*, *Pallas*, *Cahiers Mondes Anciens* and *Heritage*. Each hit's own host must then be tested: De Gruyter and MDPI are shut from here, `journals.openedition.org` and `journals.uni-lj.si` are not |
+| Persée (`persee.fr`) | **open, search included** — `/search?ta=article&q=…` returns real article ids over plain HTTP (a nonsense query returns none, which is how it was proved to be a search rather than a suggestions page), and `/doc/<id>` serves the full article. This is BCH, CRAI and Ktèma — the French School at Athens' own record of Malia, Knossos and Phaistos |
+| `chs.harvard.edu` | **open** — the Center for Hellenic Studies' full-text book series, Mycenaean texts among them |
+
+**What that changes, and what it does not.** The open literature these four reach is the archaeological
+SCIENCE — dating, provenance, isotopes, genomes — and the French excavation record. The Rutter
+citations carry something else: the pottery sequences, the palace phasing and the period narrative a
+teaching site exists to give. So a substitute has to be found **claim by claim**, and for several of
+them there is still nothing openable: `gr-001`'s "the Cyclades held towns of two-storeyed houses by
+about 2650 BCE, and the long ships drawn on clay pans needed crews of up to fifty" was searched for
+across all four routes and found in none of them.
+
+**The fix is real and still owed** — roughly 60 surplus citations across the 39 cards, each verified
+against the claim its marker carries — and it is now a CONTENT PASS rather than a blocked one: a
+card at a time, through Persée and DOAJ, keeping Rutter for the claims nothing else states rather
+than swapping in a work that does not carry them.
 
 ### 2. Seventy-six cards rest mostly on one ancient witness
 
