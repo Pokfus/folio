@@ -3489,7 +3489,17 @@ window.GLOSSARY = {
 "Lamian_War": "The Lamian War was a rising of Athens and much of central Greece against Macedonian control, fought in the year after the death of Alexander the Great.<sup class=\"fn\" data-fn=\"1\"></sup> Athens paid for it with treasure brought west by Alexander’s runaway treasurer and with mercenaries the satraps had dismissed, and was joined by the Aetolians, most of Thessaly, the Locrians, the Phocians and several Peloponnesian states.<sup class=\"fn\" data-fn=\"1\"></sup> It takes its name from Lamia, the Thessalian town in which the Macedonian commander was blockaded through a winter; the allies were beaten in the field the following summer, and the Athenian democracy did not survive the peace.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Partition_of_Babylon": "The Partition of Babylon is the settlement that Alexander the Great’s officers reached in 323 BCE, in the days after his death, over who should rule and where.<sup class=\"fn\" data-fn=\"1\"></sup> It made his half-brother Arrhidaeus king under the name Philip, gave the regency to Perdiccas, and left an infantry claim and a cavalry claim uneasily reconciled after the two arms of the army had faced each other under weapons.<sup class=\"fn\" data-fn=\"1\"></sup> The provinces were dealt out at the same time, Egypt going to Ptolemy, Thrace to Lysimachus, Macedonia to Antipater and Cappadocia to Eumenes, so that each senior officer held a country with its own army and revenues.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Perdiccas_(regent)": "Perdiccas was a Macedonian nobleman who commanded the Companion cavalry under Alexander the Great and became regent of his empire after the king’s death in 323 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He held the royal army and the royal seal, dealt the provinces out among the other officers, and then reached for a throne of his own by breaking his engagement to Antipater’s daughter in order to court Alexander’s sister Cleopatra.<sup class=\"fn\" data-fn=\"3\"></sup> The other commanders combined against him; his invasion of Egypt failed at a Nile crossing that drowned more than two thousand men, and his own officers stabbed him to death in his tent.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Triparadisus": "Triparadisus was a place in upper Syria, no longer identified, where the Macedonian royal army halted and the empire of Alexander the Great was divided for a second time.<sup class=\"fn\" data-fn=\"1\"></sup> The settlement made there confirmed Ptolemy in Egypt, gave Babylon to Seleucus, made Antigonus general of the royal army with orders to destroy Eumenes, and elected Antipater guardian of the kings.<sup class=\"fn\" data-fn=\"1\"></sup> Its date is disputed, and the choice between 321 and 320 BCE fixes the chronology of the surrounding years, which is why the argument is conducted with Babylonian documents as well as with Greek narrative.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Triparadisus": "Triparadisus was a place in upper Syria, no longer identified, where the Macedonian royal army halted and the empire of Alexander the Great was divided for a second time.<sup class=\"fn\" data-fn=\"1\"></sup> The settlement made there confirmed Ptolemy in Egypt, gave Babylon to Seleucus, made Antigonus general of the royal army with orders to destroy Eumenes, and elected Antipater guardian of the kings.<sup class=\"fn\" data-fn=\"1\"></sup> Its date is disputed, and the choice between 321 and 320 BCE fixes the chronology of the surrounding years, which is why the argument is conducted with Babylonian documents as well as with Greek narrative.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Antigonid_dynasty": "The Antigonid dynasty was the house descended from Antigonus Monophthalmus that ruled Macedonia from 294 to 168 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Antigonus himself never held the homeland: his son Demetrius Poliorcetes was proclaimed king there in 294 BCE and expelled seven years later, and the throne was made secure only when Demetrius’ son Antigonus II Gonatas destroyed a Galatian force in 277 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Theirs was the poorest of the three great successor kingdoms, and it held Greece down through garrisons at Corinth, Chalcis and Demetrias until Rome defeated Perseus at Pydna and abolished the monarchy.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Antigonus_I_Monophthalmus": "Antigonus I Monophthalmus, the One-Eyed, was a Macedonian officer of Philip II and Alexander who was left as satrap of Phrygia in 333 BCE and made commander of the royal forces in Asia by the settlement at Triparadisus in 320 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> From that command he built a power stretching from the Aegean to Babylonia, and his evident intention of taking the whole of Alexander’s empire drove Ptolemy, Seleucus, Cassander and Lysimachus into alliance against him.<sup class=\"fn\" data-fn=\"2\"></sup> He assumed the royal title in 306 BCE after his son Demetrius destroyed Ptolemy’s fleet off Salamis in Cyprus, and was killed in battle at Ipsus in 301 BCE at about eighty.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Battle_of_Ipsus": "The battle of Ipsus, fought in Phrygia in 301 BCE, was the decisive engagement of the long wars fought between Alexander’s own successors.<sup class=\"fn\" data-fn=\"1\"></sup> Ptolemy, Seleucus, Lysimachus and Cassander combined against Antigonus Monophthalmus, who brought more than seventy thousand infantry and 75 elephants against an allied line that carried 400.<sup class=\"fn\" data-fn=\"1\"></sup> Demetrius broke the cavalry facing him but pursued too far and was shut out by the elephants; Seleucus rode round the unprotected phalanx until much of it changed sides, Antigonus fell under a shower of javelins, and the victors divided his realm.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Colossus_of_Rhodes": "The Colossus of Rhodes was a bronze statue of the sun god Helios raised at Rhodes after the city survived the siege of 305 to 304 BCE, and was counted in antiquity among the seven wonders.<sup class=\"fn\" data-fn=\"1\"></sup> Pliny gives it to Chares of Lindos, a pupil of Lysippus, at seventy cubits high, twelve years in the making and three hundred talents in cost, the money raised from siege engines the besiegers left behind.<sup class=\"fn\" data-fn=\"1\"></sup> Strabo saw it lying broken at the knees after an earthquake, and where it stood is unknown: the familiar image of a figure straddling the harbour has no ancient authority.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Demetrius_I_Poliorcetes": "Demetrius I Poliorcetes, the Besieger, was the son of Antigonus Monophthalmus and the most conspicuous of the second generation of Alexander’s successors.<sup class=\"fn\" data-fn=\"1\"></sup> He expelled Cassander’s garrison from Athens in 307 BCE, took the diadem with his father in 306 BCE after defeating Ptolemy at sea off Salamis in Cyprus, and besieged Rhodes for a year without taking it, which is where the surname was earned.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Ipsus in 301 BCE cost him his father and the Antigonid empire; he was proclaimed king in Macedonia in 294 BCE, driven out in 287 BCE, and died a prisoner of Seleucus.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Ptolemaic_Egypt": "Ptolemaic Egypt was the kingdom ruled from Alexandria by the descendants of Ptolemy I, from the end of the 4th century BCE until Rome annexed it in 30 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It was the wealthiest of the successor states: the Nile gave a dependable grain surplus, the court paid for the Museum and its library, and the kings governed in Greek while having themselves shown as pharaohs and financing temple building in the Egyptian manner.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its holdings abroad included Cyprus, Cyrene and the disputed province of Coele Syria, which was fought over with the Seleucids in a long series of Syrian Wars.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Ptolemy_I_Soter": "Ptolemy I Soter was a Macedonian nobleman and senior officer of Alexander who took Egypt as his satrapy in 323 BCE and founded the dynasty that governed it until 30 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He found eight thousand talents in the treasury and hired an army at once, destroyed Perdiccas’ invasion on the Nile, and diverted Alexander’s funeral carriage to Egypt, burying the king first at Memphis and later in Alexandria.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He took the royal title in 306 BCE, was surnamed Soter by the Rhodians for the help he sent during their siege, and wrote a history of Alexander that Arrian preferred above all others.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Seleucid_Empire": "The Seleucid Empire was the Asian successor state founded by Seleucus I, called simply Asia by its own government and the largest of the kingdoms left by Alexander’s conquests.<sup class=\"fn\" data-fn=\"1\"></sup> It was held together by colonial foundations rather than by any single people: Appian lists sixteen cities named Antioch, nine Seleucia and five Laodicea, and its two capitals, Antioch in Syria and Seleucia on the Tigris, were founded about 300 BCE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Distance undid it, with Parthia and Bactria lost during the 3rd century BCE, the west surrendered to Rome after Magnesia, and the remnant annexed by Pompey.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Seleucus_I_Nicator": "Seleucus I Nicator was an officer of Alexander who was given Babylonia to govern, fled from Antigonus in 315 BCE, and recovered the province in 311 BCE with a few hundred soldiers lent by Ptolemy.<sup class=\"fn\" data-fn=\"1\"></sup> He went on to take Media and the upper satrapies, campaigned as far as the Indus and came to terms with the Mauryan king Chandragupta, receiving the elephants that helped decide Ipsus in 301 BCE.<sup class=\"fn\" data-fn=\"2\"></sup> At its height his kingdom reached from the Aegean to the borders of India; he destroyed Lysimachus at Corupedium in 281 BCE and was murdered months afterwards by Ptolemy Keraunos.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Siege_of_Rhodes": "The siege of Rhodes of 305 to 304 BCE was Demetrius Poliorcetes’ attempt to force the island into his father’s war against Ptolemy.<sup class=\"fn\" data-fn=\"1\"></sup> Rhodes had grown rich by keeping friendly terms with every dynast and drew much of its grain from Egypt, so it refused to supply ships; Demetrius came against it with two hundred warships and some forty thousand soldiers.<sup class=\"fn\" data-fn=\"1\"></sup> A year of assault, a nine-storey siege tower and a night attack that reached the theatre all failed, and the settlement left the city autonomous, ungarrisoned and allied to Antigonus except against Ptolemy.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5175,7 +5185,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lamian_War": "323 – 322 BCE",
 "Partition_of_Babylon": "323 BCE",
 "Perdiccas_(regent)": "d. 320 BCE",
-"Triparadisus": "320 BCE"
+"Triparadisus": "320 BCE",
+"Antigonid_dynasty": "294 – 168 BCE",
+"Antigonus_I_Monophthalmus": "c. 382 – 301 BCE",
+"Battle_of_Ipsus": "301 BCE",
+"Colossus_of_Rhodes": "c. 292 – 226 BCE",
+"Demetrius_I_Poliorcetes": "c. 337 – 283 BCE",
+"Ptolemaic_Egypt": "305 – 30 BCE",
+"Ptolemy_I_Soter": "367 – 282 BCE",
+"Seleucid_Empire": "312 – 63 BCE",
+"Seleucus_I_Nicator": "c. 358 – 281 BCE",
+"Siege_of_Rhodes": "305 – 304 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7219,7 +7239,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Lamian_War": ["Hellenic War"],
 "Partition_of_Babylon": ["settlement at Babylon","Babylon settlement"],
 "Perdiccas_(regent)": ["Perdiccas the regent","Perdiccas son of Orontes"],
-"Triparadisus": ["Triparadeisus","conference at Triparadisus"]
+"Triparadisus": ["Triparadeisus","conference at Triparadisus"],
+"Antigonid_dynasty": ["Antigonid Macedonia","Antigonids","Antigonid"],
+"Antigonus_I_Monophthalmus": ["Antigonus Monophthalmus","Antigonus the One-Eyed","Antigonus I"],
+"Battle_of_Ipsus": ["battle of Ipsus","Ipsus"],
+"Colossus_of_Rhodes": ["Colossus"],
+"Demetrius_I_Poliorcetes": ["Demetrius Poliorcetes","Demetrius the Besieger","Demetrius I"],
+"Ptolemaic_Egypt": ["Ptolemaic kingdom","Ptolemaic dynasty","Ptolemies"],
+"Ptolemy_I_Soter": ["Ptolemy Soter","Ptolemy son of Lagus","Ptolemy I"],
+"Seleucid_Empire": ["Seleucid kingdom","Seleucids","Seleucid"],
+"Seleucus_I_Nicator": ["Seleucus Nicator","Seleucus I"],
+"Siege_of_Rhodes": ["siege of Rhodes"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10749,7 +10779,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lamian_War": ["event","war","warfare","history","politics","greece","athens","classical"],
 "Partition_of_Babylon": ["event","history","politics","greece","classical"],
 "Perdiccas_(regent)": ["person","history","politics","military","greece","classical"],
-"Triparadisus": ["place","event","history","politics","greece","classical"]
+"Triparadisus": ["place","event","history","politics","greece","classical"],
+"Antigonid_dynasty": ["dynasty","state","history","politics","hellenistic","macedonia"],
+"Antigonus_I_Monophthalmus": ["person","ruler","history","politics","hellenistic","macedonia"],
+"Battle_of_Ipsus": ["battle","event","warfare","history","hellenistic","greece"],
+"Colossus_of_Rhodes": ["object","art","religion","history","hellenistic","greece"],
+"Demetrius_I_Poliorcetes": ["person","ruler","history","warfare","hellenistic","macedonia"],
+"Ptolemaic_Egypt": ["state","history","politics","religion","egypt","hellenistic"],
+"Ptolemy_I_Soter": ["person","ruler","history","politics","egypt","hellenistic"],
+"Seleucid_Empire": ["state","history","politics","warfare","hellenistic","iran"],
+"Seleucus_I_Nicator": ["person","ruler","history","politics","hellenistic","iran"],
+"Siege_of_Rhodes": ["event","warfare","history","technology","hellenistic","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

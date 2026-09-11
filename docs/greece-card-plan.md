@@ -1046,7 +1046,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-767  Ptolemaic Egypt
     gr-768  Seleucus I Nicator
     gr-769  The Seleucid Empire
-    gr-770  Antigonid Macedonia
+    gr-770  Antigonid Macedonia  — the paired glossary entry is keyed `Antigonid_dynasty`, the
+             Wikipedia slug, with "Antigonid Macedonia" as an alias, so the term covers the house
+             rather than only its years in the homeland
     gr-771  Lysimachus
     gr-772  Battle of Corupedium
     gr-773  Hellenistic kingship
