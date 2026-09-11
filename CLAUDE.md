@@ -196,133 +196,77 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`--force` re-runs the EXTRACTOR** (the cache holds extracted prose, not the fetched page). The
     chapter titles and volume divisions are re-derived on every run, so re-titling costs no refetch.
   · **MARKUP THE SOURCE ESCAPED IS DROPPED AT THE WRITE, AND THE EDITOR'S ANGLE BRACKET IS NOT**
-    (`dropEscapedTags`). Eight tags reached readers as characters — `<poem>`, a raw `<A HREF=…>` —
-    while a critical text supplies words the manuscripts lack INSIDE angle brackets: Godley's
-    `<Pisidians>`, Ross's `<are not wicked>`, the Latin Seneca's ninety-odd including **`<a>`, a
-    preposition and a tag name at once**. 166 of those stand on the shelf, so the rule is three narrow
-    tests — a CLOSING tag, an ATTRIBUTE, a DECLARED extension-tag name — and nothing else. It runs in
-    `writeEnglish`/`writeOriginal` and NOT in `stripTags`, which 21 call sites make look like the one
-    choke point and which the Rigveda's own flattener bypasses; `book-audit.js` carries the same three
-    tests over the shipped shelf.
+    (`dropEscapedTags`), a critical text supplying words the manuscripts lack INSIDE angle brackets.
+    The rule is three narrow tests — a CLOSING tag, an ATTRIBUTE, a DECLARED extension-tag name — and
+    nothing else. It runs in `writeEnglish`/`writeOriginal` and NOT in `stripTags`, which 21 call sites
+    make look like the one choke point and which the Rigveda's own flattener bypasses; `book-audit.js`
+    carries the same three tests over the shipped shelf.
   · **AN ORIGINAL-LANGUAGE COLUMN HAS ITS OWN CORRECTION TABLE, `O.reFixes`** — declared rows and
     nothing else, applied in `writeOriginal`. `BOOK.reFixes` is English and drags a romanisation pass
-    and a glyph table with it through `correctRaw`, which is why the original branches never called it
-    and why, until Sep 2026, a defect in an original could only be recorded.
+    and a glyph table with it through `correctRaw`, which is why the original branches never called it.
   · **AN ORIGINAL-LANGUAGE COLUMN CARRIES NO FOOTNOTE MARKER, BECAUSE IT CARRIES NO NOTES.** The
-    reader has one fold and gives it to the translation, so `writeOriginal` drops an original's notes —
-    and until Sep 2026 kept their markers: 483 in the Old English Beowulf, 84 in the Greek Herodotus.
-    `wireFootnotes` reads its list from the page's FIRST `.src-note`, which is the translation's, so
-    369 of them became clickable links offering a note about the English on a word of the Old English.
-    Stripped in `writeOriginal`; `book-audit.js` checks it, on the original side only.
-  · **AND THE MIRROR OF THAT: A NOTE THE FOLD CARRIES THAT NO MARKER POINTS AT** (Sep 2026, batch
-    E48). `teiSectionProse` lifts a note out where it stands and then keeps only what is inside a
-    `<p>`, so a note standing OUTSIDE one keeps its text and loses its marker. It happened once on the
-    whole shelf and it was not a footnote at all — Perseus tags the Loeb's one-line ARGUMENT of the
-    *Lysis* `type="Com"` and prints it ahead of section 203, so the dialogue shipped with fourteen
-    entries and thirteen markers numbered 2 to 14. **Nothing looked broken**: `wireFootnotes` gives an
-    uncited entry a plain number rather than a jump to nowhere, so the loss is one of meaning. The
-    rule now reads `type` as it already reads `place` — the argument is set as its own italic
-    paragraph at the head of its section, which is where the printed page puts it and the only place
-    that sweep can keep it — and it is deliberately NOT dropped, since dropping loses editorial text
-    the reader has. `teiSections` warns on any note whose marker did not survive, and `book-audit.js`
-    asks it of the whole shelf.
-  · **A BOOK'S FRONT MATTER COUNTS THINGS, AND A REPAIR DOES NOT TRAVEL TO IT** (Sep 2026, batch
-    E49). Four batches put 31 articles of the Summa back — 3,094 to 3,125 — and none touched the
-    sentence in its `about` that counts them; worse, the same front matter went on telling readers
-    that fourteen of its questions were missing an article heading, which those batches had made
-    untrue, and **no count anywhere disagrees with a sentence like that**. **When a batch changes what
-    a book HOLDS, grep that book's `about` for the figure**, as a card correction is grepped through
-    to its date line. `node .claude/check-counts.js` is the proxy — report-only, the NEAR MISS being
-    the signal, a count under 40 untested and the legitimate misses declared with reasons — and its
-    own header states the three things it cannot see.
+    reader has one fold and gives it to the translation, so `writeOriginal` drops an original's notes
+    and strips their markers; `book-audit.js` checks it, on the original side only.
+  · **AND THE MIRROR OF THAT: A NOTE THE FOLD CARRIES THAT NO MARKER POINTS AT.** `teiSectionProse`
+    lifts a note out where it stands and then keeps only what is inside a `<p>`, so a note standing
+    OUTSIDE one keeps its text and loses its marker. The rule reads `type` as it already reads `place`,
+    and such a note is deliberately NOT dropped, since dropping loses editorial text the reader has.
+    `teiSections` warns on any note whose marker did not survive, and `book-audit.js` asks it of the
+    whole shelf.
+  · **A BOOK'S FRONT MATTER COUNTS THINGS, AND A REPAIR DOES NOT TRAVEL TO IT.** **When a batch changes
+    what a book HOLDS, grep that book's `about` for the figure**, as a card correction is grepped
+    through to its date line. `node .claude/check-counts.js` is the proxy — report-only, the NEAR MISS
+    being the signal, a count under 40 untested and the legitimate misses declared with reasons — and
+    its own header states the three things it cannot see.
   · **A CORPUS-INTERNAL SPLIT TEST CANNOT FIND A RUN-TOGETHER WHOSE HALVES ARE RARE, AND LATIN'S OWN
-    MORPHOLOGY DROWNS IT** (Sep 2026, batch E54, finishing E28). 153 more lost spaces in the Latin
-    Seneca. A bare test — a token occurring once that splits into two words the column uses elsewhere —
-    returns **525 candidates and is useless**: the `-que` enclitic makes `voluptatemque` look like two
-    words and the prefixes make `transmittuntur` and `supervenerunt` look like two each. **Excluding a
-    split whose LEFT half is a prefix or whose RIGHT half is a bound ending takes it to 145**, at which
-    size every one can be read — and every survivor before letter 84 is a real Latin word, which is the
-    confirmation that the fault is the transcription's last quarter rather than the language. Three
-    escaped even that: one outside E28's stated range, one whose half occurs NOWHERE else, and two with
-    a CRUX between the words, which `lostSpaces` cannot express (letters-only keys) and which went to
-    `O.reFixes`. **637 rows fired and none was reported dead.**
-  · **A CRUX IS NOT OCR DAMAGE, AND A BOOK MUST SAY WHAT ITS MARKS MEAN** (Sep 2026, batch E53). The
-    Latin Seneca prints 19 passages between TILDES — its transcription's daggers, round text the
-    manuscripts hand down corrupt (`~aitarens malitia et ea agitata~`, where *aitarens* is not a Latin
-    word) — and 76 SQUARE BRACKETS, the opposite judgement. **Its front matter explained neither**, and
-    `book-audit.js` had been calling all 19 scan damage since E33: 21 of the 37 hits its sentinel check
-    produces, which is why the other 16 had never been read. **A scanner whose findings nobody reads has
-    stopped working.** The mask is BY SHAPE — a crux wraps whole words between a tilde pair, where real
-    damage sits INSIDE a word (`jatave~as` for *Jatavedas*, which the Rigveda spells right 112 times).
-  · **…AND `book-audit.js` REPORTS ONLY WHAT NOBODY HAS JUDGED YET** (Sep 2026, batch E55, applying
-    that lesson properly). Every standing finding on the shelf was read through and given a verdict;
-    eleven turned out to be the printing doing its job — Richard's own cross-references, the Summa
-    translators' citation of the *Phaedo*, Yule's `&c.` for *et cetera*, and Gregory's dating formula
-    at the foot of two letters both written on 22 June 601. Those are DECLARED in `ADJUDICATED` with
-    the reason beside each, and **a row matches only when the book, the check AND the matched text all
-    agree** (`check-citations.js`'s `CROSSREF_WRONG` rule), so a new artefact in the same book still
-    reports. The report went from 8 files to 3, and all three are unrepaired scan damage in books whose
-    front matter says so. **THE DOUBLED-SPACE CHECK WAS RETIRED OUTRIGHT**, and not because its
-    nineteen findings were benign but because IT CANNOT HAVE A REAL ONE: book prose is HTML, nothing
-    on that path sets `white-space`, and HTML collapses a run of spaces, so the thing it names is
-    invisible to every reader. **Before adding a check, ask whether its subject can reach a reader at
-    all**; `&nbsp;` runs can and there are none on the shelf.
-  · **AND THE OTHER KIND OF CLAIM IT MAKES — WHAT IS WRONG WITH THE BOOK — HAS NO CHECK AT ALL**
-    (Sep 2026, batch E50). A count can be compared to the file; a sentence saying an edition leaves
-    lines out cannot. All **106 such sentences across the 48 books** were read and 105 hold; the
-    Iliad's did not, saying its Greek loses eight lines where it loses **ten across four books**, two
-    of them unnamed — because it had merged two different mechanisms, a line Perseus wraps in `<del>`
-    (numbering intact) with one absent from the numbering outright. **And neither Homer has an empty
-    cell**, though both front matters said "stand empty in the Greek column": the columns carry 425
-    and 288 numbered places each and pair on every one. **Write what a reader would SEE**, and reserve
-    that phrase for the books that really do draw one side blank.
+    MORPHOLOGY DROWNS IT.** A bare test returns 525 useless candidates; **excluding a split whose LEFT
+    half is a prefix or whose RIGHT half is a bound ending takes it to 145**, at which size every one
+    can be read. A run-together with a CRUX between the words cannot be expressed in `lostSpaces`
+    (letters-only keys) and goes to `O.reFixes`.
+  · **A CRUX IS NOT OCR DAMAGE, AND A BOOK MUST SAY WHAT ITS MARKS MEAN.** The mask is BY SHAPE — a
+    crux wraps whole words between a tilde pair, where real damage sits INSIDE a word. **A scanner
+    whose findings nobody reads has stopped working.**
+  · **…AND `book-audit.js` REPORTS ONLY WHAT NOBODY HAS JUDGED YET.** A judged finding is DECLARED in
+    `ADJUDICATED` with the reason beside it, and **a row matches only when the book, the check AND the
+    matched text all agree** (`check-citations.js`'s `CROSSREF_WRONG` rule), so a new artefact in the
+    same book still reports. **Before adding a check, ask whether its subject can reach a reader at
+    all** — the doubled-space check was retired outright because book prose is HTML and HTML collapses
+    a run of spaces, so the thing it named was invisible to every reader; `&nbsp;` runs can reach one.
+  · **AND THE OTHER KIND OF CLAIM IT MAKES — WHAT IS WRONG WITH THE BOOK — HAS NO CHECK AT ALL.** A
+    count can be compared to the file; a sentence saying an edition leaves lines out cannot. All 106
+    such sentences across the 48 books were read and 105 hold. **Write what a reader would SEE**, and
+    reserve "stands empty in the other column" for the books that really do draw one side blank.
   · **ONE TEI MARK MAY BE DOING TWO JOBS, AND A RULE THAT KEEPS BOTH PRINTS THE APPARATUS AS THE
-    AUTHOR'S WORDS** (Sep 2026, batch E55) — E53's finding in another vocabulary. `<add>` is the
-    editor's supplement and is KEPT; Ihm's Suetonius also uses it for the MARGINAL REFERENCE beside a
-    quotation, so ten of them stood inside the Latin, two of them saying something false — `de
-    Officiis tertio libro 82` is book 82 of a work with three, and `ad Brutum 261 oratores enumerans`
-    reads as a count of orators. **THE DISCRIMINATOR IS A DIGIT AND IT IS MEASURED**: all 355 `<add>`
-    on the shelf were read, nine carry a digit and every one is a reference, and NO SUPPLEMENT
-    ANYWHERE CARRIES ONE, a supplement being words. **The looser test written first would have
-    deleted lines of Plato** — an internal full stop also selects whole speeches of the *Alcibiades*
-    that Burnet supplies. They are DROPPED rather than set apart, unlike E48's argument, because a
-    margin is not a place Folio's reader has: every in-flow position is a claim the edition does not
-    make, and Thomson's English carries none of them.
-  · **A SWEEP KEYED ON A PAGE NUMBER IS KEYED ON THE WORST-READ PART OF THE PAGE** (Sep 2026, batch
-    E55, the Journey). Three running heads survived `HEAD_NUM` — `113` read as `US`, and two numbers
-    carrying a mark off the leaf edge — because the number is small isolated type at the outer margin
-    while the title beside it comes through readable every time. Widened on the NUMBER's shape, twice,
-    each measured over the whole book; the second widening needs its proviso that the number really
-    contain a digit, **or `CHAPTER I.` is read as a head and the chapter markers are deleted**.
-    **AND THE OBVIOUS GENERALISATION DOES NOT WORK**: matching the line against the book's own chapter
-    titles — E34's plate rule one table over — proposes deleting 33 lines loosely matched, mostly
-    chapter headings, and exactly matched finds 15 titles inside their own chapters of which ONE is
-    furniture. **A plate caption is a distinctive phrase; a chapter title is made of the words its
-    chapter is about.** Removing a head also leaves the PAGE BREAK it sat in, which still splits the
-    sentence in two.
-  · **SEARCH FOR ANOTHER SCAN BEFORE DECIDING A BOOK CANNOT BE CHECKED** (Sep 2026, batch E56). The
-    Canterbury Tales was corrected by INFERENCE for ten batches — the shelf as a dictionary, the
-    rhyme, the Middle English facing it — because its entry assumed one transcription existed.
-    **Archive.org holds EIGHT scans of the same 1912 volume**, and reading ours against two of them
-    recovered what no inference could reach: `* ^en^s` is **At St. Denis** and `s^sput` is **soul**, a
-    whole place-name and a whole word. `node .claude/witness-check.js` is that comparison — each token
-    looked up by the three words either side, and only a position both witnesses resolve, agree on and
-    differ from us at is reported. **A GLOBAL DIFF IS USELESS HERE**, three OCRs of one printing
-    disagreeing in thousands of places; and **FILTER TO WHAT THE BOOK SHIPS**, since 161 of its 199
-    findings were in the rest of Chaucer's complete works. **A WITNESS IS A QUESTION, NOT A VERDICT**
-    (E46's lesson): two OCRs agree on `heginneth` for `beginneth`, and a 2-to-1 majority was still not
-    enough to change `Prioress's`, a heading that reads correctly either way. The Journey really does
-    have one transcription — re-checked in E56 — and its front matter now says so.
-  · **AND WHERE IN THE CHAIN A ROW RUNS DECIDES HOW TO WRITE IT** (same batch): 35 of E56's 44 rows
-    failed silently, drafted against the SHIPPED text where that book's corrections run on the RAW,
-    whose words carry double spaces and break across lines. `correctRaw` is
+    AUTHOR'S WORDS.** `<add>` is the editor's supplement and is KEPT; where an edition also uses it for
+    a MARGINAL REFERENCE, **the discriminator is a digit and it is measured** — a supplement is words.
+    Those are DROPPED rather than set apart, because a margin is not a place Folio's reader has.
+  · **A SWEEP KEYED ON A PAGE NUMBER IS KEYED ON THE WORST-READ PART OF THE PAGE** — the number is
+    small isolated type at the outer margin while the title beside it comes through readable every
+    time. Widen on the NUMBER's shape, measured over the whole book, with the proviso that the number
+    really contain a digit, **or `CHAPTER I.` is read as a head and the chapter markers are deleted**.
+    **AND THE OBVIOUS GENERALISATION DOES NOT WORK**: **a plate caption is a distinctive phrase; a
+    chapter title is made of the words its chapter is about.** Removing a head also leaves the PAGE
+    BREAK it sat in, which still splits the sentence in two.
+  · **SEARCH FOR ANOTHER SCAN BEFORE DECIDING A BOOK CANNOT BE CHECKED.** `node
+    .claude/witness-check.js` is that comparison — each token looked up by the three words either side,
+    and only a position both witnesses resolve, agree on and differ from us at is reported. **A GLOBAL
+    DIFF IS USELESS HERE**, three OCRs of one printing disagreeing in thousands of places; **FILTER TO
+    WHAT THE BOOK SHIPS**; and **A WITNESS IS A QUESTION, NOT A VERDICT** — a 2-to-1 majority is not
+    enough to change a reading that is right either way.
+  · **AND WHERE IN THE CHAIN A ROW RUNS DECIDES HOW TO WRITE IT.** `correctRaw` is
     `applyRoman(applyReFixes(applyFixes(applyGlyphs(…))))`, so a `fixes` row has already fired by the
-    time a `reFixes` row sees the text. **Draft against the text the row will actually see**; the
+    time a `reFixes` row sees the text, and a book whose corrections run on the RAW sees words carrying
+    double spaces and breaking across lines. **Draft against the text the row will actually see**; the
     importer's dead-row report is what tells you when you have not.
   · **A CHANGE TO A SHARED EXTRACTOR MUST BE PROVED INERT ON ITS SIBLINGS, BYTE-FOR-BYTE** — re-run
     every other book on that path and diff the generated files. That check has twice found a live
     fault in a book nobody was editing. **`teiInline` is the widest of those paths — 17 books, 34
-    generated files** — and E55's `<add>` change was proved by rebuilding every one of them.
+    generated files.**
+  · **📖 `docs/library-importer.md` — READ BEFORE ADDING A BOOK OR TOUCHING ANY EXTRACTOR.** The 22
+    layouts, the five Wikisource extraction faults, the per-book options, and — moved out of here —
+    the batch account of E48–E56 behind every rule above: what each fault looked like on the page, the
+    measurements that settled each discriminator, and the generalisations that were tried and do not
+    work.
   · **📖 `docs/library-importer.md` — READ BEFORE ADDING A BOOK OR TOUCHING ANY EXTRACTOR.** The 22
     layouts, the five Wikisource extraction faults, the per-book options and every finding behind
     them.
