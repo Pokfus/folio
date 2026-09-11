@@ -41,6 +41,7 @@ before changing the thing it names.
 | `reader-settings.md` | Themes, text size, motion, contrast, units, spelling, i18n, sound, the dormant TTS. |
 | `chrome-navigation.md` | Repaints, page transitions, the phone swipe, the walkthrough and coach marks. |
 | `home-page.md` | The home page's running order, the daily quote, the review banner. |
+| `study-page.md` | The study page's furniture — the grade bar and its fold, undoing a grade, the phone's gloss popup. |
 | `accounts-sync.md` | Accounts, the progress blob and its reconcile, the friends table, admin gating, and the cloud content overlay. |
 | `changelog-and-version.md` | The changelog's and the version line's own reasoning — the length rules, the title ceiling, what belongs in it and what does not. |
 | `collections-page.md` | The Collections page — the tab bar, the declared sections, the Planned fold, the shelf rows and their size figures. |
