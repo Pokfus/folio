@@ -43,3 +43,47 @@ Firefox, so those tiles read an em dash rather than a guess. **WHERE READERS CON
 COLLECTED AND IS NOT GUESSED AT**, which is the People card's own rule about RLS applied to a question no
 policy could answer either way: the only geography on the page is THIS machine's `Intl` time zone and
 browser language, both labelled as such and neither sent anywhere.
+
+---
+
+## Admin → Quotes, and the two rules every later tab is held to (2026-09-11)
+
+**Read this before adding a tab to the admin area.** CLAUDE.md keeps both rules — lift the ≤860px panel cap
+and give the tab a colour pair. This is the bullet as it stood there, with both bug reports in full.
+
+- **Admin → Quotes: the home page's daily quote, seen, edited and PLANNED (Aug 2026, on request).**
+`adminRenderQuotes`, a fifth tab taking over the admin area the way Feedback, Timeline and the Dashboard
+do (`.quotes-mode`, the same hide list). The data layer is the `SHIPPED_QUOTES` + overlay design described
+under the Home page bullet; three things about the TAB are decisions rather than plumbing.
+· **It lists in RUNNING ORDER, not array order, and dates every row.** The order is solved from the pool
+(no author two days running, none more than twice a week), so where a quote sits in the source says
+nothing about when a reader will meet it — and when they will meet it is exactly what an editor adding
+a fifth Confucius line needs to know. Today's is marked; the rest carry "tomorrow", "in N days" and the
+date. That is the whole of what "plan" means here, and it is a question nothing else on the site answers.
+· **The form covers the English AND the original-language block** (`o`: lang, text, speaker, source),
+which is what a reader actually flips the quote over to see. An `o` is written only when the language
+and the words are both filled in — an empty one would make the home page offer a flip that turns the
+quote into nothing. The nine-language chrome translations are not editable here: they are `chrome.exact`
+rows managed by `.claude/add-lang.js`, and the site is English-only behind `MULTILANG` anyway.
+· **"Copy as JS" hands the whole pool back as the `SHIPPED_QUOTES` literal**, for pasting into app.js when
+a batch is settled. It is the bake path this tab has instead of `autoSaveFiles`, which writes data files
+and must never be pointed at app.js.
+**A TAB THAT TAKES OVER THE ADMIN AREA MUST LIFT THE ≤860px PANEL CAP, and TWO of the four had not**
+(Aug 2026, on a bug report). `.admin-list-items` is capped at `max-height:300px` on a phone, which is right
+for the Cards and Glossary lists — they are one column of a two-column layout — and traps a whole page in a
+300px scroll box for a tab that owns the screen: the Quotes tab's edit form filled the box, its Save button
+sat at the fold, the running order beneath was cut off mid-row and the rest of the screen was left empty.
+Timeline and Feedback were in that rule's exception list from the day they were built; the **Dashboard and
+Quotes arrived later and were not**, which is the whole of the bug. All FIVE are listed now (Artefacts
+joined in Aug 2026) — **keep the list in step with the `*-mode` classes `adminRefresh()` sets**, or the next
+tab added will look broken the same way. Guarded by `test-layout.js`, which reads the cap back and checks the
+pane is not clipped, and by `test-artefacts.js` for the Artefacts tab's own copy of it.
+**AND A TAB NEEDS A COLOUR, for the same reason and with the same failure mode** (Aug 2026, on a bug
+report). `.admin-tab` on its own is transparent in the inherited ink, so **Quotes and Artefacts — the two
+that arrived after the colours were placed — read as DISABLED beside five that are lit**, which is what a
+tab with no rule of its own looks like rather than what it is. Both hues are placed rather than picked:
+the original four took blue (cards), green (glossary), amber (timeline) and red (feedback) with purple
+spanning both columns above them (dashboard), so what was free was TEAL and MAGENTA — Quotes takes the
+teal (`#118e96`) and Artefacts the magenta (`#a8478f`), which also puts the two tabs that write back into
+app.js's own literals at opposite ends of the wheel. **Every `data-atab` needs a pair of rules** (the rest
+state and `.active`); adding a tab and not adding them is invisible in code review and obvious on screen.

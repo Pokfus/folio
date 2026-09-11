@@ -4464,36 +4464,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   under the Home page bullet; three things about the TAB are decisions rather than plumbing.
   · **It lists in RUNNING ORDER, not array order, and dates every row.** The order is solved from the pool
     (no author two days running, none more than twice a week), so where a quote sits in the source says
-    nothing about when a reader will meet it — and when they will meet it is exactly what an editor adding
-    a fifth Confucius line needs to know. Today's is marked; the rest carry "tomorrow", "in N days" and the
-    date. That is the whole of what "plan" means here, and it is a question nothing else on the site answers.
-  · **The form covers the English AND the original-language block** (`o`: lang, text, speaker, source),
-    which is what a reader actually flips the quote over to see. An `o` is written only when the language
-    and the words are both filled in — an empty one would make the home page offer a flip that turns the
-    quote into nothing. The nine-language chrome translations are not editable here: they are `chrome.exact`
-    rows managed by `.claude/add-lang.js`, and the site is English-only behind `MULTILANG` anyway.
+    nothing about when a reader will meet it. Today's is marked; the rest carry "tomorrow", "in N days" and
+    the date. That is the whole of what "plan" means here.
+  · **The form covers the English AND the original-language block** (`o`: lang, text, speaker, source).
+    **An `o` is written only when the language and the words are both filled in** — an empty one would make
+    the home page offer a flip that turns the quote into nothing. The nine-language chrome translations are
+    not editable here: they are `chrome.exact` rows managed by `.claude/add-lang.js`.
   · **"Copy as JS" hands the whole pool back as the `SHIPPED_QUOTES` literal**, for pasting into app.js when
     a batch is settled. It is the bake path this tab has instead of `autoSaveFiles`, which writes data files
-    and must never be pointed at app.js.
-  **A TAB THAT TAKES OVER THE ADMIN AREA MUST LIFT THE ≤860px PANEL CAP, and TWO of the four had not**
-  (Aug 2026, on a bug report). `.admin-list-items` is capped at `max-height:300px` on a phone, which is right
-  for the Cards and Glossary lists — they are one column of a two-column layout — and traps a whole page in a
-  300px scroll box for a tab that owns the screen: the Quotes tab's edit form filled the box, its Save button
-  sat at the fold, the running order beneath was cut off mid-row and the rest of the screen was left empty.
-  Timeline and Feedback were in that rule's exception list from the day they were built; the **Dashboard and
-  Quotes arrived later and were not**, which is the whole of the bug. All FIVE are listed now (Artefacts
-  joined in Aug 2026) — **keep the list in step with the `*-mode` classes `adminRefresh()` sets**, or the next
-  tab added will look broken the same way. Guarded by `test-layout.js`, which reads the cap back and checks the
-  pane is not clipped, and by `test-artefacts.js` for the Artefacts tab's own copy of it.
+    and **must never be pointed at app.js**.
+  **A TAB THAT TAKES OVER THE ADMIN AREA MUST LIFT THE ≤860px PANEL CAP** (Aug 2026, on a bug report).
+  `.admin-list-items` is capped at `max-height:300px` on a phone, which is right for the Cards and Glossary
+  lists — they are one column of a two-column layout — and traps a whole page in a 300px scroll box for a tab
+  that owns the screen. All FIVE are listed now — **keep the list in step with the `*-mode` classes
+  `adminRefresh()` sets**, or the next tab added will look broken the same way. Guarded by `test-layout.js`,
+  which reads the cap back and checks the pane is not clipped, and by `test-artefacts.js` for the Artefacts
+  tab's own copy of it.
   **AND A TAB NEEDS A COLOUR, for the same reason and with the same failure mode** (Aug 2026, on a bug
-  report). `.admin-tab` on its own is transparent in the inherited ink, so **Quotes and Artefacts — the two
-  that arrived after the colours were placed — read as DISABLED beside five that are lit**, which is what a
-  tab with no rule of its own looks like rather than what it is. Both hues are placed rather than picked:
-  the original four took blue (cards), green (glossary), amber (timeline) and red (feedback) with purple
-  spanning both columns above them (dashboard), so what was free was TEAL and MAGENTA — Quotes takes the
-  teal (`#118e96`) and Artefacts the magenta (`#a8478f`), which also puts the two tabs that write back into
-  app.js's own literals at opposite ends of the wheel. **Every `data-atab` needs a pair of rules** (the rest
+  report). `.admin-tab` on its own is transparent in the inherited ink, so a tab with no rule of its own
+  **reads as DISABLED beside the ones that are lit**. The hues are placed rather than picked: blue (cards),
+  green (glossary), amber (timeline), red (feedback), purple (dashboard), teal `#118e96` (quotes), magenta
+  `#a8478f` (artefacts), olive `#6d8f1f` (themes). **Every `data-atab` needs a pair of rules** (the rest
   state and `.active`); adding a tab and not adding them is invisible in code review and obvious on screen.
+  **📖 `docs/admin-editor.md` — READ BEFORE ADDING A TAB TO THE ADMIN AREA.** Both bug reports in full, and
+  why each colour sits where it does.
 - **Admin → Artefacts: the pool a chest draws from (Aug 2026, on request).** `adminRenderArtefacts`, a sixth
   tab taking over the admin area the way the Dashboard, Quotes, Timeline and Feedback do (`artefacts-mode`,
   the same hide list, and the panel-cap exception above). It follows the Quotes tab exactly — `artefacts.js`
