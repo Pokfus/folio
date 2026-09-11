@@ -1390,118 +1390,66 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   durable, and re-running it is the last step of a rebuild.** One entry per note keyed by
   `<deck id>/<headword>`, each with a `why`; `node .claude/decks/spanish-fix.js [--check] [--verbose]`
   applies it idempotently and `--check` asserts the decks still carry it.
-  · **IT IS THE EDITORIAL HALF ONLY, AND THE OTHER HALF IS THE GENERATOR'S.** `examples.py`'s
-    `forms_of()` matches a sentence on ANY inflected form Wiktionary lists for the lemma, so the article
-    cards were illustrated by each other — `la`'s examples bolded `El` and `los`, `un`'s bolded `una`
-    and `unos`. Measured over DELE A1: **580 of 1,478 examples bold something other than the headword**,
-    of which **24 bold a word that is itself another card in the deck** (18 cards). Most of the 580 is
-    legitimate inflection (`todo`→`todas`); the rule worth enforcing is **an example may show an
-    inflection of its own headword and never another card's headword**. A second, separate fault is that
-    the bolding can miss even when the word IS there — `el`'s "Sé que **el** dinero no *lo* es todo"
-    bolded `lo`. `rebold` is the local repair; the general one belongs in `examples.py`.
-  · **`insert` ADDS A CARD THE GENERATOR'S WORD LIST HAS NOT GOT.** `supplement.py`'s PRONOUNS names
-    `me te se nos os` and no third person, so DELE A1 shipped with cards for `los` and `unas` and
-    **nothing for `lo`, `la`, `le` or `les`** — the pronouns a reader needs the moment they stop
-    repeating a noun. An entry names the headword it sits AFTER, so the frequency order survives, and
-    takes an id outside the generator's range (`u_delea1_5xx`). **Its examples must NOT carry
-    `uc-exadd`**: that class marks a block added to a GENERATOR's card and every one is stripped before
-    the record is re-applied, so tagging an inserted card's own examples had the strip take them
-    straight back off — `lo` and `le` were written with three each and shipped with none.
-  · **A FOLD DELETES CARDS AND SO CHANGES WHAT THE DECK HOLDS.** `fold` names the headwords a note
-    absorbs; the survivor keeps the LOWEST id of the group, which is the earliest and most frequent
-    slot, and a deleted note is kept on any device that already has it (`langDeckUpdate` never deletes).
+  · **IT IS THE EDITORIAL HALF ONLY, AND THE OTHER HALF IS THE GENERATOR'S.** The rule worth enforcing is
+    that **an example may show an inflection of its own headword and never another card's headword**;
+    `rebold` is the local repair, and the general one belongs in `examples.py`.
+  · **`insert` ADDS A CARD THE GENERATOR'S WORD LIST HAS NOT GOT**, naming the headword it sits AFTER so
+    the frequency order survives, and taking an id outside the generator's range. **Its examples must NOT
+    carry `uc-exadd`**: that class marks a block added to a GENERATOR's card and every one is stripped
+    before the record is re-applied, so tagging an inserted card's own examples has the strip take them
+    straight back off.
+  · **A FOLD DELETES CARDS AND SO CHANGES WHAT THE DECK HOLDS.** The survivor keeps the LOWEST id of the
+    group, and a deleted note is kept on any device that already has it (`langDeckUpdate` never deletes).
     **Re-run `.claude/build-lang-decks.js` after**, and fix the deck's own `subtitle`/`desc` through the
     record's `decks` section — a description that goes on counting the old number is the fault
-    `check-counts.js` exists for one directory over. The A1 subtitle said 500 against a real 496 before
-    any of this.
-  · **`conjSub` CORRECTS THE CONJUGATION TABLE, AND NOTHING ELSE IN THE PIPELINE CAN.** `senses`,
-    `forms` and `ex` all leave it alone, so a wrong paradigm can only be recorded or hand-edited —
-    and `despertarse` shipped a **fully regular** one (`me desperto`, `te despertas`, `se desperta`)
-    where the verb is stem-changing, so its whole present indicative, whole present subjunctive and
-    negative imperative were not Spanish. **The fault needs a reflexive AND a stem change at once**:
-    measured over the deck, every other stem-changing verb is right (`cierro`, `entiendo`, `duermo`)
-    and every other reflexive is a regular verb, so this is the only card that has it. Pairs are
-    `[find, replace]` applied to every occurrence, and one matching **neither** the old table nor the
-    new is an ERROR, for `descSub`'s reason. **Write them against the MARKUP, not the words**: the
-    table splits a form into stem and ending spans and does it inconsistently — the indicative writes
-    `despert<span…>o</span>` where the subjunctive writes a bare `desperte` — so a rule that reads
-    right can match nothing, which is what the first three pairs did. And **the nosotros and vosotros
-    forms must not change** (`despertemos`, not despiertemos), which is why this is a list of exact
-    strings rather than a stem rewrite.
-  · **A PARADIGM AND A USAGE NOTE GO IN `forms`, NEVER IN `senses`.** `senses` is a list of
-    TRANSLATIONS, and the generator renders each bullet as an English equivalent of the word — so `de`'s
-    "used after the thing owned and before the owner" was printed as though it were one. `forms` is
-    `[[label, value]]` and is where `el, los / la, las / el agua` and `y` → `e` belong.
-  · **A REBOLD DERIVES ITS TARGETS FROM THE CARD'S OWN FORMS, AND A FORMS ROW IS NOT ALWAYS A FORM.**
-    Reading only the fix's own `forms` loses every plural on a card the record does not re-state them
-    for (`caro`'s "esos zapatos son demasiado caros" came back with nothing marked); reading them all
-    bolds a CROSS-REFERENCE, which is what `lo`'s "feminine: la" would do to the article `la` in *lo
-    importante es la salud*. So the card's Forms are read when the fix does not set them, and `bold`
-    names the exceptions outright.
-  · **A VERB'S BOLD TARGETS COME OUT OF ITS OWN CONJUGATION BLOCK.** The generator bolds an example on
-    any inflected form, so `ser`'s examples mark `es` and `son`; a rebold knowing only the infinitive
-    strips those and marks nothing, and the "an example must contain its headword" guard then REFUSES a
-    perfectly good sentence. They are read off the Conjugation field the card already carries rather
-    than declared a second time. The same rule caught a determiner: `mucho`'s "Mucha gente rica vive en
-    este barrio" came back unmarked because `mucha` was in no Forms row — **an example with nothing
-    bolded in it reads exactly like one the deck chose and forgot to point at**, so it is worth counting
-    after a batch (`0` across all 1,467 as of this pass).
-  · **AN ARTICLE COMES OFF A FORMS VALUE ONLY UNDER AN INFLECTION LABEL.** A noun's plural is written
-    with it — "plural: los tiempos" — and left whole the value is two words and is dropped, so `tiempos`,
-    `casas`, `señora` and `señoras` went unmarked in their own cards' examples. It must NOT come off
-    elsewhere: the article card's row reads "before a stressed a-: el agua, las aguas", and stripping
-    there bolds `agua` on a card about the article. The headword is stripped the same way and PER HALF,
-    a headword being a pair as often as a word.
-  · **A REFLEXIVE VERB'S CONJUGATION TABLE CARRIES ITS PRONOUN**, so every cell is two words ("me llamo",
-    "te llamas") and the whitespace filter drops the lot — all three of `llamarse`'s examples came back
-    unmarked. The pronoun is stripped, which is what the generator's own bolding does. And a form the
-    table has no row for is named by `boldAlso`: `hay` on `haber`, `póngase` on `poner`. **A conjugation
-    grid is not a complete list of a verb's forms.**
-  · **AND IT REPORTS AN EXAMPLE WHOSE ONLY BOLDED WORD IS ANOTHER CARD'S HEADWORD** — the measurement
-    that was being run by hand after every batch, now in the tool. It is scoped to cards the record has
-    REBOLDED (an untouched card carries the generator's own bolding, a different and already-measured
-    problem; the higher DELE levels are full of participles that are headwords in their own right), and
-    it is a NOTE rather than a failure: a legitimate form can also be another card — `usted`'s plural is
-    `ustedes`, `comer`'s first person is `como` — and only a reader tells those from the accidents. It
-    caught `la canción` marking `cantar`, from a "verb: cantar" cross-reference in its Forms.
-  · **THE FIVE DECK-LEVEL PASSES, and why each is a table rather than 200 entries.** A per-note entry
-    is for a JUDGEMENT; a mechanical substitution belongs in one place, where it cannot be applied to
-    116 cards and forgotten on the 117th. `exNames` recasts the example sentences — Tatoeba is an
-    English-first corpus and 139 of DELE A1's 1,477 sentences starred Tom, Mary or Ken — and rewrites
-    the SPOKEN field with the visible ones, since `data-say` carries its own copy and a rename that
-    missed it would show Carlos and say Tom. `exBritish` converts the examples' English, and **SLICES
-    `SPELL_PAIRS` OUT OF app.js RATHER THAN COPYING IT**, for the `add-card-tags.js` reason: a second
-    copy of a 144-row word list goes stale on a change made in a file nobody here has reason to open.
-    `exUsage` is the short DECLARED list of words that are not spellings at all (soccer, movie,
-    vacation, elevator) — `apartment` is deliberately absent, `el apartamento` being a card whose
-    whole point is that a Spanish flat is a piso. `gloss` + `glossMode` give the deck a glossary of
-    its own (`both`, so every site term a card already linked goes on linking). And `conjSub`
+    `check-counts.js` exists for one directory over.
+  · **`conjSub` CORRECTS THE CONJUGATION TABLE, AND NOTHING ELSE IN THE PIPELINE CAN.** Pairs are
+    `[find, replace]` applied to every occurrence, and one matching **neither** the old table nor the new
+    is an ERROR. **Write them against the MARKUP, not the words** — the table splits a form into stem and
+    ending spans and does it inconsistently, so a rule that reads right can match nothing — and **the
+    nosotros and vosotros forms must not change**, which is why this is a list of exact strings rather
+    than a stem rewrite.
+  · **A PARADIGM AND A USAGE NOTE GO IN `forms`, NEVER IN `senses`.** `senses` is a list of TRANSLATIONS
+    and the generator renders each bullet as an English equivalent of the word; `forms` is
+    `[[label, value]]`.
+  · **A REBOLD DERIVES ITS TARGETS FROM THE CARD'S OWN FORMS, AND A FORMS ROW IS NOT ALWAYS A FORM** — a
+    cross-reference row would bold another card's headword — so the card's Forms are read when the fix
+    does not set them, and `bold` names the exceptions outright. **A VERB'S BOLD TARGETS COME OUT OF ITS
+    OWN CONJUGATION BLOCK**, read off the Conjugation field the card already carries rather than declared
+    a second time, or the "an example must contain its headword" guard REFUSES a perfectly good sentence.
+    **AN ARTICLE COMES OFF A FORMS VALUE ONLY UNDER AN INFLECTION LABEL** — a noun's plural is written
+    with it, and stripping elsewhere bolds `agua` on a card about the article. **A REFLEXIVE VERB'S
+    CONJUGATION TABLE CARRIES ITS PRONOUN**, so the pronoun is stripped as the generator's own bolding
+    does, and a form the table has no row for is named by `boldAlso`: **a conjugation grid is not a
+    complete list of a verb's forms.** **An example with nothing bolded in it reads exactly like one the
+    deck chose and forgot to point at**, so it is worth counting after a batch.
+  · **AND IT REPORTS AN EXAMPLE WHOSE ONLY BOLDED WORD IS ANOTHER CARD'S HEADWORD**, scoped to cards the
+    record has REBOLDED, and it is a NOTE rather than a failure: a legitimate form can also be another
+    card, and only a reader tells those from the accidents.
+  · **THE FIVE DECK-LEVEL PASSES, and why each is a table rather than 200 entries.** A per-note entry is
+    for a JUDGEMENT; a mechanical substitution belongs in one place, where it cannot be applied to 116
+    cards and forgotten on the 117th. `exNames` recasts the example sentences **and rewrites the SPOKEN
+    field with the visible ones**, since `data-say` carries its own copy and a rename that missed it would
+    show one name and say another. `exBritish` converts the examples' English and **SLICES `SPELL_PAIRS`
+    OUT OF app.js RATHER THAN COPYING IT** — a second copy of a 144-row word list goes stale on a change
+    made in a file nobody here has reason to open. `exUsage` is the short DECLARED list of words that are
+    not spellings at all. `gloss` + `glossMode` give the deck a glossary of its own. And `conjSub`
     corrects a wrong paradigm, which nothing else can reach.
   · **THE SITE'S SPELLING SWITCH IS ONE-WAY, WHICH IS WHY A DECK MUST BE AUTHORED BRITISH.**
-    `applySpelling` returns at once under en-GB — the authored system — and converts to American only
-    for a reader who asks. So an AMERICAN spelling inside deck content is never corrected for anybody:
-    it is simply what both readers see, and DELE A1 had 35 of them. The fix is at the SOURCE, in
-    `exBritish`; app.js's own change was narrower and is described under the spelling bullet.
-  · **DELE A1 HAS NOW BEEN READ IN FULL — all 493 cards, one at a time, Sep 2026.** 486 carry a
-    correction and 8 were read and left alone, so the record IS the deck's editorial history rather
-    than a list of spot fixes. The recurring faults, in order of how often they turned up: an example
-    that illustrates a word the card does not carry (its own derived noun, its own adjective, or a
-    different word matched on shared letters — `beber` shown twice with a BABY, `el periódico` with
-    the PERIODIC table, `costar` with a pain in one's SIDE); a dictionary's full sense list copied as
-    though every entry were equal (`el jardín` glossed with two senses of the ENGLISH idiom "rabbit
-    hole"); a definition standing in for a translation; a card whose examples are unanimously a part
-    of speech it does not claim (`interior`, `exterior`, `regular`); a noun given a plural it has not
-    got; and ten faults in the deck's own Spanish. **Two cards CONTRADICTED THEMSELVES** (`séptimo`,
-    `octavo`) — each example fine alone, and only reading the three together shows it, which no
-    checker here can do. **Start the other levels from these shapes**, and see the batch commits on
-    `claude/spanish-a1-vocab-review-ccyd0l` for the per-card reasoning.
-  · **`reviewed` NAMES THE CARDS READ AND LEFT ALONE.** Some cards are simply right, and the review's own
-    record of where it has got to is the note list — so without this a card that needed nothing looks
+    `applySpelling` returns at once under en-GB — the authored system — and converts to American only for
+    a reader who asks, so an AMERICAN spelling inside deck content is never corrected for anybody: it is
+    simply what both readers see. **The fix is at the SOURCE, in `exBritish`.**
+  · **`reviewed` NAMES THE CARDS READ AND LEFT ALONE** — without it a card that needed nothing looks
     exactly like a card nobody has opened, and the next session reads it again. Each entry is checked to
     name a real card, so a typo is an error rather than a silent gap.
   · **`hints` IS THE MECHANICAL HALF, and is a map rather than an entry per note** — the English →
-    Spanish card's front is the gloss alone, so `por` and `para` both glossing to "for" is one question
-    with two right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or
+    Spanish card's front is the gloss alone, so two words glossing the same way are one question with two
+    right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or more gets
+    distinguishing glosses instead.
+  · **📖 `docs/lang-decks.md` also carries this record's own findings, moved out of here** — the
+    measured scale of each fault, the DELE A1 full read (486 of 493 cards corrected, the recurring fault
+    shapes in order of frequency, and the two cards that contradicted themselves), and the per-card
+    reasoning's branch.
     more gets distinguishing glosses instead.
 - `.claude/decks/check-mandarin-coverage.js` — **what a Mandarin card does NOT say**:
   `node .claude/decks/check-mandarin-coverage.js [--top=N] [--deck=] [--only=]`. The three checkers
