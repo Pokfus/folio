@@ -4864,163 +4864,71 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **YOUR OWN ATLAS — A SECOND TAB, AND THE ONE THE PAGE OPENS ON** (`atlasTab` / `MINE` /
     `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
     `drawMineMarks` / `mineCoastSkip` / `landDim` / `showMinePopup` / `eraIsModern` / `.atlas-tabs` /
-    `.atlas-empty` / `.cp-mine`; Sep 2026, on request). The globe
-    starts EMPTY — land, ocean, lakes, rivers and coast, and no border, dot or name anywhere — in every
-    year from 4000 BCE, and studying a card is what puts a place on it. Seven things.
-    **THE REGISTER IS DERIVED FROM `S.cards`, NEVER STORED.** A place is unlocked iff its card has a
-    record, which is the same test a locator window already uses for a studied sibling — so this needed
-    no progress field, no migration and nothing to keep in step, and resetting one deck's progress takes
-    that deck's places off the globe the same afternoon.
-    **A COUNTRY IS UNLOCKED BY NAME AND RESOLVED THROUGH THE ERA.** A geography card names a place in
-    `world.js`, and every one of the thirteen eras files its own territories by name too, so an unlocked
-    France is drawn in whatever shape the year's map gives it and does not appear at all in a year whose
-    map has no such state. That is the whole of "in the appropriate years" and it needed no table of
-    independence dates: **Folio's own maps already carry the answer.** A `us-states` or `china-provinces`
-    shape belongs to no era, so it is drawn only where the map IS present-day (`eraIsModern`) — today's
-    boundaries over a 1600 map would be a claim Folio does not make.
-    **A LOCATOR CARRIES ITS OWN YEARS, AND ONLY THE START OF THEM BINDS** (`cardSpanYears`; the end was
-    dropped in Sep 2026, on request: "cities and dot locations should have no end date, i.e. should appear
-    in their earliest known date of settlement and then stay visible until the modern day"). Both ends is
-    right about a STATE — which is what the country shapes answer for, through the era's own map — and
-    wrong about a PLACE: Yinxu is still there, and a globe that took Athens away in 300 CE was telling the
-    reader the city had stopped existing. What a card's span really dates is its SUBJECT, the Shang capital
-    or the classical city, and a dot on a map is the place rather than the episode. A card with no dates at
-    all is a place rather than a period — a river, a cave — so it is drawn in every year, which is the same
-    rule one step further on.
-    **THE RAIL IS LINEAR HERE AND BENT THERE, and nothing snaps.** The world atlas has thirteen stops and
-    bends its scale to keep them apart; the personal atlas has none, because every year has a map, so a
-    bent scale would only lie about how far apart two years are. **The chevrons step ONE YEAR** (Sep 2026,
-    on request); they stepped a century in the deep past and a decade after 1500, which is a chevron that
-    cannot reach most of the years its own rail holds. Crossing a millennium is what dragging the rail is
-    for, and a hold on the chevron still accelerates.
-    **THE POPUP IS THE CARD** — `buildBack` through `mountCardBack`, in the country panel's own shell, with
-    its year paragraph, its Wikidata figures and the Atlas's citation fold hidden: those describe a country
-    as the world atlas knows it, and what is being shown is a card, whose own facts and sources come with
-    it. `.cp-tools[hidden]{display:none}` is required — an author `display:flex` beats the attribute, the
-    trap `.ces-imgpanel` and `.af-src` already carry.
-    **NO LEGEND AND NO SEARCH** (the request says so for the legend; the search is the WORLD atlas's index,
-    so a hit there would open a panel about a place the reader has not unlocked). Which makes `riversOn`
-    the one toggle that tab reads, and it is forced ON: the request describes the empty globe as
-    "landmasses+oceans+rivers etc.", and with no legend a default of off is a layer promised and
-    unreachable.
-    **THE EARTH IS COLOURLESS UNTIL IT IS EARNED, AND A CLICK IS THE ONLY GOLD** (Sep 2026, on request:
-    "make countries colourless unless they are clicked, same as on the normal atlas. areas without any
-    known countries or places should appear slightly darker"). Every unlocked country was washed in
-    `TINT_SEL` at 0.16, which says "selected" about all of them at once and leaves a click nothing to say.
-    Two shades of the land colour do it instead — `landDim` for the earth at large, `land` for the states
-    this reader has reached — and the map's own selection gold is spent on the one shape just clicked,
-    tracked in `mineSel` (a NAME, not an index: the shape list is rebuilt whenever the era or the register
-    changes, and an index would light whichever country inherited the slot). **`landDim` IS NOT
-    `landWild`**: the era branch darkens its wilderness to 0.62 because that wilderness is a minority of
-    the map and carries a stipple; here it is nearly the whole earth on a reader's first day, and at 0.62
-    the globe reads as unlit rather than as unearned. 0.87 is a step, not a shadow.
-    **A MARK IS A RED DOT, AND ONLY EVER A DOT** (Sep 2026, on request: "make the dots red instead of
-    orange … mountain ranges like the Apennines should not be displayed … areas or regions (like Etruria,
-    Attica) should not show. countries or civilisations should"). The red is the locator windows' own
-    `rgba(200,69,60)`, so a place looks the same here as on the card it came from, and the gold is left to
-    mean one thing. A REGION and a RANGE are dropped from the register outright: they were a dashed wash
-    and a spine, and a dozen of them at world scale is a rash of blotches over an earth whose point is that
-    it is empty. Nothing is lost by it — a country or a civilisation is unlocked by NAME against the year's
-    own map and drawn in that map's shape, which is a better answer than any authored polygon — and they
-    are NOT demoted to a dot, a dot in the middle of Etruria being the false claim the card maps stopped
-    making.
-    **A SHAPE CARRIES ITS BORDER AND NO NAME** (Sep 2026, on request: "remove the name labels for
-    countries and provinces. Once a country is discovered, also show its border. Discovered provinces
-    should appear with dotted borders and selectable through a second-level/double click"). This reverses
-    a rule of the day before, and the reversal is the better answer: the names were placed at each
-    shape's own label point after a bug report that the United States was labelled over Europe (a bbox
-    centre is meaningless for a country crossing the antimeridian — Chukotka sits west of -180 and Alaska
-    east of it, so the box runs the full -180..180 and its centre is the North Sea, which is also where
-    France's fell in the Atlantic and New Zealand's on the wrong side of the planet). Correctly placed,
-    they were still a heap of words over the earth this tab exists to keep clear. **What says where a
-    country ends is now its OWN BORDER**, drawn for the shapes in the register and for nothing else — so
-    an inland state, which had no coast and so no edge of any kind, is finally a shape rather than a
-    patch. The country's is SOLID and in the map's own `border` ink (which the coast is stroked in too,
-    so a shared run drawn twice reads as one line); a **PROVINCE's is DOTTED**, which is how every atlas
-    separates the two and what `subdivInner` already does on the card maps. **A DOT KEEPS ITS NAME**: it
-    has no outline, so the name is the whole of what it says. `ringLabelAnchor` and the `lp` / `la`
-    fields went with the label pass.
-    **AND A PROVINCE IS THE SECOND CLICK** (`mineAt(px, py, sub)`): a state's own shape and its
-    province's coincide over most of their border, so "smallest wins" would hand every click inside
-    California to California and the country would be unreachable. The first click tests countries only
-    and the second provinces only — the world atlas's drill, two rungs instead of three, counted with
-    that tab's own 400ms window and 14px slop.
+    `.atlas-empty` / `.cp-mine`). The globe starts EMPTY — land, ocean, lakes, rivers and coast, and no
+    border, dot or name anywhere — and studying a card is what puts a place on it.
+    **THE REGISTER IS DERIVED FROM `S.cards`, NEVER STORED**: a place is unlocked iff its card has a
+    record, so this needed no progress field and nothing to keep in step. **A COUNTRY IS UNLOCKED BY NAME
+    AND RESOLVED THROUGH THE ERA** — every era files its territories by name, so an unlocked France is
+    drawn in whatever shape the year's map gives it and does not appear in a year whose map has no such
+    state; **Folio's own maps already carry the answer**, so no table of independence dates was needed. A
+    `us-states` or `china-provinces` shape belongs to no era and is drawn only where the map IS
+    present-day (`eraIsModern`).
+    **A LOCATOR CARRIES ITS OWN YEARS, AND ONLY THE START OF THEM BINDS**: a dot on a map is the place
+    rather than the episode, so a place appears at its earliest date and stays; a card with no dates at
+    all is a place rather than a period and is drawn in every year. **The rail is linear here and bent
+    there, and nothing snaps** — every year has a map, so a bent scale would only lie about how far apart
+    two years are — and **the chevrons step ONE YEAR**. **THE POPUP IS THE CARD**, through
+    `mountCardBack`, with the Atlas's own year paragraph, Wikidata figures and citation fold hidden;
+    `.cp-tools[hidden]{display:none}` is required.
+    **NO LEGEND AND NO SEARCH** (the search is the WORLD atlas's index, so a hit would open a panel about
+    a place the reader has not unlocked), which makes `riversOn` the one toggle that tab reads, forced ON.
+    **THE EARTH IS COLOURLESS UNTIL IT IS EARNED, AND A CLICK IS THE ONLY GOLD**: two shades of the land
+    colour, `landDim` for the earth at large and `land` for the states this reader has reached, with the
+    selection gold spent on the one shape just clicked — tracked in `mineSel` as a NAME, not an index,
+    the shape list being rebuilt whenever the era or the register changes. **`landDim` IS NOT `landWild`**:
+    the era branch's wilderness is a minority of the map and carries a stipple, where this is nearly the
+    whole earth on a reader's first day, and too dark reads as unlit rather than as unearned.
+    **A MARK IS A RED DOT, AND ONLY EVER A DOT** — the locator windows' own red, so a place looks the same
+    here as on the card it came from. A REGION and a RANGE are dropped from the register outright, and
+    **NOT demoted to a dot**, a dot in the middle of Etruria being the false claim the card maps stopped
+    making. **A SHAPE CARRIES ITS BORDER AND NO NAME** — the country's SOLID in the map's own `border`
+    ink, a **PROVINCE's DOTTED** — and **a DOT KEEPS ITS NAME**, having no outline. **AND A PROVINCE IS
+    THE SECOND CLICK** (`mineAt(px, py, sub)`): a state's shape and its province's coincide over most of
+    their border, so "smallest wins" would make the country unreachable.
     **A CULTURE OR A CIVILISATION IS DRAWN WITH ITS OWN EXTENT, IN THE YEARS IT STOOD** (`MINE_POLITY`,
-    the `area` marks, `drawMineAreas`; Sep 2026, on request: "ancient cultures and civilisations should be
-    displayed in their relevant years"). The earlier request — countries and civilisations yes, regions
-    and ranges no — could only be half kept, because a country is unlocked by NAME against the year's era
-    map and **Folio's maps begin at 1500**: every civilisation older than that had no shape to be drawn in
-    and appeared nowhere at all. What it does have is the authored `area` on its own card. **THE
-    DISCRIMINATOR IS THE CARD'S OWN KIND TAG** — `culture`, `people`, `state`, `dynasty`, `empire`: a
-    polity or a people, which is what "civilisation" means here, and NOT `place`, which is Etruria,
-    Attica, Latium and the Fertile Crescent, the regions the earlier request took off this globe.
-    Measured over the corpus that admits **30 of the 45 region locators and no geographic one**;
-    `rm-091` the Roman Republic is filed `era` by its own tags and so draws nothing, and the fix for that
-    is the card's tag rather than a wider rule here, since `era` is also the Bronze Age. **BOTH ENDS OF
-    THE SPAN BIND**, unlike a place's: the Liangzhu culture ends where Yinxu does not. It is drawn
-    DASHED, in the marks' red — a culture has no border to be right about and a crisp line would assert a
-    frontier Folio has not surveyed — and **CLIPPED TO THE LAND**, since an authored area is a dozen
-    points where a coast is a thousand. The clip is a `ctx.clip()` over the visible land rather than the
-    card maps' second canvas because it runs only in a frame that HAS a live civilisation in it; most
-    frames build no path at all.
-    **A RIVER IS NEITHER A DOT NOR A NAME** (Sep 2026, on request: "'Tiber' should not have a dot or
-    label"). It is drawn already — every river is, as one of the Atlas's own blue threads — so a dot on
-    one pins a 400 km course to an arbitrary point on it, which is the false precision a region's dot
-    would have been. It joins `range` and the non-polity regions in the register's own refusals.
-    **EVERYTHING DRAWN ANSWERS A CLICK** (same request): dot, culture, province, country, in that order
-    of how specific a claim each is.
-    **THE STRAY BORDERS ARE THE COAST CLASSIFIER'S GENEROSITY, AND THE FIX IS A MASK** (`mineCoastSkip`;
-    Sep 2026, on a bug report naming "the western border of Uzbekistan, some borders of Jordan,
-    Montenegro, the Netherlands, western Spain, the southern border of the Western Sahara"). `coastEdges`
-    calls an unshared world.js chain a coast if OCEAN is found anywhere within its bbox plus 1.2°, which is
-    why every reported stray is a land border a short way inland from a sea — and on the world atlas nobody
-    could see it, a border being drawn there anyway. This tab draws the coast and nothing else, so each one
-    stands alone in an empty continent. The discriminator is `coastEdges`'s own, two DIFFERENT countries
-    across the chain; it is not run in there because the world atlas has no use for it, and it probes the
-    chain's middle first so the fuller vote runs only for the few that look like a border. Measured: ~410ms
-    once, inside a first paint that already costs 1.4s on this tab, and **a shortcut that skipped CLOSED
-    loops was tried and removed** — a country's whole outline chains as one closed loop, its coast and its
-    unshared border together, so it took the fix to zero while looking like a five-times speed-up.
-    **AND THE POPUP SAYS NOTHING THE CARD ALREADY SAYS** (`.cp-mine`; Sep 2026, on request: "remove the
-    'Answer' header and 'From your card' tagline, the title bar (should only display when popup is
-    collapsed) and its dating"). Four repetitions of the card back beside them — the answer term is its own
-    heading and its dates are its date line — taken off by a stylesheet class rather than by four writes,
-    because the title bar has to come BACK when the sheet is collapsed (a collapsed sheet is nothing but
-    its title bar) and because the "Answer" label is inside markup `showMinePopup` does not build. The name
-    is still WRITTEN: it is what the collapsed sheet shows and what a screen reader reads.
-    **THE TAB IS MODULE-LEVEL AND `route()` RESETS IT**, which is what "opening the page defaults to this
-    tab" means; a `S.settings` value would send a reader who once looked at the world atlas back to it for
-    ever. Switching tab is `render()`, not `route()`, or the reset would undo the press. The two tabs keep
-    SEPARATE coach-mark keys (`folio_mine_tour_v1`), since a reader who dismissed the world atlas's card
-    months ago has never been told what this one is.
-    **WHAT CHANGED IN A SECOND SEP 2026 REQUEST ABOUT THIS TAB.** Six things, and four are decisions.
-    **A COUNTRY NOW ARRIVES IN THE YEAR IT WAS FOUNDED** (`mineFounded`; "ensure that each modern year
-    really appears in the year of its founding, e.g. the United States in 1776, China in 1949"). Folio's
-    maps step a century and then a decade, so the United States arrived in 1800 and the People's Republic
-    in 1960 — at the first map that happens to carry the name. **THE ERA MAPS BRACKET THE ANSWER AND THE
-    CARD SUPPLIES IT**: the first era carrying a name says the state existed BY that year and the era
-    before it says Folio's map did not show it THEN, so the founding lies in (previous, first], and the
-    card's own cited date line is read for a year inside that bracket. **IT CAN ONLY EVER MOVE A COUNTRY
-    EARLIER, and that clamp is what makes it safe to run over all 233 rather than hand-writing 233 founding
-    years.** MEASURED: unclamped it DELAYS 264 countries and takes FRANCE off the 1500, 1600 and 1700 maps
-    — `gw-`'s date line for France records the United States' recognition in 1778 — and Japan off the same
-    three on Perry's 1853. Clamped, 163 move earlier and none later. A state founded before the first map
-    that shows it is drawn in THAT map's shape, which is the only shape Folio has for it.
-    **THE MARKS AND THEIR NAMES ARE GATED BY ZOOM** (`MINE_SEP`, `MINE_LBL_Z`, `mineDotsShown`): a
-    separation in screen pixels thins the marks and the NAMES wait for zoom 2.6 altogether. Which mark
-    survives is RANKED — a capital first, then the title — so the set is stable between frames and zooming
-    in only ever adds; first-come over `Object.keys(S.cards)` would reshuffle the map on every grade. **And
-    `mineAt` reads the same thinned list**, or a click on empty ground opens a popup about a place that is
-    not drawn.
-    **A CAPITAL IS A SQUARE** and everything else a dot, which is the card maps' own convention one tab
-    over; **a CIVILISATION'S wash is GREEN** (`mineAreaFill` / `mineAreaLine`), red having made it read as
-    one of the reader's places writ large; and **`landDim` went from 0.87 to 0.78**, a step a reader can
-    see on a map whose whole grammar is earned-against-unearned.
-    **THE RAIL LOST THE WORLD ATLAS'S YEAR MARKS AND GAINED A RANGE** (`MINE_STARTS`, `mineStart`,
-    `setMineRange`, `.tl-range`): the marks are the world rail's thirteen stops, and on a rail where every
-    year is reachable they mark nothing while suggesting the pin will jump to them. The range is five
-    declared starts, each with its own ticks — a rail from 1900 wants decades where one from 4000 BCE wants
-    millennia — and it is closure state rather than a setting, like the glossary record's sort.
+    `drawMineAreas`) — Folio's era maps begin at 1500, so everything older has no shape to be drawn in and
+    what it does have is the authored `area` on its own card. **THE DISCRIMINATOR IS THE CARD'S OWN KIND
+    TAG** — `culture`, `people`, `state`, `dynasty`, `empire`, and NOT `place`, which is the regions the
+    earlier request took off this globe. **BOTH ENDS OF THE SPAN BIND**, unlike a place's. Drawn DASHED,
+    in the marks' red, and CLIPPED TO THE LAND with a `ctx.clip()` rather than the card maps' second
+    canvas, since it runs only in a frame that HAS a live civilisation in it. **A RIVER IS NEITHER A DOT
+    NOR A NAME**, being drawn already as one of the Atlas's blue threads. **EVERYTHING DRAWN ANSWERS A
+    CLICK**: dot, culture, province, country, in that order of how specific a claim each is.
+    **THE STRAY BORDERS ARE THE COAST CLASSIFIER'S GENEROSITY, AND THE FIX IS A MASK** (`mineCoastSkip`):
+    `coastEdges` calls an unshared chain a coast if OCEAN is within its bbox plus 1.2°, which on the world
+    atlas nobody could see because a border is drawn there anyway. The discriminator is `coastEdges`'s own,
+    two DIFFERENT countries across the chain; **a shortcut that skipped CLOSED loops was tried and
+    removed**, a country's whole outline chaining as one closed loop.
+    **THE POPUP SAYS NOTHING THE CARD ALREADY SAYS** (`.cp-mine`), taken off by a stylesheet class rather
+    than by four writes — the title bar has to come BACK when the sheet is collapsed, and the "Answer"
+    label is inside markup `showMinePopup` does not build. The name is still WRITTEN, being what a
+    collapsed sheet shows and what a screen reader reads.
+    **A COUNTRY ARRIVES IN THE YEAR IT WAS FOUNDED** (`mineFounded`): the era maps BRACKET the answer and
+    the card's own cited date line supplies it. **IT CAN ONLY EVER MOVE A COUNTRY EARLIER, and that clamp
+    is what makes it safe to run over all 233 rather than hand-writing 233 founding years** — unclamped it
+    DELAYS 264 countries and takes France off three maps on a recognition date. **THE MARKS AND THEIR
+    NAMES ARE GATED BY ZOOM** (`MINE_SEP`, `MINE_LBL_Z`, `mineDotsShown`), and **which mark survives is
+    RANKED** — a capital first, then the title — so the set is stable between frames and zooming in only
+    ever adds; **`mineAt` reads the same thinned list**, or a click on empty ground opens a popup about a
+    place that is not drawn. A capital is a square; a civilisation's wash is GREEN, red having made it read
+    as one of the reader's places writ large. **THE RAIL LOST THE WORLD ATLAS'S YEAR MARKS AND GAINED A
+    RANGE** (`MINE_STARTS`, `mineStart`, `setMineRange`, `.tl-range`): on a rail where every year is
+    reachable the thirteen stops mark nothing while suggesting the pin will jump to them, and the range is
+    closure state rather than a setting, like the glossary record's sort.
+    **THE TAB IS MODULE-LEVEL AND `route()` RESETS IT** — a `S.settings` value would send a reader who
+    once looked at the world atlas back to it for ever — and switching tab is `render()`, not `route()`,
+    or the reset would undo the press. The two tabs keep SEPARATE coach-mark keys
+    (`folio_mine_tour_v1`).
   **📖 `docs/atlas.md` — READ BEFORE TOUCHING THE RENDER PATH, AN ERA OR THE TIMELINE.** Why every rule
   above exists, the host quirks behind `forceComposite`, the non-linear rail, the popup's own sections and
   pager, the era build's topology-preserving simplify, its region supplement and overlap cleaning, and the
