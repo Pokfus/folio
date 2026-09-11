@@ -4210,213 +4210,109 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     terms only, at or below `GAME_MAX_DIFFICULTY`, since a game deals a term COLD. A tenth game reaches for
     that function; `test-difficulty.js` asserts there is no other path. **Timeline has a second filter**
     (`card.undatable`) and nothing else may borrow it. **Three games are not card-fed at all** and each
-    left that rule by being asked to: the crossword (`crossword.js`), What year? (`whatyear.js`) and the
-    picture round (the artefacts).
-  · **TIMELINE'S REVEALED DATES SAY WHAT THE DATE IS** (`cardYearBasis` / `dateLineRows`, beside
-    `cardSpanYears`; `.ciy-n` / `.ciy-b`. Sep 2026, on request: when the answers are revealed "each year
-    should also say what that starting date is based on"). A card's place in the order is
-    `min(cardYears)` over the whole `answerDate` field, which is a bare number: on a card dated
-    `Born 100 BCE / Died 44 BCE` the ordering fact is the birth, and on `Built c. 447 BCE /
-    Destroyed 1687 CE` it is the building, and the row said neither. The date line already names both in
-    its `dt-k` labels, so the basis is READ BACK OUT of it rather than stored a second time.
-    **IT IS DERIVED AND MAY HONESTLY COME BACK EMPTY, WHICH IS THE WHOLE OF ITS HONESTY**: a row is the
-    basis only when THAT ROW'S own earliest year equals the card's sort year, so a card with no date line,
-    one whose sort year comes from a continuation line, and one an admin has given a manual chronology
-    override all print the year alone, exactly as before. Printing "Era" over a year that did not come
-    from the Era row would be worse than printing nothing. **Measured over the shipped corpus: 1,617 of
-    the 1,627 datable cards yield a basis**, the commonest being Independence, US recognition, In use,
-    Founded and Era. `chronoPool` reads it ONCE when the pool is built rather than at reveal time.
-  · **THE PICTURE ROUND IS THE ARTEFACTS AND THE ARTWORK CARDS, AND NOTHING ELSE** (Sep 2026, on two
-    requests: "The game 'Picture round' should only use pictures from artefacts", and then "the artworks
-    should also show up in the Picture It minigame"). A card's or a term's picture ILLUSTRATES its
-    subject, which is a different thing from depicting it — a hand-axe under `Acheulean`, a flag under a
-    country — and the two filters that had grown up around that (`PIC_ABSTRACT_KINDS`, and the difficulty
-    bar reaching into the glossary through `threadEasyKeys()`) are **DELETED** with the halves they
-    guarded: an artefact is a photograph of ONE object, so there is nothing to rate and nothing to except.
-    **The second request is not that narrowing undone, and the distinction is what lets it back in**: an
-    ARTWORK card is the one card on the site whose picture IS its answer (`cardArtSpec`), so the rule the
-    narrowing established — "does this picture depict its subject?" is answered by which table the picture
-    came out of — still decides it, and this is a second table that answers yes. A STYLE card in the same
-    collection carries a representative work, no flag, and is not here.
-    It is **`availableCardIdSet`, never `gameCardIdSet`**: that door filters on `difficultyOK` because the
-    games behind it deal a term cold, where here the picture is on screen and the answer is one of four —
-    and the artefact half has no rating to filter on either, so filtering one half and not the other would
-    deal two kinds of round. Its decoys are ranked on tags DERIVED from what each carries — an era bucket
-    off `artefactYear` or `cardStartYear`, plus an artefact's `origin` or a card's own tags — and **the
-    first tag is `artefact` or `artwork` for all of them**, which is what keeps the two apart in the draw:
-    `tagKinship` weights `tags[0]` fourfold and caps the score where the kinds differ, so an artwork is
-    answered against artworks wherever there are three, and meets an artefact across the shared era bucket
-    only when there are not.
-  · **…AND ITS REVEAL IS THE ARTEFACT'S OWN PLATE, MINUS THE PLATE** (same request): the five sentences
-    with their footnote markers intact and `sourcesHTML` under them, wired by `wireFootnotes`, so the
-    apparatus behaves exactly as it does on the plate itself. **The SUMMARY screen strips the markers**
-    (`picNoteBare`) — there is no list under it, and `sup.fn:empty::before` prints a marker's own digit,
-    so leaving them in sets stray numerals through five paragraphs pointing at nothing.
-  · **…AND THE REVEAL CARRIES NO CREDIT AND OPENS ITS SOURCES SHUT** (`picCaption`, `sourcesHTML`'s
-    `shut` option and the `src-nopref` class; Sep 2026, on request: the reveal "still shows the credits of
-    the image … delete these, they're already available when the user clicks on the image", and "ensure
-    that in this minigame, the sources section is always collapsed by default"). Three things.
-    **TAKING `.pic-credit` AWAY WAS ONLY HALF OF IT: HALF THE POOL CARRIES THE ATTRIBUTION A SECOND TIME
-    INSIDE THE CAPTION** — measured, **96 of the 192 artefact pictures end `image.desc` with the opening
-    clause of their own `image.credit`** — so with the credit element gone the last line of the reveal was
-    still "Ardon Bar-Hama, public domain, via Wikimedia Commons." `picCaption` cuts it, and **it is an
-    EXACT match against that item's own credit rather than a pattern that looks like an attribution**: the
-    credit's text up to its URL is compared with the end of the caption and only a byte-for-byte tail is
-    removed, so it cannot eat a caption that merely mentions a photographer. Verified over the whole pool:
-    96 trimmed, 96 untouched, none left carrying an attribution. **The DATA is deliberately left alone** —
-    what remains on those 96 is usually the Commons file's own name ("CairoEgMuseumTaaMaskMostlyPhotographed"),
-    so cleaning it is a rewrite of 96 captions rather than a deletion, and that is a content pass.
-    **THE FOLD'S TWO HALVES HAD TO COME APART.** `opts.compact` already forced a fold shut and kept it out
-    of the reader's `S.settings.srcCollapsed` — but it also restyles the list to a gloss popup's size, which
-    a game round set at the card's own size does not want. So `opts.shut` is the second half alone, and
-    **`src-nopref` is now what the delegated header handler tests** (with `src-compact` carrying it as well
-    as its own styling). Without that guard, opening the fold in one round would open it on every card the
+  · **EVERY CARD-FED GAME DRAWS THROUGH `gameCardIdSet()`, NEVER `availableCardIdSet()`** — the well-known
+    terms only, at or below `GAME_MAX_DIFFICULTY`, since a game deals a term COLD. A tenth game reaches for
+    that function; `test-difficulty.js` asserts there is no other path. **Timeline has a second filter**
+    (`card.undatable`) and nothing else may borrow it. **Three games are not card-fed at all**: the
+    crossword (`crossword.js`), What year? (`whatyear.js`) and the picture round (the artefacts).
+  · **TIMELINE'S REVEALED DATES SAY WHAT THE DATE IS** (`cardYearBasis` / `dateLineRows`): the card's place
+    in the order is `min(cardYears)` over the whole `answerDate`, so the row names which of its dates that
+    was, READ BACK OUT of the date line rather than stored a second time. **It is derived and may honestly
+    come back empty, which is the whole of its honesty** — a row is the basis only when that row's own
+    earliest year equals the card's sort year, and printing a label over a year that did not come from it
+    would be worse than printing nothing. `chronoPool` reads it ONCE when the pool is built.
+  · **THE PICTURE ROUND IS THE ARTEFACTS AND THE ARTWORK CARDS, AND NOTHING ELSE.** A card's or a term's
+    picture ILLUSTRATES its subject, which is a different thing from depicting it; an artefact is a
+    photograph of ONE object and an ARTWORK card is the one card whose picture IS its answer
+    (`cardArtSpec`), so **"does this picture depict its subject?" is answered by which table the picture
+    came out of.** It is **`availableCardIdSet`, never `gameCardIdSet`** — the picture is on screen and the
+    answer is one of four, and the artefact half has no rating to filter on. Its decoys are ranked on tags
+    DERIVED from what each carries, and **the first tag is `artefact` or `artwork` for all of them**, which
+    is what keeps the two apart in the draw.
+  · **…AND ITS REVEAL IS THE ARTEFACT'S OWN PLATE, MINUS THE PLATE** — the five sentences with their
+    footnote markers intact and `sourcesHTML` under them, wired by `wireFootnotes`. **The SUMMARY screen
+    strips the markers** (`picNoteBare`): there is no list under it, and `sup.fn:empty::before` prints a
+    marker's own digit.
+  · **…AND THE REVEAL CARRIES NO CREDIT AND OPENS ITS SOURCES SHUT** (`picCaption`, `sourcesHTML`'s `shut`
+    option and the `src-nopref` class). **Taking `.pic-credit` away was only half of it: half the pool
+    carries the attribution a second time inside the caption**, so `picCaption` cuts it — **an EXACT match
+    against that item's own credit rather than a pattern that looks like an attribution**, so it cannot eat
+    a caption that merely mentions a photographer. **The fold's two halves had to come apart**: `shut` is
+    the forced-shut half without `compact`'s gloss-popup typography, and **`src-nopref` is what the
+    delegated header handler tests**, or opening the fold in one round would open it on every card the
     reader studies afterwards.
-  · **MULTIPLE CHOICE SHOWS THE WHOLE ANSWER SIDE OF THE CARD** (`mountCardBack` / `.mc-cardback`; Sep
-    2026, on request). It is the one game built on a real card, and it was answering with a one-sentence
-    note where the card itself has a date line, a picture, an atlas window, its background and its
-    citations — the elaborated feedback the learning-science batch measured at d = 0.49 against a bare
-    right-or-wrong's 0.05, already written and simply not shown. It replaces `gameAnswerNote`'s
-    paragraph rather than standing beside it.
-    **`mountCardBack(inner, c, opts)` IS THE ONE WIRING PATH AND THAT IS THE POINT**: a card's back is
-    not markup alone — the footnotes have to be numbered, the glossary terms wired, the fold made to
-    open, the map mounted and revealed — and `openCardPeek` had its own copy of that list, so any surface
-    rendering `buildBack` was one forgotten line away from a card with dead links or a blank map window.
-    Both go through it now. It sits BELOW the round rather than inside it, in `.dc-shell`'s own column
-    with a rule across the top, so the game has plainly ended before the card begins.
-  · **A ROUND ANSWERED STAYS ANSWERED** (`gameProgress` / `setGameProgress`; Sep 2026, on a bug report
-    that leaving the picture round half way and re-entering dealt the same questions again with the
-    answers known). The one-play lock is only set when a run FINISHES, so an abandoned run was free; the
-    outcomes are written to `S.games[key].prog` as each round is answered — before the reader can press
-    Next, since the reader who never presses it is the case — and re-entering resumes there. It holds the
-    OUTCOMES rather than an index, so the round to resume at and the score cannot disagree; the row's own
-    `date` scopes it; and it is cleared when the run ends, where the lock takes over. **Only the picture
-    round uses it so far** — the helpers are general, and a second game adopts them in three lines.
-  · **A PICTURE IS ENLARGEABLE ONLY AFTER THE REVEAL** (same request), and it calls `openImageViewer`
-    directly rather than earning the `.card-img` class the delegated listener watches for: that class
-    carries a fixed 16:9 frame and a `height:100%` on the picture inside it, so adopting it at the reveal
-    would RESHAPE the picture the reader is looking at. It is held back for the same reason the caption is
-    — the viewer's meta bar carries the title and the credit, both of which name the subject.
+  · **MULTIPLE CHOICE SHOWS THE WHOLE ANSWER SIDE OF THE CARD** (`mountCardBack` / `.mc-cardback`), which
+    is the elaborated feedback the learning-science batch measured at d = 0.49 against a bare
+    right-or-wrong's 0.05. **`mountCardBack(inner, c, opts)` IS THE ONE WIRING PATH AND THAT IS THE
+    POINT**: a card's back is not markup alone — the footnotes have to be numbered, the glossary terms
+    wired, the fold made to open, the map mounted and revealed — so any surface rendering `buildBack` is
+    otherwise one forgotten line away from a card with dead links or a blank map window.
+  · **A ROUND ANSWERED STAYS ANSWERED** (`gameProgress` / `setGameProgress`): the one-play lock is only set
+    when a run FINISHES, so the outcomes are written as each round is answered — before the reader can
+    press Next, since the reader who never presses it is the case. It holds the OUTCOMES rather than an
+    index, so the round to resume at and the score cannot disagree; the row's own `date` scopes it.
+  · **A PICTURE IS ENLARGEABLE ONLY AFTER THE REVEAL**, and it calls `openImageViewer` directly rather than
+    earning the `.card-img` class: that class carries a fixed 16:9 frame and a `height:100%`, so adopting
+    it at the reveal would RESHAPE the picture the reader is looking at.
   · **A NEW GAME IS WIRED IN SIX PLACES AND FIVE OF THEM FAIL SILENTLY**: `PAGES.<key>`, the `valid` route
-    list, `PAGE_META`, `DAILY_GAMES`, `GAME_NAMES` + `GAME_SET_WORD`, and the tile plus its click handler in
-    `PAGES.home`. `test-minigames.js` asserts all six, against the tiles the home page actually paints.
+    list, `PAGE_META`, `DAILY_GAMES`, `GAME_NAMES` + `GAME_SET_WORD`, and the tile plus its click handler
+    in `PAGES.home`. `test-minigames.js` asserts all six, against the tiles the home page actually paints.
   · **THE DAY'S DRAW IS THE SAME DRAW FOR EVERY READER, AND `dayPick(key, arr, n)` IS THE ONE WAY TO MAKE
-    ONE** (Aug 2026, on a bug report: two readers comparing True or False scores had been answering
-    different statements). A daily game's score is written to the tile as TODAY'S, shown beside a
-    site-wide average on the tile's own record card, and read off a friend's account beside your own — so
-    a set drawn from `Math.random` makes every one of those comparisons a comparison of two different
-    tests, silently. Six of the nine were seeded off `todayStr()` already; **Multiple Choice, True or
-    False and Who said it? were not**, and now are. `dayPick` is `pick`'s seeded twin — same signature,
-    same shuffle, the day in place of the entropy — and lives beside `gameLockedToday`. **NEVER `pick`
-    IN A GAME'S DRAW**; the one legitimate `Math.random` left in the games is Common Thread's Shuffle
-    button, which is the player jumbling their own board rather than a draw.
-    **The key names the DRAW, not the game**: a round draws its questions and then its options, and two
-    draws sharing a seed shuffle in step, which on a four-option round puts the answer in the same
-    position every round. And a per-round key carries something STABLE about that round — the card's id,
-    the pool index — never its position, which would move every later round's options the day an earlier
-    card left the pool, and never a LOCALISED string, which would deal a Spanish reader different
-    decoys. It reads the reader's OWN day boundary, like the lock and the streak: everyone sharing a date
-    shares a quiz, which is the guarantee — not that the planet turns over at once.
+    ONE.** A daily game's score is written to the tile as TODAY'S, shown beside a site-wide average and
+    read off a friend's account beside your own — so a set drawn from `Math.random` makes every one of
+    those comparisons a comparison of two different tests, silently. **NEVER `pick` IN A GAME'S DRAW**; the
+    one legitimate `Math.random` left is Common Thread's Shuffle button. **The key names the DRAW, not the
+    game** — two draws sharing a seed shuffle in step, which on a four-option round puts the answer in the
+    same position every round — and a per-round key carries something STABLE about that round (the card's
+    id, the pool index), never its position and never a LOCALISED string. It reads the reader's OWN day
+    boundary: everyone sharing a date shares a quiz.
   · **ONE PLAY A DAY** (`gameLockedToday(root, key)`, called as each page's first act) — every game is
     daily, its rounds are drawn once and its score is today's, so a second run is a run with the answers in
     hand. The placard wears the game's own tile icon (`ICON`, at module scope so the tile and the placard
     cannot disagree). Each records `S.games[key] = { date, played, won }` through `markGamePlayed`, where
     **`won` is a PERFECT score, not a play**.
-  · **A PLAYED TILE WEARS ITS STATE — the tile's OWN hue is swapped, not painted over** (`--gt-accent`,
-    Sep 2026, on request, choosing design 8 of eight rendered alternatives). Unplayed, a tile washes in
-    its game's colour with a corner ornament; played, that whole treatment — the wash, the left bar, the
-    hover border, the focus ring, the title — turns green, or gold on a perfect score, and one very
-    large tick is washed across the tile behind the words. **THREE ANSWERS CAME BEFORE IT AND ALL THREE
-    PAINTED A NEW SHAPE ONTO THE TILE**: a full fill, then a small corner mark (a green disc, a gold wax
-    seal), then a green/gold BAND across the top of a phone tile with a big white tick on it — the last
-    rejected twice in the words "I still don't like how the gold/green completed minigames tiles look".
-    Re-tinting the shape the tile already has is what none of them tried.
-    **`--gt-accent` IS WHY IT IS A SMALL CHANGE, and it exists because `--tile` CANNOT BE RE-SET**: the
-    game's hue arrives inline (`style="--tile:…"`) and an inline declaration beats any selector without
-    `!important`, so `.done` sets a SECOND property that every treatment reads and which merely defaults
-    to `--tile`. One line per state, and every derived rule — including the synth, arcade and gazette
-    overrides — followed by being repointed once.
-    **THE CORNER MARKS ARE CLIPPED TO 1px, NEVER `display:none`.** `.gt-check` / `.gt-seal` carry
-    `role="img"` and the aria-label, and are the only thing on the tile that STATES the completion; the
-    tick is decoration and says nothing. Same trade the folded grade bar makes with its labels. Scoped to
-    `.game-tile`, since the review banner draws the same two marks and still shows them.
-    **WHERE THE TICK SITS IS THE ONE THING THAT NEEDED A BREAKPOINT**: a phone tile is nearly square with
-    its words along the foot (the tick goes bottom-left, and the title is read over it — the arrangement
-    that was chosen), where a wider tile is a letterbox with an empty right half and the same placement
-    lays the tick through the title. All nine `won` on one day is still the **Clean Sweep** badge and a
-    chest, and the badge gets harder each time the grid grows, deliberately.
-    Guarded by `test-minigames.js`'s `[home]` block, which asserts the accent really switches, that the
-    left bar is painted from it, that the tick is drawn — and that the state is **still stated in words**.
+  · **A PLAYED TILE WEARS ITS STATE — the tile's OWN hue is swapped, not painted over** (`--gt-accent`):
+    played, the whole treatment turns green, or gold on a perfect score, with one very large tick washed
+    across the tile behind the words. **`--gt-accent` exists because `--tile` CANNOT BE RE-SET**, the
+    game's hue arriving inline and an inline declaration beating any selector without `!important`. **The
+    corner marks are clipped to 1px, never `display:none`** — they carry `role="img"` and are the only
+    thing on the tile that STATES the completion, where the tick is decoration and says nothing — and they
+    are scoped to `.game-tile`, the review banner drawing the same two marks. Where the tick sits is the
+    one thing that needed a breakpoint. All nine `won` in one day is the **Clean Sweep** badge and a chest,
+    and the badge gets harder each time the grid grows, deliberately.
   · **AND IT TURNS OVER TO ITS RECORD** (`gameBackHTML` / `flipGameTile` / `gameStatsPost` /
-    `gameStatsLoad` / `.gt-face` / `.gt-back`; Aug 2026, on request). A HOLD flips it — `wireHoldMenu`'s
-    own gesture, the deck rows' and the review banner's, so a tap still opens the game and the guard that
-    swallows the click after a hold is the same one. Four things.
-    **THAT GUARD'S WINDOW IS MEASURED FROM THE RELEASE, NOT FROM THE FIRE** (Aug 2026, on a bug report:
-    "the minigame tiles … when flipping them they immediately flip back"). `wireHoldMenu` fired at
-    `HOLD_MS` and armed the swallow for 700ms from THERE — but the click it has to swallow is dispatched
-    when the finger comes UP, so a reader holding a tile for a second and a half to see what happens
-    released past a window that had already shut. The click then reached `onTap`, which on a flipped tile
-    means "turn it back": the record appeared and vanished in the same gesture, and **the longer you held
-    the more reliably it did**. The release re-arms it. Measured through CDP touch input — a 600ms hold
-    flipped and a 1,400ms hold flipped and instantly unflipped — and **a synthetic `el.click()` cannot see
-    this at all**, never following a real pointer sequence, which is why nothing caught it.
-    **AND THE BACK IS A DIFFERENT LAYOUT ON A PHONE** (same report: the stats "don't display correctly on
-    mobile"). Three tiles to a 390px row is about 110px each, and the back was two columns of three rows
-    plus a heading and a footer — measured, 167px of content in a 110px box, clipped by the tile's own
-    `overflow:hidden` into two 34px columns of overlapping half-words. So the columns STACK, the type comes
-    down a step, "Tap to play" goes (a phone reader knows a tile is tapped) and the SITE half falls back to
-    a one-line form, `.gtb-brief`, **emitted beside the full one and chosen by the stylesheet** rather than
-    by a breakpoint read in JS. Every state keeps its own short form — "Not collected", "Unavailable",
-    "None yet" say three different things, and collapsing them to a dash would tell a reader nobody had
-    played when the truth is that this site does not count.
-    **THE SITE-WIDE HALF IS A POOLED COUNTER TABLE** (`game_stats` + `bump_game_score`, section 15 of
-    `.claude/supabase-schema.sql` — **the user must run it once**), for the reason the community card
-    rating is: `progress` is RLS-scoped to its owner and their friends, so there is no averaging across
-    readers from the tables the site already had. **A project without the block says so in a sentence**
-    rather than showing a zero, which reads as "nobody played" — and a fetch that merely FAILED says
-    something different again, since claiming a site does not collect a figure because a connection dropped
-    is a claim made out of a dropped connection. **THE DAY IS THE SERVER'S UTC DAY**, not the reader's, and
-    the tile says "today" without claiming it is theirs. **THE FLIP IS 2D AND THAT IS FORCED**:
-    `.game-tile` carries `overflow:hidden`, which flattens `transform-style` to `flat`, so a 3D rotation
-    would show the back mirrored — two `scaleX` squashes about opposite origins read as one card turning.
-    **AND THE TWO HALVES SWAP `aria-hidden`**, or a flipped tile reads out its front and never its record.
-  · **A MAP LABEL IS NOT A QUESTION** (`FINDIT_NAMES` / `finditName`, Aug 2026, on a bug report: "when the
-    Find it minigame says what state to find, it should differentiate between the two Congos"). A Find it
-    round's name comes straight out of `world.js`, whose labels are written to FIT ON A MAP: they are
-    abbreviated ("Dem. Rep. Congo", "Central African Rep.") and, in one case, genuinely ambiguous —
-    **`Congo` is the everyday name of the Republic of the Congo AND of its neighbour**, so "Find Congo"
-    asked a question with two right answers and marked one of them wrong. A declared table gives the ROUND
-    TEXT a reader-facing name and nothing else: the answer is still matched on the map's own label, so
-    this cannot change what counts as correct. Every key is a label `world.js` actually carries, and the
-    four abbreviations it does not cover are the four that no `countryDesc` lets into the pool.
+    `gameStatsLoad` / `.gt-face` / `.gt-back`). A HOLD flips it, through `wireHoldMenu`'s own gesture.
+    **THAT GUARD'S WINDOW IS MEASURED FROM THE RELEASE, NOT FROM THE FIRE** — the click it has to swallow
+    is dispatched when the finger comes UP, so a long hold released past the window flipped and instantly
+    unflipped, and **the longer you held the more reliably it did**; a synthetic `el.click()` cannot see
+    this at all. **The back is a different LAYOUT on a phone**, and every state keeps its own short form,
+    since "Not collected", "Unavailable" and "None yet" say three different things. **The site-wide half is
+    a pooled counter table** (`game_stats` + `bump_game_score`, schema section 15 — **the user must run it
+    once**); a project without the block says so in a sentence rather than showing a zero, and **a fetch
+    that merely FAILED says something different again**. **THE DAY IS THE SERVER'S UTC DAY**, and the tile
+    says "today" without claiming it is theirs. **THE FLIP IS 2D AND THAT IS FORCED**: `.game-tile` carries
+    `overflow:hidden`, which flattens `transform-style` to `flat`. **And the two halves swap
+    `aria-hidden`**, or a flipped tile reads out its front and never its record.
+  · **A MAP LABEL IS NOT A QUESTION** (`FINDIT_NAMES` / `finditName`): `world.js`'s labels are written to
+    FIT ON A MAP — abbreviated, and in one case genuinely ambiguous, `Congo` being the everyday name of two
+    neighbouring countries — so a declared table gives the ROUND TEXT a reader-facing name and nothing
+    else. **The answer is still matched on the map's own label**, so this cannot change what counts as
+    correct.
   · **WHAT YEAR? LISTS ITS FIVE IN ORDER, AND ITS YEAR IS STEPPED AS WELL AS DRAGGED** (`wyOrder` /
-    `.wy-readrow` / `.wy-step`, Aug 2026, on request). All five clues share ONE year, so the only order
-    they can be listed in is the order they HAPPENED — which needs a month and a day, and `whatyear.js`
-    recorded none: a 1066 puzzle opened on Edward's death in January, jumped to Halley's comet in April,
-    then put the fleet sailing from the Somme after the battle it sailed to. **`d` is a `"MM-DD"` sort key
-    and is never shown**, which is what keeps it inside the pool's own rule that an entry may not name a
-    date. **91 of the 98 entries carry one and seven deliberately do not** — the sack of Zhongdu (May or
-    June, depending on the source), four of 1517's Ottoman entries, the finding of the Dead Sea Scrolls and
-    1960's seventeen independences, which is a whole year rather than a day — and those sort last: a
-    made-up day reads exactly like a researched one, and an unordered entry costs the reader nothing.
-    The chevrons step the marker one tick and repaint through the SAME `paint()` the slider does, since
-    a second writer would be a second answer to "where is the marker"; their disabled state is recomputed
-    on every paint, because a wrong guess narrows the rail under them.
+    `.wy-readrow` / `.wy-step`). All five clues share one year, so the only order they can be listed in is
+    the order they HAPPENED: **`d` is a `"MM-DD"` sort key and is never shown**, which keeps it inside the
+    pool's own rule that an entry may not name a date, and **an entry whose day is not known deliberately
+    carries none** — a made-up day reads exactly like a researched one. The chevrons repaint through the
+    SAME `paint()` the slider does, a second writer being a second answer to "where is the marker".
   · **THE CROSSWORD IS NOT CARD-FED, AND IS THE ONLY GAME THAT WAS AND STOPPED** (`crossword.js`,
-    `xwPool`; Sep 2026, on request: "the crossword puzzles should no longer use questions from the cards;
-    create completely unique, simple history-based crossword puzzles"). A card question is a CLOZE written
-    round a blank, 20–34 words by house rule and carrying markup — a paragraph where a grid wants a phrase
-    — the pool was whatever the deck happened to hold, and a reader who had studied the card had already
-    seen the clue. `crossword.js` is the game's own bank of 334 answers of 4–11 letters with a short clue
-    each, on `whatyear.js`'s model and under the rules in its header. **Measured over 730 days: no blank
-    day, all nine entries every day, and 730 DISTINCT grids** where the card pool had collapsed to 60.
-    `check-style.js` reads the file (rule 4 only — a four-word clue has no business carrying a card's
-    conventions), and `test-difficulty.js` asserts the game no longer reaches for the cards.
-  · **`event` IS TOO BROAD TO BE A COMMON THREAD CATEGORY** (Sep 2026, on a report). It is the site's kind
-    tag for anything that HAPPENED and held 51 terms — a naval battle, a volcanic eruption, the
-    decipherment of a script, a flood myth — which is not a group a solver can see. In `THREAD_BROAD` with
-    the other sixteen. Sweeping 730 days without it: still 0 blank days, 728 distinct puzzles, and 42
-    categories reachable rather than the handful `event` was crowding out.
+    `xwPool`): a card question is a CLOZE of 20–34 words carrying markup where a grid wants a phrase, the
+    pool was whatever the deck happened to hold, and a reader who had studied the card had already seen the
+    clue. `crossword.js` is the game's own bank of 334 answers of 4–11 letters with a short clue each, on
+    `whatyear.js`'s model and under the rules in its header. `check-style.js` reads the file (rule 4 only)
+    and `test-difficulty.js` asserts the game no longer reaches for the cards.
+  · **`event` IS TOO BROAD TO BE A COMMON THREAD CATEGORY** — it is the site's kind tag for anything that
+    HAPPENED and held 51 terms, which is not a group a solver can see. In `THREAD_BROAD` with the other
+    sixteen.
   · **A DAILY POOL IS SEEDED AND ITS ANSWER MUST BE REACHABLE** — the crossword's letters must fit its own
     squares, What year?'s answer must sit on a tick of its own rail, and Common Thread's four groups must be
     provably disjoint. Each generator retries rather than giving up, and a starved pool is the failure mode
