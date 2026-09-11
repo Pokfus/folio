@@ -43,6 +43,7 @@ before changing the thing it names.
 | `home-page.md` | The home page's running order, the daily quote, the review banner. |
 | `study-page.md` | The study page's furniture — the grade bar and its fold, undoing a grade, the phone's gloss popup. |
 | `accounts-sync.md` | Accounts, the progress blob and its reconcile, the friends table, admin gating, and the cloud content overlay. |
+| `admin-editor.md` | The admin editor's tabs — the Dashboard's two halves and what RLS lets it ask, and what each later tab had to learn. |
 | `changelog-and-version.md` | The changelog's and the version line's own reasoning — the length rules, the title ceiling, what belongs in it and what does not. |
 | `collections-page.md` | The Collections page — the tab bar, the declared sections, the Planned fold, the shelf rows and their size figures. |
 | `whiteboard.md` | The floating marker — the fling, the snap home, the pass-through, the stylus split. |
