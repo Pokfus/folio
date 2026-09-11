@@ -221,3 +221,77 @@ Six bullets, in the order they appeared in CLAUDE.md:
   and a half below the fold and the reader sees a dimmed page with **nothing on it**. It shipped that way
   for an hour. On the body it is `render()`'s to close, like every other overlay there — hence
   `closePageHelp()` in the close list. The **Atlas card gained a marker tip** in the same pass, on request.
+
+---
+
+## The bottom tab bar, moved out of CLAUDE.md (2026-09-11)
+
+**Read this before changing the tab bar, the admin entry button or the three bar-height custom
+properties.** CLAUDE.md's "How the app is wired" carries the rules; this is the account behind them,
+verbatim as it stood there.
+
+- **The bottom tab bar (`.tabbar`, phones only — Aug 2026, on request).** The top bar held NINE icon-only
+controls in a scrolling strip at the top of a 390px screen — the four destinations plus theme, edit,
+account, settings and language — all out of the thumb's arc and none of them named. **Every destination
+now lives in the bottom bar** (home / map / account / settings — **not admin, not decks and not mission**,
+see below), and light-dark
+and the language picker moved to the **Settings page**, which leaves the top bar with nothing on it at
+all: `.topbar{display:none}` on a phone, and **`--bar-h` goes to 0px** there so `.globe-stage` and every
+other rule already written against it follows with no change of its own.
+It is **static markup in index.html** and reuses `.tab` + `data-route`, so
+`setActiveTab` and the boot-time `querySelectorAll(".tab")` wiring cover it with no new code — but note
+that same query runs ONCE over the static DOM, so a nav item added later still has to live in index.html.
+**Edit is NOT in this bar** — it left it the same week (Aug 2026, on request) for the top-right button
+described below: the editor is one person's tool and it was taking a seventh of a row six readers share.
+**Nor is COLLECTIONS** (`#decks`, Aug 2026, on request): on the PHONE's bar it is still absent, and it is
+reached from the home page's Collections button. **THE DESKTOP'S TOP BAR HAS IT BACK SINCE SEP 2026**, on
+request ("put a tab for the Collections page in the website's main menu bar, between Home and Library"):
+a SECOND route rather than a replacement, since the home page's button is untouched and still ships at
+every width. The phone's bar deliberately did not get one — five cells for five destinations, and the
+page swipe was narrowed to what that bar can reach, so a sixth tab there would put the two out of step
+again. Seven tabs do not fit the desktop bar between 641 and 900px, so that band tightens the padding
+and the tracking rather than dropping a name; `setActiveTab` also lights this tab on `#studio` and
+`#deck`, which are where one of your own decks is edited.
+**The page swipe stopped reaching it too** (Aug 2026, on request), for the same reason and a fortnight
+later: a gesture that lands a reader on a page the bar cannot reach leaves them somewhere with nothing lit
+to say where they are. The lip is the only route now.
+(The tab labelled **Library** is the books one, `#library`, which is a different page — see the Library
+bullet. Two pages called Library was exactly the confusion the rename settled.)
+**Nor About**, which left the same way a week later (Aug 2026, on request) for the `.home-about` line at the
+foot of the home page — a page read once, against a fifth of a row four readers share. `#mission` is
+therefore the second route with nothing marked in the bar.
+`applyMode` still hides `.tab-admin` with `querySelectorAll` rather than `querySelector`, because the
+entry point can exist more than once and the old form would have left a second copy live for every
+visitor. The bar is a **flex row of `flex:1 1 0` cells**, not a fixed column count, so a tab hidden or
+added closes the gap on its own. At that width the label
+may not wrap (a second line pushes the icons off centre), so it is `nowrap` + `text-overflow:ellipsis` at
+8.5px — `test-layout.js` asserts each label's rendered width against its own `scrollWidth`, so a longer
+name added later fails there rather than silently clipping.
+**The label rule is written `.tabbar .tab .tab-label`, and the descendant `.tab` is SPECIFICITY, not
+decoration** (Aug 2026, on a bug report): the top bar's own rule sets `margin-inline-start:8px`, and at
+two classes against three this rule
+lost to it whatever the source order — so the SELECTED tab, and only that one, drew its name 4px right
+of the icon it sits under. One tab misaligned out of five looks like a design, not a bug, which is why
+`test-layout.js` now measures every tab's icon centre against its label's, active included.
+Every tab is labelled here, under its icon; the TOP bar names its tabs too, beside theirs. Hidden while
+`body.grading`: the grade bar owns that edge, and a session is a place you finish rather than browse from.
+**The admin area's way in is `showAdminEditBtn(cardId)`** (`.admin-edit-fab`), a button on the page rather
+than a nav tab. Called with a card id from the study page — it opens THAT card in the editor — and with
+`null` from the home page, where it just opens the admin area; the plain variant carries `.aef-plain` and is
+**phone-only**, since above the breakpoint the top bar's Admin tab is still there and a second way in
+beside it is clutter. **The card variant says "Edit" and the plain one says "Admin"** (Aug 2026, when the
+page was renamed): the tab names the PLACE and this names what pressing it does to the card in front of
+you, and "Admin" on a study card would be the wrong half to state on the one control an editor presses a
+hundred times a day. On a phone both sit **top-right** (`right:12px`, `top:10px + safe-area-inset-top`);
+on a desktop the study card's copy stays bottom-left as it always has.
+Two things bit here. It is **admin-gated inside the function**, not by the caller — it used to be built
+unconditionally on every study card, so a signed-out reader got an Edit button that bounced them home.
+And its phone rules must live **BELOW** the base `.admin-edit-fab` rules in styles.css: media queries add
+no specificity, and the `bottom:calc(var(--tabbar-h) + 16px)` that used to sit up in the tab-bar block was
+silently overridden by the base `bottom:24px` further down and never applied at all.
+**Three custom properties keep everything anchored in step**: `--tabbar-h` (0 above the
+breakpoint, 58px below), `--timebar-h` (96px, 118px once the Atlas timeline goes to two rows) and
+`--bar-h` (60px, 0 below the breakpoint).
+`.globe-stage` and `.atlas-timebar` are each written ONCE against them rather than restated per
+breakpoint — which is how their old hard-coded `96px`/`118px` pair would have drifted apart the moment a
+third bar appeared. `.stage`, `#toast` and `.admin-edit-fab` take the same offset.
