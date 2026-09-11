@@ -3141,24 +3141,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   shaded on a globe the reader can turn and zoom but not click, and asks what it is; the back names it and
   adds a box of figures. Two fields carry it — **`map`** (`{ layer, key, zoom? }`) and **`facts`**
   (`[[label, value], …]`) — and everything else about such a card is an ordinary curated card.
-  · **`key` MAY BE A LIST, AND CYPRUS IS WHY** (Aug 2026, on request: "ensure the country Cyprus encompasses
-    the whole island"). `world.js` files a partitioned island as separate polygons — `Cyprus`, `N. Cyprus`
-    and `Cyprus U.N. Buffer Zone` are three — so a card naming one shaded two-thirds of what the reader can
-    see and asked them to name it. `"key": ["Cyprus", "N. Cyprus", "Cyprus U.N. Buffer Zone"]` shades them
-    as ONE place: the names are joined with a **pipe** for the markup's single attribute (no place name in
-    either layer contains one, and `add-card.js` refuses one that does), every name must resolve or the
-    window fails rather than shading a shape that is not the country, and the fill and outline are laid
-    down as **one path over all of them** — stroking each would draw the internal lines that dividing them
-    is exactly what naming them together is meant to hide. With several shapes the opening view centres on
-    the UNION's bounding box; with one it still centres on that shape's own published label point, **so no
-    existing card's opening view moves by a pixel**.
-  · **IT IS A BUILT-IN FORMAT AND NOT A COMMUNITY CARD TYPE**, settled before anything was written: a card
-    type is templates plus scoped CSS and **cannot run code**, deliberately, since a type is a stranger's
-    content — and a globe needs a canvas, an animation frame and pointer handlers. The request said "a new
-    card type" and the honest answer was that the machinery it needs is exactly what a type may not have.
+  · **`key` MAY BE A LIST** (Aug 2026, on request), for a place `world.js` files as separate polygons —
+    `"key": ["Cyprus", "N. Cyprus", "Cyprus U.N. Buffer Zone"]` shades them as ONE place. The names are
+    joined with a **pipe** for the markup's single attribute (no place name in either layer contains one,
+    and `add-card.js` refuses one that does), **every name must resolve or the window fails** rather than
+    shading a shape that is not the country, and the fill and outline are laid down as **one path over all
+    of them** — stroking each would draw the internal lines that naming them together is meant to hide.
+    With several shapes the opening view centres on the UNION's bounding box; with one it still centres on
+    that shape's own published label point, **so no existing card's opening view moves by a pixel**.
+  · **IT IS A BUILT-IN FORMAT AND NOT A COMMUNITY CARD TYPE**: a card type is templates plus scoped CSS and
+    **cannot run code**, deliberately, since a type is a stranger's content — and a globe needs a canvas,
+    an animation frame and pointer handlers.
   · **NOTHING IS CLICKABLE, which is the point of the exercise** — no click handler, no hit test, no hover.
-    A reader who could tap the shaded state and be told its name would not be studying. Asserted, since a
-    map that has become clickable looks exactly like one that has not.
+    Asserted, since a map that has become clickable looks exactly like one that has not.
   · **A MAP CARD IS KEPT OUT OF EVERY DAILY MINIGAME BY CONSTRUCTION** (`gameCardIdSet` tests
     `cardMapSpec`): the games deal a question cold with no map beside it. Unlike `difficulty` and
     `undatable` this needs no editorial judgement and so needs no field — and it means **`undatable` should
@@ -3167,9 +3162,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     shipped card needs. **The shaded place is the Atlas's own selection gold**, `TINT_SEL` hoisted to module
     scope so there is ONE of it — two golds for one idea drift INVISIBLY here, a card and the Atlas never
     being on screen together — and the treatment is the Atlas's three marks exactly.
-  · **A CITY IS A DOT** (`map.dot`, `window.US_CAPITALS`): a capital card shaded its state and asked for the
-    city, which says only which state. The coordinates are **generated, never typed** — fifty hand-entered
-    ones are fifty chances to put a city in the wrong state, and a dot a degree out still draws.
+  · **A CITY IS A DOT** (`map.dot`, `window.US_CAPITALS`). The coordinates are **generated, never typed** —
+    fifty hand-entered ones are fifty chances to put a city in the wrong state, and a dot a degree out
+    still draws.
   · `add-card.js` validates the key against the real data file, refuses a dot the table has not got or one
     outside the card's own state, refuses extra phrasings, and holds the question to 5–20 words.
   · **AND IT IS HONESTLY INACCESSIBLE TO A READER WHO CANNOT SEE IT** — a shape is the whole question, so
@@ -3243,8 +3238,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     about five kilometres apart; `test-card-locator.js` section 4 checks that on the DATA.
   · **A MODERN CAPITAL WAS A SQUARE, THEN A SMALLER ONE, AND IS NOW NOTHING** — three requests in one
     month, each taking more off the same layer. **The shape of that retreat is the argument against ever
-    adding a layer of places the collection is not about**: every step was "make this quieter" and the end
-    of that road is "take it away". `capAt` and `nearSib` are DELETED rather than left unread.
+    adding a layer of places the collection is not about.** `capAt` and `nearSib` are DELETED rather than
+    left unread.
   · **A COLLECTION MAY DRAW ITS COUNTRY'S MODERN SUBDIVISIONS, DOTTED** (`CMAP_SUBDIV` / `subdivInner` /
     `_subdivFor` / `_subdivLines`), keyed by COLLECTION ROOT so no other collection pays for it. **ONLY
     THE INTERNAL EDGES ARE DRAWN, and they are found by ownership rather than by clipping** — an edge two
@@ -3262,20 +3257,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **AND A MAP CARD ON A FRAMED LAYER DRAWS RIVERS TOO** (`wantRivers`) — `rivers.js` rides in the
     `usstates` and `chinaprov` bundles, which is free, since it ASSIGNS `window.RIVERS` rather than
     pushing onto a queue. **A row in `CMAP_LAYER_HIRES` turns the water on as well as the coast.** **AND
-    THE SHAPE LAYER WAS PAINTING OVER THEM**, so the figure was 0 on both framed layers for a fortnight
-    and nothing about it looked like a fault: the shapes are filled and their outlines collected into a
+    THE SHAPE LAYER WAS PAINTING OVER THEM**: the shapes are filled and their outlines collected into a
     `Path2D` FIRST, the water goes down over the fill, and the borders and subdivision lines are stroked
     afterwards. **Measured by TAKING IT AWAY** — read the pixels, empty `window.RIVERS`, redraw, read
     again — and **a 0 on a framed layer is that fault returning**, so re-measure rather than reading the
     figures back.
   · **A RIVER IS DRAWN IN ITS OWN BLUE IN DAYLIGHT, NOT IN THE OCEAN'S** (`riverInk`): the ocean colour is
-    right at night and measured 1.03:1 against the land by day, which is no contrast at all. It is a
-    variable set in the theme sync rather than a literal at the draw, so the two maps cannot come to
-    disagree about what colour water is.
+    right at night and measured 1.03:1 against the land by day. It is a variable set in the theme sync
+    rather than a literal at the draw, so the two maps cannot come to disagree about what colour water is.
   · **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** — `0.10 + zoom * 0.13`, floored at 0.25 and capped
-    at 1.8. The Atlas draws its rivers only past a zoom; this window draws all 1,073 at every zoom, so at
-    a card's opening ~50° view a heavier weight is a continent of blue thread. The deep end is untouched,
-    that being where a river IS the subject.
+    at 1.8. The Atlas draws its rivers only past a zoom; this window draws all 1,073 at every zoom. The
+    deep end is untouched, that being where a river IS the subject.
   · **THE COLLECTION'S HOME CITY IS ON EVERY MAP IN IT** (`CMAP_ANCHOR`). **Its coordinate is DECLARED
     rather than looked up, and both obvious sources fail the word ALWAYS**: `cities.js` is the `atlas`
     bundle, warmed at idle, so a mark taken from it is absent for the first second of every card; and the
@@ -3285,7 +3277,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **📖 `docs/map-cards.md` — READ BEFORE CHANGING ANY OF IT.** Why the globe is drawn here rather than
     by reusing the Atlas, the fit's near-rings rule and its exceptions, the three attempts it took to
     prove the fill is a tint, where the facts box sits and why — and, moved out of here, the full account
-    behind every locator rule above: the bug report each came from, the measurements (117 pixels, 5,980
+    behind every rule above: the bug report each came from, the measurements (117 pixels, 5,980
     and 10,631 river pixels, the 0.0138 R sag), the Sep 2026 batch's seven changes, and the
     generalisations that were tried and abandoned.
 - **ARTWORK CARDS — the picture IS the question** (`card.artwork` + `image` + `facts`; `cardArtSpec` /

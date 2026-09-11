@@ -502,3 +502,164 @@ generalisations that were tried and abandoned. The RULES stay in `CLAUDE.md`, in
 reusing the Atlas, the fit's near-rings rule and the Alaska and District of Columbia exceptions, the three
 attempts it took to prove the fill is a tint, `h2r` learning `rgb()`, where the facts box sits and why,
 and the ten-times-finer trace and its zoom-ceiling arithmetic.
+
+---
+
+## The MAP CARDS bullet as it stood in CLAUDE.md (2026-09-11)
+
+**Read this before changing a map card's draw order, its hi-res layers or a locator's marks.** CLAUDE.md
+keeps the rules; this is the bullet verbatim as it was written, with the request behind each rule and the
+sentences of justification that were condensed out of it.
+
+- **MAP CARDS — a shape on a globe as the question** (the `MAP CARDS` block in app.js, just above
+`cardFrontHTML`; `us-states.js`; the Geography collection. Aug 2026, on request). The card shows a place
+shaded on a globe the reader can turn and zoom but not click, and asks what it is; the back names it and
+adds a box of figures. Two fields carry it — **`map`** (`{ layer, key, zoom? }`) and **`facts`**
+(`[[label, value], …]`) — and everything else about such a card is an ordinary curated card.
+· **`key` MAY BE A LIST, AND CYPRUS IS WHY** (Aug 2026, on request: "ensure the country Cyprus encompasses
+the whole island"). `world.js` files a partitioned island as separate polygons — `Cyprus`, `N. Cyprus`
+and `Cyprus U.N. Buffer Zone` are three — so a card naming one shaded two-thirds of what the reader can
+see and asked them to name it. `"key": ["Cyprus", "N. Cyprus", "Cyprus U.N. Buffer Zone"]` shades them
+as ONE place: the names are joined with a **pipe** for the markup's single attribute (no place name in
+either layer contains one, and `add-card.js` refuses one that does), every name must resolve or the
+window fails rather than shading a shape that is not the country, and the fill and outline are laid
+down as **one path over all of them** — stroking each would draw the internal lines that dividing them
+is exactly what naming them together is meant to hide. With several shapes the opening view centres on
+the UNION's bounding box; with one it still centres on that shape's own published label point, **so no
+existing card's opening view moves by a pixel**.
+· **IT IS A BUILT-IN FORMAT AND NOT A COMMUNITY CARD TYPE**, settled before anything was written: a card
+type is templates plus scoped CSS and **cannot run code**, deliberately, since a type is a stranger's
+content — and a globe needs a canvas, an animation frame and pointer handlers. The request said "a new
+card type" and the honest answer was that the machinery it needs is exactly what a type may not have.
+· **NOTHING IS CLICKABLE, which is the point of the exercise** — no click handler, no hit test, no hover.
+A reader who could tap the shaded state and be told its name would not be studying. Asserted, since a
+map that has become clickable looks exactly like one that has not.
+· **A MAP CARD IS KEPT OUT OF EVERY DAILY MINIGAME BY CONSTRUCTION** (`gameCardIdSet` tests
+`cardMapSpec`): the games deal a question cold with no map beside it. Unlike `difficulty` and
+`undatable` this needs no editorial judgement and so needs no field — and it means **`undatable` should
+NOT be set on one**, Timeline being behind that filter already.
+· **THE FIT IS READ OFF THE SHAPE** rather than hand-tuned per state, and `map.zoom` is an override no
+shipped card needs. **The shaded place is the Atlas's own selection gold**, `TINT_SEL` hoisted to module
+scope so there is ONE of it — two golds for one idea drift INVISIBLY here, a card and the Atlas never
+being on screen together — and the treatment is the Atlas's three marks exactly.
+· **A CITY IS A DOT** (`map.dot`, `window.US_CAPITALS`): a capital card shaded its state and asked for the
+city, which says only which state. The coordinates are **generated, never typed** — fifty hand-entered
+ones are fifty chances to put a city in the wrong state, and a dot a degree out still draws.
+· `add-card.js` validates the key against the real data file, refuses a dot the table has not got or one
+outside the card's own state, refuses extra phrasings, and holds the question to 5–20 words.
+· **AND IT IS HONESTLY INACCESSIBLE TO A READER WHO CANNOT SEE IT** — a shape is the whole question, so
+there is no text alternative that does not answer it. The card can be READ where it cannot be ANSWERED;
+stated in `docs/geography-card-plan.md` rather than papered over.
+Guarded by `.claude/test-map-cards.js`. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
+`cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `TINT_SEL` /
+`serializeCardData` / `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map
+card.**
+· **A LONG STRAIGHT SEGMENT IS A LIE ON A SPHERE, AND `addRing` NOW WALKS ONE IN STEPS** (`CMAP_SEG`,
+0.5°): two files drawing the same ruler-straight border with different vertex counts sag by different
+amounts in orthographic projection, which reads as a doubled border. **A segment wider than 180° is
+left alone** — the only one is Antarctica's base, which would otherwise interpolate the wrong way
+round the planet. **`addRing` is SHARED with the locator's rivers, which pass `close: false`** — a
+river is a POLYLINE — so the walk is hoisted into `ringStep` and the flag read at the end of it; the
+two arrive as one merge conflict on adjacent lines and **must be resolved together**, since taking
+either side whole loses the other and both losses render perfectly.
+· **A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT** (`cardCollectionRoot` /
+`locatorSiblings` / `_locSibCache`). **The two halves are paid for differently and that is the whole
+design**: the siblings are FREE, being in `data.js`, so they ship unconditionally; the rivers are the
+`atlas` bundle, so they are **warmed at IDLE and never awaited**, and skipped outright under
+`saveData`. **A sibling is drawn once its card has a record in `S.cards`** — the map fills up the more
+the reader studies — and **studied siblings GROUP by the `within` city they stand in**, or thirty-nine
+Rome locators draw thirty-nine dots on one pixel. **THE MODERN CITIES LAYER IS GONE ALTOGETHER**: a
+history card's map carries the collection's places, and the coastline, the rivers and the borders are
+the world it sits in. **EVERY RIVER THE ATLAS DRAWS IS DRAWN HERE TOO, AND NOT ONE OF THEIR NAMES** —
+the exception being the card's OWN river, which is the answer's mark — and **the thin ones are ONE
+path, stroked once**, not 1,073 strokes a frame. **What is drawn is labelled with Folio's own name for
+it, not Natural Earth's**, matched through the paired glossary term's ALIASES (the Tiber is `Tevere`
+in `rivers.js`), and **the sibling dots are named too**, de-collided first-come at the river labels'
+weight, with the card's own dot and label reserved first. `_locSibCache` is declared beside
+`uCacheBust`, for the temporal dead zone's reason.
+· **…AND A PLACE WITH EXTENT IS DRAWN WITH ITS EXTENT** (`LOC_KINDS` / `locPts` / `locOwnTerms` /
+`drawSwords`). A dot on a 1,200 km range does not merely under-describe the place, it makes a false
+claim about it — so the kind decides the mark: `point`, `battle` (crossed swords), `river` (traced out
+of `rivers.js`), `range` (triangles along an authored `spine`), `region` (an authored `area`, washed
+under a **DASHED** edge). **`area` AND `spine` ARE APPROXIMATE AND THE DRAWING SAYS SO** — the dash
+reads as *about here* where a crisp gold line would assert a frontier Folio had surveyed — and they
+are the one part of a locator that is AUTHORED rather than fetched, which is why `add-card.js`
+validates them. **NONE OF THE FOUR DRAWS A DOT AS WELL**, the one exception being a river whose bundle
+has not landed. **THE VIEW FRAMES THE SHAPE AND THE NAME STAYS AT `at`**, except on a region, where
+the name goes to the shape's middle too. **A REGION, A RANGE AND A RIVER ARE LEFT OFF EVERY OTHER
+CARD'S MAP.** **AND EVERY NAME ON THE MAP OPENS ON A CAPITAL**, done at DRAW time through
+`gameCapFirst` rather than in the data.
+· **A LOCATOR'S NAME IS A PLACE, NOT THE CARD'S ANSWER** — the rule is that the label names somewhere a
+reader could stand; where the card's subject has no place of its own, the city is the honest answer
+and the hill is false precision.
+· **…AND IT DOES NOT OPEN ON "THE"**. It is **REFUSED IN `add-card.js` AND `add-locators.js` RATHER
+THAN STRIPPED AT DRAW TIME**, because **The Hague** and **The Valley** are real place names and a rule
+clever enough to tell those from a definite article will eventually be wrong about one of them.
+· **A REGION IS CLIPPED TO THE LAND** (`landMask`, `effRings`, `tc`): an `area` is a dozen authored
+points and a coast is a thousand, so the polygon is drawn generously and multiplied by the land —
+**two offscreen canvases combined with ONE `destination-in`**. It cannot be `source-in`, which erases
+the fill the dashed stroke is painted over, and it cannot be `clip()`, which carves hairlines down
+every border because the countries do not tile exactly.
+· **HI-RES COASTLINES, PER COLLECTION** (`CMAP_HIRES`, `hiresCoastIngest`, `coast/<region>.js`) — 10m
+coast chains SPLICED into world.js's own rings, since a hi-res copy drawn over the low-res one doubles
+every LAND border. Warmed at IDLE by the locator windows of the collection that frames it, never
+awaited and never by the Atlas. **A MAP CARD GETS ONE TOO, KEYED BY ITS LAYER** (`CMAP_LAYER_HIRES`),
+the world layer deliberately absent since a `gw-` card frames any country on earth. **WHAT IT BUYS IS
+SMALL AND IT IS MEASURED** — 117 pixels on the California card against a 220 KB gzipped file — so
+**state the figure before building the next frame.** **A SPLICED RING CAN BE THE COUNTRY TRACED TWICE,
+AND IT RENDERS PERFECTLY**: this window fills EVEN-ODD, where two windings cancel, so `edgeChain` must
+take the shorter arc. **The check that finds it is the SIGNED AREA of a spliced ring against
+world.js's own** — a near-integer ratio is a ring traced that many times — and nothing else in the
+pipeline can see it.
+· **HI-RES RIVERS, ON THE SAME TWO FRAMES** (`hiresRiverIngest`, `effRivers`, `rivers/<region>.js`).
+**DELIBERATELY NOT THE COAST'S SPLICE**: a river shares nothing and is drawn INSTEAD, so the file
+names the `rivers.js` entries it `supersede`s. **The one way it can go wrong is a name the region
+carries that `rivers.js` also has and `supersede` does not name**, which draws the same river twice
+about five kilometres apart; `test-card-locator.js` section 4 checks that on the DATA.
+· **A MODERN CAPITAL WAS A SQUARE, THEN A SMALLER ONE, AND IS NOW NOTHING** — three requests in one
+month, each taking more off the same layer. **The shape of that retreat is the argument against ever
+adding a layer of places the collection is not about**: every step was "make this quieter" and the end
+of that road is "take it away". `capAt` and `nearSib` are DELETED rather than left unread.
+· **A COLLECTION MAY DRAW ITS COUNTRY'S MODERN SUBDIVISIONS, DOTTED** (`CMAP_SUBDIV` / `subdivInner` /
+`_subdivFor` / `_subdivLines`), keyed by COLLECTION ROOT so no other collection pays for it. **ONLY
+THE INTERNAL EDGES ARE DRAWN, and they are found by ownership rather than by clipping** — an edge two
+divisions share is internal, one only one division has is the national border `world.js` already
+draws — and the shared edges are **walked back into RUNS rather than stroked one at a time**, or the
+dash pattern restarts at every vertex and reads as a smear. Warmed at idle; the cache is dropped when
+the bundle lands.
+· **THE LAND IS FILLED, THEN THE RIVERS, THEN THE BORDERS.** A river painted over a border does not
+merely obscure a line — where a border FOLLOWS a river it deletes a country's edge, and what is left
+is a perfectly good map with one frontier missing. **A river is water on the land and a border is a
+line drawn over it; the fix is the ORDER, not the weight.** It costs one geometry pass and not two:
+each country's projected outline is built ONCE into a `Path2D`, filled from it, and added to a single
+border path stroked after the water (`addRing` writes through `tc`); the thin-river pass is
+`drawThinRivers()`. The card's own river, which is the ANSWER, still goes on last and over everything.
+· **AND A MAP CARD ON A FRAMED LAYER DRAWS RIVERS TOO** (`wantRivers`) — `rivers.js` rides in the
+`usstates` and `chinaprov` bundles, which is free, since it ASSIGNS `window.RIVERS` rather than
+pushing onto a queue. **A row in `CMAP_LAYER_HIRES` turns the water on as well as the coast.** **AND
+THE SHAPE LAYER WAS PAINTING OVER THEM**, so the figure was 0 on both framed layers for a fortnight
+and nothing about it looked like a fault: the shapes are filled and their outlines collected into a
+`Path2D` FIRST, the water goes down over the fill, and the borders and subdivision lines are stroked
+afterwards. **Measured by TAKING IT AWAY** — read the pixels, empty `window.RIVERS`, redraw, read
+again — and **a 0 on a framed layer is that fault returning**, so re-measure rather than reading the
+figures back.
+· **A RIVER IS DRAWN IN ITS OWN BLUE IN DAYLIGHT, NOT IN THE OCEAN'S** (`riverInk`): the ocean colour is
+right at night and measured 1.03:1 against the land by day, which is no contrast at all. It is a
+variable set in the theme sync rather than a literal at the draw, so the two maps cannot come to
+disagree about what colour water is.
+· **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** — `0.10 + zoom * 0.13`, floored at 0.25 and capped
+at 1.8. The Atlas draws its rivers only past a zoom; this window draws all 1,073 at every zoom, so at
+a card's opening ~50° view a heavier weight is a continent of blue thread. The deep end is untouched,
+that being where a river IS the subject.
+· **THE COLLECTION'S HOME CITY IS ON EVERY MAP IN IT** (`CMAP_ANCHOR`). **Its coordinate is DECLARED
+rather than looked up, and both obvious sources fail the word ALWAYS**: `cities.js` is the `atlas`
+bundle, warmed at idle, so a mark taken from it is absent for the first second of every card; and the
+collection's own locators would give Rome and not Athens. It is dropped on the card that IS that city,
+suppresses the studied sibling group of the same name, and **its label is placed BEFORE the siblings
+take their boxes**, so the one mark on every map is also the one always named.
+· **📖 `docs/map-cards.md` — READ BEFORE CHANGING ANY OF IT.** Why the globe is drawn here rather than
+by reusing the Atlas, the fit's near-rings rule and its exceptions, the three attempts it took to
+prove the fill is a tint, where the facts box sits and why — and, moved out of here, the full account
+behind every locator rule above: the bug report each came from, the measurements (117 pixels, 5,980
+and 10,631 river pixels, the 0.0138 R sag), the Sep 2026 batch's seven changes, and the
+generalisations that were tried and abandoned.
