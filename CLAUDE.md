@@ -6134,27 +6134,23 @@ dead code (never rendered).
   table of its own precisely because this blob is PATCHed whole, so **anything that must grow without
   bound belongs beside it rather than in it: if you add a field that grows per review, give it a table
   and keep it out of `PROGRESS_FIELDS`.**
-  **…AND THE RECONCILE MUST COMPARE THE BLOB IT ACTUALLY SENDS.** Comparing `extractProgress()` against
-  `row.data` made the "in sync, do nothing" branch UNREACHABLE, so every signed-in boot re-uploaded the
-  whole blob and bumped `updated_at`, which for a two-device reader made "another device wrote" true on
-  essentially every launch. **The pull is also a NETWORK ROUND TRIP the reader is not waiting for**, and
-  `applyProgress` replaces every progress field — so the blob is snapshotted before the wait and compared
-  after it: **a write made in the meantime is the newer write and wins outright**, and is pushed rather
-  than merged, so the other device converges on its next pull. **THE ADOPT IS A THREE-WAY MERGE PER
-  FIELD, NOT AN ALL-OR-NOTHING SKIP** — what was local when the pull started, what is local now, and what
-  the server holds — so a field the reader did not touch takes the server's copy and one they did is
-  theirs. Skipping the adopt outright whenever anything had moved is wrong because **background writers
-  exist** (`setFriendCount` writes from the friends list), and merging per field needs no list of "fields
-  a reader may edit" and so **cannot rot as more background writers arrive**.
+  **…AND THE RECONCILE MUST COMPARE THE BLOB IT ACTUALLY SENDS**, or the "in sync, do nothing" branch is
+  unreachable and every signed-in boot re-uploads. **The pull is a NETWORK ROUND TRIP the reader is not
+  waiting for**, and `applyProgress` replaces every progress field — so the blob is snapshotted before the
+  wait and compared after it: **a write made in the meantime is the newer write and wins outright**, and
+  is pushed rather than merged, so the other device converges on its next pull. **THE ADOPT IS A
+  THREE-WAY MERGE PER FIELD, NOT AN ALL-OR-NOTHING SKIP** — what was local when the pull started, what is
+  local now, and what the server holds — so a field the reader did not touch takes the server's copy and
+  one they did is theirs. Skipping the adopt outright whenever anything had moved is wrong because
+  **background writers exist** (`setFriendCount` writes from the friends list), and merging per field
+  needs no list of "fields a reader may edit" and so **cannot rot as more background writers arrive**.
   Sign-in adopts server progress, or MIGRATES local progress up if the server row is empty; the
   pre-sign-in device state is stashed (`folio_supa_guest_v1`) and restored on sign-out. **That migration
   is OWNERSHIP-GATED by `S._supaOwner`** — the account id the progress in localStorage belongs to,
   device-local like `_supaTs` so it never syncs itself. Migrating up is right for a guest who studied
-  before ever making an account and **WRONG for every account after the first**: without the gate,
-  creating a second account on a device silently adopted — and then permanently owned, since we push it
-  up — the previous account's levels, badges, streak and heatmap. `supaClaimGuestStash()` marks the stash
-  claimed at the moment it migrates, the stash carries its `owner` back on sign-out, and `supaBoot`
-  back-fills ownership for sessions signed in before the field existed. Guarded by
+  before ever making an account and **WRONG for every account after the first**. `supaClaimGuestStash()`
+  marks the stash claimed at the moment it migrates, the stash carries its `owner` back on sign-out, and
+  `supaBoot` back-fills ownership for sessions signed in before the field existed. Guarded by
   `.claude/test-account-switch.js`.
   Auth = email+password (`/auth/v1/*`); emailed links land with tokens in the URL hash → `supaBoot`
   adopts them (requires the Supabase **Site URL** to point at the deployed app). Friends use the

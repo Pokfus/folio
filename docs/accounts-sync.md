@@ -201,3 +201,65 @@ and after baking.**
   (verified in a browser); it is select-all, paste and heavy restructuring that strip them. **Check the
   marker count after editing prose that carries citations**, which is what `check-overlay.js` does.
 
+
+---
+
+## The Supabase bullet's own account, moved out of CLAUDE.md (2026-09-11)
+
+**Read this before changing the reconcile, the guest stash or the ownership gate.** CLAUDE.md's
+"Environment" section carries the rules; this is the bullet as it stood there, verbatim, with the
+measurements and the faults behind each.
+
+- **Online accounts + sync (Supabase)** — LIVE in app.js (the `/* Supabase */` module after the legacy
+accounts block). Static hosting on Cloudflare Pages fed by GitHub pushes (`git push` = deploy). Schema
++ RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`, plus the
+later blocks' `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`, and — **still to
+be run once each** — **section 11 `user_decks.color`**, **section 12 `login_email()`** and **section
+13 `card_stats` + `bump_card_grades()`**). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature
+that needs one degrades to a sentence rather than an error, so the site works on a database that has
+only the first block — **keep it that way**, a block the owner has not run yet being the normal case
+rather than the broken one. **Which blocks a given database already has is answered by
+`.claude/schema-check.sql`**, read-only, one true/false row per block. Plain `fetch()` (no SDK — the
+zero-dependency rule); the publishable key in app.js is safe to ship, security being RLS.
+**Offline-first**: localStorage stays the working copy; `save()` → `supaQueuePush()` (6s debounce,
+skips no-ops) PATCHes the whole `PROGRESS_FIELDS` blob into `progress.data`; boot (`supaBoot`)
+refreshes the session, pulls, and reconciles — server wins when its `updated_at` ≠ the device's
+`S._supaTs` baseline, else local pushes.
+**`progressBlob()` is what it sends, and that is NOT `extractProgress()`** — the per-review log has a
+table of its own precisely because this blob is PATCHed whole, so **anything that must grow without
+bound belongs beside it rather than in it: if you add a field that grows per review, give it a table
+and keep it out of `PROGRESS_FIELDS`.**
+**…AND THE RECONCILE MUST COMPARE THE BLOB IT ACTUALLY SENDS.** Comparing `extractProgress()` against
+`row.data` made the "in sync, do nothing" branch UNREACHABLE, so every signed-in boot re-uploaded the
+whole blob and bumped `updated_at`, which for a two-device reader made "another device wrote" true on
+essentially every launch. **The pull is also a NETWORK ROUND TRIP the reader is not waiting for**, and
+`applyProgress` replaces every progress field — so the blob is snapshotted before the wait and compared
+after it: **a write made in the meantime is the newer write and wins outright**, and is pushed rather
+than merged, so the other device converges on its next pull. **THE ADOPT IS A THREE-WAY MERGE PER
+FIELD, NOT AN ALL-OR-NOTHING SKIP** — what was local when the pull started, what is local now, and what
+the server holds — so a field the reader did not touch takes the server's copy and one they did is
+theirs. Skipping the adopt outright whenever anything had moved is wrong because **background writers
+exist** (`setFriendCount` writes from the friends list), and merging per field needs no list of "fields
+a reader may edit" and so **cannot rot as more background writers arrive**.
+Sign-in adopts server progress, or MIGRATES local progress up if the server row is empty; the
+pre-sign-in device state is stashed (`folio_supa_guest_v1`) and restored on sign-out. **That migration
+is OWNERSHIP-GATED by `S._supaOwner`** — the account id the progress in localStorage belongs to,
+device-local like `_supaTs` so it never syncs itself. Migrating up is right for a guest who studied
+before ever making an account and **WRONG for every account after the first**: without the gate,
+creating a second account on a device silently adopted — and then permanently owned, since we push it
+up — the previous account's levels, badges, streak and heatmap. `supaClaimGuestStash()` marks the stash
+claimed at the moment it migrates, the stash carries its `owner` back on sign-out, and `supaBoot`
+back-fills ownership for sessions signed in before the field existed. Guarded by
+`.claude/test-account-switch.js`.
+Auth = email+password (`/auth/v1/*`); emailed links land with tokens in the URL hash → `supaBoot`
+adopts them (requires the Supabase **Site URL** to point at the deployed app). Friends use the
+`friends` table (request → accept, RLS lets accepted friends read each other's `progress`).
+**Admin gating** (`adminEligible()` / `isAdmin()`): a signed-in user is admin-eligible iff
+`profiles.role === 'admin'`; a signed-in non-admin is NEVER eligible; a signed-out guest is eligible
+only on a **dev origin** (`isDevOrigin()`) with no legacy local accounts. `isAdmin()` additionally
+honours `S.settings.adminMode === false` — **but nothing writes that false any more**, the Editor /
+Visitor chip having been removed on request, so `load()` back-fills a stored `false` to true; `setMode`
+and `.mode-switch` are DELETED rather than left unreachable. The **Project W route survives**
+(`PAGES.warofages`, its `PAGE_META` row, `ADMIN_ROUTES` and the `valid` entry are untouched), so
+putting its tab back is one markup block in `index.html`.
+**📖 `docs/accounts-sync.md` — READ BEFORE TOUCHING SIGN-IN, THE PROGRESS BLOB OR THE RECONCILE.**
