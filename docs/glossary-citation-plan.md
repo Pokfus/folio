@@ -3157,3 +3157,231 @@ recorded unmarked. Its own finding is about a figure rather than a term: **no re
 a continent's AREA, and the obvious one is actively wrong** — the UN's M49 scheme assigns whole countries to
 regions and so puts all of Russia in Europe, giving Europe 22.1 and Asia 31.0 million km² against the
 conventional 10.2 and 44.5. Cite the UN's Demographic Yearbook Table 1 for POPULATIONS, never for area.
+
+
+---
+
+# The N- and G-batch findings from "Citing the existing content", moved out of `CLAUDE.md` (2026-09-11)
+
+**READ BEFORE OPENING A CITATION BATCH, AND BEFORE CONCLUDING A SOURCE OR A HOST IS UNUSABLE.** These
+paragraphs stood in `CLAUDE.md`'s "Generating cards & glossary entries" section until they were moved
+here verbatim: what each of N1–N10 and G3–G8 measured, the hosts that answered and the ones that did
+not, and the corrections each batch produced. The RULES they established stay in `CLAUDE.md`.
+
+**N9 is the batch that measured a rule change, and its finding is that the change buys less than it
+sounds like.** The rule was relaxed on request — **an encyclopedia may be cited, but only if that
+encyclopedia cites its sources** — and the test to apply is **per article, for that article's own
+claims**, not the publisher's general reputation. Measured: **Dansk Biografisk Leksikon passes**
+(a named author and a *Bibliografi* section listing sources), and **Britannica and Store norske leksikon
+both fail** — Britannica's *Würm Glacial Stage* carries no bibliography, no "Additional Reading" and no
+citations at all, its *rhinoceros* article has a named expert and an "External Websites" link box which
+is not a source list, and SNL's *Fennoskandia* has a named expert and no *Litteratur* or *Kilder*
+section. **A named author is not enough**, and the two that read most like they would qualify do not.
+What it bought was one term: `Jens_Jacob_Worsaae`, shipped in N4 without birth and death dates, without
+his career and without his book's Danish title because every source stating them was an encyclopedia,
+and looked for again in N6 down the institutional route, where `natmus.dk` turned out to carry five
+history pages that do not mention him at all. DBL supplies the lot, and the shape worth keeping is the
+division it produced: **the encyclopedia carries the biography and the scholarship still carries the
+argument.** N9 left `Weichselian_glaciation`, `Würm_glaciation`, `Devensian_glaciation`, `Fennoscandia`
+and `Rhinoceros` deferred and said the encyclopedia rule was not what held them; **N10 cleared all five
+and showed what was.**
+**N10's finding is that a 503 on EVERY path is a moved domain, not an outage.**
+`quaternary.stratigraphy.org.uk` — the ICS Subcommission on Quaternary Stratigraphy, named by N7 as the
+right source for the European stage names — was recorded down in N7, in N9 and twice more at the top of
+N10, on `/correlation/`, `/charts/` and the root alike. **The site is alive at
+`quaternary.stratigraphy.org`, without the `.uk`**, and nothing on the dead host says so; a search
+result for the chart carried the new address in passing. A genuine outage usually still answers
+something, so **look for a sibling domain before recording a third refusal.** Behind it is Cohen &
+Gibbard's *Global Chronostratigraphical Correlation Table for the Last 2.7 Million Years*, whose
+regional columns carry Weichselian, Devensian and Wisconsinan side by side against the marine isotope
+record — the one work that ties the three names together, and now cited on two of them. **It has no
+Alpine column** in any version checked, so the Würm went to the south German and Swiss literature
+instead. Three more things the batch is worth remembering for. **Where a Copernicus article is 2020 or
+later, fetch the HTML full text**: the older ones are PDF-only, and a subset font with no ToUnicode map
+defeats extraction outright (Preusser et al. 2011 comes out as raw byte codes, Ivy-Ochs 2015 as
+nothing), which is why Gaar et al. 2019 answered where Preusser did not. **Test the file, not the
+host** — N9 wrote off `geologinenseura.fi` on one image-only scan, and Donner 1996, on the same host,
+extracts cleanly and carries the whole of `Fennoscandia`. And the sibling check paid again in a form
+worth copying: the `Rhinoceros` draft carried Welker's "*Coelodonta* surviving locally to 14 ka" while
+`Woolly_rhinoceros`, whose subject that is, says its demise begins about 10,000 years ago on its own
+sources — **two open works disagreeing, so the clause was DROPPED from the family term rather than
+reconciled**, a date about one genus belonging on the term for that genus. An unsourced date line went
+the same way: `Weichselian_glaciation` was drafted with the textbook "c. 115,000–11,700 years ago",
+which is in nothing opened for it, and now has no date line at all, like `Wisconsin_glaciation`.
+**N1's finding is an access repair worth reusing: `hal.science` is now behind the Anubis wall on its RECORD
+pages as well as on `/document`** (batch 21 found the file path), which silently breaks stored citations —
+`wh-011`'s PAGES 2016 link among them. The way back is a **university repository deposit** of the same
+paper (`repository.cam.ac.uk` carried it, record page and PDF both); look there before treating a HAL
+citation as lost. `discovery.ucl.ac.uk`, `agupubs.onlinelibrary.wiley.com` and `whc.unesco.org` — the
+latter on `/document/<id>` as well as its property pages — are all **403** here; so are `pnas.org`,
+`nature.com` and `link.springer.com`, the last two **303ing to an identity-provider cookie endpoint**, for
+which **Europe PMC is the way in** (resolve the PMCID with `search?query=DOI:"…"&resultType=core` — a
+guessed one in N1 returned a paper on stress in mice).
+**THAT LAST PART IS A FACT ABOUT THE TOOL, NOT THE HOST, and it was measured wrong** (Sep 2026,
+artefact batch C1b): **WebFetch** will not follow a cross-host redirect, so it stops at the identity
+provider and reports the article unreachable — but **`curl -L` with a browser user-agent completes the
+cookie handshake and serves the whole article**, 86,000 characters of it, on a paper Europe PMC has no
+record of at all. So **Springer Open journals — `Heritage Science` above all — ARE open to this
+sandbox**, which is a large body of exactly the archaeometry the citation passes need. **Retest a host
+with curl before trusting a WebFetch refusal**; the two disagree, and only one of them is measuring the
+host.
+**N8's finding is that a wrong TERM is not always a wrong FACT, and only a reader caught it.**
+`Smilodon` opened "*Smilodon fatalis* is the saber-toothed cat" and held every sabre-tooth alias, so the
+whole vocabulary of the group resolved to one American genus. Nothing in it was false about *Smilodon* —
+the canines, the microwear, La Brea, the extinction were all sound and all still stand. What was wrong was
+the **definite article**, and no tool can see that: `gloss-source-audit.js` counts citations, the marker
+rules check pointers, `check-style` checks prose. **When a term is the only one in the glossary for its
+subject area, check whether it is being made to carry the whole subject** — the fix is a sibling term, not
+a correction. Note too that N6's *refusal* to cite `dodson-2025`'s Zhoukoudian cats for `Smilodon` (wrong
+animal) is exactly what now carries `Saber-toothed_cat`'s third sentence: **the fact set aside as
+uncitable-here was the fact the missing term needed.** Tooling note from the same batch:
+**`add-glossary.js` clears an alias list only when the `aliases` key is PRESENT** — omit it on an update
+and the old list stands, so two terms end up claiming the same surfaces and the older key wins. Pass
+`"aliases": []`.
+**N7 is the first N-batch to come back SHORT — eight of thirteen — and the deferrals are a source
+problem, not an effort one.** `Weichselian`, `Würm` and `Devensian` are *stage names*, and what defines a
+stage name is a stratigraphic authority: the canonical one is a Springer encyclopedia entry (barred twice
+— `link.springer.com` 303s AND the plan bars encyclopedias), and the ICS Subcommission's correlation table
+at `quaternary.stratigraphy.org.uk` returned **503 on two paths** — retry it before deferring them again.
+`Wisconsin_glaciation` shipped only because a USGS record carries a MEASURED claim under the name, which
+is the rule: **a stage name is citable when an agency has published a result under it, never from the mere
+fact that it is the name.** `Fennoscandia` is deferred as `Scandinavia` nearly was — the ice sheet is well
+sourced and nothing opened defines the REGION — and `Rhinoceros` because the family-level paper is in
+*Cell* with no Europe PMC record. N7's other finding is the alias pattern hardening into a rule:
+`United_Kingdom` was carrying "Britain", "British", "Great Britain" AND "Northern Ireland", three of them
+wrong and the last never a synonym at all, all exposed the moment `Great_Britain` was added. **An alias
+list written before the sibling term existed will contain the sibling's name, and will be wrong the day
+the sibling arrives** — fourth correction in seven batches.
+**N6's finding is a trap in the SEARCH RESULTS, not in a host.** Asked to complete `Jens_Jacob_Worsaae`
+from a Danish institutional record, five `natmus.dk` history pages and `slks.dk` were tried and **not one
+mentions him** — the Danish sources the search summaries appeared to offer were aggregating `lex.dk` and
+Wikipedia, both barred, so a summary can read as institutional when every source under it is an
+encyclopedia. What answered was **Worsaae's own book**, whose TITLE PAGE states his Danish office ("A
+ROYAL COMMISSIONER FOR THE PRESERVATION OF THE NATIONAL MONUMENTS OF DENMARK") and whose opening pages
+give Thomsen as "the real founder of the Museum" and the three-class division in his own words: batch
+25's rule at full strength, **a 19th-century figure is his own best institutional record**. Read a scanned
+book in bulk via `archive.org/stream/<id>/<id>_djvu.txt`. **His birth and death years are STILL uncited**
+and the term still omits them. N6 also shows what N5's restraint bought: `stratigraphy` was cut from
+`Stratum`'s aliases in draft, so giving it its own term cost nothing — had the alias shipped, the new term
+would have overridden it and left a dead row, which is the `Upper_Paleolithic` case exactly.
+**N5 CLEARED `wh-085`'s date line** (see N3's note) — "a rockfall closed the entrance roughly 13,000
+years ago" is gone from all ten languages, via `fix-field.js`, which refuses to write unless every `find`
+string is present. **The sweep came first and is the reusable part**: grepping every card's abstract and
+date line in all ten languages for *rockfall* and its nine translations proved the claim was on `wh-085`
+alone, and that `wh-084`'s Chauvet rockfall at ~20,000 years is a separate, sourced claim. N5's own
+finding is that **the pass's most repeated mistake is the alias**: `Stratum` was drafted with
+"stratigraphy" as an alias — the STUDY of strata, not a synonym — which is N2's "Late Stone Age" and N4's
+"Swabia" a third time, caught in draft this once. It also caught its own `Subsistence` draft stretching a
+registered source past what the register records (G6's rule), and fixed it by RE-READING the paper rather
+than softening the sentence. And it recorded a limit worth knowing: **no openable source defines the
+DISCIPLINE of geology in a sentence** — the BGS gives its scope and its topic pages and no definition,
+`geolsoc.org.uk`/`usgs.gov`/`historicengland.org.uk` are shut — so `Geology` describes what geologists
+study and do, written around the gap. G8 needed Gray's *Anatomy* for anatomy; geology's equivalent was
+not found.
+**N4's finding is the one to carry furthest: a FABRICATED AUTHOR was caught in draft.** The first draft
+of `Mesopotamia` cited "Morphodynamic Foundations of Sumer" to "Alberto Bravin et al." — a name read
+nowhere, composed because WebFetch had returned the paper's CONTENT without its author list. Nothing in
+the surrounding process would have caught it: the URL resolves, the claims are real, the marker rules
+pass, and `gloss-source-audit.js` counts citations rather than checking them. **When a source's content
+arrives without its metadata, look the metadata up** — `search?query=DOI:"…"&resultType=core` at Europe
+PMC returns author string, volume, issue and pages in one call — and **never compose a citation from
+what the prose sounded like**. N4 also withdrew a second identity-asserting alias ("Swabia" off
+`Swabian_Jura`, now its own term), which with N2's makes it a pattern; and it left `Jens_Jacob_Worsaae`
+**without birth/death dates or his book title**, because every source stating them is an encyclopedia,
+which the plan bars: a biography written to the length of its sources is short, and one padded to the
+length of a reader's expectation is fiction.
+**N3's finding is what to do when a term fails the majority-open check**: `Solutrean` came back 1 open of
+2, and the reflex — add a third source to fix the ratio — is wrong. Ask what the PAYWALLED one is
+carrying: Aubry et al. 2008 is about laurel-leaf *production* and the term's sentence is about the
+retouch, which Bachellerie 2025 states openly, so Aubry was **dropped, not balanced**. A paywalled work
+earns its place only as the landmark for a claim nothing open carries. N3 also **re-points
+`guder-2025`'s URL** from the Europe PMC `fullTextXML` REST route to the PLOS article page, which is 200
+again: that endpoint is a machine route serving raw markup, so **when a host reopens, move the citation
+back to the human-readable copy** (`journals.openedition.org` has likewise dropped the Anubis wall batch
+21 recorded). And it leaves one thing UNFIXED and written down: **`wh-085`'s date line still carries the
+"rockfall closed the entrance roughly 13,000 years ago" that batch 21 removed from its abstract** — the
+third time a correction has failed to travel from a card's prose to its own `answerDate`.
+**N2's finding is about ALIASES, and it is a content rule rather than an access one.** `Upper_Paleolithic`
+carried "Late Stone Age", which is not a synonym: the Later Stone Age is the AFRICAN division running from
+~40 ka into historical times, and Malan 1957 records that Goodwin chose the African names precisely so
+they would not be read as the European ones. Nothing looked broken — pass 1 of `buildGlossIndex` beats an
+alias — so it would simply have sat there being wrong. **Before adding a synonym alias, ask whether the two
+names belong to the SAME SCHEME**: Old/New Stone Age are Palaeolithic and Neolithic in one European
+sequence and are right; Earlier/Middle/Later Stone Age are another continent's sequence and are not.
+Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
+prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
+claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span
+a day after batch 19 corrected it on `wh-016`, so when a card is corrected, grep the glossary for the figure.
+**Batch G3 ran that rule BACKWARDS, and it is the more valuable direction**: a term is three sentences, so a
+wrong figure is quickest to spot there, and the card is where it does the most damage. Checking six industry
+terms against their sources corrected the `Mousterian`'s start date on the term **and** on `wh-033` (160,000 →
+300,000, in ten languages and on the date line — 160,000 is in nothing openable and contradicted the card's own
+parent period), and moved a marker on `wh-032` off a paper arguing the opposite of the sentence it marked. A
+term's date line is patched by **`node .claude/fix-gloss-date.js`** — `fix-field.js`'s glossary sibling, an
+asserted find-and-set on `window.GLOSSARY_DATES`, written for batch G3 because two of its four corrections were
+there and `add-sources.js` does not touch dates.
+**Batch G4 is where the pass stopped being about journals**: eighteen works, every one open, and nine of the
+eleven new ones were museum records or out-of-copyright books — there is no modern open literature on who
+Thomsen was, but the museum that still uses his arrangement publishes its own history, and it says **he did not
+devise the three-age system** (he called it "the old idea" in 1825, and Vedel Simonsen had published the theory
+ten years earlier). That corrected two terms and `wh-006`'s date line. G4 also found, and deliberately did NOT
+half-fix, the pass's one systematic divergence: **the glossary starts prehistory at 3.3 Mya and the cards start
+it at 2.6 Mya** with Lomekwi 3 as a contested earlier claim — and the glossary's own `Lomekwian` term calls that
+assemblage debated, so it contradicts itself too.
+**Batch G5 settled it: prehistory starts at 2.6 Mya everywhere**, with the disputed 3.3 Ma Lomekwi claim kept as
+a hedge in the prose and left standing alone on `Lomekwian` and `Lomekwi_3`. Seven date lines moved with it, and
+the sibling check the plan demanded found two nobody had gone looking for — `Neolithic` ended at 3000 BCE where
+`Stone_Age` ended and `Bronze_Age` began at 3300, and `Upper_Paleolithic` ended at 12,000 BP where the Holocene
+GSSP puts it at 11,700. The Palaeolithic now closes at **9700 BCE**, not 10,000. `wh-001` carried the same two
+errors and was corrected in ten languages. G5's own finding is a caution about harmonising: the `Neolithic`
+term's "first clear signs of social ranking" was **withdrawn** (contradicted by `wh-009` and by Fuller &
+Stevens, who put rank with urbanism), while `Neolithic_Revolution`'s "private property and inherited rank" was
+**kept**, because it claims these among the transition's consequences and not as the first of their kind. The
+two read as inconsistent and are not; the difference is the word *first*. Also from G5: **open a source whose
+title reads as a refutation before citing it** — `eren-lycett-2012` ("Why Levallois?", on whether Levallois
+flakes are standardized at all) was opened for that reason and confirms the sentence it now marks.
+**Batch G6 found the pass's third wrong marker, and the rule it produced governs every batch that leans on
+the register.** `wh-011` credited Hoffman et al. 2017 with "at least five major ice ages"; that paper does
+not say five, or any number, and nothing openable from here counts them — the familiar Huronian / Cryogenian
+/ Andean-Saharan / Karoo / Quaternary list is a textbook enumeration. Both the card and the `Ice_Age` term
+now say what Hoffman supports. Ten of G6's sixteen works were reused from `.claude/sources-register.md`
+unopened, which is the economy of the whole pass, and **the one that broke was the one stretched to a new
+claim** — so: **a source reused from the register is reused for the claim the register RECORDS; a new claim
+needs a re-read.** All three wrong markers (`wh-098`, `wh-032`, `wh-011`) were caught the same way, by
+re-reading a registered source for a different surface. Two smaller G6 findings: the sibling check beat the
+sources again (the `Ice_Age` term's uncited "coldest point around 20,000 years ago" was settled by
+`wh-078`, which already gave the LGM as 26,000–19,000 with a citation), and **a claim nothing contradicts
+stays** — the Meghalayan GSSP is a "speleothem" in every open source, "stalagmite" in the term, and the term
+keeps it with the gap recorded in the register rather than being reworded on a hunch.
+**Batch G7 is where the register stopped paying, and the reason is structural.** Fifteen of its 32 works
+were new — against ten of sixteen reused in G6 and 26 of 38 slots in G5 — because **the register carries
+terms about TAXA and PERIODS, and a type site is a PLACE.** A site's three sentences are a location, an
+excavation history and a find, and only the find is a claim some card already makes; the geography, the
+administrative facts and the dig histories all had to be found. Expect the same of G9 and G10, which are
+peoples and physical geography and have no cards behind them at all. Its other findings: the cross-surface
+sweep paid twice more, and both were siblings rather than strangers — `Olduvai_Gorge` was still "about
+48 km" five batches after `wh-017` was corrected to 46, and `Lomekwi_3` still had the passive-hammer
+knapping backwards after G3 fixed the identical error on `Lomekwian`, so **a correction does not travel
+between SIBLING TERMS either, and the grep is for the figure, on the day**. And G7 met a case the pass had
+not: not a source contradicting the term but **two sources contradicting each other** over a claim the term
+makes flatly — Parker et al. read Taung's hominin-bearing calcrete as pedogenic where Rowan & Wood still
+write of "the cave sediments at Taung". The rule adopted: where the sources disagree and three sentences
+leave no room to hedge, **say what both carry** (here "tufa and calcrete deposits") and record the question
+in the register rather than settling it in a gloss.
+**Batch G8 corrected NOTHING, and that is the pass's most useful negative result.** Thirty-four batches had
+produced corrections every time; the tenth-of-a-batch that did not is the one whose terms are DEFINITIONS and
+BIOGRAPHIES — and the same batch carries the most unmarked, unsourceable clauses of any so far (nine, across
+seven terms: a forager band's size, portable wealth, `Megafauna`'s 10 kg lower bound, the word *anatomist*,
+the French and Lakota etymology of *badlands*, and Dart's birth, his 1958 retirement and the
+osteodontokeratic hypothesis). **A term whose fold shows two open sources looks identical to a reader whether
+every sentence rests on them or only one clause does**, and the audit counts citations rather than covered
+claims — so it cannot see this. G7 found the register pays for taxa and not for places; G8 adds that **the
+literature pays for RESULTS, not for definitions or for living people**, which is a harder limit than any
+sandbox egress policy. Two routes did work and should be reached for early in G9/G10: **a discipline's own
+statement of scope** (the SAA's *What Is Archaeology?* carried that whole term) and **the canonical textbook,
+out of copyright** — there is no modern open work saying what anatomy is, and Gray's *Anatomy of the Human
+Body* (1918) is on the Internet Archive in full, defining the subject, dissection, histology, comparative and
+applied anatomy in its Introduction. That is G4's rule applied to a discipline rather than a man; an
+encyclopedia is barred by the plan, a founding textbook is not. Its cheapest find is a search order:
+**look at the deck's own markers for a FIGURE before searching the literature for it** — `Megafauna`'s 44 kg
+was already marked on `wh-089` to Koch & Barnosky, who also carry three of the term's four claims.
