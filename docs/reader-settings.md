@@ -368,3 +368,140 @@ Ten bullets, in the order they appeared in CLAUDE.md:
   `_ttsAudio`. Chinese hanzi stays on the device voice (no commercially-clear zh Piper voice). The bake is incremental
   (manifest hash check; `--force` re-bakes; `--scan-speakers=N` pitch-scans voices; toolchain auto-downloads into gitignored
   `.claude/tts-cache/`). Gloss popups + selection read-aloud always use the engine.
+
+
+---
+
+## Read-aloud, set aside — moved out of `CLAUDE.md` (2026-09-11)
+
+**READ BEFORE CHANGING THE TTS GATE OR A DECK'S SPEECH CONTROL.** The account as it stood in
+`CLAUDE.md` until it was moved here verbatim. The RULES stay in `CLAUDE.md`.
+
+- **Read-aloud TTS — SET ASIDE (July 2026)**: the whole system is disabled site-wide (`ttsEnabled()`
+returns `false` unconditionally), which hides every play control, the card mute button, auto-read and the
+selection menu; the Settings "Audio" card was removed. The machinery and the baked `audio/` files stay
+dormant for a later revival — Web Speech plus four Piper-baked narrators, all **CC BY 4.0**, and
+**`hfc_male`/`ryan`/`lessac` are CC BY-NC and must not be used.** See `docs/reader-settings.md`.
+· **A COMMUNITY CARD TYPE'S `.uc-tts` IS NOT PART OF THAT AND IS LIVE** — it deliberately bypasses
+`ttsEnabled()`, being a control a reader presses rather than something Folio does to them (see the
+`.uc-tts` bullet above). So "read-aloud does nothing" reported on a LANGUAGE DECK is never the
+site-wide switch, and answering it with that switch sends the next session looking in the wrong place.
+· **AND A PRESS MUST NEVER COME BACK AS SILENCE** (`TTS_SILENT_MS` / `ttsSilentNote` / `ttsCanSpeak`,
+Aug 2026, on a bug report that read-aloud "is not working at all" on the Spanish decks). A browser can
+carry `speechSynthesis` and `SpeechSynthesisUtterance` and have **no voice installed behind them** —
+ordinary on Linux without speech-dispatcher, on some Android WebViews, and in **headless Chromium,
+where it is measurable**: the API is present, `getVoices()` is empty, and `speak()` returns with no
+sound, no error and no `onstart`. Every guard on the path passed, so the control drew itself as a live
+button and answered a press with nothing at all.
+**THE OUTCOME IS MEASURED, NEVER PREDICTED, and that is the whole of the design.** Refusing up front
+on an empty voice list was written first and is wrong twice over: `getVoices()` **arrives
+asynchronously**, so the same list is empty at boot and full a second later, and on some engines it is
+empty while speech works — so refusing would silence a control that WOULD have spoken. `cardSpeak`
+therefore always attempts, and asks afterwards whether the engine actually started (`onstart`, then
+`speaking`/`pending` after `TTS_SILENT_MS`); only then does it report. `ttsSilentNote()` picks the
+message from `ttsCanSpeak()` — **no voices at all is a fact about the DEVICE**, where an engine that
+has voices and still produced nothing is a failure of this one attempt.
+**AND THE FIRST OF THOSE TELLS THE READER WHAT TO DO** (Aug 2026, on request): the fix is an
+operating-system one, so it reads *"No speech voice installed — add one in your device's settings"*
+rather than the true-but-dead-end "Speech isn't available on this device". **The advice is
+deliberately PLATFORM-NEUTRAL**: naming the menu path is more helpful when right and worse than
+silence when wrong — it differs across Windows, macOS, Android, iOS and the Linux desktops,
+`navigator.platform` is unreliable and deprecated, and a reader sent to a screen that does not exist
+gives up on something that would have worked. It rides a longer dwell (`TTS_NOTE_MS`, via `toast`'s
+optional second argument), a message that asks for an action being read rather than glanced at.
+**`.toast` had to learn `width:max-content` for it, and that fixed every toast on a phone**: positioned
+`left:50%` with no `right`, a shrink-to-fit box may only be as wide as the space to the right edge —
+HALF the viewport — so on a 360px phone every message was capped at 180px, and "Daily limits saved"
+already wrapped to two lines while this one ran to five. Measured before and after at 360/390/768/1280:
+the long note goes 5 lines to 2 on a phone and 2 to 1 at 768, nothing overflows at any width, and
+nothing that already fitted on one line moved.
+**`ttsSupported()` STILL ANSWERS ONLY "IS THE API HERE"** and must not be taught otherwise: it gates
+`body.no-tts`, which takes the button's chrome away, and **the shipped language decks' control is an
+EMPTY span** (`<span class="uc-tts uc-say" data-say="{{Word}}"></span>`) that collapses to **0px wide**
+under that class — measured — so widening it would make the control vanish rather than explain itself.
+Guarded by `test-speak.js`'s last section, which asserts all three cases including that **an engine
+which really speaks is never nagged**.
+**📖 `docs/reader-settings.md` — READ BEFORE CHANGING ANY OF IT.** Every measured contrast ratio, the
+spelling table's traps in full, the units sweep's awkward shapes, the i18n engine's `I18N_HTML` gating
+and its cap, and the whole dormant narration system — the voice scoring, the chunking, the baked
+manifest's hashing gotcha and the `--rehash` flag.
+
+
+---
+
+## The spelling switch's faults in full, moved out of `CLAUDE.md` (2026-09-11)
+
+**READ BEFORE ADDING A ROW TO `SPELL_PAIRS` OR WIDENING THE SWEEP.** The account as it stood in
+`CLAUDE.md` until it was moved here verbatim. The RULES stay in `CLAUDE.md`.
+
+- **British or American spelling, the reader's** (`S.settings.spelling` / `SPELL_PAIRS` / `spellText` /
+`spellTree` / `applySpelling`). The units switch's shape exactly, so no field is authored twice. Ten
+things are decisions rather than plumbing.
+· **IT IS A DECLARED TABLE AND NEVER A RULE, and every trap in it was found in the real corpus** — a
+`-re`→`-er` rule turns `timetree` into `timetrer`, a `kerb`→`curb` rule reaches into `Kerberos`, an
+`-ll-`→`-l-` rule into `controlled` and the archaeologist `Conneller`. 144 rows of
+`[British, American, suffixes, one-way?]`, and the transform can only ever do what it says.
+· **THE SUFFIX LIST IS EXHAUSTIVE, AND THE BARE STEM ONLY BY AN EXPLICIT EMPTY ELEMENT** — the first cut
+always admitted the stem and rendered `emphasis` as `emphasiz`. **A suffix right for one side is not
+always right for the other** (`centre`+`d` → `centerd`), so every divergent inflection has its own row.
+· **IT IS TWO-WAY, WHICH THE UNITS SWITCH IS NOT, AND THE MEASUREMENT IS WHY**: the corpus is genuinely
+mixed in the -ise/-ize family, so a one-way transform would leave a British reader reading American
+spellings on half the cards.
+· **EIGHTEEN ROWS ARE ONE-WAY ALL THE SAME** — `storey`→`story` is safe and the reverse catastrophic; the
+same for `program`, `meter`, `practice`, `license`, `catalog` and `medieval`.
+· **FIVE FAMILIES ARE DELIBERATELY ABSENT AND FIVE WORDS EXCLUDED BY NAME**: American English writes
+`archaeology` (1,923 sites), `ochre`, `aesthetic`, `dialogue`/`analogue` and `axe` the same way; `tyre`
+is the Phoenician city, `draught` the Knossos corridor, `kerb` excluded because `curb` is also a verb.
+· **A URL IS NOT PROSE, AND THE MASK IS IN `spellText` RATHER THAN `spellTree`** (`SPELL_URL_RX`): 173 of
+10,108 URLs carry a mapped word, and `mediaCreditHTML` renders a credit URL as its own visible text.
+· **AND THE ONE PART OF A FOREIGN-LANGUAGE CARD THAT IS CERTAINLY ENGLISH IS SWEPT** (`SPELL_EN_SEL`
+= `.uc-exe`; Sep 2026, on request). A language deck's card wrapper carries its `speechLang`, so
+the language guard above rightly skipped everything inside it — and took the TRANSLATION of every
+example sentence with it, which is English and is the half a learner reads first. **The widening
+that suggests itself is the dangerous one**: the GLOSS blocks are English prose that QUOTES
+Spanish, and `color`, `favor`, `honor`, `meter` and `center` are Spanish words as well as American
+spellings, so sweeping those would rewrite the language the card is teaching — the 5,568-rewrite
+fault one element in. One class, declared, and no more.
+· **THE CITATIONS AND THE LIBRARY'S BOOKS ARE SKIPPED** (`.notranslate, .bk-page`) — rewriting *The
+Colour of Prehistory* invents a title that does not exist, and a book is somebody's translation.
+· **`gradeCloze` TRANSFORMS THE ANSWER, NEVER THE GUESS** — the stored `answerText` is British, so an
+American reader typing what is on their screen would be marked wrong.
+· **A TEXT NODE UNDER A NON-ENGLISH `lang` IS NOT ENGLISH AND IS LEFT ALONE** (`spellSkip` /
+`SPELL_LANG_EN` / `SPELL_FOREIGN_SEL`; Aug 2026, on a bug report that the Spanish `por favor` was shown
+as `por favour`). This is a switch between two spellings OF ENGLISH and it was being run over every text
+node on the page, a **language deck's own Spanish, French, German, Italian and Portuguese included** —
+where the table's American forms are ordinary foreign words. Measured over the 52 shipped decks: **5,568
+rewrites of somebody else's language**, of which the worst is that the Spanish verb `saber` was shown as
+`sabre` **on the FRONT of DELE A1's card 108**, so the word a learner was being taught to produce was
+the misspelling. German `Labor` became `labour`, Portuguese `valor` `valour`, Spanish `color` `colour`.
+**THE FIX NEEDED NO NEW MACHINERY, WHICH IS THE POINT**: `cardTypeSideHTML` has always written the card
+type's `speechLang` onto the `.uc-card` wrapper, so the Spanish card was sitting inside `lang="es-ES"`
+the whole time and the pass simply was not asking; the daily quote's original-language block carries its
+own `lang` for the same reason, and `<html lang="en">` is the declaring ancestor for everything else, so
+Folio's own prose is untouched. It is asked **once per pass, not per text node** — measured on `#decks`
+(8,848 text nodes), a `closest("[lang]")` per node costs 2.74ms against 0.15ms for the flag, so a reader
+with no foreign text on screen pays for none of it. An **empty** `lang` declares nothing and is not a
+reason to skip. **KNOWN GAP, STATED RATHER THAN PAPERED OVER**: the rule can only see a language that is
+DECLARED, so foreign text carrying no `lang` is still swept — a card type with no `speechLang` (all 52
+shipped decks declare one on every type, so the shipped corpus is covered; a stranger's imported deck
+need not), and a deck's own GLOSSARY, whose popup is drawn outside the card wrapper and inherits no
+language (`UGLOSS` is empty across all 52, so there is nothing to fix yet; a deck that ever carries one
+would want `lang` on `.gloss-win`).
+· **THE WORD BOUNDARY IS UNICODE-AWARE, AND `\b` CANNOT BE** (same report). JS's `\b` is defined over
+ASCII `\w`, so an **accented letter is a non-word character and stands as a boundary of its own** — a
+`\b`-anchored pattern therefore matches INSIDE an accented word: `Moldávia` became `Mouldávia`,
+`literário` `litreário`, `élaborer` `élabourer`, `honoré` `honouré`, `réorganiser` `réorganizer`. The
+fix is the lookarounds `buildGlossIndex` already uses for the mirror of this reason (`Æsir` and `Vé`
+could never MATCH): `(?<![\p{L}\p{N}_]) … (?![\p{L}\p{N}_])` with the `u` flag. **Folio's own corpus
+was measured clean of it** — the fault only ever reached accented content, which is the decks — and it
+is what keeps the known gap above from mangling the inside of words.
+· **AND `spellSkip` IS ONE TEST FOR BOTH BRANCHES.** `spellTree`'s bare-text-node branch — the one the
+MutationObserver feeds — had **no skip test at all**, so a citation or a book's prose updated in place
+was rewritten while the same text reached through the walker was protected.
+**Known limit, stated rather than papered over**: the card browser searches stored card TEXT, so
+"color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (83
+assertions), most of which needs no browser — and its section 4 must stay in **en-GB**, since `favor` is
+an American form and the American-to-British direction is the one that corrupts it; written against
+en-US it passes on the unfixed code. It carries a **liveness check** beside it for the same reason: a
+change that stopped the en-GB pass running would otherwise make every assertion there pass while testing
+nothing.
