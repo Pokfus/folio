@@ -6622,7 +6622,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Shang_warfare": ["Shang war"],
 "Shang_capitals": ["Shang capital"],
 "Cowrie_shell": ["cowry shell","cowrie","cowry"],
-"St._Paul": ["Saint Paul"],
+"St._Paul": [],
 "Greek_Revival_architecture": ["Greek Revival"],
 "Salmon_P._Chase": ["Salmon Portland Chase"],
 "Vermont": ["New Connecticut"],
@@ -7547,7 +7547,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mississippian_culture": ["Mississippian"],
 "Three_Sisters_(agriculture)": ["Three Sisters"],
 "Ancestral_Puebloans": ["Ancestral Pueblo","Ancestral Puebloan"],
-"Chaco_Canyon": ["Chaco"],
+"Chaco_Canyon": [],
 "Great_house_(Chacoan)": ["Chacoan great house"],
 "Pueblo_peoples": ["Pueblo people"],
 "Algonquian_languages": ["Algonquian"],
@@ -7842,6 +7842,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+  "Providence": true,
 "Pacific_Ocean": true,
 "Council_of_Five_Hundred": true,
 "Homo": true,

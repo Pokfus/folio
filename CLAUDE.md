@@ -696,12 +696,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
     sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
     sources the rewrite needs, fifteen batches, and — moved out of here — what each shipped batch found:
-    the three per-country sources that make the pass possible and what each carries, the thirteen
-    high-income countries that have no AQUASTAT profile at all and are deferred rather than half-solved,
-    and the rule that **an AQUASTAT URL must be READ, never COMPOSED** (eight of twelve guesses were
-    wrong and one pointed at another country's profile — and **a 200 on a `.pdf` address is not a PDF**).
-    **A COUNTRY THE RECOGNITION GUIDE HAS NO PAGE FOR CAN STILL BE WRITTEN**, resting on a MILESTONE,
-    which is about an event rather than a state.
+    the per-country sources that make the pass possible and what each carries, the countries that have no
+    AQUASTAT profile at all and what replaced that recipe, and the rule that **an AQUASTAT URL must be
+    READ, never COMPOSED** (eight of twelve guesses were wrong and one pointed at another country's
+    profile — and **a 200 on a `.pdf` address is not a PDF**). **A COUNTRY THE RECOGNITION GUIDE HAS NO
+    PAGE FOR CAN STILL BE WRITTEN**, resting on a MILESTONE, which is about an event rather than a state.
+    **THE COUNTRY HALF IS FINISHED — G1–G20 have shipped and all 233 backgrounds are rewritten**
+    (`gw-001`–`gw-233`), each five sentences of landform, water and climate over five of the country's
+    own history. **THE CAPITAL HALF IS OPEN**: C1–C11 have rewritten `gw-501` onward on a recipe of their
+    own — the WMO's per-city normals, UNdata's capital fields AND THEIR FOOTNOTES, an open paper's Study
+    Area, the city's own institution, and the constitution — and its first rule is that **a capital card
+    may not name its own country**, the grid's first row being Country. **Run `node .claude/gw-audit.js`
+    for how far it has got rather than quoting a figure here**; the plan holds every batch's findings,
+    among them the eleven things a constitution does instead of naming the capital and the four ways the
+    WMO leg fails.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request). The population
     is already in the facts grid two inches above. **A card with nothing else datable gets an EMPTY date
     line rather than a filler row**, which `test-date-line.js` is what caught — a non-empty line yielding

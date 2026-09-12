@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.700", released: "2026-09-12T19:47Z" };
+window.FOLIO_VERSION = { v: "1.702", released: "2026-09-12T19:56Z" };
 
 window.CHANGELOG = [
   {
@@ -60,6 +60,7 @@ window.CHANGELOG = [
     t: "Folio opens far faster, and works where Google does not",
     items: [
       "<b>\u201cThink it through\u201d now reaches every card in the History and Science sections</b>, with 801 more cards gaining three why-questions and their answers.",
+      "<b>All 233 country and territory cards in the World geography deck, and the first sixty-four capitals, describe the place itself</b> \u2014 its land, water and climate rather than its dealings with America.",
       "<b>Ninety new cards</b> \u2014 fifty in Ancient Rome from Marius to the Gallic Wars, and forty in World History from medieval Europe to the Mongols, with eighty-six new glossary terms.",
       "<b>Social War, Sulla and Spartacus now link to glossary terms of their own</b>, rather than to an Athenian war of 357 BCE, a joint entry on Marius and Sulla, and the war named after him.",
       "<b>The US states and China province cards now draw their rivers</b>, which the shaded state was painting over.",
@@ -146,7 +147,7 @@ window.CHANGELOG = [
       "New pictures for two geography cards, four city populations rounded to three figures, and one river volume that now switches to imperial.",
       "<b>Fifteen geography cards no longer put a census count in the dates under the answer</b>, which is where the term's dates belong.",
       "<b>The changelog puts a day's title under its date on a phone</b>, and a study card keeps only the three dots of “recalled on X of 3 days” on a tablet.",
-      "<b>Seventy-three cards in the World geography collection now describe the country itself</b> — its land, its water and its climate, and its own history rather than its dealings with America.",
+      "<b>One hundred and eighty-one cards in the World geography collection now describe the country itself</b> — its land, its water and its climate, and its own history rather than its dealings with America.",
       "<b>A geography card no longer lists the countries around it</b>, the map beside the answer already showing them.",
     ],
   },

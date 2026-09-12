@@ -23,8 +23,15 @@ const LIST = arg("list", "");
 
 /* The United States by any of the names a background actually uses. "America" alone is NOT
    in it: "South America" is the continent Brazil is on, and matching it reports every South
-   American card as a violation. */
-const US = /\bUnited States\b|\bU\.S\.|\bU\.S\b|\bAmerican\b|\bAmericans\b|\bWashington\b/;
+   American card as a violation.
+   The ADJECTIVE has the same trap one word further in, and it was missed until Sep 2026: a bare
+   \bAmerican\b matches "South American", "North American", "Latin American" and "Central
+   American", none of which is the United States. Measured over the shipped gw- cards at the time,
+   8 of the 307 rule-1 findings were that and nothing else — every one of them a background this
+   pass had already rewritten, so the rule was reporting a permanent false finding on exactly the
+   cards it had finished with. The lookbehind excludes the compounds and leaves "American" and
+   "Americans" alone. */
+const US = /\bUnited States\b|\bU\.S\.|\bU\.S\b|(?<!(?:South|North|Latin|Central|Meso)[- ])\bAmericans?\b|\bWashington\b/;
 
 /* Landform, water, weather. A card that names none of these is telling a reader nothing about
    the place whose shape it has just asked them to recognise. */
@@ -60,8 +67,12 @@ const cards = window.CARD_DATA.filter((c) => String(c.id).startsWith(PREFIX));
    and 501+ are their capitals, and a capital's name in the vocabulary reports Victoria for
    Lake Victoria, Stanley for a mountain and Riga for a gulf. Longest first so "Democratic
    Republic of the Congo" is claimed before "Congo" and "South Africa" before "South Sudan"
-   can steal the word South. */
-const COUNTRIES = cards.filter((c) => Number(String(c.id).slice(3)) < 500)
+   can steal the word South.
+   IT IS READ OFF THE WHOLE DECK, NEVER OFF THE FILTERED SET, and that was a live fault until
+   Sep 2026: taken from `cards`, a run under --prefix=gw-5 had an EMPTY vocabulary, so rule 4
+   reported 0 on every capital hundred and read as a rule those cards passed. A check that
+   silently measures nothing under a filter is worse than one that refuses the filter. */
+const COUNTRIES = window.CARD_DATA.filter((c) => /^gw-\d+$/.test(String(c.id)) && Number(String(c.id).slice(3)) < 500)
   .map((c) => String(c.answerText || "").trim())
   .filter((n) => n.length > 3).sort((a, b) => b.length - a.length);
 const plain = (s) => String(s || "").replace(/<sup[^>]*><\/sup>/g, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
