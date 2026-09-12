@@ -168,7 +168,26 @@ const INSTITUTIONAL = new Set([
   "ministère de la culture", "ministère de la culture (france)", "government of the netherlands",
   "government of anguilla", "governorate of vatican city state", "statistics jersey",
   "administration supérieure des îles wallis et futuna",
+  /* A MULTI-AUTHOR TEXTBOOK CITED PER CHAPTER IS THE SAME CASE AS A DATA PUBLISHER (Sep 2026), and
+     both were read before being named here. Three chapters of one standard textbook, credited to a
+     team of three or six, are not three scholars' opinions — they are one reference shelf consulted
+     three times, which is a different fault from three papers by one arguing scholar and is reported
+     as such rather than excused. NOT extended to the 1905, 1922 and 1929 works the corpus also leans
+     on (Walters, the Cambridge History of India, Platner and Ashby): there the whole modern apparatus
+     of a card really is one book, which is the finding this check exists for. */
+  "mary ann clark",   // OpenStax, Biology 2e — three authors, cited per chapter (bio-003/014/015)
+  "bruce alberts",    // Molecular Biology of the Cell — six authors, cited per chapter (bio-025/026)
 ]);
+
+/* Is this cited author the card's own subject? Folded to letters, digits and single spaces, and
+   compared both ways round so "Charles Darwin" matches an answer of "Charles Darwin" and a citation
+   key that carries more or less of the name than the answer does still resolves. */
+const subjKey = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+function citesOwnSubject(card, key) {
+  const ans = subjKey(card && card.answerText), k = subjKey(key);
+  if (!ans || !k || k.length < 4) return false;
+  return ans === k || ans.includes(k) || k.includes(ans);
+}
 
 /* The author field of a Chicago note is what stands before the first quoted title.  A
    work with no author (a museum record, an institutional page) falls back to the text
@@ -291,6 +310,15 @@ for (const c of cards) {
   for (const [k, n] of Object.entries(modern)) {
     if (n <= 2) continue;
     if (INSTITUTIONAL.has(k)) notes.push(["one-institution", `${id}: ${k} in ${n} of ${srcs.length} sources`, id]);
+    /* A CARD CITING ITS OWN SUBJECT'S WORKS IS CITING A WITNESS, NOT A SCHOLAR (Sep 2026) — the
+       ANCIENT rule one era forward. `ps-037` Fechner rests three of its six sources on Fechner's own
+       books, and that is what a card about Fechner SHOULD do; counting it as over-citation asks the
+       card to describe a man while avoiding what he wrote. It is COMPUTED rather than declared, so it
+       can never excuse the same author on another card: the test is that the cited author IS this
+       card's own answer term. Measured over the whole corpus it matches exactly three cards —
+       `ps-037`, `ps-038` and `ps-040` — and `ps-048`, whose answer is `structuralism` rather than
+       Titchener, correctly stays a finding. */
+    else if (citesOwnSubject(c, k)) notes.push(["one-witness", `${id}: ${k} in ${n} of ${srcs.length} sources — the card's own subject`, id]);
     else fails.push(["over-cited", `${id}: ${k} in ${n} of ${srcs.length} sources`, id]);
   }
   for (const [k, n] of Object.entries(ancient))

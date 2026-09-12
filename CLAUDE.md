@@ -287,10 +287,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **That deck no longer exists**: World History was replanned on 2026-08-04 and 89 of those 109 were renumbered
   while 20 were retired, so the live figure is 89 cards all at the bar (plus Greece), and this file's `wh-NNN`
   references are the old numbering — read them through the table in `docs/world-history-card-plan.md`.
-  Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`. Its **Pilot log** records
-  that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
-  source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
-  (and, separately and clearly marked, unverified search-only candidates that must never be pasted in).
+  Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`.
+  `.claude/sources-register.md` holds the verified citations (and, separately and clearly marked,
+  unverified search-only candidates that must never be pasted in).
+  **THE SANDBOX IS NOT SHUT TO SCHOLARSHIP, AND THIS BULLET SAID IT WAS FOR SIX WEEKS** (corrected Sep
+  2026). It summarised the Pilot log as "batch 0 was attempted and stopped: this sandbox's egress policy
+  blocks every scholarly host" — which is ATTEMPT 1 only. The log's attempt 2, on the next day, opened
+  all twenty sources and cited all six cards, and the summary here kept the failure and dropped the
+  recovery. **A stale claim about the ENVIRONMENT is the worst shape a note in this file can have**: it
+  does not produce a wrong answer, it stops work that would have succeeded, and no checker can see it —
+  `check-claims.js` measures figures, and this was prose. **So the answer is a command rather than a
+  sentence: `node .claude/check-reach.js`.**
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the glossary**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
@@ -1177,6 +1184,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the thing removed. A free-text sweep for deletion claims was tried and abandoned: nine of eleven hits
   were ordinary words in backticks, so the list is declared. Report-only, exits 0. **Run it after any
   batch that changes a count, or renames anything this file names.** Not part of the site.
+- `.claude/check-reach.js` — **which scholarly hosts answer from this sandbox**: `node
+  .claude/check-reach.js [--all] [--json]`. `check-sizes.js`'s sibling, and it exists for the same
+  reason one step over: a figure quoted in prose goes stale, and **a claim about the ENVIRONMENT goes
+  stale silently and stops work that would have succeeded.** CLAUDE.md said for six weeks that "this
+  sandbox's egress policy blocks every scholarly host", summarising an attempt whose own log records a
+  successful retry the next day.
+  · **IT REPORTS FOUR OUTCOMES AND THE MIDDLE TWO ARE THE POINT.** `OK` is a 200 carrying a word the
+    real page must contain, so it cannot be fooled by the **200-status bot challenge** (`WALL`) that
+    `docs/glossary-citation-plan.md` records five varieties of. `SHUT` is a 403 or a refused
+    connection. **`BUSY` is 429 and is NOT a shut host** — which is the finding that makes the tool
+    worth having: probing a dozen hosts in a few seconds rate-limits several of them, and on the first
+    run Crossref, Commons, Wikipedia, OpenAlex and the Met all came back 429 or 403 while **UNESCO
+    reported 403 and then served 332 KB once the probes were spaced**. A fast sweep reports a working
+    sandbox as a blocked one, which is very likely what the original Pilot log met. Hence `GAP`, and
+    hence a run that takes a minute.
+  · **Measured 2026-09-12: 12 of 14 answering** — Crossref, Europe PMC, DOAJ, archive.org's full text,
+    Persée, OpenEdition, the Stanford Encyclopedia, BMCR, OpenStax, the Commons API, JSTOR's stable
+    pages and UNESCO. Britannica and Encyclopaedia Iranica are walled. **Quote none of that; run it.**
+  Not part of the site.
 - `.claude/check-sizes.js` — what Folio actually weighs: `node .claude/check-sizes.js [--json]`. It
   reads the eager path **out of `index.html`** rather than from a list, prints each file's raw and
   gzipped size with the totals, lists the biggest files off that path, and breaks `glossary.js` and
