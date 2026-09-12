@@ -113,3 +113,45 @@ a `missing` flag rather than an error, and every account simply presents itself 
 (purple, blue, green, teal, magenta, amber, red) — **every `data-atab` needs a pair of rules**, a resting
 one and an `.active` one, or the tab renders in the inherited ink and reads as DISABLED beside six that
 are lit, which is what happened to Quotes and Artefacts when they arrived.
+
+## Reader feedback (beta, July 2026)
+
+**Read this before touching the feedback form, its queue or the `7) FEEDBACK` schema block.**
+CLAUDE.md keeps the rules; this is the bullet as it stood there, with the row shape, the queue's
+colour scheme and the reasoning behind the anonymous insert, verbatim.
+
+- **Reader feedback (beta, July 2026).** Readers write to the editors from the **foot of the About page**
+(`.msn-feedback`, between the FAQ and the changelog); admins triage the messages in **Edit → Feedback**,
+which **replaced the Accounts tab** — that tab managed the legacy device-local accounts (`folio_acct_v1`)
+and had had nothing to manage since accounts moved to Supabase. **⚠ Needs the `7) FEEDBACK` block at the
+end of `.claude/supabase-schema.sql` run once**, on top of the phase-2/3 blocks; until then every call
+404s and `feedbackErr()` says "Feedback isn't set up on this site yet." rather than leaking PostgREST's
+error, and nothing else breaks.
+· **`public.feedback`** — one row per message: `kind` (bug / correction / suggestion / praise / other),
+`message`, the optional `name` + `email`, the `page` the reader was on, a `meta` jsonb (`lang`, `ua`),
+and the triage pair `status` (**new / seen / approved / done / discarded**) + `admin_note`.
+· **Anonymous inserts are allowed, deliberately.** The reader most likely to spot a wrong date is the one
+who never made an account, and a sign-in wall is exactly the friction that loses that correction. The
+cost is that the publishable key lets anyone POST; the only rate limit is a **device-local cooldown**
+(`folio_feedback_sent_v1`, 30s) — honest friction, **not security**. If it is ever abused, narrow the
+insert policy to `to authenticated`; no application code has to change.
+· **`guard_feedback_columns()` is what actually matters**, and it is the same lesson as
+`guard_user_deck_columns`: RLS picks the ROWS you may write, never the COLUMNS. Without it a sender
+could POST `status:'done'` alongside their message and file it away before an editor saw it, or plant
+an `admin_note`. A non-admin's triage columns are silently restored on insert, and a non-admin update
+returns `old` unchanged. **If you add a server-maintained column here, add it to the guard.**
+· **The message is sanitized on INGEST** (`feedbackPlain` → `sanitizePlain` **per line**, because
+`sanitizePlain` collapses all whitespace and a textarea's paragraph breaks have to survive). It is
+escaped again on render in the queue — the server copy is not trusted just because it came from our
+own API, and this one is written by anonymous strangers.
+· **The status IS the colour** (`FEEDBACK_STATUS`, hex per status, set inline as `--fb-col`): the row's
+left edge, its kind chip and its state label all take it, so scanning for what still needs a decision
+is a glance. The swatches **toggle** — clicking the status a row already carries clears it back to New.
+Changes are applied optimistically and rolled back if the PATCH fails, so a triage pass never waits on
+the network between clicks. The queue opens on "Needs a decision" (new + seen), and the tab carries an
+unread badge fetched once per admin-page mount.
+· **The user-facing strings are localised in all 9 languages** (`chrome.exact` + two `chrome.html` rows
+for the `<small>(optional)</small>` labels); the **queue itself stays English**, like the rest of the
+editor.
+· `adminState.tab === "accounts"` is a **retired value**: `restoreAdminUI` drops it so a session saved
+before this change opens on the editor's default tab rather than one that no longer exists.
