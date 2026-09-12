@@ -807,6 +807,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the one real finding it was meant to leave standing**. A term is withheld when it is tagged `person`
     and its date line begins after 1500, which is the site's own record of a modern figure rather than a
     guess from the name.
+  · **…AND THE EXEMPTIONS ARE `card-focus.js`'s, SLICED OUT BY TEXT RATHER THAN COPIED** (Sep 2026).
+    Two tools enforce the no-researchers rule and only one of them knew what is exempt from it, so this
+    one reported `wh-064` — which CLAUDE.md exempts BY NAME — and would have gone on reporting a
+    permanent, growing false finding over **Psychology and Philosophy**, whose exclusion is
+    collection-wide (`RULE1_EXCLUDED`). Both lists are now read out of `card-focus.js` at run time and
+    **the run STOPS if either is not there**, rather than silently checking nothing: a second copy goes
+    stale on a change made in a file nobody here has reason to open, which is the scar
+    `add-card-tags.js` left.
+  · **WHAT IS LEFT OVER IS NAMED, NOT PATTERNED.** After the exemptions the residue is what the tool's
+    own header predicted — English-named PLACES the prose puts in front of a verb of agency ("the
+    Golan Heights holds", "Fascist Italy counted") — plus, since Rome and the Second World War grew,
+    **Roman republican names**, which `ANCIENT` does not cover, that being a list of ancient AUTHORS
+    written for the citation rule. They go in `NOT_A_SCHOLAR` one at a time with a reason, and
+    deliberately not under a praenomen rule: **Gaius, Lucius and Marcus are modern given names too**,
+    so a pattern would quietly excuse a real scholar. Add one only after reading the card.
   · **THE COMMA ENDS AN AUTHOR FIELD, NOT THE FULL STOP.** A book's title is italicised rather than
     quoted, so a quoted-title pattern cannot see it and a full-stop fallback reads an INITIAL as the
     whole name — three citations of one book filed under a scholar named for a letter. **A citation

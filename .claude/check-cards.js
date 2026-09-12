@@ -211,8 +211,54 @@ const ATTRIB = new RegExp(
    agency.  Widening the pattern to catch them would start excusing real findings; naming them
    cannot.  Add one only after reading the card. */
 const NOT_A_SCHOLAR = new Set([
-  "White Castle",   // gr-478: the Persian citadel of Memphis, which "held them"
+  "White Castle",     // gr-478: the Persian citadel of Memphis, which "held them"
+  /* Places and things the prose puts in front of a verb of agency — the shape the header above
+     predicted, met once the Rome, World History and Second World War collections grew. */
+  "Golan Heights",    // wh-138: the field of dolmens "holds over 400 tombs"
+  "Teotihuacan Valley", // wh-167: lidar "over" it "found" rerouted river course
+  "Golden House",     // wh-366: Nero's Domus Aurea, which "held" a colossal statue
+  "Sun Pyramids",     // wh-431: caught from "the Moon and Sun Pyramids", which "held" caches
+  "Fascist Italy",    // ww2-038: the state, which "counted its own era" from the March on Rome
+  /* ROMAN REPUBLICAN NAMES, which `ANCIENT` does not cover: that list is of ancient AUTHORS, written
+     for the citation rule, and these are ancient ACTORS a question narrates. Named rather than caught
+     by a praenomen rule, because Gaius, Lucius and Marcus are modern given names too and a pattern
+     would quietly excuse a real scholar. */
+  "Gaius Mucius",     // rm-098: Mucius Scaevola, who "held" his hand in the fire
+  "Asinius Pollio",   // wh-354: the Augustan historian, who "thought" the Commentarii careless
+  "Marcus Aemilius",  // rm-240: M. Aemilius Lepidus, who "put" Rome's terms to Philip
+  "BCE Lucius Mummius", // rm-256: the consul of 146; the match swallowed the era from "146 BCE"
 ]);
+
+/* ============================================================================
+   THE EXEMPTIONS ARE `card-focus.js`'s, SLICED OUT BY TEXT RATHER THAN COPIED
+
+   Two tools enforce one house rule — a question may never name a researcher — and
+   until Sep 2026 only one of them knew what is exempt from it. So this file
+   reported `wh-064` (Toba catastrophe theory), which CLAUDE.md exempts BY NAME,
+   and would have gone on reporting a permanent, growing false finding over
+   Psychology and Philosophy, where the literature IS the subject matter and the
+   exclusion is collection-wide.
+
+   A second copy of a list goes stale on a change made in a file nobody here has
+   reason to open — this repo has the scar — so the lists are read out of
+   `card-focus.js` at run time and the run STOPS if they are not there, rather
+   than silently checking nothing.
+   ============================================================================ */
+const { EXEMPT, RULE1_EXCLUDED } = (() => {
+  const src = fs.readFileSync(path.join(__dirname, "card-focus.js"), "utf8");
+  const grab = (name) => {
+    const m = src.match(new RegExp("\\bconst " + name + "\\s*=\\s*(\\{[\\s\\S]*?\\n\\});"));
+    if (!m) {
+      console.error("check-cards: card-focus.js no longer declares `" + name + "`. The exemptions are\n" +
+        "read from there so the two tools cannot disagree — fix the slice rather than copying the list.");
+      process.exit(2);
+    }
+    return new Function("return " + m[1])();
+  };
+  return { EXEMPT: grab("EXEMPT"), RULE1_EXCLUDED: grab("RULE1_EXCLUDED") };
+})();
+const rule1Exempt = (id) =>
+  !!EXEMPT[id] || Object.keys(RULE1_EXCLUDED).some((p) => id.startsWith(p));
 
 const NOT_A_NAME = /^(The|A|An|This|That|It|Its|His|Her|Their|One|Some|Most|Many|Others|Both|Each|What|When|Where|Who|Nothing|Modern|Ancient|Later|Recent|Tradition|Scholars|Evidence|Radiocarbon|Excavation|Survey|Analysis|Work|Study|Studies|Research|Pottery|Linear|Greek|Greeks|Athens|Sparta|Rome|Egypt|Crete|Cyprus|Sicily|Italy|Troy|Delphi|Olympia|Asia|Europe|Africa|Bronze|Iron|Early|Middle|Late|Old|New|North|South|East|West|Upper|Lower|First|Second|Third|Fourth|Fifth)\b/;
 
@@ -252,7 +298,7 @@ for (const c of cards) {
       notes.push(["one-witness", `${id}: ${k} carries ${n} of ${srcs.length} sources`, id]);
 
   // 2
-  for (const [qi, q] of [c.question, ...(c.questions || [])].entries()) {
+  for (const [qi, q] of (rule1Exempt(id) ? [] : [c.question, ...(c.questions || [])]).entries()) {
     const t = plain(q);
     for (const m of t.matchAll(ATTRIB)) {
       const nm = m[1].trim();

@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.705", released: "2026-09-12T22:51Z" };
+window.FOLIO_VERSION = { v: "1.706", released: "2026-09-12T22:58Z" };
 
 window.CHANGELOG = [
   {
@@ -43,7 +43,7 @@ window.CHANGELOG = [
     t: "Caesar's war won, and the kingdoms of Southeast Asia",
     items: [
       "<b>Sixty new cards</b> \u2014 ten in Ancient Rome from Dyrrhachium to the <i>Ides of March</i>, ten in World History on Islam in India and Southeast Asia, twenty in China from Sima Qian\u2019s history to the fall of Wang Mang and the restored Han, and twenty in the Second World War on the invasion of Poland and the Winter War, with fifty-eight new glossary terms.",
-      "<b>Five Ancient Greece questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who argued what.",
+      "<b>Eight questions no longer name a modern scholar</b> \u2014 five in Ancient Greece and three in World History \u2014 so the clue is about the past rather than about who argued what.",
       "<b>One Ancient Greece background no longer reads as a roll-call of the scholar it rests on</b>, keeping every claim and every citation.",
       "<b>Folio downloads a little less</b> \u2014 the unused translations of the site\u2019s menus, games and map labels have been removed.",
       "<b>337 picture captions no longer repeat their own credit</b>, and 327 credit lines now name the photographer plainly rather than linking or printing a licence notice.",
