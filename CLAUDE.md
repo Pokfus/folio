@@ -664,10 +664,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   document. The next card is the lowest `geo-NNN` not yet in `data.js`; see the "GEOGRAPHY" bullet under
   "Generating cards & glossary entries". Not part of the site.
 - `docs/world-geography-card-plan.md` — the running order for **World** (`geo-world`, the second
-  collection of the Geography SECTION), and the second plan that is not a thousand cards: it is **470
-  cards** — 233 countries and territories (`gw-001`–`gw-233`) and 237 capitals (`gw-501`–`gw-733` with
-  seven numbers deliberately unused, plus `gw-751`–`gw-761` for the extra seats of the ten countries that
-  have more than one) — using the same **map card** format the United States collection uses, so
+  collection of the Geography SECTION), and the second plan that is not a thousand cards: it is **471
+  cards** — 233 countries and territories (`gw-001`–`gw-233`) and 238 capitals (`gw-501`–`gw-733` with
+  seven numbers deliberately unused, plus `gw-751`–`gw-762` for the extra seats of the eleven countries
+  that have more than one — twelve cards, South Africa having two of them) — using the same **map card** format the United States collection uses, so
   it points at `docs/geography-card-plan.md` for the format rather than restating it. **It is SORTED BY
   POPULATION, largest first, and the order is FIXED at planning time and never re-sorted**: a card id is
   a permanent address, so re-sorting would move cards between ids and silently repoint every reader's
@@ -677,10 +677,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   judgement per country** — an ISO 3166-1 code of its own, a shape in `world.js`, and a settled population
   with an administrative seat — which is what keeps Folio out of every sovereignty argument it would
   otherwise be making 233 times; the deck is called *The countries and territories* and every question
-  asks for "the country or territory shaded on the map", which is true of all of them. **Twelve countries
-  have more than one seat** and the plan says which each card asks for. **Israel and Palestine are
-  deferred**, numbered but not written, because a card that shades a shape and asks for one word cannot
-  hold a capital question whose answer is the dispute.
+  asks for "the country or territory shaded on the map", which is true of all of them. **Eleven countries
+  have more than one seat**, over twelve cards, and the plan says which each card asks for. **THREE
+  CAPITALS ARE DEFERRED, numbered but not written, and they are not all the same refusal**: `gw-596`
+  Jerusalem and `gw-624` Palestine's seat, because a card that shades a shape and asks for one word
+  cannot hold a question whose answer is the dispute; and `gw-695` Saint Helier, which is a SOURCING
+  refusal rather than a political one — nothing openable from here calls it the capital or the seat of
+  the States, so it waits on one field rather than on research, and it stays deferred even though its
+  country card `gw-195` Jersey has shipped.
   · **📖 `docs/geography-background-plan.md` — READ BEFORE REWRITING A `gw-` BACKGROUND.** These
     backgrounds were written out of the recognition guide, which is written from the American point of
     view, so they are histories of *American recognition of* the country rather than histories *of* it.
