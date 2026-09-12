@@ -66,10 +66,66 @@ function stripped(it) {
   return out ? out : null;
 }
 
+/* ============================================================================
+   RULE 2 — THE LICENCE HALF, AND THE CONDITION THAT MAKES IT SAFE (Sep 2026)
+
+   The header above refuses to widen this sweep, and it was right to: a caption
+   ending "…, CC BY-SA 4.0, via Wikimedia Commons." over a credit that is a BARE
+   COMMONS URL is a picture whose only attribution is that clause, and cutting it
+   would be a licence breach rather than a tidy-up.
+
+   `fix-image-credits.js` removes that condition. It reads Commons' own `Artist`
+   and `LicenseShortName` and writes them into the credit, so the picture is
+   attributed where an attribution belongs — and the caption's trailing clause
+   becomes what the header always wanted to cut: a duplicate.
+
+   RULE 1 STILL DOES NOT MATCH THOSE, and the reason is the whole point of this
+   rule. The credit now reads "Rama, Public domain, via Wikimedia Commons." while
+   the caption ends "Public domain, via Wikimedia Commons." — the caption never
+   carried the author, so an exact tail comparison against the WHOLE credit
+   fails. 192 cards sat in exactly that state after the credit pass.
+
+   SO THIS COMPARES THE CAPTION AGAINST THE CREDIT'S LICENCE HALF — the credit
+   with its leading author removed — and cuts only an exact match of that. Its
+   guard is the condition, stated rather than assumed:
+
+     · the credit must NAME AN AUTHOR as well as the licence. Where it does not,
+       the licence clause IS the whole attribution and rule 1's refusal stands.
+     · the licence half must be a real licence phrase, not any tail that happens
+       to follow a comma.
+
+   What the reader loses is nothing: every word cut is still on the card, in the
+   credit line directly beneath the caption.
+   ============================================================================ */
+const LICENCE_HALF = /^(?:public domain|CC0(?:\s+1\.0)?|CC[ -]?BY(?:[ -]SA)?(?:\s+[\d.]+)?|GFDL|FAL|Attribution)\b[^,]*(?:,\s*via Wikimedia Commons)?\.?$/i;
+
+function strippedLicenceHalf(it) {
+  const d = norm(it && it.desc);
+  const credFull = norm(String((it && it.credit) || "").split(/\s[—–-]\s|https?:\/\//)[0]).replace(/[.\s]+$/, "");
+  if (!d || !credFull) return null;
+
+  /* Split the credit at the LAST comma that leaves a licence phrase behind it. An author field may
+     itself contain commas ("José-Manuel Benito Álvarez (España) —> Locutus Borg"), so the split is
+     found from the right and validated, never taken at the first comma. */
+  let author = "", lic = "";
+  for (let i = credFull.length - 1; i >= 0; i--) {
+    if (credFull[i] !== ",") continue;
+    const tail = norm(credFull.slice(i + 1));
+    if (LICENCE_HALF.test(tail)) { author = norm(credFull.slice(0, i)); lic = tail; break; }
+  }
+  if (!author || !lic) return null;          // no author named -> the clause is the attribution; refuse
+
+  const dt = d.replace(/[.\s]+$/, "");
+  const licT = lic.replace(/[.\s]+$/, "");
+  if (!dt.endsWith(licT)) return null;
+  const out = norm(dt.slice(0, dt.length - licT.length)).replace(/[.,;:\s]+$/, "");
+  return out ? out : null;                    // never empty a caption, for rule 1's reason
+}
+
 const hits = [];
 function sweep(kind, key, it) {
-  const s = stripped(it);
-  if (s === null) return;
+  const s = stripped(it) ?? strippedLicenceHalf(it);
+  if (s === null || s === undefined) return;
   hits.push({ kind: kind, key: key, from: it.desc, to: s, it: it });
 }
 

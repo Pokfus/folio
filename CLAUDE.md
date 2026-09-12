@@ -1077,23 +1077,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   spaces** — a card's `src` carries underscores and a name typed off a search result carries spaces, and
   without that it answers "free" about a file that is already on a card, which is the one answer it must
   never get wrong. Not part of the site.
-- `.claude/check-i18n-drift.js` — **how much of the nine translations is still true**:
-  `node .claude/check-i18n-drift.js [--verbose]`, report-only, exits 0. **THE STATED DECISION ABOUT THE
-  NINE LANGUAGES IS: KEEP THE ENGINE, KEEP THE THREE SURVIVING FAMILIES, REVIVE NOTHING YET — AND STOP
-  DESCRIBING THE COVERAGE AS THOUGH IT WERE INTACT** (Sep 2026, out of the field audit). Nobody could
-  reach a word of it since `MULTILANG` went false, so nothing on the page reports when a translated
-  string stops matching the English it was written against; it falls through to English, silently, for
-  ever. **RUN IT FOR THE FIGURE RATHER THAN QUOTING ONE HERE** — when it was written, better than a
-  quarter of every language's chrome strings translated text app.js no longer contains, most of them
-  retired changelog lines, removed features (`Collection levels`, `Challenge wins`) and reworded copy,
-  with one pair differing only by a straight against a curly apostrophe. **It is a FLOOR and its header
-  says why**: a string ASSEMBLED at runtime is in no source file whole and reads as dead (the thirteen
-  era labels are exactly that), a key surviving in a comment reads as live, and it says nothing at all
-  about the much larger other direction — every English string written since the gate went up, which
-  has no translation in any language and which no static check can count. **The three families are
-  LAZY, so a reader pays nothing for any of this today**; what it costs is the belief that flipping
-  `MULTILANG` back would give nine working languages, which it would not. Reviving means a chrome pass
-  per language BEFORE the flag moves, and the card and glossary translations regenerated from nothing.
+- `.claude/fix-image-credits.js` + `.claude/strip-credit-captions.js` — **A CAPTION THAT CREDITS ITSELF,
+  AND THE CREDIT THAT IS ONLY A LINK.** A picture carries `desc` (what it shows) and `credit` (whose it
+  is), both read off Wikimedia Commons — which puts the attribution INSIDE its own file description, so
+  a great many captions ended with the very words the credit beside them should have said.
+  **THE ORDER IS THE WHOLE OF IT, AND GETTING IT WRONG IS A LICENCE BREACH.** `check-cards.js` reports
+  those captions under `source-in-caption`, and the obvious repair — cut the clause — is WRONG wherever
+  the credit is a bare Commons URL: on a CC BY or CC BY-SA file the author's name in that clause is the
+  only attribution the picture has. `strip-credit-captions.js` has always refused to widen for exactly
+  that reason and says so in its header. **So `fix-image-credits.js` runs FIRST**: it reads Commons'
+  own `Artist` and `LicenseShortName` and writes them into the credit, and TOUCHES NO CAPTION. Only
+  then may the caption's tail be cut, because by then every word cut is still on the card.
+  · **THE ATTRIBUTION IS FETCHED, NEVER PARSED OUT OF THE CAPTION.** The clause's LEFT EDGE cannot be
+    found by rule: an author field is routinely a sentence of its own, and one card's reads "No
+    machine-readable author provided. Luna04~commonswiki assumed (based on copyright claims).,. CC BY
+    2.5, via Wikimedia Commons" — three full stops inside the attribution. Any regex that finds that
+    boundary also eats a caption whose last sentence merely names a museum.
+  · **AN ARTIST FIELD IS MARKUP, SO ITS ENTITIES COME OUT WITH ITS TAGS.** Commons writes the arrow
+    between two attributed names as `&gt;`, which shipped into three credits reading
+    "…Álvarez (España) —&gt; Locutus Borg" — correct in the API's XML and nonsense in a credit line,
+    where `esc()` renders it a second time. **And Commons DOUBLES a linked artist**, so the tag strip
+    leaves "Unknown authorUnknown author"; the halving test is over WORDS rather than characters,
+    because the character test alone missed every case the strip had put a space into.
+  · **`strip-credit-captions.js` NOW CARRIES TWO RULES AND THE SECOND STATES ITS CONDITION.** Rule 1 is
+    the original exact match against the WHOLE credit. Rule 2 compares the caption against the credit's
+    LICENCE HALF — and fires **only where the credit also NAMES AN AUTHOR**, since where it does not,
+    that clause still is the whole attribution and rule 1's refusal stands. The credit is split at the
+    LAST comma leaving a licence phrase behind it, never the first: an author field has commas of its
+    own ("José-Manuel Benito Álvarez (España) —> Locutus Borg").
+  · **NEITHER RULE WILL EMPTY A CAPTION.** A caption that is nothing but its own credit is left alone —
+    the viewer draws the slot either way, and a blank one tells the reader less than a duplicated one.
   Not part of the site.
 - `.claude/check-claims.js` — **CLAUDE.md's own figures, measured**: `node .claude/check-claims.js
   [--all]`. This file is the ONLY operational memory a cloud session has, it is written in the present
