@@ -849,6 +849,13 @@ devotional strand of Indian religion, from the Tamil hymn-singers of the seventh
 last sentence says in so many words that gathering those poets into one movement is a modern convenience.
 The glossary term is keyed `Bhakti`, with *bhakti movement* among its aliases.
 
+**`wh-560`'s answer term is *Indianisation*, not *the Indianisation of Southeast Asia*** (Sep 2026). The
+longer phrase is the plan's description of the topic rather than a term a reader is asked to recall, and an
+answer that long cannot be typed into a cloze blank. The word itself is the one the literature uses, and the
+open source the card rests on — Demandt's survey of early Southeast Asian gold in *Asian Perspectives* —
+prints it in quotation marks while arguing that the process was not a passive one, which is the card's own
+second half. The glossary term is keyed `Indianisation`, with *Indianization* and both long forms as aliases.
+
     wh-546  Harsha
     wh-547  Chola dynasty
     wh-548  Delhi Sultanate

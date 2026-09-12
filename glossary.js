@@ -3483,7 +3483,17 @@ window.GLOSSARY = {
 "Chola_dynasty": "The Chola dynasty was a Tamil ruling house of the Kaveri delta in southern India, old enough to be named in rock-cut Buddhist edicts of the 3rd century BCE and, from the accession of Rajaraja the Great in 985, the leading power of the south for roughly two centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings conquered the Pandya country, Kerala and Ceylon, kept a navy that carried campaigns across the Bay of Bengal, and marched north as far as the Ganges, taking a title and founding a capital in memory of it.<sup class=\"fn\" data-fn=\"2\"></sup> It is remembered as much for its temples and its bronze images, cast solid by the lost-wax method, as for its conquests.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Delhi_Sultanate": "The Delhi Sultanate is the name given to the succession of Muslim states that governed northern India from Delhi between the early 13th century and 1526, under five dynasties in turn, beginning with Turkish commanders of slave origin.<sup class=\"fn\" data-fn=\"1\"></sup> It faced repeated Mongol invasion from the north-west, and met the cost of a large standing army by fixing the price of grain under a controller of markets with power to seize traders and open the royal granaries.<sup class=\"fn\" data-fn=\"2\"></sup> Its administration reached the provinces through a courier system of mounted and running messengers, and its later sultans invested in irrigation works that brought a second harvest to land which had given one.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Vijayanagara_Empire": "The Vijayanagara Empire was a south Indian state founded in 1336 and ruled from a capital of the same name on the Tungabhadra river, whose ruins stand at Hampi in modern Karnataka.<sup class=\"fn\" data-fn=\"1\"></sup> At its height it was overlord of the country between the Deccan and Ceylon, and Persian and Portuguese visitors described its capital as one of the great cities of the world, ringed by concentric walls and watered by conduits.<sup class=\"fn\" data-fn=\"2\"></sup> Its wealth rested on trade, including a trade in diamonds, and its armies were raised by great captains who each brought their own contingents; a coalition of the Deccan sultanates destroyed that army at Talikota in 1565.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Bhakti": "Bhakti is the Sanskrit word for love of God, and the name given to the strand of Indian religion in which devotion to a personal deity, rather than sacrifice or philosophical knowledge, is held to be the way to release.<sup class=\"fn\" data-fn=\"1\"></sup> It is the characteristic teaching of the Bhagavad Gita, and from the 7th century it took popular form in hymns composed in spoken languages, first by Tamil poets travelling between shrines.<sup class=\"fn\" data-fn=\"2\"></sup> Devotional poetry of this kind spread across India over the following thousand years and is often gathered by historians into a single movement, although its poets belonged to different regions, languages and sects.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Bhakti": "Bhakti is the Sanskrit word for love of God, and the name given to the strand of Indian religion in which devotion to a personal deity, rather than sacrifice or philosophical knowledge, is held to be the way to release.<sup class=\"fn\" data-fn=\"1\"></sup> It is the characteristic teaching of the Bhagavad Gita, and from the 7th century it took popular form in hymns composed in spoken languages, first by Tamil poets travelling between shrines.<sup class=\"fn\" data-fn=\"2\"></sup> Devotional poetry of this kind spread across India over the following thousand years and is often gathered by historians into a single movement, although its poets belonged to different regions, languages and sects.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Angkor_Wat": "Angkor Wat is a temple in Cambodia, built in the first half of the 12th century and dedicated to Vishnu, and it is the largest religious monument in the world. It is entered from the west across a moat about 220 metres (240 yards) wide and consists of three enclosures set one inside another, each raised above the last so that the whole rises as a pyramid.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its outer galleries carry some 600 metres (2,000 feet) of low relief containing tens of thousands of figures, mostly episodes of the Ramayana and the Mahabharata,<sup class=\"fn\" data-fn=\"2\"></sup> and laser survey has shown the moated rectangle to be the core of a far wider settled landscape.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Đại_Việt": "Đại Việt was the name carried by the Vietnamese kingdom through most of the period between its independence from China and the 19th century. The territory had been governed from China for roughly a thousand years before independence was declared in 940, and the dynasties that followed ruled from the site of modern Hanoi while accepting investiture from the Chinese emperor and sending him tribute.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It threw back three Mongol invasions in the 13th century, was annexed outright by Ming China in 1407 after a usurpation at home, and recovered its independence when the Ming army marched out in 1428.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Indian_Ocean_trade": "Indian Ocean trade is the movement of goods, people and ideas across that ocean under the monsoon, a wind that reverses twice a year and so decided when ships could sail and how long their crews waited ashore. A Greek handbook of the 1st century already lists coin, glass and metals going east to the Malabar coast and pepper, pearls, ivory and spices coming west.<sup class=\"fn\" data-fn=\"1\"></sup> Archaeology traces dense shorter routes linking Mesopotamia, Arabia and southern India,<sup class=\"fn\" data-fn=\"2\"></sup> and in the medieval centuries far more of this traffic moved between Asian ports than ever reached Europe.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Indianisation": "Indianisation is the name given to the adoption of Indian religion, language, script, law and art by the societies of Southeast Asia during the 1st millennium, a process that involved no conquest and no rule from India. Gold ornaments and other prestige goods reached the region from South and West Asia by about 400 to 300 BCE, and by the end of the 1st millennium BCE Indian workshops were producing to order for Southeast Asian elites, who specified the forms and materials they wanted.<sup class=\"fn\" data-fn=\"1\"></sup> It is therefore now read as a selective borrowing by the receiving societies rather than a culture carried outward by colonists.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Indo-Islamic_architecture": "Indo-Islamic architecture is the building tradition that grew up in South Asia when Muslim patrons employed craftsmen trained in Indian temple work. Its earliest monuments, at Delhi from the 1190s, reuse temple pillars and carry great pointed openings corbelled up in horizontal courses, because the masons who built them had never made a true arch.<sup class=\"fn\" data-fn=\"1\"></sup> Later work absorbed the arch, the dome and the pendentive and split into regional manners, from the richly ornamented mosques of Gujarat to the Mughal style of white marble and inlaid semi-precious stone that produced the Taj Mahal.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Islam_in_India": "Islam in India is the history of a religion that arrived by several separate routes over many centuries rather than in a single conquest. Arab merchants were trading on the western coast within a hundred years of the Prophet's death, an Umayyad army took Sind in 712 and imposed terms under which those who submitted kept their property and their worship as tribute-paying zimmis, and Turkic and Afghan armies reached the Gangetic plain at the end of the 12th century.<sup class=\"fn\" data-fn=\"1\"></sup> Rule did not mean conversion, and the poll tax that Muslim states levied on their non-Muslim subjects assumes a large population that had not become Muslim.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Khmer_Empire": "The Khmer Empire was the state centred on Angkor, in what is now Cambodia, which was the leading power of mainland Southeast Asia from the 9th century to the 14th. Its kings, whose line is traditionally dated from 802, each marked a reign by raising a temple mountain,<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> and their capital was not a compact walled city but a low-density settlement of reservoirs, canals, roads and house mounds spread across hundreds of square kilometres.<sup class=\"fn\" data-fn=\"3\"></sup> The farming that fed it depended on the monsoon, and tree rings record decades of drought in the 14th and 15th centuries.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Majapahit": "Majapahit was a Javanese kingdom founded at the end of the 13th century and the last major Hindu-Buddhist power of the Indonesian archipelago. It grew out of a Mongol expedition sent against a rival ruler, which its founder joined and then attacked once that rival had been destroyed, and its wealth came from the trade of the ports strung along the north coast of Java.<sup class=\"fn\" data-fn=\"1\"></sup> Its inland capital, described by a Chinese visitor in 1416 as a small walled town, was built of brick rather than stone and has left far less standing than the older Javanese temples.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pagan_Kingdom": "The Pagan Kingdom was the first state to hold the whole Irrawaddy valley, ruling from a capital on a bend of the river in central Burma between the 11th century and the 13th. Its king Anawrahta seized the throne in 1044 and in 1057 took the Mon city of Thaton after a three-month siege, carrying its Theravada Buddhist scriptures, monks and craftsmen north with him.<sup class=\"fn\" data-fn=\"1\"></sup> The temple building that followed left more than three thousand brick monuments on the plain,<sup class=\"fn\" data-fn=\"3\"></sup> and the kingdom ended when its last king refused Mongol demands for tribute and Mongol troops occupied the capital in 1287.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Srivijaya": "Srivijaya was a maritime kingdom centred on the Musi river in south-eastern Sumatra which held the straits between the Indian Ocean and the South China Sea from about the 7th century. It is known almost entirely from foreign records, appearing as Shih-li-fo-shih and later San-fo-ts'i in Chinese sources and as Sarbaza in Arabic ones.<sup class=\"fn\" data-fn=\"2\"></sup> A Chinese monk who stopped there in 671 found more than a thousand Buddhist priests studying the same subjects, under the same rules, as in India,<sup class=\"fn\" data-fn=\"1\"></sup> and the kingdom's power rested on controlling shipping rather than territory.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5161,7 +5171,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Harsha": "Reigned 606 – 647 CE",
 "Chola_dynasty": "985 – 1279 CE",
 "Delhi_Sultanate": "1206 – 1526 CE",
-"Vijayanagara_Empire": "1336 – 1565 CE"
+"Vijayanagara_Empire": "1336 – 1565 CE",
+"Angkor_Wat": "c. 1100 – 1150",
+"Đại_Việt": "968 – 1804",
+"Khmer_Empire": "802 – 1431",
+"Majapahit": "c. 1293 – 1500",
+"Pagan_Kingdom": "1044 – 1287",
+"Srivijaya": "c. 7th – 13th century"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7205,7 +7221,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chola_dynasty": ["Cholas","Chola empire"],
 "Delhi_Sultanate": ["Sultanate of Delhi"],
 "Vijayanagara_Empire": ["Vijayanagar","Vijayanagara"],
-"Bhakti": ["bhakti movement","bhakti devotion"]
+"Bhakti": ["bhakti movement","bhakti devotion"],
+"Angkor_Wat": ["Angkor Vat"],
+"Đại_Việt": ["Dai Viet","Đại Việt"],
+"Indianisation": ["Indianization","Indianisation of Southeast Asia","Indianization of Southeast Asia"],
+"Indo-Islamic_architecture": ["Indo-Islamic"],
+"Khmer_Empire": ["Khmer empire","Angkorian empire"],
+"Majapahit": ["Mojopahit"],
+"Pagan_Kingdom": ["Kingdom of Pagan","Bagan Kingdom"],
+"Srivijaya": ["Sriwijaya","San-fo-ts'i"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10729,7 +10753,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chola_dynasty": ["dynasty","history","india","state","art","asia"],
 "Delhi_Sultanate": ["state","history","india","islam","asia"],
 "Vijayanagara_Empire": ["state","history","india","empire","asia"],
-"Bhakti": ["concept","religion","india","literature","asia"]
+"Bhakti": ["concept","religion","india","literature","asia"],
+"Angkor_Wat": ["building","history","religion","art","asia"],
+"Đại_Việt": ["state","history","asia","politics","warfare"],
+"Indian_Ocean_trade": ["concept","economy","history","asia","geography"],
+"Indianisation": ["concept","history","asia","religion","art","migration"],
+"Indo-Islamic_architecture": ["concept","art","building","history","india","religion"],
+"Islam_in_India": ["concept","religion","history","india","asia"],
+"Khmer_Empire": ["state","history","asia","religion","climate"],
+"Majapahit": ["state","history","asia","religion","economy"],
+"Pagan_Kingdom": ["state","history","asia","religion","building"],
+"Srivijaya": ["state","history","asia","economy","religion"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
