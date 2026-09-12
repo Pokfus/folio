@@ -5937,39 +5937,33 @@ division-capital city tier are inert dead code.
     thinks you are** (21 assertions, Aug 2026). **Re-run after touching `resetProgress` / `RESET_KEEPS` /
     `PROGRESS_FIELDS` / `emptyProgress`, the home page's `fresh`, or the Settings reset row.**
   · `node .claude/summa-witness.js` — **the Summa against a second transcription of the same
-    translation**, the only scanner that can see text that is simply GONE. Three checks: articles against
-    the witness; each chapter's TITLE against its own PROLOGUE; and any two chapters with byte-identical
-    text — the last two needing no witness, which is why they reach the Supplement and the Appendix.
-    **Read the heading's ORDINAL WORD, never its bracket.** **EVERY DISAGREEMENT IS ADJUDICATED and the
-    report is by KIND**, a count saying two books disagree and not which is wrong. **The probe is five
-    runs of sixty characters, not one.** **`--selftest` asks whether the adjudicator is blind or deaf.**
-    It exits 0 whatever it finds. **Re-run after any change to that book.** Not part of the site.
+    translation**, the only scanner that can see text that is simply GONE. **Read the heading's ORDINAL
+    WORD, never its bracket.** **EVERY DISAGREEMENT IS ADJUDICATED and the report is by KIND.** **The
+    probe is five runs of sixty characters, not one.** **`--selftest` asks whether the adjudicator is
+    blind or deaf.** It exits 0 whatever it finds. **Re-run after any change to that book.** Not part of
+    the site.
   · `node .claude/check-counts.js` — **a book's own account of itself, checked against itself**: every
-    book opens by counting things and nothing had ever compared one of those hand-written figures to the
-    file. **The signal is the NEAR MISS**, with two measured floors — a count under 40 is not tested, and
-    a figure the prose hedges is passed over — and the legitimate misses DECLARED with reasons, a row
-    excusing a claim only while the book, the claimed number AND the actual count all still agree. **Its
-    header states the three things it cannot see.** Report-only, exits 0. **Re-run after changing what a
-    book holds.** Not part of the site.
+    book opens by counting things and nothing else compares those hand-written figures to the file.
+    **The signal is the NEAR MISS**, with two measured floors, and the legitimate misses DECLARED with
+    reasons — a row excusing a claim only while the book, the claimed number AND the actual count all
+    still agree. **Its header states the three things it cannot see.** Report-only, exits 0. **Re-run
+    after changing what a book holds.** Not part of the site.
   · `node .claude/check-cutoff.js` — **a chapter that STOPS rather than ends**, whose only tell is
-    terminal punctuation: a truncated chapter is not short and is not ungrammatical, every sentence but
-    the last being whole, so **neither other structural scanner can see it**. A finding is settled by
+    terminal punctuation, so **neither other structural scanner can see it**. A finding is settled by
     asking what the NEXT chapter opens with — a lowercase word means the division falls mid-sentence and
     nothing is missing. Exits 0 whatever it finds. **Re-run after adding a book.** Not part of the site.
-  · `node .claude/check-twins.js` — **a chapter carrying another chapter's text, over the whole shelf**:
-    the wrong chapter is perfectly good prose, and what gives it away is a fact about the BOOK rather than
-    about any sentence in it. **It compares runs of eight words, never vocabulary** — two chapters of one
-    work share their author's whole vocabulary, so a bag-of-words test scores every pair high and finds
-    nothing. The bar is half the shorter chapter's runs, low enough that a partial paste shows. It exits 0
-    whatever it finds. **Re-run after adding a book.** Not part of the site.
+  · `node .claude/check-twins.js` — **a chapter carrying another chapter's text, over the whole shelf**.
+    **It compares runs of eight words, never vocabulary** — two chapters of one work share their author's
+    whole vocabulary, so a bag-of-words test scores every pair high and finds nothing. The bar is half the
+    shorter chapter's runs, low enough that a partial paste shows. It exits 0 whatever it finds. **Re-run
+    after adding a book.** Not part of the site.
   · `node .claude/check-pairing.js` — **the two columns paired the way the READER's page pairs them**.
-    A book whose columns come from different extractors can have each side locally correct and share no
-    key at all, and **the importer's own reconciliation cannot see it, because it compares the LABEL** —
-    both columns printing the same figure. **A check that reads a different field from the one the
-    reader's page reads is not a check**, so this one **slices the rule out of app.js by text and stops if
-    it is not there**, names each chapter by the shipped record's own title, and calls out separately any
-    book pairing under half its sections. Exits 0 whatever it finds. **Re-run after adding an
-    original-language column.** Not part of the site.
+    **A check that reads a different field from the one the reader's page reads is not a check**, so this
+    one **slices the rule out of app.js by text and stops if it is not there**, names each chapter by the
+    shipped record's own title, and calls out separately any book pairing under half its sections. Exits
+    0 whatever it finds. **Re-run after adding an original-language column.** **📖
+    `docs/library-importer.md` — READ BEFORE WRITING OR CHANGING A BOOK SCANNER**, for what each of these
+    five compares and the approaches that find nothing. Not part of the site.
   · `node .claude/test-library.js` — the Library (404 assertions): the rename, the shelf, one book, and
     the reader's place. **Re-run after touching `PAGES.library` / `PAGES.book` / `BOOKS` / `bookIngest` /
     `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` / `setReadingPos` /

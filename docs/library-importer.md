@@ -2209,3 +2209,46 @@ The RULES stay in `CLAUDE.md`, in their imperative form.
   every other book on that path and diff the generated files. That check has twice found a live
   fault in a book nobody was editing. **`teiInline` is the widest of those paths — 17 books, 34
   generated files** — and E55's `<add>` change was proved by rebuilding every one of them.
+
+---
+
+## The five book scanners, as they stood in CLAUDE.md's Testing section (2026-09-12)
+
+**Read this before writing or changing a book scanner.** CLAUDE.md's Testing section keeps each one's
+command, what it guards and its Re-run line; this is the account behind them, verbatim — what each check
+compares, the approaches that find nothing, and the floors each measure was set at.
+
+· `node .claude/summa-witness.js` — **the Summa against a second transcription of the same
+translation**, the only scanner that can see text that is simply GONE. Three checks: articles against
+the witness; each chapter's TITLE against its own PROLOGUE; and any two chapters with byte-identical
+text — the last two needing no witness, which is why they reach the Supplement and the Appendix.
+**Read the heading's ORDINAL WORD, never its bracket.** **EVERY DISAGREEMENT IS ADJUDICATED and the
+report is by KIND**, a count saying two books disagree and not which is wrong. **The probe is five
+runs of sixty characters, not one.** **`--selftest` asks whether the adjudicator is blind or deaf.**
+It exits 0 whatever it finds. **Re-run after any change to that book.** Not part of the site.
+· `node .claude/check-counts.js` — **a book's own account of itself, checked against itself**: every
+book opens by counting things and nothing had ever compared one of those hand-written figures to the
+file. **The signal is the NEAR MISS**, with two measured floors — a count under 40 is not tested, and
+a figure the prose hedges is passed over — and the legitimate misses DECLARED with reasons, a row
+excusing a claim only while the book, the claimed number AND the actual count all still agree. **Its
+header states the three things it cannot see.** Report-only, exits 0. **Re-run after changing what a
+book holds.** Not part of the site.
+· `node .claude/check-cutoff.js` — **a chapter that STOPS rather than ends**, whose only tell is
+terminal punctuation: a truncated chapter is not short and is not ungrammatical, every sentence but
+the last being whole, so **neither other structural scanner can see it**. A finding is settled by
+asking what the NEXT chapter opens with — a lowercase word means the division falls mid-sentence and
+nothing is missing. Exits 0 whatever it finds. **Re-run after adding a book.** Not part of the site.
+· `node .claude/check-twins.js` — **a chapter carrying another chapter's text, over the whole shelf**:
+the wrong chapter is perfectly good prose, and what gives it away is a fact about the BOOK rather than
+about any sentence in it. **It compares runs of eight words, never vocabulary** — two chapters of one
+work share their author's whole vocabulary, so a bag-of-words test scores every pair high and finds
+nothing. The bar is half the shorter chapter's runs, low enough that a partial paste shows. It exits 0
+whatever it finds. **Re-run after adding a book.** Not part of the site.
+· `node .claude/check-pairing.js` — **the two columns paired the way the READER's page pairs them**.
+A book whose columns come from different extractors can have each side locally correct and share no
+key at all, and **the importer's own reconciliation cannot see it, because it compares the LABEL** —
+both columns printing the same figure. **A check that reads a different field from the one the
+reader's page reads is not a check**, so this one **slices the rule out of app.js by text and stops if
+it is not there**, names each chapter by the shipped record's own title, and calls out separately any
+book pairing under half its sections. Exits 0 whatever it finds. **Re-run after adding an
+original-language column.** Not part of the site.
