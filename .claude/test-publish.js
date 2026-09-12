@@ -1451,6 +1451,17 @@ async function typeField(page, field, text) {
   check("the second account puts it in the daily study here", !!localIdHere && phoneActive.indexOf("u:" + localIdHere) >= 0,
     "id=" + localIdHere + " active=" + JSON.stringify(phoneActive));
 
+  /* WAIT FOR THE PHONE TO HAVE SPOKEN, and poll for it rather than sleeping. `S.active` reaches another
+     device through the PROGRESS BLOB — `uDeckInstall` puts the deck in the store and adds nothing to the
+     reader's list — and that push carries a 6s debounce, so a second device booted immediately reads an
+     account that has not yet said it studies this deck. This section passed for years on the accident
+     that booting Folio took longer than the debounce; the eager load path went from 5.69 MB to 2.65 MB
+     in Sep 2026 and it began failing, on a feature nobody had touched. A clock is what the section is
+     really waiting for, so it waits on the fact instead. */
+  const upActive = () => ((db.progress[BOB.id] || {}).data || {}).active || [];
+  for (let i = 0; i < 30 && !phoneActive.every((x) => upActive().indexOf(x) >= 0); i++) {
+    await oneDevice.page.waitForTimeout(500);
+  }
   const otherDevice = await newSession(browser, db, BOB, base);
   await otherDevice.page.goto(base + "#home", { waitUntil: "load" });
   await otherDevice.page.waitForTimeout(3600);

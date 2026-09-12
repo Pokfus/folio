@@ -122,3 +122,19 @@ decks/Spanish-All-Levels.folio-deck.json
 
 # scratch inputs to the content helpers — never part of the site
 scratchpad/
+
+# Resumable fetch caches for the two root generators (fetch-glossary.js, fetch-countries.js).
+# Neither is loaded by the site — index.html, app.js and sw.js reference neither — and together
+# they were 3.2 MB shipped to the deploy and carried in the git pack for nothing. They are CACHES,
+# not outputs: what those generators write for the site is glossary.js and countries.js, which are
+# committed. Deleting a cache only costs the next run a refetch. Ignored on the same rule as
+# .claude/book-cache/ and every other working cache here (Sep 2026, found in the site review — the
+# first pass called them orphans, having grepped only app.js/index.html/sw.js/.claude).
+glossary-wikipedia.json
+countries-info.json
+
+# check-links.js's own answer cache. It is a RECORD OF THE LAST RUN, not an output — the point of the
+# script is to report what CHANGED, which needs the previous answers and nothing else — and it is a
+# statement about the network from wherever it was run, so committing one machine's would tell another
+# machine's run that a wall it cannot see has just appeared. Deleting it costs the next run a full sweep.
+.claude/.linkcheck.json

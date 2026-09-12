@@ -269,7 +269,12 @@ const PROBE = () => {
   await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
   await page.waitForTimeout(1500);
   await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
-  await page.waitForTimeout(700);
+  /* WAIT FOR THE BACK, DON'T GUESS AT IT. A card's heavy half is fetched per collection (see
+     CARD_EXTRA_FIELDS), so on a cold deck the reveal completes one network round trip after the
+     click. A fixed pause passed on a warm run and failed on a cold one with "no glossary term on the
+     card", which reads as a broken glossary rather than a race in the fixture. */
+  await page.waitForFunction(() => document.querySelector(".reveal .ttip, .reveal .src-item"), { timeout: 20000 }).catch(() => {});
+  await page.waitForTimeout(200);
   const ttip = await page.evaluate(async () => {
     const t = document.querySelector(".ttip");
     if (!t) return "no glossary term on the card";

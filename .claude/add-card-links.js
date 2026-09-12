@@ -45,8 +45,14 @@ const want = batch.cards || {};
 if (!Object.keys(want).length) { console.error("ERROR: batch has no `cards`."); process.exit(1); }
 
 function loadWindow(f) { const win = {}; new Function("window", fs.readFileSync(f, "utf8"))(win); return win; }
-const win = loadWindow(DATA);
-const cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
+/* THE CARDS ARE LOADED JOINED, THROUGH card-io — `data.js` alone is the LIGHT half, and `sources` is
+   one of the fields that moved out of it. `checkLeadsTo` refuses an edge on a card with no citations,
+   because a causal claim is a historical claim; read from data.js alone EVERY card looks uncited and
+   the tool refuses every batch, naming a rule that is not being broken. That is card-io.js's own
+   warning arriving in the one place it does most damage: a checker that cannot be satisfied.
+   The SPLICE below still works on data.js's own text line by line, and `resplit()` afterwards moves
+   whatever the merge put back into that file out again. */
+const { cards, tree } = require("./card-io").loadCards();
 const byId = {}; for (const c of cards) byId[c.id] = c;
 const collIdx = collectionIndex(tree);
 const cardYears = loadCardYears(fs.readFileSync(path.join(ROOT, "app.js"), "utf8"));
@@ -97,9 +103,18 @@ if (touched !== Object.keys(merged).length) {
 }
 if (DRY) { console.log("dry run: " + touched + " card" + (touched === 1 ? "" : "s") + " would change"); process.exit(0); }
 fs.writeFileSync(DATA, lines.join("\n"));
+/* data.js is the LIGHT half of the corpus. This helper splices its change straight into that
+   file, so a heavy field (abstract / sources / why / quote / image) lands there fat and has to
+   be moved back out — otherwise data.js re-fattens one card at a time and the eager load path
+   grows back in silence. See .claude/card-io.js. */
+require("./card-io").resplit();
 loadWindow(DATA);   // re-parse to confirm the written file is valid JS
 
-const after = loadWindow(DATA).CARD_DATA;
+/* AND THE TALLY READS THE JOINED CORPUS, NOT data.js. `why` is one of the fields the resplit
+   above has just MOVED OUT of that file, so counting it there reports 0 however many were
+   written — which is card-io.js's own warning arriving in the one place that looks harmless:
+   a count is not a crash, and "0 with a `why` prompt" reads as a tool that did nothing. */
+const after = require("./card-io").loadCards().cards;
 const nWhy = after.filter((c) => c && c.why).length;
 const nLeads = after.filter((c) => c && Array.isArray(c.leadsTo) && c.leadsTo.length).length;
 console.log("wrote " + touched + " card" + (touched === 1 ? "" : "s") +
