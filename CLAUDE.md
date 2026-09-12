@@ -816,6 +816,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
   because a file nobody is told to read is a file nobody reads. Eight docs were in exactly that state
   when it was written — unreferenced from here, several of them holding OPEN work.
+- `data-extra/<collection>.js` + `.claude/split-cards.js` + `.claude/card-io.js` — **the cards are TWO
+  files too, and this is the split nothing in here told you about.** `abstract`, `sources`, `why`,
+  `quote` and a non-artwork card's `image` moved off the eager path into one file per collection,
+  fetched when a reader reveals a card in that collection; `data.js` keeps the light half, which is what
+  deals and draws a card FRONT. It is 3.4 MB against 13.7 MB of heavy halves — **run
+  `node .claude/check-sizes.js` for what the path weighs now rather than quoting that.**
+  · **EVERY HELPER GOES THROUGH `.claude/card-io.js`** (`loadCards` / `writeCards`), exactly as the
+    glossary and artefact pools go through theirs, and `writeCards` writes BOTH halves or neither.
+  · **THE TRAP IS `new Function`, NOT `require`.** `data.js` carries a Node-only tail that re-joins the
+    two halves, so a plain `require("../data.js")` still yields whole cards — but the tail needs
+    `require`, so it sits in a `try/catch` and **does nothing at all** for a helper that evaluates the
+    file with `new Function("window", src)`, which is how twenty-odd of them do it. Such a helper gets
+    every card with an empty abstract and no sources, **and does not fail**: `source-audit.js` reported
+    a fully cited corpus as uncited (2,965 cards, 0 at the bar), and `card-focus.js` reported every card
+    0/0 with nothing to revise, **which is indistinguishable from a corpus that has just been cleaned
+    up**. Six helpers were in that state a fortnight after the split.
+  · **A WRITER THAT REBUILDS `data.js` FROM A TEMPLATE OF ITS OWN IS WRITING A BUG** — it drops the
+    rejoin block, which breaks every helper that requires the file. `writeCards` owns that block so it
+    cannot be forgotten, and refuses a light-half write outright rather than serialising 13.7 MB of
+    nothing. `patch-cards.js` is the one legitimate line-level writer and it refuses a heavy field by
+    name, since setting one leaks a second copy into the light half and unsetting one deletes nothing.
+  · **`node .claude/split-cards.js --check` asserts the split is still intact, and CI runs it** — no
+    leak, no orphan, and the join resolves for every card.
+  · **📖 `docs/eager-path.md` — READ BEFORE TOUCHING A HELPER THAT LOADS THE CARDS.** The six helpers
+    that were found blind, what each one got wrong, and why a blind reader reports a plausible number
+    rather than failing.
 - `artefacts-extra.js` + `.claude/split-artefacts.js` + `.claude/artefact-io.js` — **the artefact pool
   is TWO files**, and it is the glossary split below in miniature. `desc`, `sources` and `image` were
   **237.5 KB of `artefacts.js`'s 251 — 94%** — on the EAGER path, and **not one of them is read until a

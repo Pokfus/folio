@@ -20,9 +20,8 @@
 // citation fold shows the sources a card HAS; a card that cannot be cited simply has none.
 const fs = require("fs"), path = require("path");
 const root = path.join(__dirname, "..");
-const dataPath = path.join(root, "data.js");
 
-function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
+const io = require("./card-io");
 function die(msg) { console.error("ERROR: " + msg); process.exit(1); }
 
 const appSrc = fs.readFileSync(path.join(root, "app.js"), "utf8");
@@ -34,7 +33,12 @@ if (!batchFile) die("usage: node .claude/mark-sources-blocked.js <batch.json>");
 const batch = JSON.parse(fs.readFileSync(batchFile, "utf8"));
 if (!batch.blocked && !batch.clear) die("batch file needs a `blocked` object and/or a `clear` array");
 
-const win = loadWindow(dataPath), cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
+/* THROUGH card-io, NEVER THROUGH A LOADER OF ITS OWN. `sources` is one of the fields the split moved
+   out to data-extra/<collection>.js, and data.js's rejoin block needs `require`, which a `new Function`
+   body has not got — so this helper used to see EVERY card's source list as empty. That is not a wrong
+   number here but a wrong decision: the guard below refuses to mark a card blocked when it already
+   meets the bar, and blind it would have marked a fully cited card as uncitable and said so in prose. */
+const { cards, tree } = io.loadCards();
 const byId = new Map(cards.map((c) => [c.id, c]));
 const marked = [], cleared = [];
 
@@ -54,17 +58,11 @@ for (const id of batch.clear || []) {
   if (card.sourcesBlocked) { delete card.sourcesBlocked; cleared.push(id); }
 }
 
-const out =
-  "/* Card data. Add cards one at a time with `node .claude/add-card.js <card.json> [deckId]` (see CLAUDE.md). */\n" +
-  "window.CARD_DATA = [\n" + cards.map((c) => JSON.stringify(c)).join(",\n") + "\n];\n\n" +
-  "/* Collection -> deck -> sub-deck tree. Leaf decks carry a `cardIds` array. */\n" +
-  "window.COLLECTION_TREE = " + JSON.stringify(tree, null, 2) + ";\n";
-fs.writeFileSync(dataPath, out);
-loadWindow(dataPath);   // re-parse to confirm valid JS
+io.writeCards(cards, tree);
 
 if (marked.length) console.log("marked blocked: " + marked.join(", "));
 if (cleared.length) console.log("unblocked: " + cleared.join(", "));
-const all = loadWindow(dataPath).CARD_DATA || [];
+const all = io.loadCards().cards;   // re-read, which also confirms the write parses
 const short = all.filter((c) => (Array.isArray(c.sources) ? c.sources.length : 0) < TARGET);
 console.log("coverage: cards at the " + TARGET + "-source bar " + (all.length - short.length) + "/" + all.length +
   " | below it " + short.length + " (" + short.filter((c) => c.sourcesBlocked).length + " blocked)");

@@ -15,8 +15,7 @@
 // Rules enforced (same as add-card.js): each English extra is 20–34 words with a mid-sentence
 // <span class="blank">_____</span>; every language carries the SAME number of extras as English
 // (all 9 required unless --partial); total phrasings per card ≤ 10 (official cards carry 3).
-const fs = require("fs"), path = require("path");
-const dataPath = path.join(__dirname, "..", "data.js");
+const fs = require("fs");
 const I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
 /* ENGLISH ONLY, like add-card.js and add-glossary.js (Aug 2026, on request — see the MULTILANG bullet in
    CLAUDE.md). This tool demanded all nine translations until the card `i18n` blocks were REMOVED from
@@ -36,14 +35,19 @@ const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " 
 const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
 const unconverted = (s) => String(s || "").replace(IMPERIAL_PAREN, "");
 const qWords = (s) => plain(unconverted(s)).split(" ").filter(Boolean).length;
-function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 
 const batchFile = process.argv[2], partial = process.argv.includes("--partial");
 if (!batchFile) { console.error("usage: node .claude/add-questions.js <batch.json> [--partial]"); process.exit(1); }
 const batch = JSON.parse(fs.readFileSync(batchFile, "utf8"));
 if (!batch || typeof batch.cards !== "object") { console.error("ERROR: batch file needs a `cards` object"); process.exit(1); }
 
-const win = loadWindow(dataPath), cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
+/* THROUGH card-io, NEVER THROUGH A LOADER OF ITS OWN. `abstract` is one of the fields the split moved
+   out to data-extra/<collection>.js, and data.js's rejoin block needs `require`, which a `new Function`
+   body has not got — so this helper used to read every abstract as empty and then write data.js back
+   from a template that did not carry the rejoin block at all, breaking every other helper that requires
+   the file. loadCards() joins the halves and writeCards() writes both, or refuses. */
+const io = require("./card-io");
+const { cards, tree } = io.loadCards();
 const byId = new Map(cards.map(c => [c.id, c]));
 const applied = [];
 for (const id of Object.keys(batch.cards)) {
@@ -85,12 +89,7 @@ for (const id of Object.keys(batch.cards)) {
   applied.push(id);
 }
 
-const out =
-  "/* Card data. Add cards one at a time with `node .claude/add-card.js <card.json> [deckId]` (see CLAUDE.md). */\n" +
-  "window.CARD_DATA = [\n" + cards.map(c => JSON.stringify(c)).join(",\n") + "\n];\n\n" +
-  "/* Collection -> deck -> sub-deck tree. Leaf decks carry a `cardIds` array. */\n" +
-  "window.COLLECTION_TREE = " + JSON.stringify(tree, null, 2) + ";\n";
-fs.writeFileSync(dataPath, out);
-loadWindow(dataPath);   // re-parse to confirm valid JS
+io.writeCards(cards, tree);
+io.loadCards();   // re-parse to confirm valid JS
 const done = cards.filter(c => Array.isArray(c.questions) && c.questions.length).length;
 console.log("added extra questions to " + applied.length + " cards: " + applied.join(", ") + " | cards with a full pool now: " + done + "/" + cards.length);

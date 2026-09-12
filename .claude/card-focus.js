@@ -32,7 +32,6 @@
 */
 const fs = require("fs"), path = require("path");
 const splitAbstract = require("./split-abstract.js");
-const dataPath = path.join(__dirname, "..", "data.js");
 
 // Cards whose ANSWER TERM is itself a modern theory, debate, method or scholar. Historiography is the
 // subject there, so neither rule applies. Keep this list SHORT and justify every entry.
@@ -108,7 +107,6 @@ Gellius Aulus Dionysius Halicarnassus Varro Festus Censorinus
 Nepos Justin Trogus Florus Sallust Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius
 Appian Velleius Paterculus Augustus Hirtius Gaius Justinian Ulpian Cassius Dio Lactantius Eusebius Socrates Athanasius Tertullian Zosimus Jordanes Procopius Jerome Augustine`.split(/\s+/));
 
-function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
 /* Pull the AUTHOR POSITIONS out of one Chicago-note citation. Everything else — the title, the series,
@@ -188,7 +186,13 @@ function measure(card) {
            q1off: rule1Excluded(card.id) };
 }
 
-const win = loadWindow(dataPath);
+/* THROUGH card-io, NEVER THROUGH A LOADER OF ITS OWN. Both rules this script measures read fields the
+   split moved out to data-extra/<collection>.js — rule 1 takes its names from the AUTHOR POSITIONS of a
+   card's own `sources`, rule 2 counts historiography sentences in its `abstract` — and data.js's rejoin
+   block needs `require`, which a `new Function` body has not got. Blind, the measure does not fail: it
+   reports every card as 0/0 with nothing to revise, which is indistinguishable from a corpus that has
+   just been cleaned up. It did exactly that from the split until 2026-09-12. */
+const win = { CARD_DATA: require("./card-io").loadCards().cards };
 const argv = process.argv.slice(2);
 const prefix = (argv.find((a) => a.startsWith("--prefix=")) || "").split("=")[1] || "";
 const one = (argv.find((a) => a.startsWith("--card=")) || "").split("=")[1];
