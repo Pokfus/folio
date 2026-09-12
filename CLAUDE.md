@@ -1966,34 +1966,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   previews render in the editing language. Gloss auto-linking stays EN-only. `setLang` itself
   calls `render()`, so the editor re-renders in the new language on switch — but note the picker now lives on
   the Settings page, so switching language means leaving the editor and coming back.
-- **Card editor = single live card** (`.card-edit-single` in `adminRenderEditor`): no fields/preview split — ONE
-  card-styled surface (`.admin-live-card`) whose question / answer / answerDate / abstract are `.ces-field`
-  contenteditables, **double-click to edit in place** (blur locks again; every keystroke saves). Above it: the
-  formatting ribbon + a meta row (id, chronology, plain `answerText`) + a collapsible "Appears in N decks" picker.
-  Below: a collapsible **whole-card HTML source** (`#cesSrcTa`, sections delimited by `<!-- QUESTION -->`-style
-  markers, two-way synced; `.af-src[hidden]{display:none}` is required — the author `display:block` would defeat the
-  hidden attribute and leave it permanently expanded). The picture or clip renders in place in **ONE media slot**
-  (`#cesMediaSlot`, click = edit panel; the **title / description / source fields (`#cesMediaMeta`) only appear once
-  a URL is set** — `syncMediaMeta()` gates them on the GATE's staged src, not the store; the fullscreen
-  viewer is suppressed inside the editor via stopPropagation); a card with neither shows an **editor-only**
-  "Add an image or a video" placeholder (`.ces-img-ph` — deliberately NOT `.card-img`, so the delegated viewer/study
-  page never see it). `.card-edit-single .admin-live-card` carries auto margins (the card caps at 680px inside the 780px
-  column — without them it sat off-centre). **traditional / hanzi / pinyin / translations / citation were REMOVED from the editor on request**
-  (the data fields still exist and render on study cards). **The admin tree drags two ways**: dropping on a
-  same-parent sibling REORDERS (insert-before, `reorderSiblings` — the Library follows this order); dropping on a
-  node with a different parent MOVES INTO it, as before. The
-  shipped data files are never rewritten by the app; edits live in this override layer and can be
-  exported as JSON. **"Save to project"** (`adminExport`) writes `data.js`/`glossary.js`/`timeline.js` via the File System Access
-  API (Chrome over `http://localhost`) then prunes the overlay + reloads. **"Auto-save: on"** (`adminAutosave` toggle, pref
-  `folio_autosave_v1`) writes those same files on **every** edit (debounced ~20s after you stop typing) with NO prune/reload — the folder handle is kept in
-  IndexedDB (`folio-fs`), and since `applyAdminEdits` is idempotent (created-card guard + set-based) the untouched overlay re-applies
-  cleanly on reload. Chrome's write permission is per-session, so after a reload the toggle shows an amber **"reconnect"** state you
-  click (a user gesture) to re-grant. Only works in real Chrome over localhost — not `file://` or the Claude Code preview webview.
-  Because a file-watching dev server may **live-reload** the page after each auto-save, the editor **persists its position**
-  (open card/deck/term, tab, search, sort, tree-expansion, list scroll) to `localStorage["folio_admin_ui_v1"]` (`saveAdminUI`, on
-  every navigation + `pagehide`) and **restores it on load** (`restoreAdminUI` seeds `adminState`; `PAGES.admin` re-validates the
-  saved card/node/term against the rebuilt tree and scrolls it back into view) — so a reload lands you back on the card you were
-  editing instead of the top of the deck.
+- **Card editor = single live card** (`.card-edit-single` in `adminRenderEditor`): no fields/preview split
+  — ONE card-styled surface (`.admin-live-card`) whose question / answer / answerDate / abstract are
+  `.ces-field` contenteditables, **double-click to edit in place** (blur locks again; every keystroke
+  saves), with the formatting ribbon and a meta row above and a collapsible whole-card HTML source
+  (`#cesSrcTa`) below. **`.af-src[hidden]{display:none}` is required** — the author `display:block` would
+  defeat the hidden attribute and leave it permanently expanded. The picture or clip renders in **ONE
+  media slot** (`#cesMediaSlot`), whose title / description / source fields (`#cesMediaMeta`) appear only
+  once a URL is set — **`syncMediaMeta()` gates them on the GATE's staged src, not the store**. A card
+  with neither shows an **editor-only** placeholder (`.ces-img-ph` — **deliberately NOT `.card-img`**, so
+  the delegated viewer and the study page never see it). **traditional / hanzi / pinyin / translations /
+  citation were REMOVED from the editor on request** (the data fields still exist and render on study
+  cards). **The admin tree drags two ways**: dropping on a same-parent sibling REORDERS (insert-before,
+  `reorderSiblings` — the Library follows this order); dropping on a node with a different parent MOVES
+  INTO it. **The shipped data files are never rewritten by the app** — edits live in the override layer;
+  **"Save to project"** (`adminExport`) and **"Auto-save: on"** (`adminAutosave`, pref
+  `folio_autosave_v1`) write `data.js`/`glossary.js`/`timeline.js` through the File System Access API,
+  **real Chrome over localhost only**. Because a file-watching dev server may **live-reload** the page
+  after each auto-save, the editor **persists its position** to `localStorage["folio_admin_ui_v1"]`
+  (`saveAdminUI`) and restores it on load (`restoreAdminUI`), so a reload lands you back on the card you
+  were editing instead of the top of the deck.
+  **📖 `docs/admin-editor.md` — READ BEFORE TOUCHING THE CARD EDITOR OR ITS AUTO-SAVE PATH.**
 - **Admin undo (Ctrl/Cmd+Z on the editor page):** an overlay edit checkpoints its PRE-edit state (JSON) onto an in-memory
   `adminUndoStack` via `adminCheckpoint()`. Immediate/structural saves (`saveAdminEdits`, e.g. create/delete/rename/move) checkpoint
   directly; debounced field-typing (`queueAdminSave`) checkpoints at the **LEADING edge** of a burst and the debounce fire only
