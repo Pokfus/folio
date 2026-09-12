@@ -3349,15 +3349,8 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
    are all full-width blocks, so nothing else about the layout moves. The quote is not demoted, only
    moved: it still opens the page's second screen, which is where a reader who has finished today's
    cards lands. */
-/* The quote is a CHILD of `.banners` (see PAGES.home). On a phone it falls where it stands — after the
-   day's work, before the games — which is what keeps the first card above the fold. On a desktop the
-   page has room for the running order it was designed with, so `order:-1` lifts it back to the top of
-   that column, exactly where it used to sit as a sibling. */
-@media (min-width:641px){ .banners > .daily-quote{order:-1;} }
-@media (max-width:640px){
-  /* …and it no longer needs the top gutter it had as the first thing on the screen */
-  .banners > .daily-quote{padding-top:12px; margin-top:2px; border-top:1px solid var(--rule);}
-}
+/* The quote is a SIBLING of `.banners` again (Sep 2026, on request — see PAGES.home): it stands between
+   the page head and the day's work, so it needs no ordering rule and no phone override of its own. */
 .daily-quote{position:relative; margin:0 0 26px; padding:38px 0; text-align:center; background:none; box-shadow:none;
   display:flex; flex-direction:column; justify-content:center;}
 .daily-quote blockquote{margin:0; font-family:var(--serif); font-size:calc(18px * var(--fs)); font-style:italic; line-height:1.5; color:var(--ink);}

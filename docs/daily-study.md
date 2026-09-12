@@ -835,3 +835,286 @@ Nothing. A cap belongs to the container and cannot be attributed to any one row 
 row has always stated what that DECK still holds for today — the same rule that already lets the rows
 under a cleared banner show "2 new" and "3 new". **Skip is the exception**, and consistently so: it is a
 policy, it cascades, and a row it reaches will genuinely be dealt nothing.
+
+
+---
+
+# The daily study's rules in full, moved out of `CLAUDE.md` (2026-09-11)
+
+**READ BEFORE TOUCHING THE REVIEW OR A DECK'S OPTIONS.** The operational account as it stood in
+`CLAUDE.md` until it was moved here verbatim: the bug reports behind the learn-ahead tail step and its
+two halves, the ad-blocker class-name fault in full, the language container's three-level draw, the
+synthesised language header and the four helpers that were each silent in their own way, and the deck
+editor's live-with-undo decision. The RULES stay in `CLAUDE.md`, in their imperative form.
+
+· **`deckLimits(id)` → `{ newPerDay, maxReviews, newIgnoresReview }`**, stored in **`S.deckOpts`** keyed by
+the same entry id as `S.active` and written only for decks the reader has actually changed;
+`DECK_MAX_REVIEWS` (50) and `S.settings.newPerDay` (5) / `maxReviewsPerDay` are the DEFAULTS behind them,
+set in the Daily limits sheet's **All decks** tab. `S.deckDay` holds TODAY only and resets in place.
+· **EVERY COUNT IS DERIVED, NEVER TALLIED** (`deckDoneToday`): `grade()` writes `c.first`, the day a card
+was introduced, and every per-deck new count is read back off it — which is what makes the figures right
+for a deck outside the review, right after an undo, and right for a card in two decks at once.
+· **A CARD ON A LEARNING STEP IS ALWAYS REACHABLE** (`learnAheadIds` / `scopeAllIds`; Aug 2026, on a
+bug report that a deck row showed a red count and then said the day was finished). `entryPiles` and
+`pileCounts` count a learning card from the moment it is failed until it graduates, and every
+queue-builder selected on `isDueNow` — both right, and contradicting each other for the nine minutes
+the step lasts. **The fix is NOT to drop the timer**: the requeue already puts a failed card at the
+back of the queue WITHIN a session, and across sessions the delay is the whole of what a step is. So
+the queue learns ahead instead, Anki's `collapseTime` answer — **ONE TAIL STEP in `buildSession`
+rather than a fix in each of its six branches**. **It carries no window, unlike `SCHED_AHEAD_MS`**,
+which bounds the in-session requeue: a bound here would put the disagreement back the day a step ran
+longer than it. Guarded by `test-review-decks.js` section 21, which asserts the two AGREE rather than
+any figure.
+· **…AND IT IS APPENDED, NEVER SUBSTITUTED** (Sep 2026, on a second report: "sometimes when i complete
+a study session of cards, i go back to the home page and find the deck i was studying still has a red
+number and cards left to study"). It fired only on an EMPTY queue, which closed the half of the first
+report where the row's red count OPENED a completion screen and left the other half standing: a card
+already on a learning step when the session is BUILT is in none of the six branches, so a deck
+offering four new cards and one learning card dealt the four, said "Session complete" and left the
+red 1 exactly where it was. Measured on a five-card deck, the row read `4 1 0` before the session and
+`0 1 0` after. **They go at the END of the queue**, so every ordering promise the branches made is
+kept and the reader meets the day's real work before a step that has not come round — which is what
+the in-session requeue already does with a card failed a moment ago — and they are PUSHED rather than
+concatenated, since the queue carries `_sd` / `_ud` / `_unseen` as properties a new array would drop.
+· **THE POOLED REVIEW IS ITSELF AN ENTRY**, `REVIEW_ENTRY` (`"review:all"`), so `deckLimits` /
+`deckDoneToday` / `entryCardIds` / `entryInfo` and the long-press sheet all answer for it as for a deck —
+which is what makes the banner and the rows beneath it arithmetically incapable of disagreeing. Its
+default new-card limit is the LARGEST any added deck offers, never the global figure.
+· **`reviewQueue` BUILDS DECK BY DECK AND THEN POOLS**, deduping BEFORE the slice, and `mixPiles`
+INTERLEAVES due and new in every branch — a session that deals every review and then every new card is
+two sessions rather than one.
+· **AN OPTION CASCADES AND A QUANTITY DOES NOT** (`DECK_OPT_INHERIT` / `entryChain` / `deckOpt`): a POLICY
+— the order, FSRS, read-aloud, question variety, pairing — means the same thing wherever it is applied
+and is handed down to subdecks and directions; a LIMIT handed down to nine levels becomes nine times
+itself, which is the exact bug the per-deck limits were built to fix.
+· **A NOTE'S TWO SIDES ARE NEVER DEALT BACK TO BACK** (`spreadNoteSiblings`, one tail pass in
+`buildSession`; Sep 2026, on request, "unless they are the last two cards left"). A vocabulary note
+studied both ways is two cards with two schedules, and every branch orders by deck, pile and
+difficulty without asking which NOTE a card came from — so a word could be asked one way and then, on
+the very next card, the other, with the answer still on screen. **It DEFERS rather than shuffles**: a
+card that would follow its sibling is held back and the next non-sibling dealt first, so every
+ordering promise the branches made is kept except at the one seam that had to move. It honours
+`deckPairNew`, which is the deliberate opposite of this, and works **IN PLACE**, the queue carrying
+`_sd` / `_ud` / `_unseen` as properties a copy would drop.
+· **THREE ORDERS** (`DECK_ORDERS`): Ordered, Random, By difficulty, per entry with a global default,
+reached by a CYCLER on the deck's long-press sheet. **`studyOrder` deals a multi-subdeck entry
+round-robin, each subdeck a day behind the last**, so a two-way deck asks the reverse the NEXT day rather
+than a second later.
+· **THE ROW IS ONE LINE, WEARS ITS COLLECTION'S HUE, AND IS DRAGGED INTO THE READER'S OWN ORDER**
+(`S.deckOrder`, per level, keyed by parent). Holding it opens the sheet — Custom study, Daily limits,
+Scheduling, Skip today, Colour, Icon, Remove. **NEVER NAME A CLASS `ad-…`**: `.ad-body` and `.ad-title`
+are real ad class names, so EasyList hid the deck's NAME for every reader with an ad blocker; the prefix
+is `dk-` and `adBaitCheck()` in `test-layout.js` is a static guard against it.
+· **THE READER'S OWN CONTAINERS** (`S.deckGroups` / `S.deckNest`): a group holds decks dragged into it,
+folds, can be renamed and coloured, and studies everything under it. **A container counts what is drawn
+UNDER it**, so a collection that has lost two decks to a group stops claiming their cards. **⚠ No new
+group can be MADE** — the control was removed on request; everything a reader who already has one needs
+still works.
+· **BOTH DIRECTIONS TOGETHER IS ON BY DEFAULT ON A LANGUAGE DECK, AND ITS ROW SHOWS BEFORE THE FILE
+ARRIVES** (`entryCatalogPairs` / `entryHasSiblings` / `deckPairNew`; Sep 2026, on a bug report — "the
+Spanish collection doesn't have a 'Both directions together' option" — and on request, "in all language
+collections, this option should be on by default"). Three things, and the first is the fault.
+**THE ROW VANISHED ON A DECK THAT HAD BEEN ADDED AND NOT YET DOWNLOADED.** Add and Download are two
+presses, so an added deck holds no cards on this device — `entryCardIds` is empty, so `entryHasSiblings`
+was false, so both sibling switches were left off the deck's sheet AND off its language's. A row that is
+not drawn looks exactly like a feature that is not offered rather than one waiting on a file.
+**THE CATALOGUE ALREADY KNEW.** A `lang-decks.js` row carrying more cards than notes is a deck whose
+words are studied both ways — the same fact its subtitle prints on the shelf — so `entryCatalogPairs`
+answers from there and needs no file. It is also what the default reads.
+**AND `deckPairNew` NOW ANSWERS FOR A LANGUAGE CONTAINER.** It returned false for one whatever was
+stored, so the row on a language's own sheet rendered permanently OFF and could be switched on but never
+off again. Nothing migrates and nothing is written: the default is what an UNSET option now MEANS, so a
+reader who has turned it off keeps it off, and a curated deck is untouched — `entryCatalogPairs` answers
+for the Languages shelf alone.
+· **A LANGUAGE CAPS ITS DECKS; IT DOES NOT CASCADE TO THEM** (`langCtxLimits` / `langCtxOf` /
+`entrySkippedToday` / the buckets in `reviewQueue`; Aug 2026, on request: "custom study, scheduling,
+daily limits, and skip should also be options on the language collections"). **THE DRAW IS THREE
+LEVELS DEEP NOW** — the deck, then its language, then the pooled review — because a QUANTITY handed
+down to nine decks is nine times itself, which is the exact bug the per-deck allowances were built to
+fix, so a container can only ever slice what its members hand up. **Its default is the SUM of its
+members'** (the review's is the WIDEST, because the review is meant to cap a whole day and a language
+is not), which makes an untouched container arithmetically incapable of changing what is dealt. **A
+PENDING deck counts towards that sum** — these are an ALLOWANCE the reader sets and reads back, not a
+forecast of today, and excluding one made a language whose decks are not downloaded read "0 new/day"
+and then change on its own when a file landed. **Custom study is the cap run backwards and
+needs the supply raised too** — spread across the members rather than given to each, or three rows
+each promise five more where five will come. **SKIP AND SCHEDULING ARE POLICIES AND DO CASCADE**: two
+states mean the same thing nine levels down, so `entrySkippedToday` is what every reader of "is this
+sitting today out" goes through, and `sched`/`retention`/`fsrsParams` were already reaching a deck's
+language through `entryChain`. **A GROUP still gets none of the four**, deliberately: it is an
+arrangement holding decks from anywhere, so a figure on it would cap several collections at once from
+a row that names none of them.
+· **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND IT IS STUDIED AND REMOVED LIKE ANY OTHER**
+(`langCtxId`, `.dk-langhead`, `data-langhead`; Aug 2026, on a bug report that holding one opened
+nothing, and Sep 2026, on one that it could be neither studied nor removed). It carried no
+`data-review` — the reasoning being that it deals no cards — so neither of the home page's two
+hold-menu walks reached it, and a row that answers a hold with nothing looks exactly like a row that
+was never meant to. The first fix made it a real `role="button"` with a tab stop whose ONE action, tap
+and hold alike, was the sheet. **That reasoning was wrong twice and the second report is what showed
+it**: `entryCardIds` unions its members, which is what draws its three coloured pile counts and its
+progress bar, so the row DOES claim cards — and a row that claims cards and refuses to deal them is
+the only one on the list that does. It carries `data-review` now, so the generic walk gives it the
+TAP-studies / HOLD-opens-the-options pair every other container row has, and its own walk is retired
+(two walks on one row would open the sheet twice). **It studies as a GROUP, not as a deck**
+(`entryScope`): both are containers with no cards of their own and their own allowances, order and
+skip, which is exactly `buildSession`'s group branch, where the deck branch would look a synthesised
+id up in `NODE_BY_ID` and find nothing. **AND THE EDIT MODE'S CROSS REACHES IT**: it was skipped there
+because it is not itself in `S.active`, but `removeActive` has always known what removing one means —
+take out the decks gathered under it and free anything dragged in — and its own sheet has carried
+Remove all along, so the mode simply had a hole in it. **It takes the GROUP's shape of the sheet** — the cascading session settings, a name, a
+colour and an icon, never the daily allowances, which belong to something the review iterates — and its
+last row is Remove, a language not being something that can be taken apart. **Four helpers know about
+it and each was silent in its own way**: `entryChain` (or a switch is stored where nothing reads it),
+`entryInfo` (or the sheet is headed `langctx:spanish`), `removeActive` (the container is not in
+`S.active`, so the ordinary path removes nothing) and `entryExists` (without which a deck dropped on the
+header is drawn twice, once under it and once loose). Guarded by `test-lang-decks.js` section 4.
+· **ADDING A COLLECTION ADDS EVERY DECK INSIDE IT**, removing takes the node, its subtree AND its
+ancestors, and `refreshAddButtons` re-reads every `+` on the page rather than the one pressed. **There is
+no deck cap** — the Folio level used to be one, and it was the only thing a level decided.
+· **THE HANDLES, THE CROSSES AND THE RENAMES LIVE IN AN EDITOR MODE** (`deckEditOn` /
+`deckEditCheckpoint` / `deckEditBarHTML` / `setEntryTitle` / `.rv-editing`; Aug 2026, on request). The
+grips used to sit at `.32` on every row at rest, which is six handles competing with six deck names;
+they are `visibility:hidden` until an **Edit** button is pressed — hidden that
+way rather than with `display:none`, so the column the row's padding reserves for them does not
+collapse and re-open, and `visibility` rather than `opacity` alone because an invisible control that
+still swallows the press meant for the row underneath is the worse failure of the two. Six things.
+**IT IS LIVE, WITH AN UNDO STACK**, chosen by the reader when asked: every edit lands at once, exactly
+as before the mode existed, and the stack is what makes that safe — a STAGED editor would mean
+rendering the list from a working copy rather than from state, which is a rewrite of the list rather
+than a mode over it. **THE SNAPSHOT IS OF FIVE FIELDS** (`DECK_EDIT_FIELDS`), taken BEFORE each edit,
+`adminCheckpoint`'s shape and for its reason: a removal is lossy — a deck takes its subdeck rows, its
+nesting and its place in the order with it — and none of that can be derived back out.
+**THE THREE BUTTONS ARE Undo / Revert / Done, NOT save/exit/undo as asked**: in a live editor "save"
+and "exit" are the same button pressed twice, so Revert is the one that puts everything back and Done
+is the one that just closes. **A RENAME WORKS ON EVERY ROW** — `groupTitle` has always read
+`S.deckGroups[id].title` and fallen through to the node's own title, so one override field already
+served the whole list, and it rides in the record the colour and icon are in, so it syncs and survives
+a reset with no schema of its own; `data-shipname` on every row is what lets `setEntryTitle` tell a
+real rename from the reader typing the existing name back, which CLEARS the override rather than
+storing a copy of it. **THE BUTTON IS AT THE BANNER'S TOP RIGHT** (`.rv-topacts`, Aug 2026, on request:
+"move the active decks edit button and study timer to the top right of the Daily Study banner …
+vertically centered to the Daily Study title" — and then, the same day, "move the timer back to where
+it was before", so the corner holds the button alone and `.rv-foot` still holds the timer). It is a
+SIBLING of the banner rather than a child of it, and that is forced: the banner is a `<button>`, so a
+real `<button>` inside it is hoisted straight back out by the parser — the row is laid over the corner
+with `pointer-events:none` and `auto` on its children, which keeps the rest of the banner one big
+pressable tile. The vertical centring is the title's own line box (the banner's padding for `top`, the
+title's font-size for the row's `height`), so it follows the text-size setting with no second set of
+numbers; the title's `padding-right` is the reservation that keeps the two apart and MUST be kept in
+step with the row's width; and the row steps aside for the completion mark, which is in the same
+corner. **It is DRAWN WHENEVER THERE ARE DECKS**, never only when the timer has something to say,
+which would have hidden the Edit button every morning — **and it survives the list emptying while the
+mode is open**, the one state that would otherwise strand a reader with no Revert to get the last deck
+back. **AND IT IS A MODE, NOT A SETTING**: module-level, so it survives a repaint and resets on reload.
+
+
+---
+
+# XP, levels and the deck row, moved out of `CLAUDE.md` (2026-09-11)
+
+**READ BEFORE CHANGING `XP_PER_LEVEL`, THE BANNER'S BAR OR A DECK ROW'S LAYOUT.** The account as it
+stood in `CLAUDE.md` until it was moved here verbatim: why the step was raised and how it and the daily
+allowance came apart, what the collection levels and their numerals were, the deck row's two-line past
+and the measurements that made it one line, and the ad-blocker class-name fault in full. The RULES stay
+in `CLAUDE.md`.
+
+- **XP / levels** (`levelFromXP` / `xpBarMarkup` / `levelBadgeMarkup` in app.js): **XP = the number of distinct cards
+studied** (derived from `S.cards`; no separate persistence). Each level costs **`XP_PER_LEVEL × level`** more cards,
+and **`XP_PER_LEVEL` is 5** (bar starts at 0/5, then 0/10, 0/15, …). It was 3 until Aug 2026 and was raised on
+request, because the daily allowance defaults to FIVE new cards: at a step of three a level turned over in the
+middle of an ordinary day's work, which made the badge mean nothing. **Keep the step and the default allowance in
+step** — the number is a constant precisely so the two can be read against each other, and the two had come
+APART: this paragraph said the allowance was five from the day the step was raised and
+`defaultState().settings.newPerDay` said 3 until Aug 2026, when it was set to 5 on request. Nothing migrates
+there either — the key has been in that object since the beginning, so every existing save carries its reader's
+own figure and only a first-time visitor meets the new one. Nothing migrates for the level: XP is
+derived from `S.cards` on every read, so an existing reader's level simply recomputes on the new curve (roughly
+×0.77 of the old level number at the same card count). Guarded by `test-card-types.js`, which slices `levelFromXP`
+out of app.js and walks every threshold through level 13.
+**THERE IS EXACTLY ONE LEVEL NOW, AND IT IS FOLIO'S** (`folioXP` = `Object.keys(S.cards).length`), shown on the
+**home Daily-study banner**. Collections had their own (distinct cards studied within them) and it was removed on
+request in Aug 2026, along with the per-script numerals that counted it — `COLLECTION_NUMERALS`, `numeralIn` and
+the five numeral functions (`cnNumeral` / `romanNumeral` / `greekNumeral` / `devanagariNumeral` / `cyrillicNumeral`)
+are **deleted**, as are their `.level-badge.zh` / `.num-*` rules. A collection banner carries a **subject icon**
+and a **studied/total bar** instead — see the collection-icon bullet under "How the app is wired". *(The
+`COLLECTION_NUMERALS` paragraphs in `docs/*-card-plan.md` are historical from that date: read them as a record of
+what each collection would have counted in, not as something to wire up.)*
+**What a level buys is an ARTEFACT CHEST** — see THE RELIQUARY. It used to cap how many decks the daily review
+would hold, which is the opposite of a reward, and that cap is gone.
+**`levelBadgeMarkup` AND `.level-badge` / `.lb-num` / `.lb-lbl` ARE GONE**, and that is a second removal
+finishing a first: the home banner gave its own big numeral up earlier in Aug 2026 on request (see the
+`pileBadgeMarkup` note in `PAGES.home`), which left the badge rendering only on collection banners — so when
+those lost their levels, nothing was calling it at all. The level is still spelled out **in words** by the
+banner's xp bar, which **runs in gold** (`.banner .xp-fill` + `.xp-lvl`): the Library's bars take each
+collection's hue and the account's are indigo, so one indigo bar read as another. Its "Level N" label is a
+DEEPER gold than the fill — `#C39A2E` on the card is only 3.6:1, too thin for 10px text. The earned
+`.done`/`.won` fills override both with their own on-fill colour, since gold on gold reads as nothing.
+**The Daily-review list got one back** in July 2026, on request: each added row carries an `X/X studied` bar
+(`adProg` in `PAGES.home` → `.prog.dk-prog`, animated by the existing `animateProgs`) where a blue `.dk-dot` used to
+sit. (The bin at the right of each row went in Aug 2026 — Remove moved into the row's long-press options sheet;
+see `docs/daily-study.md`.) The dot and the ancestor rows' hollow `.dk-branch` went together — the branch existed only to line the two up,
+and alone it would have pushed every parent title 21px right of the deck beneath it; the `data-depth` indent carries
+the hierarchy. The bar's label also replaced the `.dk-count` "N cards" chip, which stated the same total twice.
+**THE BAR UNDERLINES THE ROW AT EVERY WIDTH** (Aug 2026, on request), where it was a bottom edge on a
+phone and an inline track between the name and the figure above 640px — two rules answering one
+question. The phone's answer is the better one and its reason holds everywhere: an underline costs the
+line no width, where an inline track's length is paid for out of the deck's NAME, the one part of the
+row with no shorter form. The media query is gone and the base rule is the phone's; the row is still
+`position:relative; overflow:hidden`, which is what clips the track to the last row's rounded corners.
+**AND THE FOLD SURVIVES A RELOAD** (`adFoldMap` / `adFoldSet`, `localStorage["folio_ad_open_v1"]`, same
+request): only an EXPLICIT choice is stored, so a row nobody has touched still takes its seeded default,
+exactly as a card type's disclosure works.
+**A FINISHED COLLECTION GOES GOLD** — `deckProgMarkup` and `adProg` both write `prog-done` on the BAR
+when studied ≥ total > 0, and the stylesheet takes the NAME from there with `:has()`, so the two halves
+cannot come apart and every surface drawing one of those bars is covered without a rule apiece.
+**The row is ONE horizontal line** (Aug 2026, on request): piles · name · figure · bin, all centred on the same
+level, with the row's vertical padding down to 10px. It was two lines — the title on top and the bar indented
+under it — which left a band of empty card either side of a short deck name. Two things had to give for five
+things to share a 390px screen. **Below 640px the bar leaves the line and becomes the row's own bottom edge**
+(`.dk-prog .track` absolutely positioned along it; the row is `position:relative; overflow:hidden` so the last
+row's rounded corners clip it), an underline costing no width at all — measured, the label alone is ~88px and
+the name needs ~100, so an inline track of any useful length can only be paid for by cutting the deck's name.
+**Above the breakpoint it stays in the line**, stretched between the name and the figure, which is what fills
+the middle of a wide row; the phone block must therefore sit BELOW those rules, a media query adding no
+specificity. And the label was shortened to **`X/X studied`** (its `I18N_RULES` pattern moved with it in all nine
+languages, the old one retired). The `data-depth` indent went with them, from `22 + depth*21` to
+`16 + depth*16`. The name is the only thing that ellipsises, since it is the only part of the row with a
+shorter form.
+**NEVER NAME A CLASS `ad-…`, AND THIS WHOLE ROW WAS RENAMED `ad-` → `dk-` BECAUSE OF IT** (Aug 2026, on a
+bug report: "on desktop, the active decks don't display their names"). The row's parts were named for the
+ACTIVE DECK they belong to — and `.ad-body` and `.ad-title` are also real advertisement class names, so
+**EasyList and its relatives carry generic cosmetic filters for them**: on any reader with an ad blocker
+the deck's NAME and the bar beside it were `display:none`, leaving a row of bare numbers with the chevron
+slid left against them. An ad blocker injects those rules as an **origin-level user stylesheet**, so no
+specificity, no `!important` and no inline style can outrank one — renaming is the only fix. Three things
+are worth carrying. **It is the quietest failure shape this file records**: the markup was perfect (the
+name is right there in `innerHTML`), nothing threw, every other page was untouched — the Collections page
+renders the same titles through `nodeTitle` and uses no `ad-` names — and it could not be reproduced at
+any width, font size, theme or state, because **Playwright runs no extensions**. It was settled only by
+reading `getComputedStyle` off the reader's own machine. **The blocker took `.ad-body` and `.ad-title` and
+left `.ad-counts`, `.ad-grip` and `.ad-chev` alone**, which is why the whole prefix went rather than the
+two that were caught: being in the lists is a matter of which names real ad markup happens to use, and the
+next list update is not something to find out about from a bug report. `ads-`, `advert…`, `sponsor…`,
+`promo…` and `banner-ad` are the same trap. **It has fired since**: the Aug 2026 pending-deck row was written
+`.ad-pending`, for the ACTIVE DECK it belongs to, and is `.dk-pending`. **The guard is a STATIC check** — `adBaitCheck()` at the top of
+`.claude/test-layout.js` scans the stylesheet's selectors and every `class="…"` in `app.js`/`index.html`
+and fails the build on one — because a browser test cannot see this at all; and the row's own assertion
+now measures that the name is **drawn** (text, width, and a `.dk-body` that has not collapsed), the old
+"not cut off" test having passed on a hidden title, whose `scrollWidth` and `clientWidth` are both 0.
+Each collection's PROGRESS is also listed on the **profile** (`renderCollectionLevels` in
+`acctSelfView` — the name is historical; the section is headed "Collection progress" and shows an icon and a
+studied/total bar). `grade()` calls `announceLevelUps()` on a freshly-studied card, which grants a chest and
+**opens the chest overlay** — that overlay IS the level-up celebration now, so `congratsPopup` is no longer
+raised behind it (two overlays for one event). `congratsPopup(items)` (a `.levelup-pop` overlay modelled on
+`inlineModal`) survives for anything else that wants it and is **dismissed by clicking anywhere on screen**
+(or Esc/Enter) — the click-to-close listener is wired a tick later (`setTimeout 0`) so the click that spawned
+it doesn't instantly dismiss it.
+**`render()` closes it too** (`closeCongrats`, beside `closeImageViewer`, Aug 2026). Dismiss-on-any-click made
+it look as though it could not outlive its page — clicking a nav tab takes it away — but a back/forward, a
+deep link and any programmatic hash change move the route without a click, and it then sat over whatever
+rendered next. It lives on `document.body`, so like every other overlay there it is `render()`'s to clear.
+Clicking a **deck row in the home Daily-review list** starts a study session scoped to just that deck
+(`data-review` → `route("study",{scope:{type:"deck",id}})`). On the **Library page, clicking a collection's body studies its
+whole subtree** (`wireExpander`'s optional `rowClick` → `route("study",{scope:{type:"deck",id}})`, since a collection is in
+`NODE_BY_ID` and `subtreeCardIds` covers it); its **chevron still expands/collapses** the decks within (the chevron's
+`stopPropagation` keeps it from also studying). A coming-soon / empty collection falls back to toggling.

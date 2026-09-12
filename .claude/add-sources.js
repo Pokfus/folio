@@ -181,7 +181,11 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
 }
 
 /* ---------------- running coverage, which is how a multi-batch pass is tracked ---------------- */
-const allCards = loadCards().cards || [];
+/* THE COVERAGE REPORT READS THE JOINED CORPUS, NOT data.js (Sep 2026). `sources` is one of the fields
+   the split moved into data-extra/<prefix>.js, so reading data.js alone reported a fully cited corpus as
+   "cards cited 0/2925" on every run — the exact failure card-io.js's own header warns about, printed as
+   a fact under a batch that had just succeeded. */
+const allCards = require("./card-io").loadCards().cards;
 const citedCards = allCards.filter((c) => Array.isArray(c.sources) && c.sources.length).length;
 const atBar = allCards.filter((c) => (Array.isArray(c.sources) ? c.sources.length : 0) >= SRC_TARGET).length;
 const g = require("./gloss-io.js").loadGlossary();

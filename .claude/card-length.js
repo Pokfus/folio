@@ -31,9 +31,9 @@ const path = require("path");
 const A_LO = 270, A_HI = 330;          // the background
 const Q_LO = 20,  Q_HI = 34;           // one phrasing
 
-global.window = {};
-require(path.join(__dirname, "..", "data.js"));
-const CARDS = global.window.CARD_DATA || [];
+/* The background lives in data-extra/<prefix>.js, not in data.js — load through card-io.js
+   or every card measures 0 words.  See card-io.js's header. */
+const CARDS = require("./card-io.js").loadCards().cards;
 
 const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/&[a-z]+;/gi, " ").replace(/\s+/g, " ").trim();

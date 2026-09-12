@@ -835,3 +835,189 @@ History-specific — UCLA Public History Initiative, "Chronological Thinking" (N
 History), https://phi.history.ucla.edu/nchs/historical-thinking-standards/1-chronological-thinking/;
 "Teaching History: Evidence-Based Strategies,"
 https://www.structural-learning.com/post/teaching-history-strategies-guide.
+
+
+---
+
+# The thirteen shipped changes in full, moved out of `CLAUDE.md` (2026-09-11)
+
+**READ BEFORE CHANGING THE SCHEDULER'S GRADUATION RULE, THE STUDY PAGE'S REVEAL PATH, A MINIGAME'S
+FEEDBACK, OR ANYTHING THAT DECIDES HOW A READER MEETS A CARD.** The account of the learning-science
+batch as it stood in `CLAUDE.md` until it was moved here verbatim: the finding behind each change, the
+measurements, the two suites the order picker broke and how, and the design alternatives refused. The
+RULES stay in `CLAUDE.md`, in their imperative form.
+
+· **`CRIT_DAYS` — "LEARNED" MEANS THREE CORRECT RECALLS ON THREE DIFFERENT DAYS.** Anki graduates a card
+inside one session (`learnSteps` is `1m 10m`), so a card met at nine was "learned" by ten past, and a
+card could be studied for a month without once being recalled on a second day. Successive relearning
+is the strongest flashcard-shaped finding there is and it says the gains come from SEPARATED successes
+and flatten after about three. **It is a counter and a label, NOT a second scheduler** — not one
+interval, ease or due date changes. `critMark` is called from **`grade()`, never from `schedAnswer`**,
+which stays pure; it needs the reader's day boundary and the pre-grade `firstToday`, neither of which
+the scheduler may see. **The DAYS are stored, not a count**, because a count cannot tell a second
+recall today from one next week, which is the whole distinction. **It is a CONSTANT and not a deck
+option**, since the evidence names three and a quantity does not cascade (`DECK_OPT_INHERIT`) anyway.
+Shown as three pips **in the study card's HEADER ROW**, a Card info row, and a **Learned** tile beside
+"studied" — a SECOND figure rather than a replacement, since swapping the bar would make every existing
+reader's progress appear to collapse overnight. The pips hung under the answer term until Sep 2026 and
+were moved on request ("to the top center of the card, between the question number and difficulty
+rating"): under the answer they were below the fold on a long card and only after the reveal, where in
+the header they are on screen from the moment the card opens, which is when a reader is deciding how
+hard to try. Three things about that row. **`.q-head` is a `1fr auto 1fr` GRID rather than a flex row,
+and the state dot and the label are wrapped in `.q-lead` to make it one** — flexing the label and the
+stars equally leaves the middle pushed right by half the dot and its gap, and the dot is
+`calc(8px * var(--fs))`, so the error is a number that moves when the reader changes text size.
+**A PHONE GETS THE PIPS ALONE** (≤640px, Sep 2026, on request: "only display the text on desktop and
+tablet format") — the sentence is wider than the stars beside it at 390px, and the row carries the
+whole of it as its `aria-label` and its tooltip in every state, which is the only form a reader who
+cannot see three dots has ever had. And **`.qc-n` needed `white-space:nowrap`**: with the middle column
+taken, a narrow phone squeezes the phrasing counter to its 30px minimum and "2 / 3" breaks in two,
+which makes the whole header two lines tall. `byDue` is the one comparator every due sort goes through: a
+review card's due date lands at the start of its day, so among cards due at the same moment the one
+with fewer separated recalls goes first.
+· **`warmUpFirst` — THE SESSION OPENS ON A CARD THE READER HAS MET.** The forward effect of testing:
+retrieving earlier material improves the learning of new material studied afterwards. A tail pass in
+`buildSession` on `spreadNoteSiblings`'s model, **deferring rather than shuffling** so every ordering
+promise survives except at the head, and **running BEFORE the sibling pass**, which is the one that can
+fix a note's two sides being pushed together. A first-ever session has nothing to warm up with and is
+left alone.
+· **`hybrid` — A FOURTH DECK ORDER, "Eased in".** Interleaving wins at long delay; a hybrid may beat
+both, because a novice needs to see what a category has in common before discriminating means anything.
+A subdeck is GREEN once `HYBRID_N` (12) of its cards have a record — measured off `S.cards`, so it needs
+no field. **Fresh subdecks come first and come whole**: the new-card allowance is sliced off the front
+of the unseen cards, so a fresh subdeck at the front is the one being learned and drops into the robin
+the moment it greens. The round robin is `robinOrder`, lifted out of `studyOrder` so the hybrid can run
+it on a subset. **The review branch needs its own case** — the Ordered branch re-sorts the pooled queue
+into the tree's global sequence and would undo it.
+· **`PAGES.order` — THE FIRST SESSION ON A DECK ASKS HOW IT SHOULD BE DEALT.** Intercepted in `route()`,
+one choke point, so the home rows, the banner, the Collections page and a pasted `#study` link are all
+covered; **`params.resume` is exempt**, a reader returning to a session not being one starting it.
+`S.orderPicked[entryId]` records that the QUESTION was put (`""` for "asked and left at the default"),
+which `deckOpts` could not say. **A reader who has already studied the deck is never asked** — if any
+card in it has a record the question is silently marked answered, or shipping this would interrupt
+every existing reader about a deck they have used for months. Skippable in one press.
+**TWO STATED EXCLUSIONS, both measured.** The POOLED REVIEW is not asked: it is not a deck, its order
+lives on the banner's own sheet, and asking there puts a page of prose between a new reader and the
+first card they ever see. A COMMUNITY OR LANGUAGE DECK is not asked either, and that one is a GAP
+rather than a decision — it is where an order pays most. Extending it through `scopeEntryId` works
+and fires inside the fixtures of `test-card-types`, `test-community` and `test-deck-ux`, each of
+which imports a deck and studies it at once; each needs an `orderPicked` seed, which is a contained
+change that wants its own pass with those three green.
+**AND IT STANDS BETWEEN EVERY SUITE AND THE FIRST CARD, which is how it broke two of them** (Sep
+2026). `test-admin-editor` and `test-deck-glossary` both reach a study card the way a reader does —
+open the Collections page, click a collection — and since this landed, that click lands on the
+PICKER. Neither suite was looking for it, so both went on to hunt for a `#reveal-btn` that was not
+there yet: the first reported three gloss-popup failures, and the second collected nothing and
+reported **"checked 0 links"** — an isolation check passing its own emptiness off as a result, which
+is the quietest way a guard can stop guarding. Both now press `#opSkip` if it is there, as a reader
+would, guarded so it is a no-op if the page stops asking. **A SUITE THAT REACHES A CARD THROUGH THE
+COLLECTIONS PAGE HAS TO PRESS THROUGH THIS**, and a check that counts what it found should assert
+that it found ANY.
+· **`deckAttempt` — ANSWER BEFORE REVEALING.** A policy (in `DECK_OPT_INHERIT`) with a global default in
+Settings, **off by default**. **ONE guard, in `showAnswer`, keyed on `fromReader`** — the button, Enter
+and Space all go through it, and the restore path that re-opens an already-revealed card after a reload
+must never be refused. **The escape hatch is not optional**: "I don't know" reveals and rings Again
+without submitting it. It never focuses the blank — `setupCloze` deliberately leaves a touch reader's
+keyboard down. `syncAttempt` is declared ABOVE the phrasing cycler and assigned below it, because the
+cycler replaces the question element and every `.blank-input` in it.
+· **`elabPromptHTML` — ONE ELABORATION PROMPT PER SESSION, AND IT IS NOW THREE QUESTIONS WITH THEIR
+ANSWERS BEHIND CHEVRONS** (Sep 2026, on request: the Think it through section "should read three
+common/important why-questions about the answer term, with behind each question a 'show answer' button
+which reveals a very brief paragraph below the question to answer it" — and then, the same month,
+"instead of a Show Answer button, simply put a chevron behind each question which is always collapsed
+by default, which can be opened to reveal the answer"). Elaborative interrogation
+(`card.why`) and NOTHING ELSE since Sep 2026 — see the last paragraph of this bullet. **Injected by
+`showAnswer`, not built into `buildBack`**, because the budget
+belongs to the session and `buildBack` also draws the editor preview and the browser. **The questions
+AND their answers are AUTHORED and never generated** — choosing which three questions a card is worth
+being asked, and what the card's own cited prose answers them with, is the editorial act the apparatus
+exists for; an answer written from anywhere but the card's own sources is an uncited claim wearing a
+card's apparatus. Four things.
+**`card.why` IS A LIST OF THREE `{ q, a }`**, checked by `.claude/card-links.js` — the question 4–24
+words and ending in a question mark, the answer 12–60 words and not another question. It was one
+`{ q, at }` naming which block of the abstract answered it, which asked the reader to think and then
+sent them off to read three hundred words to find out whether they were right.
+**THE SITE STILL RENDERS THE RETIRED SHAPE and the TOOLS refuse it**: `card.why` is one of the fields a
+cloud content overlay can carry as a delta (see the overlay bullet under "Environment"), so a live
+overlay written before this change would otherwise have its question silently vanish — a legacy item's
+button opens and marks the named block exactly as it used to. Nothing new can be written that way.
+**EACH ITEM IS A NATIVE `<details>` AND THE WHOLE QUESTION IS ITS SUMMARY** (Sep 2026, the second
+request above). The button it replaces cost the row a 96px control that competed with the question on a
+680px card and dropped to its own line below 520px, where a chevron costs 14px and never does; the
+target is now the width of the row rather than of two words; and the platform supplies the disclosure
+semantics — focusable summary, Enter and Space, the announced state — where the button needed
+`aria-expanded` and `aria-controls` written by hand. **`wireElabPrompt` therefore wires nothing on an
+ordinary card** and is left only for the legacy item below.
+**THE BLOCK IS AN INDEX TAB** (Sep 2026, on request, choosing design 5 of six rendered
+alternatives): a panel with a squared 3px corner and a hairline edge, its name riding the TOP EDGE as
+a tab in the card's own answer ink, the chevron in that ink and the answer indented under a 3px rule
+of it. **It is PAPER ON CARD where the design was card on paper**, and that is the same step mirrored
+— the block lives inside the study card, which is already `--card`, so a white panel there would have
+no edge at all. **THE TAB'S GROUND IS MIXED 72% TOWARDS `--ink`, AND THAT RATIO IS SOLVED RATHER THAN
+CHOSEN**: a tab is reversed type, so its legibility is `--zh` against `--card`, and measured over all
+sixteen themes in both modes that pair fails 4.5:1 four times (synth 3.55, opalite 2.98, marble night
+4.01, academy night 4.49). Mixing towards the ink moves the ground away from the card in BOTH
+directions with no per-theme table, `--ink` being by definition the far end from `--card`; at 72% the
+worst case on the shelf is opalite at 4.72. The plain `--zh` is declared first, so a browser without
+`color-mix` gets a readable tab rather than none.
+**AND IT CLOSES AGAIN, WHICH THE BUTTON DELIBERATELY DID NOT.** That button disabled itself, on the
+reasoning that a reader who has read an answer cannot un-read it, so taking it away could only lose
+their place. A chevron makes the opposite promise — it is the mark that says there are two states and
+this is the other one — and a fold that will not fold is the one thing a chevron must not be. What the
+old reasoning protected is unaffected: the answer is three lines of the card's own prose.
+**THERE IS NO FALLBACK PROMPT ANY MORE, AND A CARD WITH NO AUTHORED `why` SHOWS NO SECTION AT ALL**
+(Sep 2026, on request: a Think-it-through section "should never have the 'You have also studied ...'
+fill in the blank type. It should always say three common 'Why ...?' questions about the answer term
+with a very brief explanation that can be revealed with a show answer button"). The self-explanation
+prompt — three kin cards named out of `S.cards` over an empty textarea — was what a card with no `why`
+got, and it is a much weaker exercise than the one beside it: it has no right answer, nothing to check
+against, and no relation to the term, so a reader met two different things under one heading. Silence
+is the honest alternative, because **`card.why` is authored out of the card's own cited prose and is
+never generated** (see the `why` bullet under "Add a card"), so the choice is between an authored
+question and a manufactured one. **`connectKin` and the `.elab-box` / `.elab-acts` / `.elab-note`
+styles went with it**; `cardKinship`, which `connectKin` used, is still Multiple Choice's distractor
+ranking. **THE PASS THAT FILLED THAT GAP IS COMPLETE** (Sep 2026): every HISTORY and SCIENCE
+card carries a set, so the section is absent only on the Geography cards and on the language decks,
+both deliberately out of scope. **Run `node .claude/why-count.js` for the figure rather
+than quoting one here.**
+· **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
+background's own opening definition — inline under the answer, so a reader whose fold is collapsed
+still gets an explanation. **The footnote markers are stripped**: `sup.fn:empty::before` prints a
+marker's own digit, so a lifted sentence would carry numerals pointing at a list that is not there.
+In **Multiple Choice** the option the reader ACTUALLY CHOSE is explained from that card's own defining
+sentence — only the chosen one, since four definitions under four options is a paragraph nobody reads.
+· **`noteConfusion` — THE PAIRS THIS READER MIXES UP.** `gradeCloze` always read the typed guess to mark
+it character by character and then **threw it away**; it hands it back now. A guess that is not this
+card's answer but IS another card's, in the same collection, is a confusion rather than a slip.
+`S.confused["<idA>|<idB>"]` (ids sorted), pruned at `CONFUSE_CAP`, surfaced on the home page at
+`CONFUSE_MIN` (2) and drilled through the new `{type:"ids"}` scope. **It is the only personal thing on
+that page** — every other figure would be the same for anybody with the same decks.
+· **`PAGES.pretest` — TWELVE QUESTIONS BEFORE A DECK BEGINS.** The pretesting effect: being tested on
+material not yet studied improves learning of it even though nearly every answer is wrong, provided the
+answers follow — so **no feedback until the end**. **Offered only where the deck is dealt BY DIFFICULTY**
+(on request), which is not arbitrary: that is the only order that sorts the new pile by a property of
+the card, so it is the only one a result can be spliced into. **⚠ IT MUST NEVER WRITE `S.cards`.**
+Folio's XP is `Object.keys(S.cards).length` and a level buys an artefact chest, so a pretest that
+seeded twelve records the obvious way would hand a brand-new reader several levels and their chests for
+answering twelve questions, silently. It writes `S.pretest[entryId]` and `sortByDifficulty` reads it as
+a deal-order preference; a known card is still taught, later. Matching is `pretestMatch` → `nearMiss`,
+which forgives case, accents, an article, a bracketed aside and ONE slip **including a transposition**
+— plain edit distance counts a swap as two, so without it `Mousterain` reads as a different word.
+· **`card.leadsTo` — CAUSAL CHAINS, AND WHAT CAME OF THIS.** Chronology is the scaffold; causation is the
+building, and Timeline tested WHEN while nothing tested WHY. An authored `[{ id, how }]` forming a
+shallow DAG **within one collection**, drawn as a strip outside the Background fold, each edge opening
+a `openCardPeek` sheet rather than routing — a click meant as a glance must not end the session and
+spend that card's schedule. **Four rules, enforced in `.claude/card-links.js` rather than trusted**: the
+target exists, is in the same collection, is LATER by `cardStartYear` (which catches an edge written the
+wrong way round), and **`how` is a historical claim and needs the card cited like any other**.
+· **`forgettingCurveHTML` / `seenOnceHTML` — THE LOG READ A THIRD WAY.** `S.revlog` has held one row per
+answer since Aug 2026 and only Card info and the answer-button card read it. The curve buckets rows by
+`prevMin` — the interval the card was actually on — and **prints nothing for a bucket under
+`CURVE_MIN_ROWS`**, a percentage drawn from four answers being exactly the sort of number people act on.
+The seen-once list is `crit` read from the other end: cards recalled on one day and never again.
+· **`PAGES.how` — SAYING WHY IT IS HARD ON PURPOSE.** Half of this batch makes studying feel worse, and
+the measured finding about desirable difficulties is that learners will switch them off unless somebody
+explains why; refutation plus a metacognitive prompt raises adoption. Four claims, each **refuting a
+belief by name** rather than asserting a fact, each with what Folio does about it. Reached from
+Settings → Study and from the order picker. **It is the licence for the rest of this batch**: an
+unexplained desirable difficulty is just a worse website.

@@ -12,9 +12,12 @@
  * Zero dependencies, reads and never writes. Not part of the site.
  */
 "use strict";
-global.window = {};
-require("../data.js");
-const C = window.CARD_DATA, T = window.COLLECTION_TREE;
+/* data.js is the LIGHT half of the corpus: `why` lives in data-extra/<prefix>.js, so a
+   reader that requires data.js alone counts every card as having none.  card-io.js is the
+   one door that joins the two halves — see its header. */
+const { loadCards } = require("./card-io.js");
+const _corpus = loadCards();
+const C = _corpus.cards, T = _corpus.tree;
 
 const col = {};
 for (const c of T.collections)

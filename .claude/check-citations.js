@@ -79,8 +79,10 @@ const has = (k) => argv.includes(`--${k}`);
 
 /* ---------- load the corpus ---------- */
 global.window = {};
-require(path.join(ROOT, "data.js"));
-const CARDS = window.CARD_DATA || [];
+/* Card citations live in the LAZY data-extra/<prefix>.js, not in the eager data.js: a reader
+   that requires data.js alone finds no sources at all and reports "0 works cited" over a fully
+   cited corpus.  card-io.js is the one door that joins the halves — see its header. */
+const CARDS = require(path.join(__dirname, "card-io.js")).loadCards().cards;
 const { loadGlossary } = require(path.join(__dirname, "gloss-io.js"));
 const G = loadGlossary();
 
