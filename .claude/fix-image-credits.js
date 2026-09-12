@@ -3,6 +3,7 @@
    fix-image-credits.js — A CREDIT THAT IS ONLY A LINK
 
      node .claude/fix-image-credits.js [--dry] [--limit=N] [--kind=cards|glossary|artefacts]
+     node .claude/fix-image-credits.js --retrim [--dry]     (no network; applies the BLURB table)
 
    THE FAULT, AND WHY IT IS THE ONE TO FIX FIRST. A picture on Folio carries
    `desc` (what it shows) and `credit` (whose it is). On a great many items the
@@ -83,6 +84,81 @@ const NO_AUTHOR = [
   /^\s*$/,
 ];
 
+/* ============================================================================
+   COMMONS' PERMISSION BLURBS LAND IN `Artist`, AND THEY ARE NOT AUTHOR NAMES
+
+   A great many Commons files carry a licence-permission TEMPLATE inside the
+   Artist field rather than beside it, so what the API hands back is a paragraph:
+
+     "This Photo was taken by Supanut Arunoprayote . Feel free to use any of my
+      images, but please mention me as the author and may send me a message. …"
+
+   Written straight into a credit line that is 607 characters of boilerplate under
+   a photograph, and one of them shipped a private email address. The photographer
+   IS named in every one of them — the blurb is wrapped round a real attribution —
+   so the fix is to keep the name and drop the template.
+
+   THE TABLE IS DECLARED AND THE NAMES ARE VERBATIM. It is not pattern-matched,
+   for the reason `CROSSREF_WRONG` and `INSTITUTIONAL` are not: a regex clever
+   enough to lift a name out of arbitrary prose will eventually lift the wrong
+   words, and a credit naming the wrong person is worse than one naming too many.
+   Every replacement below is a substring of the blurb it replaces — the
+   boilerplate and the punctuation change, never a name — and where a blurb credits
+   SEVERAL people (a derivative work, a translation, a vectorisation) all of them
+   are kept, because under CC BY-SA all of them are owed a credit.
+
+   Keyed on a distinctive PREFIX of the author field, which is where the template
+   always begins; `--retrim` applies it to what is already shipped, with no network.
+   ============================================================================ */
+const BLURB = [
+  ["This illustration was made by ( User:Royonx )", "Michel Royon",
+   "permission template; the uploader states the attribution he wants inside it, '© Michel Royon / Wikimedia Commons'"],
+  ["This Photo was taken by Supanut Arunoprayote", "Supanut Arunoprayote",
+   "permission template wrapped round the photographer's name"],
+  ["This image or media was taken or created by Matt H. Wade", "Matt H. Wade",
+   "permission template; the rest is a portfolio link and a copyright notice"],
+  ["Greater Oklahoma City Chamber and Oklahoma City Convention", "Greater Oklahoma City Chamber and Oklahoma City Convention and Visitors Bureau",
+   "the trailing parenthetical is the uploading employee's name and EMAIL ADDRESS, which must not ship in a credit"],
+  ["Matteo De Stefano/MUSE This file was uploaded by MUSE", "Matteo De Stefano/MUSE",
+   "the rest is Commons' note about which institution uploaded the file"],
+  ["Host, Nikolaus Thomas Publisher:", "Host, Nikolaus Thomas",
+   "the rest is the publisher of the 1801 volume and a note that the uploader removed the background"],
+  ["Historical Atlas by William R. Shepherd 1911 edition derivative work: Cristiano64",
+   "William R. Shepherd; derivative work: Cristiano64",
+   "both are owed a credit; the rest is the scanning library's courtesy line, which the URL already carries"],
+  ["Maison Bonfils (Beirut, Lebanon), photographers :", "Maison Bonfils, Beirut",
+   "the rest is the three Bonfils' dates and a guess at which of them took it — genealogy, not attribution"],
+  ["Native_Copper_Macro_Digon3.jpg :", "Jonathan Zander; derivative work: Materialscientist",
+   "Commons' derivative-work chain; both authors kept, the file names dropped"],
+  ["File:Dihydrogen-HOMO-phase-3D-balls.png : Benjah-bmm27", "Benjah-bmm27; derivative work: MikeRun",
+   "Commons' derivative-work chain, naming one author twice over two source files"],
+  ["User Qwerter at Czech wikipedia: Qwerter", "Qwerter; translated by Michal Maňas; vectorised by Magasjukur2",
+   "four contributors, of whom three made the work; the fourth only transferred the file between projects"],
+];
+
+/* The licence phrase a credit's author half stops before. Kept in step with strip-credit-captions.js's
+   own LICENCE_HALF, which asks the same question of the same strings. */
+const LICENCE_START = /^(?:public domain|CC0|CC[ -]?BY(?:[ -]SA)?(?:\s+[\d.]+)?|GFDL|FAL|Attribution)\b/i;
+
+function unblurb(author) {
+  const a = norm(author);
+  for (const row of BLURB) if (a.startsWith(row[0])) return row[1];
+  return a;
+}
+
+/* Split a shipped credit into its author half and everything after it, so a blurb can be replaced
+   without disturbing the licence, the "via Wikimedia Commons" or the URL. */
+function authorHalf(credit) {
+  const c = String(credit || "");
+  const head = c.split(/\s+https?:\/\//)[0];
+  if (/^\s*https?:/.test(head)) return null;
+  for (let i = head.length - 1; i >= 0; i--) {
+    if (head[i] !== ",") continue;
+    if (LICENCE_START.test(head.slice(i + 1).trim())) return { author: head.slice(0, i).trim(), rest: c.slice(i) };
+  }
+  return null;
+}
+
 function commonsFile(src, credit) {
   for (const s of [credit, src]) {
     const m = String(s || "").match(/\/(?:wiki\/)?(?:File|Special:FilePath)[:/]([^/?#]+)/i);
@@ -146,6 +222,7 @@ function creditLine(meta, url) {
   } else if (author.length % 2 === 0 && author.slice(0, author.length / 2) === author.slice(author.length / 2)) {
     author = author.slice(0, author.length / 2);
   }
+  author = unblurb(author);
   if (NO_AUTHOR.some((rx) => rx.test(author))) author = "";
   const parts = [];
   if (author) parts.push(author);
@@ -153,7 +230,46 @@ function creditLine(meta, url) {
   return parts.join(", ") + ", via Wikimedia Commons. " + url;
 }
 
+/* --retrim — apply the BLURB table to what is ALREADY SHIPPED, over all three pools, with no network.
+   The table is the durable half: a future network run produces the trimmed form on its own, and this
+   is what fixes the credits written before the table existed. It touches the AUTHOR HALF and nothing
+   else, so a licence, a "via Wikimedia Commons" and a URL come through byte for byte. */
+function retrim() {
+  const { loadGlossary, writeGlossary, MAIN: GLOSS_MAIN } = require("./gloss-io.js");
+  const { loadArtefacts, writeArtefacts } = require("./artefact-io.js");
+  const fs = require("fs");
+
+  const items = [];
+  const { cards, tree } = loadCards();
+  cards.forEach((c) => { if (c.image && c.image.credit) items.push(["card", c.id, c.image]); });
+  const G = loadGlossary(); const GI = G.GLOSSARY_IMAGES || {};
+  Object.keys(GI).forEach((k) => { if (GI[k] && GI[k].credit) items.push(["gloss", k, GI[k]]); });
+  const arts = loadArtefacts() || [];
+  arts.forEach((a) => { if (a.image && a.image.credit) items.push(["artefact", a.id, a.image]); });
+
+  let n = 0;
+  for (const [kind, key, im] of items) {
+    const split = authorHalf(im.credit);
+    if (!split || !split.author) continue;
+    const name = unblurb(split.author);
+    if (name === norm(split.author)) continue;
+    const line = name + split.rest;
+    console.log("  " + kind + " " + key + "\n    was: " + norm(split.author).slice(0, 110) +
+      (norm(split.author).length > 110 ? " …" : "") + "\n    now: " + name);
+    if (!DRY) im.credit = line;
+    n++;
+  }
+  console.log("\nblurb credits trimmed: " + n + (DRY ? "  (dry run — nothing written)" : ""));
+  if (!DRY && n) {
+    writeCards(cards, tree);
+    writeGlossary(G, fs.readFileSync(GLOSS_MAIN, "utf8"));
+    writeArtefacts(arts);
+    console.log("written.");
+  }
+}
+
 (async () => {
+  if (process.argv.includes("--retrim")) return retrim();
   const { cards, tree } = loadCards();
 
   const todo = [];

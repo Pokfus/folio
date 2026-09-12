@@ -1099,14 +1099,42 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     where `esc()` renders it a second time. **And Commons DOUBLES a linked artist**, so the tag strip
     leaves "Unknown authorUnknown author"; the halving test is over WORDS rather than characters,
     because the character test alone missed every case the strip had put a space into.
-  · **`strip-credit-captions.js` NOW CARRIES TWO RULES AND THE SECOND STATES ITS CONDITION.** Rule 1 is
-    the original exact match against the WHOLE credit. Rule 2 compares the caption against the credit's
-    LICENCE HALF — and fires **only where the credit also NAMES AN AUTHOR**, since where it does not,
-    that clause still is the whole attribution and rule 1's refusal stands. The credit is split at the
-    LAST comma leaving a licence phrase behind it, never the first: an author field has commas of its
-    own ("José-Manuel Benito Álvarez (España) —> Locutus Borg").
-  · **NEITHER RULE WILL EMPTY A CAPTION.** A caption that is nothing but its own credit is left alone —
-    the viewer draws the slot either way, and a blank one tells the reader less than a duplicated one.
+  · **COMMONS' PERMISSION BLURBS LAND IN `Artist`, AND THEY ARE NOT NAMES.** Many files wrap the
+    attribution in a licence TEMPLATE, so the API hands back a paragraph — "This Photo was taken by
+    Supanut Arunoprayote . Feel free to use any of my images…" — and twelve credits shipped as
+    boilerplate under a photograph, **one of them carrying a private email address**. `BLURB` is a
+    DECLARED table (the reason `CROSSREF_WRONG` is: a regex that lifts a name out of arbitrary prose
+    eventually lifts the wrong words), **every replacement is a substring of the blurb it replaces**,
+    and where a blurb credits several people — a derivative work, a translation — **all of them are
+    kept**, CC BY-SA owing each a credit. **`--retrim` applies it to what is already shipped, over all
+    three pools, with no network.**
+  · **`strip-credit-captions.js` CARRIES TWO RULES AND THE SECOND STATES ITS CONDITION.** Rule 1
+    matches the WHOLE credit; rule 2 matches the credit's LICENCE HALF and fires **only where the
+    credit also NAMES AN AUTHOR**, since where it does not that clause still is the whole attribution
+    and rule 1's refusal stands. The credit is split at the LAST comma leaving a licence phrase behind
+    it, never the first: an author field has commas of its own ("José-Manuel Benito Álvarez (España)
+    —> Locutus Borg").
+  · **THE COMPARISON FOLDS WORDING, AND THE CLAUSE BOUNDARY IS WHAT MAKES THAT SAFE.** Byte-for-byte
+    missed the commonest shape there is — Commons writes its licence tag in one case in the file
+    description and another in the licence field, so "Reinhard Dietrich, public domain," sat unmatched
+    under "Reinhard Dietrich, Public domain,". Three things fold and nothing else: case and
+    punctuation (**Unicode-aware — under an ASCII class a Cyrillic author folds away to nothing and a
+    credit naming one compares equal to a clause naming none**), Commons' `Public domain (CC0)`
+    umbrella, and a leading `Photograph by`. **A cut may then only BEGIN at a sentence boundary**: the
+    fold alone produced seven bad cuts on its first run, of which "…in a plate published by Auguste
+    Mariette" over a credit of "Auguste Mariette, public domain" is the shape to remember — the name
+    is doing real work in that sentence.
+  · **THREE THINGS A CUT WILL NOT DO.** It will not EMPTY a caption (the viewer draws the slot either
+    way, and a blank one tells the reader less than a duplicated one); it will not leave a DANGLING
+    function word, which is how a cut made mid-sentence shows — `her` and `his` came back OUT of that
+    list, being object pronouns as well as possessive, so "…twins beneath her" was refused as a
+    fragment; and it will not strip **an abbreviation's own full stop**, or a caption ships reading
+    "Drawn after Huang Kejia et al".
+  · **WHAT IS LEFT IS A JUDGEMENT, NOT A GAP.** The sweep takes `source-in-caption` from 336 to 21 and
+    all 21 were read: each needs an editor, either because **the credit names the author differently**
+    ("Louis de Clercq" over "Clercq, M. de (Louis), 1836-1901") or names a different person altogether,
+    or because **the caption carries more than the credit** — a date, a holding museum, an authored
+    source sentence. **Do not widen the rules to reach them.**
   Not part of the site.
 - `.claude/check-claims.js` — **CLAUDE.md's own figures, measured**: `node .claude/check-claims.js
   [--all]`. This file is the ONLY operational memory a cloud session has, it is written in the present
