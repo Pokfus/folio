@@ -640,7 +640,12 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-367  Caesar's dictatorship
     rm-368  Julian calendar
     rm-369  Ides of March
-    rm-370  Brutus and Cassius
+    rm-370  Marcus Junius Brutus
+
+`rm-370` was planned as *Brutus and Cassius* and renamed when it was written: a card has one answer
+term, and *Brutus and Cassius* is not a term the glossary could head. Both men are in the card; the
+answer is Brutus, whose descent and praetorship are what the sources argue about, and Cassius takes
+his own entry when `rm-377 Battle of Philippi` is written.
 
 ## The Principate
 

@@ -35,23 +35,24 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.694", released: "2026-09-12T15:11Z" };
+window.FOLIO_VERSION = { v: "1.695", released: "2026-09-12T15:44Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-12",
-    t: "Questions about Greece, not about who wrote on it",
+    t: "Caesar's war won, and the men who killed him",
     items: [
+      "<b>Ten new cards in Ancient Rome</b>, from Dyrrhachium and Pharsalus through the Alexandrian War to the <i>Ides of March</i> and Brutus, with nine new glossary terms.",
       "<b>Five Ancient Greece questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who argued what.",
       "<b>One Ancient Greece background no longer reads as a roll-call of the scholar it rests on</b>, keeping every claim and every citation.",
     ],
   },
   {
     d: "2026-09-11",
-    t: "Alexander's generals divide the empire",
+    t: "Alexander's successors, and Caesar's road to the Rubicon",
     items: [
-      "<b>Ten new cards in the Ancient Greece collection</b>, on the successor kings from Antigonus the One-Eyed to Ptolemaic Egypt, the Seleucid Empire and Antigonid Macedonia.",
-      "<b>Ten more glossary terms</b>, each cited to open sources.",
+      "<b>Twenty new cards</b> — ten in Ancient Greece on the successor kings from Antigonus the One-Eyed to Ptolemaic Egypt, and ten in Ancient Rome from Caesar's <i>Commentarii</i> to the Rubicon.",
+      "<b>Nineteen more glossary terms</b>, each cited to open sources.",
     ],
   },
   {
@@ -94,6 +95,8 @@ window.CHANGELOG = [
       "Twenty-seven cards that shared a picture with another card now have one of their own.",
       "<b>Fourteen more cards now quote the book they rest on</b>, with a button through to that passage in the Library.",
       "<b>\u201cThink it through\u201d now reaches every card in the History and Science sections</b>, with 801 more cards gaining three why-questions and their answers.",
+      "<b>Fifty new cards in Ancient Rome</b>, from Marius's later consulships through Sulla, Spartacus and the pirate war to Catiline, Cato, Caesar's first consulship and the Gallic Wars, with forty-seven new glossary terms.",
+      "<b>Social War, Sulla and Spartacus now link to glossary terms of their own</b>, rather than to an Athenian war of 357 BCE, a joint entry on Marius and Sulla, and the war named after him.",
       "<b>The US states and China province cards now draw their rivers</b>, which the shaded state was painting over.",
       "<b>Twenty-one more cards open an Atlas window</b>, among them the Etruscan world, the Aegean Sea, the Eurasian steppe, Zhoukoudian, Nariokotome and Beringia.",
       "The Etruscan world, the Sabines and the Umbrians now show on your own atlas for as long as they lasted, rather than for a single year.",

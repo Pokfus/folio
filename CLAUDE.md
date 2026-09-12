@@ -362,9 +362,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   every card's number, topic and deck, fixed in advance across 7 decks and 25 leaf subdecks, so the
   collection can be grown one card at a time over many sessions. The third of the planned collections and
   used exactly like the other two — the next card to write is the lowest `rm-NNN` not yet in `data.js` —
-  see the "ANCIENT ROME" bullet under "Generating cards & glossary entries". **No card has been written
-  yet**: the plan and the tree shipped together on 2026-08-06 and the collection starts at `rm-001`. Not
-  part of the site.
+  see the "ANCIENT ROME" bullet under "Generating cards & glossary entries". The plan and the tree
+  shipped together on 2026-08-06; the collection is **live and well under way**, and the index table
+  under "THE NINETEEN PLANNED COLLECTIONS" carries the count rather than this bullet — it read "No card
+  has been written yet" for the month in which the first three hundred shipped. Not part of the site.
 - `docs/russia-card-plan.md` — the **1000-card running order for the Russia collection** (`col-42`): every
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
   grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
@@ -4821,7 +4822,7 @@ lookup.
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 500 cards, contiguous — next is `wh-501` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 770 cards, contiguous — next is `gr-771` |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 300 cards, contiguous — next is `rm-301` |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 370 cards, contiguous — next is `rm-371` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
