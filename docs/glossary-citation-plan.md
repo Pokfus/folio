@@ -3385,3 +3385,22 @@ applied anatomy in its Introduction. That is G4's rule applied to a discipline r
 encyclopedia is barred by the plan, a founding textbook is not. Its cheapest find is a search order:
 **look at the deck's own markers for a FIGURE before searching the literature for it** — `Megafauna`'s 44 kg
 was already marked on `wh-089` to Koch & Barnosky, who also carry three of the term's four claims.
+
+## `split-abstract.js` and the sentence that closes on a quotation (Aug 2026)
+
+**Read this before changing `split-abstract.js`'s sentence rules.** CLAUDE.md keeps the rule; this
+is the account of the two clauses behind it and the sweep that settled them.
+
+**A SENTENCE MAY CLOSE ON A QUOTATION, and until Aug 2026 the splitter could not see it** — the
+terminator sits inside the quotation marks, so a closing quote stands between the full stop and the
+space the lookbehind was anchored to, and the quoted sentence merged with the one after it. Found while
+writing `geo-012`, whose fourth sentence ends on the Nez Perce tribal executive committee's own words,
+and the block came back 4+5. Two clauses fix it and the SECOND is the one that matters: widening the
+terminator to allow a closing quote also broke `wh-185`, where "…to ask 'Then who was king?' twice
+over…" is a quotation INSIDE a sentence, so a `hold` refuses the split when the quote is followed by a
+LOWERCASE word — the same test the abbreviated-genus and regnal-numeral rules already use, since what
+follows a real boundary is always a capital. **Verified over all 2,627 shipped texts, where it changes
+exactly one split and that one is a CORRECTION**: `gr-336` block 2 had been splitting 4 where it is 5,
+because its first sentence ends on the Kroisos epitaph. That card was written with its markers already
+in the prose so nothing shipped wrong, but a top-up batch marking it by sentence index would have put
+every marker one claim early.
