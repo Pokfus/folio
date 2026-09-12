@@ -89,3 +89,51 @@ anything was written, so the bytes that ship are the bytes that were reviewed.
 · **A test that seeds `window.GLOSSARY_SOURCES` must wait for the bundle first** — `test-sources.js`
 seeded before the warm landed and had its fixture Object.assign'd away, which fails as "the popup
 lists 5 citations" and reads like a rendering bug rather than a race.
+
+---
+
+## The lazy bundles and the load bar (2026-09-12)
+
+**Read this before changing `ensureData`'s counting or a bundle's `after` hook.** CLAUDE.md keeps the
+rules; this is the bullet as it stood there, verbatim, with the request and the measured figures.
+
+- **Lazy data bundles:** `DATA_BUNDLES` + `ensureData(name)` / `dataReady(name)` / `whenIdle(fn)` (defined
+just above the ROUTER block). See the table in the File map for what's in each bundle. `ensureData`
+resolves `true`/`false` and **never rejects**, so a fire-and-forget caller can't raise an unhandled
+rejection; a failed bundle is retried on the next call. Consumers:
+· **`PAGES.map`** holds a `.data-loading` placard until `world` + `atlas` land, then re-renders (`render()`
+re-invokes the *current* page, so this covers `PAGES.findit` too). **It is the one placard with a
+PROGRESS BAR** — see the next paragraph.
+· ~~**`startMiniGlobe`** (home)~~ — **deleted with the home page's discovery row** (see `PAGES.home`),
+so nothing on the home page fetches `world` any more. Its shape is still the one to copy for an
+ornament that must not delay first paint: fetch at IDLE, skip entirely under
+`navigator.connection.saveData`, and stop on `root.isConnected`.
+· **Settings' home-location picker** holds just the current home until `world` arrives, then fills.
+· **`loadLangData`** pulls `uiI18n` + `glossI18n` whenever the language isn't English.
+**THE LOAD BAR COUNTS FILES, NOT BYTES** (`dlBarHTML(names)` / `wireDlBar(host, names)` / `_bundleWatch`
+/ `bundleFileCount` / `bundleDoneCount` / `watchBundles`, beside `ensureData`; `.dl-bar` in styles.css.
+Aug 2026, on request: "when there are loadscreens, can we add a load bar"). `ensureData` counts each
+file as it settles — **whichever way it settles**, so a bar cannot stall on a failed bundle whose caller
+is about to paint a failure state — and notifies whatever is watching that bundle. Three decisions.
+**Bytes are impossible here and that is a CSP fact rather than an omission**: reading a download's
+progress means `fetch()` plus running the text yourself, i.e. an inline script, and `script-src 'self'`
+holds only because there are no inline scripts (see `_headers`). Per-file is what can be counted
+honestly, so per-file is what is shown. **A bar is DETERMINATE or it is nothing**: `dlBarHTML` returns
+`""` below two files, so a single-file bundle (a book, `usstates`) keeps its spinner rather than showing
+a bar that jumps 0 → 100 and has told the reader nothing. The Atlas — the load anybody actually waits
+for — is twelve files, and measured in a browser it steps 8, 17, 25, 33, 42, 50, 67, 75, 83, 92.
+**And the fill TRANSITIONS its width**, so the global reduced-motion killswitch already lands it on its
+true value with no rule of its own; `wireDlBar` takes itself off the watch list when its bar leaves the
+document, the self-stopping shape `startMiniGlobe` uses.
+**NO COMMITTED SUITE GUARDS IT, and that is worth knowing before trusting it**: the bar lives on the
+Atlas's own load screen, which is gone within a second or two of the page opening, so a browser test
+would be racing the thing it measures. The figures above were read off a live run with the bundles
+instrumented, and that is the check to repeat by hand after touching `ensureData`'s counting.
+**A bundle's `after` hook re-establishes what boot would have done had the file been present** — this is
+the part that bites. `timeline.js` assigns `window.TIMELINE` over the empty array `applyAdminEdits()` left
+at boot, so the atlas hook re-applies `ADMIN_EDITS.timeline` on top or **the admin's working era set is
+silently lost**; a gloss language file arrives after `PRISTINE_GLOSS_I18N` was snapshotted empty, so its hook
+(`glossI18nIngest`) re-seeds that baseline (revert/undo compare against it) and re-applies the `glossaryI18n`
+deltas. Because those files are **per language** the hook runs once per language and the baseline accumulates —
+and it drains a QUEUE (`window.GLOSSARY_I18N_IN`), not a single slot, so two languages whose scripts land before
+either hook both get seeded. Any new lazy file whose global is read at boot needs the same treatment.

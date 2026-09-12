@@ -1878,24 +1878,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Settings' home-location picker** holds just the current home until `world` arrives, then fills.
   · **`loadLangData`** pulls `uiI18n` + `glossI18n` whenever the language isn't English.
   **THE LOAD BAR COUNTS FILES, NOT BYTES** (`dlBarHTML(names)` / `wireDlBar(host, names)` / `_bundleWatch`
-  / `bundleFileCount` / `bundleDoneCount` / `watchBundles`, beside `ensureData`; `.dl-bar` in styles.css.
-  Aug 2026, on request: "when there are loadscreens, can we add a load bar"). `ensureData` counts each
-  file as it settles — **whichever way it settles**, so a bar cannot stall on a failed bundle whose caller
-  is about to paint a failure state — and notifies whatever is watching that bundle. Three decisions.
-  **Bytes are impossible here and that is a CSP fact rather than an omission**: reading a download's
-  progress means `fetch()` plus running the text yourself, i.e. an inline script, and `script-src 'self'`
-  holds only because there are no inline scripts (see `_headers`). Per-file is what can be counted
-  honestly, so per-file is what is shown. **A bar is DETERMINATE or it is nothing**: `dlBarHTML` returns
-  `""` below two files, so a single-file bundle (a book, `usstates`) keeps its spinner rather than showing
-  a bar that jumps 0 → 100 and has told the reader nothing. The Atlas — the load anybody actually waits
-  for — is twelve files, and measured in a browser it steps 8, 17, 25, 33, 42, 50, 67, 75, 83, 92.
-  **And the fill TRANSITIONS its width**, so the global reduced-motion killswitch already lands it on its
-  true value with no rule of its own; `wireDlBar` takes itself off the watch list when its bar leaves the
-  document, the self-stopping shape `startMiniGlobe` uses.
+  / `bundleFileCount` / `bundleDoneCount` / `watchBundles`, beside `ensureData`; `.dl-bar` in styles.css).
+  `ensureData` counts each file as it settles — **whichever way it settles**, so a bar cannot stall on a
+  failed bundle whose caller is about to paint a failure state — and notifies whatever is watching that
+  bundle. Three decisions. **Bytes are impossible here and that is a CSP fact rather than an omission**:
+  reading a download's progress means `fetch()` plus running the text yourself, i.e. an inline script, and
+  `script-src 'self'` holds only because there are no inline scripts (see `_headers`). **A bar is
+  DETERMINATE or it is nothing**: `dlBarHTML` returns `""` below two files, so a single-file bundle (a
+  book, `usstates`) keeps its spinner rather than showing a bar that jumps 0 → 100 and has told the reader
+  nothing. **And the fill TRANSITIONS its width**, so the global reduced-motion killswitch already lands
+  it on its true value with no rule of its own; `wireDlBar` takes itself off the watch list when its bar
+  leaves the document, the self-stopping shape `startMiniGlobe` uses.
   **NO COMMITTED SUITE GUARDS IT, and that is worth knowing before trusting it**: the bar lives on the
   Atlas's own load screen, which is gone within a second or two of the page opening, so a browser test
-  would be racing the thing it measures. The figures above were read off a live run with the bundles
-  instrumented, and that is the check to repeat by hand after touching `ensureData`'s counting.
+  would be racing the thing it measures. **Instrument the bundles and read the steps off a live run**
+  after touching `ensureData`'s counting.
   **A bundle's `after` hook re-establishes what boot would have done had the file been present** — this is
   the part that bites. `timeline.js` assigns `window.TIMELINE` over the empty array `applyAdminEdits()` left
   at boot, so the atlas hook re-applies `ADMIN_EDITS.timeline` on top or **the admin's working era set is
@@ -1903,7 +1900,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (`glossI18nIngest`) re-seeds that baseline (revert/undo compare against it) and re-applies the `glossaryI18n`
   deltas. Because those files are **per language** the hook runs once per language and the baseline accumulates —
   and it drains a QUEUE (`window.GLOSSARY_I18N_IN`), not a single slot, so two languages whose scripts land before
-  either hook both get seeded. Any new lazy file whose global is read at boot needs the same treatment.
+  either hook both get seeded. **Any new lazy file whose global is read at boot needs the same treatment.**
+  **📖 `docs/eager-path.md` — READ BEFORE CHANGING `ensureData`'s COUNTING OR A BUNDLE'S `after` HOOK.**
+  The request the load bar came from and the twelve steps measured off a live Atlas run.
 - **PWA:** `manifest.json` (installable, `icon.svg` + `icon-maskable.svg`) and **`sw.js`**, registered by
   app.js on `load`. **Never registered on a dev origin** (`isDevOrigin()` — same guard, and same reason, as
   the cloud content overrides): a file-watching dev server's live-reload against a caching worker serves
