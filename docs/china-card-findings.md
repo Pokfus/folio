@@ -2910,3 +2910,570 @@ case of CROSSREF being wrong about a TITLE**: it registers the Slovene *Podoba i
 Zahodnega kraljestva* for an article the publisher's own page titles *Image and Role of the Queen
 Mother of the West in Han Grave Art*. The journal registered its translated title; the citation
 stands. **Read the record against the publisher before correcting anything.**
+
+## cnh-201 – cnh-210, the Qin deck's second ten (Sep 2026)
+
+**ONE VOLUME CARRIES THE WHOLE QIN DECK, AND ITS PAGE NUMBERS ARE RECOVERABLE FROM THE OCR.**
+Chavannes' *Mémoires historiques* vol. 2 is the Qin annals in full — the book-burning edict, the
+460 put to death, the southern commanderies, Meng Tian's 300,000, the imperial highways and the
+Straight Road, the mercury rivers of the tomb, Xu Fu's three mountains and the great fish — and
+archive.org's `_djvu.txt` keeps the running heads (`TS'IN CHE-HOANG 173`) well enough to pin a
+citation. **The method is a dozen lines**: scan backwards from a passage for the nearest short
+line whose letters are all capitals and which contains a two- or three-digit number. Every
+Chavannes page in this batch was found that way; without it the volume is uncitable at the page
+level and the deck falls back to vaguer references.
+
+**THE TWO-SOURCES-PER-AUTHOR CAP IS WHAT SHAPES A QIN CARD'S APPARATUS, AND FINDING THE FIFTH
+SOURCE IS THE WORK.** `check-cards.js` fails a card citing one author in three of its sources, so
+Chavannes can carry at most two, and Giles and Mayers two each. Each card here is therefore built
+as Chavannes ×2 + Giles + Mayers + **one modern open paper**, and the modern paper is nearly
+always a SCIENCE paper rather than a history one: laser radar reading mercury over the tomb mound,
+carbon and nitrogen isotopes on the prisoners' mass grave, the chromium on the bronze weapons,
+cyanobacteria blooming in Pit 1, spatial-interaction modelling of the Zhidao. **Ask what has been
+MEASURED about a Qin subject before concluding there is no modern literature on it.**
+
+**AND THE STRANGEST OF THOSE IS A FISH PAPER.** Nothing openable from here is a study of the
+Lingqu canal — the Springer chapters are behind the 3,038-byte Client Challenge, the tourism
+journals say nothing a card can use — but **freshwater-fish phylogeography cites it constantly**,
+because the canal is a corridor between the Yangtze and Pearl basins that shows up in
+mitochondrial haplotypes. Two independent studies (Genes 2025, IJMS 2012) invoke it by name to
+explain types shared across the Nanling divide, and between them they carry the canal's geography,
+its age and a consequence no historical source states. **When the history literature on a
+structure is shut, ask which science has to take account of it.**
+
+**`data.js` IS ONLY THE INDEX, AND A FIND-AND-REPLACE OVER IT SILENTLY MISSES THE PROSE.** The
+abstract, sources, `why` and image live in `data-extra/<prefix>.js` (see `.claude/card-io.js`). A
+house-style fix applied to `data.js` alone reported success, changed the question and left the
+same words standing in the abstract and the why-answers. CLAUDE.md did not mention `data-extra/`
+at all and now does.
+
+**AND THE SAME TRAP HAD SWALLOWED `source-audit.js` WHOLE.** It required `data.js` directly, so
+`sources` came back empty for every card and it reported the entire 2,905-card corpus — every one
+of them cited — as *uncited, not yet researched*. Nothing threw and the totals added up. Repointed
+at `card-io.js`; it now reports 2,905 of 2,905 at the bar. **card-io.js names `gloss-source-audit.js`
+doing exactly this after the glossary split; the card split left this one behind.**
+
+**A CROSSREF LOOKUP FOR THE AUTHOR LIST FOUND A WRONG ARTICLE NUMBER IN THE SHIPPED CORPUS.** Bevan
+et al.'s ink-marks paper is *Heritage Science* 6 (2018): **75**, not 55, and 55 was on the
+`Terracotta_Army` glossary term and on a `wh-` card. **Pull the metadata rather than copying a
+citation already in the repo** — this is N4's fabricated-author rule one field over, and the field
+nobody re-checks.
+
+**THE PICTURE SEARCH FAILED THE SAME WAY IT ALWAYS DOES.** `Xu Fu` returned the calligrapher Mi Fu
+and a Qing seal-script scholar; `Meng Tian` returned ninety pages of a Catholic doctrinal treatise
+(*Tian xue bian jing lu*). Searching the CHARACTERS answered for one of them — 徐福 found the
+granite statue at Weihai and the Japanese landing steles — and **found nothing at all for 蒙恬**, so
+`cnh-206` ships with no picture and this is the record of why. Two other findings: the Commons
+"Lingqu Canal and Qin Conquest" file is a **museum wall label**, the fault this file has now caught
+four times; and **a constructed `upload.wikimedia.org` path is wrong four times out of four** —
+every one of `cnh-201`–`cnh-204`'s first URLs 404'd, and only certain thumbnail widths are served
+(1600px 400s where 1920px is 200), so take the URL from `imageinfo` and check it with curl.
+
+**A CC BY PDF CAN STILL BE A CIPHER, AND THIS ONE IS A THIRD VARIETY.** The Zhidao paper is CC BY
+4.0 and 403 at Elsevier; the UCL Discovery copy downloads, and its body text extracts as a
+**monoalphabetic substitution over the CID stream** (`GournalofXrchaeologicalPcience` for *Journal
+of Archaeological Science*), solvable on cribs, with the **digits scrambled separately** — so the
+prose is readable and no figure in it may be quoted. The running heads came out under a plain
+Caesar shift, which is what gave the volume and article number away.
+
+**AND cnh-210 WAS RENAMED IN THE PLAN.** Its line read *Qin Shi Huang and the search for
+immortality*, and the emperor already has `cnh-192`; the answer term a reader can be asked for is
+**Xu Fu**, so the card is his and the line now says so.
+
+## cnh-211 – cnh-220, the end of the Qin and the founding of the Han (Sep 2026)
+
+Two cards close the Qin deck (`col-7`) and eight open Western Han (`col-10`). All ten are
+narrative political history, which is a different sourcing problem from the ten before them and
+produced a different apparatus.
+
+**ONE VOLUME CARRIES ALL TEN, AND KNOWING THAT UP FRONT IS MOST OF THE WORK.** Chavannes' second
+volume of the *Mémoires historiques* holds chapters V–XII — the Qin annals, Xiang Yu, Gaozu and
+Empress Lü — so every card in this batch rests on a primary translation that is already on disk.
+The pages, all verified against the volume's own running heads: the Shaqiu plot 191–93; the fall
+of the Qin 204–5 and 213–18; Xiang Yu's origins 247–48, Julu 267, Xin'an 273, the verdict 322–23;
+the Feast at Hong Gate 274–82; Pengcheng 365 and the Honggou treaty 377; Gaozu 324–25, the three
+articles of law 353, the three heroes 383–84, the Great Wind Song 397; the founding settlement
+380–82; Gaixia 316–22; Empress Lü 406–7, 409–10, the white-horse oath 414, and the verdict on her
+years 441–42.
+
+**THE FIFTH SOURCE IS NOT A SCIENCE PAPER HERE, AND LOOKING FOR ONE IS WASTED TIME.** The Qin
+batch before this could reach for archaeometry — mercury over the tomb, isotopes in a mass grave,
+chromium on bronze weapons. A palace conspiracy, a banquet and a battle have been MEASURED by
+nobody, and an OpenAlex sweep filtered to open access returns predatory-publisher essays,
+self-deposited Zenodo preprints and academia.org uploads for every one of these subjects. **What
+answers instead is another out-of-copyright historian**, and the one found for this batch is
+**Henri Cordier, *Histoire générale de la Chine*, vol. 1 (1920)**, whose pages 215–22 carry the
+murder of the Second Emperor, Ziying, the sack of Xianyang, Gaixia, the accession of 28 February
+202 BCE, the twenty kingdoms of the interregnum, Gaozu's death on 1 June 195 and the whole of
+Empress Lü's regency. Its dates agree with Chavannes' own chronological notes where the two
+overlap, which is what made it usable rather than merely available.
+
+**THE TWO-SOURCES-PER-AUTHOR CAP DECIDES THE SHAPE OF EVERY CARD IN THE BATCH.** Chavannes twice,
+Giles once, Mayers once, Cordier once. Where a card needed a second Giles instead of a Cordier it
+took one — `cnh-217` cites the *Hsiang Chi* and *Fan Ts‘êng* entries, since the banquet is a
+scene the biographical dictionary tells from two sides. **A single citation may carry two page
+ranges**, which is how a card gets four Chavannes passages out of two sources.
+
+**GILES AND MAYERS FILE THESE PEOPLE UNDER NAMES A SEARCH FOR THE MODERN ROMANISATION WILL NOT
+FIND.** Xiang Yu is **Hsiang Chi** in both (Giles no. 690, pp. 274–76; Mayers no. 165, pp. 51–52);
+Gaozu is **Liu Pang** (Giles no. 1334, pp. 513–15; Mayers no. 414, p. 133); Zhao Gao is Giles
+no. 165, pp. 67–68 and Mayers no. 43, pp. 13–14; Fan Zeng is **Fan Ts‘êng**, Giles no. 544, p. 218;
+Fan Kuai is **Fan Kw'ai**, Mayers no. 126, pp. 38–39; Ziying is **Tzu Ying**, Giles p. 798.
+**Giles has no headword for Empress Lü at all** — Mayers does, no. 458, pp. 144–45 — so her card
+reaches Giles only through the last sentence of the *Liu Pang* entry, which says he died leaving
+his consort regent of the empire. Mayers' page numbers are found by the running head
+`<n> CHINESE READER'S MANUAL`, which is printed on even pages only, so a hit between head *n* and
+head *n+2* is on page *n+1*.
+
+**MAYERS PART III IS A DATE TABLE AND IS THE RIGHT SOURCE FOR A DYNASTY'S SPAN.** The Han tables
+(pp. 370–74) print *Claimed the Empire from B.C. 206; actually ascended the Throne B.C. 202*,
+which is the discrepancy `cnh-213`'s date line has to state, and they name the Western and Eastern
+halves by their capitals. **Do not reach for a journal article for a fact a chronological table
+states outright.**
+
+**A DATE LINE WENT WRONG A FIFTH WAY AND WAS CAUGHT BY READING IT BACK.** `cnh-212` carries
+`Ziying reigned | 46 days`, which is a number in a labelled row and is *not* a year — `cardYears`
+correctly ignores it, so the card sorts at 209 BCE from the row above. Every one of the ten was
+read back through `cardYears` before committing, and all ten land where the deck needs them.
+`cnh-216` sorts at 247 BCE because its first row is Gaozu's birth, which is right for a person card
+and is deliberately earlier than the cards around it.
+
+**AN ADDED SENTENCE CAN INTRODUCE A FACT THE SOURCES DO NOT CARRY, AND THE PLACE IT HAPPENS IS THE
+LENGTH TRIM.** `cnh-219` came back at 259 words, and a clause added to reach the bar said the
+court sat at Luoyang *where the emperor had been proclaimed* — he was proclaimed north of the Si
+river, not at Luoyang. Caught by re-reading rather than by any check. **Padding to a word count is
+where an uncited claim gets in**; write the extra clause from the same page as the sentence it
+extends.
+
+**THE PICTURE SEARCH IS THE STEP THAT RATE-LIMITS.** Ten cards and nine glossary terms mean
+nineteen `suggest-image` calls, after which `commons.wikimedia.org/w/api.php` answers *You are
+making too many requests to the API* to everything, including a plain search, and
+`upload.wikimedia.org` starts returning a 2,255-byte 429 in place of the file. Two things get past
+it. The ordinary file DESCRIPTION page (`commons.wikimedia.org/wiki/File:…`) keeps answering
+throughout and carries the shard, the licence and the author, so a URL can be read off it rather
+than guessed. And a download loop that retries every 20 seconds eventually lands; a `/thumb/`
+request is throttled harder than the original, so where a thumbnail will not come the full-size
+file often will. Do the picture pass in one block and do the offline work while the quota recovers.
+
+**SIX OF THE TEN GOT A PICTURE AND FOUR DID NOT, AND THE FOUR ARE A CATEGORY RATHER THAN AN
+ACCIDENT.** What is illustrable here is an OBJECT, a PORTRAIT or a MAP: `cnh-213` a group of Han
+tomb figures, `cnh-214` a modern map of the war, `cnh-215` and `cnh-216` the album portraits of
+Xiang Wang and Liu Bang, `cnh-217` the Western Han tomb mural of the banquet itself, and `cnh-220`
+the jade seal of a Western Han empress. What has none is an EVENT with no surviving thing and no
+site anybody photographs — the Shaqiu plot, the fall of the Qin, the battlefield of Gaixia and the
+settlement of 202 BCE. Searching 垓下 returns Qing gazetteers and a blood-brain-barrier diagram by
+a researcher named Gaixia Xu; there is no photograph of the field.
+
+**AND THE ALBUM'S `- <name> 2.jpg` FILES ARE THE FACING TEXT LEAVES, NOT SECOND PORTRAITS.**
+`suggest-image` offered *Portraits of Famous Men - Liu Bang 2.jpg* for `cnh-216`, and it is a page
+of running calligraphy about 漢高祖 with no picture on it at all; the portrait is
+*Portraits of Famous Men - Liu Bang.jpg*. Nothing in the metadata says so — same album, same
+licence, same dimensions to within a few pixels. **This is the whole argument for looking at the
+picture**, and it costs one download.
+
+**AND `Han founding settlement` IS THE PLAN'S OWN NAME FOR A TOPIC THAT HAS NO STANDARD TERM.**
+The alternative considered was *junguo system*, the commandery-and-kingdom compromise, which is a
+better teaching term and is in nothing openable from here under that name — so the plan's line
+stands, and the glossary entry defines the settlement rather than the term.
+
+## cnh-221 – cnh-230, the Rule of Wen and Jing to the opening of the Silk Road (Sep 2026)
+
+**THE HAN ANNALS RUN OUT WHERE CHAVANNES DOES, AND THE XIONGNU CHAPTERS WERE NEVER HIS TO
+TRANSLATE.** *Les Mémoires historiques* vol. 2 carries Shiji 5–12, which is Emperor Wen (ch. X, pp.
+455–94), Emperor Jing (ch. XI, pp. 495–510) and Emperor Wu (ch. XII, pp. 511–12) — and the Xiongnu are
+Shiji 110 and Zhang Qian Shiji 123, both far outside the five volumes Chavannes published. So the
+spine had to change half way through the batch, and what replaced it is **primary text in English**:
+**Wylie's translation of Han shu 94** (*Journal of the Anthropological Institute* 3 (1874): 401–52,
+`sim_royal-anthropological-institute-of-great-britain-ireland_february-4-1873-january-27-1874_3`) and
+**Hirth's of Shiji 123** (*JAOS* 37 (1917): 89–152). Between them they carry Touman, Modu, the
+sounding arrow, Baideng, the heqin terms, Mayi, every campaign of 129–119 BCE and the whole of Zhang
+Qian's report.
+
+**TWO TRAPS IN FETCHING THOSE TWO, both of which return a plausible wrong thing.** Wylie's article
+came out in TWO instalments and the second one is the wrong half for this period: *JAI* 5 (1876):
+41–80 opens on Huhanye Chanyu in the 50s BCE, a century past anything in this batch, and reads
+perfectly as "the Wylie article" until you notice the names. And the JAOS item on archive.org is
+filed as **`journalofamerica36ameruoft`**, whose own volume field reads "36-37" because it holds both
+— Hirth's article is the volume 37 one, with running heads `JAOS 37` and `90 Friedrich Hirth`, so the
+identifier is not a mistake and must not be "corrected" to a 37.
+
+**CHAVANNES SAYS SHIJI CH. 12 IS NOT ANNALS AT ALL, and that is `cnh-223`'s last sentence.** His note
+to the chapter records that the Emperor Wu annals *«ne sont que la reproduction de la seconde partie
+du Traité sur les sacrifices fong et chan»*, probably because the real chapter had disappeared and an
+interpolator filled the gap "assez maladroite". The Grand Historian's own year-by-year record of the
+longest reign he lived through does not survive; what stands in its place was put there later. **Only
+a translator's apparatus carries a fact like that** — the text itself reads as a chapter.
+
+**GILES COPIED MAYERS ON ZHANG QIAN, SO CITING BOTH IS FALSE CORROBORATION.** Giles' *Chang Ch'ien*
+(pp. 12–13) and Mayers' entry 18 (pt. I, p. 5) carry the same claims in the same order down to the
+Milky Way legend, and where Mayers has the historians calling him one who "pierced the void" Giles has
+"made a road" — the same 鑿空, two renderings. `cnh-229` and `cnh-230` therefore cite ONE of them and
+take the fifth source elsewhere. **Two 19th-century reference works agreeing is not two sources**;
+before pairing them, read whether the later one is a rewrite of the earlier.
+
+**THE SOURCES DISAGREE ABOUT HUO QUBING'S AGE AND THE CARD DOES NOT PRETEND OTHERWISE.** Wylie calls
+him "a youth of eighteen" at his first command in the spring of 121 BCE; Cordier has him dying in 117
+at twenty-four, which would make him twenty-one or twenty-two in 121. Both are on `cnh-228`, and they
+are deliberately not in the same sentence: the eighteen is given with the command and marked to Wylie
+(the date line says "at eighteen, by the Han history's account"), and the death year is given without
+an age. **Recording a contradiction costs a clause; asserting either figure flat is a claim neither
+source supports alone.**
+
+**A REIGN HAS TWO ACCESSION YEARS AND BOTH ARE RIGHT.** Mayers' Part III table (pp. 370–71) gives Wen
+179, Jing 156 and Wu 140; Chavannes and Cordier give the deaths as 157 and 9 March 141. The table
+reckons a reign from the first full year after the succession, which is a convention rather than a
+disagreement — so `cnh-223` says so in a sentence and its date line carries it in the sub-row, instead
+of choosing one and looking wrong against the other.
+
+**WYLIE'S "the lady Ung-choo" IS NOT A NAME.** 翁主 *wengzhu* is the TITLE of a king's daughter, and
+Wylie's translation reads it as the princess's personal name ("The lady Ung-choo was selected, and
+conveyed to the home of her new lord by Lew King"). `cnh-227` says "a princess was chosen and conveyed
+north by Liu Jing" and names nobody. **A 19th-century translation can turn a title into a person, and
+nothing downstream can see it** — the sentence reads perfectly and the citation resolves.
+
+**THE DATE LINE'S CONTINUATION ROW IS CAPPED AT TEN WORDS, AND THE ERROR MESSAGE DOES NOT SAY SO.**
+`cnh-227` was refused with "and again in 135, two years before the plot at Mayi" — eleven words — and
+what `add-card.js` printed was *card.answerDate is not a date line*, followed by the markup it wanted.
+That reads as a tag problem and is a length. Count the words in a sub-row before hunting the markup.
+
+**`add-sources.js` WAS REPORTING A FULLY CITED CORPUS AS UNCITED, AND PRINTING IT AS A FACT.** Its
+running-coverage line read the cards out of `data.js` alone, where `sources` has lived in
+`data-extra/<prefix>.js` since the split — so every run ended `cards cited 0/2925 · at the 5-source
+bar 0/2925` underneath a batch that had just succeeded. This is exactly the failure `card-io.js`'s own
+header warns about, one helper further along, and it is the shape that sends the next session looking
+for a disaster that is not there. Repointed at `loadCards()`; it now reads 2925/2925. **The write
+paths were already split-aware** — the card branch splices into `data.js` and then calls `resplit()` —
+so nothing was ever damaged, and what was wrong was only the claim.
+
+**`cnh-228` WAS RENAMED FROM "Wei Qing and Huo Qubing", because a cloze blank cannot hold two names.**
+The card is answered by **Huo Qubing**, describes Wei Qing in full, and both men got a glossary entry,
+so nothing is lost but the awkwardness. The plan's own rule asks for exactly this — a line is a
+subject to research, not always the finished answer term.
+
+**AND THE PLAN'S FIRST WARNING HAD GONE STALE.** `docs/china-card-plan.md` still opened with
+*"⚠ Before `cnh-001` ships: the collection is SET ASIDE"*, telling the next session that cards written
+into this tree would be written and never studied. The `placeholder` flag was cleared on request in
+Aug 2026 and 219 cards have shipped since. Rewritten to say what happened rather than deleted, on the
+ground that a plan which quietly stops mentioning a hazard reads like a plan that never met one.
+**One further stale string was found and deliberately left**: the `china` node in `data.js` still
+carries `blurb: "Template deck — one example card. Generate more with Claude."`, which is false about
+a 219-card collection — but nothing in app.js draws a collection blurb (it is read into
+`COLLECTION_META` and re-serialised and never rendered), so it costs a reader nothing and changing the
+tree by hand costs review noise.
+
+**`Xiongnu` IS A SHARED SURFACE AND THE TERM IS WRITTEN FOR ALL OF IT.** The word occurs on nine
+shipped cards across World History, Russia, Korea and China, so the new entry describes the
+confederation on its own terms — no cities, no written character, the Chanyu and his sage princes,
+and the open question about the Huns — rather than as a fact about the Han frontier. This is the
+`Dolmen` rule met again: **a general term written for one collection breaks the moment another links
+to it.** `Emperor_Wu_of_Han` was the same case in reverse and was REWRITTEN rather than duplicated —
+it existed already, cited, and said nothing but the conquest of Chosŏn, so a China reader clicking it
+would have landed in Korea; it now opens on the reign and keeps both Korean sources on the sentences
+they were written for.
+
+**NINE OF THE TEN GOT A PICTURE, and the one that did not is last batch's category again.** What was
+illustrable was an OBJECT, a PLACE or a PORTRAIT: `cnh-221` a silk painting of Emperor Wen enthroned,
+`cnh-223` the tumulus of Maoling with its stele tower, `cnh-224` the rammed-earth Han wall near the
+Jade Gate, `cnh-225` an embroidered woollen hanging from the Xiongnu royal tombs at Noin-Ula,
+`cnh-226` a modern bronze of Modu (captioned as modern, since no likeness from his own time
+survives), `cnh-227` a patterned Western Han silk from Mawangdui, `cnh-228` the *Horse Trampling a
+Xiongnu* from Huo Qubing's tomb photographed in situ in 1923, `cnh-229` the Mogao mural of his
+departure and `cnh-230` the Jade Gate itself. **`cnh-222` has none**: a rebellion has no surviving
+object, the Wikipedia article on the Liang kings' burial mountain carries no image at all, and a Han
+crossbow would have illustrated the period rather than the event.
+
+**THE RATE LIMIT IS STILL THE SLOWEST PART AND THE WAY THROUGH IS PATIENCE, NOT CLEVERNESS.** Nineteen
+`suggest-image` calls plus the searches exhaust the quota, after which `api.php` refuses everything and
+`upload.wikimedia.org` answers a 2,255-byte 429. Three things get past it and all three were used here.
+A retry loop at 20-second intervals lands eventually — the last of nine files took about twenty minutes.
+**`en.wikipedia.org/w/api.php?action=query&titles=<article>&prop=images` is a DIFFERENT quota** and kept
+answering throughout, which is how Maoling's file name was found when every Commons search was refused.
+And a `429` on a URL you have already downloaded is the container's quota rather than a bad address:
+check it against the file you fetched instead of hunting for a better link.
+
+**A THUMB URL FROM THE API COMES BACK ON `thumb.wikimedia.org` AND THE CORPUS USES `upload`.** Both
+serve the identical path; the corpus convention is `upload.wikimedia.org/wikipedia/commons/thumb/…`, and
+every one written here was fetched to confirm it answers 200 before it was installed. **The shard is
+still never guessed** — it comes from `imageinfo`, and only the host was substituted.
+
+## cnh-231 – cnh-240, the western conquests to Sima Qian (Sep 2026)
+
+Ten cards taking the Han from the seizure of the Hexi Corridor to the historian who wrote the
+dynasty's own account of itself: the corridor, Nanyue, the Korean commanderies, the salt and iron
+monopoly, the *Discourses on Salt and Iron*, equable transport, Dong Zhongshu, the supremacy of
+Confucianism, the Taixue and Sima Qian. Nine new glossary terms; `Lelang`, `Sima_Qian`, `Shiji` and
+`Confucianism` already existed and were reused.
+
+**CORDIER CARRIES THE TAIXUE, AND THE GAP THAT NEARLY RENAMED A CARD WAS A SEARCH PROBLEM.**
+`cnh-239` was blocked for most of a session: Crossref and DOAJ return nothing openable on the founding
+of the Han imperial university, the useful chapters being in paywalled books, and the plan's own rule
+would have allowed the line to be renamed the way `jp-092` was. What answered was a book already on
+the shelf — **Cordier, *Histoire générale de la Chine*, vol. 1, 256–57**, which states that in 124 BCE,
+following a request from Dong Zhongshu, Emperor Wu created the *T'ai Hio* at Chang'an for the teaching
+of the books of Confucius, that Guangwu founded a second at Luoyang in 29 CE with fourteen professors
+of the Five Classics under the ministry of rites, and (p. 257, quoting Biot) the four grades of merit
+by which higher officers were chosen, of which the second earned a man the charge of *boshi*.
+**Grep the period works already cached before concluding a subject is unsourceable here**; the
+nineteenth-century general histories cover institutions the modern open literature does not.
+
+**THE PLAN'S LINE IS A SUBJECT AND `cnh-233` TOOK A DIFFERENT ANSWER FOR A REASON.** "The Han
+commanderies in Korea" would naturally answer *Lelang* — and `ko-072` is already a good Lelang card
+with the same glossary term behind it. The answer here is **Four Commanderies of Han**, which is the
+plural the line actually names, is the Chinese-side subject rather than the Korean one, and is what
+Cordier 237–38 sets out (Lelang, Xuantu, Lintun, Zhenfan, with the frontier pulled back towards the
+Liao within a generation). **`cnh-240` DELIBERATELY DOES re-card a `wh-` answer**: `wh-411` is also
+Sima Qian, and a thousand-card China collection without him would be odd, so the pair is written
+apart — World History has the founder of Chinese historiography and the Li Ling affair, China has the
+office of grand astrologer, the calendar reform of 104 BCE and Wei Hong's harsher tradition.
+
+**THE TWO-PER-AUTHOR CAP DECIDED THREE CARDS' SOURCE LISTS.** Tanrıkut's article on the *Discourses*
+is the only openable modern account of the monopoly found, and it would have carried four of
+`cnh-234`'s five citations. `check-cards.js` refuses that, and the fix improved the cards: the
+monopoly card now rests half on **archaeology** — Liu and Wood in *Internet Archaeology* 69 for the
+Han melting furnaces at Wafangzhuang and the Yangcheng tool foundry, and Song et al. in *Scientific
+Reports* 15 for the two Han processes and the *Wu Le Gong Ming* quality-traceability system — so it
+describes an industry rather than only a policy. **When the cap bites, look for the other kind of
+evidence rather than a second page of the same work.**
+
+**A SOURCE THAT ANSWERS EVERYTHING STILL HAS TO BE READ, NOT SUMMARISED.** Two claims drafted for
+`cnh-235` from memory of the debate are in nothing openable: that only the liquor monopoly was
+surrendered, and that the *Yantielun* runs to sixty chapters. Tanrıkut says instead that the
+monopolies continued **except for three years from 44 to 41 BCE**, and that Sang Hongyang was killed
+with his whole family for a plot against Huo Guang — who then went on running the policies he had
+helped attack. Both sentences were rewritten to what the page says.
+
+**BRILL'S OWN DOI IS 403 TO A SCRIPT AND 200 TO A BROWSER.** The two *Journal of Chinese Humanities*
+articles are open access, and `curl` on `https://doi.org/10.1163/…` returns 403 while the same URL
+with a browser user-agent resolves to `brill.com/view/journals/joch/12/1/article-pN_M.xml` with a
+200. The Korea findings record the same wall one path over. **A 403 from a bot check is not a dead
+citation** — retest with a browser user-agent before rewriting a citation to a bare article URL.
+
+**MAYERS' ZHAO TUO ENTRY CONTRADICTS ITSELF AND THE DEATH DATE WAS NOT USED.** Pt. I, no. 50 gives
+"B. circa B.C. 240. D. B.C. 187" and then says he died a centenarian, which those two dates make
+impossible. Everything else in the entry is used — the 215 BCE posting under Ren Xiao, the governorship
+of Longchuan, the deathbed advice, the 196 BCE mission of Lu Jia — and the death year is simply left
+out, as is any founding year for the kingdom, so `Nanyue` ships with no date line rather than a
+composed one.
+
+**AND THE ENVOY AND THE MINISTER ARE BOTH called Lü/Lu Jia.** The Han envoy of 196 BCE is Lu Jia 陸賈
+and the Nanyue chief minister who killed the king in 112 BCE is Lü Jia 呂嘉. Both appear in Cordier
+and Mayers; the card names the first and describes the second without naming him, because two names
+that differ only by a diacritic on one card is a trap for a reader rather than a fact.
+
+**FOUR MORE ROUTES TO A WRONG SORT YEAR DID NOT FIRE, BECAUSE EVERY DATE LINE WAS READ BACK.** All
+ten were run through `cardYears` before committing and all ten sort inside their subject's own span.
+Two shapes were caught in draft: `cnh-235`'s "Written up | under Emperor Xuan" carried no number,
+which `date-line.js` refuses, and became "74 – 49 BCE" with the reign as an unlabelled continuation
+line; and `cnh-237` was nearly given "Active | 2nd century BCE", which yields no sort year at all.
+
+**PICTURES: SEVEN OF TEN, AND THE THREE WITHOUT ARE STATED.** `cnh-233` has none because the good
+Lelang objects on Commons are already spent — the incense burner on `ko-072`, the painted lacquer
+basket on `ko-073` and the `Lacquerware` term, the excavation photograph on `ko-075` — and what is
+left is maps, Japanese-era survey PDFs and a KOGL-licensed buckle the picture bar does not admit.
+`cnh-235` and `cnh-238` have none because a debate and a doctrine have no object; the Xiping stone
+classics would serve either, and are spent on `cnh-239`, where they are the subject rather than a
+stand-in. **The glossary terms ship without pictures, as the previous batch's nine did.**
+
+**LOCATORS: SIX OF TEN, THREE OF THEM ONE CITY.** The Hexi Corridor, Nanyue and the four
+commanderies are regions with authored areas; the *Discourses*, Dong Zhongshu and the Taixue take a
+point at Chang'an with `within: "Chang'an"` so the three group into one mark. The salt and iron
+monopoly, equable transport and the supremacy of Confucianism take none — an empire-wide policy and a
+doctrine have nowhere a reader could stand, which is the locator rule's own answer.
+
+**`add-locators.js` NEEDS AN ARTICLE THAT PUBLISHES A COORDINATE, WHICH A CONCEPT DOES NOT.**
+`Nanyue` and `Lelang Commandery` both came back "no primary coordinate"; the `at` is only a region's
+fallback, so the batch was re-run with `Guangzhou` and `Pyongyang` as the titles and the region names
+kept. **Name a settlement, not the polity.**
+
+## cnh-241 – cnh-250, the Records, the late Western Han court and the Xin (Sep 2026)
+
+Ten cards: the *Records of the Grand Historian*, Weiyang Palace, the regional inspector, the consort
+clan, the Xin dynasty, Wang Mang, the acting emperor, wangtian, the wuzhu and avulsion. Four in
+`col-10`, six in the new `col-11`, which this batch opens.
+
+**A GLOSSARY TERM WRITTEN FOR ONE COLLECTION BREAKS THE MOMENT ANOTHER LINKS TO IT — AGAIN, AND
+`Shiji` WAS THE CASE.** The term existed, cited and in band, and its first sentence read "the
+earliest of the Chinese standard histories **and the principal written source for Gojoseon**", with
+the two sentences after it on Wiman and the Chosŏn chapter. It was written for `ko-049`, whose card
+is about Gojoseon; a China card on the work itself would have linked a reader to a definition of the
+*Shiji* as a Korean source. Rewritten deck-agnostic — what the work is, its five parts and 130
+chapters, its span — with the frontier-source clause kept in general form so the Korea card's link
+still lands. This is `Dolmen`'s finding from `ko-031`–`ko-040` in a second coat, and the rule is the
+same: **read a term before pairing a card with it, and check whose collection wrote it.**
+`Chang'an` is the next one waiting — it is a Tang-and-Japan term (`jp-088`) and `cnh-367` will want it.
+
+**THE PAIRING RULE MADE cnh-242 A PALACE RATHER THAN A CITY.** `Chang'an` is already a card's answer
+(`jp-088`) and is the natural answer for `cnh-367 Chang'an under the Tang`, so this card takes
+**Weiyang Palace**, the emperor's residence and a third of the walled city, and leaves the city to the
+Tang card. The same reasoning renamed three more plan lines: `cnh-243 Han provincial administration`
+takes **regional inspector** because `cnh-197` already answers *commandery-county system*;
+`cnh-244 The late Western Han court` takes **consort clan**, which is what that court WAS; and
+`cnh-247 Wang Mang's usurpation` takes **acting emperor**, since a card answered "Wang Mang" would
+have differed from `cnh-246` by nothing at all.
+
+**A PLAN LINE THAT NAMES A RIVER EVENT CAN BE ANSWERED BY THE MECHANISM, AND HERE IT HAD TO BE.**
+`cnh-250 The Yellow River shift of 11 CE` could not take *Yellow River* as its answer without
+spending `cnh-805 The Yellow River and its floods`, 555 numbers away. It takes **avulsion** — the
+abandonment of a bed for a new course — which the sources name outright, which no other Folio term
+covers, and which one World History card already uses in prose (`the avulsion node at Kut`), so the
+new term auto-links there correctly. Measured before claiming the surface: "avulsion" occurs once in
+the shipped prose and once inside a citation, and the citation is masked from the auto-linker.
+
+**PERSÉE'S SEARCH IS THE ROUTE TO FRENCH SINOLOGY AND NUMISMATICS, AND ITS FULL TEXT IS THE FIRST
+PAGE ONLY.** `persee.fr/search?ta=article&q=…` answers over plain HTTP and found François Thierry's
+"La chronologie des wuzhu" (*Revue numismatique* 1989) and Sophia-Karin Psarras' "Chinois et Xiongnu
+à l'époque han" (*Dialogues d'histoire ancienne* 1990) — both exactly on subject. **But `docAsPDF`
+is 403 and the `/doc/` page carries only the article's opening page**, about 2 KB of text. That is
+still a real, citable page with real claims on it (Thierry's p. 223 gives the wuzhu's span to 618 CE
+and calls Wang Mang "membre du clan de l'impératrice"), so cite the page you can actually read and
+nothing beyond it.
+
+**CHINAKNOWLEDGE.DE IS USED HERE, AND THE TEST IT PASSES IS THE GLOSSARY PLAN'S OWN.** Four of its
+articles carry claims nothing else openable states — the regional inspector's six statutory questions
+and 600-bushel rank, the Han administrative hierarchy, *waiqi* as a category with its own chapters in
+the dynastic histories, and Wang Mang's *wangtian* and *wujun liuguan* programmes. It is an
+encyclopedia, which the plan bars **unless that article cites its own sources**: all four carry a
+`Sources:` block naming Chinese reference works or the Cambridge History, and each is a dated,
+signed article by a named sinologist. Cited as such, at most twice per card, and never where an
+openable scholarly work says the same thing.
+
+**A SPRINGER JOURNAL IS READABLE AT `nature.com` WHEN `link.springer.com` IS BEHIND THE CLIENT
+CHALLENGE.** The Weiyang Palace wall paper (*Heritage Science* 12, art. 364) 403s through
+`link.springer.com` and serves in full from `https://www.nature.com/articles/s40494-024-01485-x` —
+Springer moved the journal under npj. `www.mdpi.com` is 403 as recorded, `ieeexplore.ieee.org`
+answers 202 with an empty body, and `sciencedirect.com` serves a Cloudflare error.
+
+**THE HAN CAPITAL'S ARCHAEOLOGY HAS ONE OPEN ARTICLE AND IT IS IN A MALAYSIAN JOURNAL.** Xie Libin,
+"A Study of Military Defense in the Ancient Chinese City of Chang'an During the Han Dynasty"
+(*Minden Journal of History and Archaeology* 1, no. 1 (2024)) carries the wall's 25.7 km perimeter
+and 34 km² area, the twelve gates, the moat, the corner turrets and the placing of the Northern and
+Southern armies — all off the CASS excavation reports, which are not openable themselves. DOAJ found
+it; a plain web search did not.
+
+**THE TWO-PER-AUTHOR CAP DECIDED THREE CARDS' SOURCE LISTS.** `cnh-241` could have been four
+Chavannes citations and is two (the five divisions at clxxii–clxxiv, the ten lost chapters and Chu
+Shaosun at cci–cciv) with Wylie and two Cordier pages carrying the rest. `cnh-245` was drafted with
+three Cordier pages and the third was replaced by Theobald, which is also what made the card honest
+about how Wang Mang died: **Cordier says his own soldiers, Giles says a revolt of his troops and
+names Du Wu, Boulger says he was cut down by the storming enemy, and Theobald says a merchant called
+Du Wu** — so the card gives two accounts rather than picking one.
+
+**FOUR DATE LINES WERE READ BACK THROUGH `cardYears` AND ALL TEN SORT CORRECTLY.** The one worth
+recording is that a **one-digit CE year parses** — "9 CE", "6 – 8 CE" and "11 CE" all yield their
+years — which was not obvious and was tested against a sliced copy of `cardYears` before the cards
+were written. `cnh-243`'s second row is `Provinces | 13`, which yields no year at all and correctly
+leaves the sort on 106 BCE.
+
+**ONE HOUSE-STYLE FAULT SHIPPED INTO `check-style.js` AND IT WAS IN BOTH HALVES OF THE CORPUS.**
+`cnh-247` was written with "Fifty-three princes of the nearer generation", which breaks the
+numerals-above-twenty rule. The fix had to be applied to `data.js` (the question) **and** to
+`data-extra/cnh.js` (the abstract) — the same words in two files, which is exactly what CLAUDE.md
+warns a find-and-replace over `data.js` alone will miss.
+
+**PICTURES: NINE OF TEN, AND THE CONTACT-SHEET RULE PAID TWICE.** `Wang Mang(Emperor of the Xin
+dynasty).png` is titled as a portrait and is a decayed painted-clay temple tableau of three figures
+hacking a bearded man with swords — wrong subject, and grim on a study card; replaced by the
+woodblock portrait from Zhong Xing's illustrated *Eastern and Western Han*. And the wuzhu scan first
+chosen is the collector's *bagsider* — the **reverses**, which are blank, so the coin's own name is
+nowhere on it; the *forsider* scan, with 五銖 cast either side of every hole, replaced it and the
+reverses went to the glossary term, where a plain back is itself the fact. `cnh-247` ships with none:
+a title is not a thing, and the two candidate images of the regency are of Wang Mang, who has his own
+card one number back. Four of the nine new glossary terms took a picture — Weiyang's site from a
+second angle, the Xin *huobu* spade coin, a Han pottery farmstead and the wuzhu reverses; the other
+five are concepts and offices with no object.
+
+**LOCATORS: TWO OF TEN.** Weiyang Palace takes a point at its own coordinate with
+`within: "Chang'an"`, and the Xin dynasty a point at Chang'an. The rest are a book, an office, a
+kind of family, a man, a title, a land decree, a coin and a river process — none of them a place a
+reader could stand, which is the rule answering rather than a gap.
+
+**AND THE ALIAS `Xin` WAS WRONG 23 TIMES IN 26, CAUGHT AFTER THE PUSH.** `Xin_dynasty` shipped with
+the bare name as an alias. Measured over the corpus, the surface occurs 26 times and only three are
+the dynasty: the rest are **Di Xin**, the last Shang king (`cnh-067`, `cnh-076`, `cnh-101`–`cnh-103`),
+**Han Xin**, the general (`cnh-214`, `cnh-216`, `cnh-219`, `cnh-220`), **Xin'an** where Xiang Yu
+killed his prisoners, the **Xin river** in Jiangxi (`gc-013`), and the sites Xin'gan and Xin'anzhuang
+— and an apostrophe is not a letter, so the auto-linker's boundary test matches inside those last two
+as well. Dropped; the term is reached by its full name. This is `Yan_(state)`'s finding run the other
+way round, and the check is two lines of Node against the shipped prose: **count the bare surface
+before claiming it, and read what the hits actually are.**
+
+## cnh-251 – cnh-260, the Red Eyebrows, the restoration and the Ban family (Sep 2026)
+
+The batch that opens `col-12`, the Eastern Han deck. Two plan lines were renamed while writing, both
+because the line named a subject rather than an answer term and the term had to be found.
+
+**`cnh-252` "The fall of the Xin" → *Battle of Kunyang*.** The fall itself was already carded from two
+sides — `cnh-246` gives Wang Mang's death and `cnh-245` the dynasty's end — so a third card on it would
+have re-carded what the reader has. Kunyang is the event that made the rest happen, it is concrete and
+datable, and no later plan line wants it.
+
+**`cnh-255` "The Han restoration" → *Chengjia*.** The restoration is eleven years and a dozen claimants,
+and every crisp answer term for it was already spent: `cnh-253` takes Eastern Han and `cnh-254` takes
+Guangwu. What was left was the last of the rival regimes, which is also the sharpest way to teach the
+thing — Sichuan went on being an empire of its own until 36 CE, and the card is about the eleven years
+with Gongsun Shu's state as the last of them. Theobald names the state (`Emperor of Shu, or Chengjia`)
+with a cited source, so the term is attested rather than reconstructed.
+
+**THE SOURCE BASE FOR THE EASTERN HAN IS EIGHT AUTHORS AND SEVEN OF THEM ARE OUT OF COPYRIGHT.** Cordier's
+*Histoire générale de la Chine* vol. 1 (pp. 253–76) carries the whole narrative from the Xiongnu breach of
+9 CE to the abandonment of the Western Regions in 107; Giles's *Chinese Biographical Dictionary* has
+Liu Xiu (p. 503), Fan Chong (215), Feng Yi (225–26), Gongsun Shu (395), Ban Chao (607–8), Ban Gu (610–11)
+and Ban Biao (611); Boulger's *China* pp. 36–39 is the English narrative; Wylie's *Notes on Chinese
+Literature* pp. 12–14 is the standard account of the dynastic-history form and of the *Hanshu* itself;
+and **Hirth's *China and the Roman Orient* (1885) is open on archive.org** at
+`chinaandromanor01hirtgoog`, with Gan Ying's mission of 97 CE on p. 13 and Ban Gu's authorship of the
+Qian Han shu on p. 3. Four ChinaKnowledge.de articles pass the encyclopedia test (a `Sources:` block of
+their own): `han-event-chimei`, `personsbanchao`, `personsgongsunshu` and `hanshu`. The one modern
+open-access work found for the period is **Yunxin Li, "Elites' Social Networks and Politics in the Han
+Empire," *Journal of Open Humanities Data* 9 (2023)**, which states the Eastern Han land-consolidation
+point outright.
+
+**AND ONE MODERN SPINE WAS LOST TO AN OUTAGE — RETRY IT.** ANU's Open Research repository holds Rafe de
+Crespigny's whole body of Later Han work open, including *Fire Over Luoyang*, *The Eastern Han*, *An
+Outline of the Local Administration of the Later Han Empire* and *The Division and Destruction of the
+Xiongnu Confederacy*. The discovery API and one bitstream answered; `hdl.handle.net/1885/…`,
+`/handle/1885/…` and `/items/<uuid>` all returned **503** for the whole session, and two of the three
+PDFs 401. A citation must end in a URL a reader can open, so de Crespigny is cited nowhere in this batch
+— **not because he is shut but because his repository was down that afternoon.** Try
+`openresearch-repository.anu.edu.au` first next time; it is the best modern Eastern Han scholarship there
+is, and it is free.
+
+**THE HOUSE NUMBER RULES BIT SEVEN OF THE TEN CARDS AND THE SWEEP HAS TO COVER BOTH HALVES.** Centuries
+must be numbered and non-round numbers above 20 must be numerals, and this subject is full of both — "the
+first century CE", "thirty-two years on the throne", "sixty-five chapters", "thirty-six of them at first
+and fifty-five later". Eleven strings were fixed across `data.js`, `data-extra/cnh.js`, `glossary.js` and
+`glossary-extra.js` in one asserted pass; a replacement run over `data.js` alone would have corrected the
+questions and left every abstract standing, which is the fault this file already records against the
+`cnh-201`–`cnh-210` batch. **`Twenty-Four Histories` is a proper name and keeps its words.**
+
+**A DATE LINE FOR AN INSTITUTION SPANNING BOTH HAN SORTS BY ITS EARLIEST ROW, WHICH IS THE WRONG DECK.**
+`cnh-258`'s subject, the Protectorate of the Western Regions, was created in 60 BCE, and a date line
+saying so would have sorted an Eastern Han card 130 years before the Western Han deck's own cards. The
+line carries the Eastern Han span (revived 74, Ban Chao 91, abandoned 107) and the 60 BCE creation is the
+abstract's first substantive claim instead. The same reasoning kept `cnh-260`'s coverage span (206 BCE –
+23 CE) out of its date line, which reads `Begun c. 36 CE / Chapters 100` and sorts at 36. All ten sort
+years were read back through `cardYears` before the cards were committed.
+
+**TWO CONTRADICTIONS BETWEEN SOURCES, EACH SETTLED BY NOT CITING THE LOSER.** Giles gives Ban Chao
+31–101 CE where Theobald gives 32–102, so the date line takes Theobald and Giles is cited for the career
+rather than for the years. And **Giles's entry for Liu Xiu calls him "a native of Lo-yang", which is
+wrong** — he was a Nanyang landholder and Luoyang was the capital he chose — so `cnh-254` cites Giles for
+the dates, the orphaning and the grain-selling, and says nothing about a birthplace.
+
+**A PICTURE WAS ALREADY TAKEN, AND `check-image-free.js` IS WHY THE CARD DID NOT SHIP WITH IT.** The
+Eastern Han banquet mural from Zhucun, the obvious illustration for `cnh-253`, is on `wh-408`; the Han
+scholars relief that came second is on `wh-400`. The card took Herrmann's atlas map of Han China instead,
+whose two frontiers — Western Han and Eastern Han — are the card's own subject. **And the one `src`
+composed by hand was a 404**: the Commons shard for that map is `b/b2` and the guess was `1/1a`, which is
+this file's standing rule arriving on schedule. Every other `src` came out of the API's own `url` field,
+and all ten were curled before the batch was applied.
+
+**`upload.wikimedia.org` RATE-LIMITED AT 429 HALF WAY THROUGH AND `commons.wikimedia.org/w/thumb.php`
+DID NOT.** `Special:FilePath` was also 429 while `thumb.php?f=<FILE>&width=800` answered 200 for the same
+files, which is how the last two candidates were looked at. Ten of ten card pictures were read by eye
+before installation; the contact sheet was not needed, PIL still being absent.
+
+**NINE OF THE TEN GLOSSARY TERMS SHIP WITHOUT A PICTURE, DELIBERATELY.** Each term's own card carries the
+right picture and there is only one of it — a second copy on the term is the within-collection duplicate
+`check-cards.js` exists to report, and the alternatives Commons offers for these subjects are all weaker
+than the one already used. `Eastern_Han` took a distinct one (an Eastern Han pottery tower model, CC0).

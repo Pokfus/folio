@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.698", released: "2026-09-12T18:08Z" };
+window.FOLIO_VERSION = { v: "1.699", released: "2026-09-12T19:20Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-12",
     t: "Caesar's war won, and the kingdoms of Southeast Asia",
     items: [
-      "<b>Forty new cards</b> \u2014 ten in Ancient Rome from Dyrrhachium to the <i>Ides of March</i>, ten in World History on Islam in India and Southeast Asia, and twenty in the Second World War on the invasion and occupation of Poland and the Winter War, with thirty-nine new glossary terms.",
+      "<b>Sixty new cards</b> \u2014 ten in Ancient Rome from Dyrrhachium to the <i>Ides of March</i>, ten in World History on Islam in India and Southeast Asia, twenty in China from Sima Qian\u2019s history to the fall of Wang Mang and the restored Han, and twenty in the Second World War on the invasion of Poland and the Winter War, with fifty-eight new glossary terms.",
       "<b>Five Ancient Greece questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who argued what.",
       "<b>One Ancient Greece background no longer reads as a roll-call of the scholar it rests on</b>, keeping every claim and every citation.",
     ],
@@ -76,6 +76,9 @@ window.CHANGELOG = [
       "<b>A deck's long-press menu can now fetch its files again</b>, for when a repair has not shown up.",
       "The card for the Lower Paleolithic no longer implies the Acheulean hand-axe began in France.",
       "A picture of Beringia and one of Chang'an that showed the wrong thing, and the Cowrie shell card no longer appears in Timeline.",
+      "<b>Forty new cards in the China deck</b>, taking the Qin to its fall and the Han from Gaozu through the Xiongnu wars and the southern conquests to the salt and iron monopoly.",
+      "Thirty-six more glossary terms, for the Qin roads and walls, the founding of the Han, its wars on the steppe, its state monopolies and its Confucian schools.",
+      "A citation on the Terracotta Army card and its glossary term now gives the right article number.",
       "<b>Forty new cards in the Second World War collection</b>, on Japan’s road to war in Asia and the crises of the 1930s from Spain to the Nazi-Soviet pact and the armies that fought it, each with its own glossary term.",
     ],
   },
