@@ -518,35 +518,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   planned collections, the eleventh history one, and the fifth to **create its own collection** — node,
   tree, `COLL_THEME` hue and a new `ICON_SYMBOLS` mark (`taegeuk`) ship with the plan. **Read its five
   scope decisions before writing anything**, of which three carry the most weight: **North Korea gets
-  thirty-five cards and is not a curiosity** (the same size as South Korea, with `ko-813`–`ko-815` and
-  `ko-819`–`ko-820` carding the evidence problem and how to read a DPRK source, so a reader meets the
-  epistemics before the claims); **four states are making accounts of their own actions here** — the
-  DPRK's official history, the ROK's older anti-communist historiography, the Japanese colonial
-  scholarship that shaped how Korean history was written for a generation, and the Chinese Northeast
+  thirty-five cards and is not a curiosity**, with `ko-813`–`ko-815` and `ko-819`–`ko-820` carding the
+  evidence problem and how to read a DPRK source, so a reader meets the epistemics before the claims;
+  **four states are making accounts of their own actions here** — the DPRK's official history, the ROK's
+  older anti-communist historiography, the Japanese colonial scholarship and the Chinese Northeast
   Project — and all four are carded as accounts; and **the hardest colonial subjects are carded
-  directly**, forced labour and the comfort women system with the documented record and the range of
-  estimates, without settling the present-day dispute. Its **Sourcing section is measured rather than
-  assumed** and carries two more 200-status error documents (`jstor.org` serves a 3 KB "Client
-  Challenge"; `muse.jhu.edu` serves "Verification required!"), the finding that the recognition guide
-  has **no page for North Korea** because the United States has never recognised it, and the loss that
-  matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Almost none of its
-  thousand topics matched an existing glossary key**, so expect the glossary to grow faster here than
-  anywhere since Greece — `ko-001`–`ko-100` alone added ninety-eight terms. **The plan's claim that NOT ONE
-  matched was wrong by one, and the exception is the useful half**: `Seoul` was already a cited term, so
-  `ko-010` reuses it — **the pairing rule is satisfied by a term that already exists, and
-  `add-glossary.js` overwrites in silence, so CHECK before running it.** The next card to write is the
-  lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the
-  lookup. **`ko-001` to `ko-100` have shipped** (Sep 2026) — the whole of `ko-early`, and the opening of
-  `ko-tk` — so the
-  collection is live and its 38 empty decks are coming-soon automatically, `isComingSoon` being true for
-  a node holding no card.
-  **📖 `docs/korea-card-plan.md` — READ BEFORE WRITING A `ko-` CARD.** Besides the plan itself it now
-  carries the batch account of `ko-001`–`ko-100`: which sources carried each batch, the open hosts found
-  (the *International Journal of Korean History*'s whole back run, *Asian Perspectives*' repository
-  copies, Hulbert on Gutenberg and archive.org) and the ones that are shut, the four distinct routes to a
-  wrong sort year, and the content decisions — the two-scholar cap deciding a card, a disputed island
-  keyed under the neutral name, a general glossary term rewritten when a second continent linked to it.
-  Not part of the site.
+  directly**, with the documented record and the range of estimates, without settling the present-day
+  dispute. Its **Sourcing section is measured rather than assumed**. **Almost none of its thousand topics
+  matched an existing glossary key**, so expect the glossary to grow faster here than anywhere since
+  Greece. **The plan's claim that NOT ONE matched was wrong by one, and the exception is the useful
+  half**: `Seoul` was already a cited term, so `ko-010` reuses it — **the pairing rule is satisfied by a
+  term that already exists, and `add-glossary.js` overwrites in silence, so CHECK before running it.**
+  The next card to write is the lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN
+  PLANNED COLLECTIONS" is the lookup. **`ko-001` to `ko-100` have shipped** (Sep 2026) — the whole of
+  `ko-early`, and the opening of `ko-tk` — so the collection is live and its 38 empty decks are
+  coming-soon automatically, `isComingSoon` being true for a node holding no card.
+  **📖 `docs/korea-card-plan.md` — READ BEFORE WRITING A `ko-` CARD.** Besides the plan itself it carries
+  the batch account of `ko-001`–`ko-100`: which sources carried each batch, the open hosts found and the
+  ones that are shut, the four distinct routes to a wrong sort year, and the content decisions — the
+  two-scholar cap deciding a card, a disputed island keyed under the neutral name, a general glossary
+  term rewritten when a second continent linked to it. Not part of the site.
 - **📖 `docs/art-card-plan.md` — READ BEFORE WRITING AN `art-` CARD, AND BEFORE BUILDING THE ARTWORK
   CARD FORMAT.** The **1000-card running order for the Visual Art collection** (`art`): every card's
   number, topic and deck, fixed in advance across 9 decks and 39 leaf decks. The seventeenth
