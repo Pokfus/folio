@@ -4744,22 +4744,19 @@ the end of a successful add and print the candidates, their licences, their size
   glossary terms and one artefact today, most of them abstract concepts and living scholars — say so in the
   commit message rather than leaving the gap looking like an oversight. `--no-image` skips the lookup for a
   batch run with no network.
-· **AND WHEN `upload.wikimedia.org` RATE-LIMITS, `Special:FilePath` STILL SERVES THE FILE** (Aug 2026).
-  A long session that has looked at a dozen pictures starts getting a 2,255-byte **429** from
-  `upload.wikimedia.org` on every request, and it does not clear with backoff — fifteen minutes of waiting
-  bought nothing. `https://commons.wikimedia.org/wiki/Special:FilePath/<FILE>?width=900` answers 200 with
-  the image, and so does `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=900`; the ordinary file
-  DESCRIPTION page keeps working throughout too, which is where the licence and author have to be read
-  from when the `api.php` endpoint is also limited. **Use those to LOOK at a candidate**; the `src` written
-  into the card stays the normal `/thumb/…/1920px-…` URL, since the limit is this container's and not a
-  reader's. The rule this protects is the one that matters: **look at the picture before using it**, and a
-  host that will not serve it is a reason to keep trying or to ship without one, never to install unseen.
+· **WHEN `upload.wikimedia.org` RATE-LIMITS, `Special:FilePath` STILL SERVES THE FILE** (Aug 2026) —
+  `https://commons.wikimedia.org/wiki/Special:FilePath/<FILE>?width=900`, or
+  `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=900`, and the file DESCRIPTION page keeps working
+  throughout, which is where the licence and author are read from. **Use those to LOOK at a
+  candidate**; the `src` written into the card stays the normal `/thumb/…/1920px-…` URL, the limit
+  being this container's and not a reader's. **A host that will not serve a picture is a reason to
+  keep trying or to ship without one, never to install one unseen.**
 · **AND THE `src` IS COPIED FROM THE API, NEVER BUILT BY HAND** (Sep 2026). An upload URL carries a
   two-character shard — `…/commons/0/07/<FILE>` — which is the first characters of the file name's MD5
   and CANNOT be guessed; a hand-typed one is a 404 on a card that otherwise looks finished. Ask
-  `api.php` for `imageinfo` with `iiprop=url` and take `url` (or `thumburl`, minus its tracking query).
-  It cost a broken picture once, caught only because the rate limit above forced a re-check — so when
-  a `src` cannot be fetched to confirm it, compare it against the API's own string instead.
+  `api.php` for `imageinfo` with `iiprop=url` and take `url` (or `thumburl`, minus its tracking query);
+  where a `src` cannot be fetched to confirm it, compare it against the API's own string instead.
+  **📖 `docs/media.md` — READ BEFORE FETCHING A CANDIDATE PICTURE OR WRITING AN IMAGE `src` BY HAND.**
 · It writes the same fields the pass writes: a card and a term take `{ src, title, desc, credit, alt }`, an
   artefact `{ src, credit, alt }`, and **`credit` is required in all three** — a picture on Folio is always
   somebody else's file, and `add-card.js`, `add-glossary.js`, `add-artefacts.js`, `add-images.js` and the

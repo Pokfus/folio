@@ -270,3 +270,25 @@ appends to is not found, so a refactor cannot leave it quietly testing nothing. 
 assertions can be made in COLOUR — a red band down the far left, green through the middle — because a drag
 wired to nothing still opens a dialog, still shows the photograph and still saves; what it saves is the
 centre crop, and reaching the left edge is the whole of what was asked for.
+
+## Sourcing a picture from Commons — the rate limit and the URL shard
+
+**Read this before fetching a candidate picture, or before writing an image `src` by hand.**
+CLAUDE.md keeps both rules; this is the measured account behind them.
+
+· **AND WHEN `upload.wikimedia.org` RATE-LIMITS, `Special:FilePath` STILL SERVES THE FILE** (Aug 2026).
+A long session that has looked at a dozen pictures starts getting a 2,255-byte **429** from
+`upload.wikimedia.org` on every request, and it does not clear with backoff — fifteen minutes of waiting
+bought nothing. `https://commons.wikimedia.org/wiki/Special:FilePath/<FILE>?width=900` answers 200 with
+the image, and so does `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=900`; the ordinary file
+DESCRIPTION page keeps working throughout too, which is where the licence and author have to be read
+from when the `api.php` endpoint is also limited. **Use those to LOOK at a candidate**; the `src` written
+into the card stays the normal `/thumb/…/1920px-…` URL, since the limit is this container's and not a
+reader's. The rule this protects is the one that matters: **look at the picture before using it**, and a
+host that will not serve it is a reason to keep trying or to ship without one, never to install unseen.
+· **AND THE `src` IS COPIED FROM THE API, NEVER BUILT BY HAND** (Sep 2026). An upload URL carries a
+two-character shard — `…/commons/0/07/<FILE>` — which is the first characters of the file name's MD5
+and CANNOT be guessed; a hand-typed one is a 404 on a card that otherwise looks finished. Ask
+`api.php` for `imageinfo` with `iiprop=url` and take `url` (or `thumburl`, minus its tracking query).
+It cost a broken picture once, caught only because the rate limit above forced a re-check — so when
+a `src` cannot be fetched to confirm it, compare it against the API's own string instead.
