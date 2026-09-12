@@ -591,22 +591,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   actively contested in public**, which is why its "History, not commemoration" and "Sourcing" sections are
   the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
   `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **`ww2-001`
-  to `ww2-150` have shipped**, so the collection is live and its empty decks are coming-soon
-  automatically, `isComingSoon` being true for a node holding no card. **Twenty-three of its lines have been
+  to `ww2-160` have shipped**, so the collection is live and its empty decks are coming-soon
+  automatically, `isComingSoon` being true for a node holding no card. **Twenty-nine of its lines have been
   retitled while writing**, which is what the plan's own rule asks for, and each retitle has one of four
   reasons. A card is answered by a TERM rather than by a description: `ww2-102` is answered by *Southern
   Advance*, `ww2-105` by *Pan-Asianism*, `ww2-112` by *International Brigades*, `ww2-117` by
   *Sudetenland*, `ww2-122` by *Protectorate of Bohemia and Moravia*, `ww2-123` by *Anglo-Polish alliance*,
   `ww2-128` by *sphere of influence*, `ww2-130` by *Free City of Danzig*, `ww2-136` by *Bewegungskrieg*,
   `ww2-137` by *Panzer division*, `ww2-138` by *Giulio Douhet*, `ww2-139` by *Wehrmacht*, `ww2-141` by
-  *Fall Weiss*, `ww2-143` by *cordon defence*, `ww2-147` by *German-Soviet Frontier Treaty* and `ww2-148`
-  by *declaration of war* — a line naming an EVENT
+  *Fall Weiss*, `ww2-143` by *cordon defence*, `ww2-147` by *German-Soviet Frontier Treaty*, `ww2-148`
+  by *declaration of war*, `ww2-154` by *Sovietisation*, `ww2-158` by *Polish Armed Forces in the West*
+  and `ww2-160` by *Moscow Peace Treaty* — a line naming an EVENT
   ("the German occupation of Czechoslovakia", "the Danzig crisis") usually wants the THING the event
   made or was about, since that is what a reader will meet the word for again. An earlier card has already spent the obvious answer: `ww2-107` is the *Stimson Doctrine*,
   since `ww2-090` and `ww2-091` had already carded the League's own handling of the Manchurian crisis; the
   Poland deck gave that reason twice more, `ww2-144` taking *Battle of the Bzura* because `ww2-141` already
   cards the campaign under its German name, and `ww2-150` taking *Reichsgau* because the General Government
-  and the Intelligenzaktion are `ww2-151` and `ww2-153`.
+  and the attack on the intelligentsia are `ww2-151` and `ww2-153`.
+  **AND A FIFTH REASON ARRIVED WITH THE OCCUPATION DECK: THE SOURCES WILL NOT CARRY THE PLAN'S OWN WORD**
+  (Sep 2026, writing `ww2-151`–`ww2-160`). Nothing openable from here names the *Intelligenzaktion* — not the
+  Nuremberg judgments, not the Polish government's 1942 dossier, not the Madden hearings — so `ww2-153` is
+  answered by **`AB-Aktion`**, which the judgment on Frank names outright ("the brutal A.B. action") and
+  dates to his police conference of 30 May 1940, and `ww2-152` takes **`Sonderaktion Krakau`**, the arrest of
+  the Kraków professors on 6 November 1939, which an open Polish journal names and the dossier describes in
+  full. **Four obvious answers for `ww2-152` were spent by LATER lines and the plan is what says so** —
+  `Lebensraum` is `ww2-050`, `Generalplan Ost` `ww2-264`, `Germanisation` `ww2-676`, `Einsatzgruppen`
+  `ww2-743`, forced labour `ww2-369`/`ww2-664`/`ww2-876` and reprisals and hostage-taking `ww2-693`, so
+  **grep the running order for a candidate term before researching it**, not after.
+  **`ww2-154` and `ww2-156` are the same reason from the other side**: *the Soviet occupation of eastern
+  Poland* and *Soviet deportations from occupied Poland* are both descriptions, and the terms the open
+  literature does carry are **`Sovietisation`** — the word Lebedeva's study uses for the whole programme —
+  and **`NKVD`**, the commissariat that ran every part of it.
+  **AND `Sovietisation` IS AUTHORED BRITISH, WHICH COST A ROW IN `SPELL_PAIRS`**: the -ise/-ize family is
+  two-way and the table had no `sovietis`/`sovietiz` row, so whichever spelling was stored would have marked
+  the other one's readers wrong in the cloze box. One row added; `gradeCloze` transforms the ANSWER, so both
+  spellings now grade correctly.
   **And `ww2-120` is the third reason, which is the one to read before planning a historiography card**:
   *the debate over appeasement* has no name of its own that anything openable defines, so it is answered by
   **`Guilty Men`**, the 1940 polemic that fixed the popular verdict — a contemporary argument rather than a
@@ -976,7 +995,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.27 MB and 47,918 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.27 MB and 47,919 lines is hard to find your way around, so this
   lists its 182 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -4878,7 +4897,7 @@ lookup.
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 199 cards, `cnh-001` to `cnh-200` with `cnh-070` retired in Sep 2026 — next is `cnh-201`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
-| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 150 cards, contiguous — next is `ww2-151` |
+| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 160 cards, contiguous — next is `ww2-161` |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |

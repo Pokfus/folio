@@ -656,15 +656,15 @@ definitions, which exist precisely because the wording matters.
     ww2-149  Phoney War
     ww2-150  The beginning of the German occupation of Poland  → written as *Reichsgau*
     ww2-151  General Government
-    ww2-152  Nazi policy towards Poles
-    ww2-153  Intelligenzaktion
-    ww2-154  The Soviet occupation of eastern Poland
+    ww2-152  Nazi policy towards Poles  → written as *Sonderaktion Krakau*
+    ww2-153  Intelligenzaktion  → written as *AB-Aktion*
+    ww2-154  The Soviet occupation of eastern Poland  → written as *Sovietisation*
     ww2-155  Katyn massacre
-    ww2-156  Soviet deportations from occupied Poland
+    ww2-156  Soviet deportations from occupied Poland  → written as *NKVD*
     ww2-157  Polish government-in-exile
-    ww2-158  The Polish armed forces in the West
+    ww2-158  The Polish armed forces in the West  → written as *Polish Armed Forces in the West*
     ww2-159  Winter War
-    ww2-160  The Moscow Peace Treaty
+    ww2-160  The Moscow Peace Treaty  → written as *Moscow Peace Treaty*
     ww2-161  The Soviet annexation of the Baltic states
     ww2-162  The Soviet annexation of Bessarabia
     ww2-163  The Allied plans for Scandinavia
