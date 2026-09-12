@@ -15225,6 +15225,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["civilis", "civiliz", "e|es|ed|ing|ation|ations|ational"],
     ["colonis", "coloniz", "e|es|ed|ing|ation|ations|er|ers"],
     ["decolonis", "decoloniz", "e|es|ed|ing|ation"],
+    ["sovietis", "sovietiz", "e|es|ed|ing|ation|ations"],
     ["specialis", "specializ", "e|es|ed|ing|ation|ations"],
     ["standardis", "standardiz", "e|es|ed|ing|ation|ations"],
     ["centralis", "centraliz", "e|es|ed|ing|ation|ations"],

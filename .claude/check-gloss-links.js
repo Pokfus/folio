@@ -57,9 +57,10 @@ const { glossKeyTitle, isProperCS, pluralForms } = new Function(
 )();
 
 global.window = {};
-require(path.join(ROOT, "data.js"));
 require(path.join(ROOT, "glossary.js"));
-const CARDS = window.CARD_DATA || [];
+/* Card abstracts live in data-extra/<prefix>.js — load through card-io.js, or there is no
+   prose to look for links in.  See card-io.js's header. */
+const CARDS = require(path.join(__dirname, "card-io.js")).loadCards().cards;
 const G = window.GLOSSARY || {};
 const A = window.GLOSSARY_ALIASES || {};
 const CS = window.GLOSSARY_CASESENSITIVE || {};

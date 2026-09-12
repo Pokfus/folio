@@ -590,8 +590,66 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `COLL_THEME` hue ship with the plan — and **the first whose subject is inside living memory and is
   actively contested in public**, which is why its "History, not commemoration" and "Sourcing" sections are
   the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
-  `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **No card
-  has been written yet.** Not part of the site.
+  `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **`ww2-001`
+  to `ww2-160` have shipped**, so the collection is live and its empty decks are coming-soon
+  automatically, `isComingSoon` being true for a node holding no card. **Twenty-nine of its lines have been
+  retitled while writing**, which is what the plan's own rule asks for, and each retitle has one of four
+  reasons. A card is answered by a TERM rather than by a description: `ww2-102` is answered by *Southern
+  Advance*, `ww2-105` by *Pan-Asianism*, `ww2-112` by *International Brigades*, `ww2-117` by
+  *Sudetenland*, `ww2-122` by *Protectorate of Bohemia and Moravia*, `ww2-123` by *Anglo-Polish alliance*,
+  `ww2-128` by *sphere of influence*, `ww2-130` by *Free City of Danzig*, `ww2-136` by *Bewegungskrieg*,
+  `ww2-137` by *Panzer division*, `ww2-138` by *Giulio Douhet*, `ww2-139` by *Wehrmacht*, `ww2-141` by
+  *Fall Weiss*, `ww2-143` by *cordon defence*, `ww2-147` by *German-Soviet Frontier Treaty*, `ww2-148`
+  by *declaration of war*, `ww2-154` by *Sovietisation*, `ww2-158` by *Polish Armed Forces in the West*
+  and `ww2-160` by *Moscow Peace Treaty* — a line naming an EVENT
+  ("the German occupation of Czechoslovakia", "the Danzig crisis") usually wants the THING the event
+  made or was about, since that is what a reader will meet the word for again. An earlier card has already spent the obvious answer: `ww2-107` is the *Stimson Doctrine*,
+  since `ww2-090` and `ww2-091` had already carded the League's own handling of the Manchurian crisis; the
+  Poland deck gave that reason twice more, `ww2-144` taking *Battle of the Bzura* because `ww2-141` already
+  cards the campaign under its German name, and `ww2-150` taking *Reichsgau* because the General Government
+  and the attack on the intelligentsia are `ww2-151` and `ww2-153`.
+  **AND A FIFTH REASON ARRIVED WITH THE OCCUPATION DECK: THE SOURCES WILL NOT CARRY THE PLAN'S OWN WORD**
+  (Sep 2026, writing `ww2-151`–`ww2-160`). Nothing openable from here names the *Intelligenzaktion* — not the
+  Nuremberg judgments, not the Polish government's 1942 dossier, not the Madden hearings — so `ww2-153` is
+  answered by **`AB-Aktion`**, which the judgment on Frank names outright ("the brutal A.B. action") and
+  dates to his police conference of 30 May 1940, and `ww2-152` takes **`Sonderaktion Krakau`**, the arrest of
+  the Kraków professors on 6 November 1939, which an open Polish journal names and the dossier describes in
+  full. **Four obvious answers for `ww2-152` were spent by LATER lines and the plan is what says so** —
+  `Lebensraum` is `ww2-050`, `Generalplan Ost` `ww2-264`, `Germanisation` `ww2-676`, `Einsatzgruppen`
+  `ww2-743`, forced labour `ww2-369`/`ww2-664`/`ww2-876` and reprisals and hostage-taking `ww2-693`, so
+  **grep the running order for a candidate term before researching it**, not after.
+  **`ww2-154` and `ww2-156` are the same reason from the other side**: *the Soviet occupation of eastern
+  Poland* and *Soviet deportations from occupied Poland* are both descriptions, and the terms the open
+  literature does carry are **`Sovietisation`** — the word Lebedeva's study uses for the whole programme —
+  and **`NKVD`**, the commissariat that ran every part of it.
+  **AND `Sovietisation` IS AUTHORED BRITISH, WHICH COST A ROW IN `SPELL_PAIRS`**: the -ise/-ize family is
+  two-way and the table had no `sovietis`/`sovietiz` row, so whichever spelling was stored would have marked
+  the other one's readers wrong in the cloze box. One row added; `gradeCloze` transforms the ANSWER, so both
+  spellings now grade correctly.
+  **And `ww2-120` is the third reason, which is the one to read before planning a historiography card**:
+  *the debate over appeasement* has no name of its own that anything openable defines, so it is answered by
+  **`Guilty Men`**, the 1940 polemic that fixed the popular verdict — a contemporary argument rather than a
+  modern scholar, which is what the plan's two-scholar cap requires, and a card whose answer term IS a
+  modern argument, so the historiography cap under "Generating cards" does not bind on it.
+  **`ww2-129` is that third reason met again from the other side**: *why the Soviet Union signed* is a
+  question rather than a term, and no openable work names the motive, so the card is answered by
+  **`Maxim Litvinov`** — the commissar whose dismissal on 3 May 1939 is where the change of course is
+  documented and datable, in the German chargé's own telegram and in the American reports of the day.
+  **A MOTIVE LINE WANTS THE MOMENT THE MOTIVE BECAME VISIBLE**, not a paraphrase of the motive.
+  **AND `ww2-133` IS A FOURTH REASON, WHICH IS THE ONE TO CHECK FOR FIRST**: its line is
+  *Franklin D. Roosevelt and the approach of war*, and `Franklin_D._Roosevelt` has been a cited glossary
+  term since Phase 2 of the citation pass, so the pairing rule was already satisfied and the line had no
+  term of its own left to teach. It is answered by the **`Quarantine Speech`** instead. **A LINE NAMED
+  AFTER A PERSON THE GLOSSARY ALREADY HOLDS WANTS THE MOMENT, NOT THE MAN** — and the check is one command
+  against the glossary keys before the research starts, not after.
+  `ww2-140` is `ww2-120`'s reason a third time: *was the war inevitable?* is a question, the plan cards the
+  origins debate as an argument rather than as people, so it is answered by the **`Hossbach Memorandum`**,
+  the one document the argument turns on — with the IMT judgment's record of the defence's answer to it on
+  the same card, which is what keeps the historiography inside the cap.
+  One thing that batch measured and did not act on: `Neville_Chamberlain` is deliberately denied the
+  bare alias **Chamberlain**, because the corpus's eleven surfaces include Austen twice and Joseph once,
+  and an alias right six times and wrong three is worse than none. Not part of the
+  site.
 - `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
   Geography SECTION), and **the
   only plan that is not a thousand cards**: it is fifty states (`geo-001`–`geo-050`) and
@@ -774,7 +832,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   by eye. Not part of the site.
 - `.claude/check-citations.js` — **every citation's AUTHOR NAMES and YEAR, against Crossref**:
   `node .claude/check-citations.js [--prefix=wh-] [--card=] [--term=] [--artefacts] [--verbose]`, exit 1
-  on a mismatch. **RUN IT BEFORE WRITING A CARD'S JSON, NOT AFTER** — as an audit afterwards it let eight
+  on a mismatch. **A RUN THAT REPORTS `works cited 0` IS THE TOOL FAILING, NOT THE CORPUS PASSING** — it
+  read `data.js` alone for as long as the `data-extra/` split existed and saw no card sources at all (see
+  the `data-extra` bullet above); check the count before believing the verdict. **RUN IT BEFORE WRITING A
+  CARD'S JSON, NOT AFTER** — as an audit afterwards it let eight
   bad citations ship across four cards in one week. It exists because **Europe PMC returns author lists as
   INITIALS** and a Chicago note wants full given names: expanding them by hand produces names that read
   perfectly and are wrong. A DOI composed from the shape of a publisher's identifier fails the same way
@@ -934,7 +995,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.27 MB and 47,918 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.27 MB and 47,919 lines is hard to find your way around, so this
   lists its 182 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -4836,7 +4897,7 @@ lookup.
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 199 cards, `cnh-001` to `cnh-200` with `cnh-070` retired in Sep 2026 — next is `cnh-201`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
-| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
+| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 160 cards, contiguous — next is `ww2-161` |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
@@ -5266,6 +5327,12 @@ that WANTS the bare name says so with an ALIAS, which is how all five parentheti
 were already written (`Georgia_(country)` carries "Georgia"). **`node .claude/check-gloss-links.js` reports
 what is left**: an auto-link whose term is bound to a different part of the world (a proxy, report-only, 34
 findings) and — exactly — two keys competing for one surface.
+**RUN IT PER CARD WHEN CHECKING A BATCH — `--card=<id>`** (Sep 2026, writing `ww2-101`–`ww2-110`): over the
+whole corpus it did not finish inside five minutes and was still going at twenty, the glossary having grown
+to 3,400-odd terms and 11,700 surfaces since the figure above was measured, where one card answers in a
+couple of seconds. **And read the finding before acting on it, which is what "proxy" means here**: the one
+it returned for that batch was `ww2-108`, tagged italy/africa/ethiopia, linking "Anti-Comintern Pact" to a
+term tagged germany/japan — correct, because the sentence really is about Germany and Japan.
 
 Optional `"aliases": ["alt spelling", …]` lists extra background spellings that should open the same
 popup (lands in `window.GLOSSARY_ALIASES`); **plural forms link automatically**, so only add aliases

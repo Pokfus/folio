@@ -278,6 +278,154 @@ for the Holocaust and the camps and is not interchangeable with a secondary sour
 are frequently self-serving, and several influential German generals' accounts were written to shape
 the record. Cite them as what they are.
 
+**Two open routes were measured in Sep 2026, writing `ww2-101`–`ww2-110`, and both are cheap.** The
+**Avalon Project** carries the English text of nearly every instrument this collection turns on — the
+Anti-Comintern Pact with its supplementary protocol, the Tripartite Pact, the Covenant of the League of
+Nations, the Treaty of Locarno, the Soviet-Japanese Neutrality Pact — so a card about a treaty can quote
+the treaty rather than a summary of it. And **`api.parliament.uk/historic-hansard`** serves the whole of
+the Commons debates in full text, which is the primary record for every British decision of the 1930s:
+Hoare's own account of the Paris talks and Baldwin's admission of collective responsibility are both in
+the sitting of 19 December 1935, and Eden's statement of the Rhineland case is in that of 26 March 1936.
+**A Hansard section URL is a slug that must be read off the day's index** (`/commons/<year>/<mon>/<day>/`)
+rather than guessed, and the volume and column reference is printed at the head of each section.
+
+**Three more open routes, measured in Sep 2026 writing `ww2-111`–`ww2-120`.** The **Deutsches
+Historisches Museum's LeMO** (`dhm.de/lemo/kapitel/ns-regime/aussenpolitik/…`) has a signed page for
+nearly every episode of the 1930s in German — the Spanish Civil War, the Condor Legion, the
+International Brigades, the Berlin-Rome axis, the Anschluss, the Karlsbad Programme and the Munich
+Agreement — which is a second national record beside the American and British ones and the only one of
+the three that is not written from a victor's archive. **The National Archives (UK) publish their
+classroom resources in full** (`nationalarchives.gov.uk/education/resources/…`), each built round
+scanned documents with the archive's own background prose: the *Chamberlain and Hitler 1938* lesson
+carries the Berchtesgaden minutes and Ismay's secret note to the cabinet. And **the Avalon Project's
+IMT collection holds the Hossbach Memorandum**, which is Hitler's own statement in November 1937 that
+Austria and Czechoslovakia were to be overthrown together — a primary source for intent that no
+secondary account can replace.
+
+**A book nobody could open turned out to be readable.** `Guilty Men`, the 1940 polemic that fixed the
+popular verdict on appeasement, is in no open journal and behind every paywall — and the **whole text
+is on archive.org** as a Digital Library of India scan (`in.ernet.dli.2015.5205`). Its `_djvu.txt` is
+served under the file's OWN name (`2015.5205.Guilty-Men_djvu.txt`) rather than the item identifier,
+which is why the usual `<id>/<id>_djvu.txt` address 404s; read the item's file list before concluding a
+scan has no OCR text.
+
+**THE TWO SOURCES THAT OPEN THE WHOLE OF 1939, measured in Sep 2026 writing `ww2-121`–`ww2-130`.**
+The Office of the Historian serves **FRUS 1939, volume I** in full at
+`history.state.gov/historicaldocuments/frus1939v01/`, and its chapters are the diplomatic history of
+that year arranged as this deck is: chapter II is the occupation of Czechoslovakia, chapter V the
+German pressure on Poland, chapter VI is titled *Anglo-French-Soviet negotiations* outright and
+chapter VII the German-Soviet rapprochement. Individual documents are addressed `…/d249` and its
+own site search (`history.state.gov/search?q=…`) reaches every volume, so a claim can be traced to
+the telegram that carries it. Beside it, Avalon holds **the whole of `Nazi-Soviet Relations
+1939-1941`** — the Department of State's 1948 edition of the captured German foreign-office files,
+about 160 documents from April 1939 to June 1941, with the non-aggression treaty, the Secret
+Additional Protocol, the September boundary treaty and the memorandum of the night Ribbentrop spent
+with Stalin. Between them a card about the pact can quote the pact, the protocol and the
+conversation, and a card about the talks that failed can quote both sides saying why.
+**A third route worth keeping:** the German Historical Institute's **German History in Documents and
+Images** (`germanhistorydocs.org`) carries sourced document and image pages with a stated citation,
+which is where the Pact of Steel's signing is described.
+
+**AND THE HANSARD INDEX IS THE FASTEST WAY INTO ANY BRITISH DECISION OF 1939.** A sitting's index
+(`/commons/<year>/<mon>/<day>/index.html`) lists every item by its own heading, so the guarantee to
+Poland is under *European Situation* on 31 March, the Albanian invasion under *European Situation*
+on 13 April, the Moscow military mission under *Anglo-French-Russian Conversations* on 31 July, the
+Danzig question under *Danzig (British Position)* on 10 July, and the fact that the Anglo-Polish
+treaty was signed on 25 August is in the *International Situation* statement of 29 August. **Read
+the index rather than guessing the slug** — the same heading recurs and the second use is
+`european-situation-1`, which is where Chamberlain's guarantee actually is.
+
+**A picture cannot always be found, and two of these ten ship without one.** There is no free
+photograph of the guarantee of 31 March, of the signing of the Agreement of Mutual Assistance on
+25 August, or of the Anglo-French military mission in Moscow; `suggest-image.js` returns nothing
+usable for either subject and Commons searches turn up only portraits of participants, which
+illustrate a person rather than the thing the card is about.
+
+**AND THE MILITARY CARDS ARE SERVED BY OFFICIAL HISTORY AND BY TWO OPEN JOURNALS, NOT BY THE
+LITERATURE** (Sep 2026, writing `ww2-134`–`ww2-140`). Doctrine, fortification and orders of battle are
+where this collection's usual sources go quiet: `journals.sagepub.com` and Project MUSE hold the standard
+articles behind a paywall, `history.army.mil`, `iwm.org.uk`, `armyupress.army.mil` and
+`media.defense.gov` all answer **403**, `apps.dtic.mil` serves an "Under Maintenance" page **under a 200
+status**, OpenEdition is behind the Anubis wall, and **`cheminsdememoire.gouv.fr` redirects to a
+MindefConnect login form** — a seventh variety of wall, and the one that cost the Maginot Line card its
+French sources. **Persée is half-open**: `/search?ta=article&q=…` works and `/doc/<id>` returns the
+reference and the page images, but NOT the article text, so a Persée hit can be found and cannot be read.
+What answered instead:
+· **The US Army's own histories, in full text on archive.org.** *The German Campaign in Poland, 1939*
+  (DA Pam 20-255, 1956) carries the Reichswehr, Seeckt's Truppenamt, the evasions in the Soviet Union,
+  the Westwall, German and POLISH orders of battle and the composition of a Panzer division down to the
+  tank types. Beside it the War Department's own 1942 study of the same campaign and the 1945 *Handbook
+  on German Military Forces* (TM-E 30-451) corroborate the 1939 divisional counts.
+· **Two open military-history journals.** The *Journal of Military and Strategic Studies* (`jmss.org`,
+  Calgary) is fully open and holds Robert Citino on the German way of war and Ioannis Salavrakos on the
+  French economy and army of 1939 — between them the Maginot Line's cost and extent, the French order of
+  battle, and Bewegungskrieg with its Kesselschlacht and Auftragstaktik. *Scientia Militaria*
+  (`scientiamilitaria.journals.ac.za`) is the other.
+· **Avalon's Nuremberg Blue Set is addressable BY DATE**, `imt/<mm-dd-yy>.asp`, with a menu per volume —
+  so a witness's testimony can be found by looking up the day he testified. Jodl on 4 and 5 June 1946
+  gives both the 110 inactive French and British divisions against 23 German ones and the reason the
+  1940 offensive went round the Maginot Line rather than through it. The **Hossbach Memorandum** and the
+  **Judgment** are there too, the second carrying the defence's answer to the first.
+· **The American Presidency Project serves PRESS CONFERENCES as well as speeches**, which is what makes
+  `ww2-133` a card rather than a paraphrase: the transcript of 6 October 1937 has the president refusing
+  to explain his own metaphor. Its date-range search (`/advanced-search?field-keywords=…&from[date]=…`)
+  is the way in.
+· **AND A PDF CAN BE READ HERE AFTER ALL.** There is no `pdftotext` and `pypdf` will not import, because
+  its crypt provider pulls in a broken `cryptography`; stubbing that module in `sys.modules` before the
+  import makes `pypdf` work, which is what opened the govinfo *Statutes at Large* scan of the Neutrality
+  Act of 1935 and the JMSS articles. **Worth rebuilding before deciding a PDF source is unreadable.**
+
+**THE POLAND DECK RUNS ON DOCUMENTS, AND FOUR COLLECTIONS CARRY IT** (Sep 2026, writing
+`ww2-141`–`ww2-150`). Ten cards, fifty-three citations, and not one of them from a monograph: the
+modern literature on the September campaign is paywalled almost entirely (`journals.sagepub.com`,
+Taylor & Francis, Project MUSE, Springer), and what is open is enough.
+· **Avalon holds the whole diplomatic record of the outbreak, in five collections addressable by
+  path.** `subject_menus/nazsov.asp` lists *Nazi-Soviet Relations 1939–1941* as `20th_century/nsNNN.asp`,
+  ns001 to ns116 — Ribbentrop pressing Moscow for a date on 15 September (ns072) and Schulenburg
+  reporting Stalin's two-in-the-morning announcement of the crossing (ns074) are the Soviet invasion
+  card in two documents. The 28 September treaty and its papers are NOT numbered: `gsbound.asp`,
+  `sesupp.asp`, `sesupp1.asp`, `conproto.asp` and `dec939.asp`. `subject_menus/gbmenu.asp`,
+  `gpmenu.asp` and `frmenu.asp` hold the British, German and French statements of 1–3 September as
+  `wwii/gb1-3`, `gp1-4`, `fr1-3`; `hague03.asp` is the 1907 convention on opening hostilities, which
+  is what makes *declaration of war* a glossary term rather than a phrase.
+· **The Blue Set by date gave the Gleiwitz card its two witnesses.** The Naujocks affidavit
+  (2751-PS) is read into the record at `imt/12-20-45.asp` and Lahousen's testimony about Undertaking
+  Himmler is at `imt/11-30-45.asp`; `imt/judpolan.asp` carries Hitler's 22 August promise of a
+  propagandist cause. Its neighbours `judnazi`, `judaus`, `judseize`, `juddenma`, `judsov` and
+  `judwarcr` are the same judgment section by section and will serve the decks after this one.
+· **THE ARCHIVE.ORG COPY OF DA PAM 20-255 THAT `ww2-140` CITES IS TRUNCATED.** `PAM20-255` stops on
+  the eve of operations, about page 79, so the whole campaign narrative — the Bzura, the Warsaw
+  chapters, the Soviet intervention, the fourth partition — is simply not in it, and `PAM20-255-nsia`
+  500s on its `_djvu.txt`. The full text is
+  `kennedy-robert-m-the-german-campaign-in-poland-1939-1956`, whose file name carries a comma that
+  must be percent-encoded. **Grep for a chapter heading before citing a page from a scan.**
+· **FRUS 1939 volume I is a day-by-day narrative of the outbreak** and is where the cards get what no
+  document states: d403 (the Danzig consul told a state of war had existed since 4:45), d420 and d421
+  (London moving before the agreed hour, and the French note naming five o'clock), d434 (Chamberlain
+  refusing to bomb Germany and thinking Poland lost in any case), d436 (Beck and Śmigły-Rydz on 14
+  September, the Allies "staging more of a demonstration than a serious attack"), d437, d440 and d450
+  (the Soviet crossing, the Polish protest, and the Foreign Office concluding that the guarantee did
+  not cover it).
+· **THE NAME OF A PERIOD CAN BE THE HARDEST THING TO CITE.** Nothing openable defines the Phoney War;
+  what exists is an open, CC-BY article whose title uses the term for exactly the months in question
+  (du Reau in the *MGIMO Review of International Relations*, 2009). **Where the term itself is the
+  claim, look for a work that uses it in its title.**
+· Two hosts to save the next session: `hansard.parliament.uk` is **403** while
+  `api.parliament.uk/historic-hansard/...` is open and has a sitting index per day
+  (`/sittings/1939/sep/03`); and *Security and Defence Quarterly* is open but its 2013 PDFs are
+  **image-only scans with no text layer**, so Corum on the Luftwaffe in Poland cannot be read here
+  however openable it is.
+
+**A picture cannot always be found, and three of these ten ship without one** — `ww2-133` (no free
+photograph of the Chicago speech above 900px; the one Commons has is 275×177), `ww2-135` (nothing that
+depicts British rearmament rather than a wartime factory) and `ww2-140` (a memorandum of a secret
+meeting has no picture of itself).
+
+**A caution that cost a picture.** The Commons `api.php` rate-limits hard after a dozen calls and answers
+`Special:FilePath` throughout, which is the route CLAUDE.md already records — but the fault worth naming
+here is the other one: a file in the category *Assemblies of the League of Nations* turned out to be six
+men outside a French grocer's shop. **Look at the picture.**
+
 ## Living beside the other collections
 
 **World History is the survey and never waits for this collection.** The war gets 30 cards there
@@ -450,73 +598,73 @@ definitions, which exist precisely because the wording matters.
     ww2-099  The Second United Front against Japan
     ww2-100  The Soviet-Japanese border conflicts
     ww2-101  Battles of Khalkhin Gol
-    ww2-102  The strike-north and strike-south debate
+    ww2-102  The strike-north and strike-south debate  → written as *Southern Advance*
     ww2-103  Anti-Comintern Pact
     ww2-104  Tripartite Pact
-    ww2-105  Japan and the Western empires in Asia
+    ww2-105  Japan and the Western empires in Asia  → written as *Pan-Asianism*
 
 ### The crises of the 1930s — `ww2-crisis`
 
     ww2-106  The collapse of collective security
-    ww2-107  The Manchurian crisis and the League
+    ww2-107  The Manchurian crisis and the League  → written as *Stimson Doctrine*
     ww2-108  Abyssinia Crisis
     ww2-109  Hoare-Laval Pact
     ww2-110  Remilitarisation of the Rhineland
     ww2-111  Spanish Civil War
-    ww2-112  Foreign intervention in the Spanish Civil War
+    ww2-112  Foreign intervention in the Spanish Civil War  → written as *International Brigades*
     ww2-113  Bombing of Guernica
     ww2-114  The Non-Intervention Committee
     ww2-115  Rome-Berlin Axis
     ww2-116  Anschluss
-    ww2-117  The Sudeten crisis
+    ww2-117  The Sudeten crisis  → written as *Sudetenland*
     ww2-118  Munich Agreement
     ww2-119  Appeasement
-    ww2-120  The debate over appeasement
+    ww2-120  The debate over appeasement  → written as *Guilty Men*
     ww2-121  Neville Chamberlain
-    ww2-122  The German occupation of Czechoslovakia
-    ww2-123  The British guarantee to Poland
+    ww2-122  The German occupation of Czechoslovakia  → written as *Protectorate of Bohemia and Moravia*
+    ww2-123  The British guarantee to Poland  → written as *Anglo-Polish alliance*
     ww2-124  Italian invasion of Albania
     ww2-125  Pact of Steel
     ww2-126  The Anglo-French-Soviet negotiations of 1939
     ww2-127  Molotov-Ribbentrop Pact
-    ww2-128  The secret protocol
-    ww2-129  Why the Soviet Union signed
-    ww2-130  The Danzig crisis
+    ww2-128  The secret protocol  → written as *sphere of influence*
+    ww2-129  Why the Soviet Union signed  → written as *Maxim Litvinov*
+    ww2-130  The Danzig crisis  → written as *Free City of Danzig*
     ww2-131  American isolationism
     ww2-132  Neutrality Acts of the 1930s
-    ww2-133  Franklin D. Roosevelt and the approach of war
+    ww2-133  Franklin D. Roosevelt and the approach of war  → written as *Quarantine Speech*
     ww2-134  Maginot Line
     ww2-135  British rearmament
-    ww2-136  Interwar military thought
-    ww2-137  The development of armoured warfare
-    ww2-138  Interwar air power theory
-    ww2-139  The armies of 1939 compared
-    ww2-140  Was the war inevitable?
+    ww2-136  Interwar military thought  → written as *Bewegungskrieg*
+    ww2-137  The development of armoured warfare  → written as *Panzer division*
+    ww2-138  Interwar air power theory  → written as *Giulio Douhet*
+    ww2-139  The armies of 1939 compared  → written as *Wehrmacht*
+    ww2-140  Was the war inevitable?  → written as *Hossbach Memorandum*
 
 ## The War in Europe, 1939–1941
 
 ### Poland and the outbreak — `ww2-poland`
 
-    ww2-141  Invasion of Poland
+    ww2-141  Invasion of Poland  → written as *Fall Weiss*
     ww2-142  Gleiwitz incident
-    ww2-143  The Polish army in 1939
-    ww2-144  The September campaign
+    ww2-143  The Polish army in 1939  → written as *cordon defence*
+    ww2-144  The September campaign  → written as *Battle of the Bzura*
     ww2-145  Siege of Warsaw
     ww2-146  The Soviet invasion of Poland
-    ww2-147  The fourth partition of Poland
-    ww2-148  The Anglo-French declarations of war
+    ww2-147  The fourth partition of Poland  → written as *German-Soviet Frontier Treaty*
+    ww2-148  The Anglo-French declarations of war  → written as *declaration of war*
     ww2-149  Phoney War
-    ww2-150  The beginning of the German occupation of Poland
+    ww2-150  The beginning of the German occupation of Poland  → written as *Reichsgau*
     ww2-151  General Government
-    ww2-152  Nazi policy towards Poles
-    ww2-153  Intelligenzaktion
-    ww2-154  The Soviet occupation of eastern Poland
+    ww2-152  Nazi policy towards Poles  → written as *Sonderaktion Krakau*
+    ww2-153  Intelligenzaktion  → written as *AB-Aktion*
+    ww2-154  The Soviet occupation of eastern Poland  → written as *Sovietisation*
     ww2-155  Katyn massacre
-    ww2-156  Soviet deportations from occupied Poland
+    ww2-156  Soviet deportations from occupied Poland  → written as *NKVD*
     ww2-157  Polish government-in-exile
-    ww2-158  The Polish armed forces in the West
+    ww2-158  The Polish armed forces in the West  → written as *Polish Armed Forces in the West*
     ww2-159  Winter War
-    ww2-160  The Moscow Peace Treaty
+    ww2-160  The Moscow Peace Treaty  → written as *Moscow Peace Treaty*
     ww2-161  The Soviet annexation of the Baltic states
     ww2-162  The Soviet annexation of Bessarabia
     ww2-163  The Allied plans for Scandinavia
