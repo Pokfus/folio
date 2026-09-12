@@ -3052,38 +3052,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   its own `<!-- QUESTION -->` / `<!-- QUESTION 2 -->` … section. Extras ride through export/publish/install
   and are sanitized on ingest (`uCardSanitize`, capped at 9 extras). The admin card search matches every
   phrasing. Backfill existing cards with `.claude/add-questions.js` (see "Generating cards").
-- **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as a
-  **16:9 frame** (`.card-img`, `cardImageHTML`) at the top of the Background section. Clicking it opens the
-  **fullscreen viewer** (`openImageViewer`: wheel and pinch zoom 1–8×, tap toggles 1↔2.5×, drag pans when
-  zoomed, **only the × and Escape close**, `closeImageViewer()` runs in `render()`). One **delegated**
-  document click/keydown listener opens it from any `.card-img` — and, since Sep 2026, from a geography
-  card's `.av-flag` — via the figure's `data-img-*` attributes; the pair is `IMG_OPEN_SEL`, and there is no
-  per-render wiring.
-  · **THE VIEWER'S TITLE OPENS ON A CAPITAL** (Sep 2026, on request: "image titles should always be
-    capitalised"). This is the one place a picture's title is set as a heading and **111 of them arrive
-    lower-case** — a Commons file name reads `inscribed ox scapula`, and a card's caption is written as a
-    phrase — which above the description reads as a typo rather than as a style. Done at DRAW time through
-    `gameCapFirst`, as every other label on the site is, so it covers a community deck's picture and
-    anything added later with no pass over the data; a numeral or a Han character passes through untouched.
-  · **NOTHING INSIDE THE STAGE CLOSES IT** (Aug 2026, on request): a click on the image toggled zoom and a
-    click beside it CLOSED, which is the same gesture a few pixels apart doing opposite things — and a
-    picture opened to be looked at is one a reader zooms and drags about. **A VIDEO KEEPS ITS BACKDROP
+- **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as
+  a **16:9 frame** (`.card-img`, `cardImageHTML`) at the top of the Background section. Clicking it opens
+  the **fullscreen viewer** (`openImageViewer`: wheel and pinch zoom 1–8×, tap toggles 1↔2.5×, drag pans
+  when zoomed, **only the × and Escape close**, `closeImageViewer()` runs in `render()`). One
+  **delegated** document click/keydown listener opens it from any `.card-img` — and, since Sep 2026, from
+  a geography card's `.av-flag` — via the figure's `data-img-*` attributes; the pair is `IMG_OPEN_SEL`,
+  and there is no per-render wiring.
+  · **THE VIEWER'S TITLE OPENS ON A CAPITAL**, done at DRAW time through `gameCapFirst` as every other
+    label on the site is, so it covers a community deck's picture and anything added later with no pass
+    over the data; a numeral or a Han character passes through untouched.
+  · **NOTHING INSIDE THE STAGE CLOSES IT** — a click on the image toggling zoom while a click beside it
+    CLOSED is the same gesture a few pixels apart doing opposite things. **A VIDEO KEEPS ITS BACKDROP
     CLOSE**: the player owns every pointer inside its frame, so there is no zoom to protect.
-  · **AND ON A REAL DEVICE THE TAP HALF COULD NOT FIRE AT ALL** — the finding worth carrying furthest.
-    `stage.setPointerCapture()` **RETARGETS every later event to the STAGE**, so the `e.target === im` the
-    toggle tested at pointerup was false for a real finger even dead centre of the picture. It is recorded
-    at POINTERDOWN now, whose target resolves before the capture it sets. **A synthetic `PointerEvent`
-    bypasses that retargeting entirely**, so a test written with synthetic events passes on the broken
-    code — reproduce a gesture bug with real input before believing it fixed.
+  · **THE TAP TOGGLE IS RECORDED AT POINTERDOWN, NEVER AT POINTERUP** — `stage.setPointerCapture()`
+    **RETARGETS every later event to the STAGE**, so a `e.target === im` test at pointerup is false for a
+    real finger even dead centre of the picture. **A synthetic `PointerEvent` bypasses that retargeting
+    entirely**, so a test written with synthetic events passes on the broken code — **reproduce a gesture
+    bug with real input before believing it fixed.**
   · **`alt` is a field of its own, not a reuse of `title`**: a title NAMES the picture for someone who can
-    see it, alt text DESCRIBES it to someone who cannot, and folding them together is the commonest way alt
-    text ends up useless. Readers get `alt || title || "Card illustration"`. It rides in `MEDIA_FIELDS`, so
-    the one media panel, the source gate, the store and the clearing path all carry it with no special case.
-  · **A file that will not load is handled**: there is deliberately no upload path, so every picture and clip
-    is somebody else's URL and link rot is a certainty. A delegated **capture-phase `error`** listener
-    (`error` does not bubble) marks the figure `.media-dead`. **A READER gets nothing** — a broken
-    illustration is worse than none — while an **AUTHOR keeps the frame**, labelled, being the one person
-    who can fix it.
+    see it, alt text DESCRIBES it to someone who cannot, and folding them together is the commonest way
+    alt text ends up useless. Readers get `alt || title || "Card illustration"`. It rides in
+    `MEDIA_FIELDS`, so the one media panel, the source gate, the store and the clearing path all carry it
+    with no special case.
+  · **A file that will not load is handled**: there is deliberately no upload path, so every picture and
+    clip is somebody else's URL and link rot is a certainty. A delegated **capture-phase `error`**
+    listener (`error` does not bubble) marks the figure `.media-dead`. **A READER gets nothing** — a
+    broken illustration is worse than none — while an **AUTHOR keeps the frame**, labelled, being the one
+    person who can fix it.
+  **📖 `docs/media.md` — READ BEFORE CHANGING THE IMAGE VIEWER'S GESTURES OR A PICTURE'S `alt`.**
 - **Card video (optional):** `card.video = { src, title, desc, credit }` — the **same four fields and the
   same frame as the image** (`.card-img` plus a `.card-vid` modifier), rendered by `cardVideoHTML`.
   **ONE FRAME PER CARD: the image and the video are alternatives, never companions.** Every writer enforces
