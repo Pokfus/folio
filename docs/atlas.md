@@ -587,3 +587,332 @@ is a wish. Roughly in order of what each buys against what it costs.
 the globe would then be about the corpus rather than about the reader. And a globe animation that plays
 the register forward through the years: `stepYear` and the play button already do exactly that, and a
 second control for it would be two answers to one question.
+
+
+---
+
+# The personal atlas in full, moved out of `CLAUDE.md` (2026-09-11)
+
+**READ BEFORE TOUCHING THE PERSONAL ATLAS TAB.** The account of the second tab as it stood in
+`CLAUDE.md` until it was moved here verbatim: the requests it was built from, each measurement, the
+reversals (the country labels placed and then removed, the three retreats of the modern-capital layer,
+the closed-loop shortcut tried and withdrawn), and the faults that rendered perfectly while being
+wrong. The RULES stay in `CLAUDE.md`, in their imperative form.
+
+· **YOUR OWN ATLAS — A SECOND TAB, AND THE ONE THE PAGE OPENS ON** (`atlasTab` / `MINE` /
+`atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
+`drawMineMarks` / `mineCoastSkip` / `landDim` / `showMinePopup` / `eraIsModern` / `.atlas-tabs` /
+`.atlas-empty` / `.cp-mine`; Sep 2026, on request). The globe
+starts EMPTY — land, ocean, lakes, rivers and coast, and no border, dot or name anywhere — in every
+year from 4000 BCE, and studying a card is what puts a place on it. Seven things.
+**THE REGISTER IS DERIVED FROM `S.cards`, NEVER STORED.** A place is unlocked iff its card has a
+record, which is the same test a locator window already uses for a studied sibling — so this needed
+no progress field, no migration and nothing to keep in step, and resetting one deck's progress takes
+that deck's places off the globe the same afternoon.
+**A COUNTRY IS UNLOCKED BY NAME AND RESOLVED THROUGH THE ERA.** A geography card names a place in
+`world.js`, and every one of the thirteen eras files its own territories by name too, so an unlocked
+France is drawn in whatever shape the year's map gives it and does not appear at all in a year whose
+map has no such state. That is the whole of "in the appropriate years" and it needed no table of
+independence dates: **Folio's own maps already carry the answer.** A `us-states` or `china-provinces`
+shape belongs to no era, so it is drawn only where the map IS present-day (`eraIsModern`) — today's
+boundaries over a 1600 map would be a claim Folio does not make.
+**A LOCATOR CARRIES ITS OWN YEARS, AND ONLY THE START OF THEM BINDS** (`cardSpanYears`; the end was
+dropped in Sep 2026, on request: "cities and dot locations should have no end date, i.e. should appear
+in their earliest known date of settlement and then stay visible until the modern day"). Both ends is
+right about a STATE — which is what the country shapes answer for, through the era's own map — and
+wrong about a PLACE: Yinxu is still there, and a globe that took Athens away in 300 CE was telling the
+reader the city had stopped existing. What a card's span really dates is its SUBJECT, the Shang capital
+or the classical city, and a dot on a map is the place rather than the episode. A card with no dates at
+all is a place rather than a period — a river, a cave — so it is drawn in every year, which is the same
+rule one step further on.
+**THE RAIL IS LINEAR HERE AND BENT THERE, and nothing snaps.** The world atlas has thirteen stops and
+bends its scale to keep them apart; the personal atlas has none, because every year has a map, so a
+bent scale would only lie about how far apart two years are. **The chevrons step ONE YEAR** (Sep 2026,
+on request); they stepped a century in the deep past and a decade after 1500, which is a chevron that
+cannot reach most of the years its own rail holds. Crossing a millennium is what dragging the rail is
+for, and a hold on the chevron still accelerates.
+**THE POPUP IS THE CARD** — `buildBack` through `mountCardBack`, in the country panel's own shell, with
+its year paragraph, its Wikidata figures and the Atlas's citation fold hidden: those describe a country
+as the world atlas knows it, and what is being shown is a card, whose own facts and sources come with
+it. `.cp-tools[hidden]{display:none}` is required — an author `display:flex` beats the attribute, the
+trap `.ces-imgpanel` and `.af-src` already carry.
+**NO LEGEND AND NO SEARCH** (the request says so for the legend; the search is the WORLD atlas's index,
+so a hit there would open a panel about a place the reader has not unlocked). Which makes `riversOn`
+the one toggle that tab reads, and it is forced ON: the request describes the empty globe as
+"landmasses+oceans+rivers etc.", and with no legend a default of off is a layer promised and
+unreachable.
+**THE EARTH IS COLOURLESS UNTIL IT IS EARNED, AND A CLICK IS THE ONLY GOLD** (Sep 2026, on request:
+"make countries colourless unless they are clicked, same as on the normal atlas. areas without any
+known countries or places should appear slightly darker"). Every unlocked country was washed in
+`TINT_SEL` at 0.16, which says "selected" about all of them at once and leaves a click nothing to say.
+Two shades of the land colour do it instead — `landDim` for the earth at large, `land` for the states
+this reader has reached — and the map's own selection gold is spent on the one shape just clicked,
+tracked in `mineSel` (a NAME, not an index: the shape list is rebuilt whenever the era or the register
+changes, and an index would light whichever country inherited the slot). **`landDim` IS NOT
+`landWild`**: the era branch darkens its wilderness to 0.62 because that wilderness is a minority of
+the map and carries a stipple; here it is nearly the whole earth on a reader's first day, and at 0.62
+the globe reads as unlit rather than as unearned. 0.87 is a step, not a shadow.
+**A MARK IS A RED DOT, AND ONLY EVER A DOT** (Sep 2026, on request: "make the dots red instead of
+orange … mountain ranges like the Apennines should not be displayed … areas or regions (like Etruria,
+Attica) should not show. countries or civilisations should"). The red is the locator windows' own
+`rgba(200,69,60)`, so a place looks the same here as on the card it came from, and the gold is left to
+mean one thing. A REGION and a RANGE are dropped from the register outright: they were a dashed wash
+and a spine, and a dozen of them at world scale is a rash of blotches over an earth whose point is that
+it is empty. Nothing is lost by it — a country or a civilisation is unlocked by NAME against the year's
+own map and drawn in that map's shape, which is a better answer than any authored polygon — and they
+are NOT demoted to a dot, a dot in the middle of Etruria being the false claim the card maps stopped
+making.
+**A SHAPE CARRIES ITS BORDER AND NO NAME** (Sep 2026, on request: "remove the name labels for
+countries and provinces. Once a country is discovered, also show its border. Discovered provinces
+should appear with dotted borders and selectable through a second-level/double click"). This reverses
+a rule of the day before, and the reversal is the better answer: the names were placed at each
+shape's own label point after a bug report that the United States was labelled over Europe (a bbox
+centre is meaningless for a country crossing the antimeridian — Chukotka sits west of -180 and Alaska
+east of it, so the box runs the full -180..180 and its centre is the North Sea, which is also where
+France's fell in the Atlantic and New Zealand's on the wrong side of the planet). Correctly placed,
+they were still a heap of words over the earth this tab exists to keep clear. **What says where a
+country ends is now its OWN BORDER**, drawn for the shapes in the register and for nothing else — so
+an inland state, which had no coast and so no edge of any kind, is finally a shape rather than a
+patch. The country's is SOLID and in the map's own `border` ink (which the coast is stroked in too,
+so a shared run drawn twice reads as one line); a **PROVINCE's is DOTTED**, which is how every atlas
+separates the two and what `subdivInner` already does on the card maps. **A DOT KEEPS ITS NAME**: it
+has no outline, so the name is the whole of what it says. `ringLabelAnchor` and the `lp` / `la`
+fields went with the label pass.
+**AND A PROVINCE IS THE SECOND CLICK** (`mineAt(px, py, sub)`): a state's own shape and its
+province's coincide over most of their border, so "smallest wins" would hand every click inside
+California to California and the country would be unreachable. The first click tests countries only
+and the second provinces only — the world atlas's drill, two rungs instead of three, counted with
+that tab's own 400ms window and 14px slop.
+**A CULTURE OR A CIVILISATION IS DRAWN WITH ITS OWN EXTENT, IN THE YEARS IT STOOD** (`MINE_POLITY`,
+the `area` marks, `drawMineAreas`; Sep 2026, on request: "ancient cultures and civilisations should be
+displayed in their relevant years"). The earlier request — countries and civilisations yes, regions
+and ranges no — could only be half kept, because a country is unlocked by NAME against the year's era
+map and **Folio's maps begin at 1500**: every civilisation older than that had no shape to be drawn in
+and appeared nowhere at all. What it does have is the authored `area` on its own card. **THE
+DISCRIMINATOR IS THE CARD'S OWN KIND TAG** — `culture`, `people`, `state`, `dynasty`, `empire`: a
+polity or a people, which is what "civilisation" means here, and NOT `place`, which is Etruria,
+Attica, Latium and the Fertile Crescent, the regions the earlier request took off this globe.
+Measured over the corpus that admits **30 of the 45 region locators and no geographic one**;
+`rm-091` the Roman Republic is filed `era` by its own tags and so draws nothing, and the fix for that
+is the card's tag rather than a wider rule here, since `era` is also the Bronze Age. **BOTH ENDS OF
+THE SPAN BIND**, unlike a place's: the Liangzhu culture ends where Yinxu does not. It is drawn
+DASHED, in the marks' red — a culture has no border to be right about and a crisp line would assert a
+frontier Folio has not surveyed — and **CLIPPED TO THE LAND**, since an authored area is a dozen
+points where a coast is a thousand. The clip is a `ctx.clip()` over the visible land rather than the
+card maps' second canvas because it runs only in a frame that HAS a live civilisation in it; most
+frames build no path at all.
+**A RIVER IS NEITHER A DOT NOR A NAME** (Sep 2026, on request: "'Tiber' should not have a dot or
+label"). It is drawn already — every river is, as one of the Atlas's own blue threads — so a dot on
+one pins a 400 km course to an arbitrary point on it, which is the false precision a region's dot
+would have been. It joins `range` and the non-polity regions in the register's own refusals.
+**EVERYTHING DRAWN ANSWERS A CLICK** (same request): dot, culture, province, country, in that order
+of how specific a claim each is.
+**THE STRAY BORDERS ARE THE COAST CLASSIFIER'S GENEROSITY, AND THE FIX IS A MASK** (`mineCoastSkip`;
+Sep 2026, on a bug report naming "the western border of Uzbekistan, some borders of Jordan,
+Montenegro, the Netherlands, western Spain, the southern border of the Western Sahara"). `coastEdges`
+calls an unshared world.js chain a coast if OCEAN is found anywhere within its bbox plus 1.2°, which is
+why every reported stray is a land border a short way inland from a sea — and on the world atlas nobody
+could see it, a border being drawn there anyway. This tab draws the coast and nothing else, so each one
+stands alone in an empty continent. The discriminator is `coastEdges`'s own, two DIFFERENT countries
+across the chain; it is not run in there because the world atlas has no use for it, and it probes the
+chain's middle first so the fuller vote runs only for the few that look like a border. Measured: ~410ms
+once, inside a first paint that already costs 1.4s on this tab, and **a shortcut that skipped CLOSED
+loops was tried and removed** — a country's whole outline chains as one closed loop, its coast and its
+unshared border together, so it took the fix to zero while looking like a five-times speed-up.
+**AND THE POPUP SAYS NOTHING THE CARD ALREADY SAYS** (`.cp-mine`; Sep 2026, on request: "remove the
+'Answer' header and 'From your card' tagline, the title bar (should only display when popup is
+collapsed) and its dating"). Four repetitions of the card back beside them — the answer term is its own
+heading and its dates are its date line — taken off by a stylesheet class rather than by four writes,
+because the title bar has to come BACK when the sheet is collapsed (a collapsed sheet is nothing but
+its title bar) and because the "Answer" label is inside markup `showMinePopup` does not build. The name
+is still WRITTEN: it is what the collapsed sheet shows and what a screen reader reads.
+**THE TAB IS MODULE-LEVEL AND `route()` RESETS IT**, which is what "opening the page defaults to this
+tab" means; a `S.settings` value would send a reader who once looked at the world atlas back to it for
+ever. Switching tab is `render()`, not `route()`, or the reset would undo the press. The two tabs keep
+SEPARATE coach-mark keys (`folio_mine_tour_v1`), since a reader who dismissed the world atlas's card
+months ago has never been told what this one is.
+**WHAT CHANGED IN A SECOND SEP 2026 REQUEST ABOUT THIS TAB.** Six things, and four are decisions.
+**A COUNTRY NOW ARRIVES IN THE YEAR IT WAS FOUNDED** (`mineFounded`; "ensure that each modern year
+really appears in the year of its founding, e.g. the United States in 1776, China in 1949"). Folio's
+maps step a century and then a decade, so the United States arrived in 1800 and the People's Republic
+in 1960 — at the first map that happens to carry the name. **THE ERA MAPS BRACKET THE ANSWER AND THE
+CARD SUPPLIES IT**: the first era carrying a name says the state existed BY that year and the era
+before it says Folio's map did not show it THEN, so the founding lies in (previous, first], and the
+card's own cited date line is read for a year inside that bracket. **IT CAN ONLY EVER MOVE A COUNTRY
+EARLIER, and that clamp is what makes it safe to run over all 233 rather than hand-writing 233 founding
+years.** MEASURED: unclamped it DELAYS 264 countries and takes FRANCE off the 1500, 1600 and 1700 maps
+— `gw-`'s date line for France records the United States' recognition in 1778 — and Japan off the same
+three on Perry's 1853. Clamped, 163 move earlier and none later. A state founded before the first map
+that shows it is drawn in THAT map's shape, which is the only shape Folio has for it.
+**THE MARKS AND THEIR NAMES ARE GATED BY ZOOM** (`MINE_SEP`, `MINE_LBL_Z`, `mineDotsShown`): a
+separation in screen pixels thins the marks and the NAMES wait for zoom 2.6 altogether. Which mark
+survives is RANKED — a capital first, then the title — so the set is stable between frames and zooming
+in only ever adds; first-come over `Object.keys(S.cards)` would reshuffle the map on every grade. **And
+`mineAt` reads the same thinned list**, or a click on empty ground opens a popup about a place that is
+not drawn.
+**A CAPITAL IS A SQUARE** and everything else a dot, which is the card maps' own convention one tab
+over; **a CIVILISATION'S wash is GREEN** (`mineAreaFill` / `mineAreaLine`), red having made it read as
+one of the reader's places writ large; and **`landDim` went from 0.87 to 0.78**, a step a reader can
+see on a map whose whole grammar is earned-against-unearned.
+**THE RAIL LOST THE WORLD ATLAS'S YEAR MARKS AND GAINED A RANGE** (`MINE_STARTS`, `mineStart`,
+`setMineRange`, `.tl-range`): the marks are the world rail's thirteen stops, and on a rail where every
+year is reachable they mark nothing while suggesting the pin will jump to them. The range is five
+declared starts, each with its own ticks — a rail from 1900 wants decades where one from 4000 BCE wants
+millennia — and it is closure state rather than a setting, like the glossary record's sort.
+
+---
+
+## Generating timeline eras — the section as it stood in CLAUDE.md (2026-09-12)
+
+**Read this before building or rebuilding an era.** CLAUDE.md keeps the rules — one geometry source, the
+topology-preserving simplify, the fraction-not-centroid region test, closed rings, the overlay that
+shadows a rebuild, and the data shape. This is the whole section verbatim, with every worked example, the
+measurements and the faults each rule came from.
+
+## Generating timeline eras (historical globe maps)
+
+The Atlas globe has a timeline (1000 BCE → present). The present year always shows the present-day map
+(`world.js`); past years can show a **historical border era** — a snapshot of the world's political
+borders, built from **curated historical GeoJSON** (the primary path) or traced from a map image (a
+fallback). **A past era keeps the present-day land, coastline, lakes, rivers and mountains** (from
+`world.js`/`lakes.js`/`rivers.js`/`ranges.js`/`forests.js`, at full resolution and exact position) and
+changes **only the political borders on land**. Each era territory carries a per-ring `c` bitmask (built by
+`build-era.js`) marking which edges are *coastal* (along the present-day coast) vs *interior*; the render
+strokes **only the interior land borders** and draws the coast from the exact present-day coastline
+(`coastEdges()` — the GEO edges not shared between two countries), so the era's own (lower-res, off-source)
+coastline never shows and coasts look identical to the modern map. **`build-era.js` is topology-preserving**:
+it quantizes every vertex to a shared grid so a border shared by two countries stays *bit-identical* in both
+rings (drawn twice it overlaps exactly instead of doubling), classifies each edge interior-vs-coast
+*topologically* (interior ⇔ its reverse edge exists in another territory), with a **`landAcross` fallback** for
+NON-tiling sources: an unshared edge is still a LAND border (not coast) if another territory lies ~0.06° across it
+(probe both sides of the midpoint) — this recovers borders where the source's polygons don't share exact edges.
+It thins with a local cyclic collinear test that keeps junctions so shared edges stay matched. (The old
+per-ring Douglas–Peucker diverged shared borders → "double border" + stray artifacts; do not reintroduce it.)
+**Region SUPPLEMENT** (`SUPPLEMENT` map): some snapshots are sparsely *digitized* in a region (gaps, not real history).
+`world_1900` maps Africa only ~20% (huge gaps → a blank continent); the Scramble for Africa was settled by 1900, so the
+1900 era fills the African continent (a Red-Sea-aware bbox) from the complete `world_1914` snapshot, keeping 1900
+everywhere else (incl. the pre-Balkan-Wars Balkans, which 1914 gets wrong). Result: 1900 Africa went 276 → 2268 interior edges.
+**Region membership is a fraction-of-the-feature test (`SUP_MIN`, 80% of a feature's vertices), never a centroid** — a
+state straddling the region's edge has a centroid that says nothing about where its land is. The centroid rule silently
+DELETED the **Ottoman Empire** from the 1900 map: its centre of mass sits in the open eastern Mediterranean (31.8E 34.4N),
+inside the Africa box, so it was dropped from 1900 while the 1914 Ottoman — whose centroid lies outside the box — was never
+added, leaving Anatolia, the Levant, Mesopotamia and western Arabia as blank terra-incognita stipple. Greece went the same
+way. Both are back under the fraction test, and with them 1900's Libya is Ottoman Tripolitania rather than a 1914 Italian
+"Libya" polygon. Two residual artifacts are accepted there, both cross-snapshot frontier mismatches in empty desert: a
+sliver of doubled border where 1914's Algeria overlaps Ottoman territory, and an unclaimed wedge in the Egyptian Western
+Desert that the 1900 source genuinely never digitized. **A rebuild also carries the era's `id`, label, researched period
+`cities` and per-territory `.mother` across from the era it replaces** (mothers travel by territory name; a territory the
+rebuild introduces falls back to being its own mother and is listed in the build output to be checked by eye) — without
+that, re-running a year silently discarded the capitals and the empire-grouping classification. `RENAME` keeps a source
+name the site has standardised elsewhere (e.g. "Manchu Empire" → "Qing dynasty", which is how `countries.js` is keyed).
+**It also cleans the source first** (`removeOverlaps`): some historical-basemaps snapshots ship STALE / ANACHRONISTIC /
+DUPLICATE features that *overlap* the correct territories (e.g. `world_1938` layers "Israel", leftover "Hejaz"/"Hail"/
+"Emirate of Bin Shal'an", and duplicate "Qatar"/"Yemen"/"Trucial Oman" on top of Saudi Arabia + Mandatory Palestine,
+plus ~79 unnamed blobs) — overlapping polygons render as **double borders + desert strays**. `removeOverlaps` drops
+unnamed features, then greedily drops whichever remaining feature is ≥60% contained inside a *single* other feature
+(the spurious overlapper — a real base territory is never mostly inside one neighbour; valid enclaves like Lesotho with
+a proper hole are kept), keeping one of any duplicate pair. 1938 went from 18 overlaps → 4 (the residual are tiny
+sub-threshold Caribbean specks). This is why **no cleaner external source was adopted** — CShapes isn't topology-clean,
+OHM is too sparse; the artifacts were source data-quality errors, fixable in place.
+**It also WELDS coast-junctions to the present-day coastline** (step 4.6): a geo era draws only its interior borders and
+lets `world.js` draw the coast (`coastEdges`), so where an interior border meets the sea it used to terminate at the era's
+OWN (offset/historical) shore — leaving the border end floating off the drawn present-day coast ("stray lines that don't
+connect"). The build snaps each junction vertex (where a drawn '0' edge meets a skipped '1' coast edge on a ring) onto the
+nearest present-day coast vertex within EPS=0.6° (shared junctions snap by quantized key so both neighbours move
+identically → the shared interior edge stays bit-identical; no doubles — coast edges stay skipped, only junctions move).
+This fixed the bulk (e.g. 1900 went from 58 visible coastal floats to ~2; 1938 to 2). **Residual far-floats (>0.6° from any
+present coast) are LEFT as-is** — they're genuinely hard cases with no clean target: borders through lakes (Superior, Malawi),
+a sea that became land (the dried **Aral**, where the 1900 border meets a shore that no longer exists), and large 1900-vs-today
+coastline divergence in colonial Africa. Don't widen EPS much — a 1°+ snap can yank a border onto the WRONG coast (worse than a float).
+
+**Each era uses ONE geometry source — never a mix** (mixing world.js + the era source for the same border drew two
+slightly-offset lines = "double borders"; do not reintroduce a render-time overlay that draws both). `build-era.js`
+classifies each snapshot: a **merger-only** era (differs from today *only* by merged/split countries, not moved
+borders — a sampling consistency check ≥97%; e.g. 2000/2010 ≈ 98.9%) is stored as just `groups`
+{ presentCountryName: groupName } (groupName = the present-day name for an unchanged country so its popup name +
+description resolve, the era-territory name only for a genuine multi-country merger) with **no geometry**, and the renderer reuses `world.js`'s own high-res
+geometry — so unchanged borders are pixel-identical to the present-day map. An era with genuinely **moved** borders
+(e.g. 1900 ≈ 88.1%) keeps its own topology-preserving `geo` (source resolution, ~46k verts — a source limit, not a
+bug). At render time `histTerr()` returns, for a groups era, `synthGroups(era)` (cached by era.id): it groups the
+GEO countries by `groups[name]` and per ring edge writes a 3-state mask — **'0' inter-group** border (reverse owned via
+`worldEdgeOwners()` by a country in a **different** group → drawn bold at full res), **'2' intra-group** border (reverse
+owned by a country in the **same** group → a **sub-country** border, e.g. a Soviet republic inside the USSR), **'1' coast**
+(no neighbour → skipped, `coastEdges()` draws it). The renderer draws '0' bold and **'2' light** (`globalAlpha 0.5`,
+`lineWidth ≈ bw*0.62`) so a merged unit still reads as one while showing its constituents; geo eras (no '2') are unchanged,
+and editor-drawn territories (no mask) stroke their full outline. **An intra-group '2' edge is downgraded to '1' (skipped)
+when either side is an entity that did not exist yet in the era's year** (`ENTITY_SINCE` table: Baikonur 1994, S. Sudan 2011,
+Kosovo 2008, Timor-Leste 2002, Eritrea 1993, N. Cyprus 1983; disputed/military zones = `1e4` = never) — so e.g. Baikonur's
+border is hidden before its 1994 lease, and S. Sudan's split line before 2011 (the *external* Sudan border still draws as '0').
+E.g. 2010 Sudan = Sudan+South Sudan in one group → their shared edge is skipped (S. Sudan didn't exist until 2011). countryAt / paintFill / the click popup all read `histTerr()` and hit-test
+the whole group territory (so single-click selects the union, double-click drills to the sub-country — see `docs/atlas.md`). Editing a groups era
+(`enterMapEdit`) **materializes** it to deep-copied `geo` first, so it becomes a normal hand-editable era.
+A past era's **territories are
+clickable/selectable** exactly like present-day countries (hover/select hit-tests the era geometry via
+`histTerr()`). Every legend layer now shows at **ALL zoom levels** (`updateLegendVisibility` no longer applies a per-layer
+min-zoom gate). **Capitals (`citiesToggle`) and Borders (`bordersToggle`) are separate legend layers in EVERY year** —
+every era ships period capitals, so `citiesToggle` is not in `PRESENT_ONLY` and gates `drawEraCities` on historical eras
+too. **Country names (`countryToggle`) also draw in every era**: on a past era `drawEraNames` labels the era territories
+(anchors computed once per era by `eraLabelAnchors` — largest-ring lon-unwrapped centroid, nudged inside concave shapes —
+sized by territory area, de-collided big-first, long ethnographic names wrapped to two lines; era capital labels yield to
+them via `countryLabelRects`). Only major cities (`majorToggle`) remains present-day-only, and its legend row is now
+**dimmed + disabled (`.legend-na`, title "Present-day map only") on past eras rather than hidden**. The **"Divisions"
+(admin-1 borders, `drawAdmin`) and "Division capitals" legend layers were removed** — like Mountains, their toggle + `wire()` are
+gone, `adminOn`/`divCapsOn` default `false` with no way to enable them, so `drawAdmin` + the division-capital city tier are inert
+dead code (never rendered).
+
+- **Data:** `window.TIMELINE = [ { id, year, n:label, EITHER groups:{presentCountryName:eraTerritoryName} OR geo:[ { n, p:[rings], c:[coastal-bitmask/ring] } ], cities:[ { n, lon, lat, cap } ] } ]`
+  in `timeline.js`. A **merger-only** era carries `groups` (tiny — geometry comes from `world.js`); others carry
+  `geo` territories — `world.js`-shaped polygons (even-odd rings) with `c` marking coastal
+  edges (so only interior borders stroke). `cities` are the era's own capitals/cities (`cap:true` = a capital),
+  drawn at that era's year by `drawEraCities`, which calls the **same `drawPin`** as the present-day map so the dots
+  look identical (vermilion `CITY_DOT` + white ring, radius `cityDot(tier)`); labels show once zoomed past `CAP_Z`, **sized
+  exactly like the present-day map** (`clamp(10+(zoom−2)·1.1, 10, 13.5)`, weight 600 — `ctx.font` MUST include a px size,
+  not just the family, or the browser ignores it and the labels render tiny). **Every shipped
+  era now carries COMPREHENSIVE period-accurate capitals** (~157–232 each, ~1422 total — every sovereign state + colony)
+  researched + adversarially fact-checked
+  with PERIOD names and capital relocations correct for the year (St. Petersburg→Moscow in 1918, Constantinople→Ankara
+  in 1923, Calcutta→Delhi→New Delhi, Kristiania→Oslo, Urga→Ulan Bator, Karachi→Islamabad, Almaty→Astana,
+  Rangoon→Yangon→Naypyidaw, Lagos→Abuja, Rio→Brasília). Added by `.claude/add-era-cities.js <capitals.json>`
+  (matches eras by year, sets `cities`, keeps any non-capital cities, re-parses to confirm valid JS). An era applies from its `year` until the next era's (a step function). The timeline only **stops on
+  map-years** — each era's `year` plus the present (the years that actually have a map): dragging/clicking the
+  rail snaps to the nearest map-year, and the chevrons / arrow keys step between adjacent map-years, so blank
+  years are skipped entirely (`mapYears` / `snapYear` / `stepYear`). Small rail ticks (`.tl-mark`, drawn by
+  `renderMapYearMarks`) mark the stops; the "no map yet" note is therefore effectively unreachable now.
+  Shipped eras: **1500, 1600, 1700, 1800, 1900, 1920, 1938, 1960, 1994, 2000, 2010, 2015, 2020** (+ the present-day map)
+  — a century apart back through 1500, then roughly every other decade of the 20th c. (1900-era snapshots are sparse:
+  1900/1914/1920/1930/1938/1945/1960 then a gap to 1994, so "1940"→1938
+  and "1980"→1994 land on the nearest snapshot, stored at the snapshot's real year). 1500–1938 are `geo` (their
+  borders genuinely differ from today; the pre-1900 eras carry period capitals + researched descriptions/spans/year
+  paragraphs merged as trailing `Object.assign` blocks in `countries.js`/`country-spans.js`/`country-years.js`);
+  1960/1994/2000/2010 are merger-only `groups` (rendered from world.js — e.g.
+  1960 correctly merges the 15 post-Soviet states into one "USSR"). The dataset's latest snapshot is **2010**, so there is
+  **no distinct 2015/2020 source**: those two eras carry **empty `groups: {}`** (which `synthGroups` renders as the full
+  present-day `world.js` map — South Sudan correctly separate since 2011) plus 2010's period capitals + Juba, so they're
+  accurate present-day-border stops filling the 2010→present gap. 2021–present is the present-day map (the present stop).
+- **Primary method — `node .claude/build-era.js <year> [label]`** (recommended; **use this when the user
+  wants a year**): fetches accurate world borders for the nearest available snapshot from the
+  *historical-basemaps* GeoJSON dataset (https://github.com/aourednik/historical-basemaps, CC-BY-SA 4.0;
+  ~53 snapshots 123000 BCE → 2010, incl. 1900/1914/1920/1938/1945/…), topology-preservingly simplifies (see
+  above — grid-quantize + topological interior/coast classification, NOT per-ring Douglas–Peucker), and
+  writes `timeline.js`. Already accurate lon/lat — no tracing, no projection guessing. Re-running a
+  snapshot replaces it; eras carry `src:"historical-basemaps"`. (Needs a build-time network fetch.)
+  Era rings are stored **closed** (first vertex == last) so the per-ring `c` mask and the globe's
+  `i+1 < ring.length` border stroke both cover every edge *including* the closing one — don't reintroduce
+  open rings (a missing closing edge leaves 1-segment gaps in landlocked outlines). **Gotcha:** if an era
+  was ever opened in the in-app editor, a copy is persisted to `localStorage` `ADMIN_EDITS.timeline` and
+  **shadows the rebuilt `timeline.js` at startup** — clear that overlay key (or re-import the era in the
+  editor) to see a fresh `build-era.js` run.
+- **The in-app editor — Edit → Timeline → "Open globe editor"** (sets `atlasEditEraId`; the Atlas enters
+  edit mode for that era). Enter a year (existing or new) and edit on the globe via a toolbar
+  (`#mapEditBar`). Tools: **Select** (tap a territory/place to select; **drag a vertex** to reshape; drag a
+  place to move; **Delete** the selected territory/place), **Draw** (tap to drop vertices → **Finish
+  polygon** → name it), **City** / **Capital** (tap to place + name). Edits mutate the era in
+  `window.TIMELINE`, bump `mapEditRev` (invalidates the render cache via `viewKey`) and persist to the
+  overlay; **Done** returns to the editor. Drawn territories carry no `c` mask, so their full outline is
+  stroked. (The old PNG image-tracer was removed; `traceMapToGeo` remains in `app.js` but is unused. Not
+  yet in the editor: inserting/deleting individual vertices — move existing ones or redraw.)
+- **Seeding accurate borders:** `build-era.js` (above) imports real historical borders for a year; open the
+  result in the globe editor to clean it up, reshape, or add capitals/cities.
+- In-app eras live in `ADMIN_EDITS.timeline` until **Save to project** writes `timeline.js`. Verify on the
+  globe at the era's year (no console errors).
+

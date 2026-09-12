@@ -1953,3 +1953,112 @@ check before each batch** — the glossary is 1,061 terms and growing, and a col
   geo-548 Pierre
   geo-549 Bismarck
   geo-550 Des Moines
+
+---
+
+## The geography picture pass, moved out of CLAUDE.md (2026-09-11)
+
+**Read this before opening a picture batch on a geography collection.** CLAUDE.md keeps the rules — which
+landmark is an editorial judgement, a city's subject is established by category and never by a search, and
+every picture is looked at on a contact sheet. This is the pass's own record, verbatim as it stood there:
+what was completed, how far the search alone got, and the taxonomy of what the sheet caught.
+
+**A GEOGRAPHY CARD'S PICTURE FOLLOWS TWO RULES (Sep 2026, on request).** "Cards about regions like
+states, provinces, etc., should feature a picture of the most famous or significant natural
+wonder/landmark. Cards about cities should feature a picture of the city — NOT a particular building or
+small place within the city, but the city zoomed out, as a skyline or aerial view."
+· **WHICH LANDMARK IS AN EDITORIAL JUDGEMENT AND NO METADATA MAKES IT.** `pageimages` for `Arizona`
+  returns the state FLAG; the batch therefore NAMES the subject (`{"subject": "Grand Canyon"}`) and the
+  fetcher takes that article's picture. The judgement stays with the author, the licence and the size are
+  read off Commons — the division `fetch-images.js` argues for.
+· **A CITY'S SUBJECT IS ESTABLISHED BY CATEGORY, NEVER BY A SEARCH.** Searching Commons for
+  `"Phoenix, Arizona" skyline` returned a photograph of NEW YORK — CC BY-SA, 1,724px, a description
+  carrying a view word — which would have shipped on the card asking for Arizona's capital. A candidate
+  must be IN one of the city's own view categories (or on its article) AND carry the city's name AND have
+  a title that reads as a wide view.
+· **AND EVERY PICTURE IS LOOKED AT**, through `.claude/contact-sheet.py`, which tiles a fetched batch so
+  fifty of them are one image to read. That pass found four wrong or poor pictures in the first 38 —
+  a false-colour Landsat scene for Chesapeake Bay, the VISITOR CENTRE for White Sands, a monochrome USGS
+  survey photograph for Mammoth Cave, and a hooded figure in steam for Hot Springs — none of which any
+  automatic test would have caught. The first three are now refused by name.
+· **THE UNITED STATES AND CHINA COLLECTIONS ARE COMPLETE: 158 of 158**, every picture read on a sheet.
+  The measure of how far the search alone gets is that **41 of the 158 had to be pinned by name** after
+  review, and the rejects were not near misses: a MAP of the Mammoth Cave system, the Berlin
+  Olympiastadion for Olympia, a Nissan Skyline GT-R for Montpelier, Dover Castle in England for Dover
+  in Delaware, and Springfield MASSACHUSETTS for the capital of Illinois. **A city name is ambiguous far
+  more often than it looks**, so a capital's search carries its state and the result is still read.
+· **ALL THREE GEOGRAPHY COLLECTIONS ARE COMPLETE: 421 of 421** (100 United States, 58 China, 263
+  World), every picture read on a sheet before it was applied. The World collection's 227 countries
+  were the editorial half — which landmark stands for Bhutan, for Chad, for Niue — and the answer for
+  each is NAMED in the batch rather than searched for, because `pageimages` for a country returns its
+  flag.
+· **WHAT THE SHEET CAUGHT, over 421 cards, is one taxonomy and it is worth knowing before the next
+  pass.** Roughly one in eight had to be replaced, and almost none was a near miss:
+  **a picture from ORBIT** (Landsat, MODIS, Sentinel, an STS or ISS frame, NASA, Apollo 17's whole
+  Earth for the Great Blue Hole) — a diagram of a place rather than a view of it;
+  **a MAP** wearing no such word in its name (`Txu-…`/`pclmaps` map-library scans for Inner Mongolia
+  and Qinghai, a nautical chart for Kiritimati, locator `.png`s for Santorini, Issyk-Kul, Baa Atoll
+  and the Stockholm archipelago);
+  **a MONTAGE or COLLAGE** (Asmara, Paramaribo, Torres del Paine) and a 7:1 wiki **banner**;
+  **the RIGHT NAME IN THE WRONG PLACE** — Ostrog Monastery in Montenegro filed against Kosovo's
+  Gračanica, the Berlin Olympiastadion for Olympia, Dover Castle in England for Dover in Delaware,
+  Springfield Massachusetts for the capital of Illinois, and a photograph of New York for Phoenix;
+  and **a thing that is not the place at all** — a necklace for Meroë, a signboard for Dzanga-Sangha,
+  a window sticker reading "you can see Kuwait City", the interior tuned mass damper for Taipei 101,
+  and a portrait of a man in sunglasses for Anguilla.
+  The first three families are now refused by `SPACEBORNE` / `SURVEY` / `NOTAPHOTO`; **the last two
+  cannot be, and that is the whole argument for the sheet.**
+
+---
+
+## The picture fetcher's own findings, moved out of CLAUDE.md (2026-09-12)
+
+**Read this before opening a picture batch on a geography collection.** CLAUDE.md keeps the rules — a
+search is not evidence of subject, a pinned file asserts the subject and never the licence, the skip
+patterns carry no leading word boundary, the credit ends in its URL, and every picture is looked at. This
+is the bullet as it stood there, verbatim, with the cases each rule came from.
+
+- `.claude/fetch-geo-images.js` + `.claude/contact-sheet.py` — the geography picture pass's two tools.
+The fetcher takes a batch naming, per card, either a `subject` (a landmark article, for a REGION) or a
+`city`, and returns `add-images.js`'s own batch shape with the licence, size and attribution read off
+Commons. **It suggests and installs nothing**, like every image helper here. Two findings are built
+into it: **a free-text Commons search is not evidence of subject** — searching `"Phoenix, Arizona"
+skyline` returned a photograph of NEW YORK, which passed every other test — so a city's picture is
+established by CATEGORY MEMBERSHIP plus the name, and **satellite imagery and USGS survey photographs
+are refused**, both being legitimate pictures of a place and neither being a view of it. The sheet
+tiles a fetched batch into one image so every candidate can be LOOKED AT, which is the standing rule
+and does not otherwise scale past a handful.
+· **A THIRD INPUT, `file`, NAMES A COMMONS FILE OUTRIGHT, AND IT IS WHAT A REVIEW PRODUCES.** The
+searches find a subject's pictures and cannot judge one: `White Sands National Park`'s own article
+offers its VISITOR CENTRE as the only file over 900px, and no scoring rule turns that into a
+photograph of the dunes. A pinned file still goes through `fileInfo` and `licenceOK`, so it can
+never smuggle in a non-free or undersized picture — it is the SUBJECT that is asserted by hand,
+never the licence. **Of the 158 pictures the pass shipped, 41 were pinned this way**, which is the
+honest measure of how far a name match gets you.
+· **THE SKIP PATTERNS CARRY NO LEADING WORD BOUNDARY, AND THAT IS THE WHOLE OF WHY THEY WORK.**
+Commons runs words together — `Chesapeakelandsat.jpeg` is a false-colour Landsat scene and
+`\blandsat\b` matches nothing in it. `sentinel-\d` keeps its hyphen, since Sentinel Peak is a real
+Tucson landmark a card may legitimately want. **`Txu-…` and `…pclmaps…` were added after Inner
+Mongolia got a topographic sheet and Qinghai a geological one**: those are the University of Texas
+map library's scans, they are enormous, so they win any largest-file tie-break, and neither says
+"map" anywhere in its name.
+· **THE CREDIT ENDS IN ITS URL, AFTER A FULL STOP, NEVER IN BRACKETS.** A Commons file name is full of
+parentheses — `Historic Entrance (Mammoth Cave, Kentucky, USA) 2 (37773583192).jpg` — so a URL wrapped
+in another pair ends on `))`.
+**BOTH SHAPES ARE LINKS SINCE SEP 2026** (on request: "when clicked an image to enlarge it, the links
+in the source sections should be clickable"). `mediaCreditHTML` tested `/^https?:/` against the WHOLE
+string, so a bare URL became a link and this house form was escaped end to end with its address dead
+text — measured over the cards and the glossary, **1,817 credits are a bare URL and 1,309 are the
+prose form**, so nearly two in five of the site's credits offered an address a reader could not
+follow. **It is NOT `SRC_URL_RX`, and that is the whole difficulty**: the citation pattern stops at a
+bracket, deliberately, since a citation's address is percent-encoded — but 149 of these credits carry
+one, and matching with that pattern truncates `…G.Gardner_(9255157507).jpg` to `…G.Gardner_(1` and
+hands the reader a 404. The match runs to the next space and is trimmed from the right: sentence
+punctuation first, then a closing bracket ONLY where the address carries no opening one to match it,
+which is the four credits that write the address inside brackets mid-sentence and the only way to tell
+those from the 149. Dry-run over all 3,126 addresses: 42 trimmed, every one a stray `)`.
+· **A SMALL STATE CAPITAL HAS NO SKYLINE, AND THE HONEST ANSWER IS ITS MAIN STREET.** Commons has no
+wide view of Montpelier (7,900 people), Pierre, Frankfort, Dover, Concord or Jefferson City, and
+what it offers instead is a 19th-century bird's-eye LITHOGRAPH — a drawing of a town that no longer
+looks like that, which on a card is worse than no picture. Those six ship a downtown streetscape
+with a `desc` that says so rather than "seen from a distance".
