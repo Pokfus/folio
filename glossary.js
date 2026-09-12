@@ -3490,7 +3490,16 @@ window.GLOSSARY = {
 "Battle_of_Carrhae": "The battle of Carrhae was fought in 53 BCE on the Mesopotamian plain, where the Parthian general Surena destroyed a Roman army of seven legions under Marcus Licinius Crassus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Formed into a hollow square, the legions were surrounded by horse archers who shot as they retreated and drew on fresh arrows brought up by camels, so that closing with them cost as much as standing still; Crassus was killed at a parley his own soldiers forced him to attend.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Plutarch reports 20,000 killed and 10,000 taken alive, and Appian that of 100,000 men not quite 10,000 reached Syria again.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Titus_Annius_Milo": "Titus Annius Milo was a Roman politician of the late Republic who kept armed followings of his own and killed Publius Clodius Pulcher on the Appian Way near Bovillae in 52 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> As tribune in 57 BCE he had been among the men who brought Cicero back from exile; standing for the consulship five years later, he met Clodius on the road, and the crowd that carried the body to Rome burned the senate house over its pyre.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Tried before jurors ringed by Pompey's soldiers, he was condemned and sent into exile.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Pompeys_sole_consulship": "Pompey's sole consulship was the office Gnaeus Pompeius held in 52 BCE without a colleague, which Livy's summary says had never happened before at Rome.<sup class=\"fn\" data-fn=\"1\"></sup> Armed canvassing had stopped the elections and the killing of Clodius had left the senate looking for a remedy, so on Cato's advice the house appointed him consul alone rather than dictator, so that ruling by himself he would have a dictator's power with a consul's responsibility.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He carried laws against bribery and violence, superintended the courts behind a ring of soldiers, and took a colleague after two months.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Rubicon": "The Rubicon was the small river marking the southern boundary of Cisalpine Gaul, and so the limit of the province Julius Caesar governed.<sup class=\"fn\" data-fn=\"1\"></sup> Because a proconsul's authority ended where his province did, leading troops across it in January 49 BCE turned a governor into an invader and began the civil war; Suetonius has Caesar tell his companions at the bank that they might still draw back, but that once over the little bridge the whole issue would be with the sword.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Both he and Appian give the saying that the die was cast.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Rubicon": "The Rubicon was the small river marking the southern boundary of Cisalpine Gaul, and so the limit of the province Julius Caesar governed.<sup class=\"fn\" data-fn=\"1\"></sup> Because a proconsul's authority ended where his province did, leading troops across it in January 49 BCE turned a governor into an invader and began the civil war; Suetonius has Caesar tell his companions at the bank that they might still draw back, but that once over the little bridge the whole issue would be with the sword.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Both he and Appian give the saying that the die was cast.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Dyrrhachium": "The battle of Dyrrhachium was the defeat Julius Caesar suffered outside that Illyrian port in 48 BCE while trying to pin the army of Pompey against the sea.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Caesar carried a line of works around the enemy positions and Pompey answered with a rampart of his own, and in the constant small fighting a single day brought six engagements; when Pompey at last stormed the works Caesar recorded the loss of 960 men, five tribunes and 32 centurions, with 32 standards taken.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Pompey was saluted imperator, and the war moved into Thessaly.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Battle_of_Pharsalus": "The battle of Pharsalus was the engagement in Thessaly in 48 BCE that decided the civil war between Julius Caesar and Pompey.<sup class=\"fn\" data-fn=\"1\"></sup> Pompey massed his cavalry on one wing to envelop the smaller army, and Caesar met them with six cohorts drawn unseen from his rear line and told to thrust their javelins upward at the horsemen's eyes rather than throw them; the cavalry broke, the legions it had covered were taken in the rear, and Pompey left the field for his tent.<sup class=\"fn\" data-fn=\"2\"></sup> The dead are disputed, Caesar giving about 15,000 of the enemy and Asinius Pollio, who was there, 6,000.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Death_of_Pompey": "The death of Pompey was his murder on the Egyptian shore in 48 BCE, a few weeks after his defeat at Pharsalus.<sup class=\"fn\" data-fn=\"1\"></sup> Having fled by sea and chosen Egypt because its boy king owed the throne to his friendship with the father, he anchored off Pelusium and waited on a council of the court, which Plutarch says was made up of a eunuch, a hired teacher of rhetoric and an Egyptian general; Achillas rowed out in a small boat with Septimius, once a tribune under Pompey, who ran him through as he stepped ashore.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His age at death is given as 59 and as 57.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Alexandrian_War": "The Alexandrian War was the fighting at Alexandria through the winter of 48 and 47 BCE, in which Julius Caesar, arriving with a small force, was penned into the palace quarter of the city.<sup class=\"fn\" data-fn=\"1\"></sup> Egypt was already divided between the boy king Ptolemy and his exiled sister Cleopatra, and Caesar's arbitration between them, together with his demand for money their father had owed him, brought on a war led by the eunuch Potheinus and the general Achillas; Dio says much of the city burned, the docks and grain stores with it, and the library too.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Ptolemy drowned in the flight from the final battle.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Battle_of_Thapsus": "The battle of Thapsus was the victory in Africa in 46 BCE by which Julius Caesar destroyed the senatorial army that had gathered there after Pharsalus.<sup class=\"fn\" data-fn=\"1\"></sup> Its commanders were Publius Scipio and King Juba of Numidia, and Caesar came through wooded ground on a camp Scipio was still fortifying near the town, outflanking part of the enemy and attacking the rest in front; Plutarch says he took three camps in part of one day and killed 50,000 men, while adding that some accounts place him out of the action altogether through illness.<sup class=\"fn\" data-fn=\"2\"></sup> Cato killed himself at Utica on the news.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Munda": "The battle of Munda, fought in southern Hispania in 45 BCE, was the last battle of the Roman civil war and the hardest Julius Caesar fought.<sup class=\"fn\" data-fn=\"1\"></sup> Gnaeus Pompeius, elder son of Pompey the Great, had raised a large army there with Labienus and Attius Varus among his officers, and when his own line began to give way Caesar took a shield and went out in front of it, Appian reporting that some 200 missiles were aimed at him where he stood.<sup class=\"fn\" data-fn=\"2\"></sup> Over 30,000 of the enemy fell, and Caesar said afterwards that he had often fought for victory but this time for his life.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Caesars_dictatorship": "Caesar's dictatorship was the office that made Julius Caesar's power over the Roman state lawful, held with breaks from 49 BCE until his murder in 44.<sup class=\"fn\" data-fn=\"1\"></sup> Appian lists what was voted to him after his last victory: the title Father of his Country, the dictatorship for life and a consulship for ten years, his person declared sacred and inviolable, a throne of ivory and gold, and an oath from magistrates not to oppose his decrees.<sup class=\"fn\" data-fn=\"2\"></sup> Suetonius says he held his later consulships in name only, content with the dictator's power, and Plutarch calls the appointment for life a tyranny by confession.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Julian_calendar": "The Julian calendar is the reckoning of the year that Julius Caesar established as dictator in 46 BCE, a solar year of 365 days with one further day intercalated every fourth year.<sup class=\"fn\" data-fn=\"1\"></sup> It replaced a civil year of 355 days held to the seasons by an intercalary month whose insertion the pontiffs controlled and, Censorinus says, manipulated to shorten or prolong a magistracy; ten days were added to the old year, two each to January, Sextilis and December and one to each of the rest.<sup class=\"fn\" data-fn=\"2\"></sup> Dio credits Caesar's stay in Alexandria with the idea.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Marcus_Junius_Brutus": "Marcus Junius Brutus was the Roman senator who led the conspiracy that killed Julius Caesar in 44 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Plutarch makes him a descendant of the Junius Brutus who drove out the kings, a descent his enemies denied, and says he chose Pompey's side in the civil war although his own father had been put to death at Pompey's instigation; pardoned after Pharsalus and preferred to Gaius Cassius for the city praetorship of 44, he was pressed towards the deed by writings set on his ancestor's statue and on his own tribunal.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He killed himself after Philippi.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5179,7 +5188,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Crassus_Parthian_campaign": "54 – 53 BCE",
 "Battle_of_Carrhae": "53 BCE",
 "Titus_Annius_Milo": "tribune 57 BCE",
-"Pompeys_sole_consulship": "52 BCE"
+"Pompeys_sole_consulship": "52 BCE",
+"Battle_of_Dyrrhachium": "48 BCE",
+"Battle_of_Pharsalus": "48 BCE",
+"Death_of_Pompey": "48 BCE",
+"Alexandrian_War": "48 – 47 BCE",
+"Battle_of_Thapsus": "46 BCE",
+"Battle_of_Munda": "45 BCE",
+"Caesars_dictatorship": "49 – 44 BCE",
+"Julian_calendar": "reformed 46 BCE",
+"Marcus_Junius_Brutus": "died 42 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6983,7 +7001,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Third_Servile_War": ["war of Spartacus","Spartacus revolt"],
 "Julius_Caesar": ["Caesar","Gaius Julius Caesar"],
 "Gallic_Wars": ["Gallic War"],
-"Caesars_civil_war": ["Caesar's civil war","Pharsalus","Battle of Pharsalus"],
+"Caesars_civil_war": ["Caesar's civil war"],
 "Assassination_of_Julius_Caesar": ["Ides of March","assassination of Caesar"],
 "Augustus": ["Octavian","Gaius Octavius","Caesar Augustus"],
 "Roman_Empire": ["Roman empire"],
@@ -7227,7 +7245,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_Carrhae": ["Carrhae"],
 "Titus_Annius_Milo": ["Annius Milo"],
 "Pompeys_sole_consulship": ["Pompey's sole consulship","sole consulship"],
-"Rubicon": ["crossing of the Rubicon"]
+"Rubicon": ["crossing of the Rubicon"],
+"Battle_of_Dyrrhachium": ["Dyrrhachium","Dyrrachium","battle of Dyrrhachium"],
+"Battle_of_Pharsalus": ["Pharsalus","battle of Pharsalus"],
+"Death_of_Pompey": ["death of Pompey","murder of Pompey"],
+"Battle_of_Thapsus": ["Thapsus","battle of Thapsus"],
+"Battle_of_Munda": ["Munda","battle of Munda"],
+"Caesars_dictatorship": ["Caesar's dictatorship"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10758,7 +10782,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Carrhae": ["battle","event","history","warfare","rome","parthia","classical"],
 "Titus_Annius_Milo": ["person","history","politics","law","rome","classical"],
 "Pompeys_sole_consulship": ["event","history","politics","law","rome","classical"],
-"Rubicon": ["place","river","event","history","politics","rome","classical"]
+"Rubicon": ["place","river","event","history","politics","rome","classical"],
+"Battle_of_Dyrrhachium": ["event","history","warfare","rome","classical","greece"],
+"Battle_of_Pharsalus": ["event","history","warfare","rome","classical","greece"],
+"Death_of_Pompey": ["event","history","politics","rome","classical","egypt"],
+"Alexandrian_War": ["event","history","warfare","rome","classical","egypt"],
+"Battle_of_Thapsus": ["event","history","warfare","rome","classical","africa"],
+"Battle_of_Munda": ["event","history","warfare","rome","classical","spain"],
+"Caesars_dictatorship": ["institution","history","politics","rome","classical","law"],
+"Julian_calendar": ["concept","history","science","rome","classical","technology"],
+"Marcus_Junius_Brutus": ["person","history","politics","rome","classical","warfare"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

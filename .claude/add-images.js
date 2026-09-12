@@ -197,7 +197,10 @@ function main() {
   const total = loadWindow(DATA).CARD_DATA;
   console.log(`${dry ? "[dry] " : ""}glossary images: +${Object.keys(gloss).length} (table now ${g} of ${Object.keys(win.GLOSSARY).length} terms)`);
   console.log(`${dry ? "[dry] " : ""}card images:     +${c} (now ${total.filter((x) => x.image && x.image.src).length} of ${total.length} cards)`);
-  const arts = loadWindow(path.join(ROOT, "artefacts.js")).ARTEFACTS;
+  /* THROUGH artefact-io.js, NEVER artefacts.js ALONE. An artefact's `image` lives in the lazy
+     artefacts-extra.js, so reading the index by itself reports a fully illustrated pool as having
+     no pictures at all — this line said "0 of 200" while 194 of them carried one. */
+  const arts = require("./artefact-io.js").loadArtefacts();
   console.log(`${dry ? "[dry] " : ""}artefact images: +${ar} (now ${arts.filter((x) => x.image && x.image.src).length} of ${arts.length} artefacts)`);
 }
 
