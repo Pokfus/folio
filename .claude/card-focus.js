@@ -137,11 +137,32 @@ function authorSegments(src) {
 
 /* Surnames worth matching in prose. A surname is the LAST capitalised token of a personal name, with
    Dutch/German/French particles folded in ("van Wees" -> "Wees", matched as a word either way). */
+/* A CORPORATE AUTHOR YIELDS NO SCHOLAR, AND THE TEST IS PER NAME RATHER THAN PER CITATION (Sep 2026).
+   `NOT_A_SURNAME` above already carries three scars of the same shape — "Archaeological Survey of
+   India", "U.S. Congress", the Chapel Hill publisher — and its own comment concedes that a list of
+   banned words will always be one word short. It was: measured over the corpus the moment this script
+   could see the cards again, rule 2 reported 97 cards and NOT ONE was real. Every flag came from an
+   institutional byline whose last token the surname rule took for a scholar, which then matched all
+   through the card's own prose — "United Nations Statistics Division" gave *Division*, "Government of
+   Anguilla" gave *Anguilla*, so eight of Anguilla's ten sentences read as historiography about
+   Anguilla. Testing for an institutional word is general where a list of places never can be.
+
+   IT IS APPLIED TO THE COMMA-SEPARATED NAME, NOT TO THE WHOLE AUTHOR FIELD, and that is the whole
+   difference between a fix and a second fault. Rejecting the field outright also cleared 88 of the
+   false flags — and silently swallowed four REAL scholars, Whitley, Nevett, Osborne and Lambert, each
+   of whom happens to be cited beside an institution ("trans. Stephen Lambert and Robin Osborne, Attic
+   Inscriptions Online"). A measure that loses a genuine finding to tidy away a false one is the fault
+   this whole script exists to avoid. Per name: rule 2 goes 97 → 9 and rule 1 19 → 14, every surviving
+   flag is a place, an ancient author or a historical actor rather than a scholar, and the dropped set
+   contains no surname at all. */
+const CORPORATE = /\b(?:Ministry|Ministries|Department|Division|Bureau|Office|Agency|Authority|Administration|Commission|Committee|Council|Assembly|Congress|Parliament|Secretariat|Organization|Organisation|Nations|Government|States|Republic|Kingdom|Bank|Fund|Programme|Survey|Service|Statistics|Institute|Institution|Museum|Library|Archives|Association|Society|Foundation|Trust|Centre|Center|Board|Court|Tribunal|Union|Commonwealth|Company|Corporation|Laboratory|Observatory|Academy|College|School|Faculty|Consortium|Network|Alliance|Federation|Confederation|Secretary|Directorate)\b/i;
+
 function scholarsOf(card) {
   const out = new Set();
   for (const src of card.sources || []) {
     for (const seg of authorSegments(src)) {
       for (const person of seg.split(/\s+(?:and|&)\s+|,\s*(?![A-Z]\.)/)) {
+        if (CORPORATE.test(person)) continue;   // an institution is not a scholar — see CORPORATE above
         const toks = (person.match(/\b[A-ZÀ-Þ][a-zà-ÿ'’-]{2,}\b|\b(?:van|von|de|der|den|du|la|le|di|da|el)\b/g) || [])
           .filter((t) => !NOT_A_SURNAME.has(t));
         if (!toks.length) continue;
