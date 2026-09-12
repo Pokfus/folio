@@ -500,7 +500,8 @@
   const PRISTINE_GLOSS_VIDEOS = Object.assign({}, window.GLOSSARY_VIDEOS);   // ditto for the term's video
   const PRISTINE_GLOSS_SOURCES = Object.assign({}, window.GLOSSARY_SOURCES);  // and for its citations
   // slug -> shipped lang-map (edits REPLACE a slug's map, never mutate it). Filled in as each language's
-  // i18n/gloss-<lang>.js lands (glossI18nIngest), NOT at boot — the files are lazy and per-language now.
+  // i18n/gloss-<lang>.js landed, NOT at boot. Those files are deleted (2026-08-08) and so is the ingest
+  // hook (Sep 2026); the table stays empty and glossText() falls back to English for every reader.
   const PRISTINE_GLOSS_I18N = Object.assign({}, window.GLOSSARY_I18N);
   const PRISTINE_TREE_TITLES = {}; Object.values(NODE_BY_ID).forEach((n) => { PRISTINE_TREE_TITLES[n.id] = n.title; });
   // snapshot of the shipped tree structure (used to rebuild after create/rename/delete/move)
@@ -10326,10 +10327,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       },
     },
   };
-  // The translation tables are split ONE FILE PER LANGUAGE (i18n/ui-<lang>.js, i18n/gloss-<lang>.js) and
-  // registered as bundles on demand, so a Spanish reader fetches ~310 KB of Spanish instead of the 2.7 MB
-  // of all-languages tables the single-file layout made everyone download. Registering lazily (rather than
-  // listing 18 static bundles) also means a session only ever knows about the languages it actually visits.
+  // The translation tables WERE split one file per language and registered as bundles on demand. Every
+  // one of those files is now deleted (see the block below), so no language bundle is registered at all.
   /* A COLLECTION'S HEAVY CARD HALF, registered on demand exactly as a language file is (see
      CARD_EXTRA_FIELDS). Listing fifteen static bundles would work and would also mean a session
      knows about collections it never opens; this way `cardExtra:gr` exists only once something has
@@ -10396,19 +10395,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       } catch (e) {}
     });
   }
-  function langBundle(kind, lang) {
-    const name = kind + ":" + lang;
-    if (!DATA_BUNDLES[name]) {
-      DATA_BUNDLES[name] = kind === "uiI18n"
-        ? { files: ["i18n/ui-" + lang + ".js"] }
-        : kind === "placeI18n"
-        ? { files: ["i18n/places-" + lang + ".js"], after: placeI18nIngest }
-        : kind === "gamesI18n"
-        ? { files: ["i18n/games-" + lang + ".js"], after: gamesI18nIngest }
-        : { files: ["i18n/gloss-" + lang + ".js"], after: glossI18nIngest };
-    }
-    return name;
-  }
+  /* THE TRANSLATION FILES ARE GONE, AND `langBundle` WENT WITH THEM (Sep 2026, on request).
+     i18n/ui-<lang>.js, i18n/games-<lang>.js and i18n/places-<lang>.js were deleted -- 2.1 MB across
+     nine languages, none of it reachable since MULTILANG went false, and better than a quarter of it
+     translating English strings app.js no longer contains. The card and glossary translations had
+     already gone the same way on 2026-08-08.
+
+     WHAT IS LEFT IS THE ENGINE, DELIBERATELY: t(), localizeTree() and applyLang() are threaded
+     through every rendered string on the site, cost an English reader nothing, and are what a
+     revival would be built ON rather than what it would have to replace. What a revival can no
+     longer do is FLIP A FLAG: there is no table behind any of the nine languages now, so reviving
+     means regenerating each family before MULTILANG moves. That is a larger job than it was and it
+     is stated here rather than discovered.
+
+     A BUNDLE POINTING AT A DELETED FILE IS A 404 PER LANGUAGE, which is exactly what the gloss
+     bundle did for the hour after the 2026-08-08 removal. So the registrations go with the files
+     rather than being left to be found later. */
   // A gloss language file pushes its shipped slug -> text map onto window.GLOSSARY_I18N_IN rather than
   // writing the live table itself: the shipped text is the baseline revert/undo compares against, so it
   // has to reach PRISTINE_GLOSS_I18N *before* any admin edits are layered back on top. Draining a QUEUE
@@ -10511,40 +10513,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (!(k in window.GLOSSARY)) { delete window.GLOSSARY_IMAGES[k]; delete window.GLOSSARY_SOURCES[k]; }
     });
   }
-  function glossI18nIngest() {
-    const q = window.GLOSSARY_I18N_IN || [];
-    window.GLOSSARY_I18N_IN = [];
-    const touched = new Set();
-    q.forEach((inc) => Object.keys(inc.data).forEach((k) => {
-      (PRISTINE_GLOSS_I18N[k] = PRISTINE_GLOSS_I18N[k] || {})[inc.lang] = inc.data[k];
-      touched.add(k);
-    }));
-    touched.forEach(glossI18nApply);
-  }
   // The daily-game pools live in the EAGER load path (truefalse.js / quotes.js load before app.js), so
   // their translations must not: nine languages inline took quotes.js from 27 KB to 312 KB downloaded by
   // every visitor, which is exactly what the bundle split exists to prevent. A games language file pushes
   // onto window.GAMES_I18N_IN and this hook drains that QUEUE into GAMES_I18N[pool][englishQ][lang] —
   // a queue, not a slot, so two languages landing before either hook both survive.
   const GAMES_I18N = { truefalse: {}, quotes: {} };
-  function gamesI18nIngest() {
-    const q = window.GAMES_I18N_IN || [];
-    window.GAMES_I18N_IN = [];
-    q.forEach((inc) => ["truefalse", "quotes"].forEach((pool) => {
-      const d = inc[pool] || {};
-      Object.keys(d).forEach((k) => { (GAMES_I18N[pool][k] = GAMES_I18N[pool][k] || {})[inc.lang] = d[k]; });
-    }));
-  }
   // A places file pushes { lang, data } onto window.PLACE_I18N_IN; this hook drains that QUEUE into
   // PLACE_I18N[englishName][lang], which placeName() reads. A queue, not a slot, so two languages whose
   // scripts land before either hook both survive — the same shape as the gloss and games ingests.
   const PLACE_I18N = (window.PLACE_I18N = window.PLACE_I18N || {});
-  function placeI18nIngest() {
-    const q = window.PLACE_I18N_IN || [];
-    window.PLACE_I18N_IN = [];
-    q.forEach((inc) => { const d = inc.data || {}; for (const k in d) (PLACE_I18N[k] = PLACE_I18N[k] || {})[inc.lang] = d[k]; });
-    if (q.length && typeof mapBump === "function") mapBump();   // the globe caches label layouts by view key
-  }
   /* ============================================================
      THE LIBRARY — public-domain books, read on the site
      ============================================================
@@ -35088,17 +35066,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      PAGE: TRUE OR FALSE (myth-or-fact quiz, 5 rounds)
      ============================================================ */
   // A game page must not paint English and then flip to the reading language a moment later, so both
-  // pools' pages hold on a loading line until i18n/games-<lang>.js lands. Returns true when it held.
-  // English readers never wait — and never fetch it. A failed load just falls through to English.
+  // pools' pages held on a loading line until i18n/games-<lang>.js landed. Those files are deleted
+  // (Sep 2026), so nothing is pending and this is now always false — see the stub below.
+  /* NOTHING IS PENDING ANY MORE: the games translations were deleted with the rest (Sep 2026), so
+     there is no fetch for a page to hold on. It returns false unconditionally and both game pages
+     paint at once, which is what an English reader always got. Kept as a named seam for the same
+     reason loadLangData is. */
   function gamesI18nPending(root) {
-    const lang = uiLang();
-    if (lang === "en") return false;
-    const name = langBundle("gamesI18n", lang);
-    if (dataReady(name)) return false;
-    root.innerHTML = '<div class="data-loading" role="status" aria-live="polite">Loading…</div>';
-    const want = current.name;
-    ensureData(name).then(() => { if (current.name === want) render(); });
-    return true;
+    return false;
   }
   PAGES.truefalse = function (root) {
     detachKeys();
@@ -43043,10 +43018,16 @@ let prev = null;
     Object.values(ADMIN_EDITS.glossaryI18n || {}).forEach((d) => Object.keys(d || {}).forEach((l) => langs.add(l)));
     return [...langs].filter((l) => dataReady("glossI18n:" + l));
   }
+  /* IT WRITES NOTHING, AND HAS NOT SINCE 2026-08-08 (made explicit Sep 2026). The gate above asks
+     dataReady("glossI18n:<lang>"), and there has been no such bundle to load since the glossary
+     translations were deleted -- so the list was already empty on every call, through all five bake
+     sites. What changed in Sep 2026 is that i18n/ is gone as a DIRECTORY, and autoSaveFiles walks
+     and CREATES the directories on the way down: an entry here would silently recreate the folder
+     this change removed. Returning the empty object outright is the honest form of what it already
+     did, and it cannot be reached past. The serializers above are kept because a revival needs the
+     file SHAPE, which is the part that is expensive to re-derive. */
   function glossI18nFiles() {
-    const out = {};
-    editedGlossI18nLangs().forEach((l) => { out["i18n/gloss-" + l + ".js"] = serializeGlossaryI18n(l); });
-    return out;
+    return {};
   }
   function serializeMission() {
     const M = missionMerged();
@@ -47520,21 +47501,17 @@ let prev = null;
     q = String(q).toLowerCase().split("-")[0];   // accept es-ES / pt-BR style tags, match on the base language
     if (LANG_CODES.includes(q) && q !== S.settings.lang) { S.settings.lang = q; save(); }
   })();
-  // The translation tables are lazy AND per-language (see langBundle): i18n/ui-<lang>.js carries the site
-  // chrome, and games/places their own pools — the one language being read, which an English reader never
-  // fetches at all. They are pulled the moment the language goes non-English; `then` fires once the chrome
-  // table has landed.
-  // NOTE (2026-08-08): the GLOSSARY translations were removed on request along with the card `i18n` blocks,
-  // so i18n/gloss-<lang>.js no longer exists and is deliberately NOT fetched here — a bundle pointing at a
-  // deleted file is a 404 per language, which is what it did for the hour before this line was cut.
-  // `glossText()` falls back to the English, so every reader now sees the English glossary. The ingest hook
-  // and the per-language overlay below are kept intact, so restoring the files is all it would take.
+  // THERE ARE NO TRANSLATION TABLES LEFT (Sep 2026, on request). The card `i18n` blocks and the glossary
+  // files went on 2026-08-08; the chrome, games and places files went with this change — 2.1 MB across
+  // nine languages, unreachable since MULTILANG went false, and better than a quarter of it keyed on
+  // English strings app.js no longer contains. Every localized accessor (t(), glossText(), nodeTitle(),
+  // placeName(), gameLocalized()) falls back to English, which is what every reader has seen for months.
+  /* THERE IS NOTHING LEFT TO LOAD (Sep 2026). Every translation file was deleted, so this fires its
+     callback and fetches nothing. It is kept as the single named seam a revival would fill in rather
+     than deleted outright: setLang() and boot both call it, and a revival that had to re-derive WHERE
+     the tables are pulled would be re-deriving a decision this file already made. */
   function loadLangData(then) {
-    const lang = S.settings.lang || "en";
-    if (lang === "en") { if (then) then(); return; }
-    ensureData(langBundle("gamesI18n", lang));   // background — the two game pages also await it themselves
-    ensureData(langBundle("placeI18n", lang));   // background — the Atlas re-renders its labels when it lands
-    ensureData(langBundle("uiI18n", lang)).then(() => { if (then) then(); });
+    if (then) then();
   }
   // the one place the site language changes: validates, persists, loads what it needs, repaints
   function setLang(code) {
@@ -47543,7 +47520,10 @@ let prev = null;
     S.settings.lang = code;
     save();
     const paint = () => { applyLang(); render(); };   // flip dir/lang + the static chrome, then rebuild the page
-    if (code === "en" || dataReady(langBundle("uiI18n", code))) paint(); else loadLangData(paint);
+    // There is no per-language bundle to wait on any more, so this paints directly. The call was
+    // `dataReady(langBundle("uiI18n", code))` and langBundle is deleted -- a ReferenceError the moment
+    // MULTILANG moved, and invisible until then because `code === "en"` short-circuits it away.
+    loadLangData(paint);
   }
   /* The language picker's markup, shared by nothing else — it lives on the Settings page (Aug 2026; it
      used to be a dropdown in the top bar, which on a phone is now gone entirely). The whole block carries

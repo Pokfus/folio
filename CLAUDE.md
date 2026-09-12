@@ -58,15 +58,13 @@ It is a plain static website — open `index.html` and it runs.
   the rest of the day is the list underneath.
   **An item is rendered as HTML, not escaped** (through `sanitizeHTML`), so `<b>` and `<i>` work and bold
   marks the thing that changed.
-  **ENGLISH ONLY, for now (Aug 2026, on request): a new line does NOT need its nine translations.** The site
-  ships in English while the work is on making the English as good as it can be — see the `MULTILANG` bullet
-  under "How the app is wired". Write the line, ship it, move on. The rule to resume when translations do:
-  translated items live in `i18n/ui-<lang>.js` as `chrome.exact` rows, or `chrome.html` wherever the item
-  carries a tag, and they must NOT go inline into `changelog.js`, which is in the eager load path (the
-  `quotes.js` mistake: 27 KB → 312 KB for every visitor). Add them with `.claude/add-lang.js` chrome batches,
-  and **if you reword or merge an existing line, retire the old translations** in the same pass via the
-  `chrome.remove` list, or nine files keep a dead row that matches nothing and reads like coverage.
-  A line added while English-only simply has no translated rows to retire.
+  **ENGLISH ONLY (Aug 2026, on request): a new line does NOT need its nine translations.** The site ships
+  in English while the work is on making the English as good as it can be — see the `MULTILANG` bullet
+  under "How the app is wired". Write the line, ship it, move on. **THERE IS NOTHING LEFT TO RETIRE
+  EITHER** (Sep 2026): the translated chrome rows lived in `i18n/ui-<lang>.js`, and that file and the
+  whole `i18n/` directory are deleted, so rewording or merging a line no longer strands a row in nine
+  files. The rule that survives, for a revival: a translation must NOT go inline into `changelog.js`,
+  which is in the eager load path — the `quotes.js` mistake, 27 KB → 312 KB for every visitor.
   The changelog **dates follow the site language** (`fmtDay` → `dayLocale()`, en-GB for English), not the
   browser's.
   **📖 `docs/changelog-and-version.md` — READ BEFORE CHANGING HOW THE CHANGELOG OR THE VERSION LINE WORKS.**
@@ -317,16 +315,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `gw-722`): `%27`, `%28` and `%29` carry none of the stopped characters, resolve on Commons, and match
   the regex whole, where the raw forms truncate a credit at the first `'` or `)`. **The picture is no
   longer the thing that has to be replaced.**
-  Two things about this pass that the card pass does not have: a term whose
-  prose is corrected — or whose markers are placed — needs a second command in the same
-  batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
-  and Phase 1 is largely paid for out of `.claude/sources-register.md` already.
+  One thing about this pass that the card pass does not have: Phase 1 is largely paid for out of
+  `.claude/sources-register.md` already. (It used to have a second — a corrected term needed an
+  `add-lang.js` run for the nine languages, since `add-sources.js` writes only the English description.
+  **That is gone with the translations**, Sep 2026: there is no per-language description left to fall
+  out of step, so a corrected term is one command again.)
   (**Markers were OPTIONAL on a term through G1–G4 and are now REQUIRED**, changed on request 2026-08-01
   when the reader asked where the numbers were: lists had grown to five and six sources, at which size the
   list stops explaining itself, and a reader arriving from a fully-marked card read the vanishing numbers
   as the apparatus giving up. `add-sources.js` refuses an unmarked term or an unreferenced source, exactly
-  as for a card; `add-lang.js` warns on a translation whose markers differ from the English, and
-  `gloss-source-audit.js` reports both standing.) It also records which
+  as for a card, and `gloss-source-audit.js` reports both standing. The marker-parity warning
+  `add-lang.js` used to give is moot — there are no translations left to differ.) It also records which
   scholarly and official hosts were **reachable from this sandbox on 2026-08-01**, measured rather than
   assumed. **Batch G0 (tooling) has shipped**: `GLOSS_SRC_TARGET = 2` sits beside `SRC_TARGET` in app.js and
   is sliced out of it by text by `.claude/gloss-source-audit.js` (the mirror of `source-audit.js`, plus a
@@ -1010,12 +1009,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.27 MB and 47,919 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.27 MB and 47,899 lines is hard to find your way around, so this
   lists its 182 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
-  **30** things are put on `window`. Splitting it across `<script>` tags means either making
+  **28** things are put on `window`. Splitting it across `<script>` tags means either making
   every shared name a property of a namespace object (thousands of call sites, and no test can prove
   closure-equivalence) or making them true globals — which leaks the whole application surface onto
   `window`, where a community deck's sanitized HTML and any browser extension can reach it. The
@@ -3616,12 +3615,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `S.settings.lang` to `"en"` on boot, or a reader who had chosen Spanish would be held there for ever with
   no control left to escape. The content pipeline has the same switch three times over
   (`REQUIRE_TRANSLATIONS`) and, since the removal, a second guard: `add-card.js` and `add-glossary.js`
-  **DROP** a supplied `i18n` block with a warning. One consequence to know rather than fix: **the editors
-  can no longer reach a translation**, the editing language being the site language, so translations are
-  edited by `.claude/add-lang.js` alone — and its `cards` and `glossary` sections would RECREATE what was
-  deleted, so only `chrome` and `tree` are live. Guarded by `test-layout.js` and `test-i18n-lang.js`, which
-  asserts the gate UNPATCHED and then **serves an app.js with the flag flipped** so the machinery behind it
-  stays tested rather than quietly rotting.
+  **DROP** a supplied `i18n` block with a warning. **AND IN SEP 2026, ON REQUEST, THE REST WENT TOO**: `i18n/ui-`, `games-` and `places-<lang>.js`, the
+  whole `i18n/` directory, and the 44 tree-node title blocks in `data.js` — a further 2.1 MB of lazy
+  files plus 14.6 KB off the eager path, **better than a quarter of it translating English strings
+  app.js no longer contains**. `langBundle` is deleted with them; `loadLangData` and `gamesI18nPending`
+  are stubs kept as named seams, `glossI18nFiles()` returns `{}` outright so no bake can recreate the
+  directory, and the three ingest hooks are gone. **`.claude/add-lang.js` REFUSES and writes nothing**,
+  because its writers `mkdirSync` on the way down and one run would have quietly put the folder back;
+  `gloss-i18n-io.js`, `games-i18n-io.js`, `places-i18n-io.js` and `check-i18n-drift.js` are deleted.
+  **WHAT SURVIVES IS THE ENGINE** — `t()`, `localizeTree()`, `applyLang()` — which costs an English
+  reader nothing and is what a revival would be built ON. **What a revival can no longer do is flip a
+  flag**: there is no table behind any of the nine, so it is a regeneration per family before
+  `MULTILANG` moves. Guarded by `test-layout.js` and `test-i18n-lang.js`, which asserts the gate
+  UNPATCHED, asserts the removal stays removed on disk, and then **serves an app.js with the flag
+  flipped** to prove the engine falls back to English without throwing — which is what caught the one
+  `langBundle` call left behind, invisible until the flag moved because `code === "en"` short-circuits
+  it away.
 - **Language picker + i18n** (**Settings → Language**, `langPickerHTML` / `wireLangPicker`; it moved off the
   top bar on request when the phone's top bar was removed). A grid of 10 languages (en/es/fr/de/it/nl/ru/ar/
   zh/ja) in `S.settings.lang`, each with an **inline SVG flag** (`FLAG_SVG` — NOT emoji flags, which render
@@ -3633,8 +3642,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   stays English. Arabic flips `<html dir="rtl">`; `.notranslate` is skipped.
   **Adding a language** touches exactly three code sites — `LANGS` + `FLAG_SVG` and `CARD_I18N_LANGS` in
   app.js, plus the `I18N_LANGS` list in `add-card.js`/`add-glossary.js` — and everything else keys off
-  `S.settings.lang`. Backfill content with `.claude/add-lang.js` and **add the code to `LANGS` LAST**, so
-  the picker never offers a language that renders as English. **No CJK webfont is loaded, deliberately**:
+  `S.settings.lang`. **There is no content to back-fill INTO any more** — every translation file is
+  deleted and `add-lang.js` refuses — so adding a language today means generating its tables from
+  nothing; **add the code to `LANGS` LAST**, so the picker never offers a language that renders as
+  English. **No CJK webfont is loaded, deliberately**:
   CJK falls through to the reader's own system font, giving correct per-language glyph forms, and the
   imported `Noto Sans SC` sits only in `--han` so it cannot impose Chinese forms on Japanese text.
   **Collection and deck titles carry their own `node.i18n` lang-map** read by `nodeTitle(n)` — deliberately
@@ -4530,7 +4541,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **The form covers the English AND the original-language block** (`o`: lang, text, speaker, source).
     **An `o` is written only when the language and the words are both filled in** — an empty one would make
     the home page offer a flip that turns the quote into nothing. The nine-language chrome translations are
-    not editable here: they are `chrome.exact` rows managed by `.claude/add-lang.js`.
+    not editable here, and no longer exist at all: `i18n/ui-<lang>.js` was deleted in Sep 2026.
   · **"Copy as JS" hands the whole pool back as the `SHIPPED_QUOTES` literal**, for pasting into app.js when
     a batch is settled. It is the bake path this tab has instead of `autoSaveFiles`, which writes data files
     and **must never be pointed at app.js**.
@@ -5325,8 +5336,8 @@ put the SAME markers on the same claims in **whatever translations the term carr
 written while the site is English-only is none — since a language that loses them shows the fold with no
 in-text links and a language that carries a different set points at the wrong work.
 `add-sources.js` refuses a term with no marker, a marker past the end of the list, or a source nothing
-points at; `add-lang.js` warns on a mismatched translation and `node .claude/gloss-source-audit.js` reports
-both over the whole glossary. **`split-abstract.js` exports `pieces()` and `mark()`** for exactly this: split
+points at, and `node .claude/gloss-source-audit.js` reports both over the whole glossary. (The
+per-language marker-parity warning went with the translations in Sep 2026.) **`split-abstract.js` exports `pieces()` and `mark()`** for exactly this: split
 each language into its three sentences and apply one sentence-index → source-number map to all ten at once,
 after checking that every language really does split into three. The citations themselves are not
 translated (a citation names an edition that exists in one language). Escape hatch: `"skipSources": true`,
@@ -5470,9 +5481,9 @@ is Africa's division and not the Upper Palaeolithic), and note that **`add-gloss
 list only when the `aliases` key is PRESENT** — omit it on an update and the old list stands, so two terms
 end up claiming the same surfaces. **When a term is the only one in the glossary for its subject area,
 check whether it is being made to carry the whole subject**; the fix is a sibling term, not a correction.
-**A term whose prose is corrected needs an `add-lang.js` run per language in the same batch**, since
-`add-sources.js` writes only the ENGLISH description, and **a correction does not travel between surfaces
-or between SIBLING TERMS** — when a card is corrected, grep the glossary for the figure, on the day.
+A term whose prose is corrected used to need an `add-lang.js` run per language in the same batch, since
+`add-sources.js` writes only the ENGLISH description; **that is gone with the translations (Sep 2026)**.
+What still holds is that **a correction does not travel between surfaces or between SIBLING TERMS** — when a card is corrected, grep the glossary for the figure, on the day.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number
 nobody checked. The honest routes are the ones the pass follows: open every work before citing it, re-derive the
@@ -5496,28 +5507,24 @@ where that quote is followed by a LOWERCASE word, a quotation INSIDE a sentence 
 **Do not simplify either clause**; the second is the one that matters.
 **📖 `docs/glossary-citation-plan.md` — READ BEFORE CHANGING `split-abstract.js`'s SENTENCE RULES.**
 
-**Backfilling a site language** — `add-card.js` / `add-glossary.js` only handle a whole NEW entry in every
-language at once. To add a language to content that already exists (a new site language, or topping up a
-partial one), batch it through:
+**Backfilling a site language — THE TOOL IS RETIRED AND REFUSES (Sep 2026, on request).**
+`node .claude/add-lang.js` used to be how one site language was added to content that already existed,
+writing five targets at once: `i18n/ui-<lang>.js`, `i18n/games-<lang>.js`, `i18n/places-<lang>.js`,
+`i18n/gloss-<lang>.js` and the per-card and per-node `i18n` blocks in `data.js`. **Every one of those is
+now deleted.** The tool prints why and exits 1.
 
-```
-node .claude/add-lang.js <batch.json> [--partial]
-```
+**IT IS A REFUSAL RATHER THAN A DELETED FILE, and that is the point.** Its writers call
+`fs.mkdirSync(DIR, { recursive: true })`, so running it would not have failed — it would have silently
+recreated the `i18n/` directory and left one language's files that nothing loads and nothing checks,
+which the next session reads as evidence the removal was reverted. `test-i18n-lang.js` asserts the
+directory is gone, so such a run would now be caught; refusing says so at the moment somebody reaches
+for the tool rather than at the next CI run.
 
-`{ "lang": "ja", "chrome": { "exact": {…}, "rules": [[pattern, replacement], …], "html": {…} },
-"cards": { "<cardId>": { question, answer, answerDate, abstract, answerText }, … },
-"tree": { "<nodeId>": "<translated collection/deck title>", … },
-"glossary": { "<slug>": "<3 sentences>", … } }` — every section optional, so one batch can be as small as
-20 glossary terms. It writes `i18n/ui-<lang>.js` / `data.js` / `i18n/gloss-<lang>.js`, **merging** in every case (a language
-never overwrites its neighbours), refuses a card missing any of the 5 translated fields unless `--partial`,
-refuses a glossary slug that has no English entry, refuses a `tree` id that is not in `COLLECTION_TREE`
-(keyed by **node id**, not title — titles repeat across the tree, e.g. two `Jin`s and two `Prehistory`s),
-warns on a chrome key no other language has (a sign the
-English source string has changed), and re-parses each file it writes. It reports running coverage
-("ja now 140/333"), which is how a multi-batch language rollout is tracked.
-**Gotcha this exists to avoid:** `update-cards.js` assigns whole fields, so passing it an `i18n` patch replaces
-the card's entire `i18n` object and silently drops the other languages. `add-glossary.js` used to do the same
-to `GLOSSARY_I18N[slug]` and now merges instead.
+**What a revival actually needs**, now that no table survives behind any of the nine languages:
+regenerate the chrome, games and places families per language **before** `MULTILANG` moves in app.js;
+re-register the bundles (`langBundle` is deleted, `loadLangData` and `gamesI18nPending` are stubs kept
+as the named seams); re-add the three ingest hooks; and regenerate the card and glossary translations
+from nothing, there being no partial state to top up. It is a regeneration, not a flag flip.
 
 ## Generating timeline eras (historical globe maps)
 
