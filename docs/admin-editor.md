@@ -190,3 +190,39 @@ Because a file-watching dev server may **live-reload** the page after each auto-
 every navigation + `pagehide`) and **restores it on load** (`restoreAdminUI` seeds `adminState`; `PAGES.admin` re-validates the
 saved card/node/term against the rebuilt tree and scrolls it back into view) — so a reload lands you back on the card you were
 editing instead of the top of the deck.
+
+## Admin → Artefacts — the pool a chest draws from (Aug 2026)
+
+**Read this before touching the Artefacts tab or `serializeArtefacts`.** CLAUDE.md keeps the rules;
+this is the bullet as it stood there, with the live plate's three supports in full, verbatim.
+
+- **Admin → Artefacts: the pool a chest draws from (Aug 2026, on request).** `adminRenderArtefacts`, a sixth
+tab taking over the admin area the way the Dashboard, Quotes, Timeline and Feedback do (`artefacts-mode`,
+the same hide list, and the panel-cap exception above). It follows the Quotes tab exactly — `artefacts.js`
+is the shipped literal and `ADMIN_EDITS.artefacts` an overlay over it, so an edit made on a phone reaches
+every reader through `content_overrides` with no deploy, and **Copy as JS** hands the whole file back
+(`serializeArtefacts`) for baking in. Three things differ from Quotes and all three matter.
+· **The key is the artefact's `id`, not its text**, because the reader's own inventory is keyed by that id.
+So the id field is editable only while an artefact is NEW and locked once it exists — a renamed id takes
+the artefact out of every collection that holds it, silently.
+· **The description carries a live word/sentence counter** against the house bar (five sentences, 200 words
+±10%), so prose drifting long is visible as it is written rather than at review time.
+· **A picture is never saved uncredited** — the same rule `add-card.js`, `add-glossary.js` and the editors'
+media gate enforce, and for the same reason: the editors save on every keystroke, so a URL pasted in and
+forgotten about would otherwise ship credited to nobody.
+· **THE FORM SHOWS THE READER'S PLATE, LIVE** (Aug 2026, on request), drawn by `artefactPlateHTML` — the
+reader's own builder, not a second rendering of the same fields — and repainted on every keystroke.
+Three things hold it up. It is built from the **FORM, never from the store**, so it shows the edit in
+progress rather than the last thing saved, which is the difference between a preview and a receipt; the
+description goes through `sanitizeHTML` on the way in exactly as `artefactSanitize` would, so a typo in
+a tag looks here the way it will look to a reader. **`wireArtefactPlate` runs on every repaint**, or the
+citations render as an unnumbered list under blank superscripts. And the listeners are bound with
+**`change` as well as `input`**, because the rarity is a `<select>` — the one field that would silently
+stop updating on an `input`-only preview.
+· **The citation bar is a refusal here too** — a save under `ARTEFACT_SRC_TARGET`, or with a citation that
+carries no URL, is turned away with a reason, and a counter beside the sources box reports both the
+count and how many markers the description carries.
+`serializeArtefacts` writes the file's whole head comment out rather than preserving what is on disk: this
+is the only copy of it once the file has been round-tripped, and a serializer that drops the documentation
+is how a file stops explaining itself. It is wired into `autoSaveFiles`, `adminExport` (including its
+download fallback) and `folioSave.files`, each gated on the overlay actually holding something.
