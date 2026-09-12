@@ -1,4 +1,4 @@
-# The eager load path, and the two splits taken off it
+# The eager load path, and the three splits taken off it
 
 **Read this before splitting anything off the eager path.** `CLAUDE.md`'s File map carries the rules —
 what each split file holds, the queue-not-assignment rule, the single-IO-module rule and the `--check`
@@ -42,6 +42,49 @@ split itself REFUSED to write until it had re-loaded its own output and compared
 against what it started with, so the bytes that ship are the bytes that were checked.
 
 ---
+
+## The card split, and the loader trap it left behind (2026-09-12)
+
+`data.js` is the biggest file on the eager path, and `abstract`, `sources`, `why`, `quote` and a
+non-artwork card's `image` are most of it — none of which is needed to deal or draw a card FRONT. They
+moved to `data-extra/<collection>.js`, one file per collection, fetched when a reader actually reveals a
+card in it. The light half is 3.4 MB against 13.7 MB of heavy halves, and the split is **by collection
+rather than one file** so a reader studying Ancient Greece fetches Greece's share and nothing else.
+`.claude/card-io.js` is the one door: `loadCards()` joins the halves on `id`, `writeCards()` writes both
+or refuses.
+
+**THE TRAP IS NOT "DO NOT REQUIRE data.js" — IT IS `new Function`.** `data.js` closes the gap by itself
+with a Node-only tail that re-joins the two halves, so a plain `require("../data.js")` keeps meaning what
+it always meant. But that tail needs `require` and `__dirname`, which a `new Function("window", src)`
+body has not got, so it sits in a `try/catch` and **silently does nothing** for the twenty-odd helpers
+here that evaluate the file that way. Those get the light half: every card with no abstract, no sources,
+no `why`, no picture.
+
+**AND A BLIND READER DOES NOT FAIL — IT REPORTS A PLAUSIBLE NUMBER.** Six helpers were found in that
+state on 2026-09-12, a fortnight after the split, and each was wrong in its own register:
+
+- **`source-audit.js`** reported a fully cited corpus as uncited — *2,965 cards, 0 at the bar, 14,825
+  citations still to find* — which is the figure a decision about whether the citation pass is finished
+  rests on. It reads 2,965 at the bar.
+- **`card-focus.js`** reported every card `0/0` with nothing to revise, because rule 1 takes its names
+  from the AUTHOR POSITIONS of a card's own `sources` and rule 2 counts historiography sentences in its
+  `abstract`. **A measure that finds nothing is indistinguishable from a corpus that has just been
+  cleaned up**, which is the worst shape a silent failure can take. Repointed, it finds 23 rule-1 flags.
+- **`mark-sources-blocked.js`** was not merely printing a wrong number but taking a wrong DECISION: its
+  guard refuses to mark a card blocked when it already meets the bar, and blind it would have marked a
+  fully cited card as uncitable and written the reason into the card.
+- **`add-questions.js`** and **`add-lang.js`** each rebuilt `data.js` from a template of their own —
+  which did not carry the rejoin block at all, so one run would have broken every helper that requires
+  the file, including the ones that were working.
+- **`patch-cards.js`** patches `data.js` line by line, which is deliberate and stays; what it could not
+  see is that a `set` naming a heavy field writes a SECOND copy into the light half, and an `unset`
+  naming one deletes nothing while reporting the card patched.
+
+The rule that comes out of it: **a helper loads the corpus through `card-io.js`, and a helper that
+writes `data.js` from its own template is writing a bug.** `writeCards()` owns the rejoin block so a
+writer cannot lose it by forgetting it exists, and it refuses a light-half write outright — it compares
+what it is handed against what the corpus holds and throws rather than serialising 13.7 MB of nothing.
+`patch-cards.js` is the one legitimate exception, and it now refuses a heavy field by name.
 
 ## The glossary split (2026-09-12)
 

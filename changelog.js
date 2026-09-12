@@ -35,9 +35,25 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.692", released: "2026-09-10T19:38Z" };
+window.FOLIO_VERSION = { v: "1.694", released: "2026-09-12T15:11Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-09-12",
+    t: "Questions about Greece, not about who wrote on it",
+    items: [
+      "<b>Five Ancient Greece questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who argued what.",
+      "<b>One Ancient Greece background no longer reads as a roll-call of the scholar it rests on</b>, keeping every claim and every citation.",
+    ],
+  },
+  {
+    d: "2026-09-11",
+    t: "Alexander's generals divide the empire",
+    items: [
+      "<b>Ten new cards in the Ancient Greece collection</b>, on the successor kings from Antigonus the One-Eyed to Ptolemaic Egypt, the Seleucid Empire and Antigonid Macedonia.",
+      "<b>Ten more glossary terms</b>, each cited to open sources.",
+    ],
+  },
   {
     d: "2026-09-10",
     t: "Folio opens far faster, and works where Google does not",
@@ -99,7 +115,7 @@ window.CHANGELOG = [
     t: "An atlas of your own, and a reason behind every card",
     items: [
       "New pictures for seven cards that had come to share a picture with a card in another collection.",
-      "<b>200 new cards in the Ancient Greece deck</b>, from the Athenian empire and the Peloponnesian War through Classical sculpture and the rise of Thebes to Plato, Aristotle and the rise of Philip of Macedon, with 196 new glossary terms.",
+      "<b>260 new cards in the Ancient Greece deck</b>, from the Athenian empire and the Peloponnesian War through Plato, Aristotle and the rise of Philip of Macedon to Alexander’s conquests and the wars his generals fought over what he left, with 251 new glossary terms.",
       "<b>The United States collection has opened</b> with its first hundred cards, on Native America from before contact to tribal sovereignty today.",
       "<b>Playing all nine minigames in a day now earns a chest</b>, counted by a nine-bar meter under the Minigames heading.",
       "<b>Multiple Choice now shows the whole answer side of the card</b> below the round, once you have answered.",
