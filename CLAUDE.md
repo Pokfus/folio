@@ -1162,16 +1162,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Download fetches the file. That split is the whole reason a deck added on a phone reaches a laptop
     — `S.active` syncs and IndexedDB does not.
   · **…AND A THIRD, UPDATE, FOR A DECK ALREADY HERE** (`rev` in the catalogue, `langDeckStale` /
-    `langDecksStale` / `langDeckUpdate` in app.js; Sep 2026, on a bug report that a card repaired weeks
-    earlier still showed the old pinyin). `langDeckDownload` returns early for a deck already in
-    `UDECKS` and nothing compared the copy on the device against the shipped one — `meta.version` is 1
-    in every file and no code reads it — so **every content repair ever made to a language deck reached
-    only readers who had not yet downloaded it.** The catalogue row now carries a CONTENT REVISION (a
-    hash over the deck's cards and glossary, canonically keyed, so a re-serialisation that moves
-    whitespace or key order cannot move it), a mounted deck records the one it was built from, and the
-    two disagreeing puts an Update button on the deck's row in the daily study. **A deck downloaded
-    before this carries no revision at all and counts as stale**, which is deliberate: those are
-    exactly the readers holding an unrepaired copy.
+    `langDecksStale` / `langDeckUpdate` in app.js; Sep 2026). `langDeckDownload` returns early for a
+    deck already in `UDECKS` and nothing compared the copy on the device against the shipped one, so
+    **every content repair ever made to a language deck reached only readers who had not yet downloaded
+    it.** The catalogue row carries a CONTENT REVISION — a hash over the deck's cards and glossary,
+    canonically keyed, so a re-serialisation that moves whitespace or key order cannot move it — a
+    mounted deck records the one it was built from, and the two disagreeing puts an Update button on the
+    deck's row in the daily study. **A deck downloaded before this carries no revision at all and counts
+    as stale**, deliberately: those are exactly the readers holding an unrepaired copy.
     **IT MERGES INTO THE EXISTING DECK ID RATHER THAN IMPORTING.** `uDeckImportText` mints a fresh id
     for a deck already mounted, which would orphan the reader's whole schedule while producing a deck
     that looks perfect. A language deck keeps the file's own id, so a re-fetched file has bit-identical
@@ -1193,17 +1191,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     unwrapped deck those nodes are the rows a reader chooses between.
   · **A LANGUAGE DECK CAN BE STUDIED BY FREQUENCY** (`DECK_ORDERS`'s fourth entry, `uDeckWordFreq` /
     `sortByFrequency` / `deckOrdersFor` / `entryCanFreq`; Sep 2026, on request). The exam lists these
-    decks are built from are alphabetical by reading, an ordering with no teaching in it — a reader
-    working through HSK Level 5 in order meets 报到 on the first day and 自觉 in a year — and "By
+    decks are built from are alphabetical by reading, an ordering with no teaching in it, and "By
     difficulty" can say nothing here, `card.difficulty` being an editorial rating only curated cards
     carry. This counts how often a deck's own example sentences use each of its headwords (longest match
     at each position, so 天 is not counted inside 今天) and deals the commonest first. **IT IS DERIVED,
     NEVER STORED**, one pass over a deck the reader has just asked to study. **WHERE IT STOPS WORKING IS
-    MEASURED**: the median count is 57 at Level 1 and 7 at Level 5, and **1 at Levels 7–9, where 3,029 of
-    5,562 words occur exactly once — in their own sentence**. The sort is stable, so that run keeps deck
-    order and only genuinely common words move. **Offered ONLY where it can act** — `deckOrdersFor` steps
-    the cycler past it on a deck with no examples, an option that is drawn and does nothing being worse
-    than one that is not drawn.
+    MEASURED and the measurement is in the doc** — by Levels 7–9 most words occur once, in their own
+    sentence. The sort is stable, so that run keeps deck order and only genuinely common words move.
+    **Offered ONLY where it can act** — `deckOrdersFor` steps the cycler past it on a deck with no
+    examples, an option that is drawn and does nothing being worse than one that is not drawn.
+    **📖 `docs/lang-decks.md` — READ BEFORE CHANGING `langDeckUpdate` OR A DECK ORDER.**
   · **A DECK'S OWN SUBTITLE IS PRINTED UNDER ITS TITLE** on the Collections page (`.node-sub`, top-level
     rows only; Sep 2026). Nine Mandarin decks presented as nine levels gave a learner no route — where
     to start, how big each is against the others, where the two decks outside the ladder fit — and the

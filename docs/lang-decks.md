@@ -3434,3 +3434,48 @@ name a real card, so a typo is an error rather than a silent gap.
 · **`hints` IS THE MECHANICAL HALF, and is a map rather than an entry per note** — the English →
 Spanish card's front is the gloss alone, so `por` and `para` both glossing to "for" is one question
 with two right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or
+
+## The language-deck catalogue — the Update press and the frequency order
+
+**Read this before changing `langDeckUpdate` or a deck order.** CLAUDE.md keeps the rules; this is
+the bug report behind the Update press and the measurement behind the frequency order, verbatim.
+
+### …AND A THIRD, UPDATE, FOR A DECK ALREADY HERE
+
+· **…AND A THIRD, UPDATE, FOR A DECK ALREADY HERE** (`rev` in the catalogue, `langDeckStale` /
+`langDecksStale` / `langDeckUpdate` in app.js; Sep 2026, on a bug report that a card repaired weeks
+earlier still showed the old pinyin). `langDeckDownload` returns early for a deck already in
+`UDECKS` and nothing compared the copy on the device against the shipped one — `meta.version` is 1
+in every file and no code reads it — so **every content repair ever made to a language deck reached
+only readers who had not yet downloaded it.** The catalogue row now carries a CONTENT REVISION (a
+hash over the deck's cards and glossary, canonically keyed, so a re-serialisation that moves
+whitespace or key order cannot move it), a mounted deck records the one it was built from, and the
+two disagreeing puts an Update button on the deck's row in the daily study. **A deck downloaded
+before this carries no revision at all and counts as stale**, which is deliberate: those are
+exactly the readers holding an unrepaired copy.
+**IT MERGES INTO THE EXISTING DECK ID RATHER THAN IMPORTING.** `uDeckImportText` mints a fresh id
+for a deck already mounted, which would orphan the reader's whole schedule while producing a deck
+that looks perfect. A language deck keeps the file's own id, so a re-fetched file has bit-identical
+card ids and the merge is by id — `S.cards`, `S.buried`, `S.flags` and `S.deckOpts` are all keyed
+by ids that do not move, so the correct action on them is NONE. A note the shipped deck has dropped
+is KEPT rather than deleted, and the reader's own colour and the date they got the deck survive it.
+**`langRev` rides at the TOP LEVEL of the store record beside `srev`, not in `meta`**, for `srev`'s
+own reason: `meta` is what an export copies, so a deck FILE could otherwise claim to be current.
+**ONE button per DECK**, on the first of its rows the reader has — its levels and its directions
+are the same file seen from further in. Guarded by `.claude/test-deck-update.js`.
+
+### A LANGUAGE DECK CAN BE STUDIED BY FREQUENCY
+
+· **A LANGUAGE DECK CAN BE STUDIED BY FREQUENCY** (`DECK_ORDERS`'s fourth entry, `uDeckWordFreq` /
+`sortByFrequency` / `deckOrdersFor` / `entryCanFreq`; Sep 2026, on request). The exam lists these
+decks are built from are alphabetical by reading, an ordering with no teaching in it — a reader
+working through HSK Level 5 in order meets 报到 on the first day and 自觉 in a year — and "By
+difficulty" can say nothing here, `card.difficulty` being an editorial rating only curated cards
+carry. This counts how often a deck's own example sentences use each of its headwords (longest match
+at each position, so 天 is not counted inside 今天) and deals the commonest first. **IT IS DERIVED,
+NEVER STORED**, one pass over a deck the reader has just asked to study. **WHERE IT STOPS WORKING IS
+MEASURED**: the median count is 57 at Level 1 and 7 at Level 5, and **1 at Levels 7–9, where 3,029 of
+5,562 words occur exactly once — in their own sentence**. The sort is stable, so that run keeps deck
+order and only genuinely common words move. **Offered ONLY where it can act** — `deckOrdersFor` steps
+the cycler past it on a deck with no examples, an option that is drawn and does nothing being worse
+than one that is not drawn.
