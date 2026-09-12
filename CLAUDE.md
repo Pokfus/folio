@@ -4997,25 +4997,28 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   chronological order (see the "Deep time" bullet).
   **A CENTURY IS NOT A DATE `cardYears` CAN READ**, and a date line whose ONLY dates are centuries
   therefore yields no sort year at all — the card falls to 0, "timeless", which on a deck running in
-  BCE puts it after every other card (Aug 2026, caught by `test-date-line.js` on `rm-047`, whose two
-  rows both read "7th century BCE"). Write the span the century MEANS — `c. 700 – 600 BCE` — which
+  BCE puts it after every other card. Write the span the century MEANS — `c. 700 – 600 BCE` — which
   asserts no precision the source has not got, since that interval IS the 7th century; a second row
   may then say "7th century" in words. **The fix is in the DATE LINE, not in `cardYears`**: 52 of the
   447 shipped date lines carry a century form beside a plain year, so teaching that function to read
   centuries would silently move their sort years too.
   **AND AN ERA MARKER ONLY REACHES THE YEAR IT FOLLOWS**, so a row naming two alternative years —
-  `1188 or 1177 BCE` — is read as 1188 **CE** beside 1177 BCE (Aug 2026, on `wh-268`). Write the era
-  on both: `1188 BCE or 1177 BCE`. The sort year is usually unaffected, which is why nothing reports
-  it: `cardStartYear` takes the MINIMUM, so the stray positive hides there and surfaces only in
-  `cardSpanYears`, where it runs a Bronze Age deck's coverage to the 12th century CE.
-  **AND A `c.` INSIDE A RANGE BREAKS THE ERA'S LEFTWARD CARRY** (Aug 2026, on `wh-284`). A range writes
-  the era once and lets it carry back to the first number — `668 – 631 BCE` yields −668 and −631 — but
-  `668 – c. 631 BCE` yields only **−631**, the approximation mark standing between the two. The failure
-  is the opposite way round from the one above and LOUDER, since the lost year is usually the EARLIER
-  one and `cardStartYear` takes the minimum: the card silently sorts by whatever else its date line
-  happens to name. Write the era twice (`668 BCE – c. 631 BCE`) or move the `c.` to the front
-  (`c. 668 – 631 BCE`) — both parse. **Read the sort year back after writing a date line**, which is
-  two lines of Node against `cardYears` and is the only thing that can see this.
+  `1188 or 1177 BCE` — is read as 1188 **CE** beside 1177 BCE. Write the era on both:
+  `1188 BCE or 1177 BCE`. The sort year is usually unaffected, which is why nothing reports it:
+  `cardStartYear` takes the MINIMUM, so the stray positive hides there and surfaces only in
+  `cardSpanYears`.
+  **AND A `c.` INSIDE A RANGE BREAKS THE ERA'S LEFTWARD CARRY.** A range writes the era once and lets it
+  carry back to the first number — `668 – 631 BCE` yields −668 and −631 — but `668 – c. 631 BCE` yields
+  only **−631**, the approximation mark standing between the two. The failure is the opposite way round
+  from the one above and LOUDER, since the lost year is usually the EARLIER one and `cardStartYear` takes
+  the minimum: the card silently sorts by whatever else its date line happens to name. Write the era
+  twice (`668 BCE – c. 631 BCE`) or move the `c.` to the front (`c. 668 – 631 BCE`) — both parse.
+  **Read the sort year back after writing a date line**, which is two lines of Node against `cardYears`
+  and is the only thing that can see this.
+  **📖 `docs/date-lines.md` — READ BEFORE OPENING A BATCH OF DATE LINES.** The whole-deck conversion of
+  Aug 2026 in full: the paragraph the field used to be, the fifteen cards whose sort year changed and why
+  every change was a correction, the card that lost its only deep date and sorted 5,000 years late, and
+  the three parsing faults with the cards they were each found on.
 - `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330, which
   `add-card.js` has ENFORCED since 2026-08-06 — it never measured the abstract before, which is how seven
   cards reached 331–342 unremarked; they are recorded in the changelog and left as they are), as two
@@ -5337,15 +5340,12 @@ EMPTY label is a continuation line under the value above it, and `[]` is an empt
 through `.claude/date-line.js` — the same module `add-card.js` holds a new card to, which is what stops the
 field growing back into a paragraph — clears the field from every translation the card carries
 (`--keep-i18n` opts out), and reports running coverage over the whole deck.
-**The whole deck was converted this way on 2026-08-03** (11 batches, 112 cards): the date line had grown
-into a summary of the card, sometimes three sentences under a one-word label, and is now the dates alone.
-Two things worth keeping from that pass. **The sort order improved as a side effect** — fifteen cards
-changed sort year and every one was a correction, because the old paragraphs carried excavation and
-publication years that `cardYears` read as the card's own date (Atapuerca sorted at **1978 CE**, Denisova
-Cave at 1977, Omo at 1967, Dolní Věstonice at 2016). **A card that states no era of its own needs the
-sort year putting back by hand**: `wh-063` Paleo-Indians lost its only deep date when the Clovis figures
-went, and sorted 5,000 years late until the Clovis row was restored — so run the before/after comparison
-over `cardStartYear`, not just the eye, after a batch.
+**A card that states no era of its own needs the sort year putting back by hand**, so **run the
+before/after comparison over `cardStartYear`, not just the eye, after a batch**: a card can lose its only
+deep date to a trim and sort thousands of years late with nothing saying so.
+**📖 `docs/date-lines.md` — READ BEFORE OPENING A BATCH OF DATE LINES.** The Aug 2026 whole-deck
+conversion in full — the paragraph the field used to be, and the fifteen cards whose sort year changed,
+every one of them a correction.
 
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia

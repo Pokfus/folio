@@ -33,6 +33,7 @@ before changing the thing it names.
 | `library-feature.md` | The reading room — the shelf, the bilingual columns, the ink, the highlights, the per-book licence reasoning. |
 | `community-decks.md` | The nine phases of community decks, every guard, and the faults that shipped silently. |
 | `daily-study.md` | The pooled review, per-deck limits, the three orders, the reader's own groups and the deck rows. |
+| `date-lines.md` | The card date line — the three parsing faults that yield a wrong sort year, and the whole-deck conversion. |
 | `eager-path.md` | The eager load path and the two splits taken off it — the artefact pool and the glossary. |
 | `scheduler.md` | The day boundary, the SM-2 port, FSRS and its optimiser, load balancing, burying. |
 | `minigames.md` | The nine daily games, their pools, and the faults a one-day test cannot see. |
