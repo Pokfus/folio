@@ -10,19 +10,28 @@
 //   short    — below it, and nobody has researched it yet          (amber chip)
 //   blocked  — below it, and a batch concluded it cannot be raised (red chip; `card.sourcesBlocked`)
 //
-// No dependencies, no browser. It reads the real data.js and the real app.js, slicing SRC_TARGET out of
-// the latter by text so this script and the site can never disagree about what the bar is.
+// No dependencies, no browser. It reads the real card corpus and the real app.js, slicing SRC_TARGET out
+// of the latter by text so this script and the site can never disagree about what the bar is.
 const fs = require("fs"), path = require("path");
 const root = path.join(__dirname, "..");
-
-function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 
 const appSrc = fs.readFileSync(path.join(root, "app.js"), "utf8");
 const m = /const SRC_TARGET = (\d+);/.exec(appSrc);
 if (!m) { console.error("ERROR: could not find `const SRC_TARGET` in app.js — has the constant been renamed?"); process.exit(1); }
 const TARGET = +m[1];
 
-const cards = loadWindow(path.join(root, "data.js")).CARD_DATA || [];
+/* THROUGH card-io, NEVER THROUGH A `new Function` LOADER OF ITS OWN. `sources` is one of the fields
+   the split moved out to data-extra/<collection>.js, and data.js closes that gap with a Node-only tail
+   that re-joins the two halves — but the tail needs `require`, so it is wrapped in a try/catch and
+   SILENTLY DOES NOTHING for a helper that evaluates the file through `new Function`, which has no
+   require in scope. This script did exactly that from the split until 2026-09-12 and reported a fully
+   cited corpus as uncited: 2,965 cards, 0 at the bar, 14,825 citations "still to find". Nothing threw,
+   and the figure it printed is the one a decision about whether the pass is finished rests on. That is
+   card-io.js's own first warning, and `gloss-source-audit.js` had already made the same mistake one
+   file over after the glossary split. Four helpers still load the file that way — add-lang.js,
+   add-questions.js, mark-sources-blocked.js and patch-cards.js — and each is a WRITER, where the same
+   blindness costs the heavy halves rather than a wrong number. */
+const { cards } = require("./card-io").loadCards();
 const rows = cards.map((c) => {
   const src = Array.isArray(c.sources) ? c.sources : [];
   const why = typeof c.sourcesBlocked === "string" ? c.sourcesBlocked.trim() : "";

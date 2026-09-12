@@ -79,7 +79,13 @@ const REPORT  = args.includes("--report");
 const PREFIX  = (args.find(a => a.startsWith("--prefix=")) || "").slice(9);
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
-const win = loadWindow(path.join(ROOT, "data.js"));
+/* THE CARDS COME THROUGH card-io, and every check here depends on it: `sources` and `image` are two of
+   the fields that moved to data-extra/, so read from data.js alone this file reports a fully cited,
+   fully illustrated corpus as uncited and unillustrated — "no-picture — 100" on a collection where
+   fifty-seven cards carry one. A checker that reports a clean corpus as broken is a checker nobody
+   runs. (See card-io.js: a `new Function` body inside a module cannot see `require`, so data.js's own
+   rejoin block never fires there.) */
+const win = Object.assign(loadWindow(path.join(ROOT, "data.js")), { CARD_DATA: require("./card-io.js").loadCards().cards });
 
 /* THE GLOSSARY IS THE DISCRIMINATOR FOR RULE 2, and it is the right one because it is the
    collection's own register of what its words NAME.  "Athenian Constitution" and "White Castle"
@@ -128,8 +134,35 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
    Gellius 27, Cassius Dio 24, Florus 13 — so a Rome card resting on three passages of
    Appian was reported under the same heading as one resting on three pages of a course
    website, which is the one distinction this check's own header says it draws.  A checker
-   that cries wolf on a well-sourced card is one nobody runs. */
-const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar)\b/i;
+   that cries wolf on a well-sourced card is one nobody runs.  Half of that gap was found
+   twice over, independently and in the same month, which is what a list nobody measures
+   invites; the two halves are merged here rather than either being taken whole. */
+const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius)\b/i;
+
+/* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
+   the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,
+   and it counted a DATA PUBLISHER the same way — so a geography card citing the World Bank for its
+   population, its area and its GDP was reported as resting three sources on one author. Measured over
+   the corpus, that shape was **274 of the 431 findings**: the World Bank 84 times, the National Park
+   Service 65, the Census Bureau 50, the Holocaust Memorial Museum 31.
+   THEY ARE REPORTED SEPARATELY RATHER THAN EXCUSED. A concentration on one institution is still worth
+   seeing — a card resting entirely on one ministry's site is thin however official the ministry — so it
+   becomes a NOTE under its own heading and stops drowning the finding rule 1 exists for, which is a
+   card whose apparatus is one scholar. Before the split, `jeremy b. rutter` (39 cards, the Dartmouth
+   course site the Greece audit names) sat in a list of 431 where nobody would read it.
+   DECLARED, never pattern-matched. "Anything ending in Museum or Bureau" would quietly excuse a real
+   author, and the point of a declared list is that adding to it is a decision somebody made. Add an
+   entry only after reading a card that cites it. */
+const INSTITUTIONAL = new Set([
+  "world bank", "u.s. census bureau", "united nations statistics division", "un general assembly",
+  "un security council", "office of the historian", "united states department of state",
+  "national park service", "historic american buildings survey", "smithsonian national museum of natural history",
+  "united states holocaust memorial museum", "national diet library", "american school of classical studies at athens",
+  "institute for the study of the ancient world", "digital egypt for universities",
+  "ministère de la culture", "ministère de la culture (france)", "government of the netherlands",
+  "government of anguilla", "governorate of vatican city state", "statistics jersey",
+  "administration supérieure des îles wallis et futuna",
+]);
 
 /* The author field of a Chicago note is what stands before the first quoted title.  A
    work with no author (a museum record, an institutional page) falls back to the text
@@ -203,8 +236,11 @@ for (const c of cards) {
     if (!k) continue;
     (ANCIENT.test(a) ? ancient : modern)[k] = ((ANCIENT.test(a) ? ancient : modern)[k] || 0) + 1;
   }
-  for (const [k, n] of Object.entries(modern))
-    if (n > 2) fails.push(["over-cited", `${id}: ${k} in ${n} of ${srcs.length} sources`, id]);
+  for (const [k, n] of Object.entries(modern)) {
+    if (n <= 2) continue;
+    if (INSTITUTIONAL.has(k)) notes.push(["one-institution", `${id}: ${k} in ${n} of ${srcs.length} sources`, id]);
+    else fails.push(["over-cited", `${id}: ${k} in ${n} of ${srcs.length} sources`, id]);
+  }
   for (const [k, n] of Object.entries(ancient))
     if (n > 2 && n / srcs.length >= 0.5)
       notes.push(["one-witness", `${id}: ${k} carries ${n} of ${srcs.length} sources`, id]);

@@ -88,7 +88,15 @@ function writeGlossary(images, dry) {
 /* data.js is rewritten whole, exactly as add-card.js and update-cards.js write it — one JSON
    object per line for the cards, the tree pretty-printed. */
 function writeCards(cardImages, dry, replace) {
-  const win = loadWindow(DATA);
+  /* LOADED THROUGH card-io, WHICH IS NOT OPTIONAL NOW THAT IT IS ALSO WRITTEN THROUGH IT. `data.js` is
+     the LIGHT half; its Node-only rejoin block runs on `require`, and a `new Function` body inside a
+     module sees neither `require` nor `__dirname`, so loading it that way hands back cards with no
+     abstract and no sources. Writing THOSE back through the door serialises a data-extra with nothing
+     in it — 12.6 MB deleted, no error, and every card still rendering its question and its answer.
+     That is card-io.js's second warning, and it cost a corpus restore from git to learn. */
+  const io2 = require("./card-io");
+  const { cards: allCards, tree } = io2.loadCards();
+  const win = { CARD_DATA: allCards, COLLECTION_TREE: tree };
   const byId = new Map(win.CARD_DATA.map((c) => [c.id, c]));
   let n = 0;
   for (const [id, img] of Object.entries(cardImages)) {
@@ -110,12 +118,13 @@ function writeCards(cardImages, dry, replace) {
     card.image = img;
     n++;
   }
-  const out =
-    "/* Card data. Add cards one at a time with `node .claude/add-card.js <card.json> [deckId]` (see CLAUDE.md). */\n" +
-    "window.CARD_DATA = [\n" + win.CARD_DATA.map((c) => JSON.stringify(c)).join(",\n") + "\n];\n\n" +
-    "/* Collection -> deck -> sub-deck tree. Leaf decks carry a `cardIds` array. */\n" +
-    "window.COLLECTION_TREE = " + JSON.stringify(win.COLLECTION_TREE, null, 2) + ";\n";
-  if (!dry) { fs.writeFileSync(DATA, out); loadWindow(DATA); }
+  /* WRITTEN THROUGH card-io, NOT FROM A TEMPLATE OF ITS OWN. This function used to rebuild data.js
+     from four lines of its own, which is how the file's Node-only rejoin block came to be deleted in
+     a run that was otherwise perfect — and the loss is silent, since that block does nothing in a
+     browser and only decides whether the NEXT helper to require the file sees whole cards. Going
+     through the one door writes both halves, keeps the head and the tail the door owns, and moves
+     any heavy field this pass put in data.js straight back out. */
+  if (!dry) { io2.writeCards(win.CARD_DATA, win.COLLECTION_TREE); }
   return n;
 }
 
@@ -194,12 +203,17 @@ function main() {
   const c = writeCards(cards, dry, replace);
   const ar = writeArtefacts(arte, dry, replace);
 
-  const total = loadWindow(DATA).CARD_DATA;
+  /* THE TALLY READS THE JOINED CORPUS. `image` is one of the fields that moved out of data.js, so
+     counting it there reports 6 of 2,895 immediately after writing forty-eight — which reads as a
+     tool that did nothing. (See card-io.js: a READER of data.js alone sees the light half only.) */
+  const total = require("./card-io").loadCards().cards;
   console.log(`${dry ? "[dry] " : ""}glossary images: +${Object.keys(gloss).length} (table now ${g} of ${Object.keys(win.GLOSSARY).length} terms)`);
   console.log(`${dry ? "[dry] " : ""}card images:     +${c} (now ${total.filter((x) => x.image && x.image.src).length} of ${total.length} cards)`);
-  /* THROUGH artefact-io.js, NEVER artefacts.js ALONE. An artefact's `image` lives in the lazy
-     artefacts-extra.js, so reading the index by itself reports a fully illustrated pool as having
-     no pictures at all — this line said "0 of 200" while 194 of them carried one. */
+  /* THROUGH artefact-io, NEVER `artefacts.js` ALONE (Sep 2026). The pool is TWO files and the image
+     lives in the lazy half, so reading the index reported a fully illustrated pool as "0 of 200" — the
+     same fault `test-artefacts.js` and `gloss-source-audit.js` each had on their first run after their
+     own splits. A reporter that says zero about something complete is an invitation to "fix" it by
+     re-adding 194 pictures over the ones already there. */
   const arts = require("./artefact-io.js").loadArtefacts();
   console.log(`${dry ? "[dry] " : ""}artefact images: +${ar} (now ${arts.filter((x) => x.image && x.image.src).length} of ${arts.length} artefacts)`);
 }

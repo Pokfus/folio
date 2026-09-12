@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.688", released: "2026-09-12T00:10Z" };
+window.FOLIO_VERSION = { v: "1.695", released: "2026-09-12T15:44Z" };
 
 window.CHANGELOG = [
   {
@@ -43,19 +43,57 @@ window.CHANGELOG = [
     t: "Caesar's war won, and the men who killed him",
     items: [
       "<b>Ten new cards in Ancient Rome</b>, from Dyrrhachium and Pharsalus through the Alexandrian War to the <i>Ides of March</i> and Brutus, with nine new glossary terms.",
+      "<b>Five Ancient Greece questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who argued what.",
+      "<b>One Ancient Greece background no longer reads as a roll-call of the scholar it rests on</b>, keeping every claim and every citation.",
     ],
   },
   {
     d: "2026-09-11",
-    t: "Caesar in Gaul and Britain, and the road to the Rubicon",
+    t: "Alexander's successors, and Caesar's road to the Rubicon",
     items: [
-      "<b>Ten new cards in Ancient Rome</b>, from Caesar's <i>Commentarii</i> and the revolt of Vercingetorix to Carrhae and the crossing of the Rubicon, with nine new glossary terms.",
+      "<b>Twenty new cards</b> — ten in Ancient Greece on the successor kings from Antigonus the One-Eyed to Ptolemaic Egypt, and ten in Ancient Rome from Caesar's <i>Commentarii</i> to the Rubicon.",
+      "<b>Nineteen more glossary terms</b>, each cited to open sources.",
     ],
   },
   {
     d: "2026-09-10",
-    t: "Every history and science card now has a reason behind it",
+    t: "Folio opens far faster, and works where Google does not",
     items: [
+      "<b>The site now opens in a fraction of the time</b>, downloading less than half of what it used to before the first card.",
+      "<b>Fonts are served by Folio itself</b>, so the site no longer waits on Google to draw a single word \u2014 and looks right offline for the first time.",
+      "The arcade theme finally gets the display face it was written for.",
+      "<b>One search now covers the whole site</b> \u2014 cards, glossary terms and the Library\u2019s books, from the menu bar or by pressing <b>/</b>.",
+      "<b>The Collections filter no longer opens with nothing selected on a phone</b>, and the row says that it scrolls.",
+      "<b>Quieter first visits</b>: the Atlas and the Library now introduce themselves in a line you can dismiss, instead of a card over the page.",
+      "Small text across the site is darker where it was too faint to read comfortably.",
+      "<b>Every card now has a link of its own</b>, which opens it to read rather than to study, so nothing you share spends a schedule.",
+      "<b>A card now points at its nearest neighbours</b>, so one answer leads to the four cards closest to it in the same collection.",
+      "Each collection now says how far along it is \u2014 five hundred cards of a planned thousand, and the share written so far.",
+      "Collections can be shown compactly, which fits about twice as many on a screen.",
+      "Wind speeds and fractions of an area now follow your choice of measurements, where both figures used to be shown at once.",
+      "<b>A session you start on one device can be picked up on another</b>, with a row on the home page saying how many cards are left and where.",
+      "<b>Work backwards from an exam</b>: give a deck a date and Folio says how many new cards a day it takes, and when the answer is that it cannot be done.",
+      "<b>A new panel lists the cards you keep forgetting</b>, worst first, with everything you need to fix one on the same row.",
+      "The review forecast now reaches ninety and a hundred and eighty days, and marks the week the work piles up.",
+      "<b>You can write your own note on any card</b> — a mnemonic, a link, anything that makes it stick.",
+      "<b>Study for ten minutes rather than for ten cards</b>: set a length and the session ends cleanly after the card you are on.",
+      "<b>A new “Recall in full” option</b> asks you to write down everything you remember before the answer is shown, and puts the two side by side.",
+      "<b>Try ten cards of any collection without adding it</b>, scheduling nothing and counting nothing.",
+      "Undo now says which card it will give back, and which grade it will take off it.",
+      "The Reveal button’s help now says what “4d” actually means for the card in front of you.",
+      "<b>Fifteen cards now say what came of them</b>, linking the fall of the Roman monarchy, the plebs’ first secession and the Messenian wars to what each led to.",
+      "124 picture captions no longer repeat, word for word, the credit line printed beside them.",
+      "<b>Forty-eight new pictures in the Biology deck</b>, which is taught in diagrams and had almost none.",
+      "<b>Press ? anywhere to see the keyboard shortcuts</b>, including the ones that only work on the page you are on.",
+      "The home page now says how close the next artefact chest is \u2014 a level, a day of games or a run of days, whichever is nearest.",
+      "<b>A new panel names the cards you get right and cannot get right quickly</b>, measured against how fast you usually answer.",
+      "<b>A new \u201cUse less data\u201d setting</b> stops Folio fetching anything in the background and holds each card\u2019s picture back until you tap it.",
+      "<b>Geography maps can now describe themselves</b> \u2014 a new setting adds a line naming what the shaded place borders, for a reader who cannot see the shape.",
+      "A geography card opened by its own link now draws its globe, where it used to show an empty grey box.",
+      "<b>Every reader now has a profile at a link you can share</b>, showing your name and photo to anyone and your progress to your friends.",
+      "<b>A friend\u2019s profile now opens on you and them side by side</b> \u2014 streak, cards studied, days studied and artefacts.",
+      "Twenty-seven cards that shared a picture with another card now have one of their own.",
+      "<b>Fourteen more cards now quote the book they rest on</b>, with a button through to that passage in the Library.",
       "<b>\u201cThink it through\u201d now reaches every card in the History and Science sections</b>, with 801 more cards gaining three why-questions and their answers.",
       "<b>Fifty new cards in Ancient Rome</b>, from Marius's later consulships through Sulla, Spartacus and the pirate war to Catiline, Cato, Caesar's first consulship and the Gallic Wars, with forty-seven new glossary terms.",
       "<b>Social War, Sulla and Spartacus now link to glossary terms of their own</b>, rather than to an Athenian war of 357 BCE, a joint entry on Marius and Sulla, and the war named after him.",
@@ -80,7 +118,7 @@ window.CHANGELOG = [
     t: "An atlas of your own, and a reason behind every card",
     items: [
       "New pictures for seven cards that had come to share a picture with a card in another collection.",
-      "<b>200 new cards in the Ancient Greece deck</b>, from the Athenian empire and the Peloponnesian War through Classical sculpture and the rise of Thebes to Plato, Aristotle and the rise of Philip of Macedon, with 196 new glossary terms.",
+      "<b>260 new cards in the Ancient Greece deck</b>, from the Athenian empire and the Peloponnesian War through Plato, Aristotle and the rise of Philip of Macedon to Alexander’s conquests and the wars his generals fought over what he left, with 251 new glossary terms.",
       "<b>The United States collection has opened</b> with its first hundred cards, on Native America from before contact to tribal sovereignty today.",
       "<b>Playing all nine minigames in a day now earns a chest</b>, counted by a nine-bar meter under the Minigames heading.",
       "<b>Multiple Choice now shows the whole answer side of the card</b> below the round, once you have answered.",

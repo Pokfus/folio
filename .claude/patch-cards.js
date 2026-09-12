@@ -15,8 +15,16 @@
  *
  * It validates the WHOLE patch before writing anything (a half-applied patch is worse than a
  * refused one) and re-parses the file afterwards to confirm valid JS.
+ *
+ * IT PATCHES THE LIGHT HALF, AND REFUSES A HEAVY FIELD. `abstract`, `sources`, `why`, `quote` and a
+ * non-artwork card's `image` live in data-extra/<collection>.js (see card-io.js), so a `set` naming one
+ * would write a SECOND copy into data.js — a leak that renders perfectly and that only
+ * `split-cards.js --check` would catch, afterwards — and an `unset` naming one would delete nothing at
+ * all while reporting the card patched. Both are refused here, where the message can name the tool that
+ * does reach the field. An artwork card keeps its own `image` eagerly, so there it is allowed.
  */
 const fs = require("fs"), path = require("path");
+const io = require("./card-io");
 const dataPath = path.join(__dirname, "..", "data.js");
 
 const file = process.argv[2];
@@ -41,6 +49,18 @@ for (const id of ids) {
   const spec = cards[id] || {};
   if (spec.set && typeof spec.set !== "object") { console.error("ERROR: " + id + " `set` must be an object"); process.exit(1); }
   if (spec.unset && !Array.isArray(spec.unset)) { console.error("ERROR: " + id + " `unset` must be an array"); process.exit(1); }
+  /* the card as data.js holds it, so `image` can be allowed on an artwork card and refused elsewhere */
+  const line = JSON.parse(lines[lineOf.get(id)].replace(/,$/, ""));
+  const heavy = Object.keys(spec.set || {}).concat(spec.unset || [])
+    .filter((k) => io.EXTRA_FIELDS.includes(k) && !(k === "image" && io.keepsImage(line)));
+  if (heavy.length) {
+    console.error("ERROR: " + id + " patches field(s) that live in data-extra/, not in data.js: " + heavy.join(", ") + "\n" +
+      "  Setting one here writes a second copy into the light half (a leak split-cards.js --check would\n" +
+      "  catch afterwards); unsetting one deletes nothing while reporting the card patched. Use the tool\n" +
+      "  that owns the field — add-sources.js, add-card-links.js, add-card-quotes.js, add-images.js — or\n" +
+      "  load and write through card-io.js.");
+    process.exit(1);
+  }
 }
 
 let touched = 0;

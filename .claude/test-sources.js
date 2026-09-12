@@ -66,6 +66,34 @@ const ABSTRACT_WITH_TERM = MARKED_ABSTRACT + " The " + GLOSS_TERM + " is named h
 /* Card content is snapshotted into CARDS at boot, so a test card has to exist BEFORE app.js runs.
    Intercepting the assignment data.js makes is the least invasive way in — no fixture file, and the
    real boot path is otherwise untouched. */
+/* SEED BOTH HALVES OF A CARD, because a curated card no longer has one.
+   `abstract` and `sources` moved to data-extra/<collection>.js in Sep 2026 (see CARD_EXTRA_FIELDS in
+   app.js), so by the time data.js assigns window.CARD_DATA not one card carries either. A seed that
+   hooks only that setter therefore matches nothing, writes nothing, and lets the test read a REAL
+   card's real markers — which fails as `1,1,1,2,1,1,3,5,1,4,1,2` against an expected `2` and reads
+   like a numbering bug rather than a fixture that has stopped seeding. */
+function patchExtraQueue(s, a) {
+  // the data-extra files do `(window.CARD_EXTRA_IN = window.CARD_EXTRA_IN || []).push(row)`, and
+  // cardExtraIngest REPLACES the array with a fresh one after draining it — so the patch is
+  // re-applied on every assignment rather than installed once.
+  const patch = (arr) => {
+    if (!arr || arr.__seeded) return arr;
+    arr.__seeded = true;
+    arr.push = function (row) {
+      const t = (row && row.CARD_EXTRA) || {};
+      Object.keys(t).forEach((id) => { if (t[id] && t[id].abstract) { t[id].sources = s.slice(); t[id].abstract = a; } });
+      return Array.prototype.push.call(this, row);
+    };
+    return arr;
+  };
+  let q = patch([]);
+  Object.defineProperty(window, "CARD_EXTRA_IN", {
+    configurable: true,
+    get() { return q; },
+    set(next) { q = patch(next); },
+  });
+}
+
 function seedCards(page, src, abstract) {
   return page.addInitScript(([s, a]) => {
     let v;
@@ -74,8 +102,24 @@ function seedCards(page, src, abstract) {
       get() { return v; },
       set(next) {
         v = next;
+        // a card that still carries its prose inline (a community card) is seeded here
         (next || []).forEach((c) => { if (c && c.abstract) { c.sources = s.slice(); c.abstract = a; } });
       },
+    });
+    // …and every curated card, whose prose arrives later, is seeded on the way in
+    const patch = (arr) => {
+      if (!arr || arr.__seeded) return arr;
+      arr.__seeded = true;
+      arr.push = function (row) {
+        const t = (row && row.CARD_EXTRA) || {};
+        Object.keys(t).forEach((id) => { if (t[id] && t[id].abstract) { t[id].sources = s.slice(); t[id].abstract = a; } });
+        return Array.prototype.push.call(this, row);
+      };
+      return arr;
+    };
+    let q = patch([]);
+    Object.defineProperty(window, "CARD_EXTRA_IN", {
+      configurable: true, get() { return q; }, set(next) { q = patch(next); },
     });
   }, [src, abstract]);
 }
@@ -385,6 +429,21 @@ async function requireTerm(page) {
       configurable: true,
       get() { return v; },
       set(next) { v = next; (next || []).forEach((c) => { if (c) c.sources = []; }); },
+    });
+    // …and the lazy half, where a curated card's citations actually live (see seedCards above)
+    const patch = (arr) => {
+      if (!arr || arr.__seeded) return arr;
+      arr.__seeded = true;
+      arr.push = function (row) {
+        const t = (row && row.CARD_EXTRA) || {};
+        Object.keys(t).forEach((id) => { if (t[id]) t[id].sources = []; });
+        return Array.prototype.push.call(this, row);
+      };
+      return arr;
+    };
+    let q = patch([]);
+    Object.defineProperty(window, "CARD_EXTRA_IN", {
+      configurable: true, get() { return q; }, set(next) { q = patch(next); },
     });
   });
   await bare.goto(base, { waitUntil: "load" });
