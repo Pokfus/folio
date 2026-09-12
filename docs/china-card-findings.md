@@ -3396,3 +3396,84 @@ killed his prisoners, the **Xin river** in Jiangxi (`gc-013`), and the sites Xin
 as well. Dropped; the term is reached by its full name. This is `Yan_(state)`'s finding run the other
 way round, and the check is two lines of Node against the shipped prose: **count the bare surface
 before claiming it, and read what the hits actually are.**
+
+## cnh-251 – cnh-260, the Red Eyebrows, the restoration and the Ban family (Sep 2026)
+
+The batch that opens `col-12`, the Eastern Han deck. Two plan lines were renamed while writing, both
+because the line named a subject rather than an answer term and the term had to be found.
+
+**`cnh-252` "The fall of the Xin" → *Battle of Kunyang*.** The fall itself was already carded from two
+sides — `cnh-246` gives Wang Mang's death and `cnh-245` the dynasty's end — so a third card on it would
+have re-carded what the reader has. Kunyang is the event that made the rest happen, it is concrete and
+datable, and no later plan line wants it.
+
+**`cnh-255` "The Han restoration" → *Chengjia*.** The restoration is eleven years and a dozen claimants,
+and every crisp answer term for it was already spent: `cnh-253` takes Eastern Han and `cnh-254` takes
+Guangwu. What was left was the last of the rival regimes, which is also the sharpest way to teach the
+thing — Sichuan went on being an empire of its own until 36 CE, and the card is about the eleven years
+with Gongsun Shu's state as the last of them. Theobald names the state (`Emperor of Shu, or Chengjia`)
+with a cited source, so the term is attested rather than reconstructed.
+
+**THE SOURCE BASE FOR THE EASTERN HAN IS EIGHT AUTHORS AND SEVEN OF THEM ARE OUT OF COPYRIGHT.** Cordier's
+*Histoire générale de la Chine* vol. 1 (pp. 253–76) carries the whole narrative from the Xiongnu breach of
+9 CE to the abandonment of the Western Regions in 107; Giles's *Chinese Biographical Dictionary* has
+Liu Xiu (p. 503), Fan Chong (215), Feng Yi (225–26), Gongsun Shu (395), Ban Chao (607–8), Ban Gu (610–11)
+and Ban Biao (611); Boulger's *China* pp. 36–39 is the English narrative; Wylie's *Notes on Chinese
+Literature* pp. 12–14 is the standard account of the dynastic-history form and of the *Hanshu* itself;
+and **Hirth's *China and the Roman Orient* (1885) is open on archive.org** at
+`chinaandromanor01hirtgoog`, with Gan Ying's mission of 97 CE on p. 13 and Ban Gu's authorship of the
+Qian Han shu on p. 3. Four ChinaKnowledge.de articles pass the encyclopedia test (a `Sources:` block of
+their own): `han-event-chimei`, `personsbanchao`, `personsgongsunshu` and `hanshu`. The one modern
+open-access work found for the period is **Yunxin Li, "Elites' Social Networks and Politics in the Han
+Empire," *Journal of Open Humanities Data* 9 (2023)**, which states the Eastern Han land-consolidation
+point outright.
+
+**AND ONE MODERN SPINE WAS LOST TO AN OUTAGE — RETRY IT.** ANU's Open Research repository holds Rafe de
+Crespigny's whole body of Later Han work open, including *Fire Over Luoyang*, *The Eastern Han*, *An
+Outline of the Local Administration of the Later Han Empire* and *The Division and Destruction of the
+Xiongnu Confederacy*. The discovery API and one bitstream answered; `hdl.handle.net/1885/…`,
+`/handle/1885/…` and `/items/<uuid>` all returned **503** for the whole session, and two of the three
+PDFs 401. A citation must end in a URL a reader can open, so de Crespigny is cited nowhere in this batch
+— **not because he is shut but because his repository was down that afternoon.** Try
+`openresearch-repository.anu.edu.au` first next time; it is the best modern Eastern Han scholarship there
+is, and it is free.
+
+**THE HOUSE NUMBER RULES BIT SEVEN OF THE TEN CARDS AND THE SWEEP HAS TO COVER BOTH HALVES.** Centuries
+must be numbered and non-round numbers above 20 must be numerals, and this subject is full of both — "the
+first century CE", "thirty-two years on the throne", "sixty-five chapters", "thirty-six of them at first
+and fifty-five later". Eleven strings were fixed across `data.js`, `data-extra/cnh.js`, `glossary.js` and
+`glossary-extra.js` in one asserted pass; a replacement run over `data.js` alone would have corrected the
+questions and left every abstract standing, which is the fault this file already records against the
+`cnh-201`–`cnh-210` batch. **`Twenty-Four Histories` is a proper name and keeps its words.**
+
+**A DATE LINE FOR AN INSTITUTION SPANNING BOTH HAN SORTS BY ITS EARLIEST ROW, WHICH IS THE WRONG DECK.**
+`cnh-258`'s subject, the Protectorate of the Western Regions, was created in 60 BCE, and a date line
+saying so would have sorted an Eastern Han card 130 years before the Western Han deck's own cards. The
+line carries the Eastern Han span (revived 74, Ban Chao 91, abandoned 107) and the 60 BCE creation is the
+abstract's first substantive claim instead. The same reasoning kept `cnh-260`'s coverage span (206 BCE –
+23 CE) out of its date line, which reads `Begun c. 36 CE / Chapters 100` and sorts at 36. All ten sort
+years were read back through `cardYears` before the cards were committed.
+
+**TWO CONTRADICTIONS BETWEEN SOURCES, EACH SETTLED BY NOT CITING THE LOSER.** Giles gives Ban Chao
+31–101 CE where Theobald gives 32–102, so the date line takes Theobald and Giles is cited for the career
+rather than for the years. And **Giles's entry for Liu Xiu calls him "a native of Lo-yang", which is
+wrong** — he was a Nanyang landholder and Luoyang was the capital he chose — so `cnh-254` cites Giles for
+the dates, the orphaning and the grain-selling, and says nothing about a birthplace.
+
+**A PICTURE WAS ALREADY TAKEN, AND `check-image-free.js` IS WHY THE CARD DID NOT SHIP WITH IT.** The
+Eastern Han banquet mural from Zhucun, the obvious illustration for `cnh-253`, is on `wh-408`; the Han
+scholars relief that came second is on `wh-400`. The card took Herrmann's atlas map of Han China instead,
+whose two frontiers — Western Han and Eastern Han — are the card's own subject. **And the one `src`
+composed by hand was a 404**: the Commons shard for that map is `b/b2` and the guess was `1/1a`, which is
+this file's standing rule arriving on schedule. Every other `src` came out of the API's own `url` field,
+and all ten were curled before the batch was applied.
+
+**`upload.wikimedia.org` RATE-LIMITED AT 429 HALF WAY THROUGH AND `commons.wikimedia.org/w/thumb.php`
+DID NOT.** `Special:FilePath` was also 429 while `thumb.php?f=<FILE>&width=800` answered 200 for the same
+files, which is how the last two candidates were looked at. Ten of ten card pictures were read by eye
+before installation; the contact sheet was not needed, PIL still being absent.
+
+**NINE OF THE TEN GLOSSARY TERMS SHIP WITHOUT A PICTURE, DELIBERATELY.** Each term's own card carries the
+right picture and there is only one of it — a second copy on the term is the within-collection duplicate
+`check-cards.js` exists to report, and the alternatives Commons offers for these subjects are all weaker
+than the one already used. `Eastern_Han` took a distinct one (an Eastern Han pottery tower model, CC0).

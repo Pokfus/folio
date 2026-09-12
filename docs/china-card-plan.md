@@ -646,13 +646,13 @@ already shipped before adding it.
     cnh-249  Wang Mang's currency reforms
     cnh-250  The Yellow River shift of 11 CE
     cnh-251  Red Eyebrows
-    cnh-252  The fall of the Xin
+    cnh-252  Battle of Kunyang
 
 ### Eastern Han — `col-12`
 
     cnh-253  Eastern Han
     cnh-254  Emperor Guangwu of Han
-    cnh-255  The Han restoration
+    cnh-255  Chengjia
     cnh-256  Luoyang under the Eastern Han
     cnh-257  Ban Chao
     cnh-258  The Protectorate of the Western Regions
