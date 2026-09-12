@@ -3492,15 +3492,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A TEXT NODE UNDER A NON-ENGLISH `lang` IS NOT ENGLISH AND IS LEFT ALONE** (`spellSkip` /
     `SPELL_LANG_EN` / `SPELL_FOREIGN_SEL`). This is a switch between two spellings OF ENGLISH and it was
     being run over every text node on the page, **a language deck's own Spanish, French, German, Italian
-    and Portuguese included**, where the table's American forms are ordinary foreign words — 5,568
-    rewrites of somebody else's language, the worst of them a misspelling on the FRONT of a card teaching
-    the word. **THE FIX NEEDED NO NEW MACHINERY**: `cardTypeSideHTML` has always written the card type's
-    `speechLang` onto the `.uc-card` wrapper, and `<html lang="en">` is the declaring ancestor for
-    everything else. It is asked **once per pass, not per text node** — measured, a `closest("[lang]")`
-    per node costs 2.74ms against 0.15ms for the flag. An **empty** `lang` declares nothing and is not a
-    reason to skip. **KNOWN GAP, STATED RATHER THAN PAPERED OVER**: the rule can only see a language that
-    is DECLARED, so foreign text carrying no `lang` is still swept — a card type with no `speechLang`, and
-    a deck's own GLOSSARY, whose popup is drawn outside the card wrapper and inherits no language.
+    and Portuguese included**, where the table's American forms are ordinary foreign words. **THE FIX
+    NEEDED NO NEW MACHINERY**: `cardTypeSideHTML` has always written the card type's `speechLang` onto the
+    `.uc-card` wrapper, and `<html lang="en">` is the declaring ancestor for everything else. It is asked
+    **once per pass, not per text node**, a `closest("[lang]")` per node being measurably the slower of
+    the two. An **empty** `lang` declares nothing and is not a reason to skip. **KNOWN GAP, STATED RATHER
+    THAN PAPERED OVER**: the rule can only see a language that is DECLARED, so foreign text carrying no
+    `lang` is still swept — a card type with no `speechLang`, and a deck's own GLOSSARY, whose popup is
+    drawn outside the card wrapper and inherits no language.
   · **THE WORD BOUNDARY IS UNICODE-AWARE, AND `\b` CANNOT BE.** JS's `\b` is defined over ASCII `\w`, so
     an **accented letter is a non-word character and stands as a boundary of its own** — a `\b`-anchored
     pattern therefore matches INSIDE an accented word (`Moldávia` → `Mouldávia`). The fix is the
@@ -3514,6 +3513,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   assertions), and **its section 4 must stay in en-GB** — `favor` is an American form and the
   American-to-British direction is the one that corrupts it, so written against en-US it passes on the
   unfixed code. It carries a **liveness check** beside it for the same reason.
+  **📖 `docs/reader-settings.md` also carries this bullet's measurements, moved out of here.**
 - **ENGLISH ONLY — `const MULTILANG = false`** (app.js, beside `LANG_CODES`; Aug 2026, on request). The site
   ships in English while the work is on making the English as good as it can be. It is **one switch** and it
   shuts three doors: no Language card on Settings, `?lang=xx` no longer switches, and `setLang` refuses

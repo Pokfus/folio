@@ -505,3 +505,71 @@ an American form and the American-to-British direction is the one that corrupts 
 en-US it passes on the unfixed code. It carries a **liveness check** beside it for the same reason: a
 change that stopped the en-GB pass running would otherwise make every assertion there pass while testing
 nothing.
+
+---
+
+## The spelling switch's measurements, moved out of CLAUDE.md (2026-09-12)
+
+**Read this before widening `SPELL_PAIRS` or the selectors around it.** CLAUDE.md keeps the rules; these
+are the figures behind them, verbatim as they stood there.
+
+- **5,568 rewrites of somebody else's language** were happening before the `lang` rule — a language deck's
+  own Spanish, French, German, Italian and Portuguese — **the worst of them a misspelling on the FRONT of
+  a card teaching the word**.
+- Asking `closest("[lang]")` per text node costs **2.74ms** against **0.15ms** for a flag read once per
+  pass, which is why `spellSkip` is asked once per pass and not per node.
+
+- **British or American spelling, the reader's** (`S.settings.spelling` / `SPELL_PAIRS` / `spellText` /
+`spellTree` / `applySpelling`). The units switch's shape exactly, so no field is authored twice. Ten
+things are decisions rather than plumbing.
+· **IT IS A DECLARED TABLE AND NEVER A RULE, and every trap in it was found in the real corpus** — a
+`-re`→`-er` rule turns `timetree` into `timetrer`, a `kerb`→`curb` rule reaches into `Kerberos`, an
+`-ll-`→`-l-` rule into `controlled` and the archaeologist `Conneller`. 144 rows of
+`[British, American, suffixes, one-way?]`, and the transform can only ever do what it says.
+· **THE SUFFIX LIST IS EXHAUSTIVE, AND THE BARE STEM ONLY BY AN EXPLICIT EMPTY ELEMENT** — the first cut
+always admitted the stem and rendered `emphasis` as `emphasiz`. **A suffix right for one side is not
+always right for the other** (`centre`+`d` → `centerd`), so every divergent inflection has its own row.
+· **IT IS TWO-WAY, WHICH THE UNITS SWITCH IS NOT, AND THE MEASUREMENT IS WHY**: the corpus is genuinely
+mixed in the -ise/-ize family, so a one-way transform would leave a British reader reading American
+spellings on half the cards. **EIGHTEEN ROWS ARE ONE-WAY ALL THE SAME** — `storey`→`story` is safe and
+the reverse catastrophic; the same for `program`, `meter`, `practice`, `license`, `catalog` and
+`medieval`. **FIVE FAMILIES ARE DELIBERATELY ABSENT AND FIVE WORDS EXCLUDED BY NAME**: American
+English writes `archaeology`, `ochre`, `aesthetic`, `dialogue`/`analogue` and `axe` the same way;
+`tyre` is the Phoenician city, `draught` the Knossos corridor, `kerb` excluded because `curb` is also
+a verb.
+· **A URL IS NOT PROSE, AND THE MASK IS IN `spellText` RATHER THAN `spellTree`** (`SPELL_URL_RX`):
+`mediaCreditHTML` renders a credit URL as its own visible text.
+· **AND THE ONE PART OF A FOREIGN-LANGUAGE CARD THAT IS CERTAINLY ENGLISH IS SWEPT** (`SPELL_EN_SEL`
+= `.uc-exe`). **The widening that suggests itself is the dangerous one**: the GLOSS blocks are English
+prose that QUOTES Spanish, and `color`, `favor`, `honor`, `meter` and `center` are Spanish words as
+well as American spellings, so sweeping those would rewrite the language the card is teaching. One
+class, declared, and no more.
+· **THE CITATIONS AND THE LIBRARY'S BOOKS ARE SKIPPED** (`.notranslate, .bk-page`) — rewriting *The
+Colour of Prehistory* invents a title that does not exist, and a book is somebody's translation.
+· **`gradeCloze` TRANSFORMS THE ANSWER, NEVER THE GUESS** — the stored `answerText` is British, so an
+American reader typing what is on their screen would be marked wrong.
+· **A TEXT NODE UNDER A NON-ENGLISH `lang` IS NOT ENGLISH AND IS LEFT ALONE** (`spellSkip` /
+`SPELL_LANG_EN` / `SPELL_FOREIGN_SEL`). This is a switch between two spellings OF ENGLISH and it was
+being run over every text node on the page, **a language deck's own Spanish, French, German, Italian
+and Portuguese included**, where the table's American forms are ordinary foreign words — 5,568
+rewrites of somebody else's language, the worst of them a misspelling on the FRONT of a card teaching
+the word. **THE FIX NEEDED NO NEW MACHINERY**: `cardTypeSideHTML` has always written the card type's
+`speechLang` onto the `.uc-card` wrapper, and `<html lang="en">` is the declaring ancestor for
+everything else. It is asked **once per pass, not per text node** — measured, a `closest("[lang]")`
+per node costs 2.74ms against 0.15ms for the flag. An **empty** `lang` declares nothing and is not a
+reason to skip. **KNOWN GAP, STATED RATHER THAN PAPERED OVER**: the rule can only see a language that
+is DECLARED, so foreign text carrying no `lang` is still swept — a card type with no `speechLang`, and
+a deck's own GLOSSARY, whose popup is drawn outside the card wrapper and inherits no language.
+· **THE WORD BOUNDARY IS UNICODE-AWARE, AND `\b` CANNOT BE.** JS's `\b` is defined over ASCII `\w`, so
+an **accented letter is a non-word character and stands as a boundary of its own** — a `\b`-anchored
+pattern therefore matches INSIDE an accented word (`Moldávia` → `Mouldávia`). The fix is the
+lookarounds `buildGlossIndex` already uses for the mirror of this reason:
+`(?<![\p{L}\p{N}_]) … (?![\p{L}\p{N}_])` with the `u` flag.
+· **AND `spellSkip` IS ONE TEST FOR BOTH BRANCHES.** `spellTree`'s bare-text-node branch — the one the
+MutationObserver feeds — had **no skip test at all**, so a citation or a book's prose updated in place
+was rewritten while the same text reached through the walker was protected.
+**Known limit, stated rather than papered over**: the card browser searches stored card TEXT, so
+"color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (83
+assertions), and **its section 4 must stay in en-GB** — `favor` is an American form and the
+American-to-British direction is the one that corrupts it, so written against en-US it passes on the
+unfixed code. It carries a **liveness check** beside it for the same reason.
