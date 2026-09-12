@@ -35,67 +35,32 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.695", released: "2026-09-12T15:44Z" };
+window.FOLIO_VERSION = { v: "1.696", released: "2026-09-12T16:16Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-12",
-    t: "Caesar's war won, and the men who killed him",
+    t: "Caesar's war won, and the kingdoms of Southeast Asia",
     items: [
-      "<b>Ten new cards in Ancient Rome</b>, from Dyrrhachium and Pharsalus through the Alexandrian War to the <i>Ides of March</i> and Brutus, with nine new glossary terms.",
+      "<b>Twenty new cards</b> \u2014 ten in Ancient Rome from Dyrrhachium to the <i>Ides of March</i>, and ten in World History on Islam in India and Southeast Asia, with nineteen new glossary terms.",
       "<b>Five Ancient Greece questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who argued what.",
       "<b>One Ancient Greece background no longer reads as a roll-call of the scholar it rests on</b>, keeping every claim and every citation.",
     ],
   },
   {
     d: "2026-09-11",
-    t: "Alexander's successors, and Caesar's road to the Rubicon",
+    t: "Alexander's successors, Caesar's Rubicon, and medieval Japan",
     items: [
-      "<b>Twenty new cards</b> — ten in Ancient Greece on the successor kings from Antigonus the One-Eyed to Ptolemaic Egypt, and ten in Ancient Rome from Caesar's <i>Commentarii</i> to the Rubicon.",
-      "<b>Nineteen more glossary terms</b>, each cited to open sources.",
+      "<b>Thirty new cards</b> \u2014 ten in Ancient Greece on the successor kings, ten in Ancient Rome from Caesar's <i>Commentarii</i> to the Rubicon, and ten in World History on medieval Japan and India.",
+      "<b>Twenty-nine more glossary terms</b>, each cited to open sources.",
     ],
   },
   {
     d: "2026-09-10",
     t: "Folio opens far faster, and works where Google does not",
     items: [
-      "<b>The site now opens in a fraction of the time</b>, downloading less than half of what it used to before the first card.",
-      "<b>Fonts are served by Folio itself</b>, so the site no longer waits on Google to draw a single word \u2014 and looks right offline for the first time.",
-      "The arcade theme finally gets the display face it was written for.",
-      "<b>One search now covers the whole site</b> \u2014 cards, glossary terms and the Library\u2019s books, from the menu bar or by pressing <b>/</b>.",
-      "<b>The Collections filter no longer opens with nothing selected on a phone</b>, and the row says that it scrolls.",
-      "<b>Quieter first visits</b>: the Atlas and the Library now introduce themselves in a line you can dismiss, instead of a card over the page.",
-      "Small text across the site is darker where it was too faint to read comfortably.",
-      "<b>Every card now has a link of its own</b>, which opens it to read rather than to study, so nothing you share spends a schedule.",
-      "<b>A card now points at its nearest neighbours</b>, so one answer leads to the four cards closest to it in the same collection.",
-      "Each collection now says how far along it is \u2014 five hundred cards of a planned thousand, and the share written so far.",
-      "Collections can be shown compactly, which fits about twice as many on a screen.",
-      "Wind speeds and fractions of an area now follow your choice of measurements, where both figures used to be shown at once.",
-      "<b>A session you start on one device can be picked up on another</b>, with a row on the home page saying how many cards are left and where.",
-      "<b>Work backwards from an exam</b>: give a deck a date and Folio says how many new cards a day it takes, and when the answer is that it cannot be done.",
-      "<b>A new panel lists the cards you keep forgetting</b>, worst first, with everything you need to fix one on the same row.",
-      "The review forecast now reaches ninety and a hundred and eighty days, and marks the week the work piles up.",
-      "<b>You can write your own note on any card</b> — a mnemonic, a link, anything that makes it stick.",
-      "<b>Study for ten minutes rather than for ten cards</b>: set a length and the session ends cleanly after the card you are on.",
-      "<b>A new “Recall in full” option</b> asks you to write down everything you remember before the answer is shown, and puts the two side by side.",
-      "<b>Try ten cards of any collection without adding it</b>, scheduling nothing and counting nothing.",
-      "Undo now says which card it will give back, and which grade it will take off it.",
-      "The Reveal button’s help now says what “4d” actually means for the card in front of you.",
-      "<b>Fifteen cards now say what came of them</b>, linking the fall of the Roman monarchy, the plebs’ first secession and the Messenian wars to what each led to.",
-      "124 picture captions no longer repeat, word for word, the credit line printed beside them.",
-      "<b>Forty-eight new pictures in the Biology deck</b>, which is taught in diagrams and had almost none.",
-      "<b>Press ? anywhere to see the keyboard shortcuts</b>, including the ones that only work on the page you are on.",
-      "The home page now says how close the next artefact chest is \u2014 a level, a day of games or a run of days, whichever is nearest.",
-      "<b>A new panel names the cards you get right and cannot get right quickly</b>, measured against how fast you usually answer.",
-      "<b>A new \u201cUse less data\u201d setting</b> stops Folio fetching anything in the background and holds each card\u2019s picture back until you tap it.",
-      "<b>Geography maps can now describe themselves</b> \u2014 a new setting adds a line naming what the shaded place borders, for a reader who cannot see the shape.",
-      "A geography card opened by its own link now draws its globe, where it used to show an empty grey box.",
-      "<b>Every reader now has a profile at a link you can share</b>, showing your name and photo to anyone and your progress to your friends.",
-      "<b>A friend\u2019s profile now opens on you and them side by side</b> \u2014 streak, cards studied, days studied and artefacts.",
-      "Twenty-seven cards that shared a picture with another card now have one of their own.",
-      "<b>Fourteen more cards now quote the book they rest on</b>, with a button through to that passage in the Library.",
       "<b>\u201cThink it through\u201d now reaches every card in the History and Science sections</b>, with 801 more cards gaining three why-questions and their answers.",
-      "<b>Fifty new cards in Ancient Rome</b>, from Marius's later consulships through Sulla, Spartacus and the pirate war to Catiline, Cato, Caesar's first consulship and the Gallic Wars, with forty-seven new glossary terms.",
+      "<b>Ninety new cards</b> \u2014 fifty in Ancient Rome from Marius to the Gallic Wars, and forty in World History from medieval Europe to the Mongols, with eighty-six new glossary terms.",
       "<b>Social War, Sulla and Spartacus now link to glossary terms of their own</b>, rather than to an Athenian war of 357 BCE, a joint entry on Marius and Sulla, and the war named after him.",
       "<b>The US states and China province cards now draw their rivers</b>, which the shaded state was painting over.",
       "<b>Twenty-one more cards open an Atlas window</b>, among them the Etruscan world, the Aegean Sea, the Eurasian steppe, Zhoukoudian, Nariokotome and Beringia.",
@@ -110,7 +75,7 @@ window.CHANGELOG = [
       "<b>The Spanish articles are now one card with a table</b> — el, la, un and una in two genders and two numbers, instead of eight cards teaching one grid twice.",
       "<b>A deck's long-press menu can now fetch its files again</b>, for when a repair has not shown up.",
       "The card for the Lower Paleolithic no longer implies the Acheulean hand-axe began in France.",
-      "A picture of Beringia that showed the wrong thing, and the Cowrie shell card no longer appears in Timeline.",
+      "A picture of Beringia and one of Chang'an that showed the wrong thing, and the Cowrie shell card no longer appears in Timeline.",
     ],
   },
   {
