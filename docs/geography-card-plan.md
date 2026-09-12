@@ -2008,3 +2008,57 @@ small place within the city, but the city zoomed out, as a skyline or aerial vie
   and a portrait of a man in sunglasses for Anguilla.
   The first three families are now refused by `SPACEBORNE` / `SURVEY` / `NOTAPHOTO`; **the last two
   cannot be, and that is the whole argument for the sheet.**
+
+---
+
+## The picture fetcher's own findings, moved out of CLAUDE.md (2026-09-12)
+
+**Read this before opening a picture batch on a geography collection.** CLAUDE.md keeps the rules — a
+search is not evidence of subject, a pinned file asserts the subject and never the licence, the skip
+patterns carry no leading word boundary, the credit ends in its URL, and every picture is looked at. This
+is the bullet as it stood there, verbatim, with the cases each rule came from.
+
+- `.claude/fetch-geo-images.js` + `.claude/contact-sheet.py` — the geography picture pass's two tools.
+The fetcher takes a batch naming, per card, either a `subject` (a landmark article, for a REGION) or a
+`city`, and returns `add-images.js`'s own batch shape with the licence, size and attribution read off
+Commons. **It suggests and installs nothing**, like every image helper here. Two findings are built
+into it: **a free-text Commons search is not evidence of subject** — searching `"Phoenix, Arizona"
+skyline` returned a photograph of NEW YORK, which passed every other test — so a city's picture is
+established by CATEGORY MEMBERSHIP plus the name, and **satellite imagery and USGS survey photographs
+are refused**, both being legitimate pictures of a place and neither being a view of it. The sheet
+tiles a fetched batch into one image so every candidate can be LOOKED AT, which is the standing rule
+and does not otherwise scale past a handful.
+· **A THIRD INPUT, `file`, NAMES A COMMONS FILE OUTRIGHT, AND IT IS WHAT A REVIEW PRODUCES.** The
+searches find a subject's pictures and cannot judge one: `White Sands National Park`'s own article
+offers its VISITOR CENTRE as the only file over 900px, and no scoring rule turns that into a
+photograph of the dunes. A pinned file still goes through `fileInfo` and `licenceOK`, so it can
+never smuggle in a non-free or undersized picture — it is the SUBJECT that is asserted by hand,
+never the licence. **Of the 158 pictures the pass shipped, 41 were pinned this way**, which is the
+honest measure of how far a name match gets you.
+· **THE SKIP PATTERNS CARRY NO LEADING WORD BOUNDARY, AND THAT IS THE WHOLE OF WHY THEY WORK.**
+Commons runs words together — `Chesapeakelandsat.jpeg` is a false-colour Landsat scene and
+`\blandsat\b` matches nothing in it. `sentinel-\d` keeps its hyphen, since Sentinel Peak is a real
+Tucson landmark a card may legitimately want. **`Txu-…` and `…pclmaps…` were added after Inner
+Mongolia got a topographic sheet and Qinghai a geological one**: those are the University of Texas
+map library's scans, they are enormous, so they win any largest-file tie-break, and neither says
+"map" anywhere in its name.
+· **THE CREDIT ENDS IN ITS URL, AFTER A FULL STOP, NEVER IN BRACKETS.** A Commons file name is full of
+parentheses — `Historic Entrance (Mammoth Cave, Kentucky, USA) 2 (37773583192).jpg` — so a URL wrapped
+in another pair ends on `))`.
+**BOTH SHAPES ARE LINKS SINCE SEP 2026** (on request: "when clicked an image to enlarge it, the links
+in the source sections should be clickable"). `mediaCreditHTML` tested `/^https?:/` against the WHOLE
+string, so a bare URL became a link and this house form was escaped end to end with its address dead
+text — measured over the cards and the glossary, **1,817 credits are a bare URL and 1,309 are the
+prose form**, so nearly two in five of the site's credits offered an address a reader could not
+follow. **It is NOT `SRC_URL_RX`, and that is the whole difficulty**: the citation pattern stops at a
+bracket, deliberately, since a citation's address is percent-encoded — but 149 of these credits carry
+one, and matching with that pattern truncates `…G.Gardner_(9255157507).jpg` to `…G.Gardner_(1` and
+hands the reader a 404. The match runs to the next space and is trimmed from the right: sentence
+punctuation first, then a closing bracket ONLY where the address carries no opening one to match it,
+which is the four credits that write the address inside brackets mid-sentence and the only way to tell
+those from the 149. Dry-run over all 3,126 addresses: 42 trimmed, every one a stray `)`.
+· **A SMALL STATE CAPITAL HAS NO SKYLINE, AND THE HONEST ANSWER IS ITS MAIN STREET.** Commons has no
+wide view of Montpelier (7,900 people), Pierre, Frankfort, Dover, Concord or Jefferson City, and
+what it offers instead is a 19th-century bird's-eye LITHOGRAPH — a drawing of a town that no longer
+looks like that, which on a card is worse than no picture. Those six ship a downtown streetscape
+with a `desc` that says so rather than "seen from a distance".

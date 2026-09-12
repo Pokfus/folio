@@ -1620,49 +1620,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   jog on screen. It also carries the rivers `rivers.js` never had, out of Natural Earth's European
   supplement — 53 named rivers for Italy where the world file has 21, and 30 for Greece where it has 8.
 - `.claude/fetch-geo-images.js` + `.claude/contact-sheet.py` — the geography picture pass's two tools.
-  The fetcher takes a batch naming, per card, either a `subject` (a landmark article, for a REGION) or a
-  `city`, and returns `add-images.js`'s own batch shape with the licence, size and attribution read off
-  Commons. **It suggests and installs nothing**, like every image helper here. Two findings are built
-  into it: **a free-text Commons search is not evidence of subject** — searching `"Phoenix, Arizona"
-  skyline` returned a photograph of NEW YORK, which passed every other test — so a city's picture is
-  established by CATEGORY MEMBERSHIP plus the name, and **satellite imagery and USGS survey photographs
-  are refused**, both being legitimate pictures of a place and neither being a view of it. The sheet
-  tiles a fetched batch into one image so every candidate can be LOOKED AT, which is the standing rule
-  and does not otherwise scale past a handful.
-  · **A THIRD INPUT, `file`, NAMES A COMMONS FILE OUTRIGHT, AND IT IS WHAT A REVIEW PRODUCES.** The
-    searches find a subject's pictures and cannot judge one: `White Sands National Park`'s own article
-    offers its VISITOR CENTRE as the only file over 900px, and no scoring rule turns that into a
-    photograph of the dunes. A pinned file still goes through `fileInfo` and `licenceOK`, so it can
-    never smuggle in a non-free or undersized picture — it is the SUBJECT that is asserted by hand,
-    never the licence. **Of the 158 pictures the pass shipped, 41 were pinned this way**, which is the
-    honest measure of how far a name match gets you.
+  The fetcher takes a batch naming, per card, either a `subject` (a landmark article, for a REGION), a
+  `city`, or a **`file`** naming a Commons file outright; it returns `add-images.js`'s own batch shape
+  with the licence, size and attribution read off Commons. **It suggests and installs nothing**, like
+  every image helper here. Two findings are built into it: **a free-text Commons search is not evidence
+  of subject** — so a city's picture is established by CATEGORY MEMBERSHIP plus the name — and
+  **satellite imagery and USGS survey photographs are refused**, both being legitimate pictures of a
+  place and neither being a view of it. The sheet tiles a fetched batch into one image so every candidate
+  can be LOOKED AT, which is the standing rule and does not otherwise scale past a handful.
+  · **A PINNED `file` IS WHAT A REVIEW PRODUCES.** The searches find a subject's pictures and cannot
+    judge one, and no scoring rule turns a landmark's visitor centre into a photograph of the landmark.
+    A pinned file still goes through `fileInfo` and `licenceOK`, so it can never smuggle in a non-free or
+    undersized picture — **it is the SUBJECT that is asserted by hand, never the licence.**
   · **THE SKIP PATTERNS CARRY NO LEADING WORD BOUNDARY, AND THAT IS THE WHOLE OF WHY THEY WORK.**
     Commons runs words together — `Chesapeakelandsat.jpeg` is a false-colour Landsat scene and
     `\blandsat\b` matches nothing in it. `sentinel-\d` keeps its hyphen, since Sentinel Peak is a real
-    Tucson landmark a card may legitimately want. **`Txu-…` and `…pclmaps…` were added after Inner
-    Mongolia got a topographic sheet and Qinghai a geological one**: those are the University of Texas
-    map library's scans, they are enormous, so they win any largest-file tie-break, and neither says
+    Tucson landmark a card may legitimately want. **`Txu-…` and `…pclmaps…` are the University of Texas
+    map library's scans**: they are enormous, so they win any largest-file tie-break, and neither says
     "map" anywhere in its name.
   · **THE CREDIT ENDS IN ITS URL, AFTER A FULL STOP, NEVER IN BRACKETS.** A Commons file name is full of
-    parentheses — `Historic Entrance (Mammoth Cave, Kentucky, USA) 2 (37773583192).jpg` — so a URL wrapped
-    in another pair ends on `))`.
-    **BOTH SHAPES ARE LINKS SINCE SEP 2026** (on request: "when clicked an image to enlarge it, the links
-    in the source sections should be clickable"). `mediaCreditHTML` tested `/^https?:/` against the WHOLE
-    string, so a bare URL became a link and this house form was escaped end to end with its address dead
-    text — measured over the cards and the glossary, **1,817 credits are a bare URL and 1,309 are the
-    prose form**, so nearly two in five of the site's credits offered an address a reader could not
-    follow. **It is NOT `SRC_URL_RX`, and that is the whole difficulty**: the citation pattern stops at a
-    bracket, deliberately, since a citation's address is percent-encoded — but 149 of these credits carry
-    one, and matching with that pattern truncates `…G.Gardner_(9255157507).jpg` to `…G.Gardner_(1` and
-    hands the reader a 404. The match runs to the next space and is trimmed from the right: sentence
+    parentheses, so a URL wrapped in another pair ends on `))`.
+    **BOTH SHAPES ARE LINKS SINCE SEP 2026** (on request). `mediaCreditHTML` tested `/^https?:/` against
+    the WHOLE string, so a bare URL became a link and this house form was escaped end to end with its
+    address dead text — measured over the cards and the glossary, **1,817 credits are a bare URL and
+    1,309 are the prose form**. **It is NOT `SRC_URL_RX`, and that is the whole difficulty**: the
+    citation pattern stops at a bracket, deliberately, since a citation's address is percent-encoded —
+    but 149 of these credits carry one, and matching with that pattern truncates the address and hands
+    the reader a 404. The match runs to the next space and is trimmed from the right: sentence
     punctuation first, then a closing bracket ONLY where the address carries no opening one to match it,
-    which is the four credits that write the address inside brackets mid-sentence and the only way to tell
-    those from the 149. Dry-run over all 3,126 addresses: 42 trimmed, every one a stray `)`.
+    which is the four credits that write the address inside brackets mid-sentence and the only way to
+    tell those from the 149.
   · **A SMALL STATE CAPITAL HAS NO SKYLINE, AND THE HONEST ANSWER IS ITS MAIN STREET.** Commons has no
-    wide view of Montpelier (7,900 people), Pierre, Frankfort, Dover, Concord or Jefferson City, and
-    what it offers instead is a 19th-century bird's-eye LITHOGRAPH — a drawing of a town that no longer
-    looks like that, which on a card is worse than no picture. Those six ship a downtown streetscape
-    with a `desc` that says so rather than "seen from a distance".
+    wide view of a town of a few thousand people, and what it offers instead is a 19th-century bird's-eye
+    LITHOGRAPH — a drawing of a town that no longer looks like that, which on a card is worse than no
+    picture. Those ship a downtown streetscape with a `desc` that says so rather than "seen from a
+    distance".
+  · **📖 `docs/geography-card-plan.md` — READ BEFORE OPENING A PICTURE BATCH ON A GEOGRAPHY COLLECTION.**
+    The pass's own record, moved out of here: the New York photograph a search returned for Phoenix, the
+    41 of 158 pictures that had to be pinned by hand, the four wrong pictures the first contact sheet
+    caught and the two that got through to Inner Mongolia and Qinghai, and the six capitals with no wide
+    view at all.
 - `fetch-countries.js` — standalone Node helper (run manually, resumable) that fetches the 5-sentence
   Wikipedia summaries into `countries.js` for every clickable name. Re-run after adding timeline eras so
   their new territories get descriptions. Not loaded by the site.
