@@ -2194,3 +2194,81 @@ than a fix per batch.**
 **Rules 1 and 3 remain open on about 250 cards.** Run `node .claude/gw-audit.js` for the live figures.
 
 *Not part of the site.*
+
+
+---
+
+## The G1–G6 batch account, moved out of `CLAUDE.md` (2026-09-11)
+
+**READ BEFORE REWRITING A `gw-` BACKGROUND.** The account as it stood in `CLAUDE.md` until it was
+moved here verbatim: the three per-country sources and what each carries, the deferred countries with
+their card ids, the AQUASTAT URL finding, and the sweep of the already-rewritten cards. The RULES stay
+in `CLAUDE.md`.
+
+- `docs/world-geography-card-plan.md` — the running order for **World** (`geo-world`, the second
+collection of the Geography SECTION), and the second plan that is not a thousand cards: it is **470
+cards** — 233 countries and territories (`gw-001`–`gw-233`) and 237 capitals (`gw-501`–`gw-733` with
+seven numbers deliberately unused, plus `gw-751`–`gw-761` for the extra seats of the ten countries that
+have more than one) — using the same **map card** format the United States collection uses, so
+it points at `docs/geography-card-plan.md` for the format rather than restating it. **It is SORTED BY
+POPULATION, largest first, and the order is FIXED at planning time and never re-sorted**: a card id is
+a permanent address, so re-sorting would move cards between ids and silently repoint every reader's
+schedule and every shared link. The snapshot behind the order is stated in the plan (World Bank
+`SP.POP.TOTL` 2024, with `country-stats.js` for the 21 small territories that series omits), and a
+card's own population figure is researched and cited when the card is written — **the two will drift
+apart, and that is expected rather than a fault**. Three things in it are decisions rather than lists.
+**Which entities are in the deck is THREE CHECKABLE RULES rather than a judgement per country** — an
+ISO 3166-1 code of its own, a shape in `world.js`, and a settled population with an administrative
+seat — which is what keeps Folio out of every sovereignty argument it would otherwise be making 233
+times; the deck is called *The countries and territories* and every question asks for "the country or
+territory shaded on the map", which is true of all of them. **Twelve countries have more than one
+seat** and the plan says which each card asks for, with the working seat named in the facts box.
+**Israel and Palestine are deferred**, numbered but not written, because a card that shades a shape and
+asks for one word cannot hold a capital question whose answer is the dispute.
+· **📖 `docs/geography-background-plan.md` — READ BEFORE REWRITING A `gw-` BACKGROUND.** These
+backgrounds were written out of the recognition guide, which is written from the American point of
+view, so they are histories of *American recognition of* the country rather than histories *of* it.
+**RUN `node .claude/gw-audit.js` FOR THE FIGURES RATHER THAN QUOTING ANY** — this bullet stated
+three and two of them were wrong within a day, because the sweep behind them was never written
+down; the script is report-only, exits 0, and answers all four rules plus the date lines at once.
+**THE FOURTH RULE IS THAT A BACKGROUND MAY NOT LIST THE COUNTRIES THAT BORDER IT** (Sep 2026, on
+request): the card draws the country on a globe with every neighbour around it, so the neighbours
+are the one thing on it a reader can already see — rule 2 one step out. **The replacement is the
+SAME sentence with each neighbour swapped for the sea, the region or the landform it stands in**,
+which keeps the bearings and the length and needs no new source; a SEA is not a country and stays,
+a HISTORICAL mention of a frontier is the country's own history and stays, and an ADJECTIVE ("the
+Cameroonian border") counts and does not. All 42 of the already-rewritten cards that opened on a
+border list were swept in the same pass.
+The plan holds the rules asked for, why this cannot be a find-and-replace (removing a third of the
+sentences orphans the citations that stood on them, and `add-sources.js` rightly refuses that), the
+sources the rewrite needs, fifteen batches, and what each shipped batch found.
+**G1–G6 have shipped — seventy-three backgrounds rewritten** (`gw-001`–`gw-087`, less the
+deferrals below), each five sentences of landform, water and climate over five of the country's own
+history, with fifty-nine date lines rewritten out of the same research. Three sources make the
+pass possible and all three are per country. **The FAO's AQUASTAT country profile** carries the
+landform, the borders, the coastline, the altitude range, the seasons, the mean rainfall AND its
+range, and the rivers — enough for a whole block on its own — and states its own recommended
+citation on page 1. **The Constitute Project** carries an English text of nearly every constitution
+on earth, whose opening articles state the form of the state, its territory and its founding claim.
+**The CBD's country profiles** carry a country's own ecosystems in prose, which no statistical
+profile does. **AND AN AQUASTAT URL MUST BE READ, NEVER COMPOSED**: eight of G2's twelve guesses
+were wrong and one pointed at another country's profile — and **a 200 on a `.pdf` address is not a
+PDF**, Afghanistan's being served as 1.6 MB of HTML, which is why `gw-036` is deferred. **THIRTEEN
+HIGH-INCOME COUNTRIES HAVE NO AQUASTAT PROFILE AT ALL** (`gw-003`, `gw-019`, `gw-021`, `gw-023`,
+`gw-025`, `gw-032`, `gw-037`, `gw-042`, `gw-054`, `gw-067`, `gw-072`, `gw-082`, `gw-088`) and are
+deferred rather than half-solved: the
+World Bank's open climate API and the national met services answer for the weather, and nothing
+reachable carries the LANDFORM. **A COUNTRY THE RECOGNITION GUIDE HAS NO PAGE FOR CAN STILL BE
+WRITTEN**: it has none for North Korea, and `gw-056` rests instead on a MILESTONE, which is about
+an event rather than a state. Rules 1 and 3 remain open on about 350 cards.
+· **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
+geography decks should never have their census information mentioned in the period box below the main
+answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |
+97,857 people` on `gw-195` Jersey — and the population is already in the facts grid two inches above.
+**A card with nothing else datable gets an EMPTY date line rather than a filler row**: Jersey's every
+row was a census count and its prose dates nothing else, so it now has none, which `test-date-line.js`
+is what caught — a non-empty line yielding no sort year is a card that STATES a date and cannot be
+ordered by it. **And a population is written to three significant figures**, which was four on exactly
+four cards in the whole corpus (Beijing, Jakarta, Moscow, Tokyo); the `+105.1%` rows on `gw-575`,
+`gw-625` and `gw-673` are population GROWTH rates rather than population figures and are left alone.
+Not part of the site.

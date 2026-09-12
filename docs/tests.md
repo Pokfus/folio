@@ -1381,3 +1381,398 @@ now. That assertion exists to guard the widening made to `HEAD_NUM` in `extractJ
 page number and could — without its digit proviso — match `CHAPTER I.` and delete the chapter markers.
 **A test written to guard a rule against eating structure has to count that structure correctly, or it
 is the one assertion in the file that cannot do its job.**
+
+
+---
+
+# The suite descriptions in full, moved out of `CLAUDE.md` (2026-09-11)
+
+**READ WHEN A SUITE FAILS IN A WAY YOU DO NOT RECOGNISE, AND BEFORE CHANGING WHAT ONE ASSERTS.** These
+are the twenty-four longest entries from `CLAUDE.md`'s test list as they stood until they were moved
+here verbatim: what each guards, the silence it was written for, and the harness traps that made a
+first draft report faults that were not there. **Every "Re-run after touching …" list stays in
+`CLAUDE.md`** — `check-claims.js` verifies those identifier names — and each entry below repeats its
+own list so this file can be read on its own.
+
+· `node .claude/test-publish.js` — 128 assertions across six browser sessions (an author, a reader, an
+admin, and three more DEVICES of that reader's) driving publish → browse → install → update → report
+→ hide → rate → staff-pick → fork → export → delete → sync. **Re-run after touching the publishing
+functions, `communitySyncInstalls` / `communitySyncSoon` / `communityFetchDeckById` /
+`localIdForRemote` / `uDeckInstall` / `uDeckUninstall`, `uDeckDelete` / `uDeckRemoteDelete` /
+`confirmDeleteDeck` / `myRemoteDecksLoad` / `orphanSectionHTML` / `uDeckSetColor` /
+`colorColumnMissing`, the shared-decks table on the Collections page (`COMMUNITY_COLS` /
+`sharedDecksHTML` / `wireSharedDecks`), or `.claude/supabase-schema.sql` — and keep the mock in step
+with the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
+
+· `node .claude/test-account-switch.js` — assertions on switching accounts on one device, and on
+CREATING one, against an
+in-memory mock of the Supabase **auth + progress** endpoints (a test that really signed up would
+create users in the live project). **Re-run after touching `supaAfterSignIn` / `supaSignOut` /
+`supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`, **or any of `supaSignIn` / `supaEmailForUsername` /
+`supaSwitchTo` / `supaRemember` / `supaForget` / `supaSetEmail` / `supaSetUsername` / `authThrewMsg` /
+`SUPA_ACCTS_KEY`, or the auth forms' `busy` / `msg` helpers** — a switch that
+carries the outgoing account's progress across is exactly what its `_supaOwner` assertions exist to
+catch, and nothing on screen would say so.**
+Its **sections 7 and 8 are ACCOUNT CREATION** (Sep 2026) — that a refused sign-up says why and gives
+the button its label back, that a taken username is reported rather than silently substituted, and
+that the handle can be changed afterwards and then signed in with.
+Its **section 6 is the RECONCILE** (Aug 2026) — that an edit made while the progress pull is still in
+flight is not overwritten, that an IDLE device still adopts another device's write, and that a boot
+which is genuinely in sync sends **no push at all**. **Re-run it after touching `supaBoot`'s reconcile,
+`progressBlob` / `extractProgress` / `applyProgress` / `_supaLastSent` / `supaPull` / `supaPush`.**
+
+· `node .claude/test-video.js` — 100 assertions on card + glossary videos **and the fullscreen viewer's
+gestures**: that every accepted link shape resolves to the embed this code builds and **every other
+URL resolves to no player at all** (the check that keeps an `<iframe src>` off untrusted input), that
+the frame is byte-for-byte the image's frame (computed border-radius / aspect-ratio / border / size),
+that the expand control opens the viewer and a click on the player does not, and that a community
+deck's `javascript:` video src is dropped on ingest. **Re-run after touching `videoSource` /
+`cardVideoHTML` / `openMediaViewer` / `retireOther*Media` / the delegated `error` listener /
+`.media-dead` / the media panel, or the `media-src`/`frame-src` CSP.**
+
+· `node .claude/test-layout.js` — 332 assertions on **the shell**: the rules that break silently
+because nothing throws when a layout is wrong. **ITS FIXTURE MUST DISMISS EVERY FIRST-VISIT OVERLAY
+AND LAND ON THE TAB IT MEANS TO MEASURE**, and both halves of that cost the suite fifteen assertions
+in Sep 2026 — it was red on `main` for a day, which is the state in which a suite guards nothing.
+`atlas()` now presses through to the WORLD tab (the personal one hides the search and the legend
+outright, so eight assertions about the chip layout read `{"w":0,"shown":false}` and failed on a
+feature working perfectly one press away), and `watch()` sets `folio_marker_tour_v1` beside the
+library's key (the marker's coach marks open with its panel and cover the marker, so from the second
+press on every click meant for it hit the card — which also **timed out and took the suite down
+before its summary**, so the run reported nothing at all). **When a feature gains a first-run card or
+a new default tab, the fixtures are part of the change.** **Re-run after touching `.tabbar` / `--tabbar-h` /
+`--timebar-h` / `layoutTicks` / the Atlas chrome's media queries / `.settings` / `.auth-split` / the
+coming-soon rows / `.home-collections` / `.games-sec` / `.home-about` /
+`gameSub` / `pileCounts` / `adProg` / `.active-deck` / `gbWireResize` / `.gb-fold` /
+`body.gb-compact` / `.brand` / `homeBrandHTML` / `.home-brand` / `wirePageSwipe` / `SWIPE_ORDER` / `makePageGhost` / `clipStageFor` / the
+`.page-next`/`.page-prev` keyframes / `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` /
+`#fsRange` / `MULTILANG` / `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
+`wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` / the ink layer's
+pass-through / `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on
+`.admin-list-items` / `cpResize` / `cpContentNeedH` / `cpColsContentH` / `cpRoomH` / `cpMaxH` /
+`.cp-titlemain` / `lockHeight` / `atlasTab` / `MARKER_TOUR_KEY` / the `.wb-panel` row markup, or
+after adding an overlay to `document.body`.**
+
+· `node .claude/test-date-line.js` — 15 assertions on the card date line, run against the real
+`data.js`: that every shipped card's `answerDate` is still a LIST OF DATES and not the paragraph it
+replaced (the check is content-aware, since an old date line wore exactly the same tags), that the
+limits in `date-line.js` still describe a glance, that every card stating a date still yields a sort
+year from it — four cards on the pre-conversion data yielded none — and that **no card naming a deep
+date sorts by the year it was dug up**, which is how Atapuerca came to sort at 1978 CE. Re-run after
+touching `cardYears` / `date-line.js`, **and after any batch of date lines** — the field is edited
+card by card and grew into a paragraph the same way.
+**Its section 4 is the date line read by a THIRD consumer** (Sep 2026): the personal atlas draws a
+polity's authored `area` in the years its date line names, and unlike a dot — drawn from its
+earliest date and never taken away — BOTH ends of that span bind, so a line yielding a SINGLE year
+draws the shape in one year and in no other. **It looks like nothing at all from every other
+angle**: the card is right, its own map window is right, its sort year is right, `isDateList`
+passes, and the symptom is a shape nobody ever sees. All three cards that had it were Rome cards
+whose only readable year was one, the rest of the line being written in CENTURIES, which
+`cardYears` deliberately cannot read — so the fix is rule 2's own: write the span the century
+MEANS. The section also reads `MINE_POLITY` OUT of app.js rather than restating it, so a kind added
+there is covered here without anybody remembering to.
+
+· `node .claude/test-review-decks.js` — the daily review's decks and the study session that comes out
+of them (Aug 2026). **Re-run after touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` /
+`deckLimits` / `globalLimits` / `mixPiles` / `orderPile` / `DECK_ORDERS` / `deckOrderMode` /
+`setDeckOrderMode` / `sortByDifficulty` / `refillAfterSuspend` / `UNDO_GUARD_MS` / `studyHold` /
+`clearStudySession` / `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` /
+`openDeckLimits` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` /
+`orderedIds` / `setupDeckDrag` / `deckEditOn` / `deckEditCheckpoint` / `deckEditBarHTML` /
+`setEntryTitle` / `adOwnTitle` / `rowTitle` / `.rv-editing` / `.rv-topacts` / `.rv-foot` / `.dk-del` /
+`S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` /
+`setNestParent` / `nestChildren` / `openDeckSched` / `setDeckSched` / `setDeckRetention` /
+`setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`
+/ `fsrsSequences` / `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s
+per-deck allowances, or anything named `sched*` or `fsrs*`.**
+
+· `node .claude/test-card-locator.js` — **what a locator draws, and what SHAPE it draws it in** (14
+assertions, Aug 2026). The marks are on a canvas, so the honest test is a PIXEL COUNT — the
+collection's reds are there, and the card's own gold is still the biggest mark on the map. It also
+asserts the PAYMENT in both directions: the card paints before the `atlas` bundle arrives, and the
+bundle really is fetched rather than folded into the eager path. **Its second section is about the
+locator KINDS and measures the shape of the ink rather than its amount**, since a river card that has
+quietly gone back to a dot draws a perfectly good map: a river is LONG (its longer side many times an
+11px dot) and THIN (it leaves most of its own bounding box empty, where a dot fills four fifths of
+one), and a range spreads dark ink across most of the window with no gold anywhere. **Its third
+section measures the RIVERS BY TAKING THEM AWAY** — read the pixels, empty `window.RIVERS`, redraw the
+same view, read them again — because a "before the bundle lands" reading measures nothing: on a
+`file://` run the `atlas` warm resolves within a second or two of the reveal, so the first frame a
+test can reach already has the rivers in it and the two readings come back equal whether the layer
+draws or not, **which is how the previous form of that check passed for the wrong reason**. The water
+must FALL when the rivers go and the dark ink must not move by a pixel, which is "without their
+labels" stated as arithmetic. It runs on `rm-002`, which frames Italy — `gr-002` frames the Cyclades,
+where there is no river to draw at any zoom, so the section-1 card cannot see this layer at all.
+**Re-run after
+touching `locatorSiblings` / `cardCollectionRoot` / `locOwnTerms` / `LOC_KINDS` / `locPts` /
+`drawSwords` / the extras block in `startCardGlobe`'s `draw()` / `fitTarget`'s extent branch / the idle
+`ensureData("atlas")` beside it / `uCacheBust`, and after giving a card a locator `kind`.**
+
+· `node .claude/test-learning.js` — **the learning-science batch** (Sep 2026), and every one of its
+subjects fails SILENTLY: a criterion that stops recording reads as a reader who never gets anything
+right; an order picker asked twice is a wall and asked never is a feature nobody meets; a reveal guard
+that misses one of its three doors is a policy that does nothing on a keyboard; and a confusion
+register whose capture breaks stays empty for ever, which looks exactly like a reader who never
+confuses anything. **Its starred assertion is that the deck pretest writes NO card records** — XP is
+the count of those, and a level buys a chest, so the obvious implementation hands a new reader several
+levels for answering twelve questions. Sections 1–5 need no browser. **Re-run after touching anything
+in the "HOW A READER MEETS A CARD" bullet's own list.**
+
+· `node .claude/test-deck-update.js` — **updating a language deck this device already holds**, and
+**fetching its files again when nothing says it is out of date** (Sep 2026), the reported faults
+reproduced: it corrupts a card in IndexedDB the way a stale download is corrupt, reloads, and asserts
+the repair arrives AND the reader's schedule survives it. **Its second half is the harder case and is
+what the Redownload row exists for**: the card is made wrong while the stored REVISION is left
+current, so nothing offers an Update — correctly, the two copies having been built from one source —
+and the assertion is that the sheet's own row still repairs it, fetches the file exactly once, leaves
+the deck's id, size and schedule alone, and says how many cards it refreshed rather than merely that
+it did something. Run it for the figure rather than quoting one here. **Re-run after touching
+`langDeckFetch` / `langDeckDownload` / `langDeckStale` / `langDeckUpdate` / `entryLangDecks` /
+`uDeckIdOf` / `uDeckNormalize`'s `langRev` / `uDeckIndexRecord` / `UDECK_META_KEYS`, the
+`data-langup` row or button, the sheet's `redownload` row, or `build-lang-decks.js`'s `rev`.**
+
+· `node .claude/test-panels.js` — **the arithmetic behind the Sep 2026 panels and the map in words**
+(37 assertions, no browser, no dependency): every function is sliced out of the real `app.js` by text
+and the map half runs against the real `us-states.js`. Each subject fails SILENTLY on the page — a
+"right, but slowly" list built on a fixed threshold reports a whole collection on one reader and
+nothing on another and both look like the feature working; a stale streak printed as a current one
+compares against something that is not happening; a route registered in six of its seven places works
+until somebody pastes the link. **Its map section is the one that has already caught two faults**: the
+neighbour list computed by shared EDGES found 83 of the 107 US pairs and missed California–Oregon, and
+the proximity grid that replaced it found 110 and called the Four Corners diagonals borders until it
+required TWO shared cells. **Re-run after touching `slowCards` / `medianOf` / `mapNeighbours` /
+`mapNeighbourCells` / `NBR_MIN_CELLS` / `andList` / `streakLive` / `daysStudied` / `lightMode`, or
+after adding a route.**
+
+· `node .claude/test-tense-notes.js` — **the conjugation headings' explanations** (15 assertions,
+Sep 2026), no browser and no dependency: the table and the marking pass are sliced out of the real
+`app.js` by text and run over every deck in `decks/`. Each check is for a silent failure — a
+heading nothing marks is a feature that is simply absent for that language while the table looks
+complete from the inside; a heading marked with the WRONG key gives a confident wrong explanation,
+which is worse than none; and a German noun label marked as a tense would explain the imperfect
+under a word for a lawyer. **Re-run after touching `TENSE_NOTES` / `tenseNote` / `ucMarkTenses` /
+`openTenseWin` / `cardTypeSideHTML`, or after adding a deck whose conjugation table is new.**
+
+· `node .claude/test-personal-atlas.js` — **the Atlas's second tab** (36 assertions, Sep 2026), and
+every fault it guards is silent: a globe with nothing on it looks exactly like a reader who has
+studied nothing, a place resolved in the wrong year looks like a deliberate absence, and a popup
+that has quietly gone back to the world atlas's country panel is a perfectly good country panel. The
+counts are PIXELS — the marks are on a canvas — and there are two of them, because the two claims are
+now different colours: an unlocked COUNTRY is the light land shade (zero of it on an empty globe, where
+every land pixel is the dark one) and a PLACE is the locator red, which nothing else on this globe is.
+The light shade is COMPUTED from the same two CSS variables and the same formula `readColors` uses
+rather than sampled, so a theme change moves both together. **Sections 6–8 measure the Sep 2026 batch**
+and two of them needed an instrument of their own. A BORDER cannot be found by colour — it is the ink
+the coastline is drawn in, and coast is everywhere — so it is a DIFFERENCE: the same view with and
+without landlocked Austria unlocked, counting land pixels darker than the unearned land shade. **The
+view is zoomed in four presses first, and that is not tidying**: at the opening zoom the border is a
+hairline whose every pixel antialiases above any threshold, and the two renders came back 22 pixels
+apart — a real difference indistinguishable from noise; zoomed, it is 526. A PROVINCE's dotted border
+is asserted through the CLICK LADDER rather than by counting dashes, since a dash count cannot tell a
+province's border from a country's where the ladder can: one click inside California answers "United
+States" and a second, in the same spot, answers "California". **Label ink must now be ZERO**, the
+names this section asserted a day earlier being what the request removed. **Re-run after touching `atlasTab` /
+`MINE` / `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
+`drawMineMarks` / `drawMineAreas` / `MINE_POLITY` / `areaBBox` / `mineCoastSkip` / `landDim` /
+`mineFounded` / `mineDotsShown` / `MINE_SEP` / `MINE_LBL_Z` / `mineAreaFill` / `mineAreaLine` /
+`MINE_STARTS` / `mineStart` / `setMineRange` / `tickList` / `tickHTML` / `renderMapYearMarks` /
+`showMinePopup` / `eraIsModern` / `renderStatic`'s MINE branch / `updateHoverName` / `snapYear` /
+`stepYear` / `frac2year` / `year2frac` / `ZMAX` / `cpSection` / `mountCardBack`'s `shutSources` / the
+`.atlas-tabs` markup / `.atlas-empty` / `.cp-mine` / `.cp-shut` / `.tl-range`, or after changing which
+cards carry a `map` or a `locator`.**
+
+· `node .claude/test-artwork-cards.js` — **the artwork card format** (56 assertions, Sep 2026), and
+every fault it guards RENDERS PERFECTLY: a `title`, `credit` or `data-img-*` reaching the FRONT
+answers the question outright; an alt naming the work is that leak in the one place nobody looks; a
+duplicate picture is the back's own copy failing to be dropped; and a card missing from the picture
+pool is a game that simply never deals it. **The pool half is asserted through a PATCHED app.js**
+(`test-i18n-lang.js`'s technique — `picturePool` is a closure variable), because the alternative is
+sweeping days of the real game until an artwork happens to be dealt: six artworks in a pool of two
+hundred is a coin toss, and a sweep that saw none would say nothing at all — one of eight days was
+run and saw none. **Re-run after touching anything in the ARTWORK CARDS bullet's own list.**
+
+· `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's
+restricted pool** (114 assertions), and every one of its checks is for something that fails SILENTLY.
+**AN ASSERTION CAN COME TO GUARD THE OPPOSITE OF THE RULE** (Sep 2026): the picture round's reveal
+check demanded `.pic-credit a` and the planted credit's href, which is what the round shipped until
+the credit line was REMOVED on request — so it failed against a deliberate change and stayed red,
+where a stale check reads exactly like a broken feature. It now asserts the shipped rule from both
+ends: no credit on the reveal AND none left inside `.pic-shows` (half the pool repeats it there and
+`picCaption` cuts it), then the viewer opened and the credit found in its `.iv-credit`. **Asserting
+an absence alone would pass just as happily on a round that had dropped the attribution outright**,
+which is why the second half is not optional.
+**Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
+`xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `chronoPool` /
+`cardYearBasis` / `dateLineRows`, `picturePool` /
+`dailyPictureRounds` / `tagKinship`, `dayPick` / `buildChallengeQuestions` / `buildWhoSaidRounds` /
+`PAGES.truefalse`'s draw, `threadEasyKeys` / `dailyThreadPuzzle` /
+`THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
+`PAGE_META` / the `valid` route list, `gameCardIdSet` / `GAME_MAX_DIFFICULTY`, `whatyear.js` /
+`truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
+`markGamePlayed`, `gameAnswerNote` / `gameGlossKey`, `gameTap` / `gameCommit` / `gameClearPick` /
+`gameFound` / `TINT_PICK` / the `.mg-acts` buttons, or the home page's tile grid.**
+**`crosswordForPage` MATCHES THE DAY ON THE SQUARES, NEVER ON THE CLUE NUMBERS** (Sep 2026). It used
+to fingerprint the grid by its set of `n + dir` — "1d,2d,3a,4d,5d,6a,7a,8a,9a" — which is not an
+identity at all: the layout search fills a nine-entry grid the same shape most days, so consecutive
+days routinely share it. When they did, the FIRST candidate won, everything below was computed
+against another day's geometry, and the suite asked the page for a square that grid has not got and
+**died there — taking every check after it with it**, which is how a stale matcher reads as a broken
+game. The squares are the right key because they are exactly what those checks go on to address, and
+because they survive what the clue TEXT does not: the page rewrites its own prose as it renders
+(spelling, units), so a text fingerprint would fail on a reader's setting rather than on a mismatch.
+
+· `node .claude/test-avatar.js` — **the profile photo's crop, and enlarging someone else's** (17
+assertions, Aug 2026), and all three of its subjects fail SILENTLY: a hole in the crop becomes a black
+wedge in a JPEG that only its owner ever sees; a drag wired to nothing still opens a dialog, shows the
+picture and saves the centre crop it always saved; and a viewer left at the stored 128px is an
+"enlarge" barely larger than the row it was tapped in. So it reads PIXELS off the canvas and off the
+saved data-URI, on a picture whose left edge and middle are different colours. It reaches the cropper
+through a **patched app.js** (`test-i18n-lang.js`'s technique — the dialog is behind a Supabase
+sign-in, and mocking auth to reach it would test the mock) and fails if the tail it appends to is
+gone, so a refactor cannot leave it testing nothing. **Re-run after touching `openAvatarCropper` /
+`openAvatarViewer` / `AVATAR_PX` / `supaSetAvatar` / `monogramHTML` / the `img.viewClass` hook in
+`openMediaViewer`, or the `.av-crop` / `.avc-*` / `.iv-avatar` / `.mono-view` styles.**
+
+· `node .claude/test-whiteboard.js` — **the marker's gesture ownership** (9 assertions, Aug 2026), and
+every one of them is silent on the page: the marker is on, the canvas is there, the pen is moving, and
+what the reader gets is either a line that wanders or no line at all. It drives TWO contacts as raw
+PointerEvents with independent ids — a palm resting beside the pen, a palm lifting, a palm the browser
+cancels, a pen arriving after a finger, and two thumbs on a phone that has never seen a stylus — and
+measures **pixels in a row band** rather than state, since a straight line marks its own row and a line
+sewn to a second contact marks rows where that contact is. **Re-run after touching `setupWhiteboard`'s
+pointer handlers, `gid` / `gpen` / `dropGesture` / `beginStroke` / `end` / `passScroll` / `passCtl` /
+`pendTip` / `passMap` / `CTL_SEL` / `TIP_SEL` / `wbPenOnly` / `wbNoteStylus`, or `wbResize`.**
+
+· `node .claude/test-lang-decks.js` — **the Collections page's Languages section** (Aug 2026), in two
+halves and both for silent failures. **Re-run after touching `langCollectionsHTML` /
+`langCollectionHTML` / `langRowHTML` / `langRowSpecs` / `langNodeSpecs` / `langCollId` /
+`wireLangDecks` / `entryPending` / `langDeckDownload` / `langCatalogById` / `langCatalogNode` /
+`entryScope`'s language branch / `buildSession`'s group branch / the deck list's `.dk-del` walk / the
+`.dk-pending` row in `PAGES.home` / `cardBytes` / `nodeBytes` / `fmtDeckSize` / `.node-size` /
+`buildNode`'s `nodeSpanText` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`, and
+after adding, rebuilding or removing a deck in `decks/`. Section 4 covers the LANGUAGE HEADER's own
+options sheet, so re-run it after touching `langCtxId` / `langCtxName` / `langCtxEntries` / the
+`.dk-langhead` row and its `data-langhead` wiring / `entryExists` / `entryInfo` / `entryChain` /
+`entryHasSpeech` / `containerHasChildren` / `removeActive` / `openDeckMenu`'s container branch, and
+section 4b the ALLOWANCE rows — re-run it after touching `langCtxLimits` / `langCtxOf` /
+`entrySkippedToday` / `bumpDeckExtra` / `deckLimits` / `entryPiles` / `entryNoun` / the buckets in
+`reviewQueue` / `openDeckLimits` / `openCustomStudy` / `openDeckSched`.**
+
+· `node .claude/summa-witness.js` — **the Summa against a second transcription of the same
+translation** (Sep 2026, batch E38). The fourth scanner, and the only one that can see text that
+is simply GONE: a spelling sweep reads what is there, `book-audit.js` asks whether what is there
+belongs, and the duplication check finds a loss only where it left a duplicate behind. It found a
+whole question of Aquinas — Third Part q.35, Of Christ's Nativity, eight articles — absent from
+the book, because Wikisource serves q.33 under `Question 34` and q.34 under `Question 35`. Three
+checks: articles against the witness; each chapter's TITLE against its own PROLOGUE (two
+independent statements of one fact, which is what finds a question standing in another's place);
+and any two chapters with byte-identical text. The last two need no witness, which is why they
+reach the Supplement and the Appendix, where 102 of the 614 questions have none. **Read the
+heading's ORDINAL WORD, never its bracket** — Gutenberg's disagree seventeen times, and keyed on
+the bracket the first run reported 33 phantom findings. **EVERY DISAGREEMENT IS ADJUDICATED and
+the report is by KIND** (Sep 2026, batch E46): a count says two books disagree and not which is
+wrong, so each is settled by asking whether the other book has the text AT ALL — missing from
+Folio, present but unnumbered, or the other book's own heading at fault. **All sixteen standing
+are Gutenberg's, three of them citation typos**, and nothing there is Folio's to repair. **The
+probe is five runs of sixty characters, not one**: a lone one reported III q.5 art 4 missing from
+a witness that has it, having landed on a scripture reference — the two transcriptions differ most
+in their apparatus. **`--selftest` asks whether the adjudicator is blind or deaf**, since "the
+other book's fault" is what a probe matching everything would say. **It exits 0 whatever it
+finds**, being a measure like `card-focus.js` rather than a gate. **Re-run after any change to
+that book.** Not part of the site.
+
+· `node .claude/check-counts.js` — **a book's own account of itself, checked against itself**
+(Sep 2026, batch E49). Every book opens by counting things — "124 letters", "614 questions",
+"404 chapters on each side" — and nothing had ever compared one of those hand-written figures
+to the file. **A repair does not travel to the prose that describes it**: four batches put 31
+articles of the Summa back and none touched the sentence counting them, so it read 3,094 against
+a real 3,125. **The signal is the NEAR MISS** — a figure far from any count is nearly always
+about something else (Chambry's 359 fables, the Franco-Italian Polo's 232 chapters) — with two
+measured floors: a count under 40 is not tested at all (22 rows of noise without it, 4 with),
+and a figure the prose hedges is passed over rather than reported for rounding. The legitimate
+misses are DECLARED with reasons, and a row excuses a claim only while the book, the claimed
+number AND the actual count all still agree, which is `check-citations.js`'s `CROSSREF_WRONG`
+rule. **Its header states the three things it cannot see**, the first being a sentence that
+counts with a pronoun. Report-only, exits 0. **Re-run after changing what a book holds.** Not
+part of the site.
+
+· `node .claude/check-cutoff.js` — **a chapter that STOPS rather than ends** (Sep 2026, batch
+E43). The tell is terminal punctuation and it is the only one there is: a truncated chapter is
+not short — the Summa's Supplement q.95 lost 1,123 words and still ran to 20 KB — and it is not
+ungrammatical, every sentence but the last being whole. **Neither other structural scanner can
+see it**, since a chapter that is the right chapter, correctly placed, and simply stops two
+thirds of the way through passes both. It found 22 of 4,403, five of them the Summa's and all
+five the SOURCE's truncation. **The rest are settled by asking what the NEXT chapter opens
+with** — a lowercase word means the division falls mid-sentence and nothing is missing. Exits 0
+whatever it finds. **Re-run after adding a book.** Not part of the site.
+
+· `node .claude/check-twins.js` — **a chapter carrying another chapter's text, over the whole
+shelf** (Sep 2026, batch E42). The Summa's cheapest check — the one in `summa-witness.js` that
+needs no second transcription — pointed at all 48 books. It found Aesop's fable 122, *The Old
+Lion*, carrying fable 121's text, because Wikisource's page for it transcludes the wrong part of
+a scan page holding three fables. **This is the one fault no other checker here can see**: the
+wrong chapter is perfectly good prose, and what gives it away is a fact about the BOOK rather
+than about any sentence in it. **It compares runs of eight words, never vocabulary** — two
+chapters of one work share their author's whole vocabulary, so a bag-of-words test scores every
+pair high and finds nothing. The bar is half the shorter chapter's runs, low enough that a
+partial paste shows and measured to cost nothing. It **exits 0 whatever it finds**, being a
+measure rather than a gate. **Re-run after adding a book.** Not part of the site.
+
+· `node .claude/check-pairing.js` — **the two columns paired the way the READER's page pairs them**
+(Sep 2026, batch E44). A bilingual book is drawn as rows and `bookSections` pairs on
+`parseInt(data-n ?? textContent)`; nothing had ever asked the shelf whether the two columns' keys
+meet. **Thucydides paired 7 of its 1,826 sections, and seven is worse than none** — it is the only
+book whose columns come from different extractors, and each wrote a locally correct key (the wiki
+rule a bare marker, `teiBookChapters` a `data-n` on every marker of every book it reads), so the
+English offered 1..146 against the Greek's 100..14600 and the seven were accidental collisions
+that READ as pairings. Both columns were complete, correctly numbered and printing the same
+figure. **The importer's own reconciliation called them perfect, because it compared the LABEL** —
+both print "34" — which is the finding to carry: **a check that reads a different field from the
+one the reader's page reads is not a check.** So this one **slices the rule out of app.js by text
+and stops if it is not there**, names each chapter by the shipped record's own title, and calls
+out separately any book pairing under half its sections: 107 of 25,379 rows draw with one side
+empty, which is two editors dividing a text differently, and every one of the 107 was already
+recorded in its book's entry. Exits 0 whatever it finds. **Re-run after adding an
+original-language column.** Not part of the site.
+
+· `node .claude/test-library.js` — the Library (404 assertions): the rename, the shelf, one book, and
+the reader's place. **Re-run after touching `PAGES.library` / `PAGES.book` / `BOOKS` / `bookIngest` /
+`bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` / `setReadingPos` /
+`bookSections` / `bookRows` / `applyLangMode` / `anchorNow` / `slideChapter` / `BOOK_SORTS` /
+`sortDirHTML` / `setBookSort` / `openBookMenu` / `shareBook` / `isBookFav` / `toggleBookFav` /
+`bookQuery` / `bookMatches` / `shelfHTML` / `teiPagedBooks` / `teiDramaDivisions` / `dramaNotes` /
+`dramaText` / `extractShloka` / `splitAlternating` / `markLikiHeads` / `markLikiSections` /
+`applyGlyphs` / `markChapterHead` / `markArticuli` / `extractSukta` / `suktaBody` / `suktaLines` /
+`suktaVerses` / `suktaSanskrit` / `SUKTA_VERSE` / `extractQuixote` / `extractSatyricon` /
+`satyriconSection` / `cutAcrossSections` / `extractRamayan` / `ramSanskrit` / `RAM_BOOKS` /
+`ramSarga` / `extractPtahhotep` / `PTAH_KEYS` / `extractBede` / `bedeChapter` / `bedeLatin` /
+`BEDE_CHAPTERS` / `sanKuoHead` / `sanKuoRoman` / `originalChapter`'s `dropTables` / `extractBoethius`
+/ `boethiusLatin` / `boeGreek` / `boePoem` / `BOE_BOOKS` / `markMaloryHeads` / `MALORY_RUBRIC` /
+`MALORY_CHAPTERS` / `dropNotes` / `closeQuotesAt` / `balancedSpan` / `betaGreek` / `cleanBody`'s
+`body: "plain"` slice / `extractCaput` / `extractTerzina` / `terzinaLines` / `terzinaHtml` /
+`teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the mid-line
+card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` / `stripTags`'s `data-n`
+carry and its `VOID_TAGS` guard / `teiBookChapters`' `data-n` scale / cleanBody's
+`sections: "bookchapter"` marker rule / `dropEscapedTagsIn` and `writeOriginal`'s footnote-marker
+strip / `teiSectionProse`'s `type="Com"` rule and `teiSections`' lost-marker warning, after running
+`fetch-book.js`, after changing a book's `about`, or after renaming anything on the Collections
+page.**
+
+· `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards,
+**bury siblings** and **one card per cloze** (Aug 2026), 228 assertions in five parts. **Re-run after
+touching the CARD TYPES block, `cardTypeSideHTML` / `ensureCardTypeStyle` / `cardTypeFieldGetter` /
+`.uc-hasfront` / `uCardSanitize` / `uDeckSanitizeMeta` / `typeCards` / `uCardIdFor` / `uDeckStudyIds`
+/ `clozeMark` / `clozeOrds` / `clozeOrd` / `CLOZE_RX` / `type.cloze` / `isBuried` / `buryCard` /
+`burySiblings` / `deckBurySiblings` / `entryHasSiblings`, the Studio's Types tab, or `levelFromXP`.**
+
+**What each suite actually asserts, the bug it was written for, and the harness traps that made a
+first draft report faults that were not there, all live in `docs/tests.md`.**
+📖 **`docs/tests.md` — READ BEFORE WRITING A NEW SUITE, AND WHEN ONE FAILS IN A WAY YOU DO NOT
+RECOGNISE.** Every suite here exists because the failure it guards is silent; that file records
+WHICH silence, and re-deriving one costs a session.
+
+Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
+`node_modules/` is gitignored) — install it in a scratch folder and run with
+`NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the
+playwright package; otherwise the default launch is used.
+

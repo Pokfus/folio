@@ -11,21 +11,23 @@ and India all got their trees from their plans; China's dynastic tree was built 
 sitting empty since the deck was trimmed in July 2026. It is kept, and the four changes made to it are
 set out below.
 
-## ⚠ Before `cnh-001` ships: the collection is SET ASIDE
+## The collection is LIVE (this section used to say the opposite)
 
-`china` carries **`placeholder: true`** in `data.js` — it was set aside on request in July 2026 — and
-that flag is not decoration. `availableCardIdSet()` in app.js excludes every card in a placeholder
-collection, so cards written into this tree today would **not** reach the daily review, the games, the
-card of the day or a study deep link. They would be written and never studied.
+`china` carried **`placeholder: true`** when this plan was written, and every word of the warning that
+stood here was true then: `availableCardIdSet()` excludes a placeholder collection, so its cards would
+have been written and never studied. **The flag was cleared on request in Aug 2026** and the collection
+has been open ever since — its cards reach the daily review, the games, the card of the day and study
+deep links, and its EMPTY decks are coming-soon on their own account, `isComingSoon` being true for a
+node holding no card. Nothing has to be un-flagged deck by deck.
 
-**Taking the flag off is the site owner's decision, not this plan's**, so it has been left exactly as
-it was. Whoever writes `cnh-001` should clear it in the same commit, or knowingly accept that the
-collection stays dark until they do.
+The paragraph is kept rather than deleted because a plan that quietly stops mentioning a hazard reads
+like a plan that never met one. **Check the flag in `data.js` rather than trusting either version of
+this sentence.**
 
-One related oddity, pre-existing and harmless today: `defaultState()` in app.js ships
+One related oddity, pre-existing and harmless: `defaultState()` in app.js ships
 `active: ["cn-qing"]`, and there is no `cn-qing` node anywhere in the tree — the Qing deck is `col-33`.
-Nothing breaks, because an entry with no cards is skipped by `countedActiveEntries`, but if this
-collection is ever un-set-aside that default should be pointed at a node that exists.
+Nothing breaks, because an entry with no cards is skipped by `countedActiveEntries`, but the default
+should be pointed at a node that exists.
 
 ## How to use this (the whole point of the file)
 
@@ -596,7 +598,7 @@ already shipped before adding it.
     cnh-207  The Qin long walls
     cnh-208  Mausoleum of the First Qin Emperor
     cnh-209  Terracotta Army
-    cnh-210  Qin Shi Huang and the search for immortality
+    cnh-210  Xu Fu and the search for immortality
     cnh-211  The Shaqiu plot
     cnh-212  The fall of the Qin
 
@@ -617,7 +619,7 @@ already shipped before adding it.
     cnh-225  Xiongnu
     cnh-226  Modu Chanyu
     cnh-227  Heqin
-    cnh-228  Wei Qing and Huo Qubing
+    cnh-228  Huo Qubing
     cnh-229  Zhang Qian
     cnh-230  The opening of the Silk Road
     cnh-231  The Han conquest of the Hexi Corridor
@@ -644,13 +646,13 @@ already shipped before adding it.
     cnh-249  Wang Mang's currency reforms
     cnh-250  The Yellow River shift of 11 CE
     cnh-251  Red Eyebrows
-    cnh-252  The fall of the Xin
+    cnh-252  Battle of Kunyang
 
 ### Eastern Han — `col-12`
 
     cnh-253  Eastern Han
     cnh-254  Emperor Guangwu of Han
-    cnh-255  The Han restoration
+    cnh-255  Chengjia
     cnh-256  Luoyang under the Eastern Han
     cnh-257  Ban Chao
     cnh-258  The Protectorate of the Western Regions

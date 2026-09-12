@@ -39,6 +39,12 @@ const GLOSS_TARGET = (() => { const m = /const GLOSS_SRC_TARGET = (\d+);/.exec(A
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
+/* data.js keeps a card's abstract, sources, why, quote and image in data-extra/<prefix>.js and merges
+   them back with a Node-only loader — which a `new Function` body cannot see, having no require or
+   __dirname of its own. So loadWindow is fine for "does this still parse" and NOT for reading a card:
+   through it every abstract and source list comes back undefined, which this tool then reports as a
+   card with no footnote marker. Read through card-io.js, as data.js's own comment says to. */
+const loadCards = () => require("./card-io").loadCards();
 const obj = (o) => "{\n" + Object.keys(o).map((k) => JSON.stringify(k) + ": " + JSON.stringify(o[k])).join(",\n") + "\n}";
 const markersIn = (html) => [...String(html || "").matchAll(/<sup\b[^>]*class="[^"]*\bfn\b[^"]*"[^>]*>/gi)]
   .map((m) => { const d = /data-fn="(\d+)"/i.exec(m[0]); return d ? +d[1] : 0; });
@@ -63,7 +69,7 @@ if (!batch.cards && !batch.glossary) die("batch file needs a `cards` and/or a `g
 /* ---------------- cards -> data.js ---------------- */
 const cardIds = [];
 if (batch.cards && Object.keys(batch.cards).length) {
-  const win = loadWindow(dataPath), cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
+  const { cards, tree } = loadCards();
   const byId = new Map(cards.map((c) => [c.id, c]));
   for (const id of Object.keys(batch.cards)) {
     const u = batch.cards[id], card = byId.get(id);
@@ -175,7 +181,11 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
 }
 
 /* ---------------- running coverage, which is how a multi-batch pass is tracked ---------------- */
-const allCards = loadWindow(dataPath).CARD_DATA || [];
+/* THE COVERAGE REPORT READS THE JOINED CORPUS, NOT data.js (Sep 2026). `sources` is one of the fields
+   the split moved into data-extra/<prefix>.js, so reading data.js alone reported a fully cited corpus as
+   "cards cited 0/2925" on every run — the exact failure card-io.js's own header warns about, printed as
+   a fact under a batch that had just succeeded. */
+const allCards = require("./card-io").loadCards().cards;
 const citedCards = allCards.filter((c) => Array.isArray(c.sources) && c.sources.length).length;
 const atBar = allCards.filter((c) => (Array.isArray(c.sources) ? c.sources.length : 0) >= SRC_TARGET).length;
 const g = require("./gloss-io.js").loadGlossary();

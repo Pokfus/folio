@@ -315,3 +315,117 @@ under a reader who is looking at it through an overlay — so the page leaves it
 `_reliqRepaint` and that function calls it, exactly as it repaints the account page's two blocks in place.
 `closeReliquaryPage()` is in `render()`'s close list, so the hook can never be called against a page that
 has gone.
+
+
+---
+
+# The chest machinery in full, moved out of `CLAUDE.md` (2026-09-11)
+
+**READ BEFORE CHANGING A CHEST CHANNEL, A BADGE OR THE RELIQUARY PAGE.** The account as it stood in
+`CLAUDE.md` until it was moved here verbatim: the requests each channel came from, the bug report
+behind the two badge families that could not fire and exactly how each counter stopped being written,
+the theme row that was hidden and should not have been, and the Reliquary page's four decisions. The
+RULES stay in `CLAUDE.md`.
+
+· **RARITY IS THE WHOLE LANGUAGE**: `RARITIES` holds Common / Rare / Epic / Legendary at 60 / 25 / 12 / 3,
+and styles.css declares one token pair each (with separate NIGHT and `body.hc` values — a colour mixed
+toward a dark paper loses the thing that identifies it). `[data-rar]` sets `--rar`, so the chest, the
+reveal, the tile, the plate's wash and the admin row all say "this is an epic" the same way.
+· **A RARITY THE READER HAS FULLY COLLECTED IS DROPPED FROM THE ROLL**, not re-rolled into a duplicate:
+`rollArtefact` renormalises over whatever still holds something unowned, so every chest is a NEW
+artefact until the pool is exhausted, and then it SAYS so. With a small pool that is the difference
+between a reward and a slot machine, and a duplicate reads as bad luck rather than as a bug.
+· **THE CHEST IS THE LEVEL-UP CELEBRATION, not a second one after it** — `announceLevelUps` grants and
+opens, and `congratsPopup` is no longer raised behind it. **AN UNOPENED CHEST QUEUES** (`S.chests` is a
+COUNT), and since Aug 2026 the reader can say so: **Save for later** stands beside the closed chest and
+`chestBannerHTML` says one is waiting above the daily-study banner.
+· **FOUR CHANNELS**: a level; the **daily sweep** (all games WON in one day, `S.sweepChest` recording
+the DAY rather than a boolean, since nothing runs at midnight); the **STREAK, every seventh day**
+(`S.streakChest` is the streak length last PAID, so the test is arithmetic and can never pay twice for
+one day), each week worth one chest more than the last; and, since Sep 2026 and on request, the
+**daily PLAY** — all nine minigames *finished*, whatever the score (`S.playChest`, the same
+day-string shape for the same reason).
+· **THE PLAY CHEST IS CLAIMED, NOT GRANTED** (`playChestReady` / `claimPlayChest` / `sweepRowHTML` /
+`.sweep-row`, Sep 2026, on request). The other three fire from inside something the reader has just
+done — a grade, a win, a streak roll — where the ninth game may be finished on its own results
+screen, several routes away from the home page. So the home page draws the chest and the reader
+presses it: `playChestReady()` is `allGamesPlayedToday(S) && S.playChest !== todayStr()`, and
+`claimPlayChest()` stamps the day BEFORE calling `grantChest()`, so a double press cannot pay twice.
+**The order in the click handler is load-bearing**: claim, then `renderInPlace()`, and THEN
+`openChestPop()` — a repaint after the overlay is up would close it, `render()` clearing every
+overlay on `document.body`. The meter is a MINIATURE of the grid below it, nine bars in
+`DAILY_GAMES` order so the lit bar in the middle of the top row is the tile in the middle of the top
+row; its 3px gap is the request ("but closer together") and is what makes nine marks read as one
+meter. Locked, it is a real `<button disabled>` wearing `LOCK_SVG` rather than a div promoted later,
+so the state reaches a screen reader and the keyboard as well as the eye.
+· **A GAME'S "PLAYED TODAY" IS `gamePlayedToday(key)` AND NOTHING ELSE.** Two tiles still read the
+legacy `S.daily.lastPlayed` / `S.chrono.date` (Multiple Choice and Timeline), which is the same
+answer by a different route for most of the day and NOT the same answer at the seam — so the meter
+and the tiles could disagree about which of nine had been played, which is exactly the arithmetic a
+meter exists to make checkable. Both now go through the one door.
+· **A CHEST MAY ALSO HOLD A THEME** (Aug 2026, on request): the five non-`folio` themes are locked until
+one drops, at `THEME_DROP` (14%) while any are still locked. **`themeGrandfather` is the part not to
+remove** — a theme already worn is written into the register, once, or the change would silently strip
+five of the six from every existing reader. `setTheme` is the gate, and it stays one as a backstop:
+the Settings picker lists **only what the reader owns** and draws no locked tile at all (Aug 2026, on
+request), so nothing renders the id that guard refuses.
+**BUT THE THEME ROW ITSELF IS ALWAYS DRAWN, AND HIDING IT UNTIL A CHEST HAD DROPPED ONE WAS THE
+OVER-REACH** (Aug 2026, on a bug report: "I don't see anywhere to change my theme on the settings
+page"). Listing only what is owned was the request; hiding the whole section was a second decision
+taken beside it, and it took the feature off the page — a reader found a Settings page with no
+mention of themes and no way to tell an empty collection from a control that had moved or broken.
+**The state belongs in the COPY, not in whether the row exists**: the row names how many are still to
+find and where they come from, and says nothing once the set is complete. A sentence can be right in
+every state; a hidden row is right in one.
+· **THE PLATE IS ONE BUILDER** (`artefactPlateHTML` + `wireArtefactPlate`), used by the reader's overlay
+and by the admin preview alike — a preview written from a second copy of the markup drifts silently.
+**THE SHOWCASE IS FOUR** (`SHOWCASE_MAX`), filtered on the way OUT so a retired artefact leaves no slot
+pointing at nothing, and its actions sit at the TOP of the plate rather than below five sentences.
+· **TWO FAMILIES OF BADGE WERE UNREACHABLE FOR MONTHS, AND BOTH FAILED IN THE SAME SHAPE** (Aug 2026,
+on a bug report: the badges "for adding a friend and completing a 'daily challenge' … do not work").
+**A COUNT WAS BEING READ FROM SOMEWHERE THAT HAD STOPPED BEING WRITTEN.** `checkAchievements` took
+the friend count from `currentUser().friends` — `ACCT`, the LEGACY device-local accounts, retired
+when accounts moved to Supabase and empty for everybody since — so First Friend and Well Connected
+were tested against a hard 0. Friends now live in a table RLS-scopes to rows involving their owner,
+and a badge is tested mid-session and cannot go to the network, so the count is RECORDED:
+`setFriendCount` writes `S.friendCount` (a `PROGRESS_FIELD`) whenever the friends list is drawn, and
+`progStats` falls back to it. That also fixes a friend's OWN badge grid, which was passing a literal 0.
+And **`S.daily.wins` was incremented inside Multiple Choice's results screen**, written when that game
+WAS the daily challenge — so sweeping the other eight every day unlocked neither Victor nor Champion.
+It is counted in **`markGamePlayed`** now, the one door every game already goes through, gated on
+`freshWin` (which the one-play-a-day rule makes a game's only win of the day), so a tenth game is
+covered without anybody remembering this. **The badges say "minigame" rather than "daily challenge"**
+(same request) and the ids are untouched, for the reason the Library's route was when it became
+Collections: renaming one takes the badge off everybody holding it.
+**THE LESSON IS THE SHARED ONE: A BADGE THAT CANNOT FIRE LOOKS EXACTLY LIKE A BADGE NOT YET EARNED.**
+Nothing throws, nothing is logged, and the reader assumes they have not done enough. When a badge's
+`test` reads a counter, check that something still WRITES that counter.
+· **THE ARTEFACT LADDER GOES TO 100** (`art10` / `art25` / `art50` / **`art100` "Antiquary Royal"**,
+Sep 2026, on request). It stopped at 50 while the pool was 100, so its top rung was half the
+Reliquary; the pool is being taken to 200, which would have made `art50` a quarter — an early
+milestone wearing the name of a final one. **Adding a rung changes nothing already earned**, a badge
+being only ever ADDED to `S.achievements`, which is why this is cheap where RENAMING one is not (see
+the Victor/Champion note above: renaming an id takes the badge off everybody holding it).
+· **SIXTEEN COLLECTOR'S BADGES** read `progStats`, and are tested **at the moment they are earned**
+rather than at the next card. A badge grants a chest, so the chest balance is not a plain subtraction —
+`spendChest()` increments `S.chestsOpened`, which is what the tests assert against.
+· `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` / `S.chestsOpened` / `S.themes` /
+`S.published` / `S.publishedIds` / `S.theme` are in `defaultState` AND `PROGRESS_FIELDS`; **`themes`
+and `theme` are additionally in `RESET_KEEPS`** — the artefacts and chests still go, being what a LEVEL
+bought. Guarded by `.claude/test-artefacts.js`.
+· **IT HAS A PAGE OF ITS OWN** (`PAGES.reliquary` at `#reliquary`, `RELIQ_SORTS`, `artefactYear`,
+`_reliqRepaint`; Aug 2026, on request). Your OWN collection is a page — an address, a back button and
+a sort a reader can leave set; a FRIEND'S is still `openCollectionWin`, because a route carries a name
+and nothing else and there is nowhere for somebody else's progress to ride. Four things.
+**The sort is the Library shelf's pair, not a second control**: `sortPickerHTML` chooses the field and
+`sortDirHTML` the direction, which is what spends "and reverses" on one button rather than doubling the
+list; the choice is a MODULE-LEVEL variable, like the glossary record's, since it is a way of looking at
+a list and not a preference about Folio. **"Unlocked date" needed no new field** — `S.artefacts[id]` has
+always been `Date.now()` rather than `true`. **"Artefact dating" needed a parser and it is NOT
+`cardYears`**: 42 of the 100 are dated by century, which that function deliberately cannot read (see
+the date-line note under "Add a card" — teaching it to would move the sort year of 52 shipped CARDS),
+so `artefactYear` reads the century and millennium forms itself, including the range whose unit carries
+rightwards (`1st – 3rd century CE`, where the simple pattern reads the SECOND ordinal and dates the
+object two centuries late), and falls through to `cardStartYear` for the rest. **And the signed-out
+account page's inline grid became an entry to it** (`reliquaryHTML(…, { entry: true })`), which is the
+same duplication the signed-in page had removed on request a fortnight earlier.

@@ -807,6 +807,13 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
 
 ### East Asia — `wh-east-asia`
 
+**`wh-529` was renamed from *Song economic revolution* to *Paper money* when it was written** (Sep 2026).
+The planned line named a historian's label rather than a thing, and no openable source used the phrase —
+which is `ko-088`'s rule, that the plausible sentence you cannot cite is the one to rewrite. The card's
+SUBJECT is unchanged: its ten sentences are the commercial expansion that outgrew the Song coinage, told
+through the notes that expansion produced. Paper money appeared nowhere else in this plan, so the slot
+also closes a real gap.
+
     wh-521  Sui dynasty
     wh-522  Grand Canal
     wh-523  Tang dynasty
@@ -815,7 +822,7 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-526  Woodblock printing
     wh-527  An Lushan Rebellion
     wh-528  Song dynasty
-    wh-529  Song economic revolution
+    wh-529  Paper money
     wh-530  Gunpowder
     wh-531  Compass
     wh-532  Movable type
@@ -834,6 +841,20 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-545  Kamakura shogunate
 
 ### South and Southeast Asia — `wh-south-asia`
+
+**`wh-550` was written as *bhakti* rather than *the Bhakti movement*** (Sep 2026). The planned line named
+a modern historiographical label, and no openable source uses the phrase — which is `ko-088`'s rule, that
+the plausible sentence you cannot cite is the one to rewrite. The card's SUBJECT is unchanged: it is the
+devotional strand of Indian religion, from the Tamil hymn-singers of the seventh century to Kabir, and its
+last sentence says in so many words that gathering those poets into one movement is a modern convenience.
+The glossary term is keyed `Bhakti`, with *bhakti movement* among its aliases.
+
+**`wh-560`'s answer term is *Indianisation*, not *the Indianisation of Southeast Asia*** (Sep 2026). The
+longer phrase is the plan's description of the topic rather than a term a reader is asked to recall, and an
+answer that long cannot be typed into a cloze blank. The word itself is the one the literature uses, and the
+open source the card rests on — Demandt's survey of early Southeast Asian gold in *Asian Perspectives* —
+prints it in quotation marks while arguing that the process was not a passive one, which is the card's own
+second half. The glossary term is keyed `Indianisation`, with *Indianization* and both long forms as aliases.
 
     wh-546  Harsha
     wh-547  Chola dynasty
