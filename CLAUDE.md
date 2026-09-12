@@ -5451,135 +5451,116 @@ to `GLOSSARY_I18N[slug]` and now merges instead.
 
 The Atlas globe has a timeline (1000 BCE → present). The present year always shows the present-day map
 (`world.js`); past years can show a **historical border era** — a snapshot of the world's political
-borders, built from **curated historical GeoJSON** (the primary path) or traced from a map image (a
-fallback). **A past era keeps the present-day land, coastline, lakes, rivers and mountains** (from
-`world.js`/`lakes.js`/`rivers.js`/`ranges.js`/`forests.js`, at full resolution and exact position) and
-changes **only the political borders on land**. Each era territory carries a per-ring `c` bitmask (built by
-`build-era.js`) marking which edges are *coastal* (along the present-day coast) vs *interior*; the render
-strokes **only the interior land borders** and draws the coast from the exact present-day coastline
-(`coastEdges()` — the GEO edges not shared between two countries), so the era's own (lower-res, off-source)
-coastline never shows and coasts look identical to the modern map. **`build-era.js` is topology-preserving**:
-it quantizes every vertex to a shared grid so a border shared by two countries stays *bit-identical* in both
-rings (drawn twice it overlaps exactly instead of doubling), classifies each edge interior-vs-coast
-*topologically* (interior ⇔ its reverse edge exists in another territory), with a **`landAcross` fallback** for
-NON-tiling sources: an unshared edge is still a LAND border (not coast) if another territory lies ~0.06° across it
-(probe both sides of the midpoint) — this recovers borders where the source's polygons don't share exact edges.
-It thins with a local cyclic collinear test that keeps junctions so shared edges stay matched. (The old
-per-ring Douglas–Peucker diverged shared borders → "double border" + stray artifacts; do not reintroduce it.)
-**Region SUPPLEMENT** (`SUPPLEMENT` map): some snapshots are sparsely *digitized* in a region (gaps, not real history).
-`world_1900` maps Africa only ~20% (huge gaps → a blank continent); the Scramble for Africa was settled by 1900, so the
-1900 era fills the African continent (a Red-Sea-aware bbox) from the complete `world_1914` snapshot, keeping 1900
-everywhere else (incl. the pre-Balkan-Wars Balkans, which 1914 gets wrong). Result: 1900 Africa went 276 → 2268 interior edges.
-**Region membership is a fraction-of-the-feature test (`SUP_MIN`, 80% of a feature's vertices), never a centroid** — a
-state straddling the region's edge has a centroid that says nothing about where its land is. The centroid rule silently
-DELETED the **Ottoman Empire** from the 1900 map: its centre of mass sits in the open eastern Mediterranean (31.8E 34.4N),
-inside the Africa box, so it was dropped from 1900 while the 1914 Ottoman — whose centroid lies outside the box — was never
-added, leaving Anatolia, the Levant, Mesopotamia and western Arabia as blank terra-incognita stipple. Greece went the same
-way. Both are back under the fraction test, and with them 1900's Libya is Ottoman Tripolitania rather than a 1914 Italian
-"Libya" polygon. Two residual artifacts are accepted there, both cross-snapshot frontier mismatches in empty desert: a
-sliver of doubled border where 1914's Algeria overlaps Ottoman territory, and an unclaimed wedge in the Egyptian Western
-Desert that the 1900 source genuinely never digitized. **A rebuild also carries the era's `id`, label, researched period
-`cities` and per-territory `.mother` across from the era it replaces** (mothers travel by territory name; a territory the
-rebuild introduces falls back to being its own mother and is listed in the build output to be checked by eye) — without
-that, re-running a year silently discarded the capitals and the empire-grouping classification. `RENAME` keeps a source
-name the site has standardised elsewhere (e.g. "Manchu Empire" → "Qing dynasty", which is how `countries.js` is keyed).
-**It also cleans the source first** (`removeOverlaps`): some historical-basemaps snapshots ship STALE / ANACHRONISTIC /
-DUPLICATE features that *overlap* the correct territories (e.g. `world_1938` layers "Israel", leftover "Hejaz"/"Hail"/
-"Emirate of Bin Shal'an", and duplicate "Qatar"/"Yemen"/"Trucial Oman" on top of Saudi Arabia + Mandatory Palestine,
-plus ~79 unnamed blobs) — overlapping polygons render as **double borders + desert strays**. `removeOverlaps` drops
-unnamed features, then greedily drops whichever remaining feature is ≥60% contained inside a *single* other feature
-(the spurious overlapper — a real base territory is never mostly inside one neighbour; valid enclaves like Lesotho with
-a proper hole are kept), keeping one of any duplicate pair. 1938 went from 18 overlaps → 4 (the residual are tiny
-sub-threshold Caribbean specks). This is why **no cleaner external source was adopted** — CShapes isn't topology-clean,
-OHM is too sparse; the artifacts were source data-quality errors, fixable in place.
-**It also WELDS coast-junctions to the present-day coastline** (step 4.6): a geo era draws only its interior borders and
-lets `world.js` draw the coast (`coastEdges`), so where an interior border meets the sea it used to terminate at the era's
-OWN (offset/historical) shore — leaving the border end floating off the drawn present-day coast ("stray lines that don't
-connect"). The build snaps each junction vertex (where a drawn '0' edge meets a skipped '1' coast edge on a ring) onto the
-nearest present-day coast vertex within EPS=0.6° (shared junctions snap by quantized key so both neighbours move
-identically → the shared interior edge stays bit-identical; no doubles — coast edges stay skipped, only junctions move).
-This fixed the bulk (e.g. 1900 went from 58 visible coastal floats to ~2; 1938 to 2). **Residual far-floats (>0.6° from any
-present coast) are LEFT as-is** — they're genuinely hard cases with no clean target: borders through lakes (Superior, Malawi),
-a sea that became land (the dried **Aral**, where the 1900 border meets a shore that no longer exists), and large 1900-vs-today
-coastline divergence in colonial Africa. Don't widen EPS much — a 1°+ snap can yank a border onto the WRONG coast (worse than a float).
+borders, built from **curated historical GeoJSON**. **A past era keeps the present-day land, coastline,
+lakes, rivers and mountains** (from `world.js`/`lakes.js`/`rivers.js`/`ranges.js`/`forests.js`, at full
+resolution and exact position) and changes **only the political borders on land**. Each era territory
+carries a per-ring `c` bitmask (built by `build-era.js`) marking which edges are *coastal* vs *interior*;
+the render strokes **only the interior land borders** and draws the coast from the exact present-day
+coastline (`coastEdges()` — the GEO edges not shared between two countries), so the era's own lower-res
+coastline never shows.
 
-**Each era uses ONE geometry source — never a mix** (mixing world.js + the era source for the same border drew two
-slightly-offset lines = "double borders"; do not reintroduce a render-time overlay that draws both). `build-era.js`
-classifies each snapshot: a **merger-only** era (differs from today *only* by merged/split countries, not moved
-borders — a sampling consistency check ≥97%; e.g. 2000/2010 ≈ 98.9%) is stored as just `groups`
-{ presentCountryName: groupName } (groupName = the present-day name for an unchanged country so its popup name +
-description resolve, the era-territory name only for a genuine multi-country merger) with **no geometry**, and the renderer reuses `world.js`'s own high-res
-geometry — so unchanged borders are pixel-identical to the present-day map. An era with genuinely **moved** borders
-(e.g. 1900 ≈ 88.1%) keeps its own topology-preserving `geo` (source resolution, ~46k verts — a source limit, not a
-bug). At render time `histTerr()` returns, for a groups era, `synthGroups(era)` (cached by era.id): it groups the
-GEO countries by `groups[name]` and per ring edge writes a 3-state mask — **'0' inter-group** border (reverse owned via
-`worldEdgeOwners()` by a country in a **different** group → drawn bold at full res), **'2' intra-group** border (reverse
-owned by a country in the **same** group → a **sub-country** border, e.g. a Soviet republic inside the USSR), **'1' coast**
-(no neighbour → skipped, `coastEdges()` draws it). The renderer draws '0' bold and **'2' light** (`globalAlpha 0.5`,
-`lineWidth ≈ bw*0.62`) so a merged unit still reads as one while showing its constituents; geo eras (no '2') are unchanged,
-and editor-drawn territories (no mask) stroke their full outline. **An intra-group '2' edge is downgraded to '1' (skipped)
-when either side is an entity that did not exist yet in the era's year** (`ENTITY_SINCE` table: Baikonur 1994, S. Sudan 2011,
-Kosovo 2008, Timor-Leste 2002, Eritrea 1993, N. Cyprus 1983; disputed/military zones = `1e4` = never) — so e.g. Baikonur's
-border is hidden before its 1994 lease, and S. Sudan's split line before 2011 (the *external* Sudan border still draws as '0').
-E.g. 2010 Sudan = Sudan+South Sudan in one group → their shared edge is skipped (S. Sudan didn't exist until 2011). countryAt / paintFill / the click popup all read `histTerr()` and hit-test
-the whole group territory (so single-click selects the union, double-click drills to the sub-country — see `docs/atlas.md`). Editing a groups era
-(`enterMapEdit`) **materializes** it to deep-copied `geo` first, so it becomes a normal hand-editable era.
-A past era's **territories are
-clickable/selectable** exactly like present-day countries (hover/select hit-tests the era geometry via
-`histTerr()`). Every legend layer now shows at **ALL zoom levels** (`updateLegendVisibility` no longer applies a per-layer
-min-zoom gate). **Capitals (`citiesToggle`) and Borders (`bordersToggle`) are separate legend layers in EVERY year** —
-every era ships period capitals, so `citiesToggle` is not in `PRESENT_ONLY` and gates `drawEraCities` on historical eras
-too. **Country names (`countryToggle`) also draw in every era**: on a past era `drawEraNames` labels the era territories
-(anchors computed once per era by `eraLabelAnchors` — largest-ring lon-unwrapped centroid, nudged inside concave shapes —
-sized by territory area, de-collided big-first, long ethnographic names wrapped to two lines; era capital labels yield to
-them via `countryLabelRects`). Only major cities (`majorToggle`) remains present-day-only, and its legend row is now
-**dimmed + disabled (`.legend-na`, title "Present-day map only") on past eras rather than hidden**. The **"Divisions"
-(admin-1 borders, `drawAdmin`) and "Division capitals" legend layers were removed** — like Mountains, their toggle + `wire()` are
-gone, `adminOn`/`divCapsOn` default `false` with no way to enable them, so `drawAdmin` + the division-capital city tier are inert
-dead code (never rendered).
+**`build-era.js` is topology-preserving**: it quantizes every vertex to a shared grid so a border shared
+by two countries stays *bit-identical* in both rings (drawn twice it overlaps exactly instead of
+doubling), classifies each edge interior-vs-coast *topologically* (interior ⇔ its reverse edge exists in
+another territory), with a **`landAcross` fallback** for NON-tiling sources: an unshared edge is still a
+LAND border if another territory lies ~0.06° across it. It thins with a local cyclic collinear test that
+keeps junctions so shared edges stay matched. **The old per-ring Douglas–Peucker diverged shared borders
+into double borders and stray artifacts; do not reintroduce it.**
+
+**Region SUPPLEMENT** (`SUPPLEMENT` map): some snapshots are sparsely *digitized* in a region — gaps, not
+real history — so the era is filled there from a complete neighbouring snapshot, keeping its own data
+everywhere else. **Region membership is a fraction-of-the-feature test (`SUP_MIN`, 80% of a feature's
+vertices), NEVER a centroid** — a state straddling the region's edge has a centre of mass that says
+nothing about where its land is, and the centroid rule silently DELETED whole empires from a map.
+**A rebuild also carries the era's `id`, label, researched period `cities` and per-territory `.mother`
+across from the era it replaces** (mothers travel by territory name; a territory the rebuild introduces
+falls back to being its own mother and is listed in the build output to be checked by eye) — without
+that, re-running a year silently discards the capitals and the empire-grouping classification. `RENAME`
+keeps a source name the site has standardised elsewhere ("Manchu Empire" → "Qing dynasty", which is how
+`countries.js` is keyed).
+
+**It also cleans the source first** (`removeOverlaps`): some snapshots ship STALE / ANACHRONISTIC /
+DUPLICATE features that *overlap* the correct territories, and overlapping polygons render as **double
+borders + desert strays**. It drops unnamed features, then greedily drops whichever remaining feature is
+≥60% contained inside a *single* other feature — a real base territory is never mostly inside one
+neighbour, and a valid enclave with a proper hole is kept. **No cleaner external source was adopted**:
+CShapes isn't topology-clean and OHM is too sparse, and the artifacts were source data-quality errors,
+fixable in place.
+
+**It also WELDS coast-junctions to the present-day coastline** (step 4.6), or an interior border meeting
+the sea terminates at the era's OWN shore and floats off the drawn coast. Each junction vertex is snapped
+onto the nearest present-day coast vertex within **EPS=0.6°**, shared junctions snapping by quantized key
+so both neighbours move identically and the shared interior edge stays bit-identical. **Residual
+far-floats are LEFT as-is** — borders through lakes, a sea that has since dried, and genuine
+1900-vs-today coastline divergence — and **EPS must not be widened much: a 1°+ snap can yank a border
+onto the WRONG coast**, which is worse than a float.
+
+**Each era uses ONE geometry source — never a mix** (mixing world.js and the era source for one border
+draws two slightly offset lines; do not reintroduce a render-time overlay that draws both).
+`build-era.js` classifies each snapshot: a **merger-only** era (differs from today only by merged or
+split countries, on a sampling consistency check ≥97%) is stored as just `groups`
+{ presentCountryName: groupName } with **no geometry**, and the renderer reuses `world.js`'s own high-res
+geometry, so unchanged borders are pixel-identical to the present-day map; an era with genuinely **moved**
+borders keeps its own topology-preserving `geo`. At render time `histTerr()` returns, for a groups era,
+`synthGroups(era)` (cached by era.id): it groups the GEO countries by `groups[name]` and per ring edge
+writes a 3-state mask — **'0' inter-group** (reverse owned via `worldEdgeOwners()` by a country in a
+different group → drawn bold at full res), **'2' intra-group** (a sub-country border, e.g. a Soviet
+republic inside the USSR → drawn light, `globalAlpha 0.5`, `lineWidth ≈ bw*0.62`), **'1' coast** (skipped,
+`coastEdges()` draws it). Geo eras have no '2'; editor-drawn territories have no mask and stroke their
+full outline. **An intra-group '2' edge is downgraded to '1' when either side is an entity that did not
+exist yet in the era's year** (`ENTITY_SINCE`: Baikonur 1994, S. Sudan 2011, Kosovo 2008, Timor-Leste
+2002, Eritrea 1993, N. Cyprus 1983; disputed and military zones = `1e4` = never), the *external* border
+still drawing as '0'. `countryAt` / `paintFill` / the click popup all read `histTerr()` and hit-test the
+whole group territory, so single-click selects the union and double-click drills to the sub-country.
+Editing a groups era (`enterMapEdit`) **materializes** it to deep-copied `geo` first.
+
+A past era's **territories are clickable/selectable** exactly like present-day countries. Every legend
+layer shows at **ALL zoom levels** (`updateLegendVisibility` applies no per-layer min-zoom gate).
+**Capitals (`citiesToggle`) and Borders (`bordersToggle`) are separate legend layers in EVERY year** —
+every era ships period capitals, so `citiesToggle` is not in `PRESENT_ONLY` and gates `drawEraCities` on
+historical eras too. **Country names (`countryToggle`) also draw in every era**: `drawEraNames` labels the
+era territories, with anchors computed once per era by `eraLabelAnchors` (largest-ring lon-unwrapped
+centroid, nudged inside concave shapes), sized by territory area, de-collided big-first, long names
+wrapped to two lines, and era capital labels yielding to them via `countryLabelRects`. Only major cities
+(`majorToggle`) remains present-day-only, and its legend row is **dimmed and disabled** (`.legend-na`)
+rather than hidden. The **"Divisions" (admin-1 borders, `drawAdmin`) and "Division capitals" layers were
+removed** — `adminOn`/`divCapsOn` default `false` with no way to enable them, so `drawAdmin` and the
+division-capital city tier are inert dead code.
 
 - **Data:** `window.TIMELINE = [ { id, year, n:label, EITHER groups:{presentCountryName:eraTerritoryName} OR geo:[ { n, p:[rings], c:[coastal-bitmask/ring] } ], cities:[ { n, lon, lat, cap } ] } ]`
-  in `timeline.js`. A **merger-only** era carries `groups` (tiny — geometry comes from `world.js`); others carry
-  `geo` territories — `world.js`-shaped polygons (even-odd rings) with `c` marking coastal
-  edges (so only interior borders stroke). `cities` are the era's own capitals/cities (`cap:true` = a capital),
-  drawn at that era's year by `drawEraCities`, which calls the **same `drawPin`** as the present-day map so the dots
-  look identical (vermilion `CITY_DOT` + white ring, radius `cityDot(tier)`); labels show once zoomed past `CAP_Z`, **sized
-  exactly like the present-day map** (`clamp(10+(zoom−2)·1.1, 10, 13.5)`, weight 600 — `ctx.font` MUST include a px size,
-  not just the family, or the browser ignores it and the labels render tiny). **Every shipped
-  era now carries COMPREHENSIVE period-accurate capitals** (~157–232 each, ~1422 total — every sovereign state + colony)
-  researched + adversarially fact-checked
-  with PERIOD names and capital relocations correct for the year (St. Petersburg→Moscow in 1918, Constantinople→Ankara
-  in 1923, Calcutta→Delhi→New Delhi, Kristiania→Oslo, Urga→Ulan Bator, Karachi→Islamabad, Almaty→Astana,
-  Rangoon→Yangon→Naypyidaw, Lagos→Abuja, Rio→Brasília). Added by `.claude/add-era-cities.js <capitals.json>`
-  (matches eras by year, sets `cities`, keeps any non-capital cities, re-parses to confirm valid JS). An era applies from its `year` until the next era's (a step function). The timeline only **stops on
-  map-years** — each era's `year` plus the present (the years that actually have a map): dragging/clicking the
-  rail snaps to the nearest map-year, and the chevrons / arrow keys step between adjacent map-years, so blank
-  years are skipped entirely (`mapYears` / `snapYear` / `stepYear`). Small rail ticks (`.tl-mark`, drawn by
-  `renderMapYearMarks`) mark the stops; the "no map yet" note is therefore effectively unreachable now.
-  Shipped eras: **1500, 1600, 1700, 1800, 1900, 1920, 1938, 1960, 1994, 2000, 2010, 2015, 2020** (+ the present-day map)
-  — a century apart back through 1500, then roughly every other decade of the 20th c. (1900-era snapshots are sparse:
-  1900/1914/1920/1930/1938/1945/1960 then a gap to 1994, so "1940"→1938
-  and "1980"→1994 land on the nearest snapshot, stored at the snapshot's real year). 1500–1938 are `geo` (their
-  borders genuinely differ from today; the pre-1900 eras carry period capitals + researched descriptions/spans/year
-  paragraphs merged as trailing `Object.assign` blocks in `countries.js`/`country-spans.js`/`country-years.js`);
-  1960/1994/2000/2010 are merger-only `groups` (rendered from world.js — e.g.
-  1960 correctly merges the 15 post-Soviet states into one "USSR"). The dataset's latest snapshot is **2010**, so there is
-  **no distinct 2015/2020 source**: those two eras carry **empty `groups: {}`** (which `synthGroups` renders as the full
-  present-day `world.js` map — South Sudan correctly separate since 2011) plus 2010's period capitals + Juba, so they're
-  accurate present-day-border stops filling the 2010→present gap. 2021–present is the present-day map (the present stop).
-- **Primary method — `node .claude/build-era.js <year> [label]`** (recommended; **use this when the user
-  wants a year**): fetches accurate world borders for the nearest available snapshot from the
+  in `timeline.js`. A **merger-only** era carries `groups` (tiny — geometry comes from `world.js`); others
+  carry `geo` territories — `world.js`-shaped polygons (even-odd rings) with `c` marking coastal edges.
+  `cities` are the era's own capitals and cities (`cap:true` = a capital), drawn at that era's year by
+  `drawEraCities`, which calls the **same `drawPin`** as the present-day map so the dots look identical;
+  labels show once zoomed past `CAP_Z`, **sized exactly like the present-day map**
+  (`clamp(10+(zoom−2)·1.1, 10, 13.5)`, weight 600 — **`ctx.font` MUST include a px size**, not just the
+  family, or the browser ignores it and the labels render tiny). **Every shipped era carries
+  COMPREHENSIVE period-accurate capitals**, with PERIOD names and capital relocations correct for the year
+  (St. Petersburg→Moscow in 1918, Constantinople→Ankara in 1923, Calcutta→Delhi→New Delhi). Added by
+  `.claude/add-era-cities.js <capitals.json>` (matches eras by year, sets `cities`, keeps any non-capital
+  cities, re-parses to confirm valid JS). An era applies from its `year` until the next era's (a step
+  function). The timeline only **stops on map-years** — each era's `year` plus the present: dragging or
+  clicking the rail snaps to the nearest map-year, and the chevrons and arrow keys step between adjacent
+  map-years (`mapYears` / `snapYear` / `stepYear`). Small rail ticks (`.tl-mark`, drawn by
+  `renderMapYearMarks`) mark the stops.
+  Shipped eras: **1500, 1600, 1700, 1800, 1900, 1920, 1938, 1960, 1994, 2000, 2010, 2015, 2020** (+ the
+  present-day map). **The dataset's latest snapshot is 2010**, so a requested year lands on the nearest
+  snapshot and is stored at that snapshot's real year; 1500–1938 are `geo`, 1960/1994/2000/2010 are
+  merger-only `groups`, and **2015 and 2020 carry empty `groups: {}`** — which `synthGroups` renders as
+  the full present-day map — plus 2010's capitals and Juba.
+- **Primary method — `node .claude/build-era.js <year> [label]`** (**use this when the user wants a
+  year**): fetches accurate world borders for the nearest available snapshot from the
   *historical-basemaps* GeoJSON dataset (https://github.com/aourednik/historical-basemaps, CC-BY-SA 4.0;
-  ~53 snapshots 123000 BCE → 2010, incl. 1900/1914/1920/1938/1945/…), topology-preservingly simplifies (see
-  above — grid-quantize + topological interior/coast classification, NOT per-ring Douglas–Peucker), and
-  writes `timeline.js`. Already accurate lon/lat — no tracing, no projection guessing. Re-running a
-  snapshot replaces it; eras carry `src:"historical-basemaps"`. (Needs a build-time network fetch.)
+  ~53 snapshots 123000 BCE → 2010), topology-preservingly simplifies (grid-quantize + topological
+  interior/coast classification, **NOT per-ring Douglas–Peucker**), and writes `timeline.js`. Already
+  accurate lon/lat — no tracing, no projection guessing. Re-running a snapshot replaces it; eras carry
+  `src:"historical-basemaps"`. (Needs a build-time network fetch.)
   Era rings are stored **closed** (first vertex == last) so the per-ring `c` mask and the globe's
-  `i+1 < ring.length` border stroke both cover every edge *including* the closing one — don't reintroduce
-  open rings (a missing closing edge leaves 1-segment gaps in landlocked outlines). **Gotcha:** if an era
-  was ever opened in the in-app editor, a copy is persisted to `localStorage` `ADMIN_EDITS.timeline` and
-  **shadows the rebuilt `timeline.js` at startup** — clear that overlay key (or re-import the era in the
-  editor) to see a fresh `build-era.js` run.
+  `i+1 < ring.length` border stroke both cover every edge *including* the closing one — **don't
+  reintroduce open rings**, a missing closing edge leaving 1-segment gaps in landlocked outlines.
+  **Gotcha:** if an era was ever opened in the in-app editor, a copy is persisted to `localStorage`
+  `ADMIN_EDITS.timeline` and **shadows the rebuilt `timeline.js` at startup** — clear that overlay key
+  (or re-import the era in the editor) to see a fresh `build-era.js` run.
 - **The in-app editor — Edit → Timeline → "Open globe editor"** (sets `atlasEditEraId`; the Atlas enters
   edit mode for that era). Enter a year (existing or new) and edit on the globe via a toolbar
   (`#mapEditBar`). Tools: **Select** (tap a territory/place to select; **drag a vertex** to reshape; drag a
@@ -5593,6 +5574,13 @@ dead code (never rendered).
   result in the globe editor to clean it up, reshape, or add capitals/cities.
 - In-app eras live in `ADMIN_EDITS.timeline` until **Save to project** writes `timeline.js`. Verify on the
   globe at the era's year (no console errors).
+- **📖 `docs/atlas.md` — READ BEFORE BUILDING OR REBUILDING AN ERA.** Besides the render path it now
+  carries this section's own account, moved out of here: the centroid test that silently deleted the
+  Ottoman Empire and Greece from the 1900 map, what `world_1900` actually digitizes in Africa and what
+  the supplement bought, the 1938 snapshot's stale and duplicate features by name, the coast-weld's
+  before-and-after counts and the residual far-floats it deliberately leaves, and the consistency figures
+  that decide whether a snapshot is stored as `groups` or as `geo`.
+
 
 ## Testing
 
