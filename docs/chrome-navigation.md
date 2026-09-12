@@ -295,3 +295,49 @@ breakpoint, 58px below), `--timebar-h` (96px, 118px once the Atlas timeline goes
 `.globe-stage` and `.atlas-timebar` are each written ONCE against them rather than restated per
 breakpoint — which is how their old hard-coded `96px`/`118px` pair would have drifted apart the moment a
 third bar appeared. `.stage`, `#toast` and `.admin-edit-fab` take the same offset.
+
+## The guided walkthrough — a first visitor's few minutes
+
+**Read this before touching the `THE GUIDED TOUR` block or its placement arithmetic.** CLAUDE.md
+keeps the rules; this is the bullet as it stood there, with the placement reasoning and the phone
+measurements in full, verbatim.
+
+- **THE GUIDED WALKTHROUGH — a first visitor's few minutes** (the `THE GUIDED TOUR` block in app.js:
+`TOUR_KEY` / `TOUR_STEPS` / `tourStart` / `tourGo` / `tourPaint` / `tourPlace` / `tourAfterRender` /
+`tourOfferHTML`; `.folio-tour` in styles.css). Ten steps that dim the page, put one card in the middle of
+it, and point at the thing being described — spaced repetition, adding a deck, studying a card, the
+marker. **It deliberately stops short of the Atlas and the Library**, which explain themselves the first
+time they are opened. Five decisions are load-bearing.
+· **THE OFFER IS INLINE, NOT MODAL.** It would be one line to raise the tour over the home page on a first
+visit, and it is the wrong line: a site that seizes the screen before the reader has seen it is a site
+they leave. `tourOfferHTML()` is a card at the head of `.banners`, shown to a reader who has **never
+graded a card** and never answered it; either answer writes the key for good, and **Settings → Study →
+Walkthrough** is the way back. It is also what keeps every Playwright test that boots a fresh reader
+from meeting an overlay it never asked about.
+· **THE SCREEN STAYS DARK: the target is RINGED, not spotlit.** A cut-out spotlight means holding a hole
+in the scrim over an element that moves with every reflow, and it reads as a page half-lit. Each step
+draws an **arrow** from the card to a **dashed ring**; a step whose target is missing draws neither and
+still reads — a tour must never depend on the state of the page it describes.
+· **IT NAVIGATES, so it is NOT in `render()`'s close list** — a `render()` that dismissed it would do so
+at exactly the moment it was doing its job. What it does need is re-measuring: `tourAfterRender()`.
+· **THE CARD IS NUDGED OFF ITS OWN TARGET, and the base rect is COMPUTED, never measured.** Four
+placements are tried and the smallest shift that keeps the card on screen wins, with room left for the
+ARROW. The unshifted rect comes from `offsetWidth`/`offsetHeight` plus the viewport centre, **not from
+`getBoundingClientRect()`** — the card's transform is transitioned, so a rect read mid-change does not
+recover the centred box and every later step shifts an already-shifted card until it walks off the side
+of the screen taking its own Next button with it.
+· **…AND ON A PHONE IT IS DOCKED TO THE FOOT OF THE SCREEN INSTEAD.** Centred, the card takes 47–66% of a
+640px screen and the nudge has nowhere to move it, so the thing being described ended up underneath it.
+The layout is a **STYLESHEET decision read back in JS** (`tourPlace` asks the overlay for its computed
+`align-items`), not a breakpoint written twice, and `tourReveal` scrolls the target into the band ABOVE
+the docked card rather than to the viewport centre, which is where the card now is.
+· **A RING IS CLAMPED TO THE SCREEN, AND DROPPED WHERE IT WOULD RING THE SCREEN ITSELF.** On a 360px
+phone all four corners fell outside and what was left was two dashed rules down the edges. Clamped, and
+if the clamped box still covers more than 60% of the screen nothing is drawn — the step's own words are
+what it has to say. **The ARROW goes with it**, and also whenever the card ends up inside the ring.
+· **THE STUDY STEPS ARE ILLUSTRATED, NOT PERFORMED** — dealing a real card would hijack the reader's
+schedule — **with the four intervals read from the real scheduler**, a tutorial teaching a schedule the
+site does not use being worse than one teaching none.
+Escape and Skip close it; the **backdrop deliberately does not**, a stray tap on a dimmed page being the
+likeliest gesture there is. `.folio-tour` is in `swipeEnabled()`'s overlay list. Guarded by
+`.claude/test-tour.js`.
