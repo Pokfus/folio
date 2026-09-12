@@ -2633,3 +2633,67 @@ people and **Long, Wang, Chen and Ma were all reported wrong**. Written that way
 Needs the network; with none it says so and exits 0 rather than failing a build for a fact it could not
 check. Answers are cached in `.claude/.crossref-cache.json` (gitignored); `--refresh` throws it away.
 Not part of the site.
+
+---
+
+## A URL that opens says nothing about the name in front of it (2026-09-12)
+
+**Read this before trusting a citation whose URL resolves.** CLAUDE.md keeps the rules — run
+`check-cite-authors.js`, curl every URL, read a source's own metadata page. This is the evidence behind
+them, verbatim as it stood in the `sources` bullet.
+
+- `sources` — **REQUIRED for every new card: an array of Chicago note-form citations** for the claims the
+background makes, and **at least one `<sup class="fn" data-fn="N"></sup>` marker in the abstract**
+pointing at each of them. Write the marker EMPTY — the digit is drawn from the list at render time, so
+re-ordering the list can never leave a wrong number in the text. Chicago **note** form (not
+bibliography form), **ending in the URL that lets a reader check it**:
+`Author, “Article Title,” <i>Journal</i> 546, no. 7657 (2017): 289–92, https://doi.org/10.1038/nature22336.`
+Italicise the title with `<i>`, as everywhere else, and write the **URL as PLAIN TEXT** — the page turns
+it into a link (`linkifySrcItem`), so the href and the visible text can never disagree. **Every citation
+must carry a link** and all four helper scripts refuse one that does not, which by design restricts the
+citable literature to what is **publicly reachable**: a DOI, an open-access paper, a museum or agency
+permalink. That restriction is the point — a page number nobody can open is a page number nobody
+checked. **AND A URL THAT OPENS SAYS NOTHING ABOUT THE NAME IN FRONT OF IT.** N4 recorded the
+whole-citation form of this fault; the commoner form is one level down and is easy to commit without
+noticing — a search result prints `Wani PD`, a Chicago note wants a given name, and the expansion that
+FEELS right gets written. It was Pinaki, not Pooja. **`node .claude/check-cite-authors.js [--prefix=]
+[--all]`** checks every PMC-backed citation's author names against the Europe PMC record and reports
+only a mismatch where BOTH sides carry a full given name — an initial, or a record holding only
+initials, is not a finding, since Europe PMC often stores `B Cavalazzi` for a byline printing Barbara.
+Run over the whole corpus in Aug 2026 it found **24 wrong given names across 18 works, every one on a
+citation whose URL resolved perfectly**: Hayden Schill written as Hannah, Samantha Gray as Steven, Wren
+Gould as William, Ceri Shipton as Chris, Amy Way as Andrew, Piotr Fedurek as Pawel, Jessica Bates as
+Jennifer. **Verify a finding on the PMC page before rewriting** — the record can be wrong too — and note
+it tries every author sharing a surname, since a paper with two Hamiltons on it is not a finding.
+**AND THE TOOLS CHECK THAT A CITATION ENDS IN A URL, NEVER THAT THE URL OPENS** — so an
+archive.org identifier or a DOI written from MEMORY ships as a 404 and nothing anywhere reports it
+(`cnh-006` shipped one for an hour: `sacredbooksofchi27conf` for `sacredbooksofchi0027unse`). Curl
+every citation URL of a new card before committing it; a 302 is a DOI resolving and is fine, a 404
+is a source the reader cannot check. **A CURL IS NOT A CITATION CHECK, EITHER — IT CHECKS THE URL AND
+NOTHING ELSE.** Four SEP citations shipped in Aug 2026 with a wrong edition, a wrong title and a
+missing co-author, on four cards and four glossary terms, every URL returning 200 the whole time: the
+edition had been composed from the "substantive revision" date on the page instead of read, and
+`plato.stanford.edu/entries/<slug>/` shows a browse label rather than the entry's real title. **The
+Stanford Encyclopedia states its own preferred citation** at
+`plato.stanford.edu/cgi-bin/encyclopedia/archinfo.cgi?entry=<slug>` — authors, exact title, archive
+edition, editors and the stable `archives/<ed>/entries/<slug>/` URL to cite instead of the live one —
+and the four guesses were wrong four different ways ("Fall 2021" against Spring 2023, "Spring 2019"
+against Summer 2024, "Innateness: Historical Controversies" against "The Historical Controversies
+Surrounding Innateness", Mandelbaum alone against Mandelbaum and Millière). **Read a source's own
+metadata page before citing it**; this is N4's fabricated-author finding in a second coat, and the
+archive URL is also what pins the wording a marker points at. **Every source must be referenced by at least one marker** — a citation
+nothing points at is a reading list, not a footnote — and `add-card.js` refuses a card that breaks
+either rule. Cite the scholarship the claim actually rests on: a monograph, a survey, a journal
+article, a museum or excavation report. **A Wikipedia article is not a source here** — it is where the
+research starts, not what a study card stands on; follow it to what it cites. **Never invent a
+citation, a page number, a DOI or a publisher.** If a claim cannot be tied to a work you can actually
+name, soften the claim or drop it — that is the whole point of the apparatus. **A source in any language
+qualifies**, and an English card may cite a French or German work where that work carries detail no
+English source does — common for European prehistory, where the excavation reports are written where the
+site is. English is preferred only where it serves equally well, since most readers of the English card
+can check an English source themselves. Cite a foreign-language work under its own title, untranslated:
+a citation names a work that exists, and a translated title names one that does not. Sources are **not
+translated** (they do not appear in the `i18n` blocks), but the **markers do**: put the same markers on
+the same claims in all 9 translated abstracts, or that language silently loses the apparatus
+(`add-card.js` warns when the counts differ). Escape hatch: `"skipSources": true`, only for a
+deliberate maintenance edit of a card written before citations existed.
