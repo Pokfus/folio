@@ -969,7 +969,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-705  The destruction of Thebes
     gr-706  Alexander's army
     gr-707  The Companion cavalry
-    gr-708  Hetairoi and pezhetairoi
+    gr-708  Pezhetairoi  — retitled from "Hetairoi and pezhetairoi" when gr-707 was written: the
+             hetairoi ARE the Companion cavalry, so the two lines were one card twice; the foot
+             companions are the half of the pair that had no card of its own
     gr-709  Parmenion
     gr-710  The crossing of the Hellespont
     gr-711  Battle of the Granicus
@@ -984,7 +986,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-720  The founding of Alexandria
     gr-721  The oracle of Ammon at Siwa
     gr-722  Battle of Gaugamela
-    gr-723  The fall of Babylon
+    gr-723  The surrender of Babylon  — retitled from "The fall of Babylon" when the card was
+             written: the fall of Babylon is Cyrus in 539 BCE, and Arrian's Babylonians come out
+             in a mass with their priests and offer the city, the citadel and the money
     gr-724  Susa
     gr-725  Persepolis
     gr-726  The burning of Persepolis
@@ -997,9 +1001,12 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-733  The killing of Cleitus
     gr-734  The Pages' Conspiracy
     gr-735  Callisthenes
-    gr-736  Bactria and Sogdiana
+    gr-736  Bactria and Sogdiana  — the answer term is Sogdiana, chosen when the card was written:
+             Bactria is where Bessus was run down (gr-728) and Sogdiana is where the two years went,
+             so the campaign card is named for the country that cost the time
     gr-737  Roxana
-    gr-738  The invasion of India
+    gr-738  The invasion of India  — answered by "Indian campaign", the whole 327–325 BCE march,
+             so the card can be about the limit of the army's reach rather than about one siege
     gr-739  Battle of the Hydaspes
     gr-740  Porus
     gr-741  The mutiny at the Hyphasis
@@ -1009,7 +1016,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-745  The mutiny at Opis
     gr-746  The death of Hephaestion
     gr-747  The death of Alexander
-    gr-748  Alexander's city foundations
+    gr-748  Alexander's city foundations  — answered by "Alexandria Eschate", chosen when the card
+             was written: "Alexandrias" is the collective term but makes an awkward cloze, and the
+             furthest of them carries the whole foundation policy in its own story
     gr-749  The Alexander historians
     gr-750  Alexander's legacy
 
@@ -1021,9 +1030,12 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-754  Antipater
     gr-755  The Lamian War
     gr-756  Battle of Crannon
-    gr-757  The death of Demosthenes
+    gr-757  The death of Demosthenes  — answered by "Calauria", the island whose sanctuary of
+             Poseidon he died in: "Demosthenes" is already the answer of gr-559 and gr-692, so the
+             card takes the place instead, which also fills a gap in the collection's amphictyonies
     gr-758  Eumenes of Cardia
-    gr-759  The Partition of Triparadisus
+    gr-759  The Partition of Triparadisus  — answered by "Triparadisus" alone, so that it does not
+             begin with the same two words as gr-752
     gr-760  Cassander
     gr-761  Antigonus Monophthalmus
     gr-762  Demetrius Poliorcetes
@@ -1034,7 +1046,9 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-767  Ptolemaic Egypt
     gr-768  Seleucus I Nicator
     gr-769  The Seleucid Empire
-    gr-770  Antigonid Macedonia
+    gr-770  Antigonid Macedonia  — the paired glossary entry is keyed `Antigonid_dynasty`, the
+             Wikipedia slug, with "Antigonid Macedonia" as an alias, so the term covers the house
+             rather than only its years in the homeland
     gr-771  Lysimachus
     gr-772  Battle of Corupedium
     gr-773  Hellenistic kingship

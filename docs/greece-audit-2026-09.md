@@ -274,3 +274,82 @@ with no entry behind them.
 - **All 353 Bryn Mawr Classical Review URLs answer 502 from this sandbox**, in parallel and one at
   a time alike, and `ascsa.edu.gr` refuses the connection outright. Neither is a dead link; both
   are this container. Wikimedia rate-limits image requests to 429 after about thirty.
+
+
+---
+
+## `check-cards.js`'s own findings, moved out of `CLAUDE.md` (2026-09-11)
+
+**READ BEFORE OPENING A RE-SOURCING BATCH ON THE GREECE COLLECTION.** The account as it stood in
+`CLAUDE.md` until it was moved here verbatim: what each check was written after, the measured figures
+(431 findings dropping to 116 once institutions were split out; 39 cards on one course website), and
+the four hosts re-measured in Sep 2026. The RULES stay in `CLAUDE.md`.
+
+- `.claude/check-cards.js` — **the card-level faults nothing else in the pipeline can see**:
+`node .claude/check-cards.js [--prefix=gr-] [--verbose] [--report]`, exit 1 on a violation and never
+on `--report`. Six checks, each written after a real fault shipped unreported — **an author cited in
+more than two of one card's sources** (`add-card.js` checks a citation ends in a URL,
+`source-audit.js` counts them and `check-citations.js` checks the names against Crossref, and all
+three pass a card whose whole apparatus is one website; ancient authors are counted separately,
+six passages of one witness being a different fault from six pages of one scholar), **a modern
+scholar named in a question**, **one picture on two cards**, **a picture description that names its
+own source**, **a card with no picture** (reported, never failed) and **two sources in the same
+non-English language**. Two of them are the reason it exists at all. `card-focus.js` takes the names
+it looks for from the AUTHOR POSITIONS of a card's own citations, so **a scholar named in a question
+but not cited on that card is invisible to it** — it reported ONE Greece card where an independent
+sweep found thirteen; this reads the question for the SHAPE of an attribution and asks afterwards
+whether the name is an ancient witness. And the duplicate-picture check compares on the file name
+**with the `\d+px-` prefix stripped**, because the same file at two widths is two different `src`
+strings and gr-267 and gr-379 carried one map for weeks at 1920 and 1280.
+· **THE GLOSSARY IS THE DISCRIMINATOR FOR THE QUESTION RULE, AND A MODERN PERSON IS WITHHELD FROM
+IT.** "Athenian Constitution" and "White Castle" wear the shape of an attribution and are a work
+and a place; both are glossary surfaces. But the pairing rule gives every card's answer its own
+entry, so an excavator who is herself a card's subject has one — `Harriet_Boyd_Hawes`, with
+"Harriet Boyd" as an alias — and a flat exemption **suppressed the one real finding it was meant
+to leave standing**. A term is withheld when it is tagged `person` and its date line begins after
+1500, which is the site's own record of a modern figure rather than a guess from the name.
+· **THE COMMA ENDS AN AUTHOR FIELD, NOT THE FULL STOP.** A book's title is italicised rather than
+quoted, so a quoted-title pattern cannot see it and a full-stop fallback reads an INITIAL as the
+whole name: "H. B. Walters, History of Ancient Pottery…" gave an author called **"H"**, so three
+citations of one book were filed under a scholar named for a letter and the concentration was
+missed. A citation OPENING on its title has no author at all — reading the title as one gave
+gr-333 an author called "Athens".
+· **AND IT CHECKS A `card.quote` AGAINST THE BOOK IT NAMES, WORD FOR WORD.** `test-card-quote.js`
+asserts the placement and the address and neither of them the WORDS, so a quotation can be
+re-punctuated, re-worded or elided across a gap and still render perfectly under a link to the
+real text — `gr-467` joined two passages 200 words apart with no ellipsis, opened on an
+editorial "He" where Thucydides names Pericles, and set the translator's `--` as an em dash. An
+explicit ` … ` is the author saying a gap was cut and each side of it is checked on its own;
+**a bare number is the edition's apparatus and is dropped from both sides**, since several
+shelved editions run their section and verse numbers inline and a quotation rightly leaves them
+out.
+· **AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS** (Sep 2026,
+out of the field audit). Rule 1 was written against a card whose whole apparatus is one
+researcher's view, and it counted a DATA PUBLISHER the same way — so a geography card citing the
+World Bank for its population, its area and its GDP was reported as resting three sources on one
+author. Measured over the corpus that shape was **274 of the 431 findings**: the World Bank 84
+times, the National Park Service 65, the Census Bureau 50, the Holocaust Memorial Museum 31.
+**They are REPORTED SEPARATELY rather than excused** — a card resting entirely on one ministry's
+site is thin however official the ministry — so `INSTITUTIONAL` sends them to a `one-institution`
+note and the failure list drops to **116**, which is the finding the rule exists for: before the
+split, `jeremy b. rutter` (39 cards, the Dartmouth course site the Greece audit names) sat in a
+list of 431 where nobody would read it. **The list is DECLARED, never pattern-matched** — "anything
+ending in Museum or Bureau" would quietly excuse a real author — so add an entry only after
+reading a card that cites it.
+· **IT IS A REPORT TOOL RUN BY HAND AND IS DELIBERATELY NOT IN THE CI FAST GATE.** Over the whole
+corpus it finds a large standing backlog on the first and last checks — the Greece collection's
+early decks rest on one Dartmouth course site and on the French excavation reports (the seven
+measured routes are in `docs/greece-audit-2026-09.md`). **That file's "no substitute is
+reachable" was re-measured in Sep 2026 and four more routes DO open** — Europe PMC (291
+open-access Aegean hits), DOAJ (44 for *minoan crete*, against the one thin query first tried),
+**`persee.fr` INCLUDING ITS SEARCH** (`/search?ta=article&q=…` over plain HTTP, proved a real
+search by a nonsense query returning nothing, with `/doc/<id>` serving the whole article — BCH,
+CRAI and Ktèma, the French School at Athens' own record of Malia and Knossos) and
+`chs.harvard.edu`. JSTOR still serves a Client Challenge under a 200 and `ascsa.edu.gr` refuses.
+**What they carry is the archaeological SCIENCE and the French excavation record**, where the
+Rutter citations carry pottery sequences and palace phasing — so a substitute is found claim by
+claim and some claims still have none (`gr-001`'s Cycladic longboats were searched for across
+all four and found in none). **The re-sourcing is a content pass, card by card, not a
+substitution table**, and keeping Rutter for a claim nothing else states is the right answer
+rather than a failure. Run it with `--prefix=` over the cards a batch touches. Not part of the
+site.

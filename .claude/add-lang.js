@@ -42,7 +42,6 @@ const gamesI18nIO = require("./games-i18n-io");   // the per-language i18n/games
 const placesIO = require("./places-i18n-io");     // the per-language i18n/places-<lang>.js files
 const P = {
   i18nDir: path.join(root, "i18n"),
-  data: path.join(root, "data.js"),
   gloss: path.join(root, "glossary.js"),
   world: path.join(root, "world.js"),
   timeline: path.join(root, "timeline.js"),
@@ -53,6 +52,14 @@ const LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
 const CARD_I18N_FIELDS = ["question", "answer", "answerDate", "abstract", "answerText"];
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
+/* THE CARDS COME THROUGH card-io, NEVER THROUGH loadWindow ABOVE — which is kept only for the
+   i18n/ui-<lang>.js files, whose whole content is one table. `abstract` is one of the fields the split
+   moved out to data-extra/<collection>.js, and data.js's rejoin block needs `require`, which a
+   `new Function` body has not got; worse, this helper then wrote data.js back from a template of its
+   own, which did not carry that rejoin block at all — so one run would have left every OTHER helper
+   that requires the file reading empty abstracts. writeCards() owns the block and refuses a light-half
+   write. */
+const io = require("./card-io");
 function die(msg) { console.error("ERROR: " + msg); process.exit(1); }
 
 const args = process.argv.slice(2);
@@ -124,7 +131,7 @@ if (batch.chrome && Object.keys(batch.chrome).length) {
 
 /* ---- cards -> data.js (card.i18n[lang]) -------------------------------------------------------- */
 if (batch.cards && Object.keys(batch.cards).length) {
-  const win = loadWindow(P.data), cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
+  const { cards, tree } = io.loadCards();
   const byId = new Map(cards.map((c) => [c.id, c]));
   for (const [id, tr] of Object.entries(batch.cards)) {
     const card = byId.get(id);
@@ -137,12 +144,8 @@ if (batch.cards && Object.keys(batch.cards).length) {
     card.i18n = card.i18n || {};
     card.i18n[lang] = Object.assign({}, card.i18n[lang] || {}, tr);
   }
-  fs.writeFileSync(P.data,   // mirrors add-card.js / update-cards.js serialization exactly
-    "/* Card data. Add cards one at a time with `node .claude/add-card.js <card.json> [deckId]` (see CLAUDE.md). */\n" +
-    "window.CARD_DATA = [\n" + cards.map((c) => JSON.stringify(c)).join(",\n") + "\n];\n\n" +
-    "/* Collection -> deck -> sub-deck tree. Leaf decks carry a `cardIds` array. */\n" +
-    "window.COLLECTION_TREE = " + JSON.stringify(tree, null, 2) + ";\n");
-  loadWindow(P.data);   // re-parse to confirm valid JS
+  io.writeCards(cards, tree);
+  io.loadCards();   // re-parse to confirm valid JS
   const full = cards.filter((c) => CARD_I18N_FIELDS.every((f) => ((c.i18n || {})[lang] || {})[f])).length;
   done.push("data.js: " + Object.keys(batch.cards).length + " card(s) (" + lang + " now complete on " + full + "/" + cards.length + ")");
 }
@@ -210,7 +213,7 @@ if (batch.places && Object.keys(batch.places).length) {
 // the I18N exact table, because titles like "Prehistory" or "Bronze Age" also occur as answer terms and
 // glossary links inside card prose, where a global key would override the card pipeline's own wording.
 if (batch.tree && Object.keys(batch.tree).length) {
-  const win = loadWindow(P.data), cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
+  const { cards, tree } = io.loadCards();
   const byId = new Map();
   (function walk(a) { (a || []).forEach((n) => { byId.set(n.id, n); walk(n.children); }); })(tree.collections);
   for (const [id, title] of Object.entries(batch.tree)) {
@@ -220,12 +223,8 @@ if (batch.tree && Object.keys(batch.tree).length) {
     node.i18n = node.i18n || {};           // merge, never replace: a language must not drop its neighbours
     node.i18n[lang] = title.trim();
   }
-  fs.writeFileSync(P.data,
-    "/* Card data. Add cards one at a time with `node .claude/add-card.js <card.json> [deckId]` (see CLAUDE.md). */\n" +
-    "window.CARD_DATA = [\n" + cards.map((c) => JSON.stringify(c)).join(",\n") + "\n];\n\n" +
-    "/* Collection -> deck -> sub-deck tree. Leaf decks carry a `cardIds` array. */\n" +
-    "window.COLLECTION_TREE = " + JSON.stringify(tree, null, 2) + ";\n");
-  loadWindow(P.data);   // re-parse to confirm valid JS
+  io.writeCards(cards, tree);
+  io.loadCards();   // re-parse to confirm valid JS
   const have = [...byId.values()].filter((n) => (n.i18n || {})[lang]).length;
   done.push("data.js tree: " + Object.keys(batch.tree).length + " node(s) (" + lang + " now " + have + "/" + byId.size + ")");
 }
