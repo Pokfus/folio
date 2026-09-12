@@ -121,7 +121,17 @@ if (spellText) {
 
 /* THE TABLE AGAINST THE REAL CORPUS. A row is only ever as good as what it does to the prose that
    actually ships, and every fault this feature had was found here rather than by reading the table. */
-const corpus = ["data.js", "glossary.js", "artefacts.js", "artefacts-extra.js", "countries.js", "country-years.js", "mission.js", "changelog.js"]
+/* THE CORPUS IS THE SHIPPED PROSE, AND IT LIVES IN TWO PLACES NOW. A card's `abstract` and `sources`
+   moved to data-extra/<collection>.js in Sep 2026 (see CARD_EXTRA_FIELDS in app.js), so a list naming
+   data.js alone stopped reading the backgrounds — which is most of the prose on the site. It failed as
+   "center: 81" against a bar of 100, which reads like the table having lost a row rather than like the
+   corpus having lost two thirds of itself. The directory is READ rather than listed, so a collection
+   added later is picked up with nobody remembering this. */
+const corpus = ["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "artefacts-extra.js", "countries.js", "country-years.js", "mission.js", "changelog.js"]
+  .concat((() => {
+    try { return fs.readdirSync(path.join(ROOT, "data-extra")).filter((f) => f.endsWith(".js")).map((f) => "data-extra/" + f); }
+    catch (e) { return []; }
+  })())
   .map((f) => { try { return fs.readFileSync(path.join(ROOT, f), "utf8"); } catch (e) { return ""; } }).join("\n");
 check("the corpus was read", corpus.length > 1e6, corpus.length);
 

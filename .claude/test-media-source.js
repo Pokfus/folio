@@ -40,6 +40,7 @@ const server = http.createServer((req, res) => {
        it rather than saying "that card has a picture now".  Stripping them here makes the test a test
        of the GATE at any corpus size, the same move test-i18n-lang.js makes on app.js. */
     if (p === "/data.js") data = Buffer.from(stripCardImages(data.toString("utf8")), "utf8");
+    if (/^\/data-extra\/.+\.js$/.test(p)) data = Buffer.from(stripExtraImages(data.toString("utf8")), "utf8");
     res.writeHead(200, { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream" });
     res.end(data);
   });
@@ -54,6 +55,18 @@ function stripCardImages(src) {
   win.CARD_DATA.forEach((c) => { if (c.id !== "wh-046") delete c.image; delete c.video; });
   return "window.CARD_DATA = [\n" + win.CARD_DATA.map((c) => JSON.stringify(c)).join(",\n") + "\n];\n" +
     "window.COLLECTION_TREE = " + JSON.stringify(win.COLLECTION_TREE) + ";\n";
+}
+/* …AND THE SAME AGAIN FOR THE LAZY HALF, which is where a card's picture actually lives (Sep 2026 —
+   see CARD_EXTRA_FIELDS in app.js). Stripping data.js alone stopped stripping anything at all: the
+   pictures arrive with the collection's data-extra file a moment later, so the panel this whole suite
+   is about opened with a picture already in it and every assertion about an EMPTY one failed. */
+function stripExtraImages(src) {
+  const win = { CARD_EXTRA_IN: [] };
+  new Function("window", src)(win);
+  const t = (win.CARD_EXTRA_IN[0] || {}).CARD_EXTRA || {};
+  Object.keys(t).forEach((id) => { if (id !== "wh-046") { delete t[id].image; delete t[id].video; } });
+  return "(function(){var CARD_EXTRA=" + JSON.stringify(t) +
+    ";(window.CARD_EXTRA_IN=window.CARD_EXTRA_IN||[]).push({CARD_EXTRA:CARD_EXTRA});})();\n";
 }
 
 let pass = 0, fail = 0;
@@ -75,7 +88,13 @@ async function dismissPrompt(page) {
 }
 async function openCard(page, id) {
   await page.evaluate((cid) => { const el = document.querySelector('[data-open="' + cid + '"]'); if (el) el.click(); }, id);
-  await page.waitForTimeout(700);
+  /* WAIT FOR THE FORM, DON'T GUESS AT IT. A card's abstract, sources and image are fetched per
+     collection now (see CARD_EXTRA_FIELDS in app.js), and the editor deliberately shows "Loading this
+     card…" until they arrive rather than drawing fields it would then save as deliberate deletions.
+     A fixed pause raced that and clicked into a placeholder, which fails as "the media panel is not
+     hidden" — a sentence about the panel, from a fixture that had not waited for it. */
+  await page.waitForSelector("#cesMediaSlot", { timeout: 20000 }).catch(() => {});
+  await page.waitForTimeout(400);
 }
 const cardDelta = (page, id, key) => page.evaluate((a) => {
   const c = (JSON.parse(localStorage.getItem("folio_admin_v1") || "{}").cards || {})[a.id];
