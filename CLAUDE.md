@@ -5127,7 +5127,18 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   English source does — common for European prehistory, where the excavation reports are written where the
   site is. English is preferred only where it serves equally well, since most readers of the English card
   can check an English source themselves. Cite a foreign-language work under its own title, untranslated:
-  a citation names a work that exists, and a translated title names one that does not. Sources are **not
+  a citation names a work that exists, and a translated title names one that does not.
+  **A TRANSLATED ANCIENT WORK IS CITED ANCIENT-AUTHOR-FIRST, WITH THE TRANSLATOR AFTER** — `Livy,
+  <i>The History of Rome</i> 2.1, trans. Canon Roberts`, `Plutarch, <i>Life of Pyrrhus</i> 21, trans.
+  Bernadotte Perrin` — and an ANONYMOUS one opens on its own title (`<i>The Greek Anthology</i> 7.18,
+  trans. W. R. Paton`; `<i>The Shû King</i>, trans. James Legge`). Putting the translator in the author
+  slot is not merely untidy: `check-cards.js` takes a citation's author from that slot, so five
+  different Chinese classics translated by one Victorian read to it as one modern scholar cited five
+  times, which is the opposite of what its first rule is for (Sep 2026; fixed on 14 cards, and **304
+  citations across 145 more cards still carry the old form**, measured rather than estimated). The
+  translator becomes the AUTHOR only where the citation is to his own prolegomena or introduction, which
+  is his scholarship rather than his translation — and telling those apart is a judgement per citation,
+  which is why the rest of that sweep is a pass of its own rather than a regex. Sources are **not
   translated** (they do not appear in the `i18n` blocks), but the **markers do**: put the same markers on
   the same claims in all 9 translated abstracts, or that language silently loses the apparatus
   (`add-card.js` warns when the counts differ). Escape hatch: `"skipSources": true`, only for a

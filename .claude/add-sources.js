@@ -39,6 +39,12 @@ const GLOSS_TARGET = (() => { const m = /const GLOSS_SRC_TARGET = (\d+);/.exec(A
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
+/* data.js keeps a card's abstract, sources, why, quote and image in data-extra/<prefix>.js and merges
+   them back with a Node-only loader — which a `new Function` body cannot see, having no require or
+   __dirname of its own. So loadWindow is fine for "does this still parse" and NOT for reading a card:
+   through it every abstract and source list comes back undefined, which this tool then reports as a
+   card with no footnote marker. Read through card-io.js, as data.js's own comment says to. */
+const loadCards = () => require("./card-io").loadCards();
 const obj = (o) => "{\n" + Object.keys(o).map((k) => JSON.stringify(k) + ": " + JSON.stringify(o[k])).join(",\n") + "\n}";
 const markersIn = (html) => [...String(html || "").matchAll(/<sup\b[^>]*class="[^"]*\bfn\b[^"]*"[^>]*>/gi)]
   .map((m) => { const d = /data-fn="(\d+)"/i.exec(m[0]); return d ? +d[1] : 0; });
@@ -63,7 +69,7 @@ if (!batch.cards && !batch.glossary) die("batch file needs a `cards` and/or a `g
 /* ---------------- cards -> data.js ---------------- */
 const cardIds = [];
 if (batch.cards && Object.keys(batch.cards).length) {
-  const win = loadWindow(dataPath), cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
+  const { cards, tree } = loadCards();
   const byId = new Map(cards.map((c) => [c.id, c]));
   for (const id of Object.keys(batch.cards)) {
     const u = batch.cards[id], card = byId.get(id);
