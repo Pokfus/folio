@@ -127,8 +127,17 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
 
 /* An ancient author is a WITNESS, not a researcher (the same distinction card-focus.js
    draws), so the two are counted apart.  The list is of authors the collections actually
-   cite; add to it rather than loosening the pattern. */
-const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|sallust|florus|historia augusta|eusebius|julius caesar|caesar|kautilya|zosimus|procopius|ammianus|cassius dio|orosius)\b/i;
+   cite; add to it rather than loosening the pattern.
+   THE LIST WAS INCOMPLETE AND THE GAP WAS ALL ROMAN.  Measured over data.js and the
+   glossary in Sep 2026, fifteen ancient authors were being counted as modern scholars —
+   Appian 183 citations, Dionysius of Halicarnassus 109, Velleius 54, Sallust 32, Aulus
+   Gellius 27, Cassius Dio 24, Florus 13 — so a Rome card resting on three passages of
+   Appian was reported under the same heading as one resting on three pages of a course
+   website, which is the one distinction this check's own header says it draws.  A checker
+   that cries wolf on a well-sourced card is one nobody runs.  Half of that gap was found
+   twice over, independently and in the same month, which is what a list nobody measures
+   invites; the two halves are merged here rather than either being taken whole. */
+const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius)\b/i;
 
 /* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
    the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,

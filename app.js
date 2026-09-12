@@ -15258,6 +15258,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["hybridis", "hybridiz", "e|es|ed|ing|ation"],
     ["crystallis", "crystalliz", "e|es|ed|ing|ation"],
     ["orientalis", "orientaliz", "e|es|ed|ing|ation"],
+    ["hellenis", "helleniz", "e|es|ed|ing|ation"],
     ["analys", "analyz", "e|ed|ing"],
     ["catalys", "catalyz", "e|ed|ing"],
     ["paralys", "paralyz", "e|ed|ing"],
@@ -23533,14 +23534,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <span class="eyebrow">${greeting}, ${esc(S.user.name)}</span>
         <h1>Today</h1>
       </div>
-      ${/* THE QUOTE LIVES INSIDE `.banners` NOW (Sep 2026). It used to sit here, between the page head
-             and the review — and at 390x844 that put the first control that starts a session below the
-             fold on a fresh install. Ordering it with CSS could not fix that, because the games are
-             inside `.banners` too: `order` only sorts siblings, so moving the quote past the banner
-             moved it past the whole grid as well and buried it at the foot of the page. So it is a
-             CHILD of that flex column, dealt after the day's work and before the games — and on a
-             desktop `order:-1` lifts it back to the top, which is the running order that page was
-             designed with and has room for. */""}
+      ${/* THE QUOTE IS BACK AT THE TOP, ABOVE THE DAY'S WORK (Sep 2026, on request), where it sat until
+             earlier the same month. It spent a fortnight inside `.banners`, dealt after the review and
+             lifted back up by `order:-1` above 640px — which was an answer to a real fault (at 390x844 a
+             quote here puts the first control that starts a session below the fold on a fresh install)
+             and is not the answer asked for. As a SIBLING of `.banners` it needs no ordering rule at
+             all: `order` only sorts siblings, and the games live inside that column, so a rule that
+             moved the quote past the banner moved it past the whole grid too. Left where it stands. */""}
+      ${dailyQuoteHTML()}
       <div class="banners">
         ${/* The walkthrough is OFFERED, never raised over the page unasked — see the GUIDED TOUR block. It
               sits above the review with the first-run hero, which is first-run-only for the same reason,
@@ -23566,7 +23567,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               again when it stops, so it is never furniture. Under the review rather than above it: the
               day's own work comes first. */""}
         ${confusionRowHTML()}
-        ${dailyQuoteHTML()}
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}

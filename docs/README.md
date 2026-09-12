@@ -33,6 +33,8 @@ before changing the thing it names.
 | `library-feature.md` | The reading room — the shelf, the bilingual columns, the ink, the highlights, the per-book licence reasoning. |
 | `community-decks.md` | The nine phases of community decks, every guard, and the faults that shipped silently. |
 | `daily-study.md` | The pooled review, per-deck limits, the three orders, the reader's own groups and the deck rows. |
+| `date-lines.md` | The card date line — the three parsing faults that yield a wrong sort year, and the whole-deck conversion. |
+| `eager-path.md` | The eager load path and the three splits taken off it — the artefact pool, the cards and the glossary — and the loader trap the card split left behind. |
 | `scheduler.md` | The day boundary, the SM-2 port, FSRS and its optimiser, load balancing, burying. |
 | `minigames.md` | The nine daily games, their pools, and the faults a one-day test cannot see. |
 | `source-footnotes.md` | The citation apparatus on all four surfaces — markers, numbering, the fold. |
@@ -41,6 +43,11 @@ before changing the thing it names.
 | `reader-settings.md` | Themes, text size, motion, contrast, units, spelling, i18n, sound, the dormant TTS. |
 | `chrome-navigation.md` | Repaints, page transitions, the phone swipe, the walkthrough and coach marks. |
 | `home-page.md` | The home page's running order, the daily quote, the review banner. |
+| `study-page.md` | The study page's furniture — the grade bar and its fold, undoing a grade, the phone's gloss popup. |
+| `accounts-sync.md` | Accounts, the progress blob and its reconcile, the friends table, admin gating, and the cloud content overlay. |
+| `admin-editor.md` | The admin editor's tabs — the Dashboard's two halves and what RLS lets it ask, and what each later tab had to learn. |
+| `changelog-and-version.md` | The changelog's and the version line's own reasoning — the length rules, the title ceiling, what belongs in it and what does not. |
+| `collections-page.md` | The Collections page — the tab bar, the declared sections, the Planned fold, the shelf rows and their size figures. |
 | `whiteboard.md` | The floating marker — the fling, the snap home, the pass-through, the stylus split. |
 | `reliquary.md` | Artefact chests, collectible themes, the showcase, the collector's badges. |
 | `card-difficulty.md` | The 1–5 rating, the community rating, and `undatable`. |

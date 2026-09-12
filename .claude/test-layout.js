@@ -1274,12 +1274,13 @@ function scrimCheck() {
         rows: new Set(tiles.map(top)).size, tiles: tiles.length,
         // the taglines are gone at three tiles to a row: an unplayed tile carries a name and nothing else
         subs: tiles.filter((t) => t.querySelector(".gt-sub")).length,
-        /* THE QUOTE MOVED BELOW THE DAY'S WORK ON A PHONE (Sep 2026 — see .daily-quote's `order` rule).
-           It sat between the page head and the review banner, which at 390x844 put the first control
-           that starts a session below the fold on a fresh install. What is asserted now is the rule
-           that replaced it: the banner is FIRST, and the quote still comes before the games. On a
-           desktop the running order is unchanged and the quote is still above everything. */
-        quoteAbove: !!(quote && grp && quote.getBoundingClientRect().top >= grp.getBoundingClientRect().bottom - 1),
+        /* THE QUOTE IS BACK ABOVE THE DAY'S WORK, AT EVERY WIDTH (Sep 2026, on request). It spent a
+           fortnight below the review on a phone — at 390x844 a quote here puts the first control that
+           starts a session below the fold on a fresh install, which is a real cost and was not what was
+           asked for — and is a sibling of `.banners` again, so there is no ordering rule to assert and
+           the phone and the desktop read the same page. Both directions are pinned: above the review,
+           and (still) above the games. */
+        quoteAbove: !!(quote && grp && quote.getBoundingClientRect().bottom <= grp.getBoundingClientRect().top + 1),
         quoteAboveGames: (() => {
           const g = document.querySelector(".game-grid, .games-sec");
           return !!(quote && g && quote.getBoundingClientRect().bottom <= g.getBoundingClientRect().top + 1);
@@ -1327,7 +1328,7 @@ function scrimCheck() {
       h.cols === 3 && h.tiles >= 6 && h.tiles % 3 === 0 && h.rows === h.tiles / 3,
       JSON.stringify({ cols: h.cols, rows: h.rows, tiles: h.tiles }));
     check("...with the description sentences gone", h.subs === 0, h.subs + " tiles still carry one");
-    check("...the day's study above the quote, so the first card is a tap and not a scroll", h.quoteAbove);
+    check("...the quote above the day's study, where it opens the page", h.quoteAbove);
     check("...and the quote still above the games", h.quoteAboveGames);
     check("...and the About link last, About having left the tab bar", /about/i.test(h.about) && h.aboutLast, JSON.stringify({ about: h.about, last: h.aboutLast }));
     check("...routing to the About page", await page.evaluate(async () => {
