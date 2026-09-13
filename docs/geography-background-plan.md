@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C13 — six capitals, and two constitutional outcomes the pass had not met**: `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry and `gw-576` Porto-Novo, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C12 — six capitals, and every author list drafted from a search result was wrong**: `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar and `gw-570` Guatemala City, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-10, batch C11 — six capitals, and the constitution leg fails on five of six**: `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka and `gw-564` Astana, with all six date lines rewritten off the same research. Six again, for C2’s reason.
@@ -410,6 +412,54 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C13 found
+
+- **THE CONSTITUTION LEG ANSWERED FOR FIVE OF SIX, ITS BEST SHOWING OF THE PASS, AND TWO OF THE FIVE ARE
+  OUTCOMES THE EARLIER BATCHES HAD NOT MET.** **The Cambodian text gives its capital a legal calendar of
+  its own**: article 6 names the city, and then article 93 brings a promulgated law into force there ten
+  days after promulgation and throughout the rest of the country after twenty — a constitution in which
+  the capital is legally ten days ahead of everywhere else, which is the first clause the pass has found
+  that gives a capital a different *rule* rather than a different status. **And the Dutch text names its
+  capital once, for a ceremony**: article 32 requires the King to be sworn in and inaugurated at
+  Amsterdam at a public joint session of the two Houses, and says nothing else about the place — the
+  government sitting at The Hague, exactly as the UNdata footnote says. A constitution can therefore name
+  a capital without seating anything in it.
+- **AND THE ZIMBABWEAN TEXT IS C12's CHILE OUTCOME ONE STEP FURTHER ON.** C12 recorded a constitution
+  that names its capital only as a REGION, in a clause about something else; this one names *Harare
+  Metropolitan Province* among the ten provinces in section 267 and then, in section 269, constitutes a
+  metropolitan council chaired by the mayor of the City of Harare with the mayor of the province's
+  second-largest urban local authority as his deputy — so the city is named twice, as a province and as
+  a local authority, and never as the capital. **Read the whole text before recording the leg as silent**:
+  a search for the word *capital* finds nothing here, and the city is in the document five times.
+- **THE ECUADORIAN TEXT IS THE FULLEST TREATMENT OF A CAPITAL THE PASS HAS MET.** Article 4 names the
+  city, and then four further articles seat the National Assembly, the National Court of Justice, both
+  electoral bodies and the Constitutional Court there by name — every branch of the state fixed in one
+  place by the constitution rather than by practice.
+- **THE ONE FAILURE IS A TOTAL SILENCE, WHICH IS C6's OUTCOME AND IS WORTH STATING ON THE CARD.** The
+  Guinean text of 2010 contains *Conakry* zero times and *capital* zero times, while fixing the flag's
+  three bands, the anthem and the motto in its first article. An absence checkable against the cited text
+  is a fact about the state's own founding document, so `gw-575` says so rather than leaving the leg empty.
+- **A SIXTH WAY THE WMO LEG FAILS: A RECORD THAT CARRIES PRECIPITATION AND NO TEMPERATURE AT ALL.**
+  Porto-Novo's station reports rainfall and rain days for 1981–2010 with every one of its twelve
+  `maxTemp` and `minTemp` fields null, so the card's climate sentences are about water only. **Check the
+  fields before drafting the heat sentence**, not after: the record is present, the period is stated, and
+  it looks like every other city's until the numbers are read.
+- **READING A FINISHED CARD BACK CAUGHT A FACT THAT EVERY CHECK PASSES.** The Amsterdam draft called
+  February the driest month, which is what a reader of the WMO table expects; April is lower — 41.0 mm
+  against 43.4 — and the superlative was simply wrong. Nothing in the pipeline can see this: the figure
+  was real, the source was right, the marker pointed at it, and the sentence was inside the word budget.
+  **A superlative drawn from a twelve-row table has to be taken from the whole table.**
+- **CROSSREF SETTLED A NAME THE PDF's OWN TEXT LAYER COULD NOT.** The Quito geosites paper extracts as
+  “Theo Þ los Toulkeridis”, the ligature having been mangled; the record gives **Theofilos
+  Toulkeridis**. C12's rule — verify every author list against Crossref before writing the JSON — caught
+  nothing wrong this time in eleven works, which is what it looks like when the rule is being followed
+  rather than when it is not needed.
+- **SIX OF THIRTY CITATION URLS ANSWER 403 FROM THIS SANDBOX AND ALL SIX ARE REAL.** Five are MDPI and one
+  is IWA; every one resolves in Crossref and every MDPI paper was read in full at
+  `res.mdpi.com/d_attachment/<journal>/<journal>-<vol>-<art>/article_deploy/<journal>-<vol>-<art>.pdf`,
+  which serves the same PDF the blocked landing page offers. **A 403 from a publisher is a fact about this
+  container, not about the citation**, and the shipped corpus already cites five MDPI papers by DOI.
 
 ## What C12 found
 
