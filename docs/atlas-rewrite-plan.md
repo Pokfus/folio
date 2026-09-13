@@ -206,7 +206,8 @@ is an open question and its batch size follows from the answer.
 | **A5** | Algeria, Afghanistan, Ukraine, Sudan, Iraq, Poland, Canada, Morocco | **shipped 2026-09-04** |
 | **A6** | Angola, Uzbekistan, Peru, Saudi Arabia, Ghana, Malaysia, Madagascar, Venezuela | **shipped 2026-09-04** |
 | **A7** | Côte d’Ivoire, Mozambique, Nepal, Cameroon, Yemen, Australia, North Korea, Syria | **shipped 2026-09-04** |
-| A8–A33 | The remaining 202 present-day countries and territories, in descending population | planned |
+| **A8** | Burkina Faso, Niger, Sri Lanka, Kazakhstan, Zambia, Chile, Chad, Romania | **shipped 2026-09-13** |
+| A9–A33 | The remaining present-day countries and territories, in descending population | planned |
 | B1–… | Stage 2, the 424 historical states, grouped by era | planned |
 | C1–… | Stage 3, the 528 names of the 1600 era, at a bar to be decided | planned |
 
@@ -225,7 +226,9 @@ out of them at the end rather than in the middle.
 4. **Write ten sentences**, five general and five particular, at 270–330 words.
 5. **Mark each claim to the work it rests on**, empty markers, and check every source is referenced.
 6. **Look at the place on the map at each era it appears in**, and read the description against it.
-7. **Run `add-place-info.js`**, then `node .claude/test-atlas-places.js` and `node .claude/test-sources.js`.
+7. **Bold the place's own name at its first mention**, as a card bolds its answer term —
+   `add-place-info.js` refuses the whole batch without it.
+8. **Run `add-place-info.js`**, then `node .claude/test-atlas-places.js` and `node .claude/test-sources.js`.
 
 ---
 
@@ -527,6 +530,50 @@ five citations apiece, every URL curled and every source open access. Five findi
   reader moving around the Atlas accumulates a scale rather than a list of unrelated ratios. It costs nothing
   to choose the anchor that way, and the World Bank's semicolon list makes the two-country citation the same
   single fetch either way.
+
+### A8 — the next eight by population (2026-09-13)
+
+Burkina Faso, Niger, Sri Lanka, Kazakhstan, Zambia, Chile, Chad and Romania, on the spine A1–A7
+established: the UNdata profile, the recognition guide, two World Bank series and the membership-growth
+page. Findings:
+
+- **TWO OF THE NEXT TEN WERE DEFERRED AND THE REASONS ARE DIFFERENT.** **Taiwan** has no UNdata profile
+  and no recognition-guide entry of its own, so the spine cannot reach it at all; the site already has a
+  settled treatment of it in `gw-060`, which rests on earth-science papers, two Milestones and the
+  constitutional text, and the Atlas panel should follow that rather than improvise. **Mali** was deferred
+  for the fault below.
+- **⚠ THE DESCRIPTION KEY IS THE NAME ALONE, WITH NO ERA, AND `Mali` IS WHERE THAT SHOWS.**
+  `countryDesc(name)` lowercases the map label and looks it up in one table, so a name drawn on both the
+  present-day map and an era map can carry exactly one description. Mali's was written for the era — it
+  opens *The map label "Mali" here marks the former heartland of the Mali Empire* — so a reader clicking
+  Mali on the PRESENT-DAY globe is told about the fragmentation of the empire around 1700. Rewriting it for
+  the republic only moves the fault to the 1500 and 1700 panels, so it is recorded rather than patched.
+- **AND THE SAME COLLISION RUNS THE OTHER WAY OVER 131 NAMES.** Measured: **131 present-day names are also
+  drawn on a pre-1960 era map, and every one of them carries the present-day description** — Philippines on
+  the 1500 map, France on 1500 and 1900, Japan on 1500 and 1600, Portugal on four eras. `stageOf` classes
+  any present-day name as stage 1, so **stage 2's 424 names are disjoint from these by construction and the
+  pass as planned can never reach them.** Giving those eras their own text needs `countryDesc` to take the
+  era, which is a code change and belongs at the head of stage 2 rather than inside it.
+- **THE SPINE IS NOW FIVE FETCHES AND TWO OF THEM CARRY THE WHOLE BATCH.** One World Bank surface-area
+  query over fourteen countries settled every size comparison at once — Chad is within 1,216 km² of Peru,
+  Chile within 4,635 of Zambia, Kazakhstan 2% under Argentina, Burkina Faso 2% over New Zealand, Romania 2%
+  under the United Kingdom, Sri Lanka 7% under Ireland — and one membership-growth page settled every
+  admission cohort. **Batch the comparisons rather than fetching per place.**
+- **THE POPULATION SERIES IS WHERE THE BATCH'S BEST SENTENCES CAME FROM, AND ONE OF THEM POINTS DOWN.**
+  Niger has multiplied nearly eightfold since 1960, Zambia and Chad almost sevenfold, Burkina Faso
+  fivefold; Sri Lanka peaked in 2022 and has edged down since; and **Romania peaked in 1990 at about 23.2
+  million and has lost roughly a sixth**. A single World Bank series carries growth, peak and decline, so
+  ask it for the shape rather than for the latest figure.
+- **EVERY DRAFT RAN SHORT AND THE EXPANSION IS WHERE THE UNCITED CLAIMS GOT IN.** All eight first drafts
+  came in at 221–258 words against a 270 floor, and the clauses added to reach it included a lake *shared
+  with three other states*, a delta called *the largest wetland of its kind in Europe* and a currency
+  *issued from Dakar* — every one true, none of them in a cited source. They were caught by reading the
+  batch back before applying, which is C12's rule met on a different pass.
+- **`add-place-info.js` REFUSES A DESCRIPTION THAT DOES NOT BOLD THE PLACE'S OWN NAME**, which is not in
+  the plan's per-place workflow above and cost a refused batch. It is the card rule — the answer term in
+  `<b>` at its first mention — applied here, and the workflow now says so.
+
+---
 
 ### A7 — the next eight by population (2026-09-04)
 
