@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C19 — six capitals, and the constitution slug stops being composed**: `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville and `gw-615` Copenhagen, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C18 — six capitals, and a WMO table that is complete, windowed and wrong**: `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek and `gw-608` Asunción, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C17 — six capitals, and the gw-5 hundred comes out clean on all four rules**: `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern and `gw-601` Freetown, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -422,6 +424,62 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C19 found
+
+- **THE CONSTITUTE SLUG AND TITLE COME FROM THE SERVICE, NOT FROM THE `/countries` PAGE.** That page is an
+  Angular application whose list never appears in the HTML, so the slug could not in fact be read off it.
+  **`https://www.constituteproject.org/service/constitutions?lang=en`** returns the whole catalogue as JSON,
+  giving every constitution's `id` (the slug), its exact `title` in the *Country YEAR (rev. YEAR)* form the
+  citation needs, whether it is `in_force`, and its translator. All six of C18's titles were re-checked
+  against it and match. It also settles a choice a guessed slug cannot: the Republic of the Congo has both
+  `Congo_2001` and `Congo_2015`, and only the second is in force. **Use the service; it removes the last
+  place in this recipe where a slug or a title could be composed.**
+
+- **THREE MORE VARIETIES OF WHAT A CONSTITUTION DOES INSTEAD OF NAMING ITS CAPITAL.** Denmark's 1953
+  constitution does not contain the word *capital* anywhere, and never names Copenhagen — a silence one
+  degree deeper than Togo's, which at least uses the word once. El Salvador's legislates about the capital
+  without naming it: article 122 has the Legislative Assembly meet “in the capital of the Republic”, with
+  leave to sit elsewhere. And Nicaragua's article 12 names the city and in the same breath provides for
+  losing it — “in extraordinary circumstances these can be established elsewhere in the national
+  territory” — which in a capital flattened by an earthquake in 1972 is a clause with a history behind it.
+  The four that do name theirs land where C18 found them: among the state symbols (Bulgaria's article 169
+  closes the chapter on the coat of arms, the seal, the flag and the anthem), in the article defining the
+  state (the Congo's article 1), and in an article of its own beside the borders clause (Serbia's
+  article 9).
+
+- **THE WMO LEG FAILS TWO NEW WAYS IN ONE BATCH, AND NEITHER IS A MISSING WINDOW.** Nicaragua is in the
+  index with exactly one city and it is **Chinandega, not the capital**; the Republic of the Congo is **not
+  in the index at all**. Both are facts about the city worth a clause rather than gaps to apologise for,
+  and both cards say so. The measured tally of ways this leg fails now runs: no record (Managua,
+  Brazzaville), a record with no single window but per-field ones a year apart (Lomé), and a record
+  complete, windowed and wrong (Bishkek).
+
+- **THE UNDATA CAPITAL LINE MEANS A DIFFERENT THING IN EVERY COUNTRY, AND ONLY ITS FOOTNOTE SAYS WHICH.**
+  Three of these six are not the city at all: Belgrade's figure is “the urban population of Belgrade
+  area”, San Salvador's covers the urban parts of eight named municipalities, and Copenhagen's is the
+  Greater Copenhagen Region, “consisting of (parts of) 16 municipalities”. With Asunción's from C18 that
+  is four cards in twelve. **Read the footnote before writing the figure**, and where it defines an
+  aggregate, say so on the card — it is the most interesting thing on the line, and it is what makes the
+  grid's own number honest.
+
+- **WHEN TWO CITIES IN A BATCH SHARE A HAZARD, LOOK FOR THE PAPER THAT RANKS THEM BOTH.** Meredith et
+  al.'s 2025 survey of 1,133 cities near volcanoes carries the whole landform half of Managua AND of San
+  Salvador, with a distinct figure for each: Managua has 66% of its people within 10 km of a volcano
+  against Naples's 40%, and San Salvador has 23 volcanoes within 100 km and stands third in the study's
+  composite ranking behind Bandung and Jakarta. One fetch, two cards.
+
+- **THREE HOSTS SHUT, AND ONE OF THEM USED TO BE OPEN.** `journals.openedition.org` now serves an
+  **Anubis proof-of-work challenge** instead of the article, where earlier measurements in this project
+  record it as reachable. `doiserbia.nb.rs` presents a certificate that does not match its own hostname
+  — a different fact from a refusal, and equally unusable, since this pass does not disable
+  verification. `link.springer.com` answers a “Client Challenge”. **Re-measure a host before planning a
+  leg on it**; two of these were picked because a search result looked open.
+
+- **AND CHECK THAT A FETCHED PDF EXTRACTS BEFORE COUNTING IT AS A LEG.** The Geosciences paper on local
+  seismic effects at San Salvador downloads at 13 MB and extracts as blank glyph codes — the subset-font
+  cipher C18 met on the Lomé transport paper. The card was built without it, which is why gw-612 rests on
+  four sources and the index rather than five and the index.
 
 ## What C18 found
 
