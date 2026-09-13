@@ -198,7 +198,17 @@ const subjKey = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " "
 function citesOwnSubject(card, key) {
   const ans = subjKey(card && card.answerText), k = subjKey(key);
   if (!ans || !k || k.length < 4) return false;
-  return ans === k || ans.includes(k) || k.includes(ans);
+  if (ans === k || ans.includes(k) || k.includes(ans)) return true;
+  /* A CHICAGO NOTE ABBREVIATES A GIVEN NAME AND A CARD'S ANSWER TERM DOES NOT, so the string
+     test above can only match a source written with the given name IN FULL — which is how a
+     19th-century book is cited and not how a journal article is.  It therefore saw `ps-037`
+     Fechner, `ps-038` Darwin and `ps-040` Galton, all cited by their books, and could not see
+     `ps-049`, whose answer is “Edward Titchener” against four sources reading “E. B.
+     Titchener”: the card was reported as an over-citation on a difference of typography.  The
+     surname ALONE is too loose — Erasmus and Charles Darwin are two men, and so are the three
+     Seligmans — so the first initial must agree with it. */
+  const last = (s) => s.split(" ").pop();
+  return last(ans).length >= 4 && last(ans) === last(k) && ans[0] === k[0];
 }
 
 /* The author field of a Chicago note is what stands before the first quoted title.  A

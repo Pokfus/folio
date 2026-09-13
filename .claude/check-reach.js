@@ -35,6 +35,17 @@
      SHUT      403 or a refused connection — a real wall (britannica.com,
                iranicaonline.org, whc.unesco.org).
 
+   A SHUT IS ONE CLIENT'S ANSWER, AND THIS TOOL ASKS ONLY ONE.  It measures with
+   Node's `fetch`, which is not what a session reads a source with.
+   `psychclassics.yorku.ca` — the Psychology collection's whole primary literature —
+   serves the full text under a 200 to `curl` and answers 503 to `fetch` here, and
+   its certificate chain is incomplete besides, so a plain `curl` refuses it too
+   until the intermediate the leaf's own AIA extension names is supplied.  It is
+   deliberately NOT a row below: a row reporting SHUT for a host that serves
+   everything would be worse than no row.  **Before recording any host as shut, try
+   it the other way round** — `docs/psychology-card-plan.md`'s Sourcing section
+   carries the commands.
+
    THE PROBES ARE SPACED FOR THAT REASON (`GAP`), so a run takes a minute rather
    than seconds. `--all` adds the slower per-article probes.
 

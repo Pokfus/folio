@@ -845,6 +845,60 @@ citation rewritten, and `gr-046` and `wh-041`'s shape may be the one-witness cas
 round for one covered by an edited volume; between them they have carried twenty-four of the pass's
 substitutions.
 
+**BATCH R14 — 2026-09-13. THE RULE COULD NOT SEE A NAME WRITTEN WITH INITIALS: over-cited 37 → 36.**
+`ps-049` Edward Titchener and `ps-048` structuralism, the last two psychology cards on the list, and
+they turned out to be two different answers to the same question.
+
+**`citesOwnSubject` MATCHED ON THE STRING, SO IT COULD ONLY EVER SEE A SOURCE CITED BY ITS BOOK.** The
+rule was added in Sep 2026 to say that a card citing its own subject's works is citing a WITNESS rather
+than a scholar — the `ANCIENT` rule one era forward — and it compared the card's `answerText` against
+the citation's author field as text. A Chicago note abbreviates a given name and a card's answer term
+does not, so it saw `ps-037` Fechner, `ps-038` Darwin and `ps-040` Galton, all cited by their
+19th-century books under their full names, and could not see `ps-049`, whose answer is *Edward
+Titchener* against four sources reading *E. B. Titchener*. **The card was reported as an over-citation
+on a difference of typography**, and every future card about a named researcher cited by journal article
+would have been reported the same way — which in this collection is most of them. The fix is a surname
+plus first-initial test; the surname alone is too loose, Erasmus and Charles Darwin being two men.
+Measured over the whole corpus it moves **exactly one card** and introduces no new match.
+
+**`ps-048` WAS READ AND IS NOT CLEARED, AND THAT IS THE ANSWER RATHER THAN A DEFERRAL.** Its answer term
+is `structuralism` rather than Titchener, so the rule above correctly leaves it standing, and its three
+Titchener citations are three DIFFERENT papers sixteen years apart carrying three different parts of the
+doctrine — the *Postulates* of 1898 for the programme and the elements, *Structural and Functional
+Psychology* of 1899 for the Is-against-Is-for distinction and the schooled observer, and the 1914 reply
+to Watson for the answer to behaviourism. Merging any two of them would clear the report without
+changing a word of what the card rests on, which is the move this pass has refused since R5. **What the
+card actually needed was a second voice on the sentence where it let Titchener state his opponent's
+position**: Watson's own manifesto, "Psychology as the Behaviorist Views It" (*Psychological Review* 20,
+1913), is open at the same York archive as the Titchener papers, and the card now says that Watson held
+the time had come for psychology to discard all reference to consciousness — his words — with
+Titchener's reply after it. It also carries the claim that the training never produced agreement between
+observers, which Watson attests in 1913 at first hand ("If you fail to reproduce my findings … your
+introspection is untrained") where the card had only a modern textbook. Three voices where there was
+one, and the count unchanged at three of six.
+
+**THE PLAN HAD ALREADY WRITTEN THE RULE THIS BATCH RE-DERIVED.** `docs/psychology-card-plan.md`'s
+Sourcing section says of the York archive that "a founder's own words are a better citation for what
+they claimed than any secondary account". **Read the collection's own plan before treating its citation
+shape as a fault.**
+
+**A TEMPTATION MEASURED AND REFUSED.** Rule 1 is asymmetric: an ANCIENT author is reported only when he
+carries at least half the list, a modern one whenever he appears three times, however long the list is.
+Making the modern branch proportional too would clear four of the remaining 36 — `wh-099` (3 of 8),
+`cnh-015` (3 of 7), `gr-350` (4 of 9) and `wh-382` (3 of 7) — and it is not done, because moving a bar
+mid-pass to clear reports is the same move as merging two citations into one. The four stay on the list
+to be read. **For the same reason no adjudication table was opened for rule 1**: `SAME_LANGUAGE_OK` was
+written after all seventeen of rule 6's findings had been read, and a declared escape hatch opened with
+36 findings still unread would be an invitation to declare rather than to read them.
+
+**AND THE HOST THAT CARRIES THIS COLLECTION'S PRIMARY LITERATURE LOOKS SHUT AND IS NOT.**
+`psychclassics.yorku.ca` serves an incomplete certificate chain, so `curl` refuses it outright and Node's
+`fetch` answers 503 through this sandbox; supplying the intermediate named in the leaf's own AIA
+extension gives a fully verified 200 and the whole text. The commands are in
+`docs/psychology-card-plan.md`'s Sourcing section and a note is in `check-reach.js`'s header, which
+deliberately does NOT carry a row for the host — a row reporting SHUT for a host that serves everything
+would be worse than no row. **One client's refusal is not a fact about a host.**
+
 ## Two notes on the tooling
 
 - **`cardYears` reads "594/3 BCE" as year 3.** Writing split years the short way in a date line

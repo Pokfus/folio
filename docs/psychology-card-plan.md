@@ -393,6 +393,30 @@ out of copyright and mostly digitised: **Classics in the History of Psychology**
 Wundt, James, Watson, Thorndike, Ebbinghaus, Yerkes and Dodson in full, and a founder's own words are a
 better citation for what they claimed than any secondary account.
 
+**AND THAT HOST IS UNREACHABLE BY A PLAIN `curl`, WHICH IS NOT THE SAME AS BEING SHUT** (measured Sep
+2026, batch R14). `psychclassics.yorku.ca` serves an **incomplete certificate chain** — its leaf is
+issued by GlobalSign's 2025 intermediate and the server sends the 2018 one instead — so `curl` stops at
+`unable to get local issuer certificate` and Node's `fetch` comes back 503 through this sandbox's
+egress. A browser papers over it by fetching the missing certificate from the address the leaf itself
+names, and so can we, which leaves the connection **fully verified** rather than unchecked:
+
+    # 1. read the missing intermediate's address out of the leaf (proxy host from $HTTPS_PROXY)
+    openssl s_client -connect psychclassics.yorku.ca:443 -servername psychclassics.yorku.ca \
+      -proxy "${HTTPS_PROXY#http://}" -showcerts </dev/null 2>/dev/null \
+      | awk '/BEGIN CERT/{n++} n==1' | openssl x509 -noout -text | grep 'CA Issuers'
+    # 2. fetch it, convert it, and add it to the bundle for this request only
+    curl -sS -o /tmp/gs.crt http://secure.globalsign.com/cacert/gsgccr46ovtlsca2025.crt
+    openssl x509 -inform DER -in /tmp/gs.crt -out /tmp/gs.pem
+    cat "$CURL_CA_BUNDLE" /tmp/gs.pem > /tmp/ca-plus.pem
+    curl -sS --cacert /tmp/ca-plus.pem https://psychclassics.yorku.ca/Watson/views.htm
+
+**Never `-k`, and never `NODE_TLS_REJECT_UNAUTHORIZED=0`**: what is missing is one certificate the
+server forgot to send, not a reason to stop checking. **Re-derive the intermediate's address from step
+1 rather than reading the URL above back** — it changes when York renews. The general rule the episode
+is worth remembering for is that **one client's refusal is not a fact about a host**: `curl`, Node's
+`fetch` and `WebFetch` fail differently here, and `check-reach.js` measures with only the second of
+them.
+
 **Four hazards, and the first is specific to this discipline.**
 
 **The textbook version of a finding is frequently the version that failed.** Ego depletion, facial
