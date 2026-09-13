@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C15 — six capitals, and the constitution leg answers on all six**: `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana and `gw-588` Prague, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C14 — six capitals, and a constitution that names a different city than the one it now has**: `gw-577` Kigali, `gw-578` Gitega, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba and `gw-582` Brussels, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C13 — six capitals, and two constitutional outcomes the pass had not met**: `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry and `gw-576` Porto-Novo, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -414,6 +416,76 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C15 found
+
+- **THE CONSTITUTION LEG ANSWERED ON ALL SIX — the second unanimous batch — AND NO TWO ANSWER ALIKE.**
+  Haiti's first article makes the city the capital *and* the seat of government and lets that seat move
+  **only for reasons of force majeure**, which is the first CONDITION the pass has met on a power to
+  relocate: Rwanda's and South Sudan's are unconditional and Burundi's and Jordan's are by ordinary or
+  special law. The same text then seats the legislature there, movable only to the same place and at the
+  same time as the executive, and fixes the president's residence at the National Palace unless that
+  happens — three articles, like Belgium's, but all three about MOVING rather than about standing.
+  Jordan's third article names the City of Amman and allows a special law to transfer it, and two further
+  articles locate the trial of ministers and the Constitutional Court's seat by the word *Capital* rather
+  than by the city's name. The Dominican text gives one city three standings in one article: the National
+  District, the capital of the Republic and the seat of the national government. The federal text of the
+  Emirates makes the city the capital in article 9 and requires the Supreme Council to meet there unless
+  another place is agreed in advance. **Cuba's is the first in the pass with NO relocation clause at all** —
+  the capital is named in the same sentence as the state's name, language and symbols, and nothing
+  anywhere provides for moving it. And the Czech answer is in TWO documents: article 13, plus the
+  constitutional act of 1997 creating the fourteen higher territorial self-governing units, whose third
+  article fixes the capital's own territory — so the place is a region as well as a capital.
+- **A SIXTH AND A SEVENTH VARIETY OF WMO FAILURE, AND BOTH ARE SILENT.** Port-au-Prince IS listed, with a
+  station name and its national hydrometeorological unit named beside it, and its `climateMonth` array is
+  **empty** — an entry that is present and carries no data whatever, where C7's Luanda and C11's Taipei
+  each had half a table. And **Amman has a full twelve-row table with no normals period stated at all**
+  (`datab` and `datae` blank), so the averages can be printed and the years they average cannot. A card
+  may not invent a window; `gw-584` says so in a sentence instead. The batch's five windows, measured:
+  Santo Domingo and Havana 1961–1990, Abu Dhabi 1982–1991, Prague 1981–2010, Amman none, Port-au-Prince
+  nothing at all.
+- **AND THE RAIN-DAY THRESHOLD IS NOT UNIFORM EITHER, WHICH MAKES A WET-DAY COUNT INCOMPARABLE.** The
+  `raindef` field is 1 mm at Santo Domingo, Havana and Prague, **0.2 mm at Abu Dhabi** and blank at Amman.
+  Two cities' "wet days" are two different measurements unless the threshold is read and stated.
+- **THE SAME TLS-CHAIN FAULT ON TWO MORE HOSTS, AND A 000 IS NOT A DEAD CITATION.**
+  `gtg.webhost.uoradea.ro` and `materconstrucc.revistas.csic.es` both answer 000 to a plain curl —
+  *unable to get local issuer certificate* — and **200 with an augmented CA bundle**, the DOI resolving
+  correctly in both cases. C12 met this at `polipapers.upv.es`; it is now three hosts. The site is not
+  sending an intermediate this container happens not to carry, and a reader's browser does. **Re-test a
+  000 with the bundle before recording a citation as unreachable.**
+- **ONE PAPER SERVED TWO CARDS, WHICH IS WHY ITS TITLE WAS WORTH READING PAST.** Belvaux and colleagues'
+  Hispaniola microzonation study is filed under the ISLAND, and it carries the 2010 earthquake and the
+  Enriquillo–Plantain fault for `gw-583` **and** the 34 geomechanical units under Santo Domingo for
+  `gw-585` — Yanigua marls with sand, limestone and calcarenite, the karsted reef limestone of Los
+  Haitises, La Isabela's altered reef terraces, San Cristóbal's clays grading into sandstone and gravel,
+  plus sinkholes, floodplain pebbles and valley-floor alluvium. **Where a paper names an island rather
+  than a city, read it for every capital on that island.**
+- **A PDF THAT EXTRACTS AS A CIPHER IS A SOURCE LOST, NOT A HOST LOST.** The obvious Amman geology paper —
+  the strike-slip study of the Wadi Shueib and Amman–Hallabat structures — downloads whole from
+  `res.mdpi.com` and its text layer comes out as raw CID codes, C5's redalyc case and C13's White Rose
+  case again; this container has no `pdftotext`, no `pypdf` and no `fitz` to fall back on. A different
+  paper in the SAME journal from the same publisher extracts cleanly. **Check that the words come out as
+  words before planning a card around a paper.**
+- **AND A GEOLOGICAL FORMATION CAN CARRY A CAPITAL'S OWN NAME.** The **Amman Silicified Limestone** is an
+  Upper Cretaceous bed of silicified limestone alternating with chert and phosphatic chert, laid down on
+  a marine shelf and holding foraminifera, ammonites, gastropods and bivalves; limestone of that kind has
+  been used as building stone for decades and weathers badly enough that its exact composition is worth
+  measuring. That is a landform sentence, a history sentence and the city's name in one source.
+- **RULE 2 TOOK THE WORD *largest* AWAY FROM ALL SIX**, C11's finding at full strength: five grids say
+  `largest` and Abu Dhabi's says `2nd largest`, which strips to the same word. It has to be hunted out of
+  a finished draft deliberately — `gw-588` lost it on "the largest share of larnite-belite" — and the six
+  country names go with it, so the Emirates card writes *the federation* and the Czech one writes nothing
+  at all.
+- **DOAJ'S HAVANA CORPUS IS CLINICAL AND THE CITY'S OWN JOURNALS ARE SHUT.** `riha.cujae.edu.cu`, which
+  carries the Vento canal hydrology, refuses the connection; so does `scielo.sld.cu`; and
+  `whc.unesco.org` 403s a spaced request as well as a burst. A title search for the city returns 300
+  articles of which almost every one is medical. What carried `gw-587` instead is an **English** paper in
+  *Frontiers in Microbiology* on antibiotic-resistance genes in the Almendares — whose Site Description
+  table is a hydrology of the river through the western city, with dry- and wet-season flows station by
+  station — and an **art-history** paper in *Religions* on the sanctuary at Regla, whose introduction is a
+  description of the harbour crossing, the lighthouse at its mouth and the dockworkers' municipality on
+  its southern rim. **Search the discipline that happens to publish about the place, not the discipline
+  the fact belongs to.**
 
 ## What C14 found
 
