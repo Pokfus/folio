@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C16 — six capitals, and the constitution leg reverses**: `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm and `gw-594` Athens, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C15 — six capitals, and the constitution leg answers on all six**: `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana and `gw-588` Prague, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C14 — six capitals, and a constitution that names a different city than the one it now has**: `gw-577` Kigali, `gw-578` Gitega, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba and `gw-582` Brussels, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -416,6 +418,57 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C16 found
+
+- **THE CONSTITUTION LEG REVERSED THE BATCH AFTER IT, AND ONLY TWO OF SIX NAME THEIR CAPITAL AT ALL.**
+  C15 was unanimous; this one is the other end of the same distribution, and the four failures fail in four
+  different ways. **Honduras names TWO CITIES — the first shared capital the pass has met**: article 8
+  makes Tegucigalpa and Comayagüela *jointly* the capital of the Republic, and article 295 folds those two
+  former municipalities into a single central district. **Papua New Guinea names no city whatever**:
+  section 4 creates a National Capital District, puts the Seat of Government inside it and leaves the
+  boundaries to an Organic Law, so the capital is a territorial unit before it is a place — a new outcome
+  for the leg, and the reason `gw-592` opens by saying so. **Sweden seats the parliament without naming a
+  capital**, and expressly lets the Riksdag sit elsewhere for the liberty or safety of parliament, which is
+  C11's Sri Lanka outcome in a different shape. And **Portugal and Greece say nothing at all**: *Lisbon*
+  occurs zero times in the Portuguese text, whose only uses of *capital* are *capital punishment* and
+  *capital investment*, while the Greek text's single occurrence of *Athens* is the Athens Academy, in the
+  article on what magistrates may do besides judge. Only **Tajikistan** answers plainly, in article 4, and
+  it then gives the city a second standing by seating it in the upper chamber beside the autonomous region
+  and the provinces with an equal number of representatives.
+- **THE UNdata CAPITAL FOOTNOTE PAID OFF ON HALF THE BATCH, AGAINST ONE IN SIX LAST TIME**, and each of the
+  three says a different thing about what is being counted. Portugal's figure is **Grande Lisboa plus the
+  Peninsula of Setúbal plus the municipality of Azambuja**; Sweden's is a **`tätort`**, a built-up locality
+  defined by the administrative divisions of 2005; Greece's is **"the localities of Calithèa, Peristérion
+  and Piraeus, among others"**, spelled as the UN spells them rather than as an atlas would. The other
+  three footnotes are the bare year, and the year is 2019 on all three — a sixth unanimous batch for that.
+- **INTERNAL VOCABULARY LEAKED INTO A READER-FACING SENTENCE AND ONLY THE READ-BACK CAUGHT IT.** `gw-589`'s
+  draft ended "…jointly the capital of the Republic, which is the only shared capital **the pass** has
+  met" — this batch log's own word for this work, inside a card. **No checker can see it**: the sentence is
+  grammatical, it is true, and what is wrong with it is that it is a fact about Folio's project rather than
+  about the city. The rule that caught it is the standing one — read every finished card back as a reader —
+  which has now taken a wrong superlative (C13), unsourced clauses (C13 and A8) and this.
+- **THE WMO WINDOWS ARE ALL DIFFERENT AND SO IS THE RAIN-DAY THRESHOLD**, which is C15's finding holding
+  over a second batch. Windows: Tegucigalpa, Lisboa and Dushanbe 1961–1990, Port Moresby 1973–2007,
+  Stockholm 1991–2020, Athens 1955–1997. `raindef`: 1 mm at Tegucigalpa, 0.1 mm at Lisboa, Port Moresby and
+  Stockholm, **blank at Dushanbe and Athens**. A wet-day count is not comparable between two cities unless
+  the threshold is read, and on two of these six it cannot be read at all.
+- **THE HARDEST CITIES WERE CARRIED BY A NEIGHBOURING DISCIPLINE, AGAIN.** Dushanbe's whole site — the
+  Hissar valley 70 km by 20, the Kafirnigan gathering the Varzob, the Luchob and the Hissar Canal, three
+  kilometres of Meso- and Cenozoic sediment over which the city stands on loess and alluvium, and the 1989
+  Hissar earthquake — comes from a **seismic-microzonation** paper, and its fifth leg is a **radon survey of
+  200 rooms in 14 kindergartens and 36 schools**, which is also honest enough to report that its readings
+  show no pattern against the geology under each school. Port Moresby's city facts come from a
+  **housing-economics** paper (the planning board, the commission under the Physical Planning Act of 1989,
+  and the 60/40 split between State and customary land) and a **population-estimation** paper counting
+  4,653 structures in one settlement. C15's rule again: search the discipline that publishes about the
+  place.
+- **AND A HOST THAT NEEDED THE AUGMENTED CA BUNDLE ONCE DOES NOT ALWAYS NEED IT.** `revistas.una.ac.cr`,
+  which carries `gw-589`'s water source, was fetched with `--cacert` out of habit and answers 200 plainly —
+  so the TLS-chain list stays at the three C15 named and is NOT four. **Re-test before recording a host.**
+  Newly shut this batch: **`e3s-conferences.org` is 403 here**, and **`hasp.ub.uni-heidelberg.de` serves an
+  Anubis proof-of-work wall at status 200** to the plain agent that C14 found gets past OpenEdition's — so
+  the plain-agent trick is a thing to try, not a thing to rely on.
 
 ## What C15 found
 
