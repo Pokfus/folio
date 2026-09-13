@@ -2036,6 +2036,18 @@ const BOOKS = {
        octavo and quarto, `1274bb` for a Bekker page. 108 candidates across twelve books; these are
        the ones that are damage. */
     fixes: [
+      /* ---------- E44: the last non-word in the fifty-two ----------
+         E19 read this book's candidate list and left six standing as needing "a leaf read", on the
+         ground that the Loeb scans' OCR is unusable here (the facing Greek bleeds into the English
+         column). Re-read: five of the six are the text being right — `patent` and `sling` were
+         already cleared in E19, and `notionless` joins them, LAMB HAVING COINED IT. The Lysis
+         passage is built on the word: "to have a high notion of yourself in matters of which you
+         have as yet no notion … Nor can you have a great notion of yourself, if you are still
+         notionless." A rarity test cannot see a pun, and this one reads as a slip in every way
+         except the only one that counts. What is genuinely left is one non-word, which is E15's
+         rule and needs no witness at all: `fr` read as `fi`, against five correct `frightened`. */
+      ["fiightened", "frightened",
+       "fr read as fi in `frightened`, in Laches — 'so do not be frightened'"],
     ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059/",
@@ -2085,7 +2097,12 @@ const BOOKS = {
         "every one of the thirty-five works pairs without a single gap on either side. The Greek is " +
         "John Burnet's Oxford text; the English is the Loeb Classical Library translation, by Harold " +
         "North Fowler, W. R. M. Lamb and R. G. Bury. The numbered notes folded under each dialogue " +
-        "are the translators' own.",
+        "are the translators' own. <b>One scanning slip has been corrected</b>: the Loeb text " +
+        "reached Perseus through a machine reading, and in the Laches it wrote " +
+        "\u2018fiightened\u2019 for \u2018frightened\u2019, an f-r read as an f-i. It is not a " +
+        "word in any English, which is what allows it to be corrected with no printed page in hand. " +
+        "The other odd-looking words here were read and left: \u2018notionless\u2019 in the Lysis " +
+        "is Lamb finishing a joke of Socrates' own about having no notion of anything.",
     ],
 
     /* A CHAPTER IS A WHOLE DIALOGUE — a division the transmission states rather than one composed
@@ -9487,7 +9504,7 @@ const BOOKS = {
         "th as tli 79 times, and w as av 63 times, and in each case every occurrence in the novel " +
         "was enumerated before a correction was made. The rest of the damage has since been corrected " +
         "the same way, one slip at a time: every remaining mark in the novel was read against its " +
-        "own sentence, and 319 corrections are declared in all, each keyed on a sequence that " +
+        "own sentence, and 321 corrections are declared in all, each keyed on a sequence that " +
         "cannot be legitimate English anywhere in the book. What is left is 91 marks over 139 " +
         "places, and almost none of it is the novel \u2014 it is the wreckage around the illustration " +
         "plates' captions, a few page numbers the scan dropped into the prose, and a handful of " +
@@ -9496,7 +9513,11 @@ const BOOKS = {
         "The last chapter used to " +
         "run on into the volume's index, a life of the translator and the publisher's 1913 " +
         "catalogue, the scan having no boundary of its own at the end of the novel; they are no " +
-        "longer shown. Only one copy of this book has ever been transcribed, and this is it.",
+        "longer shown. Only one copy of this book has ever been transcribed, and this is it \u2014 " +
+        "but the scan's own photographs of the pages are a second witness, and two lines have now " +
+        "been settled by looking at one rather than by reasoning about the machine's reading of it. " +
+        "Page 103 offers the Monkey King \u2018some jade grass and Immortal Pills\u2019, where the " +
+        "machine read \u2018graps\u2019 and any guess would have made it grapes.",
       "Chinese names are printed here in modern pinyin rather than in the romanisation Richard used " +
         "in 1913, so that Kwanyin is Guanyin, Pa Kiel is Bajie and Huen Chwang is Xuanzang. Richard " +
         "prints no Chinese characters beside a NAME \u2014 not in the text, not in a note, not in " +
@@ -9678,6 +9699,24 @@ const BOOKS = {
          nothing for the fuzzy match to catch it with. Removing it by shape would mean taking any
          short capitalised sentence next to a caption, which is a rule that would eat prose. One
          line, one row, with the reason written down: it is the only one in the book. */
+      /* ---------- E44: THE TWO SLIPS ON PAGE 103, AND THE FIRST IS NOT THE WORD ANYBODY WOULD GUESS
+         ---------- `jade graps` was carried as a finding for four batches on the standing rule that a
+         slip needs a printed witness, and the obvious repair is `grapes`. THE PAGE READS `grass`.
+         Leaf 174 of the scan was fetched and LOOKED AT: "immortality, some jade grass and Immortal
+         Pills." — the double s of the printed ligature read as `ps`, which is a plausible OCR
+         confusion and `grapes` is not. **A ONE-SCAN BOOK STILL HAS A WITNESS, BECAUSE THE PAGE IMAGE
+         IS NOT THE OCR.** The `_djvu.txt` this book is imported from is not evidence about the
+         printing; it is the thing being checked. Its reading of the same six words is
+         `immortalitj', some jade graps`, two faults in one line, which is what says the line is
+         badly read rather than oddly worded.
+         The second is on the line below it: the page prints `Julai's years are countless`, the scan
+         reads `Julai'a`, and the roman table then carries it through to `Rulai'a` — one occurrence
+         against one correct `Rulai's`, which on its own is no argument at all. Written against
+         `Julai` because `fixes` runs BEFORE `applyRoman` and sees the printing's own spelling. */
+      ["jade graps", "jade grass",
+       "leaf 174 of the scan reads 'some jade grass and Immortal Pills'; the OCR's ss became ps"],
+      ["Julai'a years", "Julai's years",
+       "the same line's possessive, read as 'a on leaf 174, which prints Julai's"],
       ["The Dove and Rosary as symbols. \n", "", "the note under the plate of Kwanyin, which the caption rule leaves behind"],
       ["t-^rf.-tan'j'saaaiiiatf-ga. i i nnfiJiaijt ifti*-. r- i^itx \n", "",
        "the last plate's own hatching, too long for the noise rule and too letter-dense for its ratio"],
@@ -14326,6 +14365,18 @@ const BOOKS = {
          ten. An n for an m, and the house form decides which. */
       [/(?<![A-Za-z])inproportionate(?![A-Za-z])/g, "improportionate",
        "an n read for the m of `improportionate`, which this translation uses ten times against this one"],
+
+      /* E44's DROPPED WORD, AND THE WITNESS IS WHAT SETTLES IT. `there several real relations in
+         God` is grammatical nonsense and no vocabulary sweep can see it — every word in it is a
+         word — so it was carried as a finding for five batches on the standing rule that a slip
+         needs a printed witness. The Summa has one: Gutenberg 17611 (Part I) carries the same
+         Fathers of the English Dominican Province translation and reads "that there ARE several
+         real relations in God", in a sentence Folio's own next clause already echoes ("hence it
+         follows that there are also several realities"). A DROPPED WORD LEAVES NOTHING BEHIND, which
+         is E38's finding one scale down: the duplication check, book-audit and every slip sweep pass
+         it, and only a second transcription can see it. */
+      [/that there several real relations in God/g, "that there are several real relations in God",
+       "a dropped `are`, against Gutenberg 17611's reading of the same translation"],
     ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Summa_Theologiae",
@@ -14392,6 +14443,13 @@ const BOOKS = {
         "their own stated number, with a single exception that is not a gap — II-II q. 48, whose " +
         "<i>four points of inquiry</i> are the plan for questions 48 to 51 rather than a list of its " +
         "own articles.",
+      "<b>A dropped word was put back the same way.</b> This transcription reads \u201cthat there " +
+        "several real relations in God\u201d, which is not a sentence; the Gutenberg text of the " +
+        "same translation reads \u201cthat there are several real relations in God\u201d, and this " +
+        "book's own next clause already says \u201chence it follows that there are also several " +
+        "realities\u201d. A missing word leaves nothing behind it \u2014 every word still standing " +
+        "is a word \u2014 so no check made on this text alone could see it, and only a second " +
+        "transcription could settle it.",
       "<b>Two articles were missing outright</b>, and they have been put back. The transcription sets " +
         "article 2 of I-II q. 52 twice — the second time under article 3's number — and article 4 of " +
         "II-II q. 43 twice under article 5's, so what stood in each place was its neighbour rather " +

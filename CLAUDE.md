@@ -249,6 +249,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     DIFF IS USELESS HERE**, three OCRs of one printing disagreeing in thousands of places; **FILTER TO
     WHAT THE BOOK SHIPS**; and **A WITNESS IS A QUESTION, NOT A VERDICT** — a 2-to-1 majority is not
     enough to change a reading that is right either way.
+  · **…AND WHERE THERE IS ONLY ONE SCAN, THE PAGE IMAGE IS STILL A WITNESS** (Sep 2026, batch E44).
+    Six candidates were carried as unfixable across five batches on the sentence *a book with no
+    printed witness reachable contributes findings rather than fixes* — which is true about a text
+    layer and false about a book. **The OCR is the thing being checked**; the photograph beside it is
+    the evidence, one request away at
+    `archive.org/download/<id>/page/n<leaf>_w1600.jpg`, with the leaf number from the item's own
+    search-inside endpoint (`<server>/fulltext/inside.php?item_id=&doc=&path=&q=`). **And a candidate
+    carries its own wrong answer**: `jade graps` had been read four times as *grapes* and the page
+    prints **grass**, the printing's double s taken for `ps`. Read the leaf before reasoning about it.
   · **AND WHERE IN THE CHAIN A ROW RUNS DECIDES HOW TO WRITE IT.** `correctRaw` is
     `applyRoman(applyReFixes(applyFixes(applyGlyphs(…))))`, so a `fixes` row has already fired by the
     time a `reFixes` row sees the text, and a book whose corrections run on the RAW sees words carrying
