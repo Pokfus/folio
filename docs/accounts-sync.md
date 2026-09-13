@@ -12,9 +12,11 @@ edit, and the renumbering that silently repointed every delta. The RULES stay in
 - **Online accounts + sync (Supabase)** — LIVE in app.js (the `/* Supabase */` module after the legacy accounts block).
 Static hosting on Cloudflare Pages fed by GitHub pushes (`git push` = deploy; content files like `data.js` ship with deploys).
 Schema + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`, plus the later blocks'
-`user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`, and — **still to be run once each** —
-**section 11 `user_decks.color`**, **section 12 `login_email()`** and **section 13 `card_stats` +
-`bump_card_grades()`**, the deck's default colour, username sign-in and the community difficulty rating;
+`user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`, plus **sections 11 `user_decks.color`,
+12 `login_email()` and 13 `card_stats` + `bump_card_grades()` — the deck's default colour, username
+sign-in and the community difficulty rating — run on the live project on 2026-09-13 on the owner's
+own report**, with **14 `profiles.theme` and 15 `game_stats` the two this file has never recorded
+either way**;
 signup trigger creates the
 profile + empty progress row). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature that needs one
 degrades to a sentence rather than an error (`colorColumnMissing`, the `login_email` 404 → "use your email
@@ -86,7 +88,7 @@ user-manager went with the Accounts tab when the reader-feedback queue replaced 
 Three things about the same account, and the first two each needed a decision that is not obvious.
 · **A USERNAME IS RESOLVED BY A PASSWORD-VERIFYING RPC, NEVER BY A LOOKUP** (`supaEmailForUsername` /
 `looksLikeEmail` / `supaSignIn(idOrEmail, pw)`; `public.login_email(uname, pw)` in section 12 of
-`.claude/supabase-schema.sql` — **the user must run it once**). GoTrue signs in with an email, so a
+`.claude/supabase-schema.sql`, **run on the live project since Sep 2026**). GoTrue signs in with an email, so a
 username has to become one — and the obvious implementation, selecting the email out of `profiles`,
 is an **email-enumeration oracle**: anybody with the publishable key could walk the usernames and
 read off addresses. The RPC is `security definer`, takes the PASSWORD as well as the name, checks it
@@ -213,9 +215,10 @@ measurements and the faults behind each.
 - **Online accounts + sync (Supabase)** — LIVE in app.js (the `/* Supabase */` module after the legacy
 accounts block). Static hosting on Cloudflare Pages fed by GitHub pushes (`git push` = deploy). Schema
 + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`, plus the
-later blocks' `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`, and — **still to
-be run once each** — **section 11 `user_decks.color`**, **section 12 `login_email()`** and **section
-13 `card_stats` + `bump_card_grades()`**). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature
+later blocks' `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`, plus
+**sections 11 `user_decks.color`, 12 `login_email()` and 13 `card_stats` + `bump_card_grades()`,
+run on the live project on 2026-09-13 on the owner's own report**; **14 `profiles.theme` and
+15 `game_stats` are the two this file has never recorded either way**). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature
 that needs one degrades to a sentence rather than an error, so the site works on a database that has
 only the first block — **keep it that way**, a block the owner has not run yet being the normal case
 rather than the broken one. **Which blocks a given database already has is answered by
