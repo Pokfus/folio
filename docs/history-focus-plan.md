@@ -432,3 +432,100 @@ oldest known cremation anywhere" while the card's own seventh sentence says the 
 pyre survives, and specialists now hedge that word. It now says "the earliest burnt human remains on record",
 which is what the background states plainly. **A clue must not assert what its own background withholds** —
 the mirror of F1's guardrail about not cutting a hedge to lose a name.
+
+### F6 — the measure, not the cards (2026-09-13) — SHIPPED
+
+**Rule 1 reported 34 cards and not one of them was real.** The rule is sound and the questions were
+sound; what had drifted was the name extraction, which `scholarsOf` performs by taking the LAST
+capitalised token of each author. Read one by one, the 34 fell into five classes, and nothing was
+rewritten in `data.js` at all.
+
+**What the drop set is, and why it is the only honest way to judge a change like this.** A measure is
+tightened by taking names OUT of a list, and a name taken out is a finding that can never be reported
+again — so the test is not "does the count go down" but "what is in the set of names that stopped being
+matched". Every version below was measured that way, by dumping each card's name list before and after
+and diffing: **87 distinct names dropped, and not one is a living scholar cited as an author.** Two
+tightenings were tried, measured, and thrown away for failing exactly that test; they are recorded here
+because both look obviously right on paper.
+
+**1. A two-word ancient name was keyed on its second word.** `ANCIENT` is a set of SURNAMES, because
+the mechanism keys on a last token — right for Herodotus and silently wrong for every ancient author
+whose name is two words. *Sima Qian* yielded **Qian**, so eight China cards whose questions say "Sima
+Qian gives the battle two lines" were reported as naming a modern researcher; *Sun Tzŭ* yielded **Sun**
+one card further on, and *Diodorus Siculus* yielded **Siculus** on 167 citations. Adding the bare second
+tokens would have been worse than the fault — Qian, Gu and Sun are living Chinese surnames, so the list
+would quietly excuse a real scholar, which is the trap `check-cards.js` names about praenomina.
+`check-cards.js` has never had this fault because it keys its own ancient list on the WHOLE author
+string, so **that list is now read out of it by text at run time**, the mirror of the way `check-cards`
+already reads this file's exemptions. One list of ancient witnesses, two tools; and the run STOPS if
+the slice fails, rather than silently checking nothing (proved by renaming the constant and watching it
+refuse).
+
+**…and a prefix test is worse than no test at all.** Anchoring the ancient match to the whole name is
+what makes it safe, because *Homer*, *Justin*, *Virgil* and *Aristotle* are ancient authors and ordinary
+modern given names: measured over the corpus, a prefix test excused **eleven living scholars** — Homer
+B. Hulbert eighteen times, and Justin Coppe, Justin Bradfield, Justin Ledogar, Justin Reuter, Justin
+Liefer, Justin Lemberg, Justin Eilertsen, Virgil Drăgușin and Aristotle Kakaliagos once each. A
+whole-name test needs the ancient's own full name, so seven forms the corpus actually cites were written
+out and placed at the FRONT of the alternation: Diodorus Siculus, Velleius Paterculus, Pliny the Elder,
+Pliny the Younger, Ammianus Marcellinus, Eusebius of Caesarea, Suda On Line. JS alternation takes the
+first branch that matches, so a long form placed after its own prefix would never be seen.
+
+**…and the closing `\b` was ASCII-defined.** `Sun Tzŭ` is how this corpus cites the Art of War, and
+`\b` after a *ŭ* asks for a boundary between two characters neither of which JS counts as a word
+character — so the alternative matched the name and the anchor threw the match away, silently, on the
+one author it had just been added for. A negative lookahead for a Latin letter says what the anchor
+meant and is blind to no alphabet.
+
+**2. An institution at the head of a segment owns the whole of it.** A museum's object record is a
+catalogue entry, not a byline: the Met's reads *"Metropolitan Museum of Art, terracotta stand, Greek,
+Attic, signed by Ergotimos as potter and by Kleitias, ca. 570 BC"*, so the per-name institution test
+rejected the museum and then read **Attic**, **Ergotimos** and **Kleitias** off the description of the
+very pot `gr-327` is about. Where the institution comes FIRST the rest is its own description; where it
+comes LAST the names before it are real — *"trans. Stephen Lambert and Robin Osborne, Attic Inscriptions
+Online"* — which is the case the per-name rule was written to protect and which this leaves untouched.
+`CORPORATE` also gained the legislative chambers (*House of Commons* carries no word it already had, and
+four Second World War cards were reported for **Commons**) and the non-English museum words (*Museo*,
+*Musée*, *Museu*), which cost `gr-646` its **Calabria**.
+
+**3. A citation that opens on its own title has no author at all.** Where that title is neither
+italicised nor quoted there is nothing to cut the head at, and Athenian inscriptions are cited exactly
+that way: *"Erechtheion building accounts, 409/8 BC (IG I3 474), lines 85–95, trans. Stephen Lambert and
+Robin Osborne, Attic Inscriptions Online"*. The head rule handed the whole description to the surname
+test, which read **Erechtheion**, **Eleusis**, **Ionic** and **Herms** off it — so five Athens cards
+were reported on the strength of the monument each is about.
+
+**THE WIDER RULE WAS BUILT, MEASURED AND THROWN AWAY, and it is the finding of this batch.** An author
+field's first element is a personal name, so every lowercase word in it should be a name particle:
+*Bernard of Clairvaux* passes, *"Decree on first-fruits for Eleusis"* does not. It takes rule 1 to zero
+— and its drop set is full of real scholars, because an elided or foreign particle is a lowercase word
+too: **d'Errico, d'Agostino, des Courtils, de los Ángeles Utrero Agudo, al-Dīn ibn Shaddād**, and "Erik
+Jensen with Insa Kummer". The list of particles that would admit them all is the list `NOT_A_SURNAME`'s
+own comment says will always be one word short. What shipped instead is narrow and certain: a `trans.`
+reached while still inside the head means the head is the WORK, because a citation with a real author
+puts that author before the title and the translator after it — and the house rule is that a translator
+is not the author in any case. It costs the inscription translators their entries (Lambert on 24 cards,
+Osborne on 22, Rhodes, Blok, Liddel, Low), which is the right answer rather than a loss, and it
+deliberately does not catch a document title with no translator in it: *"Norman H. Davis to Shigeru
+Yoshida, Paris, 3 December 1937"* still yields **Yoshida**. No question names it today, and a finding
+that has to be read is better than a rule that quietly eats a byline.
+
+**4. Ten cards were left over, and they are NAMED rather than patterned.** Eight are ACTORS OF THE
+CARD'S OWN PERIOD cited for their own words, which is the line CLAUDE.md draws — *the modern arguer, not
+the ancient witness* — one era or several forward from the ancient list: Bernard of Clairvaux on his own
+In Praise of the New Knighthood, Abbot Suger on his own administration at Saint-Denis, Gregory IX on his
+own statutes for Paris, Edward III and the Black Prince on their own campaign letters, Mussolini on his
+own Doctrine of Fascism, Hitler on his own Directive No. 1, Chamberlain on his own broadcast of 3
+September 1939. The ninth is `wh-249`, where the question names **King Wu Ding** and the card cites the
+geoarchaeologists Ke Ding and Aijun Ding on a typhoon model — a collision, not a fault.
+
+**A row is keyed by card AND name**, which is `check-citations.js`'s `CROSSREF_WRONG` rule and the whole
+reason this can be a table rather than a list of surnames: *Gregory*, *Edward*, *Sun* and *Ding* are
+living surnames, and a bare-surname exemption would quietly excuse a real scholar on some other card.
+Proved both ways — planting "Sumption argues…" on `wh-518`, which already has two rows, reports it.
+
+**5. And zero is a measurement rather than a dead check.** Planting a real scholar the corpus already
+cites (Chris B. Stringer, on `wh-061`) into a question reports it. Rule 1 stands at **0 of 3,215**;
+rule 2 is untouched at 7, the same seven cards as before; `check-cards.js`'s own counts are unmoved
+(over-cited 33, source-in-caption 21, duplicate-image 22), the three ancient authors added there
+tripping no card today — which is exactly why nothing would have said so until one did.

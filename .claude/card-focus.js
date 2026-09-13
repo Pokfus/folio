@@ -72,6 +72,33 @@ const RULE1_EXCLUDED = {
 };
 const rule1Excluded = (id) => { const k = Object.keys(RULE1_EXCLUDED).find((p) => id.startsWith(p)); return k ? RULE1_EXCLUDED[k] : null; };
 
+/* WHAT IS LEFT OVER IS NAMED, NOT PATTERNED — the residue of rule 1 once the extraction is sound.
+   Every row is a card whose question names somebody the card's own citations put in an author
+   position, and who is not a modern arguer: eight are ACTORS OF THE CARD'S OWN PERIOD cited for their
+   own words, which is the line CLAUDE.md draws — "the modern arguer, not the ancient witness" — one
+   era or several forward from the ancient list. Bernard of Clairvaux, Abbot Suger and Gregory IX are
+   witnesses to the twelfth and thirteenth centuries in exactly the way Herodotus is to the fifth BC,
+   and Hitler's own operational directive is a document rather than a reading of one.
+
+   A ROW IS KEYED BY CARD **AND** NAME, which is `check-cards.js`'s CROSSREF_WRONG rule and the whole
+   reason this can be a table rather than a list of surnames. "Gregory", "Edward", "Sun" and "Ding" are
+   living surnames; a bare-surname exemption would quietly excuse a real scholar on some other card,
+   where a keyed row cannot reach past the card it was written about. Add one only after reading the
+   card and the citation the name comes from. */
+const NOT_A_RESEARCHER = {
+  "wh-249 Ding": "King Wu Ding of Shang, whom the question names as Fu Hao's husband — a collision with the geoarchaeologists Ke Ding and Aijun Ding, cited on the same card for a typhoon model",
+  "wh-508 Clairvaux": "Bernard of Clairvaux, cited for his own In Praise of the New Knighthood",
+  "wh-510 Suger": "Abbot Suger, cited for his own account of what was done in his administration at Saint-Denis",
+  "wh-511 Gregory": "Gregory IX, cited for his own statutes for the University of Paris of 1231",
+  "wh-518 Edward": "Edward III, cited for his own letter on the campaign of 1339",
+  "wh-518 Poitiers": "the battle, reached through the Black Prince's own letter to London announcing it",
+  "ww2-036 Mussolini": "Mussolini, cited for his own Doctrine of Fascism",
+  "ww2-039 Mussolini": "the same, on the law that gave that doctrine its legal form",
+  "ww2-141 Hitler": "Hitler, cited for his own Directive No. 1 for the Conduct of the War",
+  "ww2-148 Chamberlain": "Chamberlain, cited for his own broadcast of 3 September 1939",
+  "ww2-149 Hitler": "the same directive, on the card for the lull that followed it",
+};
+
 /* MEASURED, not chosen: over the 269 shipped cards the historiography count is 0 or 1 for 206 of them,
    2 for 37 and 3 for 12, then breaks to a tail of twelve cards at 4 and above. So 3 is where the corpus
    itself puts "briefly touched on" and 4 is where a card starts to be ABOUT the modern argument. */
@@ -107,7 +134,51 @@ Gellius Aulus Dionysius Halicarnassus Varro Festus Censorinus Memnon Photius
 Nepos Justin Trogus Florus Sallust Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius
 Appian Velleius Paterculus Augustus Hirtius Gaius Justinian Ulpian Cassius Dio Lactantius Eusebius Socrates Athanasius Tertullian Zosimus Jordanes Procopius Jerome Augustine`.split(/\s+/));
 
+/* …AND THE ANCIENT AUTHOR'S OWN NAME IS `check-cards.js`'s, SLICED OUT BY TEXT RATHER THAN COPIED
+   (Sep 2026). The set above is of SURNAMES, because the mechanism below keys on a name's LAST token —
+   which is right for Herodotus and silently wrong for every ancient author whose name is two words.
+   "Sima Qian" yielded *Qian*, so eight China cards whose questions say "Sima Qian gives the battle two
+   lines" were reported as questions naming a modern researcher; "Sun Tzŭ" yielded *Sun* one card
+   further on. Adding the bare second tokens would be worse than the fault: Qian, Gu and Sun are living
+   Chinese surnames, so the list would quietly excuse a real scholar — the trap `check-cards.js` names
+   about praenomina. That file already keys its own ancient list on the WHOLE author string and so has
+   never had this fault, and a second copy of a list goes stale on a change made in a file nobody here
+   has reason to open. So it is read from there at run time, and the run STOPS if it is not there. */
+const ANCIENT_FULL = (() => {
+  const src = fs.readFileSync(path.join(__dirname, "check-cards.js"), "utf8");
+  const m = src.match(/^const ANCIENT = (\/\^\(.*\/i);$/m);
+  if (!m) {
+    console.error("card-focus: check-cards.js no longer declares `ANCIENT` as a regex literal. The\n" +
+      "ancient-author list is read from there so the two tools cannot disagree about who is a\n" +
+      "witness rather than a scholar — fix the slice rather than copying the list.");
+    process.exit(2);
+  }
+  return new Function("return " + m[1])();
+})();
+
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+
+/* A CITATION THAT OPENS ON ITS OWN TITLE HAS NO AUTHOR AT ALL — and where that title is neither
+   italicised nor quoted, there is nothing for the two strips above to cut the head at. Athenian
+   inscriptions are cited exactly that way: "Erechtheion building accounts, 409/8 BC (IG I3 474), lines
+   85–95, trans. Stephen Lambert and Robin Osborne, Attic Inscriptions Online". The head rule then
+   handed the whole description to the surname test, which read *Erechtheion*, *Eleusis*, *Ionic* and
+   *Herms* off it — so five Athens cards were reported for a question naming a researcher, on the
+   strength of the monument the card is about.
+
+   THE DISCRIMINATOR IS THE TRANSLATOR MARKER, and it is narrow on purpose. A citation with a real
+   author puts that author BEFORE the title and the translator after it, so a `trans.` reached while
+   still inside the head means the head is the work rather than a byline — and the house rule is that a
+   translator is not the author in any case. The obvious wider rule was tried and measured first: an
+   author field's first element is a personal name, so every lowercase word in it should be a name
+   particle. It takes rule 1 to zero findings and its drop set is full of real scholars — d'Errico,
+   d'Agostino, des Courtils, de los Ángeles Utrero Agudo, al-Dīn ibn Shaddād, "Erik Jensen with Insa
+   Kummer" — because an elided or foreign particle is a lowercase word too, and the list that would
+   admit them all is the list `NOT_A_SURNAME`'s own comment says will always be one word short.
+   WHAT THIS DELIBERATELY DOES NOT CATCH is a document title with no translator in it: "Norman H. Davis
+   to Shigeru Yoshida, Paris, 3 December 1937" still yields *Yoshida*. No question names it today, and
+   a finding that has to be read is better than a rule that quietly eats a byline. */
+const HEAD_IS_TITLE = /\b(?:trans\.|translated by)\s/i;
 
 /* Pull the AUTHOR POSITIONS out of one Chicago-note citation. Everything else — the title, the series,
    the journal, the URL, the access label — is thrown away before any name is read. */
@@ -130,7 +201,7 @@ function authorSegments(src) {
   for (const m of s.matchAll(/,\s*(?:by|ed\.|edited by)\s+([^,§]*(?:,\s*[A-Z][^,§]*)?)/gi)) segs.push(m[1].split("(")[0]);
   if (!segs.length) {                                    // not a review: authors run to the first title
     const head = s.split("§TITLE§")[0];
-    if (head && head.length < 200) segs.push(head);
+    if (head && head.length < 200 && !HEAD_IS_TITLE.test(head)) segs.push(head);
   }
   return segs;
 }
@@ -155,18 +226,37 @@ function authorSegments(src) {
    this whole script exists to avoid. Per name: rule 2 goes 97 → 9 and rule 1 19 → 14, every surviving
    flag is a place, an ancient author or a historical actor rather than a scholar, and the dropped set
    contains no surname at all. */
-const CORPORATE = /\b(?:Ministry|Ministries|Department|Division|Bureau|Office|Agency|Authority|Administration|Commission|Committee|Council|Assembly|Congress|Parliament|Secretariat|Organization|Organisation|Nations|Government|States|Republic|Kingdom|Bank|Fund|Programme|Survey|Service|Statistics|Institute|Institution|Museum|Library|Archives|Association|Society|Foundation|Trust|Centre|Center|Board|Court|Tribunal|Union|Commonwealth|Company|Corporation|Laboratory|Observatory|Academy|College|School|Faculty|Consortium|Network|Alliance|Federation|Confederation|Secretary|Directorate)\b/i;
+const CORPORATE = /\b(?:Ministry|Ministries|Department|Division|Bureau|Office|Agency|Authority|Administration|Commission|Committee|Council|Assembly|Congress|Parliament|Secretariat|Organization|Organisation|Nations|Government|States|Republic|Kingdom|Bank|Fund|Programme|Survey|Service|Statistics|Institute|Institution|Museum|Library|Archives|Association|Society|Foundation|Trust|Centre|Center|Board|Court|Tribunal|Union|Commonwealth|Company|Corporation|Laboratory|Observatory|Academy|College|School|Faculty|Consortium|Network|Alliance|Federation|Confederation|Secretary|Directorate|Commons|Lords|Senate|Bundestag|Reichstag|Duma|Museo|Musée|Museu|Muzeum|Musei)\b/i;
 
 function scholarsOf(card) {
   const out = new Set();
   for (const src of card.sources || []) {
     for (const seg of authorSegments(src)) {
-      for (const person of seg.split(/\s+(?:and|&)\s+|,\s*(?![A-Z]\.)/)) {
+      const people = seg.split(/\s+(?:and|&)\s+|,\s*(?![A-Z]\.)/);
+      /* AN INSTITUTION AT THE HEAD OF A SEGMENT OWNS THE WHOLE OF IT, and that is the other half of
+         the per-name rule above. A museum's object record is a catalogue entry, not a byline: the
+         Met's reads "Metropolitan Museum of Art, terracotta stand, Greek, Attic, signed by Ergotimos
+         as potter and by Kleitias, ca. 570 BC" — so the per-name test rejected the museum and then
+         read *Attic*, *Ergotimos* and *Kleitias* off the description of the very pot the card is
+         about. Where the institution comes FIRST the rest is its own description; where it comes
+         LAST the names before it are real ("trans. Stephen Lambert and Robin Osborne, Attic
+         Inscriptions Online"), which is the case the per-name rule was written to protect and which
+         this leaves untouched. */
+      if (people.length && CORPORATE.test(people[0])) continue;
+      for (const person of people) {
         if (CORPORATE.test(person)) continue;   // an institution is not a scholar — see CORPORATE above
         const toks = (person.match(/\b[A-ZÀ-Þ][a-zà-ÿ'’-]{2,}\b|\b(?:van|von|de|der|den|du|la|le|di|da|el)\b/g) || [])
           .filter((t) => !NOT_A_SURNAME.has(t));
         if (!toks.length) continue;
         const last = toks[toks.length - 1];
+        /* THE MATCH MUST COVER THE WHOLE NAME, and a prefix test is worse than no test at all:
+           Homer, Justin, Virgil and Aristotle are ancient authors AND ordinary modern given names,
+           so `^justin` excused Justin Coppe, Justin Bradfield and nine more living scholars. Hence
+           the full forms leading the shared list — see `check-cards.js`'s note beside it. */
+        const bare = person.replace(/^\s*(?:trans\.|ed\.|edited by)\s*/i, "").replace(/\bet al\.?$/i, "")
+          .trim().replace(/[.,;:]+$/, "");
+        const anc = bare.match(ANCIENT_FULL);
+        if (anc && anc[0].length >= bare.length) continue;
         if (last && !PARTICLES.has(last) && !ANCIENT.has(last) && last.length >= 3) out.add(last);
       }
     }
@@ -196,7 +286,10 @@ function measure(card) {
   const named = (s) => (rx ? (s.match(rx) || [])[1] : null);
 
   const qs = [card.question, ...(card.questions || [])];
-  const qNamed = qs.map((q, i) => { const hit = named(plain(q)); return hit ? { i: i + 1, name: hit } : null; }).filter(Boolean);
+  const qNamed = qs.map((q, i) => {
+    const hit = named(plain(q));
+    return hit && !NOT_A_RESEARCHER[card.id + " " + hit] ? { i: i + 1, name: hit } : null;
+  }).filter(Boolean);
 
   const sents = sentences(card.abstract);
   const historio = sents.filter((s) => named(s) || ANON_ATTRIB.test(s));

@@ -155,7 +155,29 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
    as one scholar's opinion is wrong in the same way — but this list is of ANCIENT witnesses,
    and a card resting three times on one modern treaty is a judgement somebody should make
    with the card in front of them rather than a row added here in passing. */
-const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)\b/i;
+/* THREE MORE CAME FROM THE OTHER TOOL, WHICH NOW SHARES THIS LIST (Sep 2026).  `card-focus.js`
+   enforces the same house rule one field over — a question may never name a researcher — and reads
+   its names from these same author positions, so reading its findings showed Antiphon (5 citations),
+   Lucian (3) and Sun Tzŭ (3) reaching the MODERN side here as well.  Not one of them trips a card
+   today, which is exactly why nothing would have said so until one did.  They are added here rather
+   than in the other file because `card-focus.js` now slices this regex out by text, the mirror of the
+   way this file slices its exemptions: one list of ancient witnesses, two tools. */
+/* AND THE CLOSING GUARD IS A LOOKAHEAD RATHER THAN `\b`, WHICH IS ASCII-DEFINED (Sep 2026).  `Sun
+   Tzŭ` is how this corpus cites the Art of War, and `\b` after a ŭ asks for a boundary between two
+   characters neither of which JS counts as a word character — so the alternative matched the name and
+   the anchor then threw the match away, silently, on the one author it had just been added for.  A
+   negative lookahead for a Latin letter says what the anchor meant and is blind to no alphabet. */
+/* SEVEN NAMES ARE WRITTEN OUT IN FULL AND LEAD THE ALTERNATION, WHICH IS NOT TIDINESS (Sep 2026).
+   `card-focus.js` reads this list to decide whether an author is a witness, and it measures the
+   match against the WHOLE name — because the trap on the other side is an ancient author's name
+   that is also a modern GIVEN name.  Measured over the corpus, testing a prefix quietly excused
+   eleven living scholars: Homer B. Hulbert eighteen times, and Justin Coppe, Justin Bradfield,
+   Justin Ledogar, Justin Reuter, Justin Liefer, Justin Lemberg, Justin Eilertsen, Virgil Drăgușin
+   and Aristotle Kakaliagos once each.  A whole-name test needs the ancient's own full name, and
+   these seven are the shapes the corpus actually cites — Diodorus Siculus 242 times, Velleius
+   Paterculus 83, Pliny the Elder 27.  JS alternation takes the FIRST branch that matches, so a
+   long form placed after its own prefix would never be seen. */
+const ANCIENT = /^(diodorus siculus|velleius paterculus|pliny the elder|pliny the younger|ammianus marcellinus|eusebius of caesarea|suda on line|herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|antiphon|lucian|sun tz[uŭ]|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)(?![A-Za-z])/i;
 
 /* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
    the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,

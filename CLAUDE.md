@@ -814,7 +814,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and philosophy the literature is the subject matter): those cards are listed under their own heading and
   are not counted as needing revision, because the alternative is a measure that reports a permanent, growing
   false finding on two collections — and `EXEMPT` is deliberately the wrong instrument, being per card. Rule 2
-  still binds on them. Not part of the site.
+  still binds on them.
+  · **THE ANCIENT AUTHOR'S OWN NAME IS `check-cards.js`'s, SLICED OUT BY TEXT, AND THE MATCH MUST COVER
+    THE WHOLE NAME** (Sep 2026). Its own `ANCIENT` is a set of SURNAMES because the mechanism keys on a
+    name's LAST token — right for Herodotus and silently wrong for every ancient whose name is two words,
+    so *Sima Qian* gave **Qian** and reported eight China cards whose questions say "Sima Qian gives the
+    battle two lines". **Adding the bare second token would be worse than the fault**, Qian, Gu and Sun
+    being living surnames. And a PREFIX test is worse again: *Homer*, *Justin*, *Virgil* and *Aristotle*
+    are ancient authors and ordinary modern given names, and it excused **eleven living scholars** — hence
+    the seven full forms leading that alternation, longest first, since JS takes the first branch that
+    matches. **The run STOPS if the slice fails**, rather than silently checking nothing.
+  · **AN INSTITUTION AT THE HEAD OF A SEGMENT OWNS THE WHOLE OF IT**, which is the other half of
+    `CORPORATE`'s per-name rule: a museum's object record is a catalogue entry, not a byline, so the Met's
+    gave **Attic**, **Ergotimos** and **Kleitias** off the description of the very pot `gr-327` is about.
+    Where the institution comes LAST the names before it are real, and that case is untouched.
+  · **A CITATION OPENING ON ITS OWN TITLE HAS NO AUTHOR, AND THE MARKER IS `trans.`** — narrow on purpose.
+    The obvious wider rule (an author field's first element is a personal name, so its lowercase words are
+    all particles) was built, measured and thrown away: it takes rule 1 to zero and its drop set is full of
+    real scholars, an elided or foreign particle being a lowercase word too (**d'Errico, des Courtils, de
+    los Ángeles Utrero Agudo, al-Dīn ibn Shaddād**).
+  · **WHAT IS LEFT OVER IS NAMED, NOT PATTERNED** (`NOT_A_RESEARCHER`), and **a row is keyed by card AND
+    name** — `CROSSREF_WRONG`'s rule — since *Gregory*, *Edward*, *Sun* and *Ding* are living surnames and a
+    bare-surname exemption would excuse a real scholar on some other card. Eight of the ten are ACTORS OF
+    THE CARD'S OWN PERIOD cited for their own words, which is this rule's own line one era forward.
+  · **A TIGHTENING IS JUDGED BY ITS DROP SET, NEVER BY THE COUNT.** A name taken out of the list is a
+    finding that can never be reported again, so dump each card's names before and after and diff them;
+    and **prove the rule still fires** — planting a scholar the corpus already cites is what says zero is a
+    measurement rather than a dead check. Not part of the site.
 - `.claude/check-cards.js` — **the card-level faults nothing else in the pipeline can see**:
   `node .claude/check-cards.js [--prefix=gr-] [--verbose] [--report]`, exit 1 on a violation and never
   on `--report`. Six checks, each written after a real fault shipped unreported — **an author cited in
@@ -4946,11 +4972,14 @@ parts, and the first is absolute:
 researcher from the card's OWN source list, parsing the author positions of each citation rather than
 sweeping it for capitalised words — the first cut did the latter and flagged 187 of 269 cards, because
 place names, period names and ancient authors all leak out of a citation's TITLE. **It is a proxy, not a
-verdict: read the card before rewriting it.** **45 of the 269 cards shipped by Aug 2026 need revision — 44
-on the question rule and 12 majority-historiography** — and `docs/history-focus-plan.md` holds the verified
-table and the five batches. The worst offenders are `gr-174`–`gr-180`, written in the session that produced
-this rule; that a whole run of cards can drift this way without anything complaining is precisely why the
-measure is committed rather than done by eye.
+verdict: read the card before rewriting it.** **RUN IT FOR THE BACKLOG RATHER THAN QUOTING ONE HERE** —
+this sentence said "45 of the 269 cards need revision" for a year, and by Sep 2026 the corpus was 3,215
+cards and rule 1 was reporting 34 of which NOT ONE was real (batch F6: the questions were sound and the
+name extraction had drifted). `docs/history-focus-plan.md` holds the verified tables and the six batches.
+The worst offenders under rule 1 were `gr-174`–`gr-180`, written in the session that produced this rule;
+that a whole run of cards can drift this way without anything complaining is precisely why the measure is
+committed rather than done by eye — **and F6 is the other half of that lesson, a measure drifting the
+other way with nothing to say so.**
 
 **A NEW CARD, GLOSSARY TERM OR ARTEFACT SHIPS WITH A PICTURE, OR WITH A STATED REASON WHY NOT (Aug 2026,
 on request).** A picture is part of a content item the way its citations are, and the picture pass that put
