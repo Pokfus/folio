@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C14 — six capitals, and a constitution that names a different city than the one it now has**: `gw-577` Kigali, `gw-578` Gitega, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba and `gw-582` Brussels, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C13 — six capitals, and two constitutional outcomes the pass had not met**: `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry and `gw-576` Porto-Novo, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C12 — six capitals, and every author list drafted from a search result was wrong**: `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar and `gw-570` Guatemala City, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -412,6 +414,51 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C14 found
+
+- **A CONSTITUTION CAN NAME A CAPITAL THAT IS NO LONGER THE CAPITAL, AND THE SAME ARTICLE IS WHY.**
+  Burundi's text of 2018 fixes the capital **at Bujumbura** in its ninth article — and that article also
+  says the law may move the capital to any other city, or separate the political capital from the
+  economic one, which is exactly what was later done in favour of Gitega. C5 recorded a constitution
+  naming a different city; here the mechanism of the move is in the clause itself, so the card can state
+  both without contradicting either. **Read the whole article, not the sentence the search lands on.**
+- **AND ONE WHOSE ONLY USE OF THE WORD *CAPITAL* IS ABOUT ANOTHER PEOPLE'S.** Tunisia's text of 2022
+  contains *capital* exactly once, in the preamble, supporting a state for the Palestinian people with
+  Al-Quds Al-Sharif as its capital; its own seat of government is named nowhere. That is a fifteenth
+  outcome for the leg and the most easily mis-measured: a bare count of the word says the constitution
+  discusses capitals, and it does not discuss its own.
+- **THE OTHER FOUR ALL ANSWERED, TWO OF THEM WITH A POWER TO MOVE.** Rwanda's article 7 names the City of
+  Kigali, leaves its organisation to ordinary law and adds that a law may relocate the capital
+  elsewhere; South Sudan's text makes Juba both the national capital and the seat of the national
+  government, seats the legislature there by name, and then lets the government relocate the capital and
+  either speaker convene a sitting somewhere else. **A named capital is not always a fixed one**, and a
+  card that says "the constitution makes it the capital" and stops has told the reader the smaller half.
+- **BELGIUM GIVES ONE CITY THREE CONSTITUTIONAL STANDINGS AT ONCE** — article 194 the capital and the
+  seat of the federal government, article 3 one of the three Regions, article 4 the single bilingual
+  region among four linguistic regions. No other capital met in the pass holds three.
+- **CROSSREF AND A DRAFT CITATION CAN AGREE ON A YEAR THE JOURNAL ITSELF CONTRADICTS.** OpenEdition
+  registers a DOI for an old article at the moment of registration, so the "published-print" year
+  Crossref carries is the DEPOSIT rather than the article's own date: *Brussels Studies* document 78 says
+  *mis en ligne le 23 juin 2014* against Crossref's 2016, and document 185 says 15 October 2023 against
+  Crossref's 2022 — and the draft had copied Crossref's 2022, so the checker passed it in silence. Only
+  the journal's own **"Pour citer cet article"** line settles it. Both are now declared in
+  `CROSSREF_YEAR_WRONG`, which downgrades them to the eye rather than excusing them.
+- **THE WMO LEG HAS NO STATION AT SUCRE AT ALL** — the service's full city list carries no Bolivian
+  entry — and the honest handling is to drop the climate sentences rather than to assert one. The first
+  draft ended on *the World Meteorological Organization's city service carries no station here*, marked
+  to the UNdata profile, which does not say it; **a negative claim needs a source for the negative**, and
+  the sentence was replaced with a geological one the paper does carry. Sucre's card rests instead on
+  Cal Orcko, whose main track-bearing surface is 25,000 m² of lacustrine limestone tilted to 70° with 313
+  trackways on nine levels.
+- **A BROWSER USER-AGENT TRIGGERED A BOT WALL THAT A PLAIN TOOL UA PASSED,** which is the reverse of the
+  usual advice and cost an hour. Every OpenEdition article answered a Chrome UA with an Anubis
+  proof-of-work page at status 200 and answered `FolioReach/1.0` with 200 KB of real text. **Before
+  recording a host as walled, try a plain agent.** `check-reach.js` reports OpenEdition OK and was right.
+- **AND COMMONS RATE-LIMITS A BURST HARD ENOUGH TO LOOK SHUT.** Four `suggest-image.js` runs in a row
+  took the search endpoint to non-JSON refusals for several minutes while a single spaced request
+  answered. The picture repair planned for this session was parked rather than recorded as blocked —
+  which is `check-reach.js`'s own `BUSY` finding met in the field.
 
 ## What C13 found
 

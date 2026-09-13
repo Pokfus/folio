@@ -264,6 +264,15 @@ const CROSSREF_WRONG = [
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */
 const CROSSREF_YEAR_WRONG = [
+  // OpenEdition deposits a DOI for an OLD article at the moment of registration, and the
+  // "print" year Crossref carries is that registration rather than the article's own date.
+  // Brussels Studies states its own: "Collection générale, document 78, mis en ligne le
+  // 23 juin 2014"; Crossref has published-print 2016 and created 2017-01-11.
+  ["10.4000/brussels.1227", 2014, 2016],
+  // The same journal, the same fault the other way: document 185 says 15 octobre 2023 and
+  // Crossref has 2022. Worth knowing that a draft citation AGREED with Crossref here and
+  // both were wrong — only the journal's own "Pour citer cet article" line settles it.
+  ["10.4000/brussels.7085", 2023, 2022],
   // Tyche: Beiträge zur Alten Geschichte, Band 7 is 1992; Crossref prints 1993.
   ["10.15661/tyche.1992.007.20", 1992, 1993],
   // Vestnik VolSU dates volume 24, issue 6 to 2019 on the article's own first page
