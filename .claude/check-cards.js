@@ -155,7 +155,7 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
    as one scholar's opinion is wrong in the same way — but this list is of ANCIENT witnesses,
    and a card resting three times on one modern treaty is a judgement somebody should make
    with the card in front of them rather than a row added here in passing. */
-const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good)\b/i;
+const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)\b/i;
 
 /* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
    the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,
@@ -296,13 +296,48 @@ const NOT_A_NAME = /^(The|A|An|This|That|It|Its|His|Her|Their|One|Some|Most|Many
 /* ---------- 6. a non-English source, by the name of the work it appears in ---------- */
 
 const LANGS = [
-  ["French",     /\b(revue|études|étude|bulletin de correspondance|persée|française d'Athènes|comptes rendus|chronique|cahiers|mélanges|l'antiquité)\b/i],
+  /* `française d'Athènes` AND `chronique` CAME OUT (Sep 2026, on reading all seventeen
+     findings).  They name a French INSTITUTION, not a French work: the École française
+     d'Athènes publishes its site notices in ENGLISH ("5a. Malia – The Palace", "4. Malia –
+     Historical Discussion") and the Chronique des fouilles en ligne is bilingual, so five
+     Greece cards were reported for resting on two French sources neither of which is in
+     French.  A sixth, gr-195, cited three English chapters of an English volume and was
+     caught by its editors' affiliation.  The real BCH articles still match on `bulletin de
+     correspondance` and Mélanges de l'École française de Rome on `mélanges`, so nothing
+     genuine was let through — checked against all eleven survivors. */
+  ["French",     /\b(revue|études|étude|bulletin de correspondance|persée|comptes rendus|cahiers|mélanges|l'antiquité)\b/i],
   ["German",     /\b(zeitschrift|jahrbuch|mitteilungen|archäolog|untersuchungen|beiträge|forschungen|athenische)\b/i],
   ["Italian",    /\b(rivista|annuario|della scuola|bollettino|quaderni|ricerche)\b/i],
   ["Spanish",    /\b(revista|estudios|boletín|cuadernos|anales de)\b/i],
   ["Greek",      /[Α-Ωα-ω]{4,}/],
   ["Portuguese", /\b(revista brasileira|cadernos de)\b/i],
 ];
+
+/* ADJUDICATED SAME-LANGUAGE PAIRS.  Rule 6 is a proxy and its own header says to read the
+   card before acting on it; these eleven were read in Sep 2026 and every one of them is the
+   right answer rather than a fault.  CLAUDE.md's rule is that "a source in any language
+   qualifies, and an English card may cite a French or German work where that work carries
+   detail no English source does — common for European prehistory, where the excavation
+   reports are written where the site is", and these are exactly that: Greek excavation in
+   the BCH, Etruscan and early Latin archaeology in CRAI and MEFRA, French sinology in the
+   Cahiers d'Extrême-Asie, the Swiss-French mission at Kerma and Meroë, and Mesoamerican and
+   Andean archaeology in Spanish.
+   A ROW MATCHES ONLY WHEN THE CARD, THE LANGUAGE AND THE COUNT ALL AGREE — `check-citations.js`'s
+   CROSSREF_WRONG rule — so adding a third French source to rm-033 reports again rather than
+   riding in on a judgement made about two. */
+const SAME_LANGUAGE_OK = new Map([
+  ["gr-040|French|2",  "BCH: Touchais' excavation note and Faure's review, where the kouros was published"],
+  ["gr-336|French|2",  "BCH: Lemerle's Musée National chronicle for 1937 and 1938, the acquisition record"],
+  ["rm-011|French|3",  "CRAI and the Revue belge — the Latin League's sanctuaries are French scholarship"],
+  ["rm-033|French|2",  "CRAI and MEFRA: Heurgon on the Pyrgi tablets, Humbert on Caere's citizenship"],
+  ["rm-034|French|2",  "CRAI: the Pyrgi inscriptions and the Campana terracottas"],
+  ["rm-036|French|2",  "MEFRA and CRAI: the Tetnie tomb and the Bonaparte excavations at Vulci"],
+  ["cnh-001|French|2", "Cahiers d'Extrême-Asie and the Revue de l'histoire des religions — French sinology"],
+  ["wh-416|French|3",  "CRAI: Rilly on Meroitic and the Swiss-French mission's reports from Kerma and El-Hassa"],
+  ["wh-429|Spanish|2", "Estudios de Cultura Maya, where Maya epigraphy is published"],
+  ["wh-433|Spanish|3", "Boletín de Arqueología PUCP: the Palpa and Chincha surveys behind the Nazca lines"],
+  ["wh-434|Spanish|2", "Peruvian ceramic analyses published in Spanish"],
+]);
 
 /* ---------- run ---------- */
 
@@ -383,7 +418,8 @@ for (const c of cards) {
   const per = {};
   for (const s of srcs) { const t = plain(s); for (const [n, rx] of LANGS) if (rx.test(t)) { per[n] = (per[n] || 0) + 1; break; } }
   for (const [n, k] of Object.entries(per))
-    if (k > 1) fails.push(["same-language", `${id}: ${k} sources in ${n}`, id]);
+    if (k > 1 && !SAME_LANGUAGE_OK.has(`${id}|${n}|${k}`))
+      fails.push(["same-language", `${id}: ${k} sources in ${n}`, id]);
 }
 
 for (const [file, ids] of imgByFile)

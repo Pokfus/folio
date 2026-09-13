@@ -845,6 +845,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     official the ministry — so `INSTITUTIONAL` sends them to a `one-institution` note. **The list is
     DECLARED, never pattern-matched** ("anything ending in Museum or Bureau" would quietly excuse a real
     author), so add an entry only after reading a card that cites it.
+  · **RULE 6 IS A PROXY AND ITS SURVIVORS ARE NOW DECLARED** (`SAME_LANGUAGE_OK`, Sep 2026, after
+    reading all seventeen findings). Two of its signals named a French INSTITUTION rather than a
+    French work — the **École française d'Athènes** publishes its site notices in English and the
+    **Chronique des fouilles en ligne** is bilingual — so six Greece cards were reported for resting
+    on sources that are not in French; both came out of the pattern, and the real BCH and MEFRA
+    articles still match on `bulletin de correspondance` and `mélanges`. **The eleven that survived
+    were read and every one is the right answer**: Greek excavation in the BCH, Etruscan and early
+    Latin archaeology in CRAI and MEFRA, French sinology in the Cahiers d'Extrême-Asie, the
+    Swiss-French mission at Kerma, and Mesoamerican and Andean archaeology in Spanish — which is
+    CLAUDE.md's own rule that a source in any language qualifies where it carries detail no English
+    one does. **A row matches only when the card, the language AND the count all agree**, so a third
+    French source on a declared card reports again rather than riding in on a judgement made about
+    two; proved by changing a declared count and watching the finding come back.
   · **IT IS A REPORT TOOL RUN BY HAND AND IS DELIBERATELY NOT IN THE CI FAST GATE.** Over the whole
     corpus it finds a large standing backlog on the first and last checks. Run it with `--prefix=` over
     the cards a batch touches. **📖 `docs/greece-audit-2026-09.md` — READ BEFORE OPENING A RE-SOURCING
