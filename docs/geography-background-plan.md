@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C17 — six capitals, and the gw-5 hundred comes out clean on all four rules**: `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern and `gw-601` Freetown, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C16 — six capitals, and the constitution leg reverses**: `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm and `gw-594` Athens, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C15 — six capitals, and the constitution leg answers on all six**: `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana and `gw-588` Prague, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -418,6 +420,64 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C17 found
+
+- **THE `gw-5` HUNDRED IS FINISHED AND MEASURES ZERO ON ALL FOUR RULES.** `node .claude/gw-audit.js
+  --prefix=gw-5` now reports 98 cards with **no** mention of the United States, **no** repeated grid value,
+  **no** card missing landform, water or weather, **no** bordering country named and **no** date line naming
+  the United States — the first complete hundred of the capital half. Run it rather than trusting this
+  sentence; what it records is that a hundred cards rewritten one batch of six at a time do converge.
+- **A CAPITAL IS A FIRST-ORDER TERRITORIAL UNIT FAR MORE OFTEN THAN THE PASS HAD NOTICED, AND FOUR OF THESE
+  SIX SAY SO.** Hungary's Article F names Budapest and then lists **the capital ahead of the counties,
+  cities, towns and villages** as a tier of the territorial system, letting it be divided into districts.
+  Austria seats Vienna three ways at once — the Federal capital and seat of the highest Federal authorities
+  (article 5), **one of the nine autonomous Länder** (article 2), and the seat of the National Council
+  (article 25). Belarus runs the pattern through its whole text: the upper chamber takes **eight deputies
+  from every oblast and eight from the city of Minsk alike**, a referendum initiative needs 30,000 voters
+  from each oblast *and* from Minsk, and a seat in that chamber requires five years' residence in an oblast
+  *or* in the city. Tajikistan (C16) did the same. **Read past the capital clause**: the standing is
+  usually somewhere else in the text.
+- **AND TWO OF THE SIX ARE FAMOUS FOR HAVING NO CONSTITUTIONAL CAPITAL, WHICH IS MEASURABLE RATHER THAN
+  ASSERTED.** *Bern* occurs **exactly once** in the Swiss text, in article 1's list of the People and the
+  Cantons, so the text names it only as a canton and establishes no federal capital at all. *Freetown*
+  occurs exactly once in the Sierra Leonean text, and the reference is to the **Freetown Municipality
+  Act**, in a list of bodies whose membership does not disqualify a member of parliament. Both are the
+  C16 Portugal/Greece outcome met again, and both cards say so plainly instead of reaching for a clause
+  that is not there.
+- **A CITY WITH NO WMO STATION AT ALL, AND A CITY WHOSE STATION IS ACROSS AN ESTUARY.** The service's
+  index of 3,598 cities carries **three Swiss entries — Geneva, Lugano and Zurich — and none for Bern**,
+  which is the other half of C1's finding that a fuzzy matcher gave Bern the Belgian village of
+  *Bernissart*: it did so because there was nothing to match. `gw-600` therefore prints no normals and
+  says why, citing the index itself — the C14 Sucre rule done the right way round, the source for the
+  negative being the document that would have carried the positive. **Freetown's entry is filed under
+  the city and reads at `Lungi`**, and carries neither a normals period nor any rain-day count: C11's
+  Colombo-for-Kotte case, and the card names the station rather than printing the figures as the city's
+  own.
+- **AND THE SAME INDEX ANSWERS A QUESTION ABOUT A CITY'S STANDING.** Minsk is the **only** entry the
+  service carries for its whole country, which is a real fact about the place and is one grep of a file
+  already cited. **A uniform leg can be read for what it does NOT contain.**
+- **A HARBOUR'S PROPER NAME CAN CARRY ITS COUNTRY'S, AND RULE 2 TAKES IT AWAY.** Freetown's harbour is the
+  **Sierra Leone Estuary**, which is the grid's Country value verbatim, so `gw-601` has to describe the
+  estuary without naming it. That is the rule working as designed and it is worth knowing before drafting:
+  check the place names a city's site is made of against the grid before writing the sentence, not after.
+- **THE UNdata CAPITAL FOOTNOTE AGAIN, AND TWO CITIES SHARE ONE.** Baku's and Minsk's figures both carry
+  *Including communities under the authority of the Town Council* — the same sentence, on two profiles in
+  one batch, which is the first time the pass has seen a footnote repeat. The other four are the bare year
+  and the year is 2019 on all of them.
+- **THREE PDFs IN THIS BATCH EXTRACT AS CIPHERS AND ONE JOURNAL PRINTS ITS BYLINE IN A DIFFERENT SCRIPT
+  FROM ITS TITLE.** The Greater Baku paper, the Minsk housing paper and the UN-Habitat Port Moresby
+  profile all download whole and come out as raw CID codes, so three candidate legs were dropped rather
+  than guessed at. And the Minsk flood paper is in a **Polish** journal with an **English** title and a
+  byline printed only in **Cyrillic** — В. Корнеев, Л. Гертман, И. Булак and А. Пахомов on the journal's
+  own page as well as in Crossref — so that is how it is cited. **Cite the byline the publisher prints,
+  in the script it prints it in.**
+- **ACCESS.** `journals.librarypublishing.arizona.edu` fails DNS resolution entirely, which cost the
+  Freetown deforestation paper; `e3s-conferences.org`, `journals.aesop-planning.eu` and
+  `www.sciencedirect.com` are 403; `hasp.ub.uni-heidelberg.de` serves an Anubis wall. Open and useful:
+  Copernicus in full (`esurf`, `sd`, `we`, `hess`, `bg`, `nhess`, `isprs-archives`), `nature.com` for its
+  open-access titles, `frontiersin.org`, `bozpe.pcz.pl`, `jurareview.ro`, `radhyg.ru` and
+  `revistas.una.ac.cr`.
 
 ## What C16 found
 
