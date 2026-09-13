@@ -57,8 +57,18 @@ const HOSTS = [
    "finds the open-access ARTICLES"],
   ["archive.org fulltext","https://archive.org/stream/historyofsanskri00macduoft/historyofsanskri00macduoft_djvu.txt", "Sanskrit",
    "the out-of-copyright reference shelf, searchable"],
-  ["Persée",              "https://www.persee.fr/", "Pers",
-   "French sinology and archaeology"],
+  /* PERSÉE IS TWO ANSWERS AND THIS ROW USED TO GIVE ONE.  The ARTICLE page opens and
+     carries the whole bibliographic record — authors, journal, volume, pages, DOI — which
+     is what a citation is written from; the PDF behind it answers 403 with an ALTCHA
+     proof-of-work page, so the FULL TEXT cannot be read from here at all (measured Sep 2026,
+     while re-sourcing the China mythology cards, where three modern French articles were
+     found and none could be opened).  The distinction is the whole point: a metadata-only
+     host lets you CITE a work you have read elsewhere and never lets you VERIFY a claim,
+     and a row saying only "Persée: OK" sends the next session looking for prose it cannot get. */
+  ["Persée (article)",    "https://www.persee.fr/doc/rhr_0035-1423_1990_num_207_4_1698", "Mathieu",
+   "French sinology and archaeology — the record, not the text"],
+  ["Persée (PDF)",        "https://www.persee.fr/docAsPDF/rhr_0035-1423_1990_num_207_4_1698.pdf", "%PDF",
+   "the full text — altcha-gated; a claim cannot be checked from here"],
   ["OpenEdition",         "https://journals.openedition.org/", "OpenEdition",
    "French and Mediterranean humanities journals"],
   ["Stanford Encyclopedia","https://plato.stanford.edu/entries/levels-org-biology/", "organization",
@@ -88,7 +98,7 @@ const EXTRA = [
    "where research STARTS — never a citable source"],
 ];
 
-const WALL_RX = /Just a moment|Enable JavaScript and cookies|Checking your browser|Access Denied|\bcaptcha\b/i;
+const WALL_RX = /Just a moment|Enable JavaScript and cookies|Checking your browser|Access Denied|\baltcha\b|\bcaptcha\b/i;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function probe(url, want) {
