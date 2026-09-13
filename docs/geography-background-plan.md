@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C24 — six capitals, three constitutions that say nothing at all, and two draft constitutions that never came into force**: `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-645` Chișinău and `gw-646` Tirana, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C23 — six capitals, a territory with no weather record and no constitution to cite, and a constitution that spells its capital differently**: `gw-635` San Juan, `gw-636` Sarajevo, `gw-637` Yerevan, `gw-638` Windhoek, `gw-639` Vilnius and `gw-640` Doha, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C22 — six capitals, three new ways for the weather record to fail, and a station field naming another city**: `gw-629` Panama City, `gw-630` Zagreb, `gw-631` Tbilisi, `gw-632` Asmara, `gw-633` Ulaanbaatar and `gw-634` Montevideo, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -432,6 +434,86 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C24 found
+
+- **THE CONSTITUTE INDEX HOLDS TEXTS THAT NEVER CAME INTO FORCE, NOT ONLY TEXTS THAT HAVE CEASED TO.**
+  C21 found two records marked `in_force: false` because a later text had replaced them. The Gambia has
+  **three** records — the 1996 constitution as revised in 2018, which is in force, and **drafts of 2019 and
+  2020 which are not**, each flagged as a draft text provided in collaboration with International IDEA.
+  **Choosing by recency would cite a document that has never had any legal effect at all**, and the card
+  would read perfectly. Gabon's 1991 (rev. 2011) is the other kind, recorded as no longer in force; the
+  card dates the text and says so. **Read `in_force` on every record the query returns, not just on the
+  one you take.**
+
+- **THREE OF THIS BATCH'S SIX CONSTITUTIONS SAY NOTHING WHATEVER.** Botswana's 1966 (rev. 2021) contains
+  neither `Gaborone` nor `capital` nor any clause about a seat of government. The Gambia's contains
+  neither `Banjul` nor `capital` except of the death penalty. Jamaica's 1962 (rev. 2023) contains neither
+  `Kingston` nor `capital` of a place, **but does legislate about "the seat of Government" and leaves it
+  unnamed** — in a clause about the Governor-General being absent from that seat without being absent from
+  the country, which is the Namibia shape (C23) with the place-name removed as well. Three silences in one
+  batch of six is the highest proportion this pass has met, and all three are Commonwealth texts.
+
+- **AND GABON'S IS THE STRONGEST FENCE YET.** The capital *"cannot be transferred to another location
+  without a law resulting from a referendum"* — where the Central African Republic (C21) required a law
+  passed when the superior interest of the Nation requires it, and Qatar (C23) merely a law. **The escape
+  hatch has three grades**: a law, a law under a stated condition, and a referendum.
+
+- **THE WMO INDEX FILES COUNTRIES UNDER NAMES A PLAIN LOOKUP MISSES, WHICH IS A FOURTEENTH WAY THE LEG
+  FAILS.** `Gambia (The)` puts the definite article in brackets after the name; `Republic of Moldova` uses
+  the long official form. A search for `Gambia` or `Moldova` returns zero rows and reads exactly like a
+  country with no stations — which is what a card would then say. **Fuzzy-match the country name against
+  the index's own key list before recording an absence**; this batch's first pass reported both countries
+  as absent and both have four to seven stations.
+
+- **AND A FIFTEENTH: A COUNTRY WELL COVERED WHOSE CAPITAL IS THE ONE PLACE MISSING.** Lesotho has
+  **thirteen** rows in the index and **not one of them is Maseru**; the two nearest are Mejametalana, the
+  airfield in the city, and Moshoeshoe I, the international airport outside it. C18's Nicaragua had one
+  station and it was not the capital; this is the same fault with twelve more stations to hide it in.
+  **Albania has no rows at all**, which is why `gw-646` has no weather leg and says so.
+
+- **THE UNDATA CAPITAL FIGURE IS NOT ALWAYS DATED 2019.** Every batch since C11 has recorded that the
+  capital-population figure carries a footnote dating it to 2019 under a column headed 2025, and it has
+  held for something over sixty cards. **Gaborone's and Maseru's are dated 2018.** The pattern is a
+  pattern and not a rule; read the letter and follow it. Banjul's names two local government areas, the
+  city's own and Kanifing; Moldova's national population figure carries a territorial scope note saying
+  it includes the Transnistria region, the second such note in this pass after Georgia's.
+
+- **A STATION FIELD CAN CARRY A DIFFERENT TRANSLITERATION OF THE SAME CITY.** C22's Montevideo names
+  Salto, a different place entirely; Chișinău's (id 208) names **Kisinev**, which is the same city under
+  another romanisation and is not the spelling the index's own city field uses. The milder case is worth
+  recording because it is the one that will pass a read-back: nothing is wrong, and the card can say what
+  the record says.
+
+- **WHERE THE SCHOLARLY LITERATURE IS THIN, THE CITY'S OWN DISEASE IS THE GEOGRAPHY.** C21's Bangui rested
+  on a hepatitis E study; Libreville rests on a 2026 malaria paper whose opening pages describe it as a
+  humid coastal city with a dense hydrographic network and a fine-grained mosaic of watercourses, shrub
+  cover and remnant forest, and give its density as about 5,000 inhabitants per square kilometre against
+  roughly 9 nationally, holding close to half the national population. **The geography is in the Study
+  Site section because the disease is a geographical fact**; search the health literature by city name
+  before concluding a capital has none.
+
+- **HOSTS MEASURED THIS BATCH.** `tirana.al`, `instat.gov.al`, `geo.edu.al` and `scindeks-clanci.ceon.rs`
+  all answer 200; `doi.org/10.5937/...` resolves to the SCIndeks record, which carries the abstract and
+  the reference list but not the full text, and that is enough for a citation and not enough for a claim
+  about the body of the paper. `iwaponline.com` is 403 and `iopscience.iop.org` serves a Radware captcha,
+  both confirmed from C23. MDPI DOIs still 403 with the papers readable at `res.mdpi.com`.
+
+- **AND THE CHECK THAT EARNED ITS KEEP THIS BATCH WAS CROSSREF, BEFORE THE CARD WAS WRITTEN.** The
+  Kingston flood paper was drafted into the batch as "Sara Bonetti et al." — a name from nowhere; Crossref
+  gives **Andrea Rivosecchi and Minerva Singh**. The URL resolved, the journal, volume, issue, year and
+  page were all right, and the citation would have passed every check in the pipeline except the one that
+  reads the byline. **Run the DOI through Crossref while drafting, not after applying**; this is the
+  fabricated-author failure `docs/citation-plan.md` records, met live.
+
+- **THE READ-BACK CAUGHT SIX, AND TWO OF THEM ARE A CLASS WORTH NAMING: A CLAIM ABOUT FOLIO'S OWN CORPUS
+  DRESSED AS A FACT ABOUT THE PLACE.** "the 2019 every other capital in this batch carries" and "one of
+  only a handful of capitals in this deck in that position" are both true and both meaningless to a
+  reader, who does not know what a batch or a deck is and cannot check either. **A background states facts
+  about its subject; the pass's own bookkeeping belongs here.** The other four were the usual unmeasured
+  comparatives — "monsoonal to a degree few capitals match", "fences it harder than most" — an arithmetic
+  overstatement (490.0 over 6.6 is seventy-four times, not seventy-five), and a claim that no month is dry
+  on a card whose driest month gets 18 millimetres.
 
 ## What C23 found
 
