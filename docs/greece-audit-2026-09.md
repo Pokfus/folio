@@ -984,6 +984,57 @@ numbers as bare lines and drops several of them (55, 57, 58, 60, 62 …); both s
 rests on fall between the printed 58 and the printed 60, so it is cited at 58–59. **Say what the scan
 supports.**
 
+**BATCH R17 — 2026-09-13. FOUR CARDS READ AND NONE REPAIRED, WHICH IS THE FINDING.** Over-cited stays
+at 34. Every one of the four was opened expecting the R13/R15/R16 shape — the handbook summarising a
+text that is reachable — and in each the substitution that suggested itself turns out to lose content.
+**Reading a card and leaving it alone is a result**; what it buys the next session is the hour it takes
+to establish these, which is why they are written down rather than left to be re-derived.
+
+**`wh-389` stupa — BOTH OF ITS OBVIOUS REPAIRS ARE NOT REPAIRS.** Marshall's chapter in the 1922
+*Cambridge History of India* carries four of its six citations, and the two that looked redundant are
+not. **Oldenberg's pages 376–377 were read and carry sentences 2 and 3 exactly** — "his relics are
+divided out to a number of princes and nobles, each of whom 'builds a stūpa (monument for relics) and
+institutes a festival'", "Let not the honours due to the body of the Perfect One trouble you, O Ananda",
+and "the old rules of the Order have not a word to say about it" — **but nothing of sentence 1's**
+"walked round rather than entered" or "the oldest building type Buddhism has of its own", which are
+Marshall's. And **Foucher's volume carries two of sentence 10's three marks** — the riderless horse
+under an honorific parasol on the eastern gate of Sanchi, and the seven past Buddhas typified by the
+tumulus of their Parinirvana — **but his footprints example is at Amaravati**, not at Sanchi, so it
+cannot take the sentence whole. The card is honestly sourced and needs scholarship it has not got
+rather than re-pointing: an open account of stupa architecture for sentence 1, and for the relic caskets
+the excavation publications themselves — Rea's *South Indian Buddhist Antiquities* (1894) for
+Bhattiprolu and Peppé and Smith in the *JRAS* for 1898 for Piprahwa.
+
+**`wh-207` Rosetta Stone — the fault is not the one reported.** Budge carries three of its six sources
+and the other three are open French scholarship, which is a well-made card; what is wrong is that **two
+of the three Budge citations carry no locator at all**, one of them standing behind four separate
+claims. *The Rosetta Stone* (1913) and *The Decrees of Memphis and Canopus* (1904) are each cited as
+whole books. **A whole-book citation is a citation that has not been read**, and nothing in the pipeline
+can see it — `add-card.js` checks for a URL, `source-audit.js` counts, `check-citations.js` checks names.
+
+**`rm-089` Lapis Niger — three ENTRIES of one gazetteer are not three opinions.** Platner and Ashby's
+*Topographical Dictionary of Ancient Rome* is cited at *Sepulchrum Romuli*, at *Comitium* and at
+*Rostra*, which is three lookups in a reference work rather than one scholar's view three times over —
+the `INSTITUTIONAL` reasoning wearing two authors' names. **The real thinness is elsewhere and the
+report does not see it**: five of the card's ten sentences, the whole archaeological half, rest on the
+*Sepulchrum Romuli* entry alone, and what they want is the excavation record — Boni's own reports of the
+1899 Comitium dig — and the inscription itself. It is a candidate for a declared rule-1 adjudication
+**when the pass closes and not before**, for the reason R14 gives.
+
+**`gr-325` Exekias — the count cannot fall without new scholarship.** H. B. Walters' *History of Ancient
+Pottery* (1905) carries **six of the ten sentences** under one citation, and his other two are one
+sentence each, so there is no citation to empty: every reduction has to come from finding a modern
+source for claims a 1905 handbook is currently making about a named painter.
+
+**AND A GENERALISATION MEASURED AND ABANDONED.** `wh-207` suggested a check: a citation carrying a
+`(Place: Publisher, YEAR)` imprint and no locator. Measured over the corpus, **4,954 of 17,396 citations
+are book-shaped and 2,961 of those have no digit between the imprint and the URL** — which is not a
+backlog but the shape of the corpus. An ancient work's locator stands BEFORE its imprint (`Strabo,
+<i>Geography</i> 9.2.18–19, trans. H. L. Jones, Loeb … (Cambridge, MA …, 1924)`), a database or an
+encyclopedia entry has no page to give, and a monograph cited for a general point legitimately has none
+either. **Do not build this check**; a locator-less citation is found by reading the card, as `wh-207`
+was.
+
 ## Two notes on the tooling
 
 - **`cardYears` reads "594/3 BCE" as year 3.** Writing split years the short way in a date line
