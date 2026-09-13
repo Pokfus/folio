@@ -192,7 +192,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N25 | 12 | **The international order** — the institutions a country term names, and the principle they rest on — **shipped**, 11 of 12 pictured |
 | N26 | 12 | **The vocabulary of diplomacy** — the words on nearly every card of the World collection — **shipped**, 9 of 12 pictured |
 | N27 | 12 | **The forms of government** — the words every collection uses about who rules — **shipped**, 8 of 12 pictured |
-| N28–N35 | ~95 | the remaining Italian provinces — **unblocked 2026-09-13, not yet worked**; see N24's findings |
+| N28–N35 | ~95 | the remaining Italian provinces — **classification leg open, World Heritage leg rate-limited; measured 2026-09-13, still not writable at the bar**; see N24's and N25's findings |
 
 **N3 shipped eight terms rather than twelve, and the missing four are one deferral and one
 fold.** *Subminoan* is deferred: Rutter's Chronology Overview gives it a single sentence — "The
@@ -598,6 +598,28 @@ cache-busting `?t=` stamp — `/eurostat/documents/345175/629341/NUTS2021-NUTS20
 cites whole. **What is measured here is that the SOURCE exists and is reachable and carries the fact**;
 whether three sentences at the bar can be built for each of the ninety-five from that plus one World
 Heritage property is the batch's own work and has not been done.
+
+**AND ATTEMPTED ON 2026-09-13, WHICH TURNED THE QUESTION INTO A MEASUREMENT AND THE ANSWER IS STILL NO.**
+The classification leg works exactly as recorded: the workbook's `NUTS2024` sheet yields **108 Italian
+NUTS-3 units** with name, code, parent region and macro-region, read straight out of the shared-string
+table — `ITC11 Torino / Piemonte / Nord-Ovest` and so on for all of them, which is one citable sentence
+per province for the whole row at once. **What has gone is the leg N24 actually leaned on.**
+`whc.unesco.org` answers a SINGLE well-spaced request and refuses a burst: `check-reach.js` pulled 332 KB
+from `/en/list/` twice during the same session in which four consecutive curls of `/en/list/94/`,
+`/en/list/1187/` and `/en/list/` itself came back 403 behind a Cloudflare *Just a moment* challenge. It is
+the **BUSY** state, not a wall — which means a twelve-province batch is twelve widely spaced fetches
+rather than an afternoon, and is worth planning for rather than discovering.
+**THE FALLBACK DOES NOT CARRY A GOOD ENTRY, WHICH IS A JUDGEMENT AND IS WHY THIS IS RECORDED RATHER THAN
+SHIPPED.** With Eurostat now holding the definition, N25's objection to the **Getty TGN** partly falls
+away: its full record gives coordinates to the minute, the name variants, the place types and its own
+Sources and Contributors, so it can carry a second MARKED sentence. But a three-sentence term whose two
+cited sentences are a statistics code and a latitude is ninety words that teach a reader nothing, and the
+pass's own rule is that **a term padded to length is the one way this can do real damage**. The province
+entries want the World Heritage property page or an equivalent that says something about the place, so
+the row stays open with its two legs now precisely known.
+**ISTAT AND THE OTHER CANDIDATES WERE RE-PROBED AND NOTHING NEW ANSWERS PER PROVINCE**: `cultura.gov.it`
+and Eurostat's regional database both serve, and both name a province only in site chrome; a province's
+own site (`provincia.bergamo.it`) refuses the connection outright.
 
 ### N23's findings
 
