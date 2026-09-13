@@ -837,6 +837,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     name** — `CROSSREF_WRONG`'s rule — since *Gregory*, *Edward*, *Sun* and *Ding* are living surnames and a
     bare-surname exemption would excuse a real scholar on some other card. Eight of the ten are ACTORS OF
     THE CARD'S OWN PERIOD cited for their own words, which is this rule's own line one era forward.
+  · **`CORPORATE` IS AN ENGLISH WORD LIST AND THE CORPUS IS NOT** (Sep 2026). The geography collections
+    cite 233 countries' own governments in those countries' own languages, so an unrecognised byline
+    yields a PLACE: *Gemeinde Vaduz* gave **Vaduz** and made five of `gw-711`'s ten sentences
+    historiographical about Vaduz, *Mairie de Saint-Pierre* gave **Pierre**, *Câmara dos Deputados* gave
+    **Deputados** — and `University` was missing from the English half, so *University of South
+    Carolina* put `geo-528` over the cap. **Six of rule 2's seven findings were this.** The additions
+    are MEASURED (every author string in the corpus that still yields a surname — fifteen shapes), and
+    **its word boundaries are LOOKAROUNDS**, the ASCII-`\b` trap again: `Collectivité` ends in an é and
+    the branch matched the name and threw the match away, failing on exactly the word it was added for.
+  · **A CHAPTER IN AN EDITED VOLUME CARRIES BOTH AN AUTHOR AND AN EDITOR, and the head was taken only
+    when NO `ed.` field was found** — so 373 citations, 2% of the corpus, yielded their EDITOR and lost
+    their AUTHOR, blind in the LENIENT direction. Found by a liveness test that would not fire. Taking
+    the head as well adds 154 names and surfaced the batch's one real card, `gr-644`, whose question
+    named Furtwängler.
+  · **THE TABLE IS CONSULTED INSIDE `named()`, SO BOTH RULES HONOUR IT**, and **every match in a
+    sentence is tried** or an excused name standing in front of a real scholar would shield him.
+    `ww2-036`'s four "historiography" sentences are Mussolini appointed prime minister and fascism's own
+    doctrine published under his name — the row saying so existed and was read at the question only.
   · **A TIGHTENING IS JUDGED BY ITS DROP SET, NEVER BY THE COUNT.** A name taken out of the list is a
     finding that can never be reported again, so dump each card's names before and after and diff them;
     and **prove the rule still fires** — planting a scholar the corpus already cites is what says zero is a

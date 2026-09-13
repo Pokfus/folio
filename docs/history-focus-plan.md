@@ -529,3 +529,57 @@ cites (Chris B. Stringer, on `wh-061`) into a question reports it. Rule 1 stands
 rule 2 is untouched at 7, the same seven cards as before; `check-cards.js`'s own counts are unmoved
 (over-cited 33, source-in-caption 21, duplicate-image 22), the three ancient authors added there
 tripping no card today — which is exactly why nothing would have said so until one did.
+
+### F7 — rule 2 had the same disease, and closing the hole found the one real card (2026-09-13) — SHIPPED
+
+F6 took rule 1 to zero and reported rule 2 unchanged at 7. Read, **six of those seven were the same
+extraction fault one field over**, and the seventh was not historiography at all.
+
+**`CORPORATE` is an English word list and the corpus is not.** The geography collections cite 233
+countries' own governments in those countries' own languages, so an English institution list reads a
+PLACE NAME off every byline it does not recognise: *Gemeinde Vaduz* gave **Vaduz** and made five of
+`gw-711`'s ten sentences historiographical about Vaduz; *Mairie de Saint-Pierre* gave **Pierre**,
+*Collectivité de Saint-Martin* gave **Martin**, *Câmara dos Deputados* gave **Deputados**, *Instituto
+Nacional de Estadística de Bolivia* gave **Bolivia**. `University` was missing from the English half
+too, so *University of South Carolina* gave **Carolina** and put `geo-528` over the cap.
+
+**The additions are measured, not guessed.** Dumping every author string in the corpus that still
+yields a surname left **fifteen institutional shapes**, which is the list added plus the same word in
+the other languages these collections already cite. `Parks` is the one to know about — *Parks Canada*
+and *Parks Australia* are why it is there, and it would reject a scholar named Parks; none is cited
+today. `Museums` was a plural the singular missed.
+
+**…AND ITS WORD BOUNDARIES WERE ASCII-DEFINED, WHICH IS F6's OWN LESSON MET AGAIN THE SAME DAY.**
+`Collectivité` ends in an é, so a trailing `\b` asks for a boundary between two characters neither of
+which JS counts as a word character: the branch matched the name and threw the match away. It failed
+on exactly the word it had just been added for, three citations on `gw-718`, while `Préfecture` beside
+it worked — which is what makes the fault look like a typo rather than a rule. Both ends are
+lookarounds now. **A list that learns a second language needs its boundaries checked in that language.**
+
+**The seventh card was the table being consulted in only one of the two places it applies.**
+`ww2-036` fascism sat at 4/10, and all four sentences are **Mussolini**: appointed prime minister in
+October 1922, his leadership nominally subject to the Gran Consiglio, fascism's own doctrine published
+under his name. Not one is anybody arguing about the past, and `NOT_A_RESEARCHER` already carried the
+row saying so — it was applied at the question and not in the abstract. It is consulted inside `named()`
+now, so both rules honour it, and **every match in a sentence is tried rather than just the first**, or
+an excused name standing in front of a real scholar would shield him.
+
+**THE HOLE WORTH KNOWING ABOUT IS THE ONE THE LIVENESS TEST FOUND.** Writing a fake historiographical
+abstract for `ww2-036` to prove rule 2 still fires, it did not — because Baravelli, Wilcox and Papadia
+are not in that card's name list at all. `authorSegments` took the head only when NO `ed.` or `by`
+segment had been found, so a chapter in an edited volume yielded its EDITOR and lost its AUTHOR:
+**373 citations, 2% of the corpus, blind in the lenient direction.** Édouard Lartet and Henry Christy,
+B. D. Malan and Christian Jürgensen Thomsen were all invisible to both rules. Taking the head as well
+adds **154 names** and surfaces exactly two findings.
+
+**One of the two is real, and it is this track's first genuine card in the batch.** `gr-644` Kritios
+Boy asked *"…since Furtwängler proposed in 1895 that its sculptor was Kritios"* — a clue answerable by
+someone who knows the modern literature on Greek sculpture and nothing about the statue. The rule's own
+prescription applies exactly: keep the claim, drop the name. It now reads *"records a conjecture rather
+than a signature: nothing on the statue is inscribed, and an attribution proposed in 1895 gave it to the
+sculptor Kritios"* — 30 words against 22, the same fact, and no scholar. **The other was Sextus
+Pomponius**, the second-century jurist, who was simply not yet on the shared ancient list.
+
+**Both rules stand at 0 of 3,215, and both were proved live.** Planting real historiography on `gr-644`
+reports it at 5/14; planting a second scholar behind an excused name on `ww2-148`, which already carries
+a row, reports the scholar. `check-cards.js` is unmoved at 33 / 21 / 22.

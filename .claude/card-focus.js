@@ -199,7 +199,14 @@ function authorSegments(src) {
      naming a scholar. Cutting each segment at its opening parenthesis is general, where adding the
      place to NOT_A_SURNAME would only ever be a list that is one place short. */
   for (const m of s.matchAll(/,\s*(?:by|ed\.|edited by)\s+([^,§]*(?:,\s*[A-Z][^,§]*)?)/gi)) segs.push(m[1].split("(")[0]);
-  if (!segs.length) {                                    // not a review: authors run to the first title
+  /* THE HEAD IS TAKEN EVEN WHERE AN `ed.` FIELD WAS FOUND, which it was not until Sep 2026. A chapter
+     in an edited volume carries BOTH — "Édouard Lartet and Henry Christy, 'Cavernes du Périgord,' …
+     ed. Thomas Rupert Jones" — and taking the editor INSTEAD of the author lost the author of 373
+     citations, 2% of the corpus, in the lenient direction: a question naming one of them was invisible
+     to rule 1. Closing it surfaced exactly two findings, one of them real (`gr-644`, which named
+     Furtwängler) and one an ancient jurist the shared list did not yet carry. A review is still the
+     exception, its head being the reviewer that the first branch has already taken. */
+  if (!rev) {
     const head = s.split("§TITLE§")[0];
     if (head && head.length < 200 && !HEAD_IS_TITLE.test(head)) segs.push(head);
   }
@@ -226,7 +233,24 @@ function authorSegments(src) {
    this whole script exists to avoid. Per name: rule 2 goes 97 → 9 and rule 1 19 → 14, every surviving
    flag is a place, an ancient author or a historical actor rather than a scholar, and the dropped set
    contains no surname at all. */
-const CORPORATE = /\b(?:Ministry|Ministries|Department|Division|Bureau|Office|Agency|Authority|Administration|Commission|Committee|Council|Assembly|Congress|Parliament|Secretariat|Organization|Organisation|Nations|Government|States|Republic|Kingdom|Bank|Fund|Programme|Survey|Service|Statistics|Institute|Institution|Museum|Library|Archives|Association|Society|Foundation|Trust|Centre|Center|Board|Court|Tribunal|Union|Commonwealth|Company|Corporation|Laboratory|Observatory|Academy|College|School|Faculty|Consortium|Network|Alliance|Federation|Confederation|Secretary|Directorate|Commons|Lords|Senate|Bundestag|Reichstag|Duma|Museo|Musée|Museu|Muzeum|Musei)\b/i;
+/* …AND ITS WORD BOUNDARIES ARE LOOKAROUNDS, BECAUSE `\b` IS ASCII-DEFINED (Sep 2026). This is the
+   same trap `check-cards.js` records beside its own ancient list, met a second time the moment this
+   list learnt any language but English: `Collectivité` ends in an é, so a trailing `\b` asks for a
+   boundary between two characters neither of which JS counts as a word character, and the branch
+   matched the name and then threw the match away. It failed on exactly the word it had just been
+   added for — `Collectivité de Saint-Martin`, three citations on `gw-718` — while `Préfecture` beside
+   it worked, which is what makes the fault look like a typo rather than a rule.
+
+   THE LIST IS ENGLISH AND THE CORPUS IS NOT. The geography collections cite 233 countries' own
+   governments in those countries' own languages, so an English institution list reads a place name off
+   every one of them: `Gemeinde Vaduz` gave *Vaduz*, `Mairie de Saint-Pierre` gave *Pierre*, `Câmara
+   dos Deputados` gave *Deputados*, `University of South Carolina` gave *Carolina* — and `University`
+   was missing from the English half too. The additions are MEASURED rather than guessed: dumping every
+   author string that still yields a surname over the whole corpus left fifteen institutional shapes,
+   which is the list below plus the same word in the other languages these collections already cite.
+   `Parks` is the one to know about — `Parks Canada` and `Parks Australia` are why it is here, and it
+   would reject a scholar named Parks; none is cited today. */
+const CORPORATE = /(?<![A-Za-zÀ-ÿ])(?:Ministry|Ministries|Department|Division|Bureau|Office|Agency|Authority|Administration|Commission|Committee|Council|Assembly|Congress|Parliament|Secretariat|Organization|Organisation|Nations|Government|States|Republic|Kingdom|Bank|Fund|Programme|Survey|Service|Statistics|Institute|Institution|Museum|Library|Archives|Association|Society|Foundation|Trust|Centre|Center|Board|Court|Tribunal|Union|Commonwealth|Company|Corporation|Laboratory|Observatory|Academy|College|School|Faculty|Consortium|Network|Alliance|Federation|Confederation|Secretary|Directorate|Commons|Lords|Senate|Bundestag|Reichstag|Duma|Museums?|Museo|Musée|Museu|Muzeum|Musei|Universit(?:y|ies|é|ä|à|y)|Universidad|Universidade|Universiteit|Universität|Università|Minist(?:ry|ère|erie|ero|erio|ério|erium)|Institut(?:o|e|ion|os|es)?|Istituto|Instituut|Collectivité|Préfecture|Prefecture|Mairie|Gemeinde|Gemeente|Parks|Bibliotheca|Biblioteca|Cámara|Câmara|Ayuntamiento|Municipalidad|Prefeitura|Gobierno|Governo|Regierung|Comune)(?![A-Za-zÀ-ÿ])/i;
 
 function scholarsOf(card) {
   const out = new Set();
@@ -282,14 +306,22 @@ const sentences = (t) => {
 
 function measure(card) {
   const names = [...scholarsOf(card)];
-  const rx = names.length ? new RegExp("\\b(" + names.join("|") + ")\\b") : null;
-  const named = (s) => (rx ? (s.match(rx) || [])[1] : null);
+  const rx = names.length ? new RegExp("\\b(" + names.join("|") + ")\\b", "g") : null;
+  /* THE TABLE IS CONSULTED HERE RATHER THAN AT THE QUESTION, so both rules honour it: a name that is
+     not a modern arguer is not one in the abstract either. `ww2-036` is what settled that — its four
+     "historiography" sentences are Mussolini appointed prime minister, Mussolini's leadership, and
+     fascism's own doctrine published under his name, none of which is anybody arguing about the past.
+     EVERY match in the sentence is tried rather than just the first, or an excused name standing in
+     front of a real scholar would shield him. */
+  const named = (s) => {
+    if (!rx) return null;
+    rx.lastIndex = 0;
+    for (let m; (m = rx.exec(s)); ) if (!NOT_A_RESEARCHER[card.id + " " + m[1]]) return m[1];
+    return null;
+  };
 
   const qs = [card.question, ...(card.questions || [])];
-  const qNamed = qs.map((q, i) => {
-    const hit = named(plain(q));
-    return hit && !NOT_A_RESEARCHER[card.id + " " + hit] ? { i: i + 1, name: hit } : null;
-  }).filter(Boolean);
+  const qNamed = qs.map((q, i) => { const hit = named(plain(q)); return hit ? { i: i + 1, name: hit } : null; }).filter(Boolean);
 
   const sents = sentences(card.abstract);
   const historio = sents.filter((s) => named(s) || ANON_ATTRIB.test(s));
