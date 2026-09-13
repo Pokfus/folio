@@ -950,6 +950,40 @@ list. Their substitutes are named by this batch's own reading: for the Mauryan c
 testimony in McCrindle and the Ashokan edicts in Hultzsch, and for the stupa the *Mahāparinibbāna
 Sutta*, which `wh-376` already cites, for the division of the relics.
 
+**BATCH R16 — 2026-09-13. THE HANDBOOK WAS SUMMARISING THE SOURCE THE CARD ALREADY CITED, AND THE CARD
+ONLY TOLD ONE SIDE: over-cited 35 → 34.** `wh-392` Greco-Buddhist art. Three of its five sources were
+J. H. Marshall's chapter in the 1922 *Cambridge History of India*, at pages 648, 649 and 630.
+
+**ONE OF THE THREE SAID WHAT FOUCHER SAYS, ON THE PAGE THE CARD WAS ALREADY CITING.** The sentence
+about the Buddha's absence at Bharhut and Sanchi carried Marshall at 630 beside Foucher at 117, and
+Foucher's page 117 carries the whole of it in his own words: "While on all the bas-reliefs of the Panjab
+the Blessed One is represented standing in the middle of the panel, on the balustrades or the gates of
+Barhut or of Sanchi he is totally absent even from the scenes of his own biography." **Marshall's 1922
+chapter is summarising Foucher's 1917 argument**, so the two are not two witnesses; the second citation
+is the handbook restating the source beside it. Dropping it is R13's finding once more and loses
+nothing.
+
+**AND THAT LEFT THE CARD BELOW THE FIVE-SOURCE BAR, WHICH IS WHAT FORCED THE RIGHT ANSWER.** A card
+cannot simply shed a citation, so the freed slot had to buy something — and what this card most lacked
+was the other side of its own argument. It set out Foucher's case for a Greek origin of the Buddha image
+over three sentences and then disposed of the dispute in a vague clause, "some holding it almost a
+negligible factor and others that it underlay the whole fabric of Indian art". It now states the
+counter-evidence instead: **a type of Buddha image was made at Mathura independently of any Hellenistic
+prototype and sent out to the sacred sites of the Ganges plain**, which is the ground Coomaraswamy's
+*History of Indian and Indonesian Art* (1927) rests on in denying a Greek origin altogether. **A vague
+report of a dispute is worse than the evidence the dispute turns on**, and the rule about a contested
+fact staying hedged is satisfied by showing what is contested rather than by saying that something is.
+
+**A PRONOUN WENT WITH THE SENTENCE IT DEPENDED ON.** The last sentence opened "In the north-west it
+long held complete supremacy", where "it" was the *classical art* of the sentence being replaced.
+**Rewriting a sentence in a ten-sentence abstract means reading the one after it**, which nothing in
+the pipeline checks.
+
+**THE PAGE IS BOUNDED RATHER THAN READ OFF A RUNNING HEAD.** The Coomaraswamy scan prints its page
+numbers as bare lines and drops several of them (55, 57, 58, 60, 62 …); both sentences the citation
+rests on fall between the printed 58 and the printed 60, so it is cited at 58–59. **Say what the scan
+supports.**
+
 ## Two notes on the tooling
 
 - **`cardYears` reads "594/3 BCE" as year 3.** Writing split years the short way in a date line
