@@ -899,6 +899,57 @@ extension gives a fully verified 200 and the whole text. The commands are in
 deliberately does NOT carry a row for the host — a row reporting SHUT for a host that serves everything
 would be worse than no row. **One client's refusal is not a fact about a host.**
 
+**BATCH R15 — 2026-09-13. THE ANCIENT INDIA CLUSTER OPENS, AND THE FIRST CARD CARRIED A DATE ITS OWN
+EDITION CONTRADICTS: over-cited 36 → 35.** `wh-393` Gupta Empire. Seven World History cards —
+`wh-376`, `wh-382`, `wh-383`, `wh-384`, `wh-389`, `wh-392`, `wh-393` — rest on the 1922 *Cambridge
+History of India* vol. 1 and on Vincent Smith's *Early History of India*, which is R11 and R12's
+William Smith shape one subject over: a single out-of-copyright survey carrying a deck, four of its
+citations on `wh-384` and `wh-389` being four PAGES of one chapter.
+
+**THE SUBSTITUTE IS THE EPIGRAPHIC RECORD, AND IT WAS OPEN ALL ALONG.** Three of `wh-393`'s five
+sources were Smith summarising documents that are themselves on archive.org: Fleet's *Inscriptions of
+the Early Gupta Kings and Their Successors* (Corpus Inscriptionum Indicarum 3) carries the Allahabad
+pillar inscription with its text, its translation and Fleet's headnote, and Hultzsch's *Inscriptions of
+Asoka* (CII 1) carries Rock Edict XIII. The card now states the Licchavi descent and the imperial
+titles from the inscription's own lines 28–29, the Ashokan pillar and the state of preservation from
+Fleet's headnote, and Ashoka's own words from Hultzsch. Smith falls to two citations and the card
+clears. **This is R13's finding in a second literature: the text behind the handbook is usually
+reachable, and the handbook is usually a summary of it.**
+
+**THE CARD ASSERTED A DATE THAT THE EDITION IT NOW RESTS ON READS THE OTHER WAY.** It said the
+panegyric "belongs to about 360 CE", on Smith alone — and Fleet titles the record the **Posthumous**
+Stone Pillar Inscription and reads its closing verse ("having gone to the abode of Indra") as meaning
+Samudragupta was dead when it was cut. Nothing the card carries supports 360, so the clause is gone
+from the prose **and from the date line**, which had been repeating it. **A correction does not travel
+between surfaces**, and a date line that goes on stating a figure the prose has dropped is the exact
+shape that rule exists for.
+
+**AND THE TRANSLATION IS PART OF THE CLAIM.** The card had Ashoka calling the conquest by dhamma "the
+best conquest of all"; Hultzsch, whom it now cites, renders *dharma-vijaya* as **"the only (true)
+conquest"**, which is a stronger thing to have said. Likewise the panegyric's composer: the card called
+him "a court poet" and the inscription styles him *sāndhivigrahika*, Samudragupta's **minister of peace
+and war**. **Quote the edition you cite, not the one you remember.**
+
+**AN INSCRIPTION IS CITED BY NUMBER AND LINE, NOT BY PAGE — here for a reason worth knowing.** The
+readable scan is the 1960 Varanasi facsimile, whose OCR interleaves the running heads with the plates
+and the footnotes, so a page attribution cannot be verified from it: the head reading "page 7" sits
+before line 18 and the head reading "page 9" before line 30, while Fleet's own cross-reference puts
+line 22 on page 8. The line numbers are printed beside the text and in the translation, and they are
+what an epigraphic citation properly uses anyway. Fleet's own headnote, which is prose rather than
+text, is cited at pages 2–3, where the page marker stands within a hundred characters of the sentence.
+
+**AND `archive.org` ANSWERED 200 TWICE WITH NOTHING IN IT.** `india.history.resource.107736` and
+`india.history.resource.498` are both Fleet's CII 3, both list a `_djvu.txt` in their metadata, and
+both hand back **zero bytes**. CLAUDE.md's rule that a 200 from archive.org is not a readable book met
+again: the copy that works is `in.ernet.dli.2015.463254`, the 1960 reprint, at 2 MB. **Grep the text
+for a word the book must contain before citing the item.**
+
+**WHAT IS LEFT OF THE CLUSTER: six cards**, and `wh-384` (F. W. Thomas at four pages of one chapter)
+and `wh-389` (J. H. Marshall at four pages of one chapter) are the worst-shaped on the whole remaining
+list. Their substitutes are named by this batch's own reading: for the Mauryan cards the Greek
+testimony in McCrindle and the Ashokan edicts in Hultzsch, and for the stupa the *Mahāparinibbāna
+Sutta*, which `wh-376` already cites, for the division of the relics.
+
 ## Two notes on the tooling
 
 - **`cardYears` reads "594/3 BCE" as year 3.** Writing split years the short way in a date line
