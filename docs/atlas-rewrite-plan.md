@@ -207,9 +207,25 @@ is an open question and its batch size follows from the answer.
 | **A6** | Angola, Uzbekistan, Peru, Saudi Arabia, Ghana, Malaysia, Madagascar, Venezuela | **shipped 2026-09-04** |
 | **A7** | Côte d’Ivoire, Mozambique, Nepal, Cameroon, Yemen, Australia, North Korea, Syria | **shipped 2026-09-04** |
 | **A8** | Burkina Faso, Niger, Sri Lanka, Kazakhstan, Zambia, Chile, Chad, Romania | **shipped 2026-09-13** |
-| A9–A33 | The remaining present-day countries and territories, in descending population | planned |
+| A9–A33 | The remaining present-day countries and territories, in descending population | **ON HOLD 2026-09-13** |
 | B1–… | Stage 2, the 424 historical states, grouped by era | planned |
 | C1–… | Stage 3, the 528 names of the 1600 era, at a bar to be decided | planned |
+
+### ⚠ THE PASS IS ON HOLD FROM A9, ON REQUEST (2026-09-13)
+
+The reader is considering **removing the general Atlas altogether and keeping only the personal one**, so
+rewriting 200 general-Atlas place popups is work that may be thrown away. A1–A8 are shipped and stay;
+nothing further is written until that decision is made.
+
+**A8's own finding is a reason FOR the removal rather than work to be done**, and is the thing to read
+first if the question is reopened: `countryDesc(name)` keys on the lowercased map label and carries **no
+era at all**, so a description written about a country's modern republic is what a reader is shown when
+they click the same name on a pre-1960 map. Measured on the day: **131 present-day names are also drawn
+on a pre-1960 era map, and every one of them shows the modern description.** Stage 1's own scope hides
+this — `stageOf` classes all 131 as stage 1, so stage 2's 424 historical names are disjoint from them by
+construction and no amount of stage-1 work touches it. Fixing it properly means either an era-keyed
+description store (a second dimension over 200-odd places, i.e. the pass again several times over) or
+deciding that the general Atlas does not need per-era prose — which is the question now open.
 
 ### Ordering within a stage
 
