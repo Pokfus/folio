@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C23 — six capitals, a territory with no weather record and no constitution to cite, and a constitution that spells its capital differently**: `gw-635` San Juan, `gw-636` Sarajevo, `gw-637` Yerevan, `gw-638` Windhoek, `gw-639` Vilnius and `gw-640` Doha, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C22 — six capitals, three new ways for the weather record to fail, and a station field naming another city**: `gw-629` Panama City, `gw-630` Zagreb, `gw-631` Tbilisi, `gw-632` Asmara, `gw-633` Ulaanbaatar and `gw-634` Montevideo, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C21 — six capitals, two constitutions no longer in force, and a WMO record split a century**: `gw-622` Bangui, `gw-623` Wellington, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José and `gw-628` Kuwait City, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -430,6 +432,107 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C23 found
+
+- **A TERRITORY LOSES TWO LEGS OF THE FIVE AT ONCE, AND BOTH ABSENCES ARE STRUCTURAL RATHER THAN
+  ACCIDENTAL.** Puerto Rico has **no row anywhere in the WMO city index** — that index is organised by
+  MEMBER, and a territory served through another member's service is not listed under its own name — and
+  **no entry on the Constitute Project**, which carries the constitutions of sovereign states. Neither gap
+  is a data fault to be worked around; they are what the two sources are FOR. So `gw-635` runs on three
+  papers plus UNdata plus the city list, and takes its weather leg out of the scientific literature: a
+  dengue-climatology paper's Study Area gives the island's latitudes, the humid subtropical climate, the
+  ~1,800 mm of rain, the easterly trade winds and a **daily rainfall and air-temperature record reaching
+  back to 1899**. **Expect this shape again on every remaining territory in the deck**, and plan five
+  legs that do not include a constitution.
+
+- **AND THE US RULE BINDS HARDEST EXACTLY WHERE IT IS MOST TEMPTING TO BREAK IT.** San Juan's UNdata page
+  carries a footnote on the territory's own population line reading *"For statistical purposes, the data
+  for United States of America do not include this area"* — genuinely interesting, and unusable: rule 1
+  forbids the phrase, and paraphrasing it would be writing the card about the relationship the rule
+  exists to remove. **It is left out**, and the capital-population footnote (the Metropolitan Statistical
+  Area) is reported instead. The rule is a rule about what the card is ABOUT, not a word filter to be
+  routed around.
+
+- **A CONSTITUTION CAN SPELL ITS CAPITAL DIFFERENTLY FROM THE WORLD, WHICH IS A TWELFTH SHAPE.** Qatar's
+  article 2 reads *"The Capital of the State is Al-Douha. It may be replaced by any other location by
+  law."* — and the string **Doha does not occur in the document at all**. A grep for the card's answer
+  term would have reported this constitution as silent about its capital, which is the opposite of the
+  truth. **Search for the capital AND for `\bcapital\b`, and read the hits**; C22's Eritrea really is
+  silent and this one is not, and only reading both tells them apart.
+
+- **NAMIBIA IS THE CLEANEST INSTANCE YET OF C19'S WARNING ABOUT THE TOPIC TAG.** Constitute's bold
+  *National capital* heading sits above a clause that reads *"Windhoek shall be the seat of central
+  Government"* and never uses the word capital of the place at all. The clause follows directly on the
+  sentence defining the territory — the enclave, harbour and port of Walvis Bay, the offshore islands,
+  and a southern boundary running down the middle of the Orange River. **The tag is Constitute's; the
+  words are the constitution's; quote the words.**
+
+- **AND TWO SHAPES THAT ARE NEW IN THE OTHER DIRECTION.** **Lithuania gives a REASON**: article 17 makes
+  the capital *"the city of Vilnius, the long-standing historical capital of Lithuania"*, the only text in
+  twenty-three batches to justify its choice in the clause that makes it. **Armenia names the city three
+  times over**: once in the article on the capital, once to leave the peculiarities of regional
+  administration there to ordinary law, and once to say flatly that *"Yerevan is a community"*, with its
+  local self-government settled the same way. Bosnia and Herzegovina's sits in article I, between the
+  free-movement clause and the symbols clause, and a later article has each chamber convene there within
+  30 days of being chosen.
+
+- **THE WMO RECORD FAILS TWO MORE WAYS, TAKING THE TALLY TO THIRTEEN.** **TWELFTH: A RECORD ROUNDED TO
+  WHOLE UNITS.** Yerevan's (id 66) gives every high, every low and every monthly rainfall as an integer —
+  33, 1, 17, −8, 44, 8 — and states no period. That is a fact about the record's precision and the card
+  says so; it also means the imperial conversions are written to whole degrees, because writing 91.4 °F
+  from a source that says 33 °C would invent precision the record does not have. **THIRTEENTH: THREE
+  SPANS IN ONE RECORD.** Doha's (id 221) gives temperature and rainfall over 1962–1992 and **rain days
+  over 1962–1990**, two years shorter. C18's Lomé had two fields a year apart and C21's San José two a
+  century apart; this is three fields and two spans in one table. **Read every window field, every time.**
+
+- **THE UNDATA FOOTNOTE GAINS ITS FIRST EXCLUSION.** Every scope note in this pass so far has widened the
+  figure — a metropolitan area, a governorate, a department and its neighbours, a settlement. Qatar's
+  reads *"Does not include the populations from the industrial area and zone 58"*, which NARROWS it, and
+  narrows it in a way worth noticing on a card about a Gulf capital. Sarajevo's names five municipalities
+  (Stari Grad, Centar, Novo Sarajevo, Novi Grad and Ilidža); San Juan's is the Metropolitan Statistical
+  Area; Yerevan's, Windhoek's and Vilnius's carry no scope note at all. All six are dated **2019 in a
+  column headed 2025**.
+
+- **A NATIONAL UTILITY'S WEEKLY BULLETIN IS THE BEST WATER LEG THIS PASS HAS FOUND.** NamWater publishes a
+  Surface Water System Weekly Dam Bulletin as a PDF, and the issue of **8 July 2024** shows the three dams
+  carrying the bulk of Windhoek's supply holding 24.417 of 154.513 million cubic metres between them —
+  **15.8 per cent, with the Omatako printed as `empty`** — while the two small dams filed under the city's
+  own name stood together at 69.3 per cent and the Goreangab read **100.3 per cent** of its capacity. Every
+  figure in that paragraph was re-derived from the table's own columns and checked: the sub-totals are the
+  sums, and the percentages are the quotients. **The host is intermittent** (one fetch died on a connection
+  reset and the retry served the file), so retry before recording it as shut.
+
+- **A CITY'S OWN MUNICIPALITY CAN CARRY THE WHOLE LANDFORM LEG.** `yerevan.am/en/our-city/` states the
+  position (the north-eastern part of the Ararat valley, both banks of the Hrazdan, 900–1,200 m above sea
+  level), the area (233 km²), the twelve districts by name, the continental climate, and the city's
+  standing as a legal entity with its own property, budget and seal. That is four of the five things a
+  background needs, from one page, in the city's own words. **Check the municipality before searching for
+  a paper.**
+
+- **HOSTS MEASURED THIS BATCH.** `yerevan.am`, `armstat.am`, `e-gov.am`, `nsa.org.na`, `namwater.com.na`,
+  `estuario.org`, `drna.pr.gov`, `jp.pr.gov` and `agrocienciauruguay.uy` all answer 200.
+  **`iopscience.iop.org` serves a Radware Bot Manager captcha**, which is a new wall shape for this pass
+  and cost Windhoek an open population-growth paper. IWA Publishing (`iwaponline.com`) is 403, so the
+  Windhoek water-reuse literature — the obvious leg for the city that pioneered direct potable reuse —
+  could not be read. `estuario.org` and `inumet.gub.uy` answer 200 and serve their content through
+  JavaScript, the pattern first recorded for the East Asian museum sites. MDPI DOIs still 403 while the
+  papers read at `res.mdpi.com`; six of this batch's works are MDPI or Frontiers and all were verified
+  against Crossref.
+
+- **THE READ-BACK CAUGHT SEVEN, AND TWO ARE NEW SHAPES.** The first is **a true conversion that reads as
+  a mistake**: Sarajevo's city station is at 630 m, which is **2,067 feet**, and the mountain station it is
+  paired with is at **2,067 metres**. Both figures were right and the sentence looked like a typing error,
+  so the conversion is written 2,070 ft — within the source figure's own precision and free of the
+  collision. **A conversion that collides with another number in the same sentence is worth rounding
+  differently.** The second is **an unsourced comparison reached for to pad a short card**: Yerevan came in
+  at 258 words and the first fix added "less than a third of what falls on London", a figure from nowhere;
+  the honest expansion was the municipality's own description of the city as a legal entity, and the
+  rainfall total summed from the record's own twelve months. **A card under the floor is a card that needs
+  more RESEARCH, not more sentences.** The other five are this pass's usual: two unsourced compass
+  directions and a distance on the Windhoek dams, an unmeasured "one of the few" about Lithuania's
+  constitution, a hedge dropped from the San Juan salvinia story, "dredging" for the paper's mechanical
+  control, and an opener promising what its sentence did not deliver.
 
 ## What C22 found
 
