@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C22 — six capitals, three new ways for the weather record to fail, and a station field naming another city**: `gw-629` Panama City, `gw-630` Zagreb, `gw-631` Tbilisi, `gw-632` Asmara, `gw-633` Ulaanbaatar and `gw-634` Montevideo, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C21 — six capitals, two constitutions no longer in force, and a WMO record split a century**: `gw-622` Bangui, `gw-623` Wellington, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José and `gw-628` Kuwait City, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C20 — six capitals, and four constitutions that decline to name the city**: `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava and `gw-621` Dublin, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -428,6 +430,109 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C22 found
+
+- **THE WMO LEG FAILS THREE MORE WAYS, AND ALL THREE ARE IN THIS BATCH.** C21 took the tally to eight;
+  these take it to eleven, and every one of them is invisible from the monthly table itself.
+  · **NINTH: A COMPLETE RECORD WITH NO PERIOD AT ALL.** Zagreb's entry (id 70) gives twelve months of
+    highs, lows, rainfall and rain days and states no window — `datab`/`datae`, `tempb`/`tempe`,
+    `rdayb`/`rdaye` and `rainfallb`/`rainfalle` are all empty. What it does carry is
+    `climateFromMemDate`, **which is the date the member service SENT the figures in and not the span
+    they cover** (15 June 2001 here). Asmara and Montevideo are the same shape. A card that reads that
+    field as a window is stating a period the record does not claim.
+  · **TENTH: HALF A RECORD.** Tbilisi's entry (id 209) states a window — 1961 to 1990 — and carries
+    rainfall and rain days and **no temperature whatever**, every `maxTemp` and `minTemp` null. It is the
+    mirror of C20's Beirut, which had rainfall alone on a short window; here the window is long and
+    ordinary and the temperature is simply not there.
+  · **ELEVENTH, AND THE DANGEROUS ONE: THE STATION FIELD CAN NAME A DIFFERENT CITY.** Montevideo's entry
+    (id 293) is filed under the city, at the city's own coordinates (34.88° S, 56.17° W), and its
+    `stationName` reads **Salto** — a city on the other side of the country, which has no row of its own
+    in the index. **C21's Wellington card named its station off that field** ("the airport station's
+    normals"), which is right there and was right by luck. **Read `stationName` against `cityName` and
+    the coordinates before putting it in a sentence**, and where they disagree say what the record says
+    rather than adjudicating between them: `gw-634` reports the mismatch and does not decide it.
+
+- **THE CONSTITUTIONAL TALLY GAINS A SHAPE NO OTHER CONSTITUTION ON THE SHELF HAS: ONE THAT DEFINES WHAT
+  A CAPITAL IS BEFORE NAMING ONE.** Mongolia's article 13 reads *"A capital of the State shall be the city
+  in which the supreme organs of State permanently exist. The capital of Mongolia is the City of
+  Ulaanbaatar."* Every other text in twenty-two batches either names its capital, legislates about "the
+  capital" without naming it, or says nothing; this one writes the definition first. **Croatia's is the
+  other new one**: article 13 names the city and then hands its arrangements to ordinary legislation —
+  status, jurisdiction and organisation — and a later article lets that law give the capital the standing
+  of a county. Georgia's sits **among the state symbols**, the commonest shape of all, in one sentence
+  between the naming of the state and the naming of the official language.
+
+- **AND TWO MORE THAT NEVER NAME THE CITY, BOTH OF THEM BY NOW THE MAJORITY SHAPE.** Panama's 1972 text
+  (rev. 2004) legislates about "the capital city" — the Assembly convenes there for eight months a year
+  in two four-month sessions, and university teaching in the regional centres is given equal standing
+  with teaching in the capital city — and reaches the name only through an electoral clause singling out
+  one district. **Eritrea's 1997 constitution does not contain the word `capital` at all**, and does not
+  contain the city's name either: its article 4, *National Symbols and Languages*, settles the flag, the
+  anthem and the languages and stops — which is the article a capital most often sits in. **Uruguay's
+  names the place twice and never as the capital**, once requiring candidates for Justice of the Peace in
+  the department to be lawyers and once setting aside a share of national taxes collected outside that
+  department for decentralisation.
+
+- **THE UNDATA CAPITAL LINE GAINS A NEW SCOPE WORD: SETTLEMENT.** Zagreb's footnote reads "Refers to the
+  settlement of Zagreb" — **narrower** than the administrative city, where every earlier qualified
+  footnote in this pass has been wider (a metropolitan area, a governorate, a department plus named
+  localities). Panama City's is the metropolitan area; Montevideo's is the department plus two localities
+  in Canelones and San José; Tbilisi's, Asmara's and Ulaanbaatar's carry no scope note at all. All six
+  are dated **2019 in a column headed 2025**, as every batch since C11. **Georgia's page footnotes the
+  NATIONAL population figure to say it includes Abkhazia and South Ossetia** — the first time in this
+  pass that a country's own total carries a territorial scope note, and it is reported as the footnote's
+  words rather than adjudicated.
+
+- **A CITY'S OWN AUTHORITY CAN BE THE WATER LEG, AND THE PANAMA CANAL AUTHORITY IS THE BEST ONE YET.**
+  `pancanal.com` answers 200 and states on its Canal Watershed page that the watershed is the principal
+  source of the water a transit needs **and** supplies 95 per cent of the drinking water of Panama City,
+  Colón, San Miguelito and, in the near future, Chorrera. Its August 2026 advisory then dates what that
+  means: reduced precipitation in the watershed, Neopanamax slots cut to nine from 3 September and
+  Panamax slots to twenty-five and then twenty-three. **One institution supplied both the landform leg and
+  a dated event**, which is what the recipe's fourth leg is for and what it rarely manages.
+
+- **AND A TIDE TABLE IS NOT A SOURCE YOU CAN PARSE.** The same authority publishes per-terminal tide
+  tables as PDFs, and the Pacific/Atlantic contrast would have been the best fact on the card. The
+  extraction runs the columns together — `11414.644520812.4378` is a time, a height in feet and a height
+  in centimetres with no separator — and **the obvious disambiguator is not enough**: a four-digit time
+  followed by a one-or-two-digit foot value is ambiguous, so the parser read 14.6 ft / 445 cm as
+  "1141" + "4.6" + "445" and reported a Limón range of 30 feet. A feet-to-centimetres consistency test
+  passed on those mis-splits often enough to look like a clean run. **The claim was dropped rather than
+  published**; do not try to derive figures from these tables.
+
+- **SEARCH THE DISCIPLINE, AGAIN, AND THIS TIME IT IS MINING GEOLOGY.** Asmara has no landform literature
+  of its own, and the leg came from a 2026 PLOS ONE paper mapping volcanogenic massive sulphide
+  mineralization: the Asmara Mineralized Belt runs NNE–SSW for over 35 km and **"approximately 15 km of
+  the belt is covered by basalt flows, urban infrastructure, and the city of Asmara itself"** — one
+  sentence that puts the city on its own ore body. Tbilisi's came from an urban-forest ecosystem-services
+  paper whose study area is the municipality's 502 km²; Ulaanbaatar's from a water-quality paper that
+  gives the altitude, the aquifer, the bank filtration, the river's dimensions and the basement geology
+  in one Study Area section.
+
+- **HOSTS MEASURED THIS BATCH.** `pancanal.com` 200 and useful; `inumet.gub.uy` **answers 200 and serves
+  its climate pages through JavaScript** (the Características climáticas page yields 3.4 KB of navigation
+  and no content), the East Asian national-museum pattern met again one continent over;
+  `agrocienciauruguay.uy` 200; `scielo.edu.uy` does not answer at all. Wiley (including the former
+  Hindawi journals), Taylor & Francis and `downloads.hindawi.com` are 403, so the one open-looking
+  Tbilisi seismology paper could not be read and was not cited. **MDPI DOIs still 403 while the papers
+  read at `res.mdpi.com`** — five of this batch's works are MDPI and all five were verified against
+  Crossref rather than trusted to resolve.
+
+- **THE READ-BACK CAUGHT SIX, AND FOUR OF THEM ARE NEW SHAPES.** An **unsourced attribution of a name**:
+  the Mtkvari's second name was written as "the river the Russian and Azerbaijani names call the Kura",
+  where the source says only "Mtkvari (Kura)". A **"such as" list read as a complete one**: the Asmara
+  belt's prospects. A **claim about the country attached to the city**: the Sahara and Arabian dust is
+  the paper's statement about Eritrea, not about Asmara. An **unmeasured comparative**: "the constitution
+  does something few others do". **74 per cent written as "almost all".** And an ordinary factual slip
+  that only the table could catch — Montevideo's driest month is **June** at 83.1 mm, not December at
+  84.4. **Every one of the six rendered perfectly.**
+
+- **THE MINUS SIGN IS U+2212 AND THE CORPUS ALREADY SAYS SO.** Three negative temperatures were written
+  with an EN DASH, which is what the house style uses for a range, and the two are visually near enough
+  to pass a read-back. Measured over the shipped `gw-` backgrounds: **29 minus signs, 12 ASCII hyphens,
+  and the 3 en dashes this batch introduced.** Write `−`; the hyphens are a small standing backlog and
+  the en dash is simply wrong.
 
 ## What C21 found
 
