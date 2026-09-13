@@ -1773,71 +1773,75 @@ const BOOKS = {
 
   "plato-republic": {
     title: "The Republic",
-    // from this edition's own title page, which sets it under the title in its own line
-    subtitle: "An Ideal Commonwealth",
+    subtitle: "Politeia",
     author: "Plato",
-    translator: "Benjamin Jowett",
-    edition: "The Colonial Press, New York, 1901",
+    translator: "Paul Shorey",
+    edition: "Loeb Classical Library, Harvard University Press, 1930 and 1935",
     written: "c. 375 BCE",
 
-    /* ---------- THE LICENCE, and this is the easiest of the four ----------
-       Seneca's and the Meditations' translations are served on the pre-1929 publication rule and
-       clear the life-plus-seventy rule as well; Giles's clears only the first, and his entry has to
-       say where it stops. This one clears everything with room to spare and needs no limit at all.
-       Jowett published his Plato in 1871 and revised it through the 1890s, this printing is of 1901,
-       and Jowett died in 1893 — so the translation is out of copyright on the publication rule, on
-       life plus seventy, and on life plus a hundred. The Greek beneath it is some twenty-four
-       centuries old.
+    /* ---------- WHY THIS BOOK CHANGED TRANSLATORS, and it was never a textual problem ----------
+       It shipped in Jowett until Sep 2026 and the entry then said, at length, that the Greek could
+       not be set beside it: Plato has the best-standardised citation system of any ancient author —
+       Stephanus's page and column of 1578, used identically by every edition in every language for
+       four hundred years — Burnet's Greek sits on Perseus with those numbers as its structure, and
+       the 1901 Colonial Press printing of Jowett carries not one of them, measured over all ten
+       books.  Two columns pair on the numbers a text states about itself, and that one states none.
 
-       The 1901 volume carries a Colonial Press copyright notice, which covers what the press added
-       to Jowett rather than Jowett: a special introduction by William Cranston Lawton and a set of
-       engraved plates. Neither is imported — what is taken is the ten books of the translation — and
-       both are pre-1929 in any case.
+       THE OBVIOUS ANSWER WAS RULED OUT ON A DATE THAT HAD ALREADY PASSED.  Shorey's Loeb prints the
+       Stephanus numbers and is on Perseus, and was set aside as still in copyright.  Shorey died on
+       24 April 1934, which puts the translation in three positions at once and only one of them was
+       ever considered: public domain wherever the term is life plus seventy since 1 January 2005 —
+       twenty-one years ago; in the United States, volume 1 (Books I–V, 1930) since 1 January 2026;
+       and in the United States, volume 2 (Books VI–X, 1935) on 1 January 2031.  `rights` below says
+       so per volume rather than rounding it into one claim, which is the whole of what is being
+       traded here.
 
-       The modern translations a reader is likeliest to own — Desmond Lee's Penguin (1955), G. M. A.
-       Grube's revised by C. D. C. Reeve (1992), Allan Bloom's (1968) — are all firmly in copyright,
-       and are named here for the reason Campbell, Hays and Griffith are named above: so that nobody
-       reaches for one later. */
+       WHAT IS GIVEN UP, said plainly rather than left for a reader to notice.  Jowett is a fine
+       translation and some readers prefer it; keeping both is not a shape this shelf has.  His
+       edition's ten descriptive book titles ("Of Wealth, Justice, Moderation, and Their Opposites")
+       go with him, because they are HIS printing's headings and the Loeb prints none — carrying them
+       over would file one edition's apparatus under another's name, which is the one thing every
+       entry here is careful not to do.  REPUBLIC_TITLES stays declared above against a future
+       Jowett; it is simply not read by this entry.
+
+       WHAT IS GAINED is the facing Greek this book has never had, paired exactly: 278 Stephanus
+       sections on each side, and every book's list of them identical between the two columns —
+       measured before a line was written, not hoped for.  It is the Dialogues' shape, which is the
+       only pairing in the Library that is exact by construction at scale. */
+
     rights:
-      "Public domain worldwide: Benjamin Jowett died in 1893 and his translation was published from " +
-      "1871 onwards, this printing in 1901, so its copyright has expired everywhere — on the pre-1929 " +
-      "publication rule and on the author's-life rule alike. The Greek it translates is some " +
-      "twenty-four centuries old. (The modern translations by Desmond Lee, 1955, Allan Bloom, 1968, " +
-      "and G. M. A. Grube revised by C. D. C. Reeve, 1992, are still in copyright and are not used " +
-      "here.)",
-    /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19's sweep, batch E20) ----------
-       Found by asking the shelf's own vocabulary which words are rare everywhere and sit one edit from
-       a word it uses constantly, and then READING every candidate this book returned. Most were right
-       as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
-       are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
-    reFixes: [
-      [/(?<![A-Za-z])continuallly(?![A-Za-z])/g, "continually",
-       "a trebled l in `continually`"],
-    ],
-    sourceName: "Wikisource",
-    sourceUrl: "https://en.wikisource.org/wiki/The_Republic_of_Plato",
+      "Two layers, both stated, and the English one differs by volume. Paul Shorey's translation was " +
+      "published in the Loeb Classical Library in two volumes, Books I–V in 1930 and Books VI–X in " +
+      "1935. Shorey died in 1934, so the whole translation has been public domain since 1 January " +
+      "2005 in every country whose term is the author's life plus seventy years, including the " +
+      "United Kingdom and the European Union. In the United States the term runs from publication: " +
+      "Books I–V entered the public domain there on 1 January 2026, and Books VI–X follow on " +
+      "1 January 2031. The Greek beside it is John Burnet's Oxford Classical Text of 1902, and " +
+      "Burnet died in 1928, so that is public domain on both rules with nothing to qualify. Both " +
+      "columns are taken from the digital editions prepared by the Perseus Digital Library at Tufts " +
+      "University, which are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+      "International licence. Plato's own text is some twenty-four centuries old. (The modern " +
+      "translations a reader is likeliest to own — Desmond Lee's Penguin of 1955, G. M. A. Grube's " +
+      "revised by C. D. C. Reeve in 1992, and Allan Bloom's of 1968 — are all firmly in copyright " +
+      "and are not used here.)",
 
-    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
-       Three things a reader arriving at this book should be told plainly rather than discover late:
-       the argument is about a soul at least as much as about a state, the translation is a Victorian
-       one with a manner of its own, and this printing does not carry the Stephanus numbers by which
-       Plato is cited anywhere else — which is also why there is no Greek column here. */
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059.tlg030/",
+
     about: [
-      "<b>The Republic</b> is the best known of Plato's dialogues and one of the most widely read " +
-        "books of political philosophy ever written, though calling it that gives a misleading idea " +
-        "of what is in it. It opens on a question about justice — what it is, and whether a just life is better " +
-        "for the person living it than an unjust one — and reaches for an answer by building a city " +
-        "in speech, on the reasoning that justice will be easier to make out written large in a state " +
-        "than small in a single soul. Everything the book is famous for comes out of that " +
-        "construction: the rulers who must be philosophers, the guardians who own nothing, the poets " +
-        "turned out of the city, and the images of the sun, the divided line and the cave.",
-      "Plato was born in Athens around 428 BCE, into a family close to the city's politics, and lived " +
-        "through its defeat by Sparta, the brief and violent oligarchy that followed, and the " +
-        "restored democracy that put Socrates to death in 399. He founded the Academy in the 380s and " +
-        "taught there until he died around 348. The Republic is usually placed in the 370s, in the " +
-        "middle of his writing life, and Socrates narrates the whole of it — as he does in no other " +
-        "dialogue of this length — recounting the previous day's conversation at the house of " +
-        "Cephalus in the Piraeus.",
+      "<b>The Republic</b> asks what justice is and whether the just life is better for the person " +
+        "living it. Socrates is challenged in Book I to show that justice is worth having for its " +
+        "own sake and not merely for the reputation it brings, and his answer takes the rest of the " +
+        "dialogue: he proposes to read justice first in a city, where it is written larger, and then " +
+        "back in the soul. The city he builds along the way — its guardians, its education, its " +
+        "philosopher-rulers — is the most famous political construction in Western writing, and it " +
+        "is a step in an argument about individual character rather than the point of the book.",
+      "Plato was born at Athens in about 428 BCE into a family close to the men who ruled the city " +
+        "under the Thirty, and he was in his late twenties when the restored democracy tried and " +
+        "executed Socrates in 399. He founded the Academy in the 380s and taught there until he died " +
+        "in about 348. The Republic belongs to his middle period and is usually dated to the 370s; " +
+        "it is set a generation earlier, at the house of the old metic Cephalus in the Piraeus, on " +
+        "the evening of a festival.",
       "How much of it is meant as a proposal has been argued over since antiquity, and no reading " +
         "commands agreement. Some of the city's arrangements are plainly offered as improvements on " +
         "Athens; others — the rulers' abolition of private families, the falsehood told to hold the " +
@@ -1846,71 +1850,51 @@ const BOOKS = {
         "earth. What is not in doubt is that the city and the soul are built to mirror each other, so " +
         "that the constitutions of Book VIII are also portraits of characters, and the argument ends " +
         "where it began, on which life is worth living.",
-      "Benjamin Jowett was Regius Professor of Greek at Oxford and Master of Balliol, and his Plato of " +
-        "1871, revised through the rest of his life, made these dialogues English for several " +
-        "generations of readers. It is a translation with a manner: fluent, dignified, Victorian, and " +
-        "freer with the Greek than a modern version would be, smoothing Plato's abruptness and " +
-        "occasionally saying in one graceful sentence what the original says in two awkward ones. It " +
-        "is read for its English rather than for close construing, and anyone working on a particular " +
-        "passage should check it against a literal modern text.",
-      "The books are numbered here as they have always been numbered, and the titles above them are " +
-        "this edition's own. Note that Plato is normally cited not by book but by <i>Stephanus " +
-        "number</i> — the page and column of Henri Estienne's edition of 1578, which is how a " +
-        "reference such as 'Republic 514a' works — and that this printing does not carry those " +
-        "numbers in its margins. That is why the Greek is not set beside the translation " +
-        "here: two columns of a bilingual text are paired on the numbers a text " +
-        "states about itself, and this one states none. The numbered notes folded under each book are " +
-        "the translator's own.",
+      "Paul Shorey held the chair of Greek at Chicago for thirty-five years and spent much of his " +
+        "career on Plato; this translation, made for the Loeb Classical Library in 1930 and 1935, is " +
+        "the work of a scholar arguing with the text as he renders it. It is closer to the Greek " +
+        "than Benjamin Jowett's Victorian version, which this book carried until 2026, and less " +
+        "graceful for it — Shorey keeps Plato's abruptness, his colloquial particles and his " +
+        "repetitions where Jowett smoothed them away. The notes folded under each book are Shorey's " +
+        "own, and they are an argument as much as an apparatus.",
+      "The bold figures running through the text are <i>Stephanus numbers</i> — the pages of Henri " +
+        "Estienne's edition of 1578, which is how a reference such as 'Republic 514a' works and has " +
+        "worked in every language for four hundred years. Because both columns state them, the Greek " +
+        "can be set beside the English and paired on them exactly: 278 sections on each side, book " +
+        "for book. The Greek is John Burnet's Oxford Classical Text of 1902. The books are numbered " +
+        "as they always have been and carry no titles, because this edition prints none.",
     ],
 
     chapterWord: "Book",
-    /* Transcribed from the headings the edition prints — see REPUBLIC_TITLES above. */
-    titleOf: (n) => REPUBLIC_TITLES[n - 1] || "Book " + toRoman(n),
-    /* Neither of the two section-marking conventions this file knows applies: Jowett's text carries no
-       section numbers of any kind, so there is no `sections` here and every chapter comes through as
-       one block. fetchEnglish() will say so — "10 chapter(s) with NONE" — and that is the expected
-       result for this book rather than a fault to chase. See `about` above and the note at the foot of
-       this entry for what follows from it. */
-    /* The running heads: the volume's half-title above Book I, and each book's own heading, which the
-       edition sets as "BOOK V." and the title on the line beneath — so one pattern anchored to the
-       numeral takes the whole block. */
-    dropHeads: [/^THE REPUBLIC$/i, /^BOOK\s+[IVXLCDM]+\b/i],
-    /* This printing binds engraved plates into the text; the scan labels those leaves rather than
-       numbering them. See the note in cleanBody. */
-    dropUnnumberedPages: true,
-    page: (n) => "The Republic of Plato/Book " + n,
-    /* No contents page is walked: this volume's is a list of books with no titles beside them, and the
-       titles are printed above the books themselves instead — hence REPUBLIC_TITLES. */
+    titleOf: (n) => "Book " + toRoman(n),
+
+    /* One TEI file, ten book divisions, each divided into Stephanus sections — see teiBookSlices. */
+    source: "tei",
+    layout: "booksections",
+    subtype: "section",
     chapters: Array.from({ length: 10 }, (_, i) => i + 1),
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0059/tlg030/" +
+      "tlg0059.tlg030.perseus-eng2.xml",
 
-    /* ---------- WHY THERE IS NO `original` HERE ----------
-       This is the first book in the library to fail the test the Meditations entry sets out, and it
-       fails it on the ENGLISH side, which is new. The rule is that app.js pairs the two columns on
-       SECTION NUMBERS and never on paragraph order, so an original may ship only where BOTH texts say
-       which section each passage is. Plato has the best-standardised citation system of any ancient
-       author — the Stephanus page-and-column of 1578, used identically by every edition and
-       translation in every language for four hundred years — and the Greek half is ready and waiting:
-       Burnet's Oxford Classical Text of 1902 is on Perseus in the same TEI/CTS encoding the
-       Meditations' Greek comes from, with the Stephanus numbers as structure rather than as something
-       to be read back out of the prose.
-
-       What is missing is the numbers on Jowett. This Colonial Press printing has no margins to put
-       them in and does not carry them anywhere else either — measured over all ten books, there is
-       not one Stephanus reference in the text — and it is the only complete transcription of the
-       Republic in Wikisource's main namespace. (The Jowett Republic inside "The Dialogues of Plato
-       (Jowett)" is an index of red links; everything else on Wikisource's list of English Republics
-       is an Index: transcription project not transcluded into mainspace. Checked, all of it, before
-       this was concluded.)
-
-       Aligning them anyway would mean deciding by eye where each Stephanus page begins in Jowett's
-       English — several hundred judgements per book, on a translation freer than most, with nothing
-       to check them against. That is precisely what was tried and abandoned for the Meditations'
-       Greek, and it would be worse here. So the Republic ships in English alone, which the reader is
-       told in its own front matter, and the day a numbered transcription appears the Greek can be
-       added by writing an `original` block and an `origLang` — nothing else about the book would have
-       to change. */
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "booksections",
+      subtype: "section",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0059/tlg030/" +
+        "tlg0059.tlg030.perseus-grc2.xml",
+      edition: "John Burnet's Oxford Classical Text (Clarendon Press, 1902), from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated. The text is John Burnet's edition of the Greek, printed by the " +
+        "Clarendon Press at Oxford in 1902 and in the public domain — before 1929, and Burnet died " +
+        "in 1928. The digital edition it is taken from is prepared by the Perseus Digital Library at " +
+        "Tufts University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059.tlg030/",
+    },
   },
-
   "plato-dialogues": {
     title: "The Dialogues",
     // descriptive rather than transcribed: this gathering is Folio's, so it does not borrow a title page
@@ -23141,6 +23125,36 @@ function teiBookChapters(xml, opts, warn) {
    · IT SKIPS DIVISIONS THAT ARE NOT CHAPTERS, and says which. Each English file ends with the
      edition's own appended essay on the reign, filed as a division numbered `note` or `appendix`;
      it is not Suetonius and is not imported. Reporting the skips is what keeps that a decision. */
+/* ONE TEI FILE, TEN BOOKS, EACH DIVIDED INTO NUMBERED SECTIONS — the Republic's shape, and the
+   third TEI case the shelf has needed.  `perChapter` fetches one file per chapter and hands the
+   whole body to teiSections (the Dialogues, one file per dialogue); `chaptered` slices books into
+   `subtype="chapter"` divisions that carry no number the two columns could pair on (Herodotus, the
+   Gallic War).  Here the chapter IS a book division and the thing the columns pair on is the
+   `subtype="section"` div inside it, which for Plato is the Stephanus page.
+   SLICING THE BODY PER BOOK AND REUSING teiSections IS THE POINT.  Teaching teiSections about books
+   would make every other caller pay for a structure it has not got, and this way the section rules
+   that already work — the out-of-order warning, the empty-section warning, the note whose marker did
+   not survive — apply per book, where a fault is legible, rather than over 278 sections at once.
+   The slice is re-headed with `<body>` because teiSections starts by seeking one. */
+function teiBookSlices(xml) {
+  const body = xml.slice(xml.indexOf("<body"));
+  if (body.length < 1000) throw new Error("no <body> in the TEI file");
+  const at = [];
+  const dre = /<div\b([^>]*)>/g;
+  let m;
+  while ((m = dre.exec(body))) {
+    const st = (/subtype="([^"]*)"/i.exec(m[1]) || [])[1] || "";
+    const n = (/\bn="([^"]*)"/.exec(m[1]) || [])[1] || "";
+    if (st.toLowerCase() === "book" && /^\d+$/.test(n)) at.push({ n: +n, at: m.index });
+  }
+  if (!at.length) throw new Error("no book divisions in the TEI file");
+  const out = {};
+  at.forEach((b, i) => {
+    out[b.n] = "<body>" + body.slice(b.at, i + 1 < at.length ? at[i + 1].at : body.length);
+  });
+  return out;
+}
+
 function teiSections(xml, opts, warn) {
   const body = xml.slice(xml.indexOf("<body"));
   if (body.length < 500) throw new Error("no <body> in the TEI file");
@@ -26165,6 +26179,29 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  if (BOOK.source === "tei" && BOOK.layout === "booksections") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
+    xml = correctRaw(xml);
+    const slices = teiBookSlices(xml);
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const slice = slices[n];
+      if (!slice) { warn(BOOK.chapterWord + " " + n + " is missing from the edition"); continue; }
+      const got = teiSections(slice, { subtype: BOOK.subtype },
+        (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
+      if (got.html.length < 200) throw new Error("chapter " + n + " came back short (" + got.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
+      console.log("  " + BOOK.chapterWord + " " + n + " — " + got.count + " sections, " +
+        got.notes.length + " notes (" + (got.html.length / 1024).toFixed(0) + " KB)");
+      if (got.skipped.length) console.log("    skipped non-section division(s): " + got.skipped.join(", "));
+    }
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.source === "tei") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-tei.xml");
@@ -27526,6 +27563,28 @@ async function fetchOriginal() {
       const got = teiSections(xml, { subtype: O.subtype }, w);
       if (!got.html) { w("came back empty"); continue; }
       if (got.skipped.length) console.log("    skipped non-chapter division(s): " + got.skipped.join(", "));
+      byNum[n] = got.html;
+      console.log("  " + BOOK.chapterWord + " " + n + " — " + got.count + " sections (" +
+        (got.html.length / 1024).toFixed(0) + " KB)");
+    }
+    return writeOriginal(byNum, warnings);
+  }
+
+  if (O.source === "tei" && O.layout === "booksections") {
+    console.log("\nFetching the " + O.langName + " original — " + O.edition);
+    const cf = path.join(cacheDir, "tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(O.url); fs.writeFileSync(cf, xml); }
+    const slices = teiBookSlices(xml);
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const w = (m) => warn(BOOK.chapterWord + " " + n + ": " + m);
+      const slice = slices[n];
+      if (!slice) { w("is missing from the original"); continue; }
+      const got = teiSections(slice, { subtype: O.subtype }, w);
+      if (!got.html) { w("came back empty"); continue; }
+      if (got.skipped.length) console.log("    skipped non-section division(s): " + got.skipped.join(", "));
       byNum[n] = got.html;
       console.log("  " + BOOK.chapterWord + " " + n + " — " + got.count + " sections (" +
         (got.html.length / 1024).toFixed(0) + " KB)");

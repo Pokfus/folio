@@ -11478,45 +11478,58 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     {
       id: "plato-republic",
       title: "The Republic",
-      // the edition's own title page sets this under the title, on its own line
-      subtitle: "An Ideal Commonwealth",
+      // Plato's own title for it, transliterated; the Loeb prints no descriptive subtitle
+      subtitle: "Politeia",
       author: "Plato",
       written: "c. 375 BCE",
       year: -375,
-      translator: "Benjamin Jowett",
-      edition: "The Colonial Press, New York, 1901",
-      /* The simplest licence of the four, and the only one that needs no qualification of any kind.
-         Seneca and the Meditations are served on the pre-1929 publication rule and happen to clear
-         life-plus-seventy as well; Giles clears only the first, and his entry has to say where it
-         stops. Jowett died in 1893, so this one has been out of copyright everywhere for longer than
-         most countries have had their present term. */
+      translator: "Paul Shorey",
+      edition: "Loeb Classical Library, Harvard University Press, 1930 and 1935",
+      /* THE ONE LICENCE ON THIS SHELF THAT DIFFERS BY VOLUME (Sep 2026, on request). This book
+         shipped in Jowett until then — the simplest licence of any book here — and changed
+         translators to get the facing Greek it had never had; see .claude/fetch-book.js for the
+         whole finding. Shorey died in 1934, so the translation is public domain wherever the term is
+         life plus seventy and has been since 2005; in the United States it runs from publication, so
+         Books I–V (1930) cleared on 1 January 2026 and Books VI–X (1935) follow on 1 January 2031.
+         That split is stated rather than rounded into one claim, which is the Nicomachean Ethics'
+         discipline made in the other direction — Ross is clear in the US and runs to 2042 in
+         life-plus-seventy countries, and his entry says so too. */
       rights:
-        "Public domain worldwide: Benjamin Jowett died in 1893 and his translation was published from " +
-        "1871 onwards, this printing in 1901 — so its copyright has expired everywhere, on the " +
-        "pre-1929 publication rule and on the author's-life rule alike. The Greek it translates is " +
-        "some twenty-four centuries old. The modern translations by Desmond Lee (1955), Allan Bloom " +
-        "(1968) and G. M. A. Grube revised by C. D. C. Reeve (1992) are still in copyright and are " +
-        "deliberately not used here.",
-      sourceName: "Wikisource",
-      sourceUrl: "https://en.wikisource.org/wiki/The_Republic_of_Plato",
-      /* NO `origLang`, and this is the first book here to go without one — so it is also the first
-         demonstration that the field is genuinely optional: the reader page simply shows no
-         original-language control, and nothing else about the book differs.
-
-         It is not for want of a Greek text. Plato has the best-standardised citation system of any
-         ancient author — Stephanus's page-and-column of 1578, which every edition in every language
-         has used since — and Burnet's Oxford text sits on Perseus in the same TEI encoding the
-         Meditations' Greek comes from. What is missing is the numbers on JOWETT: this printing does
-         not carry them, and it is the only complete transcription of the Republic in Wikisource's
-         main namespace. The columns pair on numbers a text states about itself, so a book whose
-         English states none cannot have a second column without several hundred alignments made by
-         eye — which is exactly what was tried and abandoned for the Meditations. The reader is told
-         so in the book's own front matter; see .claude/fetch-book.js for the whole finding. */
+        "Two layers, both stated, and the English one differs by volume. Paul Shorey's translation was " +
+        "published in the Loeb Classical Library in two volumes, Books I–V in 1930 and Books VI–X in " +
+        "1935. Shorey died in 1934, so the whole translation has been public domain since 1 January " +
+        "2005 in every country whose term is the author's life plus seventy years, including the " +
+        "United Kingdom and the European Union. In the United States the term runs from publication: " +
+        "Books I–V entered the public domain there on 1 January 2026, and Books VI–X follow on " +
+        "1 January 2031. The Greek beside it is John Burnet's Oxford Classical Text of 1902, and " +
+        "Burnet died in 1928, so that is public domain on both rules with nothing to qualify. Both " +
+        "columns are taken from the digital editions prepared by the Perseus Digital Library at Tufts " +
+        "University, which are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence. Plato's own text is some twenty-four centuries old. (The modern " +
+        "translations a reader is likeliest to own — Desmond Lee's Penguin of 1955, G. M. A. Grube's " +
+        "revised by C. D. C. Reeve in 1992, and Allan Bloom's of 1968 — are all firmly in copyright " +
+        "and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059.tlg030/",
+      /* IT HAS AN ORIGINAL NOW, and the entry that stood here was the shelf's demonstration that
+         `origLang` is optional — a book whose English stated no Stephanus numbers and so could not
+         be paired with a Greek that states nothing else. The block ended "the day a numbered
+         transcription appears an `original` block and an `origLang` are the whole of the work", and
+         that is what happened: Shorey's Loeb prints the numbers, sits on Perseus in the same TEI
+         encoding Burnet's Greek does, and the two pair on 278 Stephanus sections with every book's
+         list identical — measured before anything was written. The demonstration that the field is
+         optional now belongs to Aesop's Fables, where NEITHER column states a number and no better
+         transcription would help. */
+      origLang: "grc",
+      origName: "Greek",
       chapterWord: "Book",
       // ten books is the whole work, so the two agree and will stay agreed
       count: 10,
       total: 10,
-      /* No `parts`: one volume, and its own edition divides the ten books no further. */
+      /* No `parts`: the Loeb divides the ten books into two volumes and Folio does not follow that
+         split, since it is a binding rather than a division of the argument — and the volumes are
+         exactly what `rights` has to separate, so drawing them as parts would put a copyright
+         boundary on the chapter bar where a reader would read it as Plato's. */
     },
     {
       id: "plato-dialogues",
@@ -11563,17 +11576,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "here.)",
       sourceName: "Perseus Digital Library",
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059/",
-      /* AN `origLang` WHERE THE REPUBLIC HAS NONE, and the difference is the PRINTING rather than
-         the author. The Republic entry above concludes that Plato cannot have a Greek column; it is
-         right about that printing and wrong as a general rule, which is worth saying because this is
-         the book that disproves it — the columns pair on section numbers a text states about itself,
-         the Colonial Press Republic states none, and every text here states all of them.
+      /* AN `origLang` THE REPUBLIC ONCE LACKED, and the difference was always the PRINTING rather
+         than the author. This entry used to say that the Republic entry above "concludes that Plato
+         cannot have a Greek column, right about that printing and wrong as a general rule" — and in
+         Sep 2026 the Republic was rebuilt on Shorey's Loeb, which states the same Stephanus numbers
+         these thirty-five do, and now pairs 278 of 278. The rule it was right about stands: the
+         columns pair on section numbers a text states about itself, and the Colonial Press Jowett
+         stated none.
 
          THE CLEANEST PAIRING IN THE LIBRARY, and the first that is exact BY CONSTRUCTION rather than
          by measurement: both columns are the same TEI encoding of the same citation scheme from the
          same publisher. Measured anyway, over all thirty-five works — 1,484 sections on each side,
-         identical numbers in identical order, not one exception in either direction. Only the Art of
-         War's facing page comes close, and it covers thirteen chapters against these thirty-five.
+         identical numbers in identical order, not one exception in either direction. The Republic
+         now joins it on the same footing — 278 of 278, same encoding, same scheme — and only the Art
+         of War's facing page comes near either, over thirteen chapters against these thirty-five.
          The Letters repeat ten Stephanus numbers, a page spanning the join between one letter and
          the next, and BOTH columns repeat exactly the same ten in the same places — checked, since
          a duplicate on one side only is what would quietly merge two passages into one row. */
@@ -11584,12 +11600,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          edition splits over two volumes: its 327 Stephanus sections carry its twelve books' worth of
          structure, and cutting it further would mean composing boundaries. */
       chapterWord: "Dialogue",
-      /* THIRTY-FIVE OF THE THIRTY-SIX, and the one gap is a LICENCE gap rather than a textual one:
-         Perseus's English Republic is Paul Shorey's of 1935–37, which is not in the public domain
-         and cannot be shelved. It is in this library already, in Jowett's translation from a
-         different printing, as a book of its own — so nothing is missing from the shelf, only from
-         this book, and its slot in Tetralogy VIII is simply left out. `total` counts the surviving
-         works transmitted under Plato's name, which is what this book is a gathering of. */
+      /* THIRTY-FIVE OF THE THIRTY-SIX, AND THE REASON CHANGED IN SEP 2026 WITHOUT THE FIGURE MOVING.
+         It used to be a LICENCE gap — Perseus's English Republic is Shorey's, described here as "of
+         1935–37, which is not in the public domain", a date that conflated volume 2 with volume 1's
+         reprint and was wrong about the conclusion besides: Shorey died in 1934, so the translation
+         has been public domain in life-plus-seventy countries since 2005 and Books I–V cleared in
+         the United States on 1 January 2026. The Republic is now shelved in that very translation,
+         as a book of its own with the facing Greek. So the gap is no longer a licence at all: it is
+         that the work is already on the shelf and pulling it in here would put the same 278 sections
+         in front of a reader twice. Its slot in Tetralogy VIII is left out for that reason.
+         `total` counts the surviving works transmitted under Plato's name, which is what this book is
+         a gathering of. */
       count: 35,
       total: 36,
       /* Thrasyllus's nine tetralogies — the ancient arrangement of Plato, which Perseus's own work

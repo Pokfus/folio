@@ -24,15 +24,14 @@ Not part of the site.
 | `book-of-rites` | 10 | 46 | only the first of Legge's two volumes has been transcribed — see below |
 | `classic-of-poetry` | 102 | 305 | Legge's *Sacred Books of the East* volume prints only the poems bearing on religion |
 | `prose-edda` | 3 | 4 | Brodeur omitted *Háttatal* deliberately |
-| `plato-dialogues` | 35 | 36 | the Republic is missing — a licence gap, not a textual one |
+| `plato-dialogues` | 35 | 36 | the Republic is a book of its own; pulling it in would shelve it twice |
 
 Everything else on the shelf is `count == total`.
 
-### Books with no facing original (9)
+### Books with no facing original (8)
 
 | book | original would be | recorded blocker |
 |---|---|---|
-| `plato-republic` | Greek | Jowett prints no Stephanus numbers |
 | `classic-of-poetry` | Chinese | no uniform transcription |
 | `book-of-documents` | Chinese | Chinese transcription numbers nothing |
 | `book-of-rites` | Chinese | ditto, and further apart — 57 of Legge's paragraphs against 35 Chinese |
@@ -55,20 +54,42 @@ Analects carries none over twenty books. **There is nothing to recover here and 
 proposed.** Composing notes would be composing an apparatus, which this repo has refused four times
 already.
 
-### Books with no section numbers (5)
+### Books with no section numbers (4)
 
-`aesop-fables`, `aristophanes-lysistrata`, `kalidasa-shakuntala`, `machiavelli-prince`,
-`plato-republic`.
+`aesop-fables`, `aristophanes-lysistrata`, `kalidasa-shakuntala`, `machiavelli-prince`.
+(`plato-republic` was the fifth until Sep 2026 and now states 278 of them; see §A.)
 
 `machiavelli-prince` is not a gap — it pairs on the **chapter**, which both its editions state, and
-it has its Italian. The other four are the shelf's genuinely unpairable books, and the reason is the
+it has its Italian. The other three are the shelf's genuinely unpairable books, and the reason is the
 same in each: the section number is the key app.js pairs on, and nothing states one.
 
 ---
 
 ## 2. What can still be added, in order of value
 
-### A. Plato's Republic — the Greek is now reachable, and this changed on 1 January 2026
+### A. Plato's Republic — DONE (Sep 2026): rebuilt on Shorey against Burnet, 278 of 278
+
+**Option 1 was taken on request — rebuild now, state the limit.** The book is Shorey's Loeb English
+against Burnet's Greek, both from Perseus, paired on the Stephanus page: 278 sections on each side,
+every book's list identical, nothing unmatched in either direction. It carries 2,767 of Shorey's own
+notes where Jowett's printing carried 117, and its `rights` states the split per volume — public
+domain in life-plus-seventy countries since 2005, in the United States for Books I–V since 1 January
+2026 and for Books VI–X from 1 January 2031.
+
+**WHAT WAS GIVEN UP is on the record rather than left to be noticed**: Jowett's English, which some
+readers prefer and which keeping alongside is not a shape this shelf has, and his printing's ten
+descriptive book titles, which are HIS apparatus and could not be carried over a different edition's
+name. The importer gained one layout for it, `booksections` — one TEI file, ten book divisions, each
+divided into numbered sections — which slices the body per book and reuses `teiSections` rather than
+teaching it about books.
+
+**THE LESSON WORTH KEEPING is about the shape of the refusal, not about Plato.** The blocker was
+recorded as a licence, and a licence is the one kind of blocker that expires on a schedule: Shorey
+had been public domain in most of the world for twenty-one years when it was written down as "still
+in copyright". Re-derive a licence refusal from the death and publication dates before building
+around it. The finding as it stood follows.
+
+#### The finding as it stood (Aug–Sep 2026)
 
 **This is the one recorded blocker that has expired, and it was not a textual problem in the first
 place.** The Republic's entry records that Plato has the best-standardised citation system of any
@@ -283,10 +304,8 @@ Fixed in the same batch as this audit.
 
 ## 5. Suggested order of work
 
-1. **Decide the Republic.** It is the largest gain for the least work, it is already unblocked in
-   most of the world and half-unblocked in the United States, the precedent for stating the limit is
-   on the shelf, and it closes two gaps at once. (The CLAUDE.md dates are already corrected — see §4 —
-   so the entry now states the position rather than hiding it, whichever way the decision goes.)
+1. ~~**Decide the Republic.**~~ **Done in Sep 2026** — option 1, rebuild now and state the limit.
+   See §A.
 2. **Write to the Chinese Text Project.** Cheap, and it is the only thing standing between the shelf
    and both a complete Classic of Poetry and two facing Chinese columns.
 3. **Decide whether Bugge's diplomatic text is worth having** for the Poetic Edda. This one is a

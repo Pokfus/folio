@@ -1121,8 +1121,9 @@ book added later will meet the same traps.
   continuous stream at its own numerals, so the element boundaries stop mattering),
   `marcus-aurelius-meditations` (~341 KB, all 12 books, 487 section numbers, 812 translator notes),
   `sun-tzu-art-of-war` (~379 KB, all 13 chapters, 385 section numbers in 383 rows, 608 notes),
-  `plato-republic` (~666 KB, all 10 books, **no section numbers at all**, 117 translator notes — the
-  first book here with none, which is why it has no original; see the `<id>.<lang>.js` bullet below),
+  `plato-republic` (**rebuilt Sep 2026 on Shorey's Loeb against Burnet's Greek** — ~1.29 MB, all 10
+  books, **278 Stephanus sections paired 278 of 278**, 2,767 translator notes. It shipped in Jowett
+  with no section numbers at all and no original until then; see the `<id>.<lang>.js` bullet below),
   `plato-dialogues` (**~3.9 MB, much the largest book on the shelf** — **thirty-five whole WORKS as
   thirty-five chapters**, 1,484 Stephanus sections, 1,627 notes. **Batch E19 repaired fourteen more
   slips** — `Cortinthian`, `Bocotia`, `Poseiden`, `possibillty`, `wlth`, `weree`, `sayng`, `sarting`,
@@ -1172,9 +1173,11 @@ book added later will meet the same traps.
   which are complete, it went from eleven dialogues to thirty-five. **Ask what the source is MISSING
   before building on it**: the first shape was correct about everything it contained and was a third of
   the book.
-  Thirty-five of thirty-six because Perseus's English Republic is Shorey's, published in two volumes
-  in 1930 and 1935 — a LICENCE gap, not a textual one; the Republic is on the shelf from another
-  printing. **THAT GAP IS NOW HALF OPEN, and the dates are why it has to be stated per volume**:
+  Thirty-five of thirty-six because the Republic is a book of its own, and **that reason changed in
+  Sep 2026 without the figure moving**: it used to be a LICENCE gap, and it is now simply that pulling
+  the work in here would put the same 278 sections in front of a reader twice, the Republic having been
+  rebuilt on this very translation. **THE DATES ARE WHY THE LICENCE HAD TO BE STATED PER VOLUME, and
+  they are now stated per volume in the Republic's own `rights`**:
   Shorey died in 1934, so the translation is public domain wherever the term is life plus seventy —
   since 2005 — and in the United States volume 1 (Books I–V, 1930) cleared on 1 January 2026 with
   volume 2 (Books VI–X, 1935) following on 1 January 2031. This entry read "1935–37" until Aug 2026,
@@ -1658,13 +1661,20 @@ book added later will meet the same traps.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Forty-eight books, thirty-two originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Forty-eight books, thirty-three originals**: Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
   Divine Comedy, the Summa Theologica, Don Quixote, the Maxims of Ptahhotep, Le Morte d'Arthur and the
   Travels of Marco Polo
-  have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
-  on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
-  to face. **LE MORTE D'ARTHUR IS THE ONE THAT NEVER REACHES THAT RULE AT ALL**, and it is a fourth
+  have none, and the reason differs — the next paragraph's rule bites on BOTH of Aesop's columns, while
+  Gilgamesh fails a step earlier, there being no settled original text to face.
+  **THE REPUBLIC CAME OFF THIS LIST IN SEP 2026 AND IS THE REASON TO RE-DERIVE A REFUSAL RATHER THAN
+  READ IT BACK.** It stood here as the case that answers no on the ENGLISH side, and every word of that
+  was true of the printing it shipped in: the Colonial Press Jowett states no Stephanus numbers
+  anywhere. What had been written off with the printing was the TRANSLATOR. Shorey's Loeb states the
+  numbers and sits on Perseus, and was recorded as "still in copyright" on a date that had already
+  passed — Shorey died in 1934, so the translation has been public domain in life-plus-seventy countries
+  since 2005 and Books I–V cleared in the United States on 1 January 2026. Rebuilt on Shorey against
+  Burnet it pairs **278 of 278**, nothing unmatched on either side. **LE MORTE D'ARTHUR IS THE ONE THAT NEVER REACHES THAT RULE AT ALL**, and it is a fourth
   answer rather than a variant of the other three: it is written in ENGLISH, so there is no second
   text to pair with — see its entry above, and note that this is the case where the question "does
   that text say which section each passage is?" is not the question.
@@ -1766,9 +1776,11 @@ book added later will meet the same traps.
   Jónsson's, or the Arnamagnæan of 1848–87 — and none is transcribed on any Wikisource, on Perseus or
   anywhere else reachable (checked on the multilingual, Danish, Norwegian, German and Swedish Wikisources;
   only the German has anything, and that is Simrock's German verse of 1876, not the Old Norse). So the shelf
-  now has three: one column silent (the Republic, fixable by a better transcription), both columns silent
-  (Aesop, not fixable at all), and **a column that speaks and may not be quoted** — which puts it with the
-  Loeb Republic that keeps Plato's Republic out of the Dialogues. Its Skáldskaparmál would have failed
+  now has three: one column silent, both columns silent (Aesop, not fixable at all), and **a column that
+  speaks and may not be quoted**. **The first of those was the Republic and it is no longer an example**
+  — it was fixable by a better transcription, and in Sep 2026 it was fixed, which is the point of keeping
+  the three apart: a silent column is a transcription problem with a date on it, and a column that may
+  not be quoted is not. Its Skáldskaparmál would have failed
   anyway, and that is worth knowing before anyone retries: 74 chapters against 89, already apart by chapter
   20 and about sixteen apart by the end, so pairing that part by number would set passages beside passages
   that are not their counterparts. **Ask what a medieval original's EDITOR died, not only how old the work
@@ -1818,8 +1830,12 @@ book added later will meet the same traps.
   credits list and in `rights`. (The site already ships CC BY-SA data: the Atlas's era borders.) A book with
   no `origLang` simply shows no original-language control, so deleting an `original` block and its `origLang`
   removes that column and leaves the English untouched.
-  **`plato-republic` IS THE CASE THAT ANSWERS NO, and it answers no on the ENGLISH side, which is new**
-  (Aug 2026). Plato has the best-standardised citation system of any ancient author — Stephanus's
+  **`plato-republic` WAS THE CASE THAT ANSWERS NO ON THE ENGLISH SIDE, AND IT ANSWERS YES SINCE SEP 2026.**
+  What follows is the Aug 2026 finding as it stood, kept because the reasoning is right and only its
+  conclusion expired: the blocker was never the Greek, and what was written off along with the Colonial
+  Press printing was Shorey's translation, ruled out as "still in copyright" on a date that had already
+  gone by. The book is now Shorey against Burnet, 278 sections paired 278 of 278. **Re-derive a licence
+  refusal before building on it; it is the one kind of blocker that expires on a schedule.** Plato has the best-standardised citation system of any ancient author — Stephanus's
   page-and-column of 1578, used identically by every edition and translation in every language for four
   hundred years — and the Greek half is ready: Burnet's Oxford text of 1902 sits on Perseus in the same
   TEI/CTS encoding the Meditations' Greek comes from, Stephanus numbers as structure. What is missing is
@@ -1835,10 +1851,11 @@ book added later will meet the same traps.
   finding them missing. It is also the proof that `origLang` is genuinely optional: nothing else about
   the book differs, and the day a numbered transcription appears an `original` block and an `origLang`
   are the whole of the work.
-  **`aesop-fables` ANSWERS NO ON BOTH COLUMNS, which the Republic does not** (Aug 2026), and it is
+  **`aesop-fables` ANSWERS NO ON BOTH COLUMNS, which the Republic never did** (Aug 2026), and it is
   the cleanest illustration of the rule because there is nothing to be tempted by. The Republic's
-  Greek states Stephanus numbers and only Jowett stays silent, so the pairing fails on one side and
-  a numbered English would fix it. Here NEITHER edition states anything: Townsend prints a title
+  Greek states Stephanus numbers and only Jowett stayed silent, so the pairing failed on one side and
+  a numbered English fixed it — which is exactly what happened in Sep 2026, leaving Aesop as the only
+  case of its kind on the shelf. Here NEITHER edition states anything: Townsend prints a title
   over each fable and no figure anywhere — measured, and his own index at the back files
   alphabetically by title with a page number — while the standard Greek text on Greek Wikisource is
   Chambry's of 1927, which lists **359** fables alphabetically by their Greek titles with no
