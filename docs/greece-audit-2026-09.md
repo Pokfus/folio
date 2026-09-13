@@ -1035,6 +1035,47 @@ encyclopedia entry has no page to give, and a monograph cited for a general poin
 either. **Do not build this check**; a locator-less citation is found by reading the card, as `wh-207`
 was.
 
+**BATCH R18 — 2026-09-13. THE MUSEUM WAS CITED FOUR TIMES FOR ITS OWN EXHIBITION, AND ONE OF THE FOUR
+SAID NOTHING THE FIRST DID NOT: over-cited 34 → 33.** `ww2-019` German hyperinflation. Its three Arnulf
+Scriba citations are three chapters of **LeMO**, the Deutsches Historisches Museum's online exhibition,
+signed by the museum's own editor — which is the `INSTITUTIONAL` shape wearing a person's name, and not
+three scholars' views.
+
+**THE REDUNDANT ONE WAS FOUND BY READING THE PAGE, NOT BY GUESSING.** The Ruhr sentence carried "Die
+Ruhrbesetzung" beside "Die Inflation", and the inflation chapter carries the whole of it: *"als
+belgische und französische Truppen dann tatsächlich Anfang Januar 1923 ins Ruhrgebiet einmarschierten …
+Auf den Einmarsch reagierte die Reichsregierung mit der Proklamation des passiven Widerstandes … Für die
+finanzielle Unterstützung der Streikenden druckten die Notenpressen immer mehr Geldscheine."* That is
+the card's sentence, clause for clause. R16's finding in another language.
+
+**AND THE FREED SLOT BOUGHT AN EYEWITNESS TO THE ONE CLAIM THAT MOST WANTED ONE.** The card says
+industry "borrowed in good money and repaid in worthless money", which rested on the museum alone.
+Morgan Philips Price, writing from Essen on 25 September 1923 and already the card's source for
+October, reports it at first hand: the trusts "received the cash for the rebuilding of the plant in
+foreign currency — when the mark stood at 20,000 to the £ sterling — from the Reichsbank … Some have
+paid the Reichsbank back in marks at 1 million to the sterling." **The prose was left exactly as it
+was**, because the card was already at 329 words against a 330 ceiling and the rule wins over the
+better sentence; the figures are in the source a reader can now open.
+
+**`ww2-023` GOLDEN TWENTIES WAS OPENED AND IS NOT REPAIRED, AND WHAT BLOCKS IT IS ONE STATISTIC.** Four
+of its six sources are LeMO chapters, so two must go, and only one is redundant-shaped. Reading its
+other sources was worth doing on its own account: **the Reichsbank Commissioner's report of 10 December
+1928, already cited, carries three of the card's sentences word for word** — the "far-reaching
+reorganisation and rationalisation", the standard of living that "has again reached or surpassed the
+pre-war level", the plant employing "four million more workers than it did before the war within the
+same territorial limits", and the price paid, "a new annual burden of interest … well over half a
+milliard reichsmarks" of which "a section of the loans is not productive". The card's apparatus is sound
+where it matters. What has no home is **"German output grew by half between 1924 and 1929"**, which is
+the whole of what the Dawes-Plan chapter is cited for: GHDI's own Dawes document is the committee's 1924
+report and predates the recovery, and the volume introduction does not carry the figure. **The card
+needs an index of industrial production, not another document.**
+
+**A STANDING COSMETIC INCONSISTENCY, MEASURED AND DELIBERATELY NOT SWEPT.** 2,613 citations across the
+corpus set their titles in straight ASCII quotes against 7,561 in curly — including two adjacent
+citations of one author on this card. It renders identically and touching it would mean rewriting a
+sixth of the corpus's citations for nothing. **Write new citations in the curly form and leave the rest
+alone.**
+
 ## Two notes on the tooling
 
 - **`cardYears` reads "594/3 BCE" as year 3.** Writing split years the short way in a date line
