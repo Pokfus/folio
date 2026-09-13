@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C12 — six capitals, and every author list drafted from a search result was wrong**: `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar and `gw-570` Guatemala City, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-10, batch C11 — six capitals, and the constitution leg fails on five of six**: `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka and `gw-564` Astana, with all six date lines rewritten off the same research. Six again, for C2’s reason.
 
 - **2026-09-10, batch C10 — six capitals, a constitution that is a draft, and a river the grid forbids naming**: `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus and `gw-558` Bamako, with all six date lines rewritten off the same research. Six again, for C2’s reason.
@@ -408,6 +410,82 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C12 found
+
+**EVERY AUTHOR LIST DRAFTED FROM A SEARCH RESULT WAS WRONG, ALL NINE OF THEM.** The drafts were
+written with the authors taken from DOAJ listings, abstracts and reading pages, and checked against
+Crossref before applying rather than after: **not one matched.** The paper behind `gw-565`'s river is
+by Nambatingar, Clement, Merle, Mahamat and Lanteri and the draft said Ngar-One, Lallemant, Adoum and
+Malloum; `gw-565`'s landscape source has a **single** author, Mounsi Febo, against three invented
+ones; `gw-566`'s fault paper is Lamperein-Polo, Vidal-Páez and Pérez-Martínez against two invented
+names, in a different issue, a different year and a different language; `gw-568`'s sprawl paper is
+Hassan and five colleagues against three invented; `gw-570`'s subsidence paper is García-Lanchares and
+four colleagues against three invented. **The failure is not carelessness about one field, it is that
+a plausible author list is the easiest thing in a citation to produce and the hardest thing in it to
+notice.** CLAUDE.md's instruction — run `check-citations.js` BEFORE writing a card's JSON, not after —
+is the whole of the lesson, and on this batch it was the difference between a clean apply and nine
+fabricated bylines under six cards at the citation bar.
+
+**…AND THE ONE NAME CROSSREF COULD NOT CHECK NEEDED THE JOURNAL'S OWN ARCHIVE PAGE.** `gw-567`'s
+heat-island paper is in a Romanian university annals with no DOI, so it is UNCHECKED by definition,
+and its PDF drops diacritics: the author line extracts as `Marin VL DUCU, Dumitru T TEA,
+Carmen-Sofia DRAGOT`. Three glyphs are missing and no amount of reasoning says which. The journal's
+own category page for 2007 prints the line properly — **Marin Vlăducu, Dumitru Tâştea, Carmen-Sofia
+Dragotă, Gheorghe Kucsicsa, Ines Grigorescu** — and the middle name is one nobody would have guessed.
+**A PDF's text layer is a witness, not the record; the publisher's own index page is the record.**
+
+**THE MDPI ARTICLE PAGE IS WALLED HERE AND ITS FILE HOST IS NOT.** `www.mdpi.com` answers 403 to this
+container on both the article and its PDF path, and `res.mdpi.com/d_attachment/<journal>/<journal>-<vol>-<art>/article_deploy/<file>.pdf`
+serves the whole paper. Five of this batch's sources were read that way. **The DOI is still what is
+cited**, because it is the address a reader's browser opens and a Chicago note wants; the 403 is this
+sandbox's bot wall and is not a paywall, which is the distinction `docs/artefact-citation-plan.md`
+insists on. The same reading also confirmed that a 403 at `doi.org` is the DESTINATION refusing, not
+the resolver.
+
+**AND AN INCOMPLETE CERTIFICATE CHAIN IS NOT A CLOSED HOST, WHICH THIS BATCH MET FOR THE SECOND TIME.**
+`polipapers.upv.es`, which serves `gw-566`'s fault paper, fails TLS verification with *unable to get
+local issuer certificate*. The leaf's own Authority Information Access extension NAMES the missing
+intermediate; fetching it and appending it to the bundle opens the host, exactly as it did for
+`psychclassics.yorku.ca` (see `docs/psychology-card-plan.md`):
+
+    openssl s_client -connect <host>:443 -servername <host> -proxy "${HTTPS_PROXY#http://}" -showcerts </dev/null \
+      | awk '/BEGIN CERT/{n++} n==1' | openssl x509 -noout -text | grep 'CA Issuers'
+
+**Never `-k`, and never `NODE_TLS_REJECT_UNAUTHORIZED=0`.** The citation uses the article's DOI rather
+than the publisher URL, which is better in any case.
+
+**THE CONSTITUTION LEG PASSED FOUR OF SIX, ITS BEST SHOWING SINCE C8, AND THE TWO FAILURES ARE BOTH
+NEW.** Chad names the capital in **article 8**, in the same breath as the flag, the motto, the anthem
+and the national holiday; Romania in **article 14**; Senegal in **article 2**, adding that the capital
+*may be transferred to any other place on the national territory*; Guatemala in **article 231**, which
+makes the city and its area of urban influence one metropolitan region. **Somalia is a TWELFTH
+outcome: a constitution that declines to settle the question**, its article 9 leaving the status of the
+capital to the constitutional review process and to a special law of the two houses. **Chile is a
+THIRTEENTH: a constitution that names the city only as a REGION, in a clause about something else** —
+*Santiago* appears twice in the whole text, both times as the Metropolitan Region in the rules for
+electing indigenous representatives, and never as the seat of government.
+
+**AND THE WMO LEG FAILED A FIFTH WAY: NORMALS WITH NO PERIOD.** Guatemala City's entry carries a full
+set of monthly figures from INSIVUMEH and states no `datab`/`datae` at all, where the other five give
+1961–1990, 1981–2010 or 1963–1990. The figures are citable and the citation simply cannot say what
+years they average, which is stated rather than guessed at.
+
+**A LANDSCAPE PAPER IS AUTHORITATIVE ABOUT THE LANDSCAPE AND NOT ABOUT THE ADMINISTRATION.**
+`gw-565`'s source is excellent on the Chari and the Logone, the 90 per cent of Lake Chad's basin they
+supply, the founding of Fort-Lamy in 1900 and its 17.29 square kilometres in the 1950s — and it files
+the colony under **Afrique-Occidentale française**, which is the wrong federation, and dates the
+renaming to 1975, which disagrees with the usual 1973. Both were left out of the card rather than
+repeated: the paper was used for what it studies. **Read a source's incidental claims as incidental.**
+
+**AND THE AUDIT REPORTED TWELVE CARDS FOR NAMING THEMSELVES.** Rule 2's word boundary was added for a
+capital whose name is a PREFIX of its country's — *Tunis* inside *Tunisia* — and it does nothing for
+the mirror case, a capital whose name CONTAINS its country's as a whole word: **Guatemala City,
+Panama City, Kuwait City, Mexico City**. The grid's first row is Country, so each was reported for
+repeating a value it had never printed, on the strength of the bolded answer term the house style
+REQUIRES an abstract to open on. The answer term is masked before the grid test now, and **only
+before that test** — masking it in the shared plain text also moved rule 1 from 153 findings to 150,
+because a few capitals are named Washington, which is a different question with a different answer.
 
 ## What C11 found
 

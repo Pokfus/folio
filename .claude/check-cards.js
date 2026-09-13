@@ -369,6 +369,7 @@ const SAME_LANGUAGE_OK = new Map([
   ["wh-429|Spanish|2", "Estudios de Cultura Maya, where Maya epigraphy is published"],
   ["wh-433|Spanish|3", "Boletín de Arqueología PUCP: the Palpa and Chincha surveys behind the Nazca lines"],
   ["wh-434|Spanish|2", "Peruvian ceramic analyses published in Spanish"],
+  ["gw-566|Spanish|2", "Chilean journals on a Chilean city: the Revista de Urbanismo on a century of Mapocho corridor planning and the Revista de Teledetección on the San Ramón fault — neither has an English counterpart"],
 ]);
 
 /* ---------- run ---------- */

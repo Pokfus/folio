@@ -192,7 +192,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N25 | 12 | **The international order** — the institutions a country term names, and the principle they rest on — **shipped**, 11 of 12 pictured |
 | N26 | 12 | **The vocabulary of diplomacy** — the words on nearly every card of the World collection — **shipped**, 9 of 12 pictured |
 | N27 | 12 | **The forms of government** — the words every collection uses about who rules — **shipped**, 8 of 12 pictured |
-| N28–N35 | ~95 | the remaining Italian provinces — **blocked on sourcing**, see N24's findings |
+| N28–N35 | ~95 | the remaining Italian provinces — **unblocked 2026-09-13, not yet worked**; see N24's findings |
 
 **N3 shipped eight terms rather than twelve, and the missing four are one deferral and one
 fold.** *Subminoan* is deferred: Rutter's Chronology Overview gives it a single sentence — "The
@@ -574,11 +574,30 @@ university city on the Venetian plain") took it to 0. **Where a batch's terms sh
 expect the run measure to fire on the shape**, and fix it by making each definition specific rather than
 by shortening it.
 
-**N25–N32 are blocked until a per-province source exists.** What would unblock them, in order of promise:
+**N25–N32 were blocked until a per-province source exists.** What would unblock them, in order of promise:
 a reachable mirror of the NUTS classification; ISTAT's *Annuario statistico italiano* as a citable PDF
 with page numbers; or a per-province spine like the Commonwealth Secretariat's Key Facts blocks that
 carried Phase 3 of the citation pass. Twenty-two of the remaining provinces are named by exactly one
 World Heritage property and would need only a second work each.
+
+**AND THE FIRST OF THE THREE IS REACHABLE — MEASURED 2026-09-13, so these batches are open rather than
+blocked.** `ec.europa.eu/eurostat` answers: the **NUTS overview** page serves 179 KB and states which
+classification is in force and from when ("The NUTS 2024 classification is valid from 1 January 2024. It
+lists 92 regions at NUTS 1, 244 regions at NUTS 2 and 1 165 regions at NUTS 3 level"), and the
+classification workbook downloads — 766 KB, and its shared-string table carries every Italian province by
+name against its NUTS 3 code and its parent region (`Verona`, `Brescia`, `Padova`, `Genova`, `Milano`,
+`Caserta`, `Benevento`, `Siena` all checked by hand in the file). **That is the per-province statement the
+pass was waiting for**: one sentence of each entry can say what the unit is and where it sits, cited to a
+classification rather than to a gazetteer. `istat.it` and `demo.istat.it` also answer (185 KB and 33 KB),
+though the *Annuario* PDF path recorded above is a 404 — and `whc.unesco.org/en/list/` is 403 today, so
+the World Heritage leg needs the per-property pages this batch already used rather than the list page.
+
+**A EUROSTAT DOCUMENT URL MUST BE READ OFF THE PAGE, NEVER COMPOSED.** It carries an opaque id and a
+cache-busting `?t=` stamp — `/eurostat/documents/345175/629341/NUTS2021-NUTS2024.xlsx/2b35915f-9c14-6841-8197-353408c4522d?t=1717505289640`
+— which no amount of reasoning produces. It contains none of the characters `SRC_URL_RX` stops at, so it
+cites whole. **What is measured here is that the SOURCE exists and is reachable and carries the fact**;
+whether three sentences at the bar can be built for each of the ninety-five from that plus one World
+Heritage property is the batch's own work and has not been done.
 
 ### N23's findings
 

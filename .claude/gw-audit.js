@@ -81,7 +81,18 @@ const hit = { us: [], grid: [], nature: [], dateline: [], borders: [] };
 let shareSum = 0, shareN = 0;
 
 for (const c of cards) {
+  /* THE CARD'S OWN NAME IS MASKED BEFORE THE GRID TEST, and the word boundary below is why it has to
+     be (Sep 2026). That boundary was added for a capital whose name is a PREFIX of its country's —
+     "Tunis" inside "Tunisia" — and it does nothing for the mirror case, a capital whose name CONTAINS
+     its country's as a whole word: "Guatemala City", "Panama City", "Kuwait City", "Mexico City". The
+     grid's first row is Country, so every one of those four was reported as repeating a value it had
+     never printed, on the strength of the bolded answer term the house style REQUIRES an abstract to
+     open on. A rule that reports a card for naming itself is reporting the house style.
+     IT IS SCOPED TO THAT ONE RULE. Masking the answer term in `p` outright also moved rule 1 from 153
+     findings to 150, because three capitals are named Washington or the like — a different question,
+     answered by the seven-card subject exemption, and not one this mask may quietly re-answer. */
   const p = plain(c.abstract);
+  const pSelf = p.split(String(c.answerText || "\u0000")).join(" ");
   if (US.test(p)) hit.us.push(c.id);
   if (!NATURE.test(p)) hit.nature.push(c.id);
   /* A grid repeat is the VALUE as the grid prints it, minus its imperial bracket — "New Delhi",
@@ -93,8 +104,8 @@ for (const c of cards) {
   const facts = (c.facts || []).map((f) => String(f[1]).replace(/\s*\(.*$/, "").trim()).filter((v) => v.length > 2);
   const rep = facts.filter((v) => {
     let i = -1;
-    while ((i = p.indexOf(v, i + 1)) >= 0) {
-      const before = p[i - 1] || " ", after = p[i + v.length] || " ";
+    while ((i = pSelf.indexOf(v, i + 1)) >= 0) {
+      const before = pSelf[i - 1] || " ", after = pSelf[i + v.length] || " ";
       if (!/[A-Za-z]/.test(before) && !/[A-Za-z]/.test(after)) return true;
     }
     return false;
