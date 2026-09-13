@@ -1161,9 +1161,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   World History and in Ancient Greece. **So repair the within-collection pairs first**, and where a
   cross-collection pair's picture genuinely serves both and nothing better is free, **leave it**: a poor
   picture is worse than a shared good one, and `wh-343` cost four rounds before that was the honest answer.
-  Measured Sep 2026: 47 pairs → 21, of which **19 are cross-collection and 2 are within** — `rm-202` /
-  `rm-269` and `rm-206` / `rm-225`, each of which resisted four rounds because Rome's obvious pictures are
-  already spent (the lictor relief is on three cards and a glossary term; the Scipio bust is on `rm-224`).
+  Measured Sep 2026, after the repair batch below: 21 pairs, of which **20 are cross-collection and 1 is
+  within** — `rm-202` / `rm-269`, the modius, which stays shared because nothing openable depicts
+  *provincia* and a picture that is not found is recorded rather than faked. Run `check-cards.js` for the
+  figure rather than quoting this. **THREE WITHIN-ROME PAIRS WERE REPAIRED BY DECIDING WHAT THE PICTURE
+  DEPICTS**, which is the rule doing its work: the census frieze stays on `rm-117` **censorship** because
+  it shows the census being taken, and `rm-070` **Servian constitution** took the Servian Wall at Termini;
+  the lictor relief stays on `rm-045` **Etruscan influence**, whose question is about the lictors, and
+  `rm-081` **comitia curiata** took the Anaglypha Traiani, which draws the Comitium itself; and the Punic
+  wall stays on `rm-206` **New Carthage**, the city it is, while `rm-225` **the capture** took a second,
+  distinct photograph of the same rampart from the gallery above it. **Rome's obvious pictures really are
+  spent** — the lictor relief is on three cards and a glossary term, the Scipio bust on `rm-224` — so a
+  fourth round on a Rome pair should expect to widen the subject rather than find a better file.
   **The pass's own findings, worth having before the next batch.** A candidate is chosen by JUDGEMENT and
   then LOOKED AT: over four batches the contact sheet rejected roughly a third — "Yinxu Royal Tombs" is a
   modern red gate, "Centuriation in Treviglio" is a street with a parked car, a Scipio bust came back as a
