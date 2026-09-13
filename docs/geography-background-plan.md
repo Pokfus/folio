@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C21 — six capitals, two constitutions no longer in force, and a WMO record split a century**: `gw-622` Bangui, `gw-623` Wellington, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José and `gw-628` Kuwait City, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C20 — six capitals, and four constitutions that decline to name the city**: `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava and `gw-621` Dublin, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C19 — six capitals, and the constitution slug stops being composed**: `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville and `gw-615` Copenhagen, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -426,6 +428,97 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C21 found
+
+- **TWO OF THIS BATCH'S CONSTITUTIONS ARE NOT IN FORCE, AND THE SERVICE INDEX IS WHAT SAYS SO.** C19
+  established that the constitution's slug and exact title are read off
+  `constituteproject.org/service/constitutions?lang=en` rather than composed; that same record carries an
+  `in_force` flag, and for `Central_African_Republic_2016` and `Oman_2011` it is **false**. A card that
+  called either "the constitution" would be asserting something the source itself denies, so both cards
+  date the text they quote instead — "The constitution of 2016 names the city…", "The Basic Law of 1996,
+  as revised in 2011, opens by declaring…". **Read the flag, not just the slug.**
+
+- **A CONSTITUTION CAN NAME ITS CAPITAL AND FENCE IT IN THE SAME BREATH**, which is a seventh shape for
+  the tally. The Central African text's opening article reads *"Its capital is Bangui. It can only be
+  transferred by virtue of a law, when the superior interest of the Nation requires it."* Nicaragua's
+  escape hatch, found in C19, turns out not to be a one-off: a state that names its capital in the
+  constitution often writes the condition for moving it into the same article. Oman's is the plain
+  opposite — the Basic Law declares the Sultanate an Arab, Islamic, independent state and makes Muscat
+  its capital, with no clause about moving it.
+
+- **NEW ZEALAND'S CONSTITUTIONAL TEXTS NEVER CALL WELLINGTON THE CAPITAL, AND THE THREE PLACES IT DOES
+  APPEAR ARE WORTH THE CARD ON THEIR OWN.** It is the place an Order in Council was dated; it is the
+  address of the Electoral Commission; and it is in the definition of a public holiday — "the day
+  observed as anniversary day in Wellington". "The seat of Government" occurs once, in a proviso about
+  electors absent from their district, and names no place. **Kuwait is the flatter case in the same
+  family**: its constitution never names the city and uses *capital* only of money (article 16, ownership
+  and capital and labour as the mainstays of the State's social entity). **Costa Rica** is the third:
+  article 114 has the Assembly reside "in the capital of the Republic" and requires two-thirds of its
+  members to move that seat, naming no city. This is C20's "legislating about the capital without naming
+  it", now three batches deep and plainly the commonest shape of all.
+
+- **THE WMO LEG FAILS A SEVENTH WAY: TWO WINDOWS A CENTURY APART IN ONE RECORD.** San José's entry
+  (id 1113) gives temperature normals for **1961–1982** and rainfall normals for **1888–1997** — 22 years
+  of heat against 110 of rain, in one table with one city name over it. C18's Lomé had per-field windows
+  a year apart and that was already worth stating; this is the same fault at a scale nothing on the page
+  marks. **Read `climateFromMemDate` per field, never once for the record.**
+
+- **AND AN EIGHTH: ONE CAPITAL WITH TWO ENTRIES.** Kuwait is the whole of its country's index — two rows,
+  `Kuwait City` (1498, `isCapital` true, normals 1994–2008) and `Kuwait Airport` (217, `isCapital` false,
+  normals 1962–2008). The two disagree by about a degree in the same month over spans that do not
+  overlap, which is a fact about the records rather than about the air between them, and `gw-628` says so
+  rather than reading the gap as geography. **Where a country has two rows, cite both and name the
+  difference as a difference between records.**
+
+- **TWO MORE COUNTRIES ABSENT FROM THE INDEX ENTIRELY**: the Central African Republic and Mauritania,
+  joining C19's Nicaragua, Congo and Liberia. The per-country counts this batch needed are Costa Rica 17,
+  New Zealand 46, Oman 35 and Kuwait 2, all read off `full_city_list.txt` rather than estimated — and the
+  absences are what the Bangui and Nouakchott cards close on, since a card that simply omits the weather
+  leg looks like a card whose author did not look.
+
+- **WHERE THE WMO IS ABSENT, THE PAPER'S OWN STUDY-AREA CLIMATE PARAGRAPH IS THE LEG.** Both stationless
+  capitals here were carried by one: the Bangui land-cover paper states 25.9 °C mean annual temperature,
+  1,525 mm annual rainfall, a December-to-February dry season and monthly rainfall above 145 mm from May
+  to October; the Nouakchott sand-encroachment paper reports 25.6 °C over **2000–2015** from the city's
+  own station, with 120 mm of rain concentrated in July, August and September. **The window is attached
+  to the temperature sentence and not to the rainfall one**, which is why that card's date line says
+  *Temperatures* rather than *Rain and heat* — caught in read-back, and the shape to watch whenever one
+  paragraph carries two figures and one date range.
+
+- **THE UNDATA CAPITAL LINE MEANS A GOVERNORATE IN TWO OF THESE SIX.** Muscat's figure is the
+  governorate's and its footnote says so; Kuwait's covers **four** named governorates — Capital, Hawalli,
+  Al-Farwaniya and Mubarak Al-Kabeer; San José's is "urban population of cantons". Wellington's and
+  Bangui's are the city. All six are dated **2019 in a column headed 2025**, as every batch since C11.
+
+- **OPENEDITION'S PROOF-OF-WORK WALL IS CONFIRMED ACROSS A SECOND JOURNAL.** C20 met Anubis v1.26.2 on
+  `journals.openedition.org/aam`; `physio-geo` on the same host serves it too, which cost Bangui its
+  flood-history leg and is why that card rests on land cover and an epidemiological paper instead. It is
+  a host-wide wall, not a per-journal one. **Do not plan a batch around OpenEdition.**
+
+- **A HEALTH PAPER IS A CLIMATE SOURCE WHEN THE CLIMATE IS THE EXPOSURE.** C19's rule (search the
+  discipline that publishes about the place) paid again: the only openable statement that Bangui's
+  rainfall has a measurable consequence is a BMC hepatitis E study — 2,883 yellow-fever-surveillance blood
+  samples from 2008 to 2012, 745 of them positive, an outbreak peaking in 2008–2009, and "a clear
+  seasonal pattern with correlation between HEV incidence and rainfall in Bangui". **Name the sample's
+  provenance**: a prevalence figure drawn from surveillance samples is not a population rate, and the
+  first draft read as though it were.
+
+- **MDPI DOIs STILL 403 FROM THIS CONTAINER AND THE PAPERS STILL READ AT `res.mdpi.com`.** Three of this
+  batch's works are MDPI (Muscat, Nouakchott, Kuwait City); all three DOIs were verified against Crossref
+  for authors, title, journal, volume, issue, year and pages rather than trusted to resolve. **A 403 from
+  the resolver is this container's fact, not the citation's** — which is why the URL sweep and the
+  Crossref check are two different steps and neither substitutes for the other.
+
+- **AND THE READ-BACK CAUGHT THE USUAL FOUR KINDS.** A **wrong expansion of an abbreviation**: the
+  Wellington Fault's T-P segment is *Tararua–Putara*, and the first draft read it as "Tararua to
+  Pahiatua" — Pahiatua is named in that paper as part of a *different* segment's description, so the
+  error was manufactured out of the source's own page. A **hedge dropped**: the paper says the two
+  segments could be stable "in **at least** the future 300 years and 190 years"; the draft said "about".
+  An **arithmetic claim that is false at one end**: Wellington's highs swing exactly 9.0 degrees over the
+  year and its lows 7.9, so "under nine degrees at either end" was wrong about the highs. And an
+  **unsupported superlative**: "the station's record here is the oddest in the index" claims a comparison
+  across 3,598 cities that nothing checked. **Every one of the four renders perfectly.**
 
 ## What C20 found
 
