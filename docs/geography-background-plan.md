@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C18 — six capitals, and a WMO table that is complete, windowed and wrong**: `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek and `gw-608` Asunción, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C17 — six capitals, and the gw-5 hundred comes out clean on all four rules**: `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern and `gw-601` Freetown, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C16 — six capitals, and the constitution leg reverses**: `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm and `gw-594` Athens, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -420,6 +422,76 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C18 found
+
+- **A WMO RECORD WHOSE `datab` IS EMPTY IS NOT A RECORD WITHOUT A WINDOW.** Lomé carries no single
+  `datab`/`datae` pair and the PER-FIELD ones carry it instead: temperature over 1961–1990 and rainfall
+  over **1960–1989**, two windows a year apart. Read off `datab` alone the station reports as having no
+  normals at all, which is how this batch's first pass recorded it. The card states both windows, because
+  the pass's standing sentence — *the station's normals for X to Y* — is not true of a record shaped
+  like this. **Read every window field before concluding a station has none.**
+
+- **AND BISHKEK'S TABLE IS PRESENT, COMPLETE, WINDOWED AND WRONG, AND IT RENDERS PERFECTLY.** Under a
+  stated 1981–2010 window it gives rain-day counts of **36, 37 and 38 in months of 30 and 31 days**, and
+  its `maxTemp`/`minTemp` are plainly absolute EXTREMES rather than monthly means — January 19.2 / -25.0
+  °C, July 42.8 / 9.9 °C. The field names are the standard ones and the JSON parses, so nothing
+  downstream can tell; a card built from it would have printed nonsense in the house form. `gw-607` takes
+  its weather from a published one-year model simulation instead **and says on the card that it is
+  modelled**, and the WMO leg survives there only as the index. **A table that parses is not a table that
+  is right: check the rain days against the length of the month before quoting a station.**
+
+- **THE UNDATA FOOTNOTE LIST IS PARSED ON ITS LETTER MARKERS, NEVER BY COUNTING NON-EMPTY LINES.** A long
+  note wraps across several lines and shifts every letter after it, which read Togo's capital figure as
+  2023 when it is 2019. All six capital figures are dated **2019 under a column headed 2025** — the
+  seventh batch running to find that unanimous — and Paraguay's carries the substantive note as well:
+  the figure covers the district of Asunción together with the nineteen districts of Central
+  Department, which is why the grid's 3.30M is not the city.
+
+- **WHERE A CONSTITUTION FILES ITS CAPITAL CLAUSE SAYS WHAT ITS DRAFTERS TOOK A CAPITAL TO BE**, and these
+  six land in four different places. Among the **STATE SYMBOLS**: Laos's article 119 stands in the chapter
+  on the language and script, the emblem, the flag, the anthem, the national day and the currency;
+  Kyrgyzstan's clause sits inside article 14, after the flag, emblem and anthem and before the monetary
+  unit. Among the **ADMINISTRATIVE UNITS**: Turkmenistan's article 24 follows directly on the article
+  establishing administrative-territorial units, and Paraguay's article 157 constitutes the City as a
+  Municipality independent of every Department, with article 221 giving it an electoral college of its
+  own in the Chamber of Deputies. In the article **DEFINING THE STATE**: Libya's 2011 declaration names
+  the capital in article 1 beside the religion and the official language, and separately seats the
+  National Transitional Council there at article 23 while allowing it a provisional seat at Benghazi.
+  **And in Togo's 2024 constitution, nowhere at all**: the single occurrence of the word in the whole text
+  is the article abolishing capital punishment — the strongest form yet of the silence C11 first met.
+
+- **WHERE THE OPEN LITERATURE ON A CITY IS THIN, THE BEST SOURCE IS A DATABASE RATHER THAN A PAPER.**
+  Ashgabat returns four DOAJ hits and not one of them is about the place. The card rests instead on the
+  NOAA/NCEI Global Significant Earthquake Database's own record of 5 October 1948 — magnitude 7.2, 18 km
+  deep, maximum intensity X, 110,000 deaths and 25 million dollars of damage, each a field of the record
+  rather than a claim of ours — on a 2025 Copernicus regional hazard model that computes ground motion at
+  every Central Asian state capital, and on a Frontiers archaeobotany paper whose INTRODUCTION dates the
+  piedmont's first farming to about 6000 BCE at Djeitun. **A paper's introduction is a citable leg when its
+  own subject is somewhere else**, which is how the landform sentence was got at all.
+
+- **TWO HOSTS REFUSED OUTRIGHT AND ONE WALL IS THE KNOWN ONE.** `geopersia.ut.ac.ir` resets the connection
+  on both the article page and the PDF, so the obvious geomorphology review of the country could not be
+  read; `whc.unesco.org` answers 403. The two MDPI DOIs in this batch resolve to a 403 as they always do
+  and were read at `res.mdpi.com/d_attachment/…` — a host wall, not a dead link, and the citation keeps
+  the DOI.
+
+- **A JOURNAL PDF WHOSE FONTS ARE SUBSET-ENCODED IS A SUBSTITUTION CIPHER, AND IT IS NOT WORTH SOLVING FOR
+  A SECONDARY LEG.** The Lomé intermodality paper extracts as glyph codes assigned in order of first
+  appearance (`!`=T, `"`=R, `#`=A, `(`=space, and upper and lower case are separate glyphs), so the
+  mapping is recoverable word by word — and the ten minutes that would take buys one institution
+  sentence. The leg was replaced.
+
+- **ONE OPEN PAPER CAN CARRY THREE LEGS.** The Frontiers in Water study of the Continental Terminal
+  aquifer gives Lomé its water (a 64 km² lagoon system at 1.8–2.5 g/L, reaching the sea through the
+  Aného channel), its rock (the Gulf of Guinea basin over a Pan-African basement) and its climate (four
+  seasons, 864 mm a year against 1,445 mm inland) in a section apiece. That is what made a city with no
+  single-window WMO record writable at all.
+
+- **A RIVER THAT SHARES ITS COUNTRY'S NAME CANNOT BE NAMED.** The grid's first row is Country, so rule 2
+  forbids the word on the card — and for Asunción the word is also the name of the river the city stands
+  on. The card says *the river the country is named for*, which keeps the bearing and breaks no rule.
+  Expect the same on any capital whose defining water carries the country's name.
 
 ## What C17 found
 
