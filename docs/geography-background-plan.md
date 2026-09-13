@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-13, batch C20 — six capitals, and four constitutions that decline to name the city**: `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava and `gw-621` Dublin, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C19 — six capitals, and the constitution slug stops being composed**: `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville and `gw-615` Copenhagen, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C18 — six capitals, and a WMO table that is complete, windowed and wrong**: `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek and `gw-608` Asunción, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -424,6 +426,58 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C20 found
+
+- **THE CONSTITUTIONAL TALLY NOW HAS SIX SHAPES, AND FOUR OF THIS BATCH'S SIX DECLINE TO NAME THE CITY IN
+  THE ORDINARY WAY.** Slovakia gives the capital **a structural division of its own**: the third part of
+  the opening chapter is headed for it, and article 10 both names Bratislava and remits the city's status
+  to ordinary law — the strongest form the pass has met. Lebanon's article 4 sits between the clause
+  forbidding any part of the territory to be ceded and the clause describing the flag. **Norway names no
+  city at all**: article 68 has the Storting assemble “in the capital of the Realm” and lets the King
+  designate another town “in extraordinary circumstances, such as hostile invasion or infectious
+  disease” — El Salvador's variety with a far better escape clause. **Ireland names the city twice and
+  never calls it the capital**, giving the President an official residence “in or near the City of
+  Dublin” and having the Houses of the Oireachtas sit “in or near” it “or in such other place as they
+  may from time to time determine”: a new variety, the place named and the title withheld. And Finland
+  and Liberia join Denmark and Togo in silence — Finland's text never uses the word at all, Liberia's
+  uses it only of capital offences.
+
+- **AND A WARNING FOR ANYONE READING A CONSTITUTE PAGE: THE BOLD “National capital” LINE ABOVE AN
+  ARTICLE IS CONSTITUTE'S OWN TOPIC TAG, NOT THE CONSTITUTION'S WORDS.** Ireland's page carries that label
+  twice over articles whose text never uses the word, and every page carries “Prohibition of capital
+  punishment” over a clause about the death penalty. **Grep the text, and count the word only where the
+  constitution itself says it.**
+
+- **THE WMO LEG FAILS A FIFTH WAY: A RECORD THAT CARRIES ONE VARIABLE.** Beirut's holds rainfall and
+  nothing else — no temperature, no rain days — over **1981–1990**, a ten-year window rather than a
+  thirty-year one. The card prints the rainfall and says what the record is. The measured tally of ways
+  this leg fails now runs to five: no record at all (Managua, Brazzaville, Monrovia); a country in the
+  index whose single city is not the capital (Managua); per-field windows a year apart (Lomé); complete,
+  windowed and wrong (Bishkek); and one variable on a short window (Beirut).
+
+- **AND A SIXTH THING THE INDEX DOES: IT FILES A CAPITAL UNDER ITS AIRPORT.** Helsinki is entered as
+  **Helsinki-Vantaa**. Set beside C19's finding that the index files Copenhagen with Tórshavn and Nuuk —
+  which UNdata's own profile explicitly excludes from every figure it gives for that country — the point
+  is that **the meteorological index's idea of a country is not the statistics division's**, and a card
+  that says so is saying something true about both.
+
+- **THE UNDATA FOOTNOTE CAN HEDGE THE FIGURE AS WELL AS DEFINE IT.** Beirut's capital line carries two:
+  the estimate “should be viewed with caution as these are derived from scarce data”, and it “excludes
+  Syrian refugees”. That is the first capital figure in the pass qualified for RELIABILITY rather than
+  for SCOPE, and it belongs on the card precisely because the facts grid's own number cannot say it.
+
+- **WHERE THE PHYSICAL LITERATURE IS SILENT, THE MEDICAL LITERATURE HAS THE GEOGRAPHY.** Monrovia's fifth
+  leg is a PLOS scabies prevalence survey whose Study Setting names New Kru Town as a coastal community
+  **on Bushrod Island**, of more than 20,000 people in 25 distinct communities — the only openable
+  statement of the city's island geography the batch found. C18's rule restated: search the discipline
+  that happens to publish about the place, not the discipline the fact belongs to.
+
+- **A GOLD-OPEN-ACCESS JOURNAL IS NOT A READABLE ONE, AND THE CHECK IS TO OPEN THE ARTICLE.** Elsevier's
+  gold titles (Scientific African, Heliyon) redirect through `doi.org` to a ScienceDirect wall; Springer's
+  `link.springer.com` and even SpringerOpen's own `earth-planets-space.springeropen.com` answer a client
+  challenge; Wiley answers 403. Two papers were collected as far as their Crossref metadata in this batch
+  and then dropped, because the metadata is not the article. **Never cite from a record alone.**
 
 ## What C19 found
 
