@@ -142,8 +142,20 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
    the translator after (Livy trans. Roberts, the Greek Anthology trans. Paton), so an
    anonymous one opens on its title — and the title is then what `authorOf` returns.  Before
    the China cards were re-cited, five different classics translated by James Legge read as
-   one modern scholar cited five times, which is the opposite of what rule 1 is for. */
-const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books)\b/i;
+   one modern scholar cited five times, which is the opposite of what rule 1 is for.
+   THE LIST GREW AGAIN WITH THE PASS THAT PRODUCED THAT FORM (Sep 2026,
+   `.claude/fix-citation-form.js`).  Correcting 237 citations moved a heap of anonymous works
+   INTO the author slot — the Book of Lord Shang 33 times, the Nihongi 27, the She King 12,
+   the Anglo-Saxon Chronicle 10 — and every one of them was then keyed as a modern scholar,
+   which is the same fault one step further on: no card trips on them today, so nothing would
+   have said so until one did.  A title is added here the moment the pass starts producing it.
+   WHAT IS DELIBERATELY NOT HERE IS THE MODERN PRIMARY DOCUMENT.  The same slot now holds the
+   Treaty of Versailles (7), the Covenant of the League of Nations (6) and a dozen
+   constitutions and court records.  They are primary rather than scholarly, so counting them
+   as one scholar's opinion is wrong in the same way — but this list is of ANCIENT witnesses,
+   and a card resting three times on one modern treaty is a judgement somebody should make
+   with the card in front of them rather than a row added here in passing. */
+const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good)\b/i;
 
 /* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
    the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,

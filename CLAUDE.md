@@ -852,6 +852,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     hosts re-measured in Sep 2026 that DO open and what each carries, and the rule that came out of it:
     **the re-sourcing is a content pass, card by card, not a substitution table**, and keeping a source
     for a claim nothing else states is the right answer rather than a failure. Not part of the site.
+- `.claude/fix-citation-form.js` — **A TRANSLATED ANCIENT WORK IS CITED BY ITS OWN AUTHOR OR ITS OWN
+  TITLE, NEVER BY ITS TRANSLATOR**, applied over the whole corpus: `node
+  .claude/fix-citation-form.js [--prefix=] [--emit=<batch.json>]`. The rule was already written down —
+  `Livy, <i>The History of Rome</i> 2.1, trans. Canon Roberts`, and an anonymous work opening on its
+  title — and 475 citations did not follow it. **It is not tidiness**: `check-cards.js` takes a
+  citation's author from the slot before the first comma, so a translator standing there IS the author
+  as far as every count is concerned, and five Chinese classics translated by one Victorian read as one
+  modern scholar cited five times.
+  · **THE WORKS ARE DECLARED, NEVER PATTERN-MATCHED**, for `CROSSREF_WRONG`'s reason: "anything with
+    `trans.` in the author slot" sweeps up a translator's own prolegomena, a compiler's own book and a
+    journal article carrying a translation inside its author's commentary — three shapes where the
+    present form is RIGHT. `LEAVE` names those with a reason each, and anything in neither table is
+    REPORTED rather than changed.
+  · **THE PROLEGOMENA RULE IS WHAT MAKES THE REST SAFE, AND IT IS PER CITATION WHERE THE TABLE IS PER
+    WORK.** Legge's Chinese Classics volumes carry a hundred pages of his own, so `vol. 5, part 1, The
+    Ch'un Ts'ëw … Prolegomena, 108` cites LEGGE. **A locator that is nothing but lower-case roman
+    numerals is front matter whether or not it says the word**; a MIXED one cites the text as well, is
+    rewritten, and is listed for reading.
+  · **…EXCEPT WHERE A QUOTED WORK TITLE LEADS, WHICH IS A TEXT WHEREVER IT IS PRINTED.** Legge printed
+    the Annals of the Bamboo Books inside his prolegomena, so those citations end "Prolegomena, ch. 4"
+    and are not his scholarship at all.
+  · **THE WORD `trans.` IS NOT ALWAYS THERE, AND ITS ABSENCE IS THE SAME FAULT WEARING LESS** — a third
+    of the Chavannes citations simply read `Édouard Chavannes, <i>Les Mémoires historiques…</i>`. That
+    shape is only safe to treat alike **because the work is declared**: the one name that ever precedes
+    such a title is its translator's. **The guard on it is `trans.` ANYWHERE in the citation, and it is
+    what makes the pass idempotent** — without it a citation the pass has already corrected matches the
+    bare shape again and emits `trans. Confucius, trans. James Legge`. Found by reading the second run's
+    diff; nothing downstream would have failed on it, so **run it twice and diff**.
+  · **IT WRITES NOTHING ITSELF**: `--emit` produces a batch for `add-sources.js`, which re-checks the
+    marker rules, refuses a citation with no URL and resplits. Not part of the site.
 - `.claude/check-questions.js` — the card QUESTION house rules, measured over the shipped `data.js`:
   `node .claude/check-questions.js [--verbose]`, exit 1 on any violation, so it guards a batch the way
   `check-style.js` does. Four rules — **one sentence**; **understandable on its own** (a question may not
