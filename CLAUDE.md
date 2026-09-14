@@ -1143,8 +1143,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.27 MB and 47,928 lines is hard to find your way around, so this
-  lists its 182 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.30 MB and 48,256 lines is hard to find your way around, so this
+  lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -1876,6 +1876,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   — the question and the brief paragraph its "Show answer" button reveals — and the retired single
   `{ q, at }` shape is REFUSED here with the migration named, while app.js goes on rendering one for the
   overlay's sake. Not part of the site.
+- `.claude/card-war.js` + `.claude/add-card-wars.js` — the rules for **`card.war`**, and the batch tool
+  that writes one onto a card already shipped (`node .claude/add-card-wars.js <batch.json> [--dry]`).
+  **A MODULE FOR `card-links.js`'s REASON** — two tools enforce the rules, `add-card.js` for a new card
+  and this for the other 3,200 — and it SPLICES LINES rather than rewriting `data.js`, validating the
+  whole batch before writing anything.
+  · **THE FOUR CHECKS ARE ALL FOR FAULTS THAT RENDER PERFECTLY.** A key on none of Folio's maps shades
+    nothing, for ever, on every surface — `Carthage` and `Prussia` are the shapes of names that feel like
+    they should resolve and do not, and a typo is the same failure wearing less; a side resolving nothing
+    on `world.js` draws on the personal atlas and is invisible on the card's own window, which is the one
+    surface the author is looking at; a name on both sides asks one shape for two colours; and a war with
+    no derivable years is simply absent from the personal atlas. It is checked against `world.js` AND
+    every era in `timeline.js`, which is the only place those names exist.
+  · **WHAT IT DELIBERATELY DOES NOT CHECK IS WHO WON**, which no file in this repository knows. The block
+    is a historical claim like any other on the card and rests on the card's own cited prose.
+  · `--check` prints every block the corpus carries with the years each will draw in; `--names=<year>`
+    prints every territory name that era's map has, which is what a side's `keys` must be written
+    against. `"war": null` removes a block. Not part of the site.
 - `.claude/set-facts.js` — writes a MAP CARD's `facts` grid, in batches:
   `node .claude/set-facts.js <batch.json> [--check]` over `{ "cards": { "gw-001": [[label, value], …] } }`.
   **A TOOL RATHER THAN AN EDIT, because none of the others can touch it**: `facts` is an ARRAY of pairs, so
@@ -3602,6 +3619,61 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `cardArtReveal` / `cardFrontHTML`'s artwork branch / `showAnswer`'s reveal and duplicate-slot drop /
   `IMG_OPEN_SEL` / `picturePool` / `gameCardIdSet` / `serializeCardData` / `revertCard` / the `.art-shot`
   styles, or after adding an artwork card.**
+- **WAR CARDS — who fought, and who won** (`card.war`; `cardWar` / `cardWarYears` / `warSide` /
+  `cardWarKeyHTML` / `cardWarSwatch` / `TINT_WIN` / `TINT_LOSE` / `warSides` in `startCardGlobe` /
+  `mineWarShapes` / `drawMineWar`; `.war-key` in styles.css. Sep 2026, on request: "cards in which the
+  main answer term is a war, should in their atlas window highlight the countries of the two different
+  sides in the conflict in two different colors — the victors green, the losers red. In the relevant
+  years on the personal atlas it should also highlight countries involved in war in a similar way").
+  Five things.
+  · **A CARD DECLARES IT; NOTHING SNIFFS THE ANSWER TERM FOR "WAR".** The obvious rule — shade a card
+    whose answer contains the word — is confidently wrong on the corpus as it stands: of the 68 answer
+    terms carrying it, `rm-212` is the WAR ELEPHANT and `wh-403` the ART OF WAR. A declared block is the
+    house rule for exactly this (`CROSSREF_WRONG`'s own), and it is also the only thing that could work:
+    **no pattern can read an outcome off a title.**
+  · **A SIDE IS NAMED ON A MAP FOLIO HAS, OR DRAWN AS AN AUTHORED EXTENT — NEVER BOTH.** `keys` is the
+    list of names that belligerent goes by ACROSS Folio's maps, and every one the map in front of the
+    reader carries is shaded — the card's window draws `world.js`, the personal atlas draws the era map
+    for the year, and the 1938 map calls Japan the Empire of Japan and Russia the USSR. ONE list matched
+    against whatever map is up, which is `map.key`'s own rule. `area` is the other half and exists
+    because **Folio's era maps begin at 1500**: Rome and Carthage are on no map, so an ancient war's
+    sides are authored as a civilisation's extent is — and drawn as one, **DASHED**, where a named side
+    is stroked SOLID.
+  · **BOTH SIDES OR NEITHER, AND A DRAWN WAR IS ONE THAT WAS DECIDED.** The block says who won, so a war
+    that ended in stalemate or whose outcome the sources dispute carries NO block rather than half a one
+    — the Lelantine War, the Archidamian War and the Corinthian War are the standing examples. **AND A
+    NAME MAY NOT STAND ON BOTH SIDES**: a shape cannot be two colours, and which side Italy in 1943 or
+    Romania in 1944 belongs on is a judgement rather than something the draw can resolve.
+  · **THE YEARS COME OFF THE CARD'S OWN DATE LINE, and `years` is an override no ordinary card needs** —
+    `map.zoom`'s bargain. It fails only where the line counts something other than the war: `wh-345`
+    "Punic Wars" names one treaty year, which would put a 118-year subject on the globe for one year.
+    `zoom` is the same bargain for the FRAME, and one card needs it — the Greco-Persian Wars opened on a
+    view from the Atlantic to the Indus with the Greek allies a speck at the edge.
+  · **A WAR WINDOW SPENDS RED ON THE DEFEATED SIDE, SO THE COLLECTION'S RED MARKS STAND DOWN ON IT.** The
+    sibling dots and the `CMAP_ANCHOR` city are drawn "in a red that is nobody else's mark on this map",
+    which stops being true here — the Second Punic War drew a solid red square labelled ROME in the
+    middle of a green Italy. **AND THE LEGEND IS THE ANSWER TO GREEN-AND-RED**, which about 8% of men
+    cannot separate: it names both sides in markup (so a screen reader reads it), its swatches are built
+    from `TINT_WIN` / `TINT_LOSE` rather than from a CSS rule, and it sits OUTSIDE `.card-loc` so the
+    Atlas popup's `noLocator` keeps it.
+  **IT RIDES IN THE LIGHT HALF OF `data.js`, BESIDE `locator`, AND HAS TO** — `atlasUnlocks` walks every
+  studied card, and a `war` in the heavy half would put a war on the personal globe only when that
+  collection's extra file happened to be loaded. It is not free: **17 blocks cost the eager path about
+  10 KB gzipped**, so measure with `check-sizes.js` after a big batch.
+  **KNOWN LIMIT, STATED RATHER THAN PAPERED OVER: on a card's own window a named side is drawn in
+  PRESENT-DAY borders**, `world.js` being the only shape layer a locator window loads — so the Second
+  World War card shades modern Russia for the USSR and leaves Ukraine and the Baltic states grey. The
+  personal atlas resolves the same card against the 1938 map and is right. Where the modern border
+  misleads, the honest answer is an authored `area`.
+  Guarded by `.claude/test-war-cards.js`. **Re-run after touching `cardWar` / `warSide` / `cardWarYears`
+  / `cardWarKeyHTML` / `cardWarSwatch` / `warRingsAttr` / `cardLocatorHTML` / `TINT_WIN` / `TINT_LOSE` /
+  the war block in `startCardGlobe`'s `draw()` / `warSides` / `warDrawable` / `fitTarget`'s `ext` /
+  `atlasUnlocks`' war branch / `mineMarks` / `mineWarShapes` / `drawMineWar` / `mineAt` /
+  `serializeCardData` / `revertCard` / `.claude/card-war.js`, or after a batch of war blocks.**
+  **📖 `docs/war-cards.md` — READ BEFORE ADDING A WAR BLOCK OR CHANGING HOW ONE IS DRAWN.** The five
+  decisions in full, the three findings from authoring the extents (above all that the toe of Italy
+  cannot be separated from north-east Sicily by an approximate polygon), the rejected alternative of
+  resolving a card window against the era map, and why `ww2-001` names coalitions rather than states.
 - **ONE media panel on the card surface** (Aug 2026, on request — it was two, with a `.ces-media-swap` pill
   between them). A card shows one frame, so the editor offers one slot (`#cesMediaSlot`) and one panel
   (`#cesMediaPanel`, fields `data-mediafield="src|title|desc|credit"`), and the pasted URL decides which of
@@ -5448,6 +5520,34 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
     with. Coverage is uneven and deliberately so: run
     `node -e "global.window={};require('./data.js');const c=window.CARD_DATA.filter(x=>x.id.startsWith('rm-'));console.log(c.filter(x=>x.locator).length+'/'+c.length)"`
     for a collection's own figure rather than quoting one here.
+- `war` — **OPTIONAL, and the thing to ask for on a card whose ANSWER TERM IS A WAR**:
+  `{ victors: { name, keys | area }, losers: { name, keys | area }, years?, zoom? }` shades the two sides
+  on the card's atlas window — the victors green, the defeated red — and puts them on the reader's own
+  atlas in the years the war ran. **It also GIVES the card its window**, so a war card needs no researched
+  coordinate: the two sides are the place. See the WAR CARDS bullet under "How the app is wired".
+  · **A SIDE IS `keys` OR `area`, NEVER BOTH.** `keys` lists the names that belligerent goes by on Folio's
+    maps — `world.js` for the card's own window and the thirteen eras for the personal atlas, which call
+    Japan the *Empire of Japan* and Russia the *USSR*, so a side names both — and `area` is a hand-drawn
+    approximate extent for a belligerent no map holds, which is every ancient one, Folio's era maps
+    beginning at 1500. Run `node .claude/add-card-wars.js --names=<year>` for what a given era's map
+    actually calls its territories; it is the commonest thing to get wrong.
+  · **THE BLOCK SAYS WHO WON, so a war that ended in stalemate or whose outcome the sources dispute gets
+    NO BLOCK** rather than a guess in two colours, and **no name may stand on both sides**. Both are
+    refused by `add-card.js`, which also refuses a key on none of Folio's maps and a side that resolves
+    nothing on `world.js` — that last one is the side that would shade on the personal atlas and be
+    invisible on the card's own window.
+  · **AN `area` IS AUTHORED, SO IT IS THE ONE PART THAT MUST BE CHECKED RATHER THAN LOOKED AT.** A ring
+    whose interior is on the wrong side of an edge draws a beautiful map of somewhere else, and nothing
+    downstream can tell. **A BATCH ENTRY CARRIES ITS OWN ASSERTIONS** — a `places` block of "Rome inside,
+    Palermo outside" beside the `war`, which `add-card-wars.js` REFUSES the batch over and which is never
+    written to the card; the 26 extents shipped were checked against 573 of them, and
+    `test-war-cards.js` pins a readable subset so a shipped extent edited later fails too. **Compose a
+    side's "out" list GEOMETRICALLY rather than by name** — Catania is in Sicily and no table named it,
+    so Rome in 218 BCE was briefly asserted not to cover it.
+  · The years come off the card's own date line; `years: [from, to]` (negative for BCE) is the override
+    for a card whose line counts something other than the war, and `zoom` the override for a frame the
+    union of the two sides chooses badly. Written onto a card already shipped with
+    `node .claude/add-card-wars.js <batch.json>`.
 - `answer` / `answerText` — **the answer term NEVER carries an article** (Aug 2026, on request): it is
   `polis`, `Iliad`, `rhapsode`, `cist grave`, not "the polis" or "a cist grave". What the reader is being
   asked to recall is the term; "the" is a fact about the sentence around it, so it belongs to the QUESTION
@@ -5895,7 +5995,7 @@ division-capital city tier are inert dead code.
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **54 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **55 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-panels.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
@@ -6139,6 +6239,14 @@ division-capital city tier are inert dead code.
     of it with no browser. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
     `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `serializeCardData` /
     `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map card.**
+  · `node .claude/test-war-cards.js` — **`card.war`, the two sides of a war** (50 assertions), sections
+    1–3 with no browser (`--data-only`). **EVERY FAULT IT GUARDS RENDERS PERFECTLY**: a belligerent named
+    off the map shades nothing and leaves a war with one participant, the two sides drawing in one colour
+    is a map that looks finished and says nothing, and a war bounded at one end only appears in every
+    year after it. It counts GREEN and RED pixels and asserts each AGAINST THE OTHER, asserts the legend
+    names both sides (a coloured map with no key being the one state this feature must not ship in), and
+    asserts the personal atlas draws the war inside its years and NOT outside them, in both directions.
+    **Re-run after touching anything in the WAR CARDS bullet's own list, or after a batch of war blocks.**
   · `node .claude/test-artwork-cards.js` — **the artwork card format** (56 assertions), and every fault
     it guards RENDERS PERFECTLY. **The pool half is asserted through a PATCHED app.js**, `picturePool`
     being a closure variable and a sweep of real days a coin toss that would say nothing if it saw none.

@@ -971,6 +971,7 @@
     CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
+    CARD_BY_ID[id].war = p.war;               // and the two sides it shades on that globe (see cardWar)
     CARD_BY_ID[id].quote = p.quote;           // and the passage it quotes out of the Library (see cardQuote)
     CARD_BY_ID[id].why = p.why;               // and the question it asks the reader to answer (see cardWhy)
     CARD_BY_ID[id].leadsTo = p.leadsTo;       // and what it led to (see cardLeadsTo)
@@ -31796,6 +31797,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      `line` and `glow` are written out rather than derived from `rgb`, which is the Atlas's own note — its
      outline is a LIGHTER amber than its fill, and deriving them would quietly have flattened that. */
   const TINT_SEL = { rgb: "255,178,46", fillA: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)" };
+  /* ---------- AND THE TWO SIDES OF A WAR (Sep 2026, on request) ----------
+     "Cards in which the main answer term is a war, should in their atlas window highlight the countries
+     of the two different sides in the conflict in two different colours — the victors green, the losers
+     red. In the relevant years on the personal atlas it should also highlight countries involved in war
+     in a similar way."
+     THEY SIT BESIDE `TINT_SEL` FOR ITS OWN REASON: the card's atlas window and the personal atlas both
+     paint them, the two are never on screen together, and a second copy of a colour is how they come to
+     disagree in silence. Each is the same triple — a translucent fill that lets the map read through, a
+     brighter line over it and a lighter glow behind that line — so a side reads as the same KIND of
+     claim the Atlas's own selection does, in a different colour.
+     THE FILL IS A LITTLE STRONGER THAN THE SELECTION'S 0.24, and that is measured rather than chosen:
+     gold at 24% reads over both land shades because it is the lightest thing on the map, where a green
+     and a red are darker than the paper land and lighter than the night one, so at the same alpha the
+     green all but vanished on the day theme. The LINE is what carries the shape either way.
+     GREEN AND RED IS THE ONE PAIR ABOUT 8% OF MEN CANNOT SEPARATE, and the request asks for it by name.
+     What answers that here is not a third colour but the LEGEND under the map, which names which side is
+     which — so the colour is the quick read and the words are the answer. See `cardWarKeyHTML`. */
+  const TINT_WIN = { rgb: "36,148,84", fillA: 0.34, line: "rgba(58,184,108,1)", glow: "rgba(48,168,96,0.7)" };
+  const TINT_LOSE = { rgb: "198,54,48", fillA: 0.32, line: "rgba(230,92,84,1)", glow: "rgba(216,72,64,0.7)" };
   const CARD_MAP_LAYERS = {
     // a layer names the bundle that carries its polygons, the global that bundle assigns, and — where the
     // layer has one — the global holding the POINTS a card may put a dot on (see `map.dot`)
@@ -32152,6 +32172,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const locMid = locLabelPt && locLabelPt.length ? locLabelPt[0]
       : locArea && locArea.length ? (() => { const b = ringsBBox(locArea); return [wrapLon((b[0] + b[2]) / 2), (b[1] + b[3]) / 2]; })()
       : null;
+    /* ---------- THE TWO SIDES OF A WAR (Sep 2026, on request; see `cardWar`) ----------
+       `keys` are names to look up in the LAYER'S OWN shape list once it lands — which for a locator is
+       `world.js`, so a modern war's belligerents resolve to the countries a reader already knows — and
+       `area` is an authored extent drawn straight away, for the ancient wars whose sides are on no map
+       Folio holds. A side carries one or the other, never both.
+       A KEY THE MAP HAS NOT GOT IS SKIPPED RATHER THAN FAILING THE WINDOW, which is the one place this
+       parts from `data-map-key`. That list names a card's own several polygons and every one of them
+       must be there; this one names the spellings a belligerent goes by across THIRTEEN different maps —
+       the era maps call Japan the Empire of Japan and the USSR the USSR — so a name the present-day map
+       does not carry is the list doing its job. What stops a typo going quiet is `add-card.js`, which
+       refuses a side no name of which resolves on `world.js`. */
+    const warSides = [
+      { tint: TINT_WIN, keys: (host.getAttribute("data-war-v") || "").split("|").filter(Boolean), area: readRings(host.getAttribute("data-war-varea")), shapes: [] },
+      { tint: TINT_LOSE, keys: (host.getAttribute("data-war-l") || "").split("|").filter(Boolean), area: readRings(host.getAttribute("data-war-larea")), shapes: [] },
+    ].filter((sd) => sd.keys.length || sd.area);
+    const warDrawable = () => warSides.some((sd) => sd.shapes.length || sd.area);
     /* THE HI-RES COAST, where this card's collection has one (see CMAP_HIRES). `effRings` hands back a
        country's rings with the bundle's patched rings substituted index for index, memoised per country
        and thrown away when a different bundle object lands — a per-frame map over 117,000 vertices is not
@@ -32170,7 +32206,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        would be a second name for one place. */
     const anchor = (() => {
       const a = sibCard ? CMAP_ANCHOR[(cardCollectionRoot(sibCard) || {}).id] : null;
-      if (!a) return null;
+      if (!a || warSides.length) return null;   // a war window spends red on the defeated side — see the sibling pass in draw()
       const k = a.n.toLowerCase();
       if (locWithin === k) return null;
       const me = sibCard ? cardLocator(CARD_BY_ID[sibCard]) : null;
@@ -32607,6 +32643,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ctx.strokeStyle = TINT_SEL.line; ctx.lineWidth = 2.6; ctx.stroke();
         ctx.restore();
       }
+      /* ---------- THE TWO SIDES OF A WAR (Sep 2026, on request) ----------
+         The victors green, the defeated red, in the same three marks the shaded place above takes — a
+         translucent fill, a brighter line, a soft glow — so a side reads as the same KIND of claim the
+         Atlas makes when a country is clicked, differing only in what it says.
+         A NAMED SIDE IS STROKED SOLID AND AN AUTHORED ONE DASHED, which is the honesty the region wash
+         one block down already carries: a shape taken off `world.js` is a real border, and an `area`
+         drawn for Carthage is a dozen points somebody placed. The two never mix on one side.
+         IT GOES THROUGH `effRings`, so where the collection has a hi-res coast the shaded belligerent
+         follows the same shoreline the land under it was drawn from — otherwise a side's gold edge sits
+         a kilometre inland of the coast beneath it.
+         THE AUTHORED HALF IS CLIPPED TO THE LAND (`landMask`) for the reason a region is: an approximate
+         polygon runs out into the sea, and a war's extent is no more able to trace the Tyrrhenian shore
+         by hand than a culture's is. */
+      for (const sd of warSides) {
+        if (sd.shapes.length) {
+          ctx.beginPath();
+          for (const sh of sd.shapes) for (const ring of effRings(sh)) if (visible(ring)) addRing(ring);
+          ctx.fillStyle = "rgba(" + sd.tint.rgb + "," + sd.tint.fillA + ")"; ctx.fill("evenodd");
+          ctx.save();
+          ctx.shadowColor = sd.tint.glow; ctx.shadowBlur = 9;
+          ctx.strokeStyle = sd.tint.line; ctx.lineWidth = 2.2; ctx.stroke();
+          ctx.restore();
+        }
+        if (sd.area && sd.area.some(visible)) landMask((m) => {
+          m.beginPath();
+          for (const ring of sd.area) if (visible(ring)) addRing(ring);
+          m.fillStyle = "rgba(" + sd.tint.rgb + "," + sd.tint.fillA + ")"; m.fill();
+          m.setLineDash([7, 5]);
+          m.strokeStyle = sd.tint.line; m.lineWidth = 2; m.stroke();
+          m.setLineDash([]);
+        }, false);
+      }
       /* ---------- A REGION IS AN AREA, DRAWN AS ONE (Aug 2026, on request) ----------
          It takes the shaded place's wash so a region and a shaded state read as the same kind of claim —
          "this is what the card is about" — but its EDGE IS DASHED where the state's is solid, and that is
@@ -32773,8 +32841,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            (three Knossos cards are one Knossos): a group is drawn at the city's own coordinate where a
            member IS the city, and labelled with the city's name. The card's own city is left out — its
            gold mark is already there, and a red "Rome" on top of "Roman Forum" says nothing. */
+        /* ---------- A WAR WINDOW SPENDS RED ON THE DEFEATED SIDE, SO THE COLLECTION'S RED MARKS STAND
+           DOWN ON IT (Sep 2026, with `card.war`) ----------
+           The note directly above says these dots are drawn "in a red that is nobody else's mark on this
+           map", and on a war card that premise stops being true: the legend under the window has just
+           told the reader that red means the side that lost. Looked at on the page, the Second Punic War
+           drew a solid red square labelled ROME in the middle of a green Italy — the one mark on the map
+           whose colour said the opposite of what the map did. A war's marks are its two sides. */
         const sibAt = [];
-        { const groups = new Map();
+        if (!warSides.length) { const groups = new Map();
           for (let i = 0; i < sib.dots.length; i++) {
             const d = sib.dots[i];
             if (!S.cards || !S.cards[d.id]) continue;
@@ -32987,13 +33062,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          NAME is written — that is the choice the author was actually making — and the shape decides where
          the reader is standing to look at it. */
       // `locArea` is a list of RINGS and `locSpine` a single polyline, so the fit runs over rings either way
-      const ext = locArea || (locSpine ? [locSpine] : null);
+      /* A WAR FRAMES BOTH ITS SIDES, and that is why a war card needs no researched coordinate: the
+         theatre is the union of who fought in it. It is taken ahead of a locator's own extent, and ahead
+         of `at`, because on a card whose answer IS a war the dot is an incident inside the subject
+         rather than the subject — the same call `fitTarget` already makes for a region, where the shape
+         decides where the reader stands and `at` decides only where the name is written.
+         THROUGH `nearRings`, so an overseas département does not frame the Atlantic: France's rings run
+         from Guiana to New Caledonia, and a raw bounding box over them opens the Second World War on the
+         Pacific. The far rings are still SHADED — the fit is narrowed and nothing is dropped. */
+      const ext = (warSides.length
+        ? [].concat.apply([], warSides.map((sd) => (sd.area || []).concat([].concat.apply([], sd.shapes.map(nearRings)))))
+        : null) || locArea || (locSpine ? [locSpine] : null);
       if (!target && ext && ext.length) {
         // …through `ringsBBox`, so a shape crossing the antimeridian frames itself rather than the Atlantic
         const b = ringsBBox(ext), x0 = b[0], y0 = b[1], x1 = b[2], y1 = b[3];
         homeLon = wrapLon((x0 + x1) / 2); homeLat = (y0 + y1) / 2;
         const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(homeLat * CMAP_DEG), 0.2);
-        z = 0.85 / (0.46 * CMAP_DEG * span);
+        // a war keeps a wider margin than a region: what it is showing is two shapes and the ground between them
+        z = (warSides.length ? 0.78 : 0.85) / (0.46 * CMAP_DEG * span);
       }
       if (target) {
         let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
@@ -33029,7 +33115,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // seen from the outside, the canvas looking much the same either way. A LOCATOR resolves a `dot`
       // and no `target` — it gives its coordinate outright rather than naming a shape — so testing
       // `target` alone reports every locator as a window that never loaded.
-      ready() { return !!(target || dot); },
+      ready() { return !!(target || dot || warDrawable()); },
       view() { return { lon: rotLon, lat: rotLat, zoom: zoom, home: [homeLon, homeLat, homeZoom] }; },
       pan(dx, dy) { panBy(dx, dy); },
     };
@@ -33135,6 +33221,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       host.classList.remove("mc-loading");
       if (!ok[0] || !ok[1] || !ok[2] || !Array.isArray(window[def.global])) { host.classList.add("mc-failed"); return; }
       shapes = window[def.global];
+      // the war's named sides, resolved against the map this window actually draws (see `warSides`)
+      for (const sd of warSides) for (const k of sd.keys) {
+        const hit = shapes.find((sh) => sh.n === k) || shapes.find((sh) => sh.a === k);
+        if (hit && sd.shapes.indexOf(hit) < 0) sd.shapes.push(hit);
+      }
       /* A MAP CARD names a shape and a LOCATOR does not, which is the one branch between them: a locator
          points at a coordinate, so there is nothing to shade and nothing to look up. */
       if (key) {
@@ -33191,7 +33282,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           dot = { n: dotName, c: p.c };
         }
       }
-      if (!target && !dot) { host.classList.add("mc-failed"); return; }
+      // …and a WAR window has neither a shaded key nor a coordinate: its two sides are the whole of it
+      if (!target && !dot && !warDrawable()) { host.classList.add("mc-failed"); return; }
       fitTarget(targets.length ? [].concat.apply([], targets.map(nearRings)) : null);
       resize();
     });
@@ -33592,6 +33684,76 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ? [Number(l.label[0]), Number(l.label[1])] : null;
     return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab };
   }
+  /* ---------- WHO FOUGHT, AND WHO WON (`card.war`; Sep 2026, on request) ----------
+     A war card's atlas window shades the two sides in two colours — the victors green, the defeated red
+     — and the personal atlas does the same in the years the war ran. Five decisions carry it.
+
+     · **A CARD DECLARES IT; NOTHING SNIFFS THE ANSWER TERM FOR "WAR".** The obvious rule — shade a card
+       whose answer contains the word — is confidently wrong on the corpus as it stands: `rm-212` is the
+       WAR ELEPHANT, `wh-403` the ART OF WAR, and a dozen more are a treaty, a doctrine or a weapon named
+       after one. A declared block is the house rule for exactly this (see `CROSSREF_WRONG`), and it is
+       also what makes the sides authorable at all: no pattern can read an outcome off a title.
+
+     · **A SIDE IS EITHER NAMED ON A MAP FOLIO HAS, OR DRAWN AS AN AUTHORED EXTENT — NEVER BOTH.** `keys`
+       is a list of the names that side goes by on Folio's own maps, and every one of them that the map
+       in front of the reader carries is shaded: the card window draws `world.js`, so the Second
+       Sino-Japanese War shades present-day China and Japan, and the personal atlas draws the era map for
+       the year, where the same card's `Empire of Japan` is what resolves. ONE list, matched against
+       whatever map is up, rather than a table per surface — which is `map.key`'s own rule, where three
+       Cyprus polygons are named together because the map files them apart.
+       `area` is the other half, and it exists because Folio's era maps begin at 1500: Rome and Carthage
+       are on no map anywhere, so an ancient war's sides are authored the way a civilisation's extent is
+       (see `cardLocator`) — and drawn the way that one is, DASHED, because an authored extent is an
+       approximation and a crisp line would assert a frontier nobody surveyed.
+
+     · **BOTH SIDES OR NEITHER, AND A DRAWN WAR IS ONE THAT WAS DECIDED.** The block says who won, so a
+       war that ended in stalemate or whose outcome the sources dispute simply does not carry one — the
+       Lelantine War is the standing example. That is a narrower feature than "shade every war" and it is
+       the honest one: two colours can say victor and defeated, and they cannot say "nobody agrees".
+
+     · **A NAME MAY NOT STAND ON BOTH SIDES.** A shape cannot be two colours, and a belligerent that
+       changed sides mid-war (Italy in 1943) has to be filed under the side its card is about — which is
+       an editorial judgement, so it is refused at the point of writing rather than resolved at the draw.
+
+     · **THE YEARS COME OFF THE CARD'S OWN DATE LINE, and `years` is an override no ordinary card needs**
+       — `map.zoom`'s own bargain. `cardSpanYears` reads the date line, which for `rm-209` gives
+       218–201 BCE outright; it fails only where the line counts something other than the war, as
+       `wh-345` "Punic Wars" does, whose line names one treaty year and would put a 118-year subject on
+       the globe for a single year. */
+  function warSide(v) {
+    if (!v || typeof v !== "object") return null;
+    const name = String(v.name || "").trim();
+    const keys = Array.isArray(v.keys) ? v.keys.map((k) => String(k || "").trim()).filter(Boolean) : [];
+    // an authored extent goes through `locRings`, so a war's shape and a region's are read by one rule
+    const area = locRings(v.area);
+    // a side with neither is a side that draws nothing, which is worse than a card carrying no block
+    if (!name || (!keys.length && !area)) return null;
+    return { name: name, keys: keys, area: area };
+  }
+  function cardWar(c) {
+    const w = c && c.war;
+    if (!w || typeof w !== "object") return null;
+    const victors = warSide(w.victors), losers = warSide(w.losers);
+    if (!victors || !losers) return null;
+    const ys = Array.isArray(w.years) && w.years.length === 2 && isFinite(Number(w.years[0])) && isFinite(Number(w.years[1]))
+      ? [Number(w.years[0]), Number(w.years[1])] : null;
+    /* `zoom` IS THE FRAME OVERRIDE, AND IT IS `map.zoom`'s BARGAIN EXACTLY: the automatic fit frames the
+       union of both sides, which is right for a war between comparable powers and wrong where one of
+       them is an empire. The Greco-Persian Wars opened on a view from the Atlantic to the Indus, with
+       the Achaemenid Empire correctly filling the middle of it and the Greek allies a green speck — a
+       true map, and not a map of the war. A card may frame the THEATRE instead; the reader zooms out for
+       the rest, and nothing about what is shaded changes. */
+    return { victors: victors, losers: losers, years: ys && ys[0] <= ys[1] ? ys : null, zoom: Number(w.zoom) || 0 };
+  }
+  // the years the war ran, for the personal atlas: the block's own override, else the card's date line
+  function cardWarYears(c) {
+    const w = cardWar(c);
+    if (!w) return null;
+    if (w.years) return { y0: w.years[0], y1: w.years[1] };
+    const ys = cardSpanYears(c);
+    if (!ys.length) return null;
+    return { y0: Math.min.apply(null, ys), y1: Math.max.apply(null, ys) };
+  }
   /* ---------- WHAT ELSE IS ON A LOCATOR'S MAP (Aug 2026, on request) ----------
      "History cards with an atlas locator should also show the collection's other card locations as
      smaller red dots, plus state capitals, million-plus cities, and rivers — names only if the river is
@@ -33708,6 +33870,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         }
         return;
       }
+      /* ---------- A WAR PUTS BOTH ITS SIDES ON THE GLOBE, IN THE YEARS IT RAN (Sep 2026, on request) ----------
+         "In the relevant years on the personal atlas it should also highlight countries involved in war
+         in a similar way." One mark per SIDE rather than one per war, so the drawing pass is the same
+         loop for both and the colour is a property of the mark rather than a branch inside it.
+         BOTH ENDS OF THE SPAN BIND, as a civilisation's do and unlike a place's: a war is an episode, so
+         it arrives in the year it broke out and is gone the year after it ended — where Yinxu is still
+         there. A card whose years cannot be derived registers NOTHING, which is the honest answer to
+         "the relevant years" when the card does not say what they are.
+         IT DOES NOT `return`: a war card may carry a locator as well, and the dot that marks where the
+         decisive battle was fought is not the same claim as the shading that says who fought it. */
+      const war = cardWar(c), wy = war ? cardWarYears(c) : null;
+      if (war && wy) [["v", war.victors], ["l", war.losers]].forEach((pair) => {
+        marks.push({ id: cid, title: title, kind: "war", side: pair[0], sideName: pair[1].name, keys: pair[1].keys, area: pair[1].area, y0: wy.y0, y1: wy.y1 });
+      });
       const loc = cardLocator(c);
       if (!loc) return;
       const ys = cardSpanYears(c);
@@ -33812,31 +33988,77 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     _locSibCache.set(root.id, { dots: dots, termName: termName });
     return { dots: dots.filter((d) => d.id !== id), termName: termName, own: locOwnTerms(id) };
   }
+  /* THE LEGEND UNDER A WAR'S MAP, AND WHY IT IS HTML RATHER THAN CANVAS (Sep 2026, with `card.war`).
+     Green and red is the one pair a red-green colour-blind reader cannot separate, so the map alone can
+     say THAT two sides are drawn and never WHICH is which. The legend names them — and named in markup
+     it is read out by a screen reader, re-coloured by every theme and re-sized by the reader's own text
+     setting, none of which a caption painted on the canvas would be.
+     ITS SWATCHES ARE BUILT FROM `TINT_WIN` / `TINT_LOSE` RATHER THAN FROM A CSS RULE, for the reason
+     those constants are module-level at all: a key whose colours are stated a second time in the
+     stylesheet is a key that will one day disagree with the map it explains. The fill is taken at a
+     higher alpha than the map's, deliberately — on the map the tint lies over land and here over paper,
+     and what a reader matches is the HUE. */
+  function cardWarSwatch(t) {
+    return '<i class="wk-sw" style="background:rgba(' + t.rgb + ',.62);border-color:' + t.line + '" aria-hidden="true"></i>';
+  }
+  /* IT IS A SIBLING OF `.card-loc` RATHER THAN A CHILD OF IT, and that is not tidying: the personal
+     atlas's own popup draws the card back with `noLocator`, which REMOVES the whole locator block —
+     rightly, since that panel IS a globe and a second one inside it answers a question the reader is
+     looking at the answer to. The key is the one part of that block which is not a globe, and it is
+     exactly what a reader who has just clicked a green shape needs. Outside, it survives. */
+  function cardWarKeyHTML(w) {
+    if (!w) return "";
+    const row = (t, s, role, cls) =>
+      '<span class="wk-side ' + cls + '">' + cardWarSwatch(t) +
+      '<b class="wk-name">' + esc(s.name) + '</b> <span class="wk-role">' + role + '</span></span>';
+    return '<div class="war-key">' +
+      row(TINT_WIN, w.victors, "victors", "wk-win") +
+      row(TINT_LOSE, w.losers, "defeated", "wk-lose") + "</div>";
+  }
+  // "lon,lat lon,lat …", rings separated by ";" — `readRings` in startCardGlobe is the other half of this
+  function warRingsAttr(rings) { return rings.map((ring) => ring.map((q) => q[0] + "," + q[1]).join(" ")).join(";"); }
   function cardLocatorHTML(c) {
-    const l = cardLocator(c);
-    if (!l) return "";
-    const said = (l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
-      "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and \u2212 zoom.";
-    return '<div class="card-loc"><span class="label">Location</span>' +
-      '<div class="map-card map-loc" data-map-layer="world" data-map-named data-map-card="' + esc(c.id || "") + '"' +
-      ' data-map-at="' + l.at[0] + "," + l.at[1] + '"' +
-      (l.name ? ' data-map-atname="' + esc(l.name) + '"' : "") +
-      (l.kind !== "point" ? ' data-map-kind="' + esc(l.kind) + '"' : "") +
-      (l.within ? ' data-map-within="' + esc(l.within) + '"' : "") +
-      (l.label ? ' data-map-label="' + l.label[0] + "," + l.label[1] + '"' : "") +
+    const l = cardLocator(c), w = cardWar(c);
+    /* A WAR CARD GETS THIS WINDOW WITHOUT A LOCATOR, and that is the point of asking the war block for
+       one: the two sides ARE the place, so the frame is read off their own extent (see `fitTarget`) and
+       no separate coordinate has to be researched for a card whose subject is a hundred thousand square
+       miles of Europe. A locator, where the card also has one, still supplies the dot and its name. */
+    if (!l && !w) return "";
+    const said = (w
+      ? "The two sides of the war on an interactive globe: " + w.victors.name + ", the victors, shaded green; " +
+        w.losers.name + ", defeated, shaded red. "
+      : l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
+      "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom.";
+    return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : "Location") + "</span>" +
+      '<div class="map-card map-loc' + (w ? " map-war" : "") + '" data-map-layer="world" data-map-named data-map-card="' + esc(c.id || "") + '"' +
+      (l ? ' data-map-at="' + l.at[0] + "," + l.at[1] + '"' : "") +
+      (l && l.name ? ' data-map-atname="' + esc(l.name) + '"' : "") +
+      (l && l.kind !== "point" ? ' data-map-kind="' + esc(l.kind) + '"' : "") +
+      (l && l.within ? ' data-map-within="' + esc(l.within) + '"' : "") +
+      (l && l.label ? ' data-map-label="' + l.label[0] + "," + l.label[1] + '"' : "") +
       // "lon,lat lon,lat …" — a compact attribute rather than JSON, which would have to be escaped into
       // the markup and parsed back out again for a list of numbers
       // rings separated by ";", points by a space — `readRings` is the other half of this (see startCardGlobe)
-      (l.area ? ' data-map-area="' + l.area.map((ring) => ring.map((q) => q[0] + "," + q[1]).join(" ")).join(";") + '"' : "") +
-      (l.spine ? ' data-map-spine="' + l.spine.map((q) => q[0] + "," + q[1]).join(" ") + '"' : "") +
-      (l.zoom ? ' data-map-zoom="' + l.zoom + '"' : "") + ">" +
+      (l && l.area ? ' data-map-area="' + warRingsAttr(l.area) + '"' : "") +
+      (l && l.spine ? ' data-map-spine="' + l.spine.map((q) => q[0] + "," + q[1]).join(" ") + '"' : "") +
+      /* THE TWO SIDES, one pair of attributes each: the names the map may carry, `|`-joined exactly as
+         `data-map-key` joins a card's several polygons, and the authored extent in the rings encoding
+         above. A side has one or the other and never both (see `cardWar`), so only one of each pair is
+         ever written. */
+      (w ? (w.victors.keys.length ? ' data-war-v="' + esc(w.victors.keys.join("|")) + '"' : "") +
+           (w.victors.area ? ' data-war-varea="' + warRingsAttr(w.victors.area) + '"' : "") +
+           (w.losers.keys.length ? ' data-war-l="' + esc(w.losers.keys.join("|")) + '"' : "") +
+           (w.losers.area ? ' data-war-larea="' + warRingsAttr(w.losers.area) + '"' : "") : "") +
+      // ONE zoom attribute for both, the war's winning where a card carries both: the window's subject
+      // is the war, and a locator's own zoom was chosen to frame a dot
+      ((w && w.zoom) || (l && l.zoom) ? ' data-map-zoom="' + ((w && w.zoom) || l.zoom) + '"' : "") + ">" +
       '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
       '<div class="mc-zoom">' +
       '<button type="button" class="mc-btn" data-mc="in" aria-label="Zoom in" title="Zoom in">+</button>' +
       '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
       '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
-      "</div></div></div>";
+      "</div></div></div>" + cardWarKeyHTML(w);
   }
   /* ---------- THE READER'S OWN NOTE (Sep 2026) ----------
      Rendered on the answer side, directly under the answer box, because a mnemonic is about the TERM and
@@ -37173,6 +37395,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <div class="ah-tip"><b>It starts empty</b> — the earth, its coasts, its lakes and its rivers, and nothing else. Every place on it is one you have put there.</div>
               <div class="ah-tip"><b>Study a card to unlock its place</b> — a country from the geography decks appears in every year Folio's maps carry a state of that name, and a place from a history card appears in the years its own card gives it.</div>
               <div class="ah-tip"><b>Click a place</b> to see the card it came from, answer side and all.</div>
+              ${/* THE ONE THING ON THIS GLOBE THAT IS NOT A PLACE (Sep 2026, with `card.war`). Every
+                    other mark here answers "somewhere you have been taught about"; a green and a red
+                    wash answer "who fought", and nothing on the map says so — the card window's own
+                    legend is not on this page. It costs one line and is the only place it can be said. */""}
+              <div class="ah-tip"><b>Green and red are a war</b> — study a card whose answer is a war and both sides appear in the years it ran, the victors green and the defeated red. Click either to read the card.</div>
               <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. The timeline runs from 4000 BCE to today, and every year on it has a map.</div>` : `
               <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. From the keyboard: arrows rotate, + and − zoom, <kbd>[</kbd> and <kbd>]</kbd> step through the mapped years, Enter selects whatever is at the centre and Esc clears it.</div>
               <div class="ah-tip"><b>Click</b> — one click selects a state (on old maps, its whole empire); a double-click drills into a single territory; a triple-click reaches the UK's home nations.</div>
@@ -39259,7 +39486,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        THE MARKS ARE DRAWN AS THE LOCATOR WINDOWS DRAW THEM — a dot for a place, a dashed washed area for
        a region, a line for a range — because a reader meeting Yinxu here has already met it on its own
        card, and a second visual language for the same fact is a second thing to learn. */
-    let _mineFor = "", _mineCache = null;
+    let _mineFor = "", _mineCache = null, _mineWarFor = "", _mineWarCache = null;
     function eraIsModern(e) { return !!e && (e.present || (e.groups && !(e.geo && e.geo.length))); }
     /* WHEN A STATE ARRIVES ON THIS GLOBE (Sep 2026, on request: "ensure that each modern year really
        appears in the year of its founding, e.g. the United States in 1776, China in 1949 etc").
@@ -39394,7 +39621,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           continue;
         }
         if (m.y0 != null && year < m.y0) continue;
-        if (m.kind === "area" && m.y1 != null && year > m.y1) continue;   // a civilisation ends; a place does not
+        // a civilisation ends, and so does a war; a place does not
+        if ((m.kind === "area" || m.kind === "war") && m.y1 != null && year > m.y1) continue;
         out.push(m);
       }
       return out;
@@ -39433,6 +39661,80 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ctx.fill("nonzero");
         ctx.strokeStyle = sel ? TINT_SEL.line : mineAreaLine;
         ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], false); ctx.stroke();
+      }
+      ctx.restore();
+    }
+    /* ---------- THE TWO SIDES OF A WAR, IN THE YEARS IT RAN (Sep 2026, on request) ----------
+       A named side is resolved against THE ERA MAP FOR THE YEAR ON THE RAIL, not against `world.js` —
+       which is the whole reason a side carries a LIST of names (see `cardWar`): the 1938 map files Japan
+       as the Empire of Japan and Russia as the USSR, so the card names both and whichever the year's map
+       holds is the one shaded. A side whose names no map of that year carries simply draws nothing
+       there, which is the same honest silence a country card gets in a year before its state existed.
+       AN AUTHORED EXTENT NEEDS NO ERA AND IS DRAWN IN EVERY YEAR OF THE WAR, which is what makes the
+       feature work at all before 1500: Folio's earliest era map is 1500, so Rome and Carthage have no
+       territory to be resolved to and their extents are the polygons their own card washes.
+       THE CACHE IS KEYED ON THE ERA AND ON WHICH WARS ARE LIVE, not on the year: dragging the rail
+       across a decade of one war must not re-walk the era's territory list several times a second, and
+       the key changes at exactly the two moments the answer does. */
+    function mineWarShapes() {
+      const wars = mineMarks().filter((m) => m.kind === "war");
+      const key = eraKey(year) + "|" + wars.map((m) => m.id + m.side).join(",");
+      if (_mineWarFor === key && _mineWarCache) return _mineWarCache;
+      const out = [];
+      const e = activeEra(year), te = e ? terrOf(e) : null;
+      for (let i = 0; i < wars.length; i++) {
+        const m = wars[i];
+        if (m.area && m.area.length) { out.push({ m: m, area: m.area, rings: null, bb: null }); continue; }
+        if (!te) continue;
+        const want = new Set((m.keys || []).map((k) => String(k).toLowerCase()));
+        if (!want.size) continue;
+        for (let j = 0; j < te.terr.length; j++) {
+          const nm = te.terr[j].n;
+          if (!nm || !want.has(String(nm).toLowerCase())) continue;
+          out.push({ m: m, rings: te.terr[j].p || [], bb: te.bb[j], area: null });
+        }
+      }
+      _mineWarFor = key; _mineWarCache = out;
+      return out;
+    }
+    /* THE VICTORS GREEN AND THE DEFEATED RED, in `TINT_WIN` / `TINT_LOSE` — the same two the card's own
+       atlas window paints them in, read from the same module-level pair, so a war looks the same on both
+       surfaces. A NAMED side is stroked SOLID, because it is a real territory off a real map; an
+       AUTHORED one is dashed and clipped to the land, exactly as a culture's extent is one function up
+       and for exactly the same reason.
+       IT RUNS AFTER `drawMineAreas`, so a war lies over a culture whose ground it was fought on: the war
+       is the narrower claim and the one that is only true for these few years. */
+    function drawMineWar(bw) {
+      const list = mineWarShapes();
+      if (!list.length) return;
+      ctx.save();
+      for (let i = 0; i < list.length; i++) {
+        const w = list[i];
+        if (!w.rings) continue;
+        const t = w.m.side === "v" ? TINT_WIN : TINT_LOSE;
+        ctx.beginPath(); for (let r = 0; r < w.rings.length; r++) addClipped(w.rings[r], true);
+        // NONZERO, like the shapes pass: an era's rings are CCW-normalized and overlapping territories
+        // must read as one wash rather than punching a hole through each other
+        ctx.fillStyle = "rgba(" + t.rgb + "," + t.fillA + ")"; ctx.fill("nonzero");
+        ctx.lineWidth = Math.max(1.2, bw * 1.7); ctx.strokeStyle = t.line;
+        ctx.beginPath(); for (let r = 0; r < w.rings.length; r++) addClipped(w.rings[r], false); ctx.stroke();
+      }
+      const areas = list.filter((w) => w.area);
+      if (areas.length) {
+        ctx.save();
+        ctx.beginPath();
+        for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
+        ctx.clip("evenodd");
+        ctx.setLineDash([Math.max(3, bw * 4), Math.max(3, bw * 4)]);
+        ctx.lineWidth = Math.max(1.1, bw * 1.6);
+        for (let i = 0; i < areas.length; i++) {
+          const w = areas[i], t = w.m.side === "v" ? TINT_WIN : TINT_LOSE;
+          ctx.beginPath(); for (let r = 0; r < w.area.length; r++) addClipped(w.area[r], true);
+          ctx.fillStyle = "rgba(" + t.rgb + "," + t.fillA + ")"; ctx.fill("nonzero");
+          ctx.strokeStyle = t.line;
+          ctx.beginPath(); for (let r = 0; r < w.area.length; r++) addClipped(w.area[r], false); ctx.stroke();
+        }
+        ctx.restore();
       }
       ctx.restore();
     }
@@ -39678,6 +39980,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (ar < ba) { ba = ar; hit = shapes[i]; }
       }
       if (hit || sub) return hit;
+      /* A WAR'S TWO SIDES, under the reader's own countries and over a culture's extent. Under the
+         countries because a shape the reader has UNLOCKED is what this globe is a record of, and the war
+         shading is a temporary wash laid over it; over a culture because a war is the narrower claim —
+         it is true of these few years where a civilisation's extent is true of centuries. Where the
+         reader has NOT unlocked the country, this is the only thing under the pointer and it answers.
+         SMALLEST WINS, the same rule the countries use: a belligerent inside a wider one's theatre is
+         the more specific answer. */
+      let wr = null, wa = Infinity;
+      const wlist = mineWarShapes();
+      for (let i = 0; i < wlist.length; i++) {
+        const w = wlist[i], rings = w.rings || w.area;
+        if (!rings || !rings.length) continue;
+        /* A PLAIN min/max BOX, NOT `ringsBBox`. That one unwraps a shape spanning more than 180° past
+           the antimeridian, which is right for FRAMING a card's window and wrong as a hit-test filter:
+           it hands back edges above 180 that reject every negative longitude, so a click inside the
+           eastern half of the USSR would miss. The box is only a pre-filter here — `pointInRings` is the
+           real test — so a box that is too wide costs a walk and a box that is too narrow loses a click. */
+        if (!w.bb) { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const rg of rings) for (const q of rg) { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < y0) y0 = q[1]; if (q[1] > y1) y1 = q[1]; } w.bb = [x0, y0, x1, y1]; }
+        const b = w.bb;
+        if (lon < b[0] || lon > b[2] || lat < b[1] || lat > b[3]) continue;
+        if (!pointInRings(rings, lon, lat)) continue;
+        const ar = (b[2] - b[0]) * (b[3] - b[1]);
+        if (ar < wa) { wa = ar; wr = w.m; }
+      }
+      if (wr) return wr;
       /* A CULTURE'S EXTENT, under the countries: its polygon is authored and approximate, so a country
          drawn from a real map is the better answer wherever the two overlap. */
       let area = null, aa = Infinity;
@@ -39758,6 +40085,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           }
         }
         drawMineAreas(bw);
+        drawMineWar(bw);
         if (heightmapOn) drawHeightmap();
         ctx.fillStyle = ocean;
         for (let p = 0; p < LAKES.length; p++) { const rings = LAKES[p]; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }
@@ -40572,7 +40900,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        countries, which are in `world` and already here, and the fifty states arrive a moment later. */
     if (MINE) {
       const needs = Array.from(atlasUnlocks().need).filter((b) => !dataReady(b));
-      if (needs.length) whenIdle(() => { Promise.all(needs.map((b) => ensureData(b))).then(() => { if (!canvas.isConnected) return; _mineFor = ""; baseValid = false; draw(); }); });
+      if (needs.length) whenIdle(() => { Promise.all(needs.map((b) => ensureData(b))).then(() => { if (!canvas.isConnected) return; _mineFor = ""; _mineWarFor = ""; baseValid = false; draw(); }); });
     }
     const emptyGo = root.querySelector("#atlasEmpty [data-goto]");
     if (emptyGo) emptyGo.addEventListener("click", () => route("decks"));
@@ -44638,7 +44966,7 @@ let prev = null;
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
