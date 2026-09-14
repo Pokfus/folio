@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C28 — six capitals, a constitution that names its capital eighteen times and never calls it one, and a UN figure whose footnote names no place the capital is in**: `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica and `gw-672` Valletta, with all six date lines rewritten off the same research. Six again, for C2's reason. (`gw-667` and `gw-671` are numbers the running order leaves unused.)
+
 - **2026-09-14, batch C27 — six island and small-state capitals, a weather table with an impossible value in it, and a constitution that identifies a capital by whose house it is**: `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni and `gw-664` Georgetown, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-14, batch C26 — six capitals, two more countries missing from the weather index, and the first two UN profiles that say what their capital figure counts**: `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain and `gw-658` Nicosia, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -441,6 +443,70 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
 
+## What C28 found
+
+**A CONSTITUTION CAN NAME ITS CAPITAL EIGHTEEN TIMES AND NEVER ONCE CALL IT THE CAPITAL.** The
+Solomon Islands' 1978 text uses *Honiara* eighteen times — always as *Honiara City*, *the Honiara
+City Council* or *the government of Honiara City*, in clauses about taxation and local administration
+— and contains the word *capital* nowhere and the phrase *seat of* nowhere. Latvia (C25) named its
+city once without calling it a capital; this is the same shape at eighteen times the frequency, and
+it is the strongest case yet for the rule this leg keeps producing: **count the occurrences of the
+CITY's name and of the word CAPITAL separately, because they answer different questions.**
+
+**A DEFINED FOOTNOTE CAN NAME A UNIT THE CAPITAL IS NOT IN.** Malta's capital-city figure of 212.8
+thousand is footnoted *Refers to the localities of the Northern Harbour and Southern Harbour* —
+neither of which is Valletta, whose own population is a small fraction of that. Djibouti's *cercle*
+and Paramaribo's *District of Paramaribo* are units CONTAINING the city; Podgorica's *urban
+population of Podgorica municipality* is the town carved OUT of a unit; Malta's is neither. **Four
+defined footnotes now name four different kinds of thing**, which is the running order's own
+conclusion (see the correction to the C26 entry) reached a fourth time.
+
+**⚠ AND THAT CORRECTION IS THIS BATCH'S REAL FINDING.** C26 recorded Manama and Port of Spain as
+“the first two capital-city figures in the whole pass” to define what they count. They were the first
+two THIS REWRITE had met; `docs/world-geography-card-plan.md` had recorded three others when the
+cards were first generated, and had drawn the better conclusion. **The running order is the deck's
+memory of what it has already seen, and a superlative measured only over the current pass is a claim
+about the current pass.** Both entries are corrected in place. **Grep the plan for a card's own notes
+before claiming a first about it.**
+
+**THREE MORE TOTAL SILENCES, AND THE STRONGEST CAPITAL CLAUSE THE PASS HAS MET, IN ONE BATCH.**
+Suriname's 1987 text and Malta's 1964 text name no capital in any sense; Bhutan's 2008 text mentions
+Thimphu exactly once, in a GLOSSARY entry defining monastic bodies in dzongs *other than Punakha and
+Thimphu*. Against them, Luxembourg's Article 109: *The City of Luxembourg is the capital of the Grand
+Duchy and the seat of Government. The seat of the Government may only be transferred temporarily for
+grave reasons* — the only clause the pass has met that forbids a permanent move, and it sits in the
+general provisions at the END of the text rather than among the emblems at the front.
+
+**AND MONTENEGRO NAMES TWO CAPITALS IN ONE SENTENCE**: *The capital of Montenegro shall be Podgorica,
+The Old Royal Capital of Montenegro shall be Cetinje.* Eswatini (C27) had two capitals recorded in a
+UN FOOTNOTE while its constitution named neither; here the constitution itself does it, one working
+and one historic. **Two capitals is now a recurring outcome and arrives by at least two different
+routes.**
+
+**A NORMAL CAN BE TWENTY-THREE YEARS LONG AND CARRY TWO DECIMAL PLACES.** Thimphu's record states
+1996–2018 and gives every figure — temperatures, rainfall, rain DAYS — to two decimals, including
+0.35 of a rain day in November. Beside Nicosia's ten-year window (C26) that is a second departure from
+the thirty-year convention in three batches, and the decimals mark it as a derived series rather than
+a station's own book. **State the window; it is a fact about the figures.**
+
+**A CAPITAL'S COUNTRY CAN BE IN THE WMO INDEX WITHOUT THE CAPITAL BEING IN IT — TWICE IN ONE BATCH.**
+The Solomon Islands' only row is Auki, on a different island, and Malta's is *Luqa, Malta*, the
+airport with the country's name run into the city field. Maseru (C25) was the first of this shape and
+Manama (C26) the first of the run-together name; both now have a second instance. **The index is
+searched on the COUNTRY column, never on the city's name.**
+
+**A SMALL COUNTRY'S WATER CAN HAVE A SINGLE POINT OF FAILURE, AND A PAPER WILL SAY SO.** The lake on
+the Upper Sûre is 0.15 per cent of Luxembourg's surface and its treatment plant can supply 89 per
+cent of the country's people; a tractor accident on a road at Witry, in another country, put herbicide
+into a creek that reaches it twenty kilometres downstream. **Where one reservoir serves a whole state,
+the incident report is the card's best sentence** — it is the geography and the vulnerability in one.
+
+**AND A USGS REPORT IS A USABLE LEG WHERE NOTHING MODERN EXISTS.** Paramaribo's aquifer has no recent
+open literature reachable from here; the 1990 Water-Resources Investigations Report gives the whole
+history — one well field in 1958 growing to six, pumping from 1,643 to 40,230 cubic metres a day, 227
+million cubic metres drawn in thirty years, and chloride moving inland towards the wells. **Its DOI
+is not in Crossref; cite the pubs.usgs.gov URL, which resolves.**
+
 ## What C27 found
 
 **A WMO TABLE CAN BE COMPLETE, WINDOWED, SOUND IN ELEVEN MONTHS AND IMPOSSIBLE IN THE TWELFTH.**
@@ -458,10 +524,13 @@ legislative capital.* Every earlier batch read the footnote letters on the FIGUR
 NAME, and it is the only place in the recipe that will tell you a country has two capitals.
 **Read both letters on that row.**
 
-**AND A THIRD PROFILE THAT SAYS WHAT ITS CAPITAL FIGURE COUNTS**, one batch after the first two:
-Djibouti's 568.8 thousand *refers to the population of the “cercle”*. Manama, Port of Spain and now
-Djibouti — three in two batches, against roughly 150 cards that carried a bare year. The C26 finding
-holds and is not a fluke.
+**AND A THIRD PROFILE THAT SAYS WHAT ITS CAPITAL FIGURE COUNTS**, one batch after the first two of
+this rewrite: Djibouti's 568.8 thousand *refers to the population of the “cercle”*. Manama, Port of
+Spain and now Djibouti — three in two batches, against roughly 150 cards that carried a bare year.
+**What that means is settled in the running order rather than here**: a defined footnote names three
+different things across the three cards that carry one, so quoting the definition is what lets a
+reader see which, and the presence of a footnote is not itself the finding (see the C26 entry's
+correction).
 
 **A COUNTRY PROFILE CAN MEASURE ITS POPULATION AND ITS AREA OVER DIFFERENT TERRITORIES.** Mauritius's
 population and density are footnoted *Including Agalega, Rodrigues and Saint Brandon* while the
@@ -509,10 +578,18 @@ small state's national service is the only body publishing about it.**
 **A UN CAPITAL FIGURE CAN SAY WHAT IT COUNTS, AND TWO DID IN ONE BATCH AFTER ABOUT A HUNDRED AND FIFTY
 CARDS OF SILENCE.** Bahrain's row is footnoted “Refers to the urban area of the municipality of
 Al-Manamah” and Trinidad and Tobago's “Data refers to the urban agglomeration” — the first two
-capital-city figures in the whole pass that carry a DEFINITION as well as a date. Every earlier batch
-recorded the opposite finding (a year and nothing else), which was true of what it had met and was
-never a rule. **Read the footnote letters on the capital row before writing the sentence**: the
+capital-city figures THIS REWRITE had met that carry a DEFINITION as well as a date. Every earlier
+batch recorded the opposite finding (a year and nothing else), which was true of what it had met and
+was never a rule. **Read the footnote letters on the capital row before writing the sentence**: the
 finding is per country, not per table.
+**⚠ AND “THE FIRST IN THE WHOLE PASS” WAS THE WRONG SCOPE, corrected on reaching C28.** The deck's
+ORIGINAL generation notes, in `docs/world-geography-card-plan.md`, had already recorded three defined
+footnotes — Djibouti's *cercle*, Paramaribo's *District of Paramaribo* and Podgorica's *urban
+population of Podgorica municipality* — and drew the sharper conclusion this rewrite had not: the
+three define three DIFFERENT things, two of them whole administrative units bigger than the city and
+one the town carved out of the unit, **so a defined footnote is not a comparable figure**. **Read the
+running order's own notes on a card before claiming a first**; the plan is the deck's memory of what
+it has already seen, and a superlative measured only over this pass is a claim about this pass.
 
 **AND ONE PROFILE CAN MEASURE ITS COUNTRY THREE WAYS AT ONCE.** Cyprus's footnotes carry “Refers to
 the whole country”, “Excluding northern Cyprus” and “Data refer to government controlled areas”, each
