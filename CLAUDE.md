@@ -774,6 +774,67 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Chinese government host outside `stats.gov.cn` refuses the connection here, `whc.unesco.org` and
   `britannica.com` are 403, and `chinadaily.com.cn` answers and is a state newspaper, citable for what
   it is and never as an independent source. Not part of the site.
+- **📖 `docs/russia-geography-card-plan.md` — READ BEFORE WRITING A `gru-` CARD, AND BEFORE ASSUMING
+  ANYTHING ABOUT WHICH TERRITORY IS IN THE DECK.** The running order for **Russia** (`geo-russia`, the
+  fourth collection of the Geography SECTION), and the fourth plan that is not a thousand cards: it is
+  **163 cards** — the 83 federal subjects (`gru-001`–`gru-083`) and 80 administrative centres
+  (`gru-501`–`gru-583`, three numbers deliberately unused) — on the same **map card** format, so it points
+  at `docs/geography-card-plan.md` rather than restating it. **Sorted by population, largest first, and
+  fixed at planning time**, on the same reasoning *The world* gives. Four things in it are decisions
+  rather than lists.
+  · **WHICH SUBJECTS ARE IN IT IS ONE CHECKABLE RULE — an ISO 3166-2:RU code of its own** — which is *The
+    world*'s own first rule one level down, and it keeps Folio out of an argument it would otherwise be
+    making 83 times. **Two independent sources answer 83 and they are the same 83**: Natural Earth files
+    86 features under Russia, of which it codes two under UKRAINIAN codes (Crimea UA-43, Sevastopol UA-40)
+    and one is an unnamed sliver; Wikidata returns 89, of which six carry no RU code. **Russia's own
+    constitution as amended lists 89**, which is the Russian Federation's account of its own territory and
+    is not repeated as established fact — the plan states the position, cites General Assembly resolutions
+    68/262 and ES-11/4, and applies a rule set by neither party.
+  · **THE QUESTION SAYS "FEDERAL SUBJECT" AND MAY NEVER SAY "PROVINCE" OR "REGION"**: the 83 are six
+    different kinds of thing — 46 oblasts, 21 republics, 9 krais, 4 autonomous okrugs, 2 cities of federal
+    significance and 1 autonomous oblast — so "province" is false of 37 of them and "region" gives the
+    answer away on the 46 oblasts, *oblast* being conventionally translated that way.
+  · **THREE CAPITAL NUMBERS ARE NEVER WRITTEN AND THEY ARE NOT THE SAME REFUSAL.** `gru-501` Moscow and
+    `gru-504` Saint Petersburg are cities that are themselves federal subjects, so the shape IS the
+    answer — China's four municipalities exactly. **`gru-570` Khakassia is a DATA refusal**: Natural Earth
+    draws Abakan, the capital, four to five kilometres OUTSIDE Khakassia, and all three published
+    coordinates tested fall in Krasnoyarsk Krai, so the fault is the polygon and no coordinate reaches it.
+    **The dot is not moved and is not snapped.** All three are enforced by `window.RUSSIA_CENTRES` holding
+    80 rows rather than by the plan saying so, so `add-card.js` refuses such a card.
+  · **THE OKRUGS DO NOT NEST ON THE MAP AND THE OFFICIAL FIGURES DO.** Natural Earth's polygons tile, so
+    Tyumen is drawn at its 160,185 km² proper rather than the 1,464,173 km² an official table quotes with
+    Khanty-Mansi and Yamalo-Nenets in, and Arkhangelsk likewise against Nenets. **So four cards must state
+    WHICH figure they give**, and no checker can see it — a with-okrugs area is a well-formed number
+    correctly cited to a real table. Not part of the site.
+- `russia-subjects.js` + `.claude/build-russia-subjects.js` — the 83 federal subjects of the Russian
+  Federation and the 80 administrative centres (`window.RUSSIA_SUBJECTS` / `window.RUSSIA_CENTRES`), the
+  fourth shape layer a map card can be drawn on. **Lazy** (bundle `russubj`, with `lakes.js` and
+  `rivers.js` beside it), **generated — never hand-edited**. Its shape is `china-provinces.js`'s exactly,
+  down to the tolerance, so one renderer draws a federal subject, a province and a state alike.
+  **📖 Read the script's header before touching it**, for three findings.
+  · **NATURAL EARTH HAS THE TWO MOSCOW CODES THE WRONG WAY ROUND** — it gives `RU-MOS` to the city and
+    `RU-MOW` to the oblast where ISO 3166-2:RU (and Wikidata's P300) assign them the other way. The
+    geometry is right and the CODE is wrong, which is the worst shape a fault can have: every card renders
+    perfectly. The builder swaps them and **ASSERTS THE SWAP FROM THE GEOMETRY**, refusing to write unless
+    the shape it labels `RU-MOW` is the smaller and lies inside the other's bounding box (2,833 km² inside
+    43,855) — a hand-written correction goes stale when the source is fixed; a measurement cannot.
+  · **THE NAME, THE KIND AND THE CODE ARE ALL DECLARED — only the geometry and the label point are read**,
+    which is where this parts company with the China builder. `name` is stale or garbled on a dozen rows
+    (*Maga Buryatdan*, *Chita* for Zabaykalsky Krai), `name_en` gives "Moscow" for both Moscows, `type_en`
+    is wrong on seventeen, and `region` files Chechnya and Krasnodar under "Volga".
+  · **`lakes.js` IS LOAD-BEARING HERE WHERE IT IS MERELY HARMLESS FOR CHINA.** Natural Earth clips a lake
+    lying BETWEEN divisions out of both; China has none such and its builder measured that the file
+    changed nothing, but **Baikal sits between Irkutsk and Buryatia and Ladoga between Karelia and
+    Leningrad Oblast**, so both are holes in this layer — and under a hole is `world.js`, which has no lake
+    holes, so without it the two largest lakes in Europe and Asia draw as grey land inside a shaded
+    subject.
+  · **A PUBLISHED COORDINATE ROUNDED TO THE ARCMINUTE IS 1.4 km WIDE, AND THAT CROSSES BORDERS.** The
+    English Wikipedia article's coordinate for Magas falls on the wrong side of the Ingushetia–North
+    Ossetia boundary and the inside-test REFUSED it; Wikidata's Q5222 falls inside. The builder also
+    reports every centre **within 3 km of its own boundary** (nine of them, Anadyr at 0.26 km) on the
+    principle that the near miss is the signal. **And a Wikidata id is looked up, never composed** — two
+    were guessed while writing its table and both were wrong, one an asteroid and one a village in
+    Botswana.
 - `china-provinces.js` + `.claude/build-china-provinces.js` — the 31 provincial-level divisions of
   mainland China and the 27 provincial capitals (`window.CHINA_PROVINCES` / `window.CHINA_CAPITALS`),
   the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` and `rivers.js` beside
@@ -5140,6 +5201,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 1 card — **163 rather than 1000** (83 federal subjects + 80 centres), sorted by POPULATION; **the capital half is BLOCKED on a sourcing recipe — read the plan before writing one**, see below |
 
 The next id for any of them (substitute the prefix):
 

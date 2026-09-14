@@ -116,6 +116,17 @@ const MAP_LAYERS = {
      Shanghai, Tianjin and Chongqing are cities that are themselves divisions, so a dot card there would
      shade the answer. The refusal a missing point produces is the intended one. */
   "china-provinces": { file: "china-provinces.js", global: "CHINA_PROVINCES", what: "province", points: "CHINA_CAPITALS", dotWhat: "provincial capital" },
+  /* Russia's federal subjects, shaped like China's above — the centres in the SAME file as the shapes,
+     for app.js's own `russubj` bundle reason. `what` is "federal subject" rather than a kind because the
+     83 are six different kinds of thing (46 oblasts, 21 republics, 9 krais, 4 autonomous okrugs, 2 cities
+     of federal significance, 1 autonomous oblast), so "province" would be false of 37 of them and
+     "region" would give the answer away on the 46 oblasts. THREE subjects are deliberately absent from
+     the point table and they are not the same refusal: Moscow and Saint Petersburg are cities that are
+     themselves federal subjects, so a dot card there would shade its own answer; Khakassia is a DATA
+     refusal, this layer drawing Abakan outside the republic (see docs/russia-geography-card-plan.md and
+     the builder's DEFERRED table). The refusal a missing point produces is the intended one in all
+     three. */
+  "russia-subjects": { file: "russia-subjects.js", global: "RUSSIA_SUBJECTS", what: "federal subject", points: "RUSSIA_CENTRES", dotWhat: "administrative centre" },
 };
 const MAPQ_MIN = 5, MAPQ_MAX = 20;
 const MAP_FACTS_MIN = 3, MAP_FACTS_MAX = 8;
