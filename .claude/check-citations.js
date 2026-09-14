@@ -273,6 +273,10 @@ const CROSSREF_YEAR_WRONG = [
   // Crossref has 2022. Worth knowing that a draft citation AGREED with Crossref here and
   // both were wrong — only the journal's own "Pour citer cet article" line settles it.
   ["10.4000/brussels.7085", 2023, 2022],
+  // A third OpenEdition journal, the same fault: VertigO's own "Référence électronique" line
+  // reads "10-3 | Décembre 2010, mis en ligne le 20 décembre 2010", and Crossref carries
+  // published-print 2011 with the record created 2011-04-02.
+  ["10.4000/vertigo.10594", 2010, 2011],
   // Tyche: Beiträge zur Alten Geschichte, Band 7 is 1992; Crossref prints 1993.
   ["10.15661/tyche.1992.007.20", 1992, 1993],
   // Vestnik VolSU dates volume 24, issue 6 to 2019 on the article's own first page

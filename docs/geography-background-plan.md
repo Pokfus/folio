@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C31 — six island capitals, a weather record with every cell in it blank, and a profile that names a different place as the capital**: `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria and `gw-690` Saint George's, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-14, batch C30 — six island capitals, two French territories with no constitution of their own, and two constitutions that name their city once and only as a place where a document was signed**: `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé and `gw-684` Apia, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-14, batch C29 — six capitals, a weather record missing a whole FIELD, and a constitution that names an ISLAND as the capital**: `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau and `gw-678` Reykjavík, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -446,6 +448,108 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C31 found
+
+**A WEATHER RECORD CAN EXIST AND CONTAIN NOTHING AT ALL.** C25 met a blank MONTH, C29 a blank FIELD,
+C30 the same field twice in two spellings of missing. Castries is the whole TABLE: the index files it
+under Saint Lucia, flags it `isCapital` true, lists twelve months — and every cell in every one of
+them is empty. No maximum, no minimum, no rainfall, no rain days, and no window. **The row's
+existence is the only information in it**, and a card that quoted "the record" without opening it
+would have had nothing to quote and no way to know.
+
+**AND A PROFILE CAN NAME A DIFFERENT PLACE AS THE CAPITAL THAN THE DECK ASKS FOR.** The UN gives
+Kiribati's capital as **Bairiki** — an islet of South Tarawa — where `gw-688`'s answer is Tarawa, and
+it heads that column **with no year at all** (every other profile in the pass reads "Capital city pop.
+(000, 2025)") while footnoting the figure to 2015. **Read the column heading as well as the
+footnote**: this is the one profile in the pass whose heading is missing the year it is claiming.
+
+**TWO CAPITALS ARE FILED IN THE WEATHER INDEX UNDER SOMETHING OTHER THAN THEIR OWN NAME, AND ONE OF
+THEM UNDER A NAME IT HAS NOT USED SINCE 1998.** Hagåtña's record is **`Agana, Guam`**, inside the
+entry for the sovereign state rather than the territory, `isCapital` false — a former spelling under
+somebody else's country field. Willemstad's is **`Curacao`**, the island, `isCapital` false, under a
+country field reading **`Curaçao and Sint Maarten`**: two countries in one field. C30's Tahiti was the
+first of this shape and this batch has two more.
+
+**AND THE PRESENTING BODY CAN MISSPELL ITS OWN NAME.** Willemstad's record is served by the
+*Meteteorological Department Curacao*. It is a small thing and it is worth recording, because it is
+the kind of fault that says how closely these records are read: nobody has looked at that field since
+it was typed.
+
+**A COORDINATE PRECISION CAN BE A TELL TOO.** Agana's is given as 13.4627 north and 144.7439 east —
+four decimal places, where the rest of the batch (Castries 14.00 / −61.01, Curacao 12.12 / −68.88,
+Victoria −4.62 / 55.43) gives two. **A record that came from a different pipeline looks different in
+the fields nobody reads.**
+
+**THREE COUNTRIES ARE ABSENT FROM THE INDEX ALTOGETHER** — Kiribati, Grenada and, for the second
+batch running, a country whose capital has no row anywhere. That takes the pass's absent list to
+Equatorial Guinea, Kosovo, Timor-Leste, Barbados, São Tomé and Príncipe, Kiribati and Grenada.
+**Kiribati has a national meteorological service of its own all the same**, at Betio on Tarawa,
+publishing tide calendars and a watch on extreme spring tides — which is the fourth leg that
+absence leaves room for.
+
+**THE WESTMINSTER SEAT-OF-GOVERNMENT CLAUSE APPEARS TWICE IN ONE BATCH, WORD FOR WORD AND AT THE SAME
+SECTION NUMBER.** Saint Lucia's 1978 text and Grenada's 1973 text (reinstated 1991, revised 1992) both
+put it at **section 22** and both read *"Whenever the Governor-General — has occasion to be absent
+from the seat of government but not from [the country]"*, differing only in the country's name and in
+whether *Government* takes a capital G. With Jamaica (C24), Trinidad and Tobago (C26) and Belize
+(C29) that is five instances, and the pair here settles what the earlier ones suggested: **this is one
+drafting template, not a coincidence of phrasing.** Neither text names its capital; Saint Lucia's uses
+the word once, of *capital raised* in the country, and Grenada's not at all.
+
+**A CONSTITUTION CAN NAME ITS COUNTRY'S ISLANDS AND NOT ITS CAPITAL.** Kiribati's 1979 text as revised
+through 2018 has *capital* 0 and *Bairiki* 0, and names Tarawa exactly once — in **Schedule 2, the
+territory of the state**, which lists every island in it *"together with all small islands, islets,
+rocks and reefs depending on them"*. Seychelles' 1993 text as revised through 2025 never names
+Victoria and uses *capital* only of the death penalty and of company shares; what it names **ten
+times** is Mahé, always in the electoral articles — at least nineteen electoral areas there, two on
+Praslin, the Inner Islands together one. **Both locate the state by its geography and neither by its
+seat.**
+
+**AND THE METROPOLE'S TEXT CAN NAME A CAPITAL THAT IS NOT ITS SEAT OF GOVERNMENT.** Constitute holds
+no text for Curaçao, so Willemstad's fifth leg is the Dutch constitution of 1814 as revised in 2008 —
+which names **Amsterdam** as *the capital city*, where the King is sworn in (article 32), contains
+**The Hague nowhere at all**, and does not mention Curaçao. C30 found France's text naming neither its
+own capital nor Papeete; this one names a capital and omits the city its government actually sits in.
+
+**THREE DEFINED UN FOOTNOTES, AND ONE OF THEM DEFINES ALMOST NOTHING.** Curaçao's capital figure is
+*"Total population of Curaçao excluding some neighborhoods (see source)"* — the whole island minus an
+unnamed set, with a pointer instead of a list. Grenada's says its figure *"Refers to Saint George
+Parish"*. Kiribati's is an AREA footnote: the 726 square kilometres are *"Land area only. Excluding 84
+square km of uninhabited islands."* **Guam's is the one that matters most and it is a bare 2018**: the
+capital-city figure is **146.9 thousand against 169 thousand for the whole territory**, seven eighths
+of it, with nothing said about what is being counted. **The emptier the footnote, the larger the
+figure it is hiding.**
+
+**AND TWO SMALL NUMBERS CAN COINCIDE AND MEAN NOTHING.** Grenada's UN profile gives 345 square
+kilometres and 345 people to the square kilometre. It is arithmetic rather than a finding — the
+population happens to be near 117 thousand — and it is recorded here because a card that prints both
+figures without saying so reads like a copying error. **Say it, or drop one of the two.**
+
+**A PUBLISHER CAN DEPOSIT A THIRD DOI FOR AN OLD ARTICLE AND MISDATE IT, AND THE JOURNAL'S OWN
+CITATION LINE IS WHAT SETTLES IT.** `check-citations.js` reported `10.4000/vertigo.10594` as a year
+mismatch: Crossref carries **published-print 2011** with the record created 2011-04-02, where
+VertigO's own *Référence électronique* line reads *"10-3 | Décembre 2010, mis en ligne le 20 décembre
+2010"*. That is the third OpenEdition journal to do this and the third row in `CROSSREF_YEAR_WRONG`
+(after two from Brussels Studies), added with the journal's own line quoted beside it. **The
+article's metadata header said 2011-01-19 and agreed with Crossref; only the printed citation line
+disagreed, and only it is the publisher's own statement of the issue.**
+
+**AND A DOI THAT 403s IS A WORK YOU HAVE NOT READ.** `10.1051/epjconf/202023708010` (EPJ Web of
+Conferences, on Guam's sinkholes) answers 403 at `doi.org` and 403 at the publisher's own PDF path;
+unlike MDPI there is no `res.` mirror to read it at. It was drafted into `gw-686` on the strength of
+its Crossref title and **taken out again before the batch was applied**: the rule is to open every
+work before citing it, and a title is not an opening. A Frontiers survey of Tumon Bay — readable in
+full — took its place, and brought Typhoon Mawar with it.
+
+**HOSTS MET IN THIS BATCH.** `journals.lww.com` serves a Cloudflare challenge and is unusable, which
+cost the Conservation and Society paper on North Tarawa; `www.sciencedirect.com` is 403 as always,
+but **DOAJ's own record carried the Curaçao paper's full structured abstract** — Study region, Study
+focus, New hydrological insights — which is enough to cite from and is the route to remember for a
+gold-OA Elsevier title. `barbadosweather.org`'s shape reappeared as `grenadamet.com`, which does not
+resolve at all; the Grenadian statistics office at `stats.gov.gd` answers plain HTML and carries the
+2021 preliminary census. **PLOS answered 503 once and 200 on a retry three seconds later**, which is
+the one sweep result in this batch that was not a fact about the host.
 
 ## What C30 found
 
