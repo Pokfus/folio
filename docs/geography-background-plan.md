@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C36 — three Pacific constitutions that never use the word *capital*, a census that reports its capital only as a postal address, and a units bug that corrupted the imperial reader's prose on 48 text nodes**: `gw-721` Avarua, `gw-722` Yaren, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown and `gw-728` Brades, with all six date lines rewritten off the same research. Taken from the audit's own flagged list, as C35 was; `gw-723` and `gw-724` already pass all four rules.
+
 - **2026-09-14, batch C35 — six capitals none of which the world weather index carries, two constitutions that name their capital where nine had not, and one that orders the capital MOVED**: `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino and `gw-720` Ngerulmud, with all six date lines rewritten off the same research. Taken from the AUDIT'S OWN FLAGGED LIST rather than in id order — `gw-713` and `gw-714` are city-states the plan never wrote, and `gw-717`–`gw-719` already pass all four rules.
 
 - **2026-09-14, batch C34 — six capitals, four of them in no weather index at all, two filed in it under a state they are not part of, a capital the UN profile names as somewhere else, and a constitution that never uses the word**: `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town and `gw-709` Capitol Hill, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -456,6 +458,73 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C36 found
+
+**Three constitutions in a row never use the word *capital*, and one of them never says *seat of government*
+either.** Nauru's names Yaren only in its schedule of constituencies, where the district returns two members
+as six of the eight constituencies do; Tuvalu's names Funafuti only among the eight islands and island
+communities the country is made of; and Montserrat's Constitution Order of 2010 goes further than either,
+naming neither the ruined capital at Plymouth nor the working one at Brades, and substituting the phrase
+"absent from Montserrat" nine times where another territory's constitution would locate a seat. **Where the
+constitution is silent the Commonwealth Secretariat is the one body that says so outright** — it records
+that Nauru has no official capital at all — and for Tuvalu it gives the seat of government as an address in
+three parts, Vaiaku, on Fongafale islet, in Funafuti atoll, which is the honest shape of the answer.
+
+**A census can report the capital and never print its name.** The Cook Islands census of 2021 counts
+Rarotonga by *tapere* — Avatiu-Ruatonga-Atupa 975, Takuvaine 629, Tutakimoa-Teotue 274 — and the word
+*Avarua* appears in the whole report only in the statistics office's own postal address. The UN profile
+names the town as the capital and prints 13,100 beside it, footnoting that the figure is the whole of
+Rarotonga. **Both facts belong on the card**: the local record is the better one and the UN's is what a
+reader will meet elsewhere, and the disagreement is the interesting part.
+
+**The PACCSAP country reports are the replacement climate leg for a Pacific capital the world weather index
+does not carry.** *Climate Variability, Extremes and Change in the Western Tropical Pacific* (Australian
+Bureau of Meteorology and CSIRO, 2014) has a chapter per country with the wind-wave climate of a named
+coast, the seasonal swell directions, a one-in-fifty-year wave height, and the temperature and rainfall
+records with their start years — everything the WMO normals would have given and more, on the shore rather
+than at the airport. Chapters 2 (Cook Islands), 8 (Nauru) and 15 (Tuvalu) carried three of this batch's six.
+
+**`data.un.org` is DOWN, not retired, and the distinction is the whole of the decision.** Every
+`data.un.org/en/iso/<cc>.html` now returns 404; so do `/robots.txt`, `/en/index.html` and a nonsense path,
+while `/` returns a 3,769-byte SPA shell and the old `Data.aspx` returns **500** — an application still
+deployed and erroring rather than removed. The new bundle carries no `iso` route and no country-profile
+route of any kind. Three replacements were tried and none works: **Demographic Yearbook table 8 does not
+carry these capitals by name** (Avarua, Yaren and Funafuti are absent from the 2021 file, which lists cities
+of 100,000 or more plus reported capitals); **World Urbanization Prospects 2018's capital-cities file is
+gone** from the live path, the revision having moved to 2025 and dropped city-level tables; and the
+**Wayback Machine was intermittently offline** during the check and has no 200 snapshot for `sh.html`. The
+citations were therefore KEPT, as C34's and C35's were, and the migration stays its own task — to be
+actioned only if the pages are still down when it is picked up. **Re-derive that before acting on it**: a
+claim about a host goes stale silently, which is what `check-reach.js` exists for one directory over.
+
+**AND THE BATCH FOUND A UNITS BUG THAT CORRUPTS PROSE FOR THE IMPERIAL READER ONLY.** `U_NW` lists the
+article and the small number words — `a`, `an`, `one` — with **no left word boundary**, so the last letters
+of *Afric|a*, *me|an* and *limest|one* were read as the number one and the run swallowed the prose after
+them. "1,930 kilometres (1,200 miles) from Africa and 2,900 kilometres (1,800 miles) from South America"
+rendered as **"1,200 miles from Afric1,800 miles from South America"**. It reached **48 text nodes across
+the shipped corpus** — *Apulia*, *Monaca*, *Patagonia*, *Bandama*, *Guinea*, *maxima*, *minima*, *median*,
+*area*, *sea*, *zone*, *limestone* — in World History, Greece, Rome, China, both geography collections and
+the glossary. **Nothing caught it because the authored view is the metric one**, which is byte-for-byte
+unaffected, and no checker renders a card in the other system. Fixed with one lookbehind on `U_RUN`,
+measured before and after over all 2,220 text nodes: **48 restored, 0 shortened, 0 metric-mode differences**.
+
+**The same sweep is the check to run after a units batch, and it is not the one CLAUDE.md names.** The
+documented check asks whether an ordinary bracket is eaten; this one asks whether **a content word is LOST
+between the two systems** — render every field in both, and report a word that disappears and is not a unit
+name, a connector or a number word. That filter is what separates the 48 real faults from the 478 fields
+where a range legitimately loses its metric half. Three of this batch's own six were caught by it and by
+nothing else: a bare `233` that read as square miles once the pair flipped, a density (`208 to the square
+kilometre`) left unconverted beside a converted pair, and a **YEAR standing before "and *n* *unit*"** read
+as the first half of a range, which ate "by 2030 and 39 to 87 centimetres" whole. **A comma after the year
+breaks the run**; the lookbehind does not fix this one, and it is a shape to write around rather than a bug.
+
+**Four unit faults in EARLIER batches are left standing and are named here rather than fixed.**
+`test-units.js` is red on `main` for them and this batch did not touch them: `gw-091` writes
+*minus 49°C (minus 56°F)* where the engine needs U+2212 or a digit; `gw-095` and `gw-105` use **`km³`,
+which `U_METRIC` does not list** (it has `km²` and `m²`), so their cubic-mile brackets are left behind; and
+`gw-517` writes *a few kilometres (2 to 3 miles)*, a conversion of a quantity that is not a figure. The
+first and last are content fixes, the middle two want one unit added to the engine.
 
 ## What C35 found
 
