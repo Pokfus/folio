@@ -54,6 +54,33 @@
 
 "use strict";
 
+/* ============================================================================
+   NODE'S `fetch` DOES NOT USE THE SANDBOX PROXY, AND WITHOUT THIS THE TOOL LIES.
+   Outbound HTTPS here goes through an agent proxy named by HTTPS_PROXY. curl honours it;
+   Node's built-in fetch (undici) does not, so the probes went DIRECT and the egress policy
+   answered for them instead of the host. Measured Sep 2026, on Node 22:
+
+     web.archive.org   curl 200   fetch 403 "Blocked by egress policy"
+     Europe PMC        curl 200   fetch 504
+     Crossref          curl 200   fetch 200
+
+   So two hosts that are plainly reachable were reported SHUT — which is exactly the false
+   claim about the ENVIRONMENT this whole tool was written to prevent, and the worst possible
+   failure for it: a SHUT row stops work that would have succeeded, and nothing contradicts it.
+
+   `NODE_USE_ENV_PROXY=1` fixes it, and setting it with `process.env` HERE DOES NOT WORK —
+   undici reads it once at startup, before any of this runs (verified: in-process set still
+   returns 403). So the tool re-execs itself with the variable set, once, guarded so it can
+   never loop. If you change this, re-check a host the policy blocks directly — Crossref is
+   allowed either way and will not show the fault.
+   ============================================================================ */
+if (process.env.NODE_USE_ENV_PROXY !== "1" && (process.env.HTTPS_PROXY || process.env.https_proxy)) {
+  const { spawnSync } = require("child_process");
+  const r = spawnSync(process.execPath, [__filename, ...process.argv.slice(2)],
+    { stdio: "inherit", env: { ...process.env, NODE_USE_ENV_PROXY: "1" } });
+  process.exit(r.status === null ? 1 : r.status);
+}
+
 const JSON_OUT = process.argv.includes("--json");
 const ALL = process.argv.includes("--all");
 const GAP = 1500;                       // ms between probes — see BUSY above
@@ -98,6 +125,34 @@ const HOSTS = [
    "Central Asian history — walled, so that ground needs another route"],
   ["UNESCO World Heritage","https://whc.unesco.org/en/list/", "World Heritage",
    "site inscriptions and dates"],
+  /* THE HOSTS THE CORPUS ACTUALLY LEANS ON WERE MISSING FROM THIS TABLE (added Sep 2026, after
+     counting them). Ranked by citations in `data-extra/` + `glossary-extra.js`, the top hosts are
+     upload.wikimedia (5,206), commons.wikimedia (4,896), perseus.tufts (4,338), doi.org (4,021),
+     archive.org (3,175), penelope.uchicago (1,884), pmc (1,476), bmcr (1,091), web.archive (870),
+     history.state.gov (817), hdl.handle.net (699) and sites.dartmouth (474) — and five of those
+     twelve had no row here at all. A reachability table that omits the third-biggest host is the
+     shape of stale-environment claim this whole tool exists to prevent. */
+  /* PERSEUS IS TWO ANSWERS, EXACTLY AS PERSÉE IS ABOVE, AND THIS IS NOT A THEORETICAL SPLIT.
+     Measured Sep 2026: `/hopper/text` answered 200 and `/hopper/artifact` answered 503 "Backend
+     fetch failed" on every one of four probes spaced over four minutes, while the hopper HOME page
+     served 200 from cache throughout. So a single probe of perseus.tufts.edu reports the host UP
+     and hides that 39 citations across `gr.js` and `glossary-extra.js` — 25 distinct objects, the
+     Greece collection's sculpture and vases — currently resolve to nothing. Which endpoint you probe
+     IS the answer. */
+  ["Perseus (text)",      "https://www.perseus.tufts.edu/hopper/text?doc=Aesch.%20PB%201", "Aeschylus",
+   "4,299 citations — the Greek and Latin texts the collections quote"],
+  ["Perseus (artifact)",  "https://www.perseus.tufts.edu/hopper/artifact?name=Athens,+Acropolis+679&object=sculpture", "Acropolis",
+   "39 citations — the object records; 503 as of Sep 2026 while the text endpoint is fine"],
+  ["LacusCurtius",        "https://penelope.uchicago.edu/Thayer/E/Gazetteer/Places/Europe/Italy/Lazio/Roma/Rome/_Texts/PLATOP%2A/Argiletum.html", "Argiletum",
+   "1,884 citations — Platner-Ashby and the classical texts, the Rome collection's spine"],
+  ["Wayback Machine",     "https://web.archive.org/web/20260807193514/https://data.un.org/en/iso/in.html", "General Information",
+   "870 citations, and load-bearing since the UNdata migration — every country profile is here now"],
+  ["Office of the Historian", "https://history.state.gov/countries/albania", "Albania",
+   "817 citations — the recognition guide behind the world-geography backgrounds"],
+  ["Handle resolver",     "https://hdl.handle.net/10125/104152", "Shang",
+   "699 citations — resolves to whichever repository holds the paper"],
+  ["Dartmouth Aegean",    "https://sites.dartmouth.edu/aegean-prehistory/chronology/", "Aegean",
+   "474 citations — the Greece collection's concentration this audit exists to reduce"],
 ];
 
 const EXTRA = [
@@ -116,8 +171,22 @@ async function probe(url, want) {
   let res;
   try {
     res = await fetch(url, { redirect: "follow", headers: { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64)" } });
-  } catch (e) { return { state: "SHUT", detail: String(e.message || e).slice(0, 60) }; }
+  } catch (e) {
+    /* A THROW IS NOT A REFUSAL EITHER. The host may be dead (ENOTFOUND) or the sweep may simply
+       have been cut off mid-connection — measured Sep 2026, the Wayback row returned 27,019 bytes
+       on one run and threw "fetch failed" on the next, four minutes apart, with nothing changed.
+       The tool cannot tell those apart from one probe, so it says so and keeps the message, where
+       a SHUT row would have been a claim it had not earned. */
+    return { state: "DOWN", detail: String(e.message || e).slice(0, 52) };
+  }
   if (res.status === 429) return { state: "BUSY", detail: "429 — slow down and retry, NOT a wall" };
+  /* A 5xx IS THE ORIGIN NOT ANSWERING, WHICH IS A DIFFERENT FACT FROM A REFUSAL, and collapsing
+     the two is how this tool would come to say a host is shut when it is merely having a bad
+     minute. Measured Sep 2026: Europe PMC returned 503 inside the sweep and 200 on three probes
+     spaced four seconds apart, while Perseus's artifact endpoint returned 503 on four probes
+     spaced forty-five seconds apart and is genuinely down. Same code, opposite conclusions — so
+     the tool reports DOWN and says to re-probe alone rather than deciding for you. */
+  if (res.status >= 500) return { state: "DOWN", detail: res.status + " — origin not answering" };
   if (!res.ok) return { state: "SHUT", detail: String(res.status) };
   let body = "";
   try { body = await res.text(); } catch (e) { return { state: "SHUT", detail: "body: " + String(e.message || e).slice(0, 40) }; }
@@ -140,6 +209,7 @@ async function probe(url, want) {
   if (JSON_OUT) { console.log(JSON.stringify(out, null, 2)); return; }
   const n = (s) => out.filter((o) => o.state === s).length;
   console.log("\n  " + n("OK") + " answering, " + n("WALL") + " behind a bot wall, " +
-    n("SHUT") + " shut, " + n("BUSY") + " rate-limited on this run.");
+    n("SHUT") + " shut, " + n("DOWN") + " not answering, " + n("BUSY") + " rate-limited on this run.");
+  if (n("DOWN")) console.log("  A DOWN row may be this sweep's own pressure. Re-probe it on its own before recording it.");
   if (n("BUSY")) console.log("  A BUSY row is not a shut host — re-run it on its own before recording anything.");
 })();

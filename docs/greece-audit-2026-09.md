@@ -1367,6 +1367,36 @@ revised" (2002) is open, on point and contains the word *Sanchi* **zero times** 
 historiography of the theory, not a description of the monument. Fetched and grepped rather than assumed
 from the title.
 
+### Perseus is half down, and the reachability tool was lying about two hosts (2026-09-14)
+
+Found while looking for a source for `gr-334`, and much the larger finding of the two.
+
+**`perseus.tufts.edu` is the corpus's THIRD-biggest host — 4,338 citations — and it is half up.**
+`/hopper/text` (4,299 of them) answers 200. `/hopper/artifact` (39 citations over 25 distinct objects,
+all in `gr.js` and `glossary-extra.js`) answers **503 "Backend fetch failed"**, on every one of four
+probes spaced forty-five seconds apart. The hopper HOME page serves 200 from cache throughout, so a
+single probe of the host reports it UP and hides the 39 dead citations entirely.
+
+**Nothing was migrated, and that is the point.** UNdata was migrated the same day because the site had
+demonstrably been REBUILT — its own JS bundle proves there is no such route any more. A 503 is an origin
+not answering, which may be an evening or may be forever, and 39 citations are not worth acting on until
+it is the second. **Re-probe before deciding**; the affected objects are listed by name in the commit.
+
+**And the tool that should have told us this was reporting two reachable hosts as SHUT.** Node's
+built-in `fetch` does not honour `HTTPS_PROXY` where curl does, so every probe went direct and the
+sandbox's egress policy answered instead of the host: `web.archive.org` gave curl 200 and fetch **403
+"Blocked by egress policy"**, Europe PMC gave curl 200 and fetch 504. `check-reach.js` now re-execs
+itself with `NODE_USE_ENV_PROXY=1` — setting it in-process does nothing, undici reading it once at
+startup. **This is the failure that tool exists to prevent, committed in the tool itself**, and it had
+been there since it was written.
+
+Two smaller things came out of the same hour. A **5xx is now its own outcome, `DOWN`**, because Europe
+PMC's 503 inside the sweep and Perseus's 503 over spaced probes are the same code meaning opposite
+things, and a transport throw is folded in with it — the Wayback row returned 27,019 bytes on one run
+and threw `fetch failed` four minutes later with nothing changed. And the table, which had 14 rows, was
+**missing the corpus's third-, sixth-, ninth-, tenth- and twelfth-biggest hosts**; it has 22 now, each
+row carrying its citation count so a row that stops answering names the work it was carrying.
+
 ### `gr-334` archaic smile — opened, sourced half way, and stopped deliberately (2026-09-14)
 
 **This is the expensive end and it is worth knowing how far the money goes.** Gardner's *Handbook of

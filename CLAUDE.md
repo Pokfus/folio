@@ -1358,6 +1358,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   stale silently and stops work that would have succeeded.** CLAUDE.md said for six weeks that "this
   sandbox's egress policy blocks every scholarly host", summarising an attempt whose own log records a
   successful retry the next day.
+  · **IT PROBES THROUGH THE SANDBOX PROXY, AND WITHOUT THAT IT LIES** (fixed Sep 2026). Outbound HTTPS
+    here goes through the agent proxy named by `HTTPS_PROXY`; **curl honours it and Node's built-in
+    `fetch` does not**, so every probe went DIRECT and the egress policy answered for the host.
+    Measured on Node 22: `web.archive.org` gave curl 200 and fetch **403 "Blocked by egress policy"**,
+    and Europe PMC gave curl 200 and fetch 504 — so two plainly reachable hosts were reported SHUT,
+    which is the exact false claim about the environment this tool exists to prevent, and its worst
+    possible failure. `NODE_USE_ENV_PROXY=1` fixes it and **setting it with `process.env` does not
+    work**, undici reading it once at startup, so the tool RE-EXECS itself once with the variable set.
+    **If you change that, re-check a host the policy blocks directly** — Crossref is allowed either way
+    and will not show the fault.
+  · **A 5xx IS NOT A REFUSAL, AND IS NOW ITS OWN OUTCOME, `DOWN`.** Same measurement, opposite
+    conclusions: Europe PMC returned 503 inside the sweep and 200 on three probes four seconds apart,
+    while Perseus's artifact endpoint returned 503 on four probes spaced forty-five seconds apart and
+    is genuinely down. A transport THROW is folded in with it for the same reason — the Wayback row
+    returned 27,019 bytes on one run and threw `fetch failed` on the next, four minutes later, with
+    nothing changed. The tool cannot tell a dead host from a bad minute in one probe, so it says so and
+    tells you to re-probe alone rather than deciding for you.
+  · **ONE HOST CAN GIVE TWO ANSWERS, AND WHICH ENDPOINT YOU PROBE IS THE ANSWER.** Persée was already
+    split this way (the article record opens, the PDF is altcha-gated); **Perseus is the same and it
+    matters more**, since `/hopper/text` (4,299 citations) answers 200 while `/hopper/artifact` (39
+    citations, 25 distinct objects in `gr.js` and `glossary-extra.js`) answers 503 — and the hopper
+    home page serves 200 from cache throughout, so a single probe reports the host UP and hides that
+    those 39 citations resolve to nothing.
+  · **THE TABLE NOW COVERS THE HOSTS THE CORPUS ACTUALLY LEANS ON.** It had 14 rows and was missing the
+    third-, sixth-, ninth-, tenth- and twelfth-biggest — Perseus, LacusCurtius, the Wayback Machine,
+    the Office of the Historian, the handle resolver and the Dartmouth course site. Each row names its
+    citation count, so a row that stops answering names the work it was carrying. **Re-rank the hosts
+    before adding one**: one `grep -oh` over `data-extra/` and `glossary-extra.js` gives the order.
   · **IT REPORTS FOUR OUTCOMES AND THE MIDDLE TWO ARE THE POINT.** `OK` is a 200 carrying a word the
     real page must contain, so it cannot be fooled by the **200-status bot challenge** (`WALL`) that
     `docs/glossary-citation-plan.md` records five varieties of. `SHUT` is a 403 or a refused
@@ -1367,9 +1395,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     reported 403 and then served 332 KB once the probes were spaced**. A fast sweep reports a working
     sandbox as a blocked one, which is very likely what the original Pilot log met. Hence `GAP`, and
     hence a run that takes a minute.
-  · **Measured 2026-09-12: 12 of 14 answering** — Crossref, Europe PMC, DOAJ, archive.org's full text,
-    Persée, OpenEdition, the Stanford Encyclopedia, BMCR, OpenStax, the Commons API, JSTOR's stable
-    pages and UNESCO. Britannica and Encyclopaedia Iranica are walled. **Quote none of that; run it.**
+  · **THERE IS DELIBERATELY NO LIST OF ANSWERING HOSTS HERE ANY MORE.** One stood here, measured on
+    2026-09-12 over 14 rows, and by the next run it was wrong in both directions — the table had grown
+    to 22, Europe PMC had been reported shut by the proxy fault above, and UNESCO answers or refuses
+    depending on how fast the sweep before it ran. **Run it.**
   Not part of the site.
 - `.claude/check-sizes.js` — what Folio actually weighs: `node .claude/check-sizes.js [--json]`. It
   reads the eager path **out of `index.html`** rather than from a list, prints each file's raw and
