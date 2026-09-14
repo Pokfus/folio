@@ -2819,6 +2819,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     silence being the honest alternative to a manufactured question — and `connectKin` and the `.elab-box`
     styles went with it, `cardKinship` remaining as Multiple Choice's distractor ranking. **Run `node
     .claude/why-count.js` for the figure rather than quoting one here.**
+    **AND IT PUT THE FIRST `.ttip` ON A REVEALED CARD INSIDE A CLOSED `<details>`, WHICH KILLED A WHOLE
+    SUITE** (found Sep 2026). The block sits ABOVE the Background, so its three answers' glossary terms
+    now come FIRST in the DOM and are not rendered until the reader presses Show answer —
+    `test-sources.js` clicked `.ttip` `.first()` and died on a 30-second actionability timeout, reported
+    as "element is not visible" with no clue which element or why, taking all 81 of its assertions with
+    it. `.ttip:visible` is the fix, on the COUNT as well as the click. **A section that starts collapsed
+    changes what `.first()` means for every selector in it**, which is `PAGES.order`'s own lesson above
+    wearing different clothes: when a feature gains a collapsed block, the fixtures are part of the change.
   · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
     background's own opening definition — inline under the answer, **with the footnote markers stripped**,
     since `sup.fn:empty::before` prints a marker's own digit and a lifted sentence would carry numerals
