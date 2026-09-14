@@ -732,13 +732,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     PAGE FOR CAN STILL BE WRITTEN**, resting on a MILESTONE, which is about an event rather than a state.
     **THE COUNTRY HALF IS FINISHED — G1–G20 have shipped and all 233 backgrounds are rewritten**
     (`gw-001`–`gw-233`), each five sentences of landform, water and climate over five of the country's
-    own history. **THE CAPITAL HALF IS OPEN**: C1–C11 have rewritten `gw-501` onward on a recipe of their
-    own — the WMO's per-city normals, UNdata's capital fields AND THEIR FOOTNOTES, an open paper's Study
-    Area, the city's own institution, and the constitution — and its first rule is that **a capital card
-    may not name its own country**, the grid's first row being Country. **Run `node .claude/gw-audit.js`
-    for how far it has got rather than quoting a figure here**; the plan holds every batch's findings,
-    among them the eleven things a constitution does instead of naming the capital and the four ways the
-    WMO leg fails.
+    own history. **THE CAPITAL HALF IS FINISHED TOO — C1–C39 have shipped and the audit reads
+    ZERO on all four rules** (Sep 2026). Its recipe is its own — the WMO's per-city normals, UNdata's
+    capital fields AND THEIR FOOTNOTES, an open paper's Study Area, the city's own institution, and the
+    constitution — and its first rule is that **a capital card may not name its own country**, the
+    grid's first row being Country. **WHAT KEEPS THE COUNT AT ZERO IS `gw-audit.js`'s DECLARED
+    `ADJUDICATED` TABLE, not a corpus with nothing left in it**: ten findings were read one at a time and
+    are the right answer — five cards whose own subject IS the United States or one of its territories,
+    three where the grid's value stands inside a longer name (the Gulf of Riga is not Riga), and two
+    naming a country for a reason rule 4's own header allows. A row matches only when the card, the rule
+    AND the matched text all agree, so a new violation on an excused card still reports; **add one only
+    after reading the card, and record why in the plan**. **Run `node .claude/gw-audit.js` rather than
+    quoting a figure here**; the plan holds every batch's findings, among them the eleven things a
+    constitution does instead of naming the capital and the four ways the WMO leg fails.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request). The population
     is already in the facts grid two inches above. **A card with nothing else datable gets an EMPTY date
     line rather than a filler row**, which `test-date-line.js` is what caught — a non-empty line yielding
