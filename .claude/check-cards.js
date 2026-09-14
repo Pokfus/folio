@@ -211,6 +211,16 @@ const INSTITUTIONAL = new Set([
      of a card really is one book, which is the finding this check exists for. */
   "mary ann clark",   // OpenStax, Biology 2e — three authors, cited per chapter (bio-003/014/015)
   "bruce alberts",    // Molecular Biology of the Cell — six authors, cited per chapter (bio-025/026)
+  /* ONE RESOURCE WAS BEING COUNTED TWO WAYS DEPENDING ON CITATION FORM (Sep 2026). "digital egypt
+     for universities" is already declared above, and it works for the 74 corpus citations that open
+     on the page title — but 10 open on the site's two named editors instead, and those bypassed the
+     entry entirely. wh-203 Naqada culture cites FIVE different pages of it (background, chronology,
+     predynastic burial customs, foreign relations, political unification), which is one teaching
+     resource consulted five times, not one scholar's view five times. Measured before adding: the
+     drop set is exactly ONE card — wh-202, wh-216 and wh-201 cite it twice or once and are unmoved —
+     and wh-203 moves from a FAIL to the one-institution note rather than to silence, which is what
+     this table is for. The card was read first. */
+  "wolfram grajetzki and stephen quirke",  // Digital Egypt for Universities, cited per page (wh-203)
 ]);
 
 /* Is this cited author the card's own subject? Folded to letters, digits and single spaces, and

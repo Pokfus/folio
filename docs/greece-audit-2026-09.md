@@ -1153,6 +1153,54 @@ than losing one, because a single citation covering several pages of one book ca
 where different claims rest on different pages — Werner 113–17 became 113–15 and 116–17. That is
 precision, not padding, and it is only legitimate where the split is where the claims actually fall.
 
+### R20 — Madjedbebe, and one resource counted two ways (shipped 2026-09-14)
+
+**`wh-093` Madjedbebe** carried Chris Clarkson three times. The third, the 2015 *Journal of Human
+Evolution* paper on the site's archaeology and stratigraphy, marked exactly ONE sentence — the
+shelter's own description — and Florin et al. 2020, already on the card, opens by placing it:
+"Madjedbebe is a rockshelter in western Arnhem Land (northern Australia) situated at the base of the
+Djuwamba Massif, an escarpment outlier to the east of the Magela Creek floodplain". Read on PMC before
+the marker moved; the sentence was rewritten to what Florin states and the Clarkson citation dropped.
+**The card lost "ringed by Kakadu National Park"**, which no source on it carries in those words and
+which the Jabiluka-lease sentence beside it already implies.
+
+**`wh-203` Naqada culture was not an over-citation at all**, and the reason is worth keeping because it
+is a fault in the CHECKER's reach rather than in the card. `INSTITUTIONAL` has carried
+"digital egypt for universities" for months, and it works for the 74 citations of that resource which
+open on the page title — but 10 open on the site's two named editors instead, and those bypass the
+entry. The card cites five different PAGES of one UCL teaching resource, which is the case the table
+exists for. The editors' names were added to it, and **the drop set was measured first and is exactly
+one card**: wh-202 and wh-216 cite it twice, wh-201 once, and none of them moves. wh-203 now reports as
+a one-institution NOTE rather than a failure, which is what that table does — it reports separately,
+it does not excuse.
+
+### What is left, and which of it is not repairable the same way (measured 2026-09-14)
+
+**27 over-cited**, of which five are the read-and-blocked table above. The rest fall into three
+shapes, and only the first has the cheap fix this pair of batches used.
+
+1. **One reference work consulted several times.** `gr-350` and `gr-359` both rest on Smyth's *Greek
+   Melic Poets* (four and three citations), `wh-383`/`wh-384` on four chapters of the Cambridge History
+   of India, `gr-334` on Gardner, `gr-323` on Walters. These need a re-sourcing pass with new open
+   literature, card by card — there is no redundancy inside the existing list to exploit.
+2. **The excavator's own reports.** `gr-030`, `gr-032` and `gr-036` each cite three of Evans's
+   provisional reports on Knossos; `wh-126` cites Rollefson on 'Ain Ghazal; `wh-099` cites Dillehay on
+   Monte Verde. The repeated author is the site's excavator, so the citations are the primary record
+   rather than one scholar's view — but the honest repair is still to bring independent work onto the
+   card, not to excuse it.
+3. **One team's primary datasets, and this is the shape to think hardest about.** `wh-041` Homo naledi
+   cites Berger three times and Dirks twice — five of six sources are the excavating team — and
+   `wh-121` cites Bergström three times across three DIFFERENT ancient-genome datasets (2020 dogs, 2022
+   wolves, 2026 European dogs). **Both were read and neither was repaired**, because in each case the
+   repeated author is the source of a distinct dataset the card names in its own prose, and no
+   openly reachable work carries those findings independently. The naledi card would genuinely be
+   improved by the published critiques — Martinón-Torres et al. 2024 in the *Journal of Human
+   Evolution* and Egeland et al. 2018 in *PNAS*, both verified in Crossref — but ADDING a source does
+   not lower a count the rule reads absolutely, so that is a content improvement rather than a repair.
+   **Do not reach for an exemption table here.** `check-cards.js` is a report tool run by hand and is
+   deliberately not in the fast gate, so a standing backlog is what it is FOR; a table that made these
+   pass would buy a green run at the price of the one signal the check exists to give.
+
 ## `check-cards.js`'s own findings, moved out of `CLAUDE.md` (2026-09-11)
 
 **READ BEFORE OPENING A RE-SOURCING BATCH ON THE GREECE COLLECTION.** The account as it stood in
