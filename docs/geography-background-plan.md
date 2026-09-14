@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C29 — six capitals, a weather record missing a whole FIELD, and a constitution that names an ISLAND as the capital**: `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau and `gw-678` Reykjavík, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-14, batch C28 — six capitals, a constitution that names its capital eighteen times and never calls it one, and a UN figure whose footnote names no place the capital is in**: `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica and `gw-672` Valletta, with all six date lines rewritten off the same research. Six again, for C2's reason. (`gw-667` and `gw-671` are numbers the running order leaves unused.)
 
 - **2026-09-14, batch C27 — six island and small-state capitals, a weather table with an impossible value in it, and a constitution that identifies a capital by whose house it is**: `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni and `gw-664` Georgetown, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -442,6 +444,92 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C29 found
+
+**A WMO RECORD CAN BE MISSING A WHOLE FIELD, NOT A MONTH.** C25's Bissau had a December with every
+cell empty and C27's Georgetown had one impossible value in an otherwise sound table; Cabo Verde's
+only record, filed under **Sal**, gives twelve average maxima and **not one average minimum** — the
+`minTemp` cell is null in all twelve months. The table is not broken and does not look broken: it
+renders as a complete year of highs, rainfall and rain days, and only a reader who knows what a
+normals table is supposed to carry notices that half the temperature is gone. **Ask what a record
+does NOT have before quoting what it does**, which is the mirror of C25's finding one field over.
+
+**A FOURTH COUNTRY IS IN THE WEATHER INDEX WITHOUT ITS CAPITAL.** Lesotho (C25, Mejametalana),
+Solomon Islands (C28, Auki) and Malta (C28, Luqa) were the first three; Cabo Verde's one row is
+**Sal**, an island the capital is not on, flagged `isCapital` false. Every country in this batch is
+in the index — none of the outright absences C25 and C26 met — so the shape here is the softer one:
+present, and not where the reader wants it. **The index is not a list of capitals and must never be
+read as one.**
+
+**AND ONE RECORD STATES NO PERIOD AT ALL.** Bandar Seri Begawan's carries `datab` and `datae` both
+empty — no start year, no end year — where Malé's says 1981–2000 (twenty years), Belmopan City's
+1980–2003 (twenty-four) and Sal's and Reykjavik's 1961–1990, with **Nassau's 1971–2000 a full
+thirty**. **A card that quotes an unwindowed record can say what the figures are and not what they
+are of**, which is why `gw-675` says so in its prose and puts no weather row on its date line: there
+is no window to put there.
+
+**A CONSTITUTION CAN NAME AN ISLAND AS THE CAPITAL.** The Maldives' 2008 text, article 14, under the
+heading *National capital*, reads *The capital of the Maldives is the island of Male'* — not a city,
+an island — and the same text makes that island an administrative division in its own right,
+counting *the twenty administrative Atolls plus Male', for a total of twenty one*, with Villingili
+and Hulhumalé folded into its schedule entry. **Cape Verde's 1992 text is the same shape one step
+softer**: article 9 gives *the city of Praia, on the island of Santiago* — the city AND its island —
+and seats the Supreme Court and every overseas electoral district there as well. Both sit in the run
+of articles on national symbols, which is C25's Guinea-Bissau finding met twice more in one batch.
+
+**TWO MORE TOTAL SILENCES, AND THEY ARE NOT THE SAME SILENCE.** Brunei Darussalam's 1959 text (rev.
+2006) never names Bandar Seri Begawan and uses the word *capital* **exactly once**, in the definition
+of *debt* as an obligation to repay *capital sums*. The Bahamas' 1973 text never names Nassau and
+**does not contain the word *capital* at all** — the emptier of the two, and the third such text in
+the pass after Lesotho (C25) and Estonia (C26). Belize's 1981 text (rev. 2022) is a third variety:
+*Belmopan* appears nowhere, *capital* only in *capital cases* and *issued share capital*, and the
+state is located instead by the **Westminster seat-of-government clause** — its third instance
+after Jamaica (C24) and Trinidad and Tobago (C26).
+
+**AND ICELAND LOCATES BOTH PRESIDENT AND GOVERNMENT BY RESIDENCE, WITHOUT EVER USING THE WORD.**
+The 1944 text as amended through 2013 says the President *shall reside in or near Reykjavik* (art.
+12), that *the seat of Government is in Reykjavik* (art. 13) and that the Althing *shall normally
+convene in Reykjavik* (art. 37); the only occurrence of *capital* in the whole text is *capital
+punishment*. **The 2011 DRAFT is more explicit than the text in force** — the Althing *shall normally
+assemble in Reykjavik, but may decide to assemble elsewhere*, and *the Government Offices of Iceland
+shall be located in Reykjavik* — and Constitute's own record dates it: delivered to the Althing on 29
+July 2011, approved by a non-binding referendum on 20 October 2012, failed to pass in 2013. C24 met
+two Gambian drafts that never came into force; what is new here is a draft that says MORE about the
+capital than the constitution that governs — **so a record marked `in_force: false` is worth reading
+for what it adds, not only avoiding for what it cannot support.**
+
+**SIX BARE-YEAR FOOTNOTES IN A ROW, AFTER TWO BATCHES OF DEFINED ONES.** All six UN profiles footnote
+their capital-city figure `c` and define `c` as **2018** and nothing else — no scope, no statement of
+what territory is counted. C26 found two profiles that define what they count and C27 and C28 found
+three more; this batch found none, which is the ordinary case returning. **The footnote is worth
+reading every time precisely because it is usually empty.**
+
+**AND THE DENSEST AND NEARLY THE EMPTIEST STATE IN THE DECK ARE IN ONE BATCH.** The Maldives is
+1,765.6 people to the square kilometre on 300 square kilometres; Iceland is **four** to the square
+kilometre on 103,000. Both capitals hold about the same share of their country — a third and a half —
+so the share says nothing about either, and the density says everything.
+
+**THE FOURTH LEG WAS THE SLOWEST PART OF THIS BATCH AND ALL SIX WERE FOUND IN OPEN JOURNALS.**
+`iwaponline.com` serves a Cloudflare JavaScript challenge and is unusable from here, and
+ScienceDirect is 403 as before, so the Brunei River water-quality paper and the Elsevier *Data in
+Brief* rainforest dataset both had to be given up — the latter is readable at its **Europe PMC**
+copy, which is the route that keeps paying. What carried the batch instead: **Copernicus** (Ocean
+Science, for North Malé atoll), **Frontiers** (Frontiers in Water, for New Providence's five
+wellfields), **PLOS** (PLOS ONE, for Hellisheidi's hydrogen sulphide), **RCAAP** (Finisterra, for
+Praia's Plateau and trade winds — a Portuguese journal whose article carries its own page range in
+its running head, `XLIX, 98, 2014, pp. 33-48`, where Crossref holds only an online date of 2015), the
+Indonesian **OJS** at `ijeas.untan.ac.id` (for Kampong Ayer's mangroves), and **Docomomo Journal** at
+`docomomojournal.com` (for Belmopan's garden-city plan, CC BY 4.0). **Two of those six were found
+through DOAJ and neither through Crossref**, whose keyword search returned only encyclopedia stubs
+for both Belmopan and New Providence. **Search DOAJ before concluding a small capital has no
+literature.**
+
+**AND A DOCOMOMO DOI RESOLVES TO A DIFFERENT ARTICLE ID THAN ITS LANDING PAGE CARRIES.**
+`10.52200/43.A.SMV82DGU` redirects to `/article/view/87`, not to the `/view/43` the issue number
+suggests, and the PDF galley is `/article/download/87/406` — a number that appears nowhere on the
+article page's own text, only in one `href`. **Follow the DOI and read the page's links; do not
+compose an OJS galley URL.**
 
 ## What C28 found
 
