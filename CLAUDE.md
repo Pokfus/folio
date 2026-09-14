@@ -4176,8 +4176,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     unflipped, and **the longer you held the more reliably it did**; a synthetic `el.click()` cannot see
     this at all. **The back is a different LAYOUT on a phone**, and every state keeps its own short form,
     since "Not collected", "Unavailable" and "None yet" say three different things. **The site-wide half is
-    a pooled counter table** (`game_stats` + `bump_game_score`, schema section 15 — **the user must run it
-    once**); a project without the block says so in a sentence rather than showing a zero, and **a fetch
+    a pooled counter table** (`game_stats` + `bump_game_score`, schema section 15 — **run on the live
+    project since Sep 2026**); a project without the block says so in a sentence rather than showing a
+    zero, and **a fetch
     that merely FAILED says something different again**. **THE DAY IS THE SERVER'S UTC DAY**, and the tile
     says "today" without claiming it is theirs. **THE FLIP IS 2D AND THAT IS FORCED**: `.game-tile` carries
     `overflow:hidden`, which flattens `transform-style` to `flat`. **And the two halves swap
@@ -4893,6 +4894,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **A DATABASE WITHOUT SECTION 14 SAYS SO AND NAMES THE BLOCK**, exactly as the publish path does for the
   deck-colour column: PostgREST answers 400/404 on a column that does not exist, which the loader turns into
   a `missing` flag rather than an error, and every account simply presents itself in the default meanwhile.
+  **The live project HAS run it** (Sep 2026), so a `missing` flag there is a fault rather than a block to ask
+  for — the degradation is for a fresh database, and that is the state to keep it working in.
 - **ONE DECK PER CARD (Aug 2026, on request).** The card editor's deck picker was checkboxes — a card could be
   cross-listed into any number of decks with one set of scheduling. Nothing shipped ever used it (all 119 cards
   sit in exactly one deck) and it made "which deck is this card in" a question with no single answer, which the
@@ -6383,8 +6386,10 @@ division-capital city tier are inert dead code.
   + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`, plus the
   later blocks' `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`, plus
   **sections 11 `user_decks.color`, 12 `login_email()` and 13 `card_stats` + `bump_card_grades()`,
-  run on the live project on 2026-09-13 on the owner's own report**; **14 `profiles.theme` and
-  15 `game_stats` are the two this file has never recorded either way**). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature
+  run on the live project on 2026-09-13 on the owner's own report, and 14 `profiles.theme` and
+  15 `game_stats`, confirmed run on 2026-09-14 by the owner's own `schema-check.sql` query returning true
+  for both** — so **THIS PROJECT'S DATABASE CARRIES EVERY BLOCK IN THE FILE**, and a feature reporting one
+  missing is a fault to investigate rather than a block to ask for). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature
   that needs one degrades to a sentence rather than an error, so the site works on a database that has
   only the first block — **keep it that way**, a block the owner has not run yet being the normal case
   rather than the broken one. **Which blocks a given database already has is answered by
