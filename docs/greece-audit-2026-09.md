@@ -1367,6 +1367,44 @@ revised" (2002) is open, on point and contains the word *Sanchi* **zero times** 
 historiography of the theory, not a description of the monument. Fetched and grepped rather than assumed
 from the title.
 
+### `gr-334` archaic smile — opened, sourced half way, and stopped deliberately (2026-09-14)
+
+**This is the expensive end and it is worth knowing how far the money goes.** Gardner's *Handbook of
+Greek Sculpture* (1897) is in five of nine sources — pages 133, 138, 172–174, 179 and 204–205 — so THREE
+have to move, and `check-cards.js` counts absolutely, so adding sources cannot help. The work done, so
+the next session starts from a shelf rather than from a search box:
+
+**`H. B. Walters, The Art of the Greeks` (London: Methuen, 1906) is the replacement, verified page by
+page** — `archive.org/details/india.history.resource.100468`, 120,360 words, fully readable. It carries,
+in its own words:
+- **the archaic smile and the argument about it** (at the Apollo of Tenea): "The so-called 'archaic
+  smile', which is generally to be observed on the countenance of an early Greek statue, is here very
+  much accentuated. The meaning of this expression has been disputed; it has been urged that it
+  indicates the pleasurable effect the artist desired his work to have upon the spectator, but it is
+  perhaps only an attempt at giving expression to the face." **The card never says the meaning is
+  disputed, and it should** — one historiographical sentence is well inside the three-sentence cap.
+- **the east pediment at Aegina** (p. 87): "one on the left of the east pediment is a masterpiece in its
+  exhibition of overwhelming yet controlled suffering, as indicated by the **clenched teeth, drawn lips**,
+  and contracted knee. It is the first genuinely successful attempt of Greek art to reproduce bodily
+  emotion." That is the card's own sentence 8, in an independent voice.
+- **the Aristion stele** (p. 82), with the sculptor and the find-spot near Marathon.
+
+**Walters can only be used TWICE**, or he becomes the fault he is fixing. So a third source is needed and
+**the blocker is sentence 3** — "on an early statue from Eleutherna in Crete the mouth is merely a
+straight line". *Eleutherna* appears **zero** times in Walters, in Furtwängler's *Masterpieces* and in
+Murray's *History of Greek Sculpture*; Tarbell is already at two citations and cannot take a third; and
+the card's own open 2024 Al-Academy paper says *archaic smile* once and *Aegina* once in 51,715
+characters, which will not carry a claim. Either a source for that statue is found, or the sentence is
+rewritten around an early statue the standard handbooks do describe.
+
+**Two things measured and rejected, so they are not re-tried.** Mackenzie's "The East Pediment Sculptures
+of the Temple of Aphaia at Aegina" (*BSA* 1909) is the obvious independent authority and Cambridge Core
+serves only its abstract page. And the Aristion sentence cannot simply move to Walters: the card's claim
+is that *the form of the smile is preserved and its effect entirely changed*, which is Gardner's
+judgement, where Walters describes the hand drawn like a foot and the eye shown full face. **Re-pointing
+a judgement to a source that describes the same object differently is the trap this whole pass keeps
+finding.**
+
 ### Two more read and left, and these are the rule working rather than failing (2026-09-14)
 
 Both showed a candidate at `alone=0` and both are the right answer as they stand. Recorded so the next
