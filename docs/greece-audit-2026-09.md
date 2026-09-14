@@ -1286,8 +1286,8 @@ at all until a new source or a legitimate citation split is found first: `gr-032
 `wh-041`, `wh-099`, `gr-159`, `gr-334`, `ps-048`, `wh-389`.
 
 Of those six, **four are already read and recorded as the right answer** — `wh-041` and `wh-121` above,
-and `wh-099` and `ps-048` below. **`gr-334` and `wh-389` are the two genuinely unexamined ones, and are
-where the next batch should start.**
+and `wh-099` and `ps-048` below. **`wh-389` was repaired the same day (R23 below), leaving `gr-334` as
+the one genuinely unexamined card with a candidate that clears the bar** — where the next batch starts.
 
 ### The hand method this replaced
 
@@ -1323,6 +1323,49 @@ and was found the same way. Measured over the whole backlog, the `excl=0` citati
   his reading of the Knossos signet impression, which is his own interpretation of his own find. The only
   source on the card that could take it is the Dartmouth lesson, which deepens the concentration this
   audit exists to reduce. Needs an independent Minoan-religion source, not a re-pointing.
+
+### R23 — the stupa card comes off four pages of one chapter (shipped 2026-09-14)
+
+**`wh-389` stupa** was the clearest over-citation left: Marshall in four of six sources, all four being
+pages 623, 627, 627–628 and 630 of ONE chapter of the Cambridge History of India — the shape
+`INSTITUTIONAL`'s own comment says is not to be excused. Two sentences moved, and both were CORRECTED
+rather than re-pointed, which is R19's rule again.
+
+- **The relic deposit** was "relic caskets of beryl and rock crystal came out of the stupas at
+  Bhattiprolu and Piprahwa, and the lapidary's was the one art in which Maurya craftsmen excelled", on
+  Marshall p. 623. It is now **Alexander Rea's own excavation report** (ASI New Imperial Series 15, 1894,
+  pp. 11–12), and says what Rea found: a stone receptacle inscribed in Maurya characters, holding a
+  globular stone casket, holding a crystal phial with a flake of bone in it. Narrower, verifiable, and it
+  keeps the Maurya connection through the inscription Rea actually read.
+- **The aniconism sentence** is now **Foucher 1917**, pp. 5 and 104 — the scholar who established the
+  reading, writing about the Sanchi gateways specifically. The sentence was corrected on both halves:
+  Foucher's p. 5 names *the middle lintel of the eastern gate* and says the saddle-cloth is empty, and
+  his p. 104 says the seven past Buddhas are typified **alternately** by a tumulus and a tree — where the
+  card had said each earlier Buddha is a stupa. More accurate, and more interesting.
+
+**Two candidates were read and rejected first, which is what this batch is worth recording for.**
+**Maisey's *Sanchi and Its Remains* (1892) looks perfect and is not**: he describes the Great Stupa in
+detail and he describes the very relief — "an empty, chatta-shaded chariot, preceded by a loose horse,
+bridled and saddled" — but he reads it as *a horse and chariot dedicated to the deity*, not as the Great
+Departure. He predates the aniconic interpretation, so citing him for it would put a reading in his
+mouth that he explicitly does not give. **And his figures are his own**: 110 feet across the base and a
+basement terrace 14 feet high and 53 feet wide, against the card's 54-foot height and *narrow* ledge,
+which are Marshall's. A re-point there would have had to become a rewrite.
+**The Ashoka attribution and "not more than half the present size" are Marshall's too**, from his own
+1912–19 excavations, which postdate every 19th-century witness — so sentences 7 and 8 cannot be moved to
+Maisey, Cunningham or Fergusson at all without misattributing.
+
+**Source-finding notes for the next Indian-archaeology card.** DOAJ's full-text search is useless here —
+"sanchi" returns ginseng adulteration and Chagas cardiology. What works is **Crossref by bibliographic
+query** to find the literature and then testing each DOI for openness (`10.3126/…` NepJOL and
+`10.11606/…` USP both open; Taylor & Francis 403), and **archive.org's `advancedsearch.php` by title and
+creator** for the out-of-copyright standard works, which for this subject is where the usable sources
+are. `whc.unesco.org` is **403**, as `docs/china-geography-card-plan.md` already records. Persée's search
+page is JS-rendered and returns nothing to a plain fetch.
+**And an open paper on the right TOPIC is not a source for the right CLAIM**: Aldrovandi's "Aniconism
+revised" (2002) is open, on point and contains the word *Sanchi* **zero times** — it is a
+historiography of the theory, not a description of the monument. Fetched and grepped rather than assumed
+from the title.
 
 ### Two more read and left, and these are the rule working rather than failing (2026-09-14)
 
