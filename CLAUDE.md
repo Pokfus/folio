@@ -6196,15 +6196,20 @@ division-capital city tier are inert dead code.
     of it with no browser. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
     `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `serializeCardData` /
     `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map card.**
-  · `node .claude/test-artwork-cards.js` — **the artwork card format** (53 assertions), and every fault
+  · `node .claude/test-artwork-cards.js` — **the artwork card format** (60 assertions), and every fault
     it guards RENDERS PERFECTLY. **The pool half and the date band are asserted through a PATCHED
     app.js**, `picturePool` and `artMatch` being closure variables and a sweep of real days a coin toss
     that would say nothing if it saw none; the LABEL TABLES are sliced out of app.js by text and the run
     STOPS if the slice fails, since a second copy of the rule would go stale in a file nobody had reason
     to open. **It typed a real answer into a real card and that is what caught the fixed date band** —
     "c. 39,000 years ago" marked wrong about a 40,000-year-old carving — so keep the three verdicts
-    exercised on a shipped card rather than asserted from the source. **Re-run after touching anything in
-    the ARTWORK CARDS bullet's own list.**
+    exercised on a shipped card rather than asserted from the source.
+    **AND IT SERVES THE PICTURE ITSELF, which is not a convenience**: an artwork card's `src` is a
+    Commons URL, so without the route stub the suite tests whether Wikimedia is reachable — and when it
+    is not, the card's own dead-file handling fires and the viewer correctly REFUSES to open, which
+    reads as the format being broken. A real 2×2 PNG is fulfilled so the `load` event fires and the LIVE
+    path is what gets tested; the dead path is then exercised deliberately by aborting the same route.
+    **Re-run after touching anything in the ARTWORK CARDS bullet's own list.**
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's
     restricted pool** (114 assertions), and every one of its checks is for something that fails SILENTLY.
     **AN ASSERTION CAN COME TO GUARD THE OPPOSITE OF THE RULE** — the picture round's reveal check

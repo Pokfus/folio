@@ -142,6 +142,17 @@ const server = http.createServer((req, res) => {
   sect("2. the front says nothing but the picture, and asks four things");
   const browser = await chromium.launch(process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {});
   const page = await browser.newPage();
+  /* THE PICTURE IS SERVED LOCALLY, and that is not a convenience. An artwork card's `src` is a Commons
+     URL, so without this the suite is a test of whether Wikimedia is reachable — and when it is not, the
+     card's own dead-file handling fires (`.art-shot.media-dead`) and the viewer correctly REFUSES to
+     open, which reads as this format being broken. It is served as a real 2x2 PNG so the `load` event
+     fires and the live path is what gets tested; the dead path is exercised deliberately further down. */
+  const PNG = Buffer.from(
+    "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAEklEQVR4nGP8//8/AzJgYkAFRPIBaIUDvHBOP2sAAAAASUVORK5CYII=",
+    "base64");
+  let pictureBlocked = false;
+  await page.route("**/upload.wikimedia.org/**", (route) =>
+    pictureBlocked ? route.abort() : route.fulfill({ status: 200, contentType: "image/png", body: PNG }));
   const errs = [];
   page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("pageerror", (e) => errs.push("PAGEERROR " + e.message));
@@ -247,12 +258,60 @@ const server = http.createServer((req, res) => {
      at the reveal, and if the drop stops firing the same picture is on screen twice. */
   ok("…and the back's own copy of it is gone", back.slot === 0 && back.sameSrc === 1, back);
 
-  const viewer = await page.evaluate(() => {
-    document.querySelector(".art-shot").click();
-    return !!document.querySelector(".img-viewer, .media-viewer, #imgViewer");
-  });
-  ok("clicking it opens the fullscreen viewer", viewer);
+  await page.evaluate(() => document.querySelector(".art-shot").click());
+  await page.waitForTimeout(250);
+  const viewer = await page.evaluate(() =>
+    ({ open: !!document.querySelector(".img-viewer, .media-viewer, #imgViewer"),
+       overlays: [...document.body.children].map((n) => n.className || n.id).filter(Boolean).slice(-6) }));
+  ok("clicking it opens the fullscreen viewer", viewer.open, viewer.overlays);
   await page.keyboard.press("Escape");
+
+  /* ---------- 3a. a file that never arrives ------------------------------------------------- */
+  sect("3a. a picture that cannot load says so");
+  /* On every other card a dead picture is simply hidden. Here it is the WHOLE QUESTION, so hiding it
+     would leave four empty fields under nothing — and the browser's own fallback paints the alt text,
+     which describes the work, at full size in the frame. `.art-shot` is in the delegated error
+     listener's selector for that reason, and the viewer refuses a frame with no file behind it. */
+  pictureBlocked = true;
+  await study(card.id);
+  await page.waitForTimeout(500);
+  const dead = await page.evaluate(() => {
+    const fig = document.querySelector(".art-shot");
+    return { marked: fig.classList.contains("media-dead"),
+             imgShown: getComputedStyle(fig.querySelector("img")).display !== "none",
+             note: getComputedStyle(fig, "::after").content || "",
+             fields: document.querySelectorAll(".question .art-input").length };
+  });
+  ok("a dead file marks the frame", dead.marked, dead);
+  ok("…the browser's alt-text fallback is not painted in it", !dead.imgShown, dead);
+  ok("…the frame says what happened", /could not be loaded/i.test(dead.note), dead.note);
+  ok("…and the four fields are still there to answer into", dead.fields === 4, dead.fields);
+  pictureBlocked = false;
+  await study(card.id);
+
+  /* ---------- 3b. the answer-before-revealing policy sees these fields ---------------------- */
+  sect("3b. \"Answer before revealing\" recognises the four fields");
+  /* ATTEMPT_SEL had to learn about `.art-input`, and a gate that silently stops engaging on one format
+     looks exactly like a reader who has not turned the policy on. Re-studied with `attemptFirst` set. */
+  await page.addInitScript(() => {
+    const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+    S.settings = Object.assign({}, S.settings, { attemptFirst: true });
+    localStorage.setItem("folio_v1", JSON.stringify(S));
+  });
+  await study(card.id);
+  const gate = await page.evaluate(() => ({
+    held: !!document.querySelector("#reveal-btn").disabled,
+    hint: !!document.querySelector("#revealHint"),
+    dunno: !!document.querySelector("#dunno-btn"),
+  }));
+  ok("the reveal is held back until something is typed", gate.held && gate.hint && gate.dunno, gate);
+  await page.fill("#artf-artist", "x");
+  await page.waitForTimeout(200);
+  ok("…and any one of the four fields releases it",
+     !(await page.evaluate(() => !!document.querySelector("#reveal-btn").disabled)));
+  await page.evaluate(() => { const d = document.querySelector("#dunno-btn"); if (d) d.click(); });
+  await page.waitForTimeout(300);
+  ok("…while \"I don't know\" reveals without one", await page.evaluate(() => !!document.querySelector(".answer")));
 
   /* ---------- 4. the picture round ------------------------------------------------------- */
   sect("4. the picture round deals them");
