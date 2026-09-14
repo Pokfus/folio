@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C37 — six second-seat cities whose backgrounds were histories of American recognition, five constitutions that decline to name the seat they create, and the first batch to need no UNdata citation at all**: `gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-755` Abidjan, `gw-756` Colombo and `gw-758` The Hague, with all six date lines rewritten off the same research. Taken from the audit's flagged list; `gw-754` Putrajaya was swapped out for `gw-758` mid-batch — see below.
+
 - **2026-09-14, batch C36 — three Pacific constitutions that never use the word *capital*, a census that reports its capital only as a postal address, and a units bug that corrupted the imperial reader's prose on 48 text nodes**: `gw-721` Avarua, `gw-722` Yaren, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown and `gw-728` Brades, with all six date lines rewritten off the same research. Taken from the audit's own flagged list, as C35 was; `gw-723` and `gw-724` already pass all four rules.
 
 - **2026-09-14, batch C35 — six capitals none of which the world weather index carries, two constitutions that name their capital where nine had not, and one that orders the capital MOVED**: `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino and `gw-720` Ngerulmud, with all six date lines rewritten off the same research. Taken from the AUDIT'S OWN FLAGGED LIST rather than in id order — `gw-713` and `gw-714` are city-states the plan never wrote, and `gw-717`–`gw-719` already pass all four rules.
@@ -458,6 +460,62 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C37 found
+
+**These were the worst cards in the collection, and the fault had a shape.** Every one of the six carried a
+date line made entirely of American diplomatic events — *Embassy raised*, *Legation opened*, *US recognition*,
+*US embassy*, *Council response* — and backgrounds to match: `gw-752` gave five of its ten sentences to a
+legation that stayed in Cape Town for six months in 1930, and `gw-753` explained Bloemfontein by observing
+that the American record of its own missions names the other two capitals and never this one. **A second-seat
+card is the shape most exposed to this**, because the recognition guide has a great deal to say about which
+city a mission sat in and nothing to say about the city.
+
+**FIVE CONSTITUTIONS IN A ROW DECLINE TO NAME THE SEAT THEY CREATE, and each declines differently.** Tanzania's
+uses the word *capital* only in the article forbidding capital punishment, names neither Dodoma nor Dar es
+Salaam anywhere, and acknowledges the question once, obliquely, in a clause about whether the President counts
+as absent — which speaks of "the town which is the seat of Government" without saying which town that is.
+Côte d'Ivoire's never names Yamoussoukro at all and names Abidjan once, in the title of the national anthem.
+Sri Lanka's never names Sri Jayewardenepura Kotte, but does place the Supreme Court at Colombo, "unless the
+Chief Justice otherwise directs". The Netherlands' names Amsterdam exactly once, in the article on the King's
+inauguration, and never names The Hague. **South Africa's is the exception that proves it**: it states that the
+seat of Parliament is Cape Town and then, in the same sentence, provides that an Act of Parliament may put it
+elsewhere — while naming the Supreme Court of Appeal eighteen times and Bloemfontein not once.
+
+**THE COMMONWEALTH SECRETARIAT IS THE BODY THAT SAYS SO OUTRIGHT, and it is worth reading for what it omits
+too.** It gives Tanzania's capital as "Dar es Salaam (acting), Dodoma (official)", South Africa's institution
+by institution rather than by label, and Sri Lanka's as "Colombo (executive and judicial), Sri Jayewardenepura
+Kotte (legislative)" — three different shapes of answer to one question. For Malaysia it gives **Kuala Lumpur
+and nothing else**, so the administrative capital is absent from the Commonwealth's own record as well as from
+the constitution, which names Putrajaya only as a Federal Territory carved out of Selangor in 2001.
+
+**AJOL IS THE INDEX THIS PASS WAS MISSING FOR AFRICAN CITIES.** African Journals Online answers from here, and
+it carried the landform leg for three of the six where DOAJ returned nothing and the obvious publishers were
+walled: the Cape Flats aquifer in *Water SA*, Loch Logan in the middle of Bloemfontein in *Water SA*, and
+Abidjan's Quaternary coastal aquifer in the *International Journal of Biological and Chemical Sciences*.
+**Its article pages carry full `citation_*` metadata**, so authors, volume, issue and pages come off the page
+rather than out of a guess. **Its back-catalogue DOIs have no `published-print` date**, so Crossref answers
+with the deposit year — 2007 for a 2005 issue, 2010 for a 2009 one — which is the documented
+digitising-a-back-catalogue case and goes to the eye rather than to the mismatch list.
+
+**A BATCH IS COMPOSED OF CARDS WHOSE SOURCES CAN BE LANDED, AND SWAPPING ONE OUT IS CHEAPER THAN FORCING IT.**
+`gw-754` Putrajaya was researched and abandoned: the Putrajaya Corporation's own site is a JavaScript portal
+that serves no prose, its lake portal is a login page, MDPI and Pertanika are walled or down from here, and
+DOAJ holds almost nothing on the city. `gw-758` The Hague replaced it and was fully sourced in three fetches.
+This is `gw-695` Saint Helier's refusal one level up — **a sourcing decision, not a political one** — and
+Putrajaya returns to the flagged list for a batch that finds a way in.
+
+**AND THE URL SWEEP CAME BACK 28 OF 28, WITH NO UNDATA CITATION IN THE BATCH.** That is not a policy change;
+it is what happens when the sources are chosen for what they say about the city rather than for a country
+profile. Where a card needs a figure the profile used to give, the constitution, the Commonwealth and the
+city's own water literature between them carry it.
+
+**One measurement worth having before the next batch**: a WMO station's `maxTemp` and `minTemp` are usually
+mean daily values and are **sometimes extremes**, and the field names do not say which. Abidjan's record gives
+a January maximum of 36.7 °C against a minimum of 15.1 °C — far too wide a spread for mean daily values in a
+tropical coastal city, whose real means are near 31 and 23. **The tell is the spread**; the rainfall on the
+same record is sound and was used. Nothing in the file distinguishes the two, so read the numbers before
+writing them.
 
 ## What C36 found
 
