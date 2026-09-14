@@ -3404,3 +3404,50 @@ exactly one split and that one is a CORRECTION**: `gr-336` block 2 had been spli
 because its first sentence ends on the Kroisos epitaph. That card was written with its markers already
 in the prose so nothing shipped wrong, but a top-up batch marking it by sentence index would have put
 every marker one claim early.
+
+## The half-paywalled terms, and the one that is still one (2026-09-14)
+
+`gloss-source-audit.js` carries a check the pass itself never had to think about, because Phase 1 and
+Phase 2 terms were cited from open sources by construction: **NOT majority-open**, the rule being that
+a paywalled work is citable as the LANDMARK and never as the BULK. At two sources, one paywalled makes
+it half, so the check fires on exactly the shape a two-source list makes easy. Five terms stood there.
+
+**Four are fixed, by ADDING an open third source rather than by removing the landmark** — which is the
+right direction, since in each case the paywalled paper is the study the term is about.
+
+| term | the landmark that stays | the open source added |
+|---|---|---|
+| `Cueva_de_El_Castillo` | Pike et al., *Science* 336 (2012) | Dayet, d'Errico, García Diez and Zilhão, *PLOS ONE* 17 (2022), whose own words place the cave "near the village of Puente Viesgo (Cantabria, Spain)" and describe "sets of negative hand stencils, juxtaposed disks" |
+| `Leang_Bulu'_Sipong_4` | Aubert et al., *Nature* 576 (2019) | Brumm et al., *Science Advances* 7 (2021), which gives the cave's setting "in the limestone karsts of Maros-Pangkep, South Sulawesi" and the 43,900-year minimum |
+| `Uranium–thorium_dating` | Pike et al., *Science* 336 (2012) | Oktaviana et al., *Nature* 631 (2024), on "calcite deposits overlying rock art" and the closed-system requirement for uranium and thorium |
+| `Vogelherd_horse` | Conard, *Nature* 426 (2003) | Schürch, Schray and Conard, *PLOS ONE* 20 (2025): "The site is located in the Lone Valley in SW Germany", its Aurignacian horizons dating "between 41,000 and 35,000 cal BP" |
+
+**EVERY ONE WAS READ IN FULL ON EUROPE PMC BEFORE ITS MARKER WAS WRITTEN, and every one was checked
+against Crossref** — which is what caught a co-author's given name: Europe PMC abbreviates "Schray S."
+and the obvious expansion is Sebastian; Crossref has **Svenja**. That is the fault `check-citations.js`
+exists for, met in the glossary rather than on a card.
+
+**`Sovietization` IS STILL ONE OPEN AND ONE PAYWALLED, AND THE REASON IS WORTH RECORDING SO IT IS NOT
+RE-DERIVED.** Its landmark is Lebedeva's study in *Lithuanian Historical Studies*, which is Brill and
+paywalled, and sentence 2 of the term summarises it by name, so it stays. What could not be found is an
+OPEN third source for the general definition. Measured rather than assumed:
+
+- **Europe PMC is no help at all** — it indexes the life sciences, and this is history.
+- **DOAJ has 203 articles mentioning Sovietisation and 46 with it in the title, and almost none is in
+  English**: the open-access literature on the subject is Lithuanian, Ukrainian, Romanian and Russian,
+  and what English there is (a review of a book about Soviet cars, an undergraduate journal, a report on
+  a research project) is not at the bar.
+- **The one good candidate is unusable for a reason that has nothing to do with scholarship.**
+  Buchaveckas, "Sovietisation of Schools in the 1940/41 School Year", *Genocidas ir rezistencija* 1, no.
+  37 (2015): 7–25, is open, CC BY, peer-reviewed and exactly on the subject — and **the journal has
+  registered its English title with three typos in it** ("bolshevis indoctrination,compain of eadult
+  education in in Schools"), with no Lithuanian title in its metadata, on the article page or on the
+  issue page. Citing it verbatim puts the journal's typos into Folio's apparatus where they read as
+  ours; citing a cleaned-up version invents a title that does not exist. The Lithuanian title is in the
+  PDF and this sandbox has no PDF text extractor.
+- **Brill's open-access chapter of Mälksoo, *Illegal Annexation and State Continuity*, is 403 behind
+  CloudFront** from here — a bot wall rather than a paywall, but unreadable either way, and an unread
+  source may not be cited.
+
+**The honest next step is a PDF text extractor or a second look for an English-language open study**,
+not a source stretched to fit. One term out of 3,739 is the right place to stop.
