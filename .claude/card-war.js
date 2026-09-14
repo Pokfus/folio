@@ -158,6 +158,33 @@ function checkWar(card, cardYears) {
       return "card.war." + which + ' resolves nothing on world.js — every one of its names belongs to an era map alone, so the side would shade on the personal atlas and be invisible on the card\'s own window. Add the present-day name beside the period one (e.g. "Empire of Japan" AND "Japan").';
     }
   }
+  /* ---------- AND THE TWO AUTHORED EXTENTS MAY NOT OVERLAP ----------
+     The `keys` rule above refuses a NAME on both sides, because a shape cannot be two colours. Two
+     authored areas are the same rule in geometry rather than in a list, and the check has to be
+     geometric because nothing about the numbers says two hand-drawn rings cross. `rm-263` is the case
+     that found it: Roman Hispania was drawn generously west and Lusitania generously east, and the
+     Alentejo came out a muddy brown where both washes landed on it — a perfectly good map that says two
+     incompatible things about the same ground.
+     A GRID SWEEP, not a polygon intersection: the areas are a dozen points each and the answer only has
+     to be "do these visibly overlap", so ~14,000 point-in-polygon tests over the union's own box is both
+     simpler and impossible to get subtly wrong. A single shared EDGE is not an overlap and does not trip
+     it, which is what lets two extents abut along a frontier. */
+  if (w.victors && w.losers && w.victors.area && w.losers.area) {
+    const A = readRings(w.victors.area, "v"), B = readRings(w.losers.area, "l");
+    if (typeof A !== "string" && typeof B !== "string") {
+      let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
+      [].concat(A, B).forEach((r) => r.forEach((q) => { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < y0) y0 = q[1]; if (q[1] > y1) y1 = q[1]; }));
+      const N = 120, dx = (x1 - x0) / N, dy = (y1 - y0) / N;
+      let hits = 0, at = null;
+      for (let i = 0; i <= N && hits < 2; i++) for (let j = 0; j <= N && hits < 2; j++) {
+        const lon = x0 + i * dx, lat = y0 + j * dy;
+        if (A.some((r) => inRing(r, lon, lat)) && B.some((r) => inRing(r, lon, lat))) { hits++; at = [lon.toFixed(2), lat.toFixed(2)]; }
+      }
+      if (hits >= 2) {
+        return "card.war's two extents OVERLAP — around " + at[0] + ", " + at[1] + " the map would be washed green and red at once, which is the rule about a name on both sides met one step out. Draw the frontier between them, and leave a gap rather than an overlap where it is uncertain.";
+      }
+    }
+  }
   if (cardYears) {
     const y = warYears(card, cardYears);
     if (!y) {

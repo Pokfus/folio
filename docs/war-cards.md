@@ -132,7 +132,7 @@ carries the sentence instead, and clicking either side opens the war's card with
 ## Authoring an extent
 
 **A hand-drawn polygon renders perfectly while being wrong**, so every extent shipped was checked against
-named places with known coordinates rather than looked at — **26 extents, and 620 assertions once composed
+named places with known coordinates rather than looked at — **37 extents, and 1,037 assertions once composed
 per side** — each one "this city must be inside" or "this city must be outside". That is the only way to
 catch a ring whose interior is on the wrong side of an edge, which draws a beautiful map of somewhere
 else.
@@ -160,6 +160,13 @@ Four findings from doing it:
 - **An extent is the belligerent's territory in and around the theatre the card frames** — an atlas
   plate of that war. Rome in 112 BCE held Spain, Macedonia and Asia as well as Italy, and drawing all of
   it on the Jugurthine War card would frame three continents and lose the war.
+- **TWO AUTHORED EXTENTS MAY NOT OVERLAP, and the eye does not catch it.** It is the `keys` rule — a
+  name may not stand on both sides — in geometry rather than in a list, and `checkWar` sweeps a grid for
+  it now. It found three the day it was written: Roman Hispania against Lusitania over the Alentejo,
+  Laconia against Messenia at the head of the Eurotas, and Rome against Samnium along the Volturno. The
+  first showed on the page as a muddy brown patch; the other two were invisible. **Where the frontier is
+  uncertain, leave a GAP rather than an overlap** — a few unshaded kilometres read as a frontier zone,
+  which is what it was, and two colours over one ground read as a mistake.
 - **Several rings are one side.** `locRings` reads a flat ring or a list of rings, so Carthage in 218 BCE
   is Africa and Barcid Spain, and the Athenian empire is Attica, Euboea and the Aegean.
 
@@ -168,8 +175,8 @@ Four findings from doing it:
 ## It rides in the LIGHT half of `data.js`, and has to
 
 `war` is on the eager load path, beside `locator`, `map` and `facts` rather than in `data-extra/`. That is
-not an oversight and it is not free: **17 blocks cost the eager path about 10 KB gzipped**, roughly 600
-bytes a card, most of it authored coordinates.
+not an oversight, and the cost is small: **34 blocks cost the eager path 5.2 KB gzipped**, about 155 bytes
+each — authored coordinates compress well.
 
 It has to be there because **the personal atlas reads it**. `atlasUnlocks` walks every card the reader has
 studied and asks it for its places; the heavy half is fetched per collection when a card in that collection
@@ -177,9 +184,13 @@ is revealed, so a `war` living there would put a war on the globe only when its 
 happened to be loaded — a register that is right some of the time and silently thin the rest of it. It is
 exactly why `locator` is light, and the same answer.
 
-**Measure it after a big batch** (`node .claude/check-sizes.js`): a hundred war blocks would be a real
-figure on a path every visitor pays for, and at that point the honest move is to split the `area` rings
-off rather than to let it grow quietly.
+**MEASURE IT BY GZIPPING `data.js`, NOT OFF `check-sizes.js`.** That tool prints hundredths of a
+megabyte, so the first batch was written up here as "about 10 KB" when the real change was nearer two —
+a figure five times too big, taken off a tool that was right and read at the wrong resolution. The
+command is `gzip -9 -c data.js | wc -c`, against the same on `git show <base>:data.js`.
+
+At 155 bytes a block the field could carry every war in the corpus for under a kilobyte more. If it ever
+stops being small, the honest move is to split the `area` rings off rather than let it grow quietly.
 
 ---
 
@@ -207,10 +218,10 @@ what the colour stands for. Finland, Romania and Bulgaria are left off both side
 
 ## Coverage
 
-Eighteen cards carry a block as the feature ships — the three Punic Wars and the umbrella card, the
-Greco-Persian Wars, the Peloponnesian War in both the collections that card it and its Decelean phase,
-the Gallic Wars in both, the Second and Third Macedonian Wars, the Third Mithridatic War, the Jugurthine
-War, the Han–Xiongnu wars, and three from the Second World War collection. **Run
+Thirty-four cards carry a block — the Punic, Macedonian, Mithridatic, Samnite, Celtiberian, Illyrian
+and Messenian wars, the Greco-Persian and Peloponnesian wars, the Gallic Wars in both the collections
+that card them, the Roman-Seleucid, Jugurthine, Achaean, Lusitanian, Numantine and Lamian wars, the
+Han–Xiongnu wars, and three from the Second World War collection. **Run
 `node .claude/add-card-wars.js --check` for the figure rather than quoting that**: it prints every block,
 both sides and the years each will draw in.
 
@@ -229,29 +240,28 @@ colours. Its dot and its name are untouched, and "Gaul" still sits over the red.
 
 ### What is left, and what is deliberately not
 
-Measured over the 3,215 shipped cards, **68 answer terms contain "war" or "wars"**. Eighteen carry a
-block; the other fifty break down like this, and three of the four groups are the rules working rather
-than a backlog.
+Measured over the 3,215 shipped cards, **68 answer terms contain "war" or "wars"**. Thirty-four carry a
+block; of the other thirty-four, only nine are work waiting to be done.
 
 | | count | why |
 |---|---|---|
 | **not a war at all** | 3 | `rm-212` war elephant, `wh-403` Art of War, `ww2-148` declaration of war — the reason a card DECLARES a block rather than a pattern reading the title. |
 | **no decided outcome** | 6 | `gr-198` Lelantine (unknown), `gr-475` First Peloponnesian (Thirty Years' Peace), `gr-529` Archidamian (Peace of Nicias), `gr-657` Corinthian (the King's Peace, whose beneficiary was not a belligerent on the field), `rm-238` First Macedonian (Peace of Phoenice), `ww2-149` Phoney War (no fighting). Rule 3: a drawn war is one that was decided. |
-| **both sides on one ground** | 14 | Nothing for two colours to say. The four Servile Wars (`rm-280`, `rm-303`, `rm-328`, `wh-352`); the Roman civil wars (`rm-316`, `rm-324`, `rm-360`, `rm-364`, `wh-355`); the two Social Wars (`rm-305`, `gr-676`), each a hegemon against its own allies, interleaved at 30 km; `rm-203` Carthage against its own mercenaries; `jp-073` Jinshin; `ww2-111` Spanish Civil War. |
-| **open — authorable, not done** | 27 | The real remainder. |
+| **both sides on one ground** | 14 | Nothing for two colours to say. The four Servile Wars (`rm-280`, `rm-303`, `rm-328`, `wh-352`); the Roman civil wars (`rm-316`, `rm-324`, `rm-360`, `rm-364`, `wh-355`); the two Social Wars (`rm-305`, `gr-676`), each a hegemon against its own allies; `rm-203` Carthage against its own mercenaries; `jp-073` Jinshin; `ww2-111` Spanish Civil War. |
+| **too interleaved to draw** | 2 | `rm-142` Latin War and `gr-698` Third Sacred War — see below. |
+| **open — authorable, not done** | 9 | The seven American wars, the Hundred Years' War and the Winter War. |
 
-The 27 open ones, and what each needs:
+#### The two that cannot be drawn
 
-- **Six Greek** — `gr-235` / `gr-236` / `gr-237` / `gr-461` the Messenian Wars (Laconia against Messenia,
-  two adjacent regions of the Peloponnese ~50 km apart), `gr-698` Third Sacred War (Phocis against the
-  Amphictyony and Philip), `gr-755` Lamian War (Macedon against an Athenian-Aetolian coalition, which is
-  NOT the Hellenic League's shape and needs its own).
-- **Twelve Roman** — `rm-142` Latin War and `rm-151`–`rm-156` the Samnite Wars (early Rome and Latium
-  against Samnium, the hardest of the set: the two interleave at 30 km and `rm-013` Samnium's own
-  authored area is the place to start); `rm-237` Illyrian Wars, `rm-245` Roman-Seleucid War, `rm-255`
-  Achaean War (the League is the NORTHERN Peloponnese, not `PELOPONNESE` — Sparta was hostile, so reusing
-  that extent would be an over-claim), `rm-262` / `rm-263` / `rm-265` the Spanish wars, `rm-310` First
-  Mithridatic War (the extents `rm-333` already carries).
+This is the Strait of Messina finding at a different scale, and it is the honest reason rather than a
+backlog. **`rm-142` the Latin War** sets Rome against the Latin League, whose cities — Tibur, Praeneste,
+Aricia, Lanuvium, Tusculum, Ardea — sit inside and around the ager Romanus at ten to twenty kilometres.
+**`gr-698` the Third Sacred War** sets Phocis against the Amphictyony, and the Phocis-Boeotia frontier is
+about fifteen kilometres from Chaeronea. A dashed extent says *about here*; it cannot say *this village
+and not the next one*, and two washes drawn at that scale would be a picture somebody invented.
+
+#### The nine that are open
+
 - **Seven American** — `us-051` through `us-082`. Every one is a Native nation or confederacy against a
   colony or the United States, and none of those nations has a shape on any map Folio holds, so all of
   them need authored extents. They also want the collection's own scope decisions read first: the plan
@@ -259,12 +269,12 @@ The 27 open ones, and what each needs:
   a continent being taken is a claim to make carefully or not at all.
 - **`wh-518` Hundred Years' War** — England against France, 1337–1453. The trap is that `world.js` has
   **United Kingdom** and not England, and Scotland was France's ally, so `keys` would shade the wrong
-  island; it needs authored extents. And its years fall before 1500, so the personal atlas has no era map
-  for it — the authored extents are what would draw there.
-- **`ww2-159` Winter War** — the one that could be `keys` tomorrow (USSR and Finland are both on the 1938
-  map and on `world.js`). It is not done because **the card's own prose does not name a victor**: it says
-  Finland held out and that the peace cost it territory. Rule 5 is that the block rests on the card's own
-  cited prose, so this one wants the card to settle the outcome first.
+  island; it needs authored extents. Its years also fall before 1500, so the personal atlas has no era
+  map for it and those extents are the only thing that would draw there.
+- **`ww2-159` Winter War** — the one that could be `keys` tomorrow, the USSR and Finland both being on
+  the 1938 map and on `world.js`. It is not done because **the card's own prose does not name a victor**:
+  it says Finland held out and that the peace cost it territory. Rule 5 is that the block rests on the
+  card's own cited prose, so this one wants the card to settle the outcome first.
 
 The rest of the corpus's wars are open ground. Adding one is a batch through
 `node .claude/add-card-wars.js <batch.json>`; `--names=<year>` prints every territory name that era's map

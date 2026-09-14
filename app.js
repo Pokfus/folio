@@ -34056,9 +34056,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            (w.victors.area ? ' data-war-varea="' + warRingsAttr(w.victors.area) + '"' : "") +
            (w.losers.keys.length ? ' data-war-l="' + esc(w.losers.keys.join("|")) + '"' : "") +
            (w.losers.area ? ' data-war-larea="' + warRingsAttr(w.losers.area) + '"' : "") : "") +
-      // ONE zoom attribute for both, the war's winning where a card carries both: the window's subject
-      // is the war, and a locator's own zoom was chosen to frame a dot
-      ((w && w.zoom) || (l && l.zoom) ? ' data-map-zoom="' + ((w && w.zoom) || l.zoom) + '"' : "") + ">" +
+      /* ONE zoom attribute for both, and ON A WAR WINDOW THE LOCATOR'S OWN ZOOM IS IGNORED OUTRIGHT
+         rather than used as a fallback. It was a fallback for an hour and `rm-153` showed what that
+         costs: the Second Samnite War carries a `zoom: 8` chosen to frame the town of Neapolis, which
+         overrode the fit the two sides had just computed and opened the card on the whole Mediterranean
+         with Rome and Samnium a smudge in the middle of it. A locator's zoom was chosen to frame a DOT;
+         the window's subject here is the war, so the only zoom that may override the war's own fit is
+         the war's own. */
+      ((w ? w.zoom : l && l.zoom) ? ' data-map-zoom="' + (w ? w.zoom : l.zoom) + '"' : "") + ">" +
       '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
       '<div class="mc-zoom">' +
       '<button type="button" class="mc-btn" data-mc="in" aria-label="Zoom in" title="Zoom in">+</button>' +

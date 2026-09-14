@@ -1143,7 +1143,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.30 MB and 48,263 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.30 MB and 48,268 lines is hard to find your way around, so this
   lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -3662,8 +3662,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Atlas popup's `noLocator` keeps it.
   **IT RIDES IN THE LIGHT HALF OF `data.js`, BESIDE `locator`, AND HAS TO** — `atlasUnlocks` walks every
   studied card, and a `war` in the heavy half would put a war on the personal globe only when that
-  collection's extra file happened to be loaded. It is not free: **18 blocks cost the eager path about
-  10 KB gzipped**, so measure with `check-sizes.js` after a big batch.
+  collection's extra file happened to be loaded. **34 blocks cost the eager path 5.2 KB gzipped**, about
+  155 bytes each. **MEASURE THAT BY GZIPPING `data.js`, NOT OFF `check-sizes.js`**, whose display is
+  rounded to hundredths of a megabyte: the first batch was written up here as "about 10 KB" because a
+  2 KB change showed as 0.01 MB, which is a figure five times too big taken off a tool that was right.
   **KNOWN LIMIT, STATED RATHER THAN PAPERED OVER: on a card's own window a named side is drawn in
   PRESENT-DAY borders**, `world.js` being the only shape layer a locator window loads — so the Second
   World War card shades modern Russia for the USSR and leaves Ukraine and the Baltic states grey. The
@@ -3674,13 +3676,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the war block in `startCardGlobe`'s `draw()` / `warSides` / `warDrawable` / `fitTarget`'s `ext` /
   `atlasUnlocks`' war branch / `mineMarks` / `mineWarShapes` / `drawMineWar` / `mineAt` /
   `serializeCardData` / `revertCard` / `.claude/card-war.js`, or after a batch of war blocks.**
-  **COVERAGE, AND THREE QUARTERS OF WHAT IS "MISSING" IS THE RULES WORKING.** Of the 68 answer terms in
-  the corpus containing "war", 18 carry a block; of the other 50, **three are not wars** (the war
-  elephant, the Art of War, a declaration of war), **six had no decided outcome** and **fourteen put both
-  sides on one ground** (the Servile Wars, the Roman civil wars, the two Social Wars). **27 are genuinely
-  open** and every one needs an authored extent — the Messenian and Samnite wars, the Spanish wars, the
-  seven American ones, the Hundred Years' War. `ww2-159` the Winter War is the one that could be `keys`
-  tomorrow and is not, because the card's own prose does not name a victor.
+  **AND TWO AUTHORED EXTENTS MAY NOT OVERLAP**, which is the `keys` rule in geometry and which the eye
+  does not catch: `checkWar` sweeps a grid for it, and found three on the day it was written — Roman
+  Hispania against Lusitania, Laconia against Messenia, Rome against Samnium. **Where a frontier is
+  uncertain, leave a GAP rather than an overlap.**
+  **COVERAGE, AND ALMOST ALL OF WHAT IS "MISSING" IS THE RULES WORKING.** Of the 68 answer terms in the
+  corpus containing "war", 34 carry a block; of the other 34, **three are not wars** (the war elephant,
+  the Art of War, a declaration of war), **six had no decided outcome**, **fourteen put both sides on one
+  ground** (the Servile Wars, the Roman civil wars, the two Social Wars) and **two are too interleaved to
+  draw** — `rm-142` the Latin War and `gr-698` the Third Sacred War, whose belligerents sit inside each
+  other at ten to twenty kilometres, which is the Strait of Messina finding at a different scale. **Nine
+  are genuinely open**: the seven American wars, the Hundred Years' War, and `ww2-159` the Winter War,
+  which could be `keys` tomorrow and is not because the card's own prose does not name a victor.
   **📖 `docs/war-cards.md` — READ BEFORE ADDING A WAR BLOCK OR CHANGING HOW ONE IS DRAWN.** The five
   decisions in full, the remainder broken down card by card with what each needs, the findings from
   authoring the extents (above all that the toe of Italy
@@ -5555,8 +5562,8 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
     written to the card; the 26 extents shipped were checked against 573 of them, and
     `test-war-cards.js` pins a readable subset so a shipped extent edited later fails too. **Compose a
     side's "out" list GEOMETRICALLY rather than by name** — Catania is in Sicily and no table named it,
-    so Rome in 218 BCE was briefly asserted not to cover it. The 26 extents shipped
-    were checked against 620.
+    so Rome in 218 BCE was briefly asserted not to cover it. The 37 extents shipped
+    were checked against 1,037.
   · The years come off the card's own date line; `years: [from, to]` (negative for BCE) is the override
     for a card whose line counts something other than the war, and `zoom` the override for a frame the
     union of the two sides chooses badly. Written onto a card already shipped with
