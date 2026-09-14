@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C26 — six capitals, two more countries missing from the weather index, and the first two UN profiles that say what their capital figure counts**: `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain and `gw-658` Nicosia, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-14, batch C25 — six capitals, a weather record with an entirely blank month, and a constitution that files its capital among the national symbols**: `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga and `gw-652` Skopje, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C24 — six capitals, three constitutions that say nothing at all, and two draft constitutions that never came into force**: `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-645` Chișinău and `gw-646` Tirana, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -436,6 +438,61 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C26 found
+
+**A UN CAPITAL FIGURE CAN SAY WHAT IT COUNTS, AND TWO DID IN ONE BATCH AFTER ABOUT A HUNDRED AND FIFTY
+CARDS OF SILENCE.** Bahrain's row is footnoted “Refers to the urban area of the municipality of
+Al-Manamah” and Trinidad and Tobago's “Data refers to the urban agglomeration” — the first two
+capital-city figures in the whole pass that carry a DEFINITION as well as a date. Every earlier batch
+recorded the opposite finding (a year and nothing else), which was true of what it had met and was
+never a rule. **Read the footnote letters on the capital row before writing the sentence**: the
+finding is per country, not per table.
+
+**AND ONE PROFILE CAN MEASURE ITS COUNTRY THREE WAYS AT ONCE.** Cyprus's footnotes carry “Refers to
+the whole country”, “Excluding northern Cyprus” and “Data refer to government controlled areas”, each
+attached to different rows of the same page. A card that quotes one figure from such a profile without
+saying so is quoting a scope it has not checked.
+
+**TWO MORE COUNTRIES ABSENT FROM THE WMO INDEX, in the batch after the first one was met.** Neither
+Kosovo nor Timor-Leste has a row in the list of 3,598 cities, so Pristina and Dili have no
+international weather record of any kind — which with Equatorial Guinea in C25 makes three in two
+batches. **This is now an ordinary outcome rather than a curiosity, and the recipe has an answer for
+it**: Kosovo's own hydrometeorological institute publishes monthly means for three stations, the
+capital among them, for 2001 to 2019, and the card rests on that and on an open air-quality paper
+instead.
+
+**A URL WITH PARENTHESES IS CITABLE ONCE THEY ARE PERCENT-ENCODED, AND THAT IS WHAT MADE THE PRISTINA
+CARD POSSIBLE.** The Kosovo institute's own PDF is served at a path ending `_(1).pdf`, which
+`SRC_URL_RX` truncates at the first bracket; `%281%29` resolves, matches the pattern whole, and
+returns the same 1.4 MB file. **Encode, do not reject** — the rule CLAUDE.md records for Commons pages
+applies to any official document whose filename carries a bracket.
+
+**THE WMO INDEX NAMES TWO OF THIS BATCH'S CITIES IN SHAPES A PLAIN LOOKUP MISSES.** Manama's row is
+filed as a single country/city string and Port of Spain's carries its island in brackets, as does
+Scarborough beside it. Neither is findable by searching the city's name alone against the second
+field. **Search the index on the COUNTRY column and read the rows**, which is also how Lesotho's
+airfield was found in C25.
+
+**A CLIMATOLOGICAL NORMAL CAN BE TEN YEARS LONG.** Nicosia's record states 2002 to 2011, against the
+thirty-year windows the rest of this batch carries (1961–1990 twice, 1971–2000 once). The card says
+so rather than presenting it as a normal like any other.
+
+**AND THE NATIONAL AGENCY CAN BE A GENERATION AHEAD OF THE WMO RECORD IT FEEDS.** Estonia's WMO table
+is 1971 to 2000; the Estonian Environment Agency publishes 1991 to 2020 for the same city. **The two
+are not comparable term for term** — the WMO gives mean maxima and minima, the agency gives mean
+temperature — so the card gives each on its own terms and compares only the one quantity both state,
+the annual precipitation (693 mm against 700 mm). **A newer table is not a correction of an older one
+unless it measures the same thing.**
+
+**FOUR MORE CONSTITUTIONAL SHAPES, and one of them repeats across the Caribbean.** Trinidad and
+Tobago's 1976 text, like Jamaica's in C24, names no capital and legislates instead about “the seat of
+government”, unnamed, in a clause about an officer being absent from it — **the same Westminster
+clause in two constitutions**, which is worth expecting in the others of that family. Cyprus names its
+city three times and never as a capital (twice as where the 1960 draft was signed, once among the five
+towns getting separate municipalities). Kosovo names it and hands its status to law. Estonia's text
+does not contain the word capital at all, in any sense — the second such after Lesotho in C25 — and
+Bahrain's and Timor-Leste's use it only of money and of the death penalty.
 
 ## What C25 found
 
