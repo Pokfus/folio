@@ -1065,6 +1065,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a fully cited corpus as uncited (2,965 cards, 0 at the bar), and `card-focus.js` reported every card
     0/0 with nothing to revise, **which is indistinguishable from a corpus that has just been cleaned
     up**. Six helpers were in that state a fortnight after the split.
+  · **`writeCards` SPLICES THE COLLECTION TREE BACK VERBATIM AND IGNORES THE `tree` IT WAS HANDED**
+    (Sep 2026, clearing the Visual Art collection). That is deliberate — re-serialising the tree would
+    reformat thousands of lines for a one-card change — but it means **the tree cannot be edited through
+    `card-io.js` at all**, and nothing says so: a helper that mutates the tree it got from `loadCards()`
+    and then calls `writeCards` reports success and writes none of it. Ten retired cards stayed
+    registered in `art-iceage.cardIds` that way, and the Collections page went on counting them —
+    "10 of 1,000" beside one real card, with `data.js` parsing perfectly and every suite green. **Edit
+    the tree as TEXT in `data.js`**, and afterwards sweep for a registered id with no card behind it,
+    which is the shape this produces:
+    `node -e "global.window={};require('./data.js');const ids=new Set(window.CARD_DATA.map(c=>c.id));const bad=[];(function w(n){(n.cardIds||[]).forEach(i=>{if(!ids.has(i))bad.push(i)});(n.children||[]).forEach(w)})({children:window.COLLECTION_TREE.collections});console.log(bad)"`
   · **A WRITER THAT REBUILDS `data.js` FROM A TEMPLATE OF ITS OWN IS WRITING A BUG** — it drops the
     rejoin block, which breaks every helper that requires the file. `writeCards` owns that block so it
     cannot be forgotten, and refuses a light-half write outright rather than serialising 13.7 MB of

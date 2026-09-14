@@ -10651,7 +10651,7 @@ window.COLLECTION_TREE = {
     {
       "id": "art",
       "title": "Visual Art",
-      "total": 10,
+      "total": 1,
       "children": [
         {
           "id": "art-early",
@@ -10663,16 +10663,6 @@ window.COLLECTION_TREE = {
               "title": "Ice Age art, before 10,000 BCE",
               "total": 20,
               "cardIds": [
-                "art-001",
-                "art-002",
-                "art-003",
-                "art-005",
-                "art-004",
-                "art-006",
-                "art-007",
-                "art-008",
-                "art-009",
-                "art-010",
                 "art-001"
               ]
             },
