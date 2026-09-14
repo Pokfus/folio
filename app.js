@@ -15022,7 +15022,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      "−−129 °F". U+2212 only, deliberately — a hyphen or an en dash in that position is a range separator
      ("10–7 kilometres"), and swallowing one would take the first figure of the range with it. */
   const U_SIGN = "−?";
-  const U_RUN = "(" + U_SIGN + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)";
+  /* A RUN MAY NOT BEGIN INSIDE A WORD, and the lookbehind is the whole of what stops it. U_NW lists the
+     ARTICLE and the small number WORDS ("a", "an", "one"), which carry no boundary of their own, so the
+     last letters of Afric|a, me|an and limest|one were read as the number one and the run swallowed the
+     prose after them: "1,930 kilometres (1,200 miles) from Africa and 2,900 kilometres (1,800 miles)"
+     rendered in imperial as "1,200 miles from Afric1,800 miles". It corrupts text for the IMPERIAL reader
+     only, which is why nothing caught it — the authored metric view is untouched — and it reached 48 text
+     nodes across the shipped corpus. Measured before and after: 48 restored, 0 shortened, metric mode
+     byte-for-byte identical. It is a plain class rather than \p{L} because these patterns carry no u flag. */
+  const U_RUN = "(?<![A-Za-z\u00C0-\u024F])(" + U_SIGN + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)";
   /* A RATE carries a denominator between the unit and the bracket ("300 kilometres an hour (190 miles an
      hour)"), which the whitespace-only gap could not cross — so the bracket was invisible and BOTH figures
      were shown to a metric reader. It is captured rather than tolerated: metric keeps it, since dropping it
