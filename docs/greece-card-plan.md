@@ -1066,12 +1066,18 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-781  Seleucia on the Tigris
     gr-782  Ai-Khanoum
     gr-783  The Greco-Bactrian Kingdom
-    gr-784  The Indo-Greek Kingdom
+    gr-784  The Indo-Greek Kingdom  — its glossary term `Indo-Greek_Kingdom` ALREADY EXISTED when the
+             card was written, cited and illustrated, so the pairing rule was satisfied without a new
+             entry: check before running add-glossary.js, which overwrites in silence
     gr-785  Menander I
     gr-786  The Milindapanha
-    gr-787  The Celtic invasion of Greece
+    gr-787  The Celtic invasion of Greece  — answered by "Gallic invasion of Greece", the name the
+             sources and the modern literature use; "Brennus" was considered and refused, the glossary
+             already holding a Brennus, the Gaul who sacked Rome
     gr-788  The Galatians
-    gr-789  Attalid Pergamon
+    gr-789  Attalid Pergamon  — answered by "Attalid dynasty", chosen when the card was written: the
+             line names a city and a house together, and the house is the thing a reader meets again,
+             while the altar on that acropolis is the next card
     gr-790  The Great Altar of Pergamon
     gr-791  The Library of Pergamon
     gr-792  Antiochus III
