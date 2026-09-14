@@ -347,6 +347,58 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch H2 — five more of the world deck's opening, and the seam that makes this pass
+  affordable**: `gw-004` Indonesia, `gw-006` Nigeria, `gw-009` Russia, `gw-010` Ethiopia and `gw-011`
+  Mexico. With H1 that is nine of the deck's first eleven; `gw-007` Brazil is deferred, for a reason
+  below. All five clear both bars. Three date lines were rewritten with them and two were not.
+
+  · **THE CORPUS IS ITS OWN BEST SOURCE, AND THIS IS THE FINDING TO USE FIRST.** Folio has 3,215 cards,
+    and the World History collection alone has 560 covering exactly the eras a country card's history
+    block needs — each one already researched, cited to an openable URL, and checked against Crossref.
+    Grepping `data.js` for cards whose answer term names a region gave `wh-554` Srivijaya and `wh-555`
+    Majapahit for Indonesia, `wh-419` Nok for Nigeria, `wh-448` Kievan Rus’ for Russia, `wh-418` Aksum
+    and `wh-455` the Ethiopian Orthodox Church for Ethiopia, and `wh-424` Olmecs, `wh-428` Maya and
+    `wh-431` Teotihuacan for Mexico. **Eleven of this batch's fifteen new citations came out of the
+    corpus rather than off the network**, and they are MODERN open scholarship where a colonial-era
+    survey would otherwise have had to carry the deep past. Do this before opening a search engine.
+  · **A COLONIAL OFFICIAL'S HISTORY IS STILL THE ONLY SURVEY FOR SOME COUNTRIES, AND IT IS CITED FOR
+    CHRONOLOGY AND NOTHING ELSE.** Nigeria's middle three sentences rest on A. C. Burns's *History of
+    Nigeria* (1929), written by the colony's own Deputy Chief Secretary — which is a state's account of
+    its own actions, the thing CLAUDE.md says may not be repeated as established fact. It is used for
+    what it can be checked on: which kingdoms stood where, and that the northern and southern
+    protectorates were joined on 1 January 1914. **Nothing interpretive is taken from it**, the revolt
+    against Gobir is given without Burns's own 1802 date (the conventional date is 1804 and the
+    disagreement is not this card's to settle), and the deep end of the card rests on the Nok
+    archaeology instead. The modern open alternatives were looked for and are thin: DOAJ returns water
+    chemistry and paediatric surgery for *Benin City*, and the two modern papers that do exist — one in
+    *Religions* on Kanem-Bornu, one in *Afriques* on Ile-Ife — are about present-day framing and the
+    history of archaeology rather than about when those states stood.
+  · **A HISTORY THAT REACHES BACK PUTS A CAPITAL BACK IN THE PROSE, AND RULE 2 CATCHES IT.** `gw-009`
+    Russia reported a grid repeat the moment its history block was written: the rise of Moscow IS the
+    history of the Russian state, and Moscow is both the Capital and the Largest city cell. It is
+    DECLARED in `gw-audit.js`'s `ADJUDICATED` table with the reason beside it — the medieval principality
+    that gathered the others in, not the capital cell — which is the third row of that kind, beside
+    `gw-002`'s Shanghai and `gw-151`'s Gulf of Riga. **Expect one of these per batch**: the country whose
+    capital was the polity that made it is the ordinary case, not the exception.
+  · **`gw-007` BRAZIL IS DEFERRED, AND THE REASON IS A SOURCE GAP RATHER THAN A JUDGEMENT.** Its history
+    wants 1500, the sugar and gold economies, the court's move to Rio in 1808, independence in 1822 and
+    the republic of 1889, and nothing openable from here carries that arc: Southey's *History of Brazil*
+    is on archive.org only as its third volume and stops around 1801, the Story of the Nations volume has
+    no text layer, and DOAJ's Brazilian history is in Portuguese and topic-by-topic rather than a survey.
+    It waits on reading rather than on a decision, like `gw-695` Saint Helier one section up.
+  · **WHAT ETHIOPIA'S CARD LOST IS WORTH STATING.** Its old second block opened with two excellent
+    geography sentences — a third of the country drains into the Nile, and the highlands supply about
+    85 per cent of the water reaching Lake Nasser — which were in the history half because the history
+    half was thin. The house shape is five and five and block 1 was already full, so they are gone, and
+    the two citations that stood only on them went with them. **A card that was carrying geography in its
+    history block will lose that geography; say so rather than quietly dropping it.**
+  · **THREE DATE LINES WERE REWRITTEN AND TWO WERE NOT, on the rule H1 set.** Indonesia gained the 1945
+    declaration beside the 1949 recognition, Nigeria the 1914 amalgamation beside 1960, and Ethiopia's
+    was replaced outright — it read `Italy invades 1895 and 1935 / Eritrea leaves 1993`, which is three
+    dates of which two are another country's actions, and now reads Aksum, the conversion and 1993.
+    Russia's and Mexico's already named the dates their prose turns on. **A label is at most 16
+    characters**, which `set-date-line.js` refuses twice before you remember it.
+
 - **2026-09-14, batch H1 — the first four history paragraphs rewritten to cover a whole history, and two
   findings that are larger than the batch**: `gw-001` India, `gw-002` China, `gw-005` Pakistan and
   `gw-008` Bangladesh, the top of the world deck's running order and the four worst cases in it. India's
