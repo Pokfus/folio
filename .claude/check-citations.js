@@ -198,6 +198,12 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // The USGS Publications Warehouse catalogue record for this open-file report misspells
+  // its first author, and Crossref relays the deposit. The report itself prints "by D. G.
+  // Jordan and O. J. Cosner" on its title page, and its own Selected References list a
+  // 1963 paper by "Ward, P. E., and Jordan, D.G." — two places inside the document, both
+  // Jordan. The catalogue is the one that is wrong.
+  ["10.3133/ofr72201", "D. G. Jordan", "D.G. Jordon"],
   // DergiPark deposited this byline in Turkish CAPITALS, and the all-caps form cannot keep
   // the dotless i: Crossref carries "GOKBAYIR" with a dotted I, where the journal's own
   // article metadata (citation_author) prints "Gokmen Gunay Gokbayir" with the dotless one.

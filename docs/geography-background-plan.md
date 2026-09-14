@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C32 — six island capitals, four of whose countries keep no station at all in the world weather index, and a constitution that provides for a capital without naming one**: `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown and `gw-697` Saint John's, with all six date lines rewritten off the same research. Six again, for C2's reason. `gw-695` Saint Helier stays deferred.
+
 - **2026-09-14, batch C31 — six island capitals, a weather record with every cell in it blank, and a profile that names a different place as the capital**: `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria and `gw-690` Saint George's, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-14, batch C30 — six island capitals, two French territories with no constitution of their own, and two constitutions that name their city once and only as a place where a document was signed**: `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé and `gw-684` Apia, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -448,6 +450,77 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C32 found
+
+**FOUR OF THE SIX COUNTRIES KEEP NO STATION AT ALL IN THE WORLD WEATHER INDEX, and that is a
+measurement rather than an impression.** The index holds 3,597 cities. Searched on both the country
+and the city column, the Federated States of Micronesia, Tonga, Saint Vincent and the Grenadines and
+the Virgin Islands return nothing whatever — no Pohnpei, no Chuuk, no Yap, no Kosrae, no Tongatapu,
+no Kingstown, no Saint Thomas. Only two of this batch's capitals are in it, and one of those is filed
+under a country it is not in. The pass has met absent countries before, one or two at a time; a batch
+in which two thirds of them are missing says something about which parts of the world the index
+covers, and it is worth stating on the card rather than passing over in silence. Pohnpei is among the
+wettest places on earth and publishes nothing there.
+
+**A CAPITAL FILED UNDER TWO OTHER COUNTRIES' NAMES, NEITHER OF THEM ITS OWN.** C31 met a two-country
+country field — `Curaçao and Sint Maarten` — on Willemstad, which is at least in one of the two.
+Oranjestad is in neither. CityId 1829 is headed `Curaçao and Sint Maarten`, and its coordinates,
+12.5 N and 70.0 W, are Aruba's. **THE COORDINATES ARE WHAT SETTLE IT, AND THEY HAD TO BE READ**: there
+is a second Oranjestad, on Sint Eustatius at 17°29' N, and a name match alone cannot tell the two
+apart. The record also carries `isCapital: false` for a capital city, repeats C31's misspelt
+presenting body (`Meteteorological Department Curacao`), and gives no normals period at all while
+carrying a full twelve months of figures — three faults in one record.
+
+**A CONSTITUTION THAT PROVIDES FOR A CAPITAL AND DECLINES TO NAME ONE.** The Micronesian constitution
+never says Palikir. What it does instead is new to the taxonomy: among the powers Article IX, section
+2 expressly delegates to Congress, between acquiring new territory and regulating natural resources,
+is **the power to govern the area set aside as the national capital**. The document establishes the
+office of a capital district and leaves the choosing to be done afterwards — which is what happened,
+the seat moving from Kolonia to a purpose-built site at Palikir. The geology report drilled the wells
+for that site and calls it *the new FSM capitol site*, which dates it without any need to reach for a
+secondary source.
+
+**AND ONE THAT NAMES NO CAPITAL, NO SEAT AND NO MEETING PLACE — not one of the three words.** The
+Staatsregeling van Aruba is not in the Constitute index, so it was read in the Aruban government's own
+Centraal Wettenregister text (AB 1987 no. GT 1) on archive.org. `Oranjestad`, `hoofdstad`, `zetel` and
+`vergaderplaats` all return zero. The pass has met total silence before (the Bahamas, Vanuatu, Samoa,
+Lesotho, Estonia), but always in English-language Westminster texts where the word `capital` at least
+appears in some other sense. Here the whole family of words is absent.
+
+**THE WESTMINSTER SEAT-OF-GOVERNMENT CLAUSE AT SECTION 22 FOR THE THIRD TIME, AND THE SAME CLAUSE AT
+25.** Saint Vincent and the Grenadines carries the clause at **section 22**, word for word and at the
+same number as Saint Lucia and Grenada in C31 — three constitutions, one section number. Its single
+use of the word `capital` is **capital raised**, C29's Saint Lucia and C31's Brunei a third time.
+Antigua and Barbuda carries the same clause at **section 25** instead, and does not use the word
+`capital` anywhere at all, not even of punishment: a Westminster constitution in which the word simply
+does not occur.
+
+**THE CATALOGUE RECORD AND THE REPORT DISAGREE ABOUT THE AUTHOR'S NAME, AND THE REPORT WINS.** The
+USGS Publications Warehouse files Open-File Report 72-201 under `Jordon, D.G.`, and Crossref relays
+that deposit, so `check-citations.js` reported a surname mismatch. The report's own title page prints
+**by D. G. Jordan and O. J. Cosner**, and its own Selected References list a 1963 paper by
+*Ward, P. E., and Jordan, D.G.* — two places inside the document, both Jordan. Declared in
+`CROSSREF_WRONG` with that reasoning. **The rule holds: read the article's own byline, not the
+catalogue's index of it.**
+
+**A SOURCE CAN BE INTERNALLY INCONSISTENT, AND A CARD MUST NOT REPRINT THE INCONSISTENCY.** The Pohnpei
+rainfall report states that the island's gauges differ *by as much as 150 inches*, and states on the
+same page that the lowest annual total is about 120 inches and the highest about 300. Those are 180
+inches apart, not 150. A first draft of `gw-691` put the spread and the two extremes in one sentence,
+which invites the reader to do the subtraction and find it wrong. **The two measured extremes are the
+defensible figures and the derived spread is not**, so the clause went and the extremes stayed. Nothing
+in the pipeline can see this; only reading the card back can.
+
+**WHAT THE READ-BACK CAUGHT THIS TIME, and two of the six were claims no checker could have seen.**
+Nuku'alofa's tilt was written as carrying the land down towards the capital's coast — true, and sourced
+only to a report whose PDF extraction is a substitution cipher, so the clause went and the paper's own
+73 per cent population figure took its place. A clause saying salinization is worst *at the villages
+nearest the shore* came from a search summary rather than from the paper, which says the risk depends
+on a well's distance from the centre of the well field and from the lagoon; rewritten to that. Saint
+John's was placed *at the western end of the central plain*, which the FAO source does not say, so the
+card now gives the coordinates the weather record carries instead. And `gw-692` said the island became
+a country of the Kingdom *in 1986* on the strength of a page that gives no date at all.
 
 ## What C31 found
 
