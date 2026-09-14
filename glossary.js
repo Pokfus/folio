@@ -3739,7 +3739,17 @@ window.GLOSSARY = {
 "Emperor_Guangwu_of_Han": "<b>Emperor Guangwu</b> is the temple style of Liu Xiu, who restored the Chinese Han dynasty in 25 CE and reigned until 57.<sup class=\"fn\" data-fn=\"1\"></sup> A provincial landholder descended at some remove from an earlier Han emperor, he joined the risings against the usurper Wang Mang, made his name by destroying an imperial army at Kunyang in 23 CE, and was proclaimed emperor by his own officers two years later.<sup class=\"fn\" data-fn=\"1\"></sup> He spent a further eleven years reducing rival claimants, moved the capital to Luoyang, and rebuilt the imperial university there in 29 CE with fourteen professors of the classics.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Luoyang": "<b>Luoyang</b> is a city on the Luo river in western Henan, in northern China, and one of the longest-serving capitals in Chinese history.<sup class=\"fn\" data-fn=\"1\"></sup> The Zhou kings moved their court there in the 8th century BCE, it was the seat of the Han empire from 25 to 190 CE, and later dynasties governed from it again, so the ground east of the modern town carries the remains of successive walled capitals.<sup class=\"fn\" data-fn=\"1\"></sup> Under the Han it held the palaces, the ministries and an imperial university founded in 29 CE, and it was burned in 190 CE when a warlord forced the court to move west.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Protectorate_of_the_Western_Regions": "The <b>Protectorate of the Western Regions</b> was the office through which the Chinese Han empire dealt with the oasis kingdoms between the Jade Gate and the Pamirs, created in 60 BCE when a general already commanding a military colony there was made protector general.<sup class=\"fn\" data-fn=\"1\"></sup> Its holder did not govern those states but confirmed their kings, judged between them and maintained garrisons and postal stages, against a Xiongnu confederacy competing for the same allegiance.<sup class=\"fn\" data-fn=\"2\"></sup> Expensive and remote, the post lapsed and was revived repeatedly, standing empty from 9 CE, restored in 74, abandoned again after 77, revived in 91 and given up in 107.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Red_Eyebrows": "The <b>Red Eyebrows</b> were a peasant army that rose in eastern China in 18 CE against the usurper Wang Mang, taking their name from the dyed eyebrows by which they told one another from government troops.<sup class=\"fn\" data-fn=\"1\"></sup> Led by Fan Chong, they grew out of a countryside in which smallholders had lost their land to debt, kept no formal ranks or order of battle but forbade killing without cause, and destroyed two imperial armies before marching on the capital and installing an emperor of their own.<sup class=\"fn\" data-fn=\"2\"></sup> They were broken in 27 CE.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Red_Eyebrows": "The <b>Red Eyebrows</b> were a peasant army that rose in eastern China in 18 CE against the usurper Wang Mang, taking their name from the dyed eyebrows by which they told one another from government troops.<sup class=\"fn\" data-fn=\"1\"></sup> Led by Fan Chong, they grew out of a countryside in which smallholders had lost their land to debt, kept no formal ranks or order of battle but forbade killing without cause, and destroyed two imperial armies before marching on the capital and installing an emperor of their own.<sup class=\"fn\" data-fn=\"2\"></sup> They were broken in 27 CE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Will_of_Julius_Caesar": "The will of Julius Caesar was the testament he made in September 45 BCE, left in the keeping of the chief of the Vestal Virgins and unsealed and read after his murder in March 44 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It named three heirs among the grandsons of his sisters, giving Gaius Octavius three-quarters of the estate and the remainder to Lucius Pinarius and Quintus Pedius, and at its close it adopted Octavius into the family and gave him the name.<sup class=\"fn\" data-fn=\"1\"></sup> It also left the people the gardens by the Tiber and 300 sesterces a man, although a later summary of Livy makes the principal heir's share half the estate rather than three-quarters.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"War_of_Mutina": "The War of Mutina was fought in northern Italy in 43 BCE between Mark Antony and the armies of the Roman senate, after Decimus Brutus refused to give up Cisalpine Gaul and shut himself in the town of Mutina.<sup class=\"fn\" data-fn=\"1\"></sup> Two battles were fought, the first at Forum Gallorum in marshland and the second at Mutina itself, and Antony was beaten and withdrew across the Alps.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Both consuls died, Aulus Hirtius in the fighting and Gaius Vibius Pansa of a wound, which left the victorious armies under the command of Caesar's young heir and brought him the consulship later that year.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Second_Triumvirate": "The Second Triumvirate was a Roman magistracy of three men created by a law of 43 BCE and held by Mark Antony, Marcus Aemilius Lepidus and Caesar's heir Octavian for a term of five years with the power of consuls.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its holders divided the western provinces among themselves, named the magistrates of the city for the whole term, and published a proscription that condemned several hundred senators and knights.<sup class=\"fn\" data-fn=\"1\"></sup> The term was renewed once, so that Octavian held the office for about ten years, during which the three defeated the killers of Caesar in Macedonia and afterwards fell out among themselves.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Triumviral_proscription": "The triumviral proscription was the list of Roman citizens declared outlaw by Mark Antony, Lepidus and Octavian in 43 BCE, published with a reward for every head brought in.<sup class=\"fn\" data-fn=\"1\"></sup> Its edict offered 25,000 Attic drachmas to a free man and freedom with 10,000 drachmas to a slave, made anyone who sheltered a condemned man liable to the same penalty, and kept the names of those paid out of the registers.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient estimates of the scale differ, one account giving about 300 senators and 2,000 knights while a summary of Livy names 130 senators, and the confiscations helped pay for the war that followed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Death_of_Cicero": "The death of Cicero took place in 43 BCE, when the Roman orator and former consul was proscribed by the triumvirs and overtaken by soldiers near Caieta on the coast of Latium.<sup class=\"fn\" data-fn=\"1\"></sup> The accounts agree that he was being carried in a litter towards the sea when the pursuers came up, that he told his servants to set it down, and that he was killed in his 64th year.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His head and the hands that had written his speeches against Mark Antony were carried to Rome and displayed on the rostra, the platform from which he had addressed the people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Battle_of_Philippi": "The Battle of Philippi was fought in Macedonia in 42 BCE between the armies of Mark Antony and Octavian and those of Marcus Junius Brutus and Gaius Cassius Longinus, the leaders of the conspiracy against Julius Caesar.<sup class=\"fn\" data-fn=\"1\"></sup> It was two engagements some weeks apart, and in the first each side won on its own right wing, after which Cassius, believing everything lost, had himself killed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In the second Brutus was beaten and took his own life, which ended organised armed resistance to the triumvirs and left the Roman world divided between Antony and Octavian.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Perusine_War": "The Perusine War was fought in Italy in 41 and 40 BCE between Octavian and Lucius Antonius, consul and brother of Mark Antony, over land taken from Italian towns for the veterans of Philippi.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Lucius took up the cause of the dispossessed communities, was driven from the field and was besieged in the Etruscan city of Perusia through the winter until hunger forced a surrender.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He and his soldiers were spared, but the town council was put to death and the city burned, and later writers repeat a report that 300 prisoners were sacrificed at an altar to the deified Caesar.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Pact_of_Brundisium": "The Pact of Brundisium was the agreement of 40 BCE by which Mark Antony and Octavian settled the quarrel left by the Perusine War, made at the Italian port of Brundisium through deputies the two armies chose themselves.<sup class=\"fn\" data-fn=\"1\"></sup> It granted an amnesty for the past and divided the Roman world between them on a line in the Adriatic, giving Antony the provinces east to the Euphrates and Octavian those west to the ocean, with Africa left to Lepidus.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It was sealed by the marriage of Octavian's sister Octavia to Antony, and it assigned the war against Sextus Pompey to Octavian and a campaign against Parthia to Antony.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Sextus_Pompey": "Sextus Pompey was a Roman commander, the younger son of Pompey the Great, who gathered a following in Spain after his father's defeat and was recalled by the senate in 43 BCE to guard the coasts.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He seized Sicily, manned his fleets with slaves and with his father's freedmen, sheltered men condemned in the proscriptions, and from the islands held the western sea and cut the grain route to Italy.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The blockade forced the triumvirs to treat with him, and after a naval defeat off Sicily he fled to Asia, where he was captured and put to death by an officer of Mark Antony.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Gaius_Cassius_Longinus": "Gaius Cassius Longinus was a Roman senator and praetor of 44 BCE who is named with Marcus Junius Brutus as a leader of the conspiracy that killed Julius Caesar in that year.<sup class=\"fn\" data-fn=\"1\"></sup> An ancient account says Caesar preferred Brutus to him for the city praetorship and that he resented it, while denying that the slight caused the plot and tracing his hatred of tyrants to his schooldays.<sup class=\"fn\" data-fn=\"1\"></sup> After the murder he took Syria and raised armies and revenues in the East, and at Philippi in 42 BCE, seeing his own camp taken and believing the day lost, he had his shield-bearer kill him.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5631,7 +5641,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Eastern_Han": "25 – 220 CE",
 "Emperor_Guangwu_of_Han": "r. 25 – 57 CE",
 "Protectorate_of_the_Western_Regions": "60 BCE – 107 CE, intermittently",
-"Red_Eyebrows": "18 – 27 CE"
+"Red_Eyebrows": "18 – 27 CE",
+"Will_of_Julius_Caesar": "45 BCE",
+"War_of_Mutina": "43 BCE",
+"Second_Triumvirate": "from 43 BCE",
+"Triumviral_proscription": "43 BCE",
+"Death_of_Cicero": "43 BCE",
+"Battle_of_Philippi": "42 BCE",
+"Perusine_War": "41 BCE – 40 BCE",
+"Pact_of_Brundisium": "40 BCE",
+"Gaius_Cassius_Longinus": "died 42 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7837,12 +7856,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Eastern_Han": ["Later Han","Eastern Han dynasty"],
 "Emperor_Guangwu_of_Han": ["Emperor Guangwu","Guangwu","Liu Xiu"],
 "Protectorate_of_the_Western_Regions": ["Protector General","protector general of the Western Regions"],
-"Red_Eyebrows": ["Chimei"]
+"Red_Eyebrows": ["Chimei"],
+"Triumviral_proscription": ["triumviral proscriptions","proscriptions of 43 BCE"],
+"Sextus_Pompey": ["Sextus Pompeius"],
+"Gaius_Cassius_Longinus": ["Gaius Cassius"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
-  "Providence": true,
+"Providence": true,
 "Pacific_Ocean": true,
 "Council_of_Five_Hundred": true,
 "Homo": true,
@@ -7856,7 +7878,6 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Works_and_Days": true,
 "Emporion": true,
 "Geometric_period": true,
-"Providence": true,
 "Four_Symbols": true,
 "Legend_of_the_White_Snake": true,
 "Afar_Region": true,
@@ -11619,7 +11640,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Emperor_Guangwu_of_Han": ["person","ruler","history","china","han dynasty"],
 "Luoyang": ["city","place","history","geography","china"],
 "Protectorate_of_the_Western_Regions": ["institution","title","history","china","han dynasty","central asia","diplomacy"],
-"Red_Eyebrows": ["event","people","history","warfare","china","han dynasty","rebellion"]
+"Red_Eyebrows": ["event","people","history","warfare","china","han dynasty","rebellion"],
+"Will_of_Julius_Caesar": ["text","law","history","politics","rome"],
+"War_of_Mutina": ["event","warfare","history","politics","rome"],
+"Second_Triumvirate": ["institution","law","history","politics","rome"],
+"Triumviral_proscription": ["event","law","history","politics","rome"],
+"Death_of_Cicero": ["event","history","politics","rome"],
+"Battle_of_Philippi": ["event","warfare","history","politics","rome","greece"],
+"Perusine_War": ["event","warfare","history","politics","rome"],
+"Pact_of_Brundisium": ["event","history","politics","rome"],
+"Sextus_Pompey": ["person","history","politics","warfare","rome"],
+"Gaius_Cassius_Longinus": ["person","history","politics","warfare","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

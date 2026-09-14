@@ -697,6 +697,24 @@ his own entry when `rm-377 Battle of Philippi` is written.
     rm-414  Battle of the Teutoburg Forest
     rm-415  The death of Augustus
 
+Three of the first ten lines named a subject rather than an answer term, and the cards were written to
+the term the sources will carry. **`rm-372 Octavian's inheritance`** is answered by the **will of Julius
+Caesar**, which is the document Suetonius reports in full and the thing a reader meets again; the line
+described what the will did to one man rather than naming anything the glossary could head.
+**`rm-375 The proscriptions of 43 BCE`** is answered by **triumviral proscription**, because the general
+practice is already `rm-318`'s answer and its glossary term is Sullan — a second card on the bare word
+would have re-carded the first. And **`rm-376 The death of Cicero`** takes the shape `rm-363` established
+for the *death of Pompey*, since Cicero himself is a cited term from the citation pass and the line had
+no term of its own left to teach.
+
+Two things the batch settled that the plan had deferred. **Cassius has his own glossary entry now**, as
+the note under `rm-370` said he would when `rm-377` was written. And **`rm-380 Sextus Pompey` carries no
+death year**: nothing openable from here dates it, Appian giving Miletus without a year and Dio a capture
+at Midaeum in Phrygia inside a book spanning four of them, so the date line stops at the Sicilian command
+and the abstract reports both accounts. **`rm-375` also ships without a picture** — the only candidates
+Commons offers are a Victorian illustration imagining the scene and a schoolbook plate, which are the
+event's reception rather than the event.
+
 ### The Julio-Claudians — `rm-julio-claudians`
 
     rm-416  Julio-Claudian dynasty
