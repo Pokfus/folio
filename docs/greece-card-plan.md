@@ -1053,10 +1053,14 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-772  Battle of Corupedium
     gr-773  Hellenistic kingship
     gr-774  Ruler cult
-    gr-775  Hellenistic queens
+    gr-775  Hellenistic queens  — answered by "basilissa", the title itself, chosen when the card
+             was written: "Hellenistic queens" is a description rather than a term, and the word a
+             reader will meet again in an inscription is the one the inscriptions use
     gr-776  Arsinoe II
     gr-777  Berenice II
-    gr-778  Ptolemaic administration
+    gr-778  Ptolemaic administration  — answered by "dioiketes", chosen when the card was written:
+             the kingdom itself is already carded at gr-767, so the line wants the office that
+             actually ran the country rather than a second card on Ptolemaic Egypt
     gr-779  Seleucid colonisation
     gr-780  Antioch
     gr-781  Seleucia on the Tigris

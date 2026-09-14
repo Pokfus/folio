@@ -3739,7 +3739,17 @@ window.GLOSSARY = {
 "Emperor_Guangwu_of_Han": "<b>Emperor Guangwu</b> is the temple style of Liu Xiu, who restored the Chinese Han dynasty in 25 CE and reigned until 57.<sup class=\"fn\" data-fn=\"1\"></sup> A provincial landholder descended at some remove from an earlier Han emperor, he joined the risings against the usurper Wang Mang, made his name by destroying an imperial army at Kunyang in 23 CE, and was proclaimed emperor by his own officers two years later.<sup class=\"fn\" data-fn=\"1\"></sup> He spent a further eleven years reducing rival claimants, moved the capital to Luoyang, and rebuilt the imperial university there in 29 CE with fourteen professors of the classics.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Luoyang": "<b>Luoyang</b> is a city on the Luo river in western Henan, in northern China, and one of the longest-serving capitals in Chinese history.<sup class=\"fn\" data-fn=\"1\"></sup> The Zhou kings moved their court there in the 8th century BCE, it was the seat of the Han empire from 25 to 190 CE, and later dynasties governed from it again, so the ground east of the modern town carries the remains of successive walled capitals.<sup class=\"fn\" data-fn=\"1\"></sup> Under the Han it held the palaces, the ministries and an imperial university founded in 29 CE, and it was burned in 190 CE when a warlord forced the court to move west.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Protectorate_of_the_Western_Regions": "The <b>Protectorate of the Western Regions</b> was the office through which the Chinese Han empire dealt with the oasis kingdoms between the Jade Gate and the Pamirs, created in 60 BCE when a general already commanding a military colony there was made protector general.<sup class=\"fn\" data-fn=\"1\"></sup> Its holder did not govern those states but confirmed their kings, judged between them and maintained garrisons and postal stages, against a Xiongnu confederacy competing for the same allegiance.<sup class=\"fn\" data-fn=\"2\"></sup> Expensive and remote, the post lapsed and was revived repeatedly, standing empty from 9 CE, restored in 74, abandoned again after 77, revived in 91 and given up in 107.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Red_Eyebrows": "The <b>Red Eyebrows</b> were a peasant army that rose in eastern China in 18 CE against the usurper Wang Mang, taking their name from the dyed eyebrows by which they told one another from government troops.<sup class=\"fn\" data-fn=\"1\"></sup> Led by Fan Chong, they grew out of a countryside in which smallholders had lost their land to debt, kept no formal ranks or order of battle but forbade killing without cause, and destroyed two imperial armies before marching on the capital and installing an emperor of their own.<sup class=\"fn\" data-fn=\"2\"></sup> They were broken in 27 CE.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Red_Eyebrows": "The <b>Red Eyebrows</b> were a peasant army that rose in eastern China in 18 CE against the usurper Wang Mang, taking their name from the dyed eyebrows by which they told one another from government troops.<sup class=\"fn\" data-fn=\"1\"></sup> Led by Fan Chong, they grew out of a countryside in which smallholders had lost their land to debt, kept no formal ranks or order of battle but forbade killing without cause, and destroyed two imperial armies before marching on the capital and installing an emperor of their own.<sup class=\"fn\" data-fn=\"2\"></sup> They were broken in 27 CE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Lysimachus": "Lysimachus was a Macedonian officer of Alexander the Great and one of his bodyguards, who was given Thrace at the partition of the empire in 323 BCE and took the title of king in 305 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He spent two decades fighting the Thracian and Getic peoples, destroyed Cardia and founded Lysimacheia in its place, and after the defeat of Antigonus at Ipsus in 301 BCE added most of Asia Minor and later Macedonia to his kingdom.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The execution of his heir Agathocles in 282 BCE lost him his officers and his cities, and he was defeated and killed by Seleucus I the following year.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Battle_of_Corupedium": "The battle of Corupedium was fought in Lydia in 281 BCE between Seleucus I Nicator and Lysimachus, the last two surviving officers of Alexander the Great.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It is named from the plain of Cyrus below Sardis, and it followed the collapse of Lysimachus' authority after he put his heir Agathocles to death; he crossed into Asia, was heavily defeated and was killed on the field.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Seleucus absorbed the defeated kingdom, holding for a few months every part of Alexander's empire except Egypt, and was himself murdered in Thrace by Ptolemy Keraunos seven months later.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Hellenistic_kingship": "Hellenistic kingship was the form of monarchy established by the successors of Alexander the Great, who assumed the diadem and the royal title from 306 BCE onward, after the last of Alexander's family had been killed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It rested on personal success rather than on inheritance or on territory: a ruler was styled king by his own name rather than as king of a country, and a Byzantine dictionary preserved the ancient view that kingdoms fall to those able to lead an army and manage affairs intelligently.<sup class=\"fn\" data-fn=\"3\"></sup> Kings legitimised themselves by victory in the field and by benefaction to cities, which answered with honours, titles and often divine cult.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Ruler_cult": "Ruler cult was the practice of paying a living or recently dead monarch honours normally reserved for a god, including a temple or altar, a priesthood, a festival and sacrifice, and it spread widely after the death of Alexander the Great.<sup class=\"fn\" data-fn=\"1\"></sup> Cities generally granted such honours in return for concrete benefits: Athens made Antigonus Monophthalmus and Demetrius Poliorcetes Saviour Gods in 307 BCE after Demetrius expelled a garrison and sent grain and shipbuilding timber, and cult titles such as Saviour were awarded in the same way.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> In Ptolemaic Egypt the practice became a permanent institution of state, with priesthoods of the deified royal couples whose holders dated official documents.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Basilissa": "Basilissa, the feminine of the Greek word for king, was the title borne by royal women in the Hellenistic kingdoms, and it stands beside the king's title in inscriptions, decrees and dating formulas.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It marked a king's wife, sister, mother or daughter rather than a ruler in her own right, but women who held it could be given cities and revenues, act as patrons and appear in dynastic cult.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Several who held it exercised real political influence, and the word was still used of queens in the later Roman and Byzantine east.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Arsinoe_II": "Arsinoe II was a daughter of Ptolemy I Soter of Egypt who was queen successively in Thrace, in Macedonia and in Egypt.<sup class=\"fn\" data-fn=\"1\"></sup> Married about 299 BCE to Lysimachus, she was given cities of her own in Asia Minor, and ancient writers hold her responsible for the execution of his heir Agathocles in 282 BCE; after Lysimachus died she married her half-brother Ptolemy Keraunos, who killed two of her sons.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> She then married her full brother Ptolemy II, was worshipped with him as one of the Brother-Sister Gods, and after her death received a cult funded by a sixth of the yield of Egypt's vineyards and orchards.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Berenice_II": "Berenice II was the daughter of Magas of Cyrene and queen of Egypt as the wife of Ptolemy III Euergetes.<sup class=\"fn\" data-fn=\"1\"></sup> Her mother's attempt to marry her to the Macedonian prince Demetrius the Fair ended with his assassination, after which she married the Ptolemaic prince her father had chosen and brought Cyrene back into the kingdom; she won a chariot victory at Nemea and was honoured with her husband as one of the Benefactor Gods.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A lock of hair she dedicated for his safe return was said to have become the constellation Coma Berenices, and she was killed in 221 BCE after her son's accession.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Dioiketes": "The dioiketes was the chief financial officer of Ptolemaic Egypt, responsible in the king's name for revenues, monopolies and the management of royal land.<sup class=\"fn\" data-fn=\"1\"></sup> Beneath him each nome had an oikonomos for its finances with a checking clerk beside him, taxes were auctioned to contractors who bid for them and stood surety, and commodities such as oil were produced and sold under a state monopoly that fixed acreage, output and price.<sup class=\"fn\" data-fn=\"2\"></sup> Much of what is known about the office comes from the papers of Zenon, agent of the dioiketes Apollonius under Ptolemy II.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Seleucid_colonisation": "Seleucid colonisation was the settlement of Greek and Macedonian populations in new and refounded cities across the Seleucid Empire, beginning under Seleucus I Nicator about 300 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Foundations took the names of the royal family or of towns in Greece and Macedonia, and typically shared a plan of one straight colonnaded main street, a grid of side streets, walls following the ground and a citadel set apart.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Settlers were often transferred wholesale from existing cities, and non-Greek populations, such as the Babylonians moved into Seleucia on the Tigris, were settled in some foundations too.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Antioch": "Antioch was a city on the Orontes in northern Syria, founded by Seleucus I Nicator about 300 BCE and named after his father Antiochus.<sup class=\"fn\" data-fn=\"1\"></sup> It stood with Seleucia in Pieria, Apamea and Laodicea in a group of four neighbouring foundations, and Strabo describes Antioch as itself a tetrapolis of four walled quarters within a common wall, calling it the metropolis of Syria and comparing it with Alexandria and Seleucia on the Tigris.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It became the capital of the Seleucid kingdom, then the seat of the Roman governor of Syria from 64 BCE, and an early centre of Christianity.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5631,7 +5641,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Eastern_Han": "25 – 220 CE",
 "Emperor_Guangwu_of_Han": "r. 25 – 57 CE",
 "Protectorate_of_the_Western_Regions": "60 BCE – 107 CE, intermittently",
-"Red_Eyebrows": "18 – 27 CE"
+"Red_Eyebrows": "18 – 27 CE",
+"Lysimachus": "c. 361 – 281 BCE",
+"Battle_of_Corupedium": "281 BCE",
+"Hellenistic_kingship": "306 – 30 BCE",
+"Arsinoe_II": "c. 316 – 268 BCE",
+"Berenice_II": "after 270 – 221 BCE",
+"Antioch": "founded c. 300 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7837,12 +7853,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Eastern_Han": ["Later Han","Eastern Han dynasty"],
 "Emperor_Guangwu_of_Han": ["Emperor Guangwu","Guangwu","Liu Xiu"],
 "Protectorate_of_the_Western_Regions": ["Protector General","protector general of the Western Regions"],
-"Red_Eyebrows": ["Chimei"]
+"Red_Eyebrows": ["Chimei"],
+"Battle_of_Corupedium": ["Corupedium","Corupedion"],
+"Antioch": ["Antioch on the Orontes","Antakya"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
-  "Providence": true,
+"Providence": true,
 "Pacific_Ocean": true,
 "Council_of_Five_Hundred": true,
 "Homo": true,
@@ -7856,7 +7874,6 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Works_and_Days": true,
 "Emporion": true,
 "Geometric_period": true,
-"Providence": true,
 "Four_Symbols": true,
 "Legend_of_the_White_Snake": true,
 "Afar_Region": true,
@@ -11619,7 +11636,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Emperor_Guangwu_of_Han": ["person","ruler","history","china","han dynasty"],
 "Luoyang": ["city","place","history","geography","china"],
 "Protectorate_of_the_Western_Regions": ["institution","title","history","china","han dynasty","central asia","diplomacy"],
-"Red_Eyebrows": ["event","people","history","warfare","china","han dynasty","rebellion"]
+"Red_Eyebrows": ["event","people","history","warfare","china","han dynasty","rebellion"],
+"Lysimachus": ["person","ruler","history","politics","warfare","greece","hellenistic"],
+"Battle_of_Corupedium": ["battle","event","history","warfare","greece","hellenistic"],
+"Hellenistic_kingship": ["concept","institution","history","politics","greece","hellenistic"],
+"Ruler_cult": ["practice","concept","religion","politics","history","greece","hellenistic"],
+"Basilissa": ["title","institution","history","politics","greece","egypt","hellenistic"],
+"Arsinoe_II": ["person","ruler","history","politics","religion","egypt","hellenistic"],
+"Berenice_II": ["person","ruler","history","politics","egypt","hellenistic"],
+"Dioiketes": ["title","institution","history","politics","economy","egypt","hellenistic"],
+"Seleucid_colonisation": ["practice","concept","history","politics","migration","hellenistic","greece"],
+"Antioch": ["city","place","history","geography","hellenistic","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

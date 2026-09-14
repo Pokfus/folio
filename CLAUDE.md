@@ -5122,7 +5122,7 @@ lookup.
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 560 cards, contiguous — next is `wh-561` |
-| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 770 cards, contiguous — next is `gr-771` |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 780 cards, contiguous — next is `gr-781` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 370 cards, contiguous — next is `rm-371` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
