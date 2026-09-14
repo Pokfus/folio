@@ -5421,6 +5421,19 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   site is. English is preferred only where it serves equally well, since most readers of the English card
   can check an English source themselves. Cite a foreign-language work under its own title, untranslated:
   a citation names a work that exists, and a translated title names one that does not.
+  **WHEN A CITED HOST IS REBUILT, MIGRATE TO AN ARCHIVED COPY OF THE WORK CITED — NEVER RE-POINT THE
+  TITLE AT THE NEW SITE** (Sep 2026, on `data.un.org`). A citation names its work by title, so pointing
+  that title at whatever now stands at the address is the fabrication the rules above forbid, however
+  official the replacement: UNdata's country profiles became an SDG indicator dashboard that carries no
+  capital, no currency and no membership date, and a URL rewrite would have left 864 citations naming a
+  document that is not there. Chicago provides for the repair — keep the author, the title and the
+  publisher, make the address a Wayback permalink and add `archived <D Month YYYY>, ` before it, replacing
+  any `accessed` date, which the page's death has made false. **Resolve the snapshot with
+  `web.archive.org/web/<year>/<url>`, which redirects to the newest capture and proves it serves; the
+  `archive.org/wayback/available` API reports real captures as absent** and a sweep built on it invents a
+  coverage hole. **📖 `docs/world-geography-card-plan.md` — READ BEFORE MIGRATING A DEAD HOST OR CITING
+  UNDATA AGAIN**, for the measurements behind every clause here and the
+  two-process diff that is the only way to prove such a batch changed nothing but the URLs.
   **A TRANSLATED ANCIENT WORK IS CITED ANCIENT-AUTHOR-FIRST, WITH THE TRANSLATOR AFTER** — `Livy,
   <i>The History of Rome</i> 2.1, trans. Canon Roberts`, `Plutarch, <i>Life of Pyrrhus</i> 21, trans.
   Bernadotte Perrin` — and an ANONYMOUS one opens on its own title (`<i>The Greek Anthology</i> 7.18,

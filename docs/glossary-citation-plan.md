@@ -162,7 +162,7 @@ checked before the batches were cut rather than after. From this sandbox:
 | `archives.gov`, `founders.archives.gov`, `history.state.gov`, `history.house.gov`, `senate.gov` | **200** | the US government record |
 | `whitehousehistory.org` | **200** | NGO, useful as a second source on the early presidencies |
 | `cia.gov/the-world-factbook` | **200** | see the Phase 3 note |
-| `data.un.org`, `unstats.un.org`, `api.worldbank.org`, `data.worldbank.org` | **200** | country figures and membership |
+| `data.un.org`, `unstats.un.org`, `api.worldbank.org`, `data.worldbank.org` | **200** | country figures and membership — ⚠ `data.un.org/en/iso/<cc>.html` is **404 since Sep 2026**, see below |
 | `noaa.gov`, `earthobservatory.nasa.gov`, `bas.ac.uk`, `ats.aq` | **200** | Phase 4's physical geography |
 | `fs.usda.gov`, `natmus.dk`, `ccthita.org` | **200** | forest service, National Museum of Denmark, Tlingit & Haida |
 | `whc.unesco.org` | 403 | **blocked here.** Cited freely by the card pass from another sandbox; do not plan a batch around it |
@@ -1733,6 +1733,11 @@ the Gatsby `page-data` JSON route, and for a nonsense path. The word "France" ap
 HTML served for France. The plan chose the Factbook deliberately and argued the case for it in this
 document; the argument is moot, because the content never reaches the client. **Source A has to be
 replaced.**
+
+⚠ **UNdata ITSELF DIED IN SEP 2026** — the domain is now the UN Data Commons for the SDGs and has no
+country-profile route, so the paragraph below describes the resource the shipped citations rest on, which
+now point at archived copies of it. **Before citing it for a NEW term, read "The day UNdata stopped
+existing" in `docs/world-geography-card-plan.md`**, which has the measurement and the migrated form.
 
 **UNdata replaces it, and is better.** `data.un.org/en/iso/<cc>.html` is server-rendered, per-country, and
 carries Region, Population, Density, Capital, Surface area and — the field that pays for the whole phase —
