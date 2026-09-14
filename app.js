@@ -32710,7 +32710,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         m.strokeStyle = sea ? riverInk : TINT_SEL.line; m.lineWidth = 2; m.stroke();
         m.setLineDash([]);
       };
-      if (locArea && locArea.some(visible)) {
+      /* …AND A LOCATOR'S OWN AREA STANDS DOWN ON A WAR WINDOW, for the reason the collection's red marks
+         do (see the sibling pass below). A region's wash is the answer's gold saying "this is what the
+         card is about", and on a war card the two sides are already saying it in two colours — so the
+         gold is a third wash over the same ground. `rm-350` is the case that found it: the Rome
+         collection's Gallic Wars card carries a `region` locator whose area IS Gaul, which is the losing
+         side, so the same shape would have been washed gold and red at once. The locator's dot and its
+         name are untouched; it is the WASH that has nothing left to add. */
+      if (locArea && !warSides.length && locArea.some(visible)) {
         if (shelf) { tc = ctx; paintArea(ctx); }
         else landMask(paintArea, sea);
       }

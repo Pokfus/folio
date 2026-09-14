@@ -1143,7 +1143,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.30 MB and 48,256 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.30 MB and 48,263 lines is hard to find your way around, so this
   lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -3649,16 +3649,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     "Punic Wars" names one treaty year, which would put a 118-year subject on the globe for one year.
     `zoom` is the same bargain for the FRAME, and one card needs it — the Greco-Persian Wars opened on a
     view from the Atlantic to the Indus with the Greek allies a speck at the edge.
-  · **A WAR WINDOW SPENDS RED ON THE DEFEATED SIDE, SO THE COLLECTION'S RED MARKS STAND DOWN ON IT.** The
+  · **A WAR WINDOW SPENDS RED ON THE DEFEATED SIDE, SO THE COLLECTION'S RED MARKS STAND DOWN ON IT — AND
+    SO DOES A LOCATOR'S OWN AREA WASH.** The
     sibling dots and the `CMAP_ANCHOR` city are drawn "in a red that is nobody else's mark on this map",
     which stops being true here — the Second Punic War drew a solid red square labelled ROME in the
-    middle of a green Italy. **AND THE LEGEND IS THE ANSWER TO GREEN-AND-RED**, which about 8% of men
+    middle of a green Italy; and `rm-350` carries a `region` locator whose area IS Gaul, which with a war
+    block would have washed one shape gold and red at once. The dot and the NAME are untouched in both
+    cases — it is the marks and the wash that have nothing left to add.
+    **AND THE LEGEND IS THE ANSWER TO GREEN-AND-RED**, which about 8% of men
     cannot separate: it names both sides in markup (so a screen reader reads it), its swatches are built
     from `TINT_WIN` / `TINT_LOSE` rather than from a CSS rule, and it sits OUTSIDE `.card-loc` so the
     Atlas popup's `noLocator` keeps it.
   **IT RIDES IN THE LIGHT HALF OF `data.js`, BESIDE `locator`, AND HAS TO** — `atlasUnlocks` walks every
   studied card, and a `war` in the heavy half would put a war on the personal globe only when that
-  collection's extra file happened to be loaded. It is not free: **17 blocks cost the eager path about
+  collection's extra file happened to be loaded. It is not free: **18 blocks cost the eager path about
   10 KB gzipped**, so measure with `check-sizes.js` after a big batch.
   **KNOWN LIMIT, STATED RATHER THAN PAPERED OVER: on a card's own window a named side is drawn in
   PRESENT-DAY borders**, `world.js` being the only shape layer a locator window loads — so the Second
@@ -3670,8 +3674,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the war block in `startCardGlobe`'s `draw()` / `warSides` / `warDrawable` / `fitTarget`'s `ext` /
   `atlasUnlocks`' war branch / `mineMarks` / `mineWarShapes` / `drawMineWar` / `mineAt` /
   `serializeCardData` / `revertCard` / `.claude/card-war.js`, or after a batch of war blocks.**
+  **COVERAGE, AND THREE QUARTERS OF WHAT IS "MISSING" IS THE RULES WORKING.** Of the 68 answer terms in
+  the corpus containing "war", 18 carry a block; of the other 50, **three are not wars** (the war
+  elephant, the Art of War, a declaration of war), **six had no decided outcome** and **fourteen put both
+  sides on one ground** (the Servile Wars, the Roman civil wars, the two Social Wars). **27 are genuinely
+  open** and every one needs an authored extent — the Messenian and Samnite wars, the Spanish wars, the
+  seven American ones, the Hundred Years' War. `ww2-159` the Winter War is the one that could be `keys`
+  tomorrow and is not, because the card's own prose does not name a victor.
   **📖 `docs/war-cards.md` — READ BEFORE ADDING A WAR BLOCK OR CHANGING HOW ONE IS DRAWN.** The five
-  decisions in full, the three findings from authoring the extents (above all that the toe of Italy
+  decisions in full, the remainder broken down card by card with what each needs, the findings from
+  authoring the extents (above all that the toe of Italy
   cannot be separated from north-east Sicily by an approximate polygon), the rejected alternative of
   resolving a card window against the era map, and why `ww2-001` names coalitions rather than states.
 - **ONE media panel on the card surface** (Aug 2026, on request — it was two, with a `.ces-media-swap` pill
@@ -5543,7 +5555,8 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
     written to the card; the 26 extents shipped were checked against 573 of them, and
     `test-war-cards.js` pins a readable subset so a shipped extent edited later fails too. **Compose a
     side's "out" list GEOMETRICALLY rather than by name** — Catania is in Sicily and no table named it,
-    so Rome in 218 BCE was briefly asserted not to cover it.
+    so Rome in 218 BCE was briefly asserted not to cover it. The 26 extents shipped
+    were checked against 620.
   · The years come off the card's own date line; `years: [from, to]` (negative for BCE) is the override
     for a card whose line counts something other than the war, and `zoom` the override for a frame the
     union of the two sides chooses badly. Written onto a card already shipped with

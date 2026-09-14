@@ -82,7 +82,7 @@ check("...and every authored extent is a plausible size", badSpan === 0);
    the right colour — so the only check is what the shape COVERS, against places whose coordinates are
    known. `add-card-wars.js` asks this of a BATCH as it is written; this asks it of the CORPUS, for ever,
    which is the half that catches a shipped extent edited later.
-   A SUBSET, DELIBERATELY. The batch that shipped these ran 573 assertions; what is pinned here is three
+   A SUBSET, DELIBERATELY. The batch that shipped these ran 620 assertions; what is pinned here is three
    places inside each side and two outside, chosen from that run, because a table nobody can read is a
    table nobody maintains. Every one of them is a place the card's own prose names or would.
    IT IS DECLARED PER CARD, and a card with no row is not checked — adding a war block does not fail this
@@ -99,6 +99,7 @@ const EXTENT_PLACES = {
   "rm-249": {victors: {in: [["Rome",12.48,41.9],["Naples",14.25,40.85],["Florence",11.25,43.77]], out: [["Milan",9.19,45.46],["Bologna",11.34,44.49]]}, losers: {in: [["Pella",22.53,40.76],["Thessalonica",22.94,40.64],["Larissa",22.42,39.64]], out: [["Athens",23.73,37.98],["Delphi",22.5,38.48]]}},
   "rm-292": {victors: {in: [["Rome",12.48,41.9],["Naples",14.25,40.85],["Florence",11.25,43.77]], out: [["Milan",9.19,45.46],["Bologna",11.34,44.49]]}, losers: {in: [["Cirta",6.61,36.36],["Sitifis",5.41,36.19],["Hippo Regius",7.77,36.9]], out: [["Carthage",10.32,36.85],["Utica",10.06,37.06]]}},
   "wh-354": {victors: {in: [["Rome",12.48,41.9],["Naples",14.25,40.85],["Florence",11.25,43.77]], out: [["Palermo",13.36,38.12],["Syracuse",15.29,37.07]]}, losers: {in: [["Lutetia",2.35,48.86],["Alesia",4.5,47.54],["Bibracte",4.04,46.93]], out: [["Narbo",3,43.18],["Massilia",5.37,43.3]]}},
+  "rm-350": {victors: {in: [["Rome",12.48,41.9],["Naples",14.25,40.85],["Florence",11.25,43.77]], out: [["Palermo",13.36,38.12],["Syracuse",15.29,37.07]]}, losers: {in: [["Lutetia",2.35,48.86],["Alesia",4.5,47.54],["Bibracte",4.04,46.93]], out: [["Narbo",3,43.18],["Massilia",5.37,43.3]]}},
   "gr-561": {victors: {in: [["Sparta",22.43,37.07],["Corinth",22.93,37.94],["Olympia",21.63,37.64]], out: [["Athens",23.73,37.98],["Megara",23.34,37.99]]}, losers: {in: [["Athens",23.73,37.98],["Piraeus",23.65,37.94],["Eleusis",23.54,38.04]], out: [["Sparta",22.43,37.07],["Corinth",22.93,37.94]]}},
   "rm-333": {victors: {in: [["Rome",12.48,41.9],["Naples",14.25,40.85],["Florence",11.25,43.77]], out: [["Milan",9.19,45.46],["Bologna",11.34,44.49]]}, losers: {in: [["Sinope",35.15,42.03],["Amisus",36.33,41.29],["Amasia",35.83,40.65]], out: [["Nicomedia",29.92,40.76],["Byzantium",28.98,41.01]]}},
   "cnh-224": {victors: {in: [["Chang'an",108.94,34.34],["Luoyang",112.45,34.62],["Ji",116.4,39.9]], out: [["Panyu",113.26,23.13],["Kunming",102.83,24.88]]}, losers: {in: [["Ulaanbaatar",106.92,47.92],["Hohhot",111.75,40.84],["Karakorum",102.83,47.2]], out: [["Chang'an",108.94,34.34],["Ji",116.4,39.9]]}},

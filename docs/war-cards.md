@@ -132,7 +132,7 @@ carries the sentence instead, and clicking either side opens the war's card with
 ## Authoring an extent
 
 **A hand-drawn polygon renders perfectly while being wrong**, so every extent shipped was checked against
-named places with known coordinates rather than looked at — **26 extents, and 573 assertions once composed
+named places with known coordinates rather than looked at — **26 extents, and 620 assertions once composed
 per side** — each one "this city must be inside" or "this city must be outside". That is the only way to
 catch a ring whose interior is on the wrong side of an edge, which draws a beautiful map of somewhere
 else.
@@ -207,10 +207,10 @@ what the colour stands for. Finland, Romania and Bulgaria are left off both side
 
 ## Coverage
 
-Seventeen cards carry a block as the feature ships — the three Punic Wars and the umbrella card, the
+Eighteen cards carry a block as the feature ships — the three Punic Wars and the umbrella card, the
 Greco-Persian Wars, the Peloponnesian War in both the collections that card it and its Decelean phase,
-the Gallic Wars, the Second and Third Macedonian Wars, the Third Mithridatic War, the Jugurthine War, the
-Han–Xiongnu wars, and three from the Second World War collection. **Run
+the Gallic Wars in both, the Second and Third Macedonian Wars, the Third Mithridatic War, the Jugurthine
+War, the Han–Xiongnu wars, and three from the Second World War collection. **Run
 `node .claude/add-card-wars.js --check` for the figure rather than quoting that**: it prints every block,
 both sides and the years each will draw in.
 
@@ -220,6 +220,51 @@ gold dot says where the thing the card is about happened — Mayi on the Han fro
 Bosphorus. **And `wh-354` is the theatre rule in its clearest form**: Rome in 58 BCE held Spain, Africa,
 Macedonia and Asia as well, and what is shaded is Italy with the two Gauls it already had, which is the
 map the war was fought from.
+
+**`rm-350` — the Rome collection's own card for that same war — is what found the third mark to stand
+down.** It carries a `region` locator whose `area` IS Gaul, washed in the answer's gold; with a war block
+the same shape would have been gold and red at once. A locator's area wash now stands down on a war
+window, for the reason the red marks do: the two sides are already saying what the card is about, in two
+colours. Its dot and its name are untouched, and "Gaul" still sits over the red.
+
+### What is left, and what is deliberately not
+
+Measured over the 3,215 shipped cards, **68 answer terms contain "war" or "wars"**. Eighteen carry a
+block; the other fifty break down like this, and three of the four groups are the rules working rather
+than a backlog.
+
+| | count | why |
+|---|---|---|
+| **not a war at all** | 3 | `rm-212` war elephant, `wh-403` Art of War, `ww2-148` declaration of war — the reason a card DECLARES a block rather than a pattern reading the title. |
+| **no decided outcome** | 6 | `gr-198` Lelantine (unknown), `gr-475` First Peloponnesian (Thirty Years' Peace), `gr-529` Archidamian (Peace of Nicias), `gr-657` Corinthian (the King's Peace, whose beneficiary was not a belligerent on the field), `rm-238` First Macedonian (Peace of Phoenice), `ww2-149` Phoney War (no fighting). Rule 3: a drawn war is one that was decided. |
+| **both sides on one ground** | 14 | Nothing for two colours to say. The four Servile Wars (`rm-280`, `rm-303`, `rm-328`, `wh-352`); the Roman civil wars (`rm-316`, `rm-324`, `rm-360`, `rm-364`, `wh-355`); the two Social Wars (`rm-305`, `gr-676`), each a hegemon against its own allies, interleaved at 30 km; `rm-203` Carthage against its own mercenaries; `jp-073` Jinshin; `ww2-111` Spanish Civil War. |
+| **open — authorable, not done** | 27 | The real remainder. |
+
+The 27 open ones, and what each needs:
+
+- **Six Greek** — `gr-235` / `gr-236` / `gr-237` / `gr-461` the Messenian Wars (Laconia against Messenia,
+  two adjacent regions of the Peloponnese ~50 km apart), `gr-698` Third Sacred War (Phocis against the
+  Amphictyony and Philip), `gr-755` Lamian War (Macedon against an Athenian-Aetolian coalition, which is
+  NOT the Hellenic League's shape and needs its own).
+- **Twelve Roman** — `rm-142` Latin War and `rm-151`–`rm-156` the Samnite Wars (early Rome and Latium
+  against Samnium, the hardest of the set: the two interleave at 30 km and `rm-013` Samnium's own
+  authored area is the place to start); `rm-237` Illyrian Wars, `rm-245` Roman-Seleucid War, `rm-255`
+  Achaean War (the League is the NORTHERN Peloponnese, not `PELOPONNESE` — Sparta was hostile, so reusing
+  that extent would be an over-claim), `rm-262` / `rm-263` / `rm-265` the Spanish wars, `rm-310` First
+  Mithridatic War (the extents `rm-333` already carries).
+- **Seven American** — `us-051` through `us-082`. Every one is a Native nation or confederacy against a
+  colony or the United States, and none of those nations has a shape on any map Folio holds, so all of
+  them need authored extents. They also want the collection's own scope decisions read first: the plan
+  opens with Native America as a deck rather than a prologue, and a two-colour "victors / defeated" over
+  a continent being taken is a claim to make carefully or not at all.
+- **`wh-518` Hundred Years' War** — England against France, 1337–1453. The trap is that `world.js` has
+  **United Kingdom** and not England, and Scotland was France's ally, so `keys` would shade the wrong
+  island; it needs authored extents. And its years fall before 1500, so the personal atlas has no era map
+  for it — the authored extents are what would draw there.
+- **`ww2-159` Winter War** — the one that could be `keys` tomorrow (USSR and Finland are both on the 1938
+  map and on `world.js`). It is not done because **the card's own prose does not name a victor**: it says
+  Finland held out and that the peace cost it territory. Rule 5 is that the block rests on the card's own
+  cited prose, so this one wants the card to settle the outcome first.
 
 The rest of the corpus's wars are open ground. Adding one is a batch through
 `node .claude/add-card-wars.js <batch.json>`; `--names=<year>` prints every territory name that era's map
