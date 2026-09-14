@@ -1258,7 +1258,38 @@ in three of five, so dropping one needs a replacement, and the two independent s
 neither could be read to check that it carries the claim. **A paywalled citation this session could not
 open is one nobody checked**, which is the rule the whole apparatus rests on.
 
-### A tool worth keeping: which citation is cheapest to drop
+### The tool, now committed: `node .claude/drop-candidates.js` (2026-09-14)
+
+The hand method below is now `.claude/drop-candidates.js`, so the figures are a command rather than a
+paragraph that will go stale — which this file has already had to correct once. It reports, per
+offending citation, `alone` (sentences whose only marker is that citation) against `shared`, states
+per card whether a drop would fall under the five-source bar, and takes `--prefix=` and `--card=`.
+**Run it rather than reading the numbers below back.**
+
+Three things about it are worth knowing before changing it. Its author rule is **sliced out of
+`check-cards.js` by text and the run STOPS if the slice fails**, so the two tools cannot come to
+disagree about which card is over-cited; `--prefix` is FORWARDED to that tool for the same reason,
+while `--card` is filtered locally because `check-cards.js` has no such flag and would ignore it. And
+the report is **captured through a file descriptor rather than a pipe**: piping `check-cards.js`'s
+stdout into `execFileSync` returned 42,785 bytes on one run and 32,811 on another, the second cut off
+before the over-cited section entirely — which made the tool print *no over-cited card*, the one answer
+it must never give by accident.
+
+#### What the whole backlog looks like, measured 2026-09-14
+
+**23 cards. 13 of them have nothing droppable at all** — every one of their offending citations carries
+at least one sentence by itself, so those want a new source and a re-pointed claim rather than a drop:
+`gr-030`, `gr-036`, `gr-046`, `gr-325`, `gr-323`, `wh-121`, `wh-126`, `wh-207`, `wh-376`, `wh-382`,
+`wh-383`, `wh-384`, `ww2-023`, `ww2-042`. **Eight sit at exactly five sources**, so they cannot lose one
+at all until a new source or a legitimate citation split is found first: `gr-032`, `gr-036`, `rm-038`,
+`wh-121`, `wh-126`, `gr-323`, `rm-089`, `wh-376`. **Six have a candidate that also clears the bar**:
+`wh-041`, `wh-099`, `gr-159`, `gr-334`, `ps-048`, `wh-389`.
+
+Of those six, **four are already read and recorded as the right answer** — `wh-041` and `wh-121` above,
+and `wh-099` and `ps-048` below. **`gr-334` and `wh-389` are the two genuinely unexamined ones, and are
+where the next batch should start.**
+
+### The hand method this replaced
 
 For every over-cited card, count per offending citation how many sentences carry it ALONE (`excl`) and
 how many share it with another source (`shared`). A citation at **`excl=0`** can be dropped with no
@@ -1292,6 +1323,35 @@ and was found the same way. Measured over the whole backlog, the `excl=0` citati
   his reading of the Knossos signet impression, which is his own interpretation of his own find. The only
   source on the card that could take it is the Dartmouth lesson, which deepens the concentration this
   audit exists to reduce. Needs an independent Minoan-religion source, not a re-pointing.
+
+### Two more read and left, and these are the rule working rather than failing (2026-09-14)
+
+Both showed a candidate at `alone=0` and both are the right answer as they stand. Recorded so the next
+batch does not re-derive them, and NOT put in any exemption table — a table that made these pass would
+buy a green run at the price of the one signal the check exists to give.
+
+- **`wh-099` Monte Verde** — Dillehay in three of eight, and the card is about a live controversy over
+  his own site. It cites the 2026 *Science* paper that challenges the date, the 1997 panel that visited
+  the excavation, Pino, Meltzer and Waters besides, so it plainly does not rest on one voice. Each of
+  the three is a distinct publication decades apart: the 2008 seaweed paper, the 2015 evidence paper,
+  and his May 2026 eLetter. **That last one looked like the free drop and is not.** The sentence reads
+  "Dillehay and others answered in May with three critiques", and citations 4, 5 and 6 ARE those three
+  critiques, one marker each — which is good apparatus, not padding. Worth knowing for anyone who opens
+  this card: **`Three-Critiques.pdf` contains all three letters**, so citation 6's separate
+  `fundacionmonteverde.cl` address is a second copy of a letter already in the file that 4 and 5 link.
+  Fetched and read to establish that, rather than assumed from the file name.
+- **`ps-048` structuralism** — Titchener in three of six, which is the school's founder cited for the
+  school's three founding documents: the 1898 manifesto, the 1899 reply to functionalism and the 1914
+  reply to Watson. That is a WITNESS cited three times, not a scholar's opinion three times, which is
+  the distinction `check-cards.js` already draws for ancient authors one era forward. `citesOwnSubject`
+  does not reach it because the answer term is *structuralism* rather than *Titchener* — correctly, since
+  that helper is about a card whose subject IS the cited author. The 1914 paper shows `alone=0` and is
+  the trap: its sentence **quotes it** ("the methods of science are in the last resort observational"),
+  which the Watson manifesto cited beside it cannot support.
+  **One real improvement is available here and was not made in this batch**: the card carries no modern
+  historical scholarship on structuralism at all — Titchener thrice, Watson, a paper on Calkins and an
+  OpenStax textbook. Adding one would not clear the FAIL, the rule being absolute, but it would make the
+  card better, and the Psychology plan's own rule about stating a finding's current standing asks for it.
 
 ## `check-cards.js`'s own findings, moved out of `CLAUDE.md` (2026-09-11)
 

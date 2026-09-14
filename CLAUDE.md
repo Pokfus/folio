@@ -934,6 +934,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     hosts re-measured in Sep 2026 that DO open and what each carries, and the rule that came out of it:
     **the re-sourcing is a content pass, card by card, not a substitution table**, and keeping a source
     for a claim nothing else states is the right answer rather than a failure. Not part of the site.
+- `.claude/drop-candidates.js` — **which citation on an over-cited card is cheapest to drop**:
+  `node .claude/drop-candidates.js [--prefix=gr-] [--card=<id>]`. `check-cards.js` rule 1 names the
+  cards; it cannot say what to do about one, and the obvious answer — drop a citation — is right on
+  some and destructive on others. Per offending citation this counts the sentences whose ONLY marker
+  is that citation (`alone`) against those that cite it beside another source (`shared`). **RUN IT
+  FOR THE FIGURES RATHER THAN QUOTING ANY HERE.**
+  · **A CITATION AT `alone=0` IS A CANDIDATE AND NEVER A VERDICT.** Twice the co-cited source turned
+    out not to carry the claim: `gr-227`'s weight standard, and `ps-048`, where the sentence QUOTES
+    the words of the citation that looked free. **Read the sentence before dropping anything.**
+  · **IT STATES THE BAR CONSTRAINT, WHICH IS THE THING TO CHECK BEFORE THE RESEARCH RATHER THAN
+    AFTER** — a card at exactly `SRC_TARGET` sources cannot lose one at all and needs a new source or
+    a legitimate citation split first, which is what cost `wh-412` a round.
+  · **THE AUTHOR RULE IS `check-cards.js`'s, SLICED OUT BY TEXT, AND THE RUN STOPS IF THE SLICE
+    FAILS** — a second copy goes stale on a change made in a file nobody here has reason to open, and
+    the two tools would then disagree about which card is over-cited at all. `--prefix` is FORWARDED
+    to that tool for the same reason; `--card` is filtered locally, since `check-cards.js` has no such
+    flag and would silently ignore it.
+  · **THE REPORT IS CAPTURED THROUGH A FILE DESCRIPTOR, NOT A PIPE.** Piping `check-cards.js`'s stdout
+    into `execFileSync` returned a different, shorter string on different runs — 42,785 bytes once and
+    32,811 another, the second cut off before the over-cited section entirely — and a truncated
+    capture makes this tool print "no over-cited card", which is the one answer it must never give by
+    accident. An empty capture is a hard error for the same reason. Report-only, exits 0. Not part of
+    the site.
 - `.claude/fix-citation-form.js` — **A TRANSLATED ANCIENT WORK IS CITED BY ITS OWN AUTHOR OR ITS OWN
   TITLE, NEVER BY ITS TRANSLATOR**, applied over the whole corpus: `node
   .claude/fix-citation-form.js [--prefix=] [--emit=<batch.json>]`. The rule was already written down —
@@ -6067,7 +6090,7 @@ division-capital city tier are inert dead code.
     after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
     community store's record shape, or the `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 332 assertions on **the shell**: the rules that break silently
+  · `node .claude/test-layout.js` — 333 assertions on **the shell**: the rules that break silently
     because nothing throws when a layout is wrong. **ITS FIXTURE MUST DISMISS EVERY FIRST-VISIT OVERLAY
     AND LAND ON THE TAB IT MEANS TO MEASURE** — when a feature gains a first-run card or a new default
     tab, the fixtures are part of the change. **Re-run after touching `.tabbar` / `--tabbar-h` /
