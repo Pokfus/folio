@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C34 — six capitals, four of them in no weather index at all, two filed in it under a state they are not part of, a capital the UN profile names as somewhere else, and a constitution that never uses the word**: `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town and `gw-709` Capitol Hill, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-14, batch C33 — six island capitals, three Crown Dependencies and Overseas Territories the weather index files under a state they are not part of, and a constitution that locates its Governor by an island rather than a seat**: `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau and `gw-703` Hamilton, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-14, batch C32 — six island capitals, four of whose countries keep no station at all in the world weather index, and a constitution that provides for a capital without naming one**: `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown and `gw-697` Saint John's, with all six date lines rewritten off the same research. Six again, for C2's reason. `gw-695` Saint Helier stays deferred.
@@ -452,6 +454,90 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C34 found
+
+**FOUR OF SIX ARE IN NO WEATHER INDEX AT ALL, AND THE TWO THAT ARE ARE FILED UNDER A COUNTRY THEY ARE
+NOT IN.** The world weather index lists 3,597 cities and has nothing for Saint Kitts, the Turks and
+Caicos, the Northern Marianas or Pago Pago — it does carry Guam under the metropolitan power, so the
+absences are per city rather than per dependency. Nuuk and Tórshavn are both there, both filed under
+**Denmark**, and both marked `isCapital: false`. That is C33's finding one step further on: C33's three
+were filed under a state they are not part of but at least named themselves in their own records, where
+these two simply are Denmark as far as the index is concerned. **The leg that replaces it is the national
+met service's own normals**, which for both of these is one report each: DMI Report 21-12 for Greenland
+and 21-13 for the Faroes, 1991–2020, station by station, table by table.
+
+**AND THE TWO SOURCES DISAGREE ABOUT THE RAINFALL BY A SIXTH.** The index sums Nuuk's monthly figures to
+754 mm against the normals' **874.0 mm**, and Tórshavn's to 1,284 mm against **1,399.2 mm** — and the
+index states **no averaging period at all**, so there is nothing to reconcile them against. Both cards
+print both figures and say which is which. **A figure with no period on it is not a figure that can be
+checked**, which is the same rule the UNdata footnotes keep teaching one column over.
+
+**A UN PROFILE CAN NAME A DIFFERENT CITY AS THE CAPITAL FROM THE ONE THE CARD IS ABOUT.** For the
+Northern Marianas the profile's Capital city row reads **Garapan**, not Capitol Hill, at 4,000 people
+footnoted to 2010. This is not an error to route around: the card says so, because a reader who looks the
+territory up will meet exactly that. **The constitution is no help either** — read end to end it never
+uses the word *capital*, never says *seat of government*, and never mentions Capitol Hill; what it does
+is divide the islands into senatorial districts, the third being Saipan and everything north of it. The
+nearest the statute book comes is a public law of 1998 renaming the administration building at Capitol
+Hill, which at least fixes that the building is there.
+
+**AND ONE PROFILE GIVES THE CAPITAL MORE PEOPLE THAN THE TERRITORY.** Pago Pago is credited with 48,500
+footnoted to **2018** beside a 2025 projection of 46,000 for the whole of the territory. The two rows are
+a census-style count of a wider urban area and a projection of a different base, and the profile itself
+never reconciles them. **The card prints both and names the gap**; the alternative — quietly preferring
+one — is the card making a demographic judgement it has no source for.
+
+**TWO PROFILES CARRY A CAPITAL FIGURE UNDER A HEADING WITH NO YEAR IN IT.** Every other profile in this
+pass heads the row `Capital city pop. (000, 2025)`. The Turks and Caicos and the Northern Marianas head
+it `Capital city pop. (000)` — and the footnotes say why: **2001** for Cockburn Town and **2010** for
+Garapan. A heading that drops the year where the year is two decades stale is the one shape a reader
+cannot catch by eye.
+
+**THE WESTMINSTER DEPUTY CLAUSE, TWICE MORE, AT SECTIONS 23 AND 27.** Saint Christopher and Nevis
+(1983) puts it at **section 23** and the Turks and Caicos Islands Constitution Order 2011 at **section
+27**, both in the same form: the Governor-General or Governor may appoint a deputy when absent from the
+seat of government but not from the country. Neither names the seat. That is now nine of these across
+C31–C34 at sections 22, 23, 25, 27 and 36. **And the country's own constitution may not use the
+country's own name**: the 1983 text calls it *Saint Christopher and Nevis* throughout, which is not the
+string the facts grid carries — so the card could name the country after all, in the constitution's
+words.
+
+**THE DANISH CONSTITUTION NAMES NO CAPITAL AND REACHES BOTH REALMS ONLY THROUGH SEATS.** The 1953 Act
+never says Copenhagen and never uses *capital*. It touches Greenland and the Faroes at **section 28**,
+reserving two Folketing members to each, and at **section 31**, allowing a statute to settle Greenland's
+representation. So one document serves two cards, and what it says about each is the same sentence.
+
+**WHERE THE FIFTH LEG CAME FROM WHEN THE USUAL ONES FAILED.** Three cards had no reachable modern paper
+for their landform, and three different answers worked. For Basseterre it was **two out-of-copyright
+works on archive.org** — a US Weather Bureau monograph of 1902 whose chapter 7 gives the town's
+coordinates, the island's igneous soil, Mount Misery at 4,100 ft and a hurricane chronology, and an 1857
+letter in the *Annals and Magazine of Natural History* describing the beach by the town, the *terras*
+cliff half a mile south and the windward reef 50 yards offshore. For Cockburn Town it was a **2026
+ZooKeys reptile checklist** whose Study Area is a complete physical geography of the archipelago, plus
+the national museum's own geology and Guinep House pages. For Capitol Hill it was a **USGS groundwater
+report** whose physiography and climate sections describe the uplands the settlement stands in.
+**Search the taxonomy journals for a Study Area before concluding a small territory has no open
+literature**; a reptile checklist carried this batch's hardest card.
+
+**AND A PDF THAT EXTRACTED ZERO BYTES ON THE FIRST PASS EXTRACTED 283 KB ON THE SECOND.** The Saipan
+report has no `/ToUnicode` map at all, which the earlier extractor treated as a reason to stop; the
+fonts use standard encodings, so the literal strings come out readable with no CMap. **A PDF with no
+ToUnicode is usually the easy case, not the hard one** — check before writing a source off.
+
+**THE PAGE NUMBER YOU GUESS IS THE ONE THAT IS WRONG.** The 1902 monograph's OCR carries its page
+numbers inline and broken (`£S0.000` for what is almost certainly £80,000), so the card cites
+**chapter 7** rather than a page range, and the £80,000 total was dropped for the £3,000 Brimstone Hill
+figure the OCR renders cleanly. **An OCR digit that could be a letter is not a figure**; either find a
+clean one in the same passage or drop the claim.
+
+**AND THE READ-BACK CAUGHT FIVE THINGS THE CHECKERS CANNOT SEE.** An unsourced link between Pago Pago
+and the electoral district it sits in — the legislature's own page lists districts and members and
+never says which one holds the town, so the sentence became a count of the two houses instead. A causal
+order reversed, saying permanent settlement on Grand Turk was allowed *because* the plots were divided
+when the museum says the representative came first. A bank named "the western" before the card had said
+which was west. "On the lagoon shore" attached to Garapan on no source at all. And the £80,000 above.
+**Every one of them would have rendered perfectly.**
 
 ## What C33 found
 
