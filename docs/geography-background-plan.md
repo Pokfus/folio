@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C38 — five second-seat and island capitals whose date lines were made of American diplomacy, a constitutional amendment written the year before the split it made possible, and a published article wrong about its own subject's latitude**: `gw-757` Valparaíso, `gw-759` Cotonou, `gw-760` La Paz, `gw-761` Lobamba, `gw-762` Bujumbura and `gw-731` Alofi, with five date lines rewritten off the same research and one malformed facts cell repaired. Taken from the audit's flagged list; it clears the last of the second-seat cards.
+
 - **2026-09-14, batch C37 — six second-seat cities whose backgrounds were histories of American recognition, five constitutions that decline to name the seat they create, and the first batch to need no UNdata citation at all**: `gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-755` Abidjan, `gw-756` Colombo and `gw-758` The Hague, with all six date lines rewritten off the same research. Taken from the audit's flagged list; `gw-754` Putrajaya was swapped out for `gw-758` mid-batch — see below.
 
 - **2026-09-14, batch C36 — three Pacific constitutions that never use the word *capital*, a census that reports its capital only as a postal address, and a units bug that corrupted the imperial reader's prose on 48 text nodes**: `gw-721` Avarua, `gw-722` Yaren, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown and `gw-728` Brades, with all six date lines rewritten off the same research. Taken from the audit's own flagged list, as C35 was; `gw-723` and `gw-724` already pass all four rules.
@@ -460,6 +462,90 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C38 found
+
+**THE FIVE SECOND-SEAT CARDS ARE DONE, AND EVERY ONE OF THEM HAD A DATE LINE MADE OF AMERICAN DIPLOMACY.**
+`gw-757` led on a consular cable of 21 November 1914, `gw-759` on "US relations" and "Embassy here",
+`gw-760` on a recognition of 1848 and a legation of 1849, `gw-762` on a legation and then an embassy
+again, and `gw-731` on a recognition of 2023. Five of the six date lines were rewritten; `gw-761`
+Lobamba's was already free of it and was left alone, which is the pass's own rule that a card needing
+nothing is not touched.
+
+**AJOL IS SHUT THIS SESSION, WHICH IS A FACT ABOUT THE DAY RATHER THAN ABOUT THE INDEX.** C37 found
+African Journals Online the index this pass had been missing for African cities; today every
+`/index.php/<journal>/article/view/<id>` page answers **202 with a zero-byte body** — a Cloudflare
+interstitial — while the journal INDEX pages answer 200. Re-tested on URLs C37 itself cited and
+successfully read. **Record a host's state with the date on it and re-measure rather than reading it
+back**, which is `check-reach.js`'s whole argument one host further on.
+
+**A PUBLISHED ARTICLE CAN BE WRONG ABOUT ITS OWN SUBJECT, AND THE WAY THROUGH IS TO USE ONLY WHAT IT IS
+AN AUTHORITY ON.** Kapstein's *Ciudad anfiteatro* is the best description of Valparaíso's form there
+is, and it places the city "entre los paralelos 32º 27’ y 32º 29’ latitud sur" — about 65 kilometres
+north of where it stands — and dates the Panama Canal to "la década de 1930". Both are checkable and
+both are wrong. The card takes the article's MORPHOLOGY, which is its subject and its argument (the
+amphitheatre, the arc from Cerro Artillería to Cerro Alegre and then Playa Ancha to Cerro Barón, the
+hills at 10 to 300 metres, el plan too narrow for a grid, the merchant styles) and NONE of its dates or
+coordinates. The latitude used on the card is the IOP paper's −33°03’, which is right.
+
+**A CONSTITUTIONAL AMENDMENT CAN BE THE WHOLE STORY, AND YOU ONLY SEE IT BY READING THE PREVIOUS TEXT.**
+Article 9 of Burundi's 2018 constitution still fixes the capital at Bujumbura — and adds a clause the
+2005 article did not have: the law may "separate the political capital from the economic capital". The
+2005 text said only that the law might transfer the capital to another location. So `gw-762` is not a
+card about a city that lost its status; it is a card about the sentence that made the division legal,
+written the year before it happened. **Constitute carries both texts under separate URLs and the card
+cites both**, because the finding is the difference between them.
+
+**A UN RESOLUTION URL THAT 202s IS NOT AN INVITATION TO COMPOSE ONE.** `gw-762` cited
+`digitallibrary.un.org/record/205656` for resolution 1746 (XVI) and that host is behind a challenge
+today. The obvious replacement — a `documents.un.org/doc/resolution/gen/nr0/…` path — returned **200 and
+a real PDF of a completely different resolution**, about scholarships for students from Territories
+under Portuguese administration. It was caught by reading the first 1,200 characters of the file. **A
+200 on a composed UN document path is not the document you asked for**, which is the AQUASTAT rule from
+`docs/geography-background-plan.md` met again on another host. The resolution material was dropped from
+the card rather than re-cited, and the two constitutions carry the seat question instead.
+
+**COPERNICUS IS THE OPEN SHELF THIS PASS KEEPS COMING BACK TO.** Three of the six cards rest on a
+Copernicus journal — NHESS for Bujumbura's rivers and floods, ACP for La Paz's canyon and its
+temperatures, ESSD for Niue's reef terraces and uplift — all fetched whole, with no wall, in one
+request each. MDPI (403), Wiley/Hindawi (403), Elsevier (via publisher) and academicjournals.org (403)
+were all shut again. **Where a paper is Elsevier's, look for the author's HAL deposit**: the Nokoué
+salinity paper that carries Cotonou's whole physical block is `10.1016/j.ecss.2021.107689` and is open
+at `hal.science/hal-03368397`.
+
+**A WMO RECORD CAN BE SOUND FOR RAIN AND USELESS FOR TEMPERATURE, AND THE TELL IS STILL THE SPREAD.**
+C37 found this at Abidjan; Cotonou (city 259) is the same shape — its `maxTemp` reaches 39.0 °C in
+October against real means near 31, and its `minTemp` sits at 28.7 °C in January against real means
+near 25. **Its rainfall is textbook** and is what the card uses: the West African double maximum, June
+at 342.7 mm over 17 days, the August dip to 44.0 mm, January at 13.4 mm on a single day. Bujumbura
+(1519) and Mbabane (912) both pass the spread test and are used for temperature as well.
+
+**A CAPITAL WITH NO STATION OF ITS OWN CAN STILL HAVE A CLIMATE SENTENCE, IF THE CARD SAYS WHOSE.**
+Lobamba is not in the world weather index and Mbabane is, about 15 kilometres away and several hundred
+metres higher. The card writes "at the nearest station with published normals, in the administrative
+capital" rather than attributing those normals to Lobamba — which is the honest form, and which also
+keeps the sentence inside the rule that a capital card may not name its own country.
+
+**AND A MEASUREMENT WRITTEN IN WORDS DOES NOT CONVERT.** `U_METRIC` in app.js knows `°C` and does not
+know "degrees Celsius", so a temperature written out in words keeps its Celsius figure for the imperial
+reader while the rainfall in the same sentence converts — a half-converted sentence. Measured over the
+shipped corpus: **81 cards carry a Celsius figure and 17 write it in a shape the switch cannot act on**,
+of which one (`wh-053`) is a temperature DIFFERENCE and correctly stays. This batch's cards are written
+`°C (°F)`; the other 16 are a pass of their own, and the fix is either a data sweep or one alternative
+added to `U_METRIC` — which would need its own before-and-after measurement over the whole corpus.
+
+**THE IMPERIAL RENDER SWEEP EARNED ITS PLACE AGAIN.** Rendering each draft through the real
+`unitizeText` and diffing the word sets caught three things no other check can see: `gw-761`'s
+"a national average of 788 (31)", where the bare follow-on figure loses its unit in BOTH modes;
+`gw-761`'s "19.3 and 4.7 (67 and 40)", the same shape on a temperature; and `gw-760`'s "half a
+kilometre above", a spelled-out metric figure the engine leaves bare for an imperial reader. All three
+read perfectly in the authored metric view.
+
+**AND ONE MALFORMED FACTS CELL WAS REPAIRED ON THE WAY PAST.** `gw-731`'s population row read
+`610in Alofi (2022 census)` — a missing space that nothing in the pipeline reports, because
+`set-facts.js` validates the grid's SHAPE and the audit strips a value at its first bracket. It is now
+`610 in Alofi (2022 census)`. **Read a card's grid when you rewrite its background**; it is the one
+part of a map card no checker proof-reads.
 
 ## What C37 found
 
