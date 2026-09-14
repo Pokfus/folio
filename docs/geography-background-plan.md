@@ -75,6 +75,153 @@ American consulate opened.
      South African borders" name a neighbour as surely as a list does, and each was rewritten to a
      bearing.
 
+## Rule 5 — the history paragraph is the WHOLE history
+
+*Added Sep 2026, on request: "In the geography collections, the second paragraph of each background
+section always covers its history. It should always summarise the entire history of the main answer
+term, not some brief moment of it."*
+
+**READ THIS BEFORE REWRITING ANY GEOGRAPHY BACKGROUND.** Rules 1–4 above are about a background
+written out of an American source and bind on the world deck alone. **Rule 5 binds on all three
+geography collections** — `gw-` the world, `geo-` the United States, `gc-` China — because it is not
+about where the prose came from but about what a history paragraph is FOR.
+
+A geography background is ten sentences in two blocks of five: the first says what the place is and
+where, the second how it came to be. The second block is therefore the card's whole account of its
+subject's past, and it has to read like one — from the earliest polity or settlement the sources
+support, through whatever the place was before it was this, to what it is now. **A paragraph that
+picks up at independence and stops is a paragraph about the last fifty years wearing the heading of
+five thousand.**
+
+**`gw-001` India is the case that shows what is wrong.** Its history block names 1945, 1946 and 1947
+and nothing else: the Cripps aftermath, the Quit India movement, the interim government and the
+Independence Act. Every sentence of it is true and cited. Between them they cover **two years** of a
+history that runs from the Indus cities to the republic, so a reader who studies the card learns that
+India is a country that was partitioned in 1947 and nothing whatever about what was partitioned.
+
+### Why the deck came out this way
+
+The same cause as rule 1, one step on. The collection was written from the Office of the Historian's
+recognition guide, which has a page for every state on earth and begins each of them at the moment
+American diplomats first took notice — so a background written out of it starts late by construction.
+Rule 1's pass took the United States out of the prose and left the **shape** of the source behind: the
+sentences no longer say Washington, and they still begin in 1947, 1960 or 1991.
+
+The capitals half has the same fault from a different source. A city's history block was written out of
+the constitution that names it and the statistical profile that counts it, both of which are documents
+about the present, so it often runs from the founding decree to the current census and skips whatever
+stood on the ground first.
+
+### The measure
+
+**`node .claude/geo-history-audit.js` — run it rather than quoting the table below.** It is
+report-only, exits 0, and is a **separate script from `gw-audit.js` deliberately**: rule 1 is nonsense
+on the United States collection, so reaching rule 5 by running that script at `--prefix=geo-` would
+report a hundred legitimate mentions of the United States as violations, and a check that reports the
+house style is a check nobody runs.
+
+It asks three questions of the second block, and the second and third are the rule:
+
+| | |
+|---|---|
+| **5a** | the history block names **no date at all** |
+| **5b** | its dates span **under 300 years** — the earliest and the latest are one moment |
+| **5c** | its earliest date falls **after 1800** — it does not reach back at all |
+
+as measured on **2026-09-14**, before the first rule-5 batch:
+
+| | cards | 5a | 5b | 5c |
+|---|---|---|---|---|
+| `gw-` the world | 468 | 13 | 405 | 369 |
+| `geo-` the United States | 100 | 1 | 95 | 76 |
+| `gc-` China | 58 | 18 | 35 | 26 |
+| **all three** | **626** | **32** | **535** | **471** |
+
+The median `gw-` history block spans **52 years** and its median earliest date is **1950**: half the
+world deck's history paragraphs begin after the country was already independent. **Fifty-nine cards of
+the 626 clear both bars today**, and they are what the rest should read like — `gw-513` Cairo walks
+641, 751, 860, 969, 1168 and the present constitution in five sentences, which is the whole of what
+this rule asks for.
+
+**The bars are round numbers chosen to be readable and they are not the rule.** The rule is the
+sentence at the top of this section; 300 years and 1800 are where the measure can separate "most of
+these" from "the best of these". A card just under either is not thereby wrong, and a card over both
+can still be a bad paragraph — which is why the script prints a list and this plan says to read it.
+
+### Four ways the measure is a proxy, each stated on the script too
+
+- **A block may reach back by NAMED ERA rather than by date** — "under the Ottomans", "when the Tang
+  collapsed" — and tell a reader the same thing while carrying no year. The list marks such a finding
+  `era:` with the words it found so it can be read; nothing is excused by the mark alone, and the ones
+  read are DECLARED in the script's `ADJUDICATED` table with the reason beside each.
+- **A BARE THREE-DIGIT YEAR IS NOT READ.** The script takes a plain number as a year only in the
+  1000–2029 band, because it reads PROSE rather than a date line and a bare 712 or 730 in a background
+  is as often a rainfall figure, a page or a count of rivers. A block whose deep end is *invaded Sindh in
+  712* reports its earliest date as the next one up. It under-reports and never over-reports, which is the
+  safe direction for a measure whose findings are read one at a time.
+- **A span is measured between two dates**, so a block naming one date spans zero whether it covers a
+  millennium or an afternoon.
+- **`gc-` does not have the shape the rule assumes.** Seventeen of its 58 second blocks carry no
+  history at all — `gc-513` Nanchang's is ring roads, monsoon variability and park cooling — and
+  several of its FIRST blocks are history where the house split puts geography. For that collection
+  rule 5 is a rewrite of both blocks rather than one, and its batches should say so.
+
+### What a rewrite has to do
+
+Five sentences, the same five it replaces, carrying the same weight of citation. The shape that works
+is the one Cairo's card already has: **one sentence per era, in order, ending in the present.**
+
+1. What was there before the state was — the earliest settlement, polity or culture the sources carry.
+2. The long middle — the empire, kingdom, dynasty or colonial power that held it longest.
+3. The turn — conquest, partition, union, or the arrival of the power it became independent from.
+4. Independence or foundation, with its date. This is usually the sentence that is already there.
+5. What has happened since, ending near the present.
+
+**It is new research, not an edit.** Rule 1's pass established that removing sentences orphans the
+citations standing on them and `add-sources.js` rightly refuses that; rule 5 is worse, because the
+sentences being added are about periods the card's existing five sources say nothing about. Expect to
+replace two or three citations per card.
+
+**And the date line is rewritten in the same batch**, out of the same research, for the reason rule 1's
+section gives: a card whose prose now reaches back to a founding kingdom and whose date line still says
+`Independence 1971` alone is a card that has moved and left its own summary behind.
+
+### The sources
+
+The recognition guide and the constitutions stay for what they are good for — the independence date and
+the seat of government, sentences 4 and 5. What has to be added is everything before that, and the
+hosts measured open from this sandbox on 2026-09-14 (`node .claude/check-reach.js`) that carry it:
+
+- **archive.org's full text** — the out-of-copyright standard histories, which are the single richest
+  seam here and the one the China geography collection already rests on. A country's 19th- and early
+  20th-century history in English is nearly always on it, and the deep past with it.
+- **UNESCO** — `whc.unesco.org` is 403 but `en.unesco.org` answers; a World Heritage inscription is
+  usually the most quotable statement of what a site is and when it was built.
+- **DOAJ and OpenEdition** — the open journal literature, which is where the archaeology of a region
+  and the modern historiography both are.
+- **Europe PMC** — archaeogenetics, which is how the peopling of a region is now dated.
+- **The country's own national archive, museum or statistics office**, which is the best source for
+  its own account of its founding and is cited as what it is.
+
+**`loc.gov` is 403 from here**, so the Federal Research Division country studies — the obvious spine
+for exactly this job — are not reachable at their own address. Several of them are on archive.org.
+
+### Batches
+
+The collections are taken in their own running order, which for `gw-` and `gc-` is by population, so
+the countries a reader meets first are done first. **H-batches**, to keep them apart from the country
+half's G and the capitals' C. Each batch:
+
+1. Run the audit over the batch's ids and read each block, with the card's own first block beside it —
+   the geography half often already carries a historical sentence the history half should have.
+2. Research the whole arc, era by era, to the citation bar.
+3. Rewrite the five sentences and the date line together.
+4. `node .claude/check-citations.js --prefix=gw-` BEFORE writing, per that script's own header, then
+   `add-sources.js` and `set-date-line.js`.
+5. Read every sort year back through `cardYears`, re-run `gw-audit.js` (rules 1–4 must stay at zero —
+   a history reaching back to a colonial power is the easiest way to put a border list or a mention of
+   the United States back) and `geo-history-audit.js`, and record the figures here.
+
 ## Why this is not one batch
 
 A `gw-` background is ten sentences at the house length (270–330 words) carrying **five citations** at
@@ -199,6 +346,69 @@ sweep every citation URL, apply with `add-sources.js` and `set-date-line.js`, re
 through `cardYears`, render in a browser to read the glossary auto-links, then record the figures here.
 
 ## What has shipped
+
+- **2026-09-14, batch H1 — the first four history paragraphs rewritten to cover a whole history, and two
+  findings that are larger than the batch**: `gw-001` India, `gw-002` China, `gw-005` Pakistan and
+  `gw-008` Bangladesh, the top of the world deck's running order and the four worst cases in it. India's
+  history block named 1945, 1946 and 1947 and nothing else; it now runs from the Indus cities to the
+  republic of 1950 and spans 3,850 years. All four clear both bars, and rules 1–4 stayed at zero through
+  the rewrite. Two date lines were rewritten with them and two deliberately were not — see below.
+  Fifteen of the batch's twenty-three citations are new.
+
+  · **THE RECIPE THAT WORKED IS ONE PUBLIC-DOMAIN NATIONAL HISTORY PLUS ONE MODERN OPEN PAPER, AND IT IS
+    WORTH REACHING FOR FIRST.** A whole-history sweep wants one date per era, and hunting a separate
+    source for each era costs five fetches a card. A single 19th- or early-20th-century survey on
+    archive.org carries the whole dynastic arc and can be grepped for every date in one download: Vincent
+    A. Smith's *Oxford Student's History of India* (1921) carried the Maurya, the Gupta, the Delhi
+    sultanate, Babur at Panipat, the Arab conquest of Sind, the Palas of Bengal, Plassey and the 1905
+    partition of Bengal — **eleven of the batch's dates across three cards, from one file**. What such a
+    book cannot carry is the deep past, whose dating has moved: the Indus civilisation's own span came
+    from an open 2022 paper in *Frontiers in Political Science*.
+  · **A 200 FROM ARCHIVE.ORG IS STILL NOT A READABLE BOOK, AND THE CHECK IS ONE COMMAND.** Grep the
+    item's `_djvu.txt` for a word the book must contain before planning a card round it. Of the volumes
+    tried here, `earlyhistoryofin00smit_2`, the four UNESCO *General History of Africa* volumes and both
+    Cambridge *History of India* Mughal volumes all answered 200 and served no text at all;
+    `oxfordstudentshi00smit`, `chinesebiograph00gile`, `chinesereadersm00maye`, `ahistorychinabe00willgoog`
+    and `historyofnigeria0000acbu` all did. **The UNESCO volumes are the loss worth knowing about**: they
+    are the obvious spine for the African cards and they are lending-only.
+  · **PAGE NUMBERS COME OUT OF OCR WRONG, SO CITE THE STRUCTURE.** A page marker scanned backwards from a
+    matched line put Smith's Gupta chapter on p. 232 and his Delhi sultanate on p. 128, which is the wrong
+    way round. The book's own table of contents gives chapter openings that can be read directly
+    (61, 77, 111, 151, 257), and those are what the citation carries. **Never estimate a page from a line
+    offset**; the rule against inventing a page number covers arithmetic as well as memory.
+  · **THE MET'S HEILBRUNN TIMELINE IS RATE-LIMITED HERE, NOT SHUT** — 429 on every attempt including
+    spaced ones, which is `check-reach.js`'s own BUSY. `loc.gov` is 403, so the Federal Research Division
+    country studies, the obvious per-country spine for this whole pass, are not reachable at their own
+    address. `whc.unesco.org` is 403 while `en.unesco.org` and `www.unesco.org` answer.
+  · **A DATE LINE IS REWRITTEN WHERE THE RESEARCH GIVES IT A DATE WORTH MEMORISING, NOT MECHANICALLY.**
+    India's gained `Republic 26 January 1950` and China's gained `First unified 221 BCE`; Pakistan's and
+    Bangladesh's already said the one thing a reader should carry away and were left alone. China's sort
+    year moves from 1911 to −221 as a result, which is inert here — a map card is out of Timeline by
+    construction, the Geography tree deals in tree order, and `mineFounded` can only move a country
+    earlier than the era maps already place it.
+  · **`gw-002` NO LONGER CONTAINS THE WORD *Shanghai*, so its `ADJUDICATED` row in `gw-audit.js` is now
+    dormant** and the audit's adjudicated count reads 9 against ten declared rows. The row is kept: it
+    records a reading that was made, and a row matches only when the card, the rule and the text all
+    agree, so it can never excuse anything else.
+
+  **FINDING 1 — EVERY `data.un.org` COUNTRY PROFILE IS NOW A 404, AND 857 ITEMS CITE ONE.** The UNdata
+  country-profile section has been retired: `data.un.org/en/iso/<cc>.html` answers 404 for every code
+  tried (in, cn, br, ng, ru, mx), in both cases and over both schemes, while `data.un.org/` itself and
+  `data.un.org/Search.aspx?q=` still answer. Measured 2026-09-14: **416 `gw-` cards, 5 `ko-`, 1 `wh-`,
+  1 `jp-` and 434 glossary terms** carry one. Nothing in the pipeline can see this — `add-sources.js`
+  checks that a citation ENDS IN A URL and `check-citations.js` checks names against Crossref, and a dead
+  link passes both. It is a repair of its own and a large one, because the honest fix is per claim rather
+  than per URL: the profiles carried population, area, region and UN membership date, and the replacement
+  differs for each. **`https://www.un.org/en/about-us/growth-in-un-membership` answers and carries the
+  admission YEAR but not the day**, which is what this batch used where it needed one. Sweep every
+  citation URL at the head of a batch rather than at the end; this was found by the sweep, on four cards,
+  after the prose was already written.
+
+  **FINDING 2 — THE RULE-1 PASS LEFT THE SOURCE'S SHAPE BEHIND, WHICH IS WHAT RULE 5 IS.** Every one of
+  these four cards passed all four earlier rules and not one of them told a reader what its country was
+  before the 20th century. The American sentences had gone; the American source's STARTING POINT had not.
+  **A pass that removes what a source says can still leave what it left out.**
+
 
 - **2026-09-14, batch C39 — the last five cards that needed work, and the finding that the other ten never did**: `gw-729` Stanley, `gw-730` Kingston, `gw-754` Putrajaya, `gw-733` Adamstown and `gw-134` Uruguay. **All four rules now read zero**, with the ten standing findings read, adjudicated and DECLARED in `gw-audit.js` with the reason beside each. `gw-754` comes off the deferred list; `check-cards.js` gained two declared rows the batch's reading produced.
 

@@ -687,7 +687,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (`Alaska`, `Olympia`, `Georgia`), the reachable-source spine (Census CSVs, Library of Congress state
   guides, National Park Service), and the finding that `history.house.gov` serves a 200-status error
   document. The next card is the lowest `geo-NNN` not yet in `data.js`; see the "GEOGRAPHY" bullet under
-  "Generating cards & glossary entries". Not part of the site.
+  "Generating cards & glossary entries".
+  **RULE 5 OF `docs/geography-background-plan.md` BINDS ON THIS COLLECTION TOO** — a background's second
+  block must summarise the WHOLE history of its answer term rather than one moment of it — even though
+  rules 1–4 of that plan are the world deck's alone. Measured Sep 2026, 76 of these 100 history blocks
+  begin after 1800; `node .claude/geo-history-audit.js --prefix=geo-` is the measure. Not part of the site.
 - `docs/world-geography-card-plan.md` — the running order for **World** (`geo-world`, the second
   collection of the Geography SECTION), and the second plan that is not a thousand cards: it is **471
   cards** — 233 countries and territories (`gw-001`–`gw-233`) and 238 capitals (`gw-501`–`gw-733` with
@@ -745,6 +749,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     after reading the card, and record why in the plan**. **Run `node .claude/gw-audit.js` rather than
     quoting a figure here**; the plan holds every batch's findings, among them the eleven things a
     constitution does instead of naming the capital and the four ways the WMO leg fails.
+  · **📖 RULE 5 — THE HISTORY PARAGRAPH IS THE WHOLE HISTORY, AND IT BINDS ON ALL THREE GEOGRAPHY
+    COLLECTIONS** (Sep 2026, on request: "the second paragraph … should always summarise the entire
+    history of the main answer term, not some brief moment of it"). A geography background is two blocks
+    of five — what the place is and where, then how it came to be — so the second block is the card's
+    whole account of its subject's past and has to read like one, from the earliest polity or settlement
+    the sources support through to the present. **A paragraph that picks up at independence and stops is
+    a paragraph about the last fifty years wearing the heading of five thousand**: `gw-001` India's names
+    1945, 1946 and 1947 and nothing else, so a reader learns that India was partitioned and nothing about
+    what was partitioned.
+    **IT IS RULE 1's CAUSE ONE STEP ON.** The recognition guide begins every country at the moment
+    American diplomats took notice, so rule 1's pass took the United States out of the prose and left the
+    SHAPE of the source behind — the sentences no longer say Washington and they still begin in 1947,
+    1960 or 1991. The capitals half has it from the constitution and the statistical profile, both
+    documents about the present.
+    **THE MEASURE IS `node .claude/geo-history-audit.js`, AND IT IS A SEPARATE SCRIPT FROM `gw-audit.js`
+    DELIBERATELY**: rule 1 is nonsense on the United States collection, so reaching rule 5 by running
+    that one at `--prefix=geo-` would report a hundred legitimate mentions of the United States as
+    violations, and a check that reports the house style is a check nobody runs. Report-only, exits 0,
+    three questions of the second block — **no date at all**, **a span under 300 years**, **an earliest
+    date after 1800** — with `--list=` and a `--card=<id>` that prints one block's dates so a finding can
+    be read. **Run it rather than quoting a figure here.**
+    **IT IS A PROXY IN FOUR NAMED WAYS and the list is READ, never swept.** A block may reach back by
+    NAMED ERA rather than by date ("under the Ottomans", "when the Tang collapsed") and say the same
+    thing carrying no year — such a finding is marked `era:` with the words it found, and the ones read
+    are DECLARED in the script's `ADJUDICATED` table on `gw-audit.js`'s own model. **A BARE THREE-DIGIT
+    YEAR IS NOT READ** — it reads PROSE rather than a date line, where a bare 712 is as often a rainfall
+    figure, so it under-reports and never over-reports. A span is measured
+    between two dates, so a block naming one spans zero whether it covers a millennium or an afternoon.
+    And **`gc-` does not have the shape the rule assumes** — seventeen of its 58 second blocks carry no
+    history at all and several of its FIRST blocks are history where the house split puts geography, so
+    there rule 5 is a rewrite of both blocks rather than one.
+    **A REWRITE IS NEW RESEARCH, NOT AN EDIT**, and worse than rule 1's in one specific way: the
+    sentences being added are about periods the card's existing five sources say nothing about, so expect
+    to replace two or three citations per card. **And the date line is rewritten in the same batch** — a
+    card whose prose now reaches back to a founding kingdom and whose date line still says `Independence
+    1971` alone has moved and left its own summary behind. The shape that works is one sentence per era,
+    in order, ending in the present, which is what `gw-513` Cairo already does.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request). The population
     is already in the facts grid two inches above. **A card with nothing else datable gets an EMPTY date
     line rather than a filler row**, which `test-date-line.js` is what caught — a non-empty line yielding
@@ -773,7 +814,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `add-card.js` refuse such a card. And its **sourcing survey is the one to read before writing**: every
   Chinese government host outside `stats.gov.cn` refuses the connection here, `whc.unesco.org` and
   `britannica.com` are 403, and `chinadaily.com.cn` answers and is a state newspaper, citable for what
-  it is and never as an independent source. Not part of the site.
+  it is and never as an independent source.
+  **RULE 5 OF `docs/geography-background-plan.md` BINDS ON THIS COLLECTION TOO, AND IT IS THE ONE THAT
+  DOES NOT FIT THE SHAPE THE RULE ASSUMES** — a background's second block must summarise the WHOLE
+  history of its answer term, and seventeen of these 58 second blocks carry no history at all while
+  several FIRST blocks are history where the house split puts geography, so here rule 5 is a rewrite of
+  both blocks rather than one. `node .claude/geo-history-audit.js --prefix=gc-` is the measure. Not part
+  of the site.
 - `china-provinces.js` + `.claude/build-china-provinces.js` — the 31 provincial-level divisions of
   mainland China and the 27 provincial capitals (`window.CHINA_PROVINCES` / `window.CHINA_CAPITALS`),
   the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` and `rivers.js` beside
