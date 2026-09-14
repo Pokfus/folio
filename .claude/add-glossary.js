@@ -21,7 +21,6 @@
 //   delete:     { "slug": "Some_Slug", "delete": true }
 const fs = require("fs"), path = require("path");
 const glossPath = path.join(__dirname, "..", "glossary.js");
-const glossI18nIO = require("./gloss-i18n-io");   // the per-language i18n/gloss-<lang>.js files
 const I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
 /* ENGLISH ONLY (Aug 2026, on request): the site ships in English while the work is on the English, so a
    new term no longer has to arrive with its nine translations. This is the content-pipeline half of
@@ -48,12 +47,11 @@ const GLOSS = win.GLOSSARY || {}, DATES = win.GLOSSARY_DATES || {}, ALIASES = wi
 const PLACES = win.GLOSSARY_PLACES || {}, MAPC = win.GLOSSARY_MAP_COUNTRY || {};
 const SRC_MAX = 24;   // mirrors SRC_MAX in app.js
 const SRC_URL = /https?:\/\/[^\s<>"']+/;   // every citation carries a link the reader can follow
-const I18N = glossI18nIO.readAll();   // { slug: { lang: text } }, merged from every i18n/gloss-<lang>.js
 
 let action;
 if (e.delete) {
   action = (e.slug in GLOSS) ? "deleted" : "absent";
-  delete GLOSS[e.slug]; delete DATES[e.slug]; delete ALIASES[e.slug]; delete CASE[e.slug]; delete TAGS[e.slug]; delete IMAGES[e.slug]; delete VIDEOS[e.slug]; delete SOURCES[e.slug]; delete I18N[e.slug];
+  delete GLOSS[e.slug]; delete DATES[e.slug]; delete ALIASES[e.slug]; delete CASE[e.slug]; delete TAGS[e.slug]; delete IMAGES[e.slug]; delete VIDEOS[e.slug]; delete SOURCES[e.slug];
 } else {
   if (!e.description) { console.error("ERROR: entry needs `description` (or `delete: true`)"); process.exit(1); }
   const isNew = !(e.slug in GLOSS);
@@ -189,9 +187,11 @@ if (Object.keys(MAPC).length) {
 require("./gloss-io.js").writeGlossary(win, out);
 require("./gloss-io.js").loadGlossary();   // re-parse BOTH to confirm valid JS
 
-// i18n/gloss-<lang>.js — one file per language, so a reader only downloads their own (see gloss-i18n-io.js).
-// Every language is rewritten: a term can be added to or deleted from any of them.
-glossI18nIO.writeAll(I18N);
+// THERE ARE NO TRANSLATION FILES TO WRITE (Sep 2026). This used to rewrite i18n/gloss-<lang>.js for
+// every language on every run; those files went on 2026-08-08 and the whole i18n/ directory went in
+// Sep 2026, on request. The call is removed rather than left to no-op, because it reached a writer
+// that does `mkdirSync(DIR, { recursive: true })` -- one term with a stray translation and the
+// directory this change deleted would have been quietly recreated by an ordinary glossary add.
 const extra = e.delete ? "" : ((e.date ? " (" + e.date + ")" : "") + (Array.isArray(e.aliases) && e.aliases.length ? " [aliases: " + e.aliases.join(", ") + "]" : ""));
 console.log(action + " glossary term " + e.slug + extra + " | total terms: " + Object.keys(GLOSS).length);
 

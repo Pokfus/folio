@@ -80,9 +80,9 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `biology-card-plan.md` | Biology (`bio`) | `bio-` |
 | `dinosaurs-card-plan.md` | Dinosaurs (`dino`) | `dino-` |
 | `korea-card-plan.md` | Korea (`korea`) | `ko-` |
-| `art-card-plan.md` | Visual Art (`art`) — a TIMELINE tree; its card format is not built yet | `art-` |
+| `art-card-plan.md` | Visual Art (`art`) — a TIMELINE tree; the artwork card format is built | `art-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
-| `world-geography-card-plan.md` | World (`geo-world`) — 459 cards, sorted by population | `gw-` |
+| `world-geography-card-plan.md` | World (`geo-world`) — 471 cards, sorted by population | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
 
 `china-card-findings.md` is China's per-card research log; the other eighteen keep theirs in their own plan
@@ -97,11 +97,12 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 |---|---|
 | `citation-plan.md` | **Complete** — the cards, at 5 citations each. |
 | `glossary-citation-plan.md` | **Complete** — all glossary terms, batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N10. |
-| `artefact-citation-plan.md` | **Complete** — all 100 artefacts at 3 works each. Its reachable-host survey is the reusable half. |
+| `artefact-citation-plan.md` | **Complete** — all 200 artefacts at 3 works each; the second hundred was written cited rather than cited afterwards. Its reachable-host survey is the reusable half. |
 | `glossary-length-plan.md` | **Complete** — every description at 100 words ±10%. |
 | `units-plan.md` | **Complete** — metric first with the imperial in brackets, across cards and glossary. |
 | `card-glossary-pairing.md` | **Complete** — every shipped card's answer term has a glossary entry. The rule stays in force. |
-| `why-questions-plan.md` | **Complete** — all 1,458 History and Science cards carry three authored why-questions, measured 2026-09-06. The rule stays in force: a new card ships with its own set. Its batch log records which seam each collection offers; `node .claude/why-count.js` is the measure. |
+| `artefact-expansion-plan.md` | **Complete** — the pool is 200, at 116 common / 52 rare / 25 epic / 7 legendary, which is the rarity budget's target shape exactly. Its value now is the findings: forty-odd batches of measured host reachability, the search order that emerged, and the two PDF ciphers. |
+| `why-questions-plan.md` | **Complete** — every card in the History and Science sections carries three authored why-questions. **Run `node .claude/why-count.js` for the figure rather than quoting one**: this row stated 1,458 and the corpus has grown past it twice since. The rule stays in force: a new card ships with its own set. Its batch log records which seam each collection offers. |
 | `audit-2026-08-08.md` | **Closed** — a whole-project sweep; all four batches shipped. |
 | `user-decks-plan.md` | **Phases 0–4 shipped.** Only Phase 5 (the paid tier) is still a proposal. Superseded as a reference by `community-decks.md`. |
 
@@ -116,12 +117,11 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `library-gaps.md` | What the 29 shelved books are missing and what can still be added. |
 | `refinements-plan.md` | ~60 items from one request, batched. |
 | `refinements-2026-08-27.md` | Thirty-five items from one request: what shipped, the four faults the fixes uncovered at scale, the four answers to "suggest a way", and a plan for the nine not built. |
-| `artefact-expansion-plan.md` | A second hundred artefacts, planned but not yet written: the rarity budget, the eager-path split to do first, and the fifteen batches. |
 | `mandarin-review.md` | The Mandarin collection measured end to end and then repaired: why a downloaded deck never saw a fix, the cards a speech engine misreads, the polyphones teaching one of two readings, the unanswerable reverse cards, the Idioms deck — and, for the three of twelve items that could not be finished, exactly where they stop and why. |
 | `greece-audit-2026-09.md` | The 500-card Ancient Greece audit: what passed, what was fixed, and the seven things still open — the Rutter concentration, the Athens deck's register, and the coverage gaps. |
 | `learning-science.md` | What the learning-science literature says works and does not, and twenty proposals for Folio. **Thirteen shipped Sep 2026; seven still proposals.** |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |
-| `geography-background-plan.md` | The World geography backgrounds, written out of the US recognition guide and therefore about American diplomacy rather than about the country: **419 of 468 mention the United States**, 205 repeat a figure from their own facts grid, and 119 mention any landscape word at all. The three rules, why it cannot be a find-and-replace, and fifteen batches. |
+| `geography-background-plan.md` | The World geography backgrounds, written out of the US recognition guide and therefore about American diplomacy rather than about the country. **THE COUNTRY HALF IS FINISHED (G1–G20); the CAPITAL half is open** — C1–C11 have shipped through `gw-564`. **Run `node .claude/gw-audit.js` for the figures rather than quoting any**; this row quoted three and all three are now years out. The four rules, why it cannot be a find-and-replace, and the batches. |
 
 ---
 

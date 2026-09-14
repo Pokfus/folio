@@ -1901,6 +1901,26 @@ establish that a link is reachable, that a page number is right, or that a work 
 **no citations were written** and `data.js` was untouched. The environment allowlist recorded below was the
 fix; the notes it produced about paywalled landmark papers are superseded by attempt 2.
 
+### Re-measured 2026-09-12 — the sandbox is open, and a fast sweep says it is not
+
+Attempt 1's finding above was carried into CLAUDE.md as the summary of this whole log — "this sandbox's
+egress policy blocks every scholarly host" — with attempt 2's recovery dropped. That sentence then sat in
+the only operational memory a cloud session has for six weeks, and it is the reason to prefer a command to
+a claim: **`node .claude/check-reach.js`**, which is `check-sizes.js`'s sibling one problem over.
+
+Measured on 2026-09-12, **12 of 14 hosts answer with real content**: Crossref, Europe PMC, DOAJ,
+archive.org's full text, Persée, OpenEdition, the Stanford Encyclopedia, BMCR, OpenStax, the Wikimedia
+Commons API, JSTOR's stable pages and UNESCO. Britannica and Encyclopaedia Iranica are walled, which is
+consistent with what the China and glossary plans already record.
+
+**THE HALF WORTH KEEPING IS HOW A WORKING SANDBOX COMES TO LOOK LIKE A BLOCKED ONE.** The first sweep
+probed fourteen hosts in a few seconds and reported Crossref, the Commons API, the Wikipedia API, OpenAlex
+and the Met as 429, and **UNESCO as 403**. Re-probed six seconds apart, Crossref and Commons returned 200;
+spaced properly, UNESCO served 332 KB. Nothing about the egress had changed — the hosts were rate-limiting
+a burst. A 429, and on some hosts a 403, is the answer to *how fast you asked*, not to *whether you may
+ask*, so the checker separates `BUSY` from `SHUT` and spaces its probes, and a `BUSY` row must be re-run on
+its own before anything is recorded about that host.
+
 ### Attempt 2 (2026-07-31) — done, all six cards cited
 
 Network access was available. All 20 sources were opened before being written down, and every link in the

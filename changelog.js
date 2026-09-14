@@ -35,16 +35,40 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.702", released: "2026-09-12T19:56Z" };
+window.FOLIO_VERSION = { v: "1.748", released: "2026-09-14T17:46Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-09-14",
+    t: "Every world geography background is now about its own place",
+    items: [
+      "<b>Eighty-nine more capital-city backgrounds are now about the city</b> \u2014 its rivers, its rock, its weather and its own history rather than a record of diplomatic recognition.",
+      "<b>Measurements read correctly in imperial again</b> \u2014 dozens of cards and glossary terms were dropping a word such as a place name when you asked for feet and miles.",
+    ],
+  },
+  {
+    d: "2026-09-13",
+    t: "Plato’s Republic gains its Greek, paired on the Stephanus numbers",
+    items: [
+      "Plato’s <b>Republic</b> is now the Loeb translation with the Greek facing it and Stephanus numbers throughout — highlights made on the old text will not line up.",
+      "A translated ancient work is now credited to <b>its own author or its own title</b> rather than to its translator, on 192 cards.",
+      "Ten cards across four decks now rest on several scholars or on the original documents rather than on one old survey or one museum, and three errors were corrected.",
+      "<b>Four errors baked into the Library's source texts</b> have been corrected \u2014 in the Summa, Plato’s Dialogues and Journey to the West.",
+      "<b>One more question no longer names a modern scholar</b> \u2014 in Ancient Greece, so the clue is about the statue rather than about who attributed it.",
+      "<b>Eight more countries have a proper Atlas description</b> \u2014 their land, their weather, their size against a country you know, and when they joined the world\u2019s institutions.",
+      "<b>Three Ancient Rome cards no longer share a picture with a neighbour</b> \u2014 each now shows the thing that card is actually about.",
+      "<b>Seventy-eight capital-city backgrounds are now about the city</b> \u2014 its rivers, its rock, its weather and its own history rather than a record of diplomatic recognition.",
+    ],
+  },
   {
     d: "2026-09-12",
     t: "Caesar's war won, and the kingdoms of Southeast Asia",
     items: [
       "<b>Sixty new cards</b> \u2014 ten in Ancient Rome from Dyrrhachium to the <i>Ides of March</i>, ten in World History on Islam in India and Southeast Asia, twenty in China from Sima Qian\u2019s history to the fall of Wang Mang and the restored Han, and twenty in the Second World War on the invasion of Poland and the Winter War, with fifty-eight new glossary terms.",
-      "<b>Five Ancient Greece questions no longer name a modern scholar</b>, so the clue is about Greece rather than about who argued what.",
+      "<b>Eight questions no longer name a modern scholar</b> \u2014 five in Ancient Greece and three in World History \u2014 so the clue is about the past rather than about who argued what.",
       "<b>One Ancient Greece background no longer reads as a roll-call of the scholar it rests on</b>, keeping every claim and every citation.",
+      "<b>Folio downloads a little less</b> \u2014 the unused translations of the site\u2019s menus, games and map labels have been removed.",
+      "<b>337 picture captions no longer repeat their own credit</b>, and 327 credit lines now name the photographer plainly rather than linking or printing a licence notice.",
     ],
   },
   {

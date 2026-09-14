@@ -845,6 +845,237 @@ citation rewritten, and `gr-046` and `wh-041`'s shape may be the one-witness cas
 round for one covered by an edited volume; between them they have carried twenty-four of the pass's
 substitutions.
 
+**BATCH R14 — 2026-09-13. THE RULE COULD NOT SEE A NAME WRITTEN WITH INITIALS: over-cited 37 → 36.**
+`ps-049` Edward Titchener and `ps-048` structuralism, the last two psychology cards on the list, and
+they turned out to be two different answers to the same question.
+
+**`citesOwnSubject` MATCHED ON THE STRING, SO IT COULD ONLY EVER SEE A SOURCE CITED BY ITS BOOK.** The
+rule was added in Sep 2026 to say that a card citing its own subject's works is citing a WITNESS rather
+than a scholar — the `ANCIENT` rule one era forward — and it compared the card's `answerText` against
+the citation's author field as text. A Chicago note abbreviates a given name and a card's answer term
+does not, so it saw `ps-037` Fechner, `ps-038` Darwin and `ps-040` Galton, all cited by their
+19th-century books under their full names, and could not see `ps-049`, whose answer is *Edward
+Titchener* against four sources reading *E. B. Titchener*. **The card was reported as an over-citation
+on a difference of typography**, and every future card about a named researcher cited by journal article
+would have been reported the same way — which in this collection is most of them. The fix is a surname
+plus first-initial test; the surname alone is too loose, Erasmus and Charles Darwin being two men.
+Measured over the whole corpus it moves **exactly one card** and introduces no new match.
+
+**`ps-048` WAS READ AND IS NOT CLEARED, AND THAT IS THE ANSWER RATHER THAN A DEFERRAL.** Its answer term
+is `structuralism` rather than Titchener, so the rule above correctly leaves it standing, and its three
+Titchener citations are three DIFFERENT papers sixteen years apart carrying three different parts of the
+doctrine — the *Postulates* of 1898 for the programme and the elements, *Structural and Functional
+Psychology* of 1899 for the Is-against-Is-for distinction and the schooled observer, and the 1914 reply
+to Watson for the answer to behaviourism. Merging any two of them would clear the report without
+changing a word of what the card rests on, which is the move this pass has refused since R5. **What the
+card actually needed was a second voice on the sentence where it let Titchener state his opponent's
+position**: Watson's own manifesto, "Psychology as the Behaviorist Views It" (*Psychological Review* 20,
+1913), is open at the same York archive as the Titchener papers, and the card now says that Watson held
+the time had come for psychology to discard all reference to consciousness — his words — with
+Titchener's reply after it. It also carries the claim that the training never produced agreement between
+observers, which Watson attests in 1913 at first hand ("If you fail to reproduce my findings … your
+introspection is untrained") where the card had only a modern textbook. Three voices where there was
+one, and the count unchanged at three of six.
+
+**THE PLAN HAD ALREADY WRITTEN THE RULE THIS BATCH RE-DERIVED.** `docs/psychology-card-plan.md`'s
+Sourcing section says of the York archive that "a founder's own words are a better citation for what
+they claimed than any secondary account". **Read the collection's own plan before treating its citation
+shape as a fault.**
+
+**A TEMPTATION MEASURED AND REFUSED.** Rule 1 is asymmetric: an ANCIENT author is reported only when he
+carries at least half the list, a modern one whenever he appears three times, however long the list is.
+Making the modern branch proportional too would clear four of the remaining 36 — `wh-099` (3 of 8),
+`cnh-015` (3 of 7), `gr-350` (4 of 9) and `wh-382` (3 of 7) — and it is not done, because moving a bar
+mid-pass to clear reports is the same move as merging two citations into one. The four stay on the list
+to be read. **For the same reason no adjudication table was opened for rule 1**: `SAME_LANGUAGE_OK` was
+written after all seventeen of rule 6's findings had been read, and a declared escape hatch opened with
+36 findings still unread would be an invitation to declare rather than to read them.
+
+**AND THE HOST THAT CARRIES THIS COLLECTION'S PRIMARY LITERATURE LOOKS SHUT AND IS NOT.**
+`psychclassics.yorku.ca` serves an incomplete certificate chain, so `curl` refuses it outright and Node's
+`fetch` answers 503 through this sandbox; supplying the intermediate named in the leaf's own AIA
+extension gives a fully verified 200 and the whole text. The commands are in
+`docs/psychology-card-plan.md`'s Sourcing section and a note is in `check-reach.js`'s header, which
+deliberately does NOT carry a row for the host — a row reporting SHUT for a host that serves everything
+would be worse than no row. **One client's refusal is not a fact about a host.**
+
+**BATCH R15 — 2026-09-13. THE ANCIENT INDIA CLUSTER OPENS, AND THE FIRST CARD CARRIED A DATE ITS OWN
+EDITION CONTRADICTS: over-cited 36 → 35.** `wh-393` Gupta Empire. Seven World History cards —
+`wh-376`, `wh-382`, `wh-383`, `wh-384`, `wh-389`, `wh-392`, `wh-393` — rest on the 1922 *Cambridge
+History of India* vol. 1 and on Vincent Smith's *Early History of India*, which is R11 and R12's
+William Smith shape one subject over: a single out-of-copyright survey carrying a deck, four of its
+citations on `wh-384` and `wh-389` being four PAGES of one chapter.
+
+**THE SUBSTITUTE IS THE EPIGRAPHIC RECORD, AND IT WAS OPEN ALL ALONG.** Three of `wh-393`'s five
+sources were Smith summarising documents that are themselves on archive.org: Fleet's *Inscriptions of
+the Early Gupta Kings and Their Successors* (Corpus Inscriptionum Indicarum 3) carries the Allahabad
+pillar inscription with its text, its translation and Fleet's headnote, and Hultzsch's *Inscriptions of
+Asoka* (CII 1) carries Rock Edict XIII. The card now states the Licchavi descent and the imperial
+titles from the inscription's own lines 28–29, the Ashokan pillar and the state of preservation from
+Fleet's headnote, and Ashoka's own words from Hultzsch. Smith falls to two citations and the card
+clears. **This is R13's finding in a second literature: the text behind the handbook is usually
+reachable, and the handbook is usually a summary of it.**
+
+**THE CARD ASSERTED A DATE THAT THE EDITION IT NOW RESTS ON READS THE OTHER WAY.** It said the
+panegyric "belongs to about 360 CE", on Smith alone — and Fleet titles the record the **Posthumous**
+Stone Pillar Inscription and reads its closing verse ("having gone to the abode of Indra") as meaning
+Samudragupta was dead when it was cut. Nothing the card carries supports 360, so the clause is gone
+from the prose **and from the date line**, which had been repeating it. **A correction does not travel
+between surfaces**, and a date line that goes on stating a figure the prose has dropped is the exact
+shape that rule exists for.
+
+**AND THE TRANSLATION IS PART OF THE CLAIM.** The card had Ashoka calling the conquest by dhamma "the
+best conquest of all"; Hultzsch, whom it now cites, renders *dharma-vijaya* as **"the only (true)
+conquest"**, which is a stronger thing to have said. Likewise the panegyric's composer: the card called
+him "a court poet" and the inscription styles him *sāndhivigrahika*, Samudragupta's **minister of peace
+and war**. **Quote the edition you cite, not the one you remember.**
+
+**AN INSCRIPTION IS CITED BY NUMBER AND LINE, NOT BY PAGE — here for a reason worth knowing.** The
+readable scan is the 1960 Varanasi facsimile, whose OCR interleaves the running heads with the plates
+and the footnotes, so a page attribution cannot be verified from it: the head reading "page 7" sits
+before line 18 and the head reading "page 9" before line 30, while Fleet's own cross-reference puts
+line 22 on page 8. The line numbers are printed beside the text and in the translation, and they are
+what an epigraphic citation properly uses anyway. Fleet's own headnote, which is prose rather than
+text, is cited at pages 2–3, where the page marker stands within a hundred characters of the sentence.
+
+**AND `archive.org` ANSWERED 200 TWICE WITH NOTHING IN IT.** `india.history.resource.107736` and
+`india.history.resource.498` are both Fleet's CII 3, both list a `_djvu.txt` in their metadata, and
+both hand back **zero bytes**. CLAUDE.md's rule that a 200 from archive.org is not a readable book met
+again: the copy that works is `in.ernet.dli.2015.463254`, the 1960 reprint, at 2 MB. **Grep the text
+for a word the book must contain before citing the item.**
+
+**WHAT IS LEFT OF THE CLUSTER: six cards**, and `wh-384` (F. W. Thomas at four pages of one chapter)
+and `wh-389` (J. H. Marshall at four pages of one chapter) are the worst-shaped on the whole remaining
+list. Their substitutes are named by this batch's own reading: for the Mauryan cards the Greek
+testimony in McCrindle and the Ashokan edicts in Hultzsch, and for the stupa the *Mahāparinibbāna
+Sutta*, which `wh-376` already cites, for the division of the relics.
+
+**BATCH R16 — 2026-09-13. THE HANDBOOK WAS SUMMARISING THE SOURCE THE CARD ALREADY CITED, AND THE CARD
+ONLY TOLD ONE SIDE: over-cited 35 → 34.** `wh-392` Greco-Buddhist art. Three of its five sources were
+J. H. Marshall's chapter in the 1922 *Cambridge History of India*, at pages 648, 649 and 630.
+
+**ONE OF THE THREE SAID WHAT FOUCHER SAYS, ON THE PAGE THE CARD WAS ALREADY CITING.** The sentence
+about the Buddha's absence at Bharhut and Sanchi carried Marshall at 630 beside Foucher at 117, and
+Foucher's page 117 carries the whole of it in his own words: "While on all the bas-reliefs of the Panjab
+the Blessed One is represented standing in the middle of the panel, on the balustrades or the gates of
+Barhut or of Sanchi he is totally absent even from the scenes of his own biography." **Marshall's 1922
+chapter is summarising Foucher's 1917 argument**, so the two are not two witnesses; the second citation
+is the handbook restating the source beside it. Dropping it is R13's finding once more and loses
+nothing.
+
+**AND THAT LEFT THE CARD BELOW THE FIVE-SOURCE BAR, WHICH IS WHAT FORCED THE RIGHT ANSWER.** A card
+cannot simply shed a citation, so the freed slot had to buy something — and what this card most lacked
+was the other side of its own argument. It set out Foucher's case for a Greek origin of the Buddha image
+over three sentences and then disposed of the dispute in a vague clause, "some holding it almost a
+negligible factor and others that it underlay the whole fabric of Indian art". It now states the
+counter-evidence instead: **a type of Buddha image was made at Mathura independently of any Hellenistic
+prototype and sent out to the sacred sites of the Ganges plain**, which is the ground Coomaraswamy's
+*History of Indian and Indonesian Art* (1927) rests on in denying a Greek origin altogether. **A vague
+report of a dispute is worse than the evidence the dispute turns on**, and the rule about a contested
+fact staying hedged is satisfied by showing what is contested rather than by saying that something is.
+
+**A PRONOUN WENT WITH THE SENTENCE IT DEPENDED ON.** The last sentence opened "In the north-west it
+long held complete supremacy", where "it" was the *classical art* of the sentence being replaced.
+**Rewriting a sentence in a ten-sentence abstract means reading the one after it**, which nothing in
+the pipeline checks.
+
+**THE PAGE IS BOUNDED RATHER THAN READ OFF A RUNNING HEAD.** The Coomaraswamy scan prints its page
+numbers as bare lines and drops several of them (55, 57, 58, 60, 62 …); both sentences the citation
+rests on fall between the printed 58 and the printed 60, so it is cited at 58–59. **Say what the scan
+supports.**
+
+**BATCH R17 — 2026-09-13. FOUR CARDS READ AND NONE REPAIRED, WHICH IS THE FINDING.** Over-cited stays
+at 34. Every one of the four was opened expecting the R13/R15/R16 shape — the handbook summarising a
+text that is reachable — and in each the substitution that suggested itself turns out to lose content.
+**Reading a card and leaving it alone is a result**; what it buys the next session is the hour it takes
+to establish these, which is why they are written down rather than left to be re-derived.
+
+**`wh-389` stupa — BOTH OF ITS OBVIOUS REPAIRS ARE NOT REPAIRS.** Marshall's chapter in the 1922
+*Cambridge History of India* carries four of its six citations, and the two that looked redundant are
+not. **Oldenberg's pages 376–377 were read and carry sentences 2 and 3 exactly** — "his relics are
+divided out to a number of princes and nobles, each of whom 'builds a stūpa (monument for relics) and
+institutes a festival'", "Let not the honours due to the body of the Perfect One trouble you, O Ananda",
+and "the old rules of the Order have not a word to say about it" — **but nothing of sentence 1's**
+"walked round rather than entered" or "the oldest building type Buddhism has of its own", which are
+Marshall's. And **Foucher's volume carries two of sentence 10's three marks** — the riderless horse
+under an honorific parasol on the eastern gate of Sanchi, and the seven past Buddhas typified by the
+tumulus of their Parinirvana — **but his footprints example is at Amaravati**, not at Sanchi, so it
+cannot take the sentence whole. The card is honestly sourced and needs scholarship it has not got
+rather than re-pointing: an open account of stupa architecture for sentence 1, and for the relic caskets
+the excavation publications themselves — Rea's *South Indian Buddhist Antiquities* (1894) for
+Bhattiprolu and Peppé and Smith in the *JRAS* for 1898 for Piprahwa.
+
+**`wh-207` Rosetta Stone — the fault is not the one reported.** Budge carries three of its six sources
+and the other three are open French scholarship, which is a well-made card; what is wrong is that **two
+of the three Budge citations carry no locator at all**, one of them standing behind four separate
+claims. *The Rosetta Stone* (1913) and *The Decrees of Memphis and Canopus* (1904) are each cited as
+whole books. **A whole-book citation is a citation that has not been read**, and nothing in the pipeline
+can see it — `add-card.js` checks for a URL, `source-audit.js` counts, `check-citations.js` checks names.
+
+**`rm-089` Lapis Niger — three ENTRIES of one gazetteer are not three opinions.** Platner and Ashby's
+*Topographical Dictionary of Ancient Rome* is cited at *Sepulchrum Romuli*, at *Comitium* and at
+*Rostra*, which is three lookups in a reference work rather than one scholar's view three times over —
+the `INSTITUTIONAL` reasoning wearing two authors' names. **The real thinness is elsewhere and the
+report does not see it**: five of the card's ten sentences, the whole archaeological half, rest on the
+*Sepulchrum Romuli* entry alone, and what they want is the excavation record — Boni's own reports of the
+1899 Comitium dig — and the inscription itself. It is a candidate for a declared rule-1 adjudication
+**when the pass closes and not before**, for the reason R14 gives.
+
+**`gr-325` Exekias — the count cannot fall without new scholarship.** H. B. Walters' *History of Ancient
+Pottery* (1905) carries **six of the ten sentences** under one citation, and his other two are one
+sentence each, so there is no citation to empty: every reduction has to come from finding a modern
+source for claims a 1905 handbook is currently making about a named painter.
+
+**AND A GENERALISATION MEASURED AND ABANDONED.** `wh-207` suggested a check: a citation carrying a
+`(Place: Publisher, YEAR)` imprint and no locator. Measured over the corpus, **4,954 of 17,396 citations
+are book-shaped and 2,961 of those have no digit between the imprint and the URL** — which is not a
+backlog but the shape of the corpus. An ancient work's locator stands BEFORE its imprint (`Strabo,
+<i>Geography</i> 9.2.18–19, trans. H. L. Jones, Loeb … (Cambridge, MA …, 1924)`), a database or an
+encyclopedia entry has no page to give, and a monograph cited for a general point legitimately has none
+either. **Do not build this check**; a locator-less citation is found by reading the card, as `wh-207`
+was.
+
+**BATCH R18 — 2026-09-13. THE MUSEUM WAS CITED FOUR TIMES FOR ITS OWN EXHIBITION, AND ONE OF THE FOUR
+SAID NOTHING THE FIRST DID NOT: over-cited 34 → 33.** `ww2-019` German hyperinflation. Its three Arnulf
+Scriba citations are three chapters of **LeMO**, the Deutsches Historisches Museum's online exhibition,
+signed by the museum's own editor — which is the `INSTITUTIONAL` shape wearing a person's name, and not
+three scholars' views.
+
+**THE REDUNDANT ONE WAS FOUND BY READING THE PAGE, NOT BY GUESSING.** The Ruhr sentence carried "Die
+Ruhrbesetzung" beside "Die Inflation", and the inflation chapter carries the whole of it: *"als
+belgische und französische Truppen dann tatsächlich Anfang Januar 1923 ins Ruhrgebiet einmarschierten …
+Auf den Einmarsch reagierte die Reichsregierung mit der Proklamation des passiven Widerstandes … Für die
+finanzielle Unterstützung der Streikenden druckten die Notenpressen immer mehr Geldscheine."* That is
+the card's sentence, clause for clause. R16's finding in another language.
+
+**AND THE FREED SLOT BOUGHT AN EYEWITNESS TO THE ONE CLAIM THAT MOST WANTED ONE.** The card says
+industry "borrowed in good money and repaid in worthless money", which rested on the museum alone.
+Morgan Philips Price, writing from Essen on 25 September 1923 and already the card's source for
+October, reports it at first hand: the trusts "received the cash for the rebuilding of the plant in
+foreign currency — when the mark stood at 20,000 to the £ sterling — from the Reichsbank … Some have
+paid the Reichsbank back in marks at 1 million to the sterling." **The prose was left exactly as it
+was**, because the card was already at 329 words against a 330 ceiling and the rule wins over the
+better sentence; the figures are in the source a reader can now open.
+
+**`ww2-023` GOLDEN TWENTIES WAS OPENED AND IS NOT REPAIRED, AND WHAT BLOCKS IT IS ONE STATISTIC.** Four
+of its six sources are LeMO chapters, so two must go, and only one is redundant-shaped. Reading its
+other sources was worth doing on its own account: **the Reichsbank Commissioner's report of 10 December
+1928, already cited, carries three of the card's sentences word for word** — the "far-reaching
+reorganisation and rationalisation", the standard of living that "has again reached or surpassed the
+pre-war level", the plant employing "four million more workers than it did before the war within the
+same territorial limits", and the price paid, "a new annual burden of interest … well over half a
+milliard reichsmarks" of which "a section of the loans is not productive". The card's apparatus is sound
+where it matters. What has no home is **"German output grew by half between 1924 and 1929"**, which is
+the whole of what the Dawes-Plan chapter is cited for: GHDI's own Dawes document is the committee's 1924
+report and predates the recovery, and the volume introduction does not carry the figure. **The card
+needs an index of industrial production, not another document.**
+
+**A STANDING COSMETIC INCONSISTENCY, MEASURED AND DELIBERATELY NOT SWEPT.** 2,613 citations across the
+corpus set their titles in straight ASCII quotes against 7,561 in curly — including two adjacent
+citations of one author on this card. It renders identically and touching it would mean rewriting a
+sixth of the corpus's citations for nothing. **Write new citations in the curly form and leave the rest
+alone.**
+
 ## Two notes on the tooling
 
 - **`cardYears` reads "594/3 BCE" as year 3.** Writing split years the short way in a date line

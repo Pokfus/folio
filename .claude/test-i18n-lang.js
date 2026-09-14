@@ -1,25 +1,28 @@
 #!/usr/bin/env node
-// Regression test for the ENGLISH-ONLY gate and for the per-language translation files that remain
-// (i18n/ui-<lang>.js, i18n/games-<lang>.js, i18n/places-<lang>.js).
+// Regression test for the ENGLISH-ONLY gate, and for the fact that NOTHING IS LEFT BEHIND IT.
 //
 //   node .claude/test-i18n-lang.js
 //
-// Re-run after touching MULTILANG / langBundle / loadLangData / DATA_BUNDLES, or after adding a language.
+// Re-run after touching MULTILANG / loadLangData / gamesI18nPending / glossI18nFiles / DATA_BUNDLES,
+// or if anything proposes to restore a translation file.
 //
-// WHAT CHANGED ON 2026-08-08: the card `i18n` blocks and every i18n/gloss-<lang>.js were REMOVED on
-// request — the site ships in English and the translations were 2.06 MB of the eager path that no
-// reader could reach. So the assertions that used to check gloss-file parity, card-translation parity,
-// and the per-language glossary overlay/bake are gone with the data they described. What is left is
-// what still has teeth:
+// WHAT CHANGED, IN TWO STEPS. On 2026-08-08 the card `i18n` blocks and every i18n/gloss-<lang>.js
+// were removed on request — 2.06 MB of the eager path no reader could reach. In Sep 2026, also on
+// request, the REST went: i18n/ui-, games- and places-<lang>.js, the whole i18n/ directory, and the
+// 44 tree-node title blocks in data.js. So the half of this suite that drove the lazy per-language
+// LOADER is gone with the files it loaded, and what replaces it is the assertion that matters now:
+//
 //  · The gate itself, served UNPATCHED: ?lang= does not switch, Settings offers no picker, a stored
-//    non-English language is migrated back, and NOT ONE translation file is fetched.
-//  · The removal STAYS removed. A batch script that re-inlines card translations would put megabytes
-//    back into every visitor's first paint without anything else noticing — that is the quotes.js
-//    mistake, and this is the only thing watching for its return.
-//  · One language in, one language out, for the families that still ship. That split is the whole
-//    point of the layout; a regression restores a multi-megabyte download for every non-English reader.
-//  · The game pools carry no INLINE translations. They are in the eager path, so an inline copy would
-//    put nine languages of prose into every first paint (quotes.js went 27 KB -> 312 KB that way).
+//    non-English language is migrated back, and no translation file is requested.
+//  · THE REMOVAL STAYS REMOVED, checked on disk rather than in the browser — no card `i18n` block,
+//    no tree-node `i18n` block, no i18n/ directory at all, and no inline translations in the two
+//    eager game pools (the quotes.js mistake: 27 KB -> 312 KB for every visitor).
+//  · AND THE ENGINE SURVIVES A FLAG FLIP WITHOUT A TABLE. This is the new one, and it is the fault
+//    the removal could actually cause: `langBundle` is deleted, so a leftover call to it would be a
+//    ReferenceError the moment MULTILANG moved — invisible until then, because `code === "en"`
+//    short-circuits it away. The suite serves an app.js with the flag flipped, switches language,
+//    and asserts the page neither throws nor fetches anything: every accessor falls back to English.
+//    One such call really was left behind and this is what would have caught it.
 //
 // Playwright is a dev dependency and must NOT be installed into the repo. Install it in a scratch
 // folder and run with NODE_PATH=<that>/node_modules; set FOLIO_CHROMIUM if Chromium lives elsewhere.
@@ -74,24 +77,46 @@ function serve(patch) {
   const withI18n = CARDS.filter((c) => c.i18n && Object.keys(c.i18n).length).map((c) => c.id);
   ok("no card carries a translation block", withI18n.length === 0,
     withI18n.length + " of " + CARDS.length + (withI18n.length ? ": " + withI18n.slice(0, 5).join(", ") : ""));
-  const glossFiles = fs.readdirSync(path.join(ROOT, "i18n")).filter((f) => /^gloss-[\w-]+\.js$/.test(f));
-  ok("...and no glossary translation file is on disk", glossFiles.length === 0, glossFiles);
+  /* THE WHOLE DIRECTORY IS GONE (Sep 2026), which is the cheapest thing to assert and the one a
+     tool is most likely to undo by accident: add-lang.js and the three i18n IO modules all called
+     `mkdirSync(DIR, { recursive: true })` on the way to writing, so a single run would have put the
+     folder back carrying one language's files that nothing loads. add-lang.js now refuses outright
+     and the IO modules are deleted; this is what says so. */
+  ok("the i18n/ directory is gone", !fs.existsSync(path.join(ROOT, "i18n")));
+
+  /* A TREE NODE'S TITLE TRANSLATIONS WENT WITH THEM, and they are the half nobody would look for:
+     they lived INSIDE data.js rather than in i18n/, so the directory check above cannot see them,
+     and `nodeTitle()` falls back to the English title so nothing on the page would say they had
+     come back. 44 blocks, 14.6 KB, on the EAGER path. */
+  const treeI18n = [];
+  (function walk(n) {
+    if (!n || typeof n !== "object") return;
+    if (Array.isArray(n)) return n.forEach(walk);
+    if (n.i18n) treeI18n.push(n.id || "?");
+    for (const k of ["collections", "children"]) if (n[k]) walk(n[k]);
+  })(global.window.COLLECTION_TREE);
+  ok("no tree node carries title translations", treeI18n.length === 0, treeI18n.slice(0, 5));
+
   ok("...while the English glossary and cards are untouched", Object.keys(GLOSS).length > 700 && CARDS.length > 300,
     { terms: Object.keys(GLOSS).length, cards: CARDS.length });
 
-  /* The chrome files DO still ship (they were not part of the removal), and none of the nine may fall
-     behind the others — a batch that translated one and forgot the rest fails here. */
-  const ui = {};
-  for (const f of fs.readdirSync(path.join(ROOT, "i18n"))) {
-    if (/^ui-[\w-]+\.js$/.test(f)) new Function("window", fs.readFileSync(path.join(ROOT, "i18n", f), "utf8"))(ui);
-  }
-  ok("Japanese chrome is at parity with Spanish",
-    Math.abs(Object.keys(ui.I18N.ja).length - Object.keys(ui.I18N.es).length) <= 8 &&
-    ui.I18N_RULES.ja.length === ui.I18N_RULES.es.length &&
-    Object.keys(ui.I18N_HTML.ja).length === Object.keys(ui.I18N_HTML.es).length,
-    { exact: Object.keys(ui.I18N.ja).length, rules: ui.I18N_RULES.ja.length, html: Object.keys(ui.I18N_HTML.ja).length });
-  ok("rule patterns match across languages in the same order",
-    JSON.stringify(ui.I18N_RULES.ja.map((r) => r[0])) === JSON.stringify(ui.I18N_RULES.es.map((r) => r[0])));
+  /* THE TWO GAME POOLS ARE IN THE EAGER PATH, so a translation inlined into either is bytes in every
+     visitor's first paint. Checked on disk rather than in the browser: this is the quotes.js mistake
+     (27 KB -> 312 KB), and it is the shape a well-meaning restore would take. */
+  const gEnv = {}; { const w = global.window; global.window = gEnv; require(path.join(ROOT, "quotes.js")); require(path.join(ROOT, "truefalse.js")); global.window = w; }
+  const inlineQ = (gEnv.QUOTEGAME || []).filter((x) => x.i18n).length;
+  const inlineT = (gEnv.TRUEFALSE || []).filter((x) => x.i18n).length;
+  ok("the eager game pools carry no inline translations", inlineQ === 0 && inlineT === 0, { quotes: inlineQ, truefalse: inlineT });
+
+  /* AND NOTHING IN THE SHIPPED SITE STILL POINTS AT A DELETED FILE. A bundle registration outliving
+     its files is a 404 per language, which is exactly what the gloss bundle did for the hour after
+     the 2026-08-08 removal. Comments are allowed to mention the path; a string that would be FETCHED
+     is not, so this looks for the shapes a loader uses rather than for the word. */
+  const appSrc = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
+  const loaders = (appSrc.match(/files:\s*\[\s*"i18n\//g) || []).concat(appSrc.match(/"i18n\/" \+/g) || []);
+  ok("app.js registers no bundle pointing into i18n/", loaders.length === 0, loaders.slice(0, 3));
+  ok("...and langBundle is gone rather than left uncalled",
+    !/function\s+langBundle\s*\(/.test(appSrc) && !/[^.\w]langBundle\s*\(/.test(appSrc.replace(/\/\/[^\n]*/g, "")));
 
   /* ---------- browser checks ------------------------------------------------------------- */
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
@@ -124,72 +149,44 @@ function serve(patch) {
     await new Promise((r) => plain.close(r));
   }
 
-  /* ---------- the loader behind the flag, served WITH it flipped -------------------------- */
+  /* ---------- the flag flipped, with nothing behind it ------------------------------------
+     THE FAULT THIS CATCHES IS INVISIBLE UNTIL THE FLAG MOVES. `langBundle` is deleted, and the call
+     that survived it sat inside `code === "en" || dataReady(langBundle("uiI18n", code))` — where the
+     left operand short-circuits the right away for every reader the site currently has. Flip the flag
+     and it is a ReferenceError that takes the language switch, and the render after it, with it.
+     So: serve the flipped app, switch to a non-English language through the real picker, and require
+     that the page neither throws nor asks for a file. Every accessor falls back to English, which is
+     the honest end state now that no table survives. */
   const srv = serve(true);
-
-  // one language in, one language out
   const ctx = await browser.newContext();
   const pg = await ctx.newPage(); watch(pg);
   const fetched = [];
   pg.on("request", (r) => { if (r.url().includes("/i18n/")) fetched.push(r.url().split("/").pop()); });
   await pg.goto(url("?lang=ja"), { waitUntil: "networkidle" });
-  await pg.waitForTimeout(1500);
-  // Every per-language family that still SHIPS, for that language, and nothing for the other eight (see
-  // langBundle in app.js). Asserted as a property rather than a count, so adding a family doesn't need a
-  // new number here — what must never change is that no other language is fetched. `gloss-` is no longer
-  // in this list because the files were removed; the bundle entry is inert and never resolves.
-  const FAMILIES = ["ui-", "games-", "places-"];
-  ok("only the current language's files are fetched", fetched.length > 0 && fetched.every((f) => f.endsWith("-ja.js")), fetched);
-  ok("every per-language family that still ships is fetched", FAMILIES.every((p) => fetched.some((f) => f.startsWith(p))), fetched);
-  ok("...and no glossary translation is requested", !fetched.some((f) => f.startsWith("gloss-")), fetched);
-  ok("the chrome is localized", (await pg.$$eval(".tab", (ts) => ts.map((t) => t.textContent.trim()))).includes("ホーム"));
-  // the English glossary is what every reader now sees, in every language
-  ok("a glossary description falls back to the English", await pg.evaluate(() => {
-    const k = Object.keys(window.GLOSSARY)[0];
-    return !(window.GLOSSARY_I18N && window.GLOSSARY_I18N[k] && window.GLOSSARY_I18N[k].ja);
+  await pg.waitForTimeout(1200);
+  ok("with MULTILANG on, a language switch fetches nothing", fetched.length === 0, fetched);
+  ok("...and the site language really did change", await pg.evaluate(() =>
+    (JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {}).lang === "ja"));
+  ok("...while the chrome falls back to English rather than to nothing", await pg.evaluate(() => {
+    const t = [...document.querySelectorAll(".tab .tab-label, .tab")].map((x) => x.textContent.trim()).join("|");
+    return t.length > 0 && !/[ぁ-んァ-ヶ一-龯]/.test(t);
   }));
 
-  fetched.length = 0;
-  // the picker lives on the Settings page (Aug 2026 — it was a top-bar dropdown before that)
+  // the picker lives on the Settings page; switching again is the path that held the deleted call
   await pg.evaluate(() => { location.hash = "settings"; });
   await pg.waitForTimeout(400);
+  const hadPicker = await pg.evaluate(() => !!document.querySelector('.lang-opt[data-lang="ru"]'));
+  ok("with the flag on, the Settings picker is offered", hadPicker);
   await pg.evaluate(() => { const o = document.querySelector('.lang-opt[data-lang="ru"]'); if (o) o.click(); });
-  await pg.waitForTimeout(1500);
-  ok("switching pulls only the new language", fetched.length > 0 && fetched.every((f) => f.endsWith("-ru.js")), fetched);
+  await pg.waitForTimeout(1200);
+  ok("switching language again neither throws nor fetches", fetched.length === 0 && errs.length === 0, { fetched, errs: errs.slice(0, 2) });
+  ok("...and the switch was recorded", await pg.evaluate(() =>
+    (JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {}).lang === "ru"));
 
-  // The game pools are in the EAGER load path, so their translations must live in the lazy
-  // i18n/games-<lang>.js and NOT inline in truefalse.js / quotes.js — an inline copy would put nine
-  // languages of prose into every visitor's first paint.
-  ok("the game pools carry no inline translations", await pg.evaluate(() =>
-    (window.QUOTEGAME || []).every((x) => !x.i18n) && (window.TRUEFALSE || []).every((x) => !x.i18n)));
-  ok("the lazy games table reached the running app", await pg.evaluate(() =>
-    document.querySelectorAll('script[src*="games-ru.js"]').length === 1));
-  await pg.evaluate(() => { location.hash = "whosaid"; });
-  await pg.waitForTimeout(1800);
-  /* THE RULE, NOT THE DAY'S DRAW. Who-said-it deals a date-seeded quote and only 64 of the pool's 102
-     carry a Russian translation, so demanding Cyrillic outright is an assertion that fails on about a
-     third of all days -- it passed in CI on the 28th and failed here on the 29th, on a pool nobody had
-     touched. What the engine promises is that a translation is used WHERE THERE IS ONE and the English
-     stands where there is not, so that is what is checked: the day's quote is looked up in the table the
-     lazy bundle actually delivered, and each half is asserted against the rendering. */
-  const shownQ = (await pg.evaluate(() => (document.querySelector(".ws-quote") || {}).textContent || "")).trim();
-  /* The tables are read HERE rather than off the page: the lazy bundle stages onto `GAMES_I18N_IN` and the
-     hook drains it into a variable inside app.js's IIFE, so there is nothing on `window` to ask. */
-  const qEnv = {}; { const w = global.window; global.window = qEnv; require("../quotes.js"); require("../i18n/games-ru.js"); global.window = w; }
-  const ruQuotes = ((qEnv.GAMES_I18N_IN || [])[0] || {}).quotes || {};
-  const enPool = qEnv.QUOTEGAME || [];
-  const asRu = enPool.find((x) => ruQuotes[x.q] && String(ruQuotes[x.q].q).trim() === shownQ);
-  const asEn = enPool.find((x) => String(x.q).trim() === shownQ);
-  ok("the rendered quote is one of the pool's, in one language or the other", !!(asRu || asEn), shownQ.slice(0, 60));
-  ok(asRu ? "a translated quote renders in the reading language"
-          : "an untranslated quote falls back to its English, rather than to nothing",
-    asRu ? /[Ѐ-ӿ]/.test(shownQ) : !!asEn && !ruQuotes[(asEn || {}).q],
-    (asRu ? "translated: " : "no ru translation: ") + shownQ.slice(0, 60));
-
-  // a card's prose is English now whatever the reading language — cardLocalized falls back
+  // a card's and a deck's prose are English now whatever the reading language
   await pg.evaluate(() => { location.hash = "home"; });
   await pg.waitForTimeout(600);
-  ok("a card's prose falls back to English", await pg.evaluate(() => {
+  ok("a card carries no translation to fall back from", await pg.evaluate(() => {
     const c = (window.CARD_DATA || [])[0];
     return !!c && !c.i18n;
   }));
@@ -198,7 +195,7 @@ function serve(patch) {
   const f2 = [];
   en.on("request", (r) => { if (r.url().includes("/i18n/")) f2.push(r.url()); });
   await en.goto(url("?lang=en"), { waitUntil: "networkidle" });
-  await en.waitForTimeout(1000);
+  await en.waitForTimeout(800);
   ok("an English reader fetches no translation file at all", f2.length === 0, f2);
 
   ok("the MULTILANG flag was found and flipped for these checks", patchedApp);

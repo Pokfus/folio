@@ -334,7 +334,8 @@ re-run and diffed byte for byte.
 | **E41** ✅ | the question heading that was really an article | **One chapter changed, out of a full 614-page rebuild — and that is the finding.** II-II q.153 heads itself with ARTICLE 1's title and has no prologue, so the pass dropped that heading as furniture and article 1 with it: the printing's articles 2–5 numbered 1–4, with every sentence on the page. Two fixes: a question's own title is a noun phrase and never an interrogative, so the weak role test stands down on a heading ending in "?"; and the article COUNT is read from the `ws-title` header block **every one of the 614 pages carries**, which is right even where the body's heading is missing, misnumbered or carries an article's title. Changing where the count comes from touches every question, so all 614 were refetched and diffed — **one chapter moved**, which says the header and the heading agree on 613 pages and the header is right on the one they do not. 608 of 614 questions are now numbered by their own stated count, against 4 before E39 |
 | **E42** ✅ | the shelf's own structure, checked | **The Summa's cheapest check pointed at the other 47 books, and it found one thing.** Aesop's fable 122, "The Old Lion", was carrying fable 121's text: scan page 90 holds three fables and Wikisource's page for that one transcludes the first. **Its witness is the scan page this book is transcribed FROM**, so for the first time a supplied text validates EXACTLY — byte-for-byte, on the fable printed beside it — where Gutenberg's Townsend was refused as an American reprint (`clamor` for `clamour`). Over the shelf: **4,397 chapters compared pairwise, one pair**, so apart from the Summa's two and this one no chapter carries another's text. It compares eight-word RUNS, not vocabulary: two chapters of one work share their author's whole vocabulary and a bag-of-words test finds nothing. The sibling title-check does NOT transfer — 123 flags of 1,979, essentially all legitimate — because **a title check only works where the title is a claim about the text** |
 | **E43** ✅ | a chapter that repeats itself, and one that stops early | **Two more no-witness questions asked of the whole shelf: the first clean, the second 1,130 words of Aquinas.** E36's within-chapter duplication check, never run outside the Summa, returns **13 findings in 91,149 paragraphs and every one legitimate** — the Poetic Edda's asterisk divider, the Summa's own short formulae, and the Prose Edda quoting one stanza twice under two kennings. The new question's tell is **terminal punctuation**, and it is the only one there is: a truncated chapter is not short and not ungrammatical, so neither structural scanner can see it. 22 of 4,403 end without a stop; **five are the Summa's and all five are the SOURCE's truncation** — three missing a full stop, one six words, and Supplement q.95 the rest of its last answer and all nine paragraphs after it. A fourth supply mode covers both shapes. The other seventeen are settled by asking **what the next chapter opens with**: a lowercase word means the division simply falls mid-sentence |
-| **E44–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E44** ✅ | four books, and the deferral category itself | **Four repairs and three candidates closed, by LOOKING AT THE PAGE.** `jade graps` is `jade grass` and not grapes; `Lede` is what Murray printed; `notionless` is Lamb's joke; the Summa's dropped `are` came back from Gutenberg and its `inproportionate` had been closed in E19 and left on this list for five batches |
+| **E45–En** | the rest of the error half | 45 marks left in the Canterbury Tales, all inside runs needing a leaf read; and the books below them; **a book whose scan is on the Internet Archive now HAS a reachable witness — see E44** |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -387,18 +388,80 @@ the noise-rate table called the fourth cleanest book on the shelf, to be the mos
 swept. **A low noise rate is not a low error rate**; it only says the list is short enough to read.
 
 **And the 27 books already named in a batch log are not finished either.** What is recorded as
-outstanding on them: 45 marks in the Canterbury Tales and six of `plato-dialogues`' candidates, all
-inside runs that need a page-image leaf read; `summa-theologica`'s `inproportionate` and its missing
-word in *"there several real relations in God"*; `Lede` for Leda in the Odyssey and `jade graps` in
-Journey to the West, both wanting a printed witness this sandbox cannot reach. **A book with no
-printed witness reachable contributes findings rather than fixes**, and those five are the standing
-examples. E31 adds a sixth of a different kind: the Bhagavad-Gita's `INDESCTRUCTIBLE` has a printed
-witness, and the witness says the page reads that way. **A candidate the source confirms is closed,
-not deferred.**
+outstanding on them was six entries, and **E44 closed five of them** — see its log below. What is
+left is **45 marks in the Canterbury Tales**, all inside runs that need a page-image leaf read.
+E31's rule stands and E44 applied it three more times: the Bhagavad-Gita's `INDESCTRUCTIBLE`,
+the Odyssey's `Lede`, Plato's `notionless` and the Loeb's `patent` and `sling` all have a witness
+and the witness says the page reads that way. **A candidate the source confirms is closed, not
+deferred.** What E44 retires is the sentence that used to stand here — *a book with no printed
+witness reachable contributes findings rather than fixes* — because for a book whose scan is on the
+Internet Archive there is no such thing: **the OCR is the thing being checked and the page
+photograph is the witness**, and the photograph is one request away.
 
 ---
 
 ## 8. Batch log
+
+### E44 — the witness was a photograph all along, shipped 2026-09-13
+
+**FOUR REPAIRS, THREE CANDIDATES CLOSED, AND THE DEFERRAL CATEGORY RETIRED.** Six candidates had been
+carried as outstanding across five batches on one sentence — *a book with no printed witness reachable
+contributes findings rather than fixes*. The sentence was true about the OCR and false about the book:
+**the Internet Archive serves the page IMAGE as well as the text layer**, at
+`archive.org/download/<id>/page/n<leaf>_w1600.jpg`, and the leaf number comes straight out of the
+item's own search-inside endpoint. One request, and the printed page is in hand.
+
+**`jade graps` IS `jade grass`, AND NOBODY WOULD HAVE GUESSED IT.** Journey to the West offers the
+Monkey King "some purple fungus of immortality, some jade graps and Immortal Pills", and the obvious
+repair — the one this batch set out to make — is *grapes*. Leaf 174 prints **grass**: the double s of
+the printing read as `ps`, which is a plausible confusion where an inserted `e` is not. **A candidate
+carries its own wrong answer**, and four batches of reasoning about this one would each have shipped
+it. The same leaf carried a second slip nobody had reported: the verse beneath it prints `Julai's
+years are countless`, the scan reads `Julai'a`, and the romanisation table then carried it through to
+`Rulai'a` — one occurrence against a single correct `Rulai's`, which is no usage argument at all.
+**Both were found by reading the page rather than by searching for anything.**
+
+**THIS BOOK'S OWN FRONT MATTER SAID WHY IT COULD NOT BE DONE.** It ends "Only one copy of this book
+has ever been transcribed, and this is it", which is true and was being read as *therefore nothing
+can be checked*. One transcription is not one witness: the transcription is the thing under
+examination and the photograph is the witness. That sentence now says so, with the jade grass as its
+example.
+
+**`Lede` IS WHAT MURRAY PRINTED.** The Odyssey's Nekyia reads "And I saw Lede, the wife of Tyndareus",
+carried as a slip for Leda. Two independent Internet Archive scans of the 1919 Loeb volume were
+searched: both read `Lede`, and **neither contains `Leda` anywhere at all**. It is Murray's own
+Latinisation of Λήδη, keeping the eta. Closed on E31's rule, not deferred — and worth two scans rather
+than one, `a` for `e` being exactly the confusion an OCR makes.
+
+**THE SUMMA'S DROPPED WORD, FROM THE SECOND TRANSCRIPTION E38 BUILT.** Folio read "that there several
+real relations in God". Gutenberg 17611 reads "that there **are** several real relations in God", and
+Folio's own next clause already says "hence it follows that there are also several realities". **A
+dropped word leaves nothing behind** — every word still standing is a word — so the duplication check,
+`book-audit` and every slip sweep pass it, and no reading of this text alone could settle it. E38's
+finding one scale down: it took a whole missing question to make the point, and it is just as true of
+one word.
+
+**AND THE SUMMA'S `inproportionate` HAD BEEN FIXED IN E19 AND STAYED ON THE LIST FOR FIVE BATCHES.**
+The shipped book contains no such string and has not for some time; the row is in `fetch-book.js`
+with its reasoning beside it. **A list of open work is a claim like any other and nothing was
+measuring this one** — `check-counts.js` reads a book's front matter and `check-claims.js` reads
+CLAUDE.md, and neither looks at a plan's own table of what is left.
+
+**PLATO: ONE REPAIR OUT OF FIFTY-TWO CANDIDATES, AND THE INTERESTING ONE IS THE REFUSAL.** E19 left
+six standing as needing a leaf read, on the ground that the Loeb scans' text layer is unusable here
+(the facing Greek bleeds into the English column). Re-read, five of the six are the text being right.
+`patent` and `sling` were already cleared; **`notionless` joins them and is the one to remember**. The
+Lysis is built on the word — "to have a high notion of yourself in matters of which you have as yet no
+notion … Nor can you have a great notion of yourself, if you are still notionless" — so Lamb coined it
+to finish Socrates' joke. **A rarity test cannot see a pun**, and this one reads as a slip in every
+way except the only one that counts. What was genuinely left is `fiightened` for `frightened` in the
+Laches, which is E15's rule and needed no page at all.
+
+**EACH BOOK WAS RE-IMPORTED AND EACH CHANGED EXACTLY ONE LINE**, which is the discipline this whole
+programme runs on: the Summa's 2.5 million words, Plato's thirty-five dialogues and their Greek, and
+Journey to the West with its Chinese column all came back byte-identical but for the repair.
+
+---
 
 ### E43 — a chapter that repeats itself, and one that stops early, shipped 2026-09-04
 
@@ -2638,7 +2701,9 @@ is settled by a rule about type and by the book's own vocabulary. Read E14 befor
 'no witness reachable' entry here as closed.)** `summa-theologica` — its two
 (`corning`, `inproportionate`) would need the right one of twenty-two volumes and are not worth the
 search for two words. **(Batch E15 repaired `corning` with no volume opened: it is the rn-for-m
-family, and `corning` is a non-word. `inproportionate` stands.)**
+family, and `corning` is a non-word. E19 then repaired `inproportionate` on the book's own usage —
+so BOTH were closed, and the outstanding list went on naming the second for five batches after it
+had been fixed. A list of open work is itself a claim, and nothing was measuring this one.)**
 
 ---
 

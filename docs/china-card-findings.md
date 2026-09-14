@@ -3477,3 +3477,52 @@ before installation; the contact sheet was not needed, PIL still being absent.
 right picture and there is only one of it — a second copy on the term is the within-collection duplicate
 `check-cards.js` exists to report, and the alternatives Commons offers for these subjects are all weaker
 than the one already used. `Eastern_Han` took a distinct one (an Eastern Han pottery tower model, CC0).
+
+---
+
+## Re-sourcing the mythology cards (batch C7, Sep 2026)
+
+Five China cards were reported by `check-cards.js` rule 1 for resting three deep on one author —
+`cnh-015` and `cnh-021` on Mayers' *Chinese Reader's Manual*, `cnh-022`, `cnh-026` and `cnh-039` on
+Doré's *Researches into Chinese Superstitions* and Mayers again. **Two were repaired and three were
+not**, and the three are more useful written down than left looking like an oversight.
+
+**GILES IS WRONG ABOUT CHANG'E'S NAME TABOO, AND HIS OWN DICTIONARY IS WHAT PROVES IT.** `cnh-015`
+said the character *Heng* went out of use "because two Tang emperors bore Heng as a personal name",
+which is exactly what Giles' entry 140 says: "the Emperors Mu Tsung and Chên Tsung of the T'ang
+dynasty both had Hêng for their personal names." Chên Tsung is **Song**, not Tang — and Giles says so
+himself two hundred pages later, his entry for Chao Hêng (968–1022) making him "third Emperor of the
+Sung dynasty" and his cross-reference reading "Chén Tsung. See Chao Héng." Werner's footnote at p. 182
+has it right: "Mu Tsung of the T'ang dynasty and Chên Tsung of the Sung dynasty." The card now says a
+Tang emperor and a Song emperor, cited to Werner. **A reference work can contradict itself between two
+of its own articles, and the second article is free to check**, which is the cheapest verification on
+this shelf and was not being done.
+
+**THE FOUR NUMINA COME FROM THE BOOK OF RITES AND THE CARD WAS CITING A HANDBOOK'S DIGEST OF THEM.**
+`cnh-026`'s third sentence read "which the same manual lists as a set of its own" — *the same manual*
+being Mayers, which is a phrase that says nothing to a reader and points at a Victorian glossary for a
+list that is in the *Lî Kî* itself. Legge, SBE 27, the Lî Yun, sect. iv, 10, p. 384: "What were the
+four intelligent creatures? They were the Khî-lin, the phoenix, the tortoise, and the dragon." The
+citation is now Legge and the sentence names the Book of Rites, which also clears the rule 1 finding.
+**Reach for the primary text the handbook is digesting before reaching for a second handbook.**
+
+**THE THREE THAT WERE NOT REPAIRED, AND WHY SWAPPING WERNER IN WOULD HAVE BEEN A COUNTING FIX.**
+Werner's *Myths and Legends of China* is on all three already or beside them, and it is another popular
+handbook of the same generation and largely derivative of Mayers and Doré — so moving a marker from
+one to the other clears the report and changes nothing about what the card rests on. The claims that
+would have had to move are each supported by only the one work: Mayers pt. I no. 300 for the moon's
+cassia, Wu Kang and the examination phrase (`cnh-015`); Mayers no. 647 for Xu Fu's 219 BCE sailing
+(`cnh-021` — **Giles no. 788 carries the expedition and the several thousand young men and women but
+neither the year nor the reading of it as a memory of Japan**, so the swap needs the sentence
+rewritten); Doré vol. 9 for the emblem list and the four early membership lists (`cnh-022`); Doré
+vols. 6 and 7 for Guan Yu's early life and his adoption as a Buddhist monastery guardian (`cnh-039`).
+Each is a content pass on one card, not a substitution.
+
+**AND THE MODERN FRENCH SCHOLARSHIP THAT WOULD HAVE FIXED THEM CANNOT BE READ FROM HERE.** Persée's
+search found Rémi Mathieu, "Le lièvre de la lune dans l'antiquité chinoise" (*Revue de l'histoire des
+religions* 207, no. 4, 1990) — the CNRS authority on early Chinese myth, writing on exactly the moon
+hare `cnh-015` needs — plus the BEFEO's "Jardins en miniature d'Extrême-Orient" for Penglai and its
+1982 survey of Warring States astronomy for the lunar mansions. **The article pages open and the PDFs
+answer 403 behind an altcha proof-of-work page**, so none of the three could be verified and none was
+cited. `node .claude/check-reach.js` now probes Persée twice, article and PDF, so the split is a
+command rather than a sentence in one doc.

@@ -500,7 +500,8 @@
   const PRISTINE_GLOSS_VIDEOS = Object.assign({}, window.GLOSSARY_VIDEOS);   // ditto for the term's video
   const PRISTINE_GLOSS_SOURCES = Object.assign({}, window.GLOSSARY_SOURCES);  // and for its citations
   // slug -> shipped lang-map (edits REPLACE a slug's map, never mutate it). Filled in as each language's
-  // i18n/gloss-<lang>.js lands (glossI18nIngest), NOT at boot — the files are lazy and per-language now.
+  // i18n/gloss-<lang>.js landed, NOT at boot. Those files are deleted (2026-08-08) and so is the ingest
+  // hook (Sep 2026); the table stays empty and glossText() falls back to English for every reader.
   const PRISTINE_GLOSS_I18N = Object.assign({}, window.GLOSSARY_I18N);
   const PRISTINE_TREE_TITLES = {}; Object.values(NODE_BY_ID).forEach((n) => { PRISTINE_TREE_TITLES[n.id] = n.title; });
   // snapshot of the shipped tree structure (used to rebuild after create/rename/delete/move)
@@ -10326,10 +10327,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       },
     },
   };
-  // The translation tables are split ONE FILE PER LANGUAGE (i18n/ui-<lang>.js, i18n/gloss-<lang>.js) and
-  // registered as bundles on demand, so a Spanish reader fetches ~310 KB of Spanish instead of the 2.7 MB
-  // of all-languages tables the single-file layout made everyone download. Registering lazily (rather than
-  // listing 18 static bundles) also means a session only ever knows about the languages it actually visits.
+  // The translation tables WERE split one file per language and registered as bundles on demand. Every
+  // one of those files is now deleted (see the block below), so no language bundle is registered at all.
   /* A COLLECTION'S HEAVY CARD HALF, registered on demand exactly as a language file is (see
      CARD_EXTRA_FIELDS). Listing fifteen static bundles would work and would also mean a session
      knows about collections it never opens; this way `cardExtra:gr` exists only once something has
@@ -10396,19 +10395,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       } catch (e) {}
     });
   }
-  function langBundle(kind, lang) {
-    const name = kind + ":" + lang;
-    if (!DATA_BUNDLES[name]) {
-      DATA_BUNDLES[name] = kind === "uiI18n"
-        ? { files: ["i18n/ui-" + lang + ".js"] }
-        : kind === "placeI18n"
-        ? { files: ["i18n/places-" + lang + ".js"], after: placeI18nIngest }
-        : kind === "gamesI18n"
-        ? { files: ["i18n/games-" + lang + ".js"], after: gamesI18nIngest }
-        : { files: ["i18n/gloss-" + lang + ".js"], after: glossI18nIngest };
-    }
-    return name;
-  }
+  /* THE TRANSLATION FILES ARE GONE, AND `langBundle` WENT WITH THEM (Sep 2026, on request).
+     i18n/ui-<lang>.js, i18n/games-<lang>.js and i18n/places-<lang>.js were deleted -- 2.1 MB across
+     nine languages, none of it reachable since MULTILANG went false, and better than a quarter of it
+     translating English strings app.js no longer contains. The card and glossary translations had
+     already gone the same way on 2026-08-08.
+
+     WHAT IS LEFT IS THE ENGINE, DELIBERATELY: t(), localizeTree() and applyLang() are threaded
+     through every rendered string on the site, cost an English reader nothing, and are what a
+     revival would be built ON rather than what it would have to replace. What a revival can no
+     longer do is FLIP A FLAG: there is no table behind any of the nine languages now, so reviving
+     means regenerating each family before MULTILANG moves. That is a larger job than it was and it
+     is stated here rather than discovered.
+
+     A BUNDLE POINTING AT A DELETED FILE IS A 404 PER LANGUAGE, which is exactly what the gloss
+     bundle did for the hour after the 2026-08-08 removal. So the registrations go with the files
+     rather than being left to be found later. */
   // A gloss language file pushes its shipped slug -> text map onto window.GLOSSARY_I18N_IN rather than
   // writing the live table itself: the shipped text is the baseline revert/undo compares against, so it
   // has to reach PRISTINE_GLOSS_I18N *before* any admin edits are layered back on top. Draining a QUEUE
@@ -10511,40 +10513,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (!(k in window.GLOSSARY)) { delete window.GLOSSARY_IMAGES[k]; delete window.GLOSSARY_SOURCES[k]; }
     });
   }
-  function glossI18nIngest() {
-    const q = window.GLOSSARY_I18N_IN || [];
-    window.GLOSSARY_I18N_IN = [];
-    const touched = new Set();
-    q.forEach((inc) => Object.keys(inc.data).forEach((k) => {
-      (PRISTINE_GLOSS_I18N[k] = PRISTINE_GLOSS_I18N[k] || {})[inc.lang] = inc.data[k];
-      touched.add(k);
-    }));
-    touched.forEach(glossI18nApply);
-  }
   // The daily-game pools live in the EAGER load path (truefalse.js / quotes.js load before app.js), so
   // their translations must not: nine languages inline took quotes.js from 27 KB to 312 KB downloaded by
   // every visitor, which is exactly what the bundle split exists to prevent. A games language file pushes
   // onto window.GAMES_I18N_IN and this hook drains that QUEUE into GAMES_I18N[pool][englishQ][lang] —
   // a queue, not a slot, so two languages landing before either hook both survive.
   const GAMES_I18N = { truefalse: {}, quotes: {} };
-  function gamesI18nIngest() {
-    const q = window.GAMES_I18N_IN || [];
-    window.GAMES_I18N_IN = [];
-    q.forEach((inc) => ["truefalse", "quotes"].forEach((pool) => {
-      const d = inc[pool] || {};
-      Object.keys(d).forEach((k) => { (GAMES_I18N[pool][k] = GAMES_I18N[pool][k] || {})[inc.lang] = d[k]; });
-    }));
-  }
   // A places file pushes { lang, data } onto window.PLACE_I18N_IN; this hook drains that QUEUE into
   // PLACE_I18N[englishName][lang], which placeName() reads. A queue, not a slot, so two languages whose
   // scripts land before either hook both survive — the same shape as the gloss and games ingests.
   const PLACE_I18N = (window.PLACE_I18N = window.PLACE_I18N || {});
-  function placeI18nIngest() {
-    const q = window.PLACE_I18N_IN || [];
-    window.PLACE_I18N_IN = [];
-    q.forEach((inc) => { const d = inc.data || {}; for (const k in d) (PLACE_I18N[k] = PLACE_I18N[k] || {})[inc.lang] = d[k]; });
-    if (q.length && typeof mapBump === "function") mapBump();   // the globe caches label layouts by view key
-  }
   /* ============================================================
      THE LIBRARY — public-domain books, read on the site
      ============================================================
@@ -11500,45 +11478,58 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     {
       id: "plato-republic",
       title: "The Republic",
-      // the edition's own title page sets this under the title, on its own line
-      subtitle: "An Ideal Commonwealth",
+      // Plato's own title for it, transliterated; the Loeb prints no descriptive subtitle
+      subtitle: "Politeia",
       author: "Plato",
       written: "c. 375 BCE",
       year: -375,
-      translator: "Benjamin Jowett",
-      edition: "The Colonial Press, New York, 1901",
-      /* The simplest licence of the four, and the only one that needs no qualification of any kind.
-         Seneca and the Meditations are served on the pre-1929 publication rule and happen to clear
-         life-plus-seventy as well; Giles clears only the first, and his entry has to say where it
-         stops. Jowett died in 1893, so this one has been out of copyright everywhere for longer than
-         most countries have had their present term. */
+      translator: "Paul Shorey",
+      edition: "Loeb Classical Library, Harvard University Press, 1930 and 1935",
+      /* THE ONE LICENCE ON THIS SHELF THAT DIFFERS BY VOLUME (Sep 2026, on request). This book
+         shipped in Jowett until then — the simplest licence of any book here — and changed
+         translators to get the facing Greek it had never had; see .claude/fetch-book.js for the
+         whole finding. Shorey died in 1934, so the translation is public domain wherever the term is
+         life plus seventy and has been since 2005; in the United States it runs from publication, so
+         Books I–V (1930) cleared on 1 January 2026 and Books VI–X (1935) follow on 1 January 2031.
+         That split is stated rather than rounded into one claim, which is the Nicomachean Ethics'
+         discipline made in the other direction — Ross is clear in the US and runs to 2042 in
+         life-plus-seventy countries, and his entry says so too. */
       rights:
-        "Public domain worldwide: Benjamin Jowett died in 1893 and his translation was published from " +
-        "1871 onwards, this printing in 1901 — so its copyright has expired everywhere, on the " +
-        "pre-1929 publication rule and on the author's-life rule alike. The Greek it translates is " +
-        "some twenty-four centuries old. The modern translations by Desmond Lee (1955), Allan Bloom " +
-        "(1968) and G. M. A. Grube revised by C. D. C. Reeve (1992) are still in copyright and are " +
-        "deliberately not used here.",
-      sourceName: "Wikisource",
-      sourceUrl: "https://en.wikisource.org/wiki/The_Republic_of_Plato",
-      /* NO `origLang`, and this is the first book here to go without one — so it is also the first
-         demonstration that the field is genuinely optional: the reader page simply shows no
-         original-language control, and nothing else about the book differs.
-
-         It is not for want of a Greek text. Plato has the best-standardised citation system of any
-         ancient author — Stephanus's page-and-column of 1578, which every edition in every language
-         has used since — and Burnet's Oxford text sits on Perseus in the same TEI encoding the
-         Meditations' Greek comes from. What is missing is the numbers on JOWETT: this printing does
-         not carry them, and it is the only complete transcription of the Republic in Wikisource's
-         main namespace. The columns pair on numbers a text states about itself, so a book whose
-         English states none cannot have a second column without several hundred alignments made by
-         eye — which is exactly what was tried and abandoned for the Meditations. The reader is told
-         so in the book's own front matter; see .claude/fetch-book.js for the whole finding. */
+        "Two layers, both stated, and the English one differs by volume. Paul Shorey's translation was " +
+        "published in the Loeb Classical Library in two volumes, Books I–V in 1930 and Books VI–X in " +
+        "1935. Shorey died in 1934, so the whole translation has been public domain since 1 January " +
+        "2005 in every country whose term is the author's life plus seventy years, including the " +
+        "United Kingdom and the European Union. In the United States the term runs from publication: " +
+        "Books I–V entered the public domain there on 1 January 2026, and Books VI–X follow on " +
+        "1 January 2031. The Greek beside it is John Burnet's Oxford Classical Text of 1902, and " +
+        "Burnet died in 1928, so that is public domain on both rules with nothing to qualify. Both " +
+        "columns are taken from the digital editions prepared by the Perseus Digital Library at Tufts " +
+        "University, which are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence. Plato's own text is some twenty-four centuries old. (The modern " +
+        "translations a reader is likeliest to own — Desmond Lee's Penguin of 1955, G. M. A. Grube's " +
+        "revised by C. D. C. Reeve in 1992, and Allan Bloom's of 1968 — are all firmly in copyright " +
+        "and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059.tlg030/",
+      /* IT HAS AN ORIGINAL NOW, and the entry that stood here was the shelf's demonstration that
+         `origLang` is optional — a book whose English stated no Stephanus numbers and so could not
+         be paired with a Greek that states nothing else. The block ended "the day a numbered
+         transcription appears an `original` block and an `origLang` are the whole of the work", and
+         that is what happened: Shorey's Loeb prints the numbers, sits on Perseus in the same TEI
+         encoding Burnet's Greek does, and the two pair on 278 Stephanus sections with every book's
+         list identical — measured before anything was written. The demonstration that the field is
+         optional now belongs to Aesop's Fables, where NEITHER column states a number and no better
+         transcription would help. */
+      origLang: "grc",
+      origName: "Greek",
       chapterWord: "Book",
       // ten books is the whole work, so the two agree and will stay agreed
       count: 10,
       total: 10,
-      /* No `parts`: one volume, and its own edition divides the ten books no further. */
+      /* No `parts`: the Loeb divides the ten books into two volumes and Folio does not follow that
+         split, since it is a binding rather than a division of the argument — and the volumes are
+         exactly what `rights` has to separate, so drawing them as parts would put a copyright
+         boundary on the chapter bar where a reader would read it as Plato's. */
     },
     {
       id: "plato-dialogues",
@@ -11585,17 +11576,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "here.)",
       sourceName: "Perseus Digital Library",
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059/",
-      /* AN `origLang` WHERE THE REPUBLIC HAS NONE, and the difference is the PRINTING rather than
-         the author. The Republic entry above concludes that Plato cannot have a Greek column; it is
-         right about that printing and wrong as a general rule, which is worth saying because this is
-         the book that disproves it — the columns pair on section numbers a text states about itself,
-         the Colonial Press Republic states none, and every text here states all of them.
+      /* AN `origLang` THE REPUBLIC ONCE LACKED, and the difference was always the PRINTING rather
+         than the author. This entry used to say that the Republic entry above "concludes that Plato
+         cannot have a Greek column, right about that printing and wrong as a general rule" — and in
+         Sep 2026 the Republic was rebuilt on Shorey's Loeb, which states the same Stephanus numbers
+         these thirty-five do, and now pairs 278 of 278. The rule it was right about stands: the
+         columns pair on section numbers a text states about itself, and the Colonial Press Jowett
+         stated none.
 
          THE CLEANEST PAIRING IN THE LIBRARY, and the first that is exact BY CONSTRUCTION rather than
          by measurement: both columns are the same TEI encoding of the same citation scheme from the
          same publisher. Measured anyway, over all thirty-five works — 1,484 sections on each side,
-         identical numbers in identical order, not one exception in either direction. Only the Art of
-         War's facing page comes close, and it covers thirteen chapters against these thirty-five.
+         identical numbers in identical order, not one exception in either direction. The Republic
+         now joins it on the same footing — 278 of 278, same encoding, same scheme — and only the Art
+         of War's facing page comes near either, over thirteen chapters against these thirty-five.
          The Letters repeat ten Stephanus numbers, a page spanning the join between one letter and
          the next, and BOTH columns repeat exactly the same ten in the same places — checked, since
          a duplicate on one side only is what would quietly merge two passages into one row. */
@@ -11606,12 +11600,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          edition splits over two volumes: its 327 Stephanus sections carry its twelve books' worth of
          structure, and cutting it further would mean composing boundaries. */
       chapterWord: "Dialogue",
-      /* THIRTY-FIVE OF THE THIRTY-SIX, and the one gap is a LICENCE gap rather than a textual one:
-         Perseus's English Republic is Paul Shorey's of 1935–37, which is not in the public domain
-         and cannot be shelved. It is in this library already, in Jowett's translation from a
-         different printing, as a book of its own — so nothing is missing from the shelf, only from
-         this book, and its slot in Tetralogy VIII is simply left out. `total` counts the surviving
-         works transmitted under Plato's name, which is what this book is a gathering of. */
+      /* THIRTY-FIVE OF THE THIRTY-SIX, AND THE REASON CHANGED IN SEP 2026 WITHOUT THE FIGURE MOVING.
+         It used to be a LICENCE gap — Perseus's English Republic is Shorey's, described here as "of
+         1935–37, which is not in the public domain", a date that conflated volume 2 with volume 1's
+         reprint and was wrong about the conclusion besides: Shorey died in 1934, so the translation
+         has been public domain in life-plus-seventy countries since 2005 and Books I–V cleared in
+         the United States on 1 January 2026. The Republic is now shelved in that very translation,
+         as a book of its own with the facing Greek. So the gap is no longer a licence at all: it is
+         that the work is already on the shelf and pulling it in here would put the same 278 sections
+         in front of a reader twice. Its slot in Tetralogy VIII is left out for that reason.
+         `total` counts the surviving works transmitted under Plato's name, which is what this book is
+         a gathering of. */
       count: 35,
       total: 36,
       /* Thrasyllus's nine tetralogies — the ancient arrangement of Plato, which Perseus's own work
@@ -15023,7 +15022,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      "−−129 °F". U+2212 only, deliberately — a hyphen or an en dash in that position is a range separator
      ("10–7 kilometres"), and swallowing one would take the first figure of the range with it. */
   const U_SIGN = "−?";
-  const U_RUN = "(" + U_SIGN + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)";
+  /* A RUN MAY NOT BEGIN INSIDE A WORD, and the lookbehind is the whole of what stops it. U_NW lists the
+     ARTICLE and the small number WORDS ("a", "an", "one"), which carry no boundary of their own, so the
+     last letters of Afric|a, me|an and limest|one were read as the number one and the run swallowed the
+     prose after them: "1,930 kilometres (1,200 miles) from Africa and 2,900 kilometres (1,800 miles)"
+     rendered in imperial as "1,200 miles from Afric1,800 miles". It corrupts text for the IMPERIAL reader
+     only, which is why nothing caught it — the authored metric view is untouched — and it reached 48 text
+     nodes across the shipped corpus. Measured before and after: 48 restored, 0 shortened, metric mode
+     byte-for-byte identical. It is a plain class rather than \p{L} because these patterns carry no u flag. */
+  const U_RUN = "(?<![A-Za-z\u00C0-\u024F])(" + U_SIGN + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)";
   /* A RATE carries a denominator between the unit and the bracket ("300 kilometres an hour (190 miles an
      hour)"), which the whitespace-only gap could not cross — so the bracket was invisible and BOTH figures
      were shown to a metric reader. It is captured rather than tolerated: metric keeps it, since dropping it
@@ -35088,17 +35095,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      PAGE: TRUE OR FALSE (myth-or-fact quiz, 5 rounds)
      ============================================================ */
   // A game page must not paint English and then flip to the reading language a moment later, so both
-  // pools' pages hold on a loading line until i18n/games-<lang>.js lands. Returns true when it held.
-  // English readers never wait — and never fetch it. A failed load just falls through to English.
+  // pools' pages held on a loading line until i18n/games-<lang>.js landed. Those files are deleted
+  // (Sep 2026), so nothing is pending and this is now always false — see the stub below.
+  /* NOTHING IS PENDING ANY MORE: the games translations were deleted with the rest (Sep 2026), so
+     there is no fetch for a page to hold on. It returns false unconditionally and both game pages
+     paint at once, which is what an English reader always got. Kept as a named seam for the same
+     reason loadLangData is. */
   function gamesI18nPending(root) {
-    const lang = uiLang();
-    if (lang === "en") return false;
-    const name = langBundle("gamesI18n", lang);
-    if (dataReady(name)) return false;
-    root.innerHTML = '<div class="data-loading" role="status" aria-live="polite">Loading…</div>';
-    const want = current.name;
-    ensureData(name).then(() => { if (current.name === want) render(); });
-    return true;
+    return false;
   }
   PAGES.truefalse = function (root) {
     detachKeys();
@@ -43043,10 +43047,16 @@ let prev = null;
     Object.values(ADMIN_EDITS.glossaryI18n || {}).forEach((d) => Object.keys(d || {}).forEach((l) => langs.add(l)));
     return [...langs].filter((l) => dataReady("glossI18n:" + l));
   }
+  /* IT WRITES NOTHING, AND HAS NOT SINCE 2026-08-08 (made explicit Sep 2026). The gate above asks
+     dataReady("glossI18n:<lang>"), and there has been no such bundle to load since the glossary
+     translations were deleted -- so the list was already empty on every call, through all five bake
+     sites. What changed in Sep 2026 is that i18n/ is gone as a DIRECTORY, and autoSaveFiles walks
+     and CREATES the directories on the way down: an entry here would silently recreate the folder
+     this change removed. Returning the empty object outright is the honest form of what it already
+     did, and it cannot be reached past. The serializers above are kept because a revival needs the
+     file SHAPE, which is the part that is expensive to re-derive. */
   function glossI18nFiles() {
-    const out = {};
-    editedGlossI18nLangs().forEach((l) => { out["i18n/gloss-" + l + ".js"] = serializeGlossaryI18n(l); });
-    return out;
+    return {};
   }
   function serializeMission() {
     const M = missionMerged();
@@ -47520,21 +47530,17 @@ let prev = null;
     q = String(q).toLowerCase().split("-")[0];   // accept es-ES / pt-BR style tags, match on the base language
     if (LANG_CODES.includes(q) && q !== S.settings.lang) { S.settings.lang = q; save(); }
   })();
-  // The translation tables are lazy AND per-language (see langBundle): i18n/ui-<lang>.js carries the site
-  // chrome, and games/places their own pools — the one language being read, which an English reader never
-  // fetches at all. They are pulled the moment the language goes non-English; `then` fires once the chrome
-  // table has landed.
-  // NOTE (2026-08-08): the GLOSSARY translations were removed on request along with the card `i18n` blocks,
-  // so i18n/gloss-<lang>.js no longer exists and is deliberately NOT fetched here — a bundle pointing at a
-  // deleted file is a 404 per language, which is what it did for the hour before this line was cut.
-  // `glossText()` falls back to the English, so every reader now sees the English glossary. The ingest hook
-  // and the per-language overlay below are kept intact, so restoring the files is all it would take.
+  // THERE ARE NO TRANSLATION TABLES LEFT (Sep 2026, on request). The card `i18n` blocks and the glossary
+  // files went on 2026-08-08; the chrome, games and places files went with this change — 2.1 MB across
+  // nine languages, unreachable since MULTILANG went false, and better than a quarter of it keyed on
+  // English strings app.js no longer contains. Every localized accessor (t(), glossText(), nodeTitle(),
+  // placeName(), gameLocalized()) falls back to English, which is what every reader has seen for months.
+  /* THERE IS NOTHING LEFT TO LOAD (Sep 2026). Every translation file was deleted, so this fires its
+     callback and fetches nothing. It is kept as the single named seam a revival would fill in rather
+     than deleted outright: setLang() and boot both call it, and a revival that had to re-derive WHERE
+     the tables are pulled would be re-deriving a decision this file already made. */
   function loadLangData(then) {
-    const lang = S.settings.lang || "en";
-    if (lang === "en") { if (then) then(); return; }
-    ensureData(langBundle("gamesI18n", lang));   // background — the two game pages also await it themselves
-    ensureData(langBundle("placeI18n", lang));   // background — the Atlas re-renders its labels when it lands
-    ensureData(langBundle("uiI18n", lang)).then(() => { if (then) then(); });
+    if (then) then();
   }
   // the one place the site language changes: validates, persists, loads what it needs, repaints
   function setLang(code) {
@@ -47543,7 +47549,10 @@ let prev = null;
     S.settings.lang = code;
     save();
     const paint = () => { applyLang(); render(); };   // flip dir/lang + the static chrome, then rebuild the page
-    if (code === "en" || dataReady(langBundle("uiI18n", code))) paint(); else loadLangData(paint);
+    // There is no per-language bundle to wait on any more, so this paints directly. The call was
+    // `dataReady(langBundle("uiI18n", code))` and langBundle is deleted -- a ReferenceError the moment
+    // MULTILANG moved, and invisible until then because `code === "en"` short-circuits it away.
+    loadLangData(paint);
   }
   /* The language picker's markup, shared by nothing else — it lives on the Settings page (Aug 2026; it
      used to be a dropdown in the top bar, which on a phone is now gone entirely). The whole block carries

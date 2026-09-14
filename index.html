@@ -215,15 +215,14 @@
          bundle "world"      world.js                     — Atlas, home-page mini globe, Settings home picker
          bundle "atlas"      uk / lakes / rivers / water / cities / timeline /
                              countries / country-stats / country-spans / country-years
-         bundle "uiI18n:<lang>"     i18n/ui-<lang>.js      — only when the site language isn't English
-         bundle "gamesI18n:<lang>"  i18n/games-<lang>.js   — ditto (the two daily-game pools)
-         bundle "placeI18n:<lang>"  i18n/places-<lang>.js  — ditto (the names on the globe)
-
-       The card `i18n` blocks and i18n/gloss-<lang>.js were REMOVED on 2026-08-08, on request:
-       the site ships in English (MULTILANG = false in app.js), so they were 2.06 MB of THIS
-       list — 58% of data.js — plus 3.1 MB of files no reader could reach. `loadLangData` no
-       longer asks for the gloss bundle; the glossary now falls back to English in every
-       language.
+       THERE ARE NO LANGUAGE BUNDLES ANY MORE. The card `i18n` blocks and i18n/gloss-<lang>.js
+       went on 2026-08-08, and i18n/ui-, games- and places-<lang>.js went in Sep 2026, all on
+       request: the site ships in English (MULTILANG = false in app.js), so the first removal
+       was 2.06 MB of THIS list — 58% of data.js — plus 3.1 MB no reader could reach, and the
+       second was a further 2.1 MB of lazy files, better than a quarter of which translated
+       English strings app.js no longer contains. The 44 tree-node title translations came off
+       this list with them. `langBundle` is deleted and `loadLangData` fetches nothing; every
+       localized accessor falls back to English, which is what every reader has seen for months.
 
        That is ~9.9 MB a visitor no longer downloads to flip a card. Don't move a lazy file
        back into this list without also dropping it from DATA_BUNDLES — a bundle whose files

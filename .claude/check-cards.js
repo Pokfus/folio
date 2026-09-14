@@ -142,8 +142,42 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
    the translator after (Livy trans. Roberts, the Greek Anthology trans. Paton), so an
    anonymous one opens on its title — and the title is then what `authorOf` returns.  Before
    the China cards were re-cited, five different classics translated by James Legge read as
-   one modern scholar cited five times, which is the opposite of what rule 1 is for. */
-const ANCIENT = /^(herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books)\b/i;
+   one modern scholar cited five times, which is the opposite of what rule 1 is for.
+   THE LIST GREW AGAIN WITH THE PASS THAT PRODUCED THAT FORM (Sep 2026,
+   `.claude/fix-citation-form.js`).  Correcting 237 citations moved a heap of anonymous works
+   INTO the author slot — the Book of Lord Shang 33 times, the Nihongi 27, the She King 12,
+   the Anglo-Saxon Chronicle 10 — and every one of them was then keyed as a modern scholar,
+   which is the same fault one step further on: no card trips on them today, so nothing would
+   have said so until one did.  A title is added here the moment the pass starts producing it.
+   WHAT IS DELIBERATELY NOT HERE IS THE MODERN PRIMARY DOCUMENT.  The same slot now holds the
+   Treaty of Versailles (7), the Covenant of the League of Nations (6) and a dozen
+   constitutions and court records.  They are primary rather than scholarly, so counting them
+   as one scholar's opinion is wrong in the same way — but this list is of ANCIENT witnesses,
+   and a card resting three times on one modern treaty is a judgement somebody should make
+   with the card in front of them rather than a row added here in passing. */
+/* THREE MORE CAME FROM THE OTHER TOOL, WHICH NOW SHARES THIS LIST (Sep 2026).  `card-focus.js`
+   enforces the same house rule one field over — a question may never name a researcher — and reads
+   its names from these same author positions, so reading its findings showed Antiphon (5 citations),
+   Lucian (3) and Sun Tzŭ (3) reaching the MODERN side here as well.  Not one of them trips a card
+   today, which is exactly why nothing would have said so until one did.  They are added here rather
+   than in the other file because `card-focus.js` now slices this regex out by text, the mirror of the
+   way this file slices its exemptions: one list of ancient witnesses, two tools. */
+/* AND THE CLOSING GUARD IS A LOOKAHEAD RATHER THAN `\b`, WHICH IS ASCII-DEFINED (Sep 2026).  `Sun
+   Tzŭ` is how this corpus cites the Art of War, and `\b` after a ŭ asks for a boundary between two
+   characters neither of which JS counts as a word character — so the alternative matched the name and
+   the anchor then threw the match away, silently, on the one author it had just been added for.  A
+   negative lookahead for a Latin letter says what the anchor meant and is blind to no alphabet. */
+/* SEVEN NAMES ARE WRITTEN OUT IN FULL AND LEAD THE ALTERNATION, WHICH IS NOT TIDINESS (Sep 2026).
+   `card-focus.js` reads this list to decide whether an author is a witness, and it measures the
+   match against the WHOLE name — because the trap on the other side is an ancient author's name
+   that is also a modern GIVEN name.  Measured over the corpus, testing a prefix quietly excused
+   eleven living scholars: Homer B. Hulbert eighteen times, and Justin Coppe, Justin Bradfield,
+   Justin Ledogar, Justin Reuter, Justin Liefer, Justin Lemberg, Justin Eilertsen, Virgil Drăgușin
+   and Aristotle Kakaliagos once each.  A whole-name test needs the ancient's own full name, and
+   these seven are the shapes the corpus actually cites — Diodorus Siculus 242 times, Velleius
+   Paterculus 83, Pliny the Elder 27.  JS alternation takes the FIRST branch that matches, so a
+   long form placed after its own prefix would never be seen. */
+const ANCIENT = /^(diodorus siculus|velleius paterculus|pliny the elder|pliny the younger|ammianus marcellinus|eusebius of caesarea|suda on line|herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|antiphon|lucian|pomponius|sun tz[uŭ]|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)(?![A-Za-z])/i;
 
 /* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
    the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,
@@ -167,8 +201,37 @@ const INSTITUTIONAL = new Set([
   "institute for the study of the ancient world", "digital egypt for universities",
   "ministère de la culture", "ministère de la culture (france)", "government of the netherlands",
   "government of anguilla", "governorate of vatican city state", "statistics jersey",
-  "administration supérieure des îles wallis et futuna",
+  "administration supérieure des îles wallis et futuna", "parks australia",
+  /* A MULTI-AUTHOR TEXTBOOK CITED PER CHAPTER IS THE SAME CASE AS A DATA PUBLISHER (Sep 2026), and
+     both were read before being named here. Three chapters of one standard textbook, credited to a
+     team of three or six, are not three scholars' opinions — they are one reference shelf consulted
+     three times, which is a different fault from three papers by one arguing scholar and is reported
+     as such rather than excused. NOT extended to the 1905, 1922 and 1929 works the corpus also leans
+     on (Walters, the Cambridge History of India, Platner and Ashby): there the whole modern apparatus
+     of a card really is one book, which is the finding this check exists for. */
+  "mary ann clark",   // OpenStax, Biology 2e — three authors, cited per chapter (bio-003/014/015)
+  "bruce alberts",    // Molecular Biology of the Cell — six authors, cited per chapter (bio-025/026)
 ]);
+
+/* Is this cited author the card's own subject? Folded to letters, digits and single spaces, and
+   compared both ways round so "Charles Darwin" matches an answer of "Charles Darwin" and a citation
+   key that carries more or less of the name than the answer does still resolves. */
+const subjKey = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+function citesOwnSubject(card, key) {
+  const ans = subjKey(card && card.answerText), k = subjKey(key);
+  if (!ans || !k || k.length < 4) return false;
+  if (ans === k || ans.includes(k) || k.includes(ans)) return true;
+  /* A CHICAGO NOTE ABBREVIATES A GIVEN NAME AND A CARD'S ANSWER TERM DOES NOT, so the string
+     test above can only match a source written with the given name IN FULL — which is how a
+     19th-century book is cited and not how a journal article is.  It therefore saw `ps-037`
+     Fechner, `ps-038` Darwin and `ps-040` Galton, all cited by their books, and could not see
+     `ps-049`, whose answer is “Edward Titchener” against four sources reading “E. B.
+     Titchener”: the card was reported as an over-citation on a difference of typography.  The
+     surname ALONE is too loose — Erasmus and Charles Darwin are two men, and so are the three
+     Seligmans — so the first initial must agree with it. */
+  const last = (s) => s.split(" ").pop();
+  return last(ans).length >= 4 && last(ans) === last(k) && ans[0] === k[0];
+}
 
 /* The author field of a Chicago note is what stands before the first quoted title.  A
    work with no author (a museum record, an institutional page) falls back to the text
@@ -211,21 +274,107 @@ const ATTRIB = new RegExp(
    agency.  Widening the pattern to catch them would start excusing real findings; naming them
    cannot.  Add one only after reading the card. */
 const NOT_A_SCHOLAR = new Set([
-  "White Castle",   // gr-478: the Persian citadel of Memphis, which "held them"
+  "White Castle",     // gr-478: the Persian citadel of Memphis, which "held them"
+  /* Places and things the prose puts in front of a verb of agency — the shape the header above
+     predicted, met once the Rome, World History and Second World War collections grew. */
+  "Golan Heights",    // wh-138: the field of dolmens "holds over 400 tombs"
+  "Teotihuacan Valley", // wh-167: lidar "over" it "found" rerouted river course
+  "Golden House",     // wh-366: Nero's Domus Aurea, which "held" a colossal statue
+  "Sun Pyramids",     // wh-431: caught from "the Moon and Sun Pyramids", which "held" caches
+  "Fascist Italy",    // ww2-038: the state, which "counted its own era" from the March on Rome
+  /* ROMAN REPUBLICAN NAMES, which `ANCIENT` does not cover: that list is of ancient AUTHORS, written
+     for the citation rule, and these are ancient ACTORS a question narrates. Named rather than caught
+     by a praenomen rule, because Gaius, Lucius and Marcus are modern given names too and a pattern
+     would quietly excuse a real scholar. */
+  "Gaius Mucius",     // rm-098: Mucius Scaevola, who "held" his hand in the fire
+  "Asinius Pollio",   // wh-354: the Augustan historian, who "thought" the Commentarii careless
+  "Marcus Aemilius",  // rm-240: M. Aemilius Lepidus, who "put" Rome's terms to Philip
+  "BCE Lucius Mummius", // rm-256: the consul of 146; the match swallowed the era from "146 BCE"
 ]);
+
+/* ============================================================================
+   THE EXEMPTIONS ARE `card-focus.js`'s, SLICED OUT BY TEXT RATHER THAN COPIED
+
+   Two tools enforce one house rule — a question may never name a researcher — and
+   until Sep 2026 only one of them knew what is exempt from it. So this file
+   reported `wh-064` (Toba catastrophe theory), which CLAUDE.md exempts BY NAME,
+   and would have gone on reporting a permanent, growing false finding over
+   Psychology and Philosophy, where the literature IS the subject matter and the
+   exclusion is collection-wide.
+
+   A second copy of a list goes stale on a change made in a file nobody here has
+   reason to open — this repo has the scar — so the lists are read out of
+   `card-focus.js` at run time and the run STOPS if they are not there, rather
+   than silently checking nothing.
+   ============================================================================ */
+const { EXEMPT, RULE1_EXCLUDED } = (() => {
+  const src = fs.readFileSync(path.join(__dirname, "card-focus.js"), "utf8");
+  const grab = (name) => {
+    const m = src.match(new RegExp("\\bconst " + name + "\\s*=\\s*(\\{[\\s\\S]*?\\n\\});"));
+    if (!m) {
+      console.error("check-cards: card-focus.js no longer declares `" + name + "`. The exemptions are\n" +
+        "read from there so the two tools cannot disagree — fix the slice rather than copying the list.");
+      process.exit(2);
+    }
+    return new Function("return " + m[1])();
+  };
+  return { EXEMPT: grab("EXEMPT"), RULE1_EXCLUDED: grab("RULE1_EXCLUDED") };
+})();
+const rule1Exempt = (id) =>
+  !!EXEMPT[id] || Object.keys(RULE1_EXCLUDED).some((p) => id.startsWith(p));
 
 const NOT_A_NAME = /^(The|A|An|This|That|It|Its|His|Her|Their|One|Some|Most|Many|Others|Both|Each|What|When|Where|Who|Nothing|Modern|Ancient|Later|Recent|Tradition|Scholars|Evidence|Radiocarbon|Excavation|Survey|Analysis|Work|Study|Studies|Research|Pottery|Linear|Greek|Greeks|Athens|Sparta|Rome|Egypt|Crete|Cyprus|Sicily|Italy|Troy|Delphi|Olympia|Asia|Europe|Africa|Bronze|Iron|Early|Middle|Late|Old|New|North|South|East|West|Upper|Lower|First|Second|Third|Fourth|Fifth)\b/;
 
 /* ---------- 6. a non-English source, by the name of the work it appears in ---------- */
 
 const LANGS = [
-  ["French",     /\b(revue|études|étude|bulletin de correspondance|persée|française d'Athènes|comptes rendus|chronique|cahiers|mélanges|l'antiquité)\b/i],
+  /* `française d'Athènes` AND `chronique` CAME OUT (Sep 2026, on reading all seventeen
+     findings).  They name a French INSTITUTION, not a French work: the École française
+     d'Athènes publishes its site notices in ENGLISH ("5a. Malia – The Palace", "4. Malia –
+     Historical Discussion") and the Chronique des fouilles en ligne is bilingual, so five
+     Greece cards were reported for resting on two French sources neither of which is in
+     French.  A sixth, gr-195, cited three English chapters of an English volume and was
+     caught by its editors' affiliation.  The real BCH articles still match on `bulletin de
+     correspondance` and Mélanges de l'École française de Rome on `mélanges`, so nothing
+     genuine was let through — checked against all eleven survivors. */
+  ["French",     /\b(revue|études|étude|bulletin de correspondance|persée|comptes rendus|cahiers|mélanges|l'antiquité)\b/i],
   ["German",     /\b(zeitschrift|jahrbuch|mitteilungen|archäolog|untersuchungen|beiträge|forschungen|athenische)\b/i],
   ["Italian",    /\b(rivista|annuario|della scuola|bollettino|quaderni|ricerche)\b/i],
   ["Spanish",    /\b(revista|estudios|boletín|cuadernos|anales de)\b/i],
   ["Greek",      /[Α-Ωα-ω]{4,}/],
   ["Portuguese", /\b(revista brasileira|cadernos de)\b/i],
 ];
+
+/* ADJUDICATED SAME-LANGUAGE PAIRS.  Rule 6 is a proxy and its own header says to read the
+   card before acting on it; these eleven were read in Sep 2026 and every one of them is the
+   right answer rather than a fault.  CLAUDE.md's rule is that "a source in any language
+   qualifies, and an English card may cite a French or German work where that work carries
+   detail no English source does — common for European prehistory, where the excavation
+   reports are written where the site is", and these are exactly that: Greek excavation in
+   the BCH, Etruscan and early Latin archaeology in CRAI and MEFRA, French sinology in the
+   Cahiers d'Extrême-Asie, the Swiss-French mission at Kerma and Meroë, and Mesoamerican and
+   Andean archaeology in Spanish.
+   A ROW MATCHES ONLY WHEN THE CARD, THE LANGUAGE AND THE COUNT ALL AGREE — `check-citations.js`'s
+   CROSSREF_WRONG rule — so adding a third French source to rm-033 reports again rather than
+   riding in on a judgement made about two. */
+const SAME_LANGUAGE_OK = new Map([
+  ["gr-040|French|2",  "BCH: Touchais' excavation note and Faure's review, where the kouros was published"],
+  ["gr-336|French|2",  "BCH: Lemerle's Musée National chronicle for 1937 and 1938, the acquisition record"],
+  ["rm-011|French|3",  "CRAI and the Revue belge — the Latin League's sanctuaries are French scholarship"],
+  ["rm-033|French|2",  "CRAI and MEFRA: Heurgon on the Pyrgi tablets, Humbert on Caere's citizenship"],
+  ["rm-034|French|2",  "CRAI: the Pyrgi inscriptions and the Campana terracottas"],
+  ["rm-036|French|2",  "MEFRA and CRAI: the Tetnie tomb and the Bonaparte excavations at Vulci"],
+  ["cnh-001|French|2", "Cahiers d'Extrême-Asie and the Revue de l'histoire des religions — French sinology"],
+  ["wh-416|French|3",  "CRAI: Rilly on Meroitic and the Swiss-French mission's reports from Kerma and El-Hassa"],
+  ["wh-429|Spanish|2", "Estudios de Cultura Maya, where Maya epigraphy is published"],
+  ["wh-433|Spanish|3", "Boletín de Arqueología PUCP: the Palpa and Chincha surveys behind the Nazca lines"],
+  ["wh-434|Spanish|2", "Peruvian ceramic analyses published in Spanish"],
+  ["gw-566|Spanish|2", "Chilean journals on a Chilean city: the Revista de Urbanismo on a century of Mapocho corridor planning and the Revista de Teledetección on the San Ramón fault — neither has an English counterpart"],
+  /* The École française d'Athènes case again, one language over: only ONE of the two is a Spanish
+     WORK. The other is the WMO's Tegucigalpa record, whose author field is the Honduran meteorological
+     agency's own Spanish name on a page published in English. Read Sep 2026. */
+  ["gw-589|Spanish|2", "the WMO's own record, credited to the Honduran agency in Spanish, beside one genuinely Spanish paper on the Guacerique sub-basin"],
+]);
 
 /* ---------- run ---------- */
 
@@ -245,6 +394,15 @@ for (const c of cards) {
   for (const [k, n] of Object.entries(modern)) {
     if (n <= 2) continue;
     if (INSTITUTIONAL.has(k)) notes.push(["one-institution", `${id}: ${k} in ${n} of ${srcs.length} sources`, id]);
+    /* A CARD CITING ITS OWN SUBJECT'S WORKS IS CITING A WITNESS, NOT A SCHOLAR (Sep 2026) — the
+       ANCIENT rule one era forward. `ps-037` Fechner rests three of its six sources on Fechner's own
+       books, and that is what a card about Fechner SHOULD do; counting it as over-citation asks the
+       card to describe a man while avoiding what he wrote. It is COMPUTED rather than declared, so it
+       can never excuse the same author on another card: the test is that the cited author IS this
+       card's own answer term. Measured over the whole corpus it matches exactly three cards —
+       `ps-037`, `ps-038` and `ps-040` — and `ps-048`, whose answer is `structuralism` rather than
+       Titchener, correctly stays a finding. */
+    else if (citesOwnSubject(c, k)) notes.push(["one-witness", `${id}: ${k} in ${n} of ${srcs.length} sources — the card's own subject`, id]);
     else fails.push(["over-cited", `${id}: ${k} in ${n} of ${srcs.length} sources`, id]);
   }
   for (const [k, n] of Object.entries(ancient))
@@ -252,7 +410,7 @@ for (const c of cards) {
       notes.push(["one-witness", `${id}: ${k} carries ${n} of ${srcs.length} sources`, id]);
 
   // 2
-  for (const [qi, q] of [c.question, ...(c.questions || [])].entries()) {
+  for (const [qi, q] of (rule1Exempt(id) ? [] : [c.question, ...(c.questions || [])]).entries()) {
     const t = plain(q);
     for (const m of t.matchAll(ATTRIB)) {
       const nm = m[1].trim();
@@ -297,7 +455,8 @@ for (const c of cards) {
   const per = {};
   for (const s of srcs) { const t = plain(s); for (const [n, rx] of LANGS) if (rx.test(t)) { per[n] = (per[n] || 0) + 1; break; } }
   for (const [n, k] of Object.entries(per))
-    if (k > 1) fails.push(["same-language", `${id}: ${k} sources in ${n}`, id]);
+    if (k > 1 && !SAME_LANGUAGE_OK.has(`${id}|${n}|${k}`))
+      fails.push(["same-language", `${id}: ${k} sources in ${n}`, id]);
 }
 
 for (const [file, ids] of imgByFile)

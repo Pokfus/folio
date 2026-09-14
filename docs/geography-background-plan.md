@@ -200,6 +200,62 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C39 — the last five cards that needed work, and the finding that the other ten never did**: `gw-729` Stanley, `gw-730` Kingston, `gw-754` Putrajaya, `gw-733` Adamstown and `gw-134` Uruguay. **All four rules now read zero**, with the ten standing findings read, adjudicated and DECLARED in `gw-audit.js` with the reason beside each. `gw-754` comes off the deferred list; `check-cards.js` gained two declared rows the batch's reading produced.
+
+- **2026-09-14, batch C38 — five second-seat and island capitals whose date lines were made of American diplomacy, a constitutional amendment written the year before the split it made possible, and a published article wrong about its own subject's latitude**: `gw-757` Valparaíso, `gw-759` Cotonou, `gw-760` La Paz, `gw-761` Lobamba, `gw-762` Bujumbura and `gw-731` Alofi, with five date lines rewritten off the same research and one malformed facts cell repaired. Taken from the audit's flagged list; it clears the last of the second-seat cards.
+
+- **2026-09-14, batch C37 — six second-seat cities whose backgrounds were histories of American recognition, five constitutions that decline to name the seat they create, and the first batch to need no UNdata citation at all**: `gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-755` Abidjan, `gw-756` Colombo and `gw-758` The Hague, with all six date lines rewritten off the same research. Taken from the audit's flagged list; `gw-754` Putrajaya was swapped out for `gw-758` mid-batch — see below.
+
+- **2026-09-14, batch C36 — three Pacific constitutions that never use the word *capital*, a census that reports its capital only as a postal address, and a units bug that corrupted the imperial reader's prose on 48 text nodes**: `gw-721` Avarua, `gw-722` Yaren, `gw-725` Funafuti, `gw-726` Saint-Pierre, `gw-727` Jamestown and `gw-728` Brades, with all six date lines rewritten off the same research. Taken from the audit's own flagged list, as C35 was; `gw-723` and `gw-724` already pass all four rules.
+
+- **2026-09-14, batch C35 — six capitals none of which the world weather index carries, two constitutions that name their capital where nine had not, and one that orders the capital MOVED**: `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino and `gw-720` Ngerulmud, with all six date lines rewritten off the same research. Taken from the AUDIT'S OWN FLAGGED LIST rather than in id order — `gw-713` and `gw-714` are city-states the plan never wrote, and `gw-717`–`gw-719` already pass all four rules.
+
+- **2026-09-14, batch C34 — six capitals, four of them in no weather index at all, two filed in it under a state they are not part of, a capital the UN profile names as somewhere else, and a constitution that never uses the word**: `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town and `gw-709` Capitol Hill, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-14, batch C33 — six island capitals, three Crown Dependencies and Overseas Territories the weather index files under a state they are not part of, and a constitution that locates its Governor by an island rather than a seat**: `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau and `gw-703` Hamilton, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-14, batch C32 — six island capitals, four of whose countries keep no station at all in the world weather index, and a constitution that provides for a capital without naming one**: `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown and `gw-697` Saint John's, with all six date lines rewritten off the same research. Six again, for C2's reason. `gw-695` Saint Helier stays deferred.
+
+- **2026-09-14, batch C31 — six island capitals, a weather record with every cell in it blank, and a profile that names a different place as the capital**: `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria and `gw-690` Saint George's, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-14, batch C30 — six island capitals, two French territories with no constitution of their own, and two constitutions that name their city once and only as a place where a document was signed**: `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé and `gw-684` Apia, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-14, batch C29 — six capitals, a weather record missing a whole FIELD, and a constitution that names an ISLAND as the capital**: `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau and `gw-678` Reykjavík, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-14, batch C28 — six capitals, a constitution that names its capital eighteen times and never calls it one, and a UN figure whose footnote names no place the capital is in**: `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica and `gw-672` Valletta, with all six date lines rewritten off the same research. Six again, for C2's reason. (`gw-667` and `gw-671` are numbers the running order leaves unused.)
+
+- **2026-09-14, batch C27 — six island and small-state capitals, a weather table with an impossible value in it, and a constitution that identifies a capital by whose house it is**: `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni and `gw-664` Georgetown, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-14, batch C26 — six capitals, two more countries missing from the weather index, and the first two UN profiles that say what their capital figure counts**: `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain and `gw-658` Nicosia, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-14, batch C25 — six capitals, a weather record with an entirely blank month, and a constitution that files its capital among the national symbols**: `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga and `gw-652` Skopje, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C24 — six capitals, three constitutions that say nothing at all, and two draft constitutions that never came into force**: `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-645` Chișinău and `gw-646` Tirana, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C23 — six capitals, a territory with no weather record and no constitution to cite, and a constitution that spells its capital differently**: `gw-635` San Juan, `gw-636` Sarajevo, `gw-637` Yerevan, `gw-638` Windhoek, `gw-639` Vilnius and `gw-640` Doha, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C22 — six capitals, three new ways for the weather record to fail, and a station field naming another city**: `gw-629` Panama City, `gw-630` Zagreb, `gw-631` Tbilisi, `gw-632` Asmara, `gw-633` Ulaanbaatar and `gw-634` Montevideo, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C21 — six capitals, two constitutions no longer in force, and a WMO record split a century**: `gw-622` Bangui, `gw-623` Wellington, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José and `gw-628` Kuwait City, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C20 — six capitals, and four constitutions that decline to name the city**: `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava and `gw-621` Dublin, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C19 — six capitals, and the constitution slug stops being composed**: `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville and `gw-615` Copenhagen, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C18 — six capitals, and a WMO table that is complete, windowed and wrong**: `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek and `gw-608` Asunción, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C17 — six capitals, and the gw-5 hundred comes out clean on all four rules**: `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern and `gw-601` Freetown, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C16 — six capitals, and the constitution leg reverses**: `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm and `gw-594` Athens, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C15 — six capitals, and the constitution leg answers on all six**: `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana and `gw-588` Prague, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C14 — six capitals, and a constitution that names a different city than the one it now has**: `gw-577` Kigali, `gw-578` Gitega, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba and `gw-582` Brussels, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C13 — six capitals, and two constitutional outcomes the pass had not met**: `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry and `gw-576` Porto-Novo, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
+- **2026-09-13, batch C12 — six capitals, and every author list drafted from a search result was wrong**: `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar and `gw-570` Guatemala City, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-10, batch C11 — six capitals, and the constitution leg fails on five of six**: `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka and `gw-564` Astana, with all six date lines rewritten off the same research. Six again, for C2’s reason.
 
 - **2026-09-10, batch C10 — six capitals, a constitution that is a draft, and a river the grid forbids naming**: `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus and `gw-558` Bamako, with all six date lines rewritten off the same research. Six again, for C2’s reason.
@@ -408,6 +464,2026 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C39 found
+
+**TEN OF THE FIFTEEN CARDS LEFT ON THE FLAGGED LIST WERE THE MEASURE REPORTING ITSELF.** After C38 the
+audit read United States 7, grid repeats 7, no-landform 1, bordering countries 2 — fifteen distinct
+cards. Read one at a time, **five needed work and ten did not**:
+
+* **The card's own subject IS the United States or one of its territories** — `gw-003`, `gw-135`
+  Puerto Rico, `gw-193` the United States Virgin Islands, `gw-207` American Samoa and `gw-503`
+  Washington, D.C. Rule 1 matches `\bWashington\b` and an unqualified `American`, so three of those
+  are flagged for printing their own answer term. The plan already recorded two of them as permanent;
+  it is five.
+* **The grid's value stands inside a longer name, or names where something happened** — `gw-002`
+  China says the Communist Party was founded in Shanghai, which is not the largest-city cell being
+  repeated; `gw-151` Latvia says "the Gulf of Riga", and a gulf named for a city is not the city;
+  `gw-188` Kiribati says "South Tarawa", which is the urban area and not the capital.
+* **A country named for one of the hundred other reasons rule 4's own header allows** — `gw-005`
+  Pakistan on the partition of British India, `gw-053` Venezuela on independence from Spain. Both
+  sentences carry a border word; neither is a neighbour list.
+
+**SO THE AUDIT GAINED A DECLARED ADJUDICATION TABLE, AND THAT IS THE BATCH'S REAL DELIVERABLE.**
+`ADJUDICATED` in `gw-audit.js` follows `check-cards.js`'s own model: **a row matches only when the
+card, the rule AND the matched text all agree**, so `gw-135` is excused for "United States" and would
+report the day it says "Washington". Proved by planting one: a "seen from Washington" inserted into
+`gw-135` and a "whose capital is Beijing" into `gw-002` both reported, and the adjudicated count fell
+from 10 to 8. **A count that can never reach zero stops being read**, which is how a real finding
+hides among ten standing ones — and the audit now reads **0 / 0 / 0 / 0, with 10 adjudicated**.
+
+**THE PATTERN THAT SUGGESTS ITSELF IS THE ONE THAT MUST NOT BE USED.** "Exempt a card whose answer
+term contains the matched words" would have excused `gw-134` Uruguay for "the southeast of the
+American continent" — which was a real finding, is the exact compound trap rule 1's own header
+records one word further in, and is fixed in this batch to "the south-east of South America".
+
+**PUTRAJAYA CAME OFF THE DEFERRED LIST, AND THE WAY IN WAS THE CONSTITUTION RATHER THAN THE CITY.**
+C37 gave it up when the corporation's own site turned out to be a portal with no prose, the lake
+portal a login page, and Pertanika and MDPI shut. The federal constitution is open on Constitute and
+says something better than any of them: **article 154 provides that "until Parliament otherwise
+determines, the municipality of Kuala Lumpur shall be the federal capital"**, and article 1 excludes
+the Federal Territory of Putrajaya from the state of Selangor under the Constitution (Amendment) Act
+2001. The city is named 24 times in the text and never as the capital. The physical block came from
+**a BMC Bioinformatics paper on the lake** (400 hectares, warm, shallow, never stably layered, 6.6 m
+mean depth), **AQUASTAT's Malaysia profile** (61 per cent of the peninsula below 100 m, the Banjaran
+Titiwangsa, the two monsoons) and **WMO Petaling Jaya**, the nearest station with published normals.
+**A capital with no station of its own can still have a climate sentence if the card says whose** —
+C38's Lobamba rule, applied a second time.
+
+**THREE ISLAND CAPITALS HAD GOOD HISTORY WHERE THEIR GEOGRAPHY SHOULD HAVE BEEN.** `gw-729` Stanley
+spent four of its first five sentences on census definitions and `gw-730` Kingston spent its on
+ancestry and language statistics — both accurate, both cited, and neither telling a reader anything
+about the place whose shape the card has just asked them to recognise. They now open on the land:
+Stanley on the archipelago's 12,173 km², the cold currents, a wind belt averaging 30 km/h with gales
+on 70 days a year, 400 to 600 mm of rain and the tussac peat that is one of the few long terrestrial
+climate records the South Atlantic has; Kingston on the basalt of Mount Pitt and Mount Bates, the
+krasnozem that slumps after heavy rain, the cliffed northern shore and an island that has never been
+joined to a landmass. **The history each already had was kept**, which is what makes these rewrites
+half the work of a C38 card.
+
+**A CHECKER'S DECLARED TABLE IS PART OF A BATCH'S OUTPUT, TWICE OVER.** Three Parks Australia pages
+on one card tripped `check-cards.js`'s over-cited rule, which is the right reading of three papers by
+one scholar and the wrong reading of three record pages from the agency that manages the park — so
+**"parks australia" joins `INSTITUTIONAL`**, beside "national park service", and the card reports as a
+one-institution NOTE instead. And `gw-589` Tegucigalpa's standing "2 sources in Spanish" was read and
+is **the École française d'Athènes case one language over**: only one of the two is a Spanish WORK,
+the other being the WMO's own English page credited to the Honduran agency under its Spanish name. It
+is declared in `SAME_LANGUAGE_OK` with the count in the key, so a third Spanish source reports again.
+
+**AJOL IS STILL SHUT AND IT IS THE SECOND DAY RUNNING.** Every
+`ajol.info/index.php/<journal>/article/view/<id>` answers 202 with a zero-byte body. **Copernicus
+carried this batch as it carried C38** — Biogeosciences for the Falklands — and BMC for Putrajaya;
+academicjournals.org (403), MDPI (403), sjst.psu.ac.th (connection reset) and sciencedirect (403) were
+all shut again.
+
+**AND THE BUILD-SCRIPT CHARACTER TRAP FIRED AGAIN.** A patch written with `\u2019` failed against a
+file holding the real U+2019, having succeeded against the same file an hour earlier — the generator
+is rewritten by its own patches and the escapes resolve as it goes. **Write a patch string with the
+real character and let the assertion catch it**, which is what it is for.
+
+## What C38 found
+
+**THE FIVE SECOND-SEAT CARDS ARE DONE, AND EVERY ONE OF THEM HAD A DATE LINE MADE OF AMERICAN DIPLOMACY.**
+`gw-757` led on a consular cable of 21 November 1914, `gw-759` on "US relations" and "Embassy here",
+`gw-760` on a recognition of 1848 and a legation of 1849, `gw-762` on a legation and then an embassy
+again, and `gw-731` on a recognition of 2023. Five of the six date lines were rewritten; `gw-761`
+Lobamba's was already free of it and was left alone, which is the pass's own rule that a card needing
+nothing is not touched.
+
+**AJOL IS SHUT THIS SESSION, WHICH IS A FACT ABOUT THE DAY RATHER THAN ABOUT THE INDEX.** C37 found
+African Journals Online the index this pass had been missing for African cities; today every
+`/index.php/<journal>/article/view/<id>` page answers **202 with a zero-byte body** — a Cloudflare
+interstitial — while the journal INDEX pages answer 200. Re-tested on URLs C37 itself cited and
+successfully read. **Record a host's state with the date on it and re-measure rather than reading it
+back**, which is `check-reach.js`'s whole argument one host further on.
+
+**A PUBLISHED ARTICLE CAN BE WRONG ABOUT ITS OWN SUBJECT, AND THE WAY THROUGH IS TO USE ONLY WHAT IT IS
+AN AUTHORITY ON.** Kapstein's *Ciudad anfiteatro* is the best description of Valparaíso's form there
+is, and it places the city "entre los paralelos 32º 27’ y 32º 29’ latitud sur" — about 65 kilometres
+north of where it stands — and dates the Panama Canal to "la década de 1930". Both are checkable and
+both are wrong. The card takes the article's MORPHOLOGY, which is its subject and its argument (the
+amphitheatre, the arc from Cerro Artillería to Cerro Alegre and then Playa Ancha to Cerro Barón, the
+hills at 10 to 300 metres, el plan too narrow for a grid, the merchant styles) and NONE of its dates or
+coordinates. The latitude used on the card is the IOP paper's −33°03’, which is right.
+
+**A CONSTITUTIONAL AMENDMENT CAN BE THE WHOLE STORY, AND YOU ONLY SEE IT BY READING THE PREVIOUS TEXT.**
+Article 9 of Burundi's 2018 constitution still fixes the capital at Bujumbura — and adds a clause the
+2005 article did not have: the law may "separate the political capital from the economic capital". The
+2005 text said only that the law might transfer the capital to another location. So `gw-762` is not a
+card about a city that lost its status; it is a card about the sentence that made the division legal,
+written the year before it happened. **Constitute carries both texts under separate URLs and the card
+cites both**, because the finding is the difference between them.
+
+**A UN RESOLUTION URL THAT 202s IS NOT AN INVITATION TO COMPOSE ONE.** `gw-762` cited
+`digitallibrary.un.org/record/205656` for resolution 1746 (XVI) and that host is behind a challenge
+today. The obvious replacement — a `documents.un.org/doc/resolution/gen/nr0/…` path — returned **200 and
+a real PDF of a completely different resolution**, about scholarships for students from Territories
+under Portuguese administration. It was caught by reading the first 1,200 characters of the file. **A
+200 on a composed UN document path is not the document you asked for**, which is the AQUASTAT rule from
+`docs/geography-background-plan.md` met again on another host. The resolution material was dropped from
+the card rather than re-cited, and the two constitutions carry the seat question instead.
+
+**COPERNICUS IS THE OPEN SHELF THIS PASS KEEPS COMING BACK TO.** Three of the six cards rest on a
+Copernicus journal — NHESS for Bujumbura's rivers and floods, ACP for La Paz's canyon and its
+temperatures, ESSD for Niue's reef terraces and uplift — all fetched whole, with no wall, in one
+request each. MDPI (403), Wiley/Hindawi (403), Elsevier (via publisher) and academicjournals.org (403)
+were all shut again. **Where a paper is Elsevier's, look for the author's HAL deposit**: the Nokoué
+salinity paper that carries Cotonou's whole physical block is `10.1016/j.ecss.2021.107689` and is open
+at `hal.science/hal-03368397`.
+
+**A WMO RECORD CAN BE SOUND FOR RAIN AND USELESS FOR TEMPERATURE, AND THE TELL IS STILL THE SPREAD.**
+C37 found this at Abidjan; Cotonou (city 259) is the same shape — its `maxTemp` reaches 39.0 °C in
+October against real means near 31, and its `minTemp` sits at 28.7 °C in January against real means
+near 25. **Its rainfall is textbook** and is what the card uses: the West African double maximum, June
+at 342.7 mm over 17 days, the August dip to 44.0 mm, January at 13.4 mm on a single day. Bujumbura
+(1519) and Mbabane (912) both pass the spread test and are used for temperature as well.
+
+**A CAPITAL WITH NO STATION OF ITS OWN CAN STILL HAVE A CLIMATE SENTENCE, IF THE CARD SAYS WHOSE.**
+Lobamba is not in the world weather index and Mbabane is, about 15 kilometres away and several hundred
+metres higher. The card writes "at the nearest station with published normals, in the administrative
+capital" rather than attributing those normals to Lobamba — which is the honest form, and which also
+keeps the sentence inside the rule that a capital card may not name its own country.
+
+**AND A MEASUREMENT WRITTEN IN WORDS DOES NOT CONVERT.** `U_METRIC` in app.js knows `°C` and does not
+know "degrees Celsius", so a temperature written out in words keeps its Celsius figure for the imperial
+reader while the rainfall in the same sentence converts — a half-converted sentence. Measured over the
+shipped corpus: **81 cards carry a Celsius figure and 17 write it in a shape the switch cannot act on**,
+of which one (`wh-053`) is a temperature DIFFERENCE and correctly stays. This batch's cards are written
+`°C (°F)`; the other 16 are a pass of their own, and the fix is either a data sweep or one alternative
+added to `U_METRIC` — which would need its own before-and-after measurement over the whole corpus.
+
+**THE IMPERIAL RENDER SWEEP EARNED ITS PLACE AGAIN.** Rendering each draft through the real
+`unitizeText` and diffing the word sets caught three things no other check can see: `gw-761`'s
+"a national average of 788 (31)", where the bare follow-on figure loses its unit in BOTH modes;
+`gw-761`'s "19.3 and 4.7 (67 and 40)", the same shape on a temperature; and `gw-760`'s "half a
+kilometre above", a spelled-out metric figure the engine leaves bare for an imperial reader. All three
+read perfectly in the authored metric view.
+
+**AND ONE MALFORMED FACTS CELL WAS REPAIRED ON THE WAY PAST.** `gw-731`'s population row read
+`610in Alofi (2022 census)` — a missing space that nothing in the pipeline reports, because
+`set-facts.js` validates the grid's SHAPE and the audit strips a value at its first bracket. It is now
+`610 in Alofi (2022 census)`. **Read a card's grid when you rewrite its background**; it is the one
+part of a map card no checker proof-reads.
+
+## What C37 found
+
+**These were the worst cards in the collection, and the fault had a shape.** Every one of the six carried a
+date line made entirely of American diplomatic events — *Embassy raised*, *Legation opened*, *US recognition*,
+*US embassy*, *Council response* — and backgrounds to match: `gw-752` gave five of its ten sentences to a
+legation that stayed in Cape Town for six months in 1930, and `gw-753` explained Bloemfontein by observing
+that the American record of its own missions names the other two capitals and never this one. **A second-seat
+card is the shape most exposed to this**, because the recognition guide has a great deal to say about which
+city a mission sat in and nothing to say about the city.
+
+**FIVE CONSTITUTIONS IN A ROW DECLINE TO NAME THE SEAT THEY CREATE, and each declines differently.** Tanzania's
+uses the word *capital* only in the article forbidding capital punishment, names neither Dodoma nor Dar es
+Salaam anywhere, and acknowledges the question once, obliquely, in a clause about whether the President counts
+as absent — which speaks of "the town which is the seat of Government" without saying which town that is.
+Côte d'Ivoire's never names Yamoussoukro at all and names Abidjan once, in the title of the national anthem.
+Sri Lanka's never names Sri Jayewardenepura Kotte, but does place the Supreme Court at Colombo, "unless the
+Chief Justice otherwise directs". The Netherlands' names Amsterdam exactly once, in the article on the King's
+inauguration, and never names The Hague. **South Africa's is the exception that proves it**: it states that the
+seat of Parliament is Cape Town and then, in the same sentence, provides that an Act of Parliament may put it
+elsewhere — while naming the Supreme Court of Appeal eighteen times and Bloemfontein not once.
+
+**THE COMMONWEALTH SECRETARIAT IS THE BODY THAT SAYS SO OUTRIGHT, and it is worth reading for what it omits
+too.** It gives Tanzania's capital as "Dar es Salaam (acting), Dodoma (official)", South Africa's institution
+by institution rather than by label, and Sri Lanka's as "Colombo (executive and judicial), Sri Jayewardenepura
+Kotte (legislative)" — three different shapes of answer to one question. For Malaysia it gives **Kuala Lumpur
+and nothing else**, so the administrative capital is absent from the Commonwealth's own record as well as from
+the constitution, which names Putrajaya only as a Federal Territory carved out of Selangor in 2001.
+
+**AJOL IS THE INDEX THIS PASS WAS MISSING FOR AFRICAN CITIES.** African Journals Online answers from here, and
+it carried the landform leg for three of the six where DOAJ returned nothing and the obvious publishers were
+walled: the Cape Flats aquifer in *Water SA*, Loch Logan in the middle of Bloemfontein in *Water SA*, and
+Abidjan's Quaternary coastal aquifer in the *International Journal of Biological and Chemical Sciences*.
+**Its article pages carry full `citation_*` metadata**, so authors, volume, issue and pages come off the page
+rather than out of a guess. **Its back-catalogue DOIs have no `published-print` date**, so Crossref answers
+with the deposit year — 2007 for a 2005 issue, 2010 for a 2009 one — which is the documented
+digitising-a-back-catalogue case and goes to the eye rather than to the mismatch list.
+
+**A BATCH IS COMPOSED OF CARDS WHOSE SOURCES CAN BE LANDED, AND SWAPPING ONE OUT IS CHEAPER THAN FORCING IT.**
+`gw-754` Putrajaya was researched and abandoned: the Putrajaya Corporation's own site is a JavaScript portal
+that serves no prose, its lake portal is a login page, MDPI and Pertanika are walled or down from here, and
+DOAJ holds almost nothing on the city. `gw-758` The Hague replaced it and was fully sourced in three fetches.
+This is `gw-695` Saint Helier's refusal one level up — **a sourcing decision, not a political one** — and
+Putrajaya returns to the flagged list for a batch that finds a way in.
+
+**AND THE URL SWEEP CAME BACK 28 OF 28, WITH NO UNDATA CITATION IN THE BATCH.** That is not a policy change;
+it is what happens when the sources are chosen for what they say about the city rather than for a country
+profile. Where a card needs a figure the profile used to give, the constitution, the Commonwealth and the
+city's own water literature between them carry it.
+
+**One measurement worth having before the next batch**: a WMO station's `maxTemp` and `minTemp` are usually
+mean daily values and are **sometimes extremes**, and the field names do not say which. Abidjan's record gives
+a January maximum of 36.7 °C against a minimum of 15.1 °C — far too wide a spread for mean daily values in a
+tropical coastal city, whose real means are near 31 and 23. **The tell is the spread**; the rainfall on the
+same record is sound and was used. Nothing in the file distinguishes the two, so read the numbers before
+writing them.
+
+## What C36 found
+
+**Three constitutions in a row never use the word *capital*, and one of them never says *seat of government*
+either.** Nauru's names Yaren only in its schedule of constituencies, where the district returns two members
+as six of the eight constituencies do; Tuvalu's names Funafuti only among the eight islands and island
+communities the country is made of; and Montserrat's Constitution Order of 2010 goes further than either,
+naming neither the ruined capital at Plymouth nor the working one at Brades, and substituting the phrase
+"absent from Montserrat" nine times where another territory's constitution would locate a seat. **Where the
+constitution is silent the Commonwealth Secretariat is the one body that says so outright** — it records
+that Nauru has no official capital at all — and for Tuvalu it gives the seat of government as an address in
+three parts, Vaiaku, on Fongafale islet, in Funafuti atoll, which is the honest shape of the answer.
+
+**A census can report the capital and never print its name.** The Cook Islands census of 2021 counts
+Rarotonga by *tapere* — Avatiu-Ruatonga-Atupa 975, Takuvaine 629, Tutakimoa-Teotue 274 — and the word
+*Avarua* appears in the whole report only in the statistics office's own postal address. The UN profile
+names the town as the capital and prints 13,100 beside it, footnoting that the figure is the whole of
+Rarotonga. **Both facts belong on the card**: the local record is the better one and the UN's is what a
+reader will meet elsewhere, and the disagreement is the interesting part.
+
+**The PACCSAP country reports are the replacement climate leg for a Pacific capital the world weather index
+does not carry.** *Climate Variability, Extremes and Change in the Western Tropical Pacific* (Australian
+Bureau of Meteorology and CSIRO, 2014) has a chapter per country with the wind-wave climate of a named
+coast, the seasonal swell directions, a one-in-fifty-year wave height, and the temperature and rainfall
+records with their start years — everything the WMO normals would have given and more, on the shore rather
+than at the airport. Chapters 2 (Cook Islands), 8 (Nauru) and 15 (Tuvalu) carried three of this batch's six.
+
+**`data.un.org` is DOWN, not retired, and the distinction is the whole of the decision.** Every
+`data.un.org/en/iso/<cc>.html` now returns 404; so do `/robots.txt`, `/en/index.html` and a nonsense path,
+while `/` returns a 3,769-byte SPA shell and the old `Data.aspx` returns **500** — an application still
+deployed and erroring rather than removed. The new bundle carries no `iso` route and no country-profile
+route of any kind. Three replacements were tried and none works: **Demographic Yearbook table 8 does not
+carry these capitals by name** (Avarua, Yaren and Funafuti are absent from the 2021 file, which lists cities
+of 100,000 or more plus reported capitals); **World Urbanization Prospects 2018's capital-cities file is
+gone** from the live path, the revision having moved to 2025 and dropped city-level tables; and the
+**Wayback Machine was intermittently offline** during the check and has no 200 snapshot for `sh.html`. The
+citations were therefore KEPT, as C34's and C35's were, and the migration stays its own task — to be
+actioned only if the pages are still down when it is picked up. **Re-derive that before acting on it**: a
+claim about a host goes stale silently, which is what `check-reach.js` exists for one directory over.
+
+**AND THE BATCH FOUND A UNITS BUG THAT CORRUPTS PROSE FOR THE IMPERIAL READER ONLY.** `U_NW` lists the
+article and the small number words — `a`, `an`, `one` — with **no left word boundary**, so the last letters
+of *Afric|a*, *me|an* and *limest|one* were read as the number one and the run swallowed the prose after
+them. "1,930 kilometres (1,200 miles) from Africa and 2,900 kilometres (1,800 miles) from South America"
+rendered as **"1,200 miles from Afric1,800 miles from South America"**. It reached **48 text nodes across
+the shipped corpus** — *Apulia*, *Monaca*, *Patagonia*, *Bandama*, *Guinea*, *maxima*, *minima*, *median*,
+*area*, *sea*, *zone*, *limestone* — in World History, Greece, Rome, China, both geography collections and
+the glossary. **Nothing caught it because the authored view is the metric one**, which is byte-for-byte
+unaffected, and no checker renders a card in the other system. Fixed with one lookbehind on `U_RUN`,
+measured before and after over all 2,220 text nodes: **48 restored, 0 shortened, 0 metric-mode differences**.
+
+**The same sweep is the check to run after a units batch, and it is not the one CLAUDE.md names.** The
+documented check asks whether an ordinary bracket is eaten; this one asks whether **a content word is LOST
+between the two systems** — render every field in both, and report a word that disappears and is not a unit
+name, a connector or a number word. That filter is what separates the 48 real faults from the 478 fields
+where a range legitimately loses its metric half. Three of this batch's own six were caught by it and by
+nothing else: a bare `233` that read as square miles once the pair flipped, a density (`208 to the square
+kilometre`) left unconverted beside a converted pair, and a **YEAR standing before "and *n* *unit*"** read
+as the first half of a range, which ate "by 2030 and 39 to 87 centimetres" whole. **A comma after the year
+breaks the run**; the lookbehind does not fix this one, and it is a shape to write around rather than a bug.
+
+**Four unit faults in EARLIER batches are left standing and are named here rather than fixed.**
+`test-units.js` is red on `main` for them and this batch did not touch them: `gw-091` writes
+*minus 49°C (minus 56°F)* where the engine needs U+2212 or a digit; `gw-095` and `gw-105` use **`km³`,
+which `U_METRIC` does not list** (it has `km²` and `m²`), so their cubic-mile brackets are left behind; and
+`gw-517` writes *a few kilometres (2 to 3 miles)*, a conversion of a quantity that is not a figure. The
+first and last are content fixes, the middle two want one unit added to the engine.
+
+## What C35 found
+
+**THE BATCH WAS PICKED FROM THE AUDIT, NOT FROM THE RUNNING ORDER, AND THAT IS HOW THE REST OF THIS PASS
+SHOULD BE PICKED.** `node .claude/gw-audit.js --list=us|grid|nature|borders|dateline` prints the card ids
+under each rule; the union of those five lists IS the backlog. Walking the ids in order instead wastes a
+batch slot on every card that already passes — `gw-717` Mariehamn, `gw-718` Marigot and `gw-719` The
+Valley are all clean, and `gw-713` and `gw-714` are Macau and Monaco, whose capital cards the plan
+deliberately never wrote. **Read the lists first.**
+
+**NOT ONE OF THE SIX IS IN THE WORLD WEATHER INDEX, AND FOR ONE OF THEM THE INDEX NAMES THE COUNTRY AND
+MISSES THE CITY.** The flat city list carries a member called **`Curaçao and Sint Maarten`** whose two
+entries are Willemstad and **Oranjestad, which is in Aruba** — so Sint Maarten is named in the index and
+has no station in it. That is C32's misfiled capital and C33's coarse index in one row. **The replacement
+leg is the territory's own met service**, and for Philipsburg that is the Meteorological Department St.
+Maarten, whose annual Climatological Summary is a full 1981–2010 normal set.
+
+**AND THAT DEPARTMENT'S TWO PUBLICATIONS DISAGREE ABOUT ITS OWN SEASONS.** The 2018 summary makes January
+to June the dry half and July to November the wet; the department's `Climate` page gives a dry season from
+December to May and a rainy one from June to November. Neither is wrong about the island — they are two
+ways of cutting one bimodal year — but a card that took either alone would be asserting a boundary its own
+source does not agree on. **The card prints both and says they differ**, which is the same rule the
+WMO-against-national-normals rainfall gap taught in C34.
+
+**A NATIONAL MET SITE CAN BE COMPROMISED AND STILL BE THE RIGHT SOURCE.** `meteosxm.com` carries injected
+French casino spam in its footer and in its link graph, and one of its own annual-summary pages 404s. The
+department's identity is not in doubt (its address, phone numbers and staff pages are all there) and the
+2018 summary PDF is its own document, so the **PDF** is cited and the live pages are used only for what
+they plainly publish. **Check what a government site is serving before quoting its HTML**; prefer the
+artefact it published to the page that frames it.
+
+**TWO CONSTITUTIONS NAME THEIR CAPITAL OUTRIGHT, WHICH IS NEW.** Nine Westminster deputy clauses across
+C31–C34 mention a seat of government without naming it. **Liechtenstein names Vaduz in ARTICLE 1** —
+“Vaduz is the capital and the seat of Parliament and the Government” — in the same article that divides
+the state into two regions and eleven communes. **And Palau's goes further than naming: it MOVES the
+capital.** Article XIII, section 11 puts the provisional capital at Koror and requires the Olbiil Era
+Kelulau, within ten years of the constitution taking effect, to designate a place **in Babeldaob** as the
+permanent one. Ngerulmud is what that clause produced. **A constitution can be the reason a capital
+exists**, and this is the first card in the pass where it is.
+
+**THE DEPUTY CLAUSE MEANWHILE TURNS UP TWICE MORE, AT SECTIONS 39 AND IN AN EXECUTIVE ARTICLE.** The
+Virgin Islands Constitution Order 2007 has it at **section 39** and never uses the word *capital* or the
+words *Road Town*; the Marshall Islands constitution has it in its executive article and never names
+Majuro as the capital either. **But the Marshallese text says something better**: Majuro returns **five of
+the Nitijela's thirty-three seats**, more than any other electoral district, which is the capital's weight
+stated in the one place the constitution counts.
+
+**A UN PROFILE CAN NAME A DIFFERENT CITY AND THEN FOOTNOTE A THIRD.** Palau's profile prints **Melekeok**
+as the capital — not Ngerulmud, which is the place — and footnotes the figure beside that name, 11,400
+for 2018, as referring to **Koror**. Three names for one row. This is C34's Garapan finding with a second
+displacement on top of it, and the card says so rather than quietly correcting the profile.
+
+**A NATIONAL STATISTICS OFFICE CAN SETTLE A CAPITAL FIGURE THAT NOTHING ELSE CAN.** San Marino's Ufficio
+Nazionale di Statistica publishes resident population **per castello, month by month**: the capital had
+**4,158** in June 2026 against Serravalle's 11,243 and Borgo Maggiore's 7,019, which makes it the third of
+the nine and confirms the UN's 4,500 to within a few hundred. **Look for a monthly bulletin before
+concluding a small state publishes nothing about its capital**; the same table carries firms per castello,
+which is how the card can say the capital is commercially busier than its size.
+
+**WHERE THE NATURE LEG CAME FROM WHEN NOTHING MODERN WAS OPEN.** Three of the six had no reachable modern
+paper. **Vaduz was saved by a scholarly encyclopedia with named authors and a date** — the *Historisches
+Lexikon des Fürstentums Liechtenstein*, whose `Vaduz (Gemeinde)` article carries a full
+*Naturräumliche Voraussetzungen* section: the Möliholzrüfe and Spaniarüfe torrents, the Altabach and
+Mölibach now culverted, the Rhine breaches of 1846, 1855 and 1888, the fountain cooperatives that delayed
+a public water supply to 1910. **San Marino was saved by an 1879 traveller's book on archive.org**, J.
+Theodore Bent's, which gives the mountain's height, the distance to Rimini, the three towers over the
+plain and the spring that names Acquaviva. **And Road Town was saved by a 1966 USGS administrative
+report** giving rainfall at the botanic station in the town, on Mount Sage and at the island's ends, and
+the fracture porosity of the bedrock.
+
+**THAT 1966 REPORT'S AUTHOR IS THE MAN CROSSREF MISSPELLS.** It is by **Donald G. Jordan** — the same
+hydrologist whose name the USGS catalogue renders “D.G. Jordon” on the 1972 open-file report, which is
+the `CROSSREF_WRONG` row C32 added. Crossref holds **no authors at all** for this one, so it goes to the
+unchecked pile and the row is not needed twice; worth knowing that the two records of one man disagree
+in two different ways.
+
+**A CARD MAY NOT LEAVE A FIGURE'S UNIT TO THE PARENTHESIS BEFORE IT.** Two sentences read “about 96 square
+kilometres (37 square miles) … of which this side holds 41” and “a lagoon of roughly 1,450 square
+kilometres (560 square miles), of which patch reefs make up about 53”. Both are correct in the authored
+metric-first form and both BREAK for a reader in imperial mode, where `unitizeText` swaps the pair round
+and the bare number is then read as square miles. **A bare follow-on figure must carry its own conversion
+or be dropped**; the checker cannot see this, and neither can a reader of the authored text.
+
+**AND `better border control` TRIPS RULE 4.** `BORDERISH` matches `border(s|ed|ing)?`, so a sentence about
+immigration policy that also names the Netherlands is reported as a background listing its neighbours. The
+finding is a false positive and the fix was still to reword — *tighter control of entry to the country* —
+because the alternative is a declared exception on a rule whose whole value is that it has none. **Watch
+for `border` in its administrative sense** on any card that also names a state.
+
+## What C34 found
+
+**FOUR OF SIX ARE IN NO WEATHER INDEX AT ALL, AND THE TWO THAT ARE ARE FILED UNDER A COUNTRY THEY ARE
+NOT IN.** The world weather index lists 3,597 cities and has nothing for Saint Kitts, the Turks and
+Caicos, the Northern Marianas or Pago Pago — it does carry Guam under the metropolitan power, so the
+absences are per city rather than per dependency. Nuuk and Tórshavn are both there, both filed under
+**Denmark**, and both marked `isCapital: false`. That is C33's finding one step further on: C33's three
+were filed under a state they are not part of but at least named themselves in their own records, where
+these two simply are Denmark as far as the index is concerned. **The leg that replaces it is the national
+met service's own normals**, which for both of these is one report each: DMI Report 21-12 for Greenland
+and 21-13 for the Faroes, 1991–2020, station by station, table by table.
+
+**AND THE TWO SOURCES DISAGREE ABOUT THE RAINFALL BY A SIXTH.** The index sums Nuuk's monthly figures to
+754 mm against the normals' **874.0 mm**, and Tórshavn's to 1,284 mm against **1,399.2 mm** — and the
+index states **no averaging period at all**, so there is nothing to reconcile them against. Both cards
+print both figures and say which is which. **A figure with no period on it is not a figure that can be
+checked**, which is the same rule the UNdata footnotes keep teaching one column over.
+
+**A UN PROFILE CAN NAME A DIFFERENT CITY AS THE CAPITAL FROM THE ONE THE CARD IS ABOUT.** For the
+Northern Marianas the profile's Capital city row reads **Garapan**, not Capitol Hill, at 4,000 people
+footnoted to 2010. This is not an error to route around: the card says so, because a reader who looks the
+territory up will meet exactly that. **The constitution is no help either** — read end to end it never
+uses the word *capital*, never says *seat of government*, and never mentions Capitol Hill; what it does
+is divide the islands into senatorial districts, the third being Saipan and everything north of it. The
+nearest the statute book comes is a public law of 1998 renaming the administration building at Capitol
+Hill, which at least fixes that the building is there.
+
+**AND ONE PROFILE GIVES THE CAPITAL MORE PEOPLE THAN THE TERRITORY.** Pago Pago is credited with 48,500
+footnoted to **2018** beside a 2025 projection of 46,000 for the whole of the territory. The two rows are
+a census-style count of a wider urban area and a projection of a different base, and the profile itself
+never reconciles them. **The card prints both and names the gap**; the alternative — quietly preferring
+one — is the card making a demographic judgement it has no source for.
+
+**TWO PROFILES CARRY A CAPITAL FIGURE UNDER A HEADING WITH NO YEAR IN IT.** Every other profile in this
+pass heads the row `Capital city pop. (000, 2025)`. The Turks and Caicos and the Northern Marianas head
+it `Capital city pop. (000)` — and the footnotes say why: **2001** for Cockburn Town and **2010** for
+Garapan. A heading that drops the year where the year is two decades stale is the one shape a reader
+cannot catch by eye.
+
+**THE WESTMINSTER DEPUTY CLAUSE, TWICE MORE, AT SECTIONS 23 AND 27.** Saint Christopher and Nevis
+(1983) puts it at **section 23** and the Turks and Caicos Islands Constitution Order 2011 at **section
+27**, both in the same form: the Governor-General or Governor may appoint a deputy when absent from the
+seat of government but not from the country. Neither names the seat. That is now nine of these across
+C31–C34 at sections 22, 23, 25, 27 and 36. **And the country's own constitution may not use the
+country's own name**: the 1983 text calls it *Saint Christopher and Nevis* throughout, which is not the
+string the facts grid carries — so the card could name the country after all, in the constitution's
+words.
+
+**THE DANISH CONSTITUTION NAMES NO CAPITAL AND REACHES BOTH REALMS ONLY THROUGH SEATS.** The 1953 Act
+never says Copenhagen and never uses *capital*. It touches Greenland and the Faroes at **section 28**,
+reserving two Folketing members to each, and at **section 31**, allowing a statute to settle Greenland's
+representation. So one document serves two cards, and what it says about each is the same sentence.
+
+**WHERE THE FIFTH LEG CAME FROM WHEN THE USUAL ONES FAILED.** Three cards had no reachable modern paper
+for their landform, and three different answers worked. For Basseterre it was **two out-of-copyright
+works on archive.org** — a US Weather Bureau monograph of 1902 whose chapter 7 gives the town's
+coordinates, the island's igneous soil, Mount Misery at 4,100 ft and a hurricane chronology, and an 1857
+letter in the *Annals and Magazine of Natural History* describing the beach by the town, the *terras*
+cliff half a mile south and the windward reef 50 yards offshore. For Cockburn Town it was a **2026
+ZooKeys reptile checklist** whose Study Area is a complete physical geography of the archipelago, plus
+the national museum's own geology and Guinep House pages. For Capitol Hill it was a **USGS groundwater
+report** whose physiography and climate sections describe the uplands the settlement stands in.
+**Search the taxonomy journals for a Study Area before concluding a small territory has no open
+literature**; a reptile checklist carried this batch's hardest card.
+
+**AND A PDF THAT EXTRACTED ZERO BYTES ON THE FIRST PASS EXTRACTED 283 KB ON THE SECOND.** The Saipan
+report has no `/ToUnicode` map at all, which the earlier extractor treated as a reason to stop; the
+fonts use standard encodings, so the literal strings come out readable with no CMap. **A PDF with no
+ToUnicode is usually the easy case, not the hard one** — check before writing a source off.
+
+**THE PAGE NUMBER YOU GUESS IS THE ONE THAT IS WRONG.** The 1902 monograph's OCR carries its page
+numbers inline and broken (`£S0.000` for what is almost certainly £80,000), so the card cites
+**chapter 7** rather than a page range, and the £80,000 total was dropped for the £3,000 Brimstone Hill
+figure the OCR renders cleanly. **An OCR digit that could be a letter is not a figure**; either find a
+clean one in the same passage or drop the claim.
+
+**AND THE READ-BACK CAUGHT FIVE THINGS THE CHECKERS CANNOT SEE.** An unsourced link between Pago Pago
+and the electoral district it sits in — the legislature's own page lists districts and members and
+never says which one holds the town, so the sentence became a count of the two houses instead. A causal
+order reversed, saying permanent settlement on Grand Turk was allowed *because* the plots were divided
+when the museum says the representative came first. A bank named "the western" before the card had said
+which was west. "On the lagoon shore" attached to Garapan on no source at all. And the £80,000 above.
+**Every one of them would have rendered perfectly.**
+
+## What C33 found
+
+**THE INDEX IS COARSER THAN THE RECORDS IT INDEXES, AND SEARCHING IT ALONE REPORTS A PRESENT COUNTRY
+AS ABSENT.** The flat city list gives one country column, and for three of this batch it prints
+`United Kingdom of Great Britain and Northern Ireland`: searched there, Bermuda, Guernsey and the Isle
+of Man all come back with nothing. Open the records themselves and each names its own member —
+`UK - Bermuda`, `UK - Guernsey`, `UK - Isle of Man` — and each is presented by the territory's own
+body: the Isle of Man Government, the Meteorological Observatory at Guernsey Airport, the Bermuda
+Weather Service. **The earlier batches searched the list and reported absences; this one shows that a
+list absence is not a record absence.** Andorra and the Cayman Islands really are missing, and were
+checked both ways.
+
+**AND THE NAME MATCH THAT LOOKED WRONG WAS RIGHT, WHICH IS THE SAME LESSON REVERSED.** `Hamilton`
+under the United Kingdom reads exactly like Hamilton in South Lanarkshire, and C31 and C32 had both
+just been bitten by capitals filed under other countries' names. It was nearly discarded on that
+suspicion. **The coordinates settled it**: 32.29 N, 64.78 W, presented by the Bermuda Weather Service.
+A name match is not evidence of identity in either direction — it is a reason to read the coordinates.
+
+**TWO OFFICIAL COUNTS OF ONE CITY, TWELVE TIMES APART.** The UN profile gives Hamilton 10,100 people,
+footnoted to 2018; Bermuda's own 2016 census counts **854** in the City of Hamilton. The UN figure is
+plainly a wider urban area and the census a municipality, but nothing on either page says so, and the
+card states both rather than choosing. It is the widest disagreement on a capital figure the pass has
+met.
+
+**A COUNTRY WHOSE UN PROFILE DOES NOT EXIST.** `data.un.org/en/iso/gg.html` returns **500**, on three
+attempts spaced apart — a reproducible absence rather than an outage. Guernsey is therefore the first
+capital in the pass whose card rests on no UN profile at all; the figures come from the States of
+Guernsey's own statisticians instead, which is the better source anyway (19,679 in the parish in March
+2023, against the UN's silence).
+
+**THE WESTMINSTER DEPUTY CLAUSE WITH AN ISLAND WHERE THE SEAT SHOULD BE.** C31 and C32 found the
+seat-of-government clause three times at section 22 and once at 25. The Cayman Islands Constitution
+Order 2009 carries the same shape at **section 36** and replaces the seat with a landmass: the deputy
+acts whenever the Governor is absent *from Grand Cayman but not from the Cayman Islands*. The words
+`capital` and `seat of government` appear nowhere in it. **A fifth variety, and the first that locates
+the office geographically rather than institutionally.**
+
+**AND AT THE OTHER END, A CONSTITUTION THAT NAMES ITS CAPITAL IN ITS SECOND ARTICLE.** Andorra's says
+*Andorra la Vella is the capital of the State*, among the official language, the anthem, the flag and
+the arms — Lesotho's shape (C25), one article earlier. Its first article had already named the town as
+one of the seven Parishes, and the document was signed at **Casa de la Vall**, a house in the capital,
+on 28 April 1993. Dominica's is the opposite extreme: `Roseau`, `capital` and `seat of government` all
+return zero, and **being a republic it has not even the deputy clause** by which its Westminster
+neighbours reach a seat obliquely.
+
+**A COUNTRY WITH ONE STATION IN THE INDEX, AND IT IS NOT THE CAPITAL.** Dominica's single entry is
+**Melville Hall Airport**, on the opposite coast from Roseau, and it carries no rain-day count in any
+of its twelve months. A country present in the index is not a capital present in it.
+
+**WHAT THE READ-BACK CAUGHT, and the one that matters is an overclaim.** `gw-702` said the ground
+around Roseau carries the densest settlement on the island; the paper says the areas around Roseau
+*and Portsmouth* have the highest population density, so the card now says *among the most densely
+settled*. A superlative for two places had been given to one. Beside it: a causal claim that
+sea-surface temperature is what keeps Bermuda subtropical, where the source credits the pressure
+gradient, the Gulf Stream and the Sargasso Sea; an unsourced *the surveyors named* for the Douglas
+Syncline; and a claim that the principality's own rivers are gauged in the Pyrenean database, where
+the abstract says only that the database spans France, Spain and Andorra.
+
+**AND A CITATION FAULT THAT WAS MINE, NOT CROSSREF'S.** `check-citations.js` reported a surname
+mismatch on the Data in Brief dataset: I had written the ninth author as `Beguîría` where
+Crossref, and the paper, have **Beguería** — a mistyped escape, one character out, and all but
+invisible as an error on the page.
+Crossref was right and the citation was wrong, so it was fixed rather than declared. **The two-tier
+report earns its keep in both directions.**
+
+## What C32 found
+
+**FOUR OF THE SIX COUNTRIES KEEP NO STATION AT ALL IN THE WORLD WEATHER INDEX, and that is a
+measurement rather than an impression.** The index holds 3,597 cities. Searched on both the country
+and the city column, the Federated States of Micronesia, Tonga, Saint Vincent and the Grenadines and
+the Virgin Islands return nothing whatever — no Pohnpei, no Chuuk, no Yap, no Kosrae, no Tongatapu,
+no Kingstown, no Saint Thomas. Only two of this batch's capitals are in it, and one of those is filed
+under a country it is not in. The pass has met absent countries before, one or two at a time; a batch
+in which two thirds of them are missing says something about which parts of the world the index
+covers, and it is worth stating on the card rather than passing over in silence. Pohnpei is among the
+wettest places on earth and publishes nothing there.
+
+**A CAPITAL FILED UNDER TWO OTHER COUNTRIES' NAMES, NEITHER OF THEM ITS OWN.** C31 met a two-country
+country field — `Curaçao and Sint Maarten` — on Willemstad, which is at least in one of the two.
+Oranjestad is in neither. CityId 1829 is headed `Curaçao and Sint Maarten`, and its coordinates,
+12.5 N and 70.0 W, are Aruba's. **THE COORDINATES ARE WHAT SETTLE IT, AND THEY HAD TO BE READ**: there
+is a second Oranjestad, on Sint Eustatius at 17°29' N, and a name match alone cannot tell the two
+apart. The record also carries `isCapital: false` for a capital city, repeats C31's misspelt
+presenting body (`Meteteorological Department Curacao`), and gives no normals period at all while
+carrying a full twelve months of figures — three faults in one record.
+
+**A CONSTITUTION THAT PROVIDES FOR A CAPITAL AND DECLINES TO NAME ONE.** The Micronesian constitution
+never says Palikir. What it does instead is new to the taxonomy: among the powers Article IX, section
+2 expressly delegates to Congress, between acquiring new territory and regulating natural resources,
+is **the power to govern the area set aside as the national capital**. The document establishes the
+office of a capital district and leaves the choosing to be done afterwards — which is what happened,
+the seat moving from Kolonia to a purpose-built site at Palikir. The geology report drilled the wells
+for that site and calls it *the new FSM capitol site*, which dates it without any need to reach for a
+secondary source.
+
+**AND ONE THAT NAMES NO CAPITAL, NO SEAT AND NO MEETING PLACE — not one of the three words.** The
+Staatsregeling van Aruba is not in the Constitute index, so it was read in the Aruban government's own
+Centraal Wettenregister text (AB 1987 no. GT 1) on archive.org. `Oranjestad`, `hoofdstad`, `zetel` and
+`vergaderplaats` all return zero. The pass has met total silence before (the Bahamas, Vanuatu, Samoa,
+Lesotho, Estonia), but always in English-language Westminster texts where the word `capital` at least
+appears in some other sense. Here the whole family of words is absent.
+
+**THE WESTMINSTER SEAT-OF-GOVERNMENT CLAUSE AT SECTION 22 FOR THE THIRD TIME, AND THE SAME CLAUSE AT
+25.** Saint Vincent and the Grenadines carries the clause at **section 22**, word for word and at the
+same number as Saint Lucia and Grenada in C31 — three constitutions, one section number. Its single
+use of the word `capital` is **capital raised**, C29's Saint Lucia and C31's Brunei a third time.
+Antigua and Barbuda carries the same clause at **section 25** instead, and does not use the word
+`capital` anywhere at all, not even of punishment: a Westminster constitution in which the word simply
+does not occur.
+
+**THE CATALOGUE RECORD AND THE REPORT DISAGREE ABOUT THE AUTHOR'S NAME, AND THE REPORT WINS.** The
+USGS Publications Warehouse files Open-File Report 72-201 under `Jordon, D.G.`, and Crossref relays
+that deposit, so `check-citations.js` reported a surname mismatch. The report's own title page prints
+**by D. G. Jordan and O. J. Cosner**, and its own Selected References list a 1963 paper by
+*Ward, P. E., and Jordan, D.G.* — two places inside the document, both Jordan. Declared in
+`CROSSREF_WRONG` with that reasoning. **The rule holds: read the article's own byline, not the
+catalogue's index of it.**
+
+**A SOURCE CAN BE INTERNALLY INCONSISTENT, AND A CARD MUST NOT REPRINT THE INCONSISTENCY.** The Pohnpei
+rainfall report states that the island's gauges differ *by as much as 150 inches*, and states on the
+same page that the lowest annual total is about 120 inches and the highest about 300. Those are 180
+inches apart, not 150. A first draft of `gw-691` put the spread and the two extremes in one sentence,
+which invites the reader to do the subtraction and find it wrong. **The two measured extremes are the
+defensible figures and the derived spread is not**, so the clause went and the extremes stayed. Nothing
+in the pipeline can see this; only reading the card back can.
+
+**WHAT THE READ-BACK CAUGHT THIS TIME, and two of the six were claims no checker could have seen.**
+Nuku'alofa's tilt was written as carrying the land down towards the capital's coast — true, and sourced
+only to a report whose PDF extraction is a substitution cipher, so the clause went and the paper's own
+73 per cent population figure took its place. A clause saying salinization is worst *at the villages
+nearest the shore* came from a search summary rather than from the paper, which says the risk depends
+on a well's distance from the centre of the well field and from the lagoon; rewritten to that. Saint
+John's was placed *at the western end of the central plain*, which the FAO source does not say, so the
+card now gives the coordinates the weather record carries instead. And `gw-692` said the island became
+a country of the Kingdom *in 1986* on the strength of a page that gives no date at all.
+
+## What C31 found
+
+**A WEATHER RECORD CAN EXIST AND CONTAIN NOTHING AT ALL.** C25 met a blank MONTH, C29 a blank FIELD,
+C30 the same field twice in two spellings of missing. Castries is the whole TABLE: the index files it
+under Saint Lucia, flags it `isCapital` true, lists twelve months — and every cell in every one of
+them is empty. No maximum, no minimum, no rainfall, no rain days, and no window. **The row's
+existence is the only information in it**, and a card that quoted "the record" without opening it
+would have had nothing to quote and no way to know.
+
+**AND A PROFILE CAN NAME A DIFFERENT PLACE AS THE CAPITAL THAN THE DECK ASKS FOR.** The UN gives
+Kiribati's capital as **Bairiki** — an islet of South Tarawa — where `gw-688`'s answer is Tarawa, and
+it heads that column **with no year at all** (every other profile in the pass reads "Capital city pop.
+(000, 2025)") while footnoting the figure to 2015. **Read the column heading as well as the
+footnote**: this is the one profile in the pass whose heading is missing the year it is claiming.
+
+**TWO CAPITALS ARE FILED IN THE WEATHER INDEX UNDER SOMETHING OTHER THAN THEIR OWN NAME, AND ONE OF
+THEM UNDER A NAME IT HAS NOT USED SINCE 1998.** Hagåtña's record is **`Agana, Guam`**, inside the
+entry for the sovereign state rather than the territory, `isCapital` false — a former spelling under
+somebody else's country field. Willemstad's is **`Curacao`**, the island, `isCapital` false, under a
+country field reading **`Curaçao and Sint Maarten`**: two countries in one field. C30's Tahiti was the
+first of this shape and this batch has two more.
+
+**AND THE PRESENTING BODY CAN MISSPELL ITS OWN NAME.** Willemstad's record is served by the
+*Meteteorological Department Curacao*. It is a small thing and it is worth recording, because it is
+the kind of fault that says how closely these records are read: nobody has looked at that field since
+it was typed.
+
+**A COORDINATE PRECISION CAN BE A TELL TOO.** Agana's is given as 13.4627 north and 144.7439 east —
+four decimal places, where the rest of the batch (Castries 14.00 / −61.01, Curacao 12.12 / −68.88,
+Victoria −4.62 / 55.43) gives two. **A record that came from a different pipeline looks different in
+the fields nobody reads.**
+
+**THREE COUNTRIES ARE ABSENT FROM THE INDEX ALTOGETHER** — Kiribati, Grenada and, for the second
+batch running, a country whose capital has no row anywhere. That takes the pass's absent list to
+Equatorial Guinea, Kosovo, Timor-Leste, Barbados, São Tomé and Príncipe, Kiribati and Grenada.
+**Kiribati has a national meteorological service of its own all the same**, at Betio on Tarawa,
+publishing tide calendars and a watch on extreme spring tides — which is the fourth leg that
+absence leaves room for.
+
+**THE WESTMINSTER SEAT-OF-GOVERNMENT CLAUSE APPEARS TWICE IN ONE BATCH, WORD FOR WORD AND AT THE SAME
+SECTION NUMBER.** Saint Lucia's 1978 text and Grenada's 1973 text (reinstated 1991, revised 1992) both
+put it at **section 22** and both read *"Whenever the Governor-General — has occasion to be absent
+from the seat of government but not from [the country]"*, differing only in the country's name and in
+whether *Government* takes a capital G. With Jamaica (C24), Trinidad and Tobago (C26) and Belize
+(C29) that is five instances, and the pair here settles what the earlier ones suggested: **this is one
+drafting template, not a coincidence of phrasing.** Neither text names its capital; Saint Lucia's uses
+the word once, of *capital raised* in the country, and Grenada's not at all.
+
+**A CONSTITUTION CAN NAME ITS COUNTRY'S ISLANDS AND NOT ITS CAPITAL.** Kiribati's 1979 text as revised
+through 2018 has *capital* 0 and *Bairiki* 0, and names Tarawa exactly once — in **Schedule 2, the
+territory of the state**, which lists every island in it *"together with all small islands, islets,
+rocks and reefs depending on them"*. Seychelles' 1993 text as revised through 2025 never names
+Victoria and uses *capital* only of the death penalty and of company shares; what it names **ten
+times** is Mahé, always in the electoral articles — at least nineteen electoral areas there, two on
+Praslin, the Inner Islands together one. **Both locate the state by its geography and neither by its
+seat.**
+
+**AND THE METROPOLE'S TEXT CAN NAME A CAPITAL THAT IS NOT ITS SEAT OF GOVERNMENT.** Constitute holds
+no text for Curaçao, so Willemstad's fifth leg is the Dutch constitution of 1814 as revised in 2008 —
+which names **Amsterdam** as *the capital city*, where the King is sworn in (article 32), contains
+**The Hague nowhere at all**, and does not mention Curaçao. C30 found France's text naming neither its
+own capital nor Papeete; this one names a capital and omits the city its government actually sits in.
+
+**THREE DEFINED UN FOOTNOTES, AND ONE OF THEM DEFINES ALMOST NOTHING.** Curaçao's capital figure is
+*"Total population of Curaçao excluding some neighborhoods (see source)"* — the whole island minus an
+unnamed set, with a pointer instead of a list. Grenada's says its figure *"Refers to Saint George
+Parish"*. Kiribati's is an AREA footnote: the 726 square kilometres are *"Land area only. Excluding 84
+square km of uninhabited islands."* **Guam's is the one that matters most and it is a bare 2018**: the
+capital-city figure is **146.9 thousand against 169 thousand for the whole territory**, seven eighths
+of it, with nothing said about what is being counted. **The emptier the footnote, the larger the
+figure it is hiding.**
+
+**AND TWO SMALL NUMBERS CAN COINCIDE AND MEAN NOTHING.** Grenada's UN profile gives 345 square
+kilometres and 345 people to the square kilometre. It is arithmetic rather than a finding — the
+population happens to be near 117 thousand — and it is recorded here because a card that prints both
+figures without saying so reads like a copying error. **Say it, or drop one of the two.**
+
+**A PUBLISHER CAN DEPOSIT A THIRD DOI FOR AN OLD ARTICLE AND MISDATE IT, AND THE JOURNAL'S OWN
+CITATION LINE IS WHAT SETTLES IT.** `check-citations.js` reported `10.4000/vertigo.10594` as a year
+mismatch: Crossref carries **published-print 2011** with the record created 2011-04-02, where
+VertigO's own *Référence électronique* line reads *"10-3 | Décembre 2010, mis en ligne le 20 décembre
+2010"*. That is the third OpenEdition journal to do this and the third row in `CROSSREF_YEAR_WRONG`
+(after two from Brussels Studies), added with the journal's own line quoted beside it. **The
+article's metadata header said 2011-01-19 and agreed with Crossref; only the printed citation line
+disagreed, and only it is the publisher's own statement of the issue.**
+
+**AND A DOI THAT 403s IS A WORK YOU HAVE NOT READ.** `10.1051/epjconf/202023708010` (EPJ Web of
+Conferences, on Guam's sinkholes) answers 403 at `doi.org` and 403 at the publisher's own PDF path;
+unlike MDPI there is no `res.` mirror to read it at. It was drafted into `gw-686` on the strength of
+its Crossref title and **taken out again before the batch was applied**: the rule is to open every
+work before citing it, and a title is not an opening. A Frontiers survey of Tumon Bay — readable in
+full — took its place, and brought Typhoon Mawar with it.
+
+**HOSTS MET IN THIS BATCH.** `journals.lww.com` serves a Cloudflare challenge and is unusable, which
+cost the Conservation and Society paper on North Tarawa; `www.sciencedirect.com` is 403 as always,
+but **DOAJ's own record carried the Curaçao paper's full structured abstract** — Study region, Study
+focus, New hydrological insights — which is enough to cite from and is the route to remember for a
+gold-OA Elsevier title. `barbadosweather.org`'s shape reappeared as `grenadamet.com`, which does not
+resolve at all; the Grenadian statistics office at `stats.gov.gd` answers plain HTML and carries the
+2021 preliminary census. **PLOS answered 503 once and 200 on a retry three seconds later**, which is
+the one sweep result in this batch that was not a fact about the host.
+
+## What C30 found
+
+**A TERRITORY HAS NO CONSTITUTION OF ITS OWN, SO THE FIFTH LEG IS THE METROPOLE'S.** Constitute has
+no record for New Caledonia or French Polynesia, and the text that governs both is France's 1958
+constitution as revised in 2024 — which **never names Paris**, uses the word *capital* once and only
+of *capital punishment*, and does not contain *Papeete* anywhere. What it does carry is **Title XIII,
+the transitional provisions pertaining to New Caledonia**, whose article 76 sends that population to
+vote on *the agreement signed at Nouméa on 5 May 1998*. **So the one occurrence of the city's name in
+the constitution governing it is a signing venue.**
+
+**AND BARBADOS'S IS THE SAME SHAPE IN A DIFFERENT OCEAN.** Its 1966 text as revised through 2026
+never uses the word *capital* and names *Bridgetown* exactly once — in the interpretation clause of
+the Caribbean Court of Justice chapter, as the place where the Agreement establishing that Court *was
+signed* on 14 February 2002. **Two constitutions in one batch of six name their capital once and in
+both it is where a document was signed**, which is a shape worth expecting now rather than reading as
+a coincidence.
+
+**FOUR OF THE FIVE CONSTITUTIONS NEVER APPLY THE WORD TO A PLACE AT ALL.** Vanuatu's 1980 text as
+revised through 2023 comes back empty on every term worth asking: *capital* 0, *Vila* 0, *Port Vila*
+0, *Efate* 0, *seat of government* 0. Samoa's 1962 text as revised through 2025 is the same: *Apia* 0
+and *capital* 0, and what it locates instead is the country, *the islands of Upolu, Savaii, Manono and
+Apolima … between the 13th and 15th degrees of south latitude*. With Barbados and France that makes
+four, and **Vanuatu, Samoa and Barbados are the fourth, fifth and sixth texts in the pass containing
+no occurrence of the word at all**, after Lesotho (C25), Estonia (C26) and the Bahamas (C29). Only
+São Tomé and Príncipe's names one — article 5, in the same breath as declaring the state unitary,
+with article 4 defining the territory as the islands, their named islets and a territorial sea
+*within a circle of twelve miles*.
+
+**A CAPITAL CAN BE FILED IN THE WEATHER INDEX UNDER ITS ISLAND'S NAME AND FLAGGED AS NOT A CAPITAL.**
+French Polynesia has eight rows and Papeete is not among them: the record is **`Tahiti`**, `isCapital`
+false. C25's Lesotho, C28's Solomon Islands and Malta and C29's Cabo Verde were countries present
+without their capital; this is the same fault wearing the island's name instead of a suburb's or an
+airport's, and it is the shape hardest to notice, because the row looks right.
+
+**AND C29'S MISSING FIELD HAPPENS TWICE MORE, IN TWO DIFFERENT SPELLINGS OF MISSING.** Tahiti's record
+carries `raindays: null` in all twelve months; Apia's carries the **empty string** in all twelve. Both
+render as a complete table of temperature and rainfall with one column simply gone, and a reader who
+does not know the shape of a normals table cannot see it. Tahiti's also states **no observation period
+at all**, which is C29's Bandar Seri Begawan again one batch later.
+
+**TWO MORE COUNTRIES ARE ABSENT FROM THE INDEX ALTOGETHER** — Barbados and São Tomé and Príncipe —
+joining Equatorial Guinea, Kosovo and Timor-Leste. **And the richest entry in this batch belongs to a
+territory rather than a state**: New Caledonia has **fifteen** rows against Vanuatu's six, French
+Polynesia's eight, Samoa's one and the two zeroes — and its record is presented by *Météo-France
+Regional Service New Caledonia, Wallis and Futuna*, with Tahiti's under a plain *Meteo-France*. **The
+metropolitan service is the presenting body for both French cards.**
+
+**A UN CAPITAL-CITY FOOTNOTE CAN NAME SEVEN COMMUNES.** French Polynesia's footnote `f` says the capital-city figure *refers to the total population in the communes
+of Arue, Faaa, Mahina, Papara, Papeete, Pirae and Punaauia* — so the 136 thousand is seven communes
+together, of which the capital is one. **Its AREA footnote is defined the same way and is the rarer
+kind**: 3,687 square kilometres *including water bodies of lake Vaihiria, lake Temae and the Maiao
+lagoons, but not lake Maeva and the lagoons of Raiatea and Tahaa*. Every other profile in the batch
+footnotes its capital figure to a bare **2018**.
+
+**AND A TERRITORY'S PROFILE SAYS WHAT IT IS NOT PART OF.** New Caledonia's and French Polynesia's both
+carry *For statistical purposes, the data for France do not include this area*, and **neither has a UN
+membership date row**, there being none to have. That absence is itself a fact about the place and the
+card says so rather than leaving the gap to be read as a missing figure.
+
+**A REGISTERED DOI CAN 404 AT `doi.org`, AND ONLY THE URL SWEEP CATCHES IT.** The Atoll Research
+Bulletin paper on Papeete Harbor, `10.5479/si.00775630.484.`, has a full Crossref record — title,
+authors, volume, year — and resolves to nothing; the Smithsonian repository path it points at is gone
+too. **A citation built on it would have passed `add-card.js`** (it ends in a URL) **and
+`check-citations.js`** (Crossref knows the work) **and failed only the curl.** Papeete's fourth leg is
+a 2025 metabarcoding survey of the same port instead.
+
+**AND A PAPER'S ABSTRACT CAN NAME THE PAPER YOU NEED.** São Tomé defeated every keyword search —
+Crossref returned IMF country reports and CABI compendium stubs, DOAJ returned linguistics and public
+health, OpenAlex rate-limited — until a 2025 Geosciences article on Príncipe's geological heritage
+said its sites were assessed *using the same qualitative methodology previously applied to the
+geological heritage of São Tomé Island*. **An AUTHOR search on that article's second author** returned
+the 2015 Sustainability paper that carries the island's height, area, axes, submarine platform and
+volcano-stratigraphic units. **Read the sibling article's own sentences before widening the keywords.**
+
+**HOSTS MET IN THIS BATCH.** `iwaponline.com` serves a Cloudflare JavaScript challenge and is
+unusable; `conbio.onlinelibrary.wiley.com` is 403; `gov.st` answers 400. What carried it: **MDPI via
+`res.mdpi.com/d_attachment/…`** (four of the six papers — the DOIs 403 from here, as the 219 already
+shipped record), **Copernicus**, **Nature**, the Indonesian and Portuguese **OJS** installations, and
+two institutional sites that answer plain HTML — `meteo.nc` and `ine.st`. **`barbadosweather.org`
+answers 200 and is a JavaScript shell with no citable page**, which is the C0 Factbook shape again.
+
+## What C29 found
+
+**A WMO RECORD CAN BE MISSING A WHOLE FIELD, NOT A MONTH.** C25's Bissau had a December with every
+cell empty and C27's Georgetown had one impossible value in an otherwise sound table; Cabo Verde's
+only record, filed under **Sal**, gives twelve average maxima and **not one average minimum** — the
+`minTemp` cell is null in all twelve months. The table is not broken and does not look broken: it
+renders as a complete year of highs, rainfall and rain days, and only a reader who knows what a
+normals table is supposed to carry notices that half the temperature is gone. **Ask what a record
+does NOT have before quoting what it does**, which is the mirror of C25's finding one field over.
+
+**A FOURTH COUNTRY IS IN THE WEATHER INDEX WITHOUT ITS CAPITAL.** Lesotho (C25, Mejametalana),
+Solomon Islands (C28, Auki) and Malta (C28, Luqa) were the first three; Cabo Verde's one row is
+**Sal**, an island the capital is not on, flagged `isCapital` false. Every country in this batch is
+in the index — none of the outright absences C25 and C26 met — so the shape here is the softer one:
+present, and not where the reader wants it. **The index is not a list of capitals and must never be
+read as one.**
+
+**AND ONE RECORD STATES NO PERIOD AT ALL.** Bandar Seri Begawan's carries `datab` and `datae` both
+empty — no start year, no end year — where Malé's says 1981–2000 (twenty years), Belmopan City's
+1980–2003 (twenty-four) and Sal's and Reykjavik's 1961–1990, with **Nassau's 1971–2000 a full
+thirty**. **A card that quotes an unwindowed record can say what the figures are and not what they
+are of**, which is why `gw-675` says so in its prose and puts no weather row on its date line: there
+is no window to put there.
+
+**A CONSTITUTION CAN NAME AN ISLAND AS THE CAPITAL.** The Maldives' 2008 text, article 14, under the
+heading *National capital*, reads *The capital of the Maldives is the island of Male'* — not a city,
+an island — and the same text makes that island an administrative division in its own right,
+counting *the twenty administrative Atolls plus Male', for a total of twenty one*, with Villingili
+and Hulhumalé folded into its schedule entry. **Cape Verde's 1992 text is the same shape one step
+softer**: article 9 gives *the city of Praia, on the island of Santiago* — the city AND its island —
+and seats the Supreme Court and every overseas electoral district there as well. Both sit in the run
+of articles on national symbols, which is C25's Guinea-Bissau finding met twice more in one batch.
+
+**TWO MORE TOTAL SILENCES, AND THEY ARE NOT THE SAME SILENCE.** Brunei Darussalam's 1959 text (rev.
+2006) never names Bandar Seri Begawan and uses the word *capital* **exactly once**, in the definition
+of *debt* as an obligation to repay *capital sums*. The Bahamas' 1973 text never names Nassau and
+**does not contain the word *capital* at all** — the emptier of the two, and the third such text in
+the pass after Lesotho (C25) and Estonia (C26). Belize's 1981 text (rev. 2022) is a third variety:
+*Belmopan* appears nowhere, *capital* only in *capital cases* and *issued share capital*, and the
+state is located instead by the **Westminster seat-of-government clause** — its third instance
+after Jamaica (C24) and Trinidad and Tobago (C26).
+
+**AND ICELAND LOCATES BOTH PRESIDENT AND GOVERNMENT BY RESIDENCE, WITHOUT EVER USING THE WORD.**
+The 1944 text as amended through 2013 says the President *shall reside in or near Reykjavik* (art.
+12), that *the seat of Government is in Reykjavik* (art. 13) and that the Althing *shall normally
+convene in Reykjavik* (art. 37); the only occurrence of *capital* in the whole text is *capital
+punishment*. **The 2011 DRAFT is more explicit than the text in force** — the Althing *shall normally
+assemble in Reykjavik, but may decide to assemble elsewhere*, and *the Government Offices of Iceland
+shall be located in Reykjavik* — and Constitute's own record dates it: delivered to the Althing on 29
+July 2011, approved by a non-binding referendum on 20 October 2012, failed to pass in 2013. C24 met
+two Gambian drafts that never came into force; what is new here is a draft that says MORE about the
+capital than the constitution that governs — **so a record marked `in_force: false` is worth reading
+for what it adds, not only avoiding for what it cannot support.**
+
+**SIX BARE-YEAR FOOTNOTES IN A ROW, AFTER TWO BATCHES OF DEFINED ONES.** All six UN profiles footnote
+their capital-city figure `c` and define `c` as **2018** and nothing else — no scope, no statement of
+what territory is counted. C26 found two profiles that define what they count and C27 and C28 found
+three more; this batch found none, which is the ordinary case returning. **The footnote is worth
+reading every time precisely because it is usually empty.**
+
+**AND THE DENSEST AND NEARLY THE EMPTIEST STATE IN THE DECK ARE IN ONE BATCH.** The Maldives is
+1,765.6 people to the square kilometre on 300 square kilometres; Iceland is **four** to the square
+kilometre on 103,000. Both capitals hold about the same share of their country — a third and a half —
+so the share says nothing about either, and the density says everything.
+
+**THE FOURTH LEG WAS THE SLOWEST PART OF THIS BATCH AND ALL SIX WERE FOUND IN OPEN JOURNALS.**
+`iwaponline.com` serves a Cloudflare JavaScript challenge and is unusable from here, and
+ScienceDirect is 403 as before, so the Brunei River water-quality paper and the Elsevier *Data in
+Brief* rainforest dataset both had to be given up — the latter is readable at its **Europe PMC**
+copy, which is the route that keeps paying. What carried the batch instead: **Copernicus** (Ocean
+Science, for North Malé atoll), **Frontiers** (Frontiers in Water, for New Providence's five
+wellfields), **PLOS** (PLOS ONE, for Hellisheidi's hydrogen sulphide), **RCAAP** (Finisterra, for
+Praia's Plateau and trade winds — a Portuguese journal whose article carries its own page range in
+its running head, `XLIX, 98, 2014, pp. 33-48`, where Crossref holds only an online date of 2015), the
+Indonesian **OJS** at `ijeas.untan.ac.id` (for Kampong Ayer's mangroves), and **Docomomo Journal** at
+`docomomojournal.com` (for Belmopan's garden-city plan, CC BY 4.0). **Two of those six were found
+through DOAJ and neither through Crossref**, whose keyword search returned only encyclopedia stubs
+for both Belmopan and New Providence. **Search DOAJ before concluding a small capital has no
+literature.**
+
+**AND A DOCOMOMO DOI RESOLVES TO A DIFFERENT ARTICLE ID THAN ITS LANDING PAGE CARRIES.**
+`10.52200/43.A.SMV82DGU` redirects to `/article/view/87`, not to the `/view/43` the issue number
+suggests, and the PDF galley is `/article/download/87/406` — a number that appears nowhere on the
+article page's own text, only in one `href`. **Follow the DOI and read the page's links; do not
+compose an OJS galley URL.**
+
+## What C28 found
+
+**A CONSTITUTION CAN NAME ITS CAPITAL EIGHTEEN TIMES AND NEVER ONCE CALL IT THE CAPITAL.** The
+Solomon Islands' 1978 text uses *Honiara* eighteen times — always as *Honiara City*, *the Honiara
+City Council* or *the government of Honiara City*, in clauses about taxation and local administration
+— and contains the word *capital* nowhere and the phrase *seat of* nowhere. Latvia (C25) named its
+city once without calling it a capital; this is the same shape at eighteen times the frequency, and
+it is the strongest case yet for the rule this leg keeps producing: **count the occurrences of the
+CITY's name and of the word CAPITAL separately, because they answer different questions.**
+
+**A DEFINED FOOTNOTE CAN NAME A UNIT THE CAPITAL IS NOT IN.** Malta's capital-city figure of 212.8
+thousand is footnoted *Refers to the localities of the Northern Harbour and Southern Harbour* —
+neither of which is Valletta, whose own population is a small fraction of that. Djibouti's *cercle*
+and Paramaribo's *District of Paramaribo* are units CONTAINING the city; Podgorica's *urban
+population of Podgorica municipality* is the town carved OUT of a unit; Malta's is neither. **Four
+defined footnotes now name four different kinds of thing**, which is the running order's own
+conclusion (see the correction to the C26 entry) reached a fourth time.
+
+**⚠ AND THAT CORRECTION IS THIS BATCH'S REAL FINDING.** C26 recorded Manama and Port of Spain as
+“the first two capital-city figures in the whole pass” to define what they count. They were the first
+two THIS REWRITE had met; `docs/world-geography-card-plan.md` had recorded three others when the
+cards were first generated, and had drawn the better conclusion. **The running order is the deck's
+memory of what it has already seen, and a superlative measured only over the current pass is a claim
+about the current pass.** Both entries are corrected in place. **Grep the plan for a card's own notes
+before claiming a first about it.**
+
+**THREE MORE TOTAL SILENCES, AND THE STRONGEST CAPITAL CLAUSE THE PASS HAS MET, IN ONE BATCH.**
+Suriname's 1987 text and Malta's 1964 text name no capital in any sense; Bhutan's 2008 text mentions
+Thimphu exactly once, in a GLOSSARY entry defining monastic bodies in dzongs *other than Punakha and
+Thimphu*. Against them, Luxembourg's Article 109: *The City of Luxembourg is the capital of the Grand
+Duchy and the seat of Government. The seat of the Government may only be transferred temporarily for
+grave reasons* — the only clause the pass has met that forbids a permanent move, and it sits in the
+general provisions at the END of the text rather than among the emblems at the front.
+
+**AND MONTENEGRO NAMES TWO CAPITALS IN ONE SENTENCE**: *The capital of Montenegro shall be Podgorica,
+The Old Royal Capital of Montenegro shall be Cetinje.* Eswatini (C27) had two capitals recorded in a
+UN FOOTNOTE while its constitution named neither; here the constitution itself does it, one working
+and one historic. **Two capitals is now a recurring outcome and arrives by at least two different
+routes.**
+
+**A NORMAL CAN BE TWENTY-THREE YEARS LONG AND CARRY TWO DECIMAL PLACES.** Thimphu's record states
+1996–2018 and gives every figure — temperatures, rainfall, rain DAYS — to two decimals, including
+0.35 of a rain day in November. Beside Nicosia's ten-year window (C26) that is a second departure from
+the thirty-year convention in three batches, and the decimals mark it as a derived series rather than
+a station's own book. **State the window; it is a fact about the figures.**
+
+**A CAPITAL'S COUNTRY CAN BE IN THE WMO INDEX WITHOUT THE CAPITAL BEING IN IT — TWICE IN ONE BATCH.**
+The Solomon Islands' only row is Auki, on a different island, and Malta's is *Luqa, Malta*, the
+airport with the country's name run into the city field. Maseru (C25) was the first of this shape and
+Manama (C26) the first of the run-together name; both now have a second instance. **The index is
+searched on the COUNTRY column, never on the city's name.**
+
+**A SMALL COUNTRY'S WATER CAN HAVE A SINGLE POINT OF FAILURE, AND A PAPER WILL SAY SO.** The lake on
+the Upper Sûre is 0.15 per cent of Luxembourg's surface and its treatment plant can supply 89 per
+cent of the country's people; a tractor accident on a road at Witry, in another country, put herbicide
+into a creek that reaches it twenty kilometres downstream. **Where one reservoir serves a whole state,
+the incident report is the card's best sentence** — it is the geography and the vulnerability in one.
+
+**AND A USGS REPORT IS A USABLE LEG WHERE NOTHING MODERN EXISTS.** Paramaribo's aquifer has no recent
+open literature reachable from here; the 1990 Water-Resources Investigations Report gives the whole
+history — one well field in 1958 growing to six, pumping from 1,643 to 40,230 cubic metres a day, 227
+million cubic metres drawn in thirty years, and chloride moving inland towards the wells. **Its DOI
+is not in Crossref; cite the pubs.usgs.gov URL, which resolves.**
+
+## What C27 found
+
+**A WMO TABLE CAN BE COMPLETE, WINDOWED, SOUND IN ELEVEN MONTHS AND IMPOSSIBLE IN THE TWELFTH.**
+Georgetown's 1961–1990 record gives May a mean maximum of **39.4 °C** where every other month of the
+year lies between 28.7 and 30.8 — a transposition of 29.4 that parses perfectly and renders
+perfectly. This is C18's Bishkek finding at a different scale: there the whole table was wrong and
+the card took its weather elsewhere; here one cell is wrong and the rest is usable, so the card
+**quotes the sound figures, names the bad one, and says it is a figure to distrust rather than
+quote**. **Read a station's twelve maxima against one another before quoting any of them**; a single
+outlier is the shape this fault takes when the table is otherwise fine.
+
+**A UN FOOTNOTE CAN HANG OFF THE CAPITAL'S NAME RATHER THAN OFF ITS POPULATION.** Eswatini's profile
+marks the capital-city row itself: *Mbabane is the administrative capital and Lobamba is the
+legislative capital.* Every earlier batch read the footnote letters on the FIGURE; this one is on the
+NAME, and it is the only place in the recipe that will tell you a country has two capitals.
+**Read both letters on that row.**
+
+**AND A THIRD PROFILE THAT SAYS WHAT ITS CAPITAL FIGURE COUNTS**, one batch after the first two of
+this rewrite: Djibouti's 568.8 thousand *refers to the population of the “cercle”*. Manama, Port of
+Spain and now Djibouti — three in two batches, against roughly 150 cards that carried a bare year.
+**What that means is settled in the running order rather than here**: a defined footnote names three
+different things across the three cards that carry one, so quoting the definition is what lets a
+reader see which, and the presence of a footnote is not itself the finding (see the C26 entry's
+correction).
+
+**A COUNTRY PROFILE CAN MEASURE ITS POPULATION AND ITS AREA OVER DIFFERENT TERRITORIES.** Mauritius's
+population and density are footnoted *Including Agalega, Rodrigues and Saint Brandon* while the
+surface area is footnoted *Excluding the islands of Saint Brandon and Agalega*. A density computed
+from the two numbers on that page is therefore not the density either footnote describes. This is
+C26's Cyprus finding in a sharper form — there the scopes differed between rows, here they differ
+between the two halves of a single ratio.
+
+**A CONSTITUTION CAN IDENTIFY A CAPITAL WITHOUT NAMING A PLACE.** Eswatini's 2005 text names neither
+Mbabane nor Lobamba and says instead that *the official residence of the Ndlovukazi is the
+legislative and ceremonial capital of the nation and the arena of the Incwala and Umhlanga* — the
+capital defined by whose house it is, and so moving with the person. Nothing in the pass's earlier
+taxonomy covers that.
+
+**AND ONE CAN PROVIDE FOR ITS OWN INSTITUTIONS TO SIT ELSEWHERE.** Comoros's Article 10 names Moroni,
+leaves its status to a law, and then adds that an organic law determines the islands where the
+Union's institutions sit *if circumstances thus require* — a capital clause written by a federation
+of islands that expects to have to move.
+
+**THE THIRD TOTAL SILENCE IN THREE BATCHES, and two more that use the word only of money or of the
+gallows.** Mauritius's 1968 text does not contain *capital* anywhere in any sense (after Lesotho in
+C25 and Estonia in C26); Fiji's 2013 text uses it only of capital expenditure in the budget article
+and Timor-Leste's only of the death penalty. **A constitution that does not locate its own state is
+now the commonest single outcome of this leg.**
+
+**A CITY POPULATION IN A PAPER AND ONE IN THE UN TABLE NEED NOT AGREE, AND BOTH CAN BE RIGHT.** The
+RISE study describes Suva as a city of 93,000; the UN gives 178.3 thousand for the capital. The card
+gives both and says the second counts a wider area — which is what the Manama and Port of Spain
+footnotes spell out and most profiles do not.
+
+**AND A NATIONAL SERVICE'S ISLAND-WIDE FIGURE IS NOT ITS CAPITAL'S.** Port Louis's own 1971–2000
+total is 711 mm against the Mauritius Meteorological Services' island mean of 2,010 mm for exactly
+the same period — the capital takes about a third of what the island averages. **Where the national
+service publishes a country-wide normal, quote it against the station rather than instead of it**;
+the contrast is the fact.
+
+**KEEP ONE INSTITUTION UNDER THREE OF A CARD'S SOURCES.** `check-cards.js` notes a card resting
+mostly on one body, and the obvious Port Louis build — the WMO row plus two pages of the same
+meteorological service — would have tripped it. One page of the service, plus the WMO row, plus
+UNdata, Constitute and the index, keeps it at two. **This is a real constraint on the recipe when a
+small state's national service is the only body publishing about it.**
+
+## What C26 found
+
+**A UN CAPITAL FIGURE CAN SAY WHAT IT COUNTS, AND TWO DID IN ONE BATCH AFTER ABOUT A HUNDRED AND FIFTY
+CARDS OF SILENCE.** Bahrain's row is footnoted “Refers to the urban area of the municipality of
+Al-Manamah” and Trinidad and Tobago's “Data refers to the urban agglomeration” — the first two
+capital-city figures THIS REWRITE had met that carry a DEFINITION as well as a date. Every earlier
+batch recorded the opposite finding (a year and nothing else), which was true of what it had met and
+was never a rule. **Read the footnote letters on the capital row before writing the sentence**: the
+finding is per country, not per table.
+**⚠ AND “THE FIRST IN THE WHOLE PASS” WAS THE WRONG SCOPE, corrected on reaching C28.** The deck's
+ORIGINAL generation notes, in `docs/world-geography-card-plan.md`, had already recorded three defined
+footnotes — Djibouti's *cercle*, Paramaribo's *District of Paramaribo* and Podgorica's *urban
+population of Podgorica municipality* — and drew the sharper conclusion this rewrite had not: the
+three define three DIFFERENT things, two of them whole administrative units bigger than the city and
+one the town carved out of the unit, **so a defined footnote is not a comparable figure**. **Read the
+running order's own notes on a card before claiming a first**; the plan is the deck's memory of what
+it has already seen, and a superlative measured only over this pass is a claim about this pass.
+
+**AND ONE PROFILE CAN MEASURE ITS COUNTRY THREE WAYS AT ONCE.** Cyprus's footnotes carry “Refers to
+the whole country”, “Excluding northern Cyprus” and “Data refer to government controlled areas”, each
+attached to different rows of the same page. A card that quotes one figure from such a profile without
+saying so is quoting a scope it has not checked.
+
+**TWO MORE COUNTRIES ABSENT FROM THE WMO INDEX, in the batch after the first one was met.** Neither
+Kosovo nor Timor-Leste has a row in the list of 3,598 cities, so Pristina and Dili have no
+international weather record of any kind — which with Equatorial Guinea in C25 makes three in two
+batches. **This is now an ordinary outcome rather than a curiosity, and the recipe has an answer for
+it**: Kosovo's own hydrometeorological institute publishes monthly means for three stations, the
+capital among them, for 2001 to 2019, and the card rests on that and on an open air-quality paper
+instead.
+
+**A URL WITH PARENTHESES IS CITABLE ONCE THEY ARE PERCENT-ENCODED, AND THAT IS WHAT MADE THE PRISTINA
+CARD POSSIBLE.** The Kosovo institute's own PDF is served at a path ending `_(1).pdf`, which
+`SRC_URL_RX` truncates at the first bracket; `%281%29` resolves, matches the pattern whole, and
+returns the same 1.4 MB file. **Encode, do not reject** — the rule CLAUDE.md records for Commons pages
+applies to any official document whose filename carries a bracket.
+
+**THE WMO INDEX NAMES TWO OF THIS BATCH'S CITIES IN SHAPES A PLAIN LOOKUP MISSES.** Manama's row is
+filed as a single country/city string and Port of Spain's carries its island in brackets, as does
+Scarborough beside it. Neither is findable by searching the city's name alone against the second
+field. **Search the index on the COUNTRY column and read the rows**, which is also how Lesotho's
+airfield was found in C25.
+
+**A CLIMATOLOGICAL NORMAL CAN BE TEN YEARS LONG.** Nicosia's record states 2002 to 2011, against the
+thirty-year windows the rest of this batch carries (1961–1990 twice, 1971–2000 once). The card says
+so rather than presenting it as a normal like any other.
+
+**AND THE NATIONAL AGENCY CAN BE A GENERATION AHEAD OF THE WMO RECORD IT FEEDS.** Estonia's WMO table
+is 1971 to 2000; the Estonian Environment Agency publishes 1991 to 2020 for the same city. **The two
+are not comparable term for term** — the WMO gives mean maxima and minima, the agency gives mean
+temperature — so the card gives each on its own terms and compares only the one quantity both state,
+the annual precipitation (693 mm against 700 mm). **A newer table is not a correction of an older one
+unless it measures the same thing.**
+
+**FOUR MORE CONSTITUTIONAL SHAPES, and one of them repeats across the Caribbean.** Trinidad and
+Tobago's 1976 text, like Jamaica's in C24, names no capital and legislates instead about “the seat of
+government”, unnamed, in a clause about an officer being absent from it — **the same Westminster
+clause in two constitutions**, which is worth expecting in the others of that family. Cyprus names its
+city three times and never as a capital (twice as where the 1960 draft was signed, once among the five
+towns getting separate municipalities). Kosovo names it and hands its status to law. Estonia's text
+does not contain the word capital at all, in any sense — the second such after Lesotho in C25 — and
+Bahrain's and Timor-Leste's use it only of money and of the death penalty.
+
+## What C25 found
+
+**A WEATHER RECORD CAN HAVE AN ENTIRELY BLANK MONTH, and that is the sixteenth shape this leg has
+failed in.** Bissau's record carries eleven months and a December that is null in every field at once
+— no maximum, no minimum, no rainfall, no rain days — and the previous fifteen shapes were all
+about the PERIOD or the STATION rather than about a hole in the table itself. Every annual figure a
+card gives from such a record is therefore a figure for eleven months, and the card has to say so:
+1,756 millimetres is what the months that carry a figure add to, not the year.
+**AND THE REASON IS PUBLISHED, WHICH IS WHAT MAKES IT WRITEABLE RATHER THAN A SHRUG.** An open paper
+on the country's own weather data says the country keeps long-term records at three places only
+— the capital, Bafatá and Bolama — and that all three are incomplete after documents were lost in
+the civil war of 1998 and 1999 and the stations went untended for lack of money. **A gap explained
+is a fact about the place; a gap merely noted is a complaint about the source.** Look for the
+national meteorology paper before writing the gap up.
+
+**A COUNTRY CAN BE MISSING FROM THE WMO INDEX ALTOGETHER.** Equatorial Guinea has no row in the list
+of 3,598 cities, so Malabo has no record of any kind — the first time this pass has met a whole
+member absent rather than a capital absent. It is a different finding from Maseru's, in the same
+batch, where the country has **thirteen** rows and not one of them the capital: there the nearest
+record is filed under **Mejametalana**, at 29.31° S and 27.50° E, and is flagged `isCapital: false`.
+**A country well covered is no guarantee its capital is covered, and a capital uncovered is not the
+same as a country uncovered.** Both are writeable; they are written differently.
+
+**THE CONSTITUTE INDEX IS KEYED ON `country_id`, NOT ON THE COUNTRY'S PRINTED NAME, AND THAT COST
+THIS BATCH A FALSE FINDING.** Guinea-Bissau was recorded mid-research as having no constitution in
+the index at all — the sovereign-state counterpart of C23's territory with no entry — and it was
+wrong: the record is `Guinea_Bissau_1996`, with an **underscore** where the country's name has a
+hyphen, and a search on the printed spelling returns nothing. **Search the cached index on a
+substring, never on the exact name**, and re-check a "no record" conclusion before writing a card
+around it.
+
+**AND WHAT THAT RECORD SAYS IS A CONSTITUTIONAL SHAPE THE PASS HAD NOT MET: THE CAPITAL AS A
+NATIONAL SYMBOL.** Article 23 names the city, and it stands at the END of the sequence describing
+the flag, the coat of arms and the anthem — so the text files where the state sits among the
+emblems rather than among its administrative arrangements. North Macedonia's Article 6 is the same
+placement, between the symbols article and the language article, and Slovenia's Article 10 is the
+opposite, between the guarantee of local self-government and the language. **Where a constitution
+names the capital is worth a clause; it is the cheapest sentence in the whole recipe and the one
+most often thrown away.**
+
+**LATVIA BINDS THE PARLIAMENT TO THE CITY WITHOUT EVER CALLING IT THE CAPITAL.** Article 15 reads
+that the Saeima shall hold its sittings in Riga and may convene elsewhere only in extraordinary
+circumstances, and the word capital appears nowhere in the text — though the Constitute topic tag
+above the article says **National capital**, which is the site's own classification and not the
+document's words. **Read the article, never the tag**: this is the third time in three batches the
+tag has promised something the text does not say.
+
+**TWO MORE TOTAL SILENCES, taking the run to five in three batches.** Lesotho's 1993 constitution as
+amended through 2025 does not name the city, does not use the word capital in any sense at all —
+not even the financial one — and does not locate the seat of government either; Equatorial Guinea's
+1991 text as amended through 2012 uses the word only of money, three times, all of it about foreign,
+public and private investment. **A text silent about its own capital is now the ordinary case rather
+than the odd one**, and the card says so in a sentence instead of leaving a gap.
+
+**THREE MORE CAPITAL FIGURES DATED 2018 RATHER THAN 2019** — Maseru, Ljubljana and Malabo, against
+2019 for Bissau, Riga and Skopje — which confirms C24's finding that the year in the capital-city
+row is a fact about that country's own last usable count and not a rule of the table. **Read the
+footnote letter; do not assume the year from a neighbour.**
+
+**AND A PDF EXTRACTOR THAT RETURNS FONT NAMES IS NOT BROKEN, IT IS READING HEX STRINGS.** Three of
+this batch's papers came back as `WindowsWindowsMacintosh` and megabytes of noise from the
+scratchpad's own extractor, which reads only `(…) Tj` literal strings; the text was in `<hex>`
+form behind a ToUnicode CMap. A variant that also decodes hex strings and applies the merged CMap
+reads all of them. **A binary-looking extraction is a format finding, not a paywall** — check the
+shape of the output before concluding the PDF is unreadable.
+
+## What C24 found
+
+- **THE CONSTITUTE INDEX HOLDS TEXTS THAT NEVER CAME INTO FORCE, NOT ONLY TEXTS THAT HAVE CEASED TO.**
+  C21 found two records marked `in_force: false` because a later text had replaced them. The Gambia has
+  **three** records — the 1996 constitution as revised in 2018, which is in force, and **drafts of 2019 and
+  2020 which are not**, each flagged as a draft text provided in collaboration with International IDEA.
+  **Choosing by recency would cite a document that has never had any legal effect at all**, and the card
+  would read perfectly. Gabon's 1991 (rev. 2011) is the other kind, recorded as no longer in force; the
+  card dates the text and says so. **Read `in_force` on every record the query returns, not just on the
+  one you take.**
+
+- **THREE OF THIS BATCH'S SIX CONSTITUTIONS SAY NOTHING WHATEVER.** Botswana's 1966 (rev. 2021) contains
+  neither `Gaborone` nor `capital` nor any clause about a seat of government. The Gambia's contains
+  neither `Banjul` nor `capital` except of the death penalty. Jamaica's 1962 (rev. 2023) contains neither
+  `Kingston` nor `capital` of a place, **but does legislate about "the seat of Government" and leaves it
+  unnamed** — in a clause about the Governor-General being absent from that seat without being absent from
+  the country, which is the Namibia shape (C23) with the place-name removed as well. Three silences in one
+  batch of six is the highest proportion this pass has met, and all three are Commonwealth texts.
+
+- **AND GABON'S IS THE STRONGEST FENCE YET.** The capital *"cannot be transferred to another location
+  without a law resulting from a referendum"* — where the Central African Republic (C21) required a law
+  passed when the superior interest of the Nation requires it, and Qatar (C23) merely a law. **The escape
+  hatch has three grades**: a law, a law under a stated condition, and a referendum.
+
+- **THE WMO INDEX FILES COUNTRIES UNDER NAMES A PLAIN LOOKUP MISSES, WHICH IS A FOURTEENTH WAY THE LEG
+  FAILS.** `Gambia (The)` puts the definite article in brackets after the name; `Republic of Moldova` uses
+  the long official form. A search for `Gambia` or `Moldova` returns zero rows and reads exactly like a
+  country with no stations — which is what a card would then say. **Fuzzy-match the country name against
+  the index's own key list before recording an absence**; this batch's first pass reported both countries
+  as absent and both have four to seven stations.
+
+- **AND A FIFTEENTH: A COUNTRY WELL COVERED WHOSE CAPITAL IS THE ONE PLACE MISSING.** Lesotho has
+  **thirteen** rows in the index and **not one of them is Maseru**; the two nearest are Mejametalana, the
+  airfield in the city, and Moshoeshoe I, the international airport outside it. C18's Nicaragua had one
+  station and it was not the capital; this is the same fault with twelve more stations to hide it in.
+  **Albania has no rows at all**, which is why `gw-646` has no weather leg and says so.
+
+- **THE UNDATA CAPITAL FIGURE IS NOT ALWAYS DATED 2019.** Every batch since C11 has recorded that the
+  capital-population figure carries a footnote dating it to 2019 under a column headed 2025, and it has
+  held for something over sixty cards. **Gaborone's and Maseru's are dated 2018.** The pattern is a
+  pattern and not a rule; read the letter and follow it. Banjul's names two local government areas, the
+  city's own and Kanifing; Moldova's national population figure carries a territorial scope note saying
+  it includes the Transnistria region, the second such note in this pass after Georgia's.
+
+- **A STATION FIELD CAN CARRY A DIFFERENT TRANSLITERATION OF THE SAME CITY.** C22's Montevideo names
+  Salto, a different place entirely; Chișinău's (id 208) names **Kisinev**, which is the same city under
+  another romanisation and is not the spelling the index's own city field uses. The milder case is worth
+  recording because it is the one that will pass a read-back: nothing is wrong, and the card can say what
+  the record says.
+
+- **WHERE THE SCHOLARLY LITERATURE IS THIN, THE CITY'S OWN DISEASE IS THE GEOGRAPHY.** C21's Bangui rested
+  on a hepatitis E study; Libreville rests on a 2026 malaria paper whose opening pages describe it as a
+  humid coastal city with a dense hydrographic network and a fine-grained mosaic of watercourses, shrub
+  cover and remnant forest, and give its density as about 5,000 inhabitants per square kilometre against
+  roughly 9 nationally, holding close to half the national population. **The geography is in the Study
+  Site section because the disease is a geographical fact**; search the health literature by city name
+  before concluding a capital has none.
+
+- **HOSTS MEASURED THIS BATCH.** `tirana.al`, `instat.gov.al`, `geo.edu.al` and `scindeks-clanci.ceon.rs`
+  all answer 200; `doi.org/10.5937/...` resolves to the SCIndeks record, which carries the abstract and
+  the reference list but not the full text, and that is enough for a citation and not enough for a claim
+  about the body of the paper. `iwaponline.com` is 403 and `iopscience.iop.org` serves a Radware captcha,
+  both confirmed from C23. MDPI DOIs still 403 with the papers readable at `res.mdpi.com`.
+
+- **AND THE CHECK THAT EARNED ITS KEEP THIS BATCH WAS CROSSREF, BEFORE THE CARD WAS WRITTEN.** The
+  Kingston flood paper was drafted into the batch as "Sara Bonetti et al." — a name from nowhere; Crossref
+  gives **Andrea Rivosecchi and Minerva Singh**. The URL resolved, the journal, volume, issue, year and
+  page were all right, and the citation would have passed every check in the pipeline except the one that
+  reads the byline. **Run the DOI through Crossref while drafting, not after applying**; this is the
+  fabricated-author failure `docs/citation-plan.md` records, met live.
+
+- **THE READ-BACK CAUGHT SIX, AND TWO OF THEM ARE A CLASS WORTH NAMING: A CLAIM ABOUT FOLIO'S OWN CORPUS
+  DRESSED AS A FACT ABOUT THE PLACE.** "the 2019 every other capital in this batch carries" and "one of
+  only a handful of capitals in this deck in that position" are both true and both meaningless to a
+  reader, who does not know what a batch or a deck is and cannot check either. **A background states facts
+  about its subject; the pass's own bookkeeping belongs here.** The other four were the usual unmeasured
+  comparatives — "monsoonal to a degree few capitals match", "fences it harder than most" — an arithmetic
+  overstatement (490.0 over 6.6 is seventy-four times, not seventy-five), and a claim that no month is dry
+  on a card whose driest month gets 18 millimetres.
+
+## What C23 found
+
+- **A TERRITORY LOSES TWO LEGS OF THE FIVE AT ONCE, AND BOTH ABSENCES ARE STRUCTURAL RATHER THAN
+  ACCIDENTAL.** Puerto Rico has **no row anywhere in the WMO city index** — that index is organised by
+  MEMBER, and a territory served through another member's service is not listed under its own name — and
+  **no entry on the Constitute Project**, which carries the constitutions of sovereign states. Neither gap
+  is a data fault to be worked around; they are what the two sources are FOR. So `gw-635` runs on three
+  papers plus UNdata plus the city list, and takes its weather leg out of the scientific literature: a
+  dengue-climatology paper's Study Area gives the island's latitudes, the humid subtropical climate, the
+  ~1,800 mm of rain, the easterly trade winds and a **daily rainfall and air-temperature record reaching
+  back to 1899**. **Expect this shape again on every remaining territory in the deck**, and plan five
+  legs that do not include a constitution.
+
+- **AND THE US RULE BINDS HARDEST EXACTLY WHERE IT IS MOST TEMPTING TO BREAK IT.** San Juan's UNdata page
+  carries a footnote on the territory's own population line reading *"For statistical purposes, the data
+  for United States of America do not include this area"* — genuinely interesting, and unusable: rule 1
+  forbids the phrase, and paraphrasing it would be writing the card about the relationship the rule
+  exists to remove. **It is left out**, and the capital-population footnote (the Metropolitan Statistical
+  Area) is reported instead. The rule is a rule about what the card is ABOUT, not a word filter to be
+  routed around.
+
+- **A CONSTITUTION CAN SPELL ITS CAPITAL DIFFERENTLY FROM THE WORLD, WHICH IS A TWELFTH SHAPE.** Qatar's
+  article 2 reads *"The Capital of the State is Al-Douha. It may be replaced by any other location by
+  law."* — and the string **Doha does not occur in the document at all**. A grep for the card's answer
+  term would have reported this constitution as silent about its capital, which is the opposite of the
+  truth. **Search for the capital AND for `\bcapital\b`, and read the hits**; C22's Eritrea really is
+  silent and this one is not, and only reading both tells them apart.
+
+- **NAMIBIA IS THE CLEANEST INSTANCE YET OF C19'S WARNING ABOUT THE TOPIC TAG.** Constitute's bold
+  *National capital* heading sits above a clause that reads *"Windhoek shall be the seat of central
+  Government"* and never uses the word capital of the place at all. The clause follows directly on the
+  sentence defining the territory — the enclave, harbour and port of Walvis Bay, the offshore islands,
+  and a southern boundary running down the middle of the Orange River. **The tag is Constitute's; the
+  words are the constitution's; quote the words.**
+
+- **AND TWO SHAPES THAT ARE NEW IN THE OTHER DIRECTION.** **Lithuania gives a REASON**: article 17 makes
+  the capital *"the city of Vilnius, the long-standing historical capital of Lithuania"*, the only text in
+  twenty-three batches to justify its choice in the clause that makes it. **Armenia names the city three
+  times over**: once in the article on the capital, once to leave the peculiarities of regional
+  administration there to ordinary law, and once to say flatly that *"Yerevan is a community"*, with its
+  local self-government settled the same way. Bosnia and Herzegovina's sits in article I, between the
+  free-movement clause and the symbols clause, and a later article has each chamber convene there within
+  30 days of being chosen.
+
+- **THE WMO RECORD FAILS TWO MORE WAYS, TAKING THE TALLY TO THIRTEEN.** **TWELFTH: A RECORD ROUNDED TO
+  WHOLE UNITS.** Yerevan's (id 66) gives every high, every low and every monthly rainfall as an integer —
+  33, 1, 17, −8, 44, 8 — and states no period. That is a fact about the record's precision and the card
+  says so; it also means the imperial conversions are written to whole degrees, because writing 91.4 °F
+  from a source that says 33 °C would invent precision the record does not have. **THIRTEENTH: THREE
+  SPANS IN ONE RECORD.** Doha's (id 221) gives temperature and rainfall over 1962–1992 and **rain days
+  over 1962–1990**, two years shorter. C18's Lomé had two fields a year apart and C21's San José two a
+  century apart; this is three fields and two spans in one table. **Read every window field, every time.**
+
+- **THE UNDATA FOOTNOTE GAINS ITS FIRST EXCLUSION.** Every scope note in this pass so far has widened the
+  figure — a metropolitan area, a governorate, a department and its neighbours, a settlement. Qatar's
+  reads *"Does not include the populations from the industrial area and zone 58"*, which NARROWS it, and
+  narrows it in a way worth noticing on a card about a Gulf capital. Sarajevo's names five municipalities
+  (Stari Grad, Centar, Novo Sarajevo, Novi Grad and Ilidža); San Juan's is the Metropolitan Statistical
+  Area; Yerevan's, Windhoek's and Vilnius's carry no scope note at all. All six are dated **2019 in a
+  column headed 2025**.
+
+- **A NATIONAL UTILITY'S WEEKLY BULLETIN IS THE BEST WATER LEG THIS PASS HAS FOUND.** NamWater publishes a
+  Surface Water System Weekly Dam Bulletin as a PDF, and the issue of **8 July 2024** shows the three dams
+  carrying the bulk of Windhoek's supply holding 24.417 of 154.513 million cubic metres between them —
+  **15.8 per cent, with the Omatako printed as `empty`** — while the two small dams filed under the city's
+  own name stood together at 69.3 per cent and the Goreangab read **100.3 per cent** of its capacity. Every
+  figure in that paragraph was re-derived from the table's own columns and checked: the sub-totals are the
+  sums, and the percentages are the quotients. **The host is intermittent** (one fetch died on a connection
+  reset and the retry served the file), so retry before recording it as shut.
+
+- **A CITY'S OWN MUNICIPALITY CAN CARRY THE WHOLE LANDFORM LEG.** `yerevan.am/en/our-city/` states the
+  position (the north-eastern part of the Ararat valley, both banks of the Hrazdan, 900–1,200 m above sea
+  level), the area (233 km²), the twelve districts by name, the continental climate, and the city's
+  standing as a legal entity with its own property, budget and seal. That is four of the five things a
+  background needs, from one page, in the city's own words. **Check the municipality before searching for
+  a paper.**
+
+- **HOSTS MEASURED THIS BATCH.** `yerevan.am`, `armstat.am`, `e-gov.am`, `nsa.org.na`, `namwater.com.na`,
+  `estuario.org`, `drna.pr.gov`, `jp.pr.gov` and `agrocienciauruguay.uy` all answer 200.
+  **`iopscience.iop.org` serves a Radware Bot Manager captcha**, which is a new wall shape for this pass
+  and cost Windhoek an open population-growth paper. IWA Publishing (`iwaponline.com`) is 403, so the
+  Windhoek water-reuse literature — the obvious leg for the city that pioneered direct potable reuse —
+  could not be read. `estuario.org` and `inumet.gub.uy` answer 200 and serve their content through
+  JavaScript, the pattern first recorded for the East Asian museum sites. MDPI DOIs still 403 while the
+  papers read at `res.mdpi.com`; six of this batch's works are MDPI or Frontiers and all were verified
+  against Crossref.
+
+- **THE READ-BACK CAUGHT SEVEN, AND TWO ARE NEW SHAPES.** The first is **a true conversion that reads as
+  a mistake**: Sarajevo's city station is at 630 m, which is **2,067 feet**, and the mountain station it is
+  paired with is at **2,067 metres**. Both figures were right and the sentence looked like a typing error,
+  so the conversion is written 2,070 ft — within the source figure's own precision and free of the
+  collision. **A conversion that collides with another number in the same sentence is worth rounding
+  differently.** The second is **an unsourced comparison reached for to pad a short card**: Yerevan came in
+  at 258 words and the first fix added "less than a third of what falls on London", a figure from nowhere;
+  the honest expansion was the municipality's own description of the city as a legal entity, and the
+  rainfall total summed from the record's own twelve months. **A card under the floor is a card that needs
+  more RESEARCH, not more sentences.** The other five are this pass's usual: two unsourced compass
+  directions and a distance on the Windhoek dams, an unmeasured "one of the few" about Lithuania's
+  constitution, a hedge dropped from the San Juan salvinia story, "dredging" for the paper's mechanical
+  control, and an opener promising what its sentence did not deliver.
+
+## What C22 found
+
+- **THE WMO LEG FAILS THREE MORE WAYS, AND ALL THREE ARE IN THIS BATCH.** C21 took the tally to eight;
+  these take it to eleven, and every one of them is invisible from the monthly table itself.
+  · **NINTH: A COMPLETE RECORD WITH NO PERIOD AT ALL.** Zagreb's entry (id 70) gives twelve months of
+    highs, lows, rainfall and rain days and states no window — `datab`/`datae`, `tempb`/`tempe`,
+    `rdayb`/`rdaye` and `rainfallb`/`rainfalle` are all empty. What it does carry is
+    `climateFromMemDate`, **which is the date the member service SENT the figures in and not the span
+    they cover** (15 June 2001 here). Asmara and Montevideo are the same shape. A card that reads that
+    field as a window is stating a period the record does not claim.
+  · **TENTH: HALF A RECORD.** Tbilisi's entry (id 209) states a window — 1961 to 1990 — and carries
+    rainfall and rain days and **no temperature whatever**, every `maxTemp` and `minTemp` null. It is the
+    mirror of C20's Beirut, which had rainfall alone on a short window; here the window is long and
+    ordinary and the temperature is simply not there.
+  · **ELEVENTH, AND THE DANGEROUS ONE: THE STATION FIELD CAN NAME A DIFFERENT CITY.** Montevideo's entry
+    (id 293) is filed under the city, at the city's own coordinates (34.88° S, 56.17° W), and its
+    `stationName` reads **Salto** — a city on the other side of the country, which has no row of its own
+    in the index. **C21's Wellington card named its station off that field** ("the airport station's
+    normals"), which is right there and was right by luck. **Read `stationName` against `cityName` and
+    the coordinates before putting it in a sentence**, and where they disagree say what the record says
+    rather than adjudicating between them: `gw-634` reports the mismatch and does not decide it.
+
+- **THE CONSTITUTIONAL TALLY GAINS A SHAPE NO OTHER CONSTITUTION ON THE SHELF HAS: ONE THAT DEFINES WHAT
+  A CAPITAL IS BEFORE NAMING ONE.** Mongolia's article 13 reads *"A capital of the State shall be the city
+  in which the supreme organs of State permanently exist. The capital of Mongolia is the City of
+  Ulaanbaatar."* Every other text in twenty-two batches either names its capital, legislates about "the
+  capital" without naming it, or says nothing; this one writes the definition first. **Croatia's is the
+  other new one**: article 13 names the city and then hands its arrangements to ordinary legislation —
+  status, jurisdiction and organisation — and a later article lets that law give the capital the standing
+  of a county. Georgia's sits **among the state symbols**, the commonest shape of all, in one sentence
+  between the naming of the state and the naming of the official language.
+
+- **AND TWO MORE THAT NEVER NAME THE CITY, BOTH OF THEM BY NOW THE MAJORITY SHAPE.** Panama's 1972 text
+  (rev. 2004) legislates about "the capital city" — the Assembly convenes there for eight months a year
+  in two four-month sessions, and university teaching in the regional centres is given equal standing
+  with teaching in the capital city — and reaches the name only through an electoral clause singling out
+  one district. **Eritrea's 1997 constitution does not contain the word `capital` at all**, and does not
+  contain the city's name either: its article 4, *National Symbols and Languages*, settles the flag, the
+  anthem and the languages and stops — which is the article a capital most often sits in. **Uruguay's
+  names the place twice and never as the capital**, once requiring candidates for Justice of the Peace in
+  the department to be lawyers and once setting aside a share of national taxes collected outside that
+  department for decentralisation.
+
+- **THE UNDATA CAPITAL LINE GAINS A NEW SCOPE WORD: SETTLEMENT.** Zagreb's footnote reads "Refers to the
+  settlement of Zagreb" — **narrower** than the administrative city, where every earlier qualified
+  footnote in this pass has been wider (a metropolitan area, a governorate, a department plus named
+  localities). Panama City's is the metropolitan area; Montevideo's is the department plus two localities
+  in Canelones and San José; Tbilisi's, Asmara's and Ulaanbaatar's carry no scope note at all. All six
+  are dated **2019 in a column headed 2025**, as every batch since C11. **Georgia's page footnotes the
+  NATIONAL population figure to say it includes Abkhazia and South Ossetia** — the first time in this
+  pass that a country's own total carries a territorial scope note, and it is reported as the footnote's
+  words rather than adjudicated.
+
+- **A CITY'S OWN AUTHORITY CAN BE THE WATER LEG, AND THE PANAMA CANAL AUTHORITY IS THE BEST ONE YET.**
+  `pancanal.com` answers 200 and states on its Canal Watershed page that the watershed is the principal
+  source of the water a transit needs **and** supplies 95 per cent of the drinking water of Panama City,
+  Colón, San Miguelito and, in the near future, Chorrera. Its August 2026 advisory then dates what that
+  means: reduced precipitation in the watershed, Neopanamax slots cut to nine from 3 September and
+  Panamax slots to twenty-five and then twenty-three. **One institution supplied both the landform leg and
+  a dated event**, which is what the recipe's fourth leg is for and what it rarely manages.
+
+- **AND A TIDE TABLE IS NOT A SOURCE YOU CAN PARSE.** The same authority publishes per-terminal tide
+  tables as PDFs, and the Pacific/Atlantic contrast would have been the best fact on the card. The
+  extraction runs the columns together — `11414.644520812.4378` is a time, a height in feet and a height
+  in centimetres with no separator — and **the obvious disambiguator is not enough**: a four-digit time
+  followed by a one-or-two-digit foot value is ambiguous, so the parser read 14.6 ft / 445 cm as
+  "1141" + "4.6" + "445" and reported a Limón range of 30 feet. A feet-to-centimetres consistency test
+  passed on those mis-splits often enough to look like a clean run. **The claim was dropped rather than
+  published**; do not try to derive figures from these tables.
+
+- **SEARCH THE DISCIPLINE, AGAIN, AND THIS TIME IT IS MINING GEOLOGY.** Asmara has no landform literature
+  of its own, and the leg came from a 2026 PLOS ONE paper mapping volcanogenic massive sulphide
+  mineralization: the Asmara Mineralized Belt runs NNE–SSW for over 35 km and **"approximately 15 km of
+  the belt is covered by basalt flows, urban infrastructure, and the city of Asmara itself"** — one
+  sentence that puts the city on its own ore body. Tbilisi's came from an urban-forest ecosystem-services
+  paper whose study area is the municipality's 502 km²; Ulaanbaatar's from a water-quality paper that
+  gives the altitude, the aquifer, the bank filtration, the river's dimensions and the basement geology
+  in one Study Area section.
+
+- **HOSTS MEASURED THIS BATCH.** `pancanal.com` 200 and useful; `inumet.gub.uy` **answers 200 and serves
+  its climate pages through JavaScript** (the Características climáticas page yields 3.4 KB of navigation
+  and no content), the East Asian national-museum pattern met again one continent over;
+  `agrocienciauruguay.uy` 200; `scielo.edu.uy` does not answer at all. Wiley (including the former
+  Hindawi journals), Taylor & Francis and `downloads.hindawi.com` are 403, so the one open-looking
+  Tbilisi seismology paper could not be read and was not cited. **MDPI DOIs still 403 while the papers
+  read at `res.mdpi.com`** — five of this batch's works are MDPI and all five were verified against
+  Crossref rather than trusted to resolve.
+
+- **THE READ-BACK CAUGHT SIX, AND FOUR OF THEM ARE NEW SHAPES.** An **unsourced attribution of a name**:
+  the Mtkvari's second name was written as "the river the Russian and Azerbaijani names call the Kura",
+  where the source says only "Mtkvari (Kura)". A **"such as" list read as a complete one**: the Asmara
+  belt's prospects. A **claim about the country attached to the city**: the Sahara and Arabian dust is
+  the paper's statement about Eritrea, not about Asmara. An **unmeasured comparative**: "the constitution
+  does something few others do". **74 per cent written as "almost all".** And an ordinary factual slip
+  that only the table could catch — Montevideo's driest month is **June** at 83.1 mm, not December at
+  84.4. **Every one of the six rendered perfectly.**
+
+- **THE MINUS SIGN IS U+2212 AND THE CORPUS ALREADY SAYS SO.** Three negative temperatures were written
+  with an EN DASH, which is what the house style uses for a range, and the two are visually near enough
+  to pass a read-back. Measured over the shipped `gw-` backgrounds: **29 minus signs, 12 ASCII hyphens,
+  and the 3 en dashes this batch introduced.** Write `−`; the hyphens are a small standing backlog and
+  the en dash is simply wrong.
+
+## What C21 found
+
+- **TWO OF THIS BATCH'S CONSTITUTIONS ARE NOT IN FORCE, AND THE SERVICE INDEX IS WHAT SAYS SO.** C19
+  established that the constitution's slug and exact title are read off
+  `constituteproject.org/service/constitutions?lang=en` rather than composed; that same record carries an
+  `in_force` flag, and for `Central_African_Republic_2016` and `Oman_2011` it is **false**. A card that
+  called either "the constitution" would be asserting something the source itself denies, so both cards
+  date the text they quote instead — "The constitution of 2016 names the city…", "The Basic Law of 1996,
+  as revised in 2011, opens by declaring…". **Read the flag, not just the slug.**
+
+- **A CONSTITUTION CAN NAME ITS CAPITAL AND FENCE IT IN THE SAME BREATH**, which is a seventh shape for
+  the tally. The Central African text's opening article reads *"Its capital is Bangui. It can only be
+  transferred by virtue of a law, when the superior interest of the Nation requires it."* Nicaragua's
+  escape hatch, found in C19, turns out not to be a one-off: a state that names its capital in the
+  constitution often writes the condition for moving it into the same article. Oman's is the plain
+  opposite — the Basic Law declares the Sultanate an Arab, Islamic, independent state and makes Muscat
+  its capital, with no clause about moving it.
+
+- **NEW ZEALAND'S CONSTITUTIONAL TEXTS NEVER CALL WELLINGTON THE CAPITAL, AND THE THREE PLACES IT DOES
+  APPEAR ARE WORTH THE CARD ON THEIR OWN.** It is the place an Order in Council was dated; it is the
+  address of the Electoral Commission; and it is in the definition of a public holiday — "the day
+  observed as anniversary day in Wellington". "The seat of Government" occurs once, in a proviso about
+  electors absent from their district, and names no place. **Kuwait is the flatter case in the same
+  family**: its constitution never names the city and uses *capital* only of money (article 16, ownership
+  and capital and labour as the mainstays of the State's social entity). **Costa Rica** is the third:
+  article 114 has the Assembly reside "in the capital of the Republic" and requires two-thirds of its
+  members to move that seat, naming no city. This is C20's "legislating about the capital without naming
+  it", now three batches deep and plainly the commonest shape of all.
+
+- **THE WMO LEG FAILS A SEVENTH WAY: TWO WINDOWS A CENTURY APART IN ONE RECORD.** San José's entry
+  (id 1113) gives temperature normals for **1961–1982** and rainfall normals for **1888–1997** — 22 years
+  of heat against 110 of rain, in one table with one city name over it. C18's Lomé had per-field windows
+  a year apart and that was already worth stating; this is the same fault at a scale nothing on the page
+  marks. **Read `climateFromMemDate` per field, never once for the record.**
+
+- **AND AN EIGHTH: ONE CAPITAL WITH TWO ENTRIES.** Kuwait is the whole of its country's index — two rows,
+  `Kuwait City` (1498, `isCapital` true, normals 1994–2008) and `Kuwait Airport` (217, `isCapital` false,
+  normals 1962–2008). The two disagree by about a degree in the same month over spans that do not
+  overlap, which is a fact about the records rather than about the air between them, and `gw-628` says so
+  rather than reading the gap as geography. **Where a country has two rows, cite both and name the
+  difference as a difference between records.**
+
+- **TWO MORE COUNTRIES ABSENT FROM THE INDEX ENTIRELY**: the Central African Republic and Mauritania,
+  joining C19's Nicaragua, Congo and Liberia. The per-country counts this batch needed are Costa Rica 17,
+  New Zealand 46, Oman 35 and Kuwait 2, all read off `full_city_list.txt` rather than estimated — and the
+  absences are what the Bangui and Nouakchott cards close on, since a card that simply omits the weather
+  leg looks like a card whose author did not look.
+
+- **WHERE THE WMO IS ABSENT, THE PAPER'S OWN STUDY-AREA CLIMATE PARAGRAPH IS THE LEG.** Both stationless
+  capitals here were carried by one: the Bangui land-cover paper states 25.9 °C mean annual temperature,
+  1,525 mm annual rainfall, a December-to-February dry season and monthly rainfall above 145 mm from May
+  to October; the Nouakchott sand-encroachment paper reports 25.6 °C over **2000–2015** from the city's
+  own station, with 120 mm of rain concentrated in July, August and September. **The window is attached
+  to the temperature sentence and not to the rainfall one**, which is why that card's date line says
+  *Temperatures* rather than *Rain and heat* — caught in read-back, and the shape to watch whenever one
+  paragraph carries two figures and one date range.
+
+- **THE UNDATA CAPITAL LINE MEANS A GOVERNORATE IN TWO OF THESE SIX.** Muscat's figure is the
+  governorate's and its footnote says so; Kuwait's covers **four** named governorates — Capital, Hawalli,
+  Al-Farwaniya and Mubarak Al-Kabeer; San José's is "urban population of cantons". Wellington's and
+  Bangui's are the city. All six are dated **2019 in a column headed 2025**, as every batch since C11.
+
+- **OPENEDITION'S PROOF-OF-WORK WALL IS CONFIRMED ACROSS A SECOND JOURNAL.** C20 met Anubis v1.26.2 on
+  `journals.openedition.org/aam`; `physio-geo` on the same host serves it too, which cost Bangui its
+  flood-history leg and is why that card rests on land cover and an epidemiological paper instead. It is
+  a host-wide wall, not a per-journal one. **Do not plan a batch around OpenEdition.**
+
+- **A HEALTH PAPER IS A CLIMATE SOURCE WHEN THE CLIMATE IS THE EXPOSURE.** C19's rule (search the
+  discipline that publishes about the place) paid again: the only openable statement that Bangui's
+  rainfall has a measurable consequence is a BMC hepatitis E study — 2,883 yellow-fever-surveillance blood
+  samples from 2008 to 2012, 745 of them positive, an outbreak peaking in 2008–2009, and "a clear
+  seasonal pattern with correlation between HEV incidence and rainfall in Bangui". **Name the sample's
+  provenance**: a prevalence figure drawn from surveillance samples is not a population rate, and the
+  first draft read as though it were.
+
+- **MDPI DOIs STILL 403 FROM THIS CONTAINER AND THE PAPERS STILL READ AT `res.mdpi.com`.** Three of this
+  batch's works are MDPI (Muscat, Nouakchott, Kuwait City); all three DOIs were verified against Crossref
+  for authors, title, journal, volume, issue, year and pages rather than trusted to resolve. **A 403 from
+  the resolver is this container's fact, not the citation's** — which is why the URL sweep and the
+  Crossref check are two different steps and neither substitutes for the other.
+
+- **AND THE READ-BACK CAUGHT THE USUAL FOUR KINDS.** A **wrong expansion of an abbreviation**: the
+  Wellington Fault's T-P segment is *Tararua–Putara*, and the first draft read it as "Tararua to
+  Pahiatua" — Pahiatua is named in that paper as part of a *different* segment's description, so the
+  error was manufactured out of the source's own page. A **hedge dropped**: the paper says the two
+  segments could be stable "in **at least** the future 300 years and 190 years"; the draft said "about".
+  An **arithmetic claim that is false at one end**: Wellington's highs swing exactly 9.0 degrees over the
+  year and its lows 7.9, so "under nine degrees at either end" was wrong about the highs. And an
+  **unsupported superlative**: "the station's record here is the oddest in the index" claims a comparison
+  across 3,598 cities that nothing checked. **Every one of the four renders perfectly.**
+
+## What C20 found
+
+- **THE CONSTITUTIONAL TALLY NOW HAS SIX SHAPES, AND FOUR OF THIS BATCH'S SIX DECLINE TO NAME THE CITY IN
+  THE ORDINARY WAY.** Slovakia gives the capital **a structural division of its own**: the third part of
+  the opening chapter is headed for it, and article 10 both names Bratislava and remits the city's status
+  to ordinary law — the strongest form the pass has met. Lebanon's article 4 sits between the clause
+  forbidding any part of the territory to be ceded and the clause describing the flag. **Norway names no
+  city at all**: article 68 has the Storting assemble “in the capital of the Realm” and lets the King
+  designate another town “in extraordinary circumstances, such as hostile invasion or infectious
+  disease” — El Salvador's variety with a far better escape clause. **Ireland names the city twice and
+  never calls it the capital**, giving the President an official residence “in or near the City of
+  Dublin” and having the Houses of the Oireachtas sit “in or near” it “or in such other place as they
+  may from time to time determine”: a new variety, the place named and the title withheld. And Finland
+  and Liberia join Denmark and Togo in silence — Finland's text never uses the word at all, Liberia's
+  uses it only of capital offences.
+
+- **AND A WARNING FOR ANYONE READING A CONSTITUTE PAGE: THE BOLD “National capital” LINE ABOVE AN
+  ARTICLE IS CONSTITUTE'S OWN TOPIC TAG, NOT THE CONSTITUTION'S WORDS.** Ireland's page carries that label
+  twice over articles whose text never uses the word, and every page carries “Prohibition of capital
+  punishment” over a clause about the death penalty. **Grep the text, and count the word only where the
+  constitution itself says it.**
+
+- **THE WMO LEG FAILS A FIFTH WAY: A RECORD THAT CARRIES ONE VARIABLE.** Beirut's holds rainfall and
+  nothing else — no temperature, no rain days — over **1981–1990**, a ten-year window rather than a
+  thirty-year one. The card prints the rainfall and says what the record is. The measured tally of ways
+  this leg fails now runs to five: no record at all (Managua, Brazzaville, Monrovia); a country in the
+  index whose single city is not the capital (Managua); per-field windows a year apart (Lomé); complete,
+  windowed and wrong (Bishkek); and one variable on a short window (Beirut).
+
+- **AND A SIXTH THING THE INDEX DOES: IT FILES A CAPITAL UNDER ITS AIRPORT.** Helsinki is entered as
+  **Helsinki-Vantaa**. Set beside C19's finding that the index files Copenhagen with Tórshavn and Nuuk —
+  which UNdata's own profile explicitly excludes from every figure it gives for that country — the point
+  is that **the meteorological index's idea of a country is not the statistics division's**, and a card
+  that says so is saying something true about both.
+
+- **THE UNDATA FOOTNOTE CAN HEDGE THE FIGURE AS WELL AS DEFINE IT.** Beirut's capital line carries two:
+  the estimate “should be viewed with caution as these are derived from scarce data”, and it “excludes
+  Syrian refugees”. That is the first capital figure in the pass qualified for RELIABILITY rather than
+  for SCOPE, and it belongs on the card precisely because the facts grid's own number cannot say it.
+
+- **WHERE THE PHYSICAL LITERATURE IS SILENT, THE MEDICAL LITERATURE HAS THE GEOGRAPHY.** Monrovia's fifth
+  leg is a PLOS scabies prevalence survey whose Study Setting names New Kru Town as a coastal community
+  **on Bushrod Island**, of more than 20,000 people in 25 distinct communities — the only openable
+  statement of the city's island geography the batch found. C18's rule restated: search the discipline
+  that happens to publish about the place, not the discipline the fact belongs to.
+
+- **A GOLD-OPEN-ACCESS JOURNAL IS NOT A READABLE ONE, AND THE CHECK IS TO OPEN THE ARTICLE.** Elsevier's
+  gold titles (Scientific African, Heliyon) redirect through `doi.org` to a ScienceDirect wall; Springer's
+  `link.springer.com` and even SpringerOpen's own `earth-planets-space.springeropen.com` answer a client
+  challenge; Wiley answers 403. Two papers were collected as far as their Crossref metadata in this batch
+  and then dropped, because the metadata is not the article. **Never cite from a record alone.**
+
+## What C19 found
+
+- **THE CONSTITUTE SLUG AND TITLE COME FROM THE SERVICE, NOT FROM THE `/countries` PAGE.** That page is an
+  Angular application whose list never appears in the HTML, so the slug could not in fact be read off it.
+  **`https://www.constituteproject.org/service/constitutions?lang=en`** returns the whole catalogue as JSON,
+  giving every constitution's `id` (the slug), its exact `title` in the *Country YEAR (rev. YEAR)* form the
+  citation needs, whether it is `in_force`, and its translator. All six of C18's titles were re-checked
+  against it and match. It also settles a choice a guessed slug cannot: the Republic of the Congo has both
+  `Congo_2001` and `Congo_2015`, and only the second is in force. **Use the service; it removes the last
+  place in this recipe where a slug or a title could be composed.**
+
+- **THREE MORE VARIETIES OF WHAT A CONSTITUTION DOES INSTEAD OF NAMING ITS CAPITAL.** Denmark's 1953
+  constitution does not contain the word *capital* anywhere, and never names Copenhagen — a silence one
+  degree deeper than Togo's, which at least uses the word once. El Salvador's legislates about the capital
+  without naming it: article 122 has the Legislative Assembly meet “in the capital of the Republic”, with
+  leave to sit elsewhere. And Nicaragua's article 12 names the city and in the same breath provides for
+  losing it — “in extraordinary circumstances these can be established elsewhere in the national
+  territory” — which in a capital flattened by an earthquake in 1972 is a clause with a history behind it.
+  The four that do name theirs land where C18 found them: among the state symbols (Bulgaria's article 169
+  closes the chapter on the coat of arms, the seal, the flag and the anthem), in the article defining the
+  state (the Congo's article 1), and in an article of its own beside the borders clause (Serbia's
+  article 9).
+
+- **THE WMO LEG FAILS TWO NEW WAYS IN ONE BATCH, AND NEITHER IS A MISSING WINDOW.** Nicaragua is in the
+  index with exactly one city and it is **Chinandega, not the capital**; the Republic of the Congo is **not
+  in the index at all**. Both are facts about the city worth a clause rather than gaps to apologise for,
+  and both cards say so. The measured tally of ways this leg fails now runs: no record (Managua,
+  Brazzaville), a record with no single window but per-field ones a year apart (Lomé), and a record
+  complete, windowed and wrong (Bishkek).
+
+- **THE UNDATA CAPITAL LINE MEANS A DIFFERENT THING IN EVERY COUNTRY, AND ONLY ITS FOOTNOTE SAYS WHICH.**
+  Three of these six are not the city at all: Belgrade's figure is “the urban population of Belgrade
+  area”, San Salvador's covers the urban parts of eight named municipalities, and Copenhagen's is the
+  Greater Copenhagen Region, “consisting of (parts of) 16 municipalities”. With Asunción's from C18 that
+  is four cards in twelve. **Read the footnote before writing the figure**, and where it defines an
+  aggregate, say so on the card — it is the most interesting thing on the line, and it is what makes the
+  grid's own number honest.
+
+- **WHEN TWO CITIES IN A BATCH SHARE A HAZARD, LOOK FOR THE PAPER THAT RANKS THEM BOTH.** Meredith et
+  al.'s 2025 survey of 1,133 cities near volcanoes carries the whole landform half of Managua AND of San
+  Salvador, with a distinct figure for each: Managua has 66% of its people within 10 km of a volcano
+  against Naples's 40%, and San Salvador has 23 volcanoes within 100 km and stands third in the study's
+  composite ranking behind Bandung and Jakarta. One fetch, two cards.
+
+- **THREE HOSTS SHUT, AND ONE OF THEM USED TO BE OPEN.** `journals.openedition.org` now serves an
+  **Anubis proof-of-work challenge** instead of the article, where earlier measurements in this project
+  record it as reachable. `doiserbia.nb.rs` presents a certificate that does not match its own hostname
+  — a different fact from a refusal, and equally unusable, since this pass does not disable
+  verification. `link.springer.com` answers a “Client Challenge”. **Re-measure a host before planning a
+  leg on it**; two of these were picked because a search result looked open.
+
+- **AND CHECK THAT A FETCHED PDF EXTRACTS BEFORE COUNTING IT AS A LEG.** The Geosciences paper on local
+  seismic effects at San Salvador downloads at 13 MB and extracts as blank glyph codes — the subset-font
+  cipher C18 met on the Lomé transport paper. The card was built without it, which is why gw-612 rests on
+  four sources and the index rather than five and the index.
+
+## What C18 found
+
+- **A WMO RECORD WHOSE `datab` IS EMPTY IS NOT A RECORD WITHOUT A WINDOW.** Lomé carries no single
+  `datab`/`datae` pair and the PER-FIELD ones carry it instead: temperature over 1961–1990 and rainfall
+  over **1960–1989**, two windows a year apart. Read off `datab` alone the station reports as having no
+  normals at all, which is how this batch's first pass recorded it. The card states both windows, because
+  the pass's standing sentence — *the station's normals for X to Y* — is not true of a record shaped
+  like this. **Read every window field before concluding a station has none.**
+
+- **AND BISHKEK'S TABLE IS PRESENT, COMPLETE, WINDOWED AND WRONG, AND IT RENDERS PERFECTLY.** Under a
+  stated 1981–2010 window it gives rain-day counts of **36, 37 and 38 in months of 30 and 31 days**, and
+  its `maxTemp`/`minTemp` are plainly absolute EXTREMES rather than monthly means — January 19.2 / -25.0
+  °C, July 42.8 / 9.9 °C. The field names are the standard ones and the JSON parses, so nothing
+  downstream can tell; a card built from it would have printed nonsense in the house form. `gw-607` takes
+  its weather from a published one-year model simulation instead **and says on the card that it is
+  modelled**, and the WMO leg survives there only as the index. **A table that parses is not a table that
+  is right: check the rain days against the length of the month before quoting a station.**
+
+- **THE UNDATA FOOTNOTE LIST IS PARSED ON ITS LETTER MARKERS, NEVER BY COUNTING NON-EMPTY LINES.** A long
+  note wraps across several lines and shifts every letter after it, which read Togo's capital figure as
+  2023 when it is 2019. All six capital figures are dated **2019 under a column headed 2025** — the
+  seventh batch running to find that unanimous — and Paraguay's carries the substantive note as well:
+  the figure covers the district of Asunción together with the nineteen districts of Central
+  Department, which is why the grid's 3.30M is not the city.
+
+- **WHERE A CONSTITUTION FILES ITS CAPITAL CLAUSE SAYS WHAT ITS DRAFTERS TOOK A CAPITAL TO BE**, and these
+  six land in four different places. Among the **STATE SYMBOLS**: Laos's article 119 stands in the chapter
+  on the language and script, the emblem, the flag, the anthem, the national day and the currency;
+  Kyrgyzstan's clause sits inside article 14, after the flag, emblem and anthem and before the monetary
+  unit. Among the **ADMINISTRATIVE UNITS**: Turkmenistan's article 24 follows directly on the article
+  establishing administrative-territorial units, and Paraguay's article 157 constitutes the City as a
+  Municipality independent of every Department, with article 221 giving it an electoral college of its
+  own in the Chamber of Deputies. In the article **DEFINING THE STATE**: Libya's 2011 declaration names
+  the capital in article 1 beside the religion and the official language, and separately seats the
+  National Transitional Council there at article 23 while allowing it a provisional seat at Benghazi.
+  **And in Togo's 2024 constitution, nowhere at all**: the single occurrence of the word in the whole text
+  is the article abolishing capital punishment — the strongest form yet of the silence C11 first met.
+
+- **WHERE THE OPEN LITERATURE ON A CITY IS THIN, THE BEST SOURCE IS A DATABASE RATHER THAN A PAPER.**
+  Ashgabat returns four DOAJ hits and not one of them is about the place. The card rests instead on the
+  NOAA/NCEI Global Significant Earthquake Database's own record of 5 October 1948 — magnitude 7.2, 18 km
+  deep, maximum intensity X, 110,000 deaths and 25 million dollars of damage, each a field of the record
+  rather than a claim of ours — on a 2025 Copernicus regional hazard model that computes ground motion at
+  every Central Asian state capital, and on a Frontiers archaeobotany paper whose INTRODUCTION dates the
+  piedmont's first farming to about 6000 BCE at Djeitun. **A paper's introduction is a citable leg when its
+  own subject is somewhere else**, which is how the landform sentence was got at all.
+
+- **TWO HOSTS REFUSED OUTRIGHT AND ONE WALL IS THE KNOWN ONE.** `geopersia.ut.ac.ir` resets the connection
+  on both the article page and the PDF, so the obvious geomorphology review of the country could not be
+  read; `whc.unesco.org` answers 403. The two MDPI DOIs in this batch resolve to a 403 as they always do
+  and were read at `res.mdpi.com/d_attachment/…` — a host wall, not a dead link, and the citation keeps
+  the DOI.
+
+- **A JOURNAL PDF WHOSE FONTS ARE SUBSET-ENCODED IS A SUBSTITUTION CIPHER, AND IT IS NOT WORTH SOLVING FOR
+  A SECONDARY LEG.** The Lomé intermodality paper extracts as glyph codes assigned in order of first
+  appearance (`!`=T, `"`=R, `#`=A, `(`=space, and upper and lower case are separate glyphs), so the
+  mapping is recoverable word by word — and the ten minutes that would take buys one institution
+  sentence. The leg was replaced.
+
+- **ONE OPEN PAPER CAN CARRY THREE LEGS.** The Frontiers in Water study of the Continental Terminal
+  aquifer gives Lomé its water (a 64 km² lagoon system at 1.8–2.5 g/L, reaching the sea through the
+  Aného channel), its rock (the Gulf of Guinea basin over a Pan-African basement) and its climate (four
+  seasons, 864 mm a year against 1,445 mm inland) in a section apiece. That is what made a city with no
+  single-window WMO record writable at all.
+
+- **A RIVER THAT SHARES ITS COUNTRY'S NAME CANNOT BE NAMED.** The grid's first row is Country, so rule 2
+  forbids the word on the card — and for Asunción the word is also the name of the river the city stands
+  on. The card says *the river the country is named for*, which keeps the bearing and breaks no rule.
+  Expect the same on any capital whose defining water carries the country's name.
+
+## What C17 found
+
+- **THE `gw-5` HUNDRED IS FINISHED AND MEASURES ZERO ON ALL FOUR RULES.** `node .claude/gw-audit.js
+  --prefix=gw-5` now reports 98 cards with **no** mention of the United States, **no** repeated grid value,
+  **no** card missing landform, water or weather, **no** bordering country named and **no** date line naming
+  the United States — the first complete hundred of the capital half. Run it rather than trusting this
+  sentence; what it records is that a hundred cards rewritten one batch of six at a time do converge.
+- **A CAPITAL IS A FIRST-ORDER TERRITORIAL UNIT FAR MORE OFTEN THAN THE PASS HAD NOTICED, AND FOUR OF THESE
+  SIX SAY SO.** Hungary's Article F names Budapest and then lists **the capital ahead of the counties,
+  cities, towns and villages** as a tier of the territorial system, letting it be divided into districts.
+  Austria seats Vienna three ways at once — the Federal capital and seat of the highest Federal authorities
+  (article 5), **one of the nine autonomous Länder** (article 2), and the seat of the National Council
+  (article 25). Belarus runs the pattern through its whole text: the upper chamber takes **eight deputies
+  from every oblast and eight from the city of Minsk alike**, a referendum initiative needs 30,000 voters
+  from each oblast *and* from Minsk, and a seat in that chamber requires five years' residence in an oblast
+  *or* in the city. Tajikistan (C16) did the same. **Read past the capital clause**: the standing is
+  usually somewhere else in the text.
+- **AND TWO OF THE SIX ARE FAMOUS FOR HAVING NO CONSTITUTIONAL CAPITAL, WHICH IS MEASURABLE RATHER THAN
+  ASSERTED.** *Bern* occurs **exactly once** in the Swiss text, in article 1's list of the People and the
+  Cantons, so the text names it only as a canton and establishes no federal capital at all. *Freetown*
+  occurs exactly once in the Sierra Leonean text, and the reference is to the **Freetown Municipality
+  Act**, in a list of bodies whose membership does not disqualify a member of parliament. Both are the
+  C16 Portugal/Greece outcome met again, and both cards say so plainly instead of reaching for a clause
+  that is not there.
+- **A CITY WITH NO WMO STATION AT ALL, AND A CITY WHOSE STATION IS ACROSS AN ESTUARY.** The service's
+  index of 3,598 cities carries **three Swiss entries — Geneva, Lugano and Zurich — and none for Bern**,
+  which is the other half of C1's finding that a fuzzy matcher gave Bern the Belgian village of
+  *Bernissart*: it did so because there was nothing to match. `gw-600` therefore prints no normals and
+  says why, citing the index itself — the C14 Sucre rule done the right way round, the source for the
+  negative being the document that would have carried the positive. **Freetown's entry is filed under
+  the city and reads at `Lungi`**, and carries neither a normals period nor any rain-day count: C11's
+  Colombo-for-Kotte case, and the card names the station rather than printing the figures as the city's
+  own.
+- **AND THE SAME INDEX ANSWERS A QUESTION ABOUT A CITY'S STANDING.** Minsk is the **only** entry the
+  service carries for its whole country, which is a real fact about the place and is one grep of a file
+  already cited. **A uniform leg can be read for what it does NOT contain.**
+- **A HARBOUR'S PROPER NAME CAN CARRY ITS COUNTRY'S, AND RULE 2 TAKES IT AWAY.** Freetown's harbour is the
+  **Sierra Leone Estuary**, which is the grid's Country value verbatim, so `gw-601` has to describe the
+  estuary without naming it. That is the rule working as designed and it is worth knowing before drafting:
+  check the place names a city's site is made of against the grid before writing the sentence, not after.
+- **THE UNdata CAPITAL FOOTNOTE AGAIN, AND TWO CITIES SHARE ONE.** Baku's and Minsk's figures both carry
+  *Including communities under the authority of the Town Council* — the same sentence, on two profiles in
+  one batch, which is the first time the pass has seen a footnote repeat. The other four are the bare year
+  and the year is 2019 on all of them.
+- **THREE PDFs IN THIS BATCH EXTRACT AS CIPHERS AND ONE JOURNAL PRINTS ITS BYLINE IN A DIFFERENT SCRIPT
+  FROM ITS TITLE.** The Greater Baku paper, the Minsk housing paper and the UN-Habitat Port Moresby
+  profile all download whole and come out as raw CID codes, so three candidate legs were dropped rather
+  than guessed at. And the Minsk flood paper is in a **Polish** journal with an **English** title and a
+  byline printed only in **Cyrillic** — В. Корнеев, Л. Гертман, И. Булак and А. Пахомов on the journal's
+  own page as well as in Crossref — so that is how it is cited. **Cite the byline the publisher prints,
+  in the script it prints it in.**
+- **ACCESS.** `journals.librarypublishing.arizona.edu` fails DNS resolution entirely, which cost the
+  Freetown deforestation paper; `e3s-conferences.org`, `journals.aesop-planning.eu` and
+  `www.sciencedirect.com` are 403; `hasp.ub.uni-heidelberg.de` serves an Anubis wall. Open and useful:
+  Copernicus in full (`esurf`, `sd`, `we`, `hess`, `bg`, `nhess`, `isprs-archives`), `nature.com` for its
+  open-access titles, `frontiersin.org`, `bozpe.pcz.pl`, `jurareview.ro`, `radhyg.ru` and
+  `revistas.una.ac.cr`.
+
+## What C16 found
+
+- **THE CONSTITUTION LEG REVERSED THE BATCH AFTER IT, AND ONLY TWO OF SIX NAME THEIR CAPITAL AT ALL.**
+  C15 was unanimous; this one is the other end of the same distribution, and the four failures fail in four
+  different ways. **Honduras names TWO CITIES — the first shared capital the pass has met**: article 8
+  makes Tegucigalpa and Comayagüela *jointly* the capital of the Republic, and article 295 folds those two
+  former municipalities into a single central district. **Papua New Guinea names no city whatever**:
+  section 4 creates a National Capital District, puts the Seat of Government inside it and leaves the
+  boundaries to an Organic Law, so the capital is a territorial unit before it is a place — a new outcome
+  for the leg, and the reason `gw-592` opens by saying so. **Sweden seats the parliament without naming a
+  capital**, and expressly lets the Riksdag sit elsewhere for the liberty or safety of parliament, which is
+  C11's Sri Lanka outcome in a different shape. And **Portugal and Greece say nothing at all**: *Lisbon*
+  occurs zero times in the Portuguese text, whose only uses of *capital* are *capital punishment* and
+  *capital investment*, while the Greek text's single occurrence of *Athens* is the Athens Academy, in the
+  article on what magistrates may do besides judge. Only **Tajikistan** answers plainly, in article 4, and
+  it then gives the city a second standing by seating it in the upper chamber beside the autonomous region
+  and the provinces with an equal number of representatives.
+- **THE UNdata CAPITAL FOOTNOTE PAID OFF ON HALF THE BATCH, AGAINST ONE IN SIX LAST TIME**, and each of the
+  three says a different thing about what is being counted. Portugal's figure is **Grande Lisboa plus the
+  Peninsula of Setúbal plus the municipality of Azambuja**; Sweden's is a **`tätort`**, a built-up locality
+  defined by the administrative divisions of 2005; Greece's is **"the localities of Calithèa, Peristérion
+  and Piraeus, among others"**, spelled as the UN spells them rather than as an atlas would. The other
+  three footnotes are the bare year, and the year is 2019 on all three — a sixth unanimous batch for that.
+- **INTERNAL VOCABULARY LEAKED INTO A READER-FACING SENTENCE AND ONLY THE READ-BACK CAUGHT IT.** `gw-589`'s
+  draft ended "…jointly the capital of the Republic, which is the only shared capital **the pass** has
+  met" — this batch log's own word for this work, inside a card. **No checker can see it**: the sentence is
+  grammatical, it is true, and what is wrong with it is that it is a fact about Folio's project rather than
+  about the city. The rule that caught it is the standing one — read every finished card back as a reader —
+  which has now taken a wrong superlative (C13), unsourced clauses (C13 and A8) and this.
+- **THE WMO WINDOWS ARE ALL DIFFERENT AND SO IS THE RAIN-DAY THRESHOLD**, which is C15's finding holding
+  over a second batch. Windows: Tegucigalpa, Lisboa and Dushanbe 1961–1990, Port Moresby 1973–2007,
+  Stockholm 1991–2020, Athens 1955–1997. `raindef`: 1 mm at Tegucigalpa, 0.1 mm at Lisboa, Port Moresby and
+  Stockholm, **blank at Dushanbe and Athens**. A wet-day count is not comparable between two cities unless
+  the threshold is read, and on two of these six it cannot be read at all.
+- **THE HARDEST CITIES WERE CARRIED BY A NEIGHBOURING DISCIPLINE, AGAIN.** Dushanbe's whole site — the
+  Hissar valley 70 km by 20, the Kafirnigan gathering the Varzob, the Luchob and the Hissar Canal, three
+  kilometres of Meso- and Cenozoic sediment over which the city stands on loess and alluvium, and the 1989
+  Hissar earthquake — comes from a **seismic-microzonation** paper, and its fifth leg is a **radon survey of
+  200 rooms in 14 kindergartens and 36 schools**, which is also honest enough to report that its readings
+  show no pattern against the geology under each school. Port Moresby's city facts come from a
+  **housing-economics** paper (the planning board, the commission under the Physical Planning Act of 1989,
+  and the 60/40 split between State and customary land) and a **population-estimation** paper counting
+  4,653 structures in one settlement. C15's rule again: search the discipline that publishes about the
+  place.
+- **AND A HOST THAT NEEDED THE AUGMENTED CA BUNDLE ONCE DOES NOT ALWAYS NEED IT.** `revistas.una.ac.cr`,
+  which carries `gw-589`'s water source, was fetched with `--cacert` out of habit and answers 200 plainly —
+  so the TLS-chain list stays at the three C15 named and is NOT four. **Re-test before recording a host.**
+  Newly shut this batch: **`e3s-conferences.org` is 403 here**, and **`hasp.ub.uni-heidelberg.de` serves an
+  Anubis proof-of-work wall at status 200** to the plain agent that C14 found gets past OpenEdition's — so
+  the plain-agent trick is a thing to try, not a thing to rely on.
+
+## What C15 found
+
+- **THE CONSTITUTION LEG ANSWERED ON ALL SIX — the second unanimous batch — AND NO TWO ANSWER ALIKE.**
+  Haiti's first article makes the city the capital *and* the seat of government and lets that seat move
+  **only for reasons of force majeure**, which is the first CONDITION the pass has met on a power to
+  relocate: Rwanda's and South Sudan's are unconditional and Burundi's and Jordan's are by ordinary or
+  special law. The same text then seats the legislature there, movable only to the same place and at the
+  same time as the executive, and fixes the president's residence at the National Palace unless that
+  happens — three articles, like Belgium's, but all three about MOVING rather than about standing.
+  Jordan's third article names the City of Amman and allows a special law to transfer it, and two further
+  articles locate the trial of ministers and the Constitutional Court's seat by the word *Capital* rather
+  than by the city's name. The Dominican text gives one city three standings in one article: the National
+  District, the capital of the Republic and the seat of the national government. The federal text of the
+  Emirates makes the city the capital in article 9 and requires the Supreme Council to meet there unless
+  another place is agreed in advance. **Cuba's is the first in the pass with NO relocation clause at all** —
+  the capital is named in the same sentence as the state's name, language and symbols, and nothing
+  anywhere provides for moving it. And the Czech answer is in TWO documents: article 13, plus the
+  constitutional act of 1997 creating the fourteen higher territorial self-governing units, whose third
+  article fixes the capital's own territory — so the place is a region as well as a capital.
+- **A SIXTH AND A SEVENTH VARIETY OF WMO FAILURE, AND BOTH ARE SILENT.** Port-au-Prince IS listed, with a
+  station name and its national hydrometeorological unit named beside it, and its `climateMonth` array is
+  **empty** — an entry that is present and carries no data whatever, where C7's Luanda and C11's Taipei
+  each had half a table. And **Amman has a full twelve-row table with no normals period stated at all**
+  (`datab` and `datae` blank), so the averages can be printed and the years they average cannot. A card
+  may not invent a window; `gw-584` says so in a sentence instead. The batch's five windows, measured:
+  Santo Domingo and Havana 1961–1990, Abu Dhabi 1982–1991, Prague 1981–2010, Amman none, Port-au-Prince
+  nothing at all.
+- **AND THE RAIN-DAY THRESHOLD IS NOT UNIFORM EITHER, WHICH MAKES A WET-DAY COUNT INCOMPARABLE.** The
+  `raindef` field is 1 mm at Santo Domingo, Havana and Prague, **0.2 mm at Abu Dhabi** and blank at Amman.
+  Two cities' "wet days" are two different measurements unless the threshold is read and stated.
+- **THE SAME TLS-CHAIN FAULT ON TWO MORE HOSTS, AND A 000 IS NOT A DEAD CITATION.**
+  `gtg.webhost.uoradea.ro` and `materconstrucc.revistas.csic.es` both answer 000 to a plain curl —
+  *unable to get local issuer certificate* — and **200 with an augmented CA bundle**, the DOI resolving
+  correctly in both cases. C12 met this at `polipapers.upv.es`; it is now three hosts. The site is not
+  sending an intermediate this container happens not to carry, and a reader's browser does. **Re-test a
+  000 with the bundle before recording a citation as unreachable.**
+- **ONE PAPER SERVED TWO CARDS, WHICH IS WHY ITS TITLE WAS WORTH READING PAST.** Belvaux and colleagues'
+  Hispaniola microzonation study is filed under the ISLAND, and it carries the 2010 earthquake and the
+  Enriquillo–Plantain fault for `gw-583` **and** the 34 geomechanical units under Santo Domingo for
+  `gw-585` — Yanigua marls with sand, limestone and calcarenite, the karsted reef limestone of Los
+  Haitises, La Isabela's altered reef terraces, San Cristóbal's clays grading into sandstone and gravel,
+  plus sinkholes, floodplain pebbles and valley-floor alluvium. **Where a paper names an island rather
+  than a city, read it for every capital on that island.**
+- **A PDF THAT EXTRACTS AS A CIPHER IS A SOURCE LOST, NOT A HOST LOST.** The obvious Amman geology paper —
+  the strike-slip study of the Wadi Shueib and Amman–Hallabat structures — downloads whole from
+  `res.mdpi.com` and its text layer comes out as raw CID codes, C5's redalyc case and C13's White Rose
+  case again; this container has no `pdftotext`, no `pypdf` and no `fitz` to fall back on. A different
+  paper in the SAME journal from the same publisher extracts cleanly. **Check that the words come out as
+  words before planning a card around a paper.**
+- **AND A GEOLOGICAL FORMATION CAN CARRY A CAPITAL'S OWN NAME.** The **Amman Silicified Limestone** is an
+  Upper Cretaceous bed of silicified limestone alternating with chert and phosphatic chert, laid down on
+  a marine shelf and holding foraminifera, ammonites, gastropods and bivalves; limestone of that kind has
+  been used as building stone for decades and weathers badly enough that its exact composition is worth
+  measuring. That is a landform sentence, a history sentence and the city's name in one source.
+- **RULE 2 TOOK THE WORD *largest* AWAY FROM ALL SIX**, C11's finding at full strength: five grids say
+  `largest` and Abu Dhabi's says `2nd largest`, which strips to the same word. It has to be hunted out of
+  a finished draft deliberately — `gw-588` lost it on "the largest share of larnite-belite" — and the six
+  country names go with it, so the Emirates card writes *the federation* and the Czech one writes nothing
+  at all.
+- **DOAJ'S HAVANA CORPUS IS CLINICAL AND THE CITY'S OWN JOURNALS ARE SHUT.** `riha.cujae.edu.cu`, which
+  carries the Vento canal hydrology, refuses the connection; so does `scielo.sld.cu`; and
+  `whc.unesco.org` 403s a spaced request as well as a burst. A title search for the city returns 300
+  articles of which almost every one is medical. What carried `gw-587` instead is an **English** paper in
+  *Frontiers in Microbiology* on antibiotic-resistance genes in the Almendares — whose Site Description
+  table is a hydrology of the river through the western city, with dry- and wet-season flows station by
+  station — and an **art-history** paper in *Religions* on the sanctuary at Regla, whose introduction is a
+  description of the harbour crossing, the lighthouse at its mouth and the dockworkers' municipality on
+  its southern rim. **Search the discipline that happens to publish about the place, not the discipline
+  the fact belongs to.**
+
+## What C14 found
+
+- **A CONSTITUTION CAN NAME A CAPITAL THAT IS NO LONGER THE CAPITAL, AND THE SAME ARTICLE IS WHY.**
+  Burundi's text of 2018 fixes the capital **at Bujumbura** in its ninth article — and that article also
+  says the law may move the capital to any other city, or separate the political capital from the
+  economic one, which is exactly what was later done in favour of Gitega. C5 recorded a constitution
+  naming a different city; here the mechanism of the move is in the clause itself, so the card can state
+  both without contradicting either. **Read the whole article, not the sentence the search lands on.**
+- **AND ONE WHOSE ONLY USE OF THE WORD *CAPITAL* IS ABOUT ANOTHER PEOPLE'S.** Tunisia's text of 2022
+  contains *capital* exactly once, in the preamble, supporting a state for the Palestinian people with
+  Al-Quds Al-Sharif as its capital; its own seat of government is named nowhere. That is a fifteenth
+  outcome for the leg and the most easily mis-measured: a bare count of the word says the constitution
+  discusses capitals, and it does not discuss its own.
+- **THE OTHER FOUR ALL ANSWERED, TWO OF THEM WITH A POWER TO MOVE.** Rwanda's article 7 names the City of
+  Kigali, leaves its organisation to ordinary law and adds that a law may relocate the capital
+  elsewhere; South Sudan's text makes Juba both the national capital and the seat of the national
+  government, seats the legislature there by name, and then lets the government relocate the capital and
+  either speaker convene a sitting somewhere else. **A named capital is not always a fixed one**, and a
+  card that says "the constitution makes it the capital" and stops has told the reader the smaller half.
+- **BELGIUM GIVES ONE CITY THREE CONSTITUTIONAL STANDINGS AT ONCE** — article 194 the capital and the
+  seat of the federal government, article 3 one of the three Regions, article 4 the single bilingual
+  region among four linguistic regions. No other capital met in the pass holds three.
+- **CROSSREF AND A DRAFT CITATION CAN AGREE ON A YEAR THE JOURNAL ITSELF CONTRADICTS.** OpenEdition
+  registers a DOI for an old article at the moment of registration, so the "published-print" year
+  Crossref carries is the DEPOSIT rather than the article's own date: *Brussels Studies* document 78 says
+  *mis en ligne le 23 juin 2014* against Crossref's 2016, and document 185 says 15 October 2023 against
+  Crossref's 2022 — and the draft had copied Crossref's 2022, so the checker passed it in silence. Only
+  the journal's own **"Pour citer cet article"** line settles it. Both are now declared in
+  `CROSSREF_YEAR_WRONG`, which downgrades them to the eye rather than excusing them.
+- **THE WMO LEG HAS NO STATION AT SUCRE AT ALL** — the service's full city list carries no Bolivian
+  entry — and the honest handling is to drop the climate sentences rather than to assert one. The first
+  draft ended on *the World Meteorological Organization's city service carries no station here*, marked
+  to the UNdata profile, which does not say it; **a negative claim needs a source for the negative**, and
+  the sentence was replaced with a geological one the paper does carry. Sucre's card rests instead on
+  Cal Orcko, whose main track-bearing surface is 25,000 m² of lacustrine limestone tilted to 70° with 313
+  trackways on nine levels.
+- **A BROWSER USER-AGENT TRIGGERED A BOT WALL THAT A PLAIN TOOL UA PASSED,** which is the reverse of the
+  usual advice and cost an hour. Every OpenEdition article answered a Chrome UA with an Anubis
+  proof-of-work page at status 200 and answered `FolioReach/1.0` with 200 KB of real text. **Before
+  recording a host as walled, try a plain agent.** `check-reach.js` reports OpenEdition OK and was right.
+- **AND COMMONS RATE-LIMITS A BURST HARD ENOUGH TO LOOK SHUT.** Four `suggest-image.js` runs in a row
+  took the search endpoint to non-JSON refusals for several minutes while a single spaced request
+  answered. The picture repair planned for this session was parked rather than recorded as blocked —
+  which is `check-reach.js`'s own `BUSY` finding met in the field.
+
+## What C13 found
+
+- **THE CONSTITUTION LEG ANSWERED FOR FIVE OF SIX, ITS BEST SHOWING OF THE PASS, AND TWO OF THE FIVE ARE
+  OUTCOMES THE EARLIER BATCHES HAD NOT MET.** **The Cambodian text gives its capital a legal calendar of
+  its own**: article 6 names the city, and then article 93 brings a promulgated law into force there ten
+  days after promulgation and throughout the rest of the country after twenty — a constitution in which
+  the capital is legally ten days ahead of everywhere else, which is the first clause the pass has found
+  that gives a capital a different *rule* rather than a different status. **And the Dutch text names its
+  capital once, for a ceremony**: article 32 requires the King to be sworn in and inaugurated at
+  Amsterdam at a public joint session of the two Houses, and says nothing else about the place — the
+  government sitting at The Hague, exactly as the UNdata footnote says. A constitution can therefore name
+  a capital without seating anything in it.
+- **AND THE ZIMBABWEAN TEXT IS C12's CHILE OUTCOME ONE STEP FURTHER ON.** C12 recorded a constitution
+  that names its capital only as a REGION, in a clause about something else; this one names *Harare
+  Metropolitan Province* among the ten provinces in section 267 and then, in section 269, constitutes a
+  metropolitan council chaired by the mayor of the City of Harare with the mayor of the province's
+  second-largest urban local authority as his deputy — so the city is named twice, as a province and as
+  a local authority, and never as the capital. **Read the whole text before recording the leg as silent**:
+  a search for the word *capital* finds nothing here, and the city is in the document five times.
+- **THE ECUADORIAN TEXT IS THE FULLEST TREATMENT OF A CAPITAL THE PASS HAS MET.** Article 4 names the
+  city, and then four further articles seat the National Assembly, the National Court of Justice, both
+  electoral bodies and the Constitutional Court there by name — every branch of the state fixed in one
+  place by the constitution rather than by practice.
+- **THE ONE FAILURE IS A TOTAL SILENCE, WHICH IS C6's OUTCOME AND IS WORTH STATING ON THE CARD.** The
+  Guinean text of 2010 contains *Conakry* zero times and *capital* zero times, while fixing the flag's
+  three bands, the anthem and the motto in its first article. An absence checkable against the cited text
+  is a fact about the state's own founding document, so `gw-575` says so rather than leaving the leg empty.
+- **A SIXTH WAY THE WMO LEG FAILS: A RECORD THAT CARRIES PRECIPITATION AND NO TEMPERATURE AT ALL.**
+  Porto-Novo's station reports rainfall and rain days for 1981–2010 with every one of its twelve
+  `maxTemp` and `minTemp` fields null, so the card's climate sentences are about water only. **Check the
+  fields before drafting the heat sentence**, not after: the record is present, the period is stated, and
+  it looks like every other city's until the numbers are read.
+- **READING A FINISHED CARD BACK CAUGHT A FACT THAT EVERY CHECK PASSES.** The Amsterdam draft called
+  February the driest month, which is what a reader of the WMO table expects; April is lower — 41.0 mm
+  against 43.4 — and the superlative was simply wrong. Nothing in the pipeline can see this: the figure
+  was real, the source was right, the marker pointed at it, and the sentence was inside the word budget.
+  **A superlative drawn from a twelve-row table has to be taken from the whole table.**
+- **CROSSREF SETTLED A NAME THE PDF's OWN TEXT LAYER COULD NOT.** The Quito geosites paper extracts as
+  “Theo Þ los Toulkeridis”, the ligature having been mangled; the record gives **Theofilos
+  Toulkeridis**. C12's rule — verify every author list against Crossref before writing the JSON — caught
+  nothing wrong this time in eleven works, which is what it looks like when the rule is being followed
+  rather than when it is not needed.
+- **SIX OF THIRTY CITATION URLS ANSWER 403 FROM THIS SANDBOX AND ALL SIX ARE REAL.** Five are MDPI and one
+  is IWA; every one resolves in Crossref and every MDPI paper was read in full at
+  `res.mdpi.com/d_attachment/<journal>/<journal>-<vol>-<art>/article_deploy/<journal>-<vol>-<art>.pdf`,
+  which serves the same PDF the blocked landing page offers. **A 403 from a publisher is a fact about this
+  container, not about the citation**, and the shipped corpus already cites five MDPI papers by DOI.
+
+## What C12 found
+
+**EVERY AUTHOR LIST DRAFTED FROM A SEARCH RESULT WAS WRONG, ALL NINE OF THEM.** The drafts were
+written with the authors taken from DOAJ listings, abstracts and reading pages, and checked against
+Crossref before applying rather than after: **not one matched.** The paper behind `gw-565`'s river is
+by Nambatingar, Clement, Merle, Mahamat and Lanteri and the draft said Ngar-One, Lallemant, Adoum and
+Malloum; `gw-565`'s landscape source has a **single** author, Mounsi Febo, against three invented
+ones; `gw-566`'s fault paper is Lamperein-Polo, Vidal-Páez and Pérez-Martínez against two invented
+names, in a different issue, a different year and a different language; `gw-568`'s sprawl paper is
+Hassan and five colleagues against three invented; `gw-570`'s subsidence paper is García-Lanchares and
+four colleagues against three invented. **The failure is not carelessness about one field, it is that
+a plausible author list is the easiest thing in a citation to produce and the hardest thing in it to
+notice.** CLAUDE.md's instruction — run `check-citations.js` BEFORE writing a card's JSON, not after —
+is the whole of the lesson, and on this batch it was the difference between a clean apply and nine
+fabricated bylines under six cards at the citation bar.
+
+**…AND THE ONE NAME CROSSREF COULD NOT CHECK NEEDED THE JOURNAL'S OWN ARCHIVE PAGE.** `gw-567`'s
+heat-island paper is in a Romanian university annals with no DOI, so it is UNCHECKED by definition,
+and its PDF drops diacritics: the author line extracts as `Marin VL DUCU, Dumitru T TEA,
+Carmen-Sofia DRAGOT`. Three glyphs are missing and no amount of reasoning says which. The journal's
+own category page for 2007 prints the line properly — **Marin Vlăducu, Dumitru Tâştea, Carmen-Sofia
+Dragotă, Gheorghe Kucsicsa, Ines Grigorescu** — and the middle name is one nobody would have guessed.
+**A PDF's text layer is a witness, not the record; the publisher's own index page is the record.**
+
+**THE MDPI ARTICLE PAGE IS WALLED HERE AND ITS FILE HOST IS NOT.** `www.mdpi.com` answers 403 to this
+container on both the article and its PDF path, and `res.mdpi.com/d_attachment/<journal>/<journal>-<vol>-<art>/article_deploy/<file>.pdf`
+serves the whole paper. Five of this batch's sources were read that way. **The DOI is still what is
+cited**, because it is the address a reader's browser opens and a Chicago note wants; the 403 is this
+sandbox's bot wall and is not a paywall, which is the distinction `docs/artefact-citation-plan.md`
+insists on. The same reading also confirmed that a 403 at `doi.org` is the DESTINATION refusing, not
+the resolver.
+
+**AND AN INCOMPLETE CERTIFICATE CHAIN IS NOT A CLOSED HOST, WHICH THIS BATCH MET FOR THE SECOND TIME.**
+`polipapers.upv.es`, which serves `gw-566`'s fault paper, fails TLS verification with *unable to get
+local issuer certificate*. The leaf's own Authority Information Access extension NAMES the missing
+intermediate; fetching it and appending it to the bundle opens the host, exactly as it did for
+`psychclassics.yorku.ca` (see `docs/psychology-card-plan.md`):
+
+    openssl s_client -connect <host>:443 -servername <host> -proxy "${HTTPS_PROXY#http://}" -showcerts </dev/null \
+      | awk '/BEGIN CERT/{n++} n==1' | openssl x509 -noout -text | grep 'CA Issuers'
+
+**Never `-k`, and never `NODE_TLS_REJECT_UNAUTHORIZED=0`.** The citation uses the article's DOI rather
+than the publisher URL, which is better in any case.
+
+**THE CONSTITUTION LEG PASSED FOUR OF SIX, ITS BEST SHOWING SINCE C8, AND THE TWO FAILURES ARE BOTH
+NEW.** Chad names the capital in **article 8**, in the same breath as the flag, the motto, the anthem
+and the national holiday; Romania in **article 14**; Senegal in **article 2**, adding that the capital
+*may be transferred to any other place on the national territory*; Guatemala in **article 231**, which
+makes the city and its area of urban influence one metropolitan region. **Somalia is a TWELFTH
+outcome: a constitution that declines to settle the question**, its article 9 leaving the status of the
+capital to the constitutional review process and to a special law of the two houses. **Chile is a
+THIRTEENTH: a constitution that names the city only as a REGION, in a clause about something else** —
+*Santiago* appears twice in the whole text, both times as the Metropolitan Region in the rules for
+electing indigenous representatives, and never as the seat of government.
+
+**AND THE WMO LEG FAILED A FIFTH WAY: NORMALS WITH NO PERIOD.** Guatemala City's entry carries a full
+set of monthly figures from INSIVUMEH and states no `datab`/`datae` at all, where the other five give
+1961–1990, 1981–2010 or 1963–1990. The figures are citable and the citation simply cannot say what
+years they average, which is stated rather than guessed at.
+
+**A LANDSCAPE PAPER IS AUTHORITATIVE ABOUT THE LANDSCAPE AND NOT ABOUT THE ADMINISTRATION.**
+`gw-565`'s source is excellent on the Chari and the Logone, the 90 per cent of Lake Chad's basin they
+supply, the founding of Fort-Lamy in 1900 and its 17.29 square kilometres in the 1950s — and it files
+the colony under **Afrique-Occidentale française**, which is the wrong federation, and dates the
+renaming to 1975, which disagrees with the usual 1973. Both were left out of the card rather than
+repeated: the paper was used for what it studies. **Read a source's incidental claims as incidental.**
+
+**AND THE AUDIT REPORTED TWELVE CARDS FOR NAMING THEMSELVES.** Rule 2's word boundary was added for a
+capital whose name is a PREFIX of its country's — *Tunis* inside *Tunisia* — and it does nothing for
+the mirror case, a capital whose name CONTAINS its country's as a whole word: **Guatemala City,
+Panama City, Kuwait City, Mexico City**. The grid's first row is Country, so each was reported for
+repeating a value it had never printed, on the strength of the bolded answer term the house style
+REQUIRES an abstract to open on. The answer term is masked before the grid test now, and **only
+before that test** — masking it in the shared plain text also moved rule 1 from 153 findings to 150,
+because a few capitals are named Washington, which is a different question with a different answer.
 
 ## What C11 found
 

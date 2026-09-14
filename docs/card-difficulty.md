@@ -83,7 +83,7 @@ all.
     `card.difficulty` is an EDITORIAL judgement about how well known the answer term is, made once when the
     card is written; what a reader actually wants to know is how hard the card is to answer, which only the
     answers can say. So every grade is counted (`bump_card_grades`, an RPC in section 13 of
-    `.claude/supabase-schema.sql` — **the user must run it once**; it clamps each increment to 0–50, caps a
+    `.claude/supabase-schema.sql`, **run on the live project since Sep 2026**; it clamps each increment to 0–50, caps a
     batch at 500 rows and validates the id, since anyone with the publishable key can call it), and once a
     card has **`CARD_STATS_MIN` (20)** answers the stars show the community figure instead. Four decisions.
     **It is ANONYMOUS AND AGGREGATE** — four counters per card, no reader attached — which is what makes it

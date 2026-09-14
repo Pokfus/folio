@@ -198,6 +198,12 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // The USGS Publications Warehouse catalogue record for this open-file report misspells
+  // its first author, and Crossref relays the deposit. The report itself prints "by D. G.
+  // Jordan and O. J. Cosner" on its title page, and its own Selected References list a
+  // 1963 paper by "Ward, P. E., and Jordan, D.G." — two places inside the document, both
+  // Jordan. The catalogue is the one that is wrong.
+  ["10.3133/ofr72201", "D. G. Jordan", "D.G. Jordon"],
   // DergiPark deposited this byline in Turkish CAPITALS, and the all-caps form cannot keep
   // the dotless i: Crossref carries "GOKBAYIR" with a dotted I, where the journal's own
   // article metadata (citation_author) prints "Gokmen Gunay Gokbayir" with the dotless one.
@@ -264,6 +270,19 @@ const CROSSREF_WRONG = [
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */
 const CROSSREF_YEAR_WRONG = [
+  // OpenEdition deposits a DOI for an OLD article at the moment of registration, and the
+  // "print" year Crossref carries is that registration rather than the article's own date.
+  // Brussels Studies states its own: "Collection générale, document 78, mis en ligne le
+  // 23 juin 2014"; Crossref has published-print 2016 and created 2017-01-11.
+  ["10.4000/brussels.1227", 2014, 2016],
+  // The same journal, the same fault the other way: document 185 says 15 octobre 2023 and
+  // Crossref has 2022. Worth knowing that a draft citation AGREED with Crossref here and
+  // both were wrong — only the journal's own "Pour citer cet article" line settles it.
+  ["10.4000/brussels.7085", 2023, 2022],
+  // A third OpenEdition journal, the same fault: VertigO's own "Référence électronique" line
+  // reads "10-3 | Décembre 2010, mis en ligne le 20 décembre 2010", and Crossref carries
+  // published-print 2011 with the record created 2011-04-02.
+  ["10.4000/vertigo.10594", 2010, 2011],
   // Tyche: Beiträge zur Alten Geschichte, Band 7 is 1992; Crossref prints 1993.
   ["10.15661/tyche.1992.007.20", 1992, 1993],
   // Vestnik VolSU dates volume 24, issue 6 to 2019 on the article's own first page
