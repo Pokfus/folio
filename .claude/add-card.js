@@ -205,7 +205,7 @@ if (isMap) {
    else, and the reader names it. It is a flag rather than an inference from `image` because an ordinary
    card's picture ILLUSTRATES its subject, which is a different claim — see cardArtSpec in app.js.
 
-   FOUR THINGS ARE CHECKED HERE AND NOWHERE ELSE, and every one of them ships looking perfect:
+   SIX THINGS ARE CHECKED HERE AND NOWHERE ELSE, and every one of them ships looking perfect:
 
    · A picture, with a CREDIT and an ALT. The credit is required of every card already; the alt is
      required HERE because on this format it is not a courtesy, it is the question as a reader who
@@ -214,11 +214,16 @@ if (isMap) {
      "Describe, never name" is the rule the plan states, and an alt reading "Rembrandt's Night Watch"
      hands the answer to exactly the reader the alt exists for — silently, since no sighted reviewer
      ever sees it.
-   · NO EXTRA PHRASINGS, for the map card's reason: three ways of asking "what is this picture?" are
-     one sentence written three times.
-   · A `facts` box, which is where the artist, the date, the medium and the location go. It is the
-     second half of the answer — the request asks the reader for the artist as well, and `gradeCloze`
-     matches one string, so the artist is shown rather than typed. */
+   · AN EMPTY `question`, AND NO EXTRA PHRASINGS. The request is that the question side show no words,
+     so the format renders none — and a sentence stored in a field nothing draws is a thing a reader of
+     the data cannot tell from a bug, so it is refused rather than ignored.
+   · AN ARTIST ROW AND A LOCATION ROW IN `facts`, matching app.js's own declared label tables. The
+     reader is asked for four things and `cardArtAnswers` derives three of them from the card's own
+     display fields rather than keeping a second copy — so a grid with no row this can read is a card
+     that silently asks fewer questions than the format promises, and looks finished doing it.
+   · A DATE LINE THAT YIELDS A YEAR. It is the third derived answer AND the card's place in a
+     collection whose whole running order is chronological, so a card without one is unanswerable and
+     unsortable at once. */
 if ("artwork" in card && typeof card.artwork !== "boolean") {
   console.error("ERROR: card.artwork is true or absent — it says the picture IS this card's subject."); process.exit(1);
 }
@@ -245,10 +250,15 @@ if (isArt) {
     console.error("ERROR: image.alt names the artist (" + JSON.stringify(artist) + ") — the card asks for the artist too, so the alt may not give it away.");
     process.exit(1);
   }
+  if (String(card.question || "").trim()) {
+    console.error("ERROR: an artwork card's `question` is EMPTY (\"\") — the picture is the whole question and no prose is drawn on the front. What to type is said by the answer box's own four labels.");
+    process.exit(1);
+  }
   if (Array.isArray(card.questions) && card.questions.length) {
     console.error("ERROR: an artwork card carries no extra question phrasings — the picture is the clue. Give it `\"questions\": []`.");
     process.exit(1);
   }
+  card.question = "";
   card.questions = [];
   const facts = Array.isArray(card.facts) ? card.facts : [];
   const bad = facts.find((r) => !Array.isArray(r) || r.length !== 2 || !String(r[0] || "").trim() || !String(r[1] || "").trim() || /[<>]/.test(String(r[0]) + String(r[1])));
@@ -257,8 +267,31 @@ if (isArt) {
     console.error("ERROR: an artwork card carries " + ART_FACTS_MIN + "–" + MAP_FACTS_MAX + " `facts` rows — the artist, the date, the medium, the size and where it is. This one has " + facts.length + ".");
     process.exit(1);
   }
-  if (!facts.some((r) => /^(artist|maker|sculptor|painter|attributed to|culture)$/i.test(String(r[0] || "").trim()))) {
-    console.warn("  ! no Artist / Maker / Culture row in `facts` — the card asks who made it, so the answer side should say.");
+  /* THE LABEL TABLES ARE app.js's, AND THE MATCH DECIDES WHETHER THE READER IS ASKED AT ALL.
+     `cardArtAnswers` reads the artist and the location out of this grid by label — that is what lets
+     the grid and the grading be one fact rather than two copies of it — so a row these do not match is
+     a field the card silently stops asking for. Kept in step with ART_ARTIST_LABELS / ART_PLACE_LABELS
+     in app.js; a card that reaches a reader with one missing looks perfectly finished. */
+  const ART_ARTIST_LABELS = /^(artist|maker|sculptor|painter|architect|workshop|attributed to|culture)$/i;
+  const ART_PLACE_LABELS = /^(location|where it is|where it is now|collection|museum|held|home)$/i;
+  const labelOf = (r) => String(r[0] || "").trim();
+  if (!facts.some((r) => ART_ARTIST_LABELS.test(labelOf(r)))) {
+    console.error("ERROR: an artwork card needs an artist row in `facts` — the reader is asked who made it. The label must be one of: artist, maker, sculptor, painter, architect, workshop, attributed to, culture. Write \"Unknown\" where the work is anonymous.");
+    process.exit(1);
+  }
+  if (!facts.some((r) => ART_PLACE_LABELS.test(labelOf(r)))) {
+    console.error("ERROR: an artwork card needs a location row in `facts` — the reader is asked where the work is now. The label must be one of: location, where it is, where it is now, collection, museum, held, home.");
+    process.exit(1);
+  }
+  /* A `Date` row would be a THIRD copy of the date — the date line already carries it and is what
+     `cardStartYear` sorts the collection by, so that is where the asked-for date is read from. */
+  if (facts.some((r) => /^date$/i.test(labelOf(r)))) {
+    console.error("ERROR: an artwork card does not carry a `Date` row in `facts` — the date line above the grid is the date, and is what the reader is graded against and what files the card in chronological order.");
+    process.exit(1);
+  }
+  if (!/<span class="dt-k">[^<]+<\/span><span class="dt-v">[^<]+<\/span>/.test(String(card.answerDate || ""))) {
+    console.error("ERROR: an artwork card needs a date line with a labelled row (Painted / Carved / Cast / Made …) — it is the third thing the reader is asked for and the card's place in the collection's running order.");
+    process.exit(1);
   }
 }
 
@@ -267,7 +300,9 @@ if (!isMap && !isArt && (!Array.isArray(card.questions) || card.questions.length
   console.error("ERROR: card needs a `questions` array of exactly " + N_EXTRA + " EXTRA phrasings (3 questions in all — see CLAUDE.md). Each is a full standalone clue with its own mid-sentence blank.");
   process.exit(1);
 }
-for (const [qi, q] of [card.question, ...card.questions].entries()) {
+/* An ARTWORK card has no question prose at all (checked above: `question` is "" and `questions` is
+   empty), so there is nothing here to hold to a length or to a blank. */
+for (const [qi, q] of (isArt ? [] : [card.question, ...card.questions]).entries()) {
   const qn = qWords(q);
   if (qn < QMIN || qn > QMAX) {
     console.error("ERROR: question " + (qi + 1) + " is " + qn + " words — it must be " + QMIN + "–" + QMAX +

@@ -4,14 +4,22 @@
 //
 //   node .claude/test-artwork-cards.js
 //
-// Re-run after touching cardArtSpec / cardArtHTML / cardArtReveal / cardFrontHTML's artwork branch /
-// showAnswer's reveal and duplicate-slot drop / IMG_OPEN_SEL / picturePool / gameCardIdSet /
-// serializeCardData / revertCard / the .art-shot styles, or after adding an artwork card.
+// Re-run after touching cardArtSpec / cardArtAnswers / cardArtHTML / artMatch / gradeArtFields /
+// cardArtReveal / cardFrontHTML's artwork branch / ART_FIELDS / ART_ARTIST_LABELS / ART_PLACE_LABELS /
+// ART_YEAR_NEAR / showAnswer's grading, reveal and duplicate-slot drop / IMG_OPEN_SEL / picturePool /
+// gameCardIdSet / serializeCardData / revertCard / the .art-shot and .art-ask styles, or after adding
+// an artwork card.
 //
 // WHY THIS FILE EXISTS. Every fault this format can have RENDERS PERFECTLY:
 //  · A leak. A Commons credit routinely reads "Rembrandt, The Night Watch, Rijksmuseum", so a `title`,
 //    a `desc`, a `credit` or a `data-img-*` attribute reaching the FRONT of the card answers the
 //    question outright — on a card that looks exactly like a working one. It is asserted first.
+//  · WORDS ON THE QUESTION SIDE. The request is that the front show none: an artwork card stores an
+//    empty `question` and draws the picture and four empty fields. A sentence creeping back in looks
+//    like every other card on the site and is the one thing this format is not.
+//  · A FIELD THAT ASKS NOTHING. Three of the four answers are DERIVED from the card's own display
+//    fields by label (see cardArtAnswers), so a `facts` grid whose rows are labelled differently
+//    silently drops a question — and the card still renders, still reveals, still looks finished.
 //  · The alt text. It has to describe the picture without naming it, which is what makes this format
 //    reachable by a reader who cannot see it at all; an alt carrying the answer is the leak again in
 //    the one place nobody looks.
@@ -50,7 +58,7 @@ function patchApp(buf) {
   const src = buf.toString("utf8");
   if (src.indexOf(ANCHOR) < 0) return null;
   patched = true;
-  return Buffer.from(src.replace(ANCHOR, "  window.__folioPicturePool = picturePool;\n" + ANCHOR), "utf8");
+  return Buffer.from(src.replace(ANCHOR, "  window.__folioPicturePool = picturePool;\n  window.__folioArtMatch = artMatch;\n" + ANCHOR), "utf8");
 }
 const server = http.createServer((req, res) => {
   const p = path.join(ROOT, decodeURIComponent(req.url.split("?")[0]).replace(/^\//, "") || "index.html");
@@ -69,6 +77,17 @@ const server = http.createServer((req, res) => {
   sect("1. the cards on disk, and the code that reads them");
   global.window = {}; require(path.join(ROOT, "data.js"));
   const CARDS = global.window.CARD_DATA;
+  /* THE LABEL TABLES ARE SLICED OUT OF app.js, never copied: they are what decides whether a reader is
+     asked for the artist and the location at all, and a second copy here would go stale on a change made
+     in a file nobody had reason to open. The run STOPS if the slice fails, rather than checking nothing. */
+  const appSrc = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
+  const rxOf = (name) => {
+    const m = appSrc.match(new RegExp("const " + name + " = (/\\^[^\\n]+/i);"));
+    if (!m) { console.error("FATAL: " + name + " not found in app.js — this suite cannot check the labels."); process.exit(1); }
+    // eslint-disable-next-line no-eval
+    return eval(m[1]);
+  };
+  const ARTIST_RX = rxOf("ART_ARTIST_LABELS"), PLACE_RX = rxOf("ART_PLACE_LABELS");
   const art = CARDS.filter((c) => c.artwork === true);
   ok("cards carry `artwork: true`", art.length > 0, art.length + " of " + CARDS.length);
 
@@ -83,14 +102,29 @@ const server = http.createServer((req, res) => {
     ok(c.id + ": …and describes what is depicted", alt.trim().length > 20, alt.slice(0, 60));
     const ansIn = (s) => String(s || "").toLowerCase().indexOf(String(c.answerText || "~~").toLowerCase()) >= 0;
     ok(c.id + ": …without naming the answer", !ansIn(alt), alt.slice(0, 80));
-    /* An artwork card asks one short question about a picture, like a map card, and carries no extra
-       phrasings: three ways of asking "what is this?" are three ways of asking the same thing. */
+    /* NO WORDS ON THE QUESTION SIDE. The field is stored empty rather than holding a sentence nothing
+       renders, which a later reader of the data could not tell from a bug. */
+    ok(c.id + ": …and stores no question at all", !String(c.question || "").trim(), JSON.stringify(c.question));
     ok(c.id + ": …and offers no extra phrasings", !Array.isArray(c.questions) || c.questions.length === 0);
+    /* The three derived answers. A grid this cannot read is a card that asks fewer questions than the
+       format promises and looks perfectly finished doing it. */
+    const facts = Array.isArray(c.facts) ? c.facts : [];
+    const lab = (r) => String((r || [])[0] || "").trim();
+    ok(c.id + ": …carries an artist row the format can read",
+       facts.some((r) => ARTIST_RX.test(lab(r))), facts.map(lab));
+    ok(c.id + ": …and a location row", facts.some((r) => PLACE_RX.test(lab(r))), facts.map(lab));
+    ok(c.id + ": …and no Date row, the date line being the date", !facts.some((r) => /^date$/i.test(lab(r))));
+    ok(c.id + ": …and a date line with a labelled row",
+       /<span class="dt-k">[^<]+<\/span><span class="dt-v">[^<]+<\/span>/.test(String(c.answerDate || "")));
   });
 
   const src = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
   const slice = (name) => { const i = src.indexOf("function " + name + "("); return i < 0 ? "" : src.slice(i, i + 2600); };
-  ok("cardFrontHTML puts the picture before the question", /const art = cardArtSpec\(c\);[\s\S]{0,200}cardArtHTML\(art\)/.test(slice("cardFrontHTML")));
+  ok("cardFrontHTML draws the picture and NOT the question",
+     /const art = cardArtSpec\(c\);[\s\S]{0,120}return art \? cardArtHTML\(art, c\) : q;/.test(slice("cardFrontHTML")));
+  ok("…and the four fields are built from the card's own answers", /cardArtAnswers\(c\)/.test(slice("cardArtHTML")));
+  ok("…each marked by its own kind of comparison", /function artMatch\(kind, typed, answer\)/.test(src) && /kind === "date"/.test(slice("artMatch")));
+  ok("…and the reveal replaces the fields rather than disabling them", /input\.replaceWith\(out\)/.test(slice("gradeArtFields")));
   /* THE FRONT IS BARE, AS A STRING. cardArtHTML must emit the src and the alt and nothing else — the
      browser half below reads the rendered card, and this reads the builder, so a leak added to either
      one is caught by the other. */
@@ -105,7 +139,7 @@ const server = http.createServer((req, res) => {
   ok("revertCard restores it", /\.artwork = p\.artwork/.test(src));
 
   /* ---------- 2. the card on screen ------------------------------------------------------- */
-  sect("2. the front says nothing but the picture");
+  sect("2. the front says nothing but the picture, and asks four things");
   const browser = await chromium.launch(process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {});
   const page = await browser.newPage();
   const errs = [];
@@ -128,20 +162,78 @@ const server = http.createServer((req, res) => {
 
   const front = await page.evaluate(() => {
     const fig = document.querySelector(".art-shot");
-    return { html: fig.outerHTML, cap: !!fig.querySelector("figcaption"), attrs: [...fig.attributes].map((a) => a.name),
-             imgs: document.querySelectorAll(".study-card img").length };
+    const q = document.querySelector(".question");
+    return { html: fig.outerHTML, qhtml: q.innerHTML, cap: !!fig.querySelector("figcaption"),
+             attrs: [...fig.attributes].map((a) => a.name),
+             imgs: document.querySelectorAll(".study-card img").length,
+             fields: [...document.querySelectorAll(".question .art-input")].map((i) => i.dataset.artf),
+             values: [...document.querySelectorAll(".question .art-input")].map((i) => i.value),
+             labels: [...document.querySelectorAll(".question .art-lab")].map((l) => l.textContent.trim()),
+             /* the words on the question side, with the form's own labels taken out: anything left is a
+                sentence that should not be there. */
+             words: (() => { const c = q.cloneNode(true); c.querySelectorAll(".art-ask").forEach((n) => n.remove());
+                             return c.textContent.replace(/\s+/g, " ").trim(); })() };
   });
   const leaks = [String(card.image.title || ""), String(card.image.credit || ""), String(card.image.desc || ""), String(card.answerText || "")]
     .filter((s) => s.trim().length > 3).filter((s) => front.html.indexOf(s) >= 0);
   ok("nothing on the front names the work", leaks.length === 0, leaks);
+  /* THE REQUEST, ASSERTED DIRECTLY: "on the question side it should show no words but an image". */
+  ok("…and the question side carries no prose at all", front.words === "", front.words.slice(0, 80));
   ok("…there is no caption yet", !front.cap);
   ok("…and no data-img-* attribute to open the viewer with", !front.attrs.some((a) => a.indexOf("data-img") === 0), front.attrs);
   ok("…and the picture is not announced as a control", !front.attrs.includes("role") && !front.attrs.includes("title"), front.attrs);
   ok("…and exactly one picture is on the card", front.imgs === 1, front.imgs);
+  ok("the answer box asks for all four", front.fields.join(",") === "title,artist,date,location", front.fields);
+  ok("…and every field starts empty", front.values.every((v) => v === ""), front.values);
+  ok("…under labels that say what to type", front.labels.length === 4 && front.labels[0] === "Title", front.labels);
+  /* A label may not be the answer wearing a label's clothes. */
+  const inLabels = front.labels.join(" ").toLowerCase();
+  ok("…and no label leaks an answer", !inLabels.includes(String(card.answerText).toLowerCase().slice(0, 12)), front.labels);
 
-  sect("3. the reveal gives the credit the licence asks for");
+  sect("3. the reveal marks each answer and gives the credit the licence asks for");
+  /* Type one right answer, one nearly-right date and one wrong one, so all three verdicts are exercised
+     on a real card rather than asserted from the source. */
+  const wantDate = await page.evaluate(() => {
+    const d = document.querySelector("#artf-date"); return d ? true : false;
+  });
+  await page.fill("#artf-title", card.answerText);
+  await page.fill("#artf-artist", "Definitely Not The Artist");
+  if (wantDate) await page.fill("#artf-date", "c. 39,000 years ago");
   await page.evaluate(() => document.querySelector("#reveal-btn").click());
   await page.waitForTimeout(400);
+  const marks = await page.evaluate(() => {
+    const out = {};
+    document.querySelectorAll(".question .art-f").forEach((f) => {
+      const g = f.querySelector(".art-graded");
+      out[f.dataset.artrow] = { cls: g ? g.className : "", said: (f.querySelector(".art-said") || {}).textContent || "",
+                                truth: (f.querySelector(".art-true") || {}).textContent || "",
+                                live: !!f.querySelector("input") };
+    });
+    return out;
+  });
+  ok("the right title is marked right", /\bok\b/.test(marks.title.cls), marks.title);
+  ok("…a wrong artist is marked wrong", /\bbad\b/.test(marks.artist.cls), marks.artist);
+  ok("…and is shown the answer it missed", marks.artist.truth.length > 0, marks.artist.truth);
+  /* THE BAND SCALES WITH THE WORK'S AGE (see artYearBand). A thousand years out on a 40,000-year-old
+     carving is the answer; on a dated painting it would not be. Both directions are asserted, because a
+     band that has quietly become infinite passes the first check and says nothing. */
+  ok("…a date a thousand years out on a 40,000-year-old work is CLOSE", /\bnear\b/.test(marks.date.cls), marks.date);
+  ok("…an unanswered field says so rather than staying blank", /\bempty\b/.test(marks.location.cls), marks.location);
+  ok("…and it is shown what the answer was", marks.location.truth.length > 0, marks.location.truth);
+  /* No editable copy survives the reveal, or a reader can improve an answer after seeing it. */
+  ok("…no field is still typeable", Object.values(marks).every((m) => !m.live), Object.values(marks).map((m) => m.live));
+  /* The other direction, asserted on the real function rather than through the page: the band is a
+     proportion of the age with a floor, so it must still REFUSE a guess that is wildly out — and must
+     still be tight on a dated picture, which is the case a scaling band is most likely to lose. */
+  const bands = await page.evaluate(() => {
+    const f = window.__folioArtMatch;
+    return f ? { far: f("date", "c. 20,000 years ago", "c. 40,000 years ago"),
+                 near: f("date", "c. 39,000 years ago", "c. 40,000 years ago"),
+                 painting_close: f("date", "1640", "1642"),
+                 painting_far: f("date", "1600", "1642") } : null;
+  });
+  ok("…and the band still refuses a guess half the age of the work", bands && bands.far === "bad", bands);
+  ok("…while a painting keeps a tight band", bands && bands.painting_close === "near" && bands.painting_far === "bad", bands);
   const back = await page.evaluate(() => {
     const fig = document.querySelector(".art-shot");
     return { revealed: fig.classList.contains("revealed"), cap: (fig.querySelector(".art-cap") || {}).textContent || "",

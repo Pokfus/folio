@@ -30446,7 +30446,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          ACCIDENTAL reveal, which is a rereading trial, without ever making the deliberate one hard.
          The field is NOT focused by this: `setupCloze` deliberately leaves a touch reader's keyboard
          down until they tap the blank, and a policy about effort has no business overriding that. */
-      const attemptOn = deckAttempt(cardEntryId(id)) && !!cardRoot.querySelector(".question .blank-input");
+      /* ATTEMPT_SEL is both kinds of typed answer: a cloze card's blanks, and an artwork card's four
+         fields (see the ARTWORK CARDS block). One selector rather than two branches, so a policy about
+         effort cannot come to mean two different things on two formats. */
+      const ATTEMPT_SEL = ".question .blank-input, .question .art-input";
+      const attemptOn = deckAttempt(cardEntryId(id)) && !!cardRoot.querySelector(ATTEMPT_SEL);
       /* RECALL IN FULL (see deckRecall). The box sits between the question and the Reveal button, which is
          where the reader's attention already is; it is a plain textarea for cardNoteHTML's reason (nothing
          to sanitize, and the units and spelling passes cannot reach a field's value). It is NOT required
@@ -30475,7 +30479,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const hint = root.querySelector("#revealHint");
         // any typed character is enough: this asks for an ATTEMPT, not for the right answer
         const sync = () => {
-          const any = [...cardRoot.querySelectorAll(".question .blank-input")].some((f) => f.value.trim());
+          const any = [...cardRoot.querySelectorAll(ATTEMPT_SEL)].some((f) => f.value.trim());
           revealBtn.disabled = !any;
           if (hint) hint.hidden = any;
         };
@@ -30516,15 +30520,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            line at the foot of `renderCard` re-opens an already-revealed card after a reload, a language
            switch or an undo, and that call must never be refused. */
         if (attemptOn && fromReader && !saidDunno &&
-            ![...cardRoot.querySelectorAll(".question .blank-input")].some((f) => f.value.trim())) {
-          const f = cardRoot.querySelector(".question .blank-input");
+            ![...cardRoot.querySelectorAll(ATTEMPT_SEL)].some((f) => f.value.trim())) {
+          const f = cardRoot.querySelector(ATTEMPT_SEL);
           if (f) { try { f.focus({ preventScroll: true }); } catch (e2) { f.focus(); } }
           return;
         }
         revealed = true;
         studyRevealId = id;   // so a language switch re-render re-opens this card rather than resetting it
         persistStudy();       // …and so does a reload
-        const typedVals = gradeCloze(cardRoot.querySelector(".question"), c.answer);
+        /* An artwork card's answers are four separate typed fields rather than one cloze blank, and each
+           is marked against its own kind of answer (see gradeArtFields). It hands back the TITLE alone,
+           which is what the two readers below are about. */
+        const qElNow = cardRoot.querySelector(".question");
+        const typedVals = cardArtSpec(c) ? gradeArtFields(qElNow, c) : gradeCloze(qElNow, c.answer);
         /* WHAT THEY TYPED, READ TWICE (see the block above gradeCloze). Once to decide whether this card
            was MISSED — which earns it the background's own defining sentence rather than the bare term —
            and once to see whether the guess was some other card's answer, which is a confusion rather
@@ -30933,7 +30941,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* Focus the first blank on a machine with a keyboard, and NOT on a touch screen (Aug 2026, on request):
        there the focus summons the on-screen keyboard over half the card, on every card, before the reader
        has decided to type anything. They tap the blank themselves if they want it. */
-    const first = qEl.querySelector(".blank-input");
+    const first = qEl.querySelector(".blank-input, .art-input");
     if (first && !touchDevice()) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
   }
   // On reveal, colour each typed character green/red by direct (case-insensitive) match to the answer.
@@ -33206,9 +33214,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const q = (c && c.question) || "";
     const spec = cardMapSpec(c);
     if (spec) return cardMapHTML(spec) + q;
-    // an artwork card: the picture IS the question, and the words only say what to do with it
+    /* an artwork card: the picture is the WHOLE question — no prose at all, and the four fields under
+       it are the answer box (see the ARTWORK CARDS block). `q` is empty on every such card and is not
+       drawn either way, so a hand-authored one that carries a sentence cannot leak it onto the front. */
     const art = cardArtSpec(c);
-    return art ? cardArtHTML(art) + q : q;
+    return art ? cardArtHTML(art, c) : q;
   }
 
   /* ---------- the figures box (Aug 2026, with map cards) ----------
@@ -33237,17 +33247,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="cf-tile"><span class="cf-k">' + esc(r[0]) + '</span><span class="cf-v">' + esc(r[1]) + "</span></div>").join("") + "</div>";
   }
 
-  /* ---------- ARTWORK CARDS: the picture is the question (Sep 2026, on request) ----------
-     "The user is shown a famous historical artwork ... and must guess the name of the work and the artist."
-     A built-in format, like the map card and for the map card's own reason: a community card type is
-     templates plus scoped CSS and cannot run code, and this needs a picture promoted to the front of the
-     card with its own metadata held back. See docs/art-card-plan.md, which specifies it in full.
+  /* ---------- ARTWORK CARDS: the picture is the whole question (Sep 2026, on request) ----------
+     "On the question side it should show no words but an image of a famous painting, sculpture etc, and
+     the user must guess the title, artist, date of creation, and current ownership/location in the answer
+     box." A built-in format, like the map card and for the map card's own reason: a community card type
+     is templates plus scoped CSS and cannot run code, and this needs a picture promoted to the front of
+     the card, its own metadata held back, and FOUR typed answers graded separately. See
+     docs/art-card-plan.md, which specifies it in full.
 
      `artwork: true` says THE PICTURE IS THIS CARD'S OWN SUBJECT, which is the whole of what the flag
      means and is why it is a flag rather than an inference from `image`: an ordinary card's picture
      ILLUSTRATES its subject (a hand-axe under `Acheulean`, a flag under a country) and must never be
-     dealt as "what is this?". A STYLE card in the same collection carries a representative work and no
-     flag, so it stays an ordinary card everywhere.
+     dealt as "what is this?".
+
+     THE FRONT DRAWS NO PROSE AT ALL, which is the change of Sep 2026: the card used to carry a short
+     written prompt under the picture and now carries none, because the request is that the question side
+     show no words. An artwork card's `question` is therefore stored EMPTY — `add-card.js` refuses one
+     that is not, and `check-questions.js` skips the format outright — rather than holding a sentence
+     nothing renders, which is the shape a reader of the data could not tell from a bug. What says what
+     to do is the answer box's own four labels, which are the form rather than a clue about the work.
 
      THREE THINGS ARE HELD BACK UNTIL THE REVEAL, and the first is the whole difficulty: a Commons credit
      line routinely reads "Rembrandt, The Night Watch, Rijksmuseum", so the front draws the picture and
@@ -33274,14 +33292,162 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return { src: String(img.src), alt: String(img.alt || ""), title: String(img.title || ""),
              desc: String(img.desc || ""), credit: String(img.credit || "") };
   }
-  function cardArtHTML(spec) {
+
+  /* THE FOUR ANSWERS ARE DERIVED, NEVER STORED A SECOND TIME. The reader is asked for the title, the
+     artist, the date and where the work is now — and the card already holds all four, in the fields that
+     PRINT them on the reveal: `answerText` is the title, the date line is the date, and the figures grid
+     is where the artist and the location go. Giving the format its own copy of the three would mean the
+     same strings written twice on every card, which is the shape that goes quietly out of step: the grid
+     would say the Rijksmuseum and the grading would go on accepting the Louvre, and nothing on the page
+     could say so. Derived, the grid and the grading are arithmetically incapable of disagreeing.
+
+     WHAT MAKES THAT SAFE IS THAT THE LABELS ARE DECLARED AND CHECKED. Reading a row out of a free-text
+     grid by matching its label is brittle exactly where the label is a matter of taste, so the accepted
+     labels are these two tables and nothing else, and `add-card.js` REFUSES an artwork card whose grid
+     has no row matching each — so a card cannot ship with an unaskable Artist or an unaskable location
+     and look perfectly finished. Extra rows (Medium, Size) are furniture and are not asked for.
+
+     THE DATE COMES OFF THE DATE LINE, which is the field that already carries it AND that `cardStartYear`
+     reads to file the card in the collection's chronological running order. A `Date` row in the grid
+     beside it would be a third copy of one fact. */
+  const ART_ARTIST_LABELS = /^(artist|maker|sculptor|painter|architect|workshop|attributed to|culture)$/i;
+  const ART_PLACE_LABELS = /^(location|where it is|where it is now|collection|museum|held|home)$/i;
+  const ART_FIELDS = [
+    { k: "title", lab: "Title" },
+    { k: "artist", lab: "Artist" },
+    { k: "date", lab: "Date" },
+    { k: "location", lab: "Where it is now" },
+  ];
+  function cardArtAnswers(c) {
+    if (!cardArtSpec(c)) return null;
+    const facts = cardFacts(c);
+    const pick = (rx) => { const r = facts.find((f) => rx.test(String(f[0] || "").trim())); return r ? String(r[1] || "").trim() : ""; };
+    // the FIRST labelled row of the date line: on this format that is the row saying when the work was made
+    const rows = dateLineRows(c).filter((r) => String(r.label || "").trim());
+    const date = rows.length ? String(rows[0].value || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim() : "";
+    return { title: String(c.answerText || "").replace(/<[^>]*>/g, "").trim(),
+             artist: pick(ART_ARTIST_LABELS), date: date, location: pick(ART_PLACE_LABELS) };
+  }
+
+  /* HOW A TYPED ANSWER IS MARKED, and the point of it is FEEDBACK rather than a score — the reader still
+     grades themselves Again/Hard/Good/Easy, which is what the four buttons have always been for. The
+     literature's ranking is why it exists at all: a bare right-or-wrong measures d = 0.05, the correct
+     answer 0.32, so every field shows what the reader typed AND what the work actually is.
+
+     EACH OF THE FOUR IS A DIFFERENT KIND OF ANSWER AND IS MARKED ACCORDINGLY. A title is a term and takes
+     `nearMiss`, the same one-slip tolerance the cloze box and the pretest use. A NAME and a PLACE are
+     both routinely given short — "Rembrandt" is the right answer to "Rembrandt van Rijn" and
+     "Rijksmuseum" to "Rijksmuseum, Amsterdam" — so a value whose whole significant vocabulary sits inside
+     the other counts, in BOTH directions, since a reader who names the city as well has not been less
+     right. A single short token is not enough to carry that, or "the" would match anything.
+
+     A DATE IS THE ONE FIELD WITH A THIRD STATE, and it has one because it is the only field where being
+     nearly right is a fact rather than a judgement: a reader who says 1640 of a picture painted in 1642
+     knows when it was painted, and telling them they were wrong is both false and the feedback that
+     teaches least. The years come out of `cardYears`, which is the site's own date reader, so a range, a
+     `c.` and a BCE date are all understood on both sides.
+
+     THE BAND SCALES WITH THE WORK'S AGE, AND A FIXED ONE CANNOT WORK — which the format's own test
+     caught on the first card written to it. Twenty-five years is the right width for a painting and
+     absurd for a carving 40,000 years old, where the published date is a round number with a margin of
+     thousands: "c. 39,000 years ago" is not a near miss about that object, it is the answer. So the band
+     is `ART_YEAR_NEAR` (25 years, which is what a dated picture deserves) OR `ART_YEAR_NEAR_FRAC` of how
+     long ago the work was made, whichever is the WIDER. At 3% the floor decides everything after about
+     1200 CE, the Parthenon's sculptors get seventy-odd years, and the Swabian ivories get a millennium —
+     which is roughly how precisely each is actually dated. It is a proportion of the AGE and never of
+     the year number: 5% of "1642" would be eighty years, which is a century of painting. */
+  const ART_YEAR_NEAR = 25, ART_YEAR_NEAR_FRAC = 0.03, ART_YEAR_NOW = 2000;
+  const artYearBand = (lo, hi) => Math.max(ART_YEAR_NEAR, Math.abs(ART_YEAR_NOW - (lo + hi) / 2) * ART_YEAR_NEAR_FRAC);
+  const ART_ANON = /^(unknown|anonymous|unattributed|unsigned|unrecorded)\b/i;
+  function artMatch(kind, typed, answer) {
+    const t = String(typed || "").trim(), a = String(answer || "").trim();
+    if (!t || !a) return "bad";
+    if (kind === "date") {
+      const ty = cardYears({ answerDate: t }) || [], ay = cardYears({ answerDate: a }) || [];
+      if (!ty.length || !ay.length) return normAnswer(t) === normAnswer(a) ? "ok" : "bad";
+      const lo = Math.min.apply(null, ay), hi = Math.max.apply(null, ay);
+      let best = Infinity;
+      ty.forEach((y) => { const d = y >= lo && y <= hi ? 0 : Math.min(Math.abs(y - lo), Math.abs(y - hi)); if (d < best) best = d; });
+      return best === 0 ? "ok" : best <= artYearBand(lo, hi) ? "near" : "bad";
+    }
+    const n = normAnswer(t), m = normAnswer(a);
+    if (!n || !m) return "bad";
+    if (n === m) return "ok";
+    // "Unknown" and "Anonymous" are the same answer about the same fact, and the card may print either
+    if (kind === "artist" && ART_ANON.test(a) && ART_ANON.test(t)) return "ok";
+    if (m.length >= 6 && nearMiss(n, m)) return "ok";
+    const tw = n.split(" ").filter((w) => w.length > 2), mw = m.split(" ").filter((w) => w.length > 2);
+    const inside = (x, y) => x.length > 0 && x.every((w) => y.indexOf(w) >= 0) && (x.length > 1 || x[0].length >= 4);
+    if (inside(tw, mw) || inside(mw, tw)) return "ok";
+    return "bad";
+  }
+
+  function cardArtHTML(spec, c) {
     /* The alt is the author's description of what is depicted. Where a card has none the label says what
        the picture is FOR and nothing about what is in it — a generic "Card illustration" would be a
        fallback that quietly answers nothing, and naming the work would answer everything. */
     const alt = spec.alt || "The artwork to be identified.";
+    const ans = cardArtAnswers(c) || {};
+    /* A FIELD IS DRAWN ONLY WHERE THE CARD CAN ANSWER IT. An anonymous work still draws Artist, because
+       its answer is "Unknown" and that is a thing a reader can know; a card whose grid genuinely has no
+       location row simply asks three things. An input the card cannot mark is worse than an absent one. */
+    const rows = ART_FIELDS.filter((f) => String(ans[f.k] || "").trim()).map((f) =>
+      '<div class="art-f" data-artrow="' + f.k + '"><label class="art-lab" for="artf-' + f.k + '">' + esc(f.lab) + "</label>" +
+      '<input class="art-input" id="artf-' + f.k + '" data-artf="' + f.k + '" type="text" autocomplete="off" ' +
+      'autocapitalize="off" autocorrect="off" spellcheck="false"></div>').join("");
     return '<figure class="art-shot"><img src="' + esc(spec.src) + '" alt="' + esc(alt) +
-      '" loading="lazy" draggable="false"></figure>';
+      '" loading="lazy" draggable="false"></figure>' +
+      (rows ? '<div class="art-ask" role="group" aria-label="Name the work">' + rows + "</div>" : "");
   }
+
+  /* The answer is out, so each field says how it did and what the work actually is. It REPLACES the input
+     with a graded row, exactly as `gradeCloze` does, so there is no editable copy left on screen to
+     improve an answer in after seeing it.
+
+     IT HANDS BACK THE TITLE AND ONLY THE TITLE. Two things read what a reader typed — the elaborated
+     feedback a missed card gets, and the confusion register — and both are about the card's ANSWER TERM.
+     An artist's name or a museum's typed into their own fields is neither: fed to `noteConfusion` it
+     would record a confusion between two cards on the strength of a word that was never an attempt at
+     either one's answer. */
+  function gradeArtFields(qEl, c) {
+    const ans = cardArtAnswers(c);
+    if (!qEl || !ans) return [];
+    let titleTyped = "";
+    const MARK = { ok: "✓", near: "≈", bad: "✗" };
+    const SAYS = { ok: "correct", near: "close", bad: "not this one" };
+    qEl.querySelectorAll(".art-input").forEach((input) => {
+      const k = input.dataset.artf || "", want = String(ans[k] || ""), typed = input.value.trim();
+      if (k === "title") titleTyped = input.value;
+      const verdict = typed ? artMatch(k, typed, want) : "bad";
+      const row = input.closest(".art-f");
+      const out = document.createElement("div");
+      out.className = "art-graded " + (typed ? verdict : "empty");
+      const mark = document.createElement("span");
+      mark.className = "art-mark";
+      mark.setAttribute("aria-hidden", "true");
+      mark.textContent = typed ? MARK[verdict] : MARK.bad;
+      out.appendChild(mark);
+      if (typed) {
+        const said = document.createElement("span");
+        said.className = "art-said";
+        said.textContent = typed;
+        out.appendChild(said);
+      }
+      /* The right answer is shown unless it is word for word what they typed — a reader who wrote
+         "Rijksmuseum" of the Rijksmuseum, Amsterdam still wants to read the rest of it. */
+      if (!typed || typed.toLowerCase() !== want.toLowerCase()) {
+        const tru = document.createElement("span");
+        tru.className = "art-true";
+        tru.textContent = want;
+        out.appendChild(tru);
+      }
+      out.setAttribute("aria-label", (typed ? typed + " — " + SAYS[verdict] + ". " : "Not answered. ") + "The answer is " + want + ".");
+      input.replaceWith(out);
+      if (row) { row.classList.add("graded"); row.classList.add(typed ? verdict : "empty"); }
+    });
+    return [titleTyped];
+  }
+
   /* The answer is out, so the picture may say what it is: it gains its caption, its credit and the
      fullscreen viewer's own attributes. Written as an UPGRADE of the element already on screen rather
      than as a re-render, so the picture the reader is looking at does not reload or move. */
@@ -47794,7 +47960,11 @@ let prev = null;
       if (grid) grid.classList.remove("has-term-img");
       return;
     }
-    const fig = el.closest && el.closest(".card-img"); if (!fig) return;
+    /* `.art-shot` is here as well as `.card-img`, and on that format a dead file is the worse failure:
+       an artwork card's picture IS its question, so a file that never arrives leaves four empty fields
+       and nothing to answer — and the alt text, which DESCRIBES the work, is painted at full size in
+       the frame instead, which reads as a broken page. It says so instead; see `.art-shot.media-dead`. */
+    const fig = el.closest && el.closest(".card-img, .art-shot"); if (!fig) return;
     fig.classList.remove("ar-loading");   // a file that will never arrive must not go on spinning
     fig.classList.add("media-dead");
     // a floated slot would otherwise keep its margin — and the space the prose wraps around — about nothing
