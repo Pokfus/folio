@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C35 — six capitals none of which the world weather index carries, two constitutions that name their capital where nine had not, and one that orders the capital MOVED**: `gw-710` Philipsburg, `gw-711` Vaduz, `gw-712` Road Town, `gw-715` Majuro, `gw-716` San Marino and `gw-720` Ngerulmud, with all six date lines rewritten off the same research. Taken from the AUDIT'S OWN FLAGGED LIST rather than in id order — `gw-713` and `gw-714` are city-states the plan never wrote, and `gw-717`–`gw-719` already pass all four rules.
+
 - **2026-09-14, batch C34 — six capitals, four of them in no weather index at all, two filed in it under a state they are not part of, a capital the UN profile names as somewhere else, and a constitution that never uses the word**: `gw-704` Nuuk, `gw-705` Tórshavn, `gw-706` Basseterre, `gw-707` Pago Pago, `gw-708` Cockburn Town and `gw-709` Capitol Hill, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-14, batch C33 — six island capitals, three Crown Dependencies and Overseas Territories the weather index files under a state they are not part of, and a constitution that locates its Governor by an island rather than a seat**: `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau and `gw-703` Hamilton, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -454,6 +456,94 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C35 found
+
+**THE BATCH WAS PICKED FROM THE AUDIT, NOT FROM THE RUNNING ORDER, AND THAT IS HOW THE REST OF THIS PASS
+SHOULD BE PICKED.** `node .claude/gw-audit.js --list=us|grid|nature|borders|dateline` prints the card ids
+under each rule; the union of those five lists IS the backlog. Walking the ids in order instead wastes a
+batch slot on every card that already passes — `gw-717` Mariehamn, `gw-718` Marigot and `gw-719` The
+Valley are all clean, and `gw-713` and `gw-714` are Macau and Monaco, whose capital cards the plan
+deliberately never wrote. **Read the lists first.**
+
+**NOT ONE OF THE SIX IS IN THE WORLD WEATHER INDEX, AND FOR ONE OF THEM THE INDEX NAMES THE COUNTRY AND
+MISSES THE CITY.** The flat city list carries a member called **`Curaçao and Sint Maarten`** whose two
+entries are Willemstad and **Oranjestad, which is in Aruba** — so Sint Maarten is named in the index and
+has no station in it. That is C32's misfiled capital and C33's coarse index in one row. **The replacement
+leg is the territory's own met service**, and for Philipsburg that is the Meteorological Department St.
+Maarten, whose annual Climatological Summary is a full 1981–2010 normal set.
+
+**AND THAT DEPARTMENT'S TWO PUBLICATIONS DISAGREE ABOUT ITS OWN SEASONS.** The 2018 summary makes January
+to June the dry half and July to November the wet; the department's `Climate` page gives a dry season from
+December to May and a rainy one from June to November. Neither is wrong about the island — they are two
+ways of cutting one bimodal year — but a card that took either alone would be asserting a boundary its own
+source does not agree on. **The card prints both and says they differ**, which is the same rule the
+WMO-against-national-normals rainfall gap taught in C34.
+
+**A NATIONAL MET SITE CAN BE COMPROMISED AND STILL BE THE RIGHT SOURCE.** `meteosxm.com` carries injected
+French casino spam in its footer and in its link graph, and one of its own annual-summary pages 404s. The
+department's identity is not in doubt (its address, phone numbers and staff pages are all there) and the
+2018 summary PDF is its own document, so the **PDF** is cited and the live pages are used only for what
+they plainly publish. **Check what a government site is serving before quoting its HTML**; prefer the
+artefact it published to the page that frames it.
+
+**TWO CONSTITUTIONS NAME THEIR CAPITAL OUTRIGHT, WHICH IS NEW.** Nine Westminster deputy clauses across
+C31–C34 mention a seat of government without naming it. **Liechtenstein names Vaduz in ARTICLE 1** —
+“Vaduz is the capital and the seat of Parliament and the Government” — in the same article that divides
+the state into two regions and eleven communes. **And Palau's goes further than naming: it MOVES the
+capital.** Article XIII, section 11 puts the provisional capital at Koror and requires the Olbiil Era
+Kelulau, within ten years of the constitution taking effect, to designate a place **in Babeldaob** as the
+permanent one. Ngerulmud is what that clause produced. **A constitution can be the reason a capital
+exists**, and this is the first card in the pass where it is.
+
+**THE DEPUTY CLAUSE MEANWHILE TURNS UP TWICE MORE, AT SECTIONS 39 AND IN AN EXECUTIVE ARTICLE.** The
+Virgin Islands Constitution Order 2007 has it at **section 39** and never uses the word *capital* or the
+words *Road Town*; the Marshall Islands constitution has it in its executive article and never names
+Majuro as the capital either. **But the Marshallese text says something better**: Majuro returns **five of
+the Nitijela's thirty-three seats**, more than any other electoral district, which is the capital's weight
+stated in the one place the constitution counts.
+
+**A UN PROFILE CAN NAME A DIFFERENT CITY AND THEN FOOTNOTE A THIRD.** Palau's profile prints **Melekeok**
+as the capital — not Ngerulmud, which is the place — and footnotes the figure beside that name, 11,400
+for 2018, as referring to **Koror**. Three names for one row. This is C34's Garapan finding with a second
+displacement on top of it, and the card says so rather than quietly correcting the profile.
+
+**A NATIONAL STATISTICS OFFICE CAN SETTLE A CAPITAL FIGURE THAT NOTHING ELSE CAN.** San Marino's Ufficio
+Nazionale di Statistica publishes resident population **per castello, month by month**: the capital had
+**4,158** in June 2026 against Serravalle's 11,243 and Borgo Maggiore's 7,019, which makes it the third of
+the nine and confirms the UN's 4,500 to within a few hundred. **Look for a monthly bulletin before
+concluding a small state publishes nothing about its capital**; the same table carries firms per castello,
+which is how the card can say the capital is commercially busier than its size.
+
+**WHERE THE NATURE LEG CAME FROM WHEN NOTHING MODERN WAS OPEN.** Three of the six had no reachable modern
+paper. **Vaduz was saved by a scholarly encyclopedia with named authors and a date** — the *Historisches
+Lexikon des Fürstentums Liechtenstein*, whose `Vaduz (Gemeinde)` article carries a full
+*Naturräumliche Voraussetzungen* section: the Möliholzrüfe and Spaniarüfe torrents, the Altabach and
+Mölibach now culverted, the Rhine breaches of 1846, 1855 and 1888, the fountain cooperatives that delayed
+a public water supply to 1910. **San Marino was saved by an 1879 traveller's book on archive.org**, J.
+Theodore Bent's, which gives the mountain's height, the distance to Rimini, the three towers over the
+plain and the spring that names Acquaviva. **And Road Town was saved by a 1966 USGS administrative
+report** giving rainfall at the botanic station in the town, on Mount Sage and at the island's ends, and
+the fracture porosity of the bedrock.
+
+**THAT 1966 REPORT'S AUTHOR IS THE MAN CROSSREF MISSPELLS.** It is by **Donald G. Jordan** — the same
+hydrologist whose name the USGS catalogue renders “D.G. Jordon” on the 1972 open-file report, which is
+the `CROSSREF_WRONG` row C32 added. Crossref holds **no authors at all** for this one, so it goes to the
+unchecked pile and the row is not needed twice; worth knowing that the two records of one man disagree
+in two different ways.
+
+**A CARD MAY NOT LEAVE A FIGURE'S UNIT TO THE PARENTHESIS BEFORE IT.** Two sentences read “about 96 square
+kilometres (37 square miles) … of which this side holds 41” and “a lagoon of roughly 1,450 square
+kilometres (560 square miles), of which patch reefs make up about 53”. Both are correct in the authored
+metric-first form and both BREAK for a reader in imperial mode, where `unitizeText` swaps the pair round
+and the bare number is then read as square miles. **A bare follow-on figure must carry its own conversion
+or be dropped**; the checker cannot see this, and neither can a reader of the authored text.
+
+**AND `better border control` TRIPS RULE 4.** `BORDERISH` matches `border(s|ed|ing)?`, so a sentence about
+immigration policy that also names the Netherlands is reported as a background listing its neighbours. The
+finding is a false positive and the fix was still to reword — *tighter control of entry to the country* —
+because the alternative is a declared exception on a rule whose whole value is that it has none. **Watch
+for `border` in its administrative sense** on any card that also names a state.
 
 ## What C34 found
 
