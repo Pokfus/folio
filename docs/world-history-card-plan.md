@@ -879,8 +879,14 @@ second half. The glossary term is keyed `Indianisation`, with *Indianization* an
 
 ### Africa — `wh-africa`
 
+*Retitled while writing (Sep 2026): `wh-567` was *Trans-Saharan trade*, which `wh-423` already
+cards under exactly that answer term and which `Trans-Saharan_trade` already has as a glossary entry.
+The line is now **Sijilmasa**, the northern gateway of the western route — a place the sources
+(Ibn Battuta, Leo Africanus) describe at first hand, not taken by any other line in the plan, and the
+half of the trade `wh-423` does not reach.*
+
     wh-566  Ghana Empire
-    wh-567  Trans-Saharan trade
+    wh-567  Sijilmasa
     wh-568  Mali Empire
     wh-569  Sundiata Keita
     wh-570  Mansa Musa

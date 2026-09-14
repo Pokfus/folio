@@ -3744,7 +3744,12 @@ window.GLOSSARY = {
 "Anuradhapura": "Anuradhapura is a city in the dry northern plain of Sri Lanka which served as the island’s capital for most of the period from about 437 BCE to 1017 CE.<sup class=\"fn\" data-fn=\"1\"></sup> The Pali chronicle tradition credits its founding to Pandukabhaya, who is said to have laid out suburbs, a reservoir and a quarter for foreign residents beside the village of a kinsman named Anuradha.<sup class=\"fn\" data-fn=\"2\"></sup> It became the centre of a monastic landscape of great brick stupas and reservoirs, and a Chinese pilgrim who stayed there about 410 counted five thousand monks at one of its monasteries alone.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Spice_trade": "The spice trade is the long-distance traffic in pepper, cinnamon, cloves, nutmeg and mace, aromatic products that grew in a few limited regions of southern and southeastern Asia and were carried to markets far beyond them.<sup class=\"fn\" data-fn=\"1\"></sup> Roman writers of the 1st century record pepper selling in Italy at four to fifteen denarii a pound and complain that it was bought by weight like gold or silver.<sup class=\"fn\" data-fn=\"1\"></sup> At the growing end the same goods were cheap, and a Portuguese account of about 1518 found nutmeg so plentiful in the islands that produced it that people burned it as fuel.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Dhow": "A dhow is any of the lateen-rigged wooden sailing vessels of the Indian Ocean, a single name covering craft that their builders distinguish by separate type names such as kotia, baggala and machwa.<sup class=\"fn\" data-fn=\"1\"></sup> The characteristic hull is sewn rather than nailed, its planks stitched edge to edge with cord spun from palm fibre or coconut husk, which is cheap and gives a hull that flexes instead of splitting.<sup class=\"fn\" data-fn=\"1\"></sup> The construction is recorded in a Greek merchant’s handbook of the 1st century and again by Marco Polo at Hormuz twelve hundred years later, and survived on some coasts into modern times.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Malacca_Sultanate": "The Malacca Sultanate was a Malay state on the strait between Sumatra and the Malay peninsula which became the principal entrepôt of the monsoon trade between the Indian Ocean and the China seas.<sup class=\"fn\" data-fn=\"3\"></sup> Malay tradition traces its founding to a prince displaced from Singapura who named the city after a tree, while a Chinese account of 1416 describes a chiefdom tributary to Siam until a Ming envoy raised it to a kingdom in 1409.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its rulers were Muslims by the early 15th century, and the state ended when a Portuguese force took the city in 1511.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Malacca_Sultanate": "The Malacca Sultanate was a Malay state on the strait between Sumatra and the Malay peninsula which became the principal entrepôt of the monsoon trade between the Indian Ocean and the China seas.<sup class=\"fn\" data-fn=\"3\"></sup> Malay tradition traces its founding to a prince displaced from Singapura who named the city after a tree, while a Chinese account of 1416 describes a chiefdom tributary to Siam until a Ming envoy raised it to a kingdom in 1409.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its rulers were Muslims by the early 15th century, and the state ended when a Portuguese force took the city in 1511.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Sijilmasa": "Sijilmasa was a caravan city in the Tafilalt, the lower valley of the Ziz on the northern edge of the Sahara in what is now southeastern Morocco.<sup class=\"fn\" data-fn=\"3\"></sup> It stood at the head of the western trans-Saharan route, and its mint turned gold carried up from the south into coin, quarter dinars struck there being among the purest medieval gold yet measured.<sup class=\"fn\" data-fn=\"2\"></sup> Ibn Battuta set out from it into the desert in 1352, while a traveller of the early 16th century found the city destroyed in a rebellion and deserted, its people scattered among fortified villages in the palm groves.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Mali_Empire": "The Mali Empire was a West African state that grew as Ghana declined, defeating the Susu and taking Ghana’s lands westward to the Atlantic before extending east to Gao on the Niger.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings were Muslims who made the pilgrimage to Mecca, a custom Arabic writers traced to its first convert, and their wealth rested on the gold and salt trade that crossed the desert.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Ibn Battuta, who reached its court in 1352, praised the security of its roads and the regard paid to justice there, and a later traveller found its ruler reduced to a tributary of Songhai.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Sundiata_Keita": "Sundiata Keita is remembered as the founder of the Mali Empire, the ruler who broke the power of Soso and made the Mande chiefdoms into a single state.<sup class=\"fn\" data-fn=\"2\"></sup> The written record of him is a single short passage in Ibn Khaldun, which names him Mari Jata, explains the name as a prince joined to a lion, credits him with conquering the Susu and a reign of 25 years, and admits that his ancestry could not be learned.<sup class=\"fn\" data-fn=\"1\"></sup> Everything else comes from the Mande oral epic, sung by griots across Senegal, Gambia, Guinea and Mali, which is performed rather than fixed in writing.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Mansa_Musa": "Mansa Musa was a ruler of the Mali Empire whose pilgrimage to Mecca in 1324 became one of the best-known events in the history of medieval Africa.<sup class=\"fn\" data-fn=\"3\"></sup> Arabic writers describe a party of twelve thousand attendants and eighty loads of gold dust, and record that he refused to prostrate himself before the Mamluk sultan on the ground that he was a Muslim of the Maliki rite.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Al-Umari reports that the gold spent in Cairo drove the mithqal from 25 dirhams to no more than 22, where it stayed for 12 years afterwards.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Ghana_Empire": "The Ghana Empire was a state of the western Sahel, in what is now southeastern Mauritania and western Mali, and its name was properly the title borne by its king rather than the name of the country.<sup class=\"fn\" data-fn=\"1\"></sup> It lay between the goldfields to the south and the Saharan crossings to the north, so that it lived on what passed in either direction, and caravan towns such as Tegdaoust and Koumbi Saleh handled the traffic.<sup class=\"fn\" data-fn=\"2\"></sup> Ibn Khaldun, writing in the 1390s, reports that the Almoravids attacked it, took its territory and imposed Islam, after which the Susu overran what was left and the kings of Mali absorbed its lands.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5639,7 +5644,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Red_Eyebrows": "18 – 27 CE",
 "Borobudur": "c. 780 – 850 CE",
 "Anuradhapura": "c. 437 BCE – 1017 CE",
-"Malacca_Sultanate": "1409 – 1511"
+"Malacca_Sultanate": "1409 – 1511",
+"Mali_Empire": "13th – 16th century CE",
+"Sundiata_Keita": "c. 1230 – 1255 CE",
+"Mansa_Musa": "pilgrimage 1324 – 1325 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7850,7 +7858,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Anuradhapura": ["Anuradhapura Kingdom"],
 "Spice_trade": ["spice trade route","trade in spices"],
 "Dhow": ["dhows"],
-"Malacca_Sultanate": ["Sultanate of Malacca","Melaka Sultanate"]
+"Malacca_Sultanate": ["Sultanate of Malacca","Melaka Sultanate"],
+"Sijilmasa": ["Sijilmassa"],
+"Mali_Empire": ["empire of Mali","Mali empire"],
+"Sundiata_Keita": ["Sundiata","Sunjata"],
+"Mansa_Musa": ["Musa of Mali"],
+"Ghana_Empire": ["empire of Ghana","Ghana empire"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -11636,7 +11649,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Anuradhapura": ["city","history","religion","asia","archaeology","geography"],
 "Spice_trade": ["concept","history","economy","trade","geography","nature"],
 "Dhow": ["object","history","technology","economy","geography","asia"],
-"Malacca_Sultanate": ["state","history","economy","religion","asia","geography"]
+"Malacca_Sultanate": ["state","history","economy","religion","asia","geography"],
+"Sijilmasa": ["city","history","africa","trade","islam","morocco"],
+"Mali_Empire": ["state","history","africa","trade","islam","mali"],
+"Sundiata_Keita": ["person","ruler","history","africa","mali","literature"],
+"Mansa_Musa": ["person","ruler","history","africa","mali","islam"],
+"Ghana_Empire": ["state","history","africa","trade","islam","mauritania"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

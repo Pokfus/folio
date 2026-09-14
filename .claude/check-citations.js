@@ -266,6 +266,11 @@ const CROSSREF_WRONG = [
   // it carries on that byline (0000-0003-1420-2108) registers Steven Paul Ashby.
   // Crossref itself spells him Steven on 10.3176/arch.2020.1.01, under the same ORCID.
   ["10.11141/ia.30.3", "Steven P. Ashby", "Stephen P. Ashby"],
+  // Persee’s metadata for this article is OCR-derived and mangles the byline twice over:
+  // its reference block reads "Skydou Christian" and Crossref relays it. The article’s own
+  // first page prints "CHRISTIANE SEYDOU" above the title, and the Journal des africanistes
+  // published her under that name throughout.
+  ["10.3406/jafr.1988.2246", "Christiane Seydou", "Christian Skydou"],
 ];
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */
