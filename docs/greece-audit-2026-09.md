@@ -1201,6 +1201,43 @@ shapes, and only the first has the cheap fix this pair of batches used.
    deliberately not in the fast gate, so a standing backlog is what it is FOR; a table that made these
    pass would buy a green run at the price of the one signal the check exists to give.
 
+### R21 — Greek lyric and one weight standard (shipped 2026-09-14)
+
+Three more cleared, all of shape 1 above, and the pattern is the same each time: **find the ONE
+citation whose markers another source on the card, or one openly reachable, already carries.**
+
+| card | dropped | where it went |
+|---|---|---|
+| `gr-350` lyric poetry | Smyth xx and vii–viii, two of his four | Jebb's own introduction states the canon better than Smyth does — "He is the latest of the nine poets whom the Alexandrians included in their lyric canon, the others being Alcman, Alcaeus, Sappho, Stesichorus, Ibycus, Anacreon, Simonides and Pindar" (p. 28) — and Edmonds's preface to *Lyra Graeca* carries what survives and how the Egyptian papyri enlarged it |
+| `gr-359` Anacreon | Smyth 280–81, one of his three | Murray 94–95, which has the *Anacreontea* "dating from various times between the third century B.C. and the Renaissance" and "the incessant imitations which have fixed him as a type of the festive and amorous septuagenarian" |
+| `gr-227` weight standard | Meadows's BMCR review of the Oxford Handbook, one of his three | Metcalf's BMCR review of von Reden, already on the card, which describes weight standards as monetary networks and gives the Ptolemaic case of foreign coin exchanged on entry for a lighter standard. **No prose changed at all** |
+
+**`gr-227` IS THE SHAPE TO LOOK FOR FIRST IN THE REST OF THE BACKLOG**: a third citation of one author
+whose only marker sits on a sentence ANOTHER source on the same card already shares. It costs one fetch
+to confirm and no rewriting. `wh-093` was the same shape one step out — the replacement was on the card
+already, it just had to be read.
+
+**AND ONE LOSS IS WORTH RECORDING.** `gr-350` gave up "scattered through the manuscripts of more than
+eighty later authors, grammarians, scholiasts and geographers", which is Smyth's own count and which
+nothing else openly reachable states. What replaced it — the slender store that the Egyptian papyrus
+finds enlarged — is Edmonds's, and it reads better against the next sentence, which is the 1896
+Bacchylides papyrus. **A re-sourcing pass costs facts; the question is whether the card is better after
+it, not whether nothing was lost.**
+
+### Read next, in this order
+
+1. **`wh-099` Monte Verde** — Dillehay in three of eight, and the card already carries Surovell, Waters
+   and two Meltzer papers. Its trap is that `[1]` is "Mario Pino and Tom D. Dillehay", a DIFFERENT author
+   key, so moving a claim onto it would clear the check while changing nothing about who the card rests
+   on. **Do not do that.**
+2. **`ps-048` structuralism** — Titchener in three of six, all three his own papers at
+   psychclassics.yorku.ca. Very close to the `citesOwnSubject` case the tool excuses, and CLAUDE.md
+   already records that it "correctly stays a finding" because the answer term is structuralism rather
+   than the man.
+3. **`gr-323` Corinthian pottery and `gr-334` archaic smile** — Walters in three of five and Gardner in
+   five of nine. These are the expensive end: `gr-334` needs three citations replaced, which is a
+   re-sourcing of most of the card.
+
 ## `check-cards.js`'s own findings, moved out of `CLAUDE.md` (2026-09-11)
 
 **READ BEFORE OPENING A RE-SOURCING BATCH ON THE GREECE COLLECTION.** The account as it stood in
