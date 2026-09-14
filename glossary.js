@@ -3739,7 +3739,8 @@ window.GLOSSARY = {
 "Emperor_Guangwu_of_Han": "<b>Emperor Guangwu</b> is the temple style of Liu Xiu, who restored the Chinese Han dynasty in 25 CE and reigned until 57.<sup class=\"fn\" data-fn=\"1\"></sup> A provincial landholder descended at some remove from an earlier Han emperor, he joined the risings against the usurper Wang Mang, made his name by destroying an imperial army at Kunyang in 23 CE, and was proclaimed emperor by his own officers two years later.<sup class=\"fn\" data-fn=\"1\"></sup> He spent a further eleven years reducing rival claimants, moved the capital to Luoyang, and rebuilt the imperial university there in 29 CE with fourteen professors of the classics.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Luoyang": "<b>Luoyang</b> is a city on the Luo river in western Henan, in northern China, and one of the longest-serving capitals in Chinese history.<sup class=\"fn\" data-fn=\"1\"></sup> The Zhou kings moved their court there in the 8th century BCE, it was the seat of the Han empire from 25 to 190 CE, and later dynasties governed from it again, so the ground east of the modern town carries the remains of successive walled capitals.<sup class=\"fn\" data-fn=\"1\"></sup> Under the Han it held the palaces, the ministries and an imperial university founded in 29 CE, and it was burned in 190 CE when a warlord forced the court to move west.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Protectorate_of_the_Western_Regions": "The <b>Protectorate of the Western Regions</b> was the office through which the Chinese Han empire dealt with the oasis kingdoms between the Jade Gate and the Pamirs, created in 60 BCE when a general already commanding a military colony there was made protector general.<sup class=\"fn\" data-fn=\"1\"></sup> Its holder did not govern those states but confirmed their kings, judged between them and maintained garrisons and postal stages, against a Xiongnu confederacy competing for the same allegiance.<sup class=\"fn\" data-fn=\"2\"></sup> Expensive and remote, the post lapsed and was revived repeatedly, standing empty from 9 CE, restored in 74, abandoned again after 77, revived in 91 and given up in 107.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Red_Eyebrows": "The <b>Red Eyebrows</b> were a peasant army that rose in eastern China in 18 CE against the usurper Wang Mang, taking their name from the dyed eyebrows by which they told one another from government troops.<sup class=\"fn\" data-fn=\"1\"></sup> Led by Fan Chong, they grew out of a countryside in which smallholders had lost their land to debt, kept no formal ranks or order of battle but forbade killing without cause, and destroyed two imperial armies before marching on the capital and installing an emperor of their own.<sup class=\"fn\" data-fn=\"2\"></sup> They were broken in 27 CE.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Red_Eyebrows": "The <b>Red Eyebrows</b> were a peasant army that rose in eastern China in 18 CE against the usurper Wang Mang, taking their name from the dyed eyebrows by which they told one another from government troops.<sup class=\"fn\" data-fn=\"1\"></sup> Led by Fan Chong, they grew out of a countryside in which smallholders had lost their land to debt, kept no formal ranks or order of battle but forbade killing without cause, and destroyed two imperial armies before marching on the capital and installing an emperor of their own.<sup class=\"fn\" data-fn=\"2\"></sup> They were broken in 27 CE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Moscow_Oblast": "Moscow Oblast is a constituent entity of the Russian Federation occupying a ring of the East European Plain around the city of Moscow, which is a separate constituent entity rather than part of it.<sup class=\"fn\" data-fn=\"1\"></sup> The ground is level, it lies in the belt of mixed coniferous forest and is drained by the Oka and its tributaries, and its climate is temperate, humid and moderately continental.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its people are settled in a ring of satellite towns rather than one centre, several of them closed to outsiders under the Soviet Union, and in July 2012 some 1,500 square kilometres (580 square miles) of its territory were transferred to the city it encloses.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7842,7 +7843,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
-  "Providence": true,
+"Providence": true,
 "Pacific_Ocean": true,
 "Council_of_Five_Hundred": true,
 "Homo": true,
@@ -7856,7 +7857,6 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Works_and_Days": true,
 "Emporion": true,
 "Geometric_period": true,
-"Providence": true,
 "Four_Symbols": true,
 "Legend_of_the_White_Snake": true,
 "Afar_Region": true,
@@ -11619,7 +11619,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Emperor_Guangwu_of_Han": ["person","ruler","history","china","han dynasty"],
 "Luoyang": ["city","place","history","geography","china"],
 "Protectorate_of_the_Western_Regions": ["institution","title","history","china","han dynasty","central asia","diplomacy"],
-"Red_Eyebrows": ["event","people","history","warfare","china","han dynasty","rebellion"]
+"Red_Eyebrows": ["event","people","history","warfare","china","han dynasty","rebellion"],
+"Moscow_Oblast": ["place","geography","region","russia","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

@@ -18,8 +18,8 @@ The next card to write is the lowest `gru-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gru-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far: `gru-001` Moscow.** It was written first so that the new map layer, the fit and the
-shading were proved on a real card rather than on a test — which is how the China collection opened and
+**Shipped so far: `gru-001` Moscow and `gru-002` Moscow Oblast.** The first was written so that the new
+map layer, the fit and the shading were proved on a real card rather than on a test — which is how the China collection opened and
 for the same reason, and the card was rendered and looked at before it was called done. **The capital
 card that was to have gone with it did NOT ship, and why is the most useful thing this batch found** —
 see "The capital half needs a sourcing recipe" below. The rest follow one subject at a time, in the
@@ -523,6 +523,10 @@ CITY and the UN publishes city figures; `gru-002` onward are not.
 
 **So a `gru-002` written today would carry `?` in all four rows**, which is honest and is also a box worth
 nothing to a reader. **The card was therefore NOT written**, rather than shipped empty.
+
+**`gru-002` SHIPPED UNDER OPTION 3 BELOW, on the owner's instruction**, with `Capital: Krasnogorsk` and
+three question marks. Its prose is fully sourced; the box is not, and the box is the part to fix. Every
+card from here follows it until the question below is settled.
 
 **Three ways out, none of them taken yet — this is a decision for the site's owner:**
 
