@@ -45,6 +45,7 @@ window.CHANGELOG = [
       "<b>Visual Art has been cleared and restarted</b> \u2014 it is a collection of artworks now rather than a history of art, and every card is one work you can be shown.",
       "<b>An artwork card shows the picture and nothing else</b>, and you name the title, the artist, the date and where the work is today in four boxes underneath.",
       "<b>Each of the four answers is marked on its own</b>, with a date counted close when it is near enough for a work that old rather than wrong by a year.",
+      "<b>Two new cards in the Visual Art collection</b>, the first written to the new format and the beginning of the collection again.",
       "<b>Eighty-nine more capital-city backgrounds are now about the city</b> \u2014 its rivers, its rock, its weather and its own history rather than a record of diplomatic recognition.",
       "<b>Measurements read correctly in imperial again</b> \u2014 dozens of cards and glossary terms were dropping a word such as a place name when you asked for feet and miles.",
     ],

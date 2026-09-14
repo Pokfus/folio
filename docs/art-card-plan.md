@@ -598,6 +598,16 @@ school, a market or a museum had no member to promote and was replaced outright 
 slice. **The year on every replaced line was checked against its neighbours**, because the running order
 is the chronology and nothing on the page says when it takes a backward step.
 
+**THE FIRST TWO CARDS SHIPPED WITH IT**, `art-001` the Lion-man of Hohlenstein-Stadel and `art-002` the
+Vogelherd horse, and the opening of `art-iceage` was re-cut round them: Blombos, Leang Tedongnge, El
+Castillo, Chauvet and the Pech Merle panel have **no free photograph in existence** — the published
+images belong to the excavators and their journals — so under the new rule they could not be carded and
+the slice now opens on the Swabian ivories, which Commons holds in high resolution. **A famous work can
+be unshowable for want of a photographer as easily as for copyright**, and the check is `node
+.claude/check-image-free.js` plus a Commons search BEFORE the research, not after. Both cards' glossary
+terms already existed and were reused — **check before running `add-glossary.js`, which overwrites in
+silence.**
+
 **AND THE MODERN DECKS LOST WORKS RATHER THAN GAINING THEM.** With no picture-less card available any
 more, *Guernica*, *Nighthawks*, the *Marilyn Diptych* and everything else still in term came out; see
 "Copyright" above for where they went and why that is the honest answer rather than a gap.
