@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C25 — six capitals, a weather record with an entirely blank month, and a constitution that files its capital among the national symbols**: `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga and `gw-652` Skopje, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-13, batch C24 — six capitals, three constitutions that say nothing at all, and two draft constitutions that never came into force**: `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-645` Chișinău and `gw-646` Tirana, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-13, batch C23 — six capitals, a territory with no weather record and no constitution to cite, and a constitution that spells its capital differently**: `gw-635` San Juan, `gw-636` Sarajevo, `gw-637` Yerevan, `gw-638` Windhoek, `gw-639` Vilnius and `gw-640` Doha, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -434,6 +436,72 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C25 found
+
+**A WEATHER RECORD CAN HAVE AN ENTIRELY BLANK MONTH, and that is the sixteenth shape this leg has
+failed in.** Bissau's record carries eleven months and a December that is null in every field at once
+— no maximum, no minimum, no rainfall, no rain days — and the previous fifteen shapes were all
+about the PERIOD or the STATION rather than about a hole in the table itself. Every annual figure a
+card gives from such a record is therefore a figure for eleven months, and the card has to say so:
+1,756 millimetres is what the months that carry a figure add to, not the year.
+**AND THE REASON IS PUBLISHED, WHICH IS WHAT MAKES IT WRITEABLE RATHER THAN A SHRUG.** An open paper
+on the country's own weather data says the country keeps long-term records at three places only
+— the capital, Bafatá and Bolama — and that all three are incomplete after documents were lost in
+the civil war of 1998 and 1999 and the stations went untended for lack of money. **A gap explained
+is a fact about the place; a gap merely noted is a complaint about the source.** Look for the
+national meteorology paper before writing the gap up.
+
+**A COUNTRY CAN BE MISSING FROM THE WMO INDEX ALTOGETHER.** Equatorial Guinea has no row in the list
+of 3,598 cities, so Malabo has no record of any kind — the first time this pass has met a whole
+member absent rather than a capital absent. It is a different finding from Maseru's, in the same
+batch, where the country has **thirteen** rows and not one of them the capital: there the nearest
+record is filed under **Mejametalana**, at 29.31° S and 27.50° E, and is flagged `isCapital: false`.
+**A country well covered is no guarantee its capital is covered, and a capital uncovered is not the
+same as a country uncovered.** Both are writeable; they are written differently.
+
+**THE CONSTITUTE INDEX IS KEYED ON `country_id`, NOT ON THE COUNTRY'S PRINTED NAME, AND THAT COST
+THIS BATCH A FALSE FINDING.** Guinea-Bissau was recorded mid-research as having no constitution in
+the index at all — the sovereign-state counterpart of C23's territory with no entry — and it was
+wrong: the record is `Guinea_Bissau_1996`, with an **underscore** where the country's name has a
+hyphen, and a search on the printed spelling returns nothing. **Search the cached index on a
+substring, never on the exact name**, and re-check a "no record" conclusion before writing a card
+around it.
+
+**AND WHAT THAT RECORD SAYS IS A CONSTITUTIONAL SHAPE THE PASS HAD NOT MET: THE CAPITAL AS A
+NATIONAL SYMBOL.** Article 23 names the city, and it stands at the END of the sequence describing
+the flag, the coat of arms and the anthem — so the text files where the state sits among the
+emblems rather than among its administrative arrangements. North Macedonia's Article 6 is the same
+placement, between the symbols article and the language article, and Slovenia's Article 10 is the
+opposite, between the guarantee of local self-government and the language. **Where a constitution
+names the capital is worth a clause; it is the cheapest sentence in the whole recipe and the one
+most often thrown away.**
+
+**LATVIA BINDS THE PARLIAMENT TO THE CITY WITHOUT EVER CALLING IT THE CAPITAL.** Article 15 reads
+that the Saeima shall hold its sittings in Riga and may convene elsewhere only in extraordinary
+circumstances, and the word capital appears nowhere in the text — though the Constitute topic tag
+above the article says **National capital**, which is the site's own classification and not the
+document's words. **Read the article, never the tag**: this is the third time in three batches the
+tag has promised something the text does not say.
+
+**TWO MORE TOTAL SILENCES, taking the run to five in three batches.** Lesotho's 1993 constitution as
+amended through 2025 does not name the city, does not use the word capital in any sense at all —
+not even the financial one — and does not locate the seat of government either; Equatorial Guinea's
+1991 text as amended through 2012 uses the word only of money, three times, all of it about foreign,
+public and private investment. **A text silent about its own capital is now the ordinary case rather
+than the odd one**, and the card says so in a sentence instead of leaving a gap.
+
+**THREE MORE CAPITAL FIGURES DATED 2018 RATHER THAN 2019** — Maseru, Ljubljana and Malabo, against
+2019 for Bissau, Riga and Skopje — which confirms C24's finding that the year in the capital-city
+row is a fact about that country's own last usable count and not a rule of the table. **Read the
+footnote letter; do not assume the year from a neighbour.**
+
+**AND A PDF EXTRACTOR THAT RETURNS FONT NAMES IS NOT BROKEN, IT IS READING HEX STRINGS.** Three of
+this batch's papers came back as `WindowsWindowsMacintosh` and megabytes of noise from the
+scratchpad's own extractor, which reads only `(…) Tj` literal strings; the text was in `<hex>`
+form behind a ToUnicode CMap. A variant that also decodes hex strings and applies the merged CMap
+reads all of them. **A binary-looking extraction is a format finding, not a paywall** — check the
+shape of the output before concluding the PDF is unreadable.
 
 ## What C24 found
 

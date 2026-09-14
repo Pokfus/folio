@@ -35,9 +35,16 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.733", released: "2026-09-13T23:44Z" };
+window.FOLIO_VERSION = { v: "1.734", released: "2026-09-14T00:58Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-09-14",
+    t: "Six more capital cities describe themselves",
+    items: [
+      "<b>Six more capital-city backgrounds are now about the city</b> \u2014 its rivers, its rock, its weather and its own history rather than a record of diplomatic recognition.",
+    ],
+  },
   {
     d: "2026-09-13",
     t: "Plato’s Republic gains its Greek, paired on the Stephanus numbers",
