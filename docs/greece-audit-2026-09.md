@@ -1238,6 +1238,42 @@ it, not whether nothing was lost.**
    five of nine. These are the expensive end: `gr-334` needs three citations replaced, which is a
    re-sourcing of most of the card.
 
+### R22 — papermaking, and the arithmetic that decides whether a drop is possible at all
+
+`wh-412` had Jean-Pierre Drège in three of five. His codicological notes on the Dunhuang and Turfan
+manuscripts marked one clause — that what a sheet is made of stays legible enough afterwards to date a
+manuscript by — which is that article's subject rather than this card's, so the clause went and the
+Shaanxi fibre analysis stayed on the review of Pan Jixing it came from.
+
+**THE DROP TOOK THE CARD TO FOUR SOURCES, UNDER THE BAR, WHICH IS THE CONSTRAINT TO CHECK FIRST.**
+`SRC_TARGET` is 5, so a card with five sources and one author in three of them cannot simply lose one:
+either a new source comes in, or an existing citation splits where its own claims already fall. Carter's
+did — it read "3–8 and 93–98", which is two citations written as one, and the two halves carry
+different sentences (Cai Lun and the 105 CE report; the craft's journey west after 751).
+
+**Run the arithmetic BEFORE the research**: `sources.length - 1 >= SRC_TARGET`, or the batch needs a new
+source however cheap the drop looked. It is what stopped `wh-126` 'Ain Ghazal in this batch — Rollefson
+in three of five, so dropping one needs a replacement, and the two independent studies of the statuary
+(Grissom in AJA 104 and Schmandt-Besserat in BASOR 310, both verified in Crossref) are on JSTOR where
+neither could be read to check that it carries the claim. **A paywalled citation this session could not
+open is one nobody checked**, which is the rule the whole apparatus rests on.
+
+### A tool worth keeping: which citation is cheapest to drop
+
+For every over-cited card, count per offending citation how many sentences carry it ALONE (`excl`) and
+how many share it with another source (`shared`). A citation at **`excl=0`** can be dropped with no
+prose change at all, provided the co-cited source really carries the claim — which is `gr-227`'s shape
+and was found the same way. Measured over the whole backlog, the `excl=0` citations sit on `gr-032`,
+`gr-159`, `rm-038`, `ps-048`, `wh-412`, `wh-099` and `gr-334`, and **four of those seven are traps**:
+
+- `gr-032` — the co-cited source is the Dartmouth course website, so the drop clears the rule by
+  deepening the concentration this audit exists to reduce.
+- `ps-048` — the shared sentence says what Titchener ANSWERED, which Watson's manifesto beside it
+  cannot support.
+- `wh-099` — the co-cited source is "Mario Pino and Tom D. Dillehay", a different author KEY and the
+  same team, so the drop would change the count and nothing else.
+- `gr-159` — Pestarino is in four of six, so two must go and the card falls to four sources.
+
 ## `check-cards.js`'s own findings, moved out of `CLAUDE.md` (2026-09-11)
 
 **READ BEFORE OPENING A RE-SOURCING BATCH ON THE GREECE COLLECTION.** The account as it stood in
