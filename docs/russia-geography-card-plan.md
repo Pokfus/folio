@@ -524,11 +524,21 @@ CITY and the UN publishes city figures; `gru-002` onward are not.
 **So a `gru-002` written today would carry `?` in all four rows**, which is honest and is also a box worth
 nothing to a reader. **The card was therefore NOT written**, rather than shipped empty.
 
-**`gru-002` SHIPPED UNDER OPTION 3 BELOW, on the owner's instruction**, with `Capital: Krasnogorsk` and
-three question marks. Its prose is fully sourced; the box is not, and the box is the part to fix. Every
-card from here follows it until the question below is settled.
+**`gru-002` shipped with `Capital: Krasnogorsk` and three question marks**, which is the worst case; from
+`gru-003` on the *Largest city* row is filled wherever the join below settles it, so most cards carry two
+real rows and two `?`.
 
-**Three ways out, none of them taken yet — this is a decision for the site's owner:**
+**THE OWNER HAS DECIDED: OPTION 3.** The grid keeps its four rows on every card, and a figure that
+cannot be sourced is written `?`. So this section is now a record of what was measured rather than an open
+question — **do not re-run the search per card**; the hosts are shut and the UN has no sub-national table,
+and a card's research time goes into the prose and the two rows that CAN be filled.
+
+**What that means per card, in practice.** *Capital* and *Largest city* are usually fillable — the first
+from the subject's own name or its well-attested seat, the second from the UN's city table joined to the
+shapes — and *Population* and *Area* usually are not. **Fill every row you honestly can and write `?` for
+the rest**; a grid of four question marks is a poor card, and one with two real rows is a useful one.
+
+**The three ways out were:**
 
 1. **Change the grid for this collection.** The four rows are a site-wide rule set on request, so they are
    not Folio's to change unilaterally; but a Russia grid of *Kind · Federal district · Administrative
