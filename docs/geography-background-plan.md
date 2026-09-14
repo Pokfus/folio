@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C27 — six island and small-state capitals, a weather table with an impossible value in it, and a constitution that identifies a capital by whose house it is**: `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni and `gw-664` Georgetown, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-14, batch C26 — six capitals, two more countries missing from the weather index, and the first two UN profiles that say what their capital figure counts**: `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain and `gw-658` Nicosia, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-14, batch C25 — six capitals, a weather record with an entirely blank month, and a constitution that files its capital among the national symbols**: `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga and `gw-652` Skopje, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -438,6 +440,69 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C27 found
+
+**A WMO TABLE CAN BE COMPLETE, WINDOWED, SOUND IN ELEVEN MONTHS AND IMPOSSIBLE IN THE TWELFTH.**
+Georgetown's 1961–1990 record gives May a mean maximum of **39.4 °C** where every other month of the
+year lies between 28.7 and 30.8 — a transposition of 29.4 that parses perfectly and renders
+perfectly. This is C18's Bishkek finding at a different scale: there the whole table was wrong and
+the card took its weather elsewhere; here one cell is wrong and the rest is usable, so the card
+**quotes the sound figures, names the bad one, and says it is a figure to distrust rather than
+quote**. **Read a station's twelve maxima against one another before quoting any of them**; a single
+outlier is the shape this fault takes when the table is otherwise fine.
+
+**A UN FOOTNOTE CAN HANG OFF THE CAPITAL'S NAME RATHER THAN OFF ITS POPULATION.** Eswatini's profile
+marks the capital-city row itself: *Mbabane is the administrative capital and Lobamba is the
+legislative capital.* Every earlier batch read the footnote letters on the FIGURE; this one is on the
+NAME, and it is the only place in the recipe that will tell you a country has two capitals.
+**Read both letters on that row.**
+
+**AND A THIRD PROFILE THAT SAYS WHAT ITS CAPITAL FIGURE COUNTS**, one batch after the first two:
+Djibouti's 568.8 thousand *refers to the population of the “cercle”*. Manama, Port of Spain and now
+Djibouti — three in two batches, against roughly 150 cards that carried a bare year. The C26 finding
+holds and is not a fluke.
+
+**A COUNTRY PROFILE CAN MEASURE ITS POPULATION AND ITS AREA OVER DIFFERENT TERRITORIES.** Mauritius's
+population and density are footnoted *Including Agalega, Rodrigues and Saint Brandon* while the
+surface area is footnoted *Excluding the islands of Saint Brandon and Agalega*. A density computed
+from the two numbers on that page is therefore not the density either footnote describes. This is
+C26's Cyprus finding in a sharper form — there the scopes differed between rows, here they differ
+between the two halves of a single ratio.
+
+**A CONSTITUTION CAN IDENTIFY A CAPITAL WITHOUT NAMING A PLACE.** Eswatini's 2005 text names neither
+Mbabane nor Lobamba and says instead that *the official residence of the Ndlovukazi is the
+legislative and ceremonial capital of the nation and the arena of the Incwala and Umhlanga* — the
+capital defined by whose house it is, and so moving with the person. Nothing in the pass's earlier
+taxonomy covers that.
+
+**AND ONE CAN PROVIDE FOR ITS OWN INSTITUTIONS TO SIT ELSEWHERE.** Comoros's Article 10 names Moroni,
+leaves its status to a law, and then adds that an organic law determines the islands where the
+Union's institutions sit *if circumstances thus require* — a capital clause written by a federation
+of islands that expects to have to move.
+
+**THE THIRD TOTAL SILENCE IN THREE BATCHES, and two more that use the word only of money or of the
+gallows.** Mauritius's 1968 text does not contain *capital* anywhere in any sense (after Lesotho in
+C25 and Estonia in C26); Fiji's 2013 text uses it only of capital expenditure in the budget article
+and Timor-Leste's only of the death penalty. **A constitution that does not locate its own state is
+now the commonest single outcome of this leg.**
+
+**A CITY POPULATION IN A PAPER AND ONE IN THE UN TABLE NEED NOT AGREE, AND BOTH CAN BE RIGHT.** The
+RISE study describes Suva as a city of 93,000; the UN gives 178.3 thousand for the capital. The card
+gives both and says the second counts a wider area — which is what the Manama and Port of Spain
+footnotes spell out and most profiles do not.
+
+**AND A NATIONAL SERVICE'S ISLAND-WIDE FIGURE IS NOT ITS CAPITAL'S.** Port Louis's own 1971–2000
+total is 711 mm against the Mauritius Meteorological Services' island mean of 2,010 mm for exactly
+the same period — the capital takes about a third of what the island averages. **Where the national
+service publishes a country-wide normal, quote it against the station rather than instead of it**;
+the contrast is the fact.
+
+**KEEP ONE INSTITUTION UNDER THREE OF A CARD'S SOURCES.** `check-cards.js` notes a card resting
+mostly on one body, and the obvious Port Louis build — the WMO row plus two pages of the same
+meteorological service — would have tripped it. One page of the service, plus the WMO row, plus
+UNdata, Constitute and the index, keeps it at two. **This is a real constraint on the recipe when a
+small state's national service is the only body publishing about it.**
 
 ## What C26 found
 
