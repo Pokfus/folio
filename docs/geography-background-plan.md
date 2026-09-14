@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C33 — six island capitals, three Crown Dependencies and Overseas Territories the weather index files under a state they are not part of, and a constitution that locates its Governor by an island rather than a seat**: `gw-698` Douglas, `gw-699` Andorra la Vella, `gw-700` George Town, `gw-701` Saint Peter Port, `gw-702` Roseau and `gw-703` Hamilton, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-14, batch C32 — six island capitals, four of whose countries keep no station at all in the world weather index, and a constitution that provides for a capital without naming one**: `gw-691` Palikir, `gw-692` Oranjestad, `gw-693` Charlotte Amalie, `gw-694` Nuku'alofa, `gw-696` Kingstown and `gw-697` Saint John's, with all six date lines rewritten off the same research. Six again, for C2's reason. `gw-695` Saint Helier stays deferred.
 
 - **2026-09-14, batch C31 — six island capitals, a weather record with every cell in it blank, and a profile that names a different place as the capital**: `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria and `gw-690` Saint George's, with all six date lines rewritten off the same research. Six again, for C2's reason.
@@ -450,6 +452,71 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C33 found
+
+**THE INDEX IS COARSER THAN THE RECORDS IT INDEXES, AND SEARCHING IT ALONE REPORTS A PRESENT COUNTRY
+AS ABSENT.** The flat city list gives one country column, and for three of this batch it prints
+`United Kingdom of Great Britain and Northern Ireland`: searched there, Bermuda, Guernsey and the Isle
+of Man all come back with nothing. Open the records themselves and each names its own member —
+`UK - Bermuda`, `UK - Guernsey`, `UK - Isle of Man` — and each is presented by the territory's own
+body: the Isle of Man Government, the Meteorological Observatory at Guernsey Airport, the Bermuda
+Weather Service. **The earlier batches searched the list and reported absences; this one shows that a
+list absence is not a record absence.** Andorra and the Cayman Islands really are missing, and were
+checked both ways.
+
+**AND THE NAME MATCH THAT LOOKED WRONG WAS RIGHT, WHICH IS THE SAME LESSON REVERSED.** `Hamilton`
+under the United Kingdom reads exactly like Hamilton in South Lanarkshire, and C31 and C32 had both
+just been bitten by capitals filed under other countries' names. It was nearly discarded on that
+suspicion. **The coordinates settled it**: 32.29 N, 64.78 W, presented by the Bermuda Weather Service.
+A name match is not evidence of identity in either direction — it is a reason to read the coordinates.
+
+**TWO OFFICIAL COUNTS OF ONE CITY, TWELVE TIMES APART.** The UN profile gives Hamilton 10,100 people,
+footnoted to 2018; Bermuda's own 2016 census counts **854** in the City of Hamilton. The UN figure is
+plainly a wider urban area and the census a municipality, but nothing on either page says so, and the
+card states both rather than choosing. It is the widest disagreement on a capital figure the pass has
+met.
+
+**A COUNTRY WHOSE UN PROFILE DOES NOT EXIST.** `data.un.org/en/iso/gg.html` returns **500**, on three
+attempts spaced apart — a reproducible absence rather than an outage. Guernsey is therefore the first
+capital in the pass whose card rests on no UN profile at all; the figures come from the States of
+Guernsey's own statisticians instead, which is the better source anyway (19,679 in the parish in March
+2023, against the UN's silence).
+
+**THE WESTMINSTER DEPUTY CLAUSE WITH AN ISLAND WHERE THE SEAT SHOULD BE.** C31 and C32 found the
+seat-of-government clause three times at section 22 and once at 25. The Cayman Islands Constitution
+Order 2009 carries the same shape at **section 36** and replaces the seat with a landmass: the deputy
+acts whenever the Governor is absent *from Grand Cayman but not from the Cayman Islands*. The words
+`capital` and `seat of government` appear nowhere in it. **A fifth variety, and the first that locates
+the office geographically rather than institutionally.**
+
+**AND AT THE OTHER END, A CONSTITUTION THAT NAMES ITS CAPITAL IN ITS SECOND ARTICLE.** Andorra's says
+*Andorra la Vella is the capital of the State*, among the official language, the anthem, the flag and
+the arms — Lesotho's shape (C25), one article earlier. Its first article had already named the town as
+one of the seven Parishes, and the document was signed at **Casa de la Vall**, a house in the capital,
+on 28 April 1993. Dominica's is the opposite extreme: `Roseau`, `capital` and `seat of government` all
+return zero, and **being a republic it has not even the deputy clause** by which its Westminster
+neighbours reach a seat obliquely.
+
+**A COUNTRY WITH ONE STATION IN THE INDEX, AND IT IS NOT THE CAPITAL.** Dominica's single entry is
+**Melville Hall Airport**, on the opposite coast from Roseau, and it carries no rain-day count in any
+of its twelve months. A country present in the index is not a capital present in it.
+
+**WHAT THE READ-BACK CAUGHT, and the one that matters is an overclaim.** `gw-702` said the ground
+around Roseau carries the densest settlement on the island; the paper says the areas around Roseau
+*and Portsmouth* have the highest population density, so the card now says *among the most densely
+settled*. A superlative for two places had been given to one. Beside it: a causal claim that
+sea-surface temperature is what keeps Bermuda subtropical, where the source credits the pressure
+gradient, the Gulf Stream and the Sargasso Sea; an unsourced *the surveyors named* for the Douglas
+Syncline; and a claim that the principality's own rivers are gauged in the Pyrenean database, where
+the abstract says only that the database spans France, Spain and Andorra.
+
+**AND A CITATION FAULT THAT WAS MINE, NOT CROSSREF'S.** `check-citations.js` reported a surname
+mismatch on the Data in Brief dataset: I had written the ninth author as `Beguîría` where
+Crossref, and the paper, have **Beguería** — a mistyped escape, one character out, and all but
+invisible as an error on the page.
+Crossref was right and the citation was wrong, so it was fixed rather than declared. **The two-tier
+report earns its keep in both directions.**
 
 ## What C32 found
 
