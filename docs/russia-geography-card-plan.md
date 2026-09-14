@@ -160,6 +160,29 @@ the margins; two subjects a place apart are not meaningfully different in size. 
 at `gru-009` on a figure that includes its two okrugs** — see the next section, which is the same
 divergence seen from the other side.
 
+## ⚠ Population and area are written to THREE DIGITS, with a suffix
+
+**Given on request, Sep 2026.** The facts box is a two-column grid on a card that is mostly map, and a
+nine-character number is a number nobody reads. Both figures are written to **three significant digits at
+most**, with `k`, `M` or `B` doing the rest of the work:
+
+    11.3M      8.89M      5.42M      234k      24.9k      1.73k
+
+So Moscow's 11,918,057 is **11.9M**, not `11,918,057`; an area of 2,561 km² is **2.56k km²**. A figure
+that is already three digits or fewer is written plainly — a population of 234 is `234`. **The date the
+figure belongs to is still given**, as `11.9M (2012)`, because these figures go stale at different rates
+and a reader comparing two cards needs to know which year each is.
+
+**The imperial conversion stays** and takes the same treatment: `2.56k km² (989 sq mi)`. And **`?` is
+still the right answer** for a figure that was looked for and not found — rounding is about how a figure
+is written, never about inventing one.
+
+**The other three Geography collections do NOT follow this yet.** `geo-us`, `geo-world` and `geo-china`
+were written before the rule and carry figures like `179,800 km² (69,400 sq mi)` and `1.46B (2025)` — the
+populations are mostly already three digits, the areas mostly are not. Bringing them over is a pass of its
+own across some six hundred cards and has not been done; until it is, the section is inconsistent between
+Russia and its three siblings, which is recorded here rather than left to be discovered.
+
 ## ⚠ The okrugs do not nest on the map, and the official figures do
 
 Nenets is constitutionally part of Arkhangelsk Oblast, and Khanty-Mansi and Yamalo-Nenets part of Tyumen
@@ -176,14 +199,43 @@ Oblast that figure does not describe the shape being shaded. Those four cards �
 giving**, and the honest form is the one the card's own source uses with the scope named in the row label.
 **No checker can see this**: a with-okrugs area is a well-formed number correctly cited to a real table.
 
-## The background is the subject's HISTORY, and it never repeats the boxes
+## ⚠ The two paragraphs have fixed jobs: the place, then its whole history
 
-The rule *The world* was given in Aug 2026, and it holds here unchanged because the format is shared. A
-card carries three things that already say what the place IS — the map, the facts box and the date line —
-so a background reciting the same capital, population, area and dates says everything twice. **The
-background's job is the place's history**; the boxes carry the figures. Ten sentences on Tatarstan should
-be Volga Bulgaria, the Khanate of Kazan and its fall in 1552, the Tatar national movement, the oil, and
-the 1994 power-sharing treaty — not a paragraph restating "Capital: Kazan" in prose.
+**Given on request, Sep 2026, and it supersedes what this section said before.** Every abstract on this
+site is ten sentences in two blocks of five, and in this collection the two blocks are not
+interchangeable:
+
+- **Block 1 is the PLACE — its geography, its climate and its demographics.** The relief and what made
+  it, the rivers and the seas, the climate type and what the winters and summers actually do, and who
+  lives there: how many roughly, how they are distributed, which peoples, which languages.
+- **Block 2 is the WHOLE of its history**, from whatever the earliest thing worth saying is down to the
+  present — compressed into five sentences, so it is the broad arc and not an episode.
+
+The earlier rule made the whole background a history and it is withdrawn. `gru-001` was written under it
+and has been rewritten to this shape; every card from `gru-002` on is written to it directly.
+
+**BLOCK 2 IS THE HARDER HALF AND THE ONE THAT GOES WRONG.** Five sentences for a thousand years means
+choosing the turns rather than narrating: for Tatarstan that is Volga Bulgaria, the Khanate of Kazan and
+its fall in 1552, the Tatar national movement, the oil and the 1994 power-sharing treaty — five things,
+not five sentences about one of them. **A card that spends three of its five on one century has not
+summarised the history, it has picked a period**, and nothing on the page will say so.
+
+### How this squares with "never repeat the boxes", which still stands
+
+The two rules look as though they collide and they do not, because they are about different things. The
+facts box carries **figures**; block 1 carries the **shape of the place**. So:
+
+- **The population NUMBER stays in the box** and is not restated in prose. What block 1 says instead is
+  how those people are arranged — concentrated along one river, thin across the north, four fifths in
+  towns — which is demography and is not a number the box already gives.
+- **The area NUMBER likewise stays in the box.** Block 1 may say a subject is mostly tundra, or that its
+  ground was enlarged in 2012, without quoting the figure beside it.
+- **The capital's NAME stays in the box.** Block 1 names cities only where the sentence is about where
+  people live rather than about which city is the seat.
+- **A date the date line carries is not repeated** in block 2 either.
+
+**No checker can see any of this.** A duplicated figure is well formed, correctly cited and counts the
+right number of words; so is a history that covers one century out of ten.
 
 **And rule 4 of `gw-audit.js` binds here too: a background may not list the subjects that border it.** The
 card draws the subject on a globe with every neighbour around it, so the neighbours are the one thing on
@@ -442,6 +494,59 @@ layer draws Abakan outside the republic. See "Three capital numbers are never wr
   gru-581  Magadan
   gru-582  Anadyr
   gru-583  Naryan-Mar
+
+## ⚠⚠ THE FACTS GRID CANNOT BE FILLED FOR A NON-CITY SUBJECT, AND THAT BLOCKS 81 CARDS
+
+**Measured 2026-09-14, and it is the biggest open question in the collection.** Every geography card
+carries the same four rows — Capital, Population, Largest city, Area — and for a subject that is not
+itself a city **none of the four can be sourced to the bar**. `gru-001` Moscow is fine because Moscow is a
+CITY and the UN publishes city figures; `gru-002` onward are not.
+
+**What was tried, so that nobody spends the afternoon again:**
+
+- **Every Russian and CIS statistics host refuses the connection or blocks it.** `rosstat.gov.ru`,
+  `eng.rosstat.gov.ru` and `gks.ru` return nothing at all (connection refused); `fedstat.ru` and
+  `cisstat.com` answer **403**. Rosstat is the only body that publishes federal-subject populations and
+  areas, and it is unreachable from here.
+- **The UN publishes nothing sub-national.** The Demographic Yearbook's table list was read end to end:
+  every population table is by COUNTRY (tables 1–7) or by CITY (table 8). There is no table of provinces,
+  regions or administrative divisions, so the route that supplied `gru-001` stops at the city boundary.
+  The World Bank answers and is country-level only.
+- **An academic study area does not carry it either.** DOAJ was swept for a paper stating Moscow
+  Oblast's area or population; the hits are medical and agronomic papers that mention the region without
+  sizing it.
+- **Wikidata has all of it and is not citable.** `P1082` and `P2046` cover all 83, which is why the
+  running order could be sorted at all — but a database is not an academic, museum, government or IGO
+  publication, and its own references point back at Rosstat, which cannot be opened to check. **It is
+  sound for building a points table, where the polygon test proves each row, and unsound for asserting a
+  figure in prose.** That distinction is the same one the capital half turns on, one section down.
+
+**So a `gru-002` written today would carry `?` in all four rows**, which is honest and is also a box worth
+nothing to a reader. **The card was therefore NOT written**, rather than shipped empty.
+
+**Three ways out, none of them taken yet — this is a decision for the site's owner:**
+
+1. **Change the grid for this collection.** The four rows are a site-wide rule set on request, so they are
+   not Folio's to change unilaterally; but a Russia grid of *Kind · Federal district · Administrative
+   centre · Time zones* would be fillable from sources that ARE reachable, and would tell a reader more
+   about a federal subject than a population would.
+2. **Accept a named non-IGO compiler** for these two figures only, cited as what it is. This widens the
+   citation bar, which is why it is the owner's call and not a helper's.
+3. **Leave the figures as `?` and ship anyway**, on the plan's own convention that `?` is the honest state
+   for a figure looked for and not found.
+
+**A fourth was considered and rejected: measuring the area off the shipped polygons.** Natural Earth is
+simplified at 0.002°, and a check against Moscow gives about 2,833 km² where the official figure is 2,561
+— some 10% out. A derived number presented as *the* area is a number a reader can catch us being wrong
+about, and it is not what the row claims.
+
+**One row IS solvable and the method is written down.** *Largest city* can be derived rather than
+authored: the UN's table 8 gives 165 Russian cities with populations, Natural Earth gives each a
+coordinate, and a point-in-polygon test against this collection's own shapes says which subject each
+stands in. Tried: it places 128 of 165 and gets **Krasnodar Krai** right (Krasnodar 774k, then Sochi,
+Novorossiysk) while getting **Moscow Oblast** wrong, because Podolsk and Balashikha sit near the New
+Moscow boundary and the rest fall in the 37 it cannot place by name. **It wants a builder of its own with
+the same inside-test discipline `build-russia-subjects.js` uses**, not a hand-run script.
 
 ## ⚠ The capital half needs a sourcing recipe, and does not have one yet
 
