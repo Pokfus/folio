@@ -3739,7 +3739,12 @@ window.GLOSSARY = {
 "Emperor_Guangwu_of_Han": "<b>Emperor Guangwu</b> is the temple style of Liu Xiu, who restored the Chinese Han dynasty in 25 CE and reigned until 57.<sup class=\"fn\" data-fn=\"1\"></sup> A provincial landholder descended at some remove from an earlier Han emperor, he joined the risings against the usurper Wang Mang, made his name by destroying an imperial army at Kunyang in 23 CE, and was proclaimed emperor by his own officers two years later.<sup class=\"fn\" data-fn=\"1\"></sup> He spent a further eleven years reducing rival claimants, moved the capital to Luoyang, and rebuilt the imperial university there in 29 CE with fourteen professors of the classics.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Luoyang": "<b>Luoyang</b> is a city on the Luo river in western Henan, in northern China, and one of the longest-serving capitals in Chinese history.<sup class=\"fn\" data-fn=\"1\"></sup> The Zhou kings moved their court there in the 8th century BCE, it was the seat of the Han empire from 25 to 190 CE, and later dynasties governed from it again, so the ground east of the modern town carries the remains of successive walled capitals.<sup class=\"fn\" data-fn=\"1\"></sup> Under the Han it held the palaces, the ministries and an imperial university founded in 29 CE, and it was burned in 190 CE when a warlord forced the court to move west.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Protectorate_of_the_Western_Regions": "The <b>Protectorate of the Western Regions</b> was the office through which the Chinese Han empire dealt with the oasis kingdoms between the Jade Gate and the Pamirs, created in 60 BCE when a general already commanding a military colony there was made protector general.<sup class=\"fn\" data-fn=\"1\"></sup> Its holder did not govern those states but confirmed their kings, judged between them and maintained garrisons and postal stages, against a Xiongnu confederacy competing for the same allegiance.<sup class=\"fn\" data-fn=\"2\"></sup> Expensive and remote, the post lapsed and was revived repeatedly, standing empty from 9 CE, restored in 74, abandoned again after 77, revived in 91 and given up in 107.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Red_Eyebrows": "The <b>Red Eyebrows</b> were a peasant army that rose in eastern China in 18 CE against the usurper Wang Mang, taking their name from the dyed eyebrows by which they told one another from government troops.<sup class=\"fn\" data-fn=\"1\"></sup> Led by Fan Chong, they grew out of a countryside in which smallholders had lost their land to debt, kept no formal ranks or order of battle but forbade killing without cause, and destroyed two imperial armies before marching on the capital and installing an emperor of their own.<sup class=\"fn\" data-fn=\"2\"></sup> They were broken in 27 CE.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Red_Eyebrows": "The <b>Red Eyebrows</b> were a peasant army that rose in eastern China in 18 CE against the usurper Wang Mang, taking their name from the dyed eyebrows by which they told one another from government troops.<sup class=\"fn\" data-fn=\"1\"></sup> Led by Fan Chong, they grew out of a countryside in which smallholders had lost their land to debt, kept no formal ranks or order of battle but forbade killing without cause, and destroyed two imperial armies before marching on the capital and installing an emperor of their own.<sup class=\"fn\" data-fn=\"2\"></sup> They were broken in 27 CE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Borobudur": "Borobudur is a Buddhist monument in central Java, built as a stone casing stepped into square galleries and circular terraces over a natural hill rather than as a building with an interior, its upper platforms carrying perforated stupas around a central dome.<sup class=\"fn\" data-fn=\"1\"></sup> Reliefs carved along the galleries set out Buddhist narrative texts for a pilgrim walking each level in turn, and a further series around the base was enclosed behind a stone retaining wall during stabilisation work between 1907 and 1911.<sup class=\"fn\" data-fn=\"2\"></sup> No inscription found at the site names its founder or gives its date, and the meaning of the name itself has never been satisfactorily explained.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Anuradhapura": "Anuradhapura is a city in the dry northern plain of Sri Lanka which served as the island’s capital for most of the period from about 437 BCE to 1017 CE.<sup class=\"fn\" data-fn=\"1\"></sup> The Pali chronicle tradition credits its founding to Pandukabhaya, who is said to have laid out suburbs, a reservoir and a quarter for foreign residents beside the village of a kinsman named Anuradha.<sup class=\"fn\" data-fn=\"2\"></sup> It became the centre of a monastic landscape of great brick stupas and reservoirs, and a Chinese pilgrim who stayed there about 410 counted five thousand monks at one of its monasteries alone.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Spice_trade": "The spice trade is the long-distance traffic in pepper, cinnamon, cloves, nutmeg and mace, aromatic products that grew in a few limited regions of southern and southeastern Asia and were carried to markets far beyond them.<sup class=\"fn\" data-fn=\"1\"></sup> Roman writers of the 1st century record pepper selling in Italy at four to fifteen denarii a pound and complain that it was bought by weight like gold or silver.<sup class=\"fn\" data-fn=\"1\"></sup> At the growing end the same goods were cheap, and a Portuguese account of about 1518 found nutmeg so plentiful in the islands that produced it that people burned it as fuel.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Dhow": "A dhow is any of the lateen-rigged wooden sailing vessels of the Indian Ocean, a single name covering craft that their builders distinguish by separate type names such as kotia, baggala and machwa.<sup class=\"fn\" data-fn=\"1\"></sup> The characteristic hull is sewn rather than nailed, its planks stitched edge to edge with cord spun from palm fibre or coconut husk, which is cheap and gives a hull that flexes instead of splitting.<sup class=\"fn\" data-fn=\"1\"></sup> The construction is recorded in a Greek merchant’s handbook of the 1st century and again by Marco Polo at Hormuz twelve hundred years later, and survived on some coasts into modern times.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Malacca_Sultanate": "The Malacca Sultanate was a Malay state on the strait between Sumatra and the Malay peninsula which became the principal entrepôt of the monsoon trade between the Indian Ocean and the China seas.<sup class=\"fn\" data-fn=\"3\"></sup> Malay tradition traces its founding to a prince displaced from Singapura who named the city after a tree, while a Chinese account of 1416 describes a chiefdom tributary to Siam until a Ming envoy raised it to a kingdom in 1409.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its rulers were Muslims by the early 15th century, and the state ended when a Portuguese force took the city in 1511.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5631,7 +5636,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Eastern_Han": "25 – 220 CE",
 "Emperor_Guangwu_of_Han": "r. 25 – 57 CE",
 "Protectorate_of_the_Western_Regions": "60 BCE – 107 CE, intermittently",
-"Red_Eyebrows": "18 – 27 CE"
+"Red_Eyebrows": "18 – 27 CE",
+"Borobudur": "c. 780 – 850 CE",
+"Anuradhapura": "c. 437 BCE – 1017 CE",
+"Malacca_Sultanate": "1409 – 1511"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7837,12 +7845,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Eastern_Han": ["Later Han","Eastern Han dynasty"],
 "Emperor_Guangwu_of_Han": ["Emperor Guangwu","Guangwu","Liu Xiu"],
 "Protectorate_of_the_Western_Regions": ["Protector General","protector general of the Western Regions"],
-"Red_Eyebrows": ["Chimei"]
+"Red_Eyebrows": ["Chimei"],
+"Borobudur": ["Barabudur","Borobudur Temple"],
+"Anuradhapura": ["Anuradhapura Kingdom"],
+"Spice_trade": ["spice trade route","trade in spices"],
+"Dhow": ["dhows"],
+"Malacca_Sultanate": ["Sultanate of Malacca","Melaka Sultanate"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
-  "Providence": true,
+"Providence": true,
 "Pacific_Ocean": true,
 "Council_of_Five_Hundred": true,
 "Homo": true,
@@ -7856,7 +7869,6 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Works_and_Days": true,
 "Emporion": true,
 "Geometric_period": true,
-"Providence": true,
 "Four_Symbols": true,
 "Legend_of_the_White_Snake": true,
 "Afar_Region": true,
@@ -11619,7 +11631,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Emperor_Guangwu_of_Han": ["person","ruler","history","china","han dynasty"],
 "Luoyang": ["city","place","history","geography","china"],
 "Protectorate_of_the_Western_Regions": ["institution","title","history","china","han dynasty","central asia","diplomacy"],
-"Red_Eyebrows": ["event","people","history","warfare","china","han dynasty","rebellion"]
+"Red_Eyebrows": ["event","people","history","warfare","china","han dynasty","rebellion"],
+"Borobudur": ["building","history","religion","art","asia","archaeology"],
+"Anuradhapura": ["city","history","religion","asia","archaeology","geography"],
+"Spice_trade": ["concept","history","economy","trade","geography","nature"],
+"Dhow": ["object","history","technology","economy","geography","asia"],
+"Malacca_Sultanate": ["state","history","economy","religion","asia","geography"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
