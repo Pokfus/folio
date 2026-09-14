@@ -1904,7 +1904,10 @@ body.no-tts .ans-cn .ac-say{display:none;}
 }
 .art-cap-t{display:block; font-weight:600; color:var(--ink);}
 .art-cap-d{display:block; margin-top:2px;}
-.art-cap-c{display:block; margin-top:4px; color:var(--ink-faint); font-size:calc(11px * var(--fs));}
+/* The credit's visible text IS a Commons URL (see mediaCreditHTML), which carries no break opportunity
+   at all — on a phone it ran past the caption's right edge. Nothing else in the block needs this, so it
+   is on the credit line rather than on the caption. */
+.art-cap-c{display:block; margin-top:4px; color:var(--ink-faint); font-size:calc(11px * var(--fs)); overflow-wrap:anywhere;}
 .art-cap-c a{color:inherit;}
 
 /* ---------- the answer box an artwork card is answered in (Sep 2026, on request) ----------
