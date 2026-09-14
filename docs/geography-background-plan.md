@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C30 — six island capitals, two French territories with no constitution of their own, and two constitutions that name their city once and only as a place where a document was signed**: `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé and `gw-684` Apia, with all six date lines rewritten off the same research. Six again, for C2's reason.
+
 - **2026-09-14, batch C29 — six capitals, a weather record missing a whole FIELD, and a constitution that names an ISLAND as the capital**: `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau and `gw-678` Reykjavík, with all six date lines rewritten off the same research. Six again, for C2's reason.
 
 - **2026-09-14, batch C28 — six capitals, a constitution that names its capital eighteen times and never calls it one, and a UN figure whose footnote names no place the capital is in**: `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica and `gw-672` Valletta, with all six date lines rewritten off the same research. Six again, for C2's reason. (`gw-667` and `gw-671` are numbers the running order leaves unused.)
@@ -444,6 +446,87 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C30 found
+
+**A TERRITORY HAS NO CONSTITUTION OF ITS OWN, SO THE FIFTH LEG IS THE METROPOLE'S.** Constitute has
+no record for New Caledonia or French Polynesia, and the text that governs both is France's 1958
+constitution as revised in 2024 — which **never names Paris**, uses the word *capital* once and only
+of *capital punishment*, and does not contain *Papeete* anywhere. What it does carry is **Title XIII,
+the transitional provisions pertaining to New Caledonia**, whose article 76 sends that population to
+vote on *the agreement signed at Nouméa on 5 May 1998*. **So the one occurrence of the city's name in
+the constitution governing it is a signing venue.**
+
+**AND BARBADOS'S IS THE SAME SHAPE IN A DIFFERENT OCEAN.** Its 1966 text as revised through 2026
+never uses the word *capital* and names *Bridgetown* exactly once — in the interpretation clause of
+the Caribbean Court of Justice chapter, as the place where the Agreement establishing that Court *was
+signed* on 14 February 2002. **Two constitutions in one batch of six name their capital once and in
+both it is where a document was signed**, which is a shape worth expecting now rather than reading as
+a coincidence.
+
+**FOUR OF THE FIVE CONSTITUTIONS NEVER APPLY THE WORD TO A PLACE AT ALL.** Vanuatu's 1980 text as
+revised through 2023 comes back empty on every term worth asking: *capital* 0, *Vila* 0, *Port Vila*
+0, *Efate* 0, *seat of government* 0. Samoa's 1962 text as revised through 2025 is the same: *Apia* 0
+and *capital* 0, and what it locates instead is the country, *the islands of Upolu, Savaii, Manono and
+Apolima … between the 13th and 15th degrees of south latitude*. With Barbados and France that makes
+four, and **Vanuatu, Samoa and Barbados are the fourth, fifth and sixth texts in the pass containing
+no occurrence of the word at all**, after Lesotho (C25), Estonia (C26) and the Bahamas (C29). Only
+São Tomé and Príncipe's names one — article 5, in the same breath as declaring the state unitary,
+with article 4 defining the territory as the islands, their named islets and a territorial sea
+*within a circle of twelve miles*.
+
+**A CAPITAL CAN BE FILED IN THE WEATHER INDEX UNDER ITS ISLAND'S NAME AND FLAGGED AS NOT A CAPITAL.**
+French Polynesia has eight rows and Papeete is not among them: the record is **`Tahiti`**, `isCapital`
+false. C25's Lesotho, C28's Solomon Islands and Malta and C29's Cabo Verde were countries present
+without their capital; this is the same fault wearing the island's name instead of a suburb's or an
+airport's, and it is the shape hardest to notice, because the row looks right.
+
+**AND C29'S MISSING FIELD HAPPENS TWICE MORE, IN TWO DIFFERENT SPELLINGS OF MISSING.** Tahiti's record
+carries `raindays: null` in all twelve months; Apia's carries the **empty string** in all twelve. Both
+render as a complete table of temperature and rainfall with one column simply gone, and a reader who
+does not know the shape of a normals table cannot see it. Tahiti's also states **no observation period
+at all**, which is C29's Bandar Seri Begawan again one batch later.
+
+**TWO MORE COUNTRIES ARE ABSENT FROM THE INDEX ALTOGETHER** — Barbados and São Tomé and Príncipe —
+joining Equatorial Guinea, Kosovo and Timor-Leste. **And the richest entry in this batch belongs to a
+territory rather than a state**: New Caledonia has **fifteen** rows against Vanuatu's six, French
+Polynesia's eight, Samoa's one and the two zeroes — and its record is presented by *Météo-France
+Regional Service New Caledonia, Wallis and Futuna*, with Tahiti's under a plain *Meteo-France*. **The
+metropolitan service is the presenting body for both French cards.**
+
+**A UN CAPITAL-CITY FOOTNOTE CAN NAME SEVEN COMMUNES.** French Polynesia's footnote `f` says the capital-city figure *refers to the total population in the communes
+of Arue, Faaa, Mahina, Papara, Papeete, Pirae and Punaauia* — so the 136 thousand is seven communes
+together, of which the capital is one. **Its AREA footnote is defined the same way and is the rarer
+kind**: 3,687 square kilometres *including water bodies of lake Vaihiria, lake Temae and the Maiao
+lagoons, but not lake Maeva and the lagoons of Raiatea and Tahaa*. Every other profile in the batch
+footnotes its capital figure to a bare **2018**.
+
+**AND A TERRITORY'S PROFILE SAYS WHAT IT IS NOT PART OF.** New Caledonia's and French Polynesia's both
+carry *For statistical purposes, the data for France do not include this area*, and **neither has a UN
+membership date row**, there being none to have. That absence is itself a fact about the place and the
+card says so rather than leaving the gap to be read as a missing figure.
+
+**A REGISTERED DOI CAN 404 AT `doi.org`, AND ONLY THE URL SWEEP CATCHES IT.** The Atoll Research
+Bulletin paper on Papeete Harbor, `10.5479/si.00775630.484.`, has a full Crossref record — title,
+authors, volume, year — and resolves to nothing; the Smithsonian repository path it points at is gone
+too. **A citation built on it would have passed `add-card.js`** (it ends in a URL) **and
+`check-citations.js`** (Crossref knows the work) **and failed only the curl.** Papeete's fourth leg is
+a 2025 metabarcoding survey of the same port instead.
+
+**AND A PAPER'S ABSTRACT CAN NAME THE PAPER YOU NEED.** São Tomé defeated every keyword search —
+Crossref returned IMF country reports and CABI compendium stubs, DOAJ returned linguistics and public
+health, OpenAlex rate-limited — until a 2025 Geosciences article on Príncipe's geological heritage
+said its sites were assessed *using the same qualitative methodology previously applied to the
+geological heritage of São Tomé Island*. **An AUTHOR search on that article's second author** returned
+the 2015 Sustainability paper that carries the island's height, area, axes, submarine platform and
+volcano-stratigraphic units. **Read the sibling article's own sentences before widening the keywords.**
+
+**HOSTS MET IN THIS BATCH.** `iwaponline.com` serves a Cloudflare JavaScript challenge and is
+unusable; `conbio.onlinelibrary.wiley.com` is 403; `gov.st` answers 400. What carried it: **MDPI via
+`res.mdpi.com/d_attachment/…`** (four of the six papers — the DOIs 403 from here, as the 219 already
+shipped record), **Copernicus**, **Nature**, the Indonesian and Portuguese **OJS** installations, and
+two institutional sites that answer plain HTML — `meteo.nc` and `ine.st`. **`barbadosweather.org`
+answers 200 and is a JavaScript shell with no citable page**, which is the C0 Factbook shape again.
 
 ## What C29 found
 
