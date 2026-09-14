@@ -670,7 +670,7 @@ his own entry when `rm-377 Battle of Philippi` is written.
     rm-387  Battle of Actium
     rm-388  The annexation of Egypt
     rm-389  The first settlement of 27 BCE
-    rm-390  The title Augustus
+    rm-390  Clipeus virtutis
     rm-391  Princeps
     rm-392  The second settlement of 23 BCE
     rm-393  Tribunicia potestas
@@ -714,6 +714,28 @@ at Midaeum in Phrygia inside a book spanning four of them, so the date line stop
 and the abstract reports both accounts. **`rm-375` also ships without a picture** — the only candidates
 Commons offers are a Victorian illustration imagining the scene and a schoolbook plate, which are the
 event's reception rather than the event.
+
+**`rm-390` was planned as *The title Augustus* and is now *Clipeus virtutis*, and the reason is the
+ANSWER STRING rather than the subject.** The title is already `rm-371`'s answer in this very deck and
+the whole subject of `wh-357` in World History, so a second card here would have been a reader meeting
+the answer "Augustus" twice in one deck — measured over the corpus, only seven of 3,235 cards share an
+answer term with another card in their own collection, and six of those are forced (a city-state whose
+country and capital have one name). The shield was voted in the same act as the name, so the card keeps
+the session and the decree and takes the one object that came out of it; the naming itself is carried by
+`rm-389`, whose sources describe the same meeting. **`imperator` has no line anywhere in this plan**,
+which is worth knowing: it was the obvious alternative here and was left alone because titulature belongs
+with `rm-391 Princeps` and the 55 cards of `rm-government`, not scattered through a narrative deck.
+
+Four further notes from the batch. **`rm-383 Mark Antony in the East` takes the man himself as its
+answer**, because the glossary held no Antony at all across 3,749 terms while dozens of cards named him,
+and the plan gives him no other line. **`rm-384 Antony and Cleopatra` takes `Cleopatra VII`**, which the
+overlap table assigns to Greece's `gr-876`: the term is written deck-agnostically, as the last Ptolemy
+rather than as Rome's adversary, so `gr-876` reuses it when Greece reaches it — the pairing rule is
+satisfied by a term that already exists. **`rm-386 The propaganda war of the 30s BCE` is answered by the
+`will of Mark Antony`**, the one document the campaign turned on and a sibling of `rm-372`'s. And
+**`rm-390` states no Arles provenance in its prose**: the marble copy is the card's picture and the
+Commons file documents it, but nothing openable from here cites it, so the abstract rests on the
+Res Gestae for the wording and says only that the gold shield is lost.
 
 ### The Julio-Claudians — `rm-julio-claudians`
 
