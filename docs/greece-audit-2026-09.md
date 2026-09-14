@@ -1274,6 +1274,25 @@ and was found the same way. Measured over the whole backlog, the `excl=0` citati
   same team, so the drop would change the count and nothing else.
 - `gr-159` — Pestarino is in four of six, so two must go and the card falls to four sources.
 
+### Two more probed and left, with the reason (2026-09-14)
+
+- **`wh-382` Jainism** — Charpentier in three of seven, all three pages of ONE chapter of the Cambridge
+  History of India, which `INSTITUTIONAL`'s own comment says is NOT to be excused. The third citation
+  marks one sentence, and **Jacobi's introduction to the *Gaina Sutras*, already on the card, carries
+  half of it outright**: "The redaction of the Gaina canon or the Siddhanta took place, according to the
+  unanimous tradition, on the council of Valabhi, under the presidency of Devarddhi. The date of this
+  event, 980 (or 993) A.V., corresponding to 454 (or 467) A.D., is incorporated in the Kalpa Sutra."
+  **What stopped it was the PAGE.** The introduction's running heads are stripped from both archive.org
+  renderings of that scan — the `/stream/` HTML and the raw `_djvu.txt` alike — so the passage cannot be
+  pinned to a page from here, and sacred-texts.com, which prints SBE page markers, is behind a Cloudflare
+  challenge. A page-less citation of a forty-page introduction is the whole-book citation `wh-207` is
+  blocked for. **The route back in is the item's own search-inside endpoint, which returns a LEAF number**
+  (the trick `witness-check.js` uses on the Library's books), or another scan of SBE 22.
+- **`gr-030` horns of consecration** — Evans in three of six, and his 1901 report marks one sentence:
+  his reading of the Knossos signet impression, which is his own interpretation of his own find. The only
+  source on the card that could take it is the Dartmouth lesson, which deepens the concentration this
+  audit exists to reduce. Needs an independent Minoan-religion source, not a re-pointing.
+
 ## `check-cards.js`'s own findings, moved out of `CLAUDE.md` (2026-09-11)
 
 **READ BEFORE OPENING A RE-SOURCING BATCH ON THE GREECE COLLECTION.** The account as it stood in
