@@ -200,6 +200,8 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch C39 — the last five cards that needed work, and the finding that the other ten never did**: `gw-729` Stanley, `gw-730` Kingston, `gw-754` Putrajaya, `gw-733` Adamstown and `gw-134` Uruguay. **All four rules now read zero**, with the ten standing findings read, adjudicated and DECLARED in `gw-audit.js` with the reason beside each. `gw-754` comes off the deferred list; `check-cards.js` gained two declared rows the batch's reading produced.
+
 - **2026-09-14, batch C38 — five second-seat and island capitals whose date lines were made of American diplomacy, a constitutional amendment written the year before the split it made possible, and a published article wrong about its own subject's latitude**: `gw-757` Valparaíso, `gw-759` Cotonou, `gw-760` La Paz, `gw-761` Lobamba, `gw-762` Bujumbura and `gw-731` Alofi, with five date lines rewritten off the same research and one malformed facts cell repaired. Taken from the audit's flagged list; it clears the last of the second-seat cards.
 
 - **2026-09-14, batch C37 — six second-seat cities whose backgrounds were histories of American recognition, five constitutions that decline to name the seat they create, and the first batch to need no UNdata citation at all**: `gw-751` Dar es Salaam, `gw-752` Cape Town, `gw-753` Bloemfontein, `gw-755` Abidjan, `gw-756` Colombo and `gw-758` The Hague, with all six date lines rewritten off the same research. Taken from the audit's flagged list; `gw-754` Putrajaya was swapped out for `gw-758` mid-batch — see below.
@@ -462,6 +464,82 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
   "Establishing a secure connection" under a 403; and **the CIA World Factbook is still the empty
   JavaScript shell C0 recorded**, on the HTML page and on the Gatsby `page-data.json` alike — re-tested
   and unusable. `search.scielo.org` is 403 and `digitallibrary.un.org`'s search returns 202.
+
+## What C39 found
+
+**TEN OF THE FIFTEEN CARDS LEFT ON THE FLAGGED LIST WERE THE MEASURE REPORTING ITSELF.** After C38 the
+audit read United States 7, grid repeats 7, no-landform 1, bordering countries 2 — fifteen distinct
+cards. Read one at a time, **five needed work and ten did not**:
+
+* **The card's own subject IS the United States or one of its territories** — `gw-003`, `gw-135`
+  Puerto Rico, `gw-193` the United States Virgin Islands, `gw-207` American Samoa and `gw-503`
+  Washington, D.C. Rule 1 matches `\bWashington\b` and an unqualified `American`, so three of those
+  are flagged for printing their own answer term. The plan already recorded two of them as permanent;
+  it is five.
+* **The grid's value stands inside a longer name, or names where something happened** — `gw-002`
+  China says the Communist Party was founded in Shanghai, which is not the largest-city cell being
+  repeated; `gw-151` Latvia says "the Gulf of Riga", and a gulf named for a city is not the city;
+  `gw-188` Kiribati says "South Tarawa", which is the urban area and not the capital.
+* **A country named for one of the hundred other reasons rule 4's own header allows** — `gw-005`
+  Pakistan on the partition of British India, `gw-053` Venezuela on independence from Spain. Both
+  sentences carry a border word; neither is a neighbour list.
+
+**SO THE AUDIT GAINED A DECLARED ADJUDICATION TABLE, AND THAT IS THE BATCH'S REAL DELIVERABLE.**
+`ADJUDICATED` in `gw-audit.js` follows `check-cards.js`'s own model: **a row matches only when the
+card, the rule AND the matched text all agree**, so `gw-135` is excused for "United States" and would
+report the day it says "Washington". Proved by planting one: a "seen from Washington" inserted into
+`gw-135` and a "whose capital is Beijing" into `gw-002` both reported, and the adjudicated count fell
+from 10 to 8. **A count that can never reach zero stops being read**, which is how a real finding
+hides among ten standing ones — and the audit now reads **0 / 0 / 0 / 0, with 10 adjudicated**.
+
+**THE PATTERN THAT SUGGESTS ITSELF IS THE ONE THAT MUST NOT BE USED.** "Exempt a card whose answer
+term contains the matched words" would have excused `gw-134` Uruguay for "the southeast of the
+American continent" — which was a real finding, is the exact compound trap rule 1's own header
+records one word further in, and is fixed in this batch to "the south-east of South America".
+
+**PUTRAJAYA CAME OFF THE DEFERRED LIST, AND THE WAY IN WAS THE CONSTITUTION RATHER THAN THE CITY.**
+C37 gave it up when the corporation's own site turned out to be a portal with no prose, the lake
+portal a login page, and Pertanika and MDPI shut. The federal constitution is open on Constitute and
+says something better than any of them: **article 154 provides that "until Parliament otherwise
+determines, the municipality of Kuala Lumpur shall be the federal capital"**, and article 1 excludes
+the Federal Territory of Putrajaya from the state of Selangor under the Constitution (Amendment) Act
+2001. The city is named 24 times in the text and never as the capital. The physical block came from
+**a BMC Bioinformatics paper on the lake** (400 hectares, warm, shallow, never stably layered, 6.6 m
+mean depth), **AQUASTAT's Malaysia profile** (61 per cent of the peninsula below 100 m, the Banjaran
+Titiwangsa, the two monsoons) and **WMO Petaling Jaya**, the nearest station with published normals.
+**A capital with no station of its own can still have a climate sentence if the card says whose** —
+C38's Lobamba rule, applied a second time.
+
+**THREE ISLAND CAPITALS HAD GOOD HISTORY WHERE THEIR GEOGRAPHY SHOULD HAVE BEEN.** `gw-729` Stanley
+spent four of its first five sentences on census definitions and `gw-730` Kingston spent its on
+ancestry and language statistics — both accurate, both cited, and neither telling a reader anything
+about the place whose shape the card has just asked them to recognise. They now open on the land:
+Stanley on the archipelago's 12,173 km², the cold currents, a wind belt averaging 30 km/h with gales
+on 70 days a year, 400 to 600 mm of rain and the tussac peat that is one of the few long terrestrial
+climate records the South Atlantic has; Kingston on the basalt of Mount Pitt and Mount Bates, the
+krasnozem that slumps after heavy rain, the cliffed northern shore and an island that has never been
+joined to a landmass. **The history each already had was kept**, which is what makes these rewrites
+half the work of a C38 card.
+
+**A CHECKER'S DECLARED TABLE IS PART OF A BATCH'S OUTPUT, TWICE OVER.** Three Parks Australia pages
+on one card tripped `check-cards.js`'s over-cited rule, which is the right reading of three papers by
+one scholar and the wrong reading of three record pages from the agency that manages the park — so
+**"parks australia" joins `INSTITUTIONAL`**, beside "national park service", and the card reports as a
+one-institution NOTE instead. And `gw-589` Tegucigalpa's standing "2 sources in Spanish" was read and
+is **the École française d'Athènes case one language over**: only one of the two is a Spanish WORK,
+the other being the WMO's own English page credited to the Honduran agency under its Spanish name. It
+is declared in `SAME_LANGUAGE_OK` with the count in the key, so a third Spanish source reports again.
+
+**AJOL IS STILL SHUT AND IT IS THE SECOND DAY RUNNING.** Every
+`ajol.info/index.php/<journal>/article/view/<id>` answers 202 with a zero-byte body. **Copernicus
+carried this batch as it carried C38** — Biogeosciences for the Falklands — and BMC for Putrajaya;
+academicjournals.org (403), MDPI (403), sjst.psu.ac.th (connection reset) and sciencedirect (403) were
+all shut again.
+
+**AND THE BUILD-SCRIPT CHARACTER TRAP FIRED AGAIN.** A patch written with `\u2019` failed against a
+file holding the real U+2019, having succeeded against the same file an hour earlier — the generator
+is rewritten by its own patches and the escapes resolve as it goes. **Write a patch string with the
+real character and let the assertion catch it**, which is what it is for.
 
 ## What C38 found
 

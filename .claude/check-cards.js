@@ -201,7 +201,7 @@ const INSTITUTIONAL = new Set([
   "institute for the study of the ancient world", "digital egypt for universities",
   "ministère de la culture", "ministère de la culture (france)", "government of the netherlands",
   "government of anguilla", "governorate of vatican city state", "statistics jersey",
-  "administration supérieure des îles wallis et futuna",
+  "administration supérieure des îles wallis et futuna", "parks australia",
   /* A MULTI-AUTHOR TEXTBOOK CITED PER CHAPTER IS THE SAME CASE AS A DATA PUBLISHER (Sep 2026), and
      both were read before being named here. Three chapters of one standard textbook, credited to a
      team of three or six, are not three scholars' opinions — they are one reference shelf consulted
@@ -370,6 +370,10 @@ const SAME_LANGUAGE_OK = new Map([
   ["wh-433|Spanish|3", "Boletín de Arqueología PUCP: the Palpa and Chincha surveys behind the Nazca lines"],
   ["wh-434|Spanish|2", "Peruvian ceramic analyses published in Spanish"],
   ["gw-566|Spanish|2", "Chilean journals on a Chilean city: the Revista de Urbanismo on a century of Mapocho corridor planning and the Revista de Teledetección on the San Ramón fault — neither has an English counterpart"],
+  /* The École française d'Athènes case again, one language over: only ONE of the two is a Spanish
+     WORK. The other is the WMO's Tegucigalpa record, whose author field is the Honduran meteorological
+     agency's own Spanish name on a page published in English. Read Sep 2026. */
+  ["gw-589|Spanish|2", "the WMO's own record, credited to the Honduran agency in Spanish, beside one genuinely Spanish paper on the Guacerique sub-basin"],
 ]);
 
 /* ---------- run ---------- */

@@ -62,6 +62,48 @@ const BORDERISH = new RegExp("(to (its|the) (north|south|east|west|north-east|no
   "|border(s|ed|ing)?\\b|frontier|adjoin(s|ing)?\\b|shares? (its )?(land )?(borders?|frontiers?)" +
   "|bounded by|flanked by|hemmed in by)", "i");
 
+/* ADJUDICATED — the findings that have been READ and are the right answer, declared with the
+   reason beside each, on `check-cards.js`'s own model. It exists because by Sep 2026 the pass had
+   rewritten every card it could and the four counts still read 5 / 3 / 0 / 2 — every one of which,
+   read, was the measure reporting itself rather than work outstanding. A count that can never reach
+   zero stops being read, which is how a real finding hides among ten standing ones.
+   A ROW MATCHES ONLY WHEN THE CARD, THE RULE AND THE MATCHED TEXT ALL AGREE, so a card excused for
+   naming its own subject still reports the day it names something else: `gw-135` is excused for
+   "United States" and would report on "Washington". Nothing here is a pattern — the alternative,
+   "exempt a card whose answer term contains the matched words", also excuses `gw-134 Uruguay` for
+   "the American continent", which was a real finding and was fixed.
+   ADD A ROW ONLY AFTER READING THE CARD, and record why in the plan's batch log. */
+const ADJUDICATED = {
+  /* rule 1 — the card's own subject IS the United States or one of its territories, so the words
+     cannot come out; the plan's "seven cards exempt by subject". */
+  us: {
+    "gw-003": ["United States"],       // the card's own answer term
+    "gw-135": ["United States"],       // Puerto Rico: the forest system and the currency, both unavoidable
+    "gw-193": ["United States"],       // the card's own answer term
+    "gw-207": ["American"],            // American Samoa: the card's own answer term
+    "gw-503": ["Washington"],          // the card's own answer term, plus the president and the monument
+  },
+  /* rule 2 — the grid's value stands inside a LONGER name, or names the place an event happened at
+     rather than repeating the cell. */
+  grid: {
+    "gw-002": ["Shanghai"],            // where the Communist Party was founded in 1921, not the largest-city cell
+    "gw-151": ["Riga"],                // "the Gulf of Riga": a gulf named for a city is not the city
+    "gw-188": ["Tarawa"],              // "South Tarawa", the urban area, which is not the capital cell
+  },
+  /* rule 4 — another country named for one of the hundred other reasons the rule's own header
+     allows, in a sentence that happens to carry a border word. */
+  borders: {
+    "gw-005": ["India"],               // "British India was partitioned": the 1947 partition, not a neighbour list
+    "gw-053": ["Spain"],               // "independence from Spain": the colonial power, not a neighbour
+  },
+};
+/* every matched string on this card is declared for this rule */
+const adjudicated = (rule, id, found) => {
+  const row = ADJUDICATED[rule] && ADJUDICATED[rule][id];
+  return !!row && found.length > 0 && found.every((x) => row.includes(x));
+};
+let adjCount = 0;
+
 const cards = window.CARD_DATA.filter((c) => String(c.id).startsWith(PREFIX));
 /* every gw- answer term BELOW 500, longest first: 001-233 are the countries and territories
    and 501+ are their capitals, and a capital's name in the vocabulary reports Victoria for
@@ -93,7 +135,8 @@ for (const c of cards) {
      answered by the seven-card subject exemption, and not one this mask may quietly re-answer. */
   const p = plain(c.abstract);
   const pSelf = p.split(String(c.answerText || "\u0000")).join(" ");
-  if (US.test(p)) hit.us.push(c.id);
+  const usFound = [...new Set((p.match(new RegExp(US.source, "g")) || []).map((x) => x.trim()))];
+  if (usFound.length) { if (adjudicated("us", c.id, usFound)) adjCount++; else hit.us.push(c.id); }
   if (!NATURE.test(p)) hit.nature.push(c.id);
   /* A grid repeat is the VALUE as the grid prints it, minus its imperial bracket — "New Delhi",
      "1.46B", "3,287,263 km²". A bare place name counts: the grid has already said it.
@@ -110,7 +153,7 @@ for (const c of cards) {
     }
     return false;
   });
-  if (rep.length) hit.grid.push(c.id + "  (" + rep.join(" / ") + ")");
+  if (rep.length) { if (adjudicated("grid", c.id, rep)) adjCount++; else hit.grid.push(c.id + "  (" + rep.join(" / ") + ")"); }
   if (/\bUS\b|U\.S\.|United States|American/.test(String(c.answerDate || ""))) hit.dateline.push(c.id);
   const sents = p.split(/(?<=[.!?])\s+/).filter(Boolean);
   if (sents.length) { shareSum += sents.filter((s) => US.test(s)).length / sents.length; shareN++; }
@@ -131,7 +174,10 @@ for (const c of cards) {
       t = t.slice(0, i) + "\u0000".repeat(n.length) + t.slice(i + n.length);
     }
   }
-  if (named.length) hit.borders.push(c.id + "  (" + [...new Set(named)].join(", ") + ")");
+  if (named.length) {
+    const uniq = [...new Set(named)];
+    if (adjudicated("borders", c.id, uniq)) adjCount++; else hit.borders.push(c.id + "  (" + uniq.join(", ") + ")");
+  }
 }
 
 const pad = (s) => String(s).padStart(5);
@@ -143,5 +189,6 @@ console.log("  2. repeat a facts-grid value          " + pad(hit.grid.length));
 console.log("  3. name NO landform, water or weather " + pad(hit.nature.length));
 console.log("  4. name a bordering country           " + pad(hit.borders.length));
 console.log("     date lines naming the United States" + pad(hit.dateline.length));
+console.log("  adjudicated: read and kept as they are" + pad(adjCount));
 if (LIST && hit[LIST]) { console.log("\n" + LIST + ":"); hit[LIST].forEach((x) => console.log("  " + x)); }
 console.log("");
