@@ -91,6 +91,8 @@ const ADJUDICATED = {
     "gw-188": ["Tarawa"],              // "South Tarawa", the urban area, which is not the capital cell
     "gw-009": ["Moscow"],              // the medieval principality that gathered the others in, not the
                                        // capital cell: the rise of Moscow IS the history rule 5 asks for
+    "gw-025": ["Rome"],               // the city that took the peninsula by 264 BCE, not the capital cell:
+                                       // the same shape as gw-009, and the ordinary case rather than the exception
   },
   /* rule 4 — another country named for one of the hundred other reasons the rule's own header
      allows, in a sentence that happens to carry a border word. */

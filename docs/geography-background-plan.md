@@ -347,6 +347,44 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-14, batch H3 — six countries whose whole history was already in the corpus, and one host
+  that is walled rather than dead**: `gw-012` Japan, `gw-013` Egypt, `gw-017` Iran, `gw-018` Turkey,
+  `gw-025` Italy and `gw-029` South Korea. Fifteen of the world deck's first twenty-nine now clear both
+  bars. Twenty-two of this batch's twenty-four new citations came out of Folio's own cards — H2's
+  finding applied deliberately rather than stumbled on — and four date lines were rewritten.
+
+  · **THE COUNTRIES WHERE FOLIO ALREADY HAS A COLLECTION ARE THE CHEAPEST CARDS IN THE PASS, AND THEY
+    ARE NOT THE OBVIOUS ONES.** Japan's history block was written out of `jp-001`, `jp-031` and `jp-086`
+    (the peopling of the islands, the spread of rice, the ritsuryō state); Italy's out of `rm-022`,
+    `rm-180` and `gr-223`; South Korea's out of `ko-046`, `ko-091` and `wh-540`; Iran's, Turkey's and
+    Egypt's out of the World History collection's Elam, Achaemenid, Çatalhöyük, Hittite, Byzantine and
+    Egyptian cards. **Take the world deck in the order of what the corpus already covers when the running
+    order allows it**, which for the top thirty it does.
+  · **A 403 FROM A HOST'S OWN ROOT IS A WALL, NOT LINK ROT, AND THE TWO ARE DIFFERENT FACTS.**
+    `ucl.ac.uk` answers 403 on every path including `/`, so the 27 cards citing UCL's *Digital Egypt for
+    Universities* are citing pages that work for a reader and cannot be opened from here. That is the
+    opposite of the UNdata finding in H1, where the host answers and the country profiles are gone.
+    **The rule this batch followed: do not ADD a citation to a host you cannot open**, even one the
+    corpus already trusts — Egypt's three UCL citations were swapped for the radiocarbon chronology in
+    `wh-205`, the Egyptian ministry's own site and a 2024 lead-isotope paper, all of which answer. The
+    cost is that the Old Kingdom's span comes out of the sentence and is given as *the third millennium
+    BCE*; the card is still right and is now checkable from here.
+  · **`gw-025` REPEATED *Rome* THE MOMENT IT HAD A HISTORY, which is `gw-009`'s Moscow again.** A country
+    whose capital was the polity that made it will trip rule 2 on the sentence rule 5 asks for, and both
+    are now DECLARED in `gw-audit.js`. **Expect one per batch and do not reword around it**: "the city on
+    the Tiber" is worse prose and says less.
+  · **THE MEASURE WAS LENIENT ON A RANGE AND IS NOT NOW.** `geo-history-audit.js` read "between about
+    1650 and 1200 BCE" as the year 1650 CE beside −1200, because its BCE rule consumed only the second
+    number — so `gw-018` Turkey reported its latest date as 1650 and its span 8,553 years too short. An
+    era marker now carries leftwards across a range, as `cardYears` has always done on a date line. **It
+    inflated spans rather than shrinking them**, so nothing was wrongly reported as passing; but a
+    measure that is wrong in the safe direction is still wrong.
+  · **FOUR DATE LINES GAINED THEIR DEEP END** — Japan the capital at Nara in 710, Egypt the unification
+    about 3100 BCE, Iran the Achaemenid span, Turkey the Hittite kingdom and the fall of Constantinople
+    in place of a line that said only when it joined the United Nations. **Turkey did NOT gain 1923**,
+    which is the date its line most wants: the Office of the Historian's page for it renders nothing
+    this sandbox can read, and a date line is not a place to put a fact nothing on the card supports.
+
 - **2026-09-14, batch H2 — five more of the world deck's opening, and the seam that makes this pass
   affordable**: `gw-004` Indonesia, `gw-006` Nigeria, `gw-009` Russia, `gw-010` Ethiopia and `gw-011`
   Mexico. With H1 that is nine of the deck's first eleven; `gw-007` Brazil is deferred, for a reason

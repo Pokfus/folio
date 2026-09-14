@@ -93,6 +93,14 @@ function years(text) {
   eat(/(\d+)(?:st|nd|rd|th)\s+century\s+BCE/gi, (_, n) => -(Number(n) * 100 - 50));
   eat(/(\d+)(?:st|nd|rd|th)\s+millennium(?:\s+CE)?/gi, (_, n) => (Number(n) - 1) * 1000 + 500);
   eat(/(\d+)(?:st|nd|rd|th)\s+century(?:\s+CE)?/gi, (_, n) => (Number(n) - 1) * 100 + 50);
+  /* AN ERA MARKER CARRIES LEFTWARDS ACROSS A RANGE, which is the rule `cardYears` follows on a date
+     line and prose obeys just as often: "between about 1650 and 1200 BCE" is two BCE years, and read
+     without this the first of them comes back as the year 1650 CE. It inflates a span rather than
+     shrinking one, so it made the measure LENIENT — gw-018 Turkey read 1650 as its latest date. */
+  s = s.replace(/(\d[\d,]*)(\s*(?:and|to|\u2013|\u2014|-)\s*)(\d[\d,]*)(\s*BCE)/gi, (m, a1, mid, b1, tail) => {
+    out.push(-Number(String(a1).replace(/,/g, "")), -Number(String(b1).replace(/,/g, "")));
+    return " ".repeat(m.length);
+  });
   eat(/(\d[\d,]*)\s*BCE/gi, (_, n) => -Number(String(n).replace(/,/g, "")));
   eat(/\b([1-9]\d{0,2})\s*CE\b/g, (_, n) => Number(n));
   /* the plain band, read WITHOUT consuming, since 1947 may be reached twice in one sentence */
