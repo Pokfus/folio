@@ -1143,7 +1143,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.27 MB and 47,928 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.27 MB and 47,940 lines is hard to find your way around, so this
   lists its 182 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -3771,6 +3771,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the store is never involved. It skips `.notranslate`.
   · **Two patterns**: `U_CONV_RX` for the ordinary form, and `U_BARE_RX` for the second half of a pair
     sharing the first's unit, without which imperial mode leaves such a sentence half-converted.
+  · **A DENOMINATOR MAY STAND ON EITHER SIDE OF THE UNIT, AND THERE IS A RULE FOR EACH.** `U_RATE`
+    crosses one standing AFTER it ("300 kilometres an hour (190 miles an hour)"); **`U_DENOM` crosses a
+    DENSITY's, which stands BEFORE it** — "73.6 people to the square kilometre (191 to the square mile)",
+    the shape 29 geography cards write, every one of which showed BOTH figures to every reader until it
+    was added (Sep 2026). It lives INSIDE the captured gap, since a metric reader is re-emitted
+    `num + gap + unit` and a rule that merely skipped the denominator would render "73.6 kilometre".
+    **ITS NOUN LIST IS DECLARED, NEVER A WILDCARD**: `\s+\w+\s+` there would let the gap swallow ordinary
+    prose between any number and any unit, which is this engine's worst failure shape — it corrupts text
+    for the IMPERIAL reader only, so the authored view looks perfect and nothing reports it, exactly as
+    "1,930 kilometres from Africa" once rendered "1,200 miles from Afric1,800 miles". Measured: 27 cards
+    write "people", one "inhabitants", one has no noun at all.
+  · **AN ENGINE CHANGE IS PROVED BY RENDERING THE WHOLE CORPUS BEFORE AND AFTER AND DIFFING IT.** There is
+    no other way to check these regexes: a widening that eats prose renders perfectly in the authored
+    metric view. `U_DENOM` was proved byte-for-byte inert on all 1,632 other transformed fields, with
+    exactly the 29 density cards changing — and the pinned shapes in `test-units.js` include one the rule
+    must NOT match, since a table of things that work cannot show that a widening stayed narrow.
+  · **A UNIT SPELLED OUT IS A UNIT THE ENGINE CANNOT SEE, ON EITHER SIDE.** `U_METRIC` knows `°C` and not
+    "degrees Celsius"; `U_IMP` knows `°F` and not "Fahrenheit" — and **test-units.js's own independent
+    sweep did not list "Fahrenheit" either**, so four cards and sixteen glossary terms writing
+    "19.9 degrees Celsius (67.8 Fahrenheit)" were invisible to BOTH of its corpus assertions and showed
+    both figures to everyone. Measured 359 cards use a `°C` figure against 17 that spelled it, so the
+    symbol is the house form and the words were rewritten to it; `STRONG` now lists "Fahrenheit" so the
+    hole cannot reopen. **Write a temperature `−4 °C (25 °F)`, never in words.**
+  · **AND THE SIGN WORD IS THE ONE THAT CHANGES A NUMBER RATHER THAN HIDING IT.** `U_SIGN` is U+2212
+    alone, deliberately (a hyphen there is a range separator), so a temperature written "minus 4°C (25°F)"
+    leaves the word standing while the bracket supplies its own figure: an imperial reader was shown
+    **"minus 25°F" where the truth is 25°F**, and "minus 0°F", "almost minus 19°F", "about minus 27°F" on
+    three more cards and two glossary terms. Five cards and two terms were rewritten to U+2212. **Nothing
+    in the pipeline can see this** — the bracket IS recognised, so both corpus sweeps pass.
   · **`isImperialParen` is the guard against eating an ordinary bracket** — measurement-shaped all through,
     carrying a number and a STRONG imperial unit, since `in` and `mi` alone would take "(in 1920)".
     Verified over the whole corpus: 341 fields transform and no other bracket is touched. **Re-run that
