@@ -1090,6 +1090,38 @@ alone.**
 
 ---
 
+## The over-cited backlog, classified (measured 2026-09-14)
+
+**READ BEFORE OPENING ANOTHER OVER-CITED BATCH — it says which cards are still work and which are
+already answered.** `check-cards.js --report` gives 33 over-cited, and that figure has been read as a
+queue of 33. It is not: **five were already read and deliberately not repaired**, in R17 and R18, so a
+session that opens them re-derives an hour's work to reach the same answer.
+
+| card | why it is not a repair |
+|---|---|
+| `wh-389` stupa | both obvious substitutions lose content — Oldenberg carries sentences 2 and 3 exactly but nothing of sentence 1, and Foucher's footprints example is at Amaravati, not Sanchi |
+| `wh-207` Rosetta Stone | the reported fault is not the fault: two of the three Budge citations carry NO LOCATOR, one standing behind four claims. A whole-book citation is a citation that has not been read |
+| `rm-089` Lapis Niger | three ENTRIES of one gazetteer are three lookups, not one scholar's view three times — `INSTITUTIONAL` reasoning wearing two authors' names |
+| `gr-325` Exekias | Walters 1905 carries six of the ten sentences under one citation and his other two are one sentence each, so there is no citation to empty |
+| `ww2-023` Golden Twenties | blocked on one figure — "German output grew by half between 1924 and 1929" — which needs an index of industrial production, not another document |
+
+**The other 28 are open, and they are NOT mostly Greece.** By collection: **World History 11, Ancient
+Greece 10, China 4, Rome 1, Psychology 1, Second World War 1.**
+
+**AND ONLY ONE OF THE TEN GREECE CARDS IS THE DARTMOUTH SITE.** The rest are out-of-copyright handbooks
+— Evans on three cards, Walters, Gardner, Smyth on two, Meadows, Pestarino. **The Rutter pass is
+effectively closed as a RULE matter**: re-measured 2026-09-14, the site is **193 citations across 115
+cards, 183 of them in Greece — 4.43% of that collection's 4,128 citations**, where this file's own
+heading says 237 and 8.7%. The collection has grown 500 → 770 cards and R1–R18 cut into it. The
+distribution is what settles it: **40 cards carry one Rutter citation, 74 carry two, and exactly one
+carries five** (`gr-046`). The brief allows an author two per card, so 114 of the 115 are AT the bar.
+What remains is a concentration a reader might still be told about, not a backlog of violations.
+
+**THE CHINA CLUSTER IS THE ONE THAT MOST RESEMBLES THE BATCH THAT WENT FASTEST.** `cnh-015` and
+`cnh-021` are William Frederick Mayers and `cnh-022` and `cnh-039` are Henry Doré — two 19th-century
+reference works carrying several cards each, which is R11/R12's William Smith shape exactly, and that
+was the batch that cleared thirteen cards in two runs.
+
 ## `check-cards.js`'s own findings, moved out of `CLAUDE.md` (2026-09-11)
 
 **READ BEFORE OPENING A RE-SOURCING BATCH ON THE GREECE COLLECTION.** The account as it stood in
