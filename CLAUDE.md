@@ -1273,11 +1273,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     list, being object pronouns as well as possessive, so "…twins beneath her" was refused as a
     fragment; and it will not strip **an abbreviation's own full stop**, or a caption ships reading
     "Drawn after Huang Kejia et al".
-  · **WHAT IS LEFT IS A JUDGEMENT, NOT A GAP.** The sweep takes `source-in-caption` from 336 to 21 and
-    all 21 were read: each needs an editor, either because **the credit names the author differently**
-    ("Louis de Clercq" over "Clercq, M. de (Louis), 1836-1901") or names a different person altogether,
-    or because **the caption carries more than the credit** — a date, a holding museum, an authored
-    source sentence. **Do not widen the rules to reach them.**
+  · **WHAT IS LEFT IS A JUDGEMENT, NOT A GAP — AND THE JUDGEMENTS HAVE NOW BEEN MADE.** The sweep takes
+    `source-in-caption` from 336 to 21; those 21 were each read and edited by hand in Sep 2026, so the
+    check now reports **zero** and the rules are unchanged. **Do not widen them**: the residue was of
+    two shapes neither rule can decide, and a third rule would have been inventing an attribution.
+    **The credit names the author differently** ("Louis de Clercq" over "Clercq, M. de (Louis),
+    1836-1901") or names a different person altogether — `wh-198`'s caption credited the photographer
+    where Commons files the object under "Unknown artist" — and **the caption carries more than the
+    credit**: a date, a holding museum, an authored source sentence.
+  · **THE CREDIT GETS THE FACT BEFORE THE CAPTION LOSES IT, AND ON ONE CARD THAT WAS A LICENCE.**
+    `ps-029` is CC BY 4.0 and its credit named NO author, so the caption's "Wellcome Collection" was the
+    picture's only attribution and cutting it would have been a breach; Commons files that file under
+    *"Files with no machine-readable author"* and its sole author statement is the EXIF `Wellcome
+    Library, London`. The credit was written first, then the caption cut. Three China captions carried
+    the photograph's YEAR, which the credit had not got, so the year moved across rather than being
+    thrown away; `ps-050`'s bare archive.org credit gained the licence the caption was carrying.
+  · **AND ONE CAPTION HAD TO BE WRITTEN, BECAUSE THERE WAS NOTHING TO CUT BACK TO.** `wh-059`'s whole
+    `desc` was the Internet Archive's metadata dump ("Title : Annals of the South African Museum …
+    Contributing Library : Smithsonian Libraries…") and its `alt` repeated the volume title, which
+    describes nothing to a reader who cannot see it. **The picture was FETCHED AND LOOKED AT** — a plate
+    of eighteen numbered line drawings — and the plate's own printed caption read off the Commons file
+    page, which names what each number is. **A caption is written from the picture and its source, never
+    from the card's prose.** It uses the site's spelling of the answer term rather than the 1929 plate's
+    ("Howieson's Poort"), an unexplained variant of a card's own answer term beside the answer being a
+    confusion for nothing.
+  · **`upload.wikimedia.org`'s `api.php` CAN BE 429 WHILE THE FILE AND ITS PAGE SERVE PERFECTLY** — the
+    BUSY state `check-reach.js` records, not a wall. `Special:FilePath/<FILE>?width=N` (with `curl -L`;
+    it 302s) fetches the picture and `/wiki/File:<FILE>` serves the description page carrying the Author,
+    the licence and the source book's own caption. **Reach for those two before concluding Commons is
+    shut.**
   Not part of the site.
 - `.claude/check-claims.js` — **CLAUDE.md's own figures, measured**: `node .claude/check-claims.js
   [--all]`. This file is the ONLY operational memory a cloud session has, it is written in the present
