@@ -1122,6 +1122,37 @@ What remains is a concentration a reader might still be told about, not a backlo
 reference works carrying several cards each, which is R11/R12's William Smith shape exactly, and that
 was the batch that cleared thirteen cards in two runs.
 
+### R19 — the China cluster, all four (shipped 2026-09-14)
+
+`check-cards.js --prefix=cnh-` now reports **no over-cited card**. Every replacement source was fetched
+from archive.org and READ before a marker was moved; the notes below are what that reading found, and
+they are the reusable half.
+
+| card | dropped | where the claims went |
+|---|---|---|
+| `cnh-015` Chang'e | Mayers pt. I no. 300 (the cassia entry) | pt. II 288–89 carries the cassia, the hare AND Wu Kang on its own, so the hare sentence simply lost a redundant marker. The sentence that rested on no. 300 alone — the cassia visible at mid-autumn, "plucking a leaf from the cassia" for taking a degree — could not be re-sourced and was **rewritten** onto two facts pt. II 289 states outright: the leaves conferring immortality, and the old man of the moon who ties the cord between two people destined to marry |
+| `cnh-021` Penglai | Mayers pt. I 163–64 (the Anqi Sheng entry) | Giles p. 3 carries Anqi Sheng as a magician of the isles whom the First Emperor sent Xu Shi to find, and adds the Han emperor Wu doing the same at Li Shaojun's urging — so the two sentences were rewritten onto what Giles states, losing Mayers's drug-seller and his three days and nights and gaining a second dynasty |
+| `cnh-022` Eight Immortals | Doré vol. 9, 36–38 | Werner 288 states the classification in the same terms ("old, young, male, female, civil, military, rich, poor, afflicted, cultured, noble"), and the emblem sentence moved to a second Werner citation at 289–303, where each immortal's own attribute is given |
+| `cnh-039` Guandi | Doré vol. 6, 71–72 | Werner 113–15 carries the WHOLE early life — the birthplace, the two name changes, the room and the window, the weeping pair, the killings, the brook, the barrier, the well stone and the peach orchard — and the existing Werner citation was split at the page break so each half is precise |
+
+**THREE SENTENCES WERE CORRECTED RATHER THAN RE-POINTED, and that is the rule this batch is worth
+remembering for.** A marker moved to a source that says something slightly different is a citation
+that does not bear out its own sentence, and nothing in the pipeline can see it. Doré had Guan Yu shut
+in a "back room" where Werner has "a room"; Doré's face turns "a dark ruddy colour" where Werner has
+"reddish-grey"; Doré has the name Guan "which had never been his family name" where Werner says only
+that he gave it and was known by it ever after. **Re-point the marker and correct the prose in the same
+edit, or do neither.**
+
+**THE PRONOUN CAN BE PART OF WHAT THE SOURCE SAYS.** `cnh-022`'s emblem sentence read "Lan Caihe plays
+his flute"; Werner, the source it now rests on, calls Lan Ts'ai-ho "she" and records that the immortal
+is "variously stated to have been a woman and an hermaphrodite". The sentence was recast without a
+pronoun rather than asserting a gender the cited source disputes.
+
+**AND A CARD CAN LOSE A CITATION WITHOUT LOSING A SOURCE.** Three of the four gained a source rather
+than losing one, because a single citation covering several pages of one book can honestly be split
+where different claims rest on different pages — Werner 113–17 became 113–15 and 116–17. That is
+precision, not padding, and it is only legitimate where the split is where the claims actually fall.
+
 ## `check-cards.js`'s own findings, moved out of `CLAUDE.md` (2026-09-11)
 
 **READ BEFORE OPENING A RE-SOURCING BATCH ON THE GREECE COLLECTION.** The account as it stood in
