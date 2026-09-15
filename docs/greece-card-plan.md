@@ -1053,32 +1053,51 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-772  Battle of Corupedium
     gr-773  Hellenistic kingship
     gr-774  Ruler cult
-    gr-775  Hellenistic queens
+    gr-775  Hellenistic queens  — answered by "basilissa", the title itself, chosen when the card
+             was written: "Hellenistic queens" is a description rather than a term, and the word a
+             reader will meet again in an inscription is the one the inscriptions use
     gr-776  Arsinoe II
     gr-777  Berenice II
-    gr-778  Ptolemaic administration
+    gr-778  Ptolemaic administration  — answered by "dioiketes", chosen when the card was written:
+             the kingdom itself is already carded at gr-767, so the line wants the office that
+             actually ran the country rather than a second card on Ptolemaic Egypt
     gr-779  Seleucid colonisation
     gr-780  Antioch
     gr-781  Seleucia on the Tigris
     gr-782  Ai-Khanoum
     gr-783  The Greco-Bactrian Kingdom
-    gr-784  The Indo-Greek Kingdom
+    gr-784  The Indo-Greek Kingdom  — its glossary term `Indo-Greek_Kingdom` ALREADY EXISTED when the
+             card was written, cited and illustrated, so the pairing rule was satisfied without a new
+             entry: check before running add-glossary.js, which overwrites in silence
     gr-785  Menander I
     gr-786  The Milindapanha
-    gr-787  The Celtic invasion of Greece
+    gr-787  The Celtic invasion of Greece  — answered by "Gallic invasion of Greece", the name the
+             sources and the modern literature use; "Brennus" was considered and refused, the glossary
+             already holding a Brennus, the Gaul who sacked Rome
     gr-788  The Galatians
-    gr-789  Attalid Pergamon
+    gr-789  Attalid Pergamon  — answered by "Attalid dynasty", chosen when the card was written: the
+             line names a city and a house together, and the house is the thing a reader meets again,
+             while the altar on that acropolis is the next card
     gr-790  The Great Altar of Pergamon
-    gr-791  The Library of Pergamon
-    gr-792  Antiochus III
+    gr-791  The Library of Pergamon  — its glossary term is keyed `Library_of_Pergamon`, Folio's own
+             spelling and a real Wikipedia address, although the canonical article is at "Library of
+             Pergamum"; the Pergamum form is carried as an alias
+    gr-792  Antiochus III  — its glossary term `Antiochus_III_the_Great` ALREADY EXISTED when the card
+             was written, cited and at the bar, so the pairing rule was satisfied without a new entry
     gr-793  The Syrian Wars
     gr-794  Battle of Raphia
     gr-795  The Aetolian League
-    gr-796  The Achaean League
+    gr-796  The Achaean League  — its glossary term `Achaean_League` ALREADY EXISTED, with four sources,
+             so no new entry was written: check before running add-glossary.js, which overwrites in silence
     gr-797  Aratus of Sicyon
     gr-798  Cleomenes III
-    gr-799  The Spartan revolution
-    gr-800  Hellenistic siege warfare
+    gr-799  The Spartan revolution  — answered by "Agis IV", chosen when the card was written: the line
+             names a programme with no term of its own, and Agis is the king who framed it and died for
+             it, which leaves gr-798 the reign and the war that carried it through by force
+    gr-800  Hellenistic siege warfare  — answered by "torsion catapult", chosen when the card was
+             written: "poliorcetics" redirects to the Wikipedia article "Siege", whose bare name is an
+             ordinary English word no glossary term should claim, and the torsion spring is the advance
+             the whole art rests on
 
 ### Alexandria and Hellenistic science — `gr-alexandria`
 

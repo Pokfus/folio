@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.751", released: "2026-09-15T01:06Z" };
+window.FOLIO_VERSION = { v: "1.752", released: "2026-09-15T01:25Z" };
 
 window.CHANGELOG = [
   {
@@ -45,12 +45,14 @@ window.CHANGELOG = [
       "<b>The default theme is now the opal</b> — milky iridescent paper, rounded cards and a softer type pairing, in place of the old warm paper and vermilion.",
       "<b>Red text is a deeper red</b> — the answer term and the footnote markers now stand well clear of the page instead of fading into it.",
       "<b>Ten new Ancient Rome cards</b> — the settlement of 23 BCE and the powers, provinces and pay that made the Principate work, with ten new glossary terms.",
+      "<b>Ten new cards in the Ancient Greece collection</b>, on the Syrian Wars, the Aetolian and Achaean leagues and the Spartan reform kings, with eight new glossary terms.",
     ],
   },
   {
     d: "2026-09-14",
     t: "Every world geography background is now about its own place",
     items: [
+      "<b>Twenty new cards in the Ancient Greece collection</b>, on Hellenistic kingship and the successor kingdoms from Bactria and India to Galatia and Pergamon, with nineteen new glossary terms.",
       "<b>Eighty-nine more capital-city backgrounds are now about the city</b> \u2014 its rivers, its rock, its weather and its own history rather than a record of diplomatic recognition.",
       "<b>Measurements read correctly in imperial again</b> \u2014 dozens of cards and glossary terms were dropping a word such as a place name when you asked for feet and miles.",
       "<b>Twenty new Ancient Rome cards</b> \u2014 the rise of Augustus from Caesar\u2019s will to the settlement of 27 BCE, with twenty new glossary terms.",
