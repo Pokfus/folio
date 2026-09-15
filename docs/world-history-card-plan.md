@@ -879,6 +879,17 @@ second half. The glossary term is keyed `Indianisation`, with *Indianization* an
 
 ### Africa — `wh-africa`
 
+*Retitled while writing (Sep 2026): `wh-584` was *Islam in West Africa*, which is a description
+rather than a term — there is no article of that name to key a glossary entry on, and the process
+itself is already carried by `wh-568`, `wh-570`, `wh-571` and `wh-574`, which between them have the
+hajj as a mark of a Mali king, the Maliki rite, Sankore and the Wangarawa at Kano. The line is now
+**Ajami**, the writing of African languages in the Arabic alphabet — a term a reader meets again, the
+one thing in that story the Africa deck had no card for, and the trace of Islam reaching past the
+Arabic-literate court. `wh-585` was *Christian Nubia*: `Nubia` is already `wh-229`'s answer term and
+glossary entry, so the line had no term of its own left to teach. It is now **Makuria**, the middle
+and longest-lived of the three Christian Nubian kingdoms, which is what "Christian Nubia" chiefly
+means and which the glossary lacked.*
+
 *Retitled while writing (Sep 2026): `wh-567` was *Trans-Saharan trade*, which `wh-423` already
 cards under exactly that answer term and which `Trans-Saharan_trade` already has as a glossary entry.
 The line is now **Sijilmasa**, the northern gateway of the western route — a place the sources
@@ -903,14 +914,25 @@ half of the trade `wh-423` does not reach.*
     wh-581  Zagwe dynasty
     wh-582  Lalibela
     wh-583  Griot
-    wh-584  Islam in West Africa
-    wh-585  Christian Nubia
+    wh-584  Ajami
+    wh-585  Makuria
 
 ### Steppe empires and the Mongols — `wh-steppe`
 
-    wh-586  Eurasian Steppe
-    wh-587  Nomadic pastoralism
-    wh-588  Xiongnu
+*Retitled while writing (Sep 2026): the deck's first three lines were each already carded, with the
+same answer term and the same glossary key, in another collection — *Eurasian Steppe* at `ru-001`,
+*Nomadic pastoralism* at `ru-003` (as *pastoral nomadism*) and *Xiongnu* at `cnh-225`. Writing them
+here would have produced three near-verbatim duplicates rather than the deliberate pairs the Biology
+and Psychology plans describe, since `ru-001`'s background is already a general account of the
+grassland belt from the Danube to Manchuria. They are now **composite bow** and **yurt**, the weapon
+and the dwelling the steppe way of life actually rested on and which nothing on the site carded, and
+**Yuezhi**, the people the Xiongnu drove west — which keeps the Xiongnu in the deck as the force that
+started the movement, links forward to `wh-391` Kushan Empire, and gives the deck a migration to open
+on instead of a definition.*
+
+    wh-586  Composite bow
+    wh-587  Yurt
+    wh-588  Yuezhi
     wh-589  Huns
     wh-590  Attila
     wh-591  Göktürks
