@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.756", released: "2026-09-15T09:31Z" };
+window.FOLIO_VERSION = { v: "1.757", released: "2026-09-15T12:05Z" };
 
 window.CHANGELOG = [
   {
@@ -44,6 +44,7 @@ window.CHANGELOG = [
     items: [
       "<b>The default theme is now the opal</b> — milky iridescent paper, rounded cards and a softer type pairing, in place of the old warm paper and vermilion.",
       "<b>Red text is a deeper red</b> — the answer term and the footnote markers now stand well clear of the page instead of fading into it.",
+      "<b>Folio has a new icon</b> — an open folio in the opal's colours, in place of the red disc that read more like a flag than a book.",
       "<b>Twenty more wars shade their two sides on the globe</b> \u2014 among them Alexander against Persia, the fall of the Shang and the early Muslim conquests.",
       "<b>Two war maps no longer contradict a neighbouring card</b> \u2014 the same ground was shaded green on one card and red on another in the same year.",
       "<b>An artwork card no longer asks where the work is today</b> \u2014 it is named for you on the answer side instead, in the box under the picture.",
