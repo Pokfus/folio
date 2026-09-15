@@ -347,6 +347,69 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-15, batch H13 — ten more, and the checker catching two initials expanded from memory**:
+  `gw-003` United States, `gw-039` Morocco, `gw-042` Poland, `gw-050` Côte d'Ivoire, `gw-055` Niger,
+  `gw-065` Chad, `gw-072` Netherlands, `gw-073` Cambodia, `gw-074` Zimbabwe and `gw-075` Guinea. Their
+  history blocks opened at 1776, 1786, 1862, 1960, 1960, 1960, 1780s, 1950, 1980 and 1958; they now open
+  at Cahokia, the Jebel Irhoud fossils, the Piast strongholds, the tradition that dates Kong to the 1040s,
+  the Green Sahara, Toumaï in the Djurab, the Batavians on the Rhine island, the Khmer Empire, Great
+  Zimbabwe and a Fula state in the highlands. Rules 1–4 stay at zero; 5b went 339 to 330 and 5c 307 to
+  301.
+
+  · **`check-citations.js` FOUND TWO GIVEN NAMES EXPANDED FROM MEMORY, WHICH IS THE ONE FAULT IT EXISTS
+    FOR.** The Great Zimbabwe paper's own page lists its authors as "Chirikure S, Moultrie T, Bandama F,
+    Dandara C, Manyanga M" in the citation line, and the Chicago note wants full given names: drafted from
+    the initials they came out as **Tom** Moultrie and **Collet** Dandara, where the byline higher up the
+    same page reads **Thomas** Moultrie and **Collett** Dandara. Nothing else in the pipeline could see it
+    — the DOI resolves, the claims are right, the markers are sound. **A citation line of initials is not
+    a byline; scroll up the article page to the authors' block.**
+
+  · **THE BUILD IS NOT IDEMPOTENT AGAINST ITS OWN OUTPUT, AND THIS TIME THE VALIDATOR SAID SO.** H11 lost
+    a round to `borrow()` re-reading a card the batch had already rewritten; the duplicate-source check
+    added after it caught the same thing here on the first re-run — `borrow("gw-039",4)` had been the
+    constitution and was now the UN member-states citation, so the batch would have listed that work
+    twice. **Re-emitting one card after a batch has landed means building it from the SHIPPED card, not
+    from the build.**
+
+  · **THE PROXY READS "million years ago" AND NOT "million years old".** Chad was drafted "brackets the
+    animal between 6.8 and 7.2 million years old" and reported a span of 109 years beginning 1851, which
+    reads like a card nobody had taken deep. `geo-history-audit.js`'s `DEEP_UNIT` is an explicit list —
+    Mya, kya, BP, "years ago" — and its own header says so. **Write the deep date in one of those four
+    forms**; "ago" instead of "old" moved the card from 109 years to 7.2 million.
+
+  · **NINE OF TEN CLEARED AND GUINEA IS THE HONEST EXCEPTION.** Its block now opens on the Fula state of
+    the highlands — its prince at Timbo, its ruler titled Almamy, glossed by a traveller of 1818 as
+    sovereign pontiff — instead of on independence in 1958, which is the improvement rule 5 asks for. It
+    still trips 5b and 5c because **nothing reachable from here dates the Fula conquest of the Fouta
+    Djallon**: Mollien describes it and gives no year, DOAJ's Fouta Djallon hits are agronomy and
+    zoology, and Lady Lugard's history of the western Sudan does not mention the highlands at all. The
+    card is better and the measure is right about it; it stays on the list until a dated source turns up.
+
+  · **A SCAN'S TITLE PAGE SAID IT WAS A PERIODICAL, NOT THE BOOK THE CATALOGUE CLAIMED.**
+    `archive.org/details/dunigeraugolfede00bing` is catalogued as Binger's two-volume *Du Niger au golfe
+    de Guinée* and its running heads read **LE TOUR DU MONDE**, its first page "LE TOUR DU MONDE, NOUVEAU
+    JOURNAL DES VOYAGES … PAR M. LE CAPITAINE BINGER, 1887-1889. TEXTE ET DESSINS INÉDITS". So the
+    citation is the serial and the page numbers are the journal's. **The two Google scans of the actual
+    volumes hand back page furniture and no text**, which is the other half of the same check: read what
+    the file is before citing what the catalogue says it is.
+
+  · **ONE BOOK COVERED TWO COUNTRIES A THOUSAND MILES APART.** Barth's one-volume 1860 Philadelphia
+    edition carries the whole journey, so Niger has the Agadez market paying in millet where it once dealt
+    in the gold of Gao (p. 108) and the Aïr known to Europe only from a hint in Leo Africanus (p. 53),
+    while Chad has Bornu as Kanem's second stage (p. 164) and the plain by the lake in 1851 (pp. 234–37).
+    **Its OCR spells the town `A''gades`**, so a grep for "Agadez" or even "Agades" reports the book does
+    not mention it.
+
+  · **KONG'S OWN FOUNDATION TRADITION COMES WITH ITS RECORDER'S DOUBT ATTACHED**, which is the shape this
+    pass wants: Binger was told the town was founded when Djenné was, in 1043–44, and wrote that he doubted
+    it because no Arabic history mentions the place and the first Europeans to report a country of that
+    name were Mungo Park and Bowdich. The card carries the tradition and the doubt together.
+
+  · **A COLONIAL TRAVELLER'S VALUE JUDGEMENT IS NOT A FACT TO REPEAT.** Binger explains the Dyula rise at
+    Kong by their being "plus intelligents que les autochtones"; the card says instead that they settled
+    at first in villages outside the town and before long had acquired influence within it, which is the
+    same paragraph's other half and is what actually happened.
+
 - **2026-09-15, batch H12 — ten more, and the proxy's blind spot for the plural of "century"**:
   `gw-059` Burkina Faso, `gw-062` Malawi, `gw-063` Zambia, `gw-064` Kazakhstan, `gw-066` Chile,
   `gw-067` Romania, `gw-068` Somalia, `gw-069` Senegal, `gw-070` Guatemala and `gw-071` Ecuador.
