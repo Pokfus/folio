@@ -61,9 +61,9 @@ const PX = `(() => {
   return { mine: mine, marks: marks, green: green, label: label };
 })()`;
 
-const seed = (ids) => `localStorage.setItem("folio_v1", JSON.stringify({
+const seed = (ids, home) => `localStorage.setItem("folio_v1", JSON.stringify({
   cards: Object.fromEntries(${JSON.stringify(ids)}.map((id) => [id, { due: Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" }])),
-  settings: { newPerDay: 5 },
+  settings: { newPerDay: 5${home ? ", home: " + JSON.stringify(home) : ""} },
 }));
 localStorage.setItem("folio_mine_tour_v1", "1");
 localStorage.setItem("folio_atlas_tour_v1", "1");`;
@@ -263,12 +263,12 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
     }
     return { ink: ink, mine: mine, label: label };
   })()`;
-  const freshPage = async (ids, zoomIn) => {
+  const freshPage = async (ids, zoomIn, home, vp) => {
     await page.close();
-    page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+    page = await browser.newPage({ viewport: vp || { width: 1200, height: 900 } });
     page.on("pageerror", (e) => errs.push(e.message));
     page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
-    await page.addInitScript(seed(ids));
+    await page.addInitScript(seed(ids, home));
     await page.goto(base + "#map", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(4200);
@@ -454,6 +454,110 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
     close.marks > wide.marks, JSON.stringify({ wide: wide.marks, close: close.marks }));
   check("...and the names wait for the zoom", wide.label === 0 && close.label > 0,
     JSON.stringify({ wide: wide.label, close: close.label }));
+
+  /* ---------- 10) the stray border lines, the name as a target, and the gloss guard ---------- */
+  /* All three are Sep 2026 requests and all three fail SILENTLY. A stray line looks like a country the
+     reader has not unlocked; a name that answers no press looks like a map that is simply dead; and a
+     gloss link that opens instantly is indistinguishable from one that was meant to. */
+  console.log("\n10) the strays, the labels and the gloss guard");
+
+  /* THE STRAY IS MEASURED AS INK ON EMPTY GROUND. `mineCoastCut` drops a coast segment that runs out and
+     comes straight back with two different countries across it — world.js's straight borders, traced by
+     both of them a hundredth of a degree apart. The clearest of them ran from the Kenya/Tanzania border
+     to the sea, so the globe is centred on its INLAND half and a small box is taken round the middle: on
+     a personal atlas with nothing unlocked that box holds flat land and a river, and the river is water,
+     which the ink test steps over.
+     THE BOX HAS TO STAY OFF THE COAST, which is real ink and is what a first cut at 220px caught: at that
+     size its right edge reaches the Indian Ocean and the check reads 530 with the fix in and 718 without,
+     which measures the coastline rather than the stray. At 120px, MEASURED both ways in one sitting: 185
+     without the fix and 10 with it — the ten being anti-aliasing along the river's own edge, four pixels'
+     worth, where the stray is a line right across the frame. */
+  const INK_BOX = (w, h) => `(() => {
+    const cs = getComputedStyle(document.body);
+    const hex = (s) => { s = s.replace("#", ""); if (s.length === 3) s = s.split("").map((c) => c + c).join(""); const n = parseInt(s, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+    const P = hex(cs.getPropertyValue("--paper").trim() || "#ffffff"), I = hex(cs.getPropertyValue("--ink").trim() || "#000000");
+    const L = P.map((v, i) => Math.round(v + (I[i] - v) * 0.10));
+    const lum = (r, g, b) => r * 0.299 + g * 0.587 + b * 0.114;
+    const cut = lum(L[0] * ${DIMF}, L[1] * ${DIMF}, L[2] * ${DIMF}) - 12;
+    const cv = document.getElementById("globe"), q = cv.getContext("2d");
+    const x0 = Math.round(cv.width / 2 - ${w} / 2), y0 = Math.round(cv.height / 2 - ${h} / 2);
+    const d = q.getImageData(x0, y0, ${w}, ${h}).data;
+    let ink = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] < 8) continue;
+      if (d[i + 2] - d[i] > 30) continue;                                   // water: the river through the frame
+      if (lum(d[i], d[i + 1], d[i + 2]) < cut) ink++;
+    }
+    return ink;
+  })()`;
+  await freshPage([], 6, { lon: 38.0, lat: -3.85 });
+  const stray = await page.evaluate(INK_BOX(120, 120));
+  check("no stray border line is drawn across empty ground", stray < 30, stray + " dark pixels in the frame (185 before the fix, 10 after)");
+
+  /* A PLACE'S NAME IS PART OF ITS TARGET. The dot is three or four pixels of red beside a word several
+     times its width, so the target is measured as the SPAN OF X that opens the popup at the dot's own
+     row: the dot alone answers over about 28px, and the dot with its name over far more. Measured before
+     the fix: 18px wide, running −8 to +10 of centre. */
+  await freshPage(["cnh-069"], 4, { lon: 114.3186, lat: 36.1225 });   // Yinxu, a Shang locator, alone on the globe
+  const gr = await page.$eval("#globe", (e) => { const b = e.getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height }; });
+  const gcx = gr.x + gr.w / 2, gcy = gr.y + gr.h / 2;
+  const popName = () => { const e = document.getElementById("countryPop"); return e && !e.hidden ? document.getElementById("cpName").textContent.trim() : ""; };
+  let lo = 0, hi = 0, opened = 0;
+  for (let dx = -140; dx <= 140; dx += 6) {
+    await page.mouse.click(gcx + dx, gcy);
+    if (await page.evaluate(popName)) {
+      if (!opened++) lo = dx;
+      hi = dx;
+      await page.evaluate(() => document.getElementById("cpClose").click());
+    }
+  }
+  check("a place answers a click", opened > 0, opened + " of the sweep's points");
+  check("...over its name as well as its dot", hi - lo >= 40, "target " + (hi - lo) + "px, " + lo + " to " + hi + " of the dot");
+
+  /* THE GLOSS GUARD. The panel arrives under the finger that summoned it, so a term inside it is dead for
+     a second — see CP_GLOSS_ARM_MS. Both halves are asserted: a click that does nothing is worth nothing
+     unless the same click works a moment later. */
+  await page.mouse.click(gcx + lo, gcy);
+  await page.waitForTimeout(150);
+  const term = await page.evaluate(() => {
+    const t = document.querySelector("#countryPop .ttip"); if (!t) return null;
+    const b = t.getBoundingClientRect(); return { k: t.dataset.k, x: b.x + b.width / 2, y: b.y + b.height / 2 };
+  });
+  check("the card in the panel carries a glossary term", !!term, term ? term.k : "none");
+  if (term) {
+    const glossOpen = () => document.querySelectorAll(".gloss-win").length;
+    await page.mouse.click(term.x, term.y);
+    await page.waitForTimeout(150);
+    check("...which does nothing in the first second", (await page.evaluate(glossOpen)) === 0);
+    await page.waitForTimeout(1100);
+    await page.mouse.click(term.x, term.y);
+    await page.waitForTimeout(300);
+    check("...and opens once the second is up", (await page.evaluate(glossOpen)) > 0);
+  }
+
+  /* …AND THE CHEVRON RE-ARMS IT. A phone opens the sheet SHUT, so the press that reveals the prose is a
+     second chance to land on a term — `cpSetShut` arms it again, and that is its own call site to lose. */
+  await freshPage(["cnh-069"], 4, { lon: 114.3186, lat: 36.1225 }, { width: 390, height: 844 });
+  const pr = await page.$eval("#globe", (e) => { const b = e.getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height }; });
+  let up = false;
+  for (let dx = -60; dx <= 60 && !up; dx += 5) {
+    await page.mouse.click(pr.x + pr.w / 2 + dx, pr.y + pr.h / 2);
+    up = await page.evaluate(() => { const e = document.getElementById("countryPop"); return !!(e && !e.hidden); });
+  }
+  check("the phone's sheet opens shut", up && await page.evaluate(() => document.getElementById("countryPop").classList.contains("cp-shut")));
+  await page.waitForTimeout(1300);                                    // the open-time arming lapses
+  await page.click("#cpMore");
+  await page.waitForTimeout(400);
+  const t2 = await page.evaluate(() => {
+    const t = document.querySelector("#countryPop .ttip"); if (!t) return null;
+    const b = t.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+  });
+  check("the uncollapsed sheet shows a term", !!t2);
+  if (t2) {
+    await page.mouse.click(t2.x, t2.y);
+    await page.waitForTimeout(150);
+    check("...armed again by the chevron", (await page.evaluate(() => document.querySelectorAll(".gloss-win").length)) === 0);
+  }
 
   check("no console or page errors throughout", errs.length === 0, errs.slice(0, 3).join(" | "));
   await browser.close();

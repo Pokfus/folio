@@ -10028,7 +10028,7 @@ window.COLLECTION_TREE = {
     },
     {
       "id": "geo-world",
-      "title": "World",
+      "title": "World Geography",
       "total": 468,
       "placeholder": false,
       "children": [
