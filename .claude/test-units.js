@@ -195,7 +195,12 @@ async function shown(page, html) {
          an ordinary bracket correctly left alone and all three pass — which is how `by`, `square` and
          `cubic` shipped unseen across 30 sites. This one decides what a measurement is WITHOUT the engine:
          a bracket holding a digit and a strong imperial unit is one, and the engine must agree. */
-      const STRONG = /(?:^|[^A-Za-z])(?:miles?|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)(?![A-Za-z])/i;
+      /* `Fahrenheit` SPELLED OUT was the blind spot in this list, and it was a real one: gw-230..gw-233
+         wrote "19.9 degrees Celsius (67.8 Fahrenheit)", which U_IMP does not list either — so
+         isImperialParen rejected the bracket, this sweep did not count it as measurement-shaped, and
+         four cards showed BOTH figures to every reader with nothing anywhere reporting it. The cards
+         were rewritten to the °C/°F the other 359 use; this closes the hole behind them. */
+      const STRONG = /(?:^|[^A-Za-z])(?:miles?|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F|Fahrenheit)(?![A-Za-z])/i;
       /* A HISTORICAL UNIT IS NOT AN UNCONVERTED IMPERIAL ONE, and the sweep has to say so.
          The house rule is metric first with the imperial in brackets, and this sweep exists to catch a
          bracket the engine would fail to convert. But four Roman-roads cards write the distance the
@@ -241,6 +246,18 @@ async function shown(page, html) {
         ["the shared-unit pair still works", "averaging 151 centimetres (4 ft 11 in) and females 105 (3 ft 5 in).", "averaging 151 centimetres and females 105.", "averaging 4 ft 11 in and females 3 ft 5 in."],
         ["and an ordinary bracket is still safe", "in the 1920s (about 30 years later)", "in the 1920s (about 30 years later)", "in the 1920s (about 30 years later)"],
         ["...as is a dated aside", "Ephorus (a 4th-century historian) says", "Ephorus (a 4th-century historian) says", "Ephorus (a 4th-century historian) says"],
+        /* A DENSITY puts its denominator BETWEEN the number and the unit, which is the mirror of the
+           `an hour` rate U_RATE crosses on the other side, and 29 geography cards showed both figures to
+           every reader until U_DENOM was added. The gap is CAPTURED and re-emitted to a metric reader, so
+           the denominator has to come back with it — a rule that merely skipped it would render
+           "73.6 kilometre". All three shapes the corpus actually writes are pinned. */
+        ["a density, denominator between number and unit", "counts 73.6 people to the square kilometre (191 to the square mile) across it.", "counts 73.6 people to the square kilometre across it.", "counts 191 to the square mile across it."],
+        ["...with `per` and another noun", "at about 5,000 inhabitants per square kilometre (12,950 per square mile) against", "at about 5,000 inhabitants per square kilometre against", "at about 12,950 per square mile against"],
+        ["...and with no noun at all", "people at 6,500 to the square kilometre (16,800 to the square mile), with", "people at 6,500 to the square kilometre, with", "people at 16,800 to the square mile, with"],
+        /* AND THE NOUN LIST IS DECLARED FOR A REASON: a wildcard there would let the gap swallow ordinary
+           prose between any number and any unit, which corrupts text for the IMPERIAL reader alone and so
+           is invisible in the authored view. This is that case, and it must stay untransformed. */
+        ["an unlisted word does NOT let the gap swallow prose", "12 chapters to the kilometre (5 miles) on", "12 chapters to the kilometre (5 miles) on", "12 chapters to the kilometre (5 miles) on"],
       ].forEach(([label, input, wantMetric, wantImperial]) => {
         const gotM = U.unitizeText(input, false), gotI = U.unitizeText(input, true);
         check(label, gotM === wantMetric && gotI === wantImperial, gotM === wantMetric && gotI === wantImperial ? "" : "metric=" + gotM + "  imperial=" + gotI);

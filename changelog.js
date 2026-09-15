@@ -35,15 +35,29 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.748", released: "2026-09-14T17:46Z" };
+window.FOLIO_VERSION = { v: "1.758", released: "2026-09-15T00:28Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-09-15",
+    t: "The archaic smile card gains the argument about what it meant",
+    items: [
+      "<b>The card on the archaic smile now says that what the smile meant has been argued over</b> \u2014 whether it flattered the onlooker or was only an attempt at any expression at all, and it rests on four writers where it leaned on one.",
+      "<b>The last card measuring a temperature in words now shows it in both systems</b> \u2014 the Ice Age card gives how much colder the world was in degrees a reader of either system knows.",
+      "<b>The card on Minoan trade with Egypt now rests on the excavators rather than on one teaching site</b> \u2014 five of its six sources were the same course website, and three sentences were rewritten to what the new sources say.",
+      "<b>The card on the Cypriot syllabary now says why the script died out</b> \u2014 the alphabet replaced it only after the Ptolemies took the island, and four of its six sources were one reviewer.",
+    ],
+  },
   {
     d: "2026-09-14",
     t: "Every world geography background is now about its own place",
     items: [
       "<b>Eighty-nine more capital-city backgrounds are now about the city</b> \u2014 its rivers, its rock, its weather and its own history rather than a record of diplomatic recognition.",
-      "<b>Measurements read correctly in imperial again</b> \u2014 dozens of cards and glossary terms were dropping a word such as a place name when you asked for feet and miles.",
+      "<b>Measurements read correctly in imperial again</b> \u2014 dozens of cards and terms were dropping a word, showing both systems at once, or marking a temperature above freezing as below it.",
+      "<b>Twenty-one card pictures no longer credit themselves twice</b> \u2014 the caption now says what the picture shows, and the line beneath it whose it is.",
+      "<b>Ten cards now rest on several writers rather than on one old handbook</b> \u2014 in China, World History and Ancient Greece, and nine sentences were corrected to what their new source says.",
+      "<b>Four glossary terms now cite a second work a reader can open</b> \u2014 each had one free source and one behind a paywall, which is half its apparatus out of reach.",
+      "<b>Hundreds of sources on the country cards no longer lead to a dead page</b> \u2014 the UN rebuilt its statistics site, so each now opens an archived copy of the profile it cites.",
     ],
   },
   {

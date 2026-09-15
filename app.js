@@ -15007,6 +15007,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // a dimension qualifier standing between the number and its unit ("7,600 square metres", "129 cubic
   // kilometres"); the gap group is otherwise whitespace-only, which is what made those brackets invisible
   const U_DIM = "(?:square|cubic|sq|cu)";
+  /* A DENSITY puts its denominator between the number and the unit — "73.6 people to the square kilometre
+     (191 to the square mile)" — which the gap could not cross, so 29 geography cards showed BOTH figures
+     to every reader. It is the mirror of U_RATE, which crosses a denominator standing AFTER the unit, and
+     it has to live in the CAPTURED gap rather than beside it, since a metric reader is re-emitted
+     `num + gap + unit` and dropping it would render "73.6 kilometre".
+     THE NOUN LIST IS DECLARED, NOT A WILDCARD. `\s+\w+\s+` here would let the gap swallow ordinary prose
+     between any number and any unit, which is the one failure this engine must not have: it corrupts text
+     for the imperial reader only, so the authored metric view looks perfect and nothing reports it. That
+     is exactly how "1,930 kilometres from Africa" once rendered as "1,200 miles from Afric1,800 miles".
+     Measured over the corpus: 27 cards write "people", one "inhabitants", one has no noun at all, and the
+     whole change was proved byte-for-byte inert on all 1,661 other rendered fields. */
+  const U_DENOM = "(?:(?:people|inhabitants|persons|residents)\\s+)?(?:(?:to|per)\\s+(?:the\\s+)?)?";
   // longest-first, and the lookahead rather than \b so `km²` (a non-word character) and the bare `m` / `g`
   // abbreviations both terminate correctly
   const U_METRIC = "(?:kilometres|kilometers|kilometre|kilometer|centimetres|centimeters|centimetre|centimeter|millimetres|millimeters|millimetre|millimeter|millilitres|milliliters|millilitre|milliliter|kilogrammes|kilogramme|kilograms|kilogram|hectares|hectare|tonnes|tonne|grammes|gramme|grams|gram|metres|meters|metre|meter|litres|liters|litre|liter|km²|m²|km|cm|mm|ml|kg|ha|°C|m|g)(?![A-Za-z²])";
@@ -15036,7 +15048,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      were shown to a metric reader. It is captured rather than tolerated: metric keeps it, since dropping it
      renders "winds of nearly 300 kilometres". */
   const U_RATE = "((?:\\s+(?:an|per)\\s+hour|\\s*/\\s*h)?)";
-  const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")" + U_RATE + "(\\s*)\\(([^()]{1,90})\\)", "gi");
+  const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*" + U_DENOM + "(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")" + U_RATE + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   const U_BARE_RX = new RegExp(U_RUN + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   function unitSystem() { return UNIT_SYSTEMS.includes(S.settings && S.settings.units) ? S.settings.units : "metric"; }
   function isImperialParen(s) { return U_ONLY_RX.test(s) && U_HAS_IMP_RX.test(s) && U_HAS_NUM_RX.test(s); }
