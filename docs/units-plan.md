@@ -514,3 +514,50 @@ marker at all. **A length pass reads every card's sources, which is why it finds
 **The marker placement itself was left alone.** Moving 1,126 markers from before the stop to after it
 would make the corpus consistent with its own house form and is purely typographic, but it is a 114-card
 write that changes no claim, and the counter fix makes the measurement honest without it.
+
+## Sep 2026 — nine copies of `IMPERIAL_PAREN`, three patterns, one owner
+
+The section above fixed the `°F` boundary **in nine files at once**, which is the tell: a rule applied
+by nine copies is a rule that will be applied nine different ways. It already was.
+
+| pattern | files |
+|---|---|
+| no `tons?`; `yd`, `mi`, `lb`, volume units, `sq\s*(mi\|ft\|in\|yd)` | `check-questions.js` |
+| `tons?` + volume units (gallons, pints, quarts) | `add-artefacts.js`, `add-artefact-sources.js` |
+| `tons?`, no volume units, `sq\s?mi` only | the other six |
+
+**What the divergence cost.** `check-questions.js` is the only tool without `tons?`, so a question
+carrying a tonnage conversion was charged for it THERE and exempted by `add-card.js` — `gr-004 q1` and
+`gr-065 q1` count 31 words against 29, `wh-249 q1` 29 against 27. **Nothing is over a bar today**, which
+is exactly why it had survived: the two tools disagree by up to four words and the corpus has not yet
+produced the 31-word question that `add-card.js` would accept and CI would then reject.
+
+**The artefact tools' widening was argued for and the argument is answerable.** Their comment says the
+volume units are there because an artefact is a jar or a cauldron and the card corpus never needed them
+— true, and it does not follow that the list should differ, because **a unit the corpus never writes
+costs nothing to carry**. Measured: the UNION of all three patterns eats **0 brackets in 4,945** that the
+narrowest copy did not. The per-corpus lists bought nothing at all.
+
+So `add-card.js` owns the union and the other eight slice it out by text, `COUNTS_AS_WORD`'s own shape,
+each exiting 2 if the slice fails. **Proved by renaming the anchor and watching all eight refuse.** No
+standing moved: 3,215 backgrounds and 3,739 descriptions still read zero outside the bar, every question
+still passes, and no artefact's word count changes.
+
+### What the pattern actually eats, measured before widening it
+
+`in` is in the list and has been since the beginning, so `(in 1920)` is a bracket it would swallow whole.
+Over the corpus it eats **4,945 brackets and every one is a measurement**. The 53 not shaped
+`<number> <unit>` are:
+
+- hyphenated attributives — `(100-foot)`, `(51-pound)`, `(9.6-inch)`, `(3,000-mile)`
+- densities — `(191 to the square mile)`, `(12,950 per square mile)`
+- `(4 fluid ounces)`
+- `(11 Roman miles)` and its three siblings
+
+Not one ordinary aside. **Re-run that check before widening the pattern again**: it is the only thing that
+can see a widening start to eat prose, since the damage is silent — the card reads perfectly and simply
+gets a looser budget than its neighbours.
+
+`sq mi` and `sq ft` no longer need a branch of their own, the bare units now being in the list, so the
+redundant `sq\s*(?:…)` alternative is gone.
+

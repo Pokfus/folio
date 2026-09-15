@@ -63,8 +63,27 @@ const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " 
    and would otherwise squeeze the prose out of a card to make room for arithmetic. So the parenthetical is
    stripped before counting: the limit still binds what the card SAYS, and the conversion rides free. The
    pattern is deliberately narrow — a parenthesis holding a number and an imperial unit — so an ordinary
-   aside is still counted (and asides are banned in an abstract anyway). */
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi)\b|°F\b)[^)]*\)/gi;
+   aside is still counted (and asides are banned in an abstract anyway).
+
+   THIS FILE OWNS IT, AND THE OTHER EIGHT TOOLS SLICE IT OUT BY TEXT (Sep 2026). It had been COPIED into
+   nine files and had drifted into THREE different patterns, which is the scar this comment exists to close:
+   `check-questions.js` lacked `tons?` while every other copy had it, so a question carrying a tonnage
+   conversion was charged for it THERE and not here — measured at four words apart on `gr-004`, `gr-065` and
+   `wh-249`, none over a bar today and every one of them a contradiction waiting for the card that is.
+   The artefact tools had a third list, widened with VOLUME units because an artefact is a jar or a cauldron;
+   that argument was right about the corpus and wrong about the fix, since the widening is INERT everywhere
+   else — measured, 0 brackets in 4,945 that the union eats and the narrowest copy did not. So the list is
+   the UNION of all three and one file holds it.
+
+   TWO THINGS THE MEASUREMENT SETTLED and which are worth not re-deriving. `sq mi` / `sq ft` need no rule of
+   their own now that the bare units are in the list, so the redundant branch is gone. And the alarming
+   member is `in`, which has been here since the beginning and would eat "(in 1920)": over the whole corpus
+   the pattern eats 4,945 brackets and EVERY ONE is a measurement — the 53 that are not shaped
+   `<number> <unit>` are hyphenated attributives ("(100-foot)"), densities ("(191 to the square mile)"),
+   "(4 fluid ounces)" and "(11 Roman miles)". Not one ordinary aside. Re-run that check before widening it
+   again; a pattern that eats prose makes the budget looser for the cards that happen to carry a bracket,
+   and does it in silence. */
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|mi|foot|feet|ft|inch(?:es)?|in|yards?|yd|pounds?|lbs?|ounces?|oz|tons?|acres?|gallons?|pints?|quarts?)\b|°F\b)[^)]*\)/gi;
 const unconverted = (s) => String(s || "").replace(IMPERIAL_PAREN, "");
 /* A TOKEN OF PURE PUNCTUATION IS NOT A WORD, and counting one is how a card meets the floor on a full
    stop (Sep 2026). `plain` replaces a tag with a SPACE, which is right — it keeps the words either side

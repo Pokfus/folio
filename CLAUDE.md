@@ -5128,8 +5128,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   NOT SLICING A FUNCTION**: the helper that found this sliced `IMPERIAL_PAREN` out of the owning tools and
   then re-implemented the counting around it, stripping tags with `""` rather than `" "`, and reported 62
   cards short against the real 9. **Run `node .claude/card-length.js` for the figure rather than quoting
-  one here** — it is 67 under and 1 over as this was written, and the 58 newly visible cards are a content
-  pass of their own, recorded in `docs/units-plan.md`.
+  one here** — it was 67 under and 1 over as this was written, and the 58 newly visible cards were a
+  content pass of their own, **now COMPLETE**: `card-length.js` and `gloss-length.js` both read zero outside
+  the bar. Recorded in `docs/units-plan.md`.
+  **AND `IMPERIAL_PAREN` IS NOW SLICED THE SAME WAY, WHICH CLOSES THE SCAR THE BULLET ABOVE NAMES** (Sep
+  2026). It had been copied into NINE files and had drifted into THREE patterns: `check-questions.js` lacked
+  `tons?` where every other copy had it, so a question carrying a tonnage conversion was charged for it there
+  and not by `add-card.js` — four words apart on `gr-004`, `gr-065` and `wh-249`, none over a bar today and
+  every one a contradiction waiting for the card that is; and the two artefact tools had a third list widened
+  with VOLUME units, on the reasonable argument that an artefact is a jar rather than a landscape. **The
+  measurement settles that argument**: the union of all three eats **0 extra brackets in 4,945**, so the
+  per-corpus lists bought nothing and one file now holds the union. **`add-card.js` owns it and the other
+  eight slice it out by text, stopping if the slice fails** — proved by renaming the anchor and watching all
+  eight exit 2. **The alarming member is `in`, which would eat "(in 1920)" and has been in the pattern since
+  the beginning**: over the whole corpus every one of those 4,945 brackets is a measurement, the 53 not
+  shaped `<number> <unit>` being hyphenated attributives ("(100-foot)"), densities ("(191 to the square
+  mile)"), "(4 fluid ounces)" and "(11 Roman miles)" — not one ordinary aside. **Re-run that check before
+  widening it again**: a pattern that eats prose makes the budget looser for the cards that happen to carry
+  a bracket, and does it in silence.
   **THE PASS IS COMPLETE** (`docs/units-plan.md`): 486 conversions across all 119 cards and all 414 glossary
   terms, and **nothing metric is left bare**. Two sweeps say so and BOTH are needed: one for a digit before
   a unit, and one for a **spelled-out** number before a unit (`about four miles inland`, `a third of a

@@ -40,7 +40,16 @@ const SENTENCES = 5, WORD_MIN = 180, WORD_MAX = 220;
    physical object and a jar, a cauldron or a drinking cup is measured in litres. The exemption's reason
    is unchanged — a conversion is a courtesy to the reader, not prose — so the unit list follows the
    measurements this corpus actually takes rather than being copied for its own sake. */
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|gallons?|pints?|quarts?|sq\s?mi)\b|°F\b)[^)]*\)/gi;
+/* SLICED OUT OF add-card.js, WHICH OWNS IT — an imperial conversion is not charged against a length
+   limit (CLAUDE.md, "THE WORD LIMITS DO NOT COUNT A CONVERSION"). It was copied into nine files and had
+   drifted into three different patterns, so two tools could disagree about how long the same sentence is;
+   read add-card.js's own comment for what the divergence cost and what the union was measured against. */
+const IMPERIAL_PAREN = (() => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "add-card.js"), "utf8");
+  const m = src.match(/const IMPERIAL_PAREN = (\/.*\/gi);/);
+  if (!m) { console.error("ERROR: could not slice IMPERIAL_PAREN out of add-card.js — the two tools would disagree about how long the same sentence is."); process.exit(2); }
+  return eval(m[1]);
+})();
 const METRIC = /\b\d[\d.,]*\s?(?:millimetres?|centimetres?|metres?|kilometres?|kilograms?|grams?|tonnes?|litres?|km|cm|mm)\b/i;
 const URL_RX = /https?:\/\/[^\s<>"')\]]+/;
 // the citation bar, sliced out of app.js so the site and the pipeline cannot disagree about it
