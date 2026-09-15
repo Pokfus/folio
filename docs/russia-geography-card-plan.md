@@ -923,3 +923,71 @@ with its paired glossary term at the bar and a picture that was looked at. What 
   `-L`** — without following the redirect it writes a zero-byte file and looks like a dead identifier.
   RATE-LIMITED HARD: `upload.wikimedia.org` and the Commons API both, answering a Wikimedia error page
   for minutes at a time; every download in this batch needed an until-loop with a 25-second sleep.
+
+### Batch 7 — the Ob oilfield, the Vyatka, the Sunzha, the chalk and the upper Don (`gru-028`–`gru-032`)
+
+Khanty-Mansi Autonomous Okrug, Udmurtia, Chechnya, Belgorod Oblast and Tula Oblast, each with its
+paired glossary term at the bar and a picture. Nine findings, of which the first is the one that
+unblocks every remaining card in the deck.
+
+- **THE UN DEMOGRAPHIC YEARBOOK'S TABLE 8 CAN BE EXTRACTED, AND THE RECIPE IS A CID MAP.** The PDF
+  resisted every ordinary attempt: its content streams are Type0 text (`/C2_0`) whose strings are
+  hex-encoded CIDs, so a `(...)`-string scrape returns binary noise and a raw inflate returns nothing
+  readable. `table08.xlsx` is a 404 and no PDF tooling is installed here. What works is 60 lines of
+  Node: index the objects, find each font's `/ToUnicode` CMap, parse its `beginbfchar` and
+  `beginbfrange` blocks into a CID → Unicode map, resolve each page's `/Resources /Font` names to
+  those objects, then walk the content stream taking `/Name … Tf` to switch maps and `<hhhh>` strings
+  to decode. It yields the whole table cleanly. **That is `node .claude/pdf-text.js <file.pdf>`**, which
+  carries both branches and its own reasoning in its header — reach for it before looking for a tool. **A second, simpler extractor handles a scanned USGS
+  report** — single-byte fonts, `(...)` strings — and the two together cover every PDF this deck has
+  met. Both are a few dozen lines and neither needs a dependency.
+- **EVERY CITY FIGURE IN THIS DECK IS 1 JULY 2012, and the table says so on the country's own row.**
+  Surgut 321,062, Nizhnevartovsk 261,011, Izhevsk 631,182, Groznyi 276,524, Belgorod 369,815,
+  Stary Oskol 220,719, Tula 496,656, Novomoskovsk 129,555. **The capital is not always the largest
+  city**: Khanty-Mansiysk is under 100,000 and so is not in the table at all, which is why that card
+  names Surgut.
+- **TWO AREAS IN THIS BATCH ARE REAL FIGURES RATHER THAN `?`, AND BOTH COME OUT OF AN ORDINARY
+  RESEARCH PAPER'S STUDY-AREA PARAGRAPH.** Belgorod Oblast's 2,713.4 thousand hectares is stated by a
+  RUDN agronomy paper on the region's soil erosion, and Tula Oblast's 25,700 km² by a Biodiversity
+  Data Journal herbarium paper's *Geographic coverage* section. **Look for the study-area paragraph
+  before writing `?`** — a flora or soils paper about one federal subject almost always opens by
+  saying how big it is, where it is and what its climate does. Rosstat itself is unreachable from here
+  (its TLS chain does not verify against this container's CA bundle, and that is not a thing to work
+  around).
+- **PENSOFT ARTICLE PAGES RENDER THROUGH JAVASCRIPT AND THE XML DOWNLOAD DOES NOT.** `bdj.pensoft.net/article/<id>/` hands
+  back a shell; `…/article/<id>/download/xml/` hands back the whole paper. The same trick is worth
+  trying on any journal whose HTML looks empty.
+- **THE WMO LEG FAILS FOR AN OKRUG WITH NO STATION, AND A FIELD STATION'S OWN DATASET PAPER REPLACES
+  IT.** There is no Khanty-Mansiysk entry in the WMO city list and Surgut's returns nulls for every
+  month. The Mukhrino field station, 30 km south-west of the capital, publishes a ten-year
+  hydrometeorological record in *Earth System Science Data* with the mean annual, January and July
+  temperatures and the snow-cover duration — better than a normal, because it is dated and cited.
+- **A NINETEENTH-CENTURY GEOGRAPHY COVERS EVERY SUBJECT IN THIS DECK AND IS THE BEST SINGLE FIND SO
+  FAR.** Reclus's *The Earth and Its Inhabitants*, vol. 5 (*Russia in Europe*) and vol. 6 (*Asiatic
+  Russia*), on archive.org as `universalgeograp05recl` and `universalgeograp06recl`, has a topography
+  section for each government with populations, industries and the odd exact figure: Tula's government
+  small-arms factory of 1712 and its 200,000 samovars, Izhevsk's arms works, the Votyaks of the Vyatka,
+  Belgorod the 'White Town' of the chalk pits, Grozny's naphtha wells of 'no great commercial value',
+  and Surgut as one of two towns in 960 miles of the Ob. **Its title pages carry no date**, so cite it
+  `n.d. [1876–94]`, which is what the catalogue gives.
+- **THE SOVIET DEPORTATIONS ARE CITABLE FROM KHRUSHCHEV'S OWN SPEECH.** Nothing openly published and
+  scholarly on the 1944 deportation of the Chechens and Ingush could be reached from here, and a
+  geography card only needs a sentence. The Secret Speech names it — *in March 1944 all the Chechen
+  and Ingush peoples were deported and the Chechen-Ingush Autonomous Republic was liquidated* — and
+  the Columbia Russian Institute's document collection carrying it is on archive.org at
+  `dli.ernet.507401`. **Attribute it to Khrushchev rather than stating it flat**, which is what the
+  rule about a state's account of its own actions asks for in both directions.
+- **AND THE POST-SOVIET WARS FROM THE EUROPEAN COURT OF HUMAN RIGHTS.** HUDOC's viewer is a JS shell,
+  but `hudoc.echr.coe.int/app/conversion/docx/html/body?library=ECHR&id=001-<n>` returns the whole
+  judgment as HTML. *Isayeva v. Russia* (no. 57950/00, 24 February 2005) opens its facts with the
+  autumn 1999 operations and the December fighting in Grozny — a court's finding of fact, open and
+  permanent.
+- **FRUS IS OPEN AND IS THE WAY TO DATE AN EASTERN FRONT EVENT.** `history.state.gov` answers, and
+  Stalin's telegram to Roosevelt of 8 August 1943 records the recapture of Orel and Belgorod in his own
+  words. `history.army.mil` and `apps.dtic.mil` are both shut here, so the American military histories
+  are not an option.
+- **A PICTURE SEARCH ON A RIVER'S GORGE RETURNS THE OTHER SIDE OF THE WATERSHED.** `Argun Gorge`
+  returned `File:Argun River Valley, Georgia.jpg` — the right river, the wrong country, and a
+  fine photograph. Lake Kezenoyam, reached through `Category:Quality images of Chechnya`, is the
+  picture that card wanted. **`Category:Quality images of <subject>` is the fastest way into a
+  federal subject's own photographs**, and it is where three of this batch's ten came from.

@@ -5201,7 +5201,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 27 cards, contiguous — next is `gru-028`; **163 rather than 1000** (83 federal subjects + 80 centres), sorted by POPULATION; **the capital half is BLOCKED on a sourcing recipe — read the plan before writing one**, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 32 cards, contiguous — next is `gru-033`; **163 rather than 1000** (83 federal subjects + 80 centres), sorted by POPULATION; **the capital half is BLOCKED on a sourcing recipe — read the plan before writing one**, see below |
 
 The next id for any of them (substitute the prefix):
 
