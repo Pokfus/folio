@@ -670,15 +670,15 @@ his own entry when `rm-377 Battle of Philippi` is written.
     rm-387  Battle of Actium
     rm-388  The annexation of Egypt
     rm-389  The first settlement of 27 BCE
-    rm-390  The title Augustus
+    rm-390  Clipeus virtutis
     rm-391  Princeps
     rm-392  The second settlement of 23 BCE
     rm-393  Tribunicia potestas
     rm-394  Imperium proconsulare maius
     rm-395  Principate
     rm-396  Res Gestae Divi Augusti
-    rm-397  The Augustan settlement of the provinces
-    rm-398  The Augustan army reforms
+    rm-397  Imperial province
+    rm-398  Discharge gratuity
     rm-399  Praetorian Guard
     rm-400  Aerarium militare
     rm-401  The Augustan building programme
@@ -696,6 +696,68 @@ his own entry when `rm-377 Battle of Philippi` is written.
     rm-413  The German campaigns of Drusus and Tiberius
     rm-414  Battle of the Teutoburg Forest
     rm-415  The death of Augustus
+
+Three of the first ten lines named a subject rather than an answer term, and the cards were written to
+the term the sources will carry. **`rm-372 Octavian's inheritance`** is answered by the **will of Julius
+Caesar**, which is the document Suetonius reports in full and the thing a reader meets again; the line
+described what the will did to one man rather than naming anything the glossary could head.
+**`rm-375 The proscriptions of 43 BCE`** is answered by **triumviral proscription**, because the general
+practice is already `rm-318`'s answer and its glossary term is Sullan — a second card on the bare word
+would have re-carded the first. And **`rm-376 The death of Cicero`** takes the shape `rm-363` established
+for the *death of Pompey*, since Cicero himself is a cited term from the citation pass and the line had
+no term of its own left to teach.
+
+Two things the batch settled that the plan had deferred. **Cassius has his own glossary entry now**, as
+the note under `rm-370` said he would when `rm-377` was written. And **`rm-380 Sextus Pompey` carries no
+death year**: nothing openable from here dates it, Appian giving Miletus without a year and Dio a capture
+at Midaeum in Phrygia inside a book spanning four of them, so the date line stops at the Sicilian command
+and the abstract reports both accounts. **`rm-375` also ships without a picture** — the only candidates
+Commons offers are a Victorian illustration imagining the scene and a schoolbook plate, which are the
+event's reception rather than the event.
+
+**`rm-390` was planned as *The title Augustus* and is now *Clipeus virtutis*, and the reason is the
+ANSWER STRING rather than the subject.** The title is already `rm-371`'s answer in this very deck and
+the whole subject of `wh-357` in World History, so a second card here would have been a reader meeting
+the answer "Augustus" twice in one deck — measured over the corpus, only seven of 3,235 cards share an
+answer term with another card in their own collection, and six of those are forced (a city-state whose
+country and capital have one name). The shield was voted in the same act as the name, so the card keeps
+the session and the decree and takes the one object that came out of it; the naming itself is carried by
+`rm-389`, whose sources describe the same meeting. **`imperator` has no line anywhere in this plan**,
+which is worth knowing: it was the obvious alternative here and was left alone because titulature belongs
+with `rm-391 Princeps` and the 55 cards of `rm-government`, not scattered through a narrative deck.
+
+Four further notes from the batch. **`rm-383 Mark Antony in the East` takes the man himself as its
+answer**, because the glossary held no Antony at all across 3,749 terms while dozens of cards named him,
+and the plan gives him no other line. **`rm-384 Antony and Cleopatra` takes `Cleopatra VII`**, which the
+overlap table assigns to Greece's `gr-876`: the term is written deck-agnostically, as the last Ptolemy
+rather than as Rome's adversary, so `gr-876` reuses it when Greece reaches it — the pairing rule is
+satisfied by a term that already exists. **`rm-386 The propaganda war of the 30s BCE` is answered by the
+`will of Mark Antony`**, the one document the campaign turned on and a sibling of `rm-372`'s. And
+**`rm-390` states no Arles provenance in its prose**: the marble copy is the card's picture and the
+Commons file documents it, but nothing openable from here cites it, so the abstract rests on the
+Res Gestae for the wording and says only that the gold shield is lost.
+
+**Two more lines were retitled writing `rm-391`–`rm-400`, and both for the reason the deck keeps
+giving: the obvious term is already spent.** **`rm-397 The Augustan settlement of the provinces`** is
+answered by **`imperial province`**, because `rm-751 Roman province` and `rm-740 Roman provincial
+governor` both have lines of their own further on and the settlement itself is `rm-389`'s; what this
+card has left to teach is the class of province the emperor kept. **`rm-398 The Augustan army reforms`**
+is answered by **`discharge gratuity`**, which is the Loeb's own word in Res Gestae 17 and needs no
+unverified Latin — every other term the line might have taken is spent later in the plan (`rm-642`
+legion, `rm-648` sacramentum, `rm-649` legionary pay, `rm-651` auxilia, `rm-653` urban cohorts, `rm-654`
+vigiles, `rm-655` navy, `rm-682` veteran settlement, `rm-745` aerarium, and `rm-400` the aerarium
+militare on the very next line). **Grep the running order for a candidate term before researching it**,
+which is the rule the Second World War plan states and which this deck has now proved four times.
+
+Three things the batch settled. **Only `rm-396` takes a locator**: the other nine answer terms are
+powers, offices and funds, which have no place a reader could stand, and a dot on Rome for all of them
+would say nothing — the Res Gestae has one because the fullest surviving text is cut into a temple
+wall at Ancyra. **`rm-393 tribunicia potestas` ships without a picture**, recorded rather than skipped:
+the power is abstract, nothing openable from here shows an Augustan inscription or coin carrying
+`TRIB POT` legibly, and the near misses were all a picture of something else — a later Rostra, an
+imperial-cult altar, a 16th-century costume plate imagining a tribune. And **`rm-396`'s third citation
+is Shipley's own introduction rather than the text**: the claim it carries is that the fullest copy is
+the Monumentum Ancyranum, which the Res Gestae itself does not state and the Loeb's front matter does.
 
 ### The Julio-Claudians — `rm-julio-claudians`
 

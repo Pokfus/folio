@@ -272,19 +272,45 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the batch account of E48–E56 behind every rule above: what each fault looked like on the page, the
     measurements that settled each discriminator, and the generalisations that were tried and do not
     work.
-- `styles.css` — editorial design system; **16 themes** via CSS custom properties (`THEMES` in
-  app.js — folio, synth, arcade, academy, marble, gazette, and the ten GEMSTONES added Sep 2026 on
-  request: diamond, ruby, opalite, jade, emerald, amber, amethyst, aquamarine, bloodstone, carnelian.
-  This line said 8 for months, and then 6, so **read `THEMES` rather than quoting it**).
+- `styles.css` — editorial design system; themes via CSS custom properties (`THEMES` in app.js —
+  folio, synth, arcade, academy, marble, gazette, and the GEMSTONES added Sep 2026 on request: diamond,
+  ruby, jade, emerald, amber, amethyst, aquamarine, bloodstone, carnelian. This line said 8 for months,
+  then 6, then 16, so **read `THEMES` rather than quoting a count**; `check-claims.js` measures it).
+  **THE DEFAULT THEME IS NOT IN THAT BLOCK.** `folio` has no `body[data-theme="folio"]` token set: its
+  palette IS `:root` / `body.night` at the TOP of styles.css, and only its signature treatments are
+  keyed by the attribute. **OPALITE WAS PROMOTED INTO IT AND RENAMED FOLIO (Sep 2026, on request:
+  "replace the default Folio theme with the Opalite theme, which should be renamed to Folio")**, so the
+  old warm-paper-and-vermilion default is gone, the stone is no longer one of the ten, and **nothing
+  migrates** — `applyTheme` whitelists against `THEMES`, so a reader wearing `opalite` falls through to
+  `folio` and sees what they saw before, and a stale `opalite` in their owned-themes register is inert.
+  Three things that move with a default and are easy to miss, all of them silent when missed:
+  · **`:root` CARRIES TOKENS NO THEME BLOCK DOES** — `--ink-quiet`, `--newterm`, `--admin`, `--han`, the
+    shadows, the bar heights — so a palette swap has to re-solve the ones derived from the ink rather
+    than copy a theme block over the top of it.
+  · **`body.hc`'s ROW IS THE DEFAULT'S OWN SOLVED VALUES, APPLIED TO EVERY THEME.** Left alone across
+    this swap it would have gone on imposing the old warm greys and golds on a cool palette, and its
+    `--zh` would have been BELOW the base red — a high-contrast mode that lowers contrast. Re-solve it
+    with the default.
+  · **THE PALETTE IS STATED OUTSIDE THE STYLESHEET IN EXACTLY TWO PLACES**, both in `index.html`: the
+    `theme-color` metas (the browser's own chrome) and the inline SVG favicon. Neither is reachable from
+    a CSS variable and neither fails loudly.
   **THE GEMSTONE BLOCK IS AT THE FOOT OF `styles.css` AND CARRIES ITS OWN REASONING** — how each stone
   was read, since "inspired by the gemstone" is a judgement the next session should not have to re-make.
   Two rules from building them. **A THEME ADDS NO WEBFONT**: there is one `@import` for the whole site
-  and every visitor pays for it whatever theme they wear, so the ten are set in the twenty families
+  and every visitor pays for it whatever theme they wear, so they are set in the twenty families
   already loaded. And **A NEW THEME MUST OVERRIDE `.collection-deco`** — the base rule washes a
   collection banner in its own hue at 46–76%, which every other theme overrides, and a theme that falls
   through to it gets banners whose quiet text is unreadable. Emerald shipped that way for an hour.
-  **All theme color variables are hex** (e.g. `--ink:#1B1A17`) so the canvas globe can parse and
+  **All theme color variables are hex** (e.g. `--ink:#1D1B29`) so the canvas globe can parse and
   blend them — keep them hex, not `rgb()`/`hsl()`.
+  **AND THE DEFAULT'S RED IS A MEASURED FLOOR, NOT A TASTE** (Sep 2026, on request: "red text should
+  have a deeper red color so there's more contrast"). `--zh` is the answer term on every card, every
+  footnote marker and every citation mark, so it is the one accent that is running text. The opal's own
+  milky pink was 2.98:1 on `--card` and 2.52 on `--paper-2`; the shipped `#AE3350` is the same hue
+  walked down to **6.10 / 5.76 / 5.17** on card, paper and paper-2, against the retired vermilion's
+  4.73 / 4.47 / 4.00. **At night the rule runs the other way** — reversed out of a dark card the pink
+  already measured 8.79, so what it lacked was hue rather than depth, and `#EFA8B8` is redder at 8.89.
+  **Keep any replacement above 4.5 on `--paper-2`, the darkest of the three papers.**
 - `app.js` — all logic, written as a single IIFE (**it is the biggest file on the eager path; run
   `node .claude/check-sizes.js` for its size rather than quoting one here**). Hash-based routing via the `PAGES`
   map. No ES modules.
@@ -1143,7 +1169,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.27 MB and 47,928 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.27 MB and 47,935 lines is hard to find your way around, so this
   lists its 182 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -5123,7 +5149,7 @@ lookup.
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 560 cards, contiguous — next is `wh-561` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 370 cards, contiguous — next is `rm-371` |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 400 cards, contiguous — next is `rm-401` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
