@@ -749,3 +749,71 @@ Oblast. What the batch established, beyond the cards:
   DOES NOT.** That is the documented fallback and it carried this batch through several 429s. The `src`
   written onto the card is still the ordinary upload URL, and its two-character shard is copied from
   `imageinfo`, never composed.
+
+### Batch 4 — the Volga-Oka, the Caucasus Line and three Siberian subjects (`gru-013`–`gru-017`)
+
+Nizhny Novgorod Oblast, Stavropol Krai, Krasnoyarsk Krai, Novosibirsk Oblast and Kemerovo Oblast,
+each with its paired glossary term at the bar and a picture that was looked at. What this batch adds
+to the collection's own working knowledge.
+
+- **A SIXTH WORK NOW CARRIES THE COLLECTION, AND IT CARRIES SIBERIA.** `Guide to the Great Siberian
+  Railway` (1900, ed. Dmitriev-Mamonov and Zdziarski; `archive.org/details/guidetogreatsibe00russuoft`)
+  is the source that made three of these five cards writable. It describes each region the line crosses
+  BEFORE describing the stations: the Baraba at pp. 160–61, the founding of Novo-Nikolaevsk at pp.
+  264–65 (Gusevka's 24 houses and 104 people, the 1893 Ob–Krasnoyarsk section, the Cabinet's allotment
+  on the Kamenka, the 2,682 building plots), the 17th-century stockaded posts at p. 32 and the Kuznetsk
+  coal basin at pp. 8–9. **It is an official publication of the Ministry of Ways of Communication and is
+  cited title-first**, as an anonymous work is. **George Kennan's `Siberia and the Exile System`** (1891,
+  `siberiaexilesyst01kenn`) is the other Siberian spine — the six exile bureaux at p. 78, Krasnoyarsk at
+  p. 357 — and **Baddeley's `The Russian Conquest of the Caucasus`** (1908, `cu31924028754616`) is the
+  Caucasus one: Yakobi's fortresses at p. 39, Potemkin's viceroyalty at pp. 45–46 and Lermontov's duel,
+  in a footnote, at p. 331. **Rambaud's `History of Russia`** vol. 1 (1879, `historyofrussia01ramb`)
+  carries the pre-Petrine centuries Morfill does not reach, and gave `gru-013` Minin and Pozharsky at
+  pp. 341–43.
+- **A GUESSED AUTHOR LIST IS THE FAULT THIS COLLECTION KEEPS PRODUCING, AND IT WAS CAUGHT AGAIN.** The
+  Hydrology 2021 North Caucasus paper behind `gru-014` was drafted as "Sergey Kovalev, Artyom Gusarov
+  and Valentin Golosov"; Crossref says **Artyom V. Gusarov, Aidar G. Sharifullin and Mikhail A.
+  Komissarov**. It was caught by asking Crossref BEFORE writing the card rather than after — which is
+  what CLAUDE.md says to do and is the difference between a correction and a shipped error.
+- **SOMETIMES THE AREA AND THE POPULATION ARE IN THE PAPER, IN A PARENTHESIS.** `gru-014` is the first
+  card in this collection whose facts grid carries both figures, and they come from one clause of the
+  Hydrology paper's study-area section: "the Stavropol Upland is located in the Stavropol Krai (66,160
+  km2; more than 2.8 million people)". **Read the study-area section of every geography paper for the
+  administrative figures**; this is where they hide, and they are cited rather than asserted.
+- **A FIGURE THE SOURCE HEDGES IS WRITTEN HEDGED IN THE GRID.** The krai's population goes in as
+  "over 2.8M" because "more than 2.8 million" is what the paper says. A bare "2.8M" would be a
+  precision the source does not claim.
+- **THREE MDPI PAPERS AND ONE EUROPE PMC FULL TEXT CARRIED THE GEOGRAPHY HALF**, on the routes batch 3
+  measured: `mdpi-res.com` for Hydrology 8/28, Water 15/901 and Minerals 15/643, and
+  `ebi.ac.uk/europepmc/.../fullTextXML` for the Scientific Reports reservoir paper and the Natural
+  Hazards review that gave `gru-015` its Tunguska sentences. **`bio-conferences.org` and
+  `www.bio-conferences.org` are 403 from here**, which rules out the BIO Web of Conferences Kuzbass
+  papers; `hist-geo.ru` and `vestnik.kemsu.ru` both answer 200 and serve their abstracts in English
+  as well as Russian.
+- **A BILINGUAL RECORD IS A REASON TO CITE THE TITLE CROSSREF REGISTERS.** `gru-017`'s Russian-language
+  Ural-Kuzbass article was first cited under its transliterated Russian title, which `check-citations.js`
+  reported as "to check by eye". The journal registers and prints an English title, so that is what the
+  citation carries now — and the note went away. **A by-eye note on a bilingual record is a prompt to
+  pick the registered form, not a finding to wave through.**
+- **THE TUNGUSKA EVENT COULD NOT BE CITED WHERE IT IS BEST DESCRIBED.** `Airbursts and Cratering
+  Impacts` (10.14293/aci.2025.0006) serves a Cloudflare challenge; the route that worked was a REVIEW
+  in another field entirely — Titus et al.'s survey of natural-disaster analogues for asteroid impacts,
+  open at Europe PMC — which states the ten-megaton estimate, the 500 km² of burnt taiga and the week
+  of white nights over Europe. **The day is not in it, so the card does not give one.**
+- **THE BARABA'S MODERN LITERATURE IS NOT OPENLY REACHABLE FROM HERE** (the Springer *Contemporary
+  Problems of Ecology* survey is paywalled and elibrary.ru is 403), so `gru-016` describes it out of the
+  1900 guide, whose account of reed and sedge over miry ground, birch and aspen copses on low ridges,
+  small lakes and salt marsh is still what the place is. **An old description of a landform is not the
+  same kind of claim as an old description of a town.**
+- **THE LARGEST CITY IS NOT ALWAYS THE CAPITAL, AND THE UN TABLE IS WHAT SAYS SO.** Kemerovo is 538,000
+  and Novokuznetsk 549,000, so `gru-017`'s grid names Novokuznetsk. **Read both columns of the Russian
+  block before filling the row.**
+- **A PICTURE SEARCH NAMING A LANDMARK KEEPS WINNING, AND THREE MORE CANDIDATES WERE REJECTED ON
+  SIGHT**: a Novosibirsk Reservoir beach photographed from a car through a phone, a Sheregesh street of
+  parked cars and snow heaps, and a Barabinsk steppe frame shot through a moving train window with the
+  telegraph wires across it. The five that shipped are the Nizhny Novgorod Kremlin from the air, Mount
+  Beshtau at sunset, Lake Dyupkun on the Putorana Plateau, the open water of the Ob Sea and the Kuznetsk
+  Alatau under snow. **`fetch-geo-images.js` returns nothing at all for several Russian landmarks**
+  (Ob Reservoir, Lake Chany, Tomskaya Pisanitsa), so the Commons `categorymembers` and `generator=search`
+  calls are the fallback and the file's own `imageinfo` is what the `src`, the artist and the licence are
+  read off.

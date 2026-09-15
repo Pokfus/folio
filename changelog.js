@@ -43,7 +43,7 @@ window.CHANGELOG = [
     t: "Try ten cards now draws a geography card\u2019s map, not a grey box",
     items: [
       "<b>Try ten cards now draws the map</b> \u2014 sampling a geography collection showed an empty grey box where the shape you are asked to name should be.",
-      "Ten more cards in the Russia geography collection.",
+      "Fifteen more cards in the Russia geography collection.",
     ],
   },
   {
