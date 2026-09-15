@@ -498,8 +498,18 @@ shares, and `ko-063` where the most recent of its cited arguments puts Chin-bŏn
 accuracy fix as much as a length one**: the residue study it leans on analysed BRONZE AGE Mumun
 vessels against Jomon and Yayoi Kyushu, and the card is about NEOLITHIC comb-pattern pottery and did
 not say so — it now names the period and the cultures, and adds that the study could not identify
-rice at all. **What is left is one contiguous run, `gr-523`–`gr-610`**, worth a single batch rather
-than fifty-two.
+rice at all. **AND THAT RUN IS DONE TOO (Sep 2026).** All 52 shipped over eight batches, each card extended from a
+chapter the sentence itself already cited — Thucydides, Xenophon, Plutarch, the Poetics, and the
+playwrights the cards are about. **`card-length.js` and `gloss-length.js` now both report ZERO outside
+the bar**, 3,215 backgrounds and 3,739 descriptions, which is the first time either has.
+
+**Four of the 52 needed a correction rather than only a fact**, and all four were found by reading the
+cited chapter rather than the card: `gr-576` and `gr-580` both said Lysander handed the recovered
+cities to men of his own choosing, where *Hellenica* 2.3.7 says Samos went back to its FORMER
+citizens; `gr-526` said the Potidaean generals were blamed for not insisting on surrender at
+discretion, where Thucydides 2.70 says they were blamed for granting terms without instructions from
+home; and `gr-564` shipped at ELEVEN sentences, its odd one a five-word sentence carrying no footnote
+marker at all. **A length pass reads every card's sources, which is why it finds these.**
 
 **The marker placement itself was left alone.** Moving 1,126 markers from before the stop to after it
 would make the corpus consistent with its own house form and is purely typographic, but it is a 114-card
