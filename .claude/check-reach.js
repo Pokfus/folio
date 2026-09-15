@@ -133,16 +133,17 @@ const HOSTS = [
      twelve had no row here at all. A reachability table that omits the third-biggest host is the
      shape of stale-environment claim this whole tool exists to prevent. */
   /* PERSEUS IS TWO ANSWERS, EXACTLY AS PERSÉE IS ABOVE, AND THIS IS NOT A THEORETICAL SPLIT.
-     Measured Sep 2026: `/hopper/text` answered 200 and `/hopper/artifact` answered 503 "Backend
-     fetch failed" on every one of four probes spaced over four minutes, while the hopper HOME page
-     served 200 from cache throughout. So a single probe of perseus.tufts.edu reports the host UP
-     and hides that 39 citations across `gr.js` and `glossary-extra.js` — 25 distinct objects, the
-     Greece collection's sculpture and vases — currently resolve to nothing. Which endpoint you probe
-     IS the answer. */
+     Measured Sep 2026: `/hopper/text` answered 200 while `/hopper/artifact` answered 503 "Backend
+     fetch failed", and the hopper HOME page served 200 from cache throughout — so a single probe of
+     perseus.tufts.edu reports the host UP and says nothing about the 39 citations across `gr.js` and
+     `glossary-extra.js` (25 distinct objects, the Greece collection's sculpture and vases) that hang
+     off the artifact endpoint. Which endpoint you probe IS the answer.
+     AND THAT ENDPOINT FLAPS: ten consecutive 503s over about eight minutes, then 200 the next
+     evening. Ten failures in a row still did not mean it was gone — see the DOWN branch below. */
   ["Perseus (text)",      "https://www.perseus.tufts.edu/hopper/text?doc=Aesch.%20PB%201", "Aeschylus",
    "4,299 citations — the Greek and Latin texts the collections quote"],
   ["Perseus (artifact)",  "https://www.perseus.tufts.edu/hopper/artifact?name=Athens,+Acropolis+679&object=sculpture", "Acropolis",
-   "39 citations — the object records; 503 as of Sep 2026 while the text endpoint is fine"],
+   "39 citations — the object records; FLAPS (503 for ~8 min, then 200) while the text endpoint is fine"],
   ["LacusCurtius",        "https://penelope.uchicago.edu/Thayer/E/Gazetteer/Places/Europe/Italy/Lazio/Roma/Rome/_Texts/PLATOP%2A/Argiletum.html", "Argiletum",
    "1,884 citations — Platner-Ashby and the classical texts, the Rome collection's spine"],
   ["Wayback Machine",     "https://web.archive.org/web/20260807193514/https://data.un.org/en/iso/in.html", "General Information",
@@ -183,9 +184,11 @@ async function probe(url, want) {
   /* A 5xx IS THE ORIGIN NOT ANSWERING, WHICH IS A DIFFERENT FACT FROM A REFUSAL, and collapsing
      the two is how this tool would come to say a host is shut when it is merely having a bad
      minute. Measured Sep 2026: Europe PMC returned 503 inside the sweep and 200 on three probes
-     spaced four seconds apart, while Perseus's artifact endpoint returned 503 on four probes
-     spaced forty-five seconds apart and is genuinely down. Same code, opposite conclusions — so
-     the tool reports DOWN and says to re-probe alone rather than deciding for you. */
+     spaced four seconds apart; Perseus's artifact endpoint returned 503 on TEN consecutive probes
+     over about eight minutes and then 200 the next evening. Ten in a row is not a flake by any
+     ordinary standard and it still did not mean the endpoint was dead — a 503 bounds how long you
+     watched and nothing else. So the tool reports DOWN and says to re-probe alone rather than
+     deciding for you, and NOTHING should be migrated off a host on the strength of a 5xx. */
   if (res.status >= 500) return { state: "DOWN", detail: res.status + " — origin not answering" };
   if (!res.ok) return { state: "SHUT", detail: String(res.status) };
   let body = "";

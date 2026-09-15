@@ -1367,20 +1367,28 @@ revised" (2002) is open, on point and contains the word *Sanchi* **zero times** 
 historiography of the theory, not a description of the monument. Fetched and grepped rather than assumed
 from the title.
 
-### Perseus is half down, and the reachability tool was lying about two hosts (2026-09-14)
+### Perseus FLAPS, and the reachability tool was lying about two hosts (2026-09-14, corrected 2026-09-15)
 
 Found while looking for a source for `gr-334`, and much the larger finding of the two.
 
-**`perseus.tufts.edu` is the corpus's THIRD-biggest host — 4,338 citations — and it is half up.**
-`/hopper/text` (4,299 of them) answers 200. `/hopper/artifact` (39 citations over 25 distinct objects,
-all in `gr.js` and `glossary-extra.js`) answers **503 "Backend fetch failed"**, on every one of four
-probes spaced forty-five seconds apart. The hopper HOME page serves 200 from cache throughout, so a
-single probe of the host reports it UP and hides the 39 dead citations entirely.
+**`perseus.tufts.edu` is the corpus's THIRD-biggest host — 4,338 citations — and its two endpoints
+answer differently.** `/hopper/text` (4,299 of them) answered 200 throughout. `/hopper/artifact` (39
+citations over 25 distinct objects, all in `gr.js` and `glossary-extra.js`) answered **503 "Backend
+fetch failed"** on **ten consecutive probes over about eight minutes** — and then **200** the next
+evening, twice in three probes. The hopper HOME page served 200 from cache the whole time, so a single
+probe of the host reports it UP and hides the artifact endpoint entirely.
 
-**Nothing was migrated, and that is the point.** UNdata was migrated the same day because the site had
-demonstrably been REBUILT — its own JS bundle proves there is no such route any more. A 503 is an origin
-not answering, which may be an evening or may be forever, and 39 citations are not worth acting on until
-it is the second. **Re-probe before deciding**; the affected objects are listed by name in the commit.
+**SO THE HEADLINE THIS SECTION FIRST CARRIED — "half down" — WAS WRONG, AND BEING WRONG IS THE FINDING.**
+Ten consecutive failures over eight minutes is not a flake by any ordinary standard, and it still did
+not mean the endpoint was dead. **A 503 bounds how long you watched, and nothing else.** That is exactly
+what the `DOWN` outcome added to `check-reach.js` the same hour says in its own header — the tool cannot
+tell a dead host from a bad minute — and the first thing written under it in this file forgot it. **Do
+not conclude an endpoint is gone from consecutive 503s; conclude it was not answering while you looked.**
+
+**Nothing was migrated, and that is now doubly the point.** UNdata was migrated the same day because the
+site had demonstrably been REBUILT — its own JS bundle proves there is no such route any more, which is
+a fact about the site rather than about the minute it was probed. Had those 39 Perseus citations been
+"repaired" on the strength of ten 503s, the repair would have been the damage.
 
 **And the tool that should have told us this was reporting two reachable hosts as SHUT.** Node's
 built-in `fetch` does not honour `HTTPS_PROXY` where curl does, so every probe went direct and the
@@ -1397,43 +1405,54 @@ and threw `fetch failed` four minutes later with nothing changed. And the table,
 **missing the corpus's third-, sixth-, ninth-, tenth- and twelfth-biggest hosts**; it has 22 now, each
 row carrying its citation count so a row that stops answering names the work it was carrying.
 
-### `gr-334` archaic smile — opened, sourced half way, and stopped deliberately (2026-09-14)
+### `gr-334` archaic smile — CLEARED, and the last move was a content gain (2026-09-15)
 
 **This is the expensive end and it is worth knowing how far the money goes.** Gardner's *Handbook of
-Greek Sculpture* (1897) is in five of nine sources — pages 133, 138, 172–174, 179 and 204–205 — so THREE
-have to move, and `check-cards.js` counts absolutely, so adding sources cannot help. The work done, so
-the next session starts from a shelf rather than from a search box:
+Greek Sculpture* (1897) was in five of nine sources — pages 133, 138, 172–174, 179 and 204–205 — so
+THREE had to move, and `check-cards.js` counts absolutely, so adding sources could not have helped.
+It now passes on seven sources: Gardner 2, Tarbell 2, Walters 1, Murray 1, Al-Academy 1.
 
-**`H. B. Walters, The Art of the Greeks` (London: Methuen, 1906) is the replacement, verified page by
-page** — `archive.org/details/india.history.resource.100468`, 120,360 words, fully readable. It carries,
-in its own words:
-- **the archaic smile and the argument about it** (at the Apollo of Tenea): "The so-called 'archaic
-  smile', which is generally to be observed on the countenance of an early Greek statue, is here very
-  much accentuated. The meaning of this expression has been disputed; it has been urged that it
-  indicates the pleasurable effect the artist desired his work to have upon the spectator, but it is
-  perhaps only an attempt at giving expression to the face." **The card never says the meaning is
-  disputed, and it should** — one historiographical sentence is well inside the three-sentence cap.
-- **the east pediment at Aegina** (p. 87): "one on the left of the east pediment is a masterpiece in its
-  exhibition of overwhelming yet controlled suffering, as indicated by the **clenched teeth, drawn lips**,
-  and contracted knee. It is the first genuinely successful attempt of Greek art to reproduce bodily
-  emotion." That is the card's own sentence 8, in an independent voice.
-- **the Aristion stele** (p. 82), with the sculptor and the find-spot near Marathon.
+**The two replacements, both verified in the source's own words before anything was written:**
+- **`H. B. Walters, The Art of the Greeks` (London: Methuen, 1906), 76** —
+  `archive.org/details/india.history.resource.100468`. One page carrying two things the card needed.
+  The Boeotian figure: "The Orchomenos figure is much less advanced than the others, **has no smile**,
+  and is generally heavier and stiffer." And the argument, at the Apollo of Tenea: "The meaning of this
+  expression has been **disputed**; it has been urged that it indicates the pleasurable effect the
+  artist desired his work to have upon the spectator, but it is perhaps only an attempt at giving
+  expression to the face." Walters' index confirms the page — *smile in, 76*.
+- **`A. S. Murray, A History of Greek Sculpture`, rev. ed., vol. 1 (London: John Murray, 1890), 215** —
+  `archive.org/details/historyofgreeksc01murr`, under the running head **WEST PEDIMENT OF ÆGINA
+  TEMPLE**: "the eyes are forward and slanting a little, in correspondence with which the curves of the
+  mouth turn gently up, the lips are full... **The expression of face varies little from a conventional
+  type**." That is the card's sentence about the west-pediment heads in an independent voice, and it is
+  about the west pediment *by name*, which is what the sentence claims.
 
-**Walters can only be used TWICE**, or he becomes the fault he is fixing. So a third source is needed and
-**the blocker is sentence 3** — "on an early statue from Eleutherna in Crete the mouth is merely a
-straight line". *Eleutherna* appears **zero** times in Walters, in Furtwängler's *Masterpieces* and in
-Murray's *History of Greek Sculpture*; Tarbell is already at two citations and cannot take a third; and
-the card's own open 2024 Al-Academy paper says *archaic smile* once and *Aegina* once in 51,715
-characters, which will not carry a claim. Either a source for that statue is found, or the sentence is
-rewritten around an early statue the standard handbooks do describe.
+**THE THIRD MOVE WAS A DELETION, AND IT MADE THE CARD BETTER.** The Aristion sentence could not be
+re-pointed: the claim is that *the form of the smile is preserved and its effect entirely changed*,
+which is Gardner's judgement, where Walters p. 82 describes the hand drawn like a foot and the eye shown
+full face, Murray p. 141 the sidelong eye and the blocked beard, and the **Perseus record for Athens NM
+29 — fetched and read — gives the date, the signature and the hoplite dress and says nothing about the
+mouth at all.** Four sources describe the object and not one carries the claim. **Re-pointing a
+judgement to a source that describes the same object differently is the trap this whole pass keeps
+finding**, so the sentence went, and the sentence that replaced it is Walters' *disputed meaning* —
+which the card had never mentioned while asserting the convention reading as settled fact. A card that
+tells a reader its central term is argued over is worth more than one more example of it.
 
-**Two things measured and rejected, so they are not re-tried.** Mackenzie's "The East Pediment Sculptures
-of the Temple of Aphaia at Aegina" (*BSA* 1909) is the obvious independent authority and Cambridge Core
-serves only its abstract page. And the Aristion sentence cannot simply move to Walters: the card's claim
-is that *the form of the smile is preserved and its effect entirely changed*, which is Gardner's
-judgement, where Walters describes the hand drawn like a foot and the eye shown full face. **Re-pointing
-a judgement to a source that describes the same object differently is the trap this whole pass keeps
-finding.**
+**What the collateral cost was, and it is the part to plan for.** Rewriting an abstract moved three more
+things that no checker would have caught: **two of the three `why` answers** quoted the deleted
+sentences back verbatim ("their limbs drawn up in pain", "on the stele of Aristion its effect is
+entirely changed"), and the **date line carried an `Aristion stele` row** for an object the card no
+longer mentions. A `why` answer must say what the card's own cited prose says; after this edit two of
+them said what it used to say. **Grep the card's other fields for the words you are deleting** —
+`answerDate`, `why`, `questions`, the picture caption — before calling the batch done.
+
+**One thing measured and rejected, so it is not re-tried.** Mackenzie's "The East Pediment Sculptures of
+the Temple of Aphaia at Aegina" (*BSA* 1909) is the obvious independent authority and Cambridge Core
+serves only its abstract page. **And two candidates were opened and found not to carry the subject at
+all**: Furtwängler's *Masterpieces of Greek Sculpture* names Aegina four times in 1.6 MB, every one in
+passing (ear shape, bronze technique), and the card's own 2024 Al-Academy paper says *smile* twice in
+51,715 characters, both about its disappearance — which is already what it is cited for. **A famous
+excavator is not therefore a source on what he excavated.**
 
 ### Two more read and left, and these are the rule working rather than failing (2026-09-14)
 
