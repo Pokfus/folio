@@ -3909,6 +3909,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     not the unit**: `by`, `risen`, `a rise of`, or a comparative after the figure (`colder`, `warmer`).
     Beware the false friend — "15 to 22 °C (59 to 72 °F) **higher up**" is altitude, and those are
     absolutes converting the ordinary way.
+  · **A CONVERSION MAY NOT SWALLOW A FIGURE ITS BRACKET DOES NOT STATE, AND THAT IS NOW A COMMITTED
+    SWEEP** (Sep 2026). Every other check here asks what a bracket IS; this one asks what the replacement
+    THREW AWAY, and it is arithmetic on the engine's own captures — **a run that states more figures than
+    its bracket does is deleting one of them.** The shape is `from A (conv) in YEAR to B (conv)`, the
+    commonest way anyone writes a change over time: `to`, `and`, `or`, `by`, `of` and the bare comma are
+    all `U_JOIN`, so the run walks across the year between two measurements and the bracket eats it —
+    "4,140 millimetres (163 inches) in 1981 to 1,420 millimetres (56 inches)" rendered as **"163 inches in
+    56 inches"**. **Thirteen sites shipped this way**, eleven cards and two glossary terms, among them a
+    magnitude ("an earthquake of magnitude **11 miles deep**") and a count of columns — numbers that are
+    not measurements at all, eaten for standing next to one. **The repair is authorial and never a
+    widening**: break the join with a word the engine does not list (`against`, `but`, `down to`,
+    `standing`, `covering`), because every word added to `U_JOIN` is another word a run may swallow.
+    **Two shapes it must let through and both were measured**: a bracket stating its figure as the ARTICLE
+    (`(about a mile)` — `U_NW` counts `a`), and a FRACTION stating both figures (`40.1 of its 103 square
+    kilometres (15 of 40 square miles)`), which is what `U_JOIN` swallows `of its` for.
   · **AND THE SIGN WORD IS THE ONE THAT CHANGES A NUMBER RATHER THAN HIDING IT.** `U_SIGN` is U+2212
     alone, deliberately (a hyphen there is a range separator), so a temperature written "minus 4°C (25°F)"
     leaves the word standing while the bracket supplies its own figure: an imperial reader was shown

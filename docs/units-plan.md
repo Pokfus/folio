@@ -378,3 +378,52 @@ the two above were found by eye inside it. **Two shapes in it are worth looking 
 sentence carrying BOTH a metric and an imperial unit after the imperial pass (a mangled run, or a
 shared-unit pair missing its bracket), and a bracket written the wrong way round — `gw-503` writes
 "1,004 acres (406 hectares)", imperial first, which shows both figures to everyone.
+
+
+## Sep 2026 — thirteen conversions that deleted a figure, and the sweep that now stands over them
+
+The two faults above were found **by eye**, inside a 265-field review list, in cards the pass happened to
+be editing. That is not a method. This is the sweep that finds the same class by construction, and it
+found **thirteen more sites shipping corrupted text** — eleven cards and two glossary terms.
+
+**THE QUESTION IS NOT WHAT A BRACKET IS, IT IS WHAT THE REPLACEMENT THREW AWAY.** Every sweep this file
+already records asks `isImperialParen` about a bracket; all of them pass a conversion that is recognised,
+converts correctly, and eats a word on the way. The run `U_RUN` captures is *exactly* the text a bracket
+replaces for an imperial reader, so the test is arithmetic: **a run that states more figures than its
+bracket does is deleting one of them.** No vocabulary, no judgement, and it is derived entirely from the
+engine's own captures, so it cannot drift from what ships.
+
+**THE SHAPE IS `from A (conv) in YEAR to B (conv)`**, and it is the commonest way anyone writes a change
+over time. `to`, `and`, `or`, `by`, `of` and the bare comma are all `U_JOIN`, so the run walks straight
+across the year standing between two measurements and the bracket swallows it:
+
+| card | authored | what the imperial reader saw |
+|---|---|---|
+| `gw-707` | 4,140 mm (163 inches) in 1981 **to** 1,420 mm (56 inches) | "163 inches **in** 56 inches" |
+| `gw-692` | 137 mm (5.4 inches) in 2001 **and** 906 mm (35.7 inches) in 2004 | "5.4 inches **in** 35.7 inches in 2004" |
+| `gw-654` | 23.22 °C (73.8 °F) in 1961 **to** 25.23 °C (77.4 °F) | "73.8 °F **in** 77.4 °F" |
+| `gw-605` | magnitude 7.2**,** 18 kilometres (11 miles) deep | "an earthquake of magnitude **11 miles deep**" |
+| `gw-676` | Roaring Creek Village in 1964**,** 80 km (50 miles) inland | "chose Roaring Creek Village **in 50 miles inland**" |
+| `wh-228` | a central twelve **of** 21 metres (69 feet) | "around a central **69 feet**" |
+| `gloss:Samnites` | geophysics at one **of** 18 hectares (44 acres) | "geophysics at **44 acres**" |
+
+The rest are the same four joins: `gw-051`, `gw-569`, `gw-685`, `gw-223`, `geo-514`, `gloss:Macau`.
+**A magnitude and a count of columns are not measurements at all** — they were eaten because they are
+numbers standing next to one.
+
+**THE REPAIR IS ALWAYS AUTHORIAL AND NEVER A WIDENING**: break the join with a word the engine does not
+list as one. `against`, `but`, `down to`, `standing`, `covering`, `that stand`, `has since reached`, or
+moving the year behind the figure. Every one of the thirteen keeps all its figures and its word count.
+**Do not add a join to `U_JOIN` to make one of these read better** — every word added there is another
+word the run may swallow, which is the trade `U_DENOM`'s own header refuses.
+
+**TWO SHAPES THE SWEEP MUST LET THROUGH, and both had to be measured rather than guessed.** A bracket
+reading `(about a mile)` states its figure as the ARTICLE, which `U_NW` counts as a number word — seven
+sites, all correct. And a FRACTION states both figures in the bracket (`40.1 of its 103 square kilometres
+(15 of 40 square miles)`), which is what `U_JOIN`'s own comment says it swallows `of its` for. A run that
+is one number written as hyphenated words (`twenty-five`) is the third.
+
+**It is committed**, in `test-units.js`, with a liveness assertion that plants `gw-707`'s own pre-fix
+sentence and requires the two legitimate shapes to pass. CLAUDE.md's standing rule is that an engine
+change is proved by rendering the whole corpus and diffing it; this is that rule's permanent form, and it
+costs one pass over fields the suite already walks.

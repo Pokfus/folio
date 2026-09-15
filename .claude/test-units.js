@@ -160,7 +160,7 @@ async function shown(page, html) {
     check("the units engine was found in app.js", from > 0 && to > from);
     if (from > 0 && to > from) {
       const src = app.slice(from, to);
-      const mk = new Function("S", src + "\n return { unitizeText: unitizeText, isImperialParen: isImperialParen };");
+      const mk = new Function("S", src + "\n return { unitizeText: unitizeText, isImperialParen: isImperialParen, U_CONV_RX: U_CONV_RX, U_BARE_RX: U_BARE_RX };");
       const U = mk({ settings: { units: "metric" } });
       const win = {};
       const load = (f) => { const g = global.window; global.window = win; delete require.cache[require.resolve(path.join(ROOT, f))]; require(path.join(ROOT, f)); global.window = g; };
@@ -262,6 +262,54 @@ async function shown(page, html) {
         SCALE.test("19.9 degrees Celsius (67.8 Fahrenheit)") &&
         !SCALE.test("about 14 degrees north of the equator") &&
         !SCALE.test("a high degree of autonomy"));
+
+      /* A CONVERSION MAY NOT SWALLOW A FIGURE ITS BRACKET DOES NOT STATE (Sep 2026), and this is the
+         only check here that can see it. Every sweep above asks what a bracket IS; this one asks what
+         the replacement THREW AWAY. The run U_RUN captures is exactly the text the bracket replaces for
+         an imperial reader, so if that run states more figures than the bracket does, one of them is
+         simply deleted — and only for that reader, since the authored metric view is untouched. It is
+         the `from A … in YEAR to B` shape, and `to`, `and`, `or`, `by`, `of` and the bare comma are all
+         joins, so the run walks straight across the year between two measurements:
+           "4,140 millimetres (163 inches) in 1981 to 1,420 millimetres (56 inches) in the El Niño year"
+         rendered as "163 inches in 56 inches in the El Niño year". Thirteen sites shipped this way —
+         eleven cards and two glossary terms, among them a magnitude ("an earthquake of magnitude
+         11 miles deep") and a count of columns — every one of them reading perfectly in the authored
+         prose, and none of them findable by reading it. The repair is always the same: break the join
+         with a word the engine does not list as one (against, but, down to, standing, covering).
+         CLAUDE.md's rule is that an engine change is proved by rendering the whole corpus and diffing
+         it; this is that rule's standing form, and it costs one pass over the same fields. */
+      const NUMW = /\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|half)\b/gi;
+      /* U_NW counts the ARTICLE as a number word, so a bracket reading "(about a mile)" states its
+         figure in words and is swallowing nothing — seven such brackets are the sweep's whole residue. */
+      const ART = /(?:^|[^A-Za-z])an?(?=\s)/gi;
+      const figs = (t, art) => (String(t).match(/\d[\d.,]*/g) || []).length
+        + (String(t).match(NUMW) || []).length + (art ? (String(t).match(ART) || []).length : 0);
+      /* "twenty-five" is ONE figure written as two of the engine's own number words joined by a hyphen */
+      const compound = (run) => /^[a-z]+(?:-[a-z]+)+$/i.test(String(run).trim());
+      const swallowed = [];
+      const eatsweep = (str, where) => {
+        if (typeof str !== "string" || str.indexOf("(") < 0) return;
+        const t = strip(str);
+        [[U.U_CONV_RX, 1, 6], [U.U_BARE_RX, 1, 3]].forEach(([rx, ri, ii]) => {
+          rx.lastIndex = 0;
+          let m;
+          while ((m = rx.exec(t))) {
+            if (!U.isImperialParen(m[ii]) || compound(m[ri])) continue;
+            if (figs(m[ri], false) > figs(m[ii], true)) swallowed.push(where + " [" + m[ri] + "] -> (" + m[ii] + ")");
+          }
+        });
+      };
+      walk(eatsweep);
+      check("...and no conversion swallows a figure its bracket does not state",
+        swallowed.length === 0, swallowed.length ? swallowed.length + ": " + swallowed.slice(0, 4).join(" | ") : "every run accounted for");
+      // ...and the rule still fires: gw-707's own sentence as it stood before the Sep 2026 fix
+      const LIVE = [];
+      eatsweep("totals have swung from 4,140 millimetres (163 inches) in 1981 to 1,420 millimetres (56 inches) in 1998", "PLANT");
+      eatsweep("under two kilometres (about a mile) from the centre", "ARTICLE");
+      eatsweep("40.1 of its 103 square kilometres (15 of 40 square miles)", "FRACTION");
+      check("...(and that sweep is live, and lets the two legitimate shapes through)",
+        swallowed.length === 1 && swallowed[0].indexOf("PLANT") === 0, swallowed.join(" | "));
+      swallowed.length = 0;
 
       /* The three shapes that were unseen, pinned by hand in BOTH directions — a `by` run especially,
          since without `by` in U_JOIN the match starts at the second number and imperial mode renders
