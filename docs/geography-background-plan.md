@@ -347,6 +347,79 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-15, batch H9 — six more, and three fabrications caught before they shipped**: `gw-007`
+  Brazil, `gw-035` Argentina, `gw-041` Ukraine, `gw-047` Ghana, `gw-048` Peru and `gw-054` Australia.
+  Their history blocks opened at 1824, 1816, 1945, 1957, 1821 and 1901; they now open at 9,600 years
+  ago, 8,570 years ago, the Trypillia farmers and the Yamnaya, the Kintampo Complex, 8,600 years ago
+  and 65,000 years ago. Rules 1–4 stay at zero; 5b went 371 to 365 and 5c 339 to 333.
+
+  · **THE CORPUS CARRIED THE DEEP END OF FIVE OF THE SIX, AND ONE PAPER CARRIED THREE OF THEM.**
+    Posth et al. 2018 in *Cell* reports 49 ancient genomes from Belize, Brazil, Peru, Chile and
+    Argentina, so Brazil's Lapa do Santo at ~9,600 BP, Argentina's Arroyo Seco 2 at 8,570–7,160 BP and
+    Peru's Lauricocha at ~8,600 BP are one citation, already cited and Crossref-checked on `wh-099`'s
+    neighbourhood. Ukraine's whole span came out of `wh-258`'s own Saag 2025 — *North Pontic
+    Crossroads* runs Trypillia to the Cossacks in one paper — and Australia's out of `wh-092`,
+    `wh-093` and `wh-094`. **Read the sibling card's sources before searching; only Ghana needed a
+    source the corpus had never used.**
+
+  · **…AND THE CAPITAL CARD CARRIED THE MIDDLE OF TWO.** `gw-535` Buenos Aires already cited the city
+    government's own account of Mendoza's failed 1536 settlement, Garay's founding on 11 June 1580 and
+    the viceroyalty of 1776 — Argentina's entire colonial century, one level down. `gw-547` Accra
+    already cited **Claridge's *History of the Gold Coast and Ashanti*** in both volumes, which gave
+    Ghana the Portuguese landfall of 1471, the settlements from 1482 and the sacks of Kumasi in 1874
+    and 1896. H8 found this with Sana'a and Bangkok; it is now the second thing to try.
+
+  · **THREE FABRICATIONS WERE CAUGHT IN DRAFT, AND ONLY ONE OF THEM BY A TOOL.** Two were expansions
+    of `et al.`: reusing `wh-432`'s Rick 2025 and `wh-434`'s Quilter 2025, the draft spelled out second
+    and third authors from memory and got both wrong (Rick's are Lema and Echeverría; Quilter's are
+    Harkins and Franco Jordán). **Crossref found them because the rule says to ask it BEFORE writing
+    the JSON**, and the fix is not a better memory but to keep the corpus's own `et al.` The third no
+    checker could see: the *Internet Encyclopedia of Ukraine*'s Hetman-state entry is by **Lev
+    Okinshevych and Arkadii Zhukovsky**, and the draft credited a Kohut whose name appears three times
+    in that entry's BIBLIOGRAPHY. **A name inside a bibliography is not the article's author**, and
+    the entry says who wrote it in a line at the foot.
+
+  · **A URL SWEEP MUST STRIP THE SENTENCE'S FULL STOP.** The house citation form ends `…, <url>. [Open
+    access]`, and a greedy URL pattern eats that stop — the first sweep reported 26 of 41 addresses as
+    404, including every `history.state.gov` and `constituteproject.org` address the deck has used for
+    a year. Stripped, all 41 answer 200. **A sweep that reports most of a shipped corpus broken is
+    reporting its own bug.**
+
+  · **THE GRID CHECK BITES ON A NAME THAT CONTAINS A GRID VALUE, WHICH IS WHY AUSTRALIA'S FLEET LANDS
+    AT PORT JACKSON.** `Sydney Cove` contains `Sydney`, the largest-city cell, with a space after it,
+    so rule 2 would have reported it; naming Port Jackson instead is both the wider harbour the fleet
+    actually moved to and a sentence the audit can pass. Peru's draft had the same shape — "the Supe
+    valley north of Lima" against the capital cell — and says "on the central coast" instead.
+
+  · **OPENALEX'S FREE TIER IS EXHAUSTED FOR THIS SANDBOX** (`Insufficient budget … Resets at midnight
+    UTC`), so its open-access location lookup is not a route to rely on here. **UNESCO's World
+    Heritage list pages answer 403 to every probe**, spaced or not — `whc.unesco.org` is not the
+    `unesco.org` that `check-reach.js` measures as open. **`aec.gov.au` serves a 200-status 404**
+    (its body reads "404 - Sauce not found"), a fifth variety of the trap. And **`legislation.gov.au`
+    serves an Act only from a DATED version address**: `/latest/text` and `/asmade/text` both hand
+    back the site's own shell.
+
+  · **A CC BY ARTICLE IS NOT THEREBY A READABLE ONE.** Kay, Fuller and Neumann 2019 in the *Journal of
+    World Prehistory* is the obvious deep source for West African land use and is open access;
+    `link.springer.com` hands back 3 KB, its five repository copies are landing pages with no fetchable
+    file, and Wiley's `onlinelibrary` 403s. Ghana's deep end came instead from **Amanda Logan's *The
+    Scarcity Slot*, a Luminos open-access book mirrored on archive.org**, which dates the Kintampo
+    Complex to 3,000–3,500 years before the present and carries the Asante conquests of Wenchi and
+    Bono-Takyiman and the extension of British rule in 1897. **The artefact plan's own search order
+    holds: OAPEN finds the books when the journals are shut.**
+
+  · **TWO CARDS LOST A BIODIVERSITY SENTENCE AND ITS SOURCE.** Peru's and Ghana's history blocks each
+    OPENED on flora and fauna counts — geography standing in the history half — so the rewrite dropped
+    both, and the Convention on Biological Diversity citation went with each. That is the same trade
+    H8 made with the United Nations sentence: a block of five has room for five, and a whole history
+    needs all of them.
+
+  · **`check-cards.js` REPORTS `gw-007: brazil in 3 of 9 sources` AND IS RIGHT TO CALL IT A NOTE.**
+    Three Brazilian laws — the 1824 constitution, the Lei Áurea of 1888 and the republic's decree of
+    1889 — are cited author-first under the state's own name, which is the corpus's convention for a
+    national law. Three records of one state are not three opinions, and the tool files it under
+    `one-witness` rather than failing it.
+
 - **2026-09-15, batch H8 — six histories out of the corpus's own shelf, and a checker that had gone
   blind**: `gw-014` Philippines, `gw-020` Thailand, `gw-037` Canada, `gw-038` Yemen, `gw-015` Democratic
   Republic of the Congo and `gw-028` Colombia. Their history blocks opened at 1898, 1850, 1867, 1839,
