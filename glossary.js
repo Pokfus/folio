@@ -3749,7 +3749,17 @@ window.GLOSSARY = {
 "Mali_Empire": "The Mali Empire was a West African state that grew as Ghana declined, defeating the Susu and taking Ghana’s lands westward to the Atlantic before extending east to Gao on the Niger.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings were Muslims who made the pilgrimage to Mecca, a custom Arabic writers traced to its first convert, and their wealth rested on the gold and salt trade that crossed the desert.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Ibn Battuta, who reached its court in 1352, praised the security of its roads and the regard paid to justice there, and a later traveller found its ruler reduced to a tributary of Songhai.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Sundiata_Keita": "Sundiata Keita is remembered as the founder of the Mali Empire, the ruler who broke the power of Soso and made the Mande chiefdoms into a single state.<sup class=\"fn\" data-fn=\"2\"></sup> The written record of him is a single short passage in Ibn Khaldun, which names him Mari Jata, explains the name as a prince joined to a lion, credits him with conquering the Susu and a reign of 25 years, and admits that his ancestry could not be learned.<sup class=\"fn\" data-fn=\"1\"></sup> Everything else comes from the Mande oral epic, sung by griots across Senegal, Gambia, Guinea and Mali, which is performed rather than fixed in writing.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Mansa_Musa": "Mansa Musa was a ruler of the Mali Empire whose pilgrimage to Mecca in 1324 became one of the best-known events in the history of medieval Africa.<sup class=\"fn\" data-fn=\"3\"></sup> Arabic writers describe a party of twelve thousand attendants and eighty loads of gold dust, and record that he refused to prostrate himself before the Mamluk sultan on the ground that he was a Muslim of the Maliki rite.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Al-Umari reports that the gold spent in Cairo drove the mithqal from 25 dirhams to no more than 22, where it stayed for 12 years afterwards.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Ghana_Empire": "The Ghana Empire was a state of the western Sahel, in what is now southeastern Mauritania and western Mali, and its name was properly the title borne by its king rather than the name of the country.<sup class=\"fn\" data-fn=\"1\"></sup> It lay between the goldfields to the south and the Saharan crossings to the north, so that it lived on what passed in either direction, and caravan towns such as Tegdaoust and Koumbi Saleh handled the traffic.<sup class=\"fn\" data-fn=\"2\"></sup> Ibn Khaldun, writing in the 1390s, reports that the Almoravids attacked it, took its territory and imposed Islam, after which the Susu overran what was left and the kings of Mali absorbed its lands.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Ghana_Empire": "The Ghana Empire was a state of the western Sahel, in what is now southeastern Mauritania and western Mali, and its name was properly the title borne by its king rather than the name of the country.<sup class=\"fn\" data-fn=\"1\"></sup> It lay between the goldfields to the south and the Saharan crossings to the north, so that it lived on what passed in either direction, and caravan towns such as Tegdaoust and Koumbi Saleh handled the traffic.<sup class=\"fn\" data-fn=\"2\"></sup> Ibn Khaldun, writing in the 1390s, reports that the Almoravids attacked it, took its territory and imposed Islam, after which the Susu overran what was left and the kings of Mali absorbed its lands.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Benin_Bronzes": "The Benin Bronzes are several thousand cast metal and carved ivory objects made for the court of the Kingdom of Benin, including relief plaques, commemorative heads, figures and ornaments.<sup class=\"fn\" data-fn=\"1\"></sup> Most of the metal pieces are brass rather than bronze, and they were made by lost-wax casting, in which a wax model over a sand core is coated in clay and replaced by molten metal.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Almost all of them were removed in 1897, when a British punitive expedition took Benin City, and they are now dispersed among museums in Europe and North America.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Great_Zimbabwe": "Great Zimbabwe is a ruined stone town in the granite country of southern Zimbabwe whose walls, laid in courses of shaped blocks without mortar, are the largest ancient structures south of the Sahara.<sup class=\"fn\" data-fn=\"1\"></sup> It was the hub of a trade that linked areas of southern Africa to one another and carried their gold and ivory out through the ports of the East African coast.<sup class=\"fn\" data-fn=\"2\"></sup> Its scale is easily overstated: modelling of the whole occupation, from about 1000 to 1800, suggests that the total number of people who ever lived there is unlikely to have exceeded ten thousand.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Hausa_Kingdoms": "The Hausa Kingdoms were a group of city-states in what is now northern Nigeria and southern Niger, each governed by a sarki from a walled town and each taxing the trade that passed through it.<sup class=\"fn\" data-fn=\"1\"></sup> Their own tradition traces the ruling houses to a founding hero at Daura and counts seven states descended from him, among them Kano, Katsina, Zaria, Gobir and Zamfara.<sup class=\"fn\" data-fn=\"1\"></sup> A chronicle of Kano credits the introduction of Islam to about forty men who came from Mali during a reign it dates 1349 to 1385, and records tribute paid to Bornu from about 1438.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Kanem–Bornu_Empire": "The Kanem–Bornu Empire was a state of the central Sudan ruled by one dynasty around Lake Chad, first from Kanem on the north-eastern shore and afterwards from Bornu to the west of the lake.<sup class=\"fn\" data-fn=\"1\"></sup> Its rulers were Muslims of the Maliki school who traced their descent from a pre-Islamic king of Yemen, and between 1242 and 1252 Kanem endowed a college in Cairo that lodged travellers of that rite.<sup class=\"fn\" data-fn=\"1\"></sup> In 1391 one of its sultans wrote to the Mamluk ruler of Egypt asking that free Muslim subjects carried off by Arab raiders be traced in the markets of Egypt and Syria and released.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Kilwa_Kisiwani": "Kilwa Kisiwani is an island town off the coast of southern Tanzania which became the leading port of the East African coast between the 13th and 15th centuries, largely by controlling the gold shipped from Sofala.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Excavation places settlement there from about 800, and the town minted coins in the names of its own sultans, of which a few gold examples are known.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A visitor of 1331 found a large place built of wood whose people were Shafi‘i Muslims, while one of about 1518 described houses of stone and mortar with windows, flat roofs and carved doors.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Kingdom_of_Benin": "The Kingdom of Benin was an Edo state in the forest west of the Niger delta, ruled from Benin City by a king titled the oba, and unconnected with the modern republic of the same name.<sup class=\"fn\" data-fn=\"1\"></sup> Its tradition divides the past between an earlier line of rulers called the Ogiso and the obas who followed them, and banks and ditches around the capital form one of the largest earthwork systems recorded anywhere.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A Dutch visitor of 1702 described broad streets swept by the women, a palace reached through galleries on rough planks, and a mud wall whose gate carried a great copper snake hanging head downwards.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Kingdom_of_Kongo": "The Kingdom of Kongo was a state south of the lower Congo river, in what is now northern Angola and the western Democratic Republic of the Congo, governed from the inland capital of Mbanza Kongo through provincial rulers.<sup class=\"fn\" data-fn=\"1\"></sup> Its currency was neither coin nor metal but small shells gathered by women diving off an island near Luanda, and gold and silver were not used as money there at all.<sup class=\"fn\" data-fn=\"2\"></sup> Its king was baptised as a Christian within a few years of the arrival of Portuguese ships in the 1480s, and the port of Luanda later became a place where captives were bought and shipped away.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Songhai_Empire": "The Songhai Empire was a state of the western Sudan centred on the middle Niger, ruled first from Gao and reaching its greatest extent across the river towns between the 15th and 16th centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Sonni Ali took Timbuktu in 1468 and ruled 24 years, and the dynasty of the askias that replaced his line governed a realm that drew tribute from as far east as the Hausa country.<sup class=\"fn\" data-fn=\"1\"></sup> It ended in 1591 when a Moroccan expedition sent by Ahmad al-Mansur, in a dispute over the Taghaza salt mine, routed its army at Tondibi and occupied Gao and Timbuktu.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Swahili_coast": "The Swahili coast is the shore and offshore islands of East Africa running from southern Somalia to northern Mozambique, along which a chain of trading towns grew up speaking Kiswahili, a Bantu language with heavy Arabic borrowing.<sup class=\"fn\" data-fn=\"1\"></sup> Its towns were built of coral rag quarried locally, and excavation indicates that they developed out of the surrounding region rather than being founded from overseas, with imported goods used to mark status within them.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A Greek merchant's handbook of the 1st century CE gives the earliest written notice of the coast, naming a market called Rhapta that exported ivory, rhinoceros horn and tortoise-shell.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Timbuktu": "Timbuktu is a town on the southern edge of the Sahara in present-day Mali, standing a little north of the river Niger where the great bend of the river comes closest to the desert.<sup class=\"fn\" data-fn=\"1\"></sup> A local chronicle of the 17th century says it was founded by Maghsharen Tuareg at the end of the 5th century of the Hijra as a seasonal camp, and grew into a market where caravans met river boats.<sup class=\"fn\" data-fn=\"1\"></sup> A traveller of the 1510s described a mosque of stone and lime, a palace built by a craftsman from Granada, gold circulating by weight without a stamp, and manuscripts that sold for more than any other goods.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5647,7 +5657,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Malacca_Sultanate": "1409 – 1511",
 "Mali_Empire": "13th – 16th century CE",
 "Sundiata_Keita": "c. 1230 – 1255 CE",
-"Mansa_Musa": "pilgrimage 1324 – 1325 CE"
+"Mansa_Musa": "pilgrimage 1324 – 1325 CE",
+"Great_Zimbabwe": "c. 1000 – 1800 CE",
+"Hausa_Kingdoms": "11th – 19th century CE",
+"Kanem–Bornu_Empire": "9th – 19th century CE",
+"Kilwa_Kisiwani": "settled c. 800 CE",
+"Kingdom_of_Benin": "c. 1180 – 1897 CE",
+"Kingdom_of_Kongo": "c. 1390 – 1914 CE",
+"Songhai_Empire": "15th – 16th century CE",
+"Timbuktu": "founded c. 1100 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7863,7 +7881,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mali_Empire": ["empire of Mali","Mali empire"],
 "Sundiata_Keita": ["Sundiata","Sunjata"],
 "Mansa_Musa": ["Musa of Mali"],
-"Ghana_Empire": ["empire of Ghana","Ghana empire"]
+"Ghana_Empire": ["empire of Ghana","Ghana empire"],
+"Benin_Bronzes": ["Benin bronzes","Benin plaques"],
+"Hausa_Kingdoms": ["Hausa kingdoms","Hausa city-states","Hausa states"],
+"Kanem–Bornu_Empire": ["Kanem-Bornu","Kanem–Bornu","Kanem-Bornu Empire","Bornu Empire","Kanem Empire"],
+"Kilwa_Kisiwani": ["Kilwa"],
+"Kingdom_of_Benin": ["Benin Kingdom","Benin Empire"],
+"Kingdom_of_Kongo": ["Kongo Kingdom"],
+"Songhai_Empire": ["Songhay Empire","Songhai empire"],
+"Swahili_coast": ["Swahili Coast"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -11654,7 +11680,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mali_Empire": ["state","history","africa","trade","islam","mali"],
 "Sundiata_Keita": ["person","ruler","history","africa","mali","literature"],
 "Mansa_Musa": ["person","ruler","history","africa","mali","islam"],
-"Ghana_Empire": ["state","history","africa","trade","islam","mauritania"]
+"Ghana_Empire": ["state","history","africa","trade","islam","mauritania"],
+"Benin_Bronzes": ["object","art","history","africa","nigeria","technology"],
+"Great_Zimbabwe": ["place","history","africa","zimbabwe","archaeology","city"],
+"Hausa_Kingdoms": ["state","history","africa","islam","trade","nigeria"],
+"Kanem–Bornu_Empire": ["state","history","africa","islam","trade","chad"],
+"Kilwa_Kisiwani": ["city","history","africa","trade","islam","tanzania"],
+"Kingdom_of_Benin": ["state","history","africa","nigeria","art","city"],
+"Kingdom_of_Kongo": ["state","history","africa","angola","christianity","trade"],
+"Songhai_Empire": ["state","history","africa","trade","islam","mali"],
+"Swahili_coast": ["place","history","africa","trade","islam","kenya","tanzania"],
+"Timbuktu": ["city","history","africa","trade","islam","mali","learning"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
