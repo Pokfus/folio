@@ -327,6 +327,15 @@ at all, which is the same defect wearing different clothes).
 Each needs a sentence extended from a source it already cites — not padding, which is the one way a
 length pass can do real damage.
 
+**✅ ALL ELEVEN SHIPPED (Sep 2026)**, each extended with a fact taken from a source it already cited:
+the WMO record's own rain-day threshold and station field (`gw-645`, `gw-644`, `gw-658`), the flood
+study's account of how much of the Danube's Slovak reach is a frontier (`gw-620`), and AQUASTAT's
+figures for the hottest ground, the cultivated area, the mountain and southern temperatures, the
+evapotranspiration and the farmland share (`gw-046`, `gw-052`, `gw-043`, `gw-070`, `gw-041`). The two
+terms took the century of urban growth their own cited paper is about (`Shenyang`) and the limestone
+its cited study names (`Hunan`). Nothing was padded and no card was reshuffled: every one is longer
+than it was and opens on the same words.
+
 **⚠ THIS TABLE IS THE SHORTFALL THE UNITS FIX CAUSED, NOT THE WHOLE BACKLOG.** Re-measured in Sep
 2026 with an honest counter (see the section at the foot of this file), the corpus holds **67 cards**
 under the floor and **4 glossary terms**, of which these eleven are the ones this pass put there.
