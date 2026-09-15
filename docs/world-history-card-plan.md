@@ -944,7 +944,17 @@ on instead of a definition.*
     wh-597  Siege of Baghdad
     wh-598  Golden Horde
     wh-599  Timur
-    wh-600  Legacy of the Mongol Empire
+    wh-600  Chinggisids
+
+*`wh-600` was **Legacy of the Mongol Empire**, which is a topic rather than an answer term: a card is
+answered by a word a reader will meet again, and nobody meets "the legacy of the Mongol Empire" as a
+name. The legacy that does have a name — and the most durable thing the empire left — is the rule that
+only a descendant of Genghis Khan could hold the title of khan, which governed politics from the Black
+Sea to Manchuria into the 18th century and is exactly what makes `wh-599` Timur intelligible, since he
+beat every army he met and still ruled as an emir. **Chinggisids** is also a real article title, so the
+paired glossary term has a slug; "Legacy of the Mongol Empire" has none. The card still carries the
+legacy in full — the four khanates, the plague argument, and the national histories that still locate
+what went wrong in the Mongol period — under a term rather than under a heading.*
 
 ### The Americas before Columbus — `wh-americas`
 

@@ -3769,7 +3769,17 @@ window.GLOSSARY = {
 "Yurt": "A yurt is a round, portable dwelling used across the Eurasian steppe, built on a circular lattice of wooden rods with roof poles rising to a hoop at the apex and covered with felt; the Mongolian name for it is ger.<sup class=\"fn\" data-fn=\"1\"></sup> The hoop is left open above the hearth as a smoke hole, the felt is often whitened and decorated, and the whole structure can be dismantled, carried and re-erected, though in the medieval period some were moved whole on ox carts.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The form insulates well against extreme cold and heat, and it remains in use both by herding households and as permanent housing in the districts around Mongolian cities.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Yuezhi": "The Yuezhi were a nomadic people recorded in Chinese sources as pasturing in the Gansu corridor, between Dunhuang and the Qilian mountains, before the Xiongnu defeated them in the 2nd century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Most of them migrated westwards across Central Asia, crossed beyond Ferghana and conquered Bactria, where they established their ruler’s court north of the Oxus, while a remnant stayed behind and was known as the Lesser Yuezhi.<sup class=\"fn\" data-fn=\"1\"></sup> Their movement is usually connected with the nomad tribes that Greek geography names as having taken Bactria from its Greek kings, and the later Kushan dynasty of Central Asia and northern India rose among them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Huns": "The Huns were a nomadic people who appeared north of the Danube and the Black Sea in the 370s, displacing other groups into the Roman provinces and building a tribute-taking empire centred on the Hungarian plain.<sup class=\"fn\" data-fn=\"1\"></sup> Roman writers described them as living on horseback and without settled dwellings, but those accounts were written by enemies who had not met them, and archaeological and isotopic evidence indicates populations mixing rather than simple destruction.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Whether they descended from the Xiongnu of Mongolia was long disputed, and genomic work now links some individuals buried in the Carpathian Basin to the Xiongnu elite without showing a large eastern population.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Attila": "Attila was ruler of the Huns from 433, jointly with his brother Bleda until 445 and alone thereafter, until his death in 453.<sup class=\"fn\" data-fn=\"1\"></sup> He led campaigns against both the eastern and western Roman empires, drew tribute from each, invaded Gaul in 451 and Italy in 452, and was buried at night in coffins of gold, silver and iron by men who were then killed.<sup class=\"fn\" data-fn=\"2\"></sup> Nearly everything recorded about him reaches modern readers through a Gothic historian writing a century later who used the lost account of a Greek envoy that had visited his court, and his empire broke apart within a year of his death.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Attila": "Attila was ruler of the Huns from 433, jointly with his brother Bleda until 445 and alone thereafter, until his death in 453.<sup class=\"fn\" data-fn=\"1\"></sup> He led campaigns against both the eastern and western Roman empires, drew tribute from each, invaded Gaul in 451 and Italy in 452, and was buried at night in coffins of gold, silver and iron by men who were then killed.<sup class=\"fn\" data-fn=\"2\"></sup> Nearly everything recorded about him reaches modern readers through a Gothic historian writing a century later who used the lost account of a Greek envoy that had visited his court, and his empire broke apart within a year of his death.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Göktürks": "The <b>Göktürks</b> were a Turkic people whose khaganate ruled the steppe between Manchuria and Central Asia from the middle of the 6th century, breaking apart in 630 and reviving between 682 and 744.<sup class=\"fn\" data-fn=\"1\"></sup> They are the earliest steppe power known from writing in its own language, a group of stones raised beside the Orkhon river in Mongolia and carved in a runiform alphabet.<sup class=\"fn\" data-fn=\"2\"></sup> Those inscriptions name Bumin and Istami as the founding kagans, describe a realm running from the Kadirkan forest to the Iron Gate, and warn against the gold, silver and silk offered by China.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Khazars": "The <b>Khazars</b> were a Turkic people whose khaganate controlled the lower Volga, the northern Caucasus and the steppe north of the Black Sea between the 7th century and the 10th.<sup class=\"fn\" data-fn=\"1\"></sup> Their ruling house adopted Judaism at a date the sources place variously in the 7th or the 8th century, an event known chiefly from a correspondence between a minister of the caliph of Cordoba and a Khazar king recovered in the 16th century.<sup class=\"fn\" data-fn=\"2\"></sup> Excavation in the forest-steppe of the western khaganate has recovered grain, field tools and settlement traces, showing a population that farmed as well as herded.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Genghis_Khan": "<b>Genghis Khan</b>, born Temüjin, was the Mongol ruler who united the tribes of the eastern steppe and founded the empire that reached from Korea to the Danube within two generations of his death.<sup class=\"fn\" data-fn=\"1\"></sup> He took the title at an assembly of those tribes in 1206, reorganised his followers into units counted in tens that cut across the old clan loyalties, and died on campaign in 1227.<sup class=\"fn\" data-fn=\"2\"></sup> A body of customary law called the yasa was ascribed to him and invoked by later Chinggisid states, though no complete text survives and its original form is disputed.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Mongol_Empire": "The <b>Mongol Empire</b> was the state founded on the eastern steppe in 1206 which at its greatest extent reached from Korea to the Danube, the largest continuous land empire in recorded history.<sup class=\"fn\" data-fn=\"1\"></sup> Its army was organised in tens, hundreds, thousands and ten thousands under commanders appointed by the ruler, and it absorbed the manpower of conquered peoples and deployed them far from home.<sup class=\"fn\" data-fn=\"2\"></sup> Excavation of walled towns in the Mongolian heartland shows a settled and agricultural component alongside the nomadic one, and the empire divided after 1260 into four khanates ruled by different branches of the founding family.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Mongol_conquests": "The <b>Mongol conquests</b> were the campaigns that between 1206 and 1279 carried armies from the eastern steppe into China, Central Asia, Iran, the Caucasus, the lands of Rus and eastern Europe.<sup class=\"fn\" data-fn=\"1\"></sup> A chronicler at Novgorod, writing after the defeat on the Kalka in 1223, recorded that nobody knew who the attackers were, and described the armies of 1238 entering Ryazan like locusts and demanding a tenth of everything.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Their effects are difficult to measure because the invasions destroyed most of what would have recorded them, so historians work from surviving institutional lists such as the dioceses of Rus.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Siege_of_Baghdad": "The <b>Siege of Baghdad</b> was the capture of the Abbasid capital by a Mongol army under Hülegü in early 1258, which ended the caliphate that had held the city since the 8th century.<sup class=\"fn\" data-fn=\"1\"></sup> Contemporaries and later writers described the destruction as near-total, and the last caliph's death became the subject of a widely repeated story about a ruler shut up with his hoarded treasure.<sup class=\"fn\" data-fn=\"2\"></sup> Surviving and rebuilt structures, including a minaret of 1279 and colleges founded in 1279, 1289 and 1293, have led scholars to qualify the picture of total ruin while still accepting that the city declined to provincial status.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Golden_Horde": "The <b>Golden Horde</b> was the westernmost of the states into which the Mongol Empire divided, ruling the steppe north of the Black and Caspian seas and holding the princes of Rus as tributaries for some two and a half centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Its wealth came from the trade linking the steppe, the northern forests and the Mediterranean, and Italian merchants held fortified posts on its southern coasts.<sup class=\"fn\" data-fn=\"2\"></sup> Its capital, Sarai, stood somewhere on the lower Volga, though the written sources use the name for more than one place and the excavated sites have not settled which was meant.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pax_Mongolica": "<b>Pax Mongolica</b> is the term historians use for the period, roughly from the mid-13th century to the mid-14th, when Mongol authority across Eurasia allowed people and goods to travel unusually far and safely.<sup class=\"fn\" data-fn=\"1\"></sup> Its administrative core was a relay network of post stations along the main roads, described by travellers as holding hundreds of horses each and staffed by couriers who changed at fixed intervals.<sup class=\"fn\" data-fn=\"1\"></sup> Surviving documents record the animals and households each station was required to supply, and the period was neither continuous nor peaceful throughout, since the successor khanates fought one another.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Timur": "<b>Timur</b> was a Turco-Mongol conqueror who built an empire out of Central Asia in the second half of the 14th century, campaigning from northern India to Anatolia and making Samarkand his capital.<sup class=\"fn\" data-fn=\"1\"></sup> Not being descended from Genghis Khan, he could not take the title of khan and ruled instead as emir in the name of Chinggisid figureheads, an arrangement foreign envoys to his court noticed and recorded.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He presented his wars as fought in the cause of Islam, and Muslim writers of his own century assessed him in sharply opposed ways, some as its defender and others as the destroyer of its greatest cities.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Chinggisids": "The <b>Chinggisids</b> were the descendants of Genghis Khan, among whom the Mongol Empire was divided after 1260 and who supplied the ruling houses of much of Eurasia from the Black Sea to Manchuria into the 18th century.<sup class=\"fn\" data-fn=\"1\"></sup> Descent from him became the recognised qualification for the title of khan, so that rulers without it governed under lesser titles or in the name of a Chinggisid figurehead.<sup class=\"fn\" data-fn=\"1\"></sup> Which branch a dynasty descended from also carried weight, and houses tracing themselves to junior lines were long treated as peripheral by historians looking for a single centralising state.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5675,7 +5685,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Kingdom_of_Benin": "c. 1180 – 1897 CE",
 "Kingdom_of_Kongo": "c. 1390 – 1914 CE",
 "Songhai_Empire": "15th – 16th century CE",
-"Timbuktu": "founded c. 1100 CE"
+"Timbuktu": "founded c. 1100 CE",
+"Göktürks": "552 – 744 CE",
+"Khazars": "c. 650 – 969 CE",
+"Genghis_Khan": "c. 1162 – 1227 CE",
+"Mongol_Empire": "1206 – 1368 CE",
+"Mongol_conquests": "1206 – 1279 CE",
+"Siege_of_Baghdad": "1258 CE",
+"Golden_Horde": "1242 – 1502 CE",
+"Pax_Mongolica": "c. 1250 – 1350 CE",
+"Timur": "1336 – 1405 CE",
+"Chinggisids": "from 1206 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7901,7 +7921,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Songhai_Empire": ["Songhay Empire","Songhai empire"],
 "Swahili_coast": ["Swahili Coast"],
 "Ajami_script": ["Ajami","ajami"],
-"Yurt": ["ger"]
+"Yurt": ["ger"],
+"Göktürks": ["Gokturks","Göktürk","Kok Turks","Celestial Turks"],
+"Khazars": ["Khazar","Khazar Khaganate","Khazaria"],
+"Genghis_Khan": ["Chinggis Khan","Temüjin","Chingis Khan"],
+"Mongol_Empire": ["Mongol empire"],
+"Mongol_conquests": ["Mongol invasions","Mongol conquest"],
+"Siege_of_Baghdad": ["Sack of Baghdad","Fall of Baghdad"],
+"Golden_Horde": ["Jochi Ulus","Ulus of Jochi","Kipchak Khanate"],
+"Pax_Mongolica": ["Mongol peace"],
+"Timur": ["Tamerlane","Timur Lang","Amir Timur"],
+"Chinggisids": ["Chinggisid","Genghisid","Chingissid"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -11712,7 +11742,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Yurt": ["object","building","practice","technology","history"],
 "Yuezhi": ["people","history","migration","warfare","archaeology"],
 "Huns": ["people","history","migration","warfare","genetics","archaeology"],
-"Attila": ["person","ruler","history","warfare","rome","migration"]
+"Attila": ["person","ruler","history","warfare","rome","migration"],
+"Göktürks": ["people","state","history","warfare","migration","asia"],
+"Khazars": ["people","state","history","religion","trade","archaeology"],
+"Genghis_Khan": ["person","ruler","history","warfare","state","asia"],
+"Mongol_Empire": ["state","empire","history","warfare","trade","archaeology"],
+"Mongol_conquests": ["event","warfare","history","state","migration","religion"],
+"Siege_of_Baghdad": ["event","battle","history","warfare","religion","archaeology"],
+"Golden_Horde": ["state","empire","history","trade","geography","asia"],
+"Pax_Mongolica": ["concept","era","history","trade","state","asia"],
+"Timur": ["person","ruler","history","warfare","state","asia"],
+"Chinggisids": ["people","concept","history","state","migration","asia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
