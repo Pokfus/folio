@@ -612,6 +612,52 @@ silence.**
 more, *Guernica*, *Nighthawks*, the *Marilyn Diptych* and everything else still in term came out; see
 "Copyright" above for where they went and why that is the honest answer rather than a gap.
 
+**BATCH A2 — `art-004` TO `art-008`, Sep 2026.** The Vogelherd mammoth and bison, the Hohle Fels
+waterbird, the Venus of Galgenberg and the Brno II figurine. Five findings are worth having before the
+next batch.
+
+**THE OPENING OF THIS DECK IS ONE HORIZON AND CANNOT BE ORDERED INSIDE ITSELF, SO ITS LINE-YEARS ARE
+FLAT ON PURPOSE.** `art-001`–`art-007` are Aurignacian, and the published dates for them overlap end to
+end: the Swabian ivories are given as 35,000 years old in most of the literature and as around 40,000
+by the museums that hold them, and the Galgenberg figure is 32,000 by the charcoal from its own layer
+and 36,000 by the later work. **The plan's year is the horizon's YOUNGER bound and the card carries the
+real range**, which is what `art-003` already did — line 35,000, card `c. 40,000 – 35,000 years ago`.
+Do not "correct" a line upward to match its card: `check-art-order.js` reads the plan, the plan is the
+dealing order, and a raised line here puts a backward step in front of a shipped card that cannot be
+renumbered.
+
+**`art-009` AS PLANNED IS NOT ONE OBJECT AND MUST BE REPLANNED BEFORE IT IS WRITTEN.** The line reads
+*The Kostenki 1 Venus*, and there is no such single work: Kostenki I produced a series of female
+figurines in mammoth ivory and in marl, the English reference article is titled in the PLURAL, and the
+best free photographs (an ivory figure 153 mm high and a limestone one 137 mm, both Kunstkamera
+originals photographed at Hamburg in 2016–17) are of two different objects. That fails the four-part
+test in "What a line in this list is" at its first question. **Decide which object the line names — and
+say so in the line — before researching it**; a card whose picture shows one figurine while its title
+names a group is the one shape this format cannot carry.
+
+**A BLURRY PHOTOGRAPH IS STILL THE ONLY PHOTOGRAPH, AND THAT IS A REASON TO SHIP RATHER THAN TO WAIT.**
+Commons holds exactly one free picture of the Hohle Fels waterbird and it is soft-focus through display
+glass. It was shipped, because the alternative was to drop the oldest known depiction of a bird from a
+collection whose subject is exactly that; **the object is legible and the card says what it is**. Weigh
+the same way next time: the bar is whether the work can be recognised, not whether the photograph is
+good.
+
+**THE FIGURES CAME OFF THE MUSEUMS' OWN RECORDS, NOT OFF THE ENCYCLOPEDIAS, AND THEY DISAGREED.**
+`museum-digital` carries the Tübingen catalogue entries for both Vogelherd pieces with inventory
+numbers, dimensions and a described decoration (**the mammoth is 5 cm long, pierced between the legs as
+a pendant, and blue from iron in the cave floor; the bison is 7.2 cm and has lost its head and its far
+face**), and the Blaubeuren museum's own object page carries the waterbird's. The English-language
+write-ups of the Galgenberg figure call its stone **serpentine**; the Lower Austrian provincial record
+and the German sources call it **amphibolite schist**, which is what the card says. **Read the holding
+museum's own record before the secondary literature.**
+
+**AND THE `Location` CELL IS GRADED, SO IT HAS TO CARRY THE CITY.** The first draft of `art-007` gave
+the location as *Naturhistorisches Museum Wien, Austria* and a reader typing **Vienna** was marked
+wrong, the German name of the city being nowhere in the string. `artMatch` accepts a typed word that
+appears in the answer, so **a museum whose own name does not contain its town needs the town added** —
+which is what `art-001` already does with *Museum Ulm, Ulm, Germany*. Check the four cells by typing at
+them before shipping, not by reading them.
+
 # The list
 
 ## Before History, to 700 BCE — `art-early`
@@ -621,11 +667,11 @@ more, *Guernica*, *Nighthawks*, the *Marilyn Diptych* and everything else still 
     art-001  The Lion-man of Hohlenstein-Stadel — Swabia, c. 40,000 years ago
     art-002  The Vogelherd horse — Swabia, c. 35,000 years ago
     art-003  The Venus of Hohle Fels — Swabia, c. 35,000 years ago
-    art-004  The Vogelherd mammoth — Swabia, c. 33,000 years ago
-    art-005  The Vogelherd bison — Swabia, c. 33,000 years ago
-    art-006  The Hohle Fels waterbird — Swabia, c. 33,000 years ago
-    art-007  The Galgenberg Venus — Austria, c. 30,000 years ago
-    art-008  The Brno II male figurine — Moravia, c. 29,000 years ago
+    art-004  The Vogelherd mammoth — Swabia, c. 35,000 years ago
+    art-005  The Vogelherd bison — Swabia, c. 35,000 years ago
+    art-006  The Hohle Fels waterbird — Swabia, c. 35,000 years ago
+    art-007  The Venus of Galgenberg — Austria, c. 32,000 years ago
+    art-008  The Brno II figurine — Moravia, c. 28,000 years ago
     art-009  The Kostenki 1 Venus — Russia, c. 28,000 years ago
     art-010  The Venus of Dolní Věstonice — Moravia, c. 26,000 BCE
     art-011  The Apollo 11 Cave painted plaques — Namibia, c. 25,500 BCE

@@ -1011,7 +1011,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     citation spelling out a name Crossref only abbreviates: that cannot be verified from here at all, and
     it is exactly where a fabricated given name hides. Diacritics, spacing and the periods after initials
     are folded away — **and so is the DASH FAMILY**, Crossref writing a hyphenated surname with U+2010
-    where the citation has an ASCII hyphen.
+    where the citation has an ASCII hyphen, **and the DOTLESS ı and ȷ** (U+0131 / U+0237), a legacy
+    record writing *Jiří* as a dotless ı under a combining acute, so that stripping the accent left
+    "Jirı" against our "Jiri" and a good citation was reported as a wrong one. Folding them cannot mask
+    a real difference: the diacritic strip has already merged every accented i with a plain one, and
+    this only finishes the job on the base letter.
   · **A citation with no DOI and no PMC id is UNCHECKED, never "ok"** — an out-of-copyright book on
     archive.org has no record to check against, and saying it passed would be the checker lying.
   · **CROSSREF IS A RECORD, NOT AN AUTHORITY, and three of its records are wrong about a name Folio has
@@ -1904,12 +1908,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   — the question and the brief paragraph its "Show answer" button reveals — and the retired single
   `{ q, at }` shape is REFUSED here with the migration named, while app.js goes on rendering one for the
   overlay's sake. Not part of the site.
-- `.claude/set-facts.js` — writes a MAP CARD's `facts` grid, in batches:
+- `.claude/set-facts.js` — writes a MAP CARD's or an ARTWORK CARD's `facts` grid, in batches:
   `node .claude/set-facts.js <batch.json> [--check]` over `{ "cards": { "gw-001": [[label, value], …] } }`.
   **A TOOL RATHER THAN AN EDIT, because none of the others can touch it**: `facts` is an ARRAY of pairs, so
   `add-sources.js` (only `sources` and the abstract) and `fix-field.js` (find/replace inside a STRING field)
-  both refuse it, and `update-cards.js` assigns whole fields with no validation in front of it. **The grid is
-  READ BY POSITION** — `cardFacts` draws it two to a row — so "Capital | Population / Largest city | Area" is
+  both refuse it, and `update-cards.js` assigns whole fields with no validation in front of it. **It takes an
+  ARTWORK card too** (Sep 2026) — that format reads the same field for its Artist / Material / dimension /
+  Location grid, so refusing one sent the next correction to `update-cards.js`, which is the unvalidated path
+  this tool exists to replace. **The grid is READ BY POSITION** — `cardFacts` draws it two to a row — so "Capital | Population / Largest city | Area" is
   an ORDER as much as a set of labels, which is the one thing a hand edit gets wrong without anything saying
   so. It validates the WHOLE batch before writing anything, splices in the one-card-per-line shape every
   other helper writes, and re-parses afterwards; `--check` prints every map card's grid and writes nothing,
@@ -3630,6 +3636,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Parthenon gets seventy-odd years and the Swabian ivories a millennium. **It is a proportion of the
     AGE and never of the year number**: 3% of "1642" would be fifty years, which is two generations of
     painting.
+  · **THE `Location` CELL IS GRADED, SO IT HAS TO CARRY THE TOWN** (Sep 2026, on `art-007`). `artMatch`
+    accepts a typed word that appears in the answer, so a museum whose own name does not contain its
+    city marks that city wrong: *Naturhistorisches Museum Wien, Austria* refused **Vienna**, the German
+    form of the name being the only one in the string. **A museum named after its town needs nothing
+    (Museum Ulm, Blaubeuren, Tübingen, Brno); one that is not needs the town added.** Type at the four
+    cells before shipping a card rather than reading them.
   · **THREE THINGS ARE HELD BACK UNTIL THE REVEAL, and the first is the whole difficulty.** A Commons
     credit line routinely reads "Rembrandt, The Night Watch, Rijksmuseum", so the front draws the picture
     and NOTHING else — no title, no description, no credit, no `data-img-*` and no way to enlarge it,
@@ -5203,7 +5215,7 @@ lookup.
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
-| Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 3 cards — next is `art-004`; not a history collection |
+| Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 8 cards, contiguous — next is `art-009`, **whose plan line names a GROUP rather than one object and must be replanned first**; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
