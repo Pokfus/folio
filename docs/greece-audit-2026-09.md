@@ -1636,6 +1636,59 @@ URL WITH the sentence's closing full stop and every DOI then 404s, which reads a
 links. app.js's own `SRC_URL_RX` ends `[^\s<>"')\].,;:]`, so the site trims it. **Sweep with app.js's
 pattern, not an approximation of it.**
 
+### `wh-041` Homo naledi — cleared by citing the work that was actually being cited (2026-09-15)
+
+Three Berger entries of six: [1] the 2015 species description, [5] the 2023/25 burial paper, [6] the
+engravings paper. The tool offered [5] and [6] as candidates at `alone=0`, and **both were false in the
+way the tool cannot see**: they sit on one sentence that makes two claims, one about the burial verdict
+and one about the engravings verdict, so each carries half of it and neither is droppable.
+
+**What the card was actually citing was not Berger.** Both entries carried the locator
+*"eLife assessment"* — the editorial verdict eLife attaches to a reviewed preprint, which the card
+reports honestly ("one reviewer found the burial case convincing and another found it incomplete"). That
+verdict is not written by the paper's authors. **eLife registers each assessment as its own work**, with
+its own DOI, its own type (`peer-review`), an `is-review-of` relation, and a named editor:
+· `10.7554/eLife.89106.3.sa0` — **George H. Perry**, on the burial paper
+· `10.7554/eLife.89102.3.sa0` — **Yonatan Sahle**, on the engravings paper
+
+So the card was **attributing to Berger a judgement about Berger**, and a reader following either
+citation met his byline over somebody else's verdict. That is a citation fault on its own terms, and
+fixing it is right whether or not anything is counting. It happens to take Berger from three entries to
+one, so the rule clears as a side effect rather than as the object of the exercise.
+
+Both assessments are open and were read. Perry: *"One of the reviewers concludes that the findings
+convincingly demonstrate intentional burial practices, while another considers evidence for such an
+unambiguous conclusion to be incomplete."* Sahle: significance **Important**, strength of evidence
+**Incomplete** — *"this report concerns preliminary findings, and as it stands the study is incomplete."*
+The card's sentence was already accurate to both; it now says *an eLife editor's assessment* rather than
+*the journal's own verdict*, and gives the engravings eLife's two ratings rather than a paraphrase.
+
+**The form matters, because two tools read it.** Written `<Reviewer>, review of “<title>,” by
+<authors>, …`: `check-cards.js` keys on the text before the first comma, so the entry now counts under
+Perry and Sahle; and **`card-focus.js`'s reviewer branch is `/^(.*?),\s*review of/i`, which runs AFTER
+titles are masked to `§TITLE§`** — so a quoted title placed between the name and "review of" would have
+it capture `Perry, §TITLE§` and yield no name at all. **"review of" goes immediately after the
+reviewer.** Verified: `card-focus` now reports Berger, Dirks, Hawks, Perry, Sahle, and `check-citations`
+checks all six against Crossref with nothing to eye.
+
+**Measured, so nobody looks for a pass that is not there: this fault occurs on exactly these two
+citations in the whole corpus** — grepped for the `eLife assessment` locator and for any
+assessment/peer-review locator on any journal. It is a one-card fault, not a backlog. But eLife's
+reviewed-preprint model keeps producing these, so the rule is worth having: **when a citation's locator
+names an editorial assessment, a peer review or a referee report, the work being cited is the review,
+and the review usually has a DOI and an author of its own.**
+
+**What could NOT be done, recorded so the next session does not spend the hour again.** The obvious
+improvement is an independent critique, and one exists: **María Martinón-Torres, Diego Garate, Andy
+I. R. Herries & Michael D. Petraglia, "No scientific evidence that Homo naledi buried their dead and
+produced rock art," *Journal of Human Evolution* 195 (2024): 103464, `10.1016/j.jhevol.2023.103464`.**
+It is not readable from here: the DOI lands on Elsevier's `linkinghub` shim (200, 2.7 KB, no text);
+Europe PMC returned 503 on four probes across several minutes; and **the Griffith repository record
+(`hdl.handle.net/10072/427314`) is metadata only** — its single bundle holds one 130-byte SWORD XML and
+no manuscript, which the DSpace bitstream API says outright and the item page does not. **A repository
+record is not a copy.** Nothing was cited to it, because a paper whose argument you have not read cannot
+be cited for its argument — its title states its conclusion, and that is not the same thing.
+
 ### Two more read and left, and these are the rule working rather than failing (2026-09-14)
 
 Both showed a candidate at `alone=0` and both are the right answer as they stand. Recorded so the next

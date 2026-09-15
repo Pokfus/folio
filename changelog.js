@@ -42,7 +42,7 @@ window.CHANGELOG = [
     d: "2026-09-15",
     t: "The Monte Verde card is corrected on its stone tools and its footprint",
     items: [
-      "<b>The Monte Verde card is corrected on what was found in the ground</b> \u2014 it had overstated how unlike Clovis the stone tools were, and the famous footprint is a human one rather than a child\u2019s.",
+      "<b>Two cards are corrected on what their own sources say</b> \u2014 Monte Verde had overstated how unlike Clovis its stone tools were, and the Homo naledi card credited a journal\u2019s verdict to the man it judged.",
       "<b>The card on the archaic smile now says that what it meant has been argued over</b> \u2014 whether it flattered the onlooker or was only an attempt at expression at all.",
       "<b>The last card measuring a temperature in words now shows it in both systems</b> \u2014 the Ice Age card gives how much colder the world was in degrees a reader of either system knows.",
       "<b>The card on Minoan trade with Egypt now rests on the excavators\u2019 own reports</b> \u2014 not on one teaching website, and three of its sentences are rewritten to match.",
