@@ -3274,12 +3274,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `node .claude/add-card-tags.js <batch.json>` (3–8 tags, lowercase, and it warns about a tag no other card
   shares — one that can never group anything); carried by `serializeCardData` beside `sources`.
   **THIS BULLET SAID "EVERY SHIPPED CARD IS TAGGED" AND THAT WAS FALSE BY 467 CARDS** (measured Sep 2026,
-  14.5% of the corpus, while repairing `gr-334`). **`add-card.js` HAS NO TAGS GUARD** — where it REFUSES a
-  card with no `difficulty`, it takes one with no tags in silence — so the gap arrived in whole contiguous
+  14.5% of the corpus, while repairing `gr-334`). **`add-card.js` HAD NO TAGS GUARD** — where it REFUSED a
+  card with no `difficulty`, it took one with no tags in silence — so the gap arrived in whole contiguous
   batches (`gr-611`–`gr-760`, `cnh-147`–`cnh-230`, `us-061`–`us-100`, `wh-151`–`wh-200`) rather than card by
   card, and nothing anywhere reported it: an untagged card simply falls through to the `answerType`
-  fallback below and draws slightly worse Multiple Choice distractors, which no reader would ever think to
-  report. **Count it rather than quoting a figure here:**
+  fallback below and draws slightly worse Multiple Choice distractors, which **no reader would ever think
+  to report**. **IT HAS ONE NOW** (Sep 2026), refusing rather than defaulting for `difficulty`'s own reason
+  — there is no safe guess, only an invisible one — and **its rules are `add-card-tags.js`'s, SLICED OUT BY
+  TEXT, with the run STOPPING if the slice fails**, so the two tools cannot come to disagree about what a
+  tag is. **The 467 are a content pass of their own and are still there**, and this bullet is the one place
+  that says so. **Count them rather than quoting a figure here:**
 
       node -e "global.window={};console.log(require('./.claude/card-io.js').loadCards().cards.reduce((a,c)=>(a[!c.tags||!c.tags.length?'no':'yes']++,a),{yes:0,no:0}))"
 
@@ -5527,6 +5531,16 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   **📖 `docs/citation-plan.md` — READ BEFORE TRUSTING A CITATION WHOSE URL RESOLVES.** The 24 wrong given
   names found across 18 works in one sweep, every one on a citation whose URL opened perfectly, and the
   four Stanford Encyclopedia citations that were wrong four different ways under a 200.
+- `tags` — **REQUIRED for every new card: 3–8 lowercase category tags**, in the glossary's own vocabulary:
+  tag 1 is the KIND (`era`, `place`, `object`, `person`, `industry`, `culture`, `event`, `concept`,
+  `fossil`, …), then the subject areas (`archaeology`, `history`, `prehistory`, `science`, `geography`,
+  `art`, …), then the specifics — a country, a region, a period. **Reuse what the glossary and the shipped
+  cards already carry** rather than coining a near-synonym: a tag no other card shares can never group
+  anything. They are what **Multiple Choice** draws its three wrong answers from (`cardKinship`), so a card
+  without them falls through to the coarse `answerType` fallback and its distractors get quietly worse —
+  which is why `add-card.js` REFUSES a card with none rather than defaulting, exactly as it refuses one with
+  no `difficulty`. The bounds and the tag pattern are sliced out of `.claude/add-card-tags.js`, which is the
+  batch tool for cards already shipped. See the card-tags bullet under "How the app is wired".
 - `difficulty` — **REQUIRED for every new card: an integer 1–5 rating how well known the ANSWER TERM is to
   the general population.** **1** household name (Stone Age, Homer, Sparta, Neanderthal); **2** generally
   familiar, an ordinary secondary education reaches it (Neolithic, Knossos, phalanx, Lascaux); **3** known

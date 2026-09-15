@@ -338,6 +338,61 @@ if (!Number.isInteger(card.difficulty) || card.difficulty < DIFF_MIN || card.dif
   process.exit(1);
 }
 
+/* …AND IT CARRIES ITS CATEGORISING TAGS, ON THE SAME REASONING AND FOR A DIFFERENT GAME (Sep 2026).
+   `tags` is 3–8 lowercase tags in the glossary's own vocabulary — the KIND first (`era`, `place`,
+   `object`, `person`, `industry`…), then the subject areas, then the specifics — and what they are FOR is
+   Multiple Choice: `cardKinship` counts the tags two cards share and offers the three closest as the wrong
+   answers, so the Mousterian is answered against the Oldowan and the Acheulean rather than against a cave,
+   an ice age and a fossil.
+
+   THERE WAS NO GUARD HERE UNTIL NOW, and the corpus records exactly what that cost: 467 cards, 14.5% of
+   it, carry no tags at all, and they arrived in whole CONTIGUOUS RUNS — `gr-611`–`gr-760`,
+   `cnh-147`–`cnh-230`, `us-061`–`us-100`, `wh-151`–`wh-200` — rather than card by card, because nothing
+   ever said no. It is the `difficulty` fault one game over and quieter still: an untagged card falls
+   through to the coarse `answerType` fallback, draws slightly worse distractors, and NOBODY EVER REPORTS A
+   SLIGHTLY WORSE DISTRACTOR. So it is REFUSED rather than defaulted, for `difficulty`'s reason — there is
+   no safe guess, only an invisible one. Batch-tag a card already shipped with `.claude/add-card-tags.js`.
+
+   The rules are that tool's own, SLICED OUT BY TEXT rather than copied, and the run STOPS if the slice
+   fails: a second copy goes stale on a change made in a file nobody here has reason to open, which is the
+   scar `add-card-tags.js` itself left when its private copy of a field list stripped `difficulty` and
+   `undatable` from all 500 cards in one run. */
+const TAG_RULES = (() => {
+  const src = fs.readFileSync(path.join(__dirname, "add-card-tags.js"), "utf8");
+  const n = /const MIN_TAGS = (\d+), MAX_TAGS = (\d+);/.exec(src);
+  const rx = /const TAG_RX = \/((?:\\.|[^\/\\])+)\/([a-z]*);/.exec(src);
+  if (!n || !rx) {
+    console.error("ERROR: could not read the tag rules out of .claude/add-card-tags.js (MIN_TAGS, MAX_TAGS, TAG_RX).\n" +
+      "       They are sliced out by text so the two tools cannot come to disagree about what a tag is.\n" +
+      "       Fix the slice rather than restating the rules here — a second copy is the thing that goes stale.");
+    process.exit(1);
+  }
+  return { min: +n[1], max: +n[2], rx: new RegExp(rx[1], rx[2]) };
+})();
+const TAG_HELP =
+  "       Tag 1 is the KIND (era, place, object, person, industry, culture, event, concept, fossil, …),\n" +
+  "       then the subject areas (archaeology, history, prehistory, science, geography, art, …), then the\n" +
+  "       specifics — a country, a region, a period:\n" +
+  '         "tags": ["industry", "archaeology", "prehistory", "stone tools", "france"]\n' +
+  "       REUSE the vocabulary the glossary and the shipped cards already carry rather than coining a\n" +
+  "       near-synonym: a tag no other card shares can never group anything. Multiple Choice draws its\n" +
+  "       three wrong answers from the cards sharing the most tags, so without them this card falls through\n" +
+  "       to the coarse `answerType` fallback and its distractors get quietly worse.";
+if (!Array.isArray(card.tags)) {
+  console.error("ERROR: card needs `tags` — an array of " + TAG_RULES.min + "–" + TAG_RULES.max + " lowercase category tags.\n" + TAG_HELP);
+  process.exit(1);
+}
+if (card.tags.length < TAG_RULES.min || card.tags.length > TAG_RULES.max) {
+  console.error("ERROR: card.tags has " + card.tags.length + " tag(s) — it wants " + TAG_RULES.min + "–" + TAG_RULES.max + ".\n" + TAG_HELP);
+  process.exit(1);
+}
+for (const t of card.tags) {
+  if (typeof t !== "string" || !TAG_RULES.rx.test(t)) {
+    console.error("ERROR: " + JSON.stringify(t) + " is not a tag — lowercase words, 2–29 characters, as the glossary's are.\n" + TAG_HELP);
+    process.exit(1);
+  }
+}
+
 /* OPTIONAL: `undatable: true` says the ANSWER TERM does not happen at a time — a process, a condition, a
    material, a category or a physical feature — so the Timeline game must not ask a reader to place it.
    It is not required and not guessed at: almost every card names something with a date, and the flag is
