@@ -1,5 +1,43 @@
-<!-- Folio app icon: the vermilion seal on warm paper, matching the inline favicon in index.html. -->
+<!-- Folio app icon: an open folio, one sheet folded once, which is what the word means, with the
+     opal's play of colour running across its two leaves. It replaced a vermilion disc on warm paper
+     (Sep 2026, on request), which was wrong twice over: it was a circle centred on a square, i.e. the
+     Japanese flag, and its two colours were the pre-Opalite default's, so the installed app opened on
+     warm cream while the site itself had been cool lilac since the theme swap.
+     THE GROUND IS THE THEME'S OWN SIGNATURE GRADIENT, stop for stop, from the `body[data-theme=folio]
+     ::before` rule in styles.css, and the corner radius is the cabochon that theme calls for.
+     THE MARK IS THREE OF THE SITE'S OWN INK TOKENS IN SPECTRUM ORDER: indigo #45549C at the far left,
+     newterm teal #1E7A85 through the fold, zh rose #AE3350 at the far right, so the sweep reads as an
+     opal's flash rather than as a gradient for its own sake. Each of the three clears 4.5:1 on paper
+     (6.89 / 4.74 / 5.76), so the mark holds up at 16px and under high-contrast rendering alike.
+     THE LEAVES SAG INTO THE GUTTER, they do not tent out of it: both the top and the bottom edge slope
+     DOWN toward the fold, which is what makes an open book read as one. Built the other way up first,
+     and a mark that bulges at the centre reads as a box or a briefcase, not a book.
+     Corners are rounded by stroking each leaf in its own fill, a cabochon having no facet, so the
+     stroke width IS the corner radius; keep both gradients in user space or the stroke and the fill
+     stop agreeing. NO DOUBLE HYPHEN IS ALLOWED ANYWHERE IN THIS COMMENT: XML forbids it, and an icon
+     that fails to parse is a BROKEN-IMAGE glyph in the tab rather than an error anyone is shown.
+     Keep in step with the inline favicon in index.html and with icon-maskable.svg. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Folio">
-  <rect width="512" height="512" rx="112" fill="#F6F5F1"/>
-  <circle cx="256" cy="256" r="104" fill="#C8453C"/>
+  <defs>
+    <linearGradient id="opal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F4F0FB"/>
+      <stop offset=".22" stop-color="#EAF3FB"/>
+      <stop offset=".44" stop-color="#EFF8F2"/>
+      <stop offset=".68" stop-color="#FBF3F7"/>
+      <stop offset="1" stop-color="#F2EFFC"/>
+    </linearGradient>
+    <linearGradient id="leafL" x1="83" y1="0" x2="239" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#45549C"/>
+      <stop offset="1" stop-color="#1E7A85"/>
+    </linearGradient>
+    <linearGradient id="leafR" x1="273" y1="0" x2="429" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1E7A85"/>
+      <stop offset="1" stop-color="#AE3350"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#opal)"/>
+  <g stroke-width="22" stroke-linejoin="round">
+    <path d="M228 178 110 145Q78 256 110 335l118 33z" fill="url(#leafL)" stroke="url(#leafL)"/>
+    <path d="M284 178 402 145Q434 256 402 335l-118 33z" fill="url(#leafR)" stroke="url(#leafR)"/>
+  </g>
 </svg>

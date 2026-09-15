@@ -291,9 +291,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     this swap it would have gone on imposing the old warm greys and golds on a cool palette, and its
     `--zh` would have been BELOW the base red — a high-contrast mode that lowers contrast. Re-solve it
     with the default.
-  · **THE PALETTE IS STATED OUTSIDE THE STYLESHEET IN EXACTLY TWO PLACES**, both in `index.html`: the
-    `theme-color` metas (the browser's own chrome) and the inline SVG favicon. Neither is reachable from
-    a CSS variable and neither fails loudly.
+  · **THE PALETTE IS STATED OUTSIDE THE STYLESHEET IN FIVE PLACES, AND THIS LINE SAID TWO** — which is
+    not a miscount but a prediction that came true. Two are in `index.html`: the `theme-color` metas
+    (the browser's own chrome) and the inline SVG favicon. The other three are **`icon.svg`,
+    `icon-maskable.svg` and `manifest.json`'s `background_color`/`theme_color`**, and all three were
+    still carrying the RETIRED warm-paper default (`#F6F5F1` paper, `#C8453C` vermilion) for weeks after
+    the swap, so an installed reader's app icon and splash screen were the old theme's while the site
+    inside them was the opal's. Nothing is reachable from a CSS variable and nothing fails loudly: an
+    icon is not rendered by the page that would contradict it, so the only way this is ever caught is by
+    somebody opening the files. **Grep the retired hexes after any palette change**, and treat the icon
+    and the manifest as part of the palette rather than as assets.
   **THE GEMSTONE BLOCK IS AT THE FOOT OF `styles.css` AND CARRIES ITS OWN REASONING** — how each stone
   was read, since "inspired by the gemstone" is a judgement the next session should not have to re-make.
   Two rules from building them. **A THEME ADDS NO WEBFONT**: there is one `@import` for the whole site
@@ -315,6 +322,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `node .claude/check-sizes.js` for its size rather than quoting one here**). Hash-based routing via the `PAGES`
   map. No ES modules.
 - `manifest.json` + `icon.svg` + `icon-maskable.svg` + `sw.js` — the PWA. See the "PWA" bullet below.
+  The icon is an **open folio** — two leaves sagging into a central gutter, swept through the site's own
+  indigo, teal and rose in spectrum order, on the default theme's signature gradient. It replaced a
+  vermilion disc centred on warm paper (Sep 2026, on request), which was **the Japanese flag** and was
+  in the pre-Opalite palette besides. Two things to know before editing either file: **an XML comment
+  may not contain a double hyphen**, so the CSS token names cannot be written with their leading `--`
+  (an icon that fails to parse is a broken-image glyph in the tab, reported by nothing); and the
+  **maskable variant scales the same paths by a TRANSFORM** rather than restating them, so edit
+  `icon.svg` and the change carries.
 - `_headers` — Cloudflare Pages response headers: the **Content-Security-Policy** (plus nosniff /
   Referrer-Policy / Permissions-Policy). Verified against every route with 0 violations. `script-src 'self'`
   holds only because index.html has **no inline `<script>`** and app.js uses neither `eval` nor `new Function`
