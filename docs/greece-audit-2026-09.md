@@ -1499,6 +1499,41 @@ card's background, and nothing in the pipeline compares the two. **`check-questi
 before and after.** Grep every other field for the words you are deleting: `answerDate`, `why`,
 `questions`, the picture caption.
 
+### `gr-159` Cypriot syllabary — when the over-cited "author" is a REVIEWER (2026-09-15)
+
+**Four of six sources were Beatrice Pestarino, and she wrote none of the books.** They are four BMCR
+reviews of four different books by four different sets of authors. **The rule is still right**: a
+citation to a review cites the REVIEWER's prose, which `card-focus.js` and `check-cards.js` both take
+from the author slot deliberately, so the card really was resting on one scholar's summaries. **Expect
+this shape wherever a card is built out of BMCR**, which is much of the Greece collection's modern
+apparatus.
+
+**DROPPING WAS ARITHMETICALLY IMPOSSIBLE, and that is worth checking first.** Two of the four had
+`alone=0` and looked like free drops — but TWO have to go to reach the cap, and 6 − 2 = 4, under the
+five-source bar. **A card with two zero-alone candidates can still be undroppable; multiply out before
+reading the sentences.**
+
+**What was shut, and it is the expensive half to re-learn.** The obvious replacements are Steele's
+*Syllabic Writing on Cyprus* and the Cypro-Minoan papers in *Antiquity* — all Cambridge, which serves a
+**200-status Cloudflare challenge** here (`check-reach.js`'s `WALL`), so they are unreadable and
+uncitable. **BMCR itself is open and searchable** (`bmcr.brynmawr.edu/?s=…`), which is what made the
+card fixable: the vein the card was already mining has other reviewers in it.
+
+**The fix, and it is `gr-046`'s trick again.** **Christian Körner's review of the IG Cyprus syllabic
+volume (BMCR 2021.02.24) carries TWO of the orphaned claims, so ONE new entry removed TWO Pestarino
+entries** — the script running "in two slightly different versions, one used mainly in Paphos and the
+other throughout the rest of the island", and its end: "it was only with the annexation of the island
+by the Ptolemies… that the Greek alphabet began to replace the Cypriot syllabary, the latter vanishing
+at the latest in the 1st century BC". **That ending is better card than what it replaced** — Nicocles'
+signary reform was a detail where this is the reason the script died. A second Petrakis review
+(BMCR 2015.01.24, Steele's *Linguistic History*) took the Golgoi claim off Pestarino as a sixth source;
+**Petrakis at two entries is at the cap, not over it.**
+
+**Nothing was orphaned this time**, and the reason is worth noting: the rewrites replaced the two
+SENTENCES nothing else referred to. Both extra question phrasings and all three `why` answers point at
+the 1872 decipherment, Linear B's narrower range and the Golgoi bilingual marker — all still in the
+card. **Check anyway; it was luck rather than design.**
+
 ### Two more read and left, and these are the rule working rather than failing (2026-09-14)
 
 Both showed a candidate at `alone=0` and both are the right answer as they stand. Recorded so the next
