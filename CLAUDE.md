@@ -3288,13 +3288,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   to report**. **IT HAS ONE NOW** (Sep 2026), refusing rather than defaulting for `difficulty`'s own reason
   — there is no safe guess, only an invisible one — and **its rules are `add-card-tags.js`'s, SLICED OUT BY
   TEXT, with the run STOPPING if the slice fails**, so the two tools cannot come to disagree about what a
-  tag is. **The 467 are a content pass of their own and are still there**, and this bullet is the one place
-  that says so. **Count them rather than quoting a figure here:**
+  tag is. **THE 467 WERE A CONTENT PASS OF THEIR OWN AND IT HAS SHIPPED** (Sep 2026): the corpus is
+  3,215 of 3,215 tagged. **Count them rather than quoting a figure here:**
 
       node -e "global.window={};console.log(require('./.claude/card-io.js').loadCards().cards.reduce((a,c)=>(a[!c.tags||!c.tags.length?'no':'yes']++,a),{yes:0,no:0}))"
 
   The claim was prose rather than a figure, so **`check-claims.js` could not see it** — which is that
   tool's own stated blind spot arriving in the one file it exists to keep honest.
+  **HOW THE 467 WERE TAGGED, because it is the method rather than the batch that is worth keeping.**
+  The pairing rule gives every card a glossary entry for its OWN ANSWER TERM, tagged in the SAME
+  vocabulary by the same rules — so the categorisation had already been made once and could be READ rather
+  than re-derived. **460 of the 467 had such a term** and the transfer is not a guess: measured over the
+  2,695 already-tagged cards that have a tagged pair, the two sets are **IDENTICAL on 59% and overlap 0.87
+  by Jaccard**. Three things the measurement then forced.
+  **A COLLECTION TAG HAS TO BE TOPPED UP, BECAUSE THE GLOSSARY IS DECK-AGNOSTIC AND THE CARDS ARE NOT.**
+  A glossary term deliberately carries no `china` tag (China being that file's default context) while
+  **all 137 tagged China cards carry one** — so a straight transfer would have left them unable to group
+  with their own collection. The top-up is measured per collection at the 85% line rather than chosen:
+  `greece` 98%, `china` 100% + `history` 91%, `north america` 98% + `united states` 93%, `place` + `geography`
+  100% on `gw-`, and **nothing at all on `wh-`**, which is right — World History spans everything.
+  **TAG 1 MUST BE A KIND OTHER CARDS ALSO LEAD WITH**, and that is arithmetic rather than taste:
+  `tagKinship` scores a shared first tag at FOUR and then runs `if (ta[0] !== tb[0]) n = Math.min(n, 2)`, so a
+  card whose leading kind is unique is **capped at 2 against every card there is** and its distractors come
+  out of a flat field of ties — the exact failure tags exist to fix. Four of the glossary's leading kinds had
+  no card behind them: `creature` was KEPT (four cards take it and they are exactly the four that should
+  group), and `site`, `territory` and `symbol` were REORDERED rather than dropped, each already riding as a
+  secondary tag on 4, 30 and 1 cards. **`law` and `architecture` still lead exactly one card each** —
+  pre-existing, named here so the next session measures rather than re-finds it.
+  **WHAT IT BOUGHT, MEASURED**: the three closest siblings of a newly tagged card now score a mean kinship of
+  **7.35**, where an untagged card scored 1 or 0 against everything in the corpus; one card (`gr-741`
+  Hyphasis, the only `river` in Greece) has two real siblings rather than three.
   What they are FOR is **Multiple Choice**: `cardKinship(a, b)` counts the tags two cards share, weighting the
   first heavily (the kind is worth four subject areas) and capping the score when the kinds differ, and
   `buildChallengeQuestions` offers the three closest cards as the wrong answers. Before this the distractors
