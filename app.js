@@ -14802,24 +14802,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return null;
   }
 
-  /* SIXTEEN THEMES SINCE SEP 2026 — the six the site had, and TEN GEMSTONES added on request ("create a
+  /* FIFTEEN THEMES SINCE SEP 2026 — the six the site had, and TEN GEMSTONES added on request ("create a
      number of new themes: Diamond, Ruby, Opalite, Jade, Emerald, Amber, Amethyst, Aquamarine, Bloodstone,
      Carnelian, all inspired by the look and feel of their gemstones; make each theme feel unique in
-     colors, shapes, etc."). Each is a full token set plus a font pairing, a corner language and one
-     signature treatment — see the GEMSTONE THEMES block at the foot of styles.css for what each stone
-     was read as and why.
+     colors, shapes, etc."), less OPALITE, which was promoted later the same month on request ("replace
+     the default Folio theme with the Opalite theme, which should be renamed to Folio") — so sixteen
+     became fifteen and `folio` now WEARS the opal. Its tokens are `:root` / `body.night` at the top of
+     styles.css and its signature treatments sit beside them; nothing is keyed `opalite` any more.
+     NOTHING HAS TO MIGRATE: `applyTheme` whitelists against THEMES, so a reader wearing `opalite` falls
+     through to `folio` and is shown the same thing, and a stale `opalite` key in their owned-themes
+     register is inert, `themePickable` reading COLLECTIBLE_THEMES. Each is a full token set plus a font
+     pairing, a corner language and one signature treatment — see the GEMSTONE THEMES block at the foot
+     of styles.css for what each stone was read as and why.
      THEY USE ONLY FACES THE STYLESHEET ALREADY IMPORTS. A theme that pulled in a font of its own would
      cost EVERY visitor that request, whatever theme they wear, since there is one `@import` for the site;
      the twenty families already loaded are more than ten themes need to sound different from each other.
      THE GEMSTONES ARE COLLECTIBLE LIKE THE REST — `COLLECTIBLE_THEMES` is `THEMES` minus folio, so they
      join the chest pool by being in this list and nothing else had to change. */
   const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette",
-    "diamond", "ruby", "opalite", "jade", "emerald", "amber", "amethyst", "aquamarine", "bloodstone", "carnelian"];
+    "diamond", "ruby", "jade", "emerald", "amber", "amethyst", "aquamarine", "bloodstone", "carnelian"];
   /* id, name, one-line description, and the three colours the tiny mockup is drawn in. It lives beside
      THEMES rather than in PAGES.settings because three places read it now — the picker, the chest reveal
      and the admin Themes tab — and a second copy is how a theme comes to be named two different things. */
   const THEME_OPTS = [
-    ["folio", "Folio", "Editorial serif", "#36357A", "#C8453C", "#F6F5F1"],
+    /* Folio IS the opal since Sep 2026 — accent, secondary and paper read off `:root`, so the little
+       mockup in the picker really is a swatch of what the reader gets. */
+    ["folio", "Folio", "Milky iridescence", "#45549C", "#AE3350", "#F7F6FB"],
     ["synth", "Synth", "Neon", "#7C2DFF", "#FF2D7A", "#F2EEFB"],
     ["arcade", "Arcade", "16-bit console", "#0968C4", "#C98E06", "#EDF3F7"],
     ["academy", "Academy", "Formal faculty", "#16305B", "#8E2233", "#F5F0E4"],
@@ -14830,7 +14838,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        swatch of the theme it names. */
     ["diamond", "Diamond", "Colourless brilliance", "#2C6E9B", "#7A8794", "#FBFCFD"],
     ["ruby", "Ruby", "Pigeon's blood", "#9B1B30", "#C6803A", "#FCF6F4"],
-    ["opalite", "Opalite", "Milky iridescence", "#6E7FC4", "#C081A8", "#F7F6FB"],
     ["jade", "Jade", "Carved nephrite", "#2E7A63", "#A8823C", "#F3F7F2"],
     ["emerald", "Emerald", "Step-cut green", "#0F6B4B", "#B08A2E", "#F2F7F3"],
     ["amber", "Amber", "Fossil resin", "#A9691A", "#7A5426", "#FBF4E7"],

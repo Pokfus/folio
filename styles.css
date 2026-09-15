@@ -13,8 +13,8 @@
 
 /* ---------- tokens ---------- */
 :root{
-  --paper:#F6F5F1; --paper-2:#EFEDE6; --card:#FFFFFF;
-  --ink:#1B1A17; --ink-soft:#4A4843; --ink-faint:#8B887F; --rule:#E3E0D7;
+  --paper:#F7F6FB; --paper-2:#EBE9F5; --card:#FDFDFF;
+  --ink:#1D1B29; --ink-soft:#514D68; --ink-faint:#918CA8; --rule:#DEDAEE;
   /* --ink-quiet: QUIET, BUT NOT BELOW THE BAR. See the CONTRAST block below. --ink-faint is
      3.0-3.5:1 and is right for what it was written for — an eyebrow, a caption, a source line —
      but it had spread to things that are not captions at all: the primary nav labels, a page's
@@ -23,9 +23,26 @@
      know the high-contrast mode exists, so those cases take this instead. The value is not a new
      guess: it is the one `body.hc` already solves to, each hue scaled toward the ink until it
      clears 4.6:1 against --paper-2, the darkest of the three papers. */
-  --ink-quiet:#6C6A63;
-  --indigo:#36357A; --indigo-bright:#4E4CB0; --indigo-wash:#ECECF7; --ochre:#B5722A;
-  --zh:#C8453C; --zh-wash:#FBECEA; --geo:#BC7A18; --good:#3F7E5C;
+  --ink-quiet:#69657E;
+  /* THE OPAL'S PERIWINKLE, WALKED DOWN TO THE BAR — the same treatment the red below gets, and needed
+     for the same reason. `--indigo` is the eyebrows, the nav labels, the glossary links and the FILL of
+     every primary button, so as a default it is running text and a control at once. As a collectible
+     the stone wore #6E7FC4 / #8A9BDD, which measured 3.19 and 2.24 on `--paper-2` and put white on a
+     button at 3.82; promoting it unchanged took `test-a11y.js`'s high-contrast sweep from green to 20
+     failures and roughly doubled the default mode's standing backlog. These are those two hues at the
+     same chroma, deep enough to clear 4.5 on all three papers: --indigo 6.89 / 6.51 / 5.83 and 7.0 for
+     white on it, --indigo-bright 5.48 / 5.18 / 4.64. Night needs none of this — reversed out of a dark
+     card the stone's own values are already 8.44 and 10.84 — so it keeps them exactly. */
+  --indigo:#45549C; --indigo-bright:#5263B0; --indigo-wash:#E9ECFA; --ochre:#9A7C55;
+  /* THE ANSWER TERM'S RED IS A DEEP ROSE, NOT THE STONE'S OWN PINK (Sep 2026, on request: "red text
+     should have a deeper red color so there's more contrast"). Opalite wore #C081A8, which is the
+     milky pink an opal actually flashes and measures 2.98:1 on --card, 2.52 on --paper-2 — a long way
+     under the bar for what is the answer to every card and every footnote marker on the site. This is
+     the same hue walked down until it clears 4.5 on all three papers: 6.10 on --card, 5.76 on --paper,
+     5.17 on --paper-2, against the OLD default folio vermilion's 4.73 / 4.47 / 4.00. It is measurably
+     the highest-contrast red Folio has ever shipped as a default, and still an opal's rose rather than
+     a pillar-box red. Keep any replacement above 4.5 on --paper-2, which is the darkest of the three. */
+  --zh:#AE3350; --zh-wash:#F9E9EC; --geo:#5FA5A8; --good:#4E9B7E;
   /* an UNDISCOVERED glossary term (Aug 2026, on request). This teal began life as --bknote, the Library
      books' own note colour, and the two roles were SWAPPED: a book's markers now take the card's
      vermilion (--zh) like every other citation on the site, and the hue that distinguished them moved
@@ -44,13 +61,13 @@
      fall SHORT, and this one does not). */
   --admin:#8E2F86;
   --han:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  --serif:"Newsreader", Georgia, "Times New Roman", serif;
-  --display:"Fraunces", Georgia, serif;
+  --serif:"Lora", Georgia, "Times New Roman", serif;
+  --display:"Nunito Sans", system-ui, sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --sans:"Inter", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --shadow-sm:0 1px 2px rgba(27,26,23,.05);
-  --shadow-md:0 1px 2px rgba(27,26,23,.05), 0 8px 28px rgba(27,26,23,.06);
-  --shadow-lg:0 2px 4px rgba(27,26,23,.06), 0 18px 50px rgba(27,26,23,.10);
+  --sans:"Nunito Sans", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --shadow-sm:0 1px 2px rgba(29,27,41,.05);
+  --shadow-md:0 1px 2px rgba(29,27,41,.05), 0 8px 28px rgba(29,27,41,.06);
+  --shadow-lg:0 2px 4px rgba(29,27,41,.06), 0 18px 50px rgba(29,27,41,.10);
   --bar-h:60px;
   /* The two bars the Atlas has to sit above. --tabbar-h is 0 until the phone's bottom tab bar appears and
      --timebar-h grows when the timeline goes to two rows, so .globe-stage and .atlas-timebar can each be
@@ -67,11 +84,15 @@
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 body.night{
-  --paper:#161619; --paper-2:#1F1F24; --card:#26262C;
-  --ink:#ECEAE3; --ink-soft:#D6D2C8; --ink-faint:#8A877F; --rule:#34343C;
-  --ink-quiet:#918E87;   /* see the light value — night's own hc figure, 4.6:1 on --card */
-  --indigo:#A6A4F0; --indigo-bright:#B9B7F7; --indigo-wash:#2E2E47; --ochre:#E0A45A;
-  --zh:#F0938B; --zh-wash:#33262A; --geo:#E0A23F; --good:#79C39B;
+  --paper:#131220; --paper-2:#0C0B16; --card:#1C1A2C;
+  --ink:#EFEDFA; --ink-soft:#B6B1D0; --ink-faint:#827CA0; --rule:#302C48;
+  --ink-quiet:#8C87A8;   /* see the light value — night's own hc figure, 4.98:1 on --card */
+  --indigo:#A6B4F0; --indigo-bright:#C2CCFF; --indigo-wash:#20203A; --ochre:#C3A47A;
+  /* the red walks the OTHER way at night — see the light value. Reversed out of a dark card the
+     stone's #E4A9CC already measured 8.79:1, so deepening it would have COST contrast; what it
+     lacked was red, sitting at hue ~320 where the light value is ~345. This is that hue at the
+     same weight: 8.89:1 on --card, so it reads as a red and is a shade clearer than before. */
+  --zh:#EFA8B8; --zh-wash:#32202A; --geo:#7FCACD; --good:#75C6A4;
   --newterm:#5FC2CE; --admin:#CF93DC;
   --shadow-sm:none; --shadow-md:0 10px 30px rgba(0,0,0,.35);
   --shadow-lg:0 20px 60px rgba(0,0,0,.5);
@@ -120,14 +141,21 @@ body.night{
    A ghost keeps .btn.ghost's own var(--indigo), which is that same light lavender ON the dark card. */
 body.night .btn:not(.ghost){color:var(--paper);}
 body.night .btn:not(.ghost):hover{color:var(--paper);}
+/* RE-SOLVED Sep 2026 WHEN THE DEFAULT PALETTE CHANGED. These are one set of values applied to every
+   theme, and they always were the DEFAULT theme's own solved values — so when Opalite replaced Folio
+   the row had to move with it, or the mode would have gone on imposing the old warm palette's greys and
+   golds on a cool one (and `--zh` at #BA4038 now measures 4.51 on the new --paper-2, which is under the
+   bar the row exists to clear, and BELOW the base red it replaces — a high-contrast mode that lowers
+   contrast). Each is its own hue scaled toward the ink until it clears 4.6:1 on --paper-2, the darkest
+   of the three papers: ink-faint 4.65, ochre 4.84, geo 4.80, zh 6.05, good 4.89, newterm 6.18. */
 body.hc:not(.night){
-  --ink-faint:#6C6A63; --ochre:#945D22; --geo:#935F13; --zh:#BA4038; --good:#3B7556; --newterm:#155E68;
+  --ink-faint:#69657E; --ochre:#7A6142; --geo:#3A6E71; --zh:#9E2B49; --good:#376F58; --newterm:#155E68;
 }
-body.hc.night{ --ink-faint:#918E87; }
+body.hc.night{ --ink-faint:#8C87A8; }   /* 4.98:1 on the new night --card */
 /* …and the borders, which are not text and so are not in the table above, but are what tells one card from
    the next. A hairline at 1.2:1 is invisible to a reader who needs this mode at all. */
-body.hc:not(.night){ --rule:#B9B4A5; }
-body.hc.night{ --rule:#5A5A66; }
+body.hc:not(.night){ --rule:#B5B0C9; }
+body.hc.night{ --rule:#4E4A6E; }
 body.hc .btn,body.hc .card,body.hc .set-card{border-width:1.5px;}
 /* the gold collection icon is 2.6:1 on card — decorative, but it is the only thing naming the subject */
 body.hc:not(.night) .coll-ic{color:#81661E;}
@@ -240,14 +268,31 @@ body:not(.night)::before{
   filter:blur(64px) saturate(126%); opacity:.96;
 }
 a{color:var(--indigo-bright);}
-::selection{background:rgba(54,53,122,.16);}
-.night ::selection{background:rgba(166,164,240,.22);}
-/* default theme signature: a bookbinder's ribbon — one hairline of indigo → vermilion → gold under the nav */
-body[data-theme="folio"] .topbar::after{
-  content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px; pointer-events:none;
-  background:linear-gradient(90deg, var(--indigo), var(--zh) 52%, #C39A2E);
-  opacity:.6;
+::selection{background:rgba(110,127,196,.18);}
+.night ::selection{background:rgba(166,180,240,.22);}
+/* DEFAULT THEME SIGNATURE — the opal (Sep 2026, on request: "replace the default Folio theme with the
+   Opalite theme, which should be renamed to Folio"). What used to sit here was a bookbinder's ribbon, a
+   hairline of indigo → vermilion → gold under the nav, and it went with the palette it belonged to: the
+   default's signature is now the stone's, which is the iridescence below and the cabochon corners with it.
+   THE IRIDESCENCE IS THE POINT: the ground shifts through the whole opal spectrum rather than sitting on
+   one hue, which is what separated this from Amethyst when it was a gemstone theme. Static, like every
+   other theme's ambient.
+   ⚠ IT MUST STAY BELOW `body:not(.night)::before`. Both selectors are (0,1,2) — an attribute and a `:not`
+   weigh the same — so this wins on SOURCE ORDER alone, and moving it above that rule silently gives the
+   default back the four-blob gradient it is replacing. */
+body[data-theme="folio"]::before{
+  background:linear-gradient(135deg,#F4F0FB 0%, #EAF3FB 22%, #EFF8F2 44%, #FBF3F7 68%, #F2EFFC 100%);
+  opacity:1; filter:none;
 }
+body[data-theme="folio"].night::before{
+  background:linear-gradient(135deg,#181630 0%, #101C2A 24%, #0F1F1E 48%, #23142A 72%, #14122A 100%);
+}
+/* the roundest corners on the shelf — an opal is a cabochon, never faceted */
+body[data-theme="folio"] .card, body[data-theme="folio"] .collection,
+body[data-theme="folio"] .study-card, body[data-theme="folio"] .banner,
+body[data-theme="folio"] .game-tile, body[data-theme="folio"] .placard{border-radius:20px;}
+body[data-theme="folio"] .btn, body[data-theme="folio"] .grade{border-radius:999px;}
+body[data-theme="folio"] .page-head h1{font-family:var(--display); font-weight:700; letter-spacing:-.01em;}
 
 /* utility eyebrow */
 .eyebrow{
@@ -1365,18 +1410,18 @@ body.night .game-tile{ --gt-gold:#D8B355; }
 /* NOTE: collection banners are deliberately STATIC — no drifting motifs, no animated pattern layers
    (a motif-drift system lived here once and was removed on request; don't reintroduce it). */
 .collection-row > .collection-main, .collection-row > .collection-actions, .collection-row > .coll-ic{position:relative; z-index:1;}
-/* Default (folio) theme — "bookplate": a quiet wash of the collection's hue fading into the card
-   and a fine inner rule like a book plate. */
+/* Default (folio) theme — the opal: the hue SHIFTS rather than fading, the play of colour being the whole
+   of the stone. This replaced the old default's "bookplate" (a wash of the collection's hue into the card
+   under a fine inner rule) when Opalite became the default; the inner rule went with it, a cabochon having
+   no facet to draw. A theme MUST override `.collection-deco` — the base rule washes the banner in its own
+   hue at 46–76%, which leaves the quiet text on it unreadable. */
 body[data-theme="folio"] .collection-deco{
-  /* daylight needs a much stronger mix than night: the hue sinks into the bright card (14% was near-invisible) */
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, #888) 30%, var(--card)), var(--card) 64%);
+  background:linear-gradient(100deg, color-mix(in srgb,var(--coll-bg, #888) 17%, var(--card)) 0%,
+    color-mix(in srgb,var(--coll-bg, #888) 6%, var(--card)) 38%, color-mix(in srgb,#BFD9FF 22%, var(--card)) 68%, var(--card) 100%);
 }
 body[data-theme="folio"].night .collection-deco{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, #888) 22%, var(--card)), var(--card) 64%);
-}
-body[data-theme="folio"] .collection-deco::after{
-  content:""; position:absolute; inset:6px; border-radius:9px; pointer-events:none;
-  border:1px solid color-mix(in srgb, var(--coll-bg, #888) 24%, transparent);
+  background:linear-gradient(100deg, color-mix(in srgb,var(--coll-bg, #888) 40%, var(--card)) 0%,
+    color-mix(in srgb,var(--coll-bg, #888) 16%, var(--card)) 40%, color-mix(in srgb,#3A4980 34%, var(--card)) 70%, var(--card) 100%);
 }
 /* the studied/total count sits in a small solid box so it stays legible over the colour wash */
 .collection-row .prog .count{background:var(--coll-bg, var(--card)); color:#fff; padding:2px 9px; border-radius:6px; box-shadow:0 0 0 1px rgba(0,0,0,.08);}
@@ -3646,8 +3691,8 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 /* A MODAL SCRIM IS THEME-INDEPENDENT BLACK, NEVER `var(--ink)` (Aug 2026, on a bug report: "the whole
    background is whited out"). These five overlays — this one, the options sheet, the level-up card, an
    artefact's plate and the chest — were each a mix of `--ink`, which reads as "the darkest thing this
-   theme has" and is exactly that in light mode (#1B1A17, so the figures below are unchanged there). At
-   NIGHT the token flips to #ECEAE3, so every one of them became a 38–58% WHITE veil: opening a deck's
+   theme has" and is exactly that in light mode (#1D1B29, so the figures below are unchanged there). At
+   NIGHT the token flips to #EFEDFA, so every one of them became a 38–58% WHITE veil: opening a deck's
    options on a dark theme whited the whole page out behind the sheet. A scrim's job is to push the page
    BACK, which is one direction rather than a colour the theme gets a say in — the same reasoning
    `.folio-tour`, `.page-help` and the media viewer were already written to, and the reason all three
@@ -7354,7 +7399,7 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .theme-swatches{display:flex; gap:5px;}
 .theme-swatches i{width:26px; height:26px; border-radius:6px; border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);}
 .theme-name{font-family:var(--display); font-size:calc(16px * var(--fs)); font-weight:600; color:var(--ink); line-height:1;}
-.theme-opt[data-theme="folio"] .theme-name{font-family:"Fraunces",Georgia,serif;}
+.theme-opt[data-theme="folio"] .theme-name{font-family:"Nunito Sans",system-ui,sans-serif; font-weight:700; letter-spacing:-.01em;}
 .theme-opt[data-theme="synth"] .theme-name{font-family:"Sora",sans-serif;}
 .theme-opt[data-theme="arcade"] .theme-name{font-family:"Press Start 2P",monospace; font-size:calc(10px * var(--fs)); font-weight:400; line-height:1.4;}
 .theme-opt[data-theme="academy"] .theme-name{font-family:"EB Garamond",Georgia,serif; font-variant:small-caps;}
@@ -8377,7 +8422,12 @@ body.night .book-tile, body.night .gloss-book{
      Ruby        pigeon's blood on warm ivory, garnet-dark night; a soft corner and a heavy serif, the
                  stone being the one people call rich.
      Opalite     milky and iridescent — the accent SHIFTS across a gradient rather than sitting still, and
-                 the corners are the roundest here.
+                 the corners are the roundest here. PROMOTED later the same month, on request, to be the
+                 site's DEFAULT and renamed Folio, so it is no longer one of the ten: read it at the top
+                 of this file, in `:root` / `body.night` and the `body[data-theme="folio"]` rules beside
+                 them. The one thing that changed in the move is the red — the stone's own milky pink was
+                 2.98:1 on its card, which is fine for a collectible and not for the answer term on every
+                 card the site deals.
      Jade        carved nephrite: cool green over cream, a stepped inner rule on cards standing for the
                  relief a carver leaves, and the site's own Chinese ink beside it.
      Emerald     the STEP CUT — an emerald is cut in rectangular steps, so its cards are square-cornered
@@ -8467,36 +8517,12 @@ body[data-theme="ruby"].night::before{
   background:radial-gradient(130% 100% at 50% 0%, #2A1116 0%, #180A0D 55%, #0E0507 100%);
 }
 
-/* ---------- OPALITE ---------- */
-body[data-theme="opalite"]{
-  --paper:#F7F6FB; --paper-2:#EBE9F5; --card:#FDFDFF;
-  --ink:#1D1B29; --ink-soft:#514D68; --ink-faint:#918CA8; --rule:#DEDAEE;
-  --indigo:#6E7FC4; --indigo-bright:#8A9BDD; --indigo-wash:#E9ECFA; --ochre:#9A7C55;
-  --zh:#C081A8; --zh-wash:#F6E9F1; --geo:#5FA5A8; --good:#4E9B7E;
-  --serif:"Lora",Georgia,serif; --display:"Nunito Sans",system-ui,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Nunito Sans",system-ui,sans-serif;
-}
-body[data-theme="opalite"].night{
-  --paper:#131220; --paper-2:#0C0B16; --card:#1C1A2C;
-  --ink:#EFEDFA; --ink-soft:#B6B1D0; --ink-faint:#827CA0; --rule:#302C48;
-  --indigo:#A6B4F0; --indigo-bright:#C2CCFF; --indigo-wash:#20203A; --ochre:#C3A47A;
-  --zh:#E4A9CC; --zh-wash:#2E1F2B; --geo:#7FCACD; --good:#75C6A4;
-}
-/* the roundest corners of the ten — an opal is a cabochon, never faceted */
-body[data-theme="opalite"] .card, body[data-theme="opalite"] .collection,
-body[data-theme="opalite"] .study-card, body[data-theme="opalite"] .banner,
-body[data-theme="opalite"] .game-tile, body[data-theme="opalite"] .placard{border-radius:20px;}
-body[data-theme="opalite"] .btn, body[data-theme="opalite"] .grade{border-radius:999px;}
-/* THE IRIDESCENCE IS THE POINT: the ground shifts through the whole opal spectrum rather than sitting on
-   one hue, which is what separates this from Amethyst. Static, like every other theme's ambient. */
-body[data-theme="opalite"]::before{
-  background:linear-gradient(135deg,#F4F0FB 0%, #EAF3FB 22%, #EFF8F2 44%, #FBF3F7 68%, #F2EFFC 100%);
-  opacity:1; filter:none;
-}
-body[data-theme="opalite"].night::before{
-  background:linear-gradient(135deg,#181630 0%, #101C2A 24%, #0F1F1E 48%, #23142A 72%, #14122A 100%);
-}
-body[data-theme="opalite"] .page-head h1{font-family:var(--display); font-weight:700; letter-spacing:-.01em;}
+/* ---------- OPALITE — RETIRED Sep 2026: IT IS THE DEFAULT NOW ----------
+   On request, the Opalite theme replaced the default and took its name, so its tokens live in `:root` /
+   `body.night` at the top of this file and its signature treatments sit beside them under
+   `body[data-theme="folio"]`. There is no `opalite` id left in `THEMES`, so a reader who was wearing it
+   falls through the whitelist in `applyTheme` to `folio` and sees the same thing they always did.
+   Do NOT re-add a gemstone block here under that name: two blocks would then define one palette. */
 
 /* ---------- JADE ---------- */
 body[data-theme="jade"]{
@@ -8761,15 +8787,6 @@ body[data-theme="ruby"] .collection-deco{
 body[data-theme="ruby"].night .collection-deco{
   background:radial-gradient(120% 160% at 0% 0%, color-mix(in srgb,var(--coll-bg) 40%, var(--card)) 0%, var(--card) 66%);
 }
-/* Opalite: the hue SHIFTS rather than fading — the play of colour is the whole of the stone */
-body[data-theme="opalite"] .collection-deco{
-  background:linear-gradient(100deg, color-mix(in srgb,var(--coll-bg) 17%, var(--card)) 0%,
-    color-mix(in srgb,var(--coll-bg) 6%, var(--card)) 38%, color-mix(in srgb,#BFD9FF 22%, var(--card)) 68%, var(--card) 100%);
-}
-body[data-theme="opalite"].night .collection-deco{
-  background:linear-gradient(100deg, color-mix(in srgb,var(--coll-bg) 40%, var(--card)) 0%,
-    color-mix(in srgb,var(--coll-bg) 16%, var(--card)) 40%, color-mix(in srgb,#3A4980 34%, var(--card)) 70%, var(--card) 100%);
-}
 /* Jade: a carved band down the leading edge, the rest left as stone */
 body[data-theme="jade"] .collection-deco{
   background:linear-gradient(90deg, color-mix(in srgb,var(--coll-bg) 30%, var(--card)) 0 6px, color-mix(in srgb,var(--coll-bg) 9%, var(--card)) 6px 100%);
@@ -8906,10 +8923,12 @@ body[data-theme="carnelian"].night .collection-deco{
 
    THE TAB'S GROUND IS MIXED 72% TOWARDS THE INK, AND THAT RATIO IS SOLVED RATHER THAN CHOSEN. A tab is
    reversed type — the label takes `--card` — so its legibility is the contrast between `--zh` and
-   `--card`, and measured across all sixteen themes in both modes that pair fails the 4.5:1 bar four
-   times (synth 3.55, opalite 2.98, marble night 4.01, academy night 4.49). Mixing towards `--ink` moves
+   `--card`, and measured across all fifteen themes in both modes that pair fails the 4.5:1 bar three
+   times (synth 3.55, marble night 4.01, academy night 4.49). Mixing towards `--ink` moves
    the ground AWAY from the card in BOTH directions with no per-theme table, `--ink` being by definition
-   the far end from `--card`: at 72% the worst case on the shelf is opalite at 4.72. The plain `--zh` is
+   the far end from `--card`: at 72% the worst case on the shelf is marble night at 5.71. (Re-measured
+   Sep 2026 when Opalite became the default: it used to BE the worst case at both figures — 2.98 plain
+   and 4.72 mixed — and the deeper red it was promoted with takes it to 6.10 and 8.46.) The plain `--zh` is
    declared first so a browser without `color-mix` still gets a readable tab rather than none. */
 .elab{position:relative; border:1px solid var(--rule); border-radius:3px; background:var(--paper-2);
   padding:24px 16px 15px; margin:20px 0 4px; display:flex; flex-direction:column; gap:0;}

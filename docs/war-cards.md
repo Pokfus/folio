@@ -223,7 +223,7 @@ Six findings from doing it:
 ## It rides in the LIGHT half of `data.js`, and has to
 
 `war` is on the eager load path, beside `locator`, `map` and `facts` rather than in `data-extra/`. That is
-not an oversight, and the cost is small: **54 blocks cost the eager path 8,386 bytes gzipped**, 155 bytes
+not an oversight, and the cost is small: **54 blocks cost the eager path 8,593 bytes gzipped**, 159 bytes
 each — authored coordinates compress well. The six added in the fourth batch cost 915 bytes between them
 and the five in the fifth cost 836, which is 167 apiece even though three of those five carry an extent
 the size of an empire.
@@ -299,8 +299,8 @@ the question to ask a card is the one in CLAUDE.md — is its ANSWER TERM a war 
 word is in it.
 
 **A BATTLE IS NOT A WAR, AND THAT IS WHERE THE REMAINING POOL MOSTLY GOES.** Measured over the 3,215
-shipped cards, 220 answer terms are conflict-shaped by the widest reading — war, conquest, invasion,
-expedition, campaign, revolt, rebellion, uprising, siege, battle, sack, crusade — and **109 of the 169
+shipped cards, 229 answer terms are conflict-shaped by the widest reading — war, conquest, invasion,
+expedition, campaign, revolt, rebellion, uprising, siege, battle, sack, crusade — and **114 of the 178
 that carry no block are a battle, a siege or a sack**. A battle is an event inside a war, its belligerents are two armies at one spot, and
 the card already marks that spot: `kind: "battle"` draws crossed swords on it. Shading two empires to say
 who fought at Marathon would repeat what `wh-319` says and clutter the one mark that is specific to the
@@ -378,18 +378,23 @@ sentences, which is not a reason to draw a claim the card's own historian denies
 
 ### What is left, and what is deliberately not
 
-Measured over the 3,215 shipped cards, **68 answer terms contain "war" or "wars"**. Thirty-eight carry a
-block, and **not one of the other thirty is work waiting to be done** — every one of them is a rule doing
-its job.
+Measured over the 3,275 shipped cards, **71 answer terms contain "war" or "wars"**. Thirty-eight carry a
+block, and **not one of the other thirty-three is work waiting to be done** — every one of them is a rule
+doing its job.
+
+**RE-MEASURE THIS TABLE AFTER A MERGE.** Every figure in it moved on 2026-09-15 when the Greece and Rome
+batches landed sixty cards, three of which are war terms: `gr-793` the Syrian Wars, `rm-373` the War of
+Mutina and `rm-378` the Perusine War. None of the three is work waiting to be done either, and each falls
+into a row that already existed — which is the table doing its job rather than a coincidence.
 
 | | count | why |
 |---|---|---|
 | **not a war at all** | 3 | `rm-212` war elephant, `wh-403` Art of War, `ww2-148` declaration of war — the reason a card DECLARES a block rather than a pattern reading the title. |
-| **no decided outcome** | 9 | `gr-198` Lelantine (unknown), `gr-475` First Peloponnesian (Thirty Years' Peace), `gr-529` Archidamian (Peace of Nicias), `gr-657` Corinthian (the King's Peace, whose beneficiary was not a belligerent on the field), `rm-238` First Macedonian (Peace of Phoenice), `ww2-149` Phoney War (no fighting), and three American — `us-051` Beaver Wars (a general peace at Montreal in 1701), `us-067` Pontiac's War (the Crown restored the gifts and the Proclamation line, and neither side won), `us-082` Seminole Wars (the card's own question is that the last ended with no treaty signed, and some Seminole were never defeated). Rule 3: a drawn war is one that was decided. |
-| **both sides on one ground** | 16 | Nothing for two colours to say. The four Servile Wars (`rm-280`, `rm-303`, `rm-328`, `wh-352`); the Roman civil wars (`rm-316`, `rm-324`, `rm-360`, `rm-364`, `wh-355`); `rm-305` the Social War, Rome against its own Italian allies; `rm-203` Carthage against its own mercenaries; `jp-073` Jinshin; `ww2-111` Spanish Civil War; and three American — `us-060` King Philip's War, `us-063` Yamasee War and `us-064` Tuscarora War, on which see below. |
+| **no decided outcome** | 10 | `gr-198` Lelantine (unknown), `gr-475` First Peloponnesian (Thirty Years' Peace), `gr-529` Archidamian (Peace of Nicias), `gr-657` Corinthian (the King's Peace, whose beneficiary was not a belligerent on the field), `rm-238` First Macedonian (Peace of Phoenice), `ww2-149` Phoney War (no fighting), and three American — `us-051` Beaver Wars (a general peace at Montreal in 1701), `us-067` Pontiac's War (the Crown restored the gifts and the Proclamation line, and neither side won), `us-082` Seminole Wars (the card's own question is that the last ended with no treaty signed, and some Seminole were never defeated). And `gr-793` the **Syrian Wars**, which is the plural doing the work: six wars over 106 years in which Coele-Syria changed hands more than once, so there is no one outcome for two colours to state. Rule 3: a drawn war is one that was decided. |
+| **both sides on one ground** | 18 | Nothing for two colours to say. The four Servile Wars (`rm-280`, `rm-303`, `rm-328`, `wh-352`); the Roman civil wars (`rm-316`, `rm-324`, `rm-360`, `rm-364`, `wh-355`); `rm-305` the Social War, Rome against its own Italian allies; `rm-203` Carthage against its own mercenaries; `jp-073` Jinshin; `ww2-111` Spanish Civil War; and three American — `us-060` King Philip's War, `us-063` Yamasee War and `us-064` Tuscarora War, on which see below; and, from the Rome batch of 2026-09-15, `rm-373` the **War of Mutina** and `rm-378` the **Perusine War**, both fought in Italy between Roman armies. |
 | **too interleaved to draw** | 2 | `rm-142` Latin War and `gr-698` Third Sacred War. |
 
-**Those four rows sum to thirty exactly, and they did not before.** The table used to carry a fifth row
+**Those four rows sum to thirty-three exactly, and they did not sum before.** The table used to carry a fifth row
 for `rm-355` Crassus' Parthian campaign, which is a real refusal and is **not one of the thirty** — its
 answer term does not contain the word — so the table claiming to account for thirty listed thirty-one.
 It is where it belongs now, in the wider pool below. **A table that explains a measured set has to sum to
@@ -405,15 +410,18 @@ not a test** — the test is whether the two sides stand on separable ground, an
 do.
 
 **The open ground is the WIDER pool**, the one the word "war" does not reach. Taking the battles, sieges
-and sacks out by construction and the thirty above by the table, **exactly thirty conflict-shaped answer
+and sacks out by construction and the thirty above by the table, **exactly thirty-one conflict-shaped answer
 terms are left** — conquests, invasions, campaigns, revolts, rebellions and crusades — and they break
-down as follows, which is as close to an answer to "how many more are there?" as the corpus can give:
+down as follows, which is as close to an answer to "how many more are there?" as the corpus can give.
+**The count was thirty before the merge of 2026-09-15 and is thirty-one after it** — re-measure rather
+than reading it back:
 
 | | count | what they are |
 |---|---|---|
 | **a revolt inside one polity** | 11 | `gr-394` Ionian Revolt, `gr-459` Naxos, `gr-460` Thasos, `gr-485` Samos, `rm-260` Aristonicus, `rm-322` Lepidus, `cnh-116` Three Guards, `cnh-222` Seven States, `wh-517` the peasant revolt, `wh-527` An Lushan, `us-057` Pueblo Revolt. Both sides on one ground, one level down. |
 | **an episode of a war already carded** | 6 | `rm-195` the African expedition of 256, `rm-223` the Scipios in Spain, `rm-229` Scipio's African campaign, `gr-417` the invasion of 480, `gr-421` Tempe, `rm-354` the British expeditions. The umbrella card already draws those two sides in those years, so a second block would either repeat it or contradict it. |
 | **already refused, with the reason recorded below** | 10 | `gr-384`, `gr-391`, `gr-399`, `gr-478`, `gr-738`, `rm-205`, `rm-355`, `wh-507`, `ww2-124`, `ww2-146`. |
+| **already refused, arriving with the merge** | 1 | `gr-787` the **Gallic invasion of Greece**, 280–279 BCE, which is `wh-507`'s refusal one era earlier: the invaders were three Celtic divisions under separate chiefs and the defence an ad-hoc coalition holding Thermopylae, so neither side is a polity with an extent. |
 | **open** | 3 | `gr-154` the Dorian invasion, `wh-506` the Crusades, `wh-537` the Mongol invasions of Japan — and two of the three are refusals once read. See "What is left after the fifth batch" below. |
 
 Of the ones read and judged in earlier batches, **`gr-391` Darius' Scythian campaign** and
