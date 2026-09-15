@@ -1796,6 +1796,49 @@ book is on OAPEN because its rights holder released it open access. The citation
 chapter DOI, which is what Chicago asks for and what will outlive any of those addresses; `[Open access]`
 rests on the deposit, not on a fetch from here.
 
+### `wh-207` and `ww2-023` — read, NOT cleared, and what the next session should start from (2026-09-15)
+
+Two more worked and left standing. Recorded in detail because in both cases the hunt is most of the
+work and it should not be done twice.
+
+**`wh-207` Rosetta Stone — Budge in three of six, and nothing modern is open.** [2] and [3] are the same
+book (*The Decrees of Memphis and Canopus*, vol. 1), one with **no locator at all** and one at p. 168 —
+so the obvious move is to fold them into one entry. **Refused, for `wh-382`'s reason**: it clears the
+count and changes nothing about a card that rests on Budge either way. The replacement hunt came back
+empty and the results are worth having:
+· **`britishmuseum.org` is 403** from this sandbox — the museum's own object page for EA24 cannot be read
+  here, which is the obvious source for the slab, the line counts and the 1801 capitulation.
+· **`trismegistos.org` presents a certificate this sandbox cannot verify**, and that is not a thing to
+  work around.
+· The **Corpus of Ptolemaic Inscriptions** at `cpi.csad.ox.ac.uk` answers, but not at any inscription id
+  guessed for the Memphis decree (404). Finding the right id is the one lead left.
+· **DOAJ returns ZERO** for the Rosetta Stone and Ptolemy, and the modern editions (Simpson; Quirke &
+  Andrews; Parkinson's *Cracking Codes*) are all closed. `10.2307/j.ctv2ks6zhv` is Jonathan Downs,
+  *Discovery at Rosetta* (AUC Press, 2020) — popular, and on JSTOR rather than open.
+The card's three FRENCH sources (Leclant × 2 and Dewachter, all on Persée, all open) already carry the
+find and the decipherment well, so **what is missing is a modern source for the DECREE ITSELF** — its
+date, its clauses, Lycopolis — which is exactly where Budge stands.
+
+**`ww2-023` Golden Twenties — four LeMO pages by one author, and the blocker is one figure.** All four
+Scriba entries are chapters of the Deutsches Historisches Museum's *Lebendiges Museum Online*: a museum
+web encyclopedia answering for the Weimar economy four times over. **`germanhistorydocs.org` is the right
+spine and it IS open** — the GHI Washington's document collection, already cited twice on the card, with
+a Weimar volume whose *The Economy, 1918–1929* chapter holds 46 sources. Two of them matter:
+· **Helene Simon, "Unemployment" (April 1929)** states the AVAVG's rule directly — *"they have exhausted
+  the 26 weeks of benefits they can claim"*, with crisis assistance for a further 39 weeks, 52 over the
+  age of forty. That is a far better home for the card's benefit sentence than its present citation,
+  which is **a photograph of a barbershop sign**. But Simon carries **no wage fractions and no poverty
+  framing** — grepped, not assumed — so she cannot take that sentence or the one about want being
+  widespread without both being rewritten.
+· **"Reichstag Debate on the Unemployment Insurance Act (1927)"** is the obvious home for the card's
+  sentence on the July 1927 vote.
+**What actually blocks the card is "German output grew by half between 1924 and 1929"**, which rests on
+Scriba's Dawes-Plan page and **is also in the question**, so it cannot be dropped without rewriting the
+question too. GHDI's own *The Dawes Plan (1924)* carries the reparations context and the American loans,
+not that figure. **Find an open economic-history source for it and the card falls out in one pass**;
+`ifz-muenchen.de` (Vierteljahrshefte für Zeitgeschichte, whose back archive is free) answered 404 at the
+path tried and is the next thing to look at properly.
+
 ### Two more read and left, and these are the rule working rather than failing (2026-09-14)
 
 Both showed a candidate at `alone=0` and both are the right answer as they stand. Recorded so the next
