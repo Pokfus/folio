@@ -103,3 +103,16 @@ if (!pfx) {
   });
   console.log("");
 }
+
+/* THE SHAPE, not only the length (Sep 2026). A background is TEN sentences in TWO BLOCKS OF FIVE, and
+   nothing measured that until four cards were found outside it — one with eleven sentences, two with
+   nine and one with the break a sentence out of place. All four read perfectly and all four were inside
+   the word bar, which is why only a count could see them. add-card.js now refuses a new one; this is
+   what reports the shipped corpus. The splitter is split-abstract.js's own, for that tool's reason. */
+if (!pfx && what === "background") {
+  const SA = require("./split-abstract.js");
+  const wrong = CARDS.filter((c) => c.abstract && JSON.stringify(SA.count(c.abstract)) !== "[5,5]");
+  console.log("\n" + (wrong.length
+    ? wrong.length + " NOT in two blocks of five: " + wrong.slice(0, 10).map((c) => c.id + " " + JSON.stringify(SA.count(c.abstract))).join(", ")
+    : "all " + CARDS.filter((c) => c.abstract).length + " backgrounds are ten sentences in two blocks of five"));
+}

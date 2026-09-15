@@ -5502,7 +5502,21 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   `add-card.js` has ENFORCED since 2026-08-06 — it never measured the abstract before, which is how seven
   cards reached 331–342 unremarked; they are recorded in the changelog and left as they are), as two
   blocks of 5 split by ` <br><br> `: sentences 1–5 give the general meaning/context, 6–10 the meaning in this
-  card's question. Information-heavy and precise, at the 17-year-old register set out above. **The only `<b>` bold is the answer term, at its first mention
+  card's question.
+  **AND THE SHAPE IS ENFORCED TOO SINCE SEP 2026, WHICH IT SAID IN ITS OWN ERROR MESSAGE FOR A YEAR AND
+  NEVER CHECKED.** `add-card.js` measured the WORDS and named the two blocks of five in the message it
+  printed when they were wrong — so four cards in 3,215 shipped outside the form and nothing anywhere
+  reported it: `gr-639` and `gr-678` with NINE sentences, `cnh-128` and `cnh-258` with ten split 6+4 and
+  4+6. **Every one reads perfectly and every one is in band on words**, which is the whole reason this
+  needs a count rather than an eye. **THE BLOCKS ARE CHECKED SEPARATELY, NOT JUST THE TOTAL**: two of the
+  four carried all ten sentences and were still wrong, the citation passes placing markers by sentence
+  index ACROSS both blocks while the reader meets them as two paragraphs — so a mis-placed break moves
+  where the card pauses without moving a word. It uses **`split-abstract.js`'s own splitter**, not a
+  second copy, so a card `add-card.js` accepts is a card the citation passes can mark; and that splitter
+  reads a sentence ending on a LONE CAPITAL as an initial (the deliberate `V. Gordon Childe` guard),
+  which is how `gr-639`'s "the letters A and N." counted as one sentence — **reword so the stop follows
+  a word** rather than reaching for the splitter. `node .claude/card-length.js` reports the whole corpus's
+  shapes at the foot of its output. Information-heavy and precise, at the 17-year-old register set out above. **The only `<b>` bold is the answer term, at its first mention
   opening the background**; use `<i>` for titles (and foreign terms). **No parenthetical asides** —
   never put information between parentheses. **No glossary links** — plain text only (`cnh-001`
   still uses the old `ttip`/`data-k` links and bolded facts; new cards omit both).

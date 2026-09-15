@@ -427,6 +427,28 @@ if (aWords < A_MIN || aWords > A_MAX) {
   process.exit(1);
 }
 
+/* ...AND THE SHAPE, which this said in its error message for a year and never checked (Sep 2026).
+   The rule is TEN sentences in TWO BLOCKS OF FIVE split by ` <br><br> `, and nothing enforced it:
+   `gr-639` and `gr-678` shipped with NINE sentences, and `cnh-128` and `cnh-258` with ten split 6+4
+   and 4+6 — the break one sentence late and one sentence early. Four cards in 3,215, invisible,
+   because every one reads perfectly and every one is in band on words: THE COUNT IS THE ONLY THING
+   THAT CAN SEE THIS, which is why it is a guard rather than a note.
+     · AND THE BLOCKS ARE CHECKED SEPARATELY, NOT JUST THE TOTAL. Two of the four carried the full
+       ten sentences and were still wrong, because the citation passes place markers by sentence
+       index ACROSS BOTH BLOCKS while a reader meets them as two paragraphs of five — so a mis-placed
+       break moves where the card pauses without moving a single word.
+   THE SPLITTER IS split-abstract.js's, not a second copy: it is the module the citation passes place
+   markers by sentence index with, so a card this accepts is a card those can mark. */
+const SHAPE = require("./split-abstract.js").count(card.abstract);
+if (SHAPE.length !== 2 || SHAPE[0] !== 5 || SHAPE[1] !== 5) {
+  console.error("ERROR: the background splits " + JSON.stringify(SHAPE) + " — it must be exactly ten " +
+    "sentences in two blocks of five, separated by ` <br><br> ` (see CLAUDE.md).");
+  console.error("       If the prose really is 5+5, look for a sentence ending in a lone capital " +
+    "letter: the splitter reads that as an initial (the `V. Gordon Childe` guard), which is how " +
+    "gr-639's \"the letters A and N.\" counted as nine. Reword so the stop follows a word.");
+  process.exit(1);
+}
+
 /* The date line is a LIST OF DATES, not a summary — the dates worth memorising beside the answer term,
    or nothing at all where the term has none. It is shared with set-date-line.js so a card written by
    hand and a card converted by that pass cannot end up in different shapes. */
