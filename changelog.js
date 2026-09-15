@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.776", released: "2026-09-15T11:32Z" };
+window.FOLIO_VERSION = { v: "1.777", released: "2026-09-15T11:35Z" };
 
 window.CHANGELOG = [
   {
@@ -53,7 +53,7 @@ window.CHANGELOG = [
       "<b>The Chandragupta Maurya card had the famous bargain backwards</b> \u2014 Seleucus gave up the land and Chandragupta gave the 500 elephants, and the card now says what the ancient sources do and do not record.",
       "<b>Two cards are corrected on what their own sources say</b> \u2014 Monte Verde had overstated how unlike Clovis its stone tools were, and the Homo naledi card credited a journal\u2019s verdict to the man it judged.",
       "<b>The card on the archaic smile now says that what it meant has been argued over</b> \u2014 whether it flattered the onlooker or was only an attempt at expression at all.",
-      "<b>Thirty-nine cards and two glossary terms were short of their own length</b> \u2014 each gains a fact from a source it already cites, not padding.",
+      "<b>Fifty-one cards and two glossary terms were short of their own length</b> \u2014 each gains a fact from a source it already cites, not padding.",
       "<b>A Korean Neolithic pottery card was leaning on Bronze Age evidence without saying so</b> \u2014 it now names the period and the cultures the residue study behind it actually covers.",
       "<b>Two cards asked their question in nineteen words where the house rule is twenty</b> \u2014 each now carries a clause more, taken from what the card itself already says.",
       "<b>Measurements now come out right in the units you chose</b> \u2014 twenty cards and seven glossary terms showed a bare degree, both systems at once, or a year eaten by a conversion.",
