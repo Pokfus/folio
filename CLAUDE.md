@@ -3670,7 +3670,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Atlas popup's `noLocator` keeps it.
   **IT RIDES IN THE LIGHT HALF OF `data.js`, BESIDE `locator`, AND HAS TO** — `atlasUnlocks` walks every
   studied card, and a `war` in the heavy half would put a war on the personal globe only when that
-  collection's extra file happened to be loaded. **34 blocks cost the eager path 5.2 KB gzipped**, about
+  collection's extra file happened to be loaded. **49 blocks cost the eager path about 8 KB gzipped**, about
   155 bytes each. **MEASURE THAT BY GZIPPING `data.js`, NOT OFF `check-sizes.js`**, whose display is
   rounded to hundredths of a megabyte: the first batch was written up here as "about 10 KB" because a
   2 KB change showed as 0.01 MB, which is a figure five times too big taken off a tool that was right.
@@ -3705,26 +3705,47 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a block only where BOTH its sides are on the sides the umbrella puts them. `ww2-096` passes; `ww2-124`
   the Italian invasion of Albania and `ww2-146` the Soviet invasion of Poland do not, each having a
   belligerent on the opposite side in 1939, and are refused rather than pending.
+  **AND A POWER MAY NOT BE DRAWN WINNING ONE WAR AND LOSING ANOTHER IN THE SAME YEARS**, which is the same
+  rule from a direction no umbrella-and-constituent test reaches. `rm-205` the Barcid conquest of Spain was
+  written, verified and REFUSED: Carthage wins it over 237–221 and `wh-345` the Punic Wars has Carthage's
+  African homeland red across 264–146, so the same ground would draw green and red at once for sixteen
+  years, with no narrowing that saves it. `rm-355` Crassus' Parthian campaign is the same fault a century
+  on — Rome loses it in 54–53, inside the years `rm-350` and `wh-354` have Rome winning in Gaul. **A great
+  power is usually fighting in two places and the globe draws them all at once, so check a candidate's
+  years against the umbrella wars of the same power BEFORE researching its extents.**
+  **A BATTLE IS NOT A WAR**, and that is where most of the remaining pool goes: of the 158 conflict-shaped
+  answer terms carrying no block, **101 are a battle or a siege** — an event inside a war, whose spot the
+  card already marks with a `battle` locator's crossed swords.
   **COVERAGE, AND EVERYTHING "MISSING" IS NOW THE RULES WORKING.** Run
   `node .claude/add-card-wars.js --check` for the figure rather than quoting one here. Of the 68 answer
-  terms in the corpus containing "war", 37 carry a block and **not one of the other 31 is work waiting to
+  terms in the corpus containing "war", 38 carry a block and **not one of the other 30 is work waiting to
   be done**: **three are not wars** (the war elephant, the Art of War, a declaration of war), **nine had
-  no decided outcome**, **seventeen put both sides on one ground** and **two are too interleaved to draw**
-  — `rm-142` the Latin War and `gr-698` the Third Sacred War, whose belligerents sit inside each other at
-  ten to twenty kilometres, which is the Strait of Messina finding at a different scale.
+  no decided outcome**, **sixteen put both sides on one ground**, **one would win and lose at once**
+  (`rm-355`) and **two are too interleaved to draw** — `rm-142` the Latin War and `gr-698` the Third
+  Sacred War, whose belligerents sit inside each other at ten to twenty kilometres, which is the Strait of
+  Messina finding at a different scale.
+  **ONE ROW OF THAT TABLE WAS WRONG AND THE CORRECTION IS THE USEFUL PART**: `gr-676` the Social War was
+  filed under "both sides on one ground" because a hegemon fighting its own allies seems to have nowhere
+  to put a second colour. True of `rm-305`; false here, Athens' four revolted allies being three islands
+  and a city on the Bosphorus. **"A hegemon against its allies" is a description, not a test** — the test
+  is whether the two sides stand on separable ground.
   **THE OPEN GROUND IS THE WIDER POOL, AND A CARD NEED NOT HAVE "WAR" IN ITS ANSWER TERM** — a conquest,
-  an invasion and an expedition are all wars between two polities, and six blocks sit on such cards (the
-  Norman Conquest, the Qin conquest of the six states, the Roman conquests of Greece and of Cisalpine
-  Gaul, the Carthaginian invasion of Sicily, the Sicilian Expedition). 37 more conflict-shaped terms carry
-  no block yet.
+  an invasion and an expedition are all wars between two polities, and eleven blocks sit on such cards (the
+  Norman Conquest, the Qin conquests of the six states and of the south, the Roman conquests of Greece,
+  Etruria, Umbria and Picenum, Cisalpine Gaul and Spain, the Persian conquest of Lydia, the Carthaginian
+  invasion of Sicily, the Sicilian Expedition).
   **📖 `docs/war-cards.md` — READ BEFORE ADDING A WAR BLOCK OR CHANGING HOW ONE IS DRAWN.** The six
   decisions in full, the remainder broken down card by card with what each needs, the findings from
   authoring the extents (above all that the toe of Italy
   cannot be separated from north-east Sicily by an approximate polygon, and that a stand-off GAP can
-  swallow a town — Pau is asserted neither way), the seven American wars resolved one at a time, the
-  rejected alternative of resolving a card window against the era map, why `ww2-001` names coalitions
-  rather than states, and why a war between a very small state and a very large one frames the large one
-  with `zoom` unable to fix it.
+  swallow a town — Pau and Perusia are asserted neither way), the seven American wars resolved one at a
+  time, the rejected alternative of resolving a card window against the era map, why `ww2-001` names
+  coalitions rather than states, why a war between a very small state and a very large one frames the
+  large one with `zoom` unable to fix it — and, since the fourth batch, the two further shapes a refusal
+  takes: **a side too small AND TOO SCATTERED to read** (`gr-478` was written, drawn, looked at and
+  removed; `wh-319` is the same two powers and works, its small side being a compact block of mainland),
+  and **a side that is not a polity at all** (`wh-507`, the First Crusade, whose victors were an
+  expedition rather than any state that declared it).
 - **ONE media panel on the card surface** (Aug 2026, on request — it was two, with a `.ces-media-swap` pill
   between them). A card shows one frame, so the editor offers one slot (`#cesMediaSlot`) and one panel
   (`#cesMediaPanel`, fields `data-mediafield="src|title|desc|credit"`), and the pasted URL decides which of

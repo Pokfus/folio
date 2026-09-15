@@ -157,7 +157,7 @@ carries the sentence instead, and clicking either side opens the war's card with
 ## Authoring an extent
 
 **A hand-drawn polygon renders perfectly while being wrong**, so every extent shipped was checked against
-named places with known coordinates rather than looked at — **49 extents, and 1,485 assertions once
+named places with known coordinates rather than looked at — **61 extents, and 1,705 assertions once
 composed per side** — each one "this city must be inside" or "this city must be outside". That is the only way to
 catch a ring whose interior is on the wrong side of an edge, which draws a beautiful map of somewhere
 else.
@@ -193,7 +193,15 @@ Six findings from doing it:
   uncertain, leave a GAP rather than an overlap** — a few unshaded kilometres read as a frontier zone,
   which is what it was, and two colours over one ground read as a mistake.
 - **Several rings are one side.** `locRings` reads a flat ring or a list of rings, so Carthage in 218 BCE
-  is Africa and Barcid Spain, and the Athenian empire is Attica, Euboea and the Aegean.
+  is Africa and Barcid Spain, and the Athenian empire is Attica, Euboea and the Aegean. **`gr-676` takes
+  it furthest**: the four allies that left the Second Athenian League are four rings, three islands and
+  Byzantium, and the card is legible because each of them is a real island a reader can find.
+- **AN ISLAND RING IS DRAWN SEAWARD-GENEROUS AND THEN NARROWED BY WHAT IT SWALLOWS.** The fill is clipped
+  to the land, so a ring drawn loosely round Rhodes or Cos costs nothing and saves fiddling with a
+  coastline — until the ring reaches the MAINLAND. Cos drawn generously took in Cnidus, eight kilometres
+  away at the tip of the Datça peninsula and Carian rather than Coan; the ring came back east to 27.34 °E,
+  which is the Strait of Messina finding in the Aegean. **Assert a mainland town across the strait from
+  every island**, because that is the one direction generosity is not free in.
 - **A GAP is a place too, and it can swallow a town.** The Hundred Years' War needed a frontier between
   the kingdom of France and English Gascony, and the safe way to draw one is to stand France's edge off
   Gascony's by a tenth of a degree or so. Pau fell in that gap: Béarn's northern boundary is about 10 km
@@ -201,6 +209,11 @@ Six findings from doing it:
   answer was to assert Pau NEITHER way and let the gap have it, because a viscounty that did homage to
   Edward III while claiming sovereignty is precisely what a dashed approximation may not adjudicate.
   **When an assertion will not resolve, drop the assertion rather than moving the line to satisfy it.**
+  **Perusia is the same rule inland.** Etruria's eastern boundary is the Tiber and Umbria's western
+  boundary is the Tiber, and Perusia is an Etruscan city on the Umbrian bank, nineteen kilometres from
+  Umbrian Asisium. Both extents were drawn to the river and Perusia is asserted neither way. Ocriculum,
+  Tuder and Camerinum fall in the same band and are likewise left alone — **do not assert a town within
+  about five kilometres of a boundary**, which is finer than a dashed extent is claiming to be.
 - **An institution's own extent moves, so date it.** See "An extent is dated as well as drawn" below —
   Carthage in 480 is not Carthage in 264, and reusing the later ring got the history wrong AND framed the
   card on the wrong sea.
@@ -210,9 +223,9 @@ Six findings from doing it:
 ## It rides in the LIGHT half of `data.js`, and has to
 
 `war` is on the eager load path, beside `locator`, `map` and `facts` rather than in `data-extra/`. That is
-not an oversight, and the cost is small: **43 blocks cost the eager path about 7 KB gzipped**, roughly
-170 bytes each — authored coordinates compress well. The nine added in the third batch cost 1,857 bytes
-between them, and two extents NARROWED in the same batch gave some of that back.
+not an oversight, and the cost is small: **49 blocks cost the eager path about 8 KB gzipped**, roughly
+165 bytes each — authored coordinates compress well. The six added in the fourth batch cost 915 bytes
+between them, which is 153 bytes apiece even though two of them carry an extent the size of China.
 
 It has to be there because **the personal atlas reads it**. `atlasUnlocks` walks every card the reader has
 studied and asks it for its places; the heavy half is fetched per collection when a card in that collection
@@ -264,17 +277,25 @@ what the colour stands for. Finland, Romania and Bulgaria are left off both side
 
 ## Coverage
 
-Forty-three cards carry a block. **Run `node .claude/add-card-wars.js --check` for the figure rather than
+Forty-nine cards carry a block. **Run `node .claude/add-card-wars.js --check` for the figure rather than
 quoting that**: it prints every block, both sides, the years each will draw in, and whether any two of
 them contradict each other.
 
-**A card need not have "war" in its answer term to carry one**, and six do not: the Norman Conquest, the
-Qin conquest of the six states, the Roman conquests of Greece and of Cisalpine Gaul, the Carthaginian
-invasion of Sicily and the Sicilian Expedition. A conquest, an invasion and an expedition are all wars
-between two polities, and the question to ask a card is the one in CLAUDE.md — is its ANSWER TERM a war —
-rather than whether the word is in it. The pool is therefore much wider than the 68 answer terms that
-contain "war" or "wars"; **37 conflict-shaped terms carry no block yet**, most of them revolts and
-campaigns rather than wars between states.
+**A card need not have "war" in its answer term to carry one**, and eleven do not: the Norman Conquest,
+the Qin conquests of the six states and of the south, the Roman conquests of Greece, Etruria, Umbria and
+Picenum, Cisalpine Gaul and Spain, the Persian conquest of Lydia, the Carthaginian invasion of Sicily and
+the Sicilian Expedition. A conquest, an invasion and an expedition are all wars between two polities, and
+the question to ask a card is the one in CLAUDE.md — is its ANSWER TERM a war — rather than whether the
+word is in it.
+
+**A BATTLE IS NOT A WAR, AND THAT IS WHERE THE REMAINING POOL MOSTLY GOES.** Measured over the 3,215
+shipped cards, 207 answer terms are conflict-shaped by the widest reading — war, conquest, invasion,
+expedition, campaign, revolt, siege, battle, crusade — and **101 of the 158 that carry no block are a
+battle or a siege**. A battle is an event inside a war, its belligerents are two armies at one spot, and
+the card already marks that spot: `kind: "battle"` draws crossed swords on it. Shading two empires to say
+who fought at Marathon would repeat what `wh-319` says and clutter the one mark that is specific to the
+card. So the line is the one CLAUDE.md draws — a war between two polities — and a battle card is out by
+construction rather than by a judgement per card.
 
 Three of them are worth knowing about before writing the next. **`cnh-224`, `rm-333` and `rm-162` carry a
 locator as well**, and the combination is the best thing this format does: the two washes say who fought
@@ -307,27 +328,59 @@ period's opening, Qin having taken Anyi in 286; Chu has moved east to **Shouchun
 off peninsular Italy's own northern edge, where `wh-354` has the two on ONE side and the Apennine crest
 can belong to both.
 
+**AND PERSIA NEEDED THREE DIFFERENT EXTENTS FOR THREE CARDS, WHICH IS THE RULE AT ITS LIMIT.** The file
+already held `ACHAEMENID_ASIA`, the empire at the second invasion of Greece around 490: Thrace to the
+Indus, with the Aegean seaboard and the islands in it. Neither of the two Persian cards written since can
+use it. **`gr-383`** is 546 BCE, before Cyrus had crossed the Halys at all, so its Persia is
+`MEDIA_546` — the Median inheritance plus Persis, with Assyria but NOT Babylonia, which held out until
+539, and not Bactria, which came after — and the frontier is the Halys, the line the Battle of the
+Eclipse fixed in 585 and the one Herodotus says Croesus ruled west of. And the refused **`gr-478`** is
+460, by which time the seaboard and the islands the 490 ring claims are the Delian League's, so it took
+`ACHAEMENID_460`, drawn back to a line between Ephesus and Sardis. Both were written before the clash
+check could have caught the second: **`ACHAEMENID_ASIA` against `ATHENS_AEGEAN` overlaps outright**, and
+the card would have been refused by rule 4 rather than by the eye. **Ask what year a great empire's ring
+is a picture of before reaching for it.**
+
+**Lydia keeps the two exceptions its own source states.** Herodotus says Croesus subdued every nation west
+of the Halys except the Lycians and the Cilicians, so `LYDIA_546` carries a notch round the Lycian
+peninsula and stops short of Rough Cilicia on the south coast. Neither is mentioned in the card's ten
+sentences, which is not a reason to draw a claim the card's own historian denies.
+
 ### What is left, and what is deliberately not
 
-Measured over the 3,215 shipped cards, **68 answer terms contain "war" or "wars"**. Thirty-seven carry a
-block, and **not one of the other thirty-one is work waiting to be done** — for the first time since the
-feature shipped, every one of them is a rule doing its job.
+Measured over the 3,215 shipped cards, **68 answer terms contain "war" or "wars"**. Thirty-eight carry a
+block, and **not one of the other thirty is work waiting to be done** — every one of them is a rule doing
+its job.
 
 | | count | why |
 |---|---|---|
 | **not a war at all** | 3 | `rm-212` war elephant, `wh-403` Art of War, `ww2-148` declaration of war — the reason a card DECLARES a block rather than a pattern reading the title. |
 | **no decided outcome** | 9 | `gr-198` Lelantine (unknown), `gr-475` First Peloponnesian (Thirty Years' Peace), `gr-529` Archidamian (Peace of Nicias), `gr-657` Corinthian (the King's Peace, whose beneficiary was not a belligerent on the field), `rm-238` First Macedonian (Peace of Phoenice), `ww2-149` Phoney War (no fighting), and three American — `us-051` Beaver Wars (a general peace at Montreal in 1701), `us-067` Pontiac's War (the Crown restored the gifts and the Proclamation line, and neither side won), `us-082` Seminole Wars (the card's own question is that the last ended with no treaty signed, and some Seminole were never defeated). Rule 3: a drawn war is one that was decided. |
-| **both sides on one ground** | 17 | Nothing for two colours to say. The four Servile Wars (`rm-280`, `rm-303`, `rm-328`, `wh-352`); the Roman civil wars (`rm-316`, `rm-324`, `rm-360`, `rm-364`, `wh-355`); the two Social Wars (`rm-305`, `gr-676`), each a hegemon against its own allies; `rm-203` Carthage against its own mercenaries; `jp-073` Jinshin; `ww2-111` Spanish Civil War; and three American — `us-060` King Philip's War, `us-063` Yamasee War and `us-064` Tuscarora War, on which see below. |
+| **both sides on one ground** | 16 | Nothing for two colours to say. The four Servile Wars (`rm-280`, `rm-303`, `rm-328`, `wh-352`); the Roman civil wars (`rm-316`, `rm-324`, `rm-360`, `rm-364`, `wh-355`); `rm-305` the Social War, Rome against its own Italian allies; `rm-203` Carthage against its own mercenaries; `jp-073` Jinshin; `ww2-111` Spanish Civil War; and three American — `us-060` King Philip's War, `us-063` Yamasee War and `us-064` Tuscarora War, on which see below. |
 | **too interleaved to draw** | 2 | `rm-142` Latin War and `gr-698` Third Sacred War. |
+| **the other side would win and lose at once** | 1 | `rm-355` Crassus' Parthian campaign, 54–53 BCE, which Rome loses inside the years `rm-350` and `wh-354` have Rome winning in Gaul. See below. |
+
+**AND ONE ROW OF THAT TABLE WAS WRONG, WHICH IS WORTH MORE THAN THE ROW.** `gr-676` the Social War was
+filed under "both sides on one ground" on the reading that a hegemon fighting its own allies has nowhere
+to put a second colour. That is true of `rm-305`, where the Italian allies' towns stand among Rome's own,
+and **it is false here**: Athens' allies in 357 were Chios, Rhodes, Cos and Byzantium, three islands and a
+city on the Bosphorus, every one of them separable from Attica by open sea. The card is now written, with
+Athens red and the four green. **The lesson is that "a hegemon against its allies" is a description and
+not a test** — the test is whether the two sides stand on separable ground, and for a naval league they
+do.
 
 **The open ground is the WIDER pool**, the one the word "war" does not reach: **37 conflict-shaped answer
 terms carry no block** — conquests, invasions, campaigns, revolts and crusades. Most are revolts inside a
-single polity and fall under "both sides on one ground" as surely as the Servile Wars do; the ones worth
-writing next are `gr-383` the Persian conquest of Lydia, `gr-384` the conquest of Ionia, `gr-391` Darius'
-Scythian campaign, `gr-478` the Athenian Egyptian expedition, `rm-159` the conquest of Umbria and Picenum,
-and `gr-417`, on which see below. **Two of the 37 are refused rather than pending** — `ww2-124` the
-Italian invasion of Albania and `ww2-146` the Soviet invasion of Poland — for the reason immediately
-below.
+single polity, or a battle, and fall out on the two rules above. Of the ones read and judged in this
+batch, **`gr-391` Darius' Scythian campaign** and **`gr-399` Mardonius' campaign** have no decided
+outcome — the first is three incompatible accounts and Darius' own inscription claiming a different
+Scythian war that he won, the second turned back "inglorious" while adding Macedonia to the subject
+peoples; **`gr-738` Alexander's Indian campaign** states no outcome at all, its ten sentences ending at
+Taxila; **`gr-394` the Ionian Revolt** and **`gr-384` the conquest of Ionia** are the seaboard against the
+empire that owns it; and **`wh-507` the First Crusade** is refused for a reason of its own, below. **Four
+are refused rather than pending** — `ww2-124` the Italian invasion of Albania, `ww2-146` the Soviet
+invasion of Poland, `rm-355` Crassus' Parthian campaign and `rm-205` the Barcid conquest of Spain — for
+the two reasons immediately below.
 
 #### The seven American wars, resolved
 
@@ -349,6 +402,62 @@ rivers; and the Yamasee rising drew in the Creek, Choctaw, Catawba and Apalachee
 while the Lower Cherokee changed sides in the middle of it. A dashed extent says *about here*; it cannot
 say *this village and not the next one*, and two washes drawn at that scale would be a picture somebody
 invented.
+
+#### A power may not be drawn winning one war and losing another in the same years
+
+This is the cross-card rule met from a direction no umbrella-and-constituent test reaches, and the check
+found it on a card that had already been written, verified and dry-run. **`rm-205` the Barcid conquest of
+Spain** was composed with Carthage as the victors over 237–221 BCE, against the Iberian peoples Hamilcar
+and Hasdrubal subdued. It is true, the card says so, and the two extents are separable — Africa against
+Spain. What it contradicts is **`wh-345` the Punic Wars**, which runs 264–146 with Carthage's African
+territory red for the whole of it. A reader who had studied both would see Carthage's own homeland drawn
+green and red at once for sixteen years.
+
+There is no narrowing that saves it. The years the Barcid conquest could honestly take all fall inside the
+Punic Wars' span; the victors cannot be shifted to the Iberian extent without putting both sides on one
+ground; and the umbrella card's own years are right. So it is refused, and the rule is general:
+**a power that wins one war while losing another on the same ground in the same years can have one of the
+two drawn, not both.**
+
+**`rm-355` Crassus' Parthian campaign is the same fault a century later**, and this one is not even
+subtle: Rome loses it in 54–53 BCE, and `rm-350` and `wh-354` both have Rome winning in Gaul across
+58–50. The card is one of the best in the collection and the map cannot say what it says.
+
+The three cards it settles are worth knowing as a family before writing a fourth. A great power at the
+height of its reach is usually fighting in two places, and Folio cards the wars one at a time; the globe
+draws them all at once. **So check a candidate's years against the umbrella wars of the same power before
+researching its extents**, which `node .claude/add-card-wars.js --check` answers in a second.
+
+#### A side too small and too scattered to see is a map of one belligerent
+
+**`gr-478` the Athenian Egyptian expedition was written, drawn, looked at and removed**, which is the
+order this project's rules ask for and the reason the screenshot step is not optional. Persia in 460 is
+the Aegean seaboard to the Indus plus Egypt; Athens is Attica, Euboea and the Aegean islands. Every rule
+passes — the outcome is decided and on the card, the extents are dated and disjoint, no other block
+contradicts it — and the window opens on a hemisphere with the globe's own limb in view, a green empire
+filling it and the defeated side a few pixels of island.
+
+**`wh-319` is the counter-example and it is the same two powers.** The Greco-Persian Wars card shades the
+Greek allies against the Achaemenid empire on a frame very nearly as wide, and it reads perfectly: the
+green is small but it is a COMPACT BLOCK of mainland, and a reader sees at once that Greece is one side.
+So the test is not the smaller side's size but its SHAPE — `ww2-159` shades a Finland that is a tenth of
+its frame's width and is legible for the same reason. A side that is a scatter of islands across an
+inland sea has no such block to offer, and at that scale nothing survives.
+
+**`gr-384` the Persian conquest of Ionia is refused on the same ground before it was written.** Ionia is a
+dozen cities along 150 km of coast against an empire spanning forty degrees of longitude, which is the
+same picture with less of it. And `zoom` cannot rescue either: it moves the SCALE and leaves the centre at
+the union's middle, which for both of these is somewhere in Mesopotamia.
+
+#### A side that is not a polity cannot be shaded
+
+**`wh-507` the First Crusade** is decided — Jerusalem fell on 15 July 1099 and the crusader states
+followed — and it is refused all the same. The victorious belligerent is an expedition, not a state: the
+men who took the city came from France, Lorraine, Normandy, Flanders and southern Italy, and none of those
+polities declared the war or fought it as a polity. Shading them green would put the colour on states that
+did not send the army, and shading nothing but the crusader states would shade the war's own outcome as
+its cause. The Athenian expeditions are not the same case — `gr-552` and the refused `gr-478` were voted
+by an assembly and sailed as one city's fleet, so the city is the belligerent.
 
 #### A war inside a war may not contradict the war it is inside
 
