@@ -1750,6 +1750,52 @@ reports nothing.
 the book. It is the canonical address and a reader reaches the text in two clicks; `uclpress.co.uk` is
 403 from here, so it could not be checked as an alternative.
 
+### `wh-383` and `wh-382` — the rest of the 1922 Indian cluster, and where the pages actually were (2026-09-15)
+
+The two siblings of `wh-384`, cleared the same day and by the same method: find the modern open-access
+work, read it, and rewrite the sentence to what it says.
+
+**`wh-383` Maurya Empire — four Thomas entries of six, and one of them cited the wrong pages.** The
+claim at block 2 sentence 5 — the Purāṇic 137 years, the end about 184 BCE, and Pushyamitra killing
+Brihadratha — was cited to Thomas, "Asoka," 511–512. That chapter **does** carry it (the running head
+`512 Aqoka [CH.]` sits in the middle of the passage, and Thomas is more sceptical than the card was:
+*"none of them justifies in detail the total of 137 years which they unanimously ascribe"*). But **the
+better page was already on the card**: Rapson's own chapter, "Indian Native States after the Period of
+the Maurya Empire", says it at **pp. 517–18** — *"Pushyamitra, the commander-in-chief of Brihadratha,
+the last of the Mauryas, slew his master and reigned in his stead"*, and *"this event happened 137 years
+after the accession of Chandragupta, i.e. c. 184 B.C."* So that entry gained one page range and the
+Thomas entry went. **When a card over-cites one author, look first at whether another author already on
+the card carries the claim on a page nobody looked up.**
+The Ashoka-chronology entry was replaced by Jansari pp. 27–28, which says the same thing and more: the
+fourteen Major Rock Edicts name Hellenistic kings, **which is why his inauguration is traditionally
+placed about 268 BCE** — a date the card did not have — with the long and short chronologies and
+Gombrich's 136 years beside it. Thomas keeps two entries; Jansari takes two.
+
+**`wh-382` Jainism — three Charpentier page ranges, and the merge that was refused.** The cheapest fix
+was obvious and wrong: fold two of the three entries into one carrying both page ranges. That clears the
+count and changes nothing about the card, which rests on five Charpentier sentences either way — **it
+dodges the letter of a rule whose whole subject is pages of one scholar.** Not done.
+What was done instead: `OAPEN` again, this time for **Royce Wiles, "The Dating of the Jaina Councils," in
+*Studies in Jaina History and Culture: Disputes and Dialogues*, ed. Peter Flügel (Routledge, 2006),
+pp. 61–85** — open access, and **a chapter whose argument is that the scholarly accounts of the Valabhi
+council are far more definite than their sources warrant, with Charpentier's own account examined by name
+and found to have "quite a few problems"**. The card's closing sentence now says the dating rests on much
+later commentaries rather than stating it flat, and the Think-it-through answer that repeated it was
+brought into line.
+**Jacobi was checked first and does not carry it.** SBE 22's Introduction has the Valabhi council and the
+sects' separation "probably in the second century after the Nirvāṇa", but **nothing on the Digambara
+rejection of the canon and nothing on the sects' names** — grepped, not assumed — so those two sentences
+stay on Charpentier, which is the right answer and keeps him at two.
+
+**One limitation, stated rather than papered over.** `doi.org/10.4324/9780203008539-4` returns **403**
+from this sandbox, and so do `taylorfrancis.com`, `library.oapen.org/handle/…` and OAPEN's own published
+bitstream URL — **with a browser user-agent as well**, so it is an egress refusal rather than a
+user-agent filter, and **a 403 is not a paywall**. The chapter was read in full through OAPEN's REST
+endpoint (`/rest/bitstreams/<uuid>/retrieve`, 200, 4.8 MB of PDF, plus the extracted `.txt`), and the
+book is on OAPEN because its rights holder released it open access. The citation carries the canonical
+chapter DOI, which is what Chicago asks for and what will outlive any of those addresses; `[Open access]`
+rests on the deposit, not on a fetch from here.
+
 ### Two more read and left, and these are the rule working rather than failing (2026-09-14)
 
 Both showed a candidate at `alone=0` and both are the right answer as they stand. Recorded so the next
