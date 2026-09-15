@@ -3270,9 +3270,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `practice`, `concept`, `fossil`, `culture`, `event`, `people`, `person`, `animal`, `building`, `theory`), then
   the subject areas (`archaeology`, `palaeontology`, `geology`, `science`, `history`, `prehistory`, `evolution`,
   `genetics`, `technology`, `art`, `geography`, `nature`, `climate`, `migration`), then the specifics — a
-  country, a region, a period. **Every shipped card is tagged.** Written by
+  country, a region, a period. Written by
   `node .claude/add-card-tags.js <batch.json>` (3–8 tags, lowercase, and it warns about a tag no other card
   shares — one that can never group anything); carried by `serializeCardData` beside `sources`.
+  **THIS BULLET SAID "EVERY SHIPPED CARD IS TAGGED" AND THAT WAS FALSE BY 467 CARDS** (measured Sep 2026,
+  14.5% of the corpus, while repairing `gr-334`). **`add-card.js` HAS NO TAGS GUARD** — where it REFUSES a
+  card with no `difficulty`, it takes one with no tags in silence — so the gap arrived in whole contiguous
+  batches (`gr-611`–`gr-760`, `cnh-147`–`cnh-230`, `us-061`–`us-100`, `wh-151`–`wh-200`) rather than card by
+  card, and nothing anywhere reported it: an untagged card simply falls through to the `answerType`
+  fallback below and draws slightly worse Multiple Choice distractors, which no reader would ever think to
+  report. **Count it rather than quoting a figure here:**
+
+      node -e "global.window={};console.log(require('./.claude/card-io.js').loadCards().cards.reduce((a,c)=>(a[!c.tags||!c.tags.length?'no':'yes']++,a),{yes:0,no:0}))"
+
+  The claim was prose rather than a figure, so **`check-claims.js` could not see it** — which is that
+  tool's own stated blind spot arriving in the one file it exists to keep honest.
   What they are FOR is **Multiple Choice**: `cardKinship(a, b)` counts the tags two cards share, weighting the
   first heavily (the kind is worth four subject areas) and capping the score when the kinds differ, and
   `buildChallengeQuestions` offers the three closest cards as the wrong answers. Before this the distractors
