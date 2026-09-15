@@ -1868,6 +1868,75 @@ buy a green run at the price of the one signal the check exists to give.
   OpenStax textbook. Adding one would not clear the FAIL, the rule being absolute, but it would make the
   card better, and the Psychology plan's own rule about stating a finding's current standing asks for it.
 
+### `gr-325` Exekias — the 1905 figures the card was still quoting (2026-09-15)
+
+H. B. Walters in three of six sources, all three the same 1905 handbook at three page ranges. That is
+the shape `check-cards.js`'s own header calls out by name: not a data publisher cited three times, but
+a card **whose whole modern apparatus is one book**. `drop-candidates.js` reported nothing droppable —
+p. 379–381 carried six sentences, p. 357 one and p. 375 one.
+
+What the concentration was hiding is that **the card's two opening sentences were a 1905 inventory and
+both figures are now wrong**. It said ten vases carry his name and that he twice signed as painter as
+well as potter. Heide Mommsen's study of the signatures — *Beobachtungen zu den Exekias-Signaturen*,
+*Mètis* 13 (1998), 39–55, open access on Persée — gives the modern count in her own summary:
+**signatures attesting the name are known today on fifteen vases; three amphorae and probably four
+carry a double signature; and three vases he painted say by their signature that he was the potter as
+well.** She adds two things the card could not have had from Walters: **the shape of every signed vase
+is an innovation of its own**, and **two amphorae inscribed with his name as maker were painted by
+another hand, their characteristic shape showing he was already potting by about the middle of the 6th
+century** — which is why the date line gained an *Already a potter · c. 550 BCE* row above the
+*Vases dated · c. 540 – 530 BCE* it had. Question 2 was rewritten with it; it had asked for the ten and
+the twice.
+
+The second new source is **Jean-Marie Pailler, *Une mer vraiment dyonisiaque*, *Pallas* 81 (2009),
+191–200** (OpenEdition, open access), on the Munich cup: the mast become a vine-stock, the yards shoots
+and clusters, the pirates the dolphins, and — his point — **no sea at all**, the god having replaced it
+with his own world. That is a better sentence than the one it displaced, which was Walters p. 375 on
+the spirals under the handles being "descended from Mycenaean art by way of the Melian amphorae" —
+1905 diffusionism stated as fact. Walters p. 357 went with it. **Walters is now one of six, and he
+keeps the four sentences he is still the best open source for**: the Vatican amphora, the Onetorides
+inscription, what marks the work out, and the placing between Kleitias and what came after.
+
+Five findings from the search, all of them reusable on the rest of the Greece backlog.
+
+- **`persee.fr`'s SEARCH is the way in, and the article landing page carries the first page of the
+  text.** `http://www.persee.fr/search?ta=article&q=Exekias` returns 425 results; a result's
+  `https://www.persee.fr/doc/<id>` serves the record, the full bibliographic reference, the DOI — and,
+  for this article, the whole of p. 39 including its footnotes. **The PDF is 403** (the altcha gate
+  `docs/glossary-citation-plan.md` records), so the body beyond p. 1 cannot be read from here.
+- **…AND THE VOLUME'S OWN RÉSUMÉS ARE A SEPARATE PERSÉE DOCUMENT, WHICH IS WHERE THE FINDINGS WERE.**
+  Mètis prints an abstract of every article at the back of the volume, and Persée files that as its own
+  `/doc/` id — here `metis_1105-2201_1998_num_13_1_1102`, whose pages are served one at a time from the
+  `data-content-url` attributes in its HTML. **The summary is the author's own**: the article's first
+  footnote thanks Katrin Groß-Debacq for translating the *Zusammenfassung*, so the French résumé is
+  Mommsen's German summary in translation, not an editor's paraphrase. That is what made it safe to
+  cite the article for figures read only there. **Check who wrote the abstract before resting a number
+  on one.**
+- **THREE GERMAN AND SWISS REPOSITORIES ARE BEHIND ANUBIS AND ARE NOT TO BE RE-TRIED.** ZORA
+  (`zora.uzh.ch`), Heidelberg's journals platform (`journals.ub.uni-heidelberg.de`) and Heidelberg
+  digilit (`digi.ub.uni-heidelberg.de`) all serve a proof-of-work challenge rather than a page. That
+  shuts the 2022 Zurich conference volume *Exekias und seine Welt*, Martin Bürge's chapter
+  *"Exekias" — ein Künstlername?* (whose Casalini/Torrossa copy is JS-driven), Elizabeth Moignard's
+  review of the volume in the *Bonner Jahrbücher*, and Technau's 1936 monograph. **The modern state of
+  the Exekias question is therefore not reachable from this sandbox**, and the card rests on 1998 and
+  2009 instead — which is stated here rather than papered over.
+- **A 429 IS BUSY, AND ONE HOST CAN GIVE TWO ANSWERS.** `metmuseum.org`'s object pages returned 429 on
+  six probes spaced over three minutes, which would read as link rot on a citation that has been on
+  this card for months. **`collectionapi.metmuseum.org/public/collection/v1/objects/<id>` answered 200
+  throughout** and confirms the record exactly — accession 17.230.14a, b, "Terracotta neck-amphora
+  (jar) with lid and knob", Greek Attic, ca. 540 BCE, H. 18 1/2 in. (47 cm), artist Exekias. **Probe the
+  API before concluding the Met is down**, and note the museum's own figure is 18½ inches: the card
+  said 18 and now says 18.5.
+- **THE CHARIOT WEDDING IS IN THE REVIEW, AND IT WAS WORTH CHECKING.** Jenifer Neils' BMCR notice of
+  *How to Read Greek Vases* names "a black-figure neck-amphora with a chariot wedding scene by
+  Exekias" outright, so the card's description of the New York vase is carried by the source cited for
+  it rather than by the Met record beside it, which does not describe the scene.
+
+**No locator was added**, and that is a decision rather than an omission: `gr-310`–`gr-329` — the whole
+run of Athenian institution, technique and workshop cards around this one — carry none, and the places
+on this card are three European museums rather than anywhere the reader could stand. Athens is where
+the workshop was, and a dot there would say less than the collection's silence does.
+
 ### `ww2-042` — the drop that was not there, and the war the card was not describing (2026-09-15)
 
 T. P. Nesterova in three of six sources, and `drop-candidates.js` reported `alone=2`, `alone=2`,
