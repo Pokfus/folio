@@ -256,6 +256,28 @@ right as they stand** and converting them would invent precision.
 | `gw-678` abstract | "the coldest month sits three degrees under freezing" | **absolute** |
 | `gloss:Mongolia` | "winters can fall below minus 40 degrees" | **absolute** |
 
+**TWELVE OF THE SIXTEEN ARE NOW DONE** (Sep 2026), each source read and each unit confirmed before the
+bracket was written: Lane, Chorn & Johnson 2013 for `wh-064` and `Toba_catastrophe_theory` ("a temperature
+drop of ~1.5 °C"); Buizert et al. 2014 for `wh-104` and `Younger_Dryas`; Kaufman et al. 2020 for `wh-113`
+("0.7 °C … warmer than the 19th Century", and "the past decade (2011–2019) averaged 1 °C higher than
+1850–1900", whose difference is the card's 0.3); Matero et al. 2017 for `wh-114` ("160 yr duration and
+3 °C amplitude"; "an abrupt cooling of 1–3 °C across large parts of the Northern Hemisphere"); Groff,
+Williams & Gill 2020 for `gw-229` ("increased by 0.5 °C"); and Seppä et al. 2009 for `Atlantic_period`
+("about 1.5 °C higher than at present").
+
+**TWO OF THEM WERE NOT UNIT FAULTS AT ALL, which is what reading the sources found.**
+`wh-104` and `Younger_Dryas` said "central Greenland perhaps 10 to 14 degrees colder than today" and cited
+Buizert for it; **Buizert's figure is 9 to 14 °C and it is the magnitude of the ABRUPT CHANGES**, not the
+depth below the present, and the "10 to" matched nothing in the paper. Both now say what the source says.
+And `gw-678` wrote "so the coldest month sits three degrees under freezing" immediately after stating
+"−3.0 °C (26.6 °F)": for an imperial reader that read as 26.6 °F being three degrees under freezing, which
+it is not. The clause restates a figure the sentence has already given, so it went scale-free rather than
+gaining a third number.
+
+**The four left are the vague comparatives** — `gw-145`, `gw-184`, `gw-196` and `gc-514`, all of the shape
+"a degree or two colder" — and converting them would invent precision the prose declines to claim. They
+are the right answer as they stand.
+
 **The two absolutes are the traps.** "Three degrees under freezing" is −3 °C, i.e. 26.6 °F — not three
 degrees under freezing on the Fahrenheit scale, which is 29 °F. And −40 is the one temperature at which
 the two scales coincide, so `Mongolia` is accidentally right in both and must not be "corrected" into
@@ -329,3 +351,30 @@ deliberately left as they are — unifying them changes what three tools count a
 before-and-after measurement. **One file should own the pattern and the rest should slice it out by text,
 stopping if the slice fails**, which is what `set-facts.js` and `check-cards.js` already do for their own
 shared rules. Until that happens, **a change to one copy is a change to one copy.**
+
+
+## Sep 2026 — two faults found by reading the corrected cards back as a reader
+
+Both were in cards this pass was already editing, and neither is a temperature.
+
+**`wh-114` was corrupting its own sentence for an imperial reader.** It wrote "raised the sea by a metre
+or two (3 to 7 feet)" — and `U_RUN` can only start at "two", because "metre" stands between "a" and the
+"or" that would join them, so `U_BARE_RX` swapped "two" for the bracket and left the rest standing:
+**"raised the sea by a metre or 3 to 7 feet"**. That is the failure this file names as the worst the
+engine has, since the authored metric view is perfect and nothing reports it. The repair is authorial
+rather than a widening — `1 to 2 metres (3 to 7 feet)`, which the engine sees whole — and the bracket's
+own figures are unchanged.
+
+**`gw-229`'s shared-unit pair had only one bracket.** "running at 9.4 °C (48.9 °F) in January and 2.2 in
+July": the second figure shares the first's unit and carries no bracket, so it never converts, and an
+imperial reader was shown one Fahrenheit figure beside one Celsius one. `test-units.js` pins the house
+form — the SECOND figure gets its own bracket too — and 2.2 °C is an ABSOLUTE, so it takes the offset:
+36.0 °F, not 4.0.
+
+**The sweep that finds this class is a metric unit surviving into the IMPERIAL rendering**, and it
+currently returns **265 fields**. Almost all of them are the benign bare-metric gap this file already
+records — cubic centimetres, hectares, "a metre deep" — so it is a review list rather than a gate, and
+the two above were found by eye inside it. **Two shapes in it are worth looking for deliberately**: a
+sentence carrying BOTH a metric and an imperial unit after the imperial pass (a mangled run, or a
+shared-unit pair missing its bracket), and a bracket written the wrong way round — `gw-503` writes
+"1,004 acres (406 hectares)", imperial first, which shows both figures to everyone.
