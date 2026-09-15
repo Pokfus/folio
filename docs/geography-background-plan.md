@@ -347,6 +347,68 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-15, batch H7 — five cards whose history begins in deep time, and the measure taught to see
+  it**: `gw-036` Afghanistan, `gw-027` Myanmar, `gw-024` South Africa, `gw-022` Tanzania and `gw-026`
+  Kenya. Their history blocks opened at 1919, 1885, 1910, 1961 and 1895; they now open at 25 CE, 1044,
+  97,974 BCE, 3.66 Mya and 3.3 Mya. Rules 1-4 stay at zero; 5b went 386 to 377 and 5c 353 to 345.
+
+  · **THE MEASURE WAS BLIND TO THE ONE SHAPE A HISTORY BLOCK REACHES FURTHEST BACK IN, and that is what
+    this batch fixed before it wrote a card.** `geo-history-audit.js`'s parser read BCE, CE, centuries,
+    millennia and four-digit years - and nothing else - so a block opening "at Laetoli about 3.66
+    million years ago" carried no date it could see, took its earliest date from whatever modern year
+    came next, and reported as beginning after 1800. That is a permanent false finding on exactly the
+    cards that answer rule 5 best. It now reads **Mya, kya, BP and "years ago"**, the notations
+    `cardYears` already reads on a date line.
+  · **IT IS A WIDENING RATHER THAN A LOOSENING, AND THAT WAS PROVED BY DIFFING THE LISTS.** Reading more
+    dates can only push a block's earliest date earlier and its span wider, so it can only take a card
+    OUT of 5b or 5c. Measured across all three collections before and after: **four cards left 5b
+    (`gw-186`, `gw-207`, `gw-209`, `gw-539`), three left 5c, and nothing entered either list** - four
+    already-shipped cards that had been reporting a fault they did not have.
+  · **A "YEARS AGO" FIGURE IS SUBTRACTED FROM A DATUM, NEVER NEGATED, and that is the whole of what
+    made the widening safe.** Read as a bare negative, "150 years ago" comes back as the year 150 BCE
+    and a block that really begins in 1876 passes 5c - the one way this change could have created a
+    false pass. BP is before 1950 by its own definition; the rest are before now, and at Mya and kya
+    scales the choice of datum is noise.
+  · **THE CORPUS'S PALAEOLITHIC CARDS ARE THE CHEAPEST DEEP END IN AFRICA - H2's finding on a third
+    continent.** Tanzania's block opens on `wh-011` Laetoli and `wh-017` Olduvai, Kenya's on `wh-014`
+    Lomekwi and `wh-021` Turkana Boy, South Africa's on `wh-058` Blombos: five cards' worth of cited,
+    Crossref-checked, openable sources already written and already read by somebody.
+  · **ONE PAPER CAN CARRY THE MIDDLE OF TWO CARDS, AND THE SENTENCES MUST STILL DIFFER.** Brielle et
+    al.'s Swahili-coast genomes serve both Kenya and Tanzania, and the drafts said nearly the same
+    thing twice - which inside one deck is two cards a reader meets in the same week repeating a
+    sentence. They now take different facts from the same paper: the African and Asian families mixing
+    by about 1000 CE on one, the coral-stone towns and the early adoption of Islam on the other.
+  · **A GUESSED PMCID RETURNS A DIFFERENT PAPER, AND THIS ONE RETURNED A REVIEW OF ALCOHOL-ASSOCIATED
+    LIVER DISEASE.** The Swahili paper is PMC10060156; PMC10060166 is one digit away, resolves with a
+    200 and is a real article about something else. CLAUDE.md warns about exactly this and it still cost
+    a fetch. **Take the id from Europe PMC's own record for the DOI**, never from arithmetic.
+  · **A SHIPPED CITATION'S URL CAN GO DOWN AFTER IT SHIPS.** `wh-011`'s Laetoli citation points at
+    Europe PMC's `webservices/rest/.../fullTextXML` endpoint, which answered **504 on every attempt**
+    across this batch while the same paper's PMC article page answered 200 every time. This batch's own
+    copy uses the article page. **The `wh-` card still carries the dead address**, and a sweep of the
+    corpus's `fullTextXML` citations is a pass of its own.
+  · **BELLEW IS CITED FOR A CORONATION AND FOR NOTHING ELSE.** *Afghanistan and the Afghans* (1879) is
+    the only openable work found here that dates Ahmad Shah's crowning near Kandahar to about 1747, and
+    it is a Victorian frontier officer's book that calls Islam "an exclusive and intolerant" creed a
+    page earlier. **A source can be the right witness to a date and no witness at all to anything else**
+    - H6's reading of Budge, one country over.
+  · **A HISTORICAL FRONTIER IS RULE 4's OWN EXCEPTION AND THE MEASURE STILL FIRES ON IT.** Myanmar's
+    draft said the Konbaung kings "pushed its frontiers outward, which brought them up against the
+    expanding power of British India" - a historical mention, which rule 4's header allows, and which
+    `BORDERISH` cannot tell from a neighbour list. Rewording *frontiers* to *reach* was cheaper and
+    read better than an `ADJUDICATED` row. **Prefer the reword; keep the table for a finding that
+    rewording would damage.**
+  · **TWO CARDS WERE DEFERRED AND THE TWO REASONS ARE DIFFERENT.** `gw-016` **Vietnam**: its deep end
+    rests on Toda's *Annam and Its Minor Currency*, whose archive.org text layer is unusable - the scan
+    is a rotated, table-heavy book and the OCR is noise - so the claims cannot be verified from it even
+    though `wh-559` already cites it; it needs another edition or another work. `gw-033` **Algeria**:
+    nothing openable from here carries the Arab conquest and the Berber dynasties of the CENTRAL
+    Maghreb. Lane-Poole's Egypt book reaches Kairouan in 910 and Kairouan is in Tunisia, so citing it
+    for Algeria's Islamic centuries would be asserting Tunisian history as Algerian; its Numidian end
+    (Livy and Sallust, through `rm-230` and `rm-293`) and its Ottoman and French end are both ready and
+    waiting on that one sentence. **Both are SOURCE gaps rather than research not yet done, which is
+    why they are written down rather than left to be re-derived.**
+
 - **2026-09-15, batch H6 — six of the world deck's best-covered countries, and a reversed claim found
   while rewriting its neighbour**: `gw-034` Iraq, `gw-030` Sudan, `gw-021` United Kingdom, `gw-023`
   France, `gw-019` Germany and `gw-032` Spain. Their history blocks now open at 3500 BCE, 5000 BCE,

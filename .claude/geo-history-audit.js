@@ -93,6 +93,31 @@ function years(text) {
   eat(/(\d+)(?:st|nd|rd|th)\s+century\s+BCE/gi, (_, n) => -(Number(n) * 100 - 50));
   eat(/(\d+)(?:st|nd|rd|th)\s+millennium(?:\s+CE)?/gi, (_, n) => (Number(n) - 1) * 1000 + 500);
   eat(/(\d+)(?:st|nd|rd|th)\s+century(?:\s+CE)?/gi, (_, n) => (Number(n) - 1) * 100 + 50);
+  /* DEEP TIME, in the notations `cardYears` already reads on a date line — Mya, kya, BP and
+     "years ago" (Sep 2026, batch H7).
+     THE MEASURE WAS BLIND TO THE ONE SHAPE A HISTORY BLOCK REACHES FURTHEST BACK IN. A block
+     opening "three walkers crossed wet ash at Laetoli about 3.66 million years ago" carried no
+     date this function could see, so its earliest date was whatever modern year came next and it
+     reported as beginning after 1800 — a permanent false finding on exactly the cards that answer
+     rule 5 best. Tanzania, Kenya and South Africa each open that way.
+     IT IS SAFE IN THE DIRECTION THE HEADER CARES ABOUT. Every form here is EXPLICIT, carrying a
+     unit word or "years ago", where the standing refusal to read a bare three-digit year exists
+     because a bare 712 is as often a rainfall figure. And reading more dates can only push a
+     block's earliest date earlier and its span wider, so it can only ever take a card OUT of 5b
+     or 5c and never put one in — which is what makes it a widening rather than a loosening.
+     A RANGE CARRIES ITS UNIT LEFTWARDS, exactly as an era marker does below. */
+  /* A "years ago" FIGURE IS PRESENT-RELATIVE AND IS SUBTRACTED, never negated. Read as a bare
+     negative, "150 years ago" comes back as the year 150 BCE and a block that really begins in
+     1876 passes 5c — the one way this widening could have created a false pass, and the reason
+     the datum is stated rather than left at zero. BP is before 1950 by its own definition; the
+     rest are before now, and at Mya and kya scales the choice of datum is noise. */
+  const deepNum = (n, mult, datum) => Math.round(datum - Number(String(n).replace(/,/g, "")) * mult);
+  const DEEP_UNIT = "(?:million\\s+years\\s+ago|Mya|thousand\\s+years\\s+ago|kya|cal\\s+BP|BP|years\\s+ago)";
+  const deepScale = (m) => (/million|Mya/i.test(m) ? 1e6 : /thousand|kya/i.test(m) ? 1e3 : 1);
+  const deepDatum = (m) => (/BP/.test(m) ? 1950 : 2026);
+  s = s.replace(new RegExp("(\\d[\\d.,]*)\\s*(?:and|to|\\u2013|\\u2014|-)\\s*(\\d[\\d.,]*)\\s*" + DEEP_UNIT, "gi"),
+    (m, a, b) => { const k = deepScale(m), d = deepDatum(m); out.push(deepNum(a, k, d), deepNum(b, k, d)); return " ".repeat(m.length); });
+  eat(new RegExp("(\\d[\\d.,]*)\\s*" + DEEP_UNIT, "gi"), (m, n) => deepNum(n, deepScale(m), deepDatum(m)));
   /* AN ERA MARKER CARRIES LEFTWARDS ACROSS A RANGE, which is the rule `cardYears` follows on a date
      line and prose obeys just as often: "between about 1650 and 1200 BCE" is two BCE years, and read
      without this the first of them comes back as the year 1650 CE. It inflates a span rather than

@@ -775,7 +775,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     thing carrying no year — such a finding is marked `era:` with the words it found, and the ones read
     are DECLARED in the script's `ADJUDICATED` table on `gw-audit.js`'s own model. **A BARE THREE-DIGIT
     YEAR IS NOT READ** — it reads PROSE rather than a date line, where a bare 712 is as often a rainfall
-    figure, so it under-reports and never over-reports. A span is measured
+    figure, so it under-reports and never over-reports. **IT DOES READ DEEP TIME, SINCE SEP 2026** —
+    Mya, kya, BP and "years ago", the notations `cardYears` reads on a date line — because a block
+    opening "at Laetoli about 3.66 million years ago" carried no date the parser could see and reported
+    as beginning after 1800, which is a permanent false finding on the cards that answer rule 5 best;
+    it is a WIDENING and can only ever take a card out of a list, proved by diffing them. **A "years
+    ago" figure is SUBTRACTED from a datum, never negated**, or "150 years ago" comes back as the year
+    150 BCE and a block that really begins in 1876 passes. A span is measured
     between two dates, so a block naming one spans zero whether it covers a millennium or an afternoon.
     And **`gc-` does not have the shape the rule assumes** — eighteen of its 58 second blocks name no
     date at all and several of its FIRST blocks are history where the house split puts geography, so
