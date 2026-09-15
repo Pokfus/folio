@@ -490,9 +490,16 @@ What it changes, measured before and after:
 | glossary terms outside 90–110 | 2 | **4** |
 
 The two questions were repaired in the same commit, each extended by a clause from its own card's cited
-prose, because `check-questions.js` gates CI. **The 58 further cards and 2 further terms are a content
-pass of their own** — each needs a sentence extended from a source it already cites, and the Greece run
-is contiguous enough (`gr-523`–`gr-610`) to be worth one batch rather than sixty.
+prose, because `check-questions.js` gates CI. **The 58 further cards and 2 further terms were a content pass of their own.** The two terms and the
+six cards outside Greece shipped the same day, each extended from a source it already cited: `gw-136`
+gained the two entity Red Lists that stand in for the national inventory it says is missing, `gw-022`
+the height of its central plateau, `gw-069` and `gw-086` their cultivable, cultivated and desert
+shares, and `ko-063` where the most recent of its cited arguments puts Chin-bŏn. **`ko-024` was an
+accuracy fix as much as a length one**: the residue study it leans on analysed BRONZE AGE Mumun
+vessels against Jomon and Yayoi Kyushu, and the card is about NEOLITHIC comb-pattern pottery and did
+not say so — it now names the period and the cultures, and adds that the study could not identify
+rice at all. **What is left is one contiguous run, `gr-523`–`gr-610`**, worth a single batch rather
+than fifty-two.
 
 **The marker placement itself was left alone.** Moving 1,126 markers from before the stop to after it
 would make the corpus consistent with its own house form and is purely typographic, but it is a 114-card
