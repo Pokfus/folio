@@ -347,6 +347,65 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-15, batch H6 — six of the world deck's best-covered countries, and a reversed claim found
+  while rewriting its neighbour**: `gw-034` Iraq, `gw-030` Sudan, `gw-021` United Kingdom, `gw-023`
+  France, `gw-019` Germany and `gw-032` Spain. Their history blocks now open at 3500 BCE, 5000 BCE,
+  2500 BCE, 58 BCE, 800 CE and 218 BCE against 1930, 1956, 1707, 1789, 1871 and the 16th century. Rules
+  1–4 stay at zero; 5b went 391 → 386 and 5c 355 → 353. Twenty-eight of this batch's thirty-one new
+  citations came out of Folio's own cards, which is H2's finding for the fourth time.
+
+  · **THE SOURCE LIST'S ORDER IS NOT FREE, BECAUSE BLOCK 1'S MARKERS ARE FIXED.** A rewrite replaces the
+    whole `sources` array while leaving block 1 byte-identical, so every position block 1 points at has
+    to keep the citation it pointed at. Sudan's block 1 cites 1 and 4 — the AQUASTAT profile and the
+    ENSO paper — and the draft reordered the array around them, which `add-sources.js` reported as an
+    unreferenced source rather than as a marker now pointing at the wrong work. **Read block 1's markers
+    off the card before writing the new array**, and build the list around them.
+  · **THE MEASURE CANNOT READ A BARE THREE-DIGIT YEAR, AND THE FIX IS THE PROSE.** `geo-history-audit.js`
+    says so in its own header, and this batch is where it bit: France's block reached back to Caesar and
+    Germany's to Charlemagne, and both reported a span under 300 years because the drafts said "in the
+    50s BCE" and "in the year 800". Writing "between 58 and 50 BCE" and "800 CE" is clearer prose AND
+    readable by the script. **Prefer that to an `ADJUDICATED` row** — the table is for a block that
+    genuinely reaches back by named era with no year to give, not for one whose year is simply written
+    in a form the parser was built not to guess at.
+  · **A CARD CAN PASS BOTH PROXIES AND STILL BE THE WRONG SHAPE, and `gw-032` Spain is the standing
+    example.** Its old block named "the 16th century" and "the end of the 19th", which the parser reads
+    as 1550 and 1850 — a span of 436 years beginning before 1800, so it was in neither list — while its
+    history began with the overseas empire and said nothing of Altamira, Rome, the Visigoths, al-Andalus
+    or Granada. **The lists are a floor, not a census**: pick a batch by reading the deck, and use the
+    lists to catch what reading misses.
+  · **A REVERSED CLAIM IS INVISIBLE TO EVERY CHECK IN THE PIPELINE, AND ONE SHIPPED.** `gw-013` Egypt
+    said the New Kingdom "reached far south into Nubia, whose ores can be traced in Egyptian cosmetics
+    by the lead isotopes they carry"; Lemos et al. find the opposite — galena from the Egyptian mines at
+    Gebel el-Zeit in kohl buried in Lower Nubia. The URL opens, the authors are right, the marker points
+    at a real source, and `check-citations.js` has nothing to compare. It is corrected in this batch.
+    **When a rewrite reuses a neighbour's citation, read the paper rather than the sentence that cites
+    it.**
+  · **BUDGE'S `The Egyptian Sûdân` CARRIES THE WHOLE SUDANESE ARC AND ITS PREFACE IS THE CHEAPEST WAY
+    IN** — vol. 1, vii–ix gives the Egyptian monuments from about 4000 BCE, the Nubian kingdom under
+    Piankhi about 750 BCE, Silko's Christian kingdom at Dongola and its seven hundred years, and the
+    Arab conquest about 650 CE; vol. 2 gives the Funj at Sennar, Muhammad Ali's conquest in 1820,
+    Khartoum on 26 January 1885 and Omdurman on 2 September 1898, at pages 199–200, 211, 254 and 447.
+    **CITE IT FOR ITS DATES AND NEVER FOR ITS FRAMING**: it is an Edwardian British account of a war
+    Britain had just won, and it calls the Mahdist side rebels and Dervishes on every page.
+  · **THE UN MEMBERSHIP DATE HAS AN OPENABLE HOME AGAIN.** Every `data.un.org/en/iso/<cc>.html` in the
+    deck is a 404 — recorded in H2 and still a pass of its own — and `un.org/en/about-us/member-states`
+    prints each state's date of admission in one page (Iraq 21-12-1945, Sudan 12-11-1956, the United
+    Kingdom and France 24-10-1945, Spain 14-12-1955, Germany 18-09-1973). **Where a rewrite touches a
+    sentence resting on the dead link, swap it**; where it does not, leave it to that pass.
+  · **MDPI IS WALLED FROM HERE AND SCIENCE.ORG IS TOO, BUT ONLY ONE OF THEM HAS A WAY ROUND.** `mdpi.com`
+    answers 403 to curl and to WebFetch alike, so no new MDPI citation could be added in this batch (the
+    ones already shipped are a different question and stay). `doi.org/10.1126/sciadv.abc0133` also 403s,
+    and the same paper is whole at `pmc.ncbi.nlm.nih.gov/articles/PMC7439454/` — the standing route, and
+    the reason the Stonehenge citation is written to PMC.
+  · **TWO SOURCES FOUND FOR SUDAN THAT THE CORPUS DID NOT HAVE, both English and both open**: Abdalla's
+    review of female figurines in *Southern African Field Archaeology* 19 (2024), which is the only
+    reachable thing giving the Sudanese Neolithic and Meroitic date ranges outright (5000–2800 BCE and
+    to about 350 CE); and Nadig's *Bryn Mawr Classical Review* of Welsby's *The Medieval Kingdoms of
+    Nubia*, which dates the Muslim invasions to 1276 and Makuria's first Muslim ruler to 1323. **The
+    French-language Persée literature on Kush and Meroë is excellent and you may take exactly one of
+    it** — `check-cards.js` rule 6 reports two sources in the same non-English language — so Rilly on
+    the decipherment is the one Sudan spends.
+
 - **2026-09-15, batch H5 — one card, to prove the rule on the THIRD collection and to find out what that
   collection actually costs**: `gc-002` Shandong, whose history block ran 1898 to 1919 and now runs from
   the Longshan towns of about 3000 BCE to the Treaty of Versailles, a span of 4,899 years. Its date line
