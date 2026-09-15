@@ -308,10 +308,23 @@ Ten bullets, in the order they appeared in CLAUDE.md:
   **Known gap:** the `PAGE_META` titles/descriptions have no `i18n/ui-<lang>.js` entries yet, so `document.title` stays
   English in other languages (the documented graceful fallback). Adding them is a content task.
 - **UI sound effects** (the `/* UI sound effects */` block in app.js): tiny synthesized Web-Audio sounds, no files —
-  **`click` and `toggle` are a soft TAP since Aug 2026** (`sfxTap` / `sfxNoiseBuf`, on request: "something more
+  **`click` IS A SOFT BUBBLE POP since Sep 2026** (`sfxBubble`, on request: "replace the default clicking sound
+  effect we have with a soft bubble pop sound effect") — two sines whose pitch glides UP and then HOLDS,
+  and no noise at all, because a bursting bubble is a pitched event rather than a transient and any noise at
+  the onset is exactly the crispness the request asked to be rid of. **`dur` is not the audible length, and
+  that is the trap it was written wrong in first**: the gain ramps exponentially to 0.0001, so the sound is
+  at 3% of peak a third of the way through `dur`, and a glide landing at 55% of it arrives where nobody can
+  hear the bubble — a swoop rather than a pop. `rise` is 0.2, and both readings were **measured by rendering
+  the shipped call through an OfflineAudioContext**: at 0.55 the pitch is still climbing at 42ms and 3% of
+  peak; at 0.2 it reaches the top note by 26ms with a quarter of the level left and holds it through the
+  tail (peak 0.056, 69ms of it above 2% of that). Re-derive `rise` if the decay shape changes. The quieter
+  partial an octave up — `sfxBubble` is called twice — sharpens the attack and dies first, which is what
+  keeps a pure-tone pop from sounding hollow without putting a transient back into it.
+  **`toggle`, the chest lid and the common loot are a soft TAP since Aug 2026** (`sfxTap` / `sfxNoiseBuf`, on
+  request: "something more
   akin to a low soft tapping sound than a high chirp"): a short burst of noise with a light body under it,
   which is what a finger on wood actually is — a broadband transient that dies at once, with no pitch to
-  speak of. A pure oscillator cannot make one, which is why the old click was a triangle sliding
+  speak of. A pure oscillator cannot make one, which is why the click before it was a triangle sliding
   1900 → 1300 Hz. **The filter is a BANDPASS, and that is the second correction** (Aug 2026, on a report that
   the tap had become "a low thud"): a low-pass at 780 Hz keeps everything BELOW it, so most of what was left
   was rumble, and under it sat a sine falling 190 → 120 Hz — which is a bass drum, not a fingertip. A
@@ -321,7 +334,7 @@ Ten bullets, in the order they appeared in CLAUDE.md:
   gains are LARGER than the low-pass version's for a quieter result, a band being less energy than
   everything below a corner. `sfxTap` deliberately has **no attack ramp** where `sfxTone` does: a tap starts
   at full level on its first sample, and a 5ms fade-in turns it into a small swell. The noise buffer is
-  built once and reused; a click is by a wide margin the most frequently played sound on the site. —
+  built once and reused, a toggle being played often enough to notice. —
   `sfx(name)` with click / toggle / pop / good / bad / win / **discover** (a term or place opened for the first
   time — see the discovery-marks bullet above), played by ONE delegated **capture-phase** click listener
   (so a handler's `stopPropagation` can't swallow the tick) that maps button-likes to sounds (grades → good/bad,

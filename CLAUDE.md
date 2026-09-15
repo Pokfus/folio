@@ -734,7 +734,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   guides, National Park Service), and the finding that `history.house.gov` serves a 200-status error
   document. The next card is the lowest `geo-NNN` not yet in `data.js`; see the "GEOGRAPHY" bullet under
   "Generating cards & glossary entries". Not part of the site.
-- `docs/world-geography-card-plan.md` — the running order for **World** (`geo-world`, the second
+- `docs/world-geography-card-plan.md` — the running order for **World Geography** (`geo-world`, the second
   collection of the Geography SECTION), and the second plan that is not a thousand cards: it is **471
   cards** — 233 countries and territories (`gw-001`–`gw-233`) and 238 capitals (`gw-501`–`gw-733` with
   seven numbers deliberately unused, plus `gw-751`–`gw-762` for the extra seats of the eleven countries
@@ -1203,7 +1203,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.31 MB and 48,457 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.32 MB and 48,635 lines is hard to find your way around, so this
   lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -4148,8 +4148,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   point** — it validates, persists, and calls `loadLangData()` first, since the tables are lazy and
   per-language. **Known gap:** `PAGE_META` has no translated entries, so `document.title` stays English.
 - **UI sound effects** (the `/* UI sound effects */` block): tiny synthesized Web-Audio sounds, no files.
-  **`click` and `toggle` are a soft TAP** (`sfxTap`) — a short burst of noise with a light body under it,
-  which is what a finger on wood actually is, and which a pure oscillator cannot make. **The filter is a
+  **`click` IS A SOFT BUBBLE POP** (`sfxBubble`, Sep 2026, on request) — two sines whose pitch glides UP and
+  then holds, no noise at all, since a bursting bubble is a pitched event rather than a transient and any
+  noise at the onset is exactly the crispness the request asked to be rid of. **`dur` IS NOT THE AUDIBLE
+  LENGTH, and that is the trap it was written wrong in first**: the gain ramps exponentially to 0.0001, so
+  the sound is at 3% of peak a third of the way through, and a glide landing at 55% of `dur` arrives where
+  nobody can hear it — a swoop rather than a pop. `rise` is 0.2, **measured by rendering the shipped call
+  through an OfflineAudioContext** (top note by 26ms with a quarter of the level left; peak 0.056, 69ms
+  above 2% of it). **Re-derive it if the decay shape changes.**
+  **`toggle`, the chest lid and the common loot are still a soft TAP** (`sfxTap`) — a short burst of noise
+  with a light body under it, which is what a finger on wood actually is, and which a pure oscillator cannot
+  make. **The filter is a
   BANDPASS, and that is the second correction**: a low-pass keeps everything BELOW it, so the first version
   was mostly rumble over a sine falling 190→120 Hz — a bass drum, not a fingertip. A bandpass keeps a band,
   so the tap has a MATERIAL rather than a weight; **nothing goes below 500 Hz**, both parts are under 32ms,
@@ -4819,6 +4828,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   line is for, and the reader's tally is on the account page, read on purpose rather than glanced at over a
   map. The Atlas's own `geoNameSet` / `countriesSeenCount` went with it — `placesSeen` is still written and
   `countrySeenCount` still reports it.
+- **A GLOSS LINK IN AN ATLAS POPUP IS DEAD FOR A SECOND AFTER THE PANEL MOVES** (`CP_GLOSS_ARM_MS` /
+  `cpArmGloss` / `cpGlossArmed`; Sep 2026, on request: "when an atlas popup opens, or is uncollapsed,
+  there should be a 1 sec delay before a user can click any gloss links"). The panel arrives under the
+  finger that summoned it, and the sheet grows UPWARD past that finger when the chevron opens it — so the
+  tap that opened a place, or the one that pressed the chevron, lands a moment later on whatever prose has
+  just slid beneath it. Of everything on the panel a glossary term is the one that punishes that: it raises
+  a modal window with a scrim over the map the reader was pointing at. **IT IS A CAPTURE LISTENER ON THE
+  PANEL**, not a flag inside `setupTooltips`, so every other surface goes on opening its terms exactly as
+  it did and nothing outside those few lines has to know the rule exists. **CLICKS ONLY, DELIBERATELY**: a
+  keyboard reader has to tab to a term to reach it, which is not a mis-tap, and a key that silently does
+  nothing for a second is worse than the accident it prevents. **THREE CALL SITES ARM IT** — both popups'
+  `hidden = false` and `cpSetShut(false)` — and the third is its own to lose, so `test-personal-atlas.js`
+  section 10 presses the chevron at phone width rather than trusting it.
 - **THE ATLAS PLACE PANEL'S BREAKPOINT IS DECLARED ONCE, IN CSS** (`--cp-sheet` on `.country-pop`, read
   back by `cpSheetMode()`; Aug 2026, on request that tablets get the phone's sheet). It was a
   `matchMedia("(max-width:720px)")` in app.js beside a `@media (max-width:720px)` in the stylesheet — one
@@ -4883,7 +4905,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `node .claude/build-era.js <year> [label]` and edited in **Admin → Timeline → Open globe editor**.
   · **YOUR OWN ATLAS — A SECOND TAB, AND THE ONE THE PAGE OPENS ON** (`atlasTab` / `MINE` /
     `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
-    `drawMineMarks` / `mineCoastSkip` / `landDim` / `showMinePopup` / `eraIsModern` / `.atlas-tabs` /
+    `drawMineMarks` / `mineCoastSkip` / `mineCoastCut` / `mineDotRects` / `landDim` / `showMinePopup` /
+    `eraIsModern` / `.atlas-tabs` /
     `.atlas-empty` / `.cp-mine`). The globe starts EMPTY — land, ocean, lakes, rivers and coast, and no
     border, dot or name anywhere — and studying a card is what puts a place on it.
     **THE REGISTER IS DERIVED FROM `S.cards`, NEVER STORED**: a place is unlocked iff its card has a
@@ -4923,12 +4946,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     in the marks' red, and CLIPPED TO THE LAND with a `ctx.clip()` rather than the card maps' second
     canvas, since it runs only in a frame that HAS a live civilisation in it. **A RIVER IS NEITHER A DOT
     NOR A NAME**, being drawn already as one of the Atlas's blue threads. **EVERYTHING DRAWN ANSWERS A
-    CLICK**: dot, culture, province, country, in that order of how specific a claim each is.
+    CLICK**: dot, culture, province, country, in that order of how specific a claim each is —
+    **and a place's NAME answers one too** (`mineDotRects`, Sep 2026, on request), which is the bigger half
+    of the target: a dot is three or four pixels beside a word several times its width, and the word was the
+    only thing on this layer that did nothing, so a reader aiming at *Olduvai Gorge* hit the name and got
+    silence. The box is RECORDED BY THE PASS THAT DRAWS IT, `mineWaterRects`' own rule — a name is placed to
+    the right of its dot or to the left, and only that pass knows which side it took. It is tried after the
+    marks and before the water, so a press between two names reaches the one whose DOT it is nearest.
+    Measured: the target went from 18px wide to 54px.
     **THE STRAY BORDERS ARE THE COAST CLASSIFIER'S GENEROSITY, AND THE FIX IS A MASK** (`mineCoastSkip`):
     `coastEdges` calls an unshared chain a coast if OCEAN is within its bbox plus 1.2°, which on the world
     atlas nobody could see because a border is drawn there anyway. The discriminator is `coastEdges`'s own,
     two DIFFERENT countries across the chain; **a shortcut that skipped CLOSED loops was tried and
     removed**, a country's whole outline chaining as one closed loop.
+    **…AND THE ONES THAT ARE NOT A WHOLE CHAIN, WHICH NO WHOLE-CHAIN TEST CAN REACH** (`mineCoastCut`, Sep
+    2026, on a bug report naming lines across Egypt, Arabia, Tanzania, Senegal and the Gulf of California).
+    world.js's straight desert and colonial borders are traced by BOTH countries a hundredth of a degree
+    apart, so neither edge cancels and the chain builder threads the surviving pair into whatever coast it
+    meets — the Kenya/Tanzania line rides inside the ONE chain carrying the whole Afro-Eurasian coastline.
+    **THE SIGNATURE IS A SEGMENT WITH A REVERSE TWIN**, which a real shore never has, found by hashing each
+    long segment on its midpoint. **AND THAT IS STILL NOT ENOUGH: 244 of the 259 pairs are REAL** — a fjord,
+    an estuary or a strait simplified to 2dp collapses to the same hairline (the Hardangerfjord, the Rosetta
+    branch of the Nile, the neck of Lake Maracaibo) — so a pair is cut only where `mineCoastSkip`'s own
+    discriminator agrees, TWO DIFFERENT COUNTRIES across it. 30 segments of 7,473, every one a named
+    straight border. **MEASURE IT OVER THE CHAINS THAT ARE DRAWN**, which is what its own `skip[k]` line
+    makes it: the first figures written here were taken without that line and named borders this pass never
+    sees, `mineCoastSkip` having already dropped those chains whole. **THE FLOOR IS 0.3° AND BOTH HALVES MUST CLEAR IT**: a first cut at 0.4° left the
+    Arava, traced 0.48° down and 0.39° back, with only one half a candidate and so HALF the spike still
+    drawn — which reads as a stray exactly as the whole one did. **Set a floor by the SHORTER half.**
+    It returns PIECES rather than a mask, so `coastCaps()` stays indexed in step with `coastEdges()`.
     **THE POPUP SAYS NOTHING THE CARD ALREADY SAYS** (`.cp-mine`), taken off by a stylesheet class rather
     than by four writes — the title bar has to come BACK when the sheet is collapsed, and the "Answer"
     label is inside markup `showMinePopup` does not build. The name is still WRITTEN, being what a
@@ -5428,7 +5474,7 @@ lookup.
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
-| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
+| World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
@@ -6447,7 +6493,8 @@ division-capital city tier are inert dead code.
     noise, where zoomed it is 526. **A province's dotted border is asserted through the CLICK LADDER**
     rather than by counting dashes. **Label ink must be ZERO.** **Re-run after touching `atlasTab` /
     `MINE` / `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
-    `drawMineMarks` / `drawMineAreas` / `MINE_POLITY` / `areaBBox` / `mineCoastSkip` / `landDim` /
+    `drawMineMarks` / `drawMineAreas` / `MINE_POLITY` / `areaBBox` / `mineCoastSkip` / `mineCoastCut` /
+    `countryAtLL` / `mineDotRects` / `CP_GLOSS_ARM_MS` / `cpArmGloss` / `cpSetShut` / `landDim` /
     `mineFounded` / `mineDotsShown` / `MINE_SEP` / `MINE_LBL_Z` / `mineAreaFill` / `mineAreaLine` /
     `MINE_STARTS` / `mineStart` / `setMineRange` / `tickList` / `tickHTML` / `renderMapYearMarks` /
     `showMinePopup` / `eraIsModern` / `renderStatic`'s MINE branch / `updateHoverName` / `snapYear` /

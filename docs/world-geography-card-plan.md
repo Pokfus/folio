@@ -1,6 +1,6 @@
-# World — the card plan
+# World Geography — the card plan
 
-The collection is **World** (`geo-world`, renamed from *The world* in Sep 2026 on request), the second of the Geography SECTION on the Collections
+The collection is **World Geography** (`geo-world`, renamed from *The world* and then from *World*, both in Sep 2026 on request), the second of the Geography SECTION on the Collections
 page, beside **United States** (`geo-us`). It is **470 cards in two decks**: **The countries and
 territories** (`geo-world-countries`, `gw-001`–`gw-233`) and **The capitals**
 (`geo-world-capitals`, `gw-501`–`gw-733` with seven numbers deliberately unused, plus `gw-751`–`gw-762`

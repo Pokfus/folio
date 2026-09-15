@@ -1788,7 +1788,7 @@
   }
 
   /* ---------- UI sound effects — synthesized with the Web Audio API (no files, zero deps) ----------
-     sfx(name): click (buttons), toggle (switches), pop (reveal / image viewer), good / bad (grades),
+     sfx(name): click (buttons — a soft bubble pop), toggle (switches), pop (reveal / image viewer), good / bad (grades),
      discover (a term or place opened for the first time),
      win (level-ups, achievements, perfect games). Gated by Settings → Sound effects (S.settings.sfx,
      on by default); the shared AudioContext is created lazily and resumed inside the click gesture,
@@ -1813,8 +1813,11 @@
   }
   /* A soft TAP — a short burst of noise through a BANDPASS, plus a light body under it. A tap is a
      broadband transient that dies almost at once with no pitch to speak of, which no oscillator can
-     make; that is why the click was a noise burst rather than a tone, and why the chirp it replaced
-     (a triangle sliding 1900 → 1300 Hz) was reported as too high and too bright.
+     make; that is why it is a noise burst rather than a tone.
+     IT IS NO LONGER THE CLICK. The click was this for a year and is a bubble now (Sep 2026, on request —
+     see sfxBubble below); the toggle, the chest lid and the common loot are still taps, and the two
+     corrections below are still the reason they sound like a finger rather than a drum, so they are
+     recorded here rather than deleted with the sound that prompted them.
 
      The filter is a BANDPASS and not a low-pass, and that is the whole of the second correction
      (Aug 2026, on a report that the tap had become "a low thud"). A low-pass at 780 Hz keeps
@@ -1825,8 +1828,8 @@
      everything below a corner), so the gains here are larger than the low-pass version's for a
      quieter result.
 
-     The noise buffer is built once and re-used: allocating 0.05s of Math.random() per click is
-     wasteful, and a click is the most frequently played sound on the site by a wide margin. */
+     The noise buffer is built once and re-used: allocating 0.05s of Math.random() per press is wasteful,
+     and a toggle is played often enough to notice. */
   let _sfxNoise = null;
   function sfxNoiseBuf(ctx) {
     if (_sfxNoise && _sfxNoise.sampleRate === ctx.sampleRate) return _sfxNoise;
@@ -1850,16 +1853,52 @@
       src.start(t0); src.stop(t0 + dur + 0.02);
     } catch (e) {}
   }
+  /* A SOFT BUBBLE POP (Sep 2026, on request: "replace the default clicking sound effect we have with a
+     soft bubble pop sound effect"). A bursting bubble is a PITCHED event, not a transient: the shell
+     collapses inward, the cavity shrinks, and the note it rings at rises with it — which is why this is
+     built out of oscillators where the tap it replaces was a burst of filtered noise.
+
+     THE RISE HAS TO FINISH WHILE THE SOUND IS STILL AUDIBLE, and that is the whole reason this is a
+     function rather than another `sfxTone` line. `sfxTone` glides across its entire duration, which at any
+     length a click can afford reads as a small "wheee" — an arcade blip. A bubble's pitch is DONE rising
+     while it is still sounding, and the tail then holds the note it arrived at; that held tail is the
+     difference between a pop and a swoop.
+
+     AND `dur` IS NOT THE AUDIBLE LENGTH, which is the trap this was written wrong in first. The gain
+     ramps exponentially to 0.0001, so the sound is already at 3% of its peak a third of the way through
+     `dur` — a `rise` of 0.55 therefore lands the top note at 3% and nobody ever hears the bubble arrive.
+     MEASURED, by rendering the shipped call through an OfflineAudioContext: at rise 0.55 the pitch is
+     still climbing at 42ms and 3% (417 → 1167 Hz all the way down the decay); at 0.20 it reaches 1167 Hz
+     by 26ms with a QUARTER of the level left and holds it for the 40ms after that. Peak 0.056, and 69ms
+     of it above 2% of that peak. If the decay shape ever changes, re-derive `rise` from it rather than
+     keeping this number: it is a fraction of a duration most of which is already inaudible.
+
+     AND NO NOISE AT ALL, deliberately. A few milliseconds of bandpassed noise at the onset is what the
+     film breaking sounds like and it is what would make this CRISP — which is the quality the request is
+     asking to be rid of. What keeps it from sounding hollow instead is the quieter partial an octave up
+     (`sfxBubble` is called twice): it sharpens the attack, then dies first, leaving the round fundamental
+     alone in the tail. Volumes stay in the house's tiny range — a click is the most-played sound here by
+     a wide margin, and the one that has to survive being heard a thousand times. */
+  // `rise`: where in `dur` the glide lands, as a fraction — small, for the reason above
+  function sfxBubble(ctx, t0, f0, f1, dur, vol, rise) {
+    try {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sine";
+      o.frequency.setValueAtTime(f0, t0);
+      o.frequency.exponentialRampToValueAtTime(f1, t0 + dur * (rise || 0.2));
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.linearRampToValueAtTime(vol, t0 + 0.004);   // fast, but not instant: a tap starts on the first sample, a bubble swells for a few ms
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(t0); o.stop(t0 + dur + 0.02);
+    } catch (e) {}
+  }
   function sfx(name) {
     if (!sfxEnabled()) return;
     const ctx = sfxCtx(); if (!ctx) return;
     const t = ctx.currentTime + 0.001;
-    /* A soft, dry tap. The band at ~1.9 kHz is the contact — the part the ear reads as a fingertip on
-       something hard — and the short 560 Hz sine under it is the surface answering, a woody resonance
-       rather than a weight. Both are BRIEF (28ms and 32ms): what separated a tap from a thud in the
-       version this replaces was as much the decay as the pitch. Nothing here goes below 500 Hz, which
-       is deliberate — the sub-bass body is exactly what was reported as a thud. */
-    if (name === "click") { sfxTap(ctx, t, 1900, 0.028, 0.075); sfxTone(ctx, t, 560, 0.032, 0.02, "sine", 430); }
+    // the bubble itself, and a quieter one an octave above it that dies first — see sfxBubble
+    if (name === "click") { sfxBubble(ctx, t, 320, 1150, 0.11, 0.05, 0.2); sfxBubble(ctx, t, 640, 2300, 0.06, 0.012, 0.2); }
     else if (name === "toggle") { sfxTap(ctx, t, 2300, 0.026, 0.07); sfxTone(ctx, t, 660, 0.03, 0.018, "sine"); sfxTone(ctx, t + 0.05, 880, 0.05, 0.022, "sine"); }
     else if (name === "pop") sfxTone(ctx, t, 460, 0.1, 0.06, "sine", 940);
     else if (name === "good") { sfxTone(ctx, t, 660, 0.09, 0.05, "sine"); sfxTone(ctx, t + 0.08, 880, 0.13, 0.05, "sine"); }
@@ -38076,8 +38115,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       b.setAttribute("aria-expanded", open ? "true" : "false");
       b.setAttribute("aria-label", open ? "Hide this place's details" : "Show this place's details");
     }
+    /* ---- A GLOSS LINK IS DEAD FOR A MOMENT AFTER THE PANEL MOVES (Sep 2026, on request: "when an atlas
+       popup opens, or is uncollapsed, there should be a 1 sec delay before a user can click any gloss
+       links") ----
+       The panel arrives under the finger that summoned it, and the sheet grows UPWARD past that finger
+       when the chevron opens it — so the tap that opened a place, or the one that pressed the chevron,
+       lands a moment later on whatever prose has just slid beneath it. Of everything on this panel a
+       glossary term is the one that punishes that: it raises a modal window with a scrim over the map the
+       reader was pointing at, which they then have to dismiss to get back to where they were.
+       IT IS A CAPTURE LISTENER ON THE PANEL, not a flag inside `setupTooltips`: every other surface on the
+       site goes on opening its terms exactly as it did, and nothing outside these few lines has to know
+       this rule exists.
+       CLICKS ONLY, DELIBERATELY. A keyboard reader has to tab to a term to reach it, which is not a
+       mis-tap — and a key that silently does nothing for a second is worse than the accident it prevents. */
+    const CP_GLOSS_ARM_MS = 1000;
+    let cpGlossAt = 0;
+    const cpArmGloss = () => { cpGlossAt = Date.now(); };
+    const cpGlossArmed = () => Date.now() - cpGlossAt >= CP_GLOSS_ARM_MS;
     function cpSetShut(v) {
       cpShut = !!v;
+      if (!cpShut) cpArmGloss();   // …and the same again when the chevron reveals the prose (shutting uncovers nothing)
       cpApplyH(true);
     }
     /* `cpFitH` stood here and re-fitted the sheet after a SWIPE — the ceiling had moved because the page
@@ -38248,6 +38305,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (cpColsEl) { try { wireFootnotes(cpColsEl); } catch (err) {} }
       cpEl.classList.remove("cp-mine");
       cpEl.hidden = false;
+      cpArmGloss();
       // A fresh entity starts at the top of its own panel. The popup element is REUSED, so without this the
       // scroller keeps wherever the previous country left it, and the next place opens part way down
       // somebody else's paragraph.
@@ -38304,6 +38362,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         cpResize();   // the body just changed height — re-fit the sheet
       });
       cpEl.hidden = false;
+      cpArmGloss();
       cpResize();
     }
 
@@ -38786,14 +38845,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        that an island's outline comes back to where it started while a border runs junction to junction,
        and it took the fix to zero: a country's WHOLE outline chains as one closed loop, its coast and its
        unshared border together, which is why these strays are chains that are mostly coast. */
+    /* WHICH COUNTRY IS AT A LON/LAT, or -1 for sea — `countryAt`'s question asked in DEGREES rather than
+       in canvas pixels. Both of the masks below turn on it and it is declared once rather than copied
+       into each: it is `BBOX` and `pointInRings`, which the module already keeps for the hit test, so the
+       copy it replaces was also walking the whole of world.js a second time to rebuild boxes that exist. */
+    const countryAtLL = (lo, la) => { for (let g = 0; g < GEO.length; g++) { const b = BBOX[g]; if (lo < b[0] || lo > b[2] || la < b[1] || la > b[3]) continue; if (pointInRings(GEO[g].p, lo, la)) return g; } return -1; };
     let _mineSkip = null;
     function mineCoastSkip() {
       if (_mineSkip) return _mineSkip;
       const ce = coastEdges();
       const skip = new Uint8Array(ce.length);
-      const gbb = GEO.map((g) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const r of g.p) for (const p of r) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; } return [x0, y0, x1, y1]; });
-      const inRingPt = (lon, lat, ring) => { let c = false; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1]; if (((yi > lat) !== (yj > lat)) && (lon < (xj - xi) * (lat - yi) / (yj - yi) + xi)) c = !c; } return c; };
-      const countryAt = (lo, la) => { for (let g = 0; g < GEO.length; g++) { const b = gbb[g]; if (lo < b[0] || lo > b[2] || la < b[1] || la > b[3]) continue; const rings = GEO[g].p; let ins = false; for (let r = 0; r < rings.length; r++) if (inRingPt(lo, la, rings[r])) ins = !ins; if (ins) return g; } return -1; };
+      const countryAt = countryAtLL;
       const PROBE = 0.15;
       const sides = (line, i) => {   // the two countries across the chain at vertex i, or null where it has no normal
         const a = line[i - 1], b = line[i + 1], q = line[i];
@@ -38817,6 +38879,95 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (pts && bord / pts >= 0.4) skip[k] = 1;
       }
       return (_mineSkip = skip);
+    }
+    /* ---------- AND THE STRAYS THAT ARE NOT A WHOLE CHAIN (Sep 2026, on a bug report: "there are some
+       stray lines on the personal atlas", with ruler-straight lines across Egypt, Arabia, Tanzania,
+       Senegal and the Gulf of California) ----------
+       The mask above drops a chain that is a border from end to end. These are the same fault one level
+       down, and no whole-chain test can ever reach them: world.js's straight desert and colonial borders
+       are traced by BOTH countries a hundredth of a degree apart, so neither edge cancels, and the chain
+       builder threads the surviving pair into whatever coast it meets — the Kenya/Tanzania line rides
+       inside the ONE chain that carries the whole Afro-Eurasian coastline, 17,109 points of it. What the
+       reader sees on an empty personal atlas is a line running out across a continent and back.
+       THE SIGNATURE IS A SEGMENT WITH A REVERSE TWIN, which is a thing a real shore never has: a
+       coastline does not come back along the line it went out on. Each long segment is hashed on its
+       midpoint and asked whether a neighbour runs the other way between the same two ends.
+       AND A DOUBLED SEGMENT IS STILL NOT ENOUGH — 244 of the 259 pairs are real. A fjord, an estuary or a
+       strait simplified to 2dp collapses to exactly this hairline: the Hardangerfjord, the Rosetta branch
+       of the Nile, the neck of Lake Maracaibo, the Lena delta. So a pair is cut only where the mask
+       above's own discriminator agrees, TWO DIFFERENT COUNTRIES across it — water inside one country is
+       geography and stays, a line between two of them is the border artefact and goes.
+       MEASURED OVER THE CHAINS THAT ARE ACTUALLY DRAWN, which is what the `skip[k]` line above makes this
+       (a chain the mask has already dropped whole cannot contribute a line, and asking about its segments
+       counts a fault twice — the first figures written here were measured without it and named borders
+       this pass never sees): 7,473 long segments in the drawn chains, 259 doubled pairs, 15 of them cut,
+       which is the 30 segments below.
+       Every one of the 30 segments is a named straight border — the United States/Mexico, Western
+       Sahara/Mauritania, Kenya/Tanzania, Saudi Arabia/UAE, Jordan/Saudi Arabia, the Gambia, the Guajira,
+       the Arava, the Uruguay, the Cavally, the Rovuma.
+       THE FLOOR IS 0.3° AND BOTH HALVES OF A PAIR MUST CLEAR IT, which is what a first cut at 0.4° got
+       wrong: the Arava is traced 0.48° down one side and 0.39° back up the other, so only one half was a
+       candidate, no pair formed, and the reader was left looking at HALF the spike — which reads as a
+       stray line exactly as the whole one did. Set the floor by the SHORTER half.
+       MEASURED AT ~74ms, once, beside `mineCoastSkip`'s ~410 — the scan walks every vertex of every drawn
+       chain, and a squared length test in place of `Math.hypot` was tried and made no difference at all.
+       IT RETURNS PIECES RATHER THAN A MASK: a chain cut in the middle is drawn as the runs either side,
+       and `coastCaps()` stays indexed in step with `coastEdges()` so the cull still reads the whole
+       chain's own cap. */
+    let _mineCut = null;
+    function mineCoastCut() {
+      if (_mineCut) return _mineCut;
+      const ce = coastEdges(), skip = mineCoastSkip();
+      const out = new Array(ce.length).fill(null);
+      const MINLEN = 0.3, GRID = 0.05, PROBE = 0.15;
+      const segs = [], cell = new Map();
+      for (let k = 0; k < ce.length; k++) {
+        if (skip[k]) continue;                                    // already dropped whole
+        const line = ce[k];
+        for (let i = 0; i + 1 < line.length; i++) {
+          const a = line[i], b = line[i + 1], L = Math.hypot(b[0] - a[0], b[1] - a[1]);
+          if (L < MINLEN) continue;
+          const s = { k: k, i: i, a: a, b: b, L: L, cut: false };
+          segs.push(s);
+          const key = Math.round((a[0] + b[0]) / 2 / GRID) + "," + Math.round((a[1] + b[1]) / 2 / GRID);
+          let bucket = cell.get(key); if (!bucket) { bucket = []; cell.set(key, bucket); }
+          bucket.push(s);
+        }
+      }
+      const near = (p, q, t) => Math.hypot(p[0] - q[0], p[1] - q[1]) <= t;
+      const cuts = new Map();   // chain index → the Set of segment indices to leave out of it
+      for (const s of segs) {
+        if (s.cut) continue;
+        const tol = Math.min(0.08, s.L * 0.2);   // the two countries' copies differ by their own rounding, never by more
+        const gx = Math.round((s.a[0] + s.b[0]) / 2 / GRID), gy = Math.round((s.a[1] + s.b[1]) / 2 / GRID);
+        let twin = null;
+        for (let ox = -1; ox <= 1 && !twin; ox++) for (let oy = -1; oy <= 1 && !twin; oy++) {
+          const bucket = cell.get((gx + ox) + "," + (gy + oy)); if (!bucket) continue;
+          for (const u of bucket) {
+            if (u === s || u.cut) continue;
+            if ((near(u.a, s.a, tol) && near(u.b, s.b, tol)) || (near(u.a, s.b, tol) && near(u.b, s.a, tol))) { twin = u; break; }
+          }
+        }
+        if (!twin) continue;
+        let dx = s.b[0] - s.a[0], dy = s.b[1] - s.a[1];
+        const L = Math.hypot(dx, dy); dx /= L; dy /= L;
+        const mx = (s.a[0] + s.b[0]) / 2, my = (s.a[1] + s.b[1]) / 2;
+        const c1 = countryAtLL(mx - dy * PROBE, my + dx * PROBE), c2 = countryAtLL(mx + dy * PROBE, my - dx * PROBE);
+        if (c1 === -1 || c2 === -1 || c1 === c2) continue;        // a fjord, an estuary, a strait → real water, and it stays
+        s.cut = twin.cut = true;
+        for (const q of [s, twin]) { let S = cuts.get(q.k); if (!S) { S = new Set(); cuts.set(q.k, S); } S.add(q.i); }
+      }
+      for (const ent of cuts) {
+        const line = ce[ent[0]], S = ent[1], pieces = [];
+        let run = [line[0]];
+        for (let i = 0; i + 1 < line.length; i++) {
+          if (S.has(i)) { if (run.length >= 2) pieces.push(run); run = [line[i + 1]]; }
+          else run.push(line[i + 1]);
+        }
+        if (run.length >= 2) pieces.push(run);
+        out[ent[0]] = pieces;
+      }
+      return (_mineCut = out);
     }
     // geo-anchored whiteboard ink: each stroke = { mode:'pen'|'hl', color, size, pts:[[lon,lat],...] }
     const strokes = []; let activeStroke = null, erasing = false;
@@ -39189,6 +39340,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        The same shape `countryLabelRects` uses one layer up: what was drawn is recorded by the pass that
        drew it, rather than re-derived by the pass that has to hit-test it and quietly getting it wrong. */
     let mineWaterRects = [];
+    /* …AND THE SAME FOR A PLACE'S OWN NAME (Sep 2026, on request: "locations should not just open their
+       cards when clicking their dot, but also the text label for it"). A dot is three or four pixels of
+       red beside a word several times its width, so the word is by far the larger target and was the only
+       thing on this layer that did not answer a press — a reader aiming at Olduvai Gorge hit the name and
+       got nothing, which reads as the map being dead rather than as the dot being the target. Recorded by
+       the pass that draws it for `mineWaterRects`' own reason: a name is placed to the right of its dot or
+       to the left, and only the pass that placed it knows which side it took. */
+    let mineDotRects = [];
     /* ---------- how crowded the city layer is allowed to get (Aug 2026, on request) ----------
        Turning Cities on used to put a label on EVERY city in view, because a name that could not be placed
        cleanly was given a leader line and, failing even that, forced into its last candidate slot. At any
@@ -40011,6 +40170,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const fs = clamp(11 + (zoom - 2) * 0.9, 11, 14);
       const names = zoom >= MINE_LBL_Z;
       const boxes = [];
+      mineDotRects = [];
       ctx.save();
       ctx.font = "600 " + fs + "px " + labelFont;
       ctx.textBaseline = "middle";
@@ -40051,6 +40211,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const box = clear(rBox) ? rBox : clear(lBox) ? lBox : null;
         if (!box) continue;
         boxes.push(box);
+        mineDotRects.push({ m: m, box: box });
         const tx = box === rBox ? x + 9 : x - 9;
         ctx.textAlign = box === rBox ? "left" : "right";
         ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, tx, y);
@@ -40156,6 +40317,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (d < 196 && d < bd) { bd = d; best = dots[i].m; }  // within 14px of the mark
       }
       if (best) return best;
+      /* …AND SO DOES ITS NAME, which is the bigger half of the target (see mineDotRects). It is tried
+         immediately after the marks and before the water below, on the ladder's own rule: a place is a
+         more specific claim than the sea it stands on, and a press between two names should reach the one
+         whose DOT it is nearest rather than whichever word was drawn first, so the marks answer first. */
+      for (let i = 0; i < mineDotRects.length; i++) {
+        const b = mineDotRects[i].box;
+        if (px >= b[0] - 3 && px <= b[0] + b[2] + 3 && py >= b[1] - 3 && py <= b[1] + b[3] + 3) return mineDotRects[i].m;
+      }
       /* A WATER LABEL ANSWERS A CLICK ON THE WORD ITSELF (see drawMineMarks' water pass). It sits below
          the dots and above the shapes: a place is the more specific claim, and a sea's name floating over
          a coast must not swallow the country under it. The target is the WORD's OWN BOX, taken from
@@ -40290,14 +40459,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         drawMineShapes(bw);
         // the coastline is landscape rather than politics, so it is drawn whatever the Borders toggle says
         ctx.lineWidth = bw; ctx.strokeStyle = border; ctx.beginPath();
-        const mce = coastEdges(), mcc = coastCaps(), mskip = mineCoastSkip();
+        const mce = coastEdges(), mcc = coastCaps(), mskip = mineCoastSkip(), mcut = mineCoastCut();
         for (let i = 0; i < mce.length; i++) {
           if (mskip[i]) continue;   // an inland border world.js left unshared — see mineCoastSkip
           const o = i * 4, x = mcc[o], y = mcc[o + 1], z = mcc[o + 2], sr = mcc[o + 3];
           if (x * Cx + y * Cy + z * Cz + sr < -0.1) continue;
           const pxx = cx + R * (x * Ex + y * Ey + z * Ez), pyy = cy - R * (x * Nx + y * Ny + z * Nz), rad = R * sr + 8;
           if (pxx + rad < 0 || pxx - rad > W || pyy + rad < 0 || pyy - rad > H) continue;
-          addClipped(mce[i], false);
+          const pieces = mcut[i];   // a chain carrying a doubled border segment — see mineCoastCut
+          if (pieces) { for (let q = 0; q < pieces.length; q++) addClipped(pieces[q], false); }
+          else addClipped(mce[i], false);
         }
         ctx.stroke();
         if (riverLabelsOn && RIVERS.length) drawRiverLabels();
@@ -41179,6 +41350,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     cpSrcEl = root.querySelector("#cpSrc"); cpSrcSecEl = root.querySelector("#cpSrcSec");
     { const cpClose = root.querySelector("#cpClose"); if (cpClose) cpClose.addEventListener("click", hideCountryPopup); }
     { const more = root.querySelector("#cpMore"); if (more) more.addEventListener("click", () => cpSetShut(!cpShut)); }
+    /* …and the arming window itself — see CP_GLOSS_ARM_MS. CAPTURE, so it runs before the term's own
+       handler (which `setupTooltips` binds to the element) and can stop the event ever reaching it. */
+    if (cpEl) cpEl.addEventListener("click", (e) => {
+      if (cpGlossArmed()) return;
+      const t = e.target && e.target.closest && e.target.closest(".ttip");
+      if (t && cpEl.contains(t)) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
     /* One delegated listener folds any of the sections open or shut, so a reader can put away the part they
        aren't reading — a long description buries the figures under it on a sheet the size of a hand.
        IT WORKS ON THE SHEET TOO SINCE SEP 2026, when the sections stopped being pages you swipe between:
