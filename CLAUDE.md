@@ -1203,8 +1203,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.29 MB and 48,117 lines is hard to find your way around, so this
-  lists its 182 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.31 MB and 48,457 lines is hard to find your way around, so this
+  lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -1936,6 +1936,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   — the question and the brief paragraph its "Show answer" button reveals — and the retired single
   `{ q, at }` shape is REFUSED here with the migration named, while app.js goes on rendering one for the
   overlay's sake. Not part of the site.
+- `.claude/card-war.js` + `.claude/add-card-wars.js` — the rules for **`card.war`**, and the batch tool
+  that writes one onto a card already shipped (`node .claude/add-card-wars.js <batch.json> [--dry]`).
+  **A MODULE FOR `card-links.js`'s REASON** — two tools enforce the rules, `add-card.js` for a new card
+  and this for the other 3,200 — and it SPLICES LINES rather than rewriting `data.js`, validating the
+  whole batch before writing anything.
+  · **THE FOUR PER-CARD CHECKS ARE ALL FOR FAULTS THAT RENDER PERFECTLY.** A key on none of Folio's maps shades
+    nothing, for ever, on every surface — `Carthage` and `Prussia` are the shapes of names that feel like
+    they should resolve and do not, and a typo is the same failure wearing less; a side resolving nothing
+    on `world.js` draws on the personal atlas and is invisible on the card's own window, which is the one
+    surface the author is looking at; a name on both sides asks one shape for two colours; and a war with
+    no derivable years is simply absent from the personal atlas. It is checked against `world.js` AND
+    every era in `timeline.js`, which is the only place those names exist.
+  · **…AND A FIFTH THAT NEEDS TWO CARDS** (`checkClashes`), which is why no per-card rule can see it: the
+    personal atlas draws every studied war on ONE globe, so two blocks whose years overlap and whose
+    OPPOSING sides claim the same ground shade it green and red at once. **REPORTED, never refused** —
+    the fix is a judgement about which of the two to narrow, and a batch is sometimes the thing that
+    corrects one. It found seven pairs on its first run, all of them `wh-345` carrying Carthage's 264
+    extent across a 118-year span. **A `keys` side and an `area` side are NOT compared**, being drawn on
+    different surfaces, and that gap is stated rather than papered over.
+  · **WHAT IT DELIBERATELY DOES NOT CHECK IS WHO WON**, which no file in this repository knows. The block
+    is a historical claim like any other on the card and rests on the card's own cited prose.
+  · `--check` prints every block the corpus carries with the years each will draw in, and then every pair
+    that contradicts another; a write reports what the batch itself would introduce before it writes.
+    `--names=<year>` prints every territory name that era's map has, which is what a side's `keys` must be
+    written against. `"war": null` removes a block. Not part of the site.
 - `.claude/set-facts.js` — writes a MAP CARD's or an ARTWORK CARD's `facts` grid, in batches:
   `node .claude/set-facts.js <batch.json> [--check]` over `{ "cards": { "gw-001": [[label, value], …] } }`.
   **A TOOL RATHER THAN AN EDIT, because none of the others can touch it**: `facts` is an ARRAY of pairs, so
@@ -3721,6 +3746,152 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `ATTEMPT_SEL` pair / `setupCloze`'s focus / `IMG_OPEN_SEL` / the delegated media `error` listener /
   `picturePool` / `gameCardIdSet` / `serializeCardData` / `revertCard` / the `.art-shot` and `.art-ask`
   styles, or after adding an artwork card.**
+- **WAR CARDS — who fought, and who won** (`card.war`; `cardWar` / `cardWarYears` / `warSide` /
+  `cardWarKeyHTML` / `cardWarSwatch` / `TINT_WIN` / `TINT_LOSE` / `warSides` in `startCardGlobe` /
+  `mineWarShapes` / `drawMineWar`; `.war-key` in styles.css. Sep 2026, on request: "cards in which the
+  main answer term is a war, should in their atlas window highlight the countries of the two different
+  sides in the conflict in two different colors — the victors green, the losers red. In the relevant
+  years on the personal atlas it should also highlight countries involved in war in a similar way").
+  Five things.
+  · **A CARD DECLARES IT; NOTHING SNIFFS THE ANSWER TERM FOR "WAR".** The obvious rule — shade a card
+    whose answer contains the word — is confidently wrong on the corpus as it stands: of the 68 answer
+    terms carrying it, `rm-212` is the WAR ELEPHANT and `wh-403` the ART OF WAR. A declared block is the
+    house rule for exactly this (`CROSSREF_WRONG`'s own), and it is also the only thing that could work:
+    **no pattern can read an outcome off a title.**
+  · **A SIDE IS NAMED ON A MAP FOLIO HAS, OR DRAWN AS AN AUTHORED EXTENT — NEVER BOTH.** `keys` is the
+    list of names that belligerent goes by ACROSS Folio's maps, and every one the map in front of the
+    reader carries is shaded — the card's window draws `world.js`, the personal atlas draws the era map
+    for the year, and the 1938 map calls Japan the Empire of Japan and Russia the USSR. ONE list matched
+    against whatever map is up, which is `map.key`'s own rule. `area` is the other half and exists
+    because **Folio's era maps begin at 1500**: Rome and Carthage are on no map, so an ancient war's
+    sides are authored as a civilisation's extent is — and drawn as one, **DASHED**, where a named side
+    is stroked SOLID.
+  · **BOTH SIDES OR NEITHER, AND A DRAWN WAR IS ONE THAT WAS DECIDED.** The block says who won, so a war
+    that ended in stalemate or whose outcome the sources dispute carries NO block rather than half a one
+    — the Lelantine War, the Archidamian War and the Corinthian War are the standing examples. **AND A
+    NAME MAY NOT STAND ON BOTH SIDES**: a shape cannot be two colours, and which side Italy in 1943 or
+    Romania in 1944 belongs on is a judgement rather than something the draw can resolve.
+  · **THE YEARS COME OFF THE CARD'S OWN DATE LINE, and `years` is an override no ordinary card needs** —
+    `map.zoom`'s bargain. It fails only where the line counts something other than the war: `wh-345`
+    "Punic Wars" names one treaty year, which would put a 118-year subject on the globe for one year.
+    `zoom` is the same bargain for the FRAME, and one card needs it — the Greco-Persian Wars opened on a
+    view from the Atlantic to the Indus with the Greek allies a speck at the edge.
+  · **A WAR WINDOW SPENDS RED ON THE DEFEATED SIDE, SO THE COLLECTION'S RED MARKS STAND DOWN ON IT — AND
+    SO DOES A LOCATOR'S OWN AREA WASH.** The
+    sibling dots and the `CMAP_ANCHOR` city are drawn "in a red that is nobody else's mark on this map",
+    which stops being true here — the Second Punic War drew a solid red square labelled ROME in the
+    middle of a green Italy; and `rm-350` carries a `region` locator whose area IS Gaul, which with a war
+    block would have washed one shape gold and red at once. The dot and the NAME are untouched in both
+    cases — it is the marks and the wash that have nothing left to add.
+    **AND THE LEGEND IS THE ANSWER TO GREEN-AND-RED**, which about 8% of men
+    cannot separate: it names both sides in markup (so a screen reader reads it), its swatches are built
+    from `TINT_WIN` / `TINT_LOSE` rather than from a CSS rule, and it sits OUTSIDE `.card-loc` so the
+    Atlas popup's `noLocator` keeps it.
+  **IT RIDES IN THE LIGHT HALF OF `data.js`, BESIDE `locator`, AND HAS TO** — `atlasUnlocks` walks every
+  studied card, and a `war` in the heavy half would put a war on the personal globe only when that
+  collection's extra file happened to be loaded. **54 blocks cost the eager path 8,577 bytes gzipped**,
+  159 bytes each. **MEASURE THAT BY GZIPPING `data.js`, NOT OFF `check-sizes.js`**, whose display is
+  rounded to hundredths of a megabyte: the first batch was written up here as "about 10 KB" because a
+  2 KB change showed as 0.01 MB, which is a figure five times too big taken off a tool that was right.
+  **KNOWN LIMIT, STATED RATHER THAN PAPERED OVER: on a card's own window a named side is drawn in
+  PRESENT-DAY borders**, `world.js` being the only shape layer a locator window loads — so the Second
+  World War card shades modern Russia for the USSR and leaves Ukraine and the Baltic states grey. The
+  personal atlas resolves the same card against the 1938 map and is right. Where the modern border
+  misleads, the honest answer is an authored `area`.
+  Guarded by `.claude/test-war-cards.js`. **Re-run after touching `cardWar` / `warSide` / `cardWarYears`
+  / `cardWarKeyHTML` / `cardWarSwatch` / `warRingsAttr` / `cardLocatorHTML` / `TINT_WIN` / `TINT_LOSE` /
+  the war block in `startCardGlobe`'s `draw()` / `warSides` / `warDrawable` / `fitTarget`'s `ext` /
+  `atlasUnlocks`' war branch / `mineMarks` / `mineWarShapes` / `drawMineWar` / `mineAt` /
+  `serializeCardData` / `revertCard` / `.claude/card-war.js`, or after a batch of war blocks.**
+  **AND TWO AUTHORED EXTENTS MAY NOT OVERLAP**, which is the `keys` rule in geometry and which the eye
+  does not catch: `checkWar` sweeps a grid for it, and found three on the day it was written — Roman
+  Hispania against Lusitania, Laconia against Messenia, Rome against Samnium. **Where a frontier is
+  uncertain, leave a GAP rather than an overlap.**
+  **…AND TWO CARDS' BLOCKS MAY NOT CONTRADICT EACH OTHER**, which is a fifth fault and the one no
+  per-card check can see, knowing only one card. The personal atlas draws every studied war on ONE globe,
+  so two blocks whose years overlap and whose OPPOSING sides claim the same ground shade it green and red
+  at once and whichever is painted second wins — with nothing wrong on either card. `checkClashes` sweeps
+  every pair (a name on A's victors and B's losers; `overlapAt` for two authored extents), and it is a
+  REPORT rather than a refusal, since the fix is a judgement about which of the two to narrow.
+  **It found SEVEN pairs the day it was written and all seven were one fault**: `wh-345` the Punic Wars
+  ran 264–146 BCE carrying Carthage's extent AS IT STOOD IN 264, so western Sicily and Sardinia stayed
+  red through every later card that correctly has them on Rome's side. **AN EXTENT IS DATED AS WELL AS
+  DRAWN** — the same rule made `CARTH_AFRICA_480`, the Daliang rump of Wei, a Chu whose capital has
+  moved to Shouchun, **FOUR different Achaemenid rings** for four cards (546, 490, 460 and 334, each the
+  empire on the day its own war opened) and a `USA_1779` that stops east of Iroquoia where `USA_1795`
+  runs into Kentucky — sixteen years apart. **A great empire is usually TWO rings even in one year**, the
+  Asian body and Egypt, so a place check that fails may be asking the wrong one of the two rather than
+  finding a bad polygon. **A `keys` side and an `area` side are NOT compared**, being drawn on different
+  surfaces; such a pair can still contradict and only the eye will catch it.
+  **AND A WAR INSIDE A WAR MAY NOT CONTRADICT THE WAR IT IS INSIDE**, which is that rule's sharpest form:
+  `ww2-001` carries the whole Second World War's alignment over 1937–1945, so a constituent card may carry
+  a block only where BOTH its sides are on the sides the umbrella puts them. `ww2-096` passes; `ww2-124`
+  the Italian invasion of Albania and `ww2-146` the Soviet invasion of Poland do not, each having a
+  belligerent on the opposite side in 1939, and are refused rather than pending.
+  **AND A POWER MAY NOT BE DRAWN WINNING ONE WAR AND LOSING ANOTHER IN THE SAME YEARS**, which is the same
+  rule from a direction no umbrella-and-constituent test reaches. `rm-205` the Barcid conquest of Spain was
+  written, verified and REFUSED: Carthage wins it over 237–221 and `wh-345` the Punic Wars has Carthage's
+  African homeland red across 264–146, so the same ground would draw green and red at once for sixteen
+  years, with no narrowing that saves it. `rm-355` Crassus' Parthian campaign is the same fault a century
+  on — Rome loses it in 54–53, inside the years `rm-350` and `wh-354` have Rome winning in Gaul. **A great
+  power is usually fighting in two places and the globe draws them all at once, so check a candidate's
+  years against the umbrella wars of the same power BEFORE researching its extents.**
+  **A BATTLE IS NOT A WAR**, and that is where most of the remaining pool goes: of the 178 conflict-shaped
+  answer terms carrying no block, **114 are a battle, a siege or a sack** — an event inside a war, whose
+  spot the card already marks with a `battle` locator's crossed swords. **AND THE PATTERN DOES NOT FIND
+  EVERY WAR EITHER**: the Reconquista, the Fall of Constantinople and the unification of Egypt carry none
+  of those words, so the next candidate is READ for rather than grepped for.
+  **COVERAGE, AND EVERYTHING "MISSING" IS NOW THE RULES WORKING.** Run
+  `node .claude/add-card-wars.js --check` for the figure rather than quoting one here. Of the 68 answer
+  terms in the corpus containing "war", 38 carry a block and **not one of the other 33 is work waiting to
+  be done**: **three are not wars** (the war elephant, the Art of War, a declaration of war), **ten had
+  no decided outcome**, **eighteen put both sides on one ground**, and **two are too interleaved to draw** —
+  `rm-142` the Latin War and `gr-698` the Third Sacred War, whose belligerents sit inside each other at
+  ten to twenty kilometres, which is the Strait of Messina finding at a different scale. **THOSE FOUR
+  FIGURES SUM TO THIRTY-THREE EXACTLY, AND THEY DID NOT SUM BEFORE** — a fifth row for `rm-355` made the
+  table claim thirty and list thirty-one, that card's answer term not containing the word at all. **A
+  table explaining a measured set has to sum to it, so RE-MEASURE IT after a merge**: three war-term
+  cards arrived with the Greece and Rome batches of 2026-09-15 and every figure in this paragraph moved.
+  **THREE MORE SHAPES OF REFUSAL CAME OUT OF THE FIFTH BATCH.** **A CARD THAT ARGUES ITS OWN SUBJECT WAS
+  NOT AN EVENT CANNOT CARRY A BLOCK ASSERTING IT WAS A WAR** — `gr-154` the Dorian invasion says the idea
+  "has been given up", and `wh-205` the unification of Egypt says archaeology gives no such moment. **A
+  FRONTIER IS NOT A FRONT**: `wh-520` the Reconquista ran 780 years, so any pair of extents is a picture
+  of one decade chosen silently. And **A LOSER STANDING INSIDE THE VICTOR DRAWS A DOT IN A FIELD** —
+  `wh-452` the Fall of Constantinople, the empire by then being the city and its suburbs wholly enclosed
+  by Ottoman ground.
+  **ONE ROW OF THAT TABLE WAS WRONG AND THE CORRECTION IS THE USEFUL PART**: `gr-676` the Social War was
+  filed under "both sides on one ground" because a hegemon fighting its own allies seems to have nowhere
+  to put a second colour. True of `rm-305`; false here, Athens' four revolted allies being three islands
+  and a city on the Bosphorus. **"A hegemon against its allies" is a description, not a test** — the test
+  is whether the two sides stand on separable ground.
+  **THE OPEN GROUND IS THE WIDER POOL, AND A CARD NEED NOT HAVE "WAR" IN ITS ANSWER TERM** — a conquest,
+  an invasion and an expedition are all wars between two polities, and **sixteen** blocks sit on such cards
+  (the Norman Conquest, the Qin conquests of the six states and of the south, the Roman conquests of
+  Greece, Etruria, Umbria and Picenum, Cisalpine Gaul and Spain, the Persian conquest of Lydia, the
+  Carthaginian invasion of Sicily, the Sicilian Expedition, the early Muslim conquests, the fall of the
+  Achaemenid Empire, the fall of the Shang, the Soviet-Japanese border conflicts and the Sullivan
+  Expedition — **every one of the fifth batch's five**). Taking the battles out by construction and the
+  thirty-three above by the table, **exactly thirty-one conflict-shaped terms are left**: eleven revolts
+  inside one polity, six episodes of a war already carded, eleven already refused, and **three open, of
+  which two are refusals once read** — so the realistic remainder is `wh-537` the Mongol invasions of
+  Japan and nothing else the corpus can name.
+  **📖 `docs/war-cards.md` — READ BEFORE ADDING A WAR BLOCK OR CHANGING HOW ONE IS DRAWN.** The six
+  decisions in full, the remainder broken down card by card with what each needs, the findings from
+  authoring the extents (above all that the toe of Italy
+  cannot be separated from north-east Sicily by an approximate polygon, and that a stand-off GAP can
+  swallow a town — Pau and Perusia are asserted neither way), the seven American wars resolved one at a
+  time, the rejected alternative of resolving a card window against the era map, why `ww2-001` names
+  coalitions rather than states, why a war between a very small state and a very large one frames the
+  large one with `zoom` unable to fix it — and, since the fourth batch, the two further shapes a refusal
+  takes: **a side too small AND TOO SCATTERED to read** (`gr-478` was written, drawn, looked at and
+  removed; `wh-319` is the same two powers and works, its small side being a compact block of mainland),
+  and **a side that is not a polity at all** (`wh-507`, the First Crusade, whose victors were an
+  expedition rather than any state that declared it). **Since the fifth batch it also carries the strait
+  finding at a THIRD scale** (Arabia and Sasanian Persia overlapping across Hormuz, sixty kilometres
+  apart, invisible by eye and found by the sweep), the rule that **a seaward vertex is free** because a
+  region wash is clipped to the land, and the Mongolia measurement — **measure a mark by REMOVING it and
+  counting the difference**, 979 green pixels of 12,938, rather than repairing what a screenshot's
+  resolution is telling you.
 - **ONE media panel on the card surface** (Aug 2026, on request — it was two, with a `.ces-media-swap` pill
   between them). A card shows one frame, so the editor offers one slot (`#cesMediaSlot`) and one panel
   (`#cesMediaPanel`, fields `data-mediafield="src|title|desc|credit"`), and the pasted URL decides which of
@@ -5567,6 +5738,39 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
     with. Coverage is uneven and deliberately so: run
     `node -e "global.window={};require('./data.js');const c=window.CARD_DATA.filter(x=>x.id.startsWith('rm-'));console.log(c.filter(x=>x.locator).length+'/'+c.length)"`
     for a collection's own figure rather than quoting one here.
+- `war` — **OPTIONAL, and the thing to ask for on a card whose ANSWER TERM IS A WAR — INCLUDING a war
+  under another name**, a conquest, an invasion or an expedition between two polities being a war:
+  `{ victors: { name, keys | area }, losers: { name, keys | area }, years?, zoom? }` shades the two sides
+  on the card's atlas window — the victors green, the defeated red — and puts them on the reader's own
+  atlas in the years the war ran. **It also GIVES the card its window**, so a war card needs no researched
+  coordinate: the two sides are the place. See the WAR CARDS bullet under "How the app is wired".
+  · **A SIDE IS `keys` OR `area`, NEVER BOTH.** `keys` lists the names that belligerent goes by on Folio's
+    maps — `world.js` for the card's own window and the thirteen eras for the personal atlas, which call
+    Japan the *Empire of Japan* and Russia the *USSR*, so a side names both — and `area` is a hand-drawn
+    approximate extent for a belligerent no map holds, which is every ancient one, Folio's era maps
+    beginning at 1500. Run `node .claude/add-card-wars.js --names=<year>` for what a given era's map
+    actually calls its territories; it is the commonest thing to get wrong.
+  · **THE BLOCK SAYS WHO WON, so a war that ended in stalemate or whose outcome the sources dispute gets
+    NO BLOCK** rather than a guess in two colours, and **no name may stand on both sides**. Both are
+    refused by `add-card.js`, which also refuses a key on none of Folio's maps and a side that resolves
+    nothing on `world.js` — that last one is the side that would shade on the personal atlas and be
+    invisible on the card's own window.
+  · **AN `area` IS AUTHORED, SO IT IS THE ONE PART THAT MUST BE CHECKED RATHER THAN LOOKED AT.** A ring
+    whose interior is on the wrong side of an edge draws a beautiful map of somewhere else, and nothing
+    downstream can tell. **A BATCH ENTRY CARRIES ITS OWN ASSERTIONS** — a `places` block of "Rome inside,
+    Palermo outside" beside the `war`, which `add-card-wars.js` REFUSES the batch over and which is never
+    written to the card; `test-war-cards.js` pins a readable subset so a shipped extent edited later fails
+    too, and the 49 extents shipped were checked against 1,485 assertions. **Compose a
+    side's "out" list GEOMETRICALLY rather than by name** — Catania is in Sicily and no table named it,
+    so Rome in 218 BCE was briefly asserted not to cover it. **AND AN EXTENT IS DATED AS WELL AS DRAWN**:
+    Carthage in 480 is not Carthage in 264, and reusing the later ring both claims ground the city did
+    not hold and frames the card on the wrong sea. **A GAP CAN SWALLOW A TOWN, and the answer is to drop
+    the assertion rather than move the line** — Pau falls inside the stand-off between France and English
+    Gascony and is asserted neither way.
+  · The years come off the card's own date line; `years: [from, to]` (negative for BCE) is the override
+    for a card whose line counts something other than the war, and `zoom` the override for a frame the
+    union of the two sides chooses badly. Written onto a card already shipped with
+    `node .claude/add-card-wars.js <batch.json>`.
 - `answer` / `answerText` — **the answer term NEVER carries an article** (Aug 2026, on request): it is
   `polis`, `Iliad`, `rhapsode`, `cist grave`, not "the polis" or "a cist grave". What the reader is being
   asked to recall is the term; "the" is a fact about the sentence around it, so it belongs to the QUESTION
@@ -6014,7 +6218,7 @@ division-capital city tier are inert dead code.
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **54 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **55 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-panels.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
@@ -6258,6 +6462,17 @@ division-capital city tier are inert dead code.
     of it with no browser. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
     `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `serializeCardData` /
     `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map card.**
+  · `node .claude/test-war-cards.js` — **`card.war`, the two sides of a war** (57 assertions), sections
+    1–3 with no browser (`--data-only`). **EVERY FAULT IT GUARDS RENDERS PERFECTLY**: a belligerent named
+    off the map shades nothing and leaves a war with one participant, the two sides drawing in one colour
+    is a map that looks finished and says nothing, and a war bounded at one end only appears in every
+    year after it. It counts GREEN and RED pixels and asserts each AGAINST THE OTHER, asserts the legend
+    names both sides (a coloured map with no key being the one state this feature must not ship in), and
+    asserts the personal atlas draws the war inside its years and NOT outside them, in both directions.
+    **Its section 1b pins the authored extents against named places and 1c asserts that no two blocks
+    contradict each other**, both with LIVENESS probes beside them — a geometry sweep that has quietly
+    stopped sweeping reports a clean corpus exactly as a clean corpus does.
+    **Re-run after touching anything in the WAR CARDS bullet's own list, or after a batch of war blocks.**
   · `node .claude/test-artwork-cards.js` — **the artwork card format** (155 assertions, and per-card
     checks grow it as the collection does), and every fault
     it guards RENDERS PERFECTLY. **The pool half and the date band are asserted through a PATCHED

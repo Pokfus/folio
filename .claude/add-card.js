@@ -38,6 +38,7 @@
 const fs = require("fs"), path = require("path");
 const { isDateList } = require("./date-line.js");
 const { checkWhy, checkLeadsTo, loadCardYears, collectionIndex } = require("./card-links.js");
+const { checkWar } = require("./card-war.js");
 const dataPath = path.join(__dirname, "..", "data.js");
 const FIELDS = ["id","num","category","question","answer","answerDate","traditional","hanzi","pinyin","translations","abstract","citation","answerText"];
 const I18N_LANGS = ["es","fr","de","it","nl","ru","ar","zh","ja"];
@@ -642,6 +643,13 @@ if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", lea
     collectionOf: (cid) => (cid === card.id ? deckColl : collIdx[cid] || null),
   });
   if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); }
+  /* ---------- WHO FOUGHT, ON A CARD WHOSE ANSWER IS A WAR (Sep 2026) ----------
+     The rules live in `.claude/card-war.js` because `add-card-wars.js` enforces the same ones on the
+     cards already shipped, and a second copy of a validation goes stale in a file nobody here has reason
+     to open. Every one of them is for a failure that renders perfectly: a belligerent named off the map
+     shades nothing, a name on both sides asks one shape for two colours, and a war with no derivable
+     years is simply absent from the personal atlas. */
+  { const ew = checkWar(card, loadCardYears(appSrc)); if (ew) { console.error(/^ERROR/.test(ew) ? ew : "ERROR: " + ew); process.exit(1); } }
 }
 
 cards.push(card);

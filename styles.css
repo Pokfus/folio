@@ -2018,6 +2018,25 @@ body.no-tts .ans-cn .ac-say{display:none;}
 .map-loc .mc-canvas{height:clamp(180px, 30vh, 260px);}
 .map-card.map-loc.mc-failed::after{content:"This map could not be loaded.";}
 
+/* ---------- and who fought, where the card is about a war (see cardWarKeyHTML in app.js) ----------
+   The map says two sides are drawn and it cannot say WHICH is which — green and red being the one pair
+   a red-green colour-blind reader has no purchase on — so the key under it names them. It carries no
+   colours of its own: the swatches are written inline from `TINT_WIN` / `TINT_LOSE`, which the map is
+   painted from, so a key and the map it explains cannot drift apart.
+   IT WRAPS RATHER THAN SHRINKING. Two side names of any length go side by side on a laptop and stack on
+   a phone; a nowrap row would ellipsise the one word on it that matters. */
+.war-key{display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:20px;}
+/* …tucked up under the map when the map is there, and standing on its own when the Atlas popup has
+   taken the globe away (see mountCardBack's `noLocator`). */
+.card-loc + .war-key{margin-top:8px;}
+.war-key .wk-side{display:inline-flex; align-items:baseline; gap:6px; font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-soft);}
+.war-key .wk-sw{
+  flex:none; width:calc(11px * var(--fs)); height:calc(11px * var(--fs)); border-radius:3px;
+  border:1.5px solid; align-self:center;
+}
+.war-key .wk-name{font-weight:600; color:var(--ink);}
+.war-key .wk-role{color:var(--ink-faint); font-size:calc(11px * var(--fs));}
+
 /* the media frame's own chrome — the border, the rounding and the shadow every surface that shows a
    picture or a clip shares. The SHAPE is set by whoever mounts it: 16:9 here, which is what the editor's
    media slot, the deck page's sample and the picture round want, and the picture's own proportions
