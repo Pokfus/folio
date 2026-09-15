@@ -347,6 +347,38 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-15, batch H4 — the rule proved on the SECOND geography collection**: `geo-001` California,
+  `geo-002` Texas and `geo-003` Florida, the three most populous states, all three of which now clear
+  both bars. Rules 1–4 do not apply to this collection, which is the whole reason rule 5 needed a
+  script of its own.
+
+  · **A STATE'S HISTORY BLOCK HAS A SHAPE, AND IT IS FIVE SENTENCES LONG**: the Indigenous nations whose
+    homeland it is; the first European claim; how the ground became American; statehood with its date;
+    and what has happened since. The cards as written carried the last three and began at statehood or
+    just before it — California's began in 1850, Texas's in 1836, and Florida's second block was national
+    parks and tourism rather than history at all.
+  · **THE FIRST SENTENCE COMES OUT OF THE `us-` COLLECTION, WHOSE OPENING DECK IS NATIVE AMERICA.**
+    `us-033` is literally a card called California, `us-047` is the Comanchería and `us-082` the Seminole
+    Wars, each cited at the bar to the National Park Service, the Handbook of Texas, the Muwekma Ohlone
+    Tribe and the National Library of Medicine. **Every state has a card waiting for it there**, and the
+    collection is 100 cards of Native America before it reaches anything else.
+  · **THE CONTESTED FIGURE RULE BIT ON THE FIRST CARD, and it is worth seeing where.** California's
+    Native population before the gold rush is given as 100,000 by the National Library of Medicine and
+    150,000 by the Muwekma Ohlone Tribe's own account. The draft said “from perhaps 150,000”; the shipped
+    sentence gives the range and cites both, which is CLAUDE.md's rule and reads better besides.
+    **Fetch the figure before writing the sentence round it**, not after.
+  · **THE `geo-` DECK IS 271–329 WORDS AND THE FLOOR IS REAL.** Two of the three drafts came in at 258
+    and 236, because a history sentence naming a treaty is shorter than a paragraph about parks. Measured
+    over all fifty state cards: none is under 271. **Measure the collection before assuming the house
+    range**, and expect to write longer sentences here than the world deck needs.
+  · **“St. Augustine” SPLITS A SENTENCE COUNT IN TWO.** Any naive sentence splitter breaks on `St. `, so
+    `geo-003` reads as 12 sentences and is 10. Nothing in the pipeline fails on it; know it before
+    chasing it.
+  · **`geo-002` CARRIES A `one-institution` NOTE FROM `check-cards.js`** — three of its eight sources are
+    the Census Bureau — and that is PRE-EXISTING and improved by this batch rather than caused by it:
+    the three are the area file, the population estimates and the places file, all in block 1, and the
+    ratio was 3 of 5 before.
+
 - **2026-09-14, batch H3 — six countries whose whole history was already in the corpus, and one host
   that is walled rather than dead**: `gw-012` Japan, `gw-013` Egypt, `gw-017` Iran, `gw-018` Turkey,
   `gw-025` Italy and `gw-029` South Korea. Fifteen of the world deck's first twenty-nine now clear both
