@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.761", released: "2026-09-15T01:53Z" };
+window.FOLIO_VERSION = { v: "1.762", released: "2026-09-15T02:28Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-15",
-    t: "The Chandragupta card had the bargain with Seleucus the wrong way round",
+    t: "The card on Italy’s invasion of Ethiopia never mentioned the poison gas",
     items: [
+      "<b>The card on the Italian invasion of Ethiopia now covers the poison gas</b> — Italy had signed the ban on it, and the impartial enquiry Ethiopia asked the League for never came.",
       "<b>The Maurya Empire and Jainism cards now say how shaky their dates are</b> \u2014 both leaned on one 1922 chapter, and modern work shows the sources for those chronologies are far later than the dates.",
       "<b>The Chandragupta Maurya card had the famous bargain backwards</b> \u2014 Seleucus gave up the land and Chandragupta gave the 500 elephants, and the card now says what the ancient sources do and do not record.",
       "<b>Two cards are corrected on what their own sources say</b> \u2014 Monte Verde had overstated how unlike Clovis its stone tools were, and the Homo naledi card credited a journal\u2019s verdict to the man it judged.",

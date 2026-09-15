@@ -1868,6 +1868,71 @@ buy a green run at the price of the one signal the check exists to give.
   OpenStax textbook. Adding one would not clear the FAIL, the rule being absolute, but it would make the
   card better, and the Psychology plan's own rule about stating a finding's current standing asks for it.
 
+### `ww2-042` — the drop that was not there, and the war the card was not describing (2026-09-15)
+
+T. P. Nesterova in three of six sources, and `drop-candidates.js` reported `alone=2`, `alone=2`,
+`alone=2`: nothing droppable, every one of her three papers carrying a sentence by itself. That
+output is an instruction rather than a dead end — *this card wants a new source and a re-pointed
+claim* — and following it turned up the larger fault, which is that **a card on the Second
+Italo-Ethiopian War never mentioned the poison gas**. Ten sentences of Geneva diplomacy, and not one
+about what Italy actually did in Ethiopia. The apparatus was the symptom: three papers by one
+diplomatic historian describe the war as a problem in the chanceries, because that is what they are
+about, and a card written out of them inherits the frame.
+
+**The replacement is Christian Carnevale's `Proteste inascoltate` (*Nuova Antologia Militare* 4, no.
+16, 2023, pp. 439–464, open access, DOI through mEDRA rather than Crossref)** — an archive study
+built on the League of Nations archive, the Italian, French and American diplomatic records and the
+DDI, DDF and DBFP series. It carries the whole of what the card was missing and the two sentences
+Nesterova's third paper was carrying besides, so that paper came out and she is now two of seven.
+What it establishes, each read in the article rather than from its abstract: Italy signed the Geneva
+Protocol on 17 June 1925 and ratified it without reservations on 3 April 1928, and Mussolini's own
+programme document of 30 December 1934 nonetheless demanded «superiorità assoluta di artiglieria e
+di gas»; Badoglio ordered mustard gas onto the Takkaze on 22–23 December 1935, *before* Mussolini's
+authorisation arrived on the 28th, and Graziani did the same on the southern front on the 24th; the
+emperor telegraphed Avenol on 30 December and again on 1 January; his government asked for an
+impartial enquiry on 3 January and the Council, on 20 January, ignored the declaration and decided
+any enquiry was the International Red Cross's business — which in April returned a *fin de
+non-recevoir*. And the reason, in the article's own words: France and Britain «non avevano infatti
+alcun interesse a mettere Mussolini in stato d'accusa mentre dovevano fronteggiare la rinascita
+della Germania».
+
+**The second new source is the man himself.** The card asserted that Britain and France preferred an
+agreement at Ethiopia's expense and cited a modern paper for it; Sir Samuel Hoare explained exactly
+that to the Commons on 19 December 1935, the day after he resigned, and Hansard is open, permanent
+and free (`api.parliament.uk/historic-hansard/`). He says he had been "obsessed with the urgency of
+two grave issues" — preventing a European conflagration and avoiding an isolated war between Great
+Britain and Italy — that "it was essential to maintain Anglo-French solidarity", that the Paris
+proposals were "certainly the minimum basis upon which the French Government were prepared to
+proceed", and, most damningly, that he had been "terrified with the thought … that we might lead
+Abyssinia on to think that the League could do more than it can do". **A period actor's own account
+of his motive beats a modern paraphrase of it**, and it costs the card nothing: the claim is
+unchanged, the witness is better.
+
+Three things worth carrying forward.
+
+- **`api.parliament.uk/historic-hansard/` is open and navigable from here.** The sitting index
+  (`/sittings/<yyyy>/<mon>/<dd>`) lists every item of that day's business with its own permanent URL,
+  and a debate page serves the whole text. Column numbers come off the page (`HC Deb 19 December
+  1935 vol 307 cc2007-17`), so a Chicago note can be written exactly. **Do not guess the slug** —
+  `/commons/1935/dec/19/foreign-policy` is a one-question item and Hoare's statement is
+  `/personal-explanation`; the index is what tells you which.
+- **A citation naming a period minister trips rule 1 of `card-focus.js`, and that is what
+  `NOT_A_RESEARCHER` is for.** The question says "The Hoare-Laval plan of December 1935", and once
+  Hoare is an author in the card's own source list the last-token rule reads "Hoare" in the question
+  as a scholar named there. One row added, keyed by card AND name, with the reason beside it — the
+  eighth entry of the shape the table already holds for Mussolini, Hitler, Chamberlain and Edward III.
+  The alternative, opening the citation on the debate's title so it has no author at all, would have
+  hidden the speaker to please a checker.
+- **`pypdf` IS installed in this sandbox**, which the earlier batches' note about "no PDF tooling"
+  did not say. `pdftotext`, `PyPDF2` and `fitz` are all absent and `pypdf` is present, so an
+  open-access PDF can be read: `python3 -c "import pypdf; print(pypdf.PdfReader(f).pages[n].extract_text())"`.
+  That is what made this batch possible at all — the article exists only as a PDF behind a
+  publisher's shop page, whose "scarica" link serves it free.
+
+The card also gained a **locator** (Addis Ababa, fetched through `add-locators.js`), which it had
+been written without, and a date line of four events of the war itself in place of one carrying the
+Rhineland and "sanctions ended, summer 1936" — the Rhineland being a date of a different card.
+
 ## `check-cards.js`'s own findings, moved out of `CLAUDE.md` (2026-09-11)
 
 **READ BEFORE OPENING A RE-SOURCING BATCH ON THE GREECE COLLECTION.** The account as it stood in
