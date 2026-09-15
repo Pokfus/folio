@@ -873,3 +873,53 @@ glossary term at the bar and a picture that was looked at. What this batch adds.
   Commons `generator=categorymembers` and `generator=search` calls are the fallback — and they
   rate-limit hard, answering `You are making too many requests` for minutes at a time. **Pace them, and
   read the file's own `imageinfo` for the shard: computing the MD5 by hand produced a 404 here.**
+
+### Batch 6 — the Altai steppe, Ladoga, the Ural frontier, the Irtysh and the Pacific (`gru-023`–`gru-027`)
+
+Shipped Sep 2026: **Altai Krai, Leningrad Oblast, Orenburg Oblast, Omsk Oblast, Primorsky Krai**, each
+with its paired glossary term at the bar and a picture that was looked at. What this batch found.
+
+- **THE 1900 `Guide to the Great Siberian Railway` CARRIES A WHOLE CARD PER TOWN ON THE LINE, AND IT IS
+  THE BEST SINGLE SOURCE THIS COLLECTION HAS FOR SIBERIA.** Omsk gets three pages of it — the junction
+  of the Om and the Irtysh, the sandy and partly saline soil, the dry air and the winds that raise
+  blizzards in winter and dust in summer, Buchholz's 1714 expedition, Springer's five-bastion Vauban
+  fortress of 1763, the Omsk territory of 1822 and the Governor-General's move from Tobolsk in 1839 —
+  and Vladivostok gets two, from the *Capricieuse* in 1852 to the Tsesarevich's wheelbarrow in 1891.
+  **Its geographical review (pp. 21–22) is a separate seam** and is what gave Primorsky Krai its
+  minerals, its black earth and the highest mean annual temperature on the Siberian continent.
+- **A GARBLED OCR DIGIT IS NOT A DATE, AND THE PAGE SEQUENCE IS.** The guide's Omsk page prints the
+  fortress's founding year as `171!)` and Springer's rebuild as `ITtif)`; neither was used. The page
+  NUMBER for the stone-laying was equally garbled (`68` between a clean 60 and a clean 64), and there
+  the run settles it at 63 — **a number derived from an unbroken sequence is not a number invented.**
+  Take the dates the OCR renders cleanly and leave the rest.
+- **RAMBAUD'S PAGE HEADERS OCR AS DIGITS THAT LOOK LIKE OTHER DIGITS.** `,'>00 HISTORY OF RUSSIA` was
+  read as page 300 and is page 200, settled by the facing header `CATHERINE II.: EARLY YEARS. 201`.
+  **Read the header on the OTHER side of the spread before writing a page range.**
+- **A CITATION'S ARTICLE NUMBER IS NOT GUESSABLE EITHER.** `gru-027`'s *Scientific Reports* paper was
+  drafted as `29807` and is `29985`; Crossref's `article-number` field is what says so. Ask it before
+  writing the card, not after.
+- **A PICTURE SEARCH ON A FAMOUS NAME RETURNS THE TOWN THAT BEARS IT.** "Sol-Iletsk" gave a street
+  corner with a municipal noticeboard, and the pinned salt-lake file gave a crowded holiday beach in
+  which the lake is barely visible. The Burtinskaya Steppe — one of the Orenburg reserve's own plots —
+  is the picture the card wanted, and it was reached through `Category:Landscapes of Orenburg Oblast`
+  rather than through any search. **When a subject search fails twice, browse the oblast's landscape
+  category.**
+- **AND A RIVER'S OWN CATEGORY IS FULL OF THE WRONG COUNTRY.** `File:Ural river.jpg` is a beautiful
+  aerial of meanders and oxbows and its own description says *between Uralsk and Atyrau, Kazakhstan*;
+  it was one click from being installed on an Orenburg Oblast term. **Read the file's categories and
+  `ImageDescription` before believing a river photograph is in the subject** — the Ural, the Irtysh and
+  the Sikhote-Alin all cross a border or a neighbouring subject. The Sikhote-Alin candidate passed the
+  same test, `Category:Livadiysky Range` putting it in Primorsky Krai.
+- **A 4:1 PANORAMA IS THE WRONG SHAPE FOR THE CARD FRAME.** `.card-img` is a fixed 16:9 box filled
+  `contain`, so a panorama of the Irtysh shows as a strip across the middle with paper above and below.
+  An ordinary 4:3 view of the same river was the better picture for the same reason.
+- **THE SALT AT ILLETZKAYA-ZASTCHITA IS MURCHISON'S BEST ORENBURG SEAM** (1845, pp. 184–185): the
+  Kirghis using the outcrops long before the Russians occupied the spot, the caravans of Bukharians and
+  Khivans to and from the city as *the great Russian entrepôt*, and a quarry cut about 21 metres into a
+  mass so pure the salt is pounded for use without cleansing. Page 147 gives the undulating steppe and
+  the red sandstone cliffs on the right bank of the Ural at the city.
+- **HOSTS MEASURED THIS BATCH.** OPEN: `ncr-journal.bear-land.org` (Nature Conservation Research),
+  Europe PMC's `fullTextXML` for `PMC11611917`, `api.crossref.org`, archive.org's `_djvu.txt` **with
+  `-L`** — without following the redirect it writes a zero-byte file and looks like a dead identifier.
+  RATE-LIMITED HARD: `upload.wikimedia.org` and the Commons API both, answering a Wikimedia error page
+  for minutes at a time; every download in this batch needed an until-loop with a 25-second sleep.
