@@ -1868,6 +1868,51 @@ buy a green run at the price of the one signal the check exists to give.
   OpenStax textbook. Adding one would not clear the FAIL, the rule being absolute, but it would make the
   card better, and the Psychology plan's own rule about stating a finding's current standing asks for it.
 
+### `wh-121` dog domestication — the last untouched card, and the ONE PAPER PER LAB shape (2026-09-15)
+
+Anders Bergström first author on three of five, and the card at the bar. **This is not the Walters
+shape and should not be treated as it was**: these are three separate landmark papers with large and
+different teams — *Science* 2020, *Nature* 2022, *Nature* 2026 — in a field where one group has led.
+The rule is nevertheless about the card rather than the field, and the card really did put one name
+on three of its five sources.
+
+**The 2020 *Science* paper is the one that could go**, because both of its sentences were answerable
+elsewhere and the replacements are better card material.
+
+- **Perri, Feuerborn, Frantz, Larson, Malhi, Meltzer and Witt, *PNAS* 118, no. 6 (2021)** answers the
+  card's own second sentence. The card said "where it happened, when, and which people were involved
+  are all still unknown" and then never named a proposal; this one, matching dog and human population
+  divergences across Siberia, Beringia and North America, "suggests that dogs were domesticated in
+  Siberia by ∼23,000 y ago, possibly while both people and wolves were isolated during the harsh
+  climate of the Last Glacial Maximum", with dogs entering the Americas beside the first people from
+  ∼15,000 years ago. **The paper calls it a hypothesis and so does the card** — it also says in its
+  own text that "many other aspects of dog domestication … remain unresolved".
+- **Ní Leathlobhair et al., *Science* 361 (2018), 81–85** carries what became of those dogs, which is
+  the most arresting fact now on the card: American dogs form a lineage of their own that "almost
+  completely disappeared" after Europeans arrived, and "the closest detectable extant lineage to
+  pre-contact American dogs is the canine transmissible venereal tumor, a contagious cancer clone
+  derived from an individual dog that lived up to 8,000 years ago".
+- **Lin et al. 2025, already on the card, carries the gene-flow sentence alone** — 64.1% of modern
+  breed dogs carrying wolf ancestry from admixture "nearly a thousand generations ago on average", and
+  100% of the free-living village dogs analysed. So the sentence it had shared with Bergström 2020 did
+  not need a replacement, only rewriting to what Lin actually found.
+
+What is lost with the 2020 paper is its five-lineage divergence, and **the date line changed with
+it** — *Lineages · five by c. 11,000 years ago* became *To the Americas · from c. 15,000 years ago*,
+since a date-line row whose sentence has gone is a figure the card no longer supports. **Perri could
+NOT be cited for the lineage count**: her paper describes THREE ancestral lineages from a different
+analysis, and using her for Bergström's five would have been a number with the wrong source under it.
+
+**PNAS AND EUROPE PMC BOTH ANSWER 403 HERE, AND PMC ANSWERS 200.** `pnas.org` refuses the DOI
+redirect and `europepmc.org`'s article pages serve a Cloudflare interstitial, but
+`pmc.ncbi.nlm.nih.gov/articles/<PMCID>/` serves both new papers whole — including the Ní Leathlobhair
+one, which Europe PMC reports as `isOpenAccess: N` because it is an **author manuscript** rather than
+a CC deposit, and which is nonetheless freely readable there. **Europe PMC's REST search API is what
+finds the PMCID** (`/europepmc/webservices/rest/search?query=DOI:"…"&format=json&resultType=core`),
+and it returns the abstract too even where the article page is walled. While there, Lin's own citation
+was moved off the 403 PNAS DOI onto its PMC copy, so all six of this card's URLs now resolve from
+here.
+
 ### `wh-376` mahajanapadas — read, not cleared, and the hunt recorded (2026-09-15)
 
 T. W. Rhys Davids in three of five, and the worst case of the 1905-handbook shape left in the
