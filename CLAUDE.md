@@ -3866,6 +3866,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     both figures to everyone. Measured 359 cards use a `°C` figure against 17 that spelled it, so the
     symbol is the house form and the words were rewritten to it; `STRONG` now lists "Fahrenheit" so the
     hole cannot reopen. **Write a temperature `−4 °C (25 °F)`, never in words.**
+  · **A TEMPERATURE DIFFERENCE IS NOT A TEMPERATURE, AND THE TWO CONVERT BY DIFFERENT SUMS.** An
+    absolute figure takes `°F = °C × 1.8 + 32`; a DIFFERENCE takes `× 1.8` and no offset — so "about
+    6 °C colder than today" is **11 °F colder**, not 43. Measured Sep 2026 over the whole corpus: three
+    cards carry a genuine delta (`gw-007` a basin warming by 3.3 °C, `gw-729` a mean risen by 0.5 °C,
+    `bio-005` men born 0.59 °C cooler) and **all three are converted correctly**, so this rule exists to
+    stop a future sweep BREAKING them rather than to fix anything. A mechanical °C→°F pass over the
+    corpus would make every one of them wrong by a factor of four, and nothing would report it — the
+    bracket is authored, so the engine simply prints whatever is in it. **The tell is the construction,
+    not the unit**: `by`, `risen`, `a rise of`, or a comparative after the figure (`colder`, `warmer`).
+    Beware the false friend — "15 to 22 °C (59 to 72 °F) **higher up**" is altitude, and those are
+    absolutes converting the ordinary way.
   · **AND THE SIGN WORD IS THE ONE THAT CHANGES A NUMBER RATHER THAN HIDING IT.** `U_SIGN` is U+2212
     alone, deliberately (a hyphen there is a range separator), so a temperature written "minus 4°C (25°F)"
     leaves the word standing while the bracket supplies its own figure: an imperial reader was shown
