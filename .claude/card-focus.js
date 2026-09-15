@@ -97,6 +97,12 @@ const NOT_A_RESEARCHER = {
   "ww2-141 Hitler": "Hitler, cited for his own Directive No. 1 for the Conduct of the War",
   "ww2-148 Chamberlain": "Chamberlain, cited for his own broadcast of 3 September 1939",
   "ww2-149 Hitler": "the same directive, on the card for the lull that followed it",
+  // A MEDIEVAL TRAVELLER IS A WITNESS, NOT AN ARGUER — the ancient-author rule one era forward. Each of
+  // these is cited on its own card for what he himself saw and wrote, in a translation whose translator
+  // stands in the author slot, so the surname the question carries is the traveller's and not a scholar's.
+  "wh-593 Polo": "Marco Polo, cited for his own account of the election of Chinghis Kaan",
+  "wh-597 Polo": "the same, cited for his own account of the fall of Baghdad and the death of the caliph",
+  "wh-598 Battuta": "Ibn Battuta, cited for his own account of crossing the Kipchak steppe in the 1330s",
 };
 
 /* MEASURED, not chosen: over the 269 shipped cards the historiography count is 0 or 1 for 206 of them,
