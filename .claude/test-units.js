@@ -181,11 +181,24 @@ async function shown(page, html) {
         });
         if (imp === txt && met !== txt) missed.push(where + " (imperial pass did nothing)");
       };
-      (win.CARD_DATA || []).forEach((c) => {
-        ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => scan(c[f], c.id + "." + f));
-        (c.questions || []).forEach((q, i) => scan(q, c.id + ".q" + (i + 2)));
-      });
-      Object.keys(win.GLOSSARY || {}).forEach((k) => scan(win.GLOSSARY[k], "gloss:" + k));
+      /* THE FIELDS BELOW `answerText` WERE NEVER SWEPT, AND THAT IS WHERE THE LAST TWO FAULTS WERE
+         (Sep 2026). The transform is a DOM text-node pass, so it reaches everything a reader is shown —
+         a picture's caption, a why-answer, a map or artwork card's figures grid — while these sweeps
+         looked at five fields and the question pool. gr-712's caption read "now several kilometres
+         (two miles) inland" (`U_RUN` needs a NUMBER and `several` is not one) and art-005's Size row
+         read "136 × 54 cm (54 × 21 inches)" (`×` is in neither U_JOIN nor U_FILL): both showed BOTH
+         systems to every reader, in the authored view as well, and nothing here could see either. */
+      const walk = (fn) => {
+        (win.CARD_DATA || []).forEach((c) => {
+          ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => fn(c[f], c.id + "." + f));
+          (c.questions || []).forEach((q, i) => fn(q, c.id + ".q" + (i + 2)));
+          (c.why || []).forEach((w, i) => { fn(w.q, c.id + ".why" + (i + 1) + ".q"); fn(w.a, c.id + ".why" + (i + 1) + ".a"); });
+          (c.facts || []).forEach((r, i) => { fn(r[0], c.id + ".facts" + i + ".k"); fn(r[1], c.id + ".facts" + i + ".v"); });
+          if (c.image) ["title", "desc", "alt"].forEach((f) => fn(c.image[f], c.id + ".image." + f));
+        });
+        Object.keys(win.GLOSSARY || {}).forEach((k) => fn(win.GLOSSARY[k], "gloss:" + k));
+      };
+      walk(scan);
       check("the whole corpus transforms", fields > 200, fields + " fields");
       check("...with no imperial bracket left behind", missed.length === 0, missed.slice(0, 4).join(" | "));
       check("...and no other bracket taken", eaten.length === 0, eaten.slice(0, 4).join(" | "));
@@ -220,13 +233,35 @@ async function shown(page, html) {
           if (/\d/.test(inner) && STRONG.test(inner) && !U.isImperialParen(inner)) unknown.push(where + " " + p);
         });
       };
-      (win.CARD_DATA || []).forEach((c) => {
-        ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => sweep(c[f], c.id + "." + f));
-        (c.questions || []).forEach((q, i) => sweep(q, c.id + ".q" + (i + 2)));
-      });
-      Object.keys(win.GLOSSARY || {}).forEach((k) => sweep(win.GLOSSARY[k], "gloss:" + k));
+      walk(sweep);
       check("...and every measurement-looking bracket is one the engine RECOGNISES",
         unknown.length === 0, unknown.length ? unknown.length + " unseen: " + unknown.slice(0, 4).join(" | ") : "swept independently of isImperialParen");
+
+      /* A TEMPERATURE SCALE SPELLED OUT IS A MEASUREMENT WITH NO BRACKET AT ALL, and every sweep above
+         returns early on a field holding no "(" — so this is the one shape none of them can see (Sep
+         2026). `U_METRIC` lists `°C` and `U_IMP` lists `°F`, and neither knows a word: bio-030 and its
+         paired glossary term both wrote "raise one litre of water by one degree centigrade", a
+         DIFFERENCE, which every reader was shown in Celsius with nothing to say so — the mirror of the
+         `Fahrenheit` hole above, one step further out, since there the bracket existed and was merely
+         unrecognised. Both were rewritten to the °C/°F the other 725 sites use.
+         A difference converts by ×1.8 with NO offset: 1 °C is a rise of 1.8 °F, not 33.8 °F.
+         Scale words only. A bare "degrees" is not in the list and must not be: 169 of the corpus's 172
+         are latitude, an angle of slope, "a high degree of autonomy" or "its degree of disorder", so a
+         rule that claimed the word would report the language rather than a fault. The ~17 sites that
+         really do write a bare temperature degree are a content pass of their own, listed in
+         docs/units-plan.md; this check is the one that can never be argued with. */
+      const SCALE = /(?:\bcentigrade\b|\bCelsius\b|\bFahrenheit\b|\bdegrees?\s+[CF]\b)/;
+      const worded = [];
+      const wsweep = (s, where) => { if (typeof s === "string" && SCALE.test(strip(s))) worded.push(where); };
+      walk(wsweep);
+      check("...and no temperature is written in WORDS, where no bracket sweep can reach it",
+        worded.length === 0, worded.length ? worded.length + ": " + worded.slice(0, 4).join(" | ") : "0 of " + (win.CARD_DATA || []).length + " cards");
+      // ...and the rule still fires: the sentence as it stood before the Sep 2026 fix
+      check("...(and that sweep is live)",
+        SCALE.test("raise one litre of water by one degree centigrade.") &&
+        SCALE.test("19.9 degrees Celsius (67.8 Fahrenheit)") &&
+        !SCALE.test("about 14 degrees north of the equator") &&
+        !SCALE.test("a high degree of autonomy"));
 
       /* The three shapes that were unseen, pinned by hand in BOTH directions — a `by` run especially,
          since without `by` in U_JOIN the match starts at the second number and imperial mode renders

@@ -1952,7 +1952,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   — the question and the brief paragraph its "Show answer" button reveals — and the retired single
   `{ q, at }` shape is REFUSED here with the migration named, while app.js goes on rendering one for the
   overlay's sake. Not part of the site.
-- `.claude/set-facts.js` — writes a MAP CARD's `facts` grid, in batches:
+- `.claude/set-facts.js` — writes a MAP CARD's or an ARTWORK CARD's `facts` grid, in batches:
   `node .claude/set-facts.js <batch.json> [--check]` over `{ "cards": { "gw-001": [[label, value], …] } }`.
   **A TOOL RATHER THAN AN EDIT, because none of the others can touch it**: `facts` is an ARRAY of pairs, so
   `add-sources.js` (only `sources` and the abstract) and `fix-field.js` (find/replace inside a STRING field)
@@ -1961,7 +1961,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   an ORDER as much as a set of labels, which is the one thing a hand edit gets wrong without anything saying
   so. It validates the WHOLE batch before writing anything, splices in the one-card-per-line shape every
   other helper writes, and re-parses afterwards; `--check` prints every map card's grid and writes nothing,
-  which is how a batch is reviewed by eye. **A CELL MAY BE `"?"` AND THAT IS DELIBERATE** (Sep 2026, on
+  which is how a batch is reviewed by eye. **IT TAKES AN ARTWORK CARD TOO, AND
+  REFUSED ONE FOR A FORTNIGHT** (Sep 2026): the artwork format ships a `facts` grid and this helper tested
+  `card.map`, so the only field that format ADDS had no sanctioned writer at all and the next edit of one
+  would have gone by hand into `data.js`. **The row bounds are `add-card.js`'s, sliced out by text, and the
+  run STOPS if the slice fails** — a map card's minimum and an artwork card's differ, and a second copy of
+  a bound goes stale in a file nobody editing a grid has reason to open. **A CELL MAY BE `"?"` AND THAT IS
+  DELIBERATE** (Sep 2026, on
   request: "if you cannot find data for any particular one, just put a questionmark there") — it is the card
   saying the figure was looked for and not found, which is the honest state and the one thing a fabricated
   number destroys. Not part of the site.
@@ -3870,6 +3876,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     both figures to everyone. Measured 359 cards use a `°C` figure against 17 that spelled it, so the
     symbol is the house form and the words were rewritten to it; `STRONG` now lists "Fahrenheit" so the
     hole cannot reopen. **Write a temperature `−4 °C (25 °F)`, never in words.**
+  · **…AND A TEMPERATURE WITH NO BRACKET AT ALL IS THE SHAPE NO SWEEP COULD SEE** (Sep 2026). Every
+    corpus sweep in `test-units.js` returns early on a field holding no `(`, so a metric figure with no
+    imperial one beside it is invisible to all of them: `bio-030` and its paired term wrote "raise one
+    litre of water by **one degree centigrade**", a DIFFERENCE, shown to every reader in Celsius with
+    nothing saying so. Both now read `1 °C (1.8 °F)`, and the suite FAILS on a temperature scale
+    named in words anywhere in the corpus, with a liveness assertion pinning the pre-fix sentence. **A
+    bare `degrees` is deliberately NOT in that rule** — 156 of the corpus's 172 are latitude, a slope
+    or "a high degree of autonomy", so claiming the word would report the language rather than a fault;
+    the **16 sites that really do write a bare temperature degree are a content pass of their own**, with
+    their two absolutes (−3 °C is 26.6 °F, and −40 is the one figure the two scales share) listed in
+    `docs/units-plan.md`.
+  · **THE SWEEPS ONLY EVER LOOKED AT FIVE FIELDS, AND THE TRANSFORM REACHES EVERYTHING A READER IS
+    SHOWN** (same batch). `question` / `answer` / `answerDate` / `abstract` / `answerText` and the
+    question pool — while `unitizeTree` is a DOM text-node pass, so a picture's CAPTION, a WHY-answer
+    and a map or artwork card's FACTS grid were all unswept. Widening the walk took the corpus sweep from
+    1,667 fields to 2,003 and found both remaining faults at once: `gr-712`'s caption read "several
+    kilometres (two miles) inland" (`U_RUN` needs a NUMBER and "several" is not one) and `art-005`'s Size
+    row read `136 × 54 cm (54 × 21 inches)` (`×` is in neither `U_JOIN` nor `U_FILL`). **Teaching the
+    engine `×` was built and proved inert over 56,702 renderings and is still REFUSED**: `U_FILL` governs
+    what may be EATEN out of prose, and 9 of the corpus's 10 `×` sites are multiplication (`6.02214076 ×
+    10²³`), so the character mostly does not mean what the widening would claim. `by` is the shape the
+    suite already pins. **When a card format gains a field, the sweeps are part of the change.**
   · **A TEMPERATURE DIFFERENCE IS NOT A TEMPERATURE, AND THE TWO CONVERT BY DIFFERENT SUMS.** An
     absolute figure takes `°F = °C × 1.8 + 32`; a DIFFERENCE takes `× 1.8` and no offset — so "about
     6 °C colder than today" is **11 °F colder**, not 43. Measured Sep 2026 over the whole corpus: three

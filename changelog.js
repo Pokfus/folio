@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.768", released: "2026-09-15T09:36Z" };
+window.FOLIO_VERSION = { v: "1.769", released: "2026-09-15T09:56Z" };
 
 window.CHANGELOG = [
   {
@@ -53,7 +53,7 @@ window.CHANGELOG = [
       "<b>The Chandragupta Maurya card had the famous bargain backwards</b> \u2014 Seleucus gave up the land and Chandragupta gave the 500 elephants, and the card now says what the ancient sources do and do not record.",
       "<b>Two cards are corrected on what their own sources say</b> \u2014 Monte Verde had overstated how unlike Clovis its stone tools were, and the Homo naledi card credited a journal\u2019s verdict to the man it judged.",
       "<b>The card on the archaic smile now says that what it meant has been argued over</b> \u2014 whether it flattered the onlooker or was only an attempt at expression at all.",
-      "<b>The last card measuring a temperature in words now shows it in both systems</b> \u2014 the Ice Age card gives how much colder the world was in degrees a reader of either system knows.",
+      "<b>Measurements that showed both unit systems at once are fixed</b> \u2014 an Ice Age card, a heat capacity card and its glossary term, a harbour caption and a painting\u2019s size now show only your own units.",
       "<b>The card on Minoan trade with Egypt now rests on the excavators\u2019 own reports</b> \u2014 not on one teaching website, and three of its sentences are rewritten to match.",
       "<b>The card on the Cypriot syllabary now says why the script died out</b> \u2014 the alphabet replaced it only after the Ptolemies took the island, and four of its six sources were one reviewer.",
       "<b>The horns of consecration card now says the symbol outlived the palaces</b> \u2014 it and the card on Minoan religion leaned on one excavator, and each now carries an independent voice.",

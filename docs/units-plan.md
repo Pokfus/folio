@@ -157,3 +157,113 @@ Three consequences for anyone working on content:
 - **After a units batch, re-run the corpus check** described in the CLAUDE.md bullet: every bracket that
   looks imperial must be recognised, and no other bracket may be touched. At the time of writing that is
   341 fields transformed, 0 missed and 0 false positives.
+
+## Sep 2026 — the three blind spots, and the one backlog they leave
+
+Found by asking what the committed sweeps in `.claude/test-units.js` could NOT see. All three had shipped
+to readers; none of them threw, and the authored metric view looked perfect in every case.
+
+### 1. A temperature spelled out is a measurement with no bracket at all
+
+Every sweep in that file returns early on a field holding no `(`, so a metric figure with no imperial
+equivalent beside it is invisible to all of them — and `U_METRIC` lists `°C` while knowing no word for it,
+`U_IMP` `°F` likewise. `bio-030` and its paired glossary term `Specific_heat_capacity` both wrote
+
+> the kilocalorie having been defined as the energy needed to raise one litre of water by **one degree
+> centigrade**
+
+which is a DIFFERENCE, shown to every reader in Celsius with nothing to say so. It is the mirror of the
+`Fahrenheit` hole recorded above, one step further out: there the bracket existed and was merely
+unrecognised.
+
+Both were rewritten to `1 °C (1.8 °F)` — **a difference takes ×1.8 with no offset**, so 1 °C is a rise of
+1.8 °F and not 33.8 °F. The prose also stopped claiming a DEFINITION: Alberts (NBK26883) defines the
+kilocalorie in Celsius, so "defined as … by 1.8 °F" would have been false for an imperial reader, where
+"a kilocalorie being the energy needed to raise one litre of water by 1 °C (1.8 °F)" is a statement of
+magnitude and true in both renderings. `bio-030`'s question 2 went with it: "by only six tenths of a
+degree" names no scale at all, and an imperial reader read it as six tenths of a Fahrenheit degree.
+
+**Closed by a committed check**: `test-units.js` now fails on a temperature SCALE named in words
+(`centigrade`, `Celsius`, `Fahrenheit`, `degrees C/F`) anywhere in the corpus, with a liveness assertion
+pinning the pre-fix sentence so the rule cannot quietly stop firing.
+
+**A bare `degrees` is deliberately NOT in that rule.** The corpus writes the word 172 times and 156 of
+them are latitude, an angle of slope, "a high degree of autonomy" or "its degree of disorder"; a rule
+claiming the word would report the language rather than a fault.
+
+### 2. The sweeps only ever looked at five fields
+
+`question`, `answer`, `answerDate`, `abstract`, `answerText` and the question pool — while the transform
+is a DOM text-node pass that reaches **everything a reader is shown**. Widening the walk to `why`, a
+picture's `title`/`desc`/`alt` and a map or artwork card's `facts` grid took the corpus sweep from 1,667
+fields to 2,003 and found the last two faults immediately:
+
+- **`gr-712`'s picture caption** read "now several kilometres (two miles) inland". `U_RUN` needs a NUMBER
+  and "several" is not one, so the run never started and the bracket was invisible — both systems on
+  screen at once. It was also self-inconsistent (several kilometres is not two miles) and the figure was
+  uncited: Livius, the card's own source for the site, says only that the harbour "was silting up", and
+  nothing openable was found that states a distance. **The figure went rather than being invented**; the
+  caption now says what the photograph and the cited article both support.
+- **`art-005`'s Size row** read `136 × 54 cm (54 × 21 inches)`. `×` is in neither `U_JOIN` nor `U_FILL`,
+  so the run stopped at 136 and `isImperialParen("54 × 21 inches")` was false. Rewritten to the `by` form,
+  which `test-units.js` already pins.
+
+### 3. `set-facts.js` refused the artwork cards
+
+The artwork card format ships a `facts` grid and that helper was written for map cards, so it died with
+"not a map card" — meaning the only field the artwork format adds had **no sanctioned writer at all**, and
+the next edit of one would have gone by hand straight into `data.js`. It now takes both, with the row
+bounds **sliced out of `add-card.js` by text** (a map card's minimum and an artwork card's differ) and the
+run stopping if the slice fails.
+
+### Teaching the engine `×` was built, measured and NOT taken
+
+The obvious alternative to rewriting `art-005` was to add `×` to `U_JOIN` and `U_FILL`. It was implemented
+and proved against the whole corpus in both systems — 56,702 renderings, 0 changed — so it is safe in the
+narrow sense. It is still refused, for three reasons worth having before anyone rebuilds it:
+
+- `U_FILL` governs what a bracket may be MADE of, i.e. what may be **eaten** out of ordinary prose, which
+  is the one failure this engine must not have (it corrupts text for the imperial reader alone, so the
+  authored view looks perfect and nothing reports it).
+- **9 of the corpus's 10 `×` sites are MULTIPLICATION** — `6.02214076 × 10²³`, `2 × 10¹⁹`, `18 × 20` —
+  so the character mostly does not mean what the widening would claim it means.
+- One card is affected. `by` is a shape the suite already pins.
+
+If the Visual Art collection later wants `×` as its dimension convention across ~1,000 Size rows, that is
+a deliberate engine change with its own batch and its own before/after proof — not a fix smuggled in
+beside a card edit.
+
+### The backlog this leaves: a bare temperature degree, 16 sites
+
+Measured Sep 2026 over cards, why-answers, captions, facts grids and the glossary. These write a
+temperature degree with no scale named, so an imperial reader reads a Celsius figure as a Fahrenheit one.
+It is a content pass rather than a sweep, because **four of them are vague comparatives that may well be
+right as they stand** and converting them would invent precision.
+
+| where | what it says | kind |
+|---|---|---|
+| `wh-064` abstract + why3 | "a cooling of only about 1.5 degrees" | difference |
+| `wh-104` abstract | "perhaps 10 to 14 degrees colder than today" | difference |
+| `wh-113` abstract ×2 + why3 | "0.7 degrees above … 0.3 degrees below" | difference |
+| `gw-229` abstract | "risen by about half a degree in the last century" | difference |
+| `gloss:Toba_catastrophe_theory` | "a cooling of only about 1.5 degrees" | difference |
+| `gloss:Younger_Dryas` | "perhaps 10 to 14 degrees colder than today" | difference |
+| `gloss:Atlantic_period` | "about one and a half degrees warmer than today" | difference |
+| `gw-145` abstract | "a degree or two colder" | vague |
+| `gw-184` abstract | "varying only a degree or two between seasons" | vague |
+| `gw-196` abstract | "dropping only a few degrees in the cooler months" | vague |
+| `gc-514` abstract | "they run several degrees colder on average" | vague |
+| `gw-678` abstract | "the coldest month sits three degrees under freezing" | **absolute** |
+| `gloss:Mongolia` | "winters can fall below minus 40 degrees" | **absolute** |
+
+**The two absolutes are the traps.** "Three degrees under freezing" is −3 °C, i.e. 26.6 °F — not three
+degrees under freezing on the Fahrenheit scale, which is 29 °F. And −40 is the one temperature at which
+the two scales coincide, so `Mongolia` is accidentally right in both and must not be "corrected" into
+something that is only right in one.
+
+Correctly left alone by that measure and not part of the backlog: latitude (`gw-069`, `gw-757`,
+`gloss:Milankovitch_cycles`, `gloss:African_humid_period`), an angle of slope (`gw-541`), "a high degree
+of autonomy" (`gw-104`, `gloss:Hong_Kong`), "its degree of disorder" (`bio-076`, `gloss:Bioenergetics`),
+"to an incredible degree" (`rm-339`), and `Specific_heat_capacity`'s own first sentence — "the energy
+required to raise the temperature of a given mass of it by one degree" is scale-free and is the
+definition, so it is right as it stands.
