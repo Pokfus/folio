@@ -64,7 +64,7 @@ const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " 
    stripped before counting: the limit still binds what the card SAYS, and the conversion rides free. The
    pattern is deliberately narrow — a parenthesis holding a number and an imperial unit — so an ordinary
    aside is still counted (and asides are banned in an abstract anyway). */
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi)\b|°F\b)[^)]*\)/gi;
 const unconverted = (s) => String(s || "").replace(IMPERIAL_PAREN, "");
 const qWords = (s) => plain(unconverted(s)).split(" ").filter(Boolean).length;
 

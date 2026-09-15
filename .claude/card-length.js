@@ -35,7 +35,7 @@ const Q_LO = 20,  Q_HI = 34;           // one phrasing
    or every card measures 0 words.  See card-io.js's header. */
 const CARDS = require("./card-io.js").loadCards().cards;
 
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi)\b|°F\b)[^)]*\)/gi;
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/&[a-z]+;/gi, " ").replace(/\s+/g, " ").trim();
 const words = (s) => { const t = plain(String(s || "").replace(IMPERIAL_PAREN, "")); return t ? t.split(" ").length : 0; };
 

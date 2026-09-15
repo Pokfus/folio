@@ -34,7 +34,7 @@ const SENT_PER_BLOCK = 5;
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
 /* An imperial conversion is not charged against the word count — the site's own rule, and without it the
    metric-first rule could not be applied to a place already near the ceiling. Copied from add-card.js. */
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi)\b|°F\b)[^)]*\)/gi;
 
 const { pieces } = require("./split-abstract.js");
 

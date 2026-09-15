@@ -14,7 +14,7 @@
 const fs = require("fs"), path = require("path");
 const root = path.join(__dirname, "..");
 const SRC_TARGET = 5, WORD_MIN = 270, WORD_MAX = 330;
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi)\b|°F\b)[^)]*\)/gi;
 const { pieces } = require("./split-abstract.js");
 
 function loadWindow(f) { const w = {}; new Function("window", fs.readFileSync(f, "utf8"))(w); return w; }

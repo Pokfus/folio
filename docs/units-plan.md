@@ -267,3 +267,65 @@ of autonomy" (`gw-104`, `gloss:Hong_Kong`), "its degree of disorder" (`bio-076`,
 "to an incredible degree" (`rm-339`), and `Specific_heat_capacity`'s own first sentence — "the energy
 required to raise the temperature of a given mass of it by one degree" is scale-free and is the
 definition, so it is right as it stands.
+
+## Sep 2026 — `IMPERIAL_PAREN` could not match the house form, in nine files
+
+**A `\b` between a SPACE and a DEGREE SIGN can never match**, because both are non-word characters — and
+that is where every copy of the pattern had put the `°F` alternative:
+
+```
+[^)]*\b(?:miles?|foot|feet|…|sq\s?mi|°F)\b[^)]*\)      ← °F is unreachable
+[^)]*(?:\b(?:miles?|foot|feet|…|sq\s?mi)\b|°F\b)[^)]*\) ← fixed: °F carries its own boundary
+```
+
+So **the rule "an imperial conversion does not count" was not being applied to temperatures at all**,
+except in the minority spelling: `(1.8°F)` was stripped and `(1.8 °F)` was charged in full. The house form
+is the spaced one — **725 sites against 127** — so almost every temperature conversion on the site was
+costing its card or term about two words it was not supposed to cost.
+
+It is the length rule fighting the units rule through a regex bug: a glossary term already at the
+110-word ceiling could not be given a `(2.7 °F)` at all, which is how it was found — writing exactly that
+bracket onto `Toba_catastrophe_theory`.
+
+**Measured over the whole corpus, before and after.** Both directions are the stated rule being applied
+correctly for the first time, so neither is a regression:
+
+| | before | after |
+|---|---|---|
+| card backgrounds over 330 | 9 | **2** |
+| card backgrounds under 270 | 0 | **9** |
+| glossary terms outside 90–110 | 0 | **2** |
+
+Seven cards were never over-length; nine were only inside the floor because their conversions were being
+counted. **Three questions** count differently and none changes band (`check-questions.js` listed no `°F`
+at all, which is the same defect wearing different clothes).
+
+### The backlog this leaves: 11 items genuinely short of the floor
+
+Each needs a sentence extended from a source it already cites — not padding, which is the one way a
+length pass can do real damage.
+
+| | words | short by |
+|---|---|---|
+| `gw-645` | 262 | 8 |
+| `gw-620` | 264 | 6 |
+| `gw-658` | 265 | 5 |
+| `gw-046` | 266 | 4 |
+| `gw-052` | 266 | 4 |
+| `gw-043` | 267 | 3 |
+| `gw-070` | 267 | 3 |
+| `gw-644` | 267 | 3 |
+| `gw-041` | 269 | 1 |
+| `gloss:Shenyang` | 86 | 4 |
+| `gloss:Hunan` | 88 | 2 |
+
+### …and the hazard that is NOT fixed: the pattern exists nine times, in three versions
+
+`add-artefact-sources.js`, `add-artefacts.js`, `add-card.js`, `add-place-info.js`, `add-questions.js`,
+`atlas-audit.js`, `card-length.js`, `gloss-length.js` and `check-questions.js` each carry their own copy,
+and they are **not the same pattern**: one adds `gallons?|pints?|quarts?`, and `check-questions.js`'s
+lists `sq ft|in|yd` while listing no `°F` at all. The boundary is now fixed in all nine and the lists are
+deliberately left as they are — unifying them changes what three tools count and wants its own
+before-and-after measurement. **One file should own the pattern and the rest should slice it out by text,
+stopping if the slice fails**, which is what `set-facts.js` and `check-cards.js` already do for their own
+shared rules. Until that happens, **a change to one copy is a change to one copy.**

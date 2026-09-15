@@ -51,9 +51,13 @@ const VERBOSE = process.argv.includes("--verbose");
 const MIN = 20, MAX = 34;
 const MAP_MIN = 5, MAP_MAX = 20;
 
-// An imperial conversion in parentheses is not charged against the word budget.
+/* An imperial conversion in parentheses is not charged against the word budget.
+   °F HAS ITS OWN BOUNDARY, AND THAT IS THE WHOLE OF WHY IT WORKS (Sep 2026). Written inside the \b(?:…)\b
+   group as the other units are, the leading \b sits between a SPACE and a DEGREE SIGN — two non-word
+   characters — so it can never match, and the house form "(1.8 °F)" was charged in full while the
+   spaceless "(1.8°F)" was not. The house form is the spaced one, 725 sites against 127. */
 const IMPERIAL_PAREN =
-  /\s*\((?=[^)]*\d)[^)]*\b(?:inch|inches|in|foot|feet|ft|yard|yards|yd|mile|miles|mi|pound|pounds|lb|lbs|ounce|ounces|oz|acre|acres|gallon|gallons|pint|pints|quart|quarts|sq\s*(?:mi|ft|in|yd))\b[^)]*\)/gi;
+  /\s*\((?=[^)]*\d)[^)]*(?:\b(?:inch|inches|in|foot|feet|ft|yard|yards|yd|mile|miles|mi|pound|pounds|lb|lbs|ounce|ounces|oz|acre|acres|gallon|gallons|pint|pints|quart|quarts|sq\s*(?:mi|ft|in|yd))\b|°F\b)[^)]*\)/gi;
 
 const BLANK_RX = /<span class="blank">_+<\/span>/;
 // A pronoun opening whose antecedent can only be the hidden answer.

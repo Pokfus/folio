@@ -46,7 +46,7 @@ const BAR = (() => {
 })();
 
 const SENTENCES = 5, WORD_MIN = 180, WORD_MAX = 220;
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|gallons?|pints?|quarts?|sq\s?mi|°F)\b[^)]*\)/gi;
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|gallons?|pints?|quarts?|sq\s?mi)\b|°F\b)[^)]*\)/gi;
 const URL_RX = /https?:\/\/[^\s<>"')\]]+/;
 
 const arg = process.argv[2];

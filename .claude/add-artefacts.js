@@ -40,7 +40,7 @@ const SENTENCES = 5, WORD_MIN = 180, WORD_MAX = 220;
    physical object and a jar, a cauldron or a drinking cup is measured in litres. The exemption's reason
    is unchanged — a conversion is a courtesy to the reader, not prose — so the unit list follows the
    measurements this corpus actually takes rather than being copied for its own sake. */
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|gallons?|pints?|quarts?|sq\s?mi|°F)\b[^)]*\)/gi;
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|gallons?|pints?|quarts?|sq\s?mi)\b|°F\b)[^)]*\)/gi;
 const METRIC = /\b\d[\d.,]*\s?(?:millimetres?|centimetres?|metres?|kilometres?|kilograms?|grams?|tonnes?|litres?|km|cm|mm)\b/i;
 const URL_RX = /https?:\/\/[^\s<>"')\]]+/;
 // the citation bar, sliced out of app.js so the site and the pipeline cannot disagree about it

@@ -31,7 +31,7 @@ const TAGS = global.window.GLOSSARY_TAGS || {};
    purely because its terms carry more measurements: a country term states an area, sometimes a height and a
    length too, at three words of conversion each. The leading space goes with the parenthetical, or the
    stripped text leaves a stray token behind. */
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi)\b|°F\b)[^)]*\)/gi;
 // the same order the popup renders in: markers first (they sit inside the prose), then tags, then entities
 function words(html) {
   return String(html || "")
