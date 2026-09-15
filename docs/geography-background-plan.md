@@ -161,8 +161,8 @@ can still be a bad paragraph — which is why the script prints a list and this 
   safe direction for a measure whose findings are read one at a time.
 - **A span is measured between two dates**, so a block naming one date spans zero whether it covers a
   millennium or an afternoon.
-- **`gc-` does not have the shape the rule assumes.** Seventeen of its 58 second blocks carry no
-  history at all — `gc-513` Nanchang's is ring roads, monsoon variability and park cooling — and
+- **`gc-` does not have the shape the rule assumes.** Eighteen of its 58 second blocks name no
+  date at all — `gc-513` Nanchang's is ring roads, monsoon variability and park cooling — and
   several of its FIRST blocks are history where the house split puts geography. For that collection
   rule 5 is a rewrite of both blocks rather than one, and its batches should say so.
 
@@ -346,6 +346,33 @@ sweep every citation URL, apply with `add-sources.js` and `set-date-line.js`, re
 through `cardYears`, render in a browser to read the glossary auto-links, then record the figures here.
 
 ## What has shipped
+
+- **2026-09-15, batch H5 — one card, to prove the rule on the THIRD collection and to find out what that
+  collection actually costs**: `gc-002` Shandong, whose history block ran 1898 to 1919 and now runs from
+  the Longshan towns of about 3000 BCE to the Treaty of Versailles, a span of 4,899 years. Its date line
+  went with it: `German lease 1898 / To Japan 1919` gained the enfeoffment of Qi and Lu about 1046 BCE.
+
+  · **`gc-` IS THE EXPENSIVE COLLECTION AND HERE IS WHY, MEASURED CARD BY CARD.** Its second blocks are
+    not histories that start late; they are ASSORTMENTS — `gc-003` Henan's is the history of two
+    excavations, the origins debate, the founding of the Song, a Taiping siege and a study of traditional
+    villages, in that order. And its FIRST blocks are frequently history where the house split puts
+    geography: `gc-001` Guangdong's opens on the collapse of the Tang. **So most `gc-` cards need BOTH
+    blocks rewritten, which is why this batch is one card rather than six.**
+  · **PICK THE `gc-` CARDS WHOSE FIRST BLOCK IS ALREADY GEOGRAPHY.** Counting the sentences in each block
+    that carry a year, a century or a dynasty name sorts the collection usefully: `gc-002`, `gc-013` and
+    `gc-024` have a first block with none, and `gc-021`, `gc-027`, `gc-011`, `gc-022`, `gc-026` and
+    `gc-028` have one. Those nine are one-block rewrites like the world deck's; the rest are two.
+  · **THE SOURCES CAME OUT OF THE CHINA COLLECTION, which is 259 cards deep.** `cnh-050` Longshan,
+    `cnh-152` Qi and `cnh-156` Lu carried the deep end — Dematté in *Asian Perspectives* and Chavannes's
+    Sima Qian — and the card's own Morse, Richard and Avalon citations carried the rest. H2's finding for
+    the third time.
+  · **WHAT SHANDONG LOST IS TWO GEOGRAPHY SENTENCES THAT WERE IN THE WRONG BLOCK**: the Yellow River
+    silting its bed above the plain, and the delta resettled as the channels move. They were sentences 1
+    and 2 of the history half, they are geography, and the first block was already full. Their two
+    citations went with them. **On `gc-` expect that loss to be the rule rather than the exception**, and
+    on a two-block rewrite move them up rather than dropping them.
+  · **“S. M. Brooks” SPLITS A SENTENCE COUNT IN TWO**, as “St. Augustine” does one collection over. The
+    card is ten sentences and any naive splitter reads twelve.
 
 - **2026-09-15, batch H4 — the rule proved on the SECOND geography collection**: `geo-001` California,
   `geo-002` Texas and `geo-003` Florida, the three most populous states, all three of which now clear

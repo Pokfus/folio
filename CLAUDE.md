@@ -777,8 +777,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     YEAR IS NOT READ** — it reads PROSE rather than a date line, where a bare 712 is as often a rainfall
     figure, so it under-reports and never over-reports. A span is measured
     between two dates, so a block naming one spans zero whether it covers a millennium or an afternoon.
-    And **`gc-` does not have the shape the rule assumes** — seventeen of its 58 second blocks carry no
-    history at all and several of its FIRST blocks are history where the house split puts geography, so
+    And **`gc-` does not have the shape the rule assumes** — eighteen of its 58 second blocks name no
+    date at all and several of its FIRST blocks are history where the house split puts geography, so
     there rule 5 is a rewrite of both blocks rather than one.
     **A REWRITE IS NEW RESEARCH, NOT AN EDIT**, and worse than rule 1's in one specific way: the
     sentences being added are about periods the card's existing five sources say nothing about, so expect
@@ -817,7 +817,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   it is and never as an independent source.
   **RULE 5 OF `docs/geography-background-plan.md` BINDS ON THIS COLLECTION TOO, AND IT IS THE ONE THAT
   DOES NOT FIT THE SHAPE THE RULE ASSUMES** — a background's second block must summarise the WHOLE
-  history of its answer term, and seventeen of these 58 second blocks carry no history at all while
+  history of its answer term, and eighteen of these 58 second blocks name no date at all while
   several FIRST blocks are history where the house split puts geography, so here rule 5 is a rewrite of
   both blocks rather than one. `node .claude/geo-history-audit.js --prefix=gc-` is the measure. Not part
   of the site.
