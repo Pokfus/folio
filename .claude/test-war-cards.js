@@ -107,6 +107,14 @@ const EXTENT_PLACES = {
   "wh-345": {victors: {in: [["Rome",12.48,41.9],["Naples",14.25,40.85],["Florence",11.25,43.77]], out: [["Palermo",13.36,38.12],["Syracuse",15.29,37.07]]}, losers: {in: [["Carthage",10.32,36.85],["Utica",10.06,37.06],["Hadrumetum",10.64,35.83]], out: [["Cirta",6.61,36.36],["Cyrene",21.86,32.82]]}},
   "rm-186": {victors: {in: [["Rome",12.48,41.9],["Naples",14.25,40.85],["Florence",11.25,43.77]], out: [["Palermo",13.36,38.12],["Syracuse",15.29,37.07]]}, losers: {in: [["Carthage",10.32,36.85],["Utica",10.06,37.06],["Hadrumetum",10.64,35.83]], out: [["Cirta",6.61,36.36],["Cyrene",21.86,32.82]]}},
   "rm-209": {victors: {in: [["Rome",12.48,41.9],["Naples",14.25,40.85],["Florence",11.25,43.77]], out: [["Milan",9.19,45.46],["Bologna",11.34,44.49]]}, losers: {in: [["Carthage",10.32,36.85],["Utica",10.06,37.06],["Hadrumetum",10.64,35.83]], out: [["Cirta",6.61,36.36],["Cyrene",21.86,32.82]]}},
+  "gr-448": {victors: {in: [["Syracuse",15.29,37.07],["Acragas",13.58,37.31],["Himera",13.82,37.97]], out: [["Motya",12.47,37.87],["Panormus",13.36,38.12]]}, losers: {in: [["Carthage",10.32,36.85],["Utica",10.06,37.06],["Hadrumetum",10.63,35.83]], out: [["Hippo Regius",7.75,36.9],["Cirta",6.61,36.37]]}},
+  "gr-552": {victors: {in: [["Syracuse",15.29,37.07],["Camarina",14.44,36.87],["Gela",14.25,37.07]], out: [["Catana",15.09,37.5],["Naxos",15.27,37.82]]}, losers: {in: [["Athens",23.73,37.98],["Piraeus",23.65,37.94],["Eleusis",23.54,38.04]], out: [["Sparta",22.43,37.07],["Corinth",22.93,37.94]]}},
+  "rm-162": {victors: {in: [["Rome",12.48,41.9],["Naples",14.25,40.85],["Florence",11.25,43.77]], out: [["Palermo",13.36,38.12],["Syracuse",15.29,37.07]]}, losers: {in: [["Mediolanum",9.19,45.46],["Placentia",9.69,45.05],["Cremona",10.02,45.13]], out: [["Rome",12.48,41.9],["Arretium",11.86,43.46]]}},
+  "wh-349": {victors: {in: [["Rome",12.48,41.9],["Naples",14.25,40.85],["Florence",11.25,43.77]], out: [["Milan",9.19,45.46],["Bologna",11.34,44.49]]}, losers: {in: [["Pella",22.53,40.76],["Thessalonica",22.94,40.64],["Larissa",22.42,39.64]], out: [["Athens",23.73,37.98],["Delphi",22.5,38.48]]}},
+  "cnh-188": {victors: {in: [["Xianyang",108.71,34.33],["Chengdu",104.07,30.67],["Hanzhong",107.02,33.07]], out: [["Handan",114.49,36.61],["Daliang",114.31,34.8]]}, losers: {in: [["Xinzheng",113.73,34.4],["Yangzhai",113.47,34.14],["Handan",114.49,36.61]], out: [["Luoyang",112.45,34.62],["Xianyang",108.71,34.33]]}},
+  "wh-504": {victors: {in: [["Rouen",1.1,49.44],["Caen",-0.37,49.18],["Bayeux",-0.7,49.28]], out: [["Paris",2.35,48.86],["Rennes",-1.68,48.11]]}, losers: {in: [["London",-0.13,51.51],["York",-1.08,53.96],["Winchester",-1.31,51.06]], out: [["Cardiff",-3.18,51.48],["Swansea",-3.94,51.62]]}},
+  "wh-518": {victors: {in: [["Paris",2.35,48.86],["Rouen",1.1,49.44],["Reims",4.03,49.26]], out: [["Bordeaux",-0.58,44.84],["Bayonne",-1.47,43.49]]}, losers: {in: [["London",-0.13,51.51],["York",-1.08,53.96],["Bristol",-2.59,51.45]], out: [["Edinburgh",-3.19,55.95],["Glasgow",-4.25,55.86]]}},
+  "us-072": {victors: {in: [["Philadelphia",-75.16,39.95],["New York",-74.01,40.71],["Boston",-71.06,42.36]], out: [["Detroit",-83.05,42.33],["Columbus",-83,39.96]]}, losers: {in: [["Fallen Timbers",-83.69,41.55],["Fort Wayne",-85.14,41.08],["Fort Recovery",-84.78,40.25]], out: [["Pittsburgh",-80,40.44],["Lexington",-84.5,38.04]]}},
   "rm-234": {victors: {in: [["Rome",12.48,41.9],["Naples",14.25,40.85],["Florence",11.25,43.77]], out: [["Milan",9.19,45.46],["Bologna",11.34,44.49]]}, losers: {in: [["Carthage",10.32,36.85],["Utica",10.06,37.06],["Hadrumetum",10.64,35.83]], out: [["Cirta",6.61,36.36],["Hippo Regius",7.77,36.9]]}},
   "wh-319": {victors: {in: [["Athens",23.73,37.98],["Sparta",22.43,37.07],["Corinth",22.93,37.94]], out: [["Larissa",22.42,39.64],["Thessalonica",22.94,40.64]]}, losers: {in: [["Sardis",28.04,38.49],["Ephesus",27.34,37.94],["Miletus",27.28,37.53]], out: [["Athens",23.73,37.98],["Sparta",22.43,37.07]]}},
   "wh-330": {victors: {in: [["Sparta",22.43,37.07],["Corinth",22.93,37.94],["Olympia",21.63,37.64]], out: [["Athens",23.73,37.98],["Megara",23.34,37.99]]}, losers: {in: [["Athens",23.73,37.98],["Piraeus",23.65,37.94],["Eleusis",23.54,38.04]], out: [["Sparta",22.43,37.07],["Corinth",22.93,37.94]]}},
@@ -145,6 +153,43 @@ console.log("\n1b) the authored extents cover what they should");
   const probe = cards.find((x) => x && x.id === "rm-209");
   check("...and the test can fail",
     require("./card-war.js").checkPlaces(probe, { victors: { in: [], out: [["Rome", 12.48, 41.90]] } }).length === 1);
+}
+
+/* ---------- 1c) …and no two cards contradict each other ----------
+   The fault this catches needs TWO cards and so is invisible to every per-card rule: the personal atlas
+   draws every studied war on one globe, so two blocks whose years overlap and whose opposing sides claim
+   one piece of ground shade it green and red at once, and whichever is painted second wins. Nothing on
+   either card is wrong. It found seven pairs on the day it was written, all of them the Punic Wars card
+   holding Carthage's extent AS IT STOOD IN 264 across the whole 118-year span while every later Roman
+   card correctly had Sicily and Sardinia on Rome's side. */
+console.log("\n1c) no two blocks contradict each other");
+{
+  const { checkClashes } = require("./card-war.js");
+  const clash = checkClashes(cards, cardYears);
+  const role = { v: "victors", l: "defeated" };
+  clash.forEach((k) => console.log("      " + k.a.id + " " + role[k.sa] + " vs " + k.b.id + " " + role[k.sb] + " — " + k.why + ", both in " + k.y0 + " .. " + k.y1));
+  check("the corpus's blocks agree with each other", clash.length === 0, wars.length + " blocks compared pairwise");
+  /* …AND THE CHECK CAN FAIL, both ways it can fire. A planted NAME on the opposite side of an overlapping
+     year, and a planted EXTENT over a side of one. A sweep that has quietly stopped sweeping reports an
+     agreeing corpus exactly as an agreeing corpus does. */
+  const yrs = { years: [-218, -201] };
+  const nameClash = checkClashes(cards.concat([
+    { id: "probe-a", answerText: "A", war: Object.assign({ victors: { name: "A", keys: ["Italy"] }, losers: { name: "B", keys: ["Tunisia"] } }, yrs) },
+    { id: "probe-b", answerText: "B", war: Object.assign({ victors: { name: "C", keys: ["Tunisia"] }, losers: { name: "D", keys: ["Greece"] } }, yrs) },
+  ]), cardYears);
+  check("...and a name on two cards' opposing sides is reported", nameClash.some((k) => k.a.id === "probe-a" && k.b.id === "probe-b"));
+  const sq = (x, y, d) => [[x - d, y - d], [x + d, y - d], [x + d, y + d], [x - d, y + d]];
+  const areaClash = checkClashes(cards.concat([
+    { id: "probe-c", answerText: "C", war: Object.assign({ victors: { name: "A", area: sq(12, 42, 1) }, losers: { name: "B", area: sq(20, 42, 1) } }, yrs) },
+    { id: "probe-d", answerText: "D", war: Object.assign({ victors: { name: "C", area: sq(30, 42, 1) }, losers: { name: "D", area: sq(12, 42, 1) } }, yrs) },
+  ]), cardYears);
+  check("...and two cards' opposing extents over one piece of ground are reported",
+    areaClash.some((k) => k.a.id === "probe-c" && k.b.id === "probe-d"));
+  check("...while blocks that agree are not reported",
+    !checkClashes([
+      { id: "probe-e", answerText: "E", war: Object.assign({ victors: { name: "A", keys: ["Italy"] }, losers: { name: "B", keys: ["Tunisia"] } }, yrs) },
+      { id: "probe-f", answerText: "F", war: Object.assign({ victors: { name: "A", keys: ["Italy"] }, losers: { name: "B", keys: ["Tunisia"] } }, yrs) },
+    ], cardYears).length);
 }
 
 /* ---------- 2) the rules refuse what they are supposed to ---------- */

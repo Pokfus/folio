@@ -46,7 +46,7 @@
  */
 "use strict";
 const fs = require("fs"), path = require("path");
-const { checkWar, checkPlaces, mapNames, warYears } = require("./card-war.js");
+const { checkWar, checkPlaces, checkClashes, mapNames, warYears } = require("./card-war.js");
 const { loadCardYears } = require("./card-links.js");
 
 const ROOT = path.join(__dirname, "..");
@@ -89,6 +89,19 @@ if (args.includes("--check")) {
     console.log("      defeated " + side(c.war.losers));
     console.log("      years    " + (y ? y.y0 + " .. " + y.y1 + "  (" + y.from + ")" : "NONE — it will not draw on the personal atlas"));
   });
+  /* …and what no per-card check can see: two blocks that put one piece of ground in two colours in the
+     same year on the personal atlas. Reported rather than refused — see `checkClashes`. */
+  const clash = checkClashes(cards, cardYears);
+  console.log("");
+  if (!clash.length) console.log("no two blocks contradict each other");
+  else {
+    console.log(clash.length + " pair" + (clash.length === 1 ? "" : "s") + " of blocks CONTRADICT each other on the personal atlas:");
+    const role = { v: "victors", l: "defeated" };
+    clash.forEach((k) => {
+      console.log("  " + k.a.id + " (" + k.a.term + ") " + role[k.sa] + " vs " + k.b.id + " (" + k.b.term + ") " + role[k.sb]);
+      console.log("      " + k.why + ", and both draw in " + k.y0 + " .. " + k.y1);
+    });
+  }
   process.exit(0);
 }
 
@@ -125,6 +138,25 @@ if (errs.length) {
   console.error("ERROR: the batch was NOT applied — " + errs.length + " problem" + (errs.length === 1 ? "" : "s") + ":");
   errs.forEach((e) => console.error("  · " + e));
   process.exit(1);
+}
+
+/* ---- …AND THE BATCH IS CHECKED AGAINST THE BLOCKS ALREADY SHIPPED, which `checkWar` cannot do,
+   knowing only one card. Two blocks whose years overlap and whose opposing sides claim one piece of
+   ground shade it green and red at once on the personal atlas. REPORTED rather than refused: the fix is
+   a judgement about which of the two to narrow, and a batch is sometimes the thing that CORRECTS one
+   (the Punic Wars card carried Carthage's 264 extent across a 118-year span). See `checkClashes`. */
+{
+  const clash = checkClashes(cards.map((c) => merged[c.id] || c), cardYears);
+  if (clash.length) {
+    const role = { v: "victors", l: "defeated" };
+    console.log("NOTE: " + clash.length + " pair" + (clash.length === 1 ? "" : "s") +
+      " of blocks would contradict each other on the personal atlas:");
+    clash.forEach((k) => {
+      console.log("  · " + k.a.id + " " + role[k.sa] + " vs " + k.b.id + " " + role[k.sb] +
+        " — " + k.why + ", both drawing in " + k.y0 + " .. " + k.y1);
+    });
+    console.log("");
+  }
 }
 
 // ---- splice the changed lines

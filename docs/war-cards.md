@@ -29,7 +29,7 @@ A side carries a `name` — what the legend calls it — and **either** `keys` *
 
 ---
 
-## The five decisions
+## The six decisions
 
 ### 1. A card declares it. Nothing sniffs the answer term for "war"
 
@@ -86,6 +86,31 @@ and without an override a 118-year subject would appear on the personal atlas fo
 
 ---
 
+### 6. …and two cards' blocks may not contradict each other
+
+The five rules above are all about ONE card, and there is a sixth fault none of them can see because it
+needs two. The personal atlas draws every war a reader has studied on one globe, so two blocks whose
+years overlap and whose opposing sides claim the same ground shade it green and red at once, and
+whichever is painted second wins. Nothing on either card is wrong.
+
+`node .claude/add-card-wars.js --check` sweeps every pair, and `add-card-wars.js` reports what a batch
+would introduce before it writes. It found **seven pairs on the day it was written**, and all seven were
+one fault: `wh-345` the Punic Wars runs 264–146 BCE with Carthage's extent AS IT STOOD IN 264 — Africa,
+western Sicily and Sardinia — while `rm-209`, `rm-234`, `rm-237`, `rm-240`, `rm-245`, `rm-249` and
+`rm-255` all correctly put Sicily and Sardinia on ROME's side in years inside that span, Rome having
+taken them in 241 and 238. Carthage's extent is now its African territory alone, which is the one ground
+it held from the first war to the last.
+
+It is a REPORT rather than a refusal, because the fix is a judgement about which of the two to narrow and
+a batch is sometimes the thing that corrects one. The test is per side-PAIR and only the opposing ones
+matter — two cards agreeing that Carthage is the defeated power is the corpus working. A `keys` clash is
+a name on A's victors and B's losers, which is rule 4 across two cards; an `area` clash is the same grid
+sweep rule 4's geometric half uses. **A `keys` side and an `area` side are not compared**, being drawn on
+different surfaces, and that is stated rather than papered over: such a pair can still contradict each
+other and only the eye will catch it.
+
+---
+
 ## What was looked at on the page, and changed because of it
 
 **A war window spends red on the defeated side, so the collection's own red marks stand down on it.** The
@@ -132,8 +157,8 @@ carries the sentence instead, and clicking either side opens the war's card with
 ## Authoring an extent
 
 **A hand-drawn polygon renders perfectly while being wrong**, so every extent shipped was checked against
-named places with known coordinates rather than looked at — **37 extents, and 1,037 assertions once composed
-per side** — each one "this city must be inside" or "this city must be outside". That is the only way to
+named places with known coordinates rather than looked at — **49 extents, and 1,485 assertions once
+composed per side** — each one "this city must be inside" or "this city must be outside". That is the only way to
 catch a ring whose interior is on the wrong side of an edge, which draws a beautiful map of somewhere
 else.
 
@@ -141,7 +166,7 @@ else.
 `add-card-wars.js` refuses the whole batch if any assertion is wrong; `test-war-cards.js` pins a readable
 subset — three places inside each side and two outside — so a shipped extent edited later fails too.
 
-Four findings from doing it:
+Six findings from doing it:
 
 - **A "must be outside" list composed from per-extent tables has to be built GEOMETRICALLY, not by
   name.** The first cut dropped a place from a side's "out" list only when some extent NAMED it in its
@@ -169,14 +194,25 @@ Four findings from doing it:
   which is what it was, and two colours over one ground read as a mistake.
 - **Several rings are one side.** `locRings` reads a flat ring or a list of rings, so Carthage in 218 BCE
   is Africa and Barcid Spain, and the Athenian empire is Attica, Euboea and the Aegean.
+- **A GAP is a place too, and it can swallow a town.** The Hundred Years' War needed a frontier between
+  the kingdom of France and English Gascony, and the safe way to draw one is to stand France's edge off
+  Gascony's by a tenth of a degree or so. Pau fell in that gap: Béarn's northern boundary is about 10 km
+  south of the duchy's, so there was no room for a 12 km stand-off and an assertion either way. The
+  answer was to assert Pau NEITHER way and let the gap have it, because a viscounty that did homage to
+  Edward III while claiming sovereignty is precisely what a dashed approximation may not adjudicate.
+  **When an assertion will not resolve, drop the assertion rather than moving the line to satisfy it.**
+- **An institution's own extent moves, so date it.** See "An extent is dated as well as drawn" below —
+  Carthage in 480 is not Carthage in 264, and reusing the later ring got the history wrong AND framed the
+  card on the wrong sea.
 
 ---
 
 ## It rides in the LIGHT half of `data.js`, and has to
 
 `war` is on the eager load path, beside `locator`, `map` and `facts` rather than in `data-extra/`. That is
-not an oversight, and the cost is small: **34 blocks cost the eager path 5.2 KB gzipped**, about 155 bytes
-each — authored coordinates compress well.
+not an oversight, and the cost is small: **43 blocks cost the eager path about 7 KB gzipped**, roughly
+170 bytes each — authored coordinates compress well. The nine added in the third batch cost 1,857 bytes
+between them, and two extents NARROWED in the same batch gave some of that back.
 
 It has to be there because **the personal atlas reads it**. `atlasUnlocks` walks every card the reader has
 studied and asks it for its places; the heavy half is fetched per collection when a card in that collection
@@ -209,6 +245,16 @@ machinery lives inside the Atlas's own closure and would have to be duplicated; 
 polygon is simplified to its own tolerance, so filling one over `world.js`'s land shows slivers at the
 coast. **Where the modern border misleads, the honest answer is an authored `area`.**
 
+**A war between a very small state and a very large one frames the large one, and `zoom` cannot fix it.**
+The `ww2-159` Winter War card shades the whole of Russia green against a red Finland, and the automatic
+fit opens on northern Eurasia with the globe's own limb in view. The `zoom` override moves the SCALE and
+not the CENTRE — `homeZoom = clampN(zoomAttr || z, …)` leaves `homeLon`/`homeLat` at the union's own
+middle — so zooming in on a Russia-and-Finland union centres on Siberia and takes Finland off the screen
+altogether. That is the opposite of `wh-319`, where the Greek allies and the Achaemenid empire have
+Anatolia between them and a tighter frame lands on the theatre. What is drawn is true, both sides are
+legible, and the disparity is arguably what the card is about: the honest answer is to leave it and say
+so here.
+
 **`ww2-001` is the sharpest case of it.** "The countries of the two sides" of the Second World War is
 some sixty states and two coalitions; what is shaded is the principal Allied and Axis powers, and the
 sides are named **Allied powers** and **Axis powers** rather than listing them, because the coalition is
@@ -218,19 +264,26 @@ what the colour stands for. Finland, Romania and Bulgaria are left off both side
 
 ## Coverage
 
-Thirty-four cards carry a block — the Punic, Macedonian, Mithridatic, Samnite, Celtiberian, Illyrian
-and Messenian wars, the Greco-Persian and Peloponnesian wars, the Gallic Wars in both the collections
-that card them, the Roman-Seleucid, Jugurthine, Achaean, Lusitanian, Numantine and Lamian wars, the
-Han–Xiongnu wars, and three from the Second World War collection. **Run
-`node .claude/add-card-wars.js --check` for the figure rather than quoting that**: it prints every block,
-both sides and the years each will draw in.
+Forty-three cards carry a block. **Run `node .claude/add-card-wars.js --check` for the figure rather than
+quoting that**: it prints every block, both sides, the years each will draw in, and whether any two of
+them contradict each other.
 
-Two of them are worth knowing about before writing the next. **`cnh-224` and `rm-333` carry a locator as
-well**, and the combination is the best thing this format does: the two washes say who fought and the
-gold dot says where the thing the card is about happened — Mayi on the Han frontier, Chalcedon on the
-Bosphorus. **And `wh-354` is the theatre rule in its clearest form**: Rome in 58 BCE held Spain, Africa,
-Macedonia and Asia as well, and what is shaded is Italy with the two Gauls it already had, which is the
-map the war was fought from.
+**A card need not have "war" in its answer term to carry one**, and six do not: the Norman Conquest, the
+Qin conquest of the six states, the Roman conquests of Greece and of Cisalpine Gaul, the Carthaginian
+invasion of Sicily and the Sicilian Expedition. A conquest, an invasion and an expedition are all wars
+between two polities, and the question to ask a card is the one in CLAUDE.md — is its ANSWER TERM a war —
+rather than whether the word is in it. The pool is therefore much wider than the 68 answer terms that
+contain "war" or "wars"; **37 conflict-shaped terms carry no block yet**, most of them revolts and
+campaigns rather than wars between states.
+
+Three of them are worth knowing about before writing the next. **`cnh-224`, `rm-333` and `rm-162` carry a
+locator as well**, and the combination is the best thing this format does: the two washes say who fought
+and the gold dot says where the thing the card is about happened — Mayi on the Han frontier, Chalcedon on
+the Bosphorus, Mediolanum in the middle of a red Po valley. **`wh-504` does it with a `battle` locator**,
+so the Norman Conquest draws a red England, a green Normandy and crossed swords at Hastings. **And
+`wh-354` is the theatre rule in its clearest form**: Rome in 58 BCE held Spain, Africa, Macedonia and Asia
+as well, and what is shaded is Italy with the two Gauls it already had, which is the map the war was
+fought from.
 
 **`rm-350` — the Rome collection's own card for that same war — is what found the third mark to stand
 down.** It carries a `region` locator whose `area` IS Gaul, washed in the answer's gold; with a war block
@@ -238,18 +291,92 @@ the same shape would have been gold and red at once. A locator's area wash now s
 window, for the reason the red marks do: the two sides are already saying what the card is about, in two
 colours. Its dot and its name are untouched, and "Gaul" still sits over the red.
 
+### An extent is dated as well as drawn
+
+**`gr-448` is the case that made this a rule rather than an observation.** The Carthaginian invasion of
+Sicily is 480 BCE, and the first draft gave Carthage the extent the Punic War cards use — which is
+Carthage in 264, after a century and a half of expansion into the Libyan interior and along the
+Tripolitanian coast. It was wrong twice over: it claims ground Carthage did not hold in 480, and because
+the automatic fit frames the union of the two sides, it opened the card on North Africa with Sicily a
+strip at the top. `CARTH_AFRICA_480` is the city, the Cap Bon and the Medjerda, and the card now opens on
+the Sicilian channel, which is where the war was.
+
+The same rule shaped three more extents in that batch. Wei is the **Daliang rump** and not the Wei of the
+period's opening, Qin having taken Anyi in 286; Chu has moved east to **Shouchun**, Ying having fallen in
+278; and **Luoyang is Qin's**, the Zhou royal domain having gone in 249. And `rm-162`'s Cisalpina stands
+off peninsular Italy's own northern edge, where `wh-354` has the two on ONE side and the Apennine crest
+can belong to both.
+
 ### What is left, and what is deliberately not
 
-Measured over the 3,215 shipped cards, **68 answer terms contain "war" or "wars"**. Thirty-four carry a
-block; of the other thirty-four, only nine are work waiting to be done.
+Measured over the 3,215 shipped cards, **68 answer terms contain "war" or "wars"**. Thirty-seven carry a
+block, and **not one of the other thirty-one is work waiting to be done** — for the first time since the
+feature shipped, every one of them is a rule doing its job.
 
 | | count | why |
 |---|---|---|
 | **not a war at all** | 3 | `rm-212` war elephant, `wh-403` Art of War, `ww2-148` declaration of war — the reason a card DECLARES a block rather than a pattern reading the title. |
-| **no decided outcome** | 6 | `gr-198` Lelantine (unknown), `gr-475` First Peloponnesian (Thirty Years' Peace), `gr-529` Archidamian (Peace of Nicias), `gr-657` Corinthian (the King's Peace, whose beneficiary was not a belligerent on the field), `rm-238` First Macedonian (Peace of Phoenice), `ww2-149` Phoney War (no fighting). Rule 3: a drawn war is one that was decided. |
-| **both sides on one ground** | 14 | Nothing for two colours to say. The four Servile Wars (`rm-280`, `rm-303`, `rm-328`, `wh-352`); the Roman civil wars (`rm-316`, `rm-324`, `rm-360`, `rm-364`, `wh-355`); the two Social Wars (`rm-305`, `gr-676`), each a hegemon against its own allies; `rm-203` Carthage against its own mercenaries; `jp-073` Jinshin; `ww2-111` Spanish Civil War. |
-| **too interleaved to draw** | 2 | `rm-142` Latin War and `gr-698` Third Sacred War — see below. |
-| **open — authorable, not done** | 9 | The seven American wars, the Hundred Years' War and the Winter War. |
+| **no decided outcome** | 9 | `gr-198` Lelantine (unknown), `gr-475` First Peloponnesian (Thirty Years' Peace), `gr-529` Archidamian (Peace of Nicias), `gr-657` Corinthian (the King's Peace, whose beneficiary was not a belligerent on the field), `rm-238` First Macedonian (Peace of Phoenice), `ww2-149` Phoney War (no fighting), and three American — `us-051` Beaver Wars (a general peace at Montreal in 1701), `us-067` Pontiac's War (the Crown restored the gifts and the Proclamation line, and neither side won), `us-082` Seminole Wars (the card's own question is that the last ended with no treaty signed, and some Seminole were never defeated). Rule 3: a drawn war is one that was decided. |
+| **both sides on one ground** | 17 | Nothing for two colours to say. The four Servile Wars (`rm-280`, `rm-303`, `rm-328`, `wh-352`); the Roman civil wars (`rm-316`, `rm-324`, `rm-360`, `rm-364`, `wh-355`); the two Social Wars (`rm-305`, `gr-676`), each a hegemon against its own allies; `rm-203` Carthage against its own mercenaries; `jp-073` Jinshin; `ww2-111` Spanish Civil War; and three American — `us-060` King Philip's War, `us-063` Yamasee War and `us-064` Tuscarora War, on which see below. |
+| **too interleaved to draw** | 2 | `rm-142` Latin War and `gr-698` Third Sacred War. |
+
+**The open ground is the WIDER pool**, the one the word "war" does not reach: **37 conflict-shaped answer
+terms carry no block** — conquests, invasions, campaigns, revolts and crusades. Most are revolts inside a
+single polity and fall under "both sides on one ground" as surely as the Servile Wars do; the ones worth
+writing next are `gr-383` the Persian conquest of Lydia, `gr-384` the conquest of Ionia, `gr-391` Darius'
+Scythian campaign, `gr-478` the Athenian Egyptian expedition, `rm-159` the conquest of Umbria and Picenum,
+and `gr-417`, on which see below. **Two of the 37 are refused rather than pending** — `ww2-124` the
+Italian invasion of Albania and `ww2-146` the Soviet invasion of Poland — for the reason immediately
+below.
+
+#### The seven American wars, resolved
+
+They were carried as one block of open work for two batches and they are not one thing. **`us-072` the
+Northwest Indian War is written**, and it is the best of them: the card's own prose says the confederacy
+held that the Ohio was the boundary, says it was beaten at Fallen Timbers, and says what it gave up at
+Greenville — so the frontier, the outcome and the two sides are all on the card, and the map draws the
+United States green along the seaboard and into Kentucky against a red Ohio Country. Carding a Native
+defeat as a defeat is the point rather than the difficulty; the alternative is the papering-over this
+project's rules forbid, and the card already tells the story honestly, Little Turtle's advice and his
+reluctant signature included.
+
+**Three of the other six have no decided outcome** and are in the table above. **The last three are the
+Latin War at a different scale.** `us-060` King Philip's War, `us-063` the Yamasee War and `us-064` the
+Tuscarora War each set a colony against Native nations whose towns stood among the colony's own farms:
+Swansea and Rehoboth are ten to twenty kilometres from Wampanoag ground and Providence is inside
+Narragansett country; the Tuscarora villages and the settlements at Bath and New Bern are on the same two
+rivers; and the Yamasee rising drew in the Creek, Choctaw, Catawba and Apalachee across the whole interior
+while the Lower Cherokee changed sides in the middle of it. A dashed extent says *about here*; it cannot
+say *this village and not the next one*, and two washes drawn at that scale would be a picture somebody
+invented.
+
+#### A war inside a war may not contradict the war it is inside
+
+This is the finding the cross-card check was built on, and it is the reason `ww2-124` and `ww2-146` are
+not written. `ww2-001`'s block is the alignment of the whole Second World War over 1937–1945: Italy is an
+Axis power and Poland an Allied one, which is right about the war. The Italian invasion of Albania and the
+Soviet invasion of Poland are both 1939, and both have a belligerent on the opposite side from the one
+`ww2-001` puts it on — Italy the victor of a war it won, Poland the defeated of a war it lost. A reader
+who studied the umbrella card and either constituent would see that country drawn twice in the same year,
+and whichever was painted second would win.
+
+So the test for a constituent card of a larger war is: **both its sides must be on the same sides the
+umbrella puts them.** `ww2-096` the Second Sino-Japanese War passes it — China green and Japan red on
+both cards — which is why it has a block and these two do not. `ww2-159` the Winter War passes it for a
+different reason: the Soviet Union is green on both, and Finland is on neither of `ww2-001`'s lists, being
+one of the three states rule 4 leaves off.
+
+#### The card has to say who won, not only history
+
+**`gr-417` "invasion of 480" is the standing example, and it is open rather than refused.** The second
+Persian invasion of Greece is as decided as a war gets and `wh-319` already draws it with these exact two
+sides. But `gr-417`'s own ten sentences are about the SIZE of Xerxes' army — Herodotus' 1,700,000, the
+counting pen at Doriscus, Xerxes weeping at Abydos — and the nearest they come to an outcome is
+Thucydides calling the Median war the greatest achievement of past times and saying it was decided in two
+actions by sea and two by land. The rule is that the block rests on the card's own cited prose, so this
+one wants a sentence on the card before it wants a block. **`ww2-159` is the same question answered the
+other way**: its prose says the peace cost Finland territory, and `ww2-160` beside it says the terms were
+Moscow's and were dictated, so the territorial outcome is on the cards and the block follows it.
 
 #### The two that cannot be drawn
 
@@ -260,21 +387,11 @@ Aricia, Lanuvium, Tusculum, Ardea — sit inside and around the ager Romanus at 
 about fifteen kilometres from Chaeronea. A dashed extent says *about here*; it cannot say *this village
 and not the next one*, and two washes drawn at that scale would be a picture somebody invented.
 
-#### The nine that are open
-
-- **Seven American** — `us-051` through `us-082`. Every one is a Native nation or confederacy against a
-  colony or the United States, and none of those nations has a shape on any map Folio holds, so all of
-  them need authored extents. They also want the collection's own scope decisions read first: the plan
-  opens with Native America as a deck rather than a prologue, and a two-colour "victors / defeated" over
-  a continent being taken is a claim to make carefully or not at all.
-- **`wh-518` Hundred Years' War** — England against France, 1337–1453. The trap is that `world.js` has
-  **United Kingdom** and not England, and Scotland was France's ally, so `keys` would shade the wrong
-  island; it needs authored extents. Its years also fall before 1500, so the personal atlas has no era
-  map for it and those extents are the only thing that would draw there.
-- **`ww2-159` Winter War** — the one that could be `keys` tomorrow, the USSR and Finland both being on
-  the 1938 map and on `world.js`. It is not done because **the card's own prose does not name a victor**:
-  it says Finland held out and that the peace cost it territory. Rule 5 is that the block rests on the
-  card's own cited prose, so this one wants the card to settle the outcome first.
+**And the strait itself came back a third time.** `gr-448` wanted the Greek cities of Sicily against
+Carthage, and Rhegium — which the card says helped Carthage — is 12 km from Messana across the water.
+Neither can be separated from the other by an approximate polygon, so `SICILY_GREEK_480` stops short of
+the strait and leaves both Messana and the toe of Italy unshaded. That is the right way round: Rhegium
+shaded green would say the opposite of what the card says.
 
 The rest of the corpus's wars are open ground. Adding one is a batch through
 `node .claude/add-card-wars.js <batch.json>`; `--names=<year>` prints every territory name that era's map
