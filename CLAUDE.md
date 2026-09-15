@@ -3670,7 +3670,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Atlas popup's `noLocator` keeps it.
   **IT RIDES IN THE LIGHT HALF OF `data.js`, BESIDE `locator`, AND HAS TO** — `atlasUnlocks` walks every
   studied card, and a `war` in the heavy half would put a war on the personal globe only when that
-  collection's extra file happened to be loaded. **49 blocks cost the eager path about 8 KB gzipped**, about
+  collection's extra file happened to be loaded. **54 blocks cost the eager path 8,386 bytes gzipped**,
   155 bytes each. **MEASURE THAT BY GZIPPING `data.js`, NOT OFF `check-sizes.js`**, whose display is
   rounded to hundredths of a megabyte: the first batch was written up here as "about 10 KB" because a
   2 KB change showed as 0.01 MB, which is a figure five times too big taken off a tool that was right.
@@ -3697,8 +3697,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **It found SEVEN pairs the day it was written and all seven were one fault**: `wh-345` the Punic Wars
   ran 264–146 BCE carrying Carthage's extent AS IT STOOD IN 264, so western Sicily and Sardinia stayed
   red through every later card that correctly has them on Rome's side. **AN EXTENT IS DATED AS WELL AS
-  DRAWN** — the same rule made `CARTH_AFRICA_480`, the Daliang rump of Wei and a Chu whose capital has
-  moved to Shouchun. **A `keys` side and an `area` side are NOT compared**, being drawn on different
+  DRAWN** — the same rule made `CARTH_AFRICA_480`, the Daliang rump of Wei, a Chu whose capital has
+  moved to Shouchun, **FOUR different Achaemenid rings** for four cards (546, 490, 460 and 334, each the
+  empire on the day its own war opened) and a `USA_1779` that stops east of Iroquoia where `USA_1795`
+  runs into Kentucky — sixteen years apart. **A great empire is usually TWO rings even in one year**, the
+  Asian body and Egypt, so a place check that fails may be asking the wrong one of the two rather than
+  finding a bad polygon. **A `keys` side and an `area` side are NOT compared**, being drawn on different
   surfaces; such a pair can still contradict and only the eye will catch it.
   **AND A WAR INSIDE A WAR MAY NOT CONTRADICT THE WAR IT IS INSIDE**, which is that rule's sharpest form:
   `ww2-001` carries the whole Second World War's alignment over 1937–1945, so a constituent card may carry
@@ -3713,27 +3717,44 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   on — Rome loses it in 54–53, inside the years `rm-350` and `wh-354` have Rome winning in Gaul. **A great
   power is usually fighting in two places and the globe draws them all at once, so check a candidate's
   years against the umbrella wars of the same power BEFORE researching its extents.**
-  **A BATTLE IS NOT A WAR**, and that is where most of the remaining pool goes: of the 158 conflict-shaped
-  answer terms carrying no block, **101 are a battle or a siege** — an event inside a war, whose spot the
-  card already marks with a `battle` locator's crossed swords.
+  **A BATTLE IS NOT A WAR**, and that is where most of the remaining pool goes: of the 169 conflict-shaped
+  answer terms carrying no block, **109 are a battle, a siege or a sack** — an event inside a war, whose
+  spot the card already marks with a `battle` locator's crossed swords. **AND THE PATTERN DOES NOT FIND
+  EVERY WAR EITHER**: the Reconquista, the Fall of Constantinople and the unification of Egypt carry none
+  of those words, so the next candidate is READ for rather than grepped for.
   **COVERAGE, AND EVERYTHING "MISSING" IS NOW THE RULES WORKING.** Run
   `node .claude/add-card-wars.js --check` for the figure rather than quoting one here. Of the 68 answer
   terms in the corpus containing "war", 38 carry a block and **not one of the other 30 is work waiting to
   be done**: **three are not wars** (the war elephant, the Art of War, a declaration of war), **nine had
-  no decided outcome**, **sixteen put both sides on one ground**, **one would win and lose at once**
-  (`rm-355`) and **two are too interleaved to draw** — `rm-142` the Latin War and `gr-698` the Third
-  Sacred War, whose belligerents sit inside each other at ten to twenty kilometres, which is the Strait of
-  Messina finding at a different scale.
+  no decided outcome**, **sixteen put both sides on one ground**, and **two are too interleaved to draw** —
+  `rm-142` the Latin War and `gr-698` the Third Sacred War, whose belligerents sit inside each other at
+  ten to twenty kilometres, which is the Strait of Messina finding at a different scale. **THOSE FOUR
+  FIGURES SUM TO THIRTY EXACTLY, AND THEY DID NOT BEFORE** — a fifth row for `rm-355` made the table
+  claim thirty and list thirty-one, that card's answer term not containing the word at all. **A table
+  explaining a measured set has to sum to it.**
+  **THREE MORE SHAPES OF REFUSAL CAME OUT OF THE FIFTH BATCH.** **A CARD THAT ARGUES ITS OWN SUBJECT WAS
+  NOT AN EVENT CANNOT CARRY A BLOCK ASSERTING IT WAS A WAR** — `gr-154` the Dorian invasion says the idea
+  "has been given up", and `wh-205` the unification of Egypt says archaeology gives no such moment. **A
+  FRONTIER IS NOT A FRONT**: `wh-520` the Reconquista ran 780 years, so any pair of extents is a picture
+  of one decade chosen silently. And **A LOSER STANDING INSIDE THE VICTOR DRAWS A DOT IN A FIELD** —
+  `wh-452` the Fall of Constantinople, the empire by then being the city and its suburbs wholly enclosed
+  by Ottoman ground.
   **ONE ROW OF THAT TABLE WAS WRONG AND THE CORRECTION IS THE USEFUL PART**: `gr-676` the Social War was
   filed under "both sides on one ground" because a hegemon fighting its own allies seems to have nowhere
   to put a second colour. True of `rm-305`; false here, Athens' four revolted allies being three islands
   and a city on the Bosphorus. **"A hegemon against its allies" is a description, not a test** — the test
   is whether the two sides stand on separable ground.
   **THE OPEN GROUND IS THE WIDER POOL, AND A CARD NEED NOT HAVE "WAR" IN ITS ANSWER TERM** — a conquest,
-  an invasion and an expedition are all wars between two polities, and eleven blocks sit on such cards (the
-  Norman Conquest, the Qin conquests of the six states and of the south, the Roman conquests of Greece,
-  Etruria, Umbria and Picenum, Cisalpine Gaul and Spain, the Persian conquest of Lydia, the Carthaginian
-  invasion of Sicily, the Sicilian Expedition).
+  an invasion and an expedition are all wars between two polities, and **sixteen** blocks sit on such cards
+  (the Norman Conquest, the Qin conquests of the six states and of the south, the Roman conquests of
+  Greece, Etruria, Umbria and Picenum, Cisalpine Gaul and Spain, the Persian conquest of Lydia, the
+  Carthaginian invasion of Sicily, the Sicilian Expedition, the early Muslim conquests, the fall of the
+  Achaemenid Empire, the fall of the Shang, the Soviet-Japanese border conflicts and the Sullivan
+  Expedition — **every one of the fifth batch's five**). Taking the battles out by construction and the
+  thirty above by the table, **exactly thirty conflict-shaped terms are left**: eleven revolts inside one
+  polity, six episodes of a war already carded, ten already refused, and **three open, of which two are
+  refusals once read** — so the realistic remainder is `wh-537` the Mongol invasions of Japan and
+  nothing else the corpus can name.
   **📖 `docs/war-cards.md` — READ BEFORE ADDING A WAR BLOCK OR CHANGING HOW ONE IS DRAWN.** The six
   decisions in full, the remainder broken down card by card with what each needs, the findings from
   authoring the extents (above all that the toe of Italy
@@ -3745,7 +3766,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   takes: **a side too small AND TOO SCATTERED to read** (`gr-478` was written, drawn, looked at and
   removed; `wh-319` is the same two powers and works, its small side being a compact block of mainland),
   and **a side that is not a polity at all** (`wh-507`, the First Crusade, whose victors were an
-  expedition rather than any state that declared it).
+  expedition rather than any state that declared it). **Since the fifth batch it also carries the strait
+  finding at a THIRD scale** (Arabia and Sasanian Persia overlapping across Hormuz, sixty kilometres
+  apart, invisible by eye and found by the sweep), the rule that **a seaward vertex is free** because a
+  region wash is clipped to the land, and the Mongolia measurement — **measure a mark by REMOVING it and
+  counting the difference**, 979 green pixels of 12,938, rather than repairing what a screenshot's
+  resolution is telling you.
 - **ONE media panel on the card surface** (Aug 2026, on request — it was two, with a `.ces-media-swap` pill
   between them). A card shows one frame, so the editor offers one slot (`#cesMediaSlot`) and one panel
   (`#cesMediaPanel`, fields `data-mediafield="src|title|desc|credit"`), and the pasted URL decides which of

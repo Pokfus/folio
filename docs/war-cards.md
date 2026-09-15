@@ -223,9 +223,15 @@ Six findings from doing it:
 ## It rides in the LIGHT half of `data.js`, and has to
 
 `war` is on the eager load path, beside `locator`, `map` and `facts` rather than in `data-extra/`. That is
-not an oversight, and the cost is small: **49 blocks cost the eager path about 8 KB gzipped**, roughly
-165 bytes each — authored coordinates compress well. The six added in the fourth batch cost 915 bytes
-between them, which is 153 bytes apiece even though two of them carry an extent the size of China.
+not an oversight, and the cost is small: **54 blocks cost the eager path 8,386 bytes gzipped**, 155 bytes
+each — authored coordinates compress well. The six added in the fourth batch cost 915 bytes between them
+and the five in the fifth cost 836, which is 167 apiece even though three of those five carry an extent
+the size of an empire.
+
+**Measure that by gzipping `data.js` with the blocks and without**, never off `check-sizes.js`, whose
+display is rounded to hundredths of a megabyte: a 2 KB change shows there as 0.01 MB, which is how the
+first batch came to be written up as "about 10 KB" — a figure five times too big, taken off a tool that
+was right.
 
 It has to be there because **the personal atlas reads it**. `atlasUnlocks` walks every card the reader has
 studied and asks it for its places; the heavy half is fetched per collection when a card in that collection
@@ -277,21 +283,25 @@ what the colour stands for. Finland, Romania and Bulgaria are left off both side
 
 ## Coverage
 
-Forty-nine cards carry a block. **Run `node .claude/add-card-wars.js --check` for the figure rather than
+Fifty-four cards carry a block. **Run `node .claude/add-card-wars.js --check` for the figure rather than
 quoting that**: it prints every block, both sides, the years each will draw in, and whether any two of
 them contradict each other.
 
-**A card need not have "war" in its answer term to carry one**, and eleven do not: the Norman Conquest,
+**A card need not have "war" in its answer term to carry one**, and sixteen do not: the Norman Conquest,
 the Qin conquests of the six states and of the south, the Roman conquests of Greece, Etruria, Umbria and
-Picenum, Cisalpine Gaul and Spain, the Persian conquest of Lydia, the Carthaginian invasion of Sicily and
-the Sicilian Expedition. A conquest, an invasion and an expedition are all wars between two polities, and
+Picenum, Cisalpine Gaul and Spain, the Persian conquest of Lydia, the Carthaginian invasion of Sicily,
+the Sicilian Expedition, and the five written in the fifth batch — the early Muslim conquests, the fall
+of the Achaemenid Empire, the fall of the Shang, the Soviet-Japanese border conflicts and the Sullivan
+Expedition. Every one of the fifth batch's five lacks the word, which is the clearest statement of the
+rule there has been: **the question to ask a card is whether its ANSWER TERM is a war**, not whether the
+word is in it. A conquest, an invasion and an expedition are all wars between two polities, and
 the question to ask a card is the one in CLAUDE.md — is its ANSWER TERM a war — rather than whether the
 word is in it.
 
 **A BATTLE IS NOT A WAR, AND THAT IS WHERE THE REMAINING POOL MOSTLY GOES.** Measured over the 3,215
-shipped cards, 207 answer terms are conflict-shaped by the widest reading — war, conquest, invasion,
-expedition, campaign, revolt, siege, battle, crusade — and **101 of the 158 that carry no block are a
-battle or a siege**. A battle is an event inside a war, its belligerents are two armies at one spot, and
+shipped cards, 220 answer terms are conflict-shaped by the widest reading — war, conquest, invasion,
+expedition, campaign, revolt, rebellion, uprising, siege, battle, sack, crusade — and **109 of the 169
+that carry no block are a battle, a siege or a sack**. A battle is an event inside a war, its belligerents are two armies at one spot, and
 the card already marks that spot: `kind: "battle"` draws crossed swords on it. Shading two empires to say
 who fought at Marathon would repeat what `wh-319` says and clutter the one mark that is specific to the
 card. So the line is the one CLAUDE.md draws — a war between two polities — and a battle card is out by
@@ -341,6 +351,26 @@ check could have caught the second: **`ACHAEMENID_ASIA` against `ATHENS_AEGEAN` 
 the card would have been refused by rule 4 rather than by the eye. **Ask what year a great empire's ring
 is a picture of before reaching for it.**
 
+**AND THEN A FOURTH, WHICH IS WHY THIS IS A RULE AND NOT A STORY ABOUT PERSIA.** `wh-310` is the fall
+of the Achaemenid Empire, 334–330, and none of the three fits: the 490 ring carries Thrace and Macedonia,
+which by 334 are Philip's and are the ground Alexander sets out FROM, and the 460 ring gives away the
+Ionian seaboard, which Persia had back under the King's Peace of 387. `ACHAEMENID_334` is the 490 ring
+with Thrace and Macedonia cut off and the seaboard kept. Four rings for one empire across four cards, each
+of them the empire on the day its own war opened.
+
+**A great empire is usually two rings even in one year**, which is the finding that cost the batch an
+assertion. `ACHAEMENID_334` is the Asian body of the empire and `ACHAEMENID_EGYPT` is drawn beside it,
+so the first place check — that Memphis falls inside the Asian ring — was not a fault in the polygon but a
+question asked of the wrong one of two. **Ask which ring a place is supposed to be in before widening the
+ring it is not in**, or the repair for a good assertion is a bad extent.
+
+**And an extent dates on a scale of sixteen years as readily as of two centuries.** `us-071` is the
+Sullivan Expedition of 1779 and `us-072` the Northwest Indian War of 1790–95, and the United States is
+not the same shape in the two: `USA_1779` is the seaboard to the Appalachians, stopping east of
+Iroquoia, where `USA_1795` runs into Kentucky. Reusing the later ring would have shaded the ground the
+expedition was sent to take as though it were already held, which is the card's whole subject drawn
+backwards.
+
 **Lydia keeps the two exceptions its own source states.** Herodotus says Croesus subdued every nation west
 of the Halys except the Lycians and the Cilicians, so `LYDIA_546` carries a notch round the Lycian
 peninsula and stops short of Rough Cilicia on the south coast. Neither is mentioned in the card's ten
@@ -358,7 +388,12 @@ its job.
 | **no decided outcome** | 9 | `gr-198` Lelantine (unknown), `gr-475` First Peloponnesian (Thirty Years' Peace), `gr-529` Archidamian (Peace of Nicias), `gr-657` Corinthian (the King's Peace, whose beneficiary was not a belligerent on the field), `rm-238` First Macedonian (Peace of Phoenice), `ww2-149` Phoney War (no fighting), and three American — `us-051` Beaver Wars (a general peace at Montreal in 1701), `us-067` Pontiac's War (the Crown restored the gifts and the Proclamation line, and neither side won), `us-082` Seminole Wars (the card's own question is that the last ended with no treaty signed, and some Seminole were never defeated). Rule 3: a drawn war is one that was decided. |
 | **both sides on one ground** | 16 | Nothing for two colours to say. The four Servile Wars (`rm-280`, `rm-303`, `rm-328`, `wh-352`); the Roman civil wars (`rm-316`, `rm-324`, `rm-360`, `rm-364`, `wh-355`); `rm-305` the Social War, Rome against its own Italian allies; `rm-203` Carthage against its own mercenaries; `jp-073` Jinshin; `ww2-111` Spanish Civil War; and three American — `us-060` King Philip's War, `us-063` Yamasee War and `us-064` Tuscarora War, on which see below. |
 | **too interleaved to draw** | 2 | `rm-142` Latin War and `gr-698` Third Sacred War. |
-| **the other side would win and lose at once** | 1 | `rm-355` Crassus' Parthian campaign, 54–53 BCE, which Rome loses inside the years `rm-350` and `wh-354` have Rome winning in Gaul. See below. |
+
+**Those four rows sum to thirty exactly, and they did not before.** The table used to carry a fifth row
+for `rm-355` Crassus' Parthian campaign, which is a real refusal and is **not one of the thirty** — its
+answer term does not contain the word — so the table claiming to account for thirty listed thirty-one.
+It is where it belongs now, in the wider pool below. **A table that explains a measured set has to sum to
+it**, or the one row that does not belong is the one nobody checks.
 
 **AND ONE ROW OF THAT TABLE WAS WRONG, WHICH IS WORTH MORE THAN THE ROW.** `gr-676` the Social War was
 filed under "both sides on one ground" on the reading that a hegemon fighting its own allies has nowhere
@@ -369,11 +404,20 @@ Athens red and the four green. **The lesson is that "a hegemon against its allie
 not a test** — the test is whether the two sides stand on separable ground, and for a naval league they
 do.
 
-**The open ground is the WIDER pool**, the one the word "war" does not reach: **37 conflict-shaped answer
-terms carry no block** — conquests, invasions, campaigns, revolts and crusades. Most are revolts inside a
-single polity, or a battle, and fall out on the two rules above. Of the ones read and judged in this
-batch, **`gr-391` Darius' Scythian campaign** and **`gr-399` Mardonius' campaign** have no decided
-outcome — the first is three incompatible accounts and Darius' own inscription claiming a different
+**The open ground is the WIDER pool**, the one the word "war" does not reach. Taking the battles, sieges
+and sacks out by construction and the thirty above by the table, **exactly thirty conflict-shaped answer
+terms are left** — conquests, invasions, campaigns, revolts, rebellions and crusades — and they break
+down as follows, which is as close to an answer to "how many more are there?" as the corpus can give:
+
+| | count | what they are |
+|---|---|---|
+| **a revolt inside one polity** | 11 | `gr-394` Ionian Revolt, `gr-459` Naxos, `gr-460` Thasos, `gr-485` Samos, `rm-260` Aristonicus, `rm-322` Lepidus, `cnh-116` Three Guards, `cnh-222` Seven States, `wh-517` the peasant revolt, `wh-527` An Lushan, `us-057` Pueblo Revolt. Both sides on one ground, one level down. |
+| **an episode of a war already carded** | 6 | `rm-195` the African expedition of 256, `rm-223` the Scipios in Spain, `rm-229` Scipio's African campaign, `gr-417` the invasion of 480, `gr-421` Tempe, `rm-354` the British expeditions. The umbrella card already draws those two sides in those years, so a second block would either repeat it or contradict it. |
+| **already refused, with the reason recorded below** | 10 | `gr-384`, `gr-391`, `gr-399`, `gr-478`, `gr-738`, `rm-205`, `rm-355`, `wh-507`, `ww2-124`, `ww2-146`. |
+| **open** | 3 | `gr-154` the Dorian invasion, `wh-506` the Crusades, `wh-537` the Mongol invasions of Japan — and two of the three are refusals once read. See "What is left after the fifth batch" below. |
+
+Of the ones read and judged in earlier batches, **`gr-391` Darius' Scythian campaign** and
+**`gr-399` Mardonius' campaign** have no decided outcome — the first is three incompatible accounts and Darius' own inscription claiming a different
 Scythian war that he won, the second turned back "inglorious" while adding Macedonia to the subject
 peoples; **`gr-738` Alexander's Indian campaign** states no outcome at all, its ten sentences ending at
 Taxila; **`gr-394` the Ionian Revolt** and **`gr-384` the conquest of Ionia** are the seaboard against the
@@ -501,6 +545,92 @@ Carthage, and Rhegium — which the card says helped Carthage — is 12 km from 
 Neither can be separated from the other by an approximate polygon, so `SICILY_GREEK_480` stops short of
 the strait and leaves both Messana and the toe of Italy unshaded. That is the right way round: Rhegium
 shaded green would say the opposite of what the card says.
+
+#### What the fifth batch found
+
+Five blocks — `wh-463` the early Muslim conquests, `wh-310` the fall of the Achaemenid Empire,
+`cnh-103` the fall of the Shang, `ww2-100` the Soviet-Japanese border conflicts and `us-071` the
+Sullivan Expedition — and eight new extents. Six things came out of writing them.
+
+**THE STRAIT OF MESSINA IS A SHAPE, NOT A PLACE, AND IT TURNED UP A THIRD TIME AT HORMUZ.** `ARABIA_632`
+and `SASANIA_632` overlapped at 55.73, 25.88 — the tip of the Musandam peninsula, where Arabia and Persia
+are about sixty kilometres apart across the strait and the two coasts curve towards each other. It is the
+same fault as Rhegium and Messana at twice the distance and the same fix: Musandam was pulled back to
+56.10, 26.05 and the Persian shore re-laid along 57.50, 54.00 and 51.50 so the two rings face each other
+across open water. **Two belligerents on opposite sides of a strait will overlap unless the strait is
+drawn**, at every scale, and the sweep is what finds it — by eye both polygons looked right.
+
+**A SEAWARD VERTEX IS FREE, BECAUSE THE FILL IS CLIPPED TO THE LAND.** Charleston fell outside
+`USA_1779`: the ring followed the coast as a straight run and the coast bulges east of it. Adding
+-79.20, 33.10 — a point in the Atlantic — put the city inside without claiming any water, the region wash
+being multiplied by the land mask before it is drawn. **Where a coastal place falls just outside a ring,
+push the ring out to sea rather than inland**, which is the one direction that costs nothing and can move
+no frontier.
+
+**RULE 4 BINDS ON WHO IS NAMED, NOT ON WHO IS NEARBY.** `us-071`'s losers are **"Seneca and Cayuga"**
+rather than "the Six Nations", because Oneida scouts marched with Sullivan's army — so naming the
+confederacy would have put the same people on both sides of the block, which rule 4 forbids and which the
+card's own prose contradicts. The two nations whose towns were burned are the two the card is about.
+
+**`wh-463` NEEDED A `years` OVERRIDE FOR THE REASON `wh-345` DID, ONE ERA ON.** Its date line runs to
+Talas in 751, and a pair of fixed extents cannot depict a hundred and twenty years of expansion: the
+Sasanian Empire it shades red ceased to exist in 651. The block runs **632–651**, which is the war the two
+rings are a picture of, and the later century is on the card's own date line where it belongs.
+
+**A `keys` SIDE IS CHECKED PER NAME AND STILL WANTS LOOKING AT.** `ww2-100` names the Soviet Union and
+**Mongolia** as victors, and in the screenshot Mongolia read as grey beside a vast green USSR. It was not a
+fault: measured by taking the name away and redrawing, the frame carries **11,959 green pixels without
+Mongolia and 12,938 with** — 979 pixels, 7.6% of the green. At that zoom a country the size of Mongolia is
+a few hundred pixels and reads as a tint. **Measure a mark by removing it and counting the difference**,
+which is the same method `test-card-locator.js` uses on the rivers, and do not repair what a screenshot's
+resolution is telling you.
+
+**AND THE WORLD FILE'S GLOBAL IS `window.WORLD_GEO`.** A first probe of `ww2-100`'s three keys asked
+`window.GEO` and `window.WORLD`, got neither, and reported "world.js shapes: 0" — which reads exactly
+like *Mongolia does not resolve on any map* and would have had the name struck off a block that was right.
+**A probe that finds nothing has to distinguish an empty answer from a wrong question.**
+
+#### What is left after the fifth batch
+
+Three of the wider pool's thirty were carried as open into this batch and **two of them are refusals once
+the card is read**, which is the pattern every batch has followed.
+
+**`gr-154` the Dorian invasion is refused because the card denies it happened.** Its first sentence says
+the idea "has been given up, put back where it came from among the myths", and offers internal strife and
+system collapse in its place. A block would shade two sides in a war Folio's own card says there is no
+evidence for — which is a stronger version of rule 1, and `wh-205` the unification of Egypt is the same
+refusal from the other direction: later Egyptians wrote it as a conquest of the North by the South, and
+the card says archaeology gives no such moment. **A card that argues its own subject is not an event
+cannot carry a block that asserts it was a war.**
+
+**`wh-506` the Crusades is refused twice over** — two centuries of expeditions with no decided outcome
+(the last mainland stronghold fell in 1291), whose victors were an expedition rather than a state, which
+is `wh-507`'s own refusal one level up.
+
+**`wh-537` the Mongol invasions of Japan is the one real candidate left, and it is not free.** Both sides
+are separable — Japan is an island and the fleets sailed from Korea — the outcome is decided and the card
+says so outright, and the years are 1274 and 1281. What it needs is the dated-extent rule applied to a
+belligerent whose own homeland doubles between the two fleets: the Southern Song fell in 1279, so a Yuan
+ring that is right for the first invasion is too small for the second, and one that is right for the
+second shades the Southern Song red for five years as a loser of a war it was not in. The convention the
+rest of the corpus follows — **draw each belligerent as it stood when the war opened** — resolves it in
+favour of the 1274 ring, at the cost of understating the second fleet. It wants researching properly
+rather than settling here.
+
+**Two more were read and refused in this batch for reasons of their own.** `wh-520` the Reconquista is a
+**frontier rather than a front**: seven hundred and eighty years by the card's own convention, across
+which the line moved from the Cantabrian mountains to the sea, so no pair of extents is a picture of it and
+the pair that looked best would be a picture of one decade chosen silently. And `wh-452` the Fall of
+Constantinople has a **loser standing inside the victor** — by 1453 the Byzantine Empire was the city and
+its suburbs, wholly enclosed by Ottoman territory, so the red would be a dot inside the green and the map
+would say nothing the card's own `battle` locator does not.
+
+**And `rm-124` the Gallic sack of Rome is the win-and-lose rule again, found by probe.** A dry-run batch
+reported it outright: "rm-124 defeated vs rm-158 victors — their extents overlap around 11.77, 42.05, both
+drawing in -390 .. -390". Rome is beaten by the Gauls in 390 and `rm-158` has Rome winning in Etruria in
+the same year, so the same ground would draw green and red at once. **Run the candidate through
+`--check` before researching its extents**, which is the cheap half of this and catches the expensive
+kind of mistake.
 
 The rest of the corpus's wars are open ground. Adding one is a batch through
 `node .claude/add-card-wars.js <batch.json>`; `--names=<year>` prints every territory name that era's map
