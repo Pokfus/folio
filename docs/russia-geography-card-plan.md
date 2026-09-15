@@ -648,3 +648,44 @@ the breadcrumb on a real card. What that batch established, beyond the card:
   both were wrong: `Q140380` is an asteroid and `Q171131` a village in Botswana. `wbsearchentities`
   returns the id beside the entity's own one-line description, which is what makes such a row checkable at
   a glance.
+
+### Batch 2 — the two-paragraph format, and the first four cards (`gru-002`–`gru-004`)
+
+`gru-002` Moscow Oblast, `gru-003` Krasnodar Krai and `gru-004` Saint Petersburg, each written to the
+owner's two-paragraph rule and each with its paired glossary term in the same commit. What the batch
+established, beyond the cards:
+
+- **AN EDITED HANDBOOK IS WORTH MORE HERE THAN A PAPER, AND ONE OF THEM CARRIES THE WHOLE SOUTH.** The
+  *Handbook on the History and Culture of the Black Sea Region* (De Gruyter, 2024, open access,
+  `10.1515/9783110723175`) has a chapter apiece on the region's physical geography, its antiquity, its
+  nationalisms, its monuments and its modern migrations, each by a named author with its own DOI — so a
+  single volume gave `gru-003` four of its seven sources, on four different subjects, all checkable in
+  Crossref. **It will carry Rostov, Crimea-adjacent subjects and the whole Azov coast too**; find it
+  through OAPEN, which is where the open BOOKS are, rather than through DOAJ, which finds articles.
+- **`whc.unesco.org` IS WALLED FROM THIS SANDBOX AS OF SEP 2026, and spacing the probes does not open
+  it.** Six attempts two minutes apart all returned the same 5,651-byte Cloudflare managed challenge.
+  `gru-001` and `gru-002` cite it and were verified when written; `gru-003` wanted it for the Western
+  Caucasus World Heritage site and had to do without. **Re-measure with `node .claude/check-reach.js`
+  rather than assuming either way** — it answered on 2026-09-12 and does not now.
+- **THE UN'S CITY TABLE IS PARSEABLE AS SPREADSHEETML AND NOT AS PDF.** `table08.pdf` embeds its fonts
+  with a non-standard encoding, so the usual text extraction returns noise; `table08.xls` from the same
+  directory is XML (`<ss:Row>` / `<ss:Cell>`) and parses in a dozen lines. Russia's block runs 175 rows
+  from line ~4102 of the 2024 edition. It is what gives `gru-003` its *Largest city* figure and `gru-004`
+  its population.
+- **THE WMO HAS A CITY LIST, AND THE ID IS READ FROM IT RATHER THAN GUESSED.**
+  `worldweather.wmo.int/en/json/full_city_list.txt` is a 118 KB `"country";"city";"id"` table — Krasnodar
+  is 1027 and St Petersburg 203, and neither is anywhere near the other. A guessed id resolves to a real
+  city somewhere else (1023 is Azov), which is the worst shape a wrong citation can have.
+- **THE DECK SAMPLER DREW EVERY GEOGRAPHY CARD AS A GREY BOX, and this batch is what found it.**
+  `PAGES.sample` rendered `cardFrontHTML` and never called `mountCardMaps` — the same fault `PAGES.card`
+  had and fixed. Fixed here, with the reveal in `show()` rather than at draw, since on that page the
+  answer is behind a button. **Look at a new card through more than one surface**: `#card/<id>` was
+  right the whole time.
+- **`test-map-cards.js` HAD NO ENTRY FOR THE `russia-subjects` LAYER**, so all three `gru-` cards failed
+  its "names a known layer" check from the day the collection shipped. Its table now carries the layer
+  and asserts the three deliberately absent centres. **A new map layer is added in app.js, in
+  `add-card.js` AND in that suite.**
+- **THE FACTS GRID IS NOT ALL-OR-NOTHING, which is what makes option 3 worth having.** `gru-002` carries
+  three question marks and is the worst case; `gru-003` fills *Capital* and *Largest city* from the UN's
+  city table joined to the shapes, and `gru-004`, being a city that is itself a subject, fills three of
+  the four. **Fill every row you honestly can.**
