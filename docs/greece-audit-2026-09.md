@@ -1868,6 +1868,66 @@ buy a green run at the price of the one signal the check exists to give.
   OpenStax textbook. Adding one would not clear the FAIL, the rule being absolute, but it would make the
   card better, and the Psychology plan's own rule about stating a finding's current standing asks for it.
 
+### `wh-126` 'Ain Ghazal — the conservator who lifted the cache (2026-09-15)
+
+Gary O. Rollefson in three of five sources, and the card AT the bar. Two of the three are literally a
+numbered series — *Ritual and Ceremony* (1983) and *Ritual and Ceremony III* (1998) — which is
+`gr-036`'s shape, a dig's own record in instalments. The third is his ARGUMENT, the
+soil-degradation thesis for the Pre-Pottery Neolithic B collapse, which the card states as "the
+excavator argued". So the card really did rest on one voice, and it could not be helped until
+something was added.
+
+**Kathryn W. Tubb lifted the 1983 cache and has spent her career on it**, and wrote an open first-hand
+account for *Archaeology International* 5 (2001), 47–50 — UCL Press, DOI, PDF one request away. She
+carries what Rollefson 1998 was carrying and brings three things he does not: the block lift and the
+laboratory excavation in the conservator's own words; **28 lime-plaster figures out of that cache**;
+and a correction worth the card's space — the statues "were for many years known as the earliest
+large-scale representations of the human form, until excavations at Nevalı Çori in eastern Turkey by
+the German archaeologist Harald Hauptmann in 1989 and 1990 recovered sculptural antecedents of them
+carved out of limestone".
+
+**The drop only became possible after reading the two sources that were left.** `drop-candidates.js`
+said nothing was droppable, and it was right about the card as it stood; what changed it was going to
+the papers.
+
+- **Rollefson 1983 p. 30 carries the cache's own context**: the statues and busts "were found in a
+  single cache deposited carefully in a pit dug into the fill of an abandoned house", and "it was
+  decided on the advice of the conservator to remove the entire collection en bloc in its protective
+  sediment cover". Both halves of the sentence Rollefson 1998 had been carrying are on that page, from
+  the same excavator fifteen years earlier.
+- **Bonogofsky 2001 carries the crania sentence entirely on her own.** Her introduction describes both
+  skulls: "The adult cranium AG 83 3078 062 has numerous striations on the ectocranial surface, was
+  painted red, and has plaster adhering to portions of the bone. The juvenile cranium AG 84 3083 107
+  exhibited 'scratches', was painted red, and has a black modeling substance on it" — and, the point
+  of her note, "neither specimen was reported as a plastered skull". The clause that had needed
+  Rollefson 1998 beside her, the burial of skulls in room corners, went with the drop.
+
+**One count was quietly wrong and is now gone.** The card said the first cache "held about ten figures
+80 to 90 centimetres tall along with eight or more busts". Rollefson's own p. 32 says "the twelve or
+so busts that comprise the arc at the feet of the statues", and Tubb's count for the same cache is 28
+figures. The literature genuinely differs, because the pieces were reassembled over twenty years in a
+laboratory — so the card now gives Tubb's figure for what came out of the cache and drops the
+as-excavated tally rather than printing two numbers for one deposit.
+
+Three findings for the next batch.
+
+- **PERSÉE SERVES A PALÉORIENT ARTICLE PAGE BY PAGE, and that is how a walled PDF gets read.** The
+  `/doc/<id>` landing page carries only the FIRST page of the text and the PDF is 403, but the HTML
+  holds a `data-content-url` per page (`/doc/page/<article-id>/<page-id>`), each of which serves that
+  page's OCR. That is how p. 30, p. 32 and p. 35 of Rollefson 1983 were read here. The same mechanism
+  gave the Mètis résumé on `gr-325`. **Paléorient is fully open on Persée and the southern Levantine
+  Neolithic is largely published in it** — worth knowing before writing off a claim as unsourceable.
+- **`check-citations.js`'s "to check by eye" was answered by another source on the same card.** Both
+  Rollefson citations spell out "Gary O. Rollefson" where Crossref holds "G. O. Rollefson", which is
+  where a fabricated given name hides. **Tubb's footnote 2 names him**: "The excavations at 'Ain
+  Ghazal were directed by Gary Rollefson, then at Yarmouk University". The expansion is right, and it
+  was confirmed rather than assumed.
+- **The card had no locator and plainly wanted one.** `add-locators.js` refused "Ain Ghazal" — that
+  title redirects to the Wikipedia article on the SUBURB, which carries no primary coordinate. The
+  archaeological site is at **"Ayn Ghazal (archaeological site)"**, which does. **When the fetcher says
+  "no primary coordinate", the likeliest cause is a redirect to a different article**, not a place
+  Wikipedia has not located; ask the search API which titles exist before giving up.
+
 ### `gr-323` Corinthian pottery — the same 1905 book, and the jug that was not one (2026-09-15)
 
 `gr-325`'s sibling: H. B. Walters in three of five sources, all three the same handbook, and the card
