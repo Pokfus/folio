@@ -347,6 +347,91 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-15, batch H8 — six histories out of the corpus's own shelf, and a checker that had gone
+  blind**: `gw-014` Philippines, `gw-020` Thailand, `gw-037` Canada, `gw-038` Yemen, `gw-015` Democratic
+  Republic of the Congo and `gw-028` Colombia. Their history blocks opened at 1898, 1850, 1867, 1839,
+  1960 and 1819; they now open at 46,000 years ago, 1238, 24,000 years ago, the Himyarite kingdom,
+  4,400 years ago and the end of the Pleistocene. Rules 1-4 stay at zero; 5b went 377 to 371 and 5c
+  345 to 339.
+
+  · **`check-style.js` HAS BEEN BLIND TO EVERY CARD BACKGROUND SINCE THE CARD SPLIT, and this batch
+    found it by expecting a finding and not getting one.** The draft wrote "Thirty-six kings" and "the
+    first century", both plain violations of rules 1 and 2, and the checker reported the corpus clean.
+    Its `FILES` list names `data.js`, `glossary.js`, `glossary-extra.js`, `artefacts.js`,
+    `artefacts-extra.js`, `countries.js` and `crossword.js` — and the split moved `abstract`, `why`
+    and `quote` to `data-extra/<collection>.js`, which nobody added. The two `*-extra.js` files ARE in
+    that list, each added by the split that created it; the card split simply did not do the same.
+    **Measured: 69 findings before the directory was added, 274 after.** It is the `data-extra` bullet's
+    own warning one file over — a find-and-replace over `data.js` alone silently misses the prose — and
+    the same failure shape the artefacts split's comment describes: a checker "going on reporting a
+    clean pass over an index of names and dates".
+  · **AND TURNING THE LIGHT ON SHOWED ITS `--fix` IS NOT SAFE OVER THAT PROSE.** Run over `data-extra`
+    it applied 203 fixes, and `check-cards.js` rule 7 then failed: it had rewritten Thucydides' "first
+    fixed at four hundred and sixty talents" to "460 talents" inside `gr-451`'s `quote.text` — a
+    translator's published words, edited by a house-style rule. **Nothing else in the pipeline could
+    have seen it**, the card rendering perfectly under a live link to the real text. `quote.text` and
+    `quote.cite` are now masked exactly as `"sources"` is, for the same reason: the words are the
+    translator's, not ours. `cite` alone was reporting `trans. A. D. Godley` on three Herodotus cards
+    on every run — the false finding CLAUDE.md names by hand as the reason rule 4 must never sweep a
+    bare `AD`.
+  · **…AND THE COMPOUND-NUMBER RULE MANGLES A NUMBER THAT CONTINUES INTO A SCALE WORD.** `NUM_RE`
+    converts the tens-units half and leaves the rest standing, so "thirty-two thousand foot" became
+    "32 thousand foot", "twenty-five thousand foot and thirty-five hundred horse" became "25 thousand
+    foot and 35 hundred horse", and so on for 17 spans in the Greece file alone. It never fired while
+    the checker read only `data.js` — a card QUESTION rarely counts an army. Both `NUM_RE` and
+    `HUNDRED_RE` now carry a `(?!\s+(?:hundred|thousand|million|billion))` lookahead, and with it
+    `--fix` leaves `check-cards.js` exactly where it found it.
+  · **THE 251 FINDINGS THE CHECKER NOW REPORTS ARE A PASS OF THEIR OWN AND WERE NOT SWEPT.** 186 of
+    them `--fix` will apply safely (century ordinals, compound numerals, italicised work titles in
+    `why` answers); the rest are the ambiguous ones it leaves for a person. Clearing them is a
+    corpus-wide content sweep across nine collection files, which is not a geography history batch's
+    work to do quietly. **This batch fixed its own two by hand and left the rest measured.**
+  · **THE CORPUS CARRIED THE WHOLE DEEP END OF FOUR OF THE SIX** — H2's finding again, on two more
+    continents. Canada's block opens on `wh-097` Beringia's neighbourhood and `wh-501` Vinland, the
+    Philippines' on `wh-156` Austronesian expansion, the Congo's on `wh-420` Bantu expansion, and
+    Colombia's conquest sentence on `gw-528` Bogotá's own Cunninghame Graham. Two capital cards did the
+    same job one level down: `gw-538` Sana'a handed Yemen Playfair's *Arabia Felix* and `gw-520`
+    Bangkok handed Thailand Carter's *Kingdom of Siam*. **Read the card's own capital before searching.**
+  · **A DOI REUSED FROM THE CORPUS CAN STILL BE WALLED.** Koile's Bantu rainforest-route paper is cited
+    at `wh-420` by its PNAS DOI, which answers 403 from this sandbox; the paper is open at
+    `PMC9372543`. The corpus is the cheapest source of SOURCES, not of URLs — curl the address, not the
+    card.
+  · **AND AN INITIAL EXPANDED FROM A SEARCH RESULT WAS WRONG AGAIN.** The Kongo pottery paper's first
+    author reads `Tsoupra A` at Europe PMC and the draft wrote **Andria**; Crossref's record gives
+    **Anna**. Caught by running `check-citations.js` on the DOIs before writing the JSON, which is what
+    that rule is for.
+  · **THE UN-MEMBERSHIP SENTENCE IS THE ONE A WHOLE-HISTORY REWRITE ALWAYS HAS REASON TO DROP, and
+    dropping it retires a dead citation with it.** Every `data.un.org/en/iso/<cc>.html` in the deck is a
+    404 (423 cards, 434 glossary terms — a pass of its own). All six cards cited one, none from block 1,
+    and in five of them "joined the United Nations on <date>" was the weakest of the five sentences.
+    Where the fact earned its place it now rests on **`un.org/en/about-us/member-states`**, which is
+    live and carries all 193 admission dates.
+  · **…AND THAT LIST CONTRADICTED THE DECK BY A DAY.** It gives Thailand's admission as **15 December
+    1946** where `gw-020` and `gw-520` both said the 16th, from the dead UNdata page. The UN's own list
+    is the authority; both cards are corrected, prose and date line, in this batch. **A correction does
+    not travel between surfaces**, so the figure was grepped through the whole corpus — two cards, no
+    glossary term.
+  · **AND THE UN'S PER-COUNTRY PAGE CARRIES A BETTER FACT THAN THE ADMISSION DATE.** Its Thailand page
+    records that "On 11 May 1949, Siam informed the Secretary-General that it had changed its name to
+    Thailand" — which on a card whose ANSWER TERM is Thailand is worth more than the year it took a
+    seat, and is what the block's last sentence now ends on.
+  · **TWO NEW `ADJUDICATED` GRID ROWS, both the shape `gw-009` Moscow and `gw-025` Rome set in H6.**
+    `gw-014` names **Manila**, taken by force of arms on 19 May 1571 and made the capital of what
+    Philip II's grant called a new kingdom of Castile; `gw-020` names **Bangkok**, where the capital
+    settled in 1782 after Ayutthaya was destroyed. Both are the founding of the capital — the history
+    rule 5 asks for — and neither is a restatement of the grid's cell. Colombia's deep sentence was
+    written round the third case instead: the archaeological sites are "Tequendama and Aguazuque,
+    Sabana de Bogotá", and naming the eastern Andes rather than the city needed no row at all.
+  · **A SOURCE WRITTEN IN AN ERA'S OWN VOICE IS CITED FOR ITS DATES AND NEVER ITS FRAMING**, H6's rule
+    again. Playfair (1859), Carter (1904), Wood (1924), Morga (1609 in Stanley's 1868 translation) and
+    Casement (1904) each carry one kind of fact here — a foundation year, a dynasty's span, a treaty, a
+    reported atrocity — and none of them carries a judgement into the prose. Casement is the exception
+    that proves it: what his report says about the rubber tax, the emptied villages and the severed
+    hands IS the fact, and the card says he reported it.
+  · **A BLOCK-1 MARKER PINS A SOURCE POSITION A REWRITE MAY NOT REORDER**, H6's rule, and it bound on
+    three of the six: `gw-020`'s Tomkratoke had to stay at 5, `gw-015`'s Sorí at 5, `gw-038`'s CBD at 3.
+    The new sources went into the freed UNdata slot and onto the end.
+
 - **2026-09-15, batch H7 — five cards whose history begins in deep time, and the measure taught to see
   it**: `gw-036` Afghanistan, `gw-027` Myanmar, `gw-024` South Africa, `gw-022` Tanzania and `gw-026`
   Kenya. Their history blocks opened at 1919, 1885, 1910, 1961 and 1895; they now open at 25 CE, 1044,

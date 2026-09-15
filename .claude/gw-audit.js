@@ -93,6 +93,10 @@ const ADJUDICATED = {
                                        // capital cell: the rise of Moscow IS the history rule 5 asks for
     "gw-025": ["Rome"],               // the city that took the peninsula by 264 BCE, not the capital cell:
                                        // the same shape as gw-009, and the ordinary case rather than the exception
+    "gw-014": ["Manila"],              // taken by force of arms in 1571 and made the capital of a "new
+                                       // kingdom of Castile": the founding of the capital, not the cell
+    "gw-020": ["Bangkok"],             // where the capital settled in 1782 after Ayutthaya was destroyed —
+                                       // the dynastic move itself, not the capital or largest-city cell
   },
   /* rule 4 — another country named for one of the hundred other reasons the rule's own header
      allows, in a sentence that happens to carry a border word. */

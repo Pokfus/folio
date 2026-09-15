@@ -1110,6 +1110,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **AND A FIND-AND-REPLACE OVER `data.js` ALONE SILENTLY MISSES THE PROSE** — a house-style fix
     applied there reports success, changes the question and leaves the same words standing in the
     abstract and the why-answers (Sep 2026, on the `cnh-201`–`cnh-210` batch).
+  · **…AND A CHECKER THAT READS `data.js` ALONE REPORTS A CLEAN PASS OVER A FILE OF QUESTIONS AND
+    DATES.** `check-style.js`'s `FILES` list was never given `data-extra/`, so its four content rules
+    were blind to every card background for the life of the split and said so with a tick (Sep 2026,
+    batch H8). **Both `*-extra.js` files ARE in that list**, each added by the split that created it —
+    the card split is the one that did not. **When you move a field off the eager path, grep the
+    helpers for the file it left**, not only for the field.
   · **📖 `docs/eager-path.md` — READ BEFORE TOUCHING A HELPER THAT LOADS THE CARDS.** The six helpers
     that were found blind, what each one got wrong, and why a blind reader reports a plausible number
     rather than failing.
@@ -4990,12 +4996,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - Enforcement: `node .claude/check-style.js` reports violations; `--fix` applies the safe ones (it masks the proper-name
   exceptions, skips plain-text fields and the glossary alias sections). Run it after bulk content additions. **Card text
   edits invalidate baked narration hashes — re-run `build-tts.js` for all four narrators after a style pass.**
-  It reads FOUR files now: rules 1–3 over `data.js` + `glossary.js` as before, and **rule 4 (BCE/CE) over those
-  plus `artefacts.js` and `countries.js`**, which are prose a reader reads and were the last two files still
-  saying "1500 BC". Two masks are what make `--fix` safe to run at all and neither may be dropped: the
-  CITATIONS (three spellings now — a card's `"sources":[…]`, glossary.js's whole `GLOSSARY_SOURCES` block, and
-  artefacts.js's unquoted `sources: [`), and any **URL**, since a Commons file really is called
+  **IT READS `data-extra/` TOO, AND DID NOT FOR THE WHOLE LIFE OF THE CARD SPLIT** (Sep 2026, batch H8). Its
+  `FILES` list named `data.js`, `glossary.js`, `glossary-extra.js`, `artefacts.js`, `artefacts-extra.js`,
+  `countries.js` and `crossword.js` — and the split moved `abstract`, `why` and `quote` to
+  `data-extra/<collection>.js`, so **rules 1–4 were blind to every card background on the site** while
+  reporting a clean pass over a file of questions, answers and dates. Both `*-extra.js` files are in that
+  list because the split that created each one added it; the CARD split did not, and nothing could see the
+  gap: it is the `data-extra` bullet's own warning one file over. **Found by expecting a finding and not
+  getting one** — a draft wrote "Thirty-six kings" and "the first century" and the checker said nothing.
+  The list now reads the directory rather than naming the files, so a collection added later is covered.
+  Read `docs/geography-background-plan.md`'s H8 entry before clearing the backlog it exposed: **it is a
+  corpus-wide content sweep and a pass of its own** — run the checker for the figure rather than quoting one.
+  Rules 1–3 run over the cards and the glossary; **rule 4 (BCE/CE) runs over those plus `artefacts.js`,
+  `countries.js` and `crossword.js`**, which are prose a reader reads. Two masks are what make `--fix` safe
+  to run at all and neither may be dropped: the CITATIONS (**five spellings now** — a card's `"sources":[…]`,
+  its `"cite":"…"` and its `"text":"…"`, glossary.js's whole `GLOSSARY_SOURCES` block, and artefacts.js's
+  unquoted `sources: [`), and any **URL**, since a Commons file really is called
   `…c_2700_BC_(10465349433).jpg` and renaming it in an href breaks the picture.
+  **A `card.quote` IS A TRANSLATOR'S PUBLISHED WORDS AND IS MASKED LIKE A CITATION.** Unmasked, `--fix`
+  rewrote Thucydides' "first fixed at four hundred and sixty talents" to "460 talents" on `gr-451`, which
+  only `check-cards.js` rule 7 could see — the card rendered perfectly under a live link to the real text.
+  **AND A COMPOUND NUMBER THAT CONTINUES INTO A SCALE WORD IS NOT ONE THIS RULE MAY TOUCH**: `NUM_RE` and
+  `HUNDRED_RE` convert the tens-units half and leave the rest standing, so "thirty-two thousand foot" became
+  "32 thousand foot". Both carry a `(?!\s+(?:hundred|thousand|million|billion))` lookahead now. Neither
+  fault could fire while the checker read only `data.js` — a card QUESTION rarely quotes a book or counts an
+  army — so **turning a blind checker on is a change to test with `--fix` on a copy, not only to measure**.
   **THE CENTURY RULE HAS A DELIBERATE GAP AND IT SHOULD STAY** (Aug 2026): `ORD_RE`'s lookahead is `\s*`, so
   it does not see the ATTRIBUTIVE hyphenated form — "nineteenth-century city", "second-millennium BCE".
   Measured when it was found: **32 hyphenated century NUMERALS against 2 hyphenated WORDS**, so the house

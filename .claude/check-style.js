@@ -35,7 +35,10 @@ const FIX = process.argv.includes("--fix");
    PICTURE carries as well as the prose, and the artefact split moved BOTH out of artefacts.js — which
    would have left every artefact description and every picture caption outside this checker's reach
    while it went on reporting a clean pass over an index of names and dates. */
-const FILES = ["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "artefacts-extra.js", "countries.js", "crossword.js"].map((f) => path.join(__dirname, "..", f));
+const FILES = ["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "artefacts-extra.js", "countries.js", "crossword.js"]
+  .map((f) => path.join(__dirname, "..", f))
+  .concat(fs.readdirSync(path.join(__dirname, "..", "data-extra")).filter((f) => f.endsWith(".js")).sort()
+    .map((f) => path.join(__dirname, "..", "data-extra", f)));
 const ERA_ONLY = new Set(["artefacts.js", "artefacts-extra.js", "countries.js", "crossword.js"]);
 
 /* --- rule 2: ordinal words before century/millennium --- */
@@ -61,9 +64,16 @@ const ORD_PAIR_RE = new RegExp("\\b(" + Object.keys(ORD).join("|") + ")(?=\\s+(?
 /* --- rule 1: non-round compound number words > 20 --- */
 const TENS = { twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90 };
 const UNITS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9 };
-const NUM_RE = new RegExp("\\b(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")\\b", "gi");
+/* A COMPOUND THAT CONTINUES INTO A SCALE WORD IS NOT A NUMBER THIS RULE MAY TOUCH (Sep 2026).
+   "twenty-seven chapters" is the shape the rule was written for; "thirty-two thousand foot" is not,
+   and converting its tens-units half alone leaves "32 thousand foot", which is not English in any
+   house style. It never fired while the checker read only data.js — a card QUESTION rarely counts
+   an army — and the card split moved the abstracts, where it fires eight times in the Greece file
+   alone, out of this checker's reach entirely. Same lookahead on HUNDRED_RE below. */
+const SCALE = "(?!\\s+(?:hundred|thousand|million|billion)\\b)";
+const NUM_RE = new RegExp("\\b(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")\\b" + SCALE, "gi");
 // "one hundred and forty-eight" / "two hundred and six" → 148 / 206 (whole phrase, or the tens part alone would corrupt it)
-const HUNDRED_RE = new RegExp("\\b(" + Object.keys(UNITS).join("|") + ")\\s+hundred\\s+and\\s+(?:(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")|(" + Object.keys(TENS).join("|") + ")|(eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|ten)|(" + Object.keys(UNITS).join("|") + "))\\b", "gi");
+const HUNDRED_RE = new RegExp("\\b(" + Object.keys(UNITS).join("|") + ")\\s+hundred\\s+and\\s+(?:(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")|(" + Object.keys(TENS).join("|") + ")|(eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|ten)|(" + Object.keys(UNITS).join("|") + "))\\b" + SCALE, "gi");
 const TEENS = { ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19 };
 // PROPER NAMES that contain number words — never converted
 const NUM_EXCLUDE = [/Twenty-Four Histories/gi, /Twenty-four Filial Exemplars/gi, /Twenty-One Demands/gi,
@@ -160,6 +170,21 @@ for (const file of FILES) {
   text = text.replace(/"sources":\[(?:"(?:\\.|[^"\\])*"(?:,\s*)?)*\]/g, (m0) => {
     srcMask.push(m0); return '"sources":["SRCMASK' + (srcMask.length - 1) + '"]';
   });
+  // …and a card's `quote.cite` is a citation under a FOURTH spelling: `"cite":"Histories 1.86, trans.
+  // A. D. Godley"`. It names a work, an edition and a translator, so it is out of scope exactly as
+  // `"sources"` is — and it is the shape CLAUDE.md names by hand as the reason rule 4 must never sweep
+  // a bare \bAD\b. Unmasked, three Herodotus cards reported their translator's initials on every run.
+  text = text.replace(/"cite":"(?:\\.|[^"\\])*"/g, (m0) => {
+    srcMask.push(m0); return '"cite":"SRCMASK' + (srcMask.length - 1) + '"';
+  });
+  // …and a card's `quote.text` is a PASSAGE OF THE BOOK, transcribed from somebody's published
+  // translation, so it is out of scope for the same reason the citation beside it is: the words are
+  // the translator's and not ours. Measured before masking it: `--fix` rewrote Thucydides' "first
+  // fixed at four hundred and sixty talents" to "460 talents" on gr-451 — which `check-cards.js`
+  // rule 7 then failed as a passage not in the book, the only thing in the pipeline able to see it.
+  text = text.replace(/"text":"(?:\\.|[^"\\])*"/g, (m0) => {
+    srcMask.push(m0); return '"text":"SRCMASK' + (srcMask.length - 1) + '"';
+  });
   // …and glossary.js keeps its citations in a TOP-LEVEL GLOSSARY_SOURCES block rather than in a
   // per-entry "sources":[…] field, so the card-shaped mask above never fired there. Measured before
   // fixing: `--fix` renamed six real published works across twelve citations (Lemos's "…Late Eleventh
@@ -214,6 +239,8 @@ for (const file of FILES) {
     // comment above already learned once.
     text = text.replace(/\/\*BLOCKMASK(\d+)\*\/\n/g, (m0, i) => blockMask[Number(i)]);
     text = text.replace(/"sources":\["SRCMASK(\d+)"\]/g, (m0, i) => srcMask[Number(i)]);
+    text = text.replace(/"cite":"SRCMASK(\d+)"/g, (m0, i) => srcMask[Number(i)]);
+    text = text.replace(/"text":"SRCMASK(\d+)"/g, (m0, i) => srcMask[Number(i)]);
     if (FIX) fs.writeFileSync(file, text);
     else if (report.length) {
       console.log("\n=== " + name + " — " + report.length + " finding(s) ===");
@@ -287,6 +314,8 @@ for (const file of FILES) {
 
   text = text.replace(/\/\*BLOCKMASK(\d+)\*\/\n/g, (m0, i) => blockMask[Number(i)]);
   text = text.replace(/"sources":\["SRCMASK(\d+)"\]/g, (m0, i) => srcMask[Number(i)]);
+  text = text.replace(/"cite":"SRCMASK(\d+)"/g, (m0, i) => srcMask[Number(i)]);
+  text = text.replace(/"text":"SRCMASK(\d+)"/g, (m0, i) => srcMask[Number(i)]);
 
   if (FIX) fs.writeFileSync(file, text);
   else {
