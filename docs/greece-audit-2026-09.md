@@ -1689,6 +1689,67 @@ no manuscript, which the DSpace bitstream API says outright and the item page do
 record is not a copy.** Nothing was cited to it, because a paper whose argument you have not read cannot
 be cited for its argument — its title states its conclusion, and that is not the same thing.
 
+### `wh-384` Chandragupta Maurya — a card written out of one 1922 chapter, and the question was backwards (2026-09-15)
+
+Four of six entries were **one chapter** of the 1922 *Cambridge History of India* — F. W. Thomas,
+"Chandragupta, the Founder of the Maurya Empire," at pages 467, 469–471, 472 and 473 — which is R23's
+shape exactly. But the count was the least of it. **Five of ten sentences were a close paraphrase of
+that chapter, including its judgements and its idiom**: *"is recognised without difficulty as"*, *"master
+of all Hindustan"*, *"took a safe retirement"*, and — worst — *"A precise date for that overthrow is on
+present evidence impossible."* **In a 1922 source, "on present evidence" means 1922's evidence**, and the
+card was repeating it in the present tense with no date attached. That is the shape to watch for whenever
+a card rests on an out-of-copyright standard work: the phrase reads as current because it was written to.
+
+**THE QUESTION HAD THE TRADE THE WRONG WAY ROUND.** It read *"took Pataliputra from the last Nanda king
+and later traded the Kabul valley to Seleucus for 500 elephants"* — which says Chandragupta gave away the
+land and received the elephants. It is the other way about: **Seleucus handed over land and Chandragupta
+gave him the elephants.** The card's own abstract had it right, so nothing was internally inconsistent
+enough to notice, and the question is the most-read text on a card. The third phrasing and the second
+Think-it-through answer carried the other half of the 1922 narrative — *"found Chandragupta master of all
+Hindustan and waiting with an immense army"*, *"settled for a safe retirement"* — which is not in any
+ancient source at all.
+
+**What replaced it.** `OAPEN` — CLAUDE.md's own "OAPEN finds the books" — has the full text of **Sushma
+Jansari, *Chandragupta Maurya: The Creation of a National Hero in India* (London: UCL Press, 2023)**,
+open access, and the book is about precisely this card's subject. Its findings rewrote block 2:
+· **"There are no South Asian sources for any aspect of their interaction"** — every modern account rests
+  on the same handful of Graeco-Roman passages.
+· **No source says who won, or what the fighting involved.** The card now says so.
+· **Only three terms of the treaty survive**: Seleucus transferred land, Chandragupta gave 500 elephants,
+  and there was a marriage alliance "although it is not clear who or what this involved".
+· **Strabo does not specify WHICH land.** The card had "the Greek dominions as far as the Kabul valley",
+  which is Thomas's inference; Strabo 15.2.9 says only *"Seleucus Nicator gave them to Sandrocottus in
+  consequence of a marriage contract, and received in return five hundred elephants"*, of countries along
+  the Indus that had formerly been Persian. **Cited to Strabo himself now**, on Perseus, rather than to a
+  paraphrase of him.
+· **The chronology**: the Purāṇas give 24 or 25 years, the Sri Lankan chronicles 24, the Jain list starts
+  him in 313 BCE — and Jansari's own caution, that chronologies stitched from these traditions "have
+  become accepted 'fact', despite standing on extremely shaky foundations".
+
+**Two things about doing this that are worth having next time.**
+· **OAPEN ships an extracted `.pdf.txt` bitstream beside the PDF, and it is what makes a 31 MB book
+  readable here** — `pdftotext` is not installed in this sandbox and neither is any Python PDF library.
+  Ask `library.oapen.org/rest/search?query=…&expand=bitstreams` and look for the `.txt`.
+· **Its running heads give you page numbers.** The extracted text keeps `<n> CHANDRAGUPTA MAURYA` and
+  `… banks of the Indus <n>`, so a passage can be pinned to a page and cited properly rather than cited to
+  a whole book.
+· **And the new source must not become the new over-citation.** Four Jansari page ranges were wanted;
+  four entries would have put her straight onto rule 1. They are **two entries carrying the pages each
+  claim needs** — 1–2 and 16–17 for the silence and the uncertain order, 26–27 for the chronology — which
+  is precise and inside the rule.
+
+**Verified before citing, not after.** McCrindle's Introduction really does read *"Megasthenês, who being
+sent by Seleukos Nikator on an embassy to Sandrakottos (Chandragupta), the king of the Prasii, whose
+capital was Palibothra"* — the card quotes it, and the phrase is **not** in the Cambridge History, which
+was the card's other citation for it. Charpentier pp. 156–57 really does give the Jain 313 BCE. All seven
+URLs answer 200. `card-focus` reports historiography 0 and no researcher in any question; `check-cards`
+reports nothing.
+
+**One limitation, stated.** The DOI `10.14324/111.9781800083882` resolves to Crossref's
+**multiple-resolution chooser**, which lists UCL Discovery and JSTOR — both free — rather than landing on
+the book. It is the canonical address and a reader reaches the text in two clicks; `uclpress.co.uk` is
+403 from here, so it could not be checked as an alternative.
+
 ### Two more read and left, and these are the rule working rather than failing (2026-09-14)
 
 Both showed a candidate at `alone=0` and both are the right answer as they stand. Recorded so the next
