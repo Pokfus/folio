@@ -1868,6 +1868,42 @@ buy a green run at the price of the one signal the check exists to give.
   OpenStax textbook. Adding one would not clear the FAIL, the rule being absolute, but it would make the
   card better, and the Psychology plan's own rule about stating a finding's current standing asks for it.
 
+### `rm-038` bucchero — the candidate that was NOT free, and the one that was (2026-09-15)
+
+Jean Gran-Aymerich in three of five sources, and the card at the bar. `drop-candidates.js` offered
+his 1999 *Images et mythes sur les vases noirs d'Étrurie* at `alone=0 shared=1` — **and it is not
+free**. The sentence it shares carries two claims, the shapes and the imagery, and the imagery half is
+what that paper is ABOUT; the Louvre technical study beside it cannot carry it. That is the tool's own
+warning working: *a candidate is a CANDIDATE*.
+
+The one that could go was his 2007 La Castellina paper, whose single sentence was the vaguest on the
+card — "Southern Etruria is notable for the variety and richness of both its own and its imported
+pottery". **Two open modern papers replace it, and take the card off the bar as well.**
+
+- **Longoni, Calore, Marzullo, Teseo, Duranti, Bagnasco Gianni and Bruni, *Ceramics* 6 (2023),
+  584–599** — 33 bucchero sherds from La Civita di Tarquinia read by flame atomic absorption, FTIR and
+  NIR. Local production is separated from imported; the firing was "never higher than 800 °C"; and the
+  imported pieces all date to the second half of the 7th and the first half of the 6th century,
+  "suggesting that after that period local production became predominant". That last is a historical
+  fact about the trade where the sentence it replaces was an impression.
+- **Garnery, *Frontière·s*, suppl. 1 (2022), 99–111** — the borrowing ran BOTH ways. The card said
+  bucchero "mixes Greek borrowings with the Etruscans' own strongly orientalising inventions"; Garnery
+  shows the Athenian potter Nikosthenes working bucchero shapes into his own black-figure repertoire
+  in the later 6th century and selling them almost exclusively back to Etruria, to Caere and Vulci.
+
+**MDPI ANSWERS 403 FROM THIS SANDBOX, PERSISTENTLY, AND THE PAPER IS STILL READABLE.** Two probes with
+a browser user-agent both refused; `air.unimi.it`, the authors' own institutional repository, serves
+the identical CC BY PDF at 200. **OpenAIRE is what names it**
+(`api.openaire.eu/search/publications?doi=…` returns the repository handle beside the DOI), and the
+handle page carries a `/retrieve/<uuid>/<file>.pdf` link. The citation keeps the **DOI**, which is the
+article's permanent address and what Chicago wants; the 403 is a fact about this sandbox rather than
+about the article, and it is recorded here so a future URL sweep does not read it as link rot.
+
+One thing this batch did not change and a future one should not either: the card's temperature. The
+1985 Louvre study gives 600 to 700 °C for the firing and the new paper gives a ceiling of 800 °C —
+**compatible, not contradictory**, so the card states both, the range in its technical sentence and
+the ceiling in the Tarquinia one.
+
 ### `rm-089` Lapis Niger — the Platner-and-Ashby case, and a drop that was real (2026-09-15)
 
 The other 1929-book card CLAUDE.md names beside Walters: three of five sources were three entries of
