@@ -33221,7 +33221,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const q = (c && c.question) || "";
     const spec = cardMapSpec(c);
     if (spec) return cardMapHTML(spec) + q;
-    /* an artwork card: the picture is the WHOLE question — no prose at all, and the four fields under
+    /* an artwork card: the picture is the WHOLE question — no prose at all, and the three fields under
        it are the answer box (see the ARTWORK CARDS block). `q` is empty on every such card and is not
        drawn either way, so a hand-authored one that carries a sentence cannot leak it onto the front. */
     const art = cardArtSpec(c);

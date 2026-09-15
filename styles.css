@@ -1957,14 +1957,17 @@ body.no-tts .ans-cn .ac-say{display:none;}
 
 /* ---------- the answer box an artwork card is answered in (Sep 2026, on request) ----------
    "The user must guess the title, artist, date of creation, and current ownership/location in the answer
-   box." Four labelled fields under the picture, built by `cardArtHTML`. They are the only words on the
-   question side, and they are the FORM rather than a clue: none of them says anything about the work.
+   box." THREE labelled fields under the picture now, built by `cardArtHTML`: where the work is now came
+   off the question side on a second request the same month and is stated in the answer's own figures
+   grid instead. They are the only words on the question side, and they are the FORM rather than a clue:
+   none of them says anything about the work.
 
    THE LABEL IS BESIDE THE FIELD, NOT OVER IT, and the label column is a fixed fraction rather than a
-   `max-content` — four labels of very different lengths ("Title" against "Where it is now") set as one
-   column keep the four fields left-aligned with each other, which is what makes the block read as one
-   answer rather than four questions. Below 480px it stacks, where a fixed column would leave the widest
-   label almost no room for the field beside it.
+   `max-content`, so labels of different lengths keep every field left-aligned with the others, which is
+   what makes the block read as one answer rather than three questions. Below 480px it stacks, where a
+   fixed column would leave the widest label almost no room for the field beside it. The 7.5em is kept
+   from the four-field version deliberately: it is the width a returning "Where it is now" would need,
+   and a roomier label column costs the fields nothing at this size.
 
    GRADED, THE FIELD IS REPLACED RATHER THAN DISABLED (see gradeArtFields), so there is no editable copy
    left to improve an answer in. The mark takes its own colour and the typed value is struck through only
