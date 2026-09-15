@@ -30446,7 +30446,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          ACCIDENTAL reveal, which is a rereading trial, without ever making the deliberate one hard.
          The field is NOT focused by this: `setupCloze` deliberately leaves a touch reader's keyboard
          down until they tap the blank, and a policy about effort has no business overriding that. */
-      /* ATTEMPT_SEL is both kinds of typed answer: a cloze card's blanks, and an artwork card's four
+      /* ATTEMPT_SEL is both kinds of typed answer: a cloze card's blanks, and an artwork card's own
          fields (see the ARTWORK CARDS block). One selector rather than two branches, so a policy about
          effort cannot come to mean two different things on two formats. */
       const ATTEMPT_SEL = ".question .blank-input, .question .art-input";
@@ -33252,8 +33252,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      the user must guess the title, artist, date of creation, and current ownership/location in the answer
      box." A built-in format, like the map card and for the map card's own reason: a community card type
      is templates plus scoped CSS and cannot run code, and this needs a picture promoted to the front of
-     the card, its own metadata held back, and FOUR typed answers graded separately. See
+     the card, its own metadata held back, and typed answers graded separately. See
      docs/art-card-plan.md, which specifies it in full.
+
+     THE ASKED FIELDS ARE THREE, AND WHERE THE WORK IS NOW IS THE FOURTH THING THE CARD SAYS RATHER THAN
+     ASKS — "remove the 'where is it now' from the question but ensure it's mentioned on the answer side"
+     (Sep 2026, on request). It is still required of every card and still printed, in the figures grid on
+     the reveal; what it no longer has is a box to type it into. See ART_FIELDS.
 
      `artwork: true` says THE PICTURE IS THIS CARD'S OWN SUBJECT, which is the whole of what the flag
      means and is why it is a flag rather than an inference from `image`: an ordinary card's picture
@@ -33265,7 +33270,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      show no words. An artwork card's `question` is therefore stored EMPTY — `add-card.js` refuses one
      that is not, and `check-questions.js` skips the format outright — rather than holding a sentence
      nothing renders, which is the shape a reader of the data could not tell from a bug. What says what
-     to do is the answer box's own four labels, which are the form rather than a clue about the work.
+     to do is the answer box's own labels, which are the form rather than a clue about the work.
 
      THREE THINGS ARE HELD BACK UNTIL THE REVEAL, and the first is the whole difficulty: a Commons credit
      line routinely reads "Rembrandt, The Night Watch, Rijksmuseum", so the front draws the picture and
@@ -33293,19 +33298,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              desc: String(img.desc || ""), credit: String(img.credit || "") };
   }
 
-  /* THE FOUR ANSWERS ARE DERIVED, NEVER STORED A SECOND TIME. The reader is asked for the title, the
-     artist, the date and where the work is now — and the card already holds all four, in the fields that
-     PRINT them on the reveal: `answerText` is the title, the date line is the date, and the figures grid
-     is where the artist and the location go. Giving the format its own copy of the three would mean the
-     same strings written twice on every card, which is the shape that goes quietly out of step: the grid
-     would say the Rijksmuseum and the grading would go on accepting the Louvre, and nothing on the page
-     could say so. Derived, the grid and the grading are arithmetically incapable of disagreeing.
+  /* THE ANSWERS ARE DERIVED, NEVER STORED A SECOND TIME. The reader is asked for the title, the artist
+     and the date — and the card already holds all three, in the fields that PRINT them on the reveal:
+     `answerText` is the title, the date line is the date, and the figures grid is where the artist goes.
+     Giving the format its own copy of them would mean the same strings written twice on every card,
+     which is the shape that goes quietly out of step: the grid would say the Rijksmuseum and the grading
+     would go on accepting the Louvre, and nothing on the page could say so. Derived, the grid and the
+     grading are arithmetically incapable of disagreeing.
 
-     WHAT MAKES THAT SAFE IS THAT THE LABELS ARE DECLARED AND CHECKED. Reading a row out of a free-text
-     grid by matching its label is brittle exactly where the label is a matter of taste, so the accepted
-     labels are these two tables and nothing else, and `add-card.js` REFUSES an artwork card whose grid
-     has no row matching each — so a card cannot ship with an unaskable Artist or an unaskable location
-     and look perfectly finished. Extra rows (Medium, Size) are furniture and are not asked for.
+     WHERE THE WORK IS NOW IS SHOWN AND NOT ASKED (Sep 2026, on request). It was the fourth field and is
+     now none: `location` is still derived here, still REQUIRED by `add-card.js`, and still printed on
+     the answer side by `cardFactsHTML` — which reads `facts` directly, so the row a reader sees is the
+     row this function is matching. What changed is only that there is no longer a box to type it into.
+     So it stays out of `ART_FIELDS` and nothing else moves; asking for it again is one line back.
+
+     WHAT MAKES READING THE GRID SAFE IS THAT THE LABELS ARE DECLARED AND CHECKED. Reading a row out of a
+     free-text grid by matching its label is brittle exactly where the label is a matter of taste, so the
+     accepted labels are these two tables and nothing else, and `add-card.js` REFUSES an artwork card
+     whose grid has no row matching each — so a card cannot ship with an unaskable Artist or an unstated
+     location and look perfectly finished. Extra rows (Medium, Size) are furniture and are not asked for.
 
      THE DATE COMES OFF THE DATE LINE, which is the field that already carries it AND that `cardStartYear`
      reads to file the card in the collection's chronological running order. A `Date` row in the grid
@@ -33316,7 +33327,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { k: "title", lab: "Title" },
     { k: "artist", lab: "Artist" },
     { k: "date", lab: "Date" },
-    { k: "location", lab: "Where it is now" },
   ];
   function cardArtAnswers(c) {
     if (!cardArtSpec(c)) return null;
@@ -33334,12 +33344,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      literature's ranking is why it exists at all: a bare right-or-wrong measures d = 0.05, the correct
      answer 0.32, so every field shows what the reader typed AND what the work actually is.
 
-     EACH OF THE FOUR IS A DIFFERENT KIND OF ANSWER AND IS MARKED ACCORDINGLY. A title is a term and takes
-     `nearMiss`, the same one-slip tolerance the cloze box and the pretest use. A NAME and a PLACE are
-     both routinely given short — "Rembrandt" is the right answer to "Rembrandt van Rijn" and
-     "Rijksmuseum" to "Rijksmuseum, Amsterdam" — so a value whose whole significant vocabulary sits inside
-     the other counts, in BOTH directions, since a reader who names the city as well has not been less
-     right. A single short token is not enough to carry that, or "the" would match anything.
+     EACH OF THE THREE IS A DIFFERENT KIND OF ANSWER AND IS MARKED ACCORDINGLY. A title is a term and
+     takes `nearMiss`, the same one-slip tolerance the cloze box and the pretest use. A NAME is routinely
+     given short — "Rembrandt" is the right answer to "Rembrandt van Rijn", and "Master of the Vogelherd
+     ivories" to a workshop named at greater length — so a value whose whole significant vocabulary sits
+     inside the other counts, in BOTH directions, since a reader who gives the fuller form has not been
+     less right. A single short token is not enough to carry that, or "the" would match anything. (The
+     rule is written for any value of that shape rather than for names alone: it is what graded the
+     location while that was a field, and is what would grade it again.)
 
      A DATE IS THE ONE FIELD WITH A THIRD STATE, and it has one because it is the only field where being
      nearly right is a fact rather than a judgement: a reader who says 1640 of a picture painted in 1642
@@ -33389,8 +33401,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const alt = spec.alt || "The artwork to be identified.";
     const ans = cardArtAnswers(c) || {};
     /* A FIELD IS DRAWN ONLY WHERE THE CARD CAN ANSWER IT. An anonymous work still draws Artist, because
-       its answer is "Unknown" and that is a thing a reader can know; a card whose grid genuinely has no
-       location row simply asks three things. An input the card cannot mark is worse than an absent one. */
+       its answer is "Unknown" and that is a thing a reader can know; a card whose date line states no
+       date simply asks two things. An input the card cannot mark is worse than an absent one. */
     const rows = ART_FIELDS.filter((f) => String(ans[f.k] || "").trim()).map((f) =>
       '<div class="art-f" data-artrow="' + f.k + '"><label class="art-lab" for="artf-' + f.k + '">' + esc(f.lab) + "</label>" +
       '<input class="art-input" id="artf-' + f.k + '" data-artf="' + f.k + '" type="text" autocomplete="off" ' +
@@ -33406,9 +33418,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
 
      IT HANDS BACK THE TITLE AND ONLY THE TITLE. Two things read what a reader typed — the elaborated
      feedback a missed card gets, and the confusion register — and both are about the card's ANSWER TERM.
-     An artist's name or a museum's typed into their own fields is neither: fed to `noteConfusion` it
-     would record a confusion between two cards on the strength of a word that was never an attempt at
-     either one's answer. */
+     An artist's name or a date typed into its own field is neither: fed to `noteConfusion` it would
+     record a confusion between two cards on the strength of a word that was never an attempt at either
+     one's answer. */
   function gradeArtFields(qEl, c) {
     const ans = cardArtAnswers(c);
     if (!qEl || !ans) return [];

@@ -15,11 +15,16 @@
 //    a `desc`, a `credit` or a `data-img-*` attribute reaching the FRONT of the card answers the
 //    question outright — on a card that looks exactly like a working one. It is asserted first.
 //  · WORDS ON THE QUESTION SIDE. The request is that the front show none: an artwork card stores an
-//    empty `question` and draws the picture and four empty fields. A sentence creeping back in looks
+//    empty `question` and draws the picture and three empty fields. A sentence creeping back in looks
 //    like every other card on the site and is the one thing this format is not.
-//  · A FIELD THAT ASKS NOTHING. Three of the four answers are DERIVED from the card's own display
-//    fields by label (see cardArtAnswers), so a `facts` grid whose rows are labelled differently
-//    silently drops a question — and the card still renders, still reveals, still looks finished.
+//  · A FIELD THAT ASKS NOTHING. All three answers are DERIVED from the card's own display fields (the
+//    artist by LABEL out of `facts` — see cardArtAnswers), so a grid whose rows are labelled
+//    differently silently drops a question — and the card still renders, still reveals, still looks
+//    finished.
+//  · WHERE THE WORK IS NOW, WHICH IS SHOWN AND NOT ASKED (Sep 2026, on request). Both halves of that
+//    fail silently and in opposite directions: a fourth input coming back is a question the format no
+//    longer asks, and a location that stops being PRINTED on the answer side is a fact the reader
+//    simply never gets, on a card that looks complete. Asserted both ways.
 //  · The alt text. It has to describe the picture without naming it, which is what makes this format
 //    reachable by a reader who cannot see it at all; an alt carrying the answer is the leak again in
 //    the one place nobody looks.
@@ -112,7 +117,9 @@ const server = http.createServer((req, res) => {
     const lab = (r) => String((r || [])[0] || "").trim();
     ok(c.id + ": …carries an artist row the format can read",
        facts.some((r) => ARTIST_RX.test(lab(r))), facts.map(lab));
-    ok(c.id + ": …and a location row", facts.some((r) => PLACE_RX.test(lab(r))), facts.map(lab));
+    /* SHOWN, NOT ASKED: the row is still required, because it is what states on the answer side where
+       the work is now. `cardFactsHTML` prints it; only `ART_FIELDS` stopped asking for it. */
+    ok(c.id + ": …and a location row for the answer side to state", facts.some((r) => PLACE_RX.test(lab(r))), facts.map(lab));
     ok(c.id + ": …and no Date row, the date line being the date", !facts.some((r) => /^date$/i.test(lab(r))));
     ok(c.id + ": …and a date line with a labelled row",
        /<span class="dt-k">[^<]+<\/span><span class="dt-v">[^<]+<\/span>/.test(String(c.answerDate || "")));
@@ -122,7 +129,13 @@ const server = http.createServer((req, res) => {
   const slice = (name) => { const i = src.indexOf("function " + name + "("); return i < 0 ? "" : src.slice(i, i + 2600); };
   ok("cardFrontHTML draws the picture and NOT the question",
      /const art = cardArtSpec\(c\);[\s\S]{0,120}return art \? cardArtHTML\(art, c\) : q;/.test(slice("cardFrontHTML")));
-  ok("…and the four fields are built from the card's own answers", /cardArtAnswers\(c\)/.test(slice("cardArtHTML")));
+  ok("…and the fields are built from the card's own answers", /cardArtAnswers\(c\)/.test(slice("cardArtHTML")));
+  /* THE ASKED SET IS THREE. Read off the declaration rather than the rendered page as well as from it,
+     so a fourth field added back is caught whichever end it is added at. */
+  const fieldKeys = (appSrc.match(/const ART_FIELDS = \[([\s\S]*?)\];/) || [, ""])[1].match(/k: "(\w+)"/g) || [];
+  ok("ART_FIELDS asks three things and not four",
+     fieldKeys.join(",") === 'k: "title",k: "artist",k: "date"', fieldKeys);
+  ok("…and `location` is still derived, for the grid's sake", /location: pick\(ART_PLACE_LABELS\)/.test(slice("cardArtAnswers")));
   ok("…each marked by its own kind of comparison", /function artMatch\(kind, typed, answer\)/.test(src) && /kind === "date"/.test(slice("artMatch")));
   ok("…and the reveal replaces the fields rather than disabling them", /input\.replaceWith\(out\)/.test(slice("gradeArtFields")));
   /* THE FRONT IS BARE, AS A STRING. cardArtHTML must emit the src and the alt and nothing else — the
@@ -139,7 +152,7 @@ const server = http.createServer((req, res) => {
   ok("revertCard restores it", /\.artwork = p\.artwork/.test(src));
 
   /* ---------- 2. the card on screen ------------------------------------------------------- */
-  sect("2. the front says nothing but the picture, and asks four things");
+  sect("2. the front says nothing but the picture, and asks three things");
   const browser = await chromium.launch(process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {});
   const page = await browser.newPage();
   /* THE PICTURE IS SERVED LOCALLY, and that is not a convenience. An artwork card's `src` is a Commons
@@ -194,9 +207,11 @@ const server = http.createServer((req, res) => {
   ok("…and no data-img-* attribute to open the viewer with", !front.attrs.some((a) => a.indexOf("data-img") === 0), front.attrs);
   ok("…and the picture is not announced as a control", !front.attrs.includes("role") && !front.attrs.includes("title"), front.attrs);
   ok("…and exactly one picture is on the card", front.imgs === 1, front.imgs);
-  ok("the answer box asks for all four", front.fields.join(",") === "title,artist,date,location", front.fields);
+  ok("the answer box asks for the title, the artist and the date", front.fields.join(",") === "title,artist,date", front.fields);
+  /* THE REQUEST, ASSERTED DIRECTLY: "remove the 'where is it now' from the question". */
+  ok("…and not for where the work is now", front.fields.indexOf("location") < 0, front.fields);
   ok("…and every field starts empty", front.values.every((v) => v === ""), front.values);
-  ok("…under labels that say what to type", front.labels.length === 4 && front.labels[0] === "Title", front.labels);
+  ok("…under labels that say what to type", front.labels.length === 3 && front.labels[0] === "Title", front.labels);
   /* A label may not be the answer wearing a label's clothes. */
   const inLabels = front.labels.join(" ").toLowerCase();
   ok("…and no label leaks an answer", !inLabels.includes(String(card.answerText).toLowerCase().slice(0, 12)), front.labels);
@@ -229,8 +244,7 @@ const server = http.createServer((req, res) => {
      carving is the answer; on a dated painting it would not be. Both directions are asserted, because a
      band that has quietly become infinite passes the first check and says nothing. */
   ok("…a date a thousand years out on a 40,000-year-old work is CLOSE", /\bnear\b/.test(marks.date.cls), marks.date);
-  ok("…an unanswered field says so rather than staying blank", /\bempty\b/.test(marks.location.cls), marks.location);
-  ok("…and it is shown what the answer was", marks.location.truth.length > 0, marks.location.truth);
+  ok("…and the graded rows are the three asked for", Object.keys(marks).join(",") === "title,artist,date", Object.keys(marks));
   /* No editable copy survives the reveal, or a reader can improve an answer after seeing it. */
   ok("…no field is still typeable", Object.values(marks).every((m) => !m.live), Object.values(marks).map((m) => m.live));
   /* The other direction, asserted on the real function rather than through the page: the band is a
@@ -250,8 +264,16 @@ const server = http.createServer((req, res) => {
     return { revealed: fig.classList.contains("revealed"), cap: (fig.querySelector(".art-cap") || {}).textContent || "",
              role: fig.getAttribute("role"), src: fig.getAttribute("data-img-src") || "",
              sameSrc: [...document.querySelectorAll(".study-card img")].filter((i) => i.getAttribute("src") === fig.querySelector("img").getAttribute("src")).length,
+             facts: [...document.querySelectorAll(".study-card .card-facts .cf-tile")].map((t) =>
+               ({ k: (t.querySelector(".cf-k") || {}).textContent || "", v: (t.querySelector(".cf-v") || {}).textContent || "" })),
              slot: document.querySelectorAll(".study-card .card-imgslot").length };
   });
+  /* THE OTHER HALF OF THE REQUEST: "ensure it's mentioned on the answer side". It is not asked for any
+     more, so the ONE thing that now carries it to the reader is the figures grid — and a grid that
+     stopped drawing it would look exactly like a card that never had a location. */
+  const place = (card.facts || []).find((r) => PLACE_RX.test(String(r[0] || "").trim())) || [];
+  ok("the answer side still states where the work is now",
+     back.facts.some((t) => PLACE_RX.test(t.k) && t.v === String(place[1] || "~")), back.facts);
   ok("the picture is credited once the answer is out", back.revealed && back.cap.indexOf(String(card.image.credit).slice(0, 12)) >= 0, back.cap.slice(0, 80));
   ok("…and can now be enlarged", back.role === "button" && back.src === card.image.src);
   /* buildBack draws the background picture slot for every other surface; the study page drops that copy
@@ -265,6 +287,23 @@ const server = http.createServer((req, res) => {
        overlays: [...document.body.children].map((n) => n.className || n.id).filter(Boolean).slice(-6) }));
   ok("clicking it opens the fullscreen viewer", viewer.open, viewer.overlays);
   await page.keyboard.press("Escape");
+
+  /* A field left blank must SAY so and give up its answer, rather than rendering as an empty row that
+     reads like a field the card had nothing to put in. It used to be checked on the location, which was
+     the one field the pass above never filled; with three fields all of them are filled, so it is its
+     own reveal — which is the stronger check anyway, asking it of every field at once. */
+  await study(card.id);
+  await page.evaluate(() => document.querySelector("#reveal-btn").click());
+  await page.waitForTimeout(400);
+  const blanks = await page.evaluate(() =>
+    [...document.querySelectorAll(".question .art-f")].map((f) => {
+      const g = f.querySelector(".art-graded");
+      return { k: f.dataset.artrow, cls: g ? g.className : "", truth: (f.querySelector(".art-true") || {}).textContent || "" };
+    }));
+  ok("an unanswered field says so rather than staying blank",
+     blanks.length === 3 && blanks.every((b) => /\bempty\b/.test(b.cls)), blanks);
+  ok("…and every one of them is shown what the answer was",
+     blanks.every((b) => b.truth.trim().length > 0), blanks);
 
   /* ---------- 3a. a file that never arrives ------------------------------------------------- */
   sect("3a. a picture that cannot load says so");
@@ -285,12 +324,12 @@ const server = http.createServer((req, res) => {
   ok("a dead file marks the frame", dead.marked, dead);
   ok("…the browser's alt-text fallback is not painted in it", !dead.imgShown, dead);
   ok("…the frame says what happened", /could not be loaded/i.test(dead.note), dead.note);
-  ok("…and the four fields are still there to answer into", dead.fields === 4, dead.fields);
+  ok("…and the three fields are still there to answer into", dead.fields === 3, dead.fields);
   pictureBlocked = false;
   await study(card.id);
 
   /* ---------- 3b. the answer-before-revealing policy sees these fields ---------------------- */
-  sect("3b. \"Answer before revealing\" recognises the four fields");
+  sect("3b. \"Answer before revealing\" recognises the three fields");
   /* ATTEMPT_SEL had to learn about `.art-input`, and a gate that silently stops engaging on one format
      looks exactly like a reader who has not turned the policy on. Re-studied with `attemptFirst` set. */
   await page.addInitScript(() => {
@@ -307,7 +346,7 @@ const server = http.createServer((req, res) => {
   ok("the reveal is held back until something is typed", gate.held && gate.hint && gate.dunno, gate);
   await page.fill("#artf-artist", "x");
   await page.waitForTimeout(200);
-  ok("…and any one of the four fields releases it",
+  ok("…and any one of the three fields releases it",
      !(await page.evaluate(() => !!document.querySelector("#reveal-btn").disabled)));
   await page.evaluate(() => { const d = document.querySelector("#dunno-btn"); if (d) d.click(); });
   await page.waitForTimeout(300);

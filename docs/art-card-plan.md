@@ -30,8 +30,11 @@ empty and `add-card.js` refuses one that is not. A work that cannot be shown the
 here at all, which narrows the canon and is the one real cost of the restart; "Copyright" below states it
 with the figure.
 
-**AND THERE ARE FOUR ANSWERS RATHER THAN ONE.** Title, artist, date and where the work is now are each
-typed into their own field and each marked separately. That is what the format section is mostly about.
+**AND THERE ARE SEVERAL ANSWERS RATHER THAN ONE.** Title, artist and date are each typed into their own
+field and each marked separately. That is what the format section is mostly about. **Where the work is
+now was a fourth field and is now SHOWN rather than asked** (Sep 2026, on request: *"remove the 'where is
+it now' from the question but ensure it's mentioned on the answer side"*) — every card still states it,
+in the figures grid on the reveal, and a work with no known whereabouts still cannot be carded.
 
 ---
 
@@ -67,8 +70,9 @@ question is a photograph, so its subject has to be a thing that can be photograp
 1. **It is ONE object**, not a class of them. *The Standard of Ur* passes; *Jōmon pottery* does not, and
    becomes the Umataka flame pot.
 2. **It has a TITLE a reader could type.** A work known only by its site and its number is unaskable.
-3. **It has a MAKER or an honest "Unknown"**, and a DATE, and a PLACE IT IS NOW — those are three of the
-   four answers, so a line whose work has no known whereabouts cannot be carded.
+3. **It has a MAKER or an honest "Unknown"**, and a DATE, and a PLACE IT IS NOW. The first two are asked
+   and the third is stated on the answer side, and `add-card.js` requires all three — so a line whose
+   work has no known whereabouts still cannot be carded.
 4. **A free photograph of it exists.** See "Copyright" below. Check before writing, never after.
 
 A line still says only what to research; the card's own title, date and location are researched when it
@@ -125,13 +129,19 @@ order, and nothing on the page will say so.
 **IT IS BUILT** (the `ARTWORK CARDS` block in app.js; `.claude/test-artwork-cards.js` guards it). A
 **built-in format, like the map card** — see the MAP CARDS bullet in CLAUDE.md — and for the same reason:
 a community card type is templates plus scoped CSS and cannot run code, and this needs a picture promoted
-to the front of the card, a licence credit held back until the reveal, and four typed answers graded
+to the front of the card, a licence credit held back until the reveal, and typed answers graded
 separately.
 
-**THE FRONT IS THE PICTURE AND FOUR EMPTY FIELDS. THERE IS NO QUESTION.** `question` is stored as `""`,
+**THE FRONT IS THE PICTURE AND THREE EMPTY FIELDS. THERE IS NO QUESTION.** `question` is stored as `""`,
 `questions` as `[]`, and `add-card.js` refuses anything else — a sentence sitting in a field that nothing
 renders is a thing a later reader of the data cannot tell from a bug. What says what to do is the answer
-box's own four labels, which are the form rather than a clue about the work.
+box's own three labels, which are the form rather than a clue about the work.
+
+**WHERE THE WORK IS NOW IS SHOWN AND NOT ASKED** (Sep 2026, on request). It was a fourth field. It is
+still derived, still REQUIRED of every card by `add-card.js`, and still printed on the answer side by
+`cardFactsHTML`, which reads `facts` directly — so the row the reader is shown is the row the label table
+below is matching. What changed is one entry in `ART_FIELDS` and nothing else, which is also what makes
+asking for it again one line back.
 
 Seven things are decisions rather than plumbing.
 
@@ -140,22 +150,23 @@ from `image` because an ordinary card's picture ILLUSTRATES its subject — a ha
 flag under a country — and must never be dealt as "what is this?". In this collection every card carries
 it; elsewhere on the site no card does.
 
-**THE FOUR ANSWERS ARE DERIVED FROM THE CARD'S OWN DISPLAY FIELDS, NEVER STORED TWICE.**
+**THE ANSWERS ARE DERIVED FROM THE CARD'S OWN DISPLAY FIELDS, NEVER STORED TWICE.**
 
-| asked for | comes from | also prints as |
+| field | comes from | also prints as |
 |---|---|---|
-| Title | `answerText` | the answer term |
-| Artist | the `facts` row labelled Artist / Maker / Sculptor / Painter / Architect / Workshop / Attributed to / Culture | a row of the figures grid |
-| Date | the first labelled row of `answerDate` | the date line under the answer |
-| Where it is now | the `facts` row labelled Location / Where it is / Where it is now / Collection / Museum / Held / Home | a row of the figures grid |
+| Title *(asked)* | `answerText` | the answer term |
+| Artist *(asked)* | the `facts` row labelled Artist / Maker / Sculptor / Painter / Architect / Workshop / Attributed to / Culture | a row of the figures grid |
+| Date *(asked)* | the first labelled row of `answerDate` | the date line under the answer |
+| Where it is now *(shown)* | the `facts` row labelled Location / Where it is / Where it is now / Collection / Museum / Held / Home | a row of the figures grid |
 
-Giving the format its own copy of the three would be the same strings written twice on every card, and
+Giving the format its own copy of them would be the same strings written twice on every card, and
 that is the shape that goes quietly out of step: the grid would say the Rijksmuseum while the grading went
 on accepting the Louvre, and nothing on the page could say so. Derived, the grid and the grading are
 arithmetically incapable of disagreeing. **What makes reading a row by its label safe is that the labels
 are DECLARED** — `ART_ARTIST_LABELS` and `ART_PLACE_LABELS` in app.js, the same two in `add-card.js` —
 **and that `add-card.js` REFUSES a card whose grid matches neither.** Without that refusal a card with a
-row labelled "Owner" would silently ask three questions instead of four and look perfectly finished.
+row labelled "Owner" would silently ask two questions instead of three, or state no location at all, and
+look perfectly finished.
 
 **THERE IS NO `Date` ROW IN THE GRID**, and that is refused too: the date line already carries the date
 and is what `cardStartYear` reads to file the card in this collection's chronological running order, so a
@@ -167,10 +178,11 @@ measures between a bare right-or-wrong (d = 0.05) and being shown the right answ
 field shows what was typed AND what the work actually is.
 
 - **Title** takes `nearMiss`, the one-slip tolerance the cloze box and the pretest already use.
-- **Artist** and **Where it is now** are both routinely given short — "Rembrandt" is right for "Rembrandt
-  van Rijn", "Rijksmuseum" for "Rijksmuseum, Amsterdam" — so a value whose whole significant vocabulary
-  sits inside the other counts, in BOTH directions, since a reader who names the city as well has not
-  been less right. "Unknown" and "Anonymous" are one answer.
+- **Artist** is routinely given short — "Rembrandt" is right for "Rembrandt van Rijn" — so a value whose
+  whole significant vocabulary sits inside the other counts, in BOTH directions, since a reader who gives
+  the fuller form has not been less right. "Unknown" and "Anonymous" are one answer. The rule is written
+  for any value of that shape rather than for names alone: it is what graded the location while that was
+  a field, and is what would grade it again.
 - **Date** is the one field with a third state. It is the only one where being nearly right is a fact
   rather than a judgement: a reader who says 1640 of a picture painted in 1642 knows when it was painted,
   and `ART_YEAR_NEAR` (25 years) is the width of that band. The years are read by `cardYears`, the site's
@@ -212,8 +224,8 @@ markers — and on this format the two blocks have jobs:
   about a painting.
 - **Sentences 6–10 are its HISTORY.** Who commissioned it and why, what happened to it, where it has
   been, what was argued about it, how it came to be where it is now. The last of these matters more here
-  than anywhere else on the site, because "where it is now" is one of the four things the reader was just
-  asked.
+  than anywhere else on the site, because "where it is now" is the one thing on the answer side that the
+  reader was shown rather than asked, so the prose is where it is explained rather than merely stated.
 
 **The artist's biography is not the work's history**, and the commonest way this collection can go wrong
 is a card that spends six sentences on Caravaggio and none on the picture. A sentence about the maker
@@ -626,14 +638,14 @@ Do not "correct" a line upward to match its card: `check-art-order.js` reads the
 dealing order, and a raised line here puts a backward step in front of a shipped card that cannot be
 renumbered.
 
-**`art-009` AS PLANNED IS NOT ONE OBJECT AND MUST BE REPLANNED BEFORE IT IS WRITTEN.** The line reads
-*The Kostenki 1 Venus*, and there is no such single work: Kostenki I produced a series of female
-figurines in mammoth ivory and in marl, the English reference article is titled in the PLURAL, and the
-best free photographs (an ivory figure 153 mm high and a limestone one 137 mm, both Kunstkamera
-originals photographed at Hamburg in 2016–17) are of two different objects. That fails the four-part
-test in "What a line in this list is" at its first question. **Decide which object the line names — and
-say so in the line — before researching it**; a card whose picture shows one figurine while its title
-names a group is the one shape this format cannot carry.
+**`art-009` AS PLANNED WAS NOT ONE OBJECT AND HAS BEEN REPLANNED** (done in batch A3 below; the finding
+is kept because the shape recurs). The line read *The Kostenki 1 Venus*, and there is no such single
+work: Kostenki I produced a series of female figurines in mammoth ivory and in marl, the English
+reference article is titled in the PLURAL, and the best free photographs (an ivory figure 153 mm high
+and a limestone one 137 mm, both Kunstkamera originals photographed at Hamburg in 2016–17) are of two
+different objects. That fails the four-part test in "What a line in this list is" at its first question.
+**Decide which object the line names — and say so in the line — before researching it**; a card whose
+picture shows one figurine while its title names a group is the one shape this format cannot carry.
 
 **A BLURRY PHOTOGRAPH IS STILL THE ONLY PHOTOGRAPH, AND THAT IS A REASON TO SHIP RATHER THAN TO WAIT.**
 Commons holds exactly one free picture of the Hohle Fels waterbird and it is soft-focus through display
@@ -651,12 +663,69 @@ write-ups of the Galgenberg figure call its stone **serpentine**; the Lower Aust
 and the German sources call it **amphibolite schist**, which is what the card says. **Read the holding
 museum's own record before the secondary literature.**
 
-**AND THE `Location` CELL IS GRADED, SO IT HAS TO CARRY THE CITY.** The first draft of `art-007` gave
-the location as *Naturhistorisches Museum Wien, Austria* and a reader typing **Vienna** was marked
-wrong, the German name of the city being nowhere in the string. `artMatch` accepts a typed word that
-appears in the answer, so **a museum whose own name does not contain its town needs the town added** —
-which is what `art-001` already does with *Museum Ulm, Ulm, Germany*. Check the four cells by typing at
-them before shipping, not by reading them.
+**AND THE `Location` CELL HAS TO CARRY THE CITY.** The first draft of `art-007` gave the location as
+*Naturhistorisches Museum Wien, Austria* and a reader typing **Vienna** was marked wrong, the German name
+of the city being nowhere in the string. That was a GRADING fault and the cell is no longer graded — the
+rule survives as a plain editorial one, which is a weaker reason for exactly the same wording, since a
+cell that could not be matched by the name of its own city cannot be read by a reader who does not know
+the museum either. **A museum whose own name does not contain its town needs the town added**, which is
+what `art-001` already does with *Museum Ulm, Ulm, Germany*. Type at the three fields and read the fourth
+before shipping.
+
+
+**BATCH A3 — the location stops being asked, and `art-009` is replanned (Sep 2026, on request).**
+Two cards, `art-009` and `art-010`, and one change to the format itself.
+
+**THE FOURTH FIELD IS GONE FROM THE QUESTION SIDE AND THE LOCATION IS STILL ON THE ANSWER.** The
+request was to "remove the 'where is it now' from the question but ensure it's mentioned on the answer
+side", and the whole of it is one entry taken out of `ART_FIELDS`. Nothing else moved: `location` is
+still derived by `cardArtAnswers`, still required of every card by `add-card.js`, and still printed by
+`cardFactsHTML`, which reads `facts` directly — so the row the reader is shown is the row the label
+table is matching. **Both halves of that fail silently and in opposite directions** — a fourth input
+coming back is a question the format no longer asks, and a grid that stops drawing the row is a fact
+the reader simply never gets — so `test-artwork-cards.js` asserts both, and the one rule that lost its
+teeth is kept in a weaker form: the `Location` cell was worded to carry its town because it was GRADED,
+and it still carries it because a reader who does not know the museum cannot place it either.
+
+**`art-009` IS NOW THE VENUS OF PŘEDMOSTÍ**, and the slot is what chose it. The line's year is fixed
+and the deck is a timeline, so its replacement had to be a single object at the same horizon — which in
+practice means the Moravian Pavlovian, the cluster `art-008` and `art-010` already sit in. The obvious
+candidate, the ivory female head from Dolní Věstonice, was researched and **dropped for want of
+sources**: its fame rests on being read as a portrait of the woman in the DV3 burial, and that argument
+lives in Czech monographs and in scanned journal issues with no text layer, so the card could not have
+been written to the five-source bar. The engraved tusk could: it is one object, it carries the name the
+literature and Commons both use, its two best photographs are free, and — the thing the deck was short
+of — **it is an engraving rather than a carving**, the first on a shelf of eight sculptures.
+
+**ANTHROPOLOGIE (BRNO) IS THE OPEN JOURNAL THIS CORNER OF THE SUBJECT LIVES IN.** `puvodni.mzm.cz`
+serves every issue from 1923 as a free PDF and its `search_all.php` takes a POST, which is how both
+cards found their spines; the Moravian Museum's own reprints of Valoch's Předmostí papers are there in
+English translation. **Its older scans have no text layer**, so a paper from the 1980s or 1990s can be
+cited but not read — check before planning a claim on one. Three hosts that look obvious are not:
+`journals.openedition.org` and `jstor.org` both answer 200 with a bot wall, and `ehu.eus`, which holds
+the open Veleia paper on Pavlov and Předmostí, resets the connection.
+
+**A GRADED DATE FIELD NEEDS A RANGE, AND THESE OBJECTS ARE WHY.** `artYearBand` gives a 30,000-year-old
+work a band of about 900 years, which is right; what is not right is a single-point date line on an
+object whose published ages differ by thousands. `art-010` first carried `c. 30,000 years ago` and
+marked a reader typing the textbook **27,000** wrong — while the card's own prose explains that 27,000
+is the figure usually quoted. The fix is the DATE LINE, not the band: both cards now carry the span
+their sources actually support, and the Věstonice card's third why-question is about the two numbers.
+**Type the textbook answer at the field before shipping a Palaeolithic card.**
+
+**AND THE CALIBRATION GAP PUTS THE THREE MORAVIAN CARDS OUT OF ORDER WITH EACH OTHER.** Brno II's
+`23,680 BP` is an uncalibrated radiocarbon age and calibrates to about 28,000–27,000 years ago, where
+Dolní Věstonice and Předmostí calibrate to about 31,000–29,000 — so **`art-008` is the YOUNGEST of the
+three and sits first**, because its line-year was set from a popular figure. The lines are all at one
+horizon and `check-art-order.js` is content; the cards' own ranges overlap, which is exactly what the
+Aurignacian run at `art-002`–`art-006` does. It is recorded rather than repaired because a shipped card
+cannot be renumbered — **but if this deck's opening is ever re-cut, Brno II belongs after these two.**
+
+**A DEBT FROM BATCH A2, STATED SO IT IS NOT LOST: `art-004` to `art-008` SHIPPED WITHOUT THEIR PAIRED
+GLOSSARY TERMS.** The house rule is that a card ships with an entry for its own answer term in the same
+commit, and `art-001`–`art-003` have theirs. *Vogelherd mammoth*, *Vogelherd bison*, *Hohle Fels
+waterbird*, *Venus of Galgenberg* and *Brno II figurine* have none, so nothing in a later card's prose
+can auto-link to them. `art-009` and `art-010` shipped with theirs; the five are owed.
 
 # The list
 
@@ -672,7 +741,7 @@ them before shipping, not by reading them.
     art-006  The Hohle Fels waterbird — Swabia, c. 35,000 years ago
     art-007  The Venus of Galgenberg — Austria, c. 32,000 years ago
     art-008  The Brno II figurine — Moravia, c. 28,000 years ago
-    art-009  The Kostenki 1 Venus — Russia, c. 28,000 years ago
+    art-009  The Venus of Předmostí — Moravia, c. 26,000 BCE
     art-010  The Venus of Dolní Věstonice — Moravia, c. 26,000 BCE
     art-011  The Apollo 11 Cave painted plaques — Namibia, c. 25,500 BCE
     art-012  The Venus of Willendorf — Austria, c. 25,000 BCE

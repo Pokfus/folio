@@ -579,13 +579,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Arts**, all ship with the plan, on the reasoning that music, architecture, theatre and literature are
   the siblings a heading is for.
   **THE COLLECTION WAS REMOVED AND RESTARTED IN SEP 2026, ON REQUEST** — ten cards deleted, the format
-  rebuilt around a wordless question and four typed answers, and the running order swept. Three things
+  rebuilt around a wordless question and typed answers, and the running order swept. Three things
   in the request are the whole of what changed and every rule below is downstream of one of them:
   **it is not a history collection**, so every line is now one identifiable WORK and a movement, a
   technique, a school, a material, a site or a method is not a card (the plan's four-part test is what
   enforces it); **the question side shows no words**, so a work Folio cannot show cannot be carded here
-  at all; and **there are four answers rather than one**. The glossary terms the deleted ten paired with
-  were KEPT — a term is deck-agnostic by house rule and other collections already link several.
+  at all; and **there are several answers rather than one** — four at first, and **three since Sep 2026,
+  on request**, where the work is now having been moved off the question side and onto the answer's own
+  figures grid. The glossary terms the deleted ten paired with were KEPT — a term is deck-agnostic by
+  house rule and other collections already link several.
   Four things make it unlike every plan beside it.
   · **THE TREE IS A TIMELINE AND NOTHING ELSE**, on request: the reader asked that Ordered study deal the
     artworks in chronological order of creation, and "Ordered" is the cards' order of appearance in the
@@ -604,7 +606,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     line whose year it cannot read, and exits 1 on either. Report tool, run by hand, deliberately not in
     the CI fast gate. **Run it after any batch that moves a line.**
   · **THE FORMAT IS BUILT** — see the ARTWORK CARDS bullet under "How the app is wired" for how it works,
-    what it holds back and how each of the four answers is marked. The plan specifies it in full.
+    what it holds back and how each answer is marked. The plan specifies it in full.
   · **COPYRIGHT NOW DECIDES WHAT IS IN THE COLLECTION, NOT JUST WHAT CARRIES A PICTURE.** Folio links
     pictures and the bar is PD / CC BY / CC BY-SA; Commons hosts a file only where it is free in the US
     *and* the country of origin, which in practice means **first published before 1931** crossed with
@@ -1175,7 +1177,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.28 MB and 48,098 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.29 MB and 48,110 lines is hard to find your way around, so this
   lists its 182 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -3594,39 +3596,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     behind every rule above: the bug report each came from, the measurements (117 pixels, 5,980
     and 10,631 river pixels, the 0.0138 R sag), the Sep 2026 batch's seven changes, and the
     generalisations that were tried and abandoned.
-- **ARTWORK CARDS — the picture is the WHOLE question, and there are FOUR answers** (`card.artwork` +
+- **ARTWORK CARDS — the picture is the WHOLE question, and there are THREE answers** (`card.artwork` +
   `image` + `facts` + the date line; `cardArtSpec` / `cardArtAnswers` / `cardArtHTML` / `artMatch` /
   `gradeArtFields` / `cardArtReveal` / `ART_FIELDS` / `.art-shot` + `.art-ask` in styles.css; the Visual
   Art collection. Sep 2026, on request: *"on the question side it should show no words but an image of a
   famous painting, sculpture etc, and the user must guess the title, artist, date of creation, and current
   ownership/location in the answer box"*). A **built-in format like the map card and for the map card's
   own reason** — a community card type is templates plus scoped CSS and cannot run code, and this needs a
-  picture promoted to the front, its metadata withheld, and four typed answers graded separately.
+  picture promoted to the front, its metadata withheld, and typed answers graded separately.
+  · **WHERE THE WORK IS NOW IS SHOWN AND NOT ASKED** (Sep 2026, on request: *"remove the 'where is it
+    now' from the question but ensure it's mentioned on the answer side"*). It was the fourth field and
+    is now none of them: `location` is still derived by `cardArtAnswers`, still REQUIRED of every card by
+    `add-card.js`, and still printed on the answer side by `cardFactsHTML` — which reads `facts`
+    directly, so the row the reader sees is the row the label table is matching. **What changed is one
+    entry in `ART_FIELDS` and nothing else**, so asking for it again is one line back. Both halves fail
+    silently and in opposite directions — a fourth input returning is a question the format no longer
+    asks, and a grid that stops drawing the row is a fact the reader simply never gets — so
+    `test-artwork-cards.js` asserts both.
   · **THE FRONT DRAWS NO PROSE AT ALL.** `question` is stored `""` and `questions` is `[]`;
-    `cardFrontHTML` returns the picture and the four fields and never `q`; `add-card.js` REFUSES an
+    `cardFrontHTML` returns the picture and the fields and never `q`; `add-card.js` REFUSES an
     artwork card that stores anything else, and `check-questions.js` skips the format outright. A
     sentence sitting in a field nothing renders is a thing a later reader of the data cannot tell from a
     bug, which is why it is refused rather than ignored. What says what to do is the answer box's own
-    four labels — Title, Artist, Date, Where it is now — which are the FORM rather than a clue.
+    three labels — Title, Artist, Date — which are the FORM rather than a clue.
   · **`artwork: true` SAYS THE PICTURE IS THIS CARD'S OWN SUBJECT**, which is the whole of what the flag
     means and why it is a flag rather than an inference from `image`: an ordinary card's picture
     ILLUSTRATES its subject — a hand-axe under `Acheulean`, a flag under a country — and must never be
     dealt as "what is this?".
-  · **THE FOUR ANSWERS ARE DERIVED, NEVER STORED TWICE.** The title is `answerText`; the DATE is the first
+  · **THE ANSWERS ARE DERIVED, NEVER STORED TWICE.** The title is `answerText`; the DATE is the first
     labelled row of `answerDate`, which is also what `cardStartYear` files the collection by; the ARTIST
-    and the LOCATION are read out of the `facts` grid BY LABEL. A second copy of the three would be the
-    same strings written twice on every card, and that is the shape that goes quietly out of step — the
-    grid saying the Rijksmuseum while the grading went on accepting the Louvre, with nothing on the page
-    able to say so. **What makes reading a row by its label safe is that the labels are DECLARED**
-    (`ART_ARTIST_LABELS` / `ART_PLACE_LABELS`, the same two in `add-card.js`) **and that `add-card.js`
-    REFUSES a grid matching neither** — without that a row labelled "Owner" silently asks three questions
-    instead of four and looks perfectly finished. A `Date` ROW IN THE GRID IS REFUSED TOO: the date line
-    is already the date, so a row beside it would be a third copy of one fact.
+    (and the LOCATION the grid states) are read out of the `facts` grid BY LABEL. A second copy of them
+    would be the same strings written twice on every card, and that is the shape that goes quietly out of
+    step — the grid saying the Rijksmuseum while the grading went on accepting the Louvre, with nothing
+    on the page able to say so. **What makes reading a row by its label safe is that the labels are
+    DECLARED** (`ART_ARTIST_LABELS` / `ART_PLACE_LABELS`, the same two in `add-card.js`) **and that
+    `add-card.js` REFUSES a grid matching neither** — without that a row labelled "Owner" silently asks
+    two questions instead of three, or states no location at all, and looks perfectly finished. A `Date`
+    ROW IN THE GRID IS REFUSED TOO: the date line is already the date, so a row beside it would be a
+    third copy of one fact.
   · **EACH FIELD IS MARKED IN ITS OWN WAY, AND THE MARKING IS FEEDBACK RATHER THAN A SCORE** — the reader
     still grades themselves Again/Hard/Good/Easy. A title takes `nearMiss`, the one-slip tolerance the
-    cloze box already uses. An ARTIST and a PLACE are routinely given short, so a value whose whole
-    significant vocabulary sits inside the other counts **in both directions** ("Rijksmuseum" for
-    "Rijksmuseum, Amsterdam", and the reverse); "Unknown" and "Anonymous" are one answer.
+    cloze box already uses. A NAME is routinely given short, so a value whose whole significant
+    vocabulary sits inside the other counts **in both directions** ("Rembrandt" for "Rembrandt van Rijn",
+    and the reverse); "Unknown" and "Anonymous" are one answer. The rule is written for any value of that
+    shape rather than for names alone — it is what graded the location while that was a field.
   · **THE DATE HAS A THIRD STATE, AND ITS BAND SCALES WITH THE WORK'S AGE** (`ART_YEAR_NEAR` 25 years,
     `ART_YEAR_NEAR_FRAC` 3%, `artYearBand`). It is the only field where being nearly right is a fact
     rather than a judgement. **A FIXED BAND CANNOT WORK and the format's own test caught it on the first
@@ -3636,12 +3649,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Parthenon gets seventy-odd years and the Swabian ivories a millennium. **It is a proportion of the
     AGE and never of the year number**: 3% of "1642" would be fifty years, which is two generations of
     painting.
-  · **THE `Location` CELL IS GRADED, SO IT HAS TO CARRY THE TOWN** (Sep 2026, on `art-007`). `artMatch`
-    accepts a typed word that appears in the answer, so a museum whose own name does not contain its
-    city marks that city wrong: *Naturhistorisches Museum Wien, Austria* refused **Vienna**, the German
-    form of the name being the only one in the string. **A museum named after its town needs nothing
-    (Museum Ulm, Blaubeuren, Tübingen, Brno); one that is not needs the town added.** Type at the four
-    cells before shipping a card rather than reading them.
+  · **THE `Location` CELL IS READ BY A READER WHO HAS NEVER HEARD OF THE MUSEUM, SO IT CARRIES THE
+    TOWN** (Sep 2026, on `art-007`). It was a GRADING rule first and is now a plain editorial one, which
+    is a weaker reason for the same wording: *Naturhistorisches Museum Wien, Austria* refused **Vienna**
+    when the cell was graded, the German form of the name being the only one in the string, and it tells
+    a reader no more now that it is only printed. **A museum named after its town needs nothing (Museum
+    Ulm, Blaubeuren, Tübingen, Brno); one that is not needs the town added.** Type at the three cells and
+    read the fourth before shipping a card.
   · **THREE THINGS ARE HELD BACK UNTIL THE REVEAL, and the first is the whole difficulty.** A Commons
     credit line routinely reads "Rembrandt, The Night Watch, Rijksmuseum", so the front draws the picture
     and NOTHING else — no title, no description, no credit, no `data-img-*` and no way to enlarge it,
@@ -5215,7 +5229,7 @@ lookup.
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
-| Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 8 cards, contiguous — next is `art-009`, **whose plan line names a GROUP rather than one object and must be replanned first**; not a history collection |
+| Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |

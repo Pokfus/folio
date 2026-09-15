@@ -3739,7 +3739,9 @@ window.GLOSSARY = {
 "Emperor_Guangwu_of_Han": "<b>Emperor Guangwu</b> is the temple style of Liu Xiu, who restored the Chinese Han dynasty in 25 CE and reigned until 57.<sup class=\"fn\" data-fn=\"1\"></sup> A provincial landholder descended at some remove from an earlier Han emperor, he joined the risings against the usurper Wang Mang, made his name by destroying an imperial army at Kunyang in 23 CE, and was proclaimed emperor by his own officers two years later.<sup class=\"fn\" data-fn=\"1\"></sup> He spent a further eleven years reducing rival claimants, moved the capital to Luoyang, and rebuilt the imperial university there in 29 CE with fourteen professors of the classics.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Luoyang": "<b>Luoyang</b> is a city on the Luo river in western Henan, in northern China, and one of the longest-serving capitals in Chinese history.<sup class=\"fn\" data-fn=\"1\"></sup> The Zhou kings moved their court there in the 8th century BCE, it was the seat of the Han empire from 25 to 190 CE, and later dynasties governed from it again, so the ground east of the modern town carries the remains of successive walled capitals.<sup class=\"fn\" data-fn=\"1\"></sup> Under the Han it held the palaces, the ministries and an imperial university founded in 29 CE, and it was burned in 190 CE when a warlord forced the court to move west.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Protectorate_of_the_Western_Regions": "The <b>Protectorate of the Western Regions</b> was the office through which the Chinese Han empire dealt with the oasis kingdoms between the Jade Gate and the Pamirs, created in 60 BCE when a general already commanding a military colony there was made protector general.<sup class=\"fn\" data-fn=\"1\"></sup> Its holder did not govern those states but confirmed their kings, judged between them and maintained garrisons and postal stages, against a Xiongnu confederacy competing for the same allegiance.<sup class=\"fn\" data-fn=\"2\"></sup> Expensive and remote, the post lapsed and was revived repeatedly, standing empty from 9 CE, restored in 74, abandoned again after 77, revived in 91 and given up in 107.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Red_Eyebrows": "The <b>Red Eyebrows</b> were a peasant army that rose in eastern China in 18 CE against the usurper Wang Mang, taking their name from the dyed eyebrows by which they told one another from government troops.<sup class=\"fn\" data-fn=\"1\"></sup> Led by Fan Chong, they grew out of a countryside in which smallholders had lost their land to debt, kept no formal ranks or order of battle but forbade killing without cause, and destroyed two imperial armies before marching on the capital and installing an emperor of their own.<sup class=\"fn\" data-fn=\"2\"></sup> They were broken in 27 CE.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Red_Eyebrows": "The <b>Red Eyebrows</b> were a peasant army that rose in eastern China in 18 CE against the usurper Wang Mang, taking their name from the dyed eyebrows by which they told one another from government troops.<sup class=\"fn\" data-fn=\"1\"></sup> Led by Fan Chong, they grew out of a countryside in which smallholders had lost their land to debt, kept no formal ranks or order of battle but forbade killing without cause, and destroyed two imperial armies before marching on the capital and installing an emperor of their own.<sup class=\"fn\" data-fn=\"2\"></sup> They were broken in 27 CE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Venus_of_Předmostí": "The Venus of Předmostí is a female figure 10.3 centimetres (4.1 inches) long, incised into the outer surface of a mammoth tusk at the Upper Palaeolithic settlement of Předmostí in central Moravia.<sup class=\"fn\" data-fn=\"1\"></sup> Nothing is carved in relief: the whole body is set down as geometry, a small oval for the head, a ringed oval for the breasts and a broad cross-hatched triangle for the hips, every outline filled with short parallel strokes.<sup class=\"fn\" data-fn=\"1\"></sup> It belongs to the Pavlovian, is dated with its neighbouring sites to between about 31,000 and 29,000 years ago, and is one of the pieces that survived the 1945 fire which destroyed most of the Předmostí collection.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Venus_of_Dolní_Věstonice": "The Venus of Dolní Věstonice is a female figure 11.1 centimetres (4.4 inches) high, modelled from loess clay and fired, and it is the oldest known ceramic object of any kind.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Found in 1925 in the central hearth of an Upper Palaeolithic settlement in southern Moravia, broken into two pieces, it has heavy breasts over a broad belly, wide hips, a deep navel and a face marked only by two long slanting slits for eyes.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The paste was fired at 500 to 800 degrees Celsius (930 to 1,470 degrees Fahrenheit), and a fingerprint identified on its back in 2002 was left by somebody between about 7 and 15 years old.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5631,7 +5633,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Eastern_Han": "25 – 220 CE",
 "Emperor_Guangwu_of_Han": "r. 25 – 57 CE",
 "Protectorate_of_the_Western_Regions": "60 BCE – 107 CE, intermittently",
-"Red_Eyebrows": "18 – 27 CE"
+"Red_Eyebrows": "18 – 27 CE",
+"Venus_of_Předmostí": "c. 31,000 – 29,000 BP",
+"Venus_of_Dolní_Věstonice": "c. 30,000 – 25,000 BP"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7842,7 +7846,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
-  "Providence": true,
+"Providence": true,
 "Pacific_Ocean": true,
 "Council_of_Five_Hundred": true,
 "Homo": true,
@@ -7856,7 +7860,6 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Works_and_Days": true,
 "Emporion": true,
 "Geometric_period": true,
-"Providence": true,
 "Four_Symbols": true,
 "Legend_of_the_White_Snake": true,
 "Afar_Region": true,
@@ -11619,7 +11622,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Emperor_Guangwu_of_Han": ["person","ruler","history","china","han dynasty"],
 "Luoyang": ["city","place","history","geography","china"],
 "Protectorate_of_the_Western_Regions": ["institution","title","history","china","han dynasty","central asia","diplomacy"],
-"Red_Eyebrows": ["event","people","history","warfare","china","han dynasty","rebellion"]
+"Red_Eyebrows": ["event","people","history","warfare","china","han dynasty","rebellion"],
+"Venus_of_Předmostí": ["object","art","archaeology","prehistory","czechia"],
+"Venus_of_Dolní_Věstonice": ["object","art","archaeology","prehistory","czechia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

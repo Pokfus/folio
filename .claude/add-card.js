@@ -218,12 +218,15 @@ if (isMap) {
      so the format renders none — and a sentence stored in a field nothing draws is a thing a reader of
      the data cannot tell from a bug, so it is refused rather than ignored.
    · AN ARTIST ROW AND A LOCATION ROW IN `facts`, matching app.js's own declared label tables. The
-     reader is asked for four things and `cardArtAnswers` derives three of them from the card's own
-     display fields rather than keeping a second copy — so a grid with no row this can read is a card
-     that silently asks fewer questions than the format promises, and looks finished doing it.
-   · A DATE LINE THAT YIELDS A YEAR. It is the third derived answer AND the card's place in a
-     collection whose whole running order is chronological, so a card without one is unanswerable and
-     unsortable at once. */
+     reader is asked for three things — the title, the artist and the date — and `cardArtAnswers`
+     derives every one of them from the card's own display fields rather than keeping a second copy, so
+     a grid with no artist row this can read is a card that silently asks fewer questions than the
+     format promises, and looks finished doing it. The LOCATION row is required for a different reason:
+     it is no longer asked (Sep 2026, on request) but it is still the answer side's statement of where
+     the work is now, and a card whose grid has no row app.js can read as one has stopped making it.
+   · A DATE LINE THAT YIELDS A YEAR. It is the third asked answer AND the card's place in a collection
+     whose whole running order is chronological, so a card without one is unanswerable and unsortable
+     at once. */
 if ("artwork" in card && typeof card.artwork !== "boolean") {
   console.error("ERROR: card.artwork is true or absent — it says the picture IS this card's subject."); process.exit(1);
 }
@@ -251,7 +254,7 @@ if (isArt) {
     process.exit(1);
   }
   if (String(card.question || "").trim()) {
-    console.error("ERROR: an artwork card's `question` is EMPTY (\"\") — the picture is the whole question and no prose is drawn on the front. What to type is said by the answer box's own four labels.");
+    console.error("ERROR: an artwork card's `question` is EMPTY (\"\") — the picture is the whole question and no prose is drawn on the front. What to type is said by the answer box's own three labels.");
     process.exit(1);
   }
   if (Array.isArray(card.questions) && card.questions.length) {
@@ -270,8 +273,9 @@ if (isArt) {
   /* THE LABEL TABLES ARE app.js's, AND THE MATCH DECIDES WHETHER THE READER IS ASKED AT ALL.
      `cardArtAnswers` reads the artist and the location out of this grid by label — that is what lets
      the grid and the grading be one fact rather than two copies of it — so a row these do not match is
-     a field the card silently stops asking for. Kept in step with ART_ARTIST_LABELS / ART_PLACE_LABELS
-     in app.js; a card that reaches a reader with one missing looks perfectly finished. */
+     a field the card silently stops asking for, or, in the location's case, stops stating. Kept in step
+     with ART_ARTIST_LABELS / ART_PLACE_LABELS in app.js; a card that reaches a reader with one missing
+     looks perfectly finished. */
   const ART_ARTIST_LABELS = /^(artist|maker|sculptor|painter|architect|workshop|attributed to|culture)$/i;
   const ART_PLACE_LABELS = /^(location|where it is|where it is now|collection|museum|held|home)$/i;
   const labelOf = (r) => String(r[0] || "").trim();
@@ -280,7 +284,7 @@ if (isArt) {
     process.exit(1);
   }
   if (!facts.some((r) => ART_PLACE_LABELS.test(labelOf(r)))) {
-    console.error("ERROR: an artwork card needs a location row in `facts` — the reader is asked where the work is now. The label must be one of: location, where it is, where it is now, collection, museum, held, home.");
+    console.error("ERROR: an artwork card needs a location row in `facts` — the answer side states where the work is now (it is shown rather than asked). The label must be one of: location, where it is, where it is now, collection, museum, held, home.");
     process.exit(1);
   }
   /* A `Date` row would be a THIRD copy of the date — the date line already carries it and is what
