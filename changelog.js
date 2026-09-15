@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.752", released: "2026-09-15T02:02Z" };
+window.FOLIO_VERSION = { v: "1.755", released: "2026-09-15T02:38Z" };
 
 window.CHANGELOG = [
   {
@@ -44,7 +44,12 @@ window.CHANGELOG = [
     items: [
       "<b>The default theme is now the opal</b> — milky iridescent paper, rounded cards and a softer type pairing, in place of the old warm paper and vermilion.",
       "<b>Red text is a deeper red</b> — the answer term and the footnote markers now stand well clear of the page instead of fading into it.",
+      "<b>Twenty more wars shade their two sides on the globe</b> \u2014 among them Alexander against Persia, the fall of the Shang and the early Muslim conquests.",
+      "<b>Two war maps no longer contradict a neighbouring card</b> \u2014 the same ground was shaded green on one card and red on another in the same year.",
+      "<b>An artwork card no longer asks where the work is today</b> \u2014 it is named for you on the answer side instead, in the box under the picture.",
       "<b>Ten new Ancient Rome cards</b> — the settlement of 23 BCE and the powers, provinces and pay that made the Principate work, with ten new glossary terms.",
+      "<b>Ten new cards in the Ancient Greece collection</b>, on the Syrian Wars, the Aetolian and Achaean leagues and the Spartan reform kings, with eight new glossary terms.",
+      "<b>Seven new cards in the Visual Art collection</b>, carrying the Ice Age deck on from the Swabian caves into Lower Austria and Moravia.",
       "<b>The stray lines are gone from your own atlas</b> — the ruler-straight marks across Egypt, Arabia, Tanzania and the Gulf of California were borders drawn twice.",
       "<b>A place on your atlas opens from its name as well as its dot</b>, which is by far the larger thing to aim at.",
       "<b>A glossary link in an Atlas popup waits a second</b> before it will open, so the tap that raised the panel cannot land on a term underneath it.",
@@ -54,8 +59,15 @@ window.CHANGELOG = [
   },
   {
     d: "2026-09-14",
-    t: "Every world geography background is now about its own place",
+    t: "Cards about a war now show who fought, and who won",
     items: [
+      "<b>A card whose answer is a war now shades both sides on its globe</b> \u2014 the victors green and the defeated red, with a key naming each \u2014 on thirty-four wars so far.",
+      "<b>Your own atlas shades them too</b>, in the years each war was fought, so a century you have studied shows who was at war in it.",
+      "<b>Visual Art has been cleared and restarted</b> \u2014 it is a collection of artworks now rather than a history of art, and every card is one work you can be shown.",
+      "<b>An artwork card shows the picture and nothing else</b>, and you name the title, the artist, the date and where the work is today in four boxes underneath.",
+      "<b>Each of the four answers is marked on its own</b>, with a date counted close when it is near enough for a work that old rather than wrong by a year.",
+      "<b>Three new cards in the Visual Art collection</b>, the first written to the new format and the beginning of the collection again.",
+      "<b>Twenty new cards in the Ancient Greece collection</b>, on Hellenistic kingship and the successor kingdoms from Bactria and India to Galatia and Pergamon, with nineteen new glossary terms.",
       "<b>Eighty-nine more capital-city backgrounds are now about the city</b> \u2014 its rivers, its rock, its weather and its own history rather than a record of diplomatic recognition.",
       "<b>Measurements read correctly in imperial again</b> \u2014 dozens of cards and glossary terms were dropping a word such as a place name when you asked for feet and miles.",
       "<b>Twenty new Ancient Rome cards</b> \u2014 the rise of Augustus from Caesar\u2019s will to the settlement of 27 BCE, with twenty new glossary terms.",

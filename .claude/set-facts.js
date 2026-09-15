@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
-  Rewrite a MAP CARD's `facts` grid, in batches.
+  Rewrite a MAP CARD's or an ARTWORK CARD's `facts` grid, in batches.
 
     node .claude/set-facts.js <batch.json> [--check]
 
@@ -20,6 +20,12 @@
 
   `--check` reports every map card's grid and writes nothing — which is how a batch is reviewed by eye
   before it is applied, the grid being four short strings that no test can judge.
+
+  IT TAKES AN ARTWORK CARD TOO, AND THAT IS NOT A WIDENING SO MUCH AS CATCHING UP (Sep 2026). `facts`
+  was the map card's field alone when this was written; the artwork format added in the Visual Art
+  restart reads the SAME field for its Artist / Material / dimension / Location grid, drawn by the same
+  `cardFacts` two to a row and therefore an ORDER in exactly the same way. Refusing one sent the next
+  correction to `update-cards.js`, which is the unvalidated path this tool exists to replace.
 
   A CELL MAY BE "?" AND THAT IS DELIBERATE (Sep 2026, on request: "if you cannot find data for any
   particular one, just put a questionmark there"). It is not a placeholder to be filled in later by a
@@ -41,8 +47,8 @@ if (!Array.isArray(CARDS)) die("data.js did not yield window.CARD_DATA");
 const byId = new Map(CARDS.map((c) => [c.id, c]));
 
 if (process.argv.includes("--check")) {
-  const maps = CARDS.filter((c) => c.map);
-  console.log(maps.length + " map cards");
+  const maps = CARDS.filter((c) => c.map || c.artwork);
+  console.log(maps.length + " cards with a figures grid");
   maps.forEach((c) => console.log("  " + c.id + "  " + (c.answerText || "") + "\n      " +
     (c.facts || []).map((f) => f[0] + " = " + f[1]).join("\n      ")));
   process.exit(0);
@@ -60,7 +66,7 @@ const edits = [];
 for (const [id, facts] of Object.entries(batch.cards)) {
   const card = byId.get(id);
   if (!card) die("no card " + id + " in data.js");
-  if (!card.map) die(id + ": not a map card — `facts` is the map card's own figures grid");
+  if (!card.map && !card.artwork) die(id + ": not a map card or an artwork card — `facts` is those two formats' figures grid");
   if (!Array.isArray(facts) || !facts.length) die(id + ": facts must be a non-empty array of [label, value]");
   if (facts.length > MAX_ROWS) die(id + ": " + facts.length + " rows — at most " + MAX_ROWS);
   facts.forEach((row, i) => {
