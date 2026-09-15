@@ -1572,6 +1572,70 @@ three opinions.** Clearing it means finding modern descriptions of the Knossos r
 where the Cambridge wall stands. **Do not "fix" it by re-pointing to Rutter**; record it and leave it
 until a reachable modern survey turns up.
 
+### `wh-099` Monte Verde — cleared, and the drop was the least of what reading the sources found (2026-09-15)
+
+`wh-099` carried EIGHT sources with three counted under `tom d. dillehay`, and all three sat at
+`alone=0` — three candidates, which reads like the easy one of the batch. It was not, and the reason is
+worth keeping: **the point of confirming a co-cited source is not to license the drop, it is that reading
+two papers side by side against a sentence is the only thing that tests the sentence.** The drop took
+five minutes. Reading the two sources turned up two claims the card was making that neither of them
+carries.
+
+**Fault 1 — the card asserted the opposite of its own source.** The lithics sentence ended "with no fluted
+points at all", cited to [1] and [2]. [2] (Dillehay et al. 2015, PLOS ONE, open) says of MV-II: *"Although
+bifacial projectile points, flaked debitage, and grinding stones were recovered, most lithic tools were
+edge-trimmed pebble flakes and sling and grooved bola stones."* Bifacial projectile points WERE recovered.
+The point the card wants — that the assemblage is not Clovis-like — is true and is what the source says;
+the absolute the card had written is not. Now: *"most stone tools are edge-trimmed pebble flakes and
+grooved bola stones rather than fluted Clovis bifaces."* **A negative absolute is the shape to distrust:
+"no X at all" is a claim about everything that was found, and a source reporting what WAS found can
+almost never carry it.**
+
+**Fault 2 — "digging sticks", and "a child's footprint".** Neither is in either cited source. [1] (Pino &
+Dillehay 2023, *Antiquity*, open) describes the tent's contents at length and names no digging stick; both
+sources say "human footprints" and neither says child, juvenile or infant — grepped, not eyeballed. The
+child's footprint is repeated everywhere in the popular literature about Monte Verde, which is exactly why
+it got in. It was in the second question phrasing, so it had to come out of there too.
+
+**And "digging sticks" had travelled.** It was also in `why[0].a`, where the Think-it-through answer
+restates the preserved finds. That is the collateral rule again: **a rewritten abstract orphans the why
+answers, the extra phrasings and the date line, and nothing complains** — `check-questions.js` passed
+before and after.
+
+**What the drop actually was.** [8] (Dillehay et al. 2008, *Science*, "seaweed, food, medicine") sat with
+[1] on the finds sentence. [1] carries every element of that sentence and more, in its own words — the
+collapsed frame of the long tent, the clay-lined brazier pits on its floor, the communal hearths and
+wooden mortars outside, the masticated cuds of medicinal seaweed and boldo, and **the distance: "13 species
+of edible or medicinal imported seaweeds from the Pacific coast (approximately 60km away)"**. The card had
+"seaweed carried up from the distant coast"; it now says about 60 kilometres, which is a figure rather
+than an adjective. So the sentence was rewritten onto [1] and [8] retired, leaving 7 sources and two
+Dillehay entries. Dillehay drops from four of eight entries to three of seven.
+
+**Say what this is, because it is not what the rule hopes for.** It is a CONSOLIDATION onto the
+excavators' own latest synthesis, not the arrival of an independent witness — and none was available.
+Monte Verde's finds are the excavators' to report; the one independent account, the 1997 site-visit panel
+[7], is paywalled at Cambridge (abstract page only, no text), Erlandson, Braje & Graham 2008 in *Journal
+of Island and Coastal Archaeology* is 403 at Taylor & Francis, and a modern synthesis would be summarising
+Dillehay anyway. **`docs/greece-audit-2026-09.md`'s own rule holds here: keeping a source for a claim
+nothing else states is the right answer rather than a failure** — what made the drop legitimate was that
+[1] states the claim too, better.
+
+**Three things measured on the way, so the next session does not redo them.**
+· **All five checkable DOIs are exactly right** — authors, year, volume, issue and pages, against Crossref.
+· **`10.1371/journal.pone.0141923` is the article and `…pone.0145471` is its CORRECTION notice.** The
+  *Antiquity* reference list cites the correction. The card has the article, which is right; a session
+  "fixing" the card against that reference list would break it.
+· **`fundacionmonteverde.cl` served an `sgcaptcha` 202 on two attempts and a 200 on a third.** It is a bot
+  wall that flaps, not a dead link: a reader with a browser reaches the PDF. Not changed. And **the
+  TAMU "Three Critiques" PDF is a subsetted-font PDF whose text extracts as gibberish** — it downloads
+  (200, 8 pages, 262 KB) but cannot be read from here without solving the font encoding, so nothing new
+  was cited to it.
+
+**One tooling note that is not a fault.** A quick `https?://[^\s<>"')\]]+` over the sources returns each
+URL WITH the sentence's closing full stop and every DOI then 404s, which reads as a card full of dead
+links. app.js's own `SRC_URL_RX` ends `[^\s<>"')\].,;:]`, so the site trims it. **Sweep with app.js's
+pattern, not an approximation of it.**
+
 ### Two more read and left, and these are the rule working rather than failing (2026-09-14)
 
 Both showed a candidate at `alone=0` and both are the right answer as they stand. Recorded so the next
