@@ -991,3 +991,45 @@ unblocks every remaining card in the deck.
   fine photograph. Lake Kezenoyam, reached through `Category:Quality images of Chechnya`, is the
   picture that card wanted. **`Category:Quality images of <subject>` is the fastest way into a
   federal subject's own photographs**, and it is where three of this batch's ten came from.
+
+### Batch 8 — the Klyazma, the Amur, the Sura, the head of the Volga and the Rybinsk sea (`gru-033`–`gru-037`)
+
+Vladimir Oblast, Khabarovsk Krai, Penza Oblast, Tver Oblast and Yaroslavl Oblast, with their five
+paired glossary terms. Seven findings.
+
+- **RECLUS'S *UNIVERSAL GEOGRAPHY* CARRIED FOUR OF THE FIVE, AND VOLUME 6 CARRIES THE FIFTH.** Volume 5
+  has a topography section for every European Russian government — Tver, Yaroslavl and Kostroma at
+  pp. 388–90, the Oka basin with Vladimir at 398–99, the Sura and Penza at 409 — and volume 6 does the
+  same for Asiatic Russia, with the Ussuri and Lake Khanka at 427–28, the Ussuri tigers at 435–36 and
+  Khabarovka at 443–47. **It is the single highest-yield source this deck has**; read it before
+  searching anything.
+- **A RUNNING HEAD IS BETTER EVIDENCE THAN AN INDEX, AND WHERE THEY DISAGREE CITE A RANGE.** Reclus
+  vol. 6's own index files Nikolayevsk at 474 where the running head above the passage reads 417, and
+  the text sits two pages after the head that reads 445 — three OCR readings of what is almost
+  certainly 447. **Do not pick one**: the material genuinely spans 443–47 and that is what the citation
+  says.
+- **A DOI CAN RESOLVE TO A DIFFERENT PAPER, AND ONLY CROSSREF SEES IT.** DOAJ gives the Lobelia
+  dortmanna paper on the oligotrophic lakes of Tver Oblast the DOI `10.15421/021754`; Crossref has a
+  maize-genetics paper at that DOI, on the pages immediately before it in the same issue. The URL
+  resolves, the article is real and openly readable, and the DOI is wrong — so the citation carries the
+  journal's own article URL instead. **Run `check-citations.js` before writing the card's JSON, not
+  after**: nothing else in the pipeline can see this.
+- **A BILINGUAL RUSSIAN JOURNAL IS CITED IN RUSSIAN, WHICH IS ALSO WHAT KEEPS THE CHECKER QUIET.**
+  *Трансформация экосистем* publishes an English title and abstract on its own English site, and
+  Crossref registers only the Russian. Citing the English form would have the checker compare
+  `Novikova` against `Новикова` and report a surname mismatch — a bilingual record, not an error, but
+  reported as one. CLAUDE.md's own rule settles it: cite a foreign-language work under its own title.
+- **THE UN DEMOGRAPHIC YEARBOOK'S TABLE 8 DUPLICATED A ROW, AND THE DUPLICATE LOOKS LIKE DATA.** Kovrov
+  extracts as four dots followed by Vladimir's own three figures. Vladimir's line is right and Kovrov's
+  is not there at all; the city was simply left out of the card rather than given a figure that belongs
+  to somewhere else. **Read a row against a second city you already know before trusting it.**
+- **AREAS: ONE OF FIVE.** Seregin's *Flora of Vladimir Oblast* grid dataset states the oblast at
+  29,084 km² in its Study area description, with the altitude range, the climate means, the snow-cover
+  length and the forest ecotone — the best single paragraph of physical geography this deck has found
+  for any subject. Nothing comparable exists for the other four, so their Area cells are `?`.
+- **A RIVER'S OWN ARTICLE RETURNS A PHOTOGRAPH OF ITS SOURCE, WHICH CAN BE A THOUSAND KILOMETRES AWAY.**
+  The Amur's lead image is captioned as the confluence of the Shilka and the Argun — the right river and
+  the wrong end of it, nowhere near Khabarovsk Krai. The Khabarovsk Bridge replaced it. **Read the
+  Commons file description, not just the file name**; and `Category:Quality images of <subject>` again
+  supplied two of the ten (the chapel over the source of the Volga at Volgoverkhovye, and the Strelka
+  at Yaroslavl, after the Yaroslavl article's own lead image turned out to be a banknote).
