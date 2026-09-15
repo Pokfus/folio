@@ -347,6 +347,70 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-15, batch H11 — ten at once, and the measure catching what the drafting missed**:
+  `gw-031` Uganda, `gw-044` Malaysia, `gw-045` Saudi Arabia, `gw-046` Mozambique, `gw-051` Nepal,
+  `gw-052` Cameroon, `gw-053` Venezuela, `gw-056` North Korea, `gw-058` Mali and `gw-061` Sri Lanka.
+  Their history blocks opened at 1945, 1957, 1932, 1975, 1955, 1960, 1819, 1953, 1960 and 1948; they
+  now open at the Bantu expansion, a voyage of 1503, inscriptions of about 1000 BCE, the Bantu
+  arrival on the Indian Ocean coast, Ashoka's pillar at Lumbini, the Cameroon highlands, Losada's
+  colony of 1567, Gojoseon, Jenne in 765 CE and Mahinda's mission of about 246 BCE. Rules 1–4 stay at
+  zero; 5b went 359 to 349 and 5c 327 to 317.
+
+  · **AT TEN CARDS THE TWO HARVESTING PATTERNS CARRY THE BATCH.** The capital card gave the middle of
+    eight of the ten — Cunningham on the kabaka at Mengo, Swettenham on the Klang, Palgrave and Philby
+    on Nejd, Monteiro and Jessett on Delagoa Bay, Oldfield on the Newar valley, Curtis on Losada,
+    Hulbert and Stoyakin on Koguryŏ's capital, Gallieni on the treaty of 5 November 1880 — and the
+    corpus gave the deep end of eight. **Only Mali and Malaysia needed a source the repository had
+    never used.** At this size the reconnaissance is what decides the batch: dump all ten capital
+    cards and all the candidate corpus cards FIRST, then pick which ten to write.
+
+  · **ONE CORPUS CARD SERVED THREE COUNTRIES WITH THREE DIFFERENT CITATIONS.** `wh-420` Bantu
+    expansion carries Fortes-Lima for the Cameroon highlands as the homeland, Koile for the crossing
+    of the rainforest about 4,420 years ago, and Semo for the arrival along the Mozambique coast — so
+    Uganda, Cameroon and Mozambique each open on the same event described by the paper that is about
+    them. **Read a shared card's whole source list before deciding it can only be used once.**
+
+  · **`borrow()` READS THE LIVE CORPUS, SO THE BUILD IS NOT IDEMPOTENT AGAINST ITS OWN OUTPUT.**
+    Re-running the build after the batch had already been applied borrowed `gw-045`'s fourth citation
+    from the card the batch had just rewritten, which put the same work in two slots; `add-sources.js`
+    refused the whole batch — "card gw-045 points at source 8, but lists 7" — which is the tool doing
+    exactly its job. **Revert the data files before re-running a build that borrows from them**, and
+    the build's own validator should check its lists for duplicates.
+
+  · **THE MEASURE CAUGHT TWO FAULTS THE DRAFTING DID NOT.** Malaysia came back at a span of 136 years
+    beginning 1821 although its date line said 1511 — because the prose never gave the year, and
+    because **1511 is not in Swettenham's Malacca chapter at all**, whose own date is Varthema's
+    voyage of 1503. A universally known date is still a date that needs a source, and a rule-5 reading
+    that comes back shallow on a card you thought you had taken deep usually means the date is in the
+    DATE LINE and not in the prose. Saudi Arabia came back at 83 years beginning 1862 for a different
+    reason: **a bare `622` is not read**, the parser taking a plain number as a year only in the
+    1000–2029 band, which its own header states. So the Hijra sentence contributed nothing until it
+    was written `622 CE`. **The proxy's stated blind spot is a drafting rule, not just a caveat: in a
+    geography background write the era on every pre-1000 year.**
+
+  · **A SOURCE'S TITLE PAGE CONTRADICTED THE IMPRINT WRITTEN FROM MEMORY.** *Timbuctoo the Mysterious*
+    is New York: Longmans, Green, 1896, not the London Heinemann first drafted. The title page is the
+    first page of the djvu text and costs one `head -c`.
+
+  · **A 403 IS SWAPPED WHERE AN OPEN COPY EXISTS AND KEPT WHERE IT IS THE PUBLISHER'S BOT POLICY.**
+    Three borrowed DOIs answered 403 to curl. Oxford's for Semo 2020 and PNAS's for Koile 2022 both
+    have PMC copies that open, so the address was swapped while the citation text stayed
+    byte-for-byte. **`mdpi.com` answers 403 to every probe from here** and has no PMC copy, and that
+    citation was KEPT: MDPI is fully open access, the article is the corpus's own already-shipped
+    citation on `wh-458`, and a 403 is a different fact from a paywall.
+
+  · **A DECLARED ADJUDICATION WENT DEAD AND WAS REMOVED.** `gw-audit.js` excused rule 4 finding
+    "Spain" on `gw-053`; the rewrite no longer trips it, proved by disabling the row and watching the
+    count stay at 12 with rule 4 still zero. A dead row can never excuse a different fault — a match
+    needs the card, the rule AND the text to agree — but it is a claim about the corpus that is no
+    longer true, so it goes. Its reasoning, kept here: **"independence from Spain" names the colonial
+    power, not a neighbour.**
+
+  · **NEPAL CAME IN AT 275 WORDS, JUST OVER THE FLOOR.** Five sentences of Oldfield's valley history
+    are short ones — a walled town, a gateway for every square — so the block was lengthened by giving
+    the constitution and the pillar their full wording rather than by padding. **The floor is as real
+    as the ceiling, and a card built out of a 19th-century topographer's sentences will approach it.**
+
 - **2026-09-15, batch H10 — both carried deferrals cleared, and citations borrowed rather than
   retyped**: `gw-016` Vietnam, `gw-033` Algeria, `gw-043` Uzbekistan, `gw-049` Madagascar, `gw-057`
   Syria and `gw-060` Taiwan. Their history blocks opened at 1949, 1830, 1991, 1890, 1922 and 1949;

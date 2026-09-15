@@ -102,7 +102,6 @@ const ADJUDICATED = {
      allows, in a sentence that happens to carry a border word. */
   borders: {
     "gw-005": ["India"],               // "British India was partitioned": the 1947 partition, not a neighbour list
-    "gw-053": ["Spain"],               // "independence from Spain": the colonial power, not a neighbour
   },
 };
 /* every matched string on this card is declared for this rule */
