@@ -1079,16 +1079,25 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
              line names a city and a house together, and the house is the thing a reader meets again,
              while the altar on that acropolis is the next card
     gr-790  The Great Altar of Pergamon
-    gr-791  The Library of Pergamon
-    gr-792  Antiochus III
+    gr-791  The Library of Pergamon  — its glossary term is keyed `Library_of_Pergamon`, Folio's own
+             spelling and a real Wikipedia address, although the canonical article is at "Library of
+             Pergamum"; the Pergamum form is carried as an alias
+    gr-792  Antiochus III  — its glossary term `Antiochus_III_the_Great` ALREADY EXISTED when the card
+             was written, cited and at the bar, so the pairing rule was satisfied without a new entry
     gr-793  The Syrian Wars
     gr-794  Battle of Raphia
     gr-795  The Aetolian League
-    gr-796  The Achaean League
+    gr-796  The Achaean League  — its glossary term `Achaean_League` ALREADY EXISTED, with four sources,
+             so no new entry was written: check before running add-glossary.js, which overwrites in silence
     gr-797  Aratus of Sicyon
     gr-798  Cleomenes III
-    gr-799  The Spartan revolution
-    gr-800  Hellenistic siege warfare
+    gr-799  The Spartan revolution  — answered by "Agis IV", chosen when the card was written: the line
+             names a programme with no term of its own, and Agis is the king who framed it and died for
+             it, which leaves gr-798 the reign and the war that carried it through by force
+    gr-800  Hellenistic siege warfare  — answered by "torsion catapult", chosen when the card was
+             written: "poliorcetics" redirects to the Wikipedia article "Siege", whose bare name is an
+             ordinary English word no glossary term should claim, and the torsion spring is the advance
+             the whole art rests on
 
 ### Alexandria and Hellenistic science — `gr-alexandria`
 
