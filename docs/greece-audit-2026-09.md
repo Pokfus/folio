@@ -1868,6 +1868,49 @@ buy a green run at the price of the one signal the check exists to give.
   OpenStax textbook. Adding one would not clear the FAIL, the rule being absolute, but it would make the
   card better, and the Psychology plan's own rule about stating a finding's current standing asks for it.
 
+### `rm-089` Lapis Niger — the Platner-and-Ashby case, and a drop that was real (2026-09-15)
+
+The other 1929-book card CLAUDE.md names beside Walters: three of five sources were three entries of
+*A Topographical Dictionary of Ancient Rome*, and the card at the bar.
+
+**This one's drop candidate was real, and reading the co-cited source is what proved it.**
+`drop-candidates.js` reported the "Rostra" entry at `alone=0 shared=1`, its one sentence shared with
+Dionysius 1.87 — and Cary's text says the whole thing outright: *"Some say also that the stone lion
+which stood in the principal part of the Forum near the rostra was placed over the body of Faustulus,
+who was buried by those who found him in the place where he fell."* The dictionary entry was glossing
+a WORD, not carrying a claim. **That is the shape the tool's own warning is about in the other
+direction** — twice before, a candidate at `alone=0` turned out to be load-bearing (`gr-227`'s weight
+standard, `ps-048`'s quotation); here it genuinely is free, and only opening Dionysius could tell the
+two apart.
+
+The card was AT the bar, so the drop still needed a source added first. **Léa Flam-Zuckermann's review
+of Robert E. A. Palmer's *The King and the Comitium: A Study of Rome's Oldest Public Document*
+(*L'Antiquité Classique* 40, 1971, 357–58, open on Persée)** is the right one, because it is about
+THIS inscription and supplies what a 1929 dictionary could not: that the archaic stele found in 1899
+under the black paving *"n'a pas cessé de susciter commentaires et discussions à propos des
+restitutions du texte très mutilé"*, and that the reading turns on its two key words — RECEI, for the
+king, at line 5, and QO[MITI at line 16. The card said only that the lettering is placed at about 500
+BCE and that nothing fuller could be argued; it now says why the argument is still going on.
+
+Two things worth carrying.
+
+- **PERSÉE'S SEARCH FINDS COMPTES RENDUS, and a review of the standard monograph is often the only
+  open thing there is.** `http://www.persee.fr/search?ta=article&q=Lapis+Niger` returns 43,431 for a
+  two-word query — the engine is generous — but the first page held both the Palmer review and Michel
+  Humm's 70-page *Le Comitium du forum romain et la réforme des tribus d'Appius Claudius Caecus*
+  (MEFRA 111, 1999). **Humm was read and not used**: his subject is the tribal reform, the Comitium's
+  physical description is buried somewhere in seventy pages served one at a time, and the card needed
+  one sentence. A review that is ABOUT the card's own object beat a monograph that merely contains it.
+- **`card-focus.js`'s reviewer branch decides how a review is written.** Its pattern is
+  `/^(.*?),\s*review of/i` and it runs after titles are masked, so the reviewer's name must sit
+  immediately before ", review of" — which is why the citation reads *Léa Flam-Zuckermann, review of
+  <i>The King and the Comitium…</i>, by Robert E. A. Palmer* rather than putting the book first. The
+  build script asserts it rather than trusting it.
+
+A note on the apparatus that did NOT change: Dionysius is now two of five, which is correct and is not
+a finding — `check-cards.js` counts ancient authors separately, two passages of one witness being a
+different thing from two papers by one scholar.
+
 ### `wh-126` 'Ain Ghazal — the conservator who lifted the cache (2026-09-15)
 
 Gary O. Rollefson in three of five sources, and the card AT the bar. Two of the three are literally a
