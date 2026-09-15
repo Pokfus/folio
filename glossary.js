@@ -3759,7 +3759,17 @@ window.GLOSSARY = {
 "Battle_of_Actium": "The Battle of Actium was a sea fight off the coast of Epirus in 31 BCE between the fleets of Mark Antony and Cleopatra VII and those of the future emperor Augustus.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says the ships could not ram, Antony's being too heavy to gather impetus and his opponent's unwilling to strike timbers squared and bound with iron, so the fighting resembled the storming of a walled town.<sup class=\"fn\" data-fn=\"1\"></sup> A squadron of 60 ships under Cleopatra broke away under sail and Antony followed, which Plutarch treats as flight and Dio as an escape planned in advance; the victor founded Nicopolis on his campsite and reckoned his rule from that day.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Annexation_of_Egypt": "The annexation of Egypt was Rome's absorption of the Ptolemaic kingdom in 30 BCE, after Alexandria fell and Mark Antony and Cleopatra VII died.<sup class=\"fn\" data-fn=\"1\"></sup> Dio says the country was made tributary and put in the charge of a knight rather than a senator, that no senator might even live there without leave granted by name, and that the Alexandrians were to govern without a council.<sup class=\"fn\" data-fn=\"1\"></sup> He gives the reasons as the populousness of the country, the character he attributed to its people and the extent of the grain supply and the wealth, and Suetonius says the treasure brought back lowered interest rates and raised the price of land.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "First_settlement_of_27_BCE": "The first settlement was the arrangement of 27 BCE by which the future Augustus gave up the powers he had taken in the civil wars and received most of them back in other forms.<sup class=\"fn\" data-fn=\"1\"></sup> Dio says he announced that he was laying down control of affairs and was pressed to take it up again; the peaceful provinces went back to the senate and those holding armies were kept for ten years.<sup class=\"fn\" data-fn=\"1\"></sup> Augustus says in his own record that he transferred the republic to the senate and people and afterwards held no more power than his colleagues; Velleius calls it a restoration, Dio a transfer of all authority to one man.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Clipeus_virtutis": "The clipeus virtutis was a golden shield voted by the Roman senate and people and set up in the Curia Julia in 27 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its inscription, as Augustus records it, testified that the award was made in recognition of his valour, his clemency, his justice and his piety, and it was voted in the same act as the name Augustus, the laurels placed on his doorposts and the civic crown fixed above his door.<sup class=\"fn\" data-fn=\"1\"></sup> Dio, describing the same session, says the name was settled on only after other titles had been proposed and that it was chosen because the most precious and sacred objects were termed augusta.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Clipeus_virtutis": "The clipeus virtutis was a golden shield voted by the Roman senate and people and set up in the Curia Julia in 27 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its inscription, as Augustus records it, testified that the award was made in recognition of his valour, his clemency, his justice and his piety, and it was voted in the same act as the name Augustus, the laurels placed on his doorposts and the civic crown fixed above his door.<sup class=\"fn\" data-fn=\"1\"></sup> Dio, describing the same session, says the name was settled on only after other titles had been proposed and that it was chosen because the most precious and sacred objects were termed augusta.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Aerarium_militare": "The aerarium militare was the Roman treasury founded in 6 CE to pay the fixed rewards owed to soldiers at the end of their service, kept separate from the state's general funds. Augustus records contributing 170 million sesterces from his own patrimony to a military treasury established on his advice, so that gratuities might be paid to soldiers who had seen twenty or more years of service.<sup class=\"fn\" data-fn=\"1\"></sup> Dio says no revenue for it could be found that suited anybody, and that Augustus rejected the senators' proposals and imposed a tax of five per cent on inheritances and bequests left to any but close relatives.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Discharge_gratuity": "A discharge gratuity was the fixed sum of money paid to a Roman soldier on completing his term of service, the reward that replaced the grants of land veterans had received since the late republic. Dio says that in 13 BCE Augustus laid rules before the senate for the years citizens should serve and the money they should receive on discharge, in place of the land they were always demanding.<sup class=\"fn\" data-fn=\"1\"></sup> The figures were raised in 5 CE to 20,000 sesterces for a praetorian after sixteen years and 12,000 for other soldiers after twenty, and Augustus founded a treasury from which such gratuities could be paid.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Imperial_province": "An imperial province was a province of the Roman empire assigned to the emperor rather than to the senate, governed by a legate he appointed and holding the legions stationed in it. Dio says Augustus restored the weaker provinces to the senate on the ground that they were peaceful and kept the more powerful because they were insecure, his real purpose being that the senators would be unarmed while he alone maintained soldiers.<sup class=\"fn\" data-fn=\"1\"></sup> Suetonius gives the same division without the motive, saying the stronger provinces, which could neither easily nor safely be governed by annual magistrates, were taken by Augustus himself.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Imperium_proconsulare_maius": "Imperium proconsulare maius was proconsular command held on terms that made it greater than that of any other holder of imperium its possessor might meet. Dio says the senate allowed Augustus in 23 BCE to hold the proconsulship once and for all, so that he neither laid it down on entering Rome nor had it renewed, and gave him authority in the provinces superior to each governor's.<sup class=\"fn\" data-fn=\"1\"></sup> Augustus' own record does not mention the grant, claiming instead that after 27 BCE he took precedence of all in rank while holding no more power than his colleagues in any magistracy.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Praetorian_Guard": "The Praetorian Guard was the body of troops kept at Rome and in the towns around it for the protection of the Roman emperor, the only standing armed force normally allowed near the city. Suetonius says Augustus never allowed more than three of its cohorts to remain in the city and that even those had no permanent camp, the rest being sent to quarters in the neighbouring towns.<sup class=\"fn\" data-fn=\"1\"></sup> Dio, counting the forces of the reign, puts the bodyguards at 10,000 men in ten divisions, and they served sixteen years to a legionary's twenty and took 20,000 sesterces on discharge against 12,000.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Princeps": "Princeps is Latin for the first or foremost man, and under the Roman republic the princeps senatus was the senator whose name stood at the head of the senate's roll and who was asked his opinion before anyone else. Augustus records that he had been princeps senatus for forty years up to the day he was writing, a precedence that carried no command, no veto and no fixed term of office.<sup class=\"fn\" data-fn=\"1\"></sup> Tacitus writes that a world worn out by civil strife accepted authority under the name of princeps, and the emperors after Augustus were addressed by the word for three centuries.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Principate": "The Principate is the name given to the Roman political order from 27 BCE to the reforms of Diocletian, in which one man ruled while the magistracies, senate and courts of the republic went on working. Augustus described the arrangement as a restoration, writing that he transferred the state from his own control to the senate and people and afterwards exceeded all in rank while holding no more power than his colleagues.<sup class=\"fn\" data-fn=\"1\"></sup> Dio judged that the power of both people and senate had passed entirely into his hands, and that from his time there was in strict speech a monarch, whatever the Romans chose to call it.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Res_Gestae_Divi_Augusti": "The Res Gestae Divi Augusti is the first-person account the Roman emperor Augustus wrote of his own reign, listing the offices he held, the honours voted him, the money he spent and the peoples he subdued. Suetonius says it was left with his will in the keeping of the Vestal Virgins as one of three sealed rolls, and was to be cut on bronze tablets at the entrance to his mausoleum.<sup class=\"fn\" data-fn=\"1\"></sup> The bronze at Rome is lost, and the fullest surviving text is the copy chiselled in Latin and Greek on the temple of Rome and Augustus at Ancyra, from which it takes its other name, the Monumentum Ancyranum.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Second_settlement_of_23_BCE": "The second settlement was the rearrangement of Augustus' position in 23 BCE, when he gave up the consulship he had held every year since 31 BCE and received other powers in its place.<sup class=\"fn\" data-fn=\"1\"></sup> Dio says the senate voted him the tribunician power for life and let him hold the proconsulship once and for all, without laying it down on entering the city.<sup class=\"fn\" data-fn=\"1\"></sup> Augustus records only the legal fact, that his person was made sacred in perpetuity and that he was to hold the tribunician power as long as he lived; Suetonius adds that he twice took a colleague in it for five years.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Tribunicia_potestas": "Tribunicia potestas was the power of a Roman tribune of the plebs held apart from the office itself, carrying the right to veto a magistrate's act, to bring business before the senate and the people, and personal inviolability. Augustus, a patrician by adoption and so ineligible for the tribunate, records that a law made his person sacred in perpetuity and gave him the tribunician power for as long as he lived.<sup class=\"fn\" data-fn=\"1\"></sup> Dio says the emperors never took the title of tribune but held the power in its fullest extent and numbered the years of their rule by it, which is how an imperial reign came to be dated.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5670,7 +5680,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Actium": "31 BCE",
 "Annexation_of_Egypt": "30 BCE",
 "First_settlement_of_27_BCE": "27 BCE",
-"Clipeus_virtutis": "27 BCE"
+"Clipeus_virtutis": "27 BCE",
+"Aerarium_militare": "founded 6 CE",
+"Discharge_gratuity": "terms fixed 13 BCE; rates set 5 CE",
+"Imperial_province": "from 27 BCE",
+"Imperium_proconsulare_maius": "granted 23 BCE",
+"Praetorian_Guard": "from the reign of Augustus",
+"Princeps": "princeps senatus from 28 BCE",
+"Principate": "27 BCE – 284 CE",
+"Res_Gestae_Divi_Augusti": "composed by 13 CE; published 14 CE",
+"Second_settlement_of_23_BCE": "23 BCE",
+"Tribunicia_potestas": "granted for life 23 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7883,7 +7903,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mark_Antony": ["Marcus Antonius","Antony"],
 "Cleopatra_VII": ["Cleopatra"],
 "First_settlement_of_27_BCE": ["first settlement"],
-"Clipeus_virtutis": ["clupeus aureus"]
+"Clipeus_virtutis": ["clupeus aureus"],
+"Aerarium_militare": ["military treasury"],
+"Discharge_gratuity": ["discharge gratuities"],
+"Imperial_province": ["imperial provinces"],
+"Imperium_proconsulare_maius": ["imperium maius","maius imperium"],
+"Praetorian_Guard": ["praetorians"],
+"Princeps": ["princeps senatus"],
+"Res_Gestae_Divi_Augusti": ["Res Gestae","Monumentum Ancyranum"],
+"Second_settlement_of_23_BCE": ["second settlement"],
+"Tribunicia_potestas": ["tribunician power"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -11684,7 +11713,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Actium": ["event","warfare","history","politics","rome","greece"],
 "Annexation_of_Egypt": ["event","history","politics","egypt","rome","classical"],
 "First_settlement_of_27_BCE": ["event","institution","history","politics","law","rome"],
-"Clipeus_virtutis": ["object","history","politics","art","rome"]
+"Clipeus_virtutis": ["object","history","politics","art","rome"],
+"Aerarium_militare": ["institution","history","politics","warfare","rome"],
+"Discharge_gratuity": ["practice","institution","history","warfare","rome"],
+"Imperial_province": ["institution","history","politics","geography","rome"],
+"Imperium_proconsulare_maius": ["concept","institution","history","politics","law","rome"],
+"Praetorian_Guard": ["institution","history","warfare","politics","rome"],
+"Princeps": ["title","institution","history","politics","rome"],
+"Principate": ["era","institution","history","politics","rome"],
+"Res_Gestae_Divi_Augusti": ["text","history","politics","rome","classical"],
+"Second_settlement_of_23_BCE": ["event","institution","history","politics","law","rome"],
+"Tribunicia_potestas": ["title","institution","history","politics","law","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

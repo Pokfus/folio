@@ -677,8 +677,8 @@ his own entry when `rm-377 Battle of Philippi` is written.
     rm-394  Imperium proconsulare maius
     rm-395  Principate
     rm-396  Res Gestae Divi Augusti
-    rm-397  The Augustan settlement of the provinces
-    rm-398  The Augustan army reforms
+    rm-397  Imperial province
+    rm-398  Discharge gratuity
     rm-399  Praetorian Guard
     rm-400  Aerarium militare
     rm-401  The Augustan building programme
@@ -736,6 +736,28 @@ satisfied by a term that already exists. **`rm-386 The propaganda war of the 30s
 **`rm-390` states no Arles provenance in its prose**: the marble copy is the card's picture and the
 Commons file documents it, but nothing openable from here cites it, so the abstract rests on the
 Res Gestae for the wording and says only that the gold shield is lost.
+
+**Two more lines were retitled writing `rm-391`–`rm-400`, and both for the reason the deck keeps
+giving: the obvious term is already spent.** **`rm-397 The Augustan settlement of the provinces`** is
+answered by **`imperial province`**, because `rm-751 Roman province` and `rm-740 Roman provincial
+governor` both have lines of their own further on and the settlement itself is `rm-389`'s; what this
+card has left to teach is the class of province the emperor kept. **`rm-398 The Augustan army reforms`**
+is answered by **`discharge gratuity`**, which is the Loeb's own word in Res Gestae 17 and needs no
+unverified Latin — every other term the line might have taken is spent later in the plan (`rm-642`
+legion, `rm-648` sacramentum, `rm-649` legionary pay, `rm-651` auxilia, `rm-653` urban cohorts, `rm-654`
+vigiles, `rm-655` navy, `rm-682` veteran settlement, `rm-745` aerarium, and `rm-400` the aerarium
+militare on the very next line). **Grep the running order for a candidate term before researching it**,
+which is the rule the Second World War plan states and which this deck has now proved four times.
+
+Three things the batch settled. **Only `rm-396` takes a locator**: the other nine answer terms are
+powers, offices and funds, which have no place a reader could stand, and a dot on Rome for all of them
+would say nothing — the Res Gestae has one because the fullest surviving text is cut into a temple
+wall at Ancyra. **`rm-393 tribunicia potestas` ships without a picture**, recorded rather than skipped:
+the power is abstract, nothing openable from here shows an Augustan inscription or coin carrying
+`TRIB POT` legibly, and the near misses were all a picture of something else — a later Rostra, an
+imperial-cult altar, a 16th-century costume plate imagining a tribune. And **`rm-396`'s third citation
+is Shipley's own introduction rather than the text**: the claim it carries is that the fullest copy is
+the Monumentum Ancyranum, which the Res Gestae itself does not state and the Loeb's front matter does.
 
 ### The Julio-Claudians — `rm-julio-claudians`
 
