@@ -689,3 +689,63 @@ established, beyond the cards:
   three question marks and is the worst case; `gru-003` fills *Capital* and *Largest city* from the UN's
   city table joined to the shapes, and `gru-004`, being a city that is itself a subject, fills three of
   the four. **Fill every row you honestly can.**
+
+### Batch 3 — the Volga, the Urals, Siberia and the Caucasus (`gru-005`–`gru-012`)
+
+Eight more subject cards, each with the two-paragraph background and its paired glossary term in the same
+commit: `gru-005` Sverdlovsk Oblast, `gru-006` Rostov Oblast, `gru-007` Bashkortostan, `gru-008`
+Tatarstan, `gru-009` Tyumen Oblast, `gru-010` Chelyabinsk Oblast, `gru-011` Dagestan and `gru-012` Samara
+Oblast. What the batch established, beyond the cards:
+
+- **A HANDFUL OF WORKS CARRY THE WHOLE COLLECTION, AND THEY ARE WORTH KNOWING BEFORE OPENING A BATCH.**
+  Four of them turned up on almost every card. **The WMO's per-city normals**
+  (`worldweather.wmo.int/en/json/<id>_en.xml`, the id read off `full_city_list.txt`, which transliterates
+  — Chelyabinsk is `Cheljabinsk`, Tyumen `Tjumen'`, Makhachkala `Mahackala`) give the climate sentence for
+  every capital that has a station. **The UN's `table08.xls`** gives the population rows; its Russian
+  block is stamped `1 VII 2012` and its first four columns are the CITY PROPER against the last four for
+  the URBAN AGGLOMERATION, which are different numbers and must be labelled as such (Tyumen is 622k
+  against 645k). **Morfill 1902** (`cu31924028567711`) reaches Peter's Caspian campaign at p. 87, Pugachev
+  at pp. 211–13, Shamyl at pp. 392–93 and the Trans-Siberian at p. 462. And **Howorth 1880**, in its two
+  divisions, is the standing English source for everything Tatar: division 1
+  (`historymongolss00howogoog`) has the khans of Kazan from p. 363 and the storming of the city at
+  pp. 422–25, division 2 (`p2historyofmongo02howouoft`) has Kuchum at pp. 982–83, Yermak at pp. 985–86,
+  the founding of Tyumen at pp. 996–97 and Bell of Antermony on the fort at Samara at p. 1057.
+- **A SUBJECT'S SINGLE BEST MODERN SOURCE IS USUALLY AN OPEN-ACCESS PAPER ABOUT SOMETHING ELSE.** The
+  geography sentences came out of papers whose own subject is limnology, archaeology or sociolinguistics:
+  Nicu et al. 2019 on the Kuibyshev Reservoir (`10.3390/w11030591`) carries the Volga–Kama cascade, the
+  reservoir's size and the four regions it reaches, and so served `gru-008` AND `gru-012`; Veisberg 2015
+  (`10.15560/11.2.1617`) opens by placing Chelyabinsk Oblast in its three natural zones; Kolesnichenko et
+  al. 2021 (`10.3390/w13223189`) gives the Irtysh's basin area for Tyumen; and Wier's
+  `10.36253/asiac-3760` gives Dagestan both its language families and its measured highland-to-lowland
+  shift. **Search for the region, not for the topic you want.**
+- **A PDF WHOSE DIGITS COME OUT MISSING IS A FONT-SUBSET PROBLEM, AND THE FIX IS TO STOP QUOTING THE
+  NUMBER.** Three of the papers read this batch (Veisberg's lake counts, Epimakhov's radiocarbon tables,
+  the *Ethnobotany of Dagestan*) extract with their figures silently dropped or their whole text
+  scrambled, because the file embeds a custom encoding. **A sentence built on the qualitative claim is
+  still fully sourced**; a figure guessed back into the gap is not.
+- **`mdpi.com` IS 403 FROM HERE AND `mdpi-res.com` SERVES THE SAME PDF**, at
+  `mdpi-res.com/d_attachment/<journal>/<journal-vol-art>/article_deploy/<journal-vol-art>.pdf`. So is
+  `iopscience.iop.org` (a Radware bot wall on the PDF path) and `escholarship.org`; for a walled
+  publisher, Europe PMC's `fullTextXML` is the route that keeps working — it is what gave `gru-010` the
+  Techa River cohort. **A DOI that 403s from this sandbox is not a dead citation**: `10.3390/w11030591`
+  resolves to a wall here and opens in a reader's browser, so it ships as [Open access].
+- **AN EXPANDED GIVEN NAME IS STILL THE EASIEST WAY TO SHIP A WRONG CITATION.** `gru-010` was drafted with
+  "Peter G. Brown et al." for the Chelyabinsk airburst paper; Crossref's record says "P. G. Brown", the
+  article's own byline says "P.G. Brown", and the expansion — almost certainly right — was replaced with
+  the initials on both the card and its glossary term. **`check-citations.js --card=<id>` reports this as
+  "to check by eye", which is the tier to actually read.**
+- **THE OKRUG RULE BIT FOR THE FIRST TIME ON `gru-009`, AND THE ANSWER WAS TO GIVE NO AREA AT ALL.** The
+  card states the constitutional relation — Khanty-Mansi and Yamalo-Nenets are constituent entities in
+  their own right and at the same time stand within the oblast, which art. 66 leaves to federal law or
+  treaty — and puts `?` in both figure rows, so there is no figure whose scope could be wrong.
+- **A PICTURE SEARCH THAT NAMES A LANDMARK BEATS ONE THAT NAMES THE REGION, AND THE CONTACT SHEET RULE
+  STILL PAYS.** Every card in this batch took its picture from a named natural or built landmark (the
+  Kapova cave, the Bolgar site, the Tobolsk Kremlin, Lake Turgoyak, the Sulak canyon, the Zhiguli bluff),
+  and three candidates were rejected on sight: a "Samara Bend" search returned a **satellite scene**,
+  which the fetcher's `SPACEBORNE` list did not catch because the file name says neither Landsat nor
+  Sentinel; a Taganay picture came back as an unreadable **snowfield**; and a Derbent view carried a
+  **watermark**. **Look at every one.**
+- **AND `upload.wikimedia.org` RATE-LIMITS WHERE `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=N`
+  DOES NOT.** That is the documented fallback and it carried this batch through several 429s. The `src`
+  written onto the card is still the ordinary upload URL, and its two-character shard is copied from
+  `imageinfo`, never composed.
