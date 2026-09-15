@@ -24481,11 +24481,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <button type="button" class="btn ghost" id="smpPrev"${i === 0 ? " disabled" : ""}>Previous</button>
           <button type="button" class="btn ghost" id="smpNext">${i + 1 === ids.length ? "Finish" : "Next card"}</button>
         </div>`;
+      /* AND THE QUESTION'S OWN GLOBE, for `PAGES.card`'s reason one page over: a map card's map is the
+         QUESTION, so it is emitted by `cardFrontHTML` OUTSIDE `#smpBack` and `mountCardBack` cannot reach
+         it — this page drew every geography card as a dead grey box until Sep 2026. Unlike that page it
+         is NOT revealed here: the answer is behind a button, and the map naming what it shades would give
+         it away, so `cardMapReveal` waits for `show()` exactly as the study page's does. */
+      mountCardMaps(root);
       const show = () => {
         const inner = root.querySelector("#smpBack");
         if (!inner || inner.innerHTML) return;
         inner.innerHTML = buildBack(c);
         mountCardBack(inner, c, { expand: true });
+        cardMapReveal(root);   // the map may now name what it was shading — the shape and its name together
         root.querySelector("#smpReveal").classList.add("show");
         const sb = root.querySelector("#smpShow");
         if (sb) sb.remove();
