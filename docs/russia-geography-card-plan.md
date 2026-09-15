@@ -817,3 +817,59 @@ to the collection's own working knowledge.
   (Ob Reservoir, Lake Chany, Tomskaya Pisanitsa), so the Commons `categorymembers` and `generator=search`
   calls are the fallback and the file's own `imageinfo` is what the `src`, the artist and the licence are
   read off.
+
+### Batch 5 — the Urals, the lower Volga, Baikal and the black earth (`gru-018`–`gru-022`)
+
+Perm Krai, Volgograd Oblast, Saratov Oblast, Irkutsk Oblast and Voronezh Oblast, each with its paired
+glossary term at the bar and a picture that was looked at. What this batch adds.
+
+- **THE COLLECTION'S OPEN SHELF IS NOW EIGHT WORKS AND THEY COVER THE WHOLE COUNTRY.** To the six of
+  batches 3 and 4 this adds **Rambaud's `History of Russia` vol. 1** used properly — pp. 27 (the Volga's
+  traffic), 41 (the peoples of the middle Volga), 277 (the Stroganov grant of 1558 and Yermak), 341–43
+  (Minin and Pozharsky), 388 (Razin takes Saratov and Samara) — and **Murchison, de Verneuil and
+  Keyserling's `The Geology of Russia in Europe and the Ural Mountains`** (1845,
+  `geologyrussiaeu1murc`), where the Permian is proposed at p. 204 and explained at pp. 138–39.
+  **Howorth's `History of the Mongols` part 1** (1876, `historymongolsm01howogoog`) carries Catherine's
+  Volga colonies and Sarepta at p. 678 — a different volume from the part 2 used for Samara, so check
+  which one a page belongs to before citing. **Morfill** now carries three separate Voronezh and lower
+  Volga passages (pp. 47, 145, 213).
+- **A NAMED PERIOD IS A CARDABLE FACT AND ITS PRIMARY SOURCE IS OPEN.** `gru-018` states in the
+  surveyors' own terms why the Permian is called the Permian — they would use neither the German nor the
+  English name and preferred a geographical one — which is far better than asserting it. **Look for the
+  work that COINED a term before summarising the coinage.**
+- **THE SAME SOURCE OFTEN CARRIES BOTH HALVES OF A CARD.** The Plants 2024 oak study behind `gru-022`
+  gives the chernozem profile (humus horizon 50–75 cm, 5.1–5.9 per cent humus) for block one AND Peter
+  the Great declaring the Shipov Forest the sovereign's ship timber in 1709 for block two — which then
+  joins Morfill's account of the flotilla Peter gathered at Voronezh that same year. **Read a science
+  paper's introduction as well as its study area.**
+- **THREE SOURCES BY ONE AUTHOR IS A `check-cards.js` FAILURE, AND THE FIX IS ONE ENTRY WITH THE PAGES
+  TOGETHER.** `gru-020` first carried Rambaud three times over for three different pages, which rule 1
+  counts as one author in three of the card's sources. Merged to `27, 41, 388`. **Chicago wants that
+  anyway; the checker is what makes it non-negotiable.**
+- **A BILINGUAL RUSSIAN JOURNAL RECORD: CITE THE TITLE CROSSREF REGISTERS.** Same finding as batch 4's
+  Ural-Kuzbass article, met again.
+- **A PARENTHESISED DOI HAS TO BE PERCENT-ENCODED TO RESOLVE FROM HERE, AND THE ARTICLE PAGE IS THE
+  BETTER ADDRESS ANYWAY.** `10.21847/1728-9343.2019.2(160).164799` 403s raw and resolves encoded; the
+  citation carries `skhid.kubg.edu.ua/article/view/164799`, which has no brackets at all. **The same
+  applies to a Commons credit** — `gru-020`'s picture is `Khvalynsky_national_park_(2020)_1.jpg`, and
+  both its `src` and its credit URL carry `%28`/`%29`.
+- **AND THE HOSTS MEASURED THIS BATCH.** OPEN: `ojs.zrc-sazu.si` (Acta Carsologica), `hist-geo.ru`,
+  `vestnik.kemsu.ru`, `bulletin.esoil.ru`, `nasa.gov`, `ntrs.nasa.gov`, `rsis.ramsar.org`,
+  `earthobservatory.nasa.gov`, `piahs.copernicus.org`, `mdpi-res.com`, Europe PMC's `fullTextXML`.
+  SHUT: `history.army.mil` and `history.state.gov` (403), `skhid.kubg.edu.ua` (403),
+  `bio-conferences.org` and `e3s-conferences.org` (403, so all of EDP Sciences' conference series),
+  `elibrary.ru` (403), `degruyterbrill.com` (202 and no body), `www.mdpi.com` (403).
+- **A RUSSIAN JOURNAL'S OWN PDF OFTEN WILL NOT EXTRACT.** `jvolsu.com` and `rucont.ru` PDFs came out at
+  10 and 13 bytes — the custom-font fault batch 3 recorded — so for those journals the DOAJ record's own
+  abstract is what can actually be read. **Cite only what that abstract states.**
+- **`fetch-geo-images.js --out` IS OVERWRITTEN BY EVERY `--force` RUN, WHICH IS HOW A CAPTION GETS
+  ATTACHED TO THE WRONG PICTURE.** Trying three subjects in a shell loop leaves the file holding the
+  LAST one; `gru-018`'s glossary term was briefly given a Vishera caption over a Prokudin-Gorsky
+  photograph of the Kama bridge, caught by printing the credit before writing. **Print the `src` and the
+  credit of what you are about to install, every time** — the looking rule covers the picture, and this
+  covers the pairing.
+- **AND THE HELPER RETURNS NOTHING FOR A GREAT MANY RUSSIAN SUBJECTS** (Shipov Forest, Kostenki,
+  Khopyorsky reserve, Kostomarovo, Voronezh Reservoir, Lake Chany, Ob Reservoir, Usva Pillars), so the
+  Commons `generator=categorymembers` and `generator=search` calls are the fallback — and they
+  rate-limit hard, answering `You are making too many requests` for minutes at a time. **Pace them, and
+  read the file's own `imageinfo` for the shard: computing the MD5 by hand produced a 404 here.**
