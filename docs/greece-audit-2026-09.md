@@ -1868,6 +1868,67 @@ buy a green run at the price of the one signal the check exists to give.
   OpenStax textbook. Adding one would not clear the FAIL, the rule being absolute, but it would make the
   card better, and the Psychology plan's own rule about stating a finding's current standing asks for it.
 
+### `gr-323` Corinthian pottery — the same 1905 book, and the jug that was not one (2026-09-15)
+
+`gr-325`'s sibling: H. B. Walters in three of five sources, all three the same handbook, and the card
+**at** the five-source bar, so nothing could be dropped until something was added. Two open modern
+papers did it, and between them they gave the card the thing it most lacked — a reason to care about
+Corinthian pottery beyond its ornament.
+
+- **Belfiore, Mastelloni, Barone and Mazzoleni, *Heritage Science* 10 (2022), art. 32** — portable XRF
+  on 35 Proto-Corinthian and Corinthian vessels from the Istmo necropolis at Milazzo and from Lipari.
+  Its **introduction** is the modern framing the card's opening sentence was missing: Corinthian ware
+  was widespread across the Mediterranean between the 8th and 6th centuries and is *the major
+  guide-line to ascertaining the chronology* of those centuries and an indicator of Greek settlement
+  in the west, on the succession defined in 1931 and confirmed by Corinth and Perachora. Its
+  **conclusion** identifies a non-Corinthian cluster: a local production, probably Zankle and its
+  subcolony Mylai, imitating Proto-Corinthian, Corinthian, Chalcidian and East Greek products with
+  clay from the Strait of Messina.
+- **Cuozzo, *Aristonothos* 17 (2021), 39–62** — the other half of the same point from Italy: fine
+  imitations of Early and Middle Protocorinthian coated with a thick cream slip to reproduce the
+  colour of Corinthian clay, credited by Buchner and Neeft to workshops set up on Pithekoussai. Its
+  DOI is mEDRA's, so `check-citations.js` reports it *"the DOI resolves, but Crossref holds no
+  metadata for it"* — the honest answer. **The publisher's own `citation_*` meta tags are the record
+  to read instead**: `riviste.unimi.it` serves `citation_firstpage`, `citation_lastpage`,
+  `citation_issue`, `citation_author` and `citation_journal_title` in the page head, which is where
+  the page range and the journal's full title came from.
+
+**Two content faults, both from reading Walters' own page rather than the card's paraphrase of it.**
+
+- **The question called the Pyrrhos vase "a jug", and it is not one.** Walters p. 308 says "One is a
+  signed vase (with the name of Pyrrhos)". The jug is a DIFFERENT sentence two paragraphs later — "A
+  characteristic shape is the jug with flat base rising in pyramidal form to a long cylindrical
+  neck" — describing the class, not that vase. Question 2 now says "A vase".
+- **"the earliest known signature on a pot" is a 1905 superlative, and Walters put it in scare quotes
+  himself**: "ranks as the earliest known 'signature'". Softened to "ranks among the earliest
+  signatures known on a pot", which the same page still supports and which does not age. The `why`
+  that repeated it went with it.
+
+Walters p. 306 was dropped: the sentence it carried was his own **five-class scheme** for Corinthian
+ware, superseded by the 1931 chronology the new opening sentence rests on. One more Walters sentence
+went to make room — the ground-ornaments "almost unknown in eastern art itself" and so "drawn from
+embroidered textiles", with the purple accessories, which is 1905 speculation stated as fact. **He is
+now two of six and keeps the four sentences he is still the best open source for**: the forms, the
+Pyrrhos inscription, the twenty miniature vases with the Macmillan at their head, and the arrival of
+the incised line with the compass-cut scale-patterns.
+
+Two smaller findings.
+
+- **`archive.org`'s `_djvu.txt` is how a 1905 handbook gets read, and it is worth reading.** 1.37 MB
+  for this volume, one request, and every claim the card makes can be checked against the sentence it
+  came from. Both faults above were found that way and neither is visible from the card.
+- **THE CARD'S PROSE AND ITS OWN PICTURE CAPTION DISAGREED ABOUT WHAT THE VESSEL IS.** Walters calls
+  it the "Macmillan lekythos"; the card's illustration is `Aryballos_Macmillan.JPG`, captioned "The
+  Macmillan aryballos, attributed to the Chigi Painter" with the British Museum accession. Both names
+  are in use and the shape is the same pear-shaped perfume flask, but a reader meets both on one
+  card. The sentence now says **"the little Macmillan vase in the British Museum"**, which is true
+  under either name and leaves the caption to be precise — rather than writing "aryballos" in prose
+  cited to a source that says lekythos. It also gained the size Walters gives, barely 7.3 centimetres
+  (2.9 inches), which is what makes "miniature" mean something.
+
+`gr-323` still carries **no `tags`**, like `gr-325` and 465 others; that is the separate content pass
+CLAUDE.md's card-tags bullet names, not an oversight of this batch.
+
 ### `gr-325` Exekias — the 1905 figures the card was still quoting (2026-09-15)
 
 H. B. Walters in three of six sources, all three the same 1905 handbook at three page ranges. That is
