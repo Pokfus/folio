@@ -223,7 +223,7 @@ Six findings from doing it:
 ## It rides in the LIGHT half of `data.js`, and has to
 
 `war` is on the eager load path, beside `locator`, `map` and `facts` rather than in `data-extra/`. That is
-not an oversight, and the cost is small: **54 blocks cost the eager path 8,593 bytes gzipped**, 159 bytes
+not an oversight, and the cost is small: **54 blocks cost the eager path 8,577 bytes gzipped**, 159 bytes
 each — authored coordinates compress well. The six added in the fourth batch cost 915 bytes between them
 and the five in the fifth cost 836, which is 167 apiece even though three of those five carry an extent
 the size of an empire.

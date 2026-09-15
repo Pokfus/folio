@@ -598,13 +598,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   ones that are shut, the four distinct routes to a wrong sort year, and the content decisions — the
   two-scholar cap deciding a card, a disputed island keyed under the neutral name, a general glossary
   term rewritten when a second continent linked to it. Not part of the site.
-- **📖 `docs/art-card-plan.md` — READ BEFORE WRITING AN `art-` CARD, AND BEFORE BUILDING THE ARTWORK
-  CARD FORMAT.** The **1000-card running order for the Visual Art collection** (`art`): every card's
-  number, topic and deck, fixed in advance across 9 decks and 39 leaf decks. The seventeenth
-  thousand-card plan, the fifth that is not history, and one that **creates its own collection** —
-  node, tree, `COLL_THEME` hue and a section of its own, **The Arts**, all ship with the plan, on the
-  reasoning that music, architecture, theatre and literature are the siblings a heading is for.
-  Three things make it unlike every plan beside it.
+- **📖 `docs/art-card-plan.md` — READ BEFORE WRITING AN `art-` CARD.** The **1000-card running order
+  for the Visual Art collection** (`art`): every card's number, topic and deck, fixed in advance across
+  9 decks and 39 leaf decks. The seventeenth thousand-card plan, the fifth that is not history, and one
+  that **creates its own collection** — node, tree, `COLL_THEME` hue and a section of its own, **The
+  Arts**, all ship with the plan, on the reasoning that music, architecture, theatre and literature are
+  the siblings a heading is for.
+  **THE COLLECTION WAS REMOVED AND RESTARTED IN SEP 2026, ON REQUEST** — ten cards deleted, the format
+  rebuilt around a wordless question and typed answers, and the running order swept. Three things
+  in the request are the whole of what changed and every rule below is downstream of one of them:
+  **it is not a history collection**, so every line is now one identifiable WORK and a movement, a
+  technique, a school, a material, a site or a method is not a card (the plan's four-part test is what
+  enforces it); **the question side shows no words**, so a work Folio cannot show cannot be carded here
+  at all; and **there are several answers rather than one** — four at first, and **three since Sep 2026,
+  on request**, where the work is now having been moved off the question side and onto the answer's own
+  figures grid. The glossary terms the deleted ten paired with were KEPT — a term is deck-agnostic by
+  house rule and other collections already link several.
+  Four things make it unlike every plan beside it.
   · **THE TREE IS A TIMELINE AND NOTHING ELSE**, on request: the reader asked that Ordered study deal the
     artworks in chronological order of creation, and "Ordered" is the cards' order of appearance in the
     TREE (`buildSession`'s Ordered branch, with `cardStartYear` only as a tie-break) — so a collection is
@@ -615,15 +625,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     load-bearing here in a way they are not elsewhere), and the whole thousand was verified to take **no
     backward step** in date. **A line moved out of date order is a card dealt out of date order, and
     nothing on the page will say so.**
-  · **IT NEEDED A CARD FORMAT THAT DID NOT EXIST, AND THAT FORMAT IS NOW BUILT** — see the ARTWORK CARDS
-    bullet under "How the app is wired" for how it works and what it holds back. The plan still specifies
-    it in full, which is what the bullet was written against.
-  · **COPYRIGHT DECIDES WHICH CARDS CAN CARRY A PICTURE AT ALL.** Folio links pictures and the bar is
-    PD / CC BY / CC BY-SA, and Commons hosts a file only where it is free in the US *and* the country of
-    origin — so the canon is showable to about 1900, mixed to 1945 and almost entirely unshowable after
-    it. **A card that cannot show its work is an ordinary cloze card and says so**; the canon is not
-    narrowed to what happens to be free, because a thousand famous artworks without *Guernica* is a
-    false canon. **Check Commons before writing a post-1900 card, not after.**
+  · **AND `node .claude/check-art-order.js` IS WHAT ASSERTS IT.** The plan said the chronology was
+    "verified by eye", which is exactly the check that passes while a sweep quietly introduces thirty
+    inversions — the Sep 2026 sweep introduced twenty-two and the script found every one. It reads the
+    year off each line in the four shapes the lines are written in, reports any backward step and any
+    line whose year it cannot read, and exits 1 on either. Report tool, run by hand, deliberately not in
+    the CI fast gate. **Run it after any batch that moves a line.**
+  · **THE FORMAT IS BUILT** — see the ARTWORK CARDS bullet under "How the app is wired" for how it works,
+    what it holds back and how each answer is marked. The plan specifies it in full.
+  · **COPYRIGHT NOW DECIDES WHAT IS IN THE COLLECTION, NOT JUST WHAT CARRIES A PICTURE.** Folio links
+    pictures and the bar is PD / CC BY / CC BY-SA; Commons hosts a file only where it is free in the US
+    *and* the country of origin, which in practice means **first published before 1931** crossed with
+    **the author dead more than seventy years**. The old plan let an unshowable work ship as an ordinary
+    cloze card describing it in words; that escape hatch went with the words, so **a work Folio cannot
+    show is not carded here**. The cost is real and is stated rather than hidden: deck 9 was re-cut from
+    "1914 to now" to **1914–1944**, its five subdeck ids moved with its titles (free only because no card
+    had shipped), and *Guernica*, *Nighthawks* and the rest are carded in World History instead, in
+    words, where the format fits. **The horizon moves one year every January**, so extending deck 9 is a
+    dated, recurring job rather than a judgement. **Check Commons before researching a post-1900 line,
+    not after**, and run `node .claude/check-image-free.js` before fetching a candidate.
   Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
@@ -1019,7 +1039,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     citation spelling out a name Crossref only abbreviates: that cannot be verified from here at all, and
     it is exactly where a fabricated given name hides. Diacritics, spacing and the periods after initials
     are folded away — **and so is the DASH FAMILY**, Crossref writing a hyphenated surname with U+2010
-    where the citation has an ASCII hyphen.
+    where the citation has an ASCII hyphen, **and the DOTLESS ı and ȷ** (U+0131 / U+0237), a legacy
+    record writing *Jiří* as a dotless ı under a combining acute, so that stripping the accent left
+    "Jirı" against our "Jiri" and a good citation was reported as a wrong one. Folding them cannot mask
+    a real difference: the diacritic strip has already merged every accented i with a plain one, and
+    this only finishes the job on the base letter.
   · **A citation with no DOI and no PMC id is UNCHECKED, never "ok"** — an out-of-copyright book on
     archive.org has no record to check against, and saying it passed would be the checker lying.
   · **CROSSREF IS A RECORD, NOT AN AUTHORITY, and three of its records are wrong about a name Folio has
@@ -1073,6 +1097,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a fully cited corpus as uncited (2,965 cards, 0 at the bar), and `card-focus.js` reported every card
     0/0 with nothing to revise, **which is indistinguishable from a corpus that has just been cleaned
     up**. Six helpers were in that state a fortnight after the split.
+  · **`writeCards` SPLICES THE COLLECTION TREE BACK VERBATIM AND IGNORES THE `tree` IT WAS HANDED**
+    (Sep 2026, clearing the Visual Art collection). That is deliberate — re-serialising the tree would
+    reformat thousands of lines for a one-card change — but it means **the tree cannot be edited through
+    `card-io.js` at all**, and nothing says so: a helper that mutates the tree it got from `loadCards()`
+    and then calls `writeCards` reports success and writes none of it. Ten retired cards stayed
+    registered in `art-iceage.cardIds` that way, and the Collections page went on counting them —
+    "10 of 1,000" beside one real card, with `data.js` parsing perfectly and every suite green. **Edit
+    the tree as TEXT in `data.js`**, and afterwards sweep for a registered id with no card behind it,
+    which is the shape this produces:
+    `node -e "global.window={};require('./data.js');const ids=new Set(window.CARD_DATA.map(c=>c.id));const bad=[];(function w(n){(n.cardIds||[]).forEach(i=>{if(!ids.has(i))bad.push(i)});(n.children||[]).forEach(w)})({children:window.COLLECTION_TREE.collections});console.log(bad)"`
   · **A WRITER THAT REBUILDS `data.js` FROM A TEMPLATE OF ITS OWN IS WRITING A BUG** — it drops the
     rejoin block, which breaks every helper that requires the file. `writeCards` owns that block so it
     cannot be forgotten, and refuses a light-half write outright rather than serialising 13.7 MB of
@@ -1169,7 +1203,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.30 MB and 48,275 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.31 MB and 48,457 lines is hard to find your way around, so this
   lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -1927,12 +1961,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     that contradicts another; a write reports what the batch itself would introduce before it writes.
     `--names=<year>` prints every territory name that era's map has, which is what a side's `keys` must be
     written against. `"war": null` removes a block. Not part of the site.
-- `.claude/set-facts.js` — writes a MAP CARD's `facts` grid, in batches:
+- `.claude/set-facts.js` — writes a MAP CARD's or an ARTWORK CARD's `facts` grid, in batches:
   `node .claude/set-facts.js <batch.json> [--check]` over `{ "cards": { "gw-001": [[label, value], …] } }`.
   **A TOOL RATHER THAN AN EDIT, because none of the others can touch it**: `facts` is an ARRAY of pairs, so
   `add-sources.js` (only `sources` and the abstract) and `fix-field.js` (find/replace inside a STRING field)
-  both refuse it, and `update-cards.js` assigns whole fields with no validation in front of it. **The grid is
-  READ BY POSITION** — `cardFacts` draws it two to a row — so "Capital | Population / Largest city | Area" is
+  both refuse it, and `update-cards.js` assigns whole fields with no validation in front of it. **It takes an
+  ARTWORK card too** (Sep 2026) — that format reads the same field for its Artist / Material / dimension /
+  Location grid, so refusing one sent the next correction to `update-cards.js`, which is the unvalidated path
+  this tool exists to replace. **The grid is READ BY POSITION** — `cardFacts` draws it two to a row — so "Capital | Population / Largest city | Area" is
   an ORDER as much as a set of labels, which is the one thing a hand edit gets wrong without anything saying
   so. It validates the WHOLE batch before writing anything, splices in the one-card-per-line shape every
   other helper writes, and re-parses afterwards; `--check` prints every map card's grid and writes nothing,
@@ -3611,18 +3647,66 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     behind every rule above: the bug report each came from, the measurements (117 pixels, 5,980
     and 10,631 river pixels, the 0.0138 R sag), the Sep 2026 batch's seven changes, and the
     generalisations that were tried and abandoned.
-- **ARTWORK CARDS — the picture IS the question** (`card.artwork` + `image` + `facts`; `cardArtSpec` /
-  `cardArtHTML` / `cardArtReveal` / `.art-shot` in styles.css; the Visual Art collection. Sep 2026, on
-  request: "the user is shown a famous historical artwork … and must guess the name of the work and the
-  artist"). The card shows the work and asks what it is; the answer names it, dates it and credits the
-  photograph. A **built-in format like the map card and for the map card's own reason** — a community card
-  type is templates plus scoped CSS and cannot run code, and this needs a picture promoted to the front
-  with its own metadata withheld. Six things.
+- **ARTWORK CARDS — the picture is the WHOLE question, and there are THREE answers** (`card.artwork` +
+  `image` + `facts` + the date line; `cardArtSpec` / `cardArtAnswers` / `cardArtHTML` / `artMatch` /
+  `gradeArtFields` / `cardArtReveal` / `ART_FIELDS` / `.art-shot` + `.art-ask` in styles.css; the Visual
+  Art collection. Sep 2026, on request: *"on the question side it should show no words but an image of a
+  famous painting, sculpture etc, and the user must guess the title, artist, date of creation, and current
+  ownership/location in the answer box"*). A **built-in format like the map card and for the map card's
+  own reason** — a community card type is templates plus scoped CSS and cannot run code, and this needs a
+  picture promoted to the front, its metadata withheld, and typed answers graded separately.
+  · **WHERE THE WORK IS NOW IS SHOWN AND NOT ASKED** (Sep 2026, on request: *"remove the 'where is it
+    now' from the question but ensure it's mentioned on the answer side"*). It was the fourth field and
+    is now none of them: `location` is still derived by `cardArtAnswers`, still REQUIRED of every card by
+    `add-card.js`, and still printed on the answer side by `cardFactsHTML` — which reads `facts`
+    directly, so the row the reader sees is the row the label table is matching. **What changed is one
+    entry in `ART_FIELDS` and nothing else**, so asking for it again is one line back. Both halves fail
+    silently and in opposite directions — a fourth input returning is a question the format no longer
+    asks, and a grid that stops drawing the row is a fact the reader simply never gets — so
+    `test-artwork-cards.js` asserts both.
+  · **THE FRONT DRAWS NO PROSE AT ALL.** `question` is stored `""` and `questions` is `[]`;
+    `cardFrontHTML` returns the picture and the fields and never `q`; `add-card.js` REFUSES an
+    artwork card that stores anything else, and `check-questions.js` skips the format outright. A
+    sentence sitting in a field nothing renders is a thing a later reader of the data cannot tell from a
+    bug, which is why it is refused rather than ignored. What says what to do is the answer box's own
+    three labels — Title, Artist, Date — which are the FORM rather than a clue.
   · **`artwork: true` SAYS THE PICTURE IS THIS CARD'S OWN SUBJECT**, which is the whole of what the flag
     means and why it is a flag rather than an inference from `image`: an ordinary card's picture
     ILLUSTRATES its subject — a hand-axe under `Acheulean`, a flag under a country — and must never be
-    dealt as "what is this?". A STYLE card in the same collection carries a representative work and no
-    flag, so it stays an ordinary card everywhere.
+    dealt as "what is this?".
+  · **THE ANSWERS ARE DERIVED, NEVER STORED TWICE.** The title is `answerText`; the DATE is the first
+    labelled row of `answerDate`, which is also what `cardStartYear` files the collection by; the ARTIST
+    (and the LOCATION the grid states) are read out of the `facts` grid BY LABEL. A second copy of them
+    would be the same strings written twice on every card, and that is the shape that goes quietly out of
+    step — the grid saying the Rijksmuseum while the grading went on accepting the Louvre, with nothing
+    on the page able to say so. **What makes reading a row by its label safe is that the labels are
+    DECLARED** (`ART_ARTIST_LABELS` / `ART_PLACE_LABELS`, the same two in `add-card.js`) **and that
+    `add-card.js` REFUSES a grid matching neither** — without that a row labelled "Owner" silently asks
+    two questions instead of three, or states no location at all, and looks perfectly finished. A `Date`
+    ROW IN THE GRID IS REFUSED TOO: the date line is already the date, so a row beside it would be a
+    third copy of one fact.
+  · **EACH FIELD IS MARKED IN ITS OWN WAY, AND THE MARKING IS FEEDBACK RATHER THAN A SCORE** — the reader
+    still grades themselves Again/Hard/Good/Easy. A title takes `nearMiss`, the one-slip tolerance the
+    cloze box already uses. A NAME is routinely given short, so a value whose whole significant
+    vocabulary sits inside the other counts **in both directions** ("Rembrandt" for "Rembrandt van Rijn",
+    and the reverse); "Unknown" and "Anonymous" are one answer. The rule is written for any value of that
+    shape rather than for names alone — it is what graded the location while that was a field.
+  · **THE DATE HAS A THIRD STATE, AND ITS BAND SCALES WITH THE WORK'S AGE** (`ART_YEAR_NEAR` 25 years,
+    `ART_YEAR_NEAR_FRAC` 3%, `artYearBand`). It is the only field where being nearly right is a fact
+    rather than a judgement. **A FIXED BAND CANNOT WORK and the format's own test caught it on the first
+    card written**: 25 years is right for a dated painting and absurd for a carving 40,000 years old,
+    whose published date is a round number with a margin of thousands. The band is the WIDER of the floor
+    and 3% of how long ago the work was made — so the floor decides everything after about 1200 CE, the
+    Parthenon gets seventy-odd years and the Swabian ivories a millennium. **It is a proportion of the
+    AGE and never of the year number**: 3% of "1642" would be fifty years, which is two generations of
+    painting.
+  · **THE `Location` CELL IS READ BY A READER WHO HAS NEVER HEARD OF THE MUSEUM, SO IT CARRIES THE
+    TOWN** (Sep 2026, on `art-007`). It was a GRADING rule first and is now a plain editorial one, which
+    is a weaker reason for the same wording: *Naturhistorisches Museum Wien, Austria* refused **Vienna**
+    when the cell was graded, the German form of the name being the only one in the string, and it tells
+    a reader no more now that it is only printed. **A museum named after its town needs nothing (Museum
+    Ulm, Blaubeuren, Tübingen, Brno); one that is not needs the town added.** Type at the three cells and
+    read the fourth before shipping a card.
   · **THREE THINGS ARE HELD BACK UNTIL THE REVEAL, and the first is the whole difficulty.** A Commons
     credit line routinely reads "Rembrandt, The Night Watch, Rijksmuseum", so the front draws the picture
     and NOTHING else — no title, no description, no credit, no `data-img-*` and no way to enlarge it,
@@ -3635,6 +3719,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     rather than less: a shape on a globe cannot be described without answering the question and a painting
     can, so a reader who cannot see it gets a real question rather than none. `add-card.js` refuses an alt
     that carries the answer term or the Artist fact, and refuses an artwork card with no alt at all.
+  · **A DEAD FILE IS THE WHOLE QUESTION GONE, so it says so** (`.art-shot.media-dead`). The delegated
+    capture-phase `error` listener names `.card-img, .art-shot`; elsewhere a dead picture is simply
+    hidden, which here would leave four empty fields under nothing — and the browser's own fallback
+    paints the ALT TEXT at full size in the frame, which is the question in words and reads as a broken
+    page. Found by looking at the card rather than by a test.
   · **ONE PICTURE PER CARD, AND IT IS THE FRONT'S.** `buildBack` still emits the background slot, because
     every other surface that draws a card back — the browser, `openCardPeek`, Multiple Choice's
     `mountCardBack`, the editor preview — draws it WITH NO FRONT and would otherwise show no picture at
@@ -3646,12 +3735,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     off `availableCardIdSet` (see the picture-round bullet under "Home minigames"). Like the map card this
     needs no editorial judgement and so needs no field, and for the same reason **`undatable` should not
     be set on one**.
-  · **THE ANSWER TERM IS THE TITLE.** `gradeCloze` matches one string, so the artist is asked for in the
-    question and self-graded; `answerDate` carries the creation date and is also the sort key; the artist,
-    medium, size and location go in `facts`, the map card's own field, at least three rows.
-  Guarded by `.claude/test-artwork-cards.js`. **Re-run after touching `cardArtSpec` / `cardArtHTML` /
-  `cardArtReveal` / `cardFrontHTML`'s artwork branch / `showAnswer`'s reveal and duplicate-slot drop /
-  `IMG_OPEN_SEL` / `picturePool` / `gameCardIdSet` / `serializeCardData` / `revertCard` / the `.art-shot`
+  · **AND A WORK FOLIO CANNOT SHOW CANNOT BE CARDED IN THIS COLLECTION AT ALL.** The old format let a
+    picture-less work ship as an ordinary cloze card that described it in words; that escape hatch went
+    with the words. The canon is narrowed to what is free, which is the restart's one real cost and is
+    stated rather than hidden — see "Copyright" in `docs/art-card-plan.md` for where *Guernica* went.
+  Guarded by `.claude/test-artwork-cards.js`. **Re-run after touching `cardArtSpec` / `cardArtAnswers` /
+  `cardArtHTML` / `artMatch` / `artYearBand` / `gradeArtFields` / `cardArtReveal` / `ART_FIELDS` /
+  `ART_ARTIST_LABELS` / `ART_PLACE_LABELS` / `ART_YEAR_NEAR` / `ART_YEAR_NEAR_FRAC` /
+  `cardFrontHTML`'s artwork branch / `showAnswer`'s grading, reveal and duplicate-slot drop / the
+  `ATTEMPT_SEL` pair / `setupCloze`'s focus / `IMG_OPEN_SEL` / the delegated media `error` listener /
+  `picturePool` / `gameCardIdSet` / `serializeCardData` / `revertCard` / the `.art-shot` and `.art-ask`
   styles, or after adding an artwork card.**
 - **WAR CARDS — who fought, and who won** (`card.war`; `cardWar` / `cardWarYears` / `warSide` /
   `cardWarKeyHTML` / `cardWarSwatch` / `TINT_WIN` / `TINT_LOSE` / `warSides` in `startCardGlobe` /
@@ -3696,7 +3789,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Atlas popup's `noLocator` keeps it.
   **IT RIDES IN THE LIGHT HALF OF `data.js`, BESIDE `locator`, AND HAS TO** — `atlasUnlocks` walks every
   studied card, and a `war` in the heavy half would put a war on the personal globe only when that
-  collection's extra file happened to be loaded. **54 blocks cost the eager path 8,593 bytes gzipped**,
+  collection's extra file happened to be loaded. **54 blocks cost the eager path 8,577 bytes gzipped**,
   159 bytes each. **MEASURE THAT BY GZIPPING `data.js`, NOT OFF `check-sizes.js`**, whose display is
   rounded to hundredths of a megabyte: the first batch was written up here as "about 10 KB" because a
   2 KB change showed as 0.01 MB, which is a figure five times too big taken off a tool that was right.
@@ -5333,7 +5426,7 @@ lookup.
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
-| Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | 10 cards, contiguous — next is `art-011`; not a history collection |
+| Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
@@ -6220,7 +6313,7 @@ division-capital city tier are inert dead code.
     after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
     community store's record shape, or the `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 332 assertions on **the shell**: the rules that break silently
+  · `node .claude/test-layout.js` — 333 assertions on **the shell**: the rules that break silently
     because nothing throws when a layout is wrong. **ITS FIXTURE MUST DISMISS EVERY FIRST-VISIT OVERLAY
     AND LAND ON THE TAB IT MEANS TO MEASURE** — when a feature gains a first-run card or a new default
     tab, the fixtures are part of the change. **Re-run after touching `.tabbar` / `--tabbar-h` /
@@ -6380,9 +6473,20 @@ division-capital city tier are inert dead code.
     contradict each other**, both with LIVENESS probes beside them — a geometry sweep that has quietly
     stopped sweeping reports a clean corpus exactly as a clean corpus does.
     **Re-run after touching anything in the WAR CARDS bullet's own list, or after a batch of war blocks.**
-  · `node .claude/test-artwork-cards.js` — **the artwork card format** (56 assertions), and every fault
-    it guards RENDERS PERFECTLY. **The pool half is asserted through a PATCHED app.js**, `picturePool`
-    being a closure variable and a sweep of real days a coin toss that would say nothing if it saw none.
+  · `node .claude/test-artwork-cards.js` — **the artwork card format** (155 assertions, and per-card
+    checks grow it as the collection does), and every fault
+    it guards RENDERS PERFECTLY. **The pool half and the date band are asserted through a PATCHED
+    app.js**, `picturePool` and `artMatch` being closure variables and a sweep of real days a coin toss
+    that would say nothing if it saw none; the LABEL TABLES are sliced out of app.js by text and the run
+    STOPS if the slice fails, since a second copy of the rule would go stale in a file nobody had reason
+    to open. **It typed a real answer into a real card and that is what caught the fixed date band** —
+    "c. 39,000 years ago" marked wrong about a 40,000-year-old carving — so keep the three verdicts
+    exercised on a shipped card rather than asserted from the source.
+    **AND IT SERVES THE PICTURE ITSELF, which is not a convenience**: an artwork card's `src` is a
+    Commons URL, so without the route stub the suite tests whether Wikimedia is reachable — and when it
+    is not, the card's own dead-file handling fires and the viewer correctly REFUSES to open, which
+    reads as the format being broken. A real 2×2 PNG is fulfilled so the `load` event fires and the LIVE
+    path is what gets tested; the dead path is then exercised deliberately by aborting the same route.
     **Re-run after touching anything in the ARTWORK CARDS bullet's own list.**
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's
     restricted pool** (114 assertions), and every one of its checks is for something that fails SILENTLY.
