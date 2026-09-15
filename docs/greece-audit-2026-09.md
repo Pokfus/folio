@@ -1534,6 +1534,44 @@ SENTENCES nothing else referred to. Both extra question phrasings and all three 
 the 1872 decipherment, Linear B's narrower range and the Golgoi bilingual marker — all still in the
 card. **Check anyway; it was luck rather than design.**
 
+### The Evans cluster — `gr-030` and `gr-032` cleared, `gr-036` is the honest refusal (2026-09-15)
+
+Three Minoan cards are over-cited on **Arthur J. Evans**, and they are not the same problem three times.
+The distinction is worth having before opening any of them.
+
+**`gr-030` horns of consecration — cleared.** Evans held three entries, one of them (BSA 7, 1901) on a
+single sentence, which is the cheapest shape there is. **Nothing else in the open shelf has the term at
+all** — "horns of consecration" appears 7 times in Evans's own *Palace of Minos* and **zero** times in
+Hall, Murray or Walters, Evans having coined it. **The obvious escape was to move the sentence onto
+Rutter's Lesson 15, which is already on the card and would have cost no new entry — and that is gaming
+the check**, since it would clear the rule by leaning harder on the Dartmouth course site this whole
+audit exists to reduce. Instead **BMCR's own search** (`bmcr.brynmawr.edu/?s="horns of consecration"`)
+returned seven reviews, and Nota Kourou's review of Mieke Prent's *Cretan Sanctuaries and Cults* carries
+a better claim than the one it replaced: the horns are "among the most representative" cult equipment of
+the Late Minoan IIIC and Subminoan bench sanctuaries. **The card now says the type outlived the palaces,
+which it never did before.** One collateral: a `why` answer quoted the deleted signet sentence.
+
+**`gr-032` Minoan religion — cleared, and this one is a DIVERSIFICATION rather than an upgrade.** Say so
+plainly. Evans held three entries, two of them primary excavation reports shared with Rutter, and one
+(*Tree and Pillar Cult*) on the sentence that describes **what Evans himself read into the sacred trees
+and pillars** — that one can never move, being correctly cited to its own author. So BSA 9 went, replaced
+by Noula Karatzoglou's review of Lapatin's *Mysteries of the Snake Goddess*, which carries the faience
+figures "excavated from the Temple Repositories" squarely. **The prose did not change, so nothing was
+orphaned — and the card's evidence for that sentence is now a book review where it was the excavator's
+own report.** It diversifies the apparatus and it does not improve it. The card sat at **327 of 330
+words**, so the obvious improvement — Lapatin's actual argument, that the most famous Snake Goddess of
+all is probably a modern forgery — would not fit without a trim elsewhere. **Worth doing when that card
+is next opened.**
+
+**`gr-036` Minoan roads — NOT cleared, deliberately.** All three Evans entries carry two, three and three
+sentences ALONE: BSA 7, 8 and 9 are the annual reports of the dig that found the roads, and the card is a
+description of what those reports describe — the north roadway and its portico of twelve pillars, the
+guard-house and bastion, the West Court causeway, the Theatral Area's eighteen tiers. **This is the case
+the rule is worst at: the excavator cited three times is three annual instalments of one excavation, not
+three opinions.** Clearing it means finding modern descriptions of the Knossos road system, which is
+where the Cambridge wall stands. **Do not "fix" it by re-pointing to Rutter**; record it and leave it
+until a reachable modern survey turns up.
+
 ### Two more read and left, and these are the rule working rather than failing (2026-09-14)
 
 Both showed a candidate at `alone=0` and both are the right answer as they stand. Recorded so the next
