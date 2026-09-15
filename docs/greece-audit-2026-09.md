@@ -1868,6 +1868,47 @@ buy a green run at the price of the one signal the check exists to give.
   OpenStax textbook. Adding one would not clear the FAIL, the rule being absolute, but it would make the
   card better, and the Psychology plan's own rule about stating a finding's current standing asks for it.
 
+### `wh-376` mahajanapadas — read, not cleared, and the hunt recorded (2026-09-15)
+
+T. W. Rhys Davids in three of five, and the worst case of the 1905-handbook shape left in the
+backlog: FOUR of the five sources are pre-1929 British Indology — *Buddhist India* (1903) twice, his
+own chapter in the *Cambridge History of India* (1922), and Vincent Smith's *Early History of India*
+(1904) — with the *Mahā-parinibbāna Sutta* as the fifth. `drop-candidates.js` reports every entry
+carrying a sentence alone, and the card sits AT the bar, so it needs a new source before anything can
+move.
+
+**It also needs one on the merits, and the sentence to watch is named here so the next session does
+not have to find it.** The card says that in the clan states "a single chief was elected to preside
+over the sessions and over the state between them, and bore the title raja, which in that use must
+have meant something like a Roman consul". That is Rhys Davids' 1903 reading of the *gaṇa-saṅgha*,
+consul analogy and all, and it is the part of this card most exposed to a century of argument about
+whether those polities are usefully called republics at all. **Do not soften it by hand**: the fix is
+a modern source, and until there is one the card should keep saying what its source says.
+
+**Nothing citable was found, and here is the ground that was covered, so it is not covered twice.**
+
+- **DOAJ returns ZERO for `mahajanapada`, `gana-sangha`, `janapada early India` and
+  `early historic India state formation`.** Not "thin" — zero.
+- **OpenAIRE's open-access hits are two, and neither serves.** Hermann Kulke's *Der Maurya-Staat
+  (4.–2. Jh. v. Chr.)* (Harrassowitz 2014, 503–14) is by a leading historian and its landing page at
+  `fid4sa-repository.ub.uni-heidelberg.de` answers 200 — **but the PDF itself is behind Anubis**, the
+  same proof-of-work wall as ZORA and the Heidelberg journals platform. The other,
+  *Republicanism and the Concept of State in Ancient India*, is a six-page piece in *World Focus*, a
+  general monthly, and is **below the bar** (`docs/glossary-citation-plan.md`'s rule: academic,
+  museum, government or reputable NGO/IGO).
+- **Persée has nothing on this subject.** A search for `Licchavi` returns 66 results and every one of
+  them is the NEPALESE Licchavi period — a different polity six centuries later — or a review of a
+  book about Nepalese temple architecture. The BEFEO is a rich seam for Southeast Asia and not for
+  the middle Ganges in the 6th century BCE.
+
+**So the routes that worked on `gr-323`, `gr-325`, `rm-038` and `rm-089` — Persée, DOAJ, OpenAIRE and
+the open Italian and French journals — do not reach early historic India at all.** What would: the
+Indian open-access journals (`Ancient Asia`, Ubiquity Press; `Heritage: Journal of Multidisciplinary
+Studies in Archaeology`), Brill's and Springer's occasional open articles in the *Indo-Iranian
+Journal* and the *Journal of Indian Philosophy*, and the INSA journals. **None of those was probed in
+this batch**; that is the next thing to try, and it is a batch of its own rather than a detour inside
+a Track C card.
+
 ### `rm-038` bucchero — the candidate that was NOT free, and the one that was (2026-09-15)
 
 Jean Gran-Aymerich in three of five sources, and the card at the bar. `drop-candidates.js` offered
