@@ -1454,6 +1454,51 @@ passing (ear shape, bronze technique), and the card's own 2024 Al-Academy paper 
 51,715 characters, both about its disappearance — which is already what it is cited for. **A famous
 excavator is not therefore a source on what he excavated.**
 
+### `gr-046` Minoan trade with Egypt — the Dartmouth concentration at its worst, cleared (2026-09-15)
+
+**Five of six sources were one Dartmouth course website**, the worst ratio in the corpus and the audit's
+own standing finding at its extreme. Three entries had to go, and `check-cards.js` counts absolutely, so
+adding sources could not have helped.
+
+**THE CHEAPEST THREE TO CLEAR ARE NOT THE THREE WITH THE MOST SENTENCES.** The rule counts ENTRIES, so
+the cost of clearing one is the number of sentences resting on it ALONE — Rutter's five entries carried
+three, two, one, one and one. Clearing the biggest (three sentences) removes exactly as much from the
+count as clearing the smallest. **Always cost them by alone-sentences before choosing**, which
+`drop-candidates.js` prints.
+
+**What replaced them, each verified in the source's own words:**
+- **Petrie, `Illahun, Kahun and Gurob` (1891), 9–10** — the excavator's own report of the very find the
+  card's central sentence is about: pottery "called Aegean in general… to judge by their material and
+  decoration", and "all were found in the rubbish heaps of the XIIth dynasty", so "the evidence
+  unmistakably shews that it must be of the time of Usertesen II". **The card had been citing a course
+  summary for a claim whose primary publication is free on archive.org.**
+- **Hall, `Ægean Archæology` (1915), 50–51** — and this is the move worth copying: **ONE entry carrying
+  TWO sentences removes TWO Rutter entries while adding one.** That single page range holds both a
+  Cretan stone pot "so precisely like a common and very typical Egyptian form of the VIth Dynasty that
+  we can hardly doubt that it is an actual importation", and the Koumasa figurines in the Mesara whose
+  "hatchet-shaped faces, remind us strongly of certain pre-Dynastic figurines from Egypt". **When
+  hunting replacements, look for one source covering two of the orphaned sentences rather than three
+  sources covering three.**
+- **Evans, `The Palace of Minos`, vol. 1 (1921), 266–270** — the continuous section on Late Minoan I
+  vessels in dated Egyptian contexts, Gurob Grave 245 "dated by scarabs to the early part of the XVIIIth
+  Dynasty" and the Anibeh tomb in Nubia. **The page is a RANGE because the OCR prints no marker between
+  266 and 270** and the discussion genuinely spans them; it is not a range hiding a guess at one page.
+
+**THREE SENTENCES WERE REWRITTEN, NOT RE-POINTED**, so the ostrich-egg rhyta, the tholos-derivation
+argument and the Kommos harbour left the card with the sources that carried them. **No open source for
+any of those three is reachable from here** — Kommos was excavated from 1976 and its literature is
+JSTOR and OUP, Xanthoudides' *Vaulted Tombs of Mesará* (1924) is not on archive.org at all, and the
+ostrich-egg rhyta want specialist modern work. That is the audit's standing finding restated: where the
+Dartmouth site is carrying a claim, it is often carrying a claim nothing else open carries, and the
+answer is to write the card from what CAN be opened rather than to force a substitution.
+
+**AND THE COLLATERAL BIT AGAIN, HARDER THAN ON `gr-334`.** Rewriting three sentences orphaned a `why`
+answer about the tholos derivation AND **the card's third question phrasing, which asked the reader
+about ostrich-egg rhyta the card no longer mentions** — a question must be answerable from its own
+card's background, and nothing in the pipeline compares the two. **`check-questions.js` passed it
+before and after.** Grep every other field for the words you are deleting: `answerDate`, `why`,
+`questions`, the picture caption.
+
 ### Two more read and left, and these are the rule working rather than failing (2026-09-14)
 
 Both showed a candidate at `alone=0` and both are the right answer as they stand. Recorded so the next
