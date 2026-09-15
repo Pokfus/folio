@@ -347,6 +347,70 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-15, batch H10 — both carried deferrals cleared, and citations borrowed rather than
+  retyped**: `gw-016` Vietnam, `gw-033` Algeria, `gw-043` Uzbekistan, `gw-049` Madagascar, `gw-057`
+  Syria and `gw-060` Taiwan. Their history blocks opened at 1949, 1830, 1991, 1890, 1922 and 1949;
+  they now open at Nanyue, Ain Boucherit, the Oxus civilisation, the crossing from Borneo, the
+  Neolithic of south-western Asia and the Austronesian expansion. Rules 1–4 stay at zero; 5b went
+  365 to 359 and 5c 333 to 327.
+
+  · **A DEFERRAL IS A FACT ABOUT THE CORPUS ON THE DAY IT WAS WRITTEN, SO RE-CHECK IT BEFORE
+    RE-DEFERRING.** Vietnam and Algeria had been carried across two batches with reasons recorded:
+    Vietnam for want of a readable edition behind the Chinese-rule and Đại Việt claims, Algeria for
+    want of an openable source on the Arab conquest and the Berber dynasties of the *central*
+    Maghreb. Both reasons had expired. `wh-559` Đại Việt has since been written out of Toda's *Annam
+    and Its Minor Currency* with page numbers, and `cnh-232` Nanyue carries the Han annexation of
+    111 BCE; and Algeria's middle turned out not to need a Maghreb survey at all — `gw-533` Algiers
+    already cited Thomas-Stanford's *About Algeria* for Roman Icosium, the Arab town of the 10th
+    century, Barbarossa's submission to Selim I and the landing at Sidi Ferruch on 14 June 1830.
+
+  · **THE CAPITAL CARD CARRIED THE MIDDLE OF FOUR OF THE SIX. IT IS NOW THE FIRST THING TO TRY.**
+    Besides Algiers: `gw-543` Tashkent gave Schuyler's *Turkistan* with the storming party that
+    carried the Kamelan gate before dawn on 27 June 1865; `gw-549` Antananarivo gave Sibree's
+    *Madagascar before the Conquest* with the twelve royal hills and the Hova conquest of the ridge;
+    `gw-557` Damascus gave Le Strange's *Palestine under the Moslems*, whose chronological table
+    counts fourteen Umayyad caliphs reigning there between 661 and 750. H8 found this pattern with
+    two capitals, H9 with two more, and this batch with four.
+
+  · **THE CITATIONS ARE BORROWED BY INDEX, NOT RETYPED** (`borrow(cardId, n)` in the batch's build
+    script). H9's two fabrications were both expansions of `et al.` done from memory while copying a
+    corpus citation across. Nineteen of this batch's citations are pulled straight out of the card
+    that already carries them, so they arrive byte-for-byte with their Crossref check intact, and
+    only three were typed by hand. **Copying a citation by hand is the step that invents authors;
+    take it out of the loop.**
+
+  · **A CARD NAMED AFTER A PLACE IN THE COUNTRY DOES NOT THEREBY MAKE A CLAIM ABOUT IT.** `wh-060`
+    Aterian is named after Bir el Ater in eastern Algeria and looked like the obvious deep anchor —
+    and not one of its five sources names the type site: they are Moroccan, on El Mnasra,
+    Contrebandiers and Jebel Irhoud. Citing them for Algeria would have been a registered source
+    stretched to a new claim, which is the fault `docs/glossary-citation-plan.md` records three times
+    over. **Grep the SOURCE, not the card.**
+
+  · **SEARCH FOR THE SITE, NOT THE COUNTRY.** Europe PMC on "Ghana" returned malaria studies in H9
+    and on "Algeria" returns the same kind of thing; searching **"Ain Boucherit"** returned Cáceres
+    et al. 2023 at once — open access, and the deepest anchor in the whole deck: Oldowan tools and
+    cutmarked bones at about 2.4 and 1.9 million years ago, the lower layer the oldest such evidence
+    in North Africa.
+
+  · **A PRIMARY TREATY TEXT IS ONE FETCH AWAY AND BEATS A SUMMARY.** Taiwan's cession to Japan is
+    Article II(b) of the Treaty of Shimonoseki of 17 April 1895 — "The Island of Formosa together
+    with all Islands appertaining or belonging to the said Island of Formosa" — in the University of
+    Tokyo's *"The World and Japan"* database, a host the corpus already cites for the 1910 Korea
+    treaty. `worldjpn.net` answers 200 and is simply SLOW: it was the one address of forty-one that
+    stalled the sweep loop, and it is not a wall.
+
+  · **THREE CARDS NAMED A FACTS-GRID VALUE IN DRAFT.** Algeria's Roman town stands "where the capital
+    does now" rather than at Algiers, Madagascar's Hova take "the highland ridge that became the
+    capital" rather than Antananarivo, and Syria's Umayyads sit at "the capital" rather than at
+    Damascus — all three because the grid's Capital cell says it already. H9 learned this from Sydney
+    Cove; it is now part of drafting rather than a repair afterwards.
+
+  · **TWO SOURCES LEFT WITH THE SENTENCES THAT CARRIED THEM.** Uzbekistan's block 2 opened on two
+    Aral Sea sentences — geography standing in the history half — so Roget et al. 2017 went with them,
+    as the Convention on Biological Diversity citations went from Peru and Ghana in H9. And `gw-016`
+    dropped the third of its three Office of the Historian citations to make room for the older
+    centuries, which took `check-cards.js`'s `one-institution` note on that card with it.
+
 - **2026-09-15, batch H9 — six more, and three fabrications caught before they shipped**: `gw-007`
   Brazil, `gw-035` Argentina, `gw-041` Ukraine, `gw-047` Ghana, `gw-048` Peru and `gw-054` Australia.
   Their history blocks opened at 1824, 1816, 1945, 1957, 1821 and 1901; they now open at 9,600 years
