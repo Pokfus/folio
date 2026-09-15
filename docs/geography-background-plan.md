@@ -347,6 +347,77 @@ through `cardYears`, render in a browser to read the glossary auto-links, then r
 
 ## What has shipped
 
+- **2026-09-15, batch H12 — ten more, and the proxy's blind spot for the plural of "century"**:
+  `gw-059` Burkina Faso, `gw-062` Malawi, `gw-063` Zambia, `gw-064` Kazakhstan, `gw-066` Chile,
+  `gw-067` Romania, `gw-068` Somalia, `gw-069` Senegal, `gw-070` Guatemala and `gw-071` Ecuador.
+  Their history blocks opened at 1960, 1964, 1964, 1991, 1945, 1862, 1960, 1960, 1945 and 1822; they
+  now open at Naba Oubri's conquest of the Mossi plateau, the Bantu expansion, the Bantu expansion,
+  a horse-bone village of the 4th millennium BCE, Monte Verde, Trajan's conquest of Dacia, the
+  Periplus's far-side ports, a gold-working settlement on the Falémé, the San Bartolo murals and a
+  Valdivia community buried under volcanic ash. Rules 1–4 stay at zero; 5b went 349 to 339 and 5c
+  317 to 307.
+
+  · **THE PROXY DOES READ A CENTURY, AND ONLY IN THE SINGULAR.** Senegal was drafted as "between the
+    9th and the 14th centuries CE" and came back at a span of 244 years beginning 1716, which reads
+    like a card that had not been taken deep at all. `geo-history-audit.js` parses `(\d+)(?:st|nd|rd|th)\s+century`
+    — so **`centuries` matches nothing**, and a block whose only early date is a century range written
+    in the plural contributes no date. Rewritten "from the 9th century CE into the 14th century" it
+    reads 850 and 1350 and the span is 1110 years. **In a geography background write each century out
+    singly**; it costs one word and is the difference between the measure seeing the card and not.
+
+  · **A SOURCE THAT DESCRIBES THE ANSWER TERM'S NEIGHBOUR IS NOT A SOURCE FOR THE ANSWER TERM.**
+    `wh-422` Land of Punt was carried into the reconnaissance as Somalia's deep opening and dropped
+    on reading it: the card's own point is that the Somalia placement "took little account of the
+    distances a ship would have had to cover", and the baboon isotopes point at Adulis in Eritrea.
+    Using it would have made the card assert what its own citation denies. What replaced it is a
+    primary text one fetch away — the *Periplus of the Erythraean Sea*, whose sections 7 to 14 are a
+    list of this coast's own market towns and which ends "this country is not subject to a King, but
+    each market-town is ruled by its separate chief."
+
+  · **A BAD OCR IS A REASON TO LOOK FOR ANOTHER SCAN, NOT TO GIVE UP ON THE BOOK.** The first
+    Periplus item (`periplusoferythr00schouoft`) returns the far-side chapters as unreadable noise —
+    "Twodaxs' sail, or three, hevoiul Malao". `cu31924030139236` is the same 1912 Schoff translation
+    and comes through clean. **archive.org's advanced search lists every scan of a title in one
+    call**; nineteen exist for this one.
+
+  · **THE CAPITAL CARD GAVE THE MIDDLE OF FOUR AND THE CORPUS THE DEEP END OF SIX.** Marc's
+    *Le Pays Mossi* off `gw-559`, the two Northern Rhodesia annual reports off `gw-563`, Gawęcki off
+    `gw-564` and Cozzatella and Cosentino off `gw-568`; `wh-420` for two Bantu openings, `wh-099` for
+    Monte Verde, `wh-367` for Dacia, `wh-423` for the Falémé beads and `wh-429` for San Bartolo.
+    **Four books had to be found outside the repository** — Livingstone's Zambesi *Narrative*,
+    Wilkinson on Wallachia, Faidherbe on Senegal and Bancroft on Central America — and all four are
+    19th-century and on archive.org, which is where the middle of a colonial-era country card keeps
+    coming from.
+
+  · **ONE BOOK SERVED TWO COUNTRIES FROM DIFFERENT CHAPTERS.** Livingstone's *Narrative of an
+    Expedition to the Zambesi* gives Malawi chapters 5 and 9 (Undi's empire, the lake reached at noon
+    on 16 September 1859) and chapter 25 (an Arab trader carrying slaves across it in two boats), and
+    Zambia chapter 11 (the Batoka driven off the plateau by Moselekatse and Sebetuane, and a week's
+    march through their deserted villages without meeting a person). `check-cards.js` counts an author
+    in more than two of ONE card's sources, so two citations of one book on one card is within the
+    rule and three would not be.
+
+  · **A VOLUME NUMBER ON A SPINE IS NOT ALWAYS THE VOLUME'S OWN RANGE.** Bancroft's *History of
+    Central America* vol. 2 is catalogued 1530–1800 and its contents run from Pizarro in 1524 to
+    Chiapas in 1800, chapter 5 covering 1527–28 and the founding of Santiago in the Almolonga valley.
+    **Read the contents before citing a chapter by the range on the title page**; the prose was left
+    without a year and the date line carries the chapter's own span.
+
+  · **TWO DOIS WERE SWAPPED FOR PMC COPIES AND TWO 403s WERE KEPT.** Science Advances' address for
+    Stuart 2022 and PNAS's for Chase 2023 answer 403 to spaced probes and both have open PMC copies,
+    so the address moved while the citation text stayed byte-for-byte. The two Monte Verde citations
+    that 403 are labelled `[Paywalled]` in the corpus already, which is the honest state and not a
+    fault to repair.
+
+  · **AN OPENEDITION OR MDPI PAGE MAY BE WALLED ON THE DAY.** `journals.openedition.org` and
+    `www.mdpi.com` both returned a bot challenge to every attempt in this session, which took two
+    candidate sources off the table — a REMMM article on medieval Horn of Africa mosques and an
+    *Arts* article on colonial Quito. **A source that cannot be read cannot be cited**, so Ecuador's
+    colonial sentence came instead from Ulloa's *Voyage to South America*, which names the Inca
+    conquest, Atahualpa's fief, Pizarro's order and the rebuilding of the capital in 1534 in one
+    passage. CLAUDE.md records both hosts as reachable; **measure on the day rather than reading the
+    note back**.
+
 - **2026-09-15, batch H11 — ten at once, and the measure catching what the drafting missed**:
   `gw-031` Uganda, `gw-044` Malaysia, `gw-045` Saudi Arabia, `gw-046` Mozambique, `gw-051` Nepal,
   `gw-052` Cameroon, `gw-053` Venezuela, `gw-056` North Korea, `gw-058` Mali and `gw-061` Sri Lanka.
