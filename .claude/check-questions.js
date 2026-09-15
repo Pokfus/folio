@@ -66,9 +66,18 @@ const CATAPHORA = /^(Its|It|He|She|They|Their|His|Her|There|Here|Such|This|These
 const DUMMY_IT = /^It (?:was|is|has been|had been|had|would|will|may|might|seems|appears)\b/;
 
 const plain = s => s.replace(BLANK_RX, "").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+/* A TOKEN OF PURE PUNCTUATION IS NOT A WORD (Sep 2026) — see add-card.js's own header. The predicate is
+   SLICED OUT OF THE TOOL THAT OWNS IT rather than copied: a second copy goes stale on a change made in a
+   file nobody counting words has reason to open, which is the scar `IMPERIAL_PAREN` left across nine. */
+const COUNTS_AS_WORD = (() => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "add-card.js"), "utf8");
+  const m = src.match(/const COUNTS_AS_WORD = (\/.*\/u);/);
+  if (!m) { console.error("ERROR: could not slice COUNTS_AS_WORD out of add-card.js — the two tools would disagree about what a word is."); process.exit(2); }
+  return eval(m[1]);
+})();
 const words = s =>
   s.replace(/<[^>]*>/g, " ").replace(IMPERIAL_PAREN, " ")
-   .replace(/\s+/g, " ").trim().split(" ").filter(Boolean).length;
+   .replace(/\s+/g, " ").trim().split(" ").filter(w => COUNTS_AS_WORD.test(w)).length;
 
 const fails = [];
 let checked = 0, mapCards = 0, artCards = 0;

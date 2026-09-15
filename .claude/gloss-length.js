@@ -32,6 +32,15 @@ const TAGS = global.window.GLOSSARY_TAGS || {};
    length too, at three words of conversion each. The leading space goes with the parenthetical, or the
    stripped text leaves a stray token behind. */
 const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi)\b|°F\b)[^)]*\)/gi;
+/* A TOKEN OF PURE PUNCTUATION IS NOT A WORD (Sep 2026) — see add-card.js's own header. The predicate is
+   SLICED OUT OF THE TOOL THAT OWNS IT rather than copied: a second copy goes stale on a change made in a
+   file nobody counting words has reason to open, which is the scar `IMPERIAL_PAREN` left across nine. */
+const COUNTS_AS_WORD = (() => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "add-card.js"), "utf8");
+  const m = src.match(/const COUNTS_AS_WORD = (\/.*\/u);/);
+  if (!m) { console.error("ERROR: could not slice COUNTS_AS_WORD out of add-card.js — the two tools would disagree about what a word is."); process.exit(2); }
+  return eval(m[1]);
+})();
 // the same order the popup renders in: markers first (they sit inside the prose), then tags, then entities
 function words(html) {
   return String(html || "")
@@ -43,7 +52,7 @@ function words(html) {
     .replace(/\s+/g, " ")
     .trim()
     .split(" ")
-    .filter(Boolean).length;
+    .filter((w) => COUNTS_AS_WORD.test(w)).length;
 }
 
 const args = process.argv.slice(2);

@@ -5112,6 +5112,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **prose** limits stay exactly as binding as they were: the finished corpus has the SAME 4 over-length
   abstracts and 1 out-of-range question it had before the pass, against 11 and 4 counting the conversions.
   The exemption is for the parentheses, not for the sentence around them.
+  **…AND A TOKEN OF PURE PUNCTUATION IS NOT A WORD EITHER** (`COUNTS_AS_WORD` in `add-card.js`, Sep
+  2026). `plain` replaces a tag with a SPACE — right, since it keeps the words either side apart — and
+  that also cuts a footnote marker out from between a word and its terminal stop, leaving the stop
+  standing as a token of its own. Measured over the corpus, **2,448 punctuation-only tokens were being
+  counted**: 1,173 lone full stops across the 114 cards that write the marker BEFORE the stop rather than
+  after it (30,093 sit after), plus 718 standalone em dashes, which are the house form of a parenthetical
+  dash. **Fifty-two Greece cards cleared the 270-word floor on that punctuation alone** and hold 260–269
+  words of prose, and `wh-145` was reported over the ceiling on it. **THE UNDERSCORE IS DELIBERATELY A
+  WORD CHARACTER**: `_____` is the cloze blank and the question rule says in terms that the blank counts
+  — without it every one of the 8,381 questions loses a word and 30 leave their band, which is how that
+  clause was found rather than guessed. **`add-card.js` owns the predicate and `card-length.js`,
+  `check-questions.js`, `add-questions.js` and `gloss-length.js` SLICE IT OUT by text, stopping if the
+  slice fails**, since eight tools counted words with eight copies of the rule. **AND SLICING A PATTERN IS
+  NOT SLICING A FUNCTION**: the helper that found this sliced `IMPERIAL_PAREN` out of the owning tools and
+  then re-implemented the counting around it, stripping tags with `""` rather than `" "`, and reported 62
+  cards short against the real 9. **Run `node .claude/card-length.js` for the figure rather than quoting
+  one here** — it is 67 under and 1 over as this was written, and the 58 newly visible cards are a content
+  pass of their own, recorded in `docs/units-plan.md`.
   **THE PASS IS COMPLETE** (`docs/units-plan.md`): 486 conversions across all 119 cards and all 414 glossary
   terms, and **nothing metric is left bare**. Two sweeps say so and BOTH are needed: one for a digit before
   a unit, and one for a **spelled-out** number before a unit (`about four miles inland`, `a third of a

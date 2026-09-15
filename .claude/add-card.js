@@ -66,7 +66,21 @@ const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " 
    aside is still counted (and asides are banned in an abstract anyway). */
 const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi)\b|°F\b)[^)]*\)/gi;
 const unconverted = (s) => String(s || "").replace(IMPERIAL_PAREN, "");
-const qWords = (s) => plain(unconverted(s)).split(" ").filter(Boolean).length;
+/* A TOKEN OF PURE PUNCTUATION IS NOT A WORD, and counting one is how a card meets the floor on a full
+   stop (Sep 2026). `plain` replaces a tag with a SPACE, which is right — it keeps the words either side
+   apart — but it also cuts a footnote marker out from between a word and its terminal stop, leaving the
+   stop standing alone: `set aside<sup …></sup>.` counts as "aside" AND ".". Measured over the corpus,
+   2,448 such tokens were being counted, 1,173 of them a lone full stop across the 114 cards that write
+   the marker BEFORE the stop rather than after it (30,093 sit after), and 718 a standalone em dash, which
+   is the house form of a parenthetical dash and no more a word than the stop is. Fifty-two Greece cards
+   passed this bar on that punctuation alone and hold 260–269 words of prose; wh-145 was reported over the
+   ceiling on it. The UNDERSCORE is deliberately a word character here: `_____` is the cloze blank, and
+   CLAUDE.md's question rule says in terms that the blank counts as a word.
+   THIS PREDICATE IS THE ONE COPY. card-length.js, check-questions.js, add-questions.js and
+   gloss-length.js slice it out of this file by text and stop if the slice fails, because a second copy
+   goes stale on a change made in a file nobody counting words has reason to open. */
+const COUNTS_AS_WORD = /[\p{L}\p{N}_]/u;
+const qWords = (s) => plain(unconverted(s)).split(" ").filter((w) => COUNTS_AS_WORD.test(w)).length;
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 function leafDecks(node, acc) { for (const ch of node.children || []) { if (ch.cardIds) acc.push(ch); if (ch.children) leafDecks(ch, acc); } return acc; }

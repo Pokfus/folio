@@ -327,6 +327,11 @@ at all, which is the same defect wearing different clothes).
 Each needs a sentence extended from a source it already cites — not padding, which is the one way a
 length pass can do real damage.
 
+**⚠ THIS TABLE IS THE SHORTFALL THE UNITS FIX CAUSED, NOT THE WHOLE BACKLOG.** Re-measured in Sep
+2026 with an honest counter (see the section at the foot of this file), the corpus holds **67 cards**
+under the floor and **4 glossary terms**, of which these eleven are the ones this pass put there.
+**Run `node .claude/card-length.js` and `node .claude/gloss-length.js` for the live figures.**
+
 | | words | short by |
 |---|---|---|
 | `gw-645` | 262 | 8 |
@@ -427,3 +432,59 @@ is one number written as hyphenated words (`twenty-five`) is the third.
 sentence and requires the two legitimate shapes to pass. CLAUDE.md's standing rule is that an engine
 change is proved by rendering the whole corpus and diffing it; this is that rule's permanent form, and it
 costs one pass over fields the suite already walks.
+
+
+## Sep 2026 — a card could meet the word floor on a full stop
+
+This began as a re-measurement of the eleven-item backlog above and turned into something else: the
+helper doing the re-measuring reported **62** cards under the floor where `card-length.js` reported
+**9**, and both were wrong in instructive ways.
+
+**THE HELPER'S FAULT: SLICE THE FUNCTION, NOT THE PATTERN.** The `wc.js` built in the previous session
+exists precisely so a batch cannot be validated against a stale copy of `IMPERIAL_PAREN` — and it sliced
+the *pattern* out of the owning tools and then re-implemented the *counting* around it, stripping tags
+with `""` where `add-card.js` strips them with `" "`. That one character is the whole difference: a
+footnote marker standing between a word and its terminal stop leaves `aside.` as one token under the
+helper and `aside` + `.` under the tool. **A helper that slices a pattern and rewrites the function around
+it has not sliced anything.** It now slices `qWords` and `words` whole, and agrees exactly.
+
+**THE TOOL'S FAULT: A LONE FULL STOP IS NOT A WORD.** `plain` replaces a tag with a space, which is right
+— it keeps the words on either side apart — but it also cuts a marker out from between a word and its
+stop and leaves the stop standing as a token. Measured over the corpus, **2,448 punctuation-only tokens
+were being counted as words**: 1,173 lone full stops, 718 standalone em dashes (the house form of a
+parenthetical dash), 532 commas and a tail of colons and semicolons.
+
+| | count |
+|---|---|
+| markers written AFTER the terminal stop (the house form) | 30,093 |
+| markers written BEFORE it, across 114 cards | 1,126 |
+
+**Fifty-two Greece cards, `gr-523` to `gr-610`, cleared the 270-word floor on that punctuation alone**
+and hold 260–269 words of prose. `wh-145` was reported over the 330 ceiling on it. So the helper was
+substantially right about the PROSE and wrong about what the tool enforces, and the tool was enforcing a
+bar that could be met with a full stop.
+
+**The fix is `COUNTS_AS_WORD` in `add-card.js`**, `/[\p{L}\p{N}_]/u`, sliced by `card-length.js`,
+`check-questions.js`, `add-questions.js` and `gloss-length.js` with the run stopping if the slice fails.
+**The underscore is deliberately a word character**: `_____` is the cloze blank and CLAUDE.md's question
+rule says in terms that the blank counts as a word. Without it every one of the 8,381 questions loses a
+word and 30 leave their band — which is what the first cut did, and is the measurement that found the
+rule rather than a guess about it.
+
+What it changes, measured before and after:
+
+| | before | after |
+|---|---|---|
+| abstracts under 270 | 9 | **67** (52 `gr-`, 13 `gw-`, 2 `ko-`) |
+| abstracts over 330 | 2 | **1** (`gw-124`; `wh-145` was punctuation) |
+| questions outside 20–34 | 0 | **2**, both one word short |
+| glossary terms outside 90–110 | 2 | **4** |
+
+The two questions were repaired in the same commit, each extended by a clause from its own card's cited
+prose, because `check-questions.js` gates CI. **The 58 further cards and 2 further terms are a content
+pass of their own** — each needs a sentence extended from a source it already cites, and the Greece run
+is contiguous enough (`gr-523`–`gr-610`) to be worth one batch rather than sixty.
+
+**The marker placement itself was left alone.** Moving 1,126 markers from before the stop to after it
+would make the corpus consistent with its own house form and is purely typographic, but it is a 114-card
+write that changes no claim, and the counter fix makes the measurement honest without it.
