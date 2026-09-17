@@ -1205,16 +1205,50 @@ the alias are the same string.
              written: the war is already rm-238's answer term, and what it left behind is its
              settlement, negotiated in the Epirote city the Illyrians had sacked a generation
              earlier and resolving nothing between the two powers
-    gr-851  Philip V of Macedon
-    gr-852  The Second Macedonian War
-    gr-853  Battle of Cynoscephalae
-    gr-854  Flamininus
-    gr-855  The declaration at the Isthmus
-    gr-856  The Roman–Seleucid War
-    gr-857  Battle of Magnesia
-    gr-858  The Treaty of Apamea
-    gr-859  The Third Macedonian War
-    gr-860  Perseus of Macedon
+    gr-851  Philip V of Macedon  — written as a DELIBERATE PAIR with rm-239, which carries the
+             same answer term: a line named after a king cannot be answered by anything else, so
+             the glossary term is REUSED and the two cards are written from opposite sides — Rome's
+             on Polybius' character sketch, this one on the reign as Greek politics, the Social War,
+             Thermum, Messene and the rebuilding of Macedon after 197 BCE
+    gr-852  The Second Macedonian War  — answered by "siege of Abydos" when the card was
+             written: the war is already rm-240's answer term, and its Greek ground is the city on
+             the Hellespont narrows where Philip's last siege and Rome's formal warning met.
+             The glossary key is `Siege_of_Abydos` and it claims NO bare "Abydos" alias — three
+             World History cards use the name for the EGYPTIAN Abydos, which is a different place
+    gr-853  Battle of Cynoscephalae  — the pair `docs/rome-card-plan.md` names by name, so the
+             answer term and the glossary entry are shared with rm-241: Rome's card is the day
+             itself and this one is Polybius' explanation of why the phalanx lost, written for
+             Greeks who thought the defeat incredible
+    gr-854  Flamininus  — answered by "Nabis" when the card was written: Flamininus is already
+             rm-242's answer term, and the Greek side of his command is the war of 195 BCE against
+             the last ruler to make Sparta an independent power, whose land redistribution and
+             killing by the Aetolians the collection had nowhere else to put
+    gr-855  The declaration at the Isthmus  — answered by "eleutheria" when the card was
+             written: "freedom of the Greeks" is already rm-243's answer term, and what this line
+             is about is the Greek political formula the declaration used — free, ungarrisoned,
+             untaxed, living under its own laws — proclaimed by Antigonus in 315 BCE and by Rome
+             at the Isthmus in 196. Flagged `undatable`: a status has no date of its own
+    gr-856  The Roman–Seleucid War  — answered by "siege of Ambracia" when the card was
+             written: the war is rm-245's answer term and its Greek battle is rm-246's, so what is
+             left for this collection is how the war ended IN GREECE — the siege of 189 BCE that
+             broke the Aetolian League and bound it to Rome's enemies and friends for good
+    gr-857  Battle of Magnesia  — answered by "Eumenes II" when the card was written: the battle
+             is already rm-247's answer term, and the Greek who won its decisive action and took
+             most of Seleucid Asia Minor at Apamea was absent from the collection, the Attalid deck
+             having carded the dynasty, the altar and the library but not the king
+    gr-858  The Treaty of Apamea  — written as a DELIBERATE PAIR with rm-248, which carries the
+             same answer term and the same glossary entry: Rome's card is the terms imposed on
+             Antiochus and this one is what the settlement did to the Greek cities of Asia, freed
+             or made tributary to Pergamon according to the side each had taken
+    gr-859  The Third Macedonian War  — answered by "Callicrates of Leontium" when the card was
+             written: the war is already rm-249's answer term, and the Greek story of those years
+             is the Achaean embassy of 180 BCE that taught the senate to govern Greece through its
+             own partisans. The key is qualified — `Ictinus_and_Callicrates` holds the architect,
+             so `Callicrates_of_Leontium` claims no bare "Callicrates" surface
+    gr-860  Perseus of Macedon  — written as a DELIBERATE PAIR with rm-250, on gr-851's reasoning:
+             a king's line has no other answer, so the glossary term is REUSED and this card is the
+             last Antigonid as Greek opinion saw him — the amnesty posted at Delos and Delphi, the
+             states that wished him well, the nerve that failed at Pydna and the flight to Samothrace
     gr-861  Battle of Pydna
     gr-862  The province of Macedonia
     gr-863  The Achaean War
