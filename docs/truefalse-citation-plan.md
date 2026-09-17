@@ -1632,3 +1632,28 @@ is where the remaining pool divides: what is left is mostly either a modern find
 journal (#82, #85, #106, #136, #156) or an event with a surviving record (#26 the Bastille's seven
 prisoners, #65 the Great Fire's death toll, #29 the O.K. Corral, #33 Newton at the Mint, #73 the emu
 cull). **The second group is the cheap one and should be worked first.**
+
+### T41 — Newton at the Mint, and the pamphlet that names the hanging (2026-09-17)
+
+One cited: #33. 180 → **181 of 220**. Brewster's *Memoirs of the Life, Writings, and Discoveries of Sir
+Isaac Newton* (1860) is on archive.org in both volumes with full text: volume 1 carries "his
+appointment to the Wardenship of the Mint in 1696, and to the Mastership in 1699", and volume 2 carries
+William Chaloner across pages 144–48, quoting the 1700 pamphlet *Guzmanus Redivivus* on "the Notorious
+Coyner, who was executed at Tyburn" and Chaloner's own accusation, put before a parliamentary
+committee, against "that worthy gentleman, Isaac Newton, Esq., Warden of His Majesty's Mint".
+
+**THE OFFICE MATTERED AND THE `why` NOW SAYS SO**: prosecuting coiners was the WARDEN's business, and
+Newton was Warden when Chaloner hanged, Master only from that year. The statement is still true as
+put — he was both — but a `why` that runs the two offices together loses the thing that makes the
+story worth telling.
+
+**TWO OBVIOUS ROUTES TO THIS ONE ARE SHUT AND ARE WORTH RECORDING.** `oldbaileyonline.org` serves a
+1.2 KB JavaScript shell for its home page and **resets the connection** on a trial record, so the
+Proceedings are not reachable here; and Craig's *Newton at the Mint* (1946) is on archive.org as a
+LENDING item, whose `_djvu.txt` answers **401**. A 401 from `archive.org/download` means borrow-only
+rather than absent — check the item's own metadata before assuming the book is not there at all.
+
+**AND THE BASTILLE (#26) WAS ATTEMPTED AND LEFT.** Persée answers and is full of scholarship on the
+14th of July, and none of the first two pages of results is about the seven prisoners found inside;
+the figure lives in the Bastille's own register and in book-length accounts. It is the next one to
+try, and it wants a different search rather than a different host.
