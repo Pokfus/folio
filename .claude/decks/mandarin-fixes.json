@@ -10808,7 +10808,7 @@
       ]
     },
     "hsk30l3/中": {
-      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | '你一般中午饭吃什么？' uses 中 inside 中午, and 中午饭 is itself an odd form — the word is 午饭. Neither of the card's readings is doing any work in it. Replaced with an AUTHORED sentence showing zhòng, the reading the card states and no sentence illustrated, and the three tagged 1 / 1 / 2. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows two words, 初中 and 中间. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "Pinyin": "zhōng / zhòng",
       "Bopomofo": "ㄓㄨㄥ / ㄓㄨㄥˋ",
       "senses": [
@@ -10821,6 +10821,42 @@
           "zhòng",
           "verb",
           "to hit (a target); to be hit by, to fall into"
+        ]
+      ],
+      "dropEx": [
+        "你一般中午饭吃什么？"
+      ],
+      "ex": [
+        [
+          "他中了一枪。",
+          "He was hit by a bullet."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "中心",
+          "zhōng xīn",
+          "a centre"
+        ],
+        [
+          "集中",
+          "jí zhōng",
+          "to concentrate"
+        ],
+        [
+          "当中",
+          "dāng zhōng",
+          "among; in the middle"
+        ],
+        [
+          "空中",
+          "kōng zhōng",
+          "in the air"
         ]
       ]
     },
@@ -11453,7 +11489,7 @@
       ]
     },
     "hsk30l3/张": {
-      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | '小张人不错！' is the SURNAME Zhang, which is neither of the card's two senses — CC-CEDICT files it as a separate capitalised entry — and its English ('Little Zhang is a good guy!') says nothing about a measure word or about opening anything. Replaced with an AUTHORED sentence, which the record says so is, and which shows the verb sense the card states and never illustrated. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "senses": [
         [
           "measure word",
@@ -11462,6 +11498,42 @@
         [
           "verb",
           "to open, to spread"
+        ]
+      ],
+      "dropEx": [
+        "小张人不错！"
+      ],
+      "ex": [
+        [
+          "他张开嘴，什么也没说。",
+          "He opened his mouth and said nothing."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "张开",
+          "zhāng kāi",
+          "to open up; to spread"
+        ],
+        [
+          "紧张",
+          "jǐn zhāng",
+          "nervous; tense"
+        ],
+        [
+          "夸张",
+          "kuā zhāng",
+          "to exaggerate"
+        ],
+        [
+          "主张",
+          "zhǔ zhāng",
+          "to advocate; a position"
         ]
       ]
     },
@@ -113353,6 +113425,222 @@
           "费用",
           "fèi yòng",
           "a cost; an expense"
+        ]
+      ]
+    },
+    "hsk30l3/照": {
+      "why": "NOT ONE OF THE CARD'S THREE SENTENCES IS THE SENSE IT GLOSSES. It read 'take (a photo)', and its examples are 照他说的做 (the preposition, 'according to'), 那是一张近照吗 (the noun, a photograph) and 月亮照亮了房间 (the verb, to shine). CC-CEDICT records all of them. Split into the three the card actually teaches, and the sentences tagged. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows five words — 护照, 拍照, 照顾, 照片 and 照相 — so the rows go elsewhere. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "verb",
+          "to shine; to light up"
+        ],
+        [
+          "preposition",
+          "according to"
+        ],
+        [
+          "verb / noun",
+          "to take (a photo); a photo"
+        ]
+      ],
+      "exSense": [
+        2,
+        3,
+        1
+      ],
+      "compounds": [
+        [
+          "按照",
+          "àn zhào",
+          "according to"
+        ],
+        [
+          "照明",
+          "zhào míng",
+          "lighting"
+        ],
+        [
+          "执照",
+          "zhí zhào",
+          "a licence"
+        ],
+        [
+          "对照",
+          "duì zhào",
+          "to compare side by side"
+        ]
+      ]
+    },
+    "hsk30l3/主要": {
+      "why": "The label and the gloss were different parts of speech — 'adjective' over the adverb 'mainly' — batch 31's third shape. CC-CEDICT gives 'main; principal; major; primary', and the card's sentences split one adverb to two adjectives. Split and tagged. This is another standing `check-gloss-source.js` finding, off its list now.",
+      "senses": [
+        [
+          "adjective",
+          "main; principal; major"
+        ],
+        [
+          "adverb",
+          "mainly; mostly"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ]
+    },
+    "hsk30l3/只有": {
+      "why": "The gloss was 'only have ...', which is the first of CC-CEDICT's senses and the one NONE of the card's three sentences uses: 只有你懂我 and 能用电脑的就只有她 are 'only (someone)', and 参加的只有几个人 is 'there is only'. Widened to what the card teaches.",
+      "gloss": "only; there is only"
+    },
+    "hsk30l3/越": {
+      "why": "The gloss ended on a four-dot ellipsis — 'the more...the more….' — which is a typographical slip rather than a judgement, and the kind no checker here can see. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "the more … the more …",
+      "compounds": [
+        [
+          "越来越",
+          "yuè lái yuè",
+          "more and more"
+        ],
+        [
+          "超越",
+          "chāo yuè",
+          "to surpass; to exceed"
+        ],
+        [
+          "越过",
+          "yuè guò",
+          "to cross over"
+        ],
+        [
+          "穿越",
+          "chuān yuè",
+          "to pass through; to cross"
+        ]
+      ]
+    },
+    "hsk30l3/运动会": {
+      "why": "THREE ENGLISH WORDS FOR ONE CHINESE ONE, on one card: its lines called a 运动会 a sports competition, an athletic meeting and an athletic MEET — the last of which is American. Both of the loose ones are school sports days, which is what their Chinese describes (下雨延后了, 排练, 课程).",
+      "exEn": [
+        [
+          "运动会因为下雨延后了",
+          "The sports day was put off because of the rain."
+        ],
+        [
+          "明天是运动会的排练",
+          "Tomorrow there will be no normal lessons, because of the sports day rehearsal."
+        ]
+      ]
+    },
+    "hsk30l3/脏": {
+      "why": "The card is glossed 'dirty' and its third line said STAINED, which is a different word (有污渍) and not what 脏了 says. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. All four rows are the zāng the card teaches; the character's other reading, zàng, is an internal organ and a different word.",
+      "exEn": [
+        [
+          "你的衬衫脏了",
+          "Your shirt is dirty."
+        ]
+      ],
+      "compounds": [
+        [
+          "脏话",
+          "zāng huà",
+          "bad language"
+        ],
+        [
+          "弄脏",
+          "nòng zāng",
+          "to make dirty"
+        ],
+        [
+          "肮脏",
+          "āng zāng",
+          "filthy"
+        ]
+      ]
+    },
+    "hsk30l3/只能": {
+      "why": "'有些人只能成为朋友。' read 'Some people must be friendzoned' — internet slang for a sentence that says nothing of the kind, and a word a learner will not find in a dictionary.",
+      "exEn": [
+        [
+          "有些人只能成为朋友",
+          "Some people can only ever be friends."
+        ]
+      ]
+    },
+    "hsk30l3/周末": {
+      "why": "Found by a hand sweep of ON THE WEEKEND, which is American; British English says AT the weekend, and the decks already do so 9 times against 2. The other site is 平常 in Level 4, which carries the same sentence.",
+      "exEn": [
+        [
+          "周末他平常不在家",
+          "He is often away from home at the weekend."
+        ]
+      ]
+    },
+    "hsk30l4/平常": {
+      "why": "Found by the same AT-THE-WEEKEND sweep; this card carries the same sentence as 周末's second.",
+      "exEn": [
+        [
+          "周末他平常不在家",
+          "He is often away from home at the weekend."
+        ]
+      ]
+    },
+    "hsk30l3/住院": {
+      "why": "British English says IN HOSPITAL and GO INTO hospital, without the article — the card's second line had 'in the hospital' and its first reached for 'hospitalized', which is both American spelling and a register no learner needs.",
+      "exEn": [
+        [
+          "我必须住院吗",
+          "Do I have to go into hospital?"
+        ],
+        [
+          "她已经住院一个月了",
+          "She's been in hospital for a month."
+        ]
+      ]
+    },
+    "hsk30l3/种": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "种子",
+          "zhǒng zi",
+          "a seed"
+        ],
+        [
+          "各种",
+          "gè zhǒng",
+          "all kinds of"
+        ],
+        [
+          "品种",
+          "pǐn zhǒng",
+          "a variety; a breed"
+        ],
+        [
+          "种类",
+          "zhǒng lèi",
+          "a kind; a category"
+        ]
+      ]
+    },
+    "hsk30l3/纸": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 报纸. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "纸巾",
+          "zhǐ jīn",
+          "a tissue"
+        ],
+        [
+          "纸张",
+          "zhǐ zhāng",
+          "paper"
+        ],
+        [
+          "白纸",
+          "bái zhǐ",
+          "blank paper"
         ]
       ]
     }

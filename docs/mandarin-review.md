@@ -574,6 +574,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 361–390 (外语 → 相机), deck order, plus the whole `toward` class | 20 | a gloss cut off mid-list, and a card whose three English lines contradicted its own definition |
 | 2026-09-17 | `hsk30l3` notes 391–420 (小区 → 以后), deck order | 19 | a sentence whose headword the segmenter finds and which is still not that word |
 | 2026-09-17 | `hsk30l3` notes 421–450 (以前 → 员), deck order, plus the whole `anymore` class | 39 | the same fault twice on one card, one reported and one invisible, and a card teaching a non-word |
+| 2026-09-17 | `hsk30l3` notes 451–480 (愿意 → 住院), deck order | 14 | a card glossed with the one sense none of its three sentences uses |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -4816,3 +4817,50 @@ memberships, which is the whole of what it makes.
   `anymore` class — each by its `bytes` and `rev` alone
 - CI fast gate green: `node --check` over every root, `.claude` and `.claude/decks` script, the eight
   no-browser suites, `check-docs`, `check-questions`, `check-style`
+
+## Batch 39 — hsk30l3 notes 451–480 (愿意 → 住院)
+
+Thirty notes read in deck order, **fourteen cards changed** across 35 fields; one of them, 平常, is in
+Level 4 and carries a sentence this batch corrected in Level 3.
+
+**A CARD GLOSSED WITH THE ONE SENSE NONE OF ITS THREE SENTENCES USES.** 照 read *take (a photo)*, and
+its examples are 照他说的做 (the preposition, *according to*), 那是一张近照吗 (the noun, a photograph)
+and 月亮照亮了房间 (the verb, *to shine*). CC-CEDICT records all of them. Split into the three the card
+teaches and tagged 2 / 3 / 1 — the first card in this deck to need three senses. **主要 is the same
+shape one rung down**: labelled *adjective* over the adverb *mainly*, with its sentences one adverb to
+two adjectives, and it too was a standing `check-gloss-source.js` finding. **只有** read *only have
+…*, CC-CEDICT's first sense and again not one the card uses.
+
+**TWO SENTENCES WERE NEITHER OF THEIR CARD'S SENSES.** 张's first was 小张人不错！ — the **surname**
+Zhang, which CC-CEDICT files as a separate capitalised entry and which is neither the measure word nor
+the verb the card gives. 中's second was 你一般中午饭吃什么？, where 中 sits inside 中午 and 中午饭 is
+itself an odd form (the word is 午饭). Both replaced with authored sentences that show the sense each
+card states and never illustrated — 他张开嘴 for 张's verb, 他中了一枪 for 中's zhòng.
+
+**THREE ENGLISH WORDS FOR ONE CHINESE ONE, ON ONE CARD.** 运动会's lines called it a *sports
+competition*, an *athletic meeting* and an *athletic meet* — the last American. Both loose ones are
+school sports days, which is what their Chinese describes (下雨延后了, 排练, 课程).
+
+**TWO SMALL BRITISH-USAGE CLASSES, BOTH MEASURED.** *on the weekend* is American: **2 sites against 9
+of *at the weekend***, and the two are one sentence shared by 周末 and Level 4's 平常. **in hospital**
+takes no article in British English, which 住院's second line had wrong, and its first reached for
+*hospitalized* — American spelling and a register no learner needs. Neither is a table row; both are
+one sentence each.
+
+**SEVEN SINGLE-CHARACTER CARDS GAINED `Compounds`** — 越, 脏, 张, 照, 中, 种, 纸 — five of them with
+nothing at all in their own deck's panel. **脏's rows are all the zāng the card teaches**, its other
+reading zàng being an internal organ and a different word; 照's panel is already five words deep, so
+its rows go elsewhere.
+
+**WHAT WAS READ AND LEFT.** 越's gloss ended on a four-dot ellipsis (*the more...the more….*), a
+typographical slip now set properly. 只能's third line read *Some people must be friendzoned* — internet
+slang for a sentence that says nothing of the kind. 脏's third called a dirty shirt *stained*. And
+**照片's `check-example-fit.js` finding is a false positive**: 她喜欢拍照片 segments 拍照|片 because
+拍照 is itself a card, but 照片 really is the word there (拍 + 照片). 种 keeps its measure-word gloss:
+its other reading, zhòng *to plant*, would need the Pinyin and Bopomofo changed as 中 and 为 have, and
+no sentence on the card uses it — recorded rather than done.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 338 → 338; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 353 → 365;
+`build-lang-decks.js` re-run.
