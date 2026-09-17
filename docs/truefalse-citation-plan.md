@@ -72,7 +72,7 @@ card-side research is then shared.
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation; see the three below |
-| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one and T21 two, all researched |
+| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two and T22 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151` |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one |
@@ -977,3 +977,13 @@ was matched against every card's answer term, and the match list is short on any
     already said 1897. The `why` takes the sentence that is right and leaves the one that is not.
     **A citation is a claim about what a work says, which is not the same as a warrant to repeat
     everything it says.**
+
+### T22 — why honey keeps (2026-09-17)
+
+A 2026 *Food Science & Nutrition* review gives the mechanism in full: the unbound water (water
+activity) in honey is too low for microbes to proliferate, undiluted honey is hypertonic so water
+leaves a bacterium rather than entering it, and the acidity and the hydrogen peroxide made by glucose
+oxidase act alongside those. **THE EGYPTIAN TOMB JARS WENT** — a much-repeated claim that this review
+does not make and that nothing openable from here establishes — and with it the statement's own
+"thousands of years". The answer now explains **why** honey keeps and leaves the reader's question
+answered by the mechanism rather than by an anecdote.
