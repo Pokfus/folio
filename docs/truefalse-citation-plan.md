@@ -1785,3 +1785,29 @@ behind the paywall. **#155 is NOT cited from it all the same**: a 2026 review in
 the other way, so the statement now needs the acute-behaviour literature stated as such rather than a
 flat refutation, and that is a rewrite rather than a citation. **Note also that web.archive.org
 answered 503 and then served on a retry** — a 5xx here is the BUSY state, not a wall.
+
+### T46 — the Mongol empire, measured rather than asserted (2026-09-17)
+
+One cited: #63. 189 → **190 of 220**. Turchin, Adams and Hall's survey of sixty-two historical
+empires in the *Journal of World-Systems Research* — open access, PDF served whole at
+`jwsr.pitt.edu` — calls the Mongol empire "the largest historical empire in terms of contiguous
+territory" in its own prose, puts it at 24 Mm² in its table, and names "the next largest state in
+history after the Mongols", the Russian empire at 22.8 Mm² in 1895. **A superlative is best cited
+from the study that ranked the field**, not from a work about the subject: the source has to have
+looked at the competitors for the claim to mean anything.
+
+**AND IT EXPLAINS ITS OWN EXCLUSION**, which the statement needs: the paper leaves the European
+maritime empires out "because these empires were not contiguous (widely distributed collections of
+territories)" — so the reader is told why a larger empire does not count rather than being asked to
+take the word "contiguous" on trust.
+
+**AN OJS ARTICLE PAGE IS NOT THE PDF AND THE OBVIOUS LINK IS NOT EITHER.**
+`…/article/view/369/381` looks like the file and serves a viewer page; the download is at
+`…/article/download/369/381/454`, whose third segment appears only in that viewer's own HTML.
+**Fetch the viewer and read its `article/download` href.**
+
+**AND EUROPE PMC IS A BIOMEDICAL INDEX — it is the wrong instrument for a history statement.** Three
+searches there for Chang'an, Zheng He and shark neoplasia returned Chinese herbal medicine, one
+unrelated PLOS paper and koi carp. What is left in the pool leans historical, so the indexes that
+will carry it are DOAJ, OpenAIRE, Persée and the journals' own sites, with Europe PMC reserved for
+the medical and biological statements (#105, #124, #128, #155).
