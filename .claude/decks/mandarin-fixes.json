@@ -12918,11 +12918,11 @@
       ]
     },
     "hsk30l4/忽然": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | Its third line ran to forty characters and two clauses of simile — a musical score blown away by a gust of wind — which is a fine sentence and not an example. It was the record's OWN row, so the array is replaced. The new one is AUTHORED, which the record says so is.",
       "ex": [
         [
-          "有时我会在一瞬间忽然迷失说话的脉络，像是忽然刮来一阵狂风，将正在演奏的乐谱吹得无影无踪。",
-          "Sometimes I will lose the context of my speech in an instant, as if a sudden gust of wind blows away the music score being played without leaving a trace."
+          "他忽然停下来，回头看了一眼。",
+          "He stopped suddenly and glanced back."
         ]
       ]
     },
@@ -13410,11 +13410,11 @@
       ]
     },
     "hsk30l5/中药": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The third site of the sceptical class. It is the record's OWN sentence, so the English is corrected in the array rather than through exEn.",
       "ex": [
         [
           "很多人对中药的真实效果持怀疑态度。",
-          "Many people are skeptical about the actual effects of traditional Chinese medicine."
+          "Many people are sceptical about the actual effects of traditional Chinese medicine."
         ],
         [
           "医生给他开了一些中药。",
@@ -31327,7 +31327,7 @@
       ]
     },
     "hsk30l7/半信半疑": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The second site of the sceptical class, and this card CONTRADICTED ITSELF: its gloss said 'skeptical' while its own third sentence said 'sceptical'. The card is the record's own on that sentence, so only the gloss wanted correcting.",
       "ex": [
         [
           "大家对他的话半信半疑。",
@@ -31341,7 +31341,8 @@
           "大家对这个说法半信半疑。",
           "Everyone was sceptical about this claim."
         ]
-      ]
+      ],
+      "gloss": "half-believing and half-doubting / sceptical"
     },
     "hsk30l7/办学": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -115726,6 +115727,287 @@
         [
           "恭喜成为本店第一千位顾客",
           "Congratulations on being our thousandth customer!"
+        ]
+      ]
+    },
+    "hsk30l4/怀疑": {
+      "why": "'我们非常怀疑。' read 'We're very SKEPTICAL', which is American — British English writes it with a c — and the gloss was the bare noun 'doubt' under a verb label. `skeptical` IS NOT IN app.js's `SPELL_PAIRS`, so `check-british.js` reads 0 over the whole family whatever the decks contain: the -logue class of batch 27 and the -ward class of batch 29 again, and repaired the same way, per note. Measured over the nine decks: five American against one British, on three cards.",
+      "gloss": "to doubt; to suspect",
+      "exEn": [
+        [
+          "我们非常怀疑",
+          "We are very sceptical."
+        ]
+      ]
+    },
+    "hsk30l4/光": {
+      "why": "Labelled 'noun / verb / adjective' against the single gloss 'light', so two of the three senses had none — and the card's own third line, 光看表面是不足够的, is the ADVERB 'only', which the label does not even name. CC-CEDICT gives light, bright, only, and used up. Split and tagged. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 不光 and 阳光, against thirty-three in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. | Its third line was given the English proverb 'All that glitters is not gold', which carries not one word a reader can match to 光 — and the sentence is the very line that illustrates the adverb sense, so the English was hiding the only example of it on the card.",
+      "senses": [
+        [
+          "noun",
+          "light; a ray"
+        ],
+        [
+          "adverb",
+          "only; merely"
+        ],
+        [
+          "adjective",
+          "bare; used up"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "光明",
+          "guāng míng",
+          "bright; promising"
+        ],
+        [
+          "眼光",
+          "yǎn guāng",
+          "vision; insight"
+        ],
+        [
+          "光线",
+          "guāng xiàn",
+          "a ray of light; lighting"
+        ]
+      ],
+      "exEn": [
+        [
+          "光看表面是不足够的",
+          "It is not enough to look only at the surface."
+        ]
+      ]
+    },
+    "hsk30l4/广播": {
+      "why": "Labelled 'noun / verb' against the single gloss 'broadcast', and all three of the card's sentences are the NOUN meaning the radio — 听广播, 据广播里讲, 从广播中听到.",
+      "senses": [
+        [
+          "noun",
+          "a broadcast; the radio"
+        ],
+        [
+          "verb",
+          "to broadcast"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/规定": {
+      "why": "Labelled 'noun / verb' against the single gloss 'rule', so the verb sense had none; all three of the card's own lines are the noun.",
+      "senses": [
+        [
+          "noun",
+          "a rule; a regulation"
+        ],
+        [
+          "verb",
+          "to stipulate; to lay down"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/好好": {
+      "why": "Labelled 'adjective / adverb' against the single gloss 'well'. All three of the card's own lines are the adverb — 好好休息, 好好读, 好好记住 — and the adjective, which is a thing being in one piece, had no gloss at all. | '你能不能好好读外语？' read 'Can you please properly study a foreign language?', with the adverb in the one place English will not take it; and 你一定要好好记住 read 'You must bear it in mind', which drops 好好 — the card's whole subject.",
+      "senses": [
+        [
+          "adverb",
+          "properly; thoroughly"
+        ],
+        [
+          "adjective",
+          "in good condition; intact"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "exEn": [
+        [
+          "你能不能好好读外语",
+          "Could you study a foreign language properly?"
+        ],
+        [
+          "你一定要好好记住",
+          "You must remember it properly."
+        ]
+      ]
+    },
+    "hsk30l4/过程": {
+      "why": "Glossed 'course of events', which is a narrative rather than a process — and all three of the card's own English lines already say 'process'.",
+      "gloss": "a process; a course"
+    },
+    "hsk30l4/逛": {
+      "why": "'母亲去了逛街。' is ungrammatical — the aspect marker cannot sit between 去 and its purpose clause, which is 去逛街了 — and its English was the same 'gone shopping' the card's second line already had. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "母亲去了逛街。"
+      ],
+      "ex": [
+        [
+          "周末我喜欢逛书店。",
+          "At the weekend I like browsing bookshops."
+        ]
+      ],
+      "exEn": [
+        [
+          "我们想下午到街上去逛",
+          "We would like to go for a wander round the streets this afternoon."
+        ]
+      ]
+    },
+    "hsk30l4/国际": {
+      "why": "TWO OF ITS THREE LINES WERE FIXED COMPOUNDS THAT SWALLOW THE WORD. 开什么国际玩笑 is the idiom 'you must be joking' — nothing in it is international, and its English supplied 'stupid', which is not there either — and 国际象棋 is simply CHESS, a word whose two halves say nothing about the game. Both replaced with AUTHORED sentences, which the record says so are.",
+      "dropEx": [
+        "开什么国际玩笑。",
+        "我对国际象棋不感兴趣。"
+      ],
+      "ex": [
+        [
+          "这家公司在国际市场很有名。",
+          "This company is well known on the international market."
+        ],
+        [
+          "他参加了一个国际会议。",
+          "He attended an international conference."
+        ]
+      ]
+    },
+    "hsk30l4/厚": {
+      "why": "'今天早上下厚霜了。' is not how Chinese says it — frost falls as 下霜, and a heavy one is 厚厚的霜 — and the card's second line already carries 厚厚的. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against thirteen words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "今天早上下厚霜了。"
+      ],
+      "ex": [
+        [
+          "这件大衣很厚。",
+          "This coat is very thick."
+        ]
+      ],
+      "compounds": [
+        [
+          "厚度",
+          "hòu dù",
+          "thickness"
+        ],
+        [
+          "深厚",
+          "shēn hòu",
+          "deep; profound"
+        ],
+        [
+          "浓厚",
+          "nóng hòu",
+          "dense; strong (of interest)"
+        ]
+      ]
+    },
+    "hsk30l4/航班": {
+      "why": "Its first and second lines were the same sentence twice — 航班取消了 and 我们的航班被取消了, both of them a cancelled flight — and the first had NO FULL STOP, on the card and in the spoken field alike. Dropping it settles both. The replacement is AUTHORED, which the record says so is.",
+      "dropEx": [
+        "航班取消了"
+      ],
+      "ex": [
+        [
+          "去上海的航班每天有五班。",
+          "There are five flights a day to Shanghai."
+        ]
+      ],
+      "exEn": [
+        [
+          "请问有没有飞往纽约的不停站航班",
+          "Is there a non-stop flight to New York?"
+        ]
+      ]
+    },
+    "hsk30l4/广告": {
+      "why": "'我们应该禁止针对儿童的广告。' read 'advertising aimed TOWARDS children' — in English one aims AT a target.",
+      "exEn": [
+        [
+          "我们应该禁止针对儿童的广告",
+          "We should ban advertising aimed at children."
+        ]
+      ]
+    },
+    "hsk30l4/害羞": {
+      "why": "'你不需要害羞。' read 'You have no need to be ASHAMED' — to be ashamed is 惭愧, and 害羞 is shy, which is the card's own one-word gloss.",
+      "exEn": [
+        [
+          "你不需要害羞",
+          "You don't need to be shy."
+        ]
+      ]
+    },
+    "hsk30l4/喊": {
+      "why": "'有事好好说，不要大喊大叫！' read 'If you GOT anything to say', which wants have. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL; the collection holds one other word on this character. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "有事好好说，不要大喊大叫",
+          "If you've got something to say, say it properly — don't shout."
+        ]
+      ],
+      "compounds": [
+        [
+          "呼喊",
+          "hū hǎn",
+          "to shout; to call out"
+        ],
+        [
+          "喊话",
+          "hǎn huà",
+          "to call out to; to address publicly"
+        ]
+      ]
+    },
+    "hsk30l4/好处": {
+      "why": "'这么做没什么好处。' read 'Doing things in this way has no benefit', which is the Chinese word order rather than English.",
+      "exEn": [
+        [
+          "这么做没什么好处",
+          "There is nothing to be gained by doing it this way."
+        ]
+      ]
+    },
+    "hsk30l4/合格": {
+      "why": "'她是个合格的护士。' read 'She is qualified AS a nurse', which says she has the certificate; 合格的护士 is a qualified nurse, which says she is one. And 我以为他一定会考试合格 read 'I took it for granted' where 我以为 is what one thought and turned out to be wrong about.",
+      "exEn": [
+        [
+          "她是个合格的护士",
+          "She is a qualified nurse."
+        ],
+        [
+          "我以为他一定会考试合格",
+          "I thought he was sure to pass the exam."
+        ]
+      ]
+    },
+    "hsk30l4/汗": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "汗水",
+          "hàn shuǐ",
+          "sweat; perspiration"
+        ],
+        [
+          "冷汗",
+          "lěng hàn",
+          "a cold sweat"
         ]
       ]
     }

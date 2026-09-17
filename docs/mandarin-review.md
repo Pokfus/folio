@@ -585,6 +585,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 181–210 (而 → 父亲), deck order | 22 | a fifth truncated gloss, a gloss that was not English, and a falafel on the card for *expense* |
 | 2026-09-17 | `hsk30l4` notes 211–240 (复印 → 歌手), deck order, plus the `highway` sites | 24 | six glosses whose label named a part of speech the gloss had not got, and an English line about the wrong people |
 | 2026-09-17 | `hsk30l4` notes 241–270 (各 → 管理), deck order, plus the whole `railroad` class | 27 | the first new LEXIS row since batch 24, and a card whose gloss its own two translations contradicted |
+| 2026-09-17 | `hsk30l4` notes 271–300 (光 → 怀疑), deck order, plus the whole `skeptical` class | 22 | a fourth family `SPELL_PAIRS` has never held, and a card that contradicted itself over it |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5341,4 +5342,60 @@ would use 处理; it is recorded rather than replaced, since the card is not abo
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 413 unchanged;
+`build-lang-decks.js` re-run.
+
+## Batch 50 — hsk30l4 notes 271–300 (光 → 怀疑), plus the `skeptical` class
+
+**What the batch was.** The next thirty notes of Level 4 in deck order, plus one spelling family swept
+across all nine decks. Twenty-two cards changed.
+
+**A FOURTH FAMILY `SPELL_PAIRS` HAS NEVER HELD.** `skeptical` is not in app.js's table at all — it is a
+k-for-c spelling, not a word choice, so `exLexis` cannot take it either — and **`check-british.js`
+therefore reads 0 over the whole family whatever the decks contain.** This is the -logue class of batch 27
+and the -ward class of batch 29 a third time, and it is repaired the same way, per note: five American
+spellings against one British, on three cards. **And one of the three CONTRADICTED ITSELF** — `hsk30l7/半信半疑`
+glossed itself *skeptical* while its own third sentence said *sceptical*, which is the shape batch 32 found
+on the metre cards. Residual: zero.
+
+**The running list of what a reading of 0 from that checker does not cover is now four:** `-logue`
+(absent), `-ward` (absent), `programme` (present but one-way), `skeptic` (absent). **Grep the families by
+hand after a content batch.**
+
+**FIVE MORE LABEL-AGAINST-GLOSS CARDS**, which makes twenty-five across six batches. 光 was labelled *noun /
+verb / adjective* against the single gloss *light*, and **its own third line is the ADVERB 'only'** — a
+sense the label does not even name. 广播, 规定 and 好好 each named two parts of speech against one gloss,
+and in all three every sentence on the card is the sense that was glossed, so the reader met one use and was
+tested on two. 过程 was glossed *course of events*, a narrative rather than a process, where its own three
+English lines already say *process*.
+
+**TWO FIXED COMPOUNDS THAT SWALLOW THEIR CARD'S WORD, ON ONE CARD.** 国际's first line was 开什么国际玩笑,
+the idiom *you must be joking* — nothing in it is international, and its English supplied a *stupid* that is
+not there — and its second was 国际象棋, which is simply CHESS, a word whose two halves say nothing about
+the game. Two of three lines, both replaced.
+
+**FOUR MORE SENTENCES WENT.** 逛's first was ungrammatical (the aspect marker cannot sit between 去 and its
+purpose clause) and duplicated the second's English. 厚's third had frost falling as 下厚霜 where Chinese
+says 下霜. 航班's first was a cancelled flight one line above another cancelled flight, **and had no full
+stop**, so dropping it settled both. And 忽然's third ran to forty characters and two clauses of simile — a
+fine sentence and not an example — which was the record's own row, so the array was replaced.
+
+**FOUR SINGLE-CHARACTER CARDS GAINED `Compounds`** — 光, 厚, 喊, 汗, three of the four panels empty and 厚's
+against thirteen words in the collection. **逛 was measured and left because the collection holds NO other
+word on that character at all**, which is the first time that has been the answer.
+
+**NINE ENGLISH LINES.** 光's third was given the proverb *All that glitters is not gold*, which carries not
+one word a reader could match to the headword — **and that line is the card's only example of the adverb
+sense**, so the English was hiding the very thing the split had just named. 合格's first read *qualified as a
+nurse*, which says she holds the certificate, where 合格的护士 says she is one. 害羞's third read *ashamed*
+for a card glossed *shy*. 好好's second put the adverb in the one place English will not take it, and its
+third dropped the headword entirely. 航班's *nonstop* wanted its hyphen and 广告's *aimed towards* wanted
+*at*.
+
+**Read and left.** 寒冷's 我喜欢寒冷 uses an adjective as a bare object, which is marginal rather than wrong;
+互联网's second line has 主要 before 互联网 where the order wants 主要的互联网, and is the corpus's fault
+rather than the card's.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 413 → 425;
 `build-lang-decks.js` re-run.
