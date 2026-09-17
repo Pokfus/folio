@@ -9523,9 +9523,23 @@
    ]
   },
   "hsk30l2/奶茶": {
-   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | Two of its three sentences. 我从没喝过奶茶 was rendered \"I've never drank milk with tea\" — the wrong participle, and 奶茶 is milk tea, one drink, not milk served with tea. And 今天的使命：奶茶跟麻糬 is a note to oneself built on 使命 (Level 7) and 麻糬, which is a Taiwanese transcription the mainland writes 麻薯. Both replaced with AUTHORED sentences.",
    "mw": [
     "杯"
+   ],
+   "dropEx": [
+    "我从没喝过奶茶。",
+    "今天的使命：奶茶跟麻糬。"
+   ],
+   "ex": [
+    [
+     "我想喝一杯奶茶。",
+     "I would like a cup of milk tea."
+    ],
+    [
+     "这家店的奶茶很好喝。",
+     "The milk tea at this shop is very good."
+    ]
    ]
   },
   "hsk30l2/小孩儿": {
@@ -9823,7 +9837,7 @@
    ]
   },
   "hsk30l2/每": {
-   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. The nine decks hold NOT ONE word built on this character, which is the emptiest panel found so far; all four rows are the dictionary's, and they are the four a Level 2 reader uses every day.",
    "senses": [
     [
      "pronoun",
@@ -9832,6 +9846,28 @@
     [
      "adverb",
      "every time, whenever"
+    ]
+   ],
+   "compounds": [
+    [
+     "每天",
+     "měi tiān",
+     "every day"
+    ],
+    [
+     "每年",
+     "měi nián",
+     "every year"
+    ],
+    [
+     "每次",
+     "měi cì",
+     "every time"
+    ],
+    [
+     "每个",
+     "měi ge",
+     "each one"
     ]
    ]
   },
@@ -9864,9 +9900,15 @@
    ]
   },
   "hsk30l2/男孩儿": {
-   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | Its second example's English read \"That boy has good brains\", which is not how 很聪明 is said in English. The Chinese is unchanged.",
    "mw": [
     "个"
+   ],
+   "exEn": [
+    [
+     "那个男孩儿很聪明。",
+     "That boy is very clever."
+    ]
    ]
   },
   "hsk30l2/画": {
@@ -10059,10 +10101,41 @@
    ]
   },
   "hsk30l2/肉": {
-   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | Its second example was 他不喜欢鱼肉。rendered \"He doesn't like fish\" — 鱼肉 is a word (the flesh of a fish), so the headword sits inside it, and the English drops the 肉 that is the whole card. Replaced with an AUTHORED sentence that also uses the card's own measure word, 块. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
    "mw": [
     "块",
     "片"
+   ],
+   "dropEx": [
+    "他不喜欢鱼肉。"
+   ],
+   "ex": [
+    [
+     "这块肉太肥了。",
+     "This piece of meat is too fatty."
+    ]
+   ],
+   "compounds": [
+    [
+     "牛肉",
+     "niú ròu",
+     "beef"
+    ],
+    [
+     "猪肉",
+     "zhū ròu",
+     "pork"
+    ],
+    [
+     "鸡肉",
+     "jī ròu",
+     "chicken"
+    ],
+    [
+     "肉类",
+     "ròu lèi",
+     "meats"
+    ]
    ]
   },
   "hsk30l2/药店": {
@@ -10082,7 +10155,7 @@
    ]
   },
   "hsk30l2/让": {
-   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
    "senses": [
     [
      "verb",
@@ -10091,6 +10164,23 @@
     [
      "preposition",
      "by (marking the agent in a passive)"
+    ]
+   ],
+   "compounds": [
+    [
+     "让开",
+     "ràng kāi",
+     "to get out of the way"
+    ],
+    [
+     "让步",
+     "ràng bù",
+     "to give way; to concede"
+    ],
+    [
+     "转让",
+     "zhuǎn ràng",
+     "to transfer (ownership)"
     ]
    ]
   },
@@ -10262,15 +10352,51 @@
    ]
   },
   "hsk30l2/面": {
-   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | The card glossed the face, the side and the classifier — and TWO of its three sentences are NOODLES: 你喜欢吃牛肉面吗 and 我们的拌面里有好多东西. That is not a stretched sense but a different word: 面 is the simplification of BOTH 面 (face) and 麵 (flour, noodles), and CC-CEDICT keeps them as separate entries under the one simplified form. A learner meeting 牛肉面 on this card had nothing to attach it to. Added as a third sense and each example tagged. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 6 other words. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. ITS PANEL IS THE FULLEST IN THE DECK — 后面, 里面, 前面, 上面, 外面, 下面, all six of them positional — so the rows go where the panel cannot, and two of them (面包, 面条) are the FLOUR sense this batch has just added to the gloss, which no positional compound can show.",
    "senses": [
     [
      "noun",
-     "the face; a side, an aspect; a surface"
+     "the face; a side; a surface"
     ],
     [
      "measure word",
      "(for flat things such as flags and mirrors)"
+    ],
+    [
+     "noun",
+     "noodles; flour"
+    ]
+   ],
+   "exSense": [
+    1,
+    3,
+    3
+   ],
+   "compounds": [
+    [
+     "面包",
+     "miàn bāo",
+     "bread"
+    ],
+    [
+     "见面",
+     "jiàn miàn",
+     "to meet face to face"
+    ],
+    [
+     "方面",
+     "fāng miàn",
+     "an aspect; a respect"
+    ],
+    [
+     "面对",
+     "miàn duì",
+     "to face; to confront"
+    ],
+    [
+     "面条",
+     "miàn tiáo",
+     "noodles"
     ]
    ]
   },
@@ -71152,21 +71278,52 @@
    ]
   },
   "hsk30l2/名": {
-   "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information.",
+   "why": "Two sentences out of three, and the gloss with them. **我喜欢我的名子。 has 名子 where the word is 名字** — a homophone of the second character, and the deck has 名字 as a Level 1 card, so a beginner was being shown the wrong spelling of a word they had already learnt. And 大名是什么？, rendered \"What is his real name?\", has 大名 as a word of its own with no 他 anywhere in the Chinese to justify the possessive. | The first replacement written for this card put 名 inside 名字 — the very fault being repaired two lines up — and was thrown away. That is worth recording: **名 as a FREE word in modern Chinese is essentially only the classifier**, for people (三十名学生) and for places in a ranking (第三名); the \"name\" sense is what it means inside 名字, 姓名 and 有名. So the gloss now marks that sense **(bound form)**, as 晚, 早, 月 and 一 were, and both AUTHORED sentences use the classifier. No sense tags: all three examples are the second sense, and three identical labels say nothing. The compound list is where the bound sense lives: 名字, 姓名, 有名, 报名 are all of them that first sense, which the examples now deliberately do not show.",
    "senses": [
     [
      "noun",
-     "name"
+     "(bound form) a name"
     ],
     [
      "measure word",
-     "[for people]"
+     "(for people, and for places in a ranking)"
     ]
    ],
-   "exSense": [
-    1,
-    2,
-    1
+   "dropEx": [
+    "我喜欢我的名子。",
+    "大名是什么？"
+   ],
+   "ex": [
+    [
+     "我们班有三十名学生。",
+     "There are thirty students in our class."
+    ],
+    [
+     "两名医生来了。",
+     "Two doctors arrived."
+    ]
+   ],
+   "compounds": [
+    [
+     "名字",
+     "míng zi",
+     "a name"
+    ],
+    [
+     "姓名",
+     "xìng míng",
+     "a full name"
+    ],
+    [
+     "有名",
+     "yǒu míng",
+     "famous"
+    ],
+    [
+     "报名",
+     "bào míng",
+     "to sign up; to enrol"
+    ]
    ]
   },
   "hsk30l3/声": {
@@ -104832,6 +104989,307 @@
      "公路",
      "gōng lù",
      "a highway"
+    ]
+   ]
+  },
+  "hsk30l2/旅游": {
+   "why": "Its gloss was the single word \"tourism\" — a NOUN — under a **verb** part of speech, so neither half of the card was right: all three of its sentences are the verb (他们一起旅游, 我有个到国外旅游的机会). CC-CEDICT gives both. Split.",
+   "senses": [
+    [
+     "verb",
+     "to travel; to tour"
+    ],
+    [
+     "noun",
+     "travel; tourism"
+    ]
+   ]
+  },
+  "hsk30l2/跑步": {
+   "why": "Its gloss was \"running; jogging\" under a **verb** part of speech — two gerunds where a verb was claimed. CC-CEDICT: \"to run; to jog\". That is the seventh card caught by the register rule.",
+   "gloss": "to run; to jog"
+  },
+  "hsk30l2/起来": {
+   "why": "Two things in one gloss. It read \"stand up; sit up; rise to one's feet\" — three renderings of one meaning with no \"to \" on any of them — and its FIRST sentence, 听起来不错, is not that meaning at all: 起来 after a perception verb is the particle, which CC-CEDICT files as a separate entry (\"(after a verb) indicating the beginning and continuation of an action\"). Split, the verb given its \"to \", and each example tagged.",
+   "senses": [
+    [
+     "verb",
+     "to stand up; to get up"
+    ],
+    [
+     "particle",
+     "(after a verb) marks the start of an action"
+    ]
+   ],
+   "exSense": [
+    2,
+    1,
+    1
+   ]
+  },
+  "hsk30l2/那么": {
+   "why": "Its gloss was \"like that\" under \"pronoun / conjunction\" — naming two categories against one meaning, and the conjunction's was not on the card: its second sentence, 那么，我们从哪儿开始？, is \"SO, where shall we begin\", which CC-CEDICT gives as \"then; in that case\". Split and tagged.",
+   "senses": [
+    [
+     "pronoun",
+     "like that; to that extent"
+    ],
+    [
+     "conjunction",
+     "then; in that case"
+    ]
+   ],
+   "exSense": [
+    1,
+    2,
+    1
+   ]
+  },
+  "hsk30l2/慢": {
+   "why": "Its first example was 我上午慢跑。 — 慢跑 is a word of its own (to jog), so the headword does not stand alone in it; and **the very same sentence is also the first example on 跑's card**, where 跑 is inside the same compound. One line was failing two cards in the same way. Both replaced; this one with an AUTHORED sentence in the frame a beginner needs first. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "dropEx": [
+    "我上午慢跑。"
+   ],
+   "ex": [
+    [
+     "请说慢一点。",
+     "Please speak a little more slowly."
+    ]
+   ],
+   "compounds": [
+    [
+     "慢慢",
+     "màn màn",
+     "slowly; little by little"
+    ],
+    [
+     "缓慢",
+     "huǎn màn",
+     "slow; sluggish"
+    ],
+    [
+     "慢性",
+     "màn xìng",
+     "chronic; slow-acting"
+    ]
+   ]
+  },
+  "hsk30l2/跑": {
+   "why": "Its first example was 我上午慢跑。, shared with 慢 in this same deck and putting the headword inside 慢跑 on both cards. Replaced with an AUTHORED sentence. (That is the sixth one-sentence-two-cards find of the pass, and the first where the sentence was wrong FOR BOTH.) | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "dropEx": [
+    "我上午慢跑。"
+   ],
+   "ex": [
+    [
+     "那只狗跑得很快。",
+     "That dog runs very fast."
+    ]
+   ],
+   "compounds": [
+    [
+     "跑步",
+     "pǎo bù",
+     "to run; to jog"
+    ],
+    [
+     "跑道",
+     "pǎo dào",
+     "a running track; a runway"
+    ],
+    [
+     "逃跑",
+     "táo pǎo",
+     "to run away; to flee"
+    ],
+    [
+     "赛跑",
+     "sài pǎo",
+     "a foot race"
+    ]
+   ]
+  },
+  "hsk30l2/球": {
+   "why": "Its first example was 他是个网球球手。 — **球手 doubles the 球 of 网球**; a tennis player is 网球运动员 or 网球选手, and 球手 alone is used of golf. The sentence is ungrammatical and puts the headword inside two words at once. Replaced with an AUTHORED sentence where 球 is the object. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 2 other words. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "dropEx": [
+    "他是个网球球手。"
+   ],
+   "ex": [
+    [
+     "他们在公园里踢球。",
+     "They are playing football in the park."
+    ]
+   ],
+   "compounds": [
+    [
+     "足球",
+     "zú qiú",
+     "football"
+    ],
+    [
+     "网球",
+     "wǎng qiú",
+     "tennis"
+    ],
+    [
+     "球队",
+     "qiú duì",
+     "a team"
+    ],
+    [
+     "地球",
+     "dì qiú",
+     "the Earth"
+    ]
+   ]
+  },
+  "hsk30l2/旁边": {
+   "why": "Its third example was twenty-two characters of a joke — 你旁边是不是老坐着个中国人帮你打字啊 ！ — and it carried **a space before its exclamation mark**, one of the seventeen named as their own batch two batches ago. Both faults go with the sentence: replaced with an AUTHORED one built from words this deck already teaches.",
+   "dropEx": [
+    "你旁边是不是老坐着个中国人帮你打字啊 ！"
+   ],
+   "ex": [
+    [
+     "图书馆旁边有一家咖啡店。",
+     "There is a coffee shop next to the library."
+    ]
+   ]
+  },
+  "hsk30l2/没意思": {
+   "why": "Its third example was 昨天我变成了神，但没意思，所以今天我变成了鬼。 — \"yesterday I became a god… so today I became a devil\", which is a joke from a sentence bank rather than a teaching example, and is built on 变成, 神 and 鬼, none of them Level 2. Replaced with an AUTHORED sentence in the commonest frame.",
+   "dropEx": [
+    "昨天我变成了神，但没意思，所以今天我变成了鬼。"
+   ],
+   "ex": [
+    [
+     "这个电影很没意思。",
+     "This film is very boring."
+    ]
+   ]
+  },
+  "hsk30l2/奶奶": {
+   "why": "Its first example was 我奶奶也告诉了我这样。 — 告诉我这样 is not a construction Chinese has; it wants 这样告诉我 or simply 告诉我. Replaced with an AUTHORED sentence.",
+   "dropEx": [
+    "我奶奶也告诉了我这样。"
+   ],
+   "ex": [
+    [
+     "我奶奶今年八十岁了。",
+     "My grandmother is eighty this year."
+    ]
+   ]
+  },
+  "hsk30l2/门": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 3 other words. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "compounds": [
+    [
+     "门口",
+     "mén kǒu",
+     "a doorway"
+    ],
+    [
+     "部门",
+     "bù mén",
+     "a department"
+    ],
+    [
+     "专门",
+     "zhuān mén",
+     "specialised; specially"
+    ],
+    [
+     "热门",
+     "rè mén",
+     "in great demand; popular"
+    ]
+   ]
+  },
+  "hsk30l2/拿": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "compounds": [
+    [
+     "拿走",
+     "ná zǒu",
+     "to take away"
+    ],
+    [
+     "拿出",
+     "ná chū",
+     "to take out; to produce"
+    ],
+    [
+     "拿手",
+     "ná shǒu",
+     "to be good at"
+    ]
+   ]
+  },
+  "hsk30l2/鸟": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "compounds": [
+    [
+     "小鸟",
+     "xiǎo niǎo",
+     "a little bird"
+    ],
+    [
+     "鸟类",
+     "niǎo lèi",
+     "birds; the bird family"
+    ],
+    [
+     "候鸟",
+     "hòu niǎo",
+     "a migratory bird"
+    ]
+   ]
+  },
+  "hsk30l2/票": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 2 other words. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. 发票 is on the list because a reader in China meets it at every till, and it is the one 票 word whose meaning cannot be guessed from the others.",
+   "compounds": [
+    [
+     "机票",
+     "jī piào",
+     "a plane ticket"
+    ],
+    [
+     "门票",
+     "mén piào",
+     "an entrance ticket"
+    ],
+    [
+     "邮票",
+     "yóu piào",
+     "a postage stamp"
+    ],
+    [
+     "发票",
+     "fā piào",
+     "a receipt; an invoice"
+    ],
+    [
+     "投票",
+     "tóu piào",
+     "to vote"
+    ]
+   ]
+  },
+  "hsk30l2/晴": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "compounds": [
+    [
+     "晴天",
+     "qíng tiān",
+     "a clear day"
+    ],
+    [
+     "晴朗",
+     "qíng lǎng",
+     "sunny and cloudless"
+    ],
+    [
+     "放晴",
+     "fàng qíng",
+     "to clear up after rain"
     ]
    ]
   }

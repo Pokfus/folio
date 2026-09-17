@@ -550,6 +550,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l2` notes 1–30 (啊 → 但), deck order | 18 | a gloss naming three senses the card shows none of |
 | 2026-09-17 | `hsk30l2` notes 31–60 (但是 → 机场), deck order | 20 | a polyphone's commonest reading glossed at its narrowest sense |
 | 2026-09-17 | `hsk30l2` notes 61–90 (机票 → 路上), deck order | 19 | a gloss that is an archaism the dictionary marks (old) |
+| 2026-09-17 | `hsk30l2` notes 91–120 (旅游 → 肉), deck order | 19 | a card missing the sense two of its three sentences show |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -1558,7 +1559,12 @@ Also 爱好's 他们都是电影爱好者。, where 爱好者 is a word of its o
 corpus-wide punctuation pass cannot touch this — it converts ASCII marks to their full-width forms and
 never moves whitespace — so it was re-added correctly here.
 
-**Swept for as a class, there are 17 distinct sentences like it, on 20 cards across 9 decks**:
+**Swept for as a class, there are 17 distinct sentences like it, on 20 cards across 9 decks**
+— ⚠ **that figure is WRONG and is corrected in the batch 15 entry at the foot of this file: the real
+count is 32 blocks, 24 distinct sentences.** The sweep below used a character class of FULL-WIDTH
+punctuation only, and so missed every sentence whose mark after the space is still ASCII — which is
+precisely the set the punctuation pass could not convert, its own rule requiring the mark to follow a
+Han character immediately. The table that follows is therefore a SUBSET:
 
 | deck | card | sentence |
 |---|---|---|
@@ -1799,3 +1805,101 @@ character; what the corpus offers instead is 阁楼 and 酒楼, a loft and a tav
 stand. 离's second example is the same sentence as 近's second (电影院离电车站近吗？) — the fifth
 one-sentence-two-cards find, and the second where **both cards use it correctly**, so it is recorded
 rather than changed.
+
+### 2026-09-17 — Level 2, notes 91–120
+
+**What the batch was.** The thirty cards 旅游 → 肉, read one at a time against CC-CEDICT and against
+their own three sentences. **Nineteen were changed**, eleven left alone.
+
+### The one to read first
+
+**面's card glossed the face, the side and the classifier — and two of its three sentences are
+NOODLES.** 你喜欢吃牛肉面吗 and 我们的拌面里有好多东西. That is not a stretched sense but a different
+word: the simplified 面 merges 面 (face) and **麵** (flour, noodles), which CC-CEDICT keeps as separate
+entries under the one form. A learner meeting 牛肉面 on this card had nothing whatever to attach it to.
+Added as a third sense, and each example tagged.
+
+### A wrong character inside the word the card is about
+
+**名's 我喜欢我的名子。 has 名子 where the word is 名字** — a homophone of the second character, and the
+deck carries 名字 as a Level 1 card, so a beginner was shown the wrong spelling of a word they had
+already learnt.
+
+### …and the replacement I wrote for it was wrong in the way this pass keeps finding
+
+The first authored sentence for that slot was **请问你的名字怎么写？** — which puts 名 inside 名字, the
+very fault being repaired two lines above it. Thrown away, and the card rethought. What came out of that
+is worth keeping: **名 as a FREE word in modern Chinese is essentially only the classifier**, for people
+(三十名学生) and for places in a ranking (第三名); the "name" sense is what it means *inside* 名字, 姓名
+and 有名. So the gloss now marks that sense **(bound form)** — as 晚, 早, 月 and 一 were — both authored
+sentences use the classifier, and the compound list is where the bound sense lives.
+
+**Check an authored replacement for the fault you are replacing.** It is the second time this pass has
+had to: 大学生's sentence in batch 2 introduced an example-fit finding the same way.
+
+### One sentence, two cards, and wrong on both
+
+**我上午慢跑。was the first example on 慢 AND on 跑**, and on both of them the headword sits inside 慢跑,
+a word of its own. Sixth one-sentence-two-cards find of the pass, and **the first where the sentence was
+wrong for both cards** — the four before it were either right for both or wrong for one.
+
+### The glosses
+
+- **旅游's gloss was the single word "tourism"** — a noun — under a **verb** part of speech, so neither
+  half of the card was right; all three of its sentences are the verb.
+- **跑步 was "running; jogging" under a verb**, two gerunds where a verb was claimed. Seventh card caught
+  by the register rule.
+- **起来 was "stand up; sit up; rise to one's feet"** — three renderings of one meaning, no "to " on any
+  — and its FIRST sentence, 听起来不错, is not that meaning: 起来 after a perception verb is the
+  particle, which CC-CEDICT files separately.
+- **那么 was "like that" under "pronoun / conjunction"**, and the conjunction's meaning was absent: its
+  second sentence is "SO, where shall we begin".
+
+### The sentences
+
+**球's 他是个网球球手。 doubles the 球 of 网球** — a tennis player is 网球运动员 or 网球选手, and 球手
+alone is used of golf; the headword ends up inside two words at once. **肉's 他不喜欢鱼肉** puts it
+inside 鱼肉 and the English drops the meat entirely. **奶奶's 我奶奶也告诉了我这样** is not a construction
+Chinese has. **奶茶** lost two of three: one rendered "I've never drank milk with tea" (wrong participle,
+and 奶茶 is one drink), the other a note-to-self built on 使命 and 麻糬, a Taiwanese transcription the
+mainland writes 麻薯. **没意思's** third was a joke about becoming a god and then a devil.
+
+**旁边's** third example was twenty-two characters of a different joke AND carried a space before its
+exclamation mark — which leads to the correction below.
+
+### ⚠ A measurement I recorded in batch 12 was wrong, and here is the right one
+
+That entry says the stray-space fault is **17 distinct sentences on 20 cards**. It is not. The sweep
+behind it used a character class of **full-width punctuation only**, so it missed every sentence whose
+mark after the space is still **ASCII** — and that is precisely the set the punctuation pass could not
+convert, since its own rule requires the mark to follow a Han character *immediately*. A space in
+between leaves the ASCII mark standing, and the sweep then could not see it either. Two blind spots
+that happen to line up.
+
+**The real figure is 32 blocks, 24 distinct sentences, across 9 decks.** The fifteen the first sweep
+missed are all of the shape 吗 ? — a question mark left in ASCII behind a space — on `hsk30l4` 重, 距离,
+热闹, 之间, `hsk30l5` 大象, 火锅, 品尝, 或是, `hsk30l6` 滑雪, `hsk30l7` 饶, 坠, 贩卖, 魔鬼, and (before
+this batch fixed it) `hsk30l2` 旁边.
+
+**The lesson is the one this file keeps recording about its own measurements**: a figure produced by a
+regular expression is only as wide as the expression, and the way to find out is to ask the question a
+second way. The corrected sweep is in this batch's checks.
+
+### On the compound lists
+
+**Thirteen cards got one.**
+
+- **面's panel is the fullest in the deck** — 后面, 里面, 前面, 上面, 外面, 下面, every one of them
+  positional — so the rows go where it cannot, and two of them (面包, 面条) are the FLOUR sense this
+  batch has just added to the gloss, which no positional compound could ever show.
+- **每 has NOT ONE word built on it in any of the nine decks**, which is the emptiest panel found so far.
+  All four rows are the dictionary's, and they are the four a Level 2 reader uses every day.
+- **每个 takes CC-CEDICT's neutral měi ge**, there being no deck card to defer to — and it agrees with
+  the deck's own habit, which writes 这个 zhè ge.
+
+### Read and left alone
+
+绿茶, 绿色, 每, 门, 门口, 门票, 拿, 那样, 男孩儿 (beyond its second English), 女孩儿, 票, 妻子, 前面,
+晴, 让 and 鸟 are right as they stand. 票's third example is the same sentence as 门票's second, and
+拿's first the same as 过来's second — both the fifth and seventh one-sentence-two-cards finds, and both
+correct for both cards, so both are recorded rather than changed.
