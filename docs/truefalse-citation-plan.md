@@ -67,12 +67,12 @@ card-side research is then shared.
 | batch | category | note |
 |---|---|---|
 | T1 | Prehistory | **done** — written cited |
-| T2 | Ancient & classical | part done; T2a, T2b, T2c and T16 between them |
+| T2 | Ancient & classical | part done; T2a, T2b, T2c and T16 between them; T29 one off Pliny and Plutarch |
 | T3 | Chinese history | part done; `cnh-` cards carry most of it; T19 two lifted out of `wh-399`, `wh-400` and `cnh-238` |
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark, T24 one off ffoulkes |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor; see the three below |
-| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one, T23 one, T26 one and T27 one, all researched |
+| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one, T23 one, T26 one, T27 one and T29 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier, T25 three off OpenStax and one off the Nobel Foundation, T27 one more and T28 one more off OpenStax |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151`, T26 three off OpenStax and NASA Space Place |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one; T27 two off OpenStax |
@@ -1224,4 +1224,36 @@ exactly which sentence is missing, and that is worth having written down.
 **A workflow note, not a citation one.** The repository's `browser` CI job carries no
 `timeout-minutes`, so it inherits GitHub's six-hour default — on a single runner, one hung suite
 would block every later run. Worth a line in the workflow the next time it is touched.
+
+### T29 — off the textbook shelf, deliberately (2026-09-17)
+
+**Two statements, 160 → 162 of 220 (74%).** Written to answer T27's own concentration note: neither
+citation is OpenStax, and both hosts are ones the pass had recorded as open and then not used.
+
+· **#48 the caesarean section is not named for Julius Caesar (FALSE)** — TWO ANCIENT SOURCES, on two
+  different open hosts, each answering half the statement. Pliny (*Natural History* 7.7, on Perseus)
+  gives the etymology to an ANCESTOR: "the first, too, of the Cæsars was so named, from his having
+  been removed by an incision in his mother's womb." Plutarch (*Life of Caesar* 9–10, on
+  LacusCurtius) disposes of the rest: Aurelia is keeping watch over Caesar's wife and putting a stop
+  to the Bona Dea rites in 62 BCE, when her son was praetor and about thirty-eight. **THE STATEMENT
+  IS COMPOUND AND SO IS THE ANSWER** — the name, and the mother — and each half needed its own source.
+  What went is the old answer's claim that in Roman times the operation was performed only on dead or
+  dying women. That is very likely true and neither source says it.
+
+· **#99 goldfish do not have a three-second memory (FALSE)** — Liu et al., "Whole Body Motor
+  Adaptation in Goldfish Using Fish Operated Vehicle" (*Eur. J. Neurosci.*, 2025), open at Europe
+  PMC. Goldfish steering a wheeled tank adapt to a rotational perturbation, show aftereffects once it
+  is removed, and **do better when it is re-introduced**, which is retention between sessions. **A
+  SAVINGS EFFECT IS THE CLEANEST REFUTATION THERE IS**, because it is memory measured rather than
+  inferred.
+  **AND THE AUTHOR'S NAME WAS THE TRAP CLAUDE.md WARNS ABOUT.** Europe PMC gives `Liu Z`; the obvious
+  expansion is *Zhuo*, it reads perfectly, and Crossref says **Zhuoxin**. One request settled it.
+  **Resolve initials against Crossref before writing a citation**, TF statements included — the
+  checker that catches this runs over cards, not over this pool.
+
+**Hosts.** `penelope.uchicago.edu` (LacusCurtius) and `www.perseus.tufts.edu/hopper/text` both answer
+and are the right shelf for anything ancient. **`bmj.com` is SHUT (403)**, which costs the pool
+Vreeman and Carroll's "Festive medical myths" — the one paper that would answer **#124** (body heat
+through the head) and **#155** (sugar and hyperactivity) together, and which Europe PMC indexes
+without holding the text. Those two remain open and now have a named target.
 
