@@ -589,6 +589,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 301–330 (坏处 → 记者), deck order, plus a hint pair retired across two decks | 21 | a card whose own first line was the one sense its gloss had not got, twice over |
 | 2026-09-17 | `hsk30l4` notes 331–360 (加班 → 降低), deck order, plus the whole `hometown` class | 32 | a gloss that was a calque, a card glossing a reading it did not give, and a correction to batch 50 |
 | 2026-09-17 | `hsk30l4` notes 361–390 (降价 → 进行), deck order | 19 | an obscene sentence a single-character card's own discriminator excuses, and a character error the English gave away |
+| 2026-09-17 | `hsk30l4` notes 391–420 (禁止 → 考生), deck order | 15 | the `compounds` guard refused a block, and a FAIL turns out to REPORT after the write rather than refuse |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5563,3 +5564,51 @@ a subjectless fragment whose 教育系 swallowed the headword into a department 
 still-ambiguous 2; **shared-gloss groups 336 → 335**; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 461 → 476;
 `build-lang-decks.js` re-run. Residuals for `transportation`, the ASCII ellipsis and 接口: zero.
+
+## Batch 54 — hsk30l4 notes 391–420 (禁止 → 考生)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order. Fifteen cards changed.
+
+**A FAIL REPORTS AFTER THE WRITE; IT DOES NOT REFUSE THE RUN — AND BATCH 38's LOG SAYS OTHERWISE.** A
+`compounds` block was written for 禁止 naming 严禁, 禁令 and 禁区, and the applier refused every row:
+`compounds` rows must contain the card's own HEADWORD, which is the two-character word 禁止, where those
+three carry only 禁. **The guard is right** — the tap panel is per CHARACTER and the `Compounds` field
+belongs to the card's own word — so a single-character block cannot be parked on a two-character card that
+happens to contain it. What the run then showed is that `fs.writeFileSync` sits at line 801 and every FAIL
+report at 832 and after: **the good part of the batch had already landed and only the refused rows did
+nothing.** Batch 38's entry says its bad `exEn` rows made the applier "refuse the whole run"; that was
+wrong, and the true account is that those rows simply never applied while the rest of that batch was
+written. The safeguard is that **the FAIL prints on every run, `--check` included**, so a bad row left in
+the record announces itself for ever rather than drifting silently — but a session must not read a FAIL as
+"nothing happened".
+
+**A SHARED-GLOSS GROUP DISSOLVED.** 竞争 was glossed *to compete*, a group it shared with 参赛, and its own
+second line is the NOUN — 精彩的竞争, splendid competition. Groups 335 → 334, the fourth such retirement.
+
+**FIVE MORE LABEL-AGAINST-GLOSS CARDS** — 经济, 经历, 竞争, 究竟, 聚会 — which makes **fifty over ten
+batches**. 经济 is the one worth keeping: glossed **economics**, which is 经济学, a third word — while its
+own three lines are the ECONOMY, the adjective ECONOMIC and the adjective ECONOMICAL, none of them the
+discipline. 究竟's gloss was two adverb phrases under a *noun / adverb* label, and neither of them the sense
+all three of its lines use.
+
+**FIVE SENTENCES WENT.** 禁止's first, 禁止游戏吗, is not a sentence anybody says and its English read
+*Suspend the game?*. 就是's second, 不是你对的，就是我, is ungrammatical — the 不是…就是… frame takes parallel
+predicates, so the 的 has nothing to attach to and the second half has no predicate at all. 剧院's third
+asked an A-or-B question with 还是 AND 吗, which Chinese does not do. 烤's second was about an 烤箱, an oven,
+and called it CLOSED where 关 of an appliance is turned off. And 聚's first was the idiom 好聚好散, which
+swallows the character into a fixed phrase **and whose English asserts a DIVORCE that is nowhere in the
+Chinese**.
+
+**TWO SINGLE-CHARACTER CARDS GAINED `Compounds`** — 烤, whose panel is empty, and 聚. 举 (three in the deck)
+and 镜 (two of the collection's five) were measured and left.
+
+**TEN ENGLISH LINES.** 精彩's second was given the idiom *pearls before swine*, which says something the
+Chinese does not and calls the audience swine into the bargain. 经历's first read *Worse things have
+happened to both of us*, a comparison nothing in the sentence makes. 举例's read *to REIFY your idea*. 就是's
+read *This is THE life*, which in English means the good life. 聚会's read *He loves to PARTY*. And 看法's
+first dropped the headword and disagreed with the person instead of the view.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; **shared-gloss groups 335 → 334**; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 476 → 491;
+`build-lang-decks.js` re-run.

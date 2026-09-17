@@ -116826,6 +116826,261 @@
           "If there is anything at all I can help you with, please just say."
         ]
       ]
+    },
+    "hsk30l4/经济": {
+      "why": "Glossed 'economics' under a 'noun / adjective' label, and economics is 经济学 — a third word. The card's own lines are the ECONOMY (经济怎么样), the adjective ECONOMIC (经济实力) and the adjective ECONOMICAL (比大车经济), none of which is the discipline. Split and tagged.",
+      "senses": [
+        [
+          "noun",
+          "the economy"
+        ],
+        [
+          "adjective",
+          "economic; economical"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ]
+    },
+    "hsk30l4/经历": {
+      "why": "Labelled 'noun / verb' against the single gloss 'experience', which is only the noun — the verb, to go through something, had none, and two of the card's three lines are that verb. | '我们俩都经历过不幸。' read 'WORSE THINGS have happened to both of us', which is a comparison the Chinese does not make — 经历过不幸 is having been through misfortune.",
+      "senses": [
+        [
+          "verb",
+          "to go through; to experience"
+        ],
+        [
+          "noun",
+          "an experience"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ],
+      "exEn": [
+        [
+          "我们俩都经历过不幸",
+          "We have both been through misfortune."
+        ]
+      ]
+    },
+    "hsk30l4/竞争": {
+      "why": "Labelled a VERB and glossed only as one, where the card's second line is the NOUN — 精彩的竞争 is splendid competition.",
+      "senses": [
+        [
+          "verb",
+          "to compete"
+        ],
+        [
+          "noun",
+          "competition"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ]
+    },
+    "hsk30l4/究竟": {
+      "why": "Labelled 'noun / adverb' against a gloss that is two adverb phrases — 'after all; when all is said and done' — so the noun, the ins and outs of a thing, had none; and all three of the card's own lines are the adverb meaning exactly or on earth, which the gloss did not give either.",
+      "senses": [
+        [
+          "adverb",
+          "exactly; on earth"
+        ],
+        [
+          "noun",
+          "the ins and outs; what actually happened"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/聚会": {
+      "why": "Labelled 'noun / verb' against a gloss that runs the two together — 'get together; meet; gathering'. Named properly, with the noun leading, which is what all three of the card's lines are. | '他爱去聚会。' read 'He loves to PARTY', which is a different claim about a person — 聚会 is a gathering, and the card's own gloss says so.",
+      "senses": [
+        [
+          "noun",
+          "a gathering; a get-together"
+        ],
+        [
+          "verb",
+          "to meet up; to get together"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "exEn": [
+        [
+          "他爱去聚会",
+          "He loves going to gatherings."
+        ]
+      ]
+    },
+    "hsk30l4/禁止": {
+      "why": "'禁止游戏吗？' is not a sentence anybody says — a bare 禁止 with no subject taking 游戏 as its object — and its English, 'Suspend the game?', is not what 禁止 means either. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "禁止游戏吗？"
+      ],
+      "ex": [
+        [
+          "图书馆内禁止吸烟。",
+          "Smoking is forbidden in the library."
+        ]
+      ]
+    },
+    "hsk30l4/就是": {
+      "why": "'不是你对的，就是我。' is ungrammatical: the 不是…就是… frame takes parallel predicates, so the 的 after 你对 has nothing to attach to and the second half has no predicate at all. Replaced with an AUTHORED sentence, which the record says so is. | '这就是生命。' read 'This is THE life', which in English means the good life — the Chinese says only that this is life.",
+      "dropEx": [
+        "不是你对的，就是我。"
+      ],
+      "ex": [
+        [
+          "我要的就是这个。",
+          "This is exactly the one I want."
+        ]
+      ],
+      "exEn": [
+        [
+          "这就是生命",
+          "This is life."
+        ]
+      ]
+    },
+    "hsk30l4/聚": {
+      "why": "'我们好聚好散。' is the four-character idiom 好聚好散, to part on good terms — it swallows the character into a fixed phrase, and its English asserts a DIVORCE that is nowhere in the Chinese. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 聚餐 and 聚会, against nine in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "我们好聚好散。"
+      ],
+      "ex": [
+        [
+          "下班后大家聚在一起喝茶。",
+          "After work everybody gathers for tea."
+        ]
+      ],
+      "compounds": [
+        [
+          "聚集",
+          "jù jí",
+          "to gather; to assemble"
+        ],
+        [
+          "团聚",
+          "tuán jù",
+          "to have a reunion"
+        ],
+        [
+          "凝聚",
+          "níng jù",
+          "to condense; to coalesce"
+        ]
+      ]
+    },
+    "hsk30l4/剧院": {
+      "why": "'您想去电影院还是去剧院吗？' is ungrammatical — an A-or-B question with 还是 takes no 吗, the choice being the question. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "您想去电影院还是去剧院吗？"
+      ],
+      "ex": [
+        [
+          "这座剧院建于一九三〇年。",
+          "This theatre was built in 1930."
+        ]
+      ]
+    },
+    "hsk30l4/烤": {
+      "why": "'烤箱真的关了吗？' is about an OVEN — 烤箱 is a fixed word that swallows the character — and its English called it CLOSED, where 关 of an appliance is turned off. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "烤箱真的关了吗？"
+      ],
+      "ex": [
+        [
+          "她在厨房烤面包。",
+          "She is baking bread in the kitchen."
+        ]
+      ],
+      "compounds": [
+        [
+          "烤肉",
+          "kǎo ròu",
+          "to barbecue; barbecued meat"
+        ],
+        [
+          "烧烤",
+          "shāo kǎo",
+          "a barbecue; to grill"
+        ],
+        [
+          "烤鸭",
+          "kǎo yā",
+          "roast duck"
+        ]
+      ]
+    },
+    "hsk30l4/精彩": {
+      "why": "'你的演说十分精彩，但竟没人懂得欣赏。' was given the English idiom 'Your wonderful lecture was PEARLS BEFORE SWINE', which says something the Chinese does not and calls the audience swine into the bargain; and 精彩的故事 read 'an EXCITING story' where the card's own gloss is brilliant.",
+      "exEn": [
+        [
+          "你的演说十分精彩",
+          "Your lecture was excellent, and yet nobody appreciated it."
+        ],
+        [
+          "我读了一篇精彩的故事",
+          "I read a wonderful story."
+        ]
+      ]
+    },
+    "hsk30l4/竟然": {
+      "why": "'他竟然叫你笨蛋。' read 'He UNEXPECTEDLY called you stupid', with the adverb in a place English will not take it; and 很奇怪肯竟然没有同意我们 read 'Ken DOESN'T agree' for a sentence marked completed with 没有.",
+      "exEn": [
+        [
+          "他竟然叫你笨蛋",
+          "He actually called you an idiot."
+        ],
+        [
+          "很奇怪肯竟然没有同意我们",
+          "It is odd that Ken did not agree with us."
+        ]
+      ]
+    },
+    "hsk30l4/举": {
+      "why": "'可以举几个例子吗？' read 'PLEASE give us some examples', turning a question into an imperative.",
+      "exEn": [
+        [
+          "可以举几个例子吗",
+          "Could you give a few examples?"
+        ]
+      ]
+    },
+    "hsk30l4/举例": {
+      "why": "'你能举例说明你的想法吗？' read 'Could you make an example to REIFY your idea?' — reify is not a word a learner should meet here, and 说明 is to illustrate.",
+      "exEn": [
+        [
+          "你能举例说明你的想法吗",
+          "Could you give an example to illustrate your idea?"
+        ]
+      ]
+    },
+    "hsk30l4/看法": {
+      "why": "'我不同意你的看法。' read 'I don't agree with YOU', which drops 看法 — the card's whole subject — and disagrees with the person instead of the view.",
+      "exEn": [
+        [
+          "我不同意你的看法",
+          "I don't agree with your view."
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
