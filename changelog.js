@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.793", released: "2026-09-17T10:44Z" };
+window.FOLIO_VERSION = { v: "1.794", released: "2026-09-17T11:31Z" };
 
 window.CHANGELOG = [
   {
@@ -43,6 +43,11 @@ window.CHANGELOG = [
     t: "The Second World War map now shades the United States",
     items: [
       "<b>Seventeen more True or False answers now name their source</b>, and several that claimed more than the evidence does have been rewritten.",
+      "<b>The text size setting now sizes the Atlas's own labels too</b> \u2014 country, sea, river and city names on the globe grow and shrink with the rest of the site.",
+      "<b>A perfect day in every minigame now pays three artefact chests</b> rather than one.",
+      "<b>A deck finished for the day keeps its progress bar along the bottom of its row</b>, where it was jumping up under the title.",
+      "<b>Russia's cards draw a sharper coastline</b> \u2014 the Black Sea, the Sea of Azov, the Caspian and the Baltic at the detail Italy, Greece and China already had.",
+      "<b>Common Thread no longer files a Roman tribune under agriculture.</b>",
       "<b>Twenty-four capital cards now say which of their sources are free to open</b>, as every other card already did.",
       "<b>Numbers and centuries read the same way everywhere</b> \u2014 fifty-six places where a figure was spelled out in words now match the rest of the site.",
       "<b>Three cards in the Biology deck gained an illustration.</b>",

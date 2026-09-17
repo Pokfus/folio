@@ -107,7 +107,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
 | `usstates` | `us-states.js` `lakes.js` `rivers.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing. **`lakes.js` rides here because `world.js` has NO LAKE HOLES** — the Great Lakes sit inside the USA polygon, so a card map drew five inland seas as grey fields with an outline round each; it is listed in `atlas` too, which is harmless because `lakes.js` ASSIGNS `window.LAKES` rather than pushing onto a queue. **The card map STROKES a lake shore where the Atlas does not**, in the world layer's own coast ink: on a world globe a lake is a small blue mark, on a card zoomed to one state a Great Lake is half the window, and an unstroked shore beside a stroked ocean coast reads as two kinds of edge on one map |
 | `river_italy` / `river_greece` | `rivers/<region>.js` | warmed at IDLE by a LOCATOR window in the Rome or Greece collection, never awaited (China has no river file) |
-| `coast_italy` / `coast_greece` / `coast_china` / `coast_usa` | `coast/<region>.js` | warmed at IDLE and never awaited: by a LOCATOR window of the collection that frames it (Rome, Greece, China), and — since Sep 2026 — by a MAP CARD whose layer names a frame (`CMAP_LAYER_HIRES`: the China and United States geography collections) |
+| `coast_italy` / `coast_greece` / `coast_china` / `coast_russia` / `coast_usa` | `coast/<region>.js` | warmed at IDLE and never awaited: by a LOCATOR window of the collection that frames it (Rome, Greece, China, Russia), and — since Sep 2026 — by a MAP CARD whose layer names a frame (`CMAP_LAYER_HIRES`: the China and United States geography collections) |
 | `worldcaps` | `world-capitals.js` | a map card asks for a DOT on the `world` layer (a capital card in the world collection). Its own bundle, and fetched only when a card carries `map.dot`: the shapes are `world`'s, which every map window already loads for the coastline under it, and a locator card reads those shapes and never this table |
 | `glossExtra` | `glossary-extra.js` | **warmed at IDLE after boot**, and awaited by `openGlossWin` for a reader who beats the warm. The glossary's CITATIONS and ILLUSTRATIONS — 54% of `glossary.js`, and nothing reads either until a popup opens |
 | `artefactExtra` | `artefacts-extra.js` | **warmed at IDLE after boot**, and awaited by the chest reveal, the Reliquary, a friend's collection and Admin → Artefacts. An artefact's DESCRIPTION, CITATIONS and PICTURE — **94% of `artefacts.js`** (237 KB of 251), and nothing reads any of them until a chest opens |
@@ -1264,8 +1264,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.35 MB and 48,940 lines is hard to find your way around, so this
-  lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.35 MB and 48,982 lines is hard to find your way around, so this
+  lists its 185 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -2673,6 +2673,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     (`S.streakChest` is the streak length last PAID, so the test is arithmetic and can never pay twice for
     one day); and the **daily PLAY** — all nine minigames *finished*, whatever the score (`S.playChest`,
     the same day-string shape for the same reason).
+  · **THE SWEEP PAYS THREE AND THE PLAY PAYS ONE** (`SWEEP_CHESTS = 3`, Sep 2026, on request). Finishing
+    all nine whatever the score is the habit the daily games exist to build; a PERFECT run in all nine is
+    a different order of work, and paying the two alike said so nowhere. **The figure is a named constant
+    read by both the grant and the sentence beside it** — `maybeStreakChest`'s own arrangement one channel
+    over — so the chest count and the words announcing it cannot come apart. A reader's FIRST sweep still
+    pays the Clean Sweep badge's chest on top of these three, which is right rather than a double count:
+    the badge can never be earned again.
   · **THE PLAY CHEST IS CLAIMED, NOT GRANTED** (`playChestReady` / `claimPlayChest` / `sweepRowHTML` /
     `.sweep-row`): the other three fire from inside something the reader has just done, where the ninth
     game may be finished several routes away from the home page. `claimPlayChest()` stamps the day BEFORE
@@ -2918,6 +2925,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     DISAGREE AND THAT IS THE EXISTING DESIGN**, not a fault this introduced: every level has its own
     allowance, so a collection whose day is spent reads 0/0/0 over a subdeck still offering its own share
     — the counts have said so since the per-deck limits shipped and this only paints it.
+    **AND `.dk-body` IS RAISED OVER THE WATERMARK WITHOUT BEING POSITIONED** (Sep 2026, on a bug report:
+    finishing a deck moved its progress bar from the row's bottom edge up to a line under the title).
+    `.dk-prog .track` is `position:absolute; bottom:0` and takes the nearest POSITIONED ancestor as its
+    containing block, which is `.active-deck` — whose `overflow:hidden` is also what clips the track to
+    the last row's rounded corners. It sits INSIDE `.dk-body`, so the `position:relative` the `.dk-done`
+    treatment was giving that element re-anchored the bar to the body. **`z-index` alone is enough
+    because `.dk-body` is a FLEX ITEM**, and flexbox applies z-index to items as though they were
+    positioned. `test-layout.js` asserts it as a MEASUREMENT against the unfinished rows beside it — the
+    fault is entirely which box one declaration resolves against, and the correct figure is 1px rather
+    than 0, the row carrying a 1px bottom border outside its padding box.
   · **THE READER'S OWN CONTAINERS** (`S.deckGroups` / `S.deckNest`): a group holds decks dragged into it,
     folds, can be renamed and coloured, and studies everything under it. **A container counts what is drawn
     UNDER it**, so a collection that has lost two decks to a group stops claiming their cards. **⚠ No new
@@ -3875,9 +3892,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     coast chains SPLICED into world.js's own rings, since a hi-res copy drawn over the low-res one doubles
     every LAND border. Warmed at IDLE by the locator windows of the collection that frames it, never
     awaited and never by the Atlas. **A MAP CARD GETS ONE TOO, KEYED BY ITS LAYER** (`CMAP_LAYER_HIRES`),
-    the world layer deliberately absent since a `gw-` card frames any country on earth. **WHAT IT BUYS IS
-    SMALL AND IT IS MEASURED** — 117 pixels on the California card against a 220 KB gzipped file — so
-    **state the figure before building the next frame.** **A SPLICED RING CAN BE THE COUNTRY TRACED TWICE,
+    the world layer deliberately absent since a `gw-` card frames any country on earth. **WHAT IT BUYS
+    VARIES BY TWO ORDERS OF MAGNITUDE AND IS ALWAYS MEASURED** — 117 pixels on the California card
+    against a 220 KB gzipped file, and **3,033 of 169,520 on the Russia collection's Pontic-Caspian
+    steppe card** against 86 KB — so **state the figure before building the next frame, and measure it on
+    the view the card OPENS at.** The two are so far apart because a MAP CARD's own shape layer is
+    already the coast the reader sees and all a world coast can sharpen is the overhang, where a LOCATOR
+    is drawn on world.js and nothing else; and because a frame full of enclosed sea (the Black Sea, the
+    Azov, the Caspian) is nearly all coastline, where a state's frame is nearly all land border.
+    **THE FOURTH FRAME IS RUSSIA** (Sep 2026, on request), and its entry is where to read what a request
+    naming a collection that does not exist was resolved to: there is **no Russia GEOGRAPHY collection** —
+    the geography section is the world, the United States and China — so the row is `col-42`, the Russia
+    HISTORY collection, whose locator windows are where Russia is actually drawn. **Its rivers needed
+    nothing**: `wantRivers` is true for every locator, so `rivers.js` has always been drawn there.
+    **ITS BOX IS THE COLLECTION'S FRAME AND NOT THE COUNTRY** — the Arctic and Pacific shores are left
+    out on the arithmetic the China entry gives about Russia, whose mainland ring is the largest in
+    world.js — so **extend the box and re-run when a card frames something outside it.** **A SPLICED RING CAN BE THE COUNTRY TRACED TWICE,
     AND IT RENDERS PERFECTLY**: this window fills EVEN-ODD, where two windings cancel, so `edgeChain` must
     take the shorter arc. **The check that finds it is the SIGNED AREA of a spliced ring against
     world.js's own** — a near-integer ratio is a ring traced that many times — and nothing else in the
@@ -4283,9 +4313,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   px font-size in the stylesheet** (519 of them, each `calc(<px> * var(--fs))`), and deliberately does NOT
   move the LAYOUT — which is what keeps a four-cell grade bar four cells at Large. **There is ONE declared
   exception and it is the crossword's letter** (`.xw-cell`, sized off the grid's width); **if a second is
-  ever needed, say so here.** The one thing outside its reach is the Atlas's canvas map labels, whose
-  collision arithmetic is written against those numbers. The picker is a **slider** whose value is the INDEX
+  ever needed, say so here.** The picker is a **slider** whose value is the INDEX
   into `FONT_SIZES`, so the scale and the stored setting cannot drift apart.
+  **AND IT REACHES THE ATLAS'S CANVAS LABELS SINCE SEP 2026, ON REQUEST** (`MAP_FS` / `readMapFs` /
+  `mapFs`, declared beside `FONT_SIZES`). This bullet said for a year that the canvas was outside its
+  reach "because the collision arithmetic is written against those numbers" — which named the difficulty
+  and treated it as a wall, on the one surface where small type is hardest to read. **The multiplier is
+  READ OFF THE STYLESHEET, never restated** (`getComputedStyle(body).--fs`, the idiom `cpSheetMode` and
+  `--crit-slot` already use), so a sixth step needs no second table; it is **cached in `applyTheme`**
+  rather than read per frame, that function being both where `data-fs` is written and something that runs
+  on every `render()`. **The collision arithmetic was the real work and it mostly scaled itself**: every
+  label layer builds its box from its own font size and a `measureText` taken after `ctx.font` is set, so
+  scaling the size scales the box — **except the four layers that wrote a half height as a literal**
+  (`y - 8 … 16` for the era cities, the ranges, the forests and the country names, and a bare `7` for a
+  river's rotated box), which now move with it. A label that grows while its box does not overlaps its
+  neighbours at Very large and nothing on the page says why.
+  **THE CARD MAP WINDOWS ARE DELIBERATELY NOT IN IT**: a locator window is a small fixed box whose labels
+  are already de-collided against a frame a third the Atlas's size, and the request was the Atlas. Say so
+  here if that changes.
 - **ANIMATIONS OFF** (**Settings → Appearance → Animations**, `S.settings.animations` / `motionOff()` /
   `body.no-anim`). ONE switch driving BOTH halves: the stylesheet's global killswitch gained a
   `body.no-anim` selector beside its `prefers-reduced-motion` query, and **`prefersReducedMotion()` now
@@ -6983,10 +7028,14 @@ division-capital city tier are inert dead code.
     measures the SHAPE of the ink, since a river card that has quietly gone back to a dot draws a
     perfectly good map; and its third **measures the RIVERS BY TAKING THEM AWAY** — read the pixels, empty
     `window.RIVERS`, redraw the same view, read them again — because a "before the bundle lands" reading
-    measures nothing and **the previous form of that check passed for the wrong reason**. **Re-run after
+    measures nothing and **the previous form of that check passed for the wrong reason**. Its fifth
+    section asks the same question of the RUSSIA frame's hi-res coast — fetched, ingested, and changing
+    the canvas when it is taken away, on the view the card opens at — since a bundle that stops arriving
+    leaves a perfectly good map drawn on world.js and nothing says so. **Re-run after
     touching `locatorSiblings` / `cardCollectionRoot` / `locOwnTerms` / `LOC_KINDS` / `locPts` /
     `drawSwords` / the extras block in `startCardGlobe`'s `draw()` / `fitTarget`'s extent branch / the idle
-    `ensureData("atlas")` beside it / `uCacheBust`, and after giving a card a locator `kind`.**
+    `ensureData("atlas")` beside it / `uCacheBust` / `CMAP_HIRES` / a `coast_*` bundle, and after giving a
+    card a locator `kind`.**
   · `node .claude/test-learning.js` — **the learning-science batch**, and every one of its subjects
     fails SILENTLY. **Its starred assertion is that the deck pretest writes NO card records.** Sections
     1–5 need no browser. **Re-run after touching anything in the "HOW A READER MEETS A CARD" bullet's own
@@ -7046,9 +7095,14 @@ division-capital city tier are inert dead code.
     `.atlas-tabs` markup / `.atlas-empty` / `.cp-mine` / `.cp-shut` / `.tl-range`, or after changing which
     cards carry a `map` or a `locator`.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and
-    a glossary term's way onto the map (Aug 2026). **Re-run after touching `glossPlace` / `focusPlace` /
-    `CITY_SEP` / `computeCityLayout` / `gsIndex` / `hmOpacity`, or after re-running
-    `.claude/fetch-place-coords.js`.**
+    a glossary term's way onto the map (Aug 2026) — **and, since Sep 2026, that the reader's TEXT SIZE
+    reaches the canvas**, measured as LABEL INK over one view at three sizes. **The bar there is a
+    DIRECTION rather than a ratio**: ink does not scale with the multiplier, a thin stroke being
+    antialiased out of the colour window at Very small and a big name crowding its neighbours out of the
+    de-collision at Very large, so what is ruled out is the three coming back EQUAL. **Re-run after
+    touching `glossPlace` / `focusPlace` /
+    `CITY_SEP` / `computeCityLayout` / `gsIndex` / `hmOpacity` / `MAP_FS` / `readMapFs` / `mapFs`, or
+    after re-running `.claude/fetch-place-coords.js`.**
   · `node .claude/test-map-cards.js` — **the geography map-card format** (76 assertions, Aug 2026), half
     of it with no browser. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
     `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `serializeCardData` /
