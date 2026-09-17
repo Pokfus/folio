@@ -1593,3 +1593,42 @@ family nobody has added is a family nobody can check. The statement is now Briti
 form and what the one card already does; **a reader of either spelling still sees whichever is
 authored**, since with no row there is nothing for the transform to convert. It is the `per cent` gap
 CLAUDE.md records, one word over, and at this size it is a one-word fix rather than a pass.
+
+### T39–T40 — two eighteenth-century primaries off archive.org and one university edition (2026-09-17)
+
+Two cited: #34 (Franklin's kite struck by lightning) and #18 (the Salem accused burned at the stake).
+178 → **180 of 220**.
+
+**THE EXPERIMENTER'S OWN ACCOUNT IS THE SOURCE, AND IT IS THREE CENTURIES OLD AND OPEN.** Franklin's
+kite letter is Letter X of *New Experiments and Observations on Electricity* (3rd ed., London, 1760),
+106–7, on archive.org with a `_djvu.txt`. It carries the refutation in its own words: a sharp wire at
+the top of the kite "will draw the electric fire from" the thunder clouds, and "the person who holds
+the string must stand within a door, or window, or under some cover, so that the silk ribbon may not
+be wet". **That is a charge collected, not a bolt received**, stated by the man who designed the
+experiment — and no modern secondary source says it better.
+
+**THE SECOND HALF NEEDED A SECOND EIGHTEENTH-CENTURY BOOK.** Richmann's death is in Priestley's
+*History and Present State of Electricity* (2nd ed., 1769), 338–39, which has the eyewitness engraver
+Sokolov watching "a globe of blue fire … as big as his fist, jump from the rod of the gnomon towards
+the head of the professor". **The year was dropped from the `why`** because Priestley's page does not
+give one and 1753 was not going to be asserted on a marker that could not carry it.
+
+**A DOCUMENTARY EDITION IS A SOURCE, AND THE SALEM ONE IS OPEN.** `salem.lib.virginia.edu` serves the
+*Salem Witchcraft Papers* free, one numbered file per accused. Bridget Bishop's is SWP no. 013 and
+carries both the warrant and the sheriff's return — "cause her to be hanged by the neck untill she be
+dead", and "Caused the s'd Brigett to be hanged by the neck untill Shee was dead". **A death warrant
+answers this statement more directly than any history of the trials could.** Giles Corey is SWP no.
+037, whose heading is "Pressed to Death, September 16, 1692".
+
+**AND THE `why`'s LEGAL EXPLANATION WAS DROPPED FOR WANT OF A SOURCE.** It had ended "as colonial
+Massachusetts followed English law, under which burning was not the penalty for witchcraft" — true,
+and nothing reachable here states it. Blackstone's Book IV would, and finding the passage is a volume
+download and a hunt; the Witchcraft Act's own text is another. **Left out rather than left standing
+under a marker that does not reach it**, and recorded here so the next batch knows it is one lookup
+away rather than a research problem.
+
+**Both these statements were reached by looking for the DOCUMENT rather than the literature**, which
+is where the remaining pool divides: what is left is mostly either a modern finding behind a closed
+journal (#82, #85, #106, #136, #156) or an event with a surviving record (#26 the Bastille's seven
+prisoners, #65 the Great Fire's death toll, #29 the O.K. Corral, #33 Newton at the Mint, #73 the emu
+cull). **The second group is the cheap one and should be worked first.**
