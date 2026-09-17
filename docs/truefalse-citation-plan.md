@@ -68,7 +68,7 @@ card-side research is then shared.
 |---|---|---|
 | T1 | Prehistory | **done** — written cited |
 | T2 | Ancient & classical | part done; T2a, T2b, T2c and T16 between them |
-| T3 | Chinese history | part done; `cnh-` cards carry most of it |
+| T3 | Chinese history | part done; `cnh-` cards carry most of it; T19 two lifted out of `wh-399`, `wh-400` and `cnh-238` |
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation; see the three below |
@@ -906,3 +906,26 @@ answers 500). **Cite them and the units fix rides along.**
   the house rule puts metric first, which here would mean restating an eighteenth-century experiment in
   units its author never used; the argument survives without them, so the sentence gives the relation
   and not the numbers. **The 1770s date went too**, the book being 1790 and the experiment undated in it.
+
+### T19 — two Confucius statements lifted out of the corpus (2026-09-17)
+
+Both are clean lifts, and between them they use four of Folio's own cited sentences.
+
+- **Confucius in his own lifetime.** `wh-399` sentences 3 and 4 carry it in Hirth's and Legge's own
+  words: the offices he first held in Lu asked only that he keep his accounts straight and see that the
+  oxen and sheep on the public fields were fat, and he "was never chief minister of the state, though it
+  has often been said he was" — which is a correction the statement did not have. For the other half,
+  `cnh-238` sentence 1 gives the Han court's decision to recognise the Confucian classics as the one
+  learning worth its patronage, centuries after his death. **THE WANDERING YEARS AND "died believing he
+  had failed" WENT**: neither is in the corpus's cited prose, and the Han decision says the same thing
+  from the other end and is sourced.
+  · **THE `cnh-238` CITATION IS A CHICAGO SHORT FORM ON THE CARD** (`Liu, "On the Supremacy of
+    Confucianism," 99`) — correct there, where a fuller note precedes it, and **useless standing alone in
+    `truefalse.js`**, where nothing precedes it. It was resolved back to the full form through Crossref
+    before being lifted. **A lift is not a copy: check whether the note you are taking depends on one
+    above it.**
+- **Confucius as a god.** `wh-400` sentences 1, 2 and 7 define Confucianism as a body of teaching whose
+  two central words are *ren* and *li*, and put its becoming an official system under the Han; `wh-399`
+  sentence 5 has him calling himself a transmitter and not a maker. **THE DEIFICATION IS NOT ADDRESSED
+  DIRECTLY**, because nothing in the corpus's cited prose dates the cult; what the answer now shows is
+  that the tradition is ethical and political and that it was made official long after he died.
