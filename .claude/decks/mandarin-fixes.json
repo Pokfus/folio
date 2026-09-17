@@ -11174,11 +11174,12 @@
       ]
     },
     "hsk30l3/女生": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The gloss named only the narrowest of the word's senses while all three of the card's English lines used a wider one, so a reader met the card's own translations contradicting its definition. Widened to what CC-CEDICT records and the sentences use. CC-CEDICT reads 'schoolgirl; female student; girl' and the card gave 'schoolgirl', while its own three translations say 'girl', 'girl' and 'girls'.",
       "mw": [
         "个",
         "名"
-      ]
+      ],
+      "gloss": "schoolgirl; girl; female student"
     },
     "hsk30l3/如果": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
@@ -11740,11 +11741,12 @@
       ]
     },
     "hsk30l3/男生": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The gloss named only the narrowest of the word's senses while all three of the card's English lines used a wider one, so a reader met the card's own translations contradicting its definition. Widened to what CC-CEDICT records and the sentences use. CC-CEDICT reads 'schoolboy; male student; boy; guy' and the card gave 'schoolboy', while its own three translations say 'boys', 'boys' and 'boy'.",
       "mw": [
         "个",
         "名"
-      ]
+      ],
+      "gloss": "schoolboy; boy; male student"
     },
     "hsk30l3/相机": {
       "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
@@ -72404,7 +72406,7 @@
       ]
     },
     "hsk30l3/起": {
-      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense.",
+      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 起飞 — which is remarkable for a character the collection builds 36 words on, every other one of them in another deck. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the words are chosen to show the character doing different work rather than three near-synonyms. The three sentences are all the verb, and are tagged as such: the measure-word sense this record split out is stated and not illustrated, there being no room for a fourth block.",
       "senses": [
         [
           "verb",
@@ -72414,6 +72416,38 @@
           "measure word",
           "[for incidents and cases]"
         ]
+      ],
+      "compounds": [
+        [
+          "起床",
+          "qǐ chuáng",
+          "to get up; to get out of bed"
+        ],
+        [
+          "一起",
+          "yì qǐ",
+          "together"
+        ],
+        [
+          "起来",
+          "qǐ lái",
+          "to stand up; to get up"
+        ],
+        [
+          "对不起",
+          "duì bu qǐ",
+          "sorry; excuse me"
+        ],
+        [
+          "引起",
+          "yǐn qǐ",
+          "to give rise to; to cause"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
       ]
     },
     "hsk30l4/列": {
@@ -72774,7 +72808,7 @@
       ]
     },
     "hsk30l3/前年": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The example did not contain the headword at all: its characters sat inside a LONGER word, which check-example-fit.js cannot see where the segmenter lands squarely on that longer word. Dropped and replaced with an AUTHORED sentence, which the record says so is. '我大前年死了个朋友。' is about 大前年, three years ago, which CC-CEDICT records as a word of its own — and the English ('Two years before last') was a correct translation of the sentence and a wrong one for the card. It was the note's only generator sentence, so the replacement joins the two this record had already authored.",
       "ex": [
         [
           "他前年就出国了。",
@@ -72783,7 +72817,14 @@
         [
           "这张照片是前年拍的。",
           "This photograph was taken the year before last."
+        ],
+        [
+          "前年冬天特别冷。",
+          "The winter before last was especially cold."
         ]
+      ],
+      "dropEx": [
+        "我大前年死了个朋友。"
       ]
     },
     "hsk30l3/西北": {
@@ -72874,11 +72915,32 @@
       "gloss": "roadside; wayside"
     },
     "hsk30l3/难听": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card gave one sense, 'unpleasant to hear', and its second sentence is the other one CC-CEDICT records — 难听的话, words that are coarse or hurtful rather than badly sung. Split, and the sentences tagged. The English of that sentence also rendered 难听 as nothing at all ('called Dick names'), so it now says which kind of names.",
       "ex": [
         [
           "他唱得实在难听。",
           "He really does sing badly."
+        ]
+      ],
+      "senses": [
+        [
+          "adjective",
+          "unpleasant to hear"
+        ],
+        [
+          "adjective",
+          "offensive; hurtful (of language)"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ],
+      "exEn": [
+        [
+          "比尔生气了并用难听的话骂迪克",
+          "Bill got angry and called Dick nasty names."
         ]
       ]
     },
@@ -111397,6 +111459,245 @@
     "hsk30l7/凉爽": {
       "why": "A `not <other word>` block pointing at a word that no longer shares this gloss — a disambiguator disambiguating nothing, which is worse than none, since a reader takes it for a real distinction. Batch 32 gave 凉快 its own two senses (pleasantly cool / to cool off), so the pair no longer collides and this hint had nothing left to do. The record can drop its own hints key, but the block is already written into the deck and the applier is deliberately NOT authoritative for hints — 104 of them are the generator's own — so removing one means rebuilding the note's gloss, which `gloss` does. The capital was CC-CEDICT's wording made a heading; the dictionary reads \"cool and refreshing\", which is also what the card's own first sentence says.",
       "gloss": "cool and refreshing"
+    },
+    "hsk30l3/难过": {
+      "why": "The dictionary's senses are commonest-first and the card had taken the first one, but every one of its own sentences shows a later one. Re-glossed from what the card actually teaches. CC-CEDICT reads 'to feel sad; to feel unwell; (of life) to be difficult' and the card had taken the last of the three; its sentences are 'I know you're upset', 'Are you sad?' and 'When we are very sad, we will cry'.",
+      "gloss": "sad; upset"
+    },
+    "hsk30l3/盘子": {
+      "why": "The gloss was not the sense the card's own three sentences show — the fault batch 31 met on 开机, where a definition taken off the top of a CC-CEDICT entry is right about the WORD and wrong about the CARD. Re-glossed from the examples, with the dictionary consulted second. CC-CEDICT reads 'tray; plate; dish' and the card had taken 'tray'; its three sentences are washing the dishes, where the plates are, and a dirty plate.",
+      "gloss": "plate; dish"
+    },
+    "hsk30l3/努力": {
+      "why": "The gloss was not the sense the card's own three sentences show — the fault batch 31 met on 开机, where a definition taken off the top of a CC-CEDICT entry is right about the WORD and wrong about the CARD. Re-glossed from the examples, with the dictionary consulted second. The card was labelled 'verb / adjective' over the single gloss 'hardworking', which is the adjective alone — while two of its three sentences are the verb ('He works hard') and the third is the word nominalised ('his efforts'). CC-CEDICT: 'to make an effort; to try hard; to strive; hard-working'.",
+      "gloss": "to work hard; to strive; hardworking"
+    },
+    "hsk30l3/牛": {
+      "why": "The sentence was translationese rather than Chinese — a construction no speaker writes — so it taught a collocation a learner would then produce. Dropped and replaced with an AUTHORED sentence, which the record says so is. '牛供给我们好奶。' — 供给 is institutional supply and 好奶 is not a collocation Chinese has; the replacement uses 头, one of the two measure words the card itself lists. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all — its six relatives are spread over six other decks, from 牛奶 in Level 1 to 钻牛角尖 among the idioms. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the words are chosen to show the character doing different work rather than three near-synonyms.",
+      "dropEx": [
+        "牛供给我们好奶。"
+      ],
+      "ex": [
+        [
+          "山上有几头牛。",
+          "There are a few cows up on the hill."
+        ]
+      ],
+      "compounds": [
+        [
+          "牛奶",
+          "niú nǎi",
+          "cow's milk"
+        ],
+        [
+          "牛肉",
+          "niú ròu",
+          "beef"
+        ],
+        [
+          "蜗牛",
+          "wō niú",
+          "a snail"
+        ],
+        [
+          "吹牛",
+          "chuī niú",
+          "to brag; to talk big"
+        ]
+      ]
+    },
+    "hsk30l3/爬": {
+      "why": "The English translation did not render the headword at all, so the card showed a sentence whose bolded word had no counterpart in the line under it. The Chinese is untouched. '爬到桌子底下去。' was translated 'Get under the table', which is exactly the sentence with the headword taken out of it. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all — the nine decks between them carry no other word built on this character. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the words are chosen to show the character doing different work rather than three near-synonyms.",
+      "exEn": [
+        [
+          "爬到桌子底下去",
+          "Crawl under the table."
+        ]
+      ],
+      "compounds": [
+        [
+          "爬山",
+          "pá shān",
+          "to go hiking; to climb a hill"
+        ],
+        [
+          "爬行",
+          "pá xíng",
+          "to crawl; to creep"
+        ],
+        [
+          "攀爬",
+          "pān pá",
+          "to climb"
+        ],
+        [
+          "爬升",
+          "pá shēng",
+          "to climb (of an aircraft, or a figure)"
+        ]
+      ]
+    },
+    "hsk30l3/怕": {
+      "why": "The card named two parts of speech against a single gloss and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the notes that name several parts of speech, almost all of which are Chinese doing what it does rather than a missing sense. CC-CEDICT gives 'to be afraid; to fear; to dread; to be unable to endure; perhaps', and the card's 'verb / adverb' label was answered by the verb alone. The third sentence went with the split: '没什么好怕的' said in English almost exactly what the second one said ('I'm not afraid of anything' / 'There's nothing to be afraid of'), so it is replaced by an AUTHORED sentence showing the adverb. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 害怕 — its six other relatives are in Levels 4, 5 and 7, the phrases and the idioms. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the words are chosen to show the character doing different work rather than three near-synonyms.",
+      "senses": [
+        [
+          "verb",
+          "to fear; to be afraid of"
+        ],
+        [
+          "adverb",
+          "perhaps; I'm afraid that"
+        ]
+      ],
+      "dropEx": [
+        "没什么好怕的。"
+      ],
+      "ex": [
+        [
+          "他怕是不会来了。",
+          "I'm afraid he won't be coming."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "害怕",
+          "hài pà",
+          "to be afraid; to be scared"
+        ],
+        [
+          "恐怕",
+          "kǒng pà",
+          "I'm afraid that…; probably"
+        ],
+        [
+          "可怕",
+          "kě pà",
+          "frightening; terrible"
+        ],
+        [
+          "哪怕",
+          "nǎ pà",
+          "even if; no matter how"
+        ]
+      ]
+    },
+    "hsk30l3/胖": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all — 肥胖 is in Level 6 and 胖乎乎 in Levels 7–9. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the words are chosen to show the character doing different work rather than three near-synonyms.",
+      "compounds": [
+        [
+          "胖子",
+          "pàng zi",
+          "a fat person"
+        ],
+        [
+          "发胖",
+          "fā pàng",
+          "to put on weight"
+        ],
+        [
+          "肥胖",
+          "féi pàng",
+          "fat; obese"
+        ],
+        [
+          "胖乎乎",
+          "pàng hū hū",
+          "chubby"
+        ]
+      ]
+    },
+    "hsk30l3/平时": {
+      "why": "The sentence was translationese rather than Chinese — a construction no speaker writes — so it taught a collocation a learner would then produce. Dropped and replaced with an AUTHORED sentence, which the record says so is. '结果是英国人平时没问题听得懂外国人说的话。' opens on 结果是 and runs 没问题 straight into 听得懂; it is an English sentence with Chinese words in it. The gloss 'ordinarily' is LEFT as it stands: it is CC-CEDICT's own first sense and correct, and widening it to 'usually' would have collided it with 平常, four cards of which already read 'ordinarily; generally; usually'.",
+      "dropEx": [
+        "结果是英国人平时没问题听得懂外国人说的话。"
+      ],
+      "ex": [
+        [
+          "他平时很少说话。",
+          "He doesn't usually say much."
+        ]
+      ]
+    },
+    "hsk30l3/瓶子": {
+      "why": "Two of the three sentences carried the same English under two constructions, so the card read as though it were showing an example twice. The weaker one is dropped and replaced with an AUTHORED sentence, which the record says so is. '请打开瓶子。' and '把瓶子打开。' were 'Please open the bottle.' and 'Open the bottle.' — the 把 construction is worth teaching, so the first is kept and the bare one replaced.",
+      "dropEx": [
+        "把瓶子打开。"
+      ],
+      "ex": [
+        [
+          "桌子上有两个空瓶子。",
+          "There are two empty bottles on the table."
+        ]
+      ]
+    },
+    "hsk30l3/骑": {
+      "why": "The English translation did not render the headword at all, so the card showed a sentence whose bolded word had no counterpart in the line under it. The Chinese is untouched. '他喜欢骑马出行。' read 'He likes to get on the horse and go out', which is the Chinese word by word rather than a translation of it. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all — the nine decks between them carry no other word built on this character. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the words are chosen to show the character doing different work rather than three near-synonyms.",
+      "exEn": [
+        [
+          "他喜欢骑马出行",
+          "He likes to travel on horseback."
+        ]
+      ],
+      "compounds": [
+        [
+          "骑马",
+          "qí mǎ",
+          "to ride a horse"
+        ],
+        [
+          "骑车",
+          "qí chē",
+          "to ride a bike"
+        ],
+        [
+          "骑士",
+          "qí shì",
+          "a knight"
+        ],
+        [
+          "骑手",
+          "qí shǒu",
+          "a rider; a jockey"
+        ]
+      ]
+    },
+    "hsk30l3/其实": {
+      "why": "The sentence was translationese rather than Chinese — a construction no speaker writes — so it taught a collocation a learner would then produce. Dropped and replaced with an AUTHORED sentence, which the record says so is. '你其实有没有看过？' puts 其实 inside a 有没有 question, where the word has nothing to contrast with, and the English ('Did you read it at all?') renders it as 'at all'. Replaced with an AUTHORED sentence of the shape 其实 is actually used in — a claim, then the fact that corrects it.",
+      "dropEx": [
+        "你其实有没有看过？"
+      ],
+      "ex": [
+        [
+          "他看起来很年轻，其实已经四十多岁了。",
+          "He looks young, but in fact he is already over forty."
+        ]
+      ]
+    },
+    "hsk30l3/起飞": {
+      "why": "The English translation did not render the headword at all, so the card showed a sentence whose bolded word had no counterpart in the line under it. The Chinese is untouched. '你的飞机什么时候起飞呢？' read 'What time is your plane?', which asks a different question and leaves the headword untranslated.",
+      "exEn": [
+        [
+          "你的飞机什么时候起飞呢",
+          "What time does your plane take off?"
+        ]
+      ]
+    },
+    "hsk30l3/汽车": {
+      "why": "The example did not contain the headword at all: its characters sat inside a LONGER word, which check-example-fit.js cannot see where the segmenter lands squarely on that longer word. Dropped and replaced with an AUTHORED sentence, which the record says so is. '哪里坐公共汽车？' is about a BUS: 公共汽车 is its own word and its own card, and the card here teaches 汽车, a car. The replacement uses 辆, the measure word the card itself lists.",
+      "dropEx": [
+        "哪里坐公共汽车？"
+      ],
+      "ex": [
+        [
+          "路上停着很多汽车。",
+          "There are a lot of cars parked along the road."
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",

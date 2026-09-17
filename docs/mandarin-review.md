@@ -568,6 +568,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 181–210 (鸡 → 斤), deck order, plus the `programme` class and a hole in `check-coarse.js` | 27 | an obscene sentence on a card glossed *chicken*, which the coarse sweep was excusing by design |
 | 2026-09-17 | `hsk30l3` notes 211–240 (经过 → 老人), deck order | 20 | four English lines that translated something other than their own Chinese |
 | 2026-09-17 | `hsk30l3` notes 241–270 (离开 → 南方), deck order, plus the whole ONE-WAY-ROW class | 40 | seven spelling families `check-british.js` reads 0 over by design, swept once and for all |
+| 2026-09-17 | `hsk30l3` notes 271–300 (难过 → 前天), deck order | 18 | the character panel searches the DOWNLOADED deck, so six characters taught here show a reader nothing |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -4057,5 +4058,142 @@ the fourth (车辆, plus 机动车辆 and 装甲车辆). It is a bound measure w
   and each checked for a duplicate against every sentence and every English line in all nine decks
 - `build-lang-decks.js`: re-run, and **exactly six rows changed**, the six decks touched, each by its
   `bytes` and `rev` alone
+- CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
+  `check-docs`, `check-questions`, `check-style`
+
+## Batch 33 — hsk30l3 notes 271–300 (难过 → 前天), and the six characters whose panel is empty
+
+Thirty notes read in deck order, **eighteen cards changed** across 43 fields. Nothing outside
+`hsk30l3` moved, and no app change was needed — the `Compounds` field has been on this deck's type
+since the batch that introduced it, and 54 of its cards already carried one.
+
+**THE BATCH'S FINDING IS ABOUT THE TAP PANEL, AND IT IS A FACT ABOUT THE DECKS RATHER THAN ABOUT ANY
+CARD.** `openCharWin` reads `data-ucdeck` off the card wrapper and searches **that deck alone**, which
+is right — a reader who has downloaded Level 3 has Level 3 — and it means a character's panel is only
+as full as the level it is taught at. Six of these thirty notes are a single character, and measured
+over `hsk30l3` their panels show:
+
+| character | words in the collection | words in **its own deck** |
+|---|---|---|
+| 牛 | 6 (牛奶 L1, 牛仔裤 L5, 吹牛 L7–9, 对牛弹琴 L7–9, 钻牛角尖 idioms, 杀鸡焉用牛刀 phrases) | **0** |
+| 爬 | 0 | **0** |
+| 怕 | 7 (害怕 L3, 恐怕 L4, 可怕 L5, 哪怕 L5, 只怕 phrases, 生怕 L7–9, 担惊受怕 idioms) | **1** |
+| 胖 | 2 (肥胖 L6, 胖乎乎 L7–9) | **0** |
+| 骑 | 0 | **0** |
+| 起 | 36 | **1** (起飞) |
+
+So 怕 and 起 — the two characters the collection builds most on — are exactly as bare to a Level 3
+reader as 爬 and 骑, which the nine decks genuinely have nothing for. **A count taken over the whole
+collection answers a question nobody is asking**: the earlier compounds work quoted "639 of those 1,503
+characters have no other word in their own deck at all", and the true figure for a reader is worse than
+that, because the collection-wide count hides every character whose relatives are all a level or two
+further on. All six were given four or five authored rows, each row's reading and gloss checked against
+CC-CEDICT before it was written. 怕 and 起 take the words their own relatives are (害怕 / 恐怕 / 可怕 /
+哪怕; 起床 / 一起 / 起来 / 对不起 / 引起) precisely because the reader cannot reach any of them from
+this deck; 牛 deliberately goes elsewhere, to 牛肉 and 蜗牛, which the collection has no card for at all.
+
+**FOUR GLOSSES WERE THE DICTIONARY'S OWN SENSES IN THE WRONG ORDER FOR THIS CARD** — batch 31's 开机
+finding, four more times.
+
+- **难过** was glossed *have a hard time*, which is the **third** of CC-CEDICT's three senses ("to feel
+  sad; to feel unwell; (of life) to be difficult"), while its three sentences are *I know you're upset*,
+  *Are you sad?* and *When we are very sad, we will cry*. Now **sad; upset**.
+- **盘子** was glossed *tray*, CC-CEDICT's **first** of "tray; plate; dish" — over three sentences about
+  washing the dishes, where the plates are, and a dirty plate. Now **plate; dish**. `check-gloss-source.js`
+  cannot see either of these two in its overlap list, *tray* and *have a hard time* both being words the
+  dictionary entry really contains; 难过 was in its **neighbour** list and 盘子 in neither.
+- **男生** and **女生** gave only *schoolboy* / *schoolgirl* while their own six English lines say *boy*,
+  *boys*, *boy*, *girl*, *girl*, *girls* — so the card's own translations contradicted its definition.
+  Widened to what the dictionary records and the sentences use.
+- **努力** was labelled *verb / adjective* over the single gloss *hardworking*, which is the adjective
+  alone, while two of its three sentences are the verb and the third nominalises it (*his efforts*). Now
+  **to work hard; to strive; hardworking**. It and 难过 were both in `check-gloss-source.js`'s overlap
+  list and have come off it.
+
+**TWO CARDS NAMED A SENSE THEY NEVER GAVE.** **难听** gave *unpleasant to hear* and its second sentence
+is 难听的话 — words that are coarse or hurtful, the other sense CC-CEDICT records — so it is split and
+the three sentences tagged 1 / 2 / 1. **怕** was labelled *verb / adverb* and answered by the verb
+alone; split into "to fear; to be afraid of" and "perhaps; I'm afraid that". That split paid for itself
+twice, because the card's third sentence 没什么好怕的 ("There's nothing to be afraid of") said in English
+almost exactly what its second said ("I'm not afraid of anything"), so it is replaced by an authored
+他怕是不会来了 and tagged as sense 2. **起** keeps the senses an earlier batch split out and gains the
+tags that split never wrote: all three sentences are the verb, so the measure-word sense is **stated and
+not illustrated**, there being no room for a fourth block — which is the honest state and is now visible
+to the reader rather than left to be guessed.
+
+**TWO SENTENCES DID NOT CONTAIN THEIR HEADWORD AT ALL**, the class `check-example-fit.js` is blind to
+because the segmenter lands squarely on the longer word.
+
+- **汽车** opened on 哪里坐公共汽车？ — which is about a **bus**. 公共汽车 is its own word with its own
+  dictionary entry, and the card teaches 汽车, a car.
+- **前年** opened on 我大前年死了个朋友。 — which is about **大前年**, three years ago, also a word of its
+  own. The English ("Two years before last") was a correct translation of the sentence and a wrong one
+  for the card. It was the note's only generator sentence, so the replacement joins the two an earlier
+  batch had already authored, and all three of this card's examples are now authored.
+
+**THREE SENTENCES WERE TRANSLATIONESE.** 平时's was 结果是英国人平时没问题听得懂外国人说的话。 — it
+opens on 结果是 and runs 没问题 straight into 听得懂; it is an English sentence with Chinese words in it.
+其实's was 你其实有没有看过？, which puts 其实 inside a 有没有 question where the word has nothing to
+contrast with, and whose English rendered it as "at all". 牛's was 牛供给我们好奶。 — 供给 is
+institutional supply and 好奶 is not a collocation Chinese has. All three replaced by authored sentences,
+and two of the three deliberately use a measure word the card itself lists (头 for 牛, 辆 for 汽车).
+
+**瓶子 SHOWED ONE ENGLISH LINE TWICE.** 请打开瓶子。 and 把瓶子打开。 were "Please open the bottle." and
+"Open the bottle." — `check-senses.js` cannot see it, the two English strings not being identical. The 把
+construction is worth teaching, so the first is kept and the bare one replaced.
+
+**FOUR ENGLISH LINES DID NOT RENDER THE HEADWORD.** 爬到桌子底下去。 read *Get under the table*, which
+is the sentence with its headword taken out; 他喜欢骑马出行。 read *He likes to get on the horse and go
+out*, the Chinese word by word rather than a translation of it; 你的飞机什么时候起飞呢？ read *What time
+is your plane?*, which asks a different question; and 难听's 比尔生气了并用难听的话骂迪克。 read *Bill
+got mad and called Dick names*, in which neither 难听 nor its sense appears. All four fixed with `exEn`,
+the Chinese untouched. The last one has an incidental: `check-coarse.js`'s slur column went **194 → 193**
+because "got mad" left with it.
+
+**WHAT WAS READ AND LEFT.**
+
+- **平时's gloss stays *ordinarily*.** It is CC-CEDICT's own first sense and it is correct; widening it
+  to "ordinarily; usually" — which is what its three English lines say — would have walked it into
+  **平常**, four decks along, which already reads *ordinarily; generally; usually*. A gloss made more
+  accurate at the price of a new reverse-card collision is not an improvement, and only the sentence
+  needed replacing.
+- **牛's 你喜欢吃牛肉面吗？ stays**, although its English says *beef* and never *cow*. 牛肉 is
+  transparently cow-meat and the character is doing its own work there, which is batch 27's 短发-on-短
+  case rather than its 东-as-东西 case. The card's other two lines are about cattle, so two of three are
+  squarely about the character and the third is compositional.
+- **男人, 难看, 难题, 年级, 年轻, 女人, 拍照, 胖, 啤酒, 奇怪, 其他, 铅笔, 前天** were read and are
+  right as they stand: gloss matching the dictionary's leading sense and the card's own sentences,
+  three distinct constructions, natural Chinese, and the pinyin clean against the bopomofo. 女人 and
+  年级 already carry an earlier batch's authored gloss, and 男生, 女生, 难题, 难听, 起 and 前年 already
+  carry earlier batches' measure words, senses and examples.
+- **`check-example-fit.js` reports two cards in this range and both are false positives.** 年级's
+  你的妹妹念几年级？ segments 几年|级 because greedy longest-match prefers 几年; 年级 is intact.
+  奇怪's 这些人好奇怪。 segments 好奇|怪 for the same reason — 好 is the intensifier and 好奇 (curious)
+  wins the match. Neither is a fault and neither should be repaired.
+- **`check-say-reading.js` names none of the six single-character cards**, so 牛, 爬, 怕, 胖, 骑 and 起
+  all teach the reading a speech engine will give them, and none needs a `Say`.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2, unchanged**, and the shared-gloss groups **338 both before and after** with no group
+  created and none dissolved — which is what says four re-glossings and two sense splits made no new
+  collision, checked group by group against HEAD rather than by the totals alone
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged** (the two findings in range are the false positives above)
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0**
+- `check-say-reading.js`: unchanged at 10 of 1,503
+- `check-coarse.js`: **identical to HEAD but for one line** — slur 194 → 193, the "got mad" this batch
+  rewrote; the other five columns byte-identical
+- `check-gloss-source.js`: neighbour findings **3, unchanged**; the overlap list went 1,032 → 1,030,
+  exactly 难过 and 努力 coming off it and nothing going on
+- 34,596 example blocks, **spoken == visible on every one**; sense-tagged blocks 296 → 305, which is the
+  nine this batch wrote and no more
+- every authored sentence segmented against the 11,532-word deck lexicon: each headword its own token,
+  and each checked for a duplicate against every sentence and every English line in all nine decks
+- `build-lang-decks.js`: re-run, and **exactly one row changed**, `hsk30l3`, by its `bytes` and `rev`
+  alone — verified field by field against HEAD
 - CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
   `check-docs`, `check-questions`, `check-style`
