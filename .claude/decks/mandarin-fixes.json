@@ -108790,7 +108790,7 @@
   "hsk30phr/早安": "早上好"
  },
  "decks": {
-  "why": "A learner met nine decks presented as nine levels with nothing to say where to start, how big each was against the others, or where the two decks outside the ladder fit. The Collections page prints this line under the deck's title. It replaces a subtitle that restated the word count and the direction, both of which the row already shows for itself.",
+  "why": "A learner met nine decks presented as nine levels with nothing to say where to start, how big each was against the others, or where the two decks outside the ladder fit. The Collections page prints this line under the deck's title. It replaces a subtitle that restated the word count and the direction, both of which the row already shows for itself. | `exBritish` is set on all nine decks: the British-spelling pass described in mandarin-fix.js, applied to every gloss and every example translation from app.js own SPELL_PAIRS.",
   "hsk30l1": {
    "subtitle": "The first 300 words — start here if you are new to Chinese",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
@@ -108803,7 +108803,8 @@
      "css": "\n.uc-cmp {\n  display: block;\n  width: fit-content;\n  max-width: 100%;\n  margin: 14px auto 0;\n  padding-top: 10px;\n  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));\n  text-align: left;\n}\n.uc-cmplab {\n  display: block;\n  margin-bottom: 5px;\n  font-size: 9.5px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.5;\n}\n.uc-cmpi {\n  display: flex;\n  align-items: baseline;\n  gap: 10px;\n  padding: 3px 0;\n  font-size: 13.5px;\n}\n.uc-cmpi + .uc-cmpi {\n  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));\n}\n.uc-cmpw {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-weight: 400;\n  font-size: 17px;\n  line-height: 1.25;\n  min-width: 3.4em;\n}\n.uc-cmpw b {\n  font-weight: 600;\n}\n.uc-cmpp {\n  font-family: 'EB Garamond', var(--serif, Georgia, serif);\n  min-width: 6.2em;\n  opacity: 0.75;\n}\n.uc-cmpg {\n  flex: 1 1 auto;\n  opacity: 0.85;\n}\n"
     }
    ],
-   "exPunct": true
+   "exPunct": true,
+   "exBritish": true
   },
   "hsk30l2": {
    "subtitle": "197 more words, taking you to about 500 — study after Level 1",
@@ -108818,7 +108819,8 @@
      "css": "\n.uc-cmp {\n  display: block;\n  width: fit-content;\n  max-width: 100%;\n  margin: 14px auto 0;\n  padding-top: 10px;\n  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));\n  text-align: left;\n}\n.uc-cmplab {\n  display: block;\n  margin-bottom: 5px;\n  font-size: 9.5px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.5;\n}\n.uc-cmpi {\n  display: flex;\n  align-items: baseline;\n  gap: 10px;\n  padding: 3px 0;\n  font-size: 13.5px;\n}\n.uc-cmpi + .uc-cmpi {\n  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));\n}\n.uc-cmpw {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-weight: 400;\n  font-size: 17px;\n  line-height: 1.25;\n  min-width: 3.4em;\n}\n.uc-cmpw b {\n  font-weight: 600;\n}\n.uc-cmpp {\n  font-family: 'EB Garamond', var(--serif, Georgia, serif);\n  min-width: 6.2em;\n  opacity: 0.75;\n}\n.uc-cmpg {\n  flex: 1 1 auto;\n  opacity: 0.85;\n}\n"
     }
    ],
-   "whyFields": "The tap panel that lists the other words built on a character can only search the deck the reader has downloaded, and on Level 2 that is thinner than on Level 1: of the fifteen single-character cards in its first thirty notes, eleven have NO other word in the deck at all. The field is the same one Level 1's type gained — same anchor, same markup, same scoped CSS, copied from that deck's own definition here rather than retyped so the two cannot drift."
+   "whyFields": "The tap panel that lists the other words built on a character can only search the deck the reader has downloaded, and on Level 2 that is thinner than on Level 1: of the fifteen single-character cards in its first thirty notes, eleven have NO other word in the deck at all. The field is the same one Level 1's type gained — same anchor, same markup, same scoped CSS, copied from that deck's own definition here rather than retyped so the two cannot drift.",
+   "exBritish": true
   },
   "hsk30l3": {
    "subtitle": "491 more words, taking you to about 1,000 — the last beginner level",
@@ -108832,37 +108834,43 @@
      "html": "{{#Compounds}}<div class=\"uc-cmp\">{{Compounds}}</div>{{/Compounds}}",
      "css": "\n.uc-cmp {\n  display: block;\n  width: fit-content;\n  max-width: 100%;\n  margin: 14px auto 0;\n  padding-top: 10px;\n  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));\n  text-align: left;\n}\n.uc-cmplab {\n  display: block;\n  margin-bottom: 5px;\n  font-size: 9.5px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.5;\n}\n.uc-cmpi {\n  display: flex;\n  align-items: baseline;\n  gap: 10px;\n  padding: 3px 0;\n  font-size: 13.5px;\n}\n.uc-cmpi + .uc-cmpi {\n  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));\n}\n.uc-cmpw {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-weight: 400;\n  font-size: 17px;\n  line-height: 1.25;\n  min-width: 3.4em;\n}\n.uc-cmpw b {\n  font-weight: 600;\n}\n.uc-cmpp {\n  font-family: 'EB Garamond', var(--serif, Georgia, serif);\n  min-width: 6.2em;\n  opacity: 0.75;\n}\n.uc-cmpg {\n  flex: 1 1 auto;\n  opacity: 0.85;\n}\n"
     }
-   ]
+   ],
+   "exBritish": true
   },
   "hsk30l4": {
    "subtitle": "990 more words, taking you to about 2,000 — the intermediate band begins",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
    "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
-   "exPunct": true
+   "exPunct": true,
+   "exBritish": true
   },
   "hsk30l5": {
    "subtitle": "1,579 more words, taking you to about 3,600",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
    "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
-   "exPunct": true
+   "exPunct": true,
+   "exBritish": true
   },
   "hsk30l6": {
    "subtitle": "1,777 more words, taking you to about 5,400 — the last numbered level",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
    "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
-   "exPunct": true
+   "exPunct": true,
+   "exBritish": true
   },
   "hsk30l7": {
    "subtitle": "5,562 words — the advanced band, larger than every level below it together",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
    "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
-   "exPunct": true
+   "exPunct": true,
+   "exBritish": true
   },
   "hsk30phr": {
    "subtitle": "159 everyday expressions — usable alongside Level 1 onwards",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
    "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
-   "exPunct": true
+   "exPunct": true,
+   "exBritish": true
   },
   "hsk30idm": {
    "subtitle": "477 four-character idioms — worth starting once you are past Level 4",
@@ -108882,7 +108890,8 @@
    ],
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
    "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
-   "exPunct": true
+   "exPunct": true,
+   "exBritish": true
   },
   "whyFields": "An idiom's gloss says what it MEANS and throws away what it SAYS, which is the picture that makes a four-character idiom memorable: 谢天谢地 is 'thank goodness' and it says 'thank heaven, thank earth'. The Literally line is added to the Chinese → English card, under the meaning.",
   "whyCredit": "The decks' example sentences come from Tatoeba and carried no attribution — 60% of the 20,010 shipped sentences are verbatim in Tatoeba's own Mandarin-English pairs, and Tatoeba is CC BY 2.0 FR, which requires credit. Added to every deck's description, which is what the Collections page and the Studio show."

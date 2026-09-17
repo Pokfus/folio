@@ -1783,6 +1783,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     re-derived for different words — appending a mark at the end is the one edit that leaves both true.
     Both FAIL rather than warn when a row matches nothing, since unlike `dropEx` they are re-asserted
     on every run, so a row matching nothing is always a typo and never a repair already made.
+  · **`exBritish` IS A DECK-LEVEL PASS AND THE TABLE IS app.js's OWN**, sliced out by text with the run
+    STOPPING if the slice fails. The decks are authored British **because the site's switch never runs
+    in the direction that would rescue them** — `applySpelling` returns at once under `en-GB`, the
+    authored system, and converts to American only for a reader who asks — so an American spelling
+    written INTO deck content is what both readers see, for ever. It sweeps every gloss and every
+    example translation, never the Chinese and never a `data-say`, and **re-derives `answerText` and
+    `answer` rather than sweeping them**, an English word list over a romanisation being a risk for
+    nothing. **It runs LAST**, so the record's own `ex` and `exEn` rows are swept with everything else.
+    Three things bound it and none may be dropped: **the one-way rows are excluded** (app.js's own
+    `if (!oneWay)` — reversing them makes every narrative STORY a storey and the noun PRACTICE a verb);
+    **five forms are excluded by name** because the reverse mapping is not English (humorous →
+    humourous and its four siblings, a latent fault in app.js's table); and **`BRIT_KEEP` is the
+    declared proper-noun escape hatch**, which is **EMPTY as a MEASUREMENT rather than an omission** —
+    the corpus's 8 `harbor`, 11 `center`, 9 `labor`, 24 `organization` and 14 `theater` were all read
+    and not one is a name. **Re-run `check-british.js --list` and read the capitalised hits before
+    trusting that again.**
   · **THE FILE IS AUTHORITATIVE FOR TWO THINGS, AND BOTH ARE REGENERATED RATHER THAN ACCUMULATED.**
     `hints` is the complete list of `not <other word>` blocks (see the reverse-card note below), and
     every `uc-exadd` example block is STRIPPED from every note before the fixes are applied — without

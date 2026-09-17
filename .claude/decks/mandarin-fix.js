@@ -168,6 +168,72 @@ const punctQuotes = (s) => {
   let i = 0;
   return String(s).replace(/"/g, () => (i++ % 2 ? "\u201d" : "\u201c"));
 };
+/* ---------- BRITISH SPELLING, FROM app.js's OWN TABLE ----------
+   The decks are authored British, because the site's switch NEVER RUNS IN THE DIRECTION THAT WOULD
+   RESCUE THEM: `applySpelling` returns at once under `en-GB`, the authored system, and converts to
+   American only for a reader who asks. So an American spelling written into deck content is what BOTH
+   readers see, for ever.
+
+   THE TABLE IS SLICED OUT OF `app.js` BY TEXT AND THIS FILE STOPS IF THE SLICE FAILS. A second copy of
+   a 147-row word list goes stale on a change made in a file nobody editing a deck has reason to open —
+   the rule `spanish-fix.js`'s own `exBritish` already follows.
+
+   THREE THINGS BOUND WHAT IT MAY CONVERT, and none of them can be dropped.
+   1. THE ONE-WAY ROWS ARE EXCLUDED, and app.js already knows which: it builds its own American→British
+      map with `if (!oneWay)` precisely because storey→story is safe and the reverse catastrophic.
+      Reversing them turns every narrative STORY into a storey, the noun PRACTICE into the verb, a
+      LICENSE into a licence and a computer PROGRAM into a television programme.
+   2. FIVE FORMS ARE EXCLUDED BY NAME because the reverse mapping is not English at all: the `-our` rows
+      list `ous` and `ary` in their suffix strings where real English DROPS the u, so the map would
+      otherwise hold humorous → humourous, laborious → labourious, honorary → honourary, clamorous →
+      clamourous and odorous → odourous. That is a latent fault in app.js's own table (its only consumer
+      there is `gradeCloze`, and no shipped card answer carries one of the five).
+   3. A PROPER NOUN IS NOT A SPELLING. Pearl Harbor, the World Trade Center, an Australian Labor Party
+      and the Indian Reorganization Act are names. `BRIT_KEEP` is the declared escape hatch and is
+      EMPTY, which is a measurement rather than an omission: the corpus carries 8 `harbor`, 11 `center`,
+      9 `labor`, 24 `organization` and 14 `theater`, every one of them was read, and not one is a name.
+      All 26 capitalised hits are glosses in the Levels 7–9 deck, which capitalises its glosses.
+      **Re-run `check-british.js --list` and read the capitalised hits before trusting that again.**
+
+   The case of the word on the page is preserved — lower, Capitalised, ALL CAPS — and anything else is
+   left exactly as written, which is app.js's own rule for the same reason: a mixed-case word is a name
+   far more often than it is a spelling. */
+const BRIT_BAD = new Set(["humourous", "labourious", "honourary", "clamourous", "odourous"]);
+const BRIT_KEEP = [];   // declared proper nouns; see above — measured empty, not assumed empty
+const BRIT = (() => {
+  const src = fs.readFileSync(path.join(__dirname, "..", "..", "app.js"), "utf8");
+  const i = src.indexOf("const SPELL_PAIRS = [");
+  const j = src.indexOf("\n  ];", i);
+  if (i < 0 || j < 0) { console.error("FAIL  SPELL_PAIRS could not be sliced out of app.js — refusing to guess at a spelling table"); process.exit(2); }
+  const PAIRS = new Function("return " + src.slice(i + "const SPELL_PAIRS = ".length, j + 4).replace(/;\s*$/, ""))();
+  const map = new Map();
+  for (const [gb, us, sfx, oneWay] of PAIRS) {
+    if (oneWay) continue;
+    for (const t of String(sfx || "").split("|")) if (!BRIT_BAD.has(gb + t)) map.set((us + t).toLowerCase(), gb + t);
+  }
+  const keys = [...map.keys()].sort((a, b) => b.length - a.length);
+  return { map, rx: new RegExp("(?<![\\p{L}\\p{N}_])(" + keys.join("|") + ")(?![\\p{L}\\p{N}_])", "giu") };
+})();
+function britCase(src, out) {
+  if (src === src.toLowerCase()) return out;
+  if (src === src.toUpperCase()) return out.toUpperCase();
+  if (src[0] === src[0].toUpperCase() && src.slice(1) === src.slice(1).toLowerCase()) return out[0].toUpperCase() + out.slice(1);
+  return src;
+}
+function britText(t) {
+  if (!t) return t;
+  BRIT.rx.lastIndex = 0;
+  return String(t).replace(BRIT.rx, (m) => {
+    if (BRIT_KEEP.includes(m)) return m;
+    const hit = BRIT.map.get(m.toLowerCase());
+    return hit ? britCase(m, hit) : m;
+  });
+}
+/* Only the ENGLISH of a card is swept — its gloss and each example's `uc-exe` div — never the Chinese
+   and never a `data-say`, which carries its own copy of the sentence. */
+function britExamples(html) {
+  return String(html || "").replace(/(<div class="uc-exe">)([\s\S]*?)(<\/div>)/g, (m, a, mid, b) => a + britText(mid) + b);
+}
 const punctPlain = (s) => punctQuotes(String(s)
   .replace(new RegExp("(" + HAN_RX + ")([,;:!?]) ?", "g"), (m, a, b) => a + FULLWIDTH[b])
   .replace(new RegExp("(" + HAN_RX + ")\\.$"), "$1\u3002"));
@@ -195,6 +261,7 @@ const deckMeta = fixes.decks || {};
 let metaHit = 0;
 const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
+let hitsBrit = 0;
 let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [], badExEn = [], badExStop = [];
 let hitsPunct = 0;
 
@@ -510,6 +577,24 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
     c.hanzi = fl.Simplified;
     hits++;
   }
+  /* ---------- THE BRITISH-SPELLING PASS ----------
+     A deck-level pass, like `exPunct`, and for the same reason: a mechanical substitution belongs in
+     ONE place where it cannot be applied to 400 cards and forgotten on the 401st. It is deliberately
+     the LAST thing this file does to a deck, so that the record's OWN `ex` and `exEn` rows are swept
+     with everything else — an American spelling typed into a `why`-documented repair is exactly as
+     stuck as one the generator shipped.
+     THE MIRRORS ARE RE-DERIVED RATHER THAN SWEPT. `c.answerText` is the senses as plain text and
+     `c.answer` is "<pinyin> — <senses>"; converting `answer` directly would run an English word list
+     over a romanisation for no reason, so the senses are swept once and the two mirrors rebuilt from
+     the result, which is what the per-note branch above does. */
+  if (dm && dm.exBritish) for (const c of d.cards || []) {
+    const fl = c.fields; if (!fl) continue;
+    const en = britText(fl.English), ex = britExamples(fl.Examples), ans = britText(c.answerText || "");
+    if (en === fl.English && ex === fl.Examples && ans === (c.answerText || "")) continue;
+    fl.English = en; fl.Examples = ex; c.answerText = ans;
+    c.answer = fl.Pinyin + " — " + ans;
+    hitsBrit++;
+  }
   const after = JSON.stringify(d);
   if (after !== before) {
     if (!CHECK) fs.writeFileSync(p, after);
@@ -521,6 +606,7 @@ for (const [key] of entries) if (!seen.has(key)) missing.push(key);
 for (const [key] of hints) if (!seenHint.has(key)) missing.push(key + " (hint)");
 
 if (hitsPunct) console.log("\n  " + hitsPunct + " example block set(s) repunctuated (ASCII marks after a Chinese character)");
+if (hitsBrit) console.log("  " + hitsBrit + " card(s) put into British spelling from app.js's own SPELL_PAIRS");
 console.log("\n" + entries.length + " fixes, " + hints.length + " reverse-card hints and " +
   (Object.keys(deckMeta).length - (deckMeta.why ? 1 : 0)) + " deck-metadata edits in mandarin-fixes.json, " +
   (seen.size + seenHint.size) + " matched a note, " + metaHit + " matched a deck");

@@ -558,6 +558,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 31–60 (别的 → 城市), deck order, plus an American-spelling sweep over all nine decks | 29 | a card two of whose three sentences do not contain the headword at all |
 | 2026-09-17 | **the coarse-content sweep**, all nine decks, profanity · sexual · body · adult · slur read in full | 37 | a card all three of whose sentences were about penises |
 | 2026-09-17 | **the violence half of that sweep, plus a public-figures sweep**, all nine decks | 29 | a living head of state accused of murder on a vocabulary card |
+| 2026-09-17 | **the American-spelling pass**, all nine decks, as a new `exBritish` deck field | 412 | 489 American spellings in decks the site's switch can never correct |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -2864,3 +2865,99 @@ leaves, both listed in batch 21's entry and this one.
 - stray spaces: **32 blocks, 24 distinct** — unchanged
 - sentences naming a well-known public figure: **9 → 3**, and all three are historical fact
 - clobber sweep over the record diff: **0** after the repair; 14 existing notes changed, 15 added
+
+### 2026-09-17 — the American-spelling pass
+
+**What the batch was.** The second of the three standalone batches named in batch 20, done as a
+**deck-level pass rather than 489 per-note entries**: a new `exBritish` field in `mandarin-fix.js`,
+set on all nine decks. **412 cards changed, 597 fields, 136 distinct substitutions.**
+`check-british.js` now reads **489 → 0**, and a second run of the applier is a no-op.
+
+### Why it is a fault at all
+
+The decks are authored British **because the site's spelling switch never runs in the direction that
+would rescue them**. `applySpelling` returns immediately under `en-GB`, the authored system, and
+converts to American only for a reader who asks. So an American spelling written INTO deck content is
+never corrected for anybody — it is simply what both readers see, for ever.
+
+### What bounds the pass, and why none of the three can be dropped
+
+1. **The one-way rows are excluded, and `app.js` already knows which**: it builds its own
+   American→British map with `if (!oneWay)`, precisely because storey→story is safe and the reverse
+   catastrophic. Reversing them would turn every narrative STORY into a storey (106 in this corpus), the
+   noun PRACTICE into the verb practise (56), a LICENSE into a licence and a computer PROGRAM into a
+   television programme. **A first measurement of this corpus reported 713 because it did not honour the
+   flag**; honouring it gives 489.
+2. **Five forms are excluded by name** because the reverse mapping is not English at all — humorous →
+   humourous, laborious → labourious, honorary → honourary, clamorous → clamourous, odorous →
+   odourous. That is the latent app.js fault recorded in batch 20's entry, and the pass must not
+   reproduce it.
+3. **A proper noun is not a spelling** — and this is the one that turned out differently from the
+   prediction. **`BRIT_KEEP` is empty as a MEASUREMENT rather than as an omission.** Batch 20 named
+   Pearl Harbor, the World Trade Center, an Australian Labor Party and the Indian Reorganization Act as
+   the reason this could not be swept mechanically. The corpus carries **8 `harbor`, 11 `center`, 9
+   `labor`, 24 `organization` and 14 `theater`**, every one was read, and **not one is a name**: every
+   harbor is a port, every center a middle, every labor work, every theater a theatre. A second check
+   found **26 capitalised hits that are not sentence-initial, and all 26 are glosses** in the Levels 7–9
+   deck, which capitalises its glosses. So the trap is real in principle and absent in fact.
+
+**Re-run `check-british.js --list` and read the capitalised hits before trusting that again.** A deck
+added later may not be so lucky.
+
+### How the pass is built
+
+- **A deck-level field, like `exPunct`**, for the same reason: a mechanical substitution belongs in one
+  place where it cannot be applied to 400 cards and forgotten on the 401st.
+- **The table is sliced out of `app.js` by text and the run STOPS if the slice fails.** A second copy of
+  a 147-row word list goes stale on a change made in a file nobody editing a deck has reason to open —
+  the rule `spanish-fix.js`'s own `exBritish` already follows, and the scar `add-card-tags.js` left.
+- **It runs LAST**, after every per-note edit, so the record's own `ex` and `exEn` rows are swept with
+  everything else: an American spelling typed into a documented repair is exactly as stuck as one the
+  generator shipped.
+- **It sweeps only the English** — each gloss and each `uc-exe` div — never the Chinese and never a
+  `data-say`, which carries its own copy of the sentence.
+- **The mirrors are RE-DERIVED, not swept.** `answerText` is the senses as plain text and `answer` is
+  `<pinyin> — <senses>`; running an English word list over a romanisation is a risk for nothing, so the
+  senses are swept once and the two mirrors rebuilt from the result.
+- **Case is preserved** in the three shapes a sentence produces — lower, Capitalised, ALL CAPS — and
+  anything else is left as written, which is app.js's own rule and for its own reason.
+
+### All 136 substitutions were read
+
+They are all correct British forms. The head of the list: `color` (35), `organization` (29),
+`behavior` (27), `favorite` (26), `favor` (23), `theater` (17), `defense` (16), `recognize` (13),
+`center` (13), `harbor` (12). The tail is where the reading matters, and it holds `plow → plough`,
+`gray → grey`, `cozy → cosy`, `aluminum → aluminium`, `skillful → skilful`, `fulfill → fulfil`,
+`enroll → enrol`, `installments → instalments`, `maneuver → manoeuvre` ("the Heimlich manoeuvre"),
+`savior → saviour`, `diarrhea → diarrhoea`, `fetus → foetus` and `encyclopedia → encyclopaedia`.
+
+**Two results are worth knowing and neither is wrong.** `travelers' check` becomes `travellers' check`
+and not `cheque`, because *check/cheque* is a lexical pair rather than a spelling one and is not in the
+table — this is exactly what the site itself would render, so the pass is consistent with it. And
+Chomsky's *Colorless green ideas sleep furiously* becomes *Colourless*, which is how a British edition
+prints it, but it is worth knowing that the pass will convert a quotation's spelling along with
+everything else.
+
+### The lexical half, measured and named
+
+`SPELL_PAIRS` covers spellings and deliberately not word choices, so a second sweep asked what it cannot
+reach: **478 raw hits over 37 words** — `fall` (74), `check` (73), `store` (46), `movie` (35),
+`vacation` (29), `grade` (20), `mail` (20), `subway` (12), `truck` (12), `stove` (11), `elevator` (10),
+`soccer` (8), `math` (8), `airplane` (7), `faucet` (7), `sidewalk` (3), `drugstore` (1).
+
+**That figure is a raw upper bound and mostly homographs.** *fall*, *check*, *store*, *grade* and
+*mail* are ordinary English verbs and nouns, and a great many of the 478 are those. It needs the same
+card-by-card reading the coarse sweep got, and it is **a batch of its own** — the third, with "affair"
+for 事情 (~40) and the whitespace batch (32 blocks).
+
+### Standing invariants at the end of the batch
+
+- example blocks: **34,596**; **spoken == visible on every one** — which is the check that matters most
+  here, since the pass rewrites English beside a `data-say` it must never touch
+- example coverage: **11,532 of 11,532 notes at three sentences**, none showing the same twice
+- Chinese leaking into an English line: **all nine decks byte-identical to HEAD's**
+- `check-example-fit.js`: **143, unchanged** — the pass touches no Chinese
+- `check-pinyin.js`: clean; `check-say.js`: 18,538 headwords, 0 dropping an article
+- `check-coarse.js`: unchanged in all six columns
+- `check-british.js`: **489 → 0**, and the applier's second run writes nothing
+- stray spaces: **32 blocks, 24 distinct** — unchanged, the last of the three named batches
