@@ -12734,8 +12734,8 @@
       ]
     },
     "hsk30l4/前后": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
-      "gloss": "around, thereabouts (of time); front and back",
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss covered one sense and the card shows three. 前后 was glossed `around, thereabouts (of time); front and back` in an earlier de-collision batch, and the card's sentences are 前后反了 (front and back), 运动前后 (before and after) and 前后来了三次 (in all) — the last of them a sentence this record itself authored, so the gap was its own to close.",
+      "gloss": "front and back; before and after; around, thereabouts (of time); in all, all told",
       "ex": [
         [
           "他前后来了三次。",
@@ -28296,11 +28296,11 @@
       ]
     },
     "hsk30l7/跨国": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | `globalization` is an American spelling and the decks are authored British, because the site's own switch is one-way: `applySpelling` returns at once under en-GB, so an American spelling written into deck content is what BOTH readers see. `check-british.js` reads 0 over this family whatever the decks contain, `globalis`/`globaliz` not being in app.js's `SPELL_PAIRS` at all — the same blind spot as -logue, -ward and skeptic, and found the same way, by hand. Measured over the nine decks: three sites on three cards, two of them the same sentence carried by two notes. The same line also wrote `trans-national`, which British style sets solid.",
       "ex": [
         [
           "如果全球化无法避免，应该首先为人服务而不是为跨国公司的利益服务。",
-          "If economic globalization is inevitable, it should primarily serve humanity rather than the interests of trans-national corporations."
+          "If economic globalisation is inevitable, it should primarily serve humanity rather than the interests of transnational corporations."
         ],
         [
           "这是一家跨国公司。",
@@ -118449,6 +118449,332 @@
           "First they laugh at you, next they fight you, and then you win."
         ]
       ]
+    },
+    "hsk30l4/签证": {
+      "why": "The card named a part of speech its gloss did not support: the label promised a sense the gloss never gave and no sentence on the card showed. Read off the card's own line, which is one glance and is the only thing that can see it, since the gloss is a well-formed English gloss and the label is one the decks use everywhere. 签证 was labelled `noun / verb` over the single gloss `visa`; CC-CEDICT does carry `to issue a visa`, but no sentence on the card shows it and a label with nothing behind it is a promise the card does not keep.",
+      "senses": [
+        [
+          "noun",
+          "visa"
+        ]
+      ]
+    },
+    "hsk30l4/区别": {
+      "why": "The card named a part of speech its gloss did not support: the label promised a sense the gloss never gave and no sentence on the card showed. Read off the card's own line, which is one glance and is the only thing that can see it, since the gloss is a well-formed English gloss and the label is one the decks use everywhere. 区别 was labelled `noun / verb` over the single gloss `difference`. The verb sense (to distinguish, to tell apart) is real and common, but all three sentences are the noun, and adding a verb gloss no example shows would be the same fault from the other side.",
+      "senses": [
+        [
+          "noun",
+          "a difference; a distinction"
+        ]
+      ]
+    },
+    "hsk30l4/庆祝": {
+      "why": "The card named a part of speech its gloss did not support: the label promised a sense the gloss never gave and no sentence on the card showed. Read off the card's own line, which is one glance and is the only thing that can see it, since the gloss is a well-formed English gloss and the label is one the decks use everywhere. 庆祝 is labelled `verb` and its gloss opened on the NOUN, `celebration(s); to celebrate`. All three sentences are the verb; the noun half was the part that did not belong.",
+      "gloss": "to celebrate"
+    },
+    "hsk30l4/情况": {
+      "why": "The gloss was not the sense the card's own three sentences show. CC-CEDICT's senses are commonest-first and the card's sentences decide which of them this card teaches; the replacement is the sense the reader actually meets here. 情况 was glossed `happening`, which is not a sense CC-CEDICT gives it at all (/circumstances; state of affairs; situation/) and is not what any of the three sentences means — 情况非常严重, 现在情况怎么样, 事故的情况 are all `the situation`.",
+      "gloss": "a situation; circumstances"
+    },
+    "hsk30l4/轻松": {
+      "why": "The gloss was not the sense the card's own three sentences show. CC-CEDICT's senses are commonest-first and the card's sentences decide which of them this card teaches; the replacement is the sense the reader actually meets here. 轻松 was glossed `gentle`, which is 轻柔; the card's own sentences are 感觉轻松了 (relieved), 放轻松 (relax) and 轻松愉快 (light-hearted). Nothing on the card is gentle.",
+      "gloss": "relaxed; light-hearted; easy, effortless"
+    },
+    "hsk30l4/全球": {
+      "why": "The gloss was not the sense the card's own three sentences show. CC-CEDICT's senses are commonest-first and the card's sentences decide which of them this card teaches; the replacement is the sense the reader actually meets here. 全球 was glossed `entire`, which is the gloss of its first character and not of the word: CC-CEDICT gives /the whole world/worldwide; global/, and the card's three sentences are globalisation, global warming and think globally. | `globalization` is an American spelling and the decks are authored British, because the site's own switch is one-way: `applySpelling` returns at once under en-GB, so an American spelling written into deck content is what BOTH readers see. `check-british.js` reads 0 over this family whatever the decks contain, `globalis`/`globaliz` not being in app.js's `SPELL_PAIRS` at all — the same blind spot as -logue, -ward and skeptic, and found the same way, by hand. Measured over the nine decks: three sites on three cards, two of them the same sentence carried by two notes.",
+      "gloss": "the whole world; global, worldwide",
+      "exEn": [
+        [
+          "我们反对全球化",
+          "We are against globalisation."
+        ]
+      ]
+    },
+    "hsk30l4/缺点": {
+      "why": "The gloss was not the sense the card's own three sentences show. CC-CEDICT's senses are commonest-first and the card's sentences decide which of them this card teaches; the replacement is the sense the reader actually meets here. 缺点 was glossed `disadvantage`, the narrowest of CC-CEDICT's four senses (/weak point/fault/shortcoming/disadvantage/), while two of the card's three sentences are 优点和缺点 (strengths and weaknesses) and 她的缺点 (her faults).",
+      "gloss": "a shortcoming, a weakness; a drawback"
+    },
+    "hsk30l4/琴": {
+      "why": "The gloss was not the sense the card's own three sentences show. CC-CEDICT's senses are commonest-first and the card's sentences decide which of them this card teaches; the replacement is the sense the reader actually meets here. 琴 was glossed `a stringed musical instrument, such as a zither or guqin` — CC-CEDICT's first sense, and true of the character's history — while every one of the card's three sentences is a KEYBOARD: 练琴 and 弹琴, which standing alone mean the piano, and 管风琴, an organ. A gloss can be right about the word and wrong about the card. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 钢琴. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "a musical instrument, of the stringed or keyboard kind; standing alone, usually the piano",
+      "compounds": [
+        [
+          "小提琴",
+          "xiǎo tí qín",
+          "a violin"
+        ],
+        [
+          "管风琴",
+          "guǎn fēng qín",
+          "a pipe organ"
+        ],
+        [
+          "口琴",
+          "kǒu qín",
+          "a harmonica"
+        ],
+        [
+          "提琴",
+          "tí qín",
+          "an instrument of the violin family"
+        ]
+      ]
+    },
+    "hsk30l4/轻": {
+      "why": "The gloss was not the sense the card's own three sentences show. CC-CEDICT's senses are commonest-first and the card's sentences decide which of them this card teaches; the replacement is the sense the reader actually meets here. 轻 was glossed `light-weight` alone, and two of its three sentences are the gentle/softly sense — 轻一点儿放 and 轻轻地推了门 — which CC-CEDICT carries (/light/easy/gentle/soft/) and the card did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows two words, 减轻 and 轻松. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "light (in weight); gentle, soft",
+      "compounds": [
+        [
+          "年轻",
+          "nián qīng",
+          "young"
+        ],
+        [
+          "轻易",
+          "qīng yì",
+          "easy; simple"
+        ],
+        [
+          "轻便",
+          "qīng biàn",
+          "lightweight and portable"
+        ],
+        [
+          "轻视",
+          "qīng shì",
+          "to despise; to look down on"
+        ]
+      ]
+    },
+    "hsk30l4/前方": {
+      "why": "The gloss was a different part of speech from the label: 前方 is labelled `noun` over the bare adverb `ahead`. All three sentences use it as a place — 位于正前方, 前方驶来的车, 前方两英里处 — so the noun is right and the gloss was what needed fixing.",
+      "gloss": "the area ahead; the front"
+    },
+    "hsk30l4/敲": {
+      "why": "The gloss was not the sense the card's own three sentences show. CC-CEDICT's senses are commonest-first and the card's sentences decide which of them this card teaches; the replacement is the sense the reader actually meets here. 敲 was glossed `to hit`, which is not what it means — CC-CEDICT gives /to hit/to strike/to tap/to rap/to knock/ and the card's own sentences are all knocking at a door. `to hit` is also 撞's gloss in Level 5, so the two shared one English and the decks papered over it with a `not 撞` hint. Giving each its own meaning dissolves the collision and retires the hint, which is the better repair: 敲 is knocking and tapping, 撞 is colliding. | An example sentence was not natural Chinese. 刚刚敲过了八点钟，不是吗？ is an English clock striking translated word for word; Chinese says 钟刚敲过八点, and nobody says 敲过了八点钟. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to knock; to tap, to rap",
+      "dropEx": [
+        "刚刚敲过了八点钟"
+      ],
+      "ex": [
+        [
+          "别用笔敲桌子，很吵。",
+          "Don't tap the table with your pen — it's noisy."
+        ]
+      ],
+      "compounds": [
+        [
+          "敲门",
+          "qiāo mén",
+          "to knock on a door"
+        ],
+        [
+          "敲打",
+          "qiāo dǎ",
+          "to beat; to tap"
+        ],
+        [
+          "推敲",
+          "tuī qiāo",
+          "to think over; to weigh one's words"
+        ],
+        [
+          "敲诈",
+          "qiāo zhà",
+          "to extort; to blackmail"
+        ]
+      ]
+    },
+    "hsk30l5/撞": {
+      "why": "Glossed `to hit`, the same English as hsk30l4/敲, so the two were one question with two right answers and carried a `not 敲` / `not 撞` hint pair between them. CC-CEDICT gives /to knock against/to bump into/to run into/to meet by accident/, which is what all three of the card's sentences are — hit by a car, running into someone, and 撞大运, striking lucky. The sharper gloss dissolves the collision, so the hint is retired rather than kept pointing at a clash that no longer exists.",
+      "gloss": "to bump into, to collide with; to run into"
+    },
+    "hsk30l4/巧": {
+      "why": "Two of the three sentences did not teach the word. 爱不是花言巧语 buries 巧 inside the idiom 花言巧语 (sweet talk), and its English read `Love is not talking nonsense`, which is not what the idiom means; 可不可以你也很巧的爱上我 is not grammatical Chinese — 很巧的 cannot modify 爱上 that way. Both replaced, and the gloss widened: the card showed only 好巧 for the coincidence sense while glossing the word `skilful, ingenious, clever`, where CC-CEDICT leads with /opportunely/coincidentally/as it happens/. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 巧克力 — where the character is standing in for a foreign syllable and teaches nothing about it. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "coincidental, as it happens; skilful, ingenious",
+      "dropEx": [
+        "花言巧语",
+        "可不可以你也很巧的爱上我"
+      ],
+      "ex": [
+        [
+          "她的手很巧，什么都会做。",
+          "She is very deft with her hands — she can make anything."
+        ],
+        [
+          "这个箱子设计得很巧。",
+          "This box is cleverly designed."
+        ]
+      ],
+      "compounds": [
+        [
+          "技巧",
+          "jì qiǎo",
+          "skill; technique"
+        ],
+        [
+          "巧妙",
+          "qiǎo miào",
+          "ingenious; clever"
+        ],
+        [
+          "碰巧",
+          "pèng qiǎo",
+          "by chance; by coincidence"
+        ],
+        [
+          "恰巧",
+          "qià qiǎo",
+          "by chance; as it happens"
+        ]
+      ]
+    },
+    "hsk30l4/取": {
+      "why": "The first sentence used the character for its SOUND and not its meaning: 他们去了鸟取 is Tottori, a Japanese place name written with 鸟 and 取, so the card about 取 `to take, to get` illustrated it with a word that does not mean taking anything. Replaced with a sentence using 取 as the verb, and deliberately not a fourth banking sentence, the two that remain both being money. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "鸟取"
+      ],
+      "ex": [
+        [
+          "他从书架上取下一本词典。",
+          "He took a dictionary down from the shelf."
+        ]
+      ]
+    },
+    "hsk30l4/取得": {
+      "why": "Two of the three sentences were the same collocation: 我还没有取得那么大的进展 and 已经取得巨大进展 are both 取得…进展 with different English around them, so the card showed one construction twice. The third replaced with a different object. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "已经取得巨大进展"
+      ],
+      "ex": [
+        [
+          "她在考试中取得了好成绩。",
+          "She got good results in the exam."
+        ]
+      ]
+    },
+    "hsk30l4/全身": {
+      "why": "All three sentences said the same thing in the same shape — 我全身疼痛, 她全身都疼, 我全身酸痛, three ways of aching all over — so the card taught one collocation three times. The English lines differ, so the duplicate-sentence check cannot see this; it is found by reading the card. Two replaced with the word's other ordinary uses. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "她全身都疼",
+        "我全身酸痛"
+      ],
+      "ex": [
+        [
+          "他全身湿透了。",
+          "He was soaked from head to foot."
+        ],
+        [
+          "医生给他做了全身检查。",
+          "The doctor gave him a full-body examination."
+        ]
+      ]
+    },
+    "hsk30l4/青年": {
+      "why": "The English line said something the Chinese does not. 文艺青年 is not `a young artist`: it is a fixed modern expression for the arty, bookish sort of young person, and glossing it as a job description teaches the reader a word they will then use wrongly.",
+      "exEn": [
+        [
+          "她是文艺青年",
+          "She's one of those arty young people."
+        ]
+      ]
+    },
+    "hsk30l4/球迷": {
+      "why": "The English line said something the Chinese does not. `The fans all hope the club changes the manager` states as fact what the Chinese puts as a wish — 希望球队能换个教练 is what the fans hope WILL happen.",
+      "exEn": [
+        [
+          "球迷们都希望球队能换个教练",
+          "The fans all hope the club will change the manager."
+        ]
+      ]
+    },
+    "hsk30l4/全": {
+      "why": "The English line said something the Chinese does not. 你把电影全看了吗？ asks whether the whole thing has been watched; `Have you seen all these films?` supplies a plural and a demonstrative the Chinese has not got, and loses the 全 the card is about.",
+      "exEn": [
+        [
+          "你把电影全看了吗",
+          "Have you watched the whole film?"
+        ]
+      ]
+    },
+    "hsk30l5/化": {
+      "why": "`globalization` is an American spelling and the decks are authored British, because the site's own switch is one-way: `applySpelling` returns at once under en-GB, so an American spelling written into deck content is what BOTH readers see. `check-british.js` reads 0 over this family whatever the decks contain, `globalis`/`globaliz` not being in app.js's `SPELL_PAIRS` at all — the same blind spot as -logue, -ward and skeptic, and found the same way, by hand. Measured over the nine decks: three sites on three cards, two of them the same sentence carried by two notes.",
+      "exEn": [
+        [
+          "我们反对全球化",
+          "We are against globalisation."
+        ]
+      ]
+    },
+    "hsk30l4/强": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 加强. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "强大",
+          "qiáng dà",
+          "big and strong; powerful"
+        ],
+        [
+          "强调",
+          "qiáng diào",
+          "to emphasise; to stress"
+        ],
+        [
+          "强烈",
+          "qiáng liè",
+          "strong; intense"
+        ],
+        [
+          "坚强",
+          "jiān qiáng",
+          "staunch; firm"
+        ]
+      ]
+    },
+    "hsk30l4/桥": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "桥梁",
+          "qiáo liáng",
+          "a bridge, literal and figurative"
+        ],
+        [
+          "立交桥",
+          "lì jiāo qiáo",
+          "a flyover; an overpass"
+        ],
+        [
+          "吊桥",
+          "diào qiáo",
+          "a suspension bridge; a drawbridge"
+        ],
+        [
+          "桥牌",
+          "qiáo pái",
+          "contract bridge, the card game"
+        ]
+      ]
+    },
+    "hsk30l4/缺": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows two words, 缺点 and 缺少. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "缺乏",
+          "quē fá",
+          "to lack; to be short of"
+        ],
+        [
+          "缺席",
+          "quē xí",
+          "to be absent"
+        ],
+        [
+          "缺口",
+          "quē kǒu",
+          "a gap; a shortfall"
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -118608,7 +118934,6 @@
     "hsk30l4/擦": "揉",
     "hsk30l4/教师": "老师",
     "hsk30l4/数量": "数目",
-    "hsk30l4/敲": "撞",
     "hsk30l4/方面": "层面",
     "hsk30l4/早餐": "早饭",
     "hsk30l4/晚餐": "晚饭",
@@ -118700,7 +119025,6 @@
     "hsk30l5/拨打": "叫作",
     "hsk30l5/推荐": "引荐",
     "hsk30l5/提起": "提到",
-    "hsk30l5/撞": "敲",
     "hsk30l5/改善": "好转",
     "hsk30l5/昆虫": "虫子",
     "hsk30l5/暗": "黑暗",

@@ -595,6 +595,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 481–510 (流行 → 母亲), deck order | 21 | a gloss that dismissed its own card three times over, and a second hint pair retired |
 | 2026-09-17 | `hsk30l4` notes 511–540 (母子 → 排队), deck order | 19 | a sentence whose three headword characters were two OTHER words meeting, and a wrong pronoun in the Chinese |
 | 2026-09-17 | `hsk30l4` notes 541–570 (排球 → 千万), deck order | 20 | a label and a gloss that were different WORDS, and a question mark that was a full stop |
+| 2026-09-17 | `hsk30l4` notes 571–600 (签证 → 缺少), deck order | 25 | a gloss that was not any sense the word has, and a `not X` hint retired by giving both cards their real meaning |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5856,4 +5857,96 @@ third used *then* for both 其次 and 然后.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; **shared-gloss groups 331 → 330**; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 530 → 548;
+`build-lang-decks.js` re-run.
+
+## Batch 60 — hsk30l4 notes 571–600 (签证 → 缺少)
+
+Thirty consecutive notes of the HSK 4 deck in deck order, and the thirtieth batch of this audit to
+find the label-against-gloss class. **Twenty-five of the thirty changed.** The leading fault here is
+its sharper form: not a label that outran its gloss, but **a gloss that is not any sense the word
+has**. 情况 was glossed `happening` — a word CC-CEDICT does not give it at all (/circumstances;
+state of affairs; situation/) and which none of its three sentences means. 轻松 was glossed
+`gentle`, which is 轻柔, over 感觉轻松了, 放轻松 and 轻松愉快. 全球 was glossed `entire`, which is
+the gloss of its FIRST CHARACTER rather than of the word. Each reads as a perfectly well-formed
+English gloss, each sits under a label the decks use everywhere, and **no checker here can see any of
+them**: the neighbour test in `check-gloss-source.js` fires only where a gloss is a near-copy of the
+card two either way in the exam list, and these are not copies of anything.
+
+**A `not X` hint retired by giving both cards their real meaning.** 敲 (Level 4) and 撞 (Level 5)
+were both glossed **`to hit`**, so the English → Chinese card was one question with two right
+answers, and the decks papered over it with a `not 撞` / `not 敲` hint pair. Neither gloss is what
+the word means: CC-CEDICT gives 敲 /to hit/to strike/to tap/to rap/to knock/ and 撞 /to knock
+against/to bump into/to run into/, and every one of 敲's sentences is knocking at a door while every
+one of 撞's is a collision. Given `to knock; to tap, to rap` and `to bump into, to collide with; to
+run into` the two no longer collide, so the hint pair is retired rather than kept pointing at a clash
+that no longer exists — **the third pair retired this way**, after 基础/基地 (batch 51) and
+民族/国籍 (batch 57), and the eighth shared-gloss group dissolved. Both notes had to be touched, not
+just one: the applier REPLACES a hint it still holds but does not STRIP one the record has dropped,
+so 撞's gloss was rebuilt in the same batch to take its block off.
+
+**Five sentences replaced, and two of the reasons are ones this audit has met before.** 取's first
+line was 他们去了鸟取 — **Tottori**, a Japanese place name written with 鸟 and 取, so the card about
+`to take, to get` illustrated it with a word in which the character is standing in for a foreign
+syllable: the 法拉费 fault of batch 47 at a different sound. `check-example-fit.js` cannot see it,
+single-character headwords being skipped outright. 巧 lost two of its three: 爱不是花言巧语 buries
+the character inside an idiom and rendered it "Love is not talking nonsense", which is not what
+花言巧语 means, and 可不可以你也很巧的爱上我 is not grammatical Chinese. 敲 lost 刚刚敲过了八点钟，
+不是吗？ — an English clock striking, translated word for word.
+
+**And two that are the "different constructions" rule rather than a fault in any one sentence.**
+全身's three lines were 我全身疼痛, 她全身都疼 and 我全身酸痛 — three ways of aching all over, in one
+shape, so the card taught one collocation three times; the English differs on each, so the
+duplicate-sentence check passes and only reading the card finds it. Two replaced with 全身湿透
+(soaked from head to foot) and 全身检查 (a full-body examination). 取得's second and third were both
+取得…进展 with different English around them; the third replaced with 取得了好成绩.
+
+**`globalization`: a family `check-british.js` reads 0 over whatever the decks contain.** `globalis`
+/ `globaliz` is not in app.js's `SPELL_PAIRS` at all, so the checker is blind to it in exactly the way
+it is blind to -logue (batch 27), -ward (batch 29) and skeptic — and since the site's spelling switch
+runs one way only, from authored British, an American spelling written into deck content is what BOTH
+readers see. Measured over the nine decks: **three sites on three cards**, two of them the same
+sentence (我们反对全球化) carried by two different notes, hsk30l4/全球 and hsk30l5/化, and the third
+inside hsk30l7/跨国. All three fixed per note. **Folio's own prose is clean**: the corpus carries
+three `Globaliz-` strings and every one is inside a CITATION — a published title, which is borrowed
+text and out of scope by the site's own rule — so nothing outside the decks needed touching and no
+app change was made. The 跨国 line also wrote `trans-national`, which British style sets solid; it
+was rewritten with the rest of the sentence.
+
+**A trap worth writing down: that third site belongs to the RECORD, not to the deck.** The
+globalisation sentence on 跨国 is a row this record itself added in an earlier batch, so the repair
+belongs in its own `ex` row and an `exEn` row naming it fails — which the applier duly reported.
+Worse, the key was first written `hsk30l79/跨国` (the deck file is `Levels-7-9`; the deck's card ids
+say **`hsk30l7`**), and renaming the key by assignment **overwrote the note's existing entry and its
+two `ex` rows**, silently deleting two sentences from the card. Caught by reading the deck rather than
+by any checker. **Check the deck id against a card id before writing a Levels 7–9 key, and never move
+a record key by plain assignment** — merge into whatever is already there.
+
+**Three English lines corrected.** 文艺青年 is not "a young artist": it is the fixed modern
+expression for the arty, bookish sort of young person, and a job description teaches the reader a word
+they will then use wrongly. 球迷's "The fans all hope the club changes the manager" states as fact
+what 希望…能换 puts as a wish. And 全's "Have you seen all these films?" supplies a plural and a
+demonstrative 你把电影全看了吗 has not got, losing the 全 the card is about.
+
+**Seven `Compounds` blocks**, every row's reading and gloss checked against CC-CEDICT first: 敲 and
+桥 had **nothing at all** in the reader's downloaded deck, 强, 巧 and 琴 one word each — and 巧's one
+word is 巧克力, where the character is standing in for a foreign syllable and teaches nothing about it
+— 轻 and 缺 two each. 区 (4), 取 (3) and 全 (5) were measured and left.
+
+**Four more glosses widened to the sense the card shows**, none of them wrong so much as narrow: 琴
+was CC-CEDICT's first sense, the zither, on a card whose three sentences are all keyboards (练琴, 弹琴
+and 管风琴) — a gloss can be right about the word and wrong about the card; 轻 was `light-weight`
+alone while two of three sentences are the gentle/softly sense; 缺点 was `disadvantage`, the narrowest
+of four senses, over 优点和缺点 and 她的缺点; 前后 was carrying a de-collision gloss from an earlier
+batch that covered one of the three senses its sentences show, the missing one being on a sentence
+**this record itself authored**, so the gap was its own to close. Two more phantom labels dropped:
+签证 and 区别 were both `noun / verb` over a single noun gloss with no sentence showing the verb, and
+庆祝 is labelled `verb` over a gloss that opened on the noun.
+
+**Read and left.** 前方, 桥, 巧克力, 亲戚, 球队, 区, 取消, 全部, 全都, 缺少 — and 强, whose third
+sentence puts the character inside 女强人 but transparently, the compound meaning what the character
+means. 取得's remaining two lines are both about progress and were left, the constructions differing.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; **shared-gloss groups 330 → 329**; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 548 unchanged;
 `build-lang-decks.js` re-run.
