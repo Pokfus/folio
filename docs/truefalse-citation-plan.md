@@ -73,7 +73,7 @@ card-side research is then shared.
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three and T14 one, all researched |
-| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA |
+| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one |
 
@@ -890,3 +890,19 @@ That is the right rule and it is not worth weakening for two brackets. What both
 source, and neither has one yet: `napoleon.org`'s height article is 404, Mount Vernon answers **403**,
 and the Permanente Journal paper on Washington's death is not open at Europe PMC (its `fullTextXML`
 answers 500). **Cite them and the units fix rides along.**
+
+### T18 — stainless steel off the RSC, and rust off Lavoisier himself (2026-09-17)
+
+- **Stainless steel.** The RSC's chromium page: "In corrosion-resistant, or 'stainless', steels, at
+  least 11% of its mass is chromium. The alloyed chromium reacts with oxygen to form a transparent
+  nanoscopic layer of oxide that forms a barrier to further oxygen penetration." **TWO DETAILS WENT** —
+  "only a few atoms thick", which the page calls nanoscopic and does not measure, and the film
+  re-forming wherever the surface is scratched, which it does not mention at all. The threshold is
+  now the page's own 11 per cent rather than "above roughly a tenth".
+- **Rust weighs more.** Cited to **Lavoisier's own book**, Kerr's 1790 translation on Project Gutenberg:
+  he burns iron in a closed vessel, finds the metal has gained exactly what the air has lost, and
+  elsewhere renames "rust of iron" the red oxide of iron. **HIS FIGURES WERE DELIBERATELY LEFT OUT** —
+  100 grains of iron, 35 grains gained, 70 cubical inches of air lost. A grain is an imperial unit, and
+  the house rule puts metric first, which here would mean restating an eighteenth-century experiment in
+  units its author never used; the argument survives without them, so the sentence gives the relation
+  and not the numbers. **The 1770s date went too**, the book being 1790 and the experiment undated in it.
