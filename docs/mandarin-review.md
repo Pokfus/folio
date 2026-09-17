@@ -582,6 +582,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 91–120 (出租 → 打折), deck order | 15 | a sentence about a TAXI on the card for *to rent*, which segments perfectly and no checker can see |
 | 2026-09-17 | `hsk30l4` notes 121–150 (打针 → 低于), deck order | 18 | a gloss that misspelt its own subject, and a card two of whose three sentences were not its word |
 | 2026-09-17 | `hsk30l4` notes 151–180 (底 → 多样), deck order | 21 | a fourth truncated gloss, and the label-against-gloss fault three more times in thirty cards |
+| 2026-09-17 | `hsk30l4` notes 181–210 (而 → 父亲), deck order | 22 | a fifth truncated gloss, a gloss that was not English, and a falafel on the card for *expense* |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5184,4 +5185,55 @@ deliberately not swept as a class. 对于's 对于我 is written-register rather
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 392 → 398;
+`build-lang-decks.js` re-run.
+
+## Batch 47 — hsk30l4 notes 181–210 (而 → 父亲)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order. Twenty-two cards changed. The
+glosses in this stretch are the worst the audit has met: **a fifth truncation, a gloss that is not English,
+and five more where the label and the words disagree.**
+
+**A FIFTH TRUNCATED GLOSS.** 幅 read *width of cloth; [measure word (for paintings, pictures,* — no closing
+bracket, no closing parenthesis, and the words "measure word" inside a gloss whose LABEL already says
+measure word. After 西北, 园, 场 and 掉. All three of its own sentences are the measure word, so it leads.
+
+**AND ONE THAT WAS NOT ENGLISH.** 反对 read *to fight against; to opposed to something*. **丰富 ran two
+senses together with the separator missing** — *enrich; abundant rich; plentiful* — where *enrich* is a verb
+under an adjective label; **翻译 named two parts of speech against the single gloss *to translate***, so its
+noun sense, which its own third sentence is, had no gloss at all; and **烦恼 was labelled an adjective**
+where two of its three lines are the noun. Two more were glossed by something other than the word that
+replaces them in English: **否则 read *if not*** where all three sentences are *or* or *otherwise*, and
+**符合 read *tally with; accord with***, a register a learner will not meet.
+
+**A FALAFEL ON THE CARD FOR *EXPENSE*.** 费's second line was 我刚吃了个法拉费 — a TRANSLITERATION, where the
+character is present for its SOUND and has nothing to do with cost. It is the swallow this level has now
+shown four times, in its purest form. **The first replacement written for it made the same mistake**:
+这笔钱够付学费了 puts the character inside 学费, which is already a word in that card's own tap panel, so the
+authored sentence was rewritten to use 费 as a VERB. **A replacement is checked against the fault it is
+replacing.**
+
+**THREE MORE SENTENCES WENT.** 法律's first was 新人新法律, a four-character slogan with no verb. 烦's second
+was 要用心，不要操心、烦心 — three verbs in a row, and its 烦心 the same compound the card's third line already
+used, so none taught 烦 on its own. And 房东's first was *when the cat's away, the mice will play* translated
+word for word into Chinese, which is neither a Chinese saying nor a sentence anybody will use.
+
+**A MISSING FULL STOP.** 放弃's third line had none at all, on the card and in the spoken field alike.
+
+**FIVE SINGLE-CHARACTER CARDS GAINED `Compounds`** — 而, 烦, 幅, 付, 份. 幅's panel is empty; 而's is one
+word against thirty in the collection. 法 (seven in deck), 费 (five) and the rest were measured and left.
+
+**NINE ENGLISH LINES.** 发出's second read *We've sent the invitations yesterday*, which a present perfect
+cannot do, and its third was not a sentence. 父亲's first called him *Dad*, which is 爸爸 and is the whole
+distinction the card teaches. 父母's read *look to* for 照顾, which means to rely on. 分为's turned 书 into one
+book that was divided into categories. 方面's and 费用's dropped the headword out of the English entirely.
+丰富's third invented *everyone is rich and beautiful* out of a sentence about an inner world. 儿童's read
+*these* for 他们. And 放弃's first read *We never gave up* for the habitual 从不.
+
+**Read and left.** 分数 is glossed *(exam) grade* and CC-CEDICT also gives *fraction*; the card's three
+sentences are all exam scores, so the narrower gloss is the card's own. 符合's *That's logical* is the
+natural English for 那符合逻辑 even though it hides the headword.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 398 → 407;
 `build-lang-decks.js` re-run.

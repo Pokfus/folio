@@ -13034,8 +13034,17 @@
       "gloss": "large river (and the word in the names of the great rivers)"
     },
     "hsk30l4/法律": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "law, the body of law"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | '新人新法律。' is not a sentence — it is a four-character slogan with no verb, glossed 'New people, new laws'. Replaced with an AUTHORED sentence, which the record says so is.",
+      "gloss": "law, the body of law",
+      "dropEx": [
+        "新人新法律。"
+      ],
+      "ex": [
+        [
+          "这条法律明年开始生效。",
+          "This law comes into force next year."
+        ]
+      ]
     },
     "hsk30l4/演唱": {
       "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
@@ -13216,8 +13225,14 @@
       ]
     },
     "hsk30l4/费用": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "expenses, the cost of something"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | '这儿的生活费用很高。' read 'Life is very expensive here', which is true and contains nothing a reader can match to 费用 — 生活费用 is the cost of living.",
+      "gloss": "expenses, the cost of something",
+      "exEn": [
+        [
+          "这儿的生活费用很高",
+          "The cost of living here is very high."
+        ]
+      ]
     },
     "hsk30l4/车速": {
       "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -114913,6 +114928,292 @@
           "定期",
           "dìng qī",
           "at regular intervals; periodic"
+        ]
+      ]
+    },
+    "hsk30l4/幅": {
+      "why": "THE GLOSS WAS CUT OFF MID-BRACKET: 'width of cloth; [measure word (for paintings, pictures,' — no closing bracket, no closing parenthesis, and the words 'measure word' inside a gloss whose LABEL already says measure word. The fifth truncation the audit has met, after 西北, 园, 场 and 掉. All three of the card's own sentences are the measure word, so it leads. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "measure word",
+          "[for paintings, maps and pictures]"
+        ],
+        [
+          "noun",
+          "the width of a bolt of cloth"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "幅度",
+          "fú dù",
+          "extent; range"
+        ],
+        [
+          "大幅",
+          "dà fú",
+          "substantially; by a wide margin"
+        ],
+        [
+          "篇幅",
+          "piān fú",
+          "the length of a piece of writing"
+        ]
+      ]
+    },
+    "hsk30l4/丰富": {
+      "why": "The gloss ran two senses together with nothing between them — 'enrich; abundant rich; plentiful' — where 'abundant rich' is two adjectives with the separator missing and 'enrich' is a VERB under an adjective label. CC-CEDICT gives them apart: 'to enrich' and 'rich; plentiful; abundant'. All three of the card's sentences are the adjective. | '内心世界很丰富，不知该如何表达了！' read 'Deep down, EVERYONE is rich and beautiful, but we don't know how to express it!' — there is no 每个人 and no 美丽 in the sentence, and 丰富 is describing an inner world rather than a person.",
+      "senses": [
+        [
+          "adjective",
+          "rich; plentiful; abundant"
+        ],
+        [
+          "verb",
+          "to enrich"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "exEn": [
+        [
+          "内心世界很丰富",
+          "My inner world is so rich that I do not know how to express it!"
+        ]
+      ]
+    },
+    "hsk30l4/翻译": {
+      "why": "The card named two parts of speech against a single gloss, 'to translate', so the NOUN sense had no gloss at all — and the card's own third sentence, 我不想为这句子做翻译, is that noun. CC-CEDICT gives both, the noun covering the translation and the translator alike.",
+      "senses": [
+        [
+          "verb",
+          "to translate"
+        ],
+        [
+          "noun",
+          "a translation; a translator; an interpreter"
+        ]
+      ]
+    },
+    "hsk30l4/烦恼": {
+      "why": "Labelled an ADJECTIVE against a gloss that is only the adjective, where two of the card's three sentences are the NOUN — 烦恼带不走明天的忧虑 and 生活中的烦恼在所难免 are both worries rather than worried. Split, and tagged so a reader can see which line is which.",
+      "senses": [
+        [
+          "adjective",
+          "worried; troubled"
+        ],
+        [
+          "noun",
+          "worries; troubles"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ]
+    },
+    "hsk30l4/反对": {
+      "why": "THE GLOSS WAS NOT ENGLISH: 'to fight against; to opposed to something'. CC-CEDICT reads 'to fight against; to oppose; to be opposed to'.",
+      "gloss": "to oppose; to object to"
+    },
+    "hsk30l4/否则": {
+      "why": "'if not' is not what any of the card's three sentences means — all three are 'or', 'or else', 'otherwise', which is what CC-CEDICT gives. A conjunction glossed by a condition rather than by the word that replaces it in English.",
+      "gloss": "otherwise; or else"
+    },
+    "hsk30l4/符合": {
+      "why": "'tally with; accord with' is a register a learner will not meet: CC-CEDICT's own list opens 'in keeping with; in accordance with', and the card's own sentences are a price fitting a budget and a person meeting a description.",
+      "gloss": "to accord with; to meet; to conform to"
+    },
+    "hsk30l4/费": {
+      "why": "'我刚吃了个法拉费。' is about a FALAFEL. 法拉费 is a transliteration — the character is there for its SOUND and has nothing to do with cost or expense, which is what the card is about — and being three characters ending in the headword, it is the swallow this level has now shown four times. Replaced with an AUTHORED sentence, which the record says so is — and deliberately one using 费 as a VERB, since the first draft of the replacement put it inside 学费, which is the very swallow the drop was for and is already a word in the card's own tap panel.",
+      "dropEx": [
+        "我刚吃了个法拉费。"
+      ],
+      "ex": [
+        [
+          "修这辆车费了不少钱。",
+          "Repairing this car cost quite a lot of money."
+        ]
+      ]
+    },
+    "hsk30l4/烦": {
+      "why": "'要用心，不要操心、烦心。' is a slogan rather than a sentence — three verbs in a row under the English 'Be diligent, don't worry' — and its 烦心 is the same compound the card's third line already uses, so two of three taught one word and none taught 烦 on its own. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 烦恼 and 麻烦. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "要用心，不要操心、烦心。"
+      ],
+      "ex": [
+        [
+          "别烦我，我在工作。",
+          "Don't bother me, I'm working."
+        ]
+      ],
+      "compounds": [
+        [
+          "厌烦",
+          "yàn fán",
+          "to be fed up with"
+        ],
+        [
+          "烦人",
+          "fán rén",
+          "annoying; a nuisance"
+        ]
+      ]
+    },
+    "hsk30l4/房东": {
+      "why": "'当房东不在，房客就会大玩特玩。' is the English proverb *when the cat's away, the mice will play* translated word for word into Chinese, which is neither a Chinese saying nor a sentence a learner will use. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "当房东不在，房客就会大玩特玩。"
+      ],
+      "ex": [
+        [
+          "房东把房子租给了三个学生。",
+          "The landlord let the house to three students."
+        ]
+      ]
+    },
+    "hsk30l4/放弃": {
+      "why": "Its third line had no full stop at all, on the card and in the spoken field alike; and its first read 'We never GAVE up' where 从不 is the habitual present.",
+      "exStop": [
+        [
+          "放弃这个想法吧"
+        ]
+      ],
+      "exEn": [
+        [
+          "我们从不放弃",
+          "We never give up."
+        ],
+        [
+          "放弃这个想法吧",
+          "Give up this idea."
+        ]
+      ]
+    },
+    "hsk30l4/儿童": {
+      "why": "'他们是儿童吗？' read 'Are THESE children?' — 他们 is they, and these would be 这些.",
+      "exEn": [
+        [
+          "他们是儿童吗",
+          "Are they children?"
+        ]
+      ]
+    },
+    "hsk30l4/发出": {
+      "why": "'我们昨天发出了邀请。' read 'We'VE SENT the invitations yesterday', which no English speaker says — a present perfect cannot take a past adverb; and the third line's 'coming out the window in the building across' is not a sentence either.",
+      "exEn": [
+        [
+          "我们昨天发出了邀请",
+          "We sent out the invitations yesterday."
+        ],
+        [
+          "为什么对面楼的窗户里发出红光",
+          "Why is there a red light coming from a window in the building opposite?"
+        ]
+      ]
+    },
+    "hsk30l4/方面": {
+      "why": "'我只想注意积极方面。' read 'I want to just focus on the positive', which drops 方面 — the card's own gloss — and splits an infinitive on the way.",
+      "exEn": [
+        [
+          "我只想注意积极方面",
+          "I only want to focus on the positive aspects."
+        ]
+      ]
+    },
+    "hsk30l4/分为": {
+      "why": "'他把他的书分为五类。' read 'He divided his BOOK into five CATEGORIES' — one book has parts or chapters, and it is 类, categories, that tells you 书 is plural here.",
+      "exEn": [
+        [
+          "他把他的书分为五类",
+          "He divided his books into five categories."
+        ]
+      ]
+    },
+    "hsk30l4/父母": {
+      "why": "'父母有责任照顾子女的健康。' read 'responsibilities to LOOK TO their children's health' — to look TO a thing is to rely on it; 照顾 is to look after.",
+      "exEn": [
+        [
+          "父母有责任照顾子女的健康",
+          "Parents have a responsibility to look after their children's health."
+        ]
+      ]
+    },
+    "hsk30l4/父亲": {
+      "why": "'父亲不在家。' read 'DAD isn't home' — 父亲 is the formal word the card teaches and 爸爸 is dad, which is the distinction a learner is here for.",
+      "exEn": [
+        [
+          "父亲不在家",
+          "Father is not at home."
+        ]
+      ]
+    },
+    "hsk30l4/而": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 然而, against thirty in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "而且",
+          "ér qiě",
+          "moreover; and also"
+        ],
+        [
+          "反而",
+          "fǎn ér",
+          "on the contrary; instead"
+        ],
+        [
+          "而已",
+          "ér yǐ",
+          "that is all; nothing more"
+        ]
+      ]
+    },
+    "hsk30l4/付": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 支付. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "付款",
+          "fù kuǎn",
+          "to pay a sum of money"
+        ],
+        [
+          "付出",
+          "fù chū",
+          "to pay; to expend"
+        ],
+        [
+          "对付",
+          "duì fu",
+          "to deal with; to handle"
+        ]
+      ]
+    },
+    "hsk30l4/份": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 身份证 and 月份. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "省份",
+          "shěng fèn",
+          "a province"
+        ],
+        [
+          "身份",
+          "shēn fèn",
+          "identity; status"
+        ],
+        [
+          "股份",
+          "gǔ fèn",
+          "a share in a company"
         ]
       ]
     }
