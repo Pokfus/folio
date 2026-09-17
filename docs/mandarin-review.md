@@ -561,6 +561,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | **the American-spelling pass**, all nine decks, as a new `exBritish` deck field | 412 | 489 American spellings in decks the site's switch can never correct |
 | 2026-09-17 | **the American-word-choice pass**, all nine decks, as a new `exLexis` deck field plus 87 per-note rows | 189 | a word the spelling table cannot reach, because it is a different word |
 | 2026-09-17 | **the whitespace pass**, all nine decks, as a new `exSpace` note field | 30 | a card not one of whose three sentences used its own headword as a word |
+| 2026-09-17 | `hsk30l3` notes 61–90 (迟到 → 电), deck order | 12 | four cards teaching a word their own sentences do not contain, all invisible to `check-example-fit.js` |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -3144,3 +3145,98 @@ sentence this record authored.
 - `check-coarse.js`: measured against HEAD, **identical in all six columns**; `check-say-reading.js` unchanged
 - answer-leak sets byte-identical to HEAD on all nine decks; 34,596 example blocks, **spoken == visible on every one**; sense tags past the sense list 0
 - `build-lang-decks.js`: re-run, and exactly the **seven touched decks** carry a new content revision — Levels 1 and 2 are byte-identical, so their readers are not offered an update they do not need
+
+### 2026-09-17 — HSK 3 notes 61–90 (迟到 → 电), deck order
+
+Back to the deck-order sweep after three standalone passes. Thirty notes read card by card; twelve
+changed, eighteen read and left alone.
+
+**THE BATCH'S FINDING IS A BLIND SPOT IN `check-example-fit.js`, AND IT IS A LARGE ONE.** That checker
+segments the sentence longest-match-first and reports an occurrence whose characters are SPLIT between
+two words. What it cannot see is the opposite arrangement: **the segmenter landing squarely ON the
+headword while the sentence is using those characters as something else.** Four cards in thirty were
+teaching a word that is not in their own sentences, and the corpus-wide run reports 143 findings with
+none of them named:
+
+- **大人** (adult) — two of three sentences were 他是加拿大人 and 你不是加拿大人，是吗, which are about
+  CANADA. Neither 加拿大 nor 加拿大人 is a headword in these nine decks, so the segmenter reads
+  他|是|加|拿|大人 and sees a clean match. **The checker's own lexicon is what fooled it.**
+- **得到** (to get) — two of three were 做得到 and 办得到, the POTENTIAL COMPLEMENT: verb + 得 + 到, where
+  得 is the potential marker and 到 the result. 得到 is itself a headword, so longest-match prefers it
+  over 做|得|到. A verb standing in front of 得到 is the signature, and the replacements avoid it.
+- **的话** (the conditional particle "if") — two of three were the possessive 的 plus the noun 话:
+  她的话如下 ("her words were as follows") and 听他的话 ("listen to what he says"). That is the commoner
+  reading of the two characters and the card was teaching the rarer one with examples of the commoner.
+- **电** (electricity) — 电影院离电车站近吗 carries 电 twice and neither is the word: 电影院 (cinema) and
+  电车站 (tram stop). A **single-character headword is skipped by the checker outright**, one character
+  being unable to straddle anything, so that whole class is beyond it by design. The English had lost
+  the tram as well, rendering 电车站 as "the station". The sentence is legitimately kept on 离 and 近.
+
+**AND THE HARVEST'S OWN GUARD IS ONE-SIDED, which is the same fault one layer up.** 得分's record
+harvested 我们在扔掉之前得分类 from the decks' own bank under a guard that refuses a target **swallowed
+by a LONGER headword**. This one is not swallowed — it is 得 (děi, "must") plus 分类 ("to sort"), two
+SHORTER words meeting — so the guard passed it, and the card taught 得分 with a sentence that contains
+neither the word nor even its reading. **It is the very fault the `dropEx` in that same entry was
+written for** (懂得|分是非), re-introduced by the harvest that followed it. A guard against one
+direction of a two-directional fault reads, in the record, exactly like a guard against both.
+
+**Two faults in the Chinese and the English that no checker looks for.**
+
+- **大熊猫**'s first sentence was UNGRAMMATICAL: 大熊猫只住在中国里 puts the localiser 里 after a country
+  name, which Chinese does not do. A learner copying the card copies the mistake; the sentence segments,
+  speaks and translates perfectly, so nothing in the pipeline can see it. Replaced with an authored
+  sentence carrying the same fact.
+- **春天**'s third ran two independent clauses together with no mark between them —
+  冬天结束了春天已经来了 — so the sentence reads as one and the speaker gives it no pause. `exSpace`
+  supplies the clause comma and changes no word, which is exactly what that field is bounded to; this is
+  its first use outside the batch that introduced it.
+- **蛋糕**'s third asserted more than its Chinese: 不同一般 is "out of the ordinary" and the English read
+  "The cake tastes divine!", which claims deliciousness the sentence does not. `exEn`, Chinese untouched.
+
+**Four glosses, each read against CC-CEDICT and against the card's own three sentences.**
+
+- **大小** was "dimension" and all three sentences mean SIZE. **The parenthetical it gained is a
+  disambiguator, not a note about the card**: 尺寸 is already glossed "size; dimensions; measurements
+  (esp. of clothes)", so a bare "size" would have put two cards on the reverse deck that a reader cannot
+  tell apart — batch 24's own collision trap, seen before it was made rather than after.
+- **出生** was "birth; to be born" under a VERB label, and CC-CEDICT gives only "to be born". 诞生 keeps
+  its "be born; come into being; emerge", which is what still tells the two apart.
+- **除了** was `apart from ("chule...yiwai" construction)` — a construction spelled in bare romanisation
+  the card never shows, naming half of what the word does. CC-CEDICT's leading senses are "apart from;
+  besides; in addition to": **除了 both EXCLUDES and INCLUDES**, which the old gloss hid.
+- **带** and **得分** are the measure-word family where the two-part-of-speech flag really is a missing
+  sense. 带 was "carry" under "noun / verb" **while carrying the classifier 条, which counts a belt or a
+  strap** — so the card promised a countable noun and defined none. 得分 was "to score" under the same
+  label with no noun. Both split; 得分 gained an `exSense` because its three sentences really do divide
+  1/1/2, and 带 deliberately did NOT, all three of its being the verb and a tag repeating itself three
+  times saying nothing.
+
+**A MEASURED NON-FINDING, so the next session does not sweep it.** 迟到 is glossed "arrive late" and 出发
+"set off; depart", where 出院 beside them reads "to leave hospital" — which looks like a missing
+infinitive marker. It is not a fault: measured over all nine decks, **2,582 verb glosses do not open on
+"to " against 1,164 that do**, and a large share of the majority are legitimately not infinitives at all
+(对不起, 再见, 下雨, 没事). The corpus's own house form is WITHOUT, and a sweep would be inventing a rule.
+
+**Two cards read and deliberately left, with the question recorded.** 出生's third sentence,
+我出生在二十年前, is marginal — 出生在 normally takes a place and a time takes 二十年前出生 — but it is
+attested and I could not settle it from CC-CEDICT and the card's own examples, so the card stands.
+地方's second, 有的地方不能理解 ("some parts are hard to understand"), uses the "aspect; part" sense
+that CC-CEDICT lists beside "place"; the gloss "place" is right for two of the three and widening it
+risks a collision for a sense a reader meets rarely. Both are left as they are.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2**, unchanged — the two gloss rewrites and the two splits made no new collision
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-gloss-source.js --deck=hsk30l3`: the neighbour check reads **0**, and not one of the twelve
+  changed cards is named
+- `check-example-fit.js`: **143, unchanged**, and no finding names a card this batch touched
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0**; `check-coarse.js` identical in all six columns; `check-say-reading.js`
+  unchanged at 10 of 1,503
+- answer-leak sets byte-identical to HEAD on all nine decks; 34,596 example blocks, **spoken == visible
+  on every one**; sense tags past the sense list 0; stray spaces 0
+- `build-lang-decks.js`: re-run, and **exactly one row changed** — Level 3's content revision — so only
+  the readers of that deck are offered an update

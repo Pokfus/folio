@@ -1954,6 +1954,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     segmenter land on the headword?" — reports 514 sentences of which almost all are Chinese working
     normally (国 lives inside 国家, 点 inside 几点), which is reporting the language rather than a fault.
     A single-character headword is skipped, since one character cannot straddle anything.
+  · **IT ASKS ONE QUESTION AND THE OPPOSITE ARRANGEMENT IS BEYOND IT** (batch 26). A finding is an
+    occurrence the segmenter SPLITS; where the segmenter lands squarely ON the headword while the
+    sentence is using those characters as something else, it reports nothing — and four cards in one
+    thirty-card batch were in that state. **Its own lexicon is what fools it**: neither 加拿大 nor
+    加拿大人 is a headword here, so 他是加拿大人 reads 他|是|加|拿|大人 and 大人 looks clean. And where
+    the headword IS a word, longest-match prefers it: 做得到 and 办得到 are the potential complement
+    verb + 得 + 到 and segment as 做|得到, 的话 in 他的话 is the possessive 的 plus 话. **A
+    SINGLE-CHARACTER headword is skipped outright**, so 电 inside 电影院 and 电车站 is beyond it by
+    design. **This class is found by READING and by nothing else.**
+  · **AND THE HARVEST'S GUARD IS THE SAME FAULT ONE LAYER UP.** A sentence taken from the decks' own
+    bank is refused where the target is SWALLOWED BY A LONGER headword, which says nothing about one
+    spanning TWO SHORTER ones — 得分 harvested 我们在扔掉之前得分类, which is 得 (děi) plus 分类, the
+    very fault the `dropEx` in that same record entry had been written for. **A guard against one
+    direction of a two-directional fault reads, in the record, exactly like a guard against both.**
   · **THE RANKING IS WHAT MAKES IT READABLE, and it is a frequency ranking.** Greedy segmentation cannot
     tell 如何|在 (a real fault) from 十分|钟 (not one) — they have the same SHAPE — so a finding is ranked
     by how much more the competing word is used, across every example sentence in all nine decks, than
@@ -2117,7 +2131,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   on request). **204 notes carry 2+ senses AND 2+ examples, and that is NOT the size of the job**: most
   of those senses are a dictionary's near-synonym list (没错 has five, all "that's right"), and numbering
   a sentence as sense 3 of 5 synonyms is noise dressed as information — so the record names the notes
-  and the applier never sweeps them. Fourteen have it. **IT RUNS AFTER `senses`**, which is load-bearing:
+  and the applier never sweeps them. Seventy-seven have it. **IT RUNS AFTER `senses`**, which is load-bearing:
   the note worth tagging is often the one this same record SPLITS, and read before the split it counts
   the senses the deck shipped with — which is how `道`'s third sense tripped its own guard on the first
   run. A tag naming a sense the note has not got is a FAIL, that being the shape a later merge produces.
@@ -2132,6 +2146,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `给` "to give" and never the preposition, `比` "to compare" and never "than", `还是` the "or" of a
   question and never "still", `名` the noun and never the measure word for people. **Do not sweep this
   flag** — a rule that split on the slash would make two cards out of 半 "adverb / numeral".
+  **AND A VERB GLOSS THAT DOES NOT OPEN ON "to " IS NOT A FAULT EITHER** (batch 26, measured): the nine
+  decks carry **2,582 verb glosses without it against 1,164 with**, and much of the majority is
+  legitimately not an infinitive at all (对不起, 再见, 下雨, 没事). The house form is WITHOUT, so a sweep
+  would be inventing a rule rather than applying one.
 - **AN IDIOM CARD CARRIES A `Literally` LINE** (the Idioms deck's card type; Sep 2026). An idiom's gloss
   says what it MEANS and throws away what it SAYS, and the image is most of what makes a
   four-character idiom stick — 谢天谢地 is "thank goodness" and it says "thank heaven, thank earth".

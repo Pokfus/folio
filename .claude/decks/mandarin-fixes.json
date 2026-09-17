@@ -10990,9 +10990,23 @@
       ]
     },
     "hsk30l3/大人": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | Found by READING the card (batch 26), and nothing in the pipeline could have. `check-example-fit.js` asks whether the headword's characters STRADDLE a word boundary; here the greedy longest-match segmenter lands squarely ON the headword and reports nothing, while the sentence is using those characters as a different word altogether. The sentence is real and its translation right, and the card bolds characters that are not the word it teaches. The bad sentences are dropped and AUTHORED ones put in their place — each using the word in the sense the card's own gloss gives it, and each in a DIFFERENT construction from the sentence already on the card. TWO of the three sentences were about CANADA: 大人 stood only inside 加拿大人, 'a Canadian' — 加拿大 (Canada) plus 人. Neither 加拿大 nor 加拿大人 is a headword in these nine decks, so the segmenter reads 他是加拿大人 as 他|是|加|拿|大人 and the checker sees a clean match.",
       "mw": [
         "个"
+      ],
+      "dropEx": [
+        "他是加拿大人。",
+        "你不是加拿大人，是吗？"
+      ],
+      "ex": [
+        [
+          "这部电影只有大人能看。",
+          "Only adults can watch this film."
+        ],
+        [
+          "他已经是个大人了。",
+          "He is already an adult."
+        ]
       ]
     },
     "hsk30l3/大概": {
@@ -11013,7 +11027,7 @@
       ]
     },
     "hsk30l3/大熊猫": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.  ALSO: The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.  ALSO: The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by READING the card (batch 26): the sentence was UNGRAMMATICAL. 住在中国里 puts the localiser 里 after a country name, which Chinese does not do — 在中国 takes no 里 — so a learner copying the card would be copying a mistake. Nothing in the pipeline can see this: the sentence segments, speaks and translates perfectly. Replaced with an AUTHORED sentence carrying the same fact in correct Chinese.",
       "mw": [
         "只",
         "头"
@@ -11022,7 +11036,14 @@
         [
           "大熊猫被认为是中国的国宝，但在一些保护区，它仍被偷猎。",
           "The giant panda is recognised as a national treasure of China, but in some conservation areas it is still killed by poachers."
+        ],
+        [
+          "大熊猫只生活在中国。",
+          "Giant pandas live only in China."
         ]
+      ],
+      "dropEx": [
+        "大熊猫只住在中国里。"
       ]
     },
     "hsk30l3/夫妻": {
@@ -11170,15 +11191,15 @@
       ]
     },
     "hsk30l3/得分": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 坏了 is *oh no* and was rendered \"Damn\". The English also had a second problem this fixes: *score* on its own is sexual slang in English, which on a Level 3 card next to an expletive is a reading nobody intended.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 坏了 is *oh no* and was rendered \"Damn\". The English also had a second problem this fixes: *score* on its own is sexual slang in English, which on a Level 3 card next to an expletive is a reading nobody intended. | AND THE HARVEST'S OWN GUARD WAS ONE-SIDED (batch 26). The sentence this record harvested — 我们在扔掉之前得分类 — is 得 (děi, 'must') plus 分类 ('to sort'), so the card taught 得分 with a sentence that neither contains the word nor even its reading. The guard above refuses a target SWALLOWED BY A LONGER headword; it says nothing about one spanning TWO SHORTER ones, which is the same fault from the other side, and it is the very fault the `dropEx` in this same entry was written for (懂得|分是非). Replaced with an AUTHORED sentence that also gives the NOUN sense its first example. | The gloss claimed 'noun / verb' over a single verb gloss, so the noun sense the part-of-speech label promised was never given; split, and `exSense` now says which sentence shows which.",
       "ex": [
-        [
-          "我们在扔掉之前得分类。",
-          "We should classify them before throwing them out."
-        ],
         [
           "他在最后一分钟得分了。",
           "He scored in the last minute."
+        ],
+        [
+          "他这次考试的得分很高。",
+          "His score in this exam was high."
         ]
       ],
       "dropEx": [
@@ -11189,6 +11210,21 @@
           "坏了，她要得分了。",
           "Oh no, she is going to score."
         ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to score a point"
+        ],
+        [
+          "noun",
+          "a score; a rating"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
       ]
     },
     "hsk30l3/总是": {
@@ -11428,7 +11464,7 @@
       ]
     },
     "hsk30l3/电": {
-      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | Found by READING the card (batch 26), and nothing in the pipeline could have. `check-example-fit.js` asks whether the headword's characters STRADDLE a word boundary; here the greedy longest-match segmenter lands squarely ON the headword and reports nothing, while the sentence is using those characters as a different word altogether. The sentence is real and its translation right, and the card bolds characters that are not the word it teaches. The bad sentences are dropped and AUTHORED ones put in their place — each using the word in the sense the card's own gloss gives it, and each in a DIFFERENT construction from the sentence already on the card. The sentence carried 电 twice and neither was the word: 电影院 (cinema) and 电车站 (tram stop). A SINGLE-CHARACTER headword is skipped by `check-example-fit.js` outright — one character cannot straddle anything — so this whole class is beyond it by design. The English had lost the tram as well, rendering 电车站 as 'the station'. The sentence is legitimately kept on the 离 and 近 cards, whose own words really are in it.",
       "senses": [
         [
           "noun",
@@ -11437,6 +11473,15 @@
         [
           "verb",
           "to give an electric shock; to send a telegram"
+        ]
+      ],
+      "dropEx": [
+        "电影院离电车站近吗？"
+      ],
+      "ex": [
+        [
+          "用电要小心。",
+          "Be careful with electricity."
         ]
       ]
     },
@@ -73059,7 +73104,7 @@
       ]
     },
     "hsk30l3/除了": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The gloss carried a note about the card rather than a definition (batch 26): 'apart from (\"chule...yiwai\" construction)' spelled a construction in bare romanisation the card never shows, and named only half of what the word does. CC-CEDICT's own leading senses are 'apart from; besides; in addition to' — 除了 both EXCLUDES and INCLUDES, which the old gloss hid. It stays distinct from 以外's 'apart from' on the reverse card, the fronts being different strings.",
       "dropEx": [
         "他被学校开除了。"
       ],
@@ -73068,7 +73113,8 @@
           "除了他，大家都来了。",
           "Everyone came except him."
         ]
-      ]
+      ],
+      "gloss": "apart from; besides; in addition to"
     },
     "hsk30l1/有的": {
       "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | Two of its three sentences were not this word. 这是常有的事 is 常有 plus 的, a relative clause meaning \"a thing that often happens\"; 有的，先生你有几位？ is 有的 used as the affirmative reply \"yes, we do\" and then a restaurant greeting that has nothing to do with it. Only 有的人喜欢茶，有的人喜欢咖啡 shows the pronoun the card is for. Both replaced with AUTHORED sentences. | Its gloss, \"(there are) some (who are...)\", is CC-CEDICT's own wording verbatim and is not wrong — it is simply unanswerable as the front of an English → Chinese card, being two bracketed asides round one word. Said plainly instead. | A NOTE ON THE RECORD ITSELF: this entry's earlier `ex` and `dropEx` were CLOBBERED rather than extended when this batch's fields were merged onto it, which left the card with two sentences instead of three and the record no longer claiming a drop it had really made. It is the second time (包子 in batch 2 was the first). A batch that adds `ex`, `dropEx` or `exEn` to a note that already has one must APPEND; the sweep that finds it is in the batch log.",
@@ -108986,6 +109032,79 @@
         [
           "她双手托起那只小猫。",
           "She lifted the kitten up with both hands."
+        ]
+      ]
+    },
+    "hsk30l3/得到": {
+      "why": "Found by READING the card (batch 26), and nothing in the pipeline could have. `check-example-fit.js` asks whether the headword's characters STRADDLE a word boundary; here the greedy longest-match segmenter lands squarely ON the headword and reports nothing, while the sentence is using those characters as a different word altogether. The sentence is real and its translation right, and the card bolds characters that are not the word it teaches. The bad sentences are dropped and AUTHORED ones put in their place — each using the word in the sense the card's own gloss gives it, and each in a DIFFERENT construction from the sentence already on the card. TWO of the three sentences were the POTENTIAL COMPLEMENT rather than the word: 做得到 ('can manage it') and 办得到 ('can pull it off') are verb + 得 + 到, where 得 is the potential marker and 到 the result. 得到 is itself a headword, so the segmenter prefers it over 做|得|到 and the finding is invisible. The two replacements avoid a verb standing in front of 得到 for the same reason.",
+      "dropEx": [
+        "我们做得到吗？",
+        "不要担心。你办得到的。"
+      ],
+      "ex": [
+        [
+          "你会得到答案的。",
+          "You will get an answer."
+        ],
+        [
+          "她从老师那里得到了帮助。",
+          "She got help from her teacher."
+        ]
+      ]
+    },
+    "hsk30l3/的话": {
+      "why": "Found by READING the card (batch 26), and nothing in the pipeline could have. `check-example-fit.js` asks whether the headword's characters STRADDLE a word boundary; here the greedy longest-match segmenter lands squarely ON the headword and reports nothing, while the sentence is using those characters as a different word altogether. The sentence is real and its translation right, and the card bolds characters that are not the word it teaches. The bad sentences are dropped and AUTHORED ones put in their place — each using the word in the sense the card's own gloss gives it, and each in a DIFFERENT construction from the sentence already on the card. The card teaches the CONDITIONAL PARTICLE — 'if', coming after the clause — and two of its three sentences were the possessive 的 plus the noun 话 ('her words', 'listen to what he says'), which is a different reading of the same two characters and the commoner one. Only 不想说的话不用说 was the particle. Both replacements put the particle where the card says it goes, at the end of a conditional clause.",
+      "dropEx": [
+        "她的话如下。",
+        "我不知道你为什么听他的话。"
+      ],
+      "ex": [
+        [
+          "下雨的话，我们就不去了。",
+          "If it rains, we won't go."
+        ],
+        [
+          "你有时间的话，请来帮我。",
+          "If you have time, please come and help me."
+        ]
+      ]
+    },
+    "hsk30l3/春天": {
+      "why": "Found by READING the card (batch 26): two independent clauses run together with no mark between them — 冬天结束了春天已经来了 — so the sentence reads as one and the speaker gives it no pause. The repair supplies the clause comma and changes no word, which is what `exSpace` is bounded to.",
+      "exSpace": [
+        [
+          "冬天结束了春天已经来了。",
+          "冬天结束了，春天已经来了。"
+        ]
+      ]
+    },
+    "hsk30l3/蛋糕": {
+      "why": "Found by READING the card (batch 26): the English asserted more than the Chinese. 不同一般 is 'out of the ordinary', a judgement of unusualness; the card rendered it 'The cake tastes divine!', which asserts deliciousness the sentence does not. The Chinese is untouched.",
+      "exEn": [
+        [
+          "这蛋糕吃起来不同一般。",
+          "This cake tastes out of the ordinary."
+        ]
+      ]
+    },
+    "hsk30l3/大小": {
+      "why": "The gloss was not the sense the card's own examples show (batch 26). 大小 was glossed 'dimension' and all three sentences mean SIZE — 'the same size', 'size 10 shoes', 'the size of an egg' — while CC-CEDICT gives 'large and small; size; adults and children'. 'dimension' reads in English as a measurement along one axis, which is not what the word means. The parenthetical is a DISAMBIGUATOR rather than a note about the card: 尺寸 is already glossed 'size; dimensions; measurements (esp. of clothes)', so a bare 'size' would have put two cards a reader cannot tell apart on the reverse deck.",
+      "gloss": "size (how big something is)"
+    },
+    "hsk30l3/出生": {
+      "why": "A noun gloss stood under a verb label (batch 26): 出生 was glossed 'birth; to be born' as a verb, and CC-CEDICT gives only 'to be born'. All three examples are the verb. 诞生 keeps its own 'be born; come into being; emerge', which is what still tells the two apart on the reverse card.",
+      "gloss": "to be born"
+    },
+    "hsk30l3/带": {
+      "why": "A measure word pointed at a sense the card never gave (batch 26). 带 was glossed 'carry' under a 'noun / verb' label and carried the classifier 条, which counts the NOUN — a belt or a strap — so the card promised a countable noun and defined none. This is the measure-word family where the two-part-of-speech flag really is a missing sense rather than one meaning wearing two labels; the 1,510 notes carrying that flag are NOT swept, and this one was read. CC-CEDICT gives both halves. No `exSense`: all three examples are the verb, and a tag repeating itself three times says nothing.",
+      "senses": [
+        [
+          "noun",
+          "belt; band; strap"
+        ],
+        [
+          "verb",
+          "to bring; to take along"
         ]
       ]
     }
