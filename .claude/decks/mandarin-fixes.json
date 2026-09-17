@@ -12112,10 +12112,11 @@
       ]
     },
     "hsk30l3/网站": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | Its `not 网址` block retired. The two shared the gloss `website` only because hsk30l4/网址 was glossed wrongly; with 网址 corrected to `a web address; a URL` the two no longer ask the same question, and the block had to come off in any case, a sense rewrite rebuilding the English field.",
       "mw": [
         "个"
-      ]
+      ],
+      "gloss": "a website"
     },
     "hsk30l3/老": {
       "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
@@ -12777,8 +12778,14 @@
       ]
     },
     "hsk30l4/午餐": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "lunch (more formal; the word used on menus)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | `Lunch is on` reads as an offer to pay for it; 午餐送到了 is that lunch has been delivered.",
+      "gloss": "lunch (more formal; the word used on menus)",
+      "exEn": [
+        [
+          "午餐送到了",
+          "Lunch has arrived."
+        ]
+      ]
     },
     "hsk30l4/博士": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | '预定在一点半与博士见面。' read 'I planned to meet the PROFESSOR at 1:30' — a 博士 holds a doctorate and a professor is 教授, which is a different card. The first line's 'a doctor's degree' is a doctorate.",
@@ -12841,8 +12848,13 @@
       ]
     },
     "hsk30l4/外出": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "to go out, to be away from home or the office (formal)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The third sentence ended with no terminal mark at all. The corpus-wide punctuation pass converts a half-width mark to a full-width one and never adds one, so about 150 sentences still stop bare.",
+      "gloss": "to go out, to be away from home or the office (formal)",
+      "exStop": [
+        [
+          "我今天将会外出"
+        ]
+      ]
     },
     "hsk30l4/大夫": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -71025,7 +71037,7 @@
       ]
     },
     "hsk30l4/网址": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was simply WRONG: 网址 is a web ADDRESS, a URL — which is what all three of its sentences say (请把网址发给我, 这个网址已经失效, 他记下了网址) — and it was glossed `website`, which is 网站. The two cards therefore shared one English word and carried a `not 网站` / `not 网址` hint pair between them, so the error was being papered over rather than reported. Correcting it dissolves the collision and the pair is retired.",
       "ex": [
         [
           "请把网址发给我。",
@@ -71039,7 +71051,8 @@
           "他记下了网址。",
           "He wrote the web address down."
         ]
-      ]
+      ],
+      "gloss": "a web address; a URL"
     },
     "hsk30l4/西部": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -109618,7 +109631,7 @@
       ]
     },
     "hsk30l4/吸": {
-      "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **All three of its sentences were profanity or drugs** — 吸一口气，妈的！, 你是不是吸毒吸傻了？ and 我不吸大麻。 — on a Level 4 card glossed *to inhale; to suck in*. Two of the three also render 吸 only inside 吸毒. All three replaced with AUTHORED sentences covering the three things this verb ordinarily does.",
+      "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **All three of its sentences were profanity or drugs** — 吸一口气，妈的！, 你是不是吸毒吸傻了？ and 我不吸大麻。 — on a Level 4 card glossed *to inhale; to suck in*. Two of the three also render 吸 only inside 吸毒. All three replaced with AUTHORED sentences covering the three things this verb ordinarily does. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 吸引. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "dropEx": [
         "吸一口气，妈的！",
         "你是不是吸毒吸傻了？",
@@ -109636,6 +109649,28 @@
         [
           "医生说吸烟对身体不好。",
           "The doctor says smoking is bad for you."
+        ]
+      ],
+      "compounds": [
+        [
+          "吸收",
+          "xī shōu",
+          "to absorb; to take in"
+        ],
+        [
+          "呼吸",
+          "hū xī",
+          "to breathe"
+        ],
+        [
+          "吸取",
+          "xī qǔ",
+          "to draw, of a lesson; to absorb"
+        ],
+        [
+          "吸尘器",
+          "xī chén qì",
+          "a vacuum cleaner"
         ]
       ]
     },
@@ -120347,6 +120382,234 @@
           "an intention"
         ]
       ]
+    },
+    "hsk30l4/脱": {
+      "why": "Glossed `to escape; shed`, and all three of the card's sentences are taking clothes OFF — 脱了背心, 脱鞋, 把衣服脱掉 — which the gloss does not reach at all, though CC-CEDICT leads with it (/to shed/to take off/to escape/). And the first sentence's English called 背心 a **wife-beater**, which is offensive slang for a sleeveless vest and has no business on a vocabulary card. `check-coarse.js` cannot see it: 脱 is a one-character headword, so `own()` excuses every compound built on it, and the phrase is in none of its six lists in any case. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to take off (clothes); to shed; to escape from",
+      "exEn": [
+        [
+          "他脱了背心",
+          "He took off his vest."
+        ]
+      ],
+      "compounds": [
+        [
+          "脱离",
+          "tuō lí",
+          "to break away from; to separate from"
+        ],
+        [
+          "摆脱",
+          "bǎi tuō",
+          "to get rid of; to shake off"
+        ],
+        [
+          "解脱",
+          "jiě tuō",
+          "to free oneself of"
+        ],
+        [
+          "逃脱",
+          "táo tuō",
+          "to escape; to get away"
+        ]
+      ]
+    },
+    "hsk30l4/推出": {
+      "why": "Glossed `to push out`, the literal sense, while two of the card's three sentences are the commercial one — 推出了新型弹道飞弹, 最新推出的机型 — which is how the word is overwhelmingly used and which CC-CEDICT gives (/to push out/to release/to launch/). Its first sentence also pushed somebody `out the window`, which wants an `of` in British English.",
+      "gloss": "to push out; to bring out, to launch (a product)",
+      "exEn": [
+        [
+          "她把他推出窗户",
+          "She pushed him out of the window."
+        ]
+      ]
+    },
+    "hsk30l4/卫生": {
+      "why": "Glossed `health`, which is 健康; 卫生 is hygiene and sanitation, and the card's own sentences are 不卫生 (unhygienic) and 卫生纸 (toilet paper). Its third had to go besides: 这是夜用的卫生巾吗？ is a sanitary-towel purchase, out of register for a Level 4 vocabulary card, and its English used **maxi pad**, the American term. Replaced with the noun sense the widened gloss names. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "hygiene, sanitation; hygienic",
+      "dropEx": [
+        "这是夜用的卫生巾吗"
+      ],
+      "ex": [
+        [
+          "保持厨房卫生很重要。",
+          "Keeping the kitchen clean is important."
+        ]
+      ]
+    },
+    "hsk30l4/文章": {
+      "why": "Glossed `essay` alone, while the card's second sentence is a newspaper ARTICLE and its first is the idiom 话里有文章, a hidden meaning. CC-CEDICT gives /article/essay/literary works/writings/hidden meaning/. The second's English, `You read the paper?`, is also ambiguous between a newspaper and an academic paper where the Chinese is neither.",
+      "gloss": "an article, an essay, a piece of writing",
+      "exEn": [
+        [
+          "你看文章了没",
+          "Have you read the article?"
+        ]
+      ]
+    },
+    "hsk30l4/味道": {
+      "why": "Glossed `flavour` alone; CC-CEDICT gives /flavor; taste/…/(dialect) smell; odor/, and a learner meets 味道 for a SMELL as often as for a taste.",
+      "gloss": "a taste, a flavour; a smell"
+    },
+    "hsk30l4/无": {
+      "why": "Glossed `without` under a `verb` label, which is neither what the word is nor what its sentences show: 您无需道歉 and 无风不起浪 are the bound negator, `un-` and `-less`. And the second sentence was **Classical Chinese**: 狗子还有佛性也无？ is Zhaozhou's dog, a Chan koan, which on a Level 4 card is out of register by about twelve centuries — 也无 is not a question particle any modern learner will meet. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "to have no, to be without; un-, -less",
+      "dropEx": [
+        "狗子还有佛性也无"
+      ],
+      "ex": [
+        [
+          "这里无人居住。",
+          "Nobody lives here."
+        ]
+      ]
+    },
+    "hsk30l4/晚安": {
+      "why": "Labelled `verb`, which 晚安 is not — it is a greeting, and the decks already have the label for it: hsk30l1/你好 is `interjection`. Its third English line also wrote `goodnight` closed up, where British style sets the greeting as two words, which is what the card's own gloss does.",
+      "senses": [
+        [
+          "interjection",
+          "good night"
+        ]
+      ],
+      "exEn": [
+        [
+          "我必须跟汤姆说晚安",
+          "I have to say good night to Tom."
+        ]
+      ]
+    },
+    "hsk30l4/污染": {
+      "why": "Labelled `verb` over a gloss that opens on the NOUN (`pollution; to contaminate`), and all three of its sentences are the verb — 污染环境, 被细菌污染, 污染海洋.",
+      "senses": [
+        [
+          "verb",
+          "to pollute; to contaminate"
+        ]
+      ]
+    },
+    "hsk30l4/无论": {
+      "why": "The first sentence was a FRAGMENT punctuated with a double full stop: 无论我如何努力。。 — `No matter how hard I try...`, which stops before the clause 无论 exists to introduce, and which writes 。。 where Chinese sets an ellipsis. A conjunction card whose example never reaches the second half teaches the reader nothing about how to use it. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "无论我如何努力"
+      ],
+      "ex": [
+        [
+          "无论多难，我都会坚持。",
+          "However hard it is, I'll keep going."
+        ]
+      ],
+      "exEn": [
+        [
+          "无论你说什么，我不相信你们",
+          "I don't believe you, whatever you say."
+        ]
+      ]
+    },
+    "hsk30l4/文字": {
+      "why": "Two of the three sentences were 文字游戏 — 这是个文字游戏 and 文字游戏很少能被翻译 — so a card about writing showed wordplay twice and the writing SYSTEM, which its gloss names, not at all. One replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "这是个文字游戏"
+      ],
+      "ex": [
+        [
+          "甲骨文是中国最早的文字。",
+          "Oracle bone script is China's earliest writing."
+        ]
+      ]
+    },
+    "hsk30l4/外套": {
+      "why": "The second sentence was not grammatical — 我得买一件新冬天外套 needs 一件新的冬季外套 or 一件新的冬天外套 — and it ended with no terminal mark at all. Replaced. The first's English also called the 外套 a JACKET while the card glosses it `coat`, and asked whether it was `right for me` where 好看吗 asks how it looks. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "我得买一件新冬天外套"
+      ],
+      "ex": [
+        [
+          "天冷了，穿上外套吧。",
+          "It's cold — put your coat on."
+        ]
+      ],
+      "exEn": [
+        [
+          "我穿这件外套好看吗",
+          "Does this coat look good on me?"
+        ]
+      ]
+    },
+    "hsk30l4/闻": {
+      "why": "`A picture is worth a thousand words` is a different proverb: 百闻不如一见 is `hearing a hundred times is not as good as seeing once`, and the 闻 in it is the card's own first sense, to HEAR — which the substituted English erases entirely. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "百闻不如一见",
+          "Seeing once is better than hearing a hundred times."
+        ]
+      ],
+      "compounds": [
+        [
+          "新闻",
+          "xīn wén",
+          "news"
+        ],
+        [
+          "闻名",
+          "wén míng",
+          "well-known; renowned"
+        ],
+        [
+          "传闻",
+          "chuán wén",
+          "a rumour"
+        ],
+        [
+          "听闻",
+          "tīng wén",
+          "to hear of; what one has heard"
+        ]
+      ]
+    },
+    "hsk30l4/往往": {
+      "why": "A thermometer does not go below zero; the temperature does. 温度计往往低于零度 is what the instrument READS.",
+      "exEn": [
+        [
+          "温度计往往低于零度",
+          "The thermometer often reads below zero."
+        ]
+      ]
+    },
+    "hsk30l4/文件": {
+      "why": "`The papers blew off` is not English for 文件被风刮起来 — 刮起来 is blown ABOUT or blown UP by the wind.",
+      "exEn": [
+        [
+          "文件被风刮起来",
+          "The papers were blown about by the wind."
+        ]
+      ]
+    },
+    "hsk30l4/味": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 味道. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "口味",
+          "kǒu wèi",
+          "a person's taste in food"
+        ],
+        [
+          "气味",
+          "qì wèi",
+          "an odour; a scent"
+        ],
+        [
+          "香味",
+          "xiāng wèi",
+          "a fragrance; a sweet smell"
+        ],
+        [
+          "美味",
+          "měi wèi",
+          "delicious; a delicacy"
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -120451,7 +120714,6 @@
     "hsk30l3/直到": "为止",
     "hsk30l3/着急": "焦虑",
     "hsk30l3/简单": "浅显",
-    "hsk30l3/网站": "网址",
     "hsk30l3/脸": "面孔",
     "hsk30l3/节日": "佳节",
     "hsk30l3/草": "草丛",
@@ -120525,7 +120787,6 @@
     "hsk30l4/粗心": "马虎",
     "hsk30l4/精彩": "璀璨",
     "hsk30l4/细心": "仔细",
-    "hsk30l4/网址": "网站",
     "hsk30l4/胳膊": "手臂",
     "hsk30l4/艺术": "美术",
     "hsk30l4/苦": "辛酸",

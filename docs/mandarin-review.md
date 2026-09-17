@@ -601,6 +601,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 661–690 (使馆 → 顺便), deck order | 16 | a label and a gloss that were two different senses of the same character |
 | 2026-09-17 | `hsk30l4` notes 691–720 (顺利 → 提), deck order | 23 | a card glossed `to calculate` not one of whose three sentences calculates anything, two of them unfit besides |
 | 2026-09-17 | `hsk30l4` notes 721–750 (提出 → 推迟), deck order, plus a new `parking lot` LEXIS row and a `fill out` sweep | 25 | six labels naming a part of speech the card's own gloss is not |
+| 2026-09-17 | `hsk30l4` notes 751–780 (推出 → 吸), deck order | 20 | a gloss that was simply the wrong word, papered over by a `not X` hint |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6311,5 +6312,60 @@ is the same in British English.
 
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 327 unchanged; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 569 unchanged;
+`build-lang-decks.js` re-run.
+
+## Batch 66 — hsk30l4 notes 751–780 (推出 → 吸)
+
+Thirty consecutive notes; **twenty changed**.
+
+**The leading finding is a hint pair that was hiding an outright error.** 网址 was glossed
+**`website`** — which is 网站 — while all three of its own sentences say *web address* (请把网址发给我,
+这个网址已经失效, 他记下了网址). The two cards therefore shared one English word and carried a
+`not 网站` / `not 网址` pair between them, **so the mistake was being papered over rather than
+reported**: the disambiguator made the collision survivable and nothing was left to say that one of the
+two glosses was simply wrong. Correcting 网址 to `a web address; a URL` dissolves it, and the pair is
+retired. Shared groups 327 → 326; the sixth pair retired in this audit. **A `not X` block is a reason
+to read both cards, not a reason to stop.**
+
+**Two sentences out of register by a very long way.** 无's second was **Classical Chinese**:
+狗子还有佛性也无？ is Zhaozhou's dog, a Chan koan, on a Level 4 vocabulary card — 也无 is not a question
+particle any modern learner will meet. And 卫生's third, 这是夜用的卫生巾吗？, is a sanitary-towel
+purchase whose English used **maxi pad**, the American term; the card is glossed for hygiene in general
+and the sentence buries the headword in 卫生巾 besides.
+
+**An offensive English line no checker can reach.** 脱's first sentence rendered 背心 as a
+**wife-beater**. `check-coarse.js` is blind to it twice over: 脱 is a one-character headword, so
+`own()` excuses every compound built on it, and the phrase is in none of its six lists in any case.
+Found by reading. The card was also glossed `to escape; shed` while **all three** of its sentences are
+taking clothes off, which is CC-CEDICT's own leading sense.
+
+**A fragment punctuated with a double full stop.** 无论's first sentence was 无论我如何努力。。 —
+*No matter how hard I try...* — which stops before the clause the conjunction exists to introduce, and
+writes 。。 where Chinese sets an ellipsis. **A conjunction card whose example never reaches the second
+half teaches nothing about how to use it.**
+
+**Five more glosses that miss what the card shows**: 推出 was the literal `to push out` while two of its
+three sentences are launching a product; 文章 was `essay` over a newspaper article and an idiom; 味道 was
+`flavour` without the smell sense a learner meets as often; 卫生 was `health`, which is 健康; and 无 was
+`without` under a `verb` label over two sentences that are the bound negator. **Two labels**: 晚安 was
+`verb` — the decks already have `interjection`, which hsk30l1/你好 uses — and 污染 was `verb` over a
+gloss opening on the noun.
+
+**Six English lines.** 百闻不如一见 was rendered *A picture is worth a thousand words*, a different
+proverb altogether that erases the 闻 the card is about. *The papers blew off*, *Lunch is on* (which
+reads as an offer to pay), *You read the paper?*, `goodnight` closed up where British style sets the
+greeting as two words, and a thermometer that *goes* below zero rather than reading below it. Two
+sentences ended bare and were given their full stop.
+
+**Four `Compounds` blocks**: 脱 and 闻 had nothing at all in the reader's downloaded deck, 味 and 吸 one
+word each.
+
+**Read and left.** 袜子, 外出's other lines, 完全, 晚餐, 网购, 网页, 网友, 往往's other lines, 危险, 味,
+温度, 文件's other lines, 无法, 无聊, 误会, 吸 — and 味's third sentence, whose 调味品 buries the headword
+in a compound that transparently means what the character means.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; **shared-gloss groups 327 → 326**; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 569 unchanged;
 `build-lang-decks.js` re-run.
