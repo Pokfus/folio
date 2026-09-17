@@ -2226,6 +2226,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   slash list run together — 干's gàn read "trunk; main part; do; work" and 更's gēng "to change, to
   replace; night watch". **The card's own third sentence is often the tell**: 关 defined "to close" and
   its 不关你的事 is a different verb the card never glossed.
+  **AND A THIRD SHAPE: THE LABEL AND THE GLOSS ARE DIFFERENT PARTS OF SPEECH** (batch 31, two in one
+  range of thirty). Here only ONE part of speech is named and the gloss simply is not it: 看来 was
+  labelled a VERB over "apparently", and CC-CEDICT gives it no verb sense at all; 久 was labelled an
+  ADJECTIVE over the NOUN PHRASE "long time", where the dictionary reads "(of a period of time) long".
+  **It is read off the card's own line and nothing else can see it** — the gloss is a well-formed
+  English gloss and the label is one the decks use everywhere — so **read the two halves of the line
+  against each other**, which is one glance per card.
+  **AND THE DICTIONARY'S FIRST SENSE IS NOT AUTOMATICALLY THIS CARD'S** (batch 31). 开机 was glossed
+  "to start an engine", which is CC-CEDICT's leading sense and is exactly what a gloss taken off the top
+  of the entry looks like — and not one of the card's three sentences is an engine, all three being the
+  dictionary's SECOND sense, "to boot up (a computer)". **The senses are commonest-first in the
+  dictionary and the card's own sentences decide which of them it teaches**, so a gloss that is right
+  about the word can still be wrong about the card, and it reads perfectly either way.
 - **AN IDIOM CARD CARRIES A `Literally` LINE** (the Idioms deck's card type; Sep 2026). An idiom's gloss
   says what it MEANS and throws away what it SAYS, and the image is most of what makes a
   four-character idiom stick — 谢天谢地 is "thank goodness" and it says "thank heaven, thank earth".

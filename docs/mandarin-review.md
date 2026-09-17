@@ -566,6 +566,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 121–150 (放 → 关机), deck order | 17 | six glosses naming a part of speech the gloss did not belong to |
 | 2026-09-17 | `hsk30l3` notes 151–180 (关系 → 或者), deck order, plus the bare-`afterward` class | 22 | two single-character cards whose sentences used the character and not the word |
 | 2026-09-17 | `hsk30l3` notes 181–210 (鸡 → 斤), deck order, plus the `programme` class and a hole in `check-coarse.js` | 27 | an obscene sentence on a card glossed *chicken*, which the coarse sweep was excusing by design |
+| 2026-09-17 | `hsk30l3` notes 211–240 (经过 → 老人), deck order | 20 | four English lines that translated something other than their own Chinese |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -3728,5 +3729,108 @@ off", which carries the sense and not the word the card teaches.
   and each checked for a duplicate against every sentence and every English line in all nine decks
 - `build-lang-decks.js`: re-run, and **exactly five rows changed**, the five decks touched, each by its
   `bytes` and `rev` alone
+- CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
+  `check-docs`, `check-questions`, `check-style`
+
+## Batch 31 — `hsk30l3` notes 211–240 (经过 → 老人)
+
+Thirty notes read card by card in deck order, **twenty changed** and ten read and left alone. Eleven
+of the thirty are single-character cards and none of them had a `Compounds` block; all eleven have one
+now, which is most of the count.
+
+**The leading fault is four English lines that translate something other than their own Chinese**, and
+every one of them is invisible to every checker here: the sentence is grammatical, it segments, it
+speaks, and the English is a fluent English sentence — it is simply about something else.
+
+- **可** was wrong twice on one card. `你可不年轻。` was given as "You can't be young", which reads the
+  emphatic 可 as the modal — the sentence says the reverse, that the person is *certainly not* young,
+  and ADVERB is the card's own first label. `这件事非同小可。` was given as "Our goose is cooked", an
+  English idiom that translates nothing in it (非同小可 is *this is no small matter*).
+- **可爱** was wrong backwards. `说她美不如说她可爱。` says that 可爱 fits her better than 美 does, and
+  the card read "She is more pretty than beautiful" — which reverses the comparison AND renders the
+  headword as *pretty*, which is 美's word. Its third sentence did the same substitution. **A card
+  glossed "lovely" whose own English says *pretty* twice is batch 29's rule** — read the English lines
+  and ask whether each is about the word.
+- **渴**'s `我不太渴了。` was put in the past ("I wasn't very thirsty") where the 了 marks a change of
+  state in the present, which also made it a near-duplicate of the card's third line.
+- **来自**'s `我来自中国。` was "I came from China", a past tense on a stative verb — and the card's
+  other two sentences render it correctly, so one line was out of step with its own card.
+
+**Three sentences were dropped and replaced, and two of the three were the single-character blind spot
+again.** 可's `我可以来吗？` is 可以, the compound, on a card about the bare character; 刻's
+`他们需要做决定——即刻作出决定。` is 即刻, where 刻 is bound. Both are beyond `check-example-fit.js`,
+which skips a one-character headword by design, and **that is now five consecutive batches in which
+this class has been found by reading and by nothing else.** The third is a plain Chinese error:
+**开花**'s `正在开花桃树很美。` needs 的 before the noun (正在开花**的**桃树) and without it does not
+parse, while its English described a third thing again. Two more sentences went for being useless
+rather than wrong — 句子's "Where is my sentence?" and 可是's `你还年轻，可是没有永久。`, whose Chinese
+predicate is not a predicate.
+
+**可 and 刻 came out of it with a sentence for each of their senses**, which neither had before. 可
+names adverb, conjunction and verb and showed only the adverb; 刻 names the verb *to carve*, the
+measure word and the noun *moment*, and showed the last two. Both now run 1 / 2 / 3 and carry the tags.
+
+**Three glosses named a part of speech they did not define** — batch 28's residue, and this range
+holds three of them in thirty cards. **经过** read "pass through" under NOUN / VERB, with the
+classifier 个 counting the noun (*the course of events*) that nothing defined; **决定** read "decide"
+under NOUN / VERB with 个 and 项 counting *a decision*; **卡** read "card, calorie" as one gloss, which
+is CC-CEDICT's slash list run together, so one prompt tested two different English words. All three
+are split, and their sentences tagged — which says the useful half out loud: **every one of those nine
+sentences is the second sense, or the first, and the other sense has none.**
+
+**Two more glosses were the wrong one of two.** **开机** was glossed "to start an engine", which is
+CC-CEDICT's first sense and is not what any of the card's three sentences shows — they are a computer
+twice and a telephone once, which is the dictionary's second sense. **久** was glossed "long time", a
+NOUN PHRASE under an ADJECTIVE label, where the dictionary reads "(of a period of time) long". And
+**看来** was labelled a VERB over the gloss "apparently": the label and the gloss were different parts
+of speech on one line, and the dictionary gives no verb sense at all.
+
+**One sentence's whole fault was a missing full stop** — 旧's `这个商店卖旧书`, a plain declarative with
+no terminal mark, which the deck-level punctuation pass cannot supply (it converts marks and never adds
+one). That is what `exStop` is for. Measured over the nine decks, **184 sentences still end bare**, and
+most of them are not this shape: a line closing on a quotation mark, a sign, a fragment.
+
+**Compounds** were authored for **all eleven single-character cards in the range** — 久, 酒, 旧, 句, 卡,
+可, 渴, 刻, 哭, 蓝, 老 — every row's reading and gloss checked against CC-CEDICT, and the candidates
+taken from the corpus wherever it has them (31 of the 42 rows are words these decks already teach).
+
+**What was read and left, and why.**
+
+- **课文**'s `用自己的语言把课文内容复述。` wants a complement after the verb — 复述**一遍** — a 把
+  sentence not usually taking a bare disyllabic verb. It is marked rather than plainly wrong, and
+  replacing a sentence I merely find awkward is a larger claim than the evidence carries, so it is
+  **recorded as a question rather than changed**.
+- **空调**'s `室外的空调很便宜。` ("External air conditioners are quite cheap") is a strange thing to
+  say and is not incorrect; the outdoor unit really is called that. Left.
+- **客人**'s `做我的客人吧。` is a calque of the English "Be my guest", which in English means *go
+  ahead* rather than *be my guest*. Whether the Chinese is idiomatic is a judgement CC-CEDICT and the
+  card cannot settle. Recorded.
+- **句**'s first sentence, `说句简单的话。`, is also 简单's third. Two cards sharing one sentence is not
+  what `check-senses.js` measures (that is the same sentence twice on ONE card) and is not a fault: the
+  sentence teaches a different word on each.
+- **判断 is glossed "to decide"**, which is the gloss 决定's verb sense now also carries. They do not
+  collide as whole cards — 决定's reverse front shows both its senses — and the coverage checker's
+  still-ambiguous count is unmoved at 2. But 判断 is *to judge, to determine* rather than *to decide*,
+  and it is outside this batch's range. **Recorded for whichever batch reaches `hsk30l4`.**
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2, unchanged** — which is what says the three sense splits did not make a collision
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged**, and no finding names a card this batch touched; all nine of
+  its Level 3 findings are the greedy segmenter losing to a negator or a modifier (不|安全 read as 不安|全)
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0**
+- `check-say-reading.js`: unchanged
+- `check-gloss-source.js`: **3 neighbour findings and 4 reading findings, unchanged**, and none names a
+  card this batch reglossed — they are the read-and-left residue of the batch that closed that list
+- `check-coarse.js`: identical to HEAD in all six columns
+- answer-leak set byte-identical to HEAD; 34,596 example blocks, spoken == visible on every one; sense
+  tags past the sense list 0; stray spaces 0
+- every authored sentence segmented against the 11,532-word deck lexicon: each headword its own token,
+  and each checked for a duplicate against every sentence and every English line in all nine decks
+- `build-lang-decks.js`: re-run, and **exactly one row changed**, Level 3, by its `bytes` and `rev` alone
 - CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
   `check-docs`, `check-questions`, `check-style`
