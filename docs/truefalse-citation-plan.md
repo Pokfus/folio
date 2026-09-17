@@ -73,7 +73,7 @@ card-side research is then shared.
 | T5 | Medieval & early modern | nothing in the corpus yet — research |
 | T6 | Science & invention | the hardest; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six and T7b three, all researched |
-| T8 | Physics / Chemistry / Mathematics | little in the corpus; research |
+| T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus |
 | T9 | Astronomy / Earth science | part done; T9a took four off NASA, NOAA and NIST |
 | T10 | Psychology | part done; T10a took four, all researched — the collection has only reached the 1800s, so nothing could be lifted |
 
@@ -434,3 +434,36 @@ Experimental Immunology* is the right review and is not open.
 gives the JABFM authors as "K. deWeber", where the article's own page prints Kevin deWeber, Mariusz
 Olszewski and Rebecca Ortolano; and it files the Cochrane review as 2013 issue 5, where the review's own
 citation line on PMC reads `2013;2013(1):CD000980`. Both were taken from the article.
+
+### T8a — three physics and mathematics statements off NIST, the weather service and Perseus (2026-09-17)
+
+- **Lightning striking twice.** The National Weather Service's own *Lightning Myths* page, which lists
+  this myth and answers it with a figure: the Empire State Building "is hit an average of 23 times a
+  year". The statement said "roughly twenty to twenty-five", which is right and vague; it now says 23,
+  which is the source's.
+- **Absolute zero.** NIST's *Kelvin: Introduction*, which states `0 K = -273.15 degrees C = -459.67
+  degrees F`. Two things changed with the citation. The figure is now written `−273.15 °C (−459.67 °F)`
+  so the units engine converts it for a reader on imperial — with a U+2212 minus on both sides, which is
+  what `U_SIGN` reads and a hyphen is not. And **the second sentence's "within a few billionths of a
+  degree" was taken out**: it carries no marker, nothing in the batch establishes it, and statement #166
+  in the same pool says "a few hundred trillionths", so the pool was quoting itself two ways. It now says
+  "extraordinarily close" and #166 keeps its own figure until that statement is cited.
+- **The infinitude of primes.** Euclid, *Elements* 9.20 in Heath's translation, on Perseus, whose text
+  endpoint is one of the hosts `check-reach.js` reports answering. The proposition is quoted in the
+  `why` in the form the translation gives it — prime numbers are more than any assigned multitude of
+  prime numbers — and the construction with it. Cited ancient-author-first with the translator after,
+  which is the house rule.
+
+**FOUR SOURCES WERE TRIED AND ARE NOT USABLE FROM HERE RIGHT NOW, and two of the four are a fact about
+the environment rather than about the work.** NOAA's National Ocean Service (`oceanservice.noaa.gov`) is
+serving CHROME ONLY — its `facts/sound.html` comes back 200 with 4.2 KB of navigation and no article, and
+the page carries a "Parts of the U.S. Government are closed" banner — so the speed-of-sound statement has
+no source yet; and **a missing page there answers 200 with a document reading "Page Not Found: Error
+404"**, which is one more variety for the list this plan's sibling keeps, and which a status check alone
+cannot see. `dosits.org` is 403 and JPL's pi article is 403.
+
+**AND AN ARXIV IDENTIFIER COMPOSED FROM MEMORY RETURNS A REAL PAPER ABOUT SOMETHING ELSE.** Reaching for
+the record-cold experiment behind statement #166, `arxiv.org/abs/2007.04146` was tried from memory and is
+a machine-learning paper on few-shot one-class classification. It is the DOI-from-the-shape-of-an-
+identifier fault in another namespace, and it is worse here because the page resolves: nothing about the
+fetch says the citation would have been wrong.
