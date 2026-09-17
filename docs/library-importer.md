@@ -2252,3 +2252,62 @@ reader's page reads is not a check**, so this one **slices the rule out of app.j
 it is not there**, names each chapter by the shipped record's own title, and calls out separately any
 book pairing under half its sections. Exits 0 whatever it finds. **Re-run after adding an
 original-language column.** Not part of the site.
+
+## E57 — a missing character has no first witness, so it needs a second one
+
+`check-cutoff.js` has reported the same seventeen chapters since E43 and its own header records them
+as read: eleven verse, three Satyricon sections, and "Aesop's moral, Machiavelli's chapter 25 and a
+Canterbury colophon [that] each want a page-image read to settle a single mark." E57 settled three of
+them — and **not one needed a page image**, because for all three a SECOND TRANSCRIPTION of the same
+translation is free at Project Gutenberg or on archive.org.
+
+**THE FAULT SHAPE IS THE POINT.** Every other scanner on this shelf asks whether a word is wrong.
+This one asks whether a CHARACTER IS ABSENT, and that is the one question no spelling sweep, no
+run-together test and no sentinel run can answer: the text has nothing wrong with it. It reads
+perfectly, every word is correctly spelt, and the only tell is that a chapter's last character is not
+a full stop. **So the first witness cannot settle it** — the source is the thing under suspicion —
+and the repair is impossible until a second one is found.
+
+### The three settled
+
+- **`machiavelli-prince` chapter 25.** The famous close on fortune ends on a COMMA in the Wikisource
+  page, so the chapter reads as though it had been cut off mid-clause. Marriott's own text at
+  Project Gutenberg #1232 prints "with more audacity command her." with the stop, and chapter 26
+  opens a new argument, so nothing is missing but the mark. **A comma is not automatically a
+  mid-sentence division**, which is the trap here: two of the Satyricon's sections end on a comma and
+  are perfectly correct.
+- **`aesop-fables` chapter 202**, *The Fox and the Monkey*. Its closing moral — the fable's last
+  words — ends without a stop where all 312 others have one. Gutenberg #21 prints "A false tale often
+  betrays itself." **The uniformity of the other 312 is a SUSPICION, not a verdict**; the second
+  transcription is the verdict.
+- **`rigveda` hymn 8.84.** The 1896 printing at `archive.org/details/hymnsrigveda00unkngoog` sets
+  "With hero sons he prospers well." with the stop — so the tool's own header, which explains the
+  eleven verse findings as "Griffith's last line often carries no stop", is **wrong about at least
+  one of them**. That explanation was a reasonable reading of a translator's practice and it was
+  covering a dropped character.
+
+### The fourteen left, and why each is left rather than swept
+
+**Eight more Rigveda hymns** (3.23, 4.51, 5.66, 5.81, 6.68, 6.75, 8.103, 10.19). The scan that
+settles 8.84 holds only part of the translation and none of those eight tails is in it. **They are
+not repaired on the strength of 8.84**: a full stop added because the neighbouring hymns have one is
+a repair made from a pattern rather than from a page, which is the move this whole apparatus exists
+to refuse. The other volumes are on archive.org under several identifiers and are the next session's
+work.
+
+**Two Ramayana cantos** (42, 427), the same question in the same translator's verse and the same
+answer: find the volume, or leave them.
+
+**Three Satyricon sections** (16, 68, 69). All three are correct as they stand, and only the first is
+adjudicated by the tool's own test. 68 ends "…interrupted his story by saying," and 69 "…I had not
+finished speaking when Trimalchio said," — each followed by a chapter that opens with the SPEECH
+those words introduce. The next chapter opens with a CAPITAL, so the lowercase test cannot see it;
+what settles it is that the capital is the first word of direct speech. **That is a judgement, so it
+stays in the report rather than becoming a rule**, and widening the test to "ends on a comma" would
+have excused Machiavelli's chapter 25, which is a real fault.
+
+**One Canterbury colophon** (chapter 18). It ends "…and wring and waiL Here endeth the Clerk of
+Oxford's Tale," — two marks at once, a capital L for a lowercase one and a comma for a stop. This
+book is imported LEAF BY LEAF from one archive.org scan and its whole `fixes` table is verified
+against leaf images, so it is the one of the seventeen that really does want the page, and it is left
+for a session that can spend the leaf lookups on it.

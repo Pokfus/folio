@@ -19,13 +19,28 @@
    full stop, one six words, and Supplement q.95 the rest of its last article's answer and all nine
    paragraphs after it. Repaired in E43 from Gutenberg and CCEL.
 
-   THE OTHER SEVENTEEN ARE NOT TRUNCATIONS, AND THAT IS WORTH KNOWING BEFORE READING THIS REPORT
-   AGAIN. Eleven are VERSE — nine hymns of the Rigveda and two cantos of the Ramayana — where
-   Griffith's last line often carries no stop; three are the Satyricon, whose sections fall where
-   they fall (chapter 16's next chapter opens LOWERCASE and continues the sentence, so nothing is
-   missing at all); and Aesop's moral, Machiavelli's chapter 25 and a Canterbury colophon each want a
-   page-image read to settle a single mark. **Ask what the NEXT chapter opens with**: a lowercase
-   word means the division simply falls mid-sentence and nothing is lost.
+   THREE OF THE OTHER SEVENTEEN WERE TRUNCATIONS AFTER ALL, AND THE EXPLANATION THAT COVERED THEM IS
+   THE THING TO READ HERE (Sep 2026, batch E57). This header used to say the eleven VERSE findings
+   were Griffith's own practice — "his last line often carries no stop" — which is a reasonable
+   reading of a translator and was covering a dropped character: the 1896 printing of the Rigveda
+   sets a full stop after hymn 8.84's last line. **A MISSING CHARACTER HAS NO FIRST WITNESS**, since
+   the source is the thing under suspicion, so nothing here can be settled from the text in hand; it
+   takes a SECOND transcription of the same translation, and for three of the seventeen one was free
+   at Project Gutenberg or on archive.org. Repaired in E57: Aesop's moral, Machiavelli's chapter 25
+   and Rigveda 8.84.
+
+   WHAT IS LEFT IS FOURTEEN, and each is left for a reason rather than pending. Eight Rigveda hymns
+   and two Ramayana cantos are the same question in volumes this session could not reach — and are
+   deliberately NOT repaired on the strength of 8.84, a stop added because the neighbours have one
+   being a repair made from a pattern rather than from a page. Three are the Satyricon, all three
+   correct: chapter 16's next chapter opens LOWERCASE and continues the sentence, and 68 and 69 end
+   on a comma before direct speech that the next section opens with, which is a capital and so
+   invisible to the lowercase test. One is a Canterbury colophon, whose book is imported leaf by leaf
+   and which really does want the page image.
+
+   **Ask what the NEXT chapter opens with**: a lowercase word means the division simply falls
+   mid-sentence and nothing is lost. **A COMMA IS NOT AN ANSWER EITHER WAY** — two of the Satyricon's
+   sections end on one and are right, and Machiavelli's chapter 25 ended on one and was wrong.
 
    IT EXITS 0 WHATEVER IT FINDS, like `check-twins.js` and `card-focus.js`. Its standing residue is
    the seventeen above, read and recorded; a gate that goes red on a finding somebody has already

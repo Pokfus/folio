@@ -110,3 +110,42 @@ so a batch cannot be applied to the wrong statement by a reordering that happene
 
 Then read the finished statements back as a reader: `node .claude/test-truefalse.js`, and the game
 itself at `#truefalse`.
+
+## Batch log
+
+### T2a — five lifted straight out of the corpus (2026-09-17)
+
+Five statements cited without a single new search, because Folio already made each claim on a card
+and had already opened and checked the work behind it. The recipe in full, and it is the batch's
+reusable half:
+
+1. `scratchpad/tf/find.js <regex>` over the card corpus for the claim's own words.
+2. `scratchpad/oc/dart.js <card id>` to print that card's sentences WITH the marker numbers standing
+   on them, so the source can be read off the sentence rather than guessed from the list.
+3. A build script that lifts the citation **by (card id, source index) through `card-io.js`** and
+   never retypes it — a retyped citation is one whose DOI, pages or given names can drift from the
+   one that was verified.
+
+The five: the Babylonian tablets and Pythagoras (from `wh-194`, three sources), Song paper money
+(`wh-529`, two), Bi Sheng and movable type (`wh-532`, two), Ashoka and Kalinga (`wh-386`, two) and
+Cleopatra's Macedonian descent (`gr-767`, one).
+
+**THE LIFT IS NOT THE WHOLE JOB, AND TWO CANDIDATES WERE DROPPED ON READING.** A statement is only
+citable to a card whose CITED PROSE carries the claim, and twice the card carried a weaker one:
+
+- **Chang'an as the world's most populous city, "around a million people."** `wh-523` says only that
+  it was "one of the largest cities anywhere in the world", which is not the statement, and nothing
+  else in the corpus gives a figure. **Left uncited, and the statement needs either a source or a
+  softer wording** — not a citation to a card that declines to say it.
+- **Gunpowder, and this is the sharper case.** Its explanation asserts a Tang-dynasty origin, an
+  accidental discovery by alchemists seeking an elixir, and "the earliest formula … in a 9th-century
+  CE Taoist text". `wh-530`'s own cited prose says the earliest formulas that SURVIVE are in a
+  military encyclopedia presented to the Song throne in **1044**, and gives the Tang connection only
+  as a later Chinese scholar's retrospective reading of festival fireworks. A Crossref sweep for an
+  open work on the alchemical origin turned up nothing reachable. **So the explanation claims two
+  things Folio cannot show, and the honest repair is to rewrite it rather than to attach a source
+  that does not bear it out** — which is a content decision and the next batch's first job.
+
+**A CARD'S OWN CAUTION IS WORTH CARRYING ACROSS.** `wh-386` is careful that Ashoka's Kalinga figures
+are the king's own count, published by him; the explanation written here says so in the same breath
+rather than reporting 100,000 killed as a measured number.

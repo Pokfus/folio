@@ -3711,6 +3711,14 @@ const BOOKS = {
     reFixes: [
       [/(?<![A-Za-z])soliders(?![A-Za-z])/g, "soldiers",
        "a transposed e in `soldiers`, of the Swiss and the Spanish"],
+      /* E57. The last words of chapter 25 — the book's famous close on fortune — end on a COMMA in
+         the Wikisource page, so the chapter reads as though it had been cut off. It has not: chapter
+         26 opens a new argument with a capital, and Marriott's own text at Project Gutenberg #1232
+         prints "with more audacity command her." with the stop. The source is wrong, not the import,
+         and the row is anchored on the whole clause rather than on the comma so it can match nothing
+         else in the book. */
+      [/with more audacity command her,/g, "with more audacity command her.",
+       "chapter 25's closing full stop is a comma in the source; Gutenberg #1232 prints the stop"],
     ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Prince_(Marriott)",
@@ -4376,6 +4384,14 @@ const BOOKS = {
     reFixes: [
       [/(?<![A-Za-z])beagn(?![A-Za-z])/g, "began",
        "a transposed a in `began`, of the boys pelting the frogs"],
+      /* E57. The moral of The Fox and the Monkey ends without its full stop, which is the whole
+         fable's last character — `check-cutoff.js` is what found it, and it is the one fault a
+         spelling sweep cannot see, nothing being misspelt. The Wikisource transcription drops it;
+         Townsend's own text, at Project Gutenberg #21, prints "A false tale often betrays itself."
+         with the stop, and every other fable in this book ends its moral with one. A SECOND WITNESS
+         IS WHAT SETTLES A MISSING CHARACTER, since the first witness has nothing wrong with it. */
+      [/A false tale often betrays itself(?!\.)/g, "A false tale often betrays itself.",
+       "the fable's closing moral lost its full stop in the source transcription; Gutenberg #21 prints it"],
     ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Three_Hundred_%C3%86sop%27s_Fables",
@@ -15142,6 +15158,17 @@ const BOOKS = {
          unread since E33. `jatave~as` is the vocative of Jatavedas, which this book spells correctly
          112 times and thus once; and `Trce` is not a word, where tree-fed is what Agni is — E15's
          c/e family, in the very next clause. */
+      /* A HYMN THAT ENDS WITHOUT ITS FULL STOP (Sep 2026, batch E57). `check-cutoff.js` reports nine
+         of this book's 1,028 hymns ending on no terminal punctuation at all, which is the one fault
+         no spelling sweep can see — nothing is misspelt and the text reads perfectly. 8.84 is the
+         one a printed witness settles: the 1896 printing
+         (`archive.org/details/hymnsrigveda00unkngoog`) sets "With hero sons he prospers well." with
+         the stop, so the source transcription dropped it. THE OTHER EIGHT ARE NOT IN THAT VOLUME —
+         it holds one part of the translation — and are left standing rather than guessed at, since
+         a full stop added on the strength of the other hymns having one is a repair made from a
+         pattern rather than from a page. The row is anchored on the whole clause. */
+      [/With hero sons he prospers well(?!\.)/g, "With hero sons he prospers well.",
+       "hymn 8.84 ends without its full stop; the 1896 printing sets one"],
       [/(?<![A-Za-z0-9])jatave~as(?![A-Za-z0-9])/g, "Jatavedas",
        "a tilde read for the d of `Jatavedas`, and the capital lost with it — against 112 correct"],
       [/(?<![A-Za-z])Trce-fed(?![A-Za-z])/g, "Tree-fed",
