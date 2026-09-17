@@ -13685,7 +13685,7 @@
       ]
     },
     "hsk30l5/从而": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss read `thus; therebyupon` — two words run together with the separator missing, so the card offered a word that does not exist. The fifth garbled gloss of this level, after 不要紧, 册, 丑 and 处.",
       "ex": [
         [
           "他们创作出令人惊叹的艺术作品，从而让人们驻足欣赏宇宙之美。",
@@ -13695,7 +13695,8 @@
           "他坚持锻炼，从而身体好多了。",
           "He kept exercising, and thus his health improved a lot."
         ]
-      ]
+      ],
+      "gloss": "thus; thereby; thereupon"
     },
     "hsk30l5/伙": {
       "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
@@ -14335,11 +14336,17 @@
       ]
     },
     "hsk30l5/打包": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | `I think we need a doggy bag` for 看来我们得打包了, which says only that we shall have to pack up — the doggy bag is one particular thing 打包 can mean in a restaurant, and the card's second sentence already covers that sense.",
       "ex": [
         [
           "我当时正忙着打包，因为我两天后要去法国。",
           "I was busy packing, because I was leaving for France in two days."
+        ]
+      ],
+      "exEn": [
+        [
+          "看来我们得打包了",
+          "It looks as if we shall have to pack this up."
         ]
       ]
     },
@@ -78694,12 +78701,19 @@
       ]
     },
     "hsk30l5/创新": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 创新创新本身就提升了创新 repeats the headword three times and does not parse; its English, `Creating creativity itself is improving creativity`, does not either. Neither says anything a reader could carry away. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "公司鼓励员工大胆创新。",
           "The company encourages staff to innovate boldly."
+        ],
+        [
+          "这家公司靠创新取得成功。",
+          "This company has succeeded through innovation."
         ]
+      ],
+      "dropEx": [
+        "创新创新本身"
       ]
     },
     "hsk30l5/此时": {
@@ -124101,6 +124115,159 @@
           "这本书明年要出版",
           "This book is to be published next year."
         ]
+      ]
+    },
+    "hsk30l5/床单": {
+      "why": "我想买一个新床单 counts the sheet with 个 where the card's own measure-word field says 条 or 件, and its second sentence uses 张. Three classifiers on one card and only one of them in the field. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "我想买一个新床单"
+      ],
+      "ex": [
+        [
+          "请把床单换一下。",
+          "Please change the sheets."
+        ]
+      ]
+    },
+    "hsk30l5/创造": {
+      "why": "`Real people make history` for 历史是由人民创造的, which says history is created BY THE PEOPLE — 人民 is a people or a populace, not `real people`, and the 由…的 is a passive the English drops.",
+      "exEn": [
+        [
+          "历史是由人民创造的",
+          "History is made by the people."
+        ]
+      ]
+    },
+    "hsk30l5/创作": {
+      "why": "在福瑞圈子里，不少人都会进行一些创作 is about the FURRY FANDOM — 福瑞圈 — which is a niche internet subculture a reader of a Level 5 vocabulary card has no reason to meet, and which teaches nothing about 创作 that an ordinary sentence would not. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "福瑞圈子里"
+      ],
+      "ex": [
+        [
+          "他这首曲子创作于一九八零年。",
+          "He composed this piece in 1980."
+        ]
+      ]
+    },
+    "hsk30l5/词汇": {
+      "why": "The third sentence ended with no terminal mark.",
+      "exStop": [
+        [
+          "我知道很多法语词汇但我很难将它们组成句子"
+        ]
+      ]
+    },
+    "hsk30l5/辞职": {
+      "why": "辞职是人生的第一课 renders an English aphorism about RESIGNATION in the sense of accepting one's lot — 听天由命 — with the Chinese word for quitting a job, so what it now says is that handing in your notice is life's first lesson. The English kept the original's word and the Chinese took the other sense of it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "辞职是人生的第一课"
+      ],
+      "ex": [
+        [
+          "他上个月辞职了。",
+          "He resigned last month."
+        ]
+      ]
+    },
+    "hsk30l5/刺激": {
+      "why": "`while others seek novelty` for 寻求刺激, which is to look for a THRILL — novelty is 新鲜感, and the sentence is contrasting people who keep to the rules with people who want excitement.",
+      "exEn": [
+        [
+          "寻求刺激",
+          "Some people like to keep to the rules, while others are always after a thrill."
+        ]
+      ]
+    },
+    "hsk30l5/从不": {
+      "why": "爱从不是错的 puts 从不 in front of 是, which the adverb does not take — 从不 negates a verb of doing, and `love is never wrong` is 爱从来都不是错的 or 爱永远没有错. As written the first three characters read as a fragment. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "爱从不是错的"
+      ],
+      "ex": [
+        [
+          "她从不迟到。",
+          "She is never late."
+        ]
+      ]
+    },
+    "hsk30l5/从事": {
+      "why": "我从事客服业 and 您以前从事过客服工作吗 are the same job twice, and 客服业 is not how the industry is named — 客服行业, or simply 客服工作, which the third sentence already says. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "您以前从事过客服工作吗"
+      ],
+      "ex": [
+        [
+          "他从事教育工作三十年了。",
+          "He has worked in education for thirty years."
+        ]
+      ]
+    },
+    "hsk30l5/促进": {
+      "why": "市政府举行了一次大型公会 writes 公会, which is a GUILD or a trade association, where the sentence means a conference — 会议 or 大会. Repaired rather than replaced, the sentence being a good example of the word otherwise. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "大型公会"
+      ],
+      "ex": [
+        [
+          "市政府举行了一次大型会议，旨在促进跨部门合作。",
+          "The city government held a large conference aimed at promoting cross-departmental cooperation."
+        ]
+      ]
+    },
+    "hsk30l5/催": {
+      "why": "警方将催泪弹投掷到了建筑中 is about tear gas thrown into a building by police — 催泪弹 swallows the headword in a compound whose 催 means `to cause` rather than `to urge`, and the scene is not what a vocabulary card is for. The card's own gloss is `to urge; hurry`, which the replacement shows in its commonest everyday use. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "催泪弹"
+      ],
+      "ex": [
+        [
+          "妈妈天天催我早点睡。",
+          "Mum nags me every day to go to bed earlier."
+        ]
+      ]
+    },
+    "hsk30l5/达成": {
+      "why": "没有你的帮忙，我无法达成 leaves 达成 with no object, which the verb requires — one reaches a GOAL, an agreement, a conclusion — so the sentence stops half way through and its English supplies a different verb (`I could not succeed`) to cover the gap. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "我无法达成"
+      ],
+      "ex": [
+        [
+          "双方达成了一致意见。",
+          "The two sides reached agreement."
+        ]
+      ]
+    },
+    "hsk30l5/打扮": {
+      "why": "Glossed `to decorate`, which is 装饰 — 打扮 is to dress up or do oneself up, and is about a PERSON. All three of the card's own sentences say so: dressing as a woman, being good at dressing, getting ready for a date. A reader taking the gloss at its word would write 打扮房间 for decorating a room.",
+      "gloss": "to dress up; to do oneself up; to make up"
+    },
+    "hsk30l5/打断": {
+      "why": "我们没有打断 has no object at all, and its English — `We didn't break in` — is a third thing again, 打断 being to interrupt somebody speaking rather than to enter by force (闯入). Replaced with the PHYSICAL sense, which the card did not gloss and no sentence showed: 打断 also breaks a thing in two, which is where a learner meets it as often as in conversation. Both senses now given and every sentence tagged.",
+      "dropEx": [
+        "我们没有打断"
+      ],
+      "ex": [
+        [
+          "他摔倒时打断了一根肋骨。",
+          "He broke a rib when he fell."
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to interrupt (somebody speaking)"
+        ],
+        [
+          "verb",
+          "to break (something) in two"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
       ]
     }
   },

@@ -615,6 +615,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 91–120 (测 → 车祸), deck order, plus a corpus sweep for variant characters | 17 | **a Japanese character in a Chinese sentence, on three cards at once** |
 | 2026-09-17 | `hsk30l5` notes 121–150 (车库 → 持续), deck order | 13 | **a card that listed the same sense twice, and put two readings under one pinyin** |
 | 2026-09-17 | `hsk30l5` notes 151–180 (尺子 → 传说), deck order | 15 | **two more glosses cut off mid-phrase, and a second card with two readings under one pinyin** |
+| 2026-09-17 | `hsk30l5` notes 181–210 (传统 → 打破), deck order | 16 | **a gloss offering a word that does not exist, and one naming the wrong verb entirely** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7243,3 +7244,67 @@ headword buried in it, which is the distinction the other long ones fail.
 still-ambiguous 1; shared-gloss groups 324 unchanged; pinyin clean — **including the new two-reading
 field on 冲**; example-fit 143 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible
 on every one; sense-tagged 639 → 651; `build-lang-decks.js` re-run.
+
+## Batch 80 — hsk30l5 notes 181–210 (传统 → 打破)
+
+Thirty consecutive notes; **sixteen cards changed**.
+
+**A gloss offering a word that does not exist.** 从而 read `thus; **therebyupon**` — two words run
+together with the separator missing. The **fifth** garbled gloss at this level, after 不要紧's stray
+`never`, 册's label repeated inside its own gloss, 丑's `the second of the Twelve` and 处's unclosed
+bracket. Five in eight batches is no longer a coincidence: **this deck's gloss field was assembled from
+a dictionary dump and its punctuation was not read.**
+
+**And a gloss naming the wrong verb altogether.** 打扮 was `to decorate`, which is 装饰 — 打扮 is to
+dress up or do oneself up, and it is about a PERSON. All three of the card's own sentences say so
+(dressing as a woman, being good at dressing, getting ready for a date), so the gloss contradicted
+everything under it, and a reader taking it at its word would write 打扮房间 for decorating a room.
+
+**A sentence that says nothing in either language.** 创新创新本身就提升了创新 repeats the headword three
+times and does not parse; nor does `Creating creativity itself is improving creativity`.
+
+**An internet subculture on a Level 5 card.** 创作's second sentence was about the **furry fandom**
+(福瑞圈), which a reader of this deck has no reason to meet and which teaches nothing about the word an
+ordinary sentence would not.
+
+**Two words a character apart, again.** 促进's 大型**公会** is a GUILD or trade association where the
+sentence means a conference (会议). Repaired rather than replaced — the third such repair in three
+batches, after 池溏 for 池塘 and 算数 for 算术.
+
+**An English aphorism that took the other sense of its own word.** 辞职是人生的第一课 renders
+*Resignation is the first lesson of life* — which is about accepting one's lot, 听天由命 — with the
+Chinese for handing in your notice. What the card now says is that quitting your job is life's first
+lesson.
+
+**Two sentences that stop half way through.** 没有你的帮忙，我无法达成 leaves 达成 with no object, which
+the verb requires (one reaches a goal, an agreement, a conclusion), and its English quietly supplies a
+different verb to cover the gap. 我们没有打断 has no object either, and its English — `We didn't break
+in` — is a third thing again, 打断 being to interrupt somebody rather than to enter by force.
+
+**An adverb in front of a verb it does not take.** 爱从不是错的 puts 从不 before 是; the adverb negates a
+verb of doing, and *love is never wrong* is 爱从来都不是错的.
+
+**A scene that is not what a vocabulary card is for.** 催's second sentence was tear gas thrown into a
+building by police — 催泪弹 also buries the headword in a compound whose 催 means *to cause* rather than
+*to urge*, which is the card's own gloss.
+
+**A third classifier on a card whose field states one.** 床单's 一个新床单, where the measure-word field
+says 条 or 件 and the card's own second sentence uses 张.
+
+**A sense the gloss omitted, on the card that had a sentence to spare.** 打断 also breaks a thing in
+two, which is where a learner meets it as often as in conversation; the replacement shows it and both
+senses are now stated.
+
+**Three English lines and one missing full stop** — `Real people make history` for 历史是由人民创造的
+(which is a passive about *the people*), `seek novelty` for 寻求刺激 (a thrill), `I think we need a
+doggy bag` for 看来我们得打包了 (which says only that we shall have to pack up, and whose doggy-bag
+sense the card's next sentence already covers), and 词汇's third sentence, which ended bare.
+
+**Read and left.** 传统, 窗台, 创业, 此后, 此前, 此时 (whose first sentence is a line of Tang poetry —
+海上升明月，天涯共此时 — which is literary but is exactly the register in which this word lives), 从前,
+促使, 促销, 存放, 存款, 存在, 措施, 打破, and 创造's and 从事's remaining sentences.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 324 unchanged; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 651 → 654;
+`build-lang-decks.js` re-run.
