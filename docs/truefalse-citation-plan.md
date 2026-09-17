@@ -1918,3 +1918,34 @@ scanned PDF with **no text layer at all** (one extracted character across two pa
 archive.org turns out to be about the column, its keeper and a tame bird, not about the toll. The
 statement wants a modern authority on the fire — Bell's 1920 study is the obvious one and is not on
 archive.org under that search.
+
+### T51 — Catherine's last morning, written down the year after (2026-09-17)
+
+One cited: #67. 194 → **195 of 220**. *Authentic Memoirs of the Life and Reign of Catherine II*
+(1797) gives the day hour by hour: cheerful at her coffee, then the water closet, then an unusual
+delay, then the door opened on the Empress "extended on her back, with her feet towards the door, in
+an apoplectic fit"; bled twice by her physician, never speaking again, pronounced dead the following
+evening; two gallstones at the post-mortem. **The strongest refutation of a legend is a
+contemporary's ordinary narrative of the same hours**, which leaves the legend nowhere to sit — and
+this one is on archive.org's British Library eighteenth-century collection, a place worth
+remembering for any claim about a death between 1700 and 1800.
+
+**AN EIGHTEENTH-CENTURY TITLE PAGE IS THE WORST-OCR'd PAGE IN THE BOOK, AND THE CITATION LEAVES OUT
+WHAT IT CANNOT READ.** The prose comes through well enough to quote once the long s is read as an s,
+but the title page is decorative type on a plate and extracts as three hundred characters of noise;
+all that survives of the imprint is "PRINTED FOR THE" and "ROSBY". The publisher is therefore not in
+the citation — **never reconstruct an imprint from a fragment**, and archive.org's own metadata
+supplies the title, the year and nothing else.
+
+**AND THE PAGE NUMBER IS THE ONE THING THE SCAN DOES GIVE.** The running number "( 283" falls
+between the fit and the death, which fixes the passage at 282–83 — worth checking for, since a
+Gutenberg text has no page numbers at all (see T44 and T49) and an archive.org OCR usually does.
+
+**PROBED AND LEFT: #70, cocaine in Coca-Cola.** The Supreme Court's opinion in
+*United States v. Forty Barrels and Twenty Kegs of Coca-Cola*, 241 U.S. 265 (1916), is open on
+Cornell LII and is tantalising: it records the 1886 Atlanta origin, the coca-leaf and cola-nut
+extract in the formula, and that the ingredient is used "with cocaine eliminated", designated
+"Merchandise No. 5". **That is evidence that cocaine was taken OUT and not evidence of what was in
+the 1880s bottle**, which is what the statement claims — so citing it would be stretching a source
+to a claim it does not carry, exactly the fault three entries in `docs/glossary-citation-plan.md`
+record. It is the best lead the pool has left and is recorded rather than used.
