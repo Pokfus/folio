@@ -4437,6 +4437,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     correctly. **A row is judged by every word its suffix list makes, not by its stem** — and the change
     was proved over the whole corpus in both directions, 8 of 175,126 renderings changed, every one of
     them US→GB and every one a non-word becoming the right word.
+  · **AND NOTHING ASKED THE CORPUS THE SAME QUESTION UNTIL SEP 2026, WHICH IS WHAT
+    `node .claude/check-spelling-corpus.js` NOW DOES.** `check-style.js` has four rules and spelling is
+    not one of them, and `check-truefalse.js` asks it only of the 220 statements in `truefalse.js` — so
+    the cards, the glossary and the artefacts had never been swept, and since the transform is ONE-WAY an
+    American spelling sitting in the data is what BOTH readers see. Measured over Folio's own prose it
+    leaned British and hard — `centre`/`center` 641 to 3, `colonis`/`coloniz` 128 to 2,
+    `civilisation`/`civilization` 112 to 0 — with **one family the other way round: `Palaeolith` 38 to
+    90**, so a British reader met both spellings of the same term across the prehistory decks while an
+    American met one. All of it is now converted (49 items over the palaeo family, 6 over `haematite`,
+    and 16 one-off sites), the prose reads ZERO, and **nothing an American reader sees changed at all**.
+    Three separations are what make the residue readable and each is a rule: **BORROWED TEXT is counted
+    apart** — a citation names a published work and a picture's caption and credit are Commons's words,
+    the same mask `check-style.js` puts over the citations before its own `--fix`; **a PROPER NAME is not
+    a spelling**, so the Indian Reorganization Act, the Medal of Honor, the NAACP and the fur trader
+    Robert Gray are DECLARED with a reason each and masked before the compare; and **a JUDGED spelling is
+    declared too** (`KEPT`, keyed by item AND word on `CROSSREF_WRONG`'s rule), which is where `fetus` on
+    a biology card and a glossary term naming itself out of its own Wikipedia slug live. **A GLOSSARY KEY
+    IS NEVER TOUCHED** — `Paleolithic` is the article title the house rule asks for and already carries
+    the British form as an ALIAS, which is why converting the prose broke no auto-link, and **the TAG
+    vocabulary was already British** (`palaeolithic`, `palaeontology`), which is what said the house form
+    was not in doubt. Report-only, exits 0. **Run it after a content batch.**
   **Known limit, stated rather than papered over**: the card browser searches stored card TEXT, so
   "color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (91
   assertions), and **its section 4 must stay in en-GB** — `favor` is an American form and the

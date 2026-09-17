@@ -26,6 +26,13 @@
 
   Languages present in `sub` are patched; a language absent from `sub` is left alone (and reported), so a
   figure that only exists in some translations doesn't force empty entries.
+
+  EACH PAIR REPLACES THE FIRST OCCURRENCE AND NO MORE. `find` is a STRING, so `text.replace(find, repl)`
+  is a single substitution \u2014 which is right for a figure, the thing this was written for, and a trap for
+  a word. To change a word that appears twice in a field, REPEAT the pair: they are applied in sequence
+  against the text the previous one left, and the `includes` guard is re-asked each time, so a pair too
+  many is a refusal rather than a silent no-op. A spelling pass over the abstracts patched 38 cards and
+  left 13 of them still carrying a second copy of the word, with the run reporting success.
 */
 const fs = require("fs");
 const path = require("path");
