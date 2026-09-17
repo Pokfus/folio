@@ -13066,8 +13066,23 @@
       ]
     },
     "hsk30l4/有着": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "to have, to possess (of qualities or experience)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The first sentence CONTRADICTED the card's own gloss. 有着 is for qualities and experience — which the gloss says outright — and 你有着漂亮的腿 uses it of a pair of legs, which is both the wrong register for the word and a personal remark a learner has no use for. Replaced with the construction the gloss describes. And the third's English called 奇妙 ideas **`queer`**, which is dated in that sense and now read quite differently; 奇妙 is marvellous, where queer would be 古怪. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "to have, to possess (of qualities or experience)",
+      "dropEx": [
+        "你有着漂亮的腿"
+      ],
+      "ex": [
+        [
+          "这座城市有着悠久的历史。",
+          "This city has a long history."
+        ]
+      ],
+      "exEn": [
+        [
+          "他有着奇妙的想法",
+          "He has marvellous ideas."
+        ]
+      ]
     },
     "hsk30l4/期中": {
       "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -76645,12 +76660,19 @@
       ]
     },
     "hsk30l4/用于": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The second sentence ran to forty-seven characters — 在一些农村地区，互联网主要用于农业信息以及农产品技术和价格信息等特殊目的 — which is a paragraph rather than an example, and its English is longer still. Replaced with a sentence a learner can hold in their head. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "这笔钱用于修学校。",
           "This money is used to repair the school."
+        ],
+        [
+          "这个词用于正式场合。",
+          "This word is used on formal occasions."
         ]
+      ],
+      "dropEx": [
+        "在一些农村地区"
       ]
     },
     "hsk30l4/纸巾": {
@@ -89586,15 +89608,16 @@
       ]
     },
     "hsk30l7/交情": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Glossed `Friendship` — capitalised mid-field, which nothing else in the decks does — and sharing that one English word with hsk30l4/友谊 the moment that card's own `companionship` was corrected to it. The two are not the same thing: 友谊 is friendship in the broad and often formal sense, the bond itself, where 交情 is how well two particular people know each other. Sharpened rather than left to collide. | Giving this note an entry at all had a side effect worth writing down: it carried TWO `uc-exadd` example blocks that **this record did not account for**, and the applier strips every added block from a note before re-adding what the record still names — so the moment the note was touched for the first time, both sentences vanished and the card dropped to one example. They are good sentences, so they are restored here as proper `ex` rows. Measured over the nine decks afterwards: about ten such blocks remain, on notes the record has never touched, and **each will disappear the first time its note gets any entry at all**. The strip is right — the record is authoritative or it is drift — so the fix is to adopt the sentence rather than to weaken the rule. **Re-count a touched note's examples after giving it its first entry.**",
+      "gloss": "personal ties; how well two people know each other",
       "ex": [
         [
           "两人交情很深。",
-          "The two are close friends."
+          "The two of them are close friends."
         ],
         [
           "他们有多年的交情。",
-          "They have been friends for many years."
+          "They have known each other for years."
         ]
       ]
     },
@@ -110775,11 +110798,24 @@
       ]
     },
     "hsk30l4/友好": {
-      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
-      "exSpace": [
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap.  | The gloss is `friendly` and **all three English lines said `kind`**, which is 亲切 or 好心 — a different quality, and one the reader would then use wrongly. Two corrected; the third was also the second sentence again (这个学校的学生很友好 and 你和他都很友好, both `are very kind`), so it is replaced with the word's other everyday use, between countries. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Dropping that third sentence ORPHANED an `exSpace` row this record had written for it in batch 25, which the applier duly reported: **a drop orphans every other row that names the same sentence**, the trap batch 59 met with `exEn`, met again one field over.",
+      "exEn": [
         [
-          "你和他都很友好 。",
-          "你和他都很友好。"
+          "她不仅友好还诚实",
+          "She is not only friendly, but also honest."
+        ],
+        [
+          "这个学校的学生很友好",
+          "The students at this school are very friendly."
+        ]
+      ],
+      "dropEx": [
+        "你和他都很友好"
+      ],
+      "ex": [
+        [
+          "两国关系很友好。",
+          "Relations between the two countries are friendly."
         ]
       ]
     },
@@ -119399,7 +119435,7 @@
       ]
     },
     "hsk30l4/油": {
-      "why": "`gas` for PETROL is American, and the decks are authored British because the site's spelling switch runs one way only, from en-GB, so an American word written into deck content is what both readers see. This family cannot be a LEXIS row: `gas` runs to 56 occurrences across the nine decks and about fifty of them are the SUBSTANCE — natural gas, coal gas, a gas leak, a gas bubble, tear gas — which is British English too. Every occurrence was read; the six that mean petrol are fixed per note, which is `fall` and `check` and `store` again.",
+      "why": "`gas` for PETROL is American, and the decks are authored British because the site's spelling switch runs one way only, from en-GB, so an American word written into deck content is what both readers see. This family cannot be a LEXIS row: `gas` runs to 56 occurrences across the nine decks and about fifty of them are the SUBSTANCE — natural gas, coal gas, a gas leak, a gas bubble, tear gas — which is British English too. Every occurrence was read; the six that mean petrol are fixed per note, which is `fall` and `check` and `store` again. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows two words, 加油 and 加油站. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "exEn": [
         [
           "这辆车很省油",
@@ -119408,6 +119444,28 @@
         [
           "我们没油了",
           "We've run out of petrol."
+        ]
+      ],
+      "compounds": [
+        [
+          "石油",
+          "shí yóu",
+          "petroleum; oil"
+        ],
+        [
+          "酱油",
+          "jiàng yóu",
+          "soy sauce"
+        ],
+        [
+          "黄油",
+          "huáng yóu",
+          "butter"
+        ],
+        [
+          "油漆",
+          "yóu qī",
+          "paint; to paint"
         ]
       ]
     },
@@ -121493,6 +121551,171 @@
         [
           "比赛场地已经准备好了。",
           "The ground is ready for the match."
+        ]
+      ]
+    },
+    "hsk30l4/由": {
+      "why": "TWO of the three sentences used the character for its SOUND rather than its meaning: 由美将不会打网球 and 我想由美生病了 are both about **由美, YUMI**, a Japanese given name, so a card for the preposition 由 illustrated it twice with a transliteration. This is the 鸟取 and 法拉费 fault at its worst — two thirds of a card — and the preposition the gloss names appears in only the one remaining sentence. Both replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 由于. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "由美将不会打网球",
+        "我想由美生病了"
+      ],
+      "ex": [
+        [
+          "这本书由他翻译。",
+          "This book was translated by him."
+        ],
+        [
+          "这件事由你负责。",
+          "You are in charge of this."
+        ]
+      ],
+      "compounds": [
+        [
+          "自由",
+          "zì yóu",
+          "freedom; free"
+        ],
+        [
+          "理由",
+          "lǐ yóu",
+          "a reason; grounds"
+        ],
+        [
+          "由此",
+          "yóu cǐ",
+          "from this; hence"
+        ],
+        [
+          "缘由",
+          "yuán yóu",
+          "a cause; a reason"
+        ]
+      ]
+    },
+    "hsk30l4/优点": {
+      "why": "The second sentence was English put through a dictionary: 她不自豪她所有的优点 renders `With all her merits she was not proud` word by word, and 不自豪 does not take an object that way — Chinese would say 她虽然有很多优点，却不骄傲. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "她不自豪她所有的优点"
+      ],
+      "ex": [
+        [
+          "他最大的优点是诚实。",
+          "His greatest strength is his honesty."
+        ]
+      ]
+    },
+    "hsk30l4/优秀": {
+      "why": "The second sentence was the same fault: **第二优秀 is not Chinese** — `second best` is 第二名 or 屈居第二, and 第二 cannot modify 优秀 like an English superlative. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "第二优秀是远远不够的"
+      ],
+      "ex": [
+        [
+          "他工作表现优秀。",
+          "His performance at work is outstanding."
+        ]
+      ]
+    },
+    "hsk30l4/永远": {
+      "why": "Labelled `noun / adverb` over the adverbial gloss `forever`, with all three sentences the adverb. 永远 takes no noun use that any of them shows.",
+      "senses": [
+        [
+          "adverb",
+          "forever, always"
+        ]
+      ]
+    },
+    "hsk30l4/有效": {
+      "why": "Labelled `verb` over the adjective `effective`, and two of the three sentences are the OTHER adjective sense — 有效期限 and 车票有效三天 are VALID rather than effective, which the gloss did not reach.",
+      "senses": [
+        [
+          "adjective",
+          "effective; valid"
+        ]
+      ]
+    },
+    "hsk30l4/原来": {
+      "why": "Labelled `noun / adjective / adverb` over the single adverb `originally`, and the card shows two of those three: 原来都是假的 and 原来是您呀 are `as it turns out`, which the gloss does not reach at all, and 原来的地方 is the adjective. Split, with each sentence saying which it shows.",
+      "senses": [
+        [
+          "adverb",
+          "as it turns out; actually"
+        ],
+        [
+          "adjective",
+          "original, former"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l4/约会": {
+      "why": "Labelled `noun / verb` over the single noun `appointment`, and two of its three sentences are a romantic DATE — 你在什么地方有约会, 不让我和男生约会 — which the gloss does not reach. Split, with each sentence saying which it shows.",
+      "senses": [
+        [
+          "noun",
+          "an appointment; a date"
+        ],
+        [
+          "verb",
+          "to arrange to meet; to go out with somebody"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l4/友谊": {
+      "why": "Glossed `companionship`, while all three of the card's own English lines say **friendship** — and CC-CEDICT gives the bare word no other sense.",
+      "gloss": "friendship"
+    },
+    "hsk30l4/原谅": {
+      "why": "Glossed `to excuse`, while all three English lines say **forgive**. CC-CEDICT gives /to excuse/to forgive/to pardon/, and forgiving is the stronger and commoner of the two.",
+      "gloss": "to forgive; to excuse, to pardon"
+    },
+    "hsk30l4/院子": {
+      "why": "The card called the same 院子 a `yard` twice and a **patio** once, which is a different thing again — a paved sitting area rather than the enclosure the card glosses `courtyard`.",
+      "exEn": [
+        [
+          "你院子里有桌子吗",
+          "Do you have a table in the yard?"
+        ]
+      ]
+    },
+    "hsk30l4/与": {
+      "why": "`When did you see her?` drops both the word the card is about and its register: 何时与她见面 is when you MET her, and 与 is the formal written `with`. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. 参与 and 与会 are included deliberately: they carry the character's other reading, yù, which nothing else on the card could tell the reader about. A first draft of this block listed 给予, which the applier REFUSED: 给予 is 给 + 予, a different character that merely looks like 与 — and the guard that caught it is the one asking that every row contain the card's own headword.",
+      "exEn": [
+        [
+          "你是何时与她见面的",
+          "When did you meet her?"
+        ]
+      ],
+      "compounds": [
+        [
+          "与其",
+          "yǔ qí",
+          "rather than"
+        ],
+        [
+          "与日俱增",
+          "yǔ rì jù zēng",
+          "to grow with each passing day"
+        ],
+        [
+          "参与",
+          "cān yù",
+          "to take part in — note the reading"
+        ],
+        [
+          "与会",
+          "yù huì",
+          "to attend a meeting — note the reading"
         ]
       ]
     }

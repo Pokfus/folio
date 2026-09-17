@@ -605,6 +605,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 781–810 (西部 → 笑话), deck order | 17 | a SIBLING PAIR both illustrated with a sentence their headword is not in |
 | 2026-09-17 | `hsk30l4` notes 811–840 (血 → 研究生), deck order | 16 | a card teaching a Cantonese word for the animal its sentence is about |
 | 2026-09-17 | `hsk30l4` notes 841–870 (严重 → 勇敢), deck order | 21 | a gloss that was the wrong end of its own transaction |
+| 2026-09-17 | `hsk30l4` notes 871–900 (永远 → 约会), deck order | 16 | two thirds of a card illustrated with a Japanese name spelled in its headword |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6549,3 +6550,66 @@ and left for the reason above.
 still-ambiguous 2; shared-gloss groups 326 unchanged; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 575 → 578;
 `build-lang-decks.js` re-run.
+
+## Batch 70 — hsk30l4 notes 871–900 (永远 → 约会)
+
+Thirty consecutive notes; **sixteen cards changed** across three decks.
+
+**The leading finding is the character-used-for-its-sound fault at its worst: two thirds of a card.**
+由's second and third sentences were 由美将不会打网球 and 我想由美生病了 — both about **由美, YUMI**, a
+Japanese given name — so a card for the preposition 由 illustrated it twice with a transliteration in
+which the character means nothing at all, leaving one sentence to teach the word. This is 取's 鸟取
+(batch 60) and 费's 法拉费 (batch 47) again, and it is the widest instance yet.
+
+**Three sentences that are English put through a dictionary.** 优点's 她不自豪她所有的优点 renders *With
+all her merits she was not proud* word by word, and 不自豪 does not take an object that way. 优秀's
+**第二优秀 is not Chinese** — *second best* is 第二名 or 屈居第二, and 第二 cannot modify an adjective as
+an English superlative does. And 有着's first sentence **contradicted the card's own gloss**: 有着 is for
+qualities and experience, which the gloss says outright, and 你有着漂亮的腿 uses it of a pair of legs.
+
+**A card whose gloss and every English line disagreed.** 友好 is glossed `friendly` and **all three
+lines said `kind`**, which is 亲切 or 好心 — a different quality the reader would then use wrongly. Two
+corrected; the third was the second again and was replaced.
+
+**Four labels, all of them naming a part of speech the card never shows.** 永远 `noun / adverb` with
+three adverbs; 有效 `verb` over an adjective, and two of its sentences are the OTHER adjective sense
+(有效期限, 车票有效三天 are VALID rather than effective); 原来 `noun / adjective / adverb` over the single
+word `originally`, where two of its sentences are *as it turns out*, a sense the gloss never reached;
+and 约会 `noun / verb` over `appointment` while two of its sentences are a romantic DATE.
+
+**Two more glosses**: 友谊 was `companionship` over three English lines saying *friendship*, and 原谅
+`to excuse` over three saying *forgive*. **One sentence too long to be an example**: 用于's second ran
+to forty-seven characters, with an English line longer still.
+
+**Three things went wrong in the doing, and all three are worth keeping.**
+· **Correcting 友谊 to `friendship` created a NEW collision** with hsk30l7/交情, which was glossed
+  `Friendship` — capitalised mid-field, which nothing else in the decks does. The checker caught it on
+  the run. 交情 is sharpened to what it actually means (how well two particular people know each other)
+  rather than the pair being left to collide. **A gloss correction can make a collision as easily as it
+  dissolves one; read the shared-gloss delta, not just the count.**
+· **Dropping 友好's third sentence orphaned an `exSpace` row** this record had written for it in batch
+  25. The trap batch 59 met with `exEn`, one field over: **a drop orphans every other row naming the
+  same sentence.**
+· **Giving 交情 its first entry silently deleted two of its three examples.** It carried two `uc-exadd`
+  blocks the record did not account for, and the applier strips every added block from a note before
+  re-adding what the record names — so blocks written into a deck without a record row survive only
+  until that note is touched for anything at all. They were good sentences and are adopted as proper
+  `ex` rows. **Measured afterwards: about ten such blocks remain across the nine decks, each one
+  waiting on its note's first entry.** The strip is right — the record is authoritative or it is drift
+  — so **re-count a touched note's examples after giving it its first entry.**
+
+**And the `compounds` guard earned its keep again**: a first draft of 与's block listed **给予**, which
+is 给 + 予, a different character that merely looks like 与. Refused, as it should have been.
+
+**Three `Compounds` blocks**: 与 had nothing at all, 由 one word, 油 two. 与's block carries 参与 and
+与会 deliberately — they are the character's other reading, **yù**, which nothing else on the card could
+tell a reader about.
+
+**Read and left.** 用来, 幽默, 尤其, 游玩, 由于, 友情, 有趣, 愉快, 于是, 语法, 预习, 原因, 远离, 院长,
+约 — and 院子, whose three English lines called the same enclosure a *yard* twice and a **patio** once,
+now all three the same word.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 326 unchanged (327 mid-run, corrected); pinyin clean;
+example-fit 143 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible on every one;
+sense-tagged 578 → 584; `build-lang-decks.js` re-run.
