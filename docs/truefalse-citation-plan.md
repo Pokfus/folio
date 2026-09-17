@@ -74,7 +74,7 @@ card-side research is then shared.
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two and T7d one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables |
-| T9 | Astronomy / Earth science | part done; T9a took four, T9b three and T9c three, all off NASA |
+| T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book |
 | T10 | Psychology | part done; T10a took four, all researched — the collection has only reached the 1800s, so nothing could be lifted |
 
 ## Open questions carried forward
@@ -492,6 +492,28 @@ date to cite them by, and answer from this sandbox.
 a real 404 with a 404 status, so the astronaut-weightlessness statement simply has no source yet rather
 than a wrong one. The asteroid-belt statement was also left alone: NASA's *Asteroids* page describes the
 belt but does not carry the claim that every probe crossed it without dodging.
+
+### T9d — two Earth-science statements out of one USGS book (2026-09-17)
+
+**`www.usgs.gov` IS 403 HERE AND `pubs.usgs.gov` IS NOT**, which is the finding to carry forward: the
+FAQ pages a search surfaces first cannot be opened, and the USGS's own published books can. *This Dynamic
+Earth: The Story of Plate Tectonics* (Kious and Tilling, 1996) is there in full as HTML, and two of its
+chapters settled both of these between them.
+
+- **Wegener.** *Historical Perspective* carries the whole refutation: in 1912 the scientific community
+  "firmly believed the continents and oceans to be permanent features on the Earth's surface", his proposal
+  "was not well received", its "fatal weakness" was that it could name no force, Harold Jeffreys "argued
+  correctly that it was physically impossible for a large mass of solid rock to plow through the ocean floor
+  without breaking up", and Wegener froze to death on the Greenland ice cap in 1930 with the controversy
+  unresolved. *Developing the Theory* supplies the other end — seafloor spreading theorised in 1961 and the
+  magnetic striping beside it. **The `why`'s "rejected for half a century" and "acceptance came in the
+  1960s" were replaced by the dates the book states**, which say the same thing and are on the page.
+- **Magnetic reversals.** The same chapter: magnetite grains locking the field direction in as lava cools,
+  Brunhes in 1906 and Matuyama in the 1920s finding rocks in two polarity groups, the symmetrical striping
+  either side of a ridge, and the crust as "a natural tape recording of the history of the reversals".
+  **The `why` lost the 780,000-year date** of the last full reversal: it is on none of these pages, and the
+  corpus's own 780,000 (in `wh-032`) is the Atapuerca dating rather than the Brunhes-Matuyama boundary, so
+  it could not be lifted either.
 
 ### T5b/T7d — a national museum and a park service, and the pool passes half cited (2026-09-17)
 
