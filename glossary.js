@@ -3845,7 +3845,17 @@ window.GLOSSARY = {
 "Khazar_Correspondence": "The Khazar Correspondence is an exchange of letters between Hasdai ibn Shaprut, a minister of the caliph of Cordova, and Joseph, king of the Khazars, and it is the chief evidence that the Khazar ruling house adopted Judaism.<sup class=\"fn\" data-fn=\"1\"></sup> That conversion is placed by some authorities about the middle of the 8th century and by others in the first half of the 7th, and the letters were recovered only in the 16th century.<sup class=\"fn\" data-fn=\"1\"></sup> A different account survives in a fragment from the Cairo Genizah, and the story was told again in the 12th-century dialogue called the <i>Kuzari</i>, where an angel comes to a Khazar king in a dream.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Atil": "Atil, also written Itil, was the later capital of the Khazar khaganate, on the lower Volga, and its site has never been securely identified.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A 10th-century Arab geographer describes a town in three parts split by a great river, with an island in midstream where the king lived and a palace joined to one bank by a bridge of boats, and says that Muslims, Christians, Jews and pagans all lived there.<sup class=\"fn\" data-fn=\"1\"></sup> The Samosdelka settlement in the Volga delta is the leading candidate, its lower layers holding two banks and an island with brick walls and gate towers, but its excavator reports that the question needs further study.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Magyars": "The Magyars are the people whose language is Hungarian, and who in the 9th century held the steppe north of the Black Sea before moving into the Carpathian Basin about 895.<sup class=\"fn\" data-fn=\"1\"></sup> Their seven tribes had no common ruler until the Khazar khagan proposed one, whereupon Árpád was chosen and raised on a shield after the Khazar custom, an eighth tribe being added when rebels called the Kabars joined them.<sup class=\"fn\" data-fn=\"1\"></sup> Whole-genome work traces the immigrant core of the conquest-period population to a mixture of Mansi, early Sarmatians and late Xiongnu, and King Béla III’s Y chromosome belongs to a lineage whose closest living kin are the Bashkirs.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Pechenegs": "The Pechenegs were Turkic nomads of the western Eurasian steppe, whose earlier dominion lay between the Volga and the Ural, with the Burdas to the north-west, the Kipchaks north, the Uzes east and the Khazars south-west.<sup class=\"fn\" data-fn=\"1\"></sup> They made war on the Khazars, were beaten, and so left that country to take the land of the Magyars, whom they drove beyond the Dnieper, before the Uzes and the Khazars pushed them west of that river.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They had no king: eight tribes under their own chiefs, each in five divisions, and a chieftainship passed to a first cousin rather than to a son.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Pechenegs": "The Pechenegs were Turkic nomads of the western Eurasian steppe, whose earlier dominion lay between the Volga and the Ural, with the Burdas to the north-west, the Kipchaks north, the Uzes east and the Khazars south-west.<sup class=\"fn\" data-fn=\"1\"></sup> They made war on the Khazars, were beaten, and so left that country to take the land of the Magyars, whom they drove beyond the Dnieper, before the Uzes and the Khazars pushed them west of that river.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They had no king: eight tribes under their own chiefs, each in five divisions, and a chieftainship passed to a first cousin rather than to a son.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Balts": "Balts is the collective name for the peoples of the south-eastern Baltic and its hinterland whose languages are Lithuanian, Latvian and the extinct Old Prussian.<sup class=\"fn\" data-fn=\"1\"></sup> A Roman account of about 98 CE describes them as the Aestii, on the eastern shore of the Suebian Sea, with the rites and dress of their neighbours but a language compared instead to British, and as the only people who gathered amber, which they called glesum.<sup class=\"fn\" data-fn=\"2\"></sup> Substrate river names of Baltic type run across the upper Dnieper and the middle Oka, far inland of that coast.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"East_Slavs": "East Slavs is the collective name for the Slavic-speaking peoples of the East European Plain, whose tribal names a chronicle compiled at Kyiv about 1113 gives as the Polyane, Drevlyane, Dregovichi, Polochane, Slovene, Severyane, Krivichi and Buzhane.<sup class=\"fn\" data-fn=\"1\"></sup> That chronicle sets them apart from neighbouring peoples who paid tribute but each had a language of their own, among them the Chud', the Merya, the Ves' and the Mordva.<sup class=\"fn\" data-fn=\"1\"></sup> Genome-wide data from ancient burials show a large movement of people out of eastern Europe between the 6th and 8th centuries, though the source population itself has not yet been sampled.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Merya": "The Merya were a Finnic-speaking people of the upper Volga, placed by a chronicle compiled at Kyiv on Lake Rostov and Lake Kleshchino and listed among the tribute-paying peoples that each had a language of their own.<sup class=\"fn\" data-fn=\"1\"></sup> They appear much earlier as Merens, in a 4th-century list of northern peoples subject to a Gothic king.<sup class=\"fn\" data-fn=\"2\"></sup> Their language is extinct and is reconstructed from substrate place names in central Russia, which separate into several groups, have been shown to be related to Mari, and correlate on the map with the archaeological sites attributed to them.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Perun": "Perun is the thunder god of the Slavs, and the earliest written evidence of the name is the Old Rus' form recorded in a chronicle compiled at Kyiv.<sup class=\"fn\" data-fn=\"1\"></sup> The traditional etymology derives it from a verb meaning to strike, making the god the one who strikes, while another account starts from an old word for rock or mountain; in several Slavic languages the word for a thunderstone is the same word as the name.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle records oaths sworn by him in 10th-century treaties and the destruction of his idol at Kyiv in 988.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Proto-Slavic": "Proto-Slavic is the reconstructed language from which all the Slavic languages descend, recovered by comparing them rather than read from any text, because nothing survives written in it.<sup class=\"fn\" data-fn=\"1\"></sup> Its speakers are not directly attested, so it is dated from the words it borrowed and lent and from the uniformity of its descendants when they are first recorded, which places the break-up of the parent tongue late in the 1st millennium rather than in deep antiquity.<sup class=\"fn\" data-fn=\"1\"></sup> A substantial body of Germanic loanwords shows contact with Germanic speakers, and the homeland is argued for between the Vistula and the middle Dnieper.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Rus'_people": "Rus' people is the name of the group whose designation the eastern Slavs took over and gave to a state, and the earliest surviving notice of it is Frankish.<sup class=\"fn\" data-fn=\"1\"></sup> In 839 men who reached the emperor at Ingelheim with a Byzantine embassy said that they and their people were called Rhos and that their king was styled chacanus; investigating why they had come, the emperor concluded that they were of the people of the Sueones and held them as probable spies.<sup class=\"fn\" data-fn=\"1\"></sup> A 10th-century Italian bishop equates the Greek Rusii with the western Nordmanni, and names their king Igor and his fleet.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Sclaveni": "Sclaveni is the name that Greek and Latin writers of the 6th century give to one of the two great divisions of the early Slavs, the other being the Antes.<sup class=\"fn\" data-fn=\"1\"></sup> A Gothic history of about 551 places their abode between a Danube city called Noviodunum, a lake called Mursianus, the Dniester and the Vistula, and says that they have swamps and forests for their cities.<sup class=\"fn\" data-fn=\"1\"></sup> A Byzantine account of the same generation adds that the two peoples spoke one tongue, were ruled by no single man but referred decisions to the people, lived in scattered huts and fought on foot with small shields and javelins.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Slavic_paganism": "Slavic paganism is the pre-Christian religion of the Slavic peoples, known from outside observers, from Christian writers of the period after conversion, and from vocabulary and folklore.<sup class=\"fn\" data-fn=\"1\"></sup> The earliest surviving description, written in the 540s, reports that they held one god, the maker of the lightning, to be sole lord of all things and sacrificed cattle to him, denied that fate had any power over men, and revered rivers, nymphs and other spirits.<sup class=\"fn\" data-fn=\"1\"></sup> After conversion the gods lost their standing as a source of religious meaning, passed into folklore and were denounced by the Church as maleficent idols.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Varangians": "Varangians is the name the eastern Slavs gave to the Scandinavians who came among them as raiders, merchants and hired soldiers; a chronicle compiled at Kyiv calls the Baltic the Varangian Sea and records them taking tribute from four northern peoples in 859.<sup class=\"fn\" data-fn=\"1\"></sup> Scandinavians had entered Byzantine service by the middle of the 9th century, but a separate unit was formed only in 988, when the emperor obtained warriors from the prince of Kyiv, and the guard that grew from it was the best paid of the imperial guards.<sup class=\"fn\" data-fn=\"2\"></sup> They were hired in the north on the same terms, and were as hard to hold.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Vyatichi": "The Vyatichi were a people of the upper and middle Oka basin, derived by a chronicle compiled at Kyiv from a man called Vyatko who is said to have settled on that river.<sup class=\"fn\" data-fn=\"1\"></sup> The same source describes their funeral rite as cremation, with the bones gathered into a small vessel and the vessel set on a post beside the road, and records them paying tribute to the Khazars in 859 before princes of Kyiv subdued them in 966, 981 and 982.<sup class=\"fn\" data-fn=\"1\"></sup> Radial and lobed temple rings are the ornament most particular to them.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5820,7 +5830,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Bulgars": "c. 450 – 800 CE",
 "Volga_Bulgaria": "c. 900 – 1236 CE",
 "Atil": "8th – 10th centuries CE",
-"Pechenegs": "9th – 11th centuries CE"
+"Pechenegs": "9th – 11th centuries CE",
+"Balts": "from the 1st century CE",
+"East_Slavs": "from the 6th century CE",
+"Merya": "4th – 12th centuries CE",
+"Perun": "attested 907 – 988 CE",
+"Proto-Slavic": "to c. 500 – 600 CE",
+"Rus'_people": "9th – 11th centuries CE",
+"Sclaveni": "6th – 7th centuries CE",
+"Slavic_paganism": "to c. 1000 CE",
+"Varangians": "9th – 11th centuries CE",
+"Vyatichi": "9th – 12th centuries CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8097,7 +8117,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Khazar_Correspondence": ["Khazar letters"],
 "Atil": ["Itil"],
 "Magyars": ["Magyar"],
-"Pechenegs": ["Pecheneg","Patzinaks","Patzinak"]
+"Pechenegs": ["Pecheneg","Patzinaks","Patzinak"],
+"Balts": ["Baltic peoples","Balt"],
+"East_Slavs": ["East Slavic","East Slav"],
+"Merya": ["Merens","Merya people"],
+"Perun": ["Perunu"],
+"Proto-Slavic": ["Common Slavic"],
+"Rus'_people": ["Rhos"],
+"Sclaveni": ["Sclavenes","Sklaveni","Sclavene"],
+"Slavic_paganism": ["Slavic religion","Slavic pagan"],
+"Varangians": ["Varangian"],
+"Vyatichi": ["Viatichi","Vyatich"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -11984,7 +12014,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Khazar_Correspondence": ["text","history","religion","judaism","politics"],
 "Atil": ["city","history","archaeology","trade","geography"],
 "Magyars": ["people","history","migration","language","hungary","genetics"],
-"Pechenegs": ["people","history","warfare","migration","politics"]
+"Pechenegs": ["people","history","warfare","migration","politics"],
+"Balts": ["people","history","language","geography","europe"],
+"East_Slavs": ["people","history","geography","language","europe"],
+"Merya": ["people","history","language","archaeology","europe"],
+"Perun": ["deity","religion","mythology","language","europe"],
+"Proto-Slavic": ["language","concept","history","prehistory","europe"],
+"Rus'_people": ["people","history","trade","warfare","europe"],
+"Sclaveni": ["people","history","migration","warfare","europe"],
+"Slavic_paganism": ["religion","practice","history","concept","europe"],
+"Varangians": ["people","history","warfare","trade","europe"],
+"Vyatichi": ["people","history","archaeology","politics","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

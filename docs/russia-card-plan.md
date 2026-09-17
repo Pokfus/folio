@@ -403,6 +403,85 @@ illustrated. **`Goths`, `Huns` and `Khazars` already existed**, cited, from earl
 three of the ten cards satisfied the pairing rule without a new term, which is the head start this
 file predicted the collection would NOT have and does, wherever World History has been there first.
 
+**2026-09-17, `ru-021`–`ru-030` written** — Proto-Slavic, the Sclaveni, the East Slavs, the Vyatichi,
+Slavic paganism, Perun, the Merya, the Balts, the Varangians and the Rus' people, which finishes
+`ru-before` except for its last five cards. **Two lines were renamed and one was left exactly as it
+stood, against this file's own prediction.**
+
+**`ru-024` "The East Slavic tribes" is now "The Vyatichi."** A card blanks one word and a dozen tribal
+names is not one; the chronicle's own list belongs in the background, and the one tribe it says most
+about — a founder called Vyatko, a funeral rite described in the present tense, a tribute in silver
+per plough, three campaigns to subdue it — is the term a reader meets again. **`ru-027` "The
+Finno-Ugric peoples of the forest" is now "The Merya,"** for the same reason one step further: the
+chronicle lists fifteen such peoples, and the Merya is the one with a reconstructed language, a
+4th-century notice under another name and an archaeology that can be mapped.
+
+**`ru-025` stands as written, which is worth recording because this file warned it would not.** The
+line was flagged at the top as "an area" whose answer would have to be chosen while writing. It
+turned out that *Slavic paganism* is itself a term the scholarship heads and the glossary can carry,
+so the line and the answer are the same words. **A line flagged as too broad is still worth testing
+before it is narrowed.**
+
+### What carried this batch, and what the next twenty will want
+
+**Two ancient works carry six of the ten cards and both are open.** Mierow's 1915 *Getica* gives
+Jordanes' Venethi, Antes and Sclaveni as three names for one stock, the Sclaveni's bounds from
+Noviodunum and Lake Mursianus to the Dniester and the Vistula, the Aesti on the shore of Ocean, and
+Ermanaric's northern peoples; Dewing's Loeb *Wars* VII.14 gives Procopius' ethnography — one god who
+makes the lightning, no fate, rivers and nymphs, scattered hovels, no single ruler, one tongue, and
+the older name Spori — plus Chilbudius and the raids that made the Danube crossable at will. **Both
+are cited twice on some cards at different page ranges**, which `check-cards.js` allows because its
+first rule counts ancient authors apart and caps at two.
+
+**The chronicle is now the collection's spine rather than one source among four.** Léger's pagination
+matters, so it is recorded here: the Varangian Sea and the sons of Japheth at 2, the tribal and
+tribute-paying lists at 7–8, Radim and Vyatko and the funeral rite at 9–10, the 859 tribute at 14,
+Rurik's towns at 16, the 907 oath by Perun and Volos at 24, Igor's treaty at 41, Sviatoslav and the
+Vyatichi at 51, Vladimir's idols at 64 and 66, the destruction of the Kyiv idol at 96–97, and
+Monomakh's road to Rostov through Vyatichi country at 251.
+
+**Four Russian-language journals are open and answer, and three of them are one journal.** *Вопросы
+ономастики* carries the reconstruction of Merya from substrate toponymy, the Mari–Merya–Muroma
+ethnonyms, Jordanes' forest-zone peoples and the Baltic hydronymy of the upper Dnieper and middle
+Oka; *Stratum plus*, *History: Facts and Symbols*, *Archaeology and Early History of Ukraine* and
+*Locus* carry the temple rings, the upper Oka as a contested frontier, the Zbruch idol and the
+argument over where the Rhos ruler sat. **Crossref holds the ENGLISH article title and the Russian
+journal title for all of them**, so the citation is written that way round and matches; this is the
+same journal-metadata rule the last batch found, from the other side.
+
+**A `region` locator was authored for the first time in this collection.** `ru-024` is drawn as a
+dashed wash over the upper and middle Oka rather than as a dot, because the Vyatichi are a people and
+a dot in the middle of a river basin is the false precision the dashed shape exists to avoid. Its
+date line had to be extended to `to c. 1150 CE` for the reason the last batch recorded: a `people`
+card with an authored area is drawn only between the two years its own date line yields, so the wash
+would otherwise have stopped in 982 while the card's own prose ran to the twelfth century.
+
+**Four of the ten carry no locator at all, and that is the answer rather than a gap.** Proto-Slavic
+has a disputed homeland and a wash would settle it; the East Slavs and Slavic paganism are spread
+across the whole East European Plain; and the Varangians are men on a route rather than a place, so
+the honest mark would have been Constantinople, which says something about the guard and nothing
+about the people. **Ask what a reader could stand on, and take the empty answer when there is one.**
+
+**Two pictures needed a caption that argues with them.** The Zbruch pillar is the most reproduced
+image of Slavic paganism there is and its antiquity has been contested since 2011, so the caption
+says so and the card gives the dispute a sentence; and the Radziwiłł miniature of Perun's idol is a
+Christian illustrator's guess five centuries after the event, which the caption states rather than
+letting the drawing pass as a witness.
+
+**One thing was measured and not acted on.** The glossary term `Coinage` is tagged greece and
+anatolia, so `check-gloss-links.js` reports `ru-024`'s "a silver coin" as a cross-region auto-link.
+The term's own description is a general definition of coined money and the link is right in sense;
+the tags record where the western series began, not what the term is about. **Left as it is.**
+
+The glossary entries were written to match: `Proto-Slavic`, `Sclaveni`, `East_Slavs`, `Vyatichi`,
+`Slavic_paganism`, `Perun`, `Merya`, `Balts`, `Varangians` and `Rus'_people` are all new, cited at
+the bar and illustrated — **ten new terms for ten cards, with no head start at all this time**, which
+is what this file predicted and the last batch did not deliver. Two aliases are deliberate and worth
+knowing: `East_Slavs` claims the adjective "East Slavic", and `Rus'_people` does NOT claim the bare
+"Rus'", which `Kievan_Rus'` already carries in its curly-apostrophe form. **This collection writes the
+ethnonym with a STRAIGHT apostrophe** — the corpus is mixed, but `ru-001`–`ru-020` are straight and a
+card's bolded answer term has to match its own `answer` field exactly.
+
 ---
 
 # The list
@@ -434,10 +513,10 @@ file predicted the collection would NOT have and does, wherever World History ha
     ru-021  The origin of the Slavs
     ru-022  The Slavic migrations
     ru-023  East Slavs
-    ru-024  The East Slavic tribes
+    ru-024  The Vyatichi
     ru-025  Slavic paganism
     ru-026  Perun
-    ru-027  The Finno-Ugric peoples of the forest
+    ru-027  The Merya
     ru-028  The Balts
     ru-029  The Varangians
     ru-030  The Rus' people
