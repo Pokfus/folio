@@ -2411,16 +2411,25 @@ and is not the negative stated; `loc.gov`'s classroom pages and every `nps.gov` 
 the 1916 Supreme Court opinion recording the extract used "with cocaine eliminated" — **evidence it
 was taken out, not of what was in the 1880s bottle**. #38 and #47 are Chinese history whose
 standard works are modern monographs; HAL, DOAJ and the glossary's own 3,838 cited terms return
-nothing on either. **#38 IS HALF CLOSED AND THE OPEN HALF IS THE UNIQUENESS**: the *Jiu Tangshu*'s sixth juan,
-the annals of Empress Zetian, records the accession itself — 九月九日壬午，革唐命，改國號為周 … 乙酉，加尊號曰聖神皇帝，降皇帝為皇嗣, the Mandate of Tang revoked, the dynasty renamed Zhou
-and the sitting emperor demoted to heir — and it is on `zh.wikisource.org` where T62 found the *Mingshi*. **What no primary source can establish is that she was the ONLY one**, and every route to a
-secondary voice was measured shut in one evening: `ctext.org` serves a Cloudflare Turnstile challenge, DOAJ's four hits are three on `mdpi.com` (403) and one on `jfafu.journals.ekb.eg`, whose TLS
-connection is reset; the one open-access paper Semantic Scholar names with the phrase in its abstract is on `jurnal.uai.ac.id`, which answers **500**; `web.archive.org` dropped every connection
-through the evening, so the Wayback route past MDPI's 403 was unavailable; and OpenAlex answers **429 — “Insufficient budget … Resets at midnight UTC”**, which is a daily quota rather than a
-rate limit and is worth knowing before planning a session around it.
+nothing on either. **#38 IS HALF CLOSED AND THE OPEN HALF IS THE UNIQUENESS.** The *Jiu Tangshu*'s sixth juan, the
+annals of Empress Zetian, records the accession itself — 九月九日壬午，革唐命，改國號為周 … 乙酉，加尊號曰聖神皇帝，降皇帝為皇嗣, the
+Mandate of Tang revoked, the dynasty renamed Zhou and the sitting emperor demoted to heir — and it
+is on `zh.wikisource.org`, where T62 found the *Mingshi*. **What no primary source can establish is
+that she was the ONLY one**, and every route to a secondary voice was measured shut in one evening:
+`ctext.org` serves a Cloudflare Turnstile challenge; DOAJ's four hits are three on `mdpi.com` (403)
+and one on `jfafu.journals.ekb.eg`, whose TLS connection is reset; the one open-access paper
+Semantic Scholar names with the phrase in its abstract is on `jurnal.uai.ac.id`, which answers
+**500**; OAPEN's REST search answers 500 and DOAB's answers 200 with three books that do not carry
+the claim; and `web.archive.org` dropped every connection through the evening, so the Wayback route
+past MDPI's 403 — which is the cheapest remaining win on this statement — was unavailable.
+**OpenAlex answers 429 with “Insufficient budget … Resets at midnight UTC”, which is a DAILY QUOTA
+rather than a rate limit**, so it is worth re-trying on another day and not worth re-trying on this
+one.
 
 **WHAT WOULD MOVE THEM.** Not more probing of the same hosts. #135 and #141 want a repository copy or
 an interlibrary route; #1, #64 and #20 want a museum, archive or government page that is not behind a
-challenge; #38 wants one secondary voice for its uniqueness clause and #47 a comparative city-size table, and neither is a Chinese-language open journal away — `ctext`, MDPI, `ekb.eg` and `uai.ac.id` were all measured this evening and are listed above. **Do not re-probe them.**
+challenge; #38 wants one secondary voice for its uniqueness clause and #47 a comparative city-size table, and
+neither is a Chinese-language open journal away — `ctext`, MDPI, `ekb.eg` and `uai.ac.id` were all
+measured this evening and are listed above. **Do not re-probe them.**
 **Each is a fact about reach, not about the pool**, which is why they are listed rather than cited to
 something that does not carry them.
