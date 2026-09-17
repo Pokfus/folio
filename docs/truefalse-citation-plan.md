@@ -1657,3 +1657,80 @@ rather than absent — check the item's own metadata before assuming the book is
 14th of July, and none of the first two pages of results is about the seven prisoners found inside;
 the figure lives in the Bastille's own register and in book-length accounts. It is the next one to
 try, and it wants a different search rather than a different host.
+
+### T42 — three statements settled from the primary document itself (2026-09-17)
+
+Three cited: #78 (Bell and Gray), #74 (Crapper), #72 (the emu cull). 181 → **184 of 220**. Every one
+of them was answered by the record the event itself generated, and none by a modern study, which is
+the division the T41 entry above predicted.
+
+**A COURT'S OWN OPINION SETTLES A DATE NO SECONDARY ACCOUNT CAN.** Cornell's Legal Information
+Institute serves *The Telephone Cases*, 126 U.S. 1 (1888) whole and open, and the opinion says the
+thing outright: "Bell's application was filed February 14, 1876, and afterwards, during the same day,
+Elisha Gray filed a *caveat*". It also carries the charge the shared date produced — that Bell's
+specification was altered between the 14th and the 19th — and the court's answer, that "not a shadow
+of suspicion can rest on any one". `supreme.justia.com` is 403 here; **LII is the open route to a
+United States case and should be reached for first.**
+
+**AND `PROPER_NOUNS` MASKS A FULL NAME, NOT A SURNAME.** The first draft wrote "Gray's side argued",
+and rule 2 reported it: `spellText` has a `gray`/`grey` row and the checker's exception table holds
+the string *Elisha Gray*, so the bare possessive fell outside the mask. **The fix is the prose, not
+the table** — a bare-surname exception would excuse a real American spelling of the colour — so the
+sentence was reworded to name the date rather than the man. Worth knowing before writing about him
+again.
+
+**A PATENT INDEX IS A SEARCHABLE PRIMARY SOURCE AND IT IS ON archive.org.** Woodcroft's *Titles of
+Patents of Invention, Chronologically Arranged* (1854) lists every British patent from 1617 to 1852
+with its own full text, and patent 1105 reads "a grant unto Alexander Cumming, watchmaker, of his new
+invented watercloset, which he apprehends will be of great publick utility", dated in the margin
+11 November 1775. **The entry number is the way in**: a search for the patentee found two other
+Cummings and not this one, the OCR having read the surname as "Cummino", where `^1105\.` found it at
+once. The 1814 reprint of Harington's *Metamorphosis of Ajax* supplies the other half, its editor's
+advertisement establishing the 1596 printing.
+
+**HANSARD IS ONLINE, FREE, AND FULL-TEXT AT `historichansard.net`.** It answers 200, serves a whole
+sitting day as one page with the printed page numbers inline, and indexes by year and chamber — so
+the Australian emu operation of 1932 can be read in the words of the men who ordered it. The Senate
+of 18 November (p. 2569) has the Minister for Defence explaining that rifles were useless because the
+birds scattered, and that he lent two guns and three regular soldiers; the House of 22 November
+(p. 2634) has a member asking whether the "Emu war" had been "an expensive failure" and the answer
+naming the gun crews and "some hundreds of emus". **`trove.nla.gov.au` is an Anubis bot wall** and
+`parlinfo.aph.gov.au` is 403, so this is the route.
+
+**AND `grep -i emu` MATCHES "remuneration".** The first sweep reported the word on twenty-six sitting
+days and three of them were real. A three-letter search term over a parliamentary record is a search
+for the language, not for the subject; the count is worthless and only reading the hits settles it.
+
+### T43 — a statement rewritten because no open source carries its figure (2026-09-17)
+
+Two cited: #23 (Napoleon's height), #71 (Washington's bleedings). 184 → **186 of 220**. Both also
+cleared the two remaining unit findings, which is not a coincidence: a statement written from memory
+tends to be written in whichever units the memory came in.
+
+**THE AUTOPSY SETTLES NAPOLEON, AND IT SETTLES IT BY CARRYING ITS OWN CONVERSION.** Antommarchi's
+*The Last Days of the Emperor Napoleon* (1825) prints the post-mortem report, whose fourth item gives
+the body at "five feet two inches and four lines" and whose own footnote adds "French measure; equal
+to five feet six inches" English. **The source does the work the statement is about** — there is no
+need to reason about the length of a *pouce*, because the document beside the figure already has. The
+`why` was also the wrong way round for the units pass, giving feet first and metres in brackets, so
+nothing could convert it for either reader; it now reads about 1.69 metres (5 feet 6 inches).
+
+**AND #71 WAS REWRITTEN RATHER THAN CITED, WHICH IS WHAT THE TOOL'S `q` FIELD IS FOR.** It claimed
+Washington's doctors drained "roughly 40 percent of his blood", which rests on a modern estimate of
+his total blood volume: Cheatham's paper in *The American Surgeon* (2008) is closed, Vadakan's in
+*The Permanente Journal* is not in Europe PMC at all, and **founders.archives.gov answers 202 with an
+empty body** while mountvernon.org is behind Cloudflare — so the figure has no open source here in
+any form. What the record does carry is better: Tobias Lear was in the room, and his journal of
+14 December 1799 has four separate bleedings, Martha Washington begging that not too much be taken,
+and the General putting up his hand to stop her and saying "More, more". The statement now says that,
+and is still true. **A statement whose figure cannot be shown should be rewritten to what the witness
+saw, not propped up with a source that does not carry it.**
+
+**WHAT IS LEFT, RE-DIVIDED.** 34 uncited. The modern-finding group is unchanged (#82, #85, #106,
+#136, #155). The surviving-record group is now #1 (the terracotta well), #8 (Giza), #20 (Columbus),
+#25 (the Bastille's prisoners), #28 (the O.K. Corral), #64 (the Great Fire's death toll), #70
+(cocaine in Coca-Cola), #75 ("bug" before the 1947 moth) and #78's neighbours in the invention
+category. **#75 was attempted and left**: the Smithsonian's record of the Mark II logbook is 403,
+`history.navy.mil` fails TLS verification through this proxy, and the Edison Papers' digital edition
+(`edisondigital.rutgers.edu`) is a bot wall, though `edison.rutgers.edu` itself answers — so the 1878
+"bugs" letter wants a different route, most likely a Victorian electrical dictionary on archive.org.
