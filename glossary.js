@@ -3892,7 +3892,15 @@ window.GLOSSARY = {
 "Eleutheria": "<b>Eleutheria</b> is the Greek word for freedom, and in Hellenistic diplomacy it named a status rather than a sentiment: a city declared free was to hold no garrison, pay no tribute and live under its own laws.<sup class=\"fn\" data-fn=\"1\"></sup> Kings proclaimed it for the Greek cities from the late fourth century onwards, since the promise cost nothing to make and won goodwill in war, and Rome used the same formula in Greece in 196 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Because a grant exempted a city from named burdens only, it could stand beside other obligations under other names, which is what made the term adaptable and hard to define.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Siege_of_Ambracia": "The <b>siege of Ambracia</b> was the investment in 189 BCE of a city in Epirus, held by an Aetolian garrison, by a Roman consular army under Marcus Fulvius Nobilior.<sup class=\"fn\" data-fn=\"2\"></sup> Rams brought down stretches of the wall without opening a way in, so the besiegers mined; the defenders found the tunnel by listening through thin bronze vessels set along a trench, met it with a counter-mine, and drove the diggers out with the smoke of smouldering feathers blown through a pipe by a bellows.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The city surrendered on terms settled with the help of foreign envoys, and its bronzes, marbles and paintings were carried away.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Eumenes_II": "<b>Eumenes II</b> was king of Pergamon from 197 to 159 BCE, and the ally whose support of Rome against the Seleucid and Macedonian kingdoms enlarged his own.<sup class=\"fn\" data-fn=\"1\"></sup> He commanded on the winning side at Magnesia in 190 BCE, and after the peace of 188 BCE a Roman commission transferred to him most of the Seleucid territory west of the Taurus, which Rome did not annex for itself.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He spent the revenues on building at Pergamon, including a library set up against Alexandria’s, and late in his reign the senate, no longer trusting him, decreed that no king should visit Rome rather than hear his case.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Callicrates_of_Leontium": "<b>Callicrates of Leontium</b> was an Achaean politician who held that the league’s safety lay in obeying Rome, and who led an embassy to the Roman senate in 180 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius, who was hostile to him, says he abandoned his instructions, denounced his political opponents and advised the senate to raise up those who upheld its decisions and to humble those who pleaded local law, and that it adopted the policy from then on.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias counts him among the traitors of Greek history and reports that more than a thousand Achaeans were deported to Italy on his accusations after the defeat of Macedon in 168 BCE.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Callicrates_of_Leontium": "<b>Callicrates of Leontium</b> was an Achaean politician who held that the league’s safety lay in obeying Rome, and who led an embassy to the Roman senate in 180 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius, who was hostile to him, says he abandoned his instructions, denounced his political opponents and advised the senate to raise up those who upheld its decisions and to humble those who pleaded local law, and that it adopted the policy from then on.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias counts him among the traitors of Greek history and reports that more than a thousand Achaeans were deported to Italy on his accusations after the defeat of Macedon in 168 BCE.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Archelaus_(general)": "Archelaus was the leading general of Mithridates VI of Pontus, who carried the king’s war into Greece and later negotiated the peace that ended it.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch makes him the greatest of the royal commanders, controlling the Aegean with his fleet, holding Euboea and bringing Greek states as far as Thessaly into revolt from Rome, until he was beaten at Chaeronea and Orchomenus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Appian reports that he met the Roman commander to ask for terms, pleading that the king had been drawn into the war by the rapacity of earlier Roman generals.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Attalus_III": "Attalus III Philometor was the last king of Pergamum, and left his kingdom to the Roman people in a will that gave Rome its first province in Asia.<sup class=\"fn\" data-fn=\"1\"></sup> Strabo reports only that he was his uncle’s ward, reigned five years and died a natural death, while Justin gives a hostile portrait of a king who murdered his friends, abandoned government for gardening and metalwork, and died of sunstroke while building a monument for his mother.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His bequest was at once contested by Aristonicus, who claimed descent from the royal house and held much of the country for several years before Rome put the rising down.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Diaeus": "Diaeus of Megalopolis was a leader of the Achaean League in its last years, twice elected its general and in command when Rome destroyed the League in 146 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias has him take over the army after his colleague Critolaus disappeared at Scarpheia, free slaves to fill the ranks, and muster about six hundred cavalry and fourteen thousand infantry against the advancing Roman consul.<sup class=\"fn\" data-fn=\"1\"></sup> Beaten at Leucopetra on the Isthmus, he rode home to Megalopolis, killed his wife to keep her from capture and drank poison, and Pausanias judges his conduct cowardly and avaricious alike.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Mixed_government": "Mixed government is the arrangement of a state so that monarchic, aristocratic and popular elements each hold real power and each is checked by the others, on the argument that any single one of them decays on its own.<sup class=\"fn\" data-fn=\"1\"></sup> Plato treats monarchy and democracy as two mother-forms and holds that a state must partake of both to combine freedom with wisdom, and Aristotle describes Carthage and Sparta as mingling such elements.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Polybius made the idea famous by explaining the Roman republic as a balance of consuls, senate and assembly so even that its character could not be named.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Monument_of_Aemilius_Paullus": "The monument of Aemilius Paullus is a tall pillar of white marble at Delphi, set up in 167 BCE to carry a statue of the Roman commander who had defeated Macedon at Pydna.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient accounts agree that the pillar had been prepared by Perseus, the last Antigonid king, to carry a statue of himself, and that the Roman took it over unfinished and completed it for his own likeness instead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Livy places the visit in the autumn of that year, on a progress through Greece during which the victor sacrificed to Apollo and destined the unfinished columns in the temple forecourt for statues of himself.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Polybius": "Polybius of Megalopolis was a Greek statesman and historian of the 2nd century BCE whose <i>Histories</i> set out to explain how Rome had brought almost the whole inhabited world under one city in not quite 53 years.<sup class=\"fn\" data-fn=\"1\"></sup> Detained in Italy after the Roman victory at Pydna, he spent sixteen years there and planned a work of thirty books, later extended to forty so that it could judge how the conquerors used their dominion.<sup class=\"fn\" data-fn=\"2\"></sup> On method he held that eyewitness inquiry is the corner-stone of history and that a writer who works only from documents cannot understand what he describes.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Siege_of_Athens_(87-86_BCE)": "The siege of Athens of 87 and 86 BCE was the Roman investment and capture of the city after it had joined the war of Mithridates VI of Pontus against Rome.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient accounts describe famine inside the walls, with grain at a thousand drachmas a bushel and the defenders boiling leather for food, while the Roman commander was told of an unguarded stretch of wall and broke in there.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The city was plundered and many of its people killed, the Piraeus was burnt, and Aristion, who had brought Athens into the war, was starved out of the acropolis and executed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Via_Egnatia": "The Via Egnatia is the Roman road that crossed the southern Balkans from the Adriatic coast to the Aegean and on towards the river Hebrus, laid out after Rome broke up the Macedonian kingdom in the 2nd century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius gives its length as 535 miles from the coast facing Italy, measured and marked throughout with milestones, and Strabo sets out its stages through Candavia, Lychnidus, Heraclea, Edessa and Pella to Thessalonica.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Milestones recovered along its line show that its measurements were kept up and revised under later Roman rule.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5913,7 +5921,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Nabis": "c. 207 – 192 BCE",
 "Siege_of_Ambracia": "189 BCE",
 "Eumenes_II": "197 – 159 BCE",
-"Callicrates_of_Leontium": "d. 149 BCE"
+"Callicrates_of_Leontium": "d. 149 BCE",
+"Archelaus_(general)": "fl. 88–85 BCE",
+"Attalus_III": "died 133 BCE",
+"Diaeus": "died 146 BCE",
+"Monument_of_Aemilius_Paullus": "167 BCE",
+"Siege_of_Athens_(87-86_BCE)": "87–86 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8201,7 +8214,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chrysippus": ["Chrysippus of Soli"],
 "Epicureanism": ["Epicurean","Epicureans"],
 "Pyrrhonism": ["Pyrrho","Pyrrhonist","Pyrrhonian"],
-"Symploke": ["symplokē"]
+"Symploke": ["symplokē"],
+"Archelaus_(general)": ["Archelaus"],
+"Attalus_III": ["Attalus III Philometor"],
+"Mixed_government": ["mixed constitution","mixed government"],
+"Monument_of_Aemilius_Paullus": ["monument of Aemilius Paullus","pillar of Aemilius Paullus"],
+"Via_Egnatia": ["Egnatian Way"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12135,7 +12153,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Eleutheria": ["concept","politics","history","hellenistic","greece"],
 "Siege_of_Ambracia": ["event","warfare","history","hellenistic","epirus"],
 "Eumenes_II": ["ruler","person","history","hellenistic","asia"],
-"Callicrates_of_Leontium": ["person","politics","history","hellenistic","greece"]
+"Callicrates_of_Leontium": ["person","politics","history","hellenistic","greece"],
+"Archelaus_(general)": ["person","warfare","history","anatolia","greece"],
+"Attalus_III": ["ruler","person","history","politics","anatolia"],
+"Diaeus": ["person","politics","history","greece","rome"],
+"Mixed_government": ["concept","politics","history","greece","rome"],
+"Monument_of_Aemilius_Paullus": ["object","monument","history","greece","rome"],
+"Polybius": ["person","text","history","greece","rome"],
+"Siege_of_Athens_(87-86_BCE)": ["event","warfare","history","greece","athens"],
+"Via_Egnatia": ["place","road","trade","history","rome","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

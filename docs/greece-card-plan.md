@@ -1249,16 +1249,47 @@ the alias are the same string.
              a king's line has no other answer, so the glossary term is REUSED and this card is the
              last Antigonid as Greek opinion saw him — the amnesty posted at Delos and Delphi, the
              states that wished him well, the nerve that failed at Pydna and the flight to Samothrace
-    gr-861  Battle of Pydna
-    gr-862  The province of Macedonia
-    gr-863  The Achaean War
-    gr-864  The sack of Corinth
-    gr-865  Polybius
-    gr-866  Polybius on the constitution
-    gr-867  Delos as a free port
-    gr-868  The bequest of Attalus III
-    gr-869  The Mithridatic Wars
-    gr-870  Sulla at Athens
+    gr-861  Battle of Pydna  — answered by "monument of Aemilius Paullus" when the card was
+             written: the battle is already rm-251's answer term, and what is left for this
+             collection is what the victor did IN GREECE — the pillar at Delphi that Perseus had
+             cut for his own statue and the Roman took over, and the tour of the sanctuaries
+    gr-862  The province of Macedonia  — answered by "Via Egnatia" when the card was written: the
+             province is rm-257's answer term and the settlement of 167 BCE is rm-253's, so what is
+             left is the thing Roman Macedonia built and the Greek world used — the measured road
+             from the Adriatic to the Hebrus, with its milestones and its stages
+    gr-863  The Achaean War  — answered by "Diaeus" when the card was written: the war is already
+             rm-255's answer term, and the Greek side of it is the general who freed slaves to fill
+             a beaten army, sent a quarter of it away to Megara, and died at Megalopolis by his own
+             hand rather than face Mummius
+    gr-864  The sack of Corinth  — written as a DELIBERATE PAIR with rm-256, which carries the same
+             answer term and the same glossary entry: Rome's card is the storming and the settlement
+             that followed it, and this one is what the Greeks lost — the art diced on by soldiers,
+             the walls taken down, the confederacies dissolved and a site left empty until Caesar
+    gr-865  Polybius  — no Rome card carries this term, so it is written as itself: the Achaean
+             detained in Italy after Pydna who set out to explain how one city took the world in
+             about fifty years, and whose relief at Megalopolis says he stayed Rome's wrath
+    gr-866  Polybius on the constitution  — answered by "mixed constitution" when the card was
+             written: a line naming a person and a subject wants the TERM the reader will meet
+             again, and the glossary key is the article title `Mixed_government` with "mixed
+             constitution" as its alias. Plato and Aristotle carry the idea's earlier history
+    gr-867  Delos as a free port  — answered by "Delos" and paired with the glossary term that
+             already existed: the card is the island as the Aegean's market after 167 BCE, the
+             grant to Athens, the Delians who were made to leave, and the boom that followed Corinth
+    gr-868  The bequest of Attalus III  — answered by "Attalus III" when the card was written: the
+             bequest is already rm-259's answer term, and what is left is the king himself, whom
+             Strabo dismisses in a line and Justin makes a poisoner and a metalworker. The key is
+             `Attalus_III` and claims NO bare "Attalus" surface — the corpus's nineteen mentions
+             include Attalus I, Attalus II and a Pergamene general
+    gr-869  The Mithridatic Wars  — answered by "Archelaus" when the card was written: the wars are
+             rm-310's and rm-333's answer terms, and the Greek theatre of them belongs to the Pontic
+             general who took the Aegean, held Athens and then asked Sulla for terms at Delium. The
+             key is qualified, `Archelaus_(general)`, and carries the bare alias, the corpus's one
+             other mention of the name being this same man
+    gr-870  Sulla at Athens  — answered by "siege of Athens" when the card was written: the Roman
+             is rm-309's answer term, so this card is the siege — the famine, the abuse from the
+             walls, the unguarded stretch at the Heptachalcum and the blood in the Cerameicus. The
+             key is dated, `Siege_of_Athens_(87-86_BCE)`, and like `Siege_of_Athens_(404_BCE)` it
+             claims no bare surface of its own
     gr-871  Greece in the Roman civil wars
     gr-872  Battle of Pharsalus
     gr-873  Battle of Philippi
