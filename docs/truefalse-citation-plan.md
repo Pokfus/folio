@@ -72,10 +72,10 @@ card-side research is then shared.
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE; see the three below |
-| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one and T13 three, all researched |
+| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three and T14 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA |
-| T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md` |
+| T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one |
 
 ## Open questions carried forward
 
@@ -808,3 +808,17 @@ researched rather than lifted. Each lost a detail the paper carrying the claim d
   one clause — "three hearts and contractile veins that pump haemolymph, which is highly enriched with
   the blue coloured oxygen transport protein haemocyanin". **THE COPPER WENT**: the paper never says
   haemocyanin is copper-based, and the contrast with iron-based haemoglobin was the statement's own.
+
+### T14 — the five senses, and opposites attracting (2026-09-17)
+
+- **The five senses.** A 2024 *Frontiers in Neurology* historical review states in its own abstract that
+  Aristotle's list is "still in use among non-scientific lay persons", that it misses the vestibular
+  system and musculotendinous proprioception, and that it confuses touch with the somatosensory system.
+  **THE STATEMENT'S SEPARATE TEMPERATURE AND PAIN SYSTEMS WENT**, the review naming neither.
+- **Opposites attract.** Cited to a 2025 *Psychological Science* paper, which calls assortative mating a
+  ubiquitous pattern in mate choice, well documented in humans across physical, personality and
+  demographic characteristics. **THE LIST OF TRAITS WAS GENERALISED**: education, political and
+  religious attitudes, age and habits come from the Horwitz et al. 2023 meta-analysis, and that paper is
+  **NOT CITABLE HERE** — nature.com serves its abstract and paywalls the article, its Europe PMC record
+  is not open access, and the fullTextXML endpoint answers 500. **The claim about attitude similarity
+  predicting attraction went with it**, being that literature's rather than this paper's.
