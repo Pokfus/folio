@@ -2334,10 +2334,53 @@ a source exhaustive on the question, and a bioarchaeology paper is not exhaustiv
 Giza. The clause was replaced with the positive finding, which refutes the legend by describing what
 was there instead.
 
-### Where the last twelve stand (2026-09-17)
+### T62 — the dynastic histories are transcribed, and the API serves them whole (2026-09-17)
 
-The pass closed this session at **208 of 220 (93→95%)**. Every remaining statement has been probed and
-the probe recorded; four families account for all twelve.
+One cited: #44 (Zheng He's fleet against Columbus's). 208 → **209 of 220 (95%)**. The previous entry
+filed this one with #38 and #47 as "Chinese history whose standard works are modern monographs", which
+is true and was the wrong question to be asking. **The T42–T54 finding applies here too: the residue is
+short of scholarship anybody can open, and the documents the events themselves generated are open.**
+For a Chinese-history statement the document is a dynastic history, and **`zh.wikisource.org`'s own API
+serves those whole, in plain text, with a user-agent** — `action=query&prop=extracts&explaintext=1`.
+The *Mingshi*'s eunuch biographies, juan 304, say it in one line:
+將士卒二萬七千八百餘人 … 造大舶，修四十四丈、廣十八丈者六十二 — more than 27,800 officers and men, and
+62 great ships built at 44 *zhang* by 18.
+
+**A COMPARISON STATEMENT WANTS ONE CITATION PER END, AND THE OTHER END WAS NOT IN FOLIO.** T30's recipe
+is to take a comparison's two halves out of already-cited cards; measured here, eight cards mention
+Columbus and not one gives the size of his fleet, so the Columbus end was researched. It is Markham's
+Hakluyt Society translation of the *Journal*, public domain and readable on archive.org: three vessels,
+the largest the ship Columbus never names, the other two the caravels of Palos.
+
+**TWO CLAUSES WERE DROPPED BECAUSE NEITHER DOCUMENT CARRIES THEM**, which is this pass's standing fault
+arriving again. The old explanation said "fleets of around 200 vessels" — the *Mingshi* says 62 great
+ships, and the 200 is a modern reconstruction counting the smaller craft — and "among the biggest wooden
+vessels ever built", which is a modern argument (the *zhang* figure is what the argument is about) and
+not a thing either source says. What replaced them is what the two documents do say.
+
+**AND A THIRD CLAUSE WENT TO THE UNITS REPORT RATHER THAN TO THE EYE.** The first draft gave Columbus's
+flagship as "about 100 tons", which is Markham's own note — and `check-truefalse.js` reported it as an
+**imperial figure with no metric bracket**, the direction that matters in a pool authored metric-first.
+There is no honest conversion: a ship's tonnage of that period is a measure of capacity rather than of
+mass, so a figure in tonnes would be a claim neither source makes. **The tonnage came out**; 62 hulls
+against three says the same thing and every figure in it is countable.
+
+**A `zhang` IS LEFT UNCONVERTED AND ATTRIBUTED, DELIBERATELY.** What a Ming *zhang* came to is the whole
+of the treasure-ship dispute, so the sentence says the *History of Ming* says 44 by 18 rather than
+asserting a length — reporting a source's figure in the source's own unit, which is what the house rule
+about foreign titles does one field over.
+
+**THE CITATION NAMES THE WORK AND THE HOST SEPARATELY.** CLAUDE.md bans Wikipedia as a source; Wikisource
+is a different kind of thing, a transcription of a primary document, and this pass has already cited
+Funck-Brentano *via Project Gutenberg* and Johnson's *Pyrates* on the same footing. The citation opens on
+the work's own title, as an anonymous or compiled work must, and says "transcribed at Chinese Wikisource"
+so a reader knows what they are opening. It carries **`[in Chinese]`**, which `src-langs.js` accepts.
+
+### Where the last eleven stand (2026-09-17)
+
+The pass closed this session at **209 of 220 (93→95%)**. Every remaining statement has been probed and
+the probe recorded; four families account for all eleven. **#44 was in this list and is out of it — see
+T62 above, which is the family below being asked the wrong question.**
 
 **THE CANONICAL PAPER IS ON A JAVASCRIPT PLATFORM.** #135 (the Kitty Genovese reporting) is Manning,
 Levine and Collins in *American Psychologist*; APA is the publisher, `psycnet.apa.org` is a JavaScript
@@ -2366,12 +2409,18 @@ Congress's own exhibition says he "led three more expeditions to the Caribbean",
 and is not the negative stated; `loc.gov`'s classroom pages and every `nps.gov` path tried are 403 or
 404. #64 (the Great Fire's death toll) wants the Bills of Mortality. #70 (cocaine in Coca-Cola) has
 the 1916 Supreme Court opinion recording the extract used "with cocaine eliminated" — **evidence it
-was taken out, not of what was in the 1880s bottle**. #38, #44 and #47 are Chinese history whose
+was taken out, not of what was in the 1880s bottle**. #38 and #47 are Chinese history whose
 standard works are modern monographs; HAL, DOAJ and the glossary's own 3,838 cited terms return
-nothing on any of the three.
+nothing on either. **#38 IS HALF CLOSED AND THE OPEN HALF IS THE UNIQUENESS**: the *Jiu Tangshu*'s sixth juan,
+the annals of Empress Zetian, records the accession itself — 九月九日壬午，革唐命，改國號為周 … 乙酉，加尊號曰聖神皇帝，降皇帝為皇嗣, the Mandate of Tang revoked, the dynasty renamed Zhou
+and the sitting emperor demoted to heir — and it is on `zh.wikisource.org` where T62 found the *Mingshi*. **What no primary source can establish is that she was the ONLY one**, and every route to a
+secondary voice was measured shut in one evening: `ctext.org` serves a Cloudflare Turnstile challenge, DOAJ's four hits are three on `mdpi.com` (403) and one on `jfafu.journals.ekb.eg`, whose TLS
+connection is reset; the one open-access paper Semantic Scholar names with the phrase in its abstract is on `jurnal.uai.ac.id`, which answers **500**; `web.archive.org` dropped every connection
+through the evening, so the Wayback route past MDPI's 403 was unavailable; and OpenAlex answers **429 — “Insufficient budget … Resets at midnight UTC”**, which is a daily quota rather than a
+rate limit and is worth knowing before planning a session around it.
 
 **WHAT WOULD MOVE THEM.** Not more probing of the same hosts. #135 and #141 want a repository copy or
 an interlibrary route; #1, #64 and #20 want a museum, archive or government page that is not behind a
-challenge; #38, #44 and #47 want a Chinese-language open journal, which `cnki` and the rest are not.
+challenge; #38 wants one secondary voice for its uniqueness clause and #47 a comparative city-size table, and neither is a Chinese-language open journal away — `ctext`, MDPI, `ekb.eg` and `uai.ac.id` were all measured this evening and are listed above. **Do not re-probe them.**
 **Each is a fact about reach, not about the pool**, which is why they are listed rather than cited to
 something that does not carry them.
