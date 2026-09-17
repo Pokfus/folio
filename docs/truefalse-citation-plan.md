@@ -71,7 +71,7 @@ card-side research is then shared.
 | T3 | Chinese history | part done; `cnh-` cards carry most of it; T19 two lifted out of `wh-399`, `wh-400` and `cnh-238` |
 | T4 | Modern history | part done; T4a took three and T4b two, T31 one off Norden's 1755 Egypt, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark, T24 one off ffoulkes, T30 two lifted out of `us-041`, `wh-511` and `gw-511` |
-| T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor, T32 one more off the DOE; see the three below |
+| T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor, T32 one more off the DOE, T33 one off a 2021 neutron-tomography paper; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one, T23 one, T26 one, T27 one and T29 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier, T25 three off OpenStax and one off the Nobel Foundation, T27 one more and T28 one more off OpenStax |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151`, T26 three off OpenStax and NASA Space Place |
@@ -1371,4 +1371,36 @@ cited area for the SAHARA: the corpus has only the part of it inside one country
 than 2 million km² … some 87 per cent of the territory"), and a comparison with one end cited is not
 a cited comparison. The next attempt should look for a whole-Sahara figure rather than re-finding
 Antarctica's.
+
+### T33 — the modern paper that corrects the statement it confirms (2026-09-17)
+
+**One statement, 167 → 168 of 220 (76%).**
+
+· **#177 the first person to see bacteria ground his own lenses (TRUE)** — Cocquyt et al., "Neutron
+  Tomography of Van Leeuwenhoek's Microscopes" (*Science Advances*, 2021), open at Europe PMC. It
+  carries the statement outright — the discovery of "animalcules" marks the birth of microbiology and
+  the lenses were "skillfully self-produced", unsurpassed for over 150 years — **and it also
+  complicates it, which is why the answer now says both.** The tomography looked inside two surviving
+  instruments: the Leiden one's lens is ground and polished in the classical way, and the most
+  powerful that survives, at Utrecht, is a blown globule made by the method Hooke popularised in 1678.
+  **THE ANSWER SAYS "TWO" BECAUSE TWO IS WHAT WAS SCANNED** — a first draft said "most of them", which
+  the paper does not support and which nothing downstream would have caught.
+
+· **THE 18th-CENTURY ROUTE WAS TRIED FIRST AND FAILED.** Hoole's translation of Leeuwenhoek's *Select
+  Works* (1800) is on archive.org with full OCR, and grepping it for grinding returns molar teeth and
+  spiders: **Leeuwenhoek kept his lens-making secret, so his own letters are the one place the answer
+  is not.** The modern instrument study is the source precisely because the primary witness withheld
+  it.
+
+**#155 REFUSED, AND THE REASON IS WORTH MORE THAN THE CITATION WOULD HAVE BEEN.** Sugar and
+hyperactivity: Europe PMC's best open match is Panayotova and Hachmeriyan, "Dietary Carbohydrates and
+ADHD Symptoms: A Systematic Review" (*Nutrients*, 2026), and it **answers a different question and
+points the other way**. It reviews dietary PATTERNS against ADHD diagnosis and symptom burden — 15 of
+16 studies of added sugars report positive associations — where the statement is about whether a DOSE
+of sugar makes an ordinary child hyperactive in the next hour, which is what the double-blind
+challenge trials tested. Citing it would have attached a real paper to a claim it does not make, and
+the direction of its finding would have sat oddly under a FALSE. **A SOURCE ABOUT THE SAME SUBSTANCE
+IS NOT A SOURCE ABOUT THE SAME QUESTION.** The classic refutation is Wolraich's meta-analysis in
+*JAMA*, and `bmj.com` and the JAMA network are both shut from here, so #155 and #124 remain blocked on
+a host rather than on research.
 
