@@ -159,6 +159,80 @@ or an empty frame.
 
 The batch was discarded rather than half-applied. Nothing from it shipped.
 
+## Batch 3 — the concrete end, 47 of 90
+
+**Sorted by how picturable the answer term is, which is what batch 2 asked for — and the card already
+carries that judgement in `tags[0]`, its KIND.** Over the 265 with a ready candidate the split is
+stark: 73 `concept`, 56 `event`, 22 `institution`, 7 `practice`, 5 `title` and 3 `theory` against 41
+`person`, 16 `text`, 12 `place`, 8 `battle`, 7 `object`, 6 `people`, 2 `building` and 2 `ruler`. So
+two thirds of the remaining backlog is the abstract end batch 2 failed on, and it was knowable
+without fetching a single file.
+
+Ninety-six concrete terms built, ninety reviewed on three sheets, **forty-seven usable** — against
+about half on batch 2's institutions. **The rule holds and is cheap to apply: filter on `tags[0]`
+before fetching.**
+
+**The forty-three rejections fall into four kinds, and none is a near miss.**
+
+· **THE WRONG SENSE OF AN ENGLISH WORD.** `gr-626` **Antiphon** the Athenian orator got a page of
+  **Gregorian chant**; `gr-631` **Memorabilia**, Xenophon's, got a **souvenir stall in Namibia**;
+  `gr-558` **Battle of the Great Harbour** got **Battle Harbour, Newfoundland**, a fishing village in
+  Labrador; `ko-084` **iron ingot** got a modern **aluminium billet stamped AFFIMET**. No scorer can
+  see any of these, because in each case the name matches perfectly.
+· **THE WRONG BEARER OF A SHARED NAME.** `gr-300`'s term is `Hippias_(tyrant)` and the candidate was a
+  plate from a 1919 arithmetic textbook about **Hippias of Elis**, the sophist of the quadratrix.
+  `gr-220` **Olbia** got an aerial view of **Olbia in Sardinia**, a modern port, where the card is the
+  Milesian city on the Bug.
+· **RIGHT PLACE, WRONG CENTURY — the `gr-139` fault again.** `gr-524` **Epidamnus** got the **Roman**
+  amphitheatre at Durrës, 2nd century AD, for a card about the stasis of 435 BCE; `gr-611` **Birds**
+  got a Lakonian kylix of about 550 BCE, 140 years older than Aristophanes' play.
+· **A LOCATOR MAP IS NOT AN ILLUSTRATION.** `wh-093` **Madjedbebe** got a relief map of Australia,
+  `rm-298` **Arausio** one of France, `cnh-218` **Gaixia** one of China, `gr-543` **Amphipolis** one of
+  Greece. **The card already draws its own Atlas window**, so a second map tells the reader less than
+  the one they have; and `gr-759` **Triparadisus** got a map of *Greece* for a place in Syria.
+
+Two more worth naming because they are judgements rather than errors. `gr-582` **Critias** got a
+**genealogy chart** of Plato's relatives — on subject, honest, and unreadable at the size a card frame
+draws. `ww2-120` **Guilty Men** got a **1981 photograph of Michael Foot**, one of the three
+pseudonymous authors, forty years after the pamphlet; a portrait of a co-author is not the book.
+
+### Two pipeline faults the batch exposed, both fixed in the tool
+
+**`check-image-free.js` passed a re-crop of the very file its own header cites.** It folded the
+`\d+px-` prefix and underscores and nothing else, so `Eugene Guillaume - the Gracchi (cropped).jpg`
+reported free while `Eugene Guillaume - the Gracchi.jpg` is already on `wh-350` and on the
+`Gracchi_brothers` term — which is the exact pair the tool was written to prevent, and the exact pair
+its header names. `DERIV_RX` now folds Commons' derivation suffixes. **The list is DECLARED and short
+— cropped, crop, retouched, restored, edited — and `detail` is deliberately NOT in it**, because a
+detail of one figure out of a sculpture group is a different picture on the page; so
+`… the Gracchi (cropped) Gaius.jpg` still reports free and stays a judgement rather than a refusal.
+**Measured over the shipped corpus the fold changes exactly one group**, and that group is a card and
+its own glossary term, which is the sanctioned pairing — so this half is prophylactic rather than a
+repair, and the fault it caught was a candidate, not something already live.
+
+**`pick-images.js` was re-creating the fault a whole hand pass had cleared.** It wrote the bare
+Commons page URL as `credit` and appended the attribution to the caption, so every picture it produced
+tripped `check-cards.js`'s `source-in-caption` rule: **47 cards in, 47 findings out**, against a check
+`CLAUDE.md` records as reporting **zero** since the Sep 2026 pass. **A pass clears a backlog; only a
+rule in the tool keeps it cleared**, and nobody had put one there. The attribution now goes in
+`credit`, which is the house form — **2,173 of the corpus's 2,938 card credits already carry an
+author-and-licence prose line before the URL** — and the field `mediaCreditHTML` renders under the
+frame. **The licence is not weakened by the move**: CC BY and CC BY-SA want the creator named, the
+licence identified and the source reachable, and all three now sit together rather than being split
+across two fields. What must never happen is the reverse order — cutting the clause out of the caption
+while the credit is still a bare URL would leave a CC BY picture with no attribution at all, which is
+the refusal `strip-credit-captions.js` is built around. The five cards batch 1 shipped this morning
+were repaired the same way, credit first and caption second.
+
+### And half the alts had to be written by hand
+
+What the tool emits for `alt` is the cleaned file NAME, and for this batch that was Italian, Dutch and
+Slovenian, two museum accession numbers, and four that simply repeated the card's own title — the
+useless kind `CLAUDE.md` names, since a title NAMES a picture for someone who can see it and alt
+DESCRIBES it to someone who cannot. Twenty-two were rewritten from the picture after looking at it.
+**Budget for this: on a batch of concrete subjects it is about half of them**, because a file named
+after its subject produces an alt that is the subject's name.
+
 ## What to do next
 
 1. ~~The 25 whose term already has a picture.~~ **DONE — and it was not the free win it looked like;
@@ -166,7 +240,12 @@ The batch was discarded rather than half-applied. Nothing from it shipped.
    2,881 cards that have a picture already share it with their own glossary term**, so that pairing is
    sanctioned practice and `check-image-free.js` will report it as TAKEN every time. The line that
    matters in its output is a **card id**, not a glossary slug.
-2. **The 265 in batches of about fifty**, through the contact sheet. Rome and Greece are the biggest
-   two and Rome's obvious pictures are already spent (see the duplicate-picture bullet in
-   `CLAUDE.md`), so expect a lower hit rate there than the raw count suggests.
+2. **The rest of the 265 in batches of about fifty**, through the contact sheet, **filtered on
+   `tags[0]` and concrete kinds first** — see batch 3. Ninety-six of the concrete ones are spent, so
+   what is left is the 166 abstract terms, where batch 2 measured about half wrong and wrong badly.
+   Expect a much lower yield there, and expect several to need a hand-chosen file or an empty frame.
+   Rome and Greece are the biggest two and Rome's obvious pictures are already spent (see the
+   duplicate-picture bullet in `CLAUDE.md`), so expect a lower hit rate there than the raw count
+   suggests. **Run `node .claude/check-image-free.js --batch=…` before the contact sheet, not after**:
+   it is cheaper to drop a taken file than to review one.
 3. **Leave the 128 that have nothing**, and say so rather than letting the gap read as an oversight.

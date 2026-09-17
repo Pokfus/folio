@@ -1354,11 +1354,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   with any `\d+px-` prefix stripped, which is `check-cards.js`'s own rule, **and it folds underscores to
   spaces** — a card's `src` carries underscores and a name typed off a search result carries spaces, and
   without that it answers "free" about a file that is already on a card, which is the one answer it must
-  never get wrong. Not part of the site.
+  never get wrong.
+  **AND IT FOLDS COMMONS' DERIVATION SUFFIXES SINCE SEP 2026, BECAUSE IT PASSED A RE-CROP OF THE VERY
+  FILE THE PARAGRAPH ABOVE IS ABOUT.** `Eugene Guillaume - the Gracchi (cropped).jpg` was offered for
+  `rm-281` and reported FREE while the un-cropped file sits on `wh-350` and on `Gracchi_brothers` — the
+  `\d+px-` insight one derivation further on, and the same failure the tool exists to prevent. `DERIV_RX`
+  is **DECLARED and short** — `cropped`, `crop`, `retouched`, `restored`, `edited` — and **`detail` is
+  deliberately NOT in it**, which is the line: a detail of one figure out of a sculpture group is a
+  different picture on the page, so `… the Gracchi (cropped) Gaius.jpg` still reports free and stays a
+  judgement rather than a refusal. **Measured over the shipped corpus the fold changes exactly ONE group,
+  and that group is a card and its own glossary term** — the sanctioned pairing — so this half is
+  prophylactic rather than a repair. A match made across a suffix SAYS so in the output. Not part of the
+  site.
 - `.claude/fix-image-credits.js` + `.claude/strip-credit-captions.js` — **A CAPTION THAT CREDITS ITSELF,
   AND THE CREDIT THAT IS ONLY A LINK.** A picture carries `desc` (what it shows) and `credit` (whose it
   is), both read off Wikimedia Commons — which puts the attribution INSIDE its own file description, so
   a great many captions ended with the very words the credit beside them should have said.
+  **…AND `pick-images.js` WAS RE-CREATING WHAT THAT PASS CLEARED, WHICH IS WHY THE RULE LIVES IN THE
+  TOOL NOW** (Sep 2026). It wrote the bare Commons page URL as `credit` and appended the attribution to
+  the caption, so **every picture it produced tripped `source-in-caption`** — 47 cards in, 47 findings
+  out, against a check this file records as reporting zero since the hand pass. **A pass clears a
+  backlog; only a rule in the tool that makes new ones keeps it cleared**, and nobody had put one there.
+  The attribution now goes in `credit`, which is the house form (2,173 of the corpus's 2,938 card credits
+  carry an author-and-licence line before the URL) and the field `mediaCreditHTML` renders. **The licence
+  is not weakened by the move** — CC BY wants the creator named, the licence identified and the source
+  reachable, and all three now sit in one field instead of two.
   **THE ORDER IS THE WHOLE OF IT, AND GETTING IT WRONG IS A LICENCE BREACH.** `check-cards.js` reports
   those captions under `source-in-caption`, and the obvious repair — cut the clause — is WRONG wherever
   the credit is a bare Commons URL: on a CC BY or CC BY-SA file the author's name in that clause is the
