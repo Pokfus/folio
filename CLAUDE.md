@@ -409,8 +409,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     any repair batch on the first 500.** The audit of `gr-001`–`gr-500`: the eight dimensions that
     passed, measured rather than assumed; the five that were fixed (276 picture captions carrying
     their own source, 99 missing date lines, 14 pictures of the wrong thing, 13 questions naming a
-    scholar); and the seven still open, with their card ids — above all that **237 citations, 8.7%
-    of the collection's whole apparatus, come from one Dartmouth course website**, and that the
+    scholar); and what is still open, with their card ids. **THE DARTMOUTH CONCENTRATION WAS THE
+    AUDIT'S LOUDEST FINDING AND ITS RULE-BREAKING HALF IS CLEARED** — no `gr-` card now cites that
+    course website in more than two of its sources, which `check-cards.js` reports as zero
+    over-cited across the whole corpus. **The remaining concentration is a judgement rather than a
+    violation, so MEASURE it rather than quoting a figure**: the audit's "237 citations, 8.7% of the
+    collection's whole apparatus" was true of `gr-001`–`gr-500` and is now wrong twice over, the
+    collection having grown to 800 cards while sixty-odd of those citations were replaced —
+
+        node -e "global.window={};const{loadCards}=require('./.claude/card-io.js');const c=loadCards().cards.filter(x=>x.id.startsWith('gr-'));let t=0,d=0,n3=0;c.forEach(x=>{const s=x.sources||[];t+=s.length;const k=s.filter(y=>y.indexOf('aegean-prehistory')>=0).length;d+=k;if(k>2)n3++});console.log(d+' of '+t+' = '+(100*d/t).toFixed(1)+'%, '+n3+' cards over the rule')"
+
+    What the audit's method is still worth reading for is the other half: that **where the Dartmouth
+    site carries a claim it is often carrying a claim nothing else open carries**, so the answer is to
+    rewrite the card from what CAN be opened rather than to force a substitution, and that a rewrite
+    orphans the fields nobody greps — a `why` answer and a question phrasing, both of which passed
+    every checker while asking about a thing the card no longer mentioned. It also records that the
     Athens deck paraphrases Aristotle rather than explaining him, so 42 of its 45 cards state no
     year in their prose. It also holds the coverage gaps inside the covered span (the Pythian,
     Isthmian and Nemean games, the Delphic amphictyony, Chania, the chamber tomb) and the measured
