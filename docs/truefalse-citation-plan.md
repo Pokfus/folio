@@ -2296,3 +2296,40 @@ Martinón-Torres et al. say only "since the first excavation of these bronze wea
 own citations however open they are. The same pass found `openstax.org` fully readable (the page is
 server-rendered, despite a first extraction that suggested otherwise) but its Psychology 2e prosocial
 section does not mention the bystander effect at all, and `mdpi.com` 403s.
+
+### T61 — two statements answered by papers about something else (2026-09-17)
+
+Two cited: #6 (foot-binding since Confucius) and #8 (who built the Great Pyramid). 206 → **208 of 220
+(95%)**. Both had been written off across three earlier entries — #8 as "its source is identified in
+Folio's own corpus and walled today", #6 as having an open paper that "answers a different question
+and points the other way". **Both were found by an open-access-filtered Europe PMC search on the
+SUBJECT rather than on the claim**, and in both cases the answer is in a paper whose own subject is
+something else entirely.
+
+**#6 IS ANSWERED BY A BONE-MECHANICS PAPER.** Reznikov et al. scanned bound feet from museum
+collections to study how the calcaneus adapts; their background paragraph states that the procedure
+"was performed in Han China since the XIth century", that the government banned it in 1912, and that
+although it "started by Chinese nobility, by the XVIIth century the tradition had spread across all
+social strata". **That is both halves of the statement** — the date, which is fifteen centuries after
+Confucius, and the fact that it was not general even when it began.
+
+**#8 IS ANSWERED BY A PAPER ABOUT MALARIA.** AL-Khafif et al. tested Giza skeletons for non-falciparum
+malaria, and to explain their two sample groups they describe the plateau: the royal pyramids, the
+tombs of high officials AND of workers, and Heit el-Ghurab, the workmen's city of the Fourth Dynasty
+with its Nile harbour. Their discussion then states, on Hawass, that the workers in its barracks
+**"worked through a system of rotation; i.e., farmers were brought from all Egyptian nomes every three
+months to participate in the project of pyramid building"**. An Egyptian corvée, housed and buried
+where it worked.
+
+**A PAPER'S BACKGROUND SECTION IS WHERE A MYTH-BUSTING STATEMENT'S ANSWER USUALLY IS**, because the
+claim a statement refutes is rarely anybody's research question — it is the thing specialists state in
+passing on the way to their own. **So search the SUBJECT with an open-access filter and read the
+introductions**, rather than searching for a paper about the myth. Three of this pass's hardest
+statements went that way in one afternoon.
+
+**AND THE FIRST DRAFT OF #8 ENDED ON AN ARGUMENT FROM SILENCE.** It read "the enslaved Hebrews of the
+legend are nowhere in the record of it" — which is true, and which this source says nothing about,
+being a study of malaria. **The plank rule cuts the other way here**: an absence is citable only from
+a source exhaustive on the question, and a bioarchaeology paper is not exhaustive about who was NOT at
+Giza. The clause was replaced with the positive finding, which refutes the legend by describing what
+was there instead.
