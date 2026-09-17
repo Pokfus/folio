@@ -409,8 +409,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     any repair batch on the first 500.** The audit of `gr-001`–`gr-500`: the eight dimensions that
     passed, measured rather than assumed; the five that were fixed (276 picture captions carrying
     their own source, 99 missing date lines, 14 pictures of the wrong thing, 13 questions naming a
-    scholar); and the seven still open, with their card ids — above all that **237 citations, 8.7%
-    of the collection's whole apparatus, come from one Dartmouth course website**, and that the
+    scholar); and what is still open, with their card ids. **THE DARTMOUTH CONCENTRATION WAS THE
+    AUDIT'S LOUDEST FINDING AND ITS RULE-BREAKING HALF IS CLEARED** — no `gr-` card now cites that
+    course website in more than two of its sources, which `check-cards.js` reports as zero
+    over-cited across the whole corpus. **The remaining concentration is a judgement rather than a
+    violation, so MEASURE it rather than quoting a figure**: the audit's "237 citations, 8.7% of the
+    collection's whole apparatus" was true of `gr-001`–`gr-500` and is now wrong twice over, the
+    collection having grown to 800 cards while sixty-odd of those citations were replaced —
+
+        node -e "global.window={};const{loadCards}=require('./.claude/card-io.js');const c=loadCards().cards.filter(x=>x.id.startsWith('gr-'));let t=0,d=0,n3=0;c.forEach(x=>{const s=x.sources||[];t+=s.length;const k=s.filter(y=>y.indexOf('aegean-prehistory')>=0).length;d+=k;if(k>2)n3++});console.log(d+' of '+t+' = '+(100*d/t).toFixed(1)+'%, '+n3+' cards over the rule')"
+
+    What the audit's method is still worth reading for is the other half: that **where the Dartmouth
+    site carries a claim it is often carrying a claim nothing else open carries**, so the answer is to
+    rewrite the card from what CAN be opened rather than to force a substitution, and that a rewrite
+    orphans the fields nobody greps — a `why` answer and a question phrasing, both of which passed
+    every checker while asking about a thing the card no longer mentioned. It also records that the
     Athens deck paraphrases Aristotle rather than explaining him, so 42 of its 45 cards state no
     year in their prose. It also holds the coverage gaps inside the covered span (the Pythian,
     Isthmian and Nemean games, the Delphic amphictyony, Chania, the chamber tomb) and the measured
@@ -660,6 +673,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     dated, recurring job rather than a judgement. **Check Commons before researching a post-1900 line,
     not after**, and run `node .claude/check-image-free.js` before fetching a candidate.
   Not part of the site.
+- **📖 `docs/politics-east-asia-card-plan.md` — READ BEFORE WRITING A `pea-` CARD.** The running
+  order for the **Politics: East Asia** collection (`pea`), across 24 decks — Lectures 1–12 and Extra
+  1–12. The twentieth plan, and **the only one that is a COURSE rather than a subject shelf**: it is
+  a university syllabus, so it sits in a **Special** section of the Collections page rather than under
+  History or Science, and its running order **cannot be written ahead of the lectures**, whose slides
+  are supplied one at a time. Three things follow and the plan argues each. The numbering is
+  **sequential in the order the lectures are covered** rather than blocked out per deck (Lecture 1 took
+  `pea-001`–`pea-030`, Extra 1 `pea-091`–`pea-100`), so the registered numbering in
+  `test-card-plans.js` is **widened as a lecture lands** rather than declared at 480 and left full of
+  holes. **A deck heading with no lines under it is a deck waiting for its source material**, not a gap
+  to be filled from general reading — the point of the collection is that it covers the course as
+  taught. And **the answer terms come from the supplied material**, with the backgrounds researched out
+  and cited like any other card. The next card to write is the lowest `pea-NNN` not yet in `data.js`;
+  the index table under "THE TWENTY PLANNED COLLECTIONS" is the lookup. Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -1251,7 +1278,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.33 MB and 48,647 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.35 MB and 48,940 lines is hard to find your way around, so this
   lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -2337,6 +2364,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   shipped; a NEW card carries its own rating and `add-card.js` refuses one without it, so the corpus cannot
   quietly regrow an unrated tail. The scale is in its header and under "Generating cards" below — keep the
   three copies in step. Not part of the site.
+- `truefalse.js` — the daily **True or False**'s own pool, `window.TRUEFALSE = [{ q, a, why, cat, src? }]`.
+  **EAGER**, beside `crossword.js` / `whatyear.js` / `quotes.js`, and for the same reason. **ONE STATEMENT
+  PER LINE**, so the next change to it can be read in a diff. `why` is RENDERED (through `sanitizeHTML`),
+  so `<b>`, `<i>` and empty `<sup class="fn" data-fn="N">` markers work and a bare `<`, `>` or `&` does
+  not; `src` is an optional array of Chicago notes, each ending in an openable URL, and a statement
+  carrying one must point at it. **Its prose follows the site's content rules** — metric first with the
+  imperial in brackets, British spelling, no invented facts — because `unitizeTree` and `spellTree`
+  transform it for whoever is reading. **📖 read its header before adding a statement**, and go through
+  `.claude/add-truefalse.js` rather than editing it by hand.
 - `crossword.js` (~27 KB) — the daily **Crossword**'s own bank of answers and clues,
   `window.CROSSWORD = [{ a, c }]`. **EAGER**, beside `whatyear.js` / `truefalse.js` / `quotes.js`, and for
   the same reason: a daily game's pool is read the moment the tile is drawn. **📖 read its header before
@@ -2976,6 +3012,80 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the tile so it stays a quarter at every width; and the Atlas timeline runs the full width with the
     year centred, the 74px right padding it gave up having been reserving room for buttons that stop
     where that bar begins.
+- **A SECOND BATCH OF INTERFACE FIXES, Sep 2026, all on request.** Fifteen reports in one turn. Most are
+  a line; the ones below each carry a reason that would cost the next session an afternoon to re-derive.
+  · **A DECK THAT CANNOT DEAL ITS LEARNING CARDS MUST NOT COUNT THEM** (`isLearningCard` / `capReviews`,
+    declared directly after `deckReviewRemaining`; reported as a deck showing a red **4 cards** whose row
+    then said the day was finished). `entryPiles` counts a learning card the moment it is failed and
+    counts it UNCAPPED — correctly, a step being work the reader has already begun — while every
+    queue-builder sliced the review cap off the front of a list that had learning cards in it, so a deck
+    whose cap was spent dealt none of them and the red count stood over a completion screen. **It is
+    Anki's rule and it is ONE helper at SIX sites** — the group, udeck and deck branches of
+    `buildSession`, and the per-entry loop, the language bucket and the review cap in `reviewQueue` —
+    because a rule applied at five of six leaves one surface disagreeing with the banner above it.
+    `capReviews` returns what is left of the allowance as well as what to take, so a caller that goes on
+    to slice again is spending the same allowance rather than a fresh one.
+  · **THE ACTIVE-DECK ROW WEARS ITS SUBJECT'S MARK, IN ITS OWN COLLECTION'S COLOUR** (`SECTION_ICON`,
+    beside `sectionOf`; `.active-deck .coll-ic.dk-ic`). Eleven collections wore eleven gold marks, which
+    on a list of the reader's own decks is eleven things to tell apart rather than one glance — so the
+    row takes the mark of its **SECTION** (`scroll` / `globe` / `flask` / `owl` / `brush`) and the
+    collection's own `--coll-bg`, where the banner keeps its subject icon and its gold. **The colour is
+    `color-mix`ed towards the ink**, 80% by day and 55% at night, because a banner hue is chosen to be
+    washed behind a title and is not a legible ink at 28px; `body.hc` takes the ink outright.
+    `SECTION_ICON` is a table beside `sectionOf` for `COLLECTION_ICON`'s own reason — it is how ONE page
+    is arranged — and anything the section table does not name falls through to the card stack.
+  · **THE THREE-DAY DOTS AND THE STARS ARE ONE GRID, AND AN EMPTY CELL MOVED THE STARS TO THE MIDDLE OF
+    THE CARD** (`--crit-slot`, `.study-card .q-head .card-stars`). `.q-head` is `1fr auto 1fr`, and
+    `critPipsHTML` returns `""` for a card with no record — so on a card the reader has never answered
+    the row had two children and the stars landed in the `auto` middle column, where `justify-self:end`
+    has nothing to push against. Pinning them to `grid-column:3` fixes it whether or not the pips are
+    there. **And on a phone the pips move to the line with the three pile counts** rather than the
+    question's own head — asked for, and done as a CSS custom property read back in JS
+    (`--crit-slot: head | bar`) rather than a breakpoint written twice, `renderCard` emitting the row into
+    `.counts` or into `.q-head` according to what the stylesheet says at that width.
+  · **INSTALLING A SHARED DECK PUTS IT IN THE DAILY STUDY, AND THAT IS WHAT MAKES IT REACH THE OTHER
+    DEVICE** (the `#ddInstall` handler → `addActive(uDeckEntry(...))`). Reported as two faults — a deck
+    added from the shared shelf not appearing in the active decks, and not arriving on a second device —
+    and they are ONE: the deck itself is device-local, and **`S.active` is the field that syncs**, so a
+    deck that never entered it was invisible to the progress blob however many times it installed. Fixed
+    at the PRESS rather than inside `uDeckInstall`, which the account sync also calls and which must
+    therefore go on installing without deciding anything about the reader's study list.
+  · **QUESTION VARIETY IS OFF BY DEFAULT** (`defaultState().settings.questionVariety`), with a back-fill
+    beside `themeAuto`'s that pins an existing save to `false` as well. ⚠ **That back-fill has to go the
+    day a control writes the key**, or it will overwrite the reader's own choice on every boot; it is
+    safe today only because nothing writes it.
+  · **THE FIRST CLICK ON A PERSONAL-ATLAS PLACE IS NOT A DISCOVERY** (`showMinePopup`). It called
+    `markSeen` / `sfx("discover")` / `checkAchievements`, which is the WORLD atlas's rule applied to a
+    globe where every mark is a card the reader has already studied — so the chime and the gold chip fired
+    for meeting something they had earned, and the exploration meter counted it twice over.
+  · **THE DAILY QUOTE'S AUTHOR AND WORK ARE GLOSSARY TERMS** (`wireDailyQuote`). Auto-linked on the
+    figcaption's own `.dq-live` spans after the flip has settled, English only (`uiLang() === "en"`,
+    the surfaces being English), and the flip handler returns early on a press that landed inside a
+    `.ttip` — without that, reaching for the definition turns the quotation into Greek.
+  · **A PERFECT MINIGAME TURNS ITS PIP GOLD** (`sweepRowHTML`, `.sw-chip.won`). The meter's nine pips said
+    played-or-not where the tile above says played, won or neither, so the two disagreed about the day;
+    the aria-label names how many were perfect, a colour being no answer for a reader who cannot see it.
+  · **THE TUTORIAL NO LONGER CALLS FOLIO A HISTORY SITE** (`TOUR_STEPS[0]`, `PAGE_META.home`, and the
+    three matching strings in `index.html`, which are the static baseline a link-preview crawler reads).
+    **And it no longer BLURS what it is pointing at**: `.folio-tour`'s backdrop filter dimmed the whole
+    page including the ringed target, which on a phone — where the card is docked over the thing it
+    describes — left the reader being told to look at something they could not read.
+  · **THE ATLAS PINCHES THE MAP, NOT THE PAGE, ON A TABLET** (`touch-action:pan-y` on `.globe-stage`,
+    `.atlas-timebar` and `.atlas-tabs`). The canvas has always declared `touch-action:none`; the gap was
+    every surface AROUND it, and the intersection along the ancestor chain is what decides a gesture — so
+    a second finger landing a few pixels off the globe handed the pinch to the browser's own page zoom.
+    It is `pan-y` rather than `none` because the place panel is a scrolling sheet inside `.globe-stage`,
+    and **the top bar is deliberately left pinchable**, as the escape hatch and as an accessibility
+    affordance for a reader who zooms the whole page.
+  · **THE ADMIN ARTEFACT ROW WRAPS ON A PHONE** (`.a-main` in the ≤640px block): the swatch, name, rarity
+    and date sat on one line and ran off the side of the screen, so the meta row wraps whole
+    (`flex:1 1 100%`) and the name keeps the first line.
+  · **`add-card-wars.js --check` NOW REPORTS EVERY KEY THAT RESOLVES ON NO PRESENT-DAY MAP**, one line
+    per side. Reported as the Second World War map not shading the United States: `world.js` calls it
+    *United States of America* and the 1920 and 1938 era maps call it *United States*, so `ww2-001` named
+    the era form and `checkWar` — which asks only whether a SIDE resolves ANYTHING on `world.js`, and
+    twenty other keys did — passed it in silence. **The card rendered perfectly while shading every
+    Allied power but the largest of them.**
 - **Card-of-the-day additions** (`COTD_ENTRY` / `cotdIds` / `cotdAdd`, beside the other entry helpers): the home tile's
   button studies **that one card** (`scope {type:"card", id, addTo:"cotd"}`), and **grading it** — not opening it — drops
   the card into the daily review. It can't be added the usual way: `S.active` holds whole decks, and pulling a deck in
@@ -3042,6 +3152,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Scheduling, Skip today, Colour, Icon, Remove. **NEVER NAME A CLASS `ad-…`**: `.ad-body` and `.ad-title`
     are real ad class names, so EasyList hid the deck's NAME for every reader with an ad blocker; the prefix
     is `dk-` and `adBaitCheck()` in `test-layout.js` is a static guard against it.
+  · **A DECK FINISHED FOR THE DAY GOES GREEN, AND GOLD IF NOTHING WAS MISSED** (`adDay` /
+    `doneMarkHTML` / `--dk-accent` / `.dk-done` / `.dk-won`; Sep 2026, on request — "in the same way as a
+    completed minigame"). It is `.game-tile.done` / `.game-tile.won` transposed onto a row and every rule
+    that made that small applies here. **DONE IS THE ROW'S OWN THREE COUNTS AT ZERO**, taken from
+    `entryPiles`, which is what DRAWS those counts — so the mark and the numbers beside it cannot
+    disagree; a SKIPPED deck is deliberately not green (it has postponed the work, not finished it) and
+    nor is a row claiming no cards. **GOLD IS THE BANNER'S OWN READING OF "PERFECTLY"** — every card's
+    FIRST attempt today, new and review alike, exactly as `reviewDayRec()` counts for the banner directly
+    above these rows, measured per deck out of `S.revlog`; the two day Sets are built ONCE for the whole
+    list and built BACKWARDS so the walk stops at the first row that is not today's.
+    **`--dk-accent` IS `--gt-accent`'s LESSON WORD FOR WORD**: the row's hue arrives INLINE as
+    `--coll-bg`, and an inline declaration beats any selector without `!important`, so `.dk-done` sets a
+    second property that the wash, the left bar, the hover and the tick all read and which merely defaults
+    to the collection's hue. **ITS TWO DECLARATIONS CARRY AN ANCESTOR FOR SPECIFICITY** (`.active-decks
+    .active-deck.dk-done`), because a group header and a language header declare a `--dk-accent` of their
+    own at the same two classes further down the stylesheet and would otherwise win on source order —
+    which is a finished collection painting itself in its collection's colour under a green tick.
+    **THE BAR IS DELIBERATELY NOT TOUCHED**: `.prog-done` already turns a row's bar and its title gold and
+    means something else entirely — every card in the deck studied, ever, against this deck TODAY — so the
+    two live on different parts of the row. **THE SUBJECT ICON KEEPS THE COLLECTION'S HUE**, unlike the
+    tile's glyph, which is `display:none` when played: a row's mark names WHICH collection the deck is,
+    which is not a fact about the day. And **the corner mark is CLIPPED to 1px, never `display:none`** —
+    it is the only thing on the row that states the day in words. **A CONTAINER AND ITS CHILDREN CAN
+    DISAGREE AND THAT IS THE EXISTING DESIGN**, not a fault this introduced: every level has its own
+    allowance, so a collection whose day is spent reads 0/0/0 over a subdeck still offering its own share
+    — the counts have said so since the per-deck limits shipped and this only paints it.
   · **THE READER'S OWN CONTAINERS** (`S.deckGroups` / `S.deckNest`): a group holds decks dragged into it,
     folds, can be renamed and coloured, and studies everything under it. **A container counts what is drawn
     UNDER it**, so a collection that has lost two decks to a group stops claiming their cards. **⚠ No new
@@ -3243,6 +3379,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     it. `.ttip:visible` is the fix, on the COUNT as well as the click. **A section that starts collapsed
     changes what `.first()` means for every selector in it**, which is `PAGES.order`'s own lesson above
     wearing different clothes: when a feature gains a collapsed block, the fixtures are part of the change.
+    **AND IT KILLED A SECOND SUITE, WHICH SAT RED FOR DAYS BECAUSE ITS MESSAGE NAMED THE WRONG THING**
+    (Sep 2026). `test-a11y.js` reached for `document.querySelector(".ttip")` IN THE PAGE and reported
+    "cannot take focus" — which reads as the term having lost its `tabindex`, a real accessibility
+    regression, rather than as the fixture having found a term inside a closed fold. **`offsetParent` IS
+    NOT THE TEST**, and that was the first repair: a closed `<details>` hides its contents with
+    `content-visibility`, so the element keeps its layout box, `offsetParent` is non-null and
+    `getComputedStyle` reports `visibility:visible` — and it still cannot take focus. Ask the FOLD:
+    `!el.closest("details:not([open])")`.
   · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
     background's own opening definition — inline under the answer, **with the footnote markers stripped**,
     since `sup.fn:empty::before` prints a marker's own digit and a lifted sentence would carry numerals
@@ -4437,6 +4581,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the store is never involved. It skips `.notranslate`.
   · **Two patterns**: `U_CONV_RX` for the ordinary form, and `U_BARE_RX` for the second half of a pair
     sharing the first's unit, without which imperial mode leaves such a sentence half-converted.
+  · **A RATE'S DENOMINATOR IS WRITTEN FOUR WAYS AND THE ENGINE KNEW ONE OF THEM** (Sep 2026, widening
+    `U_RATE` and `U_FILL`). `U_RATE` took `an hour` and nothing else, so **"56 kilometres per hour
+    (35 miles per hour)", "2 centimetres a year (0.8 inches a year)" and "5 km/h" were each a bracket the
+    engine could not see** and both figures were shown to every reader. It now crosses `a` / `an` / `per`
+    / `each` in front of `hour|second|minute|day|week|month|year`, and the `/h` and `/s` shorthands;
+    `U_FILL` gained the same nouns so a run may be filled across one. **Measured over the corpus: 28
+    metric rate figures across 18 subjects, of which 4 carried a convertible bracket and now transform,
+    the other 24 being BARE figures that are a content pass of their own** (recorded in
+    `docs/units-plan.md`). **PROVED
+    BYTE-FOR-BYTE INERT** on all 23,019 other bracket-carrying fields, in BOTH directions — which is the
+    only way to widen one of these patterns, an over-wide rule rendering perfectly in the authored view.
   · **A DENOMINATOR MAY STAND ON EITHER SIDE OF THE UNIT, AND THERE IS A RULE FOR EACH.** `U_RATE`
     crosses one standing AFTER it ("300 kilometres an hour (190 miles an hour)"); **`U_DENOM` crosses a
     DENSITY's, which stands BEFORE it** — "73.6 people to the square kilometre (191 to the square mile)",
@@ -4523,7 +4678,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   things are decisions rather than plumbing.
   · **IT IS A DECLARED TABLE AND NEVER A RULE, and every trap in it was found in the real corpus** — a
     `-re`→`-er` rule turns `timetree` into `timetrer`, a `kerb`→`curb` rule reaches into `Kerberos`, an
-    `-ll-`→`-l-` rule into `controlled` and the archaeologist `Conneller`. 144 rows of
+    `-ll-`→`-l-` rule into `controlled` and the archaeologist `Conneller`. 148 rows of
     `[British, American, suffixes, one-way?]`, and the transform can only ever do what it says.
   · **THE SUFFIX LIST IS EXHAUSTIVE, AND THE BARE STEM ONLY BY AN EXPLICIT EMPTY ELEMENT** — the first cut
     always admitted the stem and rendered `emphasis` as `emphasiz`. **A suffix right for one side is not
@@ -4566,8 +4721,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **AND `spellSkip` IS ONE TEST FOR BOTH BRANCHES.** `spellTree`'s bare-text-node branch — the one the
     MutationObserver feeds — had **no skip test at all**, so a citation or a book's prose updated in place
     was rewritten while the same text reached through the walker was protected.
+  · **A SUFFIX CAN MAKE A NON-WORD OUT OF A ROW THAT IS OTHERWISE RIGHT** (Sep 2026). British keeps the u
+    in `honour` and `labour` and DROPS it in `honorary` and `laborious`, both straight from the Latin —
+    and the `ary` and `ious` suffixes shipped on those two rows anyway, putting **`honourary`** and
+    **`labourious`** into both maps. **ON THE SITE IT WAS INERT**, the live direction being GB→US only
+    and no author having written the non-words; where it bit was the CHECKERS, which run the reverse
+    direction, so `check-truefalse.js` REFUSED a statement carrying `laborious` and told the author to
+    misspell it. Found writing one. Three shipped cards say `laborious` and one says `honorary`,
+    correctly. **A row is judged by every word its suffix list makes, not by its stem** — and the change
+    was proved over the whole corpus in both directions, 8 of 175,126 renderings changed, every one of
+    them US→GB and every one a non-word becoming the right word.
+  · **AND NOTHING ASKED THE CORPUS THE SAME QUESTION UNTIL SEP 2026, WHICH IS WHAT
+    `node .claude/check-spelling-corpus.js` NOW DOES.** `check-style.js` has four rules and spelling is
+    not one of them, and `check-truefalse.js` asks it only of the 220 statements in `truefalse.js` — so
+    the cards, the glossary and the artefacts had never been swept, and since the transform is ONE-WAY an
+    American spelling sitting in the data is what BOTH readers see. Measured over Folio's own prose it
+    leaned British and hard — `centre`/`center` 641 to 3, `colonis`/`coloniz` 128 to 2,
+    `civilisation`/`civilization` 112 to 0 — with **one family the other way round: `Palaeolith` 38 to
+    90**, so a British reader met both spellings of the same term across the prehistory decks while an
+    American met one. All of it is now converted (49 items over the palaeo family, 6 over `haematite`,
+    and 16 one-off sites), the prose reads ZERO, and **nothing an American reader sees changed at all**.
+    Three separations are what make the residue readable and each is a rule: **BORROWED TEXT is counted
+    apart** — a citation names a published work and a picture's caption and credit are Commons's words,
+    the same mask `check-style.js` puts over the citations before its own `--fix`; **a PROPER NAME is not
+    a spelling**, so the Indian Reorganization Act, the Medal of Honor, the NAACP and the fur trader
+    Robert Gray are DECLARED with a reason each and masked before the compare; and **a JUDGED spelling is
+    declared too** (`KEPT`, keyed by item AND word on `CROSSREF_WRONG`'s rule), which is where `fetus` on
+    a biology card and a glossary term naming itself out of its own Wikipedia slug live. **A GLOSSARY KEY
+    IS NEVER TOUCHED** — `Paleolithic` is the article title the house rule asks for and already carries
+    the British form as an ALIAS, which is why converting the prose broke no auto-link, and **the TAG
+    vocabulary was already British** (`palaeolithic`, `palaeontology`), which is what said the house form
+    was not in doubt. Report-only, exits 0. **Run it after a content batch.**
   **Known limit, stated rather than papered over**: the card browser searches stored card TEXT, so
-  "color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (83
+  "color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (91
   assertions), and **its section 4 must stay in en-GB** — `favor` is an American form and the
   American-to-British direction is the one that corrupts it, so written against en-US it passes on the
   unfixed code. It carries a **liveness check** beside it for the same reason.
@@ -4851,6 +5037,57 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     POINT**: a card's back is not markup alone — the footnotes have to be numbered, the glossary terms
     wired, the fold made to open, the map mounted and revealed — so any surface rendering `buildBack` is
     otherwise one forgotten line away from a card with dead links or a blank map window.
+  · **TRUE OR FALSE EXPLAINS ITSELF WITH THE SITE'S OWN APPARATUS** (`tfWhyHTML` / `tfWireWhy`, above
+    `PAGES.truefalse`; Sep 2026, on request: the explanations "should have gloss terms, source citations
+    and metric/imperial uk/us versions"). A statement's `why` was escaped text; it is **rendered through
+    `sanitizeHTML`** now, so `<b>` and `<i>` work and a footnote marker is a marker rather than printed
+    tags — and an optional `src` array of Chicago notes draws `sourcesHTML(it.src, { shut: true })` under
+    it, collapsed and carrying `src-nopref` so a fold opened in a game never opens every card the reader
+    studies afterwards. `tfWireWhy(scope)` is the one wiring path — `wireFootnotes`, then
+    `autoLinkGlossary`, then `setupTooltips` — and **the SUMMARY passes it the summary element, which
+    wires each `.tf-sum-row` SEPARATELY**: `wireFootnotes` finds one `.src-note` per scope, so wiring the
+    page numbers five lists 1..7 down it instead of 1 per row. The summary's folds are `compact` rather
+    than `shut`, five rows having room for the smaller type.
+    **THE UNITS AND THE SPELLING NEEDED NOTHING**: `unitizeTree` and `spellTree` are standing
+    MutationObservers over the document, so an explanation written metric-first with the imperial in
+    brackets, in British spelling, is converted for whoever is reading exactly as a card's prose is — the
+    work was writing the pool that way, not teaching the page a rule. **`truefalse.js` is authored to the
+    site's content rules and its header says so.**
+    · **`node .claude/check-truefalse.js` is the checker and `node .claude/add-truefalse.js <batch.json>`
+      the writer.** The checker refuses a malformed statement, a duplicate `q`, a non-British spelling, a
+      marker pointing past the end of the `src` list, a citation with no URL and a tag outside the
+      allowlist, and reports the unit and citation coverage; **it SLICES `spellText` and `unitizeText` out
+      of the real `app.js` by text and exits 2 if either slice fails**, since a second copy of a 148-row
+      word list goes stale on a change made in a file nobody editing the pool has reason to open. Its
+      `PROPER_NOUNS` table is the declared exception: the spelling transform is **one-way from authored
+      British**, so an AMERICAN form inside a name is never corrected for anybody and the BRITISH form
+      would be — *Elisha Gray* is the standing row.
+      The writer takes `{ "cite": { "<exact q>": {why, src} }, "add": [ {q,a,why,cat,src} ] }`, **keyed
+      by the statement's own `q` and never by its index**, validates the whole batch before writing
+      anything, re-parses and then runs the checker. **It emits `"\n];"` and that semicolon is
+      load-bearing**: without it the file still parses under ASI, and the NEXT run's `lastIndexOf("];")`
+      finds nothing and reads the array as garbage — a fault only a second run can see, so a missing
+      terminator is now a refusal.
+      **`cite` MAY ALSO REWRITE THE STATEMENT ITSELF**, which is what the citation pass does when one
+      turns out to assert something no openable work carries: the pool predates the apparatus, so several
+      of its statements were written from memory, and the honest repair is to say what can be shown
+      rather than to attach a source that does not bear the claim out. **`a` is deliberately NOT
+      rewritable** — a statement whose truth value flips is a different statement and belongs in `add`,
+      where the duplicate check can see it — and **the duplicate test is re-asked over the FINISHED
+      pool**, since the per-entry checks read a snapshot in which two rewrites landing on one wording
+      both pass. A rewrite MOVES THE KEY: a later batch addresses that statement by its new `q`.
+    · **📖 `docs/truefalse-citation-plan.md` — READ BEFORE CITING A STATEMENT OR ADDING ONE.** The bar
+      (one openable source per statement, against a card's five, and why it is lower), the recipe for
+      lifting a citation out of a card that already makes the claim — **by marker and index,
+      programmatically, never retyped** — the ten batches, the standing to run rather than quote, and the
+      three statements known to need work, of which one asserts more than Folio's own cited prose does.
+    · Guarded by **`.claude/test-truefalse.js`**, which **serves a five-statement pool of its own** in
+      place of `truefalse.js`: the day's five are drawn from 220 by `dayPick` and only some are cited, so
+      a suite run against the real pool asserts nothing on most days, which is the shape of a test that
+      passes while the feature is broken. **Every fixture statement carries a glossary term, an element
+      an escaped `why` would print as tags, and a citation with a marker**, because `dayPick` decides
+      which round is dealt first and an assertion reading only that round is a coin toss on the fixture's
+      own order. The shipped pool is still checked in Node for what a fixture cannot see.
   · **A ROUND ANSWERED STAYS ANSWERED** (`gameProgress` / `setGameProgress`): the one-play lock is only set
     when a run FINISHES, so the outcomes are written as each round is answered — before the reader can
     press Next, since the reader who never presses it is the case. It holds the OUTCOMES rather than an
@@ -5460,11 +5697,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **A COUNTRY ARRIVES IN THE YEAR IT WAS FOUNDED** (`mineFounded`): the era maps BRACKET the answer and
     the card's own cited date line supplies it. **IT CAN ONLY EVER MOVE A COUNTRY EARLIER, and that clamp
     is what makes it safe to run over all 233 rather than hand-writing 233 founding years** — unclamped it
-    DELAYS 264 countries and takes France off three maps on a recognition date. **THE MARKS AND THEIR
-    NAMES ARE GATED BY ZOOM** (`MINE_SEP`, `MINE_LBL_Z`, `mineDotsShown`), and **which mark survives is
-    RANKED** — a capital first, then the title — so the set is stable between frames and zooming in only
-    ever adds; **`mineAt` reads the same thinned list**, or a click on empty ground opens a popup about a
-    place that is not drawn. A capital is a square; a civilisation's wash is GREEN, red having made it read
+    DELAYS 264 countries and takes France off three maps on a recognition date. **A MARK IS NEVER DRAWN
+    WITHOUT ITS NAME** (`MINE_SEP`, `dotHalf`, `mineDotsShown`, `mineDotRects`; Sep 2026, on request:
+    dots and squares "should never appear without labels", appearing "progressively as you zoom in", with
+    a label never hidden behind another dot). The label is placed FIRST and the mark drawn only if it was
+    placed, so the two cannot come apart — **`MINE_LBL_Z`, the zoom below which no name was drawn at all,
+    is DELETED**, that gate having left a world view covered in unlabelled dots. The thinning is
+    `MINE_SEP` alone and is therefore progressive by construction: zooming in only ever adds. **A NAME
+    AVOIDS OTHER PLACES' DOTS as well as other names** (`dotBoxes`), or a label is written across the very
+    mark it does not belong to. **Which mark survives is RANKED** — a capital first, then the title — so
+    the set is stable between frames; **`mineAt` reads `mineDotRects`, what was actually DRAWN**, rather
+    than re-deriving the list, or a click on empty ground opens a popup about a place that is not there.
+    **The water names lost the gate with it**, `mineWaterShown` having refused to place any below it. A capital is a square; a civilisation's wash is GREEN, red having made it read
     as one of the reader's places writ large. **THE RAIL LOST THE WORLD ATLAS'S YEAR MARKS AND GAINED A
     RANGE** (`MINE_STARTS`, `mineStart`, `setMineRange`, `.tl-range`): on a rail where every year is
     reachable the thirteen stops mark nothing while suggesting the pin will jump to them, and the range is
@@ -5962,7 +6206,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE NINETEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE TWENTY PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -5990,6 +6234,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
+| Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 
 The next id for any of them (substitute the prefix):
 
@@ -6815,7 +7060,7 @@ division-capital city tier are inert dead code.
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **55 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **56 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-panels.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
@@ -6910,7 +7155,7 @@ division-capital city tier are inert dead code.
     after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
     community store's record shape, or the `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 333 assertions on **the shell**: the rules that break silently
+  · `node .claude/test-layout.js` — 345 assertions on **the shell**: the rules that break silently
     because nothing throws when a layout is wrong. **ITS FIXTURE MUST DISMISS EVERY FIRST-VISIT OVERLAY
     AND LAND ON THE TAB IT MEANS TO MEASURE** — when a feature gains a first-run card or a new default
     tab, the fixtures are part of the change. **Re-run after touching `.tabbar` / `--tabbar-h` /
@@ -6980,7 +7225,8 @@ division-capital city tier are inert dead code.
     `clearStudySession` / `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` /
     `openDeckLimits` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` /
     `orderedIds` / `setupDeckDrag` / `deckEditOn` / `deckEditCheckpoint` / `deckEditBarHTML` /
-    `setEntryTitle` / `adOwnTitle` / `rowTitle` / `.rv-editing` / `.rv-topacts` / `.rv-foot` / `.dk-del` /
+    `setEntryTitle` / `adOwnTitle` / `rowTitle` / `adDay` / `doneMarkHTML` / `--dk-accent` /
+    `.dk-done` / `.dk-won` / `.rv-editing` / `.rv-topacts` / `.rv-foot` / `.dk-del` /
     `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` /
     `setNestParent` / `nestChildren` / `openDeckSched` / `setDeckSched` / `setDeckRetention` /
     `setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`
@@ -7046,7 +7292,8 @@ division-capital city tier are inert dead code.
     `MINE` / `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
     `drawMineMarks` / `drawMineAreas` / `MINE_POLITY` / `areaBBox` / `mineCoastSkip` / `mineCoastCut` /
     `countryAtLL` / `mineDotRects` / `CP_GLOSS_ARM_MS` / `cpArmGloss` / `cpSetShut` / `landDim` /
-    `mineFounded` / `mineDotsShown` / `MINE_SEP` / `MINE_LBL_Z` / `mineAreaFill` / `mineAreaLine` /
+    `mineFounded` / `mineDotsShown` / `mineWaterShown` / `dotHalf` / `MINE_SEP` / `mineAreaFill` /
+    `mineAreaLine` /
     `MINE_STARTS` / `mineStart` / `setMineRange` / `tickList` / `tickHTML` / `renderMapYearMarks` /
     `showMinePopup` / `eraIsModern` / `renderStatic`'s MINE branch / `updateHoverName` / `snapYear` /
     `stepYear` / `frac2year` / `year2frac` / `ZMAX` / `cpSection` / `mountCardBack`'s `shutSources` / the
@@ -7105,6 +7352,19 @@ division-capital city tier are inert dead code.
     `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
     `markGamePlayed`, `gameAnswerNote` / `gameGlossKey`, `gameTap` / `gameCommit` / `gameClearPick` /
     `gameFound` / `TINT_PICK` / the `.mg-acts` buttons, or the home page's tile grid.**
+  · `node .claude/test-truefalse.js` — **True or False's explanations** (22 assertions, Sep 2026): that
+    the `why` renders as HTML rather than escaped, that its Sources fold is there, collapsed and carrying
+    `src-nopref`, that a marker is NUMBERED and is a control, that the citation's URL is a link, that a
+    glossary term in the prose is linked, that the units and spelling passes reach it in both directions,
+    and that the summary carries the same apparatus numbered PER ROW. **Every one of those fails
+    silently** — an escaped `why` merely prints its own tags, a marker with no entry behind it is REMOVED
+    by `wireFootnotes` so the sentence just loses a number, an unlinked term looks like a term Folio does
+    not have, and a figure with no bracket is simply shown in metric to a reader who asked for feet.
+    **It serves a five-statement pool of its own** for the reason given in the True-or-False bullet above.
+    **Re-run after touching `tfWhyHTML` / `tfWireWhy` / `PAGES.truefalse`'s reveal and summary /
+    `sourcesHTML`'s `shut` and `compact` options / `wireFootnotes` / `autoLinkGlossary` / `unitizeTree` /
+    `spellTree`, `.claude/add-truefalse.js` or `.claude/check-truefalse.js`, or after a batch of
+    statements.**
   · `node .claude/test-avatar.js` — **the profile photo's crop, and enlarging someone else's** (17
     assertions), and all three of its subjects fail SILENTLY, so it reads PIXELS off the canvas and off
     the saved data-URI. It reaches the cropper through a **patched app.js** and **fails if the tail it

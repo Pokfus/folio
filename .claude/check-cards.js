@@ -313,6 +313,13 @@ const NOT_A_SCHOLAR = new Set([
   "Asinius Pollio",   // wh-354: the Augustan historian, who "thought" the Commentarii careless
   "Marcus Aemilius",  // rm-240: M. Aemilius Lepidus, who "put" Rome's terms to Philip
   "BCE Lucius Mummius", // rm-256: the consul of 146; the match swallowed the era from "146 BCE"
+  /* AN OFFICE IS NOT A PERSON, and a Chinese one is two capitalised words in front of a verb of agency
+     exactly as a scholar is. These are titles the Politics collection narrates ("the General Secretary
+     counted only as first among equals"), not people the prose credits. */
+  "General Secretary",  // pea-003: the party office, which "counted" as first among equals
+  "Standing Committee", // the Politburo body, which decides and meets
+  "Central Committee",  // the party body, which elects and meets in plenum
+  "Party Congress",     // the five-yearly assembly, which elects and revises
 ]);
 
 /* ============================================================================

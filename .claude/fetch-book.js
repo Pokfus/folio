@@ -3711,6 +3711,14 @@ const BOOKS = {
     reFixes: [
       [/(?<![A-Za-z])soliders(?![A-Za-z])/g, "soldiers",
        "a transposed e in `soldiers`, of the Swiss and the Spanish"],
+      /* E57. The last words of chapter 25 — the book's famous close on fortune — end on a COMMA in
+         the Wikisource page, so the chapter reads as though it had been cut off. It has not: chapter
+         26 opens a new argument with a capital, and Marriott's own text at Project Gutenberg #1232
+         prints "with more audacity command her." with the stop. The source is wrong, not the import,
+         and the row is anchored on the whole clause rather than on the comma so it can match nothing
+         else in the book. */
+      [/with more audacity command her,/g, "with more audacity command her.",
+       "chapter 25's closing full stop is a comma in the source; Gutenberg #1232 prints the stop"],
     ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Prince_(Marriott)",
@@ -4376,6 +4384,14 @@ const BOOKS = {
     reFixes: [
       [/(?<![A-Za-z])beagn(?![A-Za-z])/g, "began",
        "a transposed a in `began`, of the boys pelting the frogs"],
+      /* E57. The moral of The Fox and the Monkey ends without its full stop, which is the whole
+         fable's last character — `check-cutoff.js` is what found it, and it is the one fault a
+         spelling sweep cannot see, nothing being misspelt. The Wikisource transcription drops it;
+         Townsend's own text, at Project Gutenberg #21, prints "A false tale often betrays itself."
+         with the stop, and every other fable in this book ends its moral with one. A SECOND WITNESS
+         IS WHAT SETTLES A MISSING CHARACTER, since the first witness has nothing wrong with it. */
+      [/A false tale often betrays itself(?!\.)/g, "A false tale often betrays itself.",
+       "the fable's closing moral lost its full stop in the source transcription; Gutenberg #21 prints it"],
     ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Three_Hundred_%C3%86sop%27s_Fables",
@@ -13882,6 +13898,24 @@ const BOOKS = {
        "an exclamation mark read as a figure 1, after a word"],
       [/(?<=[.:’—]\s{1,3})1(?=\s{1,3}[A-Z])/g, "‘",
        "an opening quotation mark read as a figure 1, after the punctuation closing the sentence before it"],
+      /* A COLOPHON THAT ENDS ON A COMMA, AND THE WORD ABOVE IT (Sep 2026, batch E58). `check-cutoff.js`
+         reported the Clerk's Tale ending "Here endeth the Clerk of Oxford's Tale," — and the scan this
+         book is imported from reads exactly that, so the source is the thing under suspicion and
+         nothing in the text can settle it. The page image can: page 218 is leaf n265 of the same
+         Internet Archive item (leaf n230 prints 187 and n261 prints 214, so the offset moves and is
+         worth re-reading rather than assuming), and it sets the colophon in italic with a FULL STOP.
+         THE SAME PAGE ANSWERS A SECOND FAULT THREE LINES ABOVE IT, which is why a page image is worth
+         the two requests: the line before the colophon ends `waiL` in the OCR and `wail.` in the
+         printing — a capital L read for the l, and the full stop lost with it. One occurrence in the
+         book, so the anchor cannot reach anything else. */
+      [/waiL(?![A-Za-z])/g, "wail.",
+       "a capital L read for the l of `wail`, and the sentence's full stop lost with it"],
+      /* …AND THE ROW HAS TO BE DRAFTED AGAINST THE TEXT IT WILL ACTUALLY SEE, which here still
+         carries the scan's DOUBLE SPACES: `correctRaw` runs before they are collapsed, which is why
+         the `fixes` row above it is written `Shipman’s  Tale .`. A first draft anchored on
+         `Oxford's Tale,</p>` matched the shipped file perfectly and reported DID NOT FIRE. */
+      [/Oxford['’]s\s+Tale,/g, "Oxford's Tale.",
+       "the Clerk's Tale's colophon ends on a comma where page 218 sets a full stop"],
     ],
     sourceName: "Internet Archive",
     sourceUrl: "https://archive.org/details/completepoetical0000chau_q3l3",
@@ -14652,6 +14686,29 @@ const BOOKS = {
        "a transposition in `seize`, against 32 correct"],
       [/(?<![A-Za-z])cheiftain(?![A-Za-z])/g, "chieftain",
        "a transposition in `chieftain`, against 94 correct"],
+      /* TWO CANTOS THAT END WITHOUT THEIR FULL STOP, AND THE PAGE IMAGE IS WHAT SETTLED THEM (Sep
+         2026, batch E58). `check-cutoff.js` reported 1.44 and 6.35 ending on no terminal punctuation;
+         both close on a speech, so the shipped HTML ends `…raise</q></p>` with nothing inside the
+         quotation. The corpus's own practice answers the question first: **177 of this book's 493
+         cantos end on a `<q>` and 175 of them carry terminal punctuation inside it**, these two being
+         the only exceptions — which is a strong measure and, by `check-cutoff.js`'s own rule, still a
+         PATTERN rather than a page. Neither of two archive.org OCRs could settle it either: the
+         better one reads a comma at both places and the worse one loses stops wholesale, and a comma
+         is a legitimate ending.
+         SO THE PAGE IMAGE WAS READ, which is E44's rule and costs two requests once the leaf is
+         known: fetch any leaf, read the printed number off its running head to get the offset, then
+         fetch the leaf you want. Volume I leaf n210 prints page 175, so page 198 is n233 — and it
+         ends "And to the skies its hearers raise." with the stop and no quotation mark at all.
+         Volume V leaf n140 prints 129, so page 109 is n120 — "And sue to Raghu's son for peace.'",
+         stop then closing quote. BOTH OCRs HAD READ A FULL STOP AS A COMMA, which is worth carrying:
+         a scan's punctuation is the least reliable thing on it and a comma there is not evidence of
+         a comma. */
+      [/And to the skies its hearers raise<\/q><\/p>/g,
+       "And to the skies its hearers raise.</q></p>",
+       "canto 1.44 ends without its full stop; vol. I page 198 sets one"],
+      [/And sue to Raghu's son for peace<\/q><\/p>/g,
+       "And sue to Raghu's son for peace.</q></p>",
+       "canto 6.35 ends without its full stop; vol. V page 109 sets one"],
     ],
     sourceName: "Project Gutenberg",
     sourceUrl: "https://www.gutenberg.org/ebooks/24869",
@@ -15142,6 +15199,64 @@ const BOOKS = {
          unread since E33. `jatave~as` is the vocative of Jatavedas, which this book spells correctly
          112 times and thus once; and `Trce` is not a word, where tree-fed is what Agni is — E15's
          c/e family, in the very next clause. */
+      /* A HYMN THAT ENDS WITHOUT ITS FULL STOP (Sep 2026, batch E57). `check-cutoff.js` reports nine
+         of this book's 1,028 hymns ending on no terminal punctuation at all, which is the one fault
+         no spelling sweep can see — nothing is misspelt and the text reads perfectly. 8.84 is the
+         one a printed witness settles: the 1896 printing
+         (`archive.org/details/hymnsrigveda00unkngoog`) sets "With hero sons he prospers well." with
+         the stop, so the source transcription dropped it. THE OTHER EIGHT ARE NOT IN THAT VOLUME —
+         it holds one part of the translation — and are left standing rather than guessed at, since
+         a full stop added on the strength of the other hymns having one is a repair made from a
+         pattern rather than from a page. The row is anchored on the whole clause. */
+      [/With hero sons he prospers well(?!\.)/g, "With hero sons he prospers well.",
+       "hymn 8.84 ends without its full stop; the 1896 printing sets one"],
+      /* …AND THE OTHER EIGHT ARE SETTLED NOW, BY THE VOLUMES THIS FILE ALREADY NAMED (Sep 2026, batch
+         E58). E57 left them standing because the witness it used, `hymnsrigveda00unkngoog`, holds one
+         part of the translation — which was true, and the answer was one block up in this very entry:
+         the `fixes` table's own header names the Internet Archive's scan of THIS second edition,
+         volume I as `in.ernet.dli.2015.104118` and volume II as `in.ernet.dli.2015.104119`, and
+         between them they hold the whole of it. **LOOK FOR THE WITNESS A BOOK ALREADY CITES BEFORE
+         CONCLUDING IT HAS NONE.**
+         Seven of the eight are a lost terminal stop, and FIVE OF THEM END ON A COMMA in the
+         transcription where the printing sets a full stop — which is worth knowing, because
+         `check-cutoff.js`'s own header says a comma is not an answer either way and these are the
+         cases where a second witness is the only thing that can decide. The anchors are the whole
+         closing clause plus the `</p>`, so each can only ever match the END of the hymn it names.
+         ONE OF THE EIGHT IS NOT A LOST CHARACTER AT ALL BUT A LOST LINE. 6.75.19 is a two-line
+         stanza and the transcription carries only the first of them; the printing sets "May all the
+         Gods discomfit him. My nearest, closest Mail is prayer." after it, so the hymn has been
+         ending mid-verse. A scanner that looks at terminal punctuation is the only thing that could
+         have found it, and what it reported was a missing full stop.
+         AND 3.23.5 LOSES A SENTENCE STOP INSIDE THE LINE AS WELL, after "spreading offspring", which
+         the same page settles; it is repaired in the same row because it is the same line and the
+         same reading. */
+      [/spreading offspring Agni, be this thy gracious will to us-ward<\/p>/g,
+       "spreading offspring. Agni, be this thy gracious will to us-ward.</p>",
+       "hymn 3.23 ends without its full stop, and loses one inside the line too; vol. I sets both"],
+      [/and Earth the Goddess,<\/p>/g, "and Earth the Goddess.</p>",
+       "hymn 4.51 ends on a comma where vol. I sets a full stop"],
+      [/most spacious and protected well,<\/p>/g, "most spacious and protected well.</p>",
+       "hymn 5.66 ends on a comma where vol. I sets a full stop"],
+      [/hath brought praise to thee, O Savitar,<\/p>/g, "hath brought praise to thee, O Savitar.</p>",
+       "hymn 5.81 ends on a comma where vol. I sets a full stop"],
+      [/on this trimmed grass be seated, and rejoice you<\/p>/g,
+       "on this trimmed grass be seated, and rejoice you.</p>",
+       "hymn 6.68 ends without its full stop; vol. I sets one"],
+      [/whether he be a strange foe or one of us,<\/p>/g,
+       "whether he be a strange foe or one of us,<br>May all the Gods discomfit him. My nearest, closest Mail is prayer.</p>",
+       "hymn 6.75 loses the second LINE of its closing stanza, which vol. I prints"],
+      [/from these bring back to us our kine,<\/p>/g, "from these bring back to us our kine.</p>",
+       "hymn 10.19 ends on a comma where vol. II sets a full stop"],
+      /* A HEADING THAT LEAKED INTO THE HYMN IT STANDS AFTER, and it needs no witness at all: the
+         transcription's own `<pre>` for Book 8 Hymn 92 — the last of the book — ends
+         "…and be thou joyful in the light." WITH its full stop, and then carries the single word
+         VALAKHILYA, which is the heading of the appendix of hymns that follows. `check-cutoff.js`
+         reported this one as ending without terminal punctuation, which it does, for a reason that
+         has nothing to do with a lost character. The word occurs in exactly one chapter of the
+         shipped book, so the anchor cannot reach anything else. */
+      [/ and be thou joyful in the light\.<br>VALAKHILYA<\/p>/g,
+       " and be thou joyful in the light.</p>",
+       "the VALAKHILYA appendix heading leaked onto the end of Book 8's last hymn"],
       [/(?<![A-Za-z0-9])jatave~as(?![A-Za-z0-9])/g, "Jatavedas",
        "a tilde read for the d of `Jatavedas`, and the capital lost with it — against 112 correct"],
       [/(?<![A-Za-z])Trce-fed(?![A-Za-z])/g, "Tree-fed",

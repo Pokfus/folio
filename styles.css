@@ -730,7 +730,21 @@ body.night .coll-ic{color:#E6C765;}
 .cl-row .coll-ic img, .udeck .coll-ic img{width:calc(28px * var(--fs)); height:calc(28px * var(--fs));}
 /* …and on a review row, where the width belongs to the deck's name (see adIcon). No min-width: the mark
    sits in the flex line rather than reserving a column, so a row without one loses nothing. */
-.active-deck .coll-ic.dk-ic{min-width:0; margin-inline-end:2px;}
+.active-deck .coll-ic.dk-ic{min-width:0; margin-inline-end:2px;
+  /* …AND IT RUNS IN THE DECK'S OWN HUE, not the collection gold (Sep 2026, on request). The row already
+     carries that hue as `--coll-bg` (see hueStyle), and the mark is `currentColor` on a stroke, so this is
+     one declaration rather than a colour per row. It is MIXED TOWARDS `--ink` rather than used raw: the
+     hues are signature washes chosen to sit UNDER a banner, and several of them (Second World War's near
+     black, World History's mid brown) are a wash on paper by day and all but invisible on a dark card by
+     night. Mixing towards the ink raises the contrast in BOTH directions with no per-theme table, which is
+     the ratio `.elab-box`'s tab is solved the same way. The plain hue is declared first for a browser with
+     no `color-mix`. */
+  color:var(--coll-bg, #C39A2E);
+  color:color-mix(in srgb, var(--coll-bg, #C39A2E) 80%, var(--ink));}
+body.night .active-deck .coll-ic.dk-ic{color:color-mix(in srgb, var(--coll-bg, #C39A2E) 55%, var(--ink));}
+/* High contrast drops the hue and keeps the SHAPE, which is what carries the information: the mark says
+   what kind of cards are in the deck, and the colour only repeats the row's own wash. */
+body.hc .active-deck .coll-ic.dk-ic{color:var(--ink);}
 .active-deck .coll-ic.dk-ic svg, .active-deck .coll-ic.dk-ic img{width:calc(22px * var(--fs)); height:calc(22px * var(--fs));}
 /* The Daily-review banner carried a large plain golden numeral of its own — the day's whole pile — and it
    went in Aug 2026 on request, along with pileBadgeMarkup, the tick it showed on a cleared day and the
@@ -1183,6 +1197,11 @@ body.night .game-tile{ --gt-gold:#D8B355; }
   background:var(--rule); transition:background .25s var(--ease), box-shadow .25s var(--ease);
 }
 .sw-chip.on{background:var(--good, #4F9D67); box-shadow:0 0 0 1px color-mix(in srgb, var(--good, #4F9D67) 35%, transparent);}
+/* A PERFECT RUN'S CHIP IS GOLD, the same pair of stops the tile's wax seal is mixed from (`.gt-seal`),
+   so "perfect" is one colour on this page rather than two. It is written AFTER `.on` and at the same
+   specificity, so the later rule wins and a won chip needs no extra weight. */
+.sw-chip.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47;
+  box-shadow:0 0 0 1px color-mix(in srgb, #BE9829 45%, transparent);}
 .sweep-count{
   font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); letter-spacing:.04em;
 }
@@ -1245,8 +1264,15 @@ body.night .game-tile{ --gt-gold:#D8B355; }
    fullscreen media viewer (9800), which nothing here opens. The scrim is DARK rather than a paper wash —
    the Atlas's coach marks lighten their globe, and this one has to darken a page of prose in eight themes,
    so it is deliberately theme-independent. */
+/* NO `backdrop-filter` HERE, and that is the point rather than an omission (Sep 2026, on a bug report:
+   on mobile the tutorial "blurs the background while also trying to highlight elements from it"). The
+   scrim covers the whole page, targets included, so a blur on it blurs the very element the dashed ring
+   is drawn around — the step says look at this and then makes it unreadable. It bites hardest on a phone,
+   where the card docks to the bottom and the ringed element is the only other thing on screen, but the
+   contradiction is not a phone one and neither is the fix. The 55% black wash does the separating on its
+   own; `.page-help` KEEPS its blur, because a coach mark rings nothing. */
 .folio-tour{position:fixed; inset:0; z-index:9700; display:flex; align-items:center; justify-content:center; padding:20px;
-  background:color-mix(in srgb, #000 55%, transparent); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);
+  background:color-mix(in srgb, #000 55%, transparent);
   animation:tourIn .22s var(--ease) both;}
 @keyframes tourIn{from{opacity:0}to{opacity:1}}
 /* the arrow layer: no viewBox, so its user units are CSS pixels and the rects tourPlace() measures need no
@@ -1746,7 +1772,20 @@ body[data-theme="folio"].night .collection-deco{
    critPipsHTML in app.js, and the `.q-head` grid above for how it is centred. */
 .crit-row{display:flex; align-items:center; gap:7px; margin-top:9px;}
 .study-card .q-head .crit-row{margin-top:0; min-width:0; justify-self:center;}
-.study-card .q-head .card-stars{justify-self:end;}
+/* THE STARS ARE PLACED IN COLUMN 3 EXPLICITLY, not left to fall there (Sep 2026, on a bug report: "when
+   the three dots for three days studied have not yet appeared on the first time a card is shown, the
+   difficulty rating jumps to the center of the card when it should stay in the top right"). `critPipsHTML`
+   returns NOTHING for a card with no record, so on a card's first sighting the grid has two children
+   rather than three and the stars land in the `auto` MIDDLE column — where `justify-self:end` has nothing
+   to push against, an auto column being only as wide as its content. Naming the column is what makes the
+   corner the corner in every state, this one and the phone's, where the row moves to the study bar and
+   the middle child is absent again. */
+.study-card .q-head .card-stars{grid-column:3; justify-self:end;}
+/* WHERE THE ROW GOES — one declaration, read back by `renderCard` (see `--crit-slot` there). */
+body{--crit-slot:head;}
+/* …and in the study bar it keeps its label and sits opposite the three counts, which take a full-width
+   line of their own at this width (see `.counts` in the phone block). */
+.counts .crit-row{margin-top:0; margin-right:auto; min-width:0;}
 .crit-pips{display:inline-flex; gap:4px;}
 .crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--ink-faint); box-sizing:border-box;}
 .crit-pip.on{background:var(--ink-faint); border-color:var(--ink-faint);}
@@ -4386,6 +4425,9 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    corners belong to the search and the legend. It is a pair of buttons rather than a switch because a
    switch says "on/off" about one thing and these are two things. */
 .atlas-tabs{
+  /* …and the tab pill, for `.globe-stage`'s reason: it sits ABOVE the stage rather than inside it, so it
+     does not inherit the narrowing and is a two-finger target of its own. */
+  touch-action:pan-y;
   position:fixed; z-index:6; top:calc(var(--bar-h) + 12px); left:50%; transform:translateX(-50%);
   display:inline-flex; gap:2px; padding:3px; border-radius:99px;
   background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule);
@@ -4434,7 +4476,22 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    the one that moves down. */
 .atlas-mine .map-cartouche{top:52px;}
 @media (max-width:640px){ .atlas-mine .map-cartouche{top:14px;} }   /* there the bar is top-LEFT, so nothing is in its way */
-.globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:calc(var(--timebar-h) + var(--tabbar-h) + env(safe-area-inset-bottom)); z-index:1; overflow:hidden;}
+/* A PINCH OVER THE ATLAS MUST NOT ZOOM THE PAGE (Sep 2026, on a bug report: "on tablet, sometimes when
+   trying to zoom in on the atlas it zooms in on the webpage itself instead, and then it becomes nearly
+   impossible to zoom out of it again"). The CANVAS has always declared `touch-action:none`, so a pinch
+   that begins on the globe zooms the globe; what the report is about is a pinch that begins anywhere
+   ELSE — the strip beside the canvas, the legend, the timeline, the tab bar — where `body`'s own
+   `pan-y pinch-zoom` still applied and the browser zoomed the document instead.
+   AND THE SECOND HALF OF THE REPORT IS WHY IT STICKS: once the page is zoomed, nearly the whole screen is
+   the canvas, which refuses the pinch that would undo it, so the reader has almost nowhere to put two
+   fingers. Prevention is therefore the fix rather than a recovery.
+   `pan-y` RATHER THAN `none`, and that is load-bearing: `.country-pop` is a descendant of `.globe-stage`
+   and is a scrolling sheet on a phone, and `none` on an ancestor takes a descendant's scrolling with it.
+   `pan-y` forbids exactly the page zoom and leaves the sheet scrolling.
+   THE TOP BAR IS DELIBERATELY LEFT PINCHABLE. Narrowing it would be a site-wide change to a browser
+   accessibility feature for the sake of one route — and it is also the strip a reader who has somehow
+   zoomed the page can still pinch back out on, which is the stuck half of the report answered directly. */
+.globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:calc(var(--timebar-h) + var(--tabbar-h) + env(safe-area-inset-bottom)); z-index:1; overflow:hidden; touch-action:pan-y;}
 .globe-stage canvas{position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none;}
 .globe-stage canvas:active{cursor:grabbing;}
 .globe-hint{position:absolute; left:clamp(16px,4vw,40px); bottom:16px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); opacity:.6; pointer-events:none; user-select:none;}
@@ -4763,7 +4820,9 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .atlas-empty span{font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
 .atlas-empty .btn{padding:6px 13px; font-size:calc(12px * var(--fs));}
 
-.atlas-timebar{position:fixed; left:0; right:0; bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom)); height:var(--timebar-h); z-index:30; display:flex; align-items:center; gap:26px; padding:0 74px 0 clamp(16px,4vw,40px); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-top:1px solid var(--rule); overflow:visible;}
+/* …and the timeline, which is a full-width strip at the bottom of the screen and so the likeliest
+   place on the Atlas for a thumb to land — see `.globe-stage` above. */
+.atlas-timebar{touch-action:pan-y; position:fixed; left:0; right:0; bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom)); height:var(--timebar-h); z-index:30; display:flex; align-items:center; gap:26px; padding:0 74px 0 clamp(16px,4vw,40px); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-top:1px solid var(--rule); overflow:visible;}
 .tl-play{flex:none; width:34px; height:34px; border-radius:50%; appearance:none; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); cursor:pointer; display:flex; align-items:center; justify-content:center; margin-right:-8px;}
 .tl-play svg{width:16px; height:16px;}
 .tl-play:hover{border-color:var(--indigo); color:var(--indigo);}
@@ -4964,13 +5023,89 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      and 9% — the right HUE at half the strength, which read as a different, washed-out colour rather
      than as the same one. Keep these four figures in step with `body[data-theme="folio"]
      .collection-deco` and its `.night` pair; the two rules exist to say the same thing. */
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 30%, transparent), transparent 64%) var(--card);
-  border:1px solid var(--rule); border-top:0; border-left:4px solid var(--coll-bg, var(--tile, #9A6634));
+  --dk-accent:var(--coll-bg, var(--tile, #9A6634));
+  background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 30%, transparent), transparent 64%) var(--card);
+  border:1px solid var(--rule); border-top:0; border-left:4px solid var(--dk-accent);
   padding:10px 13px; animation:pageIn .3s var(--ease) both;
 }
 /* like the banner's own wash, weaker on dark themes — the hue sits on a dark card and reads twice as
    strongly there, which is why the banner's own night pair drops from 30% to 22% as well */
-body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--card);}
+body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 22%, transparent), transparent 64%) var(--card);}
+/* ---------- A DECK FINISHED FOR THE DAY (Sep 2026, on request) ----------
+   "When an active deck has been completed for the day … it should turn green and have a checkmark in
+   the right of the deck background, in the same way as a completed minigame, and gold if the review
+   cards were completed perfectly." So this is `.game-tile.done` / `.game-tile.won` transposed onto a
+   row, and everything that made that small makes this small too — read that block before changing it.
+
+   `--dk-accent` IS WHY THIS IS SMALL, and it is `--gt-accent`'s lesson word for word. The row's hue
+   arrives INLINE as `--coll-bg` (PAGES.home writes it per row from COLL_THEME), and an inline
+   declaration beats any selector without `!important` — so `.dk-done` cannot simply re-set `--coll-bg`.
+   It sets a second property that the wash and the left bar read instead, and which merely DEFAULTS to
+   the collection's hue. Two lines for the two states, and nothing derived from it had to be found.
+
+   THE BAR IS DELIBERATELY NOT TOUCHED, and that is the one thing to keep straight here: `.prog-done`
+   already turns a row's BAR and its TITLE gold, and it means something else entirely — every card in
+   this deck has been studied at some point, which is a fact about the deck's whole life. This is a fact
+   about TODAY. They are kept on different parts of the row (the wash, the left bar and the tick against
+   the progress bar and the name) precisely so a reader can hold both at once: a deck can be finished
+   today without being finished, and finished without being finished today.
+
+   THE TICK IS A MASK, NOT A GLYPH — the same 24-box polyline and the same technique as the tile's, so it
+   takes the accent colour with everything else. It sits at the RIGHT, as asked, at z-index 0 with the
+   row's own contents lifted over it: a watermark the row is read across, which is what lets it be this
+   large on a line only 41 to 47px tall. The lift is written out per child rather than as `> *` because
+   `.dk-grip` is `position:absolute` in the row's left padding and giving it `position:relative` would
+   drop it back into the flex line.
+
+   THE SUBJECT ICON KEEPS THE COLLECTION'S HUE, which is where this parts company with the tile. The
+   tile's corner glyph is `display:none` once played, because it names a game whose name is written
+   underneath it in words; a row's mark names WHICH collection the deck belongs to and is the reader's own
+   where they have set one, so re-tinting it green would spend the day's colour on the one thing in the
+   row that is not about the day. `.coll-ic.dk-ic` therefore goes on reading `--coll-bg` directly.
+
+   THE CORNER MARK IS CLIPPED, NEVER `display:none`, for the tile's reason: `.gt-check` / `.gt-seal` is
+   the only thing on the row that STATES the day in words (`role="img"` + aria-label), so it stays in the
+   accessibility tree at 1px. A row that has gone green and says nothing about it to a screen reader is
+   a row that has told half its readers nothing. */
+/* THE ANCESTOR IS SPECIFICITY, NOT DECORATION, and it is `.prog-done`'s own lesson: a group header and a
+   language header declare a `--dk-accent` of their own further down this file — their fallback hue is not
+   a deck row's — at the same two classes as these, so on source order alone the group's declaration wins
+   and a finished COLLECTION goes on painting itself in its collection's colour with a green tick over it.
+   Three selectors beats two wherever the rules happen to sit. `!important` is not used. */
+.active-decks .active-deck.dk-done{ --dk-accent:var(--good, #4F9D67); }
+.active-decks .active-deck.dk-won{ --dk-accent:var(--dk-gold); }
+/* the tile's own gold, which is scoped to `.game-tile` — the same pair rather than a second gold, since
+   the two marks can be on screen together and a banner's seal sits between them */
+.active-deck{ --dk-gold:#B8892A; }
+body.night .active-deck{ --dk-gold:#D8B355; }
+.active-deck.dk-done::after{
+  content:""; position:absolute; z-index:0; pointer-events:none;
+  /* Clear of the chevron's column (26px) and the row's own right padding, so the two marks do not sit on
+     top of each other. THE BOX IS TALLER THAN THE ROW ON PURPOSE and the figure is arithmetic rather than
+     taste: the polyline runs y 6→17 of a 24 viewBox, so its ink is the middle 46% of a square box — at
+     152% of the 41px group header that is a 29px tick on a 41px line, and what overflows into
+     `overflow:hidden` is empty space above and below it. Raising it much past this starts cutting the
+     top-right arm off on the SHORTEST row kind, which is that header — 7px padding against a deck
+     row's 10px. */
+  right:46px; top:50%; transform:translateY(-50%); height:152%; aspect-ratio:1;
+  background:var(--dk-accent); opacity:.18;
+  -webkit-mask:var(--dk-tick) no-repeat center/contain;
+  mask:var(--dk-tick) no-repeat center/contain;
+}
+.active-deck.dk-won::after{ opacity:.30; }
+.active-deck{ --dk-tick:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>"); }
+/* the row is read OVER the watermark — every child that can reach the right-hand end of the line, and
+   NOT `> *`, which would re-position the absolutely-placed grip */
+.active-deck.dk-done .dk-counts,
+.active-deck.dk-done .dk-body,
+.active-deck.dk-done .dk-chev,
+.active-deck.dk-done .dk-chev-gap,
+.active-deck.dk-done .coll-ic,
+.active-deck.dk-done .dk-dl{ position:relative; z-index:2; }
+.active-deck .gt-check, .active-deck .gt-seal{
+  width:1px; height:1px; padding:0; border:0; overflow:hidden;
+  clip-path:inset(50%); background:none; box-shadow:none; animation:none; filter:none; flex:none;
+}
 /* THE SUBDECK FOLD (Aug 2026, on request) — see adSyncFold in app.js.
    `.dk-shut` is a CLASS rather than the `hidden` attribute on purpose: `.active-deck` carries an author
    `display:flex`, which beats the UA `[hidden]` rule outright, so the attribute would have needed an
@@ -5075,23 +5210,26 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    decks inside legible.
    An added COLLECTION is drawn this way too: it holds no cards itself, only the decks inside it do. */
 .active-deck.deck-group, .active-deck.dk-langhead{
+  /* its own fallback hue, which is not the deck row's — set on `--dk-accent` rather than written into the
+     gradient, so `.dk-done` can still re-point it (see the dk-done block up by `.active-deck`) */
+  --dk-accent:var(--coll-bg, var(--tile, #5AA9DC));
   padding-top:7px; padding-bottom:7px;
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 38%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 12%, transparent) 78%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 38%, transparent), color-mix(in srgb, var(--dk-accent) 12%, transparent) 78%) var(--card);
 }
 /* …and its own night pair, for the reason `.active-deck.context` needs one: `body.night .active-deck`
    (0,2,1) outranks this (0,2,0) whatever the source order, so without it a group header on every dark
    theme silently lost the darkening that makes it a header at all. */
 body.night .active-deck.deck-group, body.night .active-deck.dk-langhead{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 28%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 9%, transparent) 78%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 28%, transparent), color-mix(in srgb, var(--dk-accent) 9%, transparent) 78%) var(--card);
 }
-.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 48%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);}
+.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 48%, transparent), color-mix(in srgb, var(--dk-accent) 16%, transparent) 78%) var(--card);}
 /* …and a LANGUAGE header hovers the same way, its press opening its options rather than a session (Aug
    2026). It must NOT be folded into `.active-deck[data-review]:hover` further down: that one deepens the
    DECK's resting wash, which is weaker than a header's, so hovering a header would LIGHTEN it. The
    attribute is carried only to make this four selectors deep — `body.night .active-deck.dk-langhead` is
    (0,3,1) and would otherwise outrank a plain `.active-deck.dk-langhead:hover` on every dark theme, which
    is the trap the night pair above this already records. */
-.active-deck.dk-langhead[data-langhead]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 48%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);}
+.active-deck.dk-langhead[data-langhead]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 48%, transparent), color-mix(in srgb, var(--dk-accent) 16%, transparent) 78%) var(--card);}
 /* THE HEADER IS SET IN THE ROWS' OWN FACE (Aug 2026, on request). It used to take `--display` two sizes
    down, bolder, letterspaced and in capitals — which read as a different KIND of thing from the decks under
    it rather than as the heading of them — so the rule that did all that is gone and `.active-deck .dk-title`
@@ -5118,16 +5256,18 @@ body.night .active-deck.deck-group, body.night .active-deck.dk-langhead{
 .active-deck[data-review], .active-deck[data-langhead]{cursor:pointer;}
 /* hover deepens the same wash rather than introducing a colour of its own — it must stay ABOVE the resting
    mix in both layers, or hovering a row would lighten it */
-.active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 38%, transparent), transparent 64%) color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 10%, var(--card));}
+/* the HOVER wash reads `--dk-accent` too, or a row that has gone green turns back to its collection's
+   hue under the pointer — which is the whole reason that property exists (see the dk-done block) */
+.active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 38%, transparent), transparent 64%) color-mix(in srgb, var(--dk-accent) 10%, var(--card));}
 .active-deck[data-review]:focus-visible, .active-deck[data-langhead]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
 /* An ancestor SIGNPOST row (not itself added) carries the same collection wash at the same strength — what
    marks it as context is the paper under it and the quieter title, not a different colour, since it names
    the very collection its children are washed in. */
-.active-deck.context{padding-top:7px; padding-bottom:7px; background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 30%, transparent), transparent 64%) var(--paper-2);}
+.active-deck.context{padding-top:7px; padding-bottom:7px; background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 30%, transparent), transparent 64%) var(--paper-2);}
 /* …and its own night pair. Without it `body.night .active-deck` (0,2,1) outranks `.active-deck.context`
    (0,2,0) whatever the source order, so on every dark theme a context row silently lost both its weaker
    wash and the --paper-2 under it and rendered identically to an added deck's row. */
-body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--paper-2);}
+body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 22%, transparent), transparent 64%) var(--paper-2);}
 .active-deck.context .dk-title{font-size:calc(14px * var(--fs)); color:var(--ink-faint); font-weight:600;}
 /* the ancestor rows' hollow marker went with the active rows' blue dot: it existed to line the two up, and
    left on its own it would have pushed every parent title 21px right of the deck sitting under it. The
@@ -6043,6 +6183,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   .collection-row{padding:18px 16px; gap:14px;}
   .collection-title{font-size:calc(20px * var(--fs));}
   .counts{width:100%; margin-left:0; margin-top:4px;}
+  body{--crit-slot:bar;}
   .dp-name{width:120px;}
   .profile{flex-direction:column; text-align:center;}
   .namefield{text-align:center;}
@@ -6884,6 +7025,18 @@ body.grading .admin-edit-fab{bottom:108px;}
   .admin.timeline-mode .admin-list-items,.admin.feedback-mode .admin-list-items,
   .admin.dash-mode .admin-list-items,.admin.quotes-mode .admin-list-items,
   .admin.artefacts-mode .admin-list-items,.admin.themes-mode .admin-list-items{max-height:none;}
+  /* ---- Admin → Artefacts on a phone (Sep 2026, on a bug report: "on mobile, the artefact list on the
+     admin page isn't formatted very well"). The row is a flex line of a rarity bar, the name and FIVE
+     meta pills — the rarity, whether it has a picture, its word and sentence count, its citation count
+     and its edited state — and at 390px those five wrap onto three lines while squeezing the name, which
+     is the one thing on the row with no shorter form, into two or three characters. So the row wraps
+     properly instead: the bar and the name take the first line whole, and the pills take the next,
+     RANGED LEFT rather than right, since right-aligned pills under a left-aligned name read as a second
+     column that is not there. The swatch shortens with the line it is now marking. */
+  .a-main{flex-wrap:wrap; row-gap:8px; padding:10px; gap:10px;}
+  .a-swatch{height:26px;}
+  .a-name{flex:1 1 140px;}
+  .a-meta{flex:1 1 100%; justify-content:flex-start; gap:5px;}
   .tl-edit{padding:18px 14px;}
   .tl-era{flex-wrap:wrap; row-gap:8px;}
   /* the pane stops scrolling inside itself here (the admin stacks into one column and the PAGE scrolls), and

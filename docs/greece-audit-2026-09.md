@@ -85,6 +85,13 @@ These were measured rather than assumed, and none of them needed work.
 
 ### 1. A whole deck rests on one undergraduate course website
 
+**CLEARED, as measured on 2026-09-17: no `gr-` card cites that website in more than two of its
+sources**, and `check-cards.js` reports zero over-cited cards across the whole corpus. The paragraph
+below is the finding AS THE AUDIT FOUND IT, kept because the repair method is what the next
+concentration will need. **Run the command in `CLAUDE.md`'s pointer at this file for the standing
+rather than reading a figure out of here**: the collection has grown from 500 cards to 800 since,
+so the SHARE moved for two reasons at once and both of them are real.
+
 **237 citations — 8.7% of the collection's entire apparatus — are Jeremy B. Rutter's *Aegean
 Prehistoric Archaeology* at Dartmouth**, across 107 cards, and **39 cards cite it more than twice**.
 `gr-056` "Mycenaean civilisation" cites it 8 times out of 10 sources. The brief allows an author
@@ -1498,6 +1505,26 @@ about ostrich-egg rhyta the card no longer mentions** — a question must be ans
 card's background, and nothing in the pipeline compares the two. **`check-questions.js` passed it
 before and after.** Grep every other field for the words you are deleting: `answerDate`, `why`,
 `questions`, the picture caption.
+
+### The Dartmouth pass closed (2026-09-17)
+
+**Measured over the whole collection: 180 of 4,287 Greece citations, 4.2%, across 107 cards, and NOT
+ONE card over the two-sources-per-author rule.** The audit opened on 237 citations at 8.7% with 39
+cards over the rule; batches R1 onward, the `gr-046` clearance above and the `gr-036` repair in the
+over-cited batch of 2026-09-17 took the last of them.
+
+**THE SHARE FELL FOR TWO REASONS AND ONLY ONE OF THEM IS THE PASS.** Sixty-odd citations were
+replaced, and the collection doubled from 500 cards to 800 — cards written after the audit, to the
+rule, which do not lean on the course site. **A percentage with a growing denominator is not a
+progress measure**, which is why the pointer in `CLAUDE.md` is now a command and why the count of
+cards OVER THE RULE, which cannot drift that way, is the number that says the pass is finished.
+
+**WHAT IS LEFT IS A JUDGEMENT AND SHOULD NOT BE SWEPT.** 75 cards cite the site in exactly two of
+their five sources. That breaks no rule, and the audit's own standing finding is the reason to leave
+it: where the Dartmouth site carries a claim, it is often carrying a claim nothing else openable
+carries — `gr-001`'s two-storeyed Cycladic towns and fifty-oar longships were hunted across all four
+open routes and found in none. Forcing those to a substitute would satisfy a count and make the cards
+worse, which is the trade the audit refused on its first page.
 
 ### `gr-159` Cypriot syllabary — when the over-cited "author" is a REVIEWER (2026-09-15)
 

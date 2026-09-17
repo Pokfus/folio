@@ -222,8 +222,11 @@ const SETTINGS = {
       rm && rm.cycles.join(",") === "Review order" &&
       rm.switches.join(",") === "Question variety,Answer before revealing,Recall in full" && rm.choices === 0,
       JSON.stringify(rm));
-    check("...each showing its own current state — Ordered, and variety on by default",
-      rm && rm.order === "Ordered" && rm.variety === true, JSON.stringify(rm && { order: rm.order, variety: rm.variety }));
+    /* VARIETY SHIPS OFF since Sep 2026, on request ("ensure that Question Variety is turned off on all
+       decks by default") — so an untouched sheet shows the switch OFF, and this pins the DEFAULT rather
+       than the switch. */
+    check("...each showing its own current state — Ordered, and variety off by default",
+      rm && rm.order === "Ordered" && rm.variety === false, JSON.stringify(rm && { order: rm.order, variety: rm.variety }));
     /* THE THIRD ORDER IS REACHED BY PRESSING AGAIN, and the wrap is what makes the control usable at all:
        a cycler that stopped at the end would leave a reader who overshot with no way back but a reload.
        Both are asserted, and the STORE is read as well as the chip — the review writes `reviewOrder` and
@@ -263,13 +266,15 @@ const SETTINGS = {
     /* QUESTION VARIETY is the second switch, and it is stored PER ENTRY (deckLimits' shape) rather than
        as one global flag: the sheet opens on a deck's own row as well as on the pooled review, and a
        setting that silently answered for every deck when thrown from one of them is the one thing a
-       reader could not predict. Off → every card asks its first phrasing and the ‹ › chevrons go. */
+       reader could not predict. Off → every card asks its first phrasing and the ‹ › chevrons go, which
+       is now the SHIPPED state, so the throw below turns it ON. */
     await page.evaluate(() => document.querySelector('.deck-menu .dm-switch[data-act="variety"]').click());
     await page.waitForTimeout(500);
     check("...and question variety writes a PER-ENTRY option, not a global one",
       await page.evaluate(() => {
         const st = JSON.parse(localStorage.getItem("folio_v1"));
-        return ((st.deckOpts || {})["review:all"] || {}).variety === false;
+        return ((st.deckOpts || {})["review:all"] || {}).variety === true &&
+          ((st.settings || {}).questionVariety !== true);   // …and never the global, which stays off
       }));
 
     /* THE BANNER'S OWN COLOUR (Aug 2026, on request). It rotates through one hue a day, so the assertion
@@ -427,7 +432,15 @@ const SETTINGS = {
 
   /* ================= 3. the study session survives a reload, and its phrasing is the reader's ========= */
   {
-    const page = await newPage(seeded);
+    /* QUESTION VARIETY SHIPS OFF (Sep 2026, on request), and this whole section is about the phrasing
+       cycler — with one phrasing in the pool there is nothing to step to and no chevrons to draw, so the
+       section has to turn it on before it can test it. It is seeded as the REVIEW ENTRY's own switch,
+       which is what a reader who wants the three throws; the GLOBAL default cannot be seeded at all,
+       being coerced on every load (see the back-fill beside `themeAuto`'s). And it goes in the SEED
+       rather than in an `evaluate` after the first load: `newPage` re-writes the whole record through
+       `addInitScript` on every navigation, so anything written into localStorage by hand is put back to
+       the seed by the very reload meant to pick it up. */
+    const page = await newPage(Object.assign({}, seeded, { deckOpts: { "review:all": { variety: true } } }));
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
