@@ -74,7 +74,7 @@ card-side research is then shared.
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three and T14 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier |
-| T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA |
+| T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151` |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one |
 
 ## Open questions carried forward
@@ -929,3 +929,31 @@ Both are clean lifts, and between them they use four of Folio's own cited senten
   sentence 5 has him calling himself a transmitter and not a maker. **THE DEIFICATION IS NOT ADDRESSED
   DIRECTLY**, because nothing in the corpus's cited prose dates the cult; what the answer now shows is
   that the tradition is ethical and political and that it was made official long after he died.
+
+### T20 — the green Sahara, and a sweep that says where the cheap lifts have run out (2026-09-17)
+
+- **The green Sahara.** `wh-151` carries the whole answer in three cited sentences: the strengthened
+  summer monsoon turning the world's largest hot desert into grassland, lakes and rivers; the period
+  beginning about 15,000 years ago and closing by roughly 5,500, driven by precession; and Lake Megachad
+  covering some 361,000 square kilometres. **THE DATES MOVED TO THE CARD'S** — the statement had
+  "roughly eleven thousand to five thousand years ago" — **and "orbital tilt" went**, the card naming
+  precession alone. Sediment cores, rock art, fossil pollen and cattle herders went with them, none
+  being in the cited prose; Lake Megachad's hippopotamus is a better sentence than any of them.
+
+**AND THE REST OF THE CORPUS WAS SWEPT, WHICH IS WHERE THIS PASS NOW STANDS.** Every uncited statement
+was matched against every card's answer term, and the match list is short on anything liftable:
+
+- **`wh-524` Chang'an cannot carry #47.** It says the city was "one of the largest cities in the world",
+  where the statement says THE most populous, "around a million people". A source that says less than
+  the statement is not a source for it, and a marker pointing at a claim the work does not make is the
+  thing this whole apparatus exists to prevent. **Refused**, like `pollice verso` in T16.
+- **`wh-212` and `rm-384` cannot carry #11 (Cleopatra and the Pyramid).** Both dates exist — Built
+  c. 2589–2566 BCE, Died 30 BCE — but **only in the cards' DATE LINES**, which carry no footnote
+  markers; there is no marked sentence to lift from. **A date line is not a citable sentence.**
+- **`wh-212` cannot carry #8 either.** Its workforce sentence gives Herodotus's hundred thousand against
+  a modern twenty to thirty thousand, and says nothing about pay or slavery. The page that would —
+  UCL's *Digital Egypt* "The workmen at a pyramid", which the card itself cites — **now answers 403
+  behind a Cloudflare interstitial** ("Just a moment… Enable JavaScript and cookies to continue"). A
+  host the corpus already rests on has closed since those cards were written.
+- **`wh-528` does not mention foot-binding**, and `wh-406`/`cnh-209` do not mention the 1974 well: the
+  Terracotta Army cards are about the bronze weapons' chromium, not the discovery.
