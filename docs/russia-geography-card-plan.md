@@ -1269,6 +1269,43 @@ paired glossary term at the bar and a picture. Findings worth keeping.
   `title`, `desc` and `alt` from the subject's own name; `file` mode leaves all three empty, and an
   empty `desc` ships as a bare full stop. Write them by hand for every pinned picture.
 
+### Batch 13 — the Mordvin enclaves, the Zeya mouth, the kurgan, the tundra and the Oka (`gru-058`–`gru-062`)
+
+Mordovia, Amur Oblast, Kurgan Oblast, Komi and Oryol Oblast. The first batch written entirely under
+the facts-echo rule, so every card's fifth opening sentence is a DENSITY and a capital SHARE rather
+than the area and population the grid prints. Findings.
+
+- **A NEW TOOLKIT SOURCE: THE `GUIDE TO THE GREAT SIBERIAN RAILWAY` (1900).** The Ministry of Ways of
+  Communication's own English guide (`archive.org/details/guidetogreatsibe00russuoft`) walks the line
+  station by station and is the richest open account of the West Siberian districts there is. It
+  carried **the whole of `gru-060`** — the Tobol's course, the fir and birch, the mound the capital is
+  named for, the Pugachov revolt, the nine Decembrists and the seven thousand emigrants forwarded in
+  the summer of 1894 (pp. 129–32, 136, 175–77) — and Blagoveshchensk's founding and its trade with
+  Aigun for `gru-059` (pp. 379–80).
+- **TWO PAGE RANGES OF ONE WORK ARE ONE CITATION EACH, AND THAT IS THE CAP TALKING.**
+  `check-cards.js` fails a card citing one author more than twice, so a book supplying four separate
+  passages has to be merged down to two ranges. Kurgan's guide citations are `129–32, 136` and
+  `175–77`; the same merge was made on Reclus for `gru-058`, `gru-061` and `gru-062`.
+- **A REPUBLIC NAMED FOR A PEOPLE IS A CARD ABOUT THE PEOPLE.** Mordovia's ground is unremarkable and
+  its interest is the Mordvins — Ptolemy's possible Aorzes, the Byzantines' numerous people, the
+  baptised mythology in which Saint Nicholas is smeared with butter for a good harvest and stood in
+  the corner for a bad one. The modern half comes from Ivlieva and Manukhov's census mapping, which
+  is what lets the card say the enclaves are not one block and that many Mordvins live outside them —
+  a claim about the republic's name that no gazetteer supplies.
+- **`Komi` IS THE ANSWER TERM AND `Komi_Republic` IS THE KEY.** `russia-subjects.js` and the plan
+  both name the subject *Komi*, so that is what the card answers; the glossary term takes the real
+  Wikipedia slug and claims the bare surface as an ALIAS. Measured first: the bare word occurs in
+  exactly one shipped abstract, its own, so the alias buys the card's pairing and costs nothing.
+- **A CHERNOBYL CARD IS A RAINFALL CARD.** `gru-062`'s closing sentence rests on Simonova and
+  Bublikova's retrospective in *Radiation Hygiene*: twenty-two of the oblast's twenty-four districts
+  contaminated, the fallout extremely patchy because it fell with the rain, and of the 1,243 people
+  sent to the clean-up 43 per cent later registered disabled. The date line therefore carries 1986
+  beside the capital's 1564 and the fire of 1679.
+- **A WIKIPEDIA ARTICLE'S OWN LEAD PICTURE CAN BE A PICTURE OF SOMETHING ELSE.** `fetch-geo-images.js`
+  answered the subject *Zeya (river)* with `File:Meanders of Kamchatka river.jpg` — a perfectly good
+  photograph of the wrong river, used on that article to illustrate meanders. **The fetcher reports
+  the licence and the size, never the subject**; the contact sheet is what caught it.
+
 ## The background against the grid — the facts-echo pass (Sep 2026)
 
 On request: *the background sections should never mention data that is already in the answer box data
