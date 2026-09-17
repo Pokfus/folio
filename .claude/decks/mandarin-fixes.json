@@ -71645,7 +71645,7 @@
       ]
     },
     "hsk30l5/点赞": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. Here two of the three rows THIS RECORD had written were 给他的照片点赞 and 给我的照片点赞 — the same construction with the pronoun changed, and an English differing by one word. The duplicate is replaced in place with an imperative, which is the form a reader will actually meet this word in.",
       "ex": [
         [
           "很多人给他的照片点赞。",
@@ -71656,8 +71656,8 @@
           "Many people liked this post."
         ],
         [
-          "她给我的照片点赞了。",
-          "She liked my photograph."
+          "别忘了给我点赞。",
+          "Don't forget to like my post."
         ]
       ]
     },
@@ -78803,13 +78803,14 @@
       "gloss": "treatment; pay and conditions"
     },
     "hsk30l5/导演": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The dictionary's FIRST sense is not automatically the card's. The card is labelled `noun / verb` and glossed with the noun alone, so the verb half of its own label had no definition behind it. CC-CEDICT gives /to direct/director (film etc)/.",
       "ex": [
         [
           "这部电影的导演很年轻。",
           "The director of this film is very young."
         ]
-      ]
+      ],
+      "gloss": "a director; to direct (a film or play)"
     },
     "hsk30l5/到期": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -124510,6 +124511,252 @@
           "light, not greasy (of food)"
         ]
       ]
+    },
+    "hsk30l5/当前": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The dictionary's FIRST sense is not automatically the card's. `before one` is a literal rendering of the two characters rather than a definition anyone would look up; CC-CEDICT gives /the present time/to be faced with/, and all three of the card's sentences are the first of those.",
+      "gloss": "the present time; current; to be faced with"
+    },
+    "hsk30l5/挡": {
+      "why": "An example sentence did not use the headword as a word: its characters were swallowed by a longer word, so the card bolded a fragment of something else. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. Here 格挡 is `to parry`, a word of its own. The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against three words in the collection.",
+      "dropEx": [
+        "先格挡，再反击"
+      ],
+      "ex": [
+        [
+          "谁也挡不住他。",
+          "Nobody can stop him."
+        ]
+      ],
+      "compounds": [
+        [
+          "挡住",
+          "dǎngzhù",
+          "to block; to obstruct"
+        ],
+        [
+          "阻挡",
+          "zǔdǎng",
+          "to stop; to obstruct"
+        ],
+        [
+          "遮挡",
+          "zhēdǎng",
+          "to shelter; to screen off"
+        ],
+        [
+          "挡风玻璃",
+          "dǎngfēng bōli",
+          "a windscreen"
+        ]
+      ]
+    },
+    "hsk30l5/导致": {
+      "why": "A QUESTION ENDING IN A FULL STOP: 是什么原因导致你昨天没来 asks something and closed on 。. Repaired through exSpace, which may only move whitespace and punctuation — the two sides are compared with every space and every mark stripped out, so a row that swaps one terminal mark for another cannot touch a word, a structure line or the bolding. | The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line glossing every word's part of speech and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. The English (`What prevented you from coming yesterday?`) dropped the headword altogether: 导致 is what the sentence is about.",
+      "exSpace": [
+        [
+          "是什么原因导致你昨天没来。",
+          "是什么原因导致你昨天没来？"
+        ]
+      ],
+      "exEn": [
+        [
+          "是什么原因导致你昨天没来",
+          "What was the reason that caused you not to come yesterday?"
+        ]
+      ]
+    },
+    "hsk30l5/道理": {
+      "why": "An example sentence was not ordinary Chinese: 没道理是这样的啊！ does not parse as anything a speaker would say, and the card had nothing at all for 有道理, which is far and away the commonest thing this word is used in. It is dropped and an AUTHORED sentence for that use put in its place.",
+      "dropEx": [
+        "没道理是这样的啊"
+      ],
+      "ex": [
+        [
+          "你说得很有道理。",
+          "There's a lot in what you say."
+        ]
+      ]
+    },
+    "hsk30l5/登": {
+      "why": "NOT ONE of this card's three sentences used the sense it glosses. 登 was defined `to ascend, to climb, to mount` over 我不应该登出, 他登广告出售他的房子 and 登出后重新登入需要密码 — logging out, placing an advertisement, and logging in and out again — so a reader met the character's oldest and commonest sense in the gloss and never once on the card. This is the single-character class batches 27 and 29 recorded, and the worst of it here: the first and third sentences are also the SAME pair of words twice over. The first is dropped, an AUTHORED climbing sentence takes its place, and the gloss is widened to carry the publishing sense the second sentence shows and the gloss did not. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had one word in the reader's downloaded deck, against eight in the collection.",
+      "gloss": "to climb; to ascend; to publish or record; to enter (in a register)",
+      "dropEx": [
+        "我不应该登出"
+      ],
+      "ex": [
+        [
+          "他们登上了山顶。",
+          "They climbed to the summit."
+        ]
+      ],
+      "compounds": [
+        [
+          "登山",
+          "dēngshān",
+          "to climb a mountain; mountaineering"
+        ],
+        [
+          "登机",
+          "dēngjī",
+          "to board a plane"
+        ],
+        [
+          "登记",
+          "dēngjì",
+          "to register (one's name)"
+        ],
+        [
+          "登录",
+          "dēnglù",
+          "to log in"
+        ]
+      ]
+    },
+    "hsk30l5/灯光": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The dictionary's FIRST sense is not automatically the card's. The card took only the PARENTHESISED first sense of CC-CEDICT's /(stage) lighting/light/, so a word every one of whose three sentences is about ordinary light — a light in the distance, a light too dim to read by, the lights going out — was defined as a theatre term.",
+      "gloss": "light; lighting"
+    },
+    "hsk30l5/等待": {
+      "why": "An example sentence was not ordinary Chinese: 我等待更新 is a two-word stub with no object anyone would put after this verb. It is dropped and an AUTHORED sentence put in its place.",
+      "dropEx": [
+        "我等待更新"
+      ],
+      "ex": [
+        [
+          "我们在车站等待了两个小时。",
+          "We waited two hours at the station."
+        ]
+      ]
+    },
+    "hsk30l5/等候": {
+      "why": "The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line glossing every word's part of speech and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. 汽车站 is a bus station; the English called it a Greyhound station, which is an American coach company and not a translation of anything in the sentence.",
+      "exEn": [
+        [
+          "他在汽车站等候",
+          "He is waiting at the bus station."
+        ]
+      ]
+    },
+    "hsk30l5/敌人": {
+      "why": "Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. 敌人不靠近 and 无法靠近敌人 are the same four words twice, once from each side — and the second was carried in with NO terminal mark at all. It is dropped and an AUTHORED sentence put in its place.",
+      "dropEx": [
+        "无法靠近敌人"
+      ],
+      "ex": [
+        [
+          "他们打败了敌人。",
+          "They defeated the enemy."
+        ]
+      ]
+    },
+    "hsk30l5/递": {
+      "why": "An example sentence did not use the headword as a word: its characters were swallowed by a longer word, so the card bolded a fragment of something else. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. Here 投递 is `to deliver (post)`, a word of its own. | The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The dictionary's FIRST sense is not automatically the card's. And the gloss carried `progressively`, which CC-CEDICT marks a BOUND FORM — it is only ever the first half of a compound such as 递增 — as though it were a sense the character has on its own. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had one word in the reader's downloaded deck, against four in the collection.",
+      "gloss": "to hand over; to pass on; to deliver",
+      "dropEx": [
+        "圣诞节当天邮局休息，邮件将不予投递"
+      ],
+      "ex": [
+        [
+          "服务员递上菜单。",
+          "The waiter handed over the menu."
+        ]
+      ],
+      "compounds": [
+        [
+          "快递",
+          "kuàidì",
+          "express delivery"
+        ],
+        [
+          "传递",
+          "chuándì",
+          "to pass on; to transmit"
+        ],
+        [
+          "投递",
+          "tóudì",
+          "to deliver (post)"
+        ],
+        [
+          "递增",
+          "dìzēng",
+          "to increase by degrees"
+        ]
+      ]
+    },
+    "hsk30l5/地理": {
+      "why": "Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. 他喜欢地理和历史 and 我喜欢地理学和历史 are one sentence with the subject changed — and the second says 地理学, a longer word that swallows the headword. Both faults at once, in the same row. It is dropped and an AUTHORED sentence put in its place.",
+      "dropEx": [
+        "我喜欢地理学和历史"
+      ],
+      "ex": [
+        [
+          "中国的地理条件很复杂。",
+          "China's geographical conditions are complex."
+        ]
+      ]
+    },
+    "hsk30l5/地面": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The dictionary's FIRST sense is not automatically the card's. The card read `floor` alone, while all three of its sentences are the GROUND — fog near it, snow covering it, it trembling underfoot — and none of them is a floor. The one-word gloss also collided with 地板 in Levels 7–9, which really is a floor, so the two cards had been given a `not <other word>` disambiguator each to tell apart a distinction neither gloss stated. Both are rewritten to say what they are, and both hints retired: a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction.",
+      "gloss": "the ground; a floor surface"
+    },
+    "hsk30l7/地板": {
+      "why": "Rewriting 地面's gloss (batch 82) retired the pair's collision, so this card's `not 地面` hint had nothing left to disambiguate. Its own gloss was the single word `Floor`, capitalised for no reason and saying nothing about what makes it different from 地面 — which is that a 地板 is indoors. Rewritten, and the hint retired with its partner.",
+      "gloss": "a floor; floorboards (indoors)"
+    },
+    "hsk30l5/地区": {
+      "why": "The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line glossing every word's part of speech and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. 路面 is a road surface; the English called it a floor.",
+      "exEn": [
+        [
+          "这个地区的路面需要重新铺设",
+          "The road surface in this area needs relaying."
+        ]
+      ]
+    },
+    "hsk30l5/地位": {
+      "why": "An example sentence was a calque rather than Chinese: 现在父亲在他的办公室已经得到了一个上级的地位 renders an English `has got a superior position in his office` word for word, with 一个上级的地位 standing where no speaker would put it. It is dropped and an AUTHORED sentence put in its place.",
+      "dropEx": [
+        "现在父亲在他的办公室已经得到了一个上级的地位"
+      ],
+      "ex": [
+        [
+          "妇女的社会地位提高了。",
+          "Women's social status has risen."
+        ]
+      ]
+    },
+    "hsk30l5/地下": {
+      "why": "An example sentence did not contain this word at all: 雨断断续续**地下**了一整天 is the adverbial particle 地 followed by 下 (to fall) — the characters 地下 are an accident of the two meeting, exactly as 加拿大会 was in batch 81. The card bolded them and a reader was shown a word that is not in the sentence. Dropped, with an AUTHORED replacement.",
+      "dropEx": [
+        "雨断断续续地下了一整天"
+      ],
+      "ex": [
+        [
+          "他们把粮食藏在地下。",
+          "They hid the grain underground."
+        ]
+      ]
+    },
+    "hsk30l5/地震": {
+      "why": "Two faults in one field. The card labelled 地震 a VERB — it is a noun, and all three of its own sentences use it as one (发生了地震, 预测地震, 地震发生得都很突然) — and its gloss spelt the second word **tremour**, which is not a word in either dialect: British English writes `tremor`, the -our ending belonging to the honour/colour family and not to this one. Nothing could see it, `check-british.js` reading only the pairs app.js's own SPELL_PAIRS table holds.",
+      "senses": [
+        [
+          "noun",
+          "an earthquake; a tremor"
+        ]
+      ]
+    },
+    "hsk30l5/点心": {
+      "why": "An example sentence was not ordinary Chinese: 吃点点心你看好吗？ runs 点 (a bit of) straight into 点心 and then tags on 你看好吗, which is not how either half is said. And the card glossed `snack; dim sum` while two of its three sentences rendered the word as DESSERT and nothing showed the dim sum sense at all. The bad sentence is dropped and an AUTHORED one for that sense put in its place.",
+      "dropEx": [
+        "吃点点心你看好吗"
+      ],
+      "ex": [
+        [
+          "广东的点心很有名。",
+          "Cantonese dim sum is famous."
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -124733,7 +124980,6 @@
     "hsk30l5/哪怕": "即便",
     "hsk30l5/哲学": "哲理",
     "hsk30l5/嘴巴": "嘴",
-    "hsk30l5/地面": "地板",
     "hsk30l5/墙": "墙壁",
     "hsk30l5/处理": "处置",
     "hsk30l5/好转": "改善",
@@ -124973,7 +125219,6 @@
     "hsk30l7/嚣张": "傲慢",
     "hsk30l7/园区": "公园",
     "hsk30l7/国民": "公民",
-    "hsk30l7/地板": "地面",
     "hsk30l7/坎坷": "崎岖",
     "hsk30l7/处置": "处理",
     "hsk30l7/外在": "外来",

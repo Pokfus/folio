@@ -617,6 +617,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 151–180 (尺子 → 传说), deck order | 15 | **two more glosses cut off mid-phrase, and a second card with two readings under one pinyin** |
 | 2026-09-17 | `hsk30l5` notes 181–210 (传统 → 打破), deck order | 16 | **a gloss offering a word that does not exist, and one naming the wrong verb entirely** |
 | 2026-09-17 | `hsk30l5` notes 211–240 (打听 → 当年), deck order | 20 | **a third card with two readings under one pinyin, and a gloss rewrite that collided with its neighbour** |
+| 2026-09-17 | `hsk30l5` notes 241–270 (当前 → 电池), deck order | 19 | **a single-character card not one of whose three sentences used the sense it glosses, and a misspelling no checker can reach** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7408,4 +7409,95 @@ drop**: what a replacement leaves behind is not what the diff shows.
 still-ambiguous **back to 1** after the 胆小/胆怯 repair; shared-gloss groups 324 unchanged;
 pinyin clean — including the new two-reading field on 大爷; example-fit 143 → **142**; senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 654 → 657;
+`build-lang-decks.js` re-run.
+
+## Batch 82 — hsk30l5 notes 241–270 (当前 → 电池)
+
+Thirty consecutive notes; **nineteen of them changed**, plus one card in Levels 7–9 that a gloss
+rewrite here freed. Three findings are new shapes.
+
+**A SINGLE-CHARACTER CARD NOT ONE OF WHOSE THREE SENTENCES USED THE SENSE IT GLOSSES.** 登 was
+defined *to ascend, to climb, to mount* over 我不应该**登出**, 他**登**广告出售他的房子 and
+**登出**后重新**登入**需要密码 — logging out, placing an advertisement, and logging in and out again.
+The character's oldest and commonest sense was in the gloss and on none of the card, and two of the
+three sentences were the same pair of words twice over besides. This is the class batches 27 and 29
+recorded and the sharpest instance of it yet: every sentence is real, every translation is right,
+every one segments and speaks correctly, and the card teaches a sense it never shows. The first
+sentence is dropped, an AUTHORED climbing sentence takes its place (他们登上了山顶), and the gloss is
+widened to carry the *publish or record* sense that the surviving advertisement sentence shows and the
+gloss did not. **This is found by reading the three English lines against the gloss and by nothing
+else.**
+
+**A MISSPELLING NO CHECKER IN THE PIPELINE CAN REACH.** 地震's gloss read *earthquake; **tremour***,
+which is not a word in either dialect — British English writes **tremor**, the -our ending belonging
+to the honour/colour family and not to this one. `check-british.js` reads 0 over it and always will:
+that tool compares against the pairs app.js's own `SPELL_PAIRS` holds, and there is no `tremor` row
+because the word is spelt the same on both sides of the Atlantic. **A hypercorrection is not a dialect
+variant, so no two-column table can hold it.** The same card also labelled 地震 a **verb** — it is a
+noun, and all three of its own sentences use it as one. Both repaired in one `senses` row.
+· Grepped for the spelling across the repository afterwards: the only other two occurrences are in
+  `books/kalidasa-shakuntala.js`, inside Sir William Jones's 1789 translation, where it is the
+  eighteenth century's own spelling transcribed as printed. **A Library book is never edited** — the
+  BCE/CE rule says so in terms — and those two stay. Worth recording, because a later sweep for this
+  word would otherwise "fix" a published translation.
+
+**THE SPLIT-HEADWORD CLASS A SECOND TIME, one batch after the first.** 地下's second sentence was
+雨断断续续**地下**了一整天 — the adverbial particle 地 followed by 下 (to fall), with the characters
+地下 an accident of the two meeting, exactly as 加拿大会 was on 大会 in batch 81. The card bolded them
+and a reader was shown a word that is not in the sentence. Two batches running have turned one of
+these up by reading; `check-example-fit.js` reports neither, the segmenter landing squarely on a real
+word both times.
+
+**A QUESTION ENDING IN A FULL STOP.** 导致's second sentence, 是什么原因导致你昨天没来, asks something
+and closed on 。. Repaired through `exSpace`, which is safe for exactly this: the two sides are
+compared with every space and every mark stripped out, so a row that swaps one terminal mark for
+another cannot touch a word, a structure line or the bolding. Its English had dropped the headword
+altogether and is rewritten beside it.
+
+**A HINT PAIR RETIRED — the opposite of batch 81's finding.** 地面 was glossed with the single word
+*floor* while all three of its sentences are the GROUND: fog near it, snow covering it, it trembling
+underfoot. That one-word gloss collided with 地板 in Levels 7–9, which really is a floor, so the two
+cards had been given a `not <other word>` disambiguator each — to tell apart a distinction **neither
+gloss stated**. Rewriting 地面 to *the ground; a floor surface* and 地板 to *a floor; floorboards
+(indoors)* says what each is, and both hints retire: a disambiguator that disambiguates nothing is
+worse than none, a reader taking it for a real distinction. Shared-gloss groups 324 → 323. Where batch
+81's rewrite MADE a collision, this one dissolved a standing one; **either way the coverage checker is
+what says which, and it has to be re-run after a gloss rewrite.**
+
+**THREE SINGLE-CHARACTER CARDS GAINED A `Compounds` SECTION.** 挡 had **nothing at all** in the
+reader's downloaded deck against three words in the collection; 登 and 递 had one each, against eight
+and four. 登's four rows include 登记 and 登录, which are the very next two cards in the deck, so the
+section points a reader at what they are about to meet.
+
+**THREE MORE SWALLOWED HEADWORDS**, each dropped with an authored replacement: 格挡 (to parry) on 挡,
+投递 (to deliver post) on 递, and 地理学 on 地理 — that last one doubly, the sentence also being 他喜欢
+地理和历史 with the subject changed.
+
+**FIVE GLOSSES THAT WERE NOT THE SENSE THE CARD TEACHES.** 灯光 took only the PARENTHESISED first
+sense of CC-CEDICT's `/(stage) lighting/light/`, so a word every one of whose sentences is about
+ordinary light was defined as a theatre term. 导演 is labelled *noun / verb* and was glossed with the
+noun alone, so half its own label had no definition behind it. 递 carried *progressively*, which
+CC-CEDICT marks a **bound form** — it is only ever the first half of a compound such as 递增 — as though
+it were a sense the character has alone. 当前's *before one* is a literal rendering of its two
+characters rather than anything a reader would look up. And 地面, above.
+
+**FOUR SENTENCES THAT WERE NOT ORDINARY CHINESE.** 道理's 没道理是这样的啊！does not parse as anything a
+speaker would say — and the card had nothing at all for 有道理, far and away the commonest thing the
+word is used in; 等待's 我等待更新 is a two-word stub with no object this verb takes; 地位's
+现在父亲在他的办公室已经得到了一个上级的地位 renders an English sentence word for word; and 点心's
+吃点点心你看好吗？runs 点 straight into 点心. All four dropped with authored replacements — 点心's
+chosen for the *dim sum* sense its gloss names and no sentence showed.
+
+**THREE MORE REPEATS AND THREE MORE BAD TRANSLATIONS.** 敌人's 敌人不靠近 and 无法靠近敌人 are the same
+four words twice, once from each side, and the second carried **no terminal mark** at all; 点赞's first
+and third rows were both this record's own, the same construction with the pronoun changed. On the
+English side, 等候's 汽车站 was called a *Greyhound station* — an American coach company, not a
+translation of anything in the sentence — and 地区's 路面, a road surface, was called a *floor*.
+
+**Eleven cards were read and left untouched**: 当中, 当成, 当作, 到达, 到期, 登记, 登录, 等于, 低头,
+的确 and 电池.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups **324 → 323**; pinyin clean; example-fit 142 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 657 unchanged;
 `build-lang-decks.js` re-run.
