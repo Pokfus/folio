@@ -70,7 +70,7 @@ card-side research is then shared.
 | T2 | Ancient & classical | part done; T2a, T2b, T2c and T16 between them |
 | T3 | Chinese history | part done; `cnh-` cards carry most of it; T19 two lifted out of `wh-399`, `wh-400` and `cnh-238` |
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
-| T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
+| T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark, T24 one off ffoulkes |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one and T23 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier |
@@ -1006,3 +1006,25 @@ different kind of misquotation — the citation would have checked out and the s
 **AND THREE SEARCHES CAME BACK EMPTY**, so those statements stay uncited and should not be re-searched
 blind: sharks and cancer (nothing open on the cartilage myth), the optics of why veins look blue, and a
 phylogenomics paper stating the fungi–animal sister relationship plainly enough to cite for it.
+
+### T24 — the knight and the crane (2026-09-17)
+
+Charles ffoulkes, *Armour & Weapons* (Clarendon Press, 1909), on archive.org — the Tower armouries'
+own curator's circle, and it answers the statement without ever mentioning the crane: "the weight of
+plate armour was less felt than that of mail, because the former was distributed over the whole body
+and limbs, while the latter hung from the shoulders and waist alone", followed by Robert de Vere
+swimming the river at Radcot Bridge in full armour, Oliver de la Marche's knight leaping clear out of
+the saddle fully armed in 1446, and Shakespeare's Henry V on vaulting into the saddle armoured.
+
+**THE WEIGHT FIGURE WENT AND THAT WAS THE HARD PART.** The statement gave "about 20 to 25 kilograms
+(44 to 55 pounds)", which ffoulkes does not state for field armour — the weights he does give are
+**jousting helms (13½ to 25 lb each) and a foot-combat suit of 235 pieces at 93 lb**, and quoting
+either as the weight of a harness would be worse than quoting none. **A book full of numbers is not a
+source for the number you wanted.** The crane's supposed origin in an 1843 *Punch* and in Olivier's
+*Henry V* went for the plainer reason that nothing openable from here establishes it.
+
+· **THE OBVIOUS MODERN SOURCE IS SHUT.** Askew et al., "Limitations imposed by wearing armour on
+  Medieval soldiers' locomotor performance" (*Proc. R. Soc. B*, 2012) is the paper this statement
+  wants; Europe PMC has the record but not the text (`fullTextXML` answers **500**), and
+  `royalsocietypublishing.org` is already recorded shut. The Met's armour essay answers **429** —
+  busy rather than shut, per `check-reach.js`'s own distinction — and is worth retrying when spaced.
